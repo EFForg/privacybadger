@@ -13,6 +13,7 @@ backgroundScripts = lib/compat.js
   webrequest.js
   popupBlocker.js
   background.js
+  heuristicblocking.js
 permissions = tabs
   http://*/*
   https://*/*

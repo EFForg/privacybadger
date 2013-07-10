@@ -1,8 +1,31 @@
+with(require("filterClasses"))
+{
+  this.Filter = Filter;
+  this.RegExpFilter = RegExpFilter;
+  this.BlockingFilter = BlockingFilter;
+  this.WhitelistFilter = WhitelistFilter;
+}
+var FilterStorage = require("filterStorage").FilterStorage;
 var tabOrigins = { };
-
 var originFrequency = { };
 
 var prevalenceThreshold = 3;
+
+var blacklistOrigin = function(origin) {
+  // Create an ABP filter to block this origin that seems to be engaging in
+  // non-consensual tracking
+  var filter = this.Filter.fromText("||" + origin + "^$third-party");
+  filter.disabled = false;
+  this.FilterStorage.addFilter(filter);
+
+  // Vanilla ABP does this step too, not clear if there's any privacy win
+  // though:
+
+  //if (nodes)
+  //  Policy.refilterNodes(nodes, item);
+
+  return true;
+};
 
 chrome.webRequest.onBeforeRequest.addListener(function(details) {
   // Ignore requests that are outside a tabbed window
@@ -25,11 +48,11 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
     else if(!(origin in originFrequency))
       return { };
     else {
-      if(Object.keys(originFrequency[origin]).length >= prevalenceThreshold) {
-        console.log("Blocked " + origin + " because it appeared with cookies on: " + Object.keys(originFrequency[origin]));
-        return { cancel: true };
+      var l = Object.keys(originFrequency[origin]).length;
+      if( l == prevalenceThreshold) {
+        console.log("Blocking " + origin + " because it appeared with cookies on: " + Object.keys(originFrequency[origin]));
+        blacklistOrigin(origin);
       }
-      return { };
     }
   }
 },
