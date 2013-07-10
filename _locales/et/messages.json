@@ -1,0 +1,63 @@
+{
+  "add": {
+    "message": "Lisa"
+  },
+  "add_domain_button": {
+    "message": "Lisa domeen"
+  },
+  "add_filter_button": {
+    "message": "Lisa filter"
+  },
+  "add_filters_msg": {
+    "message": "Lisada filter(id)?"
+  },
+  "add_your_own_filters": {
+    "message": "Lisa oma filtreid"
+  },
+  "apply_changes": {
+    "message": "Rakenda muudatused"
+  },
+  "block_element": {
+    "message": "Blokeeri Element"
+  },
+  "cancel": {
+    "message": "Loobu"
+  },
+  "filter_lists": {
+    "message": "Flitrite nimekirjad"
+  },
+  "found_a_bug": {
+    "message": "Leidsid vea? Tahad tõlkida Adblock Plus'i enda keelde? Palun saada soovitus <a href='$url$'>siia</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Üldine"
+  },
+  "last_updated_at_today": {
+    "message": "Viimati uuendatud täna kell $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "options": {
+    "message": "AdBlock Plus Valikud"
+  },
+  "remove_button": {
+    "message": "Eemalda valitud"
+  },
+  "show_icon": {
+    "message": "Näita ikooni aadressiribal"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Vali nimekirjast sobiv filtrite tellimus:"
+  },
+  "update_now": {
+    "message": "Värskenda kohe"
+  }
+}

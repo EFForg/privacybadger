@@ -1,0 +1,10 @@
+<!ENTITY list.download.failed "Adblock Plus dështoj të lidhet me listën e abonimeve.">
+<!ENTITY list.download.retry "Provo prap">
+<!ENTITY title.label "&amp;Titulli i abonimit:">
+<!ENTITY list.download.website "Shiko faqen">
+<!ENTITY viewList.label "Shiko filtrat">
+<!ENTITY visitHomepage.label "Vizito faqen kryesore">
+<!ENTITY addSubscription.label "Shto abonim">
+<!ENTITY dialog.title "Shtoi Adblock Plus filtër abonimi">
+<!ENTITY location.label "Vendi i &amp;listës së filtrit:">
+<!ENTITY fromWeb.description "Ju lutem konfirmoni që doni të shtoni këtë filtër abonimi. Ju mund ta ndryshoni emrin e abonimit ose vendëndodhjen para se ta konfirmoni.">

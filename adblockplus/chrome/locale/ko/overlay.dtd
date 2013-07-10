@@ -1,0 +1,29 @@
+<!ENTITY sync.label "애드블록 플러스 설정 동기화 (&amp;c)">
+<!ENTITY whitelist.site.label "사이트 허용 : ?1?">
+<!ENTITY filters.label "필터 설정 (&amp;F)">
+<!ENTITY disable.label "사용 중지">
+<!ENTITY showinaddonbar.label "부가 프로그램 모음에 아이콘 보이기 (&amp;b)">
+<!ENTITY objecttab.title "차단">
+<!ENTITY objecttab.tooltip "이 객체를 차단하려면 차단 탭을 클릭하십시오.">
+<!ENTITY menuitem.label "필터 설정 (&amp;B)">
+<!ENTITY objecttabs.label "플래시/자바에 차단 탭 표시 (&amp;T)">
+<!ENTITY sendReport.label "현재 페이지의 문제 보고 (&amp;R)">
+<!ENTITY whitelist.page.label "현재 페이지 허용">
+<!ENTITY context.image.label "애드블록 플러스 : 이미지 차단">
+<!ENTITY counthits.label "필터 적용 횟수 기록 (&amp;h)">
+<!ENTITY opensidebar.label "차단 가능 목록 (&amp;B)">
+<!ENTITY contribute.label "애드블록 플러스에 공헌하기">
+<!ENTITY toolbarbutton.label "애드블록 플러스">
+<!ENTITY context.frame.label "애드블록 플러스 : 프레임 차단">
+<!ENTITY blocked.tooltip "적용된 필터 개수">
+<!ENTITY hideplaceholders.label "차단된 요소의 영역 숨기기 (&amp;l)">
+<!ENTITY showinstatusbar.label "상태 표시줄에 아이콘 보이기 (&amp;S)">
+<!ENTITY sidebar.title "현재 페이지의 차단 가능한 항목">
+<!ENTITY options.label "옵션 (&amp;O)">
+<!ENTITY context.object.label "애드블록 플러스 : 객체 차단">
+<!ENTITY context.removeWhitelist.label "애드블록 플러스 : 사이트/페이지 허용 해제">
+<!ENTITY filters.tooltip "적용된 주요 필터">
+<!ENTITY closesidebar.label "차단 가능 목록 닫기 (&amp;B)">
+<!ENTITY showintoolbar.label "툴바에 아이콘 보이기 (&amp;B)">
+<!ENTITY status.tooltip "상태">
+<!ENTITY context.media.label "애드블록 플러스 : 비디오/오디오 차단">

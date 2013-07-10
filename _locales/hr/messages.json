@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Dodaj"
+  },
+  "add_domain_button": {
+    "message": "Dodaj domenu"
+  },
+  "add_filter_button": {
+    "message": "Dodaj filter"
+  },
+  "add_filters_msg": {
+    "message": "Dodaj filter(e)?"
+  },
+  "add_your_own_filters": {
+    "message": "Dodaj vlastite filtere"
+  },
+  "apply_changes": {
+    "message": "Primjeni promjene"
+  },
+  "block_element": {
+    "message": "Blokiraj element"
+  },
+  "cancel": {
+    "message": "Poništi"
+  },
+  "clickhide_instructions": {
+    "message": "Nakon zatvaranja ovog skočnog prozora, kliknite (ili desni klik miša) na element na ovoj stranici."
+  },
+  "description": {
+    "message": "Besplatan alat za blokiranje reklama na Chromeu: blokira nametljive video reklame na YouTubeu, Facebooku, banere i još mnogo toga."
+  },
+  "disable_inline": {
+    "message": "Onemogući tekstualne reklame iste linije"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus je onemogućen za domene na popisu ispod. Možete dodati domenu ili pomoću Adblock Plus ikone u adresnoj traci ili upisivanjem domene (ne URL-a) u polju ispod i klikom na tipku \"Dodaj domenu\"."
+  },
+  "easy_create_filter": {
+    "message": "Lako napravi filter"
+  },
+  "edit_filters_raw": {
+    "message": "Uredi filtere kao raw tekst"
+  },
+  "enable_only_the": {
+    "message": "Omogućite samo popis filtera koji vam je potreban. Zbog previše omogućenih popisa Chrome može prestati raditi."
+  },
+  "enabled_for_site": {
+    "message": "Omogući za ovu stranicu"
+  },
+  "filter_lists": {
+    "message": "Popisi filtera"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Vaši filtri moraju slijediti <a href='$url$'>Adblock Plus filter sintaksa</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Pronašli ste grešku? Želite prevesti Adblock Plus na svoj jezik? <a href='$url$'>Podnesite zahtjev ovdje</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Općenito"
+  },
+  "last_updated_at": {
+    "message": "Posljednji put je ažurirano $date$ u $time$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Posljednj put je ažurirano danas u $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Novi filter je dodan; pogledajte <a id='options_url' target='_blank'>Mogućnosti</a> za upravljanje sa njima."
+  },
+  "options": {
+    "message": "Adblock Plus mogućnosti"
+  },
+  "out_of_date_lists": {
+    "message": "Zastarjeli popisi redovito se ažuriraju."
+  },
+  "remove_button": {
+    "message": "Ukloni odabrano"
+  },
+  "show_block_element_menu": {
+    "message": "Prikaži 'Blokiraj element' stavku izbornika desnog klika"
+  },
+  "show_icon": {
+    "message": "Prikaži ikonu u adresnoj traci"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Molimo odaberite pretplatu na filter sa popisa:"
+  },
+  "update_now": {
+    "message": "Ažuriraj odmah"
+  },
+  "whitelisted_domains": {
+    "message": "Dopuštene domene"
+  }
+}

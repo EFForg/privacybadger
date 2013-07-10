@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "հասցեի &amp;վերջում">
+<!ENTITY domainRestriction.label "Արգելել &amp;դոմեյնում`">
+<!ENTITY collapse.default.no.label "Լռությամբ (ոչ)">
+<!ENTITY firstParty.label "Միայն &amp;հիմնական">
+<!ENTITY preferences.label "Նայել ա&amp;ռկա ֆիլտրերը...">
+<!ENTITY pattern.label "Որոնել շաբլոն">
+<!ENTITY thirdParty.label "Միայն &amp;երրորդ կողմից">
+<!ENTITY filter.label "Նոր &amp;Ֆիլտր.">
+<!ENTITY collapse.label "Թաքցնել ֆիլտրվա&amp;ծները`">
+<!ENTITY match.warning "Ներմուծված շաբլոնը այլևս չի համապատասխանում հասցեին և ոչ մի ազդեցություն չի ունենալու.">
+<!ENTITY anchor.start.label "հա&amp;սցեի սկզբում">
+<!ENTITY matchCase.label "Հաշվի առնել &amp;տառատեսակը">
+<!ENTITY custom.pattern.label "Սե&amp;փական.">
+<!ENTITY unselectAllTypes.label "Չընտրել ոչինչ">
+<!ENTITY type.whitelist.label "Բա&amp;ցառություն">
+<!ENTITY regexp.warning "Ներմուծված շաբլոնը ընկալվելու է որպես ռեգուլյար արտահայտություն(regexp): Ռեգուլյար արտահայտությունների մեծ քանակը կարող է դանդաղեցնել ծրագրի աշխատանքը: Եթե դուք չեք պատրաստվում օգտագործել ռեգուլյար արտահայտություն, ավելացրեք * շաբլոնի վերջում:">
+<!ENTITY dialog.title "Ավելացնել «Adblock Plus» ֆիլտրման կանոն">
+<!ENTITY basic.label "Պարզ տեսք">
+<!ENTITY type.filter.label "&amp;Արգելող ֆիլտր">
+<!ENTITY types.label "Ավելացնել հետևյալ տիպերին`">
+<!ENTITY shortpattern.warning "Ներմուծված շաբլոնը շատ կարճ է ու չի կարող օպտիմիզացվել, այսպիսի շաբլոնների մեծ քանակը կարող է դանդաղեցնել ծրագրի աշխատանքը: Խորհուրդ է տրվում ֆիլտրի համար օգտագործել ավելի երկար տող:">
+<!ENTITY collapse.yes.label "Այո">
+<!ENTITY anchors.label "Շաբլոններն ընդունել միայն.">
+<!ENTITY collapse.default.yes.label "Լռությամբ (այո)">
+<!ENTITY domainRestriction.help "Սահմանեք մեկ կամ ավել դոմեյներ բաժանված &quot;|&quot; նշանով, ֆիլտրը կաշխատի միայն այդ դոմեյներում: Դոմեյնի անվան առաջ &quot;~&quot; նշանը արգելում է ֆիլտրի օգտագործումը այդ դոմեյնում:">
+<!ENTITY accept.label "Ավելացնել ֆիլտր">
+<!ENTITY options.label "Ընտրանքներ">
+<!ENTITY disabled.warning "«Adblock Plus»ը անջատված է: Դուք կարող եք ավելացնել ֆիլտրեր, բայց դրանց գործելու համար պետք է [link]միացնել «Adblock Plus»ը[/link]:">
+<!ENTITY anchor.start.flexible.label "դոմեյնի անվան &amp;սկզբում">
+<!ENTITY collapse.no.label "Ոչ">
+<!ENTITY selectAllTypes.label "Լրիվ Ընտրել">
+<!ENTITY advanced.label "Ընդլայնված տեսք">
+<!ENTITY pattern.explanation "Նմուշը կարող է լինել հասցեի ցանկացած մաս, *-ը նշանակում է ցանկացած սիմվոլ: Կֆիլտրվեն միայն նմուշին բավարարող հասցեները:">

@@ -1,0 +1,38 @@
+<!ENTITY dialog.title             "Add Adblock Plus filter rule">
+<!ENTITY accept.label             "Add filter">
+<!ENTITY advanced.label           "Advanced view">
+<!ENTITY basic.label              "Basic view">
+
+<!ENTITY disabled.warning         "Adblock Plus is currently disabled. You can still add filters but they will not be applied unless you [link]enable Adblock Plus[/link].">
+
+<!ENTITY filter.label             "New &amp;filter:">
+<!ENTITY preferences.label        "&amp;Show existing filters...">
+<!ENTITY type.filter.label        "&amp;Blocking filter">
+<!ENTITY type.whitelist.label     "E&amp;xception rule">
+<!ENTITY pattern.label            "Look for pattern">
+<!ENTITY pattern.explanation      "The pattern can be any part of the address; asterisks (*) act as wildcards. The filter will only be applied to addresses matching the pattern provided.">
+<!ENTITY regexp.warning           "The pattern you entered will be interpreted as a regular expression which cannot be efficiently processed by Adblock Plus and may slow down your browsing experience. If you didn't intend to use a regular expression, add an asterisk (*) to the end of the pattern.">
+<!ENTITY shortpattern.warning     "The pattern you entered is too short to be optimized and may slow down your browsing experience. It is recommended that you choose a longer string for this filter to allow Adblock Plus to process the filter more efficiently.">
+<!ENTITY match.warning            "The pattern you entered no longer matches the address to be blocked/whitelisted and will have no effect on it.">
+<!ENTITY custom.pattern.label     "&amp;Custom:">
+<!ENTITY anchors.label            "Accept pattern only:">
+<!ENTITY anchor.start.label       "at the be&amp;ginning of the address">
+<!-- Note: This access key should usually be the same as anchor.start.flexible.accesskey. It is the same checkbox with different label depending on suggested filter.-->
+<!ENTITY anchor.start.flexible.label      "at the be&amp;ginning of the domain name">
+<!-- Note: This access key should usually be the same as anchor.start.accesskey. It is the same checkbox with different label depending on suggested filter.-->
+<!ENTITY anchor.end.label         "at the e&amp;nd of the address">
+<!ENTITY options.label            "Options">
+<!ENTITY domainRestriction.label      "Restrict to &amp;domain:">
+<!ENTITY domainRestriction.help       "Use this option to specify one or more domains separated by a bar line (|). The filter will only be applied on the domain(s) selected. A tilde (~) before a domain name indicates that the filter will not be applied on that domain.">
+<!ENTITY firstParty.label         "Fi&amp;rst-party only">
+<!ENTITY thirdParty.label         "&amp;Third-party only">
+<!ENTITY matchCase.label          "&amp;Match case">
+<!ENTITY types.label              "Apply to types:">
+<!ENTITY selectAllTypes.label     "Select all">
+<!ENTITY unselectAllTypes.label   "Select none">
+
+<!ENTITY collapse.label           "Co&amp;llapse blocked:">
+<!ENTITY collapse.default.yes.label "Use default (yes)">
+<!ENTITY collapse.default.no.label  "Use default (no)">
+<!ENTITY collapse.yes.label       "Yes">
+<!ENTITY collapse.no.label        "No">

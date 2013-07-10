@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "al &amp;final de la dirección">
+<!ENTITY domainRestriction.label "&amp;Restringir al dominio:">
+<!ENTITY collapse.default.no.label "Usar predeterminado (no)">
+<!ENTITY firstParty.label "Sólo para conteni&amp;dos del dominio">
+<!ENTITY preferences.label "&amp;Mostrar filtros existentes…">
+<!ENTITY pattern.label "Buscar patrón">
+<!ENTITY thirdParty.label "Sólo para con&amp;tenidos de terceros">
+<!ENTITY filter.label "&amp;Nuevo filtro:">
+<!ENTITY collapse.label "C&amp;olapsar elementos bloqueados:">
+<!ENTITY match.warning "El patrón introducido no coincide con la dirección a bloquear o incluir en la lista blanca, y no tendrá ningún efecto sobre ella.">
+<!ENTITY anchor.start.label "al &amp;inicio de la dirección">
+<!ENTITY matchCase.label "&amp;Coincidir MAY/minús">
+<!ENTITY custom.pattern.label "&amp;Personalizar:">
+<!ENTITY unselectAllTypes.label "No seleccionar ninguno">
+<!ENTITY type.whitelist.label "Regla de e&amp;xcepción">
+<!ENTITY regexp.warning "El patrón que ha introducido se interpretará como expresión regular. Si usa muchas expresiones regulares su navegación podría volverse más lenta. Si no quería usar una expresión regular, añada un carácter &quot;*&quot; al final del patrón.">
+<!ENTITY dialog.title "Añadir regla de filtrado de Adblock Plus">
+<!ENTITY basic.label "Vista básica">
+<!ENTITY type.filter.label "Filtro de &amp;bloqueo">
+<!ENTITY types.label "Aplicar a estos tipos:">
+<!ENTITY shortpattern.warning "El patrón que ha introducido es demasiado corto para ser optimizado, si usa muchos patrones como este su navegación podría volverse más lenta. Le recomendamos elegir una cadena más larga para este filtro.">
+<!ENTITY collapse.yes.label "Sí">
+<!ENTITY anchors.label "Sólo aceptar patrones:">
+<!ENTITY collapse.default.yes.label "Usar predeterminado (sí)">
+<!ENTITY domainRestriction.help "Si especifica uno o varios dominios separados por el símbolo &quot;|&quot;, el filtro sólo se aplicará a dichos dominios. El símbolo &quot;~&quot; antes del nombre de un dominio indica que el filtro no se aplicará en ese dominio.">
+<!ENTITY accept.label "Añadir filtro">
+<!ENTITY options.label "Opciones">
+<!ENTITY disabled.warning "Adblock Plus está desactivado. Puede añadir filtros, pero no se aplicarán a menos que [link]active Adblock Plus[/link].">
+<!ENTITY anchor.start.flexible.label "al &amp;inicio del nombre de dominio">
+<!ENTITY collapse.no.label "No">
+<!ENTITY selectAllTypes.label "Seleccionar todos">
+<!ENTITY advanced.label "Vista avanzada">
+<!ENTITY pattern.explanation "El patrón puede ser cualquier parte de la dirección, el carácter &quot;*&quot; actúa como comodín. El filtro sólo se aplicará a las direcciones que se correspondan con el patrón.">

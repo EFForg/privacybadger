@@ -1,0 +1,6 @@
+syntax: glob
+
+*.xpi
+*.zip
+*.pyc
+*.sh

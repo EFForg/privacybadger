@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Kšomy zapiska pokazaś">
+<!ENTITY address.label "Adresa">
+<!ENTITY context.open.label "W nowem rejtarku wócyniś">
+<!ENTITY type.label "Typ">
+<!ENTITY tooltip.filterSource.label "Filtrowe žrědło:">
+<!ENTITY noitems.label "Žedne blokěrujobne zapiski">
+<!ENTITY filter.label "Filter">
+<!ENTITY tooltip.size.label "Wjelikosć:">
+<!ENTITY reattach.label "Zasej pśipowjesyś">
+<!ENTITY search.label "&amp;Pytaś:">
+<!ENTITY docDomain.thirdParty "(tśeśi part)">
+<!ENTITY filterSource.label "Filtrowe žrědło">
+<!ENTITY tooltip.docDomain.label "Dokumentowe žrědło:">
+<!ENTITY context.copy.label "Adresu zapiska kopěrowaś">
+<!ENTITY tooltip.type.label "Typ:">
+<!ENTITY context.disablefilter.label "Filter ?1? znjemóžniś">
+<!ENTITY context.copyFilter.label "Filter kopěrowaś">
+<!ENTITY context.block.label "Toś ten zapisk blokěrowaś">
+<!ENTITY context.enablefilter.label "Filter ?1? zasej zmóžniś">
+<!ENTITY detach.label "Wótpowjesyś">
+<!ENTITY whitelisted.label "Bok w běłej lisćinje">
+<!ENTITY context.disablefilteronsite.label "Toś ten filter na ?1? znjemóžniś">
+<!ENTITY detached.title "Adblock Plus: Blokěrujobne zapiski (wótpowjesone)">
+<!ENTITY docDomain.firstParty "(prědny part)">
+<!ENTITY tooltip.type.whitelisted "(w běłej lisćinje)">
+<!ENTITY tooltip.filter.label "Aktiwny filter:">
+<!ENTITY tooltip.filter.disabled "(znjemóžnjony)">
+<!ENTITY context.editfilter.label "Aktiwny filter wobźěłaś">
+<!ENTITY tooltip.type.blocked "(blokěrowany)">
+<!ENTITY size.label "Wjelikosć">
+<!ENTITY context.whitelist.label "Wuwześowe pšawidło za toś ten zapisk pśidaś">
+<!ENTITY context.selectAll.label "Wšykno wubraś">
+<!ENTITY state.label "Status">
+<!ENTITY docDomain.label "Dokumentowe žrědło">
+<!ENTITY tooltip.address.label "Adresa:">

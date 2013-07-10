@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "&amp;בסוף הכתובת">
+<!ENTITY domainRestriction.label "&amp;הגבלה לשם מרחב:">
+<!ENTITY collapse.default.no.label "שימוש בברירת מחדל (לא)">
+<!ENTITY firstParty.label "צד-ראשון (יוצר) בלבד">
+<!ENTITY preferences.label "&amp;הצגת המסננים הקיימים...">
+<!ENTITY pattern.label "חיפוש אחר דפוס">
+<!ENTITY thirdParty.label "&amp;צד-שלישי בלבד">
+<!ENTITY filter.label "&amp;מסנן חדש:">
+<!ENTITY collapse.label "&amp;צמצום החסומים:">
+<!ENTITY match.warning "הדפוס שהוזן איננו תואם יותר לכתובת החסימה/הרשימות הלבנות ואיננו משפיע עוד.">
+<!ENTITY anchor.start.label "&amp;בתחילת הכתובת">
+<!ENTITY matchCase.label "&amp;התאמת אותיות גדולות/קטנות">
+<!ENTITY custom.pattern.label "&amp;מותאם:">
+<!ENTITY unselectAllTypes.label "לא לבחור דבר">
+<!ENTITY type.whitelist.label "&amp;חוק חריג">
+<!ENTITY regexp.warning "הדפוס שהוזן יפורש כביטוי רגיל. ביטויים רגילים רבים עשויים להאט את הגלישה. אם אין כוונה להשתמש בביטויים רגילים, יש להוסיף את הסמל * בסוף התבנית.">
+<!ENTITY dialog.title "הוספת חוק סינון Adblock Plus">
+<!ENTITY basic.label "תצוגה בסיסית">
+<!ENTITY type.filter.label "&amp;מסנן חסימה">
+<!ENTITY types.label "החלה על הסוגים:">
+<!ENTITY shortpattern.warning "הדפוס שהוזן קצר מדי בכדי להיות יעיל, דפוסים רבים מסוג זה עשויים להאט את הגלישה. מומלץ לבחור מחרוזת ארוכה יותר למסנן זה.">
+<!ENTITY collapse.yes.label "כן">
+<!ENTITY anchors.label "הסכמה לדפוס בלבד:">
+<!ENTITY collapse.default.yes.label "שימוש בברירת מחדל (כן)">
+<!ENTITY domainRestriction.help "מרחב אחד או יותר מופרדים על ידי הסמל &quot;|&quot;, המסנן יאפשר מרחבים אלו בלבד. הסמל &quot;~&quot; לפני שם המרחב משמעותו שמסנן זה מנוטרל על מרחב זה.">
+<!ENTITY accept.label "הוספת מסנן">
+<!ENTITY options.label "אפשרויות">
+<!ENTITY disabled.warning "Adblock Plus מנוטרל כרגע. ניתן עדיין להוסיף מסננים לרשימה, אבל הם לא יחולו אלא אם [link]Adblock Plus מאפשר [/link].">
+<!ENTITY anchor.start.flexible.label "&amp;בתחילת שם המתחם">
+<!ENTITY collapse.no.label "לא">
+<!ENTITY selectAllTypes.label "בחירת הכל">
+<!ENTITY advanced.label "תצוגה מתקדמת">
+<!ENTITY pattern.explanation "הדפוס יכול להיות כל חלק מהכתובת, סמל * משמש כתו חופשי שאחריו יכול לבוא כל תו אחר. המסנן יכול להחיל רק על כתובות המתאימות לתבנית.">

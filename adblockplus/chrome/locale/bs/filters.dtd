@@ -1,0 +1,9 @@
+<!ENTITY filter.edit.label "Uredi">
+<!ENTITY filter.cut.label "Izreži">
+<!ENTITY filter.selectAll.label "Označi sve">
+<!ENTITY filter.delete.label "Izbriši">
+<!ENTITY addSubscriptionAdd.label "Dodaj">
+<!ENTITY viewMenu.label "Prikaz">
+<!ENTITY filter.copy.label "Kopiraj">
+<!ENTITY filter.paste.label "Zalijepi">
+<!ENTITY subscription.lastDownload.unknown "N/A">

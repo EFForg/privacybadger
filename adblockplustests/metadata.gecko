@@ -1,0 +1,11 @@
+[general]
+id=adblockplustests@adblockplus.org
+basename=adblockplustests
+version=1.0.1a
+author=Wladimir Palant
+
+[homepage]
+default=http://adblockplus.org/en/source
+
+[compat]
+toolkit=16.0/25.0

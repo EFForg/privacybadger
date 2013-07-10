@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Filtrowy a&amp;bonement &quot;?1?&quot; tež přidać">
+<!ENTITY list.download.failed "Adblock Plus njemóžeše lisćiny abonementow wotwołać.">
+<!ENTITY list.download.retry "Hišće raz spytać">
+<!ENTITY title.label "&amp;Titul abonementa:">
+<!ENTITY list.download.website "Websydło sej wobhladać">
+<!ENTITY supplementMessage "Tutón filtrowy abonement je za to mysleny, so z filtrowym abonementom &quot;?1?&quot; wužiwać, kotryž hišće njewužiwaće.">
+<!ENTITY viewList.label "Filtry sej wobhladać">
+<!ENTITY visitHomepage.label "Startowu stronu wopytać">
+<!ENTITY addSubscription.label "Abonement přidać">
+<!ENTITY dialog.title "Filtrowy abonement Adblock Plus přidać">
+<!ENTITY location.label "&amp;Městno filtroweje lisćiny:">
+<!ENTITY fromWeb.description "Prošu wobkrućće, zo chceće tutón filtrowy abonement přidać. Móžeće titul abo městno abonementa změnić, prjedy hač jón přidaće.">

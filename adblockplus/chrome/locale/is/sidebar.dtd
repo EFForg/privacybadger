@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Rammi Flash hlutar">
+<!ENTITY address.label "Netfang">
+<!ENTITY context.open.label "Opna í nýjum flipa">
+<!ENTITY type.label "Tegund">
+<!ENTITY tooltip.filterSource.label "Sía frumkóða:">
+<!ENTITY noitems.label "Engir hlutir til að loka á">
+<!ENTITY filter.label "Sía">
+<!ENTITY tooltip.size.label "Stærð:">
+<!ENTITY reattach.label "Festa aftur">
+<!ENTITY search.label "&amp;Leita:">
+<!ENTITY docDomain.thirdParty "(þriðja aðila)">
+<!ENTITY filterSource.label "Síu uppruni">
+<!ENTITY tooltip.docDomain.label "Netfang síðu:">
+<!ENTITY context.copy.label "Afrita vefslóð hlutar">
+<!ENTITY tooltip.type.label "Tegund:">
+<!ENTITY context.disablefilter.label "Aftengja síu ?1?">
+<!ENTITY context.copyFilter.label "Afrita síu">
+<!ENTITY context.block.label "Loka á þennan hlut">
+<!ENTITY context.enablefilter.label "Virkja aftur síu ?1?">
+<!ENTITY detach.label "Aftengja">
+<!ENTITY whitelisted.label "Síða fyrir hvítlista">
+<!ENTITY context.disablefilteronsite.label "Aftengja síu fyrir ?1?">
+<!ENTITY detached.title "Adblock Plus: Lokaðir hlutir (aðskildir)">
+<!ENTITY docDomain.firstParty "(frumaðili)">
+<!ENTITY tooltip.type.whitelisted "(hvítlisti)">
+<!ENTITY tooltip.filter.label "Sía í notkun:">
+<!ENTITY tooltip.filter.disabled "(óvirkt)">
+<!ENTITY context.editfilter.label "Breyta núverandi síu">
+<!ENTITY tooltip.type.blocked "(stöðvað)">
+<!ENTITY size.label "Stærð">
+<!ENTITY context.whitelist.label "Bæta við undantekningu fyrir hlut">
+<!ENTITY context.selectAll.label "Velja allt">
+<!ENTITY state.label "Ríki">
+<!ENTITY docDomain.label "Netfang síðu">
+<!ENTITY tooltip.address.label "Netfang:">

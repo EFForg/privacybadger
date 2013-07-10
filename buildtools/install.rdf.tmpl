@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of the Adblock Plus build tools,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+{%- macro meta() -%}
+<em:creator>{{metadata.get('general', 'author')}}</em:creator>
+
+{%- for contributor in contributors -%}
+<em:contributor>{{contributor}}</em:contributor>
+{%- endfor -%}
+{%- endmacro %}
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>{{metadata.get('general', 'id')}}</em:id>
+    <em:version>{{version}}</em:version>
+    <em:name>{{localeMetadata[defaultLocale].name}}</em:name>
+    <em:description>{{localeMetadata[defaultLocale].description}}</em:description>
+    {{ meta() }}
+    {%- if metadata.has_option('homepage', 'default') %}
+    <em:homepageURL>{{metadata.get('homepage', 'default')}}</em:homepageURL>
+    {%- endif %}
+    <em:type>2</em:type>
+    <em:bootstrap>true</em:bootstrap>
+
+    {%- if not releaseBuild or metadata.has_option('general', 'updateURL') %}
+    <em:updateURL>
+      {{- metadata.get('general', 'updateURL') if releaseBuild else 'https://adblockplus.org/devbuilds/%s/update.rdf' % metadata.get('general', 'basename') -}}
+      {{- '?reqVersion=%REQ_VERSION%&id=%ITEM_ID%&version=%ITEM_VERSION%&maxAppVersion=%ITEM_MAXAPPVERSION%&status=%ITEM_STATUS%&appID=%APP_ID%&appVersion=%APP_VERSION%&appOS=%APP_OS%&appABI=%APP_ABI%&locale=%APP_LOCALE%&currentAppVersion=%CURRENT_APP_VERSION%&updateType=%UPDATE_TYPE%' -}}
+    </em:updateURL>
+    {%- endif %}
+
+    {%- if metadata.has_option('general', 'icon') %}
+    <em:iconURL>{{metadata.get('general', 'icon')}}</em:iconURL>
+    {%- endif %}
+
+    {%- if metadata.has_option('general', 'about') %}
+    <em:aboutURL>{{metadata.get('general', 'about')}}</em:aboutURL>
+    {%- endif %}
+
+    {%- if metadata.has_option('general', 'options') %}
+    <em:optionsURL>{{metadata.get('general', 'options')}}</em:optionsURL>
+    {%- endif %}
+    {%- if metadata.has_option('general', 'optionsType') %}
+    <em:optionsType>{{metadata.get('general', 'optionsType')}}</em:optionsType>
+    {%- endif %}
+
+    {%- for localeCode in localeMetadata.keys()|sort %}
+    {%- set locale = localeMetadata[localeCode] %}
+    <em:localized>
+      <Description>
+        <em:locale>{{localeCode}}</em:locale>
+        {{ meta() }}
+        <em:name>
+          {%- if 'name' in locale -%}
+            {{locale.name}}
+          {%- else -%}
+            {{localeMetadata[defaultLocale].name}}
+          {%- endif -%}
+        </em:name>
+        <em:description>
+          {%- if 'description' in locale -%}
+            {{locale.description}}
+          {%- else -%}
+            {{localeMetadata[defaultLocale].description}}
+          {%- endif -%}
+        </em:description>
+        {%- if metadata.has_option('homepage', 'default') %}
+        <em:homepageURL>
+          {%- if metadata.has_option('homepage', localeCode) -%}
+            {{- metadata.get('homepage', localeCode) -}}
+          {%- elif metadata.has_option('homepage', localeCode.split('-')[0]) -%}
+            {{- metadata.get('homepage', localeCode.split('-')[0]) -}}
+          {%- else -%}
+            {{- metadata.get('homepage', 'default') -}}
+          {%- endif -%}
+        </em:homepageURL>
+        {%- endif %}
+        {%- for translator in locale.translators %}
+        <em:translator>{{translator}}</em:translator>
+        {%- endfor %}
+      </Description>
+    </em:localized>
+    {%- endfor %}
+
+    {%- for appName in metadata.options('compat')|sort %}
+    {%- if appName in KNOWN_APPS %}
+    <em:targetApplication>
+      <Description>
+        <!-- {{appName}} -->
+        <em:id>{{KNOWN_APPS[appName]}}</em:id>
+        <em:minVersion>{{metadata.get('compat', appName).split('/')[0]}}</em:minVersion>
+        <em:maxVersion>{{metadata.get('compat', appName).split('/')[1]}}</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    {%- endif %}
+    {%- endfor %}
+  </Description>
+</RDF>

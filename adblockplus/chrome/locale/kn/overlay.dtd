@@ -1,0 +1,14 @@
+<!ENTITY sidebar.title "ಈ ಪುಟದಲ್ಲಿನ ತಡೆಹಿಡಿಯಬಹುದಾದ ವಸ್ತುಗಳು">
+<!ENTITY context.object.label "ವಸ್ತುವನ್ನು ಆಡ್‌ಬ್ಲಾಕ್ ಮಾಡು">
+<!ENTITY context.frame.label "ಫ್ರೇಮ್ ಅನ್ನು ಆಡ್‌ಬ್ಲಾಕ್ ಮಾಡು">
+<!ENTITY filters.tooltip "ಬಹಳ ಸಕ್ರಿಯವಾಗಿರುವ ಫಿಲ್ಟರ್‌ಗಳು:">
+<!ENTITY menuitem.label "ಆಡ್‌ಬ್ಲಾಕ್ ಪ್ಲಸ್‌ (&amp;B)">
+<!ENTITY objecttab.tooltip "ಈ ವಸ್ತುವನ್ನು ಆಡ್‌ಬ್ಲಾಕ್ ಪ್ಲಸ್‌ ಮೂಲಕ ತಡೆಹಿಡಿಯಲು ಇಲ್ಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ">
+<!ENTITY closesidebar.label "ತಡೆಹಿಡಿಯಬಹುದಾದ ವಸ್ತುಗಳನ್ನು ಮುಚ್ಚು (&amp;B)">
+<!ENTITY whitelist.site.label "?1? ಅಲ್ಲಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು">
+<!ENTITY whitelist.page.label "ಈ ಪುಟದಲ್ಲಿ ಮಾತ್ರ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು">
+<!ENTITY context.image.label "ಚಿತ್ರವನ್ನು ಆಡ್‌ಬ್ಲಾಕ್ ಮಾಡು">
+<!ENTITY status.tooltip "ಸ್ಟೇಟಸ್:">
+<!ENTITY blocked.tooltip "ಈ ಪುಟದಲ್ಲಿ ತಡೆಹಿಡಿದಿರುವ ವಸ್ತುಗಳು">
+<!ENTITY objecttab.title "ತಡೆ ಹಿಡಿ">
+<!ENTITY opensidebar.label "ತಡೆಹಿಡಿಯಬಹುದಾದ ವಸ್ತುಗಳನ್ನು ತೆರೆ (&amp;B)">

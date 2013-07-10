@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "na &amp;koncu naslova">
+<!ENTITY domainRestriction.label "Omeji na &amp;domeno:">
+<!ENTITY collapse.default.no.label "Uporabi privzeto (ne)">
+<!ENTITY firstParty.label "Samo &amp;prve stranke">
+<!ENTITY preferences.label "Poka&amp;ži obstoječe filtre ...">
+<!ENTITY pattern.label "Išči vzorec">
+<!ENTITY thirdParty.label "Samo zu&amp;nanje stranke">
+<!ENTITY filter.label "Nov &amp;filter:">
+<!ENTITY collapse.label "St&amp;rni blokirane:">
+<!ENTITY match.warning "Vzorec, ki ste ga vnesli, se ne ujema z naslovom, ki ga želite blokirati in zato ne bo vplival nanj.">
+<!ENTITY anchor.start.label "na &amp;začetku naslova">
+<!ENTITY matchCase.label "Razlikuj velike/male &amp;črke">
+<!ENTITY custom.pattern.label "Po &amp;meri:">
+<!ENTITY unselectAllTypes.label "Nič ne izberi">
+<!ENTITY type.whitelist.label "Pravi&amp;lo izjem">
+<!ENTITY regexp.warning "Vneseni vzorec bo obravnavan kot regularni izraz. Številni regularni izrazi lahko upočasnijo vaše brskanje. Če ne nameravate uporabljati regularnih izrazov, dodajte simbol * na konec vzorca.">
+<!ENTITY dialog.title "Dodaj pravilo filtra Adblock Plus">
+<!ENTITY basic.label "Osnovni pogled">
+<!ENTITY type.filter.label "Filter &amp;blokade">
+<!ENTITY types.label "Uporabi za vrste:">
+<!ENTITY shortpattern.warning "Vzorec, ki ste ga vnesli, je prekratek za optimizacijo, številni tovrstni vzorci lahko upočasnijo vaše brskanje. Priporočamo, da izberete daljši niz za ta filter.">
+<!ENTITY collapse.yes.label "Da">
+<!ENTITY anchors.label "Sprejmi le vzorec:">
+<!ENTITY collapse.default.yes.label "Uporabi privzeto (da)">
+<!ENTITY domainRestriction.help "Navedite eno ali več domen, ločenih s simbolom &quot;|&quot;, filter bo veljal le za te domene. Simbol &quot;~&quot; pred imenom domene pomeni, da filter za to domeno ne sme veljati.">
+<!ENTITY accept.label "Dodaj filter">
+<!ENTITY options.label "Možnosti">
+<!ENTITY disabled.warning "Adblock Plus je trenutno onemogočen. Še vedno lahko dodajate filtre, vendar ne bodo veljali, če ne [link]omogočite Adblock Plus[/link].">
+<!ENTITY anchor.start.flexible.label "na &amp;začetku imena domene">
+<!ENTITY collapse.no.label "Ne">
+<!ENTITY selectAllTypes.label "Izberi vse">
+<!ENTITY advanced.label "Napredni pogled">
+<!ENTITY pattern.explanation "Vzorec je lahko kateri koli del naslova, simbol * velja kot poljuben znak. Filter bo le za naslove, ki ustrezajo vzorcu.">

@@ -1,0 +1,62 @@
+<!ENTITY screenshot.undo.label "復原 (&amp;U)">
+<!ENTITY issues.disabledgroups.description "下列過濾條件集/條件群組已停用，它們將無法在此頁面發揮作用：">
+<!ENTITY showData.label "顯示報告資料">
+<!ENTITY typeSelector.falsePositive.label "Adblock Plus 擋了太多東西 (&amp;m)">
+<!ENTITY issues.change.description "您的設定值已變更。請在重新載入頁面後測試錯誤是否仍然存在，若錯誤依舊存在，請傳送錯誤報告。">
+<!ENTITY issues.openPreferences.label "開啟條件偏好設定">
+<!ENTITY sendPage.confirmation "報告已儲存。您可以在下列網址存取:">
+<!ENTITY copyLink.label "複製報告連結 (&amp;C)">
+<!ENTITY issues.nofilters.description "Adblock Plus 在此頁面沒有阻擋任何東西。您回報的錯誤可能和 Adblock Plus 無關。">
+<!ENTITY sendPage.knownIssue "您回報的錯誤已重複。檢視更多資訊:">
+<!ENTITY sendPage.retry.label "再次傳送">
+<!ENTITY typeSelector.other.description "選擇此選項表示有其他錯誤發生，而且您懷疑是 Adblock Plus 本身引起而非過濾條件造成的錯誤。">
+<!ENTITY issues.disabledgroups.enable.label "啟用過濾條件集/條件群組">
+<!ENTITY typeWarning.override.label "我了解並堅持要傳送錯誤報告 (&amp;s)">
+<!ENTITY issues.disabled.enable.label "啟用 Adblock Plus">
+<!ENTITY update.fixed.description "過濾條件集更新後很可能解決了您正要回報的問題。請重新載入網頁後再試一次，若問題仍在請再次回報。">
+<!ENTITY reloadButton.label "重新載入頁面 (&amp;R)">
+<!ENTITY recentReports.clear.label "移除所有錯誤報告 (&amp;R)">
+<!ENTITY typeSelector.description "本視窗會一步步指導您傳送一份 Adblock Plus 錯誤報告。首先，請選擇您在此頁面碰到的錯誤類型：">
+<!ENTITY update.inProgress.description "Adblock Plus 需要更新您的過濾條件集來確定這個問題仍未解決。請稍候…">
+<!ENTITY data.label "報告資料: (&amp;p)">
+<!ENTITY sendPage.heading "傳送報告">
+<!ENTITY recentReports.label "您最近的錯誤報告">
+<!ENTITY typeWarning.description "您表示要回報的錯誤是 Adblock Plus 本身的錯誤而非過濾條件引起的錯誤。請注意，這類錯誤最好到 [link]Adblock Plus 討論區[/link] 上回報。只有為討論串作補充時才應該使用錯誤回報器，沒有人會察覺您的錯誤報告網址，除非您將連結貼出來。
+ 結在傳送成功之後會自動產生。">
+<!ENTITY issues.disabled.description "Adblock Plus 已停用，目前狀態下不會阻擋任何網頁內容。">
+<!ENTITY attachExtensions.label "附加目前啟用的擴充套件列表至報告中，以便排除因套件衝突所產生的問題 (&amp;x)">
+<!ENTITY issues.nosubscriptions.add.label "訂閱過濾條件集">
+<!ENTITY issues.disabledfilters.enable.label "啟用過濾條件">
+<!ENTITY issues.override.label "設定值是正確的，繼續回報錯誤 (&amp;c)">
+<!ENTITY issues.nosubscriptions.description "您似乎沒有訂閱任何過濾條件集，訂閱過濾條件集可自動移除與網頁內容無關的廣告。">
+<!ENTITY outdatedSubscriptions.description "下列的過濾條件集至少兩個星期沒有更新。請在送出報告前更新這些條件集，說不定問題已經解決了。">
+<!ENTITY typeSelector.other.label "其他問題 (&amp;t)">
+<!ENTITY issues.whitelist.remove.label "在此頁面重新啟用 Adblock Plus">
+<!ENTITY typeSelector.falsePositive.description "選擇此選項表示網頁缺少了主要內容、顯示錯誤或功能異常。您可以暫時停用 Adblock Plus 後再試一次，若停用後問題消失，則很可能就是 Adblock Plus 的問題。">
+<!ENTITY dataCollector.description "請稍候，Adblock Plus 正在蒐集必要的資料。">
+<!ENTITY sendButton.label "傳送報告 (&amp;n)">
+<!ENTITY comment.label "備註 (選用): (&amp;C)">
+<!ENTITY sendPage.errorMessage "嘗試傳送報告失敗，錯誤碼 &quot;?1?&quot;。請確定您已連上網路後再試一次。若依舊失敗，請到 [link]Adblock Plus 討論區[/link] 尋求協助。">
+<!ENTITY showRecentReports.label "顯示最近傳送的錯誤報告">
+<!ENTITY commentPage.heading "輸入註解">
+<!ENTITY update.start.label "立即更新">
+<!ENTITY issues.disabledfilters.description "下列過濾條件已停用，它們將無法在此頁面發揮作用：">
+<!ENTITY screenshot.description "同樣的頁面每個人看到的情況可能都不同。附加螢幕擷圖到報告中可以幫助我們更了解問題所在。您可以先移除包含敏感資訊的部份，也可以標示問題發生的區域，使其更為醒目。只要按下相應的按鈕並用滑鼠在圖片上選取即可。">
+<!ENTITY screenshot.attach.label "附加頁面圖片到報告中 (&amp;t)">
+<!ENTITY issues.whitelist.description "Adblock Plus 在您目前回報的頁面中停用。請在送出報告前再次啟用並重新載入該網頁以協助調查。">
+<!ENTITY typeSelector.falseNegative.label "Adblock Plus 沒有擋掉廣告 (&amp;v)">
+<!ENTITY typeSelector.heading "選擇問題類型">
+<!ENTITY wizard.title "錯誤回報器">
+<!ENTITY issues.ownfilters.disable.label "停用過濾條件">
+<!ENTITY commentPage.description "下面的文字方塊可以讓您輸入額外的註解，以幫助我們更了解問題所在。這個步驟不是必須的，但若問題不太明顯時還是建議您這麼做。在回報之前您也可以檢視報告資料。">
+<!ENTITY comment.lengthWarning "您輸入的註解超過 1000 個字元。只有前 1000 個字元會被傳送。">
+<!ENTITY typeSelector.falseNegative.description "選擇此選項表示雖然已啟用 Adblock Plus，但廣告依然顯示在網頁中。">
+<!ENTITY sendPage.waitMessage "請稍候，Adblock Plus 正在傳送您的報告。">
+<!ENTITY dataCollector.heading "歡迎使用錯誤回報器">
+<!ENTITY screenshot.remove.label "移除敏感資料 (&amp;R)">
+<!ENTITY screenshot.heading "附加螢幕擷圖">
+<!ENTITY issues.ownfilters.description "套用到此頁面中的條件有部份是由使用者定義的。請停用這些過濾條件，這很可能就是導致錯誤發生的原因：">
+<!ENTITY issues.subscriptionCount.description "您似乎訂閱了過多的過濾條件集。我們不建議這麼做，這可能會增加發生錯誤的機率。同時我們無法接受您的錯誤回報，因為還不清楚是哪位條件集作者需要做出修正。請移除不重要的過濾條件集後再試一次，看看錯誤是否仍會發生。">
+<!ENTITY screenshot.mark.label "標示問題所在 (&amp;M)">
+<!ENTITY privacyPolicy.label "隱私權政策">
+<!ENTITY issues.description "Adblock Plus 偵測到您的設定值可能導致問題發生，或使調查變得難以進行。">

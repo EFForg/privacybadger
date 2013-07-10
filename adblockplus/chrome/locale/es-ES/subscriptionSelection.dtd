@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "A&amp;ñadir también la suscripción &quot;?1?&quot;.">
+<!ENTITY list.download.failed "Error al recuperar la lista de suscripciones.">
+<!ENTITY list.download.retry "Intentar de nuevo">
+<!ENTITY title.label "&amp;Título de la suscripción:">
+<!ENTITY list.download.website "Ver página web">
+<!ENTITY supplementMessage "Esta suscripción de filtros está pensada para usarse junto a la suscripción &quot;?1?&quot; que aún no ha instalado.">
+<!ENTITY viewList.label "Ver filtros">
+<!ENTITY visitHomepage.label "Visitar su página web">
+<!ENTITY addSubscription.label "Añadir suscripción">
+<!ENTITY dialog.title "Añadir suscripción de filtros para Adblock Plus">
+<!ENTITY location.label "&amp;Ubicación de la lista de filtros:">
+<!ENTITY fromWeb.description "Por favor, confirme que quiere añadir está suscripción de filtros. Puede cambiar su título o ubicación antes de añadirla.">

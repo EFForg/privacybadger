@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Показати розташування елементу">
+<!ENTITY address.label "Адреса">
+<!ENTITY context.open.label "Відкрити в новій вкладці">
+<!ENTITY type.label "Тип">
+<!ENTITY tooltip.filterSource.label "Джерело фільтра:">
+<!ENTITY noitems.label "Блокувати нічого">
+<!ENTITY filter.label "Фільтр">
+<!ENTITY tooltip.size.label "Розмір:">
+<!ENTITY reattach.label "Приєднати">
+<!ENTITY search.label "П&amp;ошук:">
+<!ENTITY docDomain.thirdParty "(запит з іншого сайта)">
+<!ENTITY filterSource.label "Джерело фільтра">
+<!ENTITY tooltip.docDomain.label "Джерело документа:">
+<!ENTITY context.copy.label "Копіювати адресу">
+<!ENTITY tooltip.type.label "Тип:">
+<!ENTITY context.disablefilter.label "Вимкнути фільтр ?1?">
+<!ENTITY context.copyFilter.label "Копіювати фільтр">
+<!ENTITY context.block.label "Заблокувати елемент">
+<!ENTITY context.enablefilter.label "Знов увімкнути фільтр ?1?">
+<!ENTITY detach.label "Від’єднати">
+<!ENTITY whitelisted.label "Дозволений на цій сторінці">
+<!ENTITY context.disablefilteronsite.label "Вимкнути цей фільтр на ?1?">
+<!ENTITY detached.title "Adblock Plus: елементи відкритої сторінки (від’єднані)">
+<!ENTITY docDomain.firstParty "(запит з того ж сайта)">
+<!ENTITY tooltip.type.whitelisted "(виняток)">
+<!ENTITY tooltip.filter.label "Застосований фільтр:">
+<!ENTITY tooltip.filter.disabled "(вимкнено)">
+<!ENTITY context.editfilter.label "Відредагувати застосований фільтр">
+<!ENTITY tooltip.type.blocked "(заблокований)">
+<!ENTITY size.label "Розмір">
+<!ENTITY context.whitelist.label "Вказати елемент як виняток">
+<!ENTITY context.selectAll.label "Вибрати всі">
+<!ENTITY state.label "Статус">
+<!ENTITY docDomain.label "Джерело документа">
+<!ENTITY tooltip.address.label "Адреса:">

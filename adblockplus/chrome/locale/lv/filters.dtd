@@ -1,0 +1,72 @@
+<!ENTITY restore.custom.warning "Visi Jūsu pielāgotie filtri tiks aizvietori ar izvēlētā faila saturu. Vai vēlaties turpināt?">
+<!ENTITY slow.column "Lēni filtri">
+<!ENTITY enabled.column "Iespējots">
+<!ENTITY subscription.lastDownload.checksumMismatch "Neizdevās, kontrolsummas neatbilstība">
+<!ENTITY noFiltersInGroup.text "Izvēlētā grupa ir tukšsa.">
+<!ENTITY subscription.actions.label "Darbības">
+<!ENTITY filter.selectAll.label "Izvēlēties visu">
+<!ENTITY backupButton.label "Dublējumkopiju izveide un atjaunošana">
+<!ENTITY restore.minVersion.warning "Brīdinājums: fails ir izveidots, izmantojot jaunāku Adblock Plus versiju. Jums nepieciešams atjaunināt Adblock Plus, pirms turpināt atjaunošanu no šī faila.">
+<!ENTITY restore.error "Faila dati nevar tikt apstrādāti, varbūt tas nav Adblock Plus rezerves kopijas fails?">
+<!ENTITY sort.ascending.label "A &gt; Z kārtošanas secība">
+<!ENTITY sort.label "Kārtot pēc">
+<!ENTITY subscription.source.label "Filtru saraksts">
+<!ENTITY hitcount.column "Klikšķi">
+<!ENTITY noFilters.text "Jums vēl nav pielagotus filtrus.">
+<!ENTITY backup.custom.title "Tikai pielāgotie filtri">
+<!ENTITY subscription.external.label "Atjaunināts ar citu paplašinājumu">
+<!ENTITY subscription.delete.label "Dzēst">
+<!ENTITY noGroupSelected.text "Jums ir nepieciešams izvēlēties filtra grupu pirms tās filtrus var parādīt.">
+<!ENTITY filter.cut.label "Izgriezt">
+<!ENTITY restore.default.label "Atjaunot rezerves kopiju no ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Lejupielādē...">
+<!ENTITY subscriptions.tab.label "Filtra abonementi">
+<!ENTITY sort.descending.label "Z &gt; A kārtošanas secība">
+<!ENTITY filters.remove.warning "Vai tiešām vēlaties noņemt visus atlasītos filtrus?">
+<!ENTITY filter.delete.label "Dzēst">
+<!ENTITY addSubscriptionAdd.label "Pievienot">
+<!ENTITY viewMenu.label "Skatīt">
+<!ENTITY subscription.lastDownload.unknown "N/A">
+<!ENTITY addSubscriptionCancel.label "Atcelt">
+<!ENTITY subscription.enabled.label "Iespējota">
+<!ENTITY noSubscriptions.text "Jūs līdz šim neesat pievienojis nevienu filra abonementu. Adblock Plus neko nebloķēs bez filtriem, lūdzam lietot &quot;Pievienot filtra abonementu&quot;, lai tos pievienotu.">
+<!ENTITY subscription.update.label "Atjaunināt filtrus">
+<!ENTITY dialog.title "Adblock Plus filtra prioritātes">
+<!ENTITY addFilter.label "Pievienot Filtru">
+<!ENTITY subscription.minVersion.warning "Šo filtru abonēšanai nepieciešama jaunāka versija Adblock Plus, tadel jums vajadzētu atjaunināt ar jaunāko Adblock Plus versiju.">
+<!ENTITY subscription.lastDownload.invalidURL "Neizdevās, nav derīga adrese">
+<!ENTITY backup.error "Radās kļūda, ierakstot filtrus failā. Pārliecinieties, ka fails nav aizsargāts pret ierakstu vai netiek izmantots citā lietojumprogrammā.">
+<!ENTITY filter.moveUp.label "Pārvietot uz augšu">
+<!ENTITY addGroup.label "Pievienot filtra grupu">
+<!ENTITY filter.edit.label "Rediģēt">
+<!ENTITY subscription.showHideFilters.label "Rādīt/paslēpt filtrus">
+<!ENTITY acceptableAds2.label "Atļaut dažas neuzbāzīgas reklāmas">
+<!ENTITY addSubscriptionOther.label "Pievienot citu abonementu">
+<!ENTITY close.label "Aizvērt">
+<!ENTITY sort.none.label "Nesakārtots">
+<!ENTITY filter.actions.label "Filtra darbību">
+<!ENTITY filter.copy.label "Kopēt">
+<!ENTITY filter.moveDown.label "Pārvietot uz leju">
+<!ENTITY filter.resetHitCounts.label "Atiestatīt izmantojumu statistiku">
+<!ENTITY readMore.label "Lasīt vairāk">
+<!ENTITY subscription.moveUp.label "Pārvietot uz augšu">
+<!ENTITY addSubscription.label "Pievienot filtra abonēšanu">
+<!ENTITY subscription.homepage.label "Mājas lapa">
+<!ENTITY backup.complete.title "Visi filtri un abonementi">
+<!ENTITY restore.own.label "Atjaunot paša rezerves kopiju">
+<!ENTITY restore.complete.warning "Visas Jūsu filtru prioritātes tiks aizvietotas ar izvēlētā faila saturu. Vai vēlaties turpināt?">
+<!ENTITY filters.tab.label "Pielāgoti filtrus">
+<!ENTITY backup.label "Izveidot jaunu rezerves kopiju">
+<!ENTITY find.label "Meklēt">
+<!ENTITY subscription.moveDown.label "Pārvietot uz leju">
+<!ENTITY subscription.lastDownload.connectionError "Neizdevās, lejupielāde neizdevās">
+<!ENTITY subscription.lastDownload.success "Izdevās">
+<!ENTITY subscription.lastDownload.invalidData "Neizdevās, nav derīgs filtru saraksts">
+<!ENTITY filter.paste.label "Ielīmēt">
+<!ENTITY subscription.disabledFilters.enable "Iespējot atspējotie filtri">
+<!ENTITY lasthit.column "Pēdējai klikšķis">
+<!ENTITY subscription.editTitle.label "Rediģēt nosaukumu">
+<!ENTITY subscription.disabledFilters.warning "Daži filtri šo abonementu ir atspējotas.">
+<!ENTITY filter.column "Filtra noteikumi">
+<!ENTITY subscription.lastDownload.label "Pēdējā lejupielāde:">
+<!ENTITY viewList.label "Skatīt sarakstu">

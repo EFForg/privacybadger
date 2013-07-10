@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Lägg till"
+  },
+  "add_domain_button": {
+    "message": "Lägg till domän"
+  },
+  "add_filter_button": {
+    "message": "Lägg till filter"
+  },
+  "add_filters_msg": {
+    "message": "Lägga till filter?"
+  },
+  "add_your_own_filters": {
+    "message": "Lägg till dina egna filter"
+  },
+  "apply_changes": {
+    "message": "Verkställ ändringar"
+  },
+  "block_element": {
+    "message": "Blockera objekt"
+  },
+  "cancel": {
+    "message": "Avbryt"
+  },
+  "clickhide_instructions": {
+    "message": "När denna popup stängs, klicka (eller högerklicka) ett objekt på sidan."
+  },
+  "description": {
+    "message": "Den gratis annonsblockeraren för Chrome: Blockerar irriterande video-annonser på Youtube, Facebook-annonser, banners och mycket mer."
+  },
+  "disable_inline": {
+    "message": "Inaktivera infogade textannonser"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus är inaktiverad för domänerna i denna lista. Du kan lägga till en domän via Adblock Plus-ikonen i adressfältet eller genom att skriva domännamnet (inte URL) i textboxen och klicka på \"Lägg till domän\"."
+  },
+  "easy_create_filter": {
+    "message": "Skapa filter"
+  },
+  "edit_filters_raw": {
+    "message": "Redigera filter som ren text"
+  },
+  "enable_only_the": {
+    "message": "Aktivera bara dom filter du behöver. För många kan få Chrome att sluta svara."
+  },
+  "enabled_for_site": {
+    "message": "Aktiverad för den här sidan"
+  },
+  "filter_lists": {
+    "message": "Filterlistor"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Ditt filter måste följa <a href='$url$'>Adblock Plus filtersyntax</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Hittat ett fel eller vill du översätta Adblock Plus till ett annat språk? Vänligen, <a href='$url$'>meddela här</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Allmänt"
+  },
+  "last_updated_at": {
+    "message": "Senast uppdaterad den $date$ $time$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Senast uppdaterad i dag $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Nya filter tillagda; se <a id='options_url' target='_blank'>Alternativ</a> för att hantera dom."
+  },
+  "options": {
+    "message": "Adblock Plus Alternativ"
+  },
+  "out_of_date_lists": {
+    "message": "Inaktuella listor uppdateras periodiskt."
+  },
+  "remove_button": {
+    "message": "Ta bort markerad"
+  },
+  "show_block_element_menu": {
+    "message": "Visa 'Blockera objekt' i högerklicksmeny"
+  },
+  "show_icon": {
+    "message": "Visa ikon i adressfältet"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Var vänlig välj en filterprenumeration från listan:"
+  },
+  "update_now": {
+    "message": "Uppdatera nu"
+  },
+  "whitelisted_domains": {
+    "message": "Vitlistade domäner"
+  }
+}

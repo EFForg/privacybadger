@@ -1,0 +1,17 @@
+<!ENTITY tooltip.size.label "ප්‍රමාණය:">
+<!ENTITY tooltip.type.blocked "(අවහිර කිරීම)">
+<!ENTITY docDomain.firstParty "(ප්‍රථම පාර්ශ්වකරු)">
+<!ENTITY reattach.label "නැවත ඇතුලත් කරන්න">
+<!ENTITY context.selectAll.label "සියල්ල තෝරනවා">
+<!ENTITY search.label "සොයන්න (&amp;s)">
+<!ENTITY docDomain.thirdParty "(තුන්වැනි පාර්ශ්වකරු)">
+<!ENTITY address.label "ලිපිනය">
+<!ENTITY size.label "ප්‍රමාණය">
+<!ENTITY context.copyFilter.label "පෙරනය පිටපත් කරන්න">
+<!ENTITY type.label "වර්ගය">
+<!ENTITY tooltip.type.label "ආකාරය:">
+<!ENTITY state.label "ගොනුව ඇති ස්ථානය">
+<!ENTITY docDomain.label "ලේඛ මූලාග්‍රය">
+<!ENTITY filter.label "පෙරනය">
+<!ENTITY detach.label "ගලවනවා">
+<!ENTITY tooltip.address.label "ලිපිනය:">

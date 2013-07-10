@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "เพิ่มนามข้างท้ายตั&amp;วกรอง &quot;?1?&quot;">
+<!ENTITY list.download.failed "Adblock Plus ไม่สามารถกู้คืนรายการนามข้างท้ายได้">
+<!ENTITY list.download.retry "ลองอีกครั้ง">
+<!ENTITY title.label "&amp;ชื่อ:">
+<!ENTITY list.download.website "ดูเว็บไซต์">
+<!ENTITY supplementMessage "นามข้างท้ายตัวกรองนี้ตั้งใจไว้ใช้กับนามข้างท้ายตัวกรอง &quot;?1?&quot; ซึ่งคุณยังไม่ได้ใช้">
+<!ENTITY viewList.label "ดูตัวกรอง">
+<!ENTITY visitHomepage.label "เยี่ยมชมโฮมเพจ">
+<!ENTITY addSubscription.label "เพิ่มนามข้างท้ายตัวกรอง">
+<!ENTITY dialog.title "เพิ่มนามข้างท้ายตัวกรอง Adblock Plus">
+<!ENTITY location.label "ที่อยู่&amp;รายชื่อตัวกรอง:">
+<!ENTITY fromWeb.description "กรุณายืนยันว่าคุณต้องการเพิ่มนามข้างท้ายตัวกรองนี้ คุณสามารถเปลี่ยนหัวเรื่องนามข้างท้ายหรือตำแหน่งก่อนเพิ่มเข้ามาได้">

@@ -1,0 +1,41 @@
+<!ENTITY detached.title           "Adblock Plus: Blockable items (detached)">
+
+<!ENTITY detach.label             "Detach">
+<!ENTITY reattach.label           "Reattach">
+
+<!ENTITY search.label             "&amp;Search:">
+<!ENTITY type.label               "Type">
+<!ENTITY address.label            "Address">
+<!ENTITY filter.label             "Filter">
+<!ENTITY state.label              "State">
+<!ENTITY size.label               "Size">
+<!ENTITY filterSource.label       "Filter source">
+<!ENTITY docDomain.label          "Document source">
+<!ENTITY docDomain.thirdParty     "(third party)">
+<!ENTITY docDomain.firstParty     "(first party)">
+<!ENTITY noitems.label            "No blockable items">
+<!ENTITY whitelisted.label        "Whitelisted page">
+<!ENTITY tooltip.address.label    "Address:">
+<!ENTITY tooltip.type.label       "Type:">
+<!ENTITY tooltip.type.blocked     "(blocked)">
+<!ENTITY tooltip.type.whitelisted "(whitelisted)">
+<!ENTITY tooltip.size.label       "Size:">
+<!ENTITY tooltip.docDomain.label  "Document source:">
+<!ENTITY tooltip.filter.label     "Filter in effect:">
+<!ENTITY tooltip.filter.disabled  "(disabled)">
+<!ENTITY tooltip.filterSource.label "Filter source:">
+
+<!ENTITY context.block.label      "Block this item">
+<!ENTITY context.editfilter.label "Edit filter in effect">
+<!ENTITY context.whitelist.label  "Add exception rule for item">
+<!-- Note: the placeholder ?1? will be replaced by the filter text -->
+<!ENTITY context.disablefilter.label  "Disable filter ?1?">
+<!-- Note: the placeholder ?1? will be replaced by the filter text -->
+<!ENTITY context.enablefilter.label   "Re-enable filter ?1?">
+<!-- Note: the placeholder ?1? will be replaced by the domain name of the current page -->
+<!ENTITY context.disablefilteronsite.label  "Disable this filter on ?1?">
+<!ENTITY context.open.label       "Open in New Tab">
+<!ENTITY context.flash.label      "Flash item's borders">
+<!ENTITY context.copy.label       "Copy item's address">
+<!ENTITY context.copyFilter.label "Copy filter">
+<!ENTITY context.selectAll.label  "Select all">

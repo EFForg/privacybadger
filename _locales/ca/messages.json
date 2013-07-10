@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Afegeix"
+  },
+  "add_domain_button": {
+    "message": "Afegeix un domini"
+  },
+  "add_filter_button": {
+    "message": "Afegeix un filtre"
+  },
+  "add_filters_msg": {
+    "message": "Voleu afegir els filtres?"
+  },
+  "add_your_own_filters": {
+    "message": "Afegiu els vostres filtres"
+  },
+  "apply_changes": {
+    "message": "Aplica els canvis"
+  },
+  "block_element": {
+    "message": "Bloca l'element"
+  },
+  "cancel": {
+    "message": "Cancel·la"
+  },
+  "clickhide_instructions": {
+    "message": "Després de tancar aquesta finestra, cliqueu sobre un element de la pàgina."
+  },
+  "description": {
+    "message": "L'eina gratuïta de bloqueig d'anuncis a Chrome: Bloqueja els anuncis dins dels vídeos de YouTube, els anuncis de Facebook, els bàners i molts més."
+  },
+  "disable_inline": {
+    "message": "Desactiva els anuncis de text en línia"
+  },
+  "disabled_for_these_domains": {
+    "message": "L'AdBlock Plus està desactivat als dominis de la llista de sota. Podeu afegir un domini clicant la icona d'AdBlock Plus de la barra d'adreces o bé escrivint el domini (no la URL) al quadre de text i clicant \"Afegeix un domini\"."
+  },
+  "easy_create_filter": {
+    "message": "Crea un filtre fàcilment"
+  },
+  "edit_filters_raw": {
+    "message": "Edita els filtres com a text simple"
+  },
+  "enable_only_the": {
+    "message": "Activeu només les llistes de filtres que necessiteu. Masses poden alentir el Chromium."
+  },
+  "enabled_for_site": {
+    "message": "Activat per a aquest lloc"
+  },
+  "filter_lists": {
+    "message": "Llistes de filtres"
+  },
+  "filter_must_follow_syntax": {
+    "message": "El vostre filtre ha de seguir la <a href='$url$'>Sintaxi de filtres d'Adblock Plus</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Heu trobat un error? Voleu traduïr l'AdBlock Plus al vostre idioma? Si us plau, <a href='$url$'>demaneu-ho aquí</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "General"
+  },
+  "last_updated_at": {
+    "message": "Última actualització a les $time$ a $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Última actualització a les $time$ avui",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "S'han afegit nous filtres; mireu les <a id='options_url' target='_blank'>opcions</a> per a gestionar-los."
+  },
+  "options": {
+    "message": "Opcions de l'Adblock Plus"
+  },
+  "out_of_date_lists": {
+    "message": "Les llistes obsoletes són actualitzades periòdicament."
+  },
+  "remove_button": {
+    "message": "Suprimeix els seleccionats"
+  },
+  "show_block_element_menu": {
+    "message": "Mostra la opció \"Bloca l'element\" com a ítem d'un menú contextual"
+  },
+  "show_icon": {
+    "message": "Mostra la icona a la barra d'adreces"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Si us plau tria una subscripció de filtre a la llista:"
+  },
+  "update_now": {
+    "message": "Actualitza ara"
+  },
+  "whitelisted_domains": {
+    "message": "Dominis autoritzats"
+  }
+}

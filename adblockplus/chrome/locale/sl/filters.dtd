@@ -1,0 +1,74 @@
+<!ENTITY restore.custom.warning "Vsi tvoji filtri po meri bodo zamenjani z vsebino izbrane datoteke. Želite zagnati proces?">
+<!ENTITY slow.column "Po&amp;časni filtri">
+<!ENTITY enabled.column "O&amp;mogočeno">
+<!ENTITY subscription.lastDownload.checksumMismatch "Neuspešno, kontrolna vsota se ne ujema">
+<!ENTITY noFiltersInGroup.text "Izbrana skupina je prazna.">
+<!ENTITY subscription.actions.label "Dejanja">
+<!ENTITY filter.selectAll.label "Izberi vse">
+<!ENTITY backupButton.label "&amp;Varnostno kopiraj in obnovi">
+<!ENTITY restore.minVersion.warning "Opozorilo: datoteka je bila ustvarjena z novejšo različico Adblock Plus. Pred obnovitvijo iz te datoteke, najprej posodobi na najnovejšo različico Adblock Plus.">
+<!ENTITY restore.error "Podatkov datoteke ni bilo mogoče obdelat. Je datoteka res varnostna kopija programa Adblock Plus?">
+<!ENTITY sort.ascending.label "od &amp;A &gt; Z">
+<!ENTITY sort.label "Raz&amp;vrsti">
+<!ENTITY subscription.source.label "Seznam filtrov">
+<!ENTITY hitcount.column "Za&amp;detki">
+<!ENTITY noFilters.text "Svojega lastnega filtra še nimaš.">
+<!ENTITY backup.custom.title "Samo filtri po meri">
+<!ENTITY subscription.external.label "Posodobljepreko druge razširitve">
+<!ENTITY subscription.delete.label "Izbriši">
+<!ENTITY noGroupSelected.text "Preden se filtre lahko prikaže moraš izbrati filter skupino.">
+<!ENTITY filter.cut.label "Izreži">
+<!ENTITY restore.default.label "Obnovite varnostno kopijo z dne ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Prenos s strežnika ...">
+<!ENTITY subscriptions.tab.label "Naročnine na filtre">
+<!ENTITY sort.descending.label "od &amp;Z &gt; A">
+<!ENTITY filters.remove.warning "Želite res odstraniti vse izbrane filtre?">
+<!ENTITY filter.delete.label "Izbriši">
+<!ENTITY addSubscriptionAdd.label "Dodaj">
+<!ENTITY viewMenu.label "Pogled">
+<!ENTITY subscription.lastDownload.unknown "Ni na voljo">
+<!ENTITY addSubscriptionCancel.label "Prekliči">
+<!ENTITY subscription.enabled.label "Omogočeno">
+<!ENTITY noSubscriptions.text "Zaenkrat nimaš naročenega še nobenega filtra. Adblock Plus ne more
+blokirati ničesar brez filtrov, zato uporabi opcijo &quot;Dodaj naročnino za filter&quot;
+in dodaj vsaj en filter.">
+<!ENTITY subscription.update.label "Posodobi filtre">
+<!ENTITY dialog.title "Nastavitve filtrov za Adblock Plus">
+<!ENTITY addFilter.label "&amp;Dodaj filter">
+<!ENTITY subscription.minVersion.warning "Ta filter potrebuje novejšo verzijo Adblock Plusa. Nadgradi Adblock plus z najnovešo različico.">
+<!ENTITY subscription.lastDownload.invalidURL "Neuspešno, ni veljaven naslov">
+<!ENTITY backup.error "Napaka pri zapisu filtrov v datoteko. Poskrbite, da datoteka ni zaščitena pred pisanjem ali v uporabi nekega drugega programa.">
+<!ENTITY filter.moveUp.label "Premakni navzgor">
+<!ENTITY addGroup.label "Dodaj &amp;skupino filtrov">
+<!ENTITY filter.edit.label "Uredi">
+<!ENTITY subscription.showHideFilters.label "Pokaži/skrij filtre">
+<!ENTITY acceptableAds2.label "Dovol&amp;i nekatere nevsiljive oglase">
+<!ENTITY addSubscriptionOther.label "Dodaj novo naročnino">
+<!ENTITY close.label "Zapri">
+<!ENTITY sort.none.label "Nerazvr&amp;ščeno">
+<!ENTITY filter.actions.label "Dejanja filtra">
+<!ENTITY filter.copy.label "Kopiraj">
+<!ENTITY filter.moveDown.label "Premakni navzdol">
+<!ENTITY filter.resetHitCounts.label "Ponastavi statistiko zadetkov">
+<!ENTITY readMore.label "Preberi več">
+<!ENTITY subscription.moveUp.label "Premakni navzgor">
+<!ENTITY addSubscription.label "Dodaj &amp;naročnino filtra">
+<!ENTITY subscription.homepage.label "Domača stran">
+<!ENTITY backup.complete.title "Vsi filtri in naročnine">
+<!ENTITY restore.own.label "Obnovi lastno varnostno kopijo">
+<!ENTITY restore.complete.warning "Vsi nastavitve tvojih filtrov bodo zamenjane z vsebino izbrane datoteke. Želite zagnati proces?">
+<!ENTITY filters.tab.label "Filtri po meri">
+<!ENTITY backup.label "Ustvari novo varnostno kopijo">
+<!ENTITY find.label "Najdi">
+<!ENTITY subscription.moveDown.label "Premakni navzdol">
+<!ENTITY subscription.lastDownload.connectionError "Neuspešno, napaka prenosa">
+<!ENTITY subscription.lastDownload.success "Uspešno">
+<!ENTITY subscription.lastDownload.invalidData "Neuspešno, ni veljaven seznam filtrov">
+<!ENTITY filter.paste.label "Prilepi">
+<!ENTITY subscription.disabledFilters.enable "Omogoči onemogočene filtre">
+<!ENTITY lasthit.column "Zad&amp;nji zadetek">
+<!ENTITY subscription.editTitle.label "Uredi naslov">
+<!ENTITY subscription.disabledFilters.warning "V tej naročnini so nekateri filtri onemogočeni.">
+<!ENTITY filter.column "Pravilo &amp;filtra">
+<!ENTITY subscription.lastDownload.label "Zadnji prenos:">
+<!ENTITY viewList.label "Pokaži seznam">

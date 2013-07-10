@@ -1,0 +1,22 @@
+<!ENTITY address.label "Adresse">
+<!ENTITY context.open.label "Åpne i ny fane">
+<!ENTITY tooltip.filterSource.label "Filterkilde:">
+<!ENTITY filter.label "Filter">
+<!ENTITY noitems.label "Ingen blokkerbare elementer">
+<!ENTITY tooltip.size.label "Størrelse:">
+<!ENTITY search.label "&amp;Søk:">
+<!ENTITY docDomain.thirdParty "(tredjeparts)">
+<!ENTITY filterSource.label "Filterkilde">
+<!ENTITY tooltip.docDomain.label "Dokumentkilde:">
+<!ENTITY context.copy.label "Kopier elementets adresse">
+<!ENTITY tooltip.type.blocked "(blokkert)">
+<!ENTITY context.disablefilter.label "Deaktiver filter ?1?">
+<!ENTITY context.copyFilter.label "Kopier filter">
+<!ENTITY context.block.label "Blokker dette elementet">
+<!ENTITY context.disablefilteronsite.label "Deaktiver dette filteret på ?1?">
+<!ENTITY tooltip.filter.disabled "(deaktivert)">
+<!ENTITY size.label "Størrelse">
+<!ENTITY context.whitelist.label "Legg til unntaksregel for elementet">
+<!ENTITY context.selectAll.label "Velg alle">
+<!ENTITY docDomain.label "Dokumentkilde">
+<!ENTITY tooltip.address.label "Adresse:">

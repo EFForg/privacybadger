@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Добавить"
+  },
+  "add_domain_button": {
+    "message": "Добавить домен"
+  },
+  "add_filter_button": {
+    "message": "Добавить фильтр"
+  },
+  "add_filters_msg": {
+    "message": "Добавить фильтр(ы)?"
+  },
+  "add_your_own_filters": {
+    "message": "Персональные фильтры"
+  },
+  "apply_changes": {
+    "message": "Применить изменения"
+  },
+  "block_element": {
+    "message": "Заблокировать элемент"
+  },
+  "cancel": {
+    "message": "Отменить"
+  },
+  "clickhide_instructions": {
+    "message": "После закрытия этого всплывающего окна щёлкните на элементе левой или правой кнопкой мыши."
+  },
+  "description": {
+    "message": "Бесплатный блокировщик рекламы для Chrome: Блокирует назойливую видео-рекламу на YouTube, рекламу на Facebook, баннеры и многое другое."
+  },
+  "disable_inline": {
+    "message": "Скрывать элементы текстовой рекламы на странице"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus выключен для перечисленных ниже доменов. Дополнительные домены можно добавить, щёлкнув иконку Adblock Plus на адресной строке или напечатав название домена (не ссылку) в данной области и нажав на кнопку \"Добавить домен\"."
+  },
+  "easy_create_filter": {
+    "message": "Быстро создать фильтр"
+  },
+  "edit_filters_raw": {
+    "message": "Редактировать фильтры в текстовом режиме"
+  },
+  "enable_only_the": {
+    "message": "Включите только списки фильтров, которые вам действительно нужны. Большое количество фильтров может сказаться на быстродействии Chrome."
+  },
+  "enabled_for_site": {
+    "message": "Включён на этом сайте"
+  },
+  "filter_lists": {
+    "message": "Список фильтров"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Ваш фильтр должен соответствовать <a href='$url$'>синтаксису фильтров Adblock Plus</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Нашли ошибку в Adblock Plus? Пожалуйста, <a href='$url$'>сообщите об этом здесь</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Общие"
+  },
+  "last_updated_at": {
+    "message": "Последнее обновление: $date$ в $time$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Последнее обновление: сегодня в $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Новые фильтры добавлены; перейдите в <a id='options_url' target='_blank'>Настройки</a> для редактирования."
+  },
+  "options": {
+    "message": "Настройки Adblock Plus"
+  },
+  "out_of_date_lists": {
+    "message": "Устаревшие списки периодически обновляются."
+  },
+  "remove_button": {
+    "message": "Удалить"
+  },
+  "show_block_element_menu": {
+    "message": "Показывать 'Заблокировать элемент' в контекстном меню"
+  },
+  "show_icon": {
+    "message": "Показать иконку в адресной строке"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Пожалуйста, выберите подписку из списка:"
+  },
+  "update_now": {
+    "message": "Обновить сейчас"
+  },
+  "whitelisted_domains": {
+    "message": "Белый список доменов"
+  }
+}

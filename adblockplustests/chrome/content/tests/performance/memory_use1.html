@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Memory use while an image with the same address is being created continuously</title>
+  <script type="application/x-javascript;version=1.7" src="../../httpd.js"></script>
+</head>
+<body>
+  <p>This page will continuously create new images with the same address and throw them away. Adblock Plus should let garbage collection do its job and the browser's memory use shouldn't increase while this page is open.</p>
+
+  <iframe id="frame" style="visibility: visible;"></iframe>
+
+  <script type="application/x-javascript;version=1.7">
+    function start()
+    {
+      window.addEventListener("unload", stop, false);
+      server.start(1234);
+
+      setInterval(function()
+      {
+        window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+              .getInterface(Components.interfaces.nsIDOMWindowUtils)
+              .garbageCollect();
+      }, 100);
+
+      server.registerPathHandler("/test", function(metadata, response)
+      {
+        response.setStatusLine("1.1", "200", "OK");
+        response.setHeader("Content-Type", "text/html");
+
+        let body = "<script>setInterval(function() { new Image().src = 'test.png'; }, 0);</" + "script>";
+        response.bodyOutputStream.write(body, body.length);
+      });
+
+      document.getElementById("frame").src = "http://127.0.0.1:1234/test";
+    }
+
+    function stop()
+    {
+      server.stop();
+    }
+
+    let server = new nsHttpServer();
+    window.addEventListener("load", start, false);
+  </script>
+</body>
+</html>

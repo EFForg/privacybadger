@@ -1,0 +1,74 @@
+<!ENTITY restore.custom.warning "Allar sérsniðnar síur verða yfirskrifaðar af skrá. Viltu halda áfram?">
+<!ENTITY slow.column "H&amp;ægar síur">
+<!ENTITY enabled.column "&amp;Virkt">
+<!ENTITY subscription.lastDownload.checksumMismatch "Mistókst, prófsumma stemmir ekki">
+<!ENTITY noFiltersInGroup.text "Valinn hópur er tómur.">
+<!ENTITY subscription.actions.label "Aðgerðir">
+<!ENTITY filter.selectAll.label "Velja allt">
+<!ENTITY backupButton.label "&amp;Afrita og endurheimta">
+<!ENTITY restore.minVersion.warning "Aðvörun: skráin var búin til að nýrri útgáfu af Adblock Plus. Þú ættir að uppfæra í nýjustu útgáfu af Adblock Plus áður en þú endurheimtir þessa skrá.">
+<!ENTITY restore.error "Ekki tókst að lesa skráargögn, kannski er skráin ekki Adblock Plus afritunarskrá?">
+<!ENTITY sort.ascending.label "&amp;A &gt; Ö röðun">
+<!ENTITY sort.label "Raða e&amp;ftir">
+<!ENTITY subscription.source.label "Sía lista">
+<!ENTITY hitcount.column "&amp;Notkun">
+<!ENTITY noFilters.text "Þú ert ekki ennþá með neina sérsniðna síu.">
+<!ENTITY backup.custom.title "Aðeins sérsniðnar síur">
+<!ENTITY subscription.external.label "Uppfært af annarri viðbót">
+<!ENTITY subscription.delete.label "Eyða">
+<!ENTITY noGroupSelected.text "Þú verður að velja síuhóp áður en hægt er að birta síur.">
+<!ENTITY filter.cut.label "Klippa">
+<!ENTITY restore.default.label "Endurheimta afrit frá ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Hleður…">
+<!ENTITY subscriptions.tab.label "Síu áskriftir">
+<!ENTITY sort.descending.label "&amp;Ö &gt; A röðun">
+<!ENTITY filters.remove.warning "Viltu örugglega fjarlægja alla valdar síur?">
+<!ENTITY filter.delete.label "Eyða">
+<!ENTITY addSubscriptionAdd.label "Bæta við">
+<!ENTITY viewMenu.label "Skoða">
+<!ENTITY subscription.lastDownload.unknown "Óþekkt">
+<!ENTITY addSubscriptionCancel.label "Hætta við">
+<!ENTITY subscription.enabled.label "Virkt">
+<!ENTITY noSubscriptions.text "Þú hefur ekki ennþá bætt við áskrift að síu. Adblock Plus virkar ekki
+	án þess að vera með síur, notaðu &quot;Bæta við síuáskrift&quot; til
+	að bæta við síuáskrift.">
+<!ENTITY subscription.update.label "Uppfæra síur">
+<!ENTITY dialog.title "Adblock Plus síu stillingar">
+<!ENTITY addFilter.label "Bæta við sí&amp;u">
+<!ENTITY subscription.minVersion.warning "Þessi síuáskrift þarfnast nýrri útáfu af Adblock Plus, þú ættir að uppfæra í nýjustu útgáfu.">
+<!ENTITY subscription.lastDownload.invalidURL "Mistókst, ekki gilt netfang">
+<!ENTITY backup.error "Upp kom villa við að skrifa síur í skránna. Gakktu úr skugga um að skráin sé ekki ritvarin eða í notkun af öðru forriti.">
+<!ENTITY filter.moveUp.label "Færa upp">
+<!ENTITY addGroup.label "Bæta við síu&amp;hóp">
+<!ENTITY filter.edit.label "Breyta">
+<!ENTITY subscription.showHideFilters.label "Sýna/fela síur">
+<!ENTITY acceptableAds2.label "Leyfa auglýs&amp;ingar sem eru ekki uppáþrengjandi">
+<!ENTITY addSubscriptionOther.label "Bæta við öðruvísi áskrift">
+<!ENTITY close.label "Loka">
+<!ENTITY sort.none.label "Ó&amp;raðað">
+<!ENTITY filter.actions.label "Síu aðgerðir">
+<!ENTITY filter.copy.label "Afrita">
+<!ENTITY filter.moveDown.label "Færa niður">
+<!ENTITY filter.resetHitCounts.label "Endurstilla síu teljara">
+<!ENTITY readMore.label "Lesa meira">
+<!ENTITY subscription.moveUp.label "Færa upp">
+<!ENTITY addSubscription.label "&amp;Bæta við síuáskrift">
+<!ENTITY subscription.homepage.label "Heimasíða">
+<!ENTITY backup.complete.title "Allar síur og áskriftir">
+<!ENTITY restore.own.label "Endurheimta eigið afrit">
+<!ENTITY restore.complete.warning "Allar síustillingar verða yfirskrifaðar af skrá. Viltu halda áfram?">
+<!ENTITY filters.tab.label "Sérsniðnar síur">
+<!ENTITY backup.label "Búa til nýtt afrit">
+<!ENTITY find.label "&amp;Leita">
+<!ENTITY subscription.moveDown.label "Færa niður">
+<!ENTITY subscription.lastDownload.connectionError "Mistókst, gat ekki niðurhalað">
+<!ENTITY subscription.lastDownload.success "Tókst">
+<!ENTITY subscription.lastDownload.invalidData "Mistókst, ekki gildur síulisti">
+<!ENTITY filter.paste.label "Líma">
+<!ENTITY subscription.disabledFilters.enable "Virkja óvirkar síur">
+<!ENTITY lasthit.column "Seinast &amp;heimsótt">
+<!ENTITY subscription.editTitle.label "Breyta titli">
+<!ENTITY subscription.disabledFilters.warning "Sumar síur í þessari áskrift eru óvirkar.">
+<!ENTITY filter.column "Síu re&amp;gla">
+<!ENTITY subscription.lastDownload.label "Seinasta niðurhal:">
+<!ENTITY viewList.label "Skoða lista">

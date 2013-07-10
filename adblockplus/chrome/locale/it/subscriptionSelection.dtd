@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Aggiungere la &amp;sottoscrizione di filtri &quot;?1?&quot;">
+<!ENTITY list.download.failed "Recupero della lista di sottoscrizioni non riuscito">
+<!ENTITY list.download.retry "Riprova">
+<!ENTITY title.label "&amp;Titolo della sottoscrizione:">
+<!ENTITY list.download.website "Visita il sito web delle sottoscrizioni">
+<!ENTITY supplementMessage "Questa sottoscrizione di filtri verrà utilizzata insieme a quella chiamata &quot;?1?&quot; (ancora non aggiunta).">
+<!ENTITY viewList.label "Visualizza i filtri della sottoscrizione">
+<!ENTITY visitHomepage.label "Visita il sito web">
+<!ENTITY addSubscription.label "Aggiungi sottoscrizione">
+<!ENTITY dialog.title "Sottoscrizione di filtri di Adblock Plus">
+<!ENTITY location.label "Indiri&amp;zzo web della lista dei filtri:">
+<!ENTITY fromWeb.description "Confermare l'aggiunta della sottoscrizione di filtri. È possibile modificare il titolo della sottoscrizione oppure l'URL/percorso della lista dei filtri prima di aggiungerla">

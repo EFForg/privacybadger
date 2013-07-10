@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE page SYSTEM "chrome://adblockplus/locale/sidebar.dtd">
+
+<window
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  id="abpDetachedSidebar"
+  title="&detached.title;"
+  persist="screenX screenY width height sizemode"
+  onclose="document.getElementById('abp-command-sidebar').doCommand(); return false;">
+
+  <script type="application/x-javascript">
+    // Some people actually switch off browser.frames.enabled and are surprised
+    // that things stop working...
+    window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+          .getInterface(Components.interfaces.nsIWebNavigation)
+          .QueryInterface(Components.interfaces.nsIDocShell)
+          .allowSubframes = true;
+  </script>
+
+  <keyset>
+    <key keycode="VK_ESCAPE" command="command-close"/>
+    <key modifiers="accel" key="w" command="command-close"/>
+  </keyset>
+
+  <commandset>
+    <command id="command-close" oncommand="document.getElementById('sidebarFrame').contentWindow.doClose()"/>
+  </commandset>
+
+  <iframe src="sidebar.xul" id="sidebarFrame" flex="1"/>
+</window>

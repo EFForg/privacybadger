@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Flash құрамасының шектері">
+<!ENTITY address.label "Адресі">
+<!ENTITY context.open.label "Жаңа бетте ашу">
+<!ENTITY type.label "Түрі">
+<!ENTITY tooltip.filterSource.label "Фильтр көзі:">
+<!ENTITY noitems.label "Блокталатын құрама жоқ">
+<!ENTITY filter.label "Фильтр">
+<!ENTITY tooltip.size.label "Көлемі:">
+<!ENTITY reattach.label "Қосып қою">
+<!ENTITY search.label "І&amp;здеу:">
+<!ENTITY docDomain.thirdParty "(үшінші жақты)">
+<!ENTITY filterSource.label "Фильтр көзі">
+<!ENTITY tooltip.docDomain.label "Құжат көзі:">
+<!ENTITY context.copy.label "Элемент адресін көшіру">
+<!ENTITY tooltip.type.label "Түрі:">
+<!ENTITY context.disablefilter.label "Фильтрді сөндіру ?1?">
+<!ENTITY context.copyFilter.label "Фильтрді көшіру">
+<!ENTITY context.block.label "Бұл элементті блоктау">
+<!ENTITY context.enablefilter.label "Фильтрді қайта қосу ?1?">
+<!ENTITY detach.label "Бөліп жіберу">
+<!ENTITY whitelisted.label "Ережеден тыс парақ">
+<!ENTITY context.disablefilteronsite.label "Келесі үшін фильтрді өшіру ?1?">
+<!ENTITY detached.title "Adblock Plus: ағымдағы парақ құрамасы (бөлінген)">
+<!ENTITY docDomain.firstParty "(бірінші жақты)">
+<!ENTITY tooltip.type.whitelisted "(ережеден тыс)">
+<!ENTITY tooltip.filter.label "Қолданудағы фильтр:">
+<!ENTITY tooltip.filter.disabled "(сөндірулі)">
+<!ENTITY context.editfilter.label "Қолданудағы фильтрді түзету">
+<!ENTITY tooltip.type.blocked "(блокталған)">
+<!ENTITY size.label "Көлемі">
+<!ENTITY context.whitelist.label "Элемент үшін ерекше ереже жасау">
+<!ENTITY context.selectAll.label "Барлығын ерекшелеу">
+<!ENTITY state.label "Күйі">
+<!ENTITY docDomain.label "Құжат көзі">
+<!ENTITY tooltip.address.label "Адресі:">

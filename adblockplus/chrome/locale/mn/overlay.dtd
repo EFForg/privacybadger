@@ -1,0 +1,22 @@
+<!ENTITY whitelist.site.label "Хаах нь ?1?">
+<!ENTITY objecttab.title "Хаших">
+<!ENTITY objecttab.tooltip "Энд дарвал уг объектийг Adblock Plus-аар хаших болно">
+<!ENTITY menuitem.label "Ad&amp;block Plus">
+<!ENTITY objecttabs.label "Flash болон Java-д tab &amp;харуулах">
+<!ENTITY sendReport.label "Энэ хуудас дахь асуудлыг &amp;мэдэгдэх">
+<!ENTITY whitelist.page.label "Зөвхөн уг хуудсанд хаах">
+<!ENTITY context.image.label "Adblock Зураг">
+<!ENTITY opensidebar.label "&amp;Хашигдах зүйлсийг нээх">
+<!ENTITY toolbarbutton.label "Adblock Нэмэх">
+<!ENTITY context.frame.label "Adblock Хүрээ">
+<!ENTITY blocked.tooltip "Уг хуудас дахь хашигдсан зүйлс:">
+<!ENTITY showinstatusbar.label "&amp;Төлвийн мөрт харуулах">
+<!ENTITY sidebar.title "Тухайн хуудас дахь хашигдаж болох зүйлс">
+<!ENTITY options.label "С&amp;онголтууд">
+<!ENTITY context.object.label "Adblock Объект">
+<!ENTITY context.removeWhitelist.label "Adblock: Уг хуудсанд дахин нээх">
+<!ENTITY filters.tooltip "Хамгийн идэвхтэй шүүлтүүрүүд:">
+<!ENTITY closesidebar.label "&amp;Хашигдах зүйлсийг хаах">
+<!ENTITY showintoolbar.label "Хэрэгслийн &amp;мөрт харуулах">
+<!ENTITY status.tooltip "Төлөв:">
+<!ENTITY context.media.label "Adblock: Дуу/видео">

@@ -1,0 +1,59 @@
+{
+  "add": {
+    "message": "Dodaj"
+  },
+  "add_domain_button": {
+    "message": "Dodaj domeno"
+  },
+  "add_filter_button": {
+    "message": "Dodaj filter"
+  },
+  "add_filters_msg": {
+    "message": "Dodaj filtre?"
+  },
+  "add_your_own_filters": {
+    "message": "Dodaj svoje lastne filtre"
+  },
+  "apply_changes": {
+    "message": "Uveljavi spremembe"
+  },
+  "block_element": {
+    "message": "Blokiraj element"
+  },
+  "cancel": {
+    "message": "Prekliči"
+  },
+  "easy_create_filter": {
+    "message": "Enostavno ustvarite filter"
+  },
+  "edit_filters_raw": {
+    "message": "Uredi filtre kot golo besedilo"
+  },
+  "filter_lists": {
+    "message": "Seznam filtrov"
+  },
+  "general": {
+    "message": "Splošno"
+  },
+  "options": {
+    "message": "Adblock Plus možnosti"
+  },
+  "out_of_date_lists": {
+    "message": "Zastareli seznami se redno posodabljajo."
+  },
+  "remove_button": {
+    "message": "Odstrani izbrane"
+  },
+  "show_block_element_menu": {
+    "message": "Prikaži 'Blokiraj element' v meniju desnega klika"
+  },
+  "show_icon": {
+    "message": "Prikaži ikono v naslovni vrstici"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Prosim izberite naročnino na filter s seznama:"
+  },
+  "update_now": {
+    "message": "Posodobi sedaj"
+  }
+}

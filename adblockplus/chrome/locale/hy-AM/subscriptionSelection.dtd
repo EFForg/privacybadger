@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Ավելաց&amp;նել բաժանորդագրություն նաև &quot;?1?&quot; ֆիլտրին">
+<!ENTITY list.download.failed "«Adblock Plus»-ը չկարողացավ բեռնել ֆիլտրերի բաժանարդոգրությունների ցուցակը">
+<!ENTITY list.download.retry "Կրկին Փորձել">
+<!ENTITY title.label "Բ&amp;աժանորդագրության ավանումը`">
+<!ENTITY list.download.website "Այցելել կայք">
+<!ENTITY supplementMessage "Այս ֆիլտրի բաժանարդոգրությունը հաճախ օգտագործվում է &quot;?1?&quot;-ի հետ, որը դուք չեք օգտագործում:">
+<!ENTITY viewList.label "Նայել ֆիլտրերը">
+<!ENTITY visitHomepage.label "Այցելել կայք">
+<!ENTITY addSubscription.label "Ավելացնել բաժանորդագրություն">
+<!ENTITY dialog.title "Բարի գալուստ Adblock Plus">
+<!ENTITY location.label "Ֆիլտրերի &amp;հասցեն`">
+<!ENTITY fromWeb.description "Հաստատեք որ ցանկանում եք ավելացնել բաժանորդագրություն: Դուք կարող եք փողել բաժանորդագրության վերնագիրը կամ հասցեն միչև ավելացնելը:">

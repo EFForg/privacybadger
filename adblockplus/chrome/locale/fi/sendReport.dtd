@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "K&amp;umoa">
+<!ENTITY issues.disabledgroups.description "Seuraavat suodatintilaukset / suodatinryhmät ovat poistettu käytöstä mutta niillä saatta silti olla vaikutusta tällä sivulla:">
+<!ENTITY showData.label "Näytä raportin tiedot">
+<!ENTITY typeSelector.falsePositive.label "Adb&amp;lock Plus estää liikaa">
+<!ENTITY issues.change.description "Asetuksia on muutettu. Päivitä sivu testataksesi muutokset ja raportoi, jos muutokset eivät ratkaisseet ongelmaa.">
+<!ENTITY email.label "Sä&amp;hköposti:">
+<!ENTITY issues.openPreferences.label "Avaa suodatinasetukset">
+<!ENTITY sendPage.confirmation "Rapotti on tallennettu. Se löytyy tästä osoitteesta:">
+<!ENTITY copyLink.label "&amp;Kopioi raportin linkki">
+<!ENTITY issues.nofilters.description "Adblock Plus ei estä mitään tällä sivulla. Kohdattu ongelma on todennäköisesti riippumaton Adblock Plussasta.">
+<!ENTITY sendPage.knownIssue "Raportoimasi ongelma on todennäköisesti jo tiedossa. Lisätietoa:">
+<!ENTITY typeSelector.other.description "Valitse tämä vaihtoehto, jos epäilet ongelman olevan ennemminkin Adblock Plussassa kuin sen suodattimissa.">
+<!ENTITY issues.disabledgroups.enable.label "Ota suodatintilaus / suodatinlista käyttöön">
+<!ENTITY typeWarning.override.label "&amp;Ymmärrän ja haluan silti raportoida">
+<!ENTITY issues.disabled.enable.label "Ota Adblock Plus käyttöön tällä sivulla">
+<!ENTITY update.fixed.description "Suodatintilausten päivitykset todennäköisesti ratkaisivat raportoitavan ongelman. Päivitä sivusto ja yritä uudelleen. Mikäli ongelma säilyy, raportoi se.">
+<!ENTITY anonymous.label "&amp;Lähetä nimettömänä">
+<!ENTITY reloadButton.label "&amp;Päivitä sivu">
+<!ENTITY recentReports.clear.label "Poista kaikki &amp;raportit">
+<!ENTITY typeSelector.description "Tämä ikkuna ohjeistaa tarvittavat vaiheet Adblockin Plussan ongelmaraportin lähettämiseksi. Aluksi valitse onhelmatyyppi, jollaisen koet tällä sivulla:">
+<!ENTITY screenshot.remove.label "&amp;Poista arkaluontoista tietoa">
+<!ENTITY issues.ownfilters.description "Osa tämän sivun suodattimista on käyttäjän määrittelemiä. Poista käytöstä suodattimet, jotka saattavat aiheuttaa ongelmia:">
+<!ENTITY update.inProgress.description "Adblock Plussan pitää päivittää suodatintilaukset varmistaakseen, että ongelmaa ei ole jo ratkottu. Odota hetki...">
+<!ENTITY sendPage.retry.label "Lähetä uudelleen">
+<!ENTITY data.label "Raportin tie&amp;dot:">
+<!ENTITY recentReports.label "Näytä viimeksi lähetemäsi raportit">
+<!ENTITY typeWarning.description "Olet antanut ymmärtää halukkuutesi raportoida yleisestä virheestä Adblock Plussassa suodattimien sijaan. Huomaa että tällaiset raportit olisi parasta jättää [link]Adblock Plussan foorumeille[/link]. Ongelmaraportteria tulisi käyttää vain täydentämään olevassa olevaa keskutelua, sillä kukaan ei huomioi raporttiasi, jos et anna siihen linkitystä. Rapotoidessa annetaan automaattisesti luotu linkki.">
+<!ENTITY issues.disabled.description "Adblock Plus on poissa käytöstö tällä sivulla, se ei estä mitään.">
+<!ENTITY attachExtensions.label "L&amp;iitä lista aktiivisista laajennuksista rapottiin siltä varalta, että jokin niistä on ongelma syy">
+<!ENTITY issues.nosubscriptions.add.label "Lisää suodatintilaus">
+<!ENTITY issues.disabledfilters.enable.label "Ota suodatin käyttöön">
+<!ENTITY issues.override.label "Asetukset ovat oikein, &amp;jatka raportoimista">
+<!ENTITY issues.nosubscriptions.description "Näyttäisi siltä, että et ole tilannut yhtään valmiiksi tehtyä suodatinlistaa, jotka poistavat automaattisesti sivuilta epämieluisaa sisältöä.">
+<!ENTITY typeSelector.falsePositive.description "Valitse tämä vaihtoehto, jos sivulta puuttu olennaista sisältöä tai se näkyy väärin. Voit päätellä onko Adblock Plus syy ongelmaan ottamalla sen väliaikaisesti pois kaytöstä.">
+<!ENTITY typeSelector.other.label "&amp;Muu ongelma">
+<!ENTITY emailComment.label "On suositeltavaa antaa voimassa oleva sähköpostiosoite, jotta sinuun voidaan ottaa yhteyttä raporttiin liittyvissä kysymyksissä. Tämä mahdollistaa myös avustuksiesi tunnistamisen ja priorisoinnin korkeammalle.">
+<!ENTITY issues.whitelist.remove.label "Ota Adblock Plus uudestaan käyttöön tällä sivulla">
+<!ENTITY outdatedSubscriptions.description "Seuraavia suodatintilauksia ei ole päivitetty ainakaan kahteen viikkoon. Päivitä nämä tilaukset ennen raportin lähettämistä, sillä ongelma on saattaanut jo ratketa.">
+<!ENTITY dataCollector.description "Odota hetki, kun Adblock Plus kerää tarvittavia tietoja.">
+<!ENTITY sendButton.label "&amp;Lähetä raportti">
+<!ENTITY comment.label "Kommentti (&amp;valinnainen):">
+<!ENTITY sendPage.errorMessage "Raportin lähettäminen epäonnistui virhekoodilla &quot;?1?&quot;. Varmista että olet yhteydessä Internettiin ja yritä uudelleen. Mikäli ongelma ei katoa, pyydä apua osoitteesta [link]Adblock Plus forum[/link].">
+<!ENTITY showRecentReports.label "Näytä viimeksi lähetetyt raportit">
+<!ENTITY commentPage.heading "Lisää kommentti">
+<!ENTITY update.start.label "Aloita päivittäminen nyt">
+<!ENTITY issues.disabledfilters.description "Seuraavat suodattimet on poistettu käytöstä mutta niillä saatta silti olla vaikutusta tällä sivulla:">
+<!ENTITY screenshot.description "Sama sivu saattaa näyttää erilaiselta eri ihmisillä. Ongelman ymmärtämistä saattaa helpottaa, jos liität raporttiisi kuvakaappauksen. Voit myös poistaa arkaluontoista tietoa tai merkitä ongelman kannalta huomattavia kohtia. Tehdäksesi tämän napsauta vastaava painiketta ja valitse kuvan kohta hiirellä.">
+<!ENTITY screenshot.attach.label "&amp;Liitä sivun kuva raporttiin">
+<!ENTITY issues.whitelist.description "Adblock Plus on tällä hetkellä poistettu käytöstä sivulla, jota olet raportoimassa. Ota se käyttöön ja ennen raportointia päivitä sivu. Tämä auttaa rapotin tutkimista.">
+<!ENTITY typeSelector.falseNegative.label "Adblock Plus &amp;ei estä mainosta">
+<!ENTITY typeSelector.heading "Valitse ongelman tyyppi">
+<!ENTITY anonymity.warning "Sinuun ei voida ottaa yhteyttä ja todennäköisesti priorisoimme raportin alemmas.">
+<!ENTITY wizard.title "Ongelman raportointi">
+<!ENTITY issues.ownfilters.disable.label "Poista suodatin käytöstä">
+<!ENTITY commentPage.description "Alla olevaan tekstikenttään voit syöttää kommentin (englanniksi) helpottaaksesi meitä ymmärtämään ongelman. Tämä vaihe on valinnainen mutta suositeltava, jos ongelma ei ole ilmiselvä. Voit myös käydä läpi raportin tiedot ennen sen lähettämistä.">
+<!ENTITY comment.lengthWarning "Kommentin pituus ylittää 1000 merkkiä. Vain ensimmäiset 1000 merkkiä lähetetään.">
+<!ENTITY typeSelector.falseNegative.description "Valitse tämä vaihtoehto, jos mainos näkyy vaikka Adblock Plus on käytössä.">
+<!ENTITY sendPage.waitMessage "Odota, Adblock Plus lähettää raporttia.">
+<!ENTITY dataCollector.heading "Tervetuloa ongelman raportoijaan">
+<!ENTITY screenshot.heading "Liitä kuvakaappaus">
+<!ENTITY sendPage.heading "Raportin lähettäminen">
+<!ENTITY issues.subscriptionCount.description "Näyttäisi siltä, että liian monta suodatintilausta on tilattuna. Tällainen järjestely ei ole suositeltavaa, sillä se nostaa ongelmien todennäköisyyttä. Emme voi hyväksyä ongelmaraporttia, koska jää epäselväksi kenen suodatintilauksen tekijän on ryhdyttävä korjaustoimiin. Poista kaikki paitsi välttämättömät suodatintilaukset ja kokeile esiintyykö ongelma yhä.">
+<!ENTITY screenshot.mark.label "&amp;Merkkaa ongelma">
+<!ENTITY privacyPolicy.label "Yksityisyyskäytäntö">
+<!ENTITY issues.description "Adblock Plus on havainnut ongelmia asetuksissa, jotka saattavat aiheuttaa tämän ongelman tai tehdä raportin tutkimisesta vaikeaa.">

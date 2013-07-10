@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Memory use while images with different addresses are being created continuously</title>
+  <script type="application/x-javascript;version=1.7" src="../../httpd.js"></script>
+</head>
+<body>
+  <p>This page will continuously create new images with different addresses and throw them away. This will make the memory use grow but it should reach a stable point after a few minutes where a certain limit is no longer exceeded. Also, old entries should disappear from the list of blockable items after a minute.</p>
+
+  <iframe id="frame" style="visibility: visible;"></iframe>
+
+  <script type="application/x-javascript;version=1.7">
+    function start()
+    {
+      window.addEventListener("unload", stop, false);
+      server.start(1234);
+
+      setInterval(function()
+      {
+        window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+              .getInterface(Components.interfaces.nsIDOMWindowUtils)
+              .garbageCollect();
+      }, 100);
+
+      server.registerPathHandler("/test", function(metadata, response)
+      {
+        response.setStatusLine("1.1", "200", "OK");
+        response.setHeader("Content-Type", "text/html");
+
+        let body = "<script>var i = 0; setInterval(function() { new Image().src = 'test' + (++i) + '.png'; }, 0);</" + "script>";
+        response.bodyOutputStream.write(body, body.length);
+      });
+
+      document.getElementById("frame").src = "http://127.0.0.1:1234/test";
+    }
+
+    function stop()
+    {
+      server.stop();
+    }
+
+    let server = new nsHttpServer();
+    window.addEventListener("load", start, false);
+  </script>
+</body>
+</html>

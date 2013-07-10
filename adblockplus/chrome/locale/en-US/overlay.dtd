@@ -1,0 +1,37 @@
+<!ENTITY status.tooltip         "Status:">
+<!ENTITY blocked.tooltip        "Blocked items on this page:">
+<!ENTITY filters.tooltip        "Most active filters:">
+
+<!ENTITY menuitem.label         "Ad&amp;block Plus Preferences">
+<!ENTITY toolbarbutton.label    "Adblock Plus">
+
+<!ENTITY context.image.label    "Adblock Plus: Block image">
+<!ENTITY context.object.label   "Adblock Plus: Block object">
+<!ENTITY context.frame.label    "Adblock Plus: Block frame">
+<!ENTITY context.media.label    "Adblock Plus: Block audio/video">
+<!ENTITY context.removeWhitelist.label  "Adblock Plus: Re-enable on this page">
+
+<!ENTITY sidebar.title          "Blockable items on current page">
+
+<!ENTITY sendReport.label       "&amp;Report issue on this page">
+<!ENTITY filters.label          "&amp;Filter preferences">
+<!ENTITY opensidebar.label      "Open &amp;blockable items">
+<!-- Note: This access key should usually be the same as closesidebar.accesskey. It is the same menu item with different label depending on whether the sidebar is currently open.-->
+<!ENTITY closesidebar.label     "Close &amp;blockable items">
+<!-- Note: This access key should usually be the same as opensidebar.accesskey. It is the same menu item with different label depending on whether the sidebar is currently open.-->
+<!-- Note: the placeholder ?1? will be replaced by the domain name of the current page -->
+<!ENTITY whitelist.site.label   "Disable on ?1?">
+<!ENTITY whitelist.page.label   "Disable on this page only">
+<!ENTITY disable.label          "Disable everywhere">
+<!ENTITY options.label          "&amp;Options">
+<!ENTITY contribute.label       "Contribute to Adblock Plus">
+
+<!ENTITY showintoolbar.label        "Show in tool&amp;bar">
+<!ENTITY showinstatusbar.label      "&amp;Show in status bar">
+<!ENTITY showinaddonbar.label       "Show in add-on &amp;bar">
+<!ENTITY objecttabs.label           "Show &amp;tabs on Flash and Java">
+<!ENTITY hideplaceholders.label     "Hide p&amp;laceholders of blocked elements">
+<!ENTITY counthits.label            "Count filter &amp;hits">
+<!ENTITY sync.label                 "Syn&amp;c Adblock Plus settings">
+<!ENTITY objecttab.title        "Block">
+<!ENTITY objecttab.tooltip      "Click here to block this object with Adblock Plus">

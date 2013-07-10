@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Filter initialization performance measurements</title>
+  <script type="application/x-javascript;version=1.7" src="common.js"></script>
+  <script type="application/x-javascript;version=1.7" src="../common.js"></script>
+</head>
+<body>
+  <p>
+    Filters to be used:<br>
+    <textarea id="filters" style="width: 100%; height: 300px;"></textarea><br>
+    <button id="startButton" onclick="start();">Click to start test</button>
+  </p>
+
+  <p id="progress" style="display: none;">Please wait while performance measurement is in progress... <span id="current"></span></p>
+
+  <pre id="result"></pre>
+
+  <script type="application/x-javascript;version=1.7">
+    prepareFilterComponents();
+
+    let filters = null;
+
+    window.onload = function()
+    {
+      let r = new XMLHttpRequest();
+      r.open("GET", "data/filters.txt", false);
+      r.overrideMimeType("text/plain");
+      r.send(null);
+      document.getElementById("filters").value = r.responseText;
+    }
+
+    function start()
+    {
+      document.getElementById("filters").disabled = true;
+      document.getElementById("startButton").disabled = true;
+      filters = document.getElementById("filters").value.replace(/^[\r\n]+/, "")
+                                                        .replace(/[\r\n]+$/, "")
+                                                        .split(/[\r\n]+/);
+      document.getElementById("result").textContent = "";
+      document.getElementById("progress").style.display = "";
+
+      runTests(runTest, cleanup, finalize);
+    }
+
+    function runTest()
+    {
+      for each (let text in filters)
+        Filter.fromText(text);
+    }
+
+    function cleanup()
+    {
+      // Clear cache
+      Filter.knownFilters = {__proto__: null};
+    }
+
+    function finalize()
+    {
+      document.getElementById("progress").style.display = "none";
+      document.getElementById("filters").disabled = false;
+      document.getElementById("startButton").disabled = false;
+      filters = null;
+    }
+  </script>
+</body>
+</html>

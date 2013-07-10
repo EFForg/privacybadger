@@ -1,0 +1,92 @@
+<!ENTITY dialog.title                         "Adblock Plus Filter Preferences">
+
+<!ENTITY subscriptions.tab.label              "Filter subscriptions">
+<!ENTITY filters.tab.label                    "Custom filters">
+
+<!ENTITY addSubscription.label                "Add &amp;filter subscription">
+<!ENTITY addSubscriptionAdd.label             "Add">
+<!ENTITY addSubscriptionCancel.label          "Cancel">
+<!ENTITY addSubscriptionOther.label           "Add a different subscription">
+
+<!ENTITY noSubscriptions.text                 "
+  You haven't added any filter subscriptions yet. Adblock Plus won't block
+  anything without filters, please use &quot;Add filter subscription&quot; to
+  add some.
+">
+<!ENTITY subscription.homepage.label          "Homepage">
+<!ENTITY subscription.external.label          "Updated by another extension">
+<!ENTITY subscription.source.label            "Filter list">
+<!ENTITY subscription.enabled.label           "Enabled">
+<!ENTITY subscription.lastDownload.label      "Last download:">
+<!ENTITY subscription.lastDownload.inProgress "Downloading…">
+<!ENTITY subscription.lastDownload.unknown    "N/A">
+<!ENTITY subscription.lastDownload.invalidURL "Failed, not a valid address">
+<!ENTITY subscription.lastDownload.connectionError "Failed, download failure">
+<!ENTITY subscription.lastDownload.invalidData "Failed, not a valid filters list">
+<!ENTITY subscription.lastDownload.checksumMismatch "Failed, checksum mismatch">
+<!ENTITY subscription.lastDownload.success    "Success">
+<!ENTITY subscription.minVersion.warning      "This filter subscription requires a newer Adblock Plus version, you should update to the latest Adblock Plus version.">
+<!ENTITY subscription.disabledFilters.warning "Some filters in this subscription are disabled.">
+<!ENTITY subscription.disabledFilters.enable  "Enable disabled filters">
+
+<!ENTITY subscription.actions.label           "Actions">
+<!ENTITY subscription.update.label            "Update filters">
+<!ENTITY subscription.editTitle.label         "Edit title">
+<!ENTITY subscription.delete.label            "Delete">
+<!ENTITY subscription.showHideFilters.label   "Show/hide filters">
+<!ENTITY subscription.moveUp.label            "Move up">
+<!ENTITY subscription.moveDown.label          "Move down">
+
+<!ENTITY acceptableAds2.label                 "Allow some non-&amp;intrusive advertising">
+<!ENTITY viewList.label                       "View list">
+<!ENTITY readMore.label                       "Read more">
+
+<!ENTITY addGroup.label                       "Add filter &amp;group">
+<!ENTITY noFilters.text                       "
+  You don't have any custom filters yet.
+">
+
+<!ENTITY addFilter.label                      "A&amp;dd filter">
+<!ENTITY filter.actions.label                 "Filter actions">
+<!ENTITY filter.edit.label                    "Edit">
+<!ENTITY filter.cut.label                     "Cut">
+<!ENTITY filter.copy.label                    "Copy">
+<!ENTITY filter.paste.label                   "Paste">
+<!ENTITY filter.delete.label                  "Delete">
+<!ENTITY filter.selectAll.label               "Select All">
+<!ENTITY filter.resetHitCounts.label          "Reset hit statistics">
+<!ENTITY filter.moveUp.label                  "Move up">
+<!ENTITY filter.moveDown.label                "Move down">
+<!ENTITY viewMenu.label                       "View">
+
+<!ENTITY filter.column                        "&amp;Filter rule">
+<!ENTITY slow.column                          "Slo&amp;w filters">
+<!ENTITY enabled.column                       "E&amp;nabled">
+<!ENTITY hitcount.column                      "&amp;Hits">
+<!ENTITY lasthit.column                       "&amp;Last hit">
+<!ENTITY sort.label                           "&amp;Sort by">
+<!ENTITY sort.none.label                      "&amp;Unsorted">
+<!ENTITY sort.ascending.label                 "&amp;A > Z sort order">
+<!ENTITY sort.descending.label                "&amp;Z > A sort order">
+<!ENTITY noGroupSelected.text                 "You need to select a filter group before its filters can be displayed.">
+<!ENTITY noFiltersInGroup.text                "The selected group is empty.">
+
+<!ENTITY filters.remove.warning               "Do you really want to remove all selected filters?">
+
+<!ENTITY backupButton.label                   "&amp;Backup and Restore">
+<!ENTITY backup.label                         "Create new backup">
+<!-- Note: the placeholder ?1? will be replaced by date/time of the automatic backup -->
+<!ENTITY restore.default.label                "Restore backup from ?1?">
+<!ENTITY restore.own.label                    "Restore own backup">
+
+<!ENTITY backup.complete.title                "All filters and subscriptions">
+<!ENTITY backup.custom.title                  "Custom filters only">
+
+<!ENTITY backup.error                         "There was an error writing filters to the file. Make sure that the file isn't write protected or in use by another application.">
+<!ENTITY restore.error                        "The file's data could not be processed, maybe this isn't an Adblock Plus backup file?">
+<!ENTITY restore.complete.warning             "All your filter preferences will be replaced by the contents of the selected file. Do you want to proceeed?">
+<!ENTITY restore.custom.warning               "All your custom filters will be replaced by the contents of the selected file. Do you want to proceeed?">
+<!ENTITY restore.minVersion.warning           "Warning: the file has been created with a newer Adblock Plus version. You should update to the latest Adblock Plus version before restoring from this file.">
+
+<!ENTITY find.label                           "Fi&amp;nd">
+<!ENTITY close.label                          "Close">

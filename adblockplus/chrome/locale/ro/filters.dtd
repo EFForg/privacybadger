@@ -1,0 +1,72 @@
+<!ENTITY restore.custom.warning "Toate filtrele proprii vor fi înlocuite de către conţinutul fişierului ales. Doriţi să continuaţi?">
+<!ENTITY slow.column "Fi&amp;ltre lente">
+<!ENTITY enabled.column "Activat (&amp;S)">
+<!ENTITY subscription.lastDownload.checksumMismatch "Eşuat, suma de control nu se potriveşte.">
+<!ENTITY noFiltersInGroup.text "Grupul selectat este gol.">
+<!ENTITY subscription.actions.label "Acțiuni">
+<!ENTITY filter.selectAll.label "Selectează toate">
+<!ENTITY backupButton.label "&amp;Salvare și Restaurare">
+<!ENTITY restore.minVersion.warning "Avertisment: acest fişier a fost creat de către o versiune mai nouă de Adblock Plus. Se recomandă utilizarea celei mai noi versiuni.">
+<!ENTITY restore.error "Datele din fişier nu pot fi folosite. Verificaţi dacă fişierul a fost într-adevăr create de către Adblock Plus.">
+<!ENTITY sort.ascending.label "Crescător (&amp;A&gt;Z)">
+<!ENTITY sort.label "&amp;Ordonare">
+<!ENTITY subscription.source.label "Listă de filtre">
+<!ENTITY hitcount.column "&amp;Contor">
+<!ENTITY noFilters.text "Nu aveţi nici un filtru propriu.">
+<!ENTITY backup.custom.title "Doar filtre proprii">
+<!ENTITY subscription.external.label "Actualizat de altă extensie">
+<!ENTITY subscription.delete.label "Șterge">
+<!ENTITY noGroupSelected.text "Pentru a vizualiza filtre, trebuie să alegeţi mai întâi un grup.">
+<!ENTITY filter.cut.label "Taie">
+<!ENTITY restore.default.label "Restaurează salvarea din ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Descărcare...">
+<!ENTITY subscriptions.tab.label "Abonamente filtre">
+<!ENTITY sort.descending.label "Descrescător (&amp;Z&gt;A)">
+<!ENTITY filters.remove.warning "Sunteţi sigur că doriţi să ştergeţi filtrele selectate?">
+<!ENTITY filter.delete.label "Şterge">
+<!ENTITY addSubscriptionAdd.label "Adaugă">
+<!ENTITY viewMenu.label "Vizualizare">
+<!ENTITY subscription.lastDownload.unknown "Necunoscut">
+<!ENTITY addSubscriptionCancel.label "Anulează">
+<!ENTITY subscription.enabled.label "Activat">
+<!ENTITY noSubscriptions.text "Nu aţi adăugat nici un abonament de filtre. Adblock Plus nu blochează nimic dacă nu are filtre. Puteţi folosi butonul Adaugă abonament filtre pentru a vă abona la câteva liste de filtre.">
+<!ENTITY subscription.update.label "Actualizează filtre">
+<!ENTITY dialog.title "Preferințe filtre Adblock Plus">
+<!ENTITY addFilter.label "A&amp;daugă filtru">
+<!ENTITY subscription.minVersion.warning "Acest abonament necesită o versiune mai nouă de Adblock Plus. Se recomandă utilizarea celei mai noi versiuni.">
+<!ENTITY subscription.lastDownload.invalidURL "Eşuat, adresa nu este validă">
+<!ENTITY backup.error "O eroare a apărut la scrierea fişierului. Asiguraţi-vă că fişierul nu este protejat la scriere sau folosit de către altă aplicaţie.">
+<!ENTITY filter.moveUp.label "Mută sus">
+<!ENTITY addGroup.label "Adau&amp;gă grup filtre">
+<!ENTITY filter.edit.label "Editează">
+<!ENTITY subscription.showHideFilters.label "Arată/ascunde filtre">
+<!ENTITY acceptableAds2.label "&amp;Permite publicitatea discretă">
+<!ENTITY addSubscriptionOther.label "Adaugă alt abonament">
+<!ENTITY close.label "Închide">
+<!ENTITY sort.none.label "&amp;Neordonat">
+<!ENTITY filter.actions.label "Acțiuni filtre">
+<!ENTITY filter.copy.label "Copiază">
+<!ENTITY filter.moveDown.label "Mută jos">
+<!ENTITY filter.resetHitCounts.label "Iniţializează statisticile filtrelor">
+<!ENTITY readMore.label "Citește mai mult">
+<!ENTITY subscription.moveUp.label "Mută sus">
+<!ENTITY addSubscription.label "Adaugă a&amp;bonament filtru">
+<!ENTITY subscription.homepage.label "Pagina de start">
+<!ENTITY backup.complete.title "Toate filtrele și abonamentele">
+<!ENTITY restore.own.label "Restaurează propria salvare">
+<!ENTITY restore.complete.warning "Toate opţiunile filtrelor vor fi înlocuite de către conţinutul fişierului ales. Doriţi să continuaţi?">
+<!ENTITY filters.tab.label "Filtre proprii">
+<!ENTITY backup.label "Crează salvare nouă">
+<!ENTITY find.label "&amp;Caută">
+<!ENTITY subscription.moveDown.label "Mută jos">
+<!ENTITY subscription.lastDownload.connectionError "Eşuat, descărcare nereuşită">
+<!ENTITY subscription.lastDownload.success "Succes">
+<!ENTITY subscription.lastDownload.invalidData "Eşuat, lista nu este validă">
+<!ENTITY filter.paste.label "Lipeşte">
+<!ENTITY subscription.disabledFilters.enable "Activează filtrele inactive">
+<!ENTITY lasthit.column "&amp;Ultima aplicare">
+<!ENTITY subscription.editTitle.label "Editează titlu">
+<!ENTITY subscription.disabledFilters.warning "Unele filtre din acest abonament sunt dezactivate.">
+<!ENTITY filter.column "&amp;Regulă de filtrare">
+<!ENTITY subscription.lastDownload.label "Ultima descărcare:">
+<!ENTITY viewList.label "Afişare listă">

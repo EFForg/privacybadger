@@ -1,0 +1,15 @@
+<!ENTITY match.warning "Il muster che ti has endatà na correspunda betg pli a l'adressa che duai vegnir bloccada/lubida e na vegn betg ad avair in effect sin quella.">
+<!ENTITY accept.label "Agiuntar filter">
+<!ENTITY type.filter.label "Filter che &amp;blocchescha">
+<!ENTITY disabled.warning "Adblock Plus è actualmain deactivà. Ti pos tuttina agiuntar filters ma quels na vegnan betg applitgads senza che ti [link]activeschas Adblock Plus[/link].">
+<!ENTITY custom.pattern.label "&amp;Persunalisà:">
+<!ENTITY shortpattern.warning "Il muster che ti has endatà e memia curt per vegnir optimà e pudess far pli plaun tes navigatur. Nus recumandain che ti tschernas in string pli lung per quest filter per che Adblock Plus possia elavurar pli effectiv quest filter.">
+<!ENTITY preferences.label "&amp;Mussar ils filters existents…">
+<!ENTITY advanced.label "Vista avanzada">
+<!ENTITY pattern.label "Tschertgar in muster">
+<!ENTITY type.whitelist.label "Regla d'e&amp;xcepziun">
+<!ENTITY regexp.warning "Il muster che ti has endatà vegn interpretà sco expressiun regulara che na po betg vegnir elavurada effectivamain dad Adblock Plus e pudess far pli plaun tes navigatur. Sche ti na levas betg utilisar ina expressziun regulara, agiuntescha ina staila (*) a la fin dal muster.">
+<!ENTITY dialog.title "Agiuntar regla da filtrar per Adblock Plus">
+<!ENTITY basic.label "Vista da basa">
+<!ENTITY filter.label "Nov &amp;filter:">
+<!ENTITY pattern.explanation "Il muster po esser miintga part da l'adressa; stailas (*) èn tegnaplazzas. Il filter vegn be applitgà ad adressas che correspundan il muster surdà.">

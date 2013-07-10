@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE vbox [
+<!ENTITY % overlayDTD SYSTEM "chrome://adblockplus/locale/overlay.dtd">
+%overlayDTD;
+<!ENTITY % filtersDTD SYSTEM "chrome://adblockplus/locale/filters.dtd">
+%filtersDTD;
+]>
+
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <setting pref="extensions.adblockplus.enabled" type="bool" inverted="true" title="&disable.label;"/>
+  <setting type="control" title="&subscriptions.tab.label;">
+    <menulist id="adblockplus-subscription-list"/>
+  </setting>
+  <setting id="adblockplus-acceptableAds" type="bool" title="&acceptableAds2.label;"
+    oncommand="/**See bug 762015*/ if (event.type == 'oncommand') {event = document.createEvent('Events'); event.initEvent('command', false, false); this.dispatchEvent(event);}"/>
+  <setting pref="extensions.adblockplus.fastcollapse" type="bool" title="&hideplaceholders.label;"
+           inverted="true"/>
+  <setting id="adblockplus-sync" type="bool" title="&sync.label;"
+    oncommand="/**See bug 762015*/ if (event.type == 'oncommand') {event = document.createEvent('Events'); event.initEvent('command', false, false); this.dispatchEvent(event);}"/>
+</vbox>

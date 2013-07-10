@@ -1,0 +1,107 @@
+{
+  "add": {
+    "message": "Pievienot"
+  },
+  "add_domain_button": {
+    "message": "Pievienot domēnu"
+  },
+  "add_filter_button": {
+    "message": "Pievienot filtru"
+  },
+  "add_filters_msg": {
+    "message": "Pievienot filtru(s)?"
+  },
+  "add_your_own_filters": {
+    "message": "Pievieno savus filtrus"
+  },
+  "apply_changes": {
+    "message": "Pielietot izmaiņas"
+  },
+  "block_element": {
+    "message": "Bloķēt elementu"
+  },
+  "cancel": {
+    "message": "Atcelt"
+  },
+  "clickhide_instructions": {
+    "message": "Pēc šī aizvēršanas, noklikšķiniet (vai noklikšķiniet ar labo pogu) uz elementa šajā lapā."
+  },
+  "disable_inline": {
+    "message": "Atspējot iekš-rindu teksta reklāmas"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus Jūsu izvēlētajos domēnos ir atslēgts. Jūs varat pievienot domēnu izmantojot Adblock Plus, kas atrodas adreses joslā, vai ievadot domēnu (nevis URL) kastē un noklikšķinot uz pogas \"Pievienot domēnu\"."
+  },
+  "easy_create_filter": {
+    "message": "Viegli izveidot filtru"
+  },
+  "edit_filters_raw": {
+    "message": "Labot filtrus kā jēlu tekstu"
+  },
+  "enable_only_the": {
+    "message": "Iespējo tikai vajadzīgos filtru sarakstus. Pārāk daudzi var padarīt Chrome nereaģējošu."
+  },
+  "enabled_for_site": {
+    "message": "Iespējots šajā vietnē"
+  },
+  "filter_lists": {
+    "message": "Filtru saraksts"
+  },
+  "found_a_bug": {
+    "message": "Atradi defektu? Vēlies iztulkot Adblock Plus savā valodā? Lūdzu <a href='$url$'>iesniedz pieprasījumu šeit</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Vispārīgi"
+  },
+  "last_updated_at": {
+    "message": "Pēdējo reiz atjaunināts $time$ $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Pēdējo reiz atjaunināts šodien plkst. $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Jauni filtri pievienoti; lai tos pārvaldītu, skatiet <a id='options_url' target='_blank'>Opcijas</a>."
+  },
+  "options": {
+    "message": "Adblock Plus Opcijas"
+  },
+  "out_of_date_lists": {
+    "message": "Novecojušie saraksti tiek periodiski atjaunināti."
+  },
+  "remove_button": {
+    "message": "Noņemt izvēlēto"
+  },
+  "show_block_element_menu": {
+    "message": "Rādīt 'Bloķēt elementu''labā klikšķa izvēlnē"
+  },
+  "show_icon": {
+    "message": "Rādīt ikonu adreses joslā"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Lūdzu, izvēlieties filtru abonementu no saraksta:"
+  },
+  "update_now": {
+    "message": "Atjaunināt tagad"
+  },
+  "whitelisted_domains": {
+    "message": "Domēni baltajā sarakstā"
+  }
+}

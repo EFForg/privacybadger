@@ -1,0 +1,29 @@
+<!ENTITY sync.label "Синхроні&amp;зувати налаштуванна Адблоку">
+<!ENTITY whitelist.site.label "Вимкнути: на ?1?">
+<!ENTITY filters.label "&amp;Налаштування фільтрів">
+<!ENTITY disable.label "Вимкнути всюди">
+<!ENTITY showinaddonbar.label "Показувати в панелі &amp;додатків">
+<!ENTITY objecttab.title "Заблокувати">
+<!ENTITY objecttab.tooltip "Натисніть тут, щоб заблокувати цей об’єкт">
+<!ENTITY menuitem.label "Налаштування &amp;Adblock Plus">
+<!ENTITY objecttabs.label "Показувати &amp;ярлик на Flash і Java">
+<!ENTITY sendReport.label "Повідомити про проблеми на &amp;сторінці">
+<!ENTITY whitelist.page.label "Вимкнути: тільки на цій сторінці">
+<!ENTITY context.image.label "Adblock Plus: заблокувати зображення">
+<!ENTITY counthits.label "&amp;Рахувати хіти фільтрів">
+<!ENTITY opensidebar.label "Відкрити с&amp;писок елементів">
+<!ENTITY contribute.label "Допомогти Адблоку">
+<!ENTITY toolbarbutton.label "Adblock Plus">
+<!ENTITY context.frame.label "Adblock Plus: заблокувати фрейм">
+<!ENTITY blocked.tooltip "Заблоковані елементи на цій сторінці:">
+<!ENTITY hideplaceholders.label "При&amp;ховувати замінники заблокованих елементів">
+<!ENTITY showinstatusbar.label "Показувати в рядку &amp;стану">
+<!ENTITY sidebar.title "Елементи відкритої сторінки">
+<!ENTITY options.label "Н&amp;алаштування">
+<!ENTITY context.object.label "Adblock Plus: заблокувати об’єкт">
+<!ENTITY context.removeWhitelist.label "Adblock Plus: Знов увімкнути для цієї сторінки">
+<!ENTITY filters.tooltip "Найбільш часто застосовані фільтри:">
+<!ENTITY closesidebar.label "Закрити с&amp;писок елементів">
+<!ENTITY showintoolbar.label "По&amp;казувати в панелі інструментів">
+<!ENTITY status.tooltip "Статус:">
+<!ENTITY context.media.label "Adblock Plus: Блокувати аудіо/відео">

@@ -1,0 +1,22 @@
+<!ENTITY slow.column "Filtruesit e ngadalshëm">
+<!ENTITY lasthit.column "Shtypja e fundit">
+<!ENTITY sort.ascending.label "A &gt; Z radhitje">
+<!ENTITY sort.label "Radhit sipas">
+<!ENTITY filter.paste.label "Hedh">
+<!ENTITY subscription.lastDownload.inProgress "Duke u shkarkuar...">
+<!ENTITY subscriptions.tab.label "Filtroni abonimet">
+<!ENTITY filter.delete.label "Fshijë">
+<!ENTITY enabled.column "Aktivizo">
+<!ENTITY viewMenu.label "Shih">
+<!ENTITY subscription.lastDownload.unknown "N/D">
+<!ENTITY dialog.title "Filtroni preferencat e Adblock Plus">
+<!ENTITY hitcount.column "Shtypje">
+<!ENTITY filter.cut.label "Kopjo-largo">
+<!ENTITY sort.none.label "Pa radhitur">
+<!ENTITY filter.copy.label "Kopjo">
+<!ENTITY find.label "Kërko">
+<!ENTITY sort.descending.label "Z &gt; A radhitje">
+<!ENTITY subscription.lastDownload.success "Sukses">
+<!ENTITY addFilter.label "Vendos filtrues">
+<!ENTITY subscription.lastDownload.label "Shkarkimi i fundit:">
+<!ENTITY filter.column "Rregulla e filtrimit">

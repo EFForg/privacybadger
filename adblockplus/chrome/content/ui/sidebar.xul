@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://adblockplus/skin/sidebar.css" type="text/css"?>
+
+<!DOCTYPE page SYSTEM "chrome://adblockplus/locale/sidebar.dtd">
+
+<page
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  id="abp-sidebar"
+  onload="init()"
+  onunload="cleanUp()"
+  docDomainThirdParty="&docDomain.thirdParty;"
+  docDomainFirstParty="&docDomain.firstParty;">
+
+  <script type="application/x-javascript;version=1.7" src="utils.js"/>
+  <script type="application/x-javascript;version=1.7" src="sidebar.js"/>
+  <script type="application/x-javascript;version=1.7" src="flasher.js"/>
+
+  <keyset id="sidebarKeys">
+    <key id="block-key" keycode="VK_ENTER"/>
+    <key id="copy-key" modifiers="accel" key="C" command="copy-command"/>
+    <key id="selectAll-key" modifiers="accel" key="A" command="selectAll-command"/>
+  </keyset>
+
+  <commandset id="sidebarCommands">
+    <command id="copy-command" oncommand="copyToClipboard()" disabled="true"/>
+    <command id="selectAll-command" oncommand="selectAll()"/>
+  </commandset>
+
+  <popupset id="sidebarPopups">
+    <tooltip id="tooltip" orient="vertical" onpopupshowing="fillInTooltip(event);">
+      <description id="tooltipDummy"/>
+      <hbox id="tooltipPreviewBox" pack="start">
+        <image id="tooltipPreview" validate="never"/>
+      </hbox>
+      <grid>
+        <columns>
+          <column/>
+          <column flex="1"/>
+        </columns>
+        <rows>
+          <row id="tooltipAddressRow" align="top">
+            <label value="&tooltip.address.label;"/>
+            <vbox id="tooltipAddress"/>
+          </row>
+          <row id="tooltipTypeRow">
+            <label value="&tooltip.type.label;"/>
+            <description id="tooltipType" filtered="&tooltip.type.blocked;" whitelisted="&tooltip.type.whitelisted;"/>
+          </row>
+          <row id="tooltipSizeRow">
+            <label value="&tooltip.size.label;"/>
+            <description id="tooltipSize"/>
+          </row>
+          <row id="tooltipDocDomainRow">
+            <label value="&tooltip.docDomain.label;"/>
+            <description id="tooltipDocDomain"/>
+          </row>
+          <row id="tooltipFilterRow" align="top">
+            <label value="&tooltip.filter.label;"/>
+            <vbox id="tooltipFilter" disabledText="&tooltip.filter.disabled;"/>
+          </row>
+          <row id="tooltipFilterSourceRow" align="top">
+            <label value="&tooltip.filterSource.label;"/>
+            <vbox id="tooltipFilterSource"/>
+          </row>
+        </rows>
+      </grid>
+    </tooltip>
+
+    <menupopup id="context" onpopupshowing="return fillInContext(event)">
+      <menuitem id="contextBlock" label="&context.block.label;…" oncommand="doBlock()" key="block-key"/>
+      <menuitem id="contextWhitelist" label="&context.whitelist.label;…" oncommand="doBlock()" key="block-key"/>
+      <menuitem id="contextEditFilter" label="&context.editfilter.label;…" oncommand="editFilter()"/>
+      <menuitem id="contextDisableFilter" labeltempl="&context.disablefilter.label;" oncommand="enableFilter(treeView.getSelectedItem().filter, false)"/>
+      <menuitem id="contextEnableFilter" labeltempl="&context.enablefilter.label;" oncommand="enableFilter(treeView.getSelectedItem().filter, true)"/>
+      <menuitem id="contextDisableOnSite" labeltempl="&context.disablefilteronsite.label;" oncommand="disableOnSite()"/>
+      <menuseparator id="contextOpenSep"/>
+      <menuitem id="contextOpen" label="&context.open.label;" oncommand="openInTab(null, event)"/>
+      <menuitem id="contextFlash" label="&context.flash.label;" oncommand="onSelectionChange()"/>
+      <menuitem id="contextCopy" label="&context.copy.label;" command="copy-command" key="copy-key"/>
+      <menuitem id="contextCopyFilter" label="&context.copyFilter.label;" oncommand="copyFilter()"/>
+      <menuseparator id="contextSelectSep"/>
+      <menuitem id="contextSelectAll" label="&context.selectAll.label;" command="selectAll-command" key="selectAll-key"/>
+    </menupopup>
+  </popupset>
+
+  <hbox>
+    <hbox align="center" flex="1">
+      <label value="&search.label;" control="searchField"/>
+      <textbox id="searchField" flex="1" type="search" oncommand="treeView.setFilter(this.value)"/>
+    </hbox>
+    <description id="detachButton" value="&detach.label;" onclick="detach(true)"/>
+    <description id="reattachButton" value="&reattach.label;" onclick="if (this.getAttribute('disabled') != 'true') detach(false)" hidden="true"/>
+  </hbox>
+
+  <tree id="list" context="context" flex="1" seltype="multiple" enableColumnDrag="true"
+        defaultSort="state descending" persist="defaultSort"
+        onkeypress="if (event.keyCode == event.DOM_VK_RETURN || event.keyCode == event.DOM_VK_ENTER) doBlock()">
+    <treecols>
+      <treecol id="address" label="&address.label;" flex="2" crop="center" persist="width ordinal sortDirection hidden"/>
+      <splitter class="tree-splitter"/>
+      <treecol id="filter" label="&filter.label;" flex="1" persist="width ordinal sortDirection hidden"/>
+      <splitter class="tree-splitter"/>
+      <treecol id="type" label="&type.label;" width="80" persist="width ordinal sortDirection hidden"/>
+      <splitter class="tree-splitter"/>
+      <treecol id="state" label="&state.label;" width="16" persist="width ordinal sortDirection hidden"/>
+      <splitter class="tree-splitter"/>
+      <treecol id="size" label="&size.label;" width="60" hidden="true" persist="width ordinal sortDirection hidden"/>
+      <splitter class="tree-splitter"/>
+      <treecol id="docDomain" label="&docDomain.label;" width="100" hidden="true" persist="width ordinal sortDirection hidden"/>
+      <splitter class="tree-splitter"/>
+      <treecol id="filterSource" label="&filterSource.label;" width="100" hidden="true" persist="width ordinal sortDirection hidden"/>
+    </treecols>
+    <treechildren id="treechildren"
+                  tooltip="tooltip"
+                  onclick="handleClick(event)"
+                  ondblclick="handleDblClick(event)"
+                  noitemslabel="&noitems.label;"
+                  whitelistedlabel="&whitelisted.label;"/>
+  </tree>
+</page>

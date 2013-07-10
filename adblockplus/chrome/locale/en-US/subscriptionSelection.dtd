@@ -1,0 +1,19 @@
+<!ENTITY dialog.title               "Add Adblock Plus filter subscription">
+
+<!ENTITY viewList.label             "View filters">
+<!ENTITY visitHomepage.label        "Visit home page">
+
+<!ENTITY addSubscription.label      "Add subscription">
+
+<!ENTITY list.download.failed       "Adblock Plus failed to retrieve the list of subscriptions.">
+<!ENTITY list.download.retry        "Try again">
+<!ENTITY list.download.website      "View website">
+
+<!ENTITY fromWeb.description        "Please confirm that you want to add this filter subscription. You can change the subscription title or location before adding it.">
+
+<!ENTITY title.label                "Subscrip&amp;tion title:">
+<!ENTITY location.label             "Fi&amp;lter list location:">
+<!-- Note: the placeholder (?1?) will be replaced by the name of the filter subscription required -->
+<!ENTITY supplementMessage          "This filter subscription is meant to be used with the filter subscription &quot;?1?&quot; which you are not using yet.">
+<!-- Note: the placeholder (?1?) will be replaced by the name of the filter subscription required -->
+<!ENTITY addMain.label              "Add filter &amp;subscription &quot;?1?&quot; as well">

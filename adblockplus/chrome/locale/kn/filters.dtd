@@ -1,0 +1,5 @@
+<!ENTITY subscription.lastDownload.inProgress "ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ...">
+<!ENTITY subscription.lastDownload.label "ಹಿಂದಿನ ಡೌನ್‌ಲೋಡ್:">
+<!ENTITY subscription.lastDownload.unknown "ಸಂಬಂಧಪಡದ">
+<!ENTITY addSubscriptionOther.label "ಇನ್ನೊಂದು ಚಂದಾವನ್ನು ಸೇರಿಸಿ">
+<!ENTITY subscription.lastDownload.success "ಗೆಲುವು">

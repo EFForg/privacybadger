@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "افزودن اشتراک پالایه &quot;?1?&quot; هم&amp;چنین">
+<!ENTITY list.download.failed "فوق تبلیغ شکن موفق نشد که فهرست اشتراکات را بازیابی کند.">
+<!ENTITY list.download.retry "تلاش مجدد">
+<!ENTITY title.label "عنوان ا&amp;شتراک:">
+<!ENTITY list.download.website "دیدن پایگاه تحت شبکه">
+<!ENTITY supplementMessage "این اشتراک پالایه به معنی آن است که با اشتراک پالایه &quot;?1?&quot; استفاده می شود که شما هنوز در آن مشترک نشده اید.">
+<!ENTITY viewList.label "دیدن پالایه ها">
+<!ENTITY visitHomepage.label "بازدید از صفحه خانگی">
+<!ENTITY addSubscription.label "افزودن اشتراک">
+<!ENTITY dialog.title "افزودن اشتراک پالایه فوق تبلیغ شکن">
+<!ENTITY location.label "نشانی &amp;فهرست پالایه ها:">
+<!ENTITY fromWeb.description "لطفا تایید کنید که قصد افزودن این اشتراک پالایه را دارید. شما می توانید قبل از افزودن، نام و مسیر اشتراک را تغییر دهید.">

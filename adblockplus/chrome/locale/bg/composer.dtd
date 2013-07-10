@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "в края на адре&amp;са">
+<!ENTITY domainRestriction.label "Ог&amp;раничаване на домейн:">
+<!ENTITY collapse.default.no.label "Ползвай по подразбиране(не)">
+<!ENTITY firstParty.label "Първа страна сам&amp;о">
+<!ENTITY preferences.label "Покажи съ&amp;ществуващите филтри..">
+<!ENTITY pattern.label "Търсете модел">
+<!ENTITY thirdParty.label "&amp;Трети страни само">
+<!ENTITY filter.label "Нов Филт&amp;ър:">
+<!ENTITY collapse.label "Свиван&amp;е на блокирани:">
+<!ENTITY match.warning "Моделът, който сте въвели, вече не отговаря на адреса за блокиране/белия списък и няма да въздействa върху него.">
+<!ENTITY anchor.start.label "в на&amp;чалото на адреса">
+<!ENTITY matchCase.label "Съвпадение на ре&amp;гистъра">
+<!ENTITY custom.pattern.label "&amp;Избрани:">
+<!ENTITY unselectAllTypes.label "Не избирай нищо">
+<!ENTITY type.whitelist.label "Из&amp;ключение от правилото">
+<!ENTITY regexp.warning "Моделът който сте въвели ще бъде интерпретиран като регулярен израз, които не могат да бъдат ефективно обработени с Adblock Плюс и могат да забавят твоят браузър. Ако не възнамерявате да използвате регулярен израз, добавете звездичка (*) към края на модела.">
+<!ENTITY dialog.title "Добавяне на Adblock Plus филтър правило">
+<!ENTITY basic.label "Основен изглед">
+<!ENTITY type.filter.label "&amp;Блокиране на филтър">
+<!ENTITY types.label "Прилага за типове:">
+<!ENTITY shortpattern.warning "Моделът които сте въвели е твърде кратък, за да бъде оптимизиран и може да забави вашия браузър. Препоръчително е да изберете по-дълъг низ за този филтър, за да позволи Adblock Плюс за по-ефективна обработка на филтъра.">
+<!ENTITY collapse.yes.label "Да">
+<!ENTITY anchors.label "Приемам само модел:">
+<!ENTITY collapse.default.yes.label "Ползвай по подразбиране(да)">
+<!ENTITY domainRestriction.help "Използвайте тази опция, за да зададете една или повече области, разделени с бар линия (|). Филтърът ще се прилага само за избран(и) домейн(и). А тилда (~) пред името на домейна се посочва, че филтърът не се прилага в този домейн.">
+<!ENTITY accept.label "Добави Филтър">
+<!ENTITY options.label "Настройки">
+<!ENTITY disabled.warning "Adblock Плюс е изключена. Все още можете да добавите филтри, но те няма да се прилагат, освен ако не [link]Включите Adblock Плюс[/link].">
+<!ENTITY anchor.start.flexible.label "в на&amp;чалото на домейн името">
+<!ENTITY collapse.no.label "Не">
+<!ENTITY selectAllTypes.label "Избери всички">
+<!ENTITY advanced.label "Разширен изглед">
+<!ENTITY pattern.explanation "Моделът може да бъде част от адрес; звездичка (*) да действа като заместващи символи. Филтърът ще се прилага само за адресите, отговарящи на предвидения образец.">

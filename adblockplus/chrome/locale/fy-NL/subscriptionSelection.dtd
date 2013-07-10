@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "&amp;Filterabonnemint &quot;?1?&quot; ek tafoegje">
+<!ENTITY list.download.failed "It is Adblock Plus net slagge om de list mei abonneminten te krijen.">
+<!ENTITY list.download.retry "Op 'e nij besykje">
+<!ENTITY title.label "A&amp;bonnemintnamme:">
+<!ENTITY list.download.website "Toan webstee">
+<!ENTITY supplementMessage "Dit filterabonnemint is bedoeld om brûkt te wurden mei it filterabonnemint &quot;?1?&quot; dy't jo no noch net brûke.">
+<!ENTITY viewList.label "Toan filters">
+<!ENTITY visitHomepage.label "Besykje thússide">
+<!ENTITY addSubscription.label "Abonnemint tafoegje">
+<!ENTITY dialog.title "Foegje Adblock Plus filterabonnemint ta">
+<!ENTITY location.label "Fi&amp;lterlist lokaasje:">
+<!ENTITY fromWeb.description "Befestigje asjobleaft dat jo dit filterabonnemint tafoegje wolle. Jo kinne de abonneminttitel of lokaasje wizigje foardat jo it tafoegje.">

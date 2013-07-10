@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "na &amp;końcu adresu">
+<!ENTITY domainRestriction.label "Ogranicz do dom&amp;eny:">
+<!ENTITY collapse.default.no.label "Użyj domyślnej (nie)">
+<!ENTITY firstParty.label "Tylko pie&amp;rwszy człon">
+<!ENTITY preferences.label "Wyświetl istniejące &amp;filtry…">
+<!ENTITY pattern.label "Poszukaj wzorca">
+<!ENTITY thirdParty.label "Tylko trze&amp;ci człon">
+<!ENTITY filter.label "&amp;Nowy filtr:">
+<!ENTITY collapse.label "&amp;Zwiń zablokowane:">
+<!ENTITY match.warning "Podany wzorzec nie pasuje do żadnego blokowanego/dozwolonego adresu i nie będzie miał zastosowania.">
+<!ENTITY anchor.start.label "na &amp;początku adresu">
+<!ENTITY matchCase.label "&amp;Uwzględniaj wielkość liter">
+<!ENTITY custom.pattern.label "Wła&amp;sny:">
+<!ENTITY unselectAllTypes.label "Odznacz wszystko">
+<!ENTITY type.whitelist.label "Reguła &amp;wyjątku">
+<!ENTITY regexp.warning "Podany wzorzec będzie interpretowany jako wyrażenie regularne, które nie może być skutecznie przetwarzane przez Adblock Plusa i może powodować spowolnienie działania przeglądarki. Jeśli nie zamierzasz używać wyrażenia regularnego, dodaj gwiazdkę (*) na końcu wzorca.">
+<!ENTITY dialog.title "Dodawanie reguły filtra">
+<!ENTITY basic.label "Wygląd podstawowy">
+<!ENTITY type.filter.label "Filtr &amp;blokujący">
+<!ENTITY types.label "Zastosuj do typów:">
+<!ENTITY shortpattern.warning "Podany wzorzec jest zbyt krótki, by go zoptymalizować i może spowolnić działanie przeglądarki. Zaleca się dla tego filtra wybrać dłuższy ciąg znaków, by umożliwić Adblock Plusowi bardziej efektywne zastosowanie tego filtra.">
+<!ENTITY collapse.yes.label "Tak">
+<!ENTITY anchors.label "Akceptuj tylko wzorzec:">
+<!ENTITY collapse.default.yes.label "Użyj domyślnej (tak)">
+<!ENTITY domainRestriction.help "Użyj tej opcji do określania jednej lub kilku domen, oddzielając ich nazwy znakiem (|). Filtr będzie stosowany jedynie dla wybranych domen. Znak tyldy (~) umieszczony przed nazwą domeny wskazuje, że filtr nie zostanie zastosowany w tej domenie.">
+<!ENTITY accept.label "Dodaj filtr">
+<!ENTITY options.label "Opcje">
+<!ENTITY disabled.warning "Adblock Plus jest aktualnie wyłączony. Możesz nadal dodawać filtry, ale nie będą one działały do czasu [link]włączenia Adblock Plusa[/link].">
+<!ENTITY anchor.start.flexible.label "na p&amp;oczątku nazwy domeny">
+<!ENTITY collapse.no.label "Nie">
+<!ENTITY selectAllTypes.label "Zaznacz wszystko">
+<!ENTITY advanced.label "Wygląd zaawansowany">
+<!ENTITY pattern.explanation "Wzorzec może być częścią adresu – gwiazdka (*) działa jako wieloznacznik. Filtr będzie stosowany tylko w adresach pasujących do tego wzorca.">

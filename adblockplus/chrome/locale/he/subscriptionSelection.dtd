@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "הוספת &amp;הרשמת המסננים &quot;?1?&quot; גם כן">
+<!ENTITY list.download.failed "Adblock Plus נכשל באחזור רשימת ההרשמות.">
+<!ENTITY list.download.retry "נסה שנית">
+<!ENTITY title.label "&amp;כותרת ההרשמה:">
+<!ENTITY list.download.website "הצגת האתר">
+<!ENTITY supplementMessage "מסנן הרשמה זה נועד לשימוש עם מסנן ההרשמה &quot;?1?&quot; אשר לא נעשה בו שימוש עדיין.">
+<!ENTITY viewList.label "הצגת מסננים">
+<!ENTITY visitHomepage.label "ביקור באתר הבית">
+<!ENTITY addSubscription.label "הוספת הרשמה">
+<!ENTITY dialog.title "הוספת הרשמת מסננים ל-Adblock Plus">
+<!ENTITY location.label "מיקום רשימת &amp;המסננים:">
+<!ENTITY fromWeb.description "יש לוודא הוספת מסנן הרשמה זה. ניתן לשנות את כותרת או מיקום ההרשמה לפני הוספתה.">

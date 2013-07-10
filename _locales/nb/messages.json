@@ -1,0 +1,44 @@
+{
+  "add": {
+    "message": "Legg til"
+  },
+  "add_domain_button": {
+    "message": "Legg til domene"
+  },
+  "add_filter_button": {
+    "message": "Legg til filter"
+  },
+  "add_your_own_filters": {
+    "message": "Legg til dine egne filtre"
+  },
+  "apply_changes": {
+    "message": "Bruk endringer"
+  },
+  "block_element": {
+    "message": "Blokker element"
+  },
+  "cancel": {
+    "message": "Avbryt"
+  },
+  "enabled_for_site": {
+    "message": "Aktivert for denne siden"
+  },
+  "filter_lists": {
+    "message": "Filterlister"
+  },
+  "options": {
+    "message": "Alternativer for Adblock Plus"
+  },
+  "out_of_date_lists": {
+    "message": "Utdaterte lister blir oppdatert periodisk."
+  },
+  "remove_button": {
+    "message": "Fjern valgte"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Vennligst velg et filterabonnement fra listen:"
+  },
+  "update_now": {
+    "message": "Oppdater nå"
+  }
+}

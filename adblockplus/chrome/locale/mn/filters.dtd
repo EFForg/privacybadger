@@ -1,0 +1,25 @@
+<!ENTITY slow.column "&amp;Удаан шүүлтүүрүүд">
+<!ENTITY subscription.lastDownload.checksumMismatch "Бүтэлгүйтлээ, шалгалт таарсангүй">
+<!ENTITY lasthit.column "&amp;Сүүлийн хандалт">
+<!ENTITY sort.ascending.label "&amp;А &gt; Я эрэмбэлэх">
+<!ENTITY sort.label "&amp;Эрэмбэлэх нь">
+<!ENTITY filter.paste.label "Тавих">
+<!ENTITY subscription.lastDownload.inProgress "Татаж байна...">
+<!ENTITY filter.delete.label "Устгах">
+<!ENTITY enabled.column "&amp;Идэвхтэй">
+<!ENTITY viewMenu.label "Харах">
+<!ENTITY subscription.lastDownload.invalidURL "Бүтэлгүйтэв, буруу хаяг">
+<!ENTITY hitcount.column "&amp;Хандалт">
+<!ENTITY filter.cut.label "Хайчлах">
+<!ENTITY addSubscriptionOther.label "Өөр мэдээлэгч нэмэх">
+<!ENTITY sort.none.label "Эрэмбэ &amp;үгүй">
+<!ENTITY filter.copy.label "Хуулах">
+<!ENTITY addSubscription.label "Шүүлтүүр мэдээлэгч нэмэх">
+<!ENTITY find.label "Хайх">
+<!ENTITY sort.descending.label "&amp;Я &gt; А эрэмбэлэх">
+<!ENTITY subscription.lastDownload.connectionError "Бүтэлгүйтэв, таталтын бүтэлгүйтэл">
+<!ENTITY subscription.lastDownload.success "Амжилттай">
+<!ENTITY subscription.lastDownload.invalidData "Бүтэлгүйтэв, буруу шүүлтүүрийн жагсаалт">
+<!ENTITY addFilter.label "Шүүлт нэмэх">
+<!ENTITY subscription.lastDownload.label "Сүүлийн таталт:">
+<!ENTITY filter.column "&amp;Шүүх дүрэм">

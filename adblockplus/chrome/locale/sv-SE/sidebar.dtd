@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Markera objektets ram">
+<!ENTITY address.label "Adress">
+<!ENTITY context.open.label "Öppna i ny flik">
+<!ENTITY type.label "Typ">
+<!ENTITY tooltip.filterSource.label "Filterkälla:">
+<!ENTITY noitems.label "Inget att blockera">
+<!ENTITY filter.label "Filtrera">
+<!ENTITY tooltip.size.label "Storlek:">
+<!ENTITY reattach.label "Koppla ihop">
+<!ENTITY search.label "S&amp;ök:">
+<!ENTITY docDomain.thirdParty "(tredje part)">
+<!ENTITY filterSource.label "Filterkälla">
+<!ENTITY tooltip.docDomain.label "Dokumentkälla:">
+<!ENTITY context.copy.label "Kopiera objektets adress">
+<!ENTITY tooltip.type.label "Typ:">
+<!ENTITY context.disablefilter.label "Inaktivera filtret ?1?">
+<!ENTITY context.copyFilter.label "Kopiera filter">
+<!ENTITY context.block.label "Blockera detta objekt">
+<!ENTITY context.enablefilter.label "Återaktivera filtret ?1?">
+<!ENTITY detach.label "Koppla från">
+<!ENTITY whitelisted.label "Undantagen sida">
+<!ENTITY context.disablefilteronsite.label "Inaktivera detta filter på ?1?">
+<!ENTITY detached.title "Adblock Plus: Blockeringsbara objekt (frånkopplad)">
+<!ENTITY docDomain.firstParty "(första part)">
+<!ENTITY tooltip.type.whitelisted "(undantagen)">
+<!ENTITY tooltip.filter.label "Filter som används:">
+<!ENTITY tooltip.filter.disabled "(inaktiverat)">
+<!ENTITY context.editfilter.label "Blockeringsfilter är på">
+<!ENTITY tooltip.type.blocked "(blockerad)">
+<!ENTITY size.label "Storlek">
+<!ENTITY context.whitelist.label "Lägg till undantag för objekt">
+<!ENTITY context.selectAll.label "Markera alla">
+<!ENTITY state.label "Tillstånd">
+<!ENTITY docDomain.label "Dokumentkälla">
+<!ENTITY tooltip.address.label "Adress:">

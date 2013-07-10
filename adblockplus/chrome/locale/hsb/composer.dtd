@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "na kón&amp;cu adresy">
+<!ENTITY domainRestriction.label "Wob&amp;mjezować na domenu:">
+<!ENTITY collapse.default.no.label "Standard wužiwać (ně)">
+<!ENTITY firstParty.label "&amp;Jenož prěni bok">
+<!ENTITY preferences.label "&amp;Eksistowace filtry pokazać…">
+<!ENTITY pattern.label "Muster pytać">
+<!ENTITY thirdParty.label "Jenož &amp;třeći bok">
+<!ENTITY filter.label "Nowy &amp;filter:">
+<!ENTITY collapse.label "Zabl&amp;okowane fałdować:">
+<!ENTITY match.warning "Muster, kotryž sće zapodał, wjace adresy njewotpowěduje, kotraž ma so blokować/do běłeje lisćiny přewzać a njezměje žadyn wuskutk na nju.">
+<!ENTITY anchor.start.label "na spočatku a&amp;dresy">
+<!ENTITY matchCase.label "&amp;Wulkopisanje wobkedźbować">
+<!ENTITY custom.pattern.label "&amp;Swójski:">
+<!ENTITY unselectAllTypes.label "Žadyn wubrać">
+<!ENTITY type.whitelist.label "W&amp;uwzaćne prawidło">
+<!ENTITY regexp.warning "Muster, kotryž sće zapodał, budźe so jako regularny wuraz interpretować, kotryž njehodźi so přez Adblock Plus skutkownje předźěłać a móhł waš wobhladowak spomałšić. Jeli nochceće regularny wuraz wužiwać, přidajće hwěžku (*) ke kóncej mustra.">
+<!ENTITY dialog.title "Filtrowe prawidło Adblock Plus přidać">
+<!ENTITY basic.label "Zakładny napohlad">
+<!ENTITY type.filter.label "&amp;Blokowanski filter">
+<!ENTITY types.label "Nałožić na typy:">
+<!ENTITY shortpattern.warning "Muster, kotryž sće zapodał, je za optimowanje překrótko a móhł waš wobhladowak spomałšić. Poruča so, zo wubjerjeće dlěši znamješkowy rjećazk za tutón filter, zo byšće Adblock Plus dowolił, filter bóle skutkownje předźěłał.">
+<!ENTITY collapse.yes.label "Haj">
+<!ENTITY anchors.label "Jenož muster akceptować:">
+<!ENTITY collapse.default.yes.label "Standard wužiwać (haj)">
+<!ENTITY domainRestriction.help "Wužijće tutu opciju, zo byšće jednu domenu abo wjacore domeny podał, kotrež přez wertikalnu smužku (|) wotdźělić. Filter budźe so jenož na wubrane domeny nałožować. Tilda (~) před domenowym mjenom podawa, zo filter njebudźe so na tu domenu nałožować.">
+<!ENTITY accept.label "Filter přidać">
+<!ENTITY options.label "Opcije">
+<!ENTITY disabled.warning "Adblock Plus je tuchwilu znjemóžnjeny. Móžeće hišće filtry přidać, ale njebudu so nałožować, chibazo [link]zmóžnjeće Adblock Plus[/link].">
+<!ENTITY anchor.start.flexible.label "na spočatku &amp;domenoweho mjena">
+<!ENTITY collapse.no.label "Ně">
+<!ENTITY selectAllTypes.label "Wšě wubrać">
+<!ENTITY advanced.label "Rozšěrjeny napohlad">
+<!ENTITY pattern.explanation "Muster móže dźěl adresy być; hwěžki (*) funguja jako zastupowace symbole. Filter budźe so jenož na adresy nałožować, kotrež podatemu mustrej wotpowěduja.">

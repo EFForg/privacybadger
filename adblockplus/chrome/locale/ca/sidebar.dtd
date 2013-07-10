@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Pampallugueja les vores de l'element">
+<!ENTITY address.label "Adreça">
+<!ENTITY context.open.label "Obre en una pestanya nova">
+<!ENTITY type.label "Tipus">
+<!ENTITY tooltip.filterSource.label "Filtre d'origen">
+<!ENTITY noitems.label "Elements no blocables">
+<!ENTITY filter.label "Filtre">
+<!ENTITY tooltip.size.label "Mida">
+<!ENTITY reattach.label "Reenganxa">
+<!ENTITY search.label "&amp;Cerca">
+<!ENTITY docDomain.thirdParty "(tercers)">
+<!ENTITY filterSource.label "Filtra per la font">
+<!ENTITY tooltip.docDomain.label "Font del document:">
+<!ENTITY context.copy.label "Copia l'adreça de l'element">
+<!ENTITY tooltip.type.label "Tipus">
+<!ENTITY context.disablefilter.label "Inhabilita el filtre ?1?">
+<!ENTITY context.copyFilter.label "Copia el filtre">
+<!ENTITY context.block.label "Bloca aquest element">
+<!ENTITY context.enablefilter.label "Reactiva el filtre ?1?">
+<!ENTITY detach.label "Separa">
+<!ENTITY whitelisted.label "Afegeix a la llista de permesos">
+<!ENTITY context.disablefilteronsite.label "Inhabilita aquest filtre a ?1?">
+<!ENTITY detached.title "AdBlock Plus: Elements Blocables (Separat)">
+<!ENTITY docDomain.firstParty "(primers)">
+<!ENTITY tooltip.type.whitelisted "(a la llista de permesos)">
+<!ENTITY tooltip.filter.label "Filtre actiu">
+<!ENTITY tooltip.filter.disabled "(inhabilitat)">
+<!ENTITY context.editfilter.label "Edita el filtre actiu">
+<!ENTITY tooltip.type.blocked "(blocat)">
+<!ENTITY size.label "Mida">
+<!ENTITY context.whitelist.label "Afegeix una regla d'excepció per a l'element">
+<!ENTITY context.selectAll.label "Selecciona-ho tot">
+<!ENTITY state.label "Estat">
+<!ENTITY docDomain.label "Font del document">
+<!ENTITY tooltip.address.label "Adreça">

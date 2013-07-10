@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "הוספה"
+  },
+  "add_domain_button": {
+    "message": "הוספת שם מתחם"
+  },
+  "add_filter_button": {
+    "message": "הוספת מסנן"
+  },
+  "add_filters_msg": {
+    "message": "הוספת מסנן(ים)?"
+  },
+  "add_your_own_filters": {
+    "message": "הוספת מסננים משלך"
+  },
+  "apply_changes": {
+    "message": "החלת השינויים"
+  },
+  "block_element": {
+    "message": "חסימת אלמנט"
+  },
+  "cancel": {
+    "message": "ביטול"
+  },
+  "clickhide_instructions": {
+    "message": "לאחר סגירת חלונית זו, יש ללחוץ (לא משנה באיזה לחצן) על רכיב בעמוד זה."
+  },
+  "description": {
+    "message": "כלי חסימת הפרסומות החינמי עבור Chrome: חסימת מודעות וידאו מטרידות ב-YouTube, מודעות Facebook, באנרים ועוד רבות."
+  },
+  "disable_inline": {
+    "message": "ניטרול מודעות טקסט"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus מנוטרל עבור שמות המתחם המופיעים להלן. ניתן להוסיף שם מתחם או דרך הסמל של Adblock Plus שבשורת הכתובות או על ידי הקלדת שם המתחם (לא הכתובת) בתיבה וללחוץ על הלחצן \"הוספת שם מתחם\"."
+  },
+  "easy_create_filter": {
+    "message": "יצירת מסנן בקלות"
+  },
+  "edit_filters_raw": {
+    "message": "עריכת מסננים כטקסט גולמי"
+  },
+  "enable_only_the": {
+    "message": "מומלץ להפעיל רק את רשימות המסננים בהן יש צורך. יותר מדי רשימות עלולות לפגוע בביצועי הדפדפן."
+  },
+  "enabled_for_site": {
+    "message": "פעיל עבור אתר זה"
+  },
+  "filter_lists": {
+    "message": "רשימות המסננים"
+  },
+  "filter_must_follow_syntax": {
+    "message": "המסנן שלכם חייב לציית ל<a href='$url$'>תחביר מסנן Adblock Plus</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "מצאת באג? ברצונך ליצור תרגום של Adblock Plus לשפתך? נא <a href='$url$'>לציין את בקשתך כאן</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "כללי"
+  },
+  "last_updated_at": {
+    "message": "עודכנה לאחרונה בשעה $time$ ב־$date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "עודכנה לאחרונה בשעה $time$ ב־היום",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "נוספו מסננים חדשים; ניתן לנהל אותם דרך ה<a id='options_url' target='_blank'>אפשרויות</a>."
+  },
+  "options": {
+    "message": "אפשרויות Adblock Plus"
+  },
+  "out_of_date_lists": {
+    "message": "רשימות שאינן עדכניות מתעדכנות באופן תדיר."
+  },
+  "remove_button": {
+    "message": "הסרת הבחירה"
+  },
+  "show_block_element_menu": {
+    "message": "הצגת הפריט 'חסימת אלמנט' בתפריט הלחצן הימני"
+  },
+  "show_icon": {
+    "message": "הצגת סמל בסרגל הכתובות"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "יש לבחור הרשמת מסנן מהרשימה:"
+  },
+  "update_now": {
+    "message": "עדכון כעת"
+  },
+  "whitelisted_domains": {
+    "message": "שמות מתחם מורשים"
+  }
+}

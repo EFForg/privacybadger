@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Adblock Plus Errors</title>
+  <style type="text/css">
+    .warning, .error
+    {
+      border: 1px dashed black;
+      margin: 5px;
+      padding: 2px;
+      white-space: pre-wrap;
+    }
+
+    .error
+    {
+      background-color: #fff0f0;
+    }
+
+    .warning
+    {
+      background-color: #ffffe0;
+    }
+
+    button
+    {
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="window.location.reload();">Refresh</button>
+  <button onclick="clearErrors();">Clear errors</button>
+
+  <script type="application/x-javascript;version=1.7">
+    let id = null;
+    try {
+      let {addonVersion, addonID} = require("info");
+
+      let text = "You are running Adblock Plus " + addonVersion;
+      text += ".";
+      document.write("<p>" + text + "</p>");
+
+      id = addonID.replace(/[\{\}]/g, "");
+    } catch (e) {}
+
+    // See https://bugzilla.mozilla.org/show_bug.cgi?id=664695 - starting with
+    // Gecko 19 this function returns the result, before that it wrote to a
+    // parameter.
+    let outparam = {};
+    let messages = Components.classes["@mozilla.org/consoleservice;1"]
+              .getService(Components.interfaces.nsIConsoleService)
+              .getMessageArray(outparam, {});
+    messages = messages || outparam.value || [];
+    messages = messages.filter(function(message)
+    {
+      return (message instanceof Components.interfaces.nsIScriptError &&
+          !/^https?:/i.test(message.sourceName) &&
+          (/adblock/i.test(message.errorMessage) || /adblock/i.test(message.sourceName) ||
+           id && (message.errorMessage.indexOf(id) >= 0 || message.sourceName.indexOf(id) >= 0)));
+    });
+
+    if (messages.length)
+    {
+      document.write("<p>Errors related to Adblock Plus:</p>");
+
+      for each (let message in messages)
+      {
+        let type = (message.flags & Components.interfaces.nsIScriptError.warningFlag ? "warning" : "error");
+        let html = "<b>" + (type == "warning" ? "Warning:" : "Error:") + "</b><br>";
+        html += encodeHTML(message.errorMessage) + "<br><br>";
+        if (message.sourceLine)
+          html += "Source line: " + encodeHTML(message.sourceLine) + "<br>";
+        if (message.sourceName)
+          html += "Location: " + encodeHTML(message.sourceName) + " line " + message.lineNumber + "<br>";
+        html = html.replace(/(<br>)+$/, "");
+        document.write("<div class='" + type + "'>" +
+                       html +
+                       "</div>");
+      }
+    }
+    else
+    {
+      document.write("<p>No errors found.</p>");
+    }
+
+    function require(module)
+    {
+      let {Services} = Components.utils.import("resource://gre/modules/Services.jsm");
+      let result = {};
+      result.wrappedJSObject = result;
+      Services.obs.notifyObservers(result, "adblockplus-require", module);
+      return result.exports;
+    }
+
+    function encodeHTML(string)
+    {
+      return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function clearErrors()
+    {
+      Components.classes["@mozilla.org/consoleservice;1"]
+                .getService(Components.interfaces.nsIConsoleService)
+                .reset();
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>

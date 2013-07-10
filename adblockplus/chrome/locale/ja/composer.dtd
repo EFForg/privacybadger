@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "アドレス末尾 (&amp;N)">
+<!ENTITY domainRestriction.label "ドメイン制限 (&amp;D) :">
+<!ENTITY collapse.default.no.label "デフォルト (いいえ)">
+<!ENTITY firstParty.label "ファーストパーティ制限 (&amp;R)">
+<!ENTITY preferences.label "既存のフィルタを表示 (&amp;S) ...">
+<!ENTITY pattern.label "パターンを選択">
+<!ENTITY thirdParty.label "サードパーティ制限 (&amp;T)">
+<!ENTITY filter.label "新フィルタ (&amp;F) :">
+<!ENTITY collapse.label "ブロック後の空きスペースを詰める (&amp;L) :">
+<!ENTITY match.warning "入力したパターンはアドレスに一致しないので効果がありません。">
+<!ENTITY anchor.start.label "アドレス先頭 (&amp;G)">
+<!ENTITY matchCase.label "大文字小文字を区別 (&amp;M)">
+<!ENTITY custom.pattern.label "自作 (&amp;C) :">
+<!ENTITY unselectAllTypes.label "選択解除">
+<!ENTITY type.whitelist.label "ホワイトリスト (&amp;X)">
+<!ENTITY regexp.warning "入力されたパターンは正規表現として解釈されるため Adblock Plus が効率よく処理できず、ブラウジング速度低下の原因になることがあります。もし正規表現の使用を意図していなかった場合は、パターン末尾に半角アスタリスク (*) を追加してください。">
+<!ENTITY dialog.title "Adblock Plus フィルタを追加">
+<!ENTITY basic.label "基本表示">
+<!ENTITY type.filter.label "ブロックフィルタ (&amp;B)">
+<!ENTITY types.label "適用種別:">
+<!ENTITY shortpattern.warning "入力したパターンは最適化するには短すぎるためブラウジング速度が低下することがあります。Adblock Plus の処理を効率化するために、より長い文字列を選ぶことを推奨します。">
+<!ENTITY collapse.yes.label "はい">
+<!ENTITY anchors.label "パターン適用の起点:">
+<!ENTITY collapse.default.yes.label "デフォルト (はい)">
+<!ENTITY domainRestriction.help "フィルタ適用対象にするドメインを指定することができます。複数指定したい場合は縦線(|)で分けてください。ドメイン名の前にチルダ(~)を付けることで、適用外ドメインとすることもできます">
+<!ENTITY accept.label "フィルタを追加">
+<!ENTITY options.label "オプション">
+<!ENTITY disabled.warning "現在 Adblock Plus は無効になっています。フィルタを追加することはできますが、それらは [link]Adblock Plus を有効にする[/link] まで適用されません。">
+<!ENTITY anchor.start.flexible.label "ドメイン名先頭 (&amp;G)">
+<!ENTITY collapse.no.label "いいえ">
+<!ENTITY selectAllTypes.label "すべて選択">
+<!ENTITY advanced.label "詳細表示">
+<!ENTITY pattern.explanation "パターンとはアドレスの任意の一部のことです。半角アスタリスク (*) をワイルドカードとして使用することもできます。指定したパターンに一致したアドレスにのみフィルタが適用されます。">

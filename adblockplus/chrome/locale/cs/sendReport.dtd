@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "&amp;Zpět">
+<!ENTITY issues.disabledgroups.description "Následující sady cizích filtrů / skupiny filtrů jsou zakázány, přesto můžou mít vliv na tuto stránku:">
+<!ENTITY showData.label "Zobrazit data hlášení">
+<!ENTITY typeSelector.falsePositive.label "Adblock Plus blokuje příliš &amp;mnoho">
+<!ENTITY issues.change.description "Vaše nastavení bylo změněno. Obnovte prosím stránku pro otestování změn a odešlete hlášení problému, pokud nebyl vyřešen úpravami nastavení.">
+<!ENTITY email.label "E-&amp;mail:">
+<!ENTITY issues.openPreferences.label "Otevřít předvolby filtrů">
+<!ENTITY sendPage.confirmation "Vaše hlášení bylo odesláno. Můžete si prohlédnou hlášení na následující adrese:">
+<!ENTITY copyLink.label "&amp;Kopírovat adresu hlášení">
+<!ENTITY issues.nofilters.description "Adblock Plus na aktuální stránce nic neblokuje. Problém, který chcete nahlásit, není s největší pravděpodobností způsoben Adblockem Plus.">
+<!ENTITY sendPage.knownIssue "Problém, který jste nahlásili, je pravděpodobně již známý. Více informací:">
+<!ENTITY typeSelector.other.description "Vyberte tuto možnost, pokud máte pocit, že je chyba přímo v Adblocku Plus, ne ve jeho filtrech.">
+<!ENTITY issues.disabledgroups.enable.label "Povolit sadu cizích filtrů / skupinu filtrů">
+<!ENTITY typeWarning.override.label "&amp;Rozumím a přesto chci odeslat hlášení">
+<!ENTITY issues.disabled.enable.label "Aktivovat Adblock Plus">
+<!ENTITY update.fixed.description "Aktualizace vámi odebíraných sad filtrů pravděpodobně vyřešila problém,který jste reportovali.Prosím obnovte stránku a zkuste to znovu,klikněte na Znovu oznámit pokud problém přetrval.">
+<!ENTITY anonymous.label "&amp;Anonymní odeslání">
+<!ENTITY reloadButton.label "&amp;Obnovit stránku">
+<!ENTITY recentReports.clear.label "Odst&amp;ranit všechna hlášení">
+<!ENTITY typeSelector.description "Toto okno vás provede kroky potřebnými k oznámení problému v Adblocku Plus. Začněte prosím vybráním druhu problému, se kterým jste se na této stránce setkali:">
+<!ENTITY screenshot.remove.label "&amp;Odstranit důvěrné údaje">
+<!ENTITY issues.ownfilters.description "Některé filtry použité na této stránce jsou vytvořené vámi. Zakažte prosím filtry, které mohly způsobit problém:">
+<!ENTITY update.inProgress.description "Adblock Plus potřebuje aktualizovat váš filtr odběrů aby zajistil že otázka nebyla již vyřešena. Prosím čekejte...">
+<!ENTITY sendPage.retry.label "Odeslat znovu">
+<!ENTITY data.label "&amp;Data hlášení:">
+<!ENTITY recentReports.label "Vaše nedávná hlášení">
+<!ENTITY typeWarning.description "Vybrali jste, že chcete nahlásit problém přímo v Adblocku Plus, nikoli chybu ve filtrech. Nejlepší způsob hlášení takovýchto chyb je na [link]fóru Adblocku Plus[/link]. Měli byste používat nástroj na hlášení chyb pouze jako doplněk existující diskuse na fóru, protože nikdo se nebude zabývat vaším hlášením, dokud neposkytnete odkaz na něj. Automaticky vygenerovaný odkaz bude zobrazet po odeslání hlášení.">
+<!ENTITY issues.disabled.description "Adblock Plus je zakázaný, v současném stavu nebude blokovat nic.">
+<!ENTITY attachExtensions.label "&amp;Připojit seznam aktivních rozšíření k hlášení pro případ, že problém byl způsoben konfliktem mezi doplňky">
+<!ENTITY issues.nosubscriptions.add.label "Přidat sadu cizích filtrů">
+<!ENTITY issues.disabledfilters.enable.label "Povolit filtr">
+<!ENTITY issues.override.label "Nastavení je v &amp;pořádku, pokračovat v hlášení problém">
+<!ENTITY issues.nosubscriptions.description "Zdá se, že nejste přihlášeni k odběru žádných cizích sad filtrů, které automaticky odstraňují nežádoucí obsah z webových stránek.">
+<!ENTITY typeSelector.falsePositive.description "Vyberte tuto možnost, pokud na stránce chybí důležitý obsah, není zobrazena správně nebo nefunguje. Zda je Adblock Plus příčinou problému můžete zjistit jeho dočasným vypnutím.">
+<!ENTITY typeSelector.other.label "Jiný &amp;problém">
+<!ENTITY emailComment.label "Nabádáme vás,aby jste zadali platnou emailovou adresu,aby jsme vás mohli kontaktovat pokud budou nějaké nesrovnalosti s vašim nahlášením.Také nám to umožní rozeznat vaše příspěvky a přikládat jim vyšší prioritu.">
+<!ENTITY issues.whitelist.remove.label "Znovu povolit Adblock Plus na této stránce">
+<!ENTITY outdatedSubscriptions.description "Následující odběr filtrů nebyl aktualizován minimálně dva týdny.Prosím aktualizujte tyto odběry než reportujete chybu,problém už mohl být vyřešen.">
+<!ENTITY dataCollector.description "Počkejte prosím zatímco Adblock Plus sbírá potřebná data.">
+<!ENTITY sendButton.label "&amp;Odeslat hlášení">
+<!ENTITY comment.label "&amp;Komentář (nepovinný)">
+<!ENTITY sendPage.errorMessage "Pokus odeslat hlášení problému selhal s chybovým kódem &quot;?1?&quot;. Ověřte prosím, že jste připojeni k internetu a pokus opakujte. Pokud problém přetrvává, zkuste prosím vyhledat pomoc na [link]fóru Adblocku Plus[/link].">
+<!ENTITY showRecentReports.label "Ukázat nedávno odeslaná hlášení">
+<!ENTITY commentPage.heading "Vložit komentář">
+<!ENTITY update.start.label "Spustit aktualizaci">
+<!ENTITY issues.disabledfilters.description "Následující filtry jsou  zakázány, přesto můžou mít vliv na tuto stránku:">
+<!ENTITY screenshot.description "Stejná stránka může být zobrazena odlišně různým lidem. Pomůže nám pochopit problém, pokud připojíte snímek stránky k vašemu hlášení problému. Můžete odstranit části obsahující důvěrné informace i vyznačit místa, kde je problém vidět. Toho docílíte klepnutím na odpovídající tlačítko a výběrem části obrázku myší.">
+<!ENTITY screenshot.attach.label "&amp;Připojit snímek stránky k hlášení">
+<!ENTITY issues.whitelist.description "Adblock Plus je aktuálně neaktivní na stránce, na které hlásíte problém. Prosím aktivujte jej a obnovte stránku předtím, než odešlete hlášení, abyste pomohli vyřešit váš problém.">
+<!ENTITY typeSelector.falseNegative.label "Adblock Plus &amp;neblokuje reklamu">
+<!ENTITY typeSelector.heading "Vyberte druh problému">
+<!ENTITY anonymity.warning "Nebudeme moci vám odepsat a vašemu reportu bude pravděpodobně přikládána nižší priorita.">
+<!ENTITY wizard.title "Oznamování problémů">
+<!ENTITY issues.ownfilters.disable.label "Zakázat filtr">
+<!ENTITY commentPage.description "Do textového pole níže můžete vložit komentář vysvětlující problém, který hlásíte. Tento krok není povinný, ale je doporučený, pokud problém není jednoznačně viditelný. Můžete také prohlédnout data hlášení před jejich odesláním.">
+<!ENTITY comment.lengthWarning "Váš komentář přesahuje 1000 znaků. Pouze prvních 1000 znaků bude odesláno.">
+<!ENTITY typeSelector.falseNegative.description "Tuto možnost vyberte v případě, že vidíte reklamu i přesto, že je Adblock Plus aktivovaný.">
+<!ENTITY sendPage.waitMessage "Prosím počkejte zatímco Adblock Plus odesílá vaše hlášení.">
+<!ENTITY dataCollector.heading "Vítejte v nástroji na oznamování problémů">
+<!ENTITY screenshot.heading "Připojit snímek">
+<!ENTITY sendPage.heading "Odeslat hlášení">
+<!ENTITY issues.subscriptionCount.description "Vypadá to, že jste přihlášeni k odběru příliš mnoha sad cizích filtrů. Toto nastavení není doporučeno, protože výrazně zvyšuje pravděpodobnost výskytu problémů. Zároveň nelze přijmout vaše hlášení, protože není jasné, který z autorů sad cizích filtrů je za zodpovědný. Odhlašte se prosím z odběru všech nepotřebných sad cizích filtrů a vyzkoušejte, zda se problém vyskytuje i poté.">
+<!ENTITY screenshot.mark.label "&amp;Vyznačit problém">
+<!ENTITY privacyPolicy.label "Ochrana soukromí">
+<!ENTITY issues.description "Adblock Plus zjistil problémy s vaším nastavením, které můžou způsobovat tento problém nebo ztížit jeho řešení.">

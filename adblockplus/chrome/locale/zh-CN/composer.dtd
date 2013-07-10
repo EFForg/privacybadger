@@ -1,0 +1,33 @@
+<!ENTITY collapse.yes.label "是">
+<!ENTITY anchor.end.label "在地址末尾 (&amp;n)">
+<!ENTITY domainRestriction.label "限制域： (&amp;d)">
+<!ENTITY firstParty.label "仅第一方 (&amp;r)">
+<!ENTITY preferences.label "显示现有过滤规则…… (&amp;S)">
+<!ENTITY pattern.label "查找模式">
+<!ENTITY thirdParty.label "仅第三方 (&amp;T)">
+<!ENTITY filter.label "新建过滤规则: (&amp;f)">
+<!ENTITY collapse.label "折叠已屏蔽: (&amp;l)">
+<!ENTITY match.warning "您输入的模式不是该地址的屏蔽/例外规则，将不会对该地址产生任何效果。">
+<!ENTITY anchor.start.label "在地址开始处 (&amp;g)">
+<!ENTITY collapse.no.label "否">
+<!ENTITY matchCase.label "匹配大小写 (&amp;M)">
+<!ENTITY custom.pattern.label "自定义: (&amp;C)">
+<!ENTITY unselectAllTypes.label "全不选">
+<!ENTITY type.whitelist.label "例外规则 (&amp;x)">
+<!ENTITY regexp.warning "您输入的模式将以正则表达式解释。过多的正则表达式会降低您浏览的速度。如果您不希望使用正则表达式，请在模式末尾添加一个星号(*)。">
+<!ENTITY dialog.title "添加 Adblock Plus 过滤规则">
+<!ENTITY basic.label "基本视图">
+<!ENTITY collapse.default.no.label "使用默认值 (否)">
+<!ENTITY type.filter.label "屏蔽规则 (&amp;B)">
+<!ENTITY types.label "应用类型:">
+<!ENTITY shortpattern.warning "您输入的模式太短而不能被优化，过多这样的模式会降低您浏览的速度。推荐您为该过滤规则选择一个长些的字符串，这样 Adblock Plus 才能更有效地处理。">
+<!ENTITY anchors.label "仅接受模式:">
+<!ENTITY collapse.default.yes.label "使用默认值 (是)">
+<!ENTITY domainRestriction.help "由竖线(|)分隔的一个或多个域，过滤规则仅应用于这些域上。域名前有代字符(~)，表示过滤规则不应该应用于该域上。">
+<!ENTITY accept.label "添加过滤规则">
+<!ENTITY options.label "选项">
+<!ENTITY disabled.warning "Adblock Plus 目前处于禁用状态。您可以继续添加过滤规则，但是这些规则在您[link]启用 Adblock Plus[/link] 之后才能生效。">
+<!ENTITY anchor.start.flexible.label "在域名开始处 (&amp;g)">
+<!ENTITY selectAllTypes.label "全选">
+<!ENTITY advanced.label "高级视图">
+<!ENTITY pattern.explanation "模式可以是地址的任意部分，星号(*)是通配符。过滤规则只会应用到与模式匹配的地址上。">

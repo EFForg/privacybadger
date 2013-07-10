@@ -1,0 +1,36 @@
+[general]
+id={d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}
+basename=adblockplus
+version=2.2.5a
+author=Wladimir Palant
+options=chrome://adblockplus/content/ui/settings.xul
+optionsType=2
+
+[contributors]
+1=Claude Lespagnol aka Efdur
+2=Nickolay Ponomarev
+3=Kevin Keller
+4=Fabrice Desré
+5=Hubird
+6=Günther Beyer (opoloo.de)
+additional=chrome/content/ui/subscriptions.xml //subscription/@author
+
+[homepage]
+default=http://adblockplus.org/
+ar=http://adblockplus.org/ar/
+de=http://adblockplus.org/de/
+en=http://adblockplus.org/en/
+es=http://adblockplus.org/es/
+fr=http://adblockplus.org/fr/
+he=http://adblockplus.org/he/
+ko=http://adblockplus.org/ko/
+ru=http://adblockplus.org/ru/
+zh-CN=https://adblockplus.org/zh_CN/
+zh-TW=https://adblockplus.org/zh_TW/
+
+[compat]
+firefox=16.0/25.0
+fennec2=16.0/25.0
+thunderbird=16.0/25.0
+seamonkey=2.13/2.22
+toolkit=16.0/25.0

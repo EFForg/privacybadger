@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Dodaj tudi naročnino na &amp;filter ?1?">
+<!ENTITY list.download.failed "Pridobivanje seznama naročnin ni uspelo.">
+<!ENTITY list.download.retry "Poskusi znova">
+<!ENTITY title.label "&amp;Naslov naročnine:">
+<!ENTITY list.download.website "Pokaži spletno mesto">
+<!ENTITY supplementMessage "Naročnina na filter je mišljena za rabo z naročnino na filter ?1?, ki je še ne uporabljate.">
+<!ENTITY viewList.label "Pokaži filtre">
+<!ENTITY visitHomepage.label "Obišči domačo stran">
+<!ENTITY addSubscription.label "Dodaj naročnino">
+<!ENTITY dialog.title "Naroči filtre za Adblock Plus">
+<!ENTITY location.label "&amp;Mesto seznama filtriranja:">
+<!ENTITY fromWeb.description "Potrdite, da želite dodati to naročnino na filter. Naslov ali kraj naročnine lahko spremenite še pred dodajanjem.">

@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "aan die einde van die adres">
+<!ENTITY domainRestriction.label "Beperk tot domein:">
+<!ENTITY collapse.default.no.label "Gebruik verstek (Nee)">
+<!ENTITY firstParty.label "Slegs eerste-party">
+<!ENTITY preferences.label "Wys bestaande filters...">
+<!ENTITY pattern.label "Soek vir patroon">
+<!ENTITY thirdParty.label "Slegs derde-party">
+<!ENTITY filter.label "Nuwe filter:">
+<!ENTITY collapse.label "Ineenstorting geblok:">
+<!ENTITY match.warning "Die patroon wat jy ingetik het stem nie meer ooreen met die adres wat geblokkeer/gewitlys moet word nie, dus sal hy geen effek daarop hê nie.">
+<!ENTITY anchor.start.label "aan die begin van die adres">
+<!ENTITY matchCase.label "Pas by hoofletter/kleinletter (Match case)">
+<!ENTITY custom.pattern.label "Persoonlik:">
+<!ENTITY unselectAllTypes.label "Selekteer geen">
+<!ENTITY type.whitelist.label "Uitsonderings reël">
+<!ENTITY regexp.warning "Die patroon wat jy ingetik het, sal geïnterpreteer word as 'n gereelde uitdrukking wat nie effektief verwerk kan word deur Adblock Plus nie en mag jou internet ervaring stadig maak. As jy nie bedoel het om 'n gereelde uitdrukking te gebruik nie, voeg 'n asterisk (*) agter aan die uitdrukking.">
+<!ENTITY dialog.title "Voeg Adblock Plus filter reël by">
+<!ENTITY basic.label "Basiese uitleg">
+<!ENTITY type.filter.label "Blokkerings filter">
+<!ENTITY types.label "Pas toe op tipes:">
+<!ENTITY shortpattern.warning "Die patroon wat jy ingetik het is te kort om geoptimaliseer te word en mag jou internet ervaring stadig maak. Dit word aanbeveel dat jy 'n langer string gebruik vir hierdie filter, sodat Adblock Plus die filter meer effektief kan verwerk.">
+<!ENTITY collapse.yes.label "Ja">
+<!ENTITY anchors.label "Aanvaar slegs patroon:">
+<!ENTITY collapse.default.yes.label "Gebruik verstek (Ja)">
+<!ENTITY domainRestriction.help "Gebruik hierdie opsies om een of meer domeine te spesifiseer, geskei deur 'n staaf lyn (|). Die filter sal slegs toegepas word op die geselekteerde domein(e). 'n Tilde (~) voor 'n domein naam dui aan dat die filter nie toegepas sal word op daai domein nie.">
+<!ENTITY accept.label "Voeg filter by">
+<!ENTITY options.label "Opsies">
+<!ENTITY disabled.warning "Adblock Plus is is tans gedeaktiveer. Jy kan steeds filters byvoeg maar hulle sal nie geaktiveer word tensy jy dit aktiveer ([link]enable Adblock Plus[/link]).">
+<!ENTITY anchor.start.flexible.label "aan die begin van die domein naam">
+<!ENTITY collapse.no.label "Nee">
+<!ENTITY selectAllTypes.label "Selekteer als">
+<!ENTITY advanced.label "Gevorderde uitleg">
+<!ENTITY pattern.explanation "Die patroon kan enige deel van die adres wees; 'n Asterisk (*) tree op as 'n wildcard. Die filter sal slegs toegepas word op adresse wat die patroon volg">

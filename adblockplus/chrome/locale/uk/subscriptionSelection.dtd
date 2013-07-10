@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "&amp;Додати також фільтрову підписку «?1?»">
+<!ENTITY list.download.failed "Adblock Plus не зміг отримати перелік підписок">
+<!ENTITY list.download.retry "Спробувати ще раз">
+<!ENTITY title.label "&amp;Назва підписки:">
+<!ENTITY list.download.website "Глянути сайт">
+<!ENTITY supplementMessage "Ця фільтрова підписка призначена для використання в парі з фільтровою підпискою «?1?», котру ви наразі не використовуєте.">
+<!ENTITY viewList.label "Глянути фільтри">
+<!ENTITY visitHomepage.label "Відвідати домашню сторінку">
+<!ENTITY addSubscription.label "Додати підписку">
+<!ENTITY dialog.title "Додати підписку на фільтри Adblock Plus">
+<!ENTITY location.label "Адр&amp;еса списку фільтрів:">
+<!ENTITY fromWeb.description "Будь ласка підтвердіть що ви бажаєте додати цю фільтрову підписку. Ви можете змінити назву чи знаходження перед додаванням.">

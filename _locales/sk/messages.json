@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Pridať"
+  },
+  "add_domain_button": {
+    "message": "Pridať doménu"
+  },
+  "add_filter_button": {
+    "message": "Pridať filter"
+  },
+  "add_filters_msg": {
+    "message": "Pridať filtre?"
+  },
+  "add_your_own_filters": {
+    "message": "Pridať vlastné filtre"
+  },
+  "apply_changes": {
+    "message": "Použiť zmeny"
+  },
+  "block_element": {
+    "message": "Blokovať prvok"
+  },
+  "cancel": {
+    "message": "Zrušiť"
+  },
+  "clickhide_instructions": {
+    "message": "Po zatvorení tohto okna, kliknite (alebo kliknite pravým tlačidlom myši) na prvok na stránke."
+  },
+  "description": {
+    "message": "Rozšírenie pre Chrome ktoré blokuje reklamy: Blokuje reklamy na YouTube, Facebook reklamy, bannery a oveľa viac."
+  },
+  "disable_inline": {
+    "message": "Vypnutie vnútroriadkových textových reklám"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus je vypnutý v doménach uvedených nižšie. Môžete pridať doménu buď cez ikonu Adblock Plus v paneli s adresou alebo zadaním domény (nie URL) do poľa a kliknutím na tlačidlo \"Pridať doménu\"."
+  },
+  "easy_create_filter": {
+    "message": "Jednoduché vytvorenie filtra"
+  },
+  "edit_filters_raw": {
+    "message": "Upraviť filtre ako surový text"
+  },
+  "enable_only_the": {
+    "message": "Povolte len zoznamy filtrov, ktoré potrebujete. Príliš veľa môže spôsobiť, že Chrome nebude nereagovať."
+  },
+  "enabled_for_site": {
+    "message": "Povolené pre túto stránku"
+  },
+  "filter_lists": {
+    "message": "Zoznamy filtrov"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Váš filter musí spĺňať <a href='$url$'> syntax filtrov Adblocku Plus</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Nájdené chyba? Chcete preložiť Adblock Plus do vášho jazyka? Prosím <a href='$url$'> zadajte žiadosť tu</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Všeobecné"
+  },
+  "last_updated_at": {
+    "message": "Posledná aktualizácia nastala o $time$, $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Posledná aktualizácia nastala dnes o $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Nové filtre pridané; pozrite <a id='options_url' target='_blank'>Nastavenia</a> pre ich správu."
+  },
+  "options": {
+    "message": "Adblock Plus nastavenia"
+  },
+  "out_of_date_lists": {
+    "message": "Zastarané zoznamy sú pravidelne aktualizované."
+  },
+  "remove_button": {
+    "message": "Odstrániť vybraté"
+  },
+  "show_block_element_menu": {
+    "message": "Zobraziť zablokovaný prvok kliknutím na položku pravým tlačidlom"
+  },
+  "show_icon": {
+    "message": "Zobraziť ikonu v paneli s adresou"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Prosím, zvoľte odber filtra zo zoznamu:"
+  },
+  "update_now": {
+    "message": "Aktualizovať teraz"
+  },
+  "whitelisted_domains": {
+    "message": "Domény pridané do povoleného zoznamu"
+  }
+}

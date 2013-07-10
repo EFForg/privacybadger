@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html>
+  <head>
+    <title class="i18n_firstRun_title"></title>
+    <meta charset="utf-8">
+    <link type="text/css" href="/skin/firstRun.css" rel="stylesheet"/>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="i18n.js"></script>
+    <script type="text/javascript" src="firstRun.js"></script>
+  </head>
+  <body>
+    <div id="shade" class="arrow"></div>
+    <div id="content">
+      <header>
+        <h1 id="title-main" class="i18n_firstRun_title"></h1>
+      </header>
+
+      <p id="dataCorruptionWarning" class="i18n_firstRun_dataCorruptionWarning" hidden="true"></p>
+
+      <p id="acceptableAdsExplanation" class="i18n_firstRun_acceptableAdsExplanation"></p>
+
+      <h2 id="features-title" class="i18n_firstRun_features"></h2>
+
+      <ul id="features">
+        <li id="feature-malware" class="feature">
+          <div class="feature-image"></div>
+          <div class="feature-description">
+            <p class="feature-text">
+              <span class="i18n_firstRun_feature_malware feature-title"></span> <span class="i18n_firstRun_feature_malware_description"></span>
+            </p>
+          </div>
+          <div id="toggle-malware" class="toggle">
+            <div class="i18n_firstRun_toggle_on toggle-on"></div>
+            <div class="toggle-blob"></div>
+            <div class="i18n_firstRun_toggle_off toggle-off"></div>
+          </div>
+        </li>
+        <li id="feature-social" class="feature">
+          <div class="feature-image"></div>
+          <div class="feature-description">
+            <p class="feature-text">
+              <span class="i18n_firstRun_feature_social feature-title"></span> <span class="i18n_firstRun_feature_social_description"></span>
+            </p>
+          </div>
+          <div id="toggle-social" class="toggle">
+            <div class="i18n_firstRun_toggle_on toggle-on"></div>
+            <div class="toggle-blob"></div>
+            <div class="i18n_firstRun_toggle_off toggle-off"></div>
+          </div>
+        </li>
+        <li id="feature-tracking" class="feature">
+          <div class="feature-image"></div>
+          <div class="feature-description">
+            <p class="feature-text">
+              <span class="i18n_firstRun_feature_tracking feature-title"></span> <span class="i18n_firstRun_feature_tracking_description"></span>
+            </p>
+          </div>
+          <div id="toggle-tracking" class="toggle">
+            <div class="i18n_firstRun_toggle_on toggle-on"></div>
+            <div class="toggle-blob"></div>
+            <div class="i18n_firstRun_toggle_off toggle-off"></div>
+          </div>
+        </li>
+      </ul>
+
+      <footer id="social">
+        <h1 class="i18n_firstRun_share"></h1>
+        <ul>
+          <li>
+            <a id="share-facebook" class="share-button" href="https://www.facebook.com/adblockplus" target="_blank" title="Share on Facebook" data-script="https://facebook.com/plugins/like.php?"></a>
+          </li>
+          <li>
+            <a id="share-twitter" class="share-button" href="https://twitter.com/adblockplus" target="_blank" title="Share on Twitter" data-script="https://platform.twitter.com/widgets.js"></a>
+          </li>
+          <li>
+            <a id="share-gplus" class="share-button" href="https://www.google.com/+AdblockPlus" target="_blank" title="Share on Google+" data-script="https://apis.google.com/js/plusone.js"></a>
+          </li>
+        </ul>
+      </footer>
+    </div>
+
+    <div id="glass-pane">
+      <iframe id="share-popup" scrolling="no"></iframe>
+    </div>
+  </body>
+</html>

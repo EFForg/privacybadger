@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Рамки на флаш продукти">
+<!ENTITY address.label "Адрес">
+<!ENTITY context.open.label "Отвори в нов под прозорец">
+<!ENTITY type.label "Тип">
+<!ENTITY tooltip.filterSource.label "Източник на филтъра">
+<!ENTITY noitems.label "Няма блокирани продукти">
+<!ENTITY filter.label "Филтър">
+<!ENTITY tooltip.size.label "Размер:">
+<!ENTITY reattach.label "Прикачи отново">
+<!ENTITY search.label "&amp;Търси:">
+<!ENTITY docDomain.thirdParty "(трета страна)">
+<!ENTITY filterSource.label "Филтър източник">
+<!ENTITY tooltip.docDomain.label "Източник на документа:">
+<!ENTITY context.copy.label "Копирай адреса на продукта">
+<!ENTITY tooltip.type.label "Тип:">
+<!ENTITY context.disablefilter.label "Да изключа ли филтър ?1?">
+<!ENTITY context.copyFilter.label "Копирай филтърът">
+<!ENTITY context.block.label "Блокирай този продукт">
+<!ENTITY context.enablefilter.label "Повторно включване на филтъра ?1?">
+<!ENTITY detach.label "Отдели">
+<!ENTITY whitelisted.label "Разрешена странница">
+<!ENTITY context.disablefilteronsite.label "Да изключа ли този филтър за ?1?">
+<!ENTITY detached.title "Adblock Plus: Блокирани продукти (отделени)">
+<!ENTITY docDomain.firstParty "Основни">
+<!ENTITY tooltip.type.whitelisted "(разрешен)">
+<!ENTITY tooltip.filter.label "Филтър в сила:">
+<!ENTITY tooltip.filter.disabled "(изключен)">
+<!ENTITY context.editfilter.label "Редактиране на филтъра в сила:">
+<!ENTITY tooltip.type.blocked "(блокиран)">
+<!ENTITY size.label "Размер">
+<!ENTITY context.whitelist.label "Добави изключващо правило за продукта">
+<!ENTITY context.selectAll.label "Избери всички">
+<!ENTITY state.label "Състояние">
+<!ENTITY docDomain.label "Източник на документа">
+<!ENTITY tooltip.address.label "Адрес:">

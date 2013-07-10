@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Ցույց տալ օբյեկտը էջում">
+<!ENTITY address.label "Հասցեն">
+<!ENTITY context.open.label "Բացել նոր Թաբում">
+<!ENTITY type.label "Տեսակը">
+<!ENTITY tooltip.filterSource.label "Ֆիլտրի աղբյուրը`">
+<!ENTITY noitems.label "Ֆիլտրվվող տարրեր չկան">
+<!ENTITY filter.label "Ազդող ֆիլտրը">
+<!ENTITY tooltip.size.label "Չափը`">
+<!ENTITY reattach.label "Ամրացնել">
+<!ENTITY search.label "&amp;Փնտրել">
+<!ENTITY docDomain.thirdParty "(երրորդ կողմի)">
+<!ENTITY filterSource.label "Ֆիլտրի աղբյուրը`">
+<!ENTITY tooltip.docDomain.label "Աշխատանքի աղբյուրը`">
+<!ENTITY context.copy.label "Կրկնել տարրի հասցեն">
+<!ENTITY tooltip.type.label "Տեսակը`">
+<!ENTITY context.disablefilter.label "Անջատել ֆիլտրը ?1?">
+<!ENTITY context.copyFilter.label "Կրկնակել ֆիլտրը">
+<!ENTITY context.block.label "Ֆիլտրել այս տարրը">
+<!ENTITY context.enablefilter.label "Վերակտիվացնել ֆիլտրը ?1?">
+<!ENTITY detach.label "Անջատ պատուհան">
+<!ENTITY whitelisted.label "Բացառություն">
+<!ENTITY context.disablefilteronsite.label "Արգելել այս ֆիլտրը ?1? -ում">
+<!ENTITY detached.title "Adblock Plus - Ֆիլտրվվող տարրեր (Անջատ)">
+<!ENTITY docDomain.firstParty "(ուղիղ աղբյուր)">
+<!ENTITY tooltip.type.whitelisted "(բացառություն)">
+<!ENTITY tooltip.filter.label "Ազդող ֆիլտրը`">
+<!ENTITY tooltip.filter.disabled "(անջատված)">
+<!ENTITY context.editfilter.label "Խմբագրել Ազդող ֆիլտրը">
+<!ENTITY tooltip.type.blocked "(ֆիլտրված)">
+<!ENTITY size.label "Չափը">
+<!ENTITY context.whitelist.label "Այս տարրի համար Բացառություն ավելացնել">
+<!ENTITY context.selectAll.label "Լրիվ Ընտրել">
+<!ENTITY state.label "Վիճակը">
+<!ENTITY docDomain.label "Աշխատանքի աղբյուրը">
+<!ENTITY tooltip.address.label "Հասցեն`">

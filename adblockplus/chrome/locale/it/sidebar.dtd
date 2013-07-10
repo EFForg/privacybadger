@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Fai lampeggiare il contorno dell'elemento selezionato">
+<!ENTITY address.label "Indirizzo web">
+<!ENTITY context.open.label "Apri in una nuova scheda">
+<!ENTITY type.label "Tipo">
+<!ENTITY tooltip.filterSource.label "Sorgente del filtro:">
+<!ENTITY noitems.label "Nessun elemento bloccabile">
+<!ENTITY filter.label "Filtro">
+<!ENTITY tooltip.size.label "Dimensione:">
+<!ENTITY reattach.label "Riunisci">
+<!ENTITY search.label "&amp;Cerca:">
+<!ENTITY docDomain.thirdParty "(terza parte)">
+<!ENTITY filterSource.label "Sorgente del filtro">
+<!ENTITY tooltip.docDomain.label "Sorgente del documento:">
+<!ENTITY context.copy.label "Copia l'indirizzo web dell'elemento">
+<!ENTITY tooltip.type.label "Tipo:">
+<!ENTITY context.disablefilter.label "Disattiva il filtro ?1?">
+<!ENTITY context.copyFilter.label "Copia il filtro">
+<!ENTITY context.block.label "Blocca questo elemento">
+<!ENTITY context.enablefilter.label "Riattiva il filtro ?1?">
+<!ENTITY detach.label "Separa">
+<!ENTITY whitelisted.label "Pagina in lista di siti permessi">
+<!ENTITY context.disablefilteronsite.label "Disattiva il filtro per ?1?">
+<!ENTITY detached.title "Elementi bloccabili con Adblock Plus (separati)">
+<!ENTITY docDomain.firstParty "(prima parte)">
+<!ENTITY tooltip.type.whitelisted "(in lista di elementi permessi)">
+<!ENTITY tooltip.filter.label "Filtro effettivo:">
+<!ENTITY tooltip.filter.disabled "(disattivato)">
+<!ENTITY context.editfilter.label "Modifica il filtro in effetto">
+<!ENTITY tooltip.type.blocked "(in lista di elementi bloccati)">
+<!ENTITY size.label "Dimensione">
+<!ENTITY context.whitelist.label "Aggiungi un'eccezione per l'elemento">
+<!ENTITY context.selectAll.label "Seleziona tutto">
+<!ENTITY state.label "Stato">
+<!ENTITY docDomain.label "Sorgente">
+<!ENTITY tooltip.address.label "Indirizzo web:">

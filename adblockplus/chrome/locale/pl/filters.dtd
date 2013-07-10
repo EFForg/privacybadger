@@ -1,0 +1,72 @@
+<!ENTITY restore.custom.warning "Wszystkie własne filtry zostaną zastąpione zawartością wybranego pliku. Czy chcesz kontynuować?">
+<!ENTITY slow.column "&amp;Wolne filtry">
+<!ENTITY enabled.column "A&amp;ktywny">
+<!ENTITY subscription.lastDownload.checksumMismatch "Nie powiodło się – niepoprawna suma kontrolna">
+<!ENTITY noFiltersInGroup.text "Wybrana grupa jest pusta">
+<!ENTITY subscription.actions.label "Czynności">
+<!ENTITY filter.selectAll.label "Zaznacz wszystko">
+<!ENTITY backupButton.label "&amp;Tworzenie i odtwarzanie kopii">
+<!ENTITY restore.minVersion.warning "Ostrzeżenie! Plik został utworzony za pomocą najnowszej wersji Adblock Plusa. Przed odtworzeniem zawartości tego pliku, należy zainstalować najnowszą wersję Adblock Plusa.">
+<!ENTITY restore.error "Nie można przetworzyć danych filtra. Może to nie jest plik kopii zapasowej Adblock Plusa?">
+<!ENTITY sort.ascending.label "Kierunek sortow&amp;ania A &gt; Z">
+<!ENTITY sort.label "&amp;Sortuj wg">
+<!ENTITY subscription.source.label "Zawartość zestawu">
+<!ENTITY hitcount.column "&amp;Użycie">
+<!ENTITY noFilters.text "Nie masz jeszcze żadnych własnych filtrów.">
+<!ENTITY backup.custom.title "Tylko własne filtry">
+<!ENTITY subscription.external.label "Zaktualizowany przez inne rozszerzenie">
+<!ENTITY subscription.delete.label "Usuń">
+<!ENTITY noGroupSelected.text "Aby filtry mogły być wyświetlane, należy najpierw wybrać grupę.">
+<!ENTITY filter.cut.label "Wytnij">
+<!ENTITY restore.default.label "Odtwórz kopię z dnia ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Pobieranie…">
+<!ENTITY subscriptions.tab.label "Zestawy filtrów">
+<!ENTITY sort.descending.label "Kierunek sortowania &amp;Z &gt; A">
+<!ENTITY filters.remove.warning "Czy na pewno chcesz usunąć wszystkie wybrane filtry?">
+<!ENTITY filter.delete.label "Usuń">
+<!ENTITY addSubscriptionAdd.label "Dodaj">
+<!ENTITY viewMenu.label "Widok">
+<!ENTITY subscription.lastDownload.unknown "nieznane">
+<!ENTITY addSubscriptionCancel.label "Anuluj">
+<!ENTITY subscription.enabled.label "Aktywny">
+<!ENTITY noSubscriptions.text "Jeszcze nie dodano żadnego zestawu filtrów. Adblock Plus nie może nic blokować bez filtrów. Naciśnij przycisk „Dodaj zestaw filtrów…”, by dodać jakiś filtr.">
+<!ENTITY subscription.update.label "Aktualizuj filtry">
+<!ENTITY dialog.title "Add Adblock Plus – ustawienia filtrów">
+<!ENTITY addFilter.label "Dodaj fi&amp;ltr">
+<!ENTITY subscription.minVersion.warning "Ten zestaw filtrów działa z najnowszą wersją Adblock Plusa. Zaktualizuj Adblock Plusa.">
+<!ENTITY subscription.lastDownload.invalidURL "Nie powiodło się – nieprawidłowy adres">
+<!ENTITY backup.error "W trakcie zapisu filtrów wystąpił błąd. Sprawdź, czy czasami plik nie ma zabezpieczenia przed zapisem lub nie jest używany przez inną aplikację.">
+<!ENTITY filter.moveUp.label "Przenieś w górę">
+<!ENTITY addGroup.label "Dodaj &amp;grupę filtrów">
+<!ENTITY filter.edit.label "Edytuj">
+<!ENTITY subscription.showHideFilters.label "Wyświetl/ukryj filtry">
+<!ENTITY acceptableAds2.label "Zezwalaj na nie natrętne rekla&amp;my">
+<!ENTITY addSubscriptionOther.label "Wybierz inny zestaw">
+<!ENTITY close.label "Zamknij">
+<!ENTITY sort.none.label "Ni&amp;eposortowane">
+<!ENTITY filter.actions.label "Czynności filtrów">
+<!ENTITY filter.copy.label "Kopiuj">
+<!ENTITY filter.moveDown.label "Przenieś w dół">
+<!ENTITY filter.resetHitCounts.label "Resetuj statystyki użycia">
+<!ENTITY readMore.label "Dowiedz się więcej">
+<!ENTITY subscription.moveUp.label "Przenieś w górę">
+<!ENTITY addSubscription.label "&amp;Dodaj zestaw filtrów">
+<!ENTITY subscription.homepage.label "Strona domowa">
+<!ENTITY backup.complete.title "Wszystkie filtry i zestawy">
+<!ENTITY restore.own.label "Odtwórz własną kopię">
+<!ENTITY restore.complete.warning "Wszystkie ustawienia filtrów zostaną zastąpione zawartością wybranego pliku. Czy chcesz kontynuować?">
+<!ENTITY filters.tab.label "Własne filtry">
+<!ENTITY backup.label "Utwórz nową kopię">
+<!ENTITY find.label "Z&amp;najdź">
+<!ENTITY subscription.moveDown.label "Przenieś w dół">
+<!ENTITY subscription.lastDownload.connectionError "Nie powiodło się – błąd pobierania">
+<!ENTITY subscription.lastDownload.success "Zakończono pomyślnie">
+<!ENTITY subscription.lastDownload.invalidData "Nie powiodło się – nieprawidłowy zestaw filtrów">
+<!ENTITY filter.paste.label "Wklej">
+<!ENTITY subscription.disabledFilters.enable "Włącz wyłączone filtry">
+<!ENTITY lasthit.column "&amp;Ostatnie użycie">
+<!ENTITY subscription.editTitle.label "Edytuj nazwę zestawu">
+<!ENTITY subscription.disabledFilters.warning "Niektóre filtry w tym zestawie są wyłączone.">
+<!ENTITY filter.column "&amp;Reguła filtru">
+<!ENTITY subscription.lastDownload.label "Ostatnie pobieranie:">
+<!ENTITY viewList.label "Zobacz listę">

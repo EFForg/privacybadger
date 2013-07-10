@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE vbox SYSTEM "chrome://adblockplus/locale/overlay.dtd">
+
+<window
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    width="1"
+    height="1"
+    onload="window.close();">   <!-- Close window if it gets opened directly for some reason -->
+  <setting type="control">
+    <button id="adblockplus-filters" label="&filters.label;…"/>
+  </setting>
+  <setting pref="extensions.adblockplus.enabled" type="bool" inverted="true" title="&disable.label;"/>
+  <setting pref="extensions.adblockplus.frameobjects" type="bool" title="&objecttabs.label;"/>
+  <setting pref="extensions.adblockplus.fastcollapse" type="bool" inverted="true" title="&hideplaceholders.label;"/>
+  <setting id="adblockplus-savestats" type="bool" title="&counthits.label;"/>
+  <setting id="adblockplus-sync" type="bool" title="&sync.label;"/>
+  <setting id="adblockplus-showinaddonbar" type="bool" title="&showinaddonbar.label;"/>
+  <setting id="adblockplus-showintoolbar" type="bool" title="&showintoolbar.label;"/>
+  <setting id="adblockplus-showinstatusbar" pref="extensions.adblockplus.showinstatusbar" type="bool" title="&showinstatusbar.label;"/>
+</window>

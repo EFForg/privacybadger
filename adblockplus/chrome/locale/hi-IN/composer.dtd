@@ -1,0 +1,22 @@
+<!ENTITY anchor.end.label "पते के अंत में (&amp;एन)">
+<!ENTITY matchCase.label "केस मिलाएँ">
+<!ENTITY firstParty.label "केवल प्रथम-पक्ष (&amp;आर)">
+<!ENTITY preferences.label "मौजूदा फ़िल्टर्स दिखाएँ... (&amp;एस)">
+<!ENTITY pattern.label "पैटर्न के लिए देखो">
+<!ENTITY thirdParty.label "तृतीय-पक्ष ही (&amp;टी)">
+<!ENTITY filter.label "नया फ़िल्टर:">
+<!ENTITY anchor.start.label "पते की शुरुआत में (&amp;जी)">
+<!ENTITY types.label "प्रकार के लिए लागू करें:">
+<!ENTITY custom.pattern.label "कस्टम:">
+<!ENTITY type.whitelist.label "अपवाद नियम (&amp;एक्स)">
+<!ENTITY collapse.yes.label "हाँ">
+<!ENTITY basic.label "मूल दृश्य">
+<!ENTITY dialog.title "Adblock प्लस के फ़िल्टर में नियम जोड़ें">
+<!ENTITY anchors.label "पैटर्न ही स्वीकार करते हैं:">
+<!ENTITY collapse.default.yes.label "डिफ़ॉल्ट (हाँ) का उपयोग करें">
+<!ENTITY accept.label "फ़िल्टर जोड़ें">
+<!ENTITY options.label "विकल्प">
+<!ENTITY anchor.start.flexible.label "डोमेन नाम के शुरुआत में (&amp;जी)">
+<!ENTITY collapse.no.label "नहीं">
+<!ENTITY selectAllTypes.label "सभी का चयन करें">
+<!ENTITY advanced.label "उन्नत दृश्य">

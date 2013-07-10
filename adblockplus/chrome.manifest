@@ -1,0 +1,6 @@
+content   adblockplus chrome/content/
+skin      adblockplus classic/1.0 chrome/skin/
+locale    adblockplus {{LOCALE}} chrome/locale/{{LOCALE}}/
+
+# fennec settings
+override chrome://adblockplus/content/ui/settings.xul chrome://adblockplus/content/ui/fennecSettings.xul application={a23983c0-fd0e-11dc-95ff-0800200c9a66} application={aa3c5121-dab2-40e2-81ca-7ea25febc110}

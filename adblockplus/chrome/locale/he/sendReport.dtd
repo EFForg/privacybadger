@@ -1,0 +1,66 @@
+<!ENTITY screenshot.undo.label "&amp;ביטול">
+<!ENTITY issues.disabledgroups.description "קבוצות ההרשמה/המסננים הבאות מנוטרלות, לפי שעה אולי יש להם השפעה על עמוד זה:">
+<!ENTITY showData.label "הצגת מידע של הדיווח">
+<!ENTITY typeSelector.falsePositive.label "Adblock Plus חוסם יותר &amp;מדי">
+<!ENTITY issues.change.description "התצורה שלכם שונתה. יש לרענן את העמוד כדי לבחון את השינויים ולהזין דיווח אם הבעיה לא נפתרה בעקבות השינוי.">
+<!ENTITY email.label "&amp;דוא&quot;ל:">
+<!ENTITY issues.openPreferences.label "פתיחת העדפות סינון">
+<!ENTITY sendPage.confirmation "הדיווח שלכם נשמר. ניתן לגשת אליו בכתובת הבאה:">
+<!ENTITY copyLink.label "&amp;העתקת הקישור לדיווח">
+<!ENTITY issues.nofilters.description "Adblock Plus לא חוסם דבר בעמוד הנוכחי. הבעיה אשר מבחינים קרוב לוודאי איננה קשורה ל-Adblock Plus.">
+<!ENTITY sendPage.knownIssue "הבעיה שדווחה קרוב לוודאי שידועה כבר. מידע נוסף:">
+<!ENTITY typeSelector.other.description "בחירת אפשרות זו בחשד לבעיה עם Adblock Plus עצמו ולא במסננים שלו.">
+<!ENTITY issues.disabledgroups.enable.label "אפשור ההרשמה/קבוצת המסננים">
+<!ENTITY typeWarning.override.label "אני &amp;מבין ורוצה לשלוח את הדיווח בכל זאת">
+<!ENTITY issues.disabled.enable.label "אפשור  Adblock Plus">
+<!ENTITY update.fixed.description "אפשרי שעדכון הרשמות המסננים שלכם יפתור את הבעיה שדווחה. אנא רעננו את העמוד ונסו שוב, לחצו על דיווח שוב אם הבעיה נשארת.">
+<!ENTITY anonymous.label "הגשה &amp;אנונימית">
+<!ENTITY reloadButton.label "&amp;רענון העמוד">
+<!ENTITY recentReports.clear.label "&amp;הסרת כל הדיווחים">
+<!ENTITY typeSelector.description "חלון זה ידריך אתכם דרך הצעדים הדרושים להזנת דיווח בעיה עבור Adblock Plus. ראשית, אנא בחרו את סוג הבעיה אשר אתם חווים בעמוד זה:">
+<!ENTITY screenshot.remove.label "&amp;הסרת מידע רגיש">
+<!ENTITY issues.ownfilters.description "חלק מהמסננים שחלים על עמוד זה הם מוגדרי-משתמש. יש לנטרל את המסננים אשר אולי הם הגורמים לבעיה:">
+<!ENTITY update.inProgress.description "Adblock Plus צריך לעדכן את הרשמות המסננים כדי לוודא שהבעיה לא נפתרה כבר. אנא אנא המתינו...">
+<!ENTITY sendPage.retry.label "שלח שוב">
+<!ENTITY data.label "&amp;מידע הדיווח:">
+<!ENTITY recentReports.label "דיווחים אחרונים שלך שנשלחו">
+<!ENTITY typeWarning.description "ציינתם שאתם מעוניינים לדווח על בעיה כללית עם Adblock Plus מאשר בעיה עם המסננים. שימו לב שבעיות כאלו עדיף לדווח ב[link]פורום Adblock Plus[/link].  יש להשתמש במדווח הבעיות רק בנוסף לדיון קיים, כיוון שאף אחד לא ישים לב לדיווח שלכם אלא אם יסופק קישור אליו. הקישור שנוצר אוטומטית יסופק לאחר הזנת הדיווח.">
+<!ENTITY issues.disabled.description "Adblock Plus מנוטרל, זה לא יחסום דבר במצב הנוכחי.">
+<!ENTITY attachExtensions.label "סיפוח רשימת &amp;ההרחבות הפעילות אל הדיווח במקרה וניגוד תוספות הוא הגורם לבעיה">
+<!ENTITY issues.nosubscriptions.add.label "הוספת הרשמת מסנן">
+<!ENTITY issues.disabledfilters.enable.label "אפשור מסנן">
+<!ENTITY issues.override.label "&amp;התצורה נכונה, אפשר להמשיך עם הדיווח">
+<!ENTITY issues.nosubscriptions.description "נראה שאינכם רשומים לשום מסנן שהוכן מראש אשר מופיע ברשימה שמסיר אוטומטית תוכן לא רצוי מאתרי אינטרנט.">
+<!ENTITY typeSelector.falsePositive.description "בחר באפשרות זו אם חסר בעמוד תוכן חשוב או שמוצג בצורה לא נכונה או כושל לתפקד כראוי. ניתן לקבוע האם Adblock Plus הוא הגורם לבעיה על ידי נטרולו זמנית.">
+<!ENTITY typeSelector.other.label "בעיה &amp;אחרת">
+<!ENTITY emailComment.label "אנו ממליצים להזין כתובת דוא&quot;ל תקפה, כך שנוכל ליצור איתך קשר אם קיימות שאלות לגבי הדוח שלך.
+כמו כן, כתובתך תאפשר לנו לזהות את תרומותייך ולתעדף אותן בצורה גבוהה יותר.">
+<!ENTITY issues.whitelist.remove.label "אפשור מחדש של Adblock Plus בעמוד זה">
+<!ENTITY outdatedSubscriptions.description "הרשמות המסננים הבאות לא עודכנו לפחות שבועיים. אנא עדכנו הרשמות אלו לפני שליחת הדיווח, יכול להיות שהבעיה נפתרה כבר.">
+<!ENTITY dataCollector.description "אנא המתינו מספר רגעים עד אשר Adblock Plus יאסוף את המידע הדרוש.">
+<!ENTITY sendButton.label "&amp;שליחת דיווח">
+<!ENTITY comment.label "&amp;הערה (לא חובה):">
+<!ENTITY sendPage.errorMessage "נכשל ניסיון השליחה של הדיווח עם קוד השגיאה &quot;?1?&quot;. אנא וודאו שאתם מחוברים לאינטרנט ונסו שוב. אם הבעיה נמשכת, אנא בקשו סיוע ב[link]פורום Adblock Plus[/link]LL.">
+<!ENTITY showRecentReports.label "הצגת הדיווחים האחרונים שנשלחו">
+<!ENTITY commentPage.heading "הזנת תגובה">
+<!ENTITY update.start.label "התחל לעדכן כעת">
+<!ENTITY issues.disabledfilters.description "המסננים הבאים מנוטרלים, לפי שעה אולי יש להם השפעה על עמוד זה:">
+<!ENTITY screenshot.description "עמוד זהה יכול להראות שונה לאנשים שונים. אם תצורף תמונת מסך לדיווח, זה אולי יעזור לנו להבין את הבעיה. ניתן להסיר חלקים המכילים מידע רגיש וכמו כן לסמן אזורים שבהם הבעיה מובחנת. כדי לעשות זאת יש ללחוץ על כפתור ההתכתבות ולבחור עם העכבר חלק מהתמונה.">
+<!ENTITY screenshot.attach.label "&amp;צרף תמונת דף לדיווח">
+<!ENTITY issues.whitelist.description "Adblock Plus מנוטרל כעת בעמוד אשר מדווח. יש לאפשר אותו מחדש ולרענן את העמוד לפני הזנת הדיווח על מנת לסייע בחקירת בעיה זו.">
+<!ENTITY typeSelector.falseNegative.label "Adblock Plus איננו חוסם &amp;פרסומות">
+<!ENTITY typeSelector.heading "בחירת סוג הבעיה">
+<!ENTITY anonymity.warning "לא נוכל לחזור אליך, וסביר שנתעדף את הדוח בצורה נמוכה יותר.">
+<!ENTITY wizard.title "מדווח הבעיות">
+<!ENTITY issues.ownfilters.disable.label "נטרול מסנן">
+<!ENTITY commentPage.description "שדה הטקסט שמתחת מאפשר הזנת תגובה כדי לסייע לנו בהבנת הבעיה. צעד זה איננו בגדר חובה אך מומלץ אם הבעיה איננה מובנת מאליה. ניתן גם לסקור את נתוני הדיווח לפני שהוא נשלח.">
+<!ENTITY comment.lengthWarning "אורך ההודעה חרג מ-1000 תווים. רק 1000 התווים הראשונים ישלחו.">
+<!ENTITY typeSelector.falseNegative.description "בחירת אפשרות זו אם מוצגת פרסומת למרות ש-Adblock Plus מאפשר.">
+<!ENTITY sendPage.waitMessage "אנא המתינו בזמן ש-Adblock Plus מזין את הדיווח שלכם.">
+<!ENTITY dataCollector.heading "ברוכים הבאים למדווח הבעיות">
+<!ENTITY screenshot.heading "צירוף צילום מסך">
+<!ENTITY sendPage.heading "שליחת דיווח">
+<!ENTITY issues.subscriptionCount.description "נראה שאתם רשומים ליותר מדי הרשמות מסננים. מערך זה איננו מומלץ מכיוון שזה יגרום לסיכוי לבעיות להיות הרבה יותר גבוה. אנחנו גם לא נוכל לקבל את דיווחי הבעיות שלכם מכיוון שלא ברור איזה מחבר הרשמות מסנן צריך לנקוט בפעולה. אנא הסירו את כל הרשמות המסננים פרט לאלו שבאמת נחוצות ובדקו האם אז הבעיה עדיין מתרחשת.">
+<!ENTITY screenshot.mark.label "&amp;סמן את הבעיה">
+<!ENTITY privacyPolicy.label "הצהרת פרטיות">
+<!ENTITY issues.description "Adblock Plus זיהה בעיות עם התצורה שלכם שאולי אחראית לבעיה זו או שיגרום לחקירת הדיווח לקשה.">

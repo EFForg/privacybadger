@@ -1,0 +1,82 @@
+/*
+ * This file is part of Adblock Plus <http://adblockplus.org/>,
+ * Copyright (C) 2006-2013 Eyeo GmbH
+ *
+ * Adblock Plus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * Adblock Plus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@namespace url("http://www.w3.org/1999/xhtml");
+
+.%%CLASSVISIBLETOP%%, .%%CLASSVISIBLEBOTTOM%%, .%%CLASSHIDDEN%%
+{
+  position: fixed !important;
+  display: block !important;
+
+  width: auto !important;
+  height: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 65535 !important;
+  float: left !important;
+  border-color: black !important;
+  border-style: solid !important;
+  background: white !important;
+  color: black !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  font-family: Arial,Helvetica,Sans-Serif !important;
+  font-size: 10px !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  font-weight: normal !important;
+  letter-spacing: normal !important;
+  line-height: normal !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  text-indent: 0px !important;
+  text-transform: none !important;
+  direction: ltr !important;
+  padding: 0px 5px !important;
+  -moz-binding: none !important;
+  -moz-user-focus: none !important;
+  -moz-user-input: none !important;
+  -moz-user-select: none !important;
+}
+
+.%%CLASSVISIBLETOP%%, .%%CLASSHIDDEN%%
+{
+  border-width: 1px 1px 0px 1px !important;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.%%CLASSVISIBLEBOTTOM%%
+{
+  border-width: 0px 1px 1px 1px !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+.%%CLASSVISIBLETOP%%, .%%CLASSVISIBLEBOTTOM%%
+{
+  visibility: visible !important;
+}
+
+.%%CLASSHIDDEN%%
+{
+  visibility: hidden !important;
+}

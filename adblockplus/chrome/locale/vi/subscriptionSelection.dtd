@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Kèm thêm bộ lọc trọn &amp;gói &quot;?1?&quot;">
+<!ENTITY list.download.failed "Adblock Plus không thể lấy danh sách bộ lọc trọn gói.">
+<!ENTITY list.download.retry "Thử lại">
+<!ENTITY title.label "&amp;Tiêu đề của bộ trọn gói:">
+<!ENTITY list.download.website "Xem trang web">
+<!ENTITY supplementMessage "Bộ lọc trọn gói này chỉ nên dùng kèm với bộ lọc trọn gói &quot;?1?&quot; - cái mà bạn chưa sử dụng.">
+<!ENTITY viewList.label "Xem bộ lọc">
+<!ENTITY visitHomepage.label "Vào trang chủ">
+<!ENTITY addSubscription.label "Thêm bộ trọn gói">
+<!ENTITY dialog.title "Thêm bộ lọc trọn gói cho Adblock Plus">
+<!ENTITY location.label "Đị&amp;a chỉ của danh sách bộ lọc:">
+<!ENTITY fromWeb.description "Vui lòng xác nhận rằng bạn muốn thêm bộ lọc trọn gói này. Bạn có thể thay đổi tiêu đề hoặc địa chỉ trước khi thêm nó.">

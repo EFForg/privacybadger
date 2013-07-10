@@ -1,0 +1,64 @@
+Program @ 0:0:
+ + sourceElements: [
+   ExpressionStatement @ 4:0:
+    + expr:
+      CallExpression @ 4:0:
+       + precedence: 2
+       + func:
+         IdentifierExpression @ 4:0:
+          + precedence: 0
+          + name: include
+       + arguments: [
+         LiteralExpression @ 4:8:
+          + precedence: 0
+          + objtype: string
+          + value: ../utils/astml.js
+         ]
+   FunctionDeclaration @ 6:9:
+    + precedence: Infinity
+    + name: process_js
+    + arguments: [
+      Parameter @ 6:20:
+       + precedence: 0
+       + name: pn
+      Parameter @ 6:24:
+       + precedence: 0
+       + name: file
+      ]
+    + body:
+      BlockStatement @ 6:30:
+       + statements: [
+         VarStatement @ 7:2:
+          + vartype: var
+          + variables: [
+            VarDeclaration @ 7:6:
+             + precedence: 0
+             + name: ast
+             + initializer:
+               CallExpression @ 7:12:
+                + precedence: 2
+                + func:
+                  IdentifierExpression @ 7:12:
+                   + precedence: 0
+                   + name: makeAST
+                + arguments: [
+                  IdentifierExpression @ 7:20:
+                   + precedence: 0
+                   + name: pn
+                  ]
+            ]
+         ExpressionStatement @ 8:2:
+          + expr:
+            CallExpression @ 8:2:
+             + precedence: 2
+             + func:
+               IdentifierExpression @ 8:2:
+                + precedence: 0
+                + name: dump_trueast
+             + arguments: [
+               IdentifierExpression @ 8:15:
+                + precedence: 0
+                + name: ast
+               ]
+         ]
+   ]

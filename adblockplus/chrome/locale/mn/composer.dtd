@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "хаягийн төгсгөл&amp;д">
+<!ENTITY domainRestriction.label "Х&amp;язгаарлах хаяг">
+<!ENTITY collapse.default.no.label "Анхдагчийг (үгүй) хэрэглэх">
+<!ENTITY firstParty.label "&amp;Зөвхөн эхний хэсэг">
+<!ENTITY preferences.label "&amp;Байгаа шүүлтүүрүүдийг харах...">
+<!ENTITY pattern.label "Эсгүүрийн байдал">
+<!ENTITY thirdParty.label "Зөвхөн &amp;гуравдагч хэсэг">
+<!ENTITY filter.label "&amp;Шинэ шүүлтүүр:">
+<!ENTITY collapse.label "Хашигдсанг х&amp;ураах нь:">
+<!ENTITY match.warning "Таны оруулсан эсгүүрт таарах хаагдсан/зөвшөөрөгдсөн хаяг удаан хугацаанд олдоогүй бөгөөд энд нөлөө үзүүлэхгүй байна.">
+<!ENTITY anchor.start.label "хаягийн &amp;эхлэлд">
+<!ENTITY matchCase.label "Том &amp;жижиг ялгах">
+<!ENTITY custom.pattern.label "&amp;Тусгай:">
+<!ENTITY unselectAllTypes.label "Бүгдийг үл сонгох">
+<!ENTITY type.whitelist.label "&amp;Үл хаших дүрэм">
+<!ENTITY regexp.warning "Эсгүүр нь энгийн илэрхийлэл шиг байж болно. Хэт их энгийн илэрхийлэл нь ажиллагааг удаашруулж болзошгүй. If you didn't intend to use regular expressions, add a * symbol at the end of the pattern.">
+<!ENTITY dialog.title "Adblock Plus шүүлтүүрийн дүрэм нэмэх">
+<!ENTITY basic.label "Үндсэн харагдац">
+<!ENTITY type.filter.label "&amp;Хаших шүүлтүүр">
+<!ENTITY types.label "Хэрэглэх төрлүүд:">
+<!ENTITY shortpattern.warning "The pattern you entered is too short to be optimized, many such patterns might slow down your browsing. It is recommended that you choose a longer string for this filter.">
+<!ENTITY collapse.yes.label "Тийм">
+<!ENTITY anchors.label "Эсгүүрийг зөвхөн зөвшөөрөх нь:">
+<!ENTITY collapse.default.yes.label "Анхдагчийг (тийм) хэрэглэх">
+<!ENTITY domainRestriction.help "Specify one or more domains separated by the symbol &quot;|&quot;, the filter will only be applied on these domains then. The symbol &quot;~&quot; before a domain name means that the filter should not be applied on that domain.">
+<!ENTITY accept.label "Шүүлтүүр нэмэх">
+<!ENTITY options.label "Сонголтууд">
+<!ENTITY disabled.warning "Adblock Plus нь одоогоор хаалттай байна.  Та шүүлтүүр нэмж чадах боловч хэрэгжихгүй байх болно. [link]Adblock Plus-ийг нээх[/link].">
+<!ENTITY anchor.start.flexible.label "Домайн н&amp;эрийн эхлэлд">
+<!ENTITY collapse.no.label "Үгүй">
+<!ENTITY selectAllTypes.label "Бүгдийг сонгох">
+<!ENTITY advanced.label "Дэвшмэл харагдац">
+<!ENTITY pattern.explanation "Эсгүүр нь хаягийн аль нэг хэсэг, * тэмдэг шиг байж болно. Энэ шүүлтүүр нь зөвхөн энэ эсгүүртэй холбогдох хаяг дээр хэрэгжинэ.">

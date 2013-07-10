@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="qunit.css"/>
+    <script src="jquery-1.7.1.min.js"></script>
+    <script src="qunit.js"></script>
+    <script src="common.js" type="text/javascript;version=1.7"></script>
+    <script src="httpd.js" type="text/javascript;version=1.7"></script>
+    <script type="text/javascript;version=1.7">
+      Cu.import("resource://gre/modules/Services.jsm");
+
+      function getTestFiles()
+      {
+        let module = {};
+        module.wrappedJSObject = module;
+        Services.obs.notifyObservers(module, "adblockplustests-require", "info");
+
+        let {addonRoot} = module.exports;
+        let uri = Services.io.newURI(addonRoot, null, null).QueryInterface(Components.interfaces.nsIJARURI);
+
+        let zipReader = Cc["@mozilla.org/libjar/zip-reader;1"].createInstance(Ci.nsIZipReader);
+        zipReader.open(uri.JARFile.QueryInterface(Ci.nsIFileURL).file);
+
+        let result = [];
+        let enumerator = zipReader.findEntries(null);
+        let prefix = "chrome/content/tests/";
+        while (enumerator.hasMore())
+        {
+          let name = enumerator.getNext();
+          if (name.indexOf(prefix) == 0 && /\.js$/.test(name))
+            result.push("tests/" + name.replace(prefix, ""));
+        }
+
+        zipReader.close();
+
+        result.sort();
+        return result;
+      }
+
+      let files = getTestFiles();
+      for each (let file in files)
+      {
+        let script = document.createElement("script");
+        script.setAttribute("src", file);
+        script.setAttribute("type", "text/javascript;version=1.7");
+        document.documentElement.appendChild(script);
+      }
+    </script>
+  </head>
+  <body>
+    <h1 id="qunit-header">Adblock Plus unit tests</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+  </body>
+</html>

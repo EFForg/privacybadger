@@ -1,0 +1,29 @@
+<!ENTITY sync.label "&amp;Sinkronizatu Adblock Plus ezarpenak">
+<!ENTITY whitelist.site.label "Ezgaitu hemen: ?1?">
+<!ENTITY filters.label "&amp;Iragazki hobespenak">
+<!ENTITY disable.label "Ezgaitu edonon">
+<!ENTITY showinaddonbar.label "Erakutsi &amp;gehigarrien barran">
+<!ENTITY objecttab.title "Blokeatu">
+<!ENTITY objecttab.tooltip "Egin klik hemen objektu hau Adblock Plusekin blokeatzeko">
+<!ENTITY menuitem.label "Adbloc&amp;k Plus hobespenak">
+<!ENTITY objecttabs.label "Erakutsi &amp;fitxak Flash eta Javan">
+<!ENTITY sendReport.label "Orri hone&amp;tan sortutako arazo bati buruzko txostena egin">
+<!ENTITY whitelist.page.label "Ezgaitu orri honetan soilik">
+<!ENTITY context.image.label "Adblock Plus: Irudia blokeatu">
+<!ENTITY counthits.label "Zenbatu iragazkien &amp;bategiteak">
+<!ENTITY opensidebar.label "Ire&amp;ki elementu blokeagarriak">
+<!ENTITY contribute.label "Adblock Plus-en parte hartu">
+<!ENTITY toolbarbutton.label "Adblock Plus">
+<!ENTITY context.frame.label "Adblock Plus: Markoa blokeatu">
+<!ENTITY blocked.tooltip "Orri honetan blokeatutako elementuak:">
+<!ENTITY hideplaceholders.label "Ezkutatu blokeatutako elementuen &amp;kokagunea">
+<!ENTITY showinstatusbar.label "Erakutsi &amp;egoera-barran">
+<!ENTITY sidebar.title "Elementu blokeagarriak uneko orrialdean">
+<!ENTITY options.label "&amp;Aukerak">
+<!ENTITY context.object.label "Adblock Plus: Objektua blokeatu">
+<!ENTITY context.removeWhitelist.label "Adblock Plus: Bergaitu orri honetan">
+<!ENTITY filters.tooltip "Iragazki aktiboenak:">
+<!ENTITY closesidebar.label "Itxi elementu blo&amp;keagarriak">
+<!ENTITY showintoolbar.label "Erakutsi &amp;tresna-barran">
+<!ENTITY status.tooltip "Egoera:">
+<!ENTITY context.media.label "Adblock Plus: audio/bideoa blokeatu">

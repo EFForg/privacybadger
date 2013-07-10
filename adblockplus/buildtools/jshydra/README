@@ -1,0 +1,34 @@
+JSHydra static analysis tool
+© 2009 Joshua Cranmer
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+Like most Linux/Unix programs, ./configure && make should work to build the
+system. You can also pass configure options to change which repository to
+download from, or even use an existing mozilla-central checkout and build. The
+source code for SpiderMonkey is required, since this uses internal APIs. If you
+have your own repository, a revision newer than 2cf0bbe3772a is required, since
+that revision changed the parse APIs. However, a newer revision could
+potentially break the code.
+
+The code is not known to work with all JS features; the only code that
+probably does not work is E4X code. If you find a bug in the program, feel free
+to contact me on irc.mozilla.org (nick: jcranmer) or email me at
+<Pidgeot18@gmail.com>. Since this program uses bleeding-edge versions of
+SpiderMonkey, some bugs may be due to broken code there.

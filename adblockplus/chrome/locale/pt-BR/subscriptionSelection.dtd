@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Adicionar também a inscrição de &amp;filtros &quot;?1?&quot;">
+<!ENTITY list.download.failed "O Adblock Plus não conseguiu obter a lista de inscrições.">
+<!ENTITY list.download.retry "Tentar novamente">
+<!ENTITY title.label "&amp;Título da inscrição:">
+<!ENTITY list.download.website "Abrir página da lista de inscrições">
+<!ENTITY supplementMessage "Essa inscrição de filtros foi feita para ser usada com inscrição &quot;?1?&quot;, que você não está usando ainda.">
+<!ENTITY viewList.label "Visualizar filtros">
+<!ENTITY visitHomepage.label "Abrir página da inscrição">
+<!ENTITY addSubscription.label "Adicionar inscrição">
+<!ENTITY dialog.title "Adicionar inscrição de filtros do Adblock Plus">
+<!ENTITY location.label "&amp;Endereço da lista de filtros:">
+<!ENTITY fromWeb.description "Por favor, confirme que você deseja adicionar essa inscrição de filtros. Você pode alterar o título ou o endereço da inscrição antes de adicionar.">

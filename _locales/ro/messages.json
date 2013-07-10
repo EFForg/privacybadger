@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Adaugă"
+  },
+  "add_domain_button": {
+    "message": "Adaugă domeniu"
+  },
+  "add_filter_button": {
+    "message": "Adaugă filtru"
+  },
+  "add_filters_msg": {
+    "message": "Adaugă filtre?"
+  },
+  "add_your_own_filters": {
+    "message": "Adaugă propriile filtre"
+  },
+  "apply_changes": {
+    "message": "Aplică modificările"
+  },
+  "block_element": {
+    "message": "Blochează Elementul"
+  },
+  "cancel": {
+    "message": "Anulează"
+  },
+  "clickhide_instructions": {
+    "message": "După închiderea acestui pop-up, clic (sau clic-dreapta) pe un element de pe pagină."
+  },
+  "description": {
+    "message": "Instrumentul gratuit adblock pentru Chrome: blocheaza agasantele reclame video pe YouTube, reclamele Facebook, banere si multe altele."
+  },
+  "disable_inline": {
+    "message": "Dezactivează inserturile publicitare de tip text"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus este dezactivat pentru domeniile listate mai jos. Poți adăuga un domeniu folosind iconița Adblock Plus in bara de adrese sau scriind domeniul (nu URL-ul) in spațiul de mai jos și făcând clic pe butonul \"Adaugă domeniu\"."
+  },
+  "easy_create_filter": {
+    "message": "Generare rapidă filtru"
+  },
+  "edit_filters_raw": {
+    "message": "Editor filtre în mod text"
+  },
+  "enable_only_the": {
+    "message": "Activaţi doar listele de filtre necesare. Prea multe încetinesc Chrome."
+  },
+  "enabled_for_site": {
+    "message": "Activat pentru acest site"
+  },
+  "filter_lists": {
+    "message": "Liste de filtre"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Filtrul tău trebuie să respecte <a href='$url$'> sintaxa Adblock Plus pentru filtre</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Ai gasit o eroare? Dorești să traduci Adblock Plus în limba ta?  <a href='$url$'>scrie o cerere aici</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "General"
+  },
+  "last_updated_at": {
+    "message": "Ultima actualizare la ora $time$ pe data $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Ultima actualizare la ora $time$ azi",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Noi filtre adăugate; consultaţi <a id='options_url' target='_blank'> Opţiunile</a> pentru a le administra."
+  },
+  "options": {
+    "message": "Opţiuni Adblock Plus"
+  },
+  "out_of_date_lists": {
+    "message": "Listele vechi sunt actualizate periodic."
+  },
+  "remove_button": {
+    "message": "Șterge filtrul evidenţiat"
+  },
+  "show_block_element_menu": {
+    "message": "Arată 'Blochează Elementul' in meniul asociat unui obiect cu clic dreapta"
+  },
+  "show_icon": {
+    "message": "Afişează sigla în bara de adrese"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Alegeți un set de filtre din listă:"
+  },
+  "update_now": {
+    "message": "Actualizează acum"
+  },
+  "whitelisted_domains": {
+    "message": "Domenii permise"
+  }
+}

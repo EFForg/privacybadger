@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://adblockplus/skin/subscriptionSelection.css" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://adblockplus/locale/subscriptionSelection.dtd">
+
+<dialog
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept,cancel"
+  buttonlabelaccept="&addSubscription.label;"
+  title="&dialog.title;"
+  id="abpSubscriptionSelection"
+  windowtype="abp:subscriptionSelection"
+  onload="init();"
+  ondialogaccept="return addSubscription();">
+
+  <script type="application/x-javascript;version=1.7" src="utils.js"/>
+  <script type="application/x-javascript;version=1.7" src="subscriptionSelection.js"/>
+
+  <deck id="all-subscriptions-container" selectedIndex="0" flex="1">
+    <vbox pack="center">
+      <progressmeter id="all-subscriptions-loading" mode="undetermined"/>
+    </vbox>
+    <vbox>
+      <richlistbox id="all-subscriptions" onselect="onSelectionChange()" flex="1"/>
+      <hbox id="subscriptionInfo" invisible="true">
+        <label id="view-list" class="text-link" value="&viewList.label;" onclick="UI.loadInBrowser(this.getAttribute('_url'))"/>
+        <spacer flex="1"/>
+        <label id="visit-homepage" class="text-link" value="&visitHomepage.label;" onclick="UI.loadInBrowser(this.getAttribute('_url'))"/>
+      </hbox>
+    </vbox>
+    <vbox pack="center" align="center">
+      <description value="&list.download.failed;"/>
+      <hbox>
+        <button label="&list.download.retry;" oncommand="reloadSubscriptionList()"/>
+        <button label="&list.download.website;" oncommand="UI.loadDocLink('subscriptions')"/>
+      </hbox>
+    </vbox>
+  </deck>
+
+  <description id="fromWebText" hidden="true">&fromWeb.description;</description>
+
+  <groupbox id="differentSubscription">
+    <label value="&title.label;" control="title"/>
+    <textbox id="title"/>
+
+    <label value="&location.label;" control="location"/>
+    <textbox id="location"/>
+  </groupbox>
+
+  <description id="supplementMessage" invisible="true" _textTemplate="&supplementMessage;">
+    &supplementMessage;
+    <label class="text-link" oncommand="">dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy</label>
+  </description>
+  <checkbox id="addMainSubscription" invisible="true" checked="true" _labelTemplate="&addMain.label;" label="&addMain.label;"/>
+
+</dialog>

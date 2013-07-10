@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "إضافة ا&amp;شتراك الفلتر &quot;?1?&quot; أيضا">
+<!ENTITY list.download.failed "فشل آدبلوك بلس في جلب قائمة الاشتراكات">
+<!ENTITY list.download.retry "إعادة المحاولة">
+<!ENTITY title.label "&amp;عنوان الاشتراك">
+<!ENTITY list.download.website "عرض الموقع">
+<!ENTITY supplementMessage "اشتراك الفلتر هذا يجب أن يستخدم مع اشتراك الفلتر &quot;?1?&quot; والذي لم تستعمله بعد">
+<!ENTITY viewList.label "عرض فلاتر">
+<!ENTITY visitHomepage.label "زيارة الصفحة الرئيسية">
+<!ENTITY addSubscription.label "إضافة اشتراك">
+<!ENTITY dialog.title "أهلاً بك في آدبلوك بلس">
+<!ENTITY location.label "&amp;موقع قائمة الفلاتر">
+<!ENTITY fromWeb.description "الرجاء التأكد من رغبتك في إضافة اشتراك الفلتر هذا. يمكنك أن تغير عنوان أو موقع الاشتراك قبل اضافته.">

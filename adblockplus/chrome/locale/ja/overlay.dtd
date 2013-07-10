@@ -1,0 +1,29 @@
+<!ENTITY sync.label "Adblock Plus 設定を同期 (Sync) (&amp;C)">
+<!ENTITY whitelist.site.label "?1? で無効">
+<!ENTITY filters.label "フィルタ設定 (&amp;F)">
+<!ENTITY disable.label "全ページで無効">
+<!ENTITY showinaddonbar.label "アドオンバーに表示 (&amp;B)">
+<!ENTITY objecttab.title "ブロックする">
+<!ENTITY objecttab.tooltip "クリックしてオブジェクトをブロック (Adblock Plus)">
+<!ENTITY menuitem.label "Adblock Plus 設定 (&amp;B)">
+<!ENTITY objecttabs.label "Flash と Java でタブを表示 (&amp;T)">
+<!ENTITY sendReport.label "このページでの不具合を報告 (&amp;R)">
+<!ENTITY whitelist.page.label "このページだけ無効">
+<!ENTITY context.image.label "Adblock Plus: 画像をブロック">
+<!ENTITY counthits.label "フィルタのヒット数を数える (&amp;H)">
+<!ENTITY opensidebar.label "ブロック可能項目一覧を開く (&amp;B)">
+<!ENTITY contribute.label "Adblock Plus に貢献する">
+<!ENTITY toolbarbutton.label "Adblock Plus">
+<!ENTITY context.frame.label "Adblock Plus: フレームをブロック">
+<!ENTITY blocked.tooltip "このページでブロック中の項目:">
+<!ENTITY hideplaceholders.label "ブロックした場所に残る空きスペースを隠す (&amp;L)">
+<!ENTITY showinstatusbar.label "ステータスバーに表示 (&amp;S)">
+<!ENTITY sidebar.title "このページのブロック可能項目一覧">
+<!ENTITY options.label "オプション (&amp;O)">
+<!ENTITY context.object.label "Adblock Plus: オブジェクトをブロック">
+<!ENTITY context.removeWhitelist.label "Adblock Plus: このページで有効に戻す">
+<!ENTITY filters.tooltip "有効なフィルタ:">
+<!ENTITY closesidebar.label "ブロック可能項目一覧を閉じる (&amp;B)">
+<!ENTITY showintoolbar.label "ツールバーに表示 (&amp;B)">
+<!ENTITY status.tooltip "ステータス:">
+<!ENTITY context.media.label "Adblock Plus: オーディオ／ビデオをブロック">

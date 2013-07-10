@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "&quot;?1?&quot; फ़िल्टर की सबक्रिपशन भी जोड़े (&amp;s)">
+<!ENTITY list.download.failed "Adblock plus सबक्रिपशन की सूची लेने मैं विफल हो गया.">
+<!ENTITY list.download.retry "फिर कोशिश करे">
+<!ENTITY title.label "सबक्रिपशन का नाम: (&amp;t)">
+<!ENTITY list.download.website "वेबसाइट देखिए">
+<!ENTITY supplementMessage "यह फिल्टर सबक्रिपशन &quot;?1?&quot; के साथ उपयोग में लेने हेतु है, जो की आपके उपयोग में नही है">
+<!ENTITY viewList.label "फिल्टर देखिए">
+<!ENTITY visitHomepage.label "होमपेज पे जाइए">
+<!ENTITY addSubscription.label "नई सबक्रिपशन जोड़िए">
+<!ENTITY dialog.title "Adblock plus की सबक्रिपशन जोड़िए">
+<!ENTITY location.label "फिल्टर की सूची की लोकेशन: (&amp;l)">
+<!ENTITY fromWeb.description "कृपया पुष्टि करे के आप इस फिल्टर सबक्रिपशन को जोड़ना चाहते है. आप सबक्रिपशन का नाम और लोकेशन इसे जोड़ने से पहले बदल सकते है.">

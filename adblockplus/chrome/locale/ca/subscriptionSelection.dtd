@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Afegeix la &amp;subscripció de filtre «?1?»">
+<!ENTITY list.download.failed "L'Adblock Plus ha fallat en trobar la llista de subscripcions.">
+<!ENTITY list.download.retry "Torna-ho a provar">
+<!ENTITY title.label "&amp;Títol de la subscripció:">
+<!ENTITY list.download.website "Vés a la pàgina web">
+<!ENTITY supplementMessage "Aquesta subscripció de filtre s'ha d'utilitzar amb «?1?» que encara no feu servir.">
+<!ENTITY viewList.label "Mostra els filtres">
+<!ENTITY visitHomepage.label "Vés a la pàgina web">
+<!ENTITY addSubscription.label "Afegeix una subscripció">
+<!ENTITY dialog.title "Afegeix la subscripció de filtre per a Adblock Plus">
+<!ENTITY location.label "&amp;Filtra la localització de la llista:">
+<!ENTITY fromWeb.description "Confirmeu que voleu afegir aquesta subscripció de filtre. Podeu canviar el títol de la subscripció o la localització abans d'afegir-la.">

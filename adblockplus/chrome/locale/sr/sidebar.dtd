@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Осветли границе ставке">
+<!ENTITY address.label "Адреса">
+<!ENTITY context.open.label "Отвори на новом листу">
+<!ENTITY type.label "Врста">
+<!ENTITY tooltip.filterSource.label "Извор филтера:">
+<!ENTITY noitems.label "Нема ставки за блокирање">
+<!ENTITY filter.label "Филтер">
+<!ENTITY tooltip.size.label "Величина:">
+<!ENTITY reattach.label "Поново споји">
+<!ENTITY search.label "&amp;Тражи:">
+<!ENTITY docDomain.thirdParty "(трећа страна)">
+<!ENTITY filterSource.label "Извор филтера">
+<!ENTITY tooltip.docDomain.label "Извор документа:">
+<!ENTITY context.copy.label "Умножи адресу ставке">
+<!ENTITY tooltip.type.label "Врста:">
+<!ENTITY context.disablefilter.label "Онемогући филтер ?1?">
+<!ENTITY context.copyFilter.label "Умножи филтер">
+<!ENTITY context.block.label "Блокирај ову ставку">
+<!ENTITY context.enablefilter.label "Омогући филтер ?1?">
+<!ENTITY detach.label "Одвоји">
+<!ENTITY whitelisted.label "Бела листа">
+<!ENTITY context.disablefilteronsite.label "Онемогући овај филтер на ?1?">
+<!ENTITY detached.title "Adblock Plus: ставке које се могу блокирати (одвојено)">
+<!ENTITY docDomain.firstParty "(прва страна)">
+<!ENTITY tooltip.type.whitelisted "(на белој листи)">
+<!ENTITY tooltip.filter.label "Коришћени филтер:">
+<!ENTITY tooltip.filter.disabled "(онемогућено)">
+<!ENTITY context.editfilter.label "Уреди коришћени филтер">
+<!ENTITY tooltip.type.blocked "(блокирано)">
+<!ENTITY size.label "Величина">
+<!ENTITY context.whitelist.label "Додај изузетак за ставку">
+<!ENTITY context.selectAll.label "Изабери све">
+<!ENTITY state.label "Статус">
+<!ENTITY docDomain.label "Извор документа">
+<!ENTITY tooltip.address.label "Адреса:">

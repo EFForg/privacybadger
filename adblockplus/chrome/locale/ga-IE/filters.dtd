@@ -1,0 +1,9 @@
+<!ENTITY filter.cut.label "Gearr">
+<!ENTITY addSubscriptionOther.label "Cuir síntiús eile leis">
+<!ENTITY find.label "Aimsigh">
+<!ENTITY filter.delete.label "Scrios">
+<!ENTITY enabled.column "Cumasaithe">
+<!ENTITY subscription.lastDownload.success "D'éirigh leis">
+<!ENTITY filter.copy.label "Macasamhlaigh">
+<!ENTITY filter.paste.label "Greamaigh">
+<!ENTITY subscription.lastDownload.inProgress "Ag íosluchtú...">

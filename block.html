@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Block element</title>
+<link type="text/css" href="jquery-ui/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="jquery-ui/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="i18n.js" charset="utf-8"></script>
+<script type="text/javascript" src="block.js" charset="utf-8"></script>
+<style type="text/css">
+  body
+  {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    background: #ffffff;
+    margin: 0px;
+    padding: 5px;
+    display: inline-block;
+  }
+  #title,
+  #filters
+  {
+    margin-bottom: 3px;
+  }
+  #title > *
+  {
+    vertical-align: middle;
+  }
+  #title > img
+  {
+    margin-right: 5px;
+  }
+  #filters
+  {
+    width: 400px;
+    height: 100px;
+    resize: none;
+  }
+  #buttons
+  {
+    text-align: right;
+  }
+  button
+  {
+    padding: 3px !important;
+  }
+</style>
+</head>
+<body draggable="true">
+
+<div id="title">
+  <img src="icons/abp-32.png" />
+  <span class="i18n_add_filters_msg"></span>
+</div>
+
+<textarea id="filters"></textarea>
+
+<div id="buttons">
+  <button id="addButton" class="i18n_add"></button>
+  <button id="cancelButton" class="i18n_cancel"></button>
+</div>
+
+</body>
+</html>

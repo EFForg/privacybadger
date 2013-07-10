@@ -1,0 +1,72 @@
+<!ENTITY restore.custom.warning "Kõik su isetehtud filtrid asendatakse valitud faili sisuga. Kas soovid jätkata?">
+<!ENTITY slow.column "A&amp;eglased filtrid">
+<!ENTITY enabled.column "L&amp;ubatud">
+<!ENTITY subscription.lastDownload.checksumMismatch "Nurjus, kontrollsumma ei klapi">
+<!ENTITY noFiltersInGroup.text "Valitud grupp on tühi">
+<!ENTITY subscription.actions.label "Tegevused">
+<!ENTITY filter.selectAll.label "Vali kõik">
+<!ENTITY backupButton.label "&amp;Varundamine ja taastamine">
+<!ENTITY restore.minVersion.warning "Hoiatus: see fail on loodud uuema Adblock Plus versiooniga. Enne selle taastamist peaksid sa Adblock Plus'i uuendama viimasele versioonile.">
+<!ENTITY restore.error "Faili andmeid ei õnnestu töödelda. Kas see on ikka Adblock Plus varundusfail?">
+<!ENTITY sort.ascending.label "A &gt; Z sortimiskord">
+<!ENTITY sort.label "Sortimine">
+<!ENTITY subscription.source.label "Filtrite loetelu">
+<!ENTITY hitcount.column "&amp;Tabamusi">
+<!ENTITY noFilters.text "Sul ei ole ühtegi isetehtud filtrit.">
+<!ENTITY backup.custom.title "Ainult isetehtud filtrid">
+<!ENTITY subscription.external.label "Uuendatud mingi teise lisa poolt">
+<!ENTITY subscription.delete.label "Kustuta">
+<!ENTITY noGroupSelected.text "Enne kui filtreid saab näidata pead valima filtrite grupi.">
+<!ENTITY filter.cut.label "Lõika">
+<!ENTITY restore.default.label "Taasta andmed varukoopiast ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Laen alla...">
+<!ENTITY subscriptions.tab.label "Filtrite tellimused">
+<!ENTITY sort.descending.label "Z &gt; A sortimiskord">
+<!ENTITY filters.remove.warning "Kas soovid tõesti eemaldada kõik valitud filtrid?">
+<!ENTITY filter.delete.label "Kustuta">
+<!ENTITY addSubscriptionAdd.label "Lisa">
+<!ENTITY viewMenu.label "Vaade">
+<!ENTITY subscription.lastDownload.unknown "Pole teada">
+<!ENTITY addSubscriptionCancel.label "Loobu">
+<!ENTITY subscription.enabled.label "Lubatud">
+<!ENTITY noSubscriptions.text "Sa ei ole veel lisanud ühtegi filtrite tellimust. Adblock Plus ei blokeeri midagi ilma filtriteta. Filtrite tellimiseks klõpsa nupul &quot;Lisa filtrite tellimus&quot;.">
+<!ENTITY subscription.update.label "Uuenda filtreid">
+<!ENTITY dialog.title "Adblock Plus filtrite sätted">
+<!ENTITY addFilter.label "&amp;Lisa filter">
+<!ENTITY subscription.minVersion.warning "See filtrite tellimus nõuab uuemat Adblock Plus versiooni. Sa peaksid uuendama Adblock Plus'i.">
+<!ENTITY subscription.lastDownload.invalidURL "Nurjus, vale aadress">
+<!ENTITY backup.error "Viga filtrite faili kirjutamisel. Kontrolli, et fail ei oleks avatud mingi teise rakenduse poolt ja et fail ei oleks kirjutuskaitstud.">
+<!ENTITY filter.moveUp.label "Liiguta üles">
+<!ENTITY addGroup.label "Lisa filtrite grupp">
+<!ENTITY filter.edit.label "Muuda">
+<!ENTITY subscription.showHideFilters.label "Näita/peida filtreid">
+<!ENTITY acceptableAds2.label "Luba mõned mittepealetükkivad reklaamid">
+<!ENTITY addSubscriptionOther.label "Lisa muu tellimus">
+<!ENTITY close.label "Sulge">
+<!ENTITY sort.none.label "S&amp;ortimata">
+<!ENTITY filter.actions.label "Filtri tegevused">
+<!ENTITY filter.copy.label "Kopeeri">
+<!ENTITY filter.moveDown.label "Liiguta alla">
+<!ENTITY filter.resetHitCounts.label "Nullista tabamuste statistika">
+<!ENTITY readMore.label "Loe lisaks">
+<!ENTITY subscription.moveUp.label "Liiguta üles">
+<!ENTITY addSubscription.label "Lisa filtrite tellimus">
+<!ENTITY subscription.homepage.label "Koduleht">
+<!ENTITY backup.complete.title "Kõik filtrid ja tellimused">
+<!ENTITY restore.own.label "Taasta andmed mujalt">
+<!ENTITY restore.complete.warning "Kõik filtrite sätted asendatakse valitud faili sisuga. Kas soovid jätkata?">
+<!ENTITY filters.tab.label "Isetehtud filtrid">
+<!ENTITY backup.label "Loo uus varukoopia">
+<!ENTITY find.label "&amp;Otsi">
+<!ENTITY subscription.moveDown.label "Liiguta alla">
+<!ENTITY subscription.lastDownload.connectionError "Nurjus, allalaadimise viga">
+<!ENTITY subscription.lastDownload.success "Õnnestus">
+<!ENTITY subscription.lastDownload.invalidData "Nurjus, vale filtrite nimekiri">
+<!ENTITY filter.paste.label "Aseta">
+<!ENTITY subscription.disabledFilters.enable "Luba keelatud filtrid">
+<!ENTITY lasthit.column "&amp;Viimane tabamus">
+<!ENTITY subscription.editTitle.label "Muuda pealkirja">
+<!ENTITY subscription.disabledFilters.warning "Mõned selle tellimuse filtrid on keelatud.">
+<!ENTITY filter.column "Filtri reegel">
+<!ENTITY subscription.lastDownload.label "Viimati alla laaditud:">
+<!ENTITY viewList.label "Vaata loetelu">

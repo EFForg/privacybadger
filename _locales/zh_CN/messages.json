@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "添加"
+  },
+  "add_domain_button": {
+    "message": "添加域名"
+  },
+  "add_filter_button": {
+    "message": "添加过滤规则"
+  },
+  "add_filters_msg": {
+    "message": "添加过滤规则？"
+  },
+  "add_your_own_filters": {
+    "message": "自定义过滤"
+  },
+  "apply_changes": {
+    "message": "应用"
+  },
+  "block_element": {
+    "message": "屏蔽此元素"
+  },
+  "cancel": {
+    "message": "取消"
+  },
+  "clickhide_instructions": {
+    "message": "请点击（或右击）要屏蔽的元素"
+  },
+  "description": {
+    "message": "Chrome的免费广告过滤工具: 阻挡Youtube上烦人的视频广告，Facebook上的广告，大横幅广告，还有更多 "
+  },
+  "disable_inline": {
+    "message": "屏蔽广告链接"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus将不过滤以下域名。您可以通过地址栏的按钮添加，也可在下面输入域名(URL无效)并添加。 [注]:URL的排除可在“自定义过滤”中添加。"
+  },
+  "easy_create_filter": {
+    "message": "轻松建立过滤规则"
+  },
+  "edit_filters_raw": {
+    "message": "以纯文本编辑"
+  },
+  "enable_only_the": {
+    "message": "请只启用您需要的过滤清单，开启过多会使浏览器变慢。"
+  },
+  "enabled_for_site": {
+    "message": "对该网站启用过滤"
+  },
+  "filter_lists": {
+    "message": "过滤清单"
+  },
+  "filter_must_follow_syntax": {
+    "message": "您的过滤器必须遵循 <a href='$url$'> Adblock Plus 过滤器语法</a>。",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "发现错误？想要帮忙翻译Adblock Plus？请前往<a href='$url$'>此处</a>",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "常规"
+  },
+  "last_updated_at": {
+    "message": "最近更新于 $time$ $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "最近更新于 $time$ 今日",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "您已添加过滤规则。 请至<a id='options_url' target='_blank'>Adblock Plus选项</a> 管理过滤规则。"
+  },
+  "options": {
+    "message": "设置选项"
+  },
+  "out_of_date_lists": {
+    "message": "过滤清单会定期自动更新"
+  },
+  "remove_button": {
+    "message": "删除已选择"
+  },
+  "show_block_element_menu": {
+    "message": "添加到右鍵菜单"
+  },
+  "show_icon": {
+    "message": "在地址栏显示按钮"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "从列表中选择过滤规则订阅组:"
+  },
+  "update_now": {
+    "message": "立即更新"
+  },
+  "whitelisted_domains": {
+    "message": "排除域名"
+  }
+}

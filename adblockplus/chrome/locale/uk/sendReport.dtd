@@ -1,0 +1,70 @@
+<!ENTITY screenshot.undo.label "&amp;Повернути">
+<!ENTITY issues.disabledgroups.description "Наступні фільтрові підписки/групи вимкнені, але могли вплинути на цю сторінку:">
+<!ENTITY showData.label "Показати дані звіту">
+<!ENTITY typeSelector.falsePositive.label "Adblock Plus &amp;блокує забагато">
+<!ENTITY issues.change.description "Ваші налаштування було змінено. Перегрузіть сторінку для перевірки внесених змін та зашліть звіт якщо проблему не вирішено.">
+<!ENTITY email.label "&amp;Електронна пошта:">
+<!ENTITY issues.openPreferences.label "Відкрити фільтрові підписки">
+<!ENTITY sendPage.confirmation "Звіт було записано. Ви можете переглянути його за посиланням:">
+<!ENTITY copyLink.label "С&amp;копіювати посилання звіту">
+<!ENTITY issues.nofilters.description "Adblock Plus не блокує нічого на поточній сторінці. Маайже напевне, проблема, яку ви бачите, не пов’язана з Adblock Plus.">
+<!ENTITY sendPage.knownIssue "Проблема про яку ви повідомили вже відома. Детальніше:">
+<!ENTITY typeSelector.other.description "Виберіть цей варіант якщо ви підозрюєте проблему саме з Adblock Plus ніж з його фільтрами.">
+<!ENTITY issues.disabledgroups.enable.label "Увімкнути фільтрову підписку/групу">
+<!ENTITY typeWarning.override.label "Я &amp;розумію, та все ж хочу послати звіт">
+<!ENTITY issues.disabled.enable.label "Увімкнути Adblock Plus">
+<!ENTITY update.fixed.description "Оновлення ваших підписок на фільтри швидше за все вирішило проблему, про яку ви хотіли повідомити. Будь ласка завантажте заново сторінку і спробуйте ще раз. Якщо проблема залишилася, то надішліть повідомлення ще раз.">
+<!ENTITY anonymous.label "&amp;Анонімне подання">
+<!ENTITY reloadButton.label "&amp;Перегрузити сторінку">
+<!ENTITY recentReports.clear.label "&amp;Вилучити всі звіти">
+<!ENTITY typeSelector.description "Це вікно проведе вас по кроках надсилання звіту про проблему з Adblock Plus. Спершу, виберіть тип проблеми з якою ви зіткнулись на цій сторінці:">
+<!ENTITY screenshot.remove.label "&amp;Вилучити конфіденційні дані">
+<!ENTITY issues.ownfilters.description "Деякі з застосованих фільтрів були задані користувачем. Вимкніть фільтри що могли спричинити проблему.">
+<!ENTITY update.inProgress.description "Adblock Plus необхідно оновити ваші підписки на фільтри, щоб переконатися, що це питання не було вирішено вже. Будь ласка, зачекайте...">
+<!ENTITY sendPage.retry.label "Надіслати ще раз">
+<!ENTITY data.label "&amp;Дані звіту:">
+<!ENTITY recentReports.label "Ваші недавно заслані звіти">
+<!ENTITY typeWarning.description "Ви вказали що хочете повідомити про загальну проблему в Adblock Plus, а не в фільтрах. Зауважте, що про такі проблеми найкраще повідомляти до [link]форуму Adblock Plus[/link]. Майстра звітів слід використовувати лише в додаток до існуючої дискусії, оскільки ніхто не побачить вашого звіту, якщо не поставити на нього посилання. Ви отримаєте автоматично створене посилання після надсилання звіту.">
+<!ENTITY issues.disabled.description "Adblock Plus вимкнено, він не блокуватиме нічого у поточному стані.">
+<!ENTITY attachExtensions.label "Долучити до звіту список активних &amp;розширень — на випадок якщо причиною проблеми є конфлікт розширень">
+<!ENTITY issues.nosubscriptions.add.label "Додати підписку на фільтри">
+<!ENTITY issues.disabledfilters.enable.label "Увімкнути фільтр">
+<!ENTITY issues.override.label "Налаштування &amp;правильні, продовжити звіт">
+<!ENTITY issues.nosubscriptions.description "Ви не підписані на жоден з готових списків фільтрування котрі автоматично вилучають небажаний вміст з сайтів.">
+<!ENTITY typeSelector.falsePositive.description "Виберіть цей варіант якщо на сторінці відсутня частина вмісту, або якщо вона показується чи функціонує неправильно. Ви можете перевірити, чи був Adblock Plus причиною тимчасово його вимкнувши.">
+<!ENTITY typeSelector.other.label "&amp;Інша проблема">
+<!ENTITY emailComment.label "Ми рекомендуємо Вам, введіть адресу електронної пошти, щоб ми могли зв'язатися з вами, якщо виникнуть питання з приводу звіту. Це також дозволить нам дізнатися ваш вклад та високу приорітетність.">
+<!ENTITY issues.whitelist.remove.label "Переувімкнути Adblock Plus на цій сторінці">
+<!ENTITY outdatedSubscriptions.description "Наступні підписки на фільтри не оновлювалися більше двох тижнів. Будь ласка, поновіть ці підписки перед відправленням повідомлення, оскільки проблема вже може бути вирішена.">
+<!ENTITY dataCollector.description "Заждіть, Adblock Plus збирає потрібні дані">
+<!ENTITY sendButton.label "&amp;Надіслати звіт">
+<!ENTITY comment.label "&amp;Коментар (необов’язково):">
+<!ENTITY sendPage.errorMessage "Помилка відправки звіту: «?1?». Упевніться що ви під’єднані до інтернету та спробуйте ще раз. Якщо проблема не зникає, будь ласка пошукайте допомоги на [link]форумі Adblock Plus[/link].">
+<!ENTITY showRecentReports.label "Показати недавно заслані звіти">
+<!ENTITY commentPage.heading "Ввести коментар">
+<!ENTITY update.start.label "Розпочати оновлення зараз">
+<!ENTITY issues.disabledfilters.description "Наступні фільтри вимкнені, але могли вплинути на цю сторінку:">
+<!ENTITY screenshot.description "Та сама сторінка може виглядати по різному для різних людей. Знімок екрана (скріншот) може допомогти нам зрозуміти проблему. Ви можете вилучити конфіденційні частини, а також позначити області де присутня проблема. Щоб це зробити, клацніть по відповідній клавіші та виберіть область зображення мишкою.">
+<!ENTITY screenshot.attach.label "&amp;Додати зображення сторінки до звіту">
+<!ENTITY issues.whitelist.description "Adblock Plus наразі вимкнений на тій сторінці про яку ви звітуєте. Увімкніть його та перегрузіть сторінку перед надсиланням звіту. Це допоможе в його розгляді.">
+<!ENTITY typeSelector.falseNegative.label "Adblock Plus не блокує &amp;рекламу">
+<!ENTITY typeSelector.heading "Виберіть тип проблеми">
+<!ENTITY anonymity.warning "Ми не будемо мати можливість повернутися до вас і, швидше за все, пріоритети звіту нижчий.">
+<!ENTITY wizard.title "Повідомити про проблему">
+<!ENTITY issues.ownfilters.disable.label "Вимкнути фільтр">
+<!ENTITY commentPage.description "Нижче ви можете ввести коментар щоб допомогти нам зрозуміти проблему. Цей крок необов’язковий, проте рекомендований коли проблема не самоочевидна. Ви можете також переглянути свій коментар перед надсиланням.">
+<!ENTITY comment.lengthWarning "Довжина коментаря перевищує 1000 символів. Будуть послані лише перші 1000 символів.">
+<!ENTITY typeSelector.falseNegative.description "Виберіть цей варіант якщо реклама показуєть попри те що Adblock Plus увімкнено.">
+<!ENTITY sendPage.waitMessage "Заждіть доки Adblock Plus надсилає ваш звіт.">
+<!ENTITY dataCollector.heading "Ласкаво просимо до звітувача про проблеми">
+<!ENTITY screenshot.heading "Додати скріншот">
+<!ENTITY sendPage.heading "Надіслати звіт">
+<!ENTITY issues.subscriptionCount.description "Здається, ви підписались на забагато фільтрових підписок.
+ Ми не радимо таке робити, оскільки можливість отримати проблеми дуже висока.
+ Також ми не можемо прийняти ваш звіт, оскільки незрозуміло, 
+ котрому з авторів підписок слід щось зробити.
+ Вилучте всі підписки крім дійсно необхідних, і перевірте, 
+ чи проблема все ще буде присутня.">
+<!ENTITY screenshot.mark.label "По&amp;значити проблему">
+<!ENTITY privacyPolicy.label "Політика приватності">
+<!ENTITY issues.description "Adblock Plus знайшов проблеми у ваших налаштуваннях котрі, можливо, спричинили цю проблему, або усладнять розгляд звіту.">

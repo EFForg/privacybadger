@@ -1,0 +1,29 @@
+<!ENTITY sync.label "&amp;סנכרון הגדרות Adblock Plus">
+<!ENTITY whitelist.site.label "נטרול ב-?1?">
+<!ENTITY filters.label "&amp;העדפות סינון">
+<!ENTITY disable.label "נטרול בכל מקום">
+<!ENTITY showinaddonbar.label "&amp;הצגה בסרגל ההרחבות">
+<!ENTITY objecttab.title "חסימה">
+<!ENTITY objecttab.tooltip "לחיצה כאן לחסימת פריט זה עם Adblock Plus">
+<!ENTITY menuitem.label "&amp;העדפות Adblock Plus">
+<!ENTITY objecttabs.label "הצגת &amp;לשוניות על פלאש וג'אווה">
+<!ENTITY sendReport.label "&amp;דיווח על בעיה בעמוד זה">
+<!ENTITY whitelist.page.label "נטרול בעמוד הזה בלבד">
+<!ENTITY context.image.label "Adblock Plus: חסימת תמונה">
+<!ENTITY counthits.label "מנה &amp;לחיצות מסנן">
+<!ENTITY opensidebar.label "&amp;פתיחת רשימת הפריטים לחסימה">
+<!ENTITY contribute.label "תרום ל-Adblock Plus">
+<!ENTITY toolbarbutton.label "Adblock Plus">
+<!ENTITY context.frame.label "Adblock Plus: חסימת מסגרת (פריים)">
+<!ENTITY blocked.tooltip "פריטים חסומים בעמוד זה:">
+<!ENTITY hideplaceholders.label "הסתרת &amp;מצייני מקום של אלמנטים חסומים">
+<!ENTITY showinstatusbar.label "&amp;הצגה בשורת המצב">
+<!ENTITY sidebar.title "פריטים לחסימה בעמוד הנוכחי">
+<!ENTITY options.label "&amp;אפשרויות">
+<!ENTITY context.object.label "Adblock Plus: חסימת פריט">
+<!ENTITY context.removeWhitelist.label "Adblock Plus: מאפשר מחדש בעמוד זה">
+<!ENTITY filters.tooltip "המסננים הפעילים ביותר:">
+<!ENTITY closesidebar.label "&amp;סגירת הרשימה של הפריטים לחסימה">
+<!ENTITY showintoolbar.label "&amp;הצגה בסרגל הכלים">
+<!ENTITY status.tooltip "מצב:">
+<!ENTITY context.media.label "Adblock Plus: חסימת ווידאו/אודיו">

@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "адрес соң&amp;ында">
+<!ENTITY domainRestriction.label "Доменмен шек&amp;теу:">
+<!ENTITY collapse.default.no.label "Бастапқысын қолдану (жоқ)">
+<!ENTITY firstParty.label "Тек сол сайт өз құрамасы ү&amp;шін">
+<!ENTITY preferences.label "Бар фильтрлерді &amp;көрсету...">
+<!ENTITY pattern.label "Шаблон">
+<!ENTITY thirdParty.label "Тек б&amp;асқа сайт құрамасы үшін">
+<!ENTITY filter.label "Жаңа &amp;фильтр:">
+<!ENTITY collapse.label "Блокталған құраманы &amp;жинау:">
+<!ENTITY match.warning "Сіз енгізген шаблон енді блокталатын не блокталмайтын адреске сәйкес келмейді, сол үшін оның әсері жоқ.">
+<!ENTITY anchor.start.label "а&amp;дрес басында">
+<!ENTITY matchCase.label "&amp;Регистрді ескеру">
+<!ENTITY custom.pattern.label "Ө&amp;зіңіздің:">
+<!ENTITY unselectAllTypes.label "Ерекшелеуді тастау">
+<!ENTITY type.whitelist.label "&amp;Ерекше ереже">
+<!ENTITY regexp.warning "Сіз енгізген шаблон, регулярлы өрнек ретінде өңделеді. Осындай шаблондардың көп саны браузеріңіздің жұмысын тежей алады. Регулярлы өрнекті қолданғыңыз келмесе, шаблон соңына жұлдызшаны қосыңыз.">
+<!ENTITY dialog.title "Adblock Plus фильтр ережесін қосу">
+<!ENTITY basic.label "Негізгі көрінісі">
+<!ENTITY type.filter.label "&amp;Блоктаушы фильтр">
+<!ENTITY types.label "Қолдану үшін құрама түрі:">
+<!ENTITY shortpattern.warning "Сіз енгізген оптимизация үшін тым қысқа, осындай шаблондардың көп саны браузеріңіздің жұмысын тежей алады. Осы фильтр үшін ұзынырақ шаблонды қолдану ұсынылады.">
+<!ENTITY collapse.yes.label "Иә">
+<!ENTITY anchors.label "Шаблонды тек келесіде қолдану:">
+<!ENTITY collapse.default.yes.label "Бастапқысын қолдану (иә)">
+<!ENTITY domainRestriction.help "Бір немесе &quot;|&quot; таңбасымен ажыратылған бірнеше доменді көрсетіңіз, фильтр тек осы домендер үшін орындалады. Домен атының алдыңдағы &quot;~&quot; таңбасы осы доменде фильтр орындалмайтынын көрсетеді.">
+<!ENTITY accept.label "Фильтрді қосу">
+<!ENTITY options.label "Баптаулар">
+<!ENTITY disabled.warning "Adblock Plus қазір сөндірулі. Фильтрлерді қазір де қоса аласыз, бірақ олар жұмыс істемейді, сіз [link]Adblock Plus қосқанға дейін[/link].">
+<!ENTITY anchor.start.flexible.label "&amp;домен атынын басында">
+<!ENTITY collapse.no.label "Жоқ">
+<!ENTITY selectAllTypes.label "Барлығын ерекшелеу">
+<!ENTITY advanced.label "Кеңейтілген көрінісі">
+<!ENTITY pattern.explanation "Шаблон адрестің кез-келген бөлігі бола алады, мұндағы жұлдызша (*) таңбалардың кез-келген санын белгілейді. Фильтр тек оған сәйкес келетін адрестер үшін қолданылады.">

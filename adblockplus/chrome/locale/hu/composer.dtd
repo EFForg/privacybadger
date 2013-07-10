@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "a cím &amp;végén">
+<!ENTITY domainRestriction.label "Korlá&amp;tozás tartományra:">
+<!ENTITY collapse.default.no.label "Alapértelmezett (nem)">
+<!ENTITY firstParty.label "Csak &amp;belső címhez">
+<!ENTITY preferences.label "&amp;Meglévő szűrők megjelenítése...">
+<!ENTITY pattern.label "Minta">
+<!ENTITY thirdParty.label "Csak külső cím&amp;hez">
+<!ENTITY filter.label "Ú&amp;j szűrő:">
+<!ENTITY collapse.label "Bl&amp;okkolt elem összecsukása:">
+<!ENTITY match.warning "A megadott minta nem egyezik a blokkolt/engedélyezett címek listájával, így annak használata nem jár eredménnyel.">
+<!ENTITY anchor.start.label "a cím &amp;elején">
+<!ENTITY matchCase.label "K&amp;is- és nagy betűk megkülönböztetése">
+<!ENTITY custom.pattern.label "E&amp;gyedi:">
+<!ENTITY unselectAllTypes.label "Kijelölés törlése">
+<!ENTITY type.whitelist.label "&amp;Kivételszabály">
+<!ENTITY regexp.warning "A megadott minta reguláris kifejezésként fog szerepelni. Sok ilyen kifejezés lassíthatja a böngészést. Ha nem akar használni ilyen kifejezéseket, a minta végére írja a * jelet.">
+<!ENTITY dialog.title "Adblock Plus szűrőszabály hozzáadása">
+<!ENTITY basic.label "Alap nézet">
+<!ENTITY type.filter.label "Blokkoló &amp;szűrő">
+<!ENTITY types.label "Alkalmazás típusokra:">
+<!ENTITY shortpattern.warning "A megadott minta nem optimalizálható, mert túl rövid. Sok ilyen minta lassíthatja a böngészést. Ajánlott ehhez a szűrőhöz egy hosszabb karakterlánc használata.">
+<!ENTITY collapse.yes.label "Igen">
+<!ENTITY anchors.label "Minta elfogadása csak:">
+<!ENTITY collapse.default.yes.label "Alapértelmezett (igen)">
+<!ENTITY domainRestriction.help "Adjon meg egy vagy több tartományt a &quot;|&quot; jellel elválasztva, a szűrő csak ezeken a tartományokon lesz alkalmazva. A &quot;~&quot; jellel a tartománynév elején letilthatja a szűrő használatát az adott tartományon.">
+<!ENTITY accept.label "Szűrő hozzáadása">
+<!ENTITY options.label "Beállítások">
+<!ENTITY disabled.warning "Az Adblock Plus jelenleg le van tiltva. Szűrőket hozzáadhat, de azok nem fognak működni, amíg nem [link]engedélyezi az Adblock Plust[/link].">
+<!ENTITY anchor.start.flexible.label "a tartománynév &amp;elején">
+<!ENTITY collapse.no.label "Nem">
+<!ENTITY selectAllTypes.label "Minden kijelölése">
+<!ENTITY advanced.label "Haladó nézet">
+<!ENTITY pattern.explanation "A minta lehet egy webcím bármely része, amelyben a * szimbólum helyettesítő karakterként szerepelhet. A szűrő csak azokra címekre lesz alkalmazva, amelyekre a minta illeszkedik.">

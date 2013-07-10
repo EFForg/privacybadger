@@ -1,0 +1,74 @@
+<!ENTITY restore.custom.warning "Tüm isteğe bağlı süzgeçleriniz seçilen dosyanın içeriğiyle değiştirilecek. Devam etmek istiyor musunuz?">
+<!ENTITY slow.column "Süz&amp;geçleri göster">
+<!ENTITY enabled.column "Etki&amp;nlik">
+<!ENTITY subscription.lastDownload.checksumMismatch "Başarısız, checksum eşleşmedi">
+<!ENTITY noFiltersInGroup.text "Seçili öbek boş">
+<!ENTITY subscription.actions.label "Eylemler">
+<!ENTITY filter.selectAll.label "Tümünü seç">
+<!ENTITY backupButton.label "&amp;Yedekle ve geri getir">
+<!ENTITY restore.minVersion.warning "Uyarı: Dosya Adblock Plus'ın daha yeni bir sürümüyle oluşturulmuş. Bu dosyayı geri getirmeden önce Adblock Plus'ı en güncel sürümüne yükseltmelisiniz.">
+<!ENTITY restore.error "Dosya verisi işlenemiyor. Adblock Plus yedeği olmayabilir mi?">
+<!ENTITY sort.ascending.label "&amp;A'da Z'ye sıralama">
+<!ENTITY sort.label "&amp;Sırala">
+<!ENTITY subscription.source.label "Süzgeç listesi">
+<!ENTITY hitcount.column "İsab&amp;et">
+<!ENTITY noFilters.text "İsteğe göre ayarlanmış hiçbir süzgeciniz yok.">
+<!ENTITY backup.custom.title "Sadece isteğe bağlı süzgeçler">
+<!ENTITY subscription.external.label "Başka bir eklenti tarafından güncellendi">
+<!ENTITY subscription.delete.label "Sil">
+<!ENTITY noGroupSelected.text "Süzgeçlerini görmek için bir süzgeç öbeği seçmeniz gerekiyor.">
+<!ENTITY filter.cut.label "Kes">
+<!ENTITY restore.default.label "?1? tarihli yedek geri getirilsin mi?">
+<!ENTITY subscription.lastDownload.inProgress "İndiriliyor...">
+<!ENTITY subscriptions.tab.label "Süzgeç abonelikleri">
+<!ENTITY sort.descending.label "&amp;Z'den A'ya sıralama">
+<!ENTITY filters.remove.warning "Seçili bu süzgeçleri gerçekten silmek istiyor musunuz?">
+<!ENTITY filter.delete.label "Sil">
+<!ENTITY addSubscriptionAdd.label "Ekle">
+<!ENTITY viewMenu.label "Görünüm">
+<!ENTITY subscription.lastDownload.unknown "Yok">
+<!ENTITY addSubscriptionCancel.label "Vazgeç">
+<!ENTITY subscription.enabled.label "Devrede">
+<!ENTITY noSubscriptions.text "Henüz hiçbir süzgeç aboneliği eklemediniz. Adblock Plus süzgeç olmadan hiçbir şey
+ engellemeyecektir. Abonelik eklemek için 
+ lütfen &quot;Süzgeç aboneliği ekle&quot; düğmesini kullanın.">
+<!ENTITY subscription.update.label "Süzgeçleri güncelle">
+<!ENTITY dialog.title "Adblock Plus Süzme Tercihleri">
+<!ENTITY addFilter.label "Süzgeç e&amp;kle">
+<!ENTITY subscription.minVersion.warning "Bu süzgeç aboneliği daha yeni bir Adblock Plus sürümü gerektiriyor. En güncel Adblock Plus sürümüne yükseltmelisiniz.">
+<!ENTITY subscription.lastDownload.invalidURL "Olmadı. Bu geçerli bir adres değil.">
+<!ENTITY backup.error "Süzgeçler dosyaya yazılırken bir sorun meydana geldi. Dosyanın yazma korumalı veya başka bir uygulama tarafından kullanılmıyor olduğundan emin olun.">
+<!ENTITY filter.moveUp.label "Yukarıya taşı">
+<!ENTITY addGroup.label "Sü&amp;zgeç öbeği ekle">
+<!ENTITY filter.edit.label "Düzenle">
+<!ENTITY subscription.showHideFilters.label "Süzgeçleri göster/gizle">
+<!ENTITY acceptableAds2.label "Rahatsız etmeyen bazı reklamlara &amp;izin ver">
+<!ENTITY addSubscriptionOther.label "Başka abonelik ekle">
+<!ENTITY close.label "Kapat">
+<!ENTITY sort.none.label "Sıralan&amp;mamış">
+<!ENTITY filter.actions.label "Süzgeç eylemleri">
+<!ENTITY filter.copy.label "Kopyala">
+<!ENTITY filter.moveDown.label "Aşağıya taşı">
+<!ENTITY filter.resetHitCounts.label "İsabet istatistiklerini sıfırla">
+<!ENTITY readMore.label "Daha fazla bilgi al">
+<!ENTITY subscription.moveUp.label "Yukarıya taşı">
+<!ENTITY addSubscription.label "Süzg&amp;eç aboneliği ekle">
+<!ENTITY subscription.homepage.label "Ana sayfa">
+<!ENTITY backup.complete.title "Tüm süzgeç ve abonelikler">
+<!ENTITY restore.own.label "Kendi yedeğini geri getir">
+<!ENTITY restore.complete.warning "Tüm süzme tercihleriniz seçilen dosyanın içeriğiyle değiştirilecek. Devam etmek istiyor musunuz?">
+<!ENTITY filters.tab.label "İsteğe bağlı süzgeçler">
+<!ENTITY backup.label "Yeni yedek oluştur">
+<!ENTITY find.label "&amp;Bul">
+<!ENTITY subscription.moveDown.label "Aşağıya taşı">
+<!ENTITY subscription.lastDownload.connectionError "Olmadı. İndirmede sorun var.">
+<!ENTITY subscription.lastDownload.success "Eşleme başarılı oldu.">
+<!ENTITY subscription.lastDownload.invalidData "Olmadı. Bu düzgün bir süzgeç listesi değil.">
+<!ENTITY filter.paste.label "Yapıştır">
+<!ENTITY subscription.disabledFilters.enable "Devre dışı süzgeçleri devreye sok">
+<!ENTITY lasthit.column "Son &amp;isabet">
+<!ENTITY subscription.editTitle.label "Başlığı değiştir">
+<!ENTITY subscription.disabledFilters.warning "Bu abonelikteki bazı süzgeçler devre dışı.">
+<!ENTITY filter.column "Süzgeç &amp;kuralı">
+<!ENTITY subscription.lastDownload.label "En son indiriş:">
+<!ENTITY viewList.label "Listeye bak">

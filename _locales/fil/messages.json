@@ -1,0 +1,23 @@
+{
+  "cancel": {
+    "message": "I-cancel"
+  },
+  "enabled_for_site": {
+    "message": "I-enable para sa site na ito"
+  },
+  "options": {
+    "message": "Opsyon sa Adblock Plus"
+  },
+  "remove_button": {
+    "message": "Alisin ang napili"
+  },
+  "show_icon": {
+    "message": "Ipakita ang icon sa address bar"
+  },
+  "update_now": {
+    "message": "I-update ngayon"
+  },
+  "whitelisted_domains": {
+    "message": "Whitelisted domains"
+  }
+}

@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE overlay [
+  <!ENTITY % overlayDTD SYSTEM "chrome://adblockplus/locale/overlay.dtd">
+  %overlayDTD;
+  <!ENTITY % subscriptionsDTD SYSTEM "chrome://adblockplus/locale/subscriptionSelection.dtd">
+  %subscriptionsDTD;
+]>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    imagecontextlabel="&context.image.label;…" objectcontextlabel="&context.object.label;…"
+    mediacontextlabel="&context.media.label;…" subdocumentcontextlabel="&context.frame.label;…"
+    whitelistcontextlabel="&context.removeWhitelist.label;"
+    objtabtext="&objecttab.title;…" objtabtooltip="&objecttab.tooltip;"
+    subscriptionDialogTitle="&dialog.title;"
+    subscriptionDialogMessage="&title.label; ?1?&#10;&#10;&location.label; ?2?">
+  <popupset id="abp-popupset">
+    <!-- Icon's tooltip -->
+    <tooltip id="abp-tooltip" orient="vertical">
+      <description id="abp-tooltip-action" hidden="true"/>
+      <label id="abp-tooltip-status-label" value="&status.tooltip;"/>
+      <description id="abp-tooltip-status"/>
+      <label id="abp-tooltip-blocked-label" value="&blocked.tooltip;" hidden="true"/>
+      <description id="abp-tooltip-blocked" hidden="true"/>
+      <label id="abp-tooltip-filters-label" value="&filters.tooltip;" hidden="true"/>
+      <vbox id="abp-tooltip-filters" hidden="true"/>
+      <description id="abp-tooltip-more-filters" value="…" hidden="true"/>
+    </tooltip>
+  </popupset>
+
+  <!-- Icon's context menu -->
+  <menupopup id="abp-status-popup" context="">
+    <menuitem id="abp-status-sendReport" label="&sendReport.label;…" key="abp-key-sendReport" command="abp-command-sendReport"/>
+    <menuitem id="abp-status-openbottombar" label="&opensidebar.label;" key="abp-key-sidebar" command="abp-command-sidebar"/>
+    <menuitem id="abp-status-closebottombar" label="&closesidebar.label;" key="abp-key-sidebar" command="abp-command-sidebar"/>
+    <menuitem id="abp-status-filters" label="&filters.label;…" key="abp-key-filters" command="abp-command-filters"/>
+    <menuseparator id="abp-status-whitelist-sep"/>
+    <menuitem id="abp-status-whitelistsite" labeltempl="&whitelist.site.label;" type="checkbox" command="abp-command-togglesitewhitelist"/>
+    <menuitem id="abp-status-whitelistpage" label="&whitelist.page.label;" type="checkbox" command="abp-command-togglepagewhitelist"/>
+    <menuitem id="abp-status-disabled" label="&disable.label;" type="checkbox" key="abp-key-enable" command="abp-command-enable"/>
+    <menuseparator/>
+    <menu id="abp-status-options" label="&options.label;">
+      <menupopup id="abp-status-options-popup">
+        <menuitem id="abp-status-frameobjects" label="&objecttabs.label;" type="checkbox" command="abp-command-toggleobjtabs"/>
+        <menuitem id="abp-status-slowcollapse" label="&hideplaceholders.label;" type="checkbox" command="abp-command-togglecollapse"/>
+        <menuitem id="abp-status-savestats" label="&counthits.label;" type="checkbox" command="abp-command-togglesavestats"/>
+        <menuitem id="abp-status-sync" label="&sync.label;" type="checkbox" command="abp-command-togglesync"/>
+        <menuseparator id="abp-status-iconSettingsSeparator"/>
+        <menuitem id="abp-status-showinaddonbar" label="&showinaddonbar.label;" type="checkbox" command="abp-command-toggleshowintoolbar"/>
+        <menuitem id="abp-status-showintoolbar" label="&showintoolbar.label;" type="checkbox" command="abp-command-toggleshowintoolbar"/>
+        <menuitem id="abp-status-showinstatusbar" label="&showinstatusbar.label;" type="checkbox" command="abp-command-toggleshowinstatusbar"/>
+      </menupopup>
+    </menu>
+
+    <hbox class="abp-contributebutton" id="abp-status-contributebutton" pack="center">
+      <button class="abp-contributebutton-btn" label="&contribute.label;" command="abp-command-contribute" flex="1"/>
+      <toolbarbutton class="abp-contributebutton-close" command="abp-command-contribute-hide"/>
+    </hbox>
+  </menupopup>
+
+  <keyset id="abp-keyset"/>
+
+  <!-- Dummy oncommand attributes are work-arounds for bug 371900 -->
+  <commandset id="abp-commandset">
+    <command id="abp-command-sendReport" oncommand="//"/>
+    <command id="abp-command-filters" oncommand="//"/>
+    <command id="abp-command-settings" oncommand="//"/>
+    <command id="abp-command-sidebar" oncommand="//"/>
+    <command id="abp-command-togglesitewhitelist"/>
+    <command id="abp-command-togglepagewhitelist"/>
+    <command id="abp-command-toggleobjtabs"/>
+    <command id="abp-command-togglecollapse"/>
+    <command id="abp-command-togglesavestats"/>
+    <command id="abp-command-togglesync"/>
+    <command id="abp-command-toggleshowintoolbar"/>
+    <command id="abp-command-toggleshowinstatusbar"/>
+    <command id="abp-command-enable" oncommand="//"/>
+    <command id="abp-command-contribute"/>
+    <command id="abp-command-contribute-hide"/>
+  </commandset>
+
+  <statusbarpanel id="abp-status" class="statusbarpanel-iconic"
+      context="abp-status-popup" tooltip="abp-tooltip"/>
+
+  <toolbarbutton id="abp-toolbarbutton" class="toolbarbutton-1" label="&toolbarbutton.label;"
+      tooltip="abp-tooltip" context="abp-status-popup"/>
+
+  <!-- Tools menu -->
+  <menu id="abp-menuitem" label="&toolbarbutton.label;"/>
+
+  <!-- Bottom bar -->
+  <hbox id="abp-bottombar-container">
+    <splitter id="abp-bottombar-splitter"/>
+    <vbox id="abp-bottombar">
+      <toolbox id="abp-bottombar-header">
+        <toolbar id="abp-bottombar-toolbar" align="center" grippyhidden="true" fullscreentoolbar="true">
+          <label id="abp-bottombar-title" control="abp-bottombar-browser" value="&sidebar.title;" flex="1" crop="end"/>
+          <toolbarbutton id="abp-bottombar-close" command="abp-command-sidebar" tooltiptext="&closesidebar.label;"/>
+        </toolbar>
+      </toolbox>
+      <iframe id="abp-bottombar-browser" src="chrome://adblockplus/content/ui/sidebar.xul" flex="1"/>
+    </vbox>
+  </hbox>
+</overlay>

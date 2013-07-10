@@ -1,0 +1,29 @@
+<!ENTITY sync.label "Син&amp;хронизировать настройки Adblock Plus">
+<!ENTITY whitelist.site.label "Отключить на ?1?">
+<!ENTITY filters.label "Настройки &amp;фильтров">
+<!ENTITY disable.label "Отключить везде">
+<!ENTITY showinaddonbar.label "&amp;Показывать в панели дополнений">
+<!ENTITY objecttab.title "Блокировать">
+<!ENTITY objecttab.tooltip "Нажмите здесь, чтобы Adblock Plus заблокировал этот объект">
+<!ENTITY menuitem.label "Установки &amp;Adblock Plus">
+<!ENTITY objecttabs.label "Показывать &amp;ярлык на Flash и Java">
+<!ENTITY sendReport.label "&amp;Сообщить о проблеме на этой странице">
+<!ENTITY whitelist.page.label "Отключить только на этой странице">
+<!ENTITY context.image.label "Adblock Plus: заблокировать изображение">
+<!ENTITY counthits.label "С&amp;читать срабатывания фильтров">
+<!ENTITY opensidebar.label "Открыть с&amp;писок элементов">
+<!ENTITY contribute.label "Помочь проекту Adblock Plus">
+<!ENTITY toolbarbutton.label "Adblock Plus">
+<!ENTITY context.frame.label "Adblock Plus: заблокировать фрейм">
+<!ENTITY blocked.tooltip "Заблокированные элементы на этой странице:">
+<!ENTITY hideplaceholders.label "Прятать &amp;метки на месте заблокированных элементов">
+<!ENTITY showinstatusbar.label "Показывать в &amp;строке состояния">
+<!ENTITY sidebar.title "Элементы открытой страницы">
+<!ENTITY options.label "&amp;Настройки">
+<!ENTITY context.object.label "Adblock Plus: заблокировать объект">
+<!ENTITY context.removeWhitelist.label "Adblock Plus: включить обратно на этой странице">
+<!ENTITY filters.tooltip "Наиболее часто примененные фильтры:">
+<!ENTITY closesidebar.label "Закрыть с&amp;писок элементов">
+<!ENTITY showintoolbar.label "&amp;Показывать в панели инструментов">
+<!ENTITY status.tooltip "Статус:">
+<!ENTITY context.media.label "Adblock Plus: заблокировать аудио/видео">

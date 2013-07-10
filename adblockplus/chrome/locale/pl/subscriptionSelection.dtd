@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Dodaj także ze&amp;staw „?1?”">
+<!ENTITY list.download.failed "Nie udało się pobrać listy zestawów.">
+<!ENTITY list.download.retry "Spróbuj jeszcze raz">
+<!ENTITY title.label "&amp;Nazwa zestawu:">
+<!ENTITY list.download.website "Zobacz witrynę">
+<!ENTITY supplementMessage "Ten zestaw filtrów musi być używany z zestawem „?1?”, który nie jest jeszcze subskrybowany.">
+<!ENTITY viewList.label "Zobacz filtry">
+<!ENTITY visitHomepage.label "Przejdź na stronę zestawu">
+<!ENTITY addSubscription.label "Subskrybuj zestaw">
+<!ENTITY dialog.title "Add Adblock Plus – zestawy filtrów">
+<!ENTITY location.label "&amp;Lokalizacja zestawu:">
+<!ENTITY fromWeb.description "Potwierdź zamiar dodania tego zestawu filtrów. Przed dodaniem zestawu możesz zmienić jego nazwę lub lokalizację.">

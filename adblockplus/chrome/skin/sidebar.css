@@ -1,0 +1,112 @@
+/*
+ * This file is part of Adblock Plus <http://adblockplus.org/>,
+ * Copyright (C) 2006-2013 Eyeo GmbH
+ *
+ * Adblock Plus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * Adblock Plus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#suggestionsList {
+  margin: 0px;
+}
+
+#detachButton, #reattachButton:not([disabled="true"]) {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#reattachButton[disabled="true"] {
+  color: GrayText;
+}
+
+#detachButton, #reattachButton {
+  font-size: 90%;
+}
+
+tooltip {
+  max-width: none;
+}
+
+#tooltipPreview {
+  margin:10px;
+  max-width: 300px;
+  max-height: 300px;
+}
+
+#tooltip label {
+  font-weight: bold;
+}
+
+#contextBlock,
+#contextWhitelist {
+  font-weight: bold;
+}
+
+#state {
+  min-width: 16px;
+}
+
+#size {
+  text-align: end;
+}
+
+/*
+ * Force left-to-right everywhere where we are displaying addresses
+ */
+treechildren:-moz-locale-dir(rtl)::-moz-tree-cell(col-filter),
+treechildren:-moz-locale-dir(rtl)::-moz-tree-cell(col-address),
+treechildren:-moz-locale-dir(rtl)::-moz-tree-cell(col-size)
+{
+  direction: ltr;
+  text-align: end;
+}
+
+.disabledTextLabel
+{
+  font-style: italic;
+}
+
+treechildren::-moz-tree-cell-text(state-filtered, selected-false),
+treechildren::-moz-tree-cell-text(state-hidden, selected-false) {
+  color: #C00000;
+}
+treechildren::-moz-tree-cell-text(state-whitelisted, selected-false),
+treechildren::-moz-tree-cell-text(state-hiddenexception, selected-false) {
+  color: #008000;
+}
+
+treechildren::-moz-tree-image(col-state, dummy-false)
+{
+  list-style-image: url(item-state.png);
+  -moz-image-region: rect(0px 10px 10px 0px);
+  -moz-margin-start: 3px;
+}
+treechildren::-moz-tree-image(col-state, filter-disabled-true, dummy-false) {
+  -moz-image-region: rect(10px 10px 20px 0px);
+}
+treechildren::-moz-tree-image(col-state, state-filtered, dummy-false),
+treechildren::-moz-tree-image(col-state, state-hidden, dummy-false) {
+  -moz-image-region: rect(20px 10px 30px 0px);
+}
+treechildren::-moz-tree-image(col-state, state-whitelisted, dummy-false),
+treechildren::-moz-tree-image(col-state, state-hiddenexception, dummy-false) {
+  -moz-image-region: rect(30px 10px 40px 0px);
+}
+
+treechildren::-moz-tree-cell-text(col-filter, state-hidden, selected-false) {
+  color: #000080;
+}
+treechildren::-moz-tree-cell-text(col-filter, filter-disabled-true, selected-false) {
+  color: #C0C0C0;
+}

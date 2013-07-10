@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Hozzáadás"
+  },
+  "add_domain_button": {
+    "message": "Domain hozzáadása"
+  },
+  "add_filter_button": {
+    "message": "Szűrő hozzáadása"
+  },
+  "add_filters_msg": {
+    "message": "Szűrő(k) hozzáadása?"
+  },
+  "add_your_own_filters": {
+    "message": "Add hozzá a saját szűrőidet"
+  },
+  "apply_changes": {
+    "message": "Változtatások alkalmazása"
+  },
+  "block_element": {
+    "message": "Elem blokkolása"
+  },
+  "cancel": {
+    "message": "Mégse"
+  },
+  "clickhide_instructions": {
+    "message": "Miután bezártad ezt a buborékot, kattints egy elemre az oldalon.."
+  },
+  "description": {
+    "message": "Ingyenes reklámszűrő kiegészítő Chrome-hoz: blokkolja az idegesítő videóreklámokat a YouTube-n, a Facebook reklámjait, bannereket és még többet."
+  },
+  "disable_inline": {
+    "message": "Szöveges reklámok tiltása"
+  },
+  "disabled_for_these_domains": {
+    "message": "Az Adblock Plus le van tiltva az alább felsorolt oldalakon. Egy domaint megadhatsz az Adblock Plus ikonra kattintva a címsorban, vagy beírhatod a domaint (nem az URL-t) a dobozba és kattints a \"Domain hozzáadása\" gombra."
+  },
+  "easy_create_filter": {
+    "message": "Szűrő létrehozása"
+  },
+  "edit_filters_raw": {
+    "message": "Szűrők szerkesztése nyers szövegként"
+  },
+  "enable_only_the": {
+    "message": "Csak azokat a szűrőket engedélyezd, amelyekre szükséged van. A túl sok szűrő miatt a Chrome lefagyhat."
+  },
+  "enabled_for_site": {
+    "message": "Ezen az oldalon engedélyezve"
+  },
+  "filter_lists": {
+    "message": "Szűrő lista"
+  },
+  "filter_must_follow_syntax": {
+    "message": "A szűrőd kövesse az <a href='$url$'>Adblock Plus szintaxisát</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Találtál egy hibát az Adblock Plus-ban? Kérlek <a href='$url$'>jelentsd itt</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Általános"
+  },
+  "last_updated_at": {
+    "message": "Utoljára ekkor lett frissítve: $date$ $time$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Utoljára ekkor lett frissítve: ma $time$-kor",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Új szűrők hozzáadva; tekintsd meg a <a id='options_url' target='_blank'>beállításokat</a> a szerkesztéshez."
+  },
+  "options": {
+    "message": "Adblock Plus beállítások"
+  },
+  "out_of_date_lists": {
+    "message": "Az elavult listák időközönként frissülnek."
+  },
+  "remove_button": {
+    "message": "Kijelölt eltávolítása"
+  },
+  "show_block_element_menu": {
+    "message": "'Elem blokkolása' megjelenítése a környezeti menüben"
+  },
+  "show_icon": {
+    "message": "Mutasd az ikont a címsorban"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Kérem válassza ki a szűrőt a listából:"
+  },
+  "update_now": {
+    "message": "Frissítés most"
+  },
+  "whitelisted_domains": {
+    "message": "Engedélyezett domainek"
+  }
+}

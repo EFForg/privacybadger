@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>ABP icon status tests</title>
+
+  <link rel="stylesheet" type="text/css" href="/content/tests/SimpleTest/test.css" />
+
+  <script type="text/javascript" src="/content/MochiKit/MochiKit.js"></script>
+  <script type="text/javascript" src="/content/tests/SimpleTest/SimpleTest.js"></script>        
+
+  <script type="application/x-javascript;version=1.7" src="../common.js"></script>
+  <script type="application/x-javascript;version=1.7" src="common.js"></script>
+</head>
+<body>
+  <p id="display"></p>
+  <div id="content" style="display: none">
+
+  </div>
+
+  <pre id="test">
+  <script type="application/x-javascript;version=1.7">
+    prepareFilterComponents(true);
+    preparePrefs();
+
+    FilterStorage.addSubscription(Subscription.fromURL("~fl~"));
+    FilterStorage.addSubscription(Subscription.fromURL("~wl~"));
+    FilterStorage.addSubscription(Subscription.fromURL("~il~"));
+    FilterStorage.addSubscription(Subscription.fromURL("~eh~"));
+
+    let tests = [
+      createToolbarTest(testEnabled),
+      createToolbarTest(testDisabled),
+      createToolbarTest(testWhitelisted),
+      createStatusbarTest(testEnabled),
+      createStatusbarTest(testDisabled),
+      createStatusbarTest(testWhitelisted)
+    ];
+    let currentTest = -1;
+
+    function testEnabled(element)
+    {
+      if (!Prefs.enabled)
+        Prefs.enabled = true;
+      setTimeout(function()
+      {
+        is(element.getAttribute("abpstate"), "active", "Checking icon state when Adblock Plus is enabled");
+        runNextTest();
+      }, 0);
+    }
+
+    function testDisabled(element)
+    {
+      if (Prefs.enabled)
+        Prefs.enabled = false;
+      setTimeout(function()
+      {
+        is(element.getAttribute("abpstate"), "disabled", "Checking icon state when Adblock Plus is disabled");
+        runNextTest();
+      }, 0);
+    }
+
+    function testWhitelisted(element)
+    {
+      FilterStorage.addFilter(Filter.fromText("@@|chrome://mochikit/$document"));
+      if (!Prefs.enabled)
+        Prefs.enabled = true;
+      setTimeout(function()
+      {
+        is(element.getAttribute("abpstate"), "whitelisted", "Checking icon state with site whitelisting");
+        FilterStorage.removeFilter(Filter.fromText("@@|chrome://mochikit/$document"));
+        runNextTest();
+      }, 0);
+    }
+
+    function createToolbarTest(testFunction)
+    {
+      return function()
+      {
+        let icon = getBrowserWindow().document.getElementById("abp-toolbarbutton");
+        if (icon)
+          testFunction(icon, function() { Prefs.showintoolbar = oldShowInToolbar; });
+        else
+          ok(false, "Toolbar icon not found in browser");
+      };
+    }
+
+    function createStatusbarTest(testFunction)
+    {
+      return function()
+      {
+        let icon = getBrowserWindow().document.getElementById("abp-status");
+        if (icon)
+          testFunction(icon);
+        else
+          ok(false, "Status bar icon not found in browser");
+      };
+    }
+
+    function runNextTest()
+    {
+      currentTest++;
+      if (currentTest >= tests.length)
+        SimpleTest.finish();
+      else
+        tests[currentTest]();
+    }
+
+    function start()
+    {
+      Prefs.enabled = true;
+      Prefs.showintoolbar = false;
+      Prefs.showinstatusbar = false;
+      setTimeout(function()
+      {
+        Prefs.showintoolbar = true;
+        Prefs.showinstatusbar = true;
+
+        setTimeout(runNextTest, 0);
+      }, 0);
+    }
+
+    SimpleTest.waitForExplicitFinish();
+    addLoadEvent(start);
+  </script>
+  </pre>
+</body>
+</html>

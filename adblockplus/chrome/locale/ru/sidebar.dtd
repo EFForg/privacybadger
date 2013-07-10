@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Показать расположение элемента">
+<!ENTITY address.label "Адрес">
+<!ENTITY context.open.label "Открыть в новой вкладке">
+<!ENTITY type.label "Тип">
+<!ENTITY tooltip.filterSource.label "Источник фильтра:">
+<!ENTITY noitems.label "Блокировать нечего">
+<!ENTITY filter.label "Фильтр">
+<!ENTITY tooltip.size.label "Размер:">
+<!ENTITY reattach.label "Присоединить">
+<!ENTITY search.label "П&amp;оиск:">
+<!ENTITY docDomain.thirdParty "(запрос с другого сайта)">
+<!ENTITY filterSource.label "Список фильтров">
+<!ENTITY tooltip.docDomain.label "Домен страницы:">
+<!ENTITY context.copy.label "Копировать адрес">
+<!ENTITY tooltip.type.label "Тип:">
+<!ENTITY context.disablefilter.label "Отключить фильтр ?1?">
+<!ENTITY context.copyFilter.label "Копировать фильтр">
+<!ENTITY context.block.label "Заблокировать элемент">
+<!ENTITY context.enablefilter.label "Включить обратно фильтр ?1?">
+<!ENTITY detach.label "Отсоединить">
+<!ENTITY whitelisted.label "Отключен на этой странице">
+<!ENTITY context.disablefilteronsite.label "Отключить фильтр на ?1?">
+<!ENTITY detached.title "Adblock Plus: элементы открытой страницы (отсоединены)">
+<!ENTITY docDomain.firstParty "(запрос с того же сайта)">
+<!ENTITY tooltip.type.whitelisted "(исключение)">
+<!ENTITY tooltip.filter.label "Применен фильтр:">
+<!ENTITY tooltip.filter.disabled "(отключен)">
+<!ENTITY context.editfilter.label "Отредактировать примененный фильтр">
+<!ENTITY tooltip.type.blocked "(заблокирован)">
+<!ENTITY size.label "Размер">
+<!ENTITY context.whitelist.label "Добавить исключение для элемента">
+<!ENTITY context.selectAll.label "Выделить всё">
+<!ENTITY state.label "Статус">
+<!ENTITY docDomain.label "Домен страницы">
+<!ENTITY tooltip.address.label "Адрес:">

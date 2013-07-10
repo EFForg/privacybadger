@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Blic kufijte e artikull">
+<!ENTITY address.label "Adresa">
+<!ENTITY context.open.label "Hape një një lidhje të re">
+<!ENTITY type.label "Lloji">
+<!ENTITY tooltip.filterSource.label "Burimi i filtruesit:">
+<!ENTITY noitems.label "S'ka elemente bllokuese">
+<!ENTITY filter.label "Filtruesi">
+<!ENTITY tooltip.size.label "Madhësia:">
+<!ENTITY reattach.label "Bashkëngjit">
+<!ENTITY search.label "Kërko: (&amp;S)">
+<!ENTITY docDomain.thirdParty "(të tretët)">
+<!ENTITY filterSource.label "Burimi i filtrit">
+<!ENTITY tooltip.docDomain.label "Burimi i dokumentit:">
+<!ENTITY context.copy.label "Kopjo adresën e elementit">
+<!ENTITY tooltip.type.label "Lloji:">
+<!ENTITY context.disablefilter.label "Çaktivizo filtruesin ?1?">
+<!ENTITY context.copyFilter.label "Kopjo filtruesin">
+<!ENTITY context.block.label "Blloko këtë send">
+<!ENTITY context.enablefilter.label "Ri mundëso filtruesin ?1?">
+<!ENTITY detach.label "Shkëput">
+<!ENTITY whitelisted.label "Lista e faqeve të lejueshme">
+<!ENTITY context.disablefilteronsite.label "Pamundëso filtruesin në ?1?">
+<!ENTITY detached.title "Adblock Plus: Artikuj per te bllokuar (i shkëputur)">
+<!ENTITY docDomain.firstParty "(të parët)">
+<!ENTITY tooltip.type.whitelisted "(lejuar)">
+<!ENTITY tooltip.filter.label "Filtri në përdorim:">
+<!ENTITY tooltip.filter.disabled "(qkyqur)">
+<!ENTITY context.editfilter.label "Vendos filtruesin në veprim">
+<!ENTITY tooltip.type.blocked "(bllokuar)">
+<!ENTITY size.label "Madhësia">
+<!ENTITY context.whitelist.label "shtoni përjashtim për sundimin artikull">
+<!ENTITY context.selectAll.label "Selekto të gjitha">
+<!ENTITY state.label "Gjendja">
+<!ENTITY docDomain.label "Burimi i dokumentit">
+<!ENTITY tooltip.address.label "Adresa:">

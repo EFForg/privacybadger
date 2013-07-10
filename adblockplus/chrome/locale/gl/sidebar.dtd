@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Salientar os bordos do elemento">
+<!ENTITY address.label "Enderezo">
+<!ENTITY context.open.label "Abrir nunha lapela nova">
+<!ENTITY type.label "Tipo">
+<!ENTITY tooltip.filterSource.label "Fonte do filtro:">
+<!ENTITY noitems.label "Non che hai temas bloqueables">
+<!ENTITY filter.label "Filtro">
+<!ENTITY tooltip.size.label "Tamaño:">
+<!ENTITY reattach.label "Unir de novo">
+<!ENTITY search.label "&amp;Procurar:">
+<!ENTITY docDomain.thirdParty "(terceiros)">
+<!ENTITY filterSource.label "Fonte do filtro">
+<!ENTITY tooltip.docDomain.label "Documento fonte:">
+<!ENTITY context.copy.label "Copiar o enderezo do elemento">
+<!ENTITY tooltip.type.label "Tipo">
+<!ENTITY context.disablefilter.label "Desactivar o filtro ?1?">
+<!ENTITY context.copyFilter.label "Copiar o filtro">
+<!ENTITY context.block.label "Bloquear este elemento">
+<!ENTITY context.enablefilter.label "Activar o filtro ?1?">
+<!ENTITY detach.label "Separar">
+<!ENTITY whitelisted.label "Páxina da Lista Branca">
+<!ENTITY context.disablefilteronsite.label "Desactivar este filtro en ?1?">
+<!ENTITY detached.title "Adblock Plus: Temas bloqueables (separados)">
+<!ENTITY docDomain.firstParty "(orixinal)">
+<!ENTITY tooltip.type.whitelisted "(engadido á lista branca)">
+<!ENTITY tooltip.filter.label "Filtro activo:">
+<!ENTITY tooltip.filter.disabled "(desactivado)">
+<!ENTITY context.editfilter.label "Editar o filtro activo">
+<!ENTITY tooltip.type.blocked "(bloqueado)">
+<!ENTITY size.label "Tamaño">
+<!ENTITY context.whitelist.label "Engadir excepción para este elemento">
+<!ENTITY context.selectAll.label "Seleccionalo todo">
+<!ENTITY state.label "Estado">
+<!ENTITY docDomain.label "Documento fonte">
+<!ENTITY tooltip.address.label "Enderezo:">

@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Tilføj og&amp;så filterabonnement &quot;?1?&quot;.">
+<!ENTITY list.download.failed "Adblock Plus kunne ikke hente abonnementslisten.">
+<!ENTITY list.download.retry "Prøv igen">
+<!ENTITY title.label "Abonnemen&amp;tstitel:">
+<!ENTITY list.download.website "Se hjemmeside">
+<!ENTITY supplementMessage "Dette filterabonnement er beregnet til brug sammen med abonnementet &quot;?1?&quot; som du endnu ikke bruger.">
+<!ENTITY viewList.label "Vis filtre">
+<!ENTITY visitHomepage.label "Besøg hjemmeside">
+<!ENTITY addSubscription.label "Tilføj abonnement">
+<!ENTITY dialog.title "Tilføj Adblock Plus filterabonnement">
+<!ENTITY location.label "Fi&amp;lterlistens placering:">
+<!ENTITY fromWeb.description "Bekræft tilføjelsen af dette abonnement. Du kan ændre titel eller placering før det tilføjes.">

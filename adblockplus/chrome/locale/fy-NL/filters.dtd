@@ -1,0 +1,37 @@
+<!ENTITY slow.column "Lan&amp;gsame filters">
+<!ENTITY enabled.column "Yns&amp;keakele">
+<!ENTITY subscription.lastDownload.checksumMismatch "Mislearre, checksum komt net oerien">
+<!ENTITY lasthit.column "Lêste hit">
+<!ENTITY sort.ascending.label "A &gt; Z sortearoarder">
+<!ENTITY sort.label "Sortearje op">
+<!ENTITY subscription.source.label "Filterlist">
+<!ENTITY filter.paste.label "Plakke">
+<!ENTITY subscription.external.label "Fernijd troch in oar útwreiding">
+<!ENTITY subscription.lastDownload.inProgress "Ynlade...">
+<!ENTITY subscriptions.tab.label "Filterabonneminten">
+<!ENTITY filter.delete.label "Fuortsmite">
+<!ENTITY addSubscriptionAdd.label "Tafoegje">
+<!ENTITY viewMenu.label "Byld">
+<!ENTITY subscription.lastDownload.unknown "n.f.t.">
+<!ENTITY addSubscriptionCancel.label "Annulearje">
+<!ENTITY subscription.enabled.label "Ynskeakele">
+<!ENTITY noSubscriptions.text "Jo hawwe gjin ien filter tafoege. Adblock Plus sil neat blokkearje
+	sûnder filters, brûk &quot;Filterabonnemint tafoegje&quot; om
+	ta te foegjen.">
+<!ENTITY dialog.title "Adblock Plus Filterfoarkarren">
+<!ENTITY subscription.lastDownload.invalidURL "Mislearre, gjin jildich adres">
+<!ENTITY filter.cut.label "Knippe">
+<!ENTITY addSubscriptionOther.label "In oar abonnemint tafoegje">
+<!ENTITY sort.none.label "&amp;Net sortearre">
+<!ENTITY filter.copy.label "Kopiearje">
+<!ENTITY addSubscription.label "Filterabonnemint tafoegje">
+<!ENTITY subscription.homepage.label "Startside">
+<!ENTITY filters.tab.label "Oanpaste filters">
+<!ENTITY find.label "Sykje">
+<!ENTITY sort.descending.label "Z &gt; A sortearoarder">
+<!ENTITY subscription.lastDownload.connectionError "Mislearre, ynlaadprobleem">
+<!ENTITY subscription.lastDownload.success "Slagge">
+<!ENTITY subscription.lastDownload.invalidData "Mislearre, gjin jildige filterlist">
+<!ENTITY addFilter.label "Tafoegje">
+<!ENTITY subscription.lastDownload.label "Lêste ynlaad:">
+<!ENTITY filter.column "Filterrigel">

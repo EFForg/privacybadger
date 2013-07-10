@@ -1,0 +1,17 @@
+<!ENTITY sidebar.title "Blockable items on current page">
+<!ENTITY sync.label "Syn&amp;chronise Adblock Plus settings">
+<!ENTITY context.object.label "Adblock Plus: Block object">
+<!ENTITY context.media.label "Adblock Plus: Block audio/video">
+<!ENTITY context.frame.label "Adblock Plus: Block frame">
+<!ENTITY filters.tooltip "Most active filters:">
+<!ENTITY whitelist.site.label "Disable on ?1?">
+<!ENTITY objecttab.title "Block">
+<!ENTITY objecttab.tooltip "Block this object with Adblock Plus">
+<!ENTITY whitelist.page.label "Disable on this page only">
+<!ENTITY contribute.label "Contribute to Adblock Plus">
+<!ENTITY toolbarbutton.label "Adblock Plus">
+<!ENTITY context.image.label "Adblock Plus: Block image">
+<!ENTITY disable.label "Disable everywhere">
+<!ENTITY status.tooltip "Status:">
+<!ENTITY blocked.tooltip "Blocked items on this page:">
+<!ENTITY context.removeWhitelist.label "Adblock Plus: Re-enable on this page">

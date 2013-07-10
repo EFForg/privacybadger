@@ -1,0 +1,221 @@
+/*
+ * This file is part of Adblock Plus <http://adblockplus.org/>,
+ * Copyright (C) 2006-2013 Eyeo GmbH
+ *
+ * Adblock Plus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * Adblock Plus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#buttons
+{
+  margin-top: 10px;
+}
+
+#noSubscriptions
+{
+  font-style: italic;
+}
+
+.localeMatch
+{
+  font-weight: bold;
+}
+.selectSubscriptionItem
+{
+  margin: 0px;
+}
+
+.subscription
+{
+  padding: 5px;
+}
+.subscription:not(:last-child)
+{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+.subscription:not([selected="true"]) > .disabled
+{
+}
+
+.subscription:not([selected="true"]) > .disabled .titleBox
+{
+  color: #808080;
+}
+.subscription:not([selected="true"]) > .disabled .status
+{
+  color: #808080;
+}
+
+.titleBox .title,
+.titleBox > .titleEditor
+{
+  font-weight: bold;
+}
+
+.subscription description, .subscription textbox
+{
+  margin: 0px !important;
+  padding: 0px !important;
+  border-width: 0px !important;
+  -moz-appearance: none !important;
+}
+
+.subscription .link
+{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.subscription .warning
+{
+  color: #FF0000;
+}
+
+.enabledCheckbox
+{
+  padding: 2px;
+  -moz-margin-end: 10px;
+}
+.enabledCheckbox:focus
+{
+  outline: 1px dotted gray;
+}
+.enabledCheckbox .checkbox-label-box
+{
+  display: none;
+}
+
+.actionButton
+{
+  font: -moz-info;
+}
+
+splitter
+{
+  border-width: 0px !important;
+}
+
+#filtersTooltip
+{
+  max-width: none;
+}
+
+.tooltipLabel
+{
+  font-weight: bold;
+  -moz-margin-end: 10px;
+}
+
+#tooltip-additional
+{
+  color: #C00000;
+  margin-top: 10px;
+}
+
+tree
+{
+  margin: 0px;
+}
+
+#col-slow {
+  text-align: center;
+}
+
+#col-hitcount, #col-lasthit {
+  text-align: right;
+}
+
+#col-hitcount
+{
+  min-width: 60px;
+}
+#col-enabled
+{
+  min-width: 48px;
+}
+#col-slow
+{
+  min-width: 30px;
+}
+
+/*
+ * Force left-to-right for filter text but not comments
+ */
+treechildren:-moz-locale-dir(rtl)::-moz-tree-cell(col-filter, type-invalid),
+treechildren:-moz-locale-dir(rtl)::-moz-tree-cell(col-filter, type-whitelist),
+treechildren:-moz-locale-dir(rtl)::-moz-tree-cell(col-filter, type-filterlist),
+treechildren:-moz-locale-dir(rtl)::-moz-tree-cell(col-filter, type-elemhide),
+treechildren:-moz-locale-dir(rtl)::-moz-tree-cell(col-filter, type-elemhideexception)
+{
+  direction: ltr;
+  text-align: end;
+}
+
+treechildren::-moz-tree-cell-text(col-filter, dummy-true)
+{
+  font-style: italic;
+}
+
+treechildren::-moz-tree-cell-text(col-filter, type-whitelist, selected-false),
+treechildren::-moz-tree-cell-text(col-filter, type-elemhideexception, selected-false)
+{
+  color: #008000;
+}
+
+treechildren::-moz-tree-cell-text(col-filter, type-elemhide, selected-false)
+{
+  color: #000080;
+}
+
+treechildren::-moz-tree-cell-text(col-slow)
+{
+  font-size: 0px;
+}
+
+treechildren::-moz-tree-cell-text(col-filter, disabled-true, selected-false)
+{
+  color: #808080;
+}
+
+treechildren::-moz-tree-cell-text(col-filter, type-comment, selected-false)
+{
+  color: #808080;
+}
+
+treechildren::-moz-tree-cell-text(col-filter, type-invalid, selected-false)
+{
+  color: #C00000;
+}
+
+treechildren::-moz-tree-image(col-enabled, disabled-true)
+{
+  list-style-image: url(checkbox.png);
+  -moz-image-region: rect(13px 13px 26px 0px);
+}
+
+treechildren::-moz-tree-image(col-enabled, disabled-false)
+{
+  list-style-image: url(checkbox.png);
+  -moz-image-region: rect(0px 13px 13px 0px);
+}
+
+treechildren::-moz-tree-image(col-slow, slow-true)
+{
+  list-style-image: url(slow.png);
+}
+
+.findbar-highlight
+{
+  display: none;
+}

@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Ankaŭ aldoni &amp;filtrilabonon &quot;?1?&quot;">
+<!ENTITY list.download.failed "Adblock Plus malsukcesis akiri la liston de abonoj.">
+<!ENTITY list.download.retry "Ankoraŭfoje provi">
+<!ENTITY title.label "&amp;Titolo de la abono:">
+<!ENTITY list.download.website "Rigardi retejon">
+<!ENTITY supplementMessage "Ĉi tiu filtrilabono estu uzata kun la filtrilabono &quot;?1?&quot;, kiun vi ankoraŭ ne uzas.">
+<!ENTITY viewList.label "Rigardi filtrilojn">
+<!ENTITY visitHomepage.label "Viziti hejmpaĝon">
+<!ENTITY addSubscription.label "Redakti abonon">
+<!ENTITY dialog.title "Aldoni filtrilabonon de Adblock Plus">
+<!ENTITY location.label "&amp;Loko de la listo de filtriloj:">
+<!ENTITY fromWeb.description "Bonvolu konfirmi, ke vi volas aldoni ĉi tiun filtrilabonon. Vi povas ŝanĝi la abonan titolon aŭ lokon antaŭ ol vi aldonas ĝin.">

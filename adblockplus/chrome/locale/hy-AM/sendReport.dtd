@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "Հետքայլ (&amp;U)">
+<!ENTITY issues.disabledgroups.description "Հետեւյալ ֆիլտրերի բաժանորդագրությունները/խմբերը անջատված են, սակայն նրանք կարող են ազդեցություն ունենալ այս էջում:">
+<!ENTITY showData.label "Ցույց տալ զեկույցը">
+<!ENTITY typeSelector.falsePositive.label "Adblock Plus-ը շատ է արգելում">
+<!ENTITY issues.change.description "Ձեր կոնֆիգուրացիան փոխվել է: Խնդրում ենք վերբեռնել էջը և թեստավորել փոփոխությունները եւ հայտնել, եթե փոփոխություններից պրոբլեմը չի լուծվում:">
+<!ENTITY email.label "E&amp;mail՝">
+<!ENTITY issues.openPreferences.label "Բացել ֆիլտրերի ընտրանքները">
+<!ENTITY sendPage.confirmation "Ձեր զեկույցը պահպանվել է: Դուք կարող եք մուտք գործել այն հետեւյալ հասցեով՝">
+<!ENTITY copyLink.label "Կրկնակել զեկույցի հղումը">
+<!ENTITY issues.nofilters.description "Adblock Plus-ը չի արգելափակում ոչինչ ընթացիկ էջում: Պրոբլեմը որը եք ամենայն հավանականությամբ, կապված չէ Adblock Plus.">
+<!ENTITY sendPage.knownIssue "Ձեր հաղորդած հարցը հնարավոր է արդեն հայտնի է: Լրացուցիչ տեղեկություններ՝">
+<!ENTITY typeSelector.other.description "Ընտրեք այս տարբերակը, եթե կասկածում եք, մի պրոբլեմը Adblock Plus-ի հետ է ոչ թե ֆիլտրերի:">
+<!ENTITY issues.disabledgroups.enable.label "Միացնել ֆիլտրերի բաժանորդագրությունը / խումբը">
+<!ENTITY typeWarning.override.label "Ես հասկանում եմ եւ ուզում եմ այնուամենայնիվ ներկայացնել զեկույցը (&amp;s)">
+<!ENTITY issues.disabled.enable.label "Միացնել Adblock Plus-ը">
+<!ENTITY update.fixed.description "Ֆիլտրերի թարմացումը լուծեց Ձեր խնդիրը:Թարմացրե՛ք էջը՝ համոզվելու դրանում:Խնդրի կրկնվելու դեպքում դիմե՛ք կրկին:">
+<!ENTITY anonymous.label "Անհայտ ֆիլտեր">
+<!ENTITY reloadButton.label "Վերաբեռնել էջը">
+<!ENTITY recentReports.clear.label "Հեռացնել բոլոր հաղորդագրությունները (&amp;R)">
+<!ENTITY typeSelector.description "Այս պատուհանը օգնում է կատարել Adblock Plus-ի խնդրի մասին տեղակացնելու համար անհրաժեշտ քայլերն. Նախ ընտրեք այս էջում ձեր ունեցած խնդրի տեսակը">
+<!ENTITY screenshot.remove.label "Հեռացնել անցանկալի բաժիններ (&amp;R)">
+<!ENTITY issues.ownfilters.description "Այս էջին կիրառված որոշ ֆիլտրեր սահմանված են օգտագործողի կողմից: Աանջատեք դրանք այդ ֆիլտրերը, որոնք կարող են առաջացրել պրոբլեմը:">
+<!ENTITY update.inProgress.description "Adblock Plus-ը պիտի թարմացնի Ձեր ֆիլտրերը՝ համոզվելու, որ խնդիրը չի լուծվում:Խնդրում ենք սպասեք...">
+<!ENTITY sendPage.retry.label "Նորից ուղարկել">
+<!ENTITY data.label "Տվյալներ՝ (&amp;p)">
+<!ENTITY recentReports.label "Ձեր վերջին ներկայացված հաղորդագրությունները">
+<!ENTITY typeWarning.description "Դուք ցանկանում եք հայտնել Adblock Plus-ի պրոբլեիմի մասին, ոչ թե կապված ֆիլտրերի հետ: Խնդրում ենք նկատի ունենալ, որ նման հարցերի մասին տեղեկացնելու լավագույն տեղը 	[link]Adblock Plus ֆորում[/link]-ն է: Դուք պետք է օգտվեք այս միջոցից միայն քննարկումը շարունակելու համար, քանի որ ոչ ոք չի նկատի Ձեր զեկույցը եթե Դուք չտրամադրեք հղում են դեպի այն: Ավտոմատ կերպով գեներացված հղում կտրամադրվի զեկույցը ներկայացնելուց հետո:">
+<!ENTITY issues.disabled.description "Adblock Plus-ը անջատված է, այն չի արգելափակում որեւէ բան այս վիճակում:">
+<!ENTITY attachExtensions.label "Ամրացնել ակտիվ ավելացումների ցուցակը զեկույցին, այն դեպքի համար եթե ավելացնումները խնդրի պատճառ են:">
+<!ENTITY issues.nosubscriptions.add.label "Ավելացնել ֆիլտրի բաժանորդագրություն">
+<!ENTITY issues.disabledfilters.enable.label "Միացնել ֆիլտրը">
+<!ENTITY issues.override.label "Կոնֆիգուրացիան ճիշտ է, շարունակել հայտնել խնդրի մասին">
+<!ENTITY issues.nosubscriptions.description "Դուք, ըստ երեւույթի, բաժանորդագրված չեք որեւէ պատրաստի ֆիլտրերի ցուցակի, որը ավտոմատ կերպով կհեռացնի անցանկալի բովանդակությունը կայքերում:">
+<!ENTITY typeSelector.falsePositive.description "Ընտրեք այս տարբերակը, եթե այս էջում կորել է կարեւոր բովանդակություն, այն ցուցադրվում է սխալ կամ չի աշխատում: Դուք կարող եք որոշել, թե արդյոք Adblock Plus-ն է պատճառը	ժամանակավորապես անջատելով այն:">
+<!ENTITY typeSelector.other.label "Այլ խնդիր">
+<!ENTITY emailComment.label "Խնդրում ենք գրե՛ք ճիշտ email հասցե՝ Ձեզ հետ կապնվելու համար և խնդիրը լուծելու համար:">
+<!ENTITY issues.whitelist.remove.label "Միացնել Adblock Plus-ը այս էջում">
+<!ENTITY outdatedSubscriptions.description "Այս ֆիլտրը չի թարմացվել մոտ 2 շաբաթ:Թարմացրե՛ք, քանի որ դա կարող է լուծել խնդիրը:Խնդրի չլուծման դեպքում դիմե՛ք կրկին:">
+<!ENTITY dataCollector.description "Սպասեք մինչև Adblock Plus-ը հավաքի անհրաժեշտ տվյալներ…">
+<!ENTITY sendButton.label "Ուղարկել զեկույցը">
+<!ENTITY comment.label "Մեկնաբանություն (պարտադիր չէ)՝">
+<!ENTITY sendPage.errorMessage "Զեկույցի ուղարկման փորձը ձախողվել է հետևյալ սխալի կոդով՝ &quot;?1?&quot;: Ստուգեք միացումը ինտերնետին եւ կրկնեք: Եթե խնդիրը չկարգավորվի, խնդրում ենք դիմել [link]Adblock Plus Ֆորում[/link] աջակցության համար:">
+<!ENTITY showRecentReports.label "Ցույց տալ վերջին ներկայացված հաղորդագրությունները">
+<!ENTITY commentPage.heading "Մեկնաբանել">
+<!ENTITY update.start.label "Սկսել թարմացումը հիմա">
+<!ENTITY issues.disabledfilters.description "Հետեւյալ ֆիլտրերը անջատված են, սակայն նրանք կարող են ազդեցություն ունենալ  այս էջում:">
+<!ENTITY screenshot.description "Նույն էջը կարող է տարբեր նայվել  տարբեր մարդկանց: Եթե դուք Ձեր զեկույցին կցեք էկրանի նկարը դա կարող է օգնել մեզ հասկանալ խնդիրը: Դուք նույնպես կարող եք հեռացնել անցանկալի բաժիններ, ինչպես նաեւ նշել այն տարածքները, որտեղ երեւում է խնդիրը: Դա անելու համար սեղմեք համապատասխան կոճակը եւ մկնիկով ընտրեք պատկերի հատվածը:">
+<!ENTITY screenshot.attach.label "Կցել էջի նկարը">
+<!ENTITY issues.whitelist.description "Adblock Plus-ը այժմ անջատված է այս էջում: Միացրեք այն եւ վերբեռնեք այս էջը ուղարկելուց առաջ խնդրի լուծումանը աջակցելու համար:">
+<!ENTITY typeSelector.falseNegative.label "Adblock Plus-ը չի փակում գովազդը (&amp;v)">
+<!ENTITY typeSelector.heading "Խնդրի ընտրում">
+<!ENTITY anonymity.warning "Մենք չենք կարողանալու ետ գալ Ձեզ մոտ և զեկույցը ցածր կհամարենք:">
+<!ENTITY wizard.title "Տեղեկացնել">
+<!ENTITY issues.ownfilters.disable.label "Անջատել ֆիլտր(եր)ը">
+<!ENTITY commentPage.description "Տեքստային դաշտի ստորեւ թույլ է տալիս մուտքագրել մեկնաբանություն մեզ օգնելու համար՝ հասկանալ խնդիրը&quot; Այս քայլը պարտադիր չէ, սակայն խորհուրդ է տրվում, եթե Խնդիրը ակնհայտ չէ: Դուք կարող եք նաեւ վերանայել զեկույցի տվյալները մինչ դրա ուղարկումը:">
+<!ENTITY comment.lengthWarning "Մեկնաբանության երկարությունը գերազանցում է 1000 սիմվոլ: Միայն առաջին 1000 սիմվոլը կուղարկվի:">
+<!ENTITY typeSelector.falseNegative.description "Ընտրեք այս տարբերակը, եթե գովազդը ցուցադրվում  է, չնայած Adblock Plus միացված է:">
+<!ENTITY sendPage.waitMessage "Խնդրում ենք սպասել, մինչ Adblock Plus-ը, ուղարկի Ձեր զեկույցը:">
+<!ENTITY dataCollector.heading "Բարի գալուստ պրոբլեմների հետևման համակարգ">
+<!ENTITY screenshot.heading "Կցել էկրանի նկարը">
+<!ENTITY sendPage.heading "Ուղարկել զեկույցը">
+<!ENTITY issues.subscriptionCount.description "Դուք բաժանորդագրված եք չափից շատ ֆիլտրերի: Սա կարող է խնդրի պատճառ դառնալ: Մենք չենք ընդունի ձեր բաղոքը խնդրի հետ կապված, քանի որ անհնար է լինելու պարզել դրա աղբյուրը: Խնդրում ենք հեռացնել բաժանորդագրույունները, թողնելով միայն ամենաանհրաժեշտները և ստուգել արդյոք խնդիրը դեռ կա:">
+<!ENTITY screenshot.mark.label "Նշել խնդրի տեղը">
+<!ENTITY privacyPolicy.label "Անձնական տվյալների պահպանում">
+<!ENTITY issues.description "Adblock Plus-ը հայտնաբերել է պրոբլեմներ ձեր կոնֆիգուրացիայի հետ, որոնք կարող են խնդրի պատճառ լինել կամ բարդացնի լուծումը:">

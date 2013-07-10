@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Element hiding performance measurements</title>
+
+  <script type="application/x-javascript;version=1.7" src="../common.js"></script>
+</head>
+<body>
+  <p id="progress">Please wait while performance measurement is in progress... <span id="current"></span></p>
+
+  <iframe id="frame" onload="runNextTest();" style="visibility: hidden;height: 0px;"></iframe>
+
+  <pre id="result"></pre>
+
+  <script type="application/x-javascript;version=1.7">
+    prepareFilterComponents();
+    preparePrefs();
+
+    let selectors = ['#foo', '.foo', '*#foo', '*.foo', '[id="foo"]', '*[id="foo"]', '[class~="foo"]', '*[class~="foo"]', '[id^="foo"]', '[id*="foo"]', '[id$="foo"]'];
+    let currentSelector = -1;
+    let count = 1000;
+    let startTime;
+    let results = [];
+
+    window.addEventListener("load", runNextTest, false);
+
+    function runNextTest()
+    {
+      if (currentSelector >= 0)
+      {
+        if (!(count in results))
+          results[count] = [];
+
+        results[count].push(Date.now() - startTime);
+      }
+
+      if (count >= 1000)
+      {
+        currentSelector++;
+        if (currentSelector >= selectors.length)
+        {
+          let resultText = "# rule_count " + selectors.join(" ") + "\n";
+          for (let i = 0; i < results.length; i++)
+            if (i in results)
+              resultText += i + " " + results[i].join(" ") + "\n";
+
+          document.getElementById("result").textContent = resultText;
+          document.getElementById("progress").style.display = "none";
+        }
+        else
+          document.getElementById("current").textContent = "Processing selector " + (currentSelector + 1) + " out of " + selectors.length;
+
+        count = 0;
+        ElemHide.clear();
+      }
+      else
+      {
+        let max = count + 50;
+        for (; count < max; count++)
+          ElemHide.add(Filter.fromText("mochikit##" + selectors[currentSelector].replace("foo", "foo" + count)));
+      }
+      ElemHide.apply();
+
+      startTime = Date.now();
+      document.getElementById("frame").contentWindow.location.href = "data/elemhide_selectors_testdata.html";
+    }
+  </script>
+</body>
+</html>

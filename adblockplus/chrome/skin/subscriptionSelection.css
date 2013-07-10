@@ -1,0 +1,69 @@
+/*
+ * This file is part of Adblock Plus <http://adblockplus.org/>,
+ * Copyright (C) 2006-2013 Eyeo GmbH
+ *
+ * Adblock Plus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * Adblock Plus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+dialog
+{
+  width: 550px;
+}
+
+*[invisible="true"]
+{
+  visibility: hidden;
+}
+
+#supplementMessage
+{
+  color: #F00000;
+}
+
+.localeMatch
+{
+  font-weight: bold;
+}
+
+#all-subscriptions-loading
+{
+  margin: 50px;
+}
+
+#all-subscriptions
+{
+  min-height: 200px;
+}
+#all-subscriptions  > richlistitem > .variant
+{
+  width: 200px;
+}
+#all-subscriptions > richlistitem:not(:first-child) > .subscriptionTitle,
+#all-subscriptions > richlistitem:not(:first-child) > .subscriptionTitle + .variant
+{
+  border-top: 1px dashed black;
+  margin-top: 0px;
+  padding-top: 4px;
+}
+
+#supplementMessage
+{
+  margin-top: 5px;
+}
+#supplementMessage > label
+{
+  margin-left: 0px;
+  margin-right: 0px;
+}

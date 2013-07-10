@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "ขอบของรายการแฟลช">
+<!ENTITY address.label "ที่อยู่">
+<!ENTITY context.open.label "เปิดในแท็บใหม่">
+<!ENTITY type.label "ชนิด">
+<!ENTITY tooltip.filterSource.label "ตัวกรองแหล่งที่มา:">
+<!ENTITY noitems.label "ไม่มีรายการที่บล็อคได้">
+<!ENTITY filter.label "ตัวกรอง">
+<!ENTITY tooltip.size.label "ขนาด:">
+<!ENTITY reattach.label "แนบกลับ">
+<!ENTITY search.label "&amp;ค้นหา:">
+<!ENTITY docDomain.thirdParty "(เทิร์ดปาร์ตี้)">
+<!ENTITY filterSource.label "ตัวกรองต้นฉบับ">
+<!ENTITY tooltip.docDomain.label "แหล่งที่มาเอกสาร:">
+<!ENTITY context.copy.label "คัดลอกที่อยู่รายการ">
+<!ENTITY tooltip.type.label "ชนิด:">
+<!ENTITY context.disablefilter.label "ปิดตัวกรอง ?1?">
+<!ENTITY context.copyFilter.label "คัดลอกตัวกรอง">
+<!ENTITY context.block.label "บล็อครายการนี้">
+<!ENTITY context.enablefilter.label "เปิดตัวกรอง ?1? อีกครั้ง">
+<!ENTITY detach.label "แยกออก">
+<!ENTITY whitelisted.label "หน้าที่ถูกขึ้นบัญชีขาว">
+<!ENTITY context.disablefilteronsite.label "ปิดตัวกรองนี้บน ?1?">
+<!ENTITY detached.title "Adblock Plus: รายการที่บล็อกได้ (ถูกแยกออก)">
+<!ENTITY docDomain.firstParty "(เฟิร์สปาร์ตี้)">
+<!ENTITY tooltip.type.whitelisted "(ขึ้นบัญชีขาว)">
+<!ENTITY tooltip.filter.label "เป็นผลมาจากตัวกรอง:">
+<!ENTITY tooltip.filter.disabled "(ปิดการใช้งาน)">
+<!ENTITY context.editfilter.label "แก้ไขตัวกรองที่มีผล">
+<!ENTITY tooltip.type.blocked "(ถูกบล็อค)">
+<!ENTITY size.label "ขนาด">
+<!ENTITY context.whitelist.label "เพิ่มข้อยกเว้นสำหรับรายการ">
+<!ENTITY context.selectAll.label "เลือกทั้งหมด">
+<!ENTITY state.label "สถานะ">
+<!ENTITY docDomain.label "แหล่งที่มาเอกสาร">
+<!ENTITY tooltip.address.label "ที่อยู่:">

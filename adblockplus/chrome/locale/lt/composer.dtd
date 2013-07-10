@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "adreso &amp;pabaigoje">
+<!ENTITY domainRestriction.label "Apribojimai &amp;domenui:">
+<!ENTITY collapse.default.no.label "Naudoti numatytą (ne)">
+<!ENTITY firstParty.label "Tik &amp;pagrindinių">
+<!ENTITY preferences.label "&amp;Rodyti esamus filtrus...">
+<!ENTITY pattern.label "Ieškoti atitikmens">
+<!ENTITY thirdParty.label "&amp;Tik trečiųjų šalių">
+<!ENTITY filter.label "Naujas &amp;filtras:">
+<!ENTITY collapse.label "&amp;Suskleisti užblokuotus:">
+<!ENTITY match.warning "Atitikmuo kurį įvedėte nebeatitinka adreso kurį reikia įdėti į baltąjį/juodąjį sąrašą todėl jis nebeturės jokio efekto.">
+<!ENTITY anchor.start.label "a&amp;dreso pradžioje">
+<!ENTITY matchCase.label "&amp;Skirti didžiąsias ir mažąsias raides">
+<!ENTITY custom.pattern.label "&amp;Pasirinktas:">
+<!ENTITY unselectAllTypes.label "Nieko nepasirinkti">
+<!ENTITY type.whitelist.label "I&amp;šimties taisyklė">
+<!ENTITY regexp.warning "Atitikmuo kurį įvedėte bus interpretuojamas kaip reguliarioji išraiška, Adblock Plus negali jo efektyviai pritaikyti, todėl gali sulėtėti naršymas. Jei nenorėjote naudoti reguliariųjų išraiškų, atitikmens pabaigoje pridėkite žvaigždutę (*).">
+<!ENTITY dialog.title "Pridėti Adblock Plus filtravimo taisyklę">
+<!ENTITY basic.label "Paprastas konfigūravimas">
+<!ENTITY type.filter.label "&amp;Blokavimo filtrai">
+<!ENTITY types.label "Pritaikyti tipams:">
+<!ENTITY shortpattern.warning "Atitikmuo kurį įvedėte yra per trumpas, kad būtų galima optimizuoti ir gali sulėtinti naršymą. Rekomenduojama šiam filtrui pasirinkti ilgesnę eilutę, kad Adblock Plus galėtų efektyviau išnaudoti šį filtrą.">
+<!ENTITY collapse.yes.label "Taip">
+<!ENTITY anchors.label "Priimti tik atitikmenį:">
+<!ENTITY collapse.default.yes.label "Naudoti numatytą (taip)">
+<!ENTITY domainRestriction.help "Naudokite šią pasirinkty nurodyti vieną ar kelis domenus atskirtus |. Filtras bus pritaikytas tik pasirinktiems domenams. ~ prieš domeną parodo jog filtras nebus pritaikytas tam domenui.">
+<!ENTITY accept.label "Pridėti filtrą">
+<!ENTITY options.label "Parinktys">
+<!ENTITY disabled.warning "Adblock Plus šiuo metu yra išjungtas. Vistiek galite pridėti filtrus, bet jie neveiks kol [link]neįjungsite Adblock Plus[/link].">
+<!ENTITY anchor.start.flexible.label "&amp;domeno pradžioje">
+<!ENTITY collapse.no.label "Ne">
+<!ENTITY selectAllTypes.label "Pasirinkti visus">
+<!ENTITY advanced.label "Sudėtingesnis konfigūravimas">
+<!ENTITY pattern.explanation "Atitikmuo gali būti betkuri adreso dalis; žvaigždutė (*) veiks kaip „wildcards“. Filtras bus pritaikytas tik tuo atveju jei adrese bus rastas atitikmuo.">

@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Također &amp;dodajte pretplatu na filter &quot;?1?&quot;">
+<!ENTITY list.download.failed "Adblock Plus nije uspio preuzeti popis pretplata.">
+<!ENTITY list.download.retry "Pokušajte ponovno">
+<!ENTITY title.label "Naslov &amp;pretplate:">
+<!ENTITY list.download.website "Pogledaj stranicu">
+<!ENTITY supplementMessage "Ova pretplata na filter je namjenjena korištenju sa pretplatom na filter &quot;?1?&quot; koju još ne koristite.">
+<!ENTITY viewList.label "Pogledaj filtere">
+<!ENTITY visitHomepage.label "Posjetite početnu stranicu">
+<!ENTITY addSubscription.label "Dodaj pretplatu">
+<!ENTITY dialog.title "Dodaj Adblock Plus pretplate filtera">
+<!ENTITY location.label "Lokaci&amp;ja popisa filtera:">
+<!ENTITY fromWeb.description "Potvrdite želite li dodati ovu pretplatu na filter. Možete promijeniti naziv ili lokaciju pretplate prije nego što je dodate.">

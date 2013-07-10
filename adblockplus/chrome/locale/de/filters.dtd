@@ -1,0 +1,74 @@
+<!ENTITY restore.custom.warning "Alle Ihre eigenen Filter werden durch den Inhalt dieser Datei ersetzt. Wollen Sie fortfahren?">
+<!ENTITY slow.column "&amp;Langsam">
+<!ENTITY enabled.column "A&amp;ktiv">
+<!ENTITY subscription.lastDownload.checksumMismatch "Fehler, Prüfsumme ist falsch, möglicherweise ein Übertragungsfehler">
+<!ENTITY noFiltersInGroup.text "Die gewählte Filtergruppe ist leer.">
+<!ENTITY subscription.actions.label "Aktionen">
+<!ENTITY filter.selectAll.label "Alle auswählen">
+<!ENTITY backupButton.label "Sic&amp;hern und Wiederherstellen">
+<!ENTITY restore.minVersion.warning "Warnung: diese Datei wurde mit einer neueren Version von Adblock Plus erstellt. Sie sollten Adblock Plus auf die neueste Version aktualisieren, bevor Sie Daten von dieser Sicherung wiederherstellen.">
+<!ENTITY restore.error "Die Daten dieser Datei sind fehlerhaft, vielleicht ist es keine Sicherungsdatei von Adblock Plus?">
+<!ENTITY sort.ascending.label "&amp;Aufsteigend">
+<!ENTITY sort.label "&amp;Sortieren">
+<!ENTITY subscription.source.label "Filterliste">
+<!ENTITY hitcount.column "T&amp;reffer">
+<!ENTITY noFilters.text "Sie haben noch keine eigenen Filter.">
+<!ENTITY backup.custom.title "Nur eigene Filter">
+<!ENTITY subscription.external.label "Wird von einer anderen Erweiterung aktualisiert">
+<!ENTITY subscription.delete.label "Löschen">
+<!ENTITY noGroupSelected.text "Sie müssen eine Filtergruppe auswählen, um deren Inhalt anzuzeigen.">
+<!ENTITY filter.cut.label "Ausschneiden">
+<!ENTITY restore.default.label "Sicherung von ?1? wiederherstellen">
+<!ENTITY subscription.lastDownload.inProgress "Wird heruntergeladen...">
+<!ENTITY subscriptions.tab.label "Filterabonnements">
+<!ENTITY sort.descending.label "A&amp;bsteigend">
+<!ENTITY filters.remove.warning "Wollen Sie wirklich alle ausgewählten Filter löschen?">
+<!ENTITY filter.delete.label "Löschen">
+<!ENTITY addSubscriptionAdd.label "Hinzufügen">
+<!ENTITY viewMenu.label "Ansicht">
+<!ENTITY subscription.lastDownload.unknown "Nie">
+<!ENTITY addSubscriptionCancel.label "Abbrechen">
+<!ENTITY subscription.enabled.label "Aktiv">
+<!ENTITY noSubscriptions.text "Sie haben noch keine Filterabonnements hinzugefügt. Ohne Filter wird Adblock Plus
+  nichts blockieren können, bitte benutzen Sie den Knopf
+  &quot;Filterabonnement hinzufügen&quot;.">
+<!ENTITY subscription.update.label "Filter aktualisieren">
+<!ENTITY dialog.title "Filtereinstellungen von Adblock Plus">
+<!ENTITY addFilter.label "&amp;Filter hinzufügen">
+<!ENTITY subscription.minVersion.warning "Diese Filterliste benötigt eine neuere Version von Adblock Plus, Sie sollten auf die neueste Version von Adblock Plus aktualisieren.">
+<!ENTITY subscription.lastDownload.invalidURL "Fehler, ungültige Adresse">
+<!ENTITY backup.error "Beim Schreiben der Filter in die Datei ist ein Problem aufgetreten. Bitte stellen Sie sicher, dass die Datei nicht schreibgeschützt ist oder von einem anderen Programm verwendet wird.">
+<!ENTITY filter.moveUp.label "Nach oben verschieben">
+<!ENTITY addGroup.label "Filter&amp;gruppe hinzufügen">
+<!ENTITY filter.edit.label "Bearbeiten">
+<!ENTITY subscription.showHideFilters.label "Filter anzeigen/verstecken">
+<!ENTITY acceptableAds2.label "Einige nicht auf&amp;dringliche Werbung zulassen">
+<!ENTITY addSubscriptionOther.label "Anderes Abonnement hinzufügen">
+<!ENTITY close.label "Schließen">
+<!ENTITY sort.none.label "&amp;Unsortiert">
+<!ENTITY filter.actions.label "Filteraktionen">
+<!ENTITY filter.copy.label "Kopieren">
+<!ENTITY filter.moveDown.label "Nach unten verschieben">
+<!ENTITY filter.resetHitCounts.label "Trefferstatistiken zurücksetzen">
+<!ENTITY readMore.label "Mehr Information">
+<!ENTITY subscription.moveUp.label "Nach oben verschieben">
+<!ENTITY addSubscription.label "Filtera&amp;bonnement hinzufügen">
+<!ENTITY subscription.homepage.label "Webseite">
+<!ENTITY backup.complete.title "Alle Filter und alle Filterabonnements">
+<!ENTITY restore.own.label "Eigene Sicherung wiederherstellen">
+<!ENTITY restore.complete.warning "Alle Ihre Filtereinstellungen werden durch den Inhalt dieser Datei ersetzt. Wollen Sie fortfahren?">
+<!ENTITY filters.tab.label "Eigene Filter">
+<!ENTITY backup.label "Neue Sicherung erstellen">
+<!ENTITY find.label "Filter durch&amp;suchen">
+<!ENTITY subscription.moveDown.label "Nach unten verschieben">
+<!ENTITY subscription.lastDownload.connectionError "Fehler, Herunterladen fehlgeschlagen">
+<!ENTITY subscription.lastDownload.success "Erfolgreich">
+<!ENTITY subscription.lastDownload.invalidData "Fehler, keine gültige Filterliste">
+<!ENTITY filter.paste.label "Einfügen">
+<!ENTITY subscription.disabledFilters.enable "Deaktivierte Filter aktivieren">
+<!ENTITY lasthit.column "Let&amp;zter Treffer">
+<!ENTITY subscription.editTitle.label "Umbenennen">
+<!ENTITY subscription.disabledFilters.warning "Einige Filter in dieser Filterliste sind deaktiviert.">
+<!ENTITY filter.column "&amp;Filterregel">
+<!ENTITY subscription.lastDownload.label "Zuletzt aktualisiert:">
+<!ENTITY viewList.label "Liste öffnen">

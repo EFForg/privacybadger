@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "Onge&amp;daan maken">
+<!ENTITY issues.disabledgroups.description "De volgende filterabonnementen / filtergroepen zijn uitgeschakeld, maar ze hebben mogelijk wel een effect op deze pagina:">
+<!ENTITY showData.label "Rapportgegevens weergeven">
+<!ENTITY typeSelector.falsePositive.label "Adblock Plus blokkeert te &amp;veel">
+<!ENTITY issues.change.description "Uw configuratie is gewijzigd. Laad de pagina opnieuw om de wijzigingen te testen en een rapport in te dienen als het probleem niet is opgelost door de wijzigingen.">
+<!ENTITY email.label "E-&amp;mailadres:">
+<!ENTITY issues.openPreferences.label "Filtervoorkeuren openen">
+<!ENTITY sendPage.confirmation "Uw rapport is opgeslagen. U kunt het bekijken op het volgende adres:">
+<!ENTITY copyLink.label "Rapport&amp;koppeling kopiëren">
+<!ENTITY issues.nofilters.description "Adblock Plus blokkeert niets op de huidige pagina. Het door u ervaren probleem hangt hoogstwaarschijnlijk niet samen met Adblock Plus.">
+<!ENTITY sendPage.knownIssue "Het door u gemelde probleem is waarschijnlijk al bekend. Meer informatie:">
+<!ENTITY typeSelector.other.description "Selecteer deze optie als u een probleem met Adblock Plus zelf vermoedt in plaats van met de filters.">
+<!ENTITY issues.disabledgroups.enable.label "Filterabonnement / filtergroep inschakelen">
+<!ENTITY typeWarning.override.label "Ik be&amp;grijp het en wil het rapport toch indienen">
+<!ENTITY issues.disabled.enable.label "Adblock Plus inschakelen">
+<!ENTITY update.fixed.description "De updates voor uw filterabonnementen hebben waarschijnlijk het door u gerapporteerde probleem verholpen. Laad de pagina opnieuw en probeer het nog eens, en druk opnieuw op Rapporteren als het probleem aanhoudt.">
+<!ENTITY anonymous.label "&amp;Anonieme bijdrage">
+<!ENTITY reloadButton.label "Pagina opnie&amp;uw laden">
+<!ENTITY recentReports.clear.label "Alle rappor&amp;ten verwijderen">
+<!ENTITY typeSelector.description "Dit venster leidt u door de stappen die nodig zijn voor het indienen van een Adblock Plus-probleemrapport. Selecteer eerst het probleemtype dat u ervaart op deze pagina:">
+<!ENTITY screenshot.remove.label "Gevoelige gegevens ver&amp;wijderen">
+<!ENTITY issues.ownfilters.description "Enkele van de op deze pagina toegepaste filters zijn door een gebruiker gedefinieerd. Schakel de filters uit die mogelijk het probleem hebben veroorzaakt:">
+<!ENTITY update.inProgress.description "Adblock Plus dient uw filterabonnementen bij te werken om te controleren of het probleem niet al is opgelost. Een ogenblik…">
+<!ENTITY sendPage.retry.label "Opnieuw verzenden">
+<!ENTITY data.label "Ra&amp;pportgegevens:">
+<!ENTITY recentReports.label "Uw onlangs ingediende rapporten">
+<!ENTITY typeWarning.description "U hebt aangegeven dat u een algemeen probleem met Adblock Plus wilt rapporteren in plaats van een probleem met de filters. Merk op dat dergelijke problemen het beste kunnen worden gerapporteerd in het [link]Adblock Plus-forum[/link]. U dient de probleemrapportage alleen te gebruiken om een bestaande discussie aan te vullen, aangezien niemand uw rapport zal opmerken tenzij u een koppeling ernaartoe geeft. De automatisch aangemaakte koppeling wordt weergegeven na indienenvan het rapport.">
+<!ENTITY issues.disabled.description "Adblock Plus is uitgeschakeld, in de huidige staat zal het niets blokkeren.">
+<!ENTITY attachExtensions.label "Voeg een lijst met actieve e&amp;xtensies toe aan het rapport voor het geval conflicterende add-ons de oorzaak van het probleem zijn">
+<!ENTITY issues.nosubscriptions.add.label "Filterabonnement toevoegen">
+<!ENTITY issues.disabledfilters.enable.label "Filter inschakelen">
+<!ENTITY issues.override.label "De &amp;configuratie is juist, doorgaan met rapportage">
+<!ENTITY issues.nosubscriptions.description "Het lijkt er op dat u geen abonnement heeft op een filterlijst die automatisch ongewenste inhoud van websites verwijdert.">
+<!ENTITY typeSelector.falsePositive.description "Selecteer deze optie als de pagina belangrijke inhoudt niet weergeeft, onjuist wordt weergegeven of niet goed werkt. U kunt bepalen of Adblock Plus de oorzaak hiervan is door het tijdelijk uit te schakelen.">
+<!ENTITY typeSelector.other.label "&amp;Overige problemen">
+<!ENTITY emailComment.label "We raden u aan een geldig e-mailadres in te voeren, zodat we contact met u op kunnen nemen als er vragen zijn over uw verslag. Hierdoor kunnen wij uw bijdragen ook herkennen en ze hoger prioriteren.">
+<!ENTITY issues.whitelist.remove.label "Adblock Plus weer inschakelen op deze pagina">
+<!ENTITY outdatedSubscriptions.description "De volgende filterabonnementen zijn ten minste twee weken niet meer bijgewerkt. Werk ze eerst bij voordat u een rapport indient, het probleem is mogelijk al verholpen.">
+<!ENTITY dataCollector.description "Wacht enkele momenten terwijl Adblock Plus de benodigde gegevens verzamelt.">
+<!ENTITY sendButton.label "Rapport ver&amp;zenden">
+<!ENTITY comment.label "Opme&amp;rking (optioneel):">
+<!ENTITY sendPage.errorMessage "De poging om het rapport te verzenden is mislukt met foutcode ‘?1?’. Controleer uw internetverbinding en probeer het opnieuw. Als het probleem aanhoudt, vraag dan om hulp op het [link]Adblock Plus-forum[/link].">
+<!ENTITY showRecentReports.label "Onlangs ingediende rapporten weergeven">
+<!ENTITY commentPage.heading "Opmerking toevoegen">
+<!ENTITY update.start.label "Nu bijwerken">
+<!ENTITY issues.disabledfilters.description "De volgende filters zijn uitgeschakeld, maar ze hebben mogelijk wel een effect op deze pagina:">
+<!ENTITY screenshot.description "Dezelfde pagina kan er verschillend uitzien voor verschillende personen. We begrijpen het probleem misschien beter als u een schermafbeelding toevoegt aan uw rapport. U kunt secties met gevoelige informatie verwijderen en gebieden waar het probleem zich voordoet markeren. Klik op de bijbehorende knop om dit te doen en selecteer een sectie van de afbeelding met uw muis.">
+<!ENTITY screenshot.attach.label "Een pagina-afbeelding bi&amp;j het rapport bijvoegen">
+<!ENTITY issues.whitelist.description "Adblock Plus is momenteel uitgeschakeld op de door u gerapporteerde pagina. Schakel het weer in en herlaad de pagina voordat u het rapport indient om te helpen bij het onderzoeken van dit probleem.">
+<!ENTITY typeSelector.falseNegative.label "Adblock Plus blokk&amp;eert een advertentie niet">
+<!ENTITY typeSelector.heading "Selecteer probleemtype">
+<!ENTITY anonymity.warning "We kunnen niet met u in contact komen en zullen uw verslag daarom waarschijnlijk lager prioriteren.">
+<!ENTITY wizard.title "Probleemrapportage">
+<!ENTITY issues.ownfilters.disable.label "Filter uitschakelen">
+<!ENTITY commentPage.description "In het onderstaande tekstveld kunt u een opmerking toevoegen om ons te helpen het probleem te begrijpen. Deze stap is optioneel maar wordt aanbevolen als het probleem niet evident is. U kunt de rapportgegevens ook nakijken voordat u het rapport verstuurt.">
+<!ENTITY comment.lengthWarning "De lengte van uw opmerking overschrijdt 1000 tekens. Alleen de eerste 1000 tekens worden verzonden.">
+<!ENTITY typeSelector.falseNegative.description "Selecteer deze optie als een advertentie wordt weergegeven ondanks het feit dat Adblock Plus is ingeschakeld.">
+<!ENTITY sendPage.waitMessage "Een ogenblik terwijl Adblock Plus uw rapport indient.">
+<!ENTITY dataCollector.heading "Welkom bij de probleemrapportage">
+<!ENTITY screenshot.heading "Schermafbeelding toevoegen">
+<!ENTITY sendPage.heading "Rapport verzenden">
+<!ENTITY issues.subscriptionCount.description "Het lijkt er op dat u op te veel filterabonnementen geabonneerd bent. Dit is niet aanbevolen, want het verhoogt de kans op problemen. Wij kunnen ook geen probleemmeldingen accepteren, omdat het niet duidelijk is van welk filterabonnement de auteur actie dient te ondernemen. Verwijder alstublieft alle filterabonnementen op de hoogst nodige na en controleer of het probleem dan nog steeds optreedt.">
+<!ENTITY screenshot.mark.label "Het problee&amp;m markeren">
+<!ENTITY privacyPolicy.label "Privacybeleid">
+<!ENTITY issues.description "Adblock plus heeft problemen met uw configuratie gedetecteerd die mogelijk verantwoordelijk zijn voor dit probleem of het onderzoeken van het rapport bemoeilijken.">

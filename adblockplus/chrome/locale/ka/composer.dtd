@@ -1,0 +1,5 @@
+<!ENTITY dialog.title "სანიშნეს Adblock Plus ფილტრი წესი">
+<!ENTITY collapse.yes.label "დიახ">
+<!ENTITY collapse.default.no.label "გამოიყენე ნაგულისხმევი (არა)">
+<!ENTITY collapse.default.yes.label "გამოიყენე ნაგულისხმევი (დიახ)">
+<!ENTITY collapse.no.label "არა">

@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Flash vienības malas">
+<!ENTITY address.label "Adrese">
+<!ENTITY context.open.label "Atvērt jaunā cilnē">
+<!ENTITY type.label "Tips">
+<!ENTITY tooltip.filterSource.label "Filtra avots:">
+<!ENTITY noitems.label "Nav bloķējamu vienību">
+<!ENTITY filter.label "Filtrs">
+<!ENTITY tooltip.size.label "Izmērs:">
+<!ENTITY reattach.label "Pievienot atpakaļ">
+<!ENTITY search.label "&amp;Meklēt:">
+<!ENTITY docDomain.thirdParty "(trešā puse)">
+<!ENTITY filterSource.label "Filtra avots">
+<!ENTITY tooltip.docDomain.label "Dokumenta avots:">
+<!ENTITY context.copy.label "Kopēt vienības adresi">
+<!ENTITY tooltip.type.label "Tips:">
+<!ENTITY context.disablefilter.label "Atspējot filtru ?1?">
+<!ENTITY context.copyFilter.label "Kopēt filtru">
+<!ENTITY context.block.label "Bloķēt šo vienību">
+<!ENTITY context.enablefilter.label "Iespējot filtru ?1?">
+<!ENTITY detach.label "Atdalīt">
+<!ENTITY whitelisted.label "Lapa ir baltajā sarakstā">
+<!ENTITY context.disablefilteronsite.label "Atspējot šo filtru ?1?">
+<!ENTITY detached.title "Adblock Plus: Bloķējamās vienības (atdalīts)">
+<!ENTITY docDomain.firstParty "(pirmā puse)">
+<!ENTITY tooltip.type.whitelisted "(baltajā sarakstā)">
+<!ENTITY tooltip.filter.label "Aktīvais filtrs:">
+<!ENTITY tooltip.filter.disabled "(atspējots)">
+<!ENTITY context.editfilter.label "Rediģēt aktīvo filtru">
+<!ENTITY tooltip.type.blocked "(bloķēts)">
+<!ENTITY size.label "Izmērs">
+<!ENTITY context.whitelist.label "Pievienot izņēmuma noteikumu šai vienībai">
+<!ENTITY context.selectAll.label "Iezīmēt visu">
+<!ENTITY state.label "Stāvoklis">
+<!ENTITY docDomain.label "Dokumenta avots">
+<!ENTITY tooltip.address.label "Adrese:">

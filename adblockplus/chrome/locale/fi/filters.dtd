@@ -1,0 +1,74 @@
+<!ENTITY restore.custom.warning "Kaikki omat suodattimet korvataan valitun tiedoston sisällöllä. Haluatko varmasti jatkaa?">
+<!ENTITY slow.column "&amp;Hitaat suodattimet">
+<!ENTITY enabled.column "Kä&amp;ytössä">
+<!ENTITY subscription.lastDownload.checksumMismatch "Epäonnistui, tarkistussumma ei täsmää">
+<!ENTITY noFiltersInGroup.text "Valittu ryhmä on tyhjä">
+<!ENTITY subscription.actions.label "Toiminnot">
+<!ENTITY filter.selectAll.label "Valitse kaikki">
+<!ENTITY backupButton.label "&amp;Varmuuskopioi ja palauta">
+<!ENTITY restore.minVersion.warning "Varoitus: tiedosto on luotu uudemmalla Adblock Plussan versiolla. Ennen kuin palautat tästä tiedostosta, on suositeltavaa päivittää uusimpaan Adblock Plussan versioon.">
+<!ENTITY restore.error "Tiedoston tietoja ei voida käsitellä. Ehkä tämä ei ole Adblock Plus -varmuuskopiotiedosto?">
+<!ENTITY sort.ascending.label "&amp;A &gt; Z lajittelu">
+<!ENTITY sort.label "Lajitt&amp;eluperuste">
+<!ENTITY subscription.source.label "Suodatintilaus">
+<!ENTITY hitcount.column "&amp;Osumat">
+<!ENTITY noFilters.text "Omia suodattimia ei ole vielä.">
+<!ENTITY backup.custom.title "Vain omat suodattimet">
+<!ENTITY subscription.external.label "Toisen laajennuksen päivättävä">
+<!ENTITY subscription.delete.label "Poista">
+<!ENTITY noGroupSelected.text "Suodatinryhmä on valittava, ennen kuin sen suodattimia voidaan näyttää.">
+<!ENTITY filter.cut.label "Leikkaa">
+<!ENTITY restore.default.label "Palauta varmuuskopio: ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Lataa...">
+<!ENTITY subscriptions.tab.label "Suodatintilaukset">
+<!ENTITY sort.descending.label "&amp;Z &gt; A lajittelu">
+<!ENTITY filters.remove.warning "Haluatko varmasti poistaa kaikki valitut suodattimet?">
+<!ENTITY filter.delete.label "Poista">
+<!ENTITY addSubscriptionAdd.label "Lisää">
+<!ENTITY viewMenu.label "Näytä">
+<!ENTITY subscription.lastDownload.unknown "N/A">
+<!ENTITY addSubscriptionCancel.label "Peruuta">
+<!ENTITY subscription.enabled.label "Käytössä">
+<!ENTITY noSubscriptions.text "Suodatintilauksia ei ole vielä lisätty. Adblock Plus ei estä mitään
+ ilman suodattimia. Käytä &quot;Lisää suodatintilaus&quot; -painiketta lisätäksesi 
+ joitakin.">
+<!ENTITY subscription.update.label "Päivitä suodattimet">
+<!ENTITY dialog.title "Adblock Plus -suodatinasetukset">
+<!ENTITY addFilter.label "&amp;Lisää suodatin">
+<!ENTITY subscription.minVersion.warning "Tämä suodatintilaus vaatii uudemman Adblock Plus -version, on suositeltavaa päivittää uusimpaan Adblock Plussan versioon.">
+<!ENTITY subscription.lastDownload.invalidURL "Epäonnistui, kelvoton osoite">
+<!ENTITY backup.error "Tapahtui virhe kirjoitettaessa suodattimia tiedostoon. Varmista että tiedosto ei ole kirjoitussuojattu tai jonkin muun ohjelman käytössä.">
+<!ENTITY filter.moveUp.label "Siirrä ylös">
+<!ENTITY addGroup.label "Li&amp;sää suodatinryhmä">
+<!ENTITY filter.edit.label "Muokkaa">
+<!ENTITY subscription.showHideFilters.label "Näytä/piilota suodattimet">
+<!ENTITY acceptableAds2.label "S&amp;alli osa ei-häiritsevästä mainonnasta">
+<!ENTITY addSubscriptionOther.label "Lisää jokin muu tilaus">
+<!ENTITY close.label "Sulje">
+<!ENTITY sort.none.label "Ei &amp;lajiteltu">
+<!ENTITY filter.actions.label "Suodatintoiminnot">
+<!ENTITY filter.copy.label "Kopioi">
+<!ENTITY filter.moveDown.label "Siirrä alas">
+<!ENTITY filter.resetHitCounts.label "Nollaa osumatilastot">
+<!ENTITY readMore.label "Lue lisää">
+<!ENTITY subscription.moveUp.label "Siirrä ylös">
+<!ENTITY addSubscription.label "L&amp;isää suodatintilaus">
+<!ENTITY subscription.homepage.label "Kotisivu">
+<!ENTITY backup.complete.title "Kaikki suodattimet ja tilaukset">
+<!ENTITY restore.own.label "Palauta oma varmuuskopio">
+<!ENTITY restore.complete.warning "Kaikki suodatinasetukset korvataan valitun tiedoston sisällöllä. Haluatko varmasti jatkaa?">
+<!ENTITY filters.tab.label "Omat suodattimet">
+<!ENTITY backup.label "Luo uusi varmuuskopio">
+<!ENTITY find.label "&amp;Etsi">
+<!ENTITY subscription.moveDown.label "Siirrä alas">
+<!ENTITY subscription.lastDownload.connectionError "Epäonnistui, latausvirhe">
+<!ENTITY subscription.lastDownload.success "Onnistui">
+<!ENTITY subscription.lastDownload.invalidData "Epäonnistui, kelvoton suodatinlista">
+<!ENTITY filter.paste.label "Liitä">
+<!ENTITY subscription.disabledFilters.enable "Ota käytöstä poistetut suodattimet käyttöön">
+<!ENTITY lasthit.column "&amp;Viimeisin osuma">
+<!ENTITY subscription.editTitle.label "Muokkaa otsikkoa">
+<!ENTITY subscription.disabledFilters.warning "Jotkin tämän suodatintilauksen suodattimista on poistettu käytössä.">
+<!ENTITY filter.column "&amp;Suodatusehto">
+<!ENTITY subscription.lastDownload.label "Viimeisin lataus:">
+<!ENTITY viewList.label "Näytä lista">

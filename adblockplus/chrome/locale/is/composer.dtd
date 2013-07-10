@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "í en&amp;da netfangs">
+<!ENTITY domainRestriction.label "&amp;Takmarka við lén:">
+<!ENTITY collapse.default.no.label "Nota sjálfgefið (nei)">
+<!ENTITY firstParty.label "Aðeins fy&amp;rsta aðila">
+<!ENTITY preferences.label "Sýna nú&amp;verandi síur...">
+<!ENTITY pattern.label "Leita að mynstri">
+<!ENTITY thirdParty.label "&amp;Aðeins þriðja aðila">
+<!ENTITY filter.label "Ný &amp;sía:">
+<!ENTITY collapse.label "Fella sa&amp;man lokaða hluti:">
+<!ENTITY match.warning "Mynstrið sem þú slóst inn passar ekki ekki við veffangið sem á að loka á/hvítlista og mun ekki hafa nein áhrif á það.">
+<!ENTITY anchor.start.label "í &amp;byrjun netfangs">
+<!ENTITY matchCase.label "&amp;Passa við stafstöðu">
+<!ENTITY custom.pattern.label "Sérs&amp;nið:">
+<!ENTITY unselectAllTypes.label "Velja ekkert">
+<!ENTITY type.whitelist.label "&amp;Frávikregla">
+<!ENTITY regexp.warning "Mynstrið sem þú slóst inn verður túlkað sem regluleg segð. Margar reglulegar segðir gætu haft þau áhrif að hægja á vöfrun. Ef þú ætlar ekki að nota reglulega segðir, bættu þá * tákni við enda mynstursins.">
+<!ENTITY dialog.title "Bæta við Adblock Plus síureglu">
+<!ENTITY basic.label "Einföld sýn">
+<!ENTITY type.filter.label "&amp;Lokunarsía">
+<!ENTITY types.label "Virkja fyrir tegundir:">
+<!ENTITY shortpattern.warning "Mynstrið sem þú slóst inn er of stutt til að hægt sé að nota það, of mörg svona mynstur geta hægt á vöfrun. Mælt er með að þú notir lengri streng fyrir þessa síu.">
+<!ENTITY collapse.yes.label "Já">
+<!ENTITY anchors.label "Aðeins samþykkja mynstur:">
+<!ENTITY collapse.default.yes.label "Nota sjálfgefið (já)">
+<!ENTITY domainRestriction.help "Sláðu inn eitt eða fleiri lén aðskilið með tákninu (|). Sían verður aðeins beitt á þessi lén. Táknið (~) fyrir framan lén þýðir að ekki ætti að beita síunni á það lén.">
+<!ENTITY accept.label "Bæta við síu">
+<!ENTITY options.label "Valkostir">
+<!ENTITY disabled.warning "Adblock Plus er óvirkt eins og er. Þú getur samt bætt við síum en síurnar munu ekki vera virkar nema þú [link]virkjir Adblock Plus[/link].">
+<!ENTITY anchor.start.flexible.label "í &amp;byrjun lénsins">
+<!ENTITY collapse.no.label "Nei">
+<!ENTITY selectAllTypes.label "Velja allt">
+<!ENTITY advanced.label "Ítarleg sýn">
+<!ENTITY pattern.explanation "Mynstrið getur verið hvaða hluti sem er í netfanginu; táknið (*) virkar sem algildisstafur. Síunni verður aðeins beitt á þau netföng sem passa við mynstrið.">

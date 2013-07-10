@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "&amp;Filtrowy abonement &quot;?1?&quot; teke pśidaś">
+<!ENTITY list.download.failed "Adblock Plus njejo mógał lisćiny abonementow wótwołaś.">
+<!ENTITY list.download.retry "Hyšći raz wopytaś">
+<!ENTITY title.label "&amp;Titel abonementa:">
+<!ENTITY list.download.website "Websedło se woglědaś">
+<!ENTITY supplementMessage "Toś ten filtrowy abonement jo za to myslony, se z filtrowym abonementom &quot;?1?&quot; wužywaś, kótaryž hyšći njewužywaśo.">
+<!ENTITY viewList.label "Filtry se woglědaś">
+<!ENTITY visitHomepage.label "K startowemu bokoju woglědaś">
+<!ENTITY addSubscription.label "Abonement pśidaś">
+<!ENTITY dialog.title "Filtrowy abonement Adblock Plus pśidaś">
+<!ENTITY location.label "&amp;Městno filtroweje lisćiny:">
+<!ENTITY fromWeb.description "Pšosym wobkšuśćo, až cośo toś ten filtrowy abonement pśidaś. Móžośo titel abo městno abonementa změniś, nježli až jen pśidajośo.">

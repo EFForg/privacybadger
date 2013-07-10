@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Bæta einnig við &amp;síu áskrift &quot;?1?&quot;">
+<!ENTITY list.download.failed "Adblock Plus gat ekki náð í lista af áskriftum.">
+<!ENTITY list.download.retry "Reyndu aftur">
+<!ENTITY title.label "Áskrif&amp;tartitill:">
+<!ENTITY list.download.website "Skoða vefsvæði">
+<!ENTITY supplementMessage "Þessi síu áskrift er ætluð til þess að vera notuð með síu áskrift &quot;?1?&quot; sem þú hefur ekki ennþá bætt við.">
+<!ENTITY viewList.label "Skoða síur">
+<!ENTITY visitHomepage.label "Heimsækja heimasíðu">
+<!ENTITY addSubscription.label "Bæta við áskrift">
+<!ENTITY dialog.title "Bæta við Adblock Plus síu áskrift">
+<!ENTITY location.label "Staðsetning síu&amp;lista:">
+<!ENTITY fromWeb.description "Staðfestu að þú viljir bæta við þessari síu áskrift. Þú getur breytt titlinum eða staðsetningu áður en þú bætir við.">

@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "&amp;Desfazer">
+<!ENTITY issues.disabledgroups.description "Os seguintes grupos e inscrições de filtros está desativados, mas eles podem estar afetando essa página:">
+<!ENTITY showData.label "Exibir os dados do relatório">
+<!ENTITY typeSelector.falsePositive.label "O A&amp;dblock Plus está bloqueando demais">
+<!ENTITY issues.change.description "Sua configuração foi alterada. Por favor, atualize a página para testar as alterações e enviar um relatório caso o erro continue a ocorrer.">
+<!ENTITY email.label "E-&amp;mail:">
+<!ENTITY issues.openPreferences.label "Abrir configuração de filtros">
+<!ENTITY sendPage.confirmation "Seu relatório foi salvo. Você pode acessá-lo no seguinte endereço:">
+<!ENTITY copyLink.label "&amp;Copiar endereço do relatório">
+<!ENTITY issues.nofilters.description "O Adblock Plus não está bloqueando nada nessa página. É improvável que o erro observado esteja relacionado com o Adblock Plus.">
+<!ENTITY sendPage.knownIssue "O problema informado provavelmente já é conhecido. Mais informações:">
+<!ENTITY typeSelector.other.description "Escolha esta opção se você suspeita que há um erro no próprio Adblock Plus e não nos filtros.">
+<!ENTITY issues.disabledgroups.enable.label "Ativar grupo ou inscrição de filtros">
+<!ENTITY typeWarning.override.label "&amp;Eu entendo e quero enviar o relatório mesmo assim">
+<!ENTITY issues.disabled.enable.label "Ativar o Adblock Plus">
+<!ENTITY update.fixed.description "A atualização de suas inscrições de filtros provavelmente resolveu o problema que você estava reportando. Por favor, atualize a página e verifique. Se o problema persistir, clique novamente em &quot;Reportar problema com esta página&quot;.">
+<!ENTITY anonymous.label "En&amp;vio anônimo">
+<!ENTITY reloadButton.label "&amp;Atualizar a página">
+<!ENTITY recentReports.clear.label "&amp;Remover todos os relatórios">
+<!ENTITY typeSelector.description "Este assistente conduzirá você pelos passos necessários para enviar um relatório de erro do Adblock Plus. Primeiro, selecione o tipo de erro que você está tendo nessa página:">
+<!ENTITY screenshot.remove.label "&amp;Remover dados confidenciais">
+<!ENTITY issues.ownfilters.description "Alguns dos filtros aplicados nesta página foram definidos pelo usuário. Por favor, desative os filtros que podem ter causado o problema:">
+<!ENTITY update.inProgress.description "O Adblock Plus precisa atualizar suas inscrições de filtros para ter certeza que o problema não foi resolvido ainda. Por favor, aguarde...">
+<!ENTITY sendPage.retry.label "Enviar novamente">
+<!ENTITY data.label "&amp;Dados do relatório:">
+<!ENTITY recentReports.label "Seus relatórios enviados recentemente">
+<!ENTITY typeWarning.description "Você indicou que deseja comunicar um erro geral no Adblock Plus em vez de um problema com os filtros. Por favor, note que problemas desse tipo devem ser tratados no [link]fórum do Adblock Plus[/link]. Envie um relatório apenas para complementar uma discussão existente no fórum, pois ninguém vai notá-lo a menos que você informe o endereço do relatório. O endereço gerado automaticamente será apresentado após o envio do relatório.">
+<!ENTITY issues.disabled.description "O Adblock Plus está desativado; ele não vai bloquear nada no seu estado atual.">
+<!ENTITY attachExtensions.label "&amp;Anexar ao relatório uma lista de extensões ativas caso haja um conflito entre elas">
+<!ENTITY issues.nosubscriptions.add.label "Adicionar inscrição de filtros">
+<!ENTITY issues.disabledfilters.enable.label "Ativar filtro">
+<!ENTITY issues.override.label "A &amp;configuração está correta; continuar com o relatório">
+<!ENTITY issues.nosubscriptions.description "Parece que você não adicionou nenhuma das inscrições de filtros que removem automaticamente os conteúdos indesejados dos sites.">
+<!ENTITY typeSelector.falsePositive.description "Escolha esta opção se a página carece de algum conteúdo importante, se aparece de forma incorreta ou se não funciona corretamente. Você pode verificar se o Adblock Plus é a causa do problema desativando-o temporariamente.">
+<!ENTITY typeSelector.other.label "&amp;Outro problema">
+<!ENTITY emailComment.label "Nós encorajamos você a digitar um endereço de e-mail válido para que possamos entrar em contato se houverem quaisquer dúvidas sobre o seu relatório. A inserção de um e-mail válido também irá permitir-nos reconhecer suas contribuições e dar-lhes uma prioridade maior.">
+<!ENTITY issues.whitelist.remove.label "Reativar o Adblock Plus nessa página">
+<!ENTITY outdatedSubscriptions.description "As seguintes inscrições de filtros não foram atualizadas há pelo menos duas semanas. Por favor, atualize essas inscrições antes de enviar um relatório de erro, pois o problema pode já ter sido resolvido.">
+<!ENTITY dataCollector.description "Por favor, aguarde um momento enquanto Adblock Plus coleta os dados necessários.">
+<!ENTITY sendButton.label "&amp;Enviar">
+<!ENTITY comment.label "&amp;Comentário (opcional):">
+<!ENTITY sendPage.errorMessage "Uma tentativa de enviar o relatório falhou com código de erro &quot;?1?&quot;. Verifique se você está conectado à Internet e tente novamente. Se o problema persistir, por favor, solicite ajuda no [link]fórum do Adblock Plus[/link].">
+<!ENTITY showRecentReports.label "Exibir relatórios enviados recentemente">
+<!ENTITY commentPage.heading "Digitar comentário">
+<!ENTITY update.start.label "Atualizar agora">
+<!ENTITY issues.disabledfilters.description "Os seguintes filtros estão desativados, mas eles podem estar afetando essa página:">
+<!ENTITY screenshot.description "Uma mesma página pode parecer diferente para diferentes pessoas. Pode nos ajudar a compreender o problema, você pode anexar uma imagem ao seu relatório. Você pode remover partes da imagem contendo informações confidenciais, bem como marcar áreas onde se encontra o problema. Para isso, clique no botão correspondente e selecione com o mouse uma área da imagem.">
+<!ENTITY screenshot.attach.label "Ane&amp;xar uma imagem ao relatório">
+<!ENTITY issues.whitelist.description "O Adblock Plus está desativado atualmente nessa página. Para ajudar na investigação do problema, por favor, reative o Adblock Plus e atualize a página antes de enviar o relatório.">
+<!ENTITY typeSelector.falseNegative.label "O Adblock Plus &amp;não está bloqueando uma propaganda">
+<!ENTITY typeSelector.heading "Selecionar tipo de erro">
+<!ENTITY anonymity.warning "Nós não vamos ser capazes de entrar em contato com você e, portanto, seus relatórios terão baixa prioridade.">
+<!ENTITY wizard.title "Relatório de erro">
+<!ENTITY issues.ownfilters.disable.label "Desativar filtro">
+<!ENTITY commentPage.description "O campo abaixo permite digitar um comentário para nos ajudar a entender o problema. Este passo é opcional mas é recomendado se o problema não for óbvio. Você também pode verificar os dados do relatório antes de enviar.">
+<!ENTITY comment.lengthWarning "O tamanho do seu comentário é maior que mil caracteres. Apenas os primeiros mil caracteres serão enviadas.">
+<!ENTITY typeSelector.falseNegative.description "Escolha esta opção se uma propaganda é exibida mesmo com o Adblock Plus ativado.">
+<!ENTITY sendPage.waitMessage "Por favor, aguarde enquanto o Adblock Plus envia seu relatório.">
+<!ENTITY dataCollector.heading "Bem-vindo ao relatório de erro">
+<!ENTITY screenshot.heading "Anexar imagem">
+<!ENTITY sendPage.heading "Enviar">
+<!ENTITY issues.subscriptionCount.description "Parece que você adicionou inscrições de filtros em excesso. Essa configuração não é recomendada porque aumenta a possibilidade de ocorrência de erros. Não podemos aceitar o seu relatório porque não é possível determinar qual autor de inscrição de filtros deve tratar o problema. Por favor, remova todos as inscrições exceto as realmente necessárias e verifique se o problema ainda ocorre.">
+<!ENTITY screenshot.mark.label "&amp;Marcar o problema">
+<!ENTITY privacyPolicy.label "Política de privacidade">
+<!ENTITY issues.description "O Adblock Plus detectou problemas com a configuração atual que podem ser a causa do erro ou que podem dificultar a análise do relatório.">

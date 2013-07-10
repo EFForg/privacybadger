@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "闪动显示该项目的边框">
+<!ENTITY address.label "地址">
+<!ENTITY context.open.label "在新标签页打开">
+<!ENTITY type.label "类型">
+<!ENTITY tooltip.filterSource.label "过滤规则源:">
+<!ENTITY noitems.label "无可过滤项目">
+<!ENTITY filter.label "过滤规则">
+<!ENTITY tooltip.size.label "大小:">
+<!ENTITY reattach.label "合体">
+<!ENTITY search.label "搜索： (&amp;S)">
+<!ENTITY docDomain.thirdParty "(第三方)">
+<!ENTITY filterSource.label "过滤规则源">
+<!ENTITY tooltip.docDomain.label "文档源：">
+<!ENTITY context.copy.label "复制项目地址">
+<!ENTITY tooltip.type.label "类型:">
+<!ENTITY context.disablefilter.label "禁用过滤规则 ?1?">
+<!ENTITY context.copyFilter.label "复制过滤规则">
+<!ENTITY context.block.label "过滤该项">
+<!ENTITY context.enablefilter.label "重新启用过滤规则 ?1?">
+<!ENTITY detach.label "分体">
+<!ENTITY whitelisted.label "列入白名单的页面">
+<!ENTITY context.disablefilteronsite.label "在 ?1? 禁用该过滤规则">
+<!ENTITY detached.title "Adblock Plus: 可过滤项目(分体式)">
+<!ENTITY docDomain.firstParty "(第一方)">
+<!ENTITY tooltip.type.whitelisted "(白名单)">
+<!ENTITY tooltip.filter.label "已生效的过滤规则:">
+<!ENTITY tooltip.filter.disabled "(禁用)">
+<!ENTITY context.editfilter.label "编辑过滤规则有效">
+<!ENTITY tooltip.type.blocked "(已过滤)">
+<!ENTITY size.label "大小">
+<!ENTITY context.whitelist.label "将该项加入白名单">
+<!ENTITY context.selectAll.label "全选">
+<!ENTITY state.label "状态">
+<!ENTITY docDomain.label "文档源">
+<!ENTITY tooltip.address.label "地址:">

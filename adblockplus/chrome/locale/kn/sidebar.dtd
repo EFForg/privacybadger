@@ -1,0 +1,21 @@
+<!ENTITY whitelisted.label "ನಂಬಿಗಸ್ಥ ಪುಟ">
+<!ENTITY context.flash.label "ಫ್ಲಾಶ್ ವಸ್ತುಗಳ ಗಡಿ">
+<!ENTITY context.editfilter.label "ಚಾಲ್ತಿಯಲ್ಲಿರುವ ಫಿಲ್ಟರ್ ಅನ್ನು ಸಂಪಾದಿಸು">
+<!ENTITY detached.title "ಆಡ್‌ಬ್ಲಾಕ್ ಪ್ಲಸ್‌: ತಡೆಹಿಡಿಯಬಹುದಾದ ವಸ್ತುಗಳು (ಹೊರ ತೆಗೆದಿದೆ)">
+<!ENTITY tooltip.type.blocked "(ತಡೆಹಿಡಿದಿದೆ)">
+<!ENTITY reattach.label "ಮರು ಲಗತ್ತಿಸು">
+<!ENTITY tooltip.type.whitelisted "(ನಂಬಿಗಸ್ಥ)">
+<!ENTITY search.label "ಹುಡುಕು: (&amp;S)">
+<!ENTITY context.copy.label "ವಸ್ತುವಿನ ವಿಳಾಸವನ್ನು ಕಾಪಿ ಮಾಡು">
+<!ENTITY tooltip.filter.label "ಚಾಲ್ತಿಯಲ್ಲಿರುವ ಫಿಲ್ಟರ್">
+<!ENTITY address.label "ವಿಳಾಸ">
+<!ENTITY noitems.label "ತಡೆಹಿಡಿಯಬಹುದಾದ ಯಾವುದೇ ವಸ್ತುಗಳಿಲ್ಲ">
+<!ENTITY context.whitelist.label "ವಸ್ತುವಿಗೆ ಒಂದು ಎಕ್ಸೆಪ್ಶನ್ ಸೇರಿಸು">
+<!ENTITY context.open.label "ಹೊಸ ಹಾಳೆಯಲ್ಲಿ ತೆರೆ">
+<!ENTITY type.label "ಟೈಪ್ ಮಾಡಿ">
+<!ENTITY tooltip.type.label "ಟೈಪ್ ಮಾಡಿ:">
+<!ENTITY state.label "ಸ್ಥಿತಿ">
+<!ENTITY filter.label "ಫಿಲ್ಟರ್">
+<!ENTITY context.block.label "ಈ ವಸ್ತುವನ್ನು ತಡೆಹಿಡಿ">
+<!ENTITY detach.label "ಹೊರ ತೆಗೆ">
+<!ENTITY tooltip.address.label "ವಿಳಾಸ:">

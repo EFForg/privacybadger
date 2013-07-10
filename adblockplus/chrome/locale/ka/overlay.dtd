@@ -1,0 +1,29 @@
+<!ENTITY sync.label "დაასინქრონე Adblock Plus-ის პარამეტრები">
+<!ENTITY whitelist.site.label "გამორთე ––ზე">
+<!ENTITY filters.label "ფილტრის პარამეტრები">
+<!ENTITY disable.label "გამორთე ყველგან">
+<!ENTITY showinaddonbar.label "გამოაჩინე დანამატების ზოლში">
+<!ENTITY objecttab.title "დაბლოკვა">
+<!ENTITY objecttab.tooltip "ობიექტის Adblock Plus-ით დასაბლოკად დააწკაპუნეთ აქ">
+<!ENTITY menuitem.label "Ad&amp;block Plus პარამეტრები">
+<!ENTITY objecttabs.label "გამოაჩინე ჩანართები ფლეშსა და ჯავაზე">
+<!ENTITY sendReport.label "განაცხადეთ ამ გვერდზე პრობლემის შესახებ">
+<!ENTITY whitelist.page.label "გამორთე მხოლოდ ამ ვებ-გვერდზე">
+<!ENTITY context.image.label "Adblock Plus: სურათის დაბლკვა">
+<!ENTITY counthits.label "დათვალე რამდენჯერ ამოქმედდა ფილტრი">
+<!ENTITY opensidebar.label "გახსენი ბლოკირებადი ელემენტები (&amp;И)">
+<!ENTITY contribute.label "დაეხმარეთ Adblock Plus-ს">
+<!ENTITY toolbarbutton.label "Adblock Plus">
+<!ENTITY context.frame.label "Adblock Plus: ფრეიმის დაბლოკვა">
+<!ENTITY blocked.tooltip "ამ web-გვერდზე დაბლოკილი ელემენტები:">
+<!ENTITY hideplaceholders.label "დამალე დაბლოკილი ელემენტის სანაცვლო არეები">
+<!ENTITY showinstatusbar.label "გამოაჩინე სტატუსის ზოლში">
+<!ENTITY sidebar.title "ამ web-გვერდის ბლოკირებადი ელემენტები">
+<!ENTITY options.label "ოფციები">
+<!ENTITY context.object.label "Adblock Plus: ობიექტის დაბლოკვა">
+<!ENTITY context.removeWhitelist.label "Adblock Plus: ამ გვერდისთვის ხელახლა ჩართვა">
+<!ENTITY filters.tooltip "ყველაზე აქტიური ფილტრები:">
+<!ENTITY closesidebar.label "დახურე ბლოკირებადი ელემენტები (&amp;И)">
+<!ENTITY showintoolbar.label "გამოაჩინე ხელსაწყოთა ზოლში">
+<!ENTITY status.tooltip "სტატუსი:">
+<!ENTITY context.media.label "Adblock Plus: აუდიო/ვიდეოს დაბლოკვა">

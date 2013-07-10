@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Tam&amp;bah langganan penapis &quot;?1?&quot; juga">
+<!ENTITY list.download.failed "Adblock Plus gagal memuat-turun senarai langganan.">
+<!ENTITY list.download.retry "Cuba lagi">
+<!ENTITY title.label "Ta&amp;juk langganan">
+<!ENTITY list.download.website "Papar laman web">
+<!ENTITY supplementMessage "Langganan penapis ini bertujuan untuk digunakan bersama langganan penapis &quot;?1?&quot; yang tidak digunakan oleh anda lagi.">
+<!ENTITY viewList.label "Papar penapis">
+<!ENTITY visitHomepage.label "Lawat laman web Adblock Plus">
+<!ENTITY addSubscription.label "Tambah langganan">
+<!ENTITY dialog.title "Tambah langganan penapis Adblock Plus">
+<!ENTITY location.label "L&amp;okasi senarai penapis:">
+<!ENTITY fromWeb.description "Sila pastikan anda mahu menambah langganan penapis ini. Anda boleh mengubah tajuk langganan atau lokasi sebelum menambahnya.">

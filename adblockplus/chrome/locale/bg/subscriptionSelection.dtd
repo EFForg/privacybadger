@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "До&amp;бави абонамент за филтър &quot;?1?&quot;">
+<!ENTITY list.download.failed "Adblock Плюс не успя да изтегли списък с абонаменти.">
+<!ENTITY list.download.retry "Опитайте отново">
+<!ENTITY title.label "&amp;Заглавие на абонамента:">
+<!ENTITY list.download.website "Покажи сайтът">
+<!ENTITY supplementMessage "Този абонамент за филтърът е предназначен да се използва с подписка за филтри &quot;?1?&quot;  Които не използвате все още.">
+<!ENTITY viewList.label "Покажи филтрите">
+<!ENTITY visitHomepage.label "Посетете началната страница">
+<!ENTITY addSubscription.label "Добави абонамент">
+<!ENTITY dialog.title "Добавяне на абонамент за филтъра на Adblock Плюс">
+<!ENTITY location.label "&amp;Местоположение на списъка с филтрите:">
+<!ENTITY fromWeb.description "Моля, потвърдете, че желаете да добавите този абонамент за този филтър. Може да промените заглавието или местоположението преди да го добавите.">

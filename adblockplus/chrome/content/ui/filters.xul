@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://adblockplus/skin/filters.css" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://adblockplus/locale/filters.dtd">
+
+<dialog
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  title="&dialog.title;"
+  id="abpFiltersWindow"
+  onload="init()"
+  buttons="accept"
+  width="950"
+  height="450"
+  persist="screenX screenY width height sizemode"
+  windowtype="abp:filters">
+
+<script type="application/x-javascript;version=1.7" src="utils.js"/>
+<script type="application/x-javascript;version=1.7" src="filters.js"/>
+<script type="application/x-javascript;version=1.7" src="filters-subscriptionview.js"/>
+<script type="application/x-javascript;version=1.7" src="filters-subscriptionactions.js"/>
+<script type="application/x-javascript;version=1.7" src="filters-filterview.js"/>
+<script type="application/x-javascript;version=1.7" src="filters-filteractions.js"/>
+<script type="application/x-javascript;version=1.7" src="filters-backup.js"/>
+<script type="application/x-javascript;version=1.7" src="filters-search.js"/>
+
+<keyset id="filtersKeyset">
+  <key id="subscription-update-key" key="T" modifiers="accel" command="subscription-update-command"/>
+  <key id="subscription-update-all-key" key="T" modifiers="accel,shift" command="subscription-update-all-command"/>
+  <key id="edit-key" keycode="VK_F2" oncommand="E(FilterActions.focused ? 'filters-edit-command' : 'subscription-editTitle-command').doCommand();"/>
+  <key id="delete-key" keycode="VK_DELETE" oncommand="E(FilterActions.focused ? 'filters-delete-command' : 'subscription-delete-command').doCommand();"/>
+  <key id="subscription-showHideFilters-key" key="R" modifiers="accel" command="subscription-showHideFilters-command"/>
+  <key id="moveUp-key" keycode="VK_UP" modifiers="accel"/>
+  <key id="moveDown-key" keycode="VK_DOWN" modifiers="accel"/>
+  <key id="filters-add-key" keycode="VK_INSERT" oncommand="E('filters-add-command').doCommand();"/>
+  <key id="filters-selectAll-key" key="A" modifiers="accel" oncommand="if (FilterActions.focused) E('filters-selectAll-command').doCommand();"/>
+  <key id="filters-copy-key" key="C" modifiers="accel" oncommand="if (FilterActions.focused) E('filters-copy-command').doCommand();"/>
+  <key id="filters-cut-key" key="X" modifiers="accel" oncommand="if (FilterActions.focused) E('filters-cut-command').doCommand();"/>
+  <key id="filters-paste-key" key="V" modifiers="accel" oncommand="if (FilterActions.focused) E('filters-paste-command').doCommand();"/>
+  <key id="backup-key" key="E" modifiers="accel" oncommand="E('backup').doCommand();"/>
+  <key id="restore-key" key="I" modifiers="accel" oncommand="E('restoreOwnBackup').doCommand();"/>
+  <key id="find-key" key="F" modifiers="accel" oncommand="if (FilterActions.visible) E('find-command').doCommand();"/>
+  <key id="find-again-key" key="G" modifiers="accel" oncommand="if (FilterActions.visible) E('find-again-command').doCommand();"/>
+  <key id="find-previous-key" key="G" modifiers="accel,shift" oncommand="if (FilterActions.visible) E('find-previous-command').doCommand();"/>
+  <key id="find-again-key2" keycode="VK_F3" oncommand="if (FilterActions.visible) E('find-again-command').doCommand();"/>
+  <key id="find-previous-key2" keycode="VK_F3" modifiers="shift" oncommand="if (FilterActions.visible) E('find-previous-command').doCommand();"/>
+</keyset>
+
+<commandset id="filtersCommandset">
+  <command id="subscription-update-command" oncommand="SubscriptionActions.updateFilters();"/>
+  <command id="subscription-update-all-command" oncommand="SubscriptionActions.updateAllFilters();"/>
+  <command id="subscription-editTitle-command" oncommand="SubscriptionActions.editTitle();"/>
+  <command id="subscription-delete-command" oncommand="SubscriptionActions.remove();"/>
+  <command id="subscription-showHideFilters-command" oncommand="E('filtersGrippy').doCommand();"/>
+  <command id="subscription-moveUp-command" oncommand="SubscriptionActions.moveUp();"/>
+  <command id="subscription-moveDown-command" oncommand="SubscriptionActions.moveDown();"/>
+  <command id="subscription-add-command" oncommand="SelectSubscription.start(event);"/>
+  <command id="subscription-addSelected-command" oncommand="SelectSubscription.add();"/>
+  <command id="subscription-addOther-command" oncommand="SelectSubscription.chooseOther();"/>
+  <command id="group-add-command" oncommand="SubscriptionActions.addGroup();"/>
+  <command id="filters-selectAll-command" oncommand="FilterActions.selectAll();"/>
+  <command id="filters-edit-command" oncommand="FilterActions.startEditing();"/>
+  <command id="filters-add-command" oncommand="FilterActions.insertFilter();"/>
+  <command id="filters-delete-command" oncommand="FilterActions.deleteSelected();"/>
+  <command id="filters-resetHitCounts-command" oncommand="FilterActions.resetHitCounts();"/>
+  <command id="filters-moveUp-command" oncommand="FilterActions.moveUp();"/>
+  <command id="filters-moveDown-command" oncommand="FilterActions.moveDown();"/>
+  <command id="filters-copy-command" oncommand="FilterActions.copySelected(true);"/>
+  <command id="filters-cut-command" oncommand="FilterActions.copySelected(false);"/>
+  <command id="filters-paste-command" oncommand="FilterActions.paste();"/>
+  <command id="find-command" oncommand="E('findbar').startFind(E('findbar').FIND_NORMAL)"/>
+  <command id="find-again-command" oncommand="E('findbar').onFindAgainCommand(false)"/>
+  <command id="find-previous-command" oncommand="E('findbar').onFindAgainCommand(true)"/>
+</commandset>
+
+<popupset id="filtersPopupset">
+  <menupopup id="filters-view-menu1" onpopupshowing="FilterActions.fillColumnPopup(this);">
+    <menuitem id="filters-view-filter1" label="&filter.column;" type="checkbox" disabled="true"/>
+    <menuitem id="filters-view-slow1" label="&slow.column;" type="checkbox" oncommand="FilterActions.toggleColumn('col-slow')"/>
+    <menuitem id="filters-view-enabled1" label="&enabled.column;" type="checkbox" oncommand="FilterActions.toggleColumn('col-enabled')"/>
+    <menuitem id="filters-view-hitcount1" label="&hitcount.column;" type="checkbox" oncommand="FilterActions.toggleColumn('col-hitcount')"/>
+    <menuitem id="filters-view-lasthit1" label="&lasthit.column;" type="checkbox" oncommand="FilterActions.toggleColumn('col-lasthit')"/>
+    <menuseparator/>
+    <menu id="filters-sort-menu1" label="&sort.label;">
+      <menupopup id="filters-sort-popup1">
+        <menuitem id="filters-sort-none1" label="&sort.none.label;" type="radio" name="sortColumn" oncommand="FilterView.sortBy(null)"/>
+        <menuitem id="filters-sort-filter1" label="&filter.column;" type="radio" name="sortColumn" oncommand="FilterView.sortBy('col-filter')"/>
+        <menuitem id="filters-sort-slow1" label="&slow.column;" type="radio" name="sortColumn" oncommand="FilterView.sortBy('col-slow')"/>
+        <menuitem id="filters-sort-enabled1" label="&enabled.column;" type="radio" name="sortColumn" oncommand="FilterView.sortBy('col-enabled')"/>
+        <menuitem id="filters-sort-hitcount1" label="&hitcount.column;" type="radio" name="sortColumn" oncommand="FilterView.sortBy('col-hitcount')"/>
+        <menuitem id="filters-sort-lasthit1" label="&lasthit.column;" type="radio" name="sortColumn" oncommand="FilterView.sortBy('col-lasthit')"/>
+        <menuseparator/>
+        <menuitem id="filters-sort-asc1" label="&sort.ascending.label;" type="radio" name="sortOrder" oncommand="FilterActions.setSortOrder('ascending')"/>
+        <menuitem id="filters-sort-desc1" label="&sort.descending.label;" type="radio" name="sortOrder" oncommand="FilterActions.setSortOrder('descending')"/>
+      </menupopup>
+    </menu>
+  </menupopup>
+  <tooltip id="filtersTooltip" onpopupshowing="FilterActions.fillTooltip(event);">
+    <grid>
+      <columns>
+        <column/>
+        <column flex="1"/>
+      </columns>
+      <rows>
+        <row id="tooltip-filter-row" align="top">
+          <label class="tooltipLabel" value="&filter.column;"/>
+          <vbox id="tooltip-filter"/>
+        </row>
+        <row id="tooltip-hitcount-row">
+          <label class="tooltipLabel" value="&hitcount.column;"/>
+          <description id="tooltip-hitcount"/>
+        </row>
+        <row id="tooltip-lasthit-row">
+          <label class="tooltipLabel" value="&lasthit.column;"/>
+          <description id="tooltip-lasthit"/>
+        </row>
+      </rows>
+    </grid>
+
+    <description id="tooltip-additional"/>
+  </tooltip>
+</popupset>
+
+<hbox id="content" flex="1">
+  <tabbox id="tabs" flex="1" persist="selectedIndex">
+    <tabs onselect="onTabChange(this.parentNode);">
+      <tab label="&subscriptions.tab.label;"/>
+      <tab label="&filters.tab.label;"/>
+    </tabs>
+    <tabpanels flex="1">
+      <tabpanel id="subscriptionsTab" orient="vertical" flex="1">
+        <hbox pack="end">
+          <button id="selectSubscriptionButton" label="&addSubscription.label;…" command="subscription-add-command"/>
+        </hbox>
+
+        <panel id="selectSubscriptionPanel" type="arrow" position="bottomcenter topleft"
+               orient="vertical" onkeypress="SelectSubscription.keyPress(event);">
+          <menuitem id="selectSubscriptionTemplate" hidden="true"
+              class="{localePrefix ? 'localeMatch' : ''}"
+              label="{node.getAttribute('title')}"
+              value="{node.getAttribute('url')}">
+            <label class="selectSubscriptionItem" value="{node.getAttribute('title') + ' (' + node.getAttribute('specialization') + ')'}"/>
+          </menuitem>
+          <menulist id="selectSubscription">
+            <menupopup/>
+          </menulist>
+          <hbox align="baseline">
+            <label class="text-link" value="&addSubscriptionOther.label;" onclick="E('subscription-addOther-command').doCommand();"/>
+            <spacer flex="1"/>
+            <button id="selectSubscriptionAccept" default="true" label="&addSubscriptionAdd.label;" command="subscription-addSelected-command"/>
+            <spacer flex="1"/>
+            <button label="&addSubscriptionCancel.label;" oncommand="E('selectSubscriptionPanel').hidePopup();"/>
+          </hbox>
+        </panel>
+
+        <richlistitem id="subscriptionTemplate" class="subscription" hidden="true" orient="vertical"
+            onmousedown="this._wasSelected = (this.parentNode.selectedItem == this);"
+            ondragstart="SubscriptionActions.startDrag(event, this);"
+            ondragend="SubscriptionActions.endDrag();"
+            ondragover="SubscriptionActions.dragOver(event);"
+            ondrop="SubscriptionActions.drop(event, this);"
+            oncontextmenu="SubscriptionActions.openMenu(event, this);">
+          <vbox class="{subscription.disabled ? 'disabled' : ''}">
+            <hbox align="center">
+              <checkbox label="&subscription.enabled.label;" class="enabledCheckbox tabable" tabindex="-1"
+                checked="{subscription.disabled ? 'false' : 'true'}" oncommand="SubscriptionActions.setDisabled(this, !this.checked);"/>
+
+              <vbox flex="1">
+                <hbox align="center">
+                  <deck class="titleBox" flex="1" selectedIndex="0" onselect="event.stopPropagation();">
+                    <description ondblclick="if (event.button == 0) TitleEditor.start(this, true);">
+                      <description class="title" value="{subscription.title}" flex="1" crop="end"/>
+                      (<if condition="{isExternal}">
+                        <description value="&subscription.external.label;"/>
+                      <else/>
+                        <if condition="{subscription.homepage}">
+                          <description class="link" value="&subscription.homepage.label;"
+                            _url="{subscription.homepage}" tooltiptext="{subscription.homepage}"
+                            onclick="if (event.button == 0) { event.stopPropagation();UI.loadInBrowser(this.getAttribute('_url')); }"/>,&#160;
+                        </if>
+                        <description class="link" value="&subscription.source.label;"
+                          _url="{subscription.url}" tooltiptext="{subscription.url}"
+                          onclick="if (event.button == 0) { event.stopPropagation();UI.loadInBrowser(this.getAttribute('_url')); }"/>
+                      </if>)
+                    </description>
+                    <textbox oncontextmenu="event.stopPropagation();" class="titleEditor" onkeypress="TitleEditor.keyPress(event);" onblur="TitleEditor.end(true);"/>
+                  </deck>
+                </hbox>
+                <hbox align="center">
+                  <description flex="1" class="status">
+                    <description value="&subscription.lastDownload.label;"/>&#160;
+                    <if condition="{downloading}">
+                      <description value="&subscription.lastDownload.inProgress;"/>
+                    <elif condition="{!subscription.lastDownload}"/>
+                      <description value="&subscription.lastDownload.unknown;"/>
+                    <else/>
+                      <description value="{formatTime(subscription.lastDownload * 1000)}"/>
+                      <if condition="{subscription.downloadStatus}">
+                        <description>
+                          &#160;(<if condition="{subscription.downloadStatus == 'synchronize_invalid_url'}">
+                            <description value="&subscription.lastDownload.invalidURL;"/>
+                          <elif condition="{subscription.downloadStatus == 'synchronize_connection_error'}"/>
+                            <description value="&subscription.lastDownload.connectionError;"/>
+                          <elif condition="{subscription.downloadStatus == 'synchronize_invalid_data'}"/>
+                            <description value="&subscription.lastDownload.invalidData;"/>
+                          <elif condition="{subscription.downloadStatus == 'synchronize_checksum_mismatch'}"/>
+                            <description value="&subscription.lastDownload.checksumMismatch;"/>
+                          <else/>   <!-- synchronize_ok -->
+                            <description value="&subscription.lastDownload.success;"/>
+                          </if>)
+                        </description>
+                      </if>
+                    </if>
+                  </description>
+                </hbox>
+              </vbox>
+
+              <button class="actionButton tabable" type="menu" label="&subscription.actions.label;" tabindex="-1">
+                <menupopup class="actionMenu">
+                  <menuitem label="&subscription.editTitle.label;" key="edit-key" command="subscription-editTitle-command"/>
+                  <menuitem label="&subscription.update.label;" key="subscription-update-key" command="subscription-update-command"/>
+                  <menuitem label="&subscription.showHideFilters.label;" key="subscription-showHideFilters-key" command="subscription-showHideFilters-command"/>
+                  <menuitem label="&subscription.delete.label;…" key="delete-key" command="subscription-delete-command"/>
+                  <menuseparator/>
+                  <menuitem label="&subscription.moveUp.label;" key="moveUp-key" command="subscription-moveUp-command"/>
+                  <menuitem label="&subscription.moveDown.label;" key="moveDown-key" command="subscription-moveDown-command"/>
+                </menupopup>
+              </button>
+            </hbox>
+
+            <description class="warning" hidden="{!subscription.upgradeRequired}">&subscription.minVersion.warning;</description>
+            <description class="warning" hidden="{!disabledFilters}">
+              &subscription.disabledFilters.warning;
+              <description class="link" value="&subscription.disabledFilters.enable;" onclick="SubscriptionActions.enableFilters(this);"/>
+            </description>
+          </vbox>
+        </richlistitem>
+
+        <deck id="noSubscriptionsDeck" flex="1">
+          <description flex="1">&noSubscriptions.text;</description>
+          <richlistbox id="subscriptions" class="initialFocus" flex="1"
+              onselect="onSelectionChange(this);"
+              ondragover="SubscriptionActions.dragOver(event);"
+              ondrop="SubscriptionActions.drop(event, null);"
+              onkeypress="SubscriptionActions.keyPress(event);">
+          </richlistbox>
+        </deck>
+
+        <description>
+          <checkbox id="acceptableAds" label="&acceptableAds2.label;" oncommand="ListManager.allowAcceptableAds(this.checked);"/>
+          <label class="text-link" value="&viewList.label;" onclick="UI.loadInBrowser(Prefs.subscriptions_exceptionsurl);"/>
+          <label class="text-link" value="&readMore.label;" onclick="UI.loadDocLink('acceptable_ads');"/>
+        </description>
+      </tabpanel>
+      <tabpanel id="filtersTab" orient="vertical" flex="1">
+        <hbox pack="end">
+          <button id="addGroupButton" label="&addGroup.label;" command="group-add-command"/>
+        </hbox>
+
+        <richlistitem id="groupTemplate" class="subscription" hidden="true" orient="vertical"
+            onmousedown="this._wasSelected = (this.parentNode.selectedItem == this);"
+            ondragstart="SubscriptionActions.startDrag(event, this);"
+            ondragend="SubscriptionActions.endDrag();"
+            ondragover="SubscriptionActions.dragOver(event);"
+            ondrop="SubscriptionActions.drop(event, this);"
+            oncontextmenu="SubscriptionActions.openMenu(event, this);">
+          <hbox class="{subscription.disabled ? 'disabled' : ''}" align="center">
+            <checkbox label="&subscription.enabled.label;" class="enabledCheckbox tabable" tabindex="-1"
+              checked="{subscription.disabled ? 'false' : 'true'}" oncommand="SubscriptionActions.setDisabled(this, !this.checked);"/>
+            <hbox align="center" flex="1">
+              <deck class="titleBox" flex="1" selectedIndex="0" onselect="event.stopPropagation();">
+                <description class="title" value="{subscription.title}" crop="end" ondblclick="if (event.button == 0) TitleEditor.start(this, true);"/>
+                <textbox oncontextmenu="event.stopPropagation();" class="titleEditor" onkeypress="TitleEditor.keyPress(event);" onblur="TitleEditor.end(true);"/>
+              </deck>
+            </hbox>
+            <button class="actionButton tabable" type="menu" label="&subscription.actions.label;" tabindex="-1">
+              <menupopup class="actionMenu">
+                <menuitem label="&subscription.editTitle.label;" key="edit-key" command="subscription-editTitle-command"/>
+                <menuitem label="&subscription.showHideFilters.label;" key="subscription-showHideFilters-key" command="subscription-showHideFilters-command"/>
+                <menuitem label="&subscription.delete.label;…" key="delete-key" command="subscription-delete-command"/>
+                <menuseparator/>
+                <menuitem label="&subscription.moveUp.label;" key="moveUp-key" command="subscription-moveUp-command"/>
+                <menuitem label="&subscription.moveDown.label;" key="moveDown-key" command="subscription-moveDown-command"/>
+              </menupopup>
+            </button>
+          </hbox>
+        </richlistitem>
+
+        <deck id="noFiltersDeck" flex="1">
+          <description flex="1">&noFilters.text;</description>
+          <richlistbox id="groups" class="initialFocus" flex="1"
+              onselect="onSelectionChange(this);"
+              ondragover="SubscriptionActions.dragOver(event);"
+              ondrop="SubscriptionActions.drop(event, null);"
+              onkeypress="SubscriptionActions.keyPress(event);">
+          </richlistbox>
+        </deck>
+      </tabpanel>
+    </tabpanels>
+  </tabbox>
+
+  <splitter id="filtersSplitter" persist="state" orient="horizontal" collapse="after" state="collapsed" oncommand="FilterView.refresh();onSplitterStateChange(this);">
+    <grippy id="filtersGrippy"/>
+  </splitter>
+
+  <vbox id="filtersContainer" persist="width height" width="500">
+    <hbox pack="end">
+      <button id="findButton" label="&find.label;" command="find-command"/>
+      <button id="filterActionButton" type="menu" label="&filter.actions.label;">
+        <menupopup id="filterActionMenu" onpopupshowing="FilterActions.fillActionsPopup();">
+          <menuitem label="&filter.edit.label;" key="edit-key" command="filters-edit-command"/>
+          <menuitem label="&filter.cut.label;" key="filters-cut-key" command="filters-cut-command"/>
+          <menuitem label="&filter.copy.label;" key="filters-copy-key" command="filters-copy-command"/>
+          <menuitem label="&filter.paste.label;" key="filters-paste-key" command="filters-paste-command"/>
+          <menuitem label="&filter.delete.label;" key="delete-key" command="filters-delete-command"/>
+          <menuseparator/>
+          <menuitem label="&filter.selectAll.label;" key="filters-selectAll-key" command="filters-selectAll-command"/>
+          <menuitem label="&filter.resetHitCounts.label;" command="filters-resetHitCounts-command"/>
+          <menuseparator/>
+          <menuitem label="&filter.moveUp.label;" key="moveUp-key" command="filters-moveUp-command"/>
+          <menuitem label="&filter.moveDown.label;" key="moveDown-key" command="filters-moveDown-command"/>
+          <menuseparator/>
+          <menu id="viewMenu" label="&viewMenu.label;"/>
+        </menupopup>
+      </button>
+      <button id="addFilterButton" label="&addFilter.label;" command="filters-add-command"/>
+    </hbox>
+    <tree id="filtersTree"
+        flex="1"
+        editable="true"
+        seltype="multiple"
+        enableColumnDrag="true"
+        hidecolumnpicker="true"
+        _removewarning="&filters.remove.warning;">
+      <treecols context="filters-view-menu1">
+        <treecol id="col-enabled" label="&enabled.column;" cycler="true" flex="0" persist="width ordinal sortDirection hidden"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="col-filter" label="&filter.column;" flex="10" persist="width ordinal sortDirection hidden"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="col-slow" label="!" display="&slow.column;" tooltiptext="&slow.column;" flex="0" width="16" persist="width ordinal sortDirection hidden"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="col-hitcount" label="&hitcount.column;" flex="0" persist="width ordinal sortDirection hidden"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="col-lasthit" label="&lasthit.column;" hidden="true" flex="4" persist="width ordinal sortDirection hidden"/>
+      </treecols>
+
+      <treechildren id="filtersTreeChildren"
+          oncontextmenu="E('filterActionMenu').openPopupAtScreen(event.screenX, event.screenY, true);"
+          tooltip="filtersTooltip"
+          noGroupText="&noGroupSelected.text;"
+          noFiltersText="&noFiltersInGroup.text;"
+          ondragstart="FilterActions.startDrag(event);"
+          ondragend="FilterActions.endDrag(event);"/>
+    </tree>
+  </vbox>
+</hbox>
+
+<findbar id="findbar"/>
+
+<hbox id="buttons">
+  <button id="backupButton" type="menu"
+      label="&backupButton.label;"
+      _backupDialogTitle="&backup.label;" _restoreDialogTitle="&restore.own.label;"
+      _fileFilterComplete="&backup.complete.title;" _fileFilterCustom="&backup.custom.title;"
+      _backupError="&backup.error;" _restoreError="&restore.error;"
+      _restoreCompleteWarning="&restore.complete.warning;" _restoreCustomWarning="&restore.custom.warning;"
+      _restoreVersionWarning="&restore.minVersion.warning;"
+      oncommand="if (event.target == this) Utils.runAsync(function() this.open = true, this);">
+    <menupopup onpopupshowing="Backup.fillRestorePopup();">
+      <menuitem id="backup" key="backup-key" label="&backup.label;…" oncommand="Backup.backupToFile();"/>
+      <menuseparator/>
+      <menuitem id="restoreBackupTemplate" label="&restore.default.label;" hidden="true"/>
+      <menuitem id="restoreOwnBackup" key="restore-key" label="&restore.own.label;…" oncommand="Backup.restoreFromFile();"/>
+    </menupopup>
+  </button>
+
+  <spacer flex="1"/>
+
+  <button id="close" dlgtype="accept" label="&close.label;"/>
+</hbox>
+
+</dialog>

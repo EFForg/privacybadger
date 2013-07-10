@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "一併訂閱 &quot;?1?&quot; 條件集 (&amp;s)">
+<!ENTITY list.download.failed "接收條件集清單失敗。">
+<!ENTITY list.download.retry "再試一次">
+<!ENTITY title.label "過濾條件集名稱： (&amp;t)">
+<!ENTITY list.download.website "造訪網站">
+<!ENTITY supplementMessage "此過濾條件集需要與您尚未訂閱的 &quot;?1?&quot; 同時使用。">
+<!ENTITY viewList.label "檢視過濾條件">
+<!ENTITY visitHomepage.label "造訪首頁">
+<!ENTITY addSubscription.label "新增過濾條件集">
+<!ENTITY dialog.title "新增 Adblock Plus 過濾條件集">
+<!ENTITY location.label "過濾條件集位址： (&amp;l)">
+<!ENTITY fromWeb.description "請確認您是否要訂閱這個條件集。訂閱前您可以變更條件集標題或位址。">

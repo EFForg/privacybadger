@@ -1,0 +1,96 @@
+<!ENTITY screenshot.undo.label "&amp;Atšaukti">
+<!ENTITY issues.disabledgroups.description "Šios filtrų prenumeratos / filtrų grupės yra išjungtos, nors jos gali
+turėti įtakos šiam puslapiui:">
+<!ENTITY showData.label "Rodyti pranešimo duomenis">
+<!ENTITY typeSelector.falsePositive.label "A&amp;dblock Plus blokuoja per daug">
+<!ENTITY issues.change.description "Jūsų konfigūracija pakeista. Perkraukite puslapį ir išbandykite keitimus
+ir jei problema neišsisprendė praneškite apie ją.">
+<!ENTITY email.label "El. paš&amp;tas:">
+<!ENTITY issues.openPreferences.label "Atverti filtro nustatymus">
+<!ENTITY sendPage.confirmation "Jūsų pranešimas išsaugotas. Jį pasiekti galite šiuo adresu:">
+<!ENTITY copyLink.label "&amp;Kopijuoti pranešimo nuorodą">
+<!ENTITY issues.nofilters.description "Adblock Plus dabartiniame puslapyje nieko neblokuoja. Problema kurią matote 
+tikriausiai nėra susijusi su Adblock Plus.">
+<!ENTITY sendPage.knownIssue "Pranešta klaida turbūt žinoma. Daugiau informacijos:">
+<!ENTITY typeSelector.other.description "Pasirinkite šią pasirinkty jei manote jog tai pačio Adblock Plus bėda, o ne filtrų.">
+<!ENTITY issues.disabledgroups.enable.label "Įjungti filtro prenumeratą / filtrų grupę">
+<!ENTITY typeWarning.override.label "&amp;Aš suprantu ir vistiek noriu pranešti">
+<!ENTITY issues.disabled.enable.label "Įjungti Adblock Plus">
+<!ENTITY update.fixed.description "Atnaujinimai greičiausiai išsprendė bėdą apie kurią jūs norėjote pranešti. Įkraukite puslapį iš naujo, jei problema vis dar yra paspauskite „Pranešti“.">
+<!ENTITY anonymous.label "&amp;Anoniminis pranešimas">
+<!ENTITY reloadButton.label "&amp;Įkelti iš naujo">
+<!ENTITY recentReports.clear.label "&amp;Pašalinti visus pranešimus">
+<!ENTITY typeSelector.description "Šis langas padės įvykdyti kelis žingsnius kurie reikalingi pranešti apie Adblock Plus 
+problemą. Pirmiausia, šiame puslapyje, pasirinkite problemos su kuria susidūrėte
+tipą:">
+<!ENTITY screenshot.remove.label "&amp;Pašalinti neviešus duomenis">
+<!ENTITY issues.ownfilters.description "Kai kurie filtrai pritaikyti šiam puslapiui yra sukurti naudotojo. Išjunkite
+filtrus kurie galėjo sukelti problemą:">
+<!ENTITY update.inProgress.description "Adblock Plus turi atnaujinti jūsų filtrų prenumeratas ir įsitikinti jog problema dar neišspręsta. Palaukite...">
+<!ENTITY sendPage.retry.label "Siųsti dar kartą">
+<!ENTITY data.label "Praneš&amp;imo duomenys:">
+<!ENTITY recentReports.label "Jūsų nesenai praneštos problemos">
+<!ENTITY typeWarning.description "Jūs pareiškėte jog problemą sukėlė Adblock Plus, o ne filtrai. 
+Turėkite omeny jog tokias problemas geriausia pranešti 
+[link]Adblock Plus forume[/link]. Šį problemų pranešėją turėtumėte naudoti
+tik papildyti esamas diskusijas, niekas nepastebės jūsų pranešimo
+nebent duosite nuorodą į jį. Automatiškai sukurta nuoroda
+bus parodyta kai išsiųsite pranešimą.">
+<!ENTITY issues.disabled.description "Adblock Plus yra išjungtas, tokioje būsenoje jis nieko neužblokuos.">
+<!ENTITY attachExtensions.label "Prie pranešimo pri&amp;segti aktyvių plėtinių sąrašą, jei kartais problema kilo dėl plėtinių nesuderinamumo">
+<!ENTITY issues.nosubscriptions.add.label "Pridėti filtro prenumeratą">
+<!ENTITY issues.disabledfilters.enable.label "Įjungti filtrą">
+<!ENTITY issues.override.label "Konfi&amp;gūracija teisinga, tęskite su pranešimu">
+<!ENTITY issues.nosubscriptions.description "Atrodo jūs neprenumeruojate jokių sukurtų filtrų sąrašų kurie automatiškai 
+šalintų nepageidaujamą turinį iš puslapių.">
+<!ENTITY typeSelector.falsePositive.description "Pasirinkite šią pasirinkty jei puslapyje trūksta svarbaus turinio, jei atvaizduojama netinkamai ar
+puslapis nefunkcionuoja taip kaip turėtų. Norėdami įsitikinti jog problemą sukėlė Adblock Plus galite
+trumpam išjungti Adblock Plus.">
+<!ENTITY typeSelector.other.label "Ki&amp;ta bėda">
+<!ENTITY emailComment.label "Mes raginame įvesti veikiantį el. pašto adresą, tada jei turėsime klausimų galėsime jums juos užduoti. Taipogi tai padės atpažinti jūsų pranešimus ir suteikti jiems aukštesnį prioritetą.">
+<!ENTITY issues.whitelist.remove.label "Šiame puslapyje pakartotinai įjungti Adblock Plus">
+<!ENTITY outdatedSubscriptions.description "Šios filtrų prenumeratos nebuvo atnaujintos bent dvi savaites. Prieš siųsdami pranešimą atnaujinkite šias prenumeratas, gali būti jog problema jau išspręsta.">
+<!ENTITY dataCollector.description "Palaukite kelias akimirkas, kol Adblock Plus surinks reikalingus duomenis.">
+<!ENTITY sendButton.label "Siųsti p&amp;ranešimą">
+<!ENTITY comment.label "&amp;Komentaras (nebūtinas):">
+<!ENTITY sendPage.errorMessage "Bandymas išsiųsti pranešimą nepavyko, buvo gauta klaida &quot;?1?&quot;. Įsitikinkite jog 
+esate prisijungę prie interneto ir bandykite dar kartą. Jei problema vis dar yra paprašykite
+pagalbos forume [link]Adblock Plus forumas[/link].">
+<!ENTITY showRecentReports.label "Rodyti nesenai praneštas problemas">
+<!ENTITY commentPage.heading "Parašykite komentarą">
+<!ENTITY update.start.label "Pradėti atnaujinimą">
+<!ENTITY issues.disabledfilters.description "Šie filtrai yra išjungti, nors jie gali turėti įtakos šiam puslapiui:">
+<!ENTITY screenshot.description "Tas pats puslapis skirtingiems žmonėms, atrodo skirtingai. Mums gali padėti 
+prisegtas ekrano vaizdas. Jūs galite pašalinti sritis kuriose 
+gali būti neviešos informacijos, taip pat ir tas kuriose 
+nesimato problemos. Norint tai padaryti paspauskite atitinkamą mygtuką ir pasirinkite 
+reikalingą paveiksliuko dalį su pele.">
+<!ENTITY screenshot.attach.label "P&amp;rie pranešimo pridėti puslapio vaizdą">
+<!ENTITY issues.whitelist.description "Šiuo metu, šiame puslapyje Adblock Plus yra išjungtas. Prašau įjungti jį
+ir perkrauti puslapį prieš pranešant apie problemą kuriai
+spręsti norite pagalbos.">
+<!ENTITY typeSelector.falseNegative.label "Adblock Plus neblokuoja &amp;reklamų">
+<!ENTITY typeSelector.heading "Pasirinkite tipą">
+<!ENTITY anonymity.warning "Mes negalėsime grįžti prie jūsų ir greičiausiai jūsų ataskaitai bus priskirtas žemas prioritetas.">
+<!ENTITY wizard.title "Klaidos pranešimas">
+<!ENTITY issues.ownfilters.disable.label "Išjungti filtrą">
+<!ENTITY commentPage.description "Teksto įvedimo laukelis leidžia jums įvesti komentarą kuris mums padės suprasti jūsų problemą. 
+Šis žingsnis nebūtinas, bet rekomenduojamas jei problema neaiški. 
+Taipogi galite peržiūrėti pranešimą prieš jį siunčiant.">
+<!ENTITY comment.lengthWarning "Jūsų komentaras ilgesnis nei 1000 simbolių. Bus išsiųsti tik pirmi 1000 simbolių.">
+<!ENTITY typeSelector.falseNegative.description "Pasirinkite šią pasirinkty jei reklama rodoma, net ir
+įjungus Adblock Plus.">
+<!ENTITY sendPage.waitMessage "Palaukite kol Adblock Plus siunčia jūsų pranešimą.">
+<!ENTITY dataCollector.heading "Sveiki atvykę į klaidų pranešėją">
+<!ENTITY screenshot.heading "Pridėti ekranvaizdį">
+<!ENTITY sendPage.heading "Siųsti pranešimą">
+<!ENTITY issues.subscriptionCount.description "Atrodo jūs prenumeruojate perdaug filtrų prenumeratų. Tokie nustatymai
+rekomenduojami, nes tai sumažins problemų tikimybes.
+Taipogi mes negalime priimti jūsų pranešimo, nes
+neaišku kurio filtro autorius turėtų imtis veiksmų. Prašome
+pašalinti visus tikrai reikalingas filtrų prenumeratas ir
+patikrinti ar problema vis dar yra.">
+<!ENTITY screenshot.mark.label "Paž&amp;ymėti problemą">
+<!ENTITY privacyPolicy.label "Privatumo politika">
+<!ENTITY issues.description "Adblock Plus nustatė klaidų jūsų konfigūracijoje kurios gali būti atsakingos 
+dėl šios problemos arba gali apsunkinti problemų sprendimą.">

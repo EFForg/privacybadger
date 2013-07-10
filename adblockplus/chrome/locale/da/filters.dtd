@@ -1,0 +1,74 @@
+<!ENTITY restore.custom.warning "Alle dine tilpassede filtre erstattes af indholdet i den valgte fil. Vil du fortsætte?">
+<!ENTITY slow.column "Langs&amp;omme filtre">
+<!ENTITY enabled.column "A&amp;ktiveret">
+<!ENTITY subscription.lastDownload.checksumMismatch "Fejlede, checksum matcher ikke">
+<!ENTITY noFiltersInGroup.text "Den valgte gruppe er tom">
+<!ENTITY subscription.actions.label "Handlinger">
+<!ENTITY filter.selectAll.label "Vælg alle">
+<!ENTITY backupButton.label "&amp;Backup og gendan">
+<!ENTITY restore.minVersion.warning "Advarsel: Filen er oprettet med en nyere Adblock Plus. Du bør opdatere Adblock Plus før du gendanner fra denne fil.">
+<!ENTITY restore.error "Filen kunne ikke åbnes, måske er det ikke en Adblock Plus backupfil?">
+<!ENTITY sort.ascending.label "&amp;A &gt; Z">
+<!ENTITY sort.label "&amp;Sorter efter">
+<!ENTITY subscription.source.label "Filterliste">
+<!ENTITY hitcount.column "&amp;Hits">
+<!ENTITY noFilters.text "Du har endnu ingen tilpassede filtre.">
+<!ENTITY backup.custom.title "Kun tilpassede filtre">
+<!ENTITY subscription.external.label "Opdateret af en anden tilføjelse">
+<!ENTITY subscription.delete.label "Slet">
+<!ENTITY noGroupSelected.text "Vælg en filtergruppe for at få vist filtrene.">
+<!ENTITY filter.cut.label "Klip">
+<!ENTITY restore.default.label "Gendan backup fra ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Henter...">
+<!ENTITY subscriptions.tab.label "Filterabonnementer">
+<!ENTITY sort.descending.label "&amp;Z &gt; A">
+<!ENTITY filters.remove.warning "Vil du fjerne de valgte filtre?">
+<!ENTITY filter.delete.label "Slet">
+<!ENTITY addSubscriptionAdd.label "Tilføj">
+<!ENTITY viewMenu.label "Vis">
+<!ENTITY subscription.lastDownload.unknown "Ukendt">
+<!ENTITY addSubscriptionCancel.label "Annuller">
+<!ENTITY subscription.enabled.label "Aktiveret">
+<!ENTITY noSubscriptions.text "Du har endnu ikke tilføjet Filterabonnementer. Adblock Plus blokerer ikke
+ noget uden filtre, så brug &quot;Tilføj Filterabonnementer;
+ for at tilføje nogen.">
+<!ENTITY subscription.update.label "Opdater filtre">
+<!ENTITY dialog.title "Adblock Plus filterpræferencer">
+<!ENTITY addFilter.label "Ti&amp;lføj filter">
+<!ENTITY subscription.minVersion.warning "Dette Filterabonnement kræver en nyere udgave af Adblock Plus. Opdater venligst.">
+<!ENTITY subscription.lastDownload.invalidURL "Fejlede, ikke en gyldig adresse">
+<!ENTITY backup.error "Der opstod en skrivefejl. Kontroller at filen ikke er skrivebeskyttet eller åben i et andet program.">
+<!ENTITY filter.moveUp.label "Flyt op">
+<!ENTITY addGroup.label "Tilføj filter&amp;gruppe">
+<!ENTITY filter.edit.label "Rediger">
+<!ENTITY subscription.showHideFilters.label "Vis/skjul filtre">
+<!ENTITY acceptableAds2.label "T&amp;illad upåtrængende annoncering delvist">
+<!ENTITY addSubscriptionOther.label "Tilføj endnu et abonnement">
+<!ENTITY close.label "Luk">
+<!ENTITY sort.none.label "&amp;Usorteret">
+<!ENTITY filter.actions.label "Filterhandlinger">
+<!ENTITY filter.copy.label "Kopier">
+<!ENTITY filter.moveDown.label "Flyt ned">
+<!ENTITY filter.resetHitCounts.label "Nulstil statistikker">
+<!ENTITY readMore.label "Lær mere">
+<!ENTITY subscription.moveUp.label "Flyt op">
+<!ENTITY addSubscription.label "Til&amp;føj filterabonnement">
+<!ENTITY subscription.homepage.label "Hjemmeside">
+<!ENTITY backup.complete.title "Alle filtre og abonnementer">
+<!ENTITY restore.own.label "Gendan eget backup">
+<!ENTITY restore.complete.warning "Alle dine filterpræferencer erstattes af indholdet i den valgte fil. Vil du fortsætte?">
+<!ENTITY filters.tab.label "Tilpassede filtre">
+<!ENTITY backup.label "Opret nyt backup">
+<!ENTITY find.label "S&amp;øg">
+<!ENTITY subscription.moveDown.label "Flyt op">
+<!ENTITY subscription.lastDownload.connectionError "Fejlede, hentningsfejl">
+<!ENTITY subscription.lastDownload.success "Succes">
+<!ENTITY subscription.lastDownload.invalidData "Fejlede, ikke en gyldig liste over filtre">
+<!ENTITY filter.paste.label "Sæt ind">
+<!ENTITY subscription.disabledFilters.enable "Aktiver deaktiverede filtre">
+<!ENTITY lasthit.column "Seneste h&amp;it">
+<!ENTITY subscription.editTitle.label "Rediger titel">
+<!ENTITY subscription.disabledFilters.warning "Dette abonnement indeholder deaktiverede filtre.">
+<!ENTITY filter.column "&amp;Filterregel">
+<!ENTITY subscription.lastDownload.label "Sidst hentet:">
+<!ENTITY viewList.label "Vis liste">

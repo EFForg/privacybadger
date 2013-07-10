@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Ekle"
+  },
+  "add_domain_button": {
+    "message": "Adres Ekle"
+  },
+  "add_filter_button": {
+    "message": "Filtre Ekle"
+  },
+  "add_filters_msg": {
+    "message": "Filtre(ler) Ekle?"
+  },
+  "add_your_own_filters": {
+    "message": "Kendi Filtrelerini Ekle"
+  },
+  "apply_changes": {
+    "message": "Değişiklikleri uygula"
+  },
+  "block_element": {
+    "message": "Öğeyi Engelle"
+  },
+  "cancel": {
+    "message": "Vazgeç"
+  },
+  "clickhide_instructions": {
+    "message": "Bu pencere kapandığında, engelleyeceğiniz öğeye tıklayın (ya da sağ tıklayın)."
+  },
+  "description": {
+    "message": "Chrome için ücretsiz reklam engelleyici: Facebook, YouTube, vb. sitelerdeki reklamları, banner'ları ve daha fazlasını engeller."
+  },
+  "disable_inline": {
+    "message": "Metin reklamlarını devre dışı bırak"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus aşağıdaki adresleri engelledi. Adresleri hem adres çubuğundaki Adblock ikonundan engelleyebilir veya domain'i (URL'yi değil) kutucuğa yazıp \"Adresi ekle\" butonuna tıklayabilirsin."
+  },
+  "easy_create_filter": {
+    "message": "Kolayca filtre yarat"
+  },
+  "edit_filters_raw": {
+    "message": "Filtreleri salt metin olarak düzenle"
+  },
+  "enable_only_the": {
+    "message": "Yalnızca gereksinim duyduğunuz filtreleri etkinleştirin. Çok fazla filtre Chrome'u yavaşlatabilir."
+  },
+  "enabled_for_site": {
+    "message": "Bu site için etkin"
+  },
+  "filter_lists": {
+    "message": "Süzgeç listesi"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Eklediğiniz filtre <a href='$url$'>Adblock Plus filtre kurallarına</a> uymak zorundadır.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Hata mı buldunuz? Adblock Plus'ı kendi dilinize mi çevirmek istiyorsunuz? Lütfen <a href='$url$'>buradan dosya isteyiniz</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Genel"
+  },
+  "last_updated_at": {
+    "message": "Son Güncellenme: $date$ $time$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "En son bugün güncellendi. Güncelleme saati: $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Yeni filtreler eklendi; Onları düzenlemek için<a id='options_url' target='_blank'>Seçeneklere</a> bakın."
+  },
+  "options": {
+    "message": "Adblock Plus seçenekleri"
+  },
+  "out_of_date_lists": {
+    "message": "Zamanı geçmiş listeler düzenli olarak güncellenmektedir."
+  },
+  "remove_button": {
+    "message": "Seçili olanı kaldır"
+  },
+  "show_block_element_menu": {
+    "message": "Sağ tıkladığınızda \"Öğeyi Engelle\" seçeneğini göster"
+  },
+  "show_icon": {
+    "message": "İkonu adres çubuğunda göster."
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Lütfen listeden bir süzgeç aboneliği seçin:"
+  },
+  "update_now": {
+    "message": "Şimdi güncelleştir"
+  },
+  "whitelisted_domains": {
+    "message": "Güvenilir adresler"
+  }
+}

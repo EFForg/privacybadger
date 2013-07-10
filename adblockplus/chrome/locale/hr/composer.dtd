@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "&amp;na kraju adrese">
+<!ENTITY domainRestriction.label "Ograniči na &amp;domenu:">
+<!ENTITY collapse.default.no.label "Koriati uobičajeno (ne)">
+<!ENTITY firstParty.label "Samo od p&amp;rve strane">
+<!ENTITY preferences.label "Pri&amp;kaži postojeće filtere...">
+<!ENTITY pattern.label "Traži ponavljajući uzorak">
+<!ENTITY thirdParty.label "Samo od &amp;treće strane">
+<!ENTITY filter.label "Novi &amp;filter:">
+<!ENTITY collapse.label "&amp;Sažeti blokirano:">
+<!ENTITY match.warning "Uneseni uzorak više se ne poklapa sa adresom za blokeiranje/odblokiranje i neće imati nikakvog utjecaja na nju.">
+<!ENTITY anchor.start.label "na &amp;početku adrese">
+<!ENTITY matchCase.label "Točan i&amp;zraz">
+<!ENTITY custom.pattern.label "Prila&amp;gođeno:">
+<!ENTITY unselectAllTypes.label "Odaberi ništa">
+<!ENTITY type.whitelist.label "Prav&amp;ilo iznimke">
+<!ENTITY regexp.warning "Uzorak koji ste unijeli biti će protumačen kao obični izraz kojeg Adblock Plus ne može efikasno obraditi i može usporiti vaše surfanje. Ako niste namjeravali koristiti obični izraz, dodajte asterisk (*) na kraju uzorka.">
+<!ENTITY dialog.title "Dodaj Adblock Plus pravilo filtera">
+<!ENTITY basic.label "Osnovni pregled">
+<!ENTITY type.filter.label "&amp;Blokirani filter">
+<!ENTITY types.label "Primjeniti na vrste:">
+<!ENTITY shortpattern.warning "Uneseni uzorak je prekratak za optimizaciju i može usporiti vaše surfanje. Preporučamo da odaberete duži niz za ovaj filter kako biste omogućili da Adblock Plus efikasnije obradi taj filter.">
+<!ENTITY collapse.yes.label "Da">
+<!ENTITY anchors.label "Prihvati samo uzorak:">
+<!ENTITY collapse.default.yes.label "Koristi uobičajeno (da)">
+<!ENTITY domainRestriction.help "Koristite ovu mogućnost za odabir jedne ili više domena odvojenih okomitom linijom (|). Filter će biti primjenjen samo na odabrane domene. Tilda (~) prije naziva domene pokazuje da filter neće biti primjenjen na toj domeni.">
+<!ENTITY accept.label "Dodaj filter">
+<!ENTITY options.label "Mogućnosti">
+<!ENTITY disabled.warning "Adblock Plus je trenutno onemogućen. Možete dodavati filtere ali oni se neće primjenjivati ako ne [link]omogućite Adblock Plus[/link].">
+<!ENTITY anchor.start.flexible.label "na &amp;početku naziva domene">
+<!ENTITY collapse.no.label "Ne">
+<!ENTITY selectAllTypes.label "Odaberi sve">
+<!ENTITY advanced.label "Napredni pregled">
+<!ENTITY pattern.explanation "Uzorak može biti bilo koji dio adrese, asterisk (*) služi kao zamjena. Filter će biti samo primjenjen na adrese koje se podudaraju sa naznačenim uzorkom.">

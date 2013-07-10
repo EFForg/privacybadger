@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Filter matching performance measurements</title>
+  <script type="application/x-javascript;version=1.7" src="common.js"></script>
+  <script type="application/x-javascript;version=1.7" src="../common.js"></script>
+</head>
+<body>
+  <p>
+    Filters to be used:<br>
+    <textarea id="filters" style="width: 100%; height: 150px;"></textarea><br>
+
+    Addresses to check:<br>
+    <textarea id="addresses" style="width: 100%; height: 150px;"></textarea><br>
+    <button id="startButton" onclick="start();">Click to start test</button>
+  </p>
+
+  <p id="progress" style="display: none;">Please wait while performance measurement is in progress... <span id="current"></span></p>
+
+  <pre id="result"></pre>
+
+  <script type="application/x-javascript;version=1.7">
+    prepareFilterComponents();
+
+    let filters = null;
+    let addresses = null;
+
+    window.onload = function()
+    {
+      let r = new XMLHttpRequest();
+      r.open("GET", "data/filters.txt", false);
+      r.overrideMimeType("text/plain");
+      r.send(null);
+      document.getElementById("filters").value = r.responseText;
+
+      r = new XMLHttpRequest();
+      r.open("GET", "data/addresses.txt", false);
+      r.overrideMimeType("text/plain");
+      r.send(null);
+      document.getElementById("addresses").value = r.responseText;
+    }
+
+    function start()
+    {
+      document.getElementById("filters").disabled = true;
+      document.getElementById("addresses").disabled = true;
+      document.getElementById("startButton").disabled = true;
+      filters = document.getElementById("filters").value.replace(/^[\r\n]+/, "")
+                                                        .replace(/[\r\n]+$/, "")
+                                                        .split(/[\r\n]+/)
+                                                        .map(function(text) Filter.fromText(text))
+                                                        .filter(function(filter) filter instanceof RegExpFilter);
+      document.getElementById("filters").value = filters.map(function(filter) filter.text)
+                                                        .join("\n");
+      addresses = document.getElementById("addresses").value.replace(/^[\r\n]+/, "")
+                                                            .replace(/[\r\n]+$/, "")
+                                                            .split(/[\r\n]+/);
+      document.getElementById("result").textContent = "";
+      document.getElementById("progress").style.display = "";
+
+      defaultMatcher.clear();
+      for each (let filter in filters)
+        defaultMatcher.add(filter);
+
+      runTests(runTest, cleanup, finalize);
+    }
+
+    function runTest()
+    {
+      for each (let address in addresses)
+        defaultMatcher.matchesAny(address, "IMAGE", null, false);
+    }
+
+    function cleanup()
+    {
+      // Add and remove a dummy filter to clear matcher's cache
+      let dummy = Filter.fromText("foobar");
+      defaultMatcher.add(dummy);
+      defaultMatcher.remove(dummy);
+    }
+
+    function finalize()
+    {
+      document.getElementById("progress").style.display = "none";
+      document.getElementById("filters").disabled = false;
+      document.getElementById("addresses").disabled = false;
+      document.getElementById("startButton").disabled = false;
+      filters = null;
+      addresses = null;
+    }
+  </script>
+</body>
+</html>

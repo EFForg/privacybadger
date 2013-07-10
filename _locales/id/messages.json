@@ -1,0 +1,26 @@
+{
+  "add": {
+    "message": "tambah"
+  },
+  "add_domain_button": {
+    "message": "tambah Domain"
+  },
+  "add_filter_button": {
+    "message": "tambah filter / penyaringan"
+  },
+  "add_your_own_filters": {
+    "message": "kamu tambahkan sendiri filternya"
+  },
+  "apply_changes": {
+    "message": "terapkan perubahan"
+  },
+  "block_element": {
+    "message": "blokir elemen"
+  },
+  "cancel": {
+    "message": "batal"
+  },
+  "clickhide_instructions": {
+    "message": "setelah keluar dari popup , klik (atau klik kanan) pada elemen di halaman web."
+  }
+}

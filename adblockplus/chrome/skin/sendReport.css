@@ -1,0 +1,129 @@
+/*
+ * This file is part of Adblock Plus <http://adblockplus.org/>,
+ * Copyright (C) 2006-2013 Eyeo GmbH
+ *
+ * Adblock Plus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * Adblock Plus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+.wizard-header
+{
+  display: none;
+}
+
+#wizardHeader
+{
+  display: -moz-box;
+  -moz-box-ordinal-group: 0;
+  -moz-binding: none !important;
+  padding: 10px 5px !important;
+}
+
+.progressLabel
+{
+  margin: 5px 0px;
+  text-align: center;
+  font-size: 110%;
+  font-weight: normal;
+}
+
+.progressLabel.active
+{
+  font-weight: bold;
+}
+
+progressmeter
+{
+  margin-top: 100px;
+}
+
+.radioDescription
+{
+  -moz-margin-start: 32px;
+}
+
+radio, checkbox, .topLabel, #dataDeck
+{
+  margin-top: 15px;
+}
+
+#recentReports
+{
+  margin-top: 15px;
+}
+
+#recentReportsList
+{
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#outdatedSubscriptionsList
+{
+  margin: 10px 20px;
+}
+
+#issuesBox
+{
+  overflow: auto;
+}
+
+#issuesChangeMessage
+{
+  color: red;
+}
+
+#screenshotButtons
+{
+  margin-top: 10px;
+}
+
+#screenshotBox
+{
+  overflow-y: scroll;
+}
+
+#commentLengthWarning, #anonymityWarning
+{
+  color: red;
+}
+
+#commentLengthWarning[visible="false"], #anonymityWarning[visible="false"]
+{
+  visibility: hidden;
+}
+
+/*
+ * Force left-to-right everywhere where we are displaying addresses
+ */
+#data:-moz-locale-dir(rtl)
+{
+  direction: ltr;
+}
+
+#sendReportError
+{
+  color: red;
+  font-size: 150%;
+}
+
+#sendReportErrorLinks, #typeWarningTextLink
+{
+  margin: 0px;
+}
+
+#sendReportErrorBox
+{
+  margin-bottom: 10px;
+}

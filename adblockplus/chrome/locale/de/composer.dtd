@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "am En&amp;de der Adresse">
+<!ENTITY domainRestriction.label "Auf Do&amp;main beschränken:">
+<!ENTITY collapse.default.no.label "Standardeinstellung (nein)">
+<!ENTITY firstParty.label "Nur für Elemente der Urs&amp;prungsseite">
+<!ENTITY preferences.label "Existierende Filter an&amp;zeigen...">
+<!ENTITY pattern.label "Muster suchen">
+<!ENTITY thirdParty.label "Nur für Elemen&amp;te von Drittseiten">
+<!ENTITY filter.label "Neue&amp;r Filter:">
+<!ENTITY collapse.label "Platz frei&amp;geben:">
+<!ENTITY match.warning "Das Muster, das Sie eingegeben haben, passt nicht mehr zu der Adresse, für die der Filter erstellt werden soll. Es wird keinen Einfluss mehr auf diese Adresse haben.">
+<!ENTITY anchor.start.label "am An&amp;fang der Adresse">
+<!ENTITY matchCase.label "Groß-/&amp;Kleinschreibung beachten">
+<!ENTITY custom.pattern.label "Be&amp;nutzerdefiniert:">
+<!ENTITY unselectAllTypes.label "Keine auswählen">
+<!ENTITY type.whitelist.label "&amp;Ausnahmeregel">
+<!ENTITY regexp.warning "Das Muster, das Sie eingegeben haben, wird als regulärer Ausdruck interpretiert. Zu viele reguläre Ausdrücke könnten Ihren Browser verlangsamen. Falls Sie nicht beabsichtigt haben, reguläre Ausdrücke zu verwenden, fügen Sie einfach das Symbol '*' am Ende des Musters an.">
+<!ENTITY dialog.title "Neuen Filter hinzufügen">
+<!ENTITY basic.label "Standardansicht">
+<!ENTITY type.filter.label "&amp;Blockierregel">
+<!ENTITY types.label "Auf Elementtypen anwenden:">
+<!ENTITY shortpattern.warning "Das Muster, das Sie eingegeben haben, ist zu kurz zum Optimieren. Zu viele solche Muster könnten Ihren Browser verlangsamen. Es ist deshalb empfehlenswert, nach Möglichkeit ein längeres Muster für diesen Filter zu verwenden.">
+<!ENTITY collapse.yes.label "Ja">
+<!ENTITY anchors.label "Muster nur akzeptieren:">
+<!ENTITY collapse.default.yes.label "Standardeinstellung (ja)">
+<!ENTITY domainRestriction.help "Geben Sie eine oder mehrere Domains an (Trennzeichen ist &quot;|&quot;), der Filter wird dann nur auf diesen Domains angewandt. Das Zeichen &quot;~&quot; vor einem Domainnamen bedeutet, dass der Filter auf dieser Domain nicht angewandt werden sollte.">
+<!ENTITY accept.label "Filter hinzufügen">
+<!ENTITY options.label "Optionen">
+<!ENTITY disabled.warning "Adblock Plus ist deaktiviert. Sie können trotzdem den Filter hinzufügen, dieser wird jedoch erst angewandt, wenn Sie [link]Adblock Plus aktivieren[/link].">
+<!ENTITY anchor.start.flexible.label "am An&amp;fang des Domain-Namens">
+<!ENTITY collapse.no.label "Nein">
+<!ENTITY selectAllTypes.label "Alle auswählen">
+<!ENTITY advanced.label "Erweiterte Ansicht">
+<!ENTITY pattern.explanation "Das Muster kann ein beliebiger Teil der Adresse sein, das Zeichen '*' kann dabei als Jokerzeichen verwendet werden. Der Filter wird nur auf Adressen angewandt, die auf das Muster passen.">

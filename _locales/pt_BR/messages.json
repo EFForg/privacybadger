@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Adicionar"
+  },
+  "add_domain_button": {
+    "message": "Adicionar domínio"
+  },
+  "add_filter_button": {
+    "message": "Adicionar filtro"
+  },
+  "add_filters_msg": {
+    "message": "Adicionar filtro(s)?"
+  },
+  "add_your_own_filters": {
+    "message": "Adicione seus próprios filtros"
+  },
+  "apply_changes": {
+    "message": "Aplicar mudanças"
+  },
+  "block_element": {
+    "message": "Bloquear Elemento"
+  },
+  "cancel": {
+    "message": "Cancelar"
+  },
+  "clickhide_instructions": {
+    "message": "Após o encerramento desta janela, clique (ou dê um clique com o botão direito) em um elemento da página."
+  },
+  "description": {
+    "message": "O bloqueador de propagandas grátis para o Chrome: Bloqueie anúncios irritantes no youtube, no facebook, e muito mais."
+  },
+  "disable_inline": {
+    "message": "Desativar propagandas de texto em linha"
+  },
+  "disabled_for_these_domains": {
+    "message": "O Adblock Plus está desabilitado para os domínios abaixo. Você pode adicionar um domínio, tanto pelo ícone do Adblock Plus na barra de endereços, quanto digitando o domínio (não a URL) dentro da caixa e clicando no botão \"Adicionar domínio\"."
+  },
+  "easy_create_filter": {
+    "message": "Crie fácil um filtro"
+  },
+  "edit_filters_raw": {
+    "message": "Editar filtros manualmente"
+  },
+  "enable_only_the": {
+    "message": "Habilitar somente as listas de filtros que você precisa. Muitos filtros simultâneos podem causar o travamento do seu Chrome."
+  },
+  "enabled_for_site": {
+    "message": "Habilitado para esse site"
+  },
+  "filter_lists": {
+    "message": "Lista de Filtros"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Seu filtro deve seguir o <a href='$url$'>uso correto do filtro sintaxe de Adblock plus</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Encontrou um bug? Deseja traduzir o Adblock Plus para sua língua? Por favor <a href='$url$'>arquive um pedido aqui</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Geral"
+  },
+  "last_updated_at": {
+    "message": "Última atualização às $time$ em $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Última atualização às $time$ hoje",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Novos filtros adicionados; veja em <a id='options_url' target='_blank'>Opções</a> para gerenciá-los."
+  },
+  "options": {
+    "message": "Opções do Adblock Plus"
+  },
+  "out_of_date_lists": {
+    "message": "Listas obsoletas são atualizadas periodicamente."
+  },
+  "remove_button": {
+    "message": "Remover selecionados"
+  },
+  "show_block_element_menu": {
+    "message": "Mostrar 'Bloquear Elemento' no menu ao clicar com o botão direito"
+  },
+  "show_icon": {
+    "message": "Mostrar ícone na barra de endereços"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Por favor, escolha uma inscrição de filtros da lista:"
+  },
+  "update_now": {
+    "message": "Atualizar agora"
+  },
+  "whitelisted_domains": {
+    "message": "Domínios permitidos"
+  }
+}

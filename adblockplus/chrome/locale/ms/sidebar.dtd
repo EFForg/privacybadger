@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Jelaskan sempadan item">
+<!ENTITY address.label "Alamat">
+<!ENTITY context.open.label "Buka dalam Tab Baru">
+<!ENTITY type.label "Jenis">
+<!ENTITY tooltip.filterSource.label "Sumber penapis:">
+<!ENTITY noitems.label "Tiada item yang boleh disekat">
+<!ENTITY filter.label "Penapis">
+<!ENTITY tooltip.size.label "Saiz:">
+<!ENTITY reattach.label "Lampir semula">
+<!ENTITY search.label "&amp;Cari:">
+<!ENTITY docDomain.thirdParty "(pihak ketiga)">
+<!ENTITY filterSource.label "Sumber penapis">
+<!ENTITY tooltip.docDomain.label "Sumber dokumen:">
+<!ENTITY context.copy.label "Salin alamat item">
+<!ENTITY tooltip.type.label "Jenis:">
+<!ENTITY context.disablefilter.label "Nyahaktif penapis ?1?">
+<!ENTITY context.copyFilter.label "Salin penapis">
+<!ENTITY context.block.label "Sekat item ini">
+<!ENTITY context.enablefilter.label "Aktifkan kembali penapis ?1?">
+<!ENTITY detach.label "Asingkan">
+<!ENTITY whitelisted.label "Laman yang disenarai putih">
+<!ENTITY context.disablefilteronsite.label "Nyahaktif penapis ini pada ?1?">
+<!ENTITY detached.title "Adblock Plus: Item yang boleh disekat (diasingkan)">
+<!ENTITY docDomain.firstParty "(pihak pertama)">
+<!ENTITY tooltip.type.whitelisted "(senarai putih)">
+<!ENTITY tooltip.filter.label "Penapis yang digunakan:">
+<!ENTITY tooltip.filter.disabled "(dinyahaktifkan)">
+<!ENTITY context.editfilter.label "Ubah penapis yang digunakan">
+<!ENTITY tooltip.type.blocked "(disekat)">
+<!ENTITY size.label "Saiz">
+<!ENTITY context.whitelist.label "Tambah peraturan pengecualian untuk item">
+<!ENTITY context.selectAll.label "Pilih semua">
+<!ENTITY state.label "Keadaan">
+<!ENTITY docDomain.label "Sumber dokumen">
+<!ENTITY tooltip.address.label "Alamat:">

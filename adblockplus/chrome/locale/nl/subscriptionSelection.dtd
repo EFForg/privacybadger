@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Filterabonnement “?1?” oo&amp;k toevoegen">
+<!ENTITY list.download.failed "Adblock Plus kan de lijst met abonnementen niet ophalen.">
+<!ENTITY list.download.retry "Opnieuw proberen">
+<!ENTITY title.label "A&amp;bonnementstitel:">
+<!ENTITY list.download.website "Website bekijken">
+<!ENTITY supplementMessage "Dit filterabonnement is bedoeld om samen gebruikt te worden met het filterabonnement “?1?”, dat u nog niet gebruikt.">
+<!ENTITY viewList.label "Filters bekijken">
+<!ENTITY visitHomepage.label "Startpagina bezoeken">
+<!ENTITY addSubscription.label "Abonneren">
+<!ENTITY dialog.title "Adblock Plus filterabonnement toevoegen">
+<!ENTITY location.label "Fi&amp;lterlijstlocatie:">
+<!ENTITY fromWeb.description "Bevestig a.u.b. dat u dit filterabonnement wilt toevoegen. U kunt de abonnementstitel of -locatie wijzigen voor toevoegen.">

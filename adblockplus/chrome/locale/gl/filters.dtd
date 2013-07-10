@@ -1,0 +1,72 @@
+<!ENTITY restore.custom.warning "Tódalos os teus filtros persoalizados serán cambiados polo contido do arquivo que seleccionaches. Estás seguro?">
+<!ENTITY slow.column "Filtros le&amp;ntos">
+<!ENTITY enabled.column "A&amp;ctivada">
+<!ENTITY subscription.lastDownload.checksumMismatch "Erro: a proba do &quot;checksum&quot; seica non cadrou ben">
+<!ENTITY noFiltersInGroup.text "Seica o grupo que seleccionaches está baleiro.">
+<!ENTITY subscription.actions.label "Accións">
+<!ENTITY filter.selectAll.label "Seleccionalo Todo">
+<!ENTITY backupButton.label "&amp;Copia de Seguridade e Recuperación">
+<!ENTITY restore.minVersion.warning "Ollo: este arquivo foi creado cunha versión máis moderna do Adblock Plus. Debes actualizar a túa versión antes de recuperar o arquivo.">
+<!ENTITY restore.error "Os datos do arquivo non puideron ser procesados, seica este arquivo non é unha copia de seguridade do Adblock Plus?">
+<!ENTITY sort.ascending.label "Orden&amp;ar do &quot;A&quot; ao &quot;Z&quot;">
+<!ENTITY sort.label "&amp;Ordenar por">
+<!ENTITY subscription.source.label "Lista dos filtros">
+<!ENTITY hitcount.column "&amp;Veces usado">
+<!ENTITY noFilters.text "Seica aínda non tes feito ningún filtro persoalizado.">
+<!ENTITY backup.custom.title "Só filtros persoalizados">
+<!ENTITY subscription.external.label "Actualizado por outro complemento">
+<!ENTITY subscription.delete.label "Borrar">
+<!ENTITY noGroupSelected.text "Precisas de seleccionar un grupo antes de que se podan amosar os filtros.">
+<!ENTITY filter.cut.label "Cortar">
+<!ENTITY restore.default.label "Recuperar a copia de seguridade do ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Baixando...">
+<!ENTITY subscriptions.tab.label "Suscricións aos filtros">
+<!ENTITY sort.descending.label "Ordenar do &quot;&amp;Z&quot; ao &quot;A&quot;">
+<!ENTITY filters.remove.warning "De verdade que queres eliminar tódolos filtros que seleccionaches?">
+<!ENTITY filter.delete.label "Borrar">
+<!ENTITY addSubscriptionAdd.label "Engadir">
+<!ENTITY viewMenu.label "Ver">
+<!ENTITY subscription.lastDownload.unknown "Non disponible">
+<!ENTITY addSubscriptionCancel.label "Cancelar">
+<!ENTITY subscription.enabled.label "Activado">
+<!ENTITY noSubscriptions.text "Aínda non engadiches ningunha suscrición. O Adblock Plus non che bloqueará nada se non tes filtros, por favor dalle a &quot;Engadir suscripción ós filtros&quot; para engadir algún.">
+<!ENTITY subscription.update.label "Actualizar os filtros">
+<!ENTITY dialog.title "Preferencias dos filtros do Adblock Plus">
+<!ENTITY addFilter.label "Enga&amp;dir filtro">
+<!ENTITY subscription.minVersion.warning "Esta suscripción ao filtro precisa dunha versión máis moderna do Adblock Plus. Deberías baixarte a última versión.">
+<!ENTITY subscription.lastDownload.invalidURL "Erro: enderezo non válido">
+<!ENTITY backup.error "Seica houbo un erro ao escribir os filtros no arquivo. Mira a ver se o arquivo non está protexido contra a escritura ou está sendo uso por outro programa.">
+<!ENTITY filter.moveUp.label "Subir para arriba">
+<!ENTITY addGroup.label "En&amp;gadir grupo de filtros">
+<!ENTITY filter.edit.label "Editar">
+<!ENTITY subscription.showHideFilters.label "Amosar/agochar os filtros">
+<!ENTITY acceptableAds2.label "Perm&amp;itir publicidade non invasiva">
+<!ENTITY addSubscriptionOther.label "Engadir outra subscrición">
+<!ENTITY close.label "Pechar">
+<!ENTITY sort.none.label "Dei&amp;xalo todo atrapallado">
+<!ENTITY filter.actions.label "Accións dos filtros">
+<!ENTITY filter.copy.label "Copiar">
+<!ENTITY filter.moveDown.label "Baixar para abaixo">
+<!ENTITY filter.resetHitCounts.label "Resetear as estatísticas de uso">
+<!ENTITY readMore.label "Ler máis">
+<!ENTITY subscription.moveUp.label "Subir para arriba">
+<!ENTITY addSubscription.label "Engadir subscrición de &amp;filtros">
+<!ENTITY subscription.homepage.label "Páxina">
+<!ENTITY backup.complete.title "Tódolos filtros e suscricións">
+<!ENTITY restore.own.label "Recuperar a copia de seguridade propia">
+<!ENTITY restore.complete.warning "Tódalas as túas preferencias serán cambiadas polo contido do arquivo que seleccionaches. Estás seguro?">
+<!ENTITY filters.tab.label "Filtros persoalizados">
+<!ENTITY backup.label "Facer unha nova copia de seguridade">
+<!ENTITY find.label "Busca&amp;r">
+<!ENTITY subscription.moveDown.label "Baixar para abaixo">
+<!ENTITY subscription.lastDownload.connectionError "Erro: fallo na descarga">
+<!ENTITY subscription.lastDownload.success "Valeu">
+<!ENTITY subscription.lastDownload.invalidData "Erro: lista de filtros non válida">
+<!ENTITY filter.paste.label "Pegar">
+<!ENTITY subscription.disabledFilters.enable "Activar os filtros inactivos">
+<!ENTITY lasthit.column "Ú&amp;ltimo uso">
+<!ENTITY subscription.editTitle.label "Editar o título">
+<!ENTITY subscription.disabledFilters.warning "Algúns filtros desta suscrición estanche desactivados.">
+<!ENTITY filter.column "Regra de &amp;filtro">
+<!ENTITY subscription.lastDownload.label "Baixado o:">
+<!ENTITY viewList.label "Qué publicidade?">

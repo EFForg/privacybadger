@@ -1,0 +1,73 @@
+<!ENTITY restore.custom.warning "ตัวกรองแบบกำหนดเองของคุณทั้งหมดจะถูกแทนที่ โดยเนื้อหาของไฟล์ที่เลือกไว้ คุณต้องดำเนินการต่อหรือไม่">
+<!ENTITY slow.column "ทำให้ตัวกรอ&amp;งช้าลง">
+<!ENTITY enabled.column "เ&amp;ปิดการใช้งาน">
+<!ENTITY subscription.lastDownload.checksumMismatch "ล้มเหลว checksum จับผิดคู่">
+<!ENTITY noFiltersInGroup.text "กลุ่มที่เลือกว่างเปล่า">
+<!ENTITY subscription.actions.label "การกระทำ">
+<!ENTITY filter.selectAll.label "เลือกทั้งหมด">
+<!ENTITY backupButton.label "การสำรองข้อมูลแล&amp;ะคืนค่า">
+<!ENTITY restore.minVersion.warning "คำเตือน: ไฟล์ที่ถูกสร้างขึ้นด้วย Adblock Plus เป็นรุ่นใหม่กว่า คุณควรปรับปรุง Adblock Plus ให้เป็นรุ่นล่าสุดก่อนที่จะกู้คืนข้อมูลจากไฟล์นี้">
+<!ENTITY restore.error "ไม่สามารถประมวลผลแฟ้มข้อมูล บางทีอาจไม่ใช่แฟ้มสำรองของ Adblock Plus">
+<!ENTITY sort.ascending.label "&amp;จัดลำดับ A &gt; Z">
+<!ENTITY sort.label "&amp;จัดลำดับ">
+<!ENTITY subscription.source.label "รายการตัวกรอง">
+<!ENTITY hitcount.column "&amp;นับ">
+<!ENTITY noFilters.text "คุณยังไม่มีตัวกรองแบบกำหนดเอง">
+<!ENTITY backup.custom.title "ตัวกรองแบบกำหนดเองเท่านั้น">
+<!ENTITY subscription.external.label "ปรับปรุงโดยนามสกุลอื่น">
+<!ENTITY subscription.delete.label "ลบ">
+<!ENTITY noGroupSelected.text "คุณต้องเลือกกลุ่มตัวกรองก่อนที่ตัวกรองนั้นสามารถแสดงผลได้">
+<!ENTITY filter.cut.label "ตัด">
+<!ENTITY restore.default.label "คืนค่าการสำรองข้อมูลจาก ?1?">
+<!ENTITY subscription.lastDownload.inProgress "กำลังดาวน์โหลด...">
+<!ENTITY subscriptions.tab.label "นามข้างท้ายตัวกรอง">
+<!ENTITY sort.descending.label "จ&amp;ัดลำดับ Z &gt; A">
+<!ENTITY filters.remove.warning "คุณต้องการเอาตัวกรองที่เลือกไว้ทั้งหมดหรือไม่">
+<!ENTITY filter.delete.label "ลบ">
+<!ENTITY addSubscriptionAdd.label "เพิ่ม">
+<!ENTITY viewMenu.label "มุมมอง">
+<!ENTITY subscription.lastDownload.unknown "ไม่มี">
+<!ENTITY addSubscriptionCancel.label "ยกเลิก">
+<!ENTITY subscription.enabled.label "เปิดใช้งาน">
+<!ENTITY noSubscriptions.text "คุณยังไม่ได้เพิ่มนามข้างท้ายตัวกรองใดๆ Adblock Plus จะไม่บล๊อกเหตุการณ์ใดๆ โดยที่ไม่มีตัวกรอง กรุณาใช้ &quot;เพิ่มนามข้างท้าย&quot; เพื่อ
+ เพิ่มการดำเนินการ">
+<!ENTITY subscription.update.label "ปรับปรุงตัวกรอง">
+<!ENTITY dialog.title "ตั้งค่าตัวกรอง Adblock Plus">
+<!ENTITY addFilter.label "เพิ่มตัวกรอ&amp;ง">
+<!ENTITY subscription.minVersion.warning "การใช้นามข้างท้ายตัวกรองนี้ต้องมี Adblock Plus รุ่นใหม่ที่กว่า คุณควรปรับปรุงเป็น Adblock Plus รุ่นล่าสุด">
+<!ENTITY subscription.lastDownload.invalidURL "ล้มเหลว ไม่มีที่อยู่ที่ถูกต้อง">
+<!ENTITY backup.error "มีข้อผิดพลาดในการเขียนตัวกรองไปยังไฟล์ ตรวจสอบให้แน่ใจว่า ไฟล์ที่เกี่ยวข้องนี้ไม่ได้ป้องกันการเขียน หรืออยู่ในระหว่างใช้งานโดยโปรแกรมประยุกต์อื่นๆ">
+<!ENTITY filter.moveUp.label "ย้ายขึ้น">
+<!ENTITY addGroup.label "เพิ่มกลุ่มตั&amp;วกรอง">
+<!ENTITY filter.edit.label "แก้ไข">
+<!ENTITY subscription.showHideFilters.label "แสดง/ซ่อนตัวกรอง">
+<!ENTITY acceptableAds2.label "อนุญ&amp;าตให้มีโฆษณาบางอย่างที่ไม่ต้องการรบกวน">
+<!ENTITY addSubscriptionOther.label "เพิ่มนามข้างท้าย">
+<!ENTITY close.label "ปิด">
+<!ENTITY sort.none.label "&amp;ไม่จัดลำดับ">
+<!ENTITY filter.actions.label "ดำเนินการตัวกรอง">
+<!ENTITY filter.copy.label "คัดลอก">
+<!ENTITY filter.moveDown.label "ย้ายลง">
+<!ENTITY filter.resetHitCounts.label "ตั้งค่าสถิติการเข้าชมใหม่">
+<!ENTITY readMore.label "อ่านเพิ่มเติม">
+<!ENTITY subscription.moveUp.label "ย้ายขึ้น">
+<!ENTITY addSubscription.label "เพิ่&amp;มนามข้างท้ายตัวกรอง">
+<!ENTITY subscription.homepage.label "โฮมเพจ">
+<!ENTITY backup.complete.title "ตัวกรองและนามข้างท้ายทั้งหมด">
+<!ENTITY restore.own.label "คืนค่าการสำรองข้อมูลของตนเอง">
+<!ENTITY restore.complete.warning "กำหนดลักษณะการกรองของคุณทั้งหมดจะถูกแทนที่ โดยเนื้อหาของไฟล์ที่เลือกไว้ คุณต้องดำเนินการต่อหรือไม่">
+<!ENTITY filters.tab.label "ตัวกรองแบบกำหนดเอง">
+<!ENTITY backup.label "สร้างการสำรองข้อมูลใหม่">
+<!ENTITY find.label "ค้นห&amp;า">
+<!ENTITY subscription.moveDown.label "ย้ายลง">
+<!ENTITY subscription.lastDownload.connectionError "ล้มเหลว การดาวน์โหลดล้มเหลว">
+<!ENTITY subscription.lastDownload.success "สำเร็จ">
+<!ENTITY subscription.lastDownload.invalidData "ล้มเหลว ไม่มีรายชื่อตัวกรองที่ถูกต้อง">
+<!ENTITY filter.paste.label "วาง">
+<!ENTITY subscription.disabledFilters.enable "เปิดใช้งาน การปิดใช้งานตัวกรอง">
+<!ENTITY lasthit.column "กด&amp;ล่าสุด">
+<!ENTITY subscription.editTitle.label "แก้ไขชื่อเรื่อง">
+<!ENTITY subscription.disabledFilters.warning "บางตัวกรองในการบอกรับสมาชิกนี้ถูกปิดใช้งาน">
+<!ENTITY filter.column "กฎ&amp;ตัวกรอง">
+<!ENTITY subscription.lastDownload.label "ดาวน์โหลดล่าสุด:">
+<!ENTITY viewList.label "มุมมองรายการ">

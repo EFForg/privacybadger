@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "&amp;Ajouter également l'abonnement « ?1? »">
+<!ENTITY list.download.failed "Adblock Plus n'a pu récupérer la liste des abonnements.">
+<!ENTITY list.download.retry "Essayer à nouveau">
+<!ENTITY title.label "&amp;Nom de l'abonnement :">
+<!ENTITY list.download.website "Afficher le site Web">
+<!ENTITY supplementMessage "Cet abonnement est prévu pour être utilisé avec l'abonnement &quot;?1?&quot; que vous n'utilisez pas encore.">
+<!ENTITY viewList.label "Afficher les filtres">
+<!ENTITY visitHomepage.label "Se rendre au site Web">
+<!ENTITY addSubscription.label "Ajouter l'abonnement">
+<!ENTITY dialog.title "Ajouter un abonnement à une liste de filtres Adblock Plus">
+<!ENTITY location.label "&amp;Emplacement de la liste :">
+<!ENTITY fromWeb.description "Veuillez confirmer que vous souhaitez ajouter cet abonnement. Vous pouvez modifier le titre ou l'emplacement de l'abonnement avant de l'ajouter.">

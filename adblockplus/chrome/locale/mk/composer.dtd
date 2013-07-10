@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "&amp;на крајот од адресата">
+<!ENTITY domainRestriction.label "Попречи &amp;до домен:">
+<!ENTITY collapse.default.no.label "Користи стандардно (не)">
+<!ENTITY firstParty.label "Само од п&amp;рва партија">
+<!ENTITY preferences.label "Прикажи по&amp;стоечки филтери...">
+<!ENTITY pattern.label "Барај шема">
+<!ENTITY thirdParty.label "Само од &amp;трета партија">
+<!ENTITY filter.label "Нов &amp;филтер:">
+<!ENTITY collapse.label "Намали блокирано: (&amp;|)">
+<!ENTITY match.warning "Шемата која ја внесивте повеќе не се совпаѓа со адресата што ја одбравте и повеќе нема да функционира.">
+<!ENTITY anchor.start.label "на почетокот на адреса (&amp;г)">
+<!ENTITY matchCase.label "Совпадни со букви (&amp;М)">
+<!ENTITY custom.pattern.label "Сопствено: (&amp;Ц)">
+<!ENTITY unselectAllTypes.label "Одбери ништо">
+<!ENTITY type.whitelist.label "Исклучок (&amp;х)">
+<!ENTITY regexp.warning "Шемата што ја внесивте ќе биде интерпретирана како нормален извод кој не може да биде процесиран ефикасно и може да го успори вашиот пребарувач. Ако немавте намена да користите нормален извод, ставете ѕвезда (*) на крајот од барањето.">
+<!ENTITY dialog.title "Додај филтерски исклучок">
+<!ENTITY basic.label "Едноставен поглед">
+<!ENTITY type.filter.label "&amp;Блокирачки филтер">
+<!ENTITY types.label "Примени на типови:">
+<!ENTITY shortpattern.warning "Шемата која ја избравте е прекратка да биде оптимизирана и може да го успори вашиот пребарувач. Препорачано е да користите подолг извод за овој филтер за да му дозволите на AdBlock Plus да го процесира поефикасно.">
+<!ENTITY collapse.yes.label "Да">
+<!ENTITY anchors.label "Прифати шема само:">
+<!ENTITY collapse.default.yes.label "Користи стандардно (да)">
+<!ENTITY domainRestriction.help "Користете ја оваа опција да специфицирате повеќе домени одделени со вертикална линија (|). Филтерот ќе биде применет само на доменот/домените специфицирани. Тилда (~) пред доменот кажува дека филтерот не треба да се примени на тој домен.">
+<!ENTITY accept.label "Додај филтер">
+<!ENTITY options.label "Опции">
+<!ENTITY disabled.warning "AdBlock Plus е моментално исклучен. Можете сеуште да додавате филтери но тие нема да се користат. [link]Вклучи AdBlock Plus. [/link]">
+<!ENTITY anchor.start.flexible.label "на почетокот на домен (&amp;г)">
+<!ENTITY collapse.no.label "Не">
+<!ENTITY selectAllTypes.label "Одбери сите">
+<!ENTITY advanced.label "Напреден поглед">
+<!ENTITY pattern.explanation "Шемата може да биде било кој дел од адресата; ѕвездите (*) се користат како џокери. Овој филтер ќе се употребува само на адресите со таа шема.">

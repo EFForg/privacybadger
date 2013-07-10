@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Pievienot arī filtra abonementu &quot;?1?&quot;">
+<!ENTITY list.download.failed "Adblock Plus neizdevās ielādēt abonentu sarakstu.">
+<!ENTITY list.download.retry "Mēģiniet vēlreiz">
+<!ENTITY title.label "Abonemen&amp;ta nosaukums:">
+<!ENTITY list.download.website "Skatīt tīmekļa vietni">
+<!ENTITY supplementMessage "Šī filtra abonements ir paredzēts lietošanai kopā ar filtra abonementu &quot;?1?&quot; kuru jūs vēl neizmantojat.">
+<!ENTITY viewList.label "Skatīt filtrus">
+<!ENTITY visitHomepage.label "Apmeklēt mājaslapu">
+<!ENTITY addSubscription.label "Pievienot abonementu">
+<!ENTITY dialog.title "Pievienot Adblock Plus filtra abonementu">
+<!ENTITY location.label "Fi&amp;ltru saraksta atrašanās vieta:">
+<!ENTITY fromWeb.description "Lūdzu, apstipriniet, ka vēlaties pievienot šī filtra abonementu. Jūs varat mainīt abonementa nosaukumu vai atrašanās vietu pirms pievienošanas.">

@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "&amp;Cofnij">
+<!ENTITY issues.disabledgroups.description "Następujące zestawy filtrów/grupy filtrów są wyłączone, ale mogą oddziaływać na tę stronę:">
+<!ENTITY showData.label "Wyświetl dane zgłoszenia">
+<!ENTITY typeSelector.falsePositive.label "&amp;Adblock Plus zbyt dużo blokuje">
+<!ENTITY issues.change.description "Twoja konfiguracja została zmieniona. By wykonać test zmian, odśwież stronę i wyślij zgłoszenie, jeśli dokonane zmiany nie rozwiązały problemu.">
+<!ENTITY email.label "Em&amp;ail:">
+<!ENTITY issues.openPreferences.label "Otwórz ustawienia filtra">
+<!ENTITY sendPage.confirmation "Zgłoszenie zostało zapisane. Możesz zobaczyć je pod następującym adresem:">
+<!ENTITY copyLink.label "&amp;Kopiuj odnośnik zgłoszenia">
+<!ENTITY issues.nofilters.description "Na aktualnej stronie Adblock Plus nic nie blokuje. Obserwowany problem najprawdopodobniej nie jest związany z Adblock Plusem.">
+<!ENTITY sendPage.knownIssue "Prawdopodobnie zgłaszany problem jest już znany. Więcej informacji:">
+<!ENTITY typeSelector.other.description "Wybierz tę opcję, jeśli podejrzewasz, że problem związany jest z samym Adblock Plusem, a nie z filtrami.">
+<!ENTITY issues.disabledgroups.enable.label "Włącz zestawy filtrów/grupy filtrów">
+<!ENTITY typeWarning.override.label "Rozu&amp;miem i mimo wszystko chcę wysłać zgłoszenie">
+<!ENTITY issues.disabled.enable.label "Włącz Adblock Plusa">
+<!ENTITY update.fixed.description "Aktualizacja zestawu filtrów prawdopodobnie rozwiązała zgłaszany problem. Odśwież stronę i spróbuj ponownie, naciśnij przycisk Zgłoś, jeśli problem nadal występuje.">
+<!ENTITY anonymous.label "&amp;Wyślij anonimowo">
+<!ENTITY reloadButton.label "&amp;Odśwież stronę">
+<!ENTITY recentReports.clear.label "&amp;Usuń wszystkie zgłoszenia">
+<!ENTITY typeSelector.description "Tutaj możesz wykonać czynności niezbędne do wysłania zgłoszenia problemu związanego z Adblock Plusem. Najpierw wybierz typ problemu, jaki występuje na tej stronie:">
+<!ENTITY screenshot.remove.label "&amp;Ukryj poufne dane">
+<!ENTITY issues.ownfilters.description "Część filtrów stosowanych na tej stronie jest zdefiniowanych przez ciebie. Wyłącz filtry, które mogły spowodować problem:">
+<!ENTITY update.inProgress.description "Aby upewnić się, że problem został już rozwiązany, Adblock Plus musi zaktualizować twój zestaw filtrów. Proszę czekać…">
+<!ENTITY sendPage.retry.label "Wyślij ponownie">
+<!ENTITY data.label "Dan&amp;e zgłoszenia">
+<!ENTITY recentReports.label "Twoje ostatnio wysłane zgłoszenia">
+<!ENTITY typeWarning.description "Chcesz zgłosić ogólny problem dotyczący Adblock Plusa, a nie problem z filtrami. Tego rodzaju problemy najlepiej jest zgłaszać na [link]forum Adblock Plusa[/link]. Reportera błędów powinno się używać do uzupełnienia dyskusji na forum, ponieważ nikt nie zauważy zgłoszenia, chyba że dołączysz do niego odnośnik. Automatycznie generowany odnośnik zostanie dołączony po wysłaniu zgłoszenia.">
+<!ENTITY issues.disabled.description "Adblock Plus jest wyłączony. Obecnie nic nie będzie blokował.">
+<!ENTITY attachExtensions.label "Dołącz do zgłoszenia listę aktywnych &amp;rozszerzeń, gdy przyczyną problemu jest konflikt z innym rozszerzeniem.">
+<!ENTITY issues.nosubscriptions.add.label "Subskrybuj filtry">
+<!ENTITY issues.disabledfilters.enable.label "Włącz filtr">
+<!ENTITY issues.override.label "&amp;Konfiguracja jest prawidłowa – kontynuuj zgłoszenie">
+<!ENTITY issues.nosubscriptions.description "Wygląda na to, że nie subskrybujesz żadnej gotowej listy filtrów, które automatycznie usuwają niepożądaną zawartość ze stron internetowych.">
+<!ENTITY typeSelector.falsePositive.description "Wybierz tę opcję, jeśli strona nie zawiera ważnych treści, jest wyświetlana nieprawidłowo lub działa niepoprawnie. Możesz określić, czy Adblock Plus jest przyczyną problemu, wyłączając go chwilowo.">
+<!ENTITY typeSelector.other.label "&amp;Inny problem">
+<!ENTITY emailComment.label "Zachęcamy do podania prawidłowego adresu e-mail, abyśmy mogli skontaktować się z tobą w przypadku, gdy może to ułatwić rozwiązanie problemu. Pozwoli to również rozpoznać naszych współpracowników i nadać ich raportom wyższy priorytet.">
+<!ENTITY issues.whitelist.remove.label "Włącz ponownie Adblock Plusa na tej stronie">
+<!ENTITY outdatedSubscriptions.description "Od dwóch tygodni następujące zestawy filtrów nie były aktualizowane. Przed wysłaniem zgłoszenia zaktualizuj te zestawy. Być może rozwiąże to twój problem.">
+<!ENTITY dataCollector.description "Proszę poczekać kilka chwil, aż Adblock Plus zbierze wymagane dane.">
+<!ENTITY sendButton.label "&amp;Wyślij zgłoszenie">
+<!ENTITY comment.label "O&amp;bjaśnienia (opcjonalne):">
+<!ENTITY sendPage.errorMessage "Próba wysłania zgłoszenia nie powiodła się z powodu „?1?” Sprawdź połączenie z Internetem i ponów próbę. Jeśli problem będzie nadal występował, poproś o pomoc na [link]forum Adblock Plusa[/link].">
+<!ENTITY showRecentReports.label "Wyświetl ostatnio wysłane zgłoszenia">
+<!ENTITY commentPage.heading "Dodaj objaśnienie">
+<!ENTITY update.start.label "Aktualizuj teraz">
+<!ENTITY issues.disabledfilters.description "Następujące filtry są wyłączone, ale mogą oddziaływać na tę stronę:">
+<!ENTITY screenshot.description "Ta sama strona może wyglądać różnie dla różnych osób. Dołączenie zrzutu ekranu do zgłoszenia może pomóc nam w zrozumieniu problemu. Możesz usunąć miejsca, gdzie występują informacje poufne, jak również zaznaczyć obszary, gdzie problem jest zauważalny. W tym celu naciśnij odpowiedni przycisk i wybierz fragment obrazka za pomocą myszy.">
+<!ENTITY screenshot.attach.label "Dołącz obrazek &amp;strony do zgłoszenia">
+<!ENTITY issues.whitelist.description "Adblock Plus jest obecne wyłączony na zgłaszanej stronie. By ułatwić zbadanie tego problemu, przed jego zgłoszeniem włącz ponownie Adblock Plusa i odśwież stronę.">
+<!ENTITY typeSelector.falseNegative.label "Adblock Plus nie blokuje &amp;reklam">
+<!ENTITY typeSelector.heading "Wybierz typ problemu">
+<!ENTITY anonymity.warning "Nie będziemy w stanie się z tobą skontaktować, co może spowodować nadanie raportowi niższego priorytetu.">
+<!ENTITY wizard.title "Reporter problemów">
+<!ENTITY issues.ownfilters.disable.label "Wyłącz filtr">
+<!ENTITY commentPage.description "W poniższym polu tekstowym możesz podać objaśnienie, które pomoże nam zrozumieć problem. Jest to opcjonalne, ale zalecane, jeśli problem nie jest oczywisty. Możesz również sprawdzić dane zawarte w zgłoszeniu przed jego wysłaniem.">
+<!ENTITY comment.lengthWarning "Treść objaśnienia przekroczyła dopuszczalny limit 1000 znaków. Zostanie wysłane tylko pierwsze 1000 znaków.">
+<!ENTITY typeSelector.falseNegative.description "Wybierz tę opcję, jeśli reklama jest wyświetlana pomimo tego, że Adblock Plus jest włączony.">
+<!ENTITY sendPage.waitMessage "Wysyłanie zgłoszenia… Proszę czekać.">
+<!ENTITY dataCollector.heading "Witamy w reporterze problemów">
+<!ENTITY screenshot.heading "Dołącz zrzut ekranu">
+<!ENTITY sendPage.heading "Wyślij zgłoszenie">
+<!ENTITY issues.subscriptionCount.description "Wydaje się, że wybrano subskrypcje zbyt dużej liczby filtrów. Nie jest to zalecane, ponieważ zwiększy prawdopodobieństwo wystąpienia problemów. Jeśli w związku z tym wystąpią problemy, nie będziemy przyjmowali zgłoszeń tych problemów, ponieważ nie będziemy w stanie rozpoznać autora filtrów i powiadomić go, by podjął odpowiednie działania. Usuń wszystkie subskrybowane filtry i sprawdź czy problem nadal występuje.">
+<!ENTITY screenshot.mark.label "O&amp;znacz problem">
+<!ENTITY privacyPolicy.label "Zasady ochrony prywatności">
+<!ENTITY issues.description "Adblock Plus wykrył problemy z twoją konfiguracją, które mogą być odpowiedzialne za powstanie tego problemu lub mogą utrudniać jego zbadanie.">

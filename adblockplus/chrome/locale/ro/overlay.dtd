@@ -1,0 +1,29 @@
+<!ENTITY sync.label "Si&amp;ncronizează setările Adblock Plus">
+<!ENTITY whitelist.site.label "Dezactivează Adblock Plus pe ?1?">
+<!ENTITY filters.label "Pre&amp;ferințe filtre">
+<!ENTITY disable.label "Dezactivează peste tot">
+<!ENTITY showinaddonbar.label "Arată în bara cu &amp;extensii">
+<!ENTITY objecttab.title "Blochează">
+<!ENTITY objecttab.tooltip "Click aici pentru a bloca obiectul utilizând Adblock Plus">
+<!ENTITY menuitem.label "&amp;Adblock Plus">
+<!ENTITY objecttabs.label "Arată &amp;panouri lângă Flash şi Java">
+<!ENTITY sendReport.label "Rapor&amp;tează probleme pe această pagină">
+<!ENTITY whitelist.page.label "Dezactivează Adblock Plus doar pe pagina curentă">
+<!ENTITY context.image.label "Adblock Plus: blochează imagine">
+<!ENTITY counthits.label "Înre&amp;gistrează statisticile filtrelor">
+<!ENTITY opensidebar.label "Deschide &amp;lista elementelor blocabile">
+<!ENTITY contribute.label "Contribuie la Adblock Plus">
+<!ENTITY toolbarbutton.label "Adblock Plus">
+<!ENTITY context.frame.label "Adblock Plus: blochează cadru">
+<!ENTITY blocked.tooltip "Elemente blocate în pagină:">
+<!ENTITY hideplaceholders.label "Ascunde &amp;indicatoarele elementelor blocate">
+<!ENTITY showinstatusbar.label "Arată în bara de &amp;stare">
+<!ENTITY sidebar.title "Adblock Plus: elemente blocabile în pagină">
+<!ENTITY options.label "&amp;Opţiuni">
+<!ENTITY context.object.label "Adblock Plus: blochează obiect">
+<!ENTITY context.removeWhitelist.label "Adblock Plus: reactivează în pagina curentă">
+<!ENTITY filters.tooltip "Cele mai active filtre:">
+<!ENTITY closesidebar.label "Închide &amp;lista elementelor blocabile">
+<!ENTITY showintoolbar.label "Arată în bara de &amp;unelte">
+<!ENTITY status.tooltip "Stare:">
+<!ENTITY context.media.label "Adblock Plus: blochează audio/video">

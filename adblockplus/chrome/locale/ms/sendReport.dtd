@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "Undur (&amp;K)">
+<!ENTITY issues.disabledgroups.description "Langganan penapis/kumpulan penapis berikut telah dinyahaktifkan, tetapi ia mungkin masih membawa kesan pada laman ini:">
+<!ENTITY showData.label "Tunjuk data laporan">
+<!ENTITY typeSelector.falsePositive.label "Terlalu &amp;banyak disekat Adblock Plus">
+<!ENTITY issues.change.description "Konfigurasi anda telah diubah. Sila reload laman tersebut untuk menguji perubahan yang dilakukan dan hantar laporan jika isu tersebut masih tidak diselesaikan oleh perubahan yang dilakukan.">
+<!ENTITY email.label "&amp;E-mel:">
+<!ENTITY issues.openPreferences.label "Buka tatarajah penapis">
+<!ENTITY sendPage.confirmation "Laporan anda telah disimpan. Anda boleh mengaksesnya di alamat berikut:">
+<!ENTITY copyLink.label "&amp;Salin pautan laporan">
+<!ENTITY issues.nofilters.description "Adblock Plus tidak menyekat apa-apa pada laman semasa. Isu yang diperhatikan ini kemungkinan besar tidak berkaitan dengan Adblock Plus.">
+<!ENTITY sendPage.knownIssue "Isu yang dilaporkan kemungkinan telah dikenalpasti. Maklumat lanjut:">
+<!ENTITY typeSelector.other.description "Pilih pilihan ini jika anda mencurigai isu pada Adblock Plus sendiri dan bukan disebabkan langganan.">
+<!ENTITY issues.disabledgroups.enable.label "Aktifkan langganan penapis/kumpula penapis">
+<!ENTITY typeWarning.override.label "Saya &amp;faham dan ingin menghantar laporan juga">
+<!ENTITY issues.disabled.enable.label "Aktifkan Adblock Plus">
+<!ENTITY update.fixed.description "Langganan anda yang dikemaskini kemungkinan besar telahpun menyelesaikan masalah yang anda laporkan. Sila reload halaman tersebut dan cuba sekali lagi. Laporkan sekali lagi jika masalah tetap ada.">
+<!ENTITY anonymous.label "Penyerahan &amp;tanpa nama">
+<!ENTITY reloadButton.label "Reload laman (&amp;t)">
+<!ENTITY recentReports.clear.label "&amp;Padam semua laporan">
+<!ENTITY typeSelector.description "Tingkap ini akan membantu anda dengan langkah-langkah yang diperlukan untuk mengemukakan repot isu Adblock Plus. Pertama sekali, sila pilih jenis isu yang dialami pada laman ini:">
+<!ENTITY screenshot.remove.label "Pa&amp;dam data sensitif">
+<!ENTITY issues.ownfilters.description "Sebahagian penapis yang digunakan pada laman ini ditentukan pengguna. Sila nyahaktifkan penapis tersebut yang mungkin menyebabkan isu itu.">
+<!ENTITY update.inProgress.description "Adblock Plus perlu mengemaskini langganan penapis anda untuk memastikan isu tersebut belum diselesaikan. Sila tunggu&quot;...&quot;">
+<!ENTITY sendPage.retry.label "Hantar sekali lagi">
+<!ENTITY data.label "&amp;Lapor data">
+<!ENTITY recentReports.label "Laporan yang dihantar baru-baru ini oleh saya">
+<!ENTITY typeWarning.description "Anda didapati ingin melaporkan isu berkaitan Adblock Plus dan bukan masalah dengan penapis. Sila ambil perhatian bahawa isu sebegini paling bagus dilaporkan di [link]Adblock Plus[/link]. Anda patut hanya menggunakan pelapor isu untuk menambah info pada perbincangan yang sedia ada, kerana tiada siapa akan perasan laporan itu kecuali anda membekalkan mereka dengan pautannya. Pautan yang dihasilkan secara automatik akan dibekalkan selepas laporan dihantar.">
+<!ENTITY issues.disabled.description "Adblock Plus telah dinyahaktifkan, ia tidak akan menyekat apa-apa.">
+<!ENTITY attachExtensions.label "Lampirkan senarai e&amp;xtension aktif pada laporan untuk menentukan samada masalah disebabkan konflik add-on">
+<!ENTITY issues.nosubscriptions.add.label "Tambah langganan penapis">
+<!ENTITY issues.disabledfilters.enable.label "Aktifkan penapis">
+<!ENTITY issues.override.label "&amp;Konfigurasi adalah betul, sila teruskan dengan laporan">
+<!ENTITY issues.nosubscriptions.description "Anda didapati tidak melanggan mana-mana penapis yang direka khas untuk membuang isi yang tidak diperlukan pada laman web secara automatik.">
+<!ENTITY typeSelector.falsePositive.description "Pilih pilihan ini jika laman tersebut kekurangan isi penting, pemaparan isi yang kurang tepat atau gagal berfungsi dengan betul. Anda boleh menentukan samada Adblock Plus adalah penyebab masalah tersebut dengan menyahaktifkannya untuk sementara.">
+<!ENTITY typeSelector.other.label "&amp;Isu lain">
+<!ENTITY emailComment.label "Kami menggalakkan anda memasukkan alamat email yang sah supaya kami boleh menghubungi anda jika ada pertanyaan tentang laporan anda. Ia juga akan membolehkan kita untuk mengiktiraf sumbangan anda dan memberi keutamaan kepada mereka dengan lebih tinggi.">
+<!ENTITY issues.whitelist.remove.label "Aktifkan kembali Adblock Plus pada laman ini">
+<!ENTITY outdatedSubscriptions.description "Langganan penapis yang disenaraikan belum dikemaskini sekurang-kurangnya 2 minggu. Sila kemaskini langganan tersebut sebelum menghantar laporan, isu tersebut mungkin telahpun diselesaikan.">
+<!ENTITY dataCollector.description "Sila tunggu sebentar sementara Adblock Plus mengumpul data yang diperlukan.">
+<!ENTITY sendButton.label "&amp;Hantar laporan">
+<!ENTITY comment.label "K&amp;omen(optional)">
+<!ENTITY sendPage.errorMessage "Cubaan untuk menghantar laporan gagal dengan kod error &quot;?1?&quot;. Sila pastikan internet anda berfungsi dan cuba lagi. Jika masalah berterusan sila minta bantuan di [link]Adblock Plus forum[/link].">
+<!ENTITY showRecentReports.label "Paparkan laporan yang dihantar baru-baru ini">
+<!ENTITY commentPage.heading "Masukkan komen">
+<!ENTITY update.start.label "Mulakan kemaskini sekarang">
+<!ENTITY issues.disabledfilters.description "Penapis berikut telah dinyahaktifkan, tetapi ia mungkin masih membawa kesan pada laman ini:">
+<!ENTITY screenshot.description "Laman yang sama mungkin kelihatan berbeza untuk individu yang berbeza. Ia mungkin membantu kami memahami masalahnya jika screenshot dilampirkan bersama laporan anda. Anda boleh memadam bahagian-bahagian yang mengandungi info sensitif di samping menanda bahagian-bahagian di mana masalah itu jelas kelihatan. Untuk berbuat demikian klik butang berkaitan dan pilih sebahagian imej dengan tetikus anda.">
+<!ENTITY screenshot.attach.label "La&amp;mpir imej laman pada laporan">
+<!ENTITY issues.whitelist.description "Adblock Plus telah dinyahaktifkan pada laman yang anda ingin laporkan. Sila aktifkannya kembali dan reload laman tersebut sebelum menghantar laporan.">
+<!ENTITY typeSelector.falseNegative.label "Adbloc&amp;k Plus tidak menyekat iklan">
+<!ENTITY typeSelector.heading "Pilih jenis isu">
+<!ENTITY anonymity.warning "Kita tidak akan dapat kembali kepada anda dan mungkin akan mengutamakan laporan yang lebih rendah.">
+<!ENTITY wizard.title "Pelapor isu">
+<!ENTITY issues.ownfilters.disable.label "Nyahaktifkan penapis">
+<!ENTITY commentPage.description "Bahagian di bawah membenarkan anda memasukkan komen untuk membantu kami memahami isu tersebut. Langkah ini adalah optional tetapi disyorkan jika masalah tersebut tidak jelas. Anda juga boleh memeriksa data laporan sebelum menghantarnya.">
+<!ENTITY comment.lengthWarning "Panjang komen anda melebihi 1000 huruf. Hanya 1000 huruf pertama sahaja akan dihantar.">
+<!ENTITY typeSelector.falseNegative.description "Pilih pilihan ini jika iklan dipaparkan walaupun Adblock Plus telah diaktifkan.">
+<!ENTITY sendPage.waitMessage "Sila tunggu sementara Adblock Plus menghantar laporan anda.">
+<!ENTITY dataCollector.heading "Selamat datang ke pelapor isu">
+<!ENTITY screenshot.heading "Lampir screenshot">
+<!ENTITY sendPage.heading "Hantar laporan">
+<!ENTITY issues.subscriptionCount.description "Didapati anda melanggan terlalu banyak langganan penapis. Ini tidak disyorkan kerana ia mungkin akan mewujudkan masalah. Kami juga tidak dapat menerima laporan anda kerana ia kurang jelas penulis langganan penapis mana yang perlu mengambil tindakan. Sila buang semua langganan penapis kecuali yang diperlukan dan uji samada masalah masih berterusan.">
+<!ENTITY screenshot.mark.label "&amp;Tanda masalah tersebut">
+<!ENTITY privacyPolicy.label "Polisi maklumat peribadi">
+<!ENTITY issues.description "Adblock Plus telah mengesan isu pada konfigurasi anda yang mungkin penyebab isu ini atau akan menyukarkan penyiasatan laporan.">

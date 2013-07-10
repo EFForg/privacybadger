@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Πλαίσιο στοιχείου Flash">
+<!ENTITY address.label "Διεύθυνση">
+<!ENTITY context.open.label "Άνοιγμα σε νέα καρτέλα">
+<!ENTITY type.label "Τύπος">
+<!ENTITY tooltip.filterSource.label "Πηγή φίλτρου:">
+<!ENTITY noitems.label "Δεν υπάρχουν στοιχεία προς φιλτράρισμα">
+<!ENTITY filter.label "Φίλτρο">
+<!ENTITY tooltip.size.label "Μέγεθος:">
+<!ENTITY reattach.label "Προσάρτηση">
+<!ENTITY search.label "Ανα&amp;ζήτηση:">
+<!ENTITY docDomain.thirdParty "(τρίτων)">
+<!ENTITY filterSource.label "Πηγή φίλτρου">
+<!ENTITY tooltip.docDomain.label "Πηγή εγγράφου:">
+<!ENTITY context.copy.label "Αντιγραφή τοποθεσίας του στοιχείου">
+<!ENTITY tooltip.type.label "Τύπος:">
+<!ENTITY context.disablefilter.label "Απενεργοποίηση φίλτρου ?1?">
+<!ENTITY context.copyFilter.label "Αντιγραφή φίλτρου">
+<!ENTITY context.block.label "Φραγή του στοιχείου">
+<!ENTITY context.enablefilter.label "Ενεργοποίηση φίλτρου ?1?">
+<!ENTITY detach.label "Αποκόλληση">
+<!ENTITY whitelisted.label "Η σελίδα ανήκει στην άσπρη λίστα">
+<!ENTITY context.disablefilteronsite.label "Απενεργοποίηση του φίλτρου στο ?1?">
+<!ENTITY detached.title "Adblock Plus: Στοιχεία προς φραγή">
+<!ENTITY docDomain.firstParty "(πρωτεύον)">
+<!ENTITY tooltip.type.whitelisted "(στην άσπρη λίστα)">
+<!ENTITY tooltip.filter.label "Φίλτρο εν δράση:">
+<!ENTITY tooltip.filter.disabled "(απενεργοποιημένο)">
+<!ENTITY context.editfilter.label "Επεξεργασία του φίλτρου εν δράση">
+<!ENTITY tooltip.type.blocked "(φιλτραρισμένο)">
+<!ENTITY size.label "Μέγεθος">
+<!ENTITY context.whitelist.label "Προσθήκη κανόνα εξαίρεσης για το στοιχείο">
+<!ENTITY context.selectAll.label "Επιλογή όλων">
+<!ENTITY state.label "Κατάσταση">
+<!ENTITY docDomain.label "Πηγή εγγράφου">
+<!ENTITY tooltip.address.label "Διεύθυνση:">

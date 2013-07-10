@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "&amp;Visszavonás">
+<!ENTITY issues.disabledgroups.description "Az alábbi szűrő listák/csoportok le vannak tiltva, de hatással lehetnének az alábbi oldalra:">
+<!ENTITY showData.label "Jelentés adatainak megtekintése">
+<!ENTITY typeSelector.falsePositive.label "Az Adblock Plus &amp;túl sok mindent letilt">
+<!ENTITY issues.change.description "A konfiguráció megváltozott. Kérem töltse újra az oldalt és próbálja ki a változásokat és csak akkor küldje el a jelentést, ha a módosítások hatására nem szűnt meg a probléma.">
+<!ENTITY email.label "&amp;Email:">
+<!ENTITY issues.openPreferences.label "Szűrő beállítások megnyitása">
+<!ENTITY sendPage.confirmation "Az Ön jelentése el lett mentve. Az alábbi címen érheti el a későbbiekben:">
+<!ENTITY copyLink.label "Jelentés &amp;címének másolása">
+<!ENTITY issues.nofilters.description "Az Adblock Plus jelenleg nem blokkol semmit az aktuális oldalon. A tapasztalt hibajelenség valószínűleg nem köthető az Adblock Plus-hoz.">
+<!ENTITY sendPage.knownIssue "Az Ön által bejelentett hiba már ismert. További információk:">
+<!ENTITY typeSelector.other.description "Válassza ezt a lehetőséget, ha Ön szerint a probléma magával az Adblock Plus-szal van és nem a szűrőkkel.">
+<!ENTITY issues.disabledgroups.enable.label "Szűrő lista/csoport engedélyezése">
+<!ENTITY typeWarning.override.label "Megértettem é&amp;s így is szeretném elküldeni a jelentést">
+<!ENTITY issues.disabled.enable.label "Az Adblock Plus engedélyezése">
+<!ENTITY update.fixed.description "A szűrőlisták frissítése nagy valószínűséggel megoldja a bejelentett hibát. Kérem frissítse az oldalt és próbálja újra, csak akkor küldjön bejelentést, ha a probléma továbbra is fennáll.">
+<!ENTITY anonymous.label "Né&amp;vtelen beküldendő">
+<!ENTITY reloadButton.label "&amp;Oldal újratöltése">
+<!ENTITY recentReports.clear.label "Az összes &amp;jelentés eltávolítása">
+<!ENTITY typeSelector.description "Ez az ablak végigvezeti az Adblock Plus hiba bejelentési lépésein. Először kérem válassza ki a webhelyen jelentkező hiba jellegét:">
+<!ENTITY screenshot.remove.label "&amp;Kényes adatok eltávolítása">
+<!ENTITY issues.ownfilters.description "Ezen az oldalon néhány alkalmazott szűrőt a felhasználó definiált. Kérem tiltsa le az alábbi szűrők közül azokat, amelyeket a problémát okozhatták.">
+<!ENTITY update.inProgress.description "Az Adblock Plusnak frissítenie kell a szűrőlistákat, hogy megbizonyosodjon róla, hogy a probléma még mindig fennáll. Kérem várjon…">
+<!ENTITY sendPage.retry.label "Újraküldés">
+<!ENTITY data.label "Jelentés a&amp;datai:">
+<!ENTITY recentReports.label "Legutóbb beküldött jelentések">
+<!ENTITY typeWarning.description "Ön azt a lehetőséget választotta, hogy a hiba az Adblock Plus-szal van és nem a szűrőkkel. Kérem vegye figyelembe, hogy az ilyen hibákat célszerűbb az [link]Adblock Plus fórumon[/link] bejelenteni. Csak akkor használja így a hibajelentőt, ha egy meglévő szálhoz szeretne hozzátenni, és a jelentésben tüntesse fel a hozzá tartozó hivatkozást is. Az automatikusan generált hivatkozás a jelentés beküldése után áll majd rendelkezésre.">
+<!ENTITY issues.disabled.description "Az Adblock Plus le van tiltva, így nem tud semmit blokkolni.">
+<!ENTITY attachExtensions.label "Engedélyezett k&amp;iterjesztések listájának csatolása, arra az esetre, ha a kiterjesztések közti ütközésekből adódik a probléma">
+<!ENTITY issues.nosubscriptions.add.label "Feliratkozás szűrőre">
+<!ENTITY issues.disabledfilters.enable.label "Szűrő engedélyezése">
+<!ENTITY issues.override.label "A kon&amp;figuráció megfelelő, bejelentés folytatása">
+<!ENTITY issues.nosubscriptions.description "Úgy tűnik, hogy nincs feliratkozva egyetlen előre elkészített szűrőlistára sem, amellyel automatikusan eltávolíthatja a nem kívánt tartalmakat a webhelyekről.">
+<!ENTITY typeSelector.falsePositive.description "Válassza ezt a lehetőséget, ha a webhelyről hiányoznak lényeges tartalmak, rosszul jelenik meg, vagy hibásan működik. Úgy bizonyosodhat meg arról, hogy az Adblock Plus okozza a problémát, ha ideiglenesen letiltja azt.">
+<!ENTITY typeSelector.other.label "E&amp;gyéb">
+<!ENTITY emailComment.label "Javasoljuk, hogy érvényes e-mail címet adjon meg, így fel tudjuk venni Önnel a kapcsolatot, ha kérdés merül fel a jelentésével kapcsolatban. Ezzel azt is lehetővé teszi, hogy felismerjük az Ön hozzájárulásait, és azok magasabb prioritást kapjanak.">
+<!ENTITY issues.whitelist.remove.label "Adblock Plus újraengedélyezése az oldalon">
+<!ENTITY outdatedSubscriptions.description "Az alábbi szűrőlistákat legalább két hete nem frissítette. Kérem frissítse a listákat mielőtt jelentést küld róluk, lehetséges, hogy a probléma időközben megoldódott.">
+<!ENTITY dataCollector.description "Kérem várjon pár pillanatot, amíg az Adblock Plus összegyűjti a szükséges adatokat.">
+<!ENTITY sendButton.label "Jelentés &amp;küldése">
+<!ENTITY comment.label "&amp;Megjegyzés (nem kötelező):">
+<!ENTITY sendPage.errorMessage "A jelentés elküldése közben hiba történt, melynek kódja: &quot;?1?&quot;. Kérem ellenőrizze, hogy megfelelően csatlakozik-e az Internethez és próbálja újra. Ha a probléma nem szűnik meg, kérem kérjen segítséget az [link]Adblock Plus fórumon[/link].">
+<!ENTITY showRecentReports.label "Legutóbb beküldött jelentések">
+<!ENTITY commentPage.heading "Megjegyzés hozzáadása">
+<!ENTITY update.start.label "Frissítés most">
+<!ENTITY issues.disabledfilters.description "Az alábbi szűrők le vannak tiltva, de hatással lehetnének az oldalra:">
+<!ENTITY screenshot.description "Ugyanaz az oldal máshogy is kinézhet mások számítógépén. Segíthet a probléma megoldásában, ha csatol egy képernyőképet a jelentéshez. A képről eltávolíthatja a kényes információt tartalmazó részeket, valamint kiemelheti a problémás területeket. Ehhez nyomja meg a megfelelő gombot és jelölje ki az adott területet az egérrel.">
+<!ENTITY screenshot.attach.label "Oldal képének &amp;csatolása a jelentéshez">
+<!ENTITY issues.whitelist.description "Az Adblock Plus jelenleg le van tiltva az oldalon, amelyet be szeretne jelenteni. Kérem engedélyezze újra a bejelentés előtt, hogy több segédinformáció álljon rendelkezésre a hiba kivizsgálásánál.">
+<!ENTITY typeSelector.falseNegative.label "Az Adblock Plus nem tiltott le egy hi&amp;rdetést">
+<!ENTITY typeSelector.heading "Vállasszon típust">
+<!ENTITY anonymity.warning "Nem fogunk tudni kapcsolatba lépni Önnel, és valószínű, hogy a jelentése alacsonyabb prioritást kap.">
+<!ENTITY wizard.title "Hibajelentő">
+<!ENTITY issues.ownfilters.disable.label "Szűrő letiltása">
+<!ENTITY commentPage.description "Az alábbi szöveges mezőbe beírhat egy megjegyzést, ami segíthet megérteni a problémát. Ez a lépés kihagyható, de ajánlott, ha a probléma nem egyértelmű. A jelentés elküldése előtt még lesz lehetősége átnézni a megadott adatokat.">
+<!ENTITY comment.lengthWarning "A megjegyzés hossza meghaladja az 1000 karaktert. Csak az első 1000 karakter lesz elküldve.">
+<!ENTITY typeSelector.falseNegative.description "Válassza ezt a lehetőséget, ha hirdetések jelennek meg az oldalon annak ellenére, hogy az Adblock Plus engedélyezve van.">
+<!ENTITY sendPage.waitMessage "Kérem várjon, amíg az Adblock Plus elküldi a jelentését.">
+<!ENTITY dataCollector.heading "Üdvözli a hibajelentő">
+<!ENTITY screenshot.heading "Képernyőkép csatolása">
+<!ENTITY sendPage.heading "Jelentés küldése">
+<!ENTITY issues.subscriptionCount.description "Úgy tűnik, hogy túl sok szűrőre van feliratkozva. Ez azért nem ajánlott, mivel ilyenkor gyakrabban fordulnak elő problémák. Emiatt nem fogadhatjuk el a hiba bejelentését, mivel nem tisztázott, hogy melyik szűrő készítőjének kell továbbítani. Kérem távolítsa el azokat a szűrőket, amelyek nem feltétlenül szükségesek és próbálja meg újra előidézni a hibajelenséget.">
+<!ENTITY screenshot.mark.label "&amp;Problémás rész jelölése">
+<!ENTITY privacyPolicy.label "Adatvédelmi elvek">
+<!ENTITY issues.description "Az Adblock Plus konfigurációs problémákat észlelt, amelyek okozhatják a bejelentendő hibát vagy megnehezíthetik a bejelentés elküldését.">

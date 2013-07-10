@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Page load overhead measurement (no filters)</title>
+  <script type="application/x-javascript;version=1.7" src="../../httpd.js"></script>
+  <script type="application/x-javascript;version=1.7" src="common.js"></script>
+  <script type="application/x-javascript;version=1.7" src="../common.js"></script>
+</head>
+<body>
+  <p>
+    <input type="checkbox" id="enableABP" checked="checked" onclick="if (!this.disabled) document.getElementById('filters').disabled = !this.checked;">
+    <label for="enableABP">Enable Adblock Plus processing</label><br>
+    Filters to be used:<br>
+    <textarea id="filters" style="width: 100%; height: 300px;"></textarea><br>
+    <button id="startButton" onclick="start();">Click to start test</button>
+  </p>
+
+  <p id="progress" style="display: none;">Please wait while performance measurement is in progress... <span id="current"></span></p>
+
+  <pre id="result"></pre>
+
+  <script type="application/x-javascript;version=1.7">
+    Cu.import(baseURL.spec + "Utils.jsm");
+    Cu.import(baseURL.spec + "ContentPolicy.jsm");
+    var PolicyPrivate = Cu.import(baseURL.spec + "ContentPolicy.jsm", null).PolicyPrivate;
+
+    prepareFilterComponents();
+
+    let thread = Utils.threadManager.currentThread;
+    let server = new nsHttpServer();
+    server.registerContentType("jar", "application/java-archive");
+
+    {
+      // Register data directory as server root
+      let chromeRegistry = Cc["@mozilla.org/chrome/chrome-registry;1"].getService(Ci.nsIChromeRegistry);
+      let dataURL = Utils.ioService.newURI("data/", null, chromeRegistry.convertChromeURL(Utils.makeURI(location.href)));
+      server.registerDirectory("/", dataURL.QueryInterface(Ci.nsIFileURL).file);
+    }
+
+    window.addEventListener("unload", function()
+    {
+      Policy.startup();
+      server.stop();
+    }, false);
+
+    let urls = [];
+    for (let i = 1; i <= 5; i++)
+      urls.push("jar:http://127.0.0.1:1234/testpages.jar!/testpage" + i + ".html");
+    urls.push("about:blank");
+
+    window.onload = function()
+    {
+      let r = new XMLHttpRequest();
+      r.open("GET", "data/filters.txt", false);
+      r.overrideMimeType("text/plain");
+      r.send(null);
+      document.getElementById("filters").value = r.responseText;
+    }
+
+    function start()
+    {
+      document.getElementById("enableABP").disabled = true;
+      document.getElementById("filters").disabled = true;
+      document.getElementById("startButton").disabled = true;
+      document.getElementById("result").textContent = "";
+      document.getElementById("progress").style.display = "";
+
+      if (document.getElementById("enableABP").checked)
+      {
+        let filters = document.getElementById("filters").value.replace(/^[\r\n]+/, "")
+                                                              .replace(/[\r\n]+$/, "")
+                                                              .split(/[\r\n]+/)
+                                                              .map(function(text) Filter.fromText(text));
+        for each (let filter in filters)
+        {
+          if (filter instanceof RegExpFilter)
+            defaultMatcher.add(filter);
+          else if (filter instanceof ElemHideFilter)
+            ElemHide.add(filter);
+        }
+        ElemHide.apply();
+      }
+      else
+      {
+        for each (let category in PolicyPrivate.xpcom_categories)
+          Utils.categoryManager.deleteCategoryEntry(category, PolicyPrivate.classDescription, false);
+      }
+
+      server.start(1234);
+
+      runTests(runTest, null, finalize);
+    }
+
+    function runTest()
+    {
+      let frame = document.getElementById("frame");
+
+      let loaded;
+      let eventListener = function() {loaded = true;};
+      frame.addEventListener("load", eventListener, false);
+
+      for each (let url in urls)
+      {
+        loaded = false;
+        frame.src = url;
+        while (!loaded)
+          thread.processNextEvent(true);
+      }
+
+      frame.removeEventListener("load", eventListener, false);
+    }
+
+    function finalize()
+    {
+      defaultMatcher.clear();
+      ElemHide.clear();
+
+      server.stop();
+
+      for each (let category in PolicyPrivate.xpcom_categories)
+        Utils.categoryManager.addCategoryEntry(category, PolicyPrivate.classDescription, PolicyPrivate.contractID, false, true);
+
+      document.getElementById("progress").style.display = "none";
+      document.getElementById("enableABP").disabled = false;
+      document.getElementById("filters").disabled = !document.getElementById("enableABP").checked;
+      document.getElementById("startButton").disabled = false;
+    }
+  </script>
+
+  <iframe id="frame" src="about:blank" style="visibility: hidden"></iframe>
+
+</body>
+</html>

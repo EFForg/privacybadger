@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Доба&amp;вить подписку на список фильтров «?1?»">
+<!ENTITY list.download.failed "При скачивании списка подписок произошла ошибка.">
+<!ENTITY list.download.retry "Попробовать еще раз">
+<!ENTITY title.label "На&amp;звание подписки:">
+<!ENTITY list.download.website "Открыть страницу с подписками">
+<!ENTITY supplementMessage "Этот список фильтров должен использоваться в комбинации со списком фильтров «?1?», который вы не используете.">
+<!ENTITY viewList.label "Просмотреть фильтры">
+<!ENTITY visitHomepage.label "Посетить домашнюю страницу списка">
+<!ENTITY addSubscription.label "Добавить подписку">
+<!ENTITY dialog.title "Добавить подписку для Adblock Plus">
+<!ENTITY location.label "А&amp;дрес списка фильтров:">
+<!ENTITY fromWeb.description "Пожалуйста, подтвердите, что вы действительно хотите добавить подписку на этот список фильтров. Вы можете изменить название и адрес подписки перед добавлением.">

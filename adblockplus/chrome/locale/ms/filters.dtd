@@ -1,0 +1,73 @@
+<!ENTITY restore.custom.warning "Semua penapis khas anda akan digantikan dengan kandungan fail yang dipilih. Adakah anda pasti?">
+<!ENTITY slow.column "&amp;Lambatkan penapis">
+<!ENTITY enabled.column "&amp;Diaktifkan">
+<!ENTITY subscription.lastDownload.checksumMismatch "Gagal, checksum tidak sepadan">
+<!ENTITY noFiltersInGroup.text "Kumpulan yang dipilih adalah kosong.">
+<!ENTITY subscription.actions.label "Aksi-aksi">
+<!ENTITY filter.selectAll.label "Pilih Semua">
+<!ENTITY backupButton.label "Backup dan Re&amp;store">
+<!ENTITY restore.minVersion.warning "Amaran: fail ini dibuat menggunakan versi Adblock Plus terbaru. Anda harus mendapatkan versi Adblock Plus terbaru sebelum anda restore dari fail ini.">
+<!ENTITY restore.error "Data fail tidak dapat diprosese, mungkin ini bukan fail backup Adblock Plus?">
+<!ENTITY sort.ascending.label "Susun&amp;an A &gt; Z">
+<!ENTITY sort.label "Susun &amp;dengan">
+<!ENTITY subscription.source.label "Senarai penapis">
+<!ENTITY hitcount.column "&amp;Hit">
+<!ENTITY noFilters.text "Anda tiada penapis khas.">
+<!ENTITY backup.custom.title "Penapis khas sahaja">
+<!ENTITY subscription.external.label "Dikemaskini oleh extension lain">
+<!ENTITY subscription.delete.label "Buang">
+<!ENTITY noGroupSelected.text "Anda perlu memilih satu kumpulan penapis sebelum penapisnya dapat dipaparkan.">
+<!ENTITY filter.cut.label "Potong">
+<!ENTITY restore.default.label "Restore backup dari ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Memuat-turun...">
+<!ENTITY subscriptions.tab.label "Langganan penapis">
+<!ENTITY sort.descending.label "Susunan &amp;Z &gt; A">
+<!ENTITY filters.remove.warning "Adakah anda pasti mahu membuang semua penapis yang dipilih?">
+<!ENTITY filter.delete.label "Padam">
+<!ENTITY addSubscriptionAdd.label "Tambah">
+<!ENTITY viewMenu.label "Papar">
+<!ENTITY subscription.lastDownload.unknown "tiada maklumat">
+<!ENTITY addSubscriptionCancel.label "Batal">
+<!ENTITY subscription.enabled.label "Diaktifkan">
+<!ENTITY noSubscriptions.text "Anda belum menambah langganan penapis. Adblock Plus tidak akan menapis 
+ apa-apa tanpa penapis, sila guna &quot;Tambah langganan penapis&quot; untuk menambah.">
+<!ENTITY subscription.update.label "Kemaskini penapis">
+<!ENTITY dialog.title "Pilihan Penapis Adblock Plus">
+<!ENTITY addFilter.label "&amp;Tambah penapis">
+<!ENTITY subscription.minVersion.warning "Langganan penapis ini memerlukan versi Adblock Plus terbaru, anda perlu mendapatkan versi Adblock Plus terbaru.">
+<!ENTITY subscription.lastDownload.invalidURL "Gagal, bukan alamat yang sah">
+<!ENTITY backup.error "Terdapat ralat semasa menulis penapis pada fail. Sila pastikan fail tidak write protected atau digunakan oleh aplikasi lain.">
+<!ENTITY filter.moveUp.label "Pindah atas">
+<!ENTITY addGroup.label "Tambah &amp;kumpulan penapis">
+<!ENTITY filter.edit.label "Ubahsuai">
+<!ENTITY subscription.showHideFilters.label "Tunjuk/sembunyi penapis">
+<!ENTITY acceptableAds2.label "Benarkan iklan yan&amp;g tidak mengganggu">
+<!ENTITY addSubscriptionOther.label "Tambah langganan lain">
+<!ENTITY close.label "Tutup">
+<!ENTITY sort.none.label "&amp;Tidak disusun">
+<!ENTITY filter.actions.label "Aksi penapis">
+<!ENTITY filter.copy.label "Salin">
+<!ENTITY filter.moveDown.label "Pindah bawah">
+<!ENTITY filter.resetHitCounts.label "Reset statistik">
+<!ENTITY readMore.label "Baca lebih">
+<!ENTITY subscription.moveUp.label "Pindah ke atas">
+<!ENTITY addSubscription.label "Tambah &amp;langganan penapis">
+<!ENTITY subscription.homepage.label "Laman rumah">
+<!ENTITY backup.complete.title "Semua penapis dan langganan">
+<!ENTITY restore.own.label "Restore backup sendiri">
+<!ENTITY restore.complete.warning "Semua pilihan penapis anda akan digantikan dengan kandungan fail yang dipilih. Adakah anda pasti?">
+<!ENTITY filters.tab.label "Penapis khas">
+<!ENTITY backup.label "Buat backup baru">
+<!ENTITY find.label "&amp;Cari">
+<!ENTITY subscription.moveDown.label "Pindah ke bawah">
+<!ENTITY subscription.lastDownload.connectionError "Gagal, kegagalan memuat-turun">
+<!ENTITY subscription.lastDownload.success "Berjaya">
+<!ENTITY subscription.lastDownload.invalidData "Gagal, bukan senarai penapis yang sah">
+<!ENTITY filter.paste.label "Tampal">
+<!ENTITY subscription.disabledFilters.enable "Aktifkan penapis yang telah dinyaktifkan.">
+<!ENTITY lasthit.column "Hit t&amp;erakhir">
+<!ENTITY subscription.editTitle.label "Ubahsuai tajuk">
+<!ENTITY subscription.disabledFilters.warning "Sesetengah penapis dalam langganan ini telah dinyahaktifkan.">
+<!ENTITY filter.column "Pe&amp;raturan penapis">
+<!ENTITY subscription.lastDownload.label "Muat-turun terakhir:">
+<!ENTITY viewList.label "Lihat senarai">

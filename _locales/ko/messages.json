@@ -1,0 +1,107 @@
+{
+  "add": {
+    "message": "추가"
+  },
+  "add_domain_button": {
+    "message": "도메인 추가"
+  },
+  "add_filter_button": {
+    "message": "필터 추가"
+  },
+  "add_filters_msg": {
+    "message": "새 필터를 추가하시겠습니까?"
+  },
+  "add_your_own_filters": {
+    "message": "사용자 필터"
+  },
+  "apply_changes": {
+    "message": "적용"
+  },
+  "block_element": {
+    "message": "요소 숨김"
+  },
+  "cancel": {
+    "message": "취소"
+  },
+  "clickhide_instructions": {
+    "message": "이 팝업을 닫은 후 웹 페이지에서 HTML 요소를 클릭하십시오."
+  },
+  "disable_inline": {
+    "message": "인라인 텍스트 광고를 보지 않음"
+  },
+  "disabled_for_these_domains": {
+    "message": "다음 도메인에서는 광고를 차단하지 않습니다. 주소 표시줄의 애드블록 플러스 아이콘 또는 허용 도메인 탭에서 도메인을 입력한 후 \"도메인 추가\" 버튼을 누르십시오."
+  },
+  "easy_create_filter": {
+    "message": "광고 영역 숨기기"
+  },
+  "edit_filters_raw": {
+    "message": "필터 편집"
+  },
+  "enable_only_the": {
+    "message": "필요한 구독 필터만 추가하십시오. 구독 필터를 필요 이상으로 많이 추가하면 페이지의 로딩 속도가 느려질 수 있습니다."
+  },
+  "enabled_for_site": {
+    "message": "이 사이트에 필터 적용"
+  },
+  "filter_lists": {
+    "message": "구독 필터"
+  },
+  "found_a_bug": {
+    "message": "버그를 발견하셨습니까? 애드블록 플러스를 여러분의 언어로 번역하고 싶습니까? <a href='$url$'>연락하기</a>",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "일반"
+  },
+  "last_updated_at": {
+    "message": "$date$ $time$에 마지막으로 업데이트됨",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "오늘 $time$에 마지막으로 업데이트됨",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "새 필터가 추가되었습니다. 필터 관리 : <a id='options_url' target='_blank'>옵션</a>"
+  },
+  "options": {
+    "message": "Adblock Plus - 애드블록 플러스 옵션"
+  },
+  "out_of_date_lists": {
+    "message": "구독 필터는 주기적으로 자동 업데이트됩니다."
+  },
+  "remove_button": {
+    "message": "선택 항목 제거"
+  },
+  "show_block_element_menu": {
+    "message": "문맥 메뉴에 '요소 숨김' 항목 표시"
+  },
+  "show_icon": {
+    "message": "주소 표시줄에 아이콘 표시"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "구독할 필터를 선택하거나 이름/위치를 입력하십시오."
+  },
+  "update_now": {
+    "message": "지금 업데이트"
+  },
+  "whitelisted_domains": {
+    "message": "허용 도메인"
+  }
+}

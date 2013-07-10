@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Flash elemendi piirid">
+<!ENTITY address.label "Aadress">
+<!ENTITY context.open.label "Ava uuel kaardil">
+<!ENTITY type.label "Tüüp">
+<!ENTITY tooltip.filterSource.label "Filtri asukoht:">
+<!ENTITY noitems.label "Blokeeritavaid elemendid puuduvad">
+<!ENTITY filter.label "Filter">
+<!ENTITY tooltip.size.label "Suurus:">
+<!ENTITY reattach.label "Haagi tagasi">
+<!ENTITY search.label "Ot&amp;sing:">
+<!ENTITY docDomain.thirdParty "(väljaspoolt)">
+<!ENTITY filterSource.label "Filtri allikas">
+<!ENTITY tooltip.docDomain.label "Dokumendi allikas:">
+<!ENTITY context.copy.label "Kopeeri elemendi aadress">
+<!ENTITY tooltip.type.label "Tüüp:">
+<!ENTITY context.disablefilter.label "Keela filter ?1?">
+<!ENTITY context.copyFilter.label "Kopeeri filter">
+<!ENTITY context.block.label "Blokeeri see element">
+<!ENTITY context.enablefilter.label "Luba taas filter ?1?">
+<!ENTITY detach.label "Haagi lahti">
+<!ENTITY whitelisted.label "Lehekülg on valges nimekirjas">
+<!ENTITY context.disablefilteronsite.label "Keela see filter domeenis ?1?">
+<!ENTITY detached.title "Adblock Plus: Blokeeritavad elemendid (lahti haagitud)">
+<!ENTITY docDomain.firstParty "(põhileht)">
+<!ENTITY tooltip.type.whitelisted "(valges nimekirjas)">
+<!ENTITY tooltip.filter.label "Kehtiv filter:">
+<!ENTITY tooltip.filter.disabled "(keelatud)">
+<!ENTITY context.editfilter.label "Muuda kehtivat filtrit">
+<!ENTITY tooltip.type.blocked "(blokeeritud)">
+<!ENTITY size.label "Suurus">
+<!ENTITY context.whitelist.label "Lisa antud elemendile erandi reegel">
+<!ENTITY context.selectAll.label "Vali kõik">
+<!ENTITY state.label "Olek">
+<!ENTITY docDomain.label "Dokumendi allikas">
+<!ENTITY tooltip.address.label "Aadress:">

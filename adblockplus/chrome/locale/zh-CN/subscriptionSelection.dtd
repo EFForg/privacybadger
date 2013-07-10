@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "同时添加过滤规则订阅组 “?1?” (&amp;s)">
+<!ENTITY list.download.failed "获取订阅组的过滤规则列表失败。">
+<!ENTITY list.download.retry "重试">
+<!ENTITY title.label "订阅组的标题: (&amp;t)">
+<!ENTITY list.download.website "查看站点">
+<!ENTITY supplementMessage "该过滤规则订阅组意味着该订阅组将与您未添加的订阅组 “?1?” 一起使用。">
+<!ENTITY viewList.label "查看过滤规则">
+<!ENTITY visitHomepage.label "查看主页">
+<!ENTITY addSubscription.label "添加订阅组">
+<!ENTITY dialog.title "添加 Adblock Plus 过滤规则订阅组">
+<!ENTITY location.label "过滤规则列表位置: (&amp;l)">
+<!ENTITY fromWeb.description "请确认您希望添加该过滤规则订阅组。在添加之前，您可以更改订阅标题或位置。">

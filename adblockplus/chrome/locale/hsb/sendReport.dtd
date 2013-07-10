@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "&amp;Cofnyć">
+<!ENTITY issues.disabledgroups.description "Slědowace filtrowe abonementy/filtrowe skupiny su znjemóžnjene, najebać toho móhli wuskutk na tutu stronu měć:">
+<!ENTITY showData.label "Daty zdźělenki pokazać">
+<!ENTITY typeSelector.falsePositive.label "Adblock Plus pře&amp;wjele blokuje">
+<!ENTITY issues.change.description "Waša konfiguracija je so změniła. Prošu začitajće stronu znowa, zo byšće změny testował a wotpósćelće zdźělenje, jeli problem njeje so přez změny rozrisał.">
+<!ENTITY email.label "E-&amp;mejl:">
+<!ENTITY issues.openPreferences.label "Filtrowe nastajenja wočinić">
+<!ENTITY sendPage.confirmation "Waša zdźělenka je so składowała. Móžeš pod slědowacej adresu na njo přistup měć:">
+<!ENTITY copyLink.label "&amp;Wotkaz zdźělenki kopěrować">
+<!ENTITY issues.nofilters.description "Adblock Plus na aktualnej stronje ničo njeblokuje. Problem, kotryž sće zwěsćił, najskerje z Adblock Plus činić nima.">
+<!ENTITY sendPage.knownIssue "Problem, kotryž sće zdźělił, je hižo znaty. Dalše informacije:">
+<!ENTITY typeSelector.other.description "Wubjerće tutu opciju, jeli skerje na problem z Adblock Plus samym hač z jeho filtrami tukaće.">
+<!ENTITY issues.disabledgroups.enable.label "Filtrowy abonement/filtrowu skupinu zmóžnić">
+<!ENTITY typeWarning.override.label "Ro&amp;zumju a chcu zdźělenje najebać toho pósłać">
+<!ENTITY issues.disabled.enable.label "Adblock Plus zmóžnić">
+<!ENTITY update.fixed.description "Aktualizacije za waše filtrowe abonementy su najskerje problem rozrisali, kotryž sće zdźělił. Prošu začitajće stronu znowa, spytajće hišće raz a klikńće zaso na 'Hišće raz pósłać', jeli problem hišće wobsteji.">
+<!ENTITY anonymous.label "&amp;Anonymne słanje">
+<!ENTITY reloadButton.label "&amp;Stronu znowa začitać">
+<!ENTITY recentReports.clear.label "Wšě &amp;zdźělenki wotstronić">
+<!ENTITY typeSelector.description "Tute wokno budźe wam přez kroki wjesć, kotrež su trěbne za słanje wopisanja problemow Adblock Plus. Wubjerće prošu najprjedy družinu problema, na kotryž sće na tutej stronje storčił:">
+<!ENTITY screenshot.remove.label "&amp;Dowěrne daty wotstronić">
+<!ENTITY issues.ownfilters.description "Někotre filtry, kotrež so na tutu stronu nałožuja, su wot wužiwarja definowane. Prošu znjemóžńće filtry, kotrež móhli problem zawinować:">
+<!ENTITY update.inProgress.description "Adblock Plus dyrbi waše filtrowe abonementy aktualizować, zo by zawěsćił, zo problem njeje so hišće rozrisał. Prošu čakajće...">
+<!ENTITY sendPage.retry.label "Hišće raz pósłać">
+<!ENTITY data.label "Da&amp;ty zdźělenki:">
+<!ENTITY recentReports.label "Waše njedawno pósłane zdźělenki">
+<!ENTITY typeWarning.description "Sće podał, zo maće skerje powšitkowny problem z Adblock Plus hač problem z filtrami. Prošu dźiwajće na to, zo tajke problemy měli so najlěpje w [link]forumje Adblock Plus[/link] zdźělić. Wy měł jenož problemowy rozuprawnik wužiwać, zo byšće eksistowacu diskusiju wudospołnił, dokelž nichtó waše zdźělenje k wědomje njewozmje, chibazo byšće wotkaz na njo dodał. Awtomatisce wutworjeny wotkaz so po słanju zdźělenja doda.">
+<!ENTITY issues.disabled.description "Adblock Plus je znjemóžnjeny, w jeho tuchwilnym stawje ničo njeblokuje.">
+<!ENTITY attachExtensions.label "Lisćinu aktiwnych &amp;rozšěrjenjow k zdźělence připowěsnyć, jeli konflikt z rozšěrjenjom je přičina problema">
+<!ENTITY issues.nosubscriptions.add.label "Filtrowy abonement přidać">
+<!ENTITY issues.disabledfilters.enable.label "Filter zmóžnić">
+<!ENTITY issues.override.label "&amp;Konfiguracija je korektna, ze zdźělenjom pokročować">
+<!ENTITY issues.nosubscriptions.description "Zda so, zo njejśce žane hotowe lisćiny filtrow abonował, kotrež njewitany wobsah z websydło awtomatisce wotstronjeja.">
+<!ENTITY typeSelector.falsePositive.description "Wubjerće tutu opciju, jeli stronje wažny wobsah faluje, so strona wopak zwobraznja abo porjadnje njefunguje. Móžeće zwěsćić, hač Adblock Plus je wina na tutym problemje, hdyž jón nachwilu znjemóžnjeće.">
+<!ENTITY typeSelector.other.label "Dr&amp;uhi problem">
+<!ENTITY emailComment.label "Poručamy was, płaćiwu e-mejlowu adresu zapodać, zo bychmy móhli z wami do zwiska stajić, jeli su prašenja wo wašej rozprawje. Budźe nam tež zmóžnić, waše přinoški připóznać a jim wyšu prioritu dać.">
+<!ENTITY issues.whitelist.remove.label "Adblock Plus na tutej stronje zaso zmóžnić">
+<!ENTITY outdatedSubscriptions.description "Slědowace filtrowe abonementy njejsu so wot znajmjeńša dweju njedźelow zaktualizowali. Prošu zaktualizujće tute abonementy, prjedy hač pósćeleš zdźělenku. Problem móhł potom hižo rozrisany być.">
+<!ENTITY dataCollector.description "Prošu počakńće, mjeztym zo Adblock Plus trěbne daty hromadźi.">
+<!ENTITY sendButton.label "Zdźě&amp;lenku pósłać">
+<!ENTITY comment.label "&amp;Komentar (opcionalny):">
+<!ENTITY sendPage.errorMessage "Pospyt, zdźělenku pósłać, je so ze zmylkowym kodom &quot;?1?&quot; njeporadźił. Prošu zawěsćće, zo sće z internetom zwjazany a spytajće hišće raz. Jeli problem dale eksistuje, poprošće prošu w [link]forumje Adblock Plus[/link] wo pomoc.">
+<!ENTITY showRecentReports.label "Njedawno pósłane zdźělenki">
+<!ENTITY commentPage.heading "Komentar zapodać">
+<!ENTITY update.start.label "Aktualizaciju nětko startować">
+<!ENTITY issues.disabledfilters.description "Slědowace filtry su znjemóžnjene, najebać toho móhli wuskutk na tutu stronu měć:">
+<!ENTITY screenshot.description "Samsna strona móže rozdźělnje za rozdźělnych ludźi wupadać. Móže nam pomhać, problem rozumić, jeli k wašej zdźělence foto wobrazowki připowěsnjeće. Móžeće wotrězki wotstronić, kotrež sensibelne informacije wobsahuje kaž tež wobłuki markěrować, hdźež so problem pokazuje. Zo byšće to činił, klikńće na wotpowědne tłóčatko a wubjerće wotrězk wobraza ze swojej myšu.">
+<!ENTITY screenshot.attach.label "Wo&amp;braz strony k zdźělence připowěsnyć">
+<!ENTITY issues.whitelist.description "Adblock Plus je tuchwilu na stronje, wo kotrejž rozprawjeće, znjemóžnjeny. Prošu zmóžńće jón znowa a začitajće stronu, prjedy hač zdźělenku wotpósćeleće, zo byšće analyzowanje tutoho problema podpěrał.">
+<!ENTITY typeSelector.falseNegative.label "Ad&amp;block Plus wabjenje njeblokuje">
+<!ENTITY typeSelector.heading "Problemowy typ wubrać">
+<!ENTITY anonymity.warning "Njemóžemy so zaso na was wobroćić a damy najskerje wašej rozprawje nisku prioritu.">
+<!ENTITY wizard.title "Problemowy rozprawnik">
+<!ENTITY issues.ownfilters.disable.label "Filter znjemóžnić">
+<!ENTITY commentPage.description "Tekstowe polo deleka zmóžnja wam, komentar zapodać, zo byšće nam pomhał, problem rozumić. Tutón krok je opcionalny, ale poruča so, jeli problem wočiwidny njeje. Móžeće tež daty zdźělenki přepruwować, prjedy hač so sćele.">
+<!ENTITY comment.lengthWarning "Dołhosć wašeho komentar překročuje 1000 znamješkow. Jenož prěnje 1000 znamješkow budu so słać.">
+<!ENTITY typeSelector.falseNegative.description "Wubjerće tutu opciju, jeli wabjenje so zwobraznjuje, hačrunjež Adblock Plus je zmóžnjeny.">
+<!ENTITY sendPage.waitMessage "Prošu počakńće, doniž Adblock Plus wašu zdźělenku njewotesyła.">
+<!ENTITY dataCollector.heading "Witajće do problemoweho rozprawnika">
+<!ENTITY screenshot.heading "Foto wobrazowki připowěsnyć">
+<!ENTITY sendPage.heading "Zdźělenku pósłać">
+<!ENTITY issues.subscriptionCount.description "Zda so, zo sće přewjele filtrowych abonementow abonował. Tute nastajenje so njeporuča, dokelž prawdźepodobnosć problemow jara zwyši. Ani njemóžemy waš problemowe wopisanje akceptować, dokelž je njejasnje, kotry awtor filtroweho abonementa ma jednać. Prošu wotstrońće wšě nimo woprawdźe trěbnych filtrowych abonementow a testujće, hač problem dale wustupuje.">
+<!ENTITY screenshot.mark.label "&amp;Problem markěrować">
+<!ENTITY privacyPolicy.label "Prawidła priwatnosće">
+<!ENTITY issues.description "Adblock Plus je problemy z wašej konfiguraciju wotkrył, kotrež móhli na tutón problem wina być abo analyzowanje problema poćežuja.">

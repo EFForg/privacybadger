@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://global/skin/wizard.css" type="text/css"?>
+<?xml-stylesheet href="chrome://adblockplus/skin/sendReport.css" type="text/css"?>
+
+<?xul-overlay href="progressBar.xul"?>
+
+<!DOCTYPE dialog [
+<!ENTITY % reporterDTD SYSTEM "chrome://adblockplus/locale/sendReport.dtd">
+%reporterDTD;
+<!ENTITY % filtersDTD SYSTEM "chrome://adblockplus/locale/filters.dtd">
+%filtersDTD;
+]>
+
+<wizard
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  title="&wizard.title;"
+  id="abpSendReportWizard"
+  onload="initWizard();"
+  width="800"
+  height="550"
+  sendbuttonlabel="&sendButton.label;"
+  windowtype="abp:sendReport">
+
+<script type="application/x-javascript;version=1.7" src="utils.js"/>
+<script type="application/x-javascript;version=1.7" src="sendReport.js"/>
+
+<keyset id="wizardKeys">
+  <key id="undoKey" modifiers="accel" key="Z" oncommand="if (document.documentElement.currentPage.id == 'screenshotPage') screenshotDataSource.undo();"/>
+</keyset>
+
+<box hidden="true">
+  <vbox id="wizardHeader" class="wizard-header">
+    <deck id="wizardHeaderDeck">
+      <description id="wizardHeaderLabel" class="wizard-header-label"/>
+      <hbox id="progressBar">
+        <label id="typeSelectorHeader" class="progressLabel" value="&typeSelector.heading;" crop="end"/>
+        <label id="screenshotHeader" class="progressLabel" value="&screenshot.heading;" crop="end"/>
+        <label id="commentPageHeader" class="progressLabel" value="&commentPage.heading;" crop="end"/>
+        <label id="sendPageHeader" class="progressLabel" value="&sendPage.heading;" crop="end"/>
+      </hbox>
+    </deck>
+  </vbox>
+
+  <label id="privacyLink" class="text-link" value="&privacyPolicy.label;" onclick="UI.loadDocLink('reporter_privacy');"/>
+</box>
+
+<wizardpage id="dataCollectorPage" pageid="dataCollector" next="typeSelector" label="&dataCollector.heading;" onpageshow="initDataCollectorPage();">
+  <description>&dataCollector.description;</description>
+
+  <progressmeter id="dataCollectorProgress" mode="undetermined"/>
+</wizardpage>
+
+<wizardpage id="typeSelectorPage" pageid="typeSelector" next="screenshot" label="&typeSelector.heading;" onpageshow="initTypeSelectorPage();">
+  <description>&typeSelector.description;</description>
+
+  <radiogroup id="typeGroup" oncommand="typeSelectionUpdated();">
+    <radio id="typeFalsePositive" value="false positive" label="&typeSelector.falsePositive.label;"/>
+    <description class="radioDescription">&typeSelector.falsePositive.description;</description>
+    <radio id="typeFalseNegative" value="false negative" label="&typeSelector.falseNegative.label;"/>
+    <description class="radioDescription">&typeSelector.falseNegative.description;</description>
+    <radio id="typeOther" value="other" label="&typeSelector.other.label;"/>
+    <description class="radioDescription">&typeSelector.other.description;</description>
+  </radiogroup>
+
+  <deck id="recentReports" currentIndex="0" flex="1">
+    <vbox pack="end">
+      <label class="text-link" value="&showRecentReports.label;" onclick="E('recentReports').selectedIndex = 1;"/>
+    </vbox>
+    <groupbox flex="1">
+      <caption label="&recentReports.label;"/>
+      <grid flex="1" id="recentReportsList">
+        <columns>
+          <column flex="2"/>
+          <column flex="1"/>
+          <column/>
+        </columns>
+        <rows id="recentReportsRows" onclick="reportsListDataSource.handleClick(event);"/>
+      </grid>
+
+      <hbox pack="start">
+        <button label="&recentReports.clear.label;" oncommand="reportsListDataSource.clear();"/>
+      </hbox>
+    </groupbox>
+  </deck>
+</wizardpage>
+
+<wizardpage id="updatePage" pageid="update" next="screenshot" onpageshow="subscriptionUpdateDataSource.showPage();" reloadButtonLabel="&reloadButton.label;">
+  <vbox id="updateInProgress">
+    <description>&update.inProgress.description;</description>
+    <progressmeter mode="undetermined"/>
+  </vbox>
+
+  <description id="updateFixedIssue" hidden="true">&update.fixed.description;</description>
+
+  <vbox id="outdatedSubscriptions">
+    <description>&outdatedSubscriptions.description;</description>
+
+    <description id="outdatedSubscriptionTemplate" class="text-link" onclick="UI.loadInBrowser(this.getAttribute('_url'));"/>
+
+    <vbox id="outdatedSubscriptionsList"/>
+
+    <hbox>
+      <button label="&update.start.label;" oncommand="subscriptionUpdateDataSource.updateOutdated();window.close();"/>
+      <button label="&issues.openPreferences.label;" oncommand="UI.openFiltersDialog();window.close();"/>
+    </hbox>
+  </vbox>
+</wizardpage>
+
+<wizardpage id="issuesPage" pageid="issues" next="screenshot" onpageshow="initIssuesPage();" reloadButtonLabel="&reloadButton.label;">
+  <description>&issues.description;</description>
+
+  <vbox id="issuesBox" flex="1">
+    <groupbox id="issuesWhitelistBox" hidden="true">
+      <description>&issues.whitelist.description;</description>
+      <hbox pack="end">
+        <button label="&issues.whitelist.remove.label;" oncommand="issuesDataSource.removeWhitelist();"/>
+      </hbox>
+    </groupbox>
+    <groupbox id="issuesDisabledBox" hidden="true">
+      <description>&issues.disabled.description;</description>
+      <hbox pack="end">
+        <button label="&issues.disabled.enable.label;" oncommand="issuesDataSource.enable();"/>
+      </hbox>
+    </groupbox>
+    <groupbox id="issuesNoFiltersBox" hidden="true">
+      <description>&issues.nofilters.description;</description>
+    </groupbox>
+    <groupbox id="issuesNoSubscriptionsBox" hidden="true">
+      <description>&issues.nosubscriptions.description;</description>
+      <hbox pack="end">
+        <button label="&issues.nosubscriptions.add.label;" oncommand="issuesDataSource.addSubscription();"/>
+      </hbox>
+    </groupbox>
+    <groupbox id="issuesSubscriptionCountBox" hidden="true">
+      <description>&issues.subscriptionCount.description;</description>
+      <hbox pack="end">
+        <button label="&issues.openPreferences.label;" oncommand="UI.openFiltersDialog();window.close();"/>
+      </hbox>
+    </groupbox>
+    <groupbox id="issuesOwnFiltersBox" hidden="true">
+      <description>&issues.ownfilters.description;</description>
+      <hbox id="issuesOwnFiltersTemplate" align="center" hidden="true">
+        <description flex="1" crop="end"/>
+        <button label="&issues.ownfilters.disable.label;" oncommand="issuesDataSource.disableFilter(this.parentNode);"/>
+      </hbox>
+      <vbox id="issuesOwnFilters"/>
+    </groupbox>
+    <groupbox id="issuesDisabledSubscriptionsBox" hidden="true">
+      <description>&issues.disabledgroups.description;</description>
+      <hbox id="issuesDisabledSubscriptionsTemplate" align="center" hidden="true">
+        <description flex="1" crop="end"/>
+        <button label="&issues.disabledgroups.enable.label;" oncommand="issuesDataSource.enableSubscription(this.parentNode);"/>
+      </hbox>
+      <vbox id="issuesDisabledSubscriptions"/>
+    </groupbox>
+    <groupbox id="issuesDisabledFiltersBox" hidden="true">
+      <description>&issues.disabledfilters.description;</description>
+      <hbox id="issuesDisabledFiltersTemplate" align="center" hidden="true">
+        <description flex="1" crop="end"/>
+        <button label="&issues.disabledfilters.enable.label;" oncommand="issuesDataSource.enableFilter(this.parentNode);"/>
+      </hbox>
+      <vbox id="issuesDisabledFilters"/>
+    </groupbox>
+  </vbox>
+
+  <checkbox id="issuesOverride" label="&issues.override.label;" oncommand="updateIssuesOverride();"/>
+  <description id="issuesChangeMessage" hidden="true">&issues.change.description;</description>
+</wizardpage>
+
+<wizardpage id="typeWarningPage" pageid="typeWarning" next="screenshot" onpageshow="initTypeWarningPage();">
+  <description id="typeWarningText">
+    &typeWarning.description;
+    <label id="typeWarningTextLink" class="text-link" onclick="UI.loadDocLink('reporter_other_link');"/>
+  </description>
+
+  <checkbox id="typeWarningOverride" label="&typeWarning.override.label;" oncommand="updateTypeWarningOverride();"/>
+</wizardpage>
+
+<wizardpage id="screenshotPage" pageid="screenshot" next="comment" label="&screenshot.heading;" onpageshow="initScreenshotPage();">
+  <description>&screenshot.description;</description>
+
+  <checkbox id="screenshotCheckbox" checked="true" label="&screenshot.attach.label;" oncommand="screenshotDataSource.enabled = this.checked;"/>
+  <hbox id="screenshotButtons" pack="end">
+    <button id="screenshotMarkButton" type="radio" group="selectionType" oncommand="screenshotDataSource.selectionType = 'mark';" checked="true" label="&screenshot.mark.label;"/>
+    <button id="screenshotRemoveButton" type="radio" group="selectionType" oncommand="screenshotDataSource.selectionType = 'remove';" label="&screenshot.remove.label;"/>
+    <button id="screenshotUndoButton" oncommand="screenshotDataSource.undo();" disabled="true" label="&screenshot.undo.label;"/>
+  </hbox>
+  <vbox id="screenshotBox" flex="1">
+    <canvas xmlns="http://www.w3.org/1999/xhtml" id="screenshotCanvas" onmousedown="screenshotDataSource.startSelection(event);" onmouseup="screenshotDataSource.stopSelection(event);" onmouseout="screenshotDataSource.stopSelection(event);" onmousemove="screenshotDataSource.updateSelection(event);"/>
+  </vbox>
+</wizardpage>
+
+<wizardpage id="commentPage" pageid="comment" next="send" label="&commentPage.heading;" onpageshow="initCommentPage();">
+  <description>&emailComment.label;</description>
+  <hbox class="topLabel" align="baseline">
+    <label id="emailLabel" control="email" value="&email.label;"/>
+    <textbox id="email" persist="value" flex="1" maxlength="200" oninput="updateEmail();"/>
+  </hbox>
+  <checkbox id="anonymousCheckbox" label="&anonymous.label;" oncommand="updateEmail();"/>
+  <description id="anonymityWarning" visible="false">&anonymity.warning;</description>
+
+  <description class="topLabel">&commentPage.description;</description>
+  <label class="topLabel" control="comment" value="&comment.label;"/>
+  <textbox id="comment" multiline="true" flex="1" oninput="updateComment();"/>
+  <description id="commentLengthWarning" visible="false">&comment.lengthWarning;</description>
+
+  <checkbox id="extensionsCheckbox" label="&attachExtensions.label;" oncommand="updateExtensions(this.checked);"/>
+
+  <deck id="dataDeck" selectedIndex="0" flex="2">
+    <vbox pack="start">
+      <label class="text-link" value="&showData.label;" onclick="showDataField();"/>
+    </vbox>
+    <vbox>
+      <label control="data" value="&data.label;"/>
+      <textbox id="data" readonly="true" multiline="true" wrap="off" flex="1"/>
+    </vbox>
+  </deck>
+</wizardpage>
+
+<wizardpage id="sendPage" pageid="send" label="&sendPage.heading;" onpageshow="initSendPage();">
+  <description id="sendReportMessage">&sendPage.waitMessage;</description>
+
+  <vbox id="sendReportErrorBox" align="end" hidden="true">
+    <description id="sendReportError" textTemplate="&sendPage.errorMessage;" defaultError="&subscription.lastDownload.connectionError;">
+      <label id="sendReportErrorLinks" class="text-link" onclick="UI.loadDocLink('reporter_connect_issue');"/>
+    </description>
+    <button id="sendRetryButton" label="&sendPage.retry.label;" oncommand="initSendPage();"/>
+  </vbox>
+
+  <progressmeter id="sendReportProgress" mode="undetermined"/>
+
+  <iframe id="result" type="content" flex="1" hidden="true" onclick="processLinkClick(event);"
+          confirmationMessage="&sendPage.confirmation;" knownIssueMessage="&sendPage.knownIssue;"/>
+
+  <hbox id="copyLinkBox" pack="end" hidden="true">
+    <button id="copyLink" disabled="true" label="&copyLink.label;" oncommand="copyLink(this.getAttribute('url'));"/>
+  </hbox>
+</wizardpage>
+
+</wizard>

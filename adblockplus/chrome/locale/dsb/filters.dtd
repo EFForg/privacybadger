@@ -1,0 +1,72 @@
+<!ENTITY restore.custom.warning "Wšykne waše swójske filtry budu se pśez wopśimjeśe wubraneje dataje narownowaś. Cośo dalej cyniś?">
+<!ENTITY slow.column "&amp;Pómałe filtry">
+<!ENTITY enabled.column "Z&amp;móžnjony">
+<!ENTITY subscription.lastDownload.checksumMismatch "Njeraźiło, wopacna kontrolna suma">
+<!ENTITY noFiltersInGroup.text "Wubrana kupka jo prozna.">
+<!ENTITY subscription.actions.label "Akcije">
+<!ENTITY filter.selectAll.label "Wšykno wubraś">
+<!ENTITY backupButton.label "&amp;Zawěsćiś a wótnowiś">
+<!ENTITY restore.minVersion.warning "Warnowanje: Dataja jo se pśez nowšu wersiju Adblock Plus napórała. Wy by měł na nejnowšu wersiju Adblock Plus aktualizěrowaś, nježli až wótnowijośo toś tu dataju.">
+<!ENTITY restore.error "Daty dataje njedaju se pśeźěłaś, jo móžno, až wóna njejo zawěsćeńska dataja Adblock Plus?">
+<!ENTITY sort.ascending.label "Sortěrow&amp;ański pórěd A &gt; Z">
+<!ENTITY sort.label "&amp;Sortěrowaś pó">
+<!ENTITY subscription.source.label "Filtrowa lisćina">
+<!ENTITY hitcount.column "&amp;Trjefarje">
+<!ENTITY noFilters.text "Njejsćo žedne swójske filtry.">
+<!ENTITY backup.custom.title "Jano swójske filtry">
+<!ENTITY subscription.external.label "Pśez druge rozšyrjenje aktualizěrowany">
+<!ENTITY subscription.delete.label "Lašowaś">
+<!ENTITY noGroupSelected.text "Musyśo filtrowu kupku wubraś, nježli až jeje filtry daju se pokazaś.">
+<!ENTITY filter.cut.label "Wurězaś">
+<!ENTITY restore.default.label "Zawěsćeńsku kopiju z ?1? wótnowiś">
+<!ENTITY subscription.lastDownload.inProgress "Ześěgujo se...">
+<!ENTITY subscriptions.tab.label "Filtrowe abonementy">
+<!ENTITY sort.descending.label "Sortěrowański pórěd &amp;Z &gt; A">
+<!ENTITY filters.remove.warning "Cośo napšawdu wšykne wubrane filtry wótpóraś?">
+<!ENTITY filter.delete.label "Lašowaś">
+<!ENTITY addSubscriptionAdd.label "Pśidaś">
+<!ENTITY viewMenu.label "Naglěd">
+<!ENTITY subscription.lastDownload.unknown "Njejo nic k dispoziciji">
+<!ENTITY addSubscriptionCancel.label "Pśetergnuś">
+<!ENTITY subscription.enabled.label "Zmóžnjony">
+<!ENTITY noSubscriptions.text "Njejsćo hyšći žedne filtrowe abonementy pśidał. Adblock Plus njebuźo bjez filtrow nic blokěrowaś, pšosym wužyjśo &quot;Filtrowy abonement pśidaś&quot;, aby filter přidał.">
+<!ENTITY subscription.update.label "Filtry akutalizěrowaś">
+<!ENTITY dialog.title "Adblock Plus - filtrowe nastajenja">
+<!ENTITY addFilter.label "Filter pśi&amp;daś">
+<!ENTITY subscription.minVersion.warning "Toś ten filtrowy abonement pomina se nowšu wersiju Adblock Plus, wy by měł na nejnowšu wersiju Adblock Plus aktualizěrowaś.">
+<!ENTITY subscription.lastDownload.invalidURL "Njeraźiło, žedna płaśiwa adresa">
+<!ENTITY backup.error "Pśi pisanju filtrow do dataje jo zmólka namakała. Zawěsććo, až dataja njejo pśeśiwo pisanjeju šćitana abo njewužywa se pśez drugi program.">
+<!ENTITY filter.moveUp.label "Górjej">
+<!ENTITY addGroup.label "Filtrowu &amp;kupku pśidaś">
+<!ENTITY filter.edit.label "Wobźěłaś">
+<!ENTITY subscription.showHideFilters.label "Filtry pokazaś/schowaś">
+<!ENTITY acceptableAds2.label "De&amp;centne wabjenje dowóliś">
+<!ENTITY addSubscriptionOther.label "Drugi abonement pśidaś">
+<!ENTITY close.label "Zacyniś">
+<!ENTITY sort.none.label "&amp;Njesortěrowany">
+<!ENTITY filter.actions.label "Filtrowe akcije">
+<!ENTITY filter.copy.label "Kopěrowaś">
+<!ENTITY filter.moveDown.label "Dołoj">
+<!ENTITY filter.resetHitCounts.label "Statistiku slědk stajiś">
+<!ENTITY readMore.label "Dalšne informacije">
+<!ENTITY subscription.moveUp.label "Górjej">
+<!ENTITY addSubscription.label "&amp;Filtrowy abonement pśidaś">
+<!ENTITY subscription.homepage.label "Startowy bok">
+<!ENTITY backup.complete.title "Wšykne filtry a abonementy">
+<!ENTITY restore.own.label "Swójsku zawěsćeńsku kopiju wótnowiś">
+<!ENTITY restore.complete.warning "Wšykne waše filtrowe nastajenja budu se pśez wopśimjeśe wubraneje dataje narownowaś. Cośo dalej cyniś?">
+<!ENTITY filters.tab.label "Swójske filtry">
+<!ENTITY backup.label "Nowu zaěsćeńsku kopiju napóraś">
+<!ENTITY find.label "&amp;Pytaś">
+<!ENTITY subscription.moveDown.label "Dołoj">
+<!ENTITY subscription.lastDownload.connectionError "Njeraźiło, ześěgnjeńska zmólka">
+<!ENTITY subscription.lastDownload.success "Wuspěch">
+<!ENTITY subscription.lastDownload.invalidData "Njeporaźiło, žedna płaśiwa filtrowa lisćina">
+<!ENTITY filter.paste.label "Zasunuś">
+<!ENTITY subscription.disabledFilters.enable "Znjemóžnjone filtry zmóžniś">
+<!ENTITY lasthit.column "S&amp;lědny trjefaŕ">
+<!ENTITY subscription.editTitle.label "Titel wobźěłaś">
+<!ENTITY subscription.disabledFilters.warning "Někotare filtry w toś tom abonomenśe su znjemóžnjone.">
+<!ENTITY filter.column "&amp;Filtrowe pšawidło">
+<!ENTITY subscription.lastDownload.label "Slědne ześěgnjenje:">
+<!ENTITY viewList.label "Lisćinu pokazaś">

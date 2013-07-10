@@ -1,0 +1,10 @@
+<!ENTITY hitcount.column "Хітоў">
+<!ENTITY filter.cut.label "Выразаць">
+<!ENTITY lasthit.column "Апошні">
+<!ENTITY filter.delete.label "Выдаліць">
+<!ENTITY enabled.column "Уключанае">
+<!ENTITY filter.copy.label "Капіяваць">
+<!ENTITY filter.paste.label "Уставіць">
+<!ENTITY addFilter.label "Дадаць фільтар">
+<!ENTITY addSubscription.label "Дадаць падпіску на фільтар">
+<!ENTITY find.label "Пошук">

@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "در پایا&amp;ن نشانی">
+<!ENTITY domainRestriction.label "مح&amp;دود به دامنه :">
+<!ENTITY collapse.default.no.label "استفاده پیشفرض (خیر)">
+<!ENTITY firstParty.label "فقط او&amp;لین عضو">
+<!ENTITY preferences.label "نمای&amp;ش پالایه های موجود...">
+<!ENTITY pattern.label "جستجو برای الگوی">
+<!ENTITY thirdParty.label "فقط سو&amp;مین عضو">
+<!ENTITY filter.label "&amp;پالایه جدید:">
+<!ENTITY collapse.label "بس&amp;تن مسدود شده ها:">
+<!ENTITY match.warning "الگویی که وارد کرده اید دیگر با نشانی که قصد مسدود کردن/افزودن به فهرست سفید آن را داشته اید مطابقت ندارد و روی آن تاثیر نمی گزارد.">
+<!ENTITY anchor.start.label "در آ&amp;غاز نشانی">
+<!ENTITY matchCase.label "م&amp;طابقت حالت (بزرگی کوچکی)">
+<!ENTITY custom.pattern.label "س&amp;فارشی:">
+<!ENTITY unselectAllTypes.label "انتخاب هیچکدام">
+<!ENTITY type.whitelist.label "قاعده است&amp;ثنا">
+<!ENTITY regexp.warning "الگویی که شما وارد کرده اید یک نویسه مرتب تفسیر می شود که نمی تواند به صورت بهینه توسط فوق تبلیغ شکن پردازش شود و ممکن است مرور صفحات شمار را کند کند. اگر شما قصد استفاده کردن از یک نویسه مرتب را نداشته اید، یک ستار (*) به انتهای الگوی خود اضافه کنید.">
+<!ENTITY dialog.title "قواعد پالایه فوق تبلیغ شکن">
+<!ENTITY basic.label "نمایش پایه">
+<!ENTITY type.filter.label "پالایه م&amp;سدود کننده">
+<!ENTITY types.label "اعمال به انواع:">
+<!ENTITY shortpattern.warning "الگویی که وارد کردید بسیار کوتاه تر از آن است که بهینه باشد و ممکن است سرعت مرور صفحات شما را کند کند. توصیه می شود که جمله طویل تری را وارد کنید که فوق تبلیغ شکن بهتر بتواند آن را پردازش کند.">
+<!ENTITY collapse.yes.label "بله">
+<!ENTITY anchors.label "پذیرش الگوی تنها:">
+<!ENTITY collapse.default.yes.label "استفاده پیشفرض (بله)">
+<!ENTITY domainRestriction.help "از این گزینه برای مشخص کردن یک یا چند دامنه از هم جدا شده توسط نوار خط (|) استفاده کنید. پالایه تنها برای دامنه(ها)ی انتخاب شده اعمال می شود. علامت مد (~) قبل از نام دامنه نشاندهنده آن است که پالایه در آن دامنه اعمال نشود.">
+<!ENTITY accept.label "افزودن پالایه">
+<!ENTITY options.label "گزینه ها">
+<!ENTITY disabled.warning "فوق تبلیغ شکن هم اکنون غیر فعال می یاشد. شما هنوز می توانید پالایه اضافه کنید، اما آنها اعمال نمی شوند مگر [link]فوق تبلیغ شکن را فعال کنید[/link].">
+<!ENTITY anchor.start.flexible.label "در آ&amp;غاز نام دامنه">
+<!ENTITY collapse.no.label "خیر">
+<!ENTITY selectAllTypes.label "انتخاب همه">
+<!ENTITY advanced.label "نمایش پیشرفته">
+<!ENTITY pattern.explanation "الگو می تواند هر قسمتی از نشانی باشد; ستاره (*) بعنوان نویسه عام عمل می کند. پالایه فقط به نشانی مطابق الگوی ارائه شده اعمال می شود.">

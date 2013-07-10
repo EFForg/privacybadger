@@ -1,0 +1,25 @@
+<!ENTITY subscription.lastDownload.checksumMismatch "Nie powiodło się – niepoprawna suma kontrolna">
+<!ENTITY lasthit.column "Sasaran terakhir">
+<!ENTITY sort.ascending.label "Urut dari A &gt; Z">
+<!ENTITY sort.label "Urutkan dar&amp;i">
+<!ENTITY filter.paste.label "Tempel">
+<!ENTITY subscription.lastDownload.inProgress "Pobieranie…">
+<!ENTITY filter.delete.label "Hapus">
+<!ENTITY enabled.column "Hidupka&amp;n">
+<!ENTITY viewMenu.label "Lihat">
+<!ENTITY subscription.lastDownload.unknown "nieznane">
+<!ENTITY subscription.lastDownload.invalidURL "Nie powiodło się – nieprawidłowy adres">
+<!ENTITY hitcount.column "Sasaran">
+<!ENTITY filter.cut.label "Potong">
+<!ENTITY addSubscriptionOther.label "Tambahkan skrip yang berbeda">
+<!ENTITY sort.none.label "Aca&amp;k">
+<!ENTITY filter.copy.label "Salin">
+<!ENTITY addSubscription.label "Tambahkan skrip filter">
+<!ENTITY find.label "Cari">
+<!ENTITY sort.descending.label "Urut dari Z &gt; A">
+<!ENTITY subscription.lastDownload.connectionError "Nie powiodło się – błąd pobierania">
+<!ENTITY subscription.lastDownload.success "Zakończono">
+<!ENTITY subscription.lastDownload.invalidData "Nie powiodło się – nieprawidłowy zestaw filtrów">
+<!ENTITY addFilter.label "Tambahkan filter">
+<!ENTITY subscription.lastDownload.label "Ostatnie pobieranie:">
+<!ENTITY filter.column "Aturan filter">

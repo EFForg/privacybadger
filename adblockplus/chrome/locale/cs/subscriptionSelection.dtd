@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Přidat také cizí &amp;sadu filtrů &quot;?1?&quot;">
+<!ENTITY list.download.failed "Adblocku Plus se nepodařilo získat seznam cizích sad filtrů.">
+<!ENTITY list.download.retry "Zkusit znovu">
+<!ENTITY title.label "&amp;Označení cizích filtrů:">
+<!ENTITY list.download.website "Zobrazit webovou stránku">
+<!ENTITY supplementMessage "Tato cizí sada filtrů je určena k používání se sadou &quot;?1?&quot;, kterou ještě nepoužíváte.">
+<!ENTITY viewList.label "Zobrazit pravidla">
+<!ENTITY visitHomepage.label "Navštívit domovskou stránku">
+<!ENTITY addSubscription.label "Přidat cizí sadu filtrů">
+<!ENTITY dialog.title "Přidat sadu cizích filtrů Adblock Plus">
+<!ENTITY location.label "&amp;Umístění sady filtrů:">
+<!ENTITY fromWeb.description "Prosím potvrďte, že chcete přidat tuto cizí sadu filtrů. Můžete změnít její titulek nebo umístění před jejím přidáním.">

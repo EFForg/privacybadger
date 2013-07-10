@@ -1,0 +1,17 @@
+<!ENTITY accept.label "زیادکردنی فلتەر">
+<!ENTITY type.filter.label "فلتەری بلۆککردن">
+<!ENTITY anchor.end.label "لەکۆتایی ناونیشاندا">
+<!ENTITY options.label "هەڵبژاردنەکان">
+<!ENTITY types.label "جێبەجێکردن بۆ جۆرەکانی:">
+<!ENTITY collapse.default.no.label "(بەکارهێنانی سەرەکی (نەخێر">
+<!ENTITY matchCase.label "ئەنجامی هاوشێوە">
+<!ENTITY custom.pattern.label "تایبەت:">
+<!ENTITY preferences.label "پیشاندانی فلتەرەکانی ئێستا...">
+<!ENTITY collapse.yes.label "بەڵێ">
+<!ENTITY collapse.no.label "نەخێر">
+<!ENTITY selectAllTypes.label "دیاریکردنی هەمووی">
+<!ENTITY advanced.label "پیشاندان بەشێوەی پێشکەوتوو">
+<!ENTITY basic.label "پیشاندان بەشێوەی ئاسایی">
+<!ENTITY filter.label "فلتەری نوێ:">
+<!ENTITY unselectAllTypes.label "دیارینەکردنی هیچیان">
+<!ENTITY collapse.default.yes.label "(بەکارهێنانی سەرەکی (بەڵێ">

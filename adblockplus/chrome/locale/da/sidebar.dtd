@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Fremhæv emnets kanter">
+<!ENTITY address.label "Adresse">
+<!ENTITY context.open.label "Åbn i nyt faneblad">
+<!ENTITY type.label "Type">
+<!ENTITY tooltip.filterSource.label "Filterkilde:">
+<!ENTITY noitems.label "Ingen blokérbare emner">
+<!ENTITY filter.label "Filter">
+<!ENTITY tooltip.size.label "Størrelse:">
+<!ENTITY reattach.label "Gentilkobl">
+<!ENTITY search.label "S&amp;øg:">
+<!ENTITY docDomain.thirdParty "(tredjeparts)">
+<!ENTITY filterSource.label "Filterkilde">
+<!ENTITY tooltip.docDomain.label "Dokumentkilde:">
+<!ENTITY context.copy.label "Kopier emnets adresse">
+<!ENTITY tooltip.type.label "Type:">
+<!ENTITY context.disablefilter.label "Deaktiver filter ?1?">
+<!ENTITY context.copyFilter.label "Kopier filter">
+<!ENTITY context.block.label "Blokér dette emne">
+<!ENTITY context.enablefilter.label "Genaktiver filter ?1?">
+<!ENTITY detach.label "Frakobl">
+<!ENTITY whitelisted.label "Hvidlistet side">
+<!ENTITY context.disablefilteronsite.label "Deaktiver dette filter på ?1?">
+<!ENTITY detached.title "Adblock Plus blokérbare emner (frakoblet)">
+<!ENTITY docDomain.firstParty "(førsteparts)">
+<!ENTITY tooltip.type.whitelisted "(hvidlistet)">
+<!ENTITY tooltip.filter.label "Fungerende filter:">
+<!ENTITY tooltip.filter.disabled "(deaktiveret)">
+<!ENTITY context.editfilter.label "Redigér aktuelt filter">
+<!ENTITY tooltip.type.blocked "(blokeret)">
+<!ENTITY size.label "Størrelse">
+<!ENTITY context.whitelist.label "Tilføj undtagelsesregel for emne">
+<!ENTITY context.selectAll.label "Vælg alle">
+<!ENTITY state.label "Tilstand">
+<!ENTITY docDomain.label "Dokumentkilde">
+<!ENTITY tooltip.address.label "Adresse:">

@@ -1,0 +1,38 @@
+{
+  "add": {
+    "message": "Tambah"
+  },
+  "add_domain_button": {
+    "message": "Tambah domain"
+  },
+  "add_filter_button": {
+    "message": "Tambah penapis"
+  },
+  "add_filters_msg": {
+    "message": "Tambah penapis?"
+  },
+  "add_your_own_filters": {
+    "message": "Tambah penapis anda sendiri"
+  },
+  "cancel": {
+    "message": "Batal"
+  },
+  "clickhide_instructions": {
+    "message": "Setelah menutup tetingkap timbul ini, klik (atau klik kanan) pada sesuatu unsur atas laman."
+  },
+  "filter_lists": {
+    "message": "Senarai penapis"
+  },
+  "general": {
+    "message": "Umum"
+  },
+  "remove_button": {
+    "message": "Padamkan yang dipilih"
+  },
+  "update_now": {
+    "message": "Kemas kini sekarang"
+  },
+  "whitelisted_domains": {
+    "message": "Domain disenaraiputihkan"
+  }
+}

@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "항목 위치 확인">
+<!ENTITY address.label "주소">
+<!ENTITY context.open.label "새 탭으로 열기">
+<!ENTITY type.label "형식">
+<!ENTITY tooltip.filterSource.label "필터 그룹 :">
+<!ENTITY noitems.label "차단 가능한 항목 없음">
+<!ENTITY filter.label "필터">
+<!ENTITY tooltip.size.label "크기 :">
+<!ENTITY reattach.label "통합">
+<!ENTITY search.label "검색 (&amp;S)">
+<!ENTITY docDomain.thirdParty "(외부 요청)">
+<!ENTITY filterSource.label "필터 위치">
+<!ENTITY tooltip.docDomain.label "문서 위치 :">
+<!ENTITY context.copy.label "주소 복사">
+<!ENTITY tooltip.type.label "형식 :">
+<!ENTITY context.disablefilter.label "필터 사용 중지 : ?1?">
+<!ENTITY context.copyFilter.label "필터 복사">
+<!ENTITY context.block.label "차단 필터 추가">
+<!ENTITY context.enablefilter.label "필터 다시 사용 : ?1?">
+<!ENTITY detach.label "분리">
+<!ENTITY whitelisted.label "허용된 페이지">
+<!ENTITY context.disablefilteronsite.label "지정된 도메인에만 적용 중지 : ?1?">
+<!ENTITY detached.title "차단 가능 목록 (분리됨)">
+<!ENTITY docDomain.firstParty "(내부 요청)">
+<!ENTITY tooltip.type.whitelisted "(허용됨)">
+<!ENTITY tooltip.filter.label "필터 :">
+<!ENTITY tooltip.filter.disabled "(사용 중지)">
+<!ENTITY context.editfilter.label "필터 편집">
+<!ENTITY tooltip.type.blocked "(차단됨)">
+<!ENTITY size.label "크기">
+<!ENTITY context.whitelist.label "허용 필터 추가">
+<!ENTITY context.selectAll.label "모두 선택">
+<!ENTITY state.label "상태">
+<!ENTITY docDomain.label "문서 위치">
+<!ENTITY tooltip.address.label "주소 :">

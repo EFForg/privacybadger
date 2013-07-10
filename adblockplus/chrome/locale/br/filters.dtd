@@ -1,0 +1,25 @@
+<!ENTITY slow.column "Diskouez ar siloù">
+<!ENTITY subscription.lastDownload.checksumMismatch "Fazi, n'eo ket ar memes checksum">
+<!ENTITY lasthit.column "Implij diwezhañ">
+<!ENTITY sort.ascending.label "Urzh A &gt; Z">
+<!ENTITY sort.label "Rummañ dre">
+<!ENTITY filter.paste.label "Pegañ">
+<!ENTITY subscription.lastDownload.inProgress "O pellgargañ...">
+<!ENTITY filter.delete.label "Skarzhañ kuit">
+<!ENTITY enabled.column "Gweredekaet">
+<!ENTITY viewMenu.label "Diskouez">
+<!ENTITY subscription.lastDownload.invalidURL "Fazi, n'eo ket ur chomlec'h">
+<!ENTITY hitcount.column "Konter">
+<!ENTITY filter.cut.label "Troc'hañ">
+<!ENTITY addSubscriptionOther.label "Ouzhpenn ur c'houmanant all">
+<!ENTITY sort.none.label "Na rummet">
+<!ENTITY filter.copy.label "Kopiañ">
+<!ENTITY addSubscription.label "Koumanantiñ el listenn siloù">
+<!ENTITY find.label "Klask">
+<!ENTITY sort.descending.label "Urzh Z &gt; A">
+<!ENTITY subscription.lastDownload.connectionError "Fazi, pellgargañ torret">
+<!ENTITY subscription.lastDownload.success "Trec'hadenn">
+<!ENTITY subscription.lastDownload.invalidData "Fazi, n'eo ket ul listenn siloù mat">
+<!ENTITY addFilter.label "Ouzhpenn ur sil">
+<!ENTITY subscription.lastDownload.label "pellgargañ diwezhañ">
+<!ENTITY filter.column "Reolenn silaj">

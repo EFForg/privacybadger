@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "閃爍物件邊框">
+<!ENTITY address.label "位址">
+<!ENTITY context.open.label "於新分頁開啟">
+<!ENTITY type.label "類型">
+<!ENTITY tooltip.filterSource.label "條件來源：">
+<!ENTITY noitems.label "無可阻擋項目">
+<!ENTITY filter.label "過濾條件">
+<!ENTITY tooltip.size.label "大小：">
+<!ENTITY reattach.label "固定">
+<!ENTITY search.label "搜尋： (&amp;S)">
+<!ENTITY docDomain.thirdParty "(第三方)">
+<!ENTITY filterSource.label "條件來源">
+<!ENTITY tooltip.docDomain.label "文件來源：">
+<!ENTITY context.copy.label "複製項目位址">
+<!ENTITY tooltip.type.label "類型：">
+<!ENTITY context.disablefilter.label "停用過濾條件 ?1?">
+<!ENTITY context.copyFilter.label "複製過濾條件">
+<!ENTITY context.block.label "阻擋此項目">
+<!ENTITY context.enablefilter.label "重新啟用過濾條件 ?1?">
+<!ENTITY detach.label "分離">
+<!ENTITY whitelisted.label "此頁面已加入白名單">
+<!ENTITY context.disablefilteronsite.label "在 ?1? 停用此過濾條件">
+<!ENTITY detached.title "Adblock Plus：可阻擋項目（已分離）">
+<!ENTITY docDomain.firstParty "(第一方)">
+<!ENTITY tooltip.type.whitelisted "(白名單)">
+<!ENTITY tooltip.filter.label "作用中的條件：">
+<!ENTITY tooltip.filter.disabled "(已停用)">
+<!ENTITY context.editfilter.label "編輯作用中的條件">
+<!ENTITY tooltip.type.blocked "(已阻擋)">
+<!ENTITY size.label "大小">
+<!ENTITY context.whitelist.label "將此項目加為例外條件">
+<!ENTITY context.selectAll.label "全選">
+<!ENTITY state.label "狀態">
+<!ENTITY docDomain.label "文件來源">
+<!ENTITY tooltip.address.label "位址：">

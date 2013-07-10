@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+  <script type="application/x-javascript;version=1.7">
+    for (let i = 0; i < 100; i++)
+    {
+      let list = [];
+      for (let j = 0; j < 100; j++)
+        list.push('<div id="' + i + j + '" class="' + i + j + '"></div>');
+      document.writeln(list.join("\n"));
+    }
+  </script>
+</body>
+</html>

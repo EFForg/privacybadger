@@ -1,0 +1,201 @@
+/*
+ * This file is part of the Adblock Plus build tools,
+ * Copyright (C) 2006-2013 Eyeo GmbH
+ *
+ * Adblock Plus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * Adblock Plus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+const Cc = Components.classes;
+const Ci = Components.interfaces;
+const Cr = Components.results;
+const Cu = Components.utils;
+
+let {Services, atob, btoa, File} = Cu.import("resource://gre/modules/Services.jsm", null);
+
+let addonData = null;
+
+function startup(params, reason)
+{
+  addonData = params;
+
+  {%- if hasChrome %}
+  if (Services.vc.compare(Services.appinfo.platformVersion, "10.0") < 0)
+  {
+    Components.manager.addBootstrappedManifestLocation(params.installPath);
+    onShutdown.add(function() Components.manager.removeBootstrappedManifestLocation(params.installPath));
+  }
+  {%- set hasShutdownHandlers = True %}
+  {%- endif %}
+
+  {%- if hasChromeRequires %}
+  Services.obs.addObserver(RequireObserver, "{{metadata.get('general', 'basename')}}-require", true);
+  onShutdown.add(function() Services.obs.removeObserver(RequireObserver, "{{metadata.get('general', 'basename')}}-require"));
+  {%- set hasShutdownHandlers = True %}
+  {%- endif %}
+
+  require("main");
+}
+
+function shutdown(params, reason)
+{
+  {%- if chromeWindows %}
+  let windowNames = {{chromeWindows|json}};
+  for (let i = 0; i < windowNames.length; i++)
+  {
+    let enumerator = Services.wm.getEnumerator(windowNames[i]);
+    while (enumerator.hasMoreElements())
+    {
+      let window = enumerator.getNext().QueryInterface(Ci.nsIDOMWindow);
+      window.setTimeout("window.close()", 0); // Closing immediately might not work due to modal windows
+      try
+      {
+        window.close();
+      } catch(e) {}
+    }
+  }
+  {%- endif %}
+
+  {%- if hasShutdownHandlers %}
+  onShutdown.done = true;
+  for (let i = shutdownHandlers.length - 1; i >= 0; i --)
+  {
+    try
+    {
+      shutdownHandlers[i]();
+    }
+    catch (e)
+    {
+      Cu.reportError(e);
+    }
+  }
+  shutdownHandlers = null;
+  {%- endif %}
+
+  // Make sure to release our ties to the modules even if the sandbox cannot be
+  // released for some reason.
+  for (let key in require.scopes)
+  {
+    let scope = require.scopes[key];
+    let list = Object.keys(scope);
+    for (let i = 0; i < list.length; i++)
+      scope[list[i]] = null;
+  }
+  require.scopes = null;
+  addonData = null;
+}
+
+function install(params, reason) {}
+
+function uninstall(params, reason)
+{
+  {%- if hasVersionPref %}
+  const ADDON_UNINSTALL = 6;  // https://developer.mozilla.org/en/Extensions/Bootstrapped_extensions#Reason_constants
+  if (reason == ADDON_UNINSTALL)
+  {
+    // Users often uninstall/reinstall extension to "fix" issues. Clear current
+    // version number on uninstall to rerun first-run actions in this scenario.
+    Services.prefs.clearUserPref("extensions.{{metadata.get('general', 'basename')}}.currentVersion");
+  }
+  {%- endif %}
+}
+
+{%- if hasShutdownHandlers %}
+let shutdownHandlers = [];
+let onShutdown =
+{
+  done: false,
+  add: function(handler)
+  {
+    if (shutdownHandlers.indexOf(handler) < 0)
+      shutdownHandlers.push(handler);
+  },
+  remove: function(handler)
+  {
+    let index = shutdownHandlers.indexOf(handler);
+    if (index >= 0)
+      shutdownHandlers.splice(index, 1);
+  }
+};
+{%- endif %}
+
+function require(module)
+{
+  let scopes = require.scopes;
+  if (!(module in scopes))
+  {
+    {%- if 'info' in requires %}
+    if (module == "info")
+    {
+      let applications = {{applications|json}};
+      let appID = Services.appinfo.ID;
+
+      scopes[module] = {};
+      scopes[module].exports =
+      {
+        addonID: addonData.id,
+        addonVersion: addonData.version,
+        addonRoot: addonData.resourceURI.spec,
+        addonName: "{{metadata.get('general', 'basename')}}",
+        application: (appID in applications ? applications[appID] : "other"),
+      };
+    }
+    else
+    {
+    {%- endif %}
+      let url = addonData.resourceURI.spec + "lib/" + module + ".js";
+      scopes[module] = {
+        Cc: Cc,
+        Ci: Ci,
+        Cr: Cr,
+        Cu: Cu,
+        atob: atob,
+        btoa: btoa,
+        File: File,
+        require: require,
+        {% if hasShutdownHandlers %}
+        onShutdown: onShutdown,
+        {% endif %}
+        exports: {}};
+      {%- if multicompartment %}
+      let principal = Cc["@mozilla.org/systemprincipal;1"].getService(Ci.nsIPrincipal);
+      scopes[module] = new Cu.Sandbox(principal, {
+        sandboxName: url,
+        sandboxPrototype: scopes[module],
+        wantXrays: false
+      });
+      {%- endif %}
+      Services.scriptloader.loadSubScript(url, scopes[module]);
+    {%- if 'info' in requires %}
+    }
+    {%- endif %}
+  }
+  return scopes[module].exports;
+}
+require.scopes = {__proto__: null};
+
+{%- if hasChromeRequires %}
+Cu.import("resource://gre/modules/XPCOMUtils.jsm");
+
+let RequireObserver =
+{
+  observe: function(subject, topic, data)
+  {
+    if (topic == "{{metadata.get('general', 'basename')}}-require")
+    {
+      subject.wrappedJSObject.exports = require(data);
+    }
+  },
+
+  QueryInterface: XPCOMUtils.generateQI([Ci.nsISupportsWeakReference, Ci.nsIObserver])
+};
+{%- endif %}

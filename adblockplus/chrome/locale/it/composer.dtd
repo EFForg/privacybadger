@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "alla &amp;fine dell'indirizzo web">
+<!ENTITY domainRestriction.label "Limi&amp;ta al dominio qui sotto">
+<!ENTITY collapse.default.no.label "Utilizza predefiniti (no)">
+<!ENTITY firstParty.label "Solo &amp;dominii di primo livello">
+<!ENTITY preferences.label "&amp;Mostra i filtri esistenti…">
+<!ENTITY pattern.label "Modelli">
+<!ENTITY thirdParty.label "&amp;Solo dominii non di primo livello">
+<!ENTITY filter.label "&amp;Nuovo filtro:">
+<!ENTITY collapse.label "&amp;Contrai bloccati:">
+<!ENTITY match.warning "Il modello inserito non corrisponde più all'indirizzo web da bloccare/permettere e non avrà quindi alcun effetto">
+<!ENTITY anchor.start.label "all'&amp;inizio dell'indirizzo web">
+<!ENTITY matchCase.label "Mai&amp;uscole/minuscole">
+<!ENTITY custom.pattern.label "&amp;Personalizza:">
+<!ENTITY unselectAllTypes.label "Deseleziona">
+<!ENTITY type.whitelist.label "&amp;Eccezioni">
+<!ENTITY regexp.warning "Il modello inserito verrà interpretato come espressione regolare. Un numero eccessivo di tali modelli potrebbe rallentare la navigazione. Se non si intende utilizzare le espressioni regolari aggiungere il carattere * alla fine del modello">
+<!ENTITY dialog.title "Nuovo filtro di Adblock Plus">
+<!ENTITY basic.label "&lt;&lt; Generali">
+<!ENTITY type.filter.label "Filtri per &amp;bloccare">
+<!ENTITY types.label "Applica ai tipi:">
+<!ENTITY shortpattern.warning "Il modello inserito è troppo breve per essere ottimizzato. Un numero eccessivo di tali modelli potrebbe rallentare la navigazione. Sarebbe preferibile utilizzare una stringa più lunga">
+<!ENTITY collapse.yes.label "Sì">
+<!ENTITY anchors.label "Accetta modelli solo:">
+<!ENTITY collapse.default.yes.label "Utilizza predefiniti (sì)">
+<!ENTITY domainRestriction.help "È possibile specificare uno o più dominii separandoli con il carattere &quot;|&quot;: il filtro verrà applicato solamente a tali dominii (si noti che il carattere &quot;~&quot; prima del nome di un dominio significa che il filtro non verrà applicato per tale dominio)">
+<!ENTITY accept.label "Aggiungi filtro">
+<!ENTITY options.label "Opzioni">
+<!ENTITY disabled.warning "Adblock Plus è attualmente disattivata. È comunque possibile aggiungere filtri, ma questi verranno applicati solo dopo la [link]riattivazione di Adblock Plus[/link]">
+<!ENTITY anchor.start.flexible.label "all'&amp;inizio del nome del dominio">
+<!ENTITY collapse.no.label "No">
+<!ENTITY selectAllTypes.label "Seleziona tutti">
+<!ENTITY advanced.label "Avanzate &gt;&gt;">
+<!ENTITY pattern.explanation "Il modello può corrispondere a qualsiasi parte dell'indirizzo web, il carattere * corrisponde ad un carattere jolly. Il filtro verrà applicato ai soli indirizzi web corrispondenti al modello">

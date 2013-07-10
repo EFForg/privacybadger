@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "إضاءة حواف العنصر">
+<!ENTITY address.label "العنوان">
+<!ENTITY context.open.label "فتح في تبويب جديد">
+<!ENTITY type.label "النوع">
+<!ENTITY tooltip.filterSource.label "مصدر الفلتر:">
+<!ENTITY noitems.label "لا عناصر محجوبة">
+<!ENTITY filter.label "الفلتر">
+<!ENTITY tooltip.size.label "الحجم:">
+<!ENTITY reattach.label "إعادة إرفاق">
+<!ENTITY search.label "بح&amp;ث">
+<!ENTITY docDomain.thirdParty "(طرف خارجي)">
+<!ENTITY filterSource.label "فلترة المصدر">
+<!ENTITY tooltip.docDomain.label "مصدر الملف:">
+<!ENTITY context.copy.label "نسخ عنوان العنصر">
+<!ENTITY tooltip.type.label "النوع">
+<!ENTITY context.disablefilter.label "تعطيل الفلتر ?1?">
+<!ENTITY context.copyFilter.label "نسخ الفلتر">
+<!ENTITY context.block.label "حجب هذا العنصر">
+<!ENTITY context.enablefilter.label "إعادة تفعيل الفلتر ?1?">
+<!ENTITY detach.label "فصل">
+<!ENTITY whitelisted.label "صفحة موثوقة">
+<!ENTITY context.disablefilteronsite.label "تعطيل هذا الفلتر على ?1?">
+<!ENTITY detached.title "آدبلوك بلاس : العناصر المحجوبة (المنفصلة)">
+<!ENTITY docDomain.firstParty "(طرف داخلي)">
+<!ENTITY tooltip.type.whitelisted "(موثوق)">
+<!ENTITY tooltip.filter.label "الفلتر الفعال">
+<!ENTITY tooltip.filter.disabled "(معطل)">
+<!ENTITY context.editfilter.label "تعديل الفلتر الفعال">
+<!ENTITY tooltip.type.blocked "(محجوب)">
+<!ENTITY size.label "الحجم">
+<!ENTITY context.whitelist.label "إضافة قانون استثنائي إلى هذا العنصر">
+<!ENTITY context.selectAll.label "اختيار الكل">
+<!ENTITY state.label "الحالة">
+<!ENTITY docDomain.label "مصدر الملف">
+<!ENTITY tooltip.address.label "العنوان">

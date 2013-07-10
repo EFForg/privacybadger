@@ -1,0 +1,21 @@
+<!ENTITY showinstatusbar.label "Tunjukkan di &amp;status bar">
+<!ENTITY sidebar.title "Blokowalne elementy na aktywnej stronie">
+<!ENTITY options.label "Opsi">
+<!ENTITY context.object.label "Zablokuj obiekt">
+<!ENTITY context.media.label "Zablokuj wideo/audio">
+<!ENTITY context.image.label "Zablokuj obrazek">
+<!ENTITY filters.tooltip "Najczęściej stosowane filtry:">
+<!ENTITY menuitem.label "&amp;Adblock Plus - ustawienia">
+<!ENTITY objecttab.title "Zablokuj">
+<!ENTITY showintoolbar.label "Tunjukkan di tool&amp;bar">
+<!ENTITY closesidebar.label "Zamknij listę &amp;blokowalnych elementów">
+<!ENTITY sendReport.label "&amp;Zgłoś problem na tej stronie">
+<!ENTITY whitelist.site.label "Wyłącz blokowanie na ?1?">
+<!ENTITY whitelist.page.label "Wyłącz blokowanie tylko na tej stronie">
+<!ENTITY context.frame.label "Zablokuj ramkę">
+<!ENTITY objecttabs.label "&amp;Tunjukkan tab pada Flash dan Java">
+<!ENTITY disable.label "Wyłącz wszędzie">
+<!ENTITY objecttab.tooltip "Kliknij tutaj, aby zablokować ten obiekt">
+<!ENTITY blocked.tooltip "Zablokowane elementy na tej stronie:">
+<!ENTITY context.removeWhitelist.label "Włącz ponownie na tej stronie">
+<!ENTITY opensidebar.label "Otwórz listę &amp;blokowalnych elementów">

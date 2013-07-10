@@ -1,0 +1,31 @@
+<!ENTITY context.flash.label "Blinkañ riblennoù an elfenn">
+<!ENTITY tooltip.type.label "Furm:">
+<!ENTITY address.label "Chomlec'h">
+<!ENTITY context.open.label "Digeriñ en un ivinell nevez">
+<!ENTITY type.label "Furm">
+<!ENTITY tooltip.filterSource.label "Tarzh ar sil:">
+<!ENTITY noitems.label "Elfennoù ebet silabl">
+<!ENTITY filter.label "Sil">
+<!ENTITY tooltip.size.label "Ment:">
+<!ENTITY reattach.label "Adstagañ">
+<!ENTITY search.label "Klask:">
+<!ENTITY tooltip.docDomain.label "Tarzh an diell:">
+<!ENTITY context.copy.label "Kopiañ ar chomlec'h an elfen">
+<!ENTITY tooltip.type.blocked "(stanket)">
+<!ENTITY context.disablefilter.label "Diweredekaat ar sil ?1?">
+<!ENTITY context.copyFilter.label "Kopiañ ar sil">
+<!ENTITY context.editfilter.label "Cheñch ar sil a labour">
+<!ENTITY context.enablefilter.label "Adweredekaat ar sil ?1?">
+<!ENTITY detach.label "Distagañ">
+<!ENTITY whitelisted.label "Pajenn el listenn wenn">
+<!ENTITY context.disablefilteronsite.label "Diweredekaat ar sil-se evit ?1?">
+<!ENTITY detached.title "Adblock Plus : elfennoù silabl (distaget)">
+<!ENTITY tooltip.type.whitelisted "(aotret)">
+<!ENTITY tooltip.filter.label "Sil implijet:">
+<!ENTITY context.block.label "Stankañ an elfenn-se">
+<!ENTITY size.label "Ment">
+<!ENTITY context.whitelist.label "Ouzhpenn er listenn wenn">
+<!ENTITY context.selectAll.label "Diuzañ pep tra">
+<!ENTITY state.label "Stad">
+<!ENTITY docDomain.label "Tarzh an diell">
+<!ENTITY tooltip.address.label "Chomlec'h:">

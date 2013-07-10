@@ -1,0 +1,65 @@
+<!ENTITY screenshot.undo.label "&amp;Ångra">
+<!ENTITY issues.disabledgroups.description "Följande filterprenumerationer/filtergrupper är inaktiverade, men kan trots det påverka denna sida:">
+<!ENTITY showData.label "Visa rapportdata">
+<!ENTITY typeSelector.falsePositive.label "Adblock Plus blockerar alltför &amp;mycket">
+<!ENTITY issues.change.description "Your configuration has been changed. Var vänlig uppdatera sidan för att testa ändringarna och skicka in en rapport om problemet inte har blivit löst trots förändringarna.">
+<!ENTITY email.label "&amp;E-Post:">
+<!ENTITY issues.openPreferences.label "Öppna filterinställningarna">
+<!ENTITY sendPage.confirmation "Din rapport har sparats. Du kan nå den på följande adress:">
+<!ENTITY copyLink.label "&amp;Kopiera rapportlänk">
+<!ENTITY issues.nofilters.description "Adblock Plus blockerar ingenting på den aktuella sidan. Problemet du har observerat har sannolikt ingenting att göra med Adblock Plus.">
+<!ENTITY sendPage.knownIssue "Problemet du rapporterade är antagligen redan känt. Mer information:">
+<!ENTITY typeSelector.other.description "Välj detta alternativ om du misstänker ett problem med själva tillägget Adblock Plus, snarare än med dess filter.">
+<!ENTITY issues.disabledgroups.enable.label "Aktivera filterprenumeration/filtergrupp">
+<!ENTITY typeWarning.override.label "&amp;Jag förstår och vill skicka in rapporten i alla fall">
+<!ENTITY issues.disabled.enable.label "Aktivera Adblock Plus">
+<!ENTITY update.fixed.description "Uppdateringarna till dina filterprenumerationer löste troligtvis problemet du rapporterade. Var vänlig och uppdatera den berörda sidan och försök igen, tryck Skicka på nytt om ditt problem kvarstår.">
+<!ENTITY anonymous.label "Skick&amp;a in anonymt">
+<!ENTITY reloadButton.label "&amp;Uppdatera sidan">
+<!ENTITY recentReports.clear.label "&amp;Ta bort alla rapporter">
+<!ENTITY typeSelector.description "Denna dialog kommer att guida dig igenom alla steg som krävs för att skicka in en problemrapport för Adblock Plus. Först och främst måste du välja den typ av problem som du upplever på denna sida:">
+<!ENTITY screenshot.remove.label "Ta b&amp;ort känslig data">
+<!ENTITY issues.ownfilters.description "Några av de filter som tillämpas på denna sida är användardefinierade. Var vänlig inaktivera de filter som kan ha orsakat problemet:">
+<!ENTITY update.inProgress.description "Adblock Plus behöver uppdatera dina filterprenumerationer för att kontrollera att ditt problem inte redan är löst.">
+<!ENTITY sendPage.retry.label "Skicka igen">
+<!ENTITY data.label "Ra&amp;pportdata:">
+<!ENTITY recentReports.label "Dina senaste inskickade rapporter">
+<!ENTITY typeWarning.description "Du har angivit att du vill rapportera ett allmänt problem med Adblock Plus snarare än ett problem med filtren. Var vänlig observera att sådana problem helst skall rapporteras i [link]Adblock Plus webbforum[/link]. Du bör endast använda problemrapportören för att göra ett tillägg till en befintlig diskussion, eftersom ingen kommer att märka din rapport om du inte ger dem en länk till den. Den automatiskt genererade länken kommer att bli tillgänglig efter att rapporten har skickats in.">
+<!ENTITY issues.disabled.description "Adblock Plus är inaktiverat, det kommer inte att blockera någonting i sitt nuvarande tillstånd.">
+<!ENTITY attachExtensions.label "Bifoga en lista över aktiverade till&amp;ägg till rapporten ifall en tilläggskonflikt är orsaken till problemet">
+<!ENTITY issues.nosubscriptions.add.label "Lägg till filterprenumeration">
+<!ENTITY issues.disabledfilters.enable.label "Aktivera filter">
+<!ENTITY issues.override.label "&amp;Konfigurationen är korrekt, fortsätt med rapporten">
+<!ENTITY issues.nosubscriptions.description "Du verkar inte prenumerara på något av de fördefinierade filterlistor som automatiskt tar bort icke önskvärt innehåll från webbplatser.">
+<!ENTITY typeSelector.falsePositive.description "Välj detta alternativ om sidan saknar viktigt innehåll, visas på ett felaktigt sätt eller inte fungerar som den skall. Du kan ta reda på huruvida Adblock Plus är orsaken till problemet genom att tillfälligtvis inaktivera det.">
+<!ENTITY typeSelector.other.label "&amp;Annat problem">
+<!ENTITY emailComment.label "Vi uppmanar dig att ange en giltig e-postadress så att vi kan kontakta dig om det finns frågor om er rapport. Det tillåter oss att erkänna era bidrag och prioritera dem högre.">
+<!ENTITY issues.whitelist.remove.label "Återaktivera Adblock Plus för denna sida">
+<!ENTITY outdatedSubscriptions.description "De följande filterprenumerationerna har inte uppdaterats på åtminstone två veckor. Var vänlig och uppdatera dessa filterprenumerationer innan en rapport skickas, problemet kan redan vara löst.">
+<!ENTITY dataCollector.description "Var vänlig vänta några ögonblick medan Adblock Plus samlar in nödvändig data.">
+<!ENTITY sendButton.label "Ski&amp;cka rapport">
+<!ENTITY comment.label "&amp;Kommentar (valfritt):">
+<!ENTITY sendPage.errorMessage "Det gick inte att skicka rapporten. Felkod: &quot;?1?&quot;. Var vänlig säkerställ att du är ansluten till Internet och försök sedan igen. Om problemet kvarstår, vänligen begär hjälp i [link]Adblock Plus webbforum[/link].">
+<!ENTITY showRecentReports.label "Visa senaste inskickade rapporter">
+<!ENTITY commentPage.heading "Ange kommentar">
+<!ENTITY update.start.label "Starta uppdatering nu">
+<!ENTITY issues.disabledfilters.description "Följande filter är inaktiverade, men kan trots det påverka denna sida:">
+<!ENTITY screenshot.description "Samma sida kan uppfattas olika av olika personer. Att bifoga en skärmdump till din rapport kan hjälpa oss att förstå problemet. Du kan ta bort delar som innehåller känslig information så väl som märka ut områden där problemet är tydligt. För att göra det, klicka på motsvarande knapp och markera en sektion av bilden med din mus.">
+<!ENTITY screenshot.attach.label "&amp;Bifoga en bild av sidan till rapporten">
+<!ENTITY issues.whitelist.description "Adblock Plus är för närvarande inaktiverat för sidan som du rapporterar. Var vänlig återaktivera det och uppdatera sidan innan rapporten skickas in, för att underlätta utredningen av detta problem.">
+<!ENTITY typeSelector.falseNegative.label "Ad&amp;block Plus blockerar inte en annons">
+<!ENTITY typeSelector.heading "Välj problemtyp">
+<!ENTITY anonymity.warning "Vi kommer inte att kunna kontakta er och er rapport kan få en lägre prioritering.">
+<!ENTITY wizard.title "Rapportera problem">
+<!ENTITY issues.ownfilters.disable.label "Inaktivera filter">
+<!ENTITY commentPage.description "Textfältet nedan låter dig ange en kommentar för att hjälpa oss förstå problemet. Detta steg är valfritt, men rekommenderas om problemet inte är tydligt. Du kan även granska rapportdatan innan den skickas.">
+<!ENTITY comment.lengthWarning "Längden på din kommentar överskrider 1 000 tecken. Endast de första 1 000 tecknen kommer att skickas.">
+<!ENTITY typeSelector.falseNegative.description "Välj detta alternativ om en annons visas trots att Adblock Plus är aktiverat.">
+<!ENTITY sendPage.waitMessage "Var vänlig vänta medan Adblock Plus skickar ing din rapport.">
+<!ENTITY dataCollector.heading "Välkommen till problemrapportören">
+<!ENTITY screenshot.heading "Bifoga skärmdump">
+<!ENTITY sendPage.heading "Skicka rapport">
+<!ENTITY issues.subscriptionCount.description "Det verkar som att du prenumererar på alldeles för många filterprenumerationer. Den konfigurationen rekommenderas inte eftersom sannolikheten att drabbas av problem ökar. Vi kan heller inte acceptera din problemrapport eftersom det inte står klart vilken filterprenumerationsskapare som måste vidta åtgärder. Var vänlig ta bort alla utom de absolut nödvändiga filterprenumerationerna och testa om problemet kvarstår.">
+<!ENTITY screenshot.mark.label "&amp;Märk ut problemet">
+<!ENTITY privacyPolicy.label "Sekretesspolicy">
+<!ENTITY issues.description "Adblock Plus har upptäckt problem med din konfiguration som kan vara orsaken till detta problem eller som kommer att försvåra utredningen av rapporten.">

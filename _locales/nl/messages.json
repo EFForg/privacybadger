@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Voeg toe"
+  },
+  "add_domain_button": {
+    "message": "Voeg domein toe"
+  },
+  "add_filter_button": {
+    "message": "Voeg filter toe"
+  },
+  "add_filters_msg": {
+    "message": "Filter(s) toevoegen?"
+  },
+  "add_your_own_filters": {
+    "message": "Eigen filters toevoegen"
+  },
+  "apply_changes": {
+    "message": "Bevestigen"
+  },
+  "block_element": {
+    "message": "Element blokkeren"
+  },
+  "cancel": {
+    "message": "Annuleren"
+  },
+  "clickhide_instructions": {
+    "message": "Na het sluiten van deze popup, klik (of klik met de rechtermuisknop) op het pagina element."
+  },
+  "description": {
+    "message": "De gratis adblocker voor Chrome: Blokkeert vervelende video-reclames op YouTube, Facebook advertenties, banners en nog veel meer."
+  },
+  "disable_inline": {
+    "message": "Inline tekstadvertenties uitschakelen"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus is uitgeschakeld voor de hieronder vermelde domeinen. U kunt een domein toevoegen via het Adblock Plus logo in de adresbalk, of door het domein (geen URL) in het vak te typen en te klikken op \"Domein toevoegen\"."
+  },
+  "easy_create_filter": {
+    "message": "Eenvoudig filter instellen"
+  },
+  "edit_filters_raw": {
+    "message": "Bewerk filters als tekst"
+  },
+  "enable_only_the": {
+    "message": "Schakel alleen de filters in die u gebruikt. Teveel filters kunnen ervoor zorgen dat Chrome niet meer reageert."
+  },
+  "enabled_for_site": {
+    "message": "Ingeschakeld voor deze site"
+  },
+  "filter_lists": {
+    "message": "Filterlijsten"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Je filter moet de <a href='$url$'>Adblock Plus filter syntax</a> volgen.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Heb je een bug gevonden? Wil je helpen Adblock Plus te vertalen naar je eigen taal? Dien <a href='$url$'>hier een verzoek in</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Algemeen"
+  },
+  "last_updated_at": {
+    "message": "Laatst bijgewerkt op $time$ op $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Laatst bijgewerkt op $time$ vandaag",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Nieuwe filters toegevoegd; Zie <a id='options_url' target='_blank'> Opties</a> om ze te beheren."
+  },
+  "options": {
+    "message": "Adblock Plus opties"
+  },
+  "out_of_date_lists": {
+    "message": "Verouderde lijsten worden regelmatig bijgewerkt."
+  },
+  "remove_button": {
+    "message": "Verwijder geselecteerde"
+  },
+  "show_block_element_menu": {
+    "message": "Toon 'Blokkeer Element' in het rechtermuisklik menu"
+  },
+  "show_icon": {
+    "message": "Pictogram in de adresbalk weergeven"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Kies a.u.b. een filterabonnement uit de lijst:"
+  },
+  "update_now": {
+    "message": "Nu bijwerken"
+  },
+  "whitelisted_domains": {
+    "message": "Vertrouwde domeinen"
+  }
+}

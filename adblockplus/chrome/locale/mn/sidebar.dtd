@@ -1,0 +1,34 @@
+<!ENTITY context.flash.label "Flash зүйлийн хүрээнүүд">
+<!ENTITY address.label "Хаяг">
+<!ENTITY context.open.label "Шинэ хуудсанд нээх">
+<!ENTITY type.label "Төрөл">
+<!ENTITY tooltip.filterSource.label "Шүүлтүүрийн эх:">
+<!ENTITY noitems.label "Хашигдах зүйлс алга">
+<!ENTITY filter.label "Шүүлтүүр">
+<!ENTITY tooltip.size.label "Хэмжээ:">
+<!ENTITY reattach.label "Залгах">
+<!ENTITY search.label "&amp;Хайх:">
+<!ENTITY docDomain.thirdParty "(гурав дахь хэсэг)">
+<!ENTITY tooltip.docDomain.label "Баримтын эх:">
+<!ENTITY context.copy.label "Зүйлийн хаягийг сануулах">
+<!ENTITY tooltip.type.label "Төрөл:">
+<!ENTITY context.disablefilter.label "Шүүлтүүр хаах ?1?">
+<!ENTITY context.copyFilter.label "Шүүлтүүр хуулах">
+<!ENTITY context.block.label "Уг зүйлийг хаших">
+<!ENTITY context.enablefilter.label "Шүүлтүүр нээх ?1?">
+<!ENTITY detach.label "Салгах">
+<!ENTITY whitelisted.label "Цагаанжагсаалтын хуудас">
+<!ENTITY context.disablefilteronsite.label "Энэ шүүлтүүрийг хаах газар нь ?1?">
+<!ENTITY detached.title "Adblock Plus: Хашигдахуйц зүйлс (салгагдсан)">
+<!ENTITY docDomain.firstParty "(эхний хэсэг)">
+<!ENTITY tooltip.type.whitelisted "(цагаандсан)">
+<!ENTITY tooltip.filter.label "Эффектийн шүүлтүүр:">
+<!ENTITY tooltip.filter.disabled "(идэвхгүй)">
+<!ENTITY context.editfilter.label "Эффектийн шүүлтүүрийг засах">
+<!ENTITY tooltip.type.blocked "(хашигдсан)">
+<!ENTITY size.label "Хэмжээ">
+<!ENTITY context.whitelist.label "Зүйлд онцгой дүрэм нэмэх">
+<!ENTITY context.selectAll.label "Бүгдийг сонгох">
+<!ENTITY state.label "Нөхцөл">
+<!ENTITY docDomain.label "Баримтын эх">
+<!ENTITY tooltip.address.label "Хаяг:">

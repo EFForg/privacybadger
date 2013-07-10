@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Szűrő &amp;hozzáadása: &quot;?1?&quot;">
+<!ENTITY list.download.failed "Hiba a szűrők betöltésekor.">
+<!ENTITY list.download.retry "Próbálja újra">
+<!ENTITY title.label "Külső szűrő &amp;neve:">
+<!ENTITY list.download.website "Weboldal megtekintése">
+<!ENTITY supplementMessage "Ez a szűrő a &quot;?1?&quot; szűrővel együtt használható csak, amely jelenleg nincs a szűrőkhez hozzáadva.">
+<!ENTITY viewList.label "Szűrők megtekintése">
+<!ENTITY visitHomepage.label "Honlap meglátogatása">
+<!ENTITY addSubscription.label "Szűrő hozzáadása">
+<!ENTITY dialog.title "Adblock Plus szűrő felvétele">
+<!ENTITY location.label "Szűrőlista &amp;címe:">
+<!ENTITY fromWeb.description "Kérem erősítse meg a szűrő hozzáadását. Módosíthatja a szűrő címét és helyét a hozzáadás előtt.">

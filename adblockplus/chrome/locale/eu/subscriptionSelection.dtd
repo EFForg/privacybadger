@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Ge&amp;hitu &quot;?1?&quot; iragazki harpidetza ere">
+<!ENTITY list.download.failed "Adblock Plusek ezin izan du harpidetza zerrenda eskuratu">
+<!ENTITY list.download.retry "Saiatu berriro">
+<!ENTITY title.label "Harp&amp;idetza izenburua:">
+<!ENTITY list.download.website "Ikusi webgunea">
+<!ENTITY supplementMessage "Iragazki harpidetza hau &quot;?1?&quot; iragazki harpidetzarekin batera erabiltzekoa da eta zuk ez duzu oraindik erabiltzen.">
+<!ENTITY viewList.label "Ikusi iragazkiak">
+<!ENTITY visitHomepage.label "Bisitatu hasiera orria">
+<!ENTITY addSubscription.label "Gehitu harpidetza">
+<!ENTITY dialog.title "Gehitu Adblock Plus iragazki harpidetza">
+<!ENTITY location.label "Iragaz&amp;ki zerrendaren kokagunea:">
+<!ENTITY fromWeb.description "Mesedez berretsi iragazki harpidetza hau gehitu nahi duzula. Harpidetza izenburua eta kokagunea aldatu ditzakezu gehitu aurretik.">

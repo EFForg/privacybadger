@@ -1,0 +1,27 @@
+(function()
+{
+  var basename = {{metadata.get("general", "basename")|json}};
+
+  function doPoll()
+  {
+    var request = new XMLHttpRequest();
+    request.open("GET", "http://localhost:43816/");
+    request.addEventListener("load", function()
+    {
+      if (request.responseText != basename)
+        return;
+
+      var views = chrome.extension.getViews();
+      for (var i = 0; i < views.length; i++)
+        if (views[i] != window)
+          views[i].close();
+      window.location.reload();
+    }, false);
+    request.send(null);
+
+    window.setTimeout(doPoll, 5000);
+  }
+
+  // Delay first poll to prevent reloading again immediately after a reload
+  window.setTimeout(doPoll, 10000);
+})();

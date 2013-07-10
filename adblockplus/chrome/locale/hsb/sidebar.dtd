@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Ramiki elementa pokazać">
+<!ENTITY address.label "Adresa">
+<!ENTITY context.open.label "W nowym rajtarku wočinić">
+<!ENTITY type.label "Typ">
+<!ENTITY tooltip.filterSource.label "Žórło filtra:">
+<!ENTITY noitems.label "Žane blokujomne elementy">
+<!ENTITY filter.label "Filter">
+<!ENTITY tooltip.size.label "Wulkosć:">
+<!ENTITY reattach.label "Zaso připowěsnyć">
+<!ENTITY search.label "&amp;Pytać:">
+<!ENTITY docDomain.thirdParty "(třeći bok)">
+<!ENTITY filterSource.label "Žórło filtrow">
+<!ENTITY tooltip.docDomain.label "Žórło dokumenta:">
+<!ENTITY context.copy.label "Adresu elementa kopěrować">
+<!ENTITY tooltip.type.label "Typ:">
+<!ENTITY context.disablefilter.label "Filter ?1? znjemóžnić">
+<!ENTITY context.copyFilter.label "Filter kopěrować">
+<!ENTITY context.block.label "Tutón element blokować">
+<!ENTITY context.enablefilter.label "Filter ?1? zaso zmóžnić">
+<!ENTITY detach.label "Wotpowěsnyć">
+<!ENTITY whitelisted.label "Strona w běłej lisćinje">
+<!ENTITY context.disablefilteronsite.label "Tutón filter na ?1? znjemóžnić">
+<!ENTITY detached.title "Adblock Plus: Blokujomne elementy (wotpowěsnjene)">
+<!ENTITY docDomain.firstParty "(prěni bok)">
+<!ENTITY tooltip.type.whitelisted "(w běłej lisćinje)">
+<!ENTITY tooltip.filter.label "Aktiwny filter:">
+<!ENTITY tooltip.filter.disabled "(znjemóžnjeny)">
+<!ENTITY context.editfilter.label "Aktiwny filter wobdźěłać">
+<!ENTITY tooltip.type.blocked "(zablokowany)">
+<!ENTITY size.label "Wulkosć">
+<!ENTITY context.whitelist.label "Wuwzaćne prawidło za element přidać">
+<!ENTITY context.selectAll.label "Wšitko wubrać">
+<!ENTITY state.label "Staw">
+<!ENTITY docDomain.label "Žórło dokumenta">
+<!ENTITY tooltip.address.label "Adresa:">

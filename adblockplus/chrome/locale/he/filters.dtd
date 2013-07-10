@@ -1,0 +1,72 @@
+<!ENTITY restore.custom.warning "כל המסננים האישיים שלך יוחלפו בתוכן הקובץ הנבחר. האם להמשיך?">
+<!ENTITY slow.column "&amp;מסננים אטיים">
+<!ENTITY enabled.column "&amp;מאפשר">
+<!ENTITY subscription.lastDownload.checksumMismatch "נכשל, ביקורת הסיכום לתקינות לא התאימה בצורה טובה">
+<!ENTITY noFiltersInGroup.text "הקבוצה הנבחרת ריקה">
+<!ENTITY subscription.actions.label "פעולות">
+<!ENTITY filter.selectAll.label "בחירת הכל">
+<!ENTITY backupButton.label "&amp;גיבוי ושחזור">
+<!ENTITY restore.minVersion.warning "אזהרה: הקובץ נוצר על-ידי גרסה חדשה יותר של Adblock Plus. כדי לשדרג לגרסה האחרונה של Adblock Plus לפני שחזור מקובץ זה.">
+<!ENTITY restore.error "לא ניתן לעבד המידע בקובץ. אולי זה לא קובץ גיבוי של Adblock Plus?">
+<!ENTITY sort.ascending.label "&amp;מיון מ- א &gt; עד ת">
+<!ENTITY sort.label "&amp;מיון לפי">
+<!ENTITY subscription.source.label "רשימת מסננים">
+<!ENTITY hitcount.column "&amp;לחיצות">
+<!ENTITY noFilters.text "עדיין לא הוספו מסננים אישיים.">
+<!ENTITY backup.custom.title "מסננים מותאמים בלבד">
+<!ENTITY subscription.external.label "התעדכן על ידי הרחבה אחרת">
+<!ENTITY subscription.delete.label "מחיקה">
+<!ENTITY noGroupSelected.text "צריך לבחור קבוצת סינון לפני שהמסננים שלה יוצגו.">
+<!ENTITY filter.cut.label "גזירה">
+<!ENTITY restore.default.label "שחזור הגיבוי מ- ?1?">
+<!ENTITY subscription.lastDownload.inProgress "מוריד...">
+<!ENTITY subscriptions.tab.label "הרשמות מסננים">
+<!ENTITY sort.descending.label "&amp;מיון מ- ת &gt; עד א">
+<!ENTITY filters.remove.warning "האם להסיר את כל המסננים הנבחרים?">
+<!ENTITY filter.delete.label "מחיקה">
+<!ENTITY addSubscriptionAdd.label "הוספה">
+<!ENTITY viewMenu.label "תצוגה">
+<!ENTITY subscription.lastDownload.unknown "לא זמין">
+<!ENTITY addSubscriptionCancel.label "ביטול">
+<!ENTITY subscription.enabled.label "מאפשר">
+<!ENTITY noSubscriptions.text "עדיין לא הוספת הרשמות למסננים. Adblock Plus לא יחסום דבר ללא מסננים, אנא השתמשו ב-&quot;הוספת הרשמה למסננים&quot; להוספת מסננים.">
+<!ENTITY subscription.update.label "עדכון מסננים">
+<!ENTITY dialog.title "העדפות סינון Adblock Plus">
+<!ENTITY addFilter.label "&amp;הוספת מסנן">
+<!ENTITY subscription.minVersion.warning "הרשמת מסננים זאת דורשת גרסה חדשה יותר של Adblock Plus, צריך לשדרג לגרסה האחרונה של Adblock Plus.">
+<!ENTITY subscription.lastDownload.invalidURL "נכשל, הכתובת שגויה">
+<!ENTITY backup.error "אירעה שגיאה ברשימת המסננים לקובץ. יש לוודא כי הקובץ לא מוגן לכתיבה או בשימוש על-ידי יישום אחר.">
+<!ENTITY filter.moveUp.label "הזזה מעלה">
+<!ENTITY addGroup.label "הוספת &amp;קבוצת סינון">
+<!ENTITY filter.edit.label "עריכה">
+<!ENTITY subscription.showHideFilters.label "הצגת/הסתרת מסננים">
+<!ENTITY acceptableAds2.label "&amp;אפשור קצת פרסום לא פולשני">
+<!ENTITY addSubscriptionOther.label "הוספת הרשמה אחרת">
+<!ENTITY close.label "סגירה">
+<!ENTITY sort.none.label "&amp;לא ממוין">
+<!ENTITY filter.actions.label "פעולות מסנן">
+<!ENTITY filter.copy.label "העתקה">
+<!ENTITY filter.moveDown.label "הזזה מטה">
+<!ENTITY filter.resetHitCounts.label "איפוס סטטיסטיקות לחיצה">
+<!ENTITY readMore.label "לקרוא עוד">
+<!ENTITY subscription.moveUp.label "הזזה מעלה">
+<!ENTITY addSubscription.label "&amp;הוספת הרשמת מסנן">
+<!ENTITY subscription.homepage.label "עמוד בית">
+<!ENTITY backup.complete.title "כל המסננים וההרשמות">
+<!ENTITY restore.own.label "שחזור גיבוי משלי">
+<!ENTITY restore.complete.warning "כל הגדרות המסננים שלך יוחלפו בתוכן הקובץ הנבחר. האם להמשיך?">
+<!ENTITY filters.tab.label "מסננים מותאמים">
+<!ENTITY backup.label "יצירת גיבוי חדש">
+<!ENTITY find.label "&amp;חיפוש">
+<!ENTITY subscription.moveDown.label "הזזה מטה">
+<!ENTITY subscription.lastDownload.connectionError "נכשל, ההורדה נכשלה">
+<!ENTITY subscription.lastDownload.success "הצליח">
+<!ENTITY subscription.lastDownload.invalidData "נכשל, רשימת המסננים לא חוקית">
+<!ENTITY filter.paste.label "הדבקה">
+<!ENTITY subscription.disabledFilters.enable "אפשר מסננים מנוטרלים">
+<!ENTITY lasthit.column "&amp;לחיצה אחרונה">
+<!ENTITY subscription.editTitle.label "עריכת הכותרת">
+<!ENTITY subscription.disabledFilters.warning "כמה מהמסננים בהרשמה זאת מנוטרלים.">
+<!ENTITY filter.column "חוק &amp;סינון">
+<!ENTITY subscription.lastDownload.label "הורדה אחרונה:">
+<!ENTITY viewList.label "הצגת רשימה">

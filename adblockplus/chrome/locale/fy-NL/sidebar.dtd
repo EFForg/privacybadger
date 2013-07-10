@@ -1,0 +1,33 @@
+<!ENTITY context.flash.label "Lit rannen knipperje">
+<!ENTITY address.label "Adres">
+<!ENTITY context.open.label "Iepen yn in nij ljepblêd">
+<!ENTITY tooltip.filterSource.label "Filterboarne:">
+<!ENTITY noitems.label "Gjin blokkearbere items">
+<!ENTITY filter.label "Filter">
+<!ENTITY tooltip.size.label "Grutte:">
+<!ENTITY reattach.label "Fêstmeitsje">
+<!ENTITY search.label "Sykje:">
+<!ENTITY docDomain.thirdParty "(tredde partij)">
+<!ENTITY filterSource.label "Filterboarne">
+<!ENTITY tooltip.docDomain.label "Dokumintboarne:">
+<!ENTITY context.copy.label "Kopiearje">
+<!ENTITY tooltip.type.blocked "(blokkearre)">
+<!ENTITY context.disablefilter.label "Filter útskeakelje ?1?">
+<!ENTITY context.copyFilter.label "Filter kopiearje">
+<!ENTITY context.block.label "Blokkearje dit item">
+<!ENTITY context.enablefilter.label "Filter ynskeakelje ?1?">
+<!ENTITY detach.label "Losmeitsje">
+<!ENTITY whitelisted.label "Tastiene side">
+<!ENTITY context.disablefilteronsite.label "Skeakel dit filter út op ?1?">
+<!ENTITY detached.title "Adblock Plus: Blokkearbere ûnderdielen (los)">
+<!ENTITY docDomain.firstParty "(earste partij)">
+<!ENTITY tooltip.type.whitelisted "(tastien)">
+<!ENTITY tooltip.filter.label "Tapast filter:">
+<!ENTITY tooltip.filter.disabled "(útskeakele)">
+<!ENTITY context.editfilter.label "Bewurkje tapaste filter">
+<!ENTITY size.label "Grutte">
+<!ENTITY context.whitelist.label "Meitsje in útsûnderingsrigel foar dit ûnderdiel">
+<!ENTITY context.selectAll.label "Selektearje alles">
+<!ENTITY state.label "Steat">
+<!ENTITY docDomain.label "Dokumintboarne">
+<!ENTITY tooltip.address.label "Adres:">

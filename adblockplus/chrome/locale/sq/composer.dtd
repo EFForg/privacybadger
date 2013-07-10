@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "në fund të adresës">
+<!ENTITY domainRestriction.label "Kufizo në domain:">
+<!ENTITY collapse.default.no.label "Përdor të parazgjedhurën (jo):">
+<!ENTITY firstParty.label "Vetëm të parët">
+<!ENTITY preferences.label "Trego filtrin ekzistues...">
+<!ENTITY pattern.label "Kërko për motivin">
+<!ENTITY thirdParty.label "Vetëm të tretët">
+<!ENTITY filter.label "Filtër i ri:">
+<!ENTITY collapse.label "Shkatërro te bllokuarat:">
+<!ENTITY match.warning "Motivi që dhatë nuk përputhet më me adresat e bllokuara/lejuara dhe nuk ka më efekt mbi to.">
+<!ENTITY anchor.start.label "në fillim të adresës">
+<!ENTITY matchCase.label "Përputh shembullin">
+<!ENTITY custom.pattern.label "Përshtatja:">
+<!ENTITY unselectAllTypes.label "Mos selekto asnjë">
+<!ENTITY type.whitelist.label "Rregull përjashtimi">
+<!ENTITY regexp.warning "Motivi që dhatë do të interpretohet si shprehje e rregullt që nuk mund të përdoret nga Adblock Plus dhe mund të ngadalsojë hapjen e faqeve te internetit. Nëse nuk kishit ndërmend të përdorni një shprehje të rregullt, shtoni një (*) në fund të motivit.">
+<!ENTITY dialog.title "Shto një rregullore filtri në Adblock Plus">
+<!ENTITY basic.label "Pamje kryesore">
+<!ENTITY type.filter.label "Blloko filtrin">
+<!ENTITY types.label "Apliko në llojet:">
+<!ENTITY shortpattern.warning "Motivi që dhatë është shumë i shkurtër që të optimizohet dhe mund të ngadalsojë internetin. Rekomandohet që të zgjidhni një varg më të gjatë për këtë filtër në menyrë që të lejoj Adblock Plus ta përpunoj filtrin më mirë.">
+<!ENTITY collapse.yes.label "Po">
+<!ENTITY anchors.label "Prano vetëm motivin:">
+<!ENTITY collapse.default.yes.label "Përdor të parazgjedhurën (po):">
+<!ENTITY domainRestriction.help "Përdore këtë opsion që të specifikosh një ose më shumë adresa të ndara nga një (|). Filtri do të zbatohet vetëm në adresat(s) e zgjedhura. Një (~) përpara emrit të adresës tregon që filtri nuk do të zbatohet në atë adresë.">
+<!ENTITY accept.label "Shto filtër">
+<!ENTITY options.label "Mundësitë">
+<!ENTITY disabled.warning "Adblock Plus nuk punon për momentin. Mund të shtoni filtra por nuk do të funksionojnë nëse ju nuk [link]mundësoni Adblock Plus[/link].">
+<!ENTITY anchor.start.flexible.label "në fillim të domain name">
+<!ENTITY collapse.no.label "Jo">
+<!ENTITY selectAllTypes.label "Selekto të gjitha">
+<!ENTITY advanced.label "Pamje e avancuar">
+<!ENTITY pattern.explanation "Motivi mund të jetë çdo pjesë e adresës; simboli (*) vepron si xhoker. Filtri do të zbatohet vetëm në adresat që i përshtaten motivit të dhënë.">

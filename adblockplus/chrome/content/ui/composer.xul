@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+
+<!--
+  - This file is part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE overlay SYSTEM "chrome://adblockplus/locale/composer.dtd">
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://adblockplus/skin/composer.css" type="text/css"?>
+
+<dialog id="abp-composer"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    title="&dialog.title;"
+    onload="init()"
+    ondialogaccept="return addFilter()"
+    ondialogdisclosure="setAdvancedMode(!advancedMode)"
+    buttons="accept,cancel,disclosure"
+    width="800px"
+    height="400px"
+    persist="screenX screenY width height sizemode advancedMode"
+    advancedMode="false"
+    buttonlabelaccept="&accept.label;"
+    buttonlabeldisclosure="&advanced.label;"
+    buttonlabeldisclosure_on="&advanced.label;"
+    buttonlabeldisclosure_off="&basic.label;"
+    windowtype="abp:composer">
+
+  <script type="application/x-javascript;version=1.7" src="utils.js"/>
+  <script type="application/x-javascript;version=1.7" src="composer.js"/>
+
+  <popupset>
+    <tooltip id="domainRestrictionHelp" label="&domainRestriction.help;"/>
+  </popupset>
+
+  <description id="disabledWarning" hidden="true" textTemplate="&disabled.warning;">
+    <label class="text-link" onclick="doEnable()"/>
+  </description>
+
+  <hbox id="filterBox" align="center">
+    <label control="filter" value="&filter.label;"/>
+    <textbox id="filter" flex="1" tabindex="-1" readonly="true"/>
+    <button id="preferences" label="&preferences.label;" oncommand="openPreferences()"/>
+  </hbox>
+
+  <radiogroup orient="horizontal" id="filterType" oncommand="updateFilter()">
+    <radio label="&type.filter.label;" value="filterlist" flex="1"/>
+    <radio label="&type.whitelist.label;" value="whitelist" flex="1"/>
+  </radiogroup>
+
+  <hbox flex="1">
+    <groupbox id="pattern" flex="1">
+      <caption label="&pattern.label;"/>
+      <radiogroup id="patternGroup" flex="1" oncommand="updatePatternSelection()" style="overflow: auto;">
+        <description id="patternExplanation">&pattern.explanation;</description>
+        <description id="regexpWarning" hidden="true">&regexp.warning;</description>
+        <description id="shortpatternWarning" hidden="true">&shortpattern.warning;</description>
+        <description id="matchWarning" hidden="true">&match.warning;</description>
+        <hbox id="customPatternBox">
+          <radio id="customPatternRadio" label="&custom.pattern.label;" value="" control="customPattern"/>
+          <textbox id="customPattern" flex="1" oninput="updateCustomPattern()"/>
+        </hbox>
+      </radiogroup>
+      <hbox id="anchorGroup" pack="start" align="baseline">
+        <label value="&anchors.label;"/>
+        <description flex="1" style="margin: 0; padding: 0;">
+          <checkbox id="anchorStart" labelRegular="&anchor.start.label;"
+                                     labelFlexible="&anchor.start.flexible.label;"
+                                     oncommand="updateFilter()"/>
+          <checkbox id="anchorEnd" label="&anchor.end.label;" oncommand="updateFilter()"/>
+        </description>
+      </hbox>
+    </groupbox>
+    <groupbox id="options">
+      <caption label="&options.label;"/>
+      <checkbox id="firstParty" label="&firstParty.label;" oncommand="checkboxUpdated(this);"/>
+      <checkbox id="thirdParty" label="&thirdParty.label;" oncommand="checkboxUpdated(this);"/>
+      <checkbox id="matchCase" label="&matchCase.label;" oncommand="checkboxUpdated(this);"/>
+      <hbox align="baseline">
+        <checkbox id="domainRestrictionEnabled" label="&domainRestriction.label;" oncommand="checkboxUpdated(this);"/>
+        <description class="help" value="?" tooltip="domainRestrictionHelp"/>
+      </hbox>
+      <textbox id="domainRestriction" oninput="updateFilter()"/>
+
+      <label id="typeGroupLabel" value="&types.label;"/>
+      <hbox>
+        <label id="selectAllTypes" class="text-link" value="&selectAllTypes.label;" onclick="selectAllTypes(true)"/>
+        <spacer flex="1"/>
+        <label id="unselectAllTypes" class="text-link" value="&unselectAllTypes.label;" onclick="selectAllTypes(false)"/>
+      </hbox>
+      <vbox flex="1" id="typeGroup"/>
+
+      <vbox>
+        <label control="collapse" value="&collapse.label;"/>
+        <menulist id="collapse" oncommand="updateFilter()">
+          <menupopup>
+            <menuitem id="collapseDefault" value="" label_yes="&collapse.default.yes.label;" label_no="&collapse.default.no.label;" selected="true"/>
+            <menuitem label="&collapse.yes.label;" value="collapse"/>
+            <menuitem label="&collapse.no.label;" value="~collapse"/>
+          </menupopup>
+        </menulist>
+      </vbox>
+    </groupbox>
+  </hbox>
+</dialog>

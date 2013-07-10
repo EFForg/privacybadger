@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "&quot;?1?&quot; 구독 필터도 함께 추가 (&amp;s)">
+<!ENTITY list.download.failed "구독 필터 목록의 검색 실패">
+<!ENTITY list.download.retry "다시 시도">
+<!ENTITY title.label "이름 (&amp;T)">
+<!ENTITY list.download.website "웹 사이트">
+<!ENTITY supplementMessage "선택한 구독 필터는 &quot;?1?&quot;와(과) 함께 추가할 것을 권장합니다.">
+<!ENTITY viewList.label "필터 목록 보기">
+<!ENTITY visitHomepage.label "홈페이지">
+<!ENTITY addSubscription.label "추가">
+<!ENTITY dialog.title "구독 필터 추가">
+<!ENTITY location.label "위치 (&amp;L)">
+<!ENTITY fromWeb.description "추가하려는 구독 필터인지 확인하십시오. 추가하기 전에 이름 또는 위치를 변경할 수 있습니다.">

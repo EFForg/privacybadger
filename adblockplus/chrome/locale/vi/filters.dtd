@@ -1,0 +1,25 @@
+<!ENTITY slow.column "&amp;Bộ lọc chậm">
+<!ENTITY subscription.lastDownload.checksumMismatch "Thất bại, mã băm không phù hợp">
+<!ENTITY lasthit.column "Lần hit cuối">
+<!ENTITY sort.ascending.label "Thứ tự A &gt; Z">
+<!ENTITY sort.label "Sắp &amp;xếp theo">
+<!ENTITY filter.paste.label "Dán">
+<!ENTITY subscription.lastDownload.inProgress "Đang tải...">
+<!ENTITY filter.delete.label "Xóa">
+<!ENTITY enabled.column "&amp;Hiệu lực">
+<!ENTITY viewMenu.label "Hiển thị">
+<!ENTITY subscription.lastDownload.invalidURL "Thất bại, không phải là địa chỉ hợp lệ">
+<!ENTITY hitcount.column "&amp;Số lần hit">
+<!ENTITY filter.cut.label "Cắt">
+<!ENTITY addSubscriptionOther.label "Thêm bộ lọc trọn gói khác">
+<!ENTITY sort.none.label "&amp;Chưa sắp xếp">
+<!ENTITY filter.copy.label "Chép">
+<!ENTITY addSubscription.label "Thêm bộ lọc trọn gói">
+<!ENTITY find.label "Tìm">
+<!ENTITY sort.descending.label "Thứ tự Z &gt; A">
+<!ENTITY subscription.lastDownload.connectionError "Thất bại, tải xuống thất bại">
+<!ENTITY subscription.lastDownload.success "Thành công">
+<!ENTITY subscription.lastDownload.invalidData "Thất bại, không phải là danh sách bộ lọc hợp lệ">
+<!ENTITY addFilter.label "Thêm bộ lọc">
+<!ENTITY subscription.lastDownload.label "Lần tải cuối:">
+<!ENTITY filter.column "&amp;Quy luật lọc">

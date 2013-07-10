@@ -1,0 +1,72 @@
+<!ENTITY restore.custom.warning "Všechny vaše vlastní filtry budou nahrazeny obsahem vybraného souboru. Chcete pokračovat?">
+<!ENTITY slow.column "Po&amp;malé filtry">
+<!ENTITY enabled.column "A&amp;ktivní">
+<!ENTITY subscription.lastDownload.checksumMismatch "Chyba, neodpovídá kontrolní součet">
+<!ENTITY noFiltersInGroup.text "Vybraná skupina je prázdná">
+<!ENTITY subscription.actions.label "Akce">
+<!ENTITY filter.selectAll.label "Vybrat vše">
+<!ENTITY backupButton.label "Zál&amp;ohování a obnova">
+<!ENTITY restore.minVersion.warning "Varování: Soubor byl vytvořen novější verzí Adblocku Plus. Měli byste jej aktualizovat na nějnovější verzi, než budete pokračovat.">
+<!ENTITY restore.error "Data ze souboru nelze zpracovat, možná nejde o zálohu filtrů Adblocku Plus?">
+<!ENTITY sort.ascending.label "Vzestupně (&amp;A-Z)">
+<!ENTITY sort.label "&amp;Seřadit podle">
+<!ENTITY subscription.source.label "Seznam filtrů">
+<!ENTITY hitcount.column "Zása&amp;hy">
+<!ENTITY noFilters.text "Zatím nemáte žádné vlastní filtry.">
+<!ENTITY backup.custom.title "Pouze vlastní filtry">
+<!ENTITY subscription.external.label "Aktualizováno jiným rozšířením">
+<!ENTITY subscription.delete.label "Smazat">
+<!ENTITY noGroupSelected.text "Musíte vybrat skupinu filtrů, aby byly zobrazeny nějaké filtry.">
+<!ENTITY filter.cut.label "Vyjmout">
+<!ENTITY restore.default.label "Obnovit ze zálohy z ?1?">
+<!ENTITY subscription.lastDownload.inProgress "Stahuji...">
+<!ENTITY subscriptions.tab.label "Odebírané sady cizích filtrů">
+<!ENTITY sort.descending.label "Sestupně (&amp;Z-A)">
+<!ENTITY filters.remove.warning "Opravdu chcete odebrat všechny vybrané filtry?">
+<!ENTITY filter.delete.label "Smazat">
+<!ENTITY addSubscriptionAdd.label "Přidat">
+<!ENTITY viewMenu.label "Zobrazit">
+<!ENTITY subscription.lastDownload.unknown "neznámo">
+<!ENTITY addSubscriptionCancel.label "Zrušit">
+<!ENTITY subscription.enabled.label "Povoleno">
+<!ENTITY noSubscriptions.text "Zatím jste nezačali odebírat žádnou sadu cizích filtrů. Adblock Plus nebude blokovat nic bez nastavených filtrů, použijte prosím &quot;Přidat cizí filtry&quot;, abyste nějaké přidali.">
+<!ENTITY subscription.update.label "Aktualizovat filtry">
+<!ENTITY dialog.title "Předvolby filtrů Adblocku Plus">
+<!ENTITY addFilter.label "&amp;Přidat filtr">
+<!ENTITY subscription.minVersion.warning "Tato cizí sada filtrů vyžaduje novější verzi Adblocku Plus, měli byste jej aktualizovat na nejnovější verzi.">
+<!ENTITY subscription.lastDownload.invalidURL "Chyba, toto je nekorektní adresa.">
+<!ENTITY backup.error "Došlo k chybě při zápisu filtrů do souboru. Ujistěte se prosím, že soubor není chráněn proti zápisu nebo používán jinou aplikací.">
+<!ENTITY filter.moveUp.label "Posunout nahoru">
+<!ENTITY addGroup.label "Přidat &amp;skupinu filtrů">
+<!ENTITY filter.edit.label "Upravit">
+<!ENTITY subscription.showHideFilters.label "Zobrazit/skrýt filtry">
+<!ENTITY acceptableAds2.label "Povolit &amp;některé nerušivé reklamy">
+<!ENTITY addSubscriptionOther.label "Přidat další sadu cizích filtrů">
+<!ENTITY close.label "Zavřít">
+<!ENTITY sort.none.label "&amp;Neřadit">
+<!ENTITY filter.actions.label "Akce filtrů">
+<!ENTITY filter.copy.label "Kopírovat">
+<!ENTITY filter.moveDown.label "Posunout dolů">
+<!ENTITY filter.resetHitCounts.label "Vynulovat statistiku zásahů">
+<!ENTITY readMore.label "Zjistit více">
+<!ENTITY subscription.moveUp.label "Posunout nahoru">
+<!ENTITY addSubscription.label "Přidat cizí &amp;filtry">
+<!ENTITY subscription.homepage.label "Domovská stránka">
+<!ENTITY backup.complete.title "Všechny filtry a sady cizích filtrů">
+<!ENTITY restore.own.label "Obnovit z vlastní zálohy">
+<!ENTITY restore.complete.warning "Všechny vaše předvolby budou nahrazeny obsahem vybraného souboru. Chcete pokračovat?">
+<!ENTITY filters.tab.label "Vlastní filtry">
+<!ENTITY backup.label "Vytvořit novou zálohu">
+<!ENTITY find.label "Na&amp;jít">
+<!ENTITY subscription.moveDown.label "Posunout dolů">
+<!ENTITY subscription.lastDownload.connectionError "Chyba, nepodařilo se stáhnout soubor">
+<!ENTITY subscription.lastDownload.success "Úspěch">
+<!ENTITY subscription.lastDownload.invalidData "Chyba, stažený soubor není souborem filtrů Adblock Plus">
+<!ENTITY filter.paste.label "Vložit">
+<!ENTITY subscription.disabledFilters.enable "Povolit zakázané filtry">
+<!ENTITY lasthit.column "Pos&amp;lední zásah">
+<!ENTITY subscription.editTitle.label "Upravit název">
+<!ENTITY subscription.disabledFilters.warning "Některé filtry v této sadě jsou zakázány.">
+<!ENTITY filter.column "&amp;Pravidlo filtru">
+<!ENTITY subscription.lastDownload.label "Naposledy staženo:">
+<!ENTITY viewList.label "Zobrazit seznam">

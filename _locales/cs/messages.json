@@ -1,0 +1,118 @@
+{
+  "add": {
+    "message": "Přidat"
+  },
+  "add_domain_button": {
+    "message": "Přidat doménu"
+  },
+  "add_filter_button": {
+    "message": "Přidat filtr"
+  },
+  "add_filters_msg": {
+    "message": "Přidat filtr(y)?"
+  },
+  "add_your_own_filters": {
+    "message": "Přidejte své vlastní filtry"
+  },
+  "apply_changes": {
+    "message": "Použít změny"
+  },
+  "block_element": {
+    "message": "Blokovat element"
+  },
+  "cancel": {
+    "message": "Zrušit"
+  },
+  "clickhide_instructions": {
+    "message": "Po zavření tohoto vyskakovacího okna, klikněte levým (nebo pravým) tlačítkem myši na element na stránce."
+  },
+  "description": {
+    "message": "Bezplatný nástroj na blokování reklam pro Chrome: Blokuje otravné video reklamy na YouTube, Facebookové reklamy, bannery a mnohem více."
+  },
+  "disable_inline": {
+    "message": "Zakázat \"inline text\" reklamy"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus je zakázán pro domény uvedeny níže. Můžete přidat doménu buďto ikonou Adblock Plus v adresové liště nebo napsáním domény ( ne URL) do textového pole a kliknutím na tlačítko \"Přidat doménu\"."
+  },
+  "easy_create_filter": {
+    "message": "Jednoduché vytvoření filtru"
+  },
+  "edit_filters_raw": {
+    "message": "Upravit filtry jako běžný text"
+  },
+  "enable_only_the": {
+    "message": "Povolte pouze filtry,které potřebujete.Příliš mnoho může způsobit,že Chrome nebude odpovídat."
+  },
+  "enabled_for_site": {
+    "message": "Povolit pro tuto stránku"
+  },
+  "filter_lists": {
+    "message": "Seznam filtrů"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Váš filtr musí obsahovat <a href='$url$'>Filtrovou syntaxi Adblocku Plus</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Našli jste chybu? Chcete přeložit Adblock Plus do vašeho jazyka? Prosím <a href='$url$'>vyplňte žádost zde</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "message": "Obecné"
+  },
+  "last_updated_at": {
+    "message": "Naposled aktualizováno v $time$ $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "message": "Naposled aktualizováno dnes v $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Nové filtry přidány; navštivte <a id='options_url' target='_blank'>Nastavení</a> k jejich správě."
+  },
+  "options": {
+    "message": "Možnosti Adblock Plus"
+  },
+  "out_of_date_lists": {
+    "message": "Zastaralé seznamy jsou pravidelně aktualizovány."
+  },
+  "remove_button": {
+    "message": "Odebrat vybrané"
+  },
+  "show_block_element_menu": {
+    "message": "Ukázat 'Blokovat Element' v menu při kliknutí pravým tlačítkem myši"
+  },
+  "show_icon": {
+    "message": "Zobrazit ikonu v adresním řádku"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Prosím vyberte sadu filtrů ze seznamu:"
+  },
+  "update_now": {
+    "message": "Aktualizovat nyní"
+  },
+  "whitelisted_domains": {
+    "message": "Povolené domény"
+  }
+}

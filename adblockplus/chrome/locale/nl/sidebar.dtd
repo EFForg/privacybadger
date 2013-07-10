@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Randen laten knipperen">
+<!ENTITY address.label "Adres">
+<!ENTITY context.open.label "Openen in een nieuw tabblad">
+<!ENTITY type.label "Type">
+<!ENTITY tooltip.filterSource.label "Filterbron:">
+<!ENTITY noitems.label "Geen blokkeerbare onderdelen">
+<!ENTITY filter.label "Filter">
+<!ENTITY tooltip.size.label "Grootte:">
+<!ENTITY reattach.label "Vastkoppelen">
+<!ENTITY search.label "&amp;Zoeken:">
+<!ENTITY docDomain.thirdParty "(derden)">
+<!ENTITY filterSource.label "Filterbron">
+<!ENTITY tooltip.docDomain.label "Documentbron:">
+<!ENTITY context.copy.label "Adres kopiëren">
+<!ENTITY tooltip.type.label "Type:">
+<!ENTITY context.disablefilter.label "Filter ?1? uitschakelen">
+<!ENTITY context.copyFilter.label "Filter kopiëren">
+<!ENTITY context.block.label "Dit onderdeel blokkeren">
+<!ENTITY context.enablefilter.label "Filter ?1? inschakelen">
+<!ENTITY detach.label "Loskoppelen">
+<!ENTITY whitelisted.label "Toegestane pagina">
+<!ENTITY context.disablefilteronsite.label "Filter uitschakelen op ?1?">
+<!ENTITY detached.title "Adblock Plus: Blokkeerbare onderdelen (losgekoppeld)">
+<!ENTITY docDomain.firstParty "(rechtstreeks)">
+<!ENTITY tooltip.type.whitelisted "(toegestaan)">
+<!ENTITY tooltip.filter.label "Toegepast filter:">
+<!ENTITY tooltip.filter.disabled "(uitgeschakeld)">
+<!ENTITY context.editfilter.label "Toegepast filter bewerken">
+<!ENTITY tooltip.type.blocked "(geblokkeerd)">
+<!ENTITY size.label "Grootte">
+<!ENTITY context.whitelist.label "Uitzonderingsregel voor dit onderdeel toevoegen">
+<!ENTITY context.selectAll.label "Alles selecteren">
+<!ENTITY state.label "Status">
+<!ENTITY docDomain.label "Documentbron">
+<!ENTITY tooltip.address.label "Adres:">

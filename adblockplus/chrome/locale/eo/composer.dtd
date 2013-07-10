@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "en la &amp;fino de la adreso">
+<!ENTITY domainRestriction.label "&amp;Limigi al retregiono:">
+<!ENTITY collapse.default.no.label "Uzi defaŭlton (ne)">
+<!ENTITY firstParty.label "N&amp;ur de unua liveranto">
+<!ENTITY preferences.label "Montri &amp;ekzistantajn filtrilojn…">
+<!ENTITY pattern.label "Serĉi modelon">
+<!ENTITY thirdParty.label "Nur de &amp;tria liveranto">
+<!ENTITY filter.label "No&amp;va filtrilo:">
+<!ENTITY collapse.label "&amp;Maletendi blokitajn:">
+<!ENTITY match.warning "La modelo, kiun vi enigis, ne plu konformas kun la adreso, kiu estu blokata/transprenata en la blankan liston kaj ne havos efikon al ĝi.">
+<!ENTITY anchor.start.label "en la &amp;komenco de la adreso">
+<!ENTITY matchCase.label "&amp;Atenti usklecon">
+<!ENTITY custom.pattern.label "&amp;Propraj:">
+<!ENTITY unselectAllTypes.label "Elekti neniun">
+<!ENTITY type.whitelist.label "Es&amp;ceptoregulo">
+<!ENTITY regexp.warning "La modelo, kiun vi enigis, estos interpretata kiel regula esprimo, kiu ne povas esti traktata oer Adblock Plus kaj povas malrapidigi vian retumadon. Se vi ne intencas uzi regulan esprimon, aldonu asteriskon (*) al la fino de la modelo.">
+<!ENTITY dialog.title "Aldoni filtrilregulon al Adblock Plus">
+<!ENTITY basic.label "Baza vido">
+<!ENTITY type.filter.label "&amp;Blokanta filtrilo">
+<!ENTITY types.label "Apliki al tipoj:">
+<!ENTITY shortpattern.warning "La modelo, kiun vi enigis, estas tro mallonga por optimigo kaj povas malrapidigi vian retumadon. Rekomendiĝas, ke vi elektas pli longan signoĉenon por ĉi tiu filtrilo por permesi Adblock Plus trakti la filtrilon pli efike.">
+<!ENTITY collapse.yes.label "Jes">
+<!ENTITY anchors.label "Akcepti modelon nur:">
+<!ENTITY collapse.default.yes.label "Uzi defaŭlton (jes)">
+<!ENTITY domainRestriction.help "Uzu ĉi tiun opcion por specifi unu retregionon aŭ plurajn retregionojn, separitajn per strekosignon (|). La filtrilo estos nur aplikata al elektitaj retregionoj. Tildo (~) antaŭ retregiona nomo indikas, ke la filtrilo ne estos aplikata al tiu retregiono.">
+<!ENTITY accept.label "Aldoni filtrilon">
+<!ENTITY options.label "Opcioj">
+<!ENTITY disabled.warning "Addblock Plus estas nun malŝaltita. Vi povas ankoraŭ aldoni filtrilojn, sed ili ne estos aplikataj, ĝis vi [link]ŝaltas Adblock Plus[/link].">
+<!ENTITY anchor.start.flexible.label "en la &amp;komenco de la retregiona nomo">
+<!ENTITY collapse.no.label "Ne">
+<!ENTITY selectAllTypes.label "Elekti ĉion">
+<!ENTITY advanced.label "Detala vido">
+<!ENTITY pattern.explanation "La modelo povas esti parto de la adreso; asteriskoj (*) funkcias kiel ĵokeroj. La filtrilo estos nur aplikata al adresoj, kiuj konformas kun la specifita modelo.">

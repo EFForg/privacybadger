@@ -1,0 +1,127 @@
+/*
+ * This file is part of Adblock Plus <http://adblockplus.org/>,
+ * Copyright (C) 2006-2013 Eyeo GmbH
+ *
+ * Adblock Plus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * Adblock Plus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+//
+// This file has been generated automatically, relevant repositories:
+// * https://hg.adblockplus.org/jshydra/
+//
+
+require.scopes["abprewrite_source"] = (function()
+{
+  var exports = {};
+  const Cl = Components.unknown;
+  var Utils = require("utils").Utils;
+  var _tempVar0 = require("filterClasses");
+  var Filter = _tempVar0.Filter;
+  var BlockingFilter = _tempVar0.BlockingFilter;
+  var foo;
+  var bar = 2;
+  var bas;
+  var _tempVar1 = foo();
+  var a = _tempVar1[0];
+  var b = _tempVar1[1];
+  var _tempVar2 = [1, 2];
+  a = _tempVar2[0];
+  b = _tempVar2[1];
+  var y = foo().x;
+  var _tempVar3 = foo();
+  var v1 = _tempVar3.k1;
+  var v2 = _tempVar3.k2;
+  for (var _loopIndex4 = 0; _loopIndex4 < fooList.length; ++_loopIndex4)
+  {
+    var v = fooList[_loopIndex4];
+    alert(v);
+  }
+  for (var _loopIndex5 = 0; _loopIndex5 < fooList.length; ++_loopIndex5)
+  {
+    var _tempVar6 = fooList[_loopIndex5];
+    var a = _tempVar6[0];
+    var b = _tempVar6[1];
+    a += b;
+    b -= a;
+  }
+  for (var _loopIndex7 = 0; _loopIndex7 < fooList.length; ++_loopIndex7)
+  {
+    var _tempVar8 = fooList[_loopIndex7];
+    var a = _tempVar8[0];
+    var b = _tempVar8[1];
+  }
+  for (var _loopIndex9 = 0; _loopIndex9 < fooList.length; ++_loopIndex9)
+  {
+    k = fooList[_loopIndex9];
+    alert(k);
+  }
+  var a = function()
+  {
+    return 1;
+  };
+  var b =
+  {
+    get foo()
+    {
+      return 1;
+    }
+  };
+  if (a == b)
+  {
+    foo();
+  }
+  else if (a == c)
+  {
+    bar();
+  }
+  else
+  {
+    bas();
+  }
+  if (a == b){}
+  for (var a = 0; a < b.length; a++)
+  {
+    foo();
+  }
+  for (var a = 0; a < b.length; a++){}
+  for (var a in b)
+  {
+    foo();
+  }
+  for (var a in b){}
+  while (a == b)
+  {
+    foo();
+  }
+  while (a == b){}
+
+  function genFunc()
+  {
+    var _generatorResult10 = [];
+    for (var i = 0; i < 10; i++)
+    {
+      _generatorResult10.push(i);
+    }
+    return _generatorResult10;
+  }
+  var a = function()
+  {
+    var _generatorResult10 = [];
+    for (var i = 0; i < 10; i++)
+    {
+      _generatorResult10.push(i);
+    }
+    return _generatorResult10;
+  };
+  return exports;
+})();

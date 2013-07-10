@@ -1,0 +1,35 @@
+<!ENTITY context.flash.label "Position des Elements aufzeigen">
+<!ENTITY address.label "Adresse">
+<!ENTITY context.open.label "Adresse in neuem Tab öffnen">
+<!ENTITY type.label "Typ">
+<!ENTITY tooltip.filterSource.label "Herkunft des Filters:">
+<!ENTITY noitems.label "Keine blockierbaren Elemente">
+<!ENTITY filter.label "Filter">
+<!ENTITY tooltip.size.label "Größe:">
+<!ENTITY reattach.label "Ankoppeln">
+<!ENTITY search.label "&amp;Suchen:">
+<!ENTITY docDomain.thirdParty "(Anfrage zu einer Drittseite)">
+<!ENTITY filterSource.label "Filterquelle">
+<!ENTITY tooltip.docDomain.label "Ursprungsdomain:">
+<!ENTITY context.copy.label "Adresse des Elements kopieren">
+<!ENTITY tooltip.type.label "Typ:">
+<!ENTITY context.disablefilter.label "Filter ?1? deaktivieren">
+<!ENTITY context.copyFilter.label "Filter kopieren">
+<!ENTITY context.block.label "Dieses Element blockieren">
+<!ENTITY context.enablefilter.label "Filter ?1? wieder aktivieren">
+<!ENTITY detach.label "Abkoppeln">
+<!ENTITY whitelisted.label "Deaktiviert auf dieser Seite">
+<!ENTITY context.disablefilteronsite.label "Diesen Filter auf ?1? deaktivieren">
+<!ENTITY detached.title "Adblock Plus: Elemente der geöffneten Seite (abgekoppelt)">
+<!ENTITY docDomain.firstParty "(Anfrage zu derselben Domain)">
+<!ENTITY tooltip.type.whitelisted "(Ausnahmeregel aktiv)">
+<!ENTITY tooltip.filter.label "Angewandter Filter:">
+<!ENTITY tooltip.filter.disabled "(deaktiviert)">
+<!ENTITY context.editfilter.label "Angewandten Filter bearbeiten">
+<!ENTITY tooltip.type.blocked "(blockiert)">
+<!ENTITY size.label "Größe">
+<!ENTITY context.whitelist.label "Ausnahmeregel für das Element hinzufügen">
+<!ENTITY context.selectAll.label "Alles auswählen">
+<!ENTITY state.label "Status">
+<!ENTITY docDomain.label "Ursprungsdomain">
+<!ENTITY tooltip.address.label "Addresse:">

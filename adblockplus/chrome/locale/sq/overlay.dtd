@@ -1,0 +1,14 @@
+<!ENTITY opensidebar.label "Hap elementet &amp;bllokuese">
+<!ENTITY options.label "Mundësitë (&amp;O)">
+<!ENTITY context.object.label "Adblock Plus: Objektet e bllokuara">
+<!ENTITY context.removeWhitelist.label "Adblock Plus: Rilejo në këtë faqe">
+<!ENTITY context.frame.label "Adblock Plus: Pjesët e bllokuara">
+<!ENTITY filters.tooltip "Filtruesit më aktivë:">
+<!ENTITY menuitem.label "Parapëlqimet e Ad&amp;block Plus">
+<!ENTITY closesidebar.label "M&amp;byll elementet bllokuese">
+<!ENTITY whitelist.page.label "Çaktivizo vetëm në këtë faqe">
+<!ENTITY whitelist.site.label "Çaktivizo në ?1?">
+<!ENTITY toolbarbutton.label "Adblock Plus">
+<!ENTITY context.image.label "Adblock Plus: Figurat e bllokuara">
+<!ENTITY status.tooltip "Gjendja:">
+<!ENTITY objecttab.title "Blloko">

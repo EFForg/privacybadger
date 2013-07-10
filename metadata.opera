@@ -1,0 +1,16 @@
+[default]
+inherit = metadata.chrome
+
+[general]
+basename = adblockplusopera
+permissions = tabs
+  http://*/*
+  https://*/*
+  contextMenus
+  webRequest
+  webRequestBlocking
+  unlimitedStorage
+
+[convert_js]
+lib/io.js = lib/localstorage/io.js
+  --arg module=true

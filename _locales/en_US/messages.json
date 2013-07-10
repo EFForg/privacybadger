@@ -1,0 +1,129 @@
+{
+  "add": {
+    "description": "This is the label for the 'Add' buttons.",
+    "message": "Add"
+  },
+  "add_domain_button": {
+    "message": "Add domain"
+  },
+  "add_filter_button": {
+    "message": "Add filter"
+  },
+  "add_filters_msg": {
+    "message": "Add filter(s)?"
+  },
+  "add_your_own_filters": {
+    "message": "Add your own filters"
+  },
+  "apply_changes": {
+    "message": "Apply changes"
+  },
+  "block_element": {
+    "description": "Label for 'Block Element' context menu item",
+    "message": "Block Element"
+  },
+  "cancel": {
+    "description": "Cancel button label",
+    "message": "Cancel"
+  },
+  "clickhide_instructions": {
+    "message": "After closing this popup, click (or right-click) an element on the page."
+  },
+  "description": {
+    "message": "The free adblock tool for Chrome: Blocks annoying video ads on YouTube, Facebook ads, banners and much more."
+  },
+  "disable_inline": {
+    "message": "Disable inline text ads"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus is disabled for the domains listed below. You can add a domain either via the Adblock Plus icon in the address bar or by typing the domain (not a URL) in the box and clicking the \"Add domain\" button."
+  },
+  "easy_create_filter": {
+    "description": "Button label in popup balloon",
+    "message": "Easy create filter"
+  },
+  "edit_filters_raw": {
+    "message": "Edit filters as raw text"
+  },
+  "enable_only_the": {
+    "message": "Enable only the filter lists you need. Too many can make Chrome unresponsive."
+  },
+  "enabled_for_site": {
+    "description": "Popup balloon checkbox label",
+    "message": "Enabled for this site"
+  },
+  "filter_lists": {
+    "description": "This is a tab heading.",
+    "message": "Filter lists"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Your filter must follow the <a href='$url$'>Adblock Plus filter syntax</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Found a bug? Want to translate Adblock Plus into your language? Please <a href='$url$'>file a request here</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "description": "This is a tab heading.",
+    "message": "General"
+  },
+  "last_updated_at": {
+    "description": "e.g. Last updated at 3:00pm on Apr 1, 2011",
+    "message": "Last updated at $time$ on $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "description": "e.g. Last updated at 3:00pm today",
+    "message": "Last updated at $time$ today",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "New filters added; see <a id='options_url' target='_blank'>Options</a> to manage them."
+  },
+  "options": {
+    "message": "Adblock Plus Options"
+  },
+  "out_of_date_lists": {
+    "message": "Out-of-date lists are updated periodically."
+  },
+  "remove_button": {
+    "description": "This is the label for the 'Remove selected' buttons.",
+    "message": "Remove selected"
+  },
+  "show_block_element_menu": {
+    "message": "Show 'Block Element' right-click menu item"
+  },
+  "show_icon": {
+    "message": "Show icon in address bar"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Please choose a filter subscription from the list:"
+  },
+  "update_now": {
+    "message": "Update now"
+  },
+  "whitelisted_domains": {
+    "description": "This is a tab heading.",
+    "message": "Whitelisted domains"
+  }
+}

@@ -1,0 +1,12 @@
+<!ENTITY addMain.label "Προσ&amp;θήκη και της συνδρομής φίλτρων &quot;?1?&quot;">
+<!ENTITY list.download.failed "Το Adblock Plus απέτυχε να λάβει την λίστα με τις συνδρομές.">
+<!ENTITY list.download.retry "Προσπαθήστε ξανά">
+<!ENTITY title.label "Τίτλος &amp;συνδρομής:">
+<!ENTITY list.download.website "Προβολή της ιστοσελίδας">
+<!ENTITY supplementMessage "Αυτή η συνδρομή φίλτρων μπορεί να χρησιμοποιηθεί μαζί με την συνδρομή &quot;?1?&quot; την οποία δεν χρησιμοποιείτε.">
+<!ENTITY viewList.label "Προβολή φίλτρων">
+<!ENTITY visitHomepage.label "Ιστοσελίδα της συνδρομής">
+<!ENTITY addSubscription.label "Προσθήκη συνδρομής">
+<!ENTITY dialog.title "Συνδρομές φίλτρων του Adblock Plus">
+<!ENTITY location.label "&amp;Τοποθεσία λίστας φίλτρων:">
+<!ENTITY fromWeb.description "Παρακαλώ επιβεβαιώστε ότι θέλετε να προσθέσετε αυτή την λίστα φίλτρων. Μπορείτε να τροποποιήσετε τον τίτλο ή την τοποθεσία πριν την προσθήκη.">

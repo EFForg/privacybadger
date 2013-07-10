@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "&amp;ที่ท้ายๆของที่อยู่">
+<!ENTITY domainRestriction.label "จำกั&amp;ดโดเมน:">
+<!ENTITY collapse.default.no.label "ใช้ค่าเริ่มต้น(ไม่ใช่)">
+<!ENTITY firstParty.label "First-party เท่านั้น">
+<!ENTITY preferences.label "แ&amp;สดงตัวกรองที่มีอยู่...">
+<!ENTITY pattern.label "ดูรูปแบบ">
+<!ENTITY thirdParty.label "Third-party เท่านั้น">
+<!ENTITY filter.label "&amp;ตัวกรองใหม่:">
+<!ENTITY collapse.label "การบล็อกที่ล้&amp;มเหลว:">
+<!ENTITY match.warning "แบบรูปที่คุณเพิ่มเข้ามาไม่สัมพันธ์กับที่อยู่ที่จะบล็อกหรือไม่บล็อก มันจะไม่มีผลใด ๆ">
+<!ENTITY anchor.start.label "ที่ห&amp;น้าๆของที่อยู่">
+<!ENTITY matchCase.label "&amp;จับคู่">
+<!ENTITY custom.pattern.label "&amp;ปรับเอง:">
+<!ENTITY unselectAllTypes.label "ไม่เลือก">
+<!ENTITY type.whitelist.label "&amp;เงื่อนไขข้อยกเว้น">
+<!ENTITY regexp.warning "รูปแบบที่คุณป้อนเข้าจะถูกแปลเป็นการแสดงออกทั่วไป การแสดงออกทั่วไปมากๆจะทำให้การเข้าเว็บช้าลง ถ้าคุณไม่ตั้งใจจะใช้การแสดงออกทั่วไปให้ใส่สัญลักษณ์ * ที่ท้ายรูปแบบ">
+<!ENTITY dialog.title "เพิ่มกฎตัวกรอง Adblock Plus">
+<!ENTITY basic.label "มุมมองพื้นฐาน">
+<!ENTITY type.filter.label "การปิดกั้นตั&amp;วกรอง">
+<!ENTITY types.label "ใช้งานกับชนิด:">
+<!ENTITY shortpattern.warning "รูปแบบที่คุณป้อนเข้าสั้นเกินกว่าจะใช้ให้เหมาะสม รูปแบบมากๆจะทำให้เข้าเว็บช้า แนะนำให้ใช้รูปแบบยาวๆสำหรับตัวกรองนี้">
+<!ENTITY collapse.yes.label "ใช่">
+<!ENTITY anchors.label "รับเฉพาะรูปแบบ:">
+<!ENTITY collapse.default.yes.label "ใช้ค่าเริ่มต้น(ใช่)">
+<!ENTITY domainRestriction.help "ระบุโดเมนหนึ่งหรือหลายแห่งให้คั่นด้วยสัญลักษณ์ &quot;|&quot; ตัวกรองจะใช้งานบนโดเมนเหล่านี้เท่านั้น ถ้าไม่ต้องการใช้โดเมนใดให้ใส่สัญลักษณ์ &quot;~&quot; หน้าชื่อโดเมน">
+<!ENTITY accept.label "เพิ่มตัวกรอง">
+<!ENTITY options.label "ตัวเลือก">
+<!ENTITY disabled.warning "Adblock Plus ถูกปิดใช้งานอยู่ คุณยังสามารถเพิ่มตัวกรองได้ แต่จะไม่ถูกนำใช้งานจนกว่าคุณ[link]เปิดใช้งาน Adblock Plus[/link] เสียก่อน">
+<!ENTITY anchor.start.flexible.label "ส่ว&amp;นต้นของชื่อโดเมน">
+<!ENTITY collapse.no.label "ไม่ใช่">
+<!ENTITY selectAllTypes.label "เลือกทั้งหมด">
+<!ENTITY advanced.label "มุมมองละเอียด">
+<!ENTITY pattern.explanation "รูปแบบ (pattern) สามารถเป็นส่วนใดส่วนหนึ่งของที่อยู่ สัญลักษณ์ * เป็นอักขระใดๆ ตัวกรองจะถูกใช้งานกับที่อยู่ที่เหมาะสมกับตัวกรองเท่านั้น">

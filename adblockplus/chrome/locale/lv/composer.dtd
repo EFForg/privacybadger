@@ -1,0 +1,33 @@
+<!ENTITY anchor.end.label "adreses beigās">
+<!ENTITY domainRestriction.label "Ierobežot līdz domēnam:">
+<!ENTITY collapse.default.no.label "Lietot noklusēto vērtību (nē)">
+<!ENTITY firstParty.label "Tikai pirmās puses">
+<!ENTITY preferences.label "Rādīt esošos filtrus...">
+<!ENTITY pattern.label "Meklēt paraugu">
+<!ENTITY thirdParty.label "Tikai trešās puses">
+<!ENTITY filter.label "Jauns filtrs:">
+<!ENTITY collapse.label "Bloķēts sabrukums:">
+<!ENTITY match.warning "Modeli ko jus ievadijat vairs neatbilst adresei bloketiem/baltulistetiem un neizveidos nekad effektu uz ta.">
+<!ENTITY anchor.start.label "adreses sākumā">
+<!ENTITY matchCase.label "Saderīgs gadījums">
+<!ENTITY custom.pattern.label "Pielāgots:">
+<!ENTITY unselectAllTypes.label "Izvēlēties nevienu">
+<!ENTITY type.whitelist.label "Izņēmuma nosacījums">
+<!ENTITY regexp.warning "Modelis jūs ievadījāt tiks interpretēts kā regulāra izteiksme, ko Adblock Plus nevar efektīvi apstrādāt un tas var palēnināt jūsu pārlūkošanu. Ja jūs neplānojat izmantot regulāra izteiksmi, pievienojiet zvaigznīti (*) parauga beigās.">
+<!ENTITY dialog.title "Pievienot Adblock Plus filtra nosacījumu">
+<!ENTITY basic.label "Pamata skatījums">
+<!ENTITY type.filter.label "Bloķēšanas filtrs">
+<!ENTITY types.label "Pielietot tipiem:">
+<!ENTITY shortpattern.warning "Paraugs, kuru jūs ievadījāt, ir pārāk īss, lai būtu optimizēts un tas var palēnināt jūsu pārlūkošanu. Ieteicams izvēlēties garāku virkni šim filtram, lai Adblock Plus varētu apstrādāt filtru efektīvāk.">
+<!ENTITY collapse.yes.label "Jā">
+<!ENTITY anchors.label "Apstiprināt tiaki paraugus:">
+<!ENTITY collapse.default.yes.label "Lietot noklusēto vērtību (jā)">
+<!ENTITY domainRestriction.help "Izmantojiet šo opciju, lai precizētu vienu vai vairākus domēnus, atdalītus ar joslu līniju (|). Filtrs tiks attiecināts tikai uz izvēlēto domēnu(-iem). Tilde (~) pirms domēna vārda norāda, ka filtrs netiek piemērots attiecībā uz šo domēnu.">
+<!ENTITY accept.label "Pievienot filtru">
+<!ENTITY options.label "Opcijas">
+<!ENTITY disabled.warning "Adblock Plus šobrīd ir atspējots. Jūs joprojām varat pievienot filtrus, bet tie netiks piemēroti tik ilgi, kamēr jūs [link]neiespējosiet Adblock Plus[/link].">
+<!ENTITY anchor.start.flexible.label "domēna vārda sākumā">
+<!ENTITY collapse.no.label "Nē">
+<!ENTITY selectAllTypes.label "Izvēlēties visu">
+<!ENTITY advanced.label "Paplašināts skatījums">
+<!ENTITY pattern.explanation "Paraugs var būt jebkura daļa no adreses, zvaigznīte (*) darbojas kā aizstājējzīme. Filtrs var tikt piemērots tikai adresei, kas atbilst paredzētajam modelim.">
