@@ -1,0 +1,15 @@
+{
+   "name": "Heuristic Blocking",
+   "description": "Blocks web requests to origins that have appeared on multiple origins.",
+   "version": "0.0.1",
+   "manifest_version": 2,
+   "background": {
+      "page": "background.html"
+   },
+   "permissions": [
+      "webRequest",
+      "<all_urls>",
+      "webRequestBlocking"
+   ],
+   "minimum_chrome_version": "20.0"
+}
