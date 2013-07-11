@@ -5,9 +5,30 @@ with(require("filterClasses"))
   this.BlockingFilter = BlockingFilter;
   this.WhitelistFilter = WhitelistFilter;
 }
+with(require("subscriptionClasses"))
+{
+  this.Subscription = Subscription;
+  this.DownloadableSubscription = DownloadableSubscription;
+}
+var whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";
+try {
+  var subscription = Subscription.fromURL(whitelistUrl);
+  if (subscription && !(subscription.url in FilterStorage.knownSubscriptions))
+  {
+    subscription.title = "EFF Auto Whitelist";
+    FilterStorage.addSubscription(subscription);
+    Synchronizer.execute(subscription, false, false, true);
+  }
+} catch (e) {
+  console.log("Could not add whitelist!");
+}
+
+addSubscription("http://www.zoso.ro/pages/rolist.txt", "ROList");
+
 var FilterStorage = require("filterStorage").FilterStorage;
 var tabOrigins = { };
 var originFrequency = { };
+var testing = true;
 
 var prevalenceThreshold = 3;
 
@@ -16,7 +37,8 @@ var blacklistOrigin = function(origin) {
   // non-consensual tracking
   var filter = this.Filter.fromText("||" + origin + "^$third-party");
   filter.disabled = false;
-  this.FilterStorage.addFilter(filter);
+  if (!testing)
+    this.FilterStorage.addFilter(filter);
 
   // Vanilla ABP does this step too, not clear if there's any privacy win
   // though:
