@@ -60,9 +60,6 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
 ["blocking"]);
 
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-}, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"]);
-
-chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   // Ignore requests that are outside a tabbed window
   if(details.tabId < 0)
     return { };
