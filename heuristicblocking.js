@@ -23,8 +23,6 @@ try {
   console.log("Could not add whitelist!");
 }
 
-addSubscription("http://www.zoso.ro/pages/rolist.txt", "ROList");
-
 var FilterStorage = require("filterStorage").FilterStorage;
 var tabOrigins = { };
 var cookieSentOriginFrequency = { };
