@@ -9,5 +9,10 @@ CREATE TABLE IF NOT EXISTS reports (
   cookiereceivednum int(11),
   timestamp DATETIME,
   latest tinyint(1),
-) ENGINE=MyISAM DEFAULT CHARSET-UTF8; 
-  
+  PRIMARY KEY (report_id),
+  KEY (origin),
+  KEY (latest),
+  KEY(timestamp))
+
+
+) ENGINE=MyISAM DEFAULT CHARSET-UTF8;

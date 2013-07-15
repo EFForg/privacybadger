@@ -31,6 +31,22 @@ var httpRequestOriginFrequency = { };
 var testing = true;
 var prevalenceThreshold = 3;
 
+// for collecting test data
+var sendXHR = function(params) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "https://observatory.eff.org/pbdata.py", true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      if (xhr.status == 200)
+        console.log("Successfully submitted params: " + params);
+      else
+        console.log("Error submitting params: " + params);
+    }
+  }
+  xhr.send(params);
+}
+
 var blacklistOrigin = function(origin) {
   // Create an ABP filter to block this origin that seems to be engaging in
   // non-consensual tracking
@@ -67,22 +83,33 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
     if (origin == tabOrigin)
       return { };
     // Record HTTP request prevalence
-    if(!(origin in httpRequestOriginFrequency))
+    if (!(origin in httpRequestOriginFrequency))
       httpRequestOriginFrequency[origin] = { };
     httpRequestOriginFrequency[origin][tabOrigin] = true;
     // Blocking based on outbound cookies
     var httpRequestPrevalence = 0;
-    if(origin in httpRequestOriginFrequency)
+    if (origin in httpRequestOriginFrequency)
       httpRequestPrevalence = Object.keys(httpRequestOriginFrequency[origin]).length;
     var cookieSentPrevalence = 0;
-    if(origin in cookieSentOriginFrequency)
+    if (origin in cookieSentOriginFrequency)
       cookieSentPrevalence = Object.keys(cookieSentOriginFrequency[origin]).length;
     var cookieSetPrevalence = 0;
-    if(origin in cookieSetOriginFrequency)
+    if (origin in cookieSetOriginFrequency)
       cookieSetPrevalence = Object.keys(cookieSetOriginFrequency[origin]).length;
-    console.log("Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
+    if (testing) {
+      // todo: add logic to filter recent origins that have been sent, use a dict
+      // with a timestamp of last sent
+      var reqParams = []
+      reqParams.push("origin="+origin);
+      reqParams.push("thirdpartynum="+httpRequestPrevalence);
+      reqParams.push("cookiesentnum="+cookieSentPrevalence);
+      reqParams.push("cookiereceivednum="+cookieSetPrevalence);
+      var params = reqParams.join("&");
+      sendXHR(params);
+      console.log("Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
+    }
+    // todo: logic to actually block based on prevalence/cookie thresholds
   }
-  // todo: logic to turn on blocking
   //  else {
   //   var tabOrigin = tabOrigins[details.tabId];
   //   if (origin == tabOrigin)
