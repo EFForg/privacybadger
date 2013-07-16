@@ -10,6 +10,9 @@ with(require("subscriptionClasses"))
   this.Subscription = Subscription;
   this.DownloadableSubscription = DownloadableSubscription;
 }
+var FilterStorage = require("filterStorage").FilterStorage;
+var Synchronizer = require("synchronizer").Synchronizer;
+// populate EFF whitelist
 var whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";
 try {
   var subscription = Subscription.fromURL(whitelistUrl);
@@ -34,7 +37,7 @@ var prevalenceThreshold = 3;
 var lastSentXhr = { };
 var testing = true;
 var testThreshold = 3;
-var numMinutesToWait = 180;
+var numMinutesToWait = 5;
 
 // local storage for alpha test extension
 // todo? not even close to CSPRNG :)

@@ -360,9 +360,10 @@ function addSubscription(prevVersion)
 
   function notifyUser()
   {
-    chrome.tabs.create({
-      url: chrome.extension.getURL("firstRun.html")
-    });
+    console.log("first run page would open");
+    // chrome.tabs.create({
+    //   url: chrome.extension.getURL("firstRun.html")
+    // });
   }
 
   if (addSubscription)

@@ -1,5 +1,5 @@
 [general]
-basename = adblockpluschrome
+basename = efftestextension
 version = 1.5
 backgroundScripts = lib/compat.js
   lib/io.js
@@ -25,7 +25,7 @@ permissions = tabs
   storage
 options = options.html
 pageAction = icons/abp-19.png popup.html
-icons = icons/abp-?.png
+icons = icons/test-?.png
 webAccessible = block.html
 
 [contentScripts]
