@@ -28,10 +28,16 @@ var tabOrigins = { };
 var cookieSentOriginFrequency = { };
 var cookieSetOriginFrequency = { };
 var httpRequestOriginFrequency = { };
-var testing = true;
 var prevalenceThreshold = 3;
 
-// for collecting test data
+// variables for alpha test extension
+var lastSentXhr = { };
+var testing = true;
+var testThreshold = 3;
+var numMinutesToWait = 360;
+
+
+/******* FUNCTIONS FOR TESTING BEGIN HERE ********/
 var sendXHR = function(params) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "https://observatory.eff.org/pbdata.py", true);
@@ -46,6 +52,27 @@ var sendXHR = function(params) {
   }
   xhr.send(params);
 }
+
+var needToSendOrigin = function(origin, httpRequestPrevalence) {
+  // don't send third party domains that don't meet minimum test threshold
+  if (httpRequestPrevalence < testThreshold)
+    return false;
+  // only send an origin every 6 hours
+  var currentTime = new Date();
+  if (!(origin in lastSentXhr)) {
+    lastSentXhr[origin] = currentTime;
+    return true;
+  }
+  var diff_minutes = (currentTime - lastSentXhr[origin]) / (1000 * 60);
+  if (diff_minutes > numMinutesToWait) {
+    console.log("Last submitted " + origin + " " + diff_minutes + " minutes ago. Submitting again...");
+    lastSentXhr[origin] = currentTime;
+    return true;
+  }
+  return false;
+}
+
+/******* FUNCTIONS FOR TESTING END HERE ********/
 
 var blacklistOrigin = function(origin) {
   // Create an ABP filter to block this origin that seems to be engaging in
@@ -96,9 +123,7 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
     var cookieSetPrevalence = 0;
     if (origin in cookieSetOriginFrequency)
       cookieSetPrevalence = Object.keys(cookieSetOriginFrequency[origin]).length;
-    if (testing) {
-      // todo: add logic to filter recent origins that have been sent, use a dict
-      // with a timestamp of last sent
+    if (testing && needToSendOrigin(origin, httpRequestPrevalence)) {
       var reqParams = []
       reqParams.push("origin="+origin);
       reqParams.push("thirdpartynum="+httpRequestPrevalence);
@@ -109,7 +134,6 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
       console.log("Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
     }
     // todo: logic to actually block based on prevalence/cookie thresholds
-  }
   //  else {
   //   var tabOrigin = tabOrigins[details.tabId];
   //   if (origin == tabOrigin)
@@ -124,6 +148,7 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
   //     }
   //   }
   // }
+  }
 },
 {urls: ["<all_urls>"]},
 ["blocking"]);
