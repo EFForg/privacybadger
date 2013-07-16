@@ -22,6 +22,7 @@ permissions = tabs
   webRequestBlocking
   webNavigation
   unlimitedStorage
+  storage
 options = options.html
 pageAction = icons/abp-19.png popup.html
 icons = icons/abp-?.png

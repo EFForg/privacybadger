@@ -34,8 +34,22 @@ var prevalenceThreshold = 3;
 var lastSentXhr = { };
 var testing = true;
 var testThreshold = 3;
-var numMinutesToWait = 360;
+var numMinutesToWait = 180;
 
+// local storage for alpha test extension
+// todo? not even close to CSPRNG :)
+// todo? this is async; not ideal but it'll do
+var uniqueId = null;
+chrome.storage.local.get('pbdata', function(items) {
+  uniqueId = items['pbdata'];
+  if (!(uniqueId)) {
+    var randId = Math.floor(Math.random()*16777215).toString(16);
+    uniqueId = randId;
+    chrome.storage.local.set({'pbdata':randId}, function() {
+      console.log("setting local id to " + uniqueId);
+    });
+  }
+});
 
 /******* FUNCTIONS FOR TESTING BEGIN HERE ********/
 var sendXHR = function(params) {
@@ -129,9 +143,10 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
       reqParams.push("thirdpartynum="+httpRequestPrevalence);
       reqParams.push("cookiesentnum="+cookieSentPrevalence);
       reqParams.push("cookiereceivednum="+cookieSetPrevalence);
+      reqParams.push("id="+uniqueId);
       var params = reqParams.join("&");
       sendXHR(params);
-      console.log("Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
+      console.log("With id " + uniqueId + ", Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
     }
     // todo: logic to actually block based on prevalence/cookie thresholds
   //  else {
