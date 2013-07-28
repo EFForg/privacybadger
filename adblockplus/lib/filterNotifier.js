@@ -66,7 +66,8 @@ let FilterNotifier = exports.FilterNotifier =
    */
   triggerListeners: function(action, item, param1, param2, param3)
   {
-    for each (let listener in listeners)
+    for each (let listener in listeners) {
       listener(action, item, param1, param2, param3);
+    }
   }
 };

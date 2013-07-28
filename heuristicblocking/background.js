@@ -47,16 +47,13 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
   
   else {
     var tabOrigin = tabOrigins[details.tabId];
-    
     // Ignore first-party requests
     if (origin == tabOrigin)
       return { };
-    
     // Record HTTP request prevalence
     if(!(origin in httpRequestOriginFrequency))
-    	httpRequestOriginFrequency[origin] = { };
+      httpRequestOriginFrequency[origin] = { };
     httpRequestOriginFrequency[origin][tabOrigin] = true;
-    
     // Blocking based on outbound cookies
     var httpRequestPrevalence = 0;
     if(origin in httpRequestOriginFrequency)

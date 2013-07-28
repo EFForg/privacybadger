@@ -25,7 +25,7 @@
 <script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="i18n.js" charset="utf-8"></script>
 <script type="text/javascript" src="options.js" charset="utf-8"></script>
-<title>Adblock Plus Options</title>
+<title>EFF test extension options</title>
 <style type="text/css" media="screen">
 body
 {
@@ -130,160 +130,161 @@ button
 </style>
 </head>
 <body>
-<table>
-  <tr>
-    <td style="padding-right: 8px">
-      <img src="icons/abp-32.png">
-    </td>
-    <td>
-      <h1><span class="i18n_options"></span></h1>
-    </td>
-  </tr>
-</table>
+In soviet EFF test extension, options have you!
+<!-- <table> -->
+<!--   <tr> -->
+<!--     <td style="padding-right: 8px"> -->
+<!--       <img src="icons/abp-32.png"> -->
+<!--     </td> -->
+<!--     <td> -->
+<!--       <h1><span class="i18n_options"></span></h1> -->
+<!--     </td> -->
+<!--   </tr> -->
+<!-- </table> -->
 
-<div id="tabs">
-  <ul>
-    <li><a href="#tab-filterlists"><span class="i18n_filter_lists"></span></a></li>
-    <li><a href="#tab-userfilters"><span class="i18n_add_your_own_filters"></span></a></li>
-    <li><a href="#tab-whitelisted"><span class="i18n_whitelisted_domains"></span></a></li>
-    <li><a href="#tab-general"><span class="i18n_general"></span></a></li>
-  </ul>
+<!-- <div id="tabs"> -->
+<!--   <ul> -->
+<!--     <li><a href="#tab-filterlists"><span class="i18n_filter_lists"></span></a></li> -->
+<!--     <li><a href="#tab-userfilters"><span class="i18n_add_your_own_filters"></span></a></li> -->
+<!--     <li><a href="#tab-whitelisted"><span class="i18n_whitelisted_domains"></span></a></li> -->
+<!--     <li><a href="#tab-general"><span class="i18n_general"></span></a></li> -->
+<!--   </ul> -->
 
-  <div id="tab-filterlists">
-    <p>
-      <span class="i18n_enable_only_the"></span>
-    </p>
-    <p>
-      <span class="i18n_out_of_date_lists"></span>
-      <button id="updateFilterLists" class="refreshButton"><span class="i18n_update_now"></span></button><br />
+<!--   <div id="tab-filterlists"> -->
+<!--     <p> -->
+<!--       <span class="i18n_enable_only_the"></span> -->
+<!--     </p> -->
+<!--     <p> -->
+<!--       <span class="i18n_out_of_date_lists"></span> -->
+<!--       <button id="updateFilterLists" class="refreshButton"><span class="i18n_update_now"></span></button><br /> -->
 
-      <!-- Subscription entry template -->
-      <div id="subscriptionTemplate" class="subscription">
-        <button class="i18n_filters_subscription_delete_label subscriptionRemoveButton"></button>
-        <span class="subscriptionEnabledContainer">
-          <input class="subscriptionEnabled" type="checkbox" /> <span class="i18n_filters_subscription_enabled_label"></span>
-        </span>
-        <a class="subscriptionTitle"></a>
-        <span class="subscriptionUpdate"></span>
-      </div>
+<!--       <\!-- Subscription entry template -\-> -->
+<!--       <div id="subscriptionTemplate" class="subscription"> -->
+<!--         <button class="i18n_filters_subscription_delete_label subscriptionRemoveButton"></button> -->
+<!--         <span class="subscriptionEnabledContainer"> -->
+<!--           <input class="subscriptionEnabled" type="checkbox" /> <span class="i18n_filters_subscription_enabled_label"></span> -->
+<!--         </span> -->
+<!--         <a class="subscriptionTitle"></a> -->
+<!--         <span class="subscriptionUpdate"></span> -->
+<!--       </div> -->
 
-      <!-- Placeholder for list of subscriptions -->
-      <div id="filterLists"></div>
-      <br />
+<!--       <\!-- Placeholder for list of subscriptions -\-> -->
+<!--       <div id="filterLists"></div> -->
+<!--       <br /> -->
 
-      <!-- Placeholder for user's filter list URLs -->
-      <div id="userFilterLists" style="margin-bottom: 8px"></div>
+<!--       <\!-- Placeholder for user's filter list URLs -\-> -->
+<!--       <div id="userFilterLists" style="margin-bottom: 8px"></div> -->
 
-      <p id="addSubscriptionButton">
-        <button id="startSubscriptionSelection" class="addButton"><span class="i18n_filters_addSubscription_label"></span></button>
-      </p>
-      <div id="addSubscriptionContainer">
-        <span class="i18n_subscriptionSelection_subscriptionSelector_label"></span><br />
-        <select id="subscriptionSelector" style="width:500px"></select>
-        <button id="addSubscription" class="addButton"><span class="i18n_filters_addSubscriptionAdd_label"></span></button>
-      </div>
-      <div id="customSubscriptionContainer">
-        <p>
-          <span class="i18n_subscriptionSelection_title_label"></span><br />
-          <input type="text" id="customSubscriptionTitle" style="width:500px" />
-        </p>
-        <p>
-          <span class="i18n_subscriptionSelection_location_label"></span><br />
-          <input type="text" id="customSubscriptionLocation" style="width:500px" />
-        </p>
-      </div>
+<!--       <p id="addSubscriptionButton"> -->
+<!--         <button id="startSubscriptionSelection" class="addButton"><span class="i18n_filters_addSubscription_label"></span></button> -->
+<!--       </p> -->
+<!--       <div id="addSubscriptionContainer"> -->
+<!--         <span class="i18n_subscriptionSelection_subscriptionSelector_label"></span><br /> -->
+<!--         <select id="subscriptionSelector" style="width:500px"></select> -->
+<!--         <button id="addSubscription" class="addButton"><span class="i18n_filters_addSubscriptionAdd_label"></span></button> -->
+<!--       </div> -->
+<!--       <div id="customSubscriptionContainer"> -->
+<!--         <p> -->
+<!--           <span class="i18n_subscriptionSelection_title_label"></span><br /> -->
+<!--           <input type="text" id="customSubscriptionTitle" style="width:500px" /> -->
+<!--         </p> -->
+<!--         <p> -->
+<!--           <span class="i18n_subscriptionSelection_location_label"></span><br /> -->
+<!--           <input type="text" id="customSubscriptionLocation" style="width:500px" /> -->
+<!--         </p> -->
+<!--       </div> -->
 
-      <div id="acceptableAdsContainer">
-        <input type="checkbox" id="acceptableAds" />
-        <span class="i18n_filters_acceptableAds2_label"></span>
-        <a id="acceptableAdsLink" href="#" target="_blank" class="i18n_filters_viewList_label"></a>
-        <a id="acceptableAdsDocs" href="#" target="_blank" class="i18n_filters_readMore_label"></a>
-      </div>
-    </p>
-  </div>
+<!--       <div id="acceptableAdsContainer"> -->
+<!--         <input type="checkbox" id="acceptableAds" /> -->
+<!--         <span class="i18n_filters_acceptableAds2_label"></span> -->
+<!--         <a id="acceptableAdsLink" href="#" target="_blank" class="i18n_filters_viewList_label"></a> -->
+<!--         <a id="acceptableAdsDocs" href="#" target="_blank" class="i18n_filters_readMore_label"></a> -->
+<!--       </div> -->
+<!--     </p> -->
+<!--   </div> -->
 
-  <div id="tab-whitelisted">
-    <p class="i18n_disabled_for_these_domains"></p>
+<!--   <div id="tab-whitelisted"> -->
+<!--     <p class="i18n_disabled_for_these_domains"></p> -->
 
-    <form id="whitelistForm" action="#">
-    <table>
-      <tr>
-        <td style="max-width:100%">
-          <input type="text" value="" id="newWhitelistDomain" style="width:100%">
-        </td>
-        <td>
-          <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
-        </td>
-      </tr>
+<!--     <form id="whitelistForm" action="#"> -->
+<!--     <table> -->
+<!--       <tr> -->
+<!--         <td style="max-width:100%"> -->
+<!--           <input type="text" value="" id="newWhitelistDomain" style="width:100%"> -->
+<!--         </td> -->
+<!--         <td> -->
+<!--           <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button> -->
+<!--         </td> -->
+<!--       </tr> -->
 
-      <tr>
-        <td>
-          <select id="excludedDomainsBox" size="10" multiple style="width:500px; background: white;"></select>
-        </td>
-        <td>
-          <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
-        </td>
-      </tr>
-    </table>
-    </form>
-  </div>
+<!--       <tr> -->
+<!--         <td> -->
+<!--           <select id="excludedDomainsBox" size="10" multiple style="width:500px; background: white;"></select> -->
+<!--         </td> -->
+<!--         <td> -->
+<!--           <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button> -->
+<!--         </td> -->
+<!--       </tr> -->
+<!--     </table> -->
+<!--     </form> -->
+<!--   </div> -->
 
-  <div id="tab-userfilters">
-    <p class="i18n_filter_must_follow_syntax">"http://adblockplus.org/en/filters"</p>
+<!--   <div id="tab-userfilters"> -->
+<!--     <p class="i18n_filter_must_follow_syntax">"http://adblockplus.org/en/filters"</p> -->
 
-    <form id="customFilterForm" action="#">
-    <table>
-      <tr>
-        <td>
-          <input type="text" value="" id="newFilter" style="width:500px">
-        </td>
-        <td>
-          <button class="addButton" type="submit"><span class="i18n_add_filter_button"></span></button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <select id="userFiltersBox" size="20" multiple style="width: 500px; background: white;"></select>
-        </td>
-        <td>
-          <button id="removeCustomFilter" class="removeButton"><span class="i18n_remove_button"></span></button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="font-size: 90%; text-align: right"><a id="rawFiltersButton" href="#"><span class="i18n_edit_filters_raw"></span></a></div>
-        </td>
-      </tr>
-      <tr id="rawFilters">
-        <td>
-          <div style="width: 500px">
-            <textarea id="rawFiltersText" style="width: 100%; height: 300px"></textarea>
-          </div>
-        </td>
-        <td>
-          <div><button id="importRawFilters"><span class="i18n_apply_changes"></span></button></div>
-        </td>
-      </tr>
-    </table>
-    </form>
-  </div>
+<!--     <form id="customFilterForm" action="#"> -->
+<!--     <table> -->
+<!--       <tr> -->
+<!--         <td> -->
+<!--           <input type="text" value="" id="newFilter" style="width:500px"> -->
+<!--         </td> -->
+<!--         <td> -->
+<!--           <button class="addButton" type="submit"><span class="i18n_add_filter_button"></span></button> -->
+<!--         </td> -->
+<!--       </tr> -->
+<!--       <tr> -->
+<!--         <td> -->
+<!--           <select id="userFiltersBox" size="20" multiple style="width: 500px; background: white;"></select> -->
+<!--         </td> -->
+<!--         <td> -->
+<!--           <button id="removeCustomFilter" class="removeButton"><span class="i18n_remove_button"></span></button> -->
+<!--         </td> -->
+<!--       </tr> -->
+<!--       <tr> -->
+<!--         <td> -->
+<!--           <div style="font-size: 90%; text-align: right"><a id="rawFiltersButton" href="#"><span class="i18n_edit_filters_raw"></span></a></div> -->
+<!--         </td> -->
+<!--       </tr> -->
+<!--       <tr id="rawFilters"> -->
+<!--         <td> -->
+<!--           <div style="width: 500px"> -->
+<!--             <textarea id="rawFiltersText" style="width: 100%; height: 300px"></textarea> -->
+<!--           </div> -->
+<!--         </td> -->
+<!--         <td> -->
+<!--           <div><button id="importRawFilters"><span class="i18n_apply_changes"></span></button></div> -->
+<!--         </td> -->
+<!--       </tr> -->
+<!--     </table> -->
+<!--     </form> -->
+<!--   </div> -->
 
-  <div id="tab-general">
-    <p>
-      <div id="shouldShowIconContainer">
-        <input type="checkbox" id="shouldShowIcon" /><span class="i18n_show_icon"></span>
-      </div>
-      <div id="shouldShowBlockElementMenuContainer">
-        <input type="checkbox" id="shouldShowBlockElementMenu" /><span class="i18n_show_block_element_menu"></span>
-      </div>
-      <div id="hidePlaceholdersContainer">
-        <input type="checkbox" id="hidePlaceholders" /><span class="i18n_overlay_hideplaceholders_label"></span>
-      </div>
-    </p>
+<!--   <div id="tab-general"> -->
+<!--     <p> -->
+<!--       <div id="shouldShowIconContainer"> -->
+<!--         <input type="checkbox" id="shouldShowIcon" /><span class="i18n_show_icon"></span> -->
+<!--       </div> -->
+<!--       <div id="shouldShowBlockElementMenuContainer"> -->
+<!--         <input type="checkbox" id="shouldShowBlockElementMenu" /><span class="i18n_show_block_element_menu"></span> -->
+<!--       </div> -->
+<!--       <div id="hidePlaceholdersContainer"> -->
+<!--         <input type="checkbox" id="hidePlaceholders" /><span class="i18n_overlay_hideplaceholders_label"></span> -->
+<!--       </div> -->
+<!--     </p> -->
 
-    <p class="i18n_found_a_bug">"https://adblockplus.org/forum/viewforum.php?f=10"</p>
-  </div>
-</div>
+<!--     <p class="i18n_found_a_bug">"https://adblockplus.org/forum/viewforum.php?f=10"</p> -->
+<!--   </div> -->
+<!-- </div> -->
 
 </body>
 </html>

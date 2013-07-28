@@ -1,3 +1,6 @@
+var backgroundPage = chrome.extension.getBackgroundPage();
+var require = backgroundPage.require;
+
 with(require("filterClasses"))
 {
   this.Filter = Filter;
@@ -9,24 +12,10 @@ with(require("subscriptionClasses"))
 {
   this.Subscription = Subscription;
   this.DownloadableSubscription = DownloadableSubscription;
+  this.SpecialSubscription = SpecialSubscription;
 }
 var FilterStorage = require("filterStorage").FilterStorage;
 var Synchronizer = require("synchronizer").Synchronizer;
-// populate EFF whitelist
-var whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";
-try {
-  var subscription = Subscription.fromURL(whitelistUrl);
-  if (subscription && !(subscription.url in FilterStorage.knownSubscriptions))
-  {
-    subscription.title = "EFF Auto Whitelist";
-    FilterStorage.addSubscription(subscription);
-    Synchronizer.execute(subscription, false, false, true);
-  }
-} catch (e) {
-  console.log("Could not add whitelist!");
-}
-
-var FilterStorage = require("filterStorage").FilterStorage;
 var tabOrigins = { };
 var cookieSentOriginFrequency = { };
 var cookieSetOriginFrequency = { };
@@ -35,9 +24,9 @@ var prevalenceThreshold = 3;
 
 // variables for alpha test extension
 var lastSentXhr = { };
-var testing = true;
+var testing = false;
 var testThreshold = 3;
-var numMinutesToWait = 5;
+var numMinutesToWait = 120;
 
 // local storage for alpha test extension
 // todo? not even close to CSPRNG :)
@@ -92,23 +81,38 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
 /******* FUNCTIONS FOR TESTING END HERE ********/
 
 var blacklistOrigin = function(origin) {
-  // Create an ABP filter to block this origin that seems to be engaging in
-  // non-consensual tracking
+  // Heuristic subscription
+  if (!("frequencyHeuristic" in FilterStorage.knownSubscriptions)) {
+    console.log("Error. Coudl not blacklist origin because no heuristic subscription found");
+    return;
+  }
+  var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
+  // Create an ABP filter to block this origin 
   var filter = this.Filter.fromText("||" + origin + "^$third-party");
   filter.disabled = false;
-  if (!testing)
-    this.FilterStorage.addFilter(filter);
-
+  if (!testing) {
+    console.log("Adding filter for " + heuristicSubscription.url);
+    FilterStorage.addFilter(filter, heuristicSubscription);
+  }
   // Vanilla ABP does this step too, not clear if there's any privacy win
   // though:
 
   //if (nodes)
   //  Policy.refilterNodes(nodes, item);
-
   return true;
 };
 
 chrome.webRequest.onBeforeRequest.addListener(function(details) {
+  // tododta testing
+  // for (url in Subscription.knownSubscriptions) {
+  //   console.log("Subscription urls " + url);
+  // }
+  // for (var i = 0; i < FilterStorage.subscriptions.length; i++)
+  // {
+  //   var subscr = FilterStorage.subscriptions[i];
+  //   console.log("HB subscription url: " + subscr.url);
+  // }
+
   // Ignore requests that are outside a tabbed window
   if(details.tabId < 0)
     return { };
@@ -151,21 +155,12 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
       sendXHR(params);
       console.log("With id " + uniqueId + ", Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
     }
-    // todo: logic to actually block based on prevalence/cookie thresholds
-  //  else {
-  //   var tabOrigin = tabOrigins[details.tabId];
-  //   if (origin == tabOrigin)
-  //     return { };
-  //   else if(!(origin in originFrequency))
-  //     return { };
-  //   else {
-  //     var l = Object.keys(originFrequency[origin]).length;
-  //     if( l == prevalenceThreshold) {
-  //       console.log("Blocking " + origin + " because it appeared with cookies on: " + Object.keys(originFrequency[origin]));
-  //       blacklistOrigin(origin);
-  //     }
-  //   }
-  // }
+    else {
+      if (httpRequestPrevalence >= prevalenceThreshold) {
+        console.log("Blocking " + origin);
+        blacklistOrigin(origin);
+      }
+    }
   }
 },
 {urls: ["<all_urls>"]},

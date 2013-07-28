@@ -440,3 +440,58 @@ CombinedMatcher.prototype =
  * @type CombinedMatcher
  */
 let defaultMatcher = exports.defaultMatcher = new CombinedMatcher();
+
+/* dta: privacy badger fork code below */
+
+/**
+ * This class is a store of various matchers, which can be keyed by,
+ * for example, a subscription url or name.
+ * @class
+ */
+function MatcherStore()
+{
+  this.clear();
+}
+exports.MatcherStore = MatcherStore;
+
+MatcherStore.prototype = {
+  /**
+   * Lookup table for matchers by their associated keyword
+   * @type Object
+   */
+  combinedMatcherStore: null,
+
+  /**
+   * Clears matchers
+   * @param {key} string
+   */  
+  clear: function()
+  {
+    this.combinedMatcherStore = {__proto__: null};
+  },
+
+  /**
+   * Adds a matcher to the combinedMatcherStore
+   * @param {key} string
+   */
+  add: function(key)
+  {
+    // tododta testing remove
+    console.log("matcherStore add called!");
+    if (!(key in this.combinedMatcherStore))
+        this.combinedMatcherStore[key] = new CombinedMatcher();
+    console.log("matchertStore now has length " + Object.keys(this.combinedMatcherStore).length)
+  },
+
+  /**
+   * Removes a matcher from the store
+   * @param {key} string
+   */
+  remove: function(key)
+  {
+    if (key in this.combinedMatcherStore)
+      delete this.combinedMatcherStore[key];
+  },
+};
+
+let matcherStore = exports.matcherStore = new MatcherStore();

@@ -1,6 +1,6 @@
 [general]
 basename = efftestextension
-version = 1.5
+version = 0.1
 backgroundScripts = lib/compat.js
   lib/io.js
   lib/adblockplus.js
@@ -12,8 +12,8 @@ backgroundScripts = lib/compat.js
   lib/rsa.js
   webrequest.js
   popupBlocker.js
-  background.js
   heuristicblocking.js
+  background.js
 permissions = tabs
   http://*/*
   https://*/*
@@ -24,7 +24,7 @@ permissions = tabs
   unlimitedStorage
   storage
 options = options.html
-pageAction = icons/abp-19.png popup.html
+pageAction = icons/test-19.png popup.html
 icons = icons/test-?.png
 webAccessible = block.html
 

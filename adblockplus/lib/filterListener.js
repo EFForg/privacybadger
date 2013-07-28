@@ -27,6 +27,7 @@ let {FilterStorage} = require("filterStorage");
 let {FilterNotifier} = require("filterNotifier");
 let {ElemHide} = require("elemHide");
 let {defaultMatcher} = require("matcher");
+let {matcherStore} = require("matcher");
 let {ActiveFilter, RegExpFilter, ElemHideBase} = require("filterClasses");
 let {Prefs} = require("prefs");
 
@@ -149,8 +150,12 @@ function flushElemHide()
  * if necessary.
  * @param {Filter} filter filter that has been added
  */
-function addFilter(filter)
+// dta: 7/26/2013: generalized to add fitlers to a particular matcher
+function addFilter(filter, matcher, useSpecialMatcher)
 {
+  // tododta debugging remove
+  if (Math.floor(Math.random()*1000) == 511)
+    console.log("addFilter called with parameters " + filter + " ; " + matcher + " ; " + useSpecialMatcher);
   if (!(filter instanceof ActiveFilter) || filter.disabled)
     return;
 
@@ -161,8 +166,15 @@ function addFilter(filter)
   if (!hasEnabled)
     return;
 
-  if (filter instanceof RegExpFilter)
+  if (filter instanceof RegExpFilter) {
+    if (matcher && useSpecialMatcher === true) {
+      // tododta for debugging take out
+      matcher.add(filter);
+    }
+    // either way, add to defaultMatcher, which serves
+    // as the union of all individual matchers
     defaultMatcher.add(filter);
+  }
   else if (filter instanceof ElemHideBase)
     ElemHide.add(filter);
 }
@@ -217,14 +229,40 @@ function onSubscriptionChange(action, subscription, newValue, oldValue)
 
   if (action == "added" || action == "removed" || action == "disabled")
   {
-    let method = (action == "added" || (action == "disabled" && newValue == false) ? addFilter : removeFilter);
-    if (subscription.filters)
-      subscription.filters.forEach(method);
+    // dta 7/26/2013: add this subscription to the matcher store
+    matcherStore.add(subscription.url);
+
+    // dta: refactored to pass elements to addFilter, removeFilter
+    if (subscription.filters) {
+      if (action == "added" || (action == "disabled" && newValue == false)) {
+        for (let i=0; i < subscription.filters.length; i++) {
+          addFilter(subscription.filters[i], matcherStore.combinedMatcherStore[subscription.url], true);
+        }
+      }
+      else {
+        // tododta need to add per-matcher removal from removeFilter
+        // and possibly other places too
+        for (let i=0; i < subscription.filters.length; i++) {
+          removeFilter(subscription.filters[i]);
+        }
+      }
+    }
+    //OLDCODE
+    // let method = (action == "added" || (action == "disabled" && newValue == false) ? addFilter : removeFilter);
+    // if (subscription.filters)
+    //   subscription.filters.forEach(method);
   }
   else if (action == "updated")
   {
-    subscription.oldFilters.forEach(removeFilter);
-    subscription.filters.forEach(addFilter);
+    for (let i=0; i < subscription.oldFilters.length; i++) {
+      removeFilter(subscription.filters[i]);
+    }
+    for (let i=0; i < subscription.filters.length; i++) {
+      addFilter(subscription.filters[i], matcherStore.combinedMatcherStore[subscription.url], true);
+    }
+    // OLDCODE
+    // subscription.oldFilters.forEach(removeFilter);
+    // subscription.filters.forEach(addFilter);
   }
 
   flushElemHide();
@@ -249,8 +287,21 @@ function onFilterChange(action, filter, newValue, oldValue)
     return;
   }
 
-  if (action == "added" || (action == "disabled" && newValue == false))
-    addFilter(filter);
+  if (action == "added" || (action == "disabled" && newValue == false)) {
+    // dta: 7/26/2013. generalized to allow filters to be added to
+    // per-subscription matchers
+    if (newValue) {
+      console.log("addFilter called with newValue set for " + filter + " ~~~ matcher: " + newValue);
+      // tododta debugging remove
+      console.log("Blacklist length for this matcher is: " + Object.keys(matcherStore.combinedMatcherStore[newValue].blacklist.keywordByFilter).length)
+
+      addFilter(filter, matcherStore.combinedMatcherStore[newValue], oldValue);
+    }
+    else {
+      console.log("addFilter called without newValue set");
+      addFilter(filter);
+    }
+  }
   else
     removeFilter(filter);
   flushElemHide();

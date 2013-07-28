@@ -320,7 +320,10 @@ SpecialSubscription.create = function(title)
   let url;
   do
   {
-    url = "~user~" + Math.round(Math.random()*1000000);
+    if (title == "frequencyHeuristic")
+      url == "frequencyHeuristic";
+    else
+      url = "~user~" + Math.round(Math.random()*1000000);
   } while (url in Subscription.knownSubscriptions);
   return new SpecialSubscription(url, title)
 };

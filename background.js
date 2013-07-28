@@ -30,6 +30,7 @@ with(require("subscriptionClasses"))
 var FilterStorage = require("filterStorage").FilterStorage;
 var ElemHide = require("elemHide").ElemHide;
 var defaultMatcher = require("matcher").defaultMatcher;
+var matcherStore = require("matcher").matcherStore;
 var Prefs = require("prefs").Prefs;
 var Synchronizer = require("synchronizer").Synchronizer;
 var Utils = require("utils").Utils;
@@ -340,6 +341,25 @@ function addSubscription(prevVersion)
     });
   }
 
+  // Add EFF whitelist subscription
+  var whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";
+  try {
+    var EFFsubscription = Subscription.fromURL(whitelistUrl);
+    if (EFFsubscription && !(EFFsubscription.url in FilterStorage.knownSubscriptions))
+    {
+      // EFFsubscription.disabled = false;
+      EFFsubscription.title = "EFF Auto Whitelist";
+      FilterStorage.addSubscription(EFFsubscription);
+      Synchronizer.execute(EFFsubscription, false, false, true);
+    }
+  } catch (e) {
+    console.log("Could not add whitelist!");
+  }
+
+  // Add frequencyHeuristic Subscription
+  var frequencySub = new SpecialSubscription("frequencyHeuristic", "frequencyHeuristic");
+  FilterStorage.addSubscription(frequencySub);
+
   // Add "acceptable ads" subscription
   if (addAcceptable)
   {
@@ -553,6 +573,15 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
       var requestHost = extractHostFromURL(request.url);
       var documentHost = extractHostFromURL(request.documentUrl);
       var thirdParty = isThirdParty(requestHost, documentHost);
+      // tododta 7/28 logic added to display whether this matcher per subscription
+      if (thirdParty) {
+        for (var matcherKey in matcherStore.combinedMatcherStore) {
+          //console.log("onRequest matcher is " + matcherKey);
+          var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
+          var currentFilter = currentMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
+          console.log("For matcher " + matcherKey + ", result is: " + currentFilter);
+        }
+      }
       var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
       if (filter instanceof BlockingFilter)
       {
