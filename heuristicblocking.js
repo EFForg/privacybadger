@@ -15,6 +15,7 @@ with(require("subscriptionClasses"))
   this.SpecialSubscription = SpecialSubscription;
 }
 var FilterStorage = require("filterStorage").FilterStorage;
+var matcherStore = require("matcher").matcherStore;
 var Synchronizer = require("synchronizer").Synchronizer;
 var tabOrigins = { };
 var cookieSentOriginFrequency = { };
@@ -83,7 +84,7 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
 var blacklistOrigin = function(origin) {
   // Heuristic subscription
   if (!("frequencyHeuristic" in FilterStorage.knownSubscriptions)) {
-    console.log("Error. Coudl not blacklist origin because no heuristic subscription found");
+    console.log("Error. Could not blacklist origin because no heuristic subscription found");
     return;
   }
   var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
@@ -103,6 +104,14 @@ var blacklistOrigin = function(origin) {
 };
 
 chrome.webRequest.onBeforeRequest.addListener(function(details) {
+  // tododta find the right place for this
+  // placing this code here is a horrible hack
+  // reload our matcherStore
+  // if (matcherStore.length() < 1)
+  //   console.log("MatcherStore not loaded");
+  // else
+  //   console.log("MatcherStore has length " + matcherStore.length());
+
   // tododta testing
   // for (url in Subscription.knownSubscriptions) {
   //   console.log("Subscription urls " + url);

@@ -470,6 +470,11 @@ MatcherStore.prototype = {
     this.combinedMatcherStore = {__proto__: null};
   },
 
+  length: function()
+  {
+    return Object.keys(this.combinedMatcherStore).length;
+  },
+
   /**
    * Adds a matcher to the combinedMatcherStore
    * @param {key} string

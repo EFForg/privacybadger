@@ -154,8 +154,8 @@ function flushElemHide()
 function addFilter(filter, matcher, useSpecialMatcher)
 {
   // tododta debugging remove
-  if (Math.floor(Math.random()*1000) == 511)
-    console.log("addFilter called with parameters " + filter + " ; " + matcher + " ; " + useSpecialMatcher);
+  // if (Math.floor(Math.random()*1000) == 511)
+  //   console.log("addFilter called with parameters " + filter + " ; " + matcher + " ; " + useSpecialMatcher);
   if (!(filter instanceof ActiveFilter) || filter.disabled)
     return;
 
@@ -168,7 +168,6 @@ function addFilter(filter, matcher, useSpecialMatcher)
 
   if (filter instanceof RegExpFilter) {
     if (matcher && useSpecialMatcher === true) {
-      // tododta for debugging take out
       matcher.add(filter);
     }
     // either way, add to defaultMatcher, which serves
@@ -293,8 +292,7 @@ function onFilterChange(action, filter, newValue, oldValue)
     if (newValue) {
       console.log("addFilter called with newValue set for " + filter + " ~~~ matcher: " + newValue);
       // tododta debugging remove
-      console.log("Blacklist length for this matcher is: " + Object.keys(matcherStore.combinedMatcherStore[newValue].blacklist.keywordByFilter).length)
-
+      console.log("Blacklist length for this matcher is: " + Object.keys(matcherStore.combinedMatcherStore[newValue].blacklist.keywordByFilter).length);
       addFilter(filter, matcherStore.combinedMatcherStore[newValue], oldValue);
     }
     else {
@@ -318,9 +316,18 @@ function onGenericChange(action)
 
     defaultMatcher.clear();
     ElemHide.clear();
-    for each (let subscription in FilterStorage.subscriptions)
-      if (!subscription.disabled)
-        subscription.filters.forEach(addFilter);
+    // dta: clear matcherStore
+    matcherStore.clear();
+
+    for each (let subscription in FilterStorage.subscriptions) {
+      // dta: loop through and add special matchers
+      matcherStore.add(subscription.url);
+      if (!subscription.disabled) {
+        for (let i=0; i < subscription.filters.length; i++) {
+          addFilter(subscription.filters[i], matcherStore.combinedMatcherStore[subscription.url], true);
+        }
+      }
+    }
     flushElemHide();
   }
   else if (action == "save")
