@@ -30,7 +30,7 @@
     "message": "After closing this popup, click (or right-click) an element on the page."
   },
   "description": {
-    "message": "EFF internal web tracker measurement extension"
+    "message": "EFF web tracker measurement laboratory"
   },
   "disable_inline": {
     "message": "Disable inline text ads"
