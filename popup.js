@@ -16,7 +16,7 @@
  */
 
 var backgroundPage = chrome.extension.getBackgroundPage();
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getBlockedData", "console"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
@@ -120,3 +120,24 @@ function clickHideInactiveStuff()
   document.getElementById("clickHideActiveStuff").style.display = "none";
   document.getElementById("clickHideInactiveStuff").style.display = "inherit";
 }
+
+function addBlocked(tab) {
+  var blockedData = getBlockedData(tab.id);
+  if (blockedData != null) {
+    var printableBlocked = "";
+    for (var origin in blockedData) {
+      printableBlocked += "~~~~~~~~~ " + origin + " ~~~~~~~<br>";
+      for (var blocker in blockedData[origin])
+        printableBlocked += blocker + "<br>";
+    }
+  }
+  document.getElementById("blockedResources").innerHTML = printableBlocked;
+  document.getElementById("blockedResources").style.display = "block";
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // tododta remove
+  document.getElementById("blockedResources").innerHTML = "you fancy huh";
+
+  chrome.tabs.getSelected(null, addBlocked);
+});

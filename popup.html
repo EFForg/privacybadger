@@ -21,6 +21,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" href="jquery-ui/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+<!-- tododta popup.css doesn't work? -->
+<!-- <link type="text/css" media="screen" href="popup.css" rel="stylesheet" /> -->
 <style type="text/css" media="screen">
 body {
   font-size: 75%;
@@ -50,7 +52,6 @@ a:hover { color: #eeeeff }
   display: block;
 }
 </style>
-
 <script type="text/javascript" src="jquery-ui/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="i18n.js"></script>
 <script type="text/javascript" src="popup.js"></script>
@@ -64,12 +65,17 @@ a:hover { color: #eeeeff }
 <button id="clickHideButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="i18n_easy_create_filter"></span></button>
 </div>
 
-<!-- <div id="clickHideActiveStuff" style="display: none"> -->
-<!-- <div id="clickHideMsg"><span class="i18n_clickhide_instructions"></span></div> -->
-<!-- <div class="spacer"></div> -->
-<!-- <button id="cancelButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="i18n_cancel"></span></button> -->
-<!-- </div> -->
-
+<div id="blockedResourcesContainer">
+<div class="spacer"></div>
+Heuristically Blocked Resources:
+<div id="blockedResources"></div>
 </div>
+
+<div id="clickHideActiveStuff" style="display: none">
+<div id="clickHideMsg"><span class="i18n_clickhide_instructions"></span></div>
+<div class="spacer"></div>
+<button id="cancelButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="i18n_cancel"></span></button>
+</div>
+
 </body>
 </html>

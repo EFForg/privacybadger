@@ -31,9 +31,14 @@ var FilterStorage = require("filterStorage").FilterStorage;
 var ElemHide = require("elemHide").ElemHide;
 var defaultMatcher = require("matcher").defaultMatcher;
 var matcherStore = require("matcher").matcherStore;
+var activeMatchers = require("matcher").activeMatchers;
 var Prefs = require("prefs").Prefs;
 var Synchronizer = require("synchronizer").Synchronizer;
 var Utils = require("utils").Utils;
+
+console.log("xxx background init code running");
+console.log("xxx matcherStore is " + matcherStore);
+console.log("xxx activeMatchers is " + activeMatchers);
 
 // Some types cannot be distinguished
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
@@ -89,6 +94,18 @@ function setDefaultOptions()
 
 // Upgrade options before we do anything else.
 setDefaultOptions();
+
+/**
+ * Gets data about what resources were blocked in this tab
+ * @param {int} tabid
+ */
+function getBlockedData(tabId) {
+  console.log("calling getBlockedData with tabid " + tabId);
+
+  if (tabId < 0 || !activeMatchers.check(tabId))
+    return;
+  return activeMatchers.blockedOriginsByTab[tabId];
+}
 
 /**
  * Checks whether a page is whitelisted.
@@ -573,12 +590,19 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
       var requestHost = extractHostFromURL(request.url);
       var documentHost = extractHostFromURL(request.documentUrl);
       var thirdParty = isThirdParty(requestHost, documentHost);
-      // tododta 7/28 logic added to display whether this matcher per subscription
+      // tododta 7/28 logic added to display whether this matches per subscription
       if (thirdParty) {
         for (var matcherKey in matcherStore.combinedMatcherStore) {
           //console.log("onRequest matcher is " + matcherKey);
+          console.log("xxx when called, matcherStore is " + matcherStore);
+          console.log("xxx when called, activeMatchers is " + activeMatchers);
+
           var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
           var currentFilter = currentMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
+          if (currentFilter && tabId > -1) {
+            console.log("Adding to blocklist for tabId " + tabId);
+            activeMatchers.addMatcherToOrigin(tabId, requestHost, matcherKey);
+          }
           console.log("For matcher " + matcherKey + ", result is: " + currentFilter);
         }
       }

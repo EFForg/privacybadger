@@ -500,3 +500,45 @@ MatcherStore.prototype = {
 };
 
 let matcherStore = exports.matcherStore = new MatcherStore();
+
+function ActiveMatchers() {
+  this.blockedOriginsByTab = { };
+  // tododta: we could put stats in here too
+
+  var that = this;
+  chrome.tabs.onRemoved.addListener(function(tabId, info) {
+    that.removeTab(tabId);
+  });
+};
+exports.ActiveMatchers = ActiveMatchers;
+
+ActiveMatchers.prototype = {
+  addTab: function(tabId) {
+    this.blockedOriginsByTab[tabId] = { };
+  },
+
+  addOriginToTab: function(tabId, origin) {
+    if (!(tabId in this.blockedOriginsByTab))
+      this.addTab(tabId);
+    if (!(origin in this.blockedOriginsByTab[tabId]))
+      this.blockedOriginsByTab[tabId][origin] = { };
+  },
+
+  addMatcherToOrigin: function(tabId, origin, matcher) {
+    if (!(tabId in this.blockedOriginsByTab))
+      this.addTab(tabId);
+    if (!(origin in this.blockedOriginsByTab[tabId]))
+      this.addOriginToTab(tabId, origin);
+    this.blockedOriginsByTab[tabId][origin][matcher] = true;
+  },
+
+  check: function(tabId) {
+    return (tabId in this.blockedOriginsByTab);    
+  },
+
+  removeTab: function(tabId) {
+    delete this.blockedOriginsByTab[tabId];
+  }
+};
+
+let activeMatchers = exports.activeMatchers = new ActiveMatchers();
