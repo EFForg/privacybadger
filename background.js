@@ -370,7 +370,22 @@ function addSubscription(prevVersion)
       Synchronizer.execute(EFFsubscription, false, false, true);
     }
   } catch (e) {
-    console.log("Could not add whitelist!");
+    console.log("Could not add EFF whitelist!");
+  }
+
+  // Add EasyPrivacy
+  var EasyPrivacyUrl = "https://easylist-downloads.adblockplus.org/easyprivacy.txt";
+  try {
+    var EasyPrivacySubscription = Subscription.fromURL(EasyPrivacyUrl);
+    if (EasyPrivacySubscription && !(EasyPrivacySubscription.url in FilterStorage.knownSubscriptions))
+    {
+      // EasyPrivacySubscription.disabled = false;
+      EasyPrivacySubscription.title = "EasyPrivacy";
+      FilterStorage.addSubscription(EasyPrivacySubscription);
+      Synchronizer.execute(EasyPrivacySubscription, false, false);
+    }
+  } catch (e) {
+    console.log("Could not add easyprivacy!");
   }
 
   // Add frequencyHeuristic Subscription
@@ -590,23 +605,39 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
       var requestHost = extractHostFromURL(request.url);
       var documentHost = extractHostFromURL(request.documentUrl);
       var thirdParty = isThirdParty(requestHost, documentHost);
+  
       // tododta 7/28 logic added to display whether this matches per subscription
-      if (thirdParty) {
+      var spyingOrigin = false;
+      if (thirdParty && tabId > -1) {
+        console.log("Adding to blocklist for tabId " + tabId);
+        // used to track which methods didn't think this was a spying
+        // domain, to add in case we need later (we only track origins
+        // that someone thinks is bad)
+        var falseMatcherKeys = [ ];
         for (var matcherKey in matcherStore.combinedMatcherStore) {
-          //console.log("onRequest matcher is " + matcherKey);
-          console.log("xxx when called, matcherStore is " + matcherStore);
-          console.log("xxx when called, activeMatchers is " + activeMatchers);
-
           var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
           var currentFilter = currentMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
-          if (currentFilter && tabId > -1) {
-            console.log("Adding to blocklist for tabId " + tabId);
-            activeMatchers.addMatcherToOrigin(tabId, requestHost, matcherKey);
+          if (currentFilter) {
+            activeMatchers.addMatcherToOrigin(tabId, requestHost, matcherKey, true);
+            spyingOrigin = true;
           }
-          console.log("For matcher " + matcherKey + ", result is: " + currentFilter);
+          else {
+            falseMatcherKeys.push(matcherKey);
+          }
+        }
+        if (spyingOrigin) {
+          for (var i=0; i < falseMatcherKeys.length; i++) {
+            activeMatchers.addMatcherToOrigin(tabId, requestHost, falseMatcherKeys[i], false);
+          }
         }
       }
       var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
+      if (thirdParty && tabId > -1) {
+        if (filter)
+          activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", true);
+        else if (spyingOrigin)
+          activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", false);
+      }
       if (filter instanceof BlockingFilter)
       {
         var collapse = filter.collapse;

@@ -29,8 +29,8 @@ function init()
 {
   // Attach event listeners
   $("#enabled").click(toggleEnabled);
-  $("#clickHideButton").click(activateClickHide);
-  $("#cancelButton").click(cancelClickHide);
+  // $("#clickHideButton").click(activateClickHide);
+  // $("#cancelButton").click(cancelClickHide);
   
   // Ask content script whether clickhide is active. If so, show cancel button.
   // If that isn't the case, ask background.html whether it has cached filters. If so,
@@ -44,13 +44,13 @@ function init()
       document.getElementById("enabled").checked = !isWhitelisted(tab.url);
       document.getElementById("enabledCheckboxAndLabel").style.display = "block";
 
-      chrome.tabs.sendRequest(tab.id, {reqtype: "get-clickhide-state"}, function(response)
-      {
-        if(response.active)
-          clickHideActiveStuff();
-        else
-          clickHideInactiveStuff();
-      });
+      // chrome.tabs.sendRequest(tab.id, {reqtype: "get-clickhide-state"}, function(response)
+      // {
+      //   if(response.active)
+      //     clickHideActiveStuff();
+      //   else
+      //     clickHideInactiveStuff();
+      // });
     });
   });
 }
@@ -129,21 +129,32 @@ function clickHideInactiveStuff()
 }
 
 // ugly helpers: not to be used!
-function addOriginInitialHTML(origin, printable) {
+function addOriginInitialHTML(origin, printable, blocked) {
+  var classText = 'class="clicker"'
+  if (blocked)
+    classText = 'class="clicker blocked"';
   return printable + '<div class="click-nav"><ul class="js"><li> \
-    <a href="#" class="clicker">' + origin + '</a><ul class="js collapsible">';
+    <a href="#" ' + classText + '>' + origin + '</a><ul class="js collapsible">';
 }
 
 // ugly helpers: not to be used!
-function addBlockerHTML(blocker, printable) {
-  // hack to hard code our lists in
+function addBlockerHTML(blocker, printable, blocked) {
+  // tododta: fix hack to hard code our lists in for what we want to display
   var displayBlocker = blocker;
   if (blocker == 'frequencyHeuristic')
     displayBlocker = 'EFF Blocking Laboratory';
   else if (blocker == 'https://easylist-downloads.adblockplus.org/easylist.txt')
-    displayBlocker = 'AdBlock Plus EasyList';
-
-  return printable + '<li><a class="imglink" href="#">' + displayBlocker + '</a></li>';
+    displayBlocker = 'Adblock Plus EasyList';
+  else if (blocker == 'https://easylist-downloads.adblockplus.org/easyprivacy.txt')
+    displayBlocker = 'Adblock Plus EasyPrivacy';
+  else
+    // just don't display anything
+    return printable;
+  // tododta add EasyPrivacy
+  var classText = 'class="imglink"';
+  if (blocked)
+    classText = 'class="imglink blocked"';
+  return printable + '<li><a href="#" ' + classText + '>' + displayBlocker + '</a></li>';
 }
 
 // ugly helpers: not to be used!
@@ -154,12 +165,14 @@ function addOriginClosingHTML(printable) {
 function addBlocked(tab) {
   var blockedData = getBlockedData(tab.id);
   if (blockedData != null) {
-    var printable = "Suspicious third party resources:";
+    var printable = "Suspicious third party hosts:";
     for (var origin in blockedData) {
-      // tododta: gross hack
-      printable = addOriginInitialHTML(origin, printable);
+      if (!('defaultMatcher' in blockedData[origin]))
+        console.error("Something went very wrong...");
+      // tododta: gross hacks
+      printable = addOriginInitialHTML(origin, printable, blockedData[origin]['defaultMatcher']);
       for (var blocker in blockedData[origin])
-        printable = addBlockerHTML(blocker, printable);
+        printable = addBlockerHTML(blocker, printable, blockedData[origin][blocker]);
       printable = addOriginClosingHTML(printable);
     }
     document.getElementById("blockedResources").innerHTML = printable;

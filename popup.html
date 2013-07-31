@@ -27,7 +27,7 @@
 body {
   font-size: 90%;
   font-family: Helvetica, Arial, sans-serif;
-  min-width: 270px;
+  min-width: 330px;
   background: #ffffff;
   color: #000000;
 }
@@ -52,16 +52,17 @@ a:hover { color: #eeeeff }
   display: block;
 }
 
-.click-nav {margin:10px auto;width:250px;}
+.click-nav {margin:10px auto;}
 .click-nav ul {position:relative;font-weight:900;}
 .click-nav ul li {position:relative;list-style:none;cursor:pointer;}
 .click-nav ul li ul {position:relative;}
 .click-nav ul .clicker {position:relative;background:#2284B5;color:#FFF;}
 .click-nav ul .clicker:hover,.click-nav ul .active {background:#196F9A;}
-.click-nav imglink img {position:absolute;top:9px;left:12px;}
+.click-nav .imglink img {position:absolute;top:9px;left:12px;}
 .click-nav ul li a {transition:background-color 0.2s ease-in-out;-webkit-transition:background-color 0.2s ease-in-out;
 -moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
 .click-nav ul li a:hover {background:#F2F2F2;}
+.click-nav ul .blocked {background:#FF0000;}
 
 </style>
 <script type="text/javascript" src="jquery-ui/js/jquery-1.7.1.min.js"></script>
@@ -72,10 +73,11 @@ a:hover { color: #eeeeff }
 <!-- In soviet EFF extension, popup clicks you. -->
 <div id="enabledCheckboxAndLabel" style="display:none"><input id="enabled" type="checkbox" checked><label for="enabled"><span class="i18n_enabled_for_site"></span></label></div>
 <div id="mustReloadMsg" style="display:none"><span class="i18n_new_filters_added"></span></div>
-<div id="clickHideInactiveStuff" style="display: none">
-<div class="spacer"></div>
-<button id="clickHideButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="i18n_easy_create_filter"></span></button>
-</div>
+
+<!-- <div id="clickHideInactiveStuff" style="display: none"> -->
+<!-- <div class="spacer"></div> -->
+<!-- <button id="clickHideButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="i18n_easy_create_filter"></span></button> -->
+<!-- </div> -->
 
 <div id="blockedResourcesContainer">
   <div class="spacer"></div>

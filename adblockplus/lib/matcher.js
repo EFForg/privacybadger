@@ -524,12 +524,12 @@ ActiveMatchers.prototype = {
       this.blockedOriginsByTab[tabId][origin] = { };
   },
 
-  addMatcherToOrigin: function(tabId, origin, matcher) {
+  addMatcherToOrigin: function(tabId, origin, matcher, value) {
     if (!(tabId in this.blockedOriginsByTab))
       this.addTab(tabId);
     if (!(origin in this.blockedOriginsByTab[tabId]))
       this.addOriginToTab(tabId, origin);
-    this.blockedOriginsByTab[tabId][origin][matcher] = true;
+    this.blockedOriginsByTab[tabId][origin][matcher] = value;
   },
 
   check: function(tabId) {
