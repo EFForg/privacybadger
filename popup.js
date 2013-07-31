@@ -165,7 +165,7 @@ function addOriginClosingHTML(printable) {
 function addBlocked(tab) {
   var blockedData = getBlockedData(tab.id);
   if (blockedData != null) {
-    var printable = "Suspicious third party hosts:";
+    var printable = "Here is a list of suspicious third party hosts. A red domain means that our has extension has blocked this domain, and an individual blocker is listed as red if and only if that blocker thought the domain should be blocked.";
     for (var origin in blockedData) {
       if (!('defaultMatcher' in blockedData[origin]))
         console.error("Something went very wrong...");
