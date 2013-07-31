@@ -25,9 +25,9 @@
 <!-- <link type="text/css" media="screen" href="popup.css" rel="stylesheet" /> -->
 <style type="text/css" media="screen">
 body {
-  font-size: 75%;
+  font-size: 90%;
   font-family: Helvetica, Arial, sans-serif;
-  min-width: 170px;
+  min-width: 270px;
   background: #ffffff;
   color: #000000;
 }
@@ -51,6 +51,18 @@ a:hover { color: #eeeeff }
   width: 5px;
   display: block;
 }
+
+.click-nav {margin:10px auto;width:250px;}
+.click-nav ul {position:relative;font-weight:900;}
+.click-nav ul li {position:relative;list-style:none;cursor:pointer;}
+.click-nav ul li ul {position:relative;}
+.click-nav ul .clicker {position:relative;background:#2284B5;color:#FFF;}
+.click-nav ul .clicker:hover,.click-nav ul .active {background:#196F9A;}
+.click-nav imglink img {position:absolute;top:9px;left:12px;}
+.click-nav ul li a {transition:background-color 0.2s ease-in-out;-webkit-transition:background-color 0.2s ease-in-out;
+-moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
+.click-nav ul li a:hover {background:#F2F2F2;}
+
 </style>
 <script type="text/javascript" src="jquery-ui/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="i18n.js"></script>
@@ -66,9 +78,8 @@ a:hover { color: #eeeeff }
 </div>
 
 <div id="blockedResourcesContainer">
-<div class="spacer"></div>
-Heuristically Blocked Resources:
-<div id="blockedResources"></div>
+  <div class="spacer"></div>
+  <div id="blockedResources">Loading...</div>
 </div>
 
 <div id="clickHideActiveStuff" style="display: none">

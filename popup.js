@@ -31,7 +31,7 @@ function init()
   $("#enabled").click(toggleEnabled);
   $("#clickHideButton").click(activateClickHide);
   $("#cancelButton").click(cancelClickHide);
-
+  
   // Ask content script whether clickhide is active. If so, show cancel button.
   // If that isn't the case, ask background.html whether it has cached filters. If so,
   // ask the user whether she wants those filters.
@@ -55,6 +55,13 @@ function init()
   });
 }
 $(init);
+
+function clickOrigin() {
+  $('.click-nav .js ul').slideToggle(200);
+  $('.clicker').toggleClass('active');
+  e.stopPropagation();
+  alert("still working");
+}
 
 function toggleEnabled()
 {
@@ -121,23 +128,56 @@ function clickHideInactiveStuff()
   document.getElementById("clickHideInactiveStuff").style.display = "inherit";
 }
 
+// ugly helpers: not to be used!
+function addOriginInitialHTML(origin, printable) {
+  return printable + '<div class="click-nav"><ul class="js"><li> \
+    <a href="#" class="clicker">' + origin + '</a><ul class="js collapsible">';
+}
+
+// ugly helpers: not to be used!
+function addBlockerHTML(blocker, printable) {
+  // hack to hard code our lists in
+  var displayBlocker = blocker;
+  if (blocker == 'frequencyHeuristic')
+    displayBlocker = 'EFF Blocking Laboratory';
+  else if (blocker == 'https://easylist-downloads.adblockplus.org/easylist.txt')
+    displayBlocker = 'AdBlock Plus EasyList';
+
+  return printable + '<li><a class="imglink" href="#">' + displayBlocker + '</a></li>';
+}
+
+// ugly helpers: not to be used!
+function addOriginClosingHTML(printable) {
+  return printable + '</ul></li></ul></div>';
+}
+
 function addBlocked(tab) {
   var blockedData = getBlockedData(tab.id);
   if (blockedData != null) {
-    var printableBlocked = "";
+    var printable = "Suspicious third party resources:";
     for (var origin in blockedData) {
-      printableBlocked += "~~~~~~~~~ " + origin + " ~~~~~~~<br>";
+      // tododta: gross hack
+      printable = addOriginInitialHTML(origin, printable);
       for (var blocker in blockedData[origin])
-        printableBlocked += blocker + "<br>";
+        printable = addBlockerHTML(blocker, printable);
+      printable = addOriginClosingHTML(printable);
     }
+    document.getElementById("blockedResources").innerHTML = printable;
+    // add js for drop down list
+    // tododta clean up this to be per-ui instead of collapsing all at once
+    // my attempts to use this.next() to do this were mysteriously
+    // thwarted :/
+    $('.click-nav .js ul').hide();
+    $('.click-nav .js').click(function(e) {
+      $('.click-nav .js ul').slideToggle(200);
+      $('.clicker').toggleClass('active');
+      e.stopPropagation();
+    });
   }
-  document.getElementById("blockedResources").innerHTML = printableBlocked;
-  document.getElementById("blockedResources").style.display = "block";
+  else
+    document.getElementById("blockedResources").innerHTML = "No blockworthy resources found :)";
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  // tododta remove
-  document.getElementById("blockedResources").innerHTML = "you fancy huh";
-
   chrome.tabs.getSelected(null, addBlocked);
 });
