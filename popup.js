@@ -130,6 +130,7 @@ function clickHideInactiveStuff()
 
 // ugly helpers: not to be used!
 function addOriginInitialHTML(origin, printable, blocked) {
+  console.log("Popup: adding origin HTML for " + origin);
   var classText = 'class="clicker"'
   if (blocked)
     classText = 'class="clicker blocked"';
@@ -140,6 +141,7 @@ function addOriginInitialHTML(origin, printable, blocked) {
 // ugly helpers: not to be used!
 function addBlockerHTML(blocker, printable, blocked) {
   // tododta: fix hack to hard code our lists in for what we want to display
+  console.log("Popup: adding blocker HTML for " + blocker);
   var displayBlocker = blocker;
   if (blocker == 'frequencyHeuristic')
     displayBlocker = 'EFF Blocking Laboratory';
@@ -165,12 +167,13 @@ function addOriginClosingHTML(printable) {
 function addBlocked(tab) {
   var blockedData = getBlockedData(tab.id);
   if (blockedData != null) {
-    var printable = "Here is a list of suspicious third party hosts. A red domain means that our has extension has blocked this domain, and an individual blocker is listed as red if and only if that blocker thought the domain should be blocked.";
+    var printable = "Here is a list of suspicious third party hosts. A red domain means that our has extension has blocked this domain if enabled, and an individual blocker is listed as red if and only if that blocker thought the domain should be blocked.";
     for (var origin in blockedData) {
+      originBlocked = true;
       if (!('defaultMatcher' in blockedData[origin]))
-        console.error("Something went very wrong...");
+        originBlocked = false;
       // tododta: gross hacks
-      printable = addOriginInitialHTML(origin, printable, blockedData[origin]['defaultMatcher']);
+      printable = addOriginInitialHTML(origin, printable, originBlocked);
       for (var blocker in blockedData[origin])
         printable = addBlockerHTML(blocker, printable, blockedData[origin][blocker]);
       printable = addOriginClosingHTML(printable);

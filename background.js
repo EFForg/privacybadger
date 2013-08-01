@@ -604,40 +604,8 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 
       var requestHost = extractHostFromURL(request.url);
       var documentHost = extractHostFromURL(request.documentUrl);
-      var thirdParty = isThirdParty(requestHost, documentHost);
-  
-      // tododta 7/28 logic added to display whether this matches per subscription
-      var spyingOrigin = false;
-      if (thirdParty && tabId > -1) {
-        console.log("Adding to blocklist for tabId " + tabId);
-        // used to track which methods didn't think this was a spying
-        // domain, to add in case we need later (we only track origins
-        // that someone thinks is bad)
-        var falseMatcherKeys = [ ];
-        for (var matcherKey in matcherStore.combinedMatcherStore) {
-          var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
-          var currentFilter = currentMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
-          if (currentFilter) {
-            activeMatchers.addMatcherToOrigin(tabId, requestHost, matcherKey, true);
-            spyingOrigin = true;
-          }
-          else {
-            falseMatcherKeys.push(matcherKey);
-          }
-        }
-        if (spyingOrigin) {
-          for (var i=0; i < falseMatcherKeys.length; i++) {
-            activeMatchers.addMatcherToOrigin(tabId, requestHost, falseMatcherKeys[i], false);
-          }
-        }
-      }
+      var thirdParty = isThirdParty(requestHost, documentHost);  
       var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
-      if (thirdParty && tabId > -1) {
-        if (filter)
-          activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", true);
-        else if (spyingOrigin)
-          activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", false);
-      }
       if (filter instanceof BlockingFilter)
       {
         var collapse = filter.collapse;

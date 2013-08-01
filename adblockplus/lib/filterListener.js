@@ -296,7 +296,7 @@ function onFilterChange(action, filter, newValue, oldValue)
       addFilter(filter, matcherStore.combinedMatcherStore[newValue], oldValue);
     }
     else {
-      console.log("addFilter called without newValue set");
+      console.log("addFilter called without newValue set for " + filter);
       addFilter(filter);
     }
   }

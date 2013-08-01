@@ -175,7 +175,56 @@ function checkRequest(type, tabId, url, frameId)
   var requestHost = extractHostFromURL(url);
   var documentHost = extractHostFromURL(documentUrl);
   var thirdParty = isThirdParty(requestHost, documentHost);
-  return defaultMatcher.matchesAny(url, type, documentHost, thirdParty);
+
+  // dta: added more complex logic for per-subscription matchers
+  // and whether to block based on them
+  var spyingOrigin = false;
+  // right now we only actually block based on frequency heuristic
+  var frequencyBlocked = false;
+  if (thirdParty && tabId > -1) {
+    console.log("Adding to blocklist for tabId " + tabId);
+    // used to track which methods didn't think this was a spying
+    // origin, to add later if needed (we only track origins
+    // that at least one blocker thinks is bad)
+    var falseMatcherKeys = [ ];
+    for (var matcherKey in matcherStore.combinedMatcherStore) {
+      var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
+      var currentFilter = currentMatcher.matchesAny(url, type, documentHost, thirdParty);
+      if (currentFilter) {
+        activeMatchers.addMatcherToOrigin(tabId, requestHost, matcherKey, true);
+        spyingOrigin = true;
+        if (matcherKey == 'frequencyHeuristic')
+          frequencyBlocked = true;
+      }
+      else {
+        falseMatcherKeys.push(matcherKey);
+      }
+    }
+    if (spyingOrigin) {
+      for (var i=0; i < falseMatcherKeys.length; i++) {
+        activeMatchers.addMatcherToOrigin(tabId, requestHost, falseMatcherKeys[i], false);
+      }
+    }
+    // only block third party requests. 
+    var filter = defaultMatcher.matchesAny(url, type, documentHost, thirdParty);
+    if (filter) {
+      activeMatchers.addMatcherToOrigin(tabId, requestHost, "fullDefaultMatcher", true);
+      if (frequencyBlocked) {
+        activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", true);
+        // actually block. right now intersection of
+        // frequencyHeuristic and defaultMatcher is what gets blocked
+        // tododta change so that subscriptions have their own whitelists
+        // since right now
+        return filter;
+      }
+    }
+    else if (spyingOrigin) {
+      activeMatchers.addMatcherToOrigin(tabId, requestHost, "fullDefaultMatcher", false);
+      activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", false);
+      return;
+    }
+  }
+  return;
 }
 
 function isFrameWhitelisted(tabId, frameId, type)
