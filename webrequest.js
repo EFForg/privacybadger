@@ -182,7 +182,6 @@ function checkRequest(type, tabId, url, frameId)
   // right now we only actually block based on frequency heuristic
   var frequencyBlocked = false;
   if (thirdParty && tabId > -1) {
-    console.log("Adding to blocklist for tabId " + tabId);
     // used to track which methods didn't think this was a spying
     // origin, to add later if needed (we only track origins
     // that at least one blocker thinks is bad)

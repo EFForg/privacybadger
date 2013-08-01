@@ -166,7 +166,7 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
     }
     else {
       if (httpRequestPrevalence >= prevalenceThreshold) {
-        console.log("Blocking " + origin);
+        console.log("Adding " + origin + " to heuristic blocklist.");
         blacklistOrigin(origin);
       }
     }

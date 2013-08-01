@@ -145,7 +145,6 @@ let FilterStorage = exports.FilterStorage =
     for (var i = 0; i < FilterStorage.subscriptions.length; i++)
     {
       var subscr = FilterStorage.subscriptions[i];
-      console.log("Current subscription url: " + subscr.url);
     }
 
     addSubscriptionFilters(subscription);

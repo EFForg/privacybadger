@@ -481,11 +481,8 @@ MatcherStore.prototype = {
    */
   add: function(key)
   {
-    // tododta testing remove
-    console.log("matcherStore add called!");
     if (!(key in this.combinedMatcherStore))
         this.combinedMatcherStore[key] = new CombinedMatcher();
-    console.log("matchertStore now has length " + Object.keys(this.combinedMatcherStore).length)
   },
 
   /**

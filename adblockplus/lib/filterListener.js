@@ -153,9 +153,6 @@ function flushElemHide()
 // dta: 7/26/2013: generalized to add fitlers to a particular matcher
 function addFilter(filter, matcher, useSpecialMatcher)
 {
-  // tododta debugging remove
-  // if (Math.floor(Math.random()*1000) == 511)
-  //   console.log("addFilter called with parameters " + filter + " ; " + matcher + " ; " + useSpecialMatcher);
   if (!(filter instanceof ActiveFilter) || filter.disabled)
     return;
 
@@ -290,13 +287,9 @@ function onFilterChange(action, filter, newValue, oldValue)
     // dta: 7/26/2013. generalized to allow filters to be added to
     // per-subscription matchers
     if (newValue) {
-      console.log("addFilter called with newValue set for " + filter + " ~~~ matcher: " + newValue);
-      // tododta debugging remove
-      console.log("Blacklist length for this matcher is: " + Object.keys(matcherStore.combinedMatcherStore[newValue].blacklist.keywordByFilter).length);
       addFilter(filter, matcherStore.combinedMatcherStore[newValue], oldValue);
     }
     else {
-      console.log("addFilter called without newValue set for " + filter);
       addFilter(filter);
     }
   }
