@@ -23,7 +23,6 @@ permissions = tabs
   webNavigation
   unlimitedStorage
   storage
-options = options.html
 pageAction = icons/test-19.png popup.html
 icons = icons/test-?.png
 webAccessible = block.html
