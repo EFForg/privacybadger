@@ -48,6 +48,7 @@ skin/features/tracking.png = adblockplus/chrome/skin/features/tracking.png
 skin/social/facebook.png = adblockplus/chrome/skin/social/facebook.png
 skin/social/gplus.png = adblockplus/chrome/skin/social/gplus.png
 skin/social/twitter.png = adblockplus/chrome/skin/social/twitter.png
+skin/mad-scientist.jpg = adblockplus/chrome/skin/mad-scientist.jpg
 
 [convert_js]
 lib/io.js = lib/filesystem/io.js
