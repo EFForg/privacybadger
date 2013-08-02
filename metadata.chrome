@@ -1,6 +1,6 @@
 [general]
-basename = adblockpluschrome
-version = 1.5
+basename = efftestextension
+version = 0.1
 backgroundScripts = lib/compat.js
   lib/io.js
   lib/adblockplus.js
@@ -12,8 +12,8 @@ backgroundScripts = lib/compat.js
   lib/rsa.js
   webrequest.js
   popupBlocker.js
-  background.js
   heuristicblocking.js
+  background.js
 permissions = tabs
   http://*/*
   https://*/*
@@ -22,9 +22,9 @@ permissions = tabs
   webRequestBlocking
   webNavigation
   unlimitedStorage
-options = options.html
-pageAction = icons/abp-19.png popup.html
-icons = icons/abp-?.png
+  storage
+pageAction = icons/test-19.png popup.html
+icons = icons/test-?.png
 webAccessible = block.html
 
 [contentScripts]
@@ -48,6 +48,7 @@ skin/features/tracking.png = adblockplus/chrome/skin/features/tracking.png
 skin/social/facebook.png = adblockplus/chrome/skin/social/facebook.png
 skin/social/gplus.png = adblockplus/chrome/skin/social/gplus.png
 skin/social/twitter.png = adblockplus/chrome/skin/social/twitter.png
+skin/mad-scientist.jpg = adblockplus/chrome/skin/mad-scientist.jpg
 
 [convert_js]
 lib/io.js = lib/filesystem/io.js

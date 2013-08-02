@@ -30,6 +30,8 @@ with(require("subscriptionClasses"))
 var FilterStorage = require("filterStorage").FilterStorage;
 var ElemHide = require("elemHide").ElemHide;
 var defaultMatcher = require("matcher").defaultMatcher;
+var matcherStore = require("matcher").matcherStore;
+var activeMatchers = require("matcher").activeMatchers;
 var Prefs = require("prefs").Prefs;
 var Synchronizer = require("synchronizer").Synchronizer;
 var Utils = require("utils").Utils;
@@ -90,6 +92,18 @@ function setDefaultOptions()
 setDefaultOptions();
 
 /**
+ * Gets data about what resources were blocked in this tab
+ * @param {int} tabid
+ */
+function getBlockedData(tabId) {
+  console.log("calling getBlockedData with tabid " + tabId);
+
+  if (tabId < 0 || !activeMatchers.check(tabId))
+    return;
+  return activeMatchers.blockedOriginsByTab[tabId];
+}
+
+/**
  * Checks whether a page is whitelisted.
  * @param {String} url
  * @param {String} [parentUrl] URL of the parent frame
@@ -115,7 +129,7 @@ function refreshIconAndContextMenu(tab)
     return;
 
   var excluded = isWhitelisted(tab.url);
-  var iconFilename = excluded ? "icons/abp-19-whitelisted.png" : "icons/abp-19.png";
+  var iconFilename = excluded ? "icons/test-19-whitelisted.png" : "icons/test-19.png";
   chrome.pageAction.setIcon({tabId: tab.id, path: iconFilename});
 
   // Only show icon for pages we can influence (http: and https:)
@@ -340,6 +354,40 @@ function addSubscription(prevVersion)
     });
   }
 
+  // Add EFF whitelist subscription
+  var whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";
+  try {
+    var EFFsubscription = Subscription.fromURL(whitelistUrl);
+    if (EFFsubscription && !(EFFsubscription.url in FilterStorage.knownSubscriptions))
+    {
+      // EFFsubscription.disabled = false;
+      EFFsubscription.title = "EFF Auto Whitelist";
+      FilterStorage.addSubscription(EFFsubscription);
+      Synchronizer.execute(EFFsubscription, false, false, true);
+    }
+  } catch (e) {
+    console.log("Could not add EFF whitelist!");
+  }
+
+  // Add EasyPrivacy
+  var EasyPrivacyUrl = "https://easylist-downloads.adblockplus.org/easyprivacy.txt";
+  try {
+    var EasyPrivacySubscription = Subscription.fromURL(EasyPrivacyUrl);
+    if (EasyPrivacySubscription && !(EasyPrivacySubscription.url in FilterStorage.knownSubscriptions))
+    {
+      // EasyPrivacySubscription.disabled = false;
+      EasyPrivacySubscription.title = "EasyPrivacy";
+      FilterStorage.addSubscription(EasyPrivacySubscription);
+      Synchronizer.execute(EasyPrivacySubscription, false, false);
+    }
+  } catch (e) {
+    console.log("Could not add easyprivacy!");
+  }
+
+  // Add frequencyHeuristic Subscription
+  var frequencySub = new SpecialSubscription("frequencyHeuristic", "frequencyHeuristic");
+  FilterStorage.addSubscription(frequencySub);
+
   // Add "acceptable ads" subscription
   if (addAcceptable)
   {
@@ -360,6 +408,7 @@ function addSubscription(prevVersion)
 
   function notifyUser()
   {
+    console.log("Calling firstRun page");
     chrome.tabs.create({
       url: chrome.extension.getURL("firstRun.html")
     });
@@ -551,7 +600,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 
       var requestHost = extractHostFromURL(request.url);
       var documentHost = extractHostFromURL(request.documentUrl);
-      var thirdParty = isThirdParty(requestHost, documentHost);
+      var thirdParty = isThirdParty(requestHost, documentHost);  
       var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
       if (filter instanceof BlockingFilter)
       {

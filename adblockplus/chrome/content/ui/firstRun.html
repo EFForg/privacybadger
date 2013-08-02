@@ -20,84 +20,38 @@
   <head>
     <title class="i18n_firstRun_title"></title>
     <meta charset="utf-8">
-    <link type="text/css" href="/skin/firstRun.css" rel="stylesheet"/>
-    <script type="text/javascript" src="utils.js"></script>
-    <script type="text/javascript" src="i18n.js"></script>
-    <script type="text/javascript" src="firstRun.js"></script>
+  <style>
+    body {
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .maintext {
+      padding:10px; 
+      border:5px; 
+      background:#BE2625;
+      font-weight: 900;
+      font-size: 90%;
+      font-family: Helvetica, Arial, sans-serif;
+      border-style: groove;
+    }
+  </style>
   </head>
   <body>
-    <div id="shade" class="arrow"></div>
-    <div id="content">
-      <header>
-        <h1 id="title-main" class="i18n_firstRun_title"></h1>
-      </header>
+    <!-- <object style: "align:center" src="Mad_scientist_bw.svg" type="image/svg+xml" /> -->
+    <center><img src="/skin/mad-scientist.jpg" width="500px"/></center>
+    <div class="maintext">
 
-      <p id="dataCorruptionWarning" class="i18n_firstRun_dataCorruptionWarning" hidden="true"></p>
+    <p> Welcome to the EFF Tracker Blocking Laboratory, a project of the <a href="https://www.eff.org">Electronic Frontier Foundation!</a></p>
 
-      <p id="acceptableAdsExplanation" class="i18n_firstRun_acceptableAdsExplanation"></p>
+    <p> We believe that users have the right to opt out of non-consensual tracking. This extension is experimental and built for internal use to gather data about trackers. We wanted to share it for people interested in studying third party tracking. We may update the extension to give users an option to send back pseudonymous data about third party trackers to help us study the issue, but we will never take your data unless you opt in.</p>
 
-      <h2 id="features-title" class="i18n_firstRun_features"></h2>
+    <p> The code is a fork of Adblock Plus, and will be available on Github shortly. What are we doing in particular?</p>
 
-      <ul id="features">
-        <li id="feature-malware" class="feature">
-          <div class="feature-image"></div>
-          <div class="feature-description">
-            <p class="feature-text">
-              <span class="i18n_firstRun_feature_malware feature-title"></span> <span class="i18n_firstRun_feature_malware_description"></span>
-            </p>
-          </div>
-          <div id="toggle-malware" class="toggle">
-            <div class="i18n_firstRun_toggle_on toggle-on"></div>
-            <div class="toggle-blob"></div>
-            <div class="i18n_firstRun_toggle_off toggle-off"></div>
-          </div>
-        </li>
-        <li id="feature-social" class="feature">
-          <div class="feature-image"></div>
-          <div class="feature-description">
-            <p class="feature-text">
-              <span class="i18n_firstRun_feature_social feature-title"></span> <span class="i18n_firstRun_feature_social_description"></span>
-            </p>
-          </div>
-          <div id="toggle-social" class="toggle">
-            <div class="i18n_firstRun_toggle_on toggle-on"></div>
-            <div class="toggle-blob"></div>
-            <div class="i18n_firstRun_toggle_off toggle-off"></div>
-          </div>
-        </li>
-        <li id="feature-tracking" class="feature">
-          <div class="feature-image"></div>
-          <div class="feature-description">
-            <p class="feature-text">
-              <span class="i18n_firstRun_feature_tracking feature-title"></span> <span class="i18n_firstRun_feature_tracking_description"></span>
-            </p>
-          </div>
-          <div id="toggle-tracking" class="toggle">
-            <div class="i18n_firstRun_toggle_on toggle-on"></div>
-            <div class="toggle-blob"></div>
-            <div class="i18n_firstRun_toggle_off toggle-off"></div>
-          </div>
-        </li>
-      </ul>
+<p>Right now, there are several options for users who want to block tracking. First, there are many ad and tracker blockers like Adblock Plus, Ghostery, Disconnect, and Do Not Track Me. These are all based on lists, whose generation involves a combination of central crawling and manual curation. On the other end of the spectrum, there are actions a user can take such as third-party cookie blocking which will apply uniformly to all third parties. We believe there is value to both of these approaches and that users should take advantage of these tools and browser settings. We also thought it was a good idea to add to this ecosystem of options by experimenting with a heuristic-based approach to blocking resources. So that's what this extension does: as you browse around the web, this extension will try to figure out if someone is tracking you and block them if they are. In addition, we compare this experimental approach to some existing ad blocking lists.</p>
 
-      <footer id="social">
-        <h1 class="i18n_firstRun_share"></h1>
-        <ul>
-          <li>
-            <a id="share-facebook" class="share-button" href="https://www.facebook.com/adblockplus" target="_blank" title="Share on Facebook" data-script="https://facebook.com/plugins/like.php?"></a>
-          </li>
-          <li>
-            <a id="share-twitter" class="share-button" href="https://twitter.com/adblockplus" target="_blank" title="Share on Twitter" data-script="https://platform.twitter.com/widgets.js"></a>
-          </li>
-          <li>
-            <a id="share-gplus" class="share-button" href="https://www.google.com/+AdblockPlus" target="_blank" title="Share on Google+" data-script="https://apis.google.com/js/plusone.js"></a>
-          </li>
-        </ul>
-      </footer>
-    </div>
-
-    <div id="glass-pane">
-      <iframe id="share-popup" scrolling="no"></iframe>
-    </div>
-  </body>
+<p> As a privacy extension, this EFF Tracker Blocking Laboratory sends a Do Not Track HTTP header (DNT:1) and we measure how trackers respond to this setting. As we gather more data, we will explore creating tools that incentivize meaningful adoption of Do Not Track, which we believe will be an important mechanism to protect user privacy against non-consensual. For any blocking that is done within tools that we develop, we plan to maintain a whitelist of companies that have a meaningful commitment to DNT.</p>
+</div>
+</body>
 </html>
+ 

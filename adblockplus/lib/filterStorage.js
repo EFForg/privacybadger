@@ -133,11 +133,20 @@ let FilterStorage = exports.FilterStorage =
    */
   addSubscription: function(subscription, silent)
   {
+
     if (subscription.url in FilterStorage.knownSubscriptions)
       return;
 
     FilterStorage.subscriptions.push(subscription);
     FilterStorage.knownSubscriptions[subscription.url] = subscription;
+
+    // tododta added this line for debugging
+    console.log("Adding " + subscription.url);
+    for (var i = 0; i < FilterStorage.subscriptions.length; i++)
+    {
+      var subscr = FilterStorage.subscriptions[i];
+    }
+
     addSubscriptionFilters(subscription);
 
     if (!silent)
@@ -151,6 +160,9 @@ let FilterStorage = exports.FilterStorage =
    */
   removeSubscription: function(subscription, silent)
   {
+    // tododta test remove this
+    console.log("Removing subscription " + subscription.url);
+
     for (let i = 0; i < FilterStorage.subscriptions.length; i++)
     {
       if (FilterStorage.subscriptions[i].url == subscription.url)
@@ -236,8 +248,11 @@ let FilterStorage = exports.FilterStorage =
     if (filter.subscriptions.indexOf(subscription) < 0)
       filter.subscriptions.push(subscription);
     subscription.filters.splice(position, 0, filter);
-    if (!silent)
-      FilterNotifier.triggerListeners("filter.added", filter, subscription, position);
+    if (!silent) {
+      // tododta replaced 'position' with 'true', 'subscription' with 
+      // 'subscription.url'
+      FilterNotifier.triggerListeners("filter.added", filter, subscription.url, true);
+    }
   },
 
   /**
@@ -436,6 +451,7 @@ let FilterStorage = exports.FilterStorage =
       TimeLine.log("Initializing data done, triggering observers")
 
       this._loading = false;
+
       FilterNotifier.triggerListeners("load");
 
       if (sourceFile != this.sourceFile)

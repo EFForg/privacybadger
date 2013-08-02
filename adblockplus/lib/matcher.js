@@ -440,3 +440,102 @@ CombinedMatcher.prototype =
  * @type CombinedMatcher
  */
 let defaultMatcher = exports.defaultMatcher = new CombinedMatcher();
+
+/* dta: privacy badger fork code below */
+
+/**
+ * This class is a store of various matchers, which can be keyed by,
+ * for example, a subscription url or name.
+ * @class
+ */
+function MatcherStore()
+{
+  this.clear();
+}
+exports.MatcherStore = MatcherStore;
+
+MatcherStore.prototype = {
+  /**
+   * Lookup table for matchers by their associated keyword
+   * @type Object
+   */
+  combinedMatcherStore: null,
+
+  /**
+   * Clears matchers
+   * @param {key} string
+   */  
+  clear: function()
+  {
+    this.combinedMatcherStore = {__proto__: null};
+  },
+
+  length: function()
+  {
+    return Object.keys(this.combinedMatcherStore).length;
+  },
+
+  /**
+   * Adds a matcher to the combinedMatcherStore
+   * @param {key} string
+   */
+  add: function(key)
+  {
+    if (!(key in this.combinedMatcherStore))
+        this.combinedMatcherStore[key] = new CombinedMatcher();
+  },
+
+  /**
+   * Removes a matcher from the store
+   * @param {key} string
+   */
+  remove: function(key)
+  {
+    if (key in this.combinedMatcherStore)
+      delete this.combinedMatcherStore[key];
+  },
+};
+
+let matcherStore = exports.matcherStore = new MatcherStore();
+
+function ActiveMatchers() {
+  this.blockedOriginsByTab = { };
+  // tododta: we could put stats in here too
+
+  var that = this;
+  chrome.tabs.onRemoved.addListener(function(tabId, info) {
+    that.removeTab(tabId);
+  });
+};
+exports.ActiveMatchers = ActiveMatchers;
+
+ActiveMatchers.prototype = {
+  addTab: function(tabId) {
+    this.blockedOriginsByTab[tabId] = { };
+  },
+
+  addOriginToTab: function(tabId, origin) {
+    if (!(tabId in this.blockedOriginsByTab))
+      this.addTab(tabId);
+    if (!(origin in this.blockedOriginsByTab[tabId]))
+      this.blockedOriginsByTab[tabId][origin] = { };
+  },
+
+  addMatcherToOrigin: function(tabId, origin, matcher, value) {
+    if (!(tabId in this.blockedOriginsByTab))
+      this.addTab(tabId);
+    if (!(origin in this.blockedOriginsByTab[tabId]))
+      this.addOriginToTab(tabId, origin);
+    this.blockedOriginsByTab[tabId][origin][matcher] = value;
+  },
+
+  check: function(tabId) {
+    return (tabId in this.blockedOriginsByTab);    
+  },
+
+  removeTab: function(tabId) {
+    delete this.blockedOriginsByTab[tabId];
+  }
+};
+
+let activeMatchers = exports.activeMatchers = new ActiveMatchers();

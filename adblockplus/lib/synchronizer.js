@@ -93,15 +93,16 @@ let Synchronizer = exports.Synchronizer =
    * @param {DownloadableSubscription} subscription  Subscription to be downloaded
    * @param {Boolean} manual  true for a manually started download (should not trigger fallback requests)
    * @param {Boolean}  forceDownload  if true, the subscription will even be redownloaded if it didn't change on the server
+   * @param {Boolean} privacyBadgerSubscription if true, subscription will omit some checks when downloading from server
    */
-  execute: function(subscription, manual, forceDownload)
+  execute: function(subscription, manual, forceDownload, privacyBadgerSubscription)
   {
     // Delay execution, SeaMonkey 2.1 won't fire request's event handlers
     // otherwise if the window that called us is closed.
-    Utils.runAsync(this.executeInternal, this, subscription, manual, forceDownload);
+    Utils.runAsync(this.executeInternal, this, subscription, manual, forceDownload, privacyBadgerSubscription);
   },
 
-  executeInternal: function(subscription, manual, forceDownload)
+  executeInternal: function(subscription, manual, forceDownload, privacyBadgerSubscription)
   {
     let url = subscription.url;
     if (url in executing)
@@ -294,7 +295,7 @@ let Synchronizer = exports.Synchronizer =
       let newFilters = null;
       if (request.status != 304)
       {
-        newFilters = readFilters(subscription, request.responseText, errorCallback);
+        newFilters = readFilters(subscription, request.responseText, errorCallback, privacyBadgerSubscription);
         if (!newFilters)
           return;
 
@@ -474,48 +475,52 @@ function checkSubscriptions()
  * @param {DownloadableSubscription} subscription  subscription the info should be placed into
  * @param {String} text server response
  * @param {Function} errorCallback function to be called on error
+ * @param {privacyBadgerSubscription} Bool of whether this is for PB
  * @return {Array of Filter}
  */
-function readFilters(subscription, text, errorCallback)
+function readFilters(subscription, text, errorCallback, privacyBadgerSubscription)
 {
   let lines = text.split(/[\r\n]+/);
-  let match = /\[Adblock(?:\s*Plus\s*([\d\.]+)?)?\]/i.exec(lines[0]);
-  if (!match)
-  {
-    errorCallback("synchronize_invalid_data");
-    return null;
+  if (typeof(privacyBadgerSubscription)==='undefined') {
+    var privacyBadgerSubscription = false;
   }
-  let minVersion = match[1];
-
-  for (let i = 0; i < lines.length; i++)
-  {
-    let match = /!\s*checksum[\s\-:]+([\w\+\/]+)/i.exec(lines[i]);
-    if (match)
+  if (!privacyBadgerSubscription) {
+    let match = /\[Adblock(?:\s*Plus\s*([\d\.]+)?)?\]/i.exec(lines[0]);
+    if (!match)
     {
-      lines.splice(i, 1);
-      let checksum = Utils.generateChecksum(lines);
+      errorCallback("synchronize_invalid_data");
+      return null;
+    }
+    let minVersion = match[1];
 
-      if (checksum && checksum != match[1])
+    for (let i = 0; i < lines.length; i++)
+    {
+      let match = /!\s*checksum[\s\-:]+([\w\+\/]+)/i.exec(lines[i]);
+      if (match)
       {
-        errorCallback("synchronize_checksum_mismatch");
-        return null;
-      }
+        lines.splice(i, 1);
+        let checksum = Utils.generateChecksum(lines);
 
-      break;
+        if (checksum && checksum != match[1])
+        {
+          errorCallback("synchronize_checksum_mismatch");
+          return null;
+        }
+
+        break;
+      }
+    }
+
+    delete subscription.requiredVersion;
+    delete subscription.upgradeRequired;
+    if (minVersion)
+    {
+      let {addonVersion} = require("info");
+      subscription.requiredVersion = minVersion;
+      if (Services.vc.compare(minVersion, addonVersion) > 0)
+        subscription.upgradeRequired = true;
     }
   }
-
-  delete subscription.requiredVersion;
-  delete subscription.upgradeRequired;
-  if (minVersion)
-  {
-    let {addonVersion} = require("info");
-    subscription.requiredVersion = minVersion;
-    if (Services.vc.compare(minVersion, addonVersion) > 0)
-      subscription.upgradeRequired = true;
-  }
-
-  lines.shift();
   let result = [];
   for each (let line in lines)
   {
