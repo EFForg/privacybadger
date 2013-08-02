@@ -1,7 +1,7 @@
 privacybadgerchrome
 ===================
 
-Chrome version of Privacy Badger based on AdBlock Plus
+Chrome version of the EFF Tracker Detection Laboratory based on AdBlock Plus
 
 To build a local dummy .crx you can install with Chrome's stupid magic ritual, run:
 
