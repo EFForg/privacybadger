@@ -170,7 +170,7 @@ function addBlocked(tab) {
     var printable = "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
     for (var origin in blockedData) {
       originBlocked = true;
-      console.log("menuing" + origin + " -> " + blockedData[origin]);
+      console.log("menuing" + origin + " -> " + JSON.stringify(blockedData[origin]));
       if (!('defaultMatcher' in blockedData[origin]))
         originBlocked = false;
       // tododta: gross hacks
