@@ -63,16 +63,6 @@ require("filterNotifier").FilterNotifier.addListener(function(action)
 // See http://crbug.com/68705.
 var noStyleRulesHosts = ["mail.google.com", "mail.yahoo.com", "www.google.com"];
 
-function removeDeprecatedOptions()
-{
-  var deprecatedOptions = ["specialCaseYouTube", "experimental", "disableInlineTextAds"];
-  deprecatedOptions.forEach(function(option)
-  {
-    if (option in localStorage)
-      delete localStorage[option];
-  });
-}
-
 // Sets options to defaults, upgrading old options from previous versions as necessary
 function setDefaultOptions()
 {
@@ -84,8 +74,6 @@ function setDefaultOptions()
 
   defaultOptionValue("shouldShowIcon", "true");
   defaultOptionValue("shouldShowBlockElementMenu", "true");
-
-  removeDeprecatedOptions();
 }
 
 // Upgrade options before we do anything else.
@@ -174,115 +162,6 @@ function importOldData()
     }
   }
 
-  // Import user-defined subscriptions
-  if (typeof localStorage["userFilterURLs"] == "string")
-  {
-    try
-    {
-      var urls = JSON.parse(localStorage["userFilterURLs"]);
-      for (var key in urls)
-        addSubscription(urls[key]);
-      delete localStorage["userFilterURLs"];
-    }
-    catch (e)
-    {
-      reportError(e);
-    }
-  }
-
-  // Now import predefined subscriptions if enabled
-  if (typeof localStorage["filterFilesEnabled"] == "string")
-  {
-    try
-    {
-      var subscriptions = JSON.parse(localStorage["filterFilesEnabled"]);
-      if (subscriptions.korea)
-        subscriptions.easylist = true;
-      if (subscriptions.france)
-      {
-        addSubscription("https://easylist-downloads.adblockplus.org/liste_fr+easylist.txt", "Liste FR+EasyList");
-        subscriptions.easylist = false;
-      }
-      if (subscriptions.germany)
-      {
-        if (subscriptions.easylist)
-          addSubscription("https://easylist-downloads.adblockplus.org/easylistgermany+easylist.txt", "EasyList Germany+EasyList");
-        else
-          addSubscription("https://easylist-downloads.adblockplus.org/easylistgermany.txt", "EasyList Germany");
-        subscriptions.easylist = false;
-      }
-      if (subscriptions.china)
-      {
-        if (subscriptions.easylist)
-          addSubscription("https://easylist-downloads.adblockplus.org/chinalist+easylist.txt", "ChinaList+EasyList");
-        else
-          addSubscription("http://adblock-chinalist.googlecode.com/svn/trunk/adblock.txt", "ChinaList");
-        subscriptions.easylist = false;
-      }
-      if (subscriptions.russia)
-      {
-        if (subscriptions.easylist)
-          addSubscription("https://easylist-downloads.adblockplus.org/ruadlist+easylist.txt", "RU AdList+EasyList");
-        else
-          addSubscription("https://ruadlist.googlecode.com/svn/trunk/advblock.txt", "RU AdList");
-        subscriptions.easylist = false;
-      }
-      if (subscriptions.romania)
-      {
-        if (subscriptions.easylist)
-          addSubscription("https://easylist-downloads.adblockplus.org/rolist+easylist.txt", "ROList+EasyList");
-        else
-          addSubscription("http://www.zoso.ro/pages/rolist.txt", "ROList");
-        subscriptions.easylist = false;
-      }
-      if (subscriptions.easylist)
-        addSubscription("https://easylist-downloads.adblockplus.org/easylist.txt", "EasyList");
-      if (subscriptions.fanboy)
-        addSubscription("https://secure.fanboy.co.nz/fanboy-adblock.txt", "Fanboy's List");
-      if (subscriptions.fanboy_es)
-        addSubscription("https://secure.fanboy.co.nz/fanboy-espanol.txt", "Fanboy's Espa\xF1ol/Portugu\xEAs");
-      if (subscriptions.italy)
-        addSubscription("http://mozilla.gfsolone.com/filtri.txt", "Xfiles");
-      if (subscriptions.poland)
-        addSubscription("http://www.niecko.pl/adblock/adblock.txt", "PLgeneral");
-      if (subscriptions.hungary)
-        addSubscription("http://pete.teamlupus.hu/hufilter.txt", "hufilter");
-      if (subscriptions.extras)
-        addSubscription("https://easylist-downloads.adblockplus.org/chrome_supplement.txt", "Recommended filters for Google Chrome");
-
-      delete localStorage["filterFilesEnabled"];
-    }
-    catch (e)
-    {
-      reportError(e);
-    }
-  }
-
-  // Import user filters
-  if(typeof localStorage["userFilters"] == "string")
-  {
-    try
-    {
-      var userFilters = JSON.parse(localStorage["userFilters"]);
-      for (var i = 0; i < userFilters.length; i++)
-      {
-        var filterText = userFilters[i];
-
-        // Skip useless default filters
-        if (filterText == "qux.us###annoying_AdDiv" || filterText == "qux.us##.ad_class")
-          continue;
-
-        var filter = Filter.fromText(filterText);
-        FilterStorage.addFilter(filter);
-      }
-      delete localStorage["userFilters"];
-    }
-    catch (e)
-    {
-      reportError(e);
-    }
-  }
-
   // Import "excluded domains"
   if(typeof localStorage["excludedDomains"] == "string")
   {
@@ -322,21 +201,6 @@ function importOldData()
  */
 function addSubscription(prevVersion)
 {
-  // Make sure to remove "Recommended filters", no longer necessary
-  var toRemove = "https://easylist-downloads.adblockplus.org/chrome_supplement.txt";
-  if (toRemove in FilterStorage.knownSubscriptions)
-    FilterStorage.removeSubscription(FilterStorage.knownSubscriptions[toRemove]);
-
-  // Add "acceptable ads" subscription for new users and users updating from old ABP versions
-  var addAcceptable = (!prevVersion || Services.vc.compare(prevVersion, "2.1") < 0);
-  if (addAcceptable)
-  {
-    addAcceptable = !FilterStorage.subscriptions.some(function(subscription)
-    {
-      return subscription.url == Prefs.subscriptions_exceptionsurl;
-    });
-  }
-
   // Don't add subscription if the user has a subscription already
   var addSubscription = !FilterStorage.subscriptions.some(function(subscription)
   {
@@ -369,41 +233,11 @@ function addSubscription(prevVersion)
     console.log("Could not add EFF whitelist!");
   }
 
-  // Add EasyPrivacy
-  var EasyPrivacyUrl = "https://easylist-downloads.adblockplus.org/easyprivacy.txt";
-  try {
-    var EasyPrivacySubscription = Subscription.fromURL(EasyPrivacyUrl);
-    if (EasyPrivacySubscription && !(EasyPrivacySubscription.url in FilterStorage.knownSubscriptions))
-    {
-      // EasyPrivacySubscription.disabled = false;
-      EasyPrivacySubscription.title = "EasyPrivacy";
-      FilterStorage.addSubscription(EasyPrivacySubscription);
-      Synchronizer.execute(EasyPrivacySubscription, false, false);
-    }
-  } catch (e) {
-    console.log("Could not add easyprivacy!");
-  }
-
   // Add frequencyHeuristic Subscription
   var frequencySub = new SpecialSubscription("frequencyHeuristic", "frequencyHeuristic");
   FilterStorage.addSubscription(frequencySub);
 
-  // Add "acceptable ads" subscription
-  if (addAcceptable)
-  {
-    var subscription = Subscription.fromURL(Prefs.subscriptions_exceptionsurl);
-    if (subscription)
-    {
-      subscription.title = "Allow non-intrusive advertising";
-      FilterStorage.addSubscription(subscription);
-      if (subscription instanceof DownloadableSubscription && !subscription.lastDownload)
-        Synchronizer.execute(subscription);
-    }
-    else
-      addAcceptable = false;
-  }
-
-  if (!addSubscription && !addAcceptable)
+  if (!addSubscription)
     return;
 
   function notifyUser()
@@ -414,31 +248,7 @@ function addSubscription(prevVersion)
     });
   }
 
-  if (addSubscription)
-  {
-    // Load subscriptions data
-    var request = new XMLHttpRequest();
-    request.open("GET", "subscriptions.xml");
-    request.addEventListener("load", function()
-    {
-      var node = Utils.chooseFilterSubscription(request.responseXML.getElementsByTagName("subscription"));
-      var subscription = (node ? Subscription.fromURL(node.getAttribute("url")) : null);
-      if (subscription)
-      {
-        FilterStorage.addSubscription(subscription);
-        subscription.disabled = false;
-        subscription.title = node.getAttribute("title");
-        subscription.homepage = node.getAttribute("homepage");
-        if (subscription instanceof DownloadableSubscription && !subscription.lastDownload)
-          Synchronizer.execute(subscription);
-
-          notifyUser();
-      }
-    }, false);
-    request.send(null);
-  }
-  else
-    notifyUser();
+  notifyUser();
 }
 
 // Set up context menu for user selection of elements to block

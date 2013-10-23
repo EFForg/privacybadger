@@ -24,24 +24,6 @@
 
   // Load subscriptions for features
   var featureSubscriptions = [
-    {
-      feature: "malware",
-      homepage: "http://malwaredomains.com/",
-      title: "Malware Domains",
-      url: "https://easylist-downloads.adblockplus.org/malwaredomains_full.txt"
-    },
-    {
-      feature: "social",
-      homepage: "https://www.fanboy.co.nz/",
-      title: "Fanboy's Social Blocking List",
-      url: "https://easylist-downloads.adblockplus.org/fanboy-social.txt"
-    },
-    {
-      feature: "tracking",
-      homepage: "https://easylist.adblockplus.org/",
-      title: "EasyPrivacy",
-      url: "https://easylist-downloads.adblockplus.org/easyprivacy.txt"
-    }
   ];
 
   function onDOMLoaded()
