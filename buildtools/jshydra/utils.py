@@ -4,7 +4,7 @@
 # version 2.0 (the "License"). You can obtain a copy of the License at
 # http://mozilla.org/MPL/2.0/.
 
-import sys, os, urllib, zipfile
+import sys, os, urllib, zipfile, platform
 from StringIO import StringIO
 
 def ensureJSShell():
@@ -21,14 +21,17 @@ def ensureJSShell():
 
   platform_map = {
     'win32': 'win32',
-    'linux2': 'linux-i686',
+    'linux2': 'linux-' + platform.machine(),
     'darwin': 'mac',
   }
   if sys.platform not in platform_map:
     raise Exception('Unknown platform, is there a JS shell version for it?')
 
   download_url = 'https://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/20.0-candidates/build1/jsshell-%s.zip' % platform_map[sys.platform]
-  data = StringIO(urllib.urlopen(download_url).read())
+  try:
+    data = StringIO(urllib.urlopen(download_url).read())
+  except:
+    raise Exception("Failed to download JS shell from: " + download_url)
   zip = zipfile.ZipFile(data)
   zip.extractall(shell_dir)
   zip.close()
