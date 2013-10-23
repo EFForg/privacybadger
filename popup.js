@@ -167,9 +167,9 @@ function addOriginClosingHTML(printable) {
 function addBlocked(tab) {
   var blockedData = getBlockedData(tab.id);
   if (blockedData != null) {
-    var printable = "Here is a list of suspicious third party hosts. A red domain means that our has extension has blocked this domain if enabled, and an individual blocker is listed as red if and only if that blocker thought the domain should be blocked.";
-    for (var origin in blockedData) {
+    var printable = "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
       originBlocked = true;
+      console.log(blockedData[origin]);
       if (!('defaultMatcher' in blockedData[origin]))
         originBlocked = false;
       // tododta: gross hacks
