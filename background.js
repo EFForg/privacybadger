@@ -390,7 +390,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
           });
         }
       }
-
       sendResponse({enabled: enabled, hostDomain: hostDomain, selectors: selectors});
       break;
     case "should-collapse":
