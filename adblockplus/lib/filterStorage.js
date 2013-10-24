@@ -220,6 +220,16 @@ let FilterStorage = exports.FilterStorage =
   },
 
   /**
+   * Tests whether a filter is in a list
+   * @param {Filter} filter
+   * @param {SpecialSubscription} [subscription] particular group that the filter should be tested against
+   */
+  isFilterInSubscription: function(filter, subscription)
+  {
+    return (subscription.filters.indexOf(filter) > -1);
+  },
+
+  /**
    * Adds a user-defined filter to the list
    * @param {Filter} filter
    * @param {SpecialSubscription} [subscription] particular group that the filter should be added to
@@ -228,6 +238,8 @@ let FilterStorage = exports.FilterStorage =
    */
   addFilter: function(filter, subscription, position, silent)
   {
+    if (this.isFilterInSubscription(filter, subscription))
+      return;
     if (!subscription)
     {
       if (filter.subscriptions.some(function(s) s instanceof SpecialSubscription && !s.disabled))
