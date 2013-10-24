@@ -170,8 +170,8 @@ function addBlocked(tab) {
     var printable = "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
     for (var origin in blockedData) {
       console.log("menuing" + origin + " -> " + JSON.stringify(blockedData[origin]));
-      let criteria = blockedData[origin];
-      let originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
+      var criteria = blockedData[origin];
+      var originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
       // tododta: gross hacks
       printable = addOriginInitialHTML(origin, printable, originBlocked);
       for (var blocker in blockedData[origin])
