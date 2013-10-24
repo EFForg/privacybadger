@@ -40,6 +40,7 @@ var Utils = require("utils").Utils;
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
 RegExpFilter.typeMap.MEDIA = RegExpFilter.typeMap.FONT = RegExpFilter.typeMap.OTHER;
 
+var whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";
 var isFirstRun = false;
 var seenDataCorruption = false;
 require("filterNotifier").FilterNotifier.addListener(function(action)
@@ -219,7 +220,6 @@ function addSubscription(prevVersion)
   }
 
   // Add EFF whitelist subscription
-  var whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";
   try {
     var EFFsubscription = Subscription.fromURL(whitelistUrl);
     if (EFFsubscription && !(EFFsubscription.url in FilterStorage.knownSubscriptions))

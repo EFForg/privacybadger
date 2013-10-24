@@ -16,7 +16,7 @@
  */
 
 var backgroundPage = chrome.extension.getBackgroundPage();
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getBlockedData", "console"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getBlockedData", "console", "whitelistUrl"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
@@ -167,11 +167,11 @@ function addOriginClosingHTML(printable) {
 function addBlocked(tab) {
   var blockedData = getBlockedData(tab.id);
   if (blockedData != null) {
-    var printable = "Here is a list of suspicious third party hosts. A red domain means that our has extension has blocked this domain if enabled, and an individual blocker is listed as red if and only if that blocker thought the domain should be blocked.";
+    var printable = "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
     for (var origin in blockedData) {
-      originBlocked = true;
-      if (!('defaultMatcher' in blockedData[origin]))
-        originBlocked = false;
+      console.log("menuing" + origin + " -> " + JSON.stringify(blockedData[origin]));
+      var criteria = blockedData[origin];
+      var originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
       // tododta: gross hacks
       printable = addOriginInitialHTML(origin, printable, originBlocked);
       for (var blocker in blockedData[origin])
