@@ -15,7 +15,7 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
+chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
 chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["http://*/*", "https://*/*"]}, ["responseHeaders"]);
 chrome.tabs.onRemoved.addListener(forgetTab);
 
@@ -50,7 +50,7 @@ require("filterNotifier").FilterNotifier.addListener(function(action)
 
 var frames = {};
 
-function onBeforeRequest(details)
+function onBeforeSendHeaders(details)
 {
   if (details.tabId == -1)
     return {};
@@ -70,10 +70,20 @@ function onBeforeRequest(details)
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var filter = checkRequest(type, details.tabId, details.url, frame);
-  if (filter instanceof BlockingFilter)
+  if (filter instanceof BlockingFilter) {
+    console.log("Filtering url " + details.url);
     return {cancel: true};
-  else
-    return {};
+  }
+  var newHeaders = [];
+  // make sure to set DNT:1
+  newHeaders.push({name: "DNT", value: "1"});
+  for(var i=0; i < details.requestHeaders.length; i++) {
+    if (!(filter instanceof WhitelistFilter) || details.requestHeaders[i].name != "Cookie")
+      newHeaders.push(details.requestHeaders[i]);
+    else
+      console.log("Blocked cookie for " + details.url);
+  }
+  return {requestHeaders: newHeaders};
 }
 
 function onHeadersReceived(details)
@@ -210,20 +220,15 @@ function checkRequest(type, tabId, url, frameId)
       activeMatchers.addMatcherToOrigin(tabId, requestHost, "fullDefaultMatcher", true);
       if (frequencyBlocked) {
         activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", true);
-        // actually block. right now intersection of
-        // frequencyHeuristic and defaultMatcher is what gets blocked
-        // tododta change so that subscriptions have their own whitelists
-        // since right now
-        return filter;
       }
     }
     else if (spyingOrigin) {
       activeMatchers.addMatcherToOrigin(tabId, requestHost, "fullDefaultMatcher", false);
       activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", false);
-      return;
     }
+    return filter;
   }
-  return;
+  return false;
 }
 
 function isFrameWhitelisted(tabId, frameId, type)

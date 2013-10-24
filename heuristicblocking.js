@@ -176,8 +176,6 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
 ["blocking"]);
 
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-  // make sure to set DNT:1
-  details.requestHeaders.push({name: "DNT", value: "1"});
   // Ignore requests that are outside a tabbed window
   if(details.tabId < 0)
     return { };
@@ -198,7 +196,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
       cookieSentOriginFrequency[origin][tabOrigin] = true;
     }
   }
-  return {requestHeaders: details.requestHeaders};
+  return {};
 }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"]);
 
 chrome.webRequest.onResponseStarted.addListener(function(details) {
