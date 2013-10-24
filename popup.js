@@ -16,7 +16,7 @@
  */
 
 var backgroundPage = chrome.extension.getBackgroundPage();
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getBlockedData", "console"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getBlockedData", "console", "whitelistUrl"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
@@ -169,10 +169,9 @@ function addBlocked(tab) {
   if (blockedData != null) {
     var printable = "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
     for (var origin in blockedData) {
-      originBlocked = true;
       console.log("menuing" + origin + " -> " + JSON.stringify(blockedData[origin]));
-      if (!('defaultMatcher' in blockedData[origin]))
-        originBlocked = false;
+      let criteria = blockedData[origin];
+      let originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
       // tododta: gross hacks
       printable = addOriginInitialHTML(origin, printable, originBlocked);
       for (var blocker in blockedData[origin])
