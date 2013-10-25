@@ -96,7 +96,7 @@ function onBeforeSendHeaders(details)
   }
   else if (filter instanceof WhitelistFilter) {
     console.log("Blocking cookies for url " + details.url);
-    clobberCookieSetting();
+    //clobberCookieSetting();
     newHeaders = details.requestHeaders.filter(function(header) {
       return (header.name != "Cookie");
     });
