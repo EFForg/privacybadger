@@ -50,6 +50,24 @@ require("filterNotifier").FilterNotifier.addListener(function(action)
 
 var frames = {};
 
+function clobberCookieSetting() 
+{
+  console.log("Clobber cookie setting called");
+  var dummyCookie = "";
+  Object.defineProperty(document, "cookie", {
+    __proto__: null,
+    configurable: false,
+    get: function () {
+      console.log("clobbered cookie get called"); 
+      return dummyCookie;
+    },
+    set: function (newValue) {
+      console.log("clobbered cookie set called"); 
+      dummyCookie = newValue;
+    }
+  });
+}
+
 function onBeforeSendHeaders(details)
 {
   if (details.tabId == -1)
@@ -70,20 +88,21 @@ function onBeforeSendHeaders(details)
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var filter = checkRequest(type, details.tabId, details.url, frame);
+  details.requestHeaders.push({name: "DNT", value: "1"});
+
   if (filter instanceof BlockingFilter) {
     console.log("Filtering url " + details.url);
     return {cancel: true};
   }
-  var newHeaders = [];
-  // make sure to set DNT:1
-  newHeaders.push({name: "DNT", value: "1"});
-  for(var i=0; i < details.requestHeaders.length; i++) {
-    if (!(filter instanceof WhitelistFilter) || details.requestHeaders[i].name != "Cookie")
-      newHeaders.push(details.requestHeaders[i]);
-    else
-      console.log("Blocked cookie for " + details.url);
+  else if (filter instanceof WhitelistFilter) {
+    console.log("Blocking cookies for url " + details.url);
+    clobberCookieSetting();
+    newHeaders = details.requestHeaders.filter(function(header) {
+      return (header.name != "Cookie");
+    });
+    return {requestHeaders: newHeaders};
   }
-  return {requestHeaders: newHeaders};
+  return {requestHeaders: details.requestHeaders};
 }
 
 function onHeadersReceived(details)
