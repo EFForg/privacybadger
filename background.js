@@ -53,6 +53,7 @@ require("filterNotifier").FilterNotifier.addListener(function(action)
     var prevVersion = localStorage["currentVersion"];
     if (prevVersion != addonVersion)
     {
+      changePrivacySettings();
       isFirstRun = !prevVersion;
       localStorage["currentVersion"] = addonVersion;
       addSubscription(prevVersion);
@@ -194,6 +195,26 @@ function importOldData()
   {
     reportError(e);
   }
+}
+
+/**
+ * Called on extension install/update: improves default privacy settings
+ */
+function changePrivacySettings()
+{
+  // todo: wrap these functions
+  console.log("Turning off third party cookies");
+  chrome.privacy.websites.thirdPartyCookiesAllowed.set({'value': false, 'scope': 'regular'});
+  console.log("Turning off referers");
+  chrome.privacy.websites.referrersEnabled.set({'value': false, 'scope': 'regular'});
+  console.log("Turning off hyperlink auditing");
+  chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
+  //console.log("Turning off protected content unique ids (Windows)");
+  //chrome.privacy.websites.protectedContentEnabled.set({'value': false, 'scope': 'regular'});
+  console.log("Turning off Google Suggest");
+  chrome.privacy.services.searchSuggestEnabled.set({'value': false, 'scope': 'regular'});
+  console.log("Turning off alternate Error pages");
+  chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
 }
 
 /**

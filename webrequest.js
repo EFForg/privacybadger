@@ -50,24 +50,6 @@ require("filterNotifier").FilterNotifier.addListener(function(action)
 
 var frames = {};
 
-function clobberCookieSetting() 
-{
-  console.log("Clobber cookie setting called");
-  var dummyCookie = "";
-  Object.defineProperty(document, "cookie", {
-    __proto__: null,
-    configurable: false,
-    get: function () {
-      console.log("clobbered cookie get called"); 
-      return dummyCookie;
-    },
-    set: function (newValue) {
-      console.log("clobbered cookie set called"); 
-      dummyCookie = newValue;
-    }
-  });
-}
-
 function onBeforeSendHeaders(details)
 {
   if (details.tabId == -1)
@@ -93,14 +75,6 @@ function onBeforeSendHeaders(details)
   if (filter instanceof BlockingFilter) {
     console.log("Filtering url " + details.url);
     return {cancel: true};
-  }
-  else if (filter instanceof WhitelistFilter) {
-    console.log("Blocking cookies for url " + details.url);
-    //clobberCookieSetting();
-    newHeaders = details.requestHeaders.filter(function(header) {
-      return (header.name != "Cookie");
-    });
-    return {requestHeaders: newHeaders};
   }
   return {requestHeaders: details.requestHeaders};
 }
