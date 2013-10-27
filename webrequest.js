@@ -70,12 +70,11 @@ function onBeforeSendHeaders(details)
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var filter = checkRequest(type, details.tabId, details.url, frame);
-  details.requestHeaders.push({name: "DNT", value: "1"});
-
   if (filter instanceof BlockingFilter) {
     console.log("Filtering url " + details.url);
     return {cancel: true};
   }
+  details.requestHeaders.push({name: "DNT", value: "1"});
   return {requestHeaders: details.requestHeaders};
 }
 
