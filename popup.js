@@ -129,17 +129,17 @@ function clickHideInactiveStuff()
 }
 
 // ugly helpers: not to be used!
-function addOriginInitialHTML(origin, printable, blocked) {
+function _addOriginInitialHTML(origin, printable, blocked) {
   console.log("Popup: adding origin HTML for " + origin);
   var classText = 'class="clicker"'
   if (blocked)
     classText = 'class="clicker blocked"';
   return printable + '<div class="click-nav"><ul class="js"><li> \
-    <a href="#" ' + classText + '>' + origin + '</a><ul class="js collapsible">';
+    <a href="#" ' + classText + '>' + origin + '</a>';
 }
 
 // ugly helpers: not to be used!
-function addBlockerHTML(blocker, printable, blocked) {
+function _addBlockerHTML(blocker, printable, blocked) {
   // tododta: fix hack to hard code our lists in for what we want to display
   console.log("Popup: adding blocker HTML for " + blocker);
   var displayBlocker = blocker;
@@ -160,8 +160,8 @@ function addBlockerHTML(blocker, printable, blocked) {
 }
 
 // ugly helpers: not to be used!
-function addOriginClosingHTML(printable) {
-  return printable + '</ul></li></ul></div>';
+function _addOriginClosingHTML(printable) {
+  return printable + '</li></ul></div>';
 }
 
 function addBlocked(tab) {
@@ -169,14 +169,14 @@ function addBlocked(tab) {
   if (blockedData != null) {
     var printable = "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
     for (var origin in blockedData) {
-      console.log("menuing" + origin + " -> " + JSON.stringify(blockedData[origin]));
+      console.log("menuing " + origin + " -> " + JSON.stringify(blockedData[origin]));
       var criteria = blockedData[origin];
       var originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
       // tododta: gross hacks
-      printable = addOriginInitialHTML(origin, printable, originBlocked);
-      for (var blocker in blockedData[origin])
-        printable = addBlockerHTML(blocker, printable, blockedData[origin][blocker]);
-      printable = addOriginClosingHTML(printable);
+      printable = _addOriginInitialHTML(origin, printable, originBlocked);
+//      for (var blocker in blockedData[origin])
+//        printable = _addBlockerHTML(blocker, printable, blockedData[origin][blocker]);
+      printable = _addOriginClosingHTML(printable);
     }
     document.getElementById("blockedResources").innerHTML = printable;
     // add js for drop down list
