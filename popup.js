@@ -29,8 +29,6 @@ function init()
 {
   // Attach event listeners
   $("#enabled").click(toggleEnabled);
-  // $("#clickHideButton").click(activateClickHide);
-  // $("#cancelButton").click(cancelClickHide);
   
   // Ask content script whether clickhide is active. If so, show cancel button.
   // If that isn't the case, ask background.html whether it has cached filters. If so,
@@ -43,25 +41,10 @@ function init()
       tab = t;
       document.getElementById("enabled").checked = !isWhitelisted(tab.url);
       document.getElementById("enabledCheckboxAndLabel").style.display = "block";
-
-      // chrome.tabs.sendRequest(tab.id, {reqtype: "get-clickhide-state"}, function(response)
-      // {
-      //   if(response.active)
-      //     clickHideActiveStuff();
-      //   else
-      //     clickHideInactiveStuff();
-      // });
     });
   });
 }
 $(init);
-
-function clickOrigin() {
-  $('.click-nav .js ul').slideToggle(200);
-  $('.clicker').toggleClass('active');
-  e.stopPropagation();
-  alert("still working");
-}
 
 function toggleEnabled()
 {
@@ -94,74 +77,14 @@ function toggleEnabled()
   refreshIconAndContextMenu(tab);
 }
 
-function activateClickHide()
-{
-  clickHideActiveStuff();
-  chrome.tabs.sendRequest(tab.id, {reqtype: "clickhide-activate"});
-
-  // Close the popup after a few seconds, so user doesn't have to
-  activateClickHide.timeout = window.setTimeout(window.close, 5000);
-}
-
-function cancelClickHide()
-{
-  if (activateClickHide.timeout)
-  {
-    window.clearTimeout(activateClickHide.timeout);
-    activateClickHide.timeout = null;
-  }
-  clickHideInactiveStuff();
-  chrome.tabs.sendRequest(tab.id, {reqtype: "clickhide-deactivate"});
-}
-
-function clickHideActiveStuff()
-{
-  document.getElementById("enabledCheckboxAndLabel").style.display = "none";
-  document.getElementById("clickHideInactiveStuff").style.display = "none";
-  document.getElementById("clickHideActiveStuff").style.display = "inherit";
-}
-
-function clickHideInactiveStuff()
-{
-  document.getElementById("enabledCheckboxAndLabel").style.display = "block";
-  document.getElementById("clickHideActiveStuff").style.display = "none";
-  document.getElementById("clickHideInactiveStuff").style.display = "inherit";
-}
-
 // ugly helpers: not to be used!
-function _addOriginInitialHTML(origin, printable, blocked) {
+function _addOriginHTML(origin, printable, blocked) {
   console.log("Popup: adding origin HTML for " + origin);
   var classText = 'class="clicker"'
   if (blocked)
     classText = 'class="clicker blocked"';
   return printable + '<div class="click-nav"><ul class="js"><li> \
-    <a href="#" ' + classText + '>' + origin + '</a>';
-}
-
-// ugly helpers: not to be used!
-function _addBlockerHTML(blocker, printable, blocked) {
-  // tododta: fix hack to hard code our lists in for what we want to display
-  console.log("Popup: adding blocker HTML for " + blocker);
-  var displayBlocker = blocker;
-  if (blocker == 'frequencyHeuristic')
-    displayBlocker = 'EFF Blocking Laboratory';
-  else if (blocker == 'https://easylist-downloads.adblockplus.org/easylist.txt')
-    displayBlocker = 'Adblock Plus EasyList';
-  else if (blocker == 'https://easylist-downloads.adblockplus.org/easyprivacy.txt')
-    displayBlocker = 'Adblock Plus EasyPrivacy';
-  else
-    // just don't display anything
-    return printable;
-  // tododta add EasyPrivacy
-  var classText = 'class="imglink"';
-  if (blocked)
-    classText = 'class="imglink blocked"';
-  return printable + '<li><a href="#" ' + classText + '>' + displayBlocker + '</a></li>';
-}
-
-// ugly helpers: not to be used!
-function _addOriginClosingHTML(printable) {
-  return printable + '</li></ul></div>';
+    <a href="#" ' + classText + '>' + origin + '</a></li></ul></div>';
 }
 
 function addBlocked(tab) {
@@ -172,11 +95,8 @@ function addBlocked(tab) {
       console.log("menuing " + origin + " -> " + JSON.stringify(blockedData[origin]));
       var criteria = blockedData[origin];
       var originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
-      // tododta: gross hacks
-      printable = _addOriginInitialHTML(origin, printable, originBlocked);
-//      for (var blocker in blockedData[origin])
-//        printable = _addBlockerHTML(blocker, printable, blockedData[origin][blocker]);
-      printable = _addOriginClosingHTML(printable);
+      // tododta: gross hack
+      printable = _addOriginHTML(origin, printable, originBlocked);
     }
     document.getElementById("blockedResources").innerHTML = printable;
     // add js for drop down list
