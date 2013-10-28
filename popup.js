@@ -78,13 +78,27 @@ function toggleEnabled()
 }
 
 // ugly helpers: not to be used!
-function _addOriginHTML(origin, printable, blocked) {
+function _addOriginHTML(origin, origin_id, printable, blocked) {
   console.log("Popup: adding origin HTML for " + origin);
   var classText = 'class="clicker"'
   if (blocked)
     classText = 'class="clicker blocked"';
   return printable + '<div class="click-nav"><ul class="js"><li> \
-    <a href="#" ' + classText + '>' + origin + '</a></li></ul></div>';
+    <a id="' + origin_id + '" href="#" ' + classText + '>' + origin + '</a></li></ul></div>';
+}
+
+function toggleBlockedStatus(elt) {
+  var classList = elt.className.split(" ");
+  if ($.inArray("blocked", classList) != -1) {
+    $(elt).toggleClass("blocked");
+  }
+  else if ($.inArray("cookieblocked", classList) != -1) {
+    $(elt).toggleClass("blocked");
+    $(elt).toggleClass("cookieblocked");
+  }
+  else {
+    $(elt).toggleClass("cookieblocked");
+  }
 }
 
 function addBlocked(tab) {
@@ -92,22 +106,18 @@ function addBlocked(tab) {
   if (blockedData != null) {
     var printable = "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
     for (var origin in blockedData) {
+      // todo: fix; this causes collisions e.g. a.foo.com and afoo.com
+      var origin_id = origin.replace(/\W/g, '');
       console.log("menuing " + origin + " -> " + JSON.stringify(blockedData[origin]));
       var criteria = blockedData[origin];
       var originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
-      // tododta: gross hack
-      printable = _addOriginHTML(origin, printable, originBlocked);
+      // todo: gross hack
+      printable = _addOriginHTML(origin, origin_id, printable, originBlocked);
+      console.log("Popup: done loading origin " + origin);
     }
     document.getElementById("blockedResources").innerHTML = printable;
-    // add js for drop down list
-    // tododta clean up this to be per-ui instead of collapsing all at once
-    // my attempts to use this.next() to do this were mysteriously
-    // thwarted :/
-    $('.click-nav .js ul').hide();
-    $('.click-nav .js').click(function(e) {
-      $('.click-nav .js ul').slideToggle(200);
-      $('.clicker').toggleClass('active');
-      e.stopPropagation();
+    $('.clicker').click(function() {
+      toggleBlockedStatus(this);
     });
   }
   else
