@@ -141,6 +141,17 @@ function addBlocked(tab) {
     document.getElementById("blockedResources").innerHTML = "No blockworthy resources found :)";
 }
 
+// syncs the user-selected cookie blocking options, etc
+function syncUISelections() {
+  // todo: sync selections
+  // todo: see if the current selection matches what we have, reload if so
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   chrome.tabs.getSelected(null, addBlocked);
+});
+
+window.addEventListener('unload', function() {
+  syncUISelections();
+  console.log("unloaded popup");
 });
