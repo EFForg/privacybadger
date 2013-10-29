@@ -28,7 +28,9 @@ var tab = null;
 function init()
 {
   // Attach event listeners
-  $("#enabled").click(toggleEnabled);
+  $("#activate_btn").click(activate);
+  $("#deactivate_btn").click(deactivate);
+  //$("#enabled").click(toggleEnabled);
   
   // Ask content script whether clickhide is active. If so, show cancel button.
   // If that isn't the case, ask background.html whether it has cached filters. If so,
@@ -39,41 +41,54 @@ function init()
     chrome.tabs.getSelected(w.id, function(t)
     {
       tab = t;
-      document.getElementById("enabled").checked = !isWhitelisted(tab.url);
+//      document.getElementById("enabled").checked = !isWhitelisted(tab.url);
       document.getElementById("enabledCheckboxAndLabel").style.display = "block";
     });
   });
 }
 $(init);
 
+function activate() {
+  $("#activate_btn").toggle();
+  $("#deactivate_btn").toggle();
+  $(".clicker").toggleClass("greyed");
+}
+
+function deactivate() {
+  $("#activate_btn").toggle();
+  $("#deactivate_btn").toggle();
+  $(".clicker").toggleClass("greyed");
+}
+
 function toggleEnabled()
 {
   var checked = document.getElementById("enabled").checked;
-  if (checked)
-  {
-    // Remove any exception rules applying to this URL
-    var filter = isWhitelisted(tab.url);
-    while (filter)
-    {
-      FilterStorage.removeFilter(filter);
-      if (filter.subscriptions.length)
-        filter.disabled = true;
-      filter = isWhitelisted(tab.url);
-    }
-  }
-  else
-  {
-    var host = extractHostFromURL(tab.url).replace(/^www\./, "");
-    var filter = Filter.fromText("@@||" + host + "^$document");
-    if (filter.subscriptions.length && filter.disabled)
-      filter.disabled = false;
-    else
-    {
-      filter.disabled = false;
-      FilterStorage.addFilter(filter);
-    }
-  }
+  // if (checked)
+  // {
+  //   // Remove any exception rules applying to this URL
+  //   var filter = isWhitelisted(tab.url);
+  //   while (filter)
+  //   {
+  //     FilterStorage.removeFilter(filter);
+  //     if (filter.subscriptions.length)
+  //       filter.disabled = true;
+  //     filter = isWhitelisted(tab.url);
+  //   }
+  // }
+  // else
+  // {
+  //   var host = extractHostFromURL(tab.url).replace(/^www\./, "");
+  //   var filter = Filter.fromText("@@||" + host + "^$document");
+  //   if (filter.subscriptions.length && filter.disabled)
+  //     filter.disabled = false;
+  //   else
+  //   {
+  //     filter.disabled = false;
+  //     FilterStorage.addFilter(filter);
+  //   }
+  // }
 
+  console.log("Refreshing icon and context menu");
   refreshIconAndContextMenu(tab);
 }
 
@@ -104,7 +119,9 @@ function toggleBlockedStatus(elt) {
 function addBlocked(tab) {
   var blockedData = getBlockedData(tab.id);
   if (blockedData != null) {
-    var printable = "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
+    // old text that could go in printable: 
+    // "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
+    var printable = "";
     for (var origin in blockedData) {
       // todo: fix; this causes collisions e.g. a.foo.com and afoo.com
       var origin_id = origin.replace(/\W/g, '');

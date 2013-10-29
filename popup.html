@@ -57,7 +57,7 @@ a:hover { color: #eeeeff }
 }
 
 .click-nav {margin:10px auto;}
-.click-nav ul {position:relative;font-weight:900;}
+.click-nav ul {position:relative;font-weight:900;list-style-type:none;}
 .click-nav ul li {position:relative;list-style:none;cursor:pointer;}
 .click-nav ul li ul {position:relative;}
 .click-nav ul .clicker {position:relative;background:#2284B5;color:#FFF;}
@@ -70,6 +70,9 @@ a:hover { color: #eeeeff }
 .click-nav ul .blocked:hover {background:#BE2625;}
 .click-nav ul .cookieblocked {background:#FFF200; color:black}
 .click-nav ul .cookieblocked:hover {background:#FFF79A; color:black}
+.click-nav ul .greyed {background:#C0C0C0; color:gray}
+.click-nav ul .greyed:hover {background:#E0E0E0; color:gray}
+
 </style>
 <script type="text/javascript" src="jquery-ui/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="i18n.js"></script>
@@ -77,7 +80,11 @@ a:hover { color: #eeeeff }
 </head>
 <body id="main">
 <!-- In soviet EFF extension, popup clicks you. -->
-<div id="enabledCheckboxAndLabel" style="display:none"><input id="enabled" type="checkbox" checked><label for="enabled"><span class="i18n_enabled_for_site"></span></label></div>
+<div id="enabledCheckboxAndLabel" style="display:none">
+  <!-- <input id="enabled" style="display:none" type="checkbox" checked><label for="enabled"><span class="i18n_enabled_for_site"></span></label> -->
+  <center><button id="deactivate_btn" class="grey-button" style="display:block"> Deactivate </button></center>
+  <center><button id="activate_btn" class="red-button" style="display:none"> Activate </button></center>
+</div>
 <div id="mustReloadMsg" style="display:none"><span class="i18n_new_filters_added"></span></div>
 
 <!-- <div id="clickHideInactiveStuff" style="display: none"> -->
