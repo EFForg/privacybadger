@@ -93,13 +93,18 @@ function toggleEnabled()
 }
 
 // ugly helpers: not to be used!
-function _addOriginHTML(origin, origin_id, printable, blocked) {
+function _addOriginHTML(origin, printable, blocked, shouldCookieBlock) {
   console.log("Popup: adding origin HTML for " + origin);
-  var classText = 'class="clicker"'
+  var classes = ["clicker"];
+  // only add cookieblocked class if origin isn't blocked
   if (blocked)
-    classText = 'class="clicker blocked"';
+    classes.push("blocked");
+  else if (shouldCookieBlock)
+    classes.push("cookieblocked");
+  var classText = 'class="' + classes.join(" ") + '"';
+  console.log("classText is " + classText);
   return printable + '<div class="click-nav"><ul class="js"><li> \
-    <a id="' + origin_id + '" href="#" ' + classText + '>' + origin + '</a></li></ul></div>';
+    <a href="#" ' + classText + '>' + origin + '</a></li></ul></div>';
 }
 
 function toggleBlockedStatus(elt) {
@@ -128,8 +133,9 @@ function addBlocked(tab) {
       console.log("menuing " + origin + " -> " + JSON.stringify(blockedData[origin]));
       var criteria = blockedData[origin];
       var originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
-      // todo: gross hack
-      printable = _addOriginHTML(origin, origin_id, printable, originBlocked);
+      var shouldCookieBlock = !criteria["cookieWhitelist"];
+      // todo: gross hack, use templating framework
+      printable = _addOriginHTML(origin, printable, originBlocked, shouldCookieBlock);
       console.log("Popup: done loading origin " + origin);
     }
     document.getElementById("blockedResources").innerHTML = printable;

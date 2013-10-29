@@ -237,6 +237,10 @@ function addSubscription(prevVersion)
   var frequencySub = new SpecialSubscription("frequencyHeuristic", "frequencyHeuristic");
   FilterStorage.addSubscription(frequencySub);
 
+  // Add cookieWhitelist Subscription
+  var frequencySub = new SpecialSubscription("cookieWhitelist", "cookieWhitelist");
+  FilterStorage.addSubscription(frequencySub);
+
   if (!addSubscription)
     return;
 
