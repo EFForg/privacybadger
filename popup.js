@@ -94,7 +94,7 @@ function toggleEnabled()
 
 // ugly helpers: not to be used!
 function _addOriginHTML(origin, printable, blocked, shouldCookieBlock) {
-  console.log("Popup: adding origin HTML for " + origin);
+  //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker"];
   // only add cookieblocked class if origin isn't blocked
   if (blocked)
@@ -102,7 +102,6 @@ function _addOriginHTML(origin, printable, blocked, shouldCookieBlock) {
   else if (shouldCookieBlock)
     classes.push("cookieblocked");
   var classText = 'class="' + classes.join(" ") + '"';
-  console.log("classText is " + classText);
   return printable + '<div class="click-nav"><ul class="js"><li> \
     <a href="#" ' + classText + 'data-origin="' + origin + '">' + origin + '</a></li></ul></div>';
 }
@@ -126,17 +125,15 @@ function addBlocked(tab) {
   if (blockedData != null) {
     // old text that could go in printable: 
     // "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
-    var printable = "";
+    var printable = '<div id="associatedTab" data-tab-id="' + tab.id + '"></div>';
     for (var origin in blockedData) {
-      // todo: fix; this causes collisions e.g. a.foo.com and afoo.com
-      var origin_id = origin.replace(/\W/g, '');
       console.log("menuing " + origin + " -> " + JSON.stringify(blockedData[origin]));
       var criteria = blockedData[origin];
       var originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
       var shouldCookieBlock = !criteria["cookieWhitelist"];
       // todo: gross hack, use templating framework
       printable = _addOriginHTML(origin, printable, originBlocked, shouldCookieBlock);
-      console.log("Popup: done loading origin " + origin);
+      //console.log("Popup: done loading origin " + origin);
     }
     document.getElementById("blockedResources").innerHTML = printable;
     $('.clicker').click(function() {
@@ -147,9 +144,63 @@ function addBlocked(tab) {
     document.getElementById("blockedResources").innerHTML = "No blockworthy resources found :)";
 }
 
-// syncs the user-selected cookie blocking options, etc
-function syncUISelections() {
-  // todo: sync selections
+function reloadPage() {
+  // todo: fill in
+  console.log("Reload page called");
+}
+
+function setFilter(subscription, origin, add){
+  console.log("SetFilter called: " + subscription + " " + origin + " : " + add);
+}
+
+function syncSettingsDict(settingsDict) {
+  // track whether reload is needed: only if things are being unblocked
+  var reloadNeeded = false;
+  var tab_id = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  // we get the blocked data again in case anything changed, but the user's change when
+  // closing a popup is authoritative and we should sync the real state to that
+  var blockedData = getBlockedData(tab_id);
+  console.log("SYNCING HERE IS WHATS BLOCKED NOW: " + JSON.stringify(blockedData));
+  for (var origin in settingsDict) {
+    if (!(origin in blockedData)) {
+      console.error("Error: settingsDict and blockedData dict don't have the same origins");
+      continue;
+    }
+    if (settingsDict[origin] == "blocked") {
+      // make sure it's in frequencyHeuristic list
+      if (blockedData[origin]["frequencyHeuristic"] == false)
+        setFilter("frequencyHeuristic", origin, true);
+      // make sure it's NOT in the whitelist
+      if (blockedData[origin][window.whitelistUrl] == true)
+        setFilter(window.whitelistUrl, origin, false);
+    }
+    else if (settingsDict[origin] == "cookieblocked") {
+      // if it's in frequencyHeuristic and NOT in whitelist, this is an explicit whitelist
+      if (blockedData[origin]["frequencyHeuristic"] == true && blockeddata[origin][window.whitelistUrl]) {
+        setFilter(window.whitelistUrl, origin, true);
+        if (!reloadNeeded)
+          reloadNeeded = true;
+      }
+    }
+    else {
+      // if it's unblocked, this should be on whitelist and cookieWhitelist
+      if (blockedData[origin][window.whitelistUrl] == false) {
+        setFilter(window.whitelistUrl, origin, true);
+        if (!reloadNeeded)
+          reloadNeeded = true;
+      }
+      if (blockedData[origin]["cookieWhitelist"] == false) {
+        setFilter("cookieWhitelist", origin, true);
+        if (!reloadNeeded)
+          reloadNeeded = true
+      }
+    }
+  }
+  console.log("finished calling syncsettingsdict");
+  return reloadNeeded;
+}
+
+function buildSettingsDict() {
   var settingsDict = {};
   $('.clicker').each(function() {
     var origin = this.getAttribute('data-origin');
@@ -165,6 +216,16 @@ function syncUISelections() {
       settingsDict[origin] = "unblocked";
     }
   });
+  return settingsDict;
+}
+
+// syncs the user-selected cookie blocking options, etc
+function syncUISelections() {
+  console.log("syncUISelections function called");
+  var settingsDict = buildSettingsDict();
+  // todo: sync selections
+  if (syncSettingsDict(settingsDict))
+    reloadPage();
   console.log("sync is " + JSON.stringify(settingsDict));
   console.log("Popup: finished syncing ui selections");
   // todo: see if the current selection matches what we have, reload if so
