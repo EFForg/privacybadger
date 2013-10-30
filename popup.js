@@ -104,7 +104,7 @@ function _addOriginHTML(origin, printable, blocked, shouldCookieBlock) {
   var classText = 'class="' + classes.join(" ") + '"';
   console.log("classText is " + classText);
   return printable + '<div class="click-nav"><ul class="js"><li> \
-    <a href="#" ' + classText + '>' + origin + '</a></li></ul></div>';
+    <a href="#" ' + classText + 'data-origin="' + origin + '">' + origin + '</a></li></ul></div>';
 }
 
 function toggleBlockedStatus(elt) {
@@ -150,6 +150,23 @@ function addBlocked(tab) {
 // syncs the user-selected cookie blocking options, etc
 function syncUISelections() {
   // todo: sync selections
+  var settingsDict = {};
+  $('.clicker').each(function() {
+    var origin = this.getAttribute('data-origin');
+    var classList = this.className.split(" ");
+    // todo: DRY; same as code above, break out into helper
+    if ($.inArray("blocked", classList) != -1) {
+      settingsDict[origin] = "blocked";
+    }
+    else if ($.inArray("cookieblocked", classList) != -1) {
+      settingsDict[origin] = "cookieblocked";
+    }
+    else {
+      settingsDict[origin] = "unblocked";
+    }
+  });
+  console.log("sync is " + JSON.stringify(settingsDict));
+  console.log("Popup: finished syncing ui selections");
   // todo: see if the current selection matches what we have, reload if so
 }
 
