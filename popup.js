@@ -131,7 +131,7 @@ function refreshPopup(tab_id) {
       console.log("menuing " + origin + " -> " + JSON.stringify(blockedData[origin]));
       var criteria = blockedData[origin];
       var originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
-      var shouldCookieBlock = !criteria["cookieWhitelist"];
+      var shouldCookieBlock = !criteria["userCookieWhitelist"];
       // todo: gross hack, use templating framework
       printable = _addOriginHTML(origin, printable, originBlocked, shouldCookieBlock);
       console.log("Popup: done loading origin " + origin);
@@ -197,15 +197,15 @@ function syncSettingsDict(settingsDict) {
       }
     }
     else {
-      // if it's unblocked, this should be on whitelist and cookieWhitelist
+      // if it's unblocked, this should be on whitelist and userCookieWhitelist
       if (!(blockedData[origin][window.whitelistUrl])) {
         setFilter(window.whitelistUrl, origin, true, true);
         if (!reloadNeeded)
           reloadNeeded = true;
       }
-      if (!(blockedData[origin]["cookieWhitelist"])) {
+      if (!(blockedData[origin]["userCookieWhitelist"])) {
         // todo: what format do we want to use for cookie whitelist subscription. does it matter?
-        setFilter("cookieWhitelist", origin, true, false);
+        setFilter("userCookieWhitelist", origin, true, false);
         if (!reloadNeeded)
           reloadNeeded = true
       }
