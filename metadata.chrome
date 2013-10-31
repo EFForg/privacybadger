@@ -24,6 +24,7 @@ permissions = tabs
   unlimitedStorage
   storage
   cookies
+  privacy
 pageAction = icons/test-19.png popup.html
 icons = icons/test-?.png
 webAccessible = block.html
