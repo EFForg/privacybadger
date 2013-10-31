@@ -120,12 +120,13 @@ function toggleBlockedStatus(elt) {
   }
 }
 
-function addBlocked(tab) {
-  var blockedData = getBlockedData(tab.id);
+function refreshPopup(tab_id) {
+  console.log("Refreshing popup for tab id " + JSON.stringify(tab_id));
+  var blockedData = getBlockedData(tab_id);
   if (blockedData != null) {
     // old text that could go in printable: 
     // "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
-    var printable = '<div id="associatedTab" data-tab-id="' + tab.id + '"></div>';
+    var printable = '<div id="associatedTab" data-tab-id="' + tab_id + '"></div>';
     for (var origin in blockedData) {
       console.log("menuing " + origin + " -> " + JSON.stringify(blockedData[origin]));
       var criteria = blockedData[origin];
@@ -133,7 +134,7 @@ function addBlocked(tab) {
       var shouldCookieBlock = !criteria["cookieWhitelist"];
       // todo: gross hack, use templating framework
       printable = _addOriginHTML(origin, printable, originBlocked, shouldCookieBlock);
-      //console.log("Popup: done loading origin " + origin);
+      console.log("Popup: done loading origin " + origin);
     }
     document.getElementById("blockedResources").innerHTML = printable;
     $('.clicker').click(function() {
@@ -158,10 +159,11 @@ function setFilter(subscription, origin, add, whitelistFilter){
     filterText = "||" + origin + "^$third_party";
   var filter = this.Filter.fromText(filterText);
   if (add) {
-    console.log("actually adding the filter!");
+    //console.log("actually adding the filter!");
     FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[subscription]);
   }
   else {
+    //console.log("subtracting the filter");
     FilterStorage.removeFilter(filter, FilterStorage.knownSubscription[subscription]);
   }
 }
@@ -173,7 +175,6 @@ function syncSettingsDict(settingsDict) {
   // we get the blocked data again in case anything changed, but the user's change when
   // closing a popup is authoritative and we should sync the real state to that
   var blockedData = getBlockedData(tab_id);
-  console.log("SYNCING HERE IS WHATS BLOCKED NOW: " + JSON.stringify(blockedData));
   for (var origin in settingsDict) {
     if (!(origin in blockedData)) {
       console.error("Error: settingsDict and blockedData dict don't have the same origins");
@@ -210,7 +211,9 @@ function syncSettingsDict(settingsDict) {
       }
     }
   }
-  console.log("finished calling syncsettingsdict");
+  console.log("Finished syncing. Now refreshing popup.");
+  // the popup needs to be refreshed to display current results
+  refreshPopup(tab_id);
   return reloadNeeded;
 }
 
@@ -235,20 +238,17 @@ function buildSettingsDict() {
 
 // syncs the user-selected cookie blocking options, etc
 function syncUISelections() {
-  console.log("syncUISelections function called");
   var settingsDict = buildSettingsDict();
-  // todo: sync selections
   if (syncSettingsDict(settingsDict))
     reloadPage();
   console.log("sync is " + JSON.stringify(settingsDict));
-  console.log("Popup: finished syncing ui selections");
-  // todo: see if the current selection matches what we have, reload if so
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  chrome.tabs.getSelected(null, addBlocked);
+  chrome.tabs.getSelected(null, function(tab) {
+    console.log("adding popup html for tab.id " + JSON.stringify(tab.id));
+    refreshPopup(tab.id)});
 });
-
 window.addEventListener('unload', function() {
   syncUISelections();
   console.log("unloaded popup");
