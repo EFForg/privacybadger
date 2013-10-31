@@ -181,15 +181,15 @@ function syncSettingsDict(settingsDict) {
     }
     if (settingsDict[origin] == "blocked") {
       // make sure it's in frequencyHeuristic list
-      if (blockedData[origin]["frequencyHeuristic"] == false)
+      if (!(blockedData[origin]["frequencyHeuristic"]))
         setFilter("frequencyHeuristic", origin, true), false;
       // make sure it's NOT in the whitelist
-      if (blockedData[origin][window.whitelistUrl] == true)
+      if (blockedData[origin][window.whitelistUrl])
         setFilter(window.whitelistUrl, origin, false, true);
     }
     else if (settingsDict[origin] == "cookieblocked") {
       // if it's in frequencyHeuristic and NOT in whitelist, this is an explicit whitelist
-      if (blockedData[origin]["frequencyHeuristic"] == true && blockeddata[origin][window.whitelistUrl]) {
+      if (blockedData[origin]["frequencyHeuristic"] && !(blockedData[origin][window.whitelistUrl])) {
         setFilter(window.whitelistUrl, origin, true);
         if (!reloadNeeded)
           reloadNeeded = true;
@@ -197,12 +197,12 @@ function syncSettingsDict(settingsDict) {
     }
     else {
       // if it's unblocked, this should be on whitelist and cookieWhitelist
-      if (blockedData[origin][window.whitelistUrl] == false) {
+      if (!(blockedData[origin][window.whitelistUrl])) {
         setFilter(window.whitelistUrl, origin, true, true);
         if (!reloadNeeded)
           reloadNeeded = true;
       }
-      if (blockedData[origin]["cookieWhitelist"] == false) {
+      if (!(blockedData[origin]["cookieWhitelist"])) {
         // todo: what format do we want to use for cookie whitelist subscription. does it matter?
         setFilter("cookieWhitelist", origin, true, false);
         if (!reloadNeeded)
