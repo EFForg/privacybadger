@@ -24,6 +24,7 @@
 @@||amazon.com^$third-party
 @@||rackcdn.com^$third-party
 @@||typekit.com^$third-party
+@@||disqus.com^$third-party
 @@||newsinc.com^$third-party
 @@||vimeocdn.com^$third-party
 @@||edgekey.net^$third-party
@@ -137,6 +138,8 @@
 @@||nrcdn.com^$third-party
 @@||trustlogo.com^$third-party
 @@||flyerboard.com^$third-party
+@@||gawkerassets.com^$third-party
+@@||kinja.com^$third-party
 @@||blogger.com^$third-party
 @@||cachefly.net^$third-party
 @@||licdn.com^$third-party
