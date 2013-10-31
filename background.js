@@ -203,8 +203,8 @@ function importOldData()
 function changePrivacySettings()
 {
   // todo: wrap these functions
-  console.log("Turning off third party cookies");
-  chrome.privacy.websites.thirdPartyCookiesAllowed.set({'value': false, 'scope': 'regular'});
+  //console.log("Turning off third party cookies");
+  //chrome.privacy.websites.thirdPartyCookiesAllowed.set({'value': false, 'scope': 'regular'});
   console.log("Turning off referers");
   chrome.privacy.websites.referrersEnabled.set({'value': false, 'scope': 'regular'});
   console.log("Turning off hyperlink auditing");

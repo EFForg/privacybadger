@@ -74,6 +74,15 @@ function onBeforeSendHeaders(details)
     console.log("Filtering url " + details.url);
     return {cancel: true};
   }
+  else if (filter instanceof WhitelistFilter) {
+    console.log("Blocking cookies for url " + details.url);
+    //clobberCookieSetting();
+    newHeaders = details.requestHeaders.filter(function(header) {
+      return (header.name != "Cookie");
+    });
+    newHeaders.push({name: "DNT", value: "1"});
+    return {requestHeaders: newHeaders};
+  }
   details.requestHeaders.push({name: "DNT", value: "1"});
   return {requestHeaders: details.requestHeaders};
 }
