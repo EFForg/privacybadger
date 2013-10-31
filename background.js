@@ -125,7 +125,7 @@ function refreshIconAndContextMenu(tab)
   // Only show icon for pages we can influence (http: and https:)
   if(/^https?:/.test(tab.url))
   {
-    chrome.pageAction.setTitle({tabId: tab.id, title: "Adblock Plus"});
+    chrome.pageAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
     if ("shouldShowIcon" in localStorage && localStorage["shouldShowIcon"] == "false")
       chrome.pageAction.hide(tab.id);
     else
