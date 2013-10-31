@@ -149,8 +149,21 @@ function reloadPage() {
   console.log("Reload page called");
 }
 
-function setFilter(subscription, origin, add){
+function setFilter(subscription, origin, add, whitelistFilter){
   console.log("SetFilter called: " + subscription + " " + origin + " : " + add);
+  var filterText = "";
+  if (whitelistFilter)
+    filterText = "@@||" + origin + "^$third_party";
+  else
+    filterText = "||" + origin + "^$third_party";
+  var filter = this.Filter.fromText(filterText);
+  if (add) {
+    console.log("actually adding the filter!");
+    FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[subscription]);
+  }
+  else {
+    FilterStorage.removeFilter(filter, FilterStorage.knownSubscription[subscription]);
+  }
 }
 
 function syncSettingsDict(settingsDict) {
@@ -169,10 +182,10 @@ function syncSettingsDict(settingsDict) {
     if (settingsDict[origin] == "blocked") {
       // make sure it's in frequencyHeuristic list
       if (blockedData[origin]["frequencyHeuristic"] == false)
-        setFilter("frequencyHeuristic", origin, true);
+        setFilter("frequencyHeuristic", origin, true), false;
       // make sure it's NOT in the whitelist
       if (blockedData[origin][window.whitelistUrl] == true)
-        setFilter(window.whitelistUrl, origin, false);
+        setFilter(window.whitelistUrl, origin, false, true);
     }
     else if (settingsDict[origin] == "cookieblocked") {
       // if it's in frequencyHeuristic and NOT in whitelist, this is an explicit whitelist
@@ -185,12 +198,13 @@ function syncSettingsDict(settingsDict) {
     else {
       // if it's unblocked, this should be on whitelist and cookieWhitelist
       if (blockedData[origin][window.whitelistUrl] == false) {
-        setFilter(window.whitelistUrl, origin, true);
+        setFilter(window.whitelistUrl, origin, true, true);
         if (!reloadNeeded)
           reloadNeeded = true;
       }
       if (blockedData[origin]["cookieWhitelist"] == false) {
-        setFilter("cookieWhitelist", origin, true);
+        // todo: what format do we want to use for cookie whitelist subscription. does it matter?
+        setFilter("cookieWhitelist", origin, true, false);
         if (!reloadNeeded)
           reloadNeeded = true
       }
