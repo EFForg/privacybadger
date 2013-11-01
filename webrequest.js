@@ -174,6 +174,35 @@ function forgetTab(tabId)
   delete frames[tabId];
 }
 
+/* 
+ * Map subscriptions where subscriptions fired to actions, i.e.
+ * f: {P({subscriptions}->{block,cookieblock,nothing}
+ * Args: 
+ *  subscriptions (dict), e.g. {'userCookieWhitelist': true, 
+ *    'frequencyHeuristic': false,
+ *    [etc]
+ *    }
+ * Returns:
+ *   action: one of 'block', 'cookieblock', 'whitelist' 
+ */
+function determineAction(subscriptions)
+{
+  // user filters have priority
+  if (subscriptions['userBlue'])
+    return 'whitelist';
+  if (subscriptions['userYellow'])
+    return 'cookieblock';
+  if (subscriptions['userRed'])
+    return 'block';
+  // next, check frequencyHeuristic and whitelist
+  if (subscriptions['frequencyHeuristic']) {
+    if (subscriptions['EFFWhitelist'])
+      return 'cookieblock';
+    else
+      return 'block';
+  }
+}
+
 function checkRequest(type, tabId, url, frameId)
 {
   if (isFrameWhitelisted(tabId, frameId))
@@ -215,7 +244,7 @@ function checkRequest(type, tabId, url, frameId)
         activeMatchers.addMatcherToOrigin(tabId, requestHost, falseMatcherKeys[i], false);
       }
     }
-    // only block third party requests. 
+    // only block third party requests.
     var filter = defaultMatcher.matchesAny(url, type, documentHost, thirdParty);
     if (filter) {
       activeMatchers.addMatcherToOrigin(tabId, requestHost, "fullDefaultMatcher", true);
