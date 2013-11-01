@@ -548,12 +548,13 @@ ActiveMatchers.prototype = {
 
   /* 
    * We compute what action to take based on subscription lists that
-   * fired. We add this to special value in our data structure 'latestaction'
+   * fired. We add this to special value 'latestaction' which looks like
+   * a subscription but is actually just used here for determining action
    */
   computeActionForOrigin: function(tabId, origin) {
     var originData = this.getOriginData(tabId, origin);
     if (!originData) {
-      console.error("Error computing action data");
+      console.error("Error computing action data for " + origin);
       return false;
     }
     if (originData['userBlue'])
@@ -569,6 +570,10 @@ ActiveMatchers.prototype = {
       else
         this.addMatcherToOrigin(tabId, origin, 'latestaction', 'block');
     }
+  },
+
+  getAllOriginsForTab: function(tabId) {
+    return Object.keys(this.blockedOriginsByTab[tabId]);
   },
   
   getAction: function(tabId, origin) {

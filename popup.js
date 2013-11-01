@@ -16,7 +16,7 @@
  */
 
 var backgroundPage = chrome.extension.getBackgroundPage();
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getBlockedData", "console", "whitelistUrl"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
@@ -136,29 +136,30 @@ function toggleBlockedStatus(elt) {
   }
 }
 
-function refreshPopup(tab_id) {
-  console.log("Refreshing popup for tab id " + JSON.stringify(tab_id));
-  var blockedData = getBlockedData(tab_id);
-  if (blockedData != null) {
-    // old text that could go in printable: 
-    // "Suspicious 3rd party domains in this page.  Red: we've blocked it; yellow: only cookies blocked; blue: no blocking yet";
-    var printable = '<div id="associatedTab" data-tab-id="' + tab_id + '"></div>';
-    for (var origin in blockedData) {
-      console.log("menuing " + origin + " -> " + JSON.stringify(blockedData[origin]));
-      var criteria = blockedData[origin];
-      var originBlocked = criteria["frequencyHeuristic"] && !criteria[window.whitelistUrl];
-      var shouldCookieBlock = !criteria["userCookieWhitelist"];
-      // todo: gross hack, use templating framework
-      printable = _addOriginHTML(origin, printable, originBlocked, shouldCookieBlock);
-      console.log("Popup: done loading origin " + origin);
-    }
-    document.getElementById("blockedResources").innerHTML = printable;
-    $('.clicker').click(function() {
-      toggleBlockedStatus(this);
-    });
-  }
-  else
+function refreshPopup(tabId) {
+  console.log("Refreshing popup for tab id " + JSON.stringify(tabId));
+  var origins = getAllOriginsForTab(tabId);
+  console.log("There are " + origins.length + " origins");
+  if (origins.length == 0) {
     document.getElementById("blockedResources").innerHTML = "No blockworthy resources found :)";
+    return;
+  }
+  // old text that could go in printable: 
+  // "Suspicious 3rd party domains in this page.  Red: we've blocked it; 
+  // yellow: only cookies blocked; blue: no blocking yet";
+  var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
+  for (var i=0; i < origins.length; i++) {
+    var origin = origins[i];
+    console.log("menuing " + origin + " -> " + getAction(tabId, origin));
+    // todo: gross hack, use templating framework
+    printable = _addOriginHTML(origin, printable, getAction(tabId, origin));
+    console.log("Popup: done loading origin " + origin);
+  }
+  document.getElementById("blockedResources").innerHTML = printable;
+  $('.clicker').click(function() {
+    toggleBlockedStatus(this);
+  });
+  console.log("Done refreshing popup");
 }
 
 function reloadPage() {
@@ -185,6 +186,9 @@ function setFilter(subscription, origin, add, whitelistFilter){
 }
 
 function syncSettingsDict(settingsDict) {
+  console.log("dummy sync settings call");
+  return true;
+
   // track whether reload is needed: only if things are being unblocked
   var reloadNeeded = false;
   var tab_id = parseInt($('#associatedTab').attr('data-tab-id'), 10);

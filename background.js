@@ -84,16 +84,13 @@ function setDefaultOptions()
 // Upgrade options before we do anything else.
 setDefaultOptions();
 
-/**
- * Gets data about what resources were blocked in this tab
- * @param {int} tabid
- */
-function getBlockedData(tabId) {
-  console.log("calling getBlockedData with tabid " + tabId);
+// wrappers to be called by popup.js
+function getAction(tabId, origin) {
+  return activeMatchers.getAction(tabId, origin);
+}
 
-  if (tabId < 0 || !activeMatchers.check(tabId))
-    return;
-  return activeMatchers.blockedOriginsByTab[tabId];
+function getAllOriginsForTab(tabId) {
+  return activeMatchers.getAllOriginsForTab(tabId);
 }
 
 /**
