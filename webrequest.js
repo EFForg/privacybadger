@@ -169,7 +169,8 @@ function checkRequest(type, tabId, url, frameId)
       return "noaction";
     console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
     var action = activeMatchers.getAction(tabId, requestHost);
-    console.log("Action to be taken for " + requestHost + ": " + action);
+    if (action && action != 'noaction')
+      console.log("Action to be taken for " + requestHost + ": " + action);
     return action;
   }
   return false;

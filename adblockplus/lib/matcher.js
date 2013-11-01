@@ -569,7 +569,6 @@ ActiveMatchers.prototype = {
       else
         this.addMatcherToOrigin(tabId, origin, 'latestaction', 'block');
     }
-    this.addMatcherToOrigin(tabId, origin, 'latestaction', 'noaction');
   },
   
   getAction: function(tabId, origin) {
