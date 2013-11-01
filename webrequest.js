@@ -68,18 +68,18 @@ function onBeforeSendHeaders(details)
     type = type.toUpperCase();
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
-  var filter = checkRequest(type, details.tabId, details.url, frame);
+  var requestAction = checkRequest(type, details.tabId, details.url, frame);
   
   if (localStorage.enabled == "true") {
-    if (filter instanceof BlockingFilter) {
+    if (requestAction == "block") {
       console.log("Filtering url " + details.url);
       return {cancel: true};
     }
-    else if (filter instanceof WhitelistFilter) {
+    else if (requestAction == "cookieblock") {
       console.log("Blocking cookies for url " + details.url);
       //clobberCookieSetting();
       newHeaders = details.requestHeaders.filter(function(header) {
-        return (header.name != "Cookie");
+        return (header.name != "Cookie" && header.name != "Referer");
       });
       newHeaders.push({name: "DNT", value: "1"});
       return {requestHeaders: newHeaders};
@@ -130,13 +130,13 @@ function forgetTab(tabId)
  *    [etc]
  *    }
  * Returns:
- *   action: one of 'block', 'cookieblock', 'whitelist' 
+ *   action: one of 'block', 'cookieblock', 'noaction' 
  */
 function determineAction(subscriptions)
 {
   // user filters have priority
   if (subscriptions['userBlue'])
-    return 'whitelist';
+    return 'noaction';
   if (subscriptions['userYellow'])
     return 'cookieblock';
   if (subscriptions['userRed'])
@@ -148,16 +148,17 @@ function determineAction(subscriptions)
     else
       return 'block';
   }
+  return 'noaction';
 }
 
 function checkRequest(type, tabId, url, frameId)
 {
   if (isFrameWhitelisted(tabId, frameId))
-    return false;
+    return 'noaction';
 
   var documentUrl = getFrameUrl(tabId, frameId);
   if (!documentUrl)
-    return false;
+    return 'noaction';
 
   var requestHost = extractHostFromURL(url);
   var documentHost = extractHostFromURL(documentUrl);
@@ -166,46 +167,42 @@ function checkRequest(type, tabId, url, frameId)
   // dta: added more complex logic for per-subscription matchers
   // and whether to block based on them
   var spyingOrigin = false;
-  // right now we only actually block based on frequency heuristic
-  var frequencyBlocked = false;
   if (thirdParty && tabId > -1) {
     // used to track which methods didn't think this was a spying
     // origin, to add later if needed (we only track origins
-    // that at least one blocker thinks is bad)
-    var falseMatcherKeys = [ ];
+    // that at least one subscription list matches)
+    var unfiredMatchers = [ ];
     for (var matcherKey in matcherStore.combinedMatcherStore) {
       var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
       var currentFilter = currentMatcher.matchesAny(url, type, documentHost, thirdParty);
       if (currentFilter) {
         activeMatchers.addMatcherToOrigin(tabId, requestHost, matcherKey, true);
         spyingOrigin = true;
-        if (matcherKey == 'frequencyHeuristic')
-          frequencyBlocked = true;
       }
       else {
-        falseMatcherKeys.push(matcherKey);
+        unfiredMatchers.push(matcherKey);
       }
     }
     if (spyingOrigin) {
-      for (var i=0; i < falseMatcherKeys.length; i++) {
-        activeMatchers.addMatcherToOrigin(tabId, requestHost, falseMatcherKeys[i], false);
+      for (var i=0; i < unfiredMatchers.length; i++) {
+        activeMatchers.addMatcherToOrigin(tabId, requestHost, unfiredMatchers[i], false);
       }
     }
-    // only block third party requests.
-    var filter = defaultMatcher.matchesAny(url, type, documentHost, thirdParty);
-    if (filter) {
-      activeMatchers.addMatcherToOrigin(tabId, requestHost, "fullDefaultMatcher", true);
-      if (frequencyBlocked) {
-        activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", true);
-      }
+    // determine action
+    if (!activeMatchers.check(tabId)) {
+      console.log("No matchers found for tab Id " + tabId);
+      return "noaction";
     }
-    else if (spyingOrigin) {
-      activeMatchers.addMatcherToOrigin(tabId, requestHost, "fullDefaultMatcher", false);
-      activeMatchers.addMatcherToOrigin(tabId, requestHost, "defaultMatcher", false);
-    }
-    return filter;
+    var blockedData = activeMatchers.blockedOriginsByTab[tabId];
+    var blockedDataByHost = blockedData[requestHost];
+    if (!(blockedDataByHost))
+      return "noaction";
+    console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
+    var action = determineAction(blockedData[requestHost]);
+    console.log("Action to be taken for " + requestHost + ": " + action);
+    return action;
   }
-  return false;
+  return 'noaction';
 }
 
 function isFrameWhitelisted(tabId, frameId, type)
