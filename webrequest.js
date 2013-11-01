@@ -143,7 +143,7 @@ function determineAction(subscriptions)
     return 'block';
   // next, check frequencyHeuristic and whitelist
   if (subscriptions['frequencyHeuristic']) {
-    if (subscriptions['EFFWhitelist'])
+    if (subscriptions[window.whitelistUrl])
       return 'cookieblock';
     else
       return 'block';
