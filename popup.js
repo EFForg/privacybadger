@@ -199,7 +199,7 @@ function syncSettingsDict(settingsDict) {
     if (settingsDict[origin] == "blocked") {
       // make sure it's in frequencyHeuristic list
       if (!(blockedData[origin]["frequencyHeuristic"]))
-        setFilter("frequencyHeuristic", origin, true), false;
+        setFilter("frequencyHeuristic", origin, true, false);
       // make sure it's NOT in the whitelist
       if (blockedData[origin][window.whitelistUrl])
         setFilter(window.whitelistUrl, origin, false, true);

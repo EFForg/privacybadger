@@ -70,7 +70,7 @@ function onBeforeSendHeaders(details)
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   
-  if (localStorage.enabled == "true") {
+  if (requestAction && localStorage.enabled == "true") {
     if (requestAction == "block") {
       console.log("Filtering url " + details.url);
       return {cancel: true};
@@ -121,44 +121,14 @@ function forgetTab(tabId)
   delete frames[tabId];
 }
 
-/* 
- * Map subscriptions where subscriptions fired to actions, i.e.
- * f: {P({subscriptions}->{block,cookieblock,nothing}
- * Args: 
- *  subscriptions (dict), e.g. {'userCookieWhitelist': true, 
- *    'frequencyHeuristic': false,
- *    [etc]
- *    }
- * Returns:
- *   action: one of 'block', 'cookieblock', 'noaction' 
- */
-function determineAction(subscriptions)
-{
-  // user filters have priority
-  if (subscriptions['userBlue'])
-    return 'noaction';
-  if (subscriptions['userYellow'])
-    return 'cookieblock';
-  if (subscriptions['userRed'])
-    return 'block';
-  // next, check frequencyHeuristic and whitelist
-  if (subscriptions['frequencyHeuristic']) {
-    if (subscriptions[window.whitelistUrl])
-      return 'cookieblock';
-    else
-      return 'block';
-  }
-  return 'noaction';
-}
-
 function checkRequest(type, tabId, url, frameId)
 {
   if (isFrameWhitelisted(tabId, frameId))
-    return 'noaction';
+    return false;
 
   var documentUrl = getFrameUrl(tabId, frameId);
   if (!documentUrl)
-    return 'noaction';
+    return false;
 
   var requestHost = extractHostFromURL(url);
   var documentHost = extractHostFromURL(documentUrl);
@@ -189,7 +159,7 @@ function checkRequest(type, tabId, url, frameId)
       }
     }
     // determine action
-    if (!activeMatchers.check(tabId)) {
+    if (!activeMatchers.getTabData(tabId)) {
       console.log("No matchers found for tab Id " + tabId);
       return "noaction";
     }
@@ -198,11 +168,11 @@ function checkRequest(type, tabId, url, frameId)
     if (!(blockedDataByHost))
       return "noaction";
     console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
-    var action = determineAction(blockedData[requestHost]);
+    var action = activeMatchers.getAction(tabId, requestHost);
     console.log("Action to be taken for " + requestHost + ": " + action);
     return action;
   }
-  return 'noaction';
+  return false;
 }
 
 function isFrameWhitelisted(tabId, frameId, type)

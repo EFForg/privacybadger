@@ -514,23 +514,67 @@ ActiveMatchers.prototype = {
     this.blockedOriginsByTab[tabId] = { };
   },
 
-  addOriginToTab: function(tabId, origin) {
+  getTabData: function(tabId) {
     if (!(tabId in this.blockedOriginsByTab))
-      this.addTab(tabId);
+      return false;
+    return this.blockedOriginsByTab[tabId];
+  },
+
+  getOriginData: function(tabId, origin) {
+    var tabData = this.getTabData(tabId);
+    if (!(tabData))
+      return false;
     if (!(origin in this.blockedOriginsByTab[tabId]))
+      return false;
+    return this.blockedOriginsByTab[tabId][origin];
+  },
+
+  addOriginToTab: function(tabId, origin) {
+    if (!this.getTabData(tabId)) {
+      console.log("Warning: could not call addOriginToTab. No tab data");
+      return;
+    }
+    if (!this.getOriginData(tabId, origin))
       this.blockedOriginsByTab[tabId][origin] = { };
   },
 
   addMatcherToOrigin: function(tabId, origin, matcher, value) {
-    if (!(tabId in this.blockedOriginsByTab))
+    if (!this.getTabData(tabId))
       this.addTab(tabId);
-    if (!(origin in this.blockedOriginsByTab[tabId]))
+    if (!this.getOriginData(tabId, origin))
       this.addOriginToTab(tabId, origin);
     this.blockedOriginsByTab[tabId][origin][matcher] = value;
   },
 
-  check: function(tabId) {
-    return (tabId in this.blockedOriginsByTab);    
+  /* 
+   * We compute what action to take based on subscription lists that
+   * fired. We add this to special value in our data structure 'latestaction'
+   */
+  computeActionForOrigin: function(tabId, origin) {
+    var originData = this.getOriginData(tabId, origin);
+    if (!originData) {
+      console.error("Error computing action data");
+      return false;
+    }
+    if (originData['userBlue'])
+      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'noaction');
+    if (originData['userYellow'])
+      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'cookieblock');
+    if (originData['userRed'])
+      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'block');
+    // next, check frequencyHeuristic and whitelist
+    if (originData['frequencyHeuristic']) {
+      if (originData[window.whitelistUrl])
+        this.addMatcherToOrigin(tabId, origin, 'latestaction', 'cookieblock');
+      else
+        this.addMatcherToOrigin(tabId, origin, 'latestaction', 'block');
+    }
+    this.addMatcherToOrigin(tabId, origin, 'latestaction', 'noaction');
+  },
+  
+  getAction: function(tabId, origin) {
+    this.computeActionForOrigin(tabId, origin);
+    return this.blockedOriginsByTab[tabId][origin]['latestaction'];
   },
 
   removeTab: function(tabId) {
