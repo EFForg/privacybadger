@@ -261,17 +261,17 @@ function addSubscription(prevVersion)
   var frequencySub = new SpecialSubscription("frequencyHeuristic", "frequencyHeuristic");
   FilterStorage.addSubscription(frequencySub);
 
-  // Add userCookieWhitelist Subscription
-  var userCookieWhitelist = new SpecialSubscription("userCookieWhitelist", "userCookieWhitelist");
-  FilterStorage.addSubscription(userCookieWhitelist);
+  // Add userRed Subscription
+  var userRed = new SpecialSubscription("userRed", "userRed");
+  FilterStorage.addSubscription(userRed);
 
-  // Add userWhitelist Subscription
-  var userWhitelist = new SpecialSubscription("userWhitelist", "userWhitelist");
-  FilterStorage.addSubscription(userWhitelist);
+  // Add userYellow Subscription
+  var userYellow = new SpecialSubscription("userYellow", "userYellow");
+  FilterStorage.addSubscription(userYellow);
 
-  // Add userBlacklist Subscription
-  var userBlacklist = new SpecialSubscription("userBlacklist", "userBlacklist");
-  FilterStorage.addSubscription(userBlacklist);
+  // Add userBlue Subscription
+  var userBlue = new SpecialSubscription("userBlue", "userBlue");
+  FilterStorage.addSubscription(userBlue);
 
   if (!addSubscription)
     return;
