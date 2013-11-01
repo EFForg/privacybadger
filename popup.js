@@ -32,6 +32,16 @@ function init()
   $("#deactivate_btn").click(deactivate);
   //$("#enabled").click(toggleEnabled);
   
+  // Initialize based on activation state
+  $(document).ready(function () {
+    if(localStorage.enabled == "false")
+    {
+      $("#activate_btn").show();
+      $("#deactivate_btn").hide();
+      $(".clicker").toggleClass("greyed");
+    }
+  });
+ 
   // Ask content script whether clickhide is active. If so, show cancel button.
   // If that isn't the case, ask background.html whether it has cached filters. If so,
   // ask the user whether she wants those filters.
@@ -52,17 +62,21 @@ function activate() {
   $("#activate_btn").toggle();
   $("#deactivate_btn").toggle();
   $(".clicker").toggleClass("greyed");
+  localStorage.enabled = "true";
+  refreshIconAndContextMenu(tab);
 }
 
 function deactivate() {
   $("#activate_btn").toggle();
   $("#deactivate_btn").toggle();
   $(".clicker").toggleClass("greyed");
+  localStorage.enabled = "false";
+  refreshIconAndContextMenu(tab);
 }
 
 function toggleEnabled()
 {
-  var checked = document.getElementById("enabled").checked;
+  // var checked = document.getElementById("enabled").checked;
   // if (checked)
   // {
   //   // Remove any exception rules applying to this URL
@@ -96,6 +110,8 @@ function toggleEnabled()
 function _addOriginHTML(origin, printable, blocked, shouldCookieBlock) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker"];
+  if(localStorage.enabled == "false")
+    classes.push("greyed");
   // only add cookieblocked class if origin isn't blocked
   if (blocked)
     classes.push("blocked");

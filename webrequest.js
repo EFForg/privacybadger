@@ -16,7 +16,6 @@
  */
 
 chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
-chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["http://*/*", "https://*/*"]}, ["responseHeaders"]);
 chrome.tabs.onRemoved.addListener(forgetTab);
 
 var onFilterChangeTimeout = null;
@@ -70,78 +69,26 @@ function onBeforeSendHeaders(details)
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var filter = checkRequest(type, details.tabId, details.url, frame);
-  if (filter instanceof BlockingFilter) {
-    console.log("Filtering url " + details.url);
-    return {cancel: true};
-  }
-  else if (filter instanceof WhitelistFilter) {
-    console.log("Blocking cookies for url " + details.url);
-    //clobberCookieSetting();
-    newHeaders = details.requestHeaders.filter(function(header) {
-      return (header.name != "Cookie");
-    });
-    newHeaders.push({name: "DNT", value: "1"});
-    return {requestHeaders: newHeaders};
-  }
-  details.requestHeaders.push({name: "DNT", value: "1"});
-  return {requestHeaders: details.requestHeaders};
-}
-
-function onHeadersReceived(details)
-{
-  if (details.tabId == -1)
-    return;
-
-  var type = details.type;
-  if (type != "main_frame" && type != "sub_frame")
-    return;
-
-  var url = getFrameUrl(details.tabId, details.frameId);
-  if (url != details.url)
-    return;
-
-  var key = null;
-  var signature = null;
-  for (var i = 0; i < details.responseHeaders.length; i++)
-  {
-    var header = details.responseHeaders[i];
-    if (header.name.toLowerCase() == "x-adblock-key" && header.value)
-    {
-      var index = header.value.indexOf("_");
-      if (index >= 0)
-      {
-        var key = header.value.substr(0, index);
-        var signature = header.value.substr(index + 1);
-        break;
-      }
+  
+  if (localStorage.enabled == "true") {
+    if (filter instanceof BlockingFilter) {
+      console.log("Filtering url " + details.url);
+      return {cancel: true};
+    }
+    else if (filter instanceof WhitelistFilter) {
+      console.log("Blocking cookies for url " + details.url);
+      //clobberCookieSetting();
+      newHeaders = details.requestHeaders.filter(function(header) {
+        return (header.name != "Cookie");
+      });
+      newHeaders.push({name: "DNT", value: "1"});
+      return {requestHeaders: newHeaders};
     }
   }
-  if (!key)
-    return;
-
-  var parentUrl = null;
-  if (type == "sub_frame")
-    parentUrl = getFrameUrl(details.tabId, details.parentFrameId);
-  if (!parentUrl)
-    parentUrl = url;
-  var docDomain = extractHostFromURL(parentUrl);
-  var keyMatch = defaultMatcher.matchesByKey(url, key.replace(/=/g, ""), docDomain);
-  if (keyMatch)
-  {
-    // Website specifies a key that we know but is the signature valid?
-    var uri = new URI(url);
-    var host = uri.asciiHost;
-    if (uri.port > 0)
-      host += ":" + uri.port;
-
-    var params = [
-      uri.path.replace(/#.*/, ""),  // REQUEST_URI
-      host,                         // HTTP_HOST
-      window.navigator.userAgent    // HTTP_USER_AGENT
-    ];
-    if (verifySignature(key, signature, params.join("\0")))
-      frames[details.tabId][details.frameId].keyException = true;
-  }
+  
+  // Still sending Do Not Track even if HTTP and cookie blocking are disabled
+  details.requestHeaders.push({name: "DNT", value: "1"});
+  return {requestHeaders: details.requestHeaders};
 }
 
 function recordFrame(tabId, frameId, parentFrameId, frameUrl)
