@@ -154,6 +154,10 @@ function checkRequest(type, tabId, url, frameId)
       }
     }
     if (spyingOrigin) {
+      // make sure to set the document host
+      // todo: there may be a race condition here if a user tries to alter settings while
+      // this code is executing
+      activeMatchers.setDocumentHost(tabId, documentHost);
       for (var i=0; i < unfiredMatchers.length; i++) {
         activeMatchers.addMatcherToOrigin(tabId, requestHost, unfiredMatchers[i], false);
       }

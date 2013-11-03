@@ -499,8 +499,12 @@ MatcherStore.prototype = {
 let matcherStore = exports.matcherStore = new MatcherStore();
 
 function ActiveMatchers() {
+  // todo: right now this data structure is ugly, there are two dicts
+  // both keyed by tab. we should clean it up, and add classes instead
+  // of a maze of dicts
+
   this.blockedOriginsByTab = { };
-  // tododta: we could put stats in here too
+  this.tabToCurrentHost = { };
 
   var that = this;
   chrome.tabs.onRemoved.addListener(function(tabId, info) {
@@ -512,6 +516,14 @@ exports.ActiveMatchers = ActiveMatchers;
 ActiveMatchers.prototype = {
   addTab: function(tabId) {
     this.blockedOriginsByTab[tabId] = { };
+  },
+
+  setDocumentHost: function(tabId, documentHost) {
+    this.tabToCurrentHost[tabId] = documentHost;
+  },
+
+  getDocumentHost: function(tabId) {
+    return this.tabToCurrentHost[tabId];
   },
 
   getTabData: function(tabId) {
@@ -552,17 +564,25 @@ ActiveMatchers.prototype = {
    * a subscription but is actually just used here for determining action
    */
   computeActionForOrigin: function(tabId, origin) {
+    this.computeActiveMatchersFromFilters(tabId, origin);
     var originData = this.getOriginData(tabId, origin);
+    console.log("MENUING originData for " + origin + " is ==> " + JSON.stringify(originData));
     if (!originData) {
       console.error("Error computing action data for " + origin);
       return false;
     }
-    if (originData['userBlue'])
+    if (originData['userBlue']) {
       this.addMatcherToOrigin(tabId, origin, 'latestaction', 'noaction');
-    if (originData['userYellow'])
+      return true;
+    }
+    if (originData['userYellow']) {
       this.addMatcherToOrigin(tabId, origin, 'latestaction', 'cookieblock');
-    if (originData['userRed'])
+      return true;
+    }
+    if (originData['userRed']) {
       this.addMatcherToOrigin(tabId, origin, 'latestaction', 'block');
+      return true;
+    }
     // next, check frequencyHeuristic and whitelist
     if (originData['frequencyHeuristic']) {
       if (originData[window.whitelistUrl])
@@ -573,6 +593,37 @@ ActiveMatchers.prototype = {
     else
       this.addMatcherToOrigin(tabId, origin, 'latestaction', 'noaction');
     return true;
+  },
+
+  computeActiveMatchersFromFilters: function(tabId, origin) {
+    // todo: need to keep track of documentHost somehow for this to work...
+    console.log("Computing active matchers from filters...");
+    var spyingOrigin = false;
+    var unfiredMatchers = [ ];
+    for (var matcherKey in matcherStore.combinedMatcherStore) {
+      console.log("Matcher key iteration called for " + matcherKey);
+      var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
+      // todo: right now we are just matching the origin host, not the full url
+      // this is fine for privacy badger blocking third party resources, but if we
+      // wanted to expand to path or URL-level blocking we would need to change this
+      // data structure to keep track of full URLs being loaded, not just the origin
+      // host. We could also have to change the second argument "type" here to something
+      // more general
+      var currentFilter = currentMatcher.matchesAny(origin, "SUBDOCUMENT", this.getDocumentHost(tabId), true);
+      if (currentFilter) {
+        this.addMatcherToOrigin(tabId, origin, matcherKey, true);
+        spyingOrigin = true;
+      }
+      else {
+        unfiredMatchers.push(matcherKey);
+      }
+    }
+    if (spyingOrigin) {
+      for (var i=0; i < unfiredMatchers.length; i++) {
+        this.addMatcherToOrigin(tabId, requestHost, unfiredMatchers[i], false);
+      }
+    }
+    console.log("Finished computing activeMatchers");
   },
 
   getAllOriginsForTab: function(tabId) {
