@@ -86,7 +86,10 @@ function _addOriginHTML(origin, printable, action) {
   var classes = ["clicker"];
   if(localStorage.enabled == "false")
     classes.push("greyed");
-  // only add cookieblocked class if origin isn't blocked
+  if (action.indexOf("user") == 0) {
+    classes.push("userset");
+    action = action.substr(4);
+  }
   if (action == "block" || action == "cookieblock")
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
@@ -95,29 +98,21 @@ function _addOriginHTML(origin, printable, action) {
 }
 
 function toggleBlockedStatus(elt) {
+  console.log("toggling blocked status for " + elt.getAttribute('data-origin'));
   var originalAction = elt.getAttribute('data-original-action');
-  var classList = elt.className.split(" ");
-  if ($.inArray("block", classList) != -1) {
+  if ($(elt).hasClass("block"))
     $(elt).toggleClass("block");
-  }
-  else if ($.inArray("cookieblock", classList) != -1) {
+  else if ($(elt).hasClass("cookieblock")) {
     $(elt).toggleClass("block");
     $(elt).toggleClass("cookieblock");
   }
-  else {
+  else 
     $(elt).toggleClass("cookieblock");
-  }
-  // todo BROKEN this needs to be refactored. in particular, userset has to be unset appropriately
-  if ($.inArray("userset", classList) != -1)
-      return;
-  // todo: figure out how to test for original action and toggle userSet unless it's the original
-  // in a more elegant/efficient way
-  if ((originalAction == 'block' && $.inArray("block", classList) == -1) ||
-      (originalAction == 'cookieblock' && $.inArray("cookieblock", classList) == -1) ||
-      (originalAction == 'noaction' && ($.inArray("block", classList) != -1 || $.inArray("cookieblock", classList) == -1))) {
-    console.log("Adding userset class to: " + JSON.stringify(elt.getAttribute('data-origin')));
-    elt.className = elt.className + " userset";
-  }
+  if ($(elt).hasClass(originalAction) || (originalAction == 'noaction' && !($(elt).hasClass("block") || 
+                                                                            $(elt).hasClass("cookieblock"))))
+    $(elt).removeClass("userset");
+  else
+    $(elt).addClass("userset");
 }
 
 function refreshPopup(tabId) {
@@ -182,7 +177,7 @@ function syncSettingsDict(settingsDict) {
     }
     var userAction = settingsDict[origin];
     if (saveAction(userAction, origin))
-      reloadNeeded = true; // js question: slower than "if (userAction && reloadNeeded) reloadNeeded = true"?
+      reloadNeeded = true; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"?
                            // would be fun to check with jsperf.com
   }
   console.log("Finished syncing. Now refreshing popup.");
@@ -194,22 +189,15 @@ function syncSettingsDict(settingsDict) {
 function buildSettingsDict() {
   var settingsDict = {};
   $('.clicker').each(function() {
-    var origin = this.getAttribute('data-origin');
-    console.log("DEBUG origin is " + origin);
-    console.log("Settings dict is " + JSON.stringify(settingsDict));
-    var classList = this.className.split(" ");
-    console.log("DEBUG classList is " + classList);
-    if ($.inArray("userset", classList) != -1) {
+    var origin = $(this).attr('data-origin');
+    if ($(this).hasClass("userset")) {
       // todo: DRY; same as code above, break out into helper
-      if ($.inArray("block", classList) != -1) {
+      if ($(this).hasClass("block"))
         settingsDict[origin] = "block";
-      }
-      else if ($.inArray("cookieblock", classList) != -1) {
+      else if ($(this).hasClass("cookieblock"))
         settingsDict[origin] = "cookieblock";
-      }
-      else {
+      else
         settingsDict[origin] = "noaction";
-      }
     }
   });
   console.log("Settings dict is " + JSON.stringify(settingsDict));

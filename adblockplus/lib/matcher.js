@@ -224,7 +224,7 @@ exports.CombinedMatcher = CombinedMatcher;
  * Maximal number of matching cache entries to be kept
  * @type Number
  */
-CombinedMatcher.maxCacheEntries = 1000;
+CombinedMatcher.maxCacheEntries = 0;
 
 CombinedMatcher.prototype =
 {
@@ -398,20 +398,20 @@ CombinedMatcher.prototype =
    */
   matchesAny: function(location, contentType, docDomain, thirdParty)
   {
-    let key = location + " " + contentType + " " + docDomain + " " + thirdParty;
-    if (key in this.resultCache)
-      return this.resultCache[key];
+    // let key = location + " " + contentType + " " + docDomain + " " + thirdParty;
+    // if (key in this.resultCache)
+    //   return this.resultCache[key];
 
     let result = this.matchesAnyInternal(location, contentType, docDomain, thirdParty);
 
-    if (this.cacheEntries >= CombinedMatcher.maxCacheEntries)
-    {
-      this.resultCache = {__proto__: null};
-      this.cacheEntries = 0;
-    }
+    // if (this.cacheEntries >= CombinedMatcher.maxCacheEntries)
+    // {
+    //   this.resultCache = {__proto__: null};
+    //   this.cacheEntries = 0;
+    // }
 
-    this.resultCache[key] = result;
-    this.cacheEntries++;
+    // this.resultCache[key] = result;
+    // this.cacheEntries++;
 
     return result;
   },
@@ -572,15 +572,15 @@ ActiveMatchers.prototype = {
       return false;
     }
     if (originData['userBlue']) {
-      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'noaction');
+      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'usernoaction');
       return true;
     }
     if (originData['userYellow']) {
-      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'cookieblock');
+      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'usercookieblock');
       return true;
     }
     if (originData['userRed']) {
-      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'block');
+      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'userblock');
       return true;
     }
     // next, check frequencyHeuristic and whitelist
@@ -601,7 +601,9 @@ ActiveMatchers.prototype = {
     var spyingOrigin = false;
     var unfiredMatchers = [ ];
     for (var matcherKey in matcherStore.combinedMatcherStore) {
-      console.log("Matcher key iteration called for " + matcherKey);
+      // todo debug
+      if (matcherKey == "userYellow")
+        console.log("Yellow matcher key");
       var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
       // todo: right now we are just matching the origin host, not the full url
       // this is fine for privacy badger blocking third party resources, but if we
@@ -611,6 +613,8 @@ ActiveMatchers.prototype = {
       // more general
       var currentFilter = currentMatcher.matchesAny(origin, "SUBDOCUMENT", this.getDocumentHost(tabId), true);
       if (currentFilter) {
+        if (matcherKey == "userYellow")
+          console.log("Yellow matcher key matched!")
         this.addMatcherToOrigin(tabId, origin, matcherKey, true);
         spyingOrigin = true;
       }
@@ -620,7 +624,7 @@ ActiveMatchers.prototype = {
     }
     if (spyingOrigin) {
       for (var i=0; i < unfiredMatchers.length; i++) {
-        this.addMatcherToOrigin(tabId, requestHost, unfiredMatchers[i], false);
+        this.addMatcherToOrigin(tabId, origin, unfiredMatchers[i], false);
       }
     }
     console.log("Finished computing activeMatchers");

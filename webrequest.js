@@ -71,11 +71,11 @@ function onBeforeSendHeaders(details)
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   
   if (requestAction && localStorage.enabled == "true") {
-    if (requestAction == "block") {
+    if (requestAction == "block" || requestAction == "userblock") {
       console.log("Filtering url " + details.url);
       return {cancel: true};
     }
-    else if (requestAction == "cookieblock") {
+    else if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       console.log("Blocking cookies for url " + details.url);
       //clobberCookieSetting();
       newHeaders = details.requestHeaders.filter(function(header) {
