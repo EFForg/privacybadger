@@ -98,7 +98,6 @@ function _addOriginHTML(origin, printable, action) {
 }
 
 function toggleBlockedStatus(elt) {
-  console.log("toggling blocked status for " + elt.getAttribute('data-origin'));
   var originalAction = elt.getAttribute('data-original-action');
   if ($(elt).hasClass("block"))
     $(elt).toggleClass("block");
@@ -118,7 +117,6 @@ function toggleBlockedStatus(elt) {
 function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + JSON.stringify(tabId));
   var origins = getAllOriginsForTab(tabId);
-  console.log("There are " + origins.length + " origins");
   if (origins.length == 0) {
     document.getElementById("blockedResources").innerHTML = "No blockworthy resources found :)";
     return;
@@ -129,10 +127,8 @@ function refreshPopup(tabId) {
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
-    console.log("menuing " + origin + " -> " + getAction(tabId, origin));
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, getAction(tabId, origin));
-    console.log("Popup: done loading origin " + origin);
   }
   document.getElementById("blockedResources").innerHTML = printable;
   $('.clicker').click(function() {
@@ -153,7 +149,6 @@ function saveAction(userAction, origin) {
   console.log("Saving user action " + userAction + " for : " + origin);
   for (var action in allUserActions) {
     var filter = Filter.fromText("||" + origin + "^$third_party");
-    console.log("action is " + action + "; userAction is " + userAction);
     if (action == userAction)
       FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
     else
@@ -170,11 +165,6 @@ function syncSettingsDict(settingsDict) {
   // we get the blocked data again in case anything changed, but the user's change when
   // closing a popup is authoritative and we should sync the real state to that
   for (var origin in settingsDict) {
-    var action = getAction(tabId, origin);
-    if(!action) {
-      console.error("Error: settingsDict and blockedData dict don't have the same origins");
-      continue;
-    }
     var userAction = settingsDict[origin];
     if (saveAction(userAction, origin))
       reloadNeeded = true; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"?
@@ -200,17 +190,15 @@ function buildSettingsDict() {
         settingsDict[origin] = "noaction";
     }
   });
-  console.log("Settings dict is " + JSON.stringify(settingsDict));
   return settingsDict;
 }
 
 // syncs the user-selected cookie blocking options, etc
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
-  console.log("Settings dict is " + JSON.stringify(settingsDict));
   if (syncSettingsDict(settingsDict))
     reloadPage();
-  console.log("sync is " + JSON.stringify(settingsDict));
+  console.log("Sync of userset options: " + JSON.stringify(settingsDict));
 }
 
 document.addEventListener('DOMContentLoaded', function () {

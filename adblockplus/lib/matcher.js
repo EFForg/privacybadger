@@ -566,7 +566,6 @@ ActiveMatchers.prototype = {
   computeActionForOrigin: function(tabId, origin) {
     this.computeActiveMatchersFromFilters(tabId, origin);
     var originData = this.getOriginData(tabId, origin);
-    console.log("MENUING originData for " + origin + " is ==> " + JSON.stringify(originData));
     if (!originData) {
       console.error("Error computing action data for " + origin);
       return false;
@@ -597,13 +596,9 @@ ActiveMatchers.prototype = {
 
   computeActiveMatchersFromFilters: function(tabId, origin) {
     // todo: need to keep track of documentHost somehow for this to work...
-    console.log("Computing active matchers from filters...");
     var spyingOrigin = false;
     var unfiredMatchers = [ ];
     for (var matcherKey in matcherStore.combinedMatcherStore) {
-      // todo debug
-      if (matcherKey == "userYellow")
-        console.log("Yellow matcher key");
       var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
       // todo: right now we are just matching the origin host, not the full url
       // this is fine for privacy badger blocking third party resources, but if we
@@ -613,8 +608,6 @@ ActiveMatchers.prototype = {
       // more general
       var currentFilter = currentMatcher.matchesAny(origin, "SUBDOCUMENT", this.getDocumentHost(tabId), true);
       if (currentFilter) {
-        if (matcherKey == "userYellow")
-          console.log("Yellow matcher key matched!")
         this.addMatcherToOrigin(tabId, origin, matcherKey, true);
         spyingOrigin = true;
       }
@@ -627,7 +620,6 @@ ActiveMatchers.prototype = {
         this.addMatcherToOrigin(tabId, origin, unfiredMatchers[i], false);
       }
     }
-    console.log("Finished computing activeMatchers");
   },
 
   getAllOriginsForTab: function(tabId) {
