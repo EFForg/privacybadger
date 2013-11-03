@@ -203,12 +203,13 @@ function importOldData()
 function changePrivacySettings()
 {
   // todo: wrap these functions
-  //console.log("Turning off third party cookies");
-  //chrome.privacy.websites.thirdPartyCookiesAllowed.set({'value': false, 'scope': 'regular'});
-  console.log("Turning off referers");
-  chrome.privacy.websites.referrersEnabled.set({'value': false, 'scope': 'regular'});
+  // cookies and referers blocked manually per-request; to block wholesale, uncomment
+  // the lines below
+  // chrome.privacy.websites.thirdPartyCookiesAllowed.set({'value': false, 'scope': 'regular'});
+  // chrome.privacy.websites.referrersEnabled.set({'value': false, 'scope': 'regular'});
   console.log("Turning off hyperlink auditing");
   chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
+  // todo: detect if user is using windows and turn off protectedContentEnabled if so
   //console.log("Turning off protected content unique ids (Windows)");
   //chrome.privacy.websites.protectedContentEnabled.set({'value': false, 'scope': 'regular'});
   console.log("Turning off Google Suggest");
