@@ -238,6 +238,7 @@ let FilterStorage = exports.FilterStorage =
    */
   addFilter: function(filter, subscription, position, silent)
   {
+    console.log("Called addFilter");
     if (this.isFilterInSubscription(filter, subscription))
       return;
     if (!subscription)
@@ -277,6 +278,10 @@ let FilterStorage = exports.FilterStorage =
    */
   removeFilter: function(filter, subscription, position)
   {
+    if (subscription && (!this.isFilterInSubscription(filter, subscription))) {
+      console.log("Attempt to remove filter that wasn't there from " + JSON.stringify(subscription));
+      return;
+    }
     let subscriptions = (subscription ? [subscription] : filter.subscriptions.slice());
     for (let i = 0; i < subscriptions.length; i++)
     {

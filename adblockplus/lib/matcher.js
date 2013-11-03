@@ -570,6 +570,9 @@ ActiveMatchers.prototype = {
       else
         this.addMatcherToOrigin(tabId, origin, 'latestaction', 'block');
     }
+    else
+      this.addMatcherToOrigin(tabId, origin, 'latestaction', 'noaction');
+    return true;
   },
 
   getAllOriginsForTab: function(tabId) {
@@ -577,8 +580,7 @@ ActiveMatchers.prototype = {
   },
   
   getAction: function(tabId, origin) {
-    this.computeActionForOrigin(tabId, origin);
-    return this.blockedOriginsByTab[tabId][origin]['latestaction'];
+    return (this.computeActionForOrigin(tabId, origin) && this.blockedOriginsByTab[tabId][origin]['latestaction']);
   },
 
   removeTab: function(tabId) {

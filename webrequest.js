@@ -160,14 +160,14 @@ function checkRequest(type, tabId, url, frameId)
     }
     // determine action
     if (!activeMatchers.getTabData(tabId)) {
-      console.log("No matchers found for tab Id " + tabId);
+      //console.log("No matchers found for tab Id " + tabId);
       return "noaction";
     }
     var blockedData = activeMatchers.blockedOriginsByTab[tabId];
     var blockedDataByHost = blockedData[requestHost];
     if (!(blockedDataByHost))
       return "noaction";
-    console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
+    //console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
     var action = activeMatchers.getAction(tabId, requestHost);
     if (action && action != 'noaction')
       console.log("Action to be taken for " + requestHost + ": " + action);

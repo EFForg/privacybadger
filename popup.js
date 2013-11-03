@@ -27,6 +27,7 @@ var tab = null;
 
 function init()
 {
+  console.log("Initializing popup.js");
   // Attach event listeners
   $("#activate_btn").click(activate);
   $("#deactivate_btn").click(deactivate);
@@ -74,65 +75,48 @@ function deactivate() {
   refreshIconAndContextMenu(tab);
 }
 
-function toggleEnabled()
-{
-  // var checked = document.getElementById("enabled").checked;
-  // if (checked)
-  // {
-  //   // Remove any exception rules applying to this URL
-  //   var filter = isWhitelisted(tab.url);
-  //   while (filter)
-  //   {
-  //     FilterStorage.removeFilter(filter);
-  //     if (filter.subscriptions.length)
-  //       filter.disabled = true;
-  //     filter = isWhitelisted(tab.url);
-  //   }
-  // }
-  // else
-  // {
-  //   var host = extractHostFromURL(tab.url).replace(/^www\./, "");
-  //   var filter = Filter.fromText("@@||" + host + "^$document");
-  //   if (filter.subscriptions.length && filter.disabled)
-  //     filter.disabled = false;
-  //   else
-  //   {
-  //     filter.disabled = false;
-  //     FilterStorage.addFilter(filter);
-  //   }
-  // }
-
+function toggleEnabled() {
   console.log("Refreshing icon and context menu");
   refreshIconAndContextMenu(tab);
 }
 
 // ugly helpers: not to be used!
-function _addOriginHTML(origin, printable, blocked, shouldCookieBlock) {
+function _addOriginHTML(origin, printable, action) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker"];
   if(localStorage.enabled == "false")
     classes.push("greyed");
   // only add cookieblocked class if origin isn't blocked
-  if (blocked)
-    classes.push("blocked");
-  else if (shouldCookieBlock)
-    classes.push("cookieblocked");
+  if (action == "block" || action == "cookieblock")
+    classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
   return printable + '<div class="click-nav"><ul class="js"><li> \
-    <a href="#" ' + classText + 'data-origin="' + origin + '">' + origin + '</a></li></ul></div>';
+    <a href="#" ' + classText + 'data-origin="' + origin + '" data-original-action="' + action + '">' + origin + '</a></li></ul></div>';
 }
 
 function toggleBlockedStatus(elt) {
+  var originalAction = elt.getAttribute('data-original-action');
   var classList = elt.className.split(" ");
-  if ($.inArray("blocked", classList) != -1) {
-    $(elt).toggleClass("blocked");
+  if ($.inArray("block", classList) != -1) {
+    $(elt).toggleClass("block");
   }
-  else if ($.inArray("cookieblocked", classList) != -1) {
-    $(elt).toggleClass("blocked");
-    $(elt).toggleClass("cookieblocked");
+  else if ($.inArray("cookieblock", classList) != -1) {
+    $(elt).toggleClass("block");
+    $(elt).toggleClass("cookieblock");
   }
   else {
-    $(elt).toggleClass("cookieblocked");
+    $(elt).toggleClass("cookieblock");
+  }
+  // todo BROKEN this needs to be refactored. in particular, userset has to be unset appropriately
+  if ($.inArray("userset", classList) != -1)
+      return;
+  // todo: figure out how to test for original action and toggle userSet unless it's the original
+  // in a more elegant/efficient way
+  if ((originalAction == 'block' && $.inArray("block", classList) == -1) ||
+      (originalAction == 'cookieblock' && $.inArray("cookieblock", classList) == -1) ||
+      (originalAction == 'noaction' && ($.inArray("block", classList) != -1 || $.inArray("cookieblock", classList) == -1))) {
+    console.log("Adding userset class to: " + JSON.stringify(elt.getAttribute('data-origin')));
+    elt.className = elt.className + " userset";
   }
 }
 
@@ -167,73 +151,43 @@ function reloadPage() {
   console.log("Reload page called");
 }
 
-function setFilter(subscription, origin, add, whitelistFilter){
-  console.log("SetFilter called: " + subscription + " " + origin + " : " + add);
-  var filterText = "";
-  if (whitelistFilter)
-    filterText = "@@||" + origin + "^$third_party";
-  else
-    filterText = "||" + origin + "^$third_party";
-  var filter = this.Filter.fromText(filterText);
-  if (add) {
-    //console.log("actually adding the filter!");
-    FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[subscription]);
+function saveAction(userAction, origin) {
+  var allUserActions = {'block': 'userRed', 
+                        'cookieblock' : 'userYellow', 
+                        'noaction': 'userBlue'};
+  console.log("Saving user action " + userAction + " for : " + origin);
+  for (var action in allUserActions) {
+    var filter = Filter.fromText("||" + origin + "^$third_party");
+    console.log("action is " + action + "; userAction is " + userAction);
+    if (action == userAction)
+      FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
+    else
+      FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
   }
-  else {
-    //console.log("subtracting the filter");
-    FilterStorage.removeFilter(filter, FilterStorage.knownSubscription[subscription]);
-  }
+  // todo: right now we don't determine whether a reload is needed
+  return true;
 }
 
 function syncSettingsDict(settingsDict) {
-  console.log("dummy sync settings call");
-  return true;
-
   // track whether reload is needed: only if things are being unblocked
   var reloadNeeded = false;
-  var tab_id = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   // we get the blocked data again in case anything changed, but the user's change when
   // closing a popup is authoritative and we should sync the real state to that
-  var blockedData = getBlockedData(tab_id);
   for (var origin in settingsDict) {
-    if (!(origin in blockedData)) {
+    var action = getAction(tabId, origin);
+    if(!action) {
       console.error("Error: settingsDict and blockedData dict don't have the same origins");
       continue;
     }
-    if (settingsDict[origin] == "blocked") {
-      // make sure it's in frequencyHeuristic list
-      if (!(blockedData[origin]["frequencyHeuristic"]))
-        setFilter("frequencyHeuristic", origin, true, false);
-      // make sure it's NOT in the whitelist
-      if (blockedData[origin][window.whitelistUrl])
-        setFilter(window.whitelistUrl, origin, false, true);
-    }
-    else if (settingsDict[origin] == "cookieblocked") {
-      // if it's in frequencyHeuristic and NOT in whitelist, this is an explicit whitelist
-      if (blockedData[origin]["frequencyHeuristic"] && !(blockedData[origin][window.whitelistUrl])) {
-        setFilter(window.whitelistUrl, origin, true);
-        if (!reloadNeeded)
-          reloadNeeded = true;
-      }
-    }
-    else {
-      // if it's unblocked, this should be on whitelist and userCookieWhitelist
-      if (!(blockedData[origin][window.whitelistUrl])) {
-        setFilter(window.whitelistUrl, origin, true, true);
-        if (!reloadNeeded)
-          reloadNeeded = true;
-      }
-      if (!(blockedData[origin]["userCookieWhitelist"])) {
-        // todo: what format do we want to use for cookie whitelist subscription. does it matter?
-        setFilter("userCookieWhitelist", origin, true, false);
-        if (!reloadNeeded)
-          reloadNeeded = true
-      }
-    }
+    var userAction = settingsDict[origin];
+    if (saveAction(userAction, origin))
+      reloadNeeded = true; // js question: slower than "if (userAction && reloadNeeded) reloadNeeded = true"?
+                           // would be fun to check with jsperf.com
   }
   console.log("Finished syncing. Now refreshing popup.");
   // the popup needs to be refreshed to display current results
-  refreshPopup(tab_id);
+  refreshPopup(tabId);
   return reloadNeeded;
 }
 
@@ -241,24 +195,31 @@ function buildSettingsDict() {
   var settingsDict = {};
   $('.clicker').each(function() {
     var origin = this.getAttribute('data-origin');
+    console.log("DEBUG origin is " + origin);
+    console.log("Settings dict is " + JSON.stringify(settingsDict));
     var classList = this.className.split(" ");
-    // todo: DRY; same as code above, break out into helper
-    if ($.inArray("blocked", classList) != -1) {
-      settingsDict[origin] = "blocked";
-    }
-    else if ($.inArray("cookieblocked", classList) != -1) {
-      settingsDict[origin] = "cookieblocked";
-    }
-    else {
-      settingsDict[origin] = "unblocked";
+    console.log("DEBUG classList is " + classList);
+    if ($.inArray("userset", classList) != -1) {
+      // todo: DRY; same as code above, break out into helper
+      if ($.inArray("block", classList) != -1) {
+        settingsDict[origin] = "block";
+      }
+      else if ($.inArray("cookieblock", classList) != -1) {
+        settingsDict[origin] = "cookieblock";
+      }
+      else {
+        settingsDict[origin] = "noaction";
+      }
     }
   });
+  console.log("Settings dict is " + JSON.stringify(settingsDict));
   return settingsDict;
 }
 
 // syncs the user-selected cookie blocking options, etc
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
+  console.log("Settings dict is " + JSON.stringify(settingsDict));
   if (syncSettingsDict(settingsDict))
     reloadPage();
   console.log("sync is " + JSON.stringify(settingsDict));
@@ -266,10 +227,12 @@ function syncUISelections() {
 
 document.addEventListener('DOMContentLoaded', function () {
   chrome.tabs.getSelected(null, function(tab) {
-    console.log("adding popup html for tab.id " + JSON.stringify(tab.id));
-    refreshPopup(tab.id)});
+    refreshPopup(tab.id);
+  });
 });
 window.addEventListener('unload', function() {
+  console.log("Starting to unload popup");
   syncUISelections();
   console.log("unloaded popup");
 });
+

@@ -66,10 +66,10 @@ a:hover { color: #eeeeff }
 .click-nav ul li a {transition:background-color 0.2s ease-in-out;-webkit-transition:background-color 0.2s ease-in-out;
 -moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
 .click-nav ul li a:hover {background:#F2F2F2;}
-.click-nav ul .blocked {background:#FF0000;}
-.click-nav ul .blocked:hover {background:#BE2625;}
-.click-nav ul .cookieblocked {background:#FFF200; color:black}
-.click-nav ul .cookieblocked:hover {background:#FFF79A; color:black}
+.click-nav ul .block {background:#FF0000;}
+.click-nav ul .block:hover {background:#BE2625;}
+.click-nav ul .cookieblock {background:#FFF200; color:black}
+.click-nav ul .cookieblock:hover {background:#FFF79A; color:black}
 .click-nav ul .greyed {background:#C0C0C0; color:gray}
 .click-nav ul .greyed:hover {background:#E0E0E0; color:gray}
 
@@ -77,8 +77,10 @@ a:hover { color: #eeeeff }
 <script type="text/javascript" src="jquery-ui/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="i18n.js"></script>
 <script type="text/javascript" src="popup.js"></script>
+
 </head>
 <body id="main">
+
 <!-- In soviet EFF extension, popup clicks you. -->
 <div id="enabledCheckboxAndLabel" style="display:none">
   <!-- <input id="enabled" style="display:none" type="checkbox" checked><label for="enabled"><span class="i18n_enabled_for_site"></span></label> -->
