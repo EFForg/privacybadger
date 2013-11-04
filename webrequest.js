@@ -16,6 +16,8 @@
  */
 
 chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
+chrome.webRequest.onCompleted.addListener(onCompleted, {urls: ["http://*/*", "https://*/*"]});
+
 chrome.tabs.onRemoved.addListener(forgetTab);
 
 var onFilterChangeTimeout = null;
@@ -48,6 +50,16 @@ require("filterNotifier").FilterNotifier.addListener(function(action)
 });
 
 var frames = {};
+var clobberRequestIds = {};
+
+function onCompleted(details)
+{
+  if (details.requestId in clobberRequestIds) {
+    console.log("Clobbering javascript for returned page");
+    chrome.tabs.executeScript(details.tabId, {file: "clobbercookie.js", runAt: "document_start"});
+    delete clobberRequestIds[details.requestId];
+  }
+}
 
 function onBeforeSendHeaders(details)
 {
@@ -76,7 +88,8 @@ function onBeforeSendHeaders(details)
       return {cancel: true};
     }
     else if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      console.log("Blocking cookies for url " + details.url);
+      console.log("Blocking cookies and referrers for url " + details.url);
+      recordRequestId(details.requestId);
       //clobberCookieSetting();
       newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name != "Cookie" && header.name != "Referer");
@@ -96,6 +109,10 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl)
   if (!(tabId in frames))
     frames[tabId] = {};
   frames[tabId][frameId] = {url: frameUrl, parent: parentFrameId};
+}
+
+function recordRequestId(requestId) {
+  clobberRequestIds[requestId] = true;
 }
 
 function getFrameData(tabId, frameId)
@@ -121,6 +138,20 @@ function forgetTab(tabId)
   delete frames[tabId];
 }
 
+function clobberCookieSetting() {
+  var dummyCookie = "";
+  Object.defineProperty(document, "cookie", {
+    __proto__: null,
+    configurable: false,
+    get: function () {
+      return dummyCookie;
+    },
+    set: function (newValue) {
+      dummyCookie = newValue;
+    }
+  });
+}
+
 function checkRequest(type, tabId, url, frameId)
 {
   if (isFrameWhitelisted(tabId, frameId))
@@ -136,6 +167,7 @@ function checkRequest(type, tabId, url, frameId)
 
   // dta: added more complex logic for per-subscription matchers
   // and whether to block based on them
+  // todo: DRY; this code was moved to activeMatchers class in matcher.js
   var spyingOrigin = false;
   if (thirdParty && tabId > -1) {
     // used to track which methods didn't think this was a spying
