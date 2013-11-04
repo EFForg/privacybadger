@@ -448,19 +448,23 @@ function RegExpFilter(text, regexpSource, contentType, matchCase, domains, third
   if (thirdParty != null)
     this.thirdParty = thirdParty;
 
-  // dta: took out logic to only sometimes convert to regexp filter immediately
+  if (regexpSource.length >= 2 && regexpSource[0] == "/" && regexpSource[regexpSource.length - 1] == "/")
+  {
+   // The filter is a regular expression - convert it immediately to catch syntax errors
+    let regexp = new RegExp(regexpSource.substr(1, regexpSource.length - 2), this.matchCase ? "" : "i");
+    this.__defineGetter__("regexp", function() regexp);
+  }
+  else
+  {
+    // No need to convert this filter to regular expression yet, do it on demand
+    //    this.regexpSource = regexpSource;
 
-//  if (regexpSource.length >= 2 && regexpSource[0] == "/" && regexpSource[regexpSource.length - 1] == "/")
-//  {
-//    // The filter is a regular expression - convert it immediately to catch syntax errors
-  let regexp = new RegExp(regexpSource.substr(1, regexpSource.length - 2), this.matchCase ? "" : "i");
-  this.__defineGetter__("regexp", function() regexp);
-//  }
-//  else
-//  {
-//    // No need to convert this filter to regular expression yet, do it on demand
-//    this.regexpSource = regexpSource;
-//  }
+    // dta: for privacy badger, need to convert filter to regexp right away
+    // the following is a hack, and needs to be generalized for use in anything but 
+    // privacy badger
+    let regexp = new RegExp(regexpSource.substr(2, regexpSource.length - 3), this.matchCase ? "" : "i");
+    this.__defineGetter__("regexp", function() regexp);
+  }
 }
 exports.RegExpFilter = RegExpFilter;
 
