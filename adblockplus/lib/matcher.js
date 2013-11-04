@@ -584,7 +584,7 @@ ActiveMatchers.prototype = {
     }
     // next, check frequencyHeuristic and whitelist
     if (originData['frequencyHeuristic']) {
-      if (originData[window.whitelistUrl])
+      if (originData[localStorage.whitelistUrl])
         this.addMatcherToOrigin(tabId, origin, 'latestaction', 'cookieblock');
       else
         this.addMatcherToOrigin(tabId, origin, 'latestaction', 'block');

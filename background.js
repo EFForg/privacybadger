@@ -43,7 +43,10 @@ var Utils = require("utils").Utils;
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
 RegExpFilter.typeMap.MEDIA = RegExpFilter.typeMap.FONT = RegExpFilter.typeMap.OTHER;
 
-var whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";
+if (!("whitelistUrl" in localStorage))
+  localStorage.whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";;
+
+var whitelistUrl = localStorage.whitelistUrl;
 var isFirstRun = false;
 var seenDataCorruption = false;
 require("filterNotifier").FilterNotifier.addListener(function(action)
