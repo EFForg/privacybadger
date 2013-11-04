@@ -160,7 +160,6 @@ let FilterStorage = exports.FilterStorage =
    */
   removeSubscription: function(subscription, silent)
   {
-    // tododta test remove this
     console.log("Removing subscription " + subscription.url);
 
     for (let i = 0; i < FilterStorage.subscriptions.length; i++)
@@ -278,8 +277,8 @@ let FilterStorage = exports.FilterStorage =
    */
   removeFilter: function(filter, subscription, position)
   {
-    if (subscription && (!this.isFilterInSubscription(filter, subscription))) {
-      console.log("Attempt to remove filter that wasn't there from " + JSON.stringify(subscription));
+    if (subscription != null && (!this.isFilterInSubscription(filter, subscription))) {
+      console.log("Attempt to remove filter that wasn't there");
       return;
     }
     let subscriptions = (subscription ? [subscription] : filter.subscriptions.slice());

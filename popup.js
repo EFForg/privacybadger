@@ -16,12 +16,27 @@
  */
 
 var backgroundPage = chrome.extension.getBackgroundPage();
+var require = backgroundPage.require;
 var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
-var Filter = require("filterClasses").Filter;
+
+with(require("filterClasses"))
+{
+  this.Filter = Filter;
+  this.RegExpFilter = RegExpFilter;
+  this.BlockingFilter = BlockingFilter;
+  this.WhitelistFilter = WhitelistFilter;
+}
+with(require("subscriptionClasses"))
+{
+  this.Subscription = Subscription;
+  this.DownloadableSubscription = DownloadableSubscription;
+  this.SpecialSubscription = SpecialSubscription;
+}
 var FilterStorage = require("filterStorage").FilterStorage;
+var matcherStore = require("matcher").matcherStore;
 
 var tab = null;
 
@@ -144,9 +159,9 @@ function reloadPage() {
 
 function saveAction(userAction, origin) {
   var allUserActions = {'block': 'userRed', 
-                        'cookieblock' : 'userYellow', 
+                        'cookieblock': 'userYellow', 
                         'noaction': 'userBlue'};
-  console.log("Saving user action " + userAction + " for : " + origin);
+  console.log("Saving user action " + userAction + " for " + origin);
   for (var action in allUserActions) {
     var filter = Filter.fromText("||" + origin + "^$third_party");
     if (action == userAction)
@@ -154,6 +169,7 @@ function saveAction(userAction, origin) {
     else
       FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
   }
+  console.log("Finished saving action " + userAction + " for " + origin);
   // todo: right now we don't determine whether a reload is needed
   return true;
 }
@@ -176,11 +192,20 @@ function syncSettingsDict(settingsDict) {
   return reloadNeeded;
 }
 
+function getCurrentClass(elt) {
+  if ($(elt).hasClass("block"))
+    return "block";
+  else if ($(elt).hasClass("cookieblock"))
+    return "cookieblock";
+  else
+    return "noaction";
+}
+
 function buildSettingsDict() {
   var settingsDict = {};
   $('.clicker').each(function() {
-    var origin = $(this).attr('data-origin');
-    if ($(this).hasClass("userset")) {
+    var origin = $(this).attr("data-origin");
+    if ($(this).hasClass("userset") && getCurrentClass(this) != $(this).attr("data-original-action")) {
       // todo: DRY; same as code above, break out into helper
       if ($(this).hasClass("block"))
         settingsDict[origin] = "block";
@@ -196,9 +221,9 @@ function buildSettingsDict() {
 // syncs the user-selected cookie blocking options, etc
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
+  console.log("Sync of userset options: " + JSON.stringify(settingsDict));
   if (syncSettingsDict(settingsDict))
     reloadPage();
-  console.log("Sync of userset options: " + JSON.stringify(settingsDict));
 }
 
 document.addEventListener('DOMContentLoaded', function () {
