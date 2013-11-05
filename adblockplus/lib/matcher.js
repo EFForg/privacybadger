@@ -623,6 +623,8 @@ ActiveMatchers.prototype = {
   },
 
   getAllOriginsForTab: function(tabId) {
+    if (!(tabId in this.blockedOriginsByTab))
+      return [];
     return Object.keys(this.blockedOriginsByTab[tabId]);
   },
   

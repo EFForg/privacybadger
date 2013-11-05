@@ -130,9 +130,9 @@ function toggleBlockedStatus(elt) {
 }
 
 function refreshPopup(tabId) {
-  console.log("Refreshing popup for tab id " + JSON.stringify(tabId));
+  console.log("Refreshing popup for tab id " + tabId);
   var origins = getAllOriginsForTab(tabId);
-  if (origins.length == 0) {
+  if (!origins || origins.length == 0) {
     document.getElementById("blockedResources").innerHTML = "No blockworthy resources found :)";
     return;
   }
