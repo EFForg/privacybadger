@@ -25,6 +25,7 @@
       width: 50%;
       margin-left: auto;
       margin-right: auto;
+      background-color: gray;
     }
     .maintext {
       padding:10px; 
@@ -39,18 +40,13 @@
   </head>
   <body>
     <!-- <object style: "align:center" src="Mad_scientist_bw.svg" type="image/svg+xml" /> -->
-    <center><img src="/skin/mad-scientist.jpg" width="500px"/></center>
+    <center><img src="/skin/badger-logo-TRANS-1A.png" width="500px"/></center>
     <div class="maintext">
+    
+    <p> Welcome to Privacy Badger, a project of the Electronic Frontier Foundation and a fork of the Adblock Plus repo! The text of this file is in adblockplus/chrome/content/ui/firstRun.html </p>
 
-    <p> Welcome to the EFF Tracker Blocking Laboratory, a project of the <a href="https://www.eff.org">Electronic Frontier Foundation!</a></p>
+    <p> This extension protects your privacy from third party trackers that load invisibly when you browse the web. We send the Do Not Track header, and our extension figures out if you are still being tracked. If so, we block your request from being send to the spying tracker. Our extension has three states. Red means block. Yellow means that we don't send cookies or referers. Blue means unblocked. You can toggle these by clicking the icon in the top right of a page. </p>
 
-    <p> We believe that users have the right to opt out of non-consensual tracking. This extension is experimental and built for internal use to gather data about trackers. We wanted to share it for people interested in studying third party tracking. We may update the extension to give users an option to send back pseudonymous data about third party trackers to help us study the issue, but we will never take your data unless you opt in.</p>
-
-    <p> The code is a fork of Adblock Plus, and will be available on Github shortly. What are we doing in particular?</p>
-
-<p>Right now, there are several options for users who want to block tracking. First, there are many ad and tracker blockers like Adblock Plus, Ghostery, Disconnect, and Do Not Track Me. These are all based on lists, whose generation involves a combination of central crawling and manual curation. On the other end of the spectrum, there are actions a user can take such as third-party cookie blocking which will apply uniformly to all third parties. We believe there is value to both of these approaches and that users should take advantage of these tools and browser settings. We also thought it was a good idea to add to this ecosystem of options by experimenting with a heuristic-based approach to blocking resources. So that's what this extension does: as you browse around the web, this extension will try to figure out if someone is tracking you and block them if they are. In addition, we compare this experimental approach to some existing ad blocking lists.</p>
-
-<p> As a privacy extension, this EFF Tracker Blocking Laboratory sends a Do Not Track HTTP header (DNT:1) and we measure how trackers respond to this setting. As we gather more data, we will explore creating tools that incentivize meaningful adoption of Do Not Track, which we believe will be an important mechanism to protect user privacy against non-consensual. For any blocking that is done within tools that we develop, we plan to maintain a whitelist of companies that have a meaningful commitment to DNT.</p>
 </div>
 </body>
 </html>
