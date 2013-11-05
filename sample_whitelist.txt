@@ -1,6 +1,7 @@
 @@||google-analytics.com^$third-party
 @@||googleapis.com^$third-party
 @@||gstatic.com^$third-party
+@@||apis.google.com^$third-party
 @@||mapsengine.google.com^$third-party
 @@||fbcdn.net^$third-party
 @@||cloudfront.net^$third-party
