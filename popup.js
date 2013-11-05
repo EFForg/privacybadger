@@ -147,7 +147,8 @@ function refreshPopup(tabId) {
   }
   document.getElementById("blockedResources").innerHTML = printable;
   $('.clicker').click(function() {
-    toggleBlockedStatus(this);
+    if (localStorage.enabled == "true")
+      toggleBlockedStatus(this);
   });
   console.log("Done refreshing popup");
 }
