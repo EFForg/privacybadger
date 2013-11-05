@@ -20,6 +20,11 @@ chrome.webRequest.onCompleted.addListener(onCompleted, {urls: ["http://*/*", "ht
 
 chrome.tabs.onRemoved.addListener(forgetTab);
 
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+  if (changeInfo.status == "loading" && changeInfo.url != undefined)
+    forgetTab(tabId);
+});
+
 var onFilterChangeTimeout = null;
 function onFilterChange()
 {
@@ -135,6 +140,8 @@ function getFrameUrl(tabId, frameId)
 
 function forgetTab(tabId)
 {
+  console.log("Clearing tab " + tabId);
+  activeMatchers.removeTab(tabId)
   delete frames[tabId];
 }
 
