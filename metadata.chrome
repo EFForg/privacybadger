@@ -25,8 +25,8 @@ permissions = tabs
   storage
   cookies
   privacy
-pageAction = icons/test-19.png popup.html
-icons = icons/test-?.png
+pageAction = icons/badger-19.png popup.html
+icons = icons/badger-?.png
 webAccessible = block.html
 
 [contentScripts]
