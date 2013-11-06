@@ -1,5 +1,5 @@
 # PRIVACY BADGER DESIGN NOTES
-##BLOCKING
+###BLOCKING
 
 Blocking happens in webrequest.js; currently in onBeforeSendHeaders, but that
 [should move](https://github.com/EFForg/privacybadgerchrome/issues?state=open)
@@ -19,7 +19,7 @@ At webRequest time, an action is extracted from a data structure called
 activeMatchers.  XXX DAN add issue: refactor activeMatchers logic in
 webrequest.js.  Then the webRequest listener implements that action.
 
-##UI
+###UI
 
 The main files are popup.js and popup.html.  At the end of a request pipeline, a
 decision is made about whether it goes into the activeMatchers data structure
@@ -53,7 +53,7 @@ least for 0.2 but possibly for the alpha!
 For instance once a user has begun making manual changes to action state for
 some domain, there is currently no way to hand it back to PB.  
 
-##STATE MANAGEMENT
+###STATE MANAGEMENT
 
 Adblock Plus is heavyweight!  It likes book keeping.  
 
@@ -78,7 +78,7 @@ hack](https://github.com/EFForg/privacybadgerchrome/blob/9e3cf6acc9c22b3edae5472
 which means that some filter that aren't domain-specific or otherwise
 anticipated by that hack might explode in PB until we fix this.
 
-==CODE STRUCTURE==
+###CODE STRUCTURE
 
 Main ABP code is in adblockplus/lib, and that's shared with Firefox.  Most of the
 work happens in there.  There's also some relevant stuff in
