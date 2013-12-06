@@ -10,3 +10,4 @@ python build.py -t chrome build -k dummy-chromium.pem
 Build dependencies:
 
 python-jina2
+python-m2crypto
