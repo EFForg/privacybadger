@@ -159,8 +159,7 @@ function clobberCookieSetting() {
   });
 }
 
-function checkRequest(type, tabId, url, frameId)
-{
+function checkRequest(type, tabId, url, frameId) {
   if (isFrameWhitelisted(tabId, frameId))
     return false;
 
@@ -187,8 +186,7 @@ function checkRequest(type, tabId, url, frameId)
       if (currentFilter) {
         activeMatchers.addMatcherToOrigin(tabId, requestHost, matcherKey, true);
         spyingOrigin = true;
-      }
-      else {
+      } else {
         unfiredMatchers.push(matcherKey);
       }
     }
@@ -200,20 +198,25 @@ function checkRequest(type, tabId, url, frameId)
       for (var i=0; i < unfiredMatchers.length; i++) {
         activeMatchers.addMatcherToOrigin(tabId, requestHost, unfiredMatchers[i], false);
       }
-    }
+    } 
     // determine action
     if (!activeMatchers.getTabData(tabId)) {
-      //console.log("No matchers found for tab Id " + tabId);
+      console.log("No matchers found for tab Id " + tabId);
       return "noaction";
     }
     var blockedData = activeMatchers.blockedOriginsByTab[tabId];
     var blockedDataByHost = blockedData[requestHost];
-    if (!(blockedDataByHost))
+    if (!(blockedDataByHost)){
+      // if the third party origin is not blocked we add it to the list to 
+      // inform the user of all trackers.
+      activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
       return "noaction";
+    }
     //console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
     var action = activeMatchers.getAction(tabId, requestHost);
-    if (action && action != 'noaction')
+    if (action && action != 'noaction'){
       console.log("Action to be taken for " + requestHost + ": " + action);
+    }
     return action;
   }
   return false;
