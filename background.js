@@ -499,9 +499,15 @@ chrome.windows.getAll({populate: true}, function(windows)
 });
 
 // Update icon if a tab changes location
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab)
-{
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   chrome.tabs.sendRequest(tabId, {reqtype: "clickhide-deactivate"})
   if(changeInfo.status == "loading")
     refreshIconAndContextMenu(tab);
+});
+
+// Update icon if a tab is replaced or loaded from cache
+chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
+  chrome.tabs.get(addedTabId, function(tab){
+    refreshIconAndContextMenu(tab);
+  });
 });
