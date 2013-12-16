@@ -1,5 +1,5 @@
 var dummyCookie = "";
-Object.defineProperty(document, "cookie", {
+/*Object.defineProperty(document, "cookie", {
   __proto__: null,
   configurable: false,
   get: function () {
@@ -9,4 +9,4 @@ Object.defineProperty(document, "cookie", {
     console.log("Clobbered an attempt to set cookie");
     dummyCookie = newValue;
   }
-});
+});*/
