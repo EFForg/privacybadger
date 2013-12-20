@@ -112,7 +112,15 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
   
-  return printable + '<div ' + classText + 'title="' + _badgerStatusTitle(action) + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered" title="'+ feedTheBadgerTitle + '"></div><div class="origin">' + origin + '</div>' + _addToggleHtml(origin, action) + '</div>';
+  return printable + '<div ' + classText + 'title="' + _badgerStatusTitle(action) + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered" title="'+ feedTheBadgerTitle + '"></div><div class="origin">' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '</div>';
+}
+
+function _trim(str,max){
+  if(str.length >= max){
+    return str.slice(0,max-3)+'...';
+  } else {
+    return str;
+  }
 }
 
 function _badgerStatusTitle(action){
