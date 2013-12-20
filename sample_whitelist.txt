@@ -2,6 +2,8 @@
 @@||googleapis.com^$third-party
 @@||gstatic.com^$third-party
 @@||apis.google.com^$third-party
+@@||mts0.google.com^$third-party
+@@||mts1.google.com^$third-party
 @@||mapsengine.google.com^$third-party
 @@||fbcdn.net^$third-party
 @@||cloudfront.net^$third-party
