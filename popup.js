@@ -100,25 +100,46 @@ function toggleEnabled() {
 function _addOriginHTML(origin, printable, action) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker"];
+  var feedTheBadgerTitle = '';
   if(localStorage.enabled == "false")
     classes.push("greyed");
   if (action.indexOf("user") == 0) {
+    feedTheBadgerTitle = "click to return control of this tracker to Privacy Badger"; 
     classes.push("userset");
     action = action.substr(4);
   }
   if (action == "block" || action == "cookieblock")
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
-  return printable + '<div ' + classText + 'data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered"></div><div class="origin">' + origin + '</div>' + _addToggleHtml(origin, action) + '</div>';
+  
+  return printable + '<div ' + classText + 'title="' + _badgerStatusTitle(action) + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered" title="'+ feedTheBadgerTitle + '"></div><div class="origin">' + origin + '</div>' + _addToggleHtml(origin, action) + '</div>';
+}
+
+function _badgerStatusTitle(action){
+  if(action.indexOf("user") == 0){
+    var prefix = "You have ";
+  } else {
+    var prefix = "Privacy Badger has ";
+  }
+
+  var statusMap = { 
+    block: "blocked",
+    cookieblock: "blocked cookies from",
+    noaction: "allowed"
+  }
+
+  var postfix = " this tracker.";
+
+  return prefix + statusMap[action] + postfix;
 }
 
 function _addToggleHtml(origin, action){
   var output = "";
   output += '<div class="switch-container ' + action + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">'
-  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label class="actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
-  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label class="actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
-  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label class="actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
+  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label title="click here to block this tracker entirely" class="actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
+  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label title="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
+  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label title="click here to allow this tracker" class="actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
   output += '<a></a></div></div>';
   return output;
 }
@@ -168,6 +189,7 @@ function refreshPopup(tabId) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, getAction(tabId, origin));
+    console.log('adding html for', origin, getAction(tabId, origin));
   }
   document.getElementById("blockedResources").innerHTML = printable;
   $('.clicker').click(function() {
