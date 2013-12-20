@@ -1,9 +1,9 @@
 body {
   font-size: 90%;
-  font-family: Helvetica, Arial, sans-serif;
   min-width: 330px;
-  background: #efefef;
-  color: #111;
+  background: #fefefe;
+  color: #333;
+  font-family: helvetica, arial, sans-serif;
 }
 
 a { text-decoration: none }
@@ -26,7 +26,6 @@ a:hover { color: #eeeeff }
   display: block;
 }
 
-.click-nav {margin:10px auto;}
 .click-nav ul {position:relative;font-weight:900;list-style-type:none;}
 .click-nav ul li {position:relative;list-style:none;cursor:pointer;}
 .click-nav ul li ul {position:relative;}
@@ -36,10 +35,49 @@ a:hover { color: #eeeeff }
 .click-nav ul li a {transition:background-color 0.2s ease-in-out;-webkit-transition:background-color 0.2s ease-in-out;
 -moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
 .click-nav ul li a:hover {background:#F2F2F2;}
-.click-nav ul .block {background:#FF0000;}
+/*.click-nav ul .block {background:#FF0000;}
 .click-nav ul .block:hover {background:#BE2625;}
 .click-nav ul .cookieblock {background:#FFF200; color:black}
 .click-nav ul .cookieblock:hover {background:#FFF79A; color:black}
 .click-nav ul .greyed {background:#C0C0C0; color:gray}
-.click-nav ul .greyed:hover {background:#E0E0E0; color:gray}
+.click-nav ul .greyed:hover {background:#E0E0E0; color:gray} */
 .click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;} 
+.clicker{
+  border-top: 1px solid #aaaaaa;
+  padding: 5px;
+  height: 20px;
+}
+.origin{
+  width: 60%;
+  color: #555555;
+  font-size: 16px;
+  float: left;
+  display: inline;
+}
+.switch-container{
+  width: 30%;
+  float: right;
+  display: inline;
+}
+.clear{
+  clear: both;
+}
+.block .switch-candy a {
+  background-color: #c61223;
+}
+.cookieblock .switch-candy a{
+  background-color: #f5e560;
+}
+.noaction .switch-candy a{
+  background-color: #70c66b;
+}
+.honeybadgerPowered{
+  width: 20px;
+  height: 20px;
+  display: inline;
+  float: left;
+  margin-right: 4px;
+}
+.userset .honeybadgerPowered{
+  background: url('/icons/badger-19.png') no-repeat;
+}

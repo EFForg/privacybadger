@@ -56,6 +56,7 @@ function init()
       $("#deactivate_btn").hide();
       $(".clicker").toggleClass("greyed");
     }
+    $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
   });
  
   // Ask content script whether clickhide is active. If so, show cancel button.
@@ -108,11 +109,34 @@ function _addOriginHTML(origin, printable, action) {
   if (action == "block" || action == "cookieblock")
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
-  return printable + '<div class="click-nav"><ul class="js"><li> \
-    <a href="#" ' + classText + 'data-origin="' + origin + '" data-original-action="' + action + '">' + origin + '</a></li></ul></div>';
+  return printable + '<div ' + classText + 'data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered"></div><div class="origin">' + origin + '</div>' + _addToggleHtml(origin, action) + '</div>';
 }
 
-function toggleBlockedStatus(elt) {
+function _addToggleHtml(origin, action){
+  var output = "";
+  output += '<div class="switch-container ' + action + '">';
+  output += '<div class="switch-toggle switch-3 switch-candy">'
+  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label class="actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
+  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label class="actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
+  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label class="actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
+  output += '<a></a></div></div>';
+  return output;
+}
+function _checked(name, action){
+  if(name == action){
+    return 'checked';
+  } else {
+    return '';
+  }
+};
+function toggleBlockedStatus(elt,status) {
+  console.log('toggle blocked status', elt, status);
+  if(status){
+    $(elt).removeClass("block cookieblock noaction").addClass(status);
+    $(elt).addClass("userset");
+    return;
+  }
+
   var originalAction = elt.getAttribute('data-original-action');
   if ($(elt).hasClass("block"))
     $(elt).toggleClass("block");
@@ -133,7 +157,7 @@ function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + tabId);
   var origins = getAllOriginsForTab(tabId);
   if (!origins || origins.length == 0) {
-    document.getElementById("blockedResources").innerHTML = "No blockworthy resources found :)";
+    document.getElementById("blockedResources").innerHTML = "Could not detect any tracking cookies.";
     return;
   }
   // old text that could go in printable: 
@@ -147,8 +171,8 @@ function refreshPopup(tabId) {
   }
   document.getElementById("blockedResources").innerHTML = printable;
   $('.clicker').click(function() {
-    if (localStorage.enabled == "true")
-      toggleBlockedStatus(this);
+    //if (localStorage.enabled == "true")
+      //toggleBlockedStatus(this);
   });
   console.log("Done refreshing popup");
 }
@@ -158,6 +182,15 @@ function reloadPage() {
   console.log("Reload page called");
 }
 
+function updateOrigin(event){
+  var $elm = $(event.currentTarget);
+  var $switchContainer = $elm.parents('.switch-container').first();
+  var $clicker = $elm.parents('.clicker').first();
+  var action = $elm.data('action');
+  $switchContainer.removeClass('block cookieblock noaction').addClass(action);
+  toggleBlockedStatus($clicker, action);
+}
+
 function saveAction(userAction, origin) {
   var allUserActions = {'block': 'userRed', 
                         'cookieblock': 'userYellow', 
@@ -165,10 +198,13 @@ function saveAction(userAction, origin) {
   console.log("Saving user action " + userAction + " for " + origin);
   for (var action in allUserActions) {
     var filter = Filter.fromText("||" + origin + "^$third_party");
-    if (action == userAction)
+    if (action == userAction){
+      console.log('adding filter', filter, 'to', action);
       FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
-    else
+    } else {
+      console.log('removing filter', filter, 'from', action);
       FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
+    }
   }
   console.log("Finished saving action " + userAction + " for " + origin);
   // todo: right now we don't determine whether a reload is needed
