@@ -285,8 +285,6 @@ let FilterStorage = exports.FilterStorage =
     for (let i = 0; i < subscriptions.length; i++)
     {
       let subscription = subscriptions[i];
-      if (subscription instanceof SpecialSubscription)
-      {
         let positions = [];
         if (typeof position == "undefined")
         {
@@ -316,7 +314,6 @@ let FilterStorage = exports.FilterStorage =
             FilterNotifier.triggerListeners("filter.removed", filter, subscription, position);
           }
         }
-      }
     }
   },
 
