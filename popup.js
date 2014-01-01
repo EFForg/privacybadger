@@ -57,6 +57,8 @@ function init()
       $(".clicker").toggleClass("greyed");
     }
     $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
+    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
+    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
   });
  
   // Ask content script whether clickhide is active. If so, show cancel button.
@@ -112,7 +114,7 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
   
-  return printable + '<div ' + classText + 'title="' + _badgerStatusTitle(action) + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered" title="'+ feedTheBadgerTitle + '"></div><div class="origin">' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '</div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><div class="origin tooltip" tooltip="' + _badgerStatusTitle(action) + '">' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
 }
 
 function _trim(str,max){
@@ -145,9 +147,9 @@ function _addToggleHtml(origin, action){
   var output = "";
   output += '<div class="switch-container ' + action + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">'
-  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label title="click here to block this tracker entirely" class="actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
-  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label title="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
-  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label title="click here to allow this tracker" class="actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
+  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label class="tooltip" tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
+  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label class="tooltip" tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
+  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label class="tooltip" tooltip="click here to allow this tracker" class="actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
   output += '<a></a></div></div>';
   return output;
 }
@@ -219,6 +221,18 @@ function updateOrigin(event){
   var action = $elm.data('action');
   $switchContainer.removeClass('block cookieblock noaction').addClass(action);
   toggleBlockedStatus($clicker, action);
+}
+
+function displayTooltip(event){
+  var $elm = $(event.currentTarget);
+  var $container = $elm.parents('.clicker').children('.tooltipContainer');
+  $container.text($elm.attr('tooltip'));
+}
+
+function hideTooltip(event){
+  var $elm = $(event.currentTarget);
+  var $container = $elm.parents('.clicker').children('.tooltipContainer');
+  $container.text('');
 }
 
 function saveAction(userAction, origin) {

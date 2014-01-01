@@ -45,7 +45,7 @@ a:hover { color: #eeeeff }
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
-  height: 20px;
+  height: 35px;
 }
 .origin{
   width: 60%;
@@ -80,4 +80,10 @@ a:hover { color: #eeeeff }
 }
 .userset .honeybadgerPowered{
   background: url('/icons/badger-19.png') no-repeat;
+}
+.tooltipContainer{
+display: block;
+clear: both;
+color: #555555;
+font-size: 12px;
 }
