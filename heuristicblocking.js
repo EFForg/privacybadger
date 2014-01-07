@@ -147,11 +147,40 @@ var lowEntropyCookieValues = {
  "9":true
 };
 
+var extractCookieString = function(details) {
+  // @details are those from onBeforeSendHeaders
+  // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
+  if (!details.requestHeaders) {
+    console.log("Expect the unexpected!");
+    console.log(details);
+    return true;
+  }
+  var cookies = "";
+  for (var n = 0; n < details.requestHeaders.length; n++) {
+    var h = details.requestHeaders[n];
+    if (h.name == "Cookie") {
+      if (!cookies) {
+        cookies = h.value;
+      } else {
+        // Should not happen?  Except perhaps due to crazy extensions?
+        console.log("MULTIPLE COOKIE HEADERS!!!");
+        cookies = cookies + ";" + h.value;
+      }
+    }
+  }
+  return cookies;
+}
+
 var hasTracking = function(details, origin) {
   // @details are those from onBeforeSendHeaders
 
-  // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
-  var cookies =  details.requestHeaders.Cookie.split(";");
+  var cookies = extractCookieString(details);
+  if (!cookies) {
+    //console.log("No cookies in ");
+    //console.log(details);
+    return false;
+  }
+  cookies = cookies.split(";");
   var hasCookies = false;
   for (var n = 0; n < cookies.length; n++) {
     // XXX urgh I can't believe we're parsing cookies.  Probably wrong
@@ -163,7 +192,7 @@ var hasTracking = function(details, origin) {
     var value = c.slice(cut+1);
     if (!(value.toLowerCase() in lowEntropyCookieValues)) {
       return true;
-    } 
+    }
   }
   if (hasCookies) {
      console.log("All cookies for " + origin + " deemed low entropy...");
@@ -196,7 +225,7 @@ var heuristicBlockingAccounting = function(details) {
     if (origin == tabOrigin)
       return { };
     // if there are no tracking cookies or similar things, ignore
-    if (!hasTracking(details, origin)) 
+    if (!hasTracking(details, origin))
       return { };
     // Record HTTP request prevalence
     if (!(origin in httpRequestOriginFrequency))
@@ -229,27 +258,7 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
 
 
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-  // Ignore requests that are outside a tabbed window
-  if(details.tabId < 0)
-    return { };
-  // Log the visit if a cookie was sent
-  var hasCookie = false;
-  for(var i = 0; i < details.requestHeaders.length; i++) {
-    if(details.requestHeaders[i].name == "Cookie") {
-      hasCookie = true;
-      break;
-    }
-  }
-  if(hasCookie) {
-    var origin = getBaseDomain(new URI(details.url).host);
-    var tabOrigin = tabOrigins[details.tabId];
-    if (origin != tabOrigin) {
-      if(!(origin in cookieSentOriginFrequency))
-        cookieSentOriginFrequency[origin] = { };
-      cookieSentOriginFrequency[origin][tabOrigin] = true;
-    }
-  }
-  return {};
+  return heuristicBlockingAccounting(details);
 }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"]);
 
 chrome.webRequest.onResponseStarted.addListener(function(details) {
