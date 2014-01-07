@@ -60,6 +60,25 @@ var sendXHR = function(params) {
   xhr.send(params);
 }
 
+// this is missing parameters, and is not in use in the live extension
+var sendTestingData = function() {
+    var cookieSentPrevalence = 0;
+    if (origin in cookieSentOriginFrequency)
+      cookieSentPrevalence = Object.keys(cookieSentOriginFrequency[origin]).length;
+    var cookieSetPrevalence = 0;
+    if (origin in cookieSetOriginFrequency)
+      cookieSetPrevalence = Object.keys(cookieSetOriginFrequency[origin]).length;
+    var reqParams = []
+    reqParams.push("origin="+origin);
+    reqParams.push("thirdpartynum="+httpRequestPrevalence);
+    reqParams.push("cookiesentnum="+cookieSentPrevalence);
+    reqParams.push("cookiereceivednum="+cookieSetPrevalence);
+    reqParams.push("id="+uniqueId);
+    var params = reqParams.join("&");
+    sendXHR(params);
+    console.log("With id " + uniqueId + ", Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
+}
+
 var needToSendOrigin = function(origin, httpRequestPrevalence) {
   // don't send third party domains that don't meet minimum test threshold
   if (httpRequestPrevalence < testThreshold)
@@ -103,24 +122,61 @@ var blacklistOrigin = function(origin) {
   return true;
 };
 
-chrome.webRequest.onBeforeRequest.addListener(function(details) {
-  // tododta find the right place for this
-  // placing this code here is a horrible hack
-  // reload our matcherStore
-  // if (matcherStore.length() < 1)
-  //   console.log("MatcherStore not loaded");
-  // else
-  //   console.log("MatcherStore has length " + matcherStore.length());
+// We need something better than this eventually!
+// map to lower case before using
+var lowEntropyCookieValues = {
+ "":true,
+ "nodata":true,
+ "no_data":true,
+ "yes":true,
+ "no":true,
+ "true":true,
+ "false":true,
+ "opt-out":true,
+ "optout":true,
+ "opt_out":true,
+ "0":true,
+ "1":true,
+ "2":true,
+ "3":true,
+ "4":true,
+ "5":true,
+ "6":true,
+ "7":true,
+ "8":true,
+ "9":true
+};
 
-  // tododta testing
-  // for (url in Subscription.knownSubscriptions) {
-  //   console.log("Subscription urls " + url);
-  // }
-  // for (var i = 0; i < FilterStorage.subscriptions.length; i++)
-  // {
-  //   var subscr = FilterStorage.subscriptions[i];
-  //   console.log("HB subscription url: " + subscr.url);
-  // }
+var hasTracking = function(details, origin) {
+  // @details are those from onBeforeSendHeaders
+
+  // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
+  var cookies =  details.requestHeaders.Cookie.split(";");
+  var hasCookies = false;
+  for (var n = 0; n < cookies.length; n++) {
+    // XXX urgh I can't believe we're parsing cookies.  Probably wrong
+    // what if the value has spaces in it?
+    hasCookies = true;
+    var c = cookies[n].trim();
+    var cut = c.indexOf("=");
+    var name = c.slice(0,cut - 1);
+    var value = c.slice(cut+1);
+    if (!(value.toLowerCase() in lowEntropyCookieValues)) {
+      return true;
+    } 
+  }
+  if (hasCookies) {
+     console.log("All cookies for " + origin + " deemed low entropy...");
+     for (var n = 0; n < cookies.length; n++) {
+        console.log("    " + cookies[n]);
+     }
+  }
+  return false;
+};
+
+var heuristicBlockingAccounting = function(details) {
+  // @details are those from onBeforeSendHeaders
+  // Increment counts of how many first party domains we've seen a third party track on
 
   // Ignore requests that are outside a tabbed window
   if(details.tabId < 0)
@@ -139,41 +195,38 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
     // Ignore first-party requests
     if (origin == tabOrigin)
       return { };
+    // if there are no tracking cookies or similar things, ignore
+    if (!hasTracking(details, origin)) 
+      return { };
     // Record HTTP request prevalence
     if (!(origin in httpRequestOriginFrequency))
       httpRequestOriginFrequency[origin] = { };
-    httpRequestOriginFrequency[origin][tabOrigin] = true;
+    httpRequestOriginFrequency[origin][tabOrigin] = true; // This 3rd party tracked this 1st party
     // Blocking based on outbound cookies
     var httpRequestPrevalence = 0;
     if (origin in httpRequestOriginFrequency)
       httpRequestPrevalence = Object.keys(httpRequestOriginFrequency[origin]).length;
-    var cookieSentPrevalence = 0;
-    if (origin in cookieSentOriginFrequency)
-      cookieSentPrevalence = Object.keys(cookieSentOriginFrequency[origin]).length;
-    var cookieSetPrevalence = 0;
-    if (origin in cookieSetOriginFrequency)
-      cookieSetPrevalence = Object.keys(cookieSetOriginFrequency[origin]).length;
+
     if (testing && needToSendOrigin(origin, httpRequestPrevalence)) {
-      var reqParams = []
-      reqParams.push("origin="+origin);
-      reqParams.push("thirdpartynum="+httpRequestPrevalence);
-      reqParams.push("cookiesentnum="+cookieSentPrevalence);
-      reqParams.push("cookiereceivednum="+cookieSetPrevalence);
-      reqParams.push("id="+uniqueId);
-      var params = reqParams.join("&");
-      sendXHR(params);
-      console.log("With id " + uniqueId + ", Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
-    }
-    else {
+      // Not enabled in the live extension.  Would require extra parameters here.
+      // sendTestingData()
+    } else {
       if (httpRequestPrevalence >= prevalenceThreshold) {
         console.log("Adding " + origin + " to heuristic blocklist.");
         blacklistOrigin(origin);
       }
     }
   }
+};
+
+chrome.webRequest.onBeforeRequest.addListener(function(details) {
+  //heuristicBlockingAccounting(details);
 },
 {urls: ["<all_urls>"]},
 ["blocking"]);
+
+
+
 
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   // Ignore requests that are outside a tabbed window
