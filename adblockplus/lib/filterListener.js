@@ -180,12 +180,13 @@ function addFilter(filter, matcher, useSpecialMatcher)
  * if necessary.
  * @param {Filter} filter filter that has been removed
  */
-function removeFilter(filter)
+// cooperq: 2014/01/01: applied dta changes to addFilter to removeFilter as well, remove filters from a particular matcher in combined matcher store
+function removeFilter(filter, matcher)
 {
   if (!(filter instanceof ActiveFilter))
     return;
-
-  if (!filter.disabled)
+  // cooeprq: 2014/01/01: this pattern no longer applies since we are using the combined matcher store
+  /*if (!filter.disabled)
   {
     let hasEnabled = false;
     for (let i = 0; i < filter.subscriptions.length; i++)
@@ -193,12 +194,16 @@ function removeFilter(filter)
         hasEnabled = true;
     if (hasEnabled)
       return;
-  }
+  }*/
 
-  if (filter instanceof RegExpFilter)
+  if (filter instanceof RegExpFilter){
+    if (matcher){
+      matcher.remove(filter);
+    }
     defaultMatcher.remove(filter);
-  else if (filter instanceof ElemHideBase)
+  }else if (filter instanceof ElemHideBase){
     ElemHide.remove(filter);
+  }
 }
 
 /**
@@ -293,8 +298,9 @@ function onFilterChange(action, filter, newValue, oldValue)
       addFilter(filter);
     }
   }
-  else
-    removeFilter(filter);
+  else{
+    removeFilter(filter, matcherStore.combinedMatcherStore[newValue.url]);
+  }
   flushElemHide();
 }
 
