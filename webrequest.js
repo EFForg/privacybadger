@@ -14,15 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
 chrome.webRequest.onCompleted.addListener(onCompleted, {urls: ["http://*/*", "https://*/*"]});
 
 chrome.tabs.onRemoved.addListener(forgetTab);
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-  if (changeInfo.status == "loading" && changeInfo.url != undefined)
+  if (changeInfo.status == "loading" && changeInfo.url != undefined){
     forgetTab(tabId);
+    recordFrame(tabId,0,-1,changeInfo.url);
+  }
 });
 
 var onFilterChangeTimeout = null;
@@ -60,7 +61,6 @@ var clobberRequestIds = {};
 function onCompleted(details)
 {
   if (details.requestId in clobberRequestIds) {
-    console.log("Clobbering javascript for returned page");
     chrome.tabs.executeScript(details.tabId, {file: "clobbercookie.js", runAt: "document_start"});
     delete clobberRequestIds[details.requestId];
   }
@@ -86,14 +86,11 @@ function onBeforeSendHeaders(details)
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
-  
   if (requestAction && localStorage.enabled == "true") {
     if (requestAction == "block" || requestAction == "userblock") {
-      console.log("Filtering url " + details.url);
       return {cancel: true};
     }
     else if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      console.log("Blocking cookies and referrers for url " + details.url);
       recordRequestId(details.requestId);
       //clobberCookieSetting();
       newHeaders = details.requestHeaders.filter(function(header) {
@@ -111,8 +108,9 @@ function onBeforeSendHeaders(details)
 
 function recordFrame(tabId, frameId, parentFrameId, frameUrl)
 {
-  if (!(tabId in frames))
+  if (frames[tabId] == undefined){
     frames[tabId] = {};
+  }
   frames[tabId][frameId] = {url: frameUrl, parent: parentFrameId};
 }
 
@@ -140,7 +138,6 @@ function getFrameUrl(tabId, frameId)
 
 function forgetTab(tabId)
 {
-  console.log("Clearing tab " + tabId);
   activeMatchers.removeTab(tabId)
   delete frames[tabId];
 }
@@ -160,17 +157,18 @@ function clobberCookieSetting() {
 }
 
 function checkRequest(type, tabId, url, frameId) {
-  if (isFrameWhitelisted(tabId, frameId))
+  if (isFrameWhitelisted(tabId, frameId)){
     return false;
+  }
 
   var documentUrl = getFrameUrl(tabId, frameId);
-  if (!documentUrl)
+  if (!documentUrl){
     return false;
+}
 
   var requestHost = extractHostFromURL(url);
   var documentHost = extractHostFromURL(documentUrl);
   var thirdParty = isThirdParty(requestHost, documentHost);
-
   // dta: added more complex logic for per-subscription matchers
   // and whether to block based on them
   // todo: DRY; this code was moved to activeMatchers class in matcher.js
@@ -201,7 +199,6 @@ function checkRequest(type, tabId, url, frameId) {
     } 
     // determine action
     if (!activeMatchers.getTabData(tabId)) {
-      console.log("No matchers found for tab Id " + tabId);
       return "noaction";
     }
     var blockedData = activeMatchers.blockedOriginsByTab[tabId];
