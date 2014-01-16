@@ -346,3 +346,5 @@
 @@||ssl-images-amazon.com^$third-party
 @@||dmcdn.net^$third-party
 @@||www.google.com^$third-party
+@@||maps.google.com^$third-party
+@@||developers.google.com^$third-party
