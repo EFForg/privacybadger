@@ -335,7 +335,7 @@
 @@||siteimprove.com^$third-party
 @@||icbdr.com^$third-party
 @@||mail.ru^$third-party
-@@||custhelp.com^$third-par
+@@||custhelp.com^$third-party
 @@||technorati.com^$third-party
 @@||tinyurl.com^$third-party
 @@||jsonip.com^$third-party
@@ -348,3 +348,4 @@
 @@||www.google.com^$third-party
 @@||maps.google.com^$third-party
 @@||developers.google.com^$third-party
+@@||checkout.google.com^$third-party
