@@ -26,6 +26,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
   }
 });
 
+chrome.cookies.onChanged.addListener(onCookieChanged);
+
 var onFilterChangeTimeout = null;
 function onFilterChange()
 {
@@ -64,6 +66,39 @@ function onCompleted(details)
     chrome.tabs.executeScript(details.tabId, {file: "clobbercookie.js", runAt: "document_start"});
     delete clobberRequestIds[details.requestId];
   }
+}
+
+function onCookieChanged(changeInfo){
+  //if we are removing a cookie then we don't need to do anything!
+  if(changeInfo.removed){
+    return;
+  }
+
+  // we check against the base domain because its okay for a site to set cookies for .example.com or www.example.com
+  var cookieDomain = getBaseDomain(changeInfo.cookie.domain);
+  var cookie = changeInfo.cookie;
+
+  for(idx in frames){
+    if(frames[idx][0] && 
+       getBaseDomain(extractHostFromURL(frames[idx][0].url)) == cookieDomain){
+      return;
+    }
+  }
+
+  chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name}, function(){
+    console.log('removed cookie for ', cookie.domain);
+  });
+}
+
+function buildCookieUrl(cookie){
+  var url = "";
+  if(cookie.secure){
+    url += "https://";
+  } else {
+    url += "http://";
+  }
+  url += cookie.domain + cookie.path;
+  return url;
 }
 
 function onBeforeSendHeaders(details)
