@@ -10,3 +10,19 @@ var dummyCookie = "";
     dummyCookie = newValue;
   }
 });*/
+/*
+// Clobber local storage, using a function closure to keep the dummy private
+(function() {
+  var dummyLocalStorage = { };
+  Object.defineProperty(window, "localStorage", {
+    __proto__: null,
+    configurable: false,
+    get: function () {
+      return dummyLocalStorage;
+    },
+    set: function (newValue) {
+      // Do nothing
+    }
+  });
+})();
+*/
