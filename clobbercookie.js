@@ -1,15 +1,16 @@
-var dummyCookie = "";
-/*Object.defineProperty(document, "cookie", {
-  __proto__: null,
-  configurable: false,
-  get: function () {
+/*
+// Clobber cookies, using a function closure to keep the dummy private
+(function() {
+  var dummyCookie = "";
+  document.__defineSetter__("cookie", function(value) {
+    dummyCookie = value;
+    return value;
+  });
+  document.__defineGetter__("cookie", function() {
     return dummyCookie;
-  },
-  set: function (newValue) {
-    console.log("Clobbered an attempt to set cookie");
-    dummyCookie = newValue;
-  }
-});*/
+  });
+})();
+*/
 /*
 // Clobber local storage, using a function closure to keep the dummy private
 (function() {
