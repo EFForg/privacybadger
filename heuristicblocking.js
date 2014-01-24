@@ -17,6 +17,7 @@ with(require("subscriptionClasses"))
 var FilterStorage = require("filterStorage").FilterStorage;
 var matcherStore = require("matcher").matcherStore;
 var Synchronizer = require("synchronizer").Synchronizer;
+var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var tabOrigins = { };
 var cookieSentOriginFrequency = { };
 var cookieSetOriginFrequency = { };
@@ -28,7 +29,7 @@ var lastSentXhr = { };
 var testing = false;
 var testThreshold = 3;
 var numMinutesToWait = 120;
-
+var whitelistName =  "https://www.eff.org/files/sample_whitelist.txt";
 // local storage for alpha test extension
 // todo? not even close to CSPRNG :)
 // todo? this is async; not ideal but it'll do
@@ -97,7 +98,20 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
   }
   return false;
 }
-
+/*function addFiltersFromWhitelistToCookieblock(origin){
+  var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter
+  for(filter in filters){
+    var domain = getDomainFromFilter(filter)
+    console.log('CHECKING ', domain, 'for whitelist');
+    if(getBaseDomain(domain) == origin){
+      console.log('ADDING');
+      CookieBlockList.addDomain(domain);
+    }
+  }
+}
+function getDomainFromFilter(filter){
+  return filter.match('[|][|]([^\^]*)')[1]
+}*/
 /******* FUNCTIONS FOR TESTING END HERE ********/
 
 var blacklistOrigin = function(origin) {
@@ -109,6 +123,8 @@ var blacklistOrigin = function(origin) {
   var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
   // Create an ABP filter to block this origin 
   var filter = this.Filter.fromText("||" + origin + "^$third-party");
+  //addFiltersFromWhitelistToCookieblock(origin)
+
   filter.disabled = false;
   if (!testing) {
     console.log("Adding filter for " + heuristicSubscription.url);
