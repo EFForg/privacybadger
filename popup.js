@@ -17,7 +17,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
@@ -59,6 +59,7 @@ function init()
     $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
+    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   });
  
   // Ask content script whether clickhide is active. If so, show cancel button.
@@ -91,6 +92,22 @@ function deactivate() {
   $(".clicker").toggleClass("greyed");
   localStorage.enabled = "false";
   refreshIconAndContextMenu(tab);
+}
+
+function revertDomainControl(e){
+  $elm = $(e.target).parent();
+  console.log('revert to privacy badger control for', $elm);
+  var origin = $elm.data('origin');
+  var original_action = $elm.data('original-action');
+  var stores = {'block': 'userRed', 
+                'cookieblock': 'userYellow', 
+                'noaction': 'userBlue'};
+  var filter = "||" + origin + "^$third_party";
+  var store = stores[original_action];
+  console.log('REVERT DOMAIN CONTROL FOR', filter, store);
+  removeFilter(store,filter);
+  $elm.removeClass('userset');
+  return false;
 }
 
 function toggleEnabled() {

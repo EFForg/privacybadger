@@ -96,6 +96,19 @@ function getAllOriginsForTab(tabId) {
   return activeMatchers.getAllOriginsForTab(tabId);
 }
 
+function removeFilter(subscriptionName, filterName){
+  var subscription = FilterStorage.knownSubscriptions[subscriptionName];
+  var filter = {};
+  var i;
+  for( i = 0; i < subscription.filters.length; i++){
+    if(subscription.filters[i].text == filterName){
+      filter = subscription.filters[i];
+      break;
+    }
+  }
+  console.log('REMOVING FILTER', filter, subscription);
+  FilterStorage.removeFilter(filter,subscription);
+}
 /**
  * Checks whether a page is whitelisted.
  * @param {String} url
