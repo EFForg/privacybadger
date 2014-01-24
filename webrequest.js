@@ -15,7 +15,7 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
-chrome.webRequest.onCompleted.addListener(onCompleted, {urls: ["http://*/*", "https://*/*"]});
+//chrome.webRequest.onCompleted.addListener(onCompleted, {urls: ["http://*/*", "https://*/*"]});
 
 chrome.tabs.onRemoved.addListener(forgetTab);
 
@@ -60,13 +60,13 @@ require("filterNotifier").FilterNotifier.addListener(function(action)
 var frames = {};
 var clobberRequestIds = {};
 
-function onCompleted(details)
+/*function onCompleted(details)
 {
   if (details.requestId in clobberRequestIds) {
     chrome.tabs.executeScript(details.tabId, {file: "clobbercookie.js", runAt: "document_start"});
     delete clobberRequestIds[details.requestId];
   }
-}
+}*/
 
 function onCookieChanged(changeInfo){
   //if we are removing a cookie then we don't need to do anything!
