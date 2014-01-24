@@ -1,17 +1,15 @@
-/*
 // Clobber cookies, using a function closure to keep the dummy private
 (function() {
-  var dummyCookie = "";
+  var dummyCookie = "x=y";
   document.__defineSetter__("cookie", function(value) {
-    dummyCookie = value;
-    return value;
+    //dummyCookie = value;
+    return dummyCookie;
   });
   document.__defineGetter__("cookie", function() {
+    alert("in getter");
     return dummyCookie;
   });
 })();
-*/
-/*
 // Clobber local storage, using a function closure to keep the dummy private
 (function() {
   var dummyLocalStorage = { };
@@ -26,4 +24,3 @@
     }
   });
 })();
-*/

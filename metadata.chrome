@@ -30,7 +30,7 @@ icons = icons/badger-?.png
 webAccessible = block.html
 
 [contentScripts]
-document_start = include.preload.js
+document_start = include.preload.js clobbercookie.js
 document_end = include.postload.js
 
 [compat]
