@@ -1,6 +1,7 @@
 // Clobber cookies, using a function closure to keep the dummy private
 (function() {
   var dummyCookie = "x=y";
+  alert("help I'm stuck in a closure");
   document.__defineSetter__("cookie", function(value) {
     //dummyCookie = value;
     return dummyCookie;
