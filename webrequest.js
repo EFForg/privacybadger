@@ -45,7 +45,7 @@ var importantNotifications = {
   'subscription.updated': true,
   'load': true
 };
-
+var CookieBlockList = require("cookieblocklist").CookieBlockList
 require("filterNotifier").FilterNotifier.addListener(function(action)
 {
   if (action in importantNotifications)
@@ -86,7 +86,6 @@ function onCookieChanged(changeInfo){
   }
 
   chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name}, function(){
-    console.log('removed cookie for ', cookie.domain);
   });
 }
 
@@ -127,6 +126,7 @@ function onBeforeSendHeaders(details)
     }
     else if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       recordRequestId(details.requestId);
+      CookieBlockList.addDomain(extractHostFromURL(details.url));
       //clobberCookieSetting();
       newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name != "Cookie" && header.name != "Referer");
