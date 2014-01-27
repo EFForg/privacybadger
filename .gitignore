@@ -26,3 +26,6 @@ __pycache__
 
 # JSHydra
 buildtools/jshydra/mozilla/js
+
+#vim swap files
+*.sw*
