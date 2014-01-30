@@ -237,7 +237,6 @@ let FilterStorage = exports.FilterStorage =
    */
   addFilter: function(filter, subscription, position, silent)
   {
-    console.log("Called addFilter");
     if (this.isFilterInSubscription(filter, subscription))
       return;
     if (!subscription)
