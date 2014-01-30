@@ -45,7 +45,10 @@ var importantNotifications = {
   'subscription.updated': true,
   'load': true
 };
+
 var CookieBlockList = require("cookieblocklist").CookieBlockList
+var FakeCookieStore = require("fakecookiestore").FakeCookieStore
+
 require("filterNotifier").FilterNotifier.addListener(function(action)
 {
   if (action in importantNotifications)
@@ -71,22 +74,30 @@ var clobberRequestIds = {};
 function onCookieChanged(changeInfo){
   //if we are removing a cookie then we don't need to do anything!
   if(changeInfo.removed){
+    if(changeInfo.cause == 'expired' || changeInfo.cause == 'evicted'){
+    console.log('on cookie removed');
+      FakeCookieStore.removeCookie(getBaseDomain(changeInfo.cookie.domain), changeInfo.cookie.name);
+    }
     return;
   }
 
   // we check against the base domain because its okay for a site to set cookies for .example.com or www.example.com
+  //console.log('on cookie added/ changed');
   var cookieDomain = getBaseDomain(changeInfo.cookie.domain);
   var cookie = changeInfo.cookie;
-
-  for(idx in frames){
-    if(frames[idx][0] && 
-       getBaseDomain(extractHostFromURL(frames[idx][0].url)) == cookieDomain){
-      return;
-    }
+  
+  //if the domain of the cookie is open as a first party dont worry about it
+  if(checkDomainOpenInTab(cookieDomain)){
+    return;
   }
 
-  chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name}, function(){
-  });
+  if(CookieBlockList.hasDomain(cookieDomain)){
+    console.log('removing cookies for domain to fake list', cookieDomain);
+    chrome.cookies.getAll({domain: cookieDomain}, function(cookies){
+      FakeCookieStore.setCookies(cookieDomain, cookies);
+    });
+    chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name});
+  }
 }
 
 function buildCookieUrl(cookie){
@@ -99,6 +110,37 @@ function buildCookieUrl(cookie){
   url += cookie.domain + cookie.path;
   return url;
 }
+function checkDomainOpenInTab(domain){
+  for(idx in frames){
+    if(frames[idx][0] && 
+      getBaseDomain(extractHostFromURL(frames[idx][0].url)) == domain){
+      return true;
+    }
+  }
+  return false;
+}
+function addCookiesToRealCookieStore(cookies){
+  for(i in cookies){
+    console.log('re-adding cookie for', cookies[i].domain);
+    var cookie = cookies[i];
+    delete cookie.hostOnly;
+    delete cookie.session;
+    cookie.url = buildCookieUrl(cookie);
+    chrome.cookies.set(cookies[i]);
+  }
+}
+
+function removeCookiesForDomain(domain){
+  chrome.cookies.getAll({domain: domain}, function(cookies){
+    for(var i = 0; i < cookies.length; i++){
+      console.log('removing cookie for', cookies[i].domain);
+      var details = {url: buildCookieUrl(cookies[i]), name: cookies[i].name, storeId: cookies[i].storeId}
+      chrome.cookies.remove(details, function(details){
+        console.log('removed cookie for', details);
+      });
+    }
+  });
+}
 
 function onBeforeSendHeaders(details)
 {
@@ -109,8 +151,12 @@ function onBeforeSendHeaders(details)
   if (type == "main_frame" || type == "sub_frame")
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
 
-  if (type == "main_frame")
+  if (type == "main_frame"){
+    var domain = getBaseDomain(extractHostFromURL(details.url));
+    var cookies = FakeCookieStore.getCookies(domain);
+    addCookiesToRealCookieStore(cookies);
     return {};
+  }
 
   // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
   if (type == "sub_frame")
@@ -173,8 +219,16 @@ function getFrameUrl(tabId, frameId)
 
 function forgetTab(tabId)
 {
+  removeCookiesIfCookieBlocked(tabId);
   activeMatchers.removeTab(tabId)
   delete frames[tabId];
+}
+
+function removeCookiesIfCookieBlocked(tabId){
+  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
+  if(CookieBlockList.hasDomain(baseDomain)){
+    removeCookiesForDomain();
+  };
 }
 
 function clobberCookieSetting() {
@@ -247,7 +301,7 @@ function checkRequest(type, tabId, url, frameId) {
     //console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
     var action = activeMatchers.getAction(tabId, requestHost);
     if (action && action != 'noaction'){
-      console.log("Action to be taken for " + requestHost + ": " + action);
+      //console.log("Action to be taken for " + requestHost + ": " + action);
     }
     return action;
   }
