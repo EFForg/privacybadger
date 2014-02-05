@@ -19,8 +19,11 @@ chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*
 //chrome.webRequest.onCompleted.addListener(onCompleted, {urls: ["http://*/*", "https://*/*"]});
 
 chrome.tabs.onRemoved.addListener(function(tabId){
-  removeCookiesIfCookieBlocked(tabId);
+  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
   forgetTab(tabId);
+  if(!checkDomainOpenInTab(baseDomain)){
+    removeCookiesIfCookieBlocked(baseDomain);
+  }
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
@@ -102,10 +105,13 @@ function onCookieChanged(changeInfo){
   
 
   if(CookieBlockList.hasBaseDomain(cookieDomain)){
-    if(!checkDomainOpenInTab(cookieDomain)){
-      console.log('removing cookies for domain from real cookie store',cookieDomain);
-      chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name});
-    }
+    //likely a tab change caused this so wait until a little bit in the future to make sure the domain is still open to prevent a race condition
+    setTimeout(function(){
+      if(!checkDomainOpenInTab(cookieDomain)){
+        console.log('removing cookies for domain from real cookie store',cookieDomain);
+        chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name});
+      }
+    }, 1000);
   }
 
 }
@@ -133,9 +139,12 @@ function addCookiesToRealCookieStore(cookies){
   for(i in cookies){
     console.log('re-adding cookie for', cookies[i].domain);
     var cookie = cookies[i];
+    cookie.url = buildCookieUrl(cookie);
+    if(cookie.hostOnly){
+      delete cookie.domain;
+    }
     delete cookie.hostOnly;
     delete cookie.session;
-    cookie.url = buildCookieUrl(cookie);
     chrome.cookies.set(cookie);
   }
 }
@@ -159,20 +168,18 @@ function onBeforeRequest(details){
   var type = details.type;
 
   if (type == "main_frame"){
-    if(tabChangesDomains(details.tabId,details.url)){ 
+    /*if(tabChangesDomains(details.tabId,details.url)){ 
       console.log('tab changed domains!');
       removeCookiesIfCookieBlocked(details.tabId);
-    } 
-    recordFrame(details.tabId,0,-1,details.url);
+    }*/
 
     var domain = getBaseDomain(extractHostFromURL(details.url));
     var fakeCookies = FakeCookieStore.getCookies(domain);
 
-    chrome.cookies.getAll({domain: domain}, function(cookies){
-      if(!cookies || !cookies.length > 0){
-        addCookiesToRealCookieStore(fakeCookies);
-      }
-    });
+    if(!checkDomainOpenInTab(domain)){
+      recordFrame(details.tabId,0,-1,details.url);
+      addCookiesToRealCookieStore(fakeCookies);
+    }
   }
 }
 
@@ -254,8 +261,7 @@ function forgetTab(tabId) {
   delete frames[tabId];
 }
 
-function removeCookiesIfCookieBlocked(tabId){
-  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
+function removeCookiesIfCookieBlocked(baseDomain){
   console.log('thinking about removing cookies for', baseDomain, CookieBlockList.hasBaseDomain(baseDomain));
   if(CookieBlockList.hasBaseDomain(baseDomain)){
     chrome.cookies.getAll({domain: baseDomain}, function(cookies){
