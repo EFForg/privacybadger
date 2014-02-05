@@ -34,13 +34,12 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
   }
 });
 
-function tabChangesDomains(tabId,newUrl){
-  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
-  if(!baseDomain){
+function tabChangesDomains(tabId,oldDomain){
+  var currentDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
+  if(!currentDomain){
     return false;
   }
-  var newDomain = getBaseDomain(extractHostFromURL(newUrl));
-  if(baseDomain == newDomain){
+  if(oldDomain == currentDomain){
     return false;
   }
   return true;
@@ -168,15 +167,17 @@ function onBeforeRequest(details){
   var type = details.type;
 
   if (type == "main_frame"){
-    /*if(tabChangesDomains(details.tabId,details.url)){ 
-      console.log('tab changed domains!');
-      removeCookiesIfCookieBlocked(details.tabId);
-    }*/
+    var newDomain = getBaseDomain(extractHostFromURL(details.url));
+    var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
+    var fakeCookies = FakeCookieStore.getCookies(newDomain);
+    setTimeout(function(){
+      if(tabChangesDomains(details.tabId,oldDomain)){ 
+        console.log('tab changed domains!');
+        removeCookiesIfCookieBlocked(oldDomain);
+      }
+    }, 1000);
 
-    var domain = getBaseDomain(extractHostFromURL(details.url));
-    var fakeCookies = FakeCookieStore.getCookies(domain);
-
-    if(!checkDomainOpenInTab(domain)){
+    if(!checkDomainOpenInTab(newDomain)){
       recordFrame(details.tabId,0,-1,details.url);
       addCookiesToRealCookieStore(fakeCookies);
     }
