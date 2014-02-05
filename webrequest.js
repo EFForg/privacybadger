@@ -15,16 +15,33 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
+chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
 //chrome.webRequest.onCompleted.addListener(onCompleted, {urls: ["http://*/*", "https://*/*"]});
 
-chrome.tabs.onRemoved.addListener(forgetTab);
+chrome.tabs.onRemoved.addListener(function(tabId){
+  removeCookiesIfCookieBlocked(tabId);
+  forgetTab(tabId);
+});
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
   if (changeInfo.status == "loading" && changeInfo.url != undefined){
+    //if the change in the tab is within the same domain we don't want to remove the cookies
     forgetTab(tabId);
     recordFrame(tabId,0,-1,changeInfo.url);
   }
 });
+
+function tabChangesDomains(tabId,newUrl){
+  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
+  if(!baseDomain){
+    return false;
+  }
+  var newDomain = getBaseDomain(extractHostFromURL(newUrl));
+  if(baseDomain == newDomain){
+    return false;
+  }
+  return true;
+}
 
 chrome.cookies.onChanged.addListener(onCookieChanged);
 
@@ -73,12 +90,9 @@ var clobberRequestIds = {};
 
 function onCookieChanged(changeInfo){
   //if we are removing a cookie then we don't need to do anything!
-  if(changeInfo.removed){
-    if(changeInfo.cause == 'expired' || changeInfo.cause == 'evicted'){
-    console.log('on cookie removed');
-      FakeCookieStore.removeCookie(getBaseDomain(changeInfo.cookie.domain), changeInfo.cookie.name);
-    }
-    return;
+  if(changeInfo.removed && changeInfo.cause != 'explicit'){
+    console.log('on cookie REMOVED!!');
+    FakeCookieStore.removeCookie(getBaseDomain(changeInfo.cookie.domain), changeInfo.cookie.name);
   }
 
   // we check against the base domain because its okay for a site to set cookies for .example.com or www.example.com
@@ -86,17 +100,18 @@ function onCookieChanged(changeInfo){
   var cookieDomain = getBaseDomain(changeInfo.cookie.domain);
   var cookie = changeInfo.cookie;
   
-  //if the domain of the cookie is open as a first party dont worry about it
-  if(checkDomainOpenInTab(cookieDomain)){
-    return;
-  }
 
-  if(CookieBlockList.hasDomain(cookieDomain)){
-    console.log('removing cookies for domain to fake list', cookieDomain);
+  if(CookieBlockList.hasBaseDomain(cookieDomain)){
+    console.log('copying cookies for domain to fake list', cookieDomain);
     chrome.cookies.getAll({domain: cookieDomain}, function(cookies){
       FakeCookieStore.setCookies(cookieDomain, cookies);
     });
-    chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name});
+
+    //if the domain of the cookie is open as a first party dont worry about it
+    if(!checkDomainOpenInTab(cookieDomain)){
+      console.log('removing cookies for domain from real cokie store',cookieDomain);
+      chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name});
+    }
   }
 }
 
@@ -142,21 +157,40 @@ function removeCookiesForDomain(domain){
   });
 }
 
+function onBeforeRequest(details){
+  if (details.tabId == -1)
+    return {};
+
+  var type = details.type;
+
+  if (type == "main_frame"){
+    var domain = getBaseDomain(extractHostFromURL(details.url));
+    var cookies = FakeCookieStore.getCookies(domain);
+    chrome.cookies.getAll({domain: 'google.com'}, function(cookies){
+      if(!cookies || !cookies.length > 0){
+        addCookiesToRealCookieStore(cookies);
+      }
+    });
+  }
+}
+
 function onBeforeSendHeaders(details)
 {
   if (details.tabId == -1)
     return {};
 
   var type = details.type;
-  if (type == "main_frame" || type == "sub_frame")
-    recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
+ /* if (type == "main_frame"){
+    if(tabChangesDomains(details.tabId,details.url)){ 
+      console.log('tab changed domains!');
+      removeCookiesIfCookieBlocked(details.tabId);
+    } 
+  }*/
 
-  if (type == "main_frame"){
-    var domain = getBaseDomain(extractHostFromURL(details.url));
-    var cookies = FakeCookieStore.getCookies(domain);
-    addCookiesToRealCookieStore(cookies);
-    return {};
+  if (type == "main_frame" || type == "sub_frame"){
+    recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
+
 
   // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
   if (type == "sub_frame")
@@ -217,17 +251,16 @@ function getFrameUrl(tabId, frameId)
   return (frameData ? frameData.url : null);
 }
 
-function forgetTab(tabId)
-{
-  removeCookiesIfCookieBlocked(tabId);
+function forgetTab(tabId) {
   activeMatchers.removeTab(tabId)
   delete frames[tabId];
 }
 
 function removeCookiesIfCookieBlocked(tabId){
   var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
-  if(CookieBlockList.hasDomain(baseDomain)){
-    removeCookiesForDomain();
+  console.log('thinking about removing cookies for', baseDomain, CookieBlockList.hasBaseDomain(baseDomain));
+  if(CookieBlockList.hasBaseDomain(baseDomain)){
+    removeCookiesForDomain(baseDomain);
   };
 }
 
