@@ -90,9 +90,9 @@ var clobberRequestIds = {};
 
 function onCookieChanged(changeInfo){
   //if we are removing a cookie then we don't need to do anything!
-  if(changeInfo.removed && changeInfo.cause != 'explicit'){
-    console.log('on cookie REMOVED!!');
-    FakeCookieStore.removeCookie(getBaseDomain(changeInfo.cookie.domain), changeInfo.cookie.name);
+  if(changeInfo.removed && changeInfo.cause == 'explicit'){
+    console.log('explicit so not removing cookie for', changeInfo.cookie.domain);
+    return;
   }
 
   // we check against the base domain because its okay for a site to set cookies for .example.com or www.example.com
@@ -102,17 +102,12 @@ function onCookieChanged(changeInfo){
   
 
   if(CookieBlockList.hasBaseDomain(cookieDomain)){
-    console.log('copying cookies for domain to fake list', cookieDomain);
-    chrome.cookies.getAll({domain: cookieDomain}, function(cookies){
-      FakeCookieStore.setCookies(cookieDomain, cookies);
-    });
-
-    //if the domain of the cookie is open as a first party dont worry about it
     if(!checkDomainOpenInTab(cookieDomain)){
-      console.log('removing cookies for domain from real cokie store',cookieDomain);
+      console.log('removing cookies for domain from real cookie store',cookieDomain);
       chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name});
     }
   }
+
 }
 
 function buildCookieUrl(cookie){
@@ -141,7 +136,7 @@ function addCookiesToRealCookieStore(cookies){
     delete cookie.hostOnly;
     delete cookie.session;
     cookie.url = buildCookieUrl(cookie);
-    chrome.cookies.set(cookies[i]);
+    chrome.cookies.set(cookie);
   }
 }
 
@@ -164,11 +159,12 @@ function onBeforeRequest(details){
   var type = details.type;
 
   if (type == "main_frame"){
+    recordFrame(details.tabId,0,-1,details.url);
     var domain = getBaseDomain(extractHostFromURL(details.url));
-    var cookies = FakeCookieStore.getCookies(domain);
-    chrome.cookies.getAll({domain: 'google.com'}, function(cookies){
+    var fakeCookies = FakeCookieStore.getCookies(domain);
+    chrome.cookies.getAll({domain: domain}, function(cookies){
       if(!cookies || !cookies.length > 0){
-        addCookiesToRealCookieStore(cookies);
+        addCookiesToRealCookieStore(fakeCookies);
       }
     });
   }
@@ -180,7 +176,7 @@ function onBeforeSendHeaders(details)
     return {};
 
   var type = details.type;
- /* if (type == "main_frame"){
+  /*if (type == "main_frame"){
     if(tabChangesDomains(details.tabId,details.url)){ 
       console.log('tab changed domains!');
       removeCookiesIfCookieBlocked(details.tabId);
@@ -260,7 +256,10 @@ function removeCookiesIfCookieBlocked(tabId){
   var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
   console.log('thinking about removing cookies for', baseDomain, CookieBlockList.hasBaseDomain(baseDomain));
   if(CookieBlockList.hasBaseDomain(baseDomain)){
-    removeCookiesForDomain(baseDomain);
+    chrome.cookies.getAll({domain: baseDomain}, function(cookies){
+      FakeCookieStore.setCookies(baseDomain, cookies);
+      removeCookiesForDomain(baseDomain);
+    });
   };
 }
 
