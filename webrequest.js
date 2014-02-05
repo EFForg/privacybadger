@@ -159,9 +159,15 @@ function onBeforeRequest(details){
   var type = details.type;
 
   if (type == "main_frame"){
+    if(tabChangesDomains(details.tabId,details.url)){ 
+      console.log('tab changed domains!');
+      removeCookiesIfCookieBlocked(details.tabId);
+    } 
     recordFrame(details.tabId,0,-1,details.url);
+
     var domain = getBaseDomain(extractHostFromURL(details.url));
     var fakeCookies = FakeCookieStore.getCookies(domain);
+
     chrome.cookies.getAll({domain: domain}, function(cookies){
       if(!cookies || !cookies.length > 0){
         addCookiesToRealCookieStore(fakeCookies);
@@ -177,10 +183,6 @@ function onBeforeSendHeaders(details)
 
   var type = details.type;
   /*if (type == "main_frame"){
-    if(tabChangesDomains(details.tabId,details.url)){ 
-      console.log('tab changed domains!');
-      removeCookiesIfCookieBlocked(details.tabId);
-    } 
   }*/
 
   if (type == "main_frame" || type == "sub_frame"){
