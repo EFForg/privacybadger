@@ -17,6 +17,8 @@ with(require("subscriptionClasses"))
 var FilterStorage = require("filterStorage").FilterStorage;
 var matcherStore = require("matcher").matcherStore;
 var Synchronizer = require("synchronizer").Synchronizer;
+var CookieBlockList = require("cookieblocklist").CookieBlockList;
+var FakeCookieStore = require("fakecookiestore").FakeCookieStore;
 var tabOrigins = { };
 var cookieSentOriginFrequency = { };
 var cookieSetOriginFrequency = { };
@@ -28,7 +30,7 @@ var lastSentXhr = { };
 var testing = false;
 var testThreshold = 3;
 var numMinutesToWait = 120;
-
+var whitelistName =  "https://www.eff.org/files/sample_whitelist.txt";
 // local storage for alpha test extension
 // todo? not even close to CSPRNG :)
 // todo? this is async; not ideal but it'll do
@@ -97,7 +99,36 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
   }
   return false;
 }
-
+function addFiltersFromWhitelistToCookieblock(origin){
+  var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter
+  for(filter in filters){
+    var domain = getDomainFromFilter(filter)
+    var baseDomain = getBaseDomain(domain);
+    if(baseDomain == origin){
+      console.log('ADDING to cookieblock list', baseDomain);
+      CookieBlockList.addDomain(domain);
+      chrome.cookies.getAll({domain: baseDomain}, function(cookies){
+        FakeCookieStore.setCookies(baseDomain, cookies);
+        if(!checkDomainOpenInTab(baseDomain)){ 
+          for(var i = 0; i < cookies.length; i++){
+            console.log('removing cookie for', cookies[i].domain);
+            var details = {
+              url: buildCookieUrl(cookies[i]), 
+              name: cookies[i].name, 
+              storeId: cookies[i].storeId
+            }
+            chrome.cookies.remove(details, function(details){
+              console.log('removed cookie for', details);
+            });
+          }
+        }
+      });
+    }
+  }
+}
+function getDomainFromFilter(filter){
+  return filter.match('[|][|]([^\^]*)')[1]
+}
 /******* FUNCTIONS FOR TESTING END HERE ********/
 
 var blacklistOrigin = function(origin) {
@@ -109,9 +140,11 @@ var blacklistOrigin = function(origin) {
   var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
   // Create an ABP filter to block this origin 
   var filter = this.Filter.fromText("||" + origin + "^$third-party");
+  addFiltersFromWhitelistToCookieblock(origin)
+
   filter.disabled = false;
   if (!testing) {
-    console.log("Adding filter for " + heuristicSubscription.url);
+    //console.log("Adding filter for " + heuristicSubscription.url);
     FilterStorage.addFilter(filter, heuristicSubscription);
   }
   // Vanilla ABP does this step too, not clear if there's any privacy win
@@ -241,7 +274,6 @@ var heuristicBlockingAccounting = function(details) {
       // sendTestingData()
     } else {
       if (httpRequestPrevalence >= prevalenceThreshold) {
-        console.log("Adding " + origin + " to heuristic blocklist.");
         blacklistOrigin(origin);
       }
     }

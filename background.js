@@ -38,6 +38,7 @@ var activeMatchers = require("matcher").activeMatchers;
 var Prefs = require("prefs").Prefs;
 var Synchronizer = require("synchronizer").Synchronizer;
 var Utils = require("utils").Utils;
+var CookieBlockList = require("cookieblocklist").CookieBlockList;
 
 // Some types cannot be distinguished
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
@@ -49,6 +50,17 @@ if (!("whitelistUrl" in localStorage))
 var whitelistUrl = localStorage.whitelistUrl;
 var isFirstRun = false;
 var seenDataCorruption = false;
+
+// load cookieblocklist whenever a window is created
+chrome.windows.onCreated.addListener(function(){
+  CookieBlockList.updateDomains();
+  FakeCookieStore.updateCookies();
+});
+chrome.storage.onChanged.addListener(function(){
+  CookieBlockList.updateDomains();
+  FakeCookieStore.updateCookies();
+});
+
 require("filterNotifier").FilterNotifier.addListener(function(action)
 {
   if (action == "load")

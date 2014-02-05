@@ -1,6 +1,6 @@
 [general]
-basename = efftestextension
-version = 0.1
+basename = privacy_badger
+version = 0.2
 backgroundScripts = lib/compat.js
   lib/io.js
   lib/adblockplus.js
@@ -30,7 +30,7 @@ icons = icons/badger-?.png
 webAccessible = block.html
 
 [contentScripts]
-document_start = include.preload.js
+document_start = include.preload.js 
 document_end = include.postload.js
 
 [compat]
@@ -59,6 +59,8 @@ lib/io.js = lib/filesystem/io.js
 lib/adblockplus.js = lib/info.js
   lib/prefs.js
   lib/utils.js
+  lib/cookieblocklist.js
+  lib/fakecookiestore.js
   lib/elemHideHitRegistration.js
   adblockplus/lib/filterNotifier.js
   adblockplus/lib/filterClasses.js
