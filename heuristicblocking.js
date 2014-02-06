@@ -131,22 +131,62 @@ function getDomainFromFilter(filter){
 }
 /******* FUNCTIONS FOR TESTING END HERE ********/
 
+//asyncronously check if the domain has badgerpolicy.txt and add it to the user whitelist if it does
+var checkPrivacyBadgerPolicy = function(origin, callback){
+  var knownGoodHash = "149a5d0712048423adbab13d7353a2939488561c";
+  var xhr = new XMLHttpRequest();
+  var success = false;
+  //this origin has already been parsed by heuristicBlockingAccounting so we assume it to be string safe
+  var url = "http://" + origin + "/badgerpolicy.txt";
+  xhr.onreadystatechange = function(){
+    //on done
+    if(xhr.readyState == xhr.DONE){
+      //on success
+      if(xhr.status == 200 && xhr.responseText){
+        var hash = SHA1(xhr.responseText);
+        //on hashes match
+        if(hash == knownGoodHash){
+          success = true;
+        }
+      }
+      callback(success);
+    }
+  }
+  xhr.open("GET", url, true);
+  xhr.send();
+}
+
+var unblockOrigin = function(origin){
+  var filter = Filter.fromText("||" + origin + "^$third-party");
+  var policySubscription = FilterStorage.knownSubscriptions["userBlue"];
+  FilterStorage.removeFilter(filter);
+  FilterStorage.addFilter(filter, policySubscription);
+}
+
 var blacklistOrigin = function(origin) {
   // Heuristic subscription
   if (!("frequencyHeuristic" in FilterStorage.knownSubscriptions)) {
     console.log("Error. Could not blacklist origin because no heuristic subscription found");
     return;
   }
-  var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
-  // Create an ABP filter to block this origin 
-  var filter = this.Filter.fromText("||" + origin + "^$third-party");
-  addFiltersFromWhitelistToCookieblock(origin)
+  //check for badgerpolicy.txt and whitelist if exists
+  checkPrivacyBadgerPolicy(origin, function(success){
+    if(success){
+      console.log('adding', origin, 'to user whitelist due to badgerpolicy.txt');
+      unblockOrigin(origin);
+    } else {
+      var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
+      // Create an ABP filter to block this origin 
+      var filter = this.Filter.fromText("||" + origin + "^$third-party");
+      addFiltersFromWhitelistToCookieblock(origin)
 
-  filter.disabled = false;
-  if (!testing) {
-    //console.log("Adding filter for " + heuristicSubscription.url);
-    FilterStorage.addFilter(filter, heuristicSubscription);
-  }
+      filter.disabled = false;
+      if (!testing) {
+        FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions["userBlue"]);
+        FilterStorage.addFilter(filter, heuristicSubscription);
+      }
+    }
+  });
   // Vanilla ABP does this step too, not clear if there's any privacy win
   // though:
 
