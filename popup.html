@@ -35,18 +35,17 @@
 <body id="main">
 
 <!-- In soviet EFF extension, popup clicks you. -->
-<div id="enabledCheckboxAndLabel" style="display:none">
-  <!-- <input id="enabled" style="display:none" type="checkbox" checked><label for="enabled"><span class="i18n_enabled_for_site"></span></label> -->
-  <center><button id="deactivate_btn" class="grey-button" style="display:block"> Deactivate </button></center>
-  <center><button id="activate_btn" class="red-button" style="display:none"> Activate </button></center>
-</div>
 <div id="mustReloadMsg" style="display:none"><span class="i18n_new_filters_added"></span></div>
 
 <!-- <div id="clickHideInactiveStuff" style="display: none"> -->
 <!-- <div class="spacer"></div> -->
 <!-- <button id="clickHideButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="i18n_easy_create_filter"></span></button> -->
 <!-- </div> -->
-
+<div id='privacyBadgerHeader'>
+  <div id='title'><img src='/icons/badger-48.png'> <h2>Privacy Badger</h2></div>
+  <div class='clear'></div>
+  Privacy Badger has detected third party trackers at the following domains:
+</div>
 <div id="blockedResourcesContainer">
   <div class="spacer"></div>
   <div id="blockedResources">Loading...</div>
@@ -58,5 +57,11 @@
 <button id="cancelButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="i18n_cancel"></span></button>
 </div>
 
+<div id="enabledCheckboxAndLabel" style="display:none">
+  <!-- <input id="enabled" style="display:none" type="checkbox" checked><label for="enabled"><span class="i18n_enabled_for_site"></span></label> -->
+  <center><button id="deactivate_btn" class="grey-button" style="display:block"> Deactivate Privacy Badger </button></center>
+  <center><button id="activate_btn" class="red-button" style="display:none"> Activate Privacy Badger</button></center>
+</div>
+<center><a id='helplink' href='https://eff.org/privacybadger' target=_blank tabindex=-1 title="Privacy Badger Website">What is Privacy Badger?</a></center>
 </body>
 </html>

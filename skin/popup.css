@@ -87,3 +87,22 @@ clear: both;
 color: #555555;
 font-size: 12px;
 }
+#privacyBadgerHeader{
+color: #505050;
+font-size: 16px;
+}
+#privacyBadgerHeader h2{
+  margin-left: 10px;
+  display: inline;
+  float: left;
+  color: #454545;
+  font-size: 18px;
+}
+#privacyBadgerHeader img{
+  display: inline;
+  float: left;
+}
+#helplink {
+  padding-top: 5px;
+  color: #4183c4;
+}
