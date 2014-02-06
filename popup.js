@@ -102,7 +102,7 @@ function revertDomainControl(e){
   var stores = {'block': 'userRed', 
                 'cookieblock': 'userYellow', 
                 'noaction': 'userBlue'};
-  var filter = "||" + origin + "^$third_party";
+  var filter = "||" + origin + "^$third-party";
   var store = stores[original_action];
   console.log('REVERT DOMAIN CONTROL FOR', filter, store);
   removeFilter(store,filter);
@@ -258,7 +258,7 @@ function saveAction(userAction, origin) {
                         'noaction': 'userBlue'};
   console.log("Saving user action " + userAction + " for " + origin);
   for (var action in allUserActions) {
-    var filter = Filter.fromText("||" + origin + "^$third_party");
+    var filter = Filter.fromText("||" + origin + "^$third-party");
     if (action == userAction){
       console.log('adding filter', filter, 'to', action);
       FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
