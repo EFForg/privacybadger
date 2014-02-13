@@ -40,4 +40,4 @@ var _print = print;
 
   for (var i = 1; i < scriptArgs.length; i++)
     process_js(Reflect.parse(read(scriptArgs[i])), scriptArgs[i], scriptArg);
-})(arguments);
+})(scriptArgs);
