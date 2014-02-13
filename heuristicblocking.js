@@ -131,13 +131,13 @@ function getDomainFromFilter(filter){
 }
 /******* FUNCTIONS FOR TESTING END HERE ********/
 
-//asyncronously check if the domain has badgerpolicy.txt and add it to the user whitelist if it does
+//asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
 var checkPrivacyBadgerPolicy = function(origin, callback){
   var knownGoodHash = "149a5d0712048423adbab13d7353a2939488561c";
   var xhr = new XMLHttpRequest();
   var success = false;
   //this origin has already been parsed by heuristicBlockingAccounting so we assume it to be string safe
-  var url = "http://" + origin + "/badgerpolicy.txt";
+  var url = "https://" + origin + "/.well-known/dnt-policy.txt";
   xhr.onreadystatechange = function(){
     //on done
     if(xhr.readyState == xhr.DONE){
