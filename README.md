@@ -7,7 +7,6 @@ To build a local dummy .crx you can install with Chrome's stupid magic ritual, r
 
 python build.py -t chrome build -k dummy-chromium.pem
 
-Build dependencies:
+Build dependencies (Debian-based):
 
-python-jina2
-python-m2crypto
+$ sudo apt-get install python-jina2 python-m2crypto
