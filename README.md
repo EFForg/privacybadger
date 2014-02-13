@@ -9,4 +9,4 @@ python build.py -t chrome build -k dummy-chromium.pem
 
 Build dependencies (Debian-based):
 
-$ sudo apt-get install python-jina2 python-m2crypto
+$ sudo apt-get install python-jinja2 python-m2crypto
