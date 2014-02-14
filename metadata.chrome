@@ -52,6 +52,8 @@ skin/social/facebook.png = adblockplus/chrome/skin/social/facebook.png
 skin/social/gplus.png = adblockplus/chrome/skin/social/gplus.png
 skin/social/twitter.png = adblockplus/chrome/skin/social/twitter.png
 skin/badger-logo-TRANS-1A.png = adblockplus/chrome/skin/badger-logo-TRANS-1A.png
+skin/badger-logo-revise-wide.png = adblockplus/chrome/skin/badger-logo-revise-wide.png
+skin/badger-faq-3.png = adblockplus/chrome/skin/badger-faq-3.png
 skin/lock.png = adblockplus/chrome/skin/lock.png
 
 [convert_js]
