@@ -28,6 +28,7 @@ permissions = tabs
 pageAction = icons/badger-19.png popup.html
 icons = icons/badger-?.png
 webAccessible = block.html
+updateURL = http://clients2.google.com/service/update2/crx
 
 [contentScripts]
 document_start = include.preload.js 
