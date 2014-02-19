@@ -101,7 +101,7 @@ function revertDomainControl(e){
   var original_action = $elm.data('original-action');
   var stores = {'block': 'userRed', 
                 'cookieblock': 'userYellow', 
-                'noaction': 'userBlue'};
+                'noaction': 'userGreen'};
   var filter = "||" + origin + "^$third-party";
   var store = stores[original_action];
   console.log('REVERT DOMAIN CONTROL FOR', filter, store);
@@ -210,7 +210,7 @@ function refreshPopup(tabId) {
   }
   // old text that could go in printable: 
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it; 
-  // yellow: only cookies blocked; blue: no blocking yet";
+  // yellow: only cookies blocked; green: no blocking yet";
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
@@ -255,7 +255,7 @@ function hideTooltip(event){
 function saveAction(userAction, origin) {
   var allUserActions = {'block': 'userRed', 
                         'cookieblock': 'userYellow', 
-                        'noaction': 'userBlue'};
+                        'noaction': 'userGreen'};
   console.log("Saving user action " + userAction + " for " + origin);
   for (var action in allUserActions) {
     var filter = Filter.fromText("||" + origin + "^$third-party");

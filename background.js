@@ -296,9 +296,9 @@ function addSubscription(prevVersion)
   var userYellow = new SpecialSubscription("userYellow", "userYellow");
   FilterStorage.addSubscription(userYellow);
 
-  // Add userBlue Subscription
-  var userBlue = new SpecialSubscription("userBlue", "userBlue");
-  FilterStorage.addSubscription(userBlue);
+  // Add userGreen Subscription
+  var userGreen = new SpecialSubscription("userGreen", "userGreen");
+  FilterStorage.addSubscription(userGreen);
 
   if (!addSubscription)
     return;

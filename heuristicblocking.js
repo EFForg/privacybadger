@@ -162,7 +162,7 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
 
 var unblockOrigin = function(origin){
   var filter = Filter.fromText("||" + origin + "^$third-party");
-  var policySubscription = FilterStorage.knownSubscriptions["userBlue"];
+  var policySubscription = FilterStorage.knownSubscriptions["userGreen"];
   FilterStorage.removeFilter(filter);
   FilterStorage.addFilter(filter, policySubscription);
 }
@@ -186,7 +186,7 @@ var blacklistOrigin = function(origin) {
 
       filter.disabled = false;
       if (!testing) {
-        FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions["userBlue"]);
+        FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions["userGreen"]);
         FilterStorage.addFilter(filter, heuristicSubscription);
       }
     }
