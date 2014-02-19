@@ -413,6 +413,15 @@ function getFrameId(tabId, url)
   return -1;
 }
 
+function setupCookieBlocking(domain){
+  //adds domain to cookie block list and moves all cookies into the cookie store
+  var baseDomain = getBaseDomain(domain);
+  console.log('ADDING to cookieblock list', baseDomain);
+  CookieBlockList.addDomain(domain, function(){
+    removeCookiesIfCookieBlocked(baseDomain);
+  });
+}
+
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
   switch (request.reqtype)

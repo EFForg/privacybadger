@@ -17,7 +17,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
@@ -268,6 +268,12 @@ function saveAction(userAction, origin) {
     }
   }
   console.log("Finished saving action " + userAction + " for " + origin);
+  
+  //remove cookies if a user has just cookieblocked
+  if(userAction == 'cookieblock'){
+    setupCookieBlocking(origin);
+  }
+
   // todo: right now we don't determine whether a reload is needed
   return true;
 }

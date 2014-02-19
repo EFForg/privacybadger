@@ -210,7 +210,7 @@ function onBeforeSendHeaders(details) {
     }
     else if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       recordRequestId(details.requestId);
-      CookieBlockList.addDomain(extractHostFromURL(details.url));
+      //CookieBlockList.addDomain(extractHostFromURL(details.url));
       //clobberCookieSetting();
       newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name != "Cookie" && header.name != "Referer");

@@ -109,10 +109,7 @@ function addFiltersFromWhitelistToCookieblock(origin){
     var domain = getDomainFromFilter(filter)
     var baseDomain = getBaseDomain(domain);
     if(baseDomain == origin){
-      console.log('ADDING to cookieblock list', baseDomain);
-      CookieBlockList.addDomain(domain, function(){
-        removeCookiesIfCookieBlocked(baseDomain);
-      });
+      setupCookieBlocking(baseDomain);
     }
   }
 }
