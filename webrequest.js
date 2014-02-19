@@ -58,15 +58,15 @@ function onTabUpdated(tabId, changeInfo, tab){
   }
 };
 
-function tabChangesDomains(tabId,oldDomain){
-  var currentDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
-  if(!currentDomain){
-    return false;
+function tabChangesDomains(newDomain,oldDomain){
+  var domainMappings = {
+    "youtube.com": 'google.com',
+    "gmail.com": 'google.com',
   }
-  if(oldDomain == currentDomain){
-    return false;
-  }
-  return true;
+  if(domainMappings[newDomain]) { newDomain = domainMappings[newDomain] }
+  if(domainMappings[oldDomain]) { oldDomain = domainMappings[oldDomain] }
+
+  return (oldDomain != newDomain);
 }
 
 function onFilterChange() {
@@ -86,18 +86,21 @@ function onFilterNotifier(action) {
 };
 
 function onCookieChanged(changeInfo){
-  //if we are removing a cookie then we don't need to do anything!
-  if(changeInfo.removed && changeInfo.cause == 'explicit'){
-    console.log('explicit so not removing cookie for', changeInfo.cookie.domain);
-    return;
+  var cookieDomain = getBaseDomain(changeInfo.cookie.domain);
+  var cookie = changeInfo.cookie;
+
+  if(changeInfo.removed){
+    if(changeInfo.cause == 'explicit'){
+      //if we are removing a cookie via the api then we don't need to do anything!
+      return;
+    } else {
+      if(FakeCookieStore.cookies[cookieDomain]) {
+        FakeCookieStore.removeCookie(cookieDomain, cookie.name);
+      }
+    }
   }
 
   // we check against the base domain because its okay for a site to set cookies for .example.com or www.example.com
-  //console.log('on cookie added/ changed');
-  var cookieDomain = getBaseDomain(changeInfo.cookie.domain);
-  var cookie = changeInfo.cookie;
-  
-
   if(CookieBlockList.hasBaseDomain(cookieDomain)){
     //likely a tab change caused this so wait until a little bit in the future to make sure the domain is still open to prevent a race condition
     setTimeout(function(){
@@ -168,12 +171,10 @@ function onBeforeRequest(details){
     var newDomain = getBaseDomain(extractHostFromURL(details.url));
     var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
     var fakeCookies = FakeCookieStore.getCookies(newDomain);
-    setTimeout(function(){
-      if(tabChangesDomains(details.tabId,oldDomain)){ 
-        console.log('tab changed domains!');
-        removeCookiesIfCookieBlocked(oldDomain);
-      }
-    }, 1000);
+    if(tabChangesDomains(newDomain,oldDomain)){ 
+      console.log('tab changed domains!');
+      removeCookiesIfCookieBlocked(oldDomain);
+    }
 
     if(!checkDomainOpenInTab(newDomain)){
       recordFrame(details.tabId,0,-1,details.url);
