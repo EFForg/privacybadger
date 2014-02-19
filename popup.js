@@ -216,7 +216,6 @@ function refreshPopup(tabId) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, getAction(tabId, origin));
-    console.log('adding html for', origin, getAction(tabId, origin));
   }
   document.getElementById("blockedResources").innerHTML = printable;
   $('.clicker').click(function() {

@@ -136,7 +136,7 @@ function checkDomainOpenInTab(domain){
 
 function addCookiesToRealCookieStore(cookies){
   for(i in cookies){
-    console.log('re-adding cookie for', cookies[i].domain);
+    //console.log('re-adding cookie for', cookies[i].domain);
     var cookie = cookies[i];
     cookie.url = buildCookieUrl(cookie);
     if(cookie.hostOnly){
@@ -151,10 +151,10 @@ function addCookiesToRealCookieStore(cookies){
 function removeCookiesForDomain(domain){
   chrome.cookies.getAll({domain: domain}, function(cookies){
     for(var i = 0; i < cookies.length; i++){
-      console.log('removing cookie for', cookies[i].domain);
+      //console.log('removing cookie for', cookies[i].domain);
       var details = {url: buildCookieUrl(cookies[i]), name: cookies[i].name, storeId: cookies[i].storeId}
       chrome.cookies.remove(details, function(details){
-        console.log('removed cookie for', details);
+        //console.log('removed cookie for', details);
       });
     }
   });
@@ -172,7 +172,6 @@ function onBeforeRequest(details){
     var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
     var fakeCookies = FakeCookieStore.getCookies(newDomain);
     if(tabChangesDomains(newDomain,oldDomain)){ 
-      console.log('tab changed domains!');
       removeCookiesIfCookieBlocked(oldDomain);
     }
 
@@ -257,7 +256,6 @@ function forgetTab(tabId) {
 }
 
 function removeCookiesIfCookieBlocked(baseDomain){
-  console.log('thinking about removing cookies for', baseDomain, CookieBlockList.hasBaseDomain(baseDomain));
   if(CookieBlockList.hasBaseDomain(baseDomain)){
     chrome.cookies.getAll({domain: baseDomain}, function(cookies){
       FakeCookieStore.setCookies(baseDomain, cookies);
