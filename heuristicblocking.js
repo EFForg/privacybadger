@@ -110,22 +110,8 @@ function addFiltersFromWhitelistToCookieblock(origin){
     var baseDomain = getBaseDomain(domain);
     if(baseDomain == origin){
       console.log('ADDING to cookieblock list', baseDomain);
-      CookieBlockList.addDomain(domain);
-      chrome.cookies.getAll({domain: baseDomain}, function(cookies){
-        FakeCookieStore.setCookies(baseDomain, cookies);
-        if(!checkDomainOpenInTab(baseDomain)){ 
-          for(var i = 0; i < cookies.length; i++){
-            console.log('removing cookie for', cookies[i].domain);
-            var details = {
-              url: buildCookieUrl(cookies[i]), 
-              name: cookies[i].name, 
-              storeId: cookies[i].storeId
-            }
-            chrome.cookies.remove(details, function(details){
-              console.log('removed cookie for', details);
-            });
-          }
-        }
+      CookieBlockList.addDomain(domain, function(){
+        removeCookiesIfCookieBlocked(baseDomain);
       });
     }
   }
