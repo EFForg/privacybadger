@@ -349,3 +349,4 @@
 @@||maps.google.com^$third-party
 @@||developers.google.com^$third-party
 @@||checkout.google.com^$third-party
+@@||public.tableausoftware.com^$third-party
