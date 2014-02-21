@@ -570,7 +570,7 @@ ActiveMatchers.prototype = {
       console.error("Error computing action data for " + origin);
       return false;
     }
-    if (originData['userBlue']) {
+    if (originData['userGreen']) {
       this.addMatcherToOrigin(tabId, origin, 'latestaction', 'usernoaction');
       return true;
     }

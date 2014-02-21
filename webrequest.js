@@ -14,46 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
-chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
-chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
-//chrome.webRequest.onCompleted.addListener(onCompleted, {urls: ["http://*/*", "https://*/*"]});
 
-chrome.tabs.onRemoved.addListener(function(tabId){
-  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
-  forgetTab(tabId);
-  if(!checkDomainOpenInTab(baseDomain)){
-    removeCookiesIfCookieBlocked(baseDomain);
-  }
-});
-
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-  if (changeInfo.status == "loading" && changeInfo.url != undefined){
-    //if the change in the tab is within the same domain we don't want to remove the cookies
-    forgetTab(tabId);
-    recordFrame(tabId,0,-1,changeInfo.url);
-  }
-});
-
-function tabChangesDomains(tabId,oldDomain){
-  var currentDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
-  if(!currentDomain){
-    return false;
-  }
-  if(oldDomain == currentDomain){
-    return false;
-  }
-  return true;
-}
-
-chrome.cookies.onChanged.addListener(onCookieChanged);
-
+ /* variables */
+var CookieBlockList = require("cookieblocklist").CookieBlockList
+var FakeCookieStore = require("fakecookiestore").FakeCookieStore
+var FilterNotifier = require("filterNotifier").FilterNotifier
+var frames = {};
+var clobberRequestIds = {};
 var onFilterChangeTimeout = null;
-function onFilterChange()
-{
-  onFilterChangeTimeout = null;
-  chrome.webRequest.handlerBehaviorChanged();
-}
-
 var importantNotifications = {
   'filter.added': true,
   'filter.removed': true,
@@ -65,44 +33,74 @@ var importantNotifications = {
   'load': true
 };
 
-var CookieBlockList = require("cookieblocklist").CookieBlockList
-var FakeCookieStore = require("fakecookiestore").FakeCookieStore
+/* Event Listeners */
+chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
+chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
+chrome.cookies.onChanged.addListener(onCookieChanged);
+chrome.tabs.onUpdated.addListener(onTabUpdated);
+chrome.tabs.onRemoved.addListener(onTabRemoved);
+FilterNotifier.addListener(onFilterNotifier);
 
-require("filterNotifier").FilterNotifier.addListener(function(action)
-{
-  if (action in importantNotifications)
-  {
+/* functions */
+function onTabRemoved(tabId){
+  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
+  forgetTab(tabId);
+  if(!checkDomainOpenInTab(baseDomain)){
+    removeCookiesIfCookieBlocked(baseDomain);
+  }
+};
+
+function onTabUpdated(tabId, changeInfo, tab){
+  if (changeInfo.status == "loading" && changeInfo.url != undefined){
+    //if the change in the tab is within the same domain we don't want to remove the cookies
+    forgetTab(tabId);
+    recordFrame(tabId,0,-1,changeInfo.url);
+  }
+};
+
+function tabChangesDomains(newDomain,oldDomain){
+  var domainMappings = {
+    "youtube.com": 'google.com',
+    "gmail.com": 'google.com',
+  }
+  if(domainMappings[newDomain]) { newDomain = domainMappings[newDomain] }
+  if(domainMappings[oldDomain]) { oldDomain = domainMappings[oldDomain] }
+
+  return (oldDomain != newDomain);
+}
+
+function onFilterChange() {
+  onFilterChangeTimeout = null;
+  chrome.webRequest.handlerBehaviorChanged();
+}
+
+
+function onFilterNotifier(action) {
+  if (action in importantNotifications) {
     // Execute delayed to prevent multiple executions in a quick succession
-    if (onFilterChangeTimeout != null)
+    if (onFilterChangeTimeout != null){
       window.clearTimeout(onFilterChangeTimeout);
+    }
     onFilterChangeTimeout = window.setTimeout(onFilterChange, 2000);
   }
-});
-
-var frames = {};
-var clobberRequestIds = {};
-
-/*function onCompleted(details)
-{
-  if (details.requestId in clobberRequestIds) {
-    chrome.tabs.executeScript(details.tabId, {file: "clobbercookie.js", runAt: "document_start"});
-    delete clobberRequestIds[details.requestId];
-  }
-}*/
+};
 
 function onCookieChanged(changeInfo){
-  //if we are removing a cookie then we don't need to do anything!
-  if(changeInfo.removed && changeInfo.cause == 'explicit'){
-    console.log('explicit so not removing cookie for', changeInfo.cookie.domain);
-    return;
+  var cookieDomain = getBaseDomain(changeInfo.cookie.domain);
+  var cookie = changeInfo.cookie;
+
+  if(changeInfo.removed){
+    if(changeInfo.cause == 'explicit'){
+      //if we are removing a cookie via the api then we don't need to do anything!
+      return;
+    } else {
+      if(FakeCookieStore.cookies[cookieDomain]) {
+        FakeCookieStore.removeCookie(cookieDomain, cookie.name);
+      }
+    }
   }
 
   // we check against the base domain because its okay for a site to set cookies for .example.com or www.example.com
-  //console.log('on cookie added/ changed');
-  var cookieDomain = getBaseDomain(changeInfo.cookie.domain);
-  var cookie = changeInfo.cookie;
-  
-
   if(CookieBlockList.hasBaseDomain(cookieDomain)){
     //likely a tab change caused this so wait until a little bit in the future to make sure the domain is still open to prevent a race condition
     setTimeout(function(){
@@ -125,6 +123,7 @@ function buildCookieUrl(cookie){
   url += cookie.domain + cookie.path;
   return url;
 }
+
 function checkDomainOpenInTab(domain){
   for(idx in frames){
     if(frames[idx][0] && 
@@ -134,9 +133,10 @@ function checkDomainOpenInTab(domain){
   }
   return false;
 }
+
 function addCookiesToRealCookieStore(cookies){
   for(i in cookies){
-    console.log('re-adding cookie for', cookies[i].domain);
+    //console.log('re-adding cookie for', cookies[i].domain);
     var cookie = cookies[i];
     cookie.url = buildCookieUrl(cookie);
     if(cookie.hostOnly){
@@ -151,18 +151,19 @@ function addCookiesToRealCookieStore(cookies){
 function removeCookiesForDomain(domain){
   chrome.cookies.getAll({domain: domain}, function(cookies){
     for(var i = 0; i < cookies.length; i++){
-      console.log('removing cookie for', cookies[i].domain);
+      //console.log('removing cookie for', cookies[i].domain);
       var details = {url: buildCookieUrl(cookies[i]), name: cookies[i].name, storeId: cookies[i].storeId}
       chrome.cookies.remove(details, function(details){
-        console.log('removed cookie for', details);
+        //console.log('removed cookie for', details);
       });
     }
   });
 }
 
 function onBeforeRequest(details){
-  if (details.tabId == -1)
+  if (details.tabId == -1){
     return {};
+  }
 
   var type = details.type;
 
@@ -170,12 +171,9 @@ function onBeforeRequest(details){
     var newDomain = getBaseDomain(extractHostFromURL(details.url));
     var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
     var fakeCookies = FakeCookieStore.getCookies(newDomain);
-    setTimeout(function(){
-      if(tabChangesDomains(details.tabId,oldDomain)){ 
-        console.log('tab changed domains!');
-        removeCookiesIfCookieBlocked(oldDomain);
-      }
-    }, 1000);
+    if(tabChangesDomains(newDomain,oldDomain)){ 
+      removeCookiesIfCookieBlocked(oldDomain);
+    }
 
     if(!checkDomainOpenInTab(newDomain)){
       recordFrame(details.tabId,0,-1,details.url);
@@ -184,14 +182,12 @@ function onBeforeRequest(details){
   }
 }
 
-function onBeforeSendHeaders(details)
-{
-  if (details.tabId == -1)
+function onBeforeSendHeaders(details) {
+  if (details.tabId == -1){
     return {};
+  }
 
   var type = details.type;
-  /*if (type == "main_frame"){
-  }*/
 
   if (type == "main_frame" || type == "sub_frame"){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
@@ -199,10 +195,11 @@ function onBeforeSendHeaders(details)
 
 
   // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
-  if (type == "sub_frame")
+  if (type == "sub_frame"){
     type = "SUBDOCUMENT";
-  else
+  } else {
     type = type.toUpperCase();
+  }
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
@@ -212,7 +209,7 @@ function onBeforeSendHeaders(details)
     }
     else if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       recordRequestId(details.requestId);
-      CookieBlockList.addDomain(extractHostFromURL(details.url));
+      //CookieBlockList.addDomain(extractHostFromURL(details.url));
       //clobberCookieSetting();
       newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name != "Cookie" && header.name != "Referer");
@@ -227,8 +224,7 @@ function onBeforeSendHeaders(details)
   return {requestHeaders: details.requestHeaders};
 }
 
-function recordFrame(tabId, frameId, parentFrameId, frameUrl)
-{
+function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (frames[tabId] == undefined){
     frames[tabId] = {};
   }
@@ -239,20 +235,17 @@ function recordRequestId(requestId) {
   clobberRequestIds[requestId] = true;
 }
 
-function getFrameData(tabId, frameId)
-{
-  if (tabId in frames && frameId in frames[tabId])
+function getFrameData(tabId, frameId) {
+  if (tabId in frames && frameId in frames[tabId]){
     return frames[tabId][frameId];
-  else if (frameId > 0 && tabId in frames && 0 in frames[tabId])
-  {
+  } else if (frameId > 0 && tabId in frames && 0 in frames[tabId]) {
     // We don't know anything about javascript: or data: frames, use top frame
     return frames[tabId][0];
   }
   return null;
 }
 
-function getFrameUrl(tabId, frameId)
-{
+function getFrameUrl(tabId, frameId) {
   var frameData = getFrameData(tabId, frameId);
   return (frameData ? frameData.url : null);
 }
@@ -263,7 +256,6 @@ function forgetTab(tabId) {
 }
 
 function removeCookiesIfCookieBlocked(baseDomain){
-  console.log('thinking about removing cookies for', baseDomain, CookieBlockList.hasBaseDomain(baseDomain));
   if(CookieBlockList.hasBaseDomain(baseDomain)){
     chrome.cookies.getAll({domain: baseDomain}, function(cookies){
       FakeCookieStore.setCookies(baseDomain, cookies);
@@ -294,7 +286,7 @@ function checkRequest(type, tabId, url, frameId) {
   var documentUrl = getFrameUrl(tabId, frameId);
   if (!documentUrl){
     return false;
-}
+  }
 
   var requestHost = extractHostFromURL(url);
   var documentHost = extractHostFromURL(documentUrl);
@@ -349,8 +341,7 @@ function checkRequest(type, tabId, url, frameId) {
   return false;
 }
 
-function isFrameWhitelisted(tabId, frameId, type)
-{
+function isFrameWhitelisted(tabId, frameId, type) {
   var parent = frameId;
   var parentData = getFrameData(tabId, parent);
   while (parentData)
@@ -363,8 +354,9 @@ function isFrameWhitelisted(tabId, frameId, type)
 
     var frameUrl = frameData.url;
     var parentUrl = (parentData ? parentData.url : frameUrl);
-    if ("keyException" in frameData || isWhitelisted(frameUrl, parentUrl, type))
+    if ("keyException" in frameData || isWhitelisted(frameUrl, parentUrl, type)){
       return true;
+    }
   }
   return false;
 }

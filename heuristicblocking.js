@@ -1,15 +1,13 @@
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 
-with(require("filterClasses"))
-{
+with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
   this.BlockingFilter = BlockingFilter;
   this.WhitelistFilter = WhitelistFilter;
 }
-with(require("subscriptionClasses"))
-{
+with(require("subscriptionClasses")) {
   this.Subscription = Subscription;
   this.DownloadableSubscription = DownloadableSubscription;
   this.SpecialSubscription = SpecialSubscription;
@@ -53,10 +51,11 @@ var sendXHR = function(params) {
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
-      if (xhr.status == 200)
+      if (xhr.status == 200){
         console.log("Successfully submitted params: " + params);
-      else
+      } else {
         console.log("Error submitting params: " + params);
+      }
     }
   }
   xhr.send(params);
@@ -65,11 +64,13 @@ var sendXHR = function(params) {
 // this is missing parameters, and is not in use in the live extension
 var sendTestingData = function() {
     var cookieSentPrevalence = 0;
-    if (origin in cookieSentOriginFrequency)
+    if (origin in cookieSentOriginFrequency) {
       cookieSentPrevalence = Object.keys(cookieSentOriginFrequency[origin]).length;
+    }
     var cookieSetPrevalence = 0;
-    if (origin in cookieSetOriginFrequency)
+    if (origin in cookieSetOriginFrequency) {
       cookieSetPrevalence = Object.keys(cookieSetOriginFrequency[origin]).length;
+    }
     var reqParams = []
     reqParams.push("origin="+origin);
     reqParams.push("thirdpartynum="+httpRequestPrevalence);
@@ -83,8 +84,9 @@ var sendTestingData = function() {
 
 var needToSendOrigin = function(origin, httpRequestPrevalence) {
   // don't send third party domains that don't meet minimum test threshold
-  if (httpRequestPrevalence < testThreshold)
+  if (httpRequestPrevalence < testThreshold) {
     return false;
+  }
   // only send an origin every 6 hours
   var currentTime = new Date();
   if (!(origin in lastSentXhr)) {
@@ -99,37 +101,22 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
   }
   return false;
 }
+/******* FUNCTIONS FOR TESTING END HERE ********/
+
 function addFiltersFromWhitelistToCookieblock(origin){
   var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter
   for(filter in filters){
     var domain = getDomainFromFilter(filter)
     var baseDomain = getBaseDomain(domain);
     if(baseDomain == origin){
-      console.log('ADDING to cookieblock list', baseDomain);
-      CookieBlockList.addDomain(domain);
-      chrome.cookies.getAll({domain: baseDomain}, function(cookies){
-        FakeCookieStore.setCookies(baseDomain, cookies);
-        if(!checkDomainOpenInTab(baseDomain)){ 
-          for(var i = 0; i < cookies.length; i++){
-            console.log('removing cookie for', cookies[i].domain);
-            var details = {
-              url: buildCookieUrl(cookies[i]), 
-              name: cookies[i].name, 
-              storeId: cookies[i].storeId
-            }
-            chrome.cookies.remove(details, function(details){
-              console.log('removed cookie for', details);
-            });
-          }
-        }
-      });
+      setupCookieBlocking(baseDomain);
     }
   }
 }
+
 function getDomainFromFilter(filter){
   return filter.match('[|][|]([^\^]*)')[1]
 }
-/******* FUNCTIONS FOR TESTING END HERE ********/
 
 //asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
 var checkPrivacyBadgerPolicy = function(origin, callback){
@@ -158,7 +145,7 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
 
 var unblockOrigin = function(origin){
   var filter = Filter.fromText("||" + origin + "^$third-party");
-  var policySubscription = FilterStorage.knownSubscriptions["userBlue"];
+  var policySubscription = FilterStorage.knownSubscriptions["userGreen"];
   FilterStorage.removeFilter(filter);
   FilterStorage.addFilter(filter, policySubscription);
 }
@@ -182,7 +169,7 @@ var blacklistOrigin = function(origin) {
 
       filter.disabled = false;
       if (!testing) {
-        FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions["userBlue"]);
+        FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions["userGreen"]);
         FilterStorage.addFilter(filter, heuristicSubscription);
       }
     }
@@ -281,8 +268,9 @@ var heuristicBlockingAccounting = function(details) {
   // Increment counts of how many first party domains we've seen a third party track on
 
   // Ignore requests that are outside a tabbed window
-  if(details.tabId < 0)
+  if(details.tabId < 0){
     return { };
+  }
   
   var origin = getBaseDomain(new URI(details.url).host);
   
@@ -345,8 +333,9 @@ chrome.webRequest.onResponseStarted.addListener(function(details) {
     var origin = getBaseDomain(new URI(details.url).host);
     var tabOrigin = tabOrigins[details.tabId];
     if (origin != tabOrigin) {
-      if(!(origin in cookieSetOriginFrequency))
+      if(!(origin in cookieSetOriginFrequency)){
         cookieSetOriginFrequency[origin] = { };
+      }
       cookieSetOriginFrequency[origin][tabOrigin] = true;
     }
   }

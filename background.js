@@ -296,9 +296,9 @@ function addSubscription(prevVersion)
   var userYellow = new SpecialSubscription("userYellow", "userYellow");
   FilterStorage.addSubscription(userYellow);
 
-  // Add userBlue Subscription
-  var userBlue = new SpecialSubscription("userBlue", "userBlue");
-  FilterStorage.addSubscription(userBlue);
+  // Add userGreen Subscription
+  var userGreen = new SpecialSubscription("userGreen", "userGreen");
+  FilterStorage.addSubscription(userGreen);
 
   if (!addSubscription)
     return;
@@ -411,6 +411,15 @@ function getFrameId(tabId, url)
     }
   }
   return -1;
+}
+
+function setupCookieBlocking(domain){
+  //adds domain to cookie block list and moves all cookies into the cookie store
+  var baseDomain = getBaseDomain(domain);
+  //console.log('ADDING to cookieblock list', baseDomain);
+  CookieBlockList.addDomain(domain, function(){
+    removeCookiesIfCookieBlocked(baseDomain);
+  });
 }
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)

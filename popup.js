@@ -17,7 +17,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
@@ -101,7 +101,7 @@ function revertDomainControl(e){
   var original_action = $elm.data('original-action');
   var stores = {'block': 'userRed', 
                 'cookieblock': 'userYellow', 
-                'noaction': 'userBlue'};
+                'noaction': 'userGreen'};
   var filter = "||" + origin + "^$third-party";
   var store = stores[original_action];
   console.log('REVERT DOMAIN CONTROL FOR', filter, store);
@@ -210,13 +210,12 @@ function refreshPopup(tabId) {
   }
   // old text that could go in printable: 
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it; 
-  // yellow: only cookies blocked; blue: no blocking yet";
+  // yellow: only cookies blocked; green: no blocking yet";
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, getAction(tabId, origin));
-    console.log('adding html for', origin, getAction(tabId, origin));
   }
   document.getElementById("blockedResources").innerHTML = printable;
   $('.clicker').click(function() {
@@ -255,7 +254,7 @@ function hideTooltip(event){
 function saveAction(userAction, origin) {
   var allUserActions = {'block': 'userRed', 
                         'cookieblock': 'userYellow', 
-                        'noaction': 'userBlue'};
+                        'noaction': 'userGreen'};
   console.log("Saving user action " + userAction + " for " + origin);
   for (var action in allUserActions) {
     var filter = Filter.fromText("||" + origin + "^$third-party");
@@ -268,6 +267,12 @@ function saveAction(userAction, origin) {
     }
   }
   console.log("Finished saving action " + userAction + " for " + origin);
+  
+  //remove cookies if a user has just cookieblocked
+  if(userAction == 'cookieblock'){
+    setupCookieBlocking(origin);
+  }
+
   // todo: right now we don't determine whether a reload is needed
   return true;
 }
