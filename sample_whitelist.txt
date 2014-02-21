@@ -350,3 +350,4 @@
 @@||developers.google.com^$third-party
 @@||checkout.google.com^$third-party
 @@||public.tableausoftware.com^$third-party
+@@||talkgadget.google.com^$third-party
