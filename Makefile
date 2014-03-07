@@ -1,5 +1,7 @@
 build:
 	python build.py -t chrome build -k dummy-chromium.pem $1
+clean:
+	rm -rf buildtools/jshydra/mozilla
 todo:
 	grep -rn 'TODO' *.js helpers lib models styles test/unit views templates
 logging:
