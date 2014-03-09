@@ -95,6 +95,7 @@ function onCookieChanged(changeInfo){
       return;
     } else {
       if(FakeCookieStore.cookies[cookieDomain]) {
+        console.log('removing cookies for', cookieDomain, 'from fake cookie store');
         FakeCookieStore.removeCookie(cookieDomain, cookie.name);
       }
     }
@@ -105,7 +106,7 @@ function onCookieChanged(changeInfo){
     //likely a tab change caused this so wait until a little bit in the future to make sure the domain is still open to prevent a race condition
     setTimeout(function(){
       if(!checkDomainOpenInTab(cookieDomain)){
-        console.log('removing cookies for domain from real cookie store',cookieDomain);
+        console.log('!!! removing cookies for domain from real cookie store',cookieDomain);
         chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name});
       }
     }, 1000);
@@ -172,7 +173,11 @@ function onBeforeRequest(details){
     var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
     var fakeCookies = FakeCookieStore.getCookies(newDomain);
     if(tabChangesDomains(newDomain,oldDomain)){ 
-      removeCookiesIfCookieBlocked(oldDomain);
+      console.log('TAB CHANGED DOMAINS', oldDomain, newDomain);
+      if(!checkDomainOpenInTab(oldDomain)){
+        console.log('REMOVING COOKIES BECAUSE OF DOMAIN CHANGE FOR TAB', oldDomain);
+        removeCookiesIfCookieBlocked(oldDomain);
+      }
     }
 
     if(!checkDomainOpenInTab(newDomain)){
