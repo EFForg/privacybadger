@@ -21,6 +21,9 @@
   "description": "__MSG_description__",
   "default_locale": "en_US",
   "version": {{version|json}},
+  "author": { 
+    "email": "eff.software.projects@gmail.com"
+  },
 
   {%- if metadata.has_section('compat') and metadata.has_option('compat', 'chrome') %}
   "minimum_chrome_version": {{metadata.get('compat', 'chrome')|json}},
