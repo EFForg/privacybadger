@@ -1,6 +1,6 @@
 [general]
 basename = privacy_badger
-version = 2014.2.15
+version = 2014.3.13
 backgroundScripts = lib/compat.js
   lib/io.js
   lib/adblockplus.js
