@@ -121,26 +121,21 @@ function getDomainFromFilter(filter){
 //asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
 var checkPrivacyBadgerPolicy = function(origin, callback){
   var knownGoodHash = "149a5d0712048423adbab13d7353a2939488561c";
-  var xhr = new XMLHttpRequest();
-  var success = false;
+  var successStatus = false;
   //this origin has already been parsed by heuristicBlockingAccounting so we assume it to be string safe
   var url = "https://" + origin + "/.well-known/dnt-policy.txt";
-  xhr.onreadystatechange = function(){
-    //on done
-    if(xhr.readyState == xhr.DONE){
-      //on success
-      if(xhr.status == 200 && xhr.responseText){
-        var hash = SHA1(xhr.responseText);
-        //on hashes match
-        if(hash == knownGoodHash){
-          success = true;
-        }
-      }
-      callback(success);
+
+  xhrRequest(url,function(err,response){
+    if(err){
+      console.error('Problem fetching privacy badger policy at', url, err.status, err.message);
+      callback(successStatus)
     }
-  }
-  xhr.open("GET", url, true);
-  xhr.send();
+    var hash = SHA1(response);
+    if(isValidPolicyHash(hash)){
+      success = true;
+    }
+    callback(successStatus);
+  });
 }
 
 var unblockOrigin = function(origin){
@@ -342,3 +337,4 @@ chrome.webRequest.onResponseStarted.addListener(function(details) {
 },
 {urls: ["<all_urls>"]},
 ["responseHeaders"]);
+
