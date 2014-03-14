@@ -545,3 +545,34 @@ chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
     refreshIconAndContextMenu(tab);
   });
 });
+
+// Fetch acceptable privacy policy hashes from the EFF server
+function updatePrivacyPolicyHashes(){
+  var url = "https://eff.org/files/privacyBadgerHashes.txt";
+  xhrRequest(url,function(err,response){
+    if(err){
+      console.error('Problem fetching privacy badger policy hash list at', url, err.status, err.message);
+      return;
+    }
+    localStorage['badgerHashes'] = response;
+  });
+}
+
+//refresh hashes every 24 hours and also once on startup.
+setTimeout(updatePrivacyPolicyHashes,86400000)
+updatePrivacyPolicyHashes();
+
+//check if a given hash is the hash of a valid privacy policy
+function isValidPolicyHash(hash){
+  if(!localStorage['badgerHashes']){
+    console.error('No privacy badger policy hashes in storage! Refreshing...');
+    updatePrivacyPolicyHashes();
+    return false;
+  }
+
+  var hashes = JSON.parse(localStorage['badgerHashes']);
+  for(key in hashes){
+    if(hash === hashes[key]){ return true; }
+  }
+  return false;
+}
