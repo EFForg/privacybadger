@@ -548,7 +548,7 @@ chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
 
 // Fetch acceptable privacy policy hashes from the EFF server
 function updatePrivacyPolicyHashes(){
-  var url = "https://eff.org/files/privacyBadgerHashes.txt";
+  var url = "https://eff.org/files/dnt-policies.json";
   xhrRequest(url,function(err,response){
     if(err){
       console.error('Problem fetching privacy badger policy hash list at', url, err.status, err.message);
