@@ -106,3 +106,7 @@ font-size: 16px;
   padding-top: 5px;
   color: #4183c4;
 }
+#thirdPartyCookiesError {
+  background-color: #f00;
+  color: #f0f0f0;
+}

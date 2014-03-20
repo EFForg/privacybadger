@@ -17,7 +17,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "checkIfThirdPartyCookiesAreEnabled", "enableThirdPartyCookies"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
@@ -46,10 +46,19 @@ function init()
   // Attach event listeners
   $("#activate_btn").click(activate);
   $("#deactivate_btn").click(deactivate);
+  $("#enableCookies").click(enableThirdPartyCookies);
+  $("#enableCookies").click(function(){
+    $('#thirdPartyCookiesError').hide();
+  });
   //$("#enabled").click(toggleEnabled);
   
   // Initialize based on activation state
   $(document).ready(function () {
+    checkIfThirdPartyCookiesAreEnabled(function(enabled){
+      if(!enabled){
+        $('#thirdPartyCookiesError').show();
+      }
+    });
     if(localStorage.enabled == "false")
     {
       $("#activate_btn").show();

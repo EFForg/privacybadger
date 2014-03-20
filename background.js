@@ -55,6 +55,7 @@ var seenDataCorruption = false;
 chrome.windows.onCreated.addListener(function(){
   CookieBlockList.updateDomains();
   FakeCookieStore.updateCookies();
+  
 });
 chrome.storage.onChanged.addListener(function(){
   CookieBlockList.updateDomains();
@@ -575,4 +576,14 @@ function isValidPolicyHash(hash){
     if(hash === hashes[key]){ return true; }
   }
   return false;
+}
+
+function checkIfThirdPartyCookiesAreEnabled(callback){
+  chrome.privacy.websites.thirdPartyCookiesAllowed.get({}, function(details){
+    callback(!!details.value);
+  });
+}
+
+function enableThirdPartyCookies(){
+  chrome.privacy.websites.thirdPartyCookiesAllowed.set({'value': true, 'scope': 'regular'});
 }
