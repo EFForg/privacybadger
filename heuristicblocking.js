@@ -17,6 +17,7 @@ var matcherStore = require("matcher").matcherStore;
 var Synchronizer = require("synchronizer").Synchronizer;
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var FakeCookieStore = require("fakecookiestore").FakeCookieStore;
+var Utils = require("utils").Utils;
 var tabOrigins = { };
 var cookieSentOriginFrequency = { };
 var cookieSetOriginFrequency = { };
@@ -118,17 +119,43 @@ function getDomainFromFilter(filter){
   return filter.match('[|][|]([^\^]*)')[1]
 }
 
+//boolean are there any acceptable privacy policy hashes
+function privacyHashesDoExist(){
+  return !! localStorage['badgerHashes'] && Object.keys(JSON.parse(localStorage['badgerHashes'])).length > 0;
+}
+
+//check if a given hash is the hash of a valid privacy policy
+function isValidPolicyHash(hash){
+  if(!privacyHashesDoExist()){
+    console.error('No privacy badger policy hashes in storage! Refreshing...');
+    updatePrivacyPolicyHashes();
+    return false;
+  }
+
+  var hashes = JSON.parse(localStorage['badgerHashes']);
+  for(key in hashes){
+    if(hash === hashes[key]){ return true; }
+  }
+  return false;
+}
+
+
 //asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
 var checkPrivacyBadgerPolicy = function(origin, callback){
-  var knownGoodHash = "149a5d0712048423adbab13d7353a2939488561c";
   var successStatus = false;
-  //this origin has already been parsed by heuristicBlockingAccounting so we assume it to be string safe
   var url = "https://" + origin + "/.well-known/dnt-policy.txt";
 
-  xhrRequest(url,function(err,response){
+  if(!privacyHashesDoExist()){
+    console.log('not checking for privacy policy because there are no acceptable hashes!');
+    callback(successStatus);
+    return;
+  }
+
+  Utils.xhrRequest(url,function(err,response){
     if(err){
       console.error('Problem fetching privacy badger policy at', url, err.status, err.message);
       callback(successStatus)
+      return;
     }
     var hash = SHA1(response);
     if(isValidPolicyHash(hash)){

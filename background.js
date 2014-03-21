@@ -550,7 +550,7 @@ chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
 // Fetch acceptable privacy policy hashes from the EFF server
 function updatePrivacyPolicyHashes(){
   var url = "https://eff.org/files/dnt-policies.json";
-  xhrRequest(url,function(err,response){
+  Utils.xhrRequest(url,function(err,response){
     if(err){
       console.error('Problem fetching privacy badger policy hash list at', url, err.status, err.message);
       return;
@@ -562,21 +562,6 @@ function updatePrivacyPolicyHashes(){
 //refresh hashes every 24 hours and also once on startup.
 setTimeout(updatePrivacyPolicyHashes,86400000)
 updatePrivacyPolicyHashes();
-
-//check if a given hash is the hash of a valid privacy policy
-function isValidPolicyHash(hash){
-  if(!localStorage['badgerHashes']){
-    console.error('No privacy badger policy hashes in storage! Refreshing...');
-    updatePrivacyPolicyHashes();
-    return false;
-  }
-
-  var hashes = JSON.parse(localStorage['badgerHashes']);
-  for(key in hashes){
-    if(hash === hashes[key]){ return true; }
-  }
-  return false;
-}
 
 function checkIfThirdPartyCookiesAreEnabled(callback){
   chrome.privacy.websites.thirdPartyCookiesAllowed.get({}, function(details){
