@@ -45,7 +45,7 @@ RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
 RegExpFilter.typeMap.MEDIA = RegExpFilter.typeMap.FONT = RegExpFilter.typeMap.OTHER;
 
 if (!("whitelistUrl" in localStorage))
-  localStorage.whitelistUrl = "https://www.eff.org/files/sample_whitelist.txt";;
+  localStorage.whitelistUrl = "https://www.eff.org/files/cookieblocklist.txt";;
 
 var whitelistUrl = localStorage.whitelistUrl;
 var isFirstRun = false;
