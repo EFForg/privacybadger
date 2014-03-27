@@ -47,6 +47,7 @@ a:hover { color: #eeeeff }
   padding: 5px;
   height: 35px;
 }
+.clicker.greyed { background: #aaa; }
 .origin{
   width: 60%;
   color: #555555;

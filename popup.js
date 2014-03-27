@@ -37,6 +37,7 @@ with(require("subscriptionClasses"))
 }
 var FilterStorage = require("filterStorage").FilterStorage;
 var matcherStore = require("matcher").matcherStore;
+var Utils = require("utils").Utils;
 
 var tab = null;
 
@@ -46,6 +47,8 @@ function init()
   // Attach event listeners
   $("#activate_btn").click(activate);
   $("#deactivate_btn").click(deactivate);
+  $("#activate_site_btn").click(active_site);
+  $("#deactivate_site_btn").click(deactive_site);
   $("#enableCookies").click(enableThirdPartyCookies);
   $("#enableCookies").click(function(){
     $('#thirdPartyCookiesError').hide();
@@ -59,11 +62,9 @@ function init()
         $('#thirdPartyCookiesError').show();
       }
     });
-    if(localStorage.enabled == "false")
-    {
+    if(!Utils.isPrivacyBadgerEnabled()) {
       $("#activate_btn").show();
       $("#deactivate_btn").hide();
-      $(".clicker").toggleClass("greyed");
     }
     $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
@@ -80,8 +81,11 @@ function init()
     chrome.tabs.getSelected(w.id, function(t)
     {
       tab = t;
-//      document.getElementById("enabled").checked = !isWhitelisted(tab.url);
-      document.getElementById("enabledCheckboxAndLabel").style.display = "block";
+      if(!Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url))) {
+        $("#activate_site_btn").show();
+        $("#deactivate_site_btn").hide();
+        $(".clicker").toggleClass("greyed");
+      }
     });
   });
 }
@@ -102,6 +106,23 @@ function deactivate() {
   localStorage.enabled = "false";
   refreshIconAndContextMenu(tab);
 }
+
+function active_site(){
+  $("#activate_site_btn").toggle();
+  $("#deactivate_site_btn").toggle();
+  $(".clicker").toggleClass("greyed");
+  Utils.enablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
+  refreshIconAndContextMenu(tab);
+}
+
+function deactive_site(){
+  $("#activate_site_btn").toggle();
+  $("#deactivate_site_btn").toggle();
+  $(".clicker").toggleClass("greyed");
+  Utils.disablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
+  refreshIconAndContextMenu(tab);
+}
+
 
 function revertDomainControl(e){
   $elm = $(e.target).parent();
@@ -129,7 +150,7 @@ function _addOriginHTML(origin, printable, action) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker"];
   var feedTheBadgerTitle = '';
-  if(localStorage.enabled == "false")
+  if(!Utils.isPrivacyBadgerEnabled())
     classes.push("greyed");
   if (action.indexOf("user") == 0) {
     feedTheBadgerTitle = "click to return control of this tracker to Privacy Badger"; 
@@ -227,10 +248,6 @@ function refreshPopup(tabId) {
     printable = _addOriginHTML(origin, printable, getAction(tabId, origin));
   }
   document.getElementById("blockedResources").innerHTML = printable;
-  $('.clicker').click(function() {
-    //if (localStorage.enabled == "true")
-      //toggleBlockedStatus(this);
-  });
   console.log("Done refreshing popup");
 }
 

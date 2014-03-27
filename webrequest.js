@@ -43,10 +43,12 @@ FilterNotifier.addListener(onFilterNotifier);
 
 /* functions */
 function onTabRemoved(tabId){
-  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
   forgetTab(tabId);
-  if(!checkDomainOpenInTab(baseDomain)){
-    removeCookiesIfCookieBlocked(baseDomain);
+  if(Utils.isPrivacyBadgerEnabled()){
+    var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
+    if(!checkDomainOpenInTab(baseDomain)){
+      removeCookiesIfCookieBlocked(baseDomain);
+    }
   }
 };
 
@@ -102,7 +104,7 @@ function onCookieChanged(changeInfo){
   }
 
   // we check against the base domain because its okay for a site to set cookies for .example.com or www.example.com
-  if(CookieBlockList.hasBaseDomain(cookieDomain)){
+  if(CookieBlockList.hasBaseDomain(cookieDomain) && Utils.isPrivacyBadgerEnabled()){
     //likely a tab change caused this so wait until a little bit in the future to make sure the domain is still open to prevent a race condition
     setTimeout(function(){
       if(!checkDomainOpenInTab(cookieDomain)){
@@ -168,7 +170,7 @@ function onBeforeRequest(details){
 
   var type = details.type;
 
-  if (type == "main_frame"){
+  if (type == "main_frame" && Utils.isPrivacyBadgerEnabled()){
     var newDomain = getBaseDomain(extractHostFromURL(details.url));
     var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
     var fakeCookies = FakeCookieStore.getCookies(newDomain);
@@ -185,6 +187,10 @@ function onBeforeRequest(details){
       addCookiesToRealCookieStore(fakeCookies);
     }
   }
+}
+
+function getHostForTab(tabId){
+  return extractHostFromURL(frames[tabId][0].url);
 }
 
 function onBeforeSendHeaders(details) {
@@ -208,7 +214,8 @@ function onBeforeSendHeaders(details) {
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
-  if (requestAction && localStorage.enabled == "true") {
+  if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
+    console.log('privacy badger is enabled!, checking');
     if (requestAction == "block" || requestAction == "userblock") {
       return {cancel: true};
     }
