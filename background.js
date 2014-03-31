@@ -572,3 +572,22 @@ function checkIfThirdPartyCookiesAreEnabled(callback){
 function enableThirdPartyCookies(){
   chrome.privacy.websites.thirdPartyCookiesAllowed.set({'value': true, 'scope': 'regular'});
 }
+
+function moveCookiesToFakeCookieStore(){
+  console.log('moving cookies to fake cookie store');
+  CookieBlockList.domains.forEach(function(origin){
+    var baseDomain = getBaseDomain(origin);
+    if(!checkDomainOpenInTab(baseDomain)){
+      removeCookiesIfCookieBlocked(baseDomain);
+    }
+  });
+}
+
+function moveCookiesToRealCookieStore(){
+  console.log('moving cookies to real cookie store');
+  for(var domain in FakeCookieStore.cookies){
+    if(!checkDomainOpenInTab(domain)){
+      addCookiesToRealCookieStore(FakeCookieStore.cookies[domain]);
+    }
+  }
+}
