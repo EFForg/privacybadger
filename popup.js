@@ -17,7 +17,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "checkIfThirdPartyCookiesAreEnabled", "enableThirdPartyCookies"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "checkIfThirdPartyCookiesAreEnabled", "enableThirdPartyCookies", "moveCookiesToRealCookieStore", "moveCookiesToFakeCookieStore"];
 for (var i = 0; i < imports.length; i++)
   window[imports[i]] = backgroundPage[imports[i]];
 
@@ -63,8 +63,10 @@ function init()
       }
     });
     if(!Utils.isPrivacyBadgerEnabled()) {
+      $('#blockedResourcesContainer').hide();
       $("#activate_btn").show();
       $("#deactivate_btn").hide();
+      $("#siteControls").hide();
     }
     $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
@@ -82,9 +84,9 @@ function init()
     {
       tab = t;
       if(!Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url))) {
+        $("#blockedResourcesContainer").hide();
         $("#activate_site_btn").show();
         $("#deactivate_site_btn").hide();
-        $(".clicker").toggleClass("greyed");
       }
     });
   });
@@ -94,15 +96,19 @@ $(init);
 function activate() {
   $("#activate_btn").toggle();
   $("#deactivate_btn").toggle();
-  $(".clicker").toggleClass("greyed");
+  $("#blockedResourcesContainer").show();
+  $("#siteControls").show();
   localStorage.enabled = "true";
+  moveCookiesToFakeCookieStore();
   refreshIconAndContextMenu(tab);
 }
 
 function deactivate() {
   $("#activate_btn").toggle();
   $("#deactivate_btn").toggle();
-  $(".clicker").toggleClass("greyed");
+  $("#blockedResourcesContainer").hide();
+  $("#siteControls").hide();
+  moveCookiesToRealCookieStore();
   localStorage.enabled = "false";
   refreshIconAndContextMenu(tab);
 }
@@ -110,7 +116,7 @@ function deactivate() {
 function active_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
-  $(".clicker").toggleClass("greyed");
+  $("#blockedResourcesContainer").show();
   Utils.enablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
   refreshIconAndContextMenu(tab);
 }
@@ -118,7 +124,7 @@ function active_site(){
 function deactive_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
-  $(".clicker").toggleClass("greyed");
+  $("#blockedResourcesContainer").hide();
   Utils.disablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
   refreshIconAndContextMenu(tab);
 }
@@ -150,8 +156,6 @@ function _addOriginHTML(origin, printable, action) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker"];
   var feedTheBadgerTitle = '';
-  if(!Utils.isPrivacyBadgerEnabled())
-    classes.push("greyed");
   if (action.indexOf("user") == 0) {
     feedTheBadgerTitle = "click to return control of this tracker to Privacy Badger"; 
     classes.push("userset");

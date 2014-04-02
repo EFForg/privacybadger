@@ -43,9 +43,9 @@ FilterNotifier.addListener(onFilterNotifier);
 
 /* functions */
 function onTabRemoved(tabId){
+  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
   forgetTab(tabId);
   if(Utils.isPrivacyBadgerEnabled()){
-    var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
     if(!checkDomainOpenInTab(baseDomain)){
       removeCookiesIfCookieBlocked(baseDomain);
     }
@@ -174,6 +174,7 @@ function onBeforeRequest(details){
     var newDomain = getBaseDomain(extractHostFromURL(details.url));
     var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
     var fakeCookies = FakeCookieStore.getCookies(newDomain);
+    forgetTab(details.tabId);
     if(tabChangesDomains(newDomain,oldDomain)){ 
       console.log('TAB CHANGED DOMAINS', oldDomain, newDomain);
       if(!checkDomainOpenInTab(oldDomain)){
@@ -185,6 +186,8 @@ function onBeforeRequest(details){
     if(!checkDomainOpenInTab(newDomain)){
       recordFrame(details.tabId,0,-1,details.url);
       addCookiesToRealCookieStore(fakeCookies);
+    } else {
+      recordFrame(details.tabId,0,-1,details.url);
     }
   }
 }
