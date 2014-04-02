@@ -317,3 +317,4 @@
 @@||checkout.google.com^$third-party
 @@||public.tableausoftware.com^$third-party
 @@||talkgadget.google.com^$third-party
+@@||cdn.sstatic.net^$third-party
