@@ -29,7 +29,7 @@ var lastSentXhr = { };
 var testing = false;
 var testThreshold = 3;
 var numMinutesToWait = 120;
-var whitelistName =  "https://www.eff.org/files/sample_whitelist.txt";
+var whitelistName =  "https://www.eff.org/files/cookieblocklist.txt";
 // local storage for alpha test extension
 // todo? not even close to CSPRNG :)
 // todo? this is async; not ideal but it'll do
