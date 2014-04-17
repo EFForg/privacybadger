@@ -68,7 +68,7 @@ function init()
       $("#deactivate_btn").hide();
       $("#siteControls").hide();
     }
-    $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
+    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
@@ -198,9 +198,9 @@ function _addToggleHtml(origin, action){
   var output = "";
   output += '<div class="switch-container ' + action + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">'
-  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label tooltip="click here to block this tracker entirely" class="tooltip actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
-  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="click here to block this tracker from setting cookies" class="tooltip actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
-  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label tooltip="click here to allow this tracker" class="tooltip actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
+  output += '<input id="block-' + origin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label tooltip="click here to block this tracker entirely" class="tooltip actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
+  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="click here to block this tracker from setting cookies" class="tooltip actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
+  output += '<input id="noaction-' + origin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label tooltip="click here to allow this tracker" class="tooltip actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
   output += '<a></a></div></div>';
   return output;
 }
@@ -252,6 +252,29 @@ function refreshPopup(tabId) {
     printable = _addOriginHTML(origin, printable, getAction(tabId, origin));
   }
   document.getElementById("blockedResources").innerHTML = printable;
+  console.log('switch-container' , $('.switch-container'));
+  $('.switch-toggle').each(function(){
+    var radios = $(this).children('input');
+    var value = $(this).children('input:checked').val();
+    var userHandle = $(this).children('a');
+    var slider = $("<div></div>").slider({
+      min: 0,
+      max: 2,
+      value: value,
+      create: function(event, ui){
+        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+      },
+      slide: function(event, ui) {
+        radios.filter("[value=" + ui.value + "]").click();
+      },
+      stop: function(event, ui){
+        $(ui.handle).css('margin-left', -16 * ui.value + "px")
+      },
+    }).appendTo(this);
+    radios.change(function(){
+      slider.slider("value",radios.filter(':checked').val());
+    });
+  });
   console.log("Done refreshing popup");
 }
 
@@ -261,7 +284,8 @@ function reloadPage() {
 }
 
 function updateOrigin(event){
-  var $elm = $(event.currentTarget);
+  var $elm = $('label[for="' + event.currentTarget.id + '"]');
+  console.log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
@@ -324,7 +348,6 @@ function syncSettingsDict(settingsDict) {
   refreshPopup(tabId);
   return reloadNeeded;
 }
-
 function getCurrentClass(elt) {
   if ($(elt).hasClass("block"))
     return "block";
