@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI position documentation</title>
+
+	<style>
+	body {
+		font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
+	}
+	.gutter {
+		display: none;
+	}
+	</style>
+</head>
+<body>
+
+<script>{
+		"title":
+			".position()",
+		"excerpt":
+			"Position an element relative to another.",
+		"termSlugs": {
+			"category": [
+				"methods","overrides","utilities"
+			]
+		}
+	}</script><article id="position1" class="entry method"><h2 class="section-title">
+<span class="name">.position( options )</span><span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a></span><span class="version-details">version added: 1.8</span>
+</h2>
+<div class="entry-wrapper">
+<p class="desc"><strong>Description: </strong>Position an element relative to another.</p>
+<ul class="signatures"><li class="signature">
+<h4 class="name"><a id="position-options" href="#position-options"><span class="icon-link"></span>.position( options )</a></h4>
+<ul><li>
+<div><strong>options</strong></div>
+<div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
+</div>
+<div></div>
+<ul>
+<li>
+<div>
+<strong>my</strong> (default: <code>"center"</code>)</div>
+<div>Type: <a href="http://api.jquery.com/Types/#String">String</a>
+</div>
+<div>Defines which position <strong>on the element being positioned</strong> to align with the target element: "horizontal vertical" alignment. A single value such as <code>"right"</code> will be normalized to <code>"right center"</code>, <code>"top"</code> will be normalized to <code>"center top"</code> (following CSS convention). Acceptable horizontal values: <code>"left"</code>, <code>"center"</code>, <code>"right"</code>. Acceptable vertical values: <code>"top"</code>, <code>"center"</code>, <code>"bottom"</code>. Example: <code>"left top"</code> or <code>"center center"</code>. Each dimension can also contain offsets, in pixels or percent, e.g., <code>"right+10 top-25%"</code>. Percentage offsets are relative to the element being positioned.</div>
+</li>
+<li>
+<div>
+<strong>at</strong> (default: <code>"center"</code>)</div>
+<div>Type: <a href="http://api.jquery.com/Types/#String">String</a>
+</div>
+<div>Defines which position <strong>on the target element</strong> to align the positioned element against: "horizontal vertical" alignment. See the <a href="#option-my"><code>my</code></a> option for full details on possible values. Percentage offsets are relative to the target element.</div>
+</li>
+<li>
+<div>
+<strong>of</strong> (default: <code>null</code>)</div>
+<div>Type: <a href="http://api.jquery.com/Types/#Selector">Selector</a> or <a href="http://api.jquery.com/Types/#Element">Element</a> or <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> or <a href="http://api.jquery.com/Types/#Event">Event</a>
+</div>
+<div>Which element to position against. If you provide a selector or jQuery object, the first matching element will be used. If you provide an event object, the <code>pageX</code> and <code>pageY</code> properties will be used. Example: <code>"#top-menu"</code>
+</div>
+</li>
+<li>
+<div>
+<strong>collision</strong> (default: <code>"flip"</code>)</div>
+<div>Type: <a href="http://api.jquery.com/Types/#String">String</a>
+</div>
+<div>
+					<p>When the positioned element overflows the window in some direction, move it to an alternative position. Similar to <a href="#option-my"><code>my</code></a> and <a href="#option-at"><code>at</code></a>, this accepts a single value or a pair for horizontal/vertical, e.g., <code>"flip"</code>, <code>"fit"</code>, <code>"fit flip"</code>, <code>"fit none"</code>.</p>
+					<ul>
+						<li>
+<code>"flip"</code>: Flips the element to the opposite side of the target and the collision detection is run again to see if it will fit. Whichever side allows more of the element to be visible will be used.</li>
+						<li>
+<code>"fit"</code>: Shift the element away from the edge of the window.</li>
+						<li>
+<code>"flipfit"</code>: First applies the flip logic, placing the element on whichever side allows more of the element to be visible. Then the fit logic is applied to ensure as much of the element is visible as possible.</li>
+						<li>
+<code>"none"</code>: Does not apply any collision detection.</li>
+					</ul>
+				</div>
+</li>
+<li>
+<div>
+<strong>using</strong> (default: <code>null</code>)</div>
+<div>Type: <a href="http://api.jquery.com/Types/#Function">Function</a>()</div>
+<div>
+					When specified, the actual property setting is delegated to this callback. Receives two parameters: The first is a hash of <code>top</code> and <code>left</code> values for the position that should be set and can be forwarded to <code>.css()</code> or <code>.animate()</code>.
+					<p>The second provides feedback about the position and dimensions of both elements, as well as calculations to their relative position. Both <code>target</code> and <code>element</code> have these properties: <code>element</code>, <code>left</code>, <code>top</code>, <code>width</code>, <code>height</code>. In addition, there's <code>horizontal</code>, <code>vertical</code> and <code>important</code>, giving you twelve potential directions like <code>{ horizontal: "center", vertical: "left", important: "horizontal" }</code>.</p>
+				</div>
+</li>
+<li>
+<div>
+<strong>within</strong> (default: <code>window</code>)</div>
+<div>Type: <a href="http://api.jquery.com/Types/#Selector">Selector</a> or <a href="http://api.jquery.com/Types/#Element">Element</a> or <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+</div>
+<div>Element to position within, affecting collision detection. If you provide a selector or jQuery object, the first matching element will be used.</div>
+</li>
+</ul>
+</li></ul>
+</li></ul>
+<div class="longdesc" id="entry-longdesc">
+		<p>The jQuery UI <code>.position()</code> method allows you to position an element relative to the window, document, another element, or the cursor/mouse, without worrying about offset parents.</p>
+		<p><em>Note: jQuery UI does not support positioning hidden elements.</em></p>
+		<p>This is a standalone jQuery plugin and has no dependencies on other jQuery UI components.</p>
+		<p>This plugin extends jQuery's built-in <a href="//api.jquery.com/position"><code>.position()</code></a> method. If jQuery UI is not loaded, calling the <code>.position()</code> method may not fail directly, as the method still exists. However, the expected behavior will not occur.</p>
+	</div>
+<section class="entry-examples" id="entry-examples"><header><h2>Example:</h2></header><div class="entry-example" id="example-0">
+<h4><span class="desc">A simple jQuery UI Position example.</span></h4>
+<div class="syntaxhighlighter xml ">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+						<div class="line n22">22</div>
+					
+						<div class="line n23">23</div>
+					
+						<div class="line n24">24</div>
+					
+						<div class="line n25">25</div>
+					
+						<div class="line n26">26</div>
+					
+						<div class="line n27">27</div>
+					
+						<div class="line n28">28</div>
+					
+						<div class="line n29">29</div>
+					
+						<div class="line n30">30</div>
+					
+						<div class="line n31">31</div>
+					
+						<div class="line n32">32</div>
+					
+						<div class="line n33">33</div>
+					
+						<div class="line n34">34</div>
+					
+						<div class="line n35">35</div>
+					
+						<div class="line n36">36</div>
+					
+						<div class="line n37">37</div>
+					
+						<div class="line n38">38</div>
+					
+						<div class="line n39">39</div>
+					
+						<div class="line n40">40</div>
+					
+						<div class="line n41">41</div>
+					
+						<div class="line n42">42</div>
+					
+						<div class="line n43">43</div>
+					
+						<div class="line n44">44</div>
+					
+						<div class="line n45">45</div>
+					
+						<div class="line n46">46</div>
+					
+						<div class="line n47">47</div>
+					
+						<div class="line n48">48</div>
+					
+						<div class="line n49">49</div>
+					
+						<div class="line n50">50</div>
+					
+						<div class="line n51">51</div>
+					
+						<div class="line n52">52</div>
+					
+						<div class="line n53">53</div>
+					
+						<div class="line n54">54</div>
+					
+						<div class="line n55">55</div>
+					
+						<div class="line n56">56</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="doctype">&lt;!doctype html&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">head</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">title</span>&gt;</span>position demo<span class="tag">&lt;/<span class="title">title</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span></code></div></div><div class="container"><div class="line"><code>  <span class="class">.positionDiv</span> <span class="rules">{</span></code></div></div><div class="container"><div class="line"><code>    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute;</span></span></code></div></div><div class="container"><div class="line"><code>    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">75</span>px;</span></span></code></div></div><div class="container"><div class="line"><code>    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">75</span>px;</span></span></code></div></div><div class="container"><div class="line"><code>    <span class="rule"><span class="attribute">background</span>:<span class="value"> green;</span></span></code></div></div><div class="container"><div class="line"><code>  <span class="rule">}</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;/<span class="title">style</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"//code.jquery.com/jquery-1.10.2.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"//code.jquery.com/ui/1.10.4/jquery-ui.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;/<span class="title">head</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">body</span>&gt;</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"targetElement"</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"positionDiv"</span> <span class="attribute">id</span>=<span class="value">"position1"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"positionDiv"</span> <span class="attribute">id</span>=<span class="value">"position2"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"positionDiv"</span> <span class="attribute">id</span>=<span class="value">"position3"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"positionDiv"</span> <span class="attribute">id</span>=<span class="value">"position4"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">"#position1"</span> ).position({</code></div></div><div class="container"><div class="line"><code>  my: <span class="string">"center"</span>,</code></div></div><div class="container"><div class="line"><code>  at: <span class="string">"center"</span>,</code></div></div><div class="container"><div class="line"><code>  of: <span class="string">"#targetElement"</span></code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$( <span class="string">"#position2"</span> ).position({</code></div></div><div class="container"><div class="line"><code>  my: <span class="string">"left top"</span>,</code></div></div><div class="container"><div class="line"><code>  at: <span class="string">"left top"</span>,</code></div></div><div class="container"><div class="line"><code>  of: <span class="string">"#targetElement"</span></code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$( <span class="string">"#position3"</span> ).position({</code></div></div><div class="container"><div class="line"><code>  my: <span class="string">"right center"</span>,</code></div></div><div class="container"><div class="line"><code>  at: <span class="string">"right bottom"</span>,</code></div></div><div class="container"><div class="line"><code>  of: <span class="string">"#targetElement"</span></code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$( document ).mousemove(<span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>  $( <span class="string">"#position4"</span> ).position({</code></div></div><div class="container"><div class="line"><code>    my: <span class="string">"left+3 bottom-3"</span>,</code></div></div><div class="container"><div class="line"><code>    of: event,</code></div></div><div class="container"><div class="line"><code>    collision: <span class="string">"fit"</span></code></div></div><div class="container"><div class="line"><code>  });</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;/<span class="title">body</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<h4>Demo:</h4>
+<div class="demo code-demo"></div>
+</div></section>
+</div></article>
+
+</body>
+</html>

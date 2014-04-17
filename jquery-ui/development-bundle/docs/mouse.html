@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI mouse documentation</title>
+
+	<style>
+	body {
+		font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
+	}
+	.gutter {
+		display: none;
+	}
+	</style>
+</head>
+<body>
+
+<script>{
+		"title":
+			"Mouse Interaction",
+		"excerpt":
+			"The base interaction layer.",
+		"termSlugs": {
+			"category": [
+				"utilities","interactions"
+			]
+		}
+	}</script><article id="mouse1" class="entry widget"><h2 class="section-title"><span>Mouse Interaction</span></h2>
+<div class="entry-wrapper">
+<p class="desc"><strong>Description: </strong>The base interaction layer.</p>
+<section id="quick-nav"><header><h2>QuickNav</h2></header><div class="quick-nav-section">
+<h3>Options</h3>
+<div><a href="#option-cancel">cancel</a></div>
+<div><a href="#option-delay">delay</a></div>
+<div><a href="#option-distance">distance</a></div>
+</div>
+<div class="quick-nav-section">
+<h3>Methods</h3>
+<div><a href="#method-_mouseCapture">_mouseCapture</a></div>
+<div><a href="#method-_mouseDelayMet">_mouseDelayMet</a></div>
+<div><a href="#method-_mouseDestroy">_mouseDestroy</a></div>
+<div><a href="#method-_mouseDistanceMet">_mouseDistanceMet</a></div>
+<div><a href="#method-_mouseDown">_mouseDown</a></div>
+<div><a href="#method-_mouseDrag">_mouseDrag</a></div>
+<div><a href="#method-_mouseInit">_mouseInit</a></div>
+<div><a href="#method-_mouseMove">_mouseMove</a></div>
+<div><a href="#method-_mouseStart">_mouseStart</a></div>
+<div><a href="#method-_mouseStop">_mouseStop</a></div>
+<div><a href="#method-_mouseUp">_mouseUp</a></div>
+</div>
+<div class="quick-nav-section"><h3>Events</h3></div></section><div class="longdesc" id="entry-longdesc">
+		<p>Similar to <a href="/jQuery.Widget#jQuery-Widget2"><code>jQuery.Widget</code></a>, the mouse interaction is not intended to be used directly. It is purely a base layer for other widgets to inherit from. This page only documents what is added to <code>jQuery.Widget</code>, but it does include internal methods that are not intended to be overwritten. The intended public API is <a href="#method-_mouseStart"><code>_mouseStart()</code></a>, <a href="#method-_mouseDrag"><code>_mouseDrag()</code></a>, <a href="#method-_mouseStop"><code>_mouseStop()</code></a>, and <a href="#method-_mouseCapture"><code>_mouseCapture()</code></a>.</p>
+
+		<h3>Dependencies</h3>
+		<ul>
+			<li><a href="/jQuery.widget/">Widget Factory</a></li>
+		</ul>
+	</div>
+<section id="options"><header><h2>Options</h2></header><div id="option-cancel" class="api-item first-item">
+<h3>cancel<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types/#Selector">Selector</a></span>
+</h3>
+<div class="default">
+<strong>Default: </strong><code>"input,textarea,button,select,option"</code>
+</div>
+<div>Prevents interactions from starting on specified elements.</div>
+<strong>Code examples:</strong><p>Initialize the mouse with the <code>cancel</code> option specified:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse({ cancel: <span class="string">".title"</span> });</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p>Get or set the <code>cancel</code> option, after initialization:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// getter</span></code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> cancel = $( <span class="string">".selector"</span> ).mouse( <span class="string">"option"</span>, <span class="string">"cancel"</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// setter</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"option"</span>, <span class="string">"cancel"</span>, <span class="string">".title"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+<div id="option-delay" class="api-item">
+<h3>delay<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types/#Number">Number</a></span>
+</h3>
+<div class="default">
+<strong>Default: </strong><code>0</code>
+</div>
+<div>Time in milliseconds after mousedown until the interaction should start. This option can be used to prevent unwanted interactions when clicking on an element.</div>
+<strong>Code examples:</strong><p>Initialize the mouse with the <code>delay</code> option specified:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse({ delay: <span class="number">300</span> });</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p>Get or set the <code>delay</code> option, after initialization:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// getter</span></code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> delay = $( <span class="string">".selector"</span> ).mouse( <span class="string">"option"</span>, <span class="string">"delay"</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// setter</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"option"</span>, <span class="string">"delay"</span>, <span class="number">300</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+<div id="option-distance" class="api-item">
+<h3>distance<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types/#Number">Number</a></span>
+</h3>
+<div class="default">
+<strong>Default: </strong><code>1</code>
+</div>
+<div>Distance in pixels after mousedown the mouse must move before the interaction should start. This option can be used to prevent unwanted interactions when clicking on an element.</div>
+<strong>Code examples:</strong><p>Initialize the mouse with the <code>distance</code> option specified:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse({ distance: <span class="number">10</span> });</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p>Get or set the <code>distance</code> option, after initialization:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// getter</span></code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> distance = $( <span class="string">".selector"</span> ).mouse( <span class="string">"option"</span>, <span class="string">"distance"</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// setter</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"option"</span>, <span class="string">"distance"</span>, <span class="number">10</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div></section><section id="methods"><header><h2>Methods</h2></header><div id="method-_mouseCapture"><div class="api-item first-item">
+<h3>_mouseCapture()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#Boolean">Boolean</a></span>
+</h3>
+<div>
+				Determines whether an interaction should start based on event target of the interaction. The default implementation always returns <code>true</code>.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseCapture method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseCapture"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseDelayMet"><div class="api-item">
+<h3>_mouseDelayMet()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#Boolean">Boolean</a></span>
+</h3>
+<div>
+				Determines whether the <a href="#option-delay"><code>delay</code></a> option has been met for the current interaction.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseDelayMet method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseDelayMet"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseDestroy"><div class="api-item">
+<h3>_mouseDestroy()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin only</a>)</span>
+</h3>
+<div>
+				Destroys the interaction event handlers. This must be called from the extending widget's <code>_destroy()</code> method.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseDestroy method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseDestroy"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseDistanceMet"><div class="api-item">
+<h3>_mouseDistanceMet()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#Boolean">Boolean</a></span>
+</h3>
+<div>
+				Determines whether the <a href="#option-distance"><code>distance</code></a> option has been met for the current interaction.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseDistanceMet method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseDistanceMet"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseDown"><div class="api-item">
+<h3>_mouseDown()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin only</a>)</span>
+</h3>
+<div>
+				Handles the beginning of an interaction. Verifies that the event is associated with the primary mouse button and ensures that the <a href="#option-delay"><code>delay</code></a> and <a href="#option-distance"><code>distance</code></a> options are met prior to starting the interaction. When the interaction is ready to start, invokes the <a href="#method-_mouseStart"><code>_mouseStart()</code></a> method for the extending widget to handle.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseDown method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseDown"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseDrag"><div class="api-item">
+<h3>_mouseDrag()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin only</a>)</span>
+</h3>
+<div>
+				The extending widget should implement a <code>_mouseDrag()</code> method to handle each movement of an interaction. This method will receive the mouse event associated with the movement.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseDrag method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseDrag"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseInit"><div class="api-item">
+<h3>_mouseInit()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin only</a>)</span>
+</h3>
+<div>
+				Initializes the interaction event handlers. This must be called from the extending widget's <code>_create()</code> method.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseInit method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseInit"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseMove"><div class="api-item">
+<h3>_mouseMove()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin only</a>)</span>
+</h3>
+<div>
+				Handles each movement of the interaction. Invokes the <a href="#method-_mouseDrag"><code>mouseDrag()</code></a> method for the extending widget to handle.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseMove method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseMove"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseStart"><div class="api-item">
+<h3>_mouseStart()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin only</a>)</span>
+</h3>
+<div>
+				The extending widget should implement a <code>_mouseStart()</code> method to handle the beginning of an interaction. This method will receive the mouse event associated with the start of the interaction.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseStart method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseStart"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseStop"><div class="api-item">
+<h3>_mouseStop()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin only</a>)</span>
+</h3>
+<div>
+				The extending widget should implement a <code>_mouseStop()</code> method to handle the end of an interaction. This method will receive the mouse event associated with the end of the interaction.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseStop method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseStop"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+<div id="method-_mouseUp"><div class="api-item">
+<h3>_mouseUp()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin only</a>)</span>
+</h3>
+<div>
+				Handles the end of the interaction. Invokes the <a href="#method-_mouseStop"><code>mouseStop()</code></a> method for the extending widget to handle.
+			</div>
+<ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
+<div>
+<strong>Code examples:</strong><p>Invoke the _mouseUp method:</p>
+<div class="syntaxhighlighter javascript nogutter">
+	<table>
+		<tbody>
+			<tr>
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">".selector"</span> ).mouse( <span class="string">"_mouseUp"</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div></div></section>
+</div></article>
+
+</body>
+</html>
