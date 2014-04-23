@@ -1,6 +1,6 @@
 body {
   font-size: 90%;
-  min-width: 330px;
+  min-width: 370px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
@@ -45,7 +45,8 @@ a:hover { color: #eeeeff }
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
-  height: 35px;
+  height: 25px;
+  overflow: hidden;
 }
 .clicker.greyed { background: #aaa; }
 .origin{
@@ -59,9 +60,16 @@ a:hover { color: #eeeeff }
   width: 30%;
   float: right;
   display: inline;
+  position: relative;
+  right: 18px;
 }
 .clear{
   clear: both;
+}
+.switch-candy a img{
+  width: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .block .switch-candy a {
   background-color: #c61223;
@@ -76,17 +84,28 @@ a:hover { color: #eeeeff }
   width: 20px;
   height: 20px;
   display: inline;
-  float: left;
-  margin-right: 4px;
+  float: right;
+  position: relative;
+  right: -114px;
 }
 .userset .honeybadgerPowered{
   background: url('/icons/badger-pin.png') no-repeat;
 }
 .tooltipContainer{
-display: block;
+display: none;
 clear: both;
-color: #555555;
+color: #ccc;
 font-size: 12px;
+background-color: #222;
+height: 12px;
+border-radius: 7px;
+padding: 3px;
+}
+.tooltipArrow{
+  position: relative;
+  top: 4px;
+  left: -12px;
+  display: none;
 }
 #privacyBadgerHeader{
 color: #505050;
@@ -114,4 +133,10 @@ font-size: 16px;
 .ui-slider {
   opacity: 0;
   z-index: 20;
+}
+.ui-slider-handle {
+  cursor: move;
+}
+#siteControls {
+  margin-bottom: 5px;
 }
