@@ -140,6 +140,10 @@ function revertDomainControl(e){
                 'noaction': 'userGreen'};
   var filter = "||" + origin + "^$third-party";
   var store = stores[original_action];
+  var selectorId = "#noaction-" + origin.replace(/\./g,'-');
+  var selector =   $(selectorId);
+  console.log('selector', selector);
+  selector.click();
   console.log('REVERT DOMAIN CONTROL FOR', filter, store);
   removeFilter(store,filter);
   $elm.removeClass('userset');
@@ -189,12 +193,13 @@ function _badgerStatusTitle(action){
 }
 
 function _addToggleHtml(origin, action){
+  var idOrigin = origin.replace(/\./g,'-');
   var output = "";
   output += '<div class="switch-container ' + action + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">'
-  output += '<input id="block-' + origin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
-  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
-  output += '<input id="noaction-' + origin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label tooltip="click here to allow this tracker" class="actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
+  output += '<input id="block-' + idOrigin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + idOrigin + '" data-origin="' + origin + '" data-action="block"></label>';
+  output += '<input id="cookieblock-' + idOrigin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + idOrigin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
+  output += '<input id="noaction-' + idOrigin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label tooltip="click here to allow this tracker" class="actionToggle" for="noaction-' + idOrigin + '" data-origin="' + origin + '" data-action="noaction"></label>';
   output += '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
   return output;
 }
@@ -285,6 +290,8 @@ function updateOrigin(event){
   var action = $elm.data('action');
   $switchContainer.removeClass('block cookieblock noaction').addClass(action);
   toggleBlockedStatus($clicker, action);
+  $clicker.attr('tooltip', _badgerStatusTitle(action));
+  $clicker.children('.tooltipContainer').html(_badgerStatusTitle(action));
 }
 
 var tooltipDelay = 300;
