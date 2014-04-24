@@ -165,7 +165,7 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
   
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 
 function _trim(str,max){
@@ -307,7 +307,7 @@ function hideTooltip(event){
   var hideTipTimer = setTimeout(function(){
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
     if($container.is(':hidden')){return;}
-    $elm.closest('.clicker').animate({height: '25px'},300);
+    $elm.closest('.clicker').animate({height: '19px'},300);
     $container.text('');
     $container.hide();
     $container.siblings('.tooltipArrow').hide();

@@ -1,6 +1,6 @@
 body {
-  font-size: 90%;
-  min-width: 370px;
+  font-size: 14px;
+  min-width: 385px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
@@ -45,14 +45,13 @@ a:hover { color: #eeeeff }
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
-  height: 25px;
+  height: 19px;
   overflow: hidden;
 }
 .clicker.greyed { background: #aaa; }
 .origin{
   width: 60%;
   color: #555555;
-  font-size: 16px;
   float: left;
   display: inline;
 }
@@ -75,10 +74,10 @@ a:hover { color: #eeeeff }
   background-color: #c61223;
 }
 .cookieblock .switch-candy a{
-  background-color: #f5e560;
+  background-color: #ffcc00;
 }
 .noaction .switch-candy a{
-  background-color: #70c66b;
+  background-color: #339900;
 }
 .honeybadgerPowered{
   width: 20px;
@@ -86,7 +85,7 @@ a:hover { color: #eeeeff }
   display: inline;
   float: right;
   position: relative;
-  right: -114px;
+  right: -115px;
 }
 .userset .honeybadgerPowered{
   background: url('/icons/badger-pin.png') no-repeat;
@@ -94,9 +93,9 @@ a:hover { color: #eeeeff }
 .tooltipContainer{
 display: none;
 clear: both;
-color: #ccc;
+color: #fcfcfc;
 font-size: 12px;
-background-color: #222;
+background-color: #555;
 height: 12px;
 border-radius: 7px;
 padding: 3px;
@@ -117,6 +116,7 @@ font-size: 16px;
   float: left;
   color: #454545;
   font-size: 18px;
+  margin-bottom: 0;
 }
 #privacyBadgerHeader img{
   display: inline;
@@ -139,4 +139,12 @@ font-size: 16px;
 }
 #siteControls {
   margin-bottom: 5px;
+}
+#pbInstructions{
+  margin: -7 0 0 59px;
+  z-index: 20;
+}
+#blockedResources{
+  max-height: 419px;
+  overflow-y: scroll;
 }
