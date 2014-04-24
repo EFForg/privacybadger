@@ -582,16 +582,6 @@ function updatePrivacyPolicyHashes(){
 setTimeout(updatePrivacyPolicyHashes,86400000)
 updatePrivacyPolicyHashes();
 
-function checkIfThirdPartyCookiesAreEnabled(callback){
-  chrome.privacy.websites.thirdPartyCookiesAllowed.get({}, function(details){
-    callback(!!details.value);
-  });
-}
-
-function enableThirdPartyCookies(){
-  chrome.privacy.websites.thirdPartyCookiesAllowed.set({'value': true, 'scope': 'regular'});
-}
-
 function moveCookiesToFakeCookieStore(){
   console.log('moving cookies to fake cookie store');
   CookieBlockList.domains.forEach(function(origin){
