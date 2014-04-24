@@ -146,5 +146,5 @@ font-size: 16px;
 }
 #blockedResources{
   max-height: 419px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }

@@ -140,12 +140,13 @@ function revertDomainControl(e){
                 'noaction': 'userGreen'};
   var filter = "||" + origin + "^$third-party";
   var store = stores[original_action];
-  var selectorId = "#noaction-" + origin.replace(/\./g,'-');
+  removeFilter(store,filter);
+  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  var defaultAction = getAction(tabId,origin);
+  var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
   selector.click();
-  console.log('REVERT DOMAIN CONTROL FOR', filter, store);
-  removeFilter(store,filter);
   $elm.removeClass('userset');
   return false;
 }
