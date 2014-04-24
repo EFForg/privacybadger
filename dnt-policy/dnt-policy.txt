@@ -1,0 +1,15 @@
+PRELIMINARY DNT POLICY
+
+This domain interprets DNT as a request for an opt out of collection and
+retention of visitors' reading habits, which we will respect, subject to
+reasonable exceptions that respect user privacy. 
+
+This is a temporary document.  A full DNT Policy is being drafted at
+https://eff.org/dnt-policy .  When that document is finished, this domain may
+decide to adopt it.
+
+You can agree to this same policy by posting it at
+https://subdomain.example.com/.well-known/dnt-policy.txt, where "subdomain" is
+any domain to which the policy applies.  Commonly it will be posted on third
+party domains.  HTTPS is required.
+
