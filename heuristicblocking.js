@@ -449,28 +449,33 @@ var lowEntropyCookieValues = {
  "zh":8,
  "zu":8
 };
-
 var extractCookieString = function(details) {
   // @details are those from onBeforeSendHeaders
   // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
-  if (!details.requestHeaders) {
-    console.log("Expect the unexpected!");
+  if(details.requestHeaders) {
+    var headers = details.requestHeaders;
+  } else if(details.responseHeaders) {
+    var headers = details.responseHeaders;
+  } else {
+    console.log("A reqest was made with no headers! Crazy!");
     console.log(details);
-    return true;
+    return false;
   }
+
   var cookies = "";
-  for (var n = 0; n < details.requestHeaders.length; n++) {
-    var h = details.requestHeaders[n];
-    if (h.name == "Cookie") {
+
+  for (var i = 0; i < headers.length; i++) {
+    var header = headers[i];
+    if (header.name == "Cookie" || header.name == "Set-Cookie" ) {
       if (!cookies) {
-        cookies = h.value;
+        cookies = header.value;
       } else {
         // Should not happen?  Except perhaps due to crazy extensions?
-        console.log("MULTIPLE COOKIE HEADERS!!!");
-        cookies = cookies + ";" + h.value;
+        cookies = cookies + ";" + header.value;
       }
     }
   }
+
   return cookies;
 }
 
@@ -480,7 +485,6 @@ var hasTracking = function(details, origin) {
 
   var cookies = extractCookieString(details);
   if (!cookies) {
-    //console.log("No cookies in ");
     //console.log(details);
     return false;
   }
@@ -510,6 +514,8 @@ var hasTracking = function(details, origin) {
        console.log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
        return true;
      }
+  } else {
+    console.log(origin, "has no cookies!");
   }
   return false;
 };
@@ -537,11 +543,13 @@ var heuristicBlockingAccounting = function(details) {
     if (origin == tabOrigin)
       return { };
     // if there are no tracking cookies or similar things, ignore
-    if (!hasTracking(details, origin))
+    if (!hasTracking(details, origin)){
       return { };
+    }
     // Record HTTP request prevalence
-    if (!(origin in httpRequestOriginFrequency))
+    if (!(origin in httpRequestOriginFrequency)){
       httpRequestOriginFrequency[origin] = { };
+    }
     httpRequestOriginFrequency[origin][tabOrigin] = true; // This 3rd party tracked this 1st party
     // Blocking based on outbound cookies
     var httpRequestPrevalence = 0;
@@ -560,7 +568,7 @@ var heuristicBlockingAccounting = function(details) {
 };
 
 chrome.webRequest.onBeforeRequest.addListener(function(details) {
-  //heuristicBlockingAccounting(details);
+  //heuristicBlockingAccounting(details); 
 },
 {urls: ["<all_urls>"]},
 ["blocking"]);
@@ -582,13 +590,7 @@ chrome.webRequest.onResponseStarted.addListener(function(details) {
   }
   if(hasSetCookie) {
     var origin = getBaseDomain(new URI(details.url).host);
-    var tabOrigin = tabOrigins[details.tabId];
-    if (origin != tabOrigin) {
-      if(!(origin in cookieSetOriginFrequency)){
-        cookieSetOriginFrequency[origin] = { };
-      }
-      cookieSetOriginFrequency[origin][tabOrigin] = true;
-    }
+    return heuristicBlockingAccounting(details);
   }
 },
 {urls: ["<all_urls>"]},

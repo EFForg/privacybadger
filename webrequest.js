@@ -237,7 +237,6 @@ function onBeforeSendHeaders(details) {
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
-    console.log('privacy badger is enabled!, checking');
     if (requestAction == "block" || requestAction == "userblock") {
       return {cancel: true};
     }
