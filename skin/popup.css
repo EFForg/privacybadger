@@ -42,6 +42,10 @@ a:hover { color: #eeeeff }
   width: 5px;
   display: block;
 }
+#supQuest{
+color: #4183c4;
+border-bottom; 1px dotted #4183c4;
+}
 
 .click-nav ul {position:relative;font-weight:900;list-style-type:none;}
 .click-nav ul li {position:relative;list-style:none;cursor:pointer;}
