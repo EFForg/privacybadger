@@ -168,6 +168,6 @@ font-size: 16px;
   z-index: 20;
 }
 #blockedResources{
-  max-height: 419px;
+  max-height: 416px;
   overflow-y: auto;
 }

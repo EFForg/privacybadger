@@ -170,7 +170,7 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
 
   Utils.xhrRequest(url,function(err,response){
     if(err){
-      console.error('Problem fetching privacy badger policy at', url, err.status, err.message);
+      //console.error('Problem fetching privacy badger policy at', url, err.status, err.message);
       callback(successStatus)
       return;
     }
