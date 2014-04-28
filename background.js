@@ -579,7 +579,7 @@ function updatePrivacyPolicyHashes(){
 }
 
 //refresh hashes every 24 hours and also once on startup.
-setTimeout(updatePrivacyPolicyHashes,86400000)
+setInterval(updatePrivacyPolicyHashes,86400000)
 updatePrivacyPolicyHashes();
 
 function moveCookiesToFakeCookieStore(){
