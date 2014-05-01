@@ -636,7 +636,7 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
     }
     var hash = SHA1(response);
     if(isValidPolicyHash(hash)){
-      success = true;
+      successStatus = true;
     }
     callback(successStatus);
   });
