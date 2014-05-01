@@ -238,7 +238,7 @@ function onBeforeSendHeaders(details) {
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
-    if(requestAction = "block" || requestAction == "cookieBlock"){
+    if(requestAction == "block" || requestAction == "cookieBlock"){
       BlockedDomainList.addDomain(extractHostFromURL(details.url));
     }
     if (requestAction == "block" || requestAction == "userblock") {
