@@ -189,17 +189,17 @@ var unblockOrigin = function(origin){
   FilterStorage.addFilter(filter, policySubscription);
 }
 
-var blacklistOrigin = function(origin) {
+var blacklistOrigin = function(origin, fqdn) {
   // Heuristic subscription
   if (!("frequencyHeuristic" in FilterStorage.knownSubscriptions)) {
     console.log("Error. Could not blacklist origin because no heuristic subscription found");
     return;
   }
   //check for badgerpolicy.txt and whitelist if exists
-  checkPrivacyBadgerPolicy(origin, function(success){
+  checkPrivacyBadgerPolicy(fqdn, function(success){
     if(success){
-      console.log('adding', origin, 'to user whitelist due to badgerpolicy.txt');
-      unblockOrigin(origin);
+      console.log('adding', fqdn, 'to user whitelist due to badgerpolicy.txt');
+      unblockOrigin(fqdn);
     } else {
       var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
       // Create an ABP filter to block this origin 
@@ -529,7 +529,8 @@ var heuristicBlockingAccounting = function(details) {
     return { };
   }
   
-  var origin = getBaseDomain(new URI(details.url).host);
+  var fqdn = new URI(details.url).host
+  var origin = getBaseDomain(fqdn);
   
   // Save the origin associated with the tab if this is a main window request
   if(details.type == "main_frame") {
@@ -561,7 +562,7 @@ var heuristicBlockingAccounting = function(details) {
       // sendTestingData()
     } else {
       if (httpRequestPrevalence >= prevalenceThreshold) {
-        blacklistOrigin(origin);
+        blacklistOrigin(origin, fqdn);
       }
     }
   }
