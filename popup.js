@@ -312,7 +312,6 @@ function displayTooltip(event){
   var displayTipTimer = setTimeout(function(){
     if($elm.attr('tooltip').length == 0){ return; }
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
-    //$elm.closest('.clicker').animate({height: '35px'},50);
     $container.text($elm.attr('tooltip'));
     $container.show();
     $container.siblings('.tooltipArrow').show();
@@ -325,7 +324,6 @@ function hideTooltip(event){
   var hideTipTimer = setTimeout(function(){
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
     if($container.is(':hidden')){return;}
-    //$elm.closest('.clicker').animate({height: '30px'},100);
     $container.text('');
     $container.hide();
     $container.siblings('.tooltipArrow').hide();
