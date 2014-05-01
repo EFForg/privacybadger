@@ -17,6 +17,11 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
+var imports = ["privacyHashesDoExist", "unblockOrigin", "checkPrivacyBadgerPolicy"];
+
+for (var i = 0; i < imports.length; i++){
+  window[imports[i]] = backgroundPage[imports[i]];
+}
 
 with(require("filterClasses")) {
   this.Filter = Filter;
@@ -137,11 +142,6 @@ function getDomainFromFilter(filter){
   return filter.match('[|][|]([^\^]*)')[1]
 }
 
-//boolean are there any acceptable privacy policy hashes
-function privacyHashesDoExist(){
-  return !! localStorage['badgerHashes'] && Object.keys(JSON.parse(localStorage['badgerHashes'])).length > 0;
-}
-
 //check if a given hash is the hash of a valid privacy policy
 function isValidPolicyHash(hash){
   if(!privacyHashesDoExist()){
@@ -155,39 +155,6 @@ function isValidPolicyHash(hash){
     if(hash === hashes[key]){ return true; }
   }
   return false;
-}
-
-
-//asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
-var checkPrivacyBadgerPolicy = function(origin, callback){
-  var successStatus = false;
-  var url = "https://" + origin + "/.well-known/dnt-policy.txt";
-
-  if(!privacyHashesDoExist()){
-    console.log('not checking for privacy policy because there are no acceptable hashes!');
-    callback(successStatus);
-    return;
-  }
-
-  Utils.xhrRequest(url,function(err,response){
-    if(err){
-      //console.error('Problem fetching privacy badger policy at', url, err.status, err.message);
-      callback(successStatus)
-      return;
-    }
-    var hash = SHA1(response);
-    if(isValidPolicyHash(hash)){
-      success = true;
-    }
-    callback(successStatus);
-  });
-}
-
-var unblockOrigin = function(origin){
-  var filter = Filter.fromText("||" + origin + "^$third-party");
-  var policySubscription = FilterStorage.knownSubscriptions["userGreen"];
-  FilterStorage.removeFilter(filter);
-  FilterStorage.addFilter(filter, policySubscription);
 }
 
 var blacklistOrigin = function(origin, fqdn) {
@@ -215,7 +182,6 @@ var blacklistOrigin = function(origin, fqdn) {
 
   addFiltersFromWhitelistToCookieblock(origin)
 
-  //add blocking filter to filters
   filter.disabled = false;
   FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions["userGreen"]);
   FilterStorage.addFilter(filter, heuristicSubscription);
@@ -562,6 +528,7 @@ var heuristicBlockingAccounting = function(details) {
   
     //block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= prevalenceThreshold) {
+      console.log('blacklisting origin', fqdn);
       blacklistOrigin(origin, fqdn);
     }
   }
