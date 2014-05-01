@@ -63,6 +63,7 @@ lib/adblockplus.js = lib/info.js
   lib/prefs.js
   lib/utils.js
   lib/cookieblocklist.js
+  lib/blockedDomainList.js
   lib/fakecookiestore.js
   lib/elemHideHitRegistration.js
   adblockplus/lib/filterNotifier.js
