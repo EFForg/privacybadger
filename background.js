@@ -58,6 +58,7 @@ var Prefs = require("prefs").Prefs;
 var Synchronizer = require("synchronizer").Synchronizer;
 var Utils = require("utils").Utils;
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
+var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
 
 // Some types cannot be distinguished
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
@@ -73,11 +74,13 @@ var seenDataCorruption = false;
 // load cookieblocklist whenever a window is created
 chrome.windows.onCreated.addListener(function(){
   CookieBlockList.updateDomains();
+  BlockedDomainList.updateDomains();
   FakeCookieStore.updateCookies();
   
 });
 chrome.storage.onChanged.addListener(function(){
   CookieBlockList.updateDomains();
+  BlockedDomainList.updateDomains();
   FakeCookieStore.updateCookies();
 });
 

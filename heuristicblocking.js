@@ -33,6 +33,7 @@ var FilterStorage = require("filterStorage").FilterStorage;
 var matcherStore = require("matcher").matcherStore;
 var Synchronizer = require("synchronizer").Synchronizer;
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
+var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
 var FakeCookieStore = require("fakecookiestore").FakeCookieStore;
 var Utils = require("utils").Utils;
 var tabOrigins = { };
@@ -195,29 +196,30 @@ var blacklistOrigin = function(origin, fqdn) {
     console.log("Error. Could not blacklist origin because no heuristic subscription found");
     return;
   }
-  //check for badgerpolicy.txt and whitelist if exists
-  checkPrivacyBadgerPolicy(fqdn, function(success){
-    if(success){
-      console.log('adding', fqdn, 'to user whitelist due to badgerpolicy.txt');
-      unblockOrigin(fqdn);
-    } else {
-      var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
-      // Create an ABP filter to block this origin 
-      var filter = this.Filter.fromText("||" + origin + "^$third-party");
-      addFiltersFromWhitelistToCookieblock(origin)
 
-      filter.disabled = false;
-      if (!testing) {
-        FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions["userGreen"]);
-        FilterStorage.addFilter(filter, heuristicSubscription);
+  //check for dnt-policy and whitelist domain if it exists
+  if(!BlockedDomainList.hasDomain(fqdn)){
+    checkPrivacyBadgerPolicy(fqdn, function(success){
+      if(success){
+        console.log('adding', fqdn, 'to user whitelist due to badgerpolicy.txt');
+        unblockOrigin(fqdn);
+      } else {
+        BlockedDomainList.addDomain(fqdn);
       }
-    }
-  });
-  // Vanilla ABP does this step too, not clear if there's any privacy win
-  // though:
+    });
+  }  
+  
+  var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
+  // Create an ABP filter to block this origin 
+  var filter = this.Filter.fromText("||" + origin + "^$third-party");
 
-  //if (nodes)
-  //  Policy.refilterNodes(nodes, item);
+  addFiltersFromWhitelistToCookieblock(origin)
+
+  //add blocking filter to filters
+  filter.disabled = false;
+  FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions["userGreen"]);
+  FilterStorage.addFilter(filter, heuristicSubscription);
+
   return true;
 };
 
@@ -554,16 +556,13 @@ var heuristicBlockingAccounting = function(details) {
     httpRequestOriginFrequency[origin][tabOrigin] = true; // This 3rd party tracked this 1st party
     // Blocking based on outbound cookies
     var httpRequestPrevalence = 0;
-    if (origin in httpRequestOriginFrequency)
+    if (origin in httpRequestOriginFrequency){
       httpRequestPrevalence = Object.keys(httpRequestOriginFrequency[origin]).length;
-
-    if (testing && needToSendOrigin(origin, httpRequestPrevalence)) {
-      // Not enabled in the live extension.  Would require extra parameters here.
-      // sendTestingData()
-    } else {
-      if (httpRequestPrevalence >= prevalenceThreshold) {
-        blacklistOrigin(origin, fqdn);
-      }
+    }
+  
+    //block the origin if it has been seen on multiple first party domains
+    if (httpRequestPrevalence >= prevalenceThreshold) {
+      blacklistOrigin(origin, fqdn);
     }
   }
 };
