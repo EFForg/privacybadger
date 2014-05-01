@@ -142,21 +142,6 @@ function getDomainFromFilter(filter){
   return filter.match('[|][|]([^\^]*)')[1]
 }
 
-//check if a given hash is the hash of a valid privacy policy
-function isValidPolicyHash(hash){
-  if(!privacyHashesDoExist()){
-    console.error('No privacy badger policy hashes in storage! Refreshing...');
-    updatePrivacyPolicyHashes();
-    return false;
-  }
-
-  var hashes = JSON.parse(localStorage['badgerHashes']);
-  for(key in hashes){
-    if(hash === hashes[key]){ return true; }
-  }
-  return false;
-}
-
 var blacklistOrigin = function(origin, fqdn) {
   // Heuristic subscription
   if (!("frequencyHeuristic" in FilterStorage.knownSubscriptions)) {

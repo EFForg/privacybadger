@@ -654,6 +654,21 @@ function privacyHashesDoExist(){
   return !! localStorage['badgerHashes'] && Object.keys(JSON.parse(localStorage['badgerHashes'])).length > 0;
 }
 
+//check if a given hash is the hash of a valid privacy policy
+function isValidPolicyHash(hash){
+  if(!privacyHashesDoExist()){
+    console.error('No privacy badger policy hashes in storage! Refreshing...');
+    updatePrivacyPolicyHashes();
+    return false;
+  }
+
+  var hashes = JSON.parse(localStorage['badgerHashes']);
+  for(key in hashes){
+    if(hash === hashes[key]){ return true; }
+  }
+  return false;
+}
+
 function moveCookiesToRealCookieStore(){
   console.log('moving cookies to real cookie store');
   for(var domain in FakeCookieStore.cookies){
