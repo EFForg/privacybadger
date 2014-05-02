@@ -196,9 +196,9 @@ function _badgerStatusTitle(action){
   var prefix = "";
 
   var statusMap = { 
-    block: "This tracker is blocked, slide to allow tracker or block cookies",
-    cookieblock: "This tracker's cookies are blocked, slide to block or allow tracker",
-    noaction: "This tracker is allowed, slide to block tracker or block cookies"
+    block:        "This tracker is blocked, slide to unblock tracker or block cookies.",
+    cookieblock:  "This tracker's cookies are blocked, slide to block or unblock tracker.",
+    noaction:     "This domain is unblocked, slide to block entirely or block cookies."
   }
 
   return prefix + statusMap[action];
