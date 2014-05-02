@@ -23,18 +23,34 @@
   <style>
     body {
       margin: 0;
-      background: url("/skin/background.png")
+      background: url("/skin/background.png");
+      color: #eff;
+      font-family: "Arial Narrow", Gadget, sans-serif;
     }
     .maintext {
       font-size: 18px;
-      color: #eff;
-      font-family: "Arial Narrow", Gadget, sans-serif;
       width: 50%;
       margin-left: auto;
       margin-right: auto;
       text-align:justify;
       text-justify:inter-word;
       font-weight:normal;
+    }
+    h3 {
+      font-size: 36px;
+      color: #eee;
+      font-weight: bold;
+    }
+    #social-links{ 
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align:center;
+      font-weight:normal;
+    }
+
+    #social-links img{
+      margin: 20px;
     }
     .logo {
       background: url("/skin/badger-faq-3.png");
@@ -50,12 +66,22 @@
       <center><img src="/skin/badger-logo-revise-wide.png" width="500px"/></center>
     </div>
     <div class="maintext">
-<p>Privacy Badger blocks spying ads and invisible trackers.  It's there to ensure that companies can't track your browsing without your consent.</p> 
-    <p>This extension is designed to automatically protect your privacy from third party trackers that load invisibly when you browse the web. We send the Do Not Track header with each request, and our extension evaluates the likelihood that you are still being tracked. If the algorithm deems the likelihood is too high, we automatically block your request from being sent to the domain. Our extension has three states. Red means block the tracker. Yellow means that we don't send cookies or referers to the tracker. Green means unblocked (probably because the third party does not appear to be tracking you). Please understand that Privacy Badger is in beta, and the algorithm's determination is not conclusive that the domain is tracking you. You can toggle the states by clicking the privacy badger icon in your browser's address bar if you wish to override the settings. Or, you can browse in peace as Privacy Badger starts finding and eating up web trackers one by one. </p>
-    <p> Nothing can stop the Privacy Badger from eating cookies when it's hungry!</p>
-    <p> Privacy Badger is a project of the Electronic Frontier Foundation.</p>
-
+      <p>Privacy Badger blocks spying ads and invisible trackers.  It's there to ensure that companies can't track your browsing without your consent.</p> 
+      <p>This extension is designed to automatically protect your privacy from third party trackers that load invisibly when you browse the web. We send the Do Not Track header with each request, and our extension evaluates the likelihood that you are still being tracked. If the algorithm deems the likelihood is too high, we automatically block your request from being sent to the domain. Please understand that Privacy Badger is in beta, and the algorithm's determination is not conclusive that the domain is tracking you.</p>
+      <p>Our extension has three states. <span style="color:red;font-weight:bold;">Red</span> means block the tracker. <span style="color:yellow;font-weight:bold;">Yellow</span> means that we don't send cookies or referers to the tracker. <span style="color:green;font-weight:bold;">Green</span> means unblocked (probably because the third party does not appear to be tracking you). You can click on the Privacy Badger icon in your browser's toolbar if you wish to override the automatic blocking settings. Or, you can browse in peace as Privacy Badger starts finding and eating up web trackers one by one.</p>
+      <p>Nothing can stop the Privacy Badger from eating cookies when it's hungry!</p>
+      <p>Privacy Badger is a project of the Electronic Frontier Foundation.</p>
     </div>
-</body>
+    <div id="social-links">
+      <h3>Let the world know that you are taking a stand against online tracking</h3>
+        <a target=_blank href="https://twitter.com/home?status=I%20just%20installed%20Privacy%20Badger%2C%20a%20new%20tool%20from%20EFF%20to%20stop%20companies%20from%20spying%20on%20your%20browing%20habits%20-%20https%3A%2F%2Feff.org%2Fprivacybadger" title="Share on Twitter"><img src="/skin/twitter48.png" alt="Share on Twitter" title="Share on Twitter"></a> 
+        <a href="https://www.facebook.com/share.php?u=https%3A%2F%2Feff.org%2Fprivacybadger" target=_blank>
+          <img src="/skin/facebook48.png" alt="Share on Facebook" title="Share on Facebook">
+        </a>
+        <a href="https://plus.google.com/share?url=https%3A%2F%2Feff.org%2Fprivacybadger" target=_blank>
+          <img src="/skin/gplus48.png" alt="Share on Google Plus" title="Share on Google Plus">
+        </a>
+    </div>
+  </body>
 </html>
  
