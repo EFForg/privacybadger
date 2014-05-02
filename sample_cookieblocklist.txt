@@ -318,3 +318,4 @@
 @@||public.tableausoftware.com^$third-party
 @@||talkgadget.google.com^$third-party
 @@||cdn.sstatic.net^$third-party
+@@||instapaper.com^$third-party
