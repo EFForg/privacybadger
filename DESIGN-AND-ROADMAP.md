@@ -27,9 +27,10 @@ Privacy Badger:
    Privacy Badger's "cookieblocklist", in which case resources from the site are
    loaded, but with their (third party) cookies blocked.
 
-
-
 #### What is an "origin" for Privacy Badger?
+
+Privacy Badger has two notions of origin.  One the [effective top level
+domain](https://wiki.mozilla.org/Public_Suffix_List) 
 
 #### What is a "low entropy" cookie?
 
