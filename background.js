@@ -34,18 +34,17 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!("enabled" in localStorage))
+if (!("enabled" in localStorage)){
   localStorage.enabled = "true";
+}
 
-with(require("filterClasses"))
-{
+with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
   this.BlockingFilter = BlockingFilter;
   this.WhitelistFilter = WhitelistFilter;
 }
-with(require("subscriptionClasses"))
-{
+with(require("subscriptionClasses")) {
   this.Subscription = Subscription;
   this.DownloadableSubscription = DownloadableSubscription;
 }
@@ -58,13 +57,16 @@ var Prefs = require("prefs").Prefs;
 var Synchronizer = require("synchronizer").Synchronizer;
 var Utils = require("utils").Utils;
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
+var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
+var HeuristicBlocking = require("heuristicblocking")
 
 // Some types cannot be distinguished
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
 RegExpFilter.typeMap.MEDIA = RegExpFilter.typeMap.FONT = RegExpFilter.typeMap.OTHER;
 
-if (!("whitelistUrl" in localStorage))
+if (!("whitelistUrl" in localStorage)){
   localStorage.whitelistUrl = "https://www.eff.org/files/cookieblocklist.txt";;
+}
 
 var whitelistUrl = localStorage.whitelistUrl;
 var isFirstRun = false;
@@ -73,11 +75,13 @@ var seenDataCorruption = false;
 // load cookieblocklist whenever a window is created
 chrome.windows.onCreated.addListener(function(){
   CookieBlockList.updateDomains();
+  BlockedDomainList.updateDomains();
   FakeCookieStore.updateCookies();
   
 });
 chrome.storage.onChanged.addListener(function(){
   CookieBlockList.updateDomains();
+  BlockedDomainList.updateDomains();
   FakeCookieStore.updateCookies();
 });
 
@@ -577,10 +581,31 @@ function updatePrivacyPolicyHashes(){
     localStorage['badgerHashes'] = response;
   });
 }
-
 //refresh hashes every 24 hours and also once on startup.
 setInterval(updatePrivacyPolicyHashes,86400000)
 updatePrivacyPolicyHashes();
+
+//loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
+function recheckDNTPolicyForBlockedDomains(){
+  for(var domain in BlockedDomainList.domains){
+    if(Date.now() > BlockedDomainList.nextUpdateTime(domain)){
+      BlockedDomainList.updateDomainCheckTime(domain);
+      checkForDNTPolicy(domain);
+    }
+  }
+}
+setInterval(recheckDNTPolicyForBlockedDomains,BlockedDomainList.minThreshold);
+recheckDNTPolicyForBlockedDomains();
+
+//check a domain for a DNT policy and unblock it if it has one
+function checkForDNTPolicy(domain){
+  checkPrivacyBadgerPolicy(domain, function(success){
+    if(success){
+      console.log('adding', domain, 'to user whitelist due to badgerpolicy.txt');
+      unblockOrigin(domain);
+    }
+  });
+}
 
 function moveCookiesToFakeCookieStore(){
   console.log('moving cookies to fake cookie store');
@@ -590,6 +615,58 @@ function moveCookiesToFakeCookieStore(){
       removeCookiesIfCookieBlocked(baseDomain);
     }
   });
+}
+
+//asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
+var checkPrivacyBadgerPolicy = function(origin, callback){
+  var successStatus = false;
+  var url = "https://" + origin + "/.well-known/dnt-policy.txt";
+
+  if(!privacyHashesDoExist()){
+    console.log('not checking for privacy policy because there are no acceptable hashes!');
+    callback(successStatus);
+    return;
+  }
+
+  Utils.xhrRequest(url,function(err,response){
+    if(err){
+      //console.error('Problem fetching privacy badger policy at', url, err.status, err.message);
+      callback(successStatus)
+      return;
+    }
+    var hash = SHA1(response);
+    if(isValidPolicyHash(hash)){
+      successStatus = true;
+    }
+    callback(successStatus);
+  });
+}
+
+var unblockOrigin = function(origin){
+  var filter = Filter.fromText("||" + origin + "^$third-party");
+  var policySubscription = FilterStorage.knownSubscriptions["userGreen"];
+  FilterStorage.removeFilter(filter);
+  FilterStorage.addFilter(filter, policySubscription);
+}
+
+//boolean are there any acceptable privacy policy hashes
+function privacyHashesDoExist(){
+  return !! localStorage['badgerHashes'] && Object.keys(JSON.parse(localStorage['badgerHashes'])).length > 0;
+}
+
+//check if a given hash is the hash of a valid privacy policy
+function isValidPolicyHash(hash){
+  if(!privacyHashesDoExist()){
+    console.error('No privacy badger policy hashes in storage! Refreshing...');
+    updatePrivacyPolicyHashes();
+    return false;
+  }
+
+  var hashes = JSON.parse(localStorage['badgerHashes']);
+  for(key in hashes){
+    if(hash === hashes[key]){ return true; }
+  }
+  return false;
 }
 
 function moveCookiesToRealCookieStore(){

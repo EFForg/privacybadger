@@ -37,8 +37,9 @@
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "moveCookiesToRealCookieStore", "moveCookiesToFakeCookieStore"];
-for (var i = 0; i < imports.length; i++)
+for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
+}
 
 
 with(require("filterClasses"))
