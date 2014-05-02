@@ -1,0 +1,129 @@
+{
+  "add": {
+    "description": "Det här är etiketten för 'Lägg till' knapparna.",
+    "message": "Lägg till"
+  },
+  "add_domain_button": {
+    "message": "Lägg till domän"
+  },
+  "add_filter_button": {
+    "message": "Lägg till filter"
+  },
+  "add_filters_msg": {
+    "message": "Lägg till filter?"
+  },
+  "add_your_own_filters": {
+    "message": "Lägg till dina egna filter"
+  },
+  "apply_changes": {
+    "message": "Spara ändringar"
+  },
+  "block_element": {
+    "description": "Etikett för 'Block Element' i kontextmenyn",
+    "message": "Block Element"
+  },
+  "cancel": {
+    "description": "Etikett för avbrytknapp",
+    "message": "Avbryt"
+  },
+  "clickhide_instructions": {
+    "message": "Efter att du stängt rutan, klicka (eller högerklicka) på ett element på sidan."
+  },
+  "description": {
+    "message": "EFF Privacy Badger tracker blocking protection"
+  },
+  "disable_inline": {
+    "message": "Stäng av text reklam"
+  },
+  "disabled_for_these_domains": {
+    "message": "Adblock Plus är avaktiverat för domänerna listade nedan. Du kan lägga till en domän via Adblock Plus ikonen i adressfältet eller genom att skriva domänet (inte en URL) i rutan och klicka \"Lägg till domän\" knappen."
+  },
+  "easy_create_filter": {
+    "description": "Knappetikett i popup rutan",
+    "message": "Snabbskapa filter"
+  },
+  "edit_filters_raw": {
+    "message": "Editera filter som text"
+  },
+  "enable_only_the": {
+    "message": "Aktivera endest de filter som du behöver. För många kan göra Chrome långsamt."
+  },
+  "enabled_for_site": {
+    "description": "Popup ruta checkbox etikett",
+    "message": "Aktiverad för denna sida"
+  },
+  "filter_lists": {
+    "description": "Det här är en tab rubrik.",
+    "message": "Filter lista"
+  },
+  "filter_must_follow_syntax": {
+    "message": "Dina filter måste följa <a href='$url$'>Adblock Plus filter syntax</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "found_a_bug": {
+    "message": "Hittat en bugg? Vill du översätta Adblock Plus till ditt språk? Skicka din <a href='$url$'>förfrågan här</a>.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "general": {
+    "description": "Det här är en tab rubrik.",
+    "message": "Generellt"
+  },
+  "last_updated_at": {
+    "description": "e.g. Senast uppdaterad 3:00pm on Apr 1, 2011",
+    "message": "Senast uppdaterad $time$ on $date$",
+    "placeholders": {
+      "date": {
+        "content": "$2"
+      },
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "last_updated_at_today": {
+    "description": "e.g. Senast uppdaterad 3:00pm today",
+    "message": "Senast uppdaterad $time$ today",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "new_filters_added": {
+    "message": "Nytt filter tillagt. Se <a id='options_url' target='_blank'>Inställningar</a> för att hantera dom."
+  },
+  "options": {
+    "message": "Adblock Plus Inställningar"
+  },
+  "out_of_date_lists": {
+    "message": "Out-of-date listor är periodiskt uppdaterade."
+  },
+  "remove_button": {
+    "description": "Det här är en etikett för 'Ta bort valda' knappar.",
+    "message": "Ta bort valda"
+  },
+  "show_block_element_menu": {
+    "message": "Visa 'Block Element' högerklicks menyn"
+  },
+  "show_icon": {
+    "message": "Visa ikon i adressfält"
+  },
+  "subscriptionSelection_subscriptionSelector_label": {
+    "message": "Lägg till en filterprenumeration från listan:"
+  },
+  "update_now": {
+    "message": "Uppdatera nu"
+  },
+  "whitelisted_domains": {
+    "description": "Det här är en tab rubrik.",
+    "message": "Vitlistade domän"
+  }
+}
