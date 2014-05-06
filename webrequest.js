@@ -35,7 +35,7 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /* variables */
+ /* global variables */
 var CookieBlockList = require("cookieblocklist").CookieBlockList
 var FakeCookieStore = require("fakecookiestore").FakeCookieStore
 var FilterNotifier = require("filterNotifier").FilterNotifier
@@ -65,11 +65,16 @@ FilterNotifier.addListener(onFilterNotifier);
 function onTabRemoved(tabId){
   console.log('tab removed!');
   var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
+  var mappedDomain = _mapDomain(baseDomain);
   forgetTab(tabId);
   if(Utils.isPrivacyBadgerEnabled()){
     if(!checkDomainOpenInTab(baseDomain)){
       console.log(baseDomain, 'is not open in any tab, so removing cookies');
       removeCookiesIfCookieBlocked(baseDomain);
+    }
+    if(!checkDomainOpenInTab(mappedDomain)){
+      console.log(mappedDomain, 'is not open in any tab, so removing cookies');
+      removeCookiesIfCookieBlocked(mappedDomain);
     }
   }
 };
@@ -84,7 +89,7 @@ function onTabUpdated(tabId, changeInfo, tab){
 };
 
 /*********************************
- * Function _mapDomain( @string domain)
+ * @string _mapDomain( @string domain)
  * In some cases an origin uses multiple domains which, for the purpouses of logging
  * in to the website can essentially be considered the same domain. This function maps
  * the domain that is passed in to the parent domain that is responsible.
@@ -209,7 +214,9 @@ function onBeforeRequest(details){
   if (type == "main_frame" && Utils.isPrivacyBadgerEnabled()){
     var newDomain = getBaseDomain(extractHostFromURL(details.url));
     var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
+    var mappedDomain = _mapDomain(oldDomain);
     var fakeCookies = FakeCookieStore.getCookies(newDomain);
+    var mappedCookies = FakeCookieStore.getCookies(_mapDomain(newDomain));
 
     forgetTab(details.tabId);
     
@@ -219,10 +226,14 @@ function onBeforeRequest(details){
         console.log('REMOVING COOKIES BECAUSE OF DOMAIN CHANGE FOR TAB', oldDomain);
         removeCookiesIfCookieBlocked(oldDomain);
       }
+      if(!checkDomainOpenInTab(mappedDomain)){
+        removeCookiesIfCookieBlocked(mappedDomain);
+      }
     }
 
     if(!checkDomainOpenInTab(newDomain)){
       addCookiesToRealCookieStore(fakeCookies);
+      addCookiesToRealCookieStore(mappedCookies);
     }
   }
 
