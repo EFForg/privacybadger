@@ -161,23 +161,21 @@ function buildCookieUrl(cookie){
 }
 
 function checkDomainOpenInTab(domain){
-  for(idx in frames){
-    var mainFrameIdx = 0;
-    if(_isTabAnExtension(idx)){
-      mainFrameIdx = Object.keys(frames[idx])[1]
-    }
-    if(mainFrameIdx > -1 && //make sure the mainFrameIdx is 0 or more and not null or undefined
-      frames[idx][mainFrameIdx] && 
-      _mapDomain(getBaseDomain(extractHostFromURL(frames[idx][mainFrameIdx].url))) == _mapDomain(domain)){
+  for( tabId in frames ){
+    if(_mappedBaseDomain(getHostForTab(tabId)) === _mappedBaseDomain(domain)){
       return true;
     }
   }
+  
   return false;
+}
+
+function _mappedBaseDomain(domain){
+  return domain && _mapDomain(getBaseDomain(domain));
 }
 
 function addCookiesToRealCookieStore(cookies){
   for(i in cookies){
-    //console.log('re-adding cookie for', cookies[i].domain);
     var cookie = cookies[i];
     cookie.url = buildCookieUrl(cookie);
     if(cookie.hostOnly){
@@ -212,7 +210,9 @@ function onBeforeRequest(details){
     var newDomain = getBaseDomain(extractHostFromURL(details.url));
     var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
     var fakeCookies = FakeCookieStore.getCookies(newDomain);
+
     forgetTab(details.tabId);
+    
     if(tabChangesDomains(newDomain,oldDomain)){ 
       console.log('TAB CHANGED DOMAINS', oldDomain, newDomain);
       if(!checkDomainOpenInTab(oldDomain)){
@@ -222,16 +222,42 @@ function onBeforeRequest(details){
     }
 
     if(!checkDomainOpenInTab(newDomain)){
-      recordFrame(details.tabId,0,-1,details.url);
       addCookiesToRealCookieStore(fakeCookies);
-    } else {
-      recordFrame(details.tabId,0,-1,details.url);
     }
   }
+
+  if (type == "main_frame" || type == "sub_frame"){
+    recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
+  }
+
+  //for an extension we try to load cookies for the domain that the extension
+  //actually cares about
+  if(_isTabAnExtension(details.tabId)){
+    var domain = _mappedBaseDomain(getHostForTab(details.tabId))
+    chrome.cookies.getAll({domain: domain}, function(cookies){
+      if(cookies.length === 0){
+        var fakeCookies = FakeCookieStore.getCookies(domain);
+        addCookiesToRealCookieStore(fakeCookies);
+      }
+    });
+  }
+
 }
 
 function getHostForTab(tabId){
-  return extractHostFromURL(frames[tabId][0].url);
+  var mainFrameIdx = 0;
+  if(!frames[tabId]){
+    return undefined;
+  }
+  if(_isTabAnExtension(tabId)){
+    //if the tab is an extension get the url of the first frame for its implied URL 
+    //since the url of frame 0 will be the hash of the extension key
+    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
+  }
+  if(!frames[tabId][mainFrameIdx]){
+    return undefined;
+  }
+  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
 }
 
 function onBeforeSendHeaders(details) {
@@ -240,11 +266,6 @@ function onBeforeSendHeaders(details) {
   }
 
   var type = details.type;
-
-  if (type == "main_frame" || type == "sub_frame"){
-    recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
-  }
-
 
   // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
   if (type == "sub_frame"){
