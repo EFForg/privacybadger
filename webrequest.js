@@ -1,4 +1,5 @@
 /*
+ *
  * This file is part of Privacy Badger <https://eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
  * Derived from Adblock Plus 
@@ -62,10 +63,12 @@ FilterNotifier.addListener(onFilterNotifier);
 
 /* functions */
 function onTabRemoved(tabId){
+  console.log('tab removed!');
   var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
   forgetTab(tabId);
   if(Utils.isPrivacyBadgerEnabled()){
     if(!checkDomainOpenInTab(baseDomain)){
+      console.log(baseDomain, 'is not open in any tab, so removing cookies');
       removeCookiesIfCookieBlocked(baseDomain);
     }
   }
@@ -73,19 +76,30 @@ function onTabRemoved(tabId){
 
 function onTabUpdated(tabId, changeInfo, tab){
   if (changeInfo.status == "loading" && changeInfo.url != undefined){
+    console.log('tab changed to', changeInfo.url);
     //if the change in the tab is within the same domain we don't want to remove the cookies
     forgetTab(tabId);
     recordFrame(tabId,0,-1,changeInfo.url);
   }
 };
 
-function tabChangesDomains(newDomain,oldDomain){
+/*********************************
+ * Function _mapDomain( @string domain)
+ * In some cases an origin uses multiple domains which, for the purpouses of logging
+ * in to the website can essentially be considered the same domain. This function maps
+ * the domain that is passed in to the parent domain that is responsible.
+ * **********************************/
+function _mapDomain(domain){
   var domainMappings = {
     "youtube.com": 'google.com',
     "gmail.com": 'google.com',
   }
-  if(domainMappings[newDomain]) { newDomain = domainMappings[newDomain] }
-  if(domainMappings[oldDomain]) { oldDomain = domainMappings[oldDomain] }
+  return domainMappings[domain] || domain 
+}
+
+function tabChangesDomains(newDomain,oldDomain){
+  var newDomain = _mapDomain(newDomain);
+  var oldDomain = _mapDomain(oldDomain);
 
   return (oldDomain != newDomain);
 }
@@ -148,8 +162,13 @@ function buildCookieUrl(cookie){
 
 function checkDomainOpenInTab(domain){
   for(idx in frames){
-    if(frames[idx][0] && 
-      getBaseDomain(extractHostFromURL(frames[idx][0].url)) == domain){
+    var mainFrameIdx = 0;
+    if(_isTabAnExtension(idx)){
+      mainFrameIdx = Object.keys(frames[idx])[1]
+    }
+    if(mainFrameIdx > -1 && //make sure the mainFrameIdx is 0 or more and not null or undefined
+      frames[idx][mainFrameIdx] && 
+      _mapDomain(getBaseDomain(extractHostFromURL(frames[idx][mainFrameIdx].url))) == _mapDomain(domain)){
       return true;
     }
   }
@@ -320,6 +339,11 @@ function checkRequest(type, tabId, url, frameId) {
     return false;
   }
 
+  //ignore requests that come from an extension.
+  if( _isTabAnExtension(tabId) ){
+    return false;
+  }
+
   var documentUrl = getFrameUrl(tabId, frameId);
   if (!documentUrl){
     return false;
@@ -376,6 +400,12 @@ function checkRequest(type, tabId, url, frameId) {
     return action;
   }
   return false;
+}
+
+function _isTabAnExtension(tabId){
+  return frames[tabId] &&
+    frames[tabId][0] &&
+    (frames[tabId][0].url.indexOf("chrome-extension://") > -1);
 }
 
 function isFrameWhitelisted(tabId, frameId, type) {
