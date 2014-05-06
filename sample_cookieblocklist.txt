@@ -324,3 +324,4 @@
 @@||bootstrapcdn.com^$third-party
 @@||kingfeatures.com^$third-party
 @@||microsoftonline.com^$third-party
+@@||outlook.com^$third-party
