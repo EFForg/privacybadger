@@ -318,3 +318,11 @@
 @@||public.tableausoftware.com^$third-party
 @@||talkgadget.google.com^$third-party
 @@||cdn.sstatic.net^$third-party
+@@||instapaper.com^$third-party
+@@||accounts.google.com^$third-party
+@@||plus.google.com^$third-party
+@@||bootstrapcdn.com^$third-party
+@@||kingfeatures.com^$third-party
+@@||microsoftonline.com^$third-party
+@@||outlook.com^$third-party
+@@||platform.twitter.com^$third-party
