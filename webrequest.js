@@ -1,4 +1,5 @@
 /*
+ *
  * This file is part of Privacy Badger <https://eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
  * Derived from Adblock Plus 
@@ -34,7 +35,7 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /* variables */
+ /* global variables */
 var CookieBlockList = require("cookieblocklist").CookieBlockList
 var FakeCookieStore = require("fakecookiestore").FakeCookieStore
 var FilterNotifier = require("filterNotifier").FilterNotifier
@@ -62,30 +63,48 @@ FilterNotifier.addListener(onFilterNotifier);
 
 /* functions */
 function onTabRemoved(tabId){
+  console.log('tab removed!');
   var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
+  var mappedDomain = _mapDomain(baseDomain);
   forgetTab(tabId);
   if(Utils.isPrivacyBadgerEnabled()){
     if(!checkDomainOpenInTab(baseDomain)){
+      console.log(baseDomain, 'is not open in any tab, so removing cookies');
       removeCookiesIfCookieBlocked(baseDomain);
+    }
+    if(!checkDomainOpenInTab(mappedDomain)){
+      console.log(mappedDomain, 'is not open in any tab, so removing cookies');
+      removeCookiesIfCookieBlocked(mappedDomain);
     }
   }
 };
 
 function onTabUpdated(tabId, changeInfo, tab){
   if (changeInfo.status == "loading" && changeInfo.url != undefined){
+    console.log('tab changed to', changeInfo.url);
     //if the change in the tab is within the same domain we don't want to remove the cookies
     forgetTab(tabId);
     recordFrame(tabId,0,-1,changeInfo.url);
   }
 };
 
-function tabChangesDomains(newDomain,oldDomain){
+/*********************************
+ * @string _mapDomain( @string domain)
+ * In some cases an origin uses multiple domains which, for the purpouses of logging
+ * in to the website can essentially be considered the same domain. This function maps
+ * the domain that is passed in to the parent domain that is responsible.
+ * **********************************/
+function _mapDomain(domain){
   var domainMappings = {
     "youtube.com": 'google.com',
     "gmail.com": 'google.com',
   }
-  if(domainMappings[newDomain]) { newDomain = domainMappings[newDomain] }
-  if(domainMappings[oldDomain]) { oldDomain = domainMappings[oldDomain] }
+  return domainMappings[domain] || domain 
+}
+
+function tabChangesDomains(newDomain,oldDomain){
+  var newDomain = _mapDomain(newDomain);
+  var oldDomain = _mapDomain(oldDomain);
 
   return (oldDomain != newDomain);
 }
@@ -147,18 +166,21 @@ function buildCookieUrl(cookie){
 }
 
 function checkDomainOpenInTab(domain){
-  for(idx in frames){
-    if(frames[idx][0] && 
-      getBaseDomain(extractHostFromURL(frames[idx][0].url)) == domain){
+  for( tabId in frames ){
+    if(_mappedBaseDomain(getHostForTab(tabId)) === _mappedBaseDomain(domain)){
       return true;
     }
   }
+  
   return false;
+}
+
+function _mappedBaseDomain(domain){
+  return domain && _mapDomain(getBaseDomain(domain));
 }
 
 function addCookiesToRealCookieStore(cookies){
   for(i in cookies){
-    //console.log('re-adding cookie for', cookies[i].domain);
     var cookie = cookies[i];
     cookie.url = buildCookieUrl(cookie);
     if(cookie.hostOnly){
@@ -192,27 +214,61 @@ function onBeforeRequest(details){
   if (type == "main_frame" && Utils.isPrivacyBadgerEnabled()){
     var newDomain = getBaseDomain(extractHostFromURL(details.url));
     var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
+    var mappedDomain = _mapDomain(oldDomain);
     var fakeCookies = FakeCookieStore.getCookies(newDomain);
+    var mappedCookies = FakeCookieStore.getCookies(_mapDomain(newDomain));
+
     forgetTab(details.tabId);
+    
     if(tabChangesDomains(newDomain,oldDomain)){ 
       console.log('TAB CHANGED DOMAINS', oldDomain, newDomain);
       if(!checkDomainOpenInTab(oldDomain)){
         console.log('REMOVING COOKIES BECAUSE OF DOMAIN CHANGE FOR TAB', oldDomain);
         removeCookiesIfCookieBlocked(oldDomain);
       }
+      if(!checkDomainOpenInTab(mappedDomain)){
+        removeCookiesIfCookieBlocked(mappedDomain);
+      }
     }
 
     if(!checkDomainOpenInTab(newDomain)){
-      recordFrame(details.tabId,0,-1,details.url);
       addCookiesToRealCookieStore(fakeCookies);
-    } else {
-      recordFrame(details.tabId,0,-1,details.url);
+      addCookiesToRealCookieStore(mappedCookies);
     }
   }
+
+  if (type == "main_frame" || type == "sub_frame"){
+    recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
+  }
+
+  //for an extension we try to load cookies for the domain that the extension
+  //actually cares about
+  if(_isTabAnExtension(details.tabId)){
+    var domain = _mappedBaseDomain(getHostForTab(details.tabId))
+    chrome.cookies.getAll({domain: domain}, function(cookies){
+      if(cookies.length === 0){
+        var fakeCookies = FakeCookieStore.getCookies(domain);
+        addCookiesToRealCookieStore(fakeCookies);
+      }
+    });
+  }
+
 }
 
 function getHostForTab(tabId){
-  return extractHostFromURL(frames[tabId][0].url);
+  var mainFrameIdx = 0;
+  if(!frames[tabId]){
+    return undefined;
+  }
+  if(_isTabAnExtension(tabId)){
+    //if the tab is an extension get the url of the first frame for its implied URL 
+    //since the url of frame 0 will be the hash of the extension key
+    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
+  }
+  if(!frames[tabId][mainFrameIdx]){
+    return undefined;
+  }
+  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
 }
 
 function onBeforeSendHeaders(details) {
@@ -221,11 +277,6 @@ function onBeforeSendHeaders(details) {
   }
 
   var type = details.type;
-
-  if (type == "main_frame" || type == "sub_frame"){
-    recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
-  }
-
 
   // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
   if (type == "sub_frame"){
@@ -320,6 +371,11 @@ function checkRequest(type, tabId, url, frameId) {
     return false;
   }
 
+  //ignore requests that come from an extension.
+  if( _isTabAnExtension(tabId) ){
+    return false;
+  }
+
   var documentUrl = getFrameUrl(tabId, frameId);
   if (!documentUrl){
     return false;
@@ -363,9 +419,9 @@ function checkRequest(type, tabId, url, frameId) {
     var blockedData = activeMatchers.blockedOriginsByTab[tabId];
     var blockedDataByHost = blockedData[requestHost];
     if (!(blockedDataByHost)){
-      /*// if the third party origin is not blocked we add it to the list to 
-      // inform the user of all trackers.
-      activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);*/
+      // if the third party origin is not blocked we add it to the list to 
+      // inform the user of all third parties on the page.
+      activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
       return "noaction";
     }
     //console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
@@ -376,6 +432,12 @@ function checkRequest(type, tabId, url, frameId) {
     return action;
   }
   return false;
+}
+
+function _isTabAnExtension(tabId){
+  return frames[tabId] &&
+    frames[tabId][0] &&
+    (frames[tabId][0].url.indexOf("chrome-extension://") > -1);
 }
 
 function isFrameWhitelisted(tabId, frameId, type) {
