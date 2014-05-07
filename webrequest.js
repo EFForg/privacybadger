@@ -371,8 +371,8 @@ function checkRequest(type, tabId, url, frameId) {
     return false;
   }
 
-  //ignore requests that come from an extension.
-  if( _isTabAnExtension(tabId) ){
+  //ignore requests coming from internal chrome tabs
+  if(_isTabChromeInternal(tabId) ){
     return false;
   }
 
@@ -434,10 +434,18 @@ function checkRequest(type, tabId, url, frameId) {
   return false;
 }
 
-function _isTabAnExtension(tabId){
+function _frameUrlStartsWith(tabId, piece){
   return frames[tabId] &&
     frames[tabId][0] &&
-    (frames[tabId][0].url.indexOf("chrome-extension://") > -1);
+    (frames[tabId][0].url.indexOf(piece) === 0);
+}
+
+function _isTabChromeInternal(tabId){
+  return _frameUrlStartsWith(tabId, "chrome");
+}
+
+function _isTabAnExtension(tabId){
+  return _frameUrlStartsWith(tabId, "chrome-extension://");
 }
 
 function isFrameWhitelisted(tabId, frameId, type) {
