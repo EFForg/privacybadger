@@ -327,3 +327,4 @@
 @@||outlook.com^$third-party
 @@||platform.twitter.com^$third-party
 @@||viafoura.net^$third-party
+@@||d3js.org^$third-party
