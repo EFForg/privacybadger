@@ -37,8 +37,9 @@
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "moveCookiesToRealCookieStore", "moveCookiesToFakeCookieStore"];
-for (var i = 0; i < imports.length; i++)
+for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
+}
 
 
 with(require("filterClasses"))
@@ -195,9 +196,9 @@ function _badgerStatusTitle(action){
   var prefix = "";
 
   var statusMap = { 
-    block: "This tracker is blocked, slide to allow tracker or block cookies",
-    cookieblock: "This tracker's cookies are blocked, slide to block or allow tracker",
-    noaction: "This tracker is allowed, slide to block tracker or block cookies"
+    block:        "This tracker is blocked, slide to unblock tracker or block cookies.",
+    cookieblock:  "This tracker's cookies are blocked, slide to block or unblock tracker.",
+    noaction:     "This domain is unblocked, slide to block entirely or block cookies."
   }
 
   return prefix + statusMap[action];
@@ -312,7 +313,6 @@ function displayTooltip(event){
   var displayTipTimer = setTimeout(function(){
     if($elm.attr('tooltip').length == 0){ return; }
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
-    $elm.closest('.clicker').animate({height: '35px'},200);
     $container.text($elm.attr('tooltip'));
     $container.show();
     $container.siblings('.tooltipArrow').show();
@@ -325,7 +325,6 @@ function hideTooltip(event){
   var hideTipTimer = setTimeout(function(){
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
     if($container.is(':hidden')){return;}
-    $elm.closest('.clicker').animate({height: '19px'},300);
     $container.text('');
     $container.hide();
     $container.siblings('.tooltipArrow').hide();
