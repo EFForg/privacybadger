@@ -38,6 +38,7 @@
  /* global variables */
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var FakeCookieStore = require("fakecookiestore").FakeCookieStore;
+var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
 var frames = {};
 var clobberRequestIds = {};
@@ -52,6 +53,11 @@ var importantNotifications = {
   'subscription.updated': true,
   'load': true
 };
+var backgroundPage = chrome.extension.getBackgroundPage();
+var imports = ["saveAction"];
+for (var i = 0; i < imports.length; i++){
+  window[imports[i]] = backgroundPage[imports[i]];
+}
 
 /* Event Listeners */
 chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
@@ -288,10 +294,24 @@ function onBeforeSendHeaders(details) {
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
+
+    //if settings for this domain are still controlled by badger and it is in 
+    //the list of domain exceptions ask the user if they would like to unblock.
+    if(requestAction.indexOf('user') < 0){
+      if( DomainExceptions.hasPath(details.url) ){
+        var domain  = extractHostFromURL(details.url);
+        if(_askUserToWhitelist(domain)){
+          saveAction('noaction', domain);
+          return {};
+        } 
+      }
+    }
+    
     //add domain to list of blocked domains if it is not there already
-    if(requestAction == "block" || requestAction == "cookieBlock"){
+    if(requestAction == "block" || requestAction == "cookieblock"){
       BlockedDomainList.addDomain(extractHostFromURL(details.url));
     }
+
     if (requestAction == "block" || requestAction == "userblock") {
       return {cancel: true};
     }
@@ -431,7 +451,7 @@ function checkRequest(type, tabId, url, frameId) {
     }
     return action;
   }
-  return false;
+  return "noaction";
 }
 
 function _frameUrlStartsWith(tabId, piece){
@@ -446,6 +466,14 @@ function _isTabChromeInternal(tabId){
 
 function _isTabAnExtension(tabId){
   return _frameUrlStartsWith(tabId, "chrome-extension://");
+}
+
+function _askUserToWhitelist(baseDomain){
+  var whitelistText = "WARNING! The action you are trying to take requires " +
+    "you to " + "unblock " + baseDomain + ". By doing this you could be " + 
+    "allowing " + baseDomain + " to track your browsing habits.  Would you " +
+    "like to continue and unblock " + baseDomain + "?";
+  return window.confirm(whitelistText);
 }
 
 function isFrameWhitelisted(tabId, frameId, type) {
