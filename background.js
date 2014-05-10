@@ -656,6 +656,7 @@ var unblockOrigin = function(origin){
   var policySubscription = FilterStorage.knownSubscriptions["userGreen"];
   FilterStorage.removeFilter(filter);
   FilterStorage.addFilter(filter, policySubscription);
+  teardownCookieBlocking(origin);
 }
 
 //boolean are there any acceptable privacy policy hashes
