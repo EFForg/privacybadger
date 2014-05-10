@@ -36,7 +36,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "moveCookiesToRealCookieStore", "moveCookiesToFakeCookieStore"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "moveCookiesToRealCookieStore", "moveCookiesToFakeCookieStore"];
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
@@ -352,6 +352,12 @@ function saveAction(userAction, origin) {
   //remove cookies if a user has just cookieblocked
   if(userAction == 'cookieblock'){
     setupCookieBlocking(origin);
+  }
+
+  //re add any cookies if the user has unblocked
+  if(userAction === 'noaction'){
+    console.log("Tearing Down cookie blocking for", origin);
+    teardownCookieBlocking(origin);
   }
 
   // todo: right now we don't determine whether a reload is needed

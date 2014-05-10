@@ -446,6 +446,15 @@ function setupCookieBlocking(domain){
   });
 }
 
+function teardownCookieBlocking(domain){
+  CookieBlockList.removeDomain(domain);
+  if(!checkDomainOpenInTab(domain)){
+    var cookies = FakeCookieStore.getCookies(domain);
+    addCookiesToRealCookieStore(cookies);
+  }
+  FakeCookieStore.removeCookie(domain);
+}
+
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
   switch (request.reqtype)
@@ -677,3 +686,4 @@ function moveCookiesToRealCookieStore(){
     }
   }
 }
+
