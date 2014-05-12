@@ -328,3 +328,5 @@
 @@||platform.twitter.com^$third-party
 @@||viafoura.net^$third-party
 @@||d3js.org^$third-party
+@@||attachment.fbsbx.com^$third-party
+@@||122.2o7.net^$third-party
