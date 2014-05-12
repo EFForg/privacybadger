@@ -95,17 +95,19 @@ function checkCollapse(event)
 
 function init()
 {
+  
   // Make sure this is really an HTML page, as Chrome runs these scripts on just about everything
   if (!(document.documentElement instanceof HTMLElement))
     return;
 
-  document.addEventListener("error", checkCollapse, true);
-  document.addEventListener("load", checkCollapse, true);
+  //document.addEventListener("error", checkCollapse, true);
+  //document.addEventListener("load", checkCollapse, true);
 
   chrome.extension.sendRequest({reqtype: "get-settings", selectors: true, frameUrl: window.location.href}, function(response)
   {
     setElemhideCSSRules(response.selectors);
   });
+  
 }
 
 // In Chrome 18 the document might not be initialized yet
