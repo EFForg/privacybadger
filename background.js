@@ -128,6 +128,11 @@ function getAction(tabId, origin) {
   return activeMatchers.getAction(tabId, origin);
 }
 
+function requestWouldBeBlocked(tabId, origin) {
+  var action = getAction(tabId, origin);
+  return action == "block" || action == "userblock"
+}
+
 function getAllOriginsForTab(tabId) {
   return activeMatchers.getAllOriginsForTab(tabId);
 }
@@ -516,21 +521,20 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
       var documentHost = extractHostFromURL(request.documentUrl);
       var thirdParty = isThirdParty(requestHost, documentHost);  
       var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
-      if (filter instanceof BlockingFilter)
-      {
+      if( (filter instanceof BlockingFilter) && 
+      requestWouldBeBlocked(tabId, requestHost) ) {
         var collapse = filter.collapse;
         if (collapse == null)
           collapse = (localStorage.hidePlaceholders != "false");
         sendResponse(collapse);
-      }
-      else
+      } else {
         sendResponse(false);
+      }
       break;
     case "get-domain-enabled-state":
       // Returns whether this domain is in the exclusion list.
       // The page action popup asks us this.
-      if(sender.tab)
-      {
+      if(sender.tab) {
         sendResponse({enabled: !isWhitelisted(sender.tab.url)});
         return;
       }

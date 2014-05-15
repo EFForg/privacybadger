@@ -84,10 +84,11 @@ function checkCollapse(event)
       if (response && target.parentNode)
       {
         // <frame> cannot be removed, doing that will mess up the frameset
-        if (tag == "frame")
+        if (tag == "frame"){
           target.style.setProperty("visibility", "hidden", "!important");
-        else
+        } else {
           target.parentNode.removeChild(target);
+        } 
       }
     });
   }
@@ -95,6 +96,7 @@ function checkCollapse(event)
 
 function init()
 {
+  
   // Make sure this is really an HTML page, as Chrome runs these scripts on just about everything
   if (!(document.documentElement instanceof HTMLElement))
     return;
@@ -106,6 +108,7 @@ function init()
   {
     setElemhideCSSRules(response.selectors);
   });
+  
 }
 
 // In Chrome 18 the document might not be initialized yet
