@@ -330,3 +330,5 @@
 @@||d3js.org^$third-party
 @@||attachment.fbsbx.com^$third-party
 @@||122.2o7.net^$third-party
+@@||typekit.net^$third-party
+@@||stripe.com^$third-party
