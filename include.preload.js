@@ -84,10 +84,11 @@ function checkCollapse(event)
       if (response && target.parentNode)
       {
         // <frame> cannot be removed, doing that will mess up the frameset
-        if (tag == "frame")
+        if (tag == "frame"){
           target.style.setProperty("visibility", "hidden", "!important");
-        else
+        } else {
           target.parentNode.removeChild(target);
+        } 
       }
     });
   }
@@ -100,8 +101,8 @@ function init()
   if (!(document.documentElement instanceof HTMLElement))
     return;
 
-  //document.addEventListener("error", checkCollapse, true);
-  //document.addEventListener("load", checkCollapse, true);
+  document.addEventListener("error", checkCollapse, true);
+  document.addEventListener("load", checkCollapse, true);
 
   chrome.extension.sendRequest({reqtype: "get-settings", selectors: true, frameUrl: window.location.href}, function(response)
   {
