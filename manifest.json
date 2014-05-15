@@ -1,0 +1,87 @@
+{
+  "author": {
+    "email": "eff.software.projects@gmail.com"
+  }, 
+  "background": {
+    "scripts": [
+      "lib/compat.js", 
+      "lib/io.js", 
+      "utils.js",
+      "lib/adblockplus.js", 
+      "lib/punycode.js", 
+      "lib/publicSuffixList.js", 
+      "lib/basedomain.js", 
+      "lib/sha1.js", 
+      "lib/jsbn.js", 
+      "lib/rsa.js", 
+      "cookieblocklist.js",
+      "fakecookiestore.js",
+      "blockedDomainList.js",
+      "webrequest.js", 
+      "popupBlocker.js", 
+      "heuristicblocking.js", 
+      "background.js"
+    ]
+  }, 
+  "content_scripts": [
+    {
+      "all_frames": true, 
+      "js": [
+        "include.preload.js"
+      ], 
+      "matches": [
+        "http://*/*", 
+        "https://*/*"
+      ], 
+      "run_at": "document_start"
+    }, 
+    {
+      "all_frames": true, 
+      "js": [
+        "include.postload.js"
+      ], 
+      "matches": [
+        "http://*/*", 
+        "https://*/*"
+      ], 
+      "run_at": "document_end"
+    }
+  ], 
+  "default_locale": "en_US", 
+  "description": "__MSG_description__", 
+  "icons": {
+    "128": "icons/badger-128.png", 
+    "16": "icons/badger-16.png", 
+    "170": "icons/badger-170.png", 
+    "19": "icons/badger-19.png", 
+    "24": "icons/badger-24.png", 
+    "32": "icons/badger-32.png", 
+    "48": "icons/badger-48.png"
+  }, 
+  "manifest_version": 2, 
+  "minimum_chrome_version": "18.0", 
+  "name": "__MSG_name__", 
+  "page_action": {
+    "default_icon": "icons/badger-19.png", 
+    "default_popup": "popup.html", 
+    "default_title": "__MSG_name__"
+  }, 
+  "permissions": [
+    "tabs", 
+    "http://*/*", 
+    "https://*/*", 
+    "contextMenus", 
+    "webRequest", 
+    "webRequestBlocking", 
+    "webNavigation", 
+    "unlimitedStorage", 
+    "storage", 
+    "cookies", 
+    "privacy"
+  ], 
+  "update_url": "https://adblockplus.org/devbuilds/privacy_badger/updates.xml", 
+  "version": "2014.5.14.0", 
+  "web_accessible_resources": [
+    "block.html"
+  ]
+}
