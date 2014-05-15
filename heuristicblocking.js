@@ -157,21 +157,16 @@ var blacklistOrigin = function(origin, fqdn) {
         unblockOrigin(fqdn);
       } else {
         BlockedDomainList.addDomain(fqdn);
+        addFiltersFromWhitelistToCookieblock(origin)
+
+        var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
+        // Create an ABP filter to block this origin 
+        var filter = this.Filter.fromText("||" + origin + "^$third-party");
+        filter.disabled = false;
+        FilterStorage.addFilter(filter, heuristicSubscription);
       }
     });
   }  
-  
-  var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
-  // Create an ABP filter to block this origin 
-  var filter = this.Filter.fromText("||" + origin + "^$third-party");
-
-  addFiltersFromWhitelistToCookieblock(origin)
-
-  filter.disabled = false;
-  FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions["userGreen"]);
-  FilterStorage.addFilter(filter, heuristicSubscription);
-
-  return true;
 };
 
 // This maps cookies to a rough estimate of how many bits of 
