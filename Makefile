@@ -4,8 +4,8 @@ zip:
 crx:
 	scripts/makecrx.sh 
 todo:
-	grep -rn 'TODO' *.js lib
+	grep -rn 'TODO' src
 logging:
-	grep -rn 'console.log' *.js lib
+	grep -rn 'console.log' src lib
 
 .PHONY: build todo logging zip crx

@@ -82,6 +82,7 @@
   }, 
   "update_url": "http://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [
-    "skin/block.html"
+    "skin/*",
+    "icons/*"
   ]
 }
