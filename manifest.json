@@ -1,7 +1,21 @@
 {
+  "version": "2014.5.15", 
   "author": {
     "email": "eff.software.projects@gmail.com"
   }, 
+  "permissions": [
+    "tabs", 
+    "http://*/*", 
+    "https://*/*", 
+    "contextMenus", 
+    "webRequest", 
+    "webRequestBlocking", 
+    "webNavigation", 
+    "unlimitedStorage", 
+    "storage", 
+    "cookies", 
+    "privacy"
+  ], 
   "background": {
     "scripts": [
       "lib/compat.js", 
@@ -66,21 +80,7 @@
     "default_popup": "popup.html", 
     "default_title": "__MSG_name__"
   }, 
-  "permissions": [
-    "tabs", 
-    "http://*/*", 
-    "https://*/*", 
-    "contextMenus", 
-    "webRequest", 
-    "webRequestBlocking", 
-    "webNavigation", 
-    "unlimitedStorage", 
-    "storage", 
-    "cookies", 
-    "privacy"
-  ], 
-  "update_url": "https://adblockplus.org/devbuilds/privacy_badger/updates.xml", 
-  "version": "2014.5.15.0", 
+  "update_url": "http://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [
     "block.html"
   ]
