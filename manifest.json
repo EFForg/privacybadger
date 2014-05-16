@@ -20,7 +20,7 @@
     "scripts": [
       "lib/compat.js", 
       "lib/io.js", 
-      "utils.js",
+      "src/utils.js",
       "lib/adblockplus.js", 
       "lib/punycode.js", 
       "lib/publicSuffixList.js", 
@@ -28,20 +28,20 @@
       "lib/sha1.js", 
       "lib/jsbn.js", 
       "lib/rsa.js", 
-      "cookieblocklist.js",
-      "fakecookiestore.js",
-      "blockedDomainList.js",
-      "webrequest.js", 
-      "popupBlocker.js", 
-      "heuristicblocking.js", 
-      "background.js"
+      "lib/popupBlocker.js", 
+      "src/cookieblocklist.js",
+      "src/fakecookiestore.js",
+      "src/blockedDomainList.js",
+      "src/webrequest.js", 
+      "src/heuristicblocking.js", 
+      "src/background.js"
     ]
   }, 
   "content_scripts": [
     {
       "all_frames": true, 
       "js": [
-        "include.preload.js"
+        "src/include.preload.js"
       ], 
       "matches": [
         "http://*/*", 
@@ -52,7 +52,7 @@
     {
       "all_frames": true, 
       "js": [
-        "include.postload.js"
+        "src/include.postload.js"
       ], 
       "matches": [
         "http://*/*", 
@@ -77,11 +77,11 @@
   "name": "__MSG_name__", 
   "page_action": {
     "default_icon": "icons/badger-19.png", 
-    "default_popup": "popup.html", 
+    "default_popup": "skin/popup.html", 
     "default_title": "__MSG_name__"
   }, 
   "update_url": "http://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [
-    "block.html"
+    "skin/block.html"
   ]
 }

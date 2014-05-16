@@ -336,7 +336,7 @@ function addSubscription(prevVersion)
   {
     console.log("Calling firstRun page");
     chrome.tabs.create({
-      url: chrome.extension.getURL("firstRun.html")
+      url: chrome.extension.getURL("/skin/firstRun.html")
     });
   }
 
