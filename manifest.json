@@ -80,7 +80,7 @@
     "privacy"
   ], 
   "update_url": "https://adblockplus.org/devbuilds/privacy_badger/updates.xml", 
-  "version": "2014.5.14.0", 
+  "version": "2014.5.15.0", 
   "web_accessible_resources": [
     "block.html"
   ]
