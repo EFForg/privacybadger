@@ -159,7 +159,10 @@ var Utils = exports.Utils = {
     xhr.send();
   },
 
-  //check if privacy badger is enabled, optionally take an origin and check against the disabledSites list
+  /**
+   * check if privacy badger is enabled, optionally take an origin and 
+   * check against the disabledSites list
+   **/
   isPrivacyBadgerEnabled: function(origin){
     if(!JSON.parse(localStorage.enabled)){
       return false;
@@ -176,7 +179,9 @@ var Utils = exports.Utils = {
     }
   },
 
-  //add an origin to the disabled sites list
+  /**
+   * add an origin to the disabled sites list
+   **/
   disablePrivacyBadgerForOrigin: function(origin){
     if(localStorage.disabledSites === undefined){
       localStorage.disabledSites = JSON.stringify([origin]);
