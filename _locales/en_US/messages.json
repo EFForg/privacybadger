@@ -64,6 +64,84 @@
       }
     }
   },
+  "filters_acceptableAds2_label": {
+    "message": "Allow some non-intrusive advertising"
+  },
+  "filters_addSubscriptionAdd_label": {
+    "message": "Add"
+  },
+  "filters_addSubscriptionOther_label": {
+    "message": "Add a different subscription"
+  },
+  "filters_addSubscription_label": {
+    "message": "Add filter subscription"
+  },
+  "filters_readMore_label": {
+    "message": "Read more"
+  },
+  "filters_subscription_delete_label": {
+    "message": "Delete"
+  },
+  "filters_subscription_enabled_label": {
+    "message": "Enabled"
+  },
+  "filters_subscription_lastDownload_checksumMismatch": {
+    "message": "Failed, checksum mismatch"
+  },
+  "filters_subscription_lastDownload_connectionError": {
+    "message": "Failed, download failure"
+  },
+  "filters_subscription_lastDownload_inProgress": {
+    "message": "Downloading…"
+  },
+  "filters_subscription_lastDownload_invalidData": {
+    "message": "Failed, not a valid filters list"
+  },
+  "filters_subscription_lastDownload_invalidURL": {
+    "message": "Failed, not a valid address"
+  },
+  "filters_viewList_label": {
+    "message": "View list"
+  },
+  "firstRun_acceptableAdsExplanation": {
+    "message": "<strong>Adblock Plus will always block annoying ads.</strong> Still, we want to encourage websites using plain and unobtrusive advertising. That's why we have established <a>strict guidelines</a> to identify acceptable ads, and allow these out of the box. You can always <a>disable</a> this if you want to block all ads."
+  },
+  "firstRun_dataCorruptionWarning": {
+    "message": "Does this page keep showing up? <a>Click here!</a>"
+  },
+  "firstRun_feature_malware": {
+    "message": "Malware Blocking"
+  },
+  "firstRun_feature_malware_description": {
+    "message": "Block domains that are known to be infected by malware to make browsing the internet more secure."
+  },
+  "firstRun_feature_social": {
+    "message": "Remove Social Media Buttons"
+  },
+  "firstRun_feature_social_description": {
+    "message": "Remove social media integration such as the Facebook Like button that track your browsing habits."
+  },
+  "firstRun_feature_tracking": {
+    "message": "Disable Tracking"
+  },
+  "firstRun_feature_tracking_description": {
+    "message": "There are hundreds of ad companies tracking your every move, but you can easily disable all tracking to browse privately."
+  },
+  "firstRun_features": {
+    "message": "Adblock Plus can do more than blocking ads"
+  },
+  "firstRun_share": {
+    "message": "Think Adblock Plus is worth sharing?"
+  },
+  "firstRun_title": {
+    "message": "Adblock Plus has been installed"
+  },
+  "firstRun_toggle_off": {
+    "message": "OFF"
+  },
+  "firstRun_toggle_on": {
+    "message": "ON"
+  },
   "found_a_bug": {
     "message": "Found a bug? Want to translate Adblock Plus into your language? Please <a href='$url$'>file a request here</a>.",
     "placeholders": {
@@ -75,6 +153,12 @@
   "general": {
     "description": "This is a tab heading.",
     "message": "General"
+  },
+  "global_remove_subscription_warning": {
+    "message": "Do you really want to remove this subscription?"
+  },
+  "global_subscription_invalid_location": {
+    "message": "Filter list location is neither a valid URL nor a valid file name."
   },
   "last_updated_at": {
     "description": "e.g. Last updated at 3:00pm on Apr 1, 2011",
@@ -97,6 +181,9 @@
       }
     }
   },
+  "name": {
+    "message": "Privacy Badger"
+  },
   "new_filters_added": {
     "message": "New filters added; see <a id='options_url' target='_blank'>Options</a> to manage them."
   },
@@ -105,6 +192,9 @@
   },
   "out_of_date_lists": {
     "message": "Out-of-date lists are updated periodically."
+  },
+  "overlay_hideplaceholders_label": {
+    "message": "Hide placeholders of blocked elements"
   },
   "remove_button": {
     "description": "This is the label for the 'Remove selected' buttons.",
@@ -116,8 +206,14 @@
   "show_icon": {
     "message": "Show icon in address bar"
   },
+  "subscriptionSelection_location_label": {
+    "message": "Filter list location:"
+  },
   "subscriptionSelection_subscriptionSelector_label": {
     "message": "Please choose a filter subscription from the list:"
+  },
+  "subscriptionSelection_title_label": {
+    "message": "Subscription title:"
   },
   "update_now": {
     "message": "Update now"

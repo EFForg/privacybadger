@@ -1,0 +1,7 @@
+scripts/*
+.git/*
+.git*
+*.crx
+*.zip
+*.swp
+pkg

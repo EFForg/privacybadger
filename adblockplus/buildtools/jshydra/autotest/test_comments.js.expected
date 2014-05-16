@@ -1,7 +1,0 @@
-process_js: // Processes an AST tree
-
-test_object: // Documenting an object!
-
-someMethod: /**
-* This method does absolutely nothing.
-*/
