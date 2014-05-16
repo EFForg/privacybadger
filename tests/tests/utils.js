@@ -22,13 +22,64 @@
   });
 
   asyncTest("send xhrRequest", function(){
-    expect(2); //expect 1 assertion
-    Utils.xhrRequest("https://eff.org", function(err,resp){
+    expect(3); //expect 1 assertion
+    Utils.xhrRequest("https://eff.org/files/badgertest.txt", function(err,resp){
       ok(true, "xhr calls callback");
       ok(err === null, "there was no error");
+      ok(resp === "test passed\n", "got response text");
+      console.log(resp);
       start();
     });
   });
 
+  asyncTest("send faling xhrRequest", function(){
+    expect(3); //expect 1 assertion
+    Utils.xhrRequest("https://eff.org/nonexistent-page", function(err,resp){
+      ok(true, "xhr calls callback");
+      ok(err, "there was an error");
+      ok(err.status === 404, "error was 404");
+      start();
+    });
+  });
 
+  test("isPrivacyBadgerEnabled", function(){
+    localStorage.enabled = true;
+    ok(Utils.isPrivacyBadgerEnabled(), "enabled");
+    ok(Utils.isPrivacyBadgerEnabled("eff.org"), "enabled for site");
+
+    localStorage.enabled = false;
+    ok(!Utils.isPrivacyBadgerEnabled(), "disabled");
+    ok(!Utils.isPrivacyBadgerEnabled("eff.org"), "disabled for site");
+
+    localStorage.enabled = true;
+    Utils.disablePrivacyBadgerForOrigin("example.com");
+    ok(!Utils.isPrivacyBadgerEnabled("example.com"), "disabled for site");
+    ok(Utils.isPrivacyBadgerEnabled(), "enabled global but disabled for site");
+    Utils.enablePrivacyBadgerForOrigin("example.com");
+    ok(Utils.isPrivacyBadgerEnabled("example.com"), "enabled for site");
+  });
+  
+  test("disable/enable privacy badger for origin", function(){
+    var parsed = function(){return JSON.parse(localStorage.disabledSites)};
+    var origLength = parsed() && parsed().length || 0
+
+    Utils.disablePrivacyBadgerForOrigin('foo.com');
+    ok(parsed().length == (origLength + 1), "one more disabled site");
+
+    Utils.enablePrivacyBadgerForOrigin('foo.com');
+    ok(parsed().length == origLength, "one less disabled site");
+  });
+
+  test("getRandom", function(){
+    var min = 1,
+        max = 10,
+        iterations = 1000,
+        results = [];
+
+    for(var i = 0; i < iterations; i++){
+      results.push(Utils.getRandom(min,max));
+    }
+    ok(Math.max.apply(null,results) === max, "max is max");
+    ok(Math.min.apply(null,results) === min, "min is min");
+  });
 })();
