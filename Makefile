@@ -1,10 +1,11 @@
-build:
-	python build.py -t chrome build -k dummy-chromium.pem
-clean:
-	rm -rf buildtools/jshydra/mozilla
+build: zip crx
+zip:
+	scripts/makezip.sh 
+crx:
+	scripts/makecrx.sh 
 todo:
-	grep -rn 'TODO' *.js helpers lib models styles test/unit views templates
+	grep -rn 'TODO' *.js lib
 logging:
-	grep -rn 'console.log' *.js helpers lib models styles test/unit views templates
+	grep -rn 'console.log' *.js lib
 
-.PHONY: build clean todo logging
+.PHONY: build todo logging zip crx
