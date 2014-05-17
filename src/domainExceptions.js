@@ -5,6 +5,9 @@
 * on. If the array is empty then we show the popup for any request to the 
 * domain 
 **/
+require.scopes["domainExceptions"] = (function() {
+  
+var exports = {};
 
 var DomainExceptions = {
 
@@ -24,3 +27,5 @@ var DomainExceptions = {
 }
 
 exports.DomainExceptions = DomainExceptions;
+
+})();

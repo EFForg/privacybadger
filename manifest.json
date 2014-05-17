@@ -32,6 +32,7 @@
       "src/cookieblocklist.js",
       "src/fakecookiestore.js",
       "src/blockedDomainList.js",
+      "src/domainExceptions.js",
       "src/webrequest.js", 
       "src/heuristicblocking.js", 
       "src/background.js"
