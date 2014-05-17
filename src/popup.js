@@ -85,10 +85,7 @@ function init()
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   });
  
-  // Ask content script whether clickhide is active. If so, show cancel button.
-  // If that isn't the case, ask background.html whether it has cached filters. If so,
-  // ask the user whether she wants those filters.
-  // Otherwise, we are in default state.
+  //toggle activation buttons if privacy badger is not enabled for current url
   chrome.windows.getCurrent(function(w)
   {
     chrome.tabs.getSelected(w.id, function(t)

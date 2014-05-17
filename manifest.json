@@ -48,17 +48,6 @@
         "https://*/*"
       ], 
       "run_at": "document_start"
-    }, 
-    {
-      "all_frames": true, 
-      "js": [
-        "src/include.postload.js"
-      ], 
-      "matches": [
-        "http://*/*", 
-        "https://*/*"
-      ], 
-      "run_at": "document_end"
     }
   ], 
   "default_locale": "en_US", 

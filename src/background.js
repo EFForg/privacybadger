@@ -189,11 +189,6 @@ function refreshIconAndContextMenu(tab)
     else
       chrome.pageAction.show(tab.id);
 
-    // Set context menu status according to whether current tab has whitelisted domain
-    if (excluded)
-      chrome.contextMenus.removeAll();
-    else
-      showContextMenu();
   }
 }
 
@@ -341,22 +336,6 @@ function addSubscription(prevVersion)
   }
 
   notifyUser();
-}
-
-// Set up context menu for user selection of elements to block
-function showContextMenu()
-{
-  chrome.contextMenus.removeAll(function()
-  {
-    if(typeof localStorage["shouldShowBlockElementMenu"] == "string" && localStorage["shouldShowBlockElementMenu"] == "true")
-    {
-      chrome.contextMenus.create({'title': chrome.i18n.getMessage('block_element'), 'contexts': ['image', 'video', 'audio'], 'onclick': function(info, tab)
-      {
-        if(info.srcUrl)
-            chrome.tabs.sendRequest(tab.id, {reqtype: "clickhide-new-filter", filter: info.srcUrl});
-      }});
-    }
-  });
 }
 
 /**
@@ -571,7 +550,6 @@ chrome.windows.getAll({populate: true}, function(windows)
 
 // Update icon if a tab changes location
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  chrome.tabs.sendRequest(tabId, {reqtype: "clickhide-deactivate"})
   if(changeInfo.status == "loading")
     refreshIconAndContextMenu(tab);
 });
