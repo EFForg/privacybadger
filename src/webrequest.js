@@ -421,7 +421,7 @@ function checkRequest(type, tabId, url, frameId) {
     if (!(blockedDataByHost)){
       // if the third party origin is not blocked we add it to the list to 
       // inform the user of all third parties on the page.
-      activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
+     // activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
       return "noaction";
     }
     //console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
