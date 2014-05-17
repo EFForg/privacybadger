@@ -29,3 +29,6 @@ buildtools/jshydra/mozilla/js
 
 #vim swap files
 *.sw*
+
+#zip files
+*.zip
