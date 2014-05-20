@@ -56,7 +56,7 @@ var importantNotifications = {
 /* Event Listeners */
 chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
 chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
-chrome.cookies.onChanged.addListener(onCookieChanged);
+//chrome.cookies.onChanged.addListener(onCookieChanged);
 chrome.tabs.onUpdated.addListener(onTabUpdated);
 chrome.tabs.onRemoved.addListener(onTabRemoved);
 FilterNotifier.addListener(onFilterNotifier);
@@ -67,7 +67,7 @@ function onTabRemoved(tabId){
   var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
   var mappedDomain = _mapDomain(baseDomain);
   forgetTab(tabId);
-  if(Utils.isPrivacyBadgerEnabled()){
+  /*if(Utils.isPrivacyBadgerEnabled()){
     if(!checkDomainOpenInTab(baseDomain)){
       console.log(baseDomain, 'is not open in any tab, so removing cookies');
       removeCookiesIfCookieBlocked(baseDomain);
@@ -76,7 +76,7 @@ function onTabRemoved(tabId){
       console.log(mappedDomain, 'is not open in any tab, so removing cookies');
       removeCookiesIfCookieBlocked(mappedDomain);
     }
-  }
+  }*/
 };
 
 function onTabUpdated(tabId, changeInfo, tab){
@@ -220,7 +220,7 @@ function onBeforeRequest(details){
 
     forgetTab(details.tabId);
     
-    if(tabChangesDomains(newDomain,oldDomain)){ 
+    /*if(tabChangesDomains(newDomain,oldDomain)){ 
       console.log('TAB CHANGED DOMAINS', oldDomain, newDomain);
       if(!checkDomainOpenInTab(oldDomain)){
         console.log('REMOVING COOKIES BECAUSE OF DOMAIN CHANGE FOR TAB', oldDomain);
@@ -234,7 +234,7 @@ function onBeforeRequest(details){
     if(!checkDomainOpenInTab(newDomain)){
       addCookiesToRealCookieStore(fakeCookies);
       addCookiesToRealCookieStore(mappedCookies);
-    }
+    }*/
   }
 
   if (type == "main_frame" || type == "sub_frame"){
@@ -243,7 +243,7 @@ function onBeforeRequest(details){
 
   //for an extension we try to load cookies for the domain that the extension
   //actually cares about
-  if(_isTabAnExtension(details.tabId)){
+  /*if(_isTabAnExtension(details.tabId)){
     var domain = _mappedBaseDomain(getHostForTab(details.tabId))
     chrome.cookies.getAll({domain: domain}, function(cookies){
       if(cookies.length === 0){
@@ -251,7 +251,7 @@ function onBeforeRequest(details){
         addCookiesToRealCookieStore(fakeCookies);
       }
     });
-  }
+  }*/
 
 }
 
@@ -298,7 +298,7 @@ function onBeforeSendHeaders(details) {
     else if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       recordRequestId(details.requestId);
       //CookieBlockList.addDomain(extractHostFromURL(details.url));
-      //clobberCookieSetting();
+      clobberCookieSetting(details.tabId, details.frameId);
       newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name != "Cookie" && header.name != "Referer");
       });
@@ -311,6 +311,33 @@ function onBeforeSendHeaders(details) {
   details.requestHeaders.push({name: "DNT", value: "1"});
   return {requestHeaders: details.requestHeaders};
 }
+
+chrome.webRequest.onHeadersReceived.addListener(function(details){
+  if (details.tabId == -1){
+    return {};
+  }
+
+  var type = details.type;
+
+  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
+  if (type == "sub_frame"){
+    type = "SUBDOCUMENT";
+  } else {
+    type = type.toUpperCase();
+  }
+
+  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
+  var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
+    if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
+      recordRequestId(details.requestId);
+      newHeaders = details.responseHeaders.filter(function(header) {
+        return (header.name.toLowerCase() != "set-cookie");
+      });
+      return {responseHeaders: newHeaders};
+    }
+  }
+}, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
 
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (frames[tabId] == undefined){
@@ -352,18 +379,14 @@ function removeCookiesIfCookieBlocked(baseDomain){
   };
 }
 
-function clobberCookieSetting() {
-  var dummyCookie = "";
-  Object.defineProperty(document, "cookie", {
-    __proto__: null,
-    configurable: false,
-    get: function () {
-      return dummyCookie;
-    },
-    set: function (newValue) {
-      dummyCookie = newValue;
-    }
-  });
+function clobberCookieSetting(tabId, frameId) {
+  if(frameId > 0){ //never block cookies for the main frame.
+    console.log('clobbering cookies for ', tabId, frameId);
+    chrome.tabs.executeScriptInFrame(tabId, {
+      frameId: frameId,
+      file: '/src/clobbercookie.js',
+    });
+  }
 }
 
 function checkRequest(type, tabId, url, frameId) {

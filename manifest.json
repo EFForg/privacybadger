@@ -29,6 +29,7 @@
       "lib/jsbn.js", 
       "lib/rsa.js", 
       "lib/popupBlocker.js", 
+      "lib/chrome.tabs.executeScriptInFrame.js",
       "src/cookieblocklist.js",
       "src/fakecookiestore.js",
       "src/blockedDomainList.js",
@@ -72,6 +73,7 @@
   "update_url": "http://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [
     "skin/*",
-    "icons/*"
+    "icons/*",
+    "getFrameId"
   ]
 }
