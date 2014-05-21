@@ -18,8 +18,8 @@
 // Clobber cookies, using a function closure to keep the dummy private
 var code = 
   'var dummyCookie = "x=y";' +
-  'document.__defineSetter__("cookie", function(value) { alert("in setter"); return dummyCookie; });' +
-  'document.__defineGetter__("cookie", function() { alert("in getter"); return dummyCookie; });';
+  'document.__defineSetter__("cookie", function(value) { console.log("clobbering cookie:", value); return dummyCookie; });' +
+  'document.__defineGetter__("cookie", function() { console.log("clobbering cookie getter"); return dummyCookie; });';
 
 var script = document.createElement('script');
 script.appendChild(document.createTextNode(code));

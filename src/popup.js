@@ -36,7 +36,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "moveCookiesToRealCookieStore", "moveCookiesToFakeCookieStore"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking"]
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
@@ -107,7 +107,6 @@ function activate() {
   $("#blockedResourcesContainer").show();
   $("#siteControls").show();
   localStorage.enabled = "true";
-  moveCookiesToFakeCookieStore();
   refreshIconAndContextMenu(tab);
 }
 
@@ -116,7 +115,6 @@ function deactivate() {
   $("#deactivate_btn").toggle();
   $("#blockedResourcesContainer").hide();
   $("#siteControls").hide();
-  moveCookiesToRealCookieStore();
   localStorage.enabled = "false";
   refreshIconAndContextMenu(tab);
 }

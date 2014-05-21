@@ -425,18 +425,11 @@ function setupCookieBlocking(domain){
   //adds domain to cookie block list and moves all cookies into the cookie store
   var baseDomain = getBaseDomain(domain);
   //console.log('ADDING to cookieblock list', baseDomain);
-  CookieBlockList.addDomain(domain, function(){
-    removeCookiesIfCookieBlocked(baseDomain);
-  });
+  CookieBlockList.addDomain(domain);
 }
 
 function teardownCookieBlocking(domain){
   CookieBlockList.removeDomain(domain);
-  if(!checkDomainOpenInTab(domain)){
-    var cookies = FakeCookieStore.getCookies(domain);
-    addCookiesToRealCookieStore(cookies);
-  }
-  FakeCookieStore.removeCookie(domain);
 }
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
@@ -599,13 +592,7 @@ function checkForDNTPolicy(domain){
 }
 
 function moveCookiesToFakeCookieStore(){
-  console.log('moving cookies to fake cookie store');
-  CookieBlockList.domains.forEach(function(origin){
-    var baseDomain = getBaseDomain(origin);
-    if(!checkDomainOpenInTab(baseDomain)){
-      removeCookiesIfCookieBlocked(baseDomain);
-    }
-  });
+  alert('called move cookies to fake store');
 }
 
 //asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
@@ -662,11 +649,6 @@ function isValidPolicyHash(hash){
 }
 
 function moveCookiesToRealCookieStore(){
-  console.log('moving cookies to real cookie store');
-  for(var domain in FakeCookieStore.cookies){
-    if(!checkDomainOpenInTab(domain)){
-      addCookiesToRealCookieStore(FakeCookieStore.cookies[domain]);
-    }
-  }
+  alert('moving cookies to real cookie store');
 }
 
