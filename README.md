@@ -12,10 +12,10 @@ Privacy Badger is a project of the Electronic Frontier Foundation.
 
 ##Developing
 To build a local dummy .crx you can install with Chrome's stupid magic ritual,
-run `make`
+run `make`.
 
-Or for an even easier build enable developer mode in chrome://extensions, hit
-the "load unpacked extension" button and load up this driectory
+Or for an even easier build, enable developer mode in chrome://extensions, hit
+the "load unpacked extension" button and load up this directory.
 
 ##License
 Privacy Badger is licensed under the GPLv3. See LICENSE for more details
