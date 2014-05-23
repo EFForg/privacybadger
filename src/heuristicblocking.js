@@ -530,7 +530,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
 chrome.webRequest.onResponseStarted.addListener(function(details) {
   var hasSetCookie = false;
   for(var i = 0; i < details.responseHeaders.length; i++) {
-    if(details.responseHeaders[i].name == "Set-Cookie") {
+    if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
       hasSetCookie = true;
       break;
     }
