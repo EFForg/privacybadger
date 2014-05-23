@@ -177,7 +177,7 @@ function refreshIconAndContextMenu(tab)
 
   var excluded = isWhitelisted(tab.url);
   // todo: also check for whitelisted urls
-  var iconFilename = Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url)) ? "icons/badger-19.png" : "icons/badger-19-disabled.png";
+  var iconFilename = Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
   chrome.pageAction.setIcon({tabId: tab.id, path: iconFilename});
 
   // Only show icon for pages we can influence (http: and https:)
