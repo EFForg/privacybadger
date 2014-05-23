@@ -260,6 +260,19 @@ function onBeforeRequest(details){
     });
   }
 
+  var frame = (type != "sub_frame" ? details.frameId : details.parentFrameId);
+  var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
+    //add domain to list of blocked domains if it is not there already
+    if(requestAction == "block" || requestAction == "cookieBlock"){
+      BlockedDomainList.addDomain(extractHostFromURL(details.url));
+    }
+
+    if (requestAction == "block" || requestAction == "userblock") {
+      return {cancel: true};
+    }
+  }
+
 }
 
 function getHostForTab(tabId){
@@ -289,24 +302,10 @@ function onBeforeSendHeaders(details) {
 
   var type = details.type;
 
-  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
-  if (type == "sub_frame"){
-    type = "SUBDOCUMENT";
-  } else {
-    type = type.toUpperCase();
-  }
-
-  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
+  var frame = (type != "sub_frame" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
-    //add domain to list of blocked domains if it is not there already
-    if(requestAction == "block" || requestAction == "cookieBlock"){
-      BlockedDomainList.addDomain(extractHostFromURL(details.url));
-    }
-    if (requestAction == "block" || requestAction == "userblock") {
-      return {cancel: true};
-    }
-    else if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
+    if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       recordRequestId(details.requestId);
       //CookieBlockList.addDomain(extractHostFromURL(details.url));
       //clobberCookieSetting();
