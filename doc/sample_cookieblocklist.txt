@@ -334,3 +334,6 @@
 @@||stripe.com^$third-party
 @@||kh.google.com^$third-party
 @@||tile.openstreetmap.org^$third-party
+@@||tile.openstreetmap.fr^$third-party
+@@||tile.opencyclemap.org^$third-party
+@@||tile2.opencyclemap.org^$third-party
