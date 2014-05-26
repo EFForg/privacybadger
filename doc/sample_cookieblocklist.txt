@@ -333,3 +333,4 @@
 @@||typekit.net^$third-party
 @@||stripe.com^$third-party
 @@||kh.google.com^$third-party
+@@||tile.openstreetmap.org^$third-party
