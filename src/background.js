@@ -670,3 +670,6 @@ function moveCookiesToRealCookieStore(){
   }
 }
 
+function reloadTab(tabId){
+  chrome.tabs.reload(tabId);
+}
