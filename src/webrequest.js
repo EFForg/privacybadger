@@ -63,7 +63,7 @@ FilterNotifier.addListener(onFilterNotifier);
 
 /* functions */
 function onTabRemoved(tabId){
-  console.log('tab removed!', frames[tabId][0].url);
+  console.log('tab removed!', tabId);
   forgetTab(tabId);
 };
 
@@ -167,7 +167,13 @@ function onBeforeRequest(details){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
 
-  var frame = (type != "sub_frame" ? details.frameId : details.parentFrameId);
+  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
+  if (type == "sub_frame"){
+    type = "SUBDOCUMENT";
+  } else {
+    type = type.toUpperCase();
+  }
+  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
@@ -209,11 +215,16 @@ function onBeforeSendHeaders(details) {
 
   var type = details.type;
 
-  var frame = (type != "sub_frame" ? details.frameId : details.parentFrameId);
+  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
+  if (type == "sub_frame"){
+    type = "SUBDOCUMENT";
+  } else {
+    type = type.toUpperCase();
+  }
+  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      recordRequestId(details.requestId);
       //CookieBlockList.addDomain(extractHostFromURL(details.url));
       clobberCookieSetting(details.tabId, details.frameId);
       newHeaders = details.requestHeaders.filter(function(header) {
@@ -247,6 +258,7 @@ function onHeadersReceived(details){
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
+      console.log('cookieblock', details.url, type, details.tabId, details.url, frame);
       newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
@@ -284,13 +296,28 @@ function forgetTab(tabId) {
 }
 
 function clobberCookieSetting(tabId, frameId) {
-  if(frameId > 0){ //never block cookies for the main frame.
     console.log('clobbering cookies for ', tabId, frameId);
-    chrome.tabs.executeScriptInFrame(tabId, {
-      frameId: frameId,
+    chrome.tabs.executeScript(tabId, {
       file: '/src/clobbercookie.js',
+      allFrames: true,
+      runAt: 'document_end',
     });
+}
+
+function checkAction(tabId, url){
+  var documentUrl = getFrameUrl(tabId, 0);
+  if (!documentUrl){
+    return false;
   }
+
+  var requestHost = url;
+  var documentHost = extractHostFromURL(documentUrl);
+  var thirdParty = isThirdParty(requestHost, documentHost);
+
+  if (thirdParty && tabId > -1) {
+    return getAction(tabId, requestHost);
+  }
+  return false;
 }
 
 function checkRequest(type, tabId, url, frameId) {
@@ -348,7 +375,7 @@ function checkRequest(type, tabId, url, frameId) {
     if (!(blockedDataByHost)){
       // if the third party origin is not blocked we add it to the list to 
       // inform the user of all third parties on the page.
-     // activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
+      //activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
       return "noaction";
     }
     //console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
@@ -394,3 +421,15 @@ function isFrameWhitelisted(tabId, frameId, type) {
   }
   return false;
 }
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if(request.checkLocation){ 
+      console.log('checking location for', request.checkLocation);
+      var documentHost = request.checkLocation.hostname;
+      //var reqAction = checkRequest('SUBDOCUMENT', sender.tab.id, documentHost,0);
+      var reqAction = checkAction(sender.tab.id, documentHost);
+      var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
+      sendResponse(cookieBlock);
+    }
+  }
+);
