@@ -56,6 +56,7 @@ var importantNotifications = {
 chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
 chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
 //chrome.tabs.onUpdated.addListener(onTabUpdated);
+chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
 chrome.tabs.onRemoved.addListener(onTabRemoved);
 chrome.tabs.onReplaced.addListener(onTabReplaced);
 FilterNotifier.addListener(onFilterNotifier);
@@ -165,6 +166,20 @@ function onBeforeRequest(details){
   if (type == "main_frame" || type == "sub_frame"){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
+
+  var frame = (type != "sub_frame" ? details.frameId : details.parentFrameId);
+  var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
+    //add domain to list of blocked domains if it is not there already
+    if(requestAction == "block" || requestAction == "cookieBlock"){
+      BlockedDomainList.addDomain(extractHostFromURL(details.url));
+    }
+
+    if (requestAction == "block" || requestAction == "userblock") {
+      return {cancel: true};
+    }
+  }
+
 }
 
 function getHostForTab(tabId){
@@ -187,33 +202,22 @@ function onBeforeSendHeaders(details) {
   if (details.tabId == -1){
     return {};
   }
+
   if(_isTabChromeInternal(details.tabId)){
     return {};
   }
+
   var type = details.type;
 
-  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
-  if (type == "sub_frame"){
-    type = "SUBDOCUMENT";
-  } else {
-    type = type.toUpperCase();
-  }
-
-  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
+  var frame = (type != "sub_frame" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
-    //add domain to list of blocked domains if it is not there already
-    if(requestAction == "block" || requestAction == "cookieBlock"){
-      BlockedDomainList.addDomain(extractHostFromURL(details.url));
-    }
-    if (requestAction == "block" || requestAction == "userblock") {
-      return {cancel: true};
-    }
-    else if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
+    if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
+      recordRequestId(details.requestId);
       //CookieBlockList.addDomain(extractHostFromURL(details.url));
       clobberCookieSetting(details.tabId, details.frameId);
       newHeaders = details.requestHeaders.filter(function(header) {
-        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase != "referer");
+        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
       newHeaders.push({name: "DNT", value: "1"});
       return {requestHeaders: newHeaders};
@@ -225,7 +229,7 @@ function onBeforeSendHeaders(details) {
   return {requestHeaders: details.requestHeaders};
 }
 
-chrome.webRequest.onHeadersReceived.addListener(function(details){
+function onHeadersReceived(details){
   if (details.tabId == -1){
     return {};
   }
@@ -249,7 +253,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details){
       return {responseHeaders: newHeaders};
     }
   }
-}, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
+}
 
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (frames[tabId] == undefined){

@@ -36,7 +36,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking"]
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab"]
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
@@ -284,10 +284,6 @@ function refreshPopup(tabId) {
   console.log("Done refreshing popup");
 }
 
-function reloadPage() {
-  // todo: fill in
-  console.log("Reload page called");
-}
 
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
@@ -368,7 +364,7 @@ function syncSettingsDict(settingsDict) {
   for (var origin in settingsDict) {
     var userAction = settingsDict[origin];
     if (saveAction(userAction, origin))
-      reloadNeeded = true; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"?
+      reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"?
                            // would be fun to check with jsperf.com
   }
   console.log("Finished syncing. Now refreshing popup.");
@@ -406,8 +402,10 @@ function buildSettingsDict() {
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
   console.log("Sync of userset options: " + JSON.stringify(settingsDict));
-  if (syncSettingsDict(settingsDict))
-    reloadPage();
+  var tabId = syncSettingsDict(settingsDict)
+  if (tabId){
+    reloadTab(tabId);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {

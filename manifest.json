@@ -60,14 +60,18 @@
     "19": "icons/badger-19.png", 
     "24": "icons/badger-24.png", 
     "32": "icons/badger-32.png", 
+    "38": "icons/badger-38.png",
     "48": "icons/badger-48.png"
   }, 
   "manifest_version": 2, 
   "minimum_chrome_version": "18.0", 
   "name": "__MSG_name__", 
   "page_action": {
-    "default_icon": "icons/badger-19.png", 
-    "default_popup": "skin/popup.html", 
+    "default_icon": {
+      "19": "icons/badger-19.png",
+      "38": "icons/badger-38.png"
+    },
+    "default_popup": "skin/popup.html",
     "default_title": "__MSG_name__"
   }, 
   "update_url": "http://clients2.google.com/service/update2/crx",
