@@ -226,7 +226,7 @@ function onBeforeSendHeaders(details) {
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       //CookieBlockList.addDomain(extractHostFromURL(details.url));
-      clobberCookieSetting(details.tabId, details.frameId);
+      //clobberCookieSetting(details.tabId, details.frameId);
       newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
