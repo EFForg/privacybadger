@@ -423,7 +423,8 @@ function isFrameWhitelisted(tabId, frameId, type) {
 }
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if(request.checkLocation){ 
+  var tabHost  = extractHostFromURL(sender.tab.url);
+    if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
       console.log('checking location for', request.checkLocation);
       var documentHost = request.checkLocation.hostname;
       //var reqAction = checkRequest('SUBDOCUMENT', sender.tab.id, documentHost,0);
