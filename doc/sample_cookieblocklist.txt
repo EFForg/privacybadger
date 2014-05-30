@@ -337,3 +337,7 @@
 @@||tile.openstreetmap.fr^$third-party
 @@||tile.opencyclemap.org^$third-party
 @@||tile2.opencyclemap.org^$third-party
+@@||angularjs.org^$third-party
+@@||ajax.googleapis.com^$third-party
+@@||twitch.tv^$third-party
+@@||spreadsheets.google.com^$third-party
