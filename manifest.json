@@ -1,5 +1,5 @@
 {
-  "version": "2014.5.15", 
+  "version": "2014.5.29", 
   "author": {
     "email": "eff.software.projects@gmail.com"
   }, 
@@ -29,6 +29,7 @@
       "lib/jsbn.js", 
       "lib/rsa.js", 
       "lib/popupBlocker.js", 
+      "lib/chrome.tabs.executeScriptInFrame.js",
       "src/cookieblocklist.js",
       "src/fakecookiestore.js",
       "src/blockedDomainList.js",
@@ -40,26 +41,15 @@
   }, 
   "content_scripts": [
     {
-      "all_frames": true, 
       "js": [
-        "src/include.preload.js"
+        "src/include.preload.js",
+        "src/clobbercookie.js"
       ], 
       "matches": [
-        "http://*/*", 
-        "https://*/*"
+        "<all_urls>"
       ], 
+      "all_frames": true, 
       "run_at": "document_start"
-    }, 
-    {
-      "all_frames": true, 
-      "js": [
-        "src/include.postload.js"
-      ], 
-      "matches": [
-        "http://*/*", 
-        "https://*/*"
-      ], 
-      "run_at": "document_end"
     }
   ], 
   "default_locale": "en_US", 
@@ -71,19 +61,24 @@
     "19": "icons/badger-19.png", 
     "24": "icons/badger-24.png", 
     "32": "icons/badger-32.png", 
+    "38": "icons/badger-38.png",
     "48": "icons/badger-48.png"
   }, 
   "manifest_version": 2, 
   "minimum_chrome_version": "18.0", 
   "name": "__MSG_name__", 
   "page_action": {
-    "default_icon": "icons/badger-19.png", 
-    "default_popup": "skin/popup.html", 
+    "default_icon": {
+      "19": "icons/badger-19.png",
+      "38": "icons/badger-38.png"
+    },
+    "default_popup": "skin/popup.html",
     "default_title": "__MSG_name__"
   }, 
   "update_url": "http://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [
     "skin/*",
-    "icons/*"
+    "icons/*",
+    "getFrameId"
   ]
 }

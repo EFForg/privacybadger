@@ -177,7 +177,7 @@ function refreshIconAndContextMenu(tab)
 
   var excluded = isWhitelisted(tab.url);
   // todo: also check for whitelisted urls
-  var iconFilename = Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url)) ? "icons/badger-19.png" : "icons/badger-19-disabled.png";
+  var iconFilename = Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
   chrome.pageAction.setIcon({tabId: tab.id, path: iconFilename});
 
   // Only show icon for pages we can influence (http: and https:)
@@ -189,11 +189,6 @@ function refreshIconAndContextMenu(tab)
     else
       chrome.pageAction.show(tab.id);
 
-    // Set context menu status according to whether current tab has whitelisted domain
-    if (excluded)
-      chrome.contextMenus.removeAll();
-    else
-      showContextMenu();
   }
 }
 
@@ -343,22 +338,6 @@ function addSubscription(prevVersion)
   notifyUser();
 }
 
-// Set up context menu for user selection of elements to block
-function showContextMenu()
-{
-  chrome.contextMenus.removeAll(function()
-  {
-    if(typeof localStorage["shouldShowBlockElementMenu"] == "string" && localStorage["shouldShowBlockElementMenu"] == "true")
-    {
-      chrome.contextMenus.create({'title': chrome.i18n.getMessage('block_element'), 'contexts': ['image', 'video', 'audio'], 'onclick': function(info, tab)
-      {
-        if(info.srcUrl)
-            chrome.tabs.sendRequest(tab.id, {reqtype: "clickhide-new-filter", filter: info.srcUrl});
-      }});
-    }
-  });
-}
-
 /**
  * Opens Options window or focuses an existing one.
  * @param {Function} callback  function to be called with the window object of
@@ -446,18 +425,11 @@ function setupCookieBlocking(domain){
   //adds domain to cookie block list and moves all cookies into the cookie store
   var baseDomain = getBaseDomain(domain);
   //console.log('ADDING to cookieblock list', baseDomain);
-  CookieBlockList.addDomain(domain, function(){
-    removeCookiesIfCookieBlocked(baseDomain);
-  });
+  CookieBlockList.addDomain(domain);
 }
 
 function teardownCookieBlocking(domain){
   CookieBlockList.removeDomain(domain);
-  if(!checkDomainOpenInTab(domain)){
-    var cookies = FakeCookieStore.getCookies(domain);
-    addCookiesToRealCookieStore(cookies);
-  }
-  FakeCookieStore.removeCookie(domain);
 }
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
@@ -571,7 +543,6 @@ chrome.windows.getAll({populate: true}, function(windows)
 
 // Update icon if a tab changes location
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  chrome.tabs.sendRequest(tabId, {reqtype: "clickhide-deactivate"})
   if(changeInfo.status == "loading")
     refreshIconAndContextMenu(tab);
 });
@@ -621,13 +592,7 @@ function checkForDNTPolicy(domain){
 }
 
 function moveCookiesToFakeCookieStore(){
-  console.log('moving cookies to fake cookie store');
-  CookieBlockList.domains.forEach(function(origin){
-    var baseDomain = getBaseDomain(origin);
-    if(!checkDomainOpenInTab(baseDomain)){
-      removeCookiesIfCookieBlocked(baseDomain);
-    }
-  });
+  alert('called move cookies to fake store');
 }
 
 //asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
@@ -684,12 +649,7 @@ function isValidPolicyHash(hash){
 }
 
 function moveCookiesToRealCookieStore(){
-  console.log('moving cookies to real cookie store');
-  for(var domain in FakeCookieStore.cookies){
-    if(!checkDomainOpenInTab(domain)){
-      addCookiesToRealCookieStore(FakeCookieStore.cookies[domain]);
-    }
-  }
+  alert('moving cookies to real cookie store');
 }
 
 function saveAction(userAction, origin) {
@@ -708,18 +668,11 @@ function saveAction(userAction, origin) {
     }
   }
   console.log("Finished saving action " + userAction + " for " + origin);
-  
-  //remove cookies if a user has just cookieblocked
-  if(userAction == 'cookieblock'){
-    setupCookieBlocking(origin);
-  }
-
-  //re add any cookies if the user has unblocked
-  if(userAction === 'noaction'){
-    console.log("Tearing Down cookie blocking for", origin);
-    teardownCookieBlocking(origin);
-  }
 
   // todo: right now we don't determine whether a reload is needed
   return true;
+}
+
+function reloadTab(tabId){
+  chrome.tabs.reload(tabId);
 }

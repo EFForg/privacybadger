@@ -14,17 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
+chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked){
+  if(blocked){
+    console.log('clobbering cooies for', document.location);
+    var code = 
+      'var dummyCookie = "x=y";' +
+      'document.__defineSetter__("cookie", function(value) { console.log("clobbering cookie:", value); return dummyCookie; });' +
+      'document.__defineGetter__("cookie", function() { console.log("clobbering cookie getter"); return dummyCookie; });';
 
-// Clobber cookies, using a function closure to keep the dummy private
-var code = 
-  'var dummyCookie = "x=y";' +
-  'document.__defineSetter__("cookie", function(value) { alert("in setter"); return dummyCookie; });' +
-  'document.__defineGetter__("cookie", function() { alert("in getter"); return dummyCookie; });';
+    var script = document.createElement('script');
+    script.appendChild(document.createTextNode(code));
+    (document.head || document.documentElement).appendChild(script);
 
-var script = document.createElement('script');
-script.appendChild(document.createTextNode(code));
-(document.head || document.documentElement).appendChild(script);
-script.parentNode.removeChild(script);
+  }
+});
+//script.parentNode.removeChild(script);
 // Clobber local storage, using a function closure to keep the dummy private
 /*(function() {
   var dummyLocalStorage = { };
