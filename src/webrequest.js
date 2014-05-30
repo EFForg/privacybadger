@@ -229,6 +229,7 @@ function onBeforeSendHeaders(details) {
   }
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  //console.log("REQUEST ACTION:", requestAction, type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
 
     //if settings for this domain are still controlled by badger and it is in 
@@ -245,8 +246,6 @@ function onBeforeSendHeaders(details) {
     }
     
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      //CookieBlockList.addDomain(extractHostFromURL(details.url));
-      //clobberCookieSetting(details.tabId, details.frameId);
       newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
@@ -278,7 +277,6 @@ function onHeadersReceived(details){
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      console.log('cookieblock', details.url, type, details.tabId, details.url, frame);
       newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
@@ -315,16 +313,12 @@ function forgetTab(tabId) {
   delete frames[tabId];
 }
 
-function clobberCookieSetting(tabId, frameId) {
-    console.log('clobbering cookies for ', tabId, frameId);
-    chrome.tabs.executeScript(tabId, {
-      file: '/src/clobbercookie.js',
-      allFrames: true,
-      runAt: 'document_end',
-    });
-}
-
 function checkAction(tabId, url){
+  //ignore requests coming from internal chrome tabs
+  if(_isTabChromeInternal(tabId) ){
+    return false;
+  }
+
   var documentUrl = getFrameUrl(tabId, 0);
   if (!documentUrl){
     return false;
@@ -350,7 +344,7 @@ function checkRequest(type, tabId, url, frameId) {
     return false;
   }
 
-  var documentUrl = getFrameUrl(tabId, frameId);
+  var documentUrl = getFrameUrl(tabId, 0);
   if (!documentUrl){
     return false;
   }
@@ -450,14 +444,13 @@ function isFrameWhitelisted(tabId, frameId, type) {
   }
   return false;
 }
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   var tabHost  = extractHostFromURL(sender.tab.url);
     if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
-      console.log('checking location for', request.checkLocation);
       var documentHost = request.checkLocation.hostname;
-      //var reqAction = checkRequest('SUBDOCUMENT', sender.tab.id, documentHost,0);
-      var reqAction = checkAction(sender.tab.id, documentHost);
+      var reqAction = checkRequest('SUBDOCUMENT', sender.tab.id, documentHost,0);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
     }
