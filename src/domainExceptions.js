@@ -11,21 +11,32 @@ var exports = {};
 
 var DomainExceptions = {
 
-  list: [
-    'https://apis.google.com/u/0/wm/4/_/widget/render/comments',
-    'https://disqus.com/next/login',
-    'http://disqus.com/_ax/facebook/begin',
-    'http://disqus.com/_ax/google/begin',
-  ],
-  hasPath: function(path){
-    for(var i=0; i < this.list.length; i++){
-      if(path.indexOf(this.list[i]) === 0){ return true; }
+  list: {
+    "google.com": {
+      trigger_urls: ['https://plus.google.com/u/0/wm/4/_/+1/messageproxy'],
+      whitelist_domain: 'apis.google.com'
+    },
+    "disqus.com": {
+      trigger_urls: [
+        'https://disqus.com/next/login',
+        'http://disqus.com/_ax/facebook/begin',
+        'http://disqus.com/_ax/google/begin'
+      ],
+      whitelist_domain: 'disqus.com'
     }
-    return false;
+  },
+  getWhitelistForPath: function(path){
+    for(var name in this.list){
+      var trigger_urls = this.list[name].trigger_urls;
+      for(var i = 0; i < trigger_urls.length; i++){
+        if(path.indexOf(trigger_urls[i]) === 0){ return this.list[name].whitelist_domain }
+      }
+    }
+    return undefined;
   },
 
 }
 
 exports.DomainExceptions = DomainExceptions;
-
+return exports;
 })();

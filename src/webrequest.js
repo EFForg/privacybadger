@@ -234,10 +234,11 @@ function onBeforeSendHeaders(details) {
     //if settings for this domain are still controlled by badger and it is in 
     //the list of domain exceptions ask the user if they would like to unblock.
     if(requestAction.indexOf('user') < 0){
-      if( DomainExceptions.hasPath(details.url) ){
-        var domain  = extractHostFromURL(details.url);
-        if(_askUserToWhitelist(domain)){
-          saveAction('noaction', domain);
+      var whitelistDomain = DomainExceptions.getWhitelistForPath(details.url);
+      if( whitelistDomain){
+        if(_askUserToWhitelist(whitelistDomain)){
+          saveAction('noaction', whitelistDomain);
+          reloadTab(details.tabId);
           return {};
         } 
       }
@@ -422,6 +423,7 @@ function _isTabAnExtension(tabId){
 }
 
 function _askUserToWhitelist(baseDomain){
+  var baseDomain = getBaseDomain(whitelistDomain);
   var whitelistText = "WARNING! The action you are trying to take requires " +
     "you to " + "unblock " + baseDomain + ". By doing this you could be " + 
     "allowing " + baseDomain + " to track your browsing habits.  Would you " +
