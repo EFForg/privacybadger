@@ -1,17 +1,1 @@
-block cookies by stripping headers and clobbering js instead of fake cookie store
-inject cookie clobber script into all tabs and frames
-make task to upload cookie block list
-reload tab when settings change
-Whitelist maps from further OpenStreetMap sites
-Whitelist map images from OpenStreetMap
-block resources before request is made
-block cookies being set in headers
-Add support for retina pageAction icon
-README.md: Fixed typos, punctuation
-remove all fake cookie store plumbing
-adding kh.google.com to cookieblock list
-only show 3rd parties which have set cookies
-adding tests for utils.js
-add old qunit tests back in
-rearranging directory structure
-remove all ABP release engineering
+hotfix: cookies are not blocked when privacy badger is disabled.
