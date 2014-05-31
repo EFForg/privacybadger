@@ -425,5 +425,8 @@ chrome.runtime.onMessage.addListener(
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
     }
+    if(request.checkReplaceButton && Utils.isPrivacyBadgerEnabled(tabHost)){
+      console.log("checking for replace button");
+    }
   }
 );

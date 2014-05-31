@@ -1,0 +1,147 @@
+{
+	"AddThis": {
+		"domain": "addthis.com",
+		"matchPatterns": [
+			"*://*.addthis.com/js/250/addthis_widget.js*"
+		],
+		
+		"buttonSelectors": [
+			".addthis_toolbox"
+		],
+		"replacementButton": {
+			"details": "\u003c!-- AddThis Button BEGIN --\u003e\r\n\u003cdiv class=\\\"addthis_toolbox addthis_default_style \\\"\u003e\r\n\u003ca class=\\\"addthis_button_facebook_like\\\" fb:like:layout=\\\"button_count\\\"\u003e\u003c/a\u003e\r\n\u003ca class=\\\"addthis_button_tweet\\\"\u003e\u003c/a\u003e\r\n\u003ca class=\\\"addthis_button_google_plusone\\\" g:plusone:size=\\\"medium\\\"\u003e\u003c/a\u003e\r\n\u003ca class=\\\"addthis_counter addthis_pill_style\\\"\u003e\u003c/a\u003e\r\n\u003c/div\u003e\r\n\u003cscript type=\\\"text/javascript\\\" src=\\\"http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4fdfd3a1133d9ee1\\\"\u003e\u003c/script\u003e\r\n\u003c!-- AddThis Button END --\u003e",
+			"imagePath": "AddThis.svg",
+			"type": 2
+		}
+	},
+	
+	"Digg": {
+		"domain": "digg.com",
+		"matchPatterns": [
+			"*://*.widgets.digg.com/buttons.js*",
+            "*://*.widgets.digg.com/*"
+		],
+		
+		"buttonSelectors": [
+			".DiggThisButton"
+		],
+		"replacementButton": {
+			"details": "http://www.digg.com/submit?url=*",
+			"imagePath": "Digg.svg",
+			"type": 0
+		}
+	},
+	
+	"Facebook": {
+		"domain": "facebook.com",
+		"matchPatterns": [
+			"*://*.connect.facebook.net/*",
+			"*://*.facebook.com/plugins/like.php*",
+			"*://*.facebook.com/plugins/likebox.php*",
+			"*://*.facebook.com/plugins/activity.php*",
+            "*://*.ak.facebook.com/connect*",
+            "*://*.facebook.com/dialog/oauth*"
+		],
+		
+		"buttonSelectors": [
+			"fb\\:like",
+			"iframe[src*='://www.facebook.com/plugins/like.php']"
+		],
+		"replacementButton": {
+			"details": "https://www.facebook.com/plugins/like.php?href=",
+			"imagePath": "Facebook.svg",
+			"type": 1
+		}
+	},
+	
+	"Google+": {
+		"domain": "google.com",
+		"matchPatterns": [
+			"*://*.apis.google.com/js/plusone.js*",
+			"*://*.plusone.google.com/_/+1/fastbutton*",
+            "*://*.plusone.google.com/_/apps-static*",
+            "*://*.apis.google.com/_/apps-static*"
+		],
+		
+		"buttonSelectors": [
+			"g\\:plusone"
+		],
+		"replacementButton": {
+			"details": "https://plusone.google.com/_/+1/fastbutton?url=",
+			"imagePath": "Google Plus.svg",
+			"type": 1
+		}
+	},
+	
+	"LinkedIn": {
+		"domain": "linkedin.com",
+		"matchPatterns": [
+			"*://*.platform.linkedin.com/*",
+            "*://*.linkedin.com/analytics/*"
+		],
+		
+		"buttonSelectors": [
+			"script[type='in/share']"
+		],
+		"replacementButton": {
+			"details": "http://www.linkedin.com/shareArticle?mini=true&url=",
+			"imagePath": "LinkedIn.svg",
+			"type": 0
+		}
+	},
+	
+	"Pinterest": {
+		"domain": "pinterest.com",
+		"matchPatterns": [
+			"*://*.assets.pinterest.com/js/pinit.js*",
+			"*://*.assets.pinterest.com/imagePaths/PinExt.png*",
+			"*://*.passets-cdn.pinterest.com/imagePaths/about/buttons/*"
+		],
+		
+		"buttonSelectors": [
+			".pin-it-button"
+		],
+		"replacementButton": {
+			"details": "http://pinterest.com/pin/create/button/?url=",
+			"imagePath": "Pinterest.svg",
+			"type": 0
+		}
+	},
+	
+	"StumbleUpon": {
+		"domain": "stumbleupon.com",
+		"matchPatterns": [
+			"*://*.platform.stumbleupon.com/1/widgets.js*",
+			"*://*.stumbleupon.com/hostedbadge.php*",
+            "*://*.badge.stumbleupon.com/*"
+		],
+		
+		"buttonSelectors": [
+			"su\\:badge",
+			"script[src^='http://www.stumbleupon.com/hostedbadge.php']"
+		],
+		"replacementButton": {
+			"details": "http://www.stumbleupon.com/badge/?url=",
+			"imagePath": "StumbleUpon.svg",
+			"type": 0
+		}
+	},
+
+	"Twitter": {
+		"domain": "twitter.com",
+		"matchPatterns": [
+			"*://*.platform.twitter.com/widgets.js*",
+            "*://*.platform.twitter.com/*",
+            "*://*.p.twitter.com/*"
+		],
+		
+		"buttonSelectors": [
+			".twitter-share-button"
+		],
+		"replacementButton": {
+			"details": "https://twitter.com/intent/tweet?url=",
+			"imagePath": "Twitter.svg",
+			"type": 0
+		}
+	}
+}

@@ -58,7 +58,12 @@ var Synchronizer = require("synchronizer").Synchronizer;
 var Utils = require("utils").Utils;
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
-var HeuristicBlocking = require("heuristicblocking")
+var HeuristicBlocking = require("heuristicblocking");
+var SocialWidgetLoader = require("socialwidgetloader");
+
+// Load social widgets
+var socialwidgets = SocialWidgetLoader.loadSocialWidgetsFromFile("socialwidgets.json");
+console.log(socialwidgets);
 
 // Some types cannot be distinguished
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;

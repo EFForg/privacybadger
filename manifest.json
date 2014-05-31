@@ -35,6 +35,7 @@
       "src/blockedDomainList.js",
       "src/webrequest.js", 
       "src/heuristicblocking.js", 
+      "src/socialwidgetloader.js",
       "src/background.js"
     ]
   }, 
@@ -42,7 +43,8 @@
     {
       "js": [
         "src/include.preload.js",
-        "src/clobbercookie.js"
+        "src/clobbercookie.js",
+	"src/socialwidgets.js"
       ], 
       "matches": [
         "<all_urls>"
