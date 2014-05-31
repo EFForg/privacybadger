@@ -53,7 +53,7 @@ var BlockedDomainList = exports.BlockedDomainList = {
     var updateTime = this._randomFutureTime();
     this.domains[domain] = updateTime;
     chrome.storage.local.set({blockeddomainlist: this.domains},function(){});
-  },
+			 },
   nextUpdateTime: function(domain){
     return this.domains[domain];
   },

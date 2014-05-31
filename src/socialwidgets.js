@@ -18,11 +18,9 @@ var browserAbstractionLayer = (function() {
 	 */
 	exports.getTrackerData = function(callback) {
 		chrome.runtime.sendMessage({checkReplaceButton:document.location}, function(response) {
-			var contentScriptFolderUrl = response.contentScriptFolderUrl;
 			var trackers = response.trackers;
 			var trackerButtonsToReplace = response.trackerButtonsToReplace;
-			
-			callback(contentScriptFolderUrl, trackers, trackerButtonsToReplace);
+			callback(trackers, trackerButtonsToReplace);
 		});
 	}
 	
@@ -45,66 +43,26 @@ var browserAbstractionLayer = (function() {
 	return exports;
 }());
 
-/*
-ShareMeNot is licensed under the MIT license:
-http://www.opensource.org/licenses/mit-license.php
-
-
-Copyright (c) 2012 University of Washington
-
-Permission is hereby granted, free of charge, to any person obtaining a
-copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-"use strict";
+/**
+ * The absolute path to the replacement buttons folder.
+ */
+var REPLACEMENT_BUTTONS_FOLDER_PATH = chrome.extension.getURL("skin/socialwidgets/");
 
 /**
- * The relative path from the content script folder to the replacement buttons
- * folder.
+ * The absolute path to the stylesheet that is injected into every page.
  */
-var REPLACEMENT_BUTTONS_FOLDER_PATH = "../skin/socialwidgets/";
-
-/**
- * The relative path from the content script folder to the stylesheet that is
- * injected into every page.
- */
-var CONTENT_SCRIPT_STYLESHEET_PATH = "../skin/socialwidgets.css";
-
-/**
- * The absolute URL to the content script folder within the extension.
- */
-var contentScriptFolderUrl;
+var CONTENT_SCRIPT_STYLESHEET_PATH = chrome.extension.getURL("skin/socialwidgets.css");
 
 /**
  * Initializes the content script.
  */
 function initialize() {
-	browserAbstractionLayer.getTrackerData(function (contentScriptFolderUrl2,
-			trackers, trackerButtonsToReplace) {
-		contentScriptFolderUrl = contentScriptFolderUrl2;
-		
+	browserAbstractionLayer.getTrackerData(function (trackers, trackerButtonsToReplace) {
 		// add the Content.css stylesheet to the page
 		var head = document.querySelector("head");
-		var stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl
-			+ CONTENT_SCRIPT_STYLESHEET_PATH);
+		var stylesheetLinkElement = getStylesheetLinkElement(CONTENT_SCRIPT_STYLESHEET_PATH);
 		head.appendChild(stylesheetLinkElement);
-			
+		
 		replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace);
 	});
 }
@@ -182,8 +140,7 @@ function createReplacementButtonImage(tracker) {
  * path in the replacement buttons folder
  */
 function getReplacementButtonUrl(replacementButtonLocation) {	
-	return contentScriptFolderUrl + REPLACEMENT_BUTTONS_FOLDER_PATH +
-		replacementButtonLocation;
+	return REPLACEMENT_BUTTONS_FOLDER_PATH + replacementButtonLocation;
 }
 
 /**
@@ -265,13 +222,14 @@ function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 	trackers.forEach(function(tracker) {
 		var replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
 				
-		if (replaceTrackerButtons) {			
+		if (replaceTrackerButtons) {	
+			console.log("replacing tracker button for " + tracker.name);	
 			// makes a comma separated list of CSS selectors that specify
 			// buttons for the current tracker; used for document.querySelectorAll
 			var buttonSelectorsString = tracker.buttonSelectors.toString();
 			var buttonsToReplace =
 				document.querySelectorAll(buttonSelectorsString);
-			
+
 			for (var i = 0; i < buttonsToReplace.length; i++) {
 				var buttonToReplace = buttonsToReplace[i];
 				

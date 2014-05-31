@@ -416,6 +416,33 @@ function isFrameWhitelisted(tabId, frameId, type) {
   return false;
 }
 
+// Provides the social widget blocking content script with list of social widgets to block
+function getSocialWidgetBlockList(tabId) {
+
+  // a mapping of individual SocialWidget objects to boolean values
+  // saying if the content script should replace that tracker's buttons
+  var socialWidgetsToReplace = {};
+
+  SocialWidgetList.forEach(function(socialwidget) {
+    var socialWidgetName = socialwidget.name;
+ 
+    // replace them if PrivacyBadger has blocked them
+    var blockedData = activeMatchers.blockedOriginsByTab[tabId];
+    if (blockedData && blockedData[socialwidget.domain]) {
+      socialWidgetsToReplace[socialWidgetName] = (blockedData[socialwidget.domain].latestaction == "block"
+	      					  || blockedData[socialwidget.domain].latestaction == "userblock"); 
+    }
+    else {
+      socialWidgetsToReplace[socialWidgetName] = false;
+    }
+  });
+
+  return {
+    "trackers" : SocialWidgetList,
+    "trackerButtonsToReplace" : socialWidgetsToReplace,
+  };
+}
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   var tabHost  = extractHostFromURL(sender.tab.url);
@@ -425,8 +452,9 @@ chrome.runtime.onMessage.addListener(
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
     }
-    if(request.checkReplaceButton && Utils.isPrivacyBadgerEnabled(tabHost)){
-      console.log("checking for replace button");
+    if(request.checkReplaceButton && Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled()){
+      var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id); 
+      sendResponse(socialWidgetBlockList);
     }
   }
 );

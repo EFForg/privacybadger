@@ -62,8 +62,7 @@ var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
 
 // Load social widgets
-var socialwidgets = SocialWidgetLoader.loadSocialWidgetsFromFile("socialwidgets.json");
-console.log(socialwidgets);
+var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 
 // Some types cannot be distinguished
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
