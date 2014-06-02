@@ -487,7 +487,8 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
         frameId = getFrameId(tabId, request.documentUrl);
       }
 
-      if (isFrameWhitelisted(tabId, frameId, "DOCUMENT"))
+      if (isFrameWhitelisted(tabId, frameId, "DOCUMENT") 
+          || isSocialWidgetTemporaryUnblock(tabId, request.url, frameId))
       {
         sendResponse(false);
         break;

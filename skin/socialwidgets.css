@@ -25,14 +25,14 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-.sharemenotReplacementButton {
+.privacyBadgerReplacementButton {
 	border: none !important;
 	cursor: pointer !important;
 	height: auto !important;
 	width: auto !important;
 }
 
-.sharemenotOriginalButton {
+.privacyBadgerOriginalButton {
 	border: none !important;
 	height: 1.5em !important;
 }

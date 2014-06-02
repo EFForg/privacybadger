@@ -1,49 +1,4 @@
 /**
- * Contains Chrome-specific code for the content script.
- */
-
-var browserAbstractionLayer = (function() {
-	var exports = {};
-	
-	/**
-	 * Gets data about which tracker buttons need to be replaced from the main
-	 * extension and passes it to the provided callback function.
-	 * 
-	 * @param {Function} callback the function to call when the tracker data is
-	 *                            received; the arguments passed are the folder
-	 *                            containing the content script, the tracker
-	 *                            data, and a mapping of tracker names to
-	 *                            whether those tracker buttons need to be
-	 *                            replaced
-	 */
-	exports.getTrackerData = function(callback) {
-		chrome.runtime.sendMessage({checkReplaceButton:document.location}, function(response) {
-			var trackers = response.trackers;
-			var trackerButtonsToReplace = response.trackerButtonsToReplace;
-			callback(trackers, trackerButtonsToReplace);
-		});
-	}
-	
-	/**
-	 * Unblocks the tracker with the given name from the page. Calls the
-	 * provided callback function after the tracker has been unblocked.
-	 * 
-	 * @param {String} trackerName the name of the tracker to unblock
-	 * @param {Function} callback the function to call after the tracker has
-	 *                            been unblocked
-	 */
-	exports.unblockTracker = function(trackerName, callback) {
-		var request = {
-			title: "unblockTracker",
-			"trackerName": trackerName
-		};
-		chrome.extension.sendRequest(request, callback);
-	}
-	
-	return exports;
-}());
-
-/**
  * The absolute path to the replacement buttons folder.
  */
 var REPLACEMENT_BUTTONS_FOLDER_PATH = chrome.extension.getURL("skin/socialwidgets/");
@@ -57,7 +12,7 @@ var CONTENT_SCRIPT_STYLESHEET_PATH = chrome.extension.getURL("skin/socialwidgets
  * Initializes the content script.
  */
 function initialize() {
-	browserAbstractionLayer.getTrackerData(function (trackers, trackerButtonsToReplace) {
+	getTrackerData(function (trackers, trackerButtonsToReplace) {
 		// add the Content.css stylesheet to the page
 		var head = document.querySelector("head");
 		var stylesheetLinkElement = getStylesheetLinkElement(CONTENT_SCRIPT_STYLESHEET_PATH);
@@ -84,7 +39,7 @@ function createReplacementButtonImage(tracker) {
 	var details = buttonData.details;
 	
 	button.setAttribute("src", buttonUrl);
-	button.setAttribute("class", "privacybadgerReplacementButton");
+	button.setAttribute("class", "privacyBadgerReplacementButton");
 	button.setAttribute("title", "PrivacyBadger has replaced this " + tracker.name
 		+ " button.");
 	
@@ -106,7 +61,7 @@ function createReplacementButtonImage(tracker) {
 				// once when the user clicks on a replacement button
 				// (it executes for the buttons that have been previously
 				// clicked as well)
-				replaceButtonWithIframeAndUnblockTracker(button, tracker.name, iframeUrl);
+				replaceButtonWithIframeAndUnblockTracker(button, details, iframeUrl);
 			});
 		break;
 		
@@ -117,7 +72,7 @@ function createReplacementButtonImage(tracker) {
 				// once when the user clicks on a replacement button
 				// (it executes for the buttons that have been previously
 				// clicked as well)
-				replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker.name, details);
+				replaceButtonWithHtmlCodeAndUnblockTracker(button, details, details);
 			});
 		break;
 		
@@ -170,7 +125,7 @@ function getStylesheetLinkElement(url) {
  * @param {String} iframeUrl the URL of the iframe to replace the button
  */
 function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
-	browserAbstractionLayer.unblockTracker(tracker, function() {
+	unblockTracker(tracker, function() {
 		// check is needed as for an unknown reason this callback function is
 		// executed for buttons that have already been removed; we are trying
 		// to prevent replacing an already removed button
@@ -178,7 +133,7 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
 			var iframe = document.createElement("iframe");
 			
 			iframe.setAttribute("src", iframeUrl);
-			iframe.setAttribute("class", "privacybadgerOriginalButton");
+			iframe.setAttribute("class", "privacyBadgerOriginalButton");
 		
 			button.parentNode.replaceChild(iframe, button);
 		}
@@ -195,7 +150,7 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
  * @param {String} html the HTML code that should replace the button
  */
 function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
-	browserAbstractionLayer.unblockTracker(tracker, function() {
+	unblockTracker(tracker, function() {
 		// check is needed as for an unknown reason this callback function is
 		// executed for buttons that have already been removed; we are trying
 		// to prevent replacing an already removed button
@@ -240,6 +195,41 @@ function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 			}
 		}
 	});
+}
+
+/**
+* Gets data about which tracker buttons need to be replaced from the main
+* extension and passes it to the provided callback function.
+* 
+* @param {Function} callback the function to call when the tracker data is
+*                            received; the arguments passed are the folder
+*                            containing the content script, the tracker
+*                            data, and a mapping of tracker names to
+*                            whether those tracker buttons need to be
+*                            replaced
+*/
+function getTrackerData(callback) {
+	chrome.runtime.sendMessage({checkReplaceButton:document.location}, function(response) {
+		var trackers = response.trackers;
+		var trackerButtonsToReplace = response.trackerButtonsToReplace;
+		callback(trackers, trackerButtonsToReplace);
+	});
+}
+
+/**
+* Unblocks the tracker with the given name from the page. Calls the
+* provided callback function after the tracker has been unblocked.
+* 
+* @param {String} trackerName the name of the tracker to unblock
+* @param {Function} callback the function to call after the tracker has
+*                            been unblocked
+*/
+function unblockTracker(buttonUrl, callback) {
+	var request = {
+		"unblockSocialWidget" : true,
+		"buttonUrl": buttonUrl
+	};
+	chrome.runtime.sendMessage(request, callback);
 }
 
 initialize();

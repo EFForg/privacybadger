@@ -26,7 +26,7 @@
 			".DiggThisButton"
 		],
 		"replacementButton": {
-			"details": "http://www.digg.com/submit?url=*",
+			"details": "http://www.digg.com/submit?url=",
 			"imagePath": "Digg.svg",
 			"type": 0
 		}
@@ -55,7 +55,7 @@
 	},
 	
 	"Google+": {
-		"domain": "google.com",
+		"domain": "apis.google.com",
 		"matchPatterns": [
 			"*://*.apis.google.com/js/plusone.js*",
 			"*://*.plusone.google.com/_/+1/fastbutton*",
