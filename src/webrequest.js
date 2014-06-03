@@ -255,11 +255,14 @@ function onHeadersReceived(details){
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  console.log("REQUEST ACTION:", requestAction, type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      newHeaders = details.responseHeaders.filter(function(header) {
+      var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
+      newHeaders.push({name:'x-marks-the-spot', value:'foo'});
+      //TODO don't return this unless we modified headers
       return {responseHeaders: newHeaders};
     }
   }
