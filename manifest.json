@@ -75,7 +75,6 @@
   "update_url": "http://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [
     "skin/*",
-    "icons/*",
-    "getFrameId"
+    "icons/*"
   ]
 }
