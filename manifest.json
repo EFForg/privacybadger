@@ -29,7 +29,6 @@
       "lib/jsbn.js", 
       "lib/rsa.js", 
       "lib/popupBlocker.js", 
-      "lib/chrome.tabs.executeScriptInFrame.js",
       "src/cookieblocklist.js",
       "src/blockedDomainList.js",
       "src/webrequest.js", 
