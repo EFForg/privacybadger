@@ -31,7 +31,6 @@
       "lib/popupBlocker.js", 
       "lib/chrome.tabs.executeScriptInFrame.js",
       "src/cookieblocklist.js",
-      "src/fakecookiestore.js",
       "src/blockedDomainList.js",
       "src/webrequest.js", 
       "src/heuristicblocking.js", 

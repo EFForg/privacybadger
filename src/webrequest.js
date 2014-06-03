@@ -37,7 +37,6 @@
 
  /* global variables */
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
-var FakeCookieStore = require("fakecookiestore").FakeCookieStore;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
 var frames = {};
 var onFilterChangeTimeout = null;
