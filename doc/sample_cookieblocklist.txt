@@ -348,4 +348,4 @@
 @@||dmcdn.com^$third-party
 @@||stackexchange.com^$third-party
 @@||stackoverflow.com^$third-party
-
+@@||mathjax.org^$third-party
