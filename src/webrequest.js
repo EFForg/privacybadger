@@ -77,32 +77,10 @@ function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
 }
 
-/*********************************
- * @string _mapDomain( @string domain)
- * In some cases an origin uses multiple domains which, for the purpouses of logging
- * in to the website can essentially be considered the same domain. This function maps
- * the domain that is passed in to the parent domain that is responsible.
- * **********************************/
-function _mapDomain(domain){
-  var domainMappings = {
-    "youtube.com": 'google.com',
-    "gmail.com": 'google.com',
-  }
-  return domainMappings[domain] || domain 
-}
-
-function tabChangesDomains(newDomain,oldDomain){
-  var newDomain = _mapDomain(newDomain);
-  var oldDomain = _mapDomain(oldDomain);
-
-  return (oldDomain != newDomain);
-}
-
 function onFilterChange() {
   onFilterChangeTimeout = null;
   chrome.webRequest.handlerBehaviorChanged();
 }
-
 
 function onFilterNotifier(action) {
   if (action in importantNotifications) {
@@ -113,44 +91,6 @@ function onFilterNotifier(action) {
     onFilterChangeTimeout = window.setTimeout(onFilterChange, 2000);
   }
 };
-
-function buildCookieUrl(cookie){
-  var url = "";
-  if(cookie.secure){
-    url += "https://";
-  } else {
-    url += "http://";
-  }
-  url += cookie.domain + cookie.path;
-  return url;
-}
-
-function checkDomainOpenInTab(domain){
-  for( tabId in frames ){
-    if(_mappedBaseDomain(getHostForTab(tabId)) === _mappedBaseDomain(domain)){
-      return true;
-    }
-  }
-  
-  return false;
-}
-
-function _mappedBaseDomain(domain){
-  return domain && _mapDomain(getBaseDomain(domain));
-}
-
-function removeCookiesForDomain(domain){
-  alert("removing all cookies for " + domain);
-  chrome.cookies.getAll({domain: domain}, function(cookies){
-    for(var i = 0; i < cookies.length; i++){
-      //console.log('removing cookie for', cookies[i].domain);
-      var details = {url: buildCookieUrl(cookies[i]), name: cookies[i].name, storeId: cookies[i].storeId}
-      chrome.cookies.remove(details, function(details){
-        //console.log('removed cookie for', details);
-      });
-    }
-  });
-}
 
 function onBeforeRequest(details){
   if (details.tabId == -1){
@@ -423,7 +363,7 @@ chrome.runtime.onMessage.addListener(
   var tabHost  = extractHostFromURL(sender.tab.url);
     if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
       var documentHost = request.checkLocation.hostname;
-      var reqAction = checkRequest('SUBDOCUMENT', sender.tab.id, documentHost,0);
+      var reqAction = checkAction(sender.tab.id, documentHost);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
     }
