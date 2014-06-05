@@ -37,10 +37,8 @@
 
  /* global variables */
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
-var FakeCookieStore = require("fakecookiestore").FakeCookieStore;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
 var frames = {};
-var clobberRequestIds = {};
 var onFilterChangeTimeout = null;
 var importantNotifications = {
   'filter.added': true,
@@ -56,37 +54,22 @@ var importantNotifications = {
 /* Event Listeners */
 chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
 chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
+//chrome.tabs.onUpdated.addListener(onTabUpdated);
 chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
-chrome.cookies.onChanged.addListener(onCookieChanged);
-chrome.tabs.onUpdated.addListener(onTabUpdated);
 chrome.tabs.onRemoved.addListener(onTabRemoved);
 chrome.tabs.onReplaced.addListener(onTabReplaced);
 FilterNotifier.addListener(onFilterNotifier);
 
 /* functions */
 function onTabRemoved(tabId){
-  console.log('tab removed!');
-  var baseDomain = getBaseDomain(extractHostFromURL(getFrameUrl(tabId, 0)));
-  var mappedDomain = _mapDomain(baseDomain);
+  console.log('tab removed!', tabId);
   forgetTab(tabId);
-  if(Utils.isPrivacyBadgerEnabled()){
-    if(!checkDomainOpenInTab(baseDomain)){
-      console.log(baseDomain, 'is not open in any tab, so removing cookies');
-      removeCookiesIfCookieBlocked(baseDomain);
-    }
-    if(!checkDomainOpenInTab(mappedDomain)){
-      console.log(mappedDomain, 'is not open in any tab, so removing cookies');
-      removeCookiesIfCookieBlocked(mappedDomain);
-    }
-  }
 };
 
 function onTabUpdated(tabId, changeInfo, tab){
+  console.log('tab updated', tab);
   if (changeInfo.status == "loading" && changeInfo.url != undefined){
-    console.log('tab changed to', changeInfo.url);
-    //if the change in the tab is within the same domain we don't want to remove the cookies
     forgetTab(tabId);
-    recordFrame(tabId,0,-1,changeInfo.url);
   }
 };
 
@@ -94,33 +77,10 @@ function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
 }
 
-
-/*********************************
- * @string _mapDomain( @string domain)
- * In some cases an origin uses multiple domains which, for the purpouses of logging
- * in to the website can essentially be considered the same domain. This function maps
- * the domain that is passed in to the parent domain that is responsible.
- * **********************************/
-function _mapDomain(domain){
-  var domainMappings = {
-    "youtube.com": 'google.com',
-    "gmail.com": 'google.com',
-  }
-  return domainMappings[domain] || domain 
-}
-
-function tabChangesDomains(newDomain,oldDomain){
-  var newDomain = _mapDomain(newDomain);
-  var oldDomain = _mapDomain(oldDomain);
-
-  return (oldDomain != newDomain);
-}
-
 function onFilterChange() {
   onFilterChangeTimeout = null;
   chrome.webRequest.handlerBehaviorChanged();
 }
-
 
 function onFilterNotifier(action) {
   if (action in importantNotifications) {
@@ -132,135 +92,27 @@ function onFilterNotifier(action) {
   }
 };
 
-function onCookieChanged(changeInfo){
-  var cookieDomain = getBaseDomain(changeInfo.cookie.domain);
-  var cookie = changeInfo.cookie;
-
-  if(changeInfo.removed){
-    if(changeInfo.cause == 'explicit'){
-      //if we are removing a cookie via the api then we don't need to do anything!
-      return;
-    } else {
-      if(FakeCookieStore.cookies[cookieDomain]) {
-        console.log('removing cookies for', cookieDomain, 'from fake cookie store');
-        FakeCookieStore.removeCookie(cookieDomain, cookie.name);
-      }
-    }
-  }
-
-  // we check against the base domain because its okay for a site to set cookies for .example.com or www.example.com
-  if(CookieBlockList.hasBaseDomain(cookieDomain) && Utils.isPrivacyBadgerEnabled()){
-    //likely a tab change caused this so wait until a little bit in the future to make sure the domain is still open to prevent a race condition
-    setTimeout(function(){
-      if(!checkDomainOpenInTab(cookieDomain)){
-        console.log('!!! removing cookies for domain from real cookie store',cookieDomain);
-        chrome.cookies.remove({url: buildCookieUrl(cookie), name:cookie.name});
-      }
-    }, 1000);
-  }
-
-}
-
-function buildCookieUrl(cookie){
-  var url = "";
-  if(cookie.secure){
-    url += "https://";
-  } else {
-    url += "http://";
-  }
-  url += cookie.domain + cookie.path;
-  return url;
-}
-
-function checkDomainOpenInTab(domain){
-  for( tabId in frames ){
-    if(_mappedBaseDomain(getHostForTab(tabId)) === _mappedBaseDomain(domain)){
-      return true;
-    }
-  }
-  
-  return false;
-}
-
-function _mappedBaseDomain(domain){
-  return domain && _mapDomain(getBaseDomain(domain));
-}
-
-function addCookiesToRealCookieStore(cookies){
-  for(i in cookies){
-    var cookie = cookies[i];
-    cookie.url = buildCookieUrl(cookie);
-    if(cookie.hostOnly){
-      delete cookie.domain;
-    }
-    delete cookie.hostOnly;
-    delete cookie.session;
-    chrome.cookies.set(cookie);
-  }
-}
-
-function removeCookiesForDomain(domain){
-  chrome.cookies.getAll({domain: domain}, function(cookies){
-    for(var i = 0; i < cookies.length; i++){
-      //console.log('removing cookie for', cookies[i].domain);
-      var details = {url: buildCookieUrl(cookies[i]), name: cookies[i].name, storeId: cookies[i].storeId}
-      chrome.cookies.remove(details, function(details){
-        //console.log('removed cookie for', details);
-      });
-    }
-  });
-}
-
 function onBeforeRequest(details){
   if (details.tabId == -1){
     return {};
   }
 
   var type = details.type;
-
-  if (type == "main_frame" && Utils.isPrivacyBadgerEnabled()){
-    var newDomain = getBaseDomain(extractHostFromURL(details.url));
-    var oldDomain = getBaseDomain(extractHostFromURL(getFrameUrl(details.tabId, 0)));
-    var mappedDomain = _mapDomain(oldDomain);
-    var fakeCookies = FakeCookieStore.getCookies(newDomain);
-    var mappedCookies = FakeCookieStore.getCookies(_mapDomain(newDomain));
-
+  if (type == "main_frame"){
     forgetTab(details.tabId);
-    
-    if(tabChangesDomains(newDomain,oldDomain)){ 
-      console.log('TAB CHANGED DOMAINS', oldDomain, newDomain);
-      if(!checkDomainOpenInTab(oldDomain)){
-        console.log('REMOVING COOKIES BECAUSE OF DOMAIN CHANGE FOR TAB', oldDomain);
-        removeCookiesIfCookieBlocked(oldDomain);
-      }
-      if(!checkDomainOpenInTab(mappedDomain)){
-        removeCookiesIfCookieBlocked(mappedDomain);
-      }
-    }
-
-    if(!checkDomainOpenInTab(newDomain)){
-      addCookiesToRealCookieStore(fakeCookies);
-      addCookiesToRealCookieStore(mappedCookies);
-    }
   }
 
   if (type == "main_frame" || type == "sub_frame"){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
 
-  //for an extension we try to load cookies for the domain that the extension
-  //actually cares about
-  if(_isTabAnExtension(details.tabId)){
-    var domain = _mappedBaseDomain(getHostForTab(details.tabId))
-    chrome.cookies.getAll({domain: domain}, function(cookies){
-      if(cookies.length === 0){
-        var fakeCookies = FakeCookieStore.getCookies(domain);
-        addCookiesToRealCookieStore(fakeCookies);
-      }
-    });
+  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
+  if (type == "sub_frame"){
+    type = "SUBDOCUMENT";
+  } else {
+    type = type.toUpperCase();
   }
-
-  var frame = (type != "sub_frame" ? details.frameId : details.parentFrameId);
+  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
@@ -302,13 +154,17 @@ function onBeforeSendHeaders(details) {
 
   var type = details.type;
 
-  var frame = (type != "sub_frame" ? details.frameId : details.parentFrameId);
+  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
+  if (type == "sub_frame"){
+    type = "SUBDOCUMENT";
+  } else {
+    type = type.toUpperCase();
+  }
+  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  //console.log("REQUEST ACTION:", requestAction, type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      recordRequestId(details.requestId);
-      //CookieBlockList.addDomain(extractHostFromURL(details.url));
-      //clobberCookieSetting();
       newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
@@ -338,27 +194,24 @@ function onHeadersReceived(details){
 
   var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
   var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  console.log("REQUEST ACTION:", requestAction, type, details.tabId, details.url, frame);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
-   if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      newHeaders = details.responseHeaders.filter(function(header) {
+    if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
+      var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
+      newHeaders.push({name:'x-marks-the-spot', value:'foo'});
+      //TODO don't return this unless we modified headers
       return {responseHeaders: newHeaders};
     }
   }
 }
-
-
 
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (frames[tabId] == undefined){
     frames[tabId] = {};
   }
   frames[tabId][frameId] = {url: frameUrl, parent: parentFrameId};
-}
-
-function recordRequestId(requestId) {
-  clobberRequestIds[requestId] = true;
 }
 
 function getFrameData(tabId, frameId) {
@@ -377,31 +230,30 @@ function getFrameUrl(tabId, frameId) {
 }
 
 function forgetTab(tabId) {
+  console.log('forgetting tab', tabId);
   activeMatchers.removeTab(tabId)
   delete frames[tabId];
 }
 
-function removeCookiesIfCookieBlocked(baseDomain){
-  if(CookieBlockList.hasBaseDomain(baseDomain)){
-    chrome.cookies.getAll({domain: baseDomain}, function(cookies){
-      FakeCookieStore.setCookies(baseDomain, cookies);
-      removeCookiesForDomain(baseDomain);
-    });
-  };
-}
+function checkAction(tabId, url){
+  //ignore requests coming from internal chrome tabs
+  if(_isTabChromeInternal(tabId) ){
+    return false;
+  }
 
-function clobberCookieSetting() {
-  var dummyCookie = "";
-  Object.defineProperty(document, "cookie", {
-    __proto__: null,
-    configurable: false,
-    get: function () {
-      return dummyCookie;
-    },
-    set: function (newValue) {
-      dummyCookie = newValue;
-    }
-  });
+  var documentUrl = getFrameUrl(tabId, 0);
+  if (!documentUrl){
+    return false;
+  }
+
+  var requestHost = url;
+  var documentHost = extractHostFromURL(documentUrl);
+  var thirdParty = isThirdParty(requestHost, documentHost);
+
+  if (thirdParty && tabId > -1) {
+    return getAction(tabId, requestHost);
+  }
+  return false;
 }
 
 function checkRequest(type, tabId, url, frameId) {
@@ -414,7 +266,7 @@ function checkRequest(type, tabId, url, frameId) {
     return false;
   }
 
-  var documentUrl = getFrameUrl(tabId, frameId);
+  var documentUrl = getFrameUrl(tabId, 0);
   if (!documentUrl){
     return false;
   }
@@ -459,7 +311,7 @@ function checkRequest(type, tabId, url, frameId) {
     if (!(blockedDataByHost)){
       // if the third party origin is not blocked we add it to the list to 
       // inform the user of all third parties on the page.
-     // activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
+      //activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
       return "noaction";
     }
     //console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
@@ -505,3 +357,15 @@ function isFrameWhitelisted(tabId, frameId, type) {
   }
   return false;
 }
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+  var tabHost  = extractHostFromURL(sender.tab.url);
+    if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
+      var documentHost = request.checkLocation.hostname;
+      var reqAction = checkAction(sender.tab.id, documentHost);
+      var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
+      sendResponse(cookieBlock);
+    }
+  }
+);

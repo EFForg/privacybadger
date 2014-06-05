@@ -37,9 +37,7 @@ with(require("subscriptionClasses")) {
 var FilterStorage = require("filterStorage").FilterStorage;
 var matcherStore = require("matcher").matcherStore;
 var Synchronizer = require("synchronizer").Synchronizer;
-var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
-var FakeCookieStore = require("fakecookiestore").FakeCookieStore;
 var Utils = require("utils").Utils;
 var tabOrigins = { };
 var cookieSentOriginFrequency = { };
