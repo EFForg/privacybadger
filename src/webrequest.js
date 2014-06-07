@@ -310,7 +310,6 @@ function getSocialWidgetBlockList(tabId) {
 
 // Check if tab is temporarily unblocked for tracker
 function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {	
-  console.log("checking...");
   var exceptions = temporarySocialWidgetUnblock[tabId];
   if (exceptions == undefined) {
     return false;
@@ -322,19 +321,22 @@ function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var frameHost = extractHostFromURL(getFrameUrl(tabId, frameId));
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
-  console.log((requestExcept || frameExcept) + " : exception for " + url);
+  //console.log((requestExcept || frameExcept) + " : exception for " + url);
 
   return (requestExcept || frameExcept);
 }
 
 // Unblocks a tracker just temporarily on this tab, because the user has clicked the
 // corresponding replacement social widget.
-function unblockSocialWidgetOnTab(tabId, socialWidgetUrl) {
+function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   if (temporarySocialWidgetUnblock[tabId] == undefined){
     temporarySocialWidgetUnblock[tabId] = [];
   }
-  var socialWidgetHost = extractHostFromURL(socialWidgetUrl);
-  temporarySocialWidgetUnblock[tabId].push(socialWidgetHost);
+  for (var i in socialWidgetUrls) {
+    var socialWidgetUrl = socialWidgetUrls[i];
+    var socialWidgetHost = extractHostFromURL(socialWidgetUrl);  
+    temporarySocialWidgetUnblock[tabId].push(socialWidgetHost);
+  }
 }
 
 chrome.runtime.onMessage.addListener(
@@ -352,8 +354,8 @@ chrome.runtime.onMessage.addListener(
       sendResponse(socialWidgetBlockList);
     }
     if(request.unblockSocialWidget){
-      var socialWidgetUrl = request.buttonUrl;
-      unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrl);
+      var socialWidgetUrls = request.buttonUrls;
+      unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
       sendResponse();
     }
   }

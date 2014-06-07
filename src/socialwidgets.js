@@ -106,7 +106,7 @@ function createReplacementButtonImage(tracker) {
 				// once when the user clicks on a replacement button
 				// (it executes for the buttons that have been previously
 				// clicked as well)
-				replaceButtonWithIframeAndUnblockTracker(button, details, iframeUrl);
+				replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, iframeUrl);
 			});
 		break;
 		
@@ -117,7 +117,7 @@ function createReplacementButtonImage(tracker) {
 				// once when the user clicks on a replacement button
 				// (it executes for the buttons that have been previously
 				// clicked as well)
-				replaceButtonWithHtmlCodeAndUnblockTracker(button, details, details);
+				replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
 			});
 		break;
 		
@@ -204,11 +204,34 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
 			codeContainer.innerHTML = html;
 			
 			button.parentNode.replaceChild(codeContainer, button);
+
+			replaceScriptsRecurse(codeContainer);
 			
 			button.removeEventListener("click");
 		}
 	});
 }
+
+/**
+ * Dumping scripts into innerHTML won't execute them, so replace them
+ * with executable scripts.
+ */
+function replaceScriptsRecurse(node) {
+        if (node.getAttribute && node.getAttribute("type") == "text/javascript") {
+                var script  = document.createElement("script");
+                script.text = node.innerHTML;
+		script.src = node.src;
+                node.parentNode.replaceChild(script, node);
+        } else {
+		var i = 0;
+		var children = node.childNodes;
+		while ( i < children.length) {
+                        replaceScriptsRecurse(children[i]);
+                        i++;
+		}
+	}
+        return node;
+}                                                    
 
 /**
  * Replaces all tracker buttons on the current web page with the internal
@@ -269,10 +292,10 @@ function getTrackerData(callback) {
 * @param {Function} callback the function to call after the tracker has
 *                            been unblocked
 */
-function unblockTracker(buttonUrl, callback) {
+function unblockTracker(buttonUrls, callback) {
 	var request = {
 		"unblockSocialWidget" : true,
-		"buttonUrl": buttonUrl
+		"buttonUrls": buttonUrls
 	};
 	chrome.runtime.sendMessage(request, callback);
 }
