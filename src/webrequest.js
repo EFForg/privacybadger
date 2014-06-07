@@ -107,14 +107,7 @@ function onBeforeRequest(details){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
 
-  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
-  if (type == "sub_frame"){
-    type = "SUBDOCUMENT";
-  } else {
-    type = type.toUpperCase();
-  }
-  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
-  var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
     if(requestAction == "block" || requestAction == "cookieBlock"){
@@ -153,17 +146,7 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var type = details.type;
-
-  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
-  if (type == "sub_frame"){
-    type = "SUBDOCUMENT";
-  } else {
-    type = type.toUpperCase();
-  }
-  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
-  var requestAction = checkRequest(type, details.tabId, details.url, frame);
-  //console.log("REQUEST ACTION:", requestAction, type, details.tabId, details.url, frame);
+  var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       newHeaders = details.requestHeaders.filter(function(header) {
@@ -184,18 +167,7 @@ function onHeadersReceived(details){
     return {};
   }
 
-  var type = details.type;
-
-  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
-  if (type == "sub_frame"){
-    type = "SUBDOCUMENT";
-  } else {
-    type = type.toUpperCase();
-  }
-
-  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
-  var requestAction = checkRequest(type, details.tabId, details.url, frame);
-  console.log("REQUEST ACTION:", requestAction, type, details.tabId, details.url, frame);
+  var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       var newHeaders = details.responseHeaders.filter(function(header) {
@@ -237,97 +209,42 @@ function forgetTab(tabId) {
   delete temporarySocialWidgetUnblock[tabId];
 }
 
-function checkAction(tabId, url){
-  //ignore requests coming from internal chrome tabs
-  if(_isTabChromeInternal(tabId) ){
-    return false;
-  }
+function checkAction(tabId, url, quiet, frameId){
+  var action = false;
 
-  var documentUrl = getFrameUrl(tabId, 0);
-  if (!documentUrl){
-    return false;
-  }
-
-  var requestHost = url;
-  var documentHost = extractHostFromURL(documentUrl);
-  var thirdParty = isThirdParty(requestHost, documentHost);
-
-  if (thirdParty && tabId > -1) {
-    return getAction(tabId, requestHost);
-  }
-  return false;
-}
-
-function checkRequest(type, tabId, url, frameId) {
+  //ignore requests coming from temporary unblocked social widget
+  //(aka someone has clicked on the widget, so let it load)
   if (isSocialWidgetTemporaryUnblock(tabId, url, frameId)) {
     return false;
   }
 
-  if (isFrameWhitelisted(tabId, frameId)){
-    return false;
-  }
-
   //ignore requests coming from internal chrome tabs
   if(_isTabChromeInternal(tabId) ){
-    return false;
+    return action;
   }
-
+  
+  //ignore requests that don't have a document url for some reason
   var documentUrl = getFrameUrl(tabId, 0);
   if (!documentUrl){
-    return false;
+    return action;
   }
 
   var requestHost = extractHostFromURL(url);
   var documentHost = extractHostFromURL(documentUrl);
+  var origin = getBaseDomain(requestHost);
   var thirdParty = isThirdParty(requestHost, documentHost);
-  // dta: added more complex logic for per-subscription matchers
-  // and whether to block based on them
-  // todo: DRY; this code was moved to activeMatchers class in matcher.js
-  var spyingOrigin = false;
+
   if (thirdParty && tabId > -1) {
-    // used to track which methods didn't think this was a spying
-    // origin, to add later if needed (we only track origins
-    // that at least one subscription list matches)
-    var unfiredMatchers = [ ];
-    for (var matcherKey in matcherStore.combinedMatcherStore) {
-      var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
-      var currentFilter = currentMatcher.matchesAny(url, type, documentHost, thirdParty);
-      if (currentFilter) {
-        activeMatchers.addMatcherToOrigin(tabId, requestHost, matcherKey, true);
-        spyingOrigin = true;
-      } else {
-        unfiredMatchers.push(matcherKey);
-      }
+    action = activeMatchers.getAction(tabId, requestHost);
+    console.log('action for', requestHost, action);
+    if(!action && httpRequestOriginFrequency[origin]) {
+      action = "noaction"
     }
-    if (spyingOrigin) {
-      // make sure to set the document host
-      // todo: there may be a race condition here if a user tries to alter settings while
-      // this code is executing
-      activeMatchers.setDocumentHost(tabId, documentHost);
-      for (var i=0; i < unfiredMatchers.length; i++) {
-        activeMatchers.addMatcherToOrigin(tabId, requestHost, unfiredMatchers[i], false);
-      }
-    } 
-    // determine action
-    if (!activeMatchers.getTabData(tabId)) {
-      return "noaction";
-    }
-    var blockedData = activeMatchers.blockedOriginsByTab[tabId];
-    var blockedDataByHost = blockedData[requestHost];
-    if (!(blockedDataByHost)){
-      // if the third party origin is not blocked we add it to the list to 
-      // inform the user of all third parties on the page.
-      //activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
-      return "noaction";
-    }
-    //console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
-    var action = activeMatchers.getAction(tabId, requestHost);
-    if (action && action != 'noaction'){
-      //console.log("Action to be taken for " + requestHost + ", " + url + ": " + action);
-    }
-    return action;
   }
-  return false;
+  if(action && !quiet){
+    activeMatchers.addMatcherToOrigin(tabId, requestHost, "requestAction", action);
+  }
+  return action;
 }
 
 function _frameUrlStartsWith(tabId, piece){
@@ -392,7 +309,8 @@ function getSocialWidgetBlockList(tabId) {
 }
 
 // Check if tab is temporarily unblocked for tracker
-function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
+function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {	
+  console.log("checking...");
   var exceptions = temporarySocialWidgetUnblock[tabId];
   if (exceptions == undefined) {
     return false;
@@ -404,7 +322,7 @@ function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var frameHost = extractHostFromURL(getFrameUrl(tabId, frameId));
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
-  //console.log((requestExcept || frameExcept) + " : exception for " + url);
+  console.log((requestExcept || frameExcept) + " : exception for " + url);
 
   return (requestExcept || frameExcept);
 }
@@ -423,8 +341,9 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   var tabHost  = extractHostFromURL(sender.tab.url);
     if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
-      var documentHost = request.checkLocation.hostname;
-      var reqAction = checkAction(sender.tab.id, documentHost);
+      var documentHost = request.checkLocation.href;
+      console.log(sender);
+      var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
     }
