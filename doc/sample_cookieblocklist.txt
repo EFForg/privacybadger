@@ -350,3 +350,4 @@
 @@||stackoverflow.com^$third-party
 @@||mathjax.org^$third-party
 @@||s-static.ak.facebook.com^$third-party
+@@||sketchfab.com^$third-party
