@@ -76,13 +76,11 @@ var seenDataCorruption = false;
 chrome.windows.onCreated.addListener(function(){
   CookieBlockList.updateDomains();
   BlockedDomainList.updateDomains();
-  FakeCookieStore.updateCookies();
   
 });
 chrome.storage.onChanged.addListener(function(){
   CookieBlockList.updateDomains();
   BlockedDomainList.updateDomains();
-  FakeCookieStore.updateCookies();
 });
 
 require("filterNotifier").FilterNotifier.addListener(function(action)
@@ -591,10 +589,6 @@ function checkForDNTPolicy(domain){
   });
 }
 
-function moveCookiesToFakeCookieStore(){
-  alert('called move cookies to fake store');
-}
-
 //asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
 var checkPrivacyBadgerPolicy = function(origin, callback){
   var successStatus = false;
@@ -646,10 +640,6 @@ function isValidPolicyHash(hash){
     if(hash === hashes[key]){ return true; }
   }
   return false;
-}
-
-function moveCookiesToRealCookieStore(){
-  alert('moving cookies to real cookie store');
 }
 
 function saveAction(userAction, origin) {

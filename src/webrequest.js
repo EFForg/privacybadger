@@ -37,7 +37,6 @@
 
  /* global variables */
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
-var FakeCookieStore = require("fakecookiestore").FakeCookieStore;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
 var frames = {};
@@ -84,32 +83,10 @@ function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
 }
 
-/*********************************
- * @string _mapDomain( @string domain)
- * In some cases an origin uses multiple domains which, for the purpouses of logging
- * in to the website can essentially be considered the same domain. This function maps
- * the domain that is passed in to the parent domain that is responsible.
- * **********************************/
-function _mapDomain(domain){
-  var domainMappings = {
-    "youtube.com": 'google.com',
-    "gmail.com": 'google.com',
-  }
-  return domainMappings[domain] || domain 
-}
-
-function tabChangesDomains(newDomain,oldDomain){
-  var newDomain = _mapDomain(newDomain);
-  var oldDomain = _mapDomain(oldDomain);
-
-  return (oldDomain != newDomain);
-}
-
 function onFilterChange() {
   onFilterChangeTimeout = null;
   chrome.webRequest.handlerBehaviorChanged();
 }
-
 
 function onFilterNotifier(action) {
   if (action in importantNotifications) {
@@ -120,44 +97,6 @@ function onFilterNotifier(action) {
     onFilterChangeTimeout = window.setTimeout(onFilterChange, 2000);
   }
 };
-
-function buildCookieUrl(cookie){
-  var url = "";
-  if(cookie.secure){
-    url += "https://";
-  } else {
-    url += "http://";
-  }
-  url += cookie.domain + cookie.path;
-  return url;
-}
-
-function checkDomainOpenInTab(domain){
-  for( tabId in frames ){
-    if(_mappedBaseDomain(getHostForTab(tabId)) === _mappedBaseDomain(domain)){
-      return true;
-    }
-  }
-  
-  return false;
-}
-
-function _mappedBaseDomain(domain){
-  return domain && _mapDomain(getBaseDomain(domain));
-}
-
-function removeCookiesForDomain(domain){
-  alert("removing all cookies for " + domain);
-  chrome.cookies.getAll({domain: domain}, function(cookies){
-    for(var i = 0; i < cookies.length; i++){
-      //console.log('removing cookie for', cookies[i].domain);
-      var details = {url: buildCookieUrl(cookies[i]), name: cookies[i].name, storeId: cookies[i].storeId}
-      chrome.cookies.remove(details, function(details){
-        //console.log('removed cookie for', details);
-      });
-    }
-  });
-}
 
 function onBeforeRequest(details){
   if (details.tabId == -1){
@@ -173,14 +112,7 @@ function onBeforeRequest(details){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
 
-  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
-  if (type == "sub_frame"){
-    type = "SUBDOCUMENT";
-  } else {
-    type = type.toUpperCase();
-  }
-  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
-  var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  var requestAction = checkAction(details.tabId, details.url);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
     if(requestAction == "block" || requestAction == "cookieBlock"){
@@ -219,17 +151,7 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var type = details.type;
-
-  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
-  if (type == "sub_frame"){
-    type = "SUBDOCUMENT";
-  } else {
-    type = type.toUpperCase();
-  }
-  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
-  var requestAction = checkRequest(type, details.tabId, details.url, frame);
-  //console.log("REQUEST ACTION:", requestAction, type, details.tabId, details.url, frame);
+  var requestAction = checkAction(details.tabId, details.url);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
 
     //if settings for this domain are still controlled by badger and it is in 
@@ -264,22 +186,14 @@ function onHeadersReceived(details){
     return {};
   }
 
-  var type = details.type;
-
-  // Type names match Mozilla's with main_frame and sub_frame being the only exceptions.
-  if (type == "sub_frame"){
-    type = "SUBDOCUMENT";
-  } else {
-    type = type.toUpperCase();
-  }
-
-  var frame = (type != "SUBDOCUMENT" ? details.frameId : details.parentFrameId);
-  var requestAction = checkRequest(type, details.tabId, details.url, frame);
+  var requestAction = checkAction(details.tabId, details.url);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      newHeaders = details.responseHeaders.filter(function(header) {
+      var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
+      newHeaders.push({name:'x-marks-the-spot', value:'foo'});
+      //TODO don't return this unless we modified headers
       return {responseHeaders: newHeaders};
     }
   }
@@ -313,93 +227,35 @@ function forgetTab(tabId) {
   delete frames[tabId];
 }
 
-function checkAction(tabId, url){
+function checkAction(tabId, url, quiet){
+  var action = false;
   //ignore requests coming from internal chrome tabs
   if(_isTabChromeInternal(tabId) ){
-    return false;
+    return action;
   }
-
+  
+  //ignore requests that don't have a document url for some reason
   var documentUrl = getFrameUrl(tabId, 0);
   if (!documentUrl){
-    return false;
-  }
-
-  var requestHost = url;
-  var documentHost = extractHostFromURL(documentUrl);
-  var thirdParty = isThirdParty(requestHost, documentHost);
-
-  if (thirdParty && tabId > -1) {
-    return getAction(tabId, requestHost);
-  }
-  return false;
-}
-
-function checkRequest(type, tabId, url, frameId) {
-  if (isFrameWhitelisted(tabId, frameId)){
-    return false;
-  }
-
-  //ignore requests coming from internal chrome tabs
-  if(_isTabChromeInternal(tabId) ){
-    return false;
-  }
-
-  var documentUrl = getFrameUrl(tabId, 0);
-  if (!documentUrl){
-    return false;
+    return action;
   }
 
   var requestHost = extractHostFromURL(url);
   var documentHost = extractHostFromURL(documentUrl);
+  var origin = getBaseDomain(requestHost);
   var thirdParty = isThirdParty(requestHost, documentHost);
-  // dta: added more complex logic for per-subscription matchers
-  // and whether to block based on them
-  // todo: DRY; this code was moved to activeMatchers class in matcher.js
-  var spyingOrigin = false;
+
   if (thirdParty && tabId > -1) {
-    // used to track which methods didn't think this was a spying
-    // origin, to add later if needed (we only track origins
-    // that at least one subscription list matches)
-    var unfiredMatchers = [ ];
-    for (var matcherKey in matcherStore.combinedMatcherStore) {
-      var currentMatcher = matcherStore.combinedMatcherStore[matcherKey];
-      var currentFilter = currentMatcher.matchesAny(url, type, documentHost, thirdParty);
-      if (currentFilter) {
-        activeMatchers.addMatcherToOrigin(tabId, requestHost, matcherKey, true);
-        spyingOrigin = true;
-      } else {
-        unfiredMatchers.push(matcherKey);
-      }
+    action = activeMatchers.getAction(tabId, requestHost);
+    console.log('action for', requestHost, action);
+    if(!action && httpRequestOriginFrequency[origin]) {
+      action = "noaction"
     }
-    if (spyingOrigin) {
-      // make sure to set the document host
-      // todo: there may be a race condition here if a user tries to alter settings while
-      // this code is executing
-      activeMatchers.setDocumentHost(tabId, documentHost);
-      for (var i=0; i < unfiredMatchers.length; i++) {
-        activeMatchers.addMatcherToOrigin(tabId, requestHost, unfiredMatchers[i], false);
-      }
-    } 
-    // determine action
-    if (!activeMatchers.getTabData(tabId)) {
-      return "noaction";
-    }
-    var blockedData = activeMatchers.blockedOriginsByTab[tabId];
-    var blockedDataByHost = blockedData[requestHost];
-    if (!(blockedDataByHost)){
-      // if the third party origin is not blocked we add it to the list to 
-      // inform the user of all third parties on the page.
-      //activeMatchers.addMatcherToOrigin(tabId, requestHost, false, false);
-      return "noaction";
-    }
-    //console.log("Subscription data for " + requestHost + " is: " + JSON.stringify(blockedData[requestHost]));
-    var action = activeMatchers.getAction(tabId, requestHost);
-    if (action && action != 'noaction'){
-      //console.log("Action to be taken for " + requestHost + ": " + action);
-    }
-    return action;
   }
-  return "noaction";
+  if(action && !quiet){
+    activeMatchers.addMatcherToOrigin(tabId, requestHost, "requestAction", action);
+  }
+  return action;
 }
 
 function _frameUrlStartsWith(tabId, piece){
@@ -449,8 +305,8 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   var tabHost  = extractHostFromURL(sender.tab.url);
     if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
-      var documentHost = request.checkLocation.hostname;
-      var reqAction = checkRequest('SUBDOCUMENT', sender.tab.id, documentHost,0);
+      var documentHost = request.checkLocation.href;
+      var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
     }
