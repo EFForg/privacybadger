@@ -1,1 +1,8 @@
-hotfix: cookies are not blocked when privacy badger is disabled.
+Changelog for privacybadger-chrome-2014.6.9
+-------------------------------------------
+
+sort domain list by reversed fqdn
+adding more domains to cookie block list
+refactoring origin action checking logic, all domains that set cookies now show up on tracking list.
+removing fake cookie store data structure
+fix bug in cookie blocking that was allowing cookies sent in frames
