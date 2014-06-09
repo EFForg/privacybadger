@@ -227,7 +227,6 @@ function checkAction(tabId, url, quiet){
 
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
-    console.log('action for', requestHost, action);
     if(!action && httpRequestOriginFrequency[origin]) {
       action = "noaction"
     }
