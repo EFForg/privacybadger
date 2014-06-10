@@ -243,10 +243,14 @@ function replaceScriptsRecurse(node) {
  */
 function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 	trackers.forEach(function(tracker) {
-		var replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
+		// There's a weird race condition where background might not yet know
+		// about a widget to replace, so just try them all.
+		// If the list of buttons to replace gets long, may want to optimize here.
+		var replaceTrackerButtons = true;//trackerButtonsToReplace[tracker.name];
 				
 		if (replaceTrackerButtons) {	
-			console.log("replacing tracker button for " + tracker.name);	
+			//console.log("replacing tracker button for " + tracker.name);
+
 			// makes a comma separated list of CSS selectors that specify
 			// buttons for the current tracker; used for document.querySelectorAll
 			var buttonSelectorsString = tracker.buttonSelectors.toString();

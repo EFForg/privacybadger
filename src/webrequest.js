@@ -350,7 +350,7 @@ chrome.runtime.onMessage.addListener(
       sendResponse(cookieBlock);
     }
     if(request.checkReplaceButton && Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled()){
-      var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id); 
+      var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id);
       sendResponse(socialWidgetBlockList);
     }
     if(request.unblockSocialWidget){

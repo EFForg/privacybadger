@@ -35,7 +35,8 @@
 		"domain": "www.facebook.com",
 		"buttonSelectors": [
 			"fb\\:like",
-			"iframe[src*='://www.facebook.com/plugins/like.php']"
+			"iframe[src*='://www.facebook.com/plugins/like.php']",
+			".fb-like"
 		],
 		"replacementButton": {
 			"details": "https://www.facebook.com/plugins/like.php?href=",
