@@ -57,6 +57,10 @@ var CONTENT_SCRIPT_STYLESHEET_PATH = chrome.extension.getURL("skin/socialwidgets
  * Initializes the content script.
  */
 function initialize() {
+	setTimeout(delayedInitialize, 100);
+}
+
+function delayedInitialize() {
 	getTrackerData(function (trackers, trackerButtonsToReplace) {
 		// add the Content.css stylesheet to the page
 		var head = document.querySelector("head");
@@ -243,10 +247,9 @@ function replaceScriptsRecurse(node) {
  */
 function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 	trackers.forEach(function(tracker) {
-		// There's a weird race condition where background might not yet know
-		// about a widget to replace, so just try them all.
-		// If the list of buttons to replace gets long, may want to optimize here.
-		var replaceTrackerButtons = true;//trackerButtonsToReplace[tracker.name];
+		// There's a race condition where background might not yet know
+		// about a widget to replace, unsure how to fix.
+		var replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
 				
 		if (replaceTrackerButtons) {	
 			//console.log("replacing tracker button for " + tracker.name);
