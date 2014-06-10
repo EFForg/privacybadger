@@ -50,6 +50,7 @@ var importantNotifications = {
   'subscription.updated': true,
   'load': true
 };
+var temporarySocialWidgetUnblock = {};
 
 /* Event Listeners */
 chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
@@ -106,7 +107,7 @@ function onBeforeRequest(details){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
 
-  var requestAction = checkAction(details.tabId, details.url);
+  var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
     if(requestAction == "block" || requestAction == "cookieBlock"){
@@ -145,7 +146,7 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var requestAction = checkAction(details.tabId, details.url);
+  var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       newHeaders = details.requestHeaders.filter(function(header) {
@@ -166,7 +167,7 @@ function onHeadersReceived(details){
     return {};
   }
 
-  var requestAction = checkAction(details.tabId, details.url);
+  var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       var newHeaders = details.responseHeaders.filter(function(header) {
@@ -205,10 +206,18 @@ function forgetTab(tabId) {
   console.log('forgetting tab', tabId);
   activeMatchers.removeTab(tabId)
   delete frames[tabId];
+  delete temporarySocialWidgetUnblock[tabId];
 }
 
-function checkAction(tabId, url, quiet){
+function checkAction(tabId, url, quiet, frameId){
   var action = false;
+
+  //ignore requests coming from temporary unblocked social widget
+  //(aka someone has clicked on the widget, so let it load)
+  if (isSocialWidgetTemporaryUnblock(tabId, url, frameId)) {
+    return false;
+  }
+
   //ignore requests coming from internal chrome tabs
   if(_isTabChromeInternal(tabId) ){
     return action;
@@ -271,14 +280,82 @@ function isFrameWhitelisted(tabId, frameId, type) {
   return false;
 }
 
+// Provides the social widget blocking content script with list of social widgets to block
+function getSocialWidgetBlockList(tabId) {
+
+  // a mapping of individual SocialWidget objects to boolean values
+  // saying if the content script should replace that tracker's buttons
+  var socialWidgetsToReplace = {};
+
+  SocialWidgetList.forEach(function(socialwidget) {
+    var socialWidgetName = socialwidget.name;
+ 
+    // replace them if PrivacyBadger has blocked them
+    var blockedData = activeMatchers.blockedOriginsByTab[tabId];
+    if (blockedData && blockedData[socialwidget.domain]) {
+      socialWidgetsToReplace[socialWidgetName] = (blockedData[socialwidget.domain].latestaction == "block"
+	      					  || blockedData[socialwidget.domain].latestaction == "userblock"); 
+    }
+    else {
+      socialWidgetsToReplace[socialWidgetName] = false;
+    }
+  });
+
+  return {
+    "trackers" : SocialWidgetList,
+    "trackerButtonsToReplace" : socialWidgetsToReplace,
+  };
+}
+
+// Check if tab is temporarily unblocked for tracker
+function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {	
+  var exceptions = temporarySocialWidgetUnblock[tabId];
+  if (exceptions == undefined) {
+    return false;
+  }
+
+  var requestHost = extractHostFromURL(url);
+  var requestExcept = (exceptions.indexOf(requestHost) != -1);
+
+  var frameHost = extractHostFromURL(getFrameUrl(tabId, frameId));
+  var frameExcept = (exceptions.indexOf(frameHost) != -1);
+
+  //console.log((requestExcept || frameExcept) + " : exception for " + url);
+
+  return (requestExcept || frameExcept);
+}
+
+// Unblocks a tracker just temporarily on this tab, because the user has clicked the
+// corresponding replacement social widget.
+function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
+  if (temporarySocialWidgetUnblock[tabId] == undefined){
+    temporarySocialWidgetUnblock[tabId] = [];
+  }
+  for (var i in socialWidgetUrls) {
+    var socialWidgetUrl = socialWidgetUrls[i];
+    var socialWidgetHost = extractHostFromURL(socialWidgetUrl);  
+    temporarySocialWidgetUnblock[tabId].push(socialWidgetHost);
+  }
+}
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   var tabHost  = extractHostFromURL(sender.tab.url);
     if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
       var documentHost = request.checkLocation.href;
+      console.log(sender);
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
+    }
+    if(request.checkReplaceButton && Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled()){
+      var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id);
+      sendResponse(socialWidgetBlockList);
+    }
+    if(request.unblockSocialWidget){
+      var socialWidgetUrls = request.buttonUrls;
+      unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
+      sendResponse();
     }
   }
 );

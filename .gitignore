@@ -32,3 +32,6 @@ buildtools/jshydra/mozilla/js
 
 #zip files
 *.zip
+
+#Mac DS_Store
+*.DS_Store
