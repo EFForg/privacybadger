@@ -41,6 +41,7 @@ a:hover { color: #eeeeff }
   height: 7px;
   width: 5px;
   display: block;
+  clear: both;
 }
 #supQuest{
 color: #4183c4;
@@ -168,6 +169,14 @@ font-size: 16px;
   z-index: 20;
 }
 #blockedResources{
-  max-height: 416px;
+  max-height: 366px;
   overflow-y: auto;
+}
+.key{
+  margin-right: 45px;
+  display: inline;
+  float: right;
+}
+.key img{
+  margin-left: 10px;
 }
