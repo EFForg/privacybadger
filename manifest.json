@@ -75,7 +75,7 @@
   "manifest_version": 2, 
   "minimum_chrome_version": "18.0", 
   "name": "__MSG_name__", 
-  "page_action": {
+  "browser_action": {
     "default_icon": {
       "19": "icons/badger-19.png",
       "38": "icons/badger-38.png"

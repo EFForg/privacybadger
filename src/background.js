@@ -173,25 +173,17 @@ function isWhitelisted(url, parentUrl, type)
 // Adds or removes page action icon according to options.
 function refreshIconAndContextMenu(tab)
 {
-  // The tab could have been closed by the time this function is called
-  if(!tab)
-    return;
+  if(!tab){return;}
 
-  var excluded = isWhitelisted(tab.url);
-  // todo: also check for whitelisted urls
   var iconFilename = Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
-  chrome.pageAction.setIcon({tabId: tab.id, path: iconFilename});
 
-  // Only show icon for pages we can influence (http: and https:)
-  if(/^https?:/.test(tab.url))
-  {
-    chrome.pageAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
-    if ("shouldShowIcon" in localStorage && localStorage["shouldShowIcon"] == "false")
-      chrome.pageAction.hide(tab.id);
-    else
-      chrome.pageAction.show(tab.id);
-
+  chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
+  chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
+  
+  if ("shouldShowIcon" in localStorage && localStorage["shouldShowIcon"] == "false"){
+    chrome.browserAction.disable();
   }
+
 }
 
 /**
@@ -648,4 +640,25 @@ function isValidPolicyHash(hash){
 
 function reloadTab(tabId){
   chrome.tabs.reload(tabId);
+}
+
+chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
+function updateCount(details){
+  if (details.tabId == -1){
+    return {};
+  }
+  
+  if(!Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))){
+    return;
+  }
+
+  var tabId = details.tabId;
+  var origins = getAllOriginsForTab(tabId);
+  if(origins.length === 0){
+    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
+  } else {
+    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
+  }
+  var badgeText = origins.length + "";
+  chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
 }
