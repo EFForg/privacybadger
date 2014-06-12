@@ -496,8 +496,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
       var documentHost = extractHostFromURL(request.documentUrl);
       var thirdParty = isThirdParty(requestHost, documentHost);  
       var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
-      if( (filter instanceof BlockingFilter) && 
-      requestWouldBeBlocked(tabId, requestHost) ) {
+      if( requestWouldBeBlocked(tabId, requestHost) ) {
         var collapse = filter.collapse;
         if (collapse == null)
           collapse = (localStorage.hidePlaceholders != "false");
