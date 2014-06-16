@@ -241,6 +241,18 @@ function toggleBlockedStatus(elt,status) {
     $(elt).addClass("userset");
 }
 
+function compareRerversedDomains(a, b){
+  fqdn1 = a.split('.').reverse().join('.');
+  fqdn2 = b.split('.').reverse().join('.');
+  if(fqdn1 < fqdn2){
+    return -1;
+  }
+  if(fqdn1 > fqdn2){
+    return 1;
+  }
+  return 0;
+}
+
 function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + tabId);
   var origins = getAllOriginsForTab(tabId);
@@ -252,6 +264,7 @@ function refreshPopup(tabId) {
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it; 
   // yellow: only cookies blocked; green: no blocking yet";
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
+  origins.sort(compareRerversedDomains);
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework

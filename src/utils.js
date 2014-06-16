@@ -180,6 +180,14 @@ var Utils = exports.Utils = {
   },
 
   /**
+   * check if social widget replacement functionality is enabled
+   * (TODO: actually make this return something based on a user-facing setting
+   */
+  isSocialWidgetReplacementEnabled: function() {
+    return true;
+  },
+
+  /**
    * add an origin to the disabled sites list
    **/
   disablePrivacyBadgerForOrigin: function(origin){
