@@ -108,6 +108,7 @@ function activate() {
   $("#siteControls").show();
   localStorage.enabled = "true";
   refreshIconAndContextMenu(tab);
+  reloadTab(tab.id);
 }
 
 function deactivate() {
@@ -117,6 +118,7 @@ function deactivate() {
   $("#siteControls").hide();
   localStorage.enabled = "false";
   refreshIconAndContextMenu(tab);
+  reloadTab(tab.id);
 }
 
 function active_site(){
@@ -125,6 +127,7 @@ function active_site(){
   $("#blockedResourcesContainer").show();
   Utils.enablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
   refreshIconAndContextMenu(tab);
+  reloadTab(tab.id);
 }
 
 function deactive_site(){
@@ -133,6 +136,7 @@ function deactive_site(){
   $("#blockedResourcesContainer").hide();
   Utils.disablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
   refreshIconAndContextMenu(tab);
+  reloadTab(tab.id);
 }
 
 
@@ -154,6 +158,7 @@ function revertDomainControl(e){
   console.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
+  reloadTab(tabId);
   return false;
 }
 
