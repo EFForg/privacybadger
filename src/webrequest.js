@@ -343,7 +343,6 @@ chrome.runtime.onMessage.addListener(
   var tabHost  = extractHostFromURL(sender.tab.url);
     if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
       var documentHost = request.checkLocation.href;
-      console.log(sender);
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
