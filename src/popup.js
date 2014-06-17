@@ -328,6 +328,9 @@ function displayTooltip(event){
   var displayTipTimer = setTimeout(function(){
     if($elm.attr('tooltip').length == 0){ return; }
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
+    if($container.length === 0){
+      $container = $elm.siblings('.tooltipContainer');
+    }
     $container.text($elm.attr('tooltip'));
     $container.show();
     $container.siblings('.tooltipArrow').show();
@@ -339,6 +342,9 @@ function hideTooltip(event){
   var $elm = $(event.currentTarget);
   var hideTipTimer = setTimeout(function(){
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
+    if($container.length === 0){
+      $container = $elm.siblings('.tooltipContainer');
+    }
     if($container.is(':hidden')){return;}
     $container.text('');
     $container.hide();
