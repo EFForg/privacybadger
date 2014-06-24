@@ -362,3 +362,5 @@
 @@||cursecdn.com^$third-party
 @@||mt0.google.com^$third-party
 @@||mw1.google.com^$third-party
+@@||getpocket.com^$third-party
+@@||hootsuite.com^$third-party
