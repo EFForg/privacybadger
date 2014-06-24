@@ -51,7 +51,8 @@
 	"Google+": {
 		"domain": "apis.google.com",
 		"buttonSelectors": [
-			"g\\:plusone"
+			"g\\:plusone",
+			".g-plusone"
 		],
 		"replacementButton": {
 			"details": "https://plusone.google.com/_/+1/fastbutton?url=",

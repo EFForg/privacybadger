@@ -25,10 +25,12 @@ chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked){
     var script = document.createElement('script');
     script.appendChild(document.createTextNode(code));
     (document.head || document.documentElement).appendChild(script);
+    script.parentNode.removeChild(script);
 
   }
+  for (var prop in script) { delete script[prop]; }
+  return true;
 });
-//script.parentNode.removeChild(script);
 // Clobber local storage, using a function closure to keep the dummy private
 /*(function() {
   var dummyLocalStorage = { };

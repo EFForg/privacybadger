@@ -442,7 +442,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
         frameId = getFrameId(tabId, request.frameUrl);
       }
 
-      var enabled = !isFrameWhitelisted(tabId, frameId, "DOCUMENT") && !isFrameWhitelisted(tabId, frameId, "ELEMHIDE")&& isPrivacyBadgerEnabled(getHostForTab(tabId));
+      var enabled = !isFrameWhitelisted(tabId, frameId, "DOCUMENT") && !isFrameWhitelisted(tabId, frameId, "ELEMHIDE")&& Utils.isPrivacyBadgerEnabled(getHostForTab(tabId));
       if (enabled && request.selectors)
       {
         var noStyleRules = false;
@@ -479,7 +479,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 
       if (isFrameWhitelisted(tabId, frameId, "DOCUMENT") 
           || isSocialWidgetTemporaryUnblock(tabId, request.url, frameId)
-          || !isPrivacyBadgerEnabled(getHostForTab(tabId)) )
+          || !Utils.isPrivacyBadgerEnabled(getHostForTab(tabId)) )
       {
         sendResponse(false);
         break;

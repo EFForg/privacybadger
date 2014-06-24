@@ -358,3 +358,9 @@
 @@||khms4.google.com^$third-party
 @@||lh4.googleusercontent.com^$third-party
 @@||youwatch.org^$third-party
+@@||ui-portal.de^$third-party
+@@||cursecdn.com^$third-party
+@@||mt0.google.com^$third-party
+@@||mw1.google.com^$third-party
+@@||getpocket.com^$third-party
+@@||hootsuite.com^$third-party

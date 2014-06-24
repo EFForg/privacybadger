@@ -180,3 +180,8 @@ font-size: 16px;
 .key img{
   margin-left: 10px;
 }
+.key .tooltipContainer{
+  position: absolute;
+  left: 8px;
+  top: 100px;
+}

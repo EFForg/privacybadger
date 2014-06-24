@@ -1,8 +1,10 @@
-Changelog for privacybadger-chrome-2014.6.9
--------------------------------------------
+Changes for Privacy Badger 2014.6.16
+====================================
 
-sort domain list by reversed fqdn
-adding more domains to cookie block list
-refactoring origin action checking logic, all domains that set cookies now show up on tracking list.
-removing fake cookie store data structure
-fix bug in cookie blocking that was allowing cookies sent in frames
+Integrated ShareMeNot to replace sharing buttons with non intrusive versions
+Move icon to browser action, show a count of potential trackers on the page
+Checking cookie names in tracking heuristic
+Page refreshes when user undoes overrides and when privacy badger is disabled
+Domains sort alphabetically by name
+Fix bug where privacy badger was blocking things even when disabled
+Adding icons to clarify UI and improve usability for colorblind users
