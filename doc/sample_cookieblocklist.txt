@@ -360,3 +360,5 @@
 @@||youwatch.org^$third-party
 @@||ui-portal.de^$third-party
 @@||cursecdn.com^$third-party
+@@||mt0.google.com^$third-party
+@@||mw1.google.com^$third-party
