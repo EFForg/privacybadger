@@ -364,3 +364,6 @@
 @@||mw1.google.com^$third-party
 @@||getpocket.com^$third-party
 @@||hootsuite.com^$third-party
+@@||mozilla.net^$third-party
+@@||mapbox.com^$third-party
+
