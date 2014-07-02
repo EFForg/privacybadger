@@ -279,10 +279,11 @@ function refreshPopup(tabId) {
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
-    printable = _addOriginHTML(origin, printable, getAction(tabId, origin));
+    var action = getAction(tabId, origin);
+    if(!action){ continue; }
+    printable = _addOriginHTML(origin, printable, action);
   }
   document.getElementById("blockedResources").innerHTML = printable;
-  console.log('switch-container' , $('.switch-container'));
   $('.switch-toggle').each(function(){
     var radios = $(this).children('input');
     var value = $(this).children('input:checked').val();
