@@ -664,6 +664,20 @@ function reloadTab(tabId){
   chrome.tabs.reload(tabId);
 }
 
+function isOriginInHeuristic(origin){
+  return httpRequestOriginFrequency.hasOwnProperty(getBaseDomain(origin));
+}
+
+function blockedOriginCount(tabId){
+  return getAllOriginsForTab(tabId)
+    .reduce(function(memo,origin){
+      if(getAction(tabId,origin)){
+        memo+=1
+      }; 
+      return memo
+    }, 0)
+}
+
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 function updateCount(details){
   if (details.tabId == -1){
@@ -675,12 +689,12 @@ function updateCount(details){
   }
 
   var tabId = details.tabId;
-  var origins = getAllOriginsForTab(tabId);
-  if(origins.length === 0){
+  var numBlocked = blockedOriginCount(tabId);
+  if(numBlocked === 0){
     chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
   } else {
     chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
   }
-  var badgeText = origins.length + "";
+  var badgeText = numBlocked + "";
   chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
 }
