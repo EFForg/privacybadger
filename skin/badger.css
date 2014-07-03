@@ -1,0 +1,22 @@
+.privacyBadgerDialog{
+  height: 33%;
+  min-height: 400px;
+  width: 33%;
+  min-width: 300px;
+  background-color: #F3F3F3;
+  border: 1px solid #111;
+  z-index: 1000;
+  box-shadow: 2px 2px 10px #222;
+  position: fixed;
+  top: 33%;
+  left: 33%;
+}
+
+.privacyBadgerDialog button{
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  border: 1px solid #333;
+  box-shadow: 5px 5px 2px solid #222;
+  background #f0f0f0;
+}

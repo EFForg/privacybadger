@@ -639,11 +639,18 @@ function isValidPolicyHash(hash){
   return false;
 }
 
-function saveAction(userAction, origin) {
+function saveAction(userAction, origin, target) {
   var allUserActions = {'block': 'userRed', 
                         'cookieblock': 'userYellow', 
                         'noaction': 'userGreen'};
-  console.log("Saving user action " + userAction + " for " + origin);
+  if(target){
+    var filter = Filter.fromText("||" + origin + "^$third-party,domain=" + target);
+    FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[userAction]]);
+    console.log("Finished saving action " + userAction + " for " + origin + "on" + target);
+    return true
+  } 
+
+  // if there is no target proceed as normal
   for (var action in allUserActions) {
     var filter = Filter.fromText("||" + origin + "^$third-party");
     if (action == userAction){

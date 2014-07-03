@@ -160,11 +160,7 @@ function onBeforeSendHeaders(details) {
     if(requestAction.indexOf('user') < 0){
       var whitelistDomain = DomainExceptions.getWhitelistForPath(details.url);
       if( whitelistDomain){
-        if(_askUserToWhitelist(whitelistDomain)){
-          saveAction('noaction', whitelistDomain);
-          reloadTab(details.tabId);
-          return {};
-        } 
+        _askUserToWhitelist(details.tabId, whitelistDomain)
       }
     }
     
@@ -280,13 +276,25 @@ function _isTabAnExtension(tabId){
   return _frameUrlStartsWith(tabId, "chrome-extension://");
 }
 
-function _askUserToWhitelist(baseDomain){
-  var baseDomain = getBaseDomain(whitelistDomain);
-  var whitelistText = "WARNING! The action you are trying to take requires " +
-    "you to " + "unblock " + baseDomain + ". By doing this you could be " + 
-    "allowing " + baseDomain + " to track your browsing habits.  Would you " +
-    "like to continue and unblock " + baseDomain + "?";
-  return window.confirm(whitelistText);
+function _askUserToWhitelist(tabId, baseDomain){
+  console.log('assking user to whitelist');
+  var port = chrome.tabs.connect(tabId);
+  port.postMessage({action: 'attemptWhitelist', whitelistDomain:baseDomain, currentDomain:getHostForTab(tabId)});
+  port.onMessage.addListener(function(msg){
+    console.log('whitelist:',msg.action, baseDomain, 'on', getHostForTab(tabId));
+    if(msg.action === "allow_all"){
+      saveAction('noaction', baseDomain);
+      reloadTab(tabId);
+    } 
+    if(msg.action === "allow_once"){
+      //allow blag on this site only
+      saveAction('noaction', baseDomain, getHostForTab(tabId));
+      reloadTab(tabId);
+    }
+    if(msg.action === "not_now"){
+      //do nothing
+    }
+  });
 }
 
 function isFrameWhitelisted(tabId, frameId, type) {
