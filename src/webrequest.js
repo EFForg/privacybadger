@@ -52,7 +52,7 @@ var importantNotifications = {
   'load': true
 };
 var backgroundPage = chrome.extension.getBackgroundPage();
-var imports = ["saveAction"];
+var imports = ["saveAction", "getHostForTab"];
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
@@ -125,22 +125,6 @@ function onBeforeRequest(details){
     }
   }
 
-}
-
-function getHostForTab(tabId){
-  var mainFrameIdx = 0;
-  if(!frames[tabId]){
-    return undefined;
-  }
-  if(_isTabAnExtension(tabId)){
-    //if the tab is an extension get the url of the first frame for its implied URL 
-    //since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
-  }
-  if(!frames[tabId][mainFrameIdx]){
-    return undefined;
-  }
-  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
 }
 
 function onBeforeSendHeaders(details) {

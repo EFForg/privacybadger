@@ -644,7 +644,7 @@ function saveAction(userAction, origin, target) {
                         'cookieblock': 'userYellow', 
                         'noaction': 'userGreen'};
   if(target){
-    var filter = Filter.fromText("||" + origin + "^$third-party,domain=" + target);
+    var filter = Filter.fromText("@@||" + origin + "^$third-party,domain=" + target);
     FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[userAction]]);
     console.log("Finished saving action " + userAction + " for " + origin + "on" + target);
     return true
@@ -684,6 +684,23 @@ function blockedOriginCount(tabId){
       return memo
     }, 0)
 }
+
+function getHostForTab(tabId){
+  var mainFrameIdx = 0;
+  if(!frames[tabId]){
+    return undefined;
+  }
+  if(_isTabAnExtension(tabId)){
+    //if the tab is an extension get the url of the first frame for its implied URL 
+    //since the url of frame 0 will be the hash of the extension key
+    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
+  }
+  if(!frames[tabId][mainFrameIdx]){
+    return undefined;
+  }
+  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
+}
+
 
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 function updateCount(details){
