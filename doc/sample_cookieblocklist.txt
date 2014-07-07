@@ -366,4 +366,4 @@
 @@||hootsuite.com^$third-party
 @@||mozilla.net^$third-party
 @@||mapbox.com^$third-party
-
+@@||www.facebook.com^$third-party
