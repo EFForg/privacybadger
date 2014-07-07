@@ -5,11 +5,13 @@ chrome.runtime.onConnect.addListener(
 
     port.onMessage.addListener(function(msg){
       var dialog = '<div id="pbDialog" class="privacyBadgerDialog">' +
-      '<h2> Privacy Badger Alert!</h2>' +
-      '<h3>Logging into ' + msg.whitelistDomain + ' allows them to track you around the web.</h3>' +
-      '<button class="pbButton" id="allow_all">Allow ' + msg.whitelistDomain + ' always.</button>' +
-      '<button class="pbButton" id="allow_once">Allow ' + msg.whitelistDomain + ' on this site only.</button>' +
-      '<button class="pbButton" id="never">Do not allow ' + msg.whitelistDomain + ' this time.</button>' +
+      '<div id="pbLogo"><img src="' + chrome.extension.getURL("icons/badger-48.png") + '"></div>'+
+      '<h2>Privacy Badger Alert!</h2>' +
+      '<div class="clear"></div>' +
+      '<h3>Logging into ' + msg.whitelistDomain + ' can allow them to track you around the web.</h3>' +
+      '<button class="pbButton" id="allow_all">Always allow ' + msg.whitelistDomain + '.</button>' +
+      '<button class="pbButton" id="allow_once">Only allow ' + msg.whitelistDomain + ' on this site.</button>' +
+      '<button class="pbButton" id="never">Continue blocking ' + msg.whitelistDomain + ' for now.</button>' +
       '</div>';
       if(msg.action == "attemptWhitelist"){
         console.log('attempting whitelist');
