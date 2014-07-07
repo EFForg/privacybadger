@@ -33,6 +33,9 @@ var DomainExceptions = {
 
       //facebook connect
       'https://www.facebook.com/ajax/connect/feedback.php': ["www.facebook.com", "Facebook"],
+
+      //hootsuite
+      'https://hootsuite.com/hootlet/compose': ["hootsuite.com", "Hootsuite"],
   },
   getWhitelistForPath: function(path){
     for(var name in this.list){
