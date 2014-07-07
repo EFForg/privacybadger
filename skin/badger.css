@@ -8,28 +8,32 @@
   position: fixed;
   top: 33%;
   left: 33%;
+  color: #050505 !important;
 }
 
 .privacyBadgerDialog button{
-  font-size: 16px;
-  font-weight: bold;
-  display: block;
-  border: 1px solid #333;
-  box-shadow: 3px 3px 2px #888;
-  background: #f3f3f3;
-  padding: 2px;
-  margin: 10px auto;
-  width: 380px;
-  border-radius: 4px;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  display: block !important;
+  border: 1px solid #333 !important;
+  box-shadow: 3px 3px 2px #888 !important;
+  background: #e9f3f3 !important;
+  padding: 2px !important;
+  margin: 10px auto !important;
+  width: 380px !important;
+  border-radius: 4px !important;
+  color: #050505 !important;
 }
 .privacyBadgerDialog h2{
-  font-size: 18px;
-  margin: 22px 5px;
-  display: inline-block;
+  font-size: 18px !important;
+  margin: 22px 5px !important;
+  display: inline-block !important;
+  color: #050505 !important;
 }
 .privacyBadgerDialog h3{
-  margin: -5px 10px 8px 10px;
-  font-size: 14px;
+  margin: -5px 10px 8px 10px !important;
+  font-size: 14px !important;
+  color: #050505 !important;
 }
 .privacyBadgerDialog #pbLogo{
   margin: 5px 0 0 5px;
@@ -37,6 +41,6 @@
   float: left;
 }
 .privacyBadgerDialog .clear{
-  clear: both;
+  clear: both !important;
 }
 
