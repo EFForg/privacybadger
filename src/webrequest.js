@@ -118,6 +118,18 @@ function onBeforeRequest(details){
     //add domain to list of blocked domains if it is not there already
     if(requestAction == "block" || requestAction == "cookieBlock"){
       BlockedDomainList.addDomain(extractHostFromURL(details.url));
+
+      //if settings for this domain are still controlled by badger and it is in 
+      //the list of domain exceptions ask the user if they would like to unblock.
+      if(requestAction.indexOf('user') < 0){
+        var WD = 0
+        var EN = 1
+        var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
+        if( whitelistAry){
+          _askUserToWhitelist(details.tabId, whitelistAry[WD], whitelistAry[EN])
+        }
+      }
+
     }
 
     if (requestAction == "block" || requestAction == "userblock") {
@@ -138,17 +150,6 @@ function onBeforeSendHeaders(details) {
 
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
-
-    //if settings for this domain are still controlled by badger and it is in 
-    //the list of domain exceptions ask the user if they would like to unblock.
-    if(requestAction.indexOf('user') < 0){
-      var WD = 0
-      var EN = 1
-      var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
-      if( whitelistAry){
-        _askUserToWhitelist(details.tabId, whitelistAry[WD], whitelistAry[EN])
-      }
-    }
     
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       newHeaders = details.requestHeaders.filter(function(header) {
