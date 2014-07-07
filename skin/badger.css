@@ -19,7 +19,7 @@
   background: #f3f3f3;
   padding: 2px;
   margin: 10px auto;
-  width: 350px;
+  width: 380px;
   border-radius: 4px;
 }
 .privacyBadgerDialog h2{
@@ -28,7 +28,7 @@
   display: inline-block;
 }
 .privacyBadgerDialog h3{
-  margin: -5px 25px 8px 25px;
+  margin: -5px 10px 8px 10px;
   font-size: 14px;
 }
 .privacyBadgerDialog #pbLogo{

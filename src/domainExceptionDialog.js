@@ -10,7 +10,7 @@ chrome.runtime.onConnect.addListener(
       '<div class="clear"></div>' +
       '<h3>Logging into ' + msg.whitelistDomain + ' can allow them to track you around the web.</h3>' +
       '<button class="pbButton" id="allow_all">Always allow ' + msg.whitelistDomain + '.</button>' +
-      '<button class="pbButton" id="allow_once">Only allow ' + msg.whitelistDomain + ' on this site.</button>' +
+      '<button class="pbButton" id="allow_once">Only allow ' + msg.whitelistDomain + ' on ' + msg.currentDomain + '.</button>' +
       '<button class="pbButton" id="never">Continue blocking ' + msg.whitelistDomain + ' for now.</button>' +
       '</div>';
       if(msg.action == "attemptWhitelist"){

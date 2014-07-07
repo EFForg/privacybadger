@@ -142,9 +142,11 @@ function onBeforeSendHeaders(details) {
     //if settings for this domain are still controlled by badger and it is in 
     //the list of domain exceptions ask the user if they would like to unblock.
     if(requestAction.indexOf('user') < 0){
-      var whitelistDomain = DomainExceptions.getWhitelistForPath(details.url);
-      if( whitelistDomain){
-        _askUserToWhitelist(details.tabId, whitelistDomain)
+      var WD = 0
+      var EN = 1
+      var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
+      if( whitelistAry){
+        _askUserToWhitelist(details.tabId, whitelistAry[WD], whitelistAry[EN])
       }
     }
     
@@ -260,19 +262,19 @@ function _isTabAnExtension(tabId){
   return _frameUrlStartsWith(tabId, "chrome-extension://");
 }
 
-function _askUserToWhitelist(tabId, baseDomain){
+function _askUserToWhitelist(tabId, whitelistDomain, englishName){
   console.log('assking user to whitelist');
   var port = chrome.tabs.connect(tabId);
-  port.postMessage({action: 'attemptWhitelist', whitelistDomain:baseDomain, currentDomain:getHostForTab(tabId)});
+  port.postMessage({action: 'attemptWhitelist', whitelistDomain:englishName, currentDomain:getHostForTab(tabId)});
   port.onMessage.addListener(function(msg){
-    console.log('whitelist:',msg.action, baseDomain, 'on', getHostForTab(tabId));
+    console.log('whitelist:',msg.action, whitelistDomain, 'on', getHostForTab(tabId));
     if(msg.action === "allow_all"){
-      saveAction('noaction', baseDomain);
+      saveAction('noaction', whitelistDomain);
       reloadTab(tabId);
     } 
     if(msg.action === "allow_once"){
       //allow blag on this site only
-      saveAction('noaction', baseDomain, getHostForTab(tabId));
+      saveAction('noaction', whitelistDomain, getHostForTab(tabId));
       reloadTab(tabId);
     }
     if(msg.action === "not_now"){
