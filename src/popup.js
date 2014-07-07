@@ -36,7 +36,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction"]
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"]
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
@@ -145,13 +145,15 @@ function revertDomainControl(e){
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   var original_action = $elm.data('original-action');
+  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var stores = {'block': 'userRed', 
                 'cookieblock': 'userYellow', 
                 'noaction': 'userGreen'};
   var filter = "||" + origin + "^$third-party";
+  var siteFilter = "@@||" + origin + "^$third-party,domain=" + getHostForTab(tabId)
   var store = stores[original_action];
   removeFilter(store,filter);
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  removeFilter(store,siteFilter);
   var defaultAction = getAction(tabId,origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
