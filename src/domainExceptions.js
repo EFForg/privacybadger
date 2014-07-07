@@ -12,10 +12,27 @@ var DomainExceptions = {
 
   list: {
       /* "trigger_url": ["url to whitelist", "English Name"] */
+      //youtube comments
       'https://plus.google.com/u/0/wm/4/_/+1/messageproxy': ["apis.google.com", "Google Plus"],
+      
+      //disqus
       'https://disqus.com/next/login': ["disqus.com", "Disqus"],
       'http://disqus.com/_ax/facebook/begin': ["disqus.com", "Disqus"],
       'http://disqus.com/_ax/google/begin': ["disqus.com", "Disqus"],
+
+      //instapaper
+      'http://www.instapaper.com/j_ext': ["instapaper.com", "Instapaper"],
+      'http://www.instapaper.com/j/': ["instapaper.com", "Instapaper"],
+      'http://www.instapaper.com/bookmarklet/': ["instapaper.com", "Instapaper"],
+
+      //pocket
+      'http://getpocket.com/ext_save': ["getpocket.com", "Pocket"],
+
+      //kinja - for gizmodo comments
+      'https://api.kinja.com/api/token': ["api.kinja.com", "Kinja"],
+
+      //facebook connect
+      'https://www.facebook.com/ajax/connect/feedback.php': ["www.facebook.com", "Facebook"],
   },
   getWhitelistForPath: function(path){
     for(var name in this.list){
