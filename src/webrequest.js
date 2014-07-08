@@ -116,7 +116,7 @@ function onBeforeRequest(details){
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
-    if(requestAction == "block" || requestAction == "cookieBlock"){
+    if(requestAction == "block" || requestAction == "cookieblock"){
       BlockedDomainList.addDomain(extractHostFromURL(details.url));
 
       //if settings for this domain are still controlled by badger and it is in 

@@ -5,41 +5,40 @@
 * Index 1 is the English name of the service.
 **/
 require.scopes["domainExceptions"] = (function() {
-  
+
 var exports = {};
+
+var Utils = require('utils').Utils;
 
 var DomainExceptions = {
 
-  list: {
-      /* "trigger_url": ["url to whitelist", "English Name"] */
-      //youtube comments
-      'https://plus.google.com/u/0/wm/4/_/+1/messageproxy': ["apis.google.com", "Google Plus"],
-      
-      //disqus
-      'https://disqus.com/next/login': ["disqus.com", "Disqus"],
-      'http://disqus.com/_ax/facebook/begin': ["disqus.com", "Disqus"],
-      'http://disqus.com/_ax/google/begin': ["disqus.com", "Disqus"],
+  list: { },
+  domainExceptionListURL: "https://eff.org/files/domain_exception_list.txt",
+  updateList: function(){
+    console.log('updating domain exception list');
+    //update object from local storage
+    chrome.storage.local.get('domainExceptionList', function(l){
+      if(l){ DomainExceptions.list = l; }
+    });
 
-      //instapaper
-      'http://www.instapaper.com/j_ext': ["instapaper.com", "Instapaper"],
-      'http://www.instapaper.com/j/': ["instapaper.com", "Instapaper"],
-      'http://www.instapaper.com/bookmarklet/': ["instapaper.com", "Instapaper"],
+    //get list from server
+    Utils.xhrRequest(this.domainExceptionListURL, function(err,msg){
+      if(err){
+        console.error("Error downloading domain exception list:", msg);
+        return false;
+      }
 
-      //pocket
-      'http://getpocket.com/ext_save': ["getpocket.com", "Pocket"],
-
-      //kinja - for gizmodo comments
-      'https://api.kinja.com/api/token': ["api.kinja.com", "Kinja"],
-
-      //facebook connect
-      'https://www.facebook.com/ajax/connect/feedback.php': ["www.facebook.com", "Facebook"],
-
-      //hootsuite
-      'https://hootsuite.com/hootlet/compose': ["hootsuite.com", "Hootsuite"],
+      var l = JSON.parse(msg);
+      //update local storage
+      chrome.storage.local.set({domainExceptionList: l});
+         
+      //update local object
+      DomainExceptions.list = l;
+    });
   },
   getWhitelistForPath: function(path){
-    for(var name in this.list){
-      if(path.indexOf(name) === 0){ return this.list[name] }
+    for(var name in DomainExceptions.list){
+      if(path.indexOf(name) === 0){ return DomainExceptions.list[name] }
     }
     return undefined;
   },

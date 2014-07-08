@@ -1,0 +1,20 @@
+ {
+    "https://plus.google.com/u/0/wm/4/_/+1/messageproxy": ["apis.google.com", "Google Plus"],
+    
+    "https://disqus.com/next/login": ["disqus.com", "Disqus"],
+    "http://disqus.com/_ax/facebook/begin": ["disqus.com", "Disqus"],
+    "http://disqus.com/_ax/google/begin": ["disqus.com", "Disqus"],
+
+    "http://www.instapaper.com/j_ext": ["instapaper.com", "Instapaper"],
+    "http://www.instapaper.com/j/": ["instapaper.com", "Instapaper"],
+    "http://www.instapaper.com/bookmarklet/": ["instapaper.com", "Instapaper"],
+
+    "http://getpocket.com/ext_save": ["getpocket.com", "Pocket"],
+
+    "https://api.kinja.com/api/token": ["api.kinja.com", "Kinja"],
+
+    "https://www.facebook.com/ajax/connect/feedback.php": ["www.facebook.com", "Facebook"],
+
+    "https://hootsuite.com/hootlet/compose": ["hootsuite.com", "Hootsuite"]
+}
+
