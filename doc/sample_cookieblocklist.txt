@@ -366,5 +366,6 @@
 @@||hootsuite.com^$third-party
 @@||mozilla.net^$third-party
 @@||mapbox.com^$third-party
-@@||www.facebook.com^$third-party
 @@||screendoor.dobt.co^$third-party
+@@||www.facebook.com^$third-party
+@@||microsofttranslator.com^$third-party
