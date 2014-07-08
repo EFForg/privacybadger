@@ -490,9 +490,10 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
       var thirdParty = isThirdParty(requestHost, documentHost);  
       var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
       if( requestWouldBeBlocked(tabId, requestHost) ) {
-        var collapse = filter.collapse;
-        if (collapse == null)
+        var collapse = filter ? filter.collapse : null;
+        if (collapse == null) {
           collapse = (localStorage.hidePlaceholders != "false");
+        }
         sendResponse(collapse);
       } else {
         sendResponse(false);
