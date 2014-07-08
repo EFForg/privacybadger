@@ -58,7 +58,7 @@ var Synchronizer = require("synchronizer").Synchronizer;
 var Utils = require("utils").Utils;
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
-var DomainExceptions = require("domainExceptions").DomainExceptions
+var DomainExceptions = require("domainExceptions").DomainExceptions;
 var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
 
@@ -567,7 +567,7 @@ setInterval(updatePrivacyPolicyHashes,86400000)
 updatePrivacyPolicyHashes();
 
 //refresh domain exceptions popup list once every 24 hours and on startup
-setInterval(DomainExceptions.updateList,86400000)
+setInterval(DomainExceptions.updateList,86400000);
 DomainExceptions.updateList();
 
 //loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
