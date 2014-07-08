@@ -367,3 +367,4 @@
 @@||mozilla.net^$third-party
 @@||mapbox.com^$third-party
 @@||www.facebook.com^$third-party
+@@||screendoor.dobt.co^$third-party
