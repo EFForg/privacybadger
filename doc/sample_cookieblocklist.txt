@@ -369,3 +369,5 @@
 @@||screendoor.dobt.co^$third-party
 @@||www.facebook.com^$third-party
 @@||microsofttranslator.com^$third-party
+@@||squarespace.com^$third-party
+
