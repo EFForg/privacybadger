@@ -38,7 +38,8 @@ var DomainExceptions = {
   },
   getWhitelistForPath: function(path){
     for(var name in DomainExceptions.list){
-      if(path.indexOf(name) === 0){ return DomainExceptions.list[name] }
+      var url = path.replace(/.*?:\/\//g, "");
+      if(url.indexOf(name) === 0){ return DomainExceptions.list[name] }
     }
     return undefined;
   },
