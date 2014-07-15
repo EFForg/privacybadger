@@ -122,11 +122,9 @@ function onBeforeRequest(details){
       //if settings for this domain are still controlled by badger and it is in 
       //the list of domain exceptions ask the user if they would like to unblock.
       if(requestAction.indexOf('user') < 0){
-        var whitelist_domain = 0;
-        var english_name = 1;
         var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
         if( whitelistAry){
-          _askUserToWhitelist(details.tabId, whitelistAry[whitelist_domain], whitelistAry[english_name])
+          _askUserToWhitelist(details.tabId, whitelistAry['whitelist_urls'], whitelistAry['english_name'])
         }
       }
 
@@ -263,23 +261,24 @@ function _isTabAnExtension(tabId){
   return _frameUrlStartsWith(tabId, "chrome-extension://");
 }
 
-function _askUserToWhitelist(tabId, whitelistDomain, englishName){
+function _askUserToWhitelist(tabId, whitelistDomains, englishName){
   console.log('assking user to whitelist');
   var port = chrome.tabs.connect(tabId);
   port.postMessage({action: 'attemptWhitelist', whitelistDomain:englishName, currentDomain:getHostForTab(tabId)});
   port.onMessage.addListener(function(msg){
-    console.log('whitelist:',msg.action, whitelistDomain, 'on', getHostForTab(tabId));
-    if(msg.action === "allow_all"){
-      saveAction('noaction', whitelistDomain);
-      reloadTab(tabId);
-    } 
-    if(msg.action === "allow_once"){
-      //allow blag on this site only
-      saveAction('noaction', whitelistDomain, getHostForTab(tabId));
-      reloadTab(tabId);
-    }
-    if(msg.action === "not_now"){
-      //do nothing
+    for(var i = 0; i < whitelistDomains.length; i++){
+      if(msg.action === "allow_all"){
+        saveAction('noaction', whitelistDomains[i]);
+        reloadTab(tabId);
+      } 
+      if(msg.action === "allow_once"){
+        //allow blag on this site only
+        saveAction('noaction', whitelistDomains[i], getHostForTab(tabId));
+        reloadTab(tabId);
+      }
+      if(msg.action === "not_now"){
+        //do nothing
+      }
     }
   });
 }

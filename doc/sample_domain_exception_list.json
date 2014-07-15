@@ -1,22 +1,21 @@
  {
-    "https://plus.google.com/u/0/wm/4/_/+1/messageproxy": ["apis.google.com", "Google Plus"],
+    "https://plus.google.com/u/0/wm/4/_/+1/messageproxy": { "whitelist_urls":["apis.google.com"], "english_name":"Google Plus"},
     
-    "https://disqus.com/next/login": ["disqus.com", "Disqus"],
-    "http://disqus.com/_ax/facebook/begin": ["disqus.com", "Disqus"],
-    "http://disqus.com/_ax/google/begin": ["disqus.com", "Disqus"],
-    "http://disqus.com/api/3.0/embed/threadDetails.json": ["disqus.com", "Disqus"],
+    "https://disqus.com/next/login": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
+    "https://disqus.com/_ax/facebook/begin": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
+    "https://disqus.com/_ax/google/begin": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
+    "http://disqus.com/api/3.0/embed/threadDetails.json": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
 
-    "http://www.instapaper.com/j_ext": ["instapaper.com", "Instapaper"],
-    "http://www.instapaper.com/j/": ["instapaper.com", "Instapaper"],
-    "http://www.instapaper.com/bookmarklet/": ["instapaper.com", "Instapaper"],
+    "http://www.instapaper.com/j_ext": {"whitelist_urls": ["instapaper.com"], "english_name":"Instapaper"},
+    "http://www.instapaper.com/j/": {"whitelist_urls": ["instapaper.com"], "english_name":"Instapaper"},
+    "http://www.instapaper.com/bookmarklet/": {"whitelist_urls": ["instapaper.com"], "english_name":"Instapaper"},
 
-    "http://getpocket.com/ext_save": ["getpocket.com", "Pocket"],
+    "http://getpocket.com/ext_save": {"whitelist_urls": ["getpocket.com"], "english_name": "Pocket"},
 
-    "https://api.kinja.com/api/token": ["api.kinja.com", "Kinja"],
+    "https://api.kinja.com/api/token": {"whitelist_urls": ["api.kinja.com"], "english_name": "Kinja"},
 
-    "https://www.facebook.com/ajax/connect/feedback.php": ["www.facebook.com", "Facebook"],
+    "https://www.facebook.com/ajax/connect/feedback.php": {"whitelist_urls": ["www.facebook.com"], "english_name": "Facebook"},
 
-    "https://hootsuite.com/hootlet/compose": ["hootsuite.com", "Hootsuite"],
-    "https://hootsuite.com/social-connect": ["hootsuite.com", "Hootsuite"]
+    "https://hootsuite.com/hootlet/compose": {"whitelist_urls": ["hootsuite.com"], "english_name": "Hootsuite"},
+    "https://hootsuite.com/social-connect": {"whitelist_urls": ["hootsuite.com"], "english_name": "Hootsuite"}
 }
-
