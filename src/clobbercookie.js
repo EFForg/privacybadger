@@ -16,7 +16,7 @@
  */
 chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked){
   if(blocked){
-    console.log('clobbering cooies for', document.location);
+    console.log('clobbering cookies for', document.location);
     var code = 
       'var dummyCookie = "x=y";' +
       'document.__defineSetter__("cookie", function(value) { console.log("clobbering cookie:", value); return dummyCookie; });' +
