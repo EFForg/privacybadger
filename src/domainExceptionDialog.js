@@ -9,8 +9,8 @@ chrome.runtime.onConnect.addListener(
       '<h2>Privacy Badger Alert!</h2>' +
       '<div class="clear"></div>' +
       '<h3>Logging into ' + msg.whitelistDomain + ' can allow them to track you around the web.</h3>' +
+      '<button class="pbButton default" id="allow_once">Only allow ' + msg.whitelistDomain + ' on ' + msg.currentDomain + '</button>' +
       '<button class="pbButton" id="allow_all">Always allow ' + msg.whitelistDomain + '</button>' +
-      '<button class="pbButton" id="allow_once">Only allow ' + msg.whitelistDomain + ' on ' + msg.currentDomain + '</button>' +
       '<button class="pbButton" id="never">Continue blocking ' + msg.whitelistDomain + ' for now</button>' +
       '</div>';
       if(msg.action == "attemptWhitelist"){
@@ -22,16 +22,33 @@ chrome.runtime.onConnect.addListener(
         var buttons = document.getElementsByClassName("pbButton");
         for(var i =0; i < buttons.length; i++){
           var elem = buttons[i];   
-          elem.addEventListener('mouseup',function(e){
+          elem.addEventListener('click',function(e){
             var action = e.currentTarget.id;
             port.postMessage({action: action});
 
             diagBox.parentNode.removeChild(diagBox);
             for (var prop in diagBox) { delete diagBox[prop]; }
 
-            return false;
+            e.preventDefault();
           })
+        var K_ENTER = 13;
+        var K_TAB = 9;
+
+        document.addEventListener('keydown',function(e){
+          switch(e.keyCode){
+            case K_ENTER:
+              e.preventDefault();
+              document.getElementsByClassName("pbButton default")[0].click()
+              break;
+            /*case K_TAB:
+              e.preventDefault();
+              break;*/
+            default:
+              break;
+          }
+        });
         }
+
       }
     });
 

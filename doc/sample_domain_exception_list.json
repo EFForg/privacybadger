@@ -15,6 +15,7 @@
 
     "https://www.facebook.com/ajax/connect/feedback.php": ["www.facebook.com", "Facebook"],
 
-    "https://hootsuite.com/hootlet/compose": ["hootsuite.com", "Hootsuite"]
+    "https://hootsuite.com/hootlet/compose": ["hootsuite.com", "Hootsuite"],
+    "https://hootsuite.com/social-connect": ["hootsuite.com", "Hootsuite"]
 }
 
