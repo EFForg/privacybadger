@@ -122,11 +122,11 @@ function onBeforeRequest(details){
       //if settings for this domain are still controlled by badger and it is in 
       //the list of domain exceptions ask the user if they would like to unblock.
       if(requestAction.indexOf('user') < 0){
-        var WD = 0
-        var EN = 1
+        var whitelist_domain = 0;
+        var english_name = 1;
         var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
         if( whitelistAry){
-          _askUserToWhitelist(details.tabId, whitelistAry[WD], whitelistAry[EN])
+          _askUserToWhitelist(details.tabId, whitelistAry[whitelist_domain], whitelistAry[english_name])
         }
       }
 

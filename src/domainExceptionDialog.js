@@ -41,7 +41,7 @@ chrome.runtime.onConnect.addListener(
           switch(e.keyCode){
             case K_ENTER:
               e.preventDefault();
-              document.getElementsByClassName("pbButton default")[0].click()
+              document.getElementsByClassName("pbButton default")[0].click();
               break;
             /*case K_TAB:
               e.preventDefault();
