@@ -54,21 +54,36 @@ var REPLACEMENT_BUTTONS_FOLDER_PATH = chrome.extension.getURL("skin/socialwidget
 var CONTENT_SCRIPT_STYLESHEET_PATH = chrome.extension.getURL("skin/socialwidgets.css");
 
 /**
+ * Social widget tracker data, read from file.
+ */
+var trackerInfo;
+
+/**
  * Initializes the content script.
  */
 function initialize() {
-	setTimeout(delayedInitialize, 100);
-}
-
-function delayedInitialize() {
+	// Get tracker info and check for initial blocks (that happened
+	// before content script was attached)
 	getTrackerData(function (trackers, trackerButtonsToReplace) {
+
+		trackerInfo = trackers;
+
 		// add the Content.css stylesheet to the page
 		var head = document.querySelector("head");
 		var stylesheetLinkElement = getStylesheetLinkElement(CONTENT_SCRIPT_STYLESHEET_PATH);
-		head.appendChild(stylesheetLinkElement);
+		if (head != null) {
+			head.appendChild(stylesheetLinkElement);
+		}
 
-		replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace);
+		replaceInitialTrackerButtonsHelper(trackerButtonsToReplace);
 	});
+
+	// Set up listener for blocks that happen after initial check
+        chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+                if (request.replaceSocialWidget) {
+                        replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
+                }
+        });
 }
 
 /**
@@ -237,39 +252,57 @@ function replaceScriptsRecurse(node) {
         return node;
 }
 
+
 /**
  * Replaces all tracker buttons on the current web page with the internal
  * replacement buttons, respecting the user's blocking settings.
  *
- * @param {Array} trackers an array of Tracker objects
  * @param {Object} a map of Tracker names to Boolean values saying whether
  *                 those trackers' buttons should be replaced
  */
-function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
-	trackers.forEach(function(tracker) {
-		// There's a race condition where background might not yet know
-		// about a widget to replace, unsure how to fix.
-		var replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
+function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
+  trackerInfo.forEach(function(tracker) {
+    var replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
+    if (replaceTrackerButtons) {
+      replaceIndividualButton(tracker);
+    }
+  });
+}
 
-		if (replaceTrackerButtons) {
-			//console.log("replacing tracker button for " + tracker.name);
+/**
+ * Individually replaces tracker buttons blocked after initial check.
+ */
+function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
+  if (trackerInfo == null) return;
 
-			// makes a comma separated list of CSS selectors that specify
-			// buttons for the current tracker; used for document.querySelectorAll
-			var buttonSelectorsString = tracker.buttonSelectors.toString();
-			var buttonsToReplace =
-				document.querySelectorAll(buttonSelectorsString);
+  trackerInfo.forEach(function(tracker) {
+    var replaceTrackerButtons = (tracker.domain == trackerDomain);
+    if (replaceTrackerButtons) {
+      replaceIndividualButton(tracker);
+    }
+  });
+}
 
-			for (var i = 0; i < buttonsToReplace.length; i++) {
-				var buttonToReplace = buttonsToReplace[i];
+/**
+ * Actually do the work of replacing the button.
+ */
+function replaceIndividualButton(tracker) {
+  console.log("replacing tracker button for " + tracker.name);
 
-				var button =
-					createReplacementButtonImage(tracker);
+  // makes a comma separated list of CSS selectors that specify
+  // buttons for the current tracker; used for document.querySelectorAll
+  var buttonSelectorsString = tracker.buttonSelectors.toString();
+  var buttonsToReplace =
+    document.querySelectorAll(buttonSelectorsString);
 
-				buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
-			}
-		}
-	});
+  for (var i = 0; i < buttonsToReplace.length; i++) {
+   var buttonToReplace = buttonsToReplace[i];
+
+    var button =
+      createReplacementButtonImage(tracker);
+
+    buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
+  }
 }
 
 /**

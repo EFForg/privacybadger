@@ -115,6 +115,13 @@ function onBeforeRequest(details){
     }
 
     if (requestAction == "block" || requestAction == "userblock") {
+      // Notify the content script...
+      var msg = {
+        "replaceSocialWidget" : true,
+	"trackerDomain" : extractHostFromURL(details.url)
+      };
+      chrome.tabs.sendMessage(details.tabId, msg);
+
       return {cancel: true};
     }
   }
@@ -127,7 +134,7 @@ function getHostForTab(tabId){
     return undefined;
   }
   if(_isTabAnExtension(tabId)){
-    //if the tab is an extension get the url of the first frame for its implied URL 
+    //if the tab is an extension get the url of the first frame for its implied URL
     //since the url of frame 0 will be the hash of the extension key
     mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
   }
@@ -340,7 +347,7 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-  var tabHost  = extractHostFromURL(sender.tab.url);
+    var tabHost  = extractHostFromURL(sender.tab.url);
     if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
