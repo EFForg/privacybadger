@@ -4,6 +4,7 @@
     "https://disqus.com/next/login": ["disqus.com", "Disqus"],
     "http://disqus.com/_ax/facebook/begin": ["disqus.com", "Disqus"],
     "http://disqus.com/_ax/google/begin": ["disqus.com", "Disqus"],
+    "http://disqus.com/api/3.0/embed/threadDetails.json": ["disqus.com", "Disqus"],
 
     "http://www.instapaper.com/j_ext": ["instapaper.com", "Instapaper"],
     "http://www.instapaper.com/j/": ["instapaper.com", "Instapaper"],
