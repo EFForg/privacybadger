@@ -1,4 +1,5 @@
 console.log('hi from domain exception');
+var hasRun = false;
 
 chrome.runtime.onConnect.addListener(
   function(port){
@@ -15,6 +16,8 @@ chrome.runtime.onConnect.addListener(
       '</div>';
       if(msg.action == "attemptWhitelist"){
         console.log('attempting whitelist');
+        if(hasRun){ return; }
+        hasRun = true;
         var body = document.getElementsByTagName('body')[0];
         var diagBox = document.createElement('div');
         diagBox.innerHTML = dialog;
