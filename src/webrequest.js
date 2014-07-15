@@ -222,7 +222,7 @@ function checkAction(tabId, url, quiet, frameId){
   if(_isTabChromeInternal(tabId) ){
     return action;
   }
-  
+
   //ignore requests that don't have a document url for some reason
   var documentUrl = getFrameUrl(tabId, 0);
   if (!documentUrl){
@@ -289,12 +289,12 @@ function getSocialWidgetBlockList(tabId) {
 
   SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
- 
+
     // replace them if PrivacyBadger has blocked them
     var blockedData = activeMatchers.blockedOriginsByTab[tabId];
     if (blockedData && blockedData[socialwidget.domain]) {
       socialWidgetsToReplace[socialWidgetName] = (blockedData[socialwidget.domain].latestaction == "block"
-	      					  || blockedData[socialwidget.domain].latestaction == "userblock"); 
+	      					  || blockedData[socialwidget.domain].latestaction == "userblock");
     }
     else {
       socialWidgetsToReplace[socialWidgetName] = false;
@@ -308,7 +308,7 @@ function getSocialWidgetBlockList(tabId) {
 }
 
 // Check if tab is temporarily unblocked for tracker
-function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {	
+function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var exceptions = temporarySocialWidgetUnblock[tabId];
   if (exceptions == undefined) {
     return false;
@@ -333,7 +333,7 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
   for (var i in socialWidgetUrls) {
     var socialWidgetUrl = socialWidgetUrls[i];
-    var socialWidgetHost = extractHostFromURL(socialWidgetUrl);  
+    var socialWidgetHost = extractHostFromURL(socialWidgetUrl);
     temporarySocialWidgetUnblock[tabId].push(socialWidgetHost);
   }
 }
@@ -341,7 +341,7 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   var tabHost  = extractHostFromURL(sender.tab.url);
-    if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
+    if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
