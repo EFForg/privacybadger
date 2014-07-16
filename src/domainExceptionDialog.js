@@ -16,6 +16,8 @@ chrome.runtime.onConnect.addListener(
       '</div>';
       if(msg.action == "attemptWhitelist"){
         console.log('attempting whitelist');
+        // Avoid running this dialog more than once per page, since that is
+        // most likely to happen due to some horrible retry loop
         if(hasRun){ return; }
         hasRun = true;
         var body = document.getElementsByTagName('body')[0];
