@@ -31,13 +31,15 @@ chrome.runtime.onConnect.addListener(
 
             diagBox.parentNode.removeChild(diagBox);
             for (var prop in diagBox) { delete diagBox[prop]; }
+            document.removeEventListener('keydown', keypressListener);
 
             e.preventDefault();
           })
+        }
         var K_ENTER = 13;
         var K_TAB = 9;
 
-        document.addEventListener('keydown',function(e){
+        var keypressListener = function(e){
           switch(e.keyCode){
             case K_ENTER:
               e.preventDefault();
@@ -49,8 +51,8 @@ chrome.runtime.onConnect.addListener(
             default:
               break;
           }
-        });
-        }
+        };
+        document.addEventListener('keydown', keypressListener);
 
       }
     });
