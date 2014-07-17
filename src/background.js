@@ -728,3 +728,17 @@ function updateCount(details){
   var badgeText = numBlocked + "";
   chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
 }
+
+chrome.runtime.onInstalled.addListener(updateTabList);
+
+/* Populate tabs object with currently open tabs when extension is updated or installed. */
+function updateTabList(details){
+  //initialize the frames object if it is falsey
+  frames = frames || {};
+  chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
+    for(var i = 0; i < tabs.length; i++){
+      var tab = tabs[i];
+      frames[tab.id] = {0: {parent: -1, url: tab.url} };
+    }
+  });
+}
