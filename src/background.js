@@ -741,4 +741,8 @@ function updateTabList(details){
       frames[tab.id] = {0: {parent: -1, url: tab.url} };
     }
   });
+  CookieBlockList.updateDomains();
+  BlockedDomainList.updateDomains();
+  DomainExceptions.updateList();
+  updatePrivacyPolicyHashes();
 }
