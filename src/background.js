@@ -81,7 +81,7 @@ var seenDataCorruption = false;
 chrome.windows.onCreated.addListener(function(){
   CookieBlockList.updateDomains();
   BlockedDomainList.updateDomains();
-  
+
 });
 chrome.storage.onChanged.addListener(function(){
   CookieBlockList.updateDomains();
@@ -180,7 +180,7 @@ function refreshIconAndContextMenu(tab)
 
   chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
-  
+ 
   if ("shouldShowIcon" in localStorage && localStorage["shouldShowIcon"] == "false"){
     chrome.browserAction.disable();
   }
@@ -686,7 +686,7 @@ function blockedOriginCount(tabId){
     .reduce(function(memo,origin){
       if(getAction(tabId,origin)){
         memo+=1
-      }; 
+      };
       return memo
     }, 0)
 }
@@ -713,7 +713,7 @@ function updateCount(details){
   if (details.tabId == -1){
     return {};
   }
-  
+
   if(!Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))){
     return;
   }

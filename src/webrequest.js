@@ -131,10 +131,33 @@ function onBeforeRequest(details){
     }
 
     if (requestAction == "block" || requestAction == "userblock") {
+      // Notify the content script...
+      var msg = {
+        "replaceSocialWidget" : true,
+	"trackerDomain" : extractHostFromURL(details.url)
+      };
+      chrome.tabs.sendMessage(details.tabId, msg);
+
       return {cancel: true};
     }
   }
 
+}
+
+function getHostForTab(tabId){
+  var mainFrameIdx = 0;
+  if(!frames[tabId]){
+    return undefined;
+  }
+  if(_isTabAnExtension(tabId)){
+    //if the tab is an extension get the url of the first frame for its implied URL
+    //since the url of frame 0 will be the hash of the extension key
+    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
+  }
+  if(!frames[tabId][mainFrameIdx]){
+    return undefined;
+  }
+  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
 }
 
 function onBeforeSendHeaders(details) {
@@ -223,7 +246,7 @@ function checkAction(tabId, url, quiet, frameId){
   if(_isTabChromeInternal(tabId) ){
     return action;
   }
-  
+
   //ignore requests that don't have a document url for some reason
   var documentUrl = getFrameUrl(tabId, 0);
   if (!documentUrl){
@@ -312,12 +335,12 @@ function getSocialWidgetBlockList(tabId) {
 
   SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
- 
+
     // replace them if PrivacyBadger has blocked them
     var blockedData = activeMatchers.blockedOriginsByTab[tabId];
     if (blockedData && blockedData[socialwidget.domain]) {
       socialWidgetsToReplace[socialWidgetName] = (blockedData[socialwidget.domain].latestaction == "block"
-	      					  || blockedData[socialwidget.domain].latestaction == "userblock"); 
+	      					  || blockedData[socialwidget.domain].latestaction == "userblock");
     }
     else {
       socialWidgetsToReplace[socialWidgetName] = false;
@@ -331,7 +354,7 @@ function getSocialWidgetBlockList(tabId) {
 }
 
 // Check if tab is temporarily unblocked for tracker
-function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {	
+function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var exceptions = temporarySocialWidgetUnblock[tabId];
   if (exceptions == undefined) {
     return false;
@@ -356,15 +379,15 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
   for (var i in socialWidgetUrls) {
     var socialWidgetUrl = socialWidgetUrls[i];
-    var socialWidgetHost = extractHostFromURL(socialWidgetUrl);  
+    var socialWidgetHost = extractHostFromURL(socialWidgetUrl);
     temporarySocialWidgetUnblock[tabId].push(socialWidgetHost);
   }
 }
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-  var tabHost  = extractHostFromURL(sender.tab.url);
-    if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){ 
+    var tabHost  = extractHostFromURL(sender.tab.url);
+    if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
