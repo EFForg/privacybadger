@@ -58,6 +58,7 @@ var Synchronizer = require("synchronizer").Synchronizer;
 var Utils = require("utils").Utils;
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
+var DomainExceptions = require("domainExceptions").DomainExceptions;
 var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
 
@@ -565,6 +566,10 @@ function updatePrivacyPolicyHashes(){
 setInterval(updatePrivacyPolicyHashes,86400000)
 updatePrivacyPolicyHashes();
 
+//refresh domain exceptions popup list once every 24 hours and on startup
+setInterval(DomainExceptions.updateList,86400000);
+DomainExceptions.updateList();
+
 //loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
 function recheckDNTPolicyForBlockedDomains(){
   for(var domain in BlockedDomainList.domains){
@@ -640,6 +645,34 @@ function isValidPolicyHash(hash){
   return false;
 }
 
+function saveAction(userAction, origin, target) {
+  var allUserActions = {'block': 'userRed', 
+                        'cookieblock': 'userYellow', 
+                        'noaction': 'userGreen'};
+  if(target){
+    var filter = Filter.fromText("@@||" + origin + "^$third-party,domain=" + target);
+    FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[userAction]]);
+    console.log("Finished saving action " + userAction + " for " + origin + "on" + target);
+    return true
+  } 
+
+  // if there is no target proceed as normal
+  for (var action in allUserActions) {
+    var filter = Filter.fromText("||" + origin + "^$third-party");
+    if (action == userAction){
+      console.log('adding filter', filter, 'to', action);
+      FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
+    } else {
+      console.log('removing filter', filter, 'from', action);
+      FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
+    }
+  }
+  console.log("Finished saving action " + userAction + " for " + origin);
+
+  // todo: right now we don't determine whether a reload is needed
+  return true;
+}
+
 function reloadTab(tabId){
   chrome.tabs.reload(tabId);
 }
@@ -657,6 +690,23 @@ function blockedOriginCount(tabId){
       return memo
     }, 0)
 }
+
+function getHostForTab(tabId){
+  var mainFrameIdx = 0;
+  if(!frames[tabId]){
+    return undefined;
+  }
+  if(_isTabAnExtension(tabId)){
+    //if the tab is an extension get the url of the first frame for its implied URL 
+    //since the url of frame 0 will be the hash of the extension key
+    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
+  }
+  if(!frames[tabId][mainFrameIdx]){
+    return undefined;
+  }
+  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
+}
+
 
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 function updateCount(details){
@@ -677,4 +727,22 @@ function updateCount(details){
   }
   var badgeText = numBlocked + "";
   chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
+}
+
+chrome.runtime.onInstalled.addListener(updateTabList);
+
+/* Populate tabs object with currently open tabs when extension is updated or installed. */
+function updateTabList(details){
+  //initialize the frames object if it is falsey
+  frames = frames || {};
+  chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
+    for(var i = 0; i < tabs.length; i++){
+      var tab = tabs[i];
+      frames[tab.id] = {0: {parent: -1, url: tab.url} };
+    }
+  });
+  CookieBlockList.updateDomains();
+  BlockedDomainList.updateDomains();
+  DomainExceptions.updateList();
+  updatePrivacyPolicyHashes();
 }

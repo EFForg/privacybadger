@@ -37,6 +37,7 @@
 
  /* global variables */
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
+var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
 var frames = {};
 var onFilterChangeTimeout = null;
@@ -50,6 +51,11 @@ var importantNotifications = {
   'subscription.updated': true,
   'load': true
 };
+var backgroundPage = chrome.extension.getBackgroundPage();
+var imports = ["saveAction", "getHostForTab"];
+for (var i = 0; i < imports.length; i++){
+  window[imports[i]] = backgroundPage[imports[i]];
+}
 var temporarySocialWidgetUnblock = {};
 
 /* Event Listeners */
@@ -110,8 +116,18 @@ function onBeforeRequest(details){
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
-    if(requestAction == "block" || requestAction == "cookieBlock"){
+    if(requestAction == "block" || requestAction == "cookieblock"){
       BlockedDomainList.addDomain(extractHostFromURL(details.url));
+
+      //if settings for this domain are still controlled by badger and it is in 
+      //the list of domain exceptions ask the user if they would like to unblock.
+      if(requestAction.indexOf('user') < 0){
+        var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
+        if( whitelistAry){
+          _askUserToWhitelist(details.tabId, whitelistAry['whitelist_urls'], whitelistAry['english_name'])
+        }
+      }
+
     }
 
     if (requestAction == "block" || requestAction == "userblock") {
@@ -155,6 +171,7 @@ function onBeforeSendHeaders(details) {
 
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
+    
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
@@ -265,6 +282,28 @@ function _isTabChromeInternal(tabId){
 
 function _isTabAnExtension(tabId){
   return _frameUrlStartsWith(tabId, "chrome-extension://");
+}
+
+function _askUserToWhitelist(tabId, whitelistDomains, englishName){
+  console.log('assking user to whitelist');
+  var port = chrome.tabs.connect(tabId);
+  port.postMessage({action: 'attemptWhitelist', whitelistDomain:englishName, currentDomain:getHostForTab(tabId)});
+  port.onMessage.addListener(function(msg){
+    for(var i = 0; i < whitelistDomains.length; i++){
+      if(msg.action === "allow_all"){
+        saveAction('noaction', whitelistDomains[i]);
+        reloadTab(tabId);
+      } 
+      if(msg.action === "allow_once"){
+        //allow blag on this site only
+        saveAction('noaction', whitelistDomains[i], getHostForTab(tabId));
+        reloadTab(tabId);
+      }
+      if(msg.action === "not_now"){
+        //do nothing
+      }
+    }
+  });
 }
 
 function isFrameWhitelisted(tabId, frameId, type) {

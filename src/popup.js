@@ -36,7 +36,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab"]
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"]
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
@@ -145,13 +145,15 @@ function revertDomainControl(e){
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   var original_action = $elm.data('original-action');
+  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var stores = {'block': 'userRed', 
                 'cookieblock': 'userYellow', 
                 'noaction': 'userGreen'};
   var filter = "||" + origin + "^$third-party";
+  var siteFilter = "@@||" + origin + "^$third-party,domain=" + getHostForTab(tabId)
   var store = stores[original_action];
   removeFilter(store,filter);
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  removeFilter(store,siteFilter);
   var defaultAction = getAction(tabId,origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
@@ -352,38 +354,6 @@ function hideTooltip(event){
     $container.siblings('.tooltipArrow').hide();
   },tooltipDelay);
   $elm.on('mouseenter',function(){clearTimeout(hideTipTimer)});
-}
-
-function saveAction(userAction, origin) {
-  var allUserActions = {'block': 'userRed', 
-                        'cookieblock': 'userYellow', 
-                        'noaction': 'userGreen'};
-  console.log("Saving user action " + userAction + " for " + origin);
-  for (var action in allUserActions) {
-    var filter = Filter.fromText("||" + origin + "^$third-party");
-    if (action == userAction){
-      console.log('adding filter', filter, 'to', action);
-      FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
-    } else {
-      console.log('removing filter', filter, 'from', action);
-      FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
-    }
-  }
-  console.log("Finished saving action " + userAction + " for " + origin);
-  
-  //remove cookies if a user has just cookieblocked
-  if(userAction == 'cookieblock'){
-    setupCookieBlocking(origin);
-  }
-
-  //re add any cookies if the user has unblocked
-  if(userAction === 'noaction'){
-    console.log("Tearing Down cookie blocking for", origin);
-    teardownCookieBlocking(origin);
-  }
-
-  // todo: right now we don't determine whether a reload is needed
-  return true;
 }
 
 function syncSettingsDict(settingsDict) {
