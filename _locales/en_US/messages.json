@@ -30,7 +30,7 @@
     "message": "After closing this popup, click (or right-click) an element on the page."
   },
   "description": {
-    "message": "Privacy Badger Alpha release: Block Spying ads & invisible trackers"
+    "message": "Privacy Badger Beta release: Block Spying ads & invisible trackers"
   },
   "disable_inline": {
     "message": "Disable inline text ads"
