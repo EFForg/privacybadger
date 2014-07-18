@@ -15,7 +15,7 @@
 			"type": 2
 		}
 	},
-	
+
 	"Digg": {
 		"domain": "widgets.digg.com",
 		"buttonSelectors": [
@@ -30,7 +30,7 @@
 			"type": 0
 		}
 	},
-	
+
 	"Facebook": {
 		"domain": "www.facebook.com",
 		"buttonSelectors": [
@@ -47,7 +47,7 @@
 			"type": 1
 		}
 	},
-	
+
 	"Google+": {
 		"domain": "apis.google.com",
 		"buttonSelectors": [
@@ -65,7 +65,7 @@
 			"type": 1
 		}
 	},
-	
+
 	"LinkedIn": {
 		"domain": "platform.linkedin.com",
 		"buttonSelectors": [
@@ -80,7 +80,7 @@
 			"type": 0
 		}
 	},
-	
+
 	"Pinterest": {
 		"domain": "assets.pinterest.com",
 		"buttonSelectors": [
@@ -96,7 +96,7 @@
 			"type": 0
 		}
 	},
-	
+
 	"StumbleUpon": {
 		"domain": "www.stumbleupon.com",
 		"buttonSelectors": [

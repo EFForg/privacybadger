@@ -1,10 +1,11 @@
-console.log('hi from domain exception');
 var hasRun = false;
 
 chrome.runtime.onConnect.addListener(
   function(port){
 
     port.onMessage.addListener(function(msg){
+      //html for dialog window that pops up
+      //TODO: i18n and templating for this.
       var dialog = '<div id="pbDialog" class="privacyBadgerDialog">' +
       '<div id="pbLogo"><img src="' + chrome.extension.getURL("icons/badger-48.png") + '"></div>'+
       '<h2>Privacy Badger Alert!</h2>' +
@@ -14,16 +15,20 @@ chrome.runtime.onConnect.addListener(
       '<button class="pbButton" id="allow_all">Always allow ' + msg.whitelistDomain + '</button>' +
       '<button class="pbButton" id="never">Continue blocking ' + msg.whitelistDomain + ' for now</button>' +
       '</div>';
+
       if(msg.action == "attemptWhitelist"){
-        console.log('attempting whitelist');
         // Avoid running this dialog more than once per page, since that is
         // most likely to happen due to some horrible retry loop
         if(hasRun){ return; }
         hasRun = true;
+        
+        //Create a dialog box element and show it
         var body = document.getElementsByTagName('body')[0];
         var diagBox = document.createElement('div');
         diagBox.innerHTML = dialog;
         body.appendChild(diagBox);
+
+        //add click handler to dialog buttons
         var buttons = document.getElementsByClassName("pbButton");
         for(var i =0; i < buttons.length; i++){
           var elem = buttons[i];   
@@ -33,13 +38,17 @@ chrome.runtime.onConnect.addListener(
 
             diagBox.parentNode.removeChild(diagBox);
             for (var prop in diagBox) { delete diagBox[prop]; }
+            document.removeEventListener('keydown', keypressListener);
 
             e.preventDefault();
           })
+        }
+
+        //keypress handlers
         var K_ENTER = 13;
         var K_TAB = 9;
 
-        document.addEventListener('keydown',function(e){
+        var keypressListener = function(e){
           switch(e.keyCode){
             case K_ENTER:
               e.preventDefault();
@@ -51,8 +60,8 @@ chrome.runtime.onConnect.addListener(
             default:
               break;
           }
-        });
-        }
+        };
+        document.addEventListener('keydown', keypressListener);
 
       }
     });
