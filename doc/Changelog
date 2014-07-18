@@ -1,10 +1,7 @@
-Changes for Privacy Badger 2014.6.16
+Changes for Privacy Badger 2014.7.17
 ====================================
-
-Integrated ShareMeNot to replace sharing buttons with non intrusive versions
-Move icon to browser action, show a count of potential trackers on the page
-Checking cookie names in tracking heuristic
-Page refreshes when user undoes overrides and when privacy badger is disabled
-Domains sort alphabetically by name
-Fix bug where privacy badger was blocking things even when disabled
-Adding icons to clarify UI and improve usability for colorblind users
+Created dialog to allow users to unblock certain third parties on certain
+sites for addedd functionality.  E.g. disqus comments, facebook comments, etc.
+Added lots of domains to cookie block list.
+do not show domains that do not appear to be trackers in the popup
+added missing google+ button override
