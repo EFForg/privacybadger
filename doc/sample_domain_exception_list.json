@@ -4,7 +4,7 @@
     "disqus.com/next/login": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
     "disqus.com/_ax/facebook/begin": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
     "disqus.com/_ax/google/begin": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
-    "disqus.com/api/3.0/embed/threadDetails.json": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
+    "disqus.com/api/3.0/timelines/getUnreadCount.json": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
 
     "www.instapaper.com/j_ext": {"whitelist_urls": ["instapaper.com"], "english_name":"Instapaper"},
     "www.instapaper.com/j/": {"whitelist_urls": ["instapaper.com"], "english_name":"Instapaper"},
