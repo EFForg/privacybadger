@@ -6,14 +6,17 @@ chrome.runtime.onConnect.addListener(
     port.onMessage.addListener(function(msg){
       //html for dialog window that pops up
       //TODO: i18n and templating for this.
-      var dialog = '<div id="pbDialog" class="privacyBadgerDialog">' +
+      var dialog = '<div id="pbDialogContainer"></div>' +
+      '<div id="pbDialog" class="privacyBadgerDialog">' +
+      '<div id="closeWindow">X</div>'+
       '<div id="pbLogo"><img src="' + chrome.extension.getURL("icons/badger-48.png") + '"></div>'+
       '<h2>Privacy Badger Alert!</h2>' +
       '<div class="clear"></div>' +
       '<h3>Logging into ' + msg.whitelistDomain + ' can allow it to track you around the web.</h3>' +
       '<button class="pbButton default" id="allow_once">Only allow ' + msg.whitelistDomain + ' on ' + msg.currentDomain + '</button>' +
       '<button class="pbButton" id="allow_all">Always allow ' + msg.whitelistDomain + '</button>' +
-      '<button class="pbButton" id="never">Continue blocking ' + msg.whitelistDomain + ' for now</button>' +
+      '<button class="pbButton" id="never">Always block third party requests from ' + msg.whitelistDomain + '</button>' +
+      '<a id="useless"></a>' + 
       '</div>';
 
       if(msg.action == "attemptWhitelist"){
@@ -27,6 +30,7 @@ chrome.runtime.onConnect.addListener(
         var diagBox = document.createElement('div');
         diagBox.innerHTML = dialog;
         body.appendChild(diagBox);
+
 
         //add click handler to dialog buttons
         var buttons = document.getElementsByClassName("pbButton");
@@ -44,9 +48,36 @@ chrome.runtime.onConnect.addListener(
           })
         }
 
+        document.getElementById('useless').click();
+
+        var closeWindow = function(e){
+          document.removeEventListener('keydown', keypressListener);
+          document.removeEventListener('click', keypressListener);
+
+          port.postMessage({action: 'no_action'});
+
+          diagBox.parentNode.removeChild(diagBox);
+          for (var prop in diagBox) { delete diagBox[prop]; }
+          if(e){
+            e.preventDefault();
+          }
+        } 
+        //click handler for close button
+        var closeBtn = document.getElementById('closeWindow');
+        closeBtn.onclick = closeWindow;
+
+        var docCtr = document.getElementById('pbDialogContainer');
+        docCtr.onclick = closeWindow;
+        
+
+        
         //keypress handlers
         var K_ENTER = 13;
         var K_TAB = 9;
+        var K_ESC = 27;
+
+        //number of times tab was pressed, used to determine idx of default option
+        var tab_count = 0;
 
         var keypressListener = function(e){
           switch(e.keyCode){
@@ -54,9 +85,21 @@ chrome.runtime.onConnect.addListener(
               e.preventDefault();
               document.getElementsByClassName("pbButton default")[0].click();
               break;
-            /*case K_TAB:
+            case K_TAB:
               e.preventDefault();
-              break;*/
+              var cur_idx = tab_count % 3;
+              tab_count += 1;
+              var new_idx = tab_count % 3;
+              var buttons = document.getElementsByClassName("pbButton");
+              var oldButton = buttons[cur_idx];
+              var newButton = buttons[new_idx];
+              oldButton.className = oldButton.className.replace(/\bdefault\b/, '');
+              newButton.className += ' default';
+              break;
+            case K_ESC:
+              e.preventDefault();
+              closeWindow();
+              break;
             default:
               break;
           }

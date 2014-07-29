@@ -299,6 +299,12 @@ function _askUserToWhitelist(tabId, whitelistDomains, englishName){
         saveAction('noaction', whitelistDomains[i], getHostForTab(tabId));
         reloadTab(tabId);
       }
+      if(msg.action === "never"){
+        //block third party domain always
+        console.log('never allow');
+        saveAction('cookieblock', whitelistDomains[i]);
+        reloadTab(tabId);
+      }
       if(msg.action === "not_now"){
         //do nothing
       }
