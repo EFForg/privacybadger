@@ -59,6 +59,10 @@
 border: 1px solid #009999 !important;
 box-shadow: 0px 0px 4px #22eeee !important;
 }
+.privacyBadgerDialog .pbButton:hover{
+  background-image: linear-gradient(#c3c3c3, #939393) !important;
+}
+
 #closeWindow{
   position: absolute !important;
   right: 5px !important;
