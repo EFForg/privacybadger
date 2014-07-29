@@ -24,25 +24,23 @@
     body {
       margin: 0;
       background: url("/skin/background.png");
-      color: #eff;
-      font-family: "Arial Narrow", Gadget, sans-serif;
+      color: #ccc;
+      font-family: Arial, Gadget, sans-serif;
     }
     .maintext {
       font-size: 18px;
-      width: 50%;
+      width: 700px;
       margin-left: auto;
       margin-right: auto;
       text-align:justify;
       text-justify:inter-word;
-      font-weight:normal;
-    }
-    h3 {
+      font-weight:normal; } h3 {
       font-size: 36px;
       color: #eee;
       font-weight: bold;
     }
     #social-links{ 
-      width: 50%;
+      width: 700px;
       margin-left: auto;
       margin-right: auto;
       text-align:center;
@@ -52,22 +50,50 @@
     #social-links img{
       margin: 20px;
     }
-    .logo {
-      background: url("/skin/badger-faq-3.png");
+    #badger-header{
+      background-image: url("/skin/background_honeycomb.png");
+      background-position: bottom center;
+      background-size: 97.5px;
       width: 100%;
-      background-position-y: -225px;
-      height: 265px;
+    }
+    #badger-header-fringe{
+      background-image: url("/skin/background_honeycomb_fringe2.png");
+      background-repeat: repeat-x;
+      background-position: top center;
+      background-size: 97.5px;
+      height: 100px;
+    }
+    #badger-header-wrapper {
+      background-position: left 10px;
+      padding-top: 10px;
+      padding-left: 85px;
+      min-height: 170px;
+      margin: 0 auto;
+      width: 700px;
+      background-image: url(/skin/firstrun-logo.png);
+      background-repeat: no-repeat;
+      text-align: center;
+      -webkit-filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.5));
+      filter: url(#drop-shadow);
+    }
+    #header-banner-img{
+      height: 125px;
+      margin-top: 30px;
+      position: relative;
+      right: -65px;
     }
   </style>
   </head>
   <body>
     <!-- <object style: "align:center" src="Mad_scientist_bw.svg" type="image/svg+xml" /> -->
-    <div class='logo'>
-      <center><img src="/skin/badger-logo-revise-wide.png" width="500px"/></center>
-    </div>
+      <div id="badger-header">
+        <div id="badger-header-wrapper" style="max-width: 608px"> <a href="https://www.eff.org/"><img id="header-banner-img" src="/skin/badger-1st-run-banner-1.png"></a> </div>
+      </div>
+      <div id="badger-header-fringe">&nbsp;</div>
+
     <div class="maintext">
 
-      <p>Privacy Badger blocks spying ads and invisible trackers.  It's there to
+      <p style="font-size: 24px; font-weight: bold;">Privacy Badger blocks spying ads and invisible trackers.  It's there to
       ensure that companies can't track your browsing without your consent.</p> 
 
       <p>This extension is designed to automatically protect your privacy from
