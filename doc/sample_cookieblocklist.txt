@@ -372,3 +372,4 @@
 @@||squarespace.com^$third-party
 @@||openlayers.org^$third-party
 @@||githubusercontent.com^$third-party
+@@||docs.google.com^$third-party
