@@ -173,15 +173,21 @@ font-size: 16px;
   overflow-y: auto;
 }
 .key{
-  margin-right: 45px;
-  display: inline;
   float: right;
+  margin-right: 31px;
 }
 .key img{
-  margin-left: 10px;
+  margin-left: 18px;
 }
 .key .tooltipContainer{
   position: absolute;
   left: 8px;
   top: 100px;
+}
+.clickerContainer{
+}
+.keyContainer{
+  background: #fefefe;
+  height: 23px;
+  z-index: 100;
 }

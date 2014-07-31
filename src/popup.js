@@ -277,6 +277,15 @@ function refreshPopup(tabId) {
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it; 
   // yellow: only cookies blocked; green: no blocking yet";
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
+  printable = printable + 
+    '<div class="keyContainer">'+
+    '<div class="key">'+
+    '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
+    '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
+    '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
+    '<div class="tooltipContainer"></div>' +
+    '</div></div>'+
+    '<div class="spacer"></div><div class="clickerContainer">';
   origins.sort(compareReversedDomains);
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
@@ -285,6 +294,7 @@ function refreshPopup(tabId) {
     if(!action){ continue; }
     printable = _addOriginHTML(origin, printable, action);
   }
+  printable += "</div>"
   document.getElementById("blockedResources").innerHTML = printable;
   $('.switch-toggle').each(function(){
     var radios = $(this).children('input');
