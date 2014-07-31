@@ -1,5 +1,5 @@
 /*
- * This file is part of Privacy Badger <https://eff.org/privacybadger>
+ * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
  * Derived from Adblock Plus 
  * Copyright (C) 2006-2013 Eyeo GmbH
@@ -553,7 +553,7 @@ chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
 
 // Fetch acceptable privacy policy hashes from the EFF server
 function updatePrivacyPolicyHashes(){
-  var url = "https://eff.org/files/dnt-policies.json";
+  var url = "https://www.eff.org/files/dnt-policies.json";
   Utils.xhrRequest(url,function(err,response){
     if(err){
       console.error('Problem fetching privacy badger policy hash list at', url, err.status, err.message);

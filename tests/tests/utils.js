@@ -23,7 +23,7 @@
 
   asyncTest("send xhrRequest", function(){
     expect(3); //expect 1 assertion
-    Utils.xhrRequest("https://eff.org/files/badgertest.txt", function(err,resp){
+    Utils.xhrRequest("https://www.eff.org/files/badgertest.txt", function(err,resp){
       ok(true, "xhr calls callback");
       ok(err === null, "there was no error");
       ok(resp === "test passed\n", "got response text");
@@ -34,7 +34,7 @@
 
   asyncTest("send faling xhrRequest", function(){
     expect(3); //expect 1 assertion
-    Utils.xhrRequest("https://eff.org/nonexistent-page", function(err,resp){
+    Utils.xhrRequest("https://www.eff.org/nonexistent-page", function(err,resp){
       ok(true, "xhr calls callback");
       ok(err, "there was an error");
       ok(err.status === 404, "error was 404");
