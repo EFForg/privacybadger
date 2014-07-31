@@ -5,7 +5,7 @@ retention of visitors' reading habits, which we will respect, subject to
 reasonable exceptions that respect user privacy. 
 
 This is a temporary document.  A full DNT Policy is being drafted at
-https://eff.org/dnt-policy .  When that document is finished, this domain may
+https://www.eff.org/dnt-policy .  When that document is finished, this domain may
 decide to adopt it.
 
 You can agree to this same policy by posting it at

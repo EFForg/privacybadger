@@ -13,7 +13,7 @@ var Utils = require('utils').Utils;
 var DomainExceptions = {
 
   list: { },
-  domainExceptionListURL: "https://eff.org/files/domain_exception_list.txt",
+  domainExceptionListURL: "https://www.eff.org/files/domain_exception_list.txt",
   updateList: function(){
     console.log('updating domain exception list');
     //update object from local storage
