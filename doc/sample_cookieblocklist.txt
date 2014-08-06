@@ -365,6 +365,7 @@
 @@||getpocket.com^$third-party
 @@||hootsuite.com^$third-party
 @@||mozilla.net^$third-party
+@@||mozilla.org^$third-party
 @@||mapbox.com^$third-party
 @@||screendoor.dobt.co^$third-party
 @@||www.facebook.com^$third-party
