@@ -17,5 +17,13 @@ run `make`.
 Or for an even easier build, enable developer mode in chrome://extensions, hit
 the "load unpacked extension" button and load up this directory.
 
+### Testing
+
+After "unpacking" the extension, find your extension's ID and
+visit `chrome-extension://YOUR_EXTENSION_ID/tests/index.html`, replacing
+`YOUR_EXTENSION_ID` with your 32 character ID.
+
+This project is using the [QUnit framework](http://qunitjs.com/).
+
 ##License
 Privacy Badger is licensed under the GPLv3. See LICENSE for more details
