@@ -36,7 +36,7 @@
     "message": "Desactivar los anuncios de texto en línea"
   },
   "disabled_for_these_domains": {
-    "message": "Adblock Plus se ha desactivado para los dominios listados a continuación. Puede añadir un dominio vía el ícono de Adblock Plus en la barra de direcciones, o escribiendo el dominio (no el URL) en la casilla y haciendo clic en  el botón de \"Añadir dominio\"."
+    "message": "Privacy Badger se ha desactivado para los dominios listados a continuación. Puede añadir un dominio vía el ícono de Privacy Badger en la barra de direcciones, o escribiendo el dominio (no el URL) en la casilla y haciendo clic en  el botón de \"Añadir dominio\"."
   },
   "easy_create_filter": {
     "description": "Button label in popup balloon",
@@ -57,7 +57,7 @@
     "message": "Listas de filtros"
   },
   "filter_must_follow_syntax": {
-    "message": "Su filtro debe seguir la <a href='$url$'>sintaxis de filtros de Adblock Plus</a>.",
+    "message": "Su filtro debe seguir la <a href='$url$'>sintaxis de filtros de Privacy Badger</a>.",
     "placeholders": {
       "url": {
         "content": "$1"
@@ -104,7 +104,7 @@
     "message": "Ver lista"
   },
   "firstRun_acceptableAdsExplanation": {
-    "message": "<strong>Adblock Plus siempre bloqueará los anuncios molestos.</strong> De todos modos le sugerimos a los sitios web usar anuncios sencillos y no intrusivos. Es por eso que hemos establecido <a>guías estrictas</a> para identificar anuncios aceptables, y permitirlos como tal. Siempre es posible <a>desactivar</a> esta opción si quiere bloquear todos los anuncios."
+    "message": "<strong>Privacy Badger siempre bloqueará los anuncios molestos.</strong> De todos modos le sugerimos a los sitios web usar anuncios sencillos y no intrusivos. Es por eso que hemos establecido <a>guías estrictas</a> para identificar anuncios aceptables, y permitirlos como tal. Siempre es posible <a>desactivar</a> esta opción si quiere bloquear todos los anuncios."
   },
   "firstRun_dataCorruptionWarning": {
     "message": "¿Esta página aparece constantemente? <a>¡Haga clic aquí!</a>"
@@ -128,13 +128,13 @@
     "message": "Hay cientos de compañías publicitarias rastreando sus movimientos, pero es posible desactivar todos los rastreadores para navegar de forma privada."
   },
   "firstRun_features": {
-    "message": "Adblock Plus puede hacer más que bloquear anuncios"
+    "message": "Privacy Badger puede hacer más que bloquear anuncios"
   },
   "firstRun_share": {
-    "message": "¿Piensa que vale la pena compartir Adblock Plus?"
+    "message": "¿Piensa que vale la pena compartir Privacy Badger?"
   },
   "firstRun_title": {
-    "message": "Adblock Plus ha sido instalado"
+    "message": "Privacy Badger ha sido instalado"
   },
   "firstRun_toggle_off": {
     "message": "DESACTIVADO"
@@ -143,7 +143,7 @@
     "message": "ACTIVADO"
   },
   "found_a_bug": {
-    "message": "¿Encontró un problema? ¿Quiere traducir Adblock Plus en su idioma? Por favor <a href='$url$'>envíe una solicitud aquí</a>.",
+    "message": "¿Encontró un problema? ¿Quiere traducir Privacy Badger en su idioma? Por favor <a href='$url$'>envíe una solicitud aquí</a>.",
     "placeholders": {
       "url": {
         "content": "$1"
@@ -188,7 +188,7 @@
     "message": "Nuevos filtros añadidos; vea las <a id='options_url' target='_blank'>Opciones</a> para administrarlos."
   },
   "options": {
-    "message": "Opciones de Adblock Plus"
+    "message": "Opciones de Privacy Badger"
   },
   "out_of_date_lists": {
     "message": "Las listas desactualizadas se actualizan periódicamente."
