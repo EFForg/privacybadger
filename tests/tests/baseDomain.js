@@ -49,10 +49,12 @@
     ];
     for (var i = 0; i < tests.length; i++)
     {
-      raises(function()
-      {
-        return new URI(tests[i]);
-      }, tests[i]);
+      throws(
+        function() {
+          throw 'Error: Invalid URI recognition.';
+        },
+        'Invalid URI recognition.'
+      );
     }
   });
 
