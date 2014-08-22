@@ -14,25 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
-require.scopes["cookieblocklist"] = (function() {
-  
-var exports = {};
+require.scopes.cookieblocklist = (function() {
 
-var Utils = require('utils').Utils;
+var exports = {};
+var Utils   = require('utils').Utils;
 
 var CookieBlockList = exports.CookieBlockList = {
   domains: [],
+
   updateDomains: function(){
-    var self = this;
+    var _this = this;
+
     chrome.storage.local.get('cookieblocklist', function(items){
       if(chrome.runtime.lastError || !items.cookieblocklist){
         //cookie block list has never been set so we initialize it with an empty array
-        chrome.storage.local.set({cookieblocklist: self.domains});
+        chrome.storage.local.set({cookieblocklist: _this.domains});
         return;
       }
-      self.domains = items.cookieblocklist;
+      _this.domains = items.cookieblocklist;
     });
   },
+
   addDomain: function(domain, cb){
     if(!this.hasDomain(domain)){
       this.domains.push(domain);
@@ -43,21 +45,24 @@ var CookieBlockList = exports.CookieBlockList = {
       });
     }
   },
+
   removeDomain: function(domain){
     if(this.hasDomain(domain)){
       Utils.removeElementFromArray(this.domains,this.domains.indexOf(domain));
       chrome.storage.local.set({cookieblocklist: this.domains});
     }
   },
-  hasDomain: function(domain){
 
+  hasDomain: function(domain){
     var idx = this.domains.indexOf(domain);
+
     if(idx < 0){
       return false;
     } else {
       return true;
     }
   },
+
   hasBaseDomain: function(baseDomain){
     for(var i = 0; i < this.domains.length; i++){
       if(getBaseDomain(this.domains[i]) == baseDomain){
@@ -66,6 +71,6 @@ var CookieBlockList = exports.CookieBlockList = {
     }
     return false;
   }
-}
+};
 return exports;
 })(); //require scopes
