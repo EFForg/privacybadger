@@ -70,7 +70,7 @@ RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
 RegExpFilter.typeMap.MEDIA = RegExpFilter.typeMap.FONT = RegExpFilter.typeMap.OTHER;
 
 if (!("whitelistUrl" in localStorage)){
-  localStorage.whitelistUrl = "https://www.eff.org/files/cookieblocklist.txt";;
+  localStorage.whitelistUrl = "https://www.eff.org/files/cookieblocklist.txt";
 }
 
 var whitelistUrl = localStorage.whitelistUrl;
@@ -95,12 +95,12 @@ require("filterNotifier").FilterNotifier.addListener(function(action)
     importOldData();
 
     var addonVersion = require("info").addonVersion;
-    var prevVersion = localStorage["currentVersion"];
+    var prevVersion = localStorage.currentVersion;
     if (prevVersion != addonVersion)
     {
       changePrivacySettings();
       isFirstRun = !prevVersion;
-      localStorage["currentVersion"] = addonVersion;
+      localStorage.currentVersion = addonVersion;
       addSubscription(prevVersion);
     }
   }
@@ -133,7 +133,7 @@ function getAction(tabId, origin) {
 
 function requestWouldBeBlocked(tabId, origin) {
   var action = getAction(tabId, origin);
-  return action == "block" || action == "userblock"
+  return action == "block" || action == "userblock";
 }
 
 function getAllOriginsForTab(tabId) {
@@ -180,8 +180,8 @@ function refreshIconAndContextMenu(tab)
 
   chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
- 
-  if ("shouldShowIcon" in localStorage && localStorage["shouldShowIcon"] == "false"){
+
+  if ("shouldShowIcon" in localStorage && localStorage.shouldShowIcon == "false") {
     chrome.browserAction.disable();
   }
 
@@ -213,18 +213,17 @@ function importOldData()
   }
 
   // Import "excluded domains"
-  if(typeof localStorage["excludedDomains"] == "string")
-  {
+  if (typeof localStorage.excludedDomains == "string") {
     try
     {
-      var excludedDomains = JSON.parse(localStorage["excludedDomains"]);
+      var excludedDomains = JSON.parse(localStorage.excludedDomains);
       for (var domain in excludedDomains)
       {
         var filterText = "@@||" + domain + "^$document";
         var filter = Filter.fromText(filterText);
         FilterStorage.addFilter(filter);
       }
-      delete localStorage["excludedDomains"];
+      delete localStorage.excludedDomains;
     }
     catch (e)
     {
@@ -478,21 +477,20 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
         frameId = getFrameId(tabId, request.documentUrl);
       }
 
-      if (isFrameWhitelisted(tabId, frameId, "DOCUMENT") 
-          || isSocialWidgetTemporaryUnblock(tabId, request.url, frameId)
-          || !Utils.isPrivacyBadgerEnabled(getHostForTab(tabId)) )
-      {
+      if (isFrameWhitelisted(tabId, frameId, "DOCUMENT") ||
+          isSocialWidgetTemporaryUnblock(tabId, request.url, frameId) ||
+          !Utils.isPrivacyBadgerEnabled(getHostForTab(tabId)) ) {
         sendResponse(false);
         break;
       }
 
       var requestHost = extractHostFromURL(request.url);
       var documentHost = extractHostFromURL(request.documentUrl);
-      var thirdParty = isThirdParty(requestHost, documentHost);  
+      var thirdParty = isThirdParty(requestHost, documentHost);
       var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
       if( requestWouldBeBlocked(tabId, requestHost) ) {
         var collapse = filter.collapse;
-        if (collapse == null) {
+        if (collapse === null) {
           collapse = (localStorage.hidePlaceholders != "false");
         }
         sendResponse(collapse);
@@ -559,11 +557,11 @@ function updatePrivacyPolicyHashes(){
       console.error('Problem fetching privacy badger policy hash list at', url, err.status, err.message);
       return;
     }
-    localStorage['badgerHashes'] = response;
+    localStorage.badgerHashes = response;
   });
 }
 //refresh hashes every 24 hours and also once on startup.
-setInterval(updatePrivacyPolicyHashes,86400000)
+setInterval(updatePrivacyPolicyHashes,86400000);
 updatePrivacyPolicyHashes();
 
 //refresh domain exceptions popup list once every 24 hours and on startup
@@ -606,7 +604,7 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
   Utils.xhrRequest(url,function(err,response){
     if(err){
       //console.error('Problem fetching privacy badger policy at', url, err.status, err.message);
-      callback(successStatus)
+      callback(successStatus);
       return;
     }
     var hash = SHA1(response);
@@ -615,19 +613,19 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
     }
     callback(successStatus);
   });
-}
+};
 
 var unblockOrigin = function(origin){
   var filter = Filter.fromText("||" + origin + "^$third-party");
-  var policySubscription = FilterStorage.knownSubscriptions["userGreen"];
+  var policySubscription = FilterStorage.knownSubscriptions.userGreen;
   FilterStorage.removeFilter(filter);
   FilterStorage.addFilter(filter, policySubscription);
   teardownCookieBlocking(origin);
-}
+};
 
 //boolean are there any acceptable privacy policy hashes
 function privacyHashesDoExist(){
-  return !! localStorage['badgerHashes'] && Object.keys(JSON.parse(localStorage['badgerHashes'])).length > 0;
+  return !! localStorage.badgerHashes && Object.keys(JSON.parse(localStorage.badgerHashes)).length > 0;
 }
 
 //check if a given hash is the hash of a valid privacy policy
@@ -638,22 +636,22 @@ function isValidPolicyHash(hash){
     return false;
   }
 
-  var hashes = JSON.parse(localStorage['badgerHashes']);
-  for(key in hashes){
+  var hashes = JSON.parse(localStorage.badgerHashes);
+  for(var key in hashes){
     if(hash === hashes[key]){ return true; }
   }
   return false;
 }
 
 function saveAction(userAction, origin, target) {
-  var allUserActions = {'block': 'userRed', 
-                        'cookieblock': 'userYellow', 
+  var allUserActions = {'block': 'userRed',
+                        'cookieblock': 'userYellow',
                         'noaction': 'userGreen'};
   if(target){
     var filter = Filter.fromText("@@||" + origin + "^$third-party,domain=" + target);
     FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[userAction]]);
     console.log("Finished saving action " + userAction + " for " + origin + "on" + target);
-    return true
+    return true;
   } 
 
   // if there is no target proceed as normal
@@ -685,10 +683,10 @@ function blockedOriginCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
       if(getAction(tabId,origin)){
-        memo+=1
-      };
-      return memo
-    }, 0)
+        memo+=1;
+      }
+      return memo;
+    }, 0);
 }
 
 function getHostForTab(tabId){
