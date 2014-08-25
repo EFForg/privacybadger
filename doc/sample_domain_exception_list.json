@@ -17,5 +17,7 @@
     "www.facebook.com/ajax/connect/feedback.php": {"whitelist_urls": ["www.facebook.com"], "english_name": "Facebook"},
 
     "hootsuite.com/hootlet/compose": {"whitelist_urls": ["hootsuite.com"], "english_name": "Hootsuite"},
-    "hootsuite.com/social-connect": {"whitelist_urls": ["hootsuite.com"], "english_name": "Hootsuite"}
+    "hootsuite.com/social-connect": {"whitelist_urls": ["hootsuite.com"], "english_name": "Hootsuite"},
+
+    "api0.passwordbox.com/api" {"whitelist_urls": ["passwordbox.com", "psswrdbx.com"], "english_name": "Password Box"}
 }
