@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
-require.scopes["blockedDomainList"] = (function() {
-  
+require.scopes.blockedDomainList = (function() {
+
 var exports = {};
 
 var Utils = require('utils').Utils;
@@ -24,7 +24,7 @@ var BlockedDomainList = exports.BlockedDomainList = {
   domains: {},
 
   //minimum and max amount of time before we check again for dnt-policy
-  minThreshold: 86400000, //1 day 
+  minThreshold: 86400000, //1 day
   maxThreshold: 604800000, //1 week
 
   updateDomains: function(){
@@ -38,6 +38,7 @@ var BlockedDomainList = exports.BlockedDomainList = {
       self.domains = items.blockeddomainlist;
     });
   },
+
   addDomain: function(domain, cb){
     if(!this.hasDomain(domain)){
       var updateTime = this._randomFutureTime();
@@ -49,27 +50,32 @@ var BlockedDomainList = exports.BlockedDomainList = {
       });
     }
   },
+
   updateDomainCheckTime: function(domain){
     var updateTime = this._randomFutureTime();
     this.domains[domain] = updateTime;
     chrome.storage.local.set({blockeddomainlist: this.domains},function(){});
   },
+
   nextUpdateTime: function(domain){
     return this.domains[domain];
   },
+
   _randomFutureTime: function(){
     return Date.now() + Utils.getRandom(this.minThreshold, this.maxThreshold);
   },
+
   removeDomain: function(domain){
     if(this.hasDomain(domain)){
       delete this.domains[domain];
       chrome.storage.local.set({blockeddomainlist: this.domains});
     }
   },
+
   hasDomain: function(domain){
     return this.domains.hasOwnProperty(domain);
   },
-}
+};
 
 return exports;
 })();
