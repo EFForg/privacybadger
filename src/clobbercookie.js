@@ -14,21 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
-chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked){
-  if(blocked){
+chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
+  if (blocked) {
     console.log('clobbering cookies for', document.location);
-    var code = 
+
+    var code =
       'var dummyCookie = "x=y";' +
       'document.__defineSetter__("cookie", function(value) { console.log("clobbering cookie:", value); return dummyCookie; });' +
       'document.__defineGetter__("cookie", function() { console.log("clobbering cookie getter"); return dummyCookie; });';
 
     var script = document.createElement('script');
+
     script.appendChild(document.createTextNode(code));
     (document.head || document.documentElement).appendChild(script);
     script.parentNode.removeChild(script);
 
+    for (var prop in script) { delete script[prop]; }
   }
-  for (var prop in script) { delete script[prop]; }
+
   return true;
 });
 // Clobber local storage, using a function closure to keep the dummy private
