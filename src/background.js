@@ -88,23 +88,26 @@ chrome.storage.onChanged.addListener(function(){
   BlockedDomainList.updateDomains();
 });
 
-require("filterNotifier").FilterNotifier.addListener(function(action)
-{
-  if (action == "load")
-  {
-    importOldData();
-
-    var addonVersion = require("info").addonVersion;
-    var prevVersion = localStorage.currentVersion;
-    if (prevVersion != addonVersion)
-    {
-      changePrivacySettings();
-      isFirstRun = !prevVersion;
-      localStorage.currentVersion = addonVersion;
-      addSubscription(prevVersion);
-    }
-  }
+require("filterNotifier").FilterNotifier.addListener(function(action) {
+  if (action == "load") { importOldData(); }
 });
+
+var addonVersion = chrome.runtime.getManifest().version;
+var prevVersion = localStorage.currentVersion;
+if (prevVersion != addonVersion) {
+  migrateVersion();
+}
+
+/**
+ * migrateVersion() - Runs methods that should be run when privacy badger is updated
+ **/
+function migrateVersion(){
+  changePrivacySettings();
+  isFirstRun = !prevVersion;
+  localStorage.currentVersion = addonVersion;
+  addSubscription(prevVersion);
+}
+
 
 // Special-case domains for which we cannot use style-based hiding rules.
 // See http://crbug.com/68705.
@@ -247,22 +250,22 @@ function importOldData()
 /**
  * Called on extension install/update: improves default privacy settings
  */
-function changePrivacySettings()
-{
-  // todo: wrap these functions
-  // cookies and referers blocked manually per-request; to block wholesale, uncomment
-  // the lines below
-  // chrome.privacy.websites.thirdPartyCookiesAllowed.set({'value': false, 'scope': 'regular'});
-  // chrome.privacy.websites.referrersEnabled.set({'value': false, 'scope': 'regular'});
-  console.log("Turning off hyperlink auditing");
-  chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
+function changePrivacySettings() {
   // todo: detect if user is using windows and turn off protectedContentEnabled if so
   //console.log("Turning off protected content unique ids (Windows)");
   //chrome.privacy.websites.protectedContentEnabled.set({'value': false, 'scope': 'regular'});
-  console.log("Turning off Google Suggest");
-  chrome.privacy.services.searchSuggestEnabled.set({'value': false, 'scope': 'regular'});
+
+  //if we have disabled search suggestion in a previous version return control to the user
+  chrome.privacy.services.searchSuggestEnabled.get({}, function(details){
+    if (details.levelOfControl === "controlled_by_this_extension"){
+      chrome.privacy.services.searchSuggestEnabled.clear({scope: 'regular'}, function(){});
+    }
+  });
+
   console.log("Turning off alternate Error pages");
   chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
+  console.log("Turning off hyperlink auditing");
+  chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
 }
 
 /**
