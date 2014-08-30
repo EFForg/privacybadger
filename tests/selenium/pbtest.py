@@ -50,7 +50,7 @@ class PBSeleniumTest(unittest.TestCase):
         if "PB_EXT_PATH" in os.environ:
             return os.environ["PB_EXT_PATH"]
         else:  # check the default path if PB_EXT_PATH env. variable is empty
-            print "Can't find the environment variable PB_EXT_PATH. Will use"
+            print "Can't find the environment variable PB_EXT_PATH"
             exts = glob(EXT_PATH[self.browser_type])  # get matching files
             return max(exts, key=os.path.getctime) if exts else ""
 

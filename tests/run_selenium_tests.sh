@@ -21,5 +21,5 @@ export BROWSER="Chrome" # can be Chrome, Chromium, Firefox
 export BROWSER_BIN=""   # path to the browser binary. Can be empty. Selenium will pick the default binary for the selected browser
 export ENABLE_XVFB=1    # run the tests headless using Xvfb. Set 0 to disable
 
-py.test  # autodiscover and run the tests
+py.test -s # autodiscover and run the tests
 
