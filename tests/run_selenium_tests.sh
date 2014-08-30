@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ -x /usr/local/bin/chromedriver ]; then
-	echo "Will ne using ChromeDriver at /usr/local/bin/chromedriver"
+	echo "Will use ChromeDriver at /usr/local/bin/chromedriver"
 else
 	echo "Could not find ChromeDriver in the PATH. Aborting!"
 	exit 1
