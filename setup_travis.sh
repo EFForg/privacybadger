@@ -1,5 +1,6 @@
 #!/bin/bash
 # Install chromedriver
+cd tests
 if [ -x /usr/local/bin/chromedriver ]; then
 	echo "You already have ChromeDriver installed. Skipping this step."
 else
