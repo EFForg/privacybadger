@@ -3,4 +3,6 @@ python:
   - "2.7"
 install:
   - sudo apt-get -qq install xvfb and python-virtualenv
+before_script:
+  - ./setup_travis.sh
 script: ./test/run_selenium_tests.sh
