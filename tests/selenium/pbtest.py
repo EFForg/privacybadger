@@ -84,19 +84,6 @@ class PBSeleniumTest(unittest.TestCase):
         return  webdriver.Chrome(chrome_options=opts,
                                        desired_capabilities=d)
 
-    # move to a testutils module
-    def is_cookie_in(self, expected_ck, cks):
-        """"Check if expected_ck is in the in the list of cookies.
-
-        Match even if some cookie fields are missing in the expected_ck.
-        """
-
-        for ck in cks:
-            # Following test will pass even if some k-v pairs are missing.
-            if all(kv_pair in ck.items() for kv_pair in expected_ck.items()):
-                return True
-        return False
-
     def tearDown(self):
         self.driver.quit()
         if self.xvfb and self.vdisplay:
