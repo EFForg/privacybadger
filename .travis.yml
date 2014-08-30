@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
 install:
-  - sudo apt-get -qq install xvfb and python-virtualenv
+  - sudo apt-get -qq install xvfb python-virtualenv
 before_script:
   - ./setup_travis.sh
   - cd tests
