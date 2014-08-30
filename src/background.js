@@ -69,7 +69,7 @@ var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialw
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
 RegExpFilter.typeMap.MEDIA = RegExpFilter.typeMap.FONT = RegExpFilter.typeMap.OTHER;
 
-//instantiate privacy badgers grey list
+// Instantiate privacy badgers grey list
 if (!("whitelistUrl" in localStorage)){
   localStorage.whitelistUrl = "https://www.eff.org/files/cookieblocklist.txt";
 }
@@ -78,14 +78,14 @@ var whitelistUrl = localStorage.whitelistUrl;
 var isFirstRun = false;
 var seenDataCorruption = false;
 
-//update if newer version
+// Update if newer version
 var addonVersion = chrome.runtime.getManifest().version;
 var prevVersion = localStorage.currentVersion;
 if (prevVersion != addonVersion) {
   migrateVersion();
 }
 
-// load cookieblocklist and blocked domain listwhenever a window is created and whenever storage changes
+// Load cookieblocklist and blocked domain listwhenever a window is created and whenever storage changes
 chrome.windows.onCreated.addListener(function(){
   CookieBlockList.updateDomains();
   BlockedDomainList.updateDomains();
@@ -96,14 +96,9 @@ chrome.storage.onChanged.addListener(function(){
   BlockedDomainList.updateDomains();
 });
 
-/*require("filterNotifier").FilterNotifier.addListener(function(action) {
-  if (action == "load") { importOldData(); }
-});*/
-
-
 /**
- * migrateVersion() - Runs methods that should be run when privacy badger is updated
- **/
+ * Runs methods that should be run when privacy badger is updated
+ */
 function migrateVersion(){
   changePrivacySettings();
   isFirstRun = !prevVersion;
@@ -114,7 +109,9 @@ function migrateVersion(){
 
 
 
-// Sets options to defaults, upgrading old options from previous versions as necessary
+/**
+ * Sets options to defaults, upgrading old options from previous versions as necessary
+ */
 function setDefaultOptions() {
   function defaultOptionValue(opt, val) {
     if(!(opt in localStorage)){
@@ -128,33 +125,33 @@ function setDefaultOptions() {
 // Upgrade options before we do anything else.
 setDefaultOptions();
 
-// wrappers to be called by popup.js
+// Wrappers to be called by popup.js
 function getAction(tabId, origin) {
   return activeMatchers.getAction(tabId, origin);
 }
 
 /**
- * requestWouldBeBlocked() -- determine if a request would be blocked
+ * Determine if a request would be blocked
  * @return {Boolean}
- **/
+ */
 function requestWouldBeBlocked(tabId, origin) {
   var action = getAction(tabId, origin);
   return action == "block" || action == "userblock";
 }
 
 /**
- * helper function returns a list of all origins for a tab
- * @param {Integer} tabid - requested tab id as provided by chrome
- **/
+ * Helper function returns a list of all origins for a tab
+ * @param {Integer} tabId requested tab id as provided by chrome
+ */
 function getAllOriginsForTab(tabId) {
   return activeMatchers.getAllOriginsForTab(tabId);
 }
 
 /**
- * removeFilter() - Helper function to remove a filter from privacy badger
- * @param {String} subscriptionName - name of subscription
- * @param {String} filterName - ABP style string representing filter
- **/
+ * Helper function to remove a filter from privacy badger
+ * @param {String} subscriptionName name of subscription
+ * @param {String} filterName ABP style string representing filter
+ */
 function removeFilter(subscriptionName, filterName){
   var subscription = FilterStorage.knownSubscriptions[subscriptionName];
   var filter = {};
@@ -172,14 +169,14 @@ function removeFilter(subscriptionName, filterName){
 /**
  * Checks whether a page is whitelisted.
  * @param {String} url
- * @param {String} [parentUrl] URL of the parent frame
- * @param {String} [type] content type to be checked, default is "DOCUMENT"
+ * @param {String} parentUrl URL of the parent frame
+ * @param {String} type content type to be checked, default is "DOCUMENT"
  * @return {Filter} filter that matched the URL or null if not whitelisted
  */
 function isWhitelisted(url, parentUrl, type) {
   // Ignore fragment identifier
   var index = url.indexOf("#");
-  if (index >= 0){
+  if (index >= 0) {
     url = url.substring(0, index);
   }
 
@@ -201,68 +198,10 @@ function refreshIconAndContextMenu(tab) {
 }
 
 /**
- * Old versions stored filter data in the localStorage object, this will import
- * it into FilterStorage properly.
- */
- /*
-function importOldData() {
-  function addSubscription(url, title)
-  {
-    try
-    {
-      var subscription = Subscription.fromURL(url);
-      if (subscription && !(subscription.url in FilterStorage.knownSubscriptions))
-      {
-        if (title)
-          subscription.title = title;
-        FilterStorage.addSubscription(subscription);
-        Synchronizer.execute(subscription);
-      }
-    }
-    catch (e)
-    {
-      reportError(e);
-    }
-  }
-
-  // Import "excluded domains"
-  if (typeof localStorage.excludedDomains == "string") {
-    try
-    {
-      var excludedDomains = JSON.parse(localStorage.excludedDomains);
-      for (var domain in excludedDomains)
-      {
-        var filterText = "@@||" + domain + "^$document";
-        var filter = Filter.fromText(filterText);
-        FilterStorage.addFilter(filter);
-      }
-      delete localStorage.excludedDomains;
-    }
-    catch (e)
-    {
-      reportError(e);
-    }
-  }
-
-  // Delete downloaded subscription data
-  try
-  {
-    for (var key in localStorage)
-      if (/^https?:/.test(key))
-        delete localStorage[key];
-  }
-  catch (e)
-  {
-    reportError(e);
-  }
-}
-*/
-
-/**
  * Called on extension install/update: improves default privacy settings
  */
 function changePrivacySettings() {
-  //if we have disabled search suggestion in a previous version return control to the user
+  // If we have disabled search suggestion in a previous version return control to the user
   chrome.privacy.services.searchSuggestEnabled.get({}, function(details){
     if (details.levelOfControl === "controlled_by_this_extension") {
       chrome.privacy.services.searchSuggestEnabled.clear({scope: 'regular'}, function(){});
@@ -415,16 +354,16 @@ function getFrameId(tabId, url) {
 }
 
 /**
-* adds domain to cookie block list
-*/
+ * adds domain to cookie block list
+ */
 function setupCookieBlocking(domain){
   var baseDomain = getBaseDomain(domain);
   CookieBlockList.addDomain(domain);
 }
 
 /**
-* removes domain from cookie block list
-*/
+ * removes domain from cookie block list
+ */
 function teardownCookieBlocking(domain){
   CookieBlockList.removeDomain(domain);
 }
@@ -432,7 +371,7 @@ function teardownCookieBlocking(domain){
 /**
  * legacy adblock plus content script request handlers
  * TODO: get rid of these
- **/
+ */
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   switch (request.reqtype) {
     case "get-settings":
@@ -550,7 +489,7 @@ chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
   });
 });
 
-/*
+/**
  * Fetch acceptable privacy policy hashes from the EFF server
  */
 function updatePrivacyPolicyHashes(){
@@ -564,16 +503,16 @@ function updatePrivacyPolicyHashes(){
   });
 }
 
-//refresh hashes every 24 hours and also once on startup.
+// Refresh hashes every 24 hours and also once on startup.
 setInterval(updatePrivacyPolicyHashes,86400000);
 updatePrivacyPolicyHashes();
 
-//refresh domain exceptions popup list once every 24 hours and on startup
+// Refresh domain exceptions popup list once every 24 hours and on startup
 setInterval(DomainExceptions.updateList,86400000);
 DomainExceptions.updateList();
 
 /**
- * loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
+ * Loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
  * TODO: Check dnt domains to see if they have removed the policy
  */
 function recheckDNTPolicyForBlockedDomains(){
@@ -587,9 +526,9 @@ function recheckDNTPolicyForBlockedDomains(){
 setInterval(recheckDNTPolicyForBlockedDomains,BlockedDomainList.minThreshold);
 recheckDNTPolicyForBlockedDomains();
 
-/*
- * check a domain for a DNT policy and unblock it if it has one
- **/
+/**
+ * Check a domain for a DNT policy and unblock it if it has one
+ */
 function checkForDNTPolicy(domain){
   checkPrivacyBadgerPolicy(domain, function(success){
     if(success){
@@ -600,10 +539,10 @@ function checkForDNTPolicy(domain){
 }
 
 /**
- * asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
+ * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
  * @param {String} origin 
  * @param {Function} callback callback(successStatus)
- **/
+ */
 var checkPrivacyBadgerPolicy = function(origin, callback){
   var successStatus = false;
   var url = "https://" + origin + "/.well-known/dnt-policy.txt";
@@ -616,7 +555,6 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
 
   Utils.xhrRequest(url,function(err,response){
     if(err){
-      //console.error('Problem fetching privacy badger policy at', url, err.status, err.message);
       callback(successStatus);
       return;
     }
@@ -627,9 +565,10 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
     callback(successStatus);
   });
 };
+
 /**
- * create a filter unblocking a given origin
- * @param {string} origin - the origin to unblock
+ * Create a filter unblocking a given origin
+ * @param {string} origin  the origin to unblock
  */
 var unblockOrigin = function(origin){
   var filter = Filter.fromText("||" + origin + "^$third-party");
@@ -640,7 +579,7 @@ var unblockOrigin = function(origin){
 };
 
 /**
- * are there any acceptable privacy policy hashes
+ * Are there any acceptable privacy policy hashes
  * @return {boolean}
  */
 function privacyHashesDoExist(){
@@ -648,7 +587,7 @@ function privacyHashesDoExist(){
 }
 
 /**
- * check if a given hash is the hash of a valid privacy policy
+ * Check if a given hash is the hash of a valid privacy policy
  * @return {boolean}
  */
 function isValidPolicyHash(hash){
@@ -665,6 +604,7 @@ function isValidPolicyHash(hash){
   return false;
 }
 
+
 /**
  * saves a user preference for an origin, overriding
  * the default setting. Also takes an optional target to only
@@ -672,7 +612,7 @@ function isValidPolicyHash(hash){
  * @param {String} userAction enum of block, cookieblock, noaction
  * @param {String} origin the third party origin to take action on
  * @param {String} target an optional first party to scope the action to
- **/
+ */
 function saveAction(userAction, origin, target) {
   var allUserActions = {'block': 'userRed',
                         'cookieblock': 'userYellow',
@@ -684,7 +624,7 @@ function saveAction(userAction, origin, target) {
     return true;
   } 
 
-  // if there is no target proceed as normal
+  // If there is no target proceed as normal
   for (var action in allUserActions) {
     var filter = Filter.fromText("||" + origin + "^$third-party");
     if (action == userAction) {
@@ -697,7 +637,7 @@ function saveAction(userAction, origin, target) {
   }
   console.log("Finished saving action " + userAction + " for " + origin);
 
-  // todo: right now we don't determine whether a reload is needed
+  // TODO: right now we don't determine whether a reload is needed
   return true;
 }
 
@@ -710,7 +650,7 @@ function reloadTab(tabId){
 }
 
 /**
- * check if an origin is already in the heuristic
+ * Check if an origin is already in the heuristic
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
@@ -721,7 +661,7 @@ function isOriginInHeuristic(origin){
  * count of blocked origins for a given tab
  * @param {Integer} tabId chrome tab id
  * @return {Integer} count of blocked origins
- **/
+ */
 function blockedOriginCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
@@ -733,7 +673,7 @@ function blockedOriginCount(tabId){
 }
 
 /**
- * gets the host name for a given tab id
+ * Gets the host name for a given tab id
  * @param {Integer} tabId chrome tab id
  * @return {String} the host name for the tab
  */
@@ -743,8 +683,8 @@ function getHostForTab(tabId){
     return undefined;
   }
   if (_isTabAnExtension(tabId)) {
-    //if the tab is an extension get the url of the first frame for its implied URL 
-    //since the url of frame 0 will be the hash of the extension key
+    // If the tab is an extension get the url of the first frame for its implied URL 
+    // since the url of frame 0 will be the hash of the extension key
     mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
   }
   if (!frames[tabId][mainFrameIdx]) {
@@ -754,7 +694,7 @@ function getHostForTab(tabId){
 }
 
 /**
- * update page action badge with current count
+ * Update page action badge with current count
  * @param {Object} details details object from onBeforeRequest event
  */
 function updateCount(details){
@@ -781,10 +721,10 @@ chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*",
 
 /**
 * Populate tabs object with currently open tabs when extension is updated or installed. 
-**/
+*/
 function updateTabList(){
   console.log('update tabs!');
-  //initialize the frames object if it is falsey
+  // Initialize the frames object if it is falsey
   frames = frames || {};
   chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
     for(var i = 0; i < tabs.length; i++){
