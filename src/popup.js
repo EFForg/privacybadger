@@ -36,7 +36,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"]
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"]
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
@@ -270,10 +270,11 @@ function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + tabId);
   var origins = getAllOriginsForTab(tabId);
   if (!origins || origins.length == 0) {
+    hideNoInitialBlockingLink();
     document.getElementById("blockedResources").innerHTML = "Could not detect any tracking cookies.";
     return;
   }
-  // old text that could go in printable: 
+  // old text that could go in printable:
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it; 
   // yellow: only cookies blocked; green: no blocking yet";
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
@@ -318,6 +319,7 @@ function refreshPopup(tabId) {
       slider.slider("value",radios.filter(':checked').val());
     });
   });
+  adjustNoInitialBlockingLink();
   console.log("Done refreshing popup");
 }
 
@@ -332,6 +334,26 @@ function updateOrigin(event){
   toggleBlockedStatus($clicker, action);
   $clicker.attr('tooltip', _badgerStatusTitle(action));
   $clicker.children('.tooltipContainer').html(_badgerStatusTitle(action));
+  hideNoInitialBlockingLink();
+}
+
+function hideNoInitialBlockingLink() {
+  $("#noBlockingLink").hide();
+}
+
+function adjustNoInitialBlockingLink() {
+  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  var origins = blockedOriginCount(tabId);
+  var totalBlocked = activelyBlockedOriginCount(tabId), userBlocked = userConfiguredOriginCount(tabId);
+  console.log(" ** " + origins);
+  console.log(" ** " + origins.length);
+  console.log(" ** " + totalBlocked);
+  console.log(" ** " + userBlocked);
+  if (origins > 0 && totalBlocked === 0 && userBlocked === 0) {
+    $("#noBlockingLink").show();
+  } else {
+    $("#noBlockingLink").hide();
+  }
 }
 
 var tooltipDelay = 300;
@@ -421,6 +443,7 @@ function syncUISelections() {
 
 document.addEventListener('DOMContentLoaded', function () {
   chrome.tabs.getSelected(null, function(tab) {
+    console.log("from addEventListener");
     refreshPopup(tab.id);
   });
 });

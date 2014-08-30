@@ -692,6 +692,28 @@ function blockedOriginCount(tabId){
     }, 0);
 }
 
+function activelyBlockedOriginCount(tabId){
+  return getAllOriginsForTab(tabId)
+    .reduce(function(memo,origin){
+      var action = getAction(tabId,origin);
+      if(action && action !== "noaction"){
+        memo+=1;
+      }
+      return memo;
+    }, 0);
+}
+
+function userConfiguredOriginCount(tabId){
+  return getAllOriginsForTab(tabId)
+    .reduce(function(memo,origin){
+      var action = getAction(tabId,origin);
+      if(action && action.lastIndexOf("user", 0) === 0){
+        memo+=1;
+      }
+      return memo;
+    }, 0);
+}
+
 function getHostForTab(tabId){
   var mainFrameIdx = 0;
   if(!frames[tabId]){
