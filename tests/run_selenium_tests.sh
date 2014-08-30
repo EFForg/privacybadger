@@ -1,5 +1,11 @@
 #!/bin/bash
-# sudo apt-get install python-virtualenv xvfb
+if [ -x /usr/local/bin/chromedriver ]; then
+	echo "Will ne using ChromeDriver at /usr/local/bin/chromedriver"
+else
+	echo "Could not find ChromeDriver in the PATH. Aborting!"
+	exit 1
+fi
+
 pushd .
 cd ..
 make  # pack the extension
