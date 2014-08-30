@@ -1,0 +1,6 @@
+language: python
+python:
+  - "2.7"
+install:
+  - sudo apt-get -qq install xvfb and python-virtualenv
+script: ./test/run_selenium_tests.sh
