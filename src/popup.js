@@ -345,10 +345,6 @@ function adjustNoInitialBlockingLink() {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var origins = blockedOriginCount(tabId);
   var totalBlocked = activelyBlockedOriginCount(tabId), userBlocked = userConfiguredOriginCount(tabId);
-  console.log(" ** " + origins);
-  console.log(" ** " + origins.length);
-  console.log(" ** " + totalBlocked);
-  console.log(" ** " + userBlocked);
   if (origins > 0 && totalBlocked === 0 && userBlocked === 0) {
     $("#noBlockingLink").show();
   } else {
