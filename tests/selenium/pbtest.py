@@ -69,7 +69,7 @@ class PBSeleniumTest(unittest.TestCase):
         # in order to run tests without extensions, change the following
         # to a conditional.
         opts.add_extension(self.pb_ext_path)  # will fail if ext can't be found
-        print "\nExtension path: %s" % absp(self.pb_ext_path)
+        # print "\nExtension path: %s" % absp(self.pb_ext_path)
 
         if self.browser_bin:  # otherwise will use webdriver's default binary
             print "Browser binary:", absp(self.browser_bin)
