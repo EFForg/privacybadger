@@ -396,3 +396,4 @@
 @@||imgchili.com^$third-party
 @@||imagecorn.com^$third-party
 @@||nationbuilder.com^$third-party
+@@||kataweb.it^$third-party
