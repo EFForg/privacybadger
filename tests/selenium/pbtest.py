@@ -9,13 +9,11 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-CHROMIUM = "Chromium"
 CHROME = "Chrome"
 FIREFOX = "Firefox"
 # if the PB_EXT_PATH environment variable is not set
 # we'll check these locations for the last modified matching file.
-EXT_PATH = {CHROMIUM: "../../*.crx",
-            CHROME: "../../*.crx",
+EXT_PATH = {CHROME: "../../*.crx",
             FIREFOX: "../../*.xpi"}
 
 # PB_EXT_BG_URL_BASE = "chrome-extension://pkehgijcmpdhfbdbbnkijodmdjhbjlgp/"
@@ -37,10 +35,13 @@ class PBSeleniumTest(unittest.TestCase):
             self.vdisplay = Xvfb(width=1280, height=720)
             self.vdisplay.start()
 
-        if self.browser_type in [CHROME, CHROMIUM]:
+        if self.browser_type == CHROME:
             self.driver = self.get_chrome()
         elif self.browser_type == FIREFOX:
             self.driver = self.get_ff()
+        else:
+            raise ValueError("Cannot understand the browser type %s" %\
+                              self.browser_type)
 
         self.driver.implicitly_wait(10)
         self.js = self.driver.execute_script

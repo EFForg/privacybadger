@@ -16,10 +16,14 @@ trap 'rm -rf PBTESTENV' EXIT  # Clean virtualenv dir on exit
 virtualenv PBTESTENV
 source PBTESTENV/bin/activate
 pip install -r sel_requirements.txt
-export PB_EXT_PATH=$ext_path  # if not empty, extension at this path will be used in the tests
-export BROWSER="Chrome" # can be Chrome, Chromium, Firefox
-export BROWSER_BIN=""   # path to the browser binary. Can be empty. Selenium will pick the default binary for the selected browser
-export ENABLE_XVFB=1    # run the tests headless using Xvfb. Set 0 to disable
 
+# TODO: take command line arguments to set the following environment variables
+export PB_EXT_PATH=$ext_path  # extension on this path will be used in the tests
+# if this var is empty, extension base dir will be searched for the last modified .crx.
+export BROWSER="Chrome" # can be Chrome (default) or Firefox
+export BROWSER_BIN=""   # Path to the browser binary. Optional.
+# If empty, Selenium will pick the default binary for the selected browser.
+# To run tests with Chromium (instead of default Google Chrome) export BROWSER_BIN="/usr/bin/chromium-browser"
+export ENABLE_XVFB=1    # run the tests headless using Xvfb. Set 0 to disable
 py.test -s # autodiscover and run the tests
 
