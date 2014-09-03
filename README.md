@@ -25,5 +25,8 @@ visit `chrome-extension://YOUR_EXTENSION_ID/tests/index.html`, replacing
 
 This project is using the [QUnit framework](http://qunitjs.com/).
 
+For Selenium tests, run `./run_selenium_tests.sh` in the `tests` directory. 
+You need to have `chromedriver`, `xvfb` and `python-virtualenv` installed.
+
 ##License
 Privacy Badger is licensed under the GPLv3. See LICENSE for more details
