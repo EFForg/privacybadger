@@ -17,8 +17,6 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
 
     - enabled
     - whitelistUrl
-    - shouldShowIcon,
-    - shouldShowBlockElementMenu
     - badgerHashes
 
     Also make sure that "disabledSites" is not initialized.
@@ -53,8 +51,6 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
         assertTrue(js("return localStorage.enabled"))
         self.assertEqual(js("return localStorage.whitelistUrl"),
                     "https://www.eff.org/files/cookieblocklist.txt")
-        assertTrue(js("return localStorage.shouldShowIcon"))
-        assertTrue(js("return localStorage.shouldShowBlockElementMenu"))
 
         disabled_sites = js("return ('disabledSites' in localStorage && "
                         "JSON.parse(localStorage.disabledSites).length > 0)")
