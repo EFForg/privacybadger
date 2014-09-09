@@ -20,7 +20,6 @@ pip install -r sel_requirements.txt
 # TODO: take command line arguments to set the following environment variables
 export PB_EXT_PATH=$ext_path  # extension on this path will be used in the tests
 # if this var is empty, extension base dir will be searched for the last modified .crx.
-export BROWSER="Chrome" # can be Chrome (default) or Firefox
 export BROWSER_BIN=""   # Path to the browser binary. Optional.
 # If empty, Selenium will pick the default binary for the selected browser.
 # To run tests with Chromium (instead of default Google Chrome) export BROWSER_BIN="/usr/bin/chromium-browser"
