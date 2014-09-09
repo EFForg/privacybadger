@@ -1,4 +1,4 @@
-Privacy Badger [![Build Status](https://travis-ci.org/gunesacar/privacybadgerchrome.svg?branch=travis_ci)](https://travis-ci.org/gunesacar/privacybadgerchrome)
+Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadgerchrome.svg)](https://travis-ci.org/EFForg/privacybadgerchrome)
 ===================
 Privacy Badger blocks spying ads and invisible trackers. It's there to ensure that companies can't track your browsing without your consent.
 
