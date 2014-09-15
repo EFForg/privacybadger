@@ -403,3 +403,4 @@
 @@||redditstatic.com^$third-party
 @@||shopify.com^$third-party
 @@||pdf.yt^$third-party
+@@||livestream.com^$third-party
