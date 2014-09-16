@@ -78,12 +78,17 @@ var whitelistUrl = localStorage.whitelistUrl;
 var isFirstRun = false;
 var seenDataCorruption = false;
 
-// Update if newer version
-var addonVersion = chrome.runtime.getManifest().version;
-var prevVersion = localStorage.currentVersion;
-if (prevVersion != addonVersion) {
-  migrateVersion();
-}
+require("filterNotifier").FilterNotifier.addListener(function(action) {
+  // Called from lib/adblockplus.js after all filters have been created from subscriptions.
+  if (action == "load") {
+    // Update if newer version
+    var currentVersion = chrome.runtime.getManifest().version;
+    var prevVersion = localStorage.currentVersion;
+    if (prevVersion != currentVersion) {
+      migrateVersion(prevVersion, currentVersion);
+    }
+  }
+});
 
 // Load cookieblocklist and blocked domain listwhenever a window is created and whenever storage changes
 chrome.windows.onCreated.addListener(function(){
@@ -99,10 +104,10 @@ chrome.storage.onChanged.addListener(function(){
 /**
  * Runs methods that should be run when privacy badger is updated
  */
-function migrateVersion(){
+function migrateVersion(prevVersion,currentVersion){
   changePrivacySettings();
   isFirstRun = !prevVersion;
-  localStorage.currentVersion = addonVersion;
+  localStorage.currentVersion = currentVersion;
   addSubscription(prevVersion);
   updateTabList();
 }
