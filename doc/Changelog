@@ -1,7 +1,14 @@
-Changes for Privacy Badger 2014.7.17
+Changes for Privacy Badger 
 ====================================
-Created dialog to allow users to unblock certain third parties on certain
-sites for addedd functionality.  E.g. disqus comments, facebook comments, etc.
-Added lots of domains to cookie block list.
-do not show domains that do not appear to be trackers in the popup
-added missing google+ button override
+## 2014.9.16
+* Adds lots of tests including selenium tests.
+* Adds lots of domains to the cookie block list.
+* Fixes bug with downloading cookie block list.
+* Fixes other minor stylistic bugs.
+
+## 2014.7.17
+* Created dialog to allow users to unblock certain third parties on certain
+* sites for addedd functionality.  E.g. disqus comments, facebook comments, etc.
+* Added lots of domains to cookie block list.
+* do not show domains that do not appear to be trackers in the popup
+* added missing google+ button override
