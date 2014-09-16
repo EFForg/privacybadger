@@ -79,6 +79,7 @@ var isFirstRun = false;
 var seenDataCorruption = false;
 
 require("filterNotifier").FilterNotifier.addListener(function(action) {
+  // Called from lib/adblockplus.js after all filters have been created from subscriptions.
   if (action == "load") {
     // Update if newer version
     var currentVersion = chrome.runtime.getManifest().version;
