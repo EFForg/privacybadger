@@ -21,7 +21,7 @@ class Test(pbtest.PBSeleniumTest):
         self.driver.get("https://www.google.com/")
         qry_el = self.driver.find_element_by_name("q")
         qry_el.send_keys("EFF")  # search term
-        self.driver.find_element_by_name("btnG").click()
+        qry_el.submit()
         sleep(5)  # give time to load the results and update the title
         self.assertIn("EFF", self.driver.title)
 
