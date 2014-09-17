@@ -14,7 +14,7 @@ var DomainExceptions = {
 
   list: { },
   domainExceptionListURL: "https://www.eff.org/files/domain_exception_list.txt",
-  updateList: function(){
+  updateList: function(callback){
     console.log('updating domain exception list');
     //update object from local storage
     chrome.storage.local.get('domainExceptionList', function(l){
@@ -34,6 +34,7 @@ var DomainExceptions = {
          
       //update local object
       DomainExceptions.list = l;
+      if(typeof callback === "function"){callback()}
     });
   },
   getWhitelistForPath: function(path){

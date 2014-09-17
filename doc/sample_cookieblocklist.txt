@@ -395,3 +395,12 @@
 @@||imgspice.com^$third-party
 @@||imgchili.com^$third-party
 @@||imagecorn.com^$third-party
+@@||nationbuilder.com^$third-party
+@@||kataweb.it^$third-party
+@@||mediaworks.co.nz^$third-party
+@@||cursecdn.com^$third-party
+@@||redditmedia.com^$third-party
+@@||redditstatic.com^$third-party
+@@||shopify.com^$third-party
+@@||pdf.yt^$third-party
+@@||livestream.com^$third-party

@@ -17,7 +17,7 @@
 
 body {
   font-size: 14px;
-  min-width: 385px;
+  min-width: 390px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
@@ -182,7 +182,7 @@ font-size: 16px;
 }
 .key{
   float: right;
-  margin-right: 31px;
+  margin-right: 36px;
 }
 .key img{
   margin-left: 18px;

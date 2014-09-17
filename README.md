@@ -1,4 +1,4 @@
-Privacy Badger
+Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadgerchrome.svg)](https://travis-ci.org/EFForg/privacybadgerchrome)
 ===================
 Privacy Badger blocks spying ads and invisible trackers. It's there to ensure that companies can't track your browsing without your consent.
 
@@ -23,7 +23,11 @@ After "unpacking" the extension, find your extension's ID and
 visit `chrome-extension://YOUR_EXTENSION_ID/tests/index.html`, replacing
 `YOUR_EXTENSION_ID` with your 32 character ID.
 
-This project is using the [QUnit framework](http://qunitjs.com/).
+For Selenium tests, run `./run_selenium_tests.sh` in the `tests` directory. 
+You need to have `chromedriver`, `xvfb` and `python-virtualenv` installed.
+
+This project is using the [QUnit](http://qunitjs.com/), [py.test](http://pytest.org/), [Selenium](http://www.seleniumhq.org/) test frameworks 
+along with [Travis CI](https://travis-ci.org/) for continuous integration.
 
 ##License
 Privacy Badger is licensed under the GPLv3. See LICENSE for more details

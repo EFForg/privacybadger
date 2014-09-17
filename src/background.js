@@ -69,6 +69,7 @@ var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialw
 RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
 RegExpFilter.typeMap.MEDIA = RegExpFilter.typeMap.FONT = RegExpFilter.typeMap.OTHER;
 
+// Instantiate privacy badgers grey list
 if (!("whitelistUrl" in localStorage)){
   localStorage.whitelistUrl = "https://www.eff.org/files/cookieblocklist.txt";
 }
@@ -77,7 +78,19 @@ var whitelistUrl = localStorage.whitelistUrl;
 var isFirstRun = false;
 var seenDataCorruption = false;
 
-// load cookieblocklist whenever a window is created
+require("filterNotifier").FilterNotifier.addListener(function(action) {
+  // Called from lib/adblockplus.js after all filters have been created from subscriptions.
+  if (action == "load") {
+    // Update if newer version
+    var currentVersion = chrome.runtime.getManifest().version;
+    var prevVersion = localStorage.currentVersion;
+    if (prevVersion != currentVersion) {
+      migrateVersion(prevVersion, currentVersion);
+    }
+  }
+});
+
+// Load cookieblocklist and blocked domain listwhenever a window is created and whenever storage changes
 chrome.windows.onCreated.addListener(function(){
   CookieBlockList.updateDomains();
   BlockedDomainList.updateDomains();
@@ -88,61 +101,62 @@ chrome.storage.onChanged.addListener(function(){
   BlockedDomainList.updateDomains();
 });
 
-require("filterNotifier").FilterNotifier.addListener(function(action) {
-  if (action == "load") { importOldData(); }
-});
-
-var addonVersion = chrome.runtime.getManifest().version;
-var prevVersion = localStorage.currentVersion;
-if (prevVersion != addonVersion) {
-  migrateVersion();
-}
-
 /**
- * migrateVersion() - Runs methods that should be run when privacy badger is updated
- **/
-function migrateVersion(){
+ * Runs methods that should be run when privacy badger is updated
+ */
+function migrateVersion(prevVersion,currentVersion){
   changePrivacySettings();
   isFirstRun = !prevVersion;
-  localStorage.currentVersion = addonVersion;
+  localStorage.currentVersion = currentVersion;
   addSubscription(prevVersion);
+  updateTabList();
 }
 
 
-// Special-case domains for which we cannot use style-based hiding rules.
-// See http://crbug.com/68705.
-var noStyleRulesHosts = ["mail.google.com", "mail.yahoo.com", "www.google.com"];
 
-// Sets options to defaults, upgrading old options from previous versions as necessary
-function setDefaultOptions()
-{
-  function defaultOptionValue(opt, val)
-  {
-    if(!(opt in localStorage))
+/**
+ * Sets options to defaults, upgrading old options from previous versions as necessary
+ */
+function setDefaultOptions() {
+  function defaultOptionValue(opt, val) {
+    if(!(opt in localStorage)){
       localStorage[opt] = val;
+    }
   }
 
-  defaultOptionValue("shouldShowIcon", "true");
   defaultOptionValue("shouldShowBlockElementMenu", "true");
 }
 
 // Upgrade options before we do anything else.
 setDefaultOptions();
 
-// wrappers to be called by popup.js
+// Wrappers to be called by popup.js
 function getAction(tabId, origin) {
   return activeMatchers.getAction(tabId, origin);
 }
 
+/**
+ * Determine if a request would be blocked
+ * @return {Boolean}
+ */
 function requestWouldBeBlocked(tabId, origin) {
   var action = getAction(tabId, origin);
   return action == "block" || action == "userblock";
 }
 
+/**
+ * Helper function returns a list of all origins for a tab
+ * @param {Integer} tabId requested tab id as provided by chrome
+ */
 function getAllOriginsForTab(tabId) {
   return activeMatchers.getAllOriginsForTab(tabId);
 }
 
+/**
+ * Helper function to remove a filter from privacy badger
+ * @param {String} subscriptionName name of subscription
+ * @param {String} filterName ABP style string representing filter
+ */
 function removeFilter(subscriptionName, filterName){
   var subscription = FilterStorage.knownSubscriptions[subscriptionName];
   var filter = {};
@@ -156,108 +170,45 @@ function removeFilter(subscriptionName, filterName){
   console.log('REMOVING FILTER', filter, subscription);
   FilterStorage.removeFilter(filter,subscription);
 }
+
 /**
  * Checks whether a page is whitelisted.
  * @param {String} url
- * @param {String} [parentUrl] URL of the parent frame
- * @param {String} [type] content type to be checked, default is "DOCUMENT"
+ * @param {String} parentUrl URL of the parent frame
+ * @param {String} type content type to be checked, default is "DOCUMENT"
  * @return {Filter} filter that matched the URL or null if not whitelisted
  */
-function isWhitelisted(url, parentUrl, type)
-{
+function isWhitelisted(url, parentUrl, type) {
   // Ignore fragment identifier
   var index = url.indexOf("#");
-  if (index >= 0)
+  if (index >= 0) {
     url = url.substring(0, index);
+  }
 
   var result = defaultMatcher.matchesAny(url, type || "DOCUMENT", extractHostFromURL(parentUrl || url), false);
   return (result instanceof WhitelistFilter ? result : null);
 }
 
-// Adds or removes page action icon according to options.
-function refreshIconAndContextMenu(tab)
-{
+/**
+ * Enables or disables page action icon according to options.
+ * @param {Object} tab
+ */
+function refreshIconAndContextMenu(tab) {
   if(!tab){return;}
 
   var iconFilename = Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
 
   chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
-
-  if ("shouldShowIcon" in localStorage && localStorage.shouldShowIcon == "false") {
-    chrome.browserAction.disable();
-  }
-
-}
-
-/**
- * Old versions stored filter data in the localStorage object, this will import
- * it into FilterStorage properly.
- */
-function importOldData()
-{
-  function addSubscription(url, title)
-  {
-    try
-    {
-      var subscription = Subscription.fromURL(url);
-      if (subscription && !(subscription.url in FilterStorage.knownSubscriptions))
-      {
-        if (title)
-          subscription.title = title;
-        FilterStorage.addSubscription(subscription);
-        Synchronizer.execute(subscription);
-      }
-    }
-    catch (e)
-    {
-      reportError(e);
-    }
-  }
-
-  // Import "excluded domains"
-  if (typeof localStorage.excludedDomains == "string") {
-    try
-    {
-      var excludedDomains = JSON.parse(localStorage.excludedDomains);
-      for (var domain in excludedDomains)
-      {
-        var filterText = "@@||" + domain + "^$document";
-        var filter = Filter.fromText(filterText);
-        FilterStorage.addFilter(filter);
-      }
-      delete localStorage.excludedDomains;
-    }
-    catch (e)
-    {
-      reportError(e);
-    }
-  }
-
-  // Delete downloaded subscription data
-  try
-  {
-    for (var key in localStorage)
-      if (/^https?:/.test(key))
-        delete localStorage[key];
-  }
-  catch (e)
-  {
-    reportError(e);
-  }
 }
 
 /**
  * Called on extension install/update: improves default privacy settings
  */
 function changePrivacySettings() {
-  // todo: detect if user is using windows and turn off protectedContentEnabled if so
-  //console.log("Turning off protected content unique ids (Windows)");
-  //chrome.privacy.websites.protectedContentEnabled.set({'value': false, 'scope': 'regular'});
-
-  //if we have disabled search suggestion in a previous version return control to the user
+  // If we have disabled search suggestion in a previous version return control to the user
   chrome.privacy.services.searchSuggestEnabled.get({}, function(details){
-    if (details.levelOfControl === "controlled_by_this_extension"){
+    if (details.levelOfControl === "controlled_by_this_extension") {
       chrome.privacy.services.searchSuggestEnabled.clear({scope: 'regular'}, function(){});
     }
   });
@@ -272,20 +223,16 @@ function changePrivacySettings() {
  * This function is called on an extension update. It will add the default
  * filter subscription if necessary.
  */
-function addSubscription(prevVersion)
-{
+function addSubscription(prevVersion) {
   // Don't add subscription if the user has a subscription already
-  var addSubscription = !FilterStorage.subscriptions.some(function(subscription)
-  {
+  var addSubscription = !FilterStorage.subscriptions.some(function(subscription) {
     return subscription instanceof DownloadableSubscription &&
            subscription.url != Prefs.subscriptions_exceptionsurl;
   });
 
   // If this isn't the first run, only add subscription if the user has no custom filters
-  if (addSubscription && prevVersion)
-  {
-    addSubscription = !FilterStorage.subscriptions.some(function(subscription)
-    {
+  if (addSubscription && prevVersion) {
+    addSubscription = !FilterStorage.subscriptions.some(function(subscription) {
       return subscription.url != Prefs.subscriptions_exceptionsurl &&
              subscription.filters.length;
     });
@@ -294,8 +241,7 @@ function addSubscription(prevVersion)
   // Add EFF whitelist subscription
   try {
     var EFFsubscription = Subscription.fromURL(whitelistUrl);
-    if (EFFsubscription && !(EFFsubscription.url in FilterStorage.knownSubscriptions))
-    {
+    if (EFFsubscription && !(EFFsubscription.url in FilterStorage.knownSubscriptions)) {
       // EFFsubscription.disabled = false;
       EFFsubscription.title = "EFF Auto Whitelist";
       FilterStorage.addSubscription(EFFsubscription);
@@ -321,11 +267,11 @@ function addSubscription(prevVersion)
   var userGreen = new SpecialSubscription("userGreen", "userGreen");
   FilterStorage.addSubscription(userGreen);
 
-  if (!addSubscription)
+  if (!addSubscription) {
     return;
+  }
 
-  function notifyUser()
-  {
+  function notifyUser() {
     console.log("Calling firstRun page");
     chrome.tabs.create({
       url: chrome.extension.getURL("/skin/firstRun.html")
@@ -340,56 +286,49 @@ function addSubscription(prevVersion)
  * @param {Function} callback  function to be called with the window object of
  *                             the Options window
  */
-function openOptions(callback)
-{
-  function findOptions(selectTab)
-  {
+function openOptions(callback) {
+  function findOptions(selectTab) {
     var views = chrome.extension.getViews({type: "tab"});
-    for (var i = 0; i < views.length; i++)
-      if ("startSubscriptionSelection" in views[i])
+    for (var i = 0; i < views.length; i++) {
+      if ("startSubscriptionSelection" in views[i]) {
         return views[i];
-
+      }
+    }
     return null;
   }
 
-  function selectOptionsTab()
-  {
-    chrome.windows.getAll({populate: true}, function(windows)
-    {
+  function selectOptionsTab() {
+    chrome.windows.getAll({populate: true}, function(windows) {
       var url = chrome.extension.getURL("options.html");
-      for (var i = 0; i < windows.length; i++)
-        for (var j = 0; j < windows[i].tabs.length; j++)
-          if (windows[i].tabs[j].url == url)
+      for (var i = 0; i < windows.length; i++) {
+        for (var j = 0; j < windows[i].tabs.length; j++) {
+          if (windows[i].tabs[j].url == url) {
             chrome.tabs.update(windows[i].tabs[j].id, {selected: true});
+          }
+        }
+      }
     });
   }
 
   var view = findOptions();
-  if (view)
-  {
+  if (view) {
     selectOptionsTab();
     callback(view);
-  }
-  else
-  {
-    var onLoad = function()
-    {
+  } else {
+    var onLoad = function() {
       var view = findOptions();
-      if (view)
+      if (view) {
         callback(view);
+      }
     };
 
-    chrome.tabs.create({url: chrome.extension.getURL("options.html")}, function(tab)
-    {
-      if (tab.status == "complete")
+    chrome.tabs.create({url: chrome.extension.getURL("options.html")}, function(tab) {
+      if (tab.status == "complete") {
         onLoad();
-      else
-      {
+      } else {
         var id = tab.id;
-        var listener = function(tabId, changeInfo, tab)
-        {
-          if (tabId == id && changeInfo.status == "complete")
-          {
+        var listener = function(tabId, changeInfo, tab) {
+          if (tabId == id && changeInfo.status == "complete") {
             chrome.tabs.onUpdated.removeListener(listener);
             onLoad();
           }
@@ -404,67 +343,71 @@ function openOptions(callback)
  * This function is a hack - we only know the tabId and document URL for a
  * message but we need to know the frame ID. Try to find it in webRequest's
  * frame data.
+ * @param {Integer} tabId tab id from chrome
+ * @param {String} url url of request
+ * @return {Integer} frameId 
  */
-function getFrameId(tabId, url)
-{
-  if (tabId in frames)
-  {
-    for (var f in frames[tabId])
-    {
-      if (getFrameUrl(tabId, f) == url)
+function getFrameId(tabId, url) {
+  if (tabId in frames) {
+    for (var f in frames[tabId]) {
+      if (getFrameUrl(tabId, f) == url) {
         return f;
+      }
     }
   }
   return -1;
 }
 
+/**
+ * adds domain to cookie block list
+ */
 function setupCookieBlocking(domain){
-  //adds domain to cookie block list and moves all cookies into the cookie store
   var baseDomain = getBaseDomain(domain);
-  //console.log('ADDING to cookieblock list', baseDomain);
   CookieBlockList.addDomain(domain);
 }
 
+/**
+ * removes domain from cookie block list
+ */
 function teardownCookieBlocking(domain){
   CookieBlockList.removeDomain(domain);
 }
 
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
-{
-  switch (request.reqtype)
-  {
+/**
+ * legacy adblock plus content script request handlers
+ * TODO: get rid of these
+ */
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+  switch (request.reqtype) {
     case "get-settings":
       var hostDomain = null;
       var selectors = null;
 
       var tabId = -1;
       var frameId = -1;
-      if (sender.tab)
-      {
+      if (sender.tab) {
         tabId = sender.tab.id;
         frameId = getFrameId(tabId, request.frameUrl);
       }
 
       var enabled = !isFrameWhitelisted(tabId, frameId, "DOCUMENT") && !isFrameWhitelisted(tabId, frameId, "ELEMHIDE")&& Utils.isPrivacyBadgerEnabled(getHostForTab(tabId));
-      if (enabled && request.selectors)
-      {
+      if (enabled && request.selectors) {
+        // Special-case domains for which we cannot use style-based hiding rules.
+        // See http://crbug.com/68705.
+        var noStyleRulesHosts = ["mail.google.com", "mail.yahoo.com", "www.google.com"];
         var noStyleRules = false;
         var host = extractHostFromURL(request.frameUrl);
         hostDomain = getBaseDomain(host);
-        for (var i = 0; i < noStyleRulesHosts.length; i++)
-        {
+        for (var i = 0; i < noStyleRulesHosts.length; i++) {
           var noStyleHost = noStyleRulesHosts[i];
           if (host == noStyleHost || (host.length > noStyleHost.length &&
-                                      host.substr(host.length - noStyleHost.length - 1) == "." + noStyleHost))
-          {
+                                      host.substr(host.length - noStyleHost.length - 1) == "." + noStyleHost)) {
             noStyleRules = true;
           }
         }
         selectors = ElemHide.getSelectorsForDomain(host, false);
-        if (noStyleRules)
-        {
-          selectors = selectors.filter(function(s)
-          {
+        if (noStyleRules) {
+          selectors = selectors.filter(function(s) {
             return !/\[style[\^\$]?=/.test(s);
           });
         }
@@ -474,8 +417,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
     case "should-collapse":
       var tabId = -1;
       var frameId = -1;
-      if (sender.tab)
-      {
+      if (sender.tab) {
         tabId = sender.tab.id;
         frameId = getFrameId(tabId, request.documentUrl);
       }
@@ -510,15 +452,13 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
       }
       break;
     case "add-filters":
-      if (request.filters && request.filters.length)
-      {
+      if (request.filters && request.filters.length) {
         for (var i = 0; i < request.filters.length; i++)
           FilterStorage.addFilter(Filter.fromText(request.filters[i]));
       }
       break;
     case "add-subscription":
-      openOptions(function(view)
-      {
+      openOptions(function(view) {
         view.startSubscriptionSelection(request.title, request.url);
       });
       break;
@@ -532,17 +472,19 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 });
 
 // Show icon as page action for all tabs that already exist
-chrome.windows.getAll({populate: true}, function(windows)
-{
-  for (var i = 0; i < windows.length; i++)
-    for (var j = 0; j < windows[i].tabs.length; j++)
+chrome.windows.getAll({populate: true}, function(windows) {
+  for (var i = 0; i < windows.length; i++) {
+    for (var j = 0; j < windows[i].tabs.length; j++) {
       refreshIconAndContextMenu(windows[i].tabs[j]);
+    }
+  }
 });
 
 // Update icon if a tab changes location
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  if(changeInfo.status == "loading")
+  if(changeInfo.status == "loading") {
     refreshIconAndContextMenu(tab);
+  }
 });
 
 // Update icon if a tab is replaced or loaded from cache
@@ -552,7 +494,9 @@ chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
   });
 });
 
-// Fetch acceptable privacy policy hashes from the EFF server
+/**
+ * Fetch acceptable privacy policy hashes from the EFF server
+ */
 function updatePrivacyPolicyHashes(){
   var url = "https://www.eff.org/files/dnt-policies.json";
   Utils.xhrRequest(url,function(err,response){
@@ -563,15 +507,19 @@ function updatePrivacyPolicyHashes(){
     localStorage.badgerHashes = response;
   });
 }
-//refresh hashes every 24 hours and also once on startup.
+
+// Refresh hashes every 24 hours and also once on startup.
 setInterval(updatePrivacyPolicyHashes,86400000);
 updatePrivacyPolicyHashes();
 
-//refresh domain exceptions popup list once every 24 hours and on startup
+// Refresh domain exceptions popup list once every 24 hours and on startup
 setInterval(DomainExceptions.updateList,86400000);
 DomainExceptions.updateList();
 
-//loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
+/**
+ * Loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
+ * TODO: Check dnt domains to see if they have removed the policy
+ */
 function recheckDNTPolicyForBlockedDomains(){
   for(var domain in BlockedDomainList.domains){
     if(Date.now() > BlockedDomainList.nextUpdateTime(domain)){
@@ -583,7 +531,9 @@ function recheckDNTPolicyForBlockedDomains(){
 setInterval(recheckDNTPolicyForBlockedDomains,BlockedDomainList.minThreshold);
 recheckDNTPolicyForBlockedDomains();
 
-//check a domain for a DNT policy and unblock it if it has one
+/**
+ * Check a domain for a DNT policy and unblock it if it has one
+ */
 function checkForDNTPolicy(domain){
   checkPrivacyBadgerPolicy(domain, function(success){
     if(success){
@@ -593,7 +543,11 @@ function checkForDNTPolicy(domain){
   });
 }
 
-//asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
+/**
+ * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
+ * @param {String} origin 
+ * @param {Function} callback callback(successStatus)
+ */
 var checkPrivacyBadgerPolicy = function(origin, callback){
   var successStatus = false;
   var url = "https://" + origin + "/.well-known/dnt-policy.txt";
@@ -606,7 +560,6 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
 
   Utils.xhrRequest(url,function(err,response){
     if(err){
-      //console.error('Problem fetching privacy badger policy at', url, err.status, err.message);
       callback(successStatus);
       return;
     }
@@ -618,6 +571,10 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
   });
 };
 
+/**
+ * Create a filter unblocking a given origin
+ * @param {string} origin  the origin to unblock
+ */
 var unblockOrigin = function(origin){
   var filter = Filter.fromText("||" + origin + "^$third-party");
   var policySubscription = FilterStorage.knownSubscriptions.userGreen;
@@ -626,41 +583,56 @@ var unblockOrigin = function(origin){
   teardownCookieBlocking(origin);
 };
 
-//boolean are there any acceptable privacy policy hashes
+/**
+ * Are there any acceptable privacy policy hashes
+ * @return {boolean}
+ */
 function privacyHashesDoExist(){
   return !! localStorage.badgerHashes && Object.keys(JSON.parse(localStorage.badgerHashes)).length > 0;
 }
 
-//check if a given hash is the hash of a valid privacy policy
+/**
+ * Check if a given hash is the hash of a valid privacy policy
+ * @return {boolean}
+ */
 function isValidPolicyHash(hash){
-  if(!privacyHashesDoExist()){
+  if (!privacyHashesDoExist()) {
     console.error('No privacy badger policy hashes in storage! Refreshing...');
     updatePrivacyPolicyHashes();
     return false;
   }
 
   var hashes = JSON.parse(localStorage.badgerHashes);
-  for(var key in hashes){
-    if(hash === hashes[key]){ return true; }
+  for (var key in hashes) {
+    if (hash === hashes[key]){ return true; }
   }
   return false;
 }
 
+
+/**
+ * saves a user preference for an origin, overriding
+ * the default setting. Also takes an optional target to only
+ * override the setting for a specific first party domain
+ * @param {String} userAction enum of block, cookieblock, noaction
+ * @param {String} origin the third party origin to take action on
+ * @param {String} target an optional first party to scope the action to
+ */
 function saveAction(userAction, origin, target) {
   var allUserActions = {'block': 'userRed',
                         'cookieblock': 'userYellow',
                         'noaction': 'userGreen'};
-  if(target){
+  if (target) {
     var filter = Filter.fromText("@@||" + origin + "^$third-party,domain=" + target);
     FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[userAction]]);
     console.log("Finished saving action " + userAction + " for " + origin + "on" + target);
     return true;
   } 
 
-  // if there is no target proceed as normal
+  // If there is no target proceed as normal
   for (var action in allUserActions) {
     var filter = Filter.fromText("||" + origin + "^$third-party");
-    if (action == userAction){
+    if (action == userAction) {
       console.log('adding filter', filter, 'to', action);
       FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
     } else {
@@ -670,18 +642,31 @@ function saveAction(userAction, origin, target) {
   }
   console.log("Finished saving action " + userAction + " for " + origin);
 
-  // todo: right now we don't determine whether a reload is needed
+  // TODO: right now we don't determine whether a reload is needed
   return true;
 }
 
+/**
+ * reloads a tab
+ * @param {Integer} tabId the chrome tab id
+ */
 function reloadTab(tabId){
   chrome.tabs.reload(tabId);
 }
 
+/**
+ * Check if an origin is already in the heuristic
+ * @return {Boolean}
+ */
 function isOriginInHeuristic(origin){
   return httpRequestOriginFrequency.hasOwnProperty(getBaseDomain(origin));
 }
 
+/**
+ * count of blocked origins for a given tab
+ * @param {Integer} tabId chrome tab id
+ * @return {Integer} count of blocked origins
+ */
 function blockedOriginCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
@@ -714,24 +699,31 @@ function userConfiguredOriginCount(tabId){
     }, 0);
 }
 
+/**
+ * Gets the host name for a given tab id
+ * @param {Integer} tabId chrome tab id
+ * @return {String} the host name for the tab
+ */
 function getHostForTab(tabId){
   var mainFrameIdx = 0;
-  if(!frames[tabId]){
+  if (!frames[tabId]) {
     return undefined;
   }
-  if(_isTabAnExtension(tabId)){
-    //if the tab is an extension get the url of the first frame for its implied URL 
-    //since the url of frame 0 will be the hash of the extension key
+  if (_isTabAnExtension(tabId)) {
+    // If the tab is an extension get the url of the first frame for its implied URL 
+    // since the url of frame 0 will be the hash of the extension key
     mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
   }
-  if(!frames[tabId][mainFrameIdx]){
+  if (!frames[tabId][mainFrameIdx]) {
     return undefined;
   }
   return extractHostFromURL(frames[tabId][mainFrameIdx].url);
 }
 
-
-chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
+/**
+ * Update page action badge with current count
+ * @param {Object} details details object from onBeforeRequest event
+ */
 function updateCount(details){
   if (details.tabId == -1){
     return {};
@@ -751,12 +743,15 @@ function updateCount(details){
   var badgeText = numBlocked + "";
   chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
 }
+chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 
-chrome.runtime.onInstalled.addListener(updateTabList);
 
-/* Populate tabs object with currently open tabs when extension is updated or installed. */
-function updateTabList(details){
-  //initialize the frames object if it is falsey
+/**
+* Populate tabs object with currently open tabs when extension is updated or installed. 
+*/
+function updateTabList(){
+  console.log('update tabs!');
+  // Initialize the frames object if it is falsey
   frames = frames || {};
   chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
     for(var i = 0; i < tabs.length; i++){
@@ -764,6 +759,7 @@ function updateTabList(details){
       frames[tab.id] = {0: {parent: -1, url: tab.url} };
     }
   });
+
   CookieBlockList.updateDomains();
   BlockedDomainList.updateDomains();
   DomainExceptions.updateList();
