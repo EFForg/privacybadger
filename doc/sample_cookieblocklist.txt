@@ -404,3 +404,6 @@
 @@||shopify.com^$third-party
 @@||pdf.yt^$third-party
 @@||livestream.com^$third-party
+@@||api.embed.ly^$third-party
+@@||cdn.embedly.com^$third-party
+@@||members.internetdefenseleague.org^$third-party
