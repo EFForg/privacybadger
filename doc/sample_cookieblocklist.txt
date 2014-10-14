@@ -407,3 +407,11 @@
 @@||api.embed.ly^$third-party
 @@||cdn.embedly.com^$third-party
 @@||members.internetdefenseleague.org^$third-party
+@@||cdn3.nflxext.com^$third-party
+@@||wp.com^$third-party
+@@||optimizely.com^$third-party
+@@||aol.com^$third-party
+@@||5min.com^$third-party
+@@||a1.nyt.com^$third-party
+@@||s1.nyt.com^$third-party
+@@||phplist.com^$third-party
