@@ -415,3 +415,6 @@
 @@||a1.nyt.com^$third-party
 @@||s1.nyt.com^$third-party
 @@||phplist.com^$third-party
+@@||maps-api-ssl.google.com^$third-party
+@@||clients1.google.com^$third-party
+@@||hypothes.is^$third-party
