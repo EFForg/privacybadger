@@ -415,3 +415,5 @@
 @@||a1.nyt.com^$third-party
 @@||s1.nyt.com^$third-party
 @@||phplist.com^$third-party
+@@||ebayimg.com^$third-party
+@@||ebayrtm.com^$third-party
