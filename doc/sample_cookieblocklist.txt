@@ -417,3 +417,4 @@
 @@||phplist.com^$third-party
 @@||ebayimg.com^$third-party
 @@||ebayrtm.com^$third-party
+@@||cdn.static-economist.com^$third-party
