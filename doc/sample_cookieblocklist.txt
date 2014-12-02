@@ -3,6 +3,8 @@
 @@||apis.google.com^$third-party
 @@||mts0.google.com^$third-party
 @@||mts1.google.com^$third-party
+@@||mt0.google.com^$third-party
+@@||mt1.google.com^$third-party
 @@||mapsengine.google.com^$third-party
 @@||fbcdn.net^$third-party
 @@||cloudfront.net^$third-party
@@ -418,3 +420,7 @@
 @@||maps-api-ssl.google.com^$third-party
 @@||clients1.google.com^$third-party
 @@||hypothes.is^$third-party
+@@||ebayimg.com^$third-party
+@@||ebayrtm.com^$third-party
+@@||cdn.static-economist.com^$third-party
+@@||force.com^$third-party
