@@ -418,3 +418,4 @@
 @@||ebayimg.com^$third-party
 @@||ebayrtm.com^$third-party
 @@||cdn.static-economist.com^$third-party
+@@||force.com^$third-party
