@@ -1,6 +1,7 @@
 //Wrapper function with one parameter
 module.exports = function(grunt) {
-  var filename = 'distribution/<%= pkg.name %>-<%= manifest.version %>', zipName = filename + '.zip', crxName = filename + '.crx';
+  var filename = 'distribution/<%= pkg.name %>-<%= manifest.version %>',
+    zipName = filename + '.zip', crxName = filename + '.crx';
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -39,5 +40,4 @@ module.exports = function(grunt) {
 
   // What to do by default. In this case, nothing.
   grunt.registerTask('default', ['compress', 'zip_to_crx']);
-//  grunt.registerTask('default', ['zip_to_crx']);
 };
