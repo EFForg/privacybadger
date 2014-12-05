@@ -423,4 +423,5 @@
 @@||ebayimg.com^$third-party
 @@||ebayrtm.com^$third-party
 @@||cdn.static-economist.com^$third-party
-@@||force.com^$third-party
+@@||content.force.com^$third-party
+@@||secure.force.com^$third-party
