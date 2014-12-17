@@ -425,3 +425,4 @@
 @@||cdn.static-economist.com^$third-party
 @@||content.force.com^$third-party
 @@||secure.force.com^$third-party
+@@||c.kinja-static.com^$third-party
