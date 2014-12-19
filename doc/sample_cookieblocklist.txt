@@ -426,3 +426,5 @@
 @@||content.force.com^$third-party
 @@||secure.force.com^$third-party
 @@||c.kinja-static.com^$third-party
+@@||dl.dropboxusercontent.com^$third-party
+
