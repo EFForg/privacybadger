@@ -36,7 +36,7 @@
     "message": "Disable inline text ads"
   },
   "disabled_for_these_domains": {
-    "message": "Adblock Plus is disabled for the domains listed below. You can add a domain either via the Adblock Plus icon in the address bar or by typing the domain (not a URL) in the box and clicking the \"Add domain\" button."
+    "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the address bar or by typing the domain (not a URL) in the box and clicking the \"Add domain\" button."
   },
   "easy_create_filter": {
     "description": "Button label in popup balloon",
@@ -188,7 +188,7 @@
     "message": "New filters added; see <a id='options_url' target='_blank'>Options</a> to manage them."
   },
   "options": {
-    "message": "Adblock Plus Options"
+    "message": "Privacy Badger Options"
   },
   "out_of_date_lists": {
     "message": "Out-of-date lists are updated periodically."
