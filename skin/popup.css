@@ -191,3 +191,6 @@ font-size: 16px;
   height: 23px;
   z-index: 100;
 }
+#options{
+  float: right;
+}
