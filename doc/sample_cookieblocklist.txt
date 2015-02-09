@@ -428,3 +428,4 @@
 @@||c.kinja-static.com^$third-party
 @@||dl.dropboxusercontent.com^$third-party
 @@||groups.google.com^$third-party
+@@||nominatim.openstreetmap.org^$third-party
