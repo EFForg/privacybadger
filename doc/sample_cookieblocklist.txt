@@ -429,3 +429,4 @@
 @@||dl.dropboxusercontent.com^$third-party
 @@||groups.google.com^$third-party
 @@||nominatim.openstreetmap.org^$third-party
+@@||pipes.yahoo.com^$third-party
