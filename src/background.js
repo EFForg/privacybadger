@@ -677,6 +677,28 @@ function blockedOriginCount(tabId){
     }, 0);
 }
 
+function activelyBlockedOriginCount(tabId){
+  return getAllOriginsForTab(tabId)
+    .reduce(function(memo,origin){
+      var action = getAction(tabId,origin);
+      if(action && action !== "noaction"){
+        memo+=1;
+      }
+      return memo;
+    }, 0);
+}
+
+function userConfiguredOriginCount(tabId){
+  return getAllOriginsForTab(tabId)
+    .reduce(function(memo,origin){
+      var action = getAction(tabId,origin);
+      if(action && action.lastIndexOf("user", 0) === 0){
+        memo+=1;
+      }
+      return memo;
+    }, 0);
+}
+
 /**
  * Gets the host name for a given tab id
  * @param {Integer} tabId chrome tab id
