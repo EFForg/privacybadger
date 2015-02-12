@@ -430,3 +430,4 @@
 @@||groups.google.com^$third-party
 @@||nominatim.openstreetmap.org^$third-party
 @@||pipes.yahoo.com^$third-party
+@@||syndication.twitter.com^$third-party
