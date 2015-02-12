@@ -15,7 +15,7 @@ class CookieTest(pbtest.PBSeleniumTest):
              "Cookie test failed: %s" % test_name)
 
     def test_should_pass_std_cookie_test(self):
-        self.assert_pass_opera_cookie_test("http://jsbin.com/pohuvijoro/1/",
+        self.assert_pass_opera_cookie_test("http://jsbin.com/soluqi/1/",
                                            "Set 1st party cookie")
 
 
