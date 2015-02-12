@@ -171,6 +171,14 @@ font-size: 16px;
   margin: -7 0 0 59px;
   z-index: 20;
 }
+#noBlockingLink{
+  text-align: center;
+  z-index: 20;
+  margin: auto;
+}
+#noBlockingLink a {
+  color:#4183c4;
+}
 #blockedResources{
   max-height: 366px;
   overflow-y: auto;
