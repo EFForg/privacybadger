@@ -543,7 +543,7 @@ var extractCookieString = function(details) {
   } else if(details.responseHeaders) {
     var headers = details.responseHeaders;
   } else {
-    console.log("A reqest was made with no headers! Crazy!");
+    console.log("A request was made with no headers! Crazy!");
     console.log(details);
     return false;
   }
