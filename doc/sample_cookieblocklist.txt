@@ -433,3 +433,4 @@
 @@||travis-ci-org.global.ssl.fastly.net^$third-party
 @@||s3.amazonaws.com^$third-party
 @@||kinja-static.com^$third-party
+@@||wildapricot.org^$third-party
