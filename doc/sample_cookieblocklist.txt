@@ -435,3 +435,4 @@
 @@||kinja-static.com^$third-party
 @@||wildapricot.org^$third-party
 @@||arcgis.com^$third-party
+@@||appspot.com^$third-party
