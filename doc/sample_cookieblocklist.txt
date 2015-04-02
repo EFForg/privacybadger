@@ -437,3 +437,4 @@
 @@||arcgis.com^$third-party
 @@||appspot.com^$third-party
 @@||wikidata.org^$third-party
+@@||licensebuttons.net^$third-party
