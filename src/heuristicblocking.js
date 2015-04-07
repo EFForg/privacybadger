@@ -584,17 +584,13 @@ var hasTracking = function(details, origin) {
     var c = cookies[n].trim();
     var cut = c.indexOf("=");
     var name = c.slice(0,cut);
-    var lname = name.toLowerCase();
     var value = c.slice(cut+1);
     var lvalue = value.toLowerCase();
-    if (!(lvalue in lowEntropyCookieValues) || !(lname in lowEntropyCookieNames)) {
+    if (!(lvalue in lowEntropyCookieValues)) {
       return true;
     }
     if(lvalue in lowEntropyCookieValues){
       estimatedEntropy += lowEntropyCookieValues[lvalue];
-    }
-    if(lname in lowEntropyCookieNames){
-      estimatedEntropy += lowEntropyCookieNames[lname];
     }
   }
   if (hasCookies) {

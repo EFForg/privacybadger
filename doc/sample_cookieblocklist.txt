@@ -425,9 +425,16 @@
 @@||cdn.static-economist.com^$third-party
 @@||content.force.com^$third-party
 @@||secure.force.com^$third-party
-@@||c.kinja-static.com^$third-party
 @@||dl.dropboxusercontent.com^$third-party
 @@||groups.google.com^$third-party
 @@||nominatim.openstreetmap.org^$third-party
 @@||pipes.yahoo.com^$third-party
 @@||syndication.twitter.com^$third-party
+@@||travis-ci-org.global.ssl.fastly.net^$third-party
+@@||s3.amazonaws.com^$third-party
+@@||kinja-static.com^$third-party
+@@||wildapricot.org^$third-party
+@@||arcgis.com^$third-party
+@@||appspot.com^$third-party
+@@||wikidata.org^$third-party
+@@||licensebuttons.net^$third-party
