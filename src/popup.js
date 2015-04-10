@@ -69,6 +69,8 @@ function init()
   $("#deactivate_btn").click(deactivate);
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
+  $("#activate_socialwidget_btn").click(active_socialwidget);
+  $("#deactivate_socialwidget_btn").click(deactive_socialwidget);
   //$("#enabled").click(toggleEnabled);
   
   // Initialize based on activation state
@@ -78,6 +80,11 @@ function init()
       $("#activate_btn").show();
       $("#deactivate_btn").hide();
       $("#siteControls").hide();
+      $("#socialWidgetControls").hide();
+    }
+    if(!Utils.isSocialWidgetReplacementEnabled()) {
+      $("#activate_socialwidget_btn").show();
+      $("#deactivate_socialwidget_btn").hide();
     }
     $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
@@ -95,6 +102,7 @@ function init()
         $("#blockedResourcesContainer").hide();
         $("#activate_site_btn").show();
         $("#deactivate_site_btn").hide();
+	$("#socialWidgetControls").hide();
       }
     });
   });
@@ -106,6 +114,7 @@ function activate() {
   $("#deactivate_btn").toggle();
   $("#blockedResourcesContainer").show();
   $("#siteControls").show();
+  $("#socialWidgetControls").show();
   localStorage.enabled = "true";
   refreshIconAndContextMenu(tab);
   reloadTab(tab.id);
@@ -116,6 +125,7 @@ function deactivate() {
   $("#deactivate_btn").toggle();
   $("#blockedResourcesContainer").hide();
   $("#siteControls").hide();
+  $("#socialWidgetControls").hide();
   localStorage.enabled = "false";
   refreshIconAndContextMenu(tab);
   reloadTab(tab.id);
@@ -125,6 +135,7 @@ function active_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").show();
+  $("#socialWidgetControls").show();
   Utils.enablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
   refreshIconAndContextMenu(tab);
   reloadTab(tab.id);
@@ -134,11 +145,27 @@ function deactive_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").hide();
+  $("#socialWidgetControls").hide();
   Utils.disablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
   refreshIconAndContextMenu(tab);
   reloadTab(tab.id);
 }
 
+function active_socialwidget(){
+  $("#activate_socialwidget_btn").toggle();
+  $("#deactivate_socialwidget_btn").toggle();
+  localStorage.socialWidgetReplacementEnabled = "true";
+  refreshIconAndContextMenu(tab);
+  reloadTab(tab.id);
+}
+
+function deactive_socialwidget(){
+  $("#activate_socialwidget_btn").toggle();
+  $("#deactivate_socialwidget_btn").toggle();
+  localStorage.socialWidgetReplacementEnabled = "false";
+  refreshIconAndContextMenu(tab);
+  reloadTab(tab.id);
+}
 
 function revertDomainControl(e){
   $elm = $(e.target).parent();

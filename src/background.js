@@ -38,6 +38,10 @@ if (!("enabled" in localStorage)){
   localStorage.enabled = "true";
 }
 
+if (!("socialWidgetReplacementEnabled" in localStorage)){
+  localStorage.socialWidgetReplacementEnabled = "true";
+}
+
 with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
