@@ -184,7 +184,11 @@ var Utils = exports.Utils = {
    * (TODO: actually make this return something based on a user-facing setting
    */
   isSocialWidgetReplacementEnabled: function() {
-    return true;
+    if (!JSON.parse(localStorage.socialWidgetReplacementEnabled)){
+      return false;
+    } else {
+      return true;
+    }
   },
 
   /**

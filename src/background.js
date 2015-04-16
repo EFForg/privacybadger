@@ -38,6 +38,10 @@ if (!("enabled" in localStorage)){
   localStorage.enabled = "true";
 }
 
+if (!("socialWidgetReplacementEnabled" in localStorage)){
+  localStorage.socialWidgetReplacementEnabled = "true";
+}
+
 with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
@@ -266,6 +270,11 @@ function addSubscription(prevVersion) {
   // Add userGreen Subscription
   var userGreen = new SpecialSubscription("userGreen", "userGreen");
   FilterStorage.addSubscription(userGreen);
+
+  // Add a permanent store for seen third parties 
+  var seenThirdParties = new SpecialSubscription("seenThirdParties", "seenThirdParties");
+  FilterStorage.addSubscription(seenThirdParties);
+  FilterStorage.knownSubscriptions.seenThirdParties["parties"] = { };
 
   if (!addSubscription) {
     return;
@@ -659,7 +668,7 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  return httpRequestOriginFrequency.hasOwnProperty(getBaseDomain(origin));
+  return FilterStorage.knownSubscriptions.seenThirdParties.parties.hasOwnProperty(getBaseDomain(origin));
 }
 
 /**

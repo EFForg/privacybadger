@@ -39,6 +39,7 @@
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
+var FilterStorage = require("filterStorage").FilterStorage;
 var frames = {};
 var onFilterChangeTimeout = null;
 var importantNotifications = {
@@ -260,8 +261,8 @@ function checkAction(tabId, url, quiet, frameId){
 
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
-    if(!action && httpRequestOriginFrequency[origin]) {
-      action = "noaction"
+    if(!action && FilterStorage.knownSubscriptions.seenThirdParties.parties[origin]) {
+      action = "noaction";
     }
   }
   if(action && !quiet){
