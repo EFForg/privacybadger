@@ -637,17 +637,18 @@ var heuristicBlockingAccounting = function(details) {
       return { };
     }
     // Record HTTP request prevalence
-    if (!(origin in FilterStorage.knownSubscriptions.seenThirdParties.parties)){
-        FilterStorage.knownSubscriptions.seenThirdParties.parties[origin] = { };
+    var seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
+    if (!(origin in seen)){
+       seen[origin] = { };
     }
-    FilterStorage.knownSubscriptions.seenThirdParties.parties[origin][tabOrigin] = true;
+    seen[origin][tabOrigin] = true;
     // cause the options page to refresh
-    FilterNotifier.triggerListeners("thirdparty.seen", origin);
+    FilterNotifier.triggerListeners("load");
     
     // Blocking based on outbound cookies
     var httpRequestPrevalence = 0;
-    if (origin in FilterStorage.knownSubscriptions.seenThirdParties.parties){
-        httpRequestPrevalence = Object.keys(FilterStorage.knownSubscriptions.seenThirdParties.parties[origin]).length;
+    if (origin in seen){
+        httpRequestPrevalence = Object.keys(seen[origin]).length;
     }
   
     //block the origin if it has been seen on multiple first party domains

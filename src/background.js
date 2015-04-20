@@ -274,7 +274,6 @@ function addSubscription(prevVersion) {
   // Add a permanent store for seen third parties 
   var seenThirdParties = new SpecialSubscription("seenThirdParties", "seenThirdParties");
   FilterStorage.addSubscription(seenThirdParties);
-  FilterStorage.knownSubscriptions.seenThirdParties["parties"] = { };
 
   if (!addSubscription) {
     return;
@@ -552,6 +551,7 @@ function checkForDNTPolicy(domain){
   });
 }
 
+
 /**
  * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
  * @param {String} origin 
@@ -668,7 +668,7 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  return FilterStorage.knownSubscriptions.seenThirdParties.parties.hasOwnProperty(getBaseDomain(origin));
+  return FilterStorage.knownSubscriptions.seenThirdParties.filters.hasOwnProperty(getBaseDomain(origin));
 }
 
 /**

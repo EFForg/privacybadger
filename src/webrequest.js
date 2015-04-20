@@ -261,7 +261,8 @@ function checkAction(tabId, url, quiet, frameId){
 
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
-    if(!action && FilterStorage.knownSubscriptions.seenThirdParties.parties[origin]) {
+    seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
+    if(!action && seen[origin]) {
       action = "noaction";
     }
   }
