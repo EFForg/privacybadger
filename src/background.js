@@ -38,6 +38,10 @@ if (!("enabled" in localStorage)){
   localStorage.enabled = "true";
 }
 
+if (!("socialWidgetReplacementEnabled" in localStorage)){
+  localStorage.socialWidgetReplacementEnabled = "true";
+}
+
 with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
@@ -266,6 +270,10 @@ function addSubscription(prevVersion) {
   // Add userGreen Subscription
   var userGreen = new SpecialSubscription("userGreen", "userGreen");
   FilterStorage.addSubscription(userGreen);
+
+  // Add a permanent store for seen third parties 
+  var seenThirdParties = new SpecialSubscription("seenThirdParties", "seenThirdParties");
+  FilterStorage.addSubscription(seenThirdParties);
 
   if (!addSubscription) {
     return;
@@ -543,6 +551,7 @@ function checkForDNTPolicy(domain){
   });
 }
 
+
 /**
  * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
  * @param {String} origin 
@@ -659,7 +668,7 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  return httpRequestOriginFrequency.hasOwnProperty(getBaseDomain(origin));
+  return FilterStorage.knownSubscriptions.seenThirdParties.filters.hasOwnProperty(getBaseDomain(origin));
 }
 
 /**

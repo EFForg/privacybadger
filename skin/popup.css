@@ -84,6 +84,9 @@ border-bottom; 1px dotted #4183c4;
   position: relative;
   right: 18px;
 }
+.options .switch-container{
+  max-width: 114px;
+}
 .clear{
   clear: both;
 }
@@ -198,4 +201,7 @@ font-size: 16px;
   background: #fefefe;
   height: 23px;
   z-index: 100;
+}
+#options{
+  float: right;
 }

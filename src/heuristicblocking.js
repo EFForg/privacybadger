@@ -35,6 +35,7 @@ with(require("subscriptionClasses")) {
   this.SpecialSubscription = SpecialSubscription;
 }
 var FilterStorage = require("filterStorage").FilterStorage;
+var FilterNotifier = require("filterNotifier").FilterNotifier;
 var matcherStore = require("matcher").matcherStore;
 var Synchronizer = require("synchronizer").Synchronizer;
 var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
@@ -156,7 +157,7 @@ var blacklistOrigin = function(origin, fqdn) {
       } else {
         BlockedDomainList.addDomain(fqdn);
         addFiltersFromWhitelistToCookieblock(origin)
-
+        // this variable seems a little unnessecary...
         var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
         // Create an ABP filter to block this origin 
         var filter = this.Filter.fromText("||" + origin + "^$third-party");
@@ -636,14 +637,18 @@ var heuristicBlockingAccounting = function(details) {
       return { };
     }
     // Record HTTP request prevalence
-    if (!(origin in httpRequestOriginFrequency)){
-      httpRequestOriginFrequency[origin] = { };
+    var seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
+    if (!(origin in seen)){
+       seen[origin] = { };
     }
-    httpRequestOriginFrequency[origin][tabOrigin] = true; // This 3rd party tracked this 1st party
+    seen[origin][tabOrigin] = true;
+    // cause the options page to refresh
+    FilterNotifier.triggerListeners("load");
+    
     // Blocking based on outbound cookies
     var httpRequestPrevalence = 0;
-    if (origin in httpRequestOriginFrequency){
-      httpRequestPrevalence = Object.keys(httpRequestOriginFrequency[origin]).length;
+    if (origin in seen){
+        httpRequestPrevalence = Object.keys(seen[origin]).length;
     }
   
     //block the origin if it has been seen on multiple first party domains
