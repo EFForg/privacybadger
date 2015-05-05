@@ -630,7 +630,7 @@ var heuristicBlockingAccounting = function(details) {
   else {
     var tabOrigin = tabOrigins[details.tabId];
     // Ignore first-party requests
-    if (origin == tabOrigin)
+    if (!tabOrigin || origin == tabOrigin)
       return { };
     // if there are no tracking cookies or similar things, ignore
     if (!hasTracking(details, origin)){
