@@ -183,7 +183,7 @@ var Utils = exports.Utils = {
    * check if social widget replacement functionality is enabled
    */
   isSocialWidgetReplacementEnabled: function() {
-    return JSON.parse(localStorage.socialWidgetReplacementEnabled)
+    return JSON.parse(localStorage.socialWidgetReplacementEnabled);
   },
 
   /**

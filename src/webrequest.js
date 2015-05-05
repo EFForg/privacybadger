@@ -340,7 +340,7 @@ function getSocialWidgetBlockList(tabId) {
   // a mapping of individual SocialWidget objects to boolean values
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
-  green_domains = {}
+  green_domains = {};
   var green = FilterStorage.knownSubscriptions.userGreen.filters;
   for( var i = 0; i < green.length; i++){
       green_domains[green[i].regexp.source] = 1;
