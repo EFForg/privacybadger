@@ -340,18 +340,22 @@ function getSocialWidgetBlockList(tabId) {
   // a mapping of individual SocialWidget objects to boolean values
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
+  green_domains = {};
+  var green = FilterStorage.knownSubscriptions.userGreen.filters;
+  for( var i = 0; i < green.length; i++){
+      green_domains[green[i].regexp.source] = 1;
+  }
 
   SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
 
-    // replace them if PrivacyBadger has blocked them
+    // replace them if the user hasn't greened them
     var blockedData = activeMatchers.blockedOriginsByTab[tabId];
-    if (blockedData && blockedData[socialwidget.domain]) {
-      socialWidgetsToReplace[socialWidgetName] = (blockedData[socialwidget.domain].latestaction == "block"
-	      					  || blockedData[socialwidget.domain].latestaction == "userblock");
+    if (socialwidget.domain in green_domains) {
+        socialWidgetsToReplace[socialWidgetName] = false;
     }
     else {
-      socialWidgetsToReplace[socialWidgetName] = false;
+        socialWidgetsToReplace[socialWidgetName] = true;
     }
   });
 
