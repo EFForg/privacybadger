@@ -11,6 +11,9 @@
     "badger_status_noaction": {
         "message": "This domain is unblocked, slide to block entirely or block cookies."
     },
+    "description": {
+        "message": "Privacy Badger protects you from trackers as you surf the web!"
+    },
     "disabled_for_these_domains": {
         "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the address bar or by typing the domain (not a URL) in the box and clicking the \"Add domain\" button."
     },
@@ -19,6 +22,9 @@
     },
     "firstRun_title": {
         "message": "Adblock Plus has been installed"
+    },
+    "name": {
+        "message": "Privacy Badger"
     },
     "new_filters_added": {
         "message": "New filters added; see <a id='options_url' target='_blank'>Options</a> to manage them."
