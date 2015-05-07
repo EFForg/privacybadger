@@ -442,3 +442,5 @@
 @@||ebmedia.eventbrite.com^$third-party
 @@||uicdn.com^$third-party
 @@||mozu.com^$third-party
+@@||omroep.nl^$third-party
+@@||flattr.com^$third-party
