@@ -262,7 +262,11 @@ function checkAction(tabId, url, quiet, frameId){
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
     seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
-    if(!action && seen[origin]) {
+    var parties = []
+    for(var i = 0; i < seen.length; i++){
+        parties.push(seen[i]["text"]);
+    }
+    if(!action && parties.indexOf(origin) != -1) {
       action = "noaction";
     }
   }

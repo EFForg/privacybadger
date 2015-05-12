@@ -442,7 +442,10 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
       var thirdParty = isThirdParty(requestHost, documentHost);
       var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
       if( requestWouldBeBlocked(tabId, requestHost) ) {
-        var collapse = filter.collapse;
+        var collapse = null;
+        if(filter){
+          collapse = filter.collapse;
+        }
         if (collapse === null) {
           collapse = (localStorage.hidePlaceholders != "false");
         }
@@ -668,7 +671,14 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  return FilterStorage.knownSubscriptions.seenThirdParties.filters.hasOwnProperty(getBaseDomain(origin));
+  //return FilterStorage.knownSubscriptions.seenThirdParties.filters.hasOwnProperty(getBaseDomain(origin));
+  var filters = FilterStorage.knownSubscriptions.seenThirdParties.filters;
+  for( var i = 0; i < filters.length; i++){
+      if( getBaseDomain(getBaseDomain(origin)) == filters[i]["text"]){
+          return true;
+      }
+  return false;
+  }
 }
 
 /**

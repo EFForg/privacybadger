@@ -43,7 +43,6 @@ var Utils = require("utils").Utils;
 var tabOrigins = { };
 var cookieSentOriginFrequency = { };
 var cookieSetOriginFrequency = { };
-var httpRequestOriginFrequency = { };
 var prevalenceThreshold = 3;
 
 // variables for alpha test extension
@@ -639,18 +638,32 @@ var heuristicBlockingAccounting = function(details) {
     }
     // Record HTTP request prevalence
     var seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
-    if (!(origin in seen)){
-       seen[origin] = { };
+    var loc = -1;
+    for(var i = 0; i < seen.length; i++){
+        if (seen[i]["text"] == getBaseDomain(origin)){
+          loc = i;   
+        }
     }
-    seen[origin][tabOrigin] = true;
+    if (loc == -1){
+       filter = Filter.fromText(origin);
+       FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions.seenThirdParties);
+       loc = FilterStorage.knownSubscriptions.seenThirdParties.filters.length - 1;
+    }
+    var httpRequestPrevalence = 0;
+    if (seen[loc]["subscriptions"].indexOf(tabOrigin) == -1){
+        seen[loc]["subscriptions"].push(tabOrigin);
+    }
+    httpRequestPrevalence = seen[loc]["subscriptions"].length - 1;
+    //seen[origin][tabOrigin] = true;
     // cause the options page to refresh
     FilterNotifier.triggerListeners("load");
     
     // Blocking based on outbound cookies
-    var httpRequestPrevalence = 0;
-    if (origin in seen){
-        httpRequestPrevalence = Object.keys(seen[origin]).length;
-    }
+    //var httpRequestPrevalence = 0;
+    //if (origin in seen){
+    //    httpRequestPrevalence = seen[loc]["tabs"].length;
+    //    //httpRequestPrevalence = Object.keys(seen[origin]).length;
+    //}
   
     //block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= prevalenceThreshold) {
