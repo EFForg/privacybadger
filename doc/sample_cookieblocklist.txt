@@ -446,3 +446,4 @@
 @@||flattr.com^$third-party
 @@||fastly.net^$third-party
 @@||publiekeomroep.nl^$third-party
+@@||plex.tv^$third-party
