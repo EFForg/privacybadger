@@ -445,3 +445,4 @@
 @@||omroep.nl^$third-party
 @@||flattr.com^$third-party
 @@||fastly.net^$third-party
+@@||publiekeomroep.nl^$third-party
