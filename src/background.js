@@ -668,7 +668,12 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  return FilterStorage.knownSubscriptions.seenThirdParties.filters.hasOwnProperty(getBaseDomain(origin));
+  seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
+  for(var i = 0; i < seen.length; i++){
+    if(seen[i]["text"] == getBaseDomain(origin)){
+      return true;
+    }
+  }
 }
 
 /**

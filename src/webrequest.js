@@ -262,7 +262,13 @@ function checkAction(tabId, url, quiet, frameId){
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
     seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
-    if(!action && seen[origin]) {
+    found = false;
+    for(var i = 0; i < seen.length; i++){
+      if(seen[i]["text"] == getBaseDomain(origin)){
+        found = true;
+      }
+    }
+    if(!action && found) {
       action = "noaction";
     }
   }
