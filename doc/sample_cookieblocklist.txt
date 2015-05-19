@@ -447,3 +447,4 @@
 @@||fastly.net^$third-party
 @@||publiekeomroep.nl^$third-party
 @@||plex.tv^$third-party
+@@||readthedocs.org^$third-party
