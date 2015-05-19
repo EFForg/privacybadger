@@ -448,3 +448,5 @@
 @@||publiekeomroep.nl^$third-party
 @@||plex.tv^$third-party
 @@||readthedocs.org^$third-party
+@@||auth.api.sonyentertainmentnetwork.com^$third-party
+@@||cdn-a.sonyentertainmentnetwork.com^$third-party
