@@ -445,3 +445,10 @@
 @@||omroep.nl^$third-party
 @@||flattr.com^$third-party
 @@||fastly.net^$third-party
+@@||publiekeomroep.nl^$third-party
+@@||plex.tv^$third-party
+@@||readthedocs.org^$third-party
+@@||auth.api.sonyentertainmentnetwork.com^$third-party
+@@||cdn-a.sonyentertainmentnetwork.com^$third-party
+@@||xsdownload.adobe.com^$third-party
+@@||wwwimages.adobe.com^$third-party
