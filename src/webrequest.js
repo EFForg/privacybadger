@@ -35,7 +35,7 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /* global variables */
+/* Global Variables */
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
@@ -72,14 +72,14 @@ FilterNotifier.addListener(onFilterNotifier);
 function onTabRemoved(tabId){
   console.log('tab removed!', tabId);
   forgetTab(tabId);
-};
+}
 
-function onTabUpdated(tabId, changeInfo, tab){
-  console.log('tab updated', tab);
-  if (changeInfo.status == "loading" && changeInfo.url != undefined){
-    forgetTab(tabId);
-  }
-};
+//function onTabUpdated(tabId, changeInfo, tab){
+//  console.log('tab updated', tab);
+//  if (changeInfo.status == "loading" && changeInfo.url != undefined){
+//    forgetTab(tabId);
+//  }
+//}
 
 function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
@@ -98,7 +98,7 @@ function onFilterNotifier(action) {
     }
     onFilterChangeTimeout = window.setTimeout(onFilterChange, 2000);
   }
-};
+}
 
 function onBeforeRequest(details){
   if (details.tabId == -1){
@@ -125,7 +125,7 @@ function onBeforeRequest(details){
       if(requestAction.indexOf('user') < 0){
         var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
         if( whitelistAry){
-          _askUserToWhitelist(details.tabId, whitelistAry['whitelist_urls'], whitelistAry['english_name'])
+          _askUserToWhitelist(details.tabId, whitelistAry.whitelist_urls, whitelistAry.english_name);
         }
       }
 
@@ -134,8 +134,8 @@ function onBeforeRequest(details){
     if (requestAction == "block" || requestAction == "userblock") {
       // Notify the content script...
       var msg = {
-        "replaceSocialWidget" : true,
-	"trackerDomain" : extractHostFromURL(details.url)
+        replaceSocialWidget: true,
+        trackerDomain: extractHostFromURL(details.url)
       };
       chrome.tabs.sendMessage(details.tabId, msg);
 
@@ -148,7 +148,7 @@ function onBeforeRequest(details){
 function getHostForTab(tabId){
   var mainFrameIdx = 0;
   if(!frames[tabId]){
-    return undefined;
+    return;
   }
   if(_isTabAnExtension(tabId)){
     //if the tab is an extension get the url of the first frame for its implied URL
@@ -156,7 +156,7 @@ function getHostForTab(tabId){
     mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
   }
   if(!frames[tabId][mainFrameIdx]){
-    return undefined;
+    return;
   }
   return extractHostFromURL(frames[tabId][mainFrameIdx].url);
 }
@@ -174,7 +174,7 @@ function onBeforeSendHeaders(details) {
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      newHeaders = details.requestHeaders.filter(function(header) {
+      var newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
       newHeaders.push({name: "DNT", value: "1"});
@@ -229,7 +229,7 @@ function getFrameUrl(tabId, frameId) {
 
 function forgetTab(tabId) {
   console.log('forgetting tab', tabId);
-  activeMatchers.removeTab(tabId)
+  activeMatchers.removeTab(tabId);
   delete frames[tabId];
   delete temporarySocialWidgetUnblock[tabId];
 }
@@ -261,7 +261,7 @@ function checkAction(tabId, url, quiet, frameId){
 
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
-    seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
+    var seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
     if(!action && seen[origin]) {
       action = "noaction";
     }
@@ -307,9 +307,9 @@ function _askUserToWhitelist(tabId, whitelistDomains, englishName){
         saveAction('cookieblock', whitelistDomains[i]);
         reloadTab(tabId);
       }
-      if(msg.action === "not_now"){
-        //do nothing
-      }
+      //if(msg.action === "not_now"){
+      //  //do nothing
+      //}
     }
   });
 }
@@ -319,7 +319,6 @@ function isFrameWhitelisted(tabId, frameId, type) {
   var parentData = getFrameData(tabId, parent);
   while (parentData)
   {
-    var frame = parent;
     var frameData = parentData;
 
     parent = frameData.parent;
@@ -335,14 +334,14 @@ function isFrameWhitelisted(tabId, frameId, type) {
 }
 
 // Provides the social widget blocking content script with list of social widgets to block
-function getSocialWidgetBlockList(tabId) {
+function getSocialWidgetBlockList() {
 
   // a mapping of individual SocialWidget objects to boolean values
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
-  green_domains = {};
+  var green_domains = {};
   var green = FilterStorage.knownSubscriptions.userGreen.filters;
-  for( var i = 0; i < green.length; i++){
+  for (var i = 0; i < green.length; i++) {
       green_domains[green[i].regexp.source] = 1;
   }
 
@@ -350,7 +349,6 @@ function getSocialWidgetBlockList(tabId) {
     var socialWidgetName = socialwidget.name;
 
     // replace them if the user hasn't greened them
-    var blockedData = activeMatchers.blockedOriginsByTab[tabId];
     if (socialwidget.domain in green_domains) {
         socialWidgetsToReplace[socialWidgetName] = false;
     }
@@ -412,7 +410,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   } else if (request.checkReplaceButton) {
     if (Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled()) {
-      var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id);
+      var socialWidgetBlockList = getSocialWidgetBlockList();
       sendResponse(socialWidgetBlockList);
     }
 
