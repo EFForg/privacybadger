@@ -275,8 +275,7 @@ function refreshPopup(tabId) {
   var origins = getAllOriginsForTab(tabId);
   if (!origins || origins.length == 0) {
     hideNoInitialBlockingLink();
-    var popup_blocked = i18n.getMessage("popup_blocked");
-    document.getElementById("blockedResources").innerHTML = popup_blocked;
+    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
     return;
   }
   // old text that could go in printable:
@@ -301,7 +300,8 @@ function refreshPopup(tabId) {
     printable = _addOriginHTML(origin, printable, action);
   }
   printable += "</div>"
-  document.getElementById("blockedResources").innerHTML = printable;
+  $("#blockedResources").empty();
+  $("#blockedResources").html(printable);
   $('.switch-toggle').each(function(){
     var radios = $(this).children('input');
     var value = $(this).children('input:checked').val();
@@ -437,6 +437,7 @@ function syncUISelections() {
   var settingsDict = buildSettingsDict();
   console.log("Sync of userset options: " + JSON.stringify(settingsDict));
   var tabId = syncSettingsDict(settingsDict)
+  settingsDict = null;
   if (tabId){
     reloadTab(tabId);
   }
