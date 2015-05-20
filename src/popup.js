@@ -272,6 +272,7 @@ function makeSortable(domain){
 
 function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + tabId);
+  //TODO this is calling get action and then being used to call get Action
   var origins = getAllOriginsForTab(tabId);
   if (!origins || origins.length == 0) {
     hideNoInitialBlockingLink();
@@ -279,9 +280,6 @@ function refreshPopup(tabId) {
     document.getElementById("blockedResources").innerHTML = popup_blocked;
     return;
   }
-  // old text that could go in printable:
-  // "Suspicious 3rd party domains in this page.  Red: we've blocked it; 
-  // yellow: only cookies blocked; green: no blocking yet";
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
   printable = printable + 
     '<div class="keyContainer">'+

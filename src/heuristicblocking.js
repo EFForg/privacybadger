@@ -627,6 +627,7 @@ var heuristicBlockingAccounting = function(details) {
     tabOrigins[details.tabId] = origin;
     return { };
   }
+  //TODO: why isn't this preventing first parties from ending up in the popup
   else {
     var tabOrigin = tabOrigins[details.tabId];
     // Ignore first-party requests

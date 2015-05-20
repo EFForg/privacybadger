@@ -258,6 +258,9 @@ function checkAction(tabId, url, quiet, frameId){
   var documentHost = extractHostFromURL(documentUrl);
   var origin = getBaseDomain(requestHost);
   var thirdParty = isThirdParty(requestHost, documentHost);
+  if (!thirdParty){
+    return false;
+  }
 
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
