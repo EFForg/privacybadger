@@ -414,8 +414,7 @@
 @@||optimizely.com^$third-party
 @@||aol.com^$third-party
 @@||5min.com^$third-party
-@@||a1.nyt.com^$third-party
-@@||s1.nyt.com^$third-party
+@@||nyt.com^$third-party
 @@||phplist.com^$third-party
 @@||maps-api-ssl.google.com^$third-party
 @@||clients1.google.com^$third-party
