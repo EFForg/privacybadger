@@ -396,23 +396,30 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
 }
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    var tabHost  = extractHostFromURL(sender.tab.url);
-    if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  var tabHost = extractHostFromURL(sender.tab.url);
+
+  if (request.checkEnabled) {
+    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost));
+
+  } else if (request.checkLocation) {
+    if (Utils.isPrivacyBadgerEnabled(tabHost)) {
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
     }
-    if(request.checkReplaceButton && Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled()){
+
+  } else if (request.checkReplaceButton) {
+    if (Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled()) {
       var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id);
       sendResponse(socialWidgetBlockList);
     }
-    if(request.unblockSocialWidget){
-      var socialWidgetUrls = request.buttonUrls;
-      unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
-      sendResponse();
-    }
+
+  } else if (request.unblockSocialWidget) {
+    var socialWidgetUrls = request.buttonUrls;
+    unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
+    sendResponse();
   }
-);
+
+});
