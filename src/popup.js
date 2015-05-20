@@ -37,6 +37,7 @@
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"]
+var i18n = chrome.i18n;
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
@@ -175,7 +176,7 @@ function _addOriginHTML(origin, printable, action) {
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
   if (action.indexOf("user") == 0) {
-    feedTheBadgerTitle = "click to return control of this tracker to Privacy Badger"; 
+    feedTheBadgerTitle = i18n.getMessage("feed_the_badger_title");
     classes.push("userset");
     action = action.substr(4);
   }
@@ -196,11 +197,14 @@ function _trim(str,max){
 
 function _badgerStatusTitle(action){
   var prefix = "";
+  var status_block = i18n.getMessage("badger_status_block");
+  var status_cookieblock = i18n.getMessage("badger_status_cookieblock");
+  var status_noaction = i18n.getMessage("badger_status_noaction");
 
   var statusMap = { 
-    block:        "This tracker is blocked, slide to unblock tracker or block cookies.",
-    cookieblock:  "This tracker's cookies are blocked, slide to block or unblock tracker.",
-    noaction:     "This domain is unblocked, slide to block entirely or block cookies."
+    block:        status_block,
+    cookieblock:  status_cookieblock,
+    noaction:     status_noaction
   }
 
   return prefix + statusMap[action];
@@ -271,7 +275,7 @@ function refreshPopup(tabId) {
   var origins = getAllOriginsForTab(tabId);
   if (!origins || origins.length == 0) {
     hideNoInitialBlockingLink();
-    $("#blockedResources").html("Could not detect any tracking cookies.");
+    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
     return;
   }
   // old text that could go in printable:

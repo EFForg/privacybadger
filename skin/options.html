@@ -28,7 +28,7 @@
 <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
 <script type="text/javascript" src="/lib/options.js" charset="utf-8"></script>
 <script type="text/javascript" src="/src/cookieblocklist.js"></script>
-<title>Privacy Badger options</title>
+<title class="i18n_options_title"></title>
 <style type="text/css" media="screen">
 body
 {
@@ -147,8 +147,8 @@ button
 <div id="tabs">
   <ul>
     <li><a href="#tab-whitelisted"><span class="i18n_whitelisted_domains"></span></a></li>
-    <li><a href="#tab-pb-status"><span class="">User Filter Settings</span></a></li>
-    <li><a href="#tab-social-widget"><span class="">Social Widget Settings</span></a></li>
+    <li><a href="#tab-pb-status"><span class="i18n_options_filter_settings"></span></a></li>
+    <li><a href="#tab-social-widget"><span class="i18n_options_social_settings"></span></a></li>
   </ul>
 
   <div id="tab-whitelisted">
@@ -182,15 +182,15 @@ button
 
     
     <div id="blockedResourcesContainer">
-      <p id="pbInstructions"> Privacy Badger is protecting you across the web! These sliders let you control how privacy badger handles each tracker that it's flagged through your browsing.<sup><a id="supQuest" target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers">?</a></sup></p>
+        <p id="pbInstructions"><span class="i18n_options_slider_text"> </span><sup><a id="supQuest" target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers">?</a></sup></p>
       <div class="spacer"></div>
-      <div id="blockedResources">Loading...</div>
+      <div id="blockedResources"><span class="i18n_options_loading"></span></div>
     </div>
   </div>
 
   <div id="tab-social-widget">
-    <center><button id="deactivate_socialwidget_btn" class="control-button grey-button" style="display:"> Disable Social Widget Replacement</button></center>
-    <center><button id="activate_socialwidget_btn" class="control-button red-button" style="display:none"> Enable Social Widget Replacement</button></center>
+      <center><button id="deactivate_socialwidget_btn" class="control-button grey-button" style="display:"><span class="i18n_options_social_disable"></span></button></center>
+    <center><button id="activate_socialwidget_btn" class="control-button red-button" style="display:none"> <span class="i18n_options_social_enable"></span></button></center>
   </div>
 
 
