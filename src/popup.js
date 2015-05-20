@@ -437,7 +437,6 @@ function syncUISelections() {
   var settingsDict = buildSettingsDict();
   console.log("Sync of userset options: " + JSON.stringify(settingsDict));
   var tabId = syncSettingsDict(settingsDict)
-  settingsDict = null;
   if (tabId){
     reloadTab(tabId);
   }
