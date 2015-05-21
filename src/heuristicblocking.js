@@ -627,7 +627,6 @@ var heuristicBlockingAccounting = function(details) {
     tabOrigins[details.tabId] = origin;
     return { };
   }
-  //TODO: why isn't this preventing first parties from ending up in the popup
   else {
     var tabOrigin = tabOrigins[details.tabId];
     // Ignore first-party requests
@@ -639,25 +638,19 @@ var heuristicBlockingAccounting = function(details) {
       return { };
     }
     // Record HTTP request prevalence
-    var seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
-    var loc = -1;
-    for(var i = 0; i < seen.length; i++){
-      if(seen[i].text == origin){
-          loc = i;
-      }
+    var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
+    if (!(origin in seen)){
+      seen[origin] = {};
     }
-    if(loc == -1){
-      FilterStorage.addFilter(Filter.fromText(origin), FilterStorage.knownSubscriptions.seenThirdParties);
-      loc = FilterStorage.knownSubscriptions.seenThirdParties.filters.length - 1;
-      FilterStorage.knownSubscriptions.seenThirdParties.filters[loc]["subscriptions"].push({});
-    }
-    FilterStorage.knownSubscriptions.seenThirdParties.filters[loc]["subscriptions"][1][tabOrigin] = true;
+    seen[origin][tabOrigin] = true;
+    localStorage.setItem("seenThirdParties", JSON.stringify(seen));
+    // check to see if we've seen it on this first party, if not add a note for it
 
     // cause the options page to refresh
     FilterNotifier.triggerListeners("load");
     
     // Blocking based on outbound cookies
-    var httpRequestPrevalence = Object.keys(FilterStorage.knownSubscriptions.seenThirdParties.filters[loc]["subscriptions"][1]).length - 1;
+    var httpRequestPrevalence = Object.keys(seen[origin]).length;
   
     //block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= prevalenceThreshold) {

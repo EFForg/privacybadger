@@ -272,8 +272,7 @@ function addSubscription(prevVersion) {
   FilterStorage.addSubscription(userGreen);
 
   // Add a permanent store for seen third parties 
-  var seenThirdParties = new SpecialSubscription("seenThirdParties", "seenThirdParties");
-  FilterStorage.addSubscription(seenThirdParties);
+  localStorage.setItem("seenThirdParties", JSON.stringify({}));
 
   if (!addSubscription) {
     return;
@@ -668,12 +667,8 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
-  for(var i = 0; i < seen.length; i++){
-    if(seen[i]["text"] == getBaseDomain(origin)){
-      return true;
-    }
-  }
+  seen = JSON.parse(localStorage.getItem("seenThirdParties"));
+  return seen.hasOwnProperty(getBaseDomain(origin));
 }
 
 /**
