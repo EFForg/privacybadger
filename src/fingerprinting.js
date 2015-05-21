@@ -268,7 +268,7 @@ chrome.runtime.sendMessage({
   document.addEventListener(event_id, function (e) {
     // pass these on to the background page
     chrome.runtime.sendMessage({
-      'trapped': e.detail
+      'fpReport': e.detail
     });
   });
 

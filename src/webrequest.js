@@ -2,8 +2,12 @@
  *
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
+ *
  * Derived from Adblock Plus 
  * Copyright (C) 2006-2013 Eyeo GmbH
+ *
+ * Derived from Chameleon <https://github.com/ghostwords/chameleon>
+ * Copyright (C) 2015 ghostwords
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -45,6 +49,15 @@ var FilterStorage = require("filterStorage").FilterStorage;
 // looks like:
 /* tabData = {
   <tab_id>: {
+    scripts: {
+      <script_url>: {
+        canvas: {
+          fingerprinting: boolean,
+          write: boolean
+        }
+      },
+      ...
+    },
     frames: {
       <frame_id>: {
         url: string,
@@ -236,6 +249,57 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
     url: frameUrl,
     parent: parentFrameId
   };
+}
+
+function recordFingerprinting(tabId, msg) {
+  var CANVAS_WRITE = {
+    fillText: true,
+    strokeText: true
+  };
+  var CANVAS_READ = {
+    getImageData: true,
+    toDataURL: true
+  };
+
+  if (!tabData[tabId].hasOwnProperty('scripts')) {
+    tabData[tabId].scripts = {};
+  }
+
+  var script_url = msg.scriptUrl;
+
+  // initialize script-level data
+  if (!tabData[tabId].scripts.hasOwnProperty(script_url)) {
+    tabData[tabId].scripts[script_url] = {
+      canvas: {
+        fingerprinting: false,
+        write: false
+      }
+    };
+  }
+  var scriptData = tabData[tabId].scripts[script_url];
+
+  if (msg.extra.hasOwnProperty('canvas')) {
+    if (scriptData.canvas.fingerprinting) {
+      return;
+    }
+
+    // if this script already had a canvas write
+    if (scriptData.canvas.write) {
+      // and if this is a canvas read
+      if (CANVAS_READ.hasOwnProperty(msg.prop)) {
+        // and it got enough data
+        if (msg.extra.width > 16 && msg.extra.height > 16) {
+          // let's call it fingerprinting
+          scriptData.canvas.fingerprinting = true;
+
+          // TODO mark this is a strike
+        }
+      }
+      // this is a canvas write
+    } else if (CANVAS_WRITE.hasOwnProperty(msg.prop)) {
+      scriptData.canvas.write = true;
+    }
+  }
 }
 
 function getFrameData(tabId, frameId) {
@@ -445,9 +509,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
     sendResponse();
 
-  } else if (request.trapped) {
-    // TODO
-    console.log(request.trapped);
+  // canvas fingerprinting
+  } else if (request.fpReport) {
+    if (Array.isArray(request.fpReport)) {
+      request.fpReport.forEach(function (msg) {
+        recordFingerprinting(sender.tab.id, msg);
+      });
+    } else {
+      recordFingerprinting(sender.tab.id, request.fpReport);
+    }
   }
 
 });
