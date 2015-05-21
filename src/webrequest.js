@@ -418,6 +418,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var socialWidgetUrls = request.buttonUrls;
     unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
     sendResponse();
+
+  } else if (request.trapped) {
+    // TODO
+    console.log(request.trapped);
   }
 
 });
