@@ -570,7 +570,7 @@ var hasTracking = function(details, origin) {
   return (hasCookieTracking(details, origin) || hasSupercookieTracking(details, origin));
 }
 
-var hasSupercookieTracking(details, origin) {
+var hasSupercookieTracking = function(details, origin) {
   return false;
 }
 
