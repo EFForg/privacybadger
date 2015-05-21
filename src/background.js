@@ -356,8 +356,8 @@ function openOptions(callback) {
  * @return {Integer} frameId 
  */
 function getFrameId(tabId, url) {
-  if (tabId in frames) {
-    for (var f in frames[tabId]) {
+  if (tabId in tabData) {
+    for (var f in tabData[tabId].frames) {
       if (getFrameUrl(tabId, f) == url) {
         return f;
       }
@@ -709,27 +709,6 @@ function userConfiguredOriginCount(tabId){
 }
 
 /**
- * Gets the host name for a given tab id
- * @param {Integer} tabId chrome tab id
- * @return {String} the host name for the tab
- */
-function getHostForTab(tabId){
-  var mainFrameIdx = 0;
-  if (!frames[tabId]) {
-    return undefined;
-  }
-  if (_isTabAnExtension(tabId)) {
-    // If the tab is an extension get the url of the first frame for its implied URL 
-    // since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
-  }
-  if (!frames[tabId][mainFrameIdx]) {
-    return undefined;
-  }
-  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
-}
-
-/**
  * Update page action badge with current count
  * @param {Object} details details object from onBeforeRequest event
  */
@@ -760,12 +739,17 @@ chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*",
 */
 function updateTabList(){
   console.log('update tabs!');
-  // Initialize the frames object if it is falsey
-  frames = frames || {};
+  // Initialize the tabData/frames object if it is falsey
+  tabData = tabData || {};
   chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
     for(var i = 0; i < tabs.length; i++){
       var tab = tabs[i];
-      frames[tab.id] = {0: {parent: -1, url: tab.url} };
+      tabData[tab.id].frames = {
+        0: {
+          parent: -1,
+          url: tab.url
+        }
+      };
     }
   });
 

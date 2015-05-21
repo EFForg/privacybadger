@@ -40,7 +40,23 @@ var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
 var FilterStorage = require("filterStorage").FilterStorage;
-var frames = {};
+
+// per-tab data that gets cleaned up on tab closing
+// looks like:
+/* tabData = {
+  <tab_id>: {
+    frames: {
+      <frame_id>: {
+        url: string,
+        parent: int
+      },
+      ...
+    }
+  },
+  ...
+} */
+var tabData = {};
+
 var onFilterChangeTimeout = null;
 var importantNotifications = {
   'filter.added': true,
@@ -145,20 +161,25 @@ function onBeforeRequest(details){
 
 }
 
+/**
+ * Gets the host name for a given tab id
+ * @param {Integer} tabId chrome tab id
+ * @return {String} the host name for the tab
+ */
 function getHostForTab(tabId){
   var mainFrameIdx = 0;
-  if(!frames[tabId]){
+  if (!tabData[tabId]) {
     return;
   }
-  if(_isTabAnExtension(tabId)){
-    //if the tab is an extension get the url of the first frame for its implied URL
-    //since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
+  if (_isTabAnExtension(tabId)) {
+    // If the tab is an extension get the url of the first frame for its implied URL 
+    // since the url of frame 0 will be the hash of the extension key
+    mainFrameIdx = Object.keys(tabData[tabId].frames)[1] || 0;
   }
-  if(!frames[tabId][mainFrameIdx]){
+  if (!tabData[tabId].frames[mainFrameIdx]) {
     return;
   }
-  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
+  return extractHostFromURL(tabData[tabId].frames[mainFrameIdx].url);
 }
 
 function onBeforeSendHeaders(details) {
@@ -206,18 +227,23 @@ function onHeadersReceived(details){
 }
 
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
-  if (frames[tabId] == undefined){
-    frames[tabId] = {};
+  if (!tabData.hasOwnProperty(tabId)){
+    tabData[tabId] = {
+      frames: {}
+    };
   }
-  frames[tabId][frameId] = {url: frameUrl, parent: parentFrameId};
+  tabData[tabId].frames[frameId] = {
+    url: frameUrl,
+    parent: parentFrameId
+  };
 }
 
 function getFrameData(tabId, frameId) {
-  if (tabId in frames && frameId in frames[tabId]){
-    return frames[tabId][frameId];
-  } else if (frameId > 0 && tabId in frames && 0 in frames[tabId]) {
+  if (tabId in tabData && frameId in tabData[tabId].frames){
+    return tabData[tabId].frames[frameId];
+  } else if (frameId > 0 && tabId in tabData && 0 in tabData[tabId].frames) {
     // We don't know anything about javascript: or data: frames, use top frame
-    return frames[tabId][0];
+    return tabData[tabId].frames[0];
   }
   return null;
 }
@@ -230,7 +256,7 @@ function getFrameUrl(tabId, frameId) {
 function forgetTab(tabId) {
   console.log('forgetting tab', tabId);
   activeMatchers.removeTab(tabId);
-  delete frames[tabId];
+  delete tabData[tabId];
   delete temporarySocialWidgetUnblock[tabId];
 }
 
@@ -273,9 +299,9 @@ function checkAction(tabId, url, quiet, frameId){
 }
 
 function _frameUrlStartsWith(tabId, piece){
-  return frames[tabId] &&
-    frames[tabId][0] &&
-    (frames[tabId][0].url.indexOf(piece) === 0);
+  return tabData[tabId] &&
+    tabData[tabId].frames[0] &&
+    (tabData[tabId].frames[0].url.indexOf(piece) === 0);
 }
 
 function _isTabChromeInternal(tabId){
