@@ -29,10 +29,6 @@ function getPageScript() {
 
     var event_id = document.currentScript.getAttribute('data-event-id');
 
-    function log() {
-      console.log.apply(console, arguments);
-    }
-
     // from Underscore v1.6.0
     function debounce(func, wait, immediate) {
       var timeout, args, context, timestamp, result;
@@ -165,8 +161,6 @@ function getPageScript() {
           if (item.hasOwnProperty('extra')) {
             msg.extra = item.extra.apply(this, args);
           }
-
-          log("%s.%s prop access: %s", item.objName, item.propName, script_url);
 
           send(msg);
 
