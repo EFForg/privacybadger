@@ -371,6 +371,7 @@ function getFrameId(tabId, url) {
  */
 function setupCookieBlocking(domain){
   var baseDomain = getBaseDomain(domain);
+  // TODO should domain be baseDomain, or is the line above unnecessary?
   CookieBlockList.addDomain(domain);
 }
 
