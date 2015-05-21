@@ -566,8 +566,16 @@ var extractCookieString = function(details) {
   return cookies;
 }
 
-const MAX_COOKIE_ENTROPY = 12;
 var hasTracking = function(details, origin) {
+  return (hasCookieTracking(details, origin) || hasSupercookieTracking(details, origin));
+}
+
+var hasSupercookieTracking(details, origin) {
+  return false;
+}
+
+const MAX_COOKIE_ENTROPY = 12;
+var hasCookieTracking = function(details, origin) {
   // @details are those from onBeforeSendHeaders
 
   var cookies = extractCookieString(details);
