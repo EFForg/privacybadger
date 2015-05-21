@@ -192,38 +192,25 @@ function getPageScript() {
       };
 
       if (method == 'getImageData') {
-        item.extra = (function (getImageDataOrig, toDataURLOrig) {
-          return function () {
-            var args = arguments,
-              width = args[2],
-              height = args[3];
+        item.extra = function () {
+          var args = arguments,
+            width = args[2],
+            height = args[3];
 
-            // "this" is a CanvasRenderingContext2D object
-            if (width === undefined) {
-              width = this.canvas.width;
-            }
-            if (height === undefined) {
-              height = this.canvas.height;
-            }
+          // "this" is a CanvasRenderingContext2D object
+          if (width === undefined) {
+            width = this.canvas.width;
+          }
+          if (height === undefined) {
+            height = this.canvas.height;
+          }
 
-            return {
-              canvas: true,
-              dataURL: (function () {
-                var el = document.createElement('canvas');
-                el.width = width;
-                el.height = height;
-                el.getContext('2d').putImageData(
-                  getImageDataOrig.call(
-                    this, 0, 0, width, height
-                  ), 0, 0
-                );
-                return toDataURLOrig.call(el);
-              }.call(this)),
-              width: width,
-              height: height
-            };
+          return {
+            canvas: true,
+            width: width,
+            height: height
           };
-        }(CanvasRenderingContext2D.prototype.getImageData, HTMLCanvasElement.prototype.toDataURL));
+        };
       }
 
       methods.push(item);
@@ -233,17 +220,14 @@ function getPageScript() {
       objName: 'HTMLCanvasElement.prototype',
       propName: 'toDataURL',
       obj: HTMLCanvasElement.prototype,
-      extra: (function (toDataURLOrig) {
-        return function () {
-          // "this" is a canvas element
-          return {
-            canvas: true,
-            dataURL: toDataURLOrig.call(this),
-            width: this.width,
-            height: this.height
-          };
+      extra: function () {
+        // "this" is a canvas element
+        return {
+          canvas: true,
+          width: this.width,
+          height: this.height
         };
-      }(HTMLCanvasElement.prototype.toDataURL))
+      }
     });
 
     methods.forEach(trapInstanceMethod);
