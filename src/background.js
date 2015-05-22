@@ -745,10 +745,12 @@ function updateTabList(){
   chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
     for(var i = 0; i < tabs.length; i++){
       var tab = tabs[i];
-      tabData[tab.id].frames = {
-        0: {
-          parent: -1,
-          url: tab.url
+      tabData[tab.id] = {
+        frames: {
+          0: {
+            parent: -1,
+            url: tab.url
+          }
         }
       };
     }
