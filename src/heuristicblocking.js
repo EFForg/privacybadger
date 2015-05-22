@@ -646,19 +646,19 @@ var heuristicBlockingAccounting = function(details) {
       return { };
     }
     // Record HTTP request prevalence
-    var seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
+    var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
     if (!(origin in seen)){
-       seen[origin] = { };
+      seen[origin] = {};
     }
     seen[origin][tabOrigin] = true;
+    localStorage.setItem("seenThirdParties", JSON.stringify(seen));
+    // check to see if we've seen it on this first party, if not add a note for it
+
     // cause the options page to refresh
     FilterNotifier.triggerListeners("load");
     
     // Blocking based on outbound cookies
-    var httpRequestPrevalence = 0;
-    if (origin in seen){
-        httpRequestPrevalence = Object.keys(seen[origin]).length;
-    }
+    var httpRequestPrevalence = Object.keys(seen[origin]).length;
   
     //block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= prevalenceThreshold) {

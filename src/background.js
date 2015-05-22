@@ -272,8 +272,8 @@ function addSubscription(prevVersion) {
   FilterStorage.addSubscription(userGreen);
 
   // Add a permanent store for seen third parties 
-  var seenThirdParties = new SpecialSubscription("seenThirdParties", "seenThirdParties");
-  FilterStorage.addSubscription(seenThirdParties);
+  // TODO: Does this go away when the extension is updated?
+  localStorage.setItem("seenThirdParties", JSON.stringify({}));
 
   if (!addSubscription) {
     return;
@@ -669,7 +669,8 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  return FilterStorage.knownSubscriptions.seenThirdParties.filters.hasOwnProperty(getBaseDomain(origin));
+  var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
+  return seen.hasOwnProperty(getBaseDomain(origin));
 }
 
 /**
