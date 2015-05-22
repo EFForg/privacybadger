@@ -626,7 +626,7 @@ var heuristicBlockingAccounting = function(details) {
     return { };
   }
   
-  var fqdn = new URI(details.url).host
+  var fqdn = new URI(details.url).host;
   var origin = getBaseDomain(fqdn);
   
   // Save the origin associated with the tab if this is a main window request
@@ -645,28 +645,32 @@ var heuristicBlockingAccounting = function(details) {
     if (!hasTracking(details, origin)){
       return { };
     }
-    // Record HTTP request prevalence
-    var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
-    if (!(origin in seen)){
-      seen[origin] = {};
-    }
-    seen[origin][tabOrigin] = true;
-    localStorage.setItem("seenThirdParties", JSON.stringify(seen));
-    // check to see if we've seen it on this first party, if not add a note for it
-
-    // cause the options page to refresh
-    FilterNotifier.triggerListeners("load");
-    
-    // Blocking based on outbound cookies
-    var httpRequestPrevalence = Object.keys(seen[origin]).length;
-  
-    //block the origin if it has been seen on multiple first party domains
-    if (httpRequestPrevalence >= prevalenceThreshold) {
-      console.log('blacklisting origin', fqdn);
-      blacklistOrigin(origin, fqdn);
-    }
+    recordPrevalence(fqdn, origin, tabOrigin);
   }
 };
+
+function recordPrevalence(fqdn, origin, tabOrigin) {
+  // Record HTTP request prevalence
+  var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
+  if (!(origin in seen)){
+    seen[origin] = {};
+  }
+  seen[origin][tabOrigin] = true;
+  localStorage.setItem("seenThirdParties", JSON.stringify(seen));
+  // check to see if we've seen it on this first party, if not add a note for it
+
+  // cause the options page to refresh
+  FilterNotifier.triggerListeners("load");
+  
+  // Blocking based on outbound cookies
+  var httpRequestPrevalence = Object.keys(seen[origin]).length;
+
+  //block the origin if it has been seen on multiple first party domains
+  if (httpRequestPrevalence >= prevalenceThreshold) {
+    console.log('blacklisting origin', fqdn);
+    blacklistOrigin(origin, fqdn);
+  }
+}
 
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   return heuristicBlockingAccounting(details);

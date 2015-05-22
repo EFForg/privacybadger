@@ -253,8 +253,9 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
 
 function recordFingerprinting(tabId, msg) {
   // ignore first-party scripts
-  var script_host = extractHostFromURL(msg.scriptUrl);
-  if (!isThirdParty(script_host, extractHostFromURL(getFrameUrl(tabId, 0)))) {
+  var script_host = extractHostFromURL(msg.scriptUrl),
+    document_host = extractHostFromURL(getFrameUrl(tabId, 0));
+  if (!isThirdParty(script_host, document_host)) {
     return;
   }
 
@@ -298,7 +299,9 @@ function recordFingerprinting(tabId, msg) {
           // let's call it fingerprinting
           scriptData.canvas.fingerprinting = true;
 
-          // TODO mark this is a strike
+          // mark this is a strike
+          recordPrevalence(
+            script_host, script_origin, getBaseDomain(document_host));
         }
       }
       // this is a canvas write
