@@ -287,7 +287,7 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
  * Actually do the work of replacing the button.
  */
 function replaceIndividualButton(tracker) {
-  console.log("replacing tracker button for " + tracker.name);
+  // console.log("replacing tracker button for " + tracker.name);
 
   // makes a comma separated list of CSS selectors that specify
   // buttons for the current tracker; used for document.querySelectorAll
