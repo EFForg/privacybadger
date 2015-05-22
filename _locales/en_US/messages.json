@@ -29,6 +29,9 @@
     "new_filters_added": {
         "message": "New filters added; see <a id='options_url' target='_blank'>Options</a> to manage them."
     },
+    "non_tracker": {
+        "message": "The domains below don't read or set cookies"
+    },
     "options_filter_settings": {
         "message": "User Filter Settings"
     },

@@ -289,13 +289,24 @@ function refreshPopup(tabId) {
     '<div class="tooltipContainer"></div>' +
     '</div></div>'+
     '<div class="spacer"></div><div class="clickerContainer">';
+  var nonTracking = [];
   origins.sort(compareReversedDomains);
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     var action = getAction(tabId, origin);
-    if(!action){ continue; }
+    if(!action){ 
+        nonTracking.push(origin);
+        continue; 
+    }
     printable = _addOriginHTML(origin, printable, action);
+  }
+  var nonTrackerText = i18n.getMessage("non_tracker");
+  printable = printable +
+      '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
+  for (var i = 0; i < nonTracking.length; i++){
+    origin = nonTracking[i];
+    printable = _addOriginHTML(origin, printable, "noaction");
   }
   printable += "</div>"
   $("#blockedResources").empty();
