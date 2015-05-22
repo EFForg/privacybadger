@@ -49,8 +49,8 @@ var FilterStorage = require("filterStorage").FilterStorage;
 // looks like:
 /* tabData = {
   <tab_id>: {
-    scripts: {
-      <script_url>: {
+    fpData: {
+      <script_origin>: {
         canvas: {
           fingerprinting: boolean,
           write: boolean
@@ -252,6 +252,12 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
 }
 
 function recordFingerprinting(tabId, msg) {
+  // ignore first-party scripts
+  var script_host = extractHostFromURL(msg.scriptUrl);
+  if (!isThirdParty(script_host, extractHostFromURL(getFrameUrl(tabId, 0)))) {
+    return;
+  }
+
   var CANVAS_WRITE = {
     fillText: true,
     strokeText: true
@@ -261,22 +267,22 @@ function recordFingerprinting(tabId, msg) {
     toDataURL: true
   };
 
-  if (!tabData[tabId].hasOwnProperty('scripts')) {
-    tabData[tabId].scripts = {};
+  if (!tabData[tabId].hasOwnProperty('fpData')) {
+    tabData[tabId].fpData = {};
   }
 
-  var script_url = msg.scriptUrl;
+  var script_origin = getBaseDomain(script_host);
 
-  // initialize script-level data
-  if (!tabData[tabId].scripts.hasOwnProperty(script_url)) {
-    tabData[tabId].scripts[script_url] = {
+  // initialize script TLD-level data
+  if (!tabData[tabId].fpData.hasOwnProperty(script_origin)) {
+    tabData[tabId].fpData[script_origin] = {
       canvas: {
         fingerprinting: false,
         write: false
       }
     };
   }
-  var scriptData = tabData[tabId].scripts[script_url];
+  var scriptData = tabData[tabId].fpData[script_origin];
 
   if (msg.extra.hasOwnProperty('canvas')) {
     if (scriptData.canvas.fingerprinting) {
