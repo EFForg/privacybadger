@@ -272,6 +272,7 @@ function addSubscription(prevVersion) {
   FilterStorage.addSubscription(userGreen);
 
   // Add a permanent store for seen third parties 
+  // TODO: Does this go away when the extension is updated?
   localStorage.setItem("seenThirdParties", JSON.stringify({}));
 
   if (!addSubscription) {
@@ -667,7 +668,7 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  seen = JSON.parse(localStorage.getItem("seenThirdParties"));
+  var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
   return seen.hasOwnProperty(getBaseDomain(origin));
 }
 

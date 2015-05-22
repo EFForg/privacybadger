@@ -264,7 +264,7 @@ function checkAction(tabId, url, quiet, frameId){
 
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
-    seen = JSON.parse(localStorage.getItem("seenThirdParties"));
+    var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
 
     if(!action && seen[origin]) {
       action = "noaction";
