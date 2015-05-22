@@ -42,7 +42,8 @@
     {
       "js": [
         "src/include.preload.js",
-        "src/clobbercookie.js"
+        "src/clobbercookie.js",
+        "src/fingerprinting.js"
       ], 
       "matches": [
         "<all_urls>"
