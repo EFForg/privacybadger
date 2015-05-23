@@ -31,19 +31,40 @@
 		}
 	},
 
-	"Facebook": {
+	"FacebookLike": {
 		"domain": "www.facebook.com",
 		"buttonSelectors": [
 			"fb\\:like",
 			"iframe[src*='://www.facebook.com/plugins/like.php']",
+			"iframe[src*='://www.facebook.com/v2.0/plugins/like.php']",
 			".fb-like"
 		],
 		"replacementButton": {
 			"details": "https://www.facebook.com/plugins/like.php?href=",
 			"unblockDomains": [
-                                "https://www.facebook.com/plugins/like.php?href="
+                                "https://www.facebook.com/plugins/like.php?href=",
+                                "https://www.facebook.com/v2.0/plugins/like.php?href="
                         ],
-			"imagePath": "Facebook.svg",
+			"imagePath": "FacebookLike.svg",
+			"type": 1
+		}
+	},
+
+	"FacebookShare": {
+		"domain": "www.facebook.com",
+		"buttonSelectors": [
+			"fb\\:share_button",
+			"iframe[src*='://www.facebook.com/plugins/share_button.php']",
+			"iframe[src*='://www.facebook.com/v2.0/plugins/share_button.php']",
+			".fb-share-button"
+		],
+		"replacementButton": {
+			"details": "https://www.facebook.com/plugins/share_button.php?href=",
+			"unblockDomains": [
+                                "https://www.facebook.com/plugins/share_button.php?href=",
+                                "https://www.facebook.com/v2.0/plugins/share_button.php?href="
+                        ],
+			"imagePath": "FacebookShare.svg",
 			"type": 1
 		}
 	},
@@ -52,16 +73,17 @@
 		"domain": "apis.google.com",
 		"buttonSelectors": [
 			"g\\:plusone",
-			".g-plusone"
+			".g-plusone",
+			"#___plusone_0"
 		],
 		"replacementButton": {
-			"details": "https://plusone.google.com/_/+1/fastbutton?url=",
+			"details": "https://plusone.google.com/se/0/_/+1/fastbutton?url=",
 			"unblockDomains": [
-				"https://plusone.google.com/_/+1/fastbutton?url=",
+				"https://plusone.google.com/se/0/_/+1/fastbutton?url=",
 				"http://clients6.google.com/",
 				"http://apis.google.com/"
                         ],
-			"imagePath": "Google Plus.svg",
+			"imagePath": "GooglePlus.svg",
 			"type": 1
 		}
 	},
