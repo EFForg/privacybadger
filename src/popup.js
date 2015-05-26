@@ -36,7 +36,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"]
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"];
 var i18n = chrome.i18n;
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
@@ -62,8 +62,7 @@ var Utils = require("utils").Utils;
 
 var tab = null;
 
-function init()
-{
+function init() {
   console.log("Initializing popup.js");
   // Attach event listeners
   $("#activate_btn").click(activate);
@@ -151,7 +150,7 @@ function revertDomainControl(e){
                 'cookieblock': 'userYellow', 
                 'noaction': 'userGreen'};
   var filter = "||" + origin + "^$third-party";
-  var siteFilter = "@@||" + origin + "^$third-party,domain=" + getHostForTab(tabId)
+  var siteFilter = "@@||" + origin + "^$third-party,domain=" + getHostForTab(tabId);
   var store = stores[original_action];
   removeFilter(store,filter);
   removeFilter(store,siteFilter);
@@ -175,7 +174,7 @@ function _addOriginHTML(origin, printable, action) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
-  if (action.indexOf("user") == 0) {
+  if (action.indexOf("user") === 0) {
     feedTheBadgerTitle = i18n.getMessage("feed_the_badger_title");
     classes.push("userset");
     action = action.substr(4);
@@ -205,7 +204,7 @@ function _badgerStatusTitle(action){
     block:        status_block,
     cookieblock:  status_cookieblock,
     noaction:     status_noaction
-  }
+  };
 
   return prefix + statusMap[action];
 }
@@ -214,7 +213,7 @@ function _addToggleHtml(origin, action){
   var idOrigin = origin.replace(/\./g,'-');
   var output = "";
   output += '<div class="switch-container ' + action + '">';
-  output += '<div class="switch-toggle switch-3 switch-candy">'
+  output += '<div class="switch-toggle switch-3 switch-candy">';
   output += '<input id="block-' + idOrigin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + idOrigin + '" data-origin="' + origin + '" data-action="block"></label>';
   output += '<input id="cookieblock-' + idOrigin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + idOrigin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
   output += '<input id="noaction-' + idOrigin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label tooltip="click here to allow this tracker" class="actionToggle" for="noaction-' + idOrigin + '" data-origin="' + origin + '" data-action="noaction"></label>';
@@ -227,7 +226,7 @@ function _checked(name, action){
   } else {
     return '';
   }
-};
+}
 function toggleBlockedStatus(elt,status) {
   console.log('toggle blocked status', elt, status);
   if(status){
@@ -274,7 +273,7 @@ function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + tabId);
   //TODO this is calling get action and then being used to call get Action
   var origins = getAllOriginsForTab(tabId);
-  if (!origins || origins.length == 0) {
+  if (!origins || origins.length === 0) {
     hideNoInitialBlockingLink();
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
     return;
@@ -305,10 +304,10 @@ function refreshPopup(tabId) {
   printable = printable +
       '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
   for (var i = 0; i < nonTracking.length; i++){
-    origin = nonTracking[i];
+    var origin = nonTracking[i];
     printable = _addOriginHTML(origin, printable, "noaction");
   }
-  printable += "</div>"
+  printable += "</div>";
   $("#blockedResources").empty();
   $("#blockedResources").html(printable);
   $('.switch-toggle').each(function(){
@@ -326,7 +325,7 @@ function refreshPopup(tabId) {
         radios.filter("[value=" + ui.value + "]").click();
       },
       stop: function(event, ui){
-        $(ui.handle).css('margin-left', -16 * ui.value + "px")
+        $(ui.handle).css('margin-left', -16 * ui.value + "px");
       },
     }).appendTo(this);
     radios.change(function(){
@@ -371,7 +370,7 @@ var tooltipDelay = 300;
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var displayTipTimer = setTimeout(function(){
-    if($elm.attr('tooltip').length == 0){ return; }
+    if($elm.attr('tooltip').length === 0){ return; }
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
     if($container.length === 0){
       $container = $elm.siblings('.tooltipContainer');
@@ -380,7 +379,7 @@ function displayTooltip(event){
     $container.show();
     $container.siblings('.tooltipArrow').show();
   },tooltipDelay);
-  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer)}); 
+  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);}); 
 }
 
 function hideTooltip(event){
@@ -395,7 +394,7 @@ function hideTooltip(event){
     $container.hide();
     $container.siblings('.tooltipArrow').hide();
   },tooltipDelay);
-  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer)});
+  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer);});
 }
 
 function syncSettingsDict(settingsDict) {
@@ -445,7 +444,7 @@ function buildSettingsDict() {
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
   console.log("Sync of userset options: " + JSON.stringify(settingsDict));
-  var tabId = syncSettingsDict(settingsDict)
+  var tabId = syncSettingsDict(settingsDict);
   if (tabId){
     reloadTab(tabId);
   }
