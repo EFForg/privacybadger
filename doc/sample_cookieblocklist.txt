@@ -455,3 +455,4 @@
 @@||cardinalcommerce.com^$third-party
 @@||archive.org^$third-party
 @@||betterttv.net^$third-party
+@@||salsalabs.com^$third-party
