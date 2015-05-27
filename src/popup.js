@@ -4,7 +4,6 @@
  * Derived from Adblock Plus 
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
- * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
  * published by the Free Software Foundation.
  *
@@ -183,7 +182,7 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
   
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
 }
 
 function _trim(str,max){
@@ -276,6 +275,7 @@ function refreshPopup(tabId) {
   if (!origins || origins.length === 0) {
     hideNoInitialBlockingLink();
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
+  $('#number_trackers').text('0');
     return;
   }
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
@@ -290,6 +290,7 @@ function refreshPopup(tabId) {
     '<div class="spacer"></div><div class="clickerContainer">';
   var nonTracking = [];
   origins.sort(compareReversedDomains);
+  originCount = 0;
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
@@ -298,6 +299,7 @@ function refreshPopup(tabId) {
         nonTracking.push(origin);
         continue; 
     }
+    originCount++;
     printable = _addOriginHTML(origin, printable, action);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
@@ -307,6 +309,7 @@ function refreshPopup(tabId) {
     var origin = nonTracking[i];
     printable = _addOriginHTML(origin, printable, "noaction");
   }
+  $('#number_trackers').text(originCount);
   printable += "</div>";
   $("#blockedResources").empty();
   $("#blockedResources").html(printable);
