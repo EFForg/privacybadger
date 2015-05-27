@@ -453,3 +453,4 @@
 @@||wwwimages.adobe.com^$third-party
 @@||governmentjobs.com^$third-party
 @@||cardinalcommerce.com^$third-party
+@@||archive.org^$third-party
