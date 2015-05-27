@@ -452,3 +452,7 @@
 @@||xsdownload.adobe.com^$third-party
 @@||wwwimages.adobe.com^$third-party
 @@||governmentjobs.com^$third-party
+@@||cardinalcommerce.com^$third-party
+@@||archive.org^$third-party
+@@||betterttv.net^$third-party
+@@||salsalabs.com^$third-party
