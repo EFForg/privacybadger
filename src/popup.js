@@ -68,8 +68,20 @@ function init() {
   $("#deactivate_btn").click(deactivate);
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
+  $("#error_input").attr("placeholder", i18n.getMessage("error_input"));
   //$("#enabled").click(toggleEnabled);
-  
+  var overlay = $('#overlay');
+  $("#error").click(function(){
+      overlay.toggleClass('active');
+  });
+  $("#report_cancel").click(function(){
+      overlay.toggleClass('active');
+  });
+  $("#report_button").click(function(){
+      send_error($("#error_input").val());
+      overlay.toggleClass('active');
+  });
+
   // Initialize based on activation state
   $(document).ready(function () {
     if(!Utils.isPrivacyBadgerEnabled()) {
@@ -99,6 +111,27 @@ function init() {
   });
 }
 $(init);
+
+function send_error(message) {
+  var browser = window.navigator.userAgent;
+  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  var origins = getAllOriginsForTab(tabId);
+  if(!origins){ return; }
+  var out = {"browser":browser, "tab":tab.url, "message":message};
+  for (var i = 0; i < origins.length; i++){
+     var origin = origins[i];
+     var action = getAction(tabId, origin);
+     if (!action){ action = "notracking"; }
+     out[origin] = action;
+  }
+  var out_data = JSON.stringify(out);
+  $.ajax({
+    type: "POST",
+    url: "https://privacybadger.org/reporting",
+    data: out_data,
+    contentType: "application/json"
+  });
+}
 
 function activate() {
   $("#activate_btn").toggle();

@@ -32,11 +32,17 @@
 
 </head>
 <body id="main">
-
+    <div id="overlay">
+        <p id="report_text" class="i18n_report_text"></p>
+        <input type="text" id="error_input" maxlength="300" placeholder="What's wrong?"><br>
+        <button id="report_button" class="i18n_report_button"></button><button id="report_cancel" class="i18n_report_cancel"></button>
+        <p id="report_terms" class="i18n_report_terms"></p>
+    </div>
 <div id="mustReloadMsg" style="display:none"><span class="i18n_new_filters_added"></span></div>
 
 <div id='privacyBadgerHeader'>
   <a id="options" href='/skin/options.html' class="control-button grey-button" stlye="display:block" target="blank"><img src='/icons/options.png'></a>
+    <a id="error" class="control-button grey-button" stlye="display:block" target="blank">Report Error</a>
     <div id='title'><img src='/icons/badger-48.png'> <h2><span class="i18n_privacy_badger"></span></h2></div>
   <div class='clear'></div>
 </div>
