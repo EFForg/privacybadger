@@ -14,10 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+ /*adjoining-classes:ignore*/
+ /*csslint ids:ignore*/
 body {
-  font-size: 14px;
   min-width: 390px;
+  font-size: 14px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
@@ -29,7 +30,6 @@ a:hover { color: #eeeeff }
 #filtersList {
   border: 1px dotted gray;
   padding: 1px;
-  font-size: 75%;
   display: none;
 }
 
@@ -43,10 +43,6 @@ a:hover { color: #eeeeff }
   display: block;
   clear: both;
 }
-#supQuest{
-color: #4183c4;
-border-bottom; 1px dotted #4183c4;
-}
 
 .click-nav ul {position:relative;font-weight:900;list-style-type:none;}
 .click-nav ul li {position:relative;list-style:none;cursor:pointer;}
@@ -55,14 +51,9 @@ border-bottom; 1px dotted #4183c4;
 .click-nav ul .clicker:hover,.click-nav ul .active {background:#196F9A;}
 .click-nav .imglink img {position:absolute;top:9px;left:12px;}
 .click-nav ul li a {transition:background-color 0.2s ease-in-out;-webkit-transition:background-color 0.2s ease-in-out;
+-o-transition:background-color 0.2s ease-in-out;
 -moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
 .click-nav ul li a:hover {background:#F2F2F2;}
-/*.click-nav ul .block {background:#FF0000;}
-.click-nav ul .block:hover {background:#BE2625;}
-.click-nav ul .cookieblock {background:#FFF200; color:black}
-.click-nav ul .cookieblock:hover {background:#FFF79A; color:black}
-.click-nav ul .greyed {background:#C0C0C0; color:gray}
-.click-nav ul .greyed:hover {background:#E0E0E0; color:gray} */
 .click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;} 
 .clicker{
   border-top: 1px solid #aaaaaa;
@@ -78,11 +69,9 @@ border-bottom; 1px dotted #4183c4;
   display: inline;
 }
 .switch-container{
-  width: 30%;
-  float: right;
-  display: inline;
-  position: relative;
-  right: 18px;
+  width: 115px;
+  display: block;
+  margin-left: 220px;
 }
 .options .switch-container{
   max-width: 114px;
@@ -107,10 +96,9 @@ border-bottom; 1px dotted #4183c4;
 .honeybadgerPowered{
   width: 20px;
   height: 20px;
-  display: inline;
-  float: right;
   position: relative;
-  right: -116px;
+  left: 345px;
+  bottom: 15px;
   cursor: pointer;
 }
 .userset .honeybadgerPowered{
@@ -125,12 +113,14 @@ background-color: #555;
 height: 12px;
 border-radius: 7px;
 padding: 3px;
-margin-top: 8px;
+position: relative;
+bottom: 30px;
+left: 0;
 }
 .tooltipArrow{
   position: relative;
-  top: 8px;
-  right: 212px;
+  bottom: 30px;
+  left: 5px;
   display: none;
 }
 #privacyBadgerHeader{
@@ -138,15 +128,14 @@ color: #505050;
 font-size: 16px;
 }
 #privacyBadgerHeader h2{
-  margin-left: 10px;
-  display: inline;
+  margin: 10px;
   float: left;
-  color: #454545;
-  font-size: 18px;
-  margin-bottom: 0;
+  color: #707070;
+  font-size: 26px;
+  font-weight: normal;
+  font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif;;
 }
 #privacyBadgerHeader img{
-  display: inline;
   float: left;
 }
 #helplink {
@@ -161,15 +150,11 @@ font-size: 16px;
   opacity: 0;
   z-index: 20;
 }
-.ui-slider a.ui-slider-handle {
+.ui-slider .ui-slider-handle {
   cursor: move;
 }
 #siteControls {
   margin-bottom: 5px;
-}
-#pbInstructions{
-  margin: -7 0 0 59px;
-  z-index: 20;
 }
 #noBlockingLink{
   text-align: center;
@@ -184,24 +169,49 @@ font-size: 16px;
   overflow-y: auto;
 }
 .key{
-  float: right;
-  margin-right: 36px;
+  position: fixed;
+  height: 25px;
+  width: 160px;
+  padding-left: 215px;
+  z-index: 30;
+  background: #fff;
 }
 .key img{
-  margin-left: 18px;
+  margin-left: 19px;
 }
 .key .tooltipContainer{
   position: absolute;
-  left: 8px;
-  top: 100px;
-}
-.clickerContainer{
-}
-.keyContainer{
-  background: #fefefe;
-  height: 23px;
-  z-index: 100;
+  left: 3px;
+  top:0;
 }
 #options{
   float: right;
+}
+.clickerContainer{
+  margin-top: 25px;
+}
+#pbInstructions{
+  color: #707070;
+  font-size: 16px;
+  margin: 0;
+}
+
+.pbButton{
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: linear-gradient(#efefef, #e0e0e0);
+  padding: 5px;
+  cursor: pointer;
+  margin: 5px 0;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+#nonTrackers {
+  text-align: center;
+  color: #f9f9f9;
+  background: #555;
+  height: 20px;
+  font-size: 14px;
+  font-weight: bold;
 }
