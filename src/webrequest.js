@@ -252,6 +252,12 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
 }
 
 function recordFingerprinting(tabId, msg) {
+  // bail if we failed to determine the originating script's URL
+  // TODO find and fix where this happens
+  if (!msg.scriptUrl) {
+    return;
+  }
+
   // ignore first-party scripts
   var script_host = extractHostFromURL(msg.scriptUrl),
     document_host = extractHostFromURL(getFrameUrl(tabId, 0));
