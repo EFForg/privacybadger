@@ -29,6 +29,9 @@
     "new_filters_added": {
         "message": "New filters added; see <a id='options_url' target='_blank'>Options</a> to manage them."
     },
+    "non_tracker": {
+        "message": "The domains below don't appear to be tracking you"
+    },
     "options_filter_settings": {
         "message": "User Filter Settings"
     },
@@ -65,8 +68,11 @@
     "popup_enable_for_site": {
         "message": "Enable Privacy Badger for This Site"
     },
+    "pb_detected": {
+      "message": "Privacy Badger detected"
+    },
     "popup_instructions": {
-        "message": "Privacy Badger is protecting you on this page. These sliders let you control how Privacy Badger handles each tracker."
+        "message": "<a href='https://www.eff.org/privacybadger#trackers'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each tracker."
     },
     "popup_noblocked": {
         "message": "Why isn't anything blocked?"

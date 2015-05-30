@@ -13,23 +13,30 @@ Privacy Badger aims to
    sites since they are in a position to collect a large fraction of the user's
    browsing history)
 
-### MECHANISM
+### PRIMARY MECHANISM
 
 Privacy Badger:
 
 1. Ensures your browser is sending the DNT: 1 header
 2. Observes which first party origins a given 3rd party origin is setting cookies on
-   (certain cookies are deemed to be "low entropy" and are not tracked, as discussed below)
-3. If a 3rd party origin requests a cookie on more than 3 first party origins,
-   this is deemed to be "cross site tracking"
+   (certain cookies are deemed to be "low entropy", as discussed below
+3. If a 3rd party origin receives a cookie, a supercookie, or makes 
+   JavaScript fingerprinting API calls on 3 or more first party origins, this is deemed to be 
+   "cross site tracking"
 4. Typically, cross site trackers are blocked completely; Privacy Badger prevents the
    browser from communicating with them.  The exception is if the site is on
-   Privacy Badger's "cookieblocklist", in which case resources from the site are
-   loaded, but with their (third party) cookies blocked.
+   Privacy Badger's "cookieblocklist" (aka the "yellow list"), in which case
+   resources from the site are loaded, but with their (third party) cookies.
+   Until methods for blocking them have been implemented, domains that perform
+   fingerprinting or use supercookies should only be added to the
+   cookieblocklist
+   (certain cookies are deemed to be "low entropy" and are not tracked, as discussed below)
 5. Users can also choose custom rules for any given domain flagged by Privacy Badger,
    overrulling any automatic decision Privacy Badger has made about the domain.
 6. Sites can agree to the EFFs Do Not Track policy. If a site does this
    Privacy Badger will no longer block their traffic or cookies.
+
+### ADDITIONAL MECHANISMS AND FUTURE ROADMAP
 
 #### What is an "origin" for Privacy Badger?
 
@@ -38,7 +45,7 @@ domain](https://wiki.mozilla.org/Public_Suffix_List)
 
 #### What is a "low entropy" cookie?
 
-Our current heuristic is to assign "number of identifying bits" estimates to
+Our [current heuristic](https://github.com/EFForg/privacybadgerchrome/blob/master/src/heuristicblocking.js#L588) is to assign "number of identifying bits" estimates to
 some known common cookie values, and to bound the sum of these to 12.
 Predetermined low-entropy cookies will not be identified as tracking, nor will
 combinations of them so long as their total length is under 12 bits.
@@ -64,24 +71,34 @@ It can be read in full [here](https://www.eff.org/dnt-policy).
 Sites can agree to this policy by posting at https://subdomain.example.com/.well-known/dnt-policy.txt, 
 where "subdomain" is any domain to which the policy applies, for a given third party.
 
-## ROADMAP
+#### Widget Handling
 
-### Supercookie detection & processing
+Many social media widgets are inherently designed to combine tracking
+functionality and occassionally-useful functionality in a single resouce load.
+Privacy Badger aims to give the user acess to the functionality when they want
+it, but protection against the tracking at all other times.
 
-Conceptually, supercookies should be treated the same way as cookies by privacy
-badger.
+To that end, Privacy Badger has incorporated code from the TrackMeNot project
+so that it is able to replace various types of widgets hosted
+by third party origins with local, static equivalents that either replace the
+original widget faithfully, or create a click-through step before the widget
+is loaded and tracks the user.
 
-Some supercookies are like HTTP cookies in the sense that they are always
-transmitted when the user makes requests.  Others require explicit retrieval
-with JS calls (much like JavaScript access to browser cookies)
+The widget replacement table lives in the [socialwidgets.json
+file](https://github.com/EFForg/privacybadgerchrome/blob/master/src/socialwidgets.json).
+Widgets are only replaced if the domain hosting them is in a "yellow"
+(cookieblock) or "red" (block) state, so users can disable this functionality
+if they wish.  The code for social media widgets is quite diverse, so not all
+  variants (especially custom variants that sites build for themselves) are
+  necessarily replaced.
 
-### Canvas data
+#### Canvas data
 
 The canvas element of a browser can be used to read a lot of identifying
 information about a user's system. Privacy Badger should block these requests,
 and block third parties if they are found to be requesting this data.
 
-### Browser fingerprinting
+#### Browser fingerprinting
 
 Certian aspects of the browser, such as fonts, add-on or extensions, screen size,
 and seen links, can be used to give the browser a fingerprint that is unique out
@@ -90,7 +107,7 @@ Badger in the future should detect some of these values being read and treat tha
 as it would a cookie request, blocking third party origins if they do this across
 multiple first party origins.
 
-### Click-to-play for extensions
+#### Click-to-play for extensions
 
 Certain browser add-ons, like flash, expose an enormous amount of identifying
 information about a user's system. Privacy Badger in the future should disable
@@ -119,10 +136,3 @@ before Privacy Badger does its default action for a given origin. These are mana
 from the popup window for privacy badger on the page as well as the options menu
 for the whole extension.
 
-### 
-
-### Social Widget Replacement 
-
-Currently social widgets are blocked from being displayed. These widget icons are often fetched from third parties, and that fetching can reveal site URLs. Privacy Badger currently
-gives users the option of re-enabling these services by clicking on them, but by default they are blocked (unless the user has explicitly flagged that domain to not be effected by 
-Privacy Badger)

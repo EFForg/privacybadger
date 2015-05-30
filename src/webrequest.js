@@ -2,8 +2,12 @@
  *
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
+ *
  * Derived from Adblock Plus 
  * Copyright (C) 2006-2013 Eyeo GmbH
+ *
+ * Derived from Chameleon <https://github.com/ghostwords/chameleon>
+ * Copyright (C) 2015 ghostwords
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -35,12 +39,37 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /* global variables */
+/* Global Variables */
 var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
 var FilterStorage = require("filterStorage").FilterStorage;
-var frames = {};
+
+// per-tab data that gets cleaned up on tab closing
+// looks like:
+/* tabData = {
+  <tab_id>: {
+    fpData: {
+      <script_origin>: {
+        canvas: {
+          fingerprinting: boolean,
+          write: boolean
+        }
+      },
+      ...
+    },
+    frames: {
+      <frame_id>: {
+        url: string,
+        parent: int
+      },
+      ...
+    }
+  },
+  ...
+} */
+var tabData = {};
+
 var onFilterChangeTimeout = null;
 var importantNotifications = {
   'filter.added': true,
@@ -72,14 +101,14 @@ FilterNotifier.addListener(onFilterNotifier);
 function onTabRemoved(tabId){
   console.log('tab removed!', tabId);
   forgetTab(tabId);
-};
+}
 
-function onTabUpdated(tabId, changeInfo, tab){
-  console.log('tab updated', tab);
-  if (changeInfo.status == "loading" && changeInfo.url != undefined){
-    forgetTab(tabId);
-  }
-};
+//function onTabUpdated(tabId, changeInfo, tab){
+//  console.log('tab updated', tab);
+//  if (changeInfo.status == "loading" && changeInfo.url != undefined){
+//    forgetTab(tabId);
+//  }
+//}
 
 function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
@@ -98,7 +127,7 @@ function onFilterNotifier(action) {
     }
     onFilterChangeTimeout = window.setTimeout(onFilterChange, 2000);
   }
-};
+}
 
 function onBeforeRequest(details){
   if (details.tabId == -1){
@@ -125,7 +154,7 @@ function onBeforeRequest(details){
       if(requestAction.indexOf('user') < 0){
         var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
         if( whitelistAry){
-          _askUserToWhitelist(details.tabId, whitelistAry['whitelist_urls'], whitelistAry['english_name'])
+          _askUserToWhitelist(details.tabId, whitelistAry.whitelist_urls, whitelistAry.english_name);
         }
       }
 
@@ -134,8 +163,8 @@ function onBeforeRequest(details){
     if (requestAction == "block" || requestAction == "userblock") {
       // Notify the content script...
       var msg = {
-        "replaceSocialWidget" : true,
-	"trackerDomain" : extractHostFromURL(details.url)
+        replaceSocialWidget: true,
+        trackerDomain: extractHostFromURL(details.url)
       };
       chrome.tabs.sendMessage(details.tabId, msg);
 
@@ -145,20 +174,25 @@ function onBeforeRequest(details){
 
 }
 
+/**
+ * Gets the host name for a given tab id
+ * @param {Integer} tabId chrome tab id
+ * @return {String} the host name for the tab
+ */
 function getHostForTab(tabId){
   var mainFrameIdx = 0;
-  if(!frames[tabId]){
-    return undefined;
+  if (!tabData[tabId]) {
+    return;
   }
-  if(_isTabAnExtension(tabId)){
-    //if the tab is an extension get the url of the first frame for its implied URL
-    //since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
+  if (_isTabAnExtension(tabId)) {
+    // If the tab is an extension get the url of the first frame for its implied URL 
+    // since the url of frame 0 will be the hash of the extension key
+    mainFrameIdx = Object.keys(tabData[tabId].frames)[1] || 0;
   }
-  if(!frames[tabId][mainFrameIdx]){
-    return undefined;
+  if (!tabData[tabId].frames[mainFrameIdx]) {
+    return;
   }
-  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
+  return extractHostFromURL(tabData[tabId].frames[mainFrameIdx].url);
 }
 
 function onBeforeSendHeaders(details) {
@@ -174,7 +208,7 @@ function onBeforeSendHeaders(details) {
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      newHeaders = details.requestHeaders.filter(function(header) {
+      var newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
       newHeaders.push({name: "DNT", value: "1"});
@@ -206,18 +240,89 @@ function onHeadersReceived(details){
 }
 
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
-  if (frames[tabId] == undefined){
-    frames[tabId] = {};
+  if (!tabData.hasOwnProperty(tabId)){
+    tabData[tabId] = {
+      frames: {}
+    };
   }
-  frames[tabId][frameId] = {url: frameUrl, parent: parentFrameId};
+  tabData[tabId].frames[frameId] = {
+    url: frameUrl,
+    parent: parentFrameId
+  };
+}
+
+function recordFingerprinting(tabId, msg) {
+  // bail if we failed to determine the originating script's URL
+  // TODO find and fix where this happens
+  if (!msg.scriptUrl) {
+    return;
+  }
+
+  // ignore first-party scripts
+  var script_host = extractHostFromURL(msg.scriptUrl),
+    document_host = extractHostFromURL(getFrameUrl(tabId, 0));
+  if (!isThirdParty(script_host, document_host)) {
+    return;
+  }
+
+  var CANVAS_WRITE = {
+    fillText: true,
+    strokeText: true
+  };
+  var CANVAS_READ = {
+    getImageData: true,
+    toDataURL: true
+  };
+
+  if (!tabData[tabId].hasOwnProperty('fpData')) {
+    tabData[tabId].fpData = {};
+  }
+
+  var script_origin = getBaseDomain(script_host);
+
+  // initialize script TLD-level data
+  if (!tabData[tabId].fpData.hasOwnProperty(script_origin)) {
+    tabData[tabId].fpData[script_origin] = {
+      canvas: {
+        fingerprinting: false,
+        write: false
+      }
+    };
+  }
+  var scriptData = tabData[tabId].fpData[script_origin];
+
+  if (msg.extra.hasOwnProperty('canvas')) {
+    if (scriptData.canvas.fingerprinting) {
+      return;
+    }
+
+    // if this script already had a canvas write
+    if (scriptData.canvas.write) {
+      // and if this is a canvas read
+      if (CANVAS_READ.hasOwnProperty(msg.prop)) {
+        // and it got enough data
+        if (msg.extra.width > 16 && msg.extra.height > 16) {
+          // let's call it fingerprinting
+          scriptData.canvas.fingerprinting = true;
+
+          // mark this is a strike
+          recordPrevalence(
+            script_host, script_origin, getBaseDomain(document_host));
+        }
+      }
+      // this is a canvas write
+    } else if (CANVAS_WRITE.hasOwnProperty(msg.prop)) {
+      scriptData.canvas.write = true;
+    }
+  }
 }
 
 function getFrameData(tabId, frameId) {
-  if (tabId in frames && frameId in frames[tabId]){
-    return frames[tabId][frameId];
-  } else if (frameId > 0 && tabId in frames && 0 in frames[tabId]) {
+  if (tabId in tabData && frameId in tabData[tabId].frames){
+    return tabData[tabId].frames[frameId];
+  } else if (frameId > 0 && tabId in tabData && 0 in tabData[tabId].frames) {
     // We don't know anything about javascript: or data: frames, use top frame
-    return frames[tabId][0];
+    return tabData[tabId].frames[0];
   }
   return null;
 }
@@ -229,8 +334,8 @@ function getFrameUrl(tabId, frameId) {
 
 function forgetTab(tabId) {
   console.log('forgetting tab', tabId);
-  activeMatchers.removeTab(tabId)
-  delete frames[tabId];
+  activeMatchers.removeTab(tabId);
+  delete tabData[tabId];
   delete temporarySocialWidgetUnblock[tabId];
 }
 
@@ -258,10 +363,14 @@ function checkAction(tabId, url, quiet, frameId){
   var documentHost = extractHostFromURL(documentUrl);
   var origin = getBaseDomain(requestHost);
   var thirdParty = isThirdParty(requestHost, documentHost);
+  if (!thirdParty){
+    return false;
+  }
 
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
-    seen = FilterStorage.knownSubscriptions.seenThirdParties.filters;
+    var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
+
     if(!action && seen[origin]) {
       action = "noaction";
     }
@@ -273,9 +382,9 @@ function checkAction(tabId, url, quiet, frameId){
 }
 
 function _frameUrlStartsWith(tabId, piece){
-  return frames[tabId] &&
-    frames[tabId][0] &&
-    (frames[tabId][0].url.indexOf(piece) === 0);
+  return tabData[tabId] &&
+    tabData[tabId].frames[0] &&
+    (tabData[tabId].frames[0].url.indexOf(piece) === 0);
 }
 
 function _isTabChromeInternal(tabId){
@@ -307,9 +416,9 @@ function _askUserToWhitelist(tabId, whitelistDomains, englishName){
         saveAction('cookieblock', whitelistDomains[i]);
         reloadTab(tabId);
       }
-      if(msg.action === "not_now"){
-        //do nothing
-      }
+      //if(msg.action === "not_now"){
+      //  //do nothing
+      //}
     }
   });
 }
@@ -319,7 +428,6 @@ function isFrameWhitelisted(tabId, frameId, type) {
   var parentData = getFrameData(tabId, parent);
   while (parentData)
   {
-    var frame = parent;
     var frameData = parentData;
 
     parent = frameData.parent;
@@ -335,14 +443,14 @@ function isFrameWhitelisted(tabId, frameId, type) {
 }
 
 // Provides the social widget blocking content script with list of social widgets to block
-function getSocialWidgetBlockList(tabId) {
+function getSocialWidgetBlockList() {
 
   // a mapping of individual SocialWidget objects to boolean values
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
-  green_domains = {};
+  var green_domains = {};
   var green = FilterStorage.knownSubscriptions.userGreen.filters;
-  for( var i = 0; i < green.length; i++){
+  for (var i = 0; i < green.length; i++) {
       green_domains[green[i].regexp.source] = 1;
   }
 
@@ -350,7 +458,6 @@ function getSocialWidgetBlockList(tabId) {
     var socialWidgetName = socialwidget.name;
 
     // replace them if the user hasn't greened them
-    var blockedData = activeMatchers.blockedOriginsByTab[tabId];
     if (socialwidget.domain in green_domains) {
         socialWidgetsToReplace[socialWidgetName] = false;
     }
@@ -396,23 +503,40 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
 }
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    var tabHost  = extractHostFromURL(sender.tab.url);
-    if(request.checkLocation && Utils.isPrivacyBadgerEnabled(tabHost)){
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  var tabHost = extractHostFromURL(sender.tab.url);
+
+  if (request.checkEnabled) {
+    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost));
+
+  } else if (request.checkLocation) {
+    if (Utils.isPrivacyBadgerEnabled(tabHost)) {
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
       sendResponse(cookieBlock);
     }
-    if(request.checkReplaceButton && Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled()){
-      var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id);
+
+  } else if (request.checkReplaceButton) {
+    if (Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled()) {
+      var socialWidgetBlockList = getSocialWidgetBlockList();
       sendResponse(socialWidgetBlockList);
     }
-    if(request.unblockSocialWidget){
-      var socialWidgetUrls = request.buttonUrls;
-      unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
-      sendResponse();
+
+  } else if (request.unblockSocialWidget) {
+    var socialWidgetUrls = request.buttonUrls;
+    unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
+    sendResponse();
+
+  // canvas fingerprinting
+  } else if (request.fpReport) {
+    if (Array.isArray(request.fpReport)) {
+      request.fpReport.forEach(function (msg) {
+        recordFingerprinting(sender.tab.id, msg);
+      });
+    } else {
+      recordFingerprinting(sender.tab.id, request.fpReport);
     }
   }
-);
+
+});
