@@ -728,21 +728,25 @@ function updateCount(details){
 
   var tabId = details.tabId;
   var numBlocked = blockedOriginCount(tabId);
-  if (!frames[tabId]) {
-      console.log("Would updateCount but tab is closed in the meantime", details.tabId);
-      return;
-  }
-  try{
-    if(numBlocked === 0){
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
-    } else {
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
-    }
-    var badgeText = numBlocked + "";
-    chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
-  }catch(err) {
-    console.log("Exception: during setBadge properties", details.tabId);
-  }
+  chrome.tabs.get(tabId, function(tab) {
+      if (typeof tab == 'undefined') {
+        console.log("Would updateCount but tab is closed in the meantime", details.tabId);
+        return;
+      }
+      else {
+        try{
+          if(numBlocked === 0){
+            chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
+          } else {
+            chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
+          }
+          var badgeText = numBlocked + "";
+          chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
+        }catch(err) {
+          console.log("Exception: during setBadge properties", details.tabId);
+        }
+      }
+  });
 }
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 
