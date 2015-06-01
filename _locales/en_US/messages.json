@@ -1,225 +1,97 @@
 {
-  "add": {
-    "description": "This is the label for the 'Add' buttons.",
-    "message": "Add"
-  },
-  "add_domain_button": {
-    "message": "Add domain"
-  },
-  "add_filter_button": {
-    "message": "Add filter"
-  },
-  "add_filters_msg": {
-    "message": "Add filter(s)?"
-  },
-  "add_your_own_filters": {
-    "message": "Add your own filters"
-  },
-  "apply_changes": {
-    "message": "Apply changes"
-  },
-  "block_element": {
-    "description": "Label for 'Block Element' context menu item",
-    "message": "Block Element"
-  },
-  "cancel": {
-    "description": "Cancel button label",
-    "message": "Cancel"
-  },
-  "clickhide_instructions": {
-    "message": "After closing this popup, click (or right-click) an element on the page."
-  },
-  "description": {
-    "message": "Privacy Badger Beta release: Block Spying ads & invisible trackers"
-  },
-  "disable_inline": {
-    "message": "Disable inline text ads"
-  },
-  "disabled_for_these_domains": {
-    "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the address bar or by typing the domain (not a URL) in the box and clicking the \"Add domain\" button."
-  },
-  "easy_create_filter": {
-    "description": "Button label in popup balloon",
-    "message": "Easy create filter"
-  },
-  "edit_filters_raw": {
-    "message": "Edit filters as raw text"
-  },
-  "enable_only_the": {
-    "message": "Enable only the filter lists you need. Too many can make Chrome unresponsive."
-  },
-  "enabled_for_site": {
-    "description": "Popup balloon checkbox label",
-    "message": "Enabled for this site"
-  },
-  "filter_lists": {
-    "description": "This is a tab heading.",
-    "message": "Filter lists"
-  },
-  "filter_must_follow_syntax": {
-    "message": "Your filter must follow the <a href='$url$'>Adblock Plus filter syntax</a>.",
-    "placeholders": {
-      "url": {
-        "content": "$1"
-      }
+    "add_domain_button": {
+        "message": "Add domain"
+    },
+    "badger_status_block": {
+        "message": "This tracker is BLOCKED, slide to unblock tracker or block cookies."
+    },
+    "badger_status_cookieblock": {
+        "message": "This tracker's cookies are blocked, slide to block or unblock tracker."
+    },
+    "badger_status_noaction": {
+        "message": "This domain is unblocked, slide to block entirely or block cookies."
+    },
+    "description": {
+        "message": "Privacy Badger protects you from trackers as you surf the web!"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the address bar or by typing the domain (not a URL) in the box and clicking the \"Add domain\" button."
+    },
+    "feed_the_badger_title": {
+        "message": "click to return control of this tracker to Privacy Badger"
+    },
+    "firstRun_title": {
+        "message": "Adblock Plus has been installed"
+    },
+    "name": {
+        "message": "Privacy Badger"
+    },
+    "new_filters_added": {
+        "message": "New filters added; see <a id='options_url' target='_blank'>Options</a> to manage them."
+    },
+    "non_tracker": {
+        "message": "The domains below don't appear to be tracking you"
+    },
+    "options_filter_settings": {
+        "message": "User Filter Settings"
+    },
+    "options_loading": {
+        "message": "Loading..."
+    },
+    "options_slider_text": {
+        "message": "Privacy Badger is protecting you across the web! These sliders let you control how Privacy Badger handles each tracker that it has flagged through your browsing."
+    },
+    "options_social_disable": {
+        "message": "Disable Social Widget Replacement"
+    },
+    "options_social_enable": {
+        "message": "Enable Social Widget Replacement"
+    },
+    "options_social_settings": {
+        "message": "Social Widget Settings"
+    },
+    "options_title": {
+        "message": "Privacy Badger Options"
+    },
+    "popup_activate": {
+        "message": "Enable Privacy Badger"
+    },
+    "popup_blocked": {
+        "message": "Could not detect any tracking cookies...."
+    },
+    "popup_deactivate": {
+        "message": "Disable Privacy Badger"
+    },
+    "popup_disable_for_site": {
+        "message": "Disable Privacy Badger for This Site"
+    },
+    "popup_enable_for_site": {
+        "message": "Enable Privacy Badger for This Site"
+    },
+    "pb_detected": {
+      "message": "Privacy Badger detected"
+    },
+    "popup_instructions": {
+        "message": "<a href='https://www.eff.org/privacybadger#trackers'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each tracker."
+    },
+    "popup_noblocked": {
+        "message": "Why isn't anything blocked?"
+    },
+    "popup_options_button": {
+        "message": "Options"
+    },
+    "privacy_badger": {
+        "message": "Privacy Badger"
+    },
+    "privacy_badger_what_is": {
+        "message": "What is Privacy Badger?"
+    },
+    "remove_button": {
+        "description": "This is the label for the 'Remove selected' buttons.",
+        "message": "Remove selected"
+    },
+    "whitelisted_domains": {
+        "description": "This is a tab heading.",
+        "message": "Whitelisted domains"
     }
-  },
-  "filters_acceptableAds2_label": {
-    "message": "Allow some non-intrusive advertising"
-  },
-  "filters_addSubscriptionAdd_label": {
-    "message": "Add"
-  },
-  "filters_addSubscriptionOther_label": {
-    "message": "Add a different subscription"
-  },
-  "filters_addSubscription_label": {
-    "message": "Add filter subscription"
-  },
-  "filters_readMore_label": {
-    "message": "Read more"
-  },
-  "filters_subscription_delete_label": {
-    "message": "Delete"
-  },
-  "filters_subscription_enabled_label": {
-    "message": "Enabled"
-  },
-  "filters_subscription_lastDownload_checksumMismatch": {
-    "message": "Failed, checksum mismatch"
-  },
-  "filters_subscription_lastDownload_connectionError": {
-    "message": "Failed, download failure"
-  },
-  "filters_subscription_lastDownload_inProgress": {
-    "message": "Downloading…"
-  },
-  "filters_subscription_lastDownload_invalidData": {
-    "message": "Failed, not a valid filters list"
-  },
-  "filters_subscription_lastDownload_invalidURL": {
-    "message": "Failed, not a valid address"
-  },
-  "filters_viewList_label": {
-    "message": "View list"
-  },
-  "firstRun_acceptableAdsExplanation": {
-    "message": "<strong>Adblock Plus will always block annoying ads.</strong> Still, we want to encourage websites using plain and unobtrusive advertising. That's why we have established <a>strict guidelines</a> to identify acceptable ads, and allow these out of the box. You can always <a>disable</a> this if you want to block all ads."
-  },
-  "firstRun_dataCorruptionWarning": {
-    "message": "Does this page keep showing up? <a>Click here!</a>"
-  },
-  "firstRun_feature_malware": {
-    "message": "Malware Blocking"
-  },
-  "firstRun_feature_malware_description": {
-    "message": "Block domains that are known to be infected by malware to make browsing the internet more secure."
-  },
-  "firstRun_feature_social": {
-    "message": "Remove Social Media Buttons"
-  },
-  "firstRun_feature_social_description": {
-    "message": "Remove social media integration such as the Facebook Like button that track your browsing habits."
-  },
-  "firstRun_feature_tracking": {
-    "message": "Disable Tracking"
-  },
-  "firstRun_feature_tracking_description": {
-    "message": "There are hundreds of ad companies tracking your every move, but you can easily disable all tracking to browse privately."
-  },
-  "firstRun_features": {
-    "message": "Adblock Plus can do more than blocking ads"
-  },
-  "firstRun_share": {
-    "message": "Think Adblock Plus is worth sharing?"
-  },
-  "firstRun_title": {
-    "message": "Adblock Plus has been installed"
-  },
-  "firstRun_toggle_off": {
-    "message": "OFF"
-  },
-  "firstRun_toggle_on": {
-    "message": "ON"
-  },
-  "found_a_bug": {
-    "message": "Found a bug? Want to translate Adblock Plus into your language? Please <a href='$url$'>file a request here</a>.",
-    "placeholders": {
-      "url": {
-        "content": "$1"
-      }
-    }
-  },
-  "general": {
-    "description": "This is a tab heading.",
-    "message": "General"
-  },
-  "global_remove_subscription_warning": {
-    "message": "Do you really want to remove this subscription?"
-  },
-  "global_subscription_invalid_location": {
-    "message": "Filter list location is neither a valid URL nor a valid file name."
-  },
-  "last_updated_at": {
-    "description": "e.g. Last updated at 3:00pm on Apr 1, 2011",
-    "message": "Last updated at $time$ on $date$",
-    "placeholders": {
-      "date": {
-        "content": "$2"
-      },
-      "time": {
-        "content": "$1"
-      }
-    }
-  },
-  "last_updated_at_today": {
-    "description": "e.g. Last updated at 3:00pm today",
-    "message": "Last updated at $time$ today",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
-  },
-  "name": {
-    "message": "Privacy Badger"
-  },
-  "new_filters_added": {
-    "message": "New filters added; see <a id='options_url' target='_blank'>Options</a> to manage them."
-  },
-  "options": {
-    "message": "Privacy Badger Options"
-  },
-  "out_of_date_lists": {
-    "message": "Out-of-date lists are updated periodically."
-  },
-  "overlay_hideplaceholders_label": {
-    "message": "Hide placeholders of blocked elements"
-  },
-  "remove_button": {
-    "description": "This is the label for the 'Remove selected' buttons.",
-    "message": "Remove selected"
-  },
-  "show_block_element_menu": {
-    "message": "Show 'Block Element' right-click menu item"
-  },
-  "show_icon": {
-    "message": "Show icon in address bar"
-  },
-  "subscriptionSelection_location_label": {
-    "message": "Filter list location:"
-  },
-  "subscriptionSelection_subscriptionSelector_label": {
-    "message": "Please choose a filter subscription from the list:"
-  },
-  "subscriptionSelection_title_label": {
-    "message": "Subscription title:"
-  },
-  "update_now": {
-    "message": "Update now"
-  },
-  "whitelisted_domains": {
-    "description": "This is a tab heading.",
-    "message": "Whitelisted domains"
-  }
 }

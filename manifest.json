@@ -1,5 +1,5 @@
 {
-  "version": "2015.4.1", 
+  "version": "2015.5.21", 
   "author": {
     "email": "eff.software.projects@gmail.com"
   }, 
@@ -42,7 +42,8 @@
     {
       "js": [
         "src/include.preload.js",
-        "src/clobbercookie.js"
+        "src/clobbercookie.js",
+        "src/fingerprinting.js"
       ], 
       "matches": [
         "<all_urls>"

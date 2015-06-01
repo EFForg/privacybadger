@@ -4,7 +4,6 @@
  * Derived from Adblock Plus 
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
- * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
  * published by the Free Software Foundation.
  *
@@ -36,7 +35,8 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"]
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"];
+var i18n = chrome.i18n;
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
@@ -61,8 +61,7 @@ var Utils = require("utils").Utils;
 
 var tab = null;
 
-function init()
-{
+function init() {
   console.log("Initializing popup.js");
   // Attach event listeners
   $("#activate_btn").click(activate);
@@ -150,7 +149,7 @@ function revertDomainControl(e){
                 'cookieblock': 'userYellow', 
                 'noaction': 'userGreen'};
   var filter = "||" + origin + "^$third-party";
-  var siteFilter = "@@||" + origin + "^$third-party,domain=" + getHostForTab(tabId)
+  var siteFilter = "@@||" + origin + "^$third-party,domain=" + getHostForTab(tabId);
   var store = stores[original_action];
   removeFilter(store,filter);
   removeFilter(store,siteFilter);
@@ -174,8 +173,8 @@ function _addOriginHTML(origin, printable, action) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
-  if (action.indexOf("user") == 0) {
-    feedTheBadgerTitle = "click to return control of this tracker to Privacy Badger"; 
+  if (action.indexOf("user") === 0) {
+    feedTheBadgerTitle = i18n.getMessage("feed_the_badger_title");
     classes.push("userset");
     action = action.substr(4);
   }
@@ -183,7 +182,7 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
   
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
 }
 
 function _trim(str,max){
@@ -196,12 +195,15 @@ function _trim(str,max){
 
 function _badgerStatusTitle(action){
   var prefix = "";
+  var status_block = i18n.getMessage("badger_status_block");
+  var status_cookieblock = i18n.getMessage("badger_status_cookieblock");
+  var status_noaction = i18n.getMessage("badger_status_noaction");
 
   var statusMap = { 
-    block:        "This tracker is blocked, slide to unblock tracker or block cookies.",
-    cookieblock:  "This tracker's cookies are blocked, slide to block or unblock tracker.",
-    noaction:     "This domain is unblocked, slide to block entirely or block cookies."
-  }
+    block:        status_block,
+    cookieblock:  status_cookieblock,
+    noaction:     status_noaction
+  };
 
   return prefix + statusMap[action];
 }
@@ -210,7 +212,7 @@ function _addToggleHtml(origin, action){
   var idOrigin = origin.replace(/\./g,'-');
   var output = "";
   output += '<div class="switch-container ' + action + '">';
-  output += '<div class="switch-toggle switch-3 switch-candy">'
+  output += '<div class="switch-toggle switch-3 switch-candy">';
   output += '<input id="block-' + idOrigin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + idOrigin + '" data-origin="' + origin + '" data-action="block"></label>';
   output += '<input id="cookieblock-' + idOrigin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + idOrigin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
   output += '<input id="noaction-' + idOrigin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label tooltip="click here to allow this tracker" class="actionToggle" for="noaction-' + idOrigin + '" data-origin="' + origin + '" data-action="noaction"></label>';
@@ -223,7 +225,7 @@ function _checked(name, action){
   } else {
     return '';
   }
-};
+}
 function toggleBlockedStatus(elt,status) {
   console.log('toggle blocked status', elt, status);
   if(status){
@@ -268,15 +270,14 @@ function makeSortable(domain){
 
 function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + tabId);
+  //TODO this is calling get action and then being used to call get Action
   var origins = getAllOriginsForTab(tabId);
-  if (!origins || origins.length == 0) {
+  if (!origins || origins.length === 0) {
     hideNoInitialBlockingLink();
-    document.getElementById("blockedResources").innerHTML = "Could not detect any tracking cookies.";
+    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
+  $('#number_trackers').text('0');
     return;
   }
-  // old text that could go in printable:
-  // "Suspicious 3rd party domains in this page.  Red: we've blocked it; 
-  // yellow: only cookies blocked; green: no blocking yet";
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
   printable = printable + 
     '<div class="keyContainer">'+
@@ -287,16 +288,31 @@ function refreshPopup(tabId) {
     '<div class="tooltipContainer"></div>' +
     '</div></div>'+
     '<div class="spacer"></div><div class="clickerContainer">';
+  var nonTracking = [];
   origins.sort(compareReversedDomains);
+  originCount = 0;
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     var action = getAction(tabId, origin);
-    if(!action){ continue; }
+    if(!action){ 
+        nonTracking.push(origin);
+        continue; 
+    }
+    originCount++;
     printable = _addOriginHTML(origin, printable, action);
   }
-  printable += "</div>"
-  document.getElementById("blockedResources").innerHTML = printable;
+  var nonTrackerText = i18n.getMessage("non_tracker");
+  printable = printable +
+      '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
+  for (var i = 0; i < nonTracking.length; i++){
+    var origin = nonTracking[i];
+    printable = _addOriginHTML(origin, printable, "noaction");
+  }
+  $('#number_trackers').text(originCount);
+  printable += "</div>";
+  $("#blockedResources").empty();
+  $("#blockedResources").html(printable);
   $('.switch-toggle').each(function(){
     var radios = $(this).children('input');
     var value = $(this).children('input:checked').val();
@@ -312,7 +328,7 @@ function refreshPopup(tabId) {
         radios.filter("[value=" + ui.value + "]").click();
       },
       stop: function(event, ui){
-        $(ui.handle).css('margin-left', -16 * ui.value + "px")
+        $(ui.handle).css('margin-left', -16 * ui.value + "px");
       },
     }).appendTo(this);
     radios.change(function(){
@@ -357,7 +373,7 @@ var tooltipDelay = 300;
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var displayTipTimer = setTimeout(function(){
-    if($elm.attr('tooltip').length == 0){ return; }
+    if($elm.attr('tooltip').length === 0){ return; }
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
     if($container.length === 0){
       $container = $elm.siblings('.tooltipContainer');
@@ -366,7 +382,7 @@ function displayTooltip(event){
     $container.show();
     $container.siblings('.tooltipArrow').show();
   },tooltipDelay);
-  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer)}); 
+  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);}); 
 }
 
 function hideTooltip(event){
@@ -381,7 +397,7 @@ function hideTooltip(event){
     $container.hide();
     $container.siblings('.tooltipArrow').hide();
   },tooltipDelay);
-  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer)});
+  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer);});
 }
 
 function syncSettingsDict(settingsDict) {
@@ -431,7 +447,7 @@ function buildSettingsDict() {
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
   console.log("Sync of userset options: " + JSON.stringify(settingsDict));
-  var tabId = syncSettingsDict(settingsDict)
+  var tabId = syncSettingsDict(settingsDict);
   if (tabId){
     reloadTab(tabId);
   }
