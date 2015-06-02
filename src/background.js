@@ -725,7 +725,7 @@ function updateCount(details){
 
   var tabId = details.tabId;
   var numBlocked = blockedOriginCount(tabId);
-  if (!frames[tabId]) {
+  if (!tabData[tabId]) {
       console.log("Would updateCount but tab is closed in the meantime", details.tabId);
       return;
   }
