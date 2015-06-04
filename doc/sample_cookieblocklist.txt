@@ -457,3 +457,5 @@
 @@||betterttv.net^$third-party
 @@||salsalabs.com^$third-party
 @@||search.yahoo.com^$third-party
+@@||loop.services.mozilla.com^$third-party
+@@||hello.firefox.com^$third-party
