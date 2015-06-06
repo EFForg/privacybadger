@@ -1,5 +1,9 @@
 Changes for Privacy Badger 
 ====================================
+## 2015.4.1
+* Miscellanious bugfixes 
+* Improvements to heuristic
+
 ## 2014.9.16
 * Adds lots of tests including selenium tests.
 * Adds lots of domains to the cookie block list.

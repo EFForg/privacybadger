@@ -38,6 +38,10 @@ if (!("enabled" in localStorage)){
   localStorage.enabled = "true";
 }
 
+if (!("socialWidgetReplacementEnabled" in localStorage)){
+  localStorage.socialWidgetReplacementEnabled = "true";
+}
+
 with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
@@ -267,6 +271,10 @@ function addSubscription(prevVersion) {
   var userGreen = new SpecialSubscription("userGreen", "userGreen");
   FilterStorage.addSubscription(userGreen);
 
+  // Add a permanent store for seen third parties 
+  // TODO: Does this go away when the extension is updated?
+  localStorage.setItem("seenThirdParties", JSON.stringify({}));
+
   if (!addSubscription) {
     return;
   }
@@ -348,8 +356,8 @@ function openOptions(callback) {
  * @return {Integer} frameId 
  */
 function getFrameId(tabId, url) {
-  if (tabId in frames) {
-    for (var f in frames[tabId]) {
+  if (tabId in tabData) {
+    for (var f in tabData[tabId].frames) {
       if (getFrameUrl(tabId, f) == url) {
         return f;
       }
@@ -363,6 +371,7 @@ function getFrameId(tabId, url) {
  */
 function setupCookieBlocking(domain){
   var baseDomain = getBaseDomain(domain);
+  // TODO should domain be baseDomain, or is the line above unnecessary?
   CookieBlockList.addDomain(domain);
 }
 
@@ -543,6 +552,7 @@ function checkForDNTPolicy(domain){
   });
 }
 
+
 /**
  * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
  * @param {String} origin 
@@ -659,7 +669,8 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  return httpRequestOriginFrequency.hasOwnProperty(getBaseDomain(origin));
+  var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
+  return seen.hasOwnProperty(getBaseDomain(origin));
 }
 
 /**
@@ -677,25 +688,26 @@ function blockedOriginCount(tabId){
     }, 0);
 }
 
-/**
- * Gets the host name for a given tab id
- * @param {Integer} tabId chrome tab id
- * @return {String} the host name for the tab
- */
-function getHostForTab(tabId){
-  var mainFrameIdx = 0;
-  if (!frames[tabId]) {
-    return undefined;
-  }
-  if (_isTabAnExtension(tabId)) {
-    // If the tab is an extension get the url of the first frame for its implied URL 
-    // since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(frames[tabId])[1] || 0;
-  }
-  if (!frames[tabId][mainFrameIdx]) {
-    return undefined;
-  }
-  return extractHostFromURL(frames[tabId][mainFrameIdx].url);
+function activelyBlockedOriginCount(tabId){
+  return getAllOriginsForTab(tabId)
+    .reduce(function(memo,origin){
+      var action = getAction(tabId,origin);
+      if(action && action !== "noaction"){
+        memo+=1;
+      }
+      return memo;
+    }, 0);
+}
+
+function userConfiguredOriginCount(tabId){
+  return getAllOriginsForTab(tabId)
+    .reduce(function(memo,origin){
+      var action = getAction(tabId,origin);
+      if(action && action.lastIndexOf("user", 0) === 0){
+        memo+=1;
+      }
+      return memo;
+    }, 0);
 }
 
 /**
@@ -713,13 +725,21 @@ function updateCount(details){
 
   var tabId = details.tabId;
   var numBlocked = blockedOriginCount(tabId);
-  if(numBlocked === 0){
-    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
-  } else {
-    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
+  if (!tabData[tabId]) {
+      console.log("Would updateCount but tab is closed in the meantime", details.tabId);
+      return;
   }
-  var badgeText = numBlocked + "";
-  chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
+  try{
+    if(numBlocked === 0){
+      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
+    } else {
+      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
+    }
+    var badgeText = numBlocked + "";
+    chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
+  }catch(err) {
+    console.log("Exception: during setBadge properties", details.tabId);
+  }
 }
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 
@@ -729,12 +749,19 @@ chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*",
 */
 function updateTabList(){
   console.log('update tabs!');
-  // Initialize the frames object if it is falsey
-  frames = frames || {};
+  // Initialize the tabData/frames object if it is falsey
+  tabData = tabData || {};
   chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
     for(var i = 0; i < tabs.length; i++){
       var tab = tabs[i];
-      frames[tab.id] = {0: {parent: -1, url: tab.url} };
+      tabData[tab.id] = {
+        frames: {
+          0: {
+            parent: -1,
+            url: tab.url
+          }
+        }
+      };
     }
   });
 
