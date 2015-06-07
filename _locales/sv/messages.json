@@ -1,0 +1,97 @@
+{
+    "add_domain_button": {
+        "message": "Lägg till domän"
+    },
+    "badger_status_block": {
+        "message": "Den här trackern är blockerad, dra i reglaget för att ta bort blockeringen eller blockera cookies."
+    },
+    "badger_status_cookieblock": {
+        "message": "Den här trackerns cookies är blockerade, dra i reglaget för att ta bort blockeringen."
+    },
+    "badger_status_noaction": {
+        "message": "Detta domän är inte blockerat, dra i reglaget för att blockera helt och hållet eller blockera cookies."
+    },
+    "description": {
+        "message": "Privacy Badger skyddar dig mot trackers medan du surfar på webben!"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger is avaktiverat för domännamnen listade nedan. Du kan lägga till ett dommän antingen via Privacy Badger ikonen i addressraden eller genom att skriva domännamnet (inte en URL) i fältet och sedan klicka på \"Lägg till domän\" knappen."
+    },
+    "feed_the_badger_title": {
+        "message": "klicka för att ge Privacy Badger kontrollen över den här trackern."
+    },
+    "firstRun_title": {
+        "message": "Adblock Plus har installerats"
+    },
+    "name": {
+        "message": "Privacy Badger"
+    },
+    "new_filters_added": {
+        "message": "Nya filter tillagda; se <a id='options_url' target='_blank'>Inställningar</a> för att hantera dem."
+    },
+    "non_tracker": {
+        "message": "Det verkar som domänerna nedan inte spårar dig"
+    },
+    "options_filter_settings": {
+        "message": "Användarfilterinställningar"
+    },
+    "options_loading": {
+        "message": "Laddar..."
+    },
+    "options_slider_text": {
+        "message": "Privacy Badger skyddar dig på webben! Dessa reglage låter dig kontrollera hur Privacy Badger hanterar respektive tracker som den har flaggat via din surfning."
+    },
+    "options_social_disable": {
+        "message": "Inaktivera Social Widget ersättning"
+    },
+    "options_social_enable": {
+        "message": "Aktivera Social Widget ersättning"
+    },
+    "options_social_settings": {
+        "message": "Social Widget inställningar"
+    },
+    "options_title": {
+        "message": "Privacy Badger inställningar"
+    },
+    "popup_activate": {
+        "message": "Aktivera Privacy Badger"
+    },
+    "popup_blocked": {
+        "message": "Inga tracking cookies detekterade...."
+    },
+    "popup_deactivate": {
+        "message": "Inaktivera Privacy Badger"
+    },
+    "popup_disable_for_site": {
+        "message": "Inaktivera Privacy Badger för den här sidan"
+    },
+    "popup_enable_for_site": {
+        "message": "Aktivera Privacy Badger för den här sidan"
+    },
+    "pb_detected": {
+      "message": "Privacy Badger detekterat"
+    },
+    "popup_instructions": {
+        "message": "<a href='https://www.eff.org/privacybadger#trackers'>trackers</a> på den här sidan. Dessa reglage låter dig kontrollera hur Privacy Badger hanterar varje tracker."
+    },
+    "popup_noblocked": {
+        "message": "Varför är ingenting blockerat?"
+    },
+    "popup_options_button": {
+        "message": "Inställningar"
+    },
+    "privacy_badger": {
+        "message": "Privacy Badger"
+    },
+    "privacy_badger_what_is": {
+        "message": "Vad är Privacy Badger?"
+    },
+    "remove_button": {
+        "description": "Det här är etiketten för 'Ta bort markerade' knapparna.",
+        "message": "Ta bort markerade"
+    },
+    "whitelisted_domains": {
+        "description": "Det här är en tabtitel.",
+        "message": "Vitlistade domännamn"
+    }
+}
