@@ -22,6 +22,7 @@ var Utils = require('utils').Utils;
 
 var BlockedDomainList = exports.BlockedDomainList = {
   domains: {},
+  loaded: false,
 
   //minimum and max amount of time before we check again for dnt-policy
   minThreshold: 86400000, //1 day
@@ -29,32 +30,23 @@ var BlockedDomainList = exports.BlockedDomainList = {
 
   updateDomains: function(){
     var self = this;
-    chrome.storage.local.get('blockeddomainlist', function(items){
-      if(chrome.runtime.lastError || !items.blockeddomainlist){
-        //blocked domain list has never been set so we initialize it with an empty array
-        chrome.storage.local.set({blockeddomainlist: self.domains});
-        return;
-      }
-      self.domains = items.blockeddomainlist;
-    });
+    self.domains = JSON.parse(localStorage.getItem("blockeddomainslist"));
+    loaded = true;
+    return;
   },
 
   addDomain: function(domain, cb){
     if(!this.hasDomain(domain)){
       var updateTime = this._randomFutureTime();
       this.domains[domain] = updateTime;
-      chrome.storage.local.set({blockeddomainlist: this.domains},function(){
-        if(cb && typeof(cb) === "function"){
-          cb();
-        }
-      });
+      localStorage.setItem("blockeddomainslist", JSON.stringify(this.domains));
     }
   },
 
   updateDomainCheckTime: function(domain){
     var updateTime = this._randomFutureTime();
     this.domains[domain] = updateTime;
-    chrome.storage.local.set({blockeddomainlist: this.domains},function(){});
+    localStorage.setItem("blockeddomainslist", JSON.stringify(this.domains));
   },
 
   nextUpdateTime: function(domain){
@@ -68,7 +60,7 @@ var BlockedDomainList = exports.BlockedDomainList = {
   removeDomain: function(domain){
     if(this.hasDomain(domain)){
       delete this.domains[domain];
-      chrome.storage.local.set({blockeddomainlist: this.domains});
+      localStorage.setItem("blockeddomainlist", JSON.stringify(this.domains));
     }
   },
 
