@@ -60,7 +60,7 @@ var BlockedDomainList = exports.BlockedDomainList = {
   removeDomain: function(domain){
     if(this.hasDomain(domain)){
       delete this.domains[domain];
-      localStorage.setItem("blockeddomainlist", JSON.stringify(this.domains));
+      localStorage.setItem("blockeddomainslist", JSON.stringify(this.domains));
     }
   },
 
