@@ -11,13 +11,18 @@ from selenium.webdriver.chrome.options import Options
 # PB_EXT_BG_URL_BASE = "chrome-extension://pkehgijcmpdhfbdbbnkijodmdjhbjlgp/"
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
 PB_CHROME_BG_URL = PB_EXT_BG_URL_BASE + "_generated_background_page.html"
+PB_CHROME_OPTIONS_PAGE_URL = PB_EXT_BG_URL_BASE + "skin/options.html"
 
 
 class PBSeleniumTest(unittest.TestCase):
     def setUp(self):
         env = os.environ
         self.browser_bin = env.get("BROWSER_BIN", "")  # o/w use WD's default
-        self.xvfb = int(env.get("ENABLE_XVFB", 1))  # enabled by default
+        if "TRAVIS" in os.environ:
+            self.xvfb = 1
+        else:
+            # by default don't use XVFB if we are not running on CI
+            self.xvfb = int(env.get("ENABLE_XVFB", 0))
         self.pb_ext_path = self.get_extension_path()  # path to the extension
         if self.xvfb:
             self.vdisplay = Xvfb(width=1280, height=720)
@@ -31,7 +36,7 @@ class PBSeleniumTest(unittest.TestCase):
         if "PB_EXT_PATH" in os.environ:
             return os.environ["PB_EXT_PATH"]
         else:  # check the default path if PB_EXT_PATH env. variable is empty
-            print "Can't find the environment variable PB_EXT_PATH"
+            print "Can't find the env. variable PB_EXT_PATH, will check ../.."
             # if the PB_EXT_PATH environment variable is not set
             # check the default location for the last modified crx file
             exts = glob("../../*.crx")  # get matching files
