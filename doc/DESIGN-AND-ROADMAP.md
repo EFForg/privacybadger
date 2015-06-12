@@ -45,7 +45,7 @@ Privacy Badger:
 5. Users can also choose custom rules for any given domain flagged by Privacy Badger,
    overrulling any automatic decision Privacy Badger has made about the domain.
 
-   Privacy badger uses three-state sliders (red, yellow, green) to convey this
+   Privacy badger uses three-state sliders (red - block, yellow - cookie block, green - allow) to convey this
    state in UI.  We believe this is less confusing than the UI in many other
    blocking tools, which often leave the user confused about whether a visual
    state represents blocking or the opportunity to block.
@@ -57,9 +57,9 @@ Privacy Badger:
 
    Sites post the policy at [a well-known
    URL](https://example.com/.well-known/dnt-policy.txt) on their domains.  The
-   contents must match the list of acceptable policies exactly; the policy
+   contents must match those of a file from the list of acceptable policies exactly; the policy
    file is [maintained on github](https://github.com/EFForg/dnt-policy/), but
-   privacy fetches a list of known-good hashes periodically [from
+   privacy badger fetches a list of known-good hashes periodically [from
    EFF](https://www.eff.org/files/dnt-policies.json) (version  1.0 of the
    policy file will be added to that list when Privacy Badger reaches version
    1.0)
@@ -77,11 +77,10 @@ copy](https://github.com/EFForg/privacybadgerchrome/blob/master/lib/basedomain.j
 The accounting for which origins are trackers or not is performed by looking
 up how many first party Fully Qualified Domain Names have been tracked by each
 of these eTLD + 1 origins.  This is a conservative choice, which avoids the
-need evaluate sets of cookies with different scopes.  
+need to evaluate sets of cookies with different scopes.  
 
-However, when the heuristic determines that the correct response is to block,
-that decision is only applied to the specific third party FQDN from which
-tracking was seen.
+When the heuristic determines that the correct response is to block,
+that decision is applied to the third party eTLD from which tracking was seen.
 
 To illustrate this, suppose the site <tt>tracking.co.uk</tt> was embedded on
 every site on the Web, but each embed came from a randomly selected subdomain
@@ -214,7 +213,7 @@ When a third party makes a request to a browser with Privacy Badger enabled, if
 the request contains a cookie or the request for a cookie it gets flagged as 'tracking'.
 Origins that make tracking requests get stored in a key value store where the keys
 are the origins making the request, and the values are the first party origins these
-requests were made on. If that list of first parties contains more than three first party
+requests were made on. If that list of first parties contains three or more first party
 origins then the third party origin gets added to another list of known trackers.
 When Privacy Badger gets a request from a origin on the known trackers list, if it
 is not on the the cookieblocklist then Privacy Badger blocks that request. If it
