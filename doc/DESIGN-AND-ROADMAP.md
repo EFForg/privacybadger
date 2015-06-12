@@ -91,8 +91,8 @@ The accounting data structure <tt>seenThirdParties</tt> would come to include:
 {
   ...
   "tracking.co.uk" : {
-    "news-example.com" : true,
-    "jobs-example.info : true,
+    "news-example.com"  : true,
+    "jobs-example.info" : true,
   }
   ...
 }
