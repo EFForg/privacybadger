@@ -6,14 +6,14 @@
 
 Privacy Badger aims to
 
- - Protect users against non-consensual tracking by third-party domains as they 
+ - Protect users against non-consensual tracking by third party domains as they 
    browse the Web.
 
  - Send and enforce the Do Not Track signal to sites (especially "third party"
    sites since they are in a position to collect a large fraction of the user's
    browsing history).
 
-Privacy badger consists of a primary tracker blocking algorithm, augmented by
+Privacy Badger consists of a primary tracker blocking algorithm, augmented by
 a number of secondary features that extend further privacy protection and
 reduce breakage from the primary mechanism.
 
@@ -22,9 +22,13 @@ reduce breakage from the primary mechanism.
 Privacy Badger:
 
 1. Ensures your browser is sending the DNT: 1 header
-2. Observes which first party origins a given 3rd party origin is setting cookies on
+2. Observes which first party origins a given third party origin is setting cookies on
    (certain cookies are deemed to be "low entropy", as discussed below)
-3. If a 3rd party origin receives a cookie, a supercookie, or makes 
+   2a. Observes which first party origins a given third party is doing certain 
+   types of fingerprinting on.
+   2b. Observes which first party origins a given third party setting certain types
+   of supercookies on.
+3. If a third party origin receives a cookie, a supercookie, or makes 
    JavaScript fingerprinting API calls on 3 or more first party origins, this is deemed to be 
    "cross site tracking"
 4. Typically, cross site trackers are blocked completely; Privacy Badger prevents the
@@ -35,26 +39,23 @@ Privacy Badger:
    from [an EFF URL](https://www.eff.org/files/cookieblocklist.txt) to allow prompt fixes for breakage.
    Until methods for blocking them have been implemented, domains that perform
    fingerprinting or use third party supercookies should not be added to the
-   cookieblocklist.
+   cookie block list.
 5. Users can also choose custom rules for any given domain flagged by Privacy Badger,
    overrulling any automatic decision Privacy Badger has made about the domain.
-   Privacy badger uses three-state sliders (red - block, yellow - cookie block, green - allow) to convey this
+   Privacy Badger uses three-state sliders (red → block, yellow → cookie block, green → allow) to convey this
    state in UI. We believe this is less confusing than the UI in many other
    blocking tools, which often leave the user confused about whether a visual
-   state represents blocking or the opportunity to block.
+   state representdddlocking or the opportunity to block.
 6. Domains can agree to EFF's [Do Not Track policy](https://eff.org/dnt-policy). If a domain does this
    Privacy Badger will no longer block its traffic or cookies. If a
    first-party domain posts the policy, this applies to all third parties
    embedded on that domain.
-
-   Sites post the policy at [a well-known
-   URL](https://example.com/.well-known/dnt-policy.txt) on their domains. The
-   contents must match those of a file from the list of acceptable policies exactly; the policy
-   file is [maintained on github](https://github.com/EFForg/dnt-policy/), but
-   privacy badger fetches a list of known-good hashes periodically [from
-   EFF](https://www.eff.org/files/dnt-policies.json) (version  1.0 of the
-   policy file will be added to that list when Privacy Badger reaches version
-   1.0)
+   Sites post the policy at [a well-known URL](https://example.com/.well-known/dnt-policy.txt) 
+   on their domains. The contents must match those of a file from the list of 
+   acceptable policies exactly; the policy file is [maintained on github](https://github.com/EFForg/dnt-policy/), 
+   but Privacy Badger fetches a list of known-good hashes periodically [from EFF](https://www.eff.org/files/dnt-policies.json) 
+   (version  1.0 of the policy file will be added to that list when Privacy Badger 
+   reaches version 1.0)
 
 #### Further Details
 
@@ -78,10 +79,10 @@ that is not blocked).
 
 ##### What is a "low entropy" cookie?
 
-Our [current heuristic](https://github.com/EFForg/privacybadgerchrome/blob/master/src/heuristicblocking.js#L578) is to assign "number of identifying bits" estimates to
+Our [current heuristic](https://github.com/EFForg/privacyBadgerchrome/blob/master/src/heuristicblocking.js#L578) is to assign "number of identifying bits" estimates to
 some known common cookie values, and to bound the sum of these to 12.
 Predetermined low-entropy cookies will not be identified as tracking, nor will
-combinations of them so long as their total length is under 12 bits.
+combinations of them so long as their total estimated entropy is under 12 bits.
 
 ### ADDITIONAL MECHANISMS 
 
@@ -92,23 +93,23 @@ functionality and occassionally-useful functionality in a single resouce load.
 Privacy Badger aims to give the user acess to the functionality when they want
 it, but protection against the tracking at all other times.
 
-To that end, Privacy Badger has incorporated code from the TrackMeNot project
+To that end, Privacy Badger has incorporated code from the ShareMeNot project
 so that it is able to replace various types of widgets hosted
 by third party origins with local, static equivalents that either replace the
 original widget faithfully, or create a click-through step before the widget
 is loaded and tracks the user.
 
-The widget replacement table lives in the [socialwidgets.json file](https://github.com/EFForg/privacybadgerchrome/blob/master/src/socialwidgets.json).
-Widgets are replaced unless the user has chosen to specifically allow that third-party
+The widget replacement table lives in the [socialwidgets.json file](https://github.com/EFForg/privacyBadgerchrome/blob/master/src/socialwidgets.json).
+Widgets are replaced unless the user has chosen to specifically allow that third party
 domain (by moving the slider to 'green' in the UI), so users can selectively 
 disable this functionality if they wish. The code for social media widgets is 
 quite diverse, so not all variants (especially custom variants that sites build 
 for themselves) are necessarily replaced.
 
 The widget method may be used in the future to implement ["script
-surrogates"](https://github.com/EFForg/privacybadgerchrome/issues/400),
+surrogates"](https://github.com/EFForg/privacyBadgerchrome/issues/400),
 which are a more privacy-protective alternative to yellowlisting certain
-third-party JavaScript domains. If that occurs, <tt>socialwidgets.json</tt>
+third party JavaScript domains. If that occurs, <tt>socialwidgets.json</tt>
 should also be periodically fetched from a live EFF URL.
 
 #### Consent Prompts for Third Party Logins
@@ -134,9 +135,10 @@ Currently domains have three states: no action, cookie block, and block.
 No action allows all requests to resolve as normal without intervention from
 Privacy Badger. Cookie block allows for requests to resolve normally but will
 block cookies from being read or created, it will also block the referer header. 
-Block will cause any requests from that origin to be blocked. The user can toggle 
-these options manually, which will supersede any determinations made automatically 
-by Privacy Badger.
+Block will cause any requests from that origin to be blocked entireley; before 
+even a TCP connection can be established. The user can toggle these options 
+manually, which will supersede any determinations made automatically by Privacy 
+Badger.
 
 #### What does EFFs Do Not Track policy stipulate?
 
@@ -153,8 +155,8 @@ where "subdomain" is any domain to which the policy applies, for a given third p
 #### Canvas data
 
 The canvas element of a browser can be used to read a lot of identifying
-information about a user's system. Privacy Badger detects any third-party domain
-that looks like it is doing canvas fingerprinting nd treat it as it would a cookie
+information about a user's system. Privacy Badger detects any third party domain
+that looks like it is doing canvas fingerprinting and treats it as it would a cookie
 request, blocking the third party origin if it does this across multiple first 
 party origins. 
 
@@ -178,21 +180,21 @@ site by site basis.
 
 ### How are origins and the rules for them stored?
 
-When a third party makes a request to a browser with Privacy Badger enabled, if
-the request contains a cookie or the request for a cookie it gets flagged as 'tracking'.
-Origins that make tracking requests get stored in a key value store where the keys
+When a browser with Privacy Badger enabled makes a request to a third party, if
+the request contains a cookie or the response tries to set a cookie it gets flagged as 'tracking'.
+Origins that make tracking requests get stored in a key→value store where the keys
 are the origins making the request, and the values are the first party origins these
-requests were made on. If that list of first parties contains three or more first party
-origins then the third party origin gets added to another list of known trackers.
-When Privacy Badger gets a request from a origin on the known trackers list, if it
-is not on the the cookieblocklist then Privacy Badger blocks that request. If it
-is on the cookieblocklist then the request is allowed to resolve, but all cookie
+requests were made on. If that list of third parties contains three or more first party
+origins the third party origin gets added to another list of known trackers.
+When Privacy Badger gets a request from an origin on the known trackers list, if it
+is not on the the cookie block list then Privacy Badger blocks that request. If it
+is on the cookie block list then the request is allowed to resolve, but all cookie
 setting and getting parts of it are blocked, as well as referer headers. Both of 
 these lists are stored on disk, and persist between browser sessions.
 
-Additionally users can manually set the desired action for any given domain.
+Additionally users can manually set the desired action for any FQDN.
 These get added to their own lists, which are also stored on disk, and get checked
 before Privacy Badger does its default action for a given origin. These are managed
-from the popup window for privacy badger on the page as well as the options menu
+from the popup window for privacy Badger on the page as well as the options menu
 for the whole extension.
 
