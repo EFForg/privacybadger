@@ -102,11 +102,10 @@ Now suppose the user visits a third site, <tt>clickbait.nonprofit.org</tt>,
 and is tracked by <tt>q.tracking.co.uk</tt> on that site.  The
 seenThirdParties data structure will have a third entry added to it, meeting
 the threshold of three first party origins and defining
-<tt>tracking.co.uk</tt> as a tracking eTLD+1.  *However*, only
-<tt>q.tracking.co.uk</tt> will be blocked at this point; each other subdomain
-of <tt>tracking.co.uk</tt> will be redlisted as it attempts to
-load in future requests.  The user can manually unblock specific
-subdomains as necessary via the popup menu.
+<tt>tracking.co.uk</tt> as a tracking eTLD+1.  At this point
+<tt>tracking.co.uk</tt> will be added to the block list. Any future requests to
+<tt>tracking.co.uk</tt>, or any of its subdomains, will be blocked. 
+The user can manually unblock specific subdomains as necessary via the popup menu.
 
 ##### What is a "low entropy" cookie?
 
