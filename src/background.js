@@ -122,7 +122,7 @@ function migrateVersion(prevVersion,currentVersion){
  */
 function migrateBlockedDomains() {
   var domains = JSON.parse(localStorage.getItem("blockeddomainslist"));
-  if (!domains || domains.length > 0){
+  if (domains && domains.length > 0){
     return;
   }
   chrome.storage.local.get("blockeddomainslist", function(items){
