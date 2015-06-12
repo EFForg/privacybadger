@@ -28,10 +28,10 @@ Privacy Badger:
    JavaScript fingerprinting API calls on 3 or more first party origins, this is deemed to be 
    "cross site tracking"
 4. Typically, cross site trackers are blocked completely; Privacy Badger prevents the
-   browser from communicating with them.  The exception is if the site is on
+   browser from communicating with them. The exception is if the site is on
    Privacy Badger's "cookie block list" (aka the "yellow list"), in which case
    resources from the site are loaded, but with their (third party) cookies, as
-   well as referer header, blocked.  The cookie block list is routinely fetched 
+   well as referer header, blocked. The cookie block list is routinely fetched 
    from [an EFF URL](https://www.eff.org/files/cookieblocklist.txt) to allow prompt fixes for breakage.
    Until methods for blocking them have been implemented, domains that perform
    fingerprinting or use third party supercookies should not be added to the
@@ -39,7 +39,7 @@ Privacy Badger:
 5. Users can also choose custom rules for any given domain flagged by Privacy Badger,
    overrulling any automatic decision Privacy Badger has made about the domain.
    Privacy badger uses three-state sliders (red - block, yellow - cookie block, green - allow) to convey this
-   state in UI.  We believe this is less confusing than the UI in many other
+   state in UI. We believe this is less confusing than the UI in many other
    blocking tools, which often leave the user confused about whether a visual
    state represents blocking or the opportunity to block.
 6. Domains can agree to EFF's [Do Not Track policy](https://eff.org/dnt-policy). If a domain does this
@@ -48,7 +48,7 @@ Privacy Badger:
    embedded on that domain.
 
    Sites post the policy at [a well-known
-   URL](https://example.com/.well-known/dnt-policy.txt) on their domains.  The
+   URL](https://example.com/.well-known/dnt-policy.txt) on their domains. The
    contents must match those of a file from the list of acceptable policies exactly; the policy
    file is [maintained on github](https://github.com/EFForg/dnt-policy/), but
    privacy badger fetches a list of known-good hashes periodically [from
@@ -60,17 +60,21 @@ Privacy Badger:
 
 ##### What is an "origin" for Privacy Badger?
 
-Privacy Badger has two notions of origin.  One is the [effective top level
+Privacy Badger has two notions of origin. One is the [effective top level
 domain](https://wiki.mozilla.org/Public_Suffix_List) + 1 (eTLD+1), computed using
 [getBaseDomain](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIEffectiveTLDService).
 
 The accounting for which origins are trackers or not is performed by looking
 up how many first party fully qualified domain names (FQDNs) are tracked by
-each of these eTLD+1 origins.  This is a conservative choice, which
+each of these eTLD+1 origins. This is a conservative choice, which
 avoids the need evaluate sets of cookies with different scopes.
 
 When the heuristic determines that the correct response is to block,
-that decision is applied to the third party eTLD from which tracking was seen.
+that decision is applied to the third party eTLD+1 from which tracking was seen.
+
+Users are able to override Privacy Badger's decision for any given FQDN if they
+do not wish to block something that is otherwise blocked (or block something 
+that is not blocked).
 
 ##### What is a "low entropy" cookie?
 
@@ -94,35 +98,34 @@ by third party origins with local, static equivalents that either replace the
 original widget faithfully, or create a click-through step before the widget
 is loaded and tracks the user.
 
-The widget replacement table lives in the [socialwidgets.json
-file](https://github.com/EFForg/privacybadgerchrome/blob/master/src/socialwidgets.json).
-Widgets are only replaced if the domain hosting them is in a "yellow"
-(cookieblock) or "red" (block) state, so users can selectively disable this
-functionality if they wish.  The code for social media widgets is quite
-diverse, so not all variants (especially custom variants that sites build for
-themselves) are necessarily replaced.
+The widget replacement table lives in the [socialwidgets.json file](https://github.com/EFForg/privacybadgerchrome/blob/master/src/socialwidgets.json).
+Widgets are replaced unless the user has chosen to specifically allow that third-party
+domain (by moving the slider to 'green' in the UI), so users can selectively 
+disable this functionality if they wish. The code for social media widgets is 
+quite diverse, so not all variants (especially custom variants that sites build 
+for themselves) are necessarily replaced.
 
 The widget method may be used in the future to implement ["script
 surrogates"](https://github.com/EFForg/privacybadgerchrome/issues/400),
 which are a more privacy-protective alternative to yellowlisting certain
-third-party JavaScript domains.  If that occurs, <tt>socialwidgets.json</tt>
+third-party JavaScript domains. If that occurs, <tt>socialwidgets.json</tt>
 should also be periodically fetched from a live EFF URL.
 
 #### Consent Prompts for Third Party Logins
 
 There are very rare instances where third party domains are necessary
 for first-party functionality on a site, and those third parties will not
-function with their cookies blocked.  Typically this occurs when the site
-UI prompts the user to log in to the third party.  Common examples include users
+function with their cookies blocked. Typically this occurs when the site
+UI prompts the user to log in to the third party. Common examples include users
 attempting to log into Disqus widgets to post comments, or users trying to log
 into accounts.google.com to comment on youtube.com.
 
 We have implemented experimental solutions which invovle manually identifying
 such situations, and triggering a request to the user to allow the request on
-this site, allow it across the web, or prevent it.  
+this site, allow it across the web, or prevent it. 
 
-The login URLs that trigger this UI are [fetched live from
-EFF](https://www.eff.org/files/domain_exception_list.txt).
+The login URLs that trigger this UI are [fetched from an
+EFF url](https://www.eff.org/files/domain_exception_list.txt).
 
 
 #### What are the states for domain responses?
@@ -130,9 +133,10 @@ EFF](https://www.eff.org/files/domain_exception_list.txt).
 Currently domains have three states: no action, cookie block, and block.
 No action allows all requests to resolve as normal without intervention from
 Privacy Badger. Cookie block allows for requests to resolve normally but will
-block all cookie requests. Block will cause any requests from that origin to be
-blocked. The user can toggle these options manually, which will supersede any
-determinations made automatically by Privacy Badger.
+block cookies from being read or created, it will also block the referer header. 
+Block will cause any requests from that origin to be blocked. The user can toggle 
+these options manually, which will supersede any determinations made automatically 
+by Privacy Badger.
 
 #### What does EFFs Do Not Track policy stipulate?
 
@@ -149,26 +153,28 @@ where "subdomain" is any domain to which the policy applies, for a given third p
 #### Canvas data
 
 The canvas element of a browser can be used to read a lot of identifying
-information about a user's system. Privacy Badger should block these requests,
-and block third parties if they are found to be requesting this data.
+information about a user's system. Privacy Badger detects any third-party domain
+that looks like it is doing canvas fingerprinting nd treat it as it would a cookie
+request, blocking the third party origin if it does this across multiple first 
+party origins. 
 
 #### Browser fingerprinting
 
-Certian aspects of the browser, such as fonts, add-on or extensions, screen size,
+Certian aspects of the browser, such as fonts, add-ons or extensions, screen size,
 and seen links, can be used to give the browser a fingerprint that is unique out
-of a very small amount of users (see Panopticlick for more information). Privacy
+of a very small amount of users (see [Panopticlick](https://panopticlick.eff.org/) for more information). Privacy
 Badger in the future should detect some of these values being read and treat that
 as it would a cookie request, blocking third party origins if they do this across
 multiple first party origins.
 
 #### Click-to-play for extensions
 
-Certain browser add-ons, like flash, expose an enormous amount of identifying
+Certain browser add-ons, like Flash, expose an enormous amount of identifying
 information about a user's system. Privacy Badger in the future should disable
 these by default and allow users to have the option to agree to their use on a
 site by site basis.
 
-## Technical Implementation (Chrome)
+## Technical Implementation
 
 ### How are origins and the rules for them stored?
 
@@ -181,8 +187,8 @@ origins then the third party origin gets added to another list of known trackers
 When Privacy Badger gets a request from a origin on the known trackers list, if it
 is not on the the cookieblocklist then Privacy Badger blocks that request. If it
 is on the cookieblocklist then the request is allowed to resolve, but all cookie
-setting parts of it are blocked. Both of these lists are stored on disk, and persist
-between browser sessions.
+setting and getting parts of it are blocked, as well as referer headers. Both of 
+these lists are stored on disk, and persist between browser sessions.
 
 Additionally users can manually set the desired action for any given domain.
 These get added to their own lists, which are also stored on disk, and get checked
