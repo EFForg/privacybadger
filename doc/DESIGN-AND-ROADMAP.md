@@ -19,22 +19,28 @@ Privacy Badger:
 
 1. Ensures your browser is sending the DNT: 1 header
 2. Observes which first party origins a given 3rd party origin is setting cookies on
-   (certain cookies are deemed to be "low entropy", as discussed below
+   (certain cookies are deemed to be "low entropy", as discussed below)
 3. If a 3rd party origin receives a cookie, a supercookie, or makes 
    JavaScript fingerprinting API calls on 3 or more first party origins, this is deemed to be 
    "cross site tracking"
 4. Typically, cross site trackers are blocked completely; Privacy Badger prevents the
    browser from communicating with them.  The exception is if the site is on
    Privacy Badger's "cookieblocklist" (aka the "yellow list"), in which case
-   resources from the site are loaded, but with their (third party) cookies.
+   resources from the site are loaded, but with their (third party) cookies
+   blocked.
    Until methods for blocking them have been implemented, domains that perform
-   fingerprinting or use supercookies should only be added to the
-   cookieblocklist
-   (certain cookies are deemed to be "low entropy" and are not tracked, as discussed below)
+   fingerprinting or use third party supercookies should not be added to the
+   cookieblocklist.
 5. Users can also choose custom rules for any given domain flagged by Privacy Badger,
    overrulling any automatic decision Privacy Badger has made about the domain.
+
+   Privacy badger uses three-state sliders (red, yellow, green) to convey this
+   state in UI.  We believe this is less confusing than the UI in many other
+   blocking tools, which often leave the user confused about whether a visual
+   state represents blocking or the opportunity to block.
 6. Sites can agree to the EFFs Do Not Track policy. If a site does this
    Privacy Badger will no longer block their traffic or cookies.
+
 
 ### ADDITIONAL MECHANISMS AND FUTURE ROADMAP
 
@@ -45,7 +51,7 @@ domain](https://wiki.mozilla.org/Public_Suffix_List)
 
 #### What is a "low entropy" cookie?
 
-Our [current heuristic](https://github.com/EFForg/privacybadgerchrome/blob/master/src/heuristicblocking.js#L588) is to assign "number of identifying bits" estimates to
+Our [current heuristic](https://github.com/EFForg/privacybadgerchrome/blob/master/src/heuristicblocking.js#L578) is to assign "number of identifying bits" estimates to
 some known common cookie values, and to bound the sum of these to 12.
 Predetermined low-entropy cookies will not be identified as tracking, nor will
 combinations of them so long as their total length is under 12 bits.
