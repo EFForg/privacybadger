@@ -64,8 +64,17 @@ Privacy Badger:
 
 ##### What is an "origin" for Privacy Badger?
 
-Privacy Badger has two notions of origin.  One the [effective top level
-domain](https://wiki.mozilla.org/Public_Suffix_List) 
+Privacy Badger has two notions of origin.  One is the [effective top level
+domain](https://wiki.mozilla.org/Public_Suffix_List) + 1, computed using
+[getBaseDomain](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIEffectiveTLDService).
+The accounting for which origins are trackers or not is performed by looking
+up how count how many first party fully qualified domain names are tracked by
+each of these eTLD + 1 origins.  This is a conservative choice, which
+avoids the need evaluate sets of cookies with different scopes.
+
+However, when the heuristic determines that the correct response is to block,
+that decision is only applied to the specific third party FQDN from which
+tracking was seen.
 
 ##### What is a "low entropy" cookie?
 
