@@ -91,7 +91,7 @@ The accounting data structure <tt>seenThirdParties</tt> would come to include:
 {
   ...
   "tracking.co.uk" : {
-    "news-example.com"    : true,
+    "news-example.com" : true,
     "jobs-example.info : true,
   }
   ...
@@ -104,8 +104,8 @@ seenThirdParties data structure will have a third entry added to it, meeting
 the threshold of three first party origins and defining
 <tt>tracking.co.uk</tt> as a tracking eTLD+1.  *However*, only
 <tt>q.tracking.co.uk</tt> will be blocked at this point; each other subdomain
-of <tt>tracking.co.uk</tt> will be redlisted and as it attempt to
-load in future requests will be blocked.  The user can manually unblock specific
+of <tt>tracking.co.uk</tt> will be redlisted as it attempts to
+load in future requests.  The user can manually unblock specific
 subdomains as necessary via the popup menu.
 
 ##### What is a "low entropy" cookie?
