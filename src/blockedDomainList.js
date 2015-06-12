@@ -31,11 +31,14 @@ var BlockedDomainList = exports.BlockedDomainList = {
   updateDomains: function(){
     var self = this;
     self.domains = JSON.parse(localStorage.getItem("blockeddomainslist"));
-    loaded = true;
+    this.loaded = true;
     return;
   },
 
   addDomain: function(domain, cb){
+    if(!this.loaded){
+      this.updateDomains();
+    }
     if(!this.hasDomain(domain)){
       var updateTime = this._randomFutureTime();
       this.domains[domain] = updateTime;
@@ -44,6 +47,9 @@ var BlockedDomainList = exports.BlockedDomainList = {
   },
 
   updateDomainCheckTime: function(domain){
+    if(!this.loaded){
+      this.updateDomains();
+    }
     var updateTime = this._randomFutureTime();
     this.domains[domain] = updateTime;
     localStorage.setItem("blockeddomainslist", JSON.stringify(this.domains));
@@ -58,6 +64,9 @@ var BlockedDomainList = exports.BlockedDomainList = {
   },
 
   removeDomain: function(domain){
+    if(!this.loaded){
+      this.updateDomains();
+    }
     if(this.hasDomain(domain)){
       delete this.domains[domain];
       localStorage.setItem("blockeddomainslist", JSON.stringify(this.domains));

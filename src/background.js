@@ -122,7 +122,7 @@ function migrateVersion(prevVersion,currentVersion){
  */
 function migrateBlockedDomains() {
   var domains = JSON.parse(localStorage.getItem("blockeddomainslist"));
-  if (domains.length > 0){
+  if (!domains || domains.length > 0){
     return;
   }
   chrome.storage.local.get("blockeddomainslist", function(items){
@@ -289,12 +289,18 @@ function addSubscription(prevVersion) {
 
   // Add a permanent store for seen third parties 
   // TODO: Does this go away when the extension is updated?
-  localStorage.setItem("seenThirdParties", JSON.stringify({}));
+  var seenThird = JSON.parse(localStorage.getItem("seenThirdParties"));
+  if (!seenThird){
+    localStorage.setItem("seenThirdParties", JSON.stringify({}));
+  }
 
   // Add a permanent store for blocked domains to recheck DNT compliance 
   // TODO: storing this in localStorage makes it synchronous, but we might 
   // want the speed up of async later if we want to deal with promises
-  localStorage.setItem("blockeddomainslist", JSON.stringify({}));
+  var blockedDomains = JSON.parse(localStorage.getItem("blockeddomainslist"));
+  if (!blockedDomains){
+    localStorage.setItem("blockeddomainslist", JSON.stringify({}));
+  }
 
   if (!addSubscription) {
     return;
