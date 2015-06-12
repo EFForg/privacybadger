@@ -6,12 +6,12 @@
 
 Privacy Badger aims to
 
- - protect users against non-consensual tracking by sites as they browse the
-   Web.
+ - Protect users against non-consensual tracking by third-party domains as they 
+   browse the Web.
 
- - send and enforce the Do Not Track signal to sites (especially "third party"
+ - Send and enforce the Do Not Track signal to sites (especially "third party"
    sites since they are in a position to collect a large fraction of the user's
-   browsing history)
+   browsing history).
 
 Privacy badger consists of a primary tracker blocking algorithm, augmented by
 a number of secondary features that extend further privacy protection and
@@ -29,24 +29,20 @@ Privacy Badger:
    "cross site tracking"
 4. Typically, cross site trackers are blocked completely; Privacy Badger prevents the
    browser from communicating with them.  The exception is if the site is on
-   Privacy Badger's "cookieblocklist" (aka the "yellow list"), in which case
-   resources from the site are loaded, but with their (third party) cookies
-   blocked.  The cookieblocklist is routinely fetched from [an EFF
-   URL](https://www.eff.org/files/cookieblocklist.txt) to allow prompt fixes
-   for breakage.
-
+   Privacy Badger's "cookie block list" (aka the "yellow list"), in which case
+   resources from the site are loaded, but with their (third party) cookies, as
+   well as referer header, blocked.  The cookie block list is routinely fetched 
+   from [an EFF URL](https://www.eff.org/files/cookieblocklist.txt) to allow prompt fixes for breakage.
    Until methods for blocking them have been implemented, domains that perform
    fingerprinting or use third party supercookies should not be added to the
    cookieblocklist.
 5. Users can also choose custom rules for any given domain flagged by Privacy Badger,
    overrulling any automatic decision Privacy Badger has made about the domain.
-
    Privacy badger uses three-state sliders (red, yellow, green) to convey this
    state in UI.  We believe this is less confusing than the UI in many other
    blocking tools, which often leave the user confused about whether a visual
    state represents blocking or the opportunity to block.
-
-6. Domains can agree to the EFFs [Do Not Track policy](https://eff.org/dnt-policy). If a domain does this
+6. Domains can agree to EFF's [Do Not Track policy](https://eff.org/dnt-policy). If a domain does this
    Privacy Badger will no longer block its traffic or cookies. If a
    first-party domain posts the policy, this applies to all third parties
    embedded on that domain.
@@ -65,11 +61,12 @@ Privacy Badger:
 ##### What is an "origin" for Privacy Badger?
 
 Privacy Badger has two notions of origin.  One is the [effective top level
-domain](https://wiki.mozilla.org/Public_Suffix_List) + 1, computed using
+domain](https://wiki.mozilla.org/Public_Suffix_List) + 1 (eTLD+1), computed using
 [getBaseDomain](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIEffectiveTLDService).
+
 The accounting for which origins are trackers or not is performed by looking
-up how count how many first party fully qualified domain names are tracked by
-each of these eTLD + 1 origins.  This is a conservative choice, which
+up how many first party fully qualified domain names (FQDNs) are tracked by
+each of these eTLD+1 origins.  This is a conservative choice, which
 avoids the need evaluate sets of cookies with different scopes.
 
 However, when the heuristic determines that the correct response is to block,
