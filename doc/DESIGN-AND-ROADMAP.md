@@ -13,6 +13,10 @@ Privacy Badger aims to
    sites since they are in a position to collect a large fraction of the user's
    browsing history)
 
+Privacy badger consists of a primary tracker blocking algorithm, augmented by
+a number of secondary features that extend further privacy protection and
+reduce breakage from the primary mechanism.
+
 ### PRIMARY MECHANISM
 
 Privacy Badger:
@@ -27,7 +31,10 @@ Privacy Badger:
    browser from communicating with them.  The exception is if the site is on
    Privacy Badger's "cookieblocklist" (aka the "yellow list"), in which case
    resources from the site are loaded, but with their (third party) cookies
-   blocked.
+   blocked.  The cookieblocklist is routinely fetched from [an EFF
+   URL](https://www.eff.org/files/cookieblocklist.txt) to allow prompt fixes
+   for breakage.
+
    Until methods for blocking them have been implemented, domains that perform
    fingerprinting or use third party supercookies should not be added to the
    cookieblocklist.
@@ -38,23 +45,80 @@ Privacy Badger:
    state in UI.  We believe this is less confusing than the UI in many other
    blocking tools, which often leave the user confused about whether a visual
    state represents blocking or the opportunity to block.
-6. Sites can agree to the EFFs Do Not Track policy. If a site does this
-   Privacy Badger will no longer block their traffic or cookies.
 
+6. Domains can agree to the EFFs [Do Not Track policy](https://eff.org/dnt-policy). If a domain does this
+   Privacy Badger will no longer block its traffic or cookies. If a
+   first-party domain posts the policy, this applies to all third parties
+   embedded on that domain.
 
-### ADDITIONAL MECHANISMS AND FUTURE ROADMAP
+   Sites post the policy at [a well-known
+   URL](https://example.com/.well-known/dnt-policy.txt) on their domains.  The
+   contents must match the list of acceptable policies exactly; the policy
+   file is [maintained on github](https://github.com/EFForg/dnt-policy/), but
+   privacy fetches a list of known-good hashes periodically [from
+   EFF](https://www.eff.org/files/dnt-policies.json) (version  1.0 of the
+   policy file will be added to that list when Privacy Badger reaches version
+   1.0)
 
-#### What is an "origin" for Privacy Badger?
+#### Further Details
+
+##### What is an "origin" for Privacy Badger?
 
 Privacy Badger has two notions of origin.  One the [effective top level
 domain](https://wiki.mozilla.org/Public_Suffix_List) 
 
-#### What is a "low entropy" cookie?
+##### What is a "low entropy" cookie?
 
 Our [current heuristic](https://github.com/EFForg/privacybadgerchrome/blob/master/src/heuristicblocking.js#L578) is to assign "number of identifying bits" estimates to
 some known common cookie values, and to bound the sum of these to 12.
 Predetermined low-entropy cookies will not be identified as tracking, nor will
 combinations of them so long as their total length is under 12 bits.
+
+### ADDITIONAL MECHANISMS 
+
+#### Widget Substitution
+
+Many social media widgets are inherently designed to combine tracking
+functionality and occassionally-useful functionality in a single resouce load.
+Privacy Badger aims to give the user acess to the functionality when they want
+it, but protection against the tracking at all other times.
+
+To that end, Privacy Badger has incorporated code from the TrackMeNot project
+so that it is able to replace various types of widgets hosted
+by third party origins with local, static equivalents that either replace the
+original widget faithfully, or create a click-through step before the widget
+is loaded and tracks the user.
+
+The widget replacement table lives in the [socialwidgets.json
+file](https://github.com/EFForg/privacybadgerchrome/blob/master/src/socialwidgets.json).
+Widgets are only replaced if the domain hosting them is in a "yellow"
+(cookieblock) or "red" (block) state, so users can selectively disable this
+functionality if they wish.  The code for social media widgets is quite
+diverse, so not all variants (especially custom variants that sites build for
+themselves) are necessarily replaced.
+
+The widget method may be used in the future to implement ["script
+surrogates"](https://github.com/EFForg/privacybadgerchrome/issues/400),
+which are a more privacy-protective alternative to yellowlisting certain
+third-party JavaScript domains.  If that occurs, <tt>socialwidgets.json</tt>
+should also be periodically fetched from a live EFF URL.
+
+#### Consent Prompts for Third Party Logins
+
+There are very rare instances where third party domains are necessary
+for first-party functionality on a site, and those third parties will not
+function with their cookies blocked.  Typically this occurs when the site
+UI prompts the user to log in to the third party.  Common examples include users
+attempting to log into Disqus widgets to post comments, or users trying to log
+into accounts.google.com to comment on youtube.com.
+
+We have implemented experimental solutions which invovle manually identifying
+such situations, and triggering a request to the user to allow the request on
+this site, allow it across the web, or prevent it.  
+
+The login URLs that trigger this UI are [fetched live from
+EFF](https://www.eff.org/files/domain_exception_list.txt).
+
 
 #### What are the states for domain responses?
 
@@ -76,27 +140,6 @@ It can be read in full [here](https://www.eff.org/dnt-policy).
 
 Sites can agree to this policy by posting at https://subdomain.example.com/.well-known/dnt-policy.txt, 
 where "subdomain" is any domain to which the policy applies, for a given third party.
-
-#### Widget Handling
-
-Many social media widgets are inherently designed to combine tracking
-functionality and occassionally-useful functionality in a single resouce load.
-Privacy Badger aims to give the user acess to the functionality when they want
-it, but protection against the tracking at all other times.
-
-To that end, Privacy Badger has incorporated code from the TrackMeNot project
-so that it is able to replace various types of widgets hosted
-by third party origins with local, static equivalents that either replace the
-original widget faithfully, or create a click-through step before the widget
-is loaded and tracks the user.
-
-The widget replacement table lives in the [socialwidgets.json
-file](https://github.com/EFForg/privacybadgerchrome/blob/master/src/socialwidgets.json).
-Widgets are only replaced if the domain hosting them is in a "yellow"
-(cookieblock) or "red" (block) state, so users can disable this functionality
-if they wish.  The code for social media widgets is quite diverse, so not all
-  variants (especially custom variants that sites build for themselves) are
-  necessarily replaced.
 
 #### Canvas data
 
