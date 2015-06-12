@@ -30,7 +30,7 @@ Privacy Badger:
    of supercookies on.
 3. If a third party origin receives a cookie, a supercookie, or makes 
    JavaScript fingerprinting API calls on 3 or more first party origins, this is deemed to be 
-   "cross site tracking"
+   "cross site tracking".
 4. Typically, cross site trackers are blocked completely; Privacy Badger prevents the
    browser from communicating with them. The exception is if the site is on
    Privacy Badger's "cookie block list" (aka the "yellow list"), in which case
@@ -61,14 +61,16 @@ Privacy Badger:
 
 ##### What is an "origin" for Privacy Badger?
 
-Privacy Badger has two notions of origin. One is the [effective top level
-domain](https://wiki.mozilla.org/Public_Suffix_List) + 1 (eTLD+1), computed using
-[getBaseDomain](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIEffectiveTLDService).
-
+Privacy Badger has two notions of origin.  One is the [effective top level
+domain](https://wiki.mozilla.org/Public_Suffix_List) plus one level of
+subdomain (eTLD+1), computed using
+[getBaseDomain](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIEffectiveTLDService)
+(which is built-in to Firefox; in Chrome we [ship a
+copy](https://github.com/EFForg/privacybadgerchrome/blob/master/lib/basedomain.js#L68).
 The accounting for which origins are trackers or not is performed by looking
-up how many first party fully qualified domain names (FQDNs) are tracked by
-each of these eTLD+1 origins. This is a conservative choice, which
-avoids the need evaluate sets of cookies with different scopes.
+up how many first party fully qualified domain names (FQDNs) have been tracked by each
+of these eTLD + 1 origins.  This is a conservative choice, which avoids the
+need to evaluate sets of cookies with different scopes.  
 
 When the heuristic determines that the correct response is to block,
 that decision is applied to the third party eTLD+1 from which tracking was seen.
@@ -76,6 +78,35 @@ that decision is applied to the third party eTLD+1 from which tracking was seen.
 Users are able to override Privacy Badger's decision for any given FQDN if they
 do not wish to block something that is otherwise blocked (or block something 
 that is not blocked).
+
+To illustrate this, suppose the site <tt>tracking.co.uk</tt> was embedded on
+every site on the Web, but each embed came from a randomly selected subdomain
+<tt>a.tracking.co.uk</tt>, <tt>b.tracking.co.uk</tt>,
+<tt>c.tracking.co.uk</tt>, etc.  Suppose the user visits
+<tt>www.news-example.com</tt>, <tt>search.jobs-example.info</tt>.
+
+The accounting data structure <tt>seenThirdParties</tt> would come to include:
+
+```
+{
+  ...
+  "tracking.co.uk" : {
+    "www.news-example.com"    : true,
+    "search.jobs-example.info : true,
+  }
+  ...
+}
+```
+
+Now suppose the user visits a third site, <tt>clickbait.nonprofit.org</tt>,
+and is tracked by <tt>q.tracking.co.uk</tt> on that site.  The
+seenThirdParties data structure will have a third entry added to it, meeting
+the threshold of three first party origins and defining
+<tt>tracking.co.uk</tt> as a tracking eTLD+1.  *However*, only
+<tt>q.tracking.co.uk</tt> will be blocked at this point; each other subdomain
+of <tt>tracking.co.uk</tt> will be redlisted as and only as it attempts to
+track the user.  This ensures that if there is a non-tracking subdomain,
+<tt>api.tracking.co.uk</tt>, it will not be blocked.
 
 ##### What is a "low entropy" cookie?
 
@@ -89,7 +120,7 @@ combinations of them so long as their total estimated entropy is under 12 bits.
 #### Widget Substitution
 
 Many social media widgets are inherently designed to combine tracking
-functionality and occassionally-useful functionality in a single resouce load.
+and occassionally-useful functionality in a single resouce load.
 Privacy Badger aims to give the user acess to the functionality when they want
 it, but protection against the tracking at all other times.
 
@@ -152,22 +183,22 @@ It can be read in full [here](https://www.eff.org/dnt-policy).
 Sites can agree to this policy by posting at https://subdomain.example.com/.well-known/dnt-policy.txt, 
 where "subdomain" is any domain to which the policy applies, for a given third party.
 
-#### Canvas data
-
-The canvas element of a browser can be used to read a lot of identifying
-information about a user's system. Privacy Badger detects any third party domain
-that looks like it is doing canvas fingerprinting and treats it as it would a cookie
-request, blocking the third party origin if it does this across multiple first 
-party origins. 
-
-#### Browser fingerprinting
-
+#### Fingerprinting detection
 Certian aspects of the browser, such as fonts, add-ons or extensions, screen size,
 and seen links, can be used to give the browser a fingerprint that is unique out
-of a very small amount of users (see [Panopticlick](https://panopticlick.eff.org/) for more information). Privacy
-Badger in the future should detect some of these values being read and treat that
-as it would a cookie request, blocking third party origins if they do this across
-multiple first party origins.
+of a very small amount of users (see [Panopticlick](https://panopticlick.eff.org/) for more information).
+
+As of Privacy Badger 1.0, any third party script that writes to an HTML5
+canvas object and then reads a sufficiently large amount back from the third
+party canvas object will be treated the same way as a third party cookie, blocking the 
+third party origin if it does this across multiple first party origins. Our 
+research has determined that this is a reliable way to distinguish between 
+fingerprinting and other third party canvas uses. 
+
+This may be augmented by hooks to detect extensive enumeration of properties
+in the <tt>navigator</tt> object in the near future.
+
+### ROADMAP
 
 #### Click-to-play for extensions
 
