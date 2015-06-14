@@ -294,6 +294,12 @@ function addSubscription(prevVersion) {
     localStorage.setItem("seenThirdParties", JSON.stringify({}));
   }
 
+  // Add a permanent store for supercookie domains
+  var supercookieDomains = JSON.parse(localStorage.getItem("supercookieDomains"));
+  if (!supercookieDomains){
+    localStorage.setItem("supercookieDomains", JSON.stringify({}));
+  }
+
   // Add a permanent store for blocked domains to recheck DNT compliance 
   // TODO: storing this in localStorage makes it synchronous, but we might 
   // want the speed up of async later if we want to deal with promises
