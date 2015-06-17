@@ -24,7 +24,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def test_should_display_tooltips_on_hover(self):
         driver = self.driver
-        find_el_by_css = driver.find_element_by_css_selector
+        find_el_by_css = self.find_el_by_css  # find with WebDriver wait
         TOOLTIP_TXTS = ("Move the slider left to block a domain.",
                         "Center the slider to block cookies.",
                         "Move the slider right to allow a domain.")
@@ -32,12 +32,23 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         # Visit a newspaper page to get some tracker domains
         driver.get("https://nytimes.com/")
         sleep(3)
+        MAX_TRY_LOAD_PB_OPTIONS = 5
+        tried = 0
         # For an unknown reason, PB Options page cannot be rendered correctly
-        # during the first visit. Visiting twice solves the problem.
-        driver.get(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
-        driver.get(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
-        # Click to the second tab (User Filter Settings)
-        driver.find_element_by_id("ui-id-2").click()
+        # during the first visit or sometimes throw a TimeOutException.
+        # Try visiting a couple of times.
+        while tried < MAX_TRY_LOAD_PB_OPTIONS:
+            tried += 1
+            try:
+                driver.get(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
+                print "\nLoaded", pbtest.PB_CHROME_OPTIONS_PAGE_URL, tried
+                # Click to the second tab (User Filter Settings)
+                driver.find_element_by_id("ui-id-2").click()
+            except:
+                pass
+            else:
+                break
+
         tooltip_css = "div.keyContainer > div > div.tooltipContainer"
         for icon_no in xrange(1, 4):  # repeat for all three icons
             # CSS selector for icons in the keyContainer

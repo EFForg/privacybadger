@@ -3,7 +3,8 @@
 
 import unittest
 import pbtest
-from time import sleep
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Test(pbtest.PBSeleniumTest):
@@ -15,15 +16,14 @@ class Test(pbtest.PBSeleniumTest):
 
     def test_should_load_eff_org(self):
         self.driver.get("https://www.eff.org")
-        self.assertIn("Electronic Frontier Foundation", self.driver.title)
+        WebDriverWait(self.driver, 10).until(EC.title_contains("Electronic Frontier Foundation"))
 
     def test_should_search_google(self):
         self.driver.get("https://www.google.com/")
         qry_el = self.driver.find_element_by_name("q")
         qry_el.send_keys("EFF")  # search term
         qry_el.submit()
-        sleep(5)  # give time to load the results and update the title
-        self.assertIn("EFF", self.driver.title)
+        WebDriverWait(self.driver, 10).until(EC.title_contains("EFF"))
 
 
 if __name__ == "__main__":

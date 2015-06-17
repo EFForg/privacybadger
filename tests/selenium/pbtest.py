@@ -7,6 +7,9 @@ from glob import glob
 from xvfbwrapper import Xvfb
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 # PB_EXT_BG_URL_BASE = "chrome-extension://pkehgijcmpdhfbdbbnkijodmdjhbjlgp/"
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
@@ -28,7 +31,6 @@ class PBSeleniumTest(unittest.TestCase):
             self.vdisplay = Xvfb(width=1280, height=720)
             self.vdisplay.start()
         self.driver = self.get_chrome_driver()
-        self.driver.implicitly_wait(10)
         self.js = self.driver.execute_script
 
     def get_extension_path(self):
@@ -44,7 +46,11 @@ class PBSeleniumTest(unittest.TestCase):
 
     def txt_by_css(self, css_selector):
         """Find an element by CSS selector and return it's text."""
-        return self.driver.find_element_by_css_selector(css_selector).text
+        return self.find_el_by_css(css_selector).text
+
+    def find_el_by_css(self, css_selector):
+        return WebDriverWait(self.driver, 30).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
     def get_chrome_driver(self):
         """Setup and return a Chrom[e|ium] browser for Selenium."""
