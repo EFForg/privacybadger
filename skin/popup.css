@@ -215,3 +215,23 @@ font-size: 16px;
   font-size: 14px;
   font-weight: bold;
 }
+#overlay {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 31;
+  background-color: rgba(89, 103, 113, 0.9);
+  color: white; }
+  div#overlay.active {
+    display: block; }
+#error_input {
+  width: 70%;}
+#report_text {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top:40px;}
+#report_button {
+  margin-top: 10px;
+  margin-right: 5px;}
