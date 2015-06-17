@@ -46,8 +46,11 @@ class PBSeleniumTest(unittest.TestCase):
 
     def txt_by_css(self, css_selector):
         """Find an element by CSS selector and return it's text."""
+        return self.find_el_by_css(css_selector).text
+
+    def find_el_by_css(self, css_selector):
         return WebDriverWait(self.driver, 30).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, css_selector))).text
+            EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
     def get_chrome_driver(self):
         """Setup and return a Chrom[e|ium] browser for Selenium."""
