@@ -105,6 +105,9 @@
     "report_text": {
         "message": "Give a short description of your error below"
     },
+    "report_broken_site": {
+      "message": "Report Broken Site"
+    },
     "whitelisted_domains": {
         "description": "This is a tab heading.",
         "message": "Whitelisted domains"
