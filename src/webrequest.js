@@ -143,6 +143,15 @@ function onBeforeRequest(details){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
 
+  // read the supercookie state from localStorage and store it in frameData
+  var frameData = getFrameData(details.tabId, details.frameId);
+  if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
+    var supercookieDomains = Utils.getSupercookieDomains();
+    var origin = getBaseDomain(extractHostFromURL(details.url));
+    frameData.superCookie = supercookieDomains[origin] ? true : false;
+    //console.log("onBeforeRequest: read superCookie state from localstorage for",
+    //    origin, frameData.superCookie, details.tabId, details.frameId);
+  }
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
@@ -249,6 +258,31 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
     url: frameUrl,
     parent: parentFrameId
   };
+}
+
+function recordSuperCookie(sender, msg) {
+  /* Update frameData and localStorage about the supercookie finding */
+  var frameHost = extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
+  var frameOrigin = getBaseDomain(frameHost);
+  var pageHost = extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+  if (!isThirdParty(frameHost, pageHost)) {
+    // only happens on the start page for google.com.
+    return;
+  }
+
+  // keep frame's supercookie state in frameData for faster lookups
+  var frameData = getFrameData(sender.tab.id, sender.frameId);
+  if (frameData){
+    // console.log("Adding", frameOrigin, "to supercookieDomains (frameData), found on", pageHost);
+    frameData.superCookie = true;
+  }
+  // now add the finding to localStorage for persistence
+  var supercookieDomains = Utils.getSupercookieDomains();
+  // We could store the type of supercookie once we start to check multiple storage vectors
+  // Could be useful for debugging & bookkeeping.
+  //console.log("Adding", frameOrigin, "to supercookieDomains (localStorage), found on", pageHost);
+  supercookieDomains[frameOrigin] = true;
+  localStorage.setItem("supercookieDomains", JSON.stringify(supercookieDomains));
 }
 
 function recordFingerprinting(tabId, msg) {
@@ -537,6 +571,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     } else {
       recordFingerprinting(sender.tab.id, request.fpReport);
     }
+
+  } else if (request.superCookieReport) {
+    if (Utils.hasSuperCookie(request.superCookieReport)){
+      recordSuperCookie(sender, request.superCookieReport);
+    }
+  } else if (request.checkEnabledAndThirdParty) {
+    var pageHost = extractHostFromURL(sender.url);
+    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && isThirdParty(pageHost, tabHost));
   }
 
 });

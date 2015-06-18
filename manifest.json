@@ -43,7 +43,8 @@
       "js": [
         "src/include.preload.js",
         "src/clobbercookie.js",
-        "src/fingerprinting.js"
+        "src/fingerprinting.js",
+        "src/supercookie.js"
       ], 
       "matches": [
         "<all_urls>"

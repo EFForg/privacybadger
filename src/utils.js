@@ -229,6 +229,79 @@ var Utils = exports.Utils = {
   E: function(id) {
     return document.getElementById(id);
   },
+
+
+  /*
+   * Estimate the max possible entropy of str using min and max
+   * char codes observed in the string.
+   * Tends to overestimate in many cases, e.g. hexadecimals.
+   * Also, sensitive to case, e.g. bad1dea is different than BAD1DEA
+   */
+  estimateMaxEntropy: function(str) {
+    /*
+     * Don't process item + key's longer than LOCALSTORAGE_MAX_LEN_FOR_ENTROPY_EST.
+     * Note that default quota for local storage is 5MB and
+     * storing fonts, scripts or images in for local storage for
+     * performance is not uncommon. We wouldn't want to estimate entropy
+     * for 5M chars.
+     */
+    var MAX_LS_LEN_FOR_ENTROPY_EST = 256;
+
+    if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST){
+      /*
+       * Just return a higher-than-threshold entropy estimate.
+       * We assume 1 bit per char, which will be well over the
+       * threshold (33 bits).
+       */
+      return str.length;
+    }
+
+    var charCodes = Array.prototype.map.call(str, function (ch) {
+      return String.prototype.charCodeAt.apply(ch)
+    });
+    var minCharCode = Math.min.apply(Math, charCodes);
+    var maxCharCode = Math.max.apply(Math, charCodes);
+    // Guess the # of possible symbols, e.g. for 0101 it'd be 2.
+    var maxSymbolsGuess =  maxCharCode - minCharCode + 1;
+    var maxCombinations = Math.pow(maxSymbolsGuess, str.length);
+    var maxBits = Math.log(maxCombinations)/Math.LN2;
+    /* console.log("Local storage item length:", str.length, "# symbols guess:", maxSymbolsGuess,
+      "Max # Combinations:", maxCombinations, "Max bits:", maxBits) */
+    return maxBits;  // May return Infinity when the content is too long.
+  },
+
+  hasLocalStorageSuperCookie: function(lsItems) {
+    var LOCALSTORAGE_ENTROPY_THRESHOLD = 33, // in bits
+      estimatedEntropy = 0,
+      lsKey = "",
+      lsItem = "";
+    for (var lsKey in lsItems) {
+      // send both key and value to entropy estimation
+      lsItem = lsItems[lsKey];
+      // console.log("Checking localstorage item", lsKey, lsItem);
+      estimatedEntropy += Utils.estimateMaxEntropy(lsKey + lsItem);
+      if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD){
+        // console.log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
+        return true;
+      }
+    }
+    return false;
+  },
+
+  hasSuperCookie: function(storageItems) {
+    return (
+      Utils.hasLocalStorageSuperCookie(storageItems.localStorageItems)
+      // || Utils.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
+      // || Utils.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
+      // TODO: Do we need separate functions for other supercookie vectors?
+      // Let's wait until we implement them in the content script
+    );
+  },
+
+  getSupercookieDomains: function() {
+    return JSON.parse(localStorage.getItem("supercookieDomains")) || {};
+  }
+
 };
 
 return exports;
