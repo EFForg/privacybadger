@@ -22,6 +22,16 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         WebDriverWait(self.driver, 5).until(EC.invisibility_of_element_located(
             (By.CSS_SELECTOR, css_selector)))
 
+    def test_page_title(self):
+        self.driver.get(pbtest.PB_CHROME_BG_URL)  # load a dummy page
+        self.driver.get(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
+        localized_title = self.js('return i18n.getMessage("options_title")')
+        try:
+            WebDriverWait(self.driver, 3).until(EC.title_contains(localized_title))
+        except:
+            self.fail("Unexpected title for the Options page. Got (%s), expected (%s)"
+                      % (self.driver.title, localized_title))
+
     def test_should_display_tooltips_on_hover(self):
         driver = self.driver
         find_el_by_css = self.find_el_by_css  # find with WebDriver wait
