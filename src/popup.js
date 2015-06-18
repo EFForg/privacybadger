@@ -336,11 +336,13 @@ function refreshPopup(tabId) {
     printable = _addOriginHTML(origin, printable, action);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
-  printable = printable +
-      '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
-  for (var i = 0; i < nonTracking.length; i++){
-    var origin = nonTracking[i];
-    printable = _addOriginHTML(origin, printable, "noaction");
+  if(nonTracking.length > 0){
+    printable = printable +
+        '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
+    for (var i = 0; i < nonTracking.length; i++){
+      var origin = nonTracking[i];
+      printable = _addOriginHTML(origin, printable, "noaction");
+    }
   }
   $('#number_trackers').text(originCount);
   printable += "</div>";
