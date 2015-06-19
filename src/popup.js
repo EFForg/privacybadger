@@ -117,14 +117,22 @@ function send_error(message) {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var origins = getAllOriginsForTab(tabId);
   if(!origins){ return; }
-  var out = {"browser":browser, "tab":tab.url, "message":message};
+  //TODO "there's got to be a better way!"
+  var fqdn = tab.url.split("/",3)[2];
+  var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message};
   for (var i = 0; i < origins.length; i++){
      var origin = origins[i];
      var action = getAction(tabId, origin);
      if (!action){ action = "notracking"; }
-     out[origin] = action;
+     if (out[action]){
+       out[action] += ","+origin;
+     }
+     else{
+       out[action] = origin;
+     }
   }
   var out_data = JSON.stringify(out);
+  console.log(out_data);
   $.ajax({
     type: "POST",
     url: "https://privacybadger.org/reporting",
