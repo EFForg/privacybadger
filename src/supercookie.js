@@ -53,9 +53,15 @@ function getPageScript() {
     var getLocalStorageItems = function(){
       var lsItems = {};
       var lsKey = "";
-      for (var i = 0; i < localStorage.length; i++) {
-        lsKey = localStorage.key(i);
-        lsItems[lsKey] = localStorage.getItem(lsKey);
+      try{
+        for (var i = 0; i < localStorage.length; i++) {
+          lsKey = localStorage.key(i);
+          lsItems[lsKey] = localStorage.getItem(lsKey);
+        }
+      } catch(err){
+        // We get a SecurityError when our injected script runs in a 3rd party frame and
+        // the user has disabled 3rd party cookies and site data. See, http://git.io/vLwff
+        return {};
       }
       // console.log("getLocalStorageItems will return", lsItems);
       return lsItems;
