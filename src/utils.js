@@ -162,6 +162,8 @@ var Utils = exports.Utils = {
   /**
    * check if privacy badger is enabled, optionally take an origin and 
    * check against the disabledSites list
+   * @param {String} origin
+   * @returns {Boolean} true if disabled
    **/
   isPrivacyBadgerEnabled: function(origin){
     if(!JSON.parse(localStorage.enabled)){
