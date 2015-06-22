@@ -165,7 +165,7 @@ font-size: 16px;
   color:#4183c4;
 }
 #blockedResources{
-  max-height: 366px;
+  max-height: 320px;
   overflow-y: auto;
 }
 .key{
@@ -182,7 +182,7 @@ font-size: 16px;
 .key .tooltipContainer{
   position: absolute;
   left: 3px;
-  top:0;
+  top:-1;
 }
 #options{
   float: right;
