@@ -119,7 +119,8 @@ function send_error(message) {
   if(!origins){ return; }
   //TODO "there's got to be a better way!"
   var fqdn = tab.url.split("/",3)[2];
-  var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message};
+  var date = Date.now();
+  var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "date":date};
   for (var i = 0; i < origins.length; i++){
      var origin = origins[i];
      var action = getAction(tabId, origin);
