@@ -14,6 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**
+ * Runs in page content context. Injects a script that deletes cookies.
+ * Communicates to webrequest.js to get orders if to delete cookies.
+ */
 chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
   if (blocked) {
     console.log('clobbering cookies for', document.location);
