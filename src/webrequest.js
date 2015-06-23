@@ -112,6 +112,8 @@ function onTabRemoved(tabId){
 
 function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
+  // Update the badge of the added tab, which was probably used for prerendering.
+  updateBadge(addedTabId);
 }
 
 function onFilterChange() {
@@ -254,6 +256,16 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
       frames: {}
     };
   }
+  // check if this is a prerendered (bg) tab or not
+  chrome.tabs.get(tabId, function(tab){
+    if (chrome.runtime.lastError){
+      // chrome will throw error for the prerendered tabs
+      tabData[tabId].bgTab = true;
+    }else{
+      tabData[tabId].bgTab = false;
+    }
+  });
+
   tabData[tabId].frames[frameId] = {
     url: frameUrl,
     parent: parentFrameId
