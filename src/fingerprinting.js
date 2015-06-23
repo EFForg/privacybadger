@@ -85,7 +85,12 @@ function getPageScript() {
       };
     }());
 
-    // http://code.google.com/p/v8/wiki/JavaScriptStackTraceApi
+    // https://code.google.com/p/v8-wiki/wiki/JavaScriptStackTraceApi
+    /**
+     * Customize the stack trace
+     * @param structured If true, change to customized version
+     * @returns {*} Returns the stack trace
+     */
     function getStackTrace(structured) {
       var err = {},
         origFormatter,
@@ -108,6 +113,10 @@ function getPageScript() {
       return stack;
     }
 
+    /**
+     * Checks the stack trace for the originating URL
+     * @returns {String} The URL of the originating script (URL:Line number:Column number)
+     */
     function getOriginatingScriptUrl() {
       var trace = getStackTrace(true);
 
@@ -129,10 +138,19 @@ function getPageScript() {
       }
     }
 
+    /**
+     *  Strip away the line and column number (from stack trace urls)
+     * @param script_url The stack trace url to strip
+     * @returns {String} the pure URL
+     */
     function stripLineAndColumnNumbers(script_url) {
       return script_url.replace(/:\d+:\d+$/, '');
     }
 
+    /**
+     * Monitor the writes in a canvas instance
+     * @param item special item objects
+     */
     function trapInstanceMethod(item) {
       var is_canvas_write = (
         item.propName == 'fillText' || item.propName == 'strokeText'
@@ -239,6 +257,12 @@ function getPageScript() {
 
 }
 
+/**
+ * Executes a script in the page DOM context
+ *
+ * @param text The content of the script to insert
+ * @param data attributes to set in the inserted script tag
+ */
 function insertScript(text, data) {
   var parent = document.documentElement,
     script = document.createElement('script');
@@ -255,6 +279,9 @@ function insertScript(text, data) {
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
+/**
+ * Communicating to webrequest.js
+ */
 chrome.runtime.sendMessage({
   checkEnabled: true
 }, function (enabled) {
