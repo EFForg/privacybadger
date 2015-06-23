@@ -19,7 +19,12 @@ var SELECTOR_GROUP_SIZE = 20;
 
 var elemhideElt = null;
 
-// Sets the currently used CSS rules for elemhide filters
+/**
+ * Sets the currently used CSS rules for elemhide filters
+ * Inserts a CSS that sets display: none for the selectors
+ *
+ * @param selectors A array of selectors to hide
+ */
 function setElemhideCSSRules(selectors)
 {
   if (elemhideElt && elemhideElt.parentNode)
@@ -66,6 +71,11 @@ var typeMap = {
   "iframe": "SUBDOCUMENT"
 };
 
+/**
+ * Hide or remove unwanted elements. Called on error or on load
+ *
+ * @param event
+ */
 function checkCollapse(event)
 {
   var target = event.target;
@@ -94,6 +104,10 @@ function checkCollapse(event)
   }
 }
 
+/**
+ * Init this script on tab content load
+ * A list read from background.js of elements will be hidden
+ */
 function init()
 {
   
