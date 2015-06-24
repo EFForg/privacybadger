@@ -56,11 +56,20 @@ var Utils = exports.Utils = {
     this.__defineGetter__("appLocale", function() {return locale});
     return this.appLocale;
   },
+
+  // TODO: Implement
   generateChecksum: function(lines)
   {
     // We cannot calculate MD5 checksums yet :-(
     return null;
   },
+
+  /**
+   * Generator for URI objects
+   *
+   * @param url The url to analyze it with
+   * @returns {*|{scheme, spec, QueryInterface}}
+   */
   makeURI: function(url)
   {
     return Services.io.newURI(url);
@@ -79,6 +88,7 @@ var Utils = exports.Utils = {
     return null;
   },
 
+  // not used
   chooseFilterSubscription: function(subscriptions)
   {
     var selectedItem = null;
@@ -118,6 +128,7 @@ var Utils = exports.Utils = {
     return selectedItem;
   },
 
+  // not used
   getDocLink: function(linkID)
   {
     var Prefs = require("prefs").Prefs;
@@ -126,9 +137,14 @@ var Utils = exports.Utils = {
   },
 
   /**
-  * removes an element or range of elements from an array and reindexes the 
-  * array. Directly modifies the array in question. 
-  **/
+   * removes an element or range of elements from an array and reindexes the
+   * array. Directly modifies the array in question.
+   *
+   * @param ary The array to modify
+   * @param {Integer} Start item of the hole
+   * @param {Integer} End item of the hole
+   * @returns {*}
+   */
   removeElementFromArray: function(/*array*/ ary, /*int*/ from, /*int*/ to){
     var rest = ary.slice((to || from) + 1 || ary.length);
     ary.length = from < 0 ? ary.length + from : from;
@@ -136,8 +152,12 @@ var Utils = exports.Utils = {
   },
 
   /**
-  * Generic interface to make an XHR request 
-  **/
+   * Generic interface to make an XHR request
+   *
+   * @param url The url to get
+   * @param callback The callback to call after request has finished
+   * @param method GET/POST
+   */
   xhrRequest: function(url,callback,method){
     if(!method){
       var method = "GET";
@@ -162,6 +182,7 @@ var Utils = exports.Utils = {
   /**
    * check if privacy badger is enabled, optionally take an origin and 
    * check against the disabledSites list
+   *
    * @param {String} origin
    * @returns {Boolean} true if disabled
    **/
@@ -190,6 +211,8 @@ var Utils = exports.Utils = {
 
   /**
    * add an origin to the disabled sites list
+   *
+   * @param {String} origin The origin to disable the PB for
    **/
   disablePrivacyBadgerForOrigin: function(origin){
     if(localStorage.disabledSites === undefined){
@@ -205,6 +228,8 @@ var Utils = exports.Utils = {
 
   /**
    * remove an origin from the disabledSites list
+   *
+   * @param {String} origin The origin to disable the PB for
    **/
   enablePrivacyBadgerForOrigin: function(origin){
     if(localStorage.disabledSites === undefined){
@@ -220,6 +245,9 @@ var Utils = exports.Utils = {
 
   /**
    * Get a random number in the inclusive range min..max
+   *
+   * @param {Integer} minimum number to get
+   * @param {Integer} maximum number to get
    **/
   getRandom: function(min, max){
     return min + Math.floor(Math.random() * (max - min + 1));
@@ -272,6 +300,12 @@ var Utils = exports.Utils = {
     return maxBits;  // May return Infinity when the content is too long.
   },
 
+  /**
+   * Checks if local storage ( in dict) has any high-entropy keys
+   *
+   * @param lsItems Local storage dict
+   * @returns {boolean} true if it seems there are supercookies
+   */
   hasLocalStorageSuperCookie: function(lsItems) {
     var LOCALSTORAGE_ENTROPY_THRESHOLD = 33, // in bits
       estimatedEntropy = 0,
@@ -290,6 +324,12 @@ var Utils = exports.Utils = {
     return false;
   },
 
+  /**
+   * check if there seems to be any type of Super Cookie
+   *
+   * @param storageItems Dict with storage items
+   * @returns {*} true if there seems to be any Super cookie
+   */
   hasSuperCookie: function(storageItems) {
     return (
       Utils.hasLocalStorageSuperCookie(storageItems.localStorageItems)
@@ -300,6 +340,10 @@ var Utils = exports.Utils = {
     );
   },
 
+  /**
+   * Get Supercookie data from local Storage
+   * @returns {*|{}} Dict with Supercookie domains
+   */
   getSupercookieDomains: function() {
     return JSON.parse(localStorage.getItem("supercookieDomains")) || {};
   }
