@@ -460,3 +460,4 @@
 @@||loop.services.mozilla.com^$third-party
 @@||hello.firefox.com^$third-party
 @@||yelpcdn.com^$third-party
+@@||files.edx.org^$third-party
