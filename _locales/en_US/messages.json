@@ -93,6 +93,9 @@
         "description": "This is the label for the 'Remove selected' buttons.",
         "message": "Remove selected"
     },
+    "report_broken_site": {
+        "message": "Report Broken Site"
+    },
     "report_button": {
         "message": "Submit Error"
     },
@@ -100,13 +103,10 @@
         "message": "Cancel"
     },
     "report_terms": {
-        "message": "This will send information to the EFF including: the site your on, your browser version, the version of Privacy Badger, and the state of all of the sliders statuses for this site"
+        "message": "This will send information to the EFF including: the site you're on, your browser version, the version of Privacy Badger, and the state of all of the sliders statuses for this site"
     },
     "report_text": {
         "message": "Give a short description of your error below"
-    },
-    "report_broken_site": {
-      "message": "Report Broken Site"
     },
     "whitelisted_domains": {
         "description": "This is a tab heading.",
