@@ -18,6 +18,12 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Insert script into page
+ *
+ * @param {String} text The script to insert into the page
+ * @param {Object} data a dictionary containing attribut-value pairs
+ */
 function insertScript(text, data) {
   var parent = document.documentElement,
     script = document.createElement('script');
@@ -34,6 +40,11 @@ function insertScript(text, data) {
 }
 
 
+/**
+ * Generate script to inject into the page
+ *
+ * @returns {string}
+ */
 function getPageScript() {
 
   // code below is not a content script: no chrome.* APIs /////////////////////
@@ -43,13 +54,21 @@ function getPageScript() {
 
     var event_id = document.currentScript.getAttribute('data-event-id-super-cookie');
 
-    // send message to the content script
+    /**
+     * send message to the content script
+     *
+     * @param message
+     */
     var send = function (message) {
       document.dispatchEvent(new CustomEvent(event_id, {
         detail: message
       }));
     };
 
+    /**
+     * Read the local storage and returns content
+     * @returns {{}}
+     */
     var getLocalStorageItems = function(){
       var lsItems = {};
       var lsKey = "";
@@ -106,7 +125,7 @@ chrome.runtime.sendMessage({
 
   // listen for messages from the script we are about to insert
   document.addEventListener(event_id_super_cookie, function (e) {
-    // pass these on to the background page
+    // pass these on to the background page (handled by webrequest.js)
     chrome.runtime.sendMessage({
       'superCookieReport': e.detail
     });

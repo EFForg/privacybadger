@@ -14,6 +14,11 @@ var DomainExceptions = {
 
   list: { },
   domainExceptionListURL: "https://www.eff.org/files/domain_exception_list.txt",
+
+  /**
+   * Update local domain exception list
+   * @param {Function} callback Callback to call after update. Optional
+   */
   updateList: function(callback){
     console.log('updating domain exception list');
     //update object from local storage
@@ -37,6 +42,12 @@ var DomainExceptions = {
       if(typeof callback === "function"){callback()}
     });
   },
+
+  /**
+   * Check if path is in whitelist
+   * @param {String} path
+   * @returns {*} The exception list entry or undefined
+   */
   getWhitelistForPath: function(path){
     for(var name in DomainExceptions.list){
       var url = path.replace(/.*?:\/\//g, "");
