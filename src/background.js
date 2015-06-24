@@ -746,6 +746,12 @@ function blockedOriginCount(tabId){
     }, 0);
 }
 
+/**
+ * Counts the actively blocked trackers
+ *
+ * @param tabId Tab ID to count for
+ * @returns {Integer} The number of blocked trackers
+ */
 function activelyBlockedOriginCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
@@ -757,6 +763,12 @@ function activelyBlockedOriginCount(tabId){
     }, 0);
 }
 
+/**
+ * Counts trackers blocked by the user
+ *
+ * @param tabId Tab ID to count for
+ * @returns {Integer} The number of blocked trackers
+ */
 function userConfiguredOriginCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
