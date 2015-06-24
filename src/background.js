@@ -782,6 +782,20 @@ function userConfiguredOriginCount(tabId){
 
 /**
  * Update page action badge with current count
+ * @param {Integer} tabId chrome tab id
+ */
+function updateBadge(tabId){
+  var numBlocked = blockedOriginCount(tabId);
+  if(numBlocked === 0){
+    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
+  } else {
+    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
+  }
+  chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+}
+
+/**
+ * Checks conditions for updating page action badge and call updateBadge
  * @param {Object} details details object from onBeforeRequest event
  */
 function updateCount(details){
@@ -794,21 +808,24 @@ function updateCount(details){
   }
 
   var tabId = details.tabId;
-  var numBlocked = blockedOriginCount(tabId);
   if (!tabData[tabId]) {
-      console.log("Would updateCount but tab is closed in the meantime", details.tabId);
-      return;
+    return;
   }
-  try{
-    if(numBlocked === 0){
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
-    } else {
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
-    }
-    var badgeText = numBlocked + "";
-    chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
-  }catch(err) {
-    console.log("Exception: during setBadge properties", details.tabId);
+  if(tabData[tabId].bgTab === true){
+    // prerendered tab, Chrome will throw error for setBadge functions, don't call
+    return;
+  }else if(tabData[tabId].bgTab === false){
+    updateBadge(tabId);
+  }else{
+    console.log("Don't know if this tab is prerendered or not, will check!", tabId);
+    chrome.tabs.get(tabId, function(tab){
+      if (chrome.runtime.lastError){
+        tabData[tabId].bgTab = true;
+      }else{
+        tabData[tabId].bgTab = false;
+        updateBadge(tabId);
+      }
+    });
   }
 }
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
