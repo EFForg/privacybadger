@@ -1,5 +1,8 @@
 var hasRun = false;
 
+/**
+ * Add the whitelist dialog to a window, called by webrequest.js:_askUserToWhitelist
+ */
 chrome.runtime.onConnect.addListener(
   function(port){
 

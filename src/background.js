@@ -107,6 +107,8 @@ chrome.storage.onChanged.addListener(function(){
 
 /**
  * Runs methods that should be run when privacy badger is updated
+ * @param {String} prevVersion The previous PB version
+ * @param {String} currentVersion The current PB version
  */
 function migrateVersion(prevVersion,currentVersion){
   changePrivacySettings();
@@ -150,14 +152,22 @@ function setDefaultOptions() {
 // Upgrade options before we do anything else.
 setDefaultOptions();
 
-// Wrappers to be called by popup.js
+/**
+ * Wrappers to be called by popup.js
+ * Gets the action defined for the given tab/origin
+ * @param {Integer} tabId The id to look up
+ * @param {String} origin The URL of the 3rd party
+ * @returns {String} The action defined for this tab/origin
+ */
 function getAction(tabId, origin) {
   return activeMatchers.getAction(tabId, origin);
 }
 
 /**
  * Determine if a request would be blocked
- * @return {Boolean}
+ * @param {Integer} tabId Tab Id to check if the 3rd party should be blocked in
+ * @param {String} origin URL of 3rd party to check if it should be blocked
+ * @return {Boolean} true if block is requested
  */
 function requestWouldBeBlocked(tabId, origin) {
   var action = getAction(tabId, origin);
@@ -165,8 +175,9 @@ function requestWouldBeBlocked(tabId, origin) {
 }
 
 /**
- * Helper function returns a list of all origins for a tab
+ * Helper function returns a list of all blocked origins for a tab
  * @param {Integer} tabId requested tab id as provided by chrome
+ * @returns {*} The list of blocked origins
  */
 function getAllOriginsForTab(tabId) {
   return activeMatchers.getAllOriginsForTab(tabId);
@@ -211,7 +222,7 @@ function isWhitelisted(url, parentUrl, type) {
 
 /**
  * Enables or disables page action icon according to options.
- * @param {Object} tab
+ * @param {Object} tab The tab to set the badger icon for
  */
 function refreshIconAndContextMenu(tab) {
   if(!tab){return;}
@@ -241,7 +252,8 @@ function changePrivacySettings() {
 
 /**
  * This function is called on an extension update. It will add the default
- * filter subscription if necessary.
+ * filter subscription if necessary.Also init the local DB and show the first use page
+ * @param {String} prevVersion The previous PB version
  */
 function addSubscription(prevVersion) {
   // Don't add subscription if the user has a subscription already
@@ -294,6 +306,12 @@ function addSubscription(prevVersion) {
     localStorage.setItem("seenThirdParties", JSON.stringify({}));
   }
 
+  // Add a permanent store for supercookie domains
+  var supercookieDomains = JSON.parse(localStorage.getItem("supercookieDomains"));
+  if (!supercookieDomains){
+    localStorage.setItem("supercookieDomains", JSON.stringify({}));
+  }
+
   // Add a permanent store for blocked domains to recheck DNT compliance 
   // TODO: storing this in localStorage makes it synchronous, but we might 
   // want the speed up of async later if we want to deal with promises
@@ -322,6 +340,12 @@ function addSubscription(prevVersion) {
  *                             the Options window
  */
 function openOptions(callback) {
+
+  /**
+   *
+   * @param selectTab Ignored
+   * @returns {*}
+   */
   function findOptions(selectTab) {
     var views = chrome.extension.getViews({type: "tab"});
     for (var i = 0; i < views.length; i++) {
@@ -332,6 +356,9 @@ function openOptions(callback) {
     return null;
   }
 
+  /**
+   * Sets focus on existing PB options tab
+   */
   function selectOptionsTab() {
     chrome.windows.getAll({populate: true}, function(windows) {
       var url = chrome.extension.getURL("options.html");
@@ -380,7 +407,7 @@ function openOptions(callback) {
  * frame data.
  * @param {Integer} tabId tab id from chrome
  * @param {String} url url of request
- * @return {Integer} frameId 
+ * @return {Integer} frameId or -1 on fail
  */
 function getFrameId(tabId, url) {
   if (tabId in tabData) {
@@ -395,6 +422,7 @@ function getFrameId(tabId, url) {
 
 /**
  * adds domain to cookie block list
+ * @param {String} domain Domain to add
  */
 function setupCookieBlocking(domain){
   var baseDomain = getBaseDomain(domain);
@@ -404,6 +432,7 @@ function setupCookieBlocking(domain){
 
 /**
  * removes domain from cookie block list
+ * @param {String} domain Domain to remove
  */
 function teardownCookieBlocking(domain){
   CookieBlockList.removeDomain(domain);
@@ -569,6 +598,7 @@ recheckDNTPolicyForBlockedDomains();
 
 /**
  * Check a domain for a DNT policy and unblock it if it has one
+ * @param {String} domain The domain to check
  */
 function checkForDNTPolicy(domain){
   checkPrivacyBadgerPolicy(domain, function(success){
@@ -582,7 +612,7 @@ function checkForDNTPolicy(domain){
 
 /**
  * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
- * @param {String} origin 
+ * @param {String} origin The host to check
  * @param {Function} callback callback(successStatus)
  */
 var checkPrivacyBadgerPolicy = function(origin, callback){
@@ -693,6 +723,7 @@ function reloadTab(tabId){
 
 /**
  * Check if an origin is already in the heuristic
+ * @param {String} origin 3rd party host
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
@@ -715,6 +746,12 @@ function blockedOriginCount(tabId){
     }, 0);
 }
 
+/**
+ * Counts the actively blocked trackers
+ *
+ * @param tabId Tab ID to count for
+ * @returns {Integer} The number of blocked trackers
+ */
 function activelyBlockedOriginCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
@@ -726,6 +763,12 @@ function activelyBlockedOriginCount(tabId){
     }, 0);
 }
 
+/**
+ * Counts trackers blocked by the user
+ *
+ * @param tabId Tab ID to count for
+ * @returns {Integer} The number of blocked trackers
+ */
 function userConfiguredOriginCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
@@ -739,6 +782,20 @@ function userConfiguredOriginCount(tabId){
 
 /**
  * Update page action badge with current count
+ * @param {Integer} tabId chrome tab id
+ */
+function updateBadge(tabId){
+  var numBlocked = blockedOriginCount(tabId);
+  if(numBlocked === 0){
+    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
+  } else {
+    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
+  }
+  chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+}
+
+/**
+ * Checks conditions for updating page action badge and call updateBadge
  * @param {Object} details details object from onBeforeRequest event
  */
 function updateCount(details){
@@ -751,21 +808,24 @@ function updateCount(details){
   }
 
   var tabId = details.tabId;
-  var numBlocked = blockedOriginCount(tabId);
   if (!tabData[tabId]) {
-      console.log("Would updateCount but tab is closed in the meantime", details.tabId);
-      return;
+    return;
   }
-  try{
-    if(numBlocked === 0){
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
-    } else {
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
-    }
-    var badgeText = numBlocked + "";
-    chrome.browserAction.setBadgeText({tabId: tabId, text: badgeText});
-  }catch(err) {
-    console.log("Exception: during setBadge properties", details.tabId);
+  if(tabData[tabId].bgTab === true){
+    // prerendered tab, Chrome will throw error for setBadge functions, don't call
+    return;
+  }else if(tabData[tabId].bgTab === false){
+    updateBadge(tabId);
+  }else{
+    console.log("Don't know if this tab is prerendered or not, will check!", tabId);
+    chrome.tabs.get(tabId, function(tab){
+      if (chrome.runtime.lastError){
+        tabData[tabId].bgTab = true;
+      }else{
+        tabData[tabId].bgTab = false;
+        updateBadge(tabId);
+      }
+    });
   }
 }
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);

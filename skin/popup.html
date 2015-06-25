@@ -32,7 +32,12 @@
 
 </head>
 <body id="main">
-
+    <div id="overlay">
+        <p id="report_text" class="i18n_report_text"></p>
+        <input type="text" id="error_input" maxlength="300" placeholder="What's wrong?"><br>
+        <button id="report_button" class="i18n_report_button"></button><button id="report_cancel" class="i18n_report_cancel"></button>
+        <p id="report_terms" class="i18n_report_terms"></p>
+    </div>
 <div id="mustReloadMsg" style="display:none"><span class="i18n_new_filters_added"></span></div>
 
 <div id='privacyBadgerHeader'>
@@ -48,8 +53,9 @@
 </div>
 
 <div id="siteControls">
-    <center><button id="deactivate_site_btn" class="pbButton" style="display:"><span class="i18n_popup_disable_for_site"></span></button></center>
-<center><button id="activate_site_btn" class="pbButton" style="display:none"> <span class="i18n_popup_enable_for_site"></span></button></center>
+    <center><button id="deactivate_site_btn" class="pbButton" style="display:block"><span class="i18n_popup_disable_for_site"></span></button></center>
+  <center><button id="activate_site_btn" class="pbButton" style="display:none"> <span class="i18n_popup_enable_for_site"></span></button></center>
+  <center><button id="error" class="pbButton" stlye="display:block" target="blank"><span class="i18n_report_broken_site"></span></button></center>
 </div>
 <div class='clear'></div>
 <center><a id='helplink' href='https://www.eff.org/privacybadger' target=_blank tabindex=-1 title="Privacy Badger Website"><span class="i18n_privacy_badger_what_is"></span></a></center>

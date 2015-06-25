@@ -98,6 +98,11 @@ chrome.tabs.onReplaced.addListener(onTabReplaced);
 FilterNotifier.addListener(onFilterNotifier);
 
 /* functions */
+/**
+ * Event handler when a tab gets removed
+ *
+ * @param {Integer} tabId Id of the tab
+ */
 function onTabRemoved(tabId){
   console.log('tab removed!', tabId);
   forgetTab(tabId);
@@ -110,15 +115,31 @@ function onTabRemoved(tabId){
 //  }
 //}
 
+/**
+ * Update internal db on tabs when a tab gets replaced
+ *
+ * @param {Integer} addedTabId The new tab id that replaces
+ * @param {Integer} removedTabId The tab id that gets removed
+ */
 function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
+  // Update the badge of the added tab, which was probably used for prerendering.
+  updateBadge(addedTabId);
 }
 
+/**
+ * Handler for changes in AdBlock filters
+ */
 function onFilterChange() {
   onFilterChangeTimeout = null;
   chrome.webRequest.handlerBehaviorChanged();
 }
 
+/**
+ * Handle for AdBlock filters
+ *
+ * @param action List of important actions, see importantNotifications
+ */
 function onFilterNotifier(action) {
   if (action in importantNotifications) {
     // Execute delayed to prevent multiple executions in a quick succession
@@ -129,6 +150,12 @@ function onFilterNotifier(action) {
   }
 }
 
+/**
+ * Event handling of http requests, main logic to collect data what to block
+ *
+ * @param details The event details
+ * @returns {*} Can cancel requests
+ */
 function onBeforeRequest(details){
   if (details.tabId == -1){
     return {};
@@ -143,6 +170,15 @@ function onBeforeRequest(details){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
 
+  // read the supercookie state from localStorage and store it in frameData
+  var frameData = getFrameData(details.tabId, details.frameId);
+  if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
+    var supercookieDomains = Utils.getSupercookieDomains();
+    var origin = getBaseDomain(extractHostFromURL(details.url));
+    frameData.superCookie = supercookieDomains[origin] ? true : false;
+    //console.log("onBeforeRequest: read superCookie state from localstorage for",
+    //    origin, frameData.superCookie, details.tabId, details.frameId);
+  }
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
@@ -195,6 +231,13 @@ function getHostForTab(tabId){
   return extractHostFromURL(tabData[tabId].frames[mainFrameIdx].url);
 }
 
+/**
+ * Filters outgoing cookies
+ * Injects DNT
+ *
+ * @param details Event details
+ * @returns {*} modified headers
+ */
 function onBeforeSendHeaders(details) {
   if (details.tabId == -1){
     return {};
@@ -221,6 +264,12 @@ function onBeforeSendHeaders(details) {
   return {requestHeaders: details.requestHeaders};
 }
 
+/**
+ * Filters incoming cookies out of the response header
+ *
+ * @param details The event details
+ * @returns {*} The new response header
+ */
 function onHeadersReceived(details){
   if (details.tabId == -1){
     return {};
@@ -239,18 +288,73 @@ function onHeadersReceived(details){
   }
 }
 
+/**
+ * Generate representation in internal data structure for frame
+ *
+ * @param tabId ID of the tab
+ * @param frameId ID of the frame
+ * @param parentFrameId ID of the parent frame
+ * @param frameUrl The url of the frame
+ */
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (!tabData.hasOwnProperty(tabId)){
     tabData[tabId] = {
       frames: {}
     };
   }
+  // check if this is a prerendered (bg) tab or not
+  chrome.tabs.get(tabId, function(tab){
+    if (chrome.runtime.lastError){
+      // chrome will throw error for the prerendered tabs
+      tabData[tabId].bgTab = true;
+    }else{
+      tabData[tabId].bgTab = false;
+    }
+  });
+
   tabData[tabId].frames[frameId] = {
     url: frameUrl,
     parent: parentFrameId
   };
 }
 
+/**
+ * Store super cookie data in memory. Also stored in Local Storage
+ *
+ * @param sender message sender
+ * @param msg super cookie message dict
+ */
+function recordSuperCookie(sender, msg) {
+  /* Update frameData and localStorage about the supercookie finding */
+  var frameHost = extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
+  var frameOrigin = getBaseDomain(frameHost);
+  var pageHost = extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+  if (!isThirdParty(frameHost, pageHost)) {
+    // only happens on the start page for google.com.
+    return;
+  }
+
+  // keep frame's supercookie state in frameData for faster lookups
+  var frameData = getFrameData(sender.tab.id, sender.frameId);
+  if (frameData){
+    // console.log("Adding", frameOrigin, "to supercookieDomains (frameData), found on", pageHost);
+    frameData.superCookie = true;
+  }
+  // now add the finding to localStorage for persistence
+  var supercookieDomains = Utils.getSupercookieDomains();
+  // We could store the type of supercookie once we start to check multiple storage vectors
+  // Could be useful for debugging & bookkeeping.
+  //console.log("Adding", frameOrigin, "to supercookieDomains (localStorage), found on", pageHost);
+  supercookieDomains[frameOrigin] = true;
+  localStorage.setItem("supercookieDomains", JSON.stringify(supercookieDomains));
+}
+
+/**
+ * Record canvas fingerprinting
+ *
+ * @param {Integer} tabId
+ * @param msg specific fingerprinting data
+ */
 function recordFingerprinting(tabId, msg) {
   // bail if we failed to determine the originating script's URL
   // TODO find and fix where this happens
@@ -317,6 +421,14 @@ function recordFingerprinting(tabId, msg) {
   }
 }
 
+
+/**
+ * read the url data from localStorage
+ *
+ * @param tabId TabId to check for
+ * @param frameId FrameID to check for
+ * @returns {*} Frame data object or null
+ */
 function getFrameData(tabId, frameId) {
   if (tabId in tabData && frameId in tabData[tabId].frames){
     return tabData[tabId].frames[frameId];
@@ -327,11 +439,23 @@ function getFrameData(tabId, frameId) {
   return null;
 }
 
+/**
+ * Based on tab/frame ids, get the URL
+ *
+ * @param {Integer} tabId The tab id to look up
+ * @param {Integer} frameId The frame id to look up
+ * @returns {String} The url
+ */
 function getFrameUrl(tabId, frameId) {
   var frameData = getFrameData(tabId, frameId);
   return (frameData ? frameData.url : null);
 }
 
+/**
+ * Delete tab data, de-register tab
+ *
+ * @param {Integer} tabId The id of the tab
+ */
 function forgetTab(tabId) {
   console.log('forgetting tab', tabId);
   activeMatchers.removeTab(tabId);
@@ -339,6 +463,15 @@ function forgetTab(tabId) {
   delete temporarySocialWidgetUnblock[tabId];
 }
 
+/**
+ * Logic to identify the action to take on a specific url
+ *
+ * @param {Integer} tabId The relevant tab
+ * @param {String} url The URL
+ * @param {Boolean} quiet Do not update internal data
+ * @param {Integer} frameId The id of the frame
+ * @returns {boolean} false or the action to take
+ */
 function checkAction(tabId, url, quiet, frameId){
   var action = false;
 
@@ -381,22 +514,52 @@ function checkAction(tabId, url, quiet, frameId){
   return action;
 }
 
+/**
+ * Check if the url of the tab starts with the given string
+ *
+ * @param {Integer} tabId Id of the tab
+ * @param {String} piece String to check against
+ * @returns {boolean} true if starts with string
+ * @private
+ */
 function _frameUrlStartsWith(tabId, piece){
   return tabData[tabId] &&
     tabData[tabId].frames[0] &&
     (tabData[tabId].frames[0].url.indexOf(piece) === 0);
 }
 
+/**
+ * Checks if the tab is chrome internal
+ *
+ * @param {Integer} tabId Id of the tab to test
+ * @returns {boolean} Returns true if the tab is chrome internal
+ * @private
+ */
 function _isTabChromeInternal(tabId){
   return _frameUrlStartsWith(tabId, "chrome");
 }
 
+/**
+ * Checks if the tab is a chrome-extension tab
+ *
+ * @param {Integer} tabId Id of the tab to test
+ * @returns {boolean} Returns true if the tab is from a chrome-extension
+ * @private
+ */
 function _isTabAnExtension(tabId){
   return _frameUrlStartsWith(tabId, "chrome-extension://");
 }
 
+/**
+ * Ask user what to do with a specific url. Dialog is handled by domainExceptionDialog
+ *
+ * @param {Integer} tabId The id of the tab
+ * @param whitelistDomains dict with whitelist information
+ * @param englishName English description for domain
+ * @private
+ */
 function _askUserToWhitelist(tabId, whitelistDomains, englishName){
-  console.log('assking user to whitelist');
+  console.log('asking user to whitelist');
   var port = chrome.tabs.connect(tabId);
   port.postMessage({action: 'attemptWhitelist', whitelistDomain:englishName, currentDomain:getHostForTab(tabId)});
   port.onMessage.addListener(function(msg){
@@ -423,6 +586,14 @@ function _askUserToWhitelist(tabId, whitelistDomains, englishName){
   });
 }
 
+/**
+ * Check if a specific frame is whitelisted
+ *
+ * @param {Integer} tabId The id of the tab
+ * @param {Integer} frameId The id of the frame
+ * @param {String} type Content type to be checked
+ * @returns {boolean} true if whitelisted
+ */
 function isFrameWhitelisted(tabId, frameId, type) {
   var parent = frameId;
   var parentData = getFrameData(tabId, parent);
@@ -442,7 +613,11 @@ function isFrameWhitelisted(tabId, frameId, type) {
   return false;
 }
 
-// Provides the social widget blocking content script with list of social widgets to block
+/**
+ * Provides the social widget blocking content script with list of social widgets to block
+ *
+ * @returns a specific dict
+ */
 function getSocialWidgetBlockList() {
 
   // a mapping of individual SocialWidget objects to boolean values
@@ -472,7 +647,14 @@ function getSocialWidgetBlockList() {
   };
 }
 
-// Check if tab is temporarily unblocked for tracker
+/**
+ * Check if tab is temporarily unblocked for tracker
+ *
+ * @param tabId id of the tab to check
+ * @param url url to check
+ * @param frameId frame id to check
+ * @returns {boolean} true if in exception list
+ */
 function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var exceptions = temporarySocialWidgetUnblock[tabId];
   if (exceptions == undefined) {
@@ -490,8 +672,13 @@ function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   return (requestExcept || frameExcept);
 }
 
-// Unblocks a tracker just temporarily on this tab, because the user has clicked the
-// corresponding replacement social widget.
+/**
+ * Unblocks a tracker just temporarily on this tab, because the user has clicked the
+ * corresponding replacement social widget.
+ *
+ * @param {Integer} tabId The id of the tab
+ * @param {Array} socialWidgetUrls an array of social widget urls
+ */
 function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   if (temporarySocialWidgetUnblock[tabId] == undefined){
     temporarySocialWidgetUnblock[tabId] = [];
@@ -503,6 +690,9 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
 }
 
+/**
+ * Handle the different tracker variants. The big dispatcher
+ */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   var tabHost = extractHostFromURL(sender.tab.url);
 
@@ -537,6 +727,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     } else {
       recordFingerprinting(sender.tab.id, request.fpReport);
     }
+
+  } else if (request.superCookieReport) {
+    if (Utils.hasSuperCookie(request.superCookieReport)){
+      recordSuperCookie(sender, request.superCookieReport);
+    }
+  } else if (request.checkEnabledAndThirdParty) {
+    var pageHost = extractHostFromURL(sender.url);
+    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && isThirdParty(pageHost, tabHost));
   }
 
 });

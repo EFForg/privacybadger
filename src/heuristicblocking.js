@@ -68,6 +68,11 @@ chrome.storage.local.get('pbdata', function(items) {
 });
 
 /******* FUNCTIONS FOR TESTING BEGIN HERE ********/
+/**
+ * testing function for feedback to servers
+ *
+ * @param params data to send
+ */
 var sendXHR = function(params) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "https://observatory.eff.org/pbdata.py", true);
@@ -85,6 +90,9 @@ var sendXHR = function(params) {
 }
 
 // this is missing parameters, and is not in use in the live extension
+/**
+ * Sends testing data. Non-functional
+ */
 var sendTestingData = function() {
     var cookieSentPrevalence = 0;
     if (origin in cookieSentOriginFrequency) {
@@ -105,6 +113,13 @@ var sendTestingData = function() {
     console.log("With id " + uniqueId + ", Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
 }
 
+/**
+ * Check if a origin should be sent. Non-functional
+ *
+ * @param {String} origin Origin to test
+ * @param httpRequestPrevalence Tested against the testThreshold
+ * @returns {boolean} true if this should be sent
+ */
 var needToSendOrigin = function(origin, httpRequestPrevalence) {
   // don't send third party domains that don't meet minimum test threshold
   if (httpRequestPrevalence < testThreshold) {
@@ -126,6 +141,11 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
 }
 /******* FUNCTIONS FOR TESTING END HERE ********/
 
+/**
+ * Adds Cookie blocking filters if origin is in cookieblocklist.txt
+ *
+ * @param {String} origin Origin to check
+ */
 function addFiltersFromWhitelistToCookieblock(origin){
   var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter
   for(filter in filters){
@@ -137,10 +157,22 @@ function addFiltersFromWhitelistToCookieblock(origin){
   }
 }
 
+/**
+ * Extract the domain from an AdBlock style filter
+ *
+ * @param {String} filter adBlock style filter
+ * @returns {String} The Url in the filter
+ */
 function getDomainFromFilter(filter){
   return filter.match('[|][|]([^\^]*)')[1]
 }
 
+/**
+ * Decide if to blacklist and add blacklist filters
+ *
+ * @param {String} origin The origin URL to add (host)
+ * @param {String} fqdn The FQDN
+ */
 var blacklistOrigin = function(origin, fqdn) {
   // Heuristic subscription
   if (!("frequencyHeuristic" in FilterStorage.knownSubscriptions)) {
@@ -397,6 +429,15 @@ var lowEntropyCookieValues = {
  "zh":8,
  "zu":8
 };
+
+/**
+ * Extract cookies from onBeforeSendHeaders
+ *
+ * https://developer.chrome.com/extensions/webRequest#event-onBeforeSendHeaders
+ *
+ * @param details Details for onBeforeSendHeaders
+ * @returns {*} False or a string combining all Cookies
+ */
 var extractCookieString = function(details) {
   // @details are those from onBeforeSendHeaders
   // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
@@ -427,15 +468,49 @@ var extractCookieString = function(details) {
   return cookies;
 };
 
+/**
+ * Decides if a origin has tracking
+ *
+ * @param details onBeforeSendHeaders details
+ * @param origin The URL
+ * @returns {Booolean} true if it has tracking
+ */
 var hasTracking = function(details, origin) {
   return (hasCookieTracking(details, origin) || hasSupercookieTracking(details, origin));
 }
 
+/**
+ * Check if SuperCookie tracking is done
+ *
+ * @param details onBeforeSendHeaders details
+ * @param origin The URL
+ * @returns {*} null or the supercookie data structure
+ */
 var hasSupercookieTracking = function(details, origin) {
-  return false;
+  /* This function is called before we hear from the localstorage check in supercookie.js.
+   * So, we're missing the scripts which may have supercookies.
+   * Alternatively, we could record the prevalence when we find hi-entropy localstorage items
+   * and check that record to see if the frame hasSupercookieTracking.
+   */
+  var frameData = getFrameData(details.tabId, details.frameId);
+  if (frameData){
+    // console.log("hasSupercookieTracking (frameData)", frameData.superCookie, origin, details.tabId, details.frameId);
+    return frameData.superCookie;
+  }else{ // Check localStorage if we can't find the frame in frameData
+    var supercookieDomains = Utils.getSupercookieDomains();
+    // console.log("hasSupercookieTracking (frameData)", supercookieDomains[origin], origin, details.tabId, details.frameId);
+    return supercookieDomains[origin];
+  }
 };
 
 const MAX_COOKIE_ENTROPY = 12;
+/**
+ * Check if page is doing cookie tracking. Doing this by estimating the entropy of the cookies
+ *
+ * @param details details onBeforeSendHeaders details
+ * @param {String} origin URL
+ * @returns {boolean} true if it has cookie tracking
+ */
 var hasCookieTracking = function(details, origin) {
   // @details are those from onBeforeSendHeaders
 
@@ -478,11 +553,14 @@ var hasCookieTracking = function(details, origin) {
   return false;
 };
 
+/**
+ * Increment counts of how many first party domains we've seen a third party track on
+ * Ignore requests that are outside a tabbed window
+ *
+ * @param details are those from onBeforeSendHeaders
+ * @returns {{}}
+ */
 var heuristicBlockingAccounting = function(details) {
-  // @details are those from onBeforeSendHeaders
-  // Increment counts of how many first party domains we've seen a third party track on
-
-  // Ignore requests that are outside a tabbed window
   if(details.tabId < 0){
     return { };
   }
@@ -510,8 +588,15 @@ var heuristicBlockingAccounting = function(details) {
   }
 };
 
+/**
+ * Record HTTP request prevalence. Block a tracker if seen on more than [prevalenceThreshold] pages
+ *
+ * @param fqdn Host
+ * @param origin Base domain of host
+ * @param tabOrigin The main origin for this tab
+ */
 function recordPrevalence(fqdn, origin, tabOrigin) {
-  // Record HTTP request prevalence
+  //
   var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
   if (!(origin in seen)){
     seen[origin] = {};
@@ -533,10 +618,16 @@ function recordPrevalence(fqdn, origin, tabOrigin) {
   }
 }
 
+/**
+ * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
+ */
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   return heuristicBlockingAccounting(details);
 }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"]);
 
+/**
+ * Adds onResponseStarted listener. Monitor for cookies
+ */
 chrome.webRequest.onResponseStarted.addListener(function(details) {
   var hasSetCookie = false;
   for(var i = 0; i < details.responseHeaders.length; i++) {

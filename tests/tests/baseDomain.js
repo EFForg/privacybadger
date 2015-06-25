@@ -48,7 +48,7 @@
     {
       throws(
         function() {
-          throw 'Error: Invalid URI recognition.';
+          return new URI(tests[i]);
         },
         'Invalid URI recognition.'
       );

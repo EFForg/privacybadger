@@ -146,10 +146,20 @@ button
 
 <div id="tabs">
   <ul>
-    <li><a href="#tab-whitelisted"><span class="i18n_whitelisted_domains"></span></a></li>
     <li><a href="#tab-pb-status"><span class="i18n_options_filter_settings"></span></a></li>
+    <li><a href="#tab-whitelisted"><span class="i18n_whitelisted_domains"></span></a></li>
     <li><a href="#tab-social-widget"><span class="i18n_options_social_settings"></span></a></li>
   </ul>
+
+  <div id="tab-pb-status">
+    <p class=""></p>
+    <div id="blockedResourcesContainer">
+        <p id="pbInstructions"><span class="i18n_options_slider_text"> </span><sup><a id="supQuest" target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers">?</a></sup></p>
+      <div class="spacer"></div>
+      <div id="blockedResources"><span class="i18n_options_loading"></span></div>
+    </div>
+  </div>
+
 
   <div id="tab-whitelisted">
     <p class="i18n_disabled_for_these_domains"></p>
@@ -175,17 +185,6 @@ button
       </tr>
     </table>
     </form>
-  </div>
-
-  <div id="tab-pb-status">
-    <p class=""></p>
-
-    
-    <div id="blockedResourcesContainer">
-        <p id="pbInstructions"><span class="i18n_options_slider_text"> </span><sup><a id="supQuest" target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers">?</a></sup></p>
-      <div class="spacer"></div>
-      <div id="blockedResources"><span class="i18n_options_loading"></span></div>
-    </div>
   </div>
 
   <div id="tab-social-widget">

@@ -17,6 +17,9 @@
     "disabled_for_these_domains": {
         "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the address bar or by typing the domain (not a URL) in the box and clicking the \"Add domain\" button."
     },
+    "error_input": {
+        "message": "What's Wrong?"
+    },
     "feed_the_badger_title": {
         "message": "click to return control of this tracker to Privacy Badger"
     },
@@ -53,6 +56,9 @@
     "options_title": {
         "message": "Privacy Badger Options"
     },
+    "pb_detected": {
+        "message": "Privacy Badger detected"
+    },
     "popup_activate": {
         "message": "Enable Privacy Badger"
     },
@@ -67,9 +73,6 @@
     },
     "popup_enable_for_site": {
         "message": "Enable Privacy Badger for This Site"
-    },
-    "pb_detected": {
-      "message": "Privacy Badger detected"
     },
     "popup_instructions": {
         "message": "<a href='https://www.eff.org/privacybadger#trackers'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each tracker."
@@ -89,6 +92,21 @@
     "remove_button": {
         "description": "This is the label for the 'Remove selected' buttons.",
         "message": "Remove selected"
+    },
+    "report_button": {
+        "message": "Submit Error"
+    },
+    "report_cancel": {
+        "message": "Cancel"
+    },
+    "report_terms": {
+        "message": "This will send information to the EFF including: the site your on, your browser version, the version of Privacy Badger, and the state of all of the sliders statuses for this site"
+    },
+    "report_text": {
+        "message": "Give a short description of your error below"
+    },
+    "report_broken_site": {
+      "message": "Report Broken Site"
     },
     "whitelisted_domains": {
         "description": "This is a tab heading.",
