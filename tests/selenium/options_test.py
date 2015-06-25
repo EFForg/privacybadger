@@ -53,7 +53,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
                 driver.get(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
                 print "\nLoaded", pbtest.PB_CHROME_OPTIONS_PAGE_URL, tried
                 # Click to the second tab (User Filter Settings)
-                driver.find_element_by_id("ui-id-2").click()
+                driver.find_element_by_id("ui-id-1").click()
             except:
                 pass
             else:
