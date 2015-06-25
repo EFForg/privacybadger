@@ -35,6 +35,11 @@ var CookieBlockList = exports.CookieBlockList = {
     });
   },
 
+  /**
+   * Add a domain to the local blocklist
+   * @param {String} domain The domain to add to the local blocklist
+   * @param {Function} cb The callback to call (optional)
+   */
   addDomain: function(domain, cb){
     if(!this.hasDomain(domain)){
       this.domains.push(domain);
@@ -46,6 +51,10 @@ var CookieBlockList = exports.CookieBlockList = {
     }
   },
 
+  /**
+   * Remove a domain from the local blocklist. Stores in localStorage
+   * @param {String} domain to remove
+   */
   removeDomain: function(domain){
     if(this.hasDomain(domain)){
       Utils.removeElementFromArray(this.domains,this.domains.indexOf(domain));
@@ -53,6 +62,11 @@ var CookieBlockList = exports.CookieBlockList = {
     }
   },
 
+  /**
+   * Checks if a domain is in the block list
+   * @param {String} domain The domain to check for
+   * @returns {boolean} true if found
+   */
   hasDomain: function(domain){
     var idx = this.domains.indexOf(domain);
 
@@ -63,6 +77,12 @@ var CookieBlockList = exports.CookieBlockList = {
     }
   },
 
+
+  /**
+   * Checks if a base domain is in the blocklist
+   * @param {String} baseDomain The base domain to compare to
+   * @returns {boolean} true if base domain found
+   */
   hasBaseDomain: function(baseDomain){
     for(var i = 0; i < this.domains.length; i++){
       if(getBaseDomain(this.domains[i]) == baseDomain){
