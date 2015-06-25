@@ -462,3 +462,4 @@
 @@||yelpcdn.com^$third-party
 @@||files.edx.org^$third-party
 @@||gatherer.wizards.com^$third-party
+@@||googlevideo.com^$third-party
