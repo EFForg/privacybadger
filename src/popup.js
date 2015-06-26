@@ -125,9 +125,10 @@ function send_error(message) {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var origins = getAllOriginsForTab(tabId);
   if(!origins){ return; }
+  var version = localStorage.currentVersion;
   //TODO "there's got to be a better way!"
   var fqdn = tab.url.split("/",3)[2];
-  var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message};
+  var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
   for (var i = 0; i < origins.length; i++){
      var origin = origins[i];
      var action = getAction(tabId, origin);
