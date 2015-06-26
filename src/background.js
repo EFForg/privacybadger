@@ -647,6 +647,10 @@ var unblockOrigin = function(origin){
   var policySubscription = FilterStorage.knownSubscriptions.userGreen;
   FilterStorage.removeFilter(filter);
   FilterStorage.addFilter(filter, policySubscription);
+  var whitelisted_string = localStorage.whitelisted || "[]";
+  var whitelisted = JSON.parse(whitelisted_string);
+  var junk = whitelisted.push(origin);
+  localStorage.whitelisted = JSON.stringify(whitelisted);
   teardownCookieBlocking(origin);
 };
 
