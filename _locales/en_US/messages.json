@@ -111,5 +111,42 @@
     "whitelisted_domains": {
         "description": "This is a tab heading.",
         "message": "Whitelisted domains"
+    },
+    "intro1": {
+        "description": "firstRun.html intro to privacy Badger",
+        "message": "Privacy Badger blocks spying ads and invisible trackers.  It's there to ensure that companies can't track your browsing without your consent."
+    },
+    "intro2":{
+        "message": "This extension is designed to automatically protect your privacy from third party trackers that load invisibly when you browse the web. We send the Do Not Track header with each request, and our extension     evaluates the likelihood that you are still being tracked. If the algorithm deems the likelihood is too high, we automatically block your request from being sent to the domain. Please understand that PrivacyBadger is in beta, and the algorithm's determination is not conclusive that the domain is tracking you."
+    },
+    "intro_3_states":{
+        "message": "Our extension has three states. "
+    },
+    "intro_red":{
+        "message": "Red"
+    },
+    "intro_has_blocked":{
+        "message": " means Privacy Badger believes this domain is a tracker, and has blocked it. "
+    },
+    "intro_yellow":{
+        "message": "Yellow"
+    },
+    "intro_cookie_blocked":{
+        "message": "means the domain is believed to be both a tracker and necessary for the functioning of the page, so Privacy Badger is allowing it but blocking its cookies."
+    },
+    "intro_green":{
+        "message": "Green"
+    },
+    "intro_no_tracker":{
+        "message": "means that Privacy Badger believes this is not tracker. You can click on the Privacy Badger icon in your browser's toolbar if you wish to override the automatic blocking settings. Or, you can browse in peace as Privacy Badger starts finding and eating up web trackers one by one."
+    },
+    "intro_hungry":{
+        "message":"Nothing can stop the Privacy Badger from eating cookies when it's hungry!"
+    },
+    "intro_by_eff":{
+        "message":"Privacy Badger is a project of the Electronic Frontier Foundation."
+    },
+    "intro_social_share":{
+        "message":"Let the world know that you are taking a stand against online tracking"
     }
 }
