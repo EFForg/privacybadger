@@ -146,7 +146,28 @@
     "intro_by_eff":{
         "message":"Privacy Badger is a project of the Electronic Frontier Foundation."
     },
-    "intro_social_share":{
-        "message":"Let the world know that you are taking a stand against online tracking"
+    "intro_social_share": {
+        "message": "Let the world know that you are taking a stand against online tracking"
+    },
+    "ded_privacy_badger_alert": {
+        "message": "Privacy Badger Alert!"
+    },
+    "ded_logging_into": {
+        "message": "Logging into "
+    },
+    "ded_can_allow_to_track": {
+        "message": " can allow it to track you around the web."
+    },
+    "ded_only_allow": {
+        "message": "Only allow "
+    },
+    "ded_on": {
+        "message": " on "
+    },
+    "ded_always_allow": {
+        "message": "Always allow "
+    },
+    "ded_never_allow": {
+        "message": "Always block third party requests from "
     }
 }
