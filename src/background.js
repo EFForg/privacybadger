@@ -117,6 +117,7 @@ function migrateVersion(prevVersion,currentVersion){
   addSubscription(prevVersion);
   updateTabList();
   migrateBlockedDomains();
+  migrateCookieBlockList();
 }
 
 /**
@@ -124,7 +125,7 @@ function migrateVersion(prevVersion,currentVersion){
  */
 function migrateBlockedDomains() {
   var domains = JSON.parse(localStorage.getItem("blockeddomainslist"));
-  if (domains && domains.length > 0){
+  if (domains && Object.keys(domains).length > 0){
     return;
   }
   chrome.storage.local.get("blockeddomainslist", function(items){
@@ -135,6 +136,25 @@ function migrateBlockedDomains() {
   });
 }
 
+/**
+ * migrates cookie block list from chrome.storage to localStorage
+ */
+function migrateCookieBlockList() {
+  var domains = JSON.parse(localStorage.getItem("cookieblocklist"));
+  if (domains && Object.keys(domains).length > 0){
+    return;
+  }
+  chrome.storage.local.get("cookieblocklist", function(items){
+    if(chrome.runtime.lastError || !items.cookieblocklist){
+      return;
+    }
+    out = {};
+    for(var i = 0; i < items.length; i++){
+      out[items[i]] = true;
+    }
+    localStorage.setItem("cookieblocklist", JSON.stringify(out));
+  });
+}
 
 /**
  * Sets options to defaults, upgrading old options from previous versions as necessary
