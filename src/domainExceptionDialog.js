@@ -8,17 +8,17 @@ chrome.runtime.onConnect.addListener(
 
     port.onMessage.addListener(function(msg){
       //html for dialog window that pops up
-      //TODO: i18n and templating for this.
+      //TODO: templating for this.
       var dialog = '<div id="pbDialogContainer"></div>' +
       '<div id="pbDialog" class="privacyBadgerDialog">' +
       '<div id="closeWindow">X</div>'+
       '<div id="pbLogo"><img src="' + chrome.extension.getURL("icons/badger-48.png") + '"></div>'+
-      '<h2>Privacy Badger Alert!</h2>' +
+      '<h2>' + chrome.i18n.getMessage("ded_privacy_badger_alert") + '</h2>' +
       '<div class="clear"></div>' +
-      '<h3>Logging into ' + msg.whitelistDomain + ' can allow it to track you around the web.</h3>' +
-      '<button class="pbButton default" id="allow_once">Only allow ' + msg.whitelistDomain + ' on ' + msg.currentDomain + '</button>' +
-      '<button class="pbButton" id="allow_all">Always allow ' + msg.whitelistDomain + '</button>' +
-      '<button class="pbButton" id="never">Always block third party requests from ' + msg.whitelistDomain + '</button>' +
+      '<h3>'+ chrome.i18n.getMessage("ded_logging_into")  + msg.whitelistDomain + chrome.i18n.getMessage("ded_can_allow_to_track") + '</h3>' +
+      '<button class="pbButton default" id="allow_once">' + chrome.i18n.getMessage("ded_only_allow") + msg.whitelistDomain + chrome.i18n.getMessage("ded_on") + msg.currentDomain + '</button>' +
+      '<button class="pbButton" id="allow_all">' + chrome.i18n.getMessage("ded_always_allow") + msg.whitelistDomain + '</button>' +
+      '<button class="pbButton" id="never">' + chrome.i18n.getMessage("ded_never_allow") + msg.whitelistDomain + '</button>' +
       '<a id="useless"></a>' + 
       '</div>';
 
