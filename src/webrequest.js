@@ -514,6 +514,7 @@ function checkAction(tabId, url, quiet, frameId){
         action = "noaction";
       } else {
         action = "notracking";
+      }
     }
   }
   if(action && !quiet){
