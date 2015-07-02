@@ -64,6 +64,10 @@ var FilterStorage = require("filterStorage").FilterStorage;
         parent: int
       },
       ...
+    },
+    trackers: {
+      domain.tld: bool
+      ...
     }
   },
   ...
@@ -299,7 +303,8 @@ function onHeadersReceived(details){
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (!tabData.hasOwnProperty(tabId)){
     tabData[tabId] = {
-      frames: {}
+      frames: {},
+      trackers: {}
     };
   }
   // check if this is a prerendered (bg) tab or not
@@ -504,8 +509,11 @@ function checkAction(tabId, url, quiet, frameId){
     action = activeMatchers.getAction(tabId, requestHost);
     var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
 
-    if(!action && seen[origin]) {
-      action = "noaction";
+    if(!action) {
+      if(backgroundPage.originHasTracking(tabId,requestHost)){
+        action = "noaction";
+      } else {
+        action = "notracking";
     }
   }
   if(action && !quiet){
