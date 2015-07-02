@@ -441,6 +441,7 @@ function refreshPopup(tabId) {
         if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
             flag = true;
         }
+    }
     printable = _addOriginHTML(origin, printable, action, flag);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
@@ -448,8 +449,8 @@ function refreshPopup(tabId) {
     printable = printable +
         '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
     for (var i = 0; i < nonTracking.length; i++){
-      var origin = nonTracking[i];
-      printable = _addOriginHTML(origin, printable, "noaction", false);
+      var this_origin = nonTracking[i];
+      printable = _addOriginHTML(this_origin, printable, "noaction", false);
     }
   }
   $('#number_trackers').text(originCount);
