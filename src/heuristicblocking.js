@@ -477,7 +477,7 @@ var extractCookieString = function(details) {
  */
 var hasTracking = function(details, origin) {
   return (hasCookieTracking(details, origin) || hasSupercookieTracking(details, origin));
-}
+};
 
 /**
  * Check if SuperCookie tracking is done
@@ -564,9 +564,13 @@ var heuristicBlockingAccounting = function(details) {
   if(details.tabId < 0){
     return { };
   }
-  
+ 
+
   var fqdn = new URI(details.url).host;
   var origin = getBaseDomain(fqdn);
+
+  var action = activeMatchers.getAction(details.tabId, fqdn);
+  if(action && action != "noaction"){ console.log("action for", fqdn, action); return {}; }
   
   // Save the origin associated with the tab if this is a main window request
   if(details.type == "main_frame") {
@@ -584,6 +588,7 @@ var heuristicBlockingAccounting = function(details) {
     if (!hasTracking(details, origin)){
       return { };
     }
+    backgroundPage.setTrackingFlag(details.tabId, fqdn);
     recordPrevalence(fqdn, origin, tabOrigin);
   }
 };

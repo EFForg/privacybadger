@@ -3,7 +3,7 @@
   width: 400px;
   background-color: #FcFcFc;
   border: 1px solid #111;
-  z-index: 1000;
+  z-index: 2000;
   box-shadow: 2px 2px 10px #222;
   position: fixed;
   top: 33%;

@@ -763,6 +763,13 @@ function activelyBlockedOriginCount(tabId){
     }, 0);
 }
 
+function setTrackingFlag(tabId,fqdn){
+  tabData[tabId].trackers[fqdn] = true;
+}
+
+function originHasTracking(tabId,fqdn){
+  return tabData[tabId] && !!tabData[tabId].trackers[fqdn];
+}
 /**
  * Counts trackers blocked by the user
  *
@@ -847,7 +854,8 @@ function updateTabList(){
             parent: -1,
             url: tab.url
           }
-        }
+        },
+        domains: {}
       };
     }
   });

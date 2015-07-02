@@ -1,6 +1,6 @@
  {
-    "plus.google.com/u/0/wm/4/_/+1/messageproxy": { "whitelist_urls":["apis.google.com"], "english_name":"Google Plus"},
-    
+    "apis.google.com/u/0/_/widget/render/ytshare": { "whitelist_urls":["apis.google.com", "plus.google.com"], "english_name":"Google Plus"},
+    "drive.google.com/uc": { "whitelist_urls": ["googleusercontent.com"], "english_name": "Google User Content"},
     "disqus.com/next/login": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
     "disqus.com/_ax/facebook/begin": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
     "disqus.com/_ax/google/begin": {"whitelist_urls": ["disqus.com"], "english_name":"Disqus"},
