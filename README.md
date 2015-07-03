@@ -14,6 +14,12 @@ Privacy Badger is a project of the Electronic Frontier Foundation.
 For an easy build, simply enable developer mode in chrome://extensions, hit
 the "load unpacked extension" button and load up this directory.
 
+Within the command line, install the dependencies.
+
+```bash
+$ npm install
+```
+
 ### Testing
 
 After "unpacking" the extension, find your extension's ID and
