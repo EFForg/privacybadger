@@ -5,7 +5,7 @@ var cookieBlockList;
 module('Cookie Block List', {
   setup: function() {
     cookieBlockList = QUnit.extend(CookieBlockList, {
-      domains: []
+      domains: {}
     });
   }
 });
@@ -13,8 +13,8 @@ module('Cookie Block List', {
 test('`addDomain` correctly adds a domain to the `domains` property.', function() {
   expect(2);
 
-  var noDomains       = [];
-  var expectedDomains = ['com'];
+  var noDomains       = {};
+  var expectedDomains = {'com': true};
 
   deepEqual(cookieBlockList.domains, noDomains, '`domains` does not contain a domain.');
 
@@ -25,8 +25,8 @@ test('`addDomain` correctly adds a domain to the `domains` property.', function(
 
 test('`removeDomain` removes a given domain', function() {
   expect(2);
-  var expectedDomains = ['net'];
-  var noDomains  = [];
+  var expectedDomains = {'net':true};
+  var noDomains  = {};
 
   cookieBlockList.addDomain('net');
   deepEqual(cookieBlockList.domains, expectedDomains, '`cookieBlockList` conatins domains.');
