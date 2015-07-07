@@ -260,8 +260,14 @@ function _addOriginHTML(origin, printable, action, flag) {
   if (action == "block" || action == "cookieblock")
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
+  var flagText = "";
+  if (flag) {
+    flagText = "DNT! ";
+  }
   //TODO add text if DNT flag is set 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
+  //
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' +
+     flagText + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
 }
 
 /**
@@ -437,7 +443,7 @@ function refreshPopup(tabId) {
         continue; 
     }
     originCount++;
-    if (action == "usergreen"){
+    if (action == "usernoaction"){
         if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
             flag = true;
         }
