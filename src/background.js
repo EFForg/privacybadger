@@ -792,7 +792,9 @@ function setTrackingFlag(tabId,fqdn){
 }
 
 function originHasTracking(tabId,fqdn){
-  return tabData[tabId] && !!tabData[tabId].trackers[fqdn];
+  return tabData[tabId] && 
+    tabData[tabId].trackers &&
+    !!tabData[tabId].trackers[fqdn];
 }
 /**
  * Counts trackers blocked by the user
