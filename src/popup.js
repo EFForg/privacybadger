@@ -248,7 +248,7 @@ function toggleEnabled() {
  * @returns {string}
  * @private
  */
-function _addOriginHTML(origin, printable, action) {
+function _addOriginHTML(origin, printable, action, flag) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
@@ -257,12 +257,15 @@ function _addOriginHTML(origin, printable, action) {
     classes.push("userset");
     action = action.substr(4);
   }
-  if (action == "block" || action == "cookieblock")
+  if (action == "block" || action == "cookieblock"){
     classes.push(action);
+  }
   var classText = 'class="' + classes.join(" ") + '"';
   var flagText = "";
   if (flag) {
-    flagText = "DNT! ";
+    flagText = "<div id='dnt-compliant'>" + 
+      "<a target=_blank href='https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?'>" +
+      "<img src='/icons/dnt-16.png' title='This domain promises not to track you.'></a></div>";
   }
   //TODO add text if DNT flag is set 
   //
@@ -436,6 +439,7 @@ function refreshPopup(tabId) {
   originCount = 0;
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
+    var flag = false;
     // todo: gross hack, use templating framework
     var action = getAction(tabId, origin);
     if(!action){ 
@@ -444,9 +448,9 @@ function refreshPopup(tabId) {
     }
     originCount++;
     if (action == "usernoaction"){
-        if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
-            flag = true;
-        }
+      if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
+        flag = true;
+      }
     }
     printable = _addOriginHTML(origin, printable, action, flag);
   }
@@ -455,8 +459,8 @@ function refreshPopup(tabId) {
     printable = printable +
         '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
     for (var i = 0; i < nonTracking.length; i++){
-      var origin = nonTracking[i];
-      printable = _addOriginHTML(origin, printable, "noaction");
+      var ntOrigin = nonTracking[i];
+      printable = _addOriginHTML(ntOrigin, printable, "noaction", false);
     }
   }
   $('#number_trackers').text(originCount);
