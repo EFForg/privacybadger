@@ -187,6 +187,10 @@ font-size: 16px;
 #options{
   float: right;
 }
+#help{
+  float: right;
+  padding-right: 5px;
+}
 .clickerContainer{
   margin-top: 25px;
 }
