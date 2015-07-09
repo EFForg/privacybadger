@@ -235,3 +235,7 @@ font-size: 16px;
 #report_button {
   margin-top: 10px;
   margin-right: 5px;}
+#dnt-compliant {
+  float: left;
+  display: inline;
+}
