@@ -18,6 +18,7 @@
 
 <html>
   <head>
+    <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
     <title class="i18n_firstRun_title"></title>
     <meta charset="utf-8">
   <style>
@@ -93,38 +94,22 @@
 
     <div class="maintext">
 
-      <p style="font-size: 24px; font-weight: bold;">Privacy Badger blocks spying ads and invisible trackers.  It's there to
-      ensure that companies can't track your browsing without your consent.</p> 
+      <p style="font-size: 24px; font-weight: bold;" class="i18n_intro1"></p>
 
-      <p>This extension is designed to automatically protect your privacy from
-      third party trackers that load invisibly when you browse the web. We
-      send the Do Not Track header with each request, and our extension
-      evaluates the likelihood that you are still being tracked. If the
-      algorithm deems the likelihood is too high, we automatically block your
-      request from being sent to the domain. Please understand that Privacy
-      Badger is in beta, and the algorithm's determination is not conclusive
-      that the domain is tracking you.</p>
+      <p class="i18n_intro2"></p>
 
-      <p>Our extension has three states. <span
-      style="color:red;font-weight:bold;">Red</span> means Privacy Badger
-      believes this domain is a tracker, and has blocked it. <span
-      style="color:yellow;font-weight:bold;">Yellow</span> means the domain is
-      believed to be both a tracker and necessary for the functioning of the
-      page, so Privacy Badger is allowing it but blocking its cookies. <span
-      style="color:green;font-weight:bold;">Green</span> means that Privacy
-      Badger believes this is not tracker. You can click on the Privacy Badger
-      icon in your browser's toolbar if you wish to override the automatic
-      blocking settings. Or, you can browse in peace as Privacy Badger starts
-      finding and eating up web trackers one by one.</p>
+      <p class="i18n_intro_3_states"></p><span
+      style="color:red;font-weight:bold;" class="i18n_intro_red"></span><span  class="i18n_intro_has_blocked"></span><span
+      style="color:yellow;font-weight:bold;" class="i18n_intro_yellow"></span> <span class="i18n_intro_cookie_blocked"></span> <span
+      style="color:green;font-weight:bold;" class="i18n_intro_green"></span> <span class="i18n_intro_no_tracker"></span></p>
 
-      <p>Nothing can stop the Privacy Badger from eating cookies when it's
-      hungry!</p>
+      <p class="i18n_intro_hungry"></p>
 
-      <p>Privacy Badger is a project of the Electronic Frontier Foundation.</p>
+      <p class="i18n_intro_by_eff"></p>
 
     </div>
     <div id="social-links">
-      <h3>Let the world know that you are taking a stand against online tracking</h3>
+      <h3 class="i18n_intro_social_share"></h3>
         <a target=_blank href="https://twitter.com/home?status=I%20just%20installed%20Privacy%20Badger%2C%20a%20new%20tool%20from%20EFF%20to%20stop%20companies%20from%20spying%20on%20your%20browsing%20habits%20-%20https%3A%2F%2Feff.org%2Fprivacybadger" title="Share on Twitter"><img src="/skin/twitter48.png" alt="Share on Twitter" title="Share on Twitter"></a> 
         <a href="https://www.facebook.com/share.php?u=https%3A%2F%2Feff.org%2Fprivacybadger" target=_blank>
           <img src="/skin/facebook48.png" alt="Share on Facebook" title="Share on Facebook">

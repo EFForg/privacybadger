@@ -248,7 +248,7 @@ function toggleEnabled() {
  * @returns {string}
  * @private
  */
-function _addOriginHTML(origin, printable, action, flag) {
+function _addOriginHTML(origin, printable, action) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
@@ -268,6 +268,7 @@ function _addOriginHTML(origin, printable, action, flag) {
   //
   return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' +
      flagText + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
+  
 }
 
 /**
@@ -434,7 +435,6 @@ function refreshPopup(tabId) {
   origins.sort(compareReversedDomains);
   originCount = 0;
   for (var i=0; i < origins.length; i++) {
-    var flag = false;
     var origin = origins[i];
     // todo: gross hack, use templating framework
     var action = getAction(tabId, origin);
@@ -455,8 +455,8 @@ function refreshPopup(tabId) {
     printable = printable +
         '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
     for (var i = 0; i < nonTracking.length; i++){
-      var this_origin = nonTracking[i];
-      printable = _addOriginHTML(this_origin, printable, "noaction", false);
+      var origin = nonTracking[i];
+      printable = _addOriginHTML(origin, printable, "noaction");
     }
   }
   $('#number_trackers').text(originCount);
