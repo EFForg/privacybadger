@@ -44,7 +44,10 @@ var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
 var FilterStorage = require("filterStorage").FilterStorage;
-
+var totalCheckAction = 0;
+var totalRequestAction = 0;
+var tsTotal = 0;
+var hrTotal = 0;
 // per-tab data that gets cleaned up on tab closing
 // looks like:
 /* tabData = {
@@ -130,6 +133,7 @@ function onFilterNotifier(action) {
 }
 
 function onBeforeRequest(details){
+  var t0 = performance.now();
   if (details.tabId == -1){
     return {};
   }
@@ -153,6 +157,7 @@ function onBeforeRequest(details){
     //    origin, frameData.superCookie, details.tabId, details.frameId);
   }
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
+  var t1 = performance.now();
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     //add domain to list of blocked domains if it is not there already
     if(requestAction == "block" || requestAction == "cookieblock"){
@@ -176,10 +181,18 @@ function onBeforeRequest(details){
         trackerDomain: extractHostFromURL(details.url)
       };
       chrome.tabs.sendMessage(details.tabId, msg);
-
+      var t2 = performance.now();
+      totalCheckAction += t1-t0;
+      totalRequestAction += t2-t1;
+      console.log("checkAction: " +(t1-t0)+" requestAction: "+(t2-t1)+" totalCheck: " +totalCheckAction+" totalRequest: "+totalRequestAction);
       return {cancel: true};
     }
   }
+      var t2 = performance.now();
+      totalCheckAction += t1-t0;
+      totalRequestAction += t2-t1;
+      console.log("checkAction: " +(t1-t0)+" requestAction: "+(t2-t1)+" totalCheck: " +totalCheckAction+" totalRequest: "+totalRequestAction);
+
 
 }
 
@@ -205,11 +218,18 @@ function getHostForTab(tabId){
 }
 
 function onBeforeSendHeaders(details) {
+  var ts0 = performance.now();  
   if (details.tabId == -1){
+  var ts1 = performance.now();
+  tsTotal += ts1-ts0;
+  console.log("beforeSend: " +(ts1-ts0)+" total: "+tsTotal);
     return {};
   }
 
   if(_isTabChromeInternal(details.tabId)){
+  var ts1 = performance.now();
+  tsTotal += ts1-ts0;
+  console.log("beforeSend: " +(ts1-ts0)+" total: "+tsTotal);
     return {};
   }
 
@@ -218,20 +238,33 @@ function onBeforeSendHeaders(details) {
     
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       var newHeaders = details.requestHeaders.filter(function(header) {
+  var ts1 = performance.now();
+  tsTotal += ts1-ts0;
+  console.log("beforeSend: " +(ts1-ts0)+" total: "+tsTotal);
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
       newHeaders.push({name: "DNT", value: "1"});
+  var ts1 = performance.now();
+  tsTotal += ts1-ts0;
+  console.log("beforeSend: " +(ts1-ts0)+" total: "+tsTotal);
       return {requestHeaders: newHeaders};
     }
   }
   
   // Still sending Do Not Track even if HTTP and cookie blocking are disabled
   details.requestHeaders.push({name: "DNT", value: "1"});
+  var ts1 = performance.now();
+  tsTotal += ts1-ts0;
+  console.log("beforeSend: " +(ts1-ts0)+" total: "+tsTotal);
   return {requestHeaders: details.requestHeaders};
 }
 
 function onHeadersReceived(details){
+  var hr0 = performance.now();
   if (details.tabId == -1){
+  var hr1 = performance.now();
+  hrTotal += hr1-hr0;
+  console.log("headerRecieved: "+(hr1-hr0)+" total: "+hrTotal);
     return {};
   }
 
@@ -239,10 +272,16 @@ function onHeadersReceived(details){
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       var newHeaders = details.responseHeaders.filter(function(header) {
+  var hr1 = performance.now();
+  hrTotal += hr1-hr0;
+  console.log("headerRecieved: "+(hr1-hr0)+" total: "+hrTotal);
         return (header.name.toLowerCase() != "set-cookie");
       });
       newHeaders.push({name:'x-marks-the-spot', value:'foo'});
       //TODO don't return this unless we modified headers
+  var hr1 = performance.now();
+  hrTotal += hr1-hr0;
+  console.log("headerRecieved: "+(hr1-hr0)+" total: "+hrTotal);
       return {responseHeaders: newHeaders};
     }
   }
