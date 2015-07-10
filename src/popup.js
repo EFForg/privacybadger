@@ -82,6 +82,8 @@ function init() {
   });
   $("#report_button").click(function(){
       send_error($("#error_input").val());
+  });
+  $("#report_close").click(function(){
       overlay.toggleClass('active');
   });
 
@@ -142,11 +144,18 @@ function send_error(message) {
   }
   var out_data = JSON.stringify(out);
   console.log(out_data);
-  $.ajax({
+  var sendReport = $.ajax({
     type: "POST",
     url: "https://privacybadger.org/reporting",
     data: out_data,
     contentType: "application/json"
+  });
+  sendReport.done(function() {
+    $("#error_input").val("");
+    $("#report_success").toggleClass("hidden");
+  });
+  sendReport.fail(function() {
+    $("#report_fail").toggleClass("hidden");
   });
 }
 

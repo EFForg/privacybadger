@@ -32,12 +32,19 @@
 
 </head>
 <body id="main">
-    <div id="overlay">
-        <p id="report_text" class="i18n_report_text"></p>
-        <input type="text" id="error_input" maxlength="300" placeholder="What's wrong?"><br>
-        <button id="report_button" class="i18n_report_button"></button><button id="report_cancel" class="i18n_report_cancel"></button>
+  <div id="overlay">
+    <h1 id="report_title" class="i18n_report_title"></h1>
+      <span id="report_close" class="i18n_report_close"></span>
+      <p id="report_text" class="i18n_report_text"></p>
+        <label id="report_label" for error_input class="i18n_report_input_label"></label>
+        <textarea id="error_input" name="error_input" maxlength="300" placeholder="What's wrong?"></textarea>
+        <button id="report_button" class="i18n_report_button"></button>       
+        <button id="report_cancel" class="i18n_report_cancel"></button>
+        <span id="report_success" class="i18n_report_success hidden"></span>
+        <span id="report_fail" class="i18n_report_fail hidden"></span>
         <p id="report_terms" class="i18n_report_terms"></p>
-    </div>
+
+  </div>
 <div id="mustReloadMsg" style="display:none"><span class="i18n_new_filters_added"></span></div>
 
 <div id='privacyBadgerHeader'>
