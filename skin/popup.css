@@ -249,6 +249,7 @@ font-size: 16px;
   margin: 1% 0;
   font-weight: bold;}
 #report_button, #report_cancel {
+  cursor: pointer;
   margin: 2% 2% 0 0;}
 #report_success {
   color: green;}
@@ -261,6 +262,7 @@ font-size: 16px;
   border: 0;
   font-size: 1.2em;
   margin: 0 25;
+  cursor: pointer;
   color: #ccc;}
 #report_close:before {
   content: '[X]';
