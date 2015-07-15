@@ -78,14 +78,21 @@ function init() {
       overlay.toggleClass('active');
   });
   $("#report_cancel").click(function(){
-      overlay.toggleClass('active');
+      closeOverlay();
   });
   $("#report_button").click(function(){
       send_error($("#error_input").val());
   });
   $("#report_close").click(function(){
-      overlay.toggleClass('active');
+      closeOverlay();
   });
+
+function closeOverlay() {
+  overlay.toggleClass('active');
+  $("#report_success").addClass("hidden");
+  $("#report_fail").addClass("hidden");
+  $("#error_input").val("");
+}
 
   // Initialize based on activation state
   $(document).ready(function () {
