@@ -400,6 +400,26 @@ function makeSortable(domain){
 }
 
 /**
+ * this is a terrible function that repeats
+ * a lot of the work that getAction does
+ * because getAction stores things in mysery
+ * land and there's no real way to get what's
+ * in the ABP filters without repeatedly
+ * querying them
+ */
+function getTopLevel(action, origin, tabId){
+    if (action == "usercookieblock"){
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text)
+    }
+    if (action == "userblock"){
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text)
+    }
+    if (action == "usernoaction"){
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text)
+    }
+}
+
+/**
  * Refresh the content of the popup window
  *
  * @param {Integer} tabId The id of the tab
@@ -427,6 +447,7 @@ function refreshPopup(tabId) {
   var nonTracking = [];
   origins.sort(compareReversedDomains);
   originCount = 0;
+  var compressedOrigins = {};
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
@@ -435,8 +456,25 @@ function refreshPopup(tabId) {
         nonTracking.push(origin);
         continue; 
     }
+    else {
+      if (action.includes("user")){
+        var prevOrigin = origin;
+        origin = getTopLevel(action, origin, tabId);
+        if (prevOrigin != origin){
+          if (compressedOrigins.hasOwnProperty(origin)){
+            compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''))
+            continue;
+          }
+          compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
+          continue;
+        }
+      }
+    }
     originCount++;
     printable = _addOriginHTML(origin, printable, action);
+  }
+  for (key in compressedOrigins){
+    printable = _addOriginHTML( key+" ("+compressedOrigins[key]['subs'].length+" subdomains)", printable, compressedOrigins[key]['action'])
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   if(nonTracking.length > 0){
