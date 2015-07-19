@@ -34,10 +34,6 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!("enabled" in localStorage)){
-  localStorage.enabled = "true";
-}
-
 if (!("socialWidgetReplacementEnabled" in localStorage)){
   localStorage.socialWidgetReplacementEnabled = "true";
 }

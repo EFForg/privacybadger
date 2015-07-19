@@ -48,7 +48,6 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
         assertTrue = self.assertTrue
         js = self.js
         self.check_policy_download()
-        assertTrue(js("return localStorage.enabled"))
         self.assertEqual(js("return localStorage.whitelistUrl"),
                     "https://www.eff.org/files/cookieblocklist.txt")
 
