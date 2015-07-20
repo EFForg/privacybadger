@@ -61,14 +61,19 @@ var Utils = require("utils").Utils;
 
 var tab = null;
 
+function closeOverlay() {
+  $('#overlay').toggleClass('active');
+  $("#report_success").addClass("hidden");
+  $("#report_fail").addClass("hidden");
+  $("#error_input").val("");
+}
+
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
  */
 function init() {
   console.log("Initializing popup.js");
   // Attach event listeners
-  $("#activate_btn").click(activate);
-  $("#deactivate_btn").click(deactivate);
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
   $("#error_input").attr("placeholder", i18n.getMessage("error_input"));
@@ -78,27 +83,15 @@ function init() {
       overlay.toggleClass('active');
   });
   $("#report_cancel").click(function(){
-      overlay.toggleClass('active');
+      closeOverlay();
   });
   $("#report_button").click(function(){
       send_error($("#error_input").val());
-      overlay.toggleClass('active');
+  });
+  $("#report_close").click(function(){
+      closeOverlay();
   });
 
-  // Initialize based on activation state
-  $(document).ready(function () {
-    if(!Utils.isPrivacyBadgerEnabled()) {
-      $('#blockedResourcesContainer').hide();
-      $("#activate_btn").show();
-      $("#deactivate_btn").hide();
-      $("#siteControls").hide();
-    }
-    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
-    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
-    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
-  });
- 
   //toggle activation buttons if privacy badger is not enabled for current url
   chrome.windows.getCurrent(function(w)
   {
@@ -142,38 +135,19 @@ function send_error(message) {
   }
   var out_data = JSON.stringify(out);
   console.log(out_data);
-  $.ajax({
+  var sendReport = $.ajax({
     type: "POST",
     url: "https://privacybadger.org/reporting",
     data: out_data,
     contentType: "application/json"
   });
-}
-
-/**
- * Activate event handler
- */
-function activate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $("#blockedResourcesContainer").show();
-  $("#siteControls").show();
-  localStorage.enabled = "true";
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
-}
-
-/**
- * De-Activate event handler
- */
-function deactivate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $("#blockedResourcesContainer").hide();
-  $("#siteControls").hide();
-  localStorage.enabled = "false";
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
+  sendReport.done(function() {
+    $("#error_input").val("");
+    $("#report_success").toggleClass("hidden");
+  });
+  sendReport.fail(function() {
+    $("#report_fail").toggleClass("hidden");
+  });
 }
 
 /**
@@ -248,7 +222,7 @@ function toggleEnabled() {
  * @returns {string}
  * @private
  */
-function _addOriginHTML(origin, printable, action) {
+function _addOriginHTML(origin, printable, action, flag) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
@@ -257,11 +231,21 @@ function _addOriginHTML(origin, printable, action) {
     classes.push("userset");
     action = action.substr(4);
   }
-  if (action == "block" || action == "cookieblock")
+  if (action == "block" || action == "cookieblock"){
     classes.push(action);
+  }
   var classText = 'class="' + classes.join(" ") + '"';
+  var flagText = "";
+  if (flag) {
+    flagText = "<div id='dnt-compliant'>" + 
+      "<a target=_blank href='https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?'>" +
+      "<img src='/icons/dnt-16.png' title='This domain promises not to track you.'></a></div>";
+  }
+  //TODO add text if DNT flag is set 
+  //
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' +
+     flagText + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
   
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
 }
 
 /**
@@ -429,6 +413,7 @@ function refreshPopup(tabId) {
   originCount = 0;
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
+    var flag = false;
     // todo: gross hack, use templating framework
     var action = getAction(tabId, origin);
     if(!action){ 
@@ -436,15 +421,20 @@ function refreshPopup(tabId) {
         continue; 
     }
     originCount++;
-    printable = _addOriginHTML(origin, printable, action);
+    if (action == "usernoaction"){
+      if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
+        flag = true;
+      }
+    }
+    printable = _addOriginHTML(origin, printable, action, flag);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   if(nonTracking.length > 0){
     printable = printable +
         '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
     for (var i = 0; i < nonTracking.length; i++){
-      var origin = nonTracking[i];
-      printable = _addOriginHTML(origin, printable, "noaction");
+      var ntOrigin = nonTracking[i];
+      printable = _addOriginHTML(ntOrigin, printable, "noaction", false);
     }
   }
   $('#number_trackers').text(originCount);

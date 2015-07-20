@@ -23,6 +23,7 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-compress": "^0.12.0",
-    "grunt-zip-to-crx": "^0.1.3"
+    "grunt-zip-to-crx": "^0.1.3",
+    "qunitjs": "1.15.0"
   }
 }

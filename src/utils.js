@@ -180,26 +180,20 @@ var Utils = exports.Utils = {
   },
 
   /**
-   * check if privacy badger is enabled, optionally take an origin and 
+   * check if privacy badger is enabled, take an origin and
    * check against the disabledSites list
    *
    * @param {String} origin
    * @returns {Boolean} true if disabled
    **/
   isPrivacyBadgerEnabled: function(origin){
-    if(!JSON.parse(localStorage.enabled)){
-      return false;
-    } else if(origin) {
-      if(localStorage.disabledSites && JSON.parse(localStorage.disabledSites).length > 0){
-        var sites = JSON.parse(localStorage.disabledSites);
-        for(var i = 0; i < sites.length; i++){
-          if(sites[i] === origin){ return false; }
-        }
-      } 
-      return true;
-    } else {
-      return true;
+    if(localStorage.disabledSites && JSON.parse(localStorage.disabledSites).length > 0){
+      var sites = JSON.parse(localStorage.disabledSites);
+      for(var i = 0; i < sites.length; i++){
+        if(sites[i] === origin){ return false; }
+      }
     }
+    return true;
   },
 
   /**
