@@ -43,18 +43,10 @@
   });
 
   test("isPrivacyBadgerEnabled", function(){
-    localStorage.enabled = true;
-    ok(Utils.isPrivacyBadgerEnabled(), "enabled");
     ok(Utils.isPrivacyBadgerEnabled("eff.org"), "enabled for site");
 
-    localStorage.enabled = false;
-    ok(!Utils.isPrivacyBadgerEnabled(), "disabled");
-    ok(!Utils.isPrivacyBadgerEnabled("eff.org"), "disabled for site");
-
-    localStorage.enabled = true;
     Utils.disablePrivacyBadgerForOrigin("example.com");
     ok(!Utils.isPrivacyBadgerEnabled("example.com"), "disabled for site");
-    ok(Utils.isPrivacyBadgerEnabled(), "enabled global but disabled for site");
     Utils.enablePrivacyBadgerForOrigin("example.com");
     ok(Utils.isPrivacyBadgerEnabled("example.com"), "enabled for site");
   });

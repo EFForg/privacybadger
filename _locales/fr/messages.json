@@ -61,14 +61,8 @@
     "pb_detected": {    
         "message": "Privacy Badger détecté"
      },
-    "popup_activate": {
-        "message": "Activer Privacy Badger"
-    },
     "popup_blocked": {
         "message": "Aucun cookie traqueur n'a été détecté...."
-    },
-    "popup_deactivate": {
-        "message": "Désactiver Privacy Badger"
     },
     "popup_disable_for_site": {
         "message": "Désactiver Privacy Badger pour ce site"

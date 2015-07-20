@@ -53,14 +53,8 @@
     "options_title": {
         "message": "Privacy Badger inställningar"
     },
-    "popup_activate": {
-        "message": "Aktivera Privacy Badger"
-    },
     "popup_blocked": {
         "message": "Inga tracking cookies detekterade...."
-    },
-    "popup_deactivate": {
-        "message": "Inaktivera Privacy Badger"
     },
     "popup_disable_for_site": {
         "message": "Inaktivera Privacy Badger för den här sidan"

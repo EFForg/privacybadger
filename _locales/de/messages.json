@@ -59,14 +59,8 @@
     "pb_detected": {
         "message": "Privacy Badger erkannte"
     },
-    "popup_activate": {
-        "message": "Privacy Badger aktivieren"
-    },
     "popup_blocked": {
         "message": "Konnte keine Tracking Cookies erkennen...."
-    },
-    "popup_deactivate": {
-        "message": "Privacy Badger de-aktivieren"
     },
     "popup_disable_for_site": {
         "message": "Privacy Badger für diese Site de-aktivieren"

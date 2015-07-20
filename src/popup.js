@@ -61,14 +61,19 @@ var Utils = require("utils").Utils;
 
 var tab = null;
 
+function closeOverlay() {
+  $('#overlay').toggleClass('active');
+  $("#report_success").addClass("hidden");
+  $("#report_fail").addClass("hidden");
+  $("#error_input").val("");
+}
+
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
  */
 function init() {
   console.log("Initializing popup.js");
   // Attach event listeners
-  $("#activate_btn").click(activate);
-  $("#deactivate_btn").click(deactivate);
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
   $("#error_input").attr("placeholder", i18n.getMessage("error_input"));
@@ -87,27 +92,6 @@ function init() {
       closeOverlay();
   });
 
-function closeOverlay() {
-  overlay.toggleClass('active');
-  $("#report_success").addClass("hidden");
-  $("#report_fail").addClass("hidden");
-  $("#error_input").val("");
-}
-
-  // Initialize based on activation state
-  $(document).ready(function () {
-    if(!Utils.isPrivacyBadgerEnabled()) {
-      $('#blockedResourcesContainer').hide();
-      $("#activate_btn").show();
-      $("#deactivate_btn").hide();
-      $("#siteControls").hide();
-    }
-    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
-    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
-    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
-  });
- 
   //toggle activation buttons if privacy badger is not enabled for current url
   chrome.windows.getCurrent(function(w)
   {
@@ -164,32 +148,6 @@ function send_error(message) {
   sendReport.fail(function() {
     $("#report_fail").toggleClass("hidden");
   });
-}
-
-/**
- * Activate event handler
- */
-function activate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $("#blockedResourcesContainer").show();
-  $("#siteControls").show();
-  localStorage.enabled = "true";
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
-}
-
-/**
- * De-Activate event handler
- */
-function deactivate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $("#blockedResourcesContainer").hide();
-  $("#siteControls").hide();
-  localStorage.enabled = "false";
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
 }
 
 /**
