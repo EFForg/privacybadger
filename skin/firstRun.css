@@ -14,6 +14,7 @@ h3 {
   font-size: 36px;
   color: #575654;
   font-weight: bold;
+  margin-bottom: 0;
   -webkit-margin-after: 0px;
 }
 #social-links{ 
@@ -26,6 +27,10 @@ h3 {
 
 #social-links img{
   margin: 20px;
+  opacity: 0.8;
+}
+#social-links img:hover{
+  opacity: 1;
 }
 #header-container{
   width: 100%;
@@ -61,13 +66,13 @@ margin: 20px auto;
 position: relative;
 width: 650px;
 height: 550px;
-border: 10px solid #fff;
+/*border: 10px solid #fff;
 -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
       border-radius: 5px;
 -webkit-box-shadow: 0 0 2px #999;
   -moz-box-shadow: 0 0 2px #999;
-      box-shadow: 0 0 2px #999;
+      box-shadow: 0 0 2px #999;*/
 }
 
 /** Carousel **/
@@ -135,7 +140,7 @@ padding: 0;
 .jcarousel-pagination {
     position: absolute;
     bottom: 0;
-    left: 15px;
+    left: 100px;
 }
 
 .jcarousel-pagination a {
@@ -152,7 +157,7 @@ padding: 0;
     padding: 3px;
     text-align: center;
     
-    margin-right: 2px;
+    margin-right: 8px;
     
     opacity: .75;
 }
