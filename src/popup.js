@@ -91,6 +91,12 @@ function init() {
   $("#report_close").click(function(){
       closeOverlay();
   });
+  $(document).ready(function () {
+    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
+    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
+    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
+    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
+  });
 
   //toggle activation buttons if privacy badger is not enabled for current url
   chrome.windows.getCurrent(function(w)
