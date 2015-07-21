@@ -24,7 +24,7 @@
         "message": "click to return control of this tracker to Privacy Badger"
     },
     "firstRun_title": {
-        "message": "Privacy Badger Plus has been installed"
+        "message": "Thank you for installing Privacy Badger!"
     },
     "name": {
         "message": "Privacy Badger"
@@ -153,7 +153,7 @@
         "message":"Nothing can stop the Privacy Badger from eating cookies when it's hungry!"
     },
     "intro_by_eff":{
-        "message":"Privacy Badger is a project of the Electronic Frontier Foundation."
+        "message": "A project of the Electronic Frontier Foundation"
     },
     "intro_social_share": {
         "message": "Let the world know that you are taking a stand against online tracking"
