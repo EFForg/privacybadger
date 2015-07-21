@@ -32,5 +32,14 @@
           $(this).removeClass('active');
         })
         .jcarouselPagination();
+
+      $(document).on('keyup', function(e){
+        var key = e.which || e.keyChar || e.keyCode;
+        if (key == 37)  { // Left arrow
+          $('.jcarousel').jcarousel('scroll', '-=1');
+        } else if (key == 39) { // Right arrow
+          $('.jcarousel').jcarousel('scroll', '+=1');
+        }
+      });
   });
 })(jQuery);
