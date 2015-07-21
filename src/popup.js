@@ -403,13 +403,13 @@ function makeSortable(domain){
  */
 function getTopLevel(action, origin, tabId){
     if (action == "usercookieblock"){
-      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text)
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
     }
     if (action == "userblock"){
-      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text)
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
     }
     if (action == "usernoaction"){
-      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text)
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
     }
 }
 
@@ -466,7 +466,7 @@ function refreshPopup(tabId) {
         origin = getTopLevel(action, origin, tabId);
         if (prevOrigin != origin){
           if (compressedOrigins.hasOwnProperty(origin)){
-            compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''))
+            compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''));
             continue;
           }
           compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
