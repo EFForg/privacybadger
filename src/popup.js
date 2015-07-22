@@ -228,7 +228,7 @@ function toggleEnabled() {
  * @returns {string}
  * @private
  */
-function _addOriginHTML(origin, printable, action, flag) {
+function _addOriginHTML(origin, printable, action, flag, multiTLD) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
@@ -247,10 +247,14 @@ function _addOriginHTML(origin, printable, action, flag) {
       "<a target=_blank href='https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?'>" +
       "<img src='/icons/dnt-16.png' title='This domain promises not to track you.'></a></div>";
   }
+  var multiText = "";
+  if(multiTLD){
+    multiText = " ("+multiTLD +" subdomains)";
+  }
   //TODO add text if DNT flag is set 
   //
   return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' +
-     flagText + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
+     flagText + _trim(origin + multiText,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
   
 }
 
@@ -390,6 +394,36 @@ function makeSortable(domain){
 }
 
 /**
+ * this is a terrible function that repeats
+ * a lot of the work that getAction does
+ * because getAction stores things in mysery
+ * land and there's no real way to get what's
+ * in the ABP filters without repeatedly
+ * querying them
+ */
+function getTopLevel(action, origin, tabId){
+    if (action == "usercookieblock"){
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    }
+    if (action == "userblock"){
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    }
+    if (action == "usernoaction"){
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    }
+}
+
+function isDomainWhitelisted(action, origin){
+    var flag = false;
+    if (action == "usernoaction"){
+      if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
+        flag = true;
+      }
+    }
+    return flag;
+}
+
+/**
  * Refresh the content of the popup window
  *
  * @param {Integer} tabId The id of the tab
@@ -417,22 +451,36 @@ function refreshPopup(tabId) {
   var nonTracking = [];
   origins.sort(compareReversedDomains);
   originCount = 0;
+  var compressedOrigins = {};
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
-    var flag = false;
     // todo: gross hack, use templating framework
     var action = getAction(tabId, origin);
     if(!action){ 
         nonTracking.push(origin);
         continue; 
     }
-    originCount++;
-    if (action == "usernoaction"){
-      if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
-        flag = true;
+    else {
+      if (action.includes("user")){
+        var prevOrigin = origin;
+        origin = getTopLevel(action, origin, tabId);
+        if (prevOrigin != origin){
+          if (compressedOrigins.hasOwnProperty(origin)){
+            compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''));
+            continue;
+          }
+          compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
+          continue;
+        }
       }
     }
+    originCount++;
+    var flag = isDomainWhitelisted(action, origin);
     printable = _addOriginHTML(origin, printable, action, flag);
+  }
+  for (key in compressedOrigins){
+    var flag2 = isDomainWhitelisted(action, origin); 
+    printable = _addOriginHTML( key, printable, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   if(nonTracking.length > 0){
