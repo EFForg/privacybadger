@@ -1,0 +1,112 @@
+{
+    "add_domain_button": {
+        "message": "Ajouter un nom de domaine"
+    },
+    "badger_status_block": {
+        "message": "Ce traqueur est BLOQUÉ, glisser pour débloquer le traqueur ou bloquer les cookies."
+    },
+    "badger_status_cookieblock": {
+        "message": "Ces cookies traqueurs sont bloqués, glisser pour bloquer ou débloquer les traqueurs."
+    },
+    "badger_status_noaction": {
+        "message": "Ce nom de domaine est débloqué, glisser pour le bloquer entièrement ou pour bloquer les cookies."
+    },
+    "description": {
+        "message": "Privacy Badger vous protège des traqueurs lorsque vous surfez sur le web !"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger est désactivé pour les noms de domaine listés ci-dessous. Vous pouvez ajouter un nom de domaine soit par le biais de l'icone du Privacy Badger présente sur la barre d'adresse soit en tapant le nom de domaine (pas l'URL) dans la fenêtre en cliquant sur le bouton \"Ajouter un nom de domaine\"."
+    },
+    "error_input": {
+     "message": "Qu'est ce qui ne va pas ?"
+    },
+
+    "feed_the_badger_title": {
+        "message": "cliquer pour laisser le contrôle de ce traqueur au Privacy Badger"
+    },
+    "firstRun_title": {
+        "message": "Privacy Badger a été installé"
+    },
+    "name": {
+        "message": "Privacy Badger"
+    },
+    "new_filters_added": {
+        "message": "Nouveaux filtres ajoutés; voir <a id='options_url' target='_blank'>Options</a> pour les gérer."
+    },
+
+     "non_tracker": {
+     "message": "Les noms de domaines ci-dessous ne semblent pas vous traquer"
+    },
+    "options_filter_settings": {
+        "message": "Configurations des filtres utilisateur"
+    },
+    "options_loading": {
+        "message": "Chargement..."
+    },
+    "options_slider_text": {
+        "message": "Privacy Badger vous protège sur le web ! Ces curseurs vous permettent de contrôler la manière dont Privacy Badger traite chaque traqueur relevé au cours de votre navigation."
+    },
+    "options_social_disable": {
+        "message": "Désactiver le remplacement des widgets sociaux"
+    },
+    "options_social_enable": {
+        "message": "Activer le remplacement des widgets sociaux"
+    },
+    "options_social_settings": {
+        "message": "Configuration des widgets sociaux"
+    },
+    "options_title": {
+        "message": "Options de Privacy Badger"
+    },
+    "pb_detected": {    
+        "message": "Privacy Badger détecté"
+     },
+    "popup_blocked": {
+        "message": "Aucun cookie traqueur n'a été détecté...."
+    },
+    "popup_disable_for_site": {
+        "message": "Désactiver Privacy Badger pour ce site"
+    },
+    "popup_enable_for_site": {
+        "message": "Activer Privacy Badger pour ce site"
+    },
+    "popup_instructions": {
+        "message": "Privacy Badger vous protège sur cette page. Ces curseurs vous permettent de contrôler la manière dont Privacy Badger traite chaque traqueur."
+    },
+    "popup_noblocked": {
+        "message": "Pourquoi n'y a-t-il rien de bloqué ?"
+    },
+    "popup_options_button": {
+        "message": "Options"
+    },
+    "privacy_badger": {
+        "message": "Privacy Badger"
+    },
+    "privacy_badger_what_is": {
+        "message": "Qu'est ce que le Privacy Badger ?"
+    },
+    "remove_button": {
+        "description": "Il s'agit de l'étiquette pour les boutons 'Supprimer la sélection'.",
+        "message": "Supprimer la sélection"
+    },
+    "report_button": {
+     "message": "Soumettre une erreur"
+    },
+    "report_cancel": {
+     "message": "Annuler"
+    },
+    "report_terms": {
+        "message": "Cela va transmettre des informations à EFF dont : le site actuellement visité, la version du navigateur, la version de Privacy Badger, et l'état de tous les curseurs pour ce site"
+    },
+    "report_text": {
+        "message": "Donnez une brève description ci-dessous de l'erreur"
+    },
+    "report_broken_site": {
+      "message": "Reporter un site cassé"
+    },
+    "whitelisted_domains": {
+        "description": "Intitulé de l'onglet.",
+        "message": "Noms de domaine acceptés"
+    }
+}
+

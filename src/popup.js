@@ -61,11 +61,19 @@ var Utils = require("utils").Utils;
 
 var tab = null;
 
+function closeOverlay() {
+  $('#overlay').toggleClass('active');
+  $("#report_success").addClass("hidden");
+  $("#report_fail").addClass("hidden");
+  $("#error_input").val("");
+}
+
+/**
+ * Init function. Showing/hiding popup.html elements and setting up event handler
+ */
 function init() {
   console.log("Initializing popup.js");
   // Attach event listeners
-  $("#activate_btn").click(activate);
-  $("#deactivate_btn").click(deactivate);
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
   $("#error_input").attr("placeholder", i18n.getMessage("error_input"));
@@ -75,27 +83,21 @@ function init() {
       overlay.toggleClass('active');
   });
   $("#report_cancel").click(function(){
-      overlay.toggleClass('active');
+      closeOverlay();
   });
   $("#report_button").click(function(){
       send_error($("#error_input").val());
-      overlay.toggleClass('active');
   });
-
-  // Initialize based on activation state
+  $("#report_close").click(function(){
+      closeOverlay();
+  });
   $(document).ready(function () {
-    if(!Utils.isPrivacyBadgerEnabled()) {
-      $('#blockedResourcesContainer').hide();
-      $("#activate_btn").show();
-      $("#deactivate_btn").hide();
-      $("#siteControls").hide();
-    }
     $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   });
- 
+
   //toggle activation buttons if privacy badger is not enabled for current url
   chrome.windows.getCurrent(function(w)
   {
@@ -112,14 +114,20 @@ function init() {
 }
 $(init);
 
+/**
+ * Send errors to PB error reporting server
+ *
+ * @param {String} message The message to send
+ */
 function send_error(message) {
   var browser = window.navigator.userAgent;
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var origins = getAllOriginsForTab(tabId);
   if(!origins){ return; }
+  var version = localStorage.currentVersion;
   //TODO "there's got to be a better way!"
   var fqdn = tab.url.split("/",3)[2];
-  var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message};
+  var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
   for (var i = 0; i < origins.length; i++){
      var origin = origins[i];
      var action = getAction(tabId, origin);
@@ -133,34 +141,24 @@ function send_error(message) {
   }
   var out_data = JSON.stringify(out);
   console.log(out_data);
-  $.ajax({
+  var sendReport = $.ajax({
     type: "POST",
     url: "https://privacybadger.org/reporting",
     data: out_data,
     contentType: "application/json"
   });
+  sendReport.done(function() {
+    $("#error_input").val("");
+    $("#report_success").toggleClass("hidden");
+  });
+  sendReport.fail(function() {
+    $("#report_fail").toggleClass("hidden");
+  });
 }
 
-function activate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $("#blockedResourcesContainer").show();
-  $("#siteControls").show();
-  localStorage.enabled = "true";
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
-}
-
-function deactivate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $("#blockedResourcesContainer").hide();
-  $("#siteControls").hide();
-  localStorage.enabled = "false";
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
-}
-
+/**
+ * activate PB for site event handler
+ */
 function active_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
@@ -170,6 +168,9 @@ function active_site(){
   reloadTab(tab.id);
 }
 
+/**
+ * de-activate PB for site event handler
+ */
 function deactive_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
@@ -179,7 +180,12 @@ function deactive_site(){
   reloadTab(tab.id);
 }
 
-
+/**
+ * Handler to undo user selection for a tracker
+ *
+ * @param e The object the event triggered on
+ * @returns {boolean} false
+ */
 function revertDomainControl(e){
   $elm = $(e.target).parent();
   console.log('revert to privacy badger control for', $elm);
@@ -204,13 +210,25 @@ function revertDomainControl(e){
   return false;
 }
 
+/**
+ * Toggles the icon, not used
+ */
 function toggleEnabled() {
   console.log("Refreshing icon and context menu");
   refreshIconAndContextMenu(tab);
 }
 
 // ugly helpers: not to be used!
-function _addOriginHTML(origin, printable, action) {
+/**
+ * Generate some html (the part specific for each origin)
+ *
+ * @param {String} origin data origin value
+ * @param {String} printable HTML top prepend
+ * @param {String} action user/block/cookieblock
+ * @returns {string}
+ * @private
+ */
+function _addOriginHTML(origin, printable, action, flag, multiTLD) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
@@ -219,13 +237,35 @@ function _addOriginHTML(origin, printable, action) {
     classes.push("userset");
     action = action.substr(4);
   }
-  if (action == "block" || action == "cookieblock")
+  if (action == "block" || action == "cookieblock"){
     classes.push(action);
+  }
   var classText = 'class="' + classes.join(" ") + '"';
+  var flagText = "";
+  if (flag) {
+    flagText = "<div id='dnt-compliant'>" + 
+      "<a target=_blank href='https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?'>" +
+      "<img src='/icons/dnt-16.png' title='This domain promises not to track you.'></a></div>";
+  }
+  var multiText = "";
+  if(multiTLD){
+    multiText = " ("+multiTLD +" subdomains)";
+  }
+  //TODO add text if DNT flag is set 
+  //
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' +
+     flagText + _trim(origin + multiText,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
   
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
 }
 
+/**
+ * Trim a str down to a max. length
+ *
+ * @param {String} str The string to trim
+ * @param {Integer} max
+ * @returns {String} The shortened string
+ * @private
+ */
 function _trim(str,max){
   if(str.length >= max){
     return str.slice(0,max-3)+'...';
@@ -234,6 +274,13 @@ function _trim(str,max){
   }
 }
 
+/**
+ * Get the message for the action different (I18N)
+ *
+ * @param {String} action The action description to get
+ * @returns {string} The description, I18Ned
+ * @private
+ */
 function _badgerStatusTitle(action){
   var prefix = "";
   var status_block = i18n.getMessage("badger_status_block");
@@ -249,6 +296,14 @@ function _badgerStatusTitle(action){
   return prefix + statusMap[action];
 }
 
+/**
+ * Generate the 3 action options toggle switch
+ *
+ * @param {String} origin Origin url
+ * @param {String } action The current action
+ * @returns {string} The HTML displaying that
+ * @private
+ */
 function _addToggleHtml(origin, action){
   var idOrigin = origin.replace(/\./g,'-');
   var output = "";
@@ -260,6 +315,15 @@ function _addToggleHtml(origin, action){
   output += '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
   return output;
 }
+
+/**
+ * Helper function to test if a action matches the name
+ *
+ * @param {String} name name to test
+ * @param {String} action actual action string
+ * @returns {*} true if equal
+ * @private
+ */
 function _checked(name, action){
   if(name == action){
     return 'checked';
@@ -267,6 +331,13 @@ function _checked(name, action){
     return '';
   }
 }
+
+/**
+ * Toggle the GUI blocked status of GUI element(s)
+ *
+ * @param {String} elt Identify the object(s) to manipulate
+ * @param {String} status New status to set, optional
+ */
 function toggleBlockedStatus(elt,status) {
   console.log('toggle blocked status', elt, status);
   if(status){
@@ -291,6 +362,13 @@ function toggleBlockedStatus(elt,status) {
     $(elt).addClass("userset");
 }
 
+/**
+ * Compare 2 domains. Reversing them to start comparing the least significant parts (TLD) first
+ *
+ * @param a First domain
+ * @param b Second domain
+ * @returns {number} standard compare returns
+ */
 function compareReversedDomains(a, b){
   fqdn1 = makeSortable(a);
   fqdn2 = makeSortable(b);
@@ -303,12 +381,53 @@ function compareReversedDomains(a, b){
   return 0;
 }
 
+/**
+ * Reverse order of domain items to have the least exact (TLD) first)
+ *
+ * @param {String} domain The domain to shuffle
+ * @returns {String} The 'reversed' domain
+ */
 function makeSortable(domain){
   var tmp = domain.split('.').reverse();
   tmp.shift();
   return tmp.join('');
 }
 
+/**
+ * this is a terrible function that repeats
+ * a lot of the work that getAction does
+ * because getAction stores things in mysery
+ * land and there's no real way to get what's
+ * in the ABP filters without repeatedly
+ * querying them
+ */
+function getTopLevel(action, origin, tabId){
+    if (action == "usercookieblock"){
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    }
+    if (action == "userblock"){
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    }
+    if (action == "usernoaction"){
+      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    }
+}
+
+function isDomainWhitelisted(action, origin){
+    var flag = false;
+    if (action == "usernoaction"){
+      if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
+        flag = true;
+      }
+    }
+    return flag;
+}
+
+/**
+ * Refresh the content of the popup window
+ *
+ * @param {Integer} tabId The id of the tab
+ */
 function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + tabId);
   //TODO this is calling get action and then being used to call get Action
@@ -332,6 +451,7 @@ function refreshPopup(tabId) {
   var nonTracking = [];
   origins.sort(compareReversedDomains);
   originCount = 0;
+  var compressedOrigins = {};
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
@@ -340,16 +460,35 @@ function refreshPopup(tabId) {
         nonTracking.push(origin);
         continue; 
     }
+    else {
+      if (action.includes("user")){
+        var prevOrigin = origin;
+        origin = getTopLevel(action, origin, tabId);
+        if (prevOrigin != origin){
+          if (compressedOrigins.hasOwnProperty(origin)){
+            compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''));
+            continue;
+          }
+          compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
+          continue;
+        }
+      }
+    }
     originCount++;
-    printable = _addOriginHTML(origin, printable, action);
+    var flag = isDomainWhitelisted(action, origin);
+    printable = _addOriginHTML(origin, printable, action, flag);
+  }
+  for (key in compressedOrigins){
+    var flag2 = isDomainWhitelisted(action, origin); 
+    printable = _addOriginHTML( key, printable, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   if(nonTracking.length > 0){
     printable = printable +
         '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
     for (var i = 0; i < nonTracking.length; i++){
-      var origin = nonTracking[i];
-      printable = _addOriginHTML(origin, printable, "noaction");
+      var ntOrigin = nonTracking[i];
+      printable = _addOriginHTML(ntOrigin, printable, "noaction", false);
     }
   }
   $('#number_trackers').text(originCount);
@@ -383,6 +522,11 @@ function refreshPopup(tabId) {
 }
 
 
+/**
+ * Event handler for on change (blocked resources container)
+ *
+ * @param event
+ */
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
   console.log('updating origin for', $elm);
@@ -396,10 +540,16 @@ function updateOrigin(event){
   hideNoInitialBlockingLink();
 }
 
+/**
+ * Hide #noBlockingLink
+ */
 function hideNoInitialBlockingLink() {
   $("#noBlockingLink").hide();
 }
 
+/**
+ * Hide or show additional info depending on if there is any additional info
+ */
 function adjustNoInitialBlockingLink() {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var origins = blockedOriginCount(tabId);
@@ -413,6 +563,11 @@ function adjustNoInitialBlockingLink() {
 
 var tooltipDelay = 300;
 
+/**
+ * Show tooltip for elements
+ *
+ * @param event
+ */
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var displayTipTimer = setTimeout(function(){
@@ -428,6 +583,11 @@ function displayTooltip(event){
   $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);}); 
 }
 
+/**
+ * Hide tooltip for element
+ *
+ * @param event
+ */
 function hideTooltip(event){
   var $elm = $(event.currentTarget);
   var hideTipTimer = setTimeout(function(){
@@ -443,6 +603,12 @@ function hideTooltip(event){
   $elm.on('mouseenter',function(){clearTimeout(hideTipTimer);});
 }
 
+/**
+ * Check if origin is in setting dict. If yes, popup needs refresh
+ *
+ * @param settingsDict The settings dict to check
+ * @returns {boolean} false or the tab id
+ */
 function syncSettingsDict(settingsDict) {
   // track whether reload is needed: only if things are being unblocked
   var reloadNeeded = false;
@@ -460,6 +626,13 @@ function syncSettingsDict(settingsDict) {
   refreshPopup(tabId);
   return reloadNeeded;
 }
+
+/**
+ * Get the action class from the element
+ *
+ * @param elt Element
+ * @returns {String} block/cookieblock/noaction
+ */
 function getCurrentClass(elt) {
   if ($(elt).hasClass("block"))
     return "block";
@@ -469,6 +642,11 @@ function getCurrentClass(elt) {
     return "noaction";
 }
 
+/**
+ * Generates dict Origin->action based on GUI elements
+ *
+ * @returns {{}} The generated dict
+ */
 function buildSettingsDict() {
   var settingsDict = {};
   $('.clicker').each(function() {
@@ -486,7 +664,10 @@ function buildSettingsDict() {
   return settingsDict;
 }
 
-// syncs the user-selected cookie blocking options, etc
+/**
+ * syncs the user-selected cookie blocking options, etc.
+ * Reloads the tab if needed
+ */
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
   console.log("Sync of userset options: " + JSON.stringify(settingsDict));
@@ -502,6 +683,7 @@ document.addEventListener('DOMContentLoaded', function () {
     refreshPopup(tab.id);
   });
 });
+
 window.addEventListener('unload', function() {
   console.log("Starting to unload popup");
   syncUISelections();

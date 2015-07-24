@@ -459,3 +459,9 @@
 @@||search.yahoo.com^$third-party
 @@||loop.services.mozilla.com^$third-party
 @@||hello.firefox.com^$third-party
+@@||yelpcdn.com^$third-party
+@@||files.edx.org^$third-party
+@@||gatherer.wizards.com^$third-party
+@@||googlevideo.com^$third-party
+@@||piratebay.org^$third-party
+@@||sndcdn.com^$third-party

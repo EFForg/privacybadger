@@ -20,57 +20,53 @@ var exports = {};
 var Utils   = require('utils').Utils;
 
 var CookieBlockList = exports.CookieBlockList = {
-  domains: [],
+  domains: {},
+  loaded: false,
 
   updateDomains: function(){
     var _this = this;
-
-    chrome.storage.local.get('cookieblocklist', function(items){
-      if(chrome.runtime.lastError || !items.cookieblocklist){
-        //cookie block list has never been set so we initialize it with an empty array
-        chrome.storage.local.set({cookieblocklist: _this.domains});
-        return;
-      }
-      _this.domains = items.cookieblocklist;
-    });
+    self.domains = JSON.parse(localStorage.getItem("cookieblocklist"));
+    _this.loaded = true;
+    return;
   },
 
-  addDomain: function(domain, cb){
+  /**
+   * Add a domain to the local blocklist
+   * @param {String} domain The domain to add to the local blocklist
+   * @param {Function} cb The callback to call (optional)
+   */
+  addDomain: function(domain){
+    if (!this.loaded){
+      this.updateDomains();
+    }
     if(!this.hasDomain(domain)){
-      this.domains.push(domain);
-      chrome.storage.local.set({cookieblocklist: this.domains},function(){
-        if(cb && typeof(cb) === "function"){
-          cb();
-        }
-      });
+        this.domains[domain] = true;
+    localStorage.setItem("cookieblocklist", JSON.stringify(this.domains));
     }
   },
 
+  /**
+   * Remove a domain from the local blocklist. Stores in localStorage
+   * @param {String} domain to remove
+   */
   removeDomain: function(domain){
+    if(!this.loaded){
+      this.updateDomains();
+    }
     if(this.hasDomain(domain)){
-      Utils.removeElementFromArray(this.domains,this.domains.indexOf(domain));
-      chrome.storage.local.set({cookieblocklist: this.domains});
+      delete this.domains[domain];
+      localStorage.setItem("cookieblocklist", JSON.stringify(this.domains));
     }
   },
 
+  /**
+   * Checks if a domain is in the block list
+   * @param {String} domain The domain to check for
+   * @returns {boolean} true if found
+   */
   hasDomain: function(domain){
-    var idx = this.domains.indexOf(domain);
-
-    if(idx < 0){
-      return false;
-    } else {
-      return true;
-    }
+    return this.domains.hasOwnProperty(domain);
   },
-
-  hasBaseDomain: function(baseDomain){
-    for(var i = 0; i < this.domains.length; i++){
-      if(getBaseDomain(this.domains[i]) == baseDomain){
-        return true;
-      }
-    }
-    return false;
-  }
 };
 return exports;
 })(); //require scopes
