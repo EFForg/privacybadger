@@ -9,7 +9,6 @@ from time import sleep
 # time to wait for loading privacy policy from eff.org
 POLICY_DOWNLOAD_TIMEOUT = 20
 PB_POLICY_HASH_LEN = 40  # https://www.eff.org/files/dnt-policies.json
-PB_POLICY_KEY = "Preliminary DNT Policy"
 
 
 class LocalStorageTest(pbtest.PBSeleniumTest):
@@ -40,19 +39,19 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
             policy_json = json.loads(policy_hash)
         except:
             self.fail("localStorage.badgerHashes is not valid JSON")
-        self.assertEqual(PB_POLICY_HASH_LEN,
-                         len(policy_json[PB_POLICY_KEY]))
+        for k, v in policy_json.iteritems():
+            self.assertIn("DNT Policy", k)  # e.g. DNT Policy V1.0
+            self.assertEqual(PB_POLICY_HASH_LEN, len(v))  # check hash length
 
     def test_should_init_local_storage_entries(self):
         self.driver.get(pbtest.PB_CHROME_BG_URL)
-        assertTrue = self.assertTrue
         js = self.js
         self.check_policy_download()
         self.assertEqual(js("return localStorage.whitelistUrl"),
-                    "https://www.eff.org/files/cookieblocklist.txt")
+                         "https://www.eff.org/files/cookieblocklist.txt")
 
         disabled_sites = js("return ('disabledSites' in localStorage && "
-                        "JSON.parse(localStorage.disabledSites).length > 0)")
+                            "JSON.parse(localStorage.disabledSites).length > 0)")
         self.assertFalse(disabled_sites,
                          "Shouldn't have any disabledSites after installation")
         # TODO: do we expect currentVersion to be present after the first run?
