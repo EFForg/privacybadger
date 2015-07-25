@@ -1,0 +1,182 @@
+{
+    "add_domain_button": {
+        "message": "Voeg (derde) partij toe"
+    },
+    "badger_status_block": {
+        "message": "Deze tracker wordt GEBLOKKEERD. Beweeg de schuifbalkjes zodat Privacy Badger (derde) partijen blokkeert of niet."
+    },
+    "badger_status_cookieblock": {
+        "message": "Deze trackingcookies worden GEBLOKKEERD. Beweeg de schuifbalkjes zodat Privacy Badger trackingcookies blokkeert of niet."
+    },
+    "badger_status_noaction": {
+        "message": "Deze (derde) partij wordt doorgelaten. Beweeg de schuifbalkjes zodat Privacy Badger (derde) partijen blokkeert of niet."
+    },
+    "description": {
+        "message": "Privacy Badger geeft u meer controle over het gevolgd worden op internet!"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger is uitgeschakeld voor de volgende (derde) partijen. U kunt een (derde) partij op twee manieren blokkeren, met het Privacy Badger pictogram in de adresbalk, of door de domeinnaam (niet de URL) in te typen en vervolgens de \"Partij toevoegen\"-knop aan te klikken."
+    },
+    "error_input": {
+        "message": "Wat ging er mis?"
+    },
+    "feed_the_badger_title": {
+        "message": "klik om deze tracker over te laten aan Privacy Badger"
+    },
+    "firstRun_title": {
+        "message": "Dank u voor het installeren van Privacy Badger!"
+    },
+    "name": {
+        "message": "Privacy Badger"
+    },
+    "new_filters_added": {
+        "message": "Nieuwe filters toegevoegd; zie <a id='options_url' target='_blank'>Opties</a> om deze te beheren."
+    },
+    "non_tracker": {
+        "message": "Vooralsnog lijkt het erop dat de volgende (derde) partijen u niet volgen"
+    },
+    "options_filter_settings": {
+        "message": "Filter Instellingen"
+    },
+    "options_loading": {
+        "message": "Laden..."
+    },
+    "options_slider_text": {
+        "message": "Met de schuifbalkjes kunt u instellen hoe Privacy Badger omgaat met een tracker."
+    },
+    "options_social_disable": {
+        "message": "Blokkeer plugins voor sociale netwerken"
+    },
+    "options_social_enable": {
+        "message": "Sta plugins voor sociale netwerken toe"
+    },
+    "options_social_settings": {
+        "message": "Instellingen voor plugins voor sociale netwerken"
+    },
+    "options_title": {
+        "message": "Privacy Badger Opties"
+    },
+    "pb_detected": {
+        "message": "Privacy Badger gedetecteerd"
+    },
+    "popup_blocked": {
+        "message": "Vooralsnog geen trackingcookies aanwezig...."
+    },
+    "popup_disable_for_site": {
+        "message": "Schakel Privacy Badger uit op deze webpagina"
+    },
+    "popup_enable_for_site": {
+        "message": "Schakel Privacy Badger in op deze webpagina"
+    },
+    "popup_instructions": {
+        "message": "<a href='https://www.eff.org/privacybadger#trackers'>trackers</a> op deze webpagina. Met de schuifbalkjes kunt u instellen hoe Privacy Badger omgaat met een tracker."
+    },
+    "popup_noblocked": {
+        "message": "Waarom wekt blokkeren niet?"
+    },
+    "popup_options_button": {
+        "message": "Opties"
+    },
+    "privacy_badger": {
+        "message": "Privacy Badger"
+    },
+    "privacy_badger_what_is": {
+        "message": "Wat is Privacy Badger?"
+    },
+    "remove_button": {
+        "description": "Dit is het label voor de 'Partij verwijderen' buttons.",
+        "message": "Partij verwijderen"
+    },
+    "report_button": {
+        "message": "Verzend Error"
+    },
+    "report_cancel": {
+        "message": "Annuleren"
+    },
+    "report_terms": {
+        "message": "De volgende informatie wordt automatisch naar EFF verzonden: de huidige webpagina, de versie van uw browser, de versie van Privacy Badger en de stand van de schuifbalkjes voor de huidige webpagina."
+    },
+    "report_title": {
+        "message": "Meld een fout"
+    },
+    "report_text": {
+        "message": "Omschrijf de fout in het kort."
+    },
+    "report_input_label": {
+        "message": "Omschrijving"
+    },
+    "report_broken_site": {
+        "message": "Meld een webpagina die niet meer werkt"
+    },
+    "report_success": {
+        "message": "Bedankt voor uw inzet! We gaan dit verder uitzoeken."
+    },
+    "report_fail": {
+        "message": "Oeps. Er is iets misgegaan."
+    },
+    "report_close": {
+        "message": "Sluiten"
+    },
+    "whitelisted_domains": {
+        "description": "This is a tab heading.",
+        "message": "Whitelisted domains"
+    },
+    "intro1": {
+        "description": "firstRun.html introductie van Privacy Badger",
+        "message": "Privacy Badger blokkeert het gevolgd worden op internet door (derde) partijen. Trackingcookies mogen alleen geplaatst en gelezen worden als u begrijpt voor wek doel en nadat u daarvoor toestemming gegeven heeft."
+    },
+    "intro2":{
+        "message": "De Privacy Badger browserextensie probeert te voorkomen dat u gevolgd wordt op het internet. Om aan te geven dat u niet gevolgd wilt worden sturen wij de Do Not Track header naar alle (derde) partijen. Privacy Badger detecteert automatisch met een wiskundig algoritme of u gevolgd wordt of niet. Indien de kans op gevolgd worden boven een drempelwaarde komt, wordt verkeer van en naar de tracker geblokkeerd. Opgelet: het kan zijn dat Privacy Badger (nog) niet naar behoren functioneert."
+    },
+    "intro_3_states":{
+        "message": "De Privacy Badger browserextensie kent drie toestanden. "
+    },
+    "intro_red":{
+        "message": "Rood"
+    },
+    "intro_has_blocked":{
+        "message": " betekent dat Privacy Badger de tracker blokkeert. "
+    },
+    "intro_yellow":{
+        "message": "Yellow"
+    },
+    "intro_cookie_blocked":{
+        "message": "betekent dat deze (derde) partij u niet alleen volgt, maar ook nodig is voor de werking van de pagina. Privacy Badger staat de tracker daarom toe, maar blokkeert de trackingcookies."
+    },
+    "intro_green":{
+        "message": "Groen"
+    },
+    "intro_no_tracker":{
+        "message": "Vooralsnog lijkt het erop dat deze (derde) partij u niet volgt. U kunt een (derde) partij op twee manieren blokkeren, met het Privacy Badger pictogram in de adresbalk, of door de domeinnaam (niet de URL) in te typen en vervolgens de \"Partij toevoegen\"-knop aan te klikken."
+    },
+    "intro_hungry":{
+        "message":"Niets weerhoudt een hongerige Privacy Badger van het eten van cookies!"
+    },
+    "intro_by_eff":{
+        "message": "Een project van de Electronic Frontier Foundation"
+    },
+    "intro_social_share": {
+        "message": "Laat anderen weten wat u vindt van het gevolgd worden op internet."
+    },
+    "ded_privacy_badger_alert": {
+        "message": "Privacy Badger waarschuwing!"
+    },
+    "ded_logging_into": {
+        "message": "Inloggen op "
+    },
+    "ded_can_allow_to_track": {
+        "message": " kan de pagina toestaan om u te volgen op het internet. het gevolgd worden op internet"
+    },
+    "ded_only_allow": {
+        "message": "Alleen toestaan "
+    },
+    "ded_on": {
+        "message": " aan "
+    },
+    "ded_always_allow": {
+        "message": "Altijd toestaan "
+    },
+    "ded_never_allow": {
+        "message": "Blokkeer altijd het web verkeer van en naar "
+    }
+}
