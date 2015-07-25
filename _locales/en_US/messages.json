@@ -122,7 +122,7 @@
         "message": "Whitelisted domains"
     },
     "intro1": {
-        "description": "firstRun.html intro to privacy Badger",
+        "description": "firstRun.html intro to Privacy Badger",
         "message": "Privacy Badger blocks spying ads and invisible trackers.  It's there to ensure that companies can't track your browsing without your consent."
     },
     "intro2":{
