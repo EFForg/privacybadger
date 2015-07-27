@@ -62,7 +62,7 @@ var Utils = require("utils").Utils;
 var tab = null;
 
 function closeOverlay() {
-  $('#overlay').toggleClass('active');
+  $('#overlay').toggleClass('active', false);
   $("#report_success").toggleClass("hidden", true);
   $("#report_fail").toggleClass("hidden", true);
   $("#error_input").val("");
