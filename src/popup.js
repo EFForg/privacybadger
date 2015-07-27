@@ -62,9 +62,9 @@ var Utils = require("utils").Utils;
 var tab = null;
 
 function closeOverlay() {
-  $('#overlay').toggleClass('active');
-  $("#report_success").addClass("hidden");
-  $("#report_fail").addClass("hidden");
+  $('#overlay').toggleClass('active', false);
+  $("#report_success").toggleClass("hidden", true);
+  $("#report_fail").toggleClass("hidden", true);
   $("#error_input").val("");
 }
 
@@ -86,6 +86,8 @@ function init() {
       closeOverlay();
   });
   $("#report_button").click(function(){
+      $(this).prop("disabled", true);
+      $("#report_cancel").prop("disabled", true);
       send_error($("#error_input").val());
   });
   $("#report_close").click(function(){
@@ -113,6 +115,8 @@ function init() {
   });
 }
 $(init);
+
+
 
 /**
  * Send errors to PB error reporting server
@@ -149,10 +153,21 @@ function send_error(message) {
   });
   sendReport.done(function() {
     $("#error_input").val("");
-    $("#report_success").toggleClass("hidden");
+    $("#report_success").toggleClass("hidden", false);
+    setTimeout(function(){
+      $("#report_button").prop("disabled", false);
+      $("#report_cancel").prop("disabled", false);
+      $("#report_success").toggleClass("hidden", true);
+      closeOverlay();
+   }, 3000);
   });
   sendReport.fail(function() {
     $("#report_fail").toggleClass("hidden");
+    setTimeout(function(){
+      $("#report_button").prop("disabled", false);
+      $("#report_cancel").prop("disabled", false);
+      $("#report_fail").toggleClass("hidden", true);
+   }, 3000);
   });
 }
 
