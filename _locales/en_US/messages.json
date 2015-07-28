@@ -87,6 +87,9 @@
         "description": "This is the label for the 'Remove selected' buttons.",
         "message": "Remove selected"
     },
+    "report_broken_site": {
+        "message": "Report Broken Site"
+    },
     "report_button": {
         "message": "Submit Error"
     },
