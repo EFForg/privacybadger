@@ -65,14 +65,15 @@ button
 {
   margin-top: 10px;
 }
-
+.tooltipArrow {
+  bottom: 27px;
+}
 #acceptableAdsLink,
 #acceptableAdsDocs
 {
   margin-left: 10px;
   margin-right: 10px;
 }
-
 .subscription
 {
   margin: 3px 0px;
@@ -129,6 +130,14 @@ button
     display: none;
     color: #b0b0b0;
 }
+#blockedResourcesContainer{
+  width: 390px;
+}
+
+a, a:hover, a:active, a:visited{
+  color: #00aaaa;
+  text-decoration: underline;
+}
 
 </style>
 </head>
@@ -154,7 +163,13 @@ button
   <div id="tab-pb-status">
     <p class=""></p>
     <div id="blockedResourcesContainer">
-        <p id="pbInstructions"><span class="i18n_options_slider_text"> </span><sup><a id="supQuest" target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers">?</a></sup></p>
+      <p id="pbInstructions">
+      <span class="i18n_options_pb_has_detected"></span>
+      <span id='count'>0</span> 
+      <span class="i18n_options_potential"></span> 
+      <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers"><span class="i18n_options_tracking_domains"></span></a>
+      <span class="i18n_options_so_far"></span>
+      </p>
       <div class="spacer"></div>
       <div id="blockedResources"><span class="i18n_options_loading"></span></div>
     </div>
