@@ -129,7 +129,7 @@
         "message": "Privacy Badger blocks spying ads and invisible trackers.  It's there to ensure that companies can't track your browsing without your consent."
     },
     "intro2":{
-        "message": "This extension is designed to automatically protect your privacy from third party trackers that load invisibly when you browse the web. We send the Do Not Track header with each request, and our extension     evaluates the likelihood that you are still being tracked. If the algorithm deems the likelihood is too high, we automatically block your request from being sent to the domain. Please understand that PrivacyBadger is in beta, and the algorithm's determination is not conclusive that the domain is tracking you."
+        "message": "This extension is designed to automatically protect your privacy from third party trackers that load invisibly when you browse the web. We send the Do Not Track header with each request, and our extension     evaluates the likelihood that you are still being tracked. If the algorithm deems the likelihood is too high, we automatically block your request from being sent to the domain. Please understand that Privacy Badger is in beta, and the algorithm's determination is not conclusive that the domain is tracking you."
     },
     "intro_3_states":{
         "message": "Our extension has three states. "
@@ -181,5 +181,17 @@
     },
     "ded_never_allow": {
         "message": "Always block third party requests from "
+    },
+    "options_pb_has_detected": {
+      "message": "Privacy Badger has detected"
+    },
+    "options_potential": {
+      "message": "potential"
+    },
+    "options_tracking_domains": {
+      "message": "tracking domains"
+    },
+    "options_so_far": {
+      "message": "so far. These sliders let you control how Privacy Badger handles each tracker."
     }
 }
