@@ -35,7 +35,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab", "getBaseDomain"];
 var i18n = chrome.i18n;
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
@@ -417,25 +417,31 @@ function makeSortable(domain){
  * querying them
  */
 function getTopLevel(action, origin, tabId){
-    if (action == "usercookieblock"){
-      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    }
-    if (action == "userblock"){
-      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    }
-    if (action == "usernoaction"){
-      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    }
+  if (action == "usercookieblock"){
+    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    console.log('ucb top level for', origin, 'is', top);
+    return  top;
+  }
+  if (action == "userblock"){
+    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    console.log('ub top level for', origin, 'is', top);
+    return top;
+  }
+  if (action == "usernoaction"){
+    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    console.log('una top level for', origin, 'is', top);
+    return top;
+  }
 }
 
 function isDomainWhitelisted(action, origin){
-    var flag = false;
-    if (action == "usernoaction"){
-      if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
-        flag = true;
-      }
+  var flag = false;
+  if (action == "usernoaction"){
+    if (localStorage.whitelisted && JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
+      flag = true;
     }
-    return flag;
+  }
+  return flag;
 }
 
 /**
@@ -478,9 +484,11 @@ function refreshPopup(tabId) {
     else {
       if (action.includes("user")){
         var prevOrigin = origin;
-        origin = getTopLevel(action, origin, tabId);
-        if (prevOrigin != origin){
+        var baseDomain = getBaseDomain(prevOrigin);
+        if (getTopLevel(action, origin, tabId) == baseDomain){
+          origin = baseDomain;
           if (compressedOrigins.hasOwnProperty(origin)){
+            console.log('top adding to compressed domains', origin);
             compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''));
             continue;
           }
