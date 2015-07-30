@@ -418,17 +418,14 @@ function makeSortable(domain){
 function getTopLevel(action, origin, tabId){
   if (action == "usercookieblock"){
     var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    console.log('ucb top level for', origin, 'is', top);
     return  top;
   }
   if (action == "userblock"){
     var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    console.log('ub top level for', origin, 'is', top);
     return top;
   }
   if (action == "usernoaction"){
     var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    console.log('una top level for', origin, 'is', top);
     return top;
   }
 }
@@ -487,7 +484,6 @@ function refreshPopup(tabId) {
         if (getTopLevel(action, origin, tabId) == baseDomain){
           origin = baseDomain;
           if (compressedOrigins.hasOwnProperty(origin)){
-            console.log('top adding to compressed domains', origin);
             compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''));
             continue;
           }
