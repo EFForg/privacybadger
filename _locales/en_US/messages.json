@@ -26,6 +26,9 @@
     "firstRun_title": {
         "message": "Thank you for installing Privacy Badger!"
     },
+    "first_run_text": {
+        "message": "Learn how Privacy Badger protects your privacy."
+    },
     "name": {
         "message": "Privacy Badger"
     },
