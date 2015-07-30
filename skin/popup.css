@@ -156,6 +156,19 @@ font-size: 16px;
 #siteControls {
   margin-bottom: 5px;
 }
+
+#firstRun {
+  display: none;
+  color: #EC9329;
+  text-align: center;
+  border-radius: 3px;
+  margin: 5px 0;
+  border: 2px solid #EC9329;
+}
+
+#firstRun:hover {
+  text-decoration: underline;
+}
 #noBlockingLink{
   text-align: center;
   z-index: 20;

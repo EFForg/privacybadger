@@ -73,7 +73,20 @@ function closeOverlay() {
  */
 function init() {
   console.log("Initializing popup.js");
+  
+  $("#firstRun").hide();
+  var seenPopup = JSON.parse(localStorage.getItem("seenPopup")) || false;
+  if (!seenPopup) {
+    $("#firstRun").show();
+  }
+  localStorage.setItem("seenPopup", "true");
+
   // Attach event listeners
+  $("#firstRun").click(function() {
+    chrome.tabs.create({
+      url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+    });
+  });
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
   $("#error_input").attr("placeholder", i18n.getMessage("error_input"));
