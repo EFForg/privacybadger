@@ -35,7 +35,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab", "getBaseDomain"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab", "getBaseDomain", "getPresumedAction"];
 var i18n = chrome.i18n;
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
@@ -215,7 +215,7 @@ function revertDomainControl(e){
   var store = stores[original_action];
   removeFilter(store,filter);
   removeFilter(store,siteFilter);
-  var defaultAction = getAction(tabId,origin);
+  var defaultAction = getPresumedAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
@@ -266,8 +266,7 @@ function _addOriginHTML(origin, printable, action, flag, multiTLD) {
   if(multiTLD){
     multiText = " ("+multiTLD +" subdomains)";
   }
-  //TODO add text if DNT flag is set 
-  //
+
   return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' +
      flagText + _trim(origin + multiText,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
   

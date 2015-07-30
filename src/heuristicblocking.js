@@ -149,10 +149,10 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
 function addFiltersFromWhitelistToCookieblock(origin){
   var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter
   for(filter in filters){
-    var domain = getDomainFromFilter(filter)
+    var domain = getDomainFromFilter(filter);
     var baseDomain = getBaseDomain(domain);
-    if(baseDomain == origin){
-      setupCookieBlocking(baseDomain);
+    if (domain==origin || baseDomain == origin) {
+      setupCookieBlocking(domain);
     }
   }
 }
