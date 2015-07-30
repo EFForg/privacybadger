@@ -35,7 +35,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab", "getBaseDomain", "getPresumedAction"];
 var i18n = chrome.i18n;
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
@@ -228,7 +228,7 @@ function revertDomainControl(e){
   var store = stores[original_action];
   removeFilter(store,filter);
   removeFilter(store,siteFilter);
-  var defaultAction = getAction(tabId,origin);
+  var defaultAction = getPresumedAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
@@ -279,8 +279,7 @@ function _addOriginHTML(origin, printable, action, flag, multiTLD) {
   if(multiTLD){
     multiText = " ("+multiTLD +" subdomains)";
   }
-  //TODO add text if DNT flag is set 
-  //
+
   return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' +
      flagText + _trim(origin + multiText,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
   
@@ -430,25 +429,28 @@ function makeSortable(domain){
  * querying them
  */
 function getTopLevel(action, origin, tabId){
-    if (action == "usercookieblock"){
-      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    }
-    if (action == "userblock"){
-      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    }
-    if (action == "usernoaction"){
-      return backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    }
+  if (action == "usercookieblock"){
+    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    return  top;
+  }
+  if (action == "userblock"){
+    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    return top;
+  }
+  if (action == "usernoaction"){
+    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    return top;
+  }
 }
 
 function isDomainWhitelisted(action, origin){
-    var flag = false;
-    if (action == "usernoaction"){
-      if (JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
-        flag = true;
-      }
+  var flag = false;
+  if (action == "usernoaction"){
+    if (localStorage.whitelisted && JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
+      flag = true;
     }
-    return flag;
+  }
+  return flag;
 }
 
 /**
@@ -491,8 +493,9 @@ function refreshPopup(tabId) {
     else {
       if (action.includes("user")){
         var prevOrigin = origin;
-        origin = getTopLevel(action, origin, tabId);
-        if (prevOrigin != origin){
+        var baseDomain = getBaseDomain(prevOrigin);
+        if (getTopLevel(action, origin, tabId) == baseDomain){
+          origin = baseDomain;
           if (compressedOrigins.hasOwnProperty(origin)){
             compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''));
             continue;

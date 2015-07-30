@@ -887,3 +887,23 @@ function updateTabList(){
   DomainExceptions.updateList();
   updatePrivacyPolicyHashes();
 }
+
+/**
+ * Decide what the action would presumably be for an origin
+ * used to determine where the slider should go when the undo button
+ * is clicked. 
+ *
+ * @param string origin the domain to guess the action for
+ */
+function getPresumedAction(origin){
+  if(BlockedDomainList.hasDomain(origin)){
+    if (CookieBlockList.hasDomain(origin) ||
+        CookieBlockList.hasDomain(getBaseDomain(origin))) {
+      return 'cookieblock';
+    } else {
+      return 'block';
+    }
+  } else {
+    return 'noaction';
+  }
+}
