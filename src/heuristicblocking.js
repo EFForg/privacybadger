@@ -147,12 +147,12 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
  * @param {String} origin Origin to check
  */
 function addFiltersFromWhitelistToCookieblock(origin){
-  var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter
+  var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter;
   for(filter in filters){
-    var domain = getDomainFromFilter(filter)
-    var baseDomain = getBaseDomain(domain);
-    if(baseDomain == origin){
-      setupCookieBlocking(baseDomain);
+    var domain = getDomainFromFilter(filter);
+    var baseDomain = getBaseDomain(origin);
+    if (domain == origin || baseDomain == domain) {
+      setupCookieBlocking(domain);
     }
   }
 }

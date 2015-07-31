@@ -24,7 +24,10 @@
         "message": "click to return control of this tracker to Privacy Badger"
     },
     "firstRun_title": {
-        "message": "Privacy Badger Plus has been installed"
+        "message": "Thank you for installing Privacy Badger!"
+    },
+    "first_run_text": {
+        "message": "Learn how Privacy Badger protects your privacy."
     },
     "name": {
         "message": "Privacy Badger"
@@ -59,14 +62,8 @@
     "pb_detected": {
         "message": "Privacy Badger detected"
     },
-    "popup_activate": {
-        "message": "Enable Privacy Badger"
-    },
     "popup_blocked": {
         "message": "Could not detect any tracking cookies...."
-    },
-    "popup_deactivate": {
-        "message": "Disable Privacy Badger"
     },
     "popup_disable_for_site": {
         "message": "Disable Privacy Badger for This Site"
@@ -93,6 +90,9 @@
         "description": "This is the label for the 'Remove selected' buttons.",
         "message": "Remove selected"
     },
+    "report_broken_site": {
+        "message": "Report Broken Site"
+    },
     "report_button": {
         "message": "Submit Error"
     },
@@ -100,24 +100,39 @@
         "message": "Cancel"
     },
     "report_terms": {
-        "message": "This will send information to the EFF including: the site your on, your browser version, the version of Privacy Badger, and the state of all of the sliders statuses for this site"
+        "message": "This will automatically send the following information to EFF: the site you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site."
+    },
+    "report_title": {
+        "message": "Report an Error"
     },
     "report_text": {
-        "message": "Give a short description of your error below"
+        "message": "Briefly describe the error below."
+    },
+    "report_input_label": {
+        "message": "Description"
     },
     "report_broken_site": {
-      "message": "Report Broken Site"
+        "message": "Report Broken Site"
+    },
+    "report_success": {
+        "message": "Thanks! We'll get to the bottom of it."
+    },
+    "report_fail": {
+        "message": "Oops. Something went wrong."
+    },
+    "report_close": {
+        "message": "Close"
     },
     "whitelisted_domains": {
         "description": "This is a tab heading.",
         "message": "Whitelisted domains"
     },
     "intro1": {
-        "description": "firstRun.html intro to privacy Badger",
+        "description": "firstRun.html intro to Privacy Badger",
         "message": "Privacy Badger blocks spying ads and invisible trackers.  It's there to ensure that companies can't track your browsing without your consent."
     },
     "intro2":{
-        "message": "This extension is designed to automatically protect your privacy from third party trackers that load invisibly when you browse the web. We send the Do Not Track header with each request, and our extension     evaluates the likelihood that you are still being tracked. If the algorithm deems the likelihood is too high, we automatically block your request from being sent to the domain. Please understand that PrivacyBadger is in beta, and the algorithm's determination is not conclusive that the domain is tracking you."
+        "message": "This extension is designed to automatically protect your privacy from third party trackers that load invisibly when you browse the web. We send the Do Not Track header with each request, and our extension     evaluates the likelihood that you are still being tracked. If the algorithm deems the likelihood is too high, we automatically block your request from being sent to the domain. Please understand that Privacy Badger is in beta, and the algorithm's determination is not conclusive that the domain is tracking you."
     },
     "intro_3_states":{
         "message": "Our extension has three states. "
@@ -144,7 +159,7 @@
         "message":"Nothing can stop the Privacy Badger from eating cookies when it's hungry!"
     },
     "intro_by_eff":{
-        "message":"Privacy Badger is a project of the Electronic Frontier Foundation."
+        "message": "A project of the Electronic Frontier Foundation"
     },
     "intro_social_share": {
         "message": "Let the world know that you are taking a stand against online tracking"
@@ -169,5 +184,17 @@
     },
     "ded_never_allow": {
         "message": "Always block third party requests from "
+    },
+    "options_pb_has_detected": {
+      "message": "Privacy Badger has detected"
+    },
+    "options_potential": {
+      "message": "potential"
+    },
+    "options_tracking_domains": {
+      "message": "tracking domains"
+    },
+    "options_so_far": {
+      "message": "so far. These sliders let you control how Privacy Badger handles each tracker."
     }
 }

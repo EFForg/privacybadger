@@ -34,10 +34,6 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!("enabled" in localStorage)){
-  localStorage.enabled = "true";
-}
-
 if (!("socialWidgetReplacementEnabled" in localStorage)){
   localStorage.socialWidgetReplacementEnabled = "true";
 }
@@ -667,6 +663,10 @@ var unblockOrigin = function(origin){
   var policySubscription = FilterStorage.knownSubscriptions.userGreen;
   FilterStorage.removeFilter(filter);
   FilterStorage.addFilter(filter, policySubscription);
+  var whitelisted_string = localStorage.whitelisted || "{}";
+  var whitelisted = JSON.parse(whitelisted_string);
+  whitelisted[origin] = true;
+  localStorage.whitelisted = JSON.stringify(whitelisted);
   teardownCookieBlocking(origin);
 };
 
@@ -788,7 +788,9 @@ function setTrackingFlag(tabId,fqdn){
 }
 
 function originHasTracking(tabId,fqdn){
-  return tabData[tabId] && !!tabData[tabId].trackers[fqdn];
+  return tabData[tabId] && 
+    tabData[tabId].trackers &&
+    !!tabData[tabId].trackers[fqdn];
 }
 /**
  * Counts trackers blocked by the user
@@ -884,4 +886,24 @@ function updateTabList(){
   BlockedDomainList.updateDomains();
   DomainExceptions.updateList();
   updatePrivacyPolicyHashes();
+}
+
+/**
+ * Decide what the action would presumably be for an origin
+ * used to determine where the slider should go when the undo button
+ * is clicked. 
+ *
+ * @param string origin the domain to guess the action for
+ */
+function getPresumedAction(origin){
+  if(BlockedDomainList.hasDomain(origin)){
+    if (CookieBlockList.hasDomain(origin) ||
+        CookieBlockList.hasDomain(getBaseDomain(origin))) {
+      return 'cookieblock';
+    } else {
+      return 'block';
+    }
+  } else {
+    return 'noaction';
+  }
 }

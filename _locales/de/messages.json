@@ -59,14 +59,8 @@
     "pb_detected": {
         "message": "Privacy Badger erkannte"
     },
-    "popup_activate": {
-        "message": "Privacy Badger aktivieren"
-    },
     "popup_blocked": {
         "message": "Konnte keine Tracking Cookies erkennen...."
-    },
-    "popup_deactivate": {
-        "message": "Privacy Badger de-aktivieren"
     },
     "popup_disable_for_site": {
         "message": "Privacy Badger für diese Site de-aktivieren"
@@ -110,11 +104,11 @@
     },
     "whitelisted_domains": {
         "description": "This is a tab heading.",
-        "message": "Whitelisted Domains"
+        "message": "Positivliste der Domaine"
     },
     "intro1": {
-        "description": "firstRun.html intro to privacy Badger",
-        "message": "Privacy Badger blockiert spionierende Werbung und unsichtbare Tracker.  Es wurde geschaffen, um zu verhindern, dass Firmen Sie ohne Ihre Zustimmung überwachen können."
+        "description": "firstRun.html Intro zu Privacy Badger",
+        "message": "Privacy Badger blockiert spionierende Werbung und unsichtbare Tracker. Es wurde geschaffen, um zu verhindern, dass Firmen Sie ohne Ihre Zustimmung überwachen können."
     },
     "intro2":{
         "message": "Diese Erweiterung wurde geschaffen, um Ihre Privatsphäre automatisch vor unsichtbaren Trackern Dritter zu schützen, während Sie im Web surfen. Wir senden mit jeder Anfrage den Do-Not-Track Header und unsere Erweiterung bewertet die Wahrscheinlichkeit, dass sie trotzdem überwacht werden. Wenn die Wahrscheinlichkeit zu groß ist, blockieren wir die Anfrage an die Domain automatisch. Bitte beachten Sie: Privacy Badger ist noch im Beta Stadium und der Algorithmus noch nicht ausgereift."

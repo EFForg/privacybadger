@@ -35,7 +35,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab"];
+var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab", "getBaseDomain", "getPresumedAction"];
 var i18n = chrome.i18n;
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
@@ -61,14 +61,32 @@ var Utils = require("utils").Utils;
 
 var tab = null;
 
+function closeOverlay() {
+  $('#overlay').toggleClass('active', false);
+  $("#report_success").toggleClass("hidden", true);
+  $("#report_fail").toggleClass("hidden", true);
+  $("#error_input").val("");
+}
+
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
  */
 function init() {
   console.log("Initializing popup.js");
+  
+  $("#firstRun").hide();
+  var seenPopup = JSON.parse(localStorage.getItem("seenPopup")) || false;
+  if (!seenPopup) {
+    $("#firstRun").show();
+  }
+  localStorage.setItem("seenPopup", "true");
+
   // Attach event listeners
-  $("#activate_btn").click(activate);
-  $("#deactivate_btn").click(deactivate);
+  $("#firstRun").click(function() {
+    chrome.tabs.create({
+      url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+    });
+  });
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
   $("#error_input").attr("placeholder", i18n.getMessage("error_input"));
@@ -78,27 +96,23 @@ function init() {
       overlay.toggleClass('active');
   });
   $("#report_cancel").click(function(){
-      overlay.toggleClass('active');
+      closeOverlay();
   });
   $("#report_button").click(function(){
+      $(this).prop("disabled", true);
+      $("#report_cancel").prop("disabled", true);
       send_error($("#error_input").val());
-      overlay.toggleClass('active');
   });
-
-  // Initialize based on activation state
+  $("#report_close").click(function(){
+      closeOverlay();
+  });
   $(document).ready(function () {
-    if(!Utils.isPrivacyBadgerEnabled()) {
-      $('#blockedResourcesContainer').hide();
-      $("#activate_btn").show();
-      $("#deactivate_btn").hide();
-      $("#siteControls").hide();
-    }
     $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   });
- 
+
   //toggle activation buttons if privacy badger is not enabled for current url
   chrome.windows.getCurrent(function(w)
   {
@@ -114,6 +128,8 @@ function init() {
   });
 }
 $(init);
+
+
 
 /**
  * Send errors to PB error reporting server
@@ -142,38 +158,30 @@ function send_error(message) {
   }
   var out_data = JSON.stringify(out);
   console.log(out_data);
-  $.ajax({
+  var sendReport = $.ajax({
     type: "POST",
     url: "https://privacybadger.org/reporting",
     data: out_data,
     contentType: "application/json"
   });
-}
-
-/**
- * Activate event handler
- */
-function activate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $("#blockedResourcesContainer").show();
-  $("#siteControls").show();
-  localStorage.enabled = "true";
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
-}
-
-/**
- * De-Activate event handler
- */
-function deactivate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $("#blockedResourcesContainer").hide();
-  $("#siteControls").hide();
-  localStorage.enabled = "false";
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
+  sendReport.done(function() {
+    $("#error_input").val("");
+    $("#report_success").toggleClass("hidden", false);
+    setTimeout(function(){
+      $("#report_button").prop("disabled", false);
+      $("#report_cancel").prop("disabled", false);
+      $("#report_success").toggleClass("hidden", true);
+      closeOverlay();
+   }, 3000);
+  });
+  sendReport.fail(function() {
+    $("#report_fail").toggleClass("hidden");
+    setTimeout(function(){
+      $("#report_button").prop("disabled", false);
+      $("#report_cancel").prop("disabled", false);
+      $("#report_fail").toggleClass("hidden", true);
+   }, 3000);
+  });
 }
 
 /**
@@ -220,7 +228,7 @@ function revertDomainControl(e){
   var store = stores[original_action];
   removeFilter(store,filter);
   removeFilter(store,siteFilter);
-  var defaultAction = getAction(tabId,origin);
+  var defaultAction = getPresumedAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
@@ -248,7 +256,7 @@ function toggleEnabled() {
  * @returns {string}
  * @private
  */
-function _addOriginHTML(origin, printable, action) {
+function _addOriginHTML(origin, printable, action, flag, multiTLD) {
   //console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
@@ -257,11 +265,24 @@ function _addOriginHTML(origin, printable, action) {
     classes.push("userset");
     action = action.substr(4);
   }
-  if (action == "block" || action == "cookieblock")
+  if (action == "block" || action == "cookieblock"){
     classes.push(action);
+  }
   var classText = 'class="' + classes.join(" ") + '"';
+  var flagText = "";
+  if (flag) {
+    flagText = "<div id='dnt-compliant'>" + 
+      "<a target=_blank href='https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?'>" +
+      "<img src='/icons/dnt-16.png' title='This domain promises not to track you.'></a></div>";
+  }
+  var multiText = "";
+  if(multiTLD){
+    multiText = " ("+multiTLD +" subdomains)";
+  }
+
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' +
+     flagText + _trim(origin + multiText,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
   
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' + _trim(origin,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
 }
 
 /**
@@ -400,6 +421,39 @@ function makeSortable(domain){
 }
 
 /**
+ * this is a terrible function that repeats
+ * a lot of the work that getAction does
+ * because getAction stores things in mysery
+ * land and there's no real way to get what's
+ * in the ABP filters without repeatedly
+ * querying them
+ */
+function getTopLevel(action, origin, tabId){
+  if (action == "usercookieblock"){
+    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    return  top;
+  }
+  if (action == "userblock"){
+    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    return top;
+  }
+  if (action == "usernoaction"){
+    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+    return top;
+  }
+}
+
+function isDomainWhitelisted(action, origin){
+  var flag = false;
+  if (action == "usernoaction"){
+    if (localStorage.whitelisted && JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
+      flag = true;
+    }
+  }
+  return flag;
+}
+
+/**
  * Refresh the content of the popup window
  *
  * @param {Integer} tabId The id of the tab
@@ -427,6 +481,7 @@ function refreshPopup(tabId) {
   var nonTracking = [];
   origins.sort(compareReversedDomains);
   originCount = 0;
+  var compressedOrigins = {};
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
@@ -435,16 +490,36 @@ function refreshPopup(tabId) {
         nonTracking.push(origin);
         continue; 
     }
+    else {
+      if (action.includes("user")){
+        var prevOrigin = origin;
+        var baseDomain = getBaseDomain(prevOrigin);
+        if (getTopLevel(action, origin, tabId) == baseDomain){
+          origin = baseDomain;
+          if (compressedOrigins.hasOwnProperty(origin)){
+            compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''));
+            continue;
+          }
+          compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
+          continue;
+        }
+      }
+    }
     originCount++;
-    printable = _addOriginHTML(origin, printable, action);
+    var flag = isDomainWhitelisted(action, origin);
+    printable = _addOriginHTML(origin, printable, action, flag);
+  }
+  for (key in compressedOrigins){
+    var flag2 = isDomainWhitelisted(action, origin); 
+    printable = _addOriginHTML( key, printable, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   if(nonTracking.length > 0){
     printable = printable +
         '<div class="clicker" id="nonTrackers">'+nonTrackerText+'</div>';
     for (var i = 0; i < nonTracking.length; i++){
-      var origin = nonTracking[i];
-      printable = _addOriginHTML(origin, printable, "noaction");
+      var ntOrigin = nonTracking[i];
+      printable = _addOriginHTML(ntOrigin, printable, "noaction", false);
     }
   }
   $('#number_trackers').text(originCount);

@@ -40,8 +40,8 @@ var CookieBlockList = exports.CookieBlockList = {
       this.updateDomains();
     }
     if(!this.hasDomain(domain)){
-        this.domains[domain] = true;
-    localStorage.setItem("cookieblocklist", JSON.stringify(this.domains));
+      this.domains[domain] = true;
+      localStorage.setItem("cookieblocklist", JSON.stringify(this.domains));
     }
   },
 

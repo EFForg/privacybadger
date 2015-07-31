@@ -464,3 +464,4 @@
 @@||gatherer.wizards.com^$third-party
 @@||googlevideo.com^$third-party
 @@||piratebay.org^$third-party
+@@||sndcdn.com^$third-party
