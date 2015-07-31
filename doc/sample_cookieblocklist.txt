@@ -465,3 +465,5 @@
 @@||googlevideo.com^$third-party
 @@||piratebay.org^$third-party
 @@||sndcdn.com^$third-party
+@@||zdassets.com^$third-party
+@@||messenger.live.com^$third-party
