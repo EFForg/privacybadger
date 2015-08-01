@@ -494,7 +494,7 @@ function refreshPopup(tabId) {
       if (action.includes("user")){
         var prevOrigin = origin;
         var baseDomain = getBaseDomain(prevOrigin);
-        if (getTopLevel(action, origin, tabId) == baseDomain){
+        if (getTopLevel(action, origin, tabId) == baseDomain && baseDomain != origin){
           origin = baseDomain;
           if (compressedOrigins.hasOwnProperty(origin)){
             compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''));
