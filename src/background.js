@@ -846,7 +846,6 @@ function updateCount(details){
   }else if(tabData[tabId].bgTab === false){
     updateBadge(tabId);
   }else{
-    console.log("Don't know if this tab is prerendered or not, will check!", tabId);
     chrome.tabs.get(tabId, function(tab){
       if (chrome.runtime.lastError){
         tabData[tabId].bgTab = true;
