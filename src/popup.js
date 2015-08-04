@@ -75,11 +75,10 @@ function init() {
   console.log("Initializing popup.js");
   
   $("#firstRun").hide();
-  var seenPopup = JSON.parse(localStorage.getItem("seenPopup")) || false;
-  if (!seenPopup) {
+  var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false;
+  if (!seenComic) {
     $("#firstRun").show();
   }
-  localStorage.setItem("seenPopup", "true");
 
   // Attach event listeners
   $("#firstRun").click(function() {
@@ -87,6 +86,7 @@ function init() {
       url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
     });
   });
+
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
   $("#error_input").attr("placeholder", i18n.getMessage("error_input"));

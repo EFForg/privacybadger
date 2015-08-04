@@ -41,5 +41,17 @@
           $('.jcarousel').jcarousel('scroll', '+=1');
         }
       });
+
+      // Note if user has scrolled to onboarding comic.
+      var comic = $("#slideshow");
+      $(window).scroll(function() {
+        if (comic.length) {
+          var seenComic = $(window).scrollTop() > comic.offset().top;
+        }
+
+        if (seenComic) {
+          localStorage.setItem("seenComic", "true");
+        }
+      });
   });
 })(jQuery);
