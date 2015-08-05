@@ -39,19 +39,15 @@
           $('.jcarousel').jcarousel('scroll', '-=1');
         } else if (key == 39) { // Right arrow
           $('.jcarousel').jcarousel('scroll', '+=1');
+          setSeenComic();
         }
       });
 
-      // Note if user has scrolled to onboarding comic.
-      var comic = $("#slideshow");
-      $(window).scroll(function() {
-        if (comic.length) {
-          var seenComic = $(window).scrollTop() > comic.offset().top;
-        }
-
-        if (seenComic) {
-          localStorage.setItem("seenComic", "true");
-        }
-      });
+      $(".jcarousel-control-next").click(setSeenComic);
+      $(".jcarousel-pagination").click(setSeenComic);
+        
+      function setSeenComic() {
+        localStorage.setItem("seenComic", "true");
+      };
   });
 })(jQuery);
