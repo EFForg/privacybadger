@@ -38,6 +38,9 @@
     "non_tracker": {
         "message": "The domains below don't appear to be tracking you"
     },
+    "non_tracker_sub": {
+        "message": "They're not reading or writing identifying information about your browser"
+    },
     "options_filter_settings": {
         "message": "User Filter Settings"
     },
