@@ -38,8 +38,8 @@
     "non_tracker": {
         "message": "The domains below don't appear to be tracking you"
     },
-    "non_tracker_sub": {
-        "message": "They're not reading or writing identifying information about your browser"
+    "non_tracker_tip": {
+        "message": "Currently Privacy Badger only checks if third parties are using cookies, HTML5 local storage, or canvas fingerprinting to track your browsing. Some of these domains may be using tracking methods that Privacy Badger can't detect."
     },
     "options_filter_settings": {
         "message": "User Filter Settings"

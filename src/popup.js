@@ -514,11 +514,10 @@ function refreshPopup(tabId) {
     printable = _addOriginHTML( key, printable, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
-  var nonTrackerSubText = i18n.getMessage("non_tracker_sub");
+  var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
   if(nonTracking.length > 0){
     printable = printable +
-        '<div class="clicker" id="nonTrackers">'+nonTrackerText+
-        '<br><div id="nonTrackerSub">'+nonTrackerSubText+'</div></div>';
+        '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
     for (var i = 0; i < nonTracking.length; i++){
       var ntOrigin = nonTracking[i];
       printable = _addOriginHTML(ntOrigin, printable, "noaction", false);
