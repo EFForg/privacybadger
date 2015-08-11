@@ -39,8 +39,8 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
             policy_json = json.loads(policy_hash)
         except:
             self.fail("localStorage.badgerHashes is not valid JSON")
-        for k, v in policy_json.iteritems():
-            self.assertIn("DNT Policy", k)  # e.g. DNT Policy V1.0
+        for _, v in policy_json.iteritems():
+            # self.assertIn("DNT Policy", k)  # e.g. DNT Policy V1.0
             self.assertEqual(PB_POLICY_HASH_LEN, len(v))  # check hash length
 
     def test_should_init_local_storage_entries(self):
