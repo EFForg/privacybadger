@@ -1,7 +1,12 @@
 Changes for Privacy Badger 
 ====================================
-## 2015.7.24
-* Release candidate for version 1.0!
+## 2015.8.14
+* Fixes a bug where slider settings for a base domain wouldn't take effect
+* Fixes 'this extension is slowing down chrome' errors
+
+## 2015.8.5
+* 1.0 release
+* Bugfixes from 0.99
 * Detects Canvas Fingerprinting
 * Detect Local Storage Supercookies
 * Improved UI
@@ -9,6 +14,9 @@ Changes for Privacy Badger
 * Report Broken Site button 
 * Many Bugfixes (see github)
 * Translations into swedish, french and german
+
+## 2015.7.24
+* Release candidate for version 1.0!
 
 ## 2015.4.1
 * Miscellanious bugfixes 
