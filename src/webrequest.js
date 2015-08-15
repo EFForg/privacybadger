@@ -91,6 +91,7 @@ for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
 var temporarySocialWidgetUnblock = {};
+var handlerBehaviorChangedQuota = chrome.webRequest.MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES;
 
 /* Event Listeners */
 chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
@@ -135,8 +136,15 @@ function onTabReplaced(addedTabId, removedTabId){
  * Handler for changes in AdBlock filters
  */
 function onFilterChange() {
-  onFilterChangeTimeout = null;
-  chrome.webRequest.handlerBehaviorChanged();
+  // Calling handlerBehaviorChanged more than 20 times in 10 mins trigger
+  // Chrome's slow extension warning.
+  if (handlerBehaviorChangedQuota > 0){
+    handlerBehaviorChangedQuota--;
+    // increment the quota 10 mins later.
+    window.setTimeout(function() { handlerBehaviorChangedQuota++; }, 600000);
+    onFilterChangeTimeout = null;
+    chrome.webRequest.handlerBehaviorChanged();
+  }
 }
 
 /**
