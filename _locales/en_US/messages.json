@@ -66,7 +66,7 @@
         "message": "Privacy Badger detected"
     },
     "popup_blocked": {
-        "message": "Could not detect any tracking cookies...."
+        "message": "There are no third party resources on this site."
     },
     "popup_disable_for_site": {
         "message": "Disable Privacy Badger for This Site"
