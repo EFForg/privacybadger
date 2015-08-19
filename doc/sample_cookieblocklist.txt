@@ -468,3 +468,6 @@
 @@||sndcdn.com^$third-party
 @@||zdassets.com^$third-party
 @@||messenger.live.com^$third-party
+@@||ttvnw.net^$third-party
+@@||justin.tv^$third-party
+@@||jtvnw.net^$third-party
