@@ -21,12 +21,10 @@
  */
 chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
   if (blocked) {
-    console.log('clobbering cookies for', document.location);
-
     var code =
       'var dummyCookie = "x=y";' +
-      'document.__defineSetter__("cookie", function(value) { console.log("clobbering cookie:", value); return dummyCookie; });' +
-      'document.__defineGetter__("cookie", function() { console.log("clobbering cookie getter"); return dummyCookie; });';
+      'document.__defineSetter__("cookie", function(value) { return dummyCookie; });' +
+      'document.__defineGetter__("cookie", function() { return dummyCookie; });';
 
     var script = document.createElement('script');
 
