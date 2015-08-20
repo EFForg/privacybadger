@@ -471,3 +471,4 @@
 @@||ttvnw.net^$third-party
 @@||justin.tv^$third-party
 @@||jtvnw.net^$third-party
+@@||cdn.discourse.org^$third-party
