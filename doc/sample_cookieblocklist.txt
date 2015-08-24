@@ -60,7 +60,7 @@
 @@||virtualearth.net^$third-party
 @@||tumblr.com^$third-party
 @@||microsoft.com^$third-party
-@@||i1.social.s-msft.com^$third-party
+@@||s-msft.com^$third-party
 @@||5min.com^$third-party
 @@||netdna-cdn.com^$third-party
 @@||netdna-ssl.com^$third-party
