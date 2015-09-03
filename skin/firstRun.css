@@ -42,23 +42,29 @@ h3 {
 #eff-header-wrapper{
   background-color: #f5781d;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   text-transform: uppercase;
-  width: 80%;
+  width: 650px;
   margin: 0 auto;
   padding-top: 3px;
 }
-#eff-header{
+#eff-header a{
+  color: #fff;
+  text-decoration: none;
+}
+
+#eff-header a:hover{
+  text-decoration: underline;
 }
 .eff-text{
   font-weight: bold;
-  padding-left: 15px;
   bottom: 9px;
+  padding-left: 15px;
   position: relative;
 }
 #badger-header{
   margin: auto;
-  width: 800px;
+  width: 570px;
 }
 
 .jcarousel-wrapper {
