@@ -199,6 +199,7 @@
 @@||trumba.com^$third-party
 @@||zap2it.com^$third-party
 @@||instagram.com^$third-party
+@@||cdninstagram.com^$third-party
 @@||cstv.com^$third-party
 @@||issuu.com^$third-party
 @@||ziplist.com^$third-party
@@ -325,6 +326,7 @@
 @@||instapaper.com^$third-party
 @@||accounts.google.com^$third-party
 @@||plus.google.com^$third-party
+@@||picasaweb.google.com^$third-party
 @@||bootstrapcdn.com^$third-party
 @@||kingfeatures.com^$third-party
 @@||microsoftonline.com^$third-party
@@ -475,3 +477,6 @@
 @@||cdn.discourse.org^$third-party
 @@||bbci.co.uk^$third-party
 @@||bbc.co.uk^$third-party
+@@||amazoncustomerservice.d2.sc.omtrdc.net^$third-party
+@@||targetimg1.com^$third-party
+@@||targetimg2.com^$third-party
