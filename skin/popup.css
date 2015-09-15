@@ -228,7 +228,7 @@ font-size: 16px;
   text-align: center;
   color: #f9f9f9;
   background: #555;
-  height: 20px;
+  height: auto;
   font-size: 14px;
   font-weight: bold;
 }
