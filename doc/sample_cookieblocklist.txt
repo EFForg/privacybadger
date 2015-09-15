@@ -5,6 +5,7 @@
 @@||mts1.google.com^$third-party
 @@||mt0.google.com^$third-party
 @@||mt1.google.com^$third-party
+@@||consent.google.com^$third-party
 @@||mapsengine.google.com^$third-party
 @@||fbcdn.net^$third-party
 @@||cloudfront.net^$third-party
@@ -480,3 +481,6 @@
 @@||amazoncustomerservice.d2.sc.omtrdc.net^$third-party
 @@||targetimg1.com^$third-party
 @@||targetimg2.com^$third-party
+@@||cnd.arstechnica.net^$third-party
+@@||store.akamai.steamstatic.com^$third-party
+@@||cloudfront.net^$third-party
