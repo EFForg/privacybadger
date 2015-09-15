@@ -481,6 +481,6 @@
 @@||amazoncustomerservice.d2.sc.omtrdc.net^$third-party
 @@||targetimg1.com^$third-party
 @@||targetimg2.com^$third-party
-@@||cnd.arstechnica.net^$third-party
+@@||cdn.arstechnica.net^$third-party
 @@||store.akamai.steamstatic.com^$third-party
 @@||cloudfront.net^$third-party
