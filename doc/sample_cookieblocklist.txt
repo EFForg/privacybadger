@@ -484,3 +484,5 @@
 @@||cdn.arstechnica.net^$third-party
 @@||store.akamai.steamstatic.com^$third-party
 @@||cloudfront.net^$third-party
+@@||script.ioam.de^$third-party
+@@||cse.google.com^$third-party
