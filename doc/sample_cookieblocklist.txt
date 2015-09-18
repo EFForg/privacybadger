@@ -367,9 +367,7 @@
 @@||youwatch.org^$third-party
 @@||ui-portal.de^$third-party
 @@||cursecdn.com^$third-party
-@@||mt0.google.com^$third-party
 @@||mw1.google.com^$third-party
-@@||getpocket.com^$third-party
 @@||hootsuite.com^$third-party
 @@||mozilla.net^$third-party
 @@||mozilla.org^$third-party
@@ -405,7 +403,6 @@
 @@||nationbuilder.com^$third-party
 @@||kataweb.it^$third-party
 @@||mediaworks.co.nz^$third-party
-@@||cursecdn.com^$third-party
 @@||redditmedia.com^$third-party
 @@||redditstatic.com^$third-party
 @@||shopify.com^$third-party
@@ -415,10 +412,8 @@
 @@||cdn.embedly.com^$third-party
 @@||members.internetdefenseleague.org^$third-party
 @@||cdn3.nflxext.com^$third-party
-@@||wp.com^$third-party
 @@||optimizely.com^$third-party
 @@||aol.com^$third-party
-@@||5min.com^$third-party
 @@||nyt.com^$third-party
 @@||phplist.com^$third-party
 @@||maps-api-ssl.google.com^$third-party
@@ -483,6 +478,5 @@
 @@||targetimg2.com^$third-party
 @@||cdn.arstechnica.net^$third-party
 @@||store.akamai.steamstatic.com^$third-party
-@@||cloudfront.net^$third-party
 @@||script.ioam.de^$third-party
 @@||cse.google.com^$third-party
