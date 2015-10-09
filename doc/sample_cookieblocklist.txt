@@ -9,6 +9,7 @@
 @@||al.com^$third-party
 @@||alert60.com^$third-party
 @@||alexa.com^$third-party
+@@||alicdn.com^$third-party
 @@||ally.com^$third-party
 @@||amazon.com^$third-party
 @@||s3.amazonaws.com^$third-party
