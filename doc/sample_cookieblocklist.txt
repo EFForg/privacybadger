@@ -480,3 +480,4 @@
 @@||store.akamai.steamstatic.com^$third-party
 @@||script.ioam.de^$third-party
 @@||cse.google.com^$third-party
+@@||alicdn.com^$third-party
