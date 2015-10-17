@@ -311,10 +311,14 @@ function _trim(str,max){
  */
 function _badgerStatusTitle(action , origin){ 
   
+  var status_block = i18n.getMessage("badger_status_block");
+  var status_cookieblock = i18n.getMessage("badger_status_cookieblock");
+  var status_noaction = i18n.getMessage("badger_status_noaction");
+
   var statusMap = {
-    block: "Blocked ",
-    cookieblock: "Blocked cookies from ",
-    noaction: "Allowed "
+    block:        status_block,
+    cookieblock:  status_cookieblock,
+    noaction:     status_noaction
   };
 
   return  statusMap[action] + origin ;
