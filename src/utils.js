@@ -1,7 +1,7 @@
 /*
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
- * Derived from Adblock Plus 
+ * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
@@ -34,7 +34,7 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 require.scopes["utils"] = (function() {
-  
+
 var exports = {};
 var Utils = exports.Utils = {
   systemPrincipal: null,
@@ -189,8 +189,8 @@ var Utils = exports.Utils = {
   isPrivacyBadgerEnabled: function(origin){
     if(localStorage.disabledSites && JSON.parse(localStorage.disabledSites).length > 0){
       var sites = JSON.parse(localStorage.disabledSites);
-      for(var i = 0; i < sites.length; i++){
-        if(sites[i] === origin){ return false; }
+      if(sites[origin]){
+        return false;
       }
     }
     return true;
@@ -210,12 +210,14 @@ var Utils = exports.Utils = {
    **/
   disablePrivacyBadgerForOrigin: function(origin){
     if(localStorage.disabledSites === undefined){
+      var disabledSites = new Object();
+      disabledSites[origin] = true;
       localStorage.disabledSites = JSON.stringify([origin]);
       return;
     }
     var disabledSites = JSON.parse(localStorage.disabledSites);
-    if(disabledSites.indexOf(origin) < 0){
-      disabledSites.push(origin);
+    if(!disabledSites[origin]){
+      disabledSites[origin] = true;
       localStorage.disabledSites = JSON.stringify(disabledSites);
     }
   },
@@ -230,9 +232,8 @@ var Utils = exports.Utils = {
       return;
     }
     var disabledSites = JSON.parse(localStorage.disabledSites);
-    var idx = disabledSites.indexOf(origin);
-    if(idx >= 0){
-      Utils.removeElementFromArray(disabledSites, idx);
+    if(disabledSites[origin]){
+      delete disabledSites[origin];
       localStorage.disabledSites = JSON.stringify(disabledSites);
     }
   },
