@@ -189,7 +189,7 @@ var Utils = exports.Utils = {
   isPrivacyBadgerEnabled: function(origin){
     if(localStorage.disabledSites){
       var sites = JSON.parse(localStorage.disabledSites);
-      if(origin in sites){
+      if(sites[origin]){
         return false;
       }
     }
@@ -216,7 +216,7 @@ var Utils = exports.Utils = {
       return;
     }
     var disabledSites = JSON.parse(localStorage.disabledSites);
-    if(!(origin in disabledSites)){
+    if(!disabledSites[origin]){
       disabledSites[origin] = true;
       localStorage.disabledSites = JSON.stringify(disabledSites);
     }
@@ -232,7 +232,7 @@ var Utils = exports.Utils = {
       return;
     }
     var disabledSites = JSON.parse(localStorage.disabledSites);
-    if(origin in disabledSites){
+    if(disabledSites[origin]){
       delete disabledSites[origin];
       localStorage.disabledSites = JSON.stringify(disabledSites);
     }
