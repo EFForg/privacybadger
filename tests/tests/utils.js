@@ -53,13 +53,13 @@
 
   test("disable/enable privacy badger for origin", function(){
     var parsed = function(){return JSON.parse(localStorage.disabledSites)};
-    var origLength = parsed() && Object.keys(parsed).length || 0
+    var origLength =  Object.keys(parsed).length || 0
 
     Utils.disablePrivacyBadgerForOrigin('foo.com');
-    ok(Object.keys(parsed).length == (origLength + 1), "one more disabled site");
+    ok(Object.keys(parsed()).length == (origLength + 1), "one more disabled site");
 
     Utils.enablePrivacyBadgerForOrigin('foo.com');
-    ok(Object.keys(parsed).length == origLength, "one less disabled site");
+    ok(Object.keys(parsed()).length == origLength  , "one less disabled site");
   });
 
   test("getRandom", function(){

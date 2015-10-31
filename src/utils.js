@@ -187,9 +187,9 @@ var Utils = exports.Utils = {
    * @returns {Boolean} true if disabled
    **/
   isPrivacyBadgerEnabled: function(origin){
-    if(localStorage.disabledSites && JSON.parse(localStorage.disabledSites).length > 0){
+    if(localStorage.disabledSites){
       var sites = JSON.parse(localStorage.disabledSites);
-      if(sites[origin]){
+      if(origin in sites){
         return false;
       }
     }
@@ -212,11 +212,11 @@ var Utils = exports.Utils = {
     if(localStorage.disabledSites === undefined){
       var disabledSites = new Object();
       disabledSites[origin] = true;
-      localStorage.disabledSites = JSON.stringify([origin]);
+      localStorage.disabledSites = JSON.stringify(disabledSites);
       return;
     }
     var disabledSites = JSON.parse(localStorage.disabledSites);
-    if(!disabledSites[origin]){
+    if(!(origin in disabledSites)){
       disabledSites[origin] = true;
       localStorage.disabledSites = JSON.stringify(disabledSites);
     }
@@ -232,7 +232,7 @@ var Utils = exports.Utils = {
       return;
     }
     var disabledSites = JSON.parse(localStorage.disabledSites);
-    if(disabledSites[origin]){
+    if(origin in disabledSites){
       delete disabledSites[origin];
       localStorage.disabledSites = JSON.stringify(disabledSites);
     }
