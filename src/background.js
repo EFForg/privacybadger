@@ -783,6 +783,23 @@ function activelyBlockedOriginCount(tabId){
     }, 0);
 }
 
+/**
+ * Counts total blocked trackers
+ *
+ * @param tabId Tab ID to count for
+ * @returns {Integer} The number of blocked trackers
+ */
+function blockedOriginCount(tabId){
+  return getAllOriginsForTab(tabId)
+    .reduce(function(memo,origin){
+      var action = getAction(tabId,origin);
+      if(action && (action == "userblock" || action == "block")){
+        memo+=1;
+      }
+      return memo;
+    }, 0);
+}
+
 function setTrackingFlag(tabId,fqdn){
   tabData[tabId].trackers[fqdn] = true;
 }
