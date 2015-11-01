@@ -789,7 +789,7 @@ function activelyBlockedOriginCount(tabId){
  * @param tabId Tab ID to count for
  * @returns {Integer} The number of blocked trackers
  */
-function blockedOriginCount(tabId){
+function blockedTrackerCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
       var action = getAction(tabId,origin);
@@ -831,7 +831,7 @@ function userConfiguredOriginCount(tabId){
  * @param {Integer} tabId chrome tab id
  */
 function updateBadge(tabId){
-  var numBlocked = blockedOriginCount(tabId);
+  var numBlocked = blockedTrackerCount(tabId);
   if(numBlocked === 0){
     chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
   } else {
