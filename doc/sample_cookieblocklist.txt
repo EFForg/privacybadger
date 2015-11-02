@@ -461,7 +461,9 @@
 @@||search.yahoo.com^$third-party
 @@||yahoo.net^$third-party
 @@||yahooapis.com^$third-party
+@@||yandex.net^$third-party
 @@||yandex.ru^$third-party
+@@||yandex.ua^$third-party
 @@||yardbarker.com^$third-party
 @@||yellowpages.com^$third-party
 @@||yelpcdn.com^$third-party
