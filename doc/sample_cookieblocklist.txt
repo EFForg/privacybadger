@@ -89,6 +89,7 @@
 @@||cdn.discourse.org^$third-party
 @@||discovery.com^$third-party
 @@||disqus.com^$third-party
+@@||disquscdn.com^$third-party
 @@||dmcdn.net^$third-party
 @@||dmcdn.com^$third-party
 @@||screendoor.dobt.co^$third-party
