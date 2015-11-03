@@ -784,16 +784,16 @@ function activelyBlockedOriginCount(tabId){
 }
 
 /**
- * Counts total blocked trackers
+ * Counts total blocked trackers and blocked cookies trackers
  *
  * @param tabId Tab ID to count for
- * @returns {Integer} The number of blocked trackers
+ * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
  */
 function blockedTrackerCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
       var action = getAction(tabId,origin);
-      if(action && (action == "userblock" || action == "block")){
+      if(action && (action == "userblock" || action == "block" || action == "cookieblock" || action == "usercookieblock")){
         memo+=1;
       }
       return memo;
