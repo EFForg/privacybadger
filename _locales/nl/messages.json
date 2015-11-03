@@ -3,13 +3,13 @@
         "message": "Voeg (derde) partij toe"
     },
     "badger_status_block": {
-        "message": "Deze tracker wordt GEBLOKKEERD. Beweeg de schuifbalkjes zodat Privacy Badger (derde) partijen blokkeert of niet."
+        "message": "Geblokkeerd "
     },
     "badger_status_cookieblock": {
-        "message": "Deze trackingcookies worden GEBLOKKEERD. Beweeg de schuifbalkjes zodat Privacy Badger trackingcookies blokkeert of niet."
+        "message": "Geblokkeerd cookies van "
     },
     "badger_status_noaction": {
-        "message": "Deze (derde) partij wordt doorgelaten. Beweeg de schuifbalkjes zodat Privacy Badger (derde) partijen blokkeert of niet."
+        "message": "Toegestaan "
     },
     "description": {
         "message": "Privacy Badger geeft u meer controle over het gevolgd worden op internet!"
