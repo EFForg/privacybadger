@@ -37,3 +37,5 @@ buildtools/jshydra/mozilla/js
 *.DS_Store
 
 node_modules
+
+tests/selenium/.cache
