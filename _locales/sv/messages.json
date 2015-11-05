@@ -3,13 +3,13 @@
         "message": "Lägg till domän"
     },
     "badger_status_block": {
-        "message": "Denna spanare är blockerad, dra för att häva blockering den eller blockera dess kakor."
+        "message": "Blockerad "
     },
     "badger_status_cookieblock": {
-        "message": "Denna spanares kakor är blockerade, dra för att blockera eller häva den för spanaren."
+        "message": "Blockerade cookies från "
     },
     "badger_status_noaction": {
-        "message": "Denna domän är inte blockerad, dra reglaget för att blockera helt eller bara kakorna."
+        "message": "Tillåten "
     },
     "description": {
         "message": "Privacy Badger skyddar dig mot spanare medan du surfar!"

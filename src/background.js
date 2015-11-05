@@ -783,6 +783,23 @@ function activelyBlockedOriginCount(tabId){
     }, 0);
 }
 
+/**
+ * Counts total blocked trackers and blocked cookies trackers
+ *
+ * @param tabId Tab ID to count for
+ * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
+ */
+function blockedTrackerCount(tabId){
+  return getAllOriginsForTab(tabId)
+    .reduce(function(memo,origin){
+      var action = getAction(tabId,origin);
+      if(action && (action == "userblock" || action == "block" || action == "cookieblock" || action == "usercookieblock")){
+        memo+=1;
+      }
+      return memo;
+    }, 0);
+}
+
 function setTrackingFlag(tabId,fqdn){
   tabData[tabId].trackers[fqdn] = true;
 }
@@ -814,7 +831,7 @@ function userConfiguredOriginCount(tabId){
  * @param {Integer} tabId chrome tab id
  */
 function updateBadge(tabId){
-  var numBlocked = blockedOriginCount(tabId);
+  var numBlocked = blockedTrackerCount(tabId);
   if(numBlocked === 0){
     chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
   } else {
