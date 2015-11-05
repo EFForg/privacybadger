@@ -38,4 +38,4 @@ buildtools/jshydra/mozilla/js
 
 node_modules
 
-test/selenium/.cache
+tests/selenium/.cache
