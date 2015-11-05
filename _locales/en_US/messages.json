@@ -3,13 +3,13 @@
         "message": "Add domain"
     },
     "badger_status_block": {
-        "message": "This tracker is BLOCKED, slide to unblock tracker or block cookies."
+        "message": "Blocked "
     },
     "badger_status_cookieblock": {
-        "message": "This tracker's cookies are blocked, slide to block or unblock tracker."
+        "message": "Blocked cookies from "
     },
     "badger_status_noaction": {
-        "message": "This domain is unblocked, slide to block entirely or block cookies."
+        "message": "Allowed "
     },
     "description": {
         "message": "Privacy Badger protects you from trackers as you surf the web!"
