@@ -52,6 +52,8 @@ var testing = false;
 var testThreshold = 3;
 var numMinutesToWait = 120;
 var whitelistName =  "https://www.eff.org/files/cookieblocklist.txt";
+var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter;
+
 // local storage for alpha test extension
 // todo? not even close to CSPRNG :)
 // todo? this is async; not ideal but it'll do
@@ -147,7 +149,6 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
  * @param {String} origin Origin to check
  */
 function addFiltersFromWhitelistToCookieblock(origin){
-  var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter;
   for(filter in filters){
     var domain = getDomainFromFilter(filter);
     var baseDomain = getBaseDomain(origin);
