@@ -22,20 +22,20 @@
 chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
   if (blocked) {
     var code =
-      '(function() {' +
-      ' window.localStorage.clear();' +
-      '  var dummyLocalStorage = { };' +
-      '    Object.defineProperty(window, "localStorage", {' +
-      '        __proto__: null,' +
-      '            configurable: false,' +
-      '                getItem: function () {' +
-      '                  return dummyLocalStorage;' +
-      '                 },' +
-      '                 setItem: function (newValue) {' +
-//Do Nothing
-      '                 }' +
-      '  });' +
-      '})();';
+      '('+ function() { +
+       window.localStorage.clear();
+        var dummyLocalStorage = { };
+          Object.defineProperty(window, "localStorage", {
+              __proto__: null,
+                  configurable: false,
+                      getItem: function () {
+                        return dummyLocalStorage;
+                    },
+                       setItem: function (newValue) {
+                           //Do Nothing
+                       }
+        });
+    }+')()';
 
     var script = document.createElement('script');
 
