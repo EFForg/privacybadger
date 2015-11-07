@@ -486,3 +486,6 @@
 @@||zope.net^$third-party
 @@||zopim.com^$third-party
 @@||zvents.com^$third-party
+@@||cdnapi.kaltura.com^$third-party
+@@||cdnbakmi.kaltura.com^$third-party
+@@||www.kaltura.com^$third-party
