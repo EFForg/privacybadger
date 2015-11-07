@@ -87,6 +87,10 @@ a:hover { color: #eeeeff }
 .block .switch-candy a {
   background-color: #c61223;
 }
+.switch-candy:hover {
+  background: #868686;
+  cursor: pointer;
+}
 .cookieblock .switch-candy a{
   background-color: #ffcc00;
 }
@@ -167,6 +171,7 @@ font-size: 16px;
 }
 
 #firstRun:hover {
+  cursor: pointer;
   text-decoration: underline;
 }
 #noBlockingLink{
