@@ -37,14 +37,10 @@
    parent.removeChild(script);
  }
 
-
-
-
-
 chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
   if (blocked) {
     var code =
-      '('+ function() { +
+      '('+ function() {
        window.localStorage.clear();
         var dummyLocalStorage = { };
           Object.defineProperty(window, "localStorage", {
@@ -63,17 +59,3 @@ chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) 
     }
   return true;
 });
-// Clobber local storage, using a function closure to keep the dummy private
-// (function() {
-//   var dummyLocalStorage = { };
-//   Object.defineProperty(window, "localStorage", {
-//     __proto__: null,
-//     configurable: false,
-//     get: function () {
-//       return dummyLocalStorage;
-//     },
-//     set: function (newValue) {
-//       // Do nothing
-//     }
-//   });
-// })();
