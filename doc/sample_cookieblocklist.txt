@@ -491,3 +491,4 @@
 @@||www.kaltura.com^$third-party
 @@||assets.nflxext.com^$third-party
 @@||assets.ubuntu.com^$third-party
+@@||y3.analytics.yahoo.com^$third-party
