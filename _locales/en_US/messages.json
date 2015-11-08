@@ -201,10 +201,10 @@
       "message": " Hi, I'm Privacy Badger! Thanks for installing me. I'm here to give you some helpful tips, so we can work together."
     },
     "slideshow_2": {
-      "message": " I will sit up here in your browser and watch for spying ads and sneaky trackers that are recording what you're doing online."
+      "message": " I will sit up here in your browser and watch for spying ads and trackers that are recording what you're doing online."
     },
     "slideshow_3": {
-      "message": " If I discover that something is tracking you, I will put a stop to it by blocking it.  "
+      "message": " If I discover something that behaves like a tracker, I will put a stop to it by blocking it.  "
     },
     "slideshow_4": {
       "message": " If you click on my icon you can see the list of potential trackers on the current tab."
@@ -216,10 +216,10 @@
       "message": " If the slider is yellow, that means that I have partially blocked that tracker. I will do my best to prevent it from tracking you by eating its cookies, but blocking it entirely might break the page."
     },
     "slideshow_7": {
-      "message": " If the slider is green that means that I can't tell if this domain is tracking you yet. It might not be, or I might just not be sure yet.  "
+      "message": " If the slider is green that means that I can't tell if this domain is tracking you yet. It might not be, but I will still keep an eye on it." 
     },
     "slideshow_8": {
-      "message": " The first time you click my icon you might see that all the trackers are green—don't worry! I'm different from other ad blocking software—instead of knowing a list of things to block right away, I learn what to block as you browse. If I'm not blocking anything yet, try browsing around to 4 or 5 different websites. I should start blocking common trackers after that."
+      "message": " The first time you click my icon you might see that all the trackers are green—don't worry! I'm different from other tracker blocking software—instead of knowing a list of things to block right away, I learn what to block as you browse. If I'm not blocking anything yet, try browsing around to 4 or 5 different websites. I should start blocking common trackers after that."
     },
     "slideshow_9": {
       "message": " I learn as I go, so the longer you use me the better I will get at protecting you from sneaky trackers!"
@@ -240,7 +240,7 @@
       "message": " If you want to change other settings, you can click this gear icon."
     },
     "slideshow_15": {
-      "message": " Of course you can also just leave all these settings alone ,and I will continue to silently eat up all the trackers that come your way."
+      "message": " Of course you can also just leave all these settings alone, and I will continue to silently eat up all the trackers that I detect."
     },
     "slideshow_16": {
       "message": " Thanks for taking an important, easy step toward protecting your privacy! You can click here if you need help again, and you can click below to let the world know you take a stand against online tracking."
