@@ -41,19 +41,13 @@ chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) 
   if (blocked) {
     var code =
       '('+ function() {
-       window.localStorage.clear();
-        var dummyLocalStorage = { };
-          Object.defineProperty(document, "localStorage", {
-              __proto__: null,
-                  configurable: false,
-                      getItem: function () {
-                        return dummyLocalStorage;
-                    },
-                       setItem: function (newValue) {
-                           //Do Nothing
-                       }
-        });
-    }+')()';
+          window.localStorage.getItem = function () {
+               return {};
+           }
+          window.localStorage.setItem=function (newValue) {
+              //doNothing
+                       };
+        } +')()';
 
     insertScript(code);
     }
