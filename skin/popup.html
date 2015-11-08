@@ -22,28 +22,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link type="text/css" href="/lib/jquery-ui/css/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
-<link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" />
+<link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet"/>
 <script type="text/javascript" src="/lib/jquery-ui/js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="/lib/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
 <script type="text/javascript" src="/src/popup.js"></script>
 <script type="text/javascript" src="/lib/i18n.js"></script>
-<script type="text/javascript" src ="/src/tutorial.js"></script>
+<script type="text/javascript" src="/skin/tutorial.js"></script>
 </head>
 <body id="main">
   <div id="instruction">
-  <svg id="escape" height="40" width="40" fill="white">
-    <line x1="5" y1="5" x2="35" y2="35" style="stroke:rgb(255,255,255);stroke-width:3;fill:transparent"/>
-    <line x1="5" y1="35" x2="35" y2="5" style="stroke:rgb(255,255,255);stroke-width:3;fill:transparent"/>
-  </svg>
-  <p>You're now protected by Privacy Badger. To learn what that means and how Privacy Badger works, click below for a quick tutorial!</p>
+    <svg id="fittslaw" width="40" height="40" fill="white">
+      <line x1="5" y1="5" x2="35" y2="35" style="stroke:rgb(255,255,255);stroke-width:3;fill:transparent"/>
+      <line x1="5" y1="35" x2="35" y2="5" style="stroke:rgb(255,255,255);stroke-width:3;fill:transparent"/>
+    </svg>
+  <p>You're now protected by Privacy Badger. To learn how Privacy Badger works, click below for a quick tutorial.</p>
+  <br>
   <div id="firstRun">
     <p class="i18n_first_run_text"></p>
   </div>
 </div>
-
-  <div id="overlay">
+<div id="overlay">
     <h1 id="report_title" class="i18n_report_title"></h1>
       <span id="report_close" class="i18n_report_close"></span>
       <p id="report_text" class="i18n_report_text"></p>
