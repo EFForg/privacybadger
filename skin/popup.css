@@ -16,21 +16,26 @@
  */
  /*adjoining-classes:ignore*/
  /*csslint ids:ignore*/
+
 body {
-  min-width: 390px;
-  font-size: 14px;
+  min-width: 400px;
+  font-size: 12px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
+  padding-left: 7px;
+  padding-right: 7px;
+  overflow-y: scroll;
 }
 
 a { text-decoration: none }
-a:hover { color: #eeeeff }
+a:hover { color: #ec9329 }
 
 #filtersList {
   border: 1px dotted gray;
   padding: 1px;
   display: none;
+  background-color: #BFBFBF;
 }
 
 .ui-button {
@@ -54,7 +59,7 @@ a:hover { color: #eeeeff }
 -o-transition:background-color 0.2s ease-in-out;
 -moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
 .click-nav ul li a:hover {background:#F2F2F2;}
-.click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;} 
+.click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;}
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
@@ -86,6 +91,10 @@ a:hover { color: #eeeeff }
 }
 .block .switch-candy a {
   background-color: #c61223;
+}
+.switch-candy:hover {
+  background: #868686;
+  cursor: pointer;
 }
 .cookieblock .switch-candy a{
   background-color: #ffcc00;
@@ -133,7 +142,7 @@ font-size: 16px;
   color: #707070;
   font-size: 26px;
   font-weight: normal;
-  font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif;;
+  font-family: helvetica, arial, 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', sans-serif;;
 }
 #privacyBadgerHeader img{
   float: left;
@@ -167,6 +176,9 @@ font-size: 16px;
 }
 
 #firstRun:hover {
+  color: #6ECD00;
+  border: 2px solid #6ECD00;
+  cursor: pointer;
   text-decoration: underline;
 }
 #noBlockingLink{
@@ -180,14 +192,16 @@ font-size: 16px;
 #blockedResources{
   max-height: 320px;
   overflow-y: auto;
+  background-color: #E8E9EA;
 }
 .key{
   position: fixed;
   height: 25px;
-  width: 160px;
+  width: 390px;
   padding-left: 215px;
   z-index: 30;
-  background: #fff;
+  background: #fefefe;
+  padding-top: 7px;
 }
 .key img{
   margin-left: 19px;
@@ -196,34 +210,43 @@ font-size: 16px;
   position: absolute;
   left: 3px;
   top:-1;
+  box-shadow: 0px 5px 5px #000;
 }
 #options{
   float: right;
+  padding-top: 7px;
 }
 #help{
   float: right;
   padding-right: 5px;
+  padding-top: 7px;
 }
 .clickerContainer{
   margin-top: 25px;
 }
 #pbInstructions{
-  color: #707070;
+  color: #505050;
   font-size: 16px;
   margin: 0;
 }
 
 .pbButton{
-  border: 1px solid #333;
-  border-radius: 4px;
-  background: linear-gradient(#efefef, #e0e0e0);
+  border-radius: 3px;
   padding: 5px;
   cursor: pointer;
-  margin: 5px 0;
-  font-weight: bold;
   text-align: center;
+  margin: 8px 0;
+  border: 2px solid #707070;
   width: 100%;
+  color: #707070;
+  background-color: #fefefe;
 }
+
+.pbButton:hover {
+  color: #000;
+  border: 2px solid #000;
+}
+
 #nonTrackers {
   text-align: center;
   color: #f9f9f9;

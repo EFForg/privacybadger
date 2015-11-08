@@ -281,7 +281,7 @@ function _addOriginHTML(origin, printable, action, flag, multiTLD) {
     multiText = " ("+multiTLD +" subdomains)";
   }
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action) + '" data-original-action="' + action + '"><div class="origin" >' +
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '" data-original-action="' + action + '"><div class="origin" >' +
      flagText + _trim(origin + multiText,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
   
 }
@@ -309,19 +309,19 @@ function _trim(str,max){
  * @returns {string} The description, I18Ned
  * @private
  */
-function _badgerStatusTitle(action){
-  var prefix = "";
+function _badgerStatusTitle(action , origin){ 
+  
   var status_block = i18n.getMessage("badger_status_block");
   var status_cookieblock = i18n.getMessage("badger_status_cookieblock");
   var status_noaction = i18n.getMessage("badger_status_noaction");
 
-  var statusMap = { 
+  var statusMap = {
     block:        status_block,
     cookieblock:  status_cookieblock,
     noaction:     status_noaction
   };
 
-  return prefix + statusMap[action];
+  return  statusMap[action] + origin ;
 }
 
 /**
@@ -568,8 +568,9 @@ function updateOrigin(event){
   var action = $elm.data('action');
   $switchContainer.removeClass('block cookieblock noaction').addClass(action);
   toggleBlockedStatus($clicker, action);
-  $clicker.attr('tooltip', _badgerStatusTitle(action));
-  $clicker.children('.tooltipContainer').html(_badgerStatusTitle(action));
+  var origin = $clicker.data('origin');
+  $clicker.attr('tooltip', _badgerStatusTitle(action, origin));
+  $clicker.children('.tooltipContainer').html(_badgerStatusTitle(action, origin));
   hideNoInitialBlockingLink();
 }
 

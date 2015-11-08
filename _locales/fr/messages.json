@@ -3,13 +3,13 @@
         "message": "Ajouter un nom de domaine"
     },
     "badger_status_block": {
-        "message": "Ce traqueur est BLOQUÉ, glisser pour débloquer le traqueur ou bloquer les cookies."
+        "message": "Bloqué "
     },
     "badger_status_cookieblock": {
-        "message": "Ces cookies traqueurs sont bloqués, glisser pour bloquer ou débloquer les traqueurs."
+        "message": "Les cookies bloqués à partir de "
     },
     "badger_status_noaction": {
-        "message": "Ce nom de domaine est débloqué, glisser pour le bloquer entièrement ou pour bloquer les cookies."
+        "message": "Permis "
     },
     "description": {
         "message": "Privacy Badger vous protège des traqueurs lorsque vous surfez sur le web !"
