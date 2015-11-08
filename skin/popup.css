@@ -132,6 +132,12 @@ left: 0;
   left: 5px;
   display: none;
 }
+IMG.centralize{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
 #privacyBadgerHeader{
 color: #505050;
 font-size: 16px;
@@ -173,6 +179,35 @@ font-size: 16px;
   border-radius: 3px;
   margin: 5px 0;
   border: 2px solid #EC9329;
+    -webkit-animation-name: blinker;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+
+	-moz-animation-name: blinker;
+	-moz-animation-duration: 1s;
+	-moz-animation-timing-function: linear;
+	-moz-animation-iteration-count: infinite;
+
+	animation-name: blinker;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+@-moz-keyframes blinker {  
+	0% { opacity: 1.0; }
+	50% { opacity: 0.0; }
+	100% { opacity: 1.0; }
+}
+@-webkit-keyframes blinker {  
+	0% { opacity: 1.0; }
+	50% { opacity: 0.0; }
+	100% { opacity: 1.0; }
+}
+@keyframes blinker {  
+	0% { opacity: 1.0; }
+	50% { opacity: 0.0; }
+	100% { opacity: 1.0; }
 }
 
 #firstRun:hover {
@@ -312,3 +347,4 @@ font-size: 16px;
 .hidden {
   display: none;
 }
+/*This has been added by me*/

@@ -258,7 +258,7 @@ function toggleEnabled() {
  * @private
  */
 function _addOriginHTML(origin, printable, action, flag, multiTLD) {
-  //console.log("Popup: adding origin HTML for " + origin);
+  console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker","tooltip"];
   var feedTheBadgerTitle = '';
   if (action.indexOf("user") === 0) {
