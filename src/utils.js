@@ -33,6 +33,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
+var disabledSites = localStorage.disabledSites;
 require.scopes["utils"] = (function() {
 
 var exports = {};
@@ -187,9 +188,8 @@ var Utils = exports.Utils = {
    * @returns {Boolean} true if disabled
    **/
   isPrivacyBadgerEnabled: function(origin){
-    if(localStorage.disabledSites){
-      var sites = JSON.parse(localStorage.disabledSites);
-      if(sites[origin]){
+    if(disabledSites){
+      if(disabledSites[origin]){
         return false;
       }
     }
@@ -209,13 +209,12 @@ var Utils = exports.Utils = {
    * @param {String} origin The origin to disable the PB for
    **/
   disablePrivacyBadgerForOrigin: function(origin){
-    if(localStorage.disabledSites === undefined){
-      var disabledSites = new Object();
+    if(disabledSites === undefined){
+      disabledSites = new Object();
       disabledSites[origin] = true;
       localStorage.disabledSites = JSON.stringify(disabledSites);
       return;
     }
-    var disabledSites = JSON.parse(localStorage.disabledSites);
     if(!disabledSites[origin]){
       disabledSites[origin] = true;
       localStorage.disabledSites = JSON.stringify(disabledSites);
@@ -228,10 +227,9 @@ var Utils = exports.Utils = {
    * @param {String} origin The origin to disable the PB for
    **/
   enablePrivacyBadgerForOrigin: function(origin){
-    if(localStorage.disabledSites === undefined){
+    if(disabledSites === undefined){
       return;
     }
-    var disabledSites = JSON.parse(localStorage.disabledSites);
     if(disabledSites[origin]){
       delete disabledSites[origin];
       localStorage.disabledSites = JSON.stringify(disabledSites);
