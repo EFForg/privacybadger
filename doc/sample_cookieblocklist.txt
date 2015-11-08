@@ -490,3 +490,4 @@
 @@||cdnbakmi.kaltura.com^$third-party
 @@||www.kaltura.com^$third-party
 @@||assets.nflxext.com^$third-party
+@@||assets.ubuntu.com^$third-party
