@@ -80,6 +80,7 @@ function init() {
     $("#firstRun").show();
   }
 
+//tutorial overlay with link to comic
 console.log("tutorial.js loaded");
 var thing = document.getElementById("instruction");
 var escapeThing = document.getElementById("fittslaw");
