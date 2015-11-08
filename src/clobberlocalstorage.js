@@ -43,7 +43,7 @@ chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) 
       '('+ function() {
        window.localStorage.clear();
         var dummyLocalStorage = { };
-          Object.defineProperty(window, "localStorage", {
+          Object.defineProperty(document, "localStorage", {
               __proto__: null,
                   configurable: false,
                       getItem: function () {
