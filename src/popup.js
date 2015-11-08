@@ -42,7 +42,6 @@ for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
 
-
 with(require("filterClasses"))
 {
   this.Filter = Filter;
@@ -80,6 +79,13 @@ function init() {
   if (!seenComic) {
     $("#firstRun").show();
   }
+
+console.log("tutorial.js loaded");
+var thing = document.getElementById("instruction");
+var escapeThing = document.getElementById("fittslaw");
+escapeThing.addEventListener('click', function() {
+	thing.style.display = 'none';
+})
 
   // Attach event listeners
   $("#firstRun").click(function() {
