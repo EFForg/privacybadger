@@ -3,6 +3,11 @@
   "author": {
     "email": "eff.software.projects@gmail.com"
   }, 
+  "applications": {
+    "gecko": {
+      "id": "privacybadger@mozilla.org"
+    }
+  },
   "permissions": [
     "tabs", 
     "http://*/*", 
