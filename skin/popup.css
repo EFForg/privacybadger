@@ -92,6 +92,10 @@ a:hover { color: #ec9329 }
 .block .switch-candy a {
   background-color: #c61223;
 }
+.switch-candy:hover {
+  background: #868686;
+  cursor: pointer;
+}
 .cookieblock .switch-candy a{
   background-color: #ffcc00;
 }
@@ -175,6 +179,7 @@ font-size: 16px;
   color: #6ECD00;
   border: 2px solid #6ECD00;
   cursor: pointer;
+  text-decoration: underline;
 }
 #noBlockingLink{
   text-align: center;
