@@ -490,3 +490,8 @@
 @@||zope.net^$third-party
 @@||zopim.com^$third-party
 @@||zvents.com^$third-party
+@@||assets.nflxext.com^$third-party
+@@||assets.ubuntu.com^$third-party
+@@||y3.analytics.yahoo.com^$third-party
+@@||a.disquscdn.com^$third-party
+@@||uploads.disquscdn.com^$third-party
