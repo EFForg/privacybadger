@@ -239,6 +239,9 @@
 @@||justin.tv^$third-party
 @@||jwpcdn.com^$third-party
 @@||jwpltx.com^$third-party
+@@||cdnapi.kaltura.com^$third-party
+@@||cdnbakmi.kaltura.com^$third-party
+@@||www.kaltura.com^$third-party
 @@||kampyle.com^$third-party
 @@||kataweb.it^$third-party
 @@||kickapps.com^$third-party
@@ -487,6 +490,3 @@
 @@||zope.net^$third-party
 @@||zopim.com^$third-party
 @@||zvents.com^$third-party
-@@||cdnapi.kaltura.com^$third-party
-@@||cdnbakmi.kaltura.com^$third-party
-@@||www.kaltura.com^$third-party
