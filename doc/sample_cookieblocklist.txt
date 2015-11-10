@@ -239,6 +239,9 @@
 @@||justin.tv^$third-party
 @@||jwpcdn.com^$third-party
 @@||jwpltx.com^$third-party
+@@||cdnapi.kaltura.com^$third-party
+@@||cdnbakmi.kaltura.com^$third-party
+@@||www.kaltura.com^$third-party
 @@||kampyle.com^$third-party
 @@||kataweb.it^$third-party
 @@||kickapps.com^$third-party
@@ -392,6 +395,7 @@
 @@||cdn.static-economist.com^$third-party
 @@||staticflickr.com^$third-party
 @@||store.akamai.steamstatic.com^$third-party
+@@||steamusercontent.com^$third-party
 @@||stellaservice.com^$third-party
 @@||stripe.com^$third-party
 @@||surveygizmo.com^$third-party
@@ -486,9 +490,6 @@
 @@||zope.net^$third-party
 @@||zopim.com^$third-party
 @@||zvents.com^$third-party
-@@||cdnapi.kaltura.com^$third-party
-@@||cdnbakmi.kaltura.com^$third-party
-@@||www.kaltura.com^$third-party
 @@||assets.nflxext.com^$third-party
 @@||assets.ubuntu.com^$third-party
 @@||y3.analytics.yahoo.com^$third-party
