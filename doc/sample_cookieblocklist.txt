@@ -392,6 +392,7 @@
 @@||cdn.static-economist.com^$third-party
 @@||staticflickr.com^$third-party
 @@||store.akamai.steamstatic.com^$third-party
+@@||steamusercontent.com^$third-party
 @@||stellaservice.com^$third-party
 @@||stripe.com^$third-party
 @@||surveygizmo.com^$third-party
