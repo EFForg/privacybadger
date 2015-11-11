@@ -31,6 +31,7 @@
 @@||secure5.arcot.com^$third-party
 @@||cdn.arstechnica.net^$third-party
 @@||aspnetcdn.com^$third-party
+@@||c64.assets-yammer.com^$third-party
 @@||assetfiles.com^$third-party
 @@||authorize.net^$third-party
 @@||autoforums.com^$third-party
