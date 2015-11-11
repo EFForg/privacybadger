@@ -43,11 +43,20 @@
         }
       });
 
-      $(".jcarousel-control-next").click(setSeenComic);
+      var escapeThing = document.getElementById("fittslaw");
+      escapeThing.addEventListener('click', function() {
+          setSeenComic();
+      })
+
+      $(".jcarousel-control-prev-next").click(setSeenComic);
       $(".jcarousel-pagination").click(setSeenComic);
         
       function setSeenComic() {
         localStorage.setItem("seenComic", "true");
       };
+      //determines whether user sees overlay or not
+      //function setDoesWant() {
+       // localStorage.setItem("doesWant", "false");
+      //};
   });
 })(jQuery);

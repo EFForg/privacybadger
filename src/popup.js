@@ -75,18 +75,29 @@ function init() {
   console.log("Initializing popup.js");
   
   $("#firstRun").hide();
-  var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false;
+  var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false; 
+  console.log(seenComic);
+  //var doesWant = JSON.parse(localStorage.getItem("doesWant")) || false; //true; //chrome.storage.sync.get('doesWant');
+  var thing = document.getElementById("instruction");
+  var escapeThing = document.getElementById("fittslaw");
   if (!seenComic) {
-    $("#firstRun").show();
-  }
-
-//tutorial overlay with link to comic
-console.log("tutorial.js loaded");
-var thing = document.getElementById("instruction");
-var escapeThing = document.getElementById("fittslaw");
-escapeThing.addEventListener('click', function() {
-	thing.style.display = 'none';
-})
+    $("#firstRun").show(); 
+	//tutorial overlay with link to comic
+	  escapeThing.addEventListener('click', function() {
+		thing.style.display = 'none';
+    setSeenComic();
+    //localStorage.setItem("seenComic", "true");
+		//chrome.storage.sync.set({'doesWant': 'false'})
+    //localStorage.setItem("doesWant", "false");
+    //doesWant = false;
+	  })
+   }
+  	else {
+		thing.style.display = 'none';
+    //chrome.storage.sync.set({'doesWant': 'false'})
+    //localStorage.setItem("doesWant", "false");
+    //doesWant = false;
+	}
 
   // Attach event listeners
   $("#firstRun").click(function() {
