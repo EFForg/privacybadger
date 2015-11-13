@@ -212,6 +212,37 @@ font-size: 16px;
   top:-1;
   box-shadow: 0px 5px 5px #000;
 }
+#instruction {
+  position: fixed;
+  z-index: 100;
+  background-color: #000;
+<<<<<<< HEAD
+  opacity: .85;
+  height: 92%;
+=======
+  opacity: .9;
+  height: 100%;
+>>>>>>> 5c622df389901cfc866845a0b1785187c408a508
+  width: 370px;
+  color: #fff;
+  text-align: left;
+  padding: 15px;
+<<<<<<< HEAD
+  margin-top: 5px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+=======
+  margin-right: 20px;
+>>>>>>> 5c622df389901cfc866845a0b1785187c408a508
+  font-size: 14px;
+}
+#fittslaw {
+  position: relative;
+  float: right;
+  right: 0px;
+  padding: 13px;
+  cursor: pointer;
+}
 #options{
   float: right;
   padding-top: 7px;
