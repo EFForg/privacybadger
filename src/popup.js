@@ -78,10 +78,16 @@ function init() {
   var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false; 
   console.log(seenComic);
   //var doesWant = JSON.parse(localStorage.getItem("doesWant")) || false; //true; //chrome.storage.sync.get('doesWant');
+
+  function setSeenComic() {
+    localStorage.setItem("seenComic", "true");
+  };
+
   var thing = document.getElementById("instruction");
   var escapeThing = document.getElementById("fittslaw");
   if (!seenComic) {
     $("#firstRun").show(); 
+    console.log(seenComic);
 	//tutorial overlay with link to comic
 	  escapeThing.addEventListener('click', function() {
 		thing.style.display = 'none';
