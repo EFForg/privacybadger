@@ -77,7 +77,6 @@ function init() {
   $("#firstRun").hide();
   var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false; 
   console.log(seenComic);
-  //var doesWant = JSON.parse(localStorage.getItem("doesWant")) || false; //true; //chrome.storage.sync.get('doesWant');
 
   function setSeenComic() {
     localStorage.setItem("seenComic", "true");
@@ -92,17 +91,10 @@ function init() {
 	  escapeThing.addEventListener('click', function() {
 		thing.style.display = 'none';
     setSeenComic();
-    //localStorage.setItem("seenComic", "true");
-		//chrome.storage.sync.set({'doesWant': 'false'})
-    //localStorage.setItem("doesWant", "false");
-    //doesWant = false;
 	  })
    }
   	else {
 		thing.style.display = 'none';
-    //chrome.storage.sync.set({'doesWant': 'false'})
-    //localStorage.setItem("doesWant", "false");
-    //doesWant = false;
 	}
 
   // Attach event listeners

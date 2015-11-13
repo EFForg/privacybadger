@@ -54,9 +54,5 @@
       function setSeenComic() {
         localStorage.setItem("seenComic", "true");
       };
-      //determines whether user sees overlay or not
-      //function setDoesWant() {
-       // localStorage.setItem("doesWant", "false");
-      //};
   });
 })(jQuery);
