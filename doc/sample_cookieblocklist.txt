@@ -338,6 +338,7 @@
 @@||piclens.com^$third-party
 @@||pinimg.com^$third-party
 @@||piratebay.org^$third-party
+@@||pistachio-cdn.graze.com^$third-party
 @@||pixietrixcomix.com^$third-party
 @@||plex.tv^$third-party
 @@||poll.fm^$third-party
