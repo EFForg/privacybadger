@@ -182,7 +182,7 @@ font-size: 16px;
   overflow-y: auto;
 }
 .key{
-  position: fixed;
+  position: absolute;
   height: 25px;
   width: 160px;
   padding-left: 215px;
