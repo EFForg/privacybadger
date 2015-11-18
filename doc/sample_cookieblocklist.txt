@@ -302,6 +302,7 @@
 @@||nfl.com^$third-party
 @@||nflcdn.com^$third-party
 @@||cdn3.nflxext.com^$third-party
+@@||nflxext.com^$third-party
 @@||ngfiles.com^$third-party
 @@||nj.com^$third-party
 @@||nmcdn.us^$third-party
