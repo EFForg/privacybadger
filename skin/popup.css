@@ -195,7 +195,7 @@ font-size: 16px;
   background-color: #E8E9EA;
 }
 .key{
-  position: fixed;
+  position: absolute;
   height: 25px;
   width: 390px;
   padding-left: 215px;
