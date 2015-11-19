@@ -496,3 +496,4 @@
 @@||y3.analytics.yahoo.com^$third-party
 @@||a.disquscdn.com^$third-party
 @@||uploads.disquscdn.com^$third-party
+@@||cdn1.nflxext.com^$third-party
