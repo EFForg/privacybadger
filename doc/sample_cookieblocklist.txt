@@ -408,6 +408,7 @@
 @@||targetimg2.com^$third-party
 @@||technorati.com^$third-party
 @@||theplatform.com^$third-party
+@@||tile.thunderforest.com^$third-party
 @@||timeinc.net^$third-party
 @@||tinypic.com^$third-party
 @@||tinyurl.com^$third-party
