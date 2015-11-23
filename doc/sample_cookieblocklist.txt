@@ -302,6 +302,7 @@
 @@||nfl.com^$third-party
 @@||nflcdn.com^$third-party
 @@||cdn3.nflxext.com^$third-party
+@@||nflxext.com^$third-party
 @@||ngfiles.com^$third-party
 @@||nj.com^$third-party
 @@||nmcdn.us^$third-party
@@ -407,6 +408,7 @@
 @@||targetimg2.com^$third-party
 @@||technorati.com^$third-party
 @@||theplatform.com^$third-party
+@@||tile.thunderforest.com^$third-party
 @@||timeinc.net^$third-party
 @@||tinypic.com^$third-party
 @@||tinyurl.com^$third-party
