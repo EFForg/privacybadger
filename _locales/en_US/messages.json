@@ -44,6 +44,9 @@
     "options_filter_settings": {
         "message": "User Filter Settings"
     },
+    "options_general_settings": {
+        "message": "General Settings"
+    },
     "options_loading": {
         "message": "Loading..."
     },
@@ -122,6 +125,9 @@
     },
     "report_close": {
         "message": "Close"
+    },
+    "show_counter_checkbox": {
+        "message": "Show count of blocked items"
     },
     "whitelisted_domains": {
         "description": "This is a tab heading.",

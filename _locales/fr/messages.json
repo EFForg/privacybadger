@@ -40,6 +40,9 @@
     "options_filter_settings": {
         "message": "Configurations des filtres utilisateur"
     },
+    "options_general_settings": {
+        "message": "Réglages généraux"
+    },
     "options_loading": {
         "message": "Chargement..."
     },
@@ -103,6 +106,9 @@
     },
     "report_broken_site": {
       "message": "Reporter un site cassé"
+    },
+    "show_counter_checkbox": {
+        "message": "Afficher le nombre d'articles bloqués"
     },
     "whitelisted_domains": {
         "description": "Intitulé de l'onglet.",

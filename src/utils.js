@@ -204,6 +204,17 @@ var Utils = exports.Utils = {
   },
 
   /**
+   * check if we should show the counter on the icon
+   */
+  showCounter: function() {
+    if ("showCounter" in localStorage) {
+      return JSON.parse(localStorage.showCounter);
+    } else {
+      return true;
+    }
+  },
+
+  /**
    * add an origin to the disabled sites list
    *
    * @param {String} origin The origin to disable the PB for

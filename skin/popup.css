@@ -38,6 +38,16 @@ a:hover { color: #ec9329 }
   background-color: #BFBFBF;
 }
 
+.checkbox label {
+  min-height: 20px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.checkbox label span {
+  padding-left: 0.5em;
+}
+
 .ui-button {
     padding: 3px;
 }
