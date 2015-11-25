@@ -19,5 +19,7 @@
     "hootsuite.com/hootlet/compose": {"whitelist_urls": ["hootsuite.com"], "english_name": "Hootsuite"},
     "hootsuite.com/social-connect": {"whitelist_urls": ["hootsuite.com"], "english_name": "Hootsuite"},
 
-    "api0.passwordbox.com/api": {"whitelist_urls": ["passwordbox.com", "psswrdbx.com"], "english_name": "Password Box"}
+    "api0.passwordbox.com/api": {"whitelist_urls": ["passwordbox.com", "psswrdbx.com"], "english_name": "Password Box"},
+
+    "w.soundcloud.com/player/": {"whitelist_urls": ["w.soundcloud.com"], "english_name": "Soundcloud"}
 }
