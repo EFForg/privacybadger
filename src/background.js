@@ -118,6 +118,27 @@ function migrateVersion(prevVersion,currentVersion){
   updateTabList();
   migrateBlockedDomains();
   migrateCookieBlockList();
+  migratedisabledSites();
+}
+
+/** 
+ * updates disabledSites variable as an Object and write back to localStorage 
+ */
+function migratedisabledSites(){
+  var sites = JSON.parse(localStorage.getItem("disabledSites"));
+  if (sites && Object.keys(sites).length > 0){
+    return;
+  }
+  chrome.storage.local.get("disabledSites", function(items){
+    if(chrome.runtime.lastError || !items.disabledSites){
+      return;
+    }
+    var disabledObject = new Object();
+    for(var i = 0; i < items.length; i++){
+      disabledObject[items[i]] = true;
+    }
+    localStorage.setItem("disabledSites", JSON.stringify(disabledObject));
+  });
 }
 
 /**

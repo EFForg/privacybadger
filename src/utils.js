@@ -1,7 +1,7 @@
 /*
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
- * Derived from Adblock Plus 
+ * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
@@ -33,8 +33,9 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
+var disabledSites = localStorage.disabledSites;
 require.scopes["utils"] = (function() {
-  
+
 var exports = {};
 var Utils = exports.Utils = {
   systemPrincipal: null,
@@ -187,10 +188,9 @@ var Utils = exports.Utils = {
    * @returns {Boolean} true if disabled
    **/
   isPrivacyBadgerEnabled: function(origin){
-    if(localStorage.disabledSites && JSON.parse(localStorage.disabledSites).length > 0){
-      var sites = JSON.parse(localStorage.disabledSites);
-      for(var i = 0; i < sites.length; i++){
-        if(sites[i] === origin){ return false; }
+    if(disabledSites){
+      if(disabledSites[origin]){
+        return false;
       }
     }
     return true;
@@ -220,13 +220,14 @@ var Utils = exports.Utils = {
    * @param {String} origin The origin to disable the PB for
    **/
   disablePrivacyBadgerForOrigin: function(origin){
-    if(localStorage.disabledSites === undefined){
-      localStorage.disabledSites = JSON.stringify([origin]);
+    if(disabledSites === undefined){
+      disabledSites = new Object();
+      disabledSites[origin] = true;
+      localStorage.disabledSites = JSON.stringify(disabledSites);
       return;
     }
-    var disabledSites = JSON.parse(localStorage.disabledSites);
-    if(disabledSites.indexOf(origin) < 0){
-      disabledSites.push(origin);
+    if(!disabledSites[origin]){
+      disabledSites[origin] = true;
       localStorage.disabledSites = JSON.stringify(disabledSites);
     }
   },
@@ -237,13 +238,11 @@ var Utils = exports.Utils = {
    * @param {String} origin The origin to disable the PB for
    **/
   enablePrivacyBadgerForOrigin: function(origin){
-    if(localStorage.disabledSites === undefined){
+    if(disabledSites === undefined){
       return;
     }
-    var disabledSites = JSON.parse(localStorage.disabledSites);
-    var idx = disabledSites.indexOf(origin);
-    if(idx >= 0){
-      Utils.removeElementFromArray(disabledSites, idx);
+    if(disabledSites[origin]){
+      delete disabledSites[origin];
       localStorage.disabledSites = JSON.stringify(disabledSites);
     }
   },
