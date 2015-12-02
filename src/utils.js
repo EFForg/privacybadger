@@ -190,7 +190,15 @@ var Utils = exports.Utils = {
     if(localStorage.disabledSites && JSON.parse(localStorage.disabledSites).length > 0){
       var sites = JSON.parse(localStorage.disabledSites);
       for(var i = 0; i < sites.length; i++){
-        if(sites[i] === origin){ return false; }
+        var site = sites[i];
+        if(site.startsWith("*")){
+          if(getBaseDomain(site) === getBaseDomain(origin)){
+            return false;
+          }
+        }
+        if(sites[i] === origin){
+          return false;
+        }
       }
     }
     return true;
