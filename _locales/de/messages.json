@@ -38,6 +38,9 @@
     "options_filter_settings": {
         "message": "Benutzerfilter Einstellungen"
     },
+    "options_general_settings": {
+        "message": "Allgemeine Einstellungen"
+    },
     "options_loading": {
         "message": "Lade..."
     },
@@ -101,6 +104,9 @@
     },
     "report_broken_site": {
       "message": "Kaputte Seite melden"
+    },
+    "show_counter_checkbox": {
+      "message": "Anzahl der blockierten Artikel anzeigen"
     },
     "whitelisted_domains": {
         "description": "This is a tab heading.",

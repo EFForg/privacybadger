@@ -38,6 +38,10 @@ if (!("socialWidgetReplacementEnabled" in localStorage)){
   localStorage.socialWidgetReplacementEnabled = "true";
 }
 
+if (!("showCounter" in localStorage)){
+  localStorage.showCounter = "true";
+}
+
 with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
@@ -831,6 +835,10 @@ function userConfiguredOriginCount(tabId){
  * @param {Integer} tabId chrome tab id
  */
 function updateBadge(tabId){
+  if (!Utils.showCounter()){
+    chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
+    return;
+  }
   var numBlocked = blockedTrackerCount(tabId);
   if(numBlocked === 0){
     chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
