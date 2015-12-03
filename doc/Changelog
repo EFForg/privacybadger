@@ -1,5 +1,19 @@
 Changes for Privacy Badger 
 ====================================
+## 2015.12.3 (1.0.4)
+* Lots of site bug fixes
+* Chinese Translation
+* Spanish Translation
+* italian translation
+* UI Overhaul
+* Update Swedish locale
+* Typo fixes
+* Numerous bug fixes
+* Whitelist Domains now supports wildcard strings
+* Red badge now reflects the number of domains blocked or cookieblocked
+instead of all third parties.
+* Tooltips show full domain name
+
 ## 2015.8.14 (1.0.1)
 * Fixes a bug where slider settings for a base domain wouldn't take effect
 * Fixes 'this extension is slowing down chrome' errors
