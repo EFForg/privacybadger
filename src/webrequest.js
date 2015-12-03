@@ -44,6 +44,8 @@ var CookieBlockList = require("cookieblocklist").CookieBlockList;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterNotifier = require("filterNotifier").FilterNotifier;
 var FilterStorage = require("filterStorage").FilterStorage;
+var Utils = require("utils").Utils;
+
 
 // per-tab data that gets cleaned up on tab closing
 // looks like:

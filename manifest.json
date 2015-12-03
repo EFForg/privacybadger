@@ -9,16 +9,17 @@
     }
   },
   "permissions": [
-    "tabs", 
-    "http://*/*", 
-    "https://*/*", 
+    "tabs",  
     "contextMenus", 
-    "webRequest", 
-    "webRequestBlocking", 
+    "webRequest",  
     "webNavigation", 
-    "unlimitedStorage", 
     "storage", 
     "cookies", 
+
+    "http://*/*", 
+    "https://*/*",
+    "webRequestBlocking",
+    "unlimitedStorage", 
     "privacy"
   ], 
   "background": {
