@@ -20,6 +20,11 @@
  * Communicates to webrequest.js to get orders if to delete cookies.
  */
 
+ /**
+  * Insert script into page
+  *
+  * @param {String} text The script to insert into the page
+ */
 
  function insertScript(text) {
    var parent = document.documentElement,
@@ -32,34 +37,19 @@
    parent.removeChild(script);
  }
 
-
-
-
-
-
 chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
   if (blocked) {
-    var code = '('+ function(){
-      var dummyCookie = "x=y";
-      document.__defineSetter__("cookie", function(value) { return dummyCookie; });
-      document.__defineGetter__("cookie", function() { return dummyCookie; });
-    } +')();'
+    var code =
+      '('+ function() {
+          window.localStorage.getItem = function () {
+               return {};
+           }
+          window.localStorage.setItem=function (newValue) {
+              //doNothing
+                       };
+        } +')()';
 
     insertScript(code);
     }
   return true;
 });
-// Clobber local storage, using a function closure to keep the dummy private
-/*(function() {
-  var dummyLocalStorage = { };
-  Object.defineProperty(window, "localStorage", {
-    __proto__: null,
-    configurable: false,
-    get: function () {
-      return dummyLocalStorage;
-    },
-    set: function (newValue) {
-      // Do nothing
-    }
-  });
-})(); */

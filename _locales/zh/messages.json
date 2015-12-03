@@ -1,0 +1,248 @@
+{
+    "add_domain_button": {
+        "message": "加域名"
+    },
+    "badger_status_block": {
+        "message": "阻止 "
+    },
+    "badger_status_cookieblock": {
+        "message": "阻止 cookies 从 "
+    },
+    "badger_status_noaction": {
+        "message": "允许 "
+    },
+    "description": {
+        "message": "你在网上冲浪的时候，隐私獾会保护你！"
+    },
+    "disabled_for_these_domains": {
+        "message": "隐私獾被禁用在以下域名. 你可以通过隐私獾图标加域名， 或者把域名（不是URL）打在方框中和点击‘加域名’按钮。"
+    },
+    "error_input": {
+        "message": "问题是什么?"
+    },
+    "feed_the_badger_title": {
+        "message": "点击以把这个追踪器的控制给会隐私獾"
+    },
+    "firstRun_title": {
+        "message": "感谢您安装隐私獾!"
+    },
+    "first_run_text": {
+        "message": "了解隐私獾如何保护您的隐私."
+    },
+    "name": {
+        "message": "隐私獾"
+    },
+    "new_filters_added": {
+        "message": "新过滤被加入; 点击 <a id='options_url' target='_blank'>选择</a> 为了管理它们."
+    },
+    "non_tracker": {
+        "message": "以下域名看起来不在追踪你"
+    },
+    "non_tracker_tip": {
+        "message": "在目前隐私獾只差如果第三方在用 cookies, 第五代超文本标记语言 （HTML5）本地存储, 或帆布指纹追踪你的网络浏览. 有些域名可能在用隐私獾查不出来的追踪方式。"
+    },
+    "options_filter_settings": {
+        "message": "用户过滤设置"
+    },
+    "options_loading": {
+        "message": "加载中..."
+    },
+    "options_slider_text": {
+        "message": "隐私獾在整个网络上在保护您! 这些滑动条让您控制隐私獾怎么对待每个在您的浏览期间被标记的追踪器."
+    },
+    "options_social_disable": {
+        "message": "阻止社会网络工具替换"
+    },
+    "options_social_enable": {
+        "message": "允许社会网络工具更换"
+    },
+    "options_social_settings": {
+        "message": "社会网络工具设置"
+    },
+    "options_title": {
+        "message": "隐私獾选择"
+    },
+    "pb_detected": {
+        "message": "发现隐私獾"
+    },
+    "popup_blocked": {
+        "message": "这个网站没有第三方资源。"
+    },
+    "popup_disable_for_site": {
+        "message": "禁用隐私獾在这个网站上"
+    },
+    "popup_enable_for_site": {
+        "message": "允许隐私獾在这个网站上"
+    },
+    "popup_instructions": {
+        "message": "潜在 <a href='https://www.eff.org/privacybadger#trackers'>追踪器</a> 在这个网站上. 这些滑动条让你控制隐私獾怎么处理每一个. 你不应该需要调整他们，除非有什么东西出问题。"
+    },
+    "popup_noblocked": {
+        "message": "为什么没有任何东西被阻止?"
+    },
+    "popup_options_button": {
+        "message": "选择"
+    },
+    "privacy_badger": {
+        "message": "隐私獾"
+    },
+    "privacy_badger_what_is": {
+        "message": "隐私獾是什么?"
+    },
+    "remove_button": {
+        "description": "这是 '删除所选' 的按钮标签.",
+        "message": "删除所选"
+    },
+    "report_broken_site": {
+        "message": "报告损坏的网站"
+    },
+    "report_button": {
+        "message": "报告差错"
+    },
+    "report_cancel": {
+        "message": "取消"
+    },
+    "report_terms": {
+        "message": "这会自动把以下的信息送给电子前哨基金会: 您现在访问的网站，您的浏览器版本, 隐私獾版本, 和这个网站所有滑动条的状态."
+    },
+    "report_title": {
+        "message": "报告差错"
+    },
+    "report_text": {
+        "message": "在下面简要说明问题."
+    },
+    "report_input_label": {
+        "message": "描述"
+    },
+    "report_success": {
+        "message": "谢谢! 我们会调查。"
+    },
+    "report_fail": {
+        "message": "对不起，出现差错"
+    },
+    "report_close": {
+        "message": "关"
+    },
+    "whitelisted_domains": {
+        "description": "这是一个标签头.",
+        "message": "白名单域名"
+    },
+    "intro1": {
+        "description": "firstRun.html 介绍隐私獾",
+        "message": "隐私獾阻止监视你的广告和看不见的追踪器.  它的目的是阻止公司没有你的同意追踪你的网络浏览"
+    },
+    "intro2":{
+        "message": "这个扩展被设计来保护你的隐私从隐性的第三方追踪器. 在每一个轻球上我们送‘禁止追踪’头, 而且我们的扩展评估你被继续追踪的可能性. 如果算法认为可能性太高, 我们自动阻止你的请求被送给域名. 请了解隐私獾处于测试阶段, 而算法的测定并不确定那个域名在追踪你。"
+    },
+    "intro_3_states":{
+        "message": "我们的扩展有三个状态. "
+    },
+    "intro_red":{
+        "message": "红"
+    },
+    "intro_has_blocked":{
+        "message": " 意味隐私獾相信这个域名是一个追踪器, 而阻止了它. "
+    },
+    "intro_yellow":{
+        "message": "黄"
+    },
+    "intro_cookie_blocked":{
+        "message": "意味域名可能是一个追踪器， 或者可能是一个追踪器可是网站需要它, 所以隐私獾在允许它可是阻止了它的 cookies。"
+    },
+    "intro_green":{
+        "message": "绿"
+    },
+    "intro_no_tracker":{
+        "message": "意味隐私獾相信这不是一个追踪器. 如果你想重写浏览器的自动设置， 你可以点击浏览器的隐私獾图标. 或者你可以安静的浏览, 而隐私獾会一个一个的寻找和吃网络追踪器。"
+    },
+    "intro_hungry":{
+        "message":"隐私獾肚子饿的时候，没有任何东西可以停住它吃cookies！"
+    },
+    "intro_by_eff":{
+        "message": "一个电子前哨基金会的项目"
+    },
+    "intro_social_share": {
+        "message": "让世界知道您反对网路追踪"
+    },
+    "ded_privacy_badger_alert": {
+        "message": "隐私獾警告!"
+    },
+    "ded_logging_into": {
+        "message": "登录到 "
+    },
+    "ded_can_allow_to_track": {
+        "message": " 可以让它在网络上追踪你。"
+    },
+    "ded_only_allow": {
+        "message": "只允许 "
+    },
+    "ded_on": {
+        "message": " 开 "
+    },
+    "ded_always_allow": {
+        "message": "随时允许 "
+    },
+    "ded_never_allow": {
+        "message": "随时阻止第三方请求从 "
+    },
+    "options_pb_has_detected": {
+      "message": "隐私獾发现了"
+    },
+    "options_potential": {
+      "message": "潜在"
+    },
+    "options_tracking_domains": {
+      "message": "追踪域名"
+    },
+    "options_so_far": {
+      "message": "到目前为止。 这些滑动条让你控制隐私獾怎么处理每个追踪器。"
+    },
+    "slideshow_1": {
+      "message": " 你好， 我是隐私獾! 感谢你安装我. 我在这儿为了给你有用的建议, 所以我们可以合作."
+    },
+    "slideshow_2": {
+      "message": " 我会坐在你的浏览器里面，监督那些纪录你网上活动的东西."
+    },
+    "slideshow_3": {
+      "message": " 如果我发现一个表现像追踪器的东西, 我会阻止它.  "
+    },
+    "slideshow_4": {
+      "message": " 如果你单击我的图标你可以看见当前在标签上的潜在追踪器."
+    },
+    "slideshow_5": {
+      "message": " 如果滑动条是红色, 这意味我完全阻止了那个追踪器!  那个怀挡不回在打扰你了."
+    },
+    "slideshow_6": {
+      "message": " 如果滑动条是黄色, 这意味我一半儿阻止了那个追踪器. 我会进到我最大的努力阻止它追踪你通过吃它的cookies, 可是完全阻止它可能会损坏那个网站."
+    },
+    "slideshow_7": {
+      "message": " 如果滑动条是绿色， 我还不知道这个域名是否在追踪你. 它可能不是, 可是我还会监督它." 
+    },
+    "slideshow_8": {
+      "message": " 你第一次点击我的图标，你可能会发现所有的追踪器是绿色—别着急! 我更别的阻止追踪器的软件不通－我不立刻知道你要阻止什么, 你便浏览，我变学我应该阻止什么. 如果我还没有开始阻止任何东西, 试一试浏览到4-5个不同的网站. 之后我应该开始阻止普遍的追踪器."
+    },
+    "slideshow_9": {
+      "message": " 你越用我， 我学的越多，越可以阻止追踪你的东西!"
+    },
+    "slideshow_10": {
+      "message": " 如果你觉得我做错了决定关于一个追踪器, 你可以把滑动条搬到红为了阻止它, 黄为了一半儿阻止它, 以绿为了允许它."
+    },
+    "slideshow_11": {
+      "message": " 如果你换我的设定, 你随时可以点击撤销箭头，把设置放回我的控制下."
+    },
+    "slideshow_12": {
+      "message": " 如果你有问题访问一个网页， 而你觉得是我造成的问题, 你可以点击这里的禁用按钮. 我会进入睡眠，也不在会阻止那个网页上的东西."
+    },
+    "slideshow_13": {
+      "message": " 如果我在损坏一个网站, 请让我的开发人员知道所以他们可以修复这个问题! 点击这个按钮以报告问题."
+    },
+    "slideshow_14": {
+      "message": " 如果你要换别的设置, 你可以点击这个齿轮图标。"
+    },
+    "slideshow_15": {
+      "message": " 你当然也可以不碰这些设置, 而我会继续悄悄的吃掉我发现的追踪器."
+    },
+    "slideshow_16": {
+      "message": " 感谢你采取措施保护你的隐私! 如果你需要帮助你可以在这里点击, 而且可以在以下点击让世界知道你反对网络追踪."
+    }
+}

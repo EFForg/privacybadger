@@ -75,7 +75,7 @@
         "message": "Attiva Privacy Badger in questo sito"
     },
     "popup_instructions": {
-        "message": "<a href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker."
+        "message": "potenziali <a href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
     },
     "popup_noblocked": {
         "message": "Perchè non c'è niente bloccato?"
@@ -113,9 +113,6 @@
     },
     "report_input_label": {
         "message": "Descrizione"
-    },
-    "report_broken_site": {
-        "message": "Segnala sito malfunzionante"
     },
     "report_success": {
         "message": "Grazie! Lo indagheremo a fondo."
@@ -199,5 +196,53 @@
     },
     "options_so_far": {
       "message": "finora. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker."
+    },
+    "slideshow_1": {
+      "message": " Ciao, sono Privacy Badger! Grazie per avermi installato. Sono qui per darti alcuni preziosi consigli, in modo che tutto funzioni bene."
+    },
+    "slideshow_2": {
+      "message": " Starò seduto quassù in cima al tuo browser a cercare pubblicità spione e tracker che monitorano cosa stai facendo online."
+    },
+    "slideshow_3": {
+      "message": " Se scopro qualcosa che si comporta come un tracker, porrò fine alla cosa bloccandolo.  "
+    },
+    "slideshow_4": {
+      "message": " Se clicchi la mia icona vedrai l'elenco dei potenziali tracker nella scheda attuale."
+    },
+    "slideshow_5": {
+      "message": " Se l'interruttore è rosso, significa che ho bloccato quel tracker totalmente!  Quel mostro non ti darà più fastidio."
+    },
+    "slideshow_6": {
+      "message": " Se l'interruttore è giallo, significa che ho bloccato quel tracker parzialmente. Farò del mio meglio per impedire che ti tracci mangiando i suoi biscotti (cookie), ma bloccarlo totalmente potrebbe dare problemi alla pagina."
+    },
+    "slideshow_7": {
+      "message": " Se l'interruttore è verde significa che non riesco a capire se questo dominio ti stia già tracciando. Potrebbe non farlo, ma lo terrò sotto controllo.  "
+    },
+    "slideshow_8": {
+      "message": " La prima volta che clicchi la mia icona potresti notare che tutti i tracker sono verdi—non preoccuparti! Sono diverso da altri software che bloccano i tracker—invece di conoscere una lista di cose da bloccare subito, imparo cosa bloccare mentre navighi. Se non sto ancora bloccando nulla, prova a navigare per 4 o 5 siti diversi. Dovrei a quel punto iniziare a bloccare i tracker comuni."
+    },
+    "slideshow_9": {
+      "message": " Imparo mentre lavoro, quindi più mi usi più diventerò bravo a proteggerti dai quei tracker sfuggenti!"
+    },
+    "slideshow_10": {
+      "message": " Se pensi che abbia fatto la decisione sbagliata per un tracker, puoi muovere l'interruttore sul rosso per bloccarlo, giallo per un blocco parziale, verde per consentirlo."
+    },
+    "slideshow_11": {
+      "message": " Se cambi un'impostazione fatta da me, puoi sempre farla tornare sotto il mio controllo cliccando la freccia Indietro."
+    },
+    "slideshow_12": {
+      "message": " Se stai avendo problemi con una pagina e pensi che sia colpa mia, puoi disabilitarmi cliccando il pulsante qui. Andrò a dormire e non bloccherò nulla in quel sito."
+    },
+    "slideshow_13": {
+      "message": " Se sto rovinando una pagina, fallo sapere ai miei sviluppatori in modo che possano correggere il problema! Puoi farlo cliccando questo pulsante."
+    },
+    "slideshow_14": {
+      "message": " Se vuoi cambiare altre impostazioni, puoi cliccare l'icona di questo ingranaggio."
+    },
+    "slideshow_15": {
+      "message": " Ovviamente puoi anche ignorare tutte queste impostazioni e io continuerò a mangiare silenziosamente tutti i tracker che rilevo."
+    },
+    "slideshow_16": {
+      "message": " Grazie per aver fatto un semplice ma importante passo per proteggere la tua privacy! Puoi cliccare qui se ti serve ancora aiuto, oppure clicca sotto per fare sapere al mondo che stai prendendo posizione contro il tracciamento online."
     }
 }

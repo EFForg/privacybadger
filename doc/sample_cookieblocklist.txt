@@ -31,6 +31,7 @@
 @@||secure5.arcot.com^$third-party
 @@||cdn.arstechnica.net^$third-party
 @@||aspnetcdn.com^$third-party
+@@||c64.assets-yammer.com^$third-party
 @@||assetfiles.com^$third-party
 @@||authorize.net^$third-party
 @@||autoforums.com^$third-party
@@ -187,6 +188,7 @@
 @@||googleapis.com^$third-party
 @@||googlecode.com^$third-party
 @@||googlecommerce.com^$third-party
+@@||cdn.leafletjs.com^$third-party
 @@||lh4.googleusercontent.com^$third-party
 @@||googleusercontent.com^$third-party
 @@||googlevideo.com^$third-party
@@ -239,6 +241,9 @@
 @@||justin.tv^$third-party
 @@||jwpcdn.com^$third-party
 @@||jwpltx.com^$third-party
+@@||cdnapi.kaltura.com^$third-party
+@@||cdnbakmi.kaltura.com^$third-party
+@@||www.kaltura.com^$third-party
 @@||kampyle.com^$third-party
 @@||kataweb.it^$third-party
 @@||kickapps.com^$third-party
@@ -299,6 +304,7 @@
 @@||nfl.com^$third-party
 @@||nflcdn.com^$third-party
 @@||cdn3.nflxext.com^$third-party
+@@||nflxext.com^$third-party
 @@||ngfiles.com^$third-party
 @@||nj.com^$third-party
 @@||nmcdn.us^$third-party
@@ -335,6 +341,7 @@
 @@||piclens.com^$third-party
 @@||pinimg.com^$third-party
 @@||piratebay.org^$third-party
+@@||pistachio-cdn.graze.com^$third-party
 @@||pixietrixcomix.com^$third-party
 @@||plex.tv^$third-party
 @@||poll.fm^$third-party
@@ -392,6 +399,7 @@
 @@||cdn.static-economist.com^$third-party
 @@||staticflickr.com^$third-party
 @@||store.akamai.steamstatic.com^$third-party
+@@||steamusercontent.com^$third-party
 @@||stellaservice.com^$third-party
 @@||stripe.com^$third-party
 @@||surveygizmo.com^$third-party
@@ -402,6 +410,7 @@
 @@||targetimg2.com^$third-party
 @@||technorati.com^$third-party
 @@||theplatform.com^$third-party
+@@||tile.thunderforest.com^$third-party
 @@||timeinc.net^$third-party
 @@||tinypic.com^$third-party
 @@||tinyurl.com^$third-party
@@ -486,6 +495,8 @@
 @@||zope.net^$third-party
 @@||zopim.com^$third-party
 @@||zvents.com^$third-party
-@@||cdnapi.kaltura.com^$third-party
-@@||cdnbakmi.kaltura.com^$third-party
-@@||www.kaltura.com^$third-party
+@@||assets.nflxext.com^$third-party
+@@||assets.ubuntu.com^$third-party
+@@||y3.analytics.yahoo.com^$third-party
+@@||a.disquscdn.com^$third-party
+@@||uploads.disquscdn.com^$third-party

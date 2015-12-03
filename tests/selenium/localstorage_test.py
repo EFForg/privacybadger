@@ -17,6 +17,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
     - enabled
     - whitelistUrl
     - badgerHashes
+    - showCounter
 
     Also make sure that "disabledSites" is not initialized.
     """
@@ -52,6 +53,8 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
 
         disabled_sites = js("return ('disabledSites' in localStorage && "
                             "JSON.parse(localStorage.disabledSites).length > 0)")
+        self.assertEqual(js("return localStorage.showCounter"), "true");
+
         self.assertFalse(disabled_sites,
                          "Shouldn't have any disabledSites after installation")
         # TODO: do we expect currentVersion to be present after the first run?

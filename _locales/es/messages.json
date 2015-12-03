@@ -44,6 +44,9 @@
     "options_filter_settings": {
         "message": "Ajuste de Filtros del Usuario"
     },
+    "options_general_settings": {
+        "message": "Configuración general"
+    },
     "options_loading": {
         "message": "Cargando..."
     },
@@ -125,6 +128,9 @@
     },
     "report_close": {
         "message": "Cerrar"
+    },
+    "show_counter_checkbox": {
+        "message": "Mostrar recuento de elementos bloqueados"
     },
     "whitelisted_domains": {
         "description": "Esto es el encabezado de la pestaña.",
