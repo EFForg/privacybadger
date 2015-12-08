@@ -711,6 +711,27 @@ function syncUISelections() {
   }
 }
 
+/**
+ * if the query url pattern matches a tab, switch the module's tab object to that tab
+ * Convenience function for the test harness
+ * Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
+ */
+function setTabToUrl( query_url ) {
+  chrome.tabs.query( {url: query_url}, function(ta) {
+    if ( typeof ta == "undefined" ) {
+      console.log("error doing tabs query for " + query_url);
+      return;
+    }
+    if ( ta.length == 0 ) {
+      console.log("no match found in tabs query for " + query_url);
+      return;
+    } 
+    tabid = ta[0].id;
+    console.log("match found for query " + query_url + " tabId: " + tabid );
+    refreshPopup( tabid );
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   chrome.tabs.getSelected(null, function(tab) {
     console.log("from addEventListener");
