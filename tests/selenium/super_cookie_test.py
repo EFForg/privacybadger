@@ -7,7 +7,7 @@ import json
 
 
 class SuperCookieTest(pbtest.PBSeleniumTest):
-    """Make sure we detect potential supercookies."""
+    """Make sure we detect potential supercookies. """
 
     def has_supercookies(self, origin):
         """Check if the given origin has supercookies in PB's localStorage."""
