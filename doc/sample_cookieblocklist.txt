@@ -370,6 +370,7 @@
 @@||salesforce.com^$third-party
 @@||salsalabs.com^$third-party
 @@||sbnation.com^$third-party
+@@||securesuite.co.uk^$third-party
 @@||securitymetrics.com^$third-party
 @@||seeclickfix.com^$third-party
 @@||sgizmo.com^$third-party
