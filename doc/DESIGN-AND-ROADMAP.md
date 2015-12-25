@@ -66,7 +66,7 @@ domain](https://wiki.mozilla.org/Public_Suffix_List) plus one level of
 subdomain (eTLD+1), computed using
 [getBaseDomain](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIEffectiveTLDService)
 (which is built-in to Firefox; in Chrome we [ship a
-copy](https://github.com/EFForg/privacybadgerchrome/blob/master/lib/basedomain.js#L68).
+copy](https://github.com/EFForg/privacybadgerchrome/blob/master/lib/basedomain.js#L69).
 The accounting for which origins are trackers or not is performed by looking
 up how many first party fully qualified domain names (FQDNs) have been tracked by each
 of these eTLD + 1 origins.  This is a conservative choice, which avoids the
