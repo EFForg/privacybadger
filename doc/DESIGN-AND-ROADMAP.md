@@ -83,7 +83,7 @@ To illustrate this, suppose the site <tt>tracking.co.uk</tt> was embedded on
 every site on the Web, but each embed came from a randomly selected subdomain
 <tt>a.tracking.co.uk</tt>, <tt>b.tracking.co.uk</tt>,
 <tt>c.tracking.co.uk</tt>, etc.  Suppose the user visits
-<tt>www.news-example.com</tt>, <tt>search.jobs-example.info</tt>.
+<tt>www.news-example.com</tt> and <tt>search.jobs-example.info</tt>.
 
 The accounting data structure <tt>seenThirdParties</tt> would come to include:
 
