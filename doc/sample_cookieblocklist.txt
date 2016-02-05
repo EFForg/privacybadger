@@ -172,6 +172,7 @@
 @@||khms2.google.com^$third-party
 @@||khms3.google.com^$third-party
 @@||khms4.google.com^$third-party
+@@||labs.google.com^$third-party
 @@||maps.google.com^$third-party
 @@||maps-api-ssl.google.com^$third-party
 @@||mapsengine.google.com^$third-party
