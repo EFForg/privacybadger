@@ -501,4 +501,5 @@
 @@||y3.analytics.yahoo.com^$third-party
 @@||a.disquscdn.com^$third-party
 @@||uploads.disquscdn.com^$third-party
-@@||cookieblock.trackersimulator.org^$third-party
+@@||cookieblock.trackersimulate.org^$third-party
+@@||www.img-bahn.de^$third-party
