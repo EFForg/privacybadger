@@ -21,12 +21,14 @@ reduce breakage from the primary mechanism.
 
 Privacy Badger:
 
-1. Ensures your browser is sending the DNT: 1 header
+1. Ensures your browser is sending the DNT: 1 header (in some regulatory
+   environments, it is advisable to note "installing Privacy Badger will enable
+   Do Not Track" on your installation page / app store entry.
 2. Observes which first party origins a given third party origin is setting cookies on
    (certain cookies are deemed to be "low entropy", as discussed below)
    2a. Observes which first party origins a given third party is doing certain 
    types of fingerprinting on.
-   2b. Observes which first party origins a given third party setting certain types
+   2b. Observes which first party origins a given third party is setting certain types
    of supercookies on.
 3. If a third party origin receives a cookie, a supercookie, or makes 
    JavaScript fingerprinting API calls on 3 or more first party origins, this is deemed to be 
@@ -45,7 +47,7 @@ Privacy Badger:
    Privacy Badger uses three-state sliders (red → block, yellow → cookie block, green → allow) to convey this
    state in UI. We believe this is less confusing than the UI in many other
    blocking tools, which often leave the user confused about whether a visual
-   state representdddlocking or the opportunity to block.
+   state represents current blocking or the opportunity to block.
 6. Domains can agree to EFF's [Do Not Track policy](https://eff.org/dnt-policy). If a domain does this
    Privacy Badger will no longer block its traffic or cookies. If a
    first-party domain posts the policy, this applies to all third parties
