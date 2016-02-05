@@ -507,3 +507,4 @@
 @@||uploads.disquscdn.com^$third-party
 @@||cookieblock.trackersimulate.org^$third-party
 @@||www.img-bahn.de^$third-party
+@@||seatme.yelp.com^$third-party
