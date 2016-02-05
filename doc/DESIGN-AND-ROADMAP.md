@@ -68,7 +68,7 @@ domain](https://wiki.mozilla.org/Public_Suffix_List) plus one level of
 subdomain (eTLD+1), computed using
 [getBaseDomain](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIEffectiveTLDService)
 (which is built-in to Firefox; in Chrome we [ship a
-copy](https://github.com/EFForg/privacybadgerchrome/blob/master/lib/basedomain.js#L68).
+copy](https://github.com/EFForg/privacybadgerchrome/blob/master/lib/basedomain.js#L69).
 The accounting for which origins are trackers or not is performed by looking
 up how many first party fully qualified domain names (FQDNs) have been tracked by each
 of these eTLD + 1 origins.  This is a conservative choice, which avoids the
@@ -85,7 +85,7 @@ To illustrate this, suppose the site <tt>tracking.co.uk</tt> was embedded on
 every site on the Web, but each embed came from a randomly selected subdomain
 <tt>a.tracking.co.uk</tt>, <tt>b.tracking.co.uk</tt>,
 <tt>c.tracking.co.uk</tt>, etc.  Suppose the user visits
-<tt>www.news-example.com</tt>, <tt>search.jobs-example.info</tt>.
+<tt>www.news-example.com</tt> and <tt>search.jobs-example.info</tt>.
 
 The accounting data structure <tt>seenThirdParties</tt> would come to include:
 
@@ -111,7 +111,7 @@ The user can manually unblock specific subdomains as necessary via the popup men
 
 ##### What is a "low entropy" cookie?
 
-Our [current heuristic](https://github.com/EFForg/privacyBadgerchrome/blob/master/src/heuristicblocking.js#L578) is to assign "number of identifying bits" estimates to
+Our [current heuristic](https://github.com/EFForg/privacyBadgerchrome/blob/master/src/heuristicblocking.js#L563) is to assign "number of identifying bits" estimates to
 some known common cookie values, and to bound the sum of these to 12.
 Predetermined low-entropy cookies will not be identified as tracking, nor will
 combinations of them so long as their total estimated entropy is under 12 bits.
