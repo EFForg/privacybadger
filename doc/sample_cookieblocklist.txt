@@ -464,6 +464,7 @@
 @@||wishabi.com^$third-party
 @@||wistia.net^$third-party
 @@||wistia.com^$third-party
+@@||sslstatic.wix.com^$third-party
 @@||gatherer.wizards.com^$third-party
 @@||wordpress.com^$third-party
 @@||worldnow.com^$third-party
