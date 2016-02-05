@@ -223,6 +223,7 @@
 @@||imgfarm.com^$third-party
 @@||imgspice.com^$third-party
 @@||imgur.com^$third-party
+@@||imgix.net^$third-party
 @@||imshopping.com^$third-party
 @@||indeed.com^$third-party
 @@||inergizedigital.com^$third-party
