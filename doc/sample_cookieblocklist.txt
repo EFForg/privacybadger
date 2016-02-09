@@ -245,6 +245,7 @@
 @@||jwpltx.com^$third-party
 @@||cdnapi.kaltura.com^$third-party
 @@||cdnbakmi.kaltura.com^$third-party
+@@||cfvod.kaltura.com^$third-party
 @@||www.kaltura.com^$third-party
 @@||kampyle.com^$third-party
 @@||kataweb.it^$third-party
