@@ -134,8 +134,7 @@
 @@||flyertown.ca^$third-party
 @@||fontdeck.com^$third-party
 @@||fonts.com^$third-party
-@@||content.force.com^$third-party
-@@||secure.force.com^$third-party
+@@||force.com^$third-party
 @@||fuseservice.com^$third-party
 @@||140cc.v.fwmrm.net^$third-party
 @@||fyre.co^$third-party
@@ -164,6 +163,7 @@
 @@||cse.google.com^$third-party
 @@||developers.google.com^$third-party
 @@||docs.google.com^$third-party
+@@||feedburner.google.com^$third-party
 @@||groups.google.com^$third-party
 @@||kh.google.com^$third-party
 @@||khms0.google.com^$third-party
@@ -171,6 +171,7 @@
 @@||khms2.google.com^$third-party
 @@||khms3.google.com^$third-party
 @@||khms4.google.com^$third-party
+@@||labs.google.com^$third-party
 @@||maps.google.com^$third-party
 @@||maps-api-ssl.google.com^$third-party
 @@||mapsengine.google.com^$third-party
@@ -221,6 +222,7 @@
 @@||imgfarm.com^$third-party
 @@||imgspice.com^$third-party
 @@||imgur.com^$third-party
+@@||imgix.net^$third-party
 @@||imshopping.com^$third-party
 @@||indeed.com^$third-party
 @@||inergizedigital.com^$third-party
@@ -243,6 +245,7 @@
 @@||jwpltx.com^$third-party
 @@||cdnapi.kaltura.com^$third-party
 @@||cdnbakmi.kaltura.com^$third-party
+@@||cfvod.kaltura.com^$third-party
 @@||www.kaltura.com^$third-party
 @@||kampyle.com^$third-party
 @@||kataweb.it^$third-party
@@ -462,6 +465,7 @@
 @@||wishabi.com^$third-party
 @@||wistia.net^$third-party
 @@||wistia.com^$third-party
+@@||sslstatic.wix.com^$third-party
 @@||gatherer.wizards.com^$third-party
 @@||wordpress.com^$third-party
 @@||worldnow.com^$third-party
@@ -501,4 +505,7 @@
 @@||y3.analytics.yahoo.com^$third-party
 @@||a.disquscdn.com^$third-party
 @@||uploads.disquscdn.com^$third-party
-@@||cookieblock.trackersimulator.org^$third-party
+@@||cookieblock.trackersimulate.org^$third-party
+@@||www.img-bahn.de^$third-party
+@@||seatme.yelp.com^$third-party
+@@||firstlook.org^$third-party
