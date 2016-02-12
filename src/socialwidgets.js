@@ -42,6 +42,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/* globals chrome, document, window, console*/
 
 /**
  * The absolute path to the replacement buttons folder.
@@ -62,28 +63,28 @@ var trackerInfo;
  * Initializes the content script.
  */
 function initialize() {
-	// Get tracker info and check for initial blocks (that happened
-	// before content script was attached)
-	getTrackerData(function (trackers, trackerButtonsToReplace) {
+  // Get tracker info and check for initial blocks (that happened
+  // before content script was attached)
+  getTrackerData(function (trackers, trackerButtonsToReplace) {
 
-		trackerInfo = trackers;
+    trackerInfo = trackers;
 
-		// add the Content.css stylesheet to the page
-		var head = document.querySelector("head");
-		var stylesheetLinkElement = getStylesheetLinkElement(CONTENT_SCRIPT_STYLESHEET_PATH);
-		if (head != null) {
-			head.appendChild(stylesheetLinkElement);
-		}
+    // add the Content.css stylesheet to the page
+    var head = document.querySelector("head");
+    var stylesheetLinkElement = getStylesheetLinkElement(CONTENT_SCRIPT_STYLESHEET_PATH);
+    if (head !== null) {
+      head.appendChild(stylesheetLinkElement);
+    }
 
-		replaceInitialTrackerButtonsHelper(trackerButtonsToReplace);
-	});
+    replaceInitialTrackerButtonsHelper(trackerButtonsToReplace);
+  });
 
-	// Set up listener for blocks that happen after initial check
-        chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
-                if (request.replaceSocialWidget) {
-                        replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
-                }
-        });
+  // Set up listener for blocks that happen after initial check
+  chrome.runtime.onMessage.addListener( function(request/*, sender, sendResponse*/) {
+    if (request.replaceSocialWidget) {
+      replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
+    }
+  });
 }
 
 /**
@@ -94,58 +95,57 @@ function initialize() {
  * @return {Element} a replacement button element for the tracker
  */
 function createReplacementButtonImage(tracker) {
-	var buttonData = tracker.replacementButton;
+  var buttonData = tracker.replacementButton;
 
-	var button = document.createElement("img");
+  var button = document.createElement("img");
 
-	var buttonUrl = getReplacementButtonUrl(buttonData.imagePath);
-	var buttonType = buttonData.type;
-	var details = buttonData.details;
+  var buttonUrl = getReplacementButtonUrl(buttonData.imagePath);
+  var buttonType = buttonData.type;
+  var details = buttonData.details;
 
-	button.setAttribute("src", buttonUrl);
-	button.setAttribute("class", "privacyBadgerReplacementButton");
-	button.setAttribute("title", "PrivacyBadger has replaced this " + tracker.name
-		+ " button.");
+  button.setAttribute("src", buttonUrl);
+  button.setAttribute("class", "privacyBadgerReplacementButton");
+  button.setAttribute("title", "PrivacyBadger has replaced this " + 
+                            tracker.name + " button.");
 
-	switch (buttonType) {
-		case 0: // normal button type; just open a new window when clicked
-			var popupUrl = details + encodeURIComponent(window.location.href);
+  switch (buttonType) {
+    case 0: // normal button type; just open a new window when clicked
+      var popupUrl = details + encodeURIComponent(window.location.href);
 
-			button.addEventListener("click", function() {
-				window.open(popupUrl);
-			});
-		break;
+      button.addEventListener("click", function() {
+        window.open(popupUrl);
+      });
+    break;
 
-		case 1: // in place button type; replace the existing button with an
-		        // iframe when clicked
-			var iframeUrl = details + encodeURIComponent(window.location.href);
+    case 1: // in place button type; replace the existing button with an
+            // iframe when clicked
+      var iframeUrl = details + encodeURIComponent(window.location.href);
 
-			button.addEventListener("click", function() {
-				// for some reason, the callback function can execute more than
-				// once when the user clicks on a replacement button
-				// (it executes for the buttons that have been previously
-				// clicked as well)
-				replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, iframeUrl);
-			});
-		break;
+      button.addEventListener("click", function() {
+        // for some reason, the callback function can execute more than
+        // once when the user clicks on a replacement button
+        // (it executes for the buttons that have been previously
+        // clicked as well)
+        replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, iframeUrl);
+      });
+    break;
 
-		case 2: // in place button type; replace the existing button with code
-		        // specified in the Trackers file
-			button.addEventListener("click", function() {
-				// for some reason, the callback function can execute more than
-				// once when the user clicks on a replacement button
-				// (it executes for the buttons that have been previously
-				// clicked as well)
-				replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
-			});
-		break;
+    case 2: // in place button type; replace the existing button with code
+            // specified in the Trackers file
+      button.addEventListener("click", function() {
+        // for some reason, the callback function can execute more than
+        // once when the user clicks on a replacement button
+        // (it executes for the buttons that have been previously
+        // clicked as well)
+        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
+      });
+    break;
 
-		default:
-			throw "Invalid button type specified: " + buttonType;
-		break;
-	}
+    default:
+      throw "Invalid button type specified: " + buttonType;
+  }
 
-	return button;
+  return button;
 }
 
 /**
@@ -159,7 +159,7 @@ function createReplacementButtonImage(tracker) {
  * path in the replacement buttons folder
  */
 function getReplacementButtonUrl(replacementButtonLocation) {
-	return REPLACEMENT_BUTTONS_FOLDER_PATH + replacementButtonLocation;
+  return REPLACEMENT_BUTTONS_FOLDER_PATH + replacementButtonLocation;
 }
 
 /**
@@ -170,13 +170,13 @@ function getReplacementButtonUrl(replacementButtonLocation) {
  * @return {Element} the HTML link element for a stylesheet at the given URL
  */
 function getStylesheetLinkElement(url) {
-	var linkElement = document.createElement("link");
+  var linkElement = document.createElement("link");
 
-	linkElement.setAttribute("rel", "stylesheet");
-	linkElement.setAttribute("type", "text/css");
-	linkElement.setAttribute("href", url);
+  linkElement.setAttribute("rel", "stylesheet");
+  linkElement.setAttribute("type", "text/css");
+  linkElement.setAttribute("href", url);
 
-	return linkElement;
+  return linkElement;
 }
 
 /**
@@ -189,19 +189,19 @@ function getStylesheetLinkElement(url) {
  * @param {String} iframeUrl the URL of the iframe to replace the button
  */
 function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
-	unblockTracker(tracker, function() {
-		// check is needed as for an unknown reason this callback function is
-		// executed for buttons that have already been removed; we are trying
-		// to prevent replacing an already removed button
-		if (button.parentNode !== null) {
-			var iframe = document.createElement("iframe");
+  unblockTracker(tracker, function() {
+    // check is needed as for an unknown reason this callback function is
+    // executed for buttons that have already been removed; we are trying
+    // to prevent replacing an already removed button
+    if (button.parentNode !== null) {
+      var iframe = document.createElement("iframe");
 
-			iframe.setAttribute("src", iframeUrl);
-			iframe.setAttribute("class", "privacyBadgerOriginalButton");
+      iframe.setAttribute("src", iframeUrl);
+      iframe.setAttribute("class", "privacyBadgerOriginalButton");
 
-			button.parentNode.replaceChild(iframe, button);
-		}
-	});
+      button.parentNode.replaceChild(iframe, button);
+    }
+  });
 }
 
 /**
@@ -214,21 +214,21 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
  * @param {String} html the HTML code that should replace the button
  */
 function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
-	unblockTracker(tracker, function() {
-		// check is needed as for an unknown reason this callback function is
-		// executed for buttons that have already been removed; we are trying
-		// to prevent replacing an already removed button
-		if (button.parentNode !== null) {
-			var codeContainer = document.createElement("div");
-			codeContainer.innerHTML = html;
+  unblockTracker(tracker, function() {
+    // check is needed as for an unknown reason this callback function is
+    // executed for buttons that have already been removed; we are trying
+    // to prevent replacing an already removed button
+    if (button.parentNode !== null) {
+      var codeContainer = document.createElement("div");
+      codeContainer.innerHTML = html;
 
-			button.parentNode.replaceChild(codeContainer, button);
+      button.parentNode.replaceChild(codeContainer, button);
 
-			replaceScriptsRecurse(codeContainer);
+      replaceScriptsRecurse(codeContainer);
 
-			button.removeEventListener("click");
-		}
-	});
+      button.removeEventListener("click");
+    }
+  });
 }
 
 /**
@@ -239,16 +239,16 @@ function replaceScriptsRecurse(node) {
         if (node.getAttribute && node.getAttribute("type") == "text/javascript") {
                 var script  = document.createElement("script");
                 script.text = node.innerHTML;
-		script.src = node.src;
+    script.src = node.src;
                 node.parentNode.replaceChild(script, node);
         } else {
-		var i = 0;
-		var children = node.childNodes;
-		while ( i < children.length) {
+    var i = 0;
+    var children = node.childNodes;
+    while ( i < children.length) {
                         replaceScriptsRecurse(children[i]);
                         i++;
-		}
-	}
+    }
+  }
         return node;
 }
 
@@ -273,8 +273,7 @@ function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
  * Individually replaces tracker buttons blocked after initial check.
  */
 function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
-  if (trackerInfo == null) return;
-
+  if (trackerInfo === null) return;
   trackerInfo.forEach(function(tracker) {
     var replaceTrackerButtons = (tracker.domain == trackerDomain);
     if (replaceTrackerButtons) {
@@ -317,11 +316,11 @@ function replaceIndividualButton(tracker) {
 *                            replaced
 */
 function getTrackerData(callback) {
-	chrome.runtime.sendMessage({checkReplaceButton:document.location}, function(response) {
-		var trackers = response.trackers;
-		var trackerButtonsToReplace = response.trackerButtonsToReplace;
-		callback(trackers, trackerButtonsToReplace);
-	});
+  chrome.runtime.sendMessage({checkReplaceButton:document.location}, function(response) {
+    var trackers = response.trackers;
+    var trackerButtonsToReplace = response.trackerButtonsToReplace;
+    callback(trackers, trackerButtonsToReplace);
+  });
 }
 
 /**
@@ -333,11 +332,11 @@ function getTrackerData(callback) {
 *                            been unblocked
 */
 function unblockTracker(buttonUrls, callback) {
-	var request = {
-		"unblockSocialWidget" : true,
-		"buttonUrls": buttonUrls
-	};
-	chrome.runtime.sendMessage(request, callback);
+  var request = {
+    "unblockSocialWidget" : true,
+    "buttonUrls": buttonUrls
+  };
+  chrome.runtime.sendMessage(request, callback);
 }
 
 initialize();
