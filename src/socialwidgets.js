@@ -318,9 +318,11 @@ function replaceIndividualButton(tracker) {
 */
 function getTrackerData(callback) {
 	chrome.runtime.sendMessage({checkReplaceButton:document.location}, function(response) {
-		var trackers = response.trackers;
-		var trackerButtonsToReplace = response.trackerButtonsToReplace;
-		callback(trackers, trackerButtonsToReplace);
+	  if (response){
+	    var trackers = response.trackers;
+	    var trackerButtonsToReplace = response.trackerButtonsToReplace;
+	    callback(trackers, trackerButtonsToReplace);
+	  }
 	});
 }
 
@@ -340,4 +342,11 @@ function unblockTracker(buttonUrls, callback) {
 	chrome.runtime.sendMessage(request, callback);
 }
 
-initialize();
+chrome.runtime.sendMessage({
+  checkSocialWidgetReplacementEnabled: true
+}, function (checkSocialWidgetReplacementEnabled) {
+  if (!checkSocialWidgetReplacementEnabled) {
+    return;
+  }
+  initialize();
+});
