@@ -6,7 +6,7 @@ import sys
 import time
 import unittest
 
-import IPython
+#import IPython
 
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
 
