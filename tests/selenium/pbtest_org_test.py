@@ -20,7 +20,7 @@ PBTEST_ORG_TEST_RESULTS_TABLE_ID = "results"
 PASS = u'\u2713'
 FAIL = u'\u2717'
 
-class PBTest_Org(pbtest.PBSeleniumTest):
+class PBTest_Org_test(pbtest.PBSeleniumTest):
     """Run the pbtest.org website acceptance tests. Loads the pbtest.org test suite and assert that
        none of the tests failed. Ignores tests with a status of "undefined" and any tests not
        visible to the user. """
