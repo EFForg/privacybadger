@@ -103,6 +103,7 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
 	self.assertTrue( len(tr_states['executing']) == 0, msg="Problem test results execution on the server side.")
 
 	# now we have all the completed test results. complain about any failed tests.
+	print "pbtest_org_test: %d tests passed, %d tests failed, %d tests undefined" % ( len(tr_states['passed']), len(tr_states['failed']), len(tr_states['undefined']) )
 	failed_tests = [t.text for t in tr_states['failed']]
 	fail_msg = "%d tests failed: %s" % ( len(failed_tests), ", ".join(failed_tests) )
 	self.assertTrue( len(failed_tests) == 0, msg=fail_msg  )
