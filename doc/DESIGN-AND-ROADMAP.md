@@ -158,7 +158,7 @@ such situations, and triggering a request to the user to allow the request on
 this site, allow it across the web, or prevent it. 
 
 The login URLs that trigger this UI are [fetched from an
-EFF url](https://www.eff.org/files/domain_exception_list.txt).
+EFF url](https://www.eff.org/files/domain_exception_list.json).
 
 
 #### What are the states for domain responses?
