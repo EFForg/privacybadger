@@ -92,9 +92,11 @@ function initialize() {
  *
  * @param {Tracker} tracker the Tracker object for the button
  *
+ * @param {Element} trackerElem the tracking element that we are replacing
+ *
  * @return {Element} a replacement button element for the tracker
  */
-function createReplacementButtonImage(tracker) {
+function createReplacementButtonImage(tracker, trackerElem) {
   var buttonData = tracker.replacementButton;
 
   var button = document.createElement("img");
@@ -137,9 +139,16 @@ function createReplacementButtonImage(tracker) {
         // once when the user clicks on a replacement button
         // (it executes for the buttons that have been previously
         // clicked as well)
-        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
+        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details, null);
       });
     break;
+
+    case 3:
+      button.addEventListener("click", function() {
+        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, null, trackerElem);
+      });
+    break;
+
 
     default:
       throw "Invalid button type specified: " + buttonType;
@@ -212,15 +221,20 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
  * @param {Tracker} tracker the Tracker object for the tracker that should be
  *                          unblocked
  * @param {String} html the HTML code that should replace the button
+ * @param {Element} element the DOM Element that should replace the button
  */
-function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
+function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html, element) {
   unblockTracker(tracker, function() {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
       var codeContainer = document.createElement("div");
-      codeContainer.innerHTML = html;
+      if(html){
+        codeContainer.innerHTML = html;
+      } else {
+        codeContainer.innerHTML = element.outerHTML;
+      }
 
       button.parentNode.replaceChild(codeContainer, button);
 
@@ -273,7 +287,7 @@ function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
  * Individually replaces tracker buttons blocked after initial check.
  */
 function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
-  if (trackerInfo === null) return;
+  if (trackerInfo === null) { return; }
   trackerInfo.forEach(function(tracker) {
     var replaceTrackerButtons = (tracker.domain == trackerDomain);
     if (replaceTrackerButtons) {
@@ -298,7 +312,7 @@ function replaceIndividualButton(tracker) {
     console.log("Replacing social widget for " + tracker.name);
 
     var button =
-      createReplacementButtonImage(tracker);
+      createReplacementButtonImage(tracker, buttonToReplace);
 
     buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
   }
