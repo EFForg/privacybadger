@@ -87,6 +87,20 @@
 		}
 	},
 
+        "Soundcloud": {
+          "domain": "soundcloud.com",
+          "buttonSelectors": [
+            "iframe[src*='api.soundcloud.com']"
+          ],
+          "replacementButton": {
+            "details": "",
+            "unblockDomains": [
+              "https://w.soundcloud.com/"
+            ],
+            "imagePath": "soundcloud.png",
+            "type": 3
+          }
+        },
 	"LinkedIn": {
 		"domain": "platform.linkedin.com",
 		"buttonSelectors": [
