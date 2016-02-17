@@ -139,13 +139,13 @@ function createReplacementButtonImage(tracker, trackerElem) {
         // once when the user clicks on a replacement button
         // (it executes for the buttons that have been previously
         // clicked as well)
-        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details, null);
+        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
       });
     break;
 
     case 3:
       button.addEventListener("click", function() {
-        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, null, trackerElem);
+        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, trackerElem);
       });
     break;
 
@@ -220,20 +220,19 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
  * @param {Element} button the DOM element of the button to replace
  * @param {Tracker} tracker the Tracker object for the tracker that should be
  *                          unblocked
- * @param {String} html the HTML code that should replace the button
- * @param {Element} element the DOM Element that should replace the button
+ * @param {(String|Element)} html an HTML string or DOM Element that should replace the button
  */
-function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html, element) {
+function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
   unblockTracker(tracker, function() {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
       var codeContainer = document.createElement("div");
-      if(html){
-        codeContainer.innerHTML = html;
+      if('outerHTML' in html) {
+        codeContainer.innerHTML = html.outerHTML;
       } else {
-        codeContainer.innerHTML = element.outerHTML;
+        codeContainer.innerHTML = html;
       }
 
       button.parentNode.replaceChild(codeContainer, button);
