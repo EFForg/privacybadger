@@ -134,6 +134,7 @@
 @@||flyertown.ca^$third-party
 @@||fontdeck.com^$third-party
 @@||fonts.com^$third-party
+@@||fonts.net^$third-party
 @@||force.com^$third-party
 @@||fuseservice.com^$third-party
 @@||140cc.v.fwmrm.net^$third-party
