@@ -735,7 +735,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       var socialWidgetBlockList = getSocialWidgetBlockList();
       sendResponse(socialWidgetBlockList);
     }
-
   } else if (request.unblockSocialWidget) {
     var socialWidgetUrls = request.buttonUrls;
     unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
@@ -758,6 +757,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   } else if (request.checkEnabledAndThirdParty) {
     var pageHost = extractHostFromURL(sender.url);
     sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && isThirdParty(pageHost, tabHost));
+  } else if (request.checkSocialWidgetReplacementEnabled) {
+    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled());
   }
 
 });
