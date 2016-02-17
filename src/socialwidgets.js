@@ -229,10 +229,10 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
       var codeContainer = document.createElement("div");
-      if('outerHTML' in html) {
-        codeContainer.innerHTML = html.outerHTML;
-      } else {
+      if(typeof html == "string") {
         codeContainer.innerHTML = html;
+      } else {
+        codeContainer.innerHTML = html.outerHTML;
       }
 
       button.parentNode.replaceChild(codeContainer, button);
