@@ -42,8 +42,9 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/* globals chrome */
 
-require.scopes["socialwidgetloader"] = (function() {
+require.scopes.socialwidgetloader = (function() {
 
 var exports = {};
 exports.loadSocialWidgetsFromFile = loadSocialWidgetsFromFile;
