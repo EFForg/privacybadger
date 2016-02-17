@@ -48,6 +48,7 @@
 @@||bloxcms.com^$third-party
 @@||boldchat.com^$third-party
 @@||bootstrapcdn.com^$third-party
+@@||braintreegateway.com^$third-party
 @@||brcdn.com^$third-party
 @@||break.com^$third-party
 @@||breakingburner.com^$third-party
