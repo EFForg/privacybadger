@@ -28,7 +28,7 @@ class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
 
     def assert_pass_opera_cookie_test(self, url, test_name):
-        self.driver.get(url)
+        self.load_url(url)
         self.assertEqual("PASS",
              self.js("return document.getElementById('result').innerHTML"),
              "Cookie test failed: %s" % test_name)
@@ -49,21 +49,21 @@ class CookieTest(pbtest.PBSeleniumTest):
 	# fixme: check for chrome settings for third party cookies?
 
 	# load the first site with the third party code that reads and writes a cookie
-        self.driver.get( PB_CHROME_SITE1_URL )
+        self.load_url( PB_CHROME_SITE1_URL )
 	window_utils.close_windows_with_url( self.driver, PB_CHROME_FR_URL )
 	self.load_pb_ui( PB_CHROME_SITE1_URL )
 	self.get_tracker_state()
 	self.assertTrue( self.nonTrackers.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
 
 	# go to second site
-        self.driver.get( PB_CHROME_SITE2_URL )
+        self.load_url( PB_CHROME_SITE2_URL )
 	window_utils.close_windows_with_url( self.driver, PB_CHROME_SITE1_URL )
 	self.load_pb_ui( PB_CHROME_SITE2_URL )
 	self.get_tracker_state()
 	self.assertTrue( self.nonTrackers.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
 
 	# go to third site
-        self.driver.get( PB_CHROME_SITE3_URL )
+        self.load_url( PB_CHROME_SITE3_URL )
 	window_utils.close_windows_with_url( self.driver, PB_CHROME_SITE2_URL )
 	self.load_pb_ui( PB_CHROME_SITE3_URL )
 	self.get_tracker_state()
@@ -73,7 +73,7 @@ class CookieTest(pbtest.PBSeleniumTest):
 	# it can take a long time for the UI to be updated, so retry a number of
 	# times before giving up. See bug #702.
 	print "this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed"
-        self.driver.get( PB_CHROME_SITE1_URL )
+        self.load_url( PB_CHROME_SITE1_URL )
 	window_utils.close_windows_with_url( self.driver, PB_CHROME_SITE3_URL )
 	for i in range(60):
 		self.load_pb_ui( PB_CHROME_SITE1_URL )
@@ -112,7 +112,7 @@ class CookieTest(pbtest.PBSeleniumTest):
 	button = self.driver.find_element_by_id("newwindowbutton")
 	button.click()
 	window_utils.switch_to_window_with_url( self.driver, "about:blank" )
-	self.driver.get(PB_CHROME_PU_URL)
+	self.load_url(PB_CHROME_PU_URL)
 
 	# use the new convenience function to get the popup populated with status information for the correct url
 	window_utils.switch_to_window_with_url( self.driver, PB_CHROME_PU_URL )
