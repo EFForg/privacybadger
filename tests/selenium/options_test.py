@@ -23,8 +23,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             (By.CSS_SELECTOR, css_selector)))
 
     def test_page_title(self):
-        self.driver.get(pbtest.PB_CHROME_BG_URL)  # load a dummy page
-        self.driver.get(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
+        self.load_url(pbtest.PB_CHROME_BG_URL)  # load a dummy page
+        self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
         localized_title = self.js('return i18n.getMessage("options_title")')
         try:
             WebDriverWait(self.driver, 3).until(EC.title_contains(localized_title))

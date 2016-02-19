@@ -10,6 +10,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from time import sleep
 
 # PB_EXT_BG_URL_BASE = "chrome-extension://pkehgijcmpdhfbdbbnkijodmdjhbjlgp/"
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
@@ -32,6 +33,11 @@ class PBSeleniumTest(unittest.TestCase):
             self.vdisplay.start()
         self.driver = self.get_chrome_driver()
         self.js = self.driver.execute_script
+
+    def load_url(self, url, wait_on_site=0):
+        """Load a URL and wait before returning."""
+        self.driver.get(url)
+        sleep(wait_on_site)
 
     def get_extension_path(self):
         """Return the path to the extension to be tested."""

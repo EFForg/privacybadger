@@ -45,7 +45,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
             self.assertEqual(PB_POLICY_HASH_LEN, len(v))  # check hash length
 
     def test_should_init_local_storage_entries(self):
-        self.driver.get(pbtest.PB_CHROME_BG_URL)
+        self.load_url(pbtest.PB_CHROME_BG_URL)
         js = self.js
         self.check_policy_download()
         self.assertEqual(js("return localStorage.whitelistUrl"),

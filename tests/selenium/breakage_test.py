@@ -15,11 +15,11 @@ class Test(pbtest.PBSeleniumTest):
     add Reddit comments etc."""
 
     def test_should_load_eff_org(self):
-        self.driver.get("https://www.eff.org")
+        self.load_url("https://www.eff.org")
         WebDriverWait(self.driver, 10).until(EC.title_contains("Electronic Frontier Foundation"))
 
     def test_should_search_google(self):
-        self.driver.get("https://www.google.com/")
+        self.load_url("https://www.google.com/")
         qry_el = self.driver.find_element_by_name("q")
         qry_el.send_keys("EFF")  # search term
         qry_el.submit()
