@@ -48,6 +48,7 @@
 @@||bloxcms.com^$third-party
 @@||boldchat.com^$third-party
 @@||bootstrapcdn.com^$third-party
+@@||braintreegateway.com^$third-party
 @@||brcdn.com^$third-party
 @@||break.com^$third-party
 @@||breakingburner.com^$third-party
@@ -134,6 +135,7 @@
 @@||flyertown.ca^$third-party
 @@||fontdeck.com^$third-party
 @@||fonts.com^$third-party
+@@||fonts.net^$third-party
 @@||force.com^$third-party
 @@||fuseservice.com^$third-party
 @@||140cc.v.fwmrm.net^$third-party
