@@ -240,6 +240,13 @@ var Utils = exports.Utils = {
   },
 
   /**
+   * interface to get the current whitelisted domains
+   */
+  listOriginsWherePrivacyBadgerIsDisabled: function(){
+    return JSON.parse(localStorage.disabledSites);
+  },
+
+  /**
    * remove an origin from the disabledSites list
    *
    * @param {String} origin The origin to disable the PB for
