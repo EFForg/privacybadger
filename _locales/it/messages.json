@@ -41,6 +41,9 @@
     "non_tracker_tip": {
         "message": "Attualmente Privacy Badger controlla solo se terze parti stanno usando dei cookie, il local storage HTML5 o le impronte canvas per tracciare la tua navigazione. Alcuni di questi domini potrebbero usare metodi di tracciamento che Privacy Badger non può rilevare."
     },
+    "options_domain_search": {
+        "message": "Cerca i domini"
+    },
     "options_filter_settings": {
         "message": "Impostazioni filtri utente"
     },
