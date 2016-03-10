@@ -511,3 +511,6 @@
 @@||www.img-bahn.de^$third-party
 @@||seatme.yelp.com^$third-party
 @@||firstlook.org^$third-party
+@@||tkx2-prod.anvato.net^$third-party
+@@||up.anv.bz^$third-party
+@@||mcp-media5.anvato.net^$third-party
