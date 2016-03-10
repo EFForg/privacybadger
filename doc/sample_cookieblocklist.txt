@@ -159,6 +159,7 @@
 @@||gogousenet.com^$third-party
 @@||accounts.google.com^$third-party
 @@||apis.google.com^$third-party
+@@||calendar.google.com^$third-party
 @@||checkout.google.com^$third-party
 @@||clients1.google.com^$third-party
 @@||consent.google.com^$third-party
