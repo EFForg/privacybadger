@@ -35,6 +35,7 @@
 @@||assetfiles.com^$third-party
 @@||authorize.net^$third-party
 @@||autoforums.com^$third-party
+@@||bac-assets.com^$third-party
 @@||bandcamp.com^$third-party
 @@||bankid.no^$third-party
 @@||bankrate.com^$third-party
