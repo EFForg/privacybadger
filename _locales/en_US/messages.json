@@ -164,6 +164,9 @@
     "intro_social_share": {
         "message": "Let the world know that you are taking a stand against online tracking"
     },
+    "intro_text": {
+        "message": "You're now protected by Privacy Badger. To learn how Privacy Badger works, click below for a quick tutorial."
+    },
     "ded_privacy_badger_alert": {
         "message": "Privacy Badger Alert!"
     },
@@ -216,7 +219,7 @@
       "message": " If the slider is yellow, that means that I have partially blocked that tracker. I will do my best to prevent it from tracking you by eating its cookies, but blocking it entirely might break the page."
     },
     "slideshow_7": {
-      "message": " If the slider is green that means that I can't tell if this domain is tracking you yet. It might not be, but I will still keep an eye on it." 
+      "message": " If the slider is green that means that I can't tell if this domain is tracking you yet. It might not be, but I will still keep an eye on it."
     },
     "slideshow_8": {
       "message": " The first time you click my icon you might see that all the trackers are green—don't worry! I'm different from other tracker blocking software—instead of knowing a list of things to block right away, I learn what to block as you browse. If I'm not blocking anything yet, try browsing around to 4 or 5 different websites. I should start blocking common trackers after that."
