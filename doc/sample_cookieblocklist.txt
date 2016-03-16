@@ -150,6 +150,7 @@
 @@||geoplugin.net^$third-party
 @@||geotrust.com^$third-party
 @@||getpocket.com^$third-party
+@@||giant.gfycat.com^$third-party
 @@||ggpht.com^$third-party
 @@||github.com^$third-party
 @@||githubusercontent.com^$third-party
