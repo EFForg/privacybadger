@@ -516,3 +516,4 @@
 @@||tkx2-prod.anvato.net^$third-party
 @@||up.anv.bz^$third-party
 @@||mcp-media5.anvato.net^$third-party
+@@||bcbits.com^$third-party
