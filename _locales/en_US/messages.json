@@ -173,6 +173,9 @@
     "intro_social_share": {
         "message": "Let the world know that you are taking a stand against online tracking"
     },
+    "intro_text": {
+        "message": "You're now protected by Privacy Badger. To learn how Privacy Badger works, click below for a quick tutorial."
+    },
     "ded_privacy_badger_alert": {
         "message": "Privacy Badger Alert!"
     },
