@@ -43,7 +43,12 @@
         }
       });
 
-      $(".jcarousel-control-next").click(setSeenComic);
+      var escapeThing = document.getElementById("fittslaw");
+      escapeThing.addEventListener('click', function() {
+          setSeenComic();
+      })
+
+      $(".jcarousel-control-prev-next").click(setSeenComic);
       $(".jcarousel-pagination").click(setSeenComic);
         
       function setSeenComic() {
