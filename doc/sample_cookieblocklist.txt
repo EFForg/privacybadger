@@ -2,6 +2,7 @@
 @@||122.2o7.net^$third-party
 @@||5min.com^$third-party
 @@||accuweather.com^$third-party
+@@||auth.adobe.com^$third-party
 @@||wwwimages.adobe.com^$third-party
 @@||xsdownload.adobe.com^$third-party
 @@||akamai.net^$third-party
@@ -134,6 +135,7 @@
 @@||fling.com^$third-party
 @@||flowplayer.org^$third-party
 @@||flyertown.ca^$third-party
+@@||adm.fwmrm.net^$third-party
 @@||fontdeck.com^$third-party
 @@||fonts.com^$third-party
 @@||fonts.net^$third-party
