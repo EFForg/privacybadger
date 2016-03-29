@@ -128,6 +128,9 @@
 @@||feedburner.com^$third-party
 @@||financialcontent.com^$third-party
 @@||findnsave.com^$third-party
+@@||frz.io^$third-party
+@@||fz.io^$third-party
+@@||fzcdn.net^$third-party
 @@||hello.firefox.com^$third-party
 @@||flattr.com^$third-party
 @@||flickr.com^$third-party
