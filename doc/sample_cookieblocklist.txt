@@ -420,6 +420,7 @@
 @@||surveymonkey.com^$third-party
 @@||syracuse.com^$third-party
 @@||public.tableausoftware.com^$third-party
+@@||c.tadst.com^$third-party
 @@||targetimg1.com^$third-party
 @@||targetimg2.com^$third-party
 @@||technorati.com^$third-party
