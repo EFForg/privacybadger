@@ -171,6 +171,7 @@
 @@||cse.google.com^$third-party
 @@||developers.google.com^$third-party
 @@||docs.google.com^$third-party
+@@||drive.google.com^$third-party
 @@||feedburner.google.com^$third-party
 @@||groups.google.com^$third-party
 @@||kh.google.com^$third-party
