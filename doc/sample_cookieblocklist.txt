@@ -129,6 +129,9 @@
 @@||feedburner.com^$third-party
 @@||financialcontent.com^$third-party
 @@||findnsave.com^$third-party
+@@||frz.io^$third-party
+@@||fz.io^$third-party
+@@||fzcdn.net^$third-party
 @@||hello.firefox.com^$third-party
 @@||flattr.com^$third-party
 @@||flickr.com^$third-party
@@ -170,6 +173,7 @@
 @@||cse.google.com^$third-party
 @@||developers.google.com^$third-party
 @@||docs.google.com^$third-party
+@@||drive.google.com^$third-party
 @@||feedburner.google.com^$third-party
 @@||groups.google.com^$third-party
 @@||kh.google.com^$third-party
@@ -418,6 +422,7 @@
 @@||surveymonkey.com^$third-party
 @@||syracuse.com^$third-party
 @@||public.tableausoftware.com^$third-party
+@@||c.tadst.com^$third-party
 @@||targetimg1.com^$third-party
 @@||targetimg2.com^$third-party
 @@||technorati.com^$third-party
@@ -520,3 +525,4 @@
 @@||tkx2-prod.anvato.net^$third-party
 @@||up.anv.bz^$third-party
 @@||mcp-media5.anvato.net^$third-party
+@@||bcbits.com^$third-party
