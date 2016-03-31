@@ -129,6 +129,7 @@
 @@||financialcontent.com^$third-party
 @@||findnsave.com^$third-party
 @@||frz.io^$third-party
+@@||build.origami.ft.com^$third-party
 @@||fz.io^$third-party
 @@||fzcdn.net^$third-party
 @@||hello.firefox.com^$third-party
