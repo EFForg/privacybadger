@@ -385,6 +385,10 @@
 @@||salesforce.com^$third-party
 @@||salsalabs.com^$third-party
 @@||sbnation.com^$third-party
+@@||schd.ws^$third-party
+@@||sched.org^$third-party
+@@||scribd.com^$third-party
+@@||scribdassets.com^$third-party
 @@||securesuite.co.uk^$third-party
 @@||securitymetrics.com^$third-party
 @@||seeclickfix.com^$third-party
