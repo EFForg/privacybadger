@@ -2,6 +2,7 @@
 @@||122.2o7.net^$third-party
 @@||5min.com^$third-party
 @@||accuweather.com^$third-party
+@@||auth.adobe.com^$third-party
 @@||wwwimages.adobe.com^$third-party
 @@||xsdownload.adobe.com^$third-party
 @@||akamai.net^$third-party
@@ -137,6 +138,7 @@
 @@||fling.com^$third-party
 @@||flowplayer.org^$third-party
 @@||flyertown.ca^$third-party
+@@||adm.fwmrm.net^$third-party
 @@||fontdeck.com^$third-party
 @@||fonts.com^$third-party
 @@||fonts.net^$third-party
@@ -383,6 +385,10 @@
 @@||salesforce.com^$third-party
 @@||salsalabs.com^$third-party
 @@||sbnation.com^$third-party
+@@||schd.ws^$third-party
+@@||sched.org^$third-party
+@@||scribd.com^$third-party
+@@||scribdassets.com^$third-party
 @@||securesuite.co.uk^$third-party
 @@||securitymetrics.com^$third-party
 @@||seeclickfix.com^$third-party
