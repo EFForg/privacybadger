@@ -73,37 +73,34 @@ function closeOverlay() {
  * Init function. Showing/hiding popup.html elements and setting up event handler
  */
 function init() {
-  console.log("Initializing popup.js");
+  var nag = $("#instruction");
+  var outer = $("#instruction-outer");
 
-  $("#firstRun").hide();
   var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false; 
   console.log(seenComic);
 
-  function setSeenComic() {
+  function _setSeenComic() {
     localStorage.setItem("seenComic", "true");
-  };
+  }
 
-  var thing = document.getElementById("instruction");
-  var escapeThing = document.getElementById("fittslaw");
+  function _hideNag(){
+    _setSeenComic();
+    nag.fadeOut();
+    outer.fadeOut();
+  }
+
   if (!seenComic) {
-    $("#firstRun").show(); 
-    console.log(seenComic);
-	//tutorial overlay with link to comic
-	  escapeThing.addEventListener('click', function() {
-		thing.style.display = 'none';
-    setSeenComic();
-	  })
-   }
-  	else {
-		thing.style.display = 'none';
-	}
-
-  // Attach event listeners
-  $("#firstRun").click(function() {
-    chrome.tabs.create({
-      url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+    nag.show(); 
+    outer.show();
+    // Attach event listeners
+    $('#fittslaw').click(_hideNag);
+    $("#firstRun").click(function() {
+      chrome.tabs.create({
+        url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+      });
+      _hideNag();
     });
-  });
+  } 
 
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
