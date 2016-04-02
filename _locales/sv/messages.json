@@ -199,5 +199,8 @@
     },
     "options_so_far": {
       "message": "än så länge. Dessa reglage låter dig justera hur Privacy Badger hanterar varje spanare."
+    },
+    "donate_to_eff": {
+      "message": "Donate to EFF"
     }
 }

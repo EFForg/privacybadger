@@ -256,5 +256,9 @@
     },
     "slideshow_16": {
       "message": " Thanks for taking an important, easy step toward protecting your privacy! You can click here if you need help again, and you can click below to let the world know you take a stand against online tracking."
+    },
+    "donate_to_eff": {
+      "message": "Donate to EFF"
     }
+
 }

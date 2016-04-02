@@ -104,6 +104,11 @@ function init() {
 
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
+  $("#donate").click(function() {
+    chrome.tabs.create({
+      url: "https://supporters.eff.org/donate/support-privacy-badger"
+    });
+  });
   $("#error_input").attr("placeholder", i18n.getMessage("error_input"));
 
   var overlay = $('#overlay');
