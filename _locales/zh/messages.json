@@ -244,5 +244,8 @@
     },
     "slideshow_16": {
       "message": " 感谢你采取措施保护你的隐私! 如果你需要帮助你可以在这里点击, 而且可以在以下点击让世界知道你反对网络追踪."
+    },
+    "donate_to_eff": {
+      "message": "Donate to EFF"
     }
 }

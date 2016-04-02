@@ -113,6 +113,9 @@
     "whitelisted_domains": {
         "description": "Intitulé de l'onglet.",
         "message": "Noms de domaine acceptés"
+    },
+    "donate_to_eff": {
+      "message": "Donate to EFF"
     }
 }
 

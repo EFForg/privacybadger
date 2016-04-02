@@ -169,5 +169,8 @@
     },
     "ded_never_allow": {
         "message": "Immer Anfragen Dritter blockieren von "
+    },
+    "donate_to_eff": {
+      "message": "Donate to EFF"
     }
 }
