@@ -2,6 +2,7 @@
 @@||122.2o7.net^$third-party
 @@||5min.com^$third-party
 @@||accuweather.com^$third-party
+@@||auth.adobe.com^$third-party
 @@||wwwimages.adobe.com^$third-party
 @@||xsdownload.adobe.com^$third-party
 @@||akamai.net^$third-party
@@ -35,6 +36,7 @@
 @@||assetfiles.com^$third-party
 @@||authorize.net^$third-party
 @@||autoforums.com^$third-party
+@@||bac-assets.com^$third-party
 @@||bandcamp.com^$third-party
 @@||bankid.no^$third-party
 @@||bankrate.com^$third-party
@@ -48,6 +50,7 @@
 @@||bloxcms.com^$third-party
 @@||boldchat.com^$third-party
 @@||bootstrapcdn.com^$third-party
+@@||braintreegateway.com^$third-party
 @@||brcdn.com^$third-party
 @@||break.com^$third-party
 @@||breakingburner.com^$third-party
@@ -126,16 +129,20 @@
 @@||feedburner.com^$third-party
 @@||financialcontent.com^$third-party
 @@||findnsave.com^$third-party
+@@||frz.io^$third-party
+@@||fz.io^$third-party
+@@||fzcdn.net^$third-party
 @@||hello.firefox.com^$third-party
 @@||flattr.com^$third-party
 @@||flickr.com^$third-party
 @@||fling.com^$third-party
 @@||flowplayer.org^$third-party
 @@||flyertown.ca^$third-party
+@@||adm.fwmrm.net^$third-party
 @@||fontdeck.com^$third-party
 @@||fonts.com^$third-party
-@@||content.force.com^$third-party
-@@||secure.force.com^$third-party
+@@||fonts.net^$third-party
+@@||force.com^$third-party
 @@||fuseservice.com^$third-party
 @@||140cc.v.fwmrm.net^$third-party
 @@||fyre.co^$third-party
@@ -148,6 +155,7 @@
 @@||geoplugin.net^$third-party
 @@||geotrust.com^$third-party
 @@||getpocket.com^$third-party
+@@||giant.gfycat.com^$third-party
 @@||ggpht.com^$third-party
 @@||github.com^$third-party
 @@||githubusercontent.com^$third-party
@@ -158,12 +166,15 @@
 @@||gogousenet.com^$third-party
 @@||accounts.google.com^$third-party
 @@||apis.google.com^$third-party
+@@||calendar.google.com^$third-party
 @@||checkout.google.com^$third-party
 @@||clients1.google.com^$third-party
 @@||consent.google.com^$third-party
 @@||cse.google.com^$third-party
 @@||developers.google.com^$third-party
 @@||docs.google.com^$third-party
+@@||drive.google.com^$third-party
+@@||feedburner.google.com^$third-party
 @@||groups.google.com^$third-party
 @@||kh.google.com^$third-party
 @@||khms0.google.com^$third-party
@@ -171,6 +182,7 @@
 @@||khms2.google.com^$third-party
 @@||khms3.google.com^$third-party
 @@||khms4.google.com^$third-party
+@@||labs.google.com^$third-party
 @@||maps.google.com^$third-party
 @@||maps-api-ssl.google.com^$third-party
 @@||mapsengine.google.com^$third-party
@@ -183,6 +195,7 @@
 @@||plus.google.com^$third-party
 @@||spreadsheets.google.com^$third-party
 @@||talkgadget.google.com^$third-party
+@@||translate.google.com^$third-party
 @@||www.google.com^$third-party
 @@||ajax.googleapis.com^$third-party
 @@||googleapis.com^$third-party
@@ -221,6 +234,7 @@
 @@||imgfarm.com^$third-party
 @@||imgspice.com^$third-party
 @@||imgur.com^$third-party
+@@||imgix.net^$third-party
 @@||imshopping.com^$third-party
 @@||indeed.com^$third-party
 @@||inergizedigital.com^$third-party
@@ -243,6 +257,7 @@
 @@||jwpltx.com^$third-party
 @@||cdnapi.kaltura.com^$third-party
 @@||cdnbakmi.kaltura.com^$third-party
+@@||cfvod.kaltura.com^$third-party
 @@||www.kaltura.com^$third-party
 @@||kampyle.com^$third-party
 @@||kataweb.it^$third-party
@@ -370,6 +385,11 @@
 @@||salesforce.com^$third-party
 @@||salsalabs.com^$third-party
 @@||sbnation.com^$third-party
+@@||schd.ws^$third-party
+@@||sched.org^$third-party
+@@||scribd.com^$third-party
+@@||scribdassets.com^$third-party
+@@||securesuite.co.uk^$third-party
 @@||securitymetrics.com^$third-party
 @@||seeclickfix.com^$third-party
 @@||sgizmo.com^$third-party
@@ -406,6 +426,7 @@
 @@||surveymonkey.com^$third-party
 @@||syracuse.com^$third-party
 @@||public.tableausoftware.com^$third-party
+@@||c.tadst.com^$third-party
 @@||targetimg1.com^$third-party
 @@||targetimg2.com^$third-party
 @@||technorati.com^$third-party
@@ -461,6 +482,7 @@
 @@||wishabi.com^$third-party
 @@||wistia.net^$third-party
 @@||wistia.com^$third-party
+@@||sslstatic.wix.com^$third-party
 @@||gatherer.wizards.com^$third-party
 @@||wordpress.com^$third-party
 @@||worldnow.com^$third-party
@@ -500,3 +522,11 @@
 @@||y3.analytics.yahoo.com^$third-party
 @@||a.disquscdn.com^$third-party
 @@||uploads.disquscdn.com^$third-party
+@@||cookieblock.trackersimulate.org^$third-party
+@@||www.img-bahn.de^$third-party
+@@||seatme.yelp.com^$third-party
+@@||firstlook.org^$third-party
+@@||tkx2-prod.anvato.net^$third-party
+@@||up.anv.bz^$third-party
+@@||mcp-media5.anvato.net^$third-party
+@@||bcbits.com^$third-party

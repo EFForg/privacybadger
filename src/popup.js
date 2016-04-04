@@ -1,7 +1,7 @@
 /*
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
- * Derived from Adblock Plus 
+ * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
@@ -42,7 +42,6 @@ for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
 }
 
-
 with(require("filterClasses"))
 {
   this.Filter = Filter;
@@ -59,6 +58,7 @@ with(require("subscriptionClasses"))
 var FilterStorage = require("filterStorage").FilterStorage;
 var matcherStore = require("matcher").matcherStore;
 var Utils = require("utils").Utils;
+var htmlUtils = require("htmlutils").htmlUtils;
 
 var tab = null;
 
@@ -74,12 +74,29 @@ function closeOverlay() {
  */
 function init() {
   console.log("Initializing popup.js");
-  
+
   $("#firstRun").hide();
-  var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false;
+  var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false; 
+  console.log(seenComic);
+
+  function setSeenComic() {
+    localStorage.setItem("seenComic", "true");
+  };
+
+  var thing = document.getElementById("instruction");
+  var escapeThing = document.getElementById("fittslaw");
   if (!seenComic) {
-    $("#firstRun").show();
-  }
+    $("#firstRun").show(); 
+    console.log(seenComic);
+	//tutorial overlay with link to comic
+	  escapeThing.addEventListener('click', function() {
+		thing.style.display = 'none';
+    setSeenComic();
+	  })
+   }
+  	else {
+		thing.style.display = 'none';
+	}
 
   // Attach event listeners
   $("#firstRun").click(function() {
@@ -91,7 +108,7 @@ function init() {
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
   $("#error_input").attr("placeholder", i18n.getMessage("error_input"));
-  //$("#enabled").click(toggleEnabled);
+
   var overlay = $('#overlay');
   $("#error").click(function(){
       overlay.toggleClass('active');
@@ -221,8 +238,8 @@ function revertDomainControl(e){
   var origin = $elm.data('origin');
   var original_action = $elm.data('original-action');
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var stores = {'block': 'userRed', 
-                'cookieblock': 'userYellow', 
+  var stores = {'block': 'userRed',
+                'cookieblock': 'userYellow',
                 'noaction': 'userGreen'};
   var filter = "||" + origin + "^$third-party";
   var siteFilter = "@@||" + origin + "^$third-party,domain=" + getHostForTab(tabId);
@@ -247,119 +264,6 @@ function toggleEnabled() {
   refreshIconAndContextMenu(tab);
 }
 
-// ugly helpers: not to be used!
-/**
- * Generate some html (the part specific for each origin)
- *
- * @param {String} origin data origin value
- * @param {String} printable HTML top prepend
- * @param {String} action user/block/cookieblock
- * @returns {string}
- * @private
- */
-function _addOriginHTML(origin, printable, action, flag, multiTLD) {
-  //console.log("Popup: adding origin HTML for " + origin);
-  var classes = ["clicker","tooltip"];
-  var feedTheBadgerTitle = '';
-  if (action.indexOf("user") === 0) {
-    feedTheBadgerTitle = i18n.getMessage("feed_the_badger_title");
-    classes.push("userset");
-    action = action.substr(4);
-  }
-  if (action == "block" || action == "cookieblock"){
-    classes.push(action);
-  }
-  var classText = 'class="' + classes.join(" ") + '"';
-  var flagText = "";
-  if (flag) {
-    flagText = "<div id='dnt-compliant'>" + 
-      "<a target=_blank href='https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?'>" +
-      "<img src='/icons/dnt-16.png' title='This domain promises not to track you.'></a></div>";
-  }
-  var multiText = "";
-  if(multiTLD){
-    multiText = " ("+multiTLD +" subdomains)";
-  }
-
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '" data-original-action="' + action + '"><div class="origin" >' +
-     flagText + _trim(origin + multiText,30) + '</div>' + _addToggleHtml(origin, action) + '<div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><img class="tooltipArrow" src="/icons/badger-tb-arrow.png"><div class="clear"></div><div class="tooltipContainer"></div></div>';
-  
-}
-
-/**
- * Trim a str down to a max. length
- *
- * @param {String} str The string to trim
- * @param {Integer} max
- * @returns {String} The shortened string
- * @private
- */
-function _trim(str,max){
-  if(str.length >= max){
-    return str.slice(0,max-3)+'...';
-  } else {
-    return str;
-  }
-}
-
-/**
- * Get the message for the action different (I18N)
- *
- * @param {String} action The action description to get
- * @returns {string} The description, I18Ned
- * @private
- */
-function _badgerStatusTitle(action , origin){ 
-  
-  var status_block = i18n.getMessage("badger_status_block");
-  var status_cookieblock = i18n.getMessage("badger_status_cookieblock");
-  var status_noaction = i18n.getMessage("badger_status_noaction");
-
-  var statusMap = {
-    block:        status_block,
-    cookieblock:  status_cookieblock,
-    noaction:     status_noaction
-  };
-
-  return  statusMap[action] + origin ;
-}
-
-/**
- * Generate the 3 action options toggle switch
- *
- * @param {String} origin Origin url
- * @param {String } action The current action
- * @returns {string} The HTML displaying that
- * @private
- */
-function _addToggleHtml(origin, action){
-  var idOrigin = origin.replace(/\./g,'-');
-  var output = "";
-  output += '<div class="switch-container ' + action + '">';
-  output += '<div class="switch-toggle switch-3 switch-candy">';
-  output += '<input id="block-' + idOrigin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + idOrigin + '" data-origin="' + origin + '" data-action="block"></label>';
-  output += '<input id="cookieblock-' + idOrigin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + idOrigin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
-  output += '<input id="noaction-' + idOrigin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label tooltip="click here to allow this tracker" class="actionToggle" for="noaction-' + idOrigin + '" data-origin="' + origin + '" data-action="noaction"></label>';
-  output += '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
-  return output;
-}
-
-/**
- * Helper function to test if a action matches the name
- *
- * @param {String} name name to test
- * @param {String} action actual action string
- * @returns {*} true if equal
- * @private
- */
-function _checked(name, action){
-  if(name == action){
-    return 'checked';
-  } else {
-    return '';
-  }
-}
-
 /**
  * Toggle the GUI blocked status of GUI element(s)
  *
@@ -381,9 +285,9 @@ function toggleBlockedStatus(elt,status) {
     $(elt).toggleClass("block");
     $(elt).toggleClass("cookieblock");
   }
-  else 
+  else
     $(elt).toggleClass("cookieblock");
-  if ($(elt).hasClass(originalAction) || (originalAction == 'noaction' && !($(elt).hasClass("block") || 
+  if ($(elt).hasClass(originalAction) || (originalAction == 'noaction' && !($(elt).hasClass("block") ||
                                                                             $(elt).hasClass("cookieblock"))))
     $(elt).removeClass("userset");
   else
@@ -470,7 +374,7 @@ function refreshPopup(tabId) {
     return;
   }
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
-  printable = printable + 
+  printable = printable +
     '<div class="keyContainer">'+
     '<div class="key">'+
     '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
@@ -487,9 +391,9 @@ function refreshPopup(tabId) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     var action = getAction(tabId, origin);
-    if(!action){ 
+    if(!action){
         nonTracking.push(origin);
-        continue; 
+        continue;
     }
     else {
       if (action.includes("user")){
@@ -508,11 +412,11 @@ function refreshPopup(tabId) {
     }
     originCount++;
     var flag = isDomainWhitelisted(action, origin);
-    printable = _addOriginHTML(origin, printable, action, flag);
+    printable = htmlUtils.addOriginHtml(printable, origin, action, flag);
   }
   for (key in compressedOrigins){
-    var flag2 = isDomainWhitelisted(action, origin); 
-    printable = _addOriginHTML( key, printable, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
+    var flag2 = isDomainWhitelisted(action, origin);
+    printable = htmlUtils.addOriginHtml(printable, key, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
@@ -521,7 +425,7 @@ function refreshPopup(tabId) {
         '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
     for (var i = 0; i < nonTracking.length; i++){
       var ntOrigin = nonTracking[i];
-      printable = _addOriginHTML(ntOrigin, printable, "noaction", false);
+      printable = htmlUtils.addOriginHtml(printable, ntOrigin, "noaction", false);
     }
   }
   $('#number_trackers').text(originCount);
@@ -569,8 +473,8 @@ function updateOrigin(event){
   $switchContainer.removeClass('block cookieblock noaction').addClass(action);
   toggleBlockedStatus($clicker, action);
   var origin = $clicker.data('origin');
-  $clicker.attr('tooltip', _badgerStatusTitle(action, origin));
-  $clicker.children('.tooltipContainer').html(_badgerStatusTitle(action, origin));
+  $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
+  $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
   hideNoInitialBlockingLink();
 }
 
@@ -614,7 +518,7 @@ function displayTooltip(event){
     $container.show();
     $container.siblings('.tooltipArrow').show();
   },tooltipDelay);
-  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);}); 
+  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);});
 }
 
 /**
@@ -709,6 +613,27 @@ function syncUISelections() {
   if (tabId){
     reloadTab(tabId);
   }
+}
+
+/**
+ * if the query url pattern matches a tab, switch the module's tab object to that tab
+ * Convenience function for the test harness
+ * Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
+ */
+function setTabToUrl( query_url ) {
+  chrome.tabs.query( {url: query_url}, function(ta) {
+    if ( typeof ta == "undefined" ) {
+      console.log("error doing tabs query for " + query_url);
+      return;
+    }
+    if ( ta.length == 0 ) {
+      console.log("no match found in tabs query for " + query_url);
+      return;
+    }
+    tabid = ta[0].id;
+    console.log("match found for query " + query_url + " tabId: " + tabid );
+    refreshPopup( tabid );
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -3,6 +3,7 @@
 
 import unittest
 import pbtest
+from selenium.common.exceptions import TimeoutException
 
 PB_CHROME_QUNIT_TEST_URL = pbtest.PB_EXT_BG_URL_BASE + "tests/index.html"
 
@@ -14,9 +15,12 @@ class Test(pbtest.PBSeleniumTest):
         # Otherwise, we ran into a race condition where Qunit runs (& fails)
         # while chrome.extension is undefined.
         # Probably related to Chromium bugs 129181 & 132148
-        self.driver.get(pbtest.PB_CHROME_BG_URL)  # load a dummy page
-        self.driver.get(PB_CHROME_QUNIT_TEST_URL)
-        failed = self.txt_by_css("#qunit-testresult > span.failed")
+        self.load_url(pbtest.PB_CHROME_BG_URL)  # load a dummy page
+        self.load_url(PB_CHROME_QUNIT_TEST_URL)
+        try:
+            failed = self.txt_by_css("#qunit-testresult > span.failed", timeout=120)
+        except TimeoutException as exc:
+            self.fail("Cannot find the results of QUnit tests %s" % exc)
         passed = self.txt_by_css("#qunit-testresult > span.passed")
         total = self.txt_by_css("#qunit-testresult > span.total")
         print "User agent:", self.txt_by_css("#qunit-userAgent")

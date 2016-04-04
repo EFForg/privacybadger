@@ -21,6 +21,9 @@ __pycache__
 # Chrome extensions
 *.crx
 
+# Firefox Extensions
+*.xpi
+
 # Dynamic libraries
 *.dylib
 
@@ -39,4 +42,6 @@ buildtools/jshydra/mozilla/js
 node_modules
 
 tests/selenium/.cache
+
 *.xpi
+.chrome-profile

@@ -161,6 +161,60 @@
       equal(getBaseDomain(tests[i][0]), tests[i][1], tests[i][0]);
   });
 
+  test("Converting IP address to number checks", function()
+  {
+    var testResults = {
+      "127.0.0.1": 2130706433,
+      "8.8.8.8": 134744072,
+      "192.168.0.1": 3232235521,
+      "256.0.0.1": 0,
+      "privacybadger.org": 0,
+    }
+
+    for (var ip in testResults) {
+      // Ignore object properties.
+      if (! testResults.hasOwnProperty(ip)) {
+        continue;
+      }
+
+      equal(ipAddressToNumber(ip), testResults[ip], ip);
+    }
+  });
+
+  test("Private domain checks", function()
+  {
+    var testResults = {
+      "localhost": true,
+      "126.0.0.13": false,
+      "127.0.0.1": true,
+      "128.0.2.27": false,
+      "9.4.201.150": false,
+      "10.3.0.99": true,
+      "11.240.84.107": false,
+      "171.20.103.65": false,
+      "172.15.2.0": false,
+      "172.16.25.30": true,
+      "172.31.16.2": true,
+      "172.32.3.4": false,
+      "173.28.86.211": false,
+      "191.168.33.41": false,
+      "192.167.101.111": false,
+      "192.168.1.5": true,
+      "192.169.204.154": false,
+      "193.168.28.139": false,
+      "privacybadger.org": false,
+    };
+
+    for (var domain in testResults) {
+      // Ignore object properties.
+      if (! testResults.hasOwnProperty(domain)) {
+        continue;
+      }
+
+      equal(isPrivateDomain(domain), testResults[domain], domain);
+    }
+  });
+
   test("Third party checks", function()
   {
     var tests = [

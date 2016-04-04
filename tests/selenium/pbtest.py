@@ -10,11 +10,13 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from time import sleep
 
 # PB_EXT_BG_URL_BASE = "chrome-extension://pkehgijcmpdhfbdbbnkijodmdjhbjlgp/"
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
 PB_CHROME_BG_URL = PB_EXT_BG_URL_BASE + "_generated_background_page.html"
 PB_CHROME_OPTIONS_PAGE_URL = PB_EXT_BG_URL_BASE + "skin/options.html"
+SEL_DEFAULT_WAIT_TIMEOUT = 30
 
 
 class PBSeleniumTest(unittest.TestCase):
@@ -33,6 +35,11 @@ class PBSeleniumTest(unittest.TestCase):
         self.driver = self.get_chrome_driver()
         self.js = self.driver.execute_script
 
+    def load_url(self, url, wait_on_site=0):
+        """Load a URL and wait before returning."""
+        self.driver.get(url)
+        sleep(wait_on_site)
+
     def get_extension_path(self):
         """Return the path to the extension to be tested."""
         if "PB_EXT_PATH" in os.environ:
@@ -44,12 +51,12 @@ class PBSeleniumTest(unittest.TestCase):
             exts = glob("../../*.crx")  # get matching files
             return max(exts, key=os.path.getctime) if exts else ""
 
-    def txt_by_css(self, css_selector):
+    def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Find an element by CSS selector and return it's text."""
-        return self.find_el_by_css(css_selector).text
+        return self.find_el_by_css(css_selector, timeout).text
 
-    def find_el_by_css(self, css_selector):
-        return WebDriverWait(self.driver, 30).until(
+    def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
     def get_chrome_driver(self):

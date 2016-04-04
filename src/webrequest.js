@@ -3,7 +3,7 @@
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
  *
- * Derived from Adblock Plus 
+ * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
  * Derived from Chameleon <https://github.com/ghostwords/chameleon>
@@ -199,7 +199,7 @@ function onBeforeRequest(details){
     if(requestAction == "block" || requestAction == "cookieblock"){
       BlockedDomainList.addDomain(extractHostFromURL(details.url));
 
-      //if settings for this domain are still controlled by badger and it is in 
+      //if settings for this domain are still controlled by badger and it is in
       //the list of domain exceptions ask the user if they would like to unblock.
       if(requestAction.indexOf('user') < 0){
         var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
@@ -235,7 +235,7 @@ function getHostForTab(tabId){
     return;
   }
   if (_isTabAnExtension(tabId)) {
-    // If the tab is an extension get the url of the first frame for its implied URL 
+    // If the tab is an extension get the url of the first frame for its implied URL
     // since the url of frame 0 will be the hash of the extension key
     mainFrameIdx = Object.keys(tabData[tabId].frames)[1] || 0;
   }
@@ -263,7 +263,7 @@ function onBeforeSendHeaders(details) {
 
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
-    
+
     if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
       var newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
@@ -272,7 +272,7 @@ function onBeforeSendHeaders(details) {
       return {requestHeaders: newHeaders};
     }
   }
-  
+
   // Still sending Do Not Track even if HTTP and cookie blocking are disabled
   details.requestHeaders.push({name: "DNT", value: "1"});
   return {requestHeaders: details.requestHeaders};
@@ -479,7 +479,7 @@ function forgetTab(tabId) {
 }
 
 /**
- * Logic to identify the action to take on a specific url
+ * Determines the action to take on a specific URL.
  *
  * @param {Integer} tabId The relevant tab
  * @param {String} url The URL
@@ -488,46 +488,52 @@ function forgetTab(tabId) {
  * @returns {boolean} false or the action to take
  */
 function checkAction(tabId, url, quiet, frameId){
-  var action = false;
-
-  //ignore requests coming from temporary unblocked social widget
-  //(aka someone has clicked on the widget, so let it load)
+  // Ignore requests from temporarily unblocked social widgets.
+  // Someone clicked the widget, so let it load.
   if (isSocialWidgetTemporaryUnblock(tabId, url, frameId)) {
     return false;
   }
 
-  //ignore requests coming from internal chrome tabs
-  if(_isTabChromeInternal(tabId) ){
-    return action;
-  }
-
-  //ignore requests that don't have a document url for some reason
-  var documentUrl = getFrameUrl(tabId, 0);
-  if (!documentUrl){
-    return action;
-  }
-
-  var requestHost = extractHostFromURL(url);
-  var documentHost = extractHostFromURL(documentUrl);
-  var origin = getBaseDomain(requestHost);
-  var thirdParty = isThirdParty(requestHost, documentHost);
-  if (!thirdParty){
+  // Ignore requests from internal Chrome tabs.
+  if (_isTabChromeInternal(tabId)) {
     return false;
   }
 
+  // Ignore requests that don't have a document URL for some reason.
+  var documentUrl = getFrameUrl(tabId, 0);
+  if (! documentUrl) {
+    return false;
+  }
+
+  // Ignore requests from private domains.
+  var requestHost = extractHostFromURL(url);
+  var origin = getBaseDomain(requestHost);
+  if (isPrivateDomain(origin)) {
+    return false;
+  }
+
+  // Ignore requests that aren't from a third party.
+  var documentHost = extractHostFromURL(documentUrl);
+  var thirdParty = isThirdParty(requestHost, documentHost);
+  if (! thirdParty) {
+    return false;
+  }
+
+  // Determine action is request is from third party and tab is valid.
+  var action = false;
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
     var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
 
-    if(!action) {
-      if(backgroundPage.originHasTracking(tabId,requestHost)){
+    if (! action) {
+      if (backgroundPage.originHasTracking(tabId,requestHost)) {
         action = "noaction";
       } else {
         action = "notracking";
       }
     }
   }
-  if(action && !quiet){
+  if (action && ! quiet) {
     activeMatchers.addMatcherToOrigin(tabId, requestHost, "requestAction", action);
   }
   return action;
@@ -586,7 +592,7 @@ function _askUserToWhitelist(tabId, whitelistDomains, englishName){
       if(msg.action === "allow_all"){
         saveAction('noaction', whitelistDomains[i]);
         reloadTab(tabId);
-      } 
+      }
       if(msg.action === "allow_once"){
         //allow blag on this site only
         saveAction('noaction', whitelistDomains[i], getHostForTab(tabId));
@@ -731,7 +737,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       var socialWidgetBlockList = getSocialWidgetBlockList();
       sendResponse(socialWidgetBlockList);
     }
-
   } else if (request.unblockSocialWidget) {
     var socialWidgetUrls = request.buttonUrls;
     unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
@@ -754,6 +759,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   } else if (request.checkEnabledAndThirdParty) {
     var pageHost = extractHostFromURL(sender.url);
     sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && isThirdParty(pageHost, tabHost));
+  } else if (request.checkSocialWidgetReplacementEnabled) {
+    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled());
   }
 
 });

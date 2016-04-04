@@ -1,5 +1,5 @@
 {
-  "version": "2015.8.14", 
+  "version": "2015.3.2",
   "author": {
     "email": "eff.software.projects@gmail.com"
   }, 
@@ -9,41 +9,41 @@
     }
   },
   "permissions": [
-    "tabs",  
-    "contextMenus", 
-    "webRequest",  
-    "webNavigation", 
-    "storage", 
-    "cookies", 
-
-    "http://*/*", 
+    "tabs",
+    "http://*/*",
     "https://*/*",
+    "contextMenus",
+    "webRequest",
     "webRequestBlocking",
-    "unlimitedStorage", 
+    "webNavigation",
+    "unlimitedStorage",
+    "storage",
+    "cookies",
     "privacy"
-  ], 
+  ],
   "background": {
     "scripts": [
-      "lib/compat.js", 
-      "lib/io.js", 
+      "lib/compat.js",
+      "lib/io.js",
       "src/utils.js",
-      "lib/adblockplus.js", 
-      "lib/punycode.js", 
-      "lib/publicSuffixList.js", 
-      "lib/basedomain.js", 
-      "lib/sha1.js", 
-      "lib/jsbn.js", 
-      "lib/rsa.js", 
-      "lib/popupBlocker.js", 
+      "src/htmlutils.js",
+      "lib/adblockplus.js",
+      "lib/punycode.js",
+      "lib/publicSuffixList.js",
+      "lib/basedomain.js",
+      "lib/sha1.js",
+      "lib/jsbn.js",
+      "lib/rsa.js",
+      "lib/popupBlocker.js",
       "src/cookieblocklist.js",
       "src/blockedDomainList.js",
       "src/domainExceptions.js",
-      "src/webrequest.js", 
-      "src/heuristicblocking.js", 
+      "src/webrequest.js",
+      "src/heuristicblocking.js",
       "src/socialwidgetloader.js",
       "src/background.js"
     ]
-  }, 
+  },
   "content_scripts": [
     {
       "js": [
@@ -52,52 +52,52 @@
         "src/clobberlocalstorage.js",
         "src/fingerprinting.js",
         "src/supercookie.js"
-      ], 
+      ],
       "matches": [
         "<all_urls>"
-      ], 
-      "all_frames": true, 
+      ],
+      "all_frames": true,
       "run_at": "document_start"
     },
     {
       "js": [
 	"src/socialwidgets.js"
-      ], 
+      ],
       "matches": [
         "<all_urls>"
-      ], 
-      "all_frames": true, 
+      ],
+      "all_frames": true,
       "run_at": "document_idle"
     },
     {
       "js": [
         "src/domainExceptionDialog.js"
-      ], 
+      ],
       "css": [
         "skin/badger.css"
       ],
       "matches": [
         "<all_urls>"
-      ], 
-      "all_frames": false, 
+      ],
+      "all_frames": false,
       "run_at": "document_idle"
     }
-  ], 
-  "default_locale": "en_US", 
-  "description": "__MSG_description__", 
+  ],
+  "default_locale": "en_US",
+  "description": "__MSG_description__",
   "icons": {
-    "128": "icons/badger-128.png", 
-    "16": "icons/badger-16.png", 
-    "170": "icons/badger-170.png", 
-    "19": "icons/badger-19.png", 
-    "24": "icons/badger-24.png", 
-    "32": "icons/badger-32.png", 
+    "128": "icons/badger-128.png",
+    "16": "icons/badger-16.png",
+    "170": "icons/badger-170.png",
+    "19": "icons/badger-19.png",
+    "24": "icons/badger-24.png",
+    "32": "icons/badger-32.png",
     "38": "icons/badger-38.png",
     "48": "icons/badger-48.png"
-  }, 
-  "manifest_version": 2, 
-  "minimum_chrome_version": "18.0", 
-  "name": "__MSG_name__", 
+  },
+  "manifest_version": 2,
+  "minimum_chrome_version": "18.0",
+  "name": "__MSG_name__",
   "browser_action": {
     "default_icon": {
       "19": "icons/badger-19.png",
@@ -105,7 +105,7 @@
     },
     "default_popup": "skin/popup.html",
     "default_title": "__MSG_name__"
-  }, 
+  },
   "options_page": "/skin/options.html",
   "update_url": "http://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [

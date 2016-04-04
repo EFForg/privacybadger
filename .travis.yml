@@ -2,9 +2,10 @@ language: python
 python:
   - "2.7"
 install:
+  - sudo apt-get update
   - sudo apt-get -qq install xvfb python-virtualenv
   - npm install
 before_script:
-  - ./setup_travis.sh
+  - ./scripts/setup_travis.sh
   - cd tests
 script:  ./run_selenium_tests.sh
