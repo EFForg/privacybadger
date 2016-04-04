@@ -61,6 +61,61 @@ Privacy Badger:
 
 #### Further Details
 
+Datastructures:
+
+action_map = { 'google.com': blocked, 'fonts.google.com', 'cookieblocked', 'apis.fonts.google.com': 'user_cookieblock', 'foo.tracker.net': 'allow', 'tracker.net': 'DNT', }
+snitch_map = {google.com: array('cooperq.com', 'noah.com', 'eff.org'), tracker.net: array(a.com, b.com, c.com)} 
+dnt_domains = array('tracker.net', 'dnt.eff.org')
+settings = {social_widgets = true, ...}
+cookie_block_list = "{'fonts.google.com': true, 'maps.google.com', true}"
+
+
+On Request():
+  check if privacy badger is enabled for this fqdn, if not then return
+  check if the fqdn is third party, if not then return
+  check action for the fqdn (described below)
+  if action is block cancel request 
+  if action is cookie_block strip headers 
+  if fqdn is nontracking (i.e check_action returned nothing) then do nothing
+  if action was noaction or user_* then async_check_tracking
+  if action is allow && count == 2 then blocking_check_tracking 
+    if check_tracking changed action then call check_action again
+    else do_nothing
+  asynch check_dnt(fqdn)
+  return
+
+Check_action(fqdn)  returns action
+  related_domains = array()
+  best_action == 'noaction'
+
+  for $domain in range(fqdn ... etld+1)
+    if action_map contains $domain
+      related_domains.push($domain)
+      
+
+    for each domain in related domains
+      if(score(domain.action) > score(best_action)
+        best_action == domain.action
+      
+    return best_action
+
+check_tracking(fqdn){ return boolean
+  var base_domain = etld+1(fqdn)
+  if( has_cookie or has_supercookie or has_fingerprinting)
+    if snitch_map doesn't have base domain add it
+    if snitch_map doesn't have first party add it
+    if(snitch_map.base_domain.len >= 3)
+      add base domain to action map as blocked
+      add all chlidren of base_domain and self from cookie block list to action map
+      return true 
+
+
+
+}
+
+
+
+
 ##### What is an "origin" for Privacy Badger?
 
 Privacy Badger has two notions of origin.  One is the [effective top level
