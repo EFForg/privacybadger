@@ -33,7 +33,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
-require.scopes["utils"] = (function() {
+require.scopes.utils = (function() {
   
 var exports = {};
 var Utils = exports.Utils = {
