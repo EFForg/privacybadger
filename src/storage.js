@@ -17,7 +17,6 @@
 require.scopes.storage = (function() {
 
 var exports = {};
-var background = chrome.extension.getBackgroundPage();
 
 /**
  * snitch_map is our collection of potential tracking base_domains 
@@ -46,10 +45,17 @@ var background = chrome.extension.getBackgroundPage();
  *   ...
  * }
  **/
+var storage_objects = [
+  "snitch_map",
+  "action_map",
+  "dnt_domains",
+  "cookieblock_list"
+];
 
-var snitch_map = _getStorageItem(snitch_map, {});
-var action_map = _getStorageItem(action_map, {});
-var cookieblock_list = _getStorageItem(cookieblock_list, {});
+var snitch_map = getBadgerStorageObject("snitch_map");
+var action_map = getBadgerStorageObject("action_map");
+var cookieblock_list = getBadgerStorageObject("cookieblock_list");
+var dnt_domains = getBadgerStorageObject("dnt_domains");
 
 
 /** 
@@ -85,28 +91,85 @@ var updateCookieBlockList = function(new_list){
 };
 
 /**
- * An abstraction for dealing with the underlying storage engine, either
- * chrome.storage or localStorage or something else.
- * gets an item from storage
+ * A factory for getting BadgerStorage objects, this will either get a badger 
+ * storage object from the cache or return a new BadgerStorage object. 
  * @param {String} key the name of the stored object
- * @param {Object} default_value the name of the stored object
- * @return {Object} the stored value or a default value
+ * @return {BadgerStorage} A badgerStorage object 
  **/
-var _getStorageItem = function(key, default_value) {
+ 
+var getBadgerStorageObject = function(key) {
   // TODO: What is our storage backend going to be? it should probably be 
   // local storage which is then maybe zipped and sent over google sync?
+  // We should also be looking out for private storage
+  return new BadgerStorage(key);
 };
 
 /**
- * An abstraction for dealing with the underlying storage engine, either
- * chrome.storage or localStorage or something else.
- * updates an item in storage
- * @param {String} key the key to update
- * @param {Object} value the new value
+ * Privacy Badger Storage Object. Has methods for getting, setting and deleting
+ * should be used for all storage needs, transparently handles data presistence
+ * syncing and private browsing.
+ * Usage:
+ * example_map = getBadgerStorageObject('example_map');
+ * # instance of BadgerStorage
+ * example_map.setItem('foo', 'bar') 
+ * # null
+ * example_map
+ * # { foo: "bar" }
+ * example_map.hasItem('foo')
+ * # true
+ * example_map.getItem('foo');
+ * # 'bar'
+ * example_map.getItem('not_real');
+ * # undefined
+ * example_map.deleteItem('foo');
+ * # null
+ * example_map.hasItem('foo');
+ * # false
+ * 
  **/
-var _setStorageItem = function(key, value){
-  // TODO: What is our storage backend going to be? it should probably be 
-  // local storage which is then maybe zipped and sent over google sync?
+
+/**
+ * BadgerStorage constructor
+ * *DO NOT USE DIRECTLY* Instead call `getBadgerStorageObject(name)`
+ * @param {String} name the name of the storage object
+ * @return {BadgerStorage} an existing BadgerStorage object or an empty new object
+ **/
+var BadgerStorage = function(name){
+  this.name = name;
+  this.private = false;
+};
+
+BadgerStorage.prototype = {
+
+  /**
+   * check if this storage object has an item 
+   * @param {String} key the key for the item
+   * @return boolean 
+   **/
+  hasItem: function(key){
+  },
+
+  /**
+   * get an item
+   * @param {String} key the key for the item
+   * @return {Mixed} the value for that key or null 
+   **/
+  getItem: function(key) {
+  },
+
+  /**
+   * set an item
+   * @param {String} key the key for the item
+   **/
+  setItem: function(key,value){
+  },
+
+  /**
+   * delete an item
+   * @param {String} key the key for the item
+   **/
+  deleteItem: function(key){
+  },
 };
 
 exports.checkAction = checkAction;
