@@ -217,35 +217,21 @@ function getAllOriginsForTab(tabId) {
  * @param {String} filterName ABP style string representing filter
  */
 function removeFilter(subscriptionName, filterName){
-  var subscription = FilterStorage.knownSubscriptions[subscriptionName];
-  var filter = {};
-  var i;
-  for( i = 0; i < subscription.filters.length; i++){
-    if(subscription.filters[i].text == filterName){
-      filter = subscription.filters[i];
-      break;
-    }
-  }
-  console.log('REMOVING FILTER', filter, subscription);
-  FilterStorage.removeFilter(filter,subscription);
+    //TODO: add back this function when we know what we want it to do
 }
 
 /**
  * Checks whether a page is whitelisted.
  * @param {String} url
- * @param {String} parentUrl URL of the parent frame
- * @param {String} type content type to be checked, default is "DOCUMENT"
- * @return {Filter} filter that matched the URL or null if not whitelisted
+ * @return {Boolean} true if the url is allowed false if not
  */
-function isWhitelisted(url, parentUrl, type) {
-  // Ignore fragment identifier
-  var index = url.indexOf("#");
-  if (index >= 0) {
-    url = url.substring(0, index);
+function isWhitelisted(url) {
+  var action = action_map.getAction(url)
+  if (action == ALLOW or action == USER_ALLOW or action == NO_TRACKING){
+      return true;
+  } else {
+      return false;
   }
-
-  var result = defaultMatcher.matchesAny(url, type || "DOCUMENT", extractHostFromURL(parentUrl || url), false);
-  return (result instanceof WhitelistFilter ? result : null);
 }
 
 /**
@@ -284,80 +270,81 @@ function changePrivacySettings() {
  * @param {String} prevVersion The previous PB version
  */
 function addSubscription(prevVersion) {
-  // Don't add subscription if the user has a subscription already
-  var addSubscription = !FilterStorage.subscriptions.some(function(subscription) {
-    return subscription instanceof DownloadableSubscription &&
-           subscription.url != Prefs.subscriptions_exceptionsurl;
-  });
+//  var addSubscription = !FilterStorage.subscriptions.some(function(subscription) {
+//    return subscription instanceof DownloadableSubscription &&
+//           subscription.url != Prefs.subscriptions_exceptionsurl;
+//  });
+//
+//  // If this isn't the first run, only add subscription if the user has no custom filters
+//  if (addSubscription && prevVersion) {
+//    addSubscription = !FilterStorage.subscriptions.some(function(subscription) {
+//      return subscription.url != Prefs.subscriptions_exceptionsurl &&
+//             subscription.filters.length;
+//    });
+//  }
+//
+//  // Add EFF whitelist subscription
+//  try {
+//    var EFFsubscription = Subscription.fromURL(whitelistUrl);
+//    if (EFFsubscription && !(EFFsubscription.url in FilterStorage.knownSubscriptions)) {
+//      // EFFsubscription.disabled = false;
+//      EFFsubscription.title = "EFF Auto Whitelist";
+//      FilterStorage.addSubscription(EFFsubscription);
+//      Synchronizer.execute(EFFsubscription, false, false, true);
+//    }
+//  } catch (e) {
+//    console.log("Could not add EFF whitelist!");
+//  }
+//
+//  // Add frequencyHeuristic Subscription
+//  var frequencySub = new SpecialSubscription("frequencyHeuristic", "frequencyHeuristic");
+//  FilterStorage.addSubscription(frequencySub);
+//
+//  // Add userRed Subscription
+//  var userRed = new SpecialSubscription("userRed", "userRed");
+//  FilterStorage.addSubscription(userRed);
+//
+//  // Add userYellow Subscription
+//  var userYellow = new SpecialSubscription("userYellow", "userYellow");
+//  FilterStorage.addSubscription(userYellow);
+//
+//  // Add userGreen Subscription
+//  var userGreen = new SpecialSubscription("userGreen", "userGreen");
+//  FilterStorage.addSubscription(userGreen);
+//
+//  // Add a permanent store for seen third parties 
+//  // TODO: Does this go away when the extension is updated?
+//  var seenThird = JSON.parse(localStorage.getItem("seenThirdParties"));
+//  if (!seenThird){
+//    localStorage.setItem("seenThirdParties", JSON.stringify({}));
+//  }
+//
+//  // Add a permanent store for supercookie domains
+//  var supercookieDomains = JSON.parse(localStorage.getItem("supercookieDomains"));
+//  if (!supercookieDomains){
+//    localStorage.setItem("supercookieDomains", JSON.stringify({}));
+//  }
+//
+//  // Add a permanent store for blocked domains to recheck DNT compliance 
+//  // TODO: storing this in localStorage makes it synchronous, but we might 
+//  // want the speed up of async later if we want to deal with promises
+//  var blockedDomains = JSON.parse(localStorage.getItem("blockeddomainslist"));
+//  if (!blockedDomains){
+//    localStorage.setItem("blockeddomainslist", JSON.stringify({}));
+//  }
+//
+//  if (!addSubscription) {
+//    return;
+//  }
+//
+//  function notifyUser() {
+//    console.log("Calling firstRun page");
+//    chrome.tabs.create({
+//      url: chrome.extension.getURL("/skin/firstRun.html")
+//    });
+//  } 
 
-  // If this isn't the first run, only add subscription if the user has no custom filters
-  if (addSubscription && prevVersion) {
-    addSubscription = !FilterStorage.subscriptions.some(function(subscription) {
-      return subscription.url != Prefs.subscriptions_exceptionsurl &&
-             subscription.filters.length;
-    });
-  }
-
-  // Add EFF whitelist subscription
-  try {
-    var EFFsubscription = Subscription.fromURL(whitelistUrl);
-    if (EFFsubscription && !(EFFsubscription.url in FilterStorage.knownSubscriptions)) {
-      // EFFsubscription.disabled = false;
-      EFFsubscription.title = "EFF Auto Whitelist";
-      FilterStorage.addSubscription(EFFsubscription);
-      Synchronizer.execute(EFFsubscription, false, false, true);
-    }
-  } catch (e) {
-    console.log("Could not add EFF whitelist!");
-  }
-
-  // Add frequencyHeuristic Subscription
-  var frequencySub = new SpecialSubscription("frequencyHeuristic", "frequencyHeuristic");
-  FilterStorage.addSubscription(frequencySub);
-
-  // Add userRed Subscription
-  var userRed = new SpecialSubscription("userRed", "userRed");
-  FilterStorage.addSubscription(userRed);
-
-  // Add userYellow Subscription
-  var userYellow = new SpecialSubscription("userYellow", "userYellow");
-  FilterStorage.addSubscription(userYellow);
-
-  // Add userGreen Subscription
-  var userGreen = new SpecialSubscription("userGreen", "userGreen");
-  FilterStorage.addSubscription(userGreen);
-
-  // Add a permanent store for seen third parties 
-  // TODO: Does this go away when the extension is updated?
-  var seenThird = JSON.parse(localStorage.getItem("seenThirdParties"));
-  if (!seenThird){
-    localStorage.setItem("seenThirdParties", JSON.stringify({}));
-  }
-
-  // Add a permanent store for supercookie domains
-  var supercookieDomains = JSON.parse(localStorage.getItem("supercookieDomains"));
-  if (!supercookieDomains){
-    localStorage.setItem("supercookieDomains", JSON.stringify({}));
-  }
-
-  // Add a permanent store for blocked domains to recheck DNT compliance 
-  // TODO: storing this in localStorage makes it synchronous, but we might 
-  // want the speed up of async later if we want to deal with promises
-  var blockedDomains = JSON.parse(localStorage.getItem("blockeddomainslist"));
-  if (!blockedDomains){
-    localStorage.setItem("blockeddomainslist", JSON.stringify({}));
-  }
-
-  if (!addSubscription) {
-    return;
-  }
-
-  function notifyUser() {
-    console.log("Calling firstRun page");
-    chrome.tabs.create({
-      url: chrome.extension.getURL("/skin/firstRun.html")
-    });
-  }
+    //TODO reimplement this in storage.js
 
   notifyUser();
 }
@@ -453,18 +440,14 @@ function getFrameId(tabId, url) {
  * @param {String} domain Domain to add
  */
 function setupCookieBlocking(domain){
-  var baseDomain = getBaseDomain(domain);
   // TODO should domain be baseDomain, or is the line above unnecessary?
-  CookieBlockList.addDomain(domain);
+  if action_map.hasOwnElement(domain) {
+      action_map.domain.action = COOKIEBLOCK;
+  } else {
+    action_map.domain = {COOKIEBLOCK};
+  }
 }
 
-/**
- * removes domain from cookie block list
- * @param {String} domain Domain to remove
- */
-function teardownCookieBlocking(domain){
-  CookieBlockList.removeDomain(domain);
-}
 
 // Listening for Avira Autopilot remote control UI
 // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
@@ -691,14 +674,7 @@ var checkPrivacyBadgerPolicy = function(origin, callback){
  * @param {string} origin  the origin to unblock
  */
 var unblockOrigin = function(origin){
-  var filter = Filter.fromText("||" + origin + "^$third-party");
-  var policySubscription = FilterStorage.knownSubscriptions.userGreen;
-  FilterStorage.removeFilter(filter);
-  FilterStorage.addFilter(filter, policySubscription);
-  var whitelisted_string = localStorage.whitelisted || "{}";
-  var whitelisted = JSON.parse(whitelisted_string);
-  whitelisted[origin] = true;
-  localStorage.whitelisted = JSON.stringify(whitelisted);
+  action_map.setAction(origin, DNT)
   teardownCookieBlocking(origin);
 };
 
@@ -731,34 +707,17 @@ function isValidPolicyHash(hash){
 
 /**
  * saves a user preference for an origin, overriding
- * the default setting. Also takes an optional target to only
- * override the setting for a specific first party domain
+ * the default setting.
  * @param {String} userAction enum of block, cookieblock, noaction
  * @param {String} origin the third party origin to take action on
- * @param {String} target an optional first party to scope the action to
  */
-function saveAction(userAction, origin, target) {
-  var allUserActions = {'block': 'userRed',
-                        'cookieblock': 'userYellow',
-                        'noaction': 'userGreen'};
-  if (target) {
-    var filter = Filter.fromText("@@||" + origin + "^$third-party,domain=" + target);
-    FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[userAction]]);
-    console.log("Finished saving action " + userAction + " for " + origin + "on" + target);
-    return true;
-  } 
-
+// TODO add back in functionality to do this only on one domain
+function saveAction(userAction, origin) {
+  var allUserActions = {'block': USER_BLOCK,
+                        'cookieblock': USER_COOKIE_BLOCK,
+                        'noaction': USER_ALLOW};
   // If there is no target proceed as normal
-  for (var action in allUserActions) {
-    var filter = Filter.fromText("||" + origin + "^$third-party");
-    if (action == userAction) {
-      console.log('adding filter', filter, 'to', action);
-      FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
-    } else {
-      console.log('removing filter', filter, 'from', action);
-      FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
-    }
-  }
+  action_map.setAction(origin, allUserActions[userAction])
   console.log("Finished saving action " + userAction + " for " + origin);
 
   // TODO: right now we don't determine whether a reload is needed
