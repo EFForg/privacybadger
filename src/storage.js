@@ -14,15 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
+ /* globals localStorage, setTimeout, console */
 require.scopes.storage = (function() {
 
-var exports = {};
-
 /**
- * snitch_map is our collection of potential tracking base_domains 
+ * # Storage Objects
+ *
+ * snitch_map is our collection of potential tracking base_domains.
+ * The key is a base domain (ETLD+1) and the value is an array of first
+ * party domains on which this tracker has been seen.
  * it looks like this:
  * { 
- *   "third.party.com": ["a.com", "b.com", "c.com"], 
+ *   "third-party.com": ["a.com", "b.com", "c.com"], 
  *   "eviltracker.net": ["eff.org", "a.com"]
  * }
  *
@@ -30,7 +33,7 @@ var exports = {};
  * decided on an action for. Each subdomain gets its own entry. For example:
  * {
  *   "google.com": "blocked",
- *   "fonts.google.com": "cookieblocked"
+ *   "fonts.google.com": "cookieblocked",
  *   "apis.google.com": "user_block",
  *   "widget.eff.org": "dnt"
  * }
@@ -42,21 +45,22 @@ var exports = {};
  * { 
  *   "maps.google.com": true,
  *   "creativecommons.org": true,
- *   ...
  * }
  **/
-var storage_objects = [
-  "snitch_map",
-  "action_map",
-  "dnt_domains",
-  "cookieblock_list"
-];
 
-var snitch_map = getBadgerStorageObject("snitch_map");
-var action_map = getBadgerStorageObject("action_map");
-var cookieblock_list = getBadgerStorageObject("cookieblock_list");
-var dnt_domains = getBadgerStorageObject("dnt_domains");
 
+var initialize = function(){
+  var storage_objects = [
+    "snitch_map",
+    "action_map",
+    "dnt_domains",
+    "cookieblock_list"
+  ];
+
+  for(var i = 0; i < storage_objects.length; i++){
+    _initializeCache(storage_objects[i]);
+  }
+};
 
 /** 
  * find the action to take for an FQDN, traverses the action list for the
@@ -98,11 +102,31 @@ var updateCookieBlockList = function(new_list){
  **/
  
 var getBadgerStorageObject = function(key) {
-  // TODO: What is our storage backend going to be? it should probably be 
-  // local storage which is then maybe zipped and sent over google sync?
-  // We should also be looking out for private storage
-  return new BadgerStorage(key);
+  // TODO Handle incognito mode, store only in memory;
+
+  if(badgerPen.hasOwnProperty(key)){
+    return badgerPen[key];
+  }
+  console.error('initializing cache from getBadgerStorageObject. You are using this API improperly');
+  return _initializeCache(key);
 };
+
+var _initializeCache = function(key) {
+
+  // now check localStorage
+  var json_str = localStorage.getItem(key);
+  if(json_str === null){
+    json_str = "{}";
+  }
+
+  var storage_obj = new BadgerStorage(key, JSON.parse(json_str));
+  badgerPen[key] = storage_obj;
+  
+  return storage_obj;
+};
+
+// Cache of BadgerStorage objects
+var badgerPen = {};
 
 /**
  * Privacy Badger Storage Object. Has methods for getting, setting and deleting
@@ -132,11 +156,12 @@ var getBadgerStorageObject = function(key) {
  * BadgerStorage constructor
  * *DO NOT USE DIRECTLY* Instead call `getBadgerStorageObject(name)`
  * @param {String} name the name of the storage object
+ * @param {Object} seed the base object which we are instantiating from
  * @return {BadgerStorage} an existing BadgerStorage object or an empty new object
  **/
-var BadgerStorage = function(name){
+var BadgerStorage = function(name, seed){
   this.name = name;
-  this.private = false;
+  this._store = seed;
 };
 
 BadgerStorage.prototype = {
@@ -147,6 +172,7 @@ BadgerStorage.prototype = {
    * @return boolean 
    **/
   hasItem: function(key){
+    return !!this._store.hasOwnProperty(key);
   },
 
   /**
@@ -155,13 +181,24 @@ BadgerStorage.prototype = {
    * @return {Mixed} the value for that key or null 
    **/
   getItem: function(key) {
+    if(this.hasItem(key)){
+      return this._store[key];
+    } else {
+      return null;
+    }
   },
 
   /**
    * set an item
    * @param {String} key the key for the item
+   * @param {String} value the new value
    **/
   setItem: function(key,value){
+    this._store[key] = value;
+    // Async call to syncStorage.
+    setTimeout(function(){
+      _syncStorage(this.name);
+    }, 0);
   },
 
   /**
@@ -169,12 +206,31 @@ BadgerStorage.prototype = {
    * @param {String} key the key for the item
    **/
   deleteItem: function(key){
+    delete this._store[key];
+    // Async call to syncStorage.
+    setTimeout(function(){
+      _syncStorage(this.name);
+    }, 0);
   },
+
+  getSerialized: function(){
+    return JSON.stringify(this._store);
+  }
 };
+
+var _syncStorage = function(name){
+  var stored = badgerPen[name].getSerialized();
+  localStorage.setItem(name, stored);
+};
+
+var exports = {};
 
 exports.checkAction = checkAction;
 exports.checkTracking = checkTracking;
 exports.updateCookieBlockList = updateCookieBlockList;
+exports.getBadgerStorageObject = getBadgerStorageObject;
 
-});
+return exports;
+/************************************** exports */
+})();
 
