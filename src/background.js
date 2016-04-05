@@ -33,6 +33,14 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
+const NO_TRACKING = "noaction";
+const ALLOW = "allow";
+const BLOCK = "block";
+const COOKIEBLOCK = "cookieblock";
+const DNT = "dnt";
+const USER_ALLOW = "user_allow";
+const USER_BLOCK = "user_block";
+const USER_COOKIE_BLOCK = "user_cookie_block";
 
 if (!("socialWidgetReplacementEnabled" in localStorage)){
   localStorage.socialWidgetReplacementEnabled = "true";
