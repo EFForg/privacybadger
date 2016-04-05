@@ -142,16 +142,18 @@ var needToSendOrigin = function(origin, httpRequestPrevalence) {
 /******* FUNCTIONS FOR TESTING END HERE ********/
 
 /**
- * Adds Cookie blocking filters if origin is in cookieblocklist.txt
+ * Adds Cookie blocking for all more specific domains than the
+ * base domain of a blocked domain - if they're on the cb list
  *
  * @param {String} origin Origin to check
  */
 function addFiltersFromWhitelistToCookieblock(origin){
-  var filters = matcherStore.combinedMatcherStore[whitelistName].whitelist.keywordByFilter;
-  for(filter in filters){
-    var domain = getDomainFromFilter(filter);
-    var baseDomain = getBaseDomain(origin);
-    if (domain == origin || baseDomain == domain) {
+  var baseDomain = getBaseDomain(origin)
+  // iterate through all elements of cookie block list
+  // if element has basedomain add it to action_map
+  // or update it's action with cookieblock
+  for (var d in cookieblock_list.keys){
+    if (d.indexOf(domain) > -1) {
       setupCookieBlocking(domain);
     }
   }
@@ -175,29 +177,28 @@ function getDomainFromFilter(filter){
  */
 var blacklistOrigin = function(origin, fqdn) {
   // Heuristic subscription
-  if (!("frequencyHeuristic" in FilterStorage.knownSubscriptions)) {
-    console.log("Error. Could not blacklist origin because no heuristic subscription found");
-    return;
-  }
 
   //check for dnt-policy and whitelist domain if it exists
-  if(!BlockedDomainList.hasDomain(fqdn)){
+  if(action_map.hasOwnElement(fqdn)){
+      if (action_map.getAction(fqdn) == BLOCK or
+          action_map.getAction(fqdn) == COOKIE_BLOCK or
+          action_map.getAction(fqdn) == USER_BLOCK or
+          action_map.getAction(fqdn) == USER_ALLOW or
+          action_map.getAction(fqdn) == USER_COOKIE_BLOCK) {
+          return
+      }
+  
     checkPrivacyBadgerPolicy(fqdn, function(success){
       if(success){
         console.log('adding', fqdn, 'to user whitelist due to badgerpolicy.txt');
         unblockOrigin(fqdn);
       } else {
-        BlockedDomainList.addDomain(fqdn);
-        addFiltersFromWhitelistToCookieblock(origin)
-        // this variable seems a little unnessecary...
-        var heuristicSubscription = FilterStorage.knownSubscriptions["frequencyHeuristic"];
-        // Create an ABP filter to block this origin 
-        var filter = this.Filter.fromText("||" + origin + "^$third-party");
-        filter.disabled = false;
-        FilterStorage.addFilter(filter, heuristicSubscription);
+        action_map.setAction(fqdn, BLOCK);
       }
-    });
-  }  
+    });  
+  } else {
+      action_map.setAction(fqdn, BLOCK);
+  }
 };
 
 
