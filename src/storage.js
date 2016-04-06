@@ -35,10 +35,10 @@ require.scopes.storage = (function() {
  * action_map is where we store the action for each domain that we have 
  * decided on an action for. Each subdomain gets its own entry. For example:
  * {
- *   "google.com": "blocked",
- *   "fonts.google.com": "cookieblocked",
- *   "apis.google.com": "user_block",
- *   "widget.eff.org": "dnt"
+ *   "google.com": { heuristicAction: "block", dnt: false, userAction: ""}
+ *   "fonts.google.com": { heuristicAction: "cookieblock", dnt: false, userAction: ""}
+ *   "apis.google.com": { heuristicAction: "cookieblock", dnt: false, userAction: "user_block"}
+ *   "widget.eff.org": { heuristicAction: "block", dnt: true, userAction: ""}
  * }
  *
  * cookieblock_list is where we store the current cookie block list as 
@@ -78,14 +78,27 @@ var getScore = function(action){
   }
 };
 
+/**
+ * get the current presumed action for a specific fqdn, ignoring any rules for subdomains
+ * below or above it
+ * @param {Object} domain domain object from action_map
+ * @returns {String} the presumed action for this FQDN
+ **/
+var getActionForFqdn = function(domain){
+  if(domain.userAction){ return domain.userAction; }
+  if(domain.dnt){ return DNT; } 
+  if(domain.heuristicAction){ return domain.heuristicAction; } 
+  return NO_TRACKING;
+};
+
 /** 
- * find the action to take for an FQDN, traverses the action list for the
+ * find the best action to take for an FQDN, traverses the action list for the
  * fqdn and each of its subdomains and then takes the most appropriate
  * action
  * @param {String} fqdn the FQDN we want to determine the action for
  * @returns {String} the best action for the FQDN
  **/
-var checkAction = function(fqdn) {
+var getBestAction = function(fqdn) {
   var best_action = NO_TRACKING;
   var subdomains = Utils.explodeSubdomains(fqdn);
   var action_map = getBadgerStorageObject('action_map');
@@ -103,7 +116,7 @@ var checkAction = function(fqdn) {
   // Loop through each subdomain we have a rule for from least to most specific
   // and keep the one which has the best score. 
   for( i = 0; i < relevantDomains.length; i++ ){
-    var action = relevantDomains[i].action;
+    var action = getActionForFqdn(relevantDomains[i]);
     if(getScore(action) > getScore(best_action)){
       best_action = action;
     }
@@ -272,7 +285,8 @@ var _syncStorage = function(badger){
 
 var exports = {};
 
-exports.checkAction = checkAction;
+exports.getBestAction = getBestAction;
+exports.getActionForFqdn = getActionForFqdn;
 exports.checkTracking = checkTracking;
 exports.updateCookieBlockList = updateCookieBlockList;
 exports.getBadgerStorageObject = getBadgerStorageObject;
