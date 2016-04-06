@@ -205,6 +205,22 @@ var Utils = exports.Utils = {
   },
 
   /**
+   * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
+   * eTLD+1.
+   **/
+   explodeSubdomains: function(fqdn){
+     var baseDomain = getBaseDomain(fqdn);
+     var baseLen = baseDomain.split('.').length;
+     var parts = fqdn.split('.');
+     var numLoops = parts.length - baseLen;
+     var subdomains = [];
+     for(var i=0; i<=numLoops; i++){
+       subdomains.push(parts.slice(i).join('.'));
+     }
+     return subdomains;
+   },
+
+  /**
    * check if social widget replacement functionality is enabled
    */
   isSocialWidgetReplacementEnabled: function() {

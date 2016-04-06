@@ -21,6 +21,15 @@
     ok(testAry[2] === 6, "correct value at idx 2");
   });
 
+  test("explodeSubdomains", function(){
+    var fqdn = "test.what.yea.eff.org";
+    var subs = Utils.explodeSubdomains(fqdn);
+    console.log(subs);
+    ok(subs.length == 4);
+    ok(subs[0] == fqdn);
+    ok(subs[3] == 'eff.org');
+  });
+
   asyncTest("send xhrRequest", function(){
     expect(3); //expect 1 assertion
     Utils.xhrRequest("https://www.eff.org/files/badgertest.txt", function(err,resp){

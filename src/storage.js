@@ -14,8 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- /* globals localStorage, setTimeout, console */
+ /* globals localStorage, setTimeout, console, NO_TRACKING, ALLOW, BLOCK, COOKIEBLOCK, DNT, NO_TRACKING */
+
+var Utils = require("utils").Utils;
 require.scopes.storage = (function() {
+
 
 /**
  * # Storage Objects
@@ -64,6 +67,17 @@ var initialize = function(){
   console.log('loaded', storage_objects.length, 'badgers');
 };
 
+var getScore = function(action){
+  switch(action){
+    case NO_TRACKING: return 0;
+    case ALLOW: return 1;
+    case BLOCK: return 2;
+    case COOKIEBLOCK: return 3;
+    case DNT: return 4;
+    default: return 5; 
+  }
+};
+
 /** 
  * find the action to take for an FQDN, traverses the action list for the
  * fqdn and each of its subdomains and then takes the most appropriate
@@ -72,8 +86,30 @@ var initialize = function(){
  * @returns {String} the best action for the FQDN
  **/
 var checkAction = function(fqdn) {
-  // TODO
-  return fqdn;
+  var best_action = NO_TRACKING;
+  var subdomains = Utils.explodeSubdomains(fqdn);
+  var action_map = getBadgerStorageObject('action_map');
+  var relevantDomains = [];
+  var i;
+
+  for( i = 0; i < subdomains.length; i++ ){
+    if(action_map.hasItem(subdomains[i])){
+      // First collect the actions for any domains or subdomains of the fqdn
+      // Order from base domain to FQDN
+      relevantDomains.unshift(action_map.getItem(subdomains[i]));
+    }
+  }
+
+  // Loop through each subdomain we have a rule for from least to most specific
+  // and keep the one which has the best score. 
+  for( i = 0; i < relevantDomains.length; i++ ){
+    var action = relevantDomains[i].action;
+    if(getScore(action) > getScore(best_action)){
+      best_action = action;
+    }
+  }
+
+  return best_action;
 };
 
 
@@ -85,7 +121,7 @@ var checkAction = function(fqdn) {
  **/
 var checkTracking = function(fqdn) {
   // TODO
-  return fqdn;
+  throw('nope!' + fqdn);
 };
 
 /**
@@ -94,8 +130,9 @@ var checkTracking = function(fqdn) {
  * and remove any old entries that are no longer in the cookie block list 
  * from the action map
  **/
-var updateCookieBlockList = function(/*new_list*/){
+var updateCookieBlockList = function(new_list){
   // TODO yes
+  throw('nope!' + new_list);
 };
 
 /**
