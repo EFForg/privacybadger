@@ -178,5 +178,8 @@
     },
     "ded_never_allow": {
         "message": "Blokkeer altijd het web verkeer van en naar "
+    },
+    "donate_to_eff": {
+      "message": "Donate to EFF"
     }
 }
