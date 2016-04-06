@@ -1,5 +1,10 @@
 Changes for Privacy Badger 
 ====================================
+## 2015.4.6 (1.7)
+* Fix crash when closing options page
+* Add EFF Donate Button
+* New popup to nag user to go through tutorial
+
 ## 2015.3.2 (1.0.6)
 * New feature: Search within blocked domain list
 * Replace soundcloud widget with a click to play button
