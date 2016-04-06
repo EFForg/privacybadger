@@ -205,5 +205,9 @@
     },
     "options_so_far": {
       "message": "hasta el momento. Estos controles deslizantes te permiten controlar cómo Privacy Badger maneja cada rastreador."
+    },
+
+    "donate_to_eff": {
+      "message": "Donate to EFF"
     }
 }

@@ -48,6 +48,6 @@
         
       function setSeenComic() {
         localStorage.setItem("seenComic", "true");
-      };
+      }
   });
 })(jQuery);

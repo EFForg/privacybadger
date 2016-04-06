@@ -2,6 +2,7 @@
 @@||122.2o7.net^$third-party
 @@||5min.com^$third-party
 @@||accuweather.com^$third-party
+@@||auth.adobe.com^$third-party
 @@||wwwimages.adobe.com^$third-party
 @@||xsdownload.adobe.com^$third-party
 @@||akamai.net^$third-party
@@ -35,6 +36,7 @@
 @@||assetfiles.com^$third-party
 @@||authorize.net^$third-party
 @@||autoforums.com^$third-party
+@@||bac-assets.com^$third-party
 @@||bandcamp.com^$third-party
 @@||bankid.no^$third-party
 @@||bankrate.com^$third-party
@@ -127,12 +129,17 @@
 @@||feedburner.com^$third-party
 @@||financialcontent.com^$third-party
 @@||findnsave.com^$third-party
+@@||frz.io^$third-party
+@@||build.origami.ft.com^$third-party
+@@||fz.io^$third-party
+@@||fzcdn.net^$third-party
 @@||hello.firefox.com^$third-party
 @@||flattr.com^$third-party
 @@||flickr.com^$third-party
 @@||fling.com^$third-party
 @@||flowplayer.org^$third-party
 @@||flyertown.ca^$third-party
+@@||adm.fwmrm.net^$third-party
 @@||fontdeck.com^$third-party
 @@||fonts.com^$third-party
 @@||fonts.net^$third-party
@@ -149,6 +156,7 @@
 @@||geoplugin.net^$third-party
 @@||geotrust.com^$third-party
 @@||getpocket.com^$third-party
+@@||giant.gfycat.com^$third-party
 @@||ggpht.com^$third-party
 @@||github.com^$third-party
 @@||githubusercontent.com^$third-party
@@ -159,12 +167,14 @@
 @@||gogousenet.com^$third-party
 @@||accounts.google.com^$third-party
 @@||apis.google.com^$third-party
+@@||calendar.google.com^$third-party
 @@||checkout.google.com^$third-party
 @@||clients1.google.com^$third-party
 @@||consent.google.com^$third-party
 @@||cse.google.com^$third-party
 @@||developers.google.com^$third-party
 @@||docs.google.com^$third-party
+@@||drive.google.com^$third-party
 @@||feedburner.google.com^$third-party
 @@||groups.google.com^$third-party
 @@||kh.google.com^$third-party
@@ -186,6 +196,7 @@
 @@||plus.google.com^$third-party
 @@||spreadsheets.google.com^$third-party
 @@||talkgadget.google.com^$third-party
+@@||translate.google.com^$third-party
 @@||www.google.com^$third-party
 @@||ajax.googleapis.com^$third-party
 @@||googleapis.com^$third-party
@@ -375,6 +386,10 @@
 @@||salesforce.com^$third-party
 @@||salsalabs.com^$third-party
 @@||sbnation.com^$third-party
+@@||schd.ws^$third-party
+@@||sched.org^$third-party
+@@||scribd.com^$third-party
+@@||scribdassets.com^$third-party
 @@||securesuite.co.uk^$third-party
 @@||securitymetrics.com^$third-party
 @@||seeclickfix.com^$third-party
@@ -412,6 +427,7 @@
 @@||surveymonkey.com^$third-party
 @@||syracuse.com^$third-party
 @@||public.tableausoftware.com^$third-party
+@@||c.tadst.com^$third-party
 @@||targetimg1.com^$third-party
 @@||targetimg2.com^$third-party
 @@||technorati.com^$third-party
@@ -511,3 +527,7 @@
 @@||www.img-bahn.de^$third-party
 @@||seatme.yelp.com^$third-party
 @@||firstlook.org^$third-party
+@@||tkx2-prod.anvato.net^$third-party
+@@||up.anv.bz^$third-party
+@@||mcp-media5.anvato.net^$third-party
+@@||bcbits.com^$third-party
