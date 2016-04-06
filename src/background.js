@@ -73,6 +73,10 @@ var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
+var pbStorage = require("storage");
+
+// Initialize storage
+pbStorage.initialize();
 
 // Load social widgets
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
@@ -199,7 +203,7 @@ function getAction(tabId, origin) {
  */
 function requestWouldBeBlocked(tabId, origin) {
   var action = getAction(tabId, origin);
-  return action == "block" || action == "userblock";
+  return action == BLOCK || action == USER_BLOCK;
 }
 
 /**

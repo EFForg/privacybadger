@@ -50,6 +50,7 @@ require.scopes.storage = (function() {
 
 
 var initialize = function(){
+  console.log('loading badgers into the pen');
   var storage_objects = [
     "snitch_map",
     "action_map",
@@ -60,6 +61,7 @@ var initialize = function(){
   for(var i = 0; i < storage_objects.length; i++){
     _initializeCache(storage_objects[i]);
   }
+  console.log('loaded', storage_objects.length, 'badgers');
 };
 
 /** 
@@ -71,6 +73,7 @@ var initialize = function(){
  **/
 var checkAction = function(fqdn) {
   // TODO
+  return fqdn;
 };
 
 
@@ -82,6 +85,7 @@ var checkAction = function(fqdn) {
  **/
 var checkTracking = function(fqdn) {
   // TODO
+  return fqdn;
 };
 
 /**
@@ -90,8 +94,8 @@ var checkTracking = function(fqdn) {
  * and remove any old entries that are no longer in the cookie block list 
  * from the action map
  **/
-var updateCookieBlockList = function(new_list){
-  // TODO
+var updateCookieBlockList = function(/*new_list*/){
+  // TODO yes
 };
 
 /**
@@ -105,6 +109,7 @@ var getBadgerStorageObject = function(key) {
   // TODO Handle incognito mode, store only in memory;
 
   if(badgerPen.hasOwnProperty(key)){
+    console.log('fetching', key, 'from memory');
     return badgerPen[key];
   }
   console.error('initializing cache from getBadgerStorageObject. You are using this API improperly');
@@ -117,6 +122,7 @@ var _initializeCache = function(key) {
   var json_str = localStorage.getItem(key);
   if(json_str === null){
     json_str = "{}";
+    localStorage.setItem(key, json_str);
   }
 
   var storage_obj = new BadgerStorage(key, JSON.parse(json_str));
@@ -172,7 +178,8 @@ BadgerStorage.prototype = {
    * @return boolean 
    **/
   hasItem: function(key){
-    return !!this._store.hasOwnProperty(key);
+    var self = this;
+    return !!self._store.hasOwnProperty(key);
   },
 
   /**
@@ -181,8 +188,9 @@ BadgerStorage.prototype = {
    * @return {Mixed} the value for that key or null 
    **/
   getItem: function(key) {
-    if(this.hasItem(key)){
-      return this._store[key];
+    var self = this;
+    if(self.hasItem(key)){
+      return self._store[key];
     } else {
       return null;
     }
@@ -194,10 +202,11 @@ BadgerStorage.prototype = {
    * @param {String} value the new value
    **/
   setItem: function(key,value){
-    this._store[key] = value;
+    var self = this;
+    self._store[key] = value;
     // Async call to syncStorage.
     setTimeout(function(){
-      _syncStorage(this.name);
+      _syncStorage(self);
     }, 0);
   },
 
@@ -206,10 +215,11 @@ BadgerStorage.prototype = {
    * @param {String} key the key for the item
    **/
   deleteItem: function(key){
-    delete this._store[key];
+    var self = this;
+    delete self._store[key];
     // Async call to syncStorage.
     setTimeout(function(){
-      _syncStorage(this.name);
+      _syncStorage(self);
     }, 0);
   },
 
@@ -218,9 +228,9 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = function(name){
-  var stored = badgerPen[name].getSerialized();
-  localStorage.setItem(name, stored);
+var _syncStorage = function(badger){
+  var stored = badger.getSerialized();
+  localStorage.setItem(badger.name, stored);
 };
 
 var exports = {};
@@ -229,8 +239,8 @@ exports.checkAction = checkAction;
 exports.checkTracking = checkTracking;
 exports.updateCookieBlockList = updateCookieBlockList;
 exports.getBadgerStorageObject = getBadgerStorageObject;
+exports.initialize = initialize;
 
 return exports;
 /************************************** exports */
 })();
-

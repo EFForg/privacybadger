@@ -1,6 +1,6 @@
 {
     "undef": true,
-    "unused": false,
+    "unused": true,
     "esnext": true,
     "predef": [ "chrome", "require" ]
 
