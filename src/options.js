@@ -201,36 +201,8 @@ function getOrigins()
 {
   origins = {};
 
-  // Process origins allowed by user.
-  var green = FilterStorage.knownSubscriptions.userGreen.filters;
-  for (var i = 0; i < green.length; i++) {
-    origins[green[i].regexp.source] = 'usernoaction';
-  }
-
-  // Process origins cookie-blocked by user.
-  var yellow = FilterStorage.knownSubscriptions.userYellow.filters;
-  for (var i = 0; i < yellow.length; i++) {
-    origins[yellow[i].regexp.source] = 'usercookieblock';
-  }
-
-  // Process origins blocked by user.
-  var red = FilterStorage.knownSubscriptions.userRed.filters;
-  for (var i = 0; i < red.length; i++) {
-    origins[red[i].regexp.source] = 'userblock';
-  }
-
-  // Process origins blocked/cookie-blocked by heuristic.
-  var heuristics = FilterStorage.knownSubscriptions.frequencyHeuristic.filters;
-  for (var i = 0; i < heuristics.length; i++){
-    var origin = heuristics[i].regexp.source;
-    if (origins[origin]) {
-      continue;
-    }
-    if (filterWhitelist[origin]) {
-      origins[origin] = 'cookieblock';
-    } else {
-      origins[origin] = 'block';
-    }
+  for (var key in action_map.keys) {
+      origins[key] = getBestAction(key)
   }
 
   // Process origins that have been seen but not blocked yet.
@@ -262,18 +234,13 @@ function getOriginAction(origin) {
   return "noaction";
 }
 
+//TODO unduplicate this code? since it's also in popup
 function revertDomainControl(e){
   $elm = $(e.target).parent();
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  var original_action = $elm.data('original-action');
-  var stores = {'block': 'userRed',
-                'cookieblock': 'userYellow',
-                'noaction': 'userGreen'};
-  var filter = "||" + origin + "^$third-party";
-  var store = stores[original_action];
-  removeFilter(store,filter);
-  var defaultAction = getOriginAction(origin);
+  var revertUserAction(origin)
+  var defaultAction = getActionForFqdn(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);

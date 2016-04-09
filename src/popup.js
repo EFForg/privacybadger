@@ -238,17 +238,8 @@ function revertDomainControl(e){
   $elm = $(e.target).parent();
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  var original_action = $elm.data('original-action');
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var stores = {'block': 'userRed',
-                'cookieblock': 'userYellow',
-                'noaction': 'userGreen'};
-  var filter = "||" + origin + "^$third-party";
-  var siteFilter = "@@||" + origin + "^$third-party,domain=" + getHostForTab(tabId);
-  var store = stores[original_action];
-  removeFilter(store,filter);
-  removeFilter(store,siteFilter);
-  var defaultAction = getPresumedAction(origin);
+  revertUserAction(origin);
+  var defaultAction = getActionForFqdn(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
@@ -335,19 +326,22 @@ function makeSortable(domain){
  * in the ABP filters without repeatedly
  * querying them
  */
+//TODO re-write this by having get best action return the domain the rule
+// comes from, and combine that way?
 function getTopLevel(action, origin, tabId){
-  if (action == "usercookieblock"){
-    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    return  top;
-  }
-  if (action == "userblock"){
-    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    return top;
-  }
-  if (action == "usernoaction"){
-    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    return top;
-  }
+//  if (action == "usercookieblock"){
+//    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+//    return  top;
+//  }
+//  if (action == "userblock"){
+//    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+//    return top;
+//  }
+//  if (action == "usernoaction"){
+//    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+//    return top;
+//  }
+  return origin;
 }
 
 function isDomainWhitelisted(action, origin){
@@ -401,6 +395,8 @@ function refreshPopup(tabId) {
       if (action.includes("user")){
         var prevOrigin = origin;
         var baseDomain = getBaseDomain(prevOrigin);
+        // TODO make some re-implementation of getBestAction that returns where the 
+        // user rule is coming from
         if (getTopLevel(action, origin, tabId) == baseDomain && baseDomain != origin){
           origin = baseDomain;
           if (compressedOrigins.hasOwnProperty(origin)){

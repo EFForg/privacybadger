@@ -91,6 +91,14 @@ var getActionForFqdn = function(domain){
   return NO_TRACKING;
 };
 
+/**
+ * remove user set action from a domain
+ * @param {Object} domain domain object from action_map
+ **/
+var revertUserAction = function(domain){
+    domain.userAction = null;
+};
+
 /** 
  * find the best action to take for an FQDN, traverses the action list for the
  * fqdn and each of its subdomains and then takes the most appropriate
