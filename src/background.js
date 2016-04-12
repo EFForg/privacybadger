@@ -42,6 +42,21 @@ if (!("showCounter" in localStorage)){
   localStorage.showCounter = "true";
 }
 
+// Add a permanent store for seen third parties 
+var seenCache = localStorage.getItem("seenThirdParties");
+var seenThirdParties = JSON.parse(seenCache);
+if (!seenThirdParties){
+  localStorage.setItem("seenThirdParties", JSON.stringify({}));
+  seenThirdParties = {};
+}
+
+setInterval(function(){
+  if(seenCache != localStorage.getItem("seenThirdParties")) {
+    seenCache = localStorage.getItem("seenThirdParties");
+    seenThirdParties = JSON.parse(seenCache);
+  }
+}, 1000);
+
 with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
@@ -318,13 +333,6 @@ function addSubscription(prevVersion) {
   // Add userGreen Subscription
   var userGreen = new SpecialSubscription("userGreen", "userGreen");
   FilterStorage.addSubscription(userGreen);
-
-  // Add a permanent store for seen third parties 
-  // TODO: Does this go away when the extension is updated?
-  var seenThird = JSON.parse(localStorage.getItem("seenThirdParties"));
-  if (!seenThird){
-    localStorage.setItem("seenThirdParties", JSON.stringify({}));
-  }
 
   // Add a permanent store for supercookie domains
   var supercookieDomains = JSON.parse(localStorage.getItem("supercookieDomains"));
@@ -771,8 +779,7 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
-  return seen.hasOwnProperty(getBaseDomain(origin));
+  return seenThirdParties.hasOwnProperty(getBaseDomain(origin));
 }
 
 /**
