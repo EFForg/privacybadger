@@ -521,7 +521,6 @@ function checkAction(tabId, url, quiet, frameId){
   var action = false;
   if (thirdParty && tabId > -1) {
     action = activeMatchers.getAction(tabId, requestHost);
-    var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
 
     if (! action) {
       if (backgroundPage.originHasTracking(tabId,requestHost)) {
