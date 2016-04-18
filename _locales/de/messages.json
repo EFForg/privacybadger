@@ -15,7 +15,7 @@
         "message": "Privacy Badger schützt sie vor Trackern während Sie im Web surfen !"
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist de-aktiviert für die unten aufgelisteten Domains. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger Icon in der Adresszeile klicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf \"Domain hinzufügen\" klicken."
+        "message": "Privacy Badger ist de-aktiviert für die unten aufgelisteten Domains. Sie können eine Domain hinzufügen, indem Sie entweder dass Privacy Badger Icon in der Adresszeile klicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf \"Domain hinzufügen\" klicken."
     },
     "error_input": {
         "message": "Was ist kaputt ?"
