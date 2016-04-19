@@ -150,13 +150,16 @@ function onBeforeRequest(details){
 }
 
 /**
- * Filters outgoing cookies
+ * Filters outgoing cookies and referer
  * Injects DNT
  *
  * @param details Event details
  * @returns {*} modified headers
  */
 function onBeforeSendHeaders(details) {
+  var tabDomain = getHostForTab(details.tabId);
+  var requestDomain = window.extractHostFromURL(details.url);
+
   if (details.tabId == -1){
     return {};
   }
@@ -165,15 +168,17 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
-  if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
-
-    if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
-      var newHeaders = details.requestHeaders.filter(function(header) {
-        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
-      });
-      newHeaders.push({name: "DNT", value: "1"});
-      return {requestHeaders: newHeaders};
+  if (Utils.isPrivacyBadgerEnabled(tabDomain) && 
+      window.isThirdParty(requestDomain, tabDomain)) {
+    var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
+    if (requestAction) {
+      if (requestAction == window.COOKIEBLOCK || requestAction == window.USER_COOKIE_BLOCK) {
+        var newHeaders = details.requestHeaders.filter(function(header) {
+          return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
+        });
+        newHeaders.push({name: "DNT", value: "1"});
+        return {requestHeaders: newHeaders};
+      }
     }
   }
 
