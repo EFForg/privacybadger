@@ -115,20 +115,35 @@ function onBeforeRequest(details){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
   }
 
+  var tabDomain = getHostForTab(details.tabId);
+  var requestDomain = window.extractHostFromURL(details.url);
+   
+  if (Utils.isPrivacyBadgerDisabled(tabDomain)) {
+    return {};
+  }
+
+  if (!window.isThirdParty(requestDomain, tabDomain)) {
+    return {};
+  }
+
   // read the supercookie state from localStorage and store it in frameData
+  // TODO: Reimplement supercookie stuff using storage.js
+  /*
   var frameData = getFrameData(details.tabId, details.frameId);
   if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
     var supercookieDomains = Utils.getSupercookieDomains();
-    var origin = getBaseDomain(extractHostFromURL(details.url));
+    var origin = window.getBaseDomain(window.extractHostFromURL(details.url));
     frameData.superCookie = supercookieDomains[origin] ? true : false;
     //console.log("onBeforeRequest: read superCookie state from localstorage for",
     //    origin, frameData.superCookie, details.tabId, details.frameId);
-  }
+  } 
+  */
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
-  if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
+  if (requestAction) {
+    // TODO: reimplement whitelist request stuff in storage.js
     //add domain to list of blocked domains if it is not there already
+    /*
     if(requestAction == "block" || requestAction == "cookieblock"){
-      BlockedDomainList.addDomain(extractHostFromURL(details.url));
 
       //if settings for this domain are still controlled by badger and it is in
       //the list of domain exceptions ask the user if they would like to unblock.
@@ -140,12 +155,13 @@ function onBeforeRequest(details){
       }
 
     }
+    */
 
-    if (requestAction == "block" || requestAction == "userblock") {
+    if (requestAction == window.BLOCK || requestAction == window.USER_BLOCK) {
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
-        trackerDomain: extractHostFromURL(details.url)
+        trackerDomain: window.extractHostFromURL(details.url)
       };
       chrome.tabs.sendMessage(details.tabId, msg);
 
