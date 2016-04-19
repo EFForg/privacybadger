@@ -17,6 +17,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
+var seenThirdParties = backgroundPage.seenThirdParties;
 var imports = ["require", "saveAction", "removeFilter", "updateBadge"]
 for (var i = 0; i < imports.length; i++){
       window[imports[i]] = backgroundPage[imports[i]];
@@ -206,7 +207,7 @@ function getOrigins()
   }
 
   // Process origins that have been seen but not blocked yet.
-  var seen = Object.keys(JSON.parse(localStorage.getItem("seenThirdParties")));
+  var seen = Object.keys(seenThirdParties);
   for (var i = 0; i < seen.length; i++) {
     var origin = seen[i];
     if (! origins[origin]) {

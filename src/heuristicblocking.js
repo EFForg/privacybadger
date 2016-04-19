@@ -629,7 +629,7 @@ function recordPrevalence(fqdn, origin, tabOrigin) {
  */
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   return heuristicBlockingAccounting(details);
-}, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"]);
+}, {urls: ["<all_urls>"]}, ["requestHeaders"]);
 
 /**
  * Adds onResponseStarted listener. Monitor for cookies

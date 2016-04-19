@@ -1,5 +1,9 @@
 Changes for Privacy Badger 
 ====================================
+## 2015.4.6 (1.8)
+* Fix "waiting for privacy badger bug"
+* Huge speed improvement
+
 ## 2015.4.6 (1.7)
 * Fix crash when closing options page
 * Add EFF Donate Button

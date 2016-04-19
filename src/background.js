@@ -50,6 +50,21 @@ if (!("showCounter" in localStorage)){
   localStorage.showCounter = "true";
 }
 
+// Add a permanent store for seen third parties 
+var seenCache = localStorage.getItem("seenThirdParties");
+var seenThirdParties = JSON.parse(seenCache);
+if (!seenThirdParties){
+  localStorage.setItem("seenThirdParties", JSON.stringify({}));
+  seenThirdParties = {};
+}
+
+setInterval(function(){
+  if(seenCache != localStorage.getItem("seenThirdParties")) {
+    seenCache = localStorage.getItem("seenThirdParties");
+    seenThirdParties = JSON.parse(seenCache);
+  }
+}, 1000);
+
 with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
@@ -348,8 +363,7 @@ function addSubscription(prevVersion) {
 //    });
 //  } 
 
-    //TODO reimplement this in storage.js
-
+  //TODO reimplement this in storage.js
   notifyUser();
 }
 
@@ -742,8 +756,7 @@ function reloadTab(tabId){
  * @return {Boolean}
  */
 function isOriginInHeuristic(origin){
-  var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
-  return seen.hasOwnProperty(getBaseDomain(origin));
+  return seenThirdParties.hasOwnProperty(getBaseDomain(origin));
 }
 
 /**

@@ -19,6 +19,11 @@
 @@||ancestry.com^$third-party
 @@||angularjs.org^$third-party
 @@||anonymto.me^$third-party
+@@||tkx2-prod.anvato.net^$third-party
+@@||up.anv.bz^$third-party
+@@||mcp-media5.anvato.net^$third-party
+@@||mcp-media5.cdn.anvato.net^$third-party
+@@||mcp-media6.cdn.anvato.net^$third-party
 @@||aol.com^$third-party
 @@||aolcdn.com^$third-party
 @@||ap.org^$third-party
@@ -40,6 +45,7 @@
 @@||bandcamp.com^$third-party
 @@||bankid.no^$third-party
 @@||bankrate.com^$third-party
+@@||bcbits.com^$third-party
 @@||betterttv.net^$third-party
 @@||bit.ly^$third-party
 @@||bizrate.com^$third-party
@@ -90,11 +96,15 @@
 @@||delicious.com^$third-party
 @@||delvenetworks.com^$third-party
 @@||denverpost.com^$third-party
+@@||deviantart.com^$third-party
+@@||deviantart.net^$third-party
 @@||digg.com^$third-party
 @@||cdn.discourse.org^$third-party
 @@||discovery.com^$third-party
 @@||disqus.com^$third-party
 @@||disquscdn.com^$third-party
+@@||a.disquscdn.com^$third-party
+@@||uploads.disquscdn.com^$third-party
 @@||dmcdn.net^$third-party
 @@||dmcdn.com^$third-party
 @@||screendoor.dobt.co^$third-party
@@ -129,6 +139,7 @@
 @@||feedburner.com^$third-party
 @@||financialcontent.com^$third-party
 @@||findnsave.com^$third-party
+@@||firstlook.org^$third-party
 @@||frz.io^$third-party
 @@||build.origami.ft.com^$third-party
 @@||fz.io^$third-party
@@ -231,6 +242,7 @@
 @@||imageshack.us^$third-party
 @@||imagetwist.com^$third-party
 @@||imagevenue.com^$third-party
+@@||www.img-bahn.de^$third-party
 @@||imgchili.com^$third-party
 @@||imgfarm.com^$third-party
 @@||imgspice.com^$third-party
@@ -440,6 +452,7 @@
 @@||tmsbuyatoyota.com^$third-party
 @@||torbit.com^$third-party
 @@||townnews.com^$third-party
+@@||cookieblock.trackersimulate.org^$third-party
 @@||trb.com^$third-party
 @@||trbimg.com^$third-party
 @@||tripadvisor.com^$third-party
@@ -521,13 +534,4 @@
 @@||assets.nflxext.com^$third-party
 @@||assets.ubuntu.com^$third-party
 @@||y3.analytics.yahoo.com^$third-party
-@@||a.disquscdn.com^$third-party
-@@||uploads.disquscdn.com^$third-party
-@@||cookieblock.trackersimulate.org^$third-party
-@@||www.img-bahn.de^$third-party
 @@||seatme.yelp.com^$third-party
-@@||firstlook.org^$third-party
-@@||tkx2-prod.anvato.net^$third-party
-@@||up.anv.bz^$third-party
-@@||mcp-media5.anvato.net^$third-party
-@@||bcbits.com^$third-party
