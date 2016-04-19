@@ -31,7 +31,6 @@ require.scopes.storage = (function() {
 var FilterStorage = require("filterStorage").FilterStorage;
 var Utils = require("utils").Utils;
 var pbStorage = require("storage");
-var backgroundPage = chrome.extension.getBackgroundPage();
 var temporarySocialWidgetUnblock = {};
 var tabData = {};
 /**
@@ -172,27 +171,6 @@ function onBeforeRequest(details){
 }
 
 /**
- * Gets the host name for a given tab id
- * @param {Integer} tabId chrome tab id
- * @return {String} the host name for the tab
- */
-function getHostForTab(tabId){
-  var mainFrameIdx = 0;
-  if (!tabData[tabId]) {
-    return;
-  }
-  if (_isTabAnExtension(tabId)) {
-    // If the tab is an extension get the url of the first frame for its implied URL
-    // since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(tabData[tabId].frames)[1] || 0;
-  }
-  if (!tabData[tabId].frames[mainFrameIdx]) {
-    return;
-  }
-  return window.extractHostFromURL(tabData[tabId].frames[mainFrameIdx].url);
-}
-
-/**
  * Filters outgoing cookies
  * Injects DNT
  *
@@ -247,6 +225,27 @@ function onHeadersReceived(details){
       return {responseHeaders: newHeaders};
     }
   }
+}
+
+/**
+ * Gets the host name for a given tab id
+ * @param {Integer} tabId chrome tab id
+ * @return {String} the host name for the tab
+ */
+function getHostForTab(tabId){
+  var mainFrameIdx = 0;
+  if (!tabData[tabId]) {
+    return;
+  }
+  if (_isTabAnExtension(tabId)) {
+    // If the tab is an extension get the url of the first frame for its implied URL
+    // since the url of frame 0 will be the hash of the extension key
+    mainFrameIdx = Object.keys(tabData[tabId].frames)[1] || 0;
+  }
+  if (!tabData[tabId].frames[mainFrameIdx]) {
+    return;
+  }
+  return window.extractHostFromURL(tabData[tabId].frames[mainFrameIdx].url);
 }
 
 /**
