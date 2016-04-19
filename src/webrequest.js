@@ -451,34 +451,27 @@ function checkAction(tabId, url, quiet, frameId){
   }
 
   // Ignore requests from private domains.
-  var requestHost = extractHostFromURL(url);
-  var origin = getBaseDomain(requestHost);
+  var requestHost = window.extractHostFromURL(url);
+  var origin = window.getBaseDomain(requestHost);
   if (isPrivateDomain(origin)) {
     return false;
   }
 
   // Ignore requests that aren't from a third party.
-  var documentHost = extractHostFromURL(documentUrl);
-  var thirdParty = isThirdParty(requestHost, documentHost);
+  var documentHost = window.extractHostFromURL(documentUrl);
+  var thirdParty = window.isThirdParty(requestHost, documentHost);
   if (! thirdParty) {
     return false;
   }
 
   // Determine action is request is from third party and tab is valid.
-  var action = false;
-  if (thirdParty && tabId > -1) {
-    action = activeMatchers.getAction(tabId, requestHost);
-
-    if (! action) {
-      if (backgroundPage.originHasTracking(tabId,requestHost)) {
-        action = "noaction";
-      } else {
-        action = "notracking";
-      }
-    }
+  if (tabId > -1) {
+    var action = pbStorage.getBestAction(requestHost);
   }
+
   if (action && ! quiet) {
-    activeMatchers.addMatcherToOrigin(tabId, requestHost, "requestAction", action);
+    // TODO: Add code to write to popup. Mabye put in tabs?
+    //activeMatchers.addMatcherToOrigin(tabId, requestHost, "requestAction", action);
   }
   return action;
 }
