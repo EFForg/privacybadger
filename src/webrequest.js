@@ -28,7 +28,6 @@ require.scopes.storage = (function() {
 
 /************ Local Variables *****************/
 // var DomainExceptions = require("domainExceptions").DomainExceptions;
-var FilterStorage = require("filterStorage").FilterStorage;
 var Utils = require("utils").Utils;
 var pbStorage = require("storage");
 var temporarySocialWidgetUnblock = {};
@@ -585,21 +584,16 @@ function getSocialWidgetBlockList() {
   // a mapping of individual SocialWidget objects to boolean values
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
-  var green_domains = {};
-  var green = FilterStorage.knownSubscriptions.userGreen.filters;
-  for (var i = 0; i < green.length; i++) {
-      green_domains[green[i].regexp.source] = 1;
-  }
+  var green_domains = pbStorage.getAllDomainsByPresumedAction(window.USER_ALLOW);
 
   window.SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
 
     // replace them if the user hasn't greened them
-    if (socialwidget.domain in green_domains) {
-        socialWidgetsToReplace[socialWidgetName] = false;
-    }
-    else {
-        socialWidgetsToReplace[socialWidgetName] = true;
+    if (green_domains.indexOf(socialwidget.domain) > -1 ) {
+      socialWidgetsToReplace[socialWidgetName] = false;
+    } else {
+      socialWidgetsToReplace[socialWidgetName] = true;
     }
   });
 

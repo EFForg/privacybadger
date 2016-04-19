@@ -134,7 +134,22 @@ var getBestAction = function(fqdn) {
   return best_action;
 };
 
-
+/**
+ * Find every domain in the action_map where the presumed acttion would be {action}
+ * @param {String} selector the action to select by
+ * @return {Array} an array of FQDN strings
+ **/
+var getAllDomainsByPresumedAction = function(selector){
+  var action_map = getBadgerStorageObject('action_map');
+  var relevantDomains = [];
+  for(var domain in action_map){
+    if(selector == getActionForFqdn(domain)){
+      relevantDomains.push(domain); 
+    }
+  }
+  return relevantDomains;
+};
+ 
 /**
  * Checks if a given FQDN is tracking. Update snitch_map 
  * and action_map accordingly
@@ -296,6 +311,7 @@ var exports = {};
 
 exports.getBestAction = getBestAction;
 exports.getActionForFqdn = getActionForFqdn;
+exports.getAllDomainsByPresumedAction = getAllDomainsByPresumedAction;
 exports.checkTracking = checkTracking;
 exports.updateCookieBlockList = updateCookieBlockList;
 exports.getBadgerStorageObject = getBadgerStorageObject;
