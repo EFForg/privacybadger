@@ -18,6 +18,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ /* globals URI */
+
 require.scopes.utils = (function() {
   
 var exports = {};
@@ -44,14 +46,14 @@ var Utils = exports.Utils = {
 
   /**
    * Generator for URI objects
-   * TODO: Replace with non ABP method
    *
-   * @param url The url to analyze it with
-   * @returns {*|{scheme, spec, QueryInterface}}
+   * @param {String} url the url to convert to URI
+   * @returns {URI|{scheme, spec, QueryInterface}}
    */
   makeURI: function(url)
   {
-    return window.Services.io.newURI(url);
+    // URI defined in lib/basedomain.js
+    return new URI(url);
   },
 
   checkLocalePrefixMatch: function(prefixes)

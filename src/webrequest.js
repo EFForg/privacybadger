@@ -24,7 +24,7 @@
 
 // TODO: Handle DNT check
 // TODO: Implement allow / recheck code path
-require.scopes.storage = (function() {
+require.scopes.webrequest = (function() {
 
 /*********************** webrequest scope **/
 
@@ -697,6 +697,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 var exports = {};
+exports.getFrameData = getFrameData;
 
 return exports;
 /************************************** exports */

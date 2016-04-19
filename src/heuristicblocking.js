@@ -14,159 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
+require.scopes.heuristicblocking = (function() {
 
-var backgroundPage = chrome.extension.getBackgroundPage();
-var require = backgroundPage.require;
-var imports = ["privacyHashesDoExist", "unblockOrigin", "checkPrivacyBadgerPolicy"];
+/*********************** heuristicblocking scope **/
 
-for (var i = 0; i < imports.length; i++){
-  window[imports[i]] = backgroundPage[imports[i]];
-}
-
-with(require("filterClasses")) {
-  this.Filter = Filter;
-  this.RegExpFilter = RegExpFilter;
-  this.BlockingFilter = BlockingFilter;
-  this.WhitelistFilter = WhitelistFilter;
-}
-with(require("subscriptionClasses")) {
-  this.Subscription = Subscription;
-  this.DownloadableSubscription = DownloadableSubscription;
-  this.SpecialSubscription = SpecialSubscription;
-}
-var FilterStorage = require("filterStorage").FilterStorage;
-var FilterNotifier = require("filterNotifier").FilterNotifier;
-var matcherStore = require("matcher").matcherStore;
-var Synchronizer = require("synchronizer").Synchronizer;
-var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
 var Utils = require("utils").Utils;
+var pbStorage = require("storage");
+var webrequest = require("webrequest");
 var tabOrigins = { }; // TODO roll into tabData?
-var cookieSentOriginFrequency = { };
-var cookieSetOriginFrequency = { };
-var httpRequestOriginFrequency = { };
 var prevalenceThreshold = 3;
 
-// variables for alpha test extension
-var lastSentXhr = { };
-var testing = false;
-var testThreshold = 3;
-var numMinutesToWait = 120;
-var whitelistName =  "https://www.eff.org/files/cookieblocklist.txt";
-// local storage for alpha test extension
-// todo? not even close to CSPRNG :)
-// todo? this is async; not ideal but it'll do
-var uniqueId = null;
-chrome.storage.local.get('pbdata', function(items) {
-  uniqueId = items['pbdata'];
-  if (!(uniqueId)) {
-    var randId = Math.floor(Math.random()*16777215).toString(16);
-    uniqueId = randId;
-    chrome.storage.local.set({'pbdata':randId}, function() {
-      console.log("setting local id to " + uniqueId);
-    });
-  }
-});
-
-/******* FUNCTIONS FOR TESTING BEGIN HERE ********/
 /**
- * testing function for feedback to servers
- *
- * @param params data to send
- */
-var sendXHR = function(params) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://observatory.eff.org/pbdata.py", true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4) {
-      if (xhr.status == 200){
-        console.log("Successfully submitted params: " + params);
-      } else {
-        console.log("Error submitting params: " + params);
-      }
-    }
-  }
-  xhr.send(params);
-}
-
-// this is missing parameters, and is not in use in the live extension
-/**
- * Sends testing data. Non-functional
- */
-var sendTestingData = function() {
-    var cookieSentPrevalence = 0;
-    if (origin in cookieSentOriginFrequency) {
-      cookieSentPrevalence = Object.keys(cookieSentOriginFrequency[origin]).length;
-    }
-    var cookieSetPrevalence = 0;
-    if (origin in cookieSetOriginFrequency) {
-      cookieSetPrevalence = Object.keys(cookieSetOriginFrequency[origin]).length;
-    }
-    var reqParams = []
-    reqParams.push("origin="+origin);
-    reqParams.push("thirdpartynum="+httpRequestPrevalence);
-    reqParams.push("cookiesentnum="+cookieSentPrevalence);
-    reqParams.push("cookiereceivednum="+cookieSetPrevalence);
-    reqParams.push("id="+uniqueId);
-    var params = reqParams.join("&");
-    sendXHR(params);
-    console.log("With id " + uniqueId + ", Request to " + origin + ", seen on " + httpRequestPrevalence + " third-party origins, sent cookies on " + cookieSentPrevalence + ", set cookies on " + cookieSetPrevalence);
-}
-
-/**
- * Check if a origin should be sent. Non-functional
- *
- * @param {String} origin Origin to test
- * @param httpRequestPrevalence Tested against the testThreshold
- * @returns {boolean} true if this should be sent
- */
-var needToSendOrigin = function(origin, httpRequestPrevalence) {
-  // don't send third party domains that don't meet minimum test threshold
-  if (httpRequestPrevalence < testThreshold) {
-    return false;
-  }
-  // only send an origin every 6 hours
-  var currentTime = new Date();
-  if (!(origin in lastSentXhr)) {
-    lastSentXhr[origin] = currentTime;
-    return true;
-  }
-  var diff_minutes = (currentTime - lastSentXhr[origin]) / (1000 * 60);
-  if (diff_minutes > numMinutesToWait) {
-    console.log("Last submitted " + origin + " " + diff_minutes + " minutes ago. Submitting again...");
-    lastSentXhr[origin] = currentTime;
-    return true;
-  }
-  return false;
-}
-/******* FUNCTIONS FOR TESTING END HERE ********/
-
-/**
- * Adds Cookie blocking for all more specific domains than the
- * base domain of a blocked domain - if they're on the cb list
+ * Adds Cookie blocking for all more specific domains than the blocked origin
+ * - if they're on the cb list
+ * TODO: Implement this function
  *
  * @param {String} origin Origin to check
  */
 function addFiltersFromWhitelistToCookieblock(origin){
-  var baseDomain = getBaseDomain(origin)
+  /*
+  var baseDomain = window.getBaseDomain(origin);
+  setupCookieBLocking
+  */
+  origin = null;
+  return false;
   // iterate through all elements of cookie block list
   // if element has basedomain add it to action_map
   // or update it's action with cookieblock
-  for (var d in cookieblock_list.keys){
-    if (d.indexOf(domain) > -1) {
-      setupCookieBlocking(domain);
-    }
-  }
-}
-
-/**
- * Extract the domain from an AdBlock style filter
- *
- * @param {String} filter adBlock style filter
- * @returns {String} The Url in the filter
- */
-function getDomainFromFilter(filter){
-  return filter.match('[|][|]([^\^]*)')[1]
 }
 
 /**
@@ -232,12 +106,10 @@ var lowEntropyCookieValues = {
  "ab":8,
  "ae":8,
  "af":8,
- "af":8,
  "ak":8,
  "am":8,
  "an":8,
  "ar":8,
- "as":8,
  "as":8,
  "av":8,
  "ay":8,
@@ -253,7 +125,6 @@ var lowEntropyCookieValues = {
  "br":8,
  "bs":8,
  "by":8,
- "by":8,
  "ca":8,
  "ce":8,
  "ch":8,
@@ -264,7 +135,6 @@ var lowEntropyCookieValues = {
  "cv":8,
  "cy":8,
  "da":8,
- "de":8,
  "de":8,
  "dv":8,
  "dz":8,
@@ -304,16 +174,7 @@ var lowEntropyCookieValues = {
  "ii":8,
  "ik":8,
  "in":8,
- "in":8,
- "in":8,
  "io":8,
- "is":8,
- "is":8,
- "is":8,
- "is":8,
- "is":8,
- "is":8,
- "is":8,
  "is":8,
  "it":8,
  "iu":8,
@@ -360,7 +221,6 @@ var lowEntropyCookieValues = {
  "ng":8,
  "nl":8,
  "nn":8,
- "no":8,
  "nr":8,
  "nv":8,
  "ny":8,
@@ -400,7 +260,6 @@ var lowEntropyCookieValues = {
  "sv":8,
  "sw":8,
  "ta":8,
- "te":8,
  "te":8,
  "tg":8,
  "th":8,
@@ -442,17 +301,19 @@ var lowEntropyCookieValues = {
 var extractCookieString = function(details) {
   // @details are those from onBeforeSendHeaders
   // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
+  var cookies = "";
+  var headers;
+
   if(details.requestHeaders) {
-    var headers = details.requestHeaders;
+    headers = details.requestHeaders;
   } else if(details.responseHeaders) {
-    var headers = details.responseHeaders;
+    headers = details.responseHeaders;
   } else {
     console.log("A request was made with no headers! Crazy!");
     console.log(details);
     return false;
   }
 
-  var cookies = "";
 
   for (var i = 0; i < headers.length; i++) {
     var header = headers[i];
@@ -493,7 +354,7 @@ var hasSupercookieTracking = function(details, origin) {
    * Alternatively, we could record the prevalence when we find hi-entropy localstorage items
    * and check that record to see if the frame hasSupercookieTracking.
    */
-  var frameData = getFrameData(details.tabId, details.frameId);
+  var frameData = webrequest.getFrameData(details.tabId, details.frameId);
   if (frameData){
     // console.log("hasSupercookieTracking (frameData)", frameData.superCookie, origin, details.tabId, details.frameId);
     return frameData.superCookie;
@@ -523,8 +384,8 @@ var hasCookieTracking = function(details, origin) {
   cookies = cookies.split(";");
   var hasCookies = false;
   var estimatedEntropy = 0;
-  for (var n = 0; n < cookies.length; n++) {
-    // XXX urgh I can't believe we're parsing cookies.  Probably wrong
+  for (var i = 0; i < cookies.length; i++) {
+    // TODO urgh I can't believe we're parsing cookies.  Probably wrong
     // what if the value has spaces in it?
     hasCookies = true;
     var c = cookies[n].trim();
@@ -557,6 +418,7 @@ var hasCookieTracking = function(details, origin) {
 /**
  * Increment counts of how many first party domains we've seen a third party track on
  * Ignore requests that are outside a tabbed window
+ * TODO: Update for storage.js
  *
  * @param details are those from onBeforeSendHeaders
  * @returns {{}}
@@ -567,10 +429,10 @@ var heuristicBlockingAccounting = function(details) {
   }
  
 
-  var fqdn = new URI(details.url).host;
-  var origin = getBaseDomain(fqdn);
+  var fqdn = Utils.makeURI(details.url).host;
+  var origin = window.getBaseDomain(fqdn);
 
-  var action = activeMatchers.getAction(details.tabId, fqdn);
+  var action = pbStorage.getActionForFqdn(fqdn);
   if(action && action != "noaction"){ console.log("action for", fqdn, action); return {}; }
   
   // Save the origin associated with the tab if this is a main window request
@@ -596,6 +458,7 @@ var heuristicBlockingAccounting = function(details) {
 
 /**
  * Record HTTP request prevalence. Block a tracker if seen on more than [prevalenceThreshold] pages
+ * TODO: refactor to use storage.js
  *
  * @param fqdn Host
  * @param origin Base domain of host
@@ -643,10 +506,14 @@ chrome.webRequest.onResponseStarted.addListener(function(details) {
     }
   }
   if(hasSetCookie) {
-    var origin = getBaseDomain(new URI(details.url).host);
+    //var origin = window.getBaseDomain(Utils.makeURI(details.url).host);
     return heuristicBlockingAccounting(details);
   }
 },
-{urls: ["<all_urls>"]},
-["responseHeaders"]);
+{urls: ["<all_urls>"]}, ["responseHeaders"]);
 
+var exports = {};
+
+return exports;
+/************************************** exports */
+})();

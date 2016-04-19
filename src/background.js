@@ -90,6 +90,7 @@ var DomainExceptions = require("domainExceptions").DomainExceptions;
 var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
 var pbStorage = require("storage");
+var webrequest = require("webrequest");
 
 // Initialize storage
 pbStorage.initialize();
@@ -465,6 +466,16 @@ function setupCookieBlocking(domain){
   } else {
     action_map.domain = {COOKIEBLOCK};
   }
+}
+
+/**
+ * Extract the domain from an AdBlock style filter
+ *
+ * @param {String} filter adBlock style filter
+ * @returns {String} The Url in the filter
+ */
+function getDomainFromFilter(filter){
+  return filter.match('[|][|]([^\^]*)')[1]
 }
 
 
@@ -948,13 +959,13 @@ function getPresumedAction(origin){
  */
 function isFrameWhitelisted(tabId, frameId, type) {
   var parent = frameId;
-  var parentData = getFrameData(tabId, parent);
+  var parentData = webrequest.getFrameData(tabId, parent);
   while (parentData)
   {
     var frameData = parentData;
 
     parent = frameData.parent;
-    parentData = getFrameData(tabId, parent);
+    parentData = webrequest.getFrameData(tabId, parent);
 
     var frameUrl = frameData.url;
     var parentUrl = (parentData ? parentData.url : frameUrl);
