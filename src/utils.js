@@ -184,7 +184,7 @@ var Utils = exports.Utils = {
    * check against the disabledSites list
    *
    * @param {String} origin
-   * @returns {Boolean} true if disabled
+   * @returns {Boolean} true if enabled
    **/
   isPrivacyBadgerEnabled: function(origin){
     if(localStorage.disabledSites && JSON.parse(localStorage.disabledSites).length > 0){
@@ -203,6 +203,17 @@ var Utils = exports.Utils = {
     }
     return true;
   },
+  
+  /**
+   * check if privacy badger is disabled, take an origin and
+   * check against the disabledSites list
+   *
+   * @param {String} origin
+   * @returns {Boolean} true if disabled
+   **/
+  isPrivacyBadgerDisabled: function(origin){
+    return !isPrivacyBadgerEnabled(origin);
+  }
 
   /**
    * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
