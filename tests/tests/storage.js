@@ -21,13 +21,13 @@
     ok(!action_map.hasItem('foo'));
   });
 
-  asyncTest("send xhrRequest", function(){
+  asyncTest("data presists to local storage", function(){
     expect(1); //expect 1 assertion
     var action_map = BadgerStore.getBadgerStorageObject('action_map');
     action_map.setItem('foo', 'bar');
     setTimeout(function(){
       var data = JSON.parse(localStorage.getItem('action_map'));
-      ok(data.foo == 'bar', "xhr calls callback");
+      ok(data.foo == 'bar', "data presists to local storage");
       start();
     }, 500);
   });
