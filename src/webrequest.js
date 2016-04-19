@@ -194,13 +194,27 @@ function onBeforeSendHeaders(details) {
  * @returns {*} The new response header
  */
 function onHeadersReceived(details){
+  var tabDomain = getHostForTab(details.tabId);
+  var requestDomain = window.extractHostFromURL(details.url);
   if (details.tabId == -1){
+    return {};
+  }
+   
+  if (Utils.isPrivacyBadgerDisabled(tabDomain)) {
+    return {};
+  }
+
+  if (!window.isThirdParty(requestDomain, tabDomain)) {
+    return {};
+  }
+
+  if(_isTabChromeInternal(details.tabId)){
     return {};
   }
 
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
-  if (requestAction && Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))) {
-    if (requestAction == "cookieblock" || requestAction == "usercookieblock") {
+  if (requestAction) {
+    if (requestAction == window.COOKIEBLOCK || requestAction == window.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
