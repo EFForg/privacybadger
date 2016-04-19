@@ -309,6 +309,7 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
  * @param msg super cookie message dict
  */
 function recordSuperCookie(sender, msg) {
+  // TODO: Use storage.js for this
   /* Update frameData and localStorage about the supercookie finding */
   var frameHost = window.extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
   var frameOrigin = window.getBaseDomain(frameHost);
@@ -340,6 +341,7 @@ function recordSuperCookie(sender, msg) {
  * @param msg specific fingerprinting data
  */
 function recordFingerprinting(tabId, msg) {
+  // TODO: Investigate whether this should use storage.js
   // bail if we failed to determine the originating script's URL
   // TODO find and fix where this happens
   if (!msg.scriptUrl) {
@@ -407,7 +409,7 @@ function recordFingerprinting(tabId, msg) {
 
 
 /**
- * read the url data from localStorage
+ * read the frame data from memory
  *
  * @param tabId TabId to check for
  * @param frameId FrameID to check for
@@ -627,8 +629,6 @@ function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var frameHost = window.extractHostFromURL(getFrameUrl(tabId, frameId));
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
-  //console.log((requestExcept || frameExcept) + " : exception for " + url);
-
   return (requestExcept || frameExcept);
 }
 
@@ -663,7 +663,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (Utils.isPrivacyBadgerEnabled(tabHost)) {
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
-      var cookieBlock = reqAction == 'cookieblock' || reqAction == 'usercookieblock';
+      var cookieBlock = reqAction == window.COOKIEBLOCK || reqAction == window.USER_COOKIE_BLOCK;
       sendResponse(cookieBlock);
     }
 
