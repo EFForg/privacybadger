@@ -22,105 +22,66 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * This file is part of Adblock Plus <http://adblockplus.org/>,
- * Copyright (C) 2006-2013 Eyeo GmbH
- *
- * Adblock Plus is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 3 as
- * published by the Free Software Foundation.
- *
- * Adblock Plus is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
- */
+require.scopes.storage = (function() {
 
-/* Global Variables */
-var CookieBlockList = require("cookieblocklist").CookieBlockList;
-var DomainExceptions = require("domainExceptions").DomainExceptions;
-var FilterNotifier = require("filterNotifier").FilterNotifier;
+/*********************** webrequest scope **/
+
+/* Local Variables */
+// var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterStorage = require("filterStorage").FilterStorage;
 var Utils = require("utils").Utils;
-
-
-// per-tab data that gets cleaned up on tab closing
-// looks like:
-/* tabData = {
-  <tab_id>: {
-    fpData: {
-      <script_origin>: {
-        canvas: {
-          fingerprinting: boolean,
-          write: boolean
+var pbStorage = require("storage");
+var backgroundPage = chrome.extension.getBackgroundPage();
+var temporarySocialWidgetUnblock = {};
+var tabData = {};
+/**
+ * Per-tab data that gets cleaned up on tab closing
+   looks like:
+    tabData = {
+      <tab_id>: {
+        fpData: {
+          <script_origin>: {
+            canvas: {
+              fingerprinting: boolean,
+              write: boolean
+            }
+          },
+          ...
+        },
+        frames: {
+          <frame_id>: {
+            url: string,
+            parent: int
+          },
+          ...
+        },
+        trackers: {
+          domain.tld: bool
+          ...
         }
       },
       ...
-    },
-    frames: {
-      <frame_id>: {
-        url: string,
-        parent: int
-      },
-      ...
-    },
-    trackers: {
-      domain.tld: bool
-      ...
-    }
-  },
-  ...
-} */
-var tabData = {};
+    } 
+*/
 
-var onFilterChangeTimeout = null;
-var importantNotifications = {
-  'filter.added': true,
-  'filter.removed': true,
-  'filter.disabled': true,
-  'subscription.added': true,
-  'subscription.removed': true,
-  'subscription.disabled': true,
-  'subscription.updated': true,
-  'load': true
-};
-var backgroundPage = chrome.extension.getBackgroundPage();
-var imports = ["saveAction", "getHostForTab"];
-for (var i = 0; i < imports.length; i++){
-  window[imports[i]] = backgroundPage[imports[i]];
-}
-var temporarySocialWidgetUnblock = {};
-var handlerBehaviorChangedQuota = chrome.webRequest.MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES;
 
 /* Event Listeners */
-chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
-chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
-//chrome.tabs.onUpdated.addListener(onTabUpdated);
-chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
 chrome.tabs.onRemoved.addListener(onTabRemoved);
 chrome.tabs.onReplaced.addListener(onTabReplaced);
-FilterNotifier.addListener(onFilterNotifier);
+chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
+chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
+chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
 
 /* functions */
+
 /**
  * Event handler when a tab gets removed
  *
  * @param {Integer} tabId Id of the tab
  */
 function onTabRemoved(tabId){
-  console.log('tab removed!', tabId);
   forgetTab(tabId);
 }
-
-//function onTabUpdated(tabId, changeInfo, tab){
-//  console.log('tab updated', tab);
-//  if (changeInfo.status == "loading" && changeInfo.url != undefined){
-//    forgetTab(tabId);
-//  }
-//}
 
 /**
  * Update internal db on tabs when a tab gets replaced
@@ -131,37 +92,7 @@ function onTabRemoved(tabId){
 function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
   // Update the badge of the added tab, which was probably used for prerendering.
-  updateBadge(addedTabId);
-}
-
-/**
- * Handler for changes in AdBlock filters
- */
-function onFilterChange() {
-  // Calling handlerBehaviorChanged more than 20 times in 10 mins trigger
-  // Chrome's slow extension warning.
-  if (handlerBehaviorChangedQuota > 0){
-    handlerBehaviorChangedQuota--;
-    // increment the quota 10 mins later.
-    window.setTimeout(function() { handlerBehaviorChangedQuota++; }, 600000);
-    onFilterChangeTimeout = null;
-    chrome.webRequest.handlerBehaviorChanged();
-  }
-}
-
-/**
- * Handle for AdBlock filters
- *
- * @param action List of important actions, see importantNotifications
- */
-function onFilterNotifier(action) {
-  if (action in importantNotifications) {
-    // Execute delayed to prevent multiple executions in a quick succession
-    if (onFilterChangeTimeout != null){
-      window.clearTimeout(onFilterChangeTimeout);
-    }
-    onFilterChangeTimeout = window.setTimeout(onFilterChange, 2000);
-  }
+  window.updateBadge(addedTabId);
 }
 
 /**
@@ -242,7 +173,7 @@ function getHostForTab(tabId){
   if (!tabData[tabId].frames[mainFrameIdx]) {
     return;
   }
-  return extractHostFromURL(tabData[tabId].frames[mainFrameIdx].url);
+  return window.extractHostFromURL(tabData[tabId].frames[mainFrameIdx].url);
 }
 
 /**
@@ -318,7 +249,7 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
     };
   }
   // check if this is a prerendered (bg) tab or not
-  chrome.tabs.get(tabId, function(tab){
+  chrome.tabs.get(tabId, function(/*tab*/){
     if (chrome.runtime.lastError){
       // chrome will throw error for the prerendered tabs
       tabData[tabId].bgTab = true;
@@ -341,10 +272,10 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
  */
 function recordSuperCookie(sender, msg) {
   /* Update frameData and localStorage about the supercookie finding */
-  var frameHost = extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
-  var frameOrigin = getBaseDomain(frameHost);
-  var pageHost = extractHostFromURL(getFrameUrl(sender.tab.id, 0));
-  if (!isThirdParty(frameHost, pageHost)) {
+  var frameHost = window.extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
+  var frameOrigin = window.getBaseDomain(frameHost);
+  var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+  if (!window.isThirdParty(frameHost, pageHost)) {
     // only happens on the start page for google.com.
     return;
   }
@@ -378,9 +309,9 @@ function recordFingerprinting(tabId, msg) {
   }
 
   // ignore first-party scripts
-  var script_host = extractHostFromURL(msg.scriptUrl),
-    document_host = extractHostFromURL(getFrameUrl(tabId, 0));
-  if (!isThirdParty(script_host, document_host)) {
+  var script_host = window.extractHostFromURL(msg.scriptUrl),
+    document_host = window.extractHostFromURL(getFrameUrl(tabId, 0));
+  if (!window.isThirdParty(script_host, document_host)) {
     return;
   }
 
@@ -397,7 +328,7 @@ function recordFingerprinting(tabId, msg) {
     tabData[tabId].fpData = {};
   }
 
-  var script_origin = getBaseDomain(script_host);
+  var script_origin = window.getBaseDomain(script_host);
 
   // initialize script TLD-level data
   if (!tabData[tabId].fpData.hasOwnProperty(script_origin)) {
@@ -426,7 +357,7 @@ function recordFingerprinting(tabId, msg) {
 
           // mark this is a strike
           recordPrevalence(
-            script_host, script_origin, getBaseDomain(document_host));
+            script_host, script_origin, window.getBaseDomain(document_host));
         }
       }
       // this is a canvas write
@@ -472,8 +403,6 @@ function getFrameUrl(tabId, frameId) {
  * @param {Integer} tabId The id of the tab
  */
 function forgetTab(tabId) {
-  console.log('forgetting tab', tabId);
-  activeMatchers.removeTab(tabId);
   delete tabData[tabId];
   delete temporarySocialWidgetUnblock[tabId];
 }
@@ -681,14 +610,14 @@ function getSocialWidgetBlockList() {
  */
 function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var exceptions = temporarySocialWidgetUnblock[tabId];
-  if (exceptions == undefined) {
+  if (exceptions === undefined) {
     return false;
   }
 
-  var requestHost = extractHostFromURL(url);
+  var requestHost = window.extractHostFromURL(url);
   var requestExcept = (exceptions.indexOf(requestHost) != -1);
 
-  var frameHost = extractHostFromURL(getFrameUrl(tabId, frameId));
+  var frameHost = window.extractHostFromURL(getFrameUrl(tabId, frameId));
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
   //console.log((requestExcept || frameExcept) + " : exception for " + url);
@@ -704,12 +633,12 @@ function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
  * @param {Array} socialWidgetUrls an array of social widget urls
  */
 function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
-  if (temporarySocialWidgetUnblock[tabId] == undefined){
+  if (temporarySocialWidgetUnblock[tabId] === undefined){
     temporarySocialWidgetUnblock[tabId] = [];
   }
   for (var i in socialWidgetUrls) {
     var socialWidgetUrl = socialWidgetUrls[i];
-    var socialWidgetHost = extractHostFromURL(socialWidgetUrl);
+    var socialWidgetHost = window.extractHostFromURL(socialWidgetUrl);
     temporarySocialWidgetUnblock[tabId].push(socialWidgetHost);
   }
 }
@@ -718,7 +647,7 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
  * Handle the different tracker variants. The big dispatcher
  */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  var tabHost = extractHostFromURL(sender.tab.url);
+  var tabHost = window.extractHostFromURL(sender.tab.url);
 
   if (request.checkEnabled) {
     sendResponse(Utils.isPrivacyBadgerEnabled(tabHost));
@@ -756,10 +685,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       recordSuperCookie(sender, request.superCookieReport);
     }
   } else if (request.checkEnabledAndThirdParty) {
-    var pageHost = extractHostFromURL(sender.url);
-    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && isThirdParty(pageHost, tabHost));
+    var pageHost = window.extractHostFromURL(sender.url);
+    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && window.isThirdParty(pageHost, tabHost));
   } else if (request.checkSocialWidgetReplacementEnabled) {
     sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled());
   }
 
 });
+
+var exports = {};
+
+return exports;
+/************************************** exports */
+})();
