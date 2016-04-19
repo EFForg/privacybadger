@@ -157,7 +157,7 @@ var getAllDomainsByPresumedAction = function(selector){
  * @returns boolean whether the status changed for the FQDN
  **/
 var checkTracking = function(fqdn) {
-  // TODO
+  // TODO this method should probably be in heuristic.js
   throw('nope!' + fqdn);
 };
 
@@ -168,7 +168,7 @@ var checkTracking = function(fqdn) {
  * from the action map
  **/
 var updateCookieBlockList = function(new_list){
-  // TODO yes
+  // TODO
   throw('nope!' + new_list);
 };
 

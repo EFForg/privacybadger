@@ -22,6 +22,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// TODO: Handle DNT check
+// TODO: Implement allow / recheck code path
 require.scopes.storage = (function() {
 
 /*********************** webrequest scope **/

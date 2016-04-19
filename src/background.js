@@ -41,6 +41,7 @@ const DNT = "dnt";
 const USER_ALLOW = "user_allow";
 const USER_BLOCK = "user_block";
 const USER_COOKIE_BLOCK = "user_cookie_block";
+//TODO: Implement cookie block list download and integration
 
 if (!("socialWidgetReplacementEnabled" in localStorage)){
   localStorage.socialWidgetReplacementEnabled = "true";
