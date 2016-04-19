@@ -935,3 +935,31 @@ function getPresumedAction(origin){
     return 'noaction';
   }
 }
+
+
+/**
+ * Check if a specific frame is whitelisted
+ *
+ * @param {Integer} tabId The id of the tab
+ * @param {Integer} frameId The id of the frame
+ * @param {String} type Content type to be checked
+ * @returns {boolean} true if whitelisted
+ */
+function isFrameWhitelisted(tabId, frameId, type) {
+  var parent = frameId;
+  var parentData = getFrameData(tabId, parent);
+  while (parentData)
+  {
+    var frameData = parentData;
+
+    parent = frameData.parent;
+    parentData = getFrameData(tabId, parent);
+
+    var frameUrl = frameData.url;
+    var parentUrl = (parentData ? parentData.url : frameUrl);
+    if ("keyException" in frameData || isWhitelisted(frameUrl)){
+      return true;
+    }
+  }
+  return false;
+}

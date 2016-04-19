@@ -26,7 +26,7 @@ require.scopes.storage = (function() {
 
 /*********************** webrequest scope **/
 
-/* Local Variables */
+/************ Local Variables *****************/
 // var DomainExceptions = require("domainExceptions").DomainExceptions;
 var FilterStorage = require("filterStorage").FilterStorage;
 var Utils = require("utils").Utils;
@@ -64,35 +64,14 @@ var tabData = {};
 */
 
 
-/* Event Listeners */
-chrome.tabs.onRemoved.addListener(onTabRemoved);
-chrome.tabs.onReplaced.addListener(onTabReplaced);
+/*************** Register Event Listeners *********************/
 chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
 chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
 chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
+chrome.tabs.onRemoved.addListener(onTabRemoved);
+chrome.tabs.onReplaced.addListener(onTabReplaced);
 
-/* functions */
-
-/**
- * Event handler when a tab gets removed
- *
- * @param {Integer} tabId Id of the tab
- */
-function onTabRemoved(tabId){
-  forgetTab(tabId);
-}
-
-/**
- * Update internal db on tabs when a tab gets replaced
- *
- * @param {Integer} addedTabId The new tab id that replaces
- * @param {Integer} removedTabId The tab id that gets removed
- */
-function onTabReplaced(addedTabId, removedTabId){
-  forgetTab(removedTabId);
-  // Update the badge of the added tab, which was probably used for prerendering.
-  window.updateBadge(addedTabId);
-}
+/***************** Blocking Listener Functions **************/
 
 /**
  * Event handling of http requests, main logic to collect data what to block
@@ -226,6 +205,31 @@ function onHeadersReceived(details){
     }
   }
 }
+
+/*************** Non-blocking listener functions ***************/
+
+/**
+ * Event handler when a tab gets removed
+ *
+ * @param {Integer} tabId Id of the tab
+ */
+function onTabRemoved(tabId){
+  forgetTab(tabId);
+}
+
+/**
+ * Update internal db on tabs when a tab gets replaced
+ *
+ * @param {Integer} addedTabId The new tab id that replaces
+ * @param {Integer} removedTabId The tab id that gets removed
+ */
+function onTabReplaced(addedTabId, removedTabId){
+  forgetTab(removedTabId);
+  // Update the badge of the added tab, which was probably used for prerendering.
+  window.updateBadge(addedTabId);
+}
+
+/******** Utility Functions **********/
 
 /**
  * Gets the host name for a given tab id
@@ -371,7 +375,7 @@ function recordFingerprinting(tabId, msg) {
           scriptData.canvas.fingerprinting = true;
 
           // mark this is a strike
-          recordPrevalence(
+          window.recordPrevalence(
             script_host, script_origin, window.getBaseDomain(document_host));
         }
       }
@@ -452,7 +456,7 @@ function checkAction(tabId, url, quiet, frameId){
   // Ignore requests from private domains.
   var requestHost = window.extractHostFromURL(url);
   var origin = window.getBaseDomain(requestHost);
-  if (isPrivateDomain(origin)) {
+  if (window.isPrivateDomain(origin)) {
     return false;
   }
 
@@ -464,13 +468,15 @@ function checkAction(tabId, url, quiet, frameId){
   }
 
   // Determine action is request is from third party and tab is valid.
+  var action;
   if (tabId > -1) {
-    var action = pbStorage.getBestAction(requestHost);
+    action = pbStorage.getBestAction(requestHost);
   }
 
   if (action && ! quiet) {
     // TODO: Add code to write to popup. Mabye put in tabs?
     //activeMatchers.addMatcherToOrigin(tabId, requestHost, "requestAction", action);
+    console.log('ADD', requestHost, 'to popup for', documentUrl, 'with action', action);
   }
   return action;
 }
@@ -519,6 +525,7 @@ function _isTabAnExtension(tabId){
  * @param englishName English description for domain
  * @private
  */
+/* TODO: reimplement using storage.js
 function _askUserToWhitelist(tabId, whitelistDomains, englishName){
   console.log('asking user to whitelist');
   var port = chrome.tabs.connect(tabId);
@@ -546,34 +553,7 @@ function _askUserToWhitelist(tabId, whitelistDomains, englishName){
     }
   });
 }
-
-/**
- * Check if a specific frame is whitelisted
- *
- * @param {Integer} tabId The id of the tab
- * @param {Integer} frameId The id of the frame
- * @param {String} type Content type to be checked
- * @returns {boolean} true if whitelisted
- */
-function isFrameWhitelisted(tabId, frameId, type) {
-  var parent = frameId;
-  var parentData = getFrameData(tabId, parent);
-  while (parentData)
-  {
-    var frameData = parentData;
-
-    parent = frameData.parent;
-    parentData = getFrameData(tabId, parent);
-
-    var frameUrl = frameData.url;
-    var parentUrl = (parentData ? parentData.url : frameUrl);
-    if ("keyException" in frameData || isWhitelisted(frameUrl)){
-      return true;
-    }
-  }
-  return false;
-}
-
+*/
 /**
  * Provides the social widget blocking content script with list of social widgets to block
  *
@@ -590,7 +570,7 @@ function getSocialWidgetBlockList() {
       green_domains[green[i].regexp.source] = 1;
   }
 
-  SocialWidgetList.forEach(function(socialwidget) {
+  window.SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
 
     // replace them if the user hasn't greened them
@@ -603,7 +583,7 @@ function getSocialWidgetBlockList() {
   });
 
   return {
-    "trackers" : SocialWidgetList,
+    "trackers" : window.SocialWidgetList,
     "trackerButtonsToReplace" : socialWidgetsToReplace,
   };
 }
