@@ -100,7 +100,8 @@ var revertUserAction = function(domain){
 };
 
 /** 
- * find the best action to take for an FQDN, traverses the action list for the
+ * find the best action to take for an FQDN, assuming it is third party and 
+ * privacy badger is enabled. Traverses the action list for the
  * fqdn and each of its subdomains and then takes the most appropriate
  * action
  * @param {String} fqdn the FQDN we want to determine the action for
@@ -298,6 +299,7 @@ exports.getActionForFqdn = getActionForFqdn;
 exports.checkTracking = checkTracking;
 exports.updateCookieBlockList = updateCookieBlockList;
 exports.getBadgerStorageObject = getBadgerStorageObject;
+exports.revertUserAction = revertUserAction;
 exports.initialize = initialize;
 
 return exports;
