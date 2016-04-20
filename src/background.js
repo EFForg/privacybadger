@@ -42,6 +42,7 @@ const USER_ALLOW = "user_allow";
 const USER_BLOCK = "user_block";
 const USER_COOKIE_BLOCK = "user_cookie_block";
 //TODO: Implement cookie block list download and integration
+//TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
 if (!("socialWidgetReplacementEnabled" in localStorage)){
   localStorage.socialWidgetReplacementEnabled = "true";
