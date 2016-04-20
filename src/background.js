@@ -975,3 +975,14 @@ function isFrameWhitelisted(tabId, frameId, type) {
   }
   return false;
 }
+
+function log(/*...*/){
+  if(DEBUG) {
+    console.log(arguments);
+  }
+}
+function error(/*...*/){
+  if(DEBUG) {
+    console.error(arguments);
+  }
+}

@@ -27,52 +27,34 @@ var prevalenceThreshold = 3;
 /**
  * Adds Cookie blocking for all more specific domains than the blocked origin
  * - if they're on the cb list
- * TODO: Implement this function
+ * TODO: Implement checkSubdomainsForCookieblock
  *
  * @param {String} origin Origin to check
  */
-function addFiltersFromWhitelistToCookieblock(origin){
-  /*
-  var baseDomain = window.getBaseDomain(origin);
-  setupCookieBLocking
-  */
-  origin = null;
-  return false;
+function checkSubdomainsForCookieblock(origin){
   // iterate through all elements of cookie block list
   // if element has basedomain add it to action_map
   // or update it's action with cookieblock
+  origin = null;
+  return false;
 }
 
 /**
  * Decide if to blacklist and add blacklist filters
- *
- * @param {String} origin The origin URL to add (host)
+ * TODO: Implement blacklist origin
+ * @param {String} baseDomain The base domain (etld+1) to blacklist
  * @param {String} fqdn The FQDN
  */
-var blacklistOrigin = function(origin, fqdn) {
-  // Heuristic subscription
-
-  //check for dnt-policy and whitelist domain if it exists
-  if(action_map.hasOwnElement(fqdn)){
-      if (action_map.getAction(fqdn) == BLOCK or
-          action_map.getAction(fqdn) == COOKIE_BLOCK or
-          action_map.getAction(fqdn) == USER_BLOCK or
-          action_map.getAction(fqdn) == USER_ALLOW or
-          action_map.getAction(fqdn) == USER_COOKIE_BLOCK) {
-          return
-      }
-  
-    checkPrivacyBadgerPolicy(fqdn, function(success){
-      if(success){
-        console.log('adding', fqdn, 'to user whitelist due to badgerpolicy.txt');
-        unblockOrigin(fqdn);
-      } else {
-        action_map.setAction(fqdn, BLOCK);
-      }
-    });  
-  } else {
-      action_map.setAction(fqdn, BLOCK);
-  }
+var blacklistOrigin = function(baseDomain, fqdn) {
+  // check if fqdn is on cookie block list 
+  // set fqdn status to COOKIE_BLOCK
+  // else set fqdn status to BLOCK
+  // do same for baseDomain
+  // check if any of the domains on the cookie block list are  subdomains of baseDomain 
+  // set any relevant subdomains to COOKIE_BLOCK
+  // Fire off an async request to check DNT on FQDN and baseDomain
+  checkSubdomainsForCookieblock(baseDomain);
+  window.log('blacklisting', baseDomain, fqdn);
 };
 
 
@@ -390,7 +372,7 @@ var hasCookieTracking = function(details, origin) {
     hasCookies = true;
     var c = cookies[n].trim();
     var cut = c.indexOf("=");
-    var name = c.slice(0,cut);
+    var name = c.slice(0,cut); /*jshint ignore:line*/
     var value = c.slice(cut+1);
     var lvalue = value.toLowerCase();
     if (!(lvalue in lowEntropyCookieValues)) {
@@ -418,10 +400,9 @@ var hasCookieTracking = function(details, origin) {
 /**
  * Increment counts of how many first party domains we've seen a third party track on
  * Ignore requests that are outside a tabbed window
- * TODO: Update for storage.js
  *
  * @param details are those from onBeforeSendHeaders
- * @returns {{}}
+ * @returns {*}
  */
 var heuristicBlockingAccounting = function(details) {
   if(details.tabId < 0){
@@ -433,7 +414,9 @@ var heuristicBlockingAccounting = function(details) {
   var origin = window.getBaseDomain(fqdn);
 
   var action = pbStorage.getActionForFqdn(fqdn);
-  if(action && action != "noaction"){ console.log("action for", fqdn, action); return {}; }
+  if(action != window.NO_TRACKING && action != window.ALLOW){ 
+    return {}; 
+  }
   
   // Save the origin associated with the tab if this is a main window request
   if(details.type == "main_frame") {
@@ -451,38 +434,37 @@ var heuristicBlockingAccounting = function(details) {
     if (!hasTracking(details, origin)){
       return { };
     }
-    backgroundPage.setTrackingFlag(details.tabId, fqdn);
+    window.setTrackingFlag(details.tabId, fqdn);
     recordPrevalence(fqdn, origin, tabOrigin);
   }
 };
 
 /**
  * Record HTTP request prevalence. Block a tracker if seen on more than [prevalenceThreshold] pages
- * TODO: refactor to use storage.js
  *
- * @param fqdn Host
- * @param origin Base domain of host
- * @param tabOrigin The main origin for this tab
+ * @param {String} fqdn Host
+ * @param {String} origin Base domain of host
+ * @param {String} tabOrigin The main origin for this tab
  */
 function recordPrevalence(fqdn, origin, tabOrigin) {
-  //
-  var seen = JSON.parse(localStorage.getItem("seenThirdParties"));
-  if (!(origin in seen)){
-    seen[origin] = {};
-  }
-  seen[origin][tabOrigin] = true;
-  localStorage.setItem("seenThirdParties", JSON.stringify(seen));
-  // check to see if we've seen it on this first party, if not add a note for it
+  var snitch_map = pbStorage.getBadgerStorageObject('snitch_map');
+  var firstParties = [];
 
-  // cause the options page to refresh
-  FilterNotifier.triggerListeners("load");
-  
+  if (snitch_map.hasOwnElement(fqdn)){
+    firstParties = snitch_map.getItem(fqdn);
+  }
+
+  if(firstParties.indexOf(tabOrigin) === -1){
+    firstParties.push(tabOrigin);
+    snitch_map.setItem(fqdn, firstParties);
+  }
+
   // Blocking based on outbound cookies
-  var httpRequestPrevalence = Object.keys(seen[origin]).length;
+  var httpRequestPrevalence = firstParties.length;
 
   //block the origin if it has been seen on multiple first party domains
   if (httpRequestPrevalence >= prevalenceThreshold) {
-    console.log('blacklisting origin', fqdn);
+    window.log('blacklisting origin', fqdn);
     blacklistOrigin(origin, fqdn);
   }
 }
