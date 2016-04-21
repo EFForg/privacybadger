@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- /* globals localStorage, setTimeout, console, NO_TRACKING, ALLOW, BLOCK, COOKIEBLOCK, DNT, NO_TRACKING */
+ /* globals localStorage, setTimeout, console */
 
 var Utils = require("utils").Utils;
 require.scopes.storage = (function() {
@@ -51,6 +51,9 @@ require.scopes.storage = (function() {
  * }
  **/
 
+// Cache of BadgerStorage objects
+var badgerPen = {};
+
 
 var initialize = function(){
   console.log('loading badgers into the pen');
@@ -69,11 +72,11 @@ var initialize = function(){
 
 var getScore = function(action){
   switch(action){
-    case NO_TRACKING: return 0;
-    case ALLOW: return 1;
-    case BLOCK: return 2;
-    case COOKIEBLOCK: return 3;
-    case DNT: return 4;
+    case window.NO_TRACKING: return 0;
+    case window.ALLOW: return 1;
+    case window.BLOCK: return 2;
+    case window.COOKIEBLOCK: return 3;
+    case window.DNT: return 4;
     default: return 5; 
   }
 };
@@ -86,20 +89,71 @@ var getScore = function(action){
  **/
 var getActionForFqdn = function(domain){
   if(domain.userAction){ return domain.userAction; }
-  if(domain.dnt){ return DNT; } 
+  if(domain.dnt){ return window.DNT; } 
   if(domain.heuristicAction){ return domain.heuristicAction; } 
-  return NO_TRACKING;
+  return window.NO_TRACKING;
 };
 
 /**
- * remove user set action from a domain
- * @param {Object} domain domain object from action_map
- **/
-var revertUserAction = function(domain){
-    domain.userAction = null;
+ * adds a heuristic action for a domain
+ * @param {String} domain Domain to add
+ * @param {String} action The heuristic action to take
+ */
+var setupHeuristicAction = function(domain, action){
+  _setupDomainAction(domain, action, "heuristicAction");
+  //TODO: async set up DNT here
 };
 
-/** 
+/**
+ * adds a heuristic action for a domain
+ * @param {String} domain Domain to add
+ * @param {String} action The heuristic action to take
+ */
+var setupUserAction = function(domain, action){
+  _setupDomainAction(domain, action, "userAction");
+};
+  
+/**
+* remove user set action from a domain
+* @param domain FQDN string
+**/
+var revertUserAction = function(domain){
+  _setupDomainAction(domain, null, "userAction");
+};
+
+  
+/**
+ * set up an action for a domain of the given action type in action_map
+ * @param domain the domain to set the action for
+ * @param action the action to take e.g. BLOCK || COOKIEBLOCK || DNT
+ * @param actionType the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
+ * @private
+ */
+var _setupDomainAction = function(domain, action, actionType){
+  var action_map = getBadgerStorageObject("action_map");
+  var actionObj = {};
+  if (action_map.hasItem(domain)) {
+    actionObj = action_map.getItem(domain);
+  } else {
+    actionObj = _newActionMapObject();
+  }
+  actionObj[actionType] = action;
+  action_map.setItem(domain, actionObj);
+};
+
+/**
+ * @returns {{userAction: null, dnt: null, heuristicAction: null}}
+ * @private
+ */
+var _newActionMapObject = function() {
+  return {
+    userAction: null,
+    dnt: null,
+    heuristicAction: null
+  };
+};
+
+/**
  * find the best action to take for an FQDN, assuming it is third party and 
  * privacy badger is enabled. Traverses the action list for the
  * fqdn and each of its subdomains and then takes the most appropriate
@@ -108,7 +162,7 @@ var revertUserAction = function(domain){
  * @returns {String} the best action for the FQDN
  **/
 var getBestAction = function(fqdn) {
-  var best_action = NO_TRACKING;
+  var best_action = window.NO_TRACKING;
   var subdomains = Utils.explodeSubdomains(fqdn);
   var action_map = getBadgerStorageObject('action_map');
   var relevantDomains = [];
@@ -142,7 +196,7 @@ var getBestAction = function(fqdn) {
 var getAllDomainsByPresumedAction = function(selector){
   var action_map = getBadgerStorageObject('action_map');
   var relevantDomains = [];
-  for(var domain in action_map){
+  for(var domain in action_map.getItemClones()){
     if(selector == getActionForFqdn(domain)){
       relevantDomains.push(domain); 
     }
@@ -150,28 +204,6 @@ var getAllDomainsByPresumedAction = function(selector){
   return relevantDomains;
 };
  
-/**
- * Checks if a given FQDN is tracking. Update snitch_map 
- * and action_map accordingly
- * @param {String} fqdn the FQDN we should check tracking on
- * @returns boolean whether the status changed for the FQDN
- **/
-var checkTracking = function(fqdn) {
-  // TODO this method should probably be in heuristic.js
-  throw('nope!' + fqdn);
-};
-
-/**
- * Update the cookie block list with a new list 
- * add any new entries that already have a parent domain in the action_map
- * and remove any old entries that are no longer in the cookie block list 
- * from the action map
- **/
-var updateCookieBlockList = function(new_list){
-  // TODO
-  throw('nope!' + new_list);
-};
-
 /**
  * A factory for getting BadgerStorage objects, this will either get a badger 
  * storage object from the cache or return a new BadgerStorage object. 
@@ -204,9 +236,6 @@ var _initializeCache = function(key) {
   
   return storage_obj;
 };
-
-// Cache of BadgerStorage objects
-var badgerPen = {};
 
 /**
  * Privacy Badger Storage Object. Has methods for getting, setting and deleting
@@ -259,7 +288,7 @@ BadgerStorage.prototype = {
   /**
    * get an item
    * @param {String} key the key for the item
-   * @return {Mixed} the value for that key or null 
+   * @return the value for that key or null 
    **/
   getItem: function(key) {
     var self = this;
@@ -271,9 +300,18 @@ BadgerStorage.prototype = {
   },
 
   /**
+   * get all items in the object as a copy
+   * #return {*} the items in badgerObject
+   */
+  getItemClones: function() {
+    var self = this;
+    return JSON.parse(JSON.stringify(self._store));
+  },
+
+  /**
    * set an item
    * @param {String} key the key for the item
-   * @param {String} value the new value
+   * @param {*} value the new value
    **/
   setItem: function(key,value){
     var self = this;
@@ -312,8 +350,8 @@ var exports = {};
 exports.getBestAction = getBestAction;
 exports.getActionForFqdn = getActionForFqdn;
 exports.getAllDomainsByPresumedAction = getAllDomainsByPresumedAction;
-exports.checkTracking = checkTracking;
-exports.updateCookieBlockList = updateCookieBlockList;
+exports.setupHeuristicAction = setupHeuristicAction;
+exports.setupUserAction = setupUserAction;
 exports.getBadgerStorageObject = getBadgerStorageObject;
 exports.revertUserAction = revertUserAction;
 exports.initialize = initialize;

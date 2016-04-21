@@ -248,7 +248,7 @@ function removeFilter(subscriptionName, filterName){
  * @return {Boolean} true if the url is allowed false if not
  */
 function isWhitelisted(url) {
-  var action = action_map.getAction(url)
+  var action = action_map.getAction(url);
   if (action == ALLOW or action == USER_ALLOW or action == NO_TRACKING){
       return true;
   } else {
@@ -454,19 +454,6 @@ function getFrameId(tabId, url) {
     }
   }
   return -1;
-}
-
-/**
- * adds domain to cookie block list
- * @param {String} domain Domain to add
- */
-function setupCookieBlocking(domain){
-  // TODO should domain be baseDomain, or is the line above unnecessary?
-  if action_map.hasOwnElement(domain) {
-      action_map.domain.action = COOKIEBLOCK;
-  } else {
-    action_map.domain = {COOKIEBLOCK};
-  }
 }
 
 /**
@@ -987,3 +974,15 @@ function error(/*...*/){
     console.error(arguments);
   }
 }
+
+/**
+ * Update the cookie block list with a new list
+ * add any new entries that already have a parent domain in the action_map
+ * and remove any old entries that are no longer in the cookie block list
+ * from the action map
+ **/
+var updateCookieBlockList = function(new_list){
+  // TODO
+  throw('nope!' + new_list);
+};
+

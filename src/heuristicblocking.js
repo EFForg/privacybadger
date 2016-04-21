@@ -27,11 +27,16 @@ var prevalenceThreshold = 3;
 /**
  * Adds Cookie blocking for all more specific domains than the blocked origin
  * - if they're on the cb list
- * TODO: Implement checkSubdomainsForCookieblock
  *
  * @param {String} origin Origin to check
  */
-function checkSubdomainsForCookieblock(origin){
+function setupSubdomainsForCookieblock(origin){
+  var cbl = pbStorage.getBadgerStorageObject("cookieblock_list");
+  for(var domain in cbl.getItemClones()){
+    if(origin == window.getBaseDomain(domain)){
+      pbStorage.setupHeuristicAction(domain, window.COOKIEBLOCK);
+    }
+  }
   // iterate through all elements of cookie block list
   // if element has basedomain add it to action_map
   // or update it's action with cookieblock
@@ -41,27 +46,30 @@ function checkSubdomainsForCookieblock(origin){
 
 /**
  * Decide if to blacklist and add blacklist filters
- * TODO: Implement blacklist origin
  * @param {String} baseDomain The base domain (etld+1) to blacklist
  * @param {String} fqdn The FQDN
  */
-var blacklistOrigin = function(baseDomain, fqdn) {
-  // check if fqdn is on cookie block list 
-  // set fqdn status to COOKIE_BLOCK
-  // else set fqdn status to BLOCK
-  // do same for baseDomain
-  // check if any of the domains on the cookie block list are  subdomains of baseDomain 
-  // set any relevant subdomains to COOKIE_BLOCK
-  // Fire off an async request to check DNT on FQDN and baseDomain
-  checkSubdomainsForCookieblock(baseDomain);
-  window.log('blacklisting', baseDomain, fqdn);
+var blacklistOrigin = function(baseDomain, fqdn) { /* jshint ignore:line */
+  var cbl = pbStorage.getBadgerStorageObject("cookieblock_list");
+  var domain, i;
+  // Setup Cookieblock or block for base domain and fqdn
+  for (i in arguments){
+    domain = arguments[i];
+    if(cbl.hasItem(domain)){
+      pbStorage.setupHeuristicAction(domain, window.COOKIEBLOCK);
+    } else {
+      pbStorage.setupHeuristicAction(domain, window.BLOCK);
+    }
+  }
+  
+  setupSubdomainsForCookieblock(baseDomain);
 };
 
 
 // This maps cookies to a rough estimate of how many bits of 
 // identifying info we might be letting past by allowing them.
 // (map values to lower case before using)
-// We need something better than this eventually, informed by more real world data!
+// TODO: We need a better heuristic
 var lowEntropyCookieValues = {
  "":3,
  "nodata":3,
@@ -317,7 +325,7 @@ var extractCookieString = function(details) {
  *
  * @param details onBeforeSendHeaders details
  * @param origin The URL
- * @returns {Booolean} true if it has tracking
+ * @returns {bool} true if it has tracking
  */
 var hasTracking = function(details, origin) {
   return (hasCookieTracking(details, origin) || hasSupercookieTracking(details, origin));

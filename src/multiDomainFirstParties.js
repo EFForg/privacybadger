@@ -17,4 +17,4 @@
   ["newyorktimes.com", "nyt.com"],
   ["yahooapis.com", "yimg.com", "yahoo.com"],
   ["dummy"]
-]
+];
