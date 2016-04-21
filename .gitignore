@@ -45,3 +45,5 @@ tests/selenium/.cache
 
 *.xpi
 .chrome-profile
+
+.idea
