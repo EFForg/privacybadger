@@ -33,6 +33,22 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+var pb = {
+  // imports
+  heuristicBlocking: require("heuristicblocking"),
+  
+  // constants
+  NO_TRACKING: "noaction",
+  ALLOW: "allow",
+  BLOCK: "block",
+  COOKIEBLOCK: "cookieblock",
+  DNT: "dnt",
+  USER_ALLOW: "user_allow",
+  USER_BLOCK: "user_block",
+  USER_COOKIE_BLOCK: "user_cookie_block",
+  TRACKING_THRESHOLD: 3,
+};
 const NO_TRACKING = "noaction";
 const ALLOW = "allow";
 const BLOCK = "block";

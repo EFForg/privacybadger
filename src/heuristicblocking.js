@@ -22,7 +22,6 @@ var Utils = require("utils").Utils;
 var pbStorage = require("storage");
 var webrequest = require("webrequest");
 var tabOrigins = { }; // TODO roll into tabData?
-var prevalenceThreshold = 3;
 
 /**
  * Adds Cookie blocking for all more specific domains than the blocked origin
@@ -448,7 +447,7 @@ var heuristicBlockingAccounting = function(details) {
 };
 
 /**
- * Record HTTP request prevalence. Block a tracker if seen on more than [prevalenceThreshold] pages
+ * Record HTTP request prevalence. Block a tracker if seen on more than [pb.TRACKING_THRESHOLD] pages
  *
  * @param {String} fqdn Host
  * @param {String} origin Base domain of host
@@ -473,7 +472,7 @@ function recordPrevalence(fqdn, origin, tabOrigin) {
   var httpRequestPrevalence = firstParties.length;
 
   //block the origin if it has been seen on multiple first party domains
-  if (httpRequestPrevalence >= prevalenceThreshold) {
+  if (httpRequestPrevalence >= pb.TRACKING_THRESHOLD) {
     window.log('blacklisting origin', fqdn);
     blacklistOrigin(origin, fqdn);
   }

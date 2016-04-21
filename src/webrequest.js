@@ -23,7 +23,6 @@
  */
 
 // TODO: Handle DNT check
-// TODO: Implement allow / recheck code path
 require.scopes.webrequest = (function() {
 
 /*********************** webrequest scope **/
@@ -172,15 +171,35 @@ function onBeforeSendHeaders(details) {
   if (Utils.isPrivacyBadgerEnabled(tabDomain) && 
       window.isThirdParty(requestDomain, tabDomain)) {
     var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
-    if (requestAction) {
-      if (requestAction == window.COOKIEBLOCK || requestAction == window.USER_COOKIE_BLOCK) {
-        var newHeaders = details.requestHeaders.filter(function(header) {
-          return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
-        });
-        newHeaders.push({name: "DNT", value: "1"});
-        return {requestHeaders: newHeaders};
-      }
+    // If this might be the third stike against the potential tracker which
+    // would cause it to be blocked we should check immediately if it will be blocked.
+    if (requestAction == window.ALLOW && 
+        pbStorage.getTrackingCount(requestDomain) == pb.TRACKING_THRESHOLD - 1){
+      pb.heuristicBlocking.heuristicBlockingAccounting(details);
+      requestAction = checkAction(details.tabId, details.url, false, details.frameId);
     }
+
+    // This will only happen if the above code sets the action for the request
+    // to block
+    if (requestAction == window.BLOCK) {
+      // Notify the content script...
+      var msg = {
+        replaceSocialWidget: true,
+        trackerDomain: window.extractHostFromURL(details.url)
+      };
+      chrome.tabs.sendMessage(details.tabId, msg);
+
+      return {cancel: true};
+    }
+
+    // This is the typical codepath
+    if (requestAction == window.COOKIEBLOCK || requestAction == window.USER_COOKIE_BLOCK) {
+      var newHeaders = details.requestHeaders.filter(function(header) {
+        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
+      });
+      newHeaders.push({name: "DNT", value: "1"});
+      return {requestHeaders: newHeaders};
+    } 
   }
 
   // Still sending Do Not Track even if HTTP and cookie blocking are disabled

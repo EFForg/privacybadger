@@ -203,7 +203,21 @@ var getAllDomainsByPresumedAction = function(selector){
   }
   return relevantDomains;
 };
- 
+
+/**
+ * Get the number of domains that the given FQDN has been seen tracking on
+ * @param fqdn domain to check status of
+ * @return int the number of domains fqdn has been tracking on 
+ */
+var getTrackingCount = function(fqdn){
+  var snitch_map = getBadgerStorageObject('snitch_map');
+  if(snitch_map.hasItem(fqdn)){
+    return snitch_map.getItem(fqdn).length;
+  } else {
+    return 0;
+  }
+};
+
 /**
  * A factory for getting BadgerStorage objects, this will either get a badger 
  * storage object from the cache or return a new BadgerStorage object. 
@@ -353,6 +367,7 @@ exports.getAllDomainsByPresumedAction = getAllDomainsByPresumedAction;
 exports.setupHeuristicAction = setupHeuristicAction;
 exports.setupUserAction = setupUserAction;
 exports.getBadgerStorageObject = getBadgerStorageObject;
+exports.getTrackingCount = getTrackingCount;
 exports.revertUserAction = revertUserAction;
 exports.initialize = initialize;
 
