@@ -465,6 +465,8 @@ function recordPrevalence(fqdn, origin, tabOrigin) {
   if(firstParties.indexOf(tabOrigin) === -1){
     firstParties.push(tabOrigin);
     snitch_map.setItem(fqdn, firstParties);
+    pbStorage.setupHeuristicAction(fqdn, window.ALLOW);
+    pbStorage.setupHeuristicAction(origin, window.ALLOW);
   }
 
   // Blocking based on outbound cookies
