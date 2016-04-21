@@ -142,6 +142,31 @@ var pb = {
     pb.tabData[tabId].trackers[fqdn] = action;
   },
 
+  /**
+  * saves a user preference for an origin, overriding
+  * the default setting.
+  * @param {String} userAction enum of block, cookieblock, noaction
+  * @param {String} origin the third party origin to take action on
+  */
+  saveAction: function(userAction, origin) {
+    var allUserActions = {'block': pb.USER_BLOCK,
+                          'cookieblock': pb.USER_COOKIE_BLOCK,
+                          'noaction': pb.USER_ALLOW};
+    pb.storage.setupUserAction(origin, allUserActions[userAction]);
+    console.log("Finished saving action " + userAction + " for " + origin);
+
+    // TODO: right now we don't determine whether a reload is needed
+    return true;
+  },
+
+  /**
+  * reloads a tab
+  * @param {Integer} tabId the chrome tab id
+  */
+  reloadTab: function(tabId){
+    chrome.tabs.reload(tabId);
+  },
+
 };
 
 pb.init();
@@ -302,7 +327,8 @@ setDefaultOptions();
  * @returns {String} The action defined for this tab/origin
  */
 function getAction(tabId, origin) {
-  return activeMatchers.getAction(tabId, origin);
+  // TODO: can we just call storage.getBestAction instead? Do we even need tabId here?
+  return pb.tabData[tabId].trackers[origin];
 }
 
 /**
@@ -313,16 +339,16 @@ function getAction(tabId, origin) {
  */
 function requestWouldBeBlocked(tabId, origin) {
   var action = getAction(tabId, origin);
-  return action == BLOCK || action == USER_BLOCK;
+  return action == pb.BLOCK || action == pb.USER_BLOCK;
 }
 
 /**
  * Helper function returns a list of all blocked origins for a tab
  * @param {Integer} tabId requested tab id as provided by chrome
- * @returns {*} The list of blocked origins
+ * @returns {*} A dictionary of third party origins and their actions
  */
 function getAllOriginsForTab(tabId) {
-  return activeMatchers.getAllOriginsForTab(tabId);
+  return Object.keys(pb.tabData[tabId].trackers);
 }
 
 /**
@@ -817,34 +843,6 @@ function isValidPolicyHash(hash){
   return false;
 }
 
-
-/**
- * saves a user preference for an origin, overriding
- * the default setting.
- * @param {String} userAction enum of block, cookieblock, noaction
- * @param {String} origin the third party origin to take action on
- */
-// TODO add back in functionality to do this only on one domain
-function saveAction(userAction, origin) {
-  var allUserActions = {'block': USER_BLOCK,
-                        'cookieblock': USER_COOKIE_BLOCK,
-                        'noaction': USER_ALLOW};
-  // If there is no target proceed as normal
-  action_map.setAction(origin, allUserActions[userAction])
-  console.log("Finished saving action " + userAction + " for " + origin);
-
-  // TODO: right now we don't determine whether a reload is needed
-  return true;
-}
-
-/**
- * reloads a tab
- * @param {Integer} tabId the chrome tab id
- */
-function reloadTab(tabId){
-  chrome.tabs.reload(tabId);
-}
-
 /**
  * Check if an origin is already in the heuristic
  * @param {String} origin 3rd party host
@@ -860,17 +858,12 @@ function isOriginInHeuristic(origin){
  * @return {Integer} count of blocked origins
  */
 function blockedOriginCount(tabId){
-  return getAllOriginsForTab(tabId)
-    .reduce(function(memo,origin){
-      if(getAction(tabId,origin)){
-        memo+=1;
-      }
-      return memo;
-    }, 0);
+  return getAllOriginsForTab(tabId).length;
 }
 
 /**
  * Counts the actively blocked trackers
+ * TODO: move to popup.js and refactor
  *
  * @param tabId Tab ID to count for
  * @returns {Integer} The number of blocked trackers
@@ -888,6 +881,7 @@ function activelyBlockedOriginCount(tabId){
 
 /**
  * Counts total blocked trackers and blocked cookies trackers
+ * TODO: ugly code, refactor
  *
  * @param tabId Tab ID to count for
  * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
@@ -912,6 +906,7 @@ function originHasTracking(tabId,fqdn){
 /**
  * Counts trackers blocked by the user
  *
+ * TODO: ugly code refactor
  * @param tabId Tab ID to count for
  * @returns {Integer} The number of blocked trackers
  */
