@@ -684,8 +684,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 });
 
+/************************************** exports */
 var exports = {};
 exports.getFrameData = getFrameData;
+exports.getHostForTab = getHostForTab;
+exports.getFrameUrl = getFrameUrl;
 
 return exports;
 /************************************** exports */

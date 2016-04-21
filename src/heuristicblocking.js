@@ -377,7 +377,7 @@ var hasCookieTracking = function(details, origin) {
     // TODO urgh I can't believe we're parsing cookies.  Probably wrong
     // what if the value has spaces in it?
     hasCookies = true;
-    var c = cookies[n].trim();
+    var c = cookies[i].trim();
     var cut = c.indexOf("=");
     var name = c.slice(0,cut); /*jshint ignore:line*/
     var value = c.slice(cut+1);
@@ -457,7 +457,7 @@ function recordPrevalence(fqdn, origin, tabOrigin) {
   var snitch_map = pbStorage.getBadgerStorageObject('snitch_map');
   var firstParties = [];
 
-  if (snitch_map.hasOwnElement(fqdn)){
+  if (snitch_map.hasItem(fqdn)){
     firstParties = snitch_map.getItem(fqdn);
   }
 

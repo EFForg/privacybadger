@@ -14,9 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- /* globals localStorage, setTimeout, console */
 
-var Utils = require("utils").Utils;
 require.scopes.storage = (function() {
 
 
@@ -163,7 +161,7 @@ var _newActionMapObject = function() {
  **/
 var getBestAction = function(fqdn) {
   var best_action = pb.NO_TRACKING;
-  var subdomains = Utils.explodeSubdomains(fqdn);
+  var subdomains = pb.utils.explodeSubdomains(fqdn);
   var action_map = getBadgerStorageObject('action_map');
   var relevantDomains = [];
   var i;
@@ -359,6 +357,7 @@ var _syncStorage = function(badger){
   localStorage.setItem(badger.name, stored);
 };
 
+/************************************** exports */
 var exports = {};
 
 exports.getBestAction = getBestAction;

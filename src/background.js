@@ -37,9 +37,21 @@
 // TODO: Implement cookie block list download and integration
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
+var Utils = require("utils").Utils;
+var CookieBlockList = require("cookieblocklist").CookieBlockList;
+var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
+var DomainExceptions = require("domainExceptions").DomainExceptions;
+var HeuristicBlocking = require("heuristicblocking");
+var SocialWidgetLoader = require("socialwidgetloader");
+var pbStorage = require("storage");
+var webrequest = require("webrequest");
+
 var pb = {
   // imports
-  heuristicBlocking: require("heuristicblocking"),
+  heuristicBlocking: HeuristicBlocking,
+  utils: Utils,
+  storage: pbStorage,
+  webrequest: webrequest,
   
   // Tracking status constants
   NO_TRACKING: "noaction",
@@ -92,8 +104,10 @@ var pb = {
 
   // Methods
   init: function(){
-    console.log('updating tab list');
+    pb.storage.initialize();
     updateTabList();
+    console.log('privacy badger is ready to rock');
+    console.log('set pb.DEBUG=1 to view console messages');
   },
 
   log: function(/*...*/){
@@ -152,17 +166,7 @@ var matcherStore = require("matcher").matcherStore;
 var activeMatchers = require("matcher").activeMatchers;
 var Prefs = require("prefs").Prefs;
 var Synchronizer = require("synchronizer").Synchronizer;
-var Utils = require("utils").Utils;
-var CookieBlockList = require("cookieblocklist").CookieBlockList;
-var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
-var DomainExceptions = require("domainExceptions").DomainExceptions;
-var HeuristicBlocking = require("heuristicblocking");
-var SocialWidgetLoader = require("socialwidgetloader");
-var pbStorage = require("storage");
-var webrequest = require("webrequest");
 
-// Initialize storage
-pbStorage.initialize();
 
 // Load social widgets
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
@@ -317,8 +321,10 @@ function removeFilter(subscriptionName, filterName){
  * @return {Boolean} true if the url is allowed false if not
  */
 function isWhitelisted(url) {
-  var action = pbStorage.getAction(url);
-  if (action == pb.ALLOW || action == pb.USER_ALLOW || action == pb.NO_TRACKING){
+  var host = window.extractHostFromURL(url);
+  var action_map = pbStorage.getBadgerStorageObject('action_map');
+  var action = action_map.getItem(host);
+  if ([pb.ALLOW, pb.USER_ALLOW, pb.NO_TRACKING, pb.DNT].indexOf(action) >= 0){
       return true;
   } else {
       return false;
@@ -517,7 +523,7 @@ function openOptions(callback) {
 function getFrameId(tabId, url) {
   if (tabId in pb.tabData) {
     for (var f in pb.tabData[tabId].frames) {
-      if (getFrameUrl(tabId, f) == url) {
+      if (pb.webrequest.getFrameUrl(tabId, f) == url) {
         return f;
       }
     }
@@ -573,7 +579,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
         frameId = getFrameId(tabId, request.frameUrl);
       }
 
-      var enabled = !isFrameWhitelisted(tabId, frameId, "DOCUMENT") && !isFrameWhitelisted(tabId, frameId, "ELEMHIDE")&& Utils.isPrivacyBadgerEnabled(getHostForTab(tabId));
+      var enabled = !isFrameWhitelisted(tabId, frameId, "DOCUMENT") && !isFrameWhitelisted(tabId, frameId, "ELEMHIDE")&& Utils.isPrivacyBadgerEnabled(pb.webrequest.getHostForTab(tabId));
       if (enabled && request.selectors) {
         // Special-case domains for which we cannot use style-based hiding rules.
         // See http://crbug.com/68705.
@@ -607,7 +613,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 
       if (isFrameWhitelisted(tabId, frameId, "DOCUMENT") ||
           isSocialWidgetTemporaryUnblock(tabId, request.url, frameId) ||
-          !Utils.isPrivacyBadgerEnabled(getHostForTab(tabId)) ) {
+          !Utils.isPrivacyBadgerEnabled(pb.webrequest.getHostForTab(tabId)) ) {
         sendResponse(false);
         break;
       }
@@ -930,7 +936,7 @@ function updateCount(details){
     return {};
   }
 
-  if(!Utils.isPrivacyBadgerEnabled(getHostForTab(details.tabId))){
+  if(!Utils.isPrivacyBadgerEnabled(pb.webrequest.getHostForTab(details.tabId))){
     return;
   }
 
@@ -978,11 +984,12 @@ function updateTabList(){
       };
     }
   });
-
+  /*
   CookieBlockList.updateDomains();
   BlockedDomainList.updateDomains();
   DomainExceptions.updateList();
   updatePrivacyPolicyHashes();
+  */
 }
 
 /**
