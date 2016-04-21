@@ -20,7 +20,6 @@ var DomainExceptions = {
    * @param {Function} callback Callback to call after update. Optional
    */
   updateList: function(callback){
-    console.log('updating domain exception list');
     //update object from local storage
     chrome.storage.local.get('domainExceptionList', function(l){
       if(l){ DomainExceptions.list = l; }

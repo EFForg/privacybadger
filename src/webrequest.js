@@ -49,7 +49,7 @@ chrome.tabs.onReplaced.addListener(onTabReplaced);
  * @returns {*} Can cancel requests
  */
 function onBeforeRequest(details){
-  if (details.tabId == -1){
+  if ( _isTabChromeInternal(details.tabId)){
     return {};
   }
 
@@ -126,16 +126,12 @@ function onBeforeRequest(details){
  * @returns {*} modified headers
  */
 function onBeforeSendHeaders(details) {
-  var tabDomain = getHostForTab(details.tabId);
-  var requestDomain = window.extractHostFromURL(details.url);
-
-  if (details.tabId == -1){
-    return {};
-  }
-
   if(_isTabChromeInternal(details.tabId)){
     return {};
   }
+
+  var tabDomain = getHostForTab(details.tabId);
+  var requestDomain = window.extractHostFromURL(details.url);
 
   if (Utils.isPrivacyBadgerEnabled(tabDomain) && 
       window.isThirdParty(requestDomain, tabDomain)) {
@@ -183,11 +179,12 @@ function onBeforeSendHeaders(details) {
  * @returns {*} The new response header
  */
 function onHeadersReceived(details){
-  var tabDomain = getHostForTab(details.tabId);
-  var requestDomain = window.extractHostFromURL(details.url);
-  if (details.tabId == -1){
+  if(_isTabChromeInternal(details.tabId)){
     return {};
   }
+
+  var tabDomain = getHostForTab(details.tabId);
+  var requestDomain = window.extractHostFromURL(details.url);
    
   if (Utils.isPrivacyBadgerDisabled(tabDomain)) {
     return {};
@@ -197,9 +194,6 @@ function onHeadersReceived(details){
     return {};
   }
 
-  if(_isTabChromeInternal(details.tabId)){
-    return {};
-  }
 
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction) {
@@ -478,15 +472,13 @@ function checkAction(tabId, url, quiet, frameId){
   }
 
   // Determine action is request is from third party and tab is valid.
-  var action;
-  if (tabId > -1) {
-    action = pbStorage.getBestAction(requestHost);
-  }
+  var action = pbStorage.getBestAction(requestHost);
 
   if (action && ! quiet) {
     // TODO: Add code to write to popup. Mabye put in tabs?
     //activeMatchers.addMatcherToOrigin(tabId, requestHost, "requestAction", action);
-    console.log('ADD', requestHost, 'to popup for', documentUrl, 'with action', action);
+    pb.log('ADD', requestHost, 'to popup for', documentUrl, 'with action', action);
+    pb.logTrackerOnTab(tabId, requestHost, action);
   }
   return action;
 }
@@ -513,7 +505,7 @@ function _frameUrlStartsWith(tabId, piece){
  * @private
  */
 function _isTabChromeInternal(tabId){
-  return _frameUrlStartsWith(tabId, "chrome");
+  return tabId < 0 || _frameUrlStartsWith(tabId, "chrome");
 }
 
 /**
@@ -689,6 +681,7 @@ var exports = {};
 exports.getFrameData = getFrameData;
 exports.getHostForTab = getHostForTab;
 exports.getFrameUrl = getFrameUrl;
+exports.isSocialWidgetTemporaryUnblock = isSocialWidgetTemporaryUnblock;
 
 return exports;
 /************************************** exports */

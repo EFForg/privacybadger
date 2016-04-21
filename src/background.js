@@ -68,6 +68,7 @@ var pb = {
   
   // Display debug messages
   DEBUG: false,
+  INITIALIZED: false,
   
   // In memory data structures
   /**
@@ -103,13 +104,21 @@ var pb = {
 
 
   // Methods
+  /**
+   * initialize privacy badger
+   */
   init: function(){
+    if(pb.INITIALIZED) { return; }
     pb.storage.initialize();
     updateTabList();
+    pb.INITIALIZED = true;
     console.log('privacy badger is ready to rock');
     console.log('set pb.DEBUG=1 to view console messages');
   },
 
+  /**
+   * Log a message to the conosle if debugging is enabled
+   */
   log: function(/*...*/){
     if(pb.DEBUG) {
       console.log(arguments);
@@ -120,6 +129,17 @@ var pb = {
     if(pb.DEBUG) {
       console.error(arguments);
     }
+  },
+
+  /**
+   * Add the tracker and action to the tab.trackers object in tabData
+   * which will be used by the privacy badger popup
+   * @param tabId the tab we are on
+   * @param fqdn the tracker to add
+   * @param action the action we are taking
+   **/
+  logTrackerOnTab: function(tabId, fqdn, action){
+    pb.tabData[tabId].trackers[fqdn] = action;
   },
 
 };
@@ -612,7 +632,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
       }
 
       if (isFrameWhitelisted(tabId, frameId, "DOCUMENT") ||
-          isSocialWidgetTemporaryUnblock(tabId, request.url, frameId) ||
+          pb.webrequest.isSocialWidgetTemporaryUnblock(tabId, request.url, frameId) ||
           !Utils.isPrivacyBadgerEnabled(pb.webrequest.getHostForTab(tabId)) ) {
         sendResponse(false);
         break;
@@ -883,9 +903,6 @@ function blockedTrackerCount(tabId){
     }, 0);
 }
 
-function setTrackingFlag(tabId,fqdn){
-  pb.tabData[tabId].trackers[fqdn] = true;
-}
 
 function originHasTracking(tabId,fqdn){
   return pb.tabData[tabId] && 
@@ -967,7 +984,6 @@ chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*",
 * Populate tabs object with currently open tabs when extension is updated or installed. 
 */
 function updateTabList(){
-  console.log('update tabs!');
   // Initialize the tabData/frames object if it is falsey
   pb.tabData = pb.tabData || {};
   chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
@@ -980,7 +996,7 @@ function updateTabList(){
             url: tab.url
           }
         },
-        domains: {}
+        trackers: {}
       };
     }
   });

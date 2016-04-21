@@ -65,7 +65,6 @@ var initialize = function(){
   for(var i = 0; i < storage_objects.length; i++){
     _initializeCache(storage_objects[i]);
   }
-  console.log('loaded', storage_objects.length, 'badgers');
 };
 
 var getScore = function(action){
@@ -227,7 +226,7 @@ var getBadgerStorageObject = function(key) {
   // TODO Handle incognito mode, store only in memory;
 
   if(badgerPen.hasOwnProperty(key)){
-    console.log('fetching', key, 'from memory');
+    pb.log('fetching', key, 'from memory');
     return badgerPen[key];
   }
   console.error('initializing cache from getBadgerStorageObject. You are using this API improperly');

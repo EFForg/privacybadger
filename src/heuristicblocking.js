@@ -54,6 +54,7 @@ var blacklistOrigin = function(baseDomain, fqdn) { /* jshint ignore:line */
   // Setup Cookieblock or block for base domain and fqdn
   for (i in arguments){
     domain = arguments[i];
+    // TODO: we need to check if the cookie block list contains any parent domains as well
     if(cbl.hasItem(domain)){
       pbStorage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
     } else {
@@ -441,7 +442,6 @@ var heuristicBlockingAccounting = function(details) {
     if (!hasTracking(details, origin)){
       return { };
     }
-    window.setTrackingFlag(details.tabId, fqdn);
     recordPrevalence(fqdn, origin, tabOrigin);
   }
 };
@@ -455,17 +455,18 @@ var heuristicBlockingAccounting = function(details) {
  */
 function recordPrevalence(fqdn, origin, tabOrigin) {
   var snitch_map = pbStorage.getBadgerStorageObject('snitch_map');
+  var trackerBaseDomain = window.getBaseDomain(fqdn);
   var firstParties = [];
 
-  if (snitch_map.hasItem(fqdn)){
-    firstParties = snitch_map.getItem(fqdn);
+  if (snitch_map.hasItem(trackerBaseDomain)){
+    firstParties = snitch_map.getItem(trackerBaseDomain);
   }
 
   if(firstParties.indexOf(tabOrigin) === -1){
     firstParties.push(tabOrigin);
-    snitch_map.setItem(fqdn, firstParties);
+    snitch_map.setItem(trackerBaseDomain, firstParties);
     pbStorage.setupHeuristicAction(fqdn, pb.ALLOW);
-    pbStorage.setupHeuristicAction(origin, pb.ALLOW);
+    pbStorage.setupHeuristicAction(trackerBaseDomain, pb.ALLOW);
   }
 
   // Blocking based on outbound cookies
