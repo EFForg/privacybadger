@@ -34,11 +34,14 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// TODO: Implement cookie block list download and integration
+// TODO: Encapsulate code and replace window.* calls throught code with pb.*
+
 var pb = {
   // imports
   heuristicBlocking: require("heuristicblocking"),
   
-  // constants
+  // Tracking status constants
   NO_TRACKING: "noaction",
   ALLOW: "allow",
   BLOCK: "block",
@@ -47,18 +50,67 @@ var pb = {
   USER_ALLOW: "user_allow",
   USER_BLOCK: "user_block",
   USER_COOKIE_BLOCK: "user_cookie_block",
+
+  // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
+  
+  // Display debug messages
+  DEBUG: false,
+  
+  // In memory data structures
+  /**
+  * Per-tab data that gets cleaned up on tab closing
+    looks like:
+      tabData = {
+        <tab_id>: {
+          fpData: {
+            <script_origin>: {
+              canvas: {
+                fingerprinting: boolean,
+                write: boolean
+              }
+            },
+            ...
+          },
+          frames: {
+            <frame_id>: {
+              url: string,
+              parent: int
+            },
+            ...
+          },
+          trackers: {
+            domain.tld: bool
+            ...
+          }
+        },
+        ...
+      } 
+  */
+  tabData: {},
+
+
+  // Methods
+  init: function(){
+    console.log('updating tab list');
+    updateTabList();
+  },
+
+  log: function(/*...*/){
+    if(pb.DEBUG) {
+      console.log(arguments);
+    }
+  },
+
+  error: function(/*...*/){
+    if(pb.DEBUG) {
+      console.error(arguments);
+    }
+  },
+
 };
-const NO_TRACKING = "noaction";
-const ALLOW = "allow";
-const BLOCK = "block";
-const COOKIEBLOCK = "cookieblock";
-const DNT = "dnt";
-const USER_ALLOW = "user_allow";
-const USER_BLOCK = "user_block";
-const USER_COOKIE_BLOCK = "user_cookie_block";
-//TODO: Implement cookie block list download and integration
-//TODO: Encapsulate code and replace window.* calls throught code with pb.*
+
+pb.init();
 
 if (!("socialWidgetReplacementEnabled" in localStorage)){
   localStorage.socialWidgetReplacementEnabled = "true";
@@ -260,12 +312,13 @@ function removeFilter(subscriptionName, filterName){
 
 /**
  * Checks whether a page is whitelisted.
+ * TODO: FIX THIS SHIT
  * @param {String} url
  * @return {Boolean} true if the url is allowed false if not
  */
 function isWhitelisted(url) {
-  var action = action_map.getAction(url);
-  if (action == ALLOW or action == USER_ALLOW or action == NO_TRACKING){
+  var action = pbStorage.getAction(url);
+  if (action == pb.ALLOW || action == pb.USER_ALLOW || action == pb.NO_TRACKING){
       return true;
   } else {
       return false;
@@ -462,8 +515,8 @@ function openOptions(callback) {
  * @return {Integer} frameId or -1 on fail
  */
 function getFrameId(tabId, url) {
-  if (tabId in tabData) {
-    for (var f in tabData[tabId].frames) {
+  if (tabId in pb.tabData) {
+    for (var f in pb.tabData[tabId].frames) {
       if (getFrameUrl(tabId, f) == url) {
         return f;
       }
@@ -825,13 +878,13 @@ function blockedTrackerCount(tabId){
 }
 
 function setTrackingFlag(tabId,fqdn){
-  tabData[tabId].trackers[fqdn] = true;
+  pb.tabData[tabId].trackers[fqdn] = true;
 }
 
 function originHasTracking(tabId,fqdn){
-  return tabData[tabId] && 
-    tabData[tabId].trackers &&
-    !!tabData[tabId].trackers[fqdn];
+  return pb.tabData[tabId] && 
+    pb.tabData[tabId].trackers &&
+    !!pb.tabData[tabId].trackers[fqdn];
 }
 /**
  * Counts trackers blocked by the user
@@ -882,20 +935,20 @@ function updateCount(details){
   }
 
   var tabId = details.tabId;
-  if (!tabData[tabId]) {
+  if (!pb.tabData[tabId]) {
     return;
   }
-  if(tabData[tabId].bgTab === true){
+  if(pb.tabData[tabId].bgTab === true){
     // prerendered tab, Chrome will throw error for setBadge functions, don't call
     return;
-  }else if(tabData[tabId].bgTab === false){
+  }else if(pb.tabData[tabId].bgTab === false){
     updateBadge(tabId);
   }else{
     chrome.tabs.get(tabId, function(tab){
       if (chrome.runtime.lastError){
-        tabData[tabId].bgTab = true;
+        pb.tabData[tabId].bgTab = true;
       }else{
-        tabData[tabId].bgTab = false;
+        pb.tabData[tabId].bgTab = false;
         updateBadge(tabId);
       }
     });
@@ -910,11 +963,11 @@ chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*",
 function updateTabList(){
   console.log('update tabs!');
   // Initialize the tabData/frames object if it is falsey
-  tabData = tabData || {};
+  pb.tabData = pb.tabData || {};
   chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
     for(var i = 0; i < tabs.length; i++){
       var tab = tabs[i];
-      tabData[tab.id] = {
+      pb.tabData[tab.id] = {
         frames: {
           0: {
             parent: -1,
@@ -978,17 +1031,6 @@ function isFrameWhitelisted(tabId, frameId, type) {
     }
   }
   return false;
-}
-
-function log(/*...*/){
-  if(DEBUG) {
-    console.log(arguments);
-  }
-}
-function error(/*...*/){
-  if(DEBUG) {
-    console.error(arguments);
-  }
 }
 
 /**

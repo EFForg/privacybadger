@@ -33,7 +33,7 @@ function setupSubdomainsForCookieblock(origin){
   var cbl = pbStorage.getBadgerStorageObject("cookieblock_list");
   for(var domain in cbl.getItemClones()){
     if(origin == window.getBaseDomain(domain)){
-      pbStorage.setupHeuristicAction(domain, window.COOKIEBLOCK);
+      pbStorage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
     }
   }
   // iterate through all elements of cookie block list
@@ -55,9 +55,9 @@ var blacklistOrigin = function(baseDomain, fqdn) { /* jshint ignore:line */
   for (i in arguments){
     domain = arguments[i];
     if(cbl.hasItem(domain)){
-      pbStorage.setupHeuristicAction(domain, window.COOKIEBLOCK);
+      pbStorage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
     } else {
-      pbStorage.setupHeuristicAction(domain, window.BLOCK);
+      pbStorage.setupHeuristicAction(domain, pb.BLOCK);
     }
   }
   
@@ -298,8 +298,8 @@ var extractCookieString = function(details) {
   } else if(details.responseHeaders) {
     headers = details.responseHeaders;
   } else {
-    console.log("A request was made with no headers! Crazy!");
-    console.log(details);
+    pb.log("A request was made with no headers! Crazy!");
+    pb.log(details);
     return false;
   }
 
@@ -390,16 +390,16 @@ var hasCookieTracking = function(details, origin) {
     }
   }
   if (hasCookies) {
-     console.log("All cookies for " + origin + " deemed low entropy...");
+     pb.log("All cookies for " + origin + " deemed low entropy...");
      for (var n = 0; n < cookies.length; n++) {
-        console.log("    " + cookies[n]);
+        pb.log("    " + cookies[n]);
      }
      if (estimatedEntropy > MAX_COOKIE_ENTROPY) {
-       console.log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
+       pb.log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
        return true;
      }
   } else {
-    console.log(origin, "has no cookies!");
+    pb.log(origin, "has no cookies!");
   }
   return false;
 };
@@ -421,13 +421,13 @@ var heuristicBlockingAccounting = function(details) {
   var origin = window.getBaseDomain(fqdn);
 
   var action = pbStorage.getActionForFqdn(fqdn);
-  if(action != window.NO_TRACKING && action != window.ALLOW){ 
+  if(action != pb.NO_TRACKING && action != pb.ALLOW){ 
     return {}; 
   }
   
   // Save the origin associated with the tab if this is a main window request
   if(details.type == "main_frame") {
-    //console.log("Origin: " + origin + "\tURL: " + details.url);
+    pb.log("Origin: " + origin + "\tURL: " + details.url);
     tabOrigins[details.tabId] = origin;
     return { };
   }
@@ -464,8 +464,8 @@ function recordPrevalence(fqdn, origin, tabOrigin) {
   if(firstParties.indexOf(tabOrigin) === -1){
     firstParties.push(tabOrigin);
     snitch_map.setItem(fqdn, firstParties);
-    pbStorage.setupHeuristicAction(fqdn, window.ALLOW);
-    pbStorage.setupHeuristicAction(origin, window.ALLOW);
+    pbStorage.setupHeuristicAction(fqdn, pb.ALLOW);
+    pbStorage.setupHeuristicAction(origin, pb.ALLOW);
   }
 
   // Blocking based on outbound cookies
@@ -473,7 +473,7 @@ function recordPrevalence(fqdn, origin, tabOrigin) {
 
   //block the origin if it has been seen on multiple first party domains
   if (httpRequestPrevalence >= pb.TRACKING_THRESHOLD) {
-    window.log('blacklisting origin', fqdn);
+    pb.log('blacklisting origin', fqdn);
     blacklistOrigin(origin, fqdn);
   }
 }

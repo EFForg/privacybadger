@@ -32,37 +32,6 @@ require.scopes.webrequest = (function() {
 var Utils = require("utils").Utils;
 var pbStorage = require("storage");
 var temporarySocialWidgetUnblock = {};
-var tabData = {};
-/**
- * Per-tab data that gets cleaned up on tab closing
-   looks like:
-    tabData = {
-      <tab_id>: {
-        fpData: {
-          <script_origin>: {
-            canvas: {
-              fingerprinting: boolean,
-              write: boolean
-            }
-          },
-          ...
-        },
-        frames: {
-          <frame_id>: {
-            url: string,
-            parent: int
-          },
-          ...
-        },
-        trackers: {
-          domain.tld: bool
-          ...
-        }
-      },
-      ...
-    } 
-*/
-
 
 /*************** Register Event Listeners *********************/
 chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
@@ -135,7 +104,7 @@ function onBeforeRequest(details){
     }
     */
 
-    if (requestAction == window.BLOCK || requestAction == window.USER_BLOCK) {
+    if (requestAction == pb.BLOCK || requestAction == pb.USER_BLOCK) {
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
@@ -173,7 +142,7 @@ function onBeforeSendHeaders(details) {
     var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
     // If this might be the third stike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
-    if (requestAction == window.ALLOW && 
+    if (requestAction == pb.ALLOW && 
         pbStorage.getTrackingCount(requestDomain) == pb.TRACKING_THRESHOLD - 1){
       pb.heuristicBlocking.heuristicBlockingAccounting(details);
       requestAction = checkAction(details.tabId, details.url, false, details.frameId);
@@ -181,7 +150,7 @@ function onBeforeSendHeaders(details) {
 
     // This will only happen if the above code sets the action for the request
     // to block
-    if (requestAction == window.BLOCK) {
+    if (requestAction == pb.BLOCK) {
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
@@ -193,7 +162,7 @@ function onBeforeSendHeaders(details) {
     }
 
     // This is the typical codepath
-    if (requestAction == window.COOKIEBLOCK || requestAction == window.USER_COOKIE_BLOCK) {
+    if (requestAction == pb.COOKIEBLOCK || requestAction == pb.USER_COOKIE_BLOCK) {
       var newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
@@ -234,7 +203,7 @@ function onHeadersReceived(details){
 
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction) {
-    if (requestAction == window.COOKIEBLOCK || requestAction == window.USER_COOKIE_BLOCK) {
+    if (requestAction == pb.COOKIEBLOCK || requestAction == pb.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
@@ -277,18 +246,18 @@ function onTabReplaced(addedTabId, removedTabId){
  */
 function getHostForTab(tabId){
   var mainFrameIdx = 0;
-  if (!tabData[tabId]) {
+  if (!pb.tabData[tabId]) {
     return;
   }
   if (_isTabAnExtension(tabId)) {
     // If the tab is an extension get the url of the first frame for its implied URL
     // since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(tabData[tabId].frames)[1] || 0;
+    mainFrameIdx = Object.keys(pb.tabData[tabId].frames)[1] || 0;
   }
-  if (!tabData[tabId].frames[mainFrameIdx]) {
+  if (!pb.tabData[tabId].frames[mainFrameIdx]) {
     return;
   }
-  return window.extractHostFromURL(tabData[tabId].frames[mainFrameIdx].url);
+  return window.extractHostFromURL(pb.tabData[tabId].frames[mainFrameIdx].url);
 }
 
 /**
@@ -300,8 +269,8 @@ function getHostForTab(tabId){
  * @param frameUrl The url of the frame
  */
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
-  if (!tabData.hasOwnProperty(tabId)){
-    tabData[tabId] = {
+  if (!pb.tabData.hasOwnProperty(tabId)){
+    pb.tabData[tabId] = {
       frames: {},
       trackers: {}
     };
@@ -310,13 +279,13 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   chrome.tabs.get(tabId, function(/*tab*/){
     if (chrome.runtime.lastError){
       // chrome will throw error for the prerendered tabs
-      tabData[tabId].bgTab = true;
+      pb.tabData[tabId].bgTab = true;
     }else{
-      tabData[tabId].bgTab = false;
+      pb.tabData[tabId].bgTab = false;
     }
   });
 
-  tabData[tabId].frames[frameId] = {
+  pb.tabData[tabId].frames[frameId] = {
     url: frameUrl,
     parent: parentFrameId
   };
@@ -384,22 +353,22 @@ function recordFingerprinting(tabId, msg) {
     toDataURL: true
   };
 
-  if (!tabData[tabId].hasOwnProperty('fpData')) {
-    tabData[tabId].fpData = {};
+  if (!pb.tabData[tabId].hasOwnProperty('fpData')) {
+    pb.tabData[tabId].fpData = {};
   }
 
   var script_origin = window.getBaseDomain(script_host);
 
   // initialize script TLD-level data
-  if (!tabData[tabId].fpData.hasOwnProperty(script_origin)) {
-    tabData[tabId].fpData[script_origin] = {
+  if (!pb.tabData[tabId].fpData.hasOwnProperty(script_origin)) {
+    pb.tabData[tabId].fpData[script_origin] = {
       canvas: {
         fingerprinting: false,
         write: false
       }
     };
   }
-  var scriptData = tabData[tabId].fpData[script_origin];
+  var scriptData = pb.tabData[tabId].fpData[script_origin];
 
   if (msg.extra.hasOwnProperty('canvas')) {
     if (scriptData.canvas.fingerprinting) {
@@ -436,11 +405,11 @@ function recordFingerprinting(tabId, msg) {
  * @returns {*} Frame data object or null
  */
 function getFrameData(tabId, frameId) {
-  if (tabId in tabData && frameId in tabData[tabId].frames){
-    return tabData[tabId].frames[frameId];
-  } else if (frameId > 0 && tabId in tabData && 0 in tabData[tabId].frames) {
+  if (tabId in pb.tabData && frameId in pb.tabData[tabId].frames){
+    return pb.tabData[tabId].frames[frameId];
+  } else if (frameId > 0 && tabId in pb.tabData && 0 in pb.tabData[tabId].frames) {
     // We don't know anything about javascript: or data: frames, use top frame
-    return tabData[tabId].frames[0];
+    return pb.tabData[tabId].frames[0];
   }
   return null;
 }
@@ -463,7 +432,7 @@ function getFrameUrl(tabId, frameId) {
  * @param {Integer} tabId The id of the tab
  */
 function forgetTab(tabId) {
-  delete tabData[tabId];
+  delete pb.tabData[tabId];
   delete temporarySocialWidgetUnblock[tabId];
 }
 
@@ -531,9 +500,9 @@ function checkAction(tabId, url, quiet, frameId){
  * @private
  */
 function _frameUrlStartsWith(tabId, piece){
-  return tabData[tabId] &&
-    tabData[tabId].frames[0] &&
-    (tabData[tabId].frames[0].url.indexOf(piece) === 0);
+  return pb.tabData[tabId] &&
+    pb.tabData[tabId].frames[0] &&
+    (pb.tabData[tabId].frames[0].url.indexOf(piece) === 0);
 }
 
 /**
@@ -605,7 +574,7 @@ function getSocialWidgetBlockList() {
   // a mapping of individual SocialWidget objects to boolean values
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
-  var green_domains = pbStorage.getAllDomainsByPresumedAction(window.USER_ALLOW);
+  var green_domains = pbStorage.getAllDomainsByPresumedAction(pb.USER_ALLOW);
 
   window.SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
@@ -678,7 +647,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (Utils.isPrivacyBadgerEnabled(tabHost)) {
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
-      var cookieBlock = reqAction == window.COOKIEBLOCK || reqAction == window.USER_COOKIE_BLOCK;
+      var cookieBlock = reqAction == pb.COOKIEBLOCK || reqAction == pb.USER_COOKIE_BLOCK;
       sendResponse(cookieBlock);
     }
 

@@ -72,11 +72,11 @@ var initialize = function(){
 
 var getScore = function(action){
   switch(action){
-    case window.NO_TRACKING: return 0;
-    case window.ALLOW: return 1;
-    case window.BLOCK: return 2;
-    case window.COOKIEBLOCK: return 3;
-    case window.DNT: return 4;
+    case pb.NO_TRACKING: return 0;
+    case pb.ALLOW: return 1;
+    case pb.BLOCK: return 2;
+    case pb.COOKIEBLOCK: return 3;
+    case pb.DNT: return 4;
     default: return 5; 
   }
 };
@@ -89,9 +89,9 @@ var getScore = function(action){
  **/
 var getActionForFqdn = function(domain){
   if(domain.userAction){ return domain.userAction; }
-  if(domain.dnt){ return window.DNT; } 
+  if(domain.dnt){ return pb.DNT; } 
   if(domain.heuristicAction){ return domain.heuristicAction; } 
-  return window.NO_TRACKING;
+  return pb.NO_TRACKING;
 };
 
 /**
@@ -162,7 +162,7 @@ var _newActionMapObject = function() {
  * @returns {String} the best action for the FQDN
  **/
 var getBestAction = function(fqdn) {
-  var best_action = window.NO_TRACKING;
+  var best_action = pb.NO_TRACKING;
   var subdomains = Utils.explodeSubdomains(fqdn);
   var action_map = getBadgerStorageObject('action_map');
   var relevantDomains = [];
