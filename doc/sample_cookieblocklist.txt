@@ -66,6 +66,9 @@
 @@||cachefly.net^$third-party
 @@||cardinalcommerce.com^$third-party
 @@||cars.com^$third-party
+@@||cbsi.com^$third-party
+@@||cbsimg.net^$third-party
+@@||cbsistatic.com^$third-party
 @@||cdninstagram.com^$third-party
 @@||cdnpk.com^$third-party
 @@||charter.com^$third-party
