@@ -225,48 +225,6 @@ function toggleEnabled() {
   window.refreshIconAndContextMenu(tab);
 }
 
-function toggleBlockedStatus(elt,status) {
-  console.log('toggle blocked status', elt, status);
-  if(status){
-    $(elt).removeClass("block cookieblock noaction").addClass(status);
-    $(elt).addClass("userset");
-    return;
-  }
-
-  var originalAction = elt.getAttribute('data-original-action');
-  if ($(elt).hasClass("block"))
-    $(elt).toggleClass("block");
-  else if ($(elt).hasClass("cookieblock")) {
-    $(elt).toggleClass("block");
-    $(elt).toggleClass("cookieblock");
-  }
-  else
-    $(elt).toggleClass("cookieblock");
-  if ($(elt).hasClass(originalAction) || (originalAction == 'noaction' && !($(elt).hasClass("block") ||
-                                                                            $(elt).hasClass("cookieblock"))))
-    $(elt).removeClass("userset");
-  else
-    $(elt).addClass("userset");
-}
-
-function compareReversedDomains(a, b){
-  var fqdn1 = makeSortable(a);
-  var fqdn2 = makeSortable(b);
-  if(fqdn1 < fqdn2){
-    return -1;
-  }
-  if(fqdn1 > fqdn2){
-    return 1;
-  }
-  return 0;
-}
-
-function makeSortable(domain){
-  var tmp = domain.split('.').reverse();
-  tmp.shift();
-  return tmp.join('');
-}
-
 // TODO major DRY sins, refactor popup.js to make this easier to maintain
 /**
  * Displays list of all tracking domains along with toggle controls.
@@ -340,7 +298,7 @@ function filterTrackingDomains(event) {
  * @param domains Tracking domains to display.
  */
 function showTrackingDomains(domains) {
-  domains.sort(compareReversedDomains);
+  domains.sort(htmlUtils.compareReversedDomains);
 
   // Create HTML for list of tracking domains.
   var trackingDetails = '<div id="blockedResourcesInner" class="clickerContainer">';
@@ -398,7 +356,7 @@ function updateOrigin(event){
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
   $switchContainer.removeClass('block cookieblock noaction').addClass(action);
-  toggleBlockedStatus($clicker, action);
+  htmlUtils.toggleBlockedStatus($clicker, action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));

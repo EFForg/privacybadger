@@ -213,69 +213,6 @@ function revertDomainControl(e){
   pb.reloadTab(tab.id);
   return false;
 }
-
-/**
- * Toggle the GUI blocked status of GUI element(s)
- *
- * @param {String} elt Identify the object(s) to manipulate
- * @param {String} status New status to set, optional
- */
-function toggleBlockedStatus(elt,status) {
-  console.log('toggle blocked status', elt, status);
-  if(status){
-    $(elt).removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(status);
-    $(elt).addClass("userset");
-    return;
-  }
-
-  var originalAction = elt.getAttribute('data-original-action');
-  if ($(elt).hasClass(pb.BLOCK)) {
-    $(elt).toggleClass(pb.BLOCK);
-  } else if ($(elt).hasClass(pb.COOKIEBLOCK)) {
-    $(elt).toggleClass(pb.BLOCK);
-    $(elt).toggleClass(pb.COOKIEBLOCK);
-  } else {
-    $(elt).toggleClass(pb.COOKIEBLOCK);
-  }
-  if ($(elt).hasClass(originalAction) || (originalAction == pb.ALLOW && !($(elt).hasClass(pb.BLOCK) ||
-                                                                            $(elt).hasClass(pb.COOKIEBLOCK)))) {
-    $(elt).removeClass("userset");
-  } else {
-    $(elt).addClass("userset");
-  }
-}
-
-/**
- * Compare 2 domains. Reversing them to start comparing the least significant parts (TLD) first
- *
- * @param a First domain
- * @param b Second domain
- * @returns {number} standard compare returns
- */
-function compareReversedDomains(a, b){
-  var fqdn1 = makeSortable(a);
-  var fqdn2 = makeSortable(b);
-  if(fqdn1 < fqdn2){
-    return -1;
-  }
-  if(fqdn1 > fqdn2){
-    return 1;
-  }
-  return 0;
-}
-
-/**
- * Reverse order of domain items to have the least exact (TLD) first)
- *
- * @param {String} domain The domain to shuffle
- * @returns {String} The 'reversed' domain
- */
-function makeSortable(domain){
-  var tmp = domain.split('.').reverse();
-  tmp.shift();
-  return tmp.join('');
-}
-
 /**
  * this is a terrible function that repeats
  * a lot of the work that getAction does
@@ -328,7 +265,7 @@ function refreshPopup(tabId) {
     '</div></div>'+
     '<div class="spacer"></div><div class="clickerContainer">';
   var nonTracking = [];
-  origins.sort(compareReversedDomains);
+  origins.sort(htmlUtils.compareReversedDomains);
   var originCount = 0;
   var compressedOrigins = {};
   for (var i=0; i < origins.length; i++) {
@@ -417,7 +354,7 @@ function updateOrigin(event){
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
   $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
-  toggleBlockedStatus($clicker, action);
+  htmlUtils.toggleBlockedStatus($clicker, action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));

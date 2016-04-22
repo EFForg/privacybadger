@@ -140,6 +140,69 @@ var htmlUtils = exports.htmlUtils = {
 
     return existingHtml + originHtml;
   },
+  /**
+  * Toggle the GUI blocked status of GUI element(s)
+  *
+  * @param {String} elt Identify the object(s) to manipulate
+  * @param {String} status New status to set, optional
+  */
+  toggleBlockedStatus: function (elt,status) {
+    console.log('toggle blocked status', elt, status);
+    if(status){
+      $(elt).removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(status);
+      $(elt).addClass("userset");
+      return;
+    }
+
+    var originalAction = elt.getAttribute('data-original-action');
+    if ($(elt).hasClass(pb.BLOCK)) {
+      $(elt).toggleClass(pb.BLOCK);
+    } else if ($(elt).hasClass(pb.COOKIEBLOCK)) {
+      $(elt).toggleClass(pb.BLOCK);
+      $(elt).toggleClass(pb.COOKIEBLOCK);
+    } else {
+      $(elt).toggleClass(pb.COOKIEBLOCK);
+    }
+    if ($(elt).hasClass(originalAction) || (originalAction == pb.ALLOW && !($(elt).hasClass(pb.BLOCK) ||
+                                                                              $(elt).hasClass(pb.COOKIEBLOCK)))) {
+      $(elt).removeClass("userset");
+    } else {
+      $(elt).addClass("userset");
+    }
+  },
+
+  /**
+  * Compare 2 domains. Reversing them to start comparing the least significant parts (TLD) first
+  *
+  * @param a First domain
+  * @param b Second domain
+  * @returns {number} standard compare returns
+  */
+  compareReversedDomains: function(a, b){
+    var fqdn1 = this.makeSortable(a);
+    var fqdn2 = this.makeSortable(b);
+    if(fqdn1 < fqdn2){
+      return -1;
+    }
+    if(fqdn1 > fqdn2){
+      return 1;
+    }
+    return 0;
+  },
+
+  /**
+  * Reverse order of domain items to have the least exact (TLD) first)
+  *
+  * @param {String} domain The domain to shuffle
+  * @returns {String} The 'reversed' domain
+  */
+  makeSortable: function(domain){
+    var tmp = domain.split('.').reverse();
+    tmp.shift();
+    return tmp.join('');
+  },
+
+
 
 };
 
