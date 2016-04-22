@@ -450,24 +450,6 @@ function syncSettingsDict(settingsDict) {
 }
 
 /**
- * Get the action class from the element
- *
- * @param elt Element
- * @returns {String} block/cookieblock/noaction
- */
-function getCurrentClass(elt) {
-  if ($(elt).hasClass(pb.BLOCK)) {
-    return pb.BLOCK;
-  } else if ($(elt).hasClass(pb.COOKIEBLOCK)) {
-    return pb.COOKIEBLOCK;
-  } else if ($(elt).hasClass(pb.ALLOW)) {
-    return pb.ALLOW;
-  } else {
-    return pb.NO_TRACKING;
-  }
-}
-
-/**
  * Generates dict Origin->action based on GUI elements
  *
  * @returns {{}} The generated dict
@@ -476,7 +458,7 @@ function buildSettingsDict() {
   var settingsDict = {};
   $('.clicker').each(function() {
     var origin = $(this).attr("data-origin");
-    if ($(this).hasClass("userset") && getCurrentClass(this) != $(this).attr("data-original-action")) {
+    if ($(this).hasClass("userset") && htmlUtils.getCurrentClass(this) != $(this).attr("data-original-action")) {
       // TODO: DRY; same as code above, break out into helper
       if ($(this).hasClass(pb.BLOCK)) {
         settingsDict[origin] = pb.BLOCK;

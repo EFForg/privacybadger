@@ -179,8 +179,8 @@ var htmlUtils = exports.htmlUtils = {
   * @returns {number} standard compare returns
   */
   compareReversedDomains: function(a, b){
-    var fqdn1 = this.makeSortable(a);
-    var fqdn2 = this.makeSortable(b);
+    var fqdn1 = htmlUtils.makeSortable(a);
+    var fqdn2 = htmlUtils.makeSortable(b);
     if(fqdn1 < fqdn2){
       return -1;
     }
@@ -202,7 +202,23 @@ var htmlUtils = exports.htmlUtils = {
     return tmp.join('');
   },
 
-
+  /**
+  * Get the action class from the element
+  *
+  * @param elt Element
+  * @returns {String} block/cookieblock/noaction
+  */
+  getCurrentClass: function(elt) {
+    if ($(elt).hasClass(pb.BLOCK)) {
+      return pb.BLOCK;
+    } else if ($(elt).hasClass(pb.COOKIEBLOCK)) {
+      return pb.COOKIEBLOCK;
+    } else if ($(elt).hasClass(pb.ALLOW)) {
+      return pb.ALLOW;
+    } else {
+      return pb.NO_TRACKING;
+    }
+  },
 
 };
 

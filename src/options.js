@@ -101,15 +101,6 @@ function toggle_counter(){
   });
 }
 
-function convertWhitelistToHash(filters)
-{
-  var out = {};
-  for (var i = 0; i < filters.length; i++){
-    out[filters[i].regexp.source] = 1;
-  }
-  return out;
-}
-
 // TODO: switch to using storage.js
 function reloadWhitelist() {
   var sites = JSON.parse(localStorage.disabledSites || "[]");
@@ -133,11 +124,7 @@ function refreshOriginCache() {
  * @return {Array}
  */
 function getOriginsArray() {
-  var originsArray = [];
-  for (var origin in originCache) {
-    originsArray.push(origin);
-  }
-  return originsArray;
+  return Object.keys(originCache);
 }
 
 function addWhitelistDomain(event) {
@@ -168,23 +155,12 @@ function removeWhitelistDomain(event) {
  * Gets all encountered origins with associated actions.
  * @return {Object}
  */
-function getOrigins()
-{
-  origins = {};
-
-  for (var key in action_map.keys) {
-      origins[key] = getBestAction(key)
+function getOrigins() {
+  var origins = {};
+  var action_map = pb.storage.getBadgerStorageObject('action_map');
+  for (var domain in action_map.getItemClones()) {
+      origins[domain] = pb.storage.getBestAction(domain);
   }
-
-  // Process origins that have been seen but not blocked yet.
-  var seen = Object.keys(seenThirdParties);
-  for (var i = 0; i < seen.length; i++) {
-    var origin = seen[i];
-    if (! origins[origin]) {
-      origins[origin] = 'noaction';
-    }
-  }
-
   return origins;
 }
 
@@ -198,11 +174,7 @@ function getOriginAction(origin) {
     refreshOriginCache();
   }
 
-  var action = originCache[origin];
-  if (action) {
-    return action;
-  }
-  return "noaction";
+  return originCache[origin];
 }
 
 //TODO unduplicate this code? since it's also in popup
@@ -220,12 +192,6 @@ function revertDomainControl(e){
   return false;
 }
 
-function toggleEnabled() {
-  console.log("Refreshing icon and context menu");
-  window.refreshIconAndContextMenu(tab);
-}
-
-// TODO major DRY sins, refactor popup.js to make this easier to maintain
 /**
  * Displays list of all tracking domains along with toggle controls.
  */
@@ -234,7 +200,7 @@ function refreshFilterPage() {
 
   // Check to see if any tracking domains have been found before continuing.
   var allTrackingDomains = getOriginsArray();
-  if (!allTrackingDomains || allTrackingDomains.length == 0) {
+  if (!allTrackingDomains || allTrackingDomains.length === 0) {
     $("#blockedResources").html("Could not detect any tracking cookies.");
     return;
   }
@@ -264,7 +230,7 @@ function refreshFilterPage() {
  * Displays filtered list of tracking domains based on user input.
  * @param event Input event triggered by user.
  */
-function filterTrackingDomains(event) {
+function filterTrackingDomains(/*event*/) {
   var initialSearchText = $('#trackingDomainSearch').val().toLowerCase();
 
   // Wait a short period of time and see if search text has changed.
@@ -314,7 +280,7 @@ function showTrackingDomains(domains) {
 
   // Display tracking domains.
   $('#blockedResourcesInner').html(trackingDetails);
-  $('.switch-toggle').each(function() { registerToggleHandlers(this) });
+  $('.switch-toggle').each(function() { registerToggleHandlers(this); });
 }
 
 /**
@@ -329,7 +295,7 @@ function registerToggleHandlers(element) {
     min: 0,
     max: 2,
     value: value,
-    create: function(event, ui) {
+    create: function(/*event, ui*/) {
       $(element).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
     },
     slide: function(event, ui) {
@@ -355,7 +321,7 @@ function updateOrigin(event){
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
-  $switchContainer.removeClass('block cookieblock noaction').addClass(action);
+  $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($clicker, action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
@@ -367,7 +333,7 @@ var tooltipDelay = 300;
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var displayTipTimer = setTimeout(function(){
-    if($elm.attr('tooltip').length == 0){ return; }
+    if(!$elm.attr('tooltip').length){ return; }
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
     if($container.length === 0){
       $container = $elm.siblings('.tooltipContainer');
@@ -376,7 +342,7 @@ function displayTooltip(event){
     $container.show();
     $container.siblings('.tooltipArrow').show();
   },tooltipDelay);
-  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer)});
+  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);});
 }
 
 function hideTooltip(event){
@@ -391,35 +357,28 @@ function hideTooltip(event){
     $container.hide();
     $container.siblings('.tooltipArrow').hide();
   },tooltipDelay);
-  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer)});
-}
-
-function getCurrentClass(elt) {
-  if ($(elt).hasClass("block"))
-    return "block";
-  else if ($(elt).hasClass("cookieblock"))
-    return "cookieblock";
-  else
-    return "noaction";
+  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer);});
 }
 
 /**
  * Fetches origins that need to be synced.
  *
+ * TODO: It is probably stupid that we are redefining the _fetchOrigins function
+ * every time this is called. Investigate doing this in a better way.
  * @param originToCheck {String} Origin to check for changes, optional. If null,
  *                               all origins are checked.
  * @return {Object}
  */
 function getOriginsToSync(originToCheck) {
   // Function to add origin if set by user and changed.
-  _fetchOrigins = function() {
+  var _fetchOrigins = function() {
     var origin = $(this).attr("data-origin");
     var userset = $(this).hasClass("userset");
-    var changed = getCurrentClass(this) != $(this).attr("data-original-action");
+    var changed = htmlUtils.getCurrentClass(this) != $(this).attr("data-original-action");
     if (userset && changed) {
-      origins[origin] = getCurrentClass(this);
+      origins[origin] = htmlUtils.getCurrentClass(this);
     }
-  }
+  };
 
   // Check each element for any changes by user.
   var origins = {};
@@ -454,7 +413,7 @@ function syncSettings(originToCheck) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  chrome.tabs.getSelected(null, function(tab) {
+  chrome.tabs.getSelected(null, function(/*tab*/) {
     refreshFilterPage();
   });
 });
