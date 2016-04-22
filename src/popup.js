@@ -16,23 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- // TODO: This code is a hideous mess and desperately needs to be refactored
-// and cleaned up. 
+ // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up. 
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var pb = backgroundPage.pb;
 var Utils = pb.utils;
 var htmlUtils = require("htmlutils").htmlUtils;
-var tab = null;
 var i18n = chrome.i18n;
-
-function closeOverlay() {
-  $('#overlay').toggleClass('active', false);
-  $("#report_success").toggleClass("hidden", true);
-  $("#report_fail").toggleClass("hidden", true);
-  $("#error_input").val("");
-}
+var tab = null;
 
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
@@ -114,7 +106,15 @@ function init() {
 }
 $(init);
 
-
+/**
+ * Close the error reporting overlay
+ */
+function closeOverlay() {
+  $('#overlay').toggleClass('active', false);
+  $("#report_success").toggleClass("hidden", true);
+  $("#report_fail").toggleClass("hidden", true);
+  $("#error_input").val("");
+}
 
 /**
  * Send errors to PB error reporting server
@@ -273,6 +273,7 @@ function refreshPopup(tabId) {
     // todo: gross hack, use templating framework
     var action = backgroundPage.getAction(tabId, origin);
     if(action == pb.NO_TRACKING){
+        console.log('pushing', origin, 'onto non tracking');
         nonTracking.push(origin);
         continue;
     }
@@ -303,11 +304,13 @@ function refreshPopup(tabId) {
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
+  console.log('len', nonTracking.length);
   if(nonTracking.length > 0){
     printable = printable +
         '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
-    for (var c = 0; i < nonTracking.length; c++){
+    for (var c = 0; c < nonTracking.length; c++){
       var ntOrigin = nonTracking[c];
+      console.log('calling printable for non-tracking');
       printable = htmlUtils.addOriginHtml(printable, ntOrigin, pb.NO_TRACKING, false);
     }
   }
@@ -354,7 +357,7 @@ function updateOrigin(event){
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
   $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
-  htmlUtils.toggleBlockedStatus($clicker, action);
+  htmlUtils.toggleBlockedStatus($($clicker), action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
@@ -458,7 +461,7 @@ function buildSettingsDict() {
   var settingsDict = {};
   $('.clicker').each(function() {
     var origin = $(this).attr("data-origin");
-    if ($(this).hasClass("userset") && htmlUtils.getCurrentClass(this) != $(this).attr("data-original-action")) {
+    if ($(this).hasClass("userset") && htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action")) {
       // TODO: DRY; same as code above, break out into helper
       if ($(this).hasClass(pb.BLOCK)) {
         settingsDict[origin] = pb.BLOCK;
@@ -467,7 +470,7 @@ function buildSettingsDict() {
       } else if ($(this).hasClass(pb.ALLOW)) {
         settingsDict[origin] = pb.ALLOW;
       } else {
-        settingsDict[origin] = pb.NO_TRACKING;
+        settingsDict[origin] = pb.ALLOW;
       }
     }
   });

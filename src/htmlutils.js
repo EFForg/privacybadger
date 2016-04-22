@@ -48,6 +48,7 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} 'checked' if both actions match otherwise empty string.
    */
   isChecked: function(inputAction, originAction) {
+    if(originAction == pb.NO_TRACKING) { originAction = pb.ALLOW; }
     return (inputAction === originAction) ? 'checked' : '';
   },
 
@@ -149,25 +150,25 @@ var htmlUtils = exports.htmlUtils = {
   toggleBlockedStatus: function (elt,status) {
     console.log('toggle blocked status', elt, status);
     if(status){
-      $(elt).removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(status);
-      $(elt).addClass("userset");
+      elt.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(status);
+      elt.addClass("userset");
       return;
     }
 
     var originalAction = elt.getAttribute('data-original-action');
-    if ($(elt).hasClass(pb.BLOCK)) {
-      $(elt).toggleClass(pb.BLOCK);
-    } else if ($(elt).hasClass(pb.COOKIEBLOCK)) {
-      $(elt).toggleClass(pb.BLOCK);
-      $(elt).toggleClass(pb.COOKIEBLOCK);
+    if (elt.hasClass(pb.BLOCK)) {
+      elt.toggleClass(pb.BLOCK);
+    } else if (elt.hasClass(pb.COOKIEBLOCK)) {
+      elt.toggleClass(pb.BLOCK);
+      elt.toggleClass(pb.COOKIEBLOCK);
     } else {
-      $(elt).toggleClass(pb.COOKIEBLOCK);
+      elt.toggleClass(pb.COOKIEBLOCK);
     }
-    if ($(elt).hasClass(originalAction) || (originalAction == pb.ALLOW && !($(elt).hasClass(pb.BLOCK) ||
-                                                                              $(elt).hasClass(pb.COOKIEBLOCK)))) {
-      $(elt).removeClass("userset");
+    if (elt.hasClass(originalAction) || (originalAction == pb.ALLOW && !(elt.hasClass(pb.BLOCK) ||
+                                                                              elt.hasClass(pb.COOKIEBLOCK)))) {
+      elt.removeClass("userset");
     } else {
-      $(elt).addClass("userset");
+      elt.addClass("userset");
     }
   },
 
@@ -209,11 +210,11 @@ var htmlUtils = exports.htmlUtils = {
   * @returns {String} block/cookieblock/noaction
   */
   getCurrentClass: function(elt) {
-    if ($(elt).hasClass(pb.BLOCK)) {
+    if (elt.hasClass(pb.BLOCK)) {
       return pb.BLOCK;
-    } else if ($(elt).hasClass(pb.COOKIEBLOCK)) {
+    } else if (elt.hasClass(pb.COOKIEBLOCK)) {
       return pb.COOKIEBLOCK;
-    } else if ($(elt).hasClass(pb.ALLOW)) {
+    } else if (elt.hasClass(pb.ALLOW)) {
       return pb.ALLOW;
     } else {
       return pb.NO_TRACKING;

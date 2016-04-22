@@ -14,14 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
+ // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up. 
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var pb = backgroundPage.pb;
 var Utils = require("utils").Utils;
 var htmlUtils = require("htmlutils").htmlUtils;
-var originCache = null;
 var i18n = chrome.i18n;
+var originCache = null;
 
 /*
  * Loads options from localStorage and sets UI elements accordingly.
@@ -183,7 +184,7 @@ function revertDomainControl(e){
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   pb.storage.revertUserAction(origin);
-  var defaultAction = pb.storage.getActionForFqdn(origin);
+  var defaultAction = pb.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
@@ -322,7 +323,7 @@ function updateOrigin(event){
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
   $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
-  htmlUtils.toggleBlockedStatus($clicker, action);
+  htmlUtils.toggleBlockedStatus($($clicker), action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
@@ -374,9 +375,9 @@ function getOriginsToSync(originToCheck) {
   var _fetchOrigins = function() {
     var origin = $(this).attr("data-origin");
     var userset = $(this).hasClass("userset");
-    var changed = htmlUtils.getCurrentClass(this) != $(this).attr("data-original-action");
+    var changed = htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action");
     if (userset && changed) {
-      origins[origin] = htmlUtils.getCurrentClass(this);
+      origins[origin] = htmlUtils.getCurrentClass($(this));
     }
   };
 

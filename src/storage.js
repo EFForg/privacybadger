@@ -177,7 +177,7 @@ var getBestAction = function(fqdn) {
   // and keep the one which has the best score. 
   for( i = 0; i < relevantDomains.length; i++ ){
     var action = getActionForFqdn(relevantDomains[i]);
-    if(getScore(action) > getScore(best_action)){
+    if(getScore(action) >= getScore(best_action)){
       best_action = action;
     }
   }
