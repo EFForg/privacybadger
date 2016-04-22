@@ -109,6 +109,7 @@ a:hover { color: #ec9329 }
 .cookieblock .switch-candy a{
   background-color: #ffcc00;
 }
+.allow .switch-candy a,
 .noaction .switch-candy a{
   background-color: #339900;
 }

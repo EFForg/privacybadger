@@ -16,6 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
+ // TODO: This code is a hideous mess and desperately needs to be refactored
+// and cleaned up. 
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
@@ -131,7 +133,7 @@ function send_error(message) {
   for (var i = 0; i < origins.length; i++){
      var origin = origins[i];
      var action = backgroundPage.getAction(tabId, origin);
-     if (!action){ action = "notracking"; }
+     if (!action){ action = pb.NO_TRACKING; }
      if (out[action]){
        out[action] += ","+origin;
      }
@@ -221,22 +223,22 @@ function revertDomainControl(e){
 function toggleBlockedStatus(elt,status) {
   console.log('toggle blocked status', elt, status);
   if(status){
-    $(elt).removeClass("block cookieblock noaction").addClass(status);
+    $(elt).removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(status);
     $(elt).addClass("userset");
     return;
   }
 
   var originalAction = elt.getAttribute('data-original-action');
-  if ($(elt).hasClass("block")) {
-    $(elt).toggleClass("block");
-  } else if ($(elt).hasClass("cookieblock")) {
-    $(elt).toggleClass("block");
-    $(elt).toggleClass("cookieblock");
+  if ($(elt).hasClass(pb.BLOCK)) {
+    $(elt).toggleClass(pb.BLOCK);
+  } else if ($(elt).hasClass(pb.COOKIEBLOCK)) {
+    $(elt).toggleClass(pb.BLOCK);
+    $(elt).toggleClass(pb.COOKIEBLOCK);
   } else {
-    $(elt).toggleClass("cookieblock");
+    $(elt).toggleClass(pb.COOKIEBLOCK);
   }
-  if ($(elt).hasClass(originalAction) || (originalAction == 'noaction' && !($(elt).hasClass("block") ||
-                                                                            $(elt).hasClass("cookieblock")))) {
+  if ($(elt).hasClass(originalAction) || (originalAction == pb.ALLOW && !($(elt).hasClass(pb.BLOCK) ||
+                                                                            $(elt).hasClass(pb.COOKIEBLOCK)))) {
     $(elt).removeClass("userset");
   } else {
     $(elt).addClass("userset");
@@ -333,7 +335,7 @@ function refreshPopup(tabId) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     var action = backgroundPage.getAction(tabId, origin);
-    if(!action){
+    if(action == pb.NO_TRACKING){
         nonTracking.push(origin);
         continue;
     }
@@ -369,7 +371,7 @@ function refreshPopup(tabId) {
         '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
     for (var c = 0; i < nonTracking.length; c++){
       var ntOrigin = nonTracking[c];
-      printable = htmlUtils.addOriginHtml(printable, ntOrigin, "noaction", false);
+      printable = htmlUtils.addOriginHtml(printable, ntOrigin, pb.NO_TRACKING, false);
     }
   }
   $('#number_trackers').text(originCount);
@@ -414,7 +416,7 @@ function updateOrigin(event){
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
-  $switchContainer.removeClass('block cookieblock noaction').addClass(action);
+  $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
   toggleBlockedStatus($clicker, action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
@@ -517,12 +519,14 @@ function syncSettingsDict(settingsDict) {
  * @returns {String} block/cookieblock/noaction
  */
 function getCurrentClass(elt) {
-  if ($(elt).hasClass("block")) {
-    return "block";
-  } else if ($(elt).hasClass("cookieblock")) {
-    return "cookieblock";
+  if ($(elt).hasClass(pb.BLOCK)) {
+    return pb.BLOCK;
+  } else if ($(elt).hasClass(pb.COOKIEBLOCK)) {
+    return pb.COOKIEBLOCK;
+  } else if ($(elt).hasClass(pb.ALLOW)) {
+    return pb.ALLOW;
   } else {
-    return "noaction";
+    return pb.NO_TRACKING;
   }
 }
 
@@ -537,12 +541,14 @@ function buildSettingsDict() {
     var origin = $(this).attr("data-origin");
     if ($(this).hasClass("userset") && getCurrentClass(this) != $(this).attr("data-original-action")) {
       // TODO: DRY; same as code above, break out into helper
-      if ($(this).hasClass("block")) {
-        settingsDict[origin] = "block";
-      } else if ($(this).hasClass("cookieblock")) {
-        settingsDict[origin] = "cookieblock";
+      if ($(this).hasClass(pb.BLOCK)) {
+        settingsDict[origin] = pb.BLOCK;
+      } else if ($(this).hasClass(pb.COOKIEBLOCK)) {
+        settingsDict[origin] = pb.COOKIEBLOCK;
+      } else if ($(this).hasClass(pb.ALLOW)) {
+        settingsDict[origin] = pb.ALLOW;
       } else {
-        settingsDict[origin] = "noaction";
+        settingsDict[origin] = pb.NO_TRACKING;
       }
     }
   });

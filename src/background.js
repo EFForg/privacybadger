@@ -61,7 +61,7 @@ var pb = {
   DNT: "dnt",
   USER_ALLOW: "user_allow",
   USER_BLOCK: "user_block",
-  USER_COOKIE_BLOCK: "user_cookie_block",
+  USER_COOKIE_BLOCK: "user_cookieblock",
 
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
@@ -70,7 +70,6 @@ var pb = {
   DEBUG: false,
   INITIALIZED: false,
   
-  // In memory data structures
   /**
   * Per-tab data that gets cleaned up on tab closing
     looks like:
@@ -110,7 +109,7 @@ var pb = {
   init: function(){
     if(pb.INITIALIZED) { return; }
     pb.storage.initialize();
-    updateTabList();
+    pb.updateTabList();
     pb.INITIALIZED = true;
     console.log('privacy badger is ready to rock');
     console.log('set pb.DEBUG=1 to view console messages');
@@ -151,7 +150,7 @@ var pb = {
   saveAction: function(userAction, origin) {
     var allUserActions = {'block': pb.USER_BLOCK,
                           'cookieblock': pb.USER_COOKIE_BLOCK,
-                          'noaction': pb.USER_ALLOW};
+                          'allow': pb.USER_ALLOW};
     pb.storage.setupUserAction(origin, allUserActions[userAction]);
     console.log("Finished saving action " + userAction + " for " + origin);
 
@@ -166,6 +165,34 @@ var pb = {
   reloadTab: function(tabId){
     chrome.tabs.reload(tabId);
   },
+
+  /**
+  * Populate tabs object with currently open tabs when extension is updated or installed. 
+  */
+  updateTabList: function(){
+    // Initialize the tabData/frames object if it is falsey
+    pb.tabData = pb.tabData || {};
+    chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
+      for(var i = 0; i < tabs.length; i++){
+        var tab = tabs[i];
+        pb.tabData[tab.id] = {
+          frames: {
+            0: {
+              parent: -1,
+              url: tab.url
+            }
+          },
+          trackers: {}
+        };
+      }
+    });
+    /*
+    CookieBlockList.updateDomains();
+    BlockedDomainList.updateDomains();
+    DomainExceptions.updateList();
+    updatePrivacyPolicyHashes();
+    */
+  }
 
 };
 
@@ -262,7 +289,7 @@ function migrateVersion(prevVersion,currentVersion){
   isFirstRun = !prevVersion;
   localStorage.currentVersion = currentVersion;
   addSubscription(prevVersion);
-  updateTabList();
+  pb.updateTabList();
   migrateBlockedDomains();
   migrateCookieBlockList();
 }
@@ -328,7 +355,8 @@ setDefaultOptions();
  */
 function getAction(tabId, origin) {
   // TODO: can we just call storage.getBestAction instead? Do we even need tabId here?
-  return pb.tabData[tabId].trackers[origin];
+  //return pb.tabData[tabId].trackers[origin];
+  return pb.storage.getBestAction(origin);
 }
 
 /**
@@ -890,7 +918,7 @@ function blockedTrackerCount(tabId){
   return getAllOriginsForTab(tabId)
     .reduce(function(memo,origin){
       var action = getAction(tabId,origin);
-      if(action && (action == "userblock" || action == "block" || action == "cookieblock" || action == "usercookieblock")){
+      if(action && (action == pb.USER_BLOCK || action == pb.BLOCK || action == pb.COOKIEBLOCK || action == pb.USER_COOKIE_BLOCK)){
         memo+=1;
       }
       return memo;
@@ -974,34 +1002,6 @@ function updateCount(details){
 }
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 
-
-/**
-* Populate tabs object with currently open tabs when extension is updated or installed. 
-*/
-function updateTabList(){
-  // Initialize the tabData/frames object if it is falsey
-  pb.tabData = pb.tabData || {};
-  chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
-    for(var i = 0; i < tabs.length; i++){
-      var tab = tabs[i];
-      pb.tabData[tab.id] = {
-        frames: {
-          0: {
-            parent: -1,
-            url: tab.url
-          }
-        },
-        trackers: {}
-      };
-    }
-  });
-  /*
-  CookieBlockList.updateDomains();
-  BlockedDomainList.updateDomains();
-  DomainExceptions.updateList();
-  updatePrivacyPolicyHashes();
-  */
-}
 
 /**
  * Decide what the action would presumably be for an origin

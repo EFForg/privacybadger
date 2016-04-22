@@ -17,7 +17,7 @@
 
 var i18n = chrome.i18n;
 
-require.scopes['htmlutils'] = (function() {
+require.scopes.htmlutils = (function() {
 
 // Ugly HTML helpers.
 // TODO: Some or all of these should be replace but have been moved here to
@@ -62,7 +62,8 @@ var htmlUtils = exports.htmlUtils = {
     var actionDescriptions = {
       block: i18n.getMessage('badger_status_block'),
       cookieblock: i18n.getMessage('badger_status_cookieblock'),
-      noaction: i18n.getMessage('badger_status_noaction'),
+      noaction: "No tracking for ",
+      allow: i18n.getMessage('badger_status_noaction'),
     };
     return actionDescriptions[action] + origin;
   },
@@ -81,7 +82,7 @@ var htmlUtils = exports.htmlUtils = {
       '<div class="switch-toggle switch-3 switch-candy">' +
       '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
       '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
-      '<input id="noaction-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('noaction', action) + '><label tooltip="click here to allow this tracker" class="actionToggle" for="noaction-' + originId + '" data-origin="' + origin + '" data-action="noaction"></label>' +
+      '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label tooltip="click here to allow this tracker" class="actionToggle" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
       '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
     return toggleHtml;
   },
@@ -103,9 +104,9 @@ var htmlUtils = exports.htmlUtils = {
     if (action.indexOf('user') === 0) {
       tooltipText = i18n.getMessage('feed_the_badger_title');
       classes.push('userset');
-      action = action.substr(4);
+      action = action.substr(5);
     }
-    if (action === 'block' || action === 'cookieblock' || action === 'noaction') {
+    if (action === pb.BLOCK || action === pb.COOKIEBLOCK || action === pb.ALLOW || action === pb.NO_TRACKING) {
       classes.push(action);
     }
     var classText = 'class="' + classes.join(' ') + '"';
