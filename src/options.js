@@ -17,31 +17,11 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var seenThirdParties = backgroundPage.seenThirdParties;
-var imports = ["require", "saveAction", "removeFilter", "updateBadge"]
-for (var i = 0; i < imports.length; i++){
-      window[imports[i]] = backgroundPage[imports[i]];
-}
+var pb = backgroundPage.pb;
 var Utils = require("utils").Utils;
 var htmlUtils = require("htmlutils").htmlUtils;
-var filterWhitelist = {}
-
-with(require("filterClasses"))
-{
-  this.Filter = Filter;
-  this.WhitelistFilter = WhitelistFilter;
-}
-with(require("subscriptionClasses"))
-{
-  this.Subscription = Subscription;
-  this.SpecialSubscription = SpecialSubscription;
-  this.DownloadableSubscription = DownloadableSubscription;
-}
-var FilterStorage = require("filterStorage").FilterStorage;
-var FilterNotifier = require("filterNotifier").FilterNotifier;
-var Prefs = require("prefs").Prefs;
-var Synchronizer = require("synchronizer").Synchronizer;
 var originCache = null;
+var i18n = chrome.i18n;
 
 /*
  * Loads options from localStorage and sets UI elements accordingly.
@@ -53,10 +33,8 @@ function loadOptions() {
   document.title = i18n.getMessage("options_title");
 
   // Add event listeners
-  window.addEventListener("unload", unloadOptions, false);
   $("#whitelistForm").submit(addWhitelistDomain);
   $("#removeWhitelist").click(removeWhitelistDomain);
-  FilterNotifier.addListener(onFilterChange);
 
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").attr("placeholder", i18n.getMessage("options_domain_search"));
@@ -84,7 +62,6 @@ function loadOptions() {
   }
   $("#toggle_counter_checkbox").click(toggle_counter)
    .prop("checked", Utils.showCounter());
-  filterWhitelist = convertWhitelistToHash(FilterStorage.subscriptions[0].filters);
 
   // Show user's filters
   reloadWhitelist();
@@ -92,18 +69,21 @@ function loadOptions() {
 }
 $(loadOptions);
 
+// TODO: switch to using storage.js
 function active_socialwidget(){
   $("#activate_socialwidget_btn").toggle();
   $("#deactivate_socialwidget_btn").toggle();
   localStorage.socialWidgetReplacementEnabled = "true";
 }
 
+// TODO: switch to using storage.js
 function deactive_socialwidget(){
   $("#activate_socialwidget_btn").toggle();
   $("#deactivate_socialwidget_btn").toggle();
   localStorage.socialWidgetReplacementEnabled = "false";
 }
 
+// TODO: switch to using storage.js
 function toggle_counter(){
   if ($("#toggle_counter_checkbox").prop("checked")) {
     localStorage.showCounter = "true";
@@ -114,7 +94,7 @@ function toggle_counter(){
     windows.forEach(function(window) {
       chrome.tabs.getAllInWindow(window.id, function(tabs) {
         tabs.forEach(function(tab) {
-          updateBadge(tab.id);
+          pb.updateBadge(tab.id);
         });
       });
     });
@@ -123,15 +103,15 @@ function toggle_counter(){
 
 function convertWhitelistToHash(filters)
 {
-  out = {}
+  var out = {};
   for (var i = 0; i < filters.length; i++){
     out[filters[i].regexp.source] = 1;
   }
-  return out
+  return out;
 }
 
-function reloadWhitelist()
-{
+// TODO: switch to using storage.js
+function reloadWhitelist() {
   var sites = JSON.parse(localStorage.disabledSites || "[]");
   var sitesList = $('#excludedDomainsBox');
   sitesList.html("");
@@ -160,31 +140,21 @@ function getOriginsArray() {
   return originsArray;
 }
 
-// Cleans up when the options window is closed
-function unloadOptions()
-{
-  FilterNotifier.removeListener(onFilterChange);
-}
-
-function onFilterChange(action, item, param1, param2) {
-  syncSettings();
-}
-
-function addWhitelistDomain(event)
-{
+function addWhitelistDomain(event) {
   event.preventDefault();
 
   var domain = document.getElementById("newWhitelistDomain").value.replace(/\s/g, "");
   document.getElementById("newWhitelistDomain").value = "";
-  if (!domain)
+  if (!domain) {
     return;
+  }
 
-  Utils.disablePrivacyBadgerForOrigin(domain)
-  reloadWhitelist()
+  Utils.disablePrivacyBadgerForOrigin(domain);
+  reloadWhitelist();
 }
 
-function removeWhitelistDomain(event)
-{
+function removeWhitelistDomain(event) {
+  event.preventDefault();
   var selected = $(document.getElementById("excludedDomainsBox")).find('option:selected');
   for(var i = 0; i < selected.length; i++){
     Utils.enablePrivacyBadgerForOrigin(selected[i].text);
@@ -237,11 +207,11 @@ function getOriginAction(origin) {
 
 //TODO unduplicate this code? since it's also in popup
 function revertDomainControl(e){
-  $elm = $(e.target).parent();
+  var $elm = $(e.target).parent();
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  var revertUserAction(origin)
-  var defaultAction = getActionForFqdn(origin);
+  pb.storage.revertUserAction(origin);
+  var defaultAction = pb.storage.getActionForFqdn(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
@@ -252,7 +222,7 @@ function revertDomainControl(e){
 
 function toggleEnabled() {
   console.log("Refreshing icon and context menu");
-  refreshIconAndContextMenu(tab);
+  window.refreshIconAndContextMenu(tab);
 }
 
 function toggleBlockedStatus(elt,status) {
@@ -280,8 +250,8 @@ function toggleBlockedStatus(elt,status) {
 }
 
 function compareReversedDomains(a, b){
-  fqdn1 = makeSortable(a);
-  fqdn2 = makeSortable(b);
+  var fqdn1 = makeSortable(a);
+  var fqdn2 = makeSortable(b);
   if(fqdn1 < fqdn2){
     return -1;
   }
@@ -517,7 +487,7 @@ function syncSettings(originToCheck) {
   // Save new action for updated origins.
   for (var origin in originsToSync) {
     var userAction = originsToSync[origin];
-    saveAction(userAction, origin);
+    pb.saveAction(userAction, origin);
   }
   console.log("Finished syncing.");
 
