@@ -102,6 +102,22 @@ var setupHeuristicAction = function(domain, action){
 };
 
 /**
+ * Sets up a domain for DNT
+ * @param {String} domain Domain to add
+ */
+var setupDNT = function(domain){
+  _setupDomainAction(domain, "true", "dnt");
+};
+  
+/**
+* remove DNT setting from a domain
+* @param domain FQDN string
+**/
+var revertDNT = function(domain){
+  _setupDomainAction(domain, null, "dnt");
+};
+
+/**
  * adds a heuristic action for a domain
  * @param {String} domain Domain to add
  * @param {String} action The heuristic action to take
@@ -363,10 +379,12 @@ exports.getBestAction = getBestAction;
 exports.getActionForFqdn = getActionForFqdn;
 exports.getAllDomainsByPresumedAction = getAllDomainsByPresumedAction;
 exports.setupHeuristicAction = setupHeuristicAction;
+exports.setupDNT = setupDNT;
+exports.revertDNT = revertDNT;
 exports.setupUserAction = setupUserAction;
+exports.revertUserAction = revertUserAction;
 exports.getBadgerStorageObject = getBadgerStorageObject;
 exports.getTrackingCount = getTrackingCount;
-exports.revertUserAction = revertUserAction;
 exports.initialize = initialize;
 
 return exports;

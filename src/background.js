@@ -1,6 +1,7 @@
 /*
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
+ *
  * Derived from Adblock Plus 
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
@@ -16,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
+ /*jshint unused:false*/
 
 /*
  * This file is part of Adblock Plus <http://adblockplus.org/>,
@@ -38,8 +40,6 @@
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
 var Utils = require("utils").Utils;
-var CookieBlockList = require("cookieblocklist").CookieBlockList;
-var BlockedDomainList = require("blockedDomainList").BlockedDomainList;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
@@ -187,17 +187,13 @@ var pb = {
       }
     });
     /*
-    CookieBlockList.updateDomains();
-    BlockedDomainList.updateDomains();
-    DomainExceptions.updateList();
-    updatePrivacyPolicyHashes();
     */
   }
 
 };
 
 pb.init();
-
+/****** Initialization crap ***/
 if (!("socialWidgetReplacementEnabled" in localStorage)){
   localStorage.socialWidgetReplacementEnabled = "true";
 }
@@ -206,20 +202,21 @@ if (!("showCounter" in localStorage)){
   localStorage.showCounter = "true";
 }
 
-// Add a permanent store for seen third parties 
-var seenCache = localStorage.getItem("seenThirdParties");
-var seenThirdParties = JSON.parse(seenCache);
-if (!seenThirdParties){
-  localStorage.setItem("seenThirdParties", JSON.stringify({}));
-  seenThirdParties = {};
+// Load social widgets
+var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
+
+// Instantiate privacy badgers grey list
+if (!("whitelistUrl" in localStorage)){
+  localStorage.whitelistUrl = "https://www.eff.org/files/cookieblocklist.txt";
 }
 
-setInterval(function(){
-  if(seenCache != localStorage.getItem("seenThirdParties")) {
-    seenCache = localStorage.getItem("seenThirdParties");
-    seenThirdParties = JSON.parse(seenCache);
-  }
-}, 1000);
+var whitelistUrl = localStorage.whitelistUrl;
+var isFirstRun = false;
+DomainExceptions.updateList();
+updatePrivacyPolicyHashes();
+
+/***** things necessary for migration *****/
+var seenCache = localStorage.getItem("seenThirdParties");
 
 with(require("filterClasses")) {
   this.Filter = Filter;
@@ -233,29 +230,7 @@ with(require("subscriptionClasses")) {
 }
 var FilterStorage = require("filterStorage").FilterStorage;
 var ElemHide = require("elemHide").ElemHide;
-var defaultMatcher = require("matcher").defaultMatcher;
 var matcherStore = require("matcher").matcherStore;
-var activeMatchers = require("matcher").activeMatchers;
-var Prefs = require("prefs").Prefs;
-var Synchronizer = require("synchronizer").Synchronizer;
-
-
-// Load social widgets
-var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
-
-// Some types cannot be distinguished
-RegExpFilter.typeMap.OBJECT_SUBREQUEST = RegExpFilter.typeMap.OBJECT;
-RegExpFilter.typeMap.MEDIA = RegExpFilter.typeMap.FONT = RegExpFilter.typeMap.OTHER;
-
-// Instantiate privacy badgers grey list
-if (!("whitelistUrl" in localStorage)){
-  localStorage.whitelistUrl = "https://www.eff.org/files/cookieblocklist.txt";
-}
-
-var whitelistUrl = localStorage.whitelistUrl;
-var isFirstRun = false;
-var seenDataCorruption = false;
-
 require("filterNotifier").FilterNotifier.addListener(function(action) {
   // Called from lib/adblockplus.js after all filters have been created from subscriptions.
   if (action == "load") {
@@ -266,17 +241,6 @@ require("filterNotifier").FilterNotifier.addListener(function(action) {
       migrateVersion(prevVersion, currentVersion);
     }
   }
-});
-
-// Load cookieblocklist and blocked domain listwhenever a window is created and whenever storage changes
-chrome.windows.onCreated.addListener(function(){
-  CookieBlockList.updateDomains();
-  BlockedDomainList.updateDomains();
-
-});
-chrome.storage.onChanged.addListener(function(){
-  CookieBlockList.updateDomains();
-  BlockedDomainList.updateDomains();
 });
 
 /**
@@ -290,134 +254,18 @@ function migrateVersion(prevVersion,currentVersion){
   localStorage.currentVersion = currentVersion;
   addSubscription(prevVersion);
   pb.updateTabList();
-  migrateBlockedDomains();
-  migrateCookieBlockList();
 }
+
 
 /**
- * migrates blocked domain list from chrome.storage to localStorage
+ * Extract the domain from an AdBlock style filter
+ *
+ * @param {String} filter adBlock style filter
+ * @returns {String} The Url in the filter
  */
-function migrateBlockedDomains() {
-  var domains = JSON.parse(localStorage.getItem("blockeddomainslist"));
-  if (domains && Object.keys(domains).length > 0){
-    return;
-  }
-  chrome.storage.local.get("blockeddomainslist", function(items){
-    if(chrome.runtime.lastError || !items.blockeddomainlist){
-      return;
-    }
-    localStorage.setItem("blockeddomainslist", JSON.stringify(items.blockeddomainslist));
-  });
+function getDomainFromFilter(filter){
+  return filter.match('[|][|]([^\^]*)')[1];
 }
-
-/**
- * migrates cookie block list from chrome.storage to localStorage
- */
-function migrateCookieBlockList() {
-  var domains = JSON.parse(localStorage.getItem("cookieblocklist"));
-  if (domains && Object.keys(domains).length > 0){
-    return;
-  }
-  chrome.storage.local.get("cookieblocklist", function(items){
-    if(chrome.runtime.lastError || !items.cookieblocklist){
-      return;
-    }
-    out = {};
-    for(var i = 0; i < items.length; i++){
-      out[items[i]] = true;
-    }
-    localStorage.setItem("cookieblocklist", JSON.stringify(out));
-  });
-}
-
-/**
- * Sets options to defaults, upgrading old options from previous versions as necessary
- */
-function setDefaultOptions() {
-  function defaultOptionValue(opt, val) {
-    if(!(opt in localStorage)){
-      localStorage[opt] = val;
-    }
-  }
-
-  defaultOptionValue("shouldShowBlockElementMenu", "true");
-}
-
-// Upgrade options before we do anything else.
-setDefaultOptions();
-
-/**
- * Wrappers to be called by popup.js
- * Gets the action defined for the given tab/origin
- * @param {Integer} tabId The id to look up
- * @param {String} origin The URL of the 3rd party
- * @returns {String} The action defined for this tab/origin
- */
-function getAction(tabId, origin) {
-  // TODO: can we just call storage.getBestAction instead? Do we even need tabId here?
-  //return pb.tabData[tabId].trackers[origin];
-  return pb.storage.getBestAction(origin);
-}
-
-/**
- * Determine if a request would be blocked
- * @param {Integer} tabId Tab Id to check if the 3rd party should be blocked in
- * @param {String} origin URL of 3rd party to check if it should be blocked
- * @return {Boolean} true if block is requested
- */
-function requestWouldBeBlocked(tabId, origin) {
-  var action = getAction(tabId, origin);
-  return action == pb.BLOCK || action == pb.USER_BLOCK;
-}
-
-/**
- * Helper function returns a list of all blocked origins for a tab
- * @param {Integer} tabId requested tab id as provided by chrome
- * @returns {*} A dictionary of third party origins and their actions
- */
-function getAllOriginsForTab(tabId) {
-  return Object.keys(pb.tabData[tabId].trackers);
-}
-
-/**
- * Helper function to remove a filter from privacy badger
- * @param {String} subscriptionName name of subscription
- * @param {String} filterName ABP style string representing filter
- */
-function removeFilter(subscriptionName, filterName){
-    //TODO: add back this function when we know what we want it to do
-}
-
-/**
- * Checks whether a page is whitelisted.
- * TODO: FIX THIS SHIT
- * @param {String} url
- * @return {Boolean} true if the url is allowed false if not
- */
-function isWhitelisted(url) {
-  var host = window.extractHostFromURL(url);
-  var action_map = pbStorage.getBadgerStorageObject('action_map');
-  var action = action_map.getItem(host);
-  if ([pb.ALLOW, pb.USER_ALLOW, pb.NO_TRACKING, pb.DNT].indexOf(action) >= 0){
-      return true;
-  } else {
-      return false;
-  }
-}
-
-/**
- * Enables or disables page action icon according to options.
- * @param {Object} tab The tab to set the badger icon for
- */
-function refreshIconAndContextMenu(tab) {
-  if(!tab){return;}
-
-  var iconFilename = Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
-
-  chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
-  chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
-}
-
 /**
  * Called on extension install/update: improves default privacy settings
  */
@@ -516,80 +364,81 @@ function addSubscription(prevVersion) {
 //  } 
 
   //TODO reimplement this in storage.js
-  notifyUser();
+  /*notifyUser();*/
+}
+
+
+
+/******** end migration code ************/
+
+/******* methods which should be moved into pb global *********/
+
+/**
+ * Wrappers to be called by popup.js
+ * Gets the action defined for the given tab/origin
+ * @param {Integer} tabId The id to look up
+ * @param {String} origin The URL of the 3rd party
+ * @returns {String} The action defined for this tab/origin
+ */
+function getAction(tabId, origin) {
+  return pb.storage.getBestAction(origin);
 }
 
 /**
- * Opens Options window or focuses an existing one.
- * @param {Function} callback  function to be called with the window object of
- *                             the Options window
+ * Determine if a request would be blocked
+ * @param {Integer} tabId Tab Id to check if the 3rd party should be blocked in
+ * @param {String} origin URL of 3rd party to check if it should be blocked
+ * @return {Boolean} true if block is requested
  */
-function openOptions(callback) {
+function requestWouldBeBlocked(tabId, origin) {
+  var action = getAction(tabId, origin);
+  return action == pb.BLOCK || action == pb.USER_BLOCK;
+}
 
-  /**
-   *
-   * @param selectTab Ignored
-   * @returns {*}
-   */
-  function findOptions(selectTab) {
-    var views = chrome.extension.getViews({type: "tab"});
-    for (var i = 0; i < views.length; i++) {
-      if ("startSubscriptionSelection" in views[i]) {
-        return views[i];
-      }
-    }
-    return null;
-  }
+/**
+ * Helper function returns a list of all blocked origins for a tab
+ * @param {Integer} tabId requested tab id as provided by chrome
+ * @returns {*} A dictionary of third party origins and their actions
+ */
+function getAllOriginsForTab(tabId) {
+  return Object.keys(pb.tabData[tabId].trackers);
+}
 
-  /**
-   * Sets focus on existing PB options tab
-   */
-  function selectOptionsTab() {
-    chrome.windows.getAll({populate: true}, function(windows) {
-      var url = chrome.extension.getURL("options.html");
-      for (var i = 0; i < windows.length; i++) {
-        for (var j = 0; j < windows[i].tabs.length; j++) {
-          if (windows[i].tabs[j].url == url) {
-            chrome.tabs.update(windows[i].tabs[j].id, {selected: true});
-          }
-        }
-      }
-    });
-  }
-
-  var view = findOptions();
-  if (view) {
-    selectOptionsTab();
-    callback(view);
+/**
+ * Checks whether a host is blocked
+ * @param {String} url
+ * @return {Boolean} true if the url is allowed false if not
+ */
+function isWhitelisted(url) {
+  var host = window.extractHostFromURL(url);
+  var action_map = pbStorage.getBadgerStorageObject('action_map');
+  var action = action_map.getItem(host);
+  if ([pb.ALLOW, pb.USER_ALLOW, pb.NO_TRACKING, pb.DNT].indexOf(action) >= 0){
+      return true;
   } else {
-    var onLoad = function() {
-      var view = findOptions();
-      if (view) {
-        callback(view);
-      }
-    };
-
-    chrome.tabs.create({url: chrome.extension.getURL("options.html")}, function(tab) {
-      if (tab.status == "complete") {
-        onLoad();
-      } else {
-        var id = tab.id;
-        var listener = function(tabId, changeInfo, tab) {
-          if (tabId == id && changeInfo.status == "complete") {
-            chrome.tabs.onUpdated.removeListener(listener);
-            onLoad();
-          }
-        };
-        chrome.tabs.onUpdated.addListener(listener);
-      }
-    });
+      return false;
   }
+}
+
+/**
+ * Enables or disables page action icon according to options.
+ * @param {Object} tab The tab to set the badger icon for
+ */
+function refreshIconAndContextMenu(tab) {
+
+  if(!tab){return;}
+
+  var iconFilename = Utils.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
+
+  chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
+  chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
 }
 
 /**
  * This function is a hack - we only know the tabId and document URL for a
  * message but we need to know the frame ID. Try to find it in webRequest's
  * frame data.
+ * TODO: Unused
  * @param {Integer} tabId tab id from chrome
  * @param {String} url url of request
  * @return {Integer} frameId or -1 on fail
@@ -603,281 +452,6 @@ function getFrameId(tabId, url) {
     }
   }
   return -1;
-}
-
-/**
- * Extract the domain from an AdBlock style filter
- *
- * @param {String} filter adBlock style filter
- * @returns {String} The Url in the filter
- */
-function getDomainFromFilter(filter){
-  return filter.match('[|][|]([^\^]*)')[1]
-}
-
-
-// Listening for Avira Autopilot remote control UI
-// The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
-// The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
-chrome.runtime.onMessageExternal.addListener(
-  function(request, sender, sendResponse) {
-    // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
-    if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
-      if (request.command == "getDisabledSites") {
-        sendResponse({origins: Utils.listOriginsWherePrivacyBadgerIsDisabled()});
-      }
-      else if (request.command == "enable") {
-        Utils.enablePrivacyBadgerForOrigin(request.origin);
-      }
-      else if (request.command == "disable") {
-        Utils.disablePrivacyBadgerForOrigin(request.origin);
-      }
-    }
-  }
-);
-
-/**
- * legacy adblock plus content script request handlers
- * TODO: get rid of these
- */
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-  switch (request.reqtype) {
-    case "get-settings":
-      var hostDomain = null;
-      var selectors = null;
-
-      var tabId = -1;
-      var frameId = -1;
-      if (sender.tab) {
-        tabId = sender.tab.id;
-        frameId = getFrameId(tabId, request.frameUrl);
-      }
-
-      var enabled = !isFrameWhitelisted(tabId, frameId, "DOCUMENT") && !isFrameWhitelisted(tabId, frameId, "ELEMHIDE")&& Utils.isPrivacyBadgerEnabled(pb.webrequest.getHostForTab(tabId));
-      if (enabled && request.selectors) {
-        // Special-case domains for which we cannot use style-based hiding rules.
-        // See http://crbug.com/68705.
-        var noStyleRulesHosts = ["mail.google.com", "mail.yahoo.com", "www.google.com"];
-        var noStyleRules = false;
-        var host = extractHostFromURL(request.frameUrl);
-        hostDomain = getBaseDomain(host);
-        for (var i = 0; i < noStyleRulesHosts.length; i++) {
-          var noStyleHost = noStyleRulesHosts[i];
-          if (host == noStyleHost || (host.length > noStyleHost.length &&
-                                      host.substr(host.length - noStyleHost.length - 1) == "." + noStyleHost)) {
-            noStyleRules = true;
-          }
-        }
-        selectors = ElemHide.getSelectorsForDomain(host, false);
-        if (noStyleRules) {
-          selectors = selectors.filter(function(s) {
-            return !/\[style[\^\$]?=/.test(s);
-          });
-        }
-      }
-      sendResponse({enabled: enabled, hostDomain: hostDomain, selectors: selectors});
-      break;
-    case "should-collapse":
-      var tabId = -1;
-      var frameId = -1;
-      if (sender.tab) {
-        tabId = sender.tab.id;
-        frameId = getFrameId(tabId, request.documentUrl);
-      }
-
-      if (isFrameWhitelisted(tabId, frameId, "DOCUMENT") ||
-          pb.webrequest.isSocialWidgetTemporaryUnblock(tabId, request.url, frameId) ||
-          !Utils.isPrivacyBadgerEnabled(pb.webrequest.getHostForTab(tabId)) ) {
-        sendResponse(false);
-        break;
-      }
-
-      var requestHost = extractHostFromURL(request.url);
-      var documentHost = extractHostFromURL(request.documentUrl);
-      var thirdParty = isThirdParty(requestHost, documentHost);
-      var filter = defaultMatcher.matchesAny(request.url, request.type, documentHost, thirdParty);
-      if( requestWouldBeBlocked(tabId, requestHost) ) {
-        var collapse = filter.collapse;
-        if (collapse === null) {
-          collapse = (localStorage.hidePlaceholders != "false");
-        }
-        sendResponse(collapse);
-      } else {
-        sendResponse(false);
-      }
-      break;
-    case "get-domain-enabled-state":
-      // Returns whether this domain is in the exclusion list.
-      // The page action popup asks us this.
-      if(sender.tab) {
-        sendResponse({enabled: !isWhitelisted(sender.tab.url)});
-        return;
-      }
-      break;
-    case "add-filters":
-      if (request.filters && request.filters.length) {
-        for (var i = 0; i < request.filters.length; i++)
-          FilterStorage.addFilter(Filter.fromText(request.filters[i]));
-      }
-      break;
-    case "add-subscription":
-      openOptions(function(view) {
-        view.startSubscriptionSelection(request.title, request.url);
-      });
-      break;
-    case "forward":
-      chrome.tabs.sendRequest(sender.tab.id, request.request, sendResponse);
-      break;
-    default:
-      sendResponse({});
-      break;
-  }
-});
-
-// Show icon as page action for all tabs that already exist
-chrome.windows.getAll({populate: true}, function(windows) {
-  for (var i = 0; i < windows.length; i++) {
-    for (var j = 0; j < windows[i].tabs.length; j++) {
-      refreshIconAndContextMenu(windows[i].tabs[j]);
-    }
-  }
-});
-
-// Update icon if a tab changes location
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  if(changeInfo.status == "loading") {
-    refreshIconAndContextMenu(tab);
-  }
-});
-
-// Update icon if a tab is replaced or loaded from cache
-chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
-  chrome.tabs.get(addedTabId, function(tab){
-    refreshIconAndContextMenu(tab);
-  });
-});
-
-/**
- * Fetch acceptable privacy policy hashes from the EFF server
- */
-function updatePrivacyPolicyHashes(){
-  var url = "https://www.eff.org/files/dnt-policies.json";
-  Utils.xhrRequest(url,function(err,response){
-    if(err){
-      console.error('Problem fetching privacy badger policy hash list at', url, err.status, err.message);
-      return;
-    }
-    localStorage.badgerHashes = response;
-  });
-}
-
-// Refresh hashes every 24 hours and also once on startup.
-setInterval(updatePrivacyPolicyHashes,86400000);
-updatePrivacyPolicyHashes();
-
-// Refresh domain exceptions popup list once every 24 hours and on startup
-setInterval(DomainExceptions.updateList,86400000);
-DomainExceptions.updateList();
-
-/**
- * Loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
- * TODO: Check dnt domains to see if they have removed the policy
- */
-function recheckDNTPolicyForBlockedDomains(){
-  for(var domain in BlockedDomainList.domains){
-    if(Date.now() > BlockedDomainList.nextUpdateTime(domain)){
-      BlockedDomainList.updateDomainCheckTime(domain);
-      checkForDNTPolicy(domain);
-    }
-  }
-}
-setInterval(recheckDNTPolicyForBlockedDomains,BlockedDomainList.minThreshold);
-recheckDNTPolicyForBlockedDomains();
-
-/**
- * Check a domain for a DNT policy and unblock it if it has one
- * @param {String} domain The domain to check
- */
-function checkForDNTPolicy(domain){
-  checkPrivacyBadgerPolicy(domain, function(success){
-    if(success){
-      console.log('adding', domain, 'to user whitelist due to badgerpolicy.txt');
-      unblockOrigin(domain);
-    }
-  });
-}
-
-
-/**
- * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
- * @param {String} origin The host to check
- * @param {Function} callback callback(successStatus)
- */
-var checkPrivacyBadgerPolicy = function(origin, callback){
-  var successStatus = false;
-  var url = "https://" + origin + "/.well-known/dnt-policy.txt";
-
-  if(!privacyHashesDoExist()){
-    console.log('not checking for privacy policy because there are no acceptable hashes!');
-    callback(successStatus);
-    return;
-  }
-
-  Utils.xhrRequest(url,function(err,response){
-    if(err){
-      callback(successStatus);
-      return;
-    }
-    var hash = SHA1(response);
-    if(isValidPolicyHash(hash)){
-      successStatus = true;
-    }
-    callback(successStatus);
-  });
-};
-
-/**
- * Create a filter unblocking a given origin
- * @param {string} origin  the origin to unblock
- */
-var unblockOrigin = function(origin){
-  action_map.setAction(origin, DNT)
-  teardownCookieBlocking(origin);
-};
-
-/**
- * Are there any acceptable privacy policy hashes
- * @return {boolean}
- */
-function privacyHashesDoExist(){
-  return !! localStorage.badgerHashes && Object.keys(JSON.parse(localStorage.badgerHashes)).length > 0;
-}
-
-/**
- * Check if a given hash is the hash of a valid privacy policy
- * @return {boolean}
- */
-function isValidPolicyHash(hash){
-  if (!privacyHashesDoExist()) {
-    console.error('No privacy badger policy hashes in storage! Refreshing...');
-    updatePrivacyPolicyHashes();
-    return false;
-  }
-
-  var hashes = JSON.parse(localStorage.badgerHashes);
-  for (var key in hashes) {
-    if (hash === hashes[key]){ return true; }
-  }
-  return false;
-}
-
-/**
- * Check if an origin is already in the heuristic
- * @param {String} origin 3rd party host
- * @return {Boolean}
- */
-function isOriginInHeuristic(origin){
-  return seenThirdParties.hasOwnProperty(getBaseDomain(origin));
 }
 
 /**
@@ -926,6 +500,7 @@ function blockedTrackerCount(tabId){
 }
 
 
+// TODO: unused - remove
 function originHasTracking(tabId,fqdn){
   return pb.tabData[tabId] && 
     pb.tabData[tabId].trackers &&
@@ -1000,32 +575,10 @@ function updateCount(details){
     });
   }
 }
-chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
-
-
-/**
- * Decide what the action would presumably be for an origin
- * used to determine where the slider should go when the undo button
- * is clicked. 
- *
- * @param string origin the domain to guess the action for
- */
-function getPresumedAction(origin){
-  if(BlockedDomainList.hasDomain(origin)){
-    if (CookieBlockList.hasDomain(origin) ||
-        CookieBlockList.hasDomain(getBaseDomain(origin))) {
-      return 'cookieblock';
-    } else {
-      return 'block';
-    }
-  } else {
-    return 'noaction';
-  }
-}
-
 
 /**
  * Check if a specific frame is whitelisted
+ * TODO: used in popup-blocker.js inspect if necessary
  *
  * @param {Integer} tabId The id of the tab
  * @param {Integer} frameId The id of the frame
@@ -1051,6 +604,8 @@ function isFrameWhitelisted(tabId, frameId, type) {
   return false;
 }
 
+/***************** update lists and set timeouts *********/
+
 /**
  * Update the cookie block list with a new list
  * add any new entries that already have a parent domain in the action_map
@@ -1061,4 +616,162 @@ var updateCookieBlockList = function(new_list){
   // TODO
   throw('nope!' + new_list);
 };
+
+/**
+ * Fetch acceptable privacy policy hashes from the EFF server
+ */
+function updatePrivacyPolicyHashes(){
+  var url = "https://www.eff.org/files/dnt-policies.json";
+  Utils.xhrRequest(url,function(err,response){
+    if(err){
+      console.error('Problem fetching privacy badger policy hash list at', url, err.status, err.message);
+      return;
+    }
+    localStorage.badgerHashes = response;
+  });
+}
+
+// Refresh hashes every 24 hours and also once on startup.
+setInterval(updatePrivacyPolicyHashes,86400000);
+updatePrivacyPolicyHashes();
+
+// Refresh domain exceptions popup list once every 24 hours and on startup
+setInterval(DomainExceptions.updateList,86400000);
+DomainExceptions.updateList();
+
+/**
+ * Loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
+ * TODO: Make this work with storage.js
+ */
+function recheckDNTPolicyForBlockedDomains(){
+  for(var domain in BlockedDomainList.domains){
+    if(Date.now() > BlockedDomainList.nextUpdateTime(domain)){
+      checkForDNTPolicy(domain);
+    }
+  }
+}
+setInterval(recheckDNTPolicyForBlockedDomains,BlockedDomainList.minThreshold);
+recheckDNTPolicyForBlockedDomains();
+
+/**
+ * Check a domain for a DNT policy and unblock it if it has one
+ * @param {String} domain The domain to check
+ */
+function checkForDNTPolicy(domain){
+  checkPrivacyBadgerPolicy(domain, function(success){
+    if(success){
+      console.log('adding', domain, 'to user whitelist due to badgerpolicy.txt');
+      pb.settings.setupDNT(domain);
+    }
+  });
+}
+
+
+/**
+ * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
+ * @param {String} origin The host to check
+ * @param {Function} callback callback(successStatus)
+ */
+var checkPrivacyBadgerPolicy = function(origin, callback){
+  var successStatus = false;
+  var url = "https://" + origin + "/.well-known/dnt-policy.txt";
+
+  if(!privacyHashesDoExist()){
+    console.log('not checking for privacy policy because there are no acceptable hashes!');
+    callback(successStatus);
+    return;
+  }
+
+  Utils.xhrRequest(url,function(err,response){
+    if(err){
+      callback(successStatus);
+      return;
+    }
+    var hash = window.SHA1(response);
+    if(isValidPolicyHash(hash)){
+      successStatus = true;
+    }
+    callback(successStatus);
+  });
+};
+
+/**
+ * Are there any acceptable privacy policy hashes
+ * TODO: Switch to using storage.js
+ * @return {boolean}
+ */
+function privacyHashesDoExist(){
+  return !! localStorage.badgerHashes && Object.keys(JSON.parse(localStorage.badgerHashes)).length > 0;
+}
+
+/**
+ * Check if a given hash is the hash of a valid privacy policy
+ * @return {boolean}
+ */
+function isValidPolicyHash(hash){
+  if (!privacyHashesDoExist()) {
+    console.error('No privacy badger policy hashes in storage! Refreshing...');
+    updatePrivacyPolicyHashes();
+    return false;
+  }
+
+  var hashes = JSON.parse(localStorage.badgerHashes);
+  for (var key in hashes) {
+    if (hash === hashes[key]){ return true; }
+  }
+  return false;
+}
+
+
+
+/**************************** Listeners ****************************/
+chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
+
+// Update icon if a tab changes location
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  if(changeInfo.status == "loading") {
+    refreshIconAndContextMenu(tab);
+  }
+});
+
+// Update icon if a tab is replaced or loaded from cache
+chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
+  chrome.tabs.get(addedTabId, function(tab){
+    refreshIconAndContextMenu(tab);
+  });
+});
+
+
+
+
+// Listening for Avira Autopilot remote control UI
+// The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
+// The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
+chrome.runtime.onMessageExternal.addListener(
+  function(request, sender, sendResponse) {
+    // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
+    if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
+      if (request.command == "getDisabledSites") {
+        sendResponse({origins: Utils.listOriginsWherePrivacyBadgerIsDisabled()});
+      }
+      else if (request.command == "enable") {
+        Utils.enablePrivacyBadgerForOrigin(request.origin);
+      }
+      else if (request.command == "disable") {
+        Utils.disablePrivacyBadgerForOrigin(request.origin);
+      }
+    }
+  }
+);
+
+// Show icon as page action for all tabs that already exist
+chrome.windows.getAll({populate: true}, function(windows) {
+  for (var i = 0; i < windows.length; i++) {
+    for (var j = 0; j < windows[i].tabs.length; j++) {
+      refreshIconAndContextMenu(windows[i].tabs[j]);
+    }
+  }
+});
+
+
 
