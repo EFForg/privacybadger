@@ -48,7 +48,7 @@ chrome.runtime.onConnect.addListener(
             document.removeEventListener('keydown', keypressListener);
 
             e.preventDefault();
-          })
+          });
         }
 
         document.getElementById('useless').click();
@@ -64,7 +64,7 @@ chrome.runtime.onConnect.addListener(
           if(e){
             e.preventDefault();
           }
-        } 
+        };
         //click handler for close button
         var closeBtn = document.getElementById('closeWindow');
         closeBtn.onclick = closeWindow;

@@ -4,7 +4,7 @@
 * the value is an array where index 0 is the domain to whitelist if the user wishes to login.
 * Index 1 is the English name of the service.
 **/
-require.scopes["domainExceptions"] = (function() {
+require.scopes.domainExceptions = (function() {
 
 var exports = {};
 
@@ -38,7 +38,7 @@ var DomainExceptions = {
          
       //update local object
       DomainExceptions.list = l;
-      if(typeof callback === "function"){callback()}
+      if(typeof callback === "function"){callback();}
     });
   },
 
@@ -50,12 +50,12 @@ var DomainExceptions = {
   getWhitelistForPath: function(path){
     for(var name in DomainExceptions.list){
       var url = path.replace(/.*?:\/\//g, "");
-      if(url.indexOf(name) === 0){ return DomainExceptions.list[name] }
+      if(url.indexOf(name) === 0){ return DomainExceptions.list[name]; }
     }
     return undefined;
   },
 
-}
+};
 
 exports.DomainExceptions = DomainExceptions;
 return exports;

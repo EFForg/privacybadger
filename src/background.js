@@ -229,7 +229,6 @@ with(require("subscriptionClasses")) {
   this.DownloadableSubscription = DownloadableSubscription;
 }
 var FilterStorage = require("filterStorage").FilterStorage;
-var ElemHide = require("elemHide").ElemHide;
 var matcherStore = require("matcher").matcherStore;
 require("filterNotifier").FilterNotifier.addListener(function(action) {
   // Called from lib/adblockplus.js after all filters have been created from subscriptions.
@@ -772,6 +771,3 @@ chrome.windows.getAll({populate: true}, function(windows) {
     }
   }
 });
-
-
-

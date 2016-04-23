@@ -43,8 +43,8 @@ chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) 
       '('+ function() {
           window.localStorage.getItem = function () {
                return {};
-           }
-          window.localStorage.setItem=function (newValue) {
+           };
+          window.localStorage.setItem=function (/*newValue*/) {
               //doNothing
                        };
         } +')()';

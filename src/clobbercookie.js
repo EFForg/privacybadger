@@ -41,9 +41,9 @@ chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) 
   if (blocked) {
     var code = '('+ function(){
       var dummyCookie = "x=y";
-      document.__defineSetter__("cookie", function(value) { return dummyCookie; });
+      document.__defineSetter__("cookie", function(/*value*/) { return dummyCookie; });
       document.__defineGetter__("cookie", function() { return dummyCookie; });
-    } +')();'
+    } +')();';
 
     insertScript(code);
     }
