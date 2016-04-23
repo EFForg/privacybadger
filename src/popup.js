@@ -36,7 +36,13 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab", "getBaseDomain", "getPresumedAction"];
+var imports = [
+  "require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu",
+  "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "reloadTab",
+  "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl",
+  "removeFilter", "setupCookieBlocking", "saveAction", "teardownCookieBlocking",
+  "getHostForTab", "getBaseDomain", "getPresumedAction",
+];
 var i18n = chrome.i18n;
 for (var i = 0; i < imports.length; i++){
   window[imports[i]] = backgroundPage[imports[i]];
@@ -76,7 +82,7 @@ function init() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
 
-  var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false; 
+  var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false;
   console.log(seenComic);
 
   function _setSeenComic() {
@@ -90,7 +96,7 @@ function init() {
   }
 
   if (!seenComic) {
-    nag.show(); 
+    nag.show();
     outer.show();
     // Attach event listeners
     $('#fittslaw').click(_hideNag);
@@ -100,7 +106,7 @@ function init() {
       });
       _hideNag();
     });
-  } 
+  }
 
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
@@ -457,6 +463,12 @@ function refreshPopup(tabId) {
     });
   });
   adjustNoInitialBlockingLink();
+
+  // Hide elements for removing origins (controlled from the options page).
+  // Popup shows what's loaded for the current page so it doesn't make sense
+  // to have removal ability here.
+  $('.removeOrigin').hide();
+
   console.log("Done refreshing popup");
 }
 

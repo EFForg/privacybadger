@@ -1,7 +1,7 @@
 /*
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
- * Derived from Adblock Plus 
+ * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
@@ -42,7 +42,7 @@ if (!("showCounter" in localStorage)){
   localStorage.showCounter = "true";
 }
 
-// Add a permanent store for seen third parties 
+// Add a permanent store for seen third parties
 var seenCache = localStorage.getItem("seenThirdParties");
 var seenThirdParties = JSON.parse(seenCache);
 if (!seenThirdParties){
@@ -238,6 +238,34 @@ function removeFilter(subscriptionName, filterName){
 }
 
 /**
+ * Removes traces of given origin from Privacy Badger.
+ *
+ * @param origin {String} Origin to remove.
+ */
+function removeOriginFromPrivacyBadger(origin) {
+  // Remove origin from ABP filters. This includes origins blocked by
+  // Privacy Badger heuristic as well as those overridden by user.
+  var filterName = '||' + origin + '^$third-party';
+  var subscriptionNames = [
+    'frequencyHeuristic',
+    'userRed',
+    'userYellow',
+    'userGreen',
+  ];
+  for (var i = 0; i < subscriptionNames.length; i++) {
+    var subscriptionName = subscriptionNames[i];
+    removeFilter(subscriptionName, filterName);
+  }
+
+  // Remove origin from origins that have been seen by Privacy Badger.
+  delete seenThirdParties[origin];
+  for (var seenOrigin in seenThirdParties) {
+    delete seenThirdParties[seenOrigin][origin];
+  }
+  localStorage.setItem('seenThirdParties', JSON.stringify(seenThirdParties));
+}
+
+/**
  * Checks whether a page is whitelisted.
  * @param {String} url
  * @param {String} parentUrl URL of the parent frame
@@ -340,8 +368,8 @@ function addSubscription(prevVersion) {
     localStorage.setItem("supercookieDomains", JSON.stringify({}));
   }
 
-  // Add a permanent store for blocked domains to recheck DNT compliance 
-  // TODO: storing this in localStorage makes it synchronous, but we might 
+  // Add a permanent store for blocked domains to recheck DNT compliance
+  // TODO: storing this in localStorage makes it synchronous, but we might
   // want the speed up of async later if we want to deal with promises
   var blockedDomains = JSON.parse(localStorage.getItem("blockeddomainslist"));
   if (!blockedDomains){
@@ -746,7 +774,7 @@ function saveAction(userAction, origin, target) {
     FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[userAction]]);
     console.log("Finished saving action " + userAction + " for " + origin + "on" + target);
     return true;
-  } 
+  }
 
   // If there is no target proceed as normal
   for (var action in allUserActions) {
@@ -836,7 +864,7 @@ function setTrackingFlag(tabId,fqdn){
 }
 
 function originHasTracking(tabId,fqdn){
-  return tabData[tabId] && 
+  return tabData[tabId] &&
     tabData[tabId].trackers &&
     !!tabData[tabId].trackers[fqdn];
 }
@@ -912,7 +940,7 @@ chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*",
 
 
 /**
-* Populate tabs object with currently open tabs when extension is updated or installed. 
+* Populate tabs object with currently open tabs when extension is updated or installed.
 */
 function updateTabList(){
   console.log('update tabs!');
@@ -942,7 +970,7 @@ function updateTabList(){
 /**
  * Decide what the action would presumably be for an origin
  * used to determine where the slider should go when the undo button
- * is clicked. 
+ * is clicked.
  *
  * @param string origin the domain to guess the action for
  */

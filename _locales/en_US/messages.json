@@ -99,6 +99,9 @@
         "description": "This is the label for the 'Remove selected' buttons.",
         "message": "Remove selected"
     },
+    "remove_origin_confirmation": {
+        "message": "Are you sure you want to remove this origin from Privacy Badger?"
+    },
     "report_broken_site": {
         "message": "Report Broken Site"
     },
