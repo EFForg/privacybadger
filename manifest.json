@@ -2,7 +2,7 @@
   "version": "2016.4.13",
   "author": {
     "email": "eff.software.projects@gmail.com"
-  }, 
+  },
   "applications": {
     "gecko": {
       "id": "privacybadger@mozilla.org"
@@ -36,8 +36,6 @@
       "lib/jsbn.js",
       "lib/rsa.js",
       "lib/popupBlocker.js",
-      "src/cookieblocklist.js",
-      "src/blockedDomainList.js",
       "src/domainExceptions.js",
       "src/webrequest.js",
       "src/heuristicblocking.js",
@@ -48,7 +46,6 @@
   "content_scripts": [
     {
       "js": [
-        "src/include.preload.js",
         "src/clobbercookie.js",
         "src/clobberlocalstorage.js",
         "src/fingerprinting.js",
