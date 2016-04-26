@@ -1,9 +1,21 @@
+sudo: required
 language: python
+os: linux
+dist: trusty
 python:
   - "2.7"
+addons:
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 install:
   - sudo apt-get update
-  - sudo apt-get -qq install xvfb python-virtualenv
+  - sudo apt-get -qq install python-virtualenv
   - npm install
 before_script:
   - ./scripts/setup_travis.sh
