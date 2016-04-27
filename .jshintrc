@@ -74,5 +74,5 @@
     "yui"           : false,    // Yahoo User Interface
 
     // Custom Globals
-    "globals"       : {"chrome": true, "require": true, "pb": true }        // additional predefined global variables
+    "globals"       : {"chrome": true, "require": true, "pb": true, "_": true }        // additional predefined global variables
 }

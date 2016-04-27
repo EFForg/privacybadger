@@ -438,6 +438,7 @@ var heuristicBlockingAccounting = function(details) {
     if (!tabOrigin || origin == tabOrigin){
       return { };
     }
+    //pb.checkForDNTPolicy(fqdn, pb.storage.getNextUpdateForDomain(fqdn));
     // if there are no tracking cookies or similar things, ignore
     if (!hasTracking(details, origin)){
       return { };

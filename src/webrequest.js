@@ -241,7 +241,7 @@ function onTabReplaced(addedTabId, removedTabId){
 function getHostForTab(tabId){
   var mainFrameIdx = 0;
   if (!pb.tabData[tabId]) {
-    return;
+    return '';
   }
   if (_isTabAnExtension(tabId)) {
     // If the tab is an extension get the url of the first frame for its implied URL
@@ -249,7 +249,7 @@ function getHostForTab(tabId){
     mainFrameIdx = Object.keys(pb.tabData[tabId].frames)[1] || 0;
   }
   if (!pb.tabData[tabId].frames[mainFrameIdx]) {
-    return;
+    return '';
   }
   return window.extractHostFromURL(pb.tabData[tabId].frames[mainFrameIdx].url);
 }

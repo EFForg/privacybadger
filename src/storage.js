@@ -58,8 +58,9 @@ var initialize = function(){
   var storage_objects = [
     "snitch_map",
     "action_map",
-    "dnt_domains",
-    "cookieblock_list"
+    "cookieblock_list",
+    "dnt_hashes",
+    "settings_map"
   ];
 
   for(var i = 0; i < storage_objects.length; i++){
@@ -98,7 +99,6 @@ var getActionForFqdn = function(domain){
  */
 var setupHeuristicAction = function(domain, action){
   _setupDomainAction(domain, action, "heuristicAction");
-  //TODO: async set up DNT here
 };
 
 /**
@@ -106,7 +106,7 @@ var setupHeuristicAction = function(domain, action){
  * @param {String} domain Domain to add
  */
 var setupDNT = function(domain){
-  _setupDomainAction(domain, "true", "dnt");
+  _setupDomainAction(domain, "true", "dnt"); 
 };
   
 /**
@@ -115,6 +115,31 @@ var setupDNT = function(domain){
 **/
 var revertDNT = function(domain){
   _setupDomainAction(domain, null, "dnt");
+};
+
+var touchDNTRecheckTime = function(domain, time){
+  var action_map = getBadgerStorageObject('action_map');
+  var domainObj = action_map.getItem(domain);
+  domainObj.nextUpdateTime = time;
+  action_map.setItem(domain, domainObj);
+};
+
+var getNextUpdateForDomain = function(domain){
+  var action_map = getBadgerStorageObject('action_map');
+  if(action_map.hasItem(domain)){
+    return action_map.getItem(domain).nextUpdateTime;
+  } else {
+    return 0;
+  }
+};
+
+/**
+ * update DNT policy hashes
+ */
+var updateDNTHashes = function(hashes){
+  console.log('updating', hashes);
+  var dnt_hashes = getBadgerStorageObject('dnt_hashes');
+  dnt_hashes.updateObject(_.invert(hashes));
 };
 
 /**
@@ -162,7 +187,8 @@ var _newActionMapObject = function() {
   return {
     userAction: null,
     dnt: null,
-    heuristicAction: null
+    heuristicAction: null,
+    nextUpdateTime: 0
   };
 };
 
@@ -362,6 +388,18 @@ BadgerStorage.prototype = {
     }, 0);
   },
 
+  /**
+   * Update the entire object that this instance is storing
+   */
+  updateObject: function(objekt){
+    var self = this;
+    self._store = objekt;
+    // Async call to syncStorage.
+    setTimeout(function(){
+      _syncStorage(self);
+    }, 0);
+  },
+
   getSerialized: function(){
     return JSON.stringify(this._store);
   }
@@ -378,9 +416,12 @@ var exports = {};
 exports.getBestAction = getBestAction;
 exports.getActionForFqdn = getActionForFqdn;
 exports.getAllDomainsByPresumedAction = getAllDomainsByPresumedAction;
+exports.getNextUpdateForDomain = getNextUpdateForDomain;
 exports.setupHeuristicAction = setupHeuristicAction;
 exports.setupDNT = setupDNT;
 exports.revertDNT = revertDNT;
+exports.updateDNTHashes = updateDNTHashes;
+exports.touchDNTRecheckTime = touchDNTRecheckTime;
 exports.setupUserAction = setupUserAction;
 exports.revertUserAction = revertUserAction;
 exports.getBadgerStorageObject = getBadgerStorageObject;

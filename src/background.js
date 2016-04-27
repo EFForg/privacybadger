@@ -63,6 +63,9 @@ var pb = {
   USER_BLOCK: "user_block",
   USER_COOKIE_BLOCK: "user_cookieblock",
 
+  // URLS
+  DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
+
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
   
@@ -108,8 +111,21 @@ var pb = {
    */
   init: function(){
     if(pb.INITIALIZED) { return; }
+
     pb.storage.initialize();
     pb.updateTabList();
+    pb.initializeCookieBlockList();
+    pb.initializeDNT();
+
+    // Show icon as page action for all tabs that already exist
+    chrome.windows.getAll({populate: true}, function(windows) {
+      for (var i = 0; i < windows.length; i++) {
+        for (var j = 0; j < windows[i].tabs.length; j++) {
+          refreshIconAndContextMenu(windows[i].tabs[j]);
+        }
+      }
+    });
+    
     pb.INITIALIZED = true;
     console.log('privacy badger is ready to rock');
     console.log('set pb.DEBUG=1 to view console messages');
@@ -152,7 +168,7 @@ var pb = {
                           'cookieblock': pb.USER_COOKIE_BLOCK,
                           'allow': pb.USER_ALLOW};
     pb.storage.setupUserAction(origin, allUserActions[userAction]);
-    console.log("Finished saving action " + userAction + " for " + origin);
+    pb.log("Finished saving action " + userAction + " for " + origin);
 
     // TODO: right now we don't determine whether a reload is needed
     return true;
@@ -186,9 +202,101 @@ var pb = {
         };
       }
     });
-    /*
+  },
+
+  /**
+   * Initialize the Cookieblock List:
+   * * Download list form eff
+   * * Merge with existing cookieblock list if any 
+   * * Add any new domains to the action map
+   * * Set a timer to call every 24 hours
+   **/
+  initializeCookieBlockList: function(){
+  },
+
+   /**
+    * Initialize DNT Setup:
+    * * download acceptable hashes from EFF
+    * * set up listener to recheck blocked domains and DNT domains
     */
-  }
+  initializeDNT: function(){
+    pb.updateDNTPolicyHashes();
+    pb.recheckDNTPolicyForDomains();
+    setInterval(pb.recheckDNTPolicyForDomains, pb.utils.oneHour());
+    setInterval(pb.updateDNTPolicyHashes, pb.utils.oneDay() * 4);
+  },
+   
+  /**
+  * Fetch acceptable DNT policy hashes from the EFF server
+  */
+  updateDNTPolicyHashes: function(){
+    pb.utils.xhrRequest(pb.DNT_POLICIES_URL, function(err,response){
+      if(err){
+        console.error('Problem fetching privacy badger policy hash list at', 
+                 pb.DNT_POLICIES_URL, err.status, err.message);
+        return;
+      }
+      pb.storage.updateDNTHashes(JSON.parse(response));
+    });
+  },
+
+
+
+  /**
+  * Loop through all known domains and recheck any that need to be rechecked for a dnt-policy file
+  */
+  recheckDNTPolicyForDomains: function(){
+    var action_map = pb.storage.getBadgerStorageObject('action_map');
+    for(var domain in action_map.getItemClones()){
+      pb.checkForDNTPolicy(domain, pb.storage.getNextUpdateForDomain(domain));
+    }
+  },
+
+
+  /**
+  * Check a domain for a DNT policy and unblock it if it has one
+  * @param {String} domain The domain to check
+  * @param {timestamp} nextUpdate time when the DNT policy should be rechecked
+  */
+  checkForDNTPolicy: function(domain, nextUpdate){
+    if(Date.now() < nextUpdate){ return; }
+    pb.log('Checking', domain, 'for DNT policy.');
+    pb.checkPrivacyBadgerPolicy(domain, function(success){
+      if(success){
+        pb.log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
+        pb.storage.setupDNT(domain);
+      } else {
+        pb.log('It looks like', domain, 'has NOT adopted Do Not Track');
+        pb.storage.revertDNT(domain);
+      }
+      pb.storage.touchDNTRecheckTime(domain, pb.utils.oneDayFromNow());
+    });
+  },
+
+
+  /**
+  * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
+  * TODO: Use sha256
+  * @param {String} origin The host to check
+  * @param {Function} callback callback(successStatus)
+  */
+  checkPrivacyBadgerPolicy: function(origin, callback){
+    var successStatus = false;
+    var url = "https://" + origin + "/.well-known/dnt-policy.txt";
+    var dnt_hashes = pb.storage.getBadgerStorageObject('dnt_hashes');
+
+    pb.utils.xhrRequest(url,function(err,response){
+      if(err){
+        callback(successStatus);
+        return;
+      }
+      var hash = window.SHA1(response);
+      if(dnt_hashes.hasItem(hash)){
+        successStatus = true;
+      }
+      callback(successStatus);
+    });
+  },
 
 };
 
@@ -212,12 +320,10 @@ if (!("whitelistUrl" in localStorage)){
 
 var whitelistUrl = localStorage.whitelistUrl;
 var isFirstRun = false;
-DomainExceptions.updateList();
-updatePrivacyPolicyHashes();
 
 /***** things necessary for migration *****/
 var seenCache = localStorage.getItem("seenThirdParties");
-
+/* jshint ignore:start */
 with(require("filterClasses")) {
   this.Filter = Filter;
   this.RegExpFilter = RegExpFilter;
@@ -226,8 +332,8 @@ with(require("filterClasses")) {
 }
 with(require("subscriptionClasses")) {
   this.Subscription = Subscription;
-  this.DownloadableSubscription = DownloadableSubscription;
 }
+/* jshint ignore:end */
 var FilterStorage = require("filterStorage").FilterStorage;
 var matcherStore = require("matcher").matcherStore;
 require("filterNotifier").FilterNotifier.addListener(function(action) {
@@ -616,113 +722,6 @@ var updateCookieBlockList = function(new_list){
   throw('nope!' + new_list);
 };
 
-/**
- * Fetch acceptable privacy policy hashes from the EFF server
- */
-function updatePrivacyPolicyHashes(){
-  var url = "https://www.eff.org/files/dnt-policies.json";
-  Utils.xhrRequest(url,function(err,response){
-    if(err){
-      console.error('Problem fetching privacy badger policy hash list at', url, err.status, err.message);
-      return;
-    }
-    localStorage.badgerHashes = response;
-  });
-}
-
-// Refresh hashes every 24 hours and also once on startup.
-setInterval(updatePrivacyPolicyHashes,86400000);
-updatePrivacyPolicyHashes();
-
-// Refresh domain exceptions popup list once every 24 hours and on startup
-setInterval(DomainExceptions.updateList,86400000);
-DomainExceptions.updateList();
-
-/**
- * Loop through all blocked domains and recheck any that need to be rechecked for a dnt-policy file
- * TODO: Make this work with storage.js
- */
-function recheckDNTPolicyForBlockedDomains(){
-  for(var domain in BlockedDomainList.domains){
-    if(Date.now() > BlockedDomainList.nextUpdateTime(domain)){
-      checkForDNTPolicy(domain);
-    }
-  }
-}
-setInterval(recheckDNTPolicyForBlockedDomains,BlockedDomainList.minThreshold);
-recheckDNTPolicyForBlockedDomains();
-
-/**
- * Check a domain for a DNT policy and unblock it if it has one
- * @param {String} domain The domain to check
- */
-function checkForDNTPolicy(domain){
-  checkPrivacyBadgerPolicy(domain, function(success){
-    if(success){
-      console.log('adding', domain, 'to user whitelist due to badgerpolicy.txt');
-      pb.settings.setupDNT(domain);
-    }
-  });
-}
-
-
-/**
- * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
- * @param {String} origin The host to check
- * @param {Function} callback callback(successStatus)
- */
-var checkPrivacyBadgerPolicy = function(origin, callback){
-  var successStatus = false;
-  var url = "https://" + origin + "/.well-known/dnt-policy.txt";
-
-  if(!privacyHashesDoExist()){
-    console.log('not checking for privacy policy because there are no acceptable hashes!');
-    callback(successStatus);
-    return;
-  }
-
-  Utils.xhrRequest(url,function(err,response){
-    if(err){
-      callback(successStatus);
-      return;
-    }
-    var hash = window.SHA1(response);
-    if(isValidPolicyHash(hash)){
-      successStatus = true;
-    }
-    callback(successStatus);
-  });
-};
-
-/**
- * Are there any acceptable privacy policy hashes
- * TODO: Switch to using storage.js
- * @return {boolean}
- */
-function privacyHashesDoExist(){
-  return !! localStorage.badgerHashes && Object.keys(JSON.parse(localStorage.badgerHashes)).length > 0;
-}
-
-/**
- * Check if a given hash is the hash of a valid privacy policy
- * @return {boolean}
- */
-function isValidPolicyHash(hash){
-  if (!privacyHashesDoExist()) {
-    console.error('No privacy badger policy hashes in storage! Refreshing...');
-    updatePrivacyPolicyHashes();
-    return false;
-  }
-
-  var hashes = JSON.parse(localStorage.badgerHashes);
-  for (var key in hashes) {
-    if (hash === hashes[key]){ return true; }
-  }
-  return false;
-}
-
-
-
 /**************************** Listeners ****************************/
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 
@@ -739,9 +738,6 @@ chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
     refreshIconAndContextMenu(tab);
   });
 });
-
-
-
 
 // Listening for Avira Autopilot remote control UI
 // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
@@ -763,11 +759,6 @@ chrome.runtime.onMessageExternal.addListener(
   }
 );
 
-// Show icon as page action for all tabs that already exist
-chrome.windows.getAll({populate: true}, function(windows) {
-  for (var i = 0; i < windows.length; i++) {
-    for (var j = 0; j < windows[i].tabs.length; j++) {
-      refreshIconAndContextMenu(windows[i].tabs[j]);
-    }
-  }
-});
+  // Refresh domain exceptions popup list once every 24 hours and on startup
+  setInterval(DomainExceptions.updateList,86400000);
+  DomainExceptions.updateList();

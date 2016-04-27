@@ -87,6 +87,17 @@ var Utils = exports.Utils = {
     return ary.push.apply(ary, rest);
   },
 
+  oneHour: function(){
+    return 1000 * 60 * 60;
+  },
+  
+  oneDay: function(){
+   return this.oneHour() * 24;
+  },
+  oneDayFromNow: function(){
+    return Date.now() + this.oneDay();
+  },
+
   /**
    * Generic interface to make an XHR request
    *

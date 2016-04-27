@@ -36,6 +36,7 @@
       "lib/jsbn.js",
       "lib/rsa.js",
       "lib/popupBlocker.js",
+      "lib/underscore-min.js",
       "src/domainExceptions.js",
       "src/webrequest.js",
       "src/heuristicblocking.js",
