@@ -25,19 +25,19 @@ var Utils = pb.utils;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var tab = null;
+var settings = pb.storage.getBadgerStorageObject('settings_map');
 
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
- * TODO: switch to using storage.js
  */
 function init() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
 
-  var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false; 
+  var seenComic = settings.getItem("seenComic") || false; 
 
   function _setSeenComic() {
-    localStorage.setItem("seenComic", "true");
+    settings.setItem("seenComic", "true");
   }
 
   function _hideNag(){
@@ -126,7 +126,7 @@ function send_error(message) {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var origins = backgroundPage.getAllOriginsForTab(tabId);
   if(!origins){ return; }
-  var version = localStorage.currentVersion;
+  var version = settings.getItem("currentVersion");
   //TODO "there's got to be a better way!"
   var fqdn = tab.url.split("/",3)[2];
   var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};

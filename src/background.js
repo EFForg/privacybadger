@@ -44,6 +44,7 @@ var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
 var pbStorage = require("storage");
 var webrequest = require("webrequest");
+var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 
 var pb = {
   // imports
@@ -117,6 +118,7 @@ var pb = {
     pb.updateTabList();
     pb.initializeCookieBlockList();
     pb.initializeDNT();
+    pb.initializeDefaultSettings();
 
     // Show icon as page action for all tabs that already exist
     chrome.windows.getAll({populate: true}, function(windows) {
@@ -354,24 +356,37 @@ var pb = {
     });
   },
 
+  /**
+   * Default privacy badger settings
+   */
+  defaultSettings: {
+    socialWidgetReplacementEnabled: true,
+    showCounter: true,
+    disabledSites: [],
+    isFirstRun: true,
+    seenComic: false,
+    currentVersion: chrome.runtime.getManifest().version
+  },
+
+  /**
+   * initialize default settings if nonexistent
+   */
+  initializeDefaultSettings: function(){
+    var settings = pb.storage.getBadgerStorageObject("settings_map");
+    _.each(pb.defaultSettings, function(key, value){
+      if(!settings.hasItem(key)){
+        pb.log("setting", key, ":", value);
+        settings.setItem(key, value);
+      }
+    });
+  }
+
 };
 
 pb.init();
-/****** Initialization crap ***/
-if (!("socialWidgetReplacementEnabled" in localStorage)){
-  localStorage.socialWidgetReplacementEnabled = "true";
-}
-
-if (!("showCounter" in localStorage)){
-  localStorage.showCounter = "true";
-}
-
-// Load social widgets
-var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
-
-var isFirstRun = false;
 
 /***** things necessary for migration *****/
+
 var seenCache = localStorage.getItem("seenThirdParties");
 /* jshint ignore:start */
 with(require("filterClasses")) {
@@ -405,7 +420,7 @@ require("filterNotifier").FilterNotifier.addListener(function(action) {
  */
 function migrateVersion(prevVersion,currentVersion){
   changePrivacySettings();
-  isFirstRun = !prevVersion;
+  //isFirstRun = !prevVersion;
   localStorage.currentVersion = currentVersion;
   addSubscription(prevVersion);
   pb.updateTabList();

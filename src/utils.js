@@ -23,6 +23,7 @@
 require.scopes.utils = (function() {
   
 var exports = {};
+var settings = pb.storage.getBadgerStorageObject('settings_map');
 var Utils = exports.Utils = {
   systemPrincipal: null,
   getString: function(id)
@@ -129,22 +130,21 @@ var Utils = exports.Utils = {
   /**
    * check if privacy badger is enabled, take an origin and
    * check against the disabledSites list
-   * TODO: Use storage.js instead of local storage
    *
    * @param {String} origin
    * @returns {Boolean} true if enabled
    **/
   isPrivacyBadgerEnabled: function(origin){
-    if(localStorage.disabledSites && JSON.parse(localStorage.disabledSites).length > 0){
-      var sites = JSON.parse(localStorage.disabledSites);
-      for(var i = 0; i < sites.length; i++){
-        var site = sites[i];
+    var disabledSites = settings.getItem("disabledSites");
+    if(disabledSites && disabledSites.length > 0){
+      for(var i = 0; i < disabledSites.length; i++){
+        var site = disabledSites[i];
         if(site.startsWith("*")){
           if(window.getBaseDomain(site) === window.getBaseDomain(origin)){
             return false;
           }
         }
-        if(sites[i] === origin){
+        if(disabledSites[i] === origin){
           return false;
         }
       }
@@ -181,65 +181,49 @@ var Utils = exports.Utils = {
 
   /**
    * check if social widget replacement functionality is enabled
-   * TODO: Switch to using storage.js
    */
   isSocialWidgetReplacementEnabled: function() {
-    return JSON.parse(localStorage.socialWidgetReplacementEnabled);
+    return settings.getItem("socialWidgetReplacementEnabled");
   },
 
   /**
    * check if we should show the counter on the icon
-   * TODO: Switch to using storage.js
    */
   showCounter: function() {
-    if ("showCounter" in localStorage) {
-      return JSON.parse(localStorage.showCounter);
-    } else {
-      return true;
-    }
+    return settings.getItem("showCounter");
   },
 
   /**
    * add an origin to the disabled sites list
-   * TODO: Switch to using storage.js
    *
    * @param {String} origin The origin to disable the PB for
    **/
   disablePrivacyBadgerForOrigin: function(origin){
-    if(localStorage.disabledSites === undefined){
-      localStorage.disabledSites = JSON.stringify([origin]);
-      return;
-    }
-    var disabledSites = JSON.parse(localStorage.disabledSites);
+    var disabledSites = settings.getItem('disabledSites');
     if(disabledSites.indexOf(origin) < 0){
       disabledSites.push(origin);
-      localStorage.disabledSites = JSON.stringify(disabledSites);
+      settings.setItem("disabledSites", disabledSites);
     }
   },
 
   /**
    * interface to get the current whitelisted domains
-   * TODO: Switch to using storage.js
    */
   listOriginsWherePrivacyBadgerIsDisabled: function(){
-    return JSON.parse(localStorage.disabledSites);
+    return settings.getItem("disabledSites");
   },
 
   /**
    * remove an origin from the disabledSites list
-   * TODO: Switch to using storage.js
    *
    * @param {String} origin The origin to disable the PB for
    **/
   enablePrivacyBadgerForOrigin: function(origin){
-    if(localStorage.disabledSites === undefined){
-      return;
-    }
-    var disabledSites = JSON.parse(localStorage.disabledSites);
+    var disabledSites = settings.getItem("disabledSites");
     var idx = disabledSites.indexOf(origin);
     if(idx >= 0){
       Utils.removeElementFromArray(disabledSites, idx);
-      localStorage.disabledSites = JSON.stringify(disabledSites);
+      settings.setItem("disabledSites", disabledSites);
     }
   },
 

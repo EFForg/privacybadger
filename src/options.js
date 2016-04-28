@@ -23,9 +23,10 @@ var Utils = require("utils").Utils;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var originCache = null;
+var settings = pb.storage.getBadgerStorageObject("settings_map");
 
 /*
- * Loads options from localStorage and sets UI elements accordingly.
+ * Loads options from pb storage and sets UI elements accordingly.
  */
 function loadOptions() {
   $('#blockedResources').css('max-height',$(window).height() - 300);
@@ -70,26 +71,23 @@ function loadOptions() {
 }
 $(loadOptions);
 
-// TODO: switch to using storage.js
 function active_socialwidget(){
   $("#activate_socialwidget_btn").toggle();
   $("#deactivate_socialwidget_btn").toggle();
-  localStorage.socialWidgetReplacementEnabled = "true";
+  settings.setItem('socialWidgetReplacementEnabled', "true");
 }
 
-// TODO: switch to using storage.js
 function deactive_socialwidget(){
   $("#activate_socialwidget_btn").toggle();
   $("#deactivate_socialwidget_btn").toggle();
-  localStorage.socialWidgetReplacementEnabled = "false";
+  settings.setItem('socialWidgetReplacementEnabled', "false");
 }
 
-// TODO: switch to using storage.js
 function toggle_counter(){
   if ($("#toggle_counter_checkbox").prop("checked")) {
-    localStorage.showCounter = "true";
+    settings.setItem("showCounter", "true");
   } else {
-    localStorage.showCounter = "false";
+    settings.setItem("showCounter", "false");
   }
   chrome.windows.getAll(null, function(windows) {
     windows.forEach(function(window) {
@@ -102,15 +100,13 @@ function toggle_counter(){
   });
 }
 
-// TODO: switch to using storage.js
 function reloadWhitelist() {
-  var sites = JSON.parse(localStorage.disabledSites || "[]");
+  var sites = settings.getItem("disabledSites");
   var sitesList = $('#excludedDomainsBox');
   sitesList.html("");
   for( var i = 0; i < sites.length; i++){
     $('<option>').text(sites[i]).appendTo(sitesList);
   }
-
 }
 
 /**
