@@ -373,13 +373,13 @@ var pb = {
    */
   initializeDefaultSettings: function(){
     var settings = pb.storage.getBadgerStorageObject("settings_map");
-    _.each(pb.defaultSettings, function(key, value){
+    _.each(pb.defaultSettings, function(value, key){
       if(!settings.hasItem(key)){
         pb.log("setting", key, ":", value);
         settings.setItem(key, value);
       }
     });
-  }
+  },
 
 };
 

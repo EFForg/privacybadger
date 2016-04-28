@@ -21,10 +21,11 @@
  /* globals URI */
 
 require.scopes.utils = (function() {
+var pbStorage = require("storage");
   
 var exports = {};
-var settings = pb.storage.getBadgerStorageObject('settings_map');
 var Utils = exports.Utils = {
+  getSettings: function(){ return pbStorage.getBadgerStorageObject('settings_map'); },
   systemPrincipal: null,
   getString: function(id)
   {
@@ -135,6 +136,7 @@ var Utils = exports.Utils = {
    * @returns {Boolean} true if enabled
    **/
   isPrivacyBadgerEnabled: function(origin){
+    var settings = this.getSettings();
     var disabledSites = settings.getItem("disabledSites");
     if(disabledSites && disabledSites.length > 0){
       for(var i = 0; i < disabledSites.length; i++){
@@ -183,14 +185,14 @@ var Utils = exports.Utils = {
    * check if social widget replacement functionality is enabled
    */
   isSocialWidgetReplacementEnabled: function() {
-    return settings.getItem("socialWidgetReplacementEnabled");
+    return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
   /**
    * check if we should show the counter on the icon
    */
   showCounter: function() {
-    return settings.getItem("showCounter");
+    return this.getSettings().getItem("showCounter");
   },
 
   /**
@@ -199,6 +201,7 @@ var Utils = exports.Utils = {
    * @param {String} origin The origin to disable the PB for
    **/
   disablePrivacyBadgerForOrigin: function(origin){
+    var settings = this.getSettings();
     var disabledSites = settings.getItem('disabledSites');
     if(disabledSites.indexOf(origin) < 0){
       disabledSites.push(origin);
@@ -210,7 +213,7 @@ var Utils = exports.Utils = {
    * interface to get the current whitelisted domains
    */
   listOriginsWherePrivacyBadgerIsDisabled: function(){
-    return settings.getItem("disabledSites");
+    return this.getSettings().getItem("disabledSites");
   },
 
   /**
@@ -219,6 +222,7 @@ var Utils = exports.Utils = {
    * @param {String} origin The origin to disable the PB for
    **/
   enablePrivacyBadgerForOrigin: function(origin){
+    var settings = this.getSettings();
     var disabledSites = settings.getItem("disabledSites");
     var idx = disabledSites.indexOf(origin);
     if(idx >= 0){
