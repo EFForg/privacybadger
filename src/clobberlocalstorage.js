@@ -26,7 +26,7 @@
   * @param {String} text The script to insert into the page
  */
 
- function insertScript(text) {
+ function insertClsScript(text) {
    var parent = document.documentElement,
      script = document.createElement('script');
 
@@ -49,7 +49,7 @@ chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) 
                        };
         } +')()';
 
-    insertScript(code);
+    insertClsScript(code);
     }
   return true;
 });

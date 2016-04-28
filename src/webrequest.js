@@ -308,7 +308,6 @@ function recordSuperCookie(sender, msg) {
   var supercookieDomains = Utils.getSupercookieDomains();
   // We could store the type of supercookie once we start to check multiple storage vectors
   // Could be useful for debugging & bookkeeping.
-  pb.log("Adding", frameOrigin, "to supercookieDomains (localStorage), found on", pageHost);
   
   supercookieDomains.setItem(frameOrigin, true);
 }
@@ -320,7 +319,6 @@ function recordSuperCookie(sender, msg) {
  * @param msg specific fingerprinting data
  */
 function recordFingerprinting(tabId, msg) {
-  // TODO: Investigate whether this should use storage.js
   // bail if we failed to determine the originating script's URL
   // TODO find and fix where this happens
   if (!msg.scriptUrl) {
@@ -373,9 +371,10 @@ function recordFingerprinting(tabId, msg) {
         if (msg.extra.width > 16 && msg.extra.height > 16) {
           // let's call it fingerprinting
           scriptData.canvas.fingerprinting = true;
+          pb.log(script_host, 'caught fingerprinting on', document_host);
 
           // mark this is a strike
-          window.recordPrevalence(
+          pb.heuristicBlocking.recordPrevalence(
             script_host, script_origin, window.getBaseDomain(document_host));
         }
       }

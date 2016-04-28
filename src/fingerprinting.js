@@ -18,7 +18,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function getPageScript() {
+function getFpPageScript() {
 
   // code below is not a content script: no chrome.* APIs /////////////////////
 
@@ -263,7 +263,7 @@ function getPageScript() {
  * @param text The content of the script to insert
  * @param data attributes to set in the inserted script tag
  */
-function insertScript(text, data) {
+function insertFpScript(text, data) {
   var parent = document.documentElement,
     script = document.createElement('script');
 
@@ -299,7 +299,7 @@ chrome.runtime.sendMessage({
     });
   });
 
-  insertScript(getPageScript(), {
+  insertFpScript(getFpPageScript(), {
     event_id: event_id
   });
 

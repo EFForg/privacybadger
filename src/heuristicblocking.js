@@ -506,6 +506,7 @@ chrome.webRequest.onResponseStarted.addListener(function(details) {
 
 var exports = {};
 exports.heuristicBlockingAccounting = heuristicBlockingAccounting;
+exports.recordPrevalence = recordPrevalence;
 return exports;
 /************************************** exports */
 })();
