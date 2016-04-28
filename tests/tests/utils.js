@@ -2,6 +2,7 @@
   module("Privacy Badger Utils");
 
   var Utils = require('utils').Utils;
+  var pbStorage = require('storage');
 
   test("removeElementFromArray", function(){
     var testAry = [1,2,3,4,5,6];
@@ -61,7 +62,7 @@
   });
   
   test("disable/enable privacy badger for origin", function(){
-    var parsed = function(){return JSON.parse(localStorage.disabledSites)};
+    var parsed = function(){ return pbStorage.getBadgerStorageObject('settings_map').getItem('disabledSites'); };
     var origLength = parsed() && parsed().length || 0
 
     Utils.disablePrivacyBadgerForOrigin('foo.com');
