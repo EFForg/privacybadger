@@ -647,6 +647,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   // canvas fingerprinting
   } else if (request.fpReport) {
+    if (!Utils.isPrivacyBadgerEnabled(tabHost)) { return; }
     if (Array.isArray(request.fpReport)) {
       request.fpReport.forEach(function (msg) {
         recordFingerprinting(sender.tab.id, msg);
