@@ -475,9 +475,6 @@ function checkAction(tabId, url, quiet, frameId){
   var action = pbStorage.getBestAction(requestHost);
 
   if (action && ! quiet) {
-    // TODO: Add code to write to popup. Mabye put in tabs?
-    //activeMatchers.addMatcherToOrigin(tabId, requestHost, "requestAction", action);
-    pb.log('ADD', requestHost, 'to popup for', documentUrl, 'with action', action);
     pb.logTrackerOnTab(tabId, requestHost, action);
   }
   return action;

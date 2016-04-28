@@ -36,7 +36,6 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// TODO: Implement cookie block list download and integration
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
 var Utils = require("utils").Utils;
@@ -65,12 +64,13 @@ var pb = {
 
   // URLS
   DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
+  COOKIE_BLOCK_LIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",
 
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
   
   // Display debug messages
-  DEBUG: false,
+  DEBUG: true,
   INITIALIZED: false,
   
   /**
@@ -209,16 +209,71 @@ var pb = {
    * * Download list form eff
    * * Merge with existing cookieblock list if any 
    * * Add any new domains to the action map
-   * * Set a timer to call every 24 hours
+   * Set a timer to update every 24 hours
    **/
   initializeCookieBlockList: function(){
+    pb.updateCookieBlockList();
+    setInterval(pb.updateCookieBlockList, pb.utils.oneDay());
   },
 
-   /**
-    * Initialize DNT Setup:
-    * * download acceptable hashes from EFF
-    * * set up listener to recheck blocked domains and DNT domains
-    */
+  /**
+  * Update the cookie block list with a new list
+  * add any new entries that already have a parent domain in the action_map
+  * and remove any old entries that are no longer in the cookie block list
+  * from the action map
+  **/
+  updateCookieBlockList: function(){
+    pb.utils.xhrRequest(pb.COOKIE_BLOCK_LIST_URL, function(err,response){
+      if(err){
+        console.error('Problem fetching privacy badger policy hash list at', 
+                  pb.COOKIE_BLOCK_LIST_URL, err.status, err.message);
+        return;
+      }
+      var cookieblock_list = pb.storage.getBadgerStorageObject('cookieblock_list');
+      var action_map = pb.storage.getBadgerStorageObject('action_map');
+
+      var newCbDomains = _.map(response.split("\n"), function(d){ return d.trim();});
+      var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
+
+      var addedDomains = _.difference(newCbDomains, oldCbDomains);
+      var removedDomains = _.difference(oldCbDomains, newCbDomains);
+      pb.log('adding to cookie blocklist:', addedDomains);
+      pb.log('removing from cookie blocklist:', removedDomains);
+
+      // Change any removed domains back to blocked status
+      _.each(removedDomains, function(domain){
+        cookieblock_list.deleteItem(domain);
+        if(action_map.hasItem(domain)){
+          pb.storage.setupHeuristicAction(domain, pb.BLOCK);
+        }
+        var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()), 
+                                  function(subdomain){
+                                    return subdomain.endsWith(domain);
+                                  });
+        _.each(removedDomains, function(domain){
+          pb.storage.setupHeuristicAction(domain, pb.BLOCK);
+        });
+      });
+
+      // Add any new cookie block domains who's parent domain is already blocked
+      _.each(addedDomains, function(domain){
+        cookieblock_list.setItem(domain, true);
+        var baseDomain = window.getBaseDomain(domain);
+        if(action_map.hasItem(baseDomain) &&
+           _.contains([pb.BLOCK, pb.COOKIEBLOCK], 
+                      action_map.getItem(baseDomain).heuristicAction)){
+          pb.storage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
+        }
+      });
+
+    });
+  },
+
+  /**
+  * Initialize DNT Setup:
+  * * download acceptable hashes from EFF
+  * * set up listener to recheck blocked domains and DNT domains
+  */
   initializeDNT: function(){
     pb.updateDNTPolicyHashes();
     pb.recheckDNTPolicyForDomains();
@@ -313,12 +368,6 @@ if (!("showCounter" in localStorage)){
 // Load social widgets
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 
-// Instantiate privacy badgers grey list
-if (!("whitelistUrl" in localStorage)){
-  localStorage.whitelistUrl = "https://www.eff.org/files/cookieblocklist.txt";
-}
-
-var whitelistUrl = localStorage.whitelistUrl;
 var isFirstRun = false;
 
 /***** things necessary for migration *****/
@@ -708,19 +757,6 @@ function isFrameWhitelisted(tabId, frameId, type) {
   }
   return false;
 }
-
-/***************** update lists and set timeouts *********/
-
-/**
- * Update the cookie block list with a new list
- * add any new entries that already have a parent domain in the action_map
- * and remove any old entries that are no longer in the cookie block list
- * from the action map
- **/
-var updateCookieBlockList = function(new_list){
-  // TODO
-  throw('nope!' + new_list);
-};
 
 /**************************** Listeners ****************************/
 chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
