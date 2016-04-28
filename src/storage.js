@@ -137,7 +137,6 @@ var getNextUpdateForDomain = function(domain){
  * update DNT policy hashes
  */
 var updateDNTHashes = function(hashes){
-  console.log('updating', hashes);
   var dnt_hashes = getBadgerStorageObject('dnt_hashes');
   dnt_hashes.updateObject(_.invert(hashes));
 };
@@ -268,7 +267,6 @@ var getBadgerStorageObject = function(key) {
   // TODO Handle incognito mode, store only in memory;
 
   if(badgerPen.hasOwnProperty(key)){
-    pb.log('fetching', key, 'from memory');
     return badgerPen[key];
   }
   console.error('initializing cache from getBadgerStorageObject. You are using this API improperly');

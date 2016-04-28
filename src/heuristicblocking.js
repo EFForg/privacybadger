@@ -438,7 +438,9 @@ var heuristicBlockingAccounting = function(details) {
     if (!tabOrigin || origin == tabOrigin){
       return { };
     }
-    //pb.checkForDNTPolicy(fqdn, pb.storage.getNextUpdateForDomain(fqdn));
+    window.setTimeout(function(){
+     pb.checkForDNTPolicy(fqdn, pb.storage.getNextUpdateForDomain(fqdn));
+    }, 10);
     // if there are no tracking cookies or similar things, ignore
     if (!hasTracking(details, origin)){
       return { };

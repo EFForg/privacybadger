@@ -136,13 +136,13 @@ var pb = {
    */
   log: function(/*...*/){
     if(pb.DEBUG) {
-      console.log(arguments);
+      console.log.apply(console, arguments);
     }
   },
 
   error: function(/*...*/){
     if(pb.DEBUG) {
-      console.error(arguments);
+      console.error.apply(console, arguments);
     }
   },
 
