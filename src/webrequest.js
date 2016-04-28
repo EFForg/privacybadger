@@ -75,16 +75,14 @@ function onBeforeRequest(details){
 
   // read the supercookie state from localStorage and store it in frameData
   // TODO: Reimplement supercookie stuff using storage.js
-  /*
   var frameData = getFrameData(details.tabId, details.frameId);
   if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
     var supercookieDomains = Utils.getSupercookieDomains();
     var origin = window.getBaseDomain(window.extractHostFromURL(details.url));
-    frameData.superCookie = supercookieDomains[origin] ? true : false;
-    //console.log("onBeforeRequest: read superCookie state from localstorage for",
-    //    origin, frameData.superCookie, details.tabId, details.frameId);
+    frameData.superCookie = supercookieDomains.hasItem(origin) ? true : false;
+    pb.log("onBeforeRequest: read superCookie state from localstorage for",
+            origin, frameData.superCookie, details.tabId, details.frameId);
   } 
-  */
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction) {
     // TODO: reimplement whitelist request stuff in storage.js
@@ -292,7 +290,6 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
  * @param msg super cookie message dict
  */
 function recordSuperCookie(sender, msg) {
-  // TODO: Use storage.js for this
   /* Update frameData and localStorage about the supercookie finding */
   var frameHost = window.extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
   var frameOrigin = window.getBaseDomain(frameHost);
@@ -305,16 +302,15 @@ function recordSuperCookie(sender, msg) {
   // keep frame's supercookie state in frameData for faster lookups
   var frameData = getFrameData(sender.tab.id, sender.frameId);
   if (frameData){
-    // console.log("Adding", frameOrigin, "to supercookieDomains (frameData), found on", pageHost);
     frameData.superCookie = true;
   }
   // now add the finding to localStorage for persistence
   var supercookieDomains = Utils.getSupercookieDomains();
   // We could store the type of supercookie once we start to check multiple storage vectors
   // Could be useful for debugging & bookkeeping.
-  //console.log("Adding", frameOrigin, "to supercookieDomains (localStorage), found on", pageHost);
-  supercookieDomains[frameOrigin] = true;
-  localStorage.setItem("supercookieDomains", JSON.stringify(supercookieDomains));
+  pb.log("Adding", frameOrigin, "to supercookieDomains (localStorage), found on", pageHost);
+  
+  supercookieDomains.setItem(frameOrigin, true);
 }
 
 /**

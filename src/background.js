@@ -68,6 +68,7 @@ var pb = {
 
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
+  MAX_COOKIE_ENTROPY: 12,
   
   // Display debug messages
   DEBUG: true,
@@ -324,7 +325,7 @@ var pb = {
         pb.log('It looks like', domain, 'has NOT adopted Do Not Track');
         pb.storage.revertDNT(domain);
       }
-      pb.storage.touchDNTRecheckTime(domain, pb.utils.oneDayFromNow());
+      pb.storage.touchDNTRecheckTime(domain, pb.utils.oneDayFromNow() * 7);
     });
   },
 

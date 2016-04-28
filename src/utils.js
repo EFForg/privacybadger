@@ -314,10 +314,10 @@ var Utils = exports.Utils = {
     for (lsKey in lsItems) {
       // send both key and value to entropy estimation
       lsItem = lsItems[lsKey];
-      // console.log("Checking localstorage item", lsKey, lsItem);
+      pb.log("Checking localstorage item", lsKey, lsItem);
       estimatedEntropy += Utils.estimateMaxEntropy(lsKey + lsItem);
       if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD){
-        // console.log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
+        pb.log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
         return true;
       }
     }
@@ -341,12 +341,11 @@ var Utils = exports.Utils = {
   },
 
   /**
-   * Get Supercookie data from local Storage
-   * TODO: Switch to using storage.js
+   * Get Supercookie data from storage
    * @returns {*|{}} Dict with Supercookie domains
    */
   getSupercookieDomains: function() {
-    return JSON.parse(localStorage.getItem("supercookieDomains")) || {};
+    return pb.storage.getBadgerStorageObject('supercookie_domains');
   }
 
 };

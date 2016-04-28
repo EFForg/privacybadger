@@ -348,14 +348,11 @@ var hasSupercookieTracking = function(details, origin) {
   if (frameData){
     // console.log("hasSupercookieTracking (frameData)", frameData.superCookie, origin, details.tabId, details.frameId);
     return frameData.superCookie;
-  }else{ // Check localStorage if we can't find the frame in frameData
-    var supercookieDomains = Utils.getSupercookieDomains();
-    // console.log("hasSupercookieTracking (frameData)", supercookieDomains[origin], origin, details.tabId, details.frameId);
-    return supercookieDomains[origin];
+  } else { // Check localStorage if we can't find the frame in frameData
+    return Utils.getSupercookieDomains().hasItem(origin);
   }
 };
 
-const MAX_COOKIE_ENTROPY = 12;
 /**
  * Check if page is doing cookie tracking. Doing this by estimating the entropy of the cookies
  *
@@ -395,7 +392,7 @@ var hasCookieTracking = function(details, origin) {
      for (var n = 0; n < cookies.length; n++) {
         pb.log("    " + cookies[n]);
      }
-     if (estimatedEntropy > MAX_COOKIE_ENTROPY) {
+     if (estimatedEntropy > pb.MAX_COOKIE_ENTROPY) {
        pb.log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
        return true;
      }
@@ -508,7 +505,7 @@ chrome.webRequest.onResponseStarted.addListener(function(details) {
 {urls: ["<all_urls>"]}, ["responseHeaders"]);
 
 var exports = {};
-
+exports.heuristicBlockingAccounting = heuristicBlockingAccounting;
 return exports;
 /************************************** exports */
 })();
