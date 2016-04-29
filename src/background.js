@@ -128,6 +128,7 @@ var pb = {
         }
       }
     });
+    pb.showFirstRunPage();
     
     pb.INITIALIZED = true;
     console.log('privacy badger is ready to rock');
@@ -158,6 +159,16 @@ var pb = {
    **/
   logTrackerOnTab: function(tabId, fqdn, action){
     pb.tabData[tabId].trackers[fqdn] = action;
+  },
+
+  showFirstRunPage: function(){
+    var settings = pb.storage.getBadgerStorageObject("settings_map");
+    if(settings.getItem("isFirstRun")){
+      chrome.tabs.create({
+        url: chrome.extension.getURL("/skin/firstRun.html")
+      });
+      settings.setItem("isFirstRun", true);
+    }
   },
 
   /**
@@ -384,6 +395,7 @@ var pb = {
 };
 
 pb.init();
+
 
 /***** things necessary for migration *****/
 
