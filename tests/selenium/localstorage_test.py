@@ -14,7 +14,6 @@ PB_POLICY_HASH_LEN = 40  # https://www.eff.org/files/dnt-policies.json
 class LocalStorageTest(pbtest.PBSeleniumTest):
     """Make sure the following localStorage items are initialized correctly.
 
-    - enabled
     - whitelistUrl
     - badgerHashes
     - showCounter
@@ -24,8 +23,8 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
     def check_policy_download(self):
         timeout = POLICY_DOWNLOAD_TIMEOUT
         # give updatePrivacyPolicyHashes() sometime to download the policy hash
-        while (timeout > 0 and
-               not self.js("return ('badgerHashes' in localStorage)")):
+        while (timeout > 0 and 
+                not self.js("return (pb.storage.getBadgerStorageObject('dnt_hashes') != {})")):
             sleep(1)
             timeout -= 1
 
@@ -33,29 +32,23 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
         self.assertGreater(timeout, 0,
             "Timed out while waiting for the localStorage.badgerHashes")
         # now check the downloaded policy hash
-        policy_hash = self.js("return localStorage.badgerHashes")
+        policy_hash = self.js("return (pb.storage.getBadgerStorageObject('dnt_hashes').getItemClones())")
         print "Downloaded policy hash in %s seconds: %s" %\
             (POLICY_DOWNLOAD_TIMEOUT - timeout, policy_hash)
-        try:
-            policy_json = json.loads(policy_hash)
-        except:
-            self.fail("localStorage.badgerHashes is not valid JSON")
-        for _, v in policy_json.iteritems():
+        for k, v in policy_hash.iteritems():
             # self.assertIn("DNT Policy", k)  # e.g. DNT Policy V1.0
-            self.assertEqual(PB_POLICY_HASH_LEN, len(v))  # check hash length
+            self.assertEqual(PB_POLICY_HASH_LEN, len(k))  # check hash length
 
     def test_should_init_local_storage_entries(self):
         self.load_url(pbtest.PB_CHROME_BG_URL)
         js = self.js
         self.check_policy_download()
-        self.assertEqual(js("return localStorage.whitelistUrl"),
-                         "https://www.eff.org/files/cookieblocklist.txt")
+        self.assertEqual(js("return pb.COOKIE_BLOCK_LIST_URL"),
+                         "https://www.eff.org/files/cookieblocklist_new.txt")
 
-        disabled_sites = js("return ('disabledSites' in localStorage && "
-                            "JSON.parse(localStorage.disabledSites).length > 0)")
-        self.assertEqual(js("return localStorage.showCounter"), "true");
+        disabled_sites = js("return (pb.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'))");
 
-        self.assertFalse(disabled_sites,
+        self.assertFalse(len(disabled_sites),
                          "Shouldn't have any disabledSites after installation")
         # TODO: do we expect currentVersion to be present after the first run?
 
