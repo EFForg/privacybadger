@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
- // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up. 
+ // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
@@ -56,14 +56,14 @@ function loadOptions() {
   $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
-  $("#activate_socialwidget_btn").click(active_socialwidget);
-  $("#deactivate_socialwidget_btn").click(deactive_socialwidget);
+  $("#activate_socialwidget_btn").click(activateSocialWidgetReplacement);
+  $("#deactivate_socialwidget_btn").click(deactivateSocialWidgetReplacement);
   if(!Utils.isSocialWidgetReplacementEnabled()) {
     $("#activate_socialwidget_btn").show();
     $("#deactivate_socialwidget_btn").hide();
   }
-  $("#toggle_counter_checkbox").click(toggle_counter)
-   .prop("checked", Utils.showCounter());
+  $("#toggle_counter_checkbox").click(toggleCounter);
+  $("#toggle_counter_checkbox").prop("checked", Utils.showCounter());
 
   // Show user's filters
   reloadWhitelist();
@@ -71,23 +71,23 @@ function loadOptions() {
 }
 $(loadOptions);
 
-function active_socialwidget(){
+function activateSocialWidgetReplacement() {
   $("#activate_socialwidget_btn").toggle();
   $("#deactivate_socialwidget_btn").toggle();
-  settings.setItem('socialWidgetReplacementEnabled', "true");
+  settings.setItem('socialWidgetReplacementEnabled', true);
 }
 
-function deactive_socialwidget(){
+function deactivateSocialWidgetReplacement() {
   $("#activate_socialwidget_btn").toggle();
   $("#deactivate_socialwidget_btn").toggle();
-  settings.setItem('socialWidgetReplacementEnabled', "false");
+  settings.setItem('socialWidgetReplacementEnabled', false);
 }
 
-function toggle_counter(){
+function toggleCounter() {
   if ($("#toggle_counter_checkbox").prop("checked")) {
-    settings.setItem("showCounter", "true");
+    settings.setItem("showCounter", true);
   } else {
-    settings.setItem("showCounter", "false");
+    settings.setItem("showCounter", false);
   }
   chrome.windows.getAll(null, function(windows) {
     windows.forEach(function(window) {
