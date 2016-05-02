@@ -744,13 +744,11 @@ function updateCount(details){
   if(pb.tabData[tabId].bgTab === true){
     // prerendered tab, Chrome will throw error for setBadge functions, don't call
     return;
-  }else if(pb.tabData[tabId].bgTab === false){
-    updateBadge(tabId);
-  }else{
+  } else {
     chrome.tabs.get(tabId, function(tab){
       if (chrome.runtime.lastError){
         pb.tabData[tabId].bgTab = true;
-      }else{
+      } else {
         pb.tabData[tabId].bgTab = false;
         updateBadge(tabId);
       }

@@ -405,8 +405,12 @@ BadgerStorage.prototype = {
 };
 
 var _syncStorage = function(badger){
-  var stored = badger.getSerialized();
-  localStorage.setItem(badger.name, stored);
+  chrome.windows.getCurrent(function(window){
+    if(!window.incognito) {
+      var stored = badger.getSerialized();
+      localStorage.setItem(badger.name, stored);
+    }
+  });
 };
 
 /************************************** exports */

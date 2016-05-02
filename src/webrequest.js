@@ -622,7 +622,12 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
  * Handle the different tracker variants. The big dispatcher
  */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  var tabHost = window.extractHostFromURL(sender.tab.url);
+  var tabHost;
+  if (sender.tab && sender.tab.url) {
+    tabHost = window.extractHostFromURL(sender.tab.url);
+  } else {
+    pb.log("tabhost is  blank!!");
+  }
 
   if (request.checkEnabled) {
     sendResponse(Utils.isPrivacyBadgerEnabled(tabHost));
