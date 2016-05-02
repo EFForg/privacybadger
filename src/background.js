@@ -2,7 +2,7 @@
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
  *
- * Derived from Adblock Plus 
+ * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
@@ -52,7 +52,7 @@ var pb = {
   utils: Utils,
   storage: pbStorage,
   webrequest: webrequest,
-  
+
   // Tracking status constants
   NO_TRACKING: "noaction",
   ALLOW: "allow",
@@ -70,11 +70,11 @@ var pb = {
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
   MAX_COOKIE_ENTROPY: 12,
-  
+
   // Display debug messages
   DEBUG: true,
   INITIALIZED: false,
-  
+
   /**
   * Per-tab data that gets cleaned up on tab closing
     looks like:
@@ -102,7 +102,7 @@ var pb = {
           }
         },
         ...
-      } 
+      }
   */
   tabData: {},
 
@@ -129,7 +129,7 @@ var pb = {
       }
     });
     pb.showFirstRunPage();
-    
+
     pb.INITIALIZED = true;
     console.log('privacy badger is ready to rock');
     console.log('set pb.DEBUG=1 to view console messages');
@@ -163,11 +163,11 @@ var pb = {
 
   showFirstRunPage: function(){
     var settings = pb.storage.getBadgerStorageObject("settings_map");
-    if(settings.getItem("isFirstRun")){
+    if (settings.getItem("isFirstRun")) {
       chrome.tabs.create({
         url: chrome.extension.getURL("/skin/firstRun.html")
       });
-      settings.setItem("isFirstRun", true);
+      settings.setItem("isFirstRun", false);
     }
   },
 
@@ -197,7 +197,7 @@ var pb = {
   },
 
   /**
-  * Populate tabs object with currently open tabs when extension is updated or installed. 
+  * Populate tabs object with currently open tabs when extension is updated or installed.
   */
   updateTabList: function(){
     // Initialize the tabData/frames object if it is falsey
@@ -221,7 +221,7 @@ var pb = {
   /**
    * Initialize the Cookieblock List:
    * * Download list form eff
-   * * Merge with existing cookieblock list if any 
+   * * Merge with existing cookieblock list if any
    * * Add any new domains to the action map
    * Set a timer to update every 24 hours
    **/
@@ -239,7 +239,7 @@ var pb = {
   updateCookieBlockList: function(){
     pb.utils.xhrRequest(pb.COOKIE_BLOCK_LIST_URL, function(err,response){
       if(err){
-        console.error('Problem fetching privacy badger policy hash list at', 
+        console.error('Problem fetching privacy badger policy hash list at',
                   pb.COOKIE_BLOCK_LIST_URL, err.status, err.message);
         return;
       }
@@ -260,7 +260,7 @@ var pb = {
         if(action_map.hasItem(domain)){
           pb.storage.setupHeuristicAction(domain, pb.BLOCK);
         }
-        var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()), 
+        var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
                                   });
@@ -274,7 +274,7 @@ var pb = {
         cookieblock_list.setItem(domain, true);
         var baseDomain = window.getBaseDomain(domain);
         if(action_map.hasItem(baseDomain) &&
-           _.contains([pb.BLOCK, pb.COOKIEBLOCK], 
+           _.contains([pb.BLOCK, pb.COOKIEBLOCK],
                       action_map.getItem(baseDomain).heuristicAction)){
           pb.storage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
         }
@@ -294,14 +294,14 @@ var pb = {
     setInterval(pb.recheckDNTPolicyForDomains, pb.utils.oneHour());
     setInterval(pb.updateDNTPolicyHashes, pb.utils.oneDay() * 4);
   },
-   
+
   /**
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function(){
     pb.utils.xhrRequest(pb.DNT_POLICIES_URL, function(err,response){
       if(err){
-        console.error('Problem fetching privacy badger policy hash list at', 
+        console.error('Problem fetching privacy badger policy hash list at',
                  pb.DNT_POLICIES_URL, err.status, err.message);
         return;
       }
@@ -513,7 +513,7 @@ function addSubscription(prevVersion) {
 //  var userGreen = new SpecialSubscription("userGreen", "userGreen");
 //  FilterStorage.addSubscription(userGreen);
 //
-//  // Add a permanent store for seen third parties 
+//  // Add a permanent store for seen third parties
 //  // TODO: Does this go away when the extension is updated?
 //  var seenThird = JSON.parse(localStorage.getItem("seenThirdParties"));
 //  if (!seenThird){
@@ -526,8 +526,8 @@ function addSubscription(prevVersion) {
 //    localStorage.setItem("supercookieDomains", JSON.stringify({}));
 //  }
 //
-//  // Add a permanent store for blocked domains to recheck DNT compliance 
-//  // TODO: storing this in localStorage makes it synchronous, but we might 
+//  // Add a permanent store for blocked domains to recheck DNT compliance
+//  // TODO: storing this in localStorage makes it synchronous, but we might
 //  // want the speed up of async later if we want to deal with promises
 //  var blockedDomains = JSON.parse(localStorage.getItem("blockeddomainslist"));
 //  if (!blockedDomains){
@@ -543,7 +543,7 @@ function addSubscription(prevVersion) {
 //    chrome.tabs.create({
 //      url: chrome.extension.getURL("/skin/firstRun.html")
 //    });
-//  } 
+//  }
 
   //TODO reimplement this in storage.js
   /*notifyUser();*/
@@ -684,7 +684,7 @@ function blockedTrackerCount(tabId){
 
 // TODO: unused - remove
 function originHasTracking(tabId,fqdn){
-  return pb.tabData[tabId] && 
+  return pb.tabData[tabId] &&
     pb.tabData[tabId].trackers &&
     !!pb.tabData[tabId].trackers[fqdn];
 }
