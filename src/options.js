@@ -118,10 +118,22 @@ function refreshOriginCache() {
 
 /**
  * Gets array of encountered origins.
+ * @param filterText {String} Text to filter origins with.
  * @return {Array}
  */
-function getOriginsArray() {
-  return Object.keys(originCache);
+function getOriginsArray(filterText) {
+  // Make sure filterText is lower case for case-insensitive matching.
+  if (filterText) {
+    filterText = filterText.toLowerCase();
+  } else {
+    filterText = "";
+  }
+
+  // Include only origins containing given filter text.
+  function containsFilterText(origin) {
+    return origin.toLowerCase().indexOf(filterText) !== -1;
+  }
+  return Object.keys(originCache).filter(containsFilterText);
 }
 
 function addWhitelistDomain(event) {
@@ -223,7 +235,15 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracking domains.
-  showTrackingDomains(allTrackingDomains);
+  var originsToDisplay;
+  var searchText = $("#trackingDomainSearch").val();
+  if (searchText.length > 0) {
+    originsToDisplay = getOriginsArray(searchText);
+  } else {
+    originsToDisplay = allTrackingDomains;
+  }
+  showTrackingDomains(originsToDisplay);
+
   console.log("Done refreshing options page");
 }
 
@@ -244,19 +264,9 @@ function filterTrackingDomains(/*event*/) {
       return;
     }
 
-    // Filter tracking domains based on search text.
-    var allTrackingDomains = getOriginsArray();
-    var filteredTrackingDomains = [];
-    for (var i = 0; i < allTrackingDomains.length; i++) {
-      var trackingDomain = allTrackingDomains[i];
-
-      // Ignore domains that do not contain search text.
-      if (trackingDomain.toLowerCase().indexOf(searchText) !== -1) {
-        filteredTrackingDomains.push(trackingDomain);
-      }
-    }
-
-    showTrackingDomains(filteredTrackingDomains);
+    // Show filtered origins.
+    var filteredOrigins = getOriginsArray(searchText);
+    showTrackingDomains(filteredOrigins);
   }, timeToWait);
 }
 
