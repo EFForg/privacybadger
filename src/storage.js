@@ -53,7 +53,7 @@ require.scopes.storage = (function() {
 var badgerPen = {};
 
 
-var initialize = function(){
+var initialize = function(callback){
   console.log('loading badgers into the pen');
   var storage_objects = [
     "snitch_map",
@@ -64,9 +64,7 @@ var initialize = function(){
     "settings_map"
   ];
 
-  for(var i = 0; i < storage_objects.length; i++){
-    _initializeCache(storage_objects[i]);
-  }
+  _initializeCache(storage_objects, callback);
 };
 
 var getScore = function(action){
@@ -270,23 +268,26 @@ var getBadgerStorageObject = function(key) {
   if(badgerPen.hasOwnProperty(key)){
     return badgerPen[key];
   }
-  console.error('initializing cache from getBadgerStorageObject. You are using this API improperly');
-  return _initializeCache(key);
+  console.error('cant initialize cache from getBadgerStorageObject. You are using this API improperly');
 };
 
-var _initializeCache = function(key) {
+var _initializeCache = function(keys, cb) {
 
   // now check localStorage
-  var json_str = localStorage.getItem(key);
-  if(json_str === null){
-    json_str = "{}";
-    localStorage.setItem(key, json_str);
-  }
-
-  var storage_obj = new BadgerStorage(key, JSON.parse(json_str));
-  badgerPen[key] = storage_obj;
-  
-  return storage_obj;
+  chrome.storage.local.get(keys, function(store){
+    _.each(keys, function(key){
+      if(store.hasOwnProperty(key)){
+        badgerPen[key] = new BadgerStorage(key, store[key]);
+      } else {
+        var storage_obj = new BadgerStorage(key, {});
+        badgerPen[key] = storage_obj;
+        _syncStorage(storage_obj);
+      }
+    });
+    if(_.isFunction(cb)){
+      cb();
+    }
+  });
 };
 
 /**
@@ -397,20 +398,14 @@ BadgerStorage.prototype = {
     setTimeout(function(){
       _syncStorage(self);
     }, 0);
-  },
-
-  getSerialized: function(){
-    return JSON.stringify(this._store);
   }
 };
 
 var _syncStorage = function(badger){
-  chrome.windows.getCurrent(function(window){
-    if(!window.incognito) {
-      var stored = badger.getSerialized();
-      localStorage.setItem(badger.name, stored);
-    }
-  });
+  if(chrome.extension.inIncognitoContext) { return; }
+  var obj = {};
+  obj[badger.name] = badger._store;
+  chrome.storage.local.set(obj);
 };
 
 /************************************** exports */

@@ -112,27 +112,30 @@ var pb = {
    * initialize privacy badger
    */
   init: function(){
-    if(pb.INITIALIZED) { return; }
 
-    pb.storage.initialize();
-    pb.updateTabList();
-    pb.initializeCookieBlockList();
-    pb.initializeDNT();
-    pb.initializeDefaultSettings();
+    pb.storage.initialize(function(){
+      if(pb.INITIALIZED) { return; }
+      pb.updateTabList();
+      pb.initializeCookieBlockList();
+      pb.initializeDNT();
+      pb.initializeDefaultSettings();
 
-    // Show icon as page action for all tabs that already exist
-    chrome.windows.getAll({populate: true}, function(windows) {
-      for (var i = 0; i < windows.length; i++) {
-        for (var j = 0; j < windows[i].tabs.length; j++) {
-          refreshIconAndContextMenu(windows[i].tabs[j]);
+      // Show icon as page action for all tabs that already exist
+      chrome.windows.getAll({populate: true}, function(windows) {
+        for (var i = 0; i < windows.length; i++) {
+          for (var j = 0; j < windows[i].tabs.length; j++) {
+            refreshIconAndContextMenu(windows[i].tabs[j]);
+          }
         }
-      }
-    });
-    pb.showFirstRunPage();
+      });
+      pb.showFirstRunPage();
 
-    pb.INITIALIZED = true;
-    console.log('privacy badger is ready to rock');
-    console.log('set pb.DEBUG=1 to view console messages');
+      // TODO: register all privacy badger listeners here in the storage callback
+
+      pb.INITIALIZED = true;
+      console.log('privacy badger is ready to rock');
+      console.log('set pb.DEBUG=1 to view console messages');
+    });
   },
 
   /**
@@ -163,7 +166,7 @@ var pb = {
 
   showFirstRunPage: function(){
     var settings = pb.storage.getBadgerStorageObject("settings_map");
-    if (settings.getItem("isFirstRun")) {
+    if (settings.getItem("isFirstRun") && !chrome.extension.inIncognitoContext) {
       chrome.tabs.create({
         url: chrome.extension.getURL("/skin/firstRun.html")
       });
@@ -431,7 +434,8 @@ require("filterNotifier").FilterNotifier.addListener(function(action) {
  * @param {String} currentVersion The current PB version
  */
 function migrateVersion(prevVersion,currentVersion){
-  changePrivacySettings();
+  return;
+  changePrivacySettings(); /*jshint ignore:line */
   //isFirstRun = !prevVersion;
   localStorage.currentVersion = currentVersion;
   addSubscription(prevVersion);
@@ -459,9 +463,7 @@ function changePrivacySettings() {
     }
   });
 
-  console.log("Turning off alternate Error pages");
   chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
-  console.log("Turning off hyperlink auditing");
   chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
 }
 

@@ -8,6 +8,7 @@
       "id": "privacybadger@mozilla.org"
     }
   },
+  "incognito": "split",
   "permissions": [
     "tabs",
     "http://*/*",
