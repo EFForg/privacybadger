@@ -45,6 +45,7 @@ var SocialWidgetLoader = require("socialwidgetloader");
 var pbStorage = require("storage");
 var webrequest = require("webrequest");
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
+var Migrations = require("migrations").Migrations;
 
 var pb = {
   // imports
@@ -116,9 +117,10 @@ var pb = {
     pb.storage.initialize(function(){
       if(pb.INITIALIZED) { return; }
       pb.updateTabList();
+      pb.initializeDefaultSettings();
+      pb.runMigrations();
       pb.initializeCookieBlockList();
       pb.initializeDNT();
-      pb.initializeDefaultSettings();
 
       // Show icon as page action for all tabs that already exist
       chrome.windows.getAll({populate: true}, function(windows) {
@@ -379,7 +381,7 @@ var pb = {
     disabledSites: [],
     isFirstRun: true,
     seenComic: false,
-    currentVersion: chrome.runtime.getManifest().version
+    migrationLevel: 0
   },
 
   /**
@@ -395,165 +397,24 @@ var pb = {
     });
   },
 
+  runMigrations: function(){
+    var settings = pb.storage.getBadgerStorageObject("settings_map");
+    var migrationLevel = settings.getItem('migrationLevel');
+    var migrations = [
+      Migrations.changePrivacySettings,
+      Migrations.migrateAbpToStorage,
+    ];
+
+    for (var i = migrationLevel; i < migrations.length; i++) {
+      migrations[i].call(Migrations);
+      settings.setItem('migrationLevel', i+1);
+    }
+
+  },
+
 };
 
 pb.init();
-
-
-/***** things necessary for migration *****/
-
-var seenCache = localStorage.getItem("seenThirdParties");
-/* jshint ignore:start */
-with(require("filterClasses")) {
-  this.Filter = Filter;
-  this.RegExpFilter = RegExpFilter;
-  this.BlockingFilter = BlockingFilter;
-  this.WhitelistFilter = WhitelistFilter;
-}
-with(require("subscriptionClasses")) {
-  this.Subscription = Subscription;
-}
-/* jshint ignore:end */
-var FilterStorage = require("filterStorage").FilterStorage;
-var matcherStore = require("matcher").matcherStore;
-require("filterNotifier").FilterNotifier.addListener(function(action) {
-  // Called from lib/adblockplus.js after all filters have been created from subscriptions.
-  if (action == "load") {
-    // Update if newer version
-    var currentVersion = chrome.runtime.getManifest().version;
-    var prevVersion = localStorage.currentVersion;
-    if (prevVersion != currentVersion) {
-      migrateVersion(prevVersion, currentVersion);
-    }
-  }
-});
-
-/**
- * Runs methods that should be run when privacy badger is updated
- * @param {String} prevVersion The previous PB version
- * @param {String} currentVersion The current PB version
- */
-function migrateVersion(prevVersion,currentVersion){
-  return;
-  changePrivacySettings(); /*jshint ignore:line */
-  //isFirstRun = !prevVersion;
-  localStorage.currentVersion = currentVersion;
-  addSubscription(prevVersion);
-  pb.updateTabList();
-}
-
-
-/**
- * Extract the domain from an AdBlock style filter
- *
- * @param {String} filter adBlock style filter
- * @returns {String} The Url in the filter
- */
-function getDomainFromFilter(filter){
-  return filter.match('[|][|]([^\^]*)')[1];
-}
-/**
- * Called on extension install/update: improves default privacy settings
- */
-function changePrivacySettings() {
-  // If we have disabled search suggestion in a previous version return control to the user
-  chrome.privacy.services.searchSuggestEnabled.get({}, function(details){
-    if (details.levelOfControl === "controlled_by_this_extension") {
-      chrome.privacy.services.searchSuggestEnabled.clear({scope: 'regular'}, function(){});
-    }
-  });
-
-  chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
-  chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
-}
-
-/**
- * This function is called on an extension update. It will add the default
- * filter subscription if necessary.Also init the local DB and show the first use page
- * @param {String} prevVersion The previous PB version
- */
-function addSubscription(prevVersion) {
-//  var addSubscription = !FilterStorage.subscriptions.some(function(subscription) {
-//    return subscription instanceof DownloadableSubscription &&
-//           subscription.url != Prefs.subscriptions_exceptionsurl;
-//  });
-//
-//  // If this isn't the first run, only add subscription if the user has no custom filters
-//  if (addSubscription && prevVersion) {
-//    addSubscription = !FilterStorage.subscriptions.some(function(subscription) {
-//      return subscription.url != Prefs.subscriptions_exceptionsurl &&
-//             subscription.filters.length;
-//    });
-//  }
-//
-//  // Add EFF whitelist subscription
-//  try {
-//    var EFFsubscription = Subscription.fromURL(whitelistUrl);
-//    if (EFFsubscription && !(EFFsubscription.url in FilterStorage.knownSubscriptions)) {
-//      // EFFsubscription.disabled = false;
-//      EFFsubscription.title = "EFF Auto Whitelist";
-//      FilterStorage.addSubscription(EFFsubscription);
-//      Synchronizer.execute(EFFsubscription, false, false, true);
-//    }
-//  } catch (e) {
-//    console.log("Could not add EFF whitelist!");
-//  }
-//
-//  // Add frequencyHeuristic Subscription
-//  var frequencySub = new SpecialSubscription("frequencyHeuristic", "frequencyHeuristic");
-//  FilterStorage.addSubscription(frequencySub);
-//
-//  // Add userRed Subscription
-//  var userRed = new SpecialSubscription("userRed", "userRed");
-//  FilterStorage.addSubscription(userRed);
-//
-//  // Add userYellow Subscription
-//  var userYellow = new SpecialSubscription("userYellow", "userYellow");
-//  FilterStorage.addSubscription(userYellow);
-//
-//  // Add userGreen Subscription
-//  var userGreen = new SpecialSubscription("userGreen", "userGreen");
-//  FilterStorage.addSubscription(userGreen);
-//
-//  // Add a permanent store for seen third parties
-//  // TODO: Does this go away when the extension is updated?
-//  var seenThird = JSON.parse(localStorage.getItem("seenThirdParties"));
-//  if (!seenThird){
-//    localStorage.setItem("seenThirdParties", JSON.stringify({}));
-//  }
-//
-//  // Add a permanent store for supercookie domains
-//  var supercookieDomains = JSON.parse(localStorage.getItem("supercookieDomains"));
-//  if (!supercookieDomains){
-//    localStorage.setItem("supercookieDomains", JSON.stringify({}));
-//  }
-//
-//  // Add a permanent store for blocked domains to recheck DNT compliance
-//  // TODO: storing this in localStorage makes it synchronous, but we might
-//  // want the speed up of async later if we want to deal with promises
-//  var blockedDomains = JSON.parse(localStorage.getItem("blockeddomainslist"));
-//  if (!blockedDomains){
-//    localStorage.setItem("blockeddomainslist", JSON.stringify({}));
-//  }
-//
-//  if (!addSubscription) {
-//    return;
-//  }
-//
-//  function notifyUser() {
-//    console.log("Calling firstRun page");
-//    chrome.tabs.create({
-//      url: chrome.extension.getURL("/skin/firstRun.html")
-//    });
-//  }
-
-  //TODO reimplement this in storage.js
-  /*notifyUser();*/
-}
-
-
-
-/******** end migration code ************/
 
 /******* methods which should be moved into pb global *********/
 

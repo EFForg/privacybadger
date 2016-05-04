@@ -126,7 +126,7 @@ function send_error(message) {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var origins = backgroundPage.getAllOriginsForTab(tabId);
   if(!origins){ return; }
-  var version = settings.getItem("currentVersion");
+  var version = chrome.runtime.getManifest().version;
   //TODO "there's got to be a better way!"
   var fqdn = tab.url.split("/",3)[2];
   var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};

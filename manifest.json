@@ -42,6 +42,7 @@
       "src/webrequest.js",
       "src/heuristicblocking.js",
       "src/socialwidgetloader.js",
+      "src/migrations.js",
       "src/background.js"
     ]
   },
