@@ -467,6 +467,7 @@
 @@||turner.com^$third-party
 @@||twimg.com^$third-party
 @@||twitch.tv^$third-party
+@@||twitter.com^$third-party
 @@||platform.twitter.com^$third-party
 @@||syndication.twitter.com^$third-party
 @@||typekit.net^$third-party

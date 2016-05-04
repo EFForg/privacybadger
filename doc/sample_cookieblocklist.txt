@@ -467,6 +467,7 @@ tumblr.com
 turner.com
 twimg.com
 twitch.tv
+twitter.com
 platform.twitter.com
 syndication.twitter.com
 typekit.net
