@@ -49,12 +49,21 @@ exports.Migrations= {
     var supercookie_domains = pbStorage.getBadgerStorageObject('supercookie_domains');
 
     // migrate settings
-    settings.setItem('socialWidgetReplacementEnabled', JSON.parse(localStorage.socialWidgetReplacementEnabled));
-    settings.setItem('showCounter', JSON.parse(localStorage.showCounter));
-    settings.setItem('showCounter', JSON.parse(localStorage.showCounter));
-    settings.setItem('seenComic', JSON.parse(localStorage.seenComic));
-    settings.setItem('isFirstRun', false);
-    settings.setItem('disabledSites', JSON.parse(localStorage.disabledSites));
+    if(localStorage.socialWidgetReplacementEnabled){
+      settings.setItem('socialWidgetReplacementEnabled', JSON.parse(localStorage.socialWidgetReplacementEnabled));
+    }
+    if(localStorage.showCounter){
+      settings.setItem('showCounter', JSON.parse(localStorage.showCounter));
+    }
+    if(localStorage.seenComic){
+      settings.setItem('seenComic', JSON.parse(localStorage.seenComic));
+    }
+    if(localStorage.isFirstRun){
+      settings.setItem('isFirstRun', false);
+    }
+    if(localStorage.disabledSites){
+      settings.setItem('disabledSites', JSON.parse(localStorage.disabledSites));
+    }
 
     //migrate snitch_map
     var seenThirdParties = JSON.parse(localStorage.seenThirdParties);
