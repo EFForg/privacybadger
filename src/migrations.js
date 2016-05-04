@@ -39,6 +39,10 @@ exports.Migrations= {
 
     var FilterStorage = require("filterStorage").FilterStorage;
 
+    while( ! FilterStorage.knownSubscriptions["https://www.eff.org/files/cookieblocklist.txt"] ) {
+      _.noop();
+    }
+
     var getDomainFromFilter = function(filter){
       return filter.match('[|][|]([^\^]*)')[1];
     };
