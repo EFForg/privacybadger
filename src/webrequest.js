@@ -49,10 +49,6 @@ chrome.tabs.onReplaced.addListener(onTabReplaced);
  * @returns {*} Can cancel requests
  */
 function onBeforeRequest(details){
-  if ( _isTabChromeInternal(details.tabId)){
-    return {};
-  }
-
   var type = details.type;
   if (type == "main_frame"){
     forgetTab(details.tabId);
@@ -60,6 +56,10 @@ function onBeforeRequest(details){
 
   if (type == "main_frame" || type == "sub_frame"){
     recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
+  }
+
+  if ( _isTabChromeInternal(details.tabId)){
+    return {};
   }
 
   var tabDomain = getHostForTab(details.tabId);
