@@ -58,12 +58,10 @@ exports.Migrations= {
     if(localStorage.seenComic){
       settings.setItem('seenComic', JSON.parse(localStorage.seenComic));
     }
-    if(localStorage.isFirstRun){
-      settings.setItem('isFirstRun', false);
-    }
     if(localStorage.disabledSites){
       settings.setItem('disabledSites', JSON.parse(localStorage.disabledSites));
     }
+    settings.setItem('isFirstRun', false);
 
     //migrate snitch_map
     var seenThirdParties = JSON.parse(localStorage.seenThirdParties);
