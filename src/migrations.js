@@ -67,8 +67,10 @@ exports.Migrations= {
 
     //migrate snitch_map
     var seenThirdParties = JSON.parse(localStorage.seenThirdParties);
-    var oldSeen = _.mapObject(seenThirdParties, function(val /*, key*/){
-      return _.keys(val);
+    var oldSeen = {};
+    _.each(seenThirdParties, function(val , key){
+      oldSeen[key] = _.keys(val);
+      pbStorage.setupHeuristicAction(key, pb.ALLOW);
     });
     snitch_map.updateObject(oldSeen);
 
