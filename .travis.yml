@@ -16,7 +16,6 @@ before_install:
 install:
   - sudo apt-get update
   - sudo apt-get -qq install python-virtualenv
-  - npm install
 before_script:
   - ./scripts/setup_travis.sh
   - cd tests
