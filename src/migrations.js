@@ -116,7 +116,11 @@ exports.Migrations= {
 
     // remove ABP subscriptions
     _.each(FilterStorage.subscriptions, function(sub){
-      FilterStorage.removeSubscription(sub);
+      try {
+        FilterStorage.removeSubscription(sub);
+      } catch (e){
+        console.error(e);
+      }
     });
 
 
