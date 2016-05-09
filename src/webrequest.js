@@ -22,7 +22,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// TODO: Handle DNT check
 require.scopes.webrequest = (function() {
 
 /*********************** webrequest scope **/
@@ -74,7 +73,6 @@ function onBeforeRequest(details){
   }
 
   // read the supercookie state from localStorage and store it in frameData
-  // TODO: Reimplement supercookie stuff using storage.js
   var frameData = getFrameData(details.tabId, details.frameId);
   if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
     var supercookieDomains = Utils.getSupercookieDomains();

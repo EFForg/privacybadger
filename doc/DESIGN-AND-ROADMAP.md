@@ -71,7 +71,7 @@ cookie_block_list = "{'fonts.google.com': true, 'maps.google.com', true}"
 
 
 On Request():
-  check if privacy badger is enabled for this fqdn, if not then return
+  check if privacy badger is enabled for the tab domain, if not then return
   check if the fqdn is third party, if not then return
   check action for the fqdn (described below)
   if action is block cancel request 
@@ -90,7 +90,7 @@ Check_action(fqdn)  returns action
 
   for $domain in range(fqdn ... etld+1)
     if action_map contains $domain
-      related_domains.push($domain)
+      related_domains.shift($domain)
       
 
     for each domain in related domains

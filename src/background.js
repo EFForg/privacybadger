@@ -46,7 +46,7 @@ var pbStorage = require("storage");
 var webrequest = require("webrequest");
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 var Migrations = require("migrations").Migrations;
-  var FilterStorage = require("filterStorage").FilterStorage;
+var FilterStorage = require("filterStorage").FilterStorage;
 
 var pb = {
   // imports

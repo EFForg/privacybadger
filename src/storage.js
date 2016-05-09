@@ -263,7 +263,6 @@ var getTrackingCount = function(fqdn){
  **/
  
 var getBadgerStorageObject = function(key) {
-  // TODO Handle incognito mode, store only in memory;
 
   if(badgerPen.hasOwnProperty(key)){
     return badgerPen[key];
