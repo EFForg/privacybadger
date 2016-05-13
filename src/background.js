@@ -463,8 +463,7 @@ function getAllOriginsForTab(tabId) {
  */
 function isWhitelisted(url) {
   var host = window.extractHostFromURL(url);
-  var action_map = pbStorage.getBadgerStorageObject('action_map');
-  var action = action_map.getItem(host);
+  var action = pb.storage.getBestAction(host);
   if ([pb.ALLOW, pb.USER_ALLOW, pb.NO_TRACKING, pb.DNT].indexOf(action) >= 0){
       return true;
   } else {
