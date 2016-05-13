@@ -91,17 +91,13 @@ function init() {
   });
 
   //toggle activation buttons if privacy badger is not enabled for current url
-  chrome.windows.getCurrent(function(w)
-  {
-    chrome.tabs.getSelected(w.id, function(t)
-    {
-      tab = t;
-      if(!Utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(tab.url))) {
-        $("#blockedResourcesContainer").hide();
-        $("#activate_site_btn").show();
-        $("#deactivate_site_btn").hide();
-      }
-    });
+  chrome.tabs.query({active: true}, function(t) {
+    tab = t[0];
+    if(!Utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(tab.url))) {
+      $("#blockedResourcesContainer").hide();
+      $("#activate_site_btn").show();
+      $("#deactivate_site_btn").hide();
+    }
   });
 }
 $(init);
@@ -512,7 +508,8 @@ function setTabToUrl( query_url ) { /* jshint ignore:line */
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  chrome.tabs.getSelected(null, function(tab) {
+  chrome.tabs.query({active: true}, function(t) {
+    var tab = t[0];
     console.log("from addEventListener");
     refreshPopup(tab.id);
   });

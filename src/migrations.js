@@ -2,9 +2,6 @@
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
  *
- * Derived from Adblock Plus 
- * Copyright (C) 2006-2013 Eyeo GmbH
- *
  * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
  * published by the Free Software Foundation.
@@ -24,7 +21,7 @@ require.scopes.migrations = (function() {
 var exports = {};
 exports.Migrations= {
   changePrivacySettings: function() {
-    if (!chrome.extension.inIncognitoContext) {
+    if (!chrome.extension.inIncognitoContext && chrome.privacy ) {
       console.log('changing privacy settings');
       chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
       chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
