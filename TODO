@@ -1,0 +1,5 @@
+* fix popup
+* fix cookie block list
+* add firefox to selenium tests
+* write migrator for firefox data
+* publish to AMO
