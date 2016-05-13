@@ -46,7 +46,6 @@ var pbStorage = require("storage");
 var webrequest = require("webrequest");
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 var Migrations = require("migrations").Migrations;
-var FilterStorage = require("filterStorage").FilterStorage;
 
 var pb = {
   // imports
@@ -119,15 +118,9 @@ var pb = {
       if(pb.INITIALIZED) { return; }
       pb.updateTabList();
       pb.initializeDefaultSettings();
-      // TODO: Remove this when we remove ABP crap
-      require("filterNotifier").FilterNotifier.addListener(function(action) {
-        // Called from lib/adblockplus.js after all filters have been created from subscriptions.
-        if (action == "load") {
-          pb.runMigrations();
-          pb.initializeCookieBlockList();
-          pb.initializeDNT();
-        }
-      });
+      pb.runMigrations();
+      pb.initializeCookieBlockList();
+      pb.initializeDNT();
 
       // Show icon as page action for all tabs that already exist
       chrome.windows.getAll({populate: true}, function(windows) {

@@ -20,8 +20,6 @@
 
 
 require.scopes.migrations = (function() {
-var pbStorage = require("storage");
-var heuristicBlocking = require("heuristicblocking");
   
 var exports = {};
 exports.Migrations= {
@@ -34,6 +32,9 @@ exports.Migrations= {
   },
 
   migrateAbpToStorage: function(){
+    return _.noop();
+    /*
+    ABP migration code, no longer needed, kept for historical purposes. 
     if(!localStorage.seenThirdParties) { return; } //We do not have any ABP data 
     console.log('migrating data out of ABP');
 
@@ -125,6 +126,7 @@ exports.Migrations= {
 
 
     console.log('ABP IS OVER!!!!');
+    */
   }
 
 };
