@@ -105,7 +105,7 @@ var setupHeuristicAction = function(domain, action){
  * @param {String} domain Domain to add
  */
 var setupDNT = function(domain){
-  _setupDomainAction(domain, "true", "dnt"); 
+  _setupDomainAction(domain, true, "dnt"); 
 };
   
 /**
@@ -113,7 +113,7 @@ var setupDNT = function(domain){
 * @param domain FQDN string
 **/
 var revertDNT = function(domain){
-  _setupDomainAction(domain, null, "dnt");
+  _setupDomainAction(domain, false, "dnt");
 };
 
 var touchDNTRecheckTime = function(domain, time){
@@ -154,7 +154,7 @@ var setupUserAction = function(domain, action){
 * @param domain FQDN string
 **/
 var revertUserAction = function(domain){
-  _setupDomainAction(domain, null, "userAction");
+  _setupDomainAction(domain, "", "userAction");
 };
 
   
@@ -183,9 +183,9 @@ var _setupDomainAction = function(domain, action, actionType){
  */
 var _newActionMapObject = function() {
   return {
-    userAction: null,
-    dnt: null,
-    heuristicAction: null,
+    userAction: "",
+    dnt: false,
+    heuristicAction: "",
     nextUpdateTime: 0
   };
 };
@@ -334,7 +334,7 @@ BadgerStorage.prototype = {
    **/
   hasItem: function(key){
     var self = this;
-    return !!self._store.hasOwnProperty(key);
+    return self._store.hasOwnProperty(key);
   },
 
   /**
