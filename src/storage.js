@@ -81,10 +81,13 @@ var getScore = function(action){
 /**
  * get the current presumed action for a specific fqdn, ignoring any rules for subdomains
  * below or above it
- * @param {Object} domain domain object from action_map
+ * @param {Object|String} domain domain object from action_map
  * @returns {String} the presumed action for this FQDN
  **/
 var getActionForFqdn = function(domain){
+  if (_.isString(domain)) {
+    domain = getBadgerStorageObject('action_map').getItem(domain) || {};
+  }
   if(domain.userAction){ return domain.userAction; }
   if(domain.dnt){ return pb.DNT; } 
   if(domain.heuristicAction){ return domain.heuristicAction; } 
