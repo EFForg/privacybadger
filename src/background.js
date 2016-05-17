@@ -126,6 +126,7 @@ var pb = {
           pb.runMigrations();
           pb.initializeCookieBlockList();
           pb.initializeDNT();
+          pb.showFirstRunPage();
         }
       });
 
@@ -137,7 +138,6 @@ var pb = {
           }
         }
       });
-      pb.showFirstRunPage();
 
       // TODO: register all privacy badger listeners here in the storage callback
 
