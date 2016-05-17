@@ -193,15 +193,16 @@ function getOriginAction(origin) {
 //TODO unduplicate this code? since it's also in popup
 function revertDomainControl(e){
   var $elm = $(e.target).parent();
-  console.log('revert to privacy badger control for', $elm);
+  pb.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   pb.storage.revertUserAction(origin);
   var defaultAction = pb.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
-  console.log('selector', selector);
+  pb.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
+  refreshFilterPage(origin);
   return false;
 }
 
@@ -244,7 +245,7 @@ function refreshFilterPage() {
   }
   showTrackingDomains(originsToDisplay);
 
-  console.log("Done refreshing options page");
+  pb.log("Done refreshing options page");
 }
 
 /**
@@ -317,7 +318,8 @@ function registerToggleHandlers(element) {
 
       // Save change for origin.
       var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-      syncSettings(origin);
+      var action = htmlUtils.getCurrentClass($(element).parents('.clicker'));
+      syncSettings(origin, action);
     },
   }).appendTo(element);
 
@@ -328,7 +330,7 @@ function registerToggleHandlers(element) {
 
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  console.log('updating origin for', $elm);
+  pb.log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
@@ -372,52 +374,17 @@ function hideTooltip(event){
 }
 
 /**
- * Fetches origins that need to be synced.
- *
- * TODO: It is probably stupid that we are redefining the _fetchOrigins function
- * every time this is called. Investigate doing this in a better way.
- * @param originToCheck {String} Origin to check for changes, optional. If null,
- *                               all origins are checked.
- * @return {Object}
- */
-function getOriginsToSync(originToCheck) {
-  // Function to add origin if set by user and changed.
-  var _fetchOrigins = function() {
-    var origin = $(this).attr("data-origin");
-    var userset = $(this).hasClass("userset");
-    var changed = htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action");
-    if (userset && changed) {
-      origins[origin] = htmlUtils.getCurrentClass($(this));
-    }
-  };
-
-  // Check each element for any changes by user.
-  var origins = {};
-  if (originToCheck) {
-    $('.clicker[data-origin="' + originToCheck + '"]').each(_fetchOrigins);
-  } else {
-    $('.clicker').each(_fetchOrigins);
-  }
-
-  return origins;
-}
-
-/**
  * Syncs settings for origins changed by user.
  *
  * @param originToCheck {String} Origin to check for changes, optional. If null,
  *                               all origins are checked.
  */
-function syncSettings(originToCheck) {
-  var originsToSync = getOriginsToSync(originToCheck);
-  console.log("Syncing userset options: " + JSON.stringify(originsToSync));
+function syncSettings(origin, userAction) {
+  pb.log("Syncing userset options: ", origin, userAction);
 
   // Save new action for updated origins.
-  for (var origin in originsToSync) {
-    var userAction = originsToSync[origin];
-    pb.saveAction(userAction, origin);
-  }
-  console.log("Finished syncing.");
+  pb.saveAction(userAction, origin);
+  pb.log("Finished syncing.");
 
   // Options page needs to be refreshed to display current results.
   refreshFilterPage();

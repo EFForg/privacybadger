@@ -81,10 +81,13 @@ var getScore = function(action){
 /**
  * get the current presumed action for a specific fqdn, ignoring any rules for subdomains
  * below or above it
- * @param {Object} domain domain object from action_map
+ * @param {Object|String} domain domain object from action_map
  * @returns {String} the presumed action for this FQDN
  **/
 var getActionForFqdn = function(domain){
+  if (_.isString(domain)) {
+    domain = getBadgerStorageObject('action_map').getItem(domain) || {};
+  }
   if(domain.userAction){ return domain.userAction; }
   if(domain.dnt){ return pb.DNT; } 
   if(domain.heuristicAction){ return domain.heuristicAction; } 
@@ -105,7 +108,7 @@ var setupHeuristicAction = function(domain, action){
  * @param {String} domain Domain to add
  */
 var setupDNT = function(domain){
-  _setupDomainAction(domain, "true", "dnt"); 
+  _setupDomainAction(domain, true, "dnt"); 
 };
   
 /**
@@ -113,7 +116,7 @@ var setupDNT = function(domain){
 * @param domain FQDN string
 **/
 var revertDNT = function(domain){
-  _setupDomainAction(domain, null, "dnt");
+  _setupDomainAction(domain, false, "dnt");
 };
 
 var touchDNTRecheckTime = function(domain, time){
@@ -154,7 +157,7 @@ var setupUserAction = function(domain, action){
 * @param domain FQDN string
 **/
 var revertUserAction = function(domain){
-  _setupDomainAction(domain, null, "userAction");
+  _setupDomainAction(domain, "", "userAction");
 };
 
   
@@ -183,9 +186,9 @@ var _setupDomainAction = function(domain, action, actionType){
  */
 var _newActionMapObject = function() {
   return {
-    userAction: null,
-    dnt: null,
-    heuristicAction: null,
+    userAction: "",
+    dnt: false,
+    heuristicAction: "",
     nextUpdateTime: 0
   };
 };
@@ -334,7 +337,7 @@ BadgerStorage.prototype = {
    **/
   hasItem: function(key){
     var self = this;
-    return !!self._store.hasOwnProperty(key);
+    return self._store.hasOwnProperty(key);
   },
 
   /**
