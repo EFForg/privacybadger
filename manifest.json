@@ -1,8 +1,14 @@
 {
-  "version": "2016.4.13",
+  "version": "2016.5.6",
   "author": {
     "email": "eff.software.projects@gmail.com"
   },
+  "applications": {
+    "gecko": {
+      "id": "privacybadger@mozilla.org"
+    }
+  },
+  "incognito": "split",
   "permissions": [
     "tabs",
     "http://*/*",
@@ -20,6 +26,7 @@
     "scripts": [
       "lib/compat.js",
       "lib/io.js",
+      "src/storage.js",
       "src/utils.js",
       "src/htmlutils.js",
       "lib/adblockplus.js",
@@ -30,19 +37,18 @@
       "lib/jsbn.js",
       "lib/rsa.js",
       "lib/popupBlocker.js",
-      "src/cookieblocklist.js",
-      "src/blockedDomainList.js",
+      "lib/underscore-min.js",
       "src/domainExceptions.js",
       "src/webrequest.js",
       "src/heuristicblocking.js",
       "src/socialwidgetloader.js",
+      "src/migrations.js",
       "src/background.js"
     ]
   },
   "content_scripts": [
     {
       "js": [
-        "src/include.preload.js",
         "src/clobbercookie.js",
         "src/clobberlocalstorage.js",
         "src/fingerprinting.js",

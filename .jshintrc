@@ -65,7 +65,7 @@
     "dojo"          : false,    // Dojo Toolkit
     "jquery"        : true,    // jQuery
     "mootools"      : false,    // MooTools
-    "node"          : true,     // Node.js
+    "node"          : false,     // Node.js
     "nonstandard"   : false,    // Widely adopted globals (escape, unescape, etc)
     "prototypejs"   : false,    // Prototype and Scriptaculous
     "rhino"         : false,    // Rhino
@@ -74,5 +74,5 @@
     "yui"           : false,    // Yahoo User Interface
 
     // Custom Globals
-    "globals"       : {"self": true, "chrome": true }        // additional predefined global variables
+    "globals"       : {"chrome": true, "require": true, "pb": true, "_": true }        // additional predefined global variables
 }

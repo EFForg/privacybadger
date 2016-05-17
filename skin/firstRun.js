@@ -45,9 +45,11 @@
 
       $(".jcarousel-control-next").click(setSeenComic);
       $(".jcarousel-pagination").click(setSeenComic);
-        
+
       function setSeenComic() {
-        localStorage.setItem("seenComic", "true");
+        var pb = chrome.extension.getBackgroundPage().pb;
+        var settings = pb.storage.getBadgerStorageObject("settings_map");
+        settings.setItem("seenComic", true);
       }
   });
 })(jQuery);

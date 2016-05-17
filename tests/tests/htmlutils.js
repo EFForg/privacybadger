@@ -32,12 +32,12 @@
     // Test parameters
     tests = [
       {
-        inputAction: "noaction",
-        originAction: "noaction",
+        inputAction: "allow",
+        originAction: "allow",
         expectedResult: "checked",
       },
       {
-        inputAction: "noaction",
+        inputAction: "allow",
         originAction: "block",
         expectedResult: "",
       },
@@ -67,7 +67,7 @@
         expectedResult: "Blocked cookies from pbtest.org",
       },
       {
-        action: "noaction",
+        action: "allow",
         origin: "pbtest.org",
         expectedResult: "Allowed pbtest.org",
       },
@@ -98,7 +98,7 @@
       },
       {
         origin: "pbtest.org",
-        action: "noaction",
+        action: "allow",
         expectedResult: "2",
       },
     ];
@@ -121,7 +121,7 @@
       {
         existingHtml: '<div id="existinghtml"></div>',
         origin: "pbtest.org",
-        action: "noaction",
+        action: "allow",
         isWhitelisted: false,
         subdomainCount: 3,
       },

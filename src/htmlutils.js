@@ -17,7 +17,7 @@
 
 var i18n = chrome.i18n;
 
-require.scopes['htmlutils'] = (function() {
+require.scopes.htmlutils = (function() {
 
 // Ugly HTML helpers.
 // TODO: Some or all of these should be replace but have been moved here to
@@ -48,6 +48,7 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} 'checked' if both actions match otherwise empty string.
    */
   isChecked: function(inputAction, originAction) {
+    if(originAction == pb.NO_TRACKING) { originAction = pb.ALLOW; }
     return (inputAction === originAction) ? 'checked' : '';
   },
 
@@ -62,7 +63,8 @@ var htmlUtils = exports.htmlUtils = {
     var actionDescriptions = {
       block: i18n.getMessage('badger_status_block'),
       cookieblock: i18n.getMessage('badger_status_cookieblock'),
-      noaction: i18n.getMessage('badger_status_noaction'),
+      noaction: "No tracking for ",
+      allow: i18n.getMessage('badger_status_noaction'),
     };
     return actionDescriptions[action] + origin;
   },
@@ -81,7 +83,7 @@ var htmlUtils = exports.htmlUtils = {
       '<div class="switch-toggle switch-3 switch-candy">' +
       '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
       '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
-      '<input id="noaction-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('noaction', action) + '><label tooltip="click here to allow this tracker" class="actionToggle" for="noaction-' + originId + '" data-origin="' + origin + '" data-action="noaction"></label>' +
+      '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label tooltip="click here to allow this tracker" class="actionToggle" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
       '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
     return toggleHtml;
   },
@@ -103,9 +105,9 @@ var htmlUtils = exports.htmlUtils = {
     if (action.indexOf('user') === 0) {
       tooltipText = i18n.getMessage('feed_the_badger_title');
       classes.push('userset');
-      action = action.substr(4);
+      action = action.substr(5);
     }
-    if (action === 'block' || action === 'cookieblock' || action === 'noaction') {
+    if (action === pb.BLOCK || action === pb.COOKIEBLOCK || action === pb.ALLOW || action === pb.NO_TRACKING) {
       classes.push(action);
     }
     var classText = 'class="' + classes.join(' ') + '"';
@@ -138,6 +140,85 @@ var htmlUtils = exports.htmlUtils = {
       '</div>';
 
     return existingHtml + originHtml;
+  },
+  /**
+  * Toggle the GUI blocked status of GUI element(s)
+  *
+  * @param {String} elt Identify the object(s) to manipulate
+  * @param {String} status New status to set, optional
+  */
+  toggleBlockedStatus: function (elt,status) {
+    console.log('toggle blocked status', elt, status);
+    if(status){
+      elt.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(status);
+      elt.addClass("userset");
+      return;
+    }
+
+    var originalAction = elt.getAttribute('data-original-action');
+    if (elt.hasClass(pb.BLOCK)) {
+      elt.toggleClass(pb.BLOCK);
+    } else if (elt.hasClass(pb.COOKIEBLOCK)) {
+      elt.toggleClass(pb.BLOCK);
+      elt.toggleClass(pb.COOKIEBLOCK);
+    } else {
+      elt.toggleClass(pb.COOKIEBLOCK);
+    }
+    if (elt.hasClass(originalAction) || (originalAction == pb.ALLOW && !(elt.hasClass(pb.BLOCK) ||
+                                                                              elt.hasClass(pb.COOKIEBLOCK)))) {
+      elt.removeClass("userset");
+    } else {
+      elt.addClass("userset");
+    }
+  },
+
+  /**
+  * Compare 2 domains. Reversing them to start comparing the least significant parts (TLD) first
+  *
+  * @param a First domain
+  * @param b Second domain
+  * @returns {number} standard compare returns
+  */
+  compareReversedDomains: function(a, b){
+    var fqdn1 = htmlUtils.makeSortable(a);
+    var fqdn2 = htmlUtils.makeSortable(b);
+    if(fqdn1 < fqdn2){
+      return -1;
+    }
+    if(fqdn1 > fqdn2){
+      return 1;
+    }
+    return 0;
+  },
+
+  /**
+  * Reverse order of domain items to have the least exact (TLD) first)
+  *
+  * @param {String} domain The domain to shuffle
+  * @returns {String} The 'reversed' domain
+  */
+  makeSortable: function(domain){
+    var tmp = domain.split('.').reverse();
+    tmp.shift();
+    return tmp.join('');
+  },
+
+  /**
+  * Get the action class from the element
+  *
+  * @param elt Element
+  * @returns {String} block/cookieblock/noaction
+  */
+  getCurrentClass: function(elt) {
+    if (elt.hasClass(pb.BLOCK)) {
+      return pb.BLOCK;
+    } else if (elt.hasClass(pb.COOKIEBLOCK)) {
+      return pb.COOKIEBLOCK;
+    } else if (elt.hasClass(pb.ALLOW)) {
+      return pb.ALLOW;
+    } else {
+      return pb.NO_TRACKING;
+    }
   },
 
 };

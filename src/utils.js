@@ -1,6 +1,7 @@
 /*
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
+ *
  * Derived from Adblock Plus 
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
@@ -17,26 +18,14 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * This file is part of Adblock Plus <http://adblockplus.org/>,
- * Copyright (C) 2006-2013 Eyeo GmbH
- *
- * Adblock Plus is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 3 as
- * published by the Free Software Foundation.
- *
- * Adblock Plus is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
- */
-require.scopes["utils"] = (function() {
+ /* globals URI */
+
+require.scopes.utils = (function() {
+var pbStorage = require("storage");
   
 var exports = {};
 var Utils = exports.Utils = {
+  getSettings: function(){ return pbStorage.getBadgerStorageObject('settings_map'); },
   systemPrincipal: null,
   getString: function(id)
   {
@@ -53,87 +42,36 @@ var Utils = exports.Utils = {
   get appLocale()
   {
     var locale = chrome.i18n.getMessage("@@ui_locale").replace(/_/g, "-");
-    this.__defineGetter__("appLocale", function() {return locale});
+    this.__defineGetter__("appLocale", function() {return locale;});
     return this.appLocale;
-  },
-
-  // TODO: Implement
-  generateChecksum: function(lines)
-  {
-    // We cannot calculate MD5 checksums yet :-(
-    return null;
   },
 
   /**
    * Generator for URI objects
    *
-   * @param url The url to analyze it with
-   * @returns {*|{scheme, spec, QueryInterface}}
+   * @param {String} url the url to convert to URI
+   * @returns {URI|{scheme, spec, QueryInterface}}
    */
   makeURI: function(url)
   {
-    return Services.io.newURI(url);
+    // URI defined in lib/basedomain.js
+    return new URI(url);
   },
 
   checkLocalePrefixMatch: function(prefixes)
   {
-    if (!prefixes)
+    if (!prefixes){
       return null;
+    }
 
     var list = prefixes.split(",");
-    for (var i = 0; i < list.length; i++)
-      if (new RegExp("^" + list[i] + "\\b").test(this.appLocale))
+    for (var i = 0; i < list.length; i++) {
+      if (new RegExp("^" + list[i] + "\\b").test(this.appLocale)) {
         return list[i];
-
-    return null;
-  },
-
-  // not used
-  chooseFilterSubscription: function(subscriptions)
-  {
-    var selectedItem = null;
-    var selectedPrefix = null;
-    var matchCount = 0;
-    for (var i = 0; i < subscriptions.length; i++)
-    {
-      var subscription = subscriptions[i];
-      if (!selectedItem)
-        selectedItem = subscription;
-
-      var prefix = require("utils").Utils.checkLocalePrefixMatch(subscription.getAttribute("prefixes"));
-      if (prefix)
-      {
-        if (!selectedPrefix || selectedPrefix.length < prefix.length)
-        {
-          selectedItem = subscription;
-          selectedPrefix = prefix;
-          matchCount = 1;
-        }
-        else if (selectedPrefix && selectedPrefix.length == prefix.length)
-        {
-          matchCount++;
-
-          // If multiple items have a matching prefix of the same length:
-          // Select one of the items randomly, probability should be the same
-          // for all items. So we replace the previous match here with
-          // probability 1/N (N being the number of matches).
-          if (Math.random() * matchCount < 1)
-          {
-            selectedItem = subscription;
-            selectedPrefix = prefix;
-          }
-        }
       }
     }
-    return selectedItem;
-  },
 
-  // not used
-  getDocLink: function(linkID)
-  {
-    var Prefs = require("prefs").Prefs;
-    var docLink = Prefs.documentation_link;
-    return docLink.replace(/%LINK%/g, linkID).replace(/%LANG%/g, Utils.appLocale);
+    return null;
   },
 
   /**
@@ -151,6 +89,17 @@ var Utils = exports.Utils = {
     return ary.push.apply(ary, rest);
   },
 
+  oneHour: function(){
+    return 1000 * 60 * 60;
+  },
+  
+  oneDay: function(){
+   return this.oneHour() * 24;
+  },
+  oneDayFromNow: function(){
+    return Date.now() + this.oneDay();
+  },
+
   /**
    * Generic interface to make an XHR request
    *
@@ -160,7 +109,7 @@ var Utils = exports.Utils = {
    */
   xhrRequest: function(url,callback,method){
     if(!method){
-      var method = "GET";
+      method = "GET";
     }
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -174,7 +123,7 @@ var Utils = exports.Utils = {
           callback(error,error.message);
         }
       }
-    }
+    };
     xhr.open(method, url, true);
     xhr.send();
   },
@@ -184,42 +133,66 @@ var Utils = exports.Utils = {
    * check against the disabledSites list
    *
    * @param {String} origin
-   * @returns {Boolean} true if disabled
+   * @returns {Boolean} true if enabled
    **/
   isPrivacyBadgerEnabled: function(origin){
-    if(localStorage.disabledSites && JSON.parse(localStorage.disabledSites).length > 0){
-      var sites = JSON.parse(localStorage.disabledSites);
-      for(var i = 0; i < sites.length; i++){
-        var site = sites[i];
+    var settings = this.getSettings();
+    var disabledSites = settings.getItem("disabledSites");
+    if(disabledSites && disabledSites.length > 0){
+      for(var i = 0; i < disabledSites.length; i++){
+        var site = disabledSites[i];
         if(site.startsWith("*")){
-          if(getBaseDomain(site) === getBaseDomain(origin)){
+          if(window.getBaseDomain(site) === window.getBaseDomain(origin)){
             return false;
           }
         }
-        if(sites[i] === origin){
+        if(disabledSites[i] === origin){
           return false;
         }
       }
     }
     return true;
   },
+  
+  /**
+   * check if privacy badger is disabled, take an origin and
+   * check against the disabledSites list
+   *
+   * @param {String} origin
+   * @returns {Boolean} true if disabled
+   **/
+  isPrivacyBadgerDisabled: function(origin){
+    return !this.isPrivacyBadgerEnabled(origin);
+  },
+
+  /**
+   * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
+   * eTLD+1.
+   **/
+   explodeSubdomains: function(fqdn){
+     var baseDomain = window.getBaseDomain(fqdn);
+     var baseLen = baseDomain.split('.').length;
+     var parts = fqdn.split('.');
+     var numLoops = parts.length - baseLen;
+     var subdomains = [];
+     for(var i=0; i<=numLoops; i++){
+       subdomains.push(parts.slice(i).join('.'));
+     }
+     return subdomains;
+   },
 
   /**
    * check if social widget replacement functionality is enabled
    */
   isSocialWidgetReplacementEnabled: function() {
-    return JSON.parse(localStorage.socialWidgetReplacementEnabled);
+    return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
   /**
    * check if we should show the counter on the icon
    */
   showCounter: function() {
-    if ("showCounter" in localStorage) {
-      return JSON.parse(localStorage.showCounter);
-    } else {
-      return true;
-    }
+    return this.getSettings().getItem("showCounter");
   },
 
   /**
@@ -228,14 +201,11 @@ var Utils = exports.Utils = {
    * @param {String} origin The origin to disable the PB for
    **/
   disablePrivacyBadgerForOrigin: function(origin){
-    if(localStorage.disabledSites === undefined){
-      localStorage.disabledSites = JSON.stringify([origin]);
-      return;
-    }
-    var disabledSites = JSON.parse(localStorage.disabledSites);
+    var settings = this.getSettings();
+    var disabledSites = settings.getItem('disabledSites');
     if(disabledSites.indexOf(origin) < 0){
       disabledSites.push(origin);
-      localStorage.disabledSites = JSON.stringify(disabledSites);
+      settings.setItem("disabledSites", disabledSites);
     }
   },
 
@@ -243,7 +213,7 @@ var Utils = exports.Utils = {
    * interface to get the current whitelisted domains
    */
   listOriginsWherePrivacyBadgerIsDisabled: function(){
-    return JSON.parse(localStorage.disabledSites);
+    return this.getSettings().getItem("disabledSites");
   },
 
   /**
@@ -252,14 +222,12 @@ var Utils = exports.Utils = {
    * @param {String} origin The origin to disable the PB for
    **/
   enablePrivacyBadgerForOrigin: function(origin){
-    if(localStorage.disabledSites === undefined){
-      return;
-    }
-    var disabledSites = JSON.parse(localStorage.disabledSites);
+    var settings = this.getSettings();
+    var disabledSites = settings.getItem("disabledSites");
     var idx = disabledSites.indexOf(origin);
     if(idx >= 0){
       Utils.removeElementFromArray(disabledSites, idx);
-      localStorage.disabledSites = JSON.stringify(disabledSites);
+      settings.setItem("disabledSites", disabledSites);
     }
   },
 
@@ -307,7 +275,7 @@ var Utils = exports.Utils = {
     }
 
     var charCodes = Array.prototype.map.call(str, function (ch) {
-      return String.prototype.charCodeAt.apply(ch)
+      return String.prototype.charCodeAt.apply(ch);
     });
     var minCharCode = Math.min.apply(Math, charCodes);
     var maxCharCode = Math.max.apply(Math, charCodes);
@@ -331,13 +299,13 @@ var Utils = exports.Utils = {
       estimatedEntropy = 0,
       lsKey = "",
       lsItem = "";
-    for (var lsKey in lsItems) {
+    for (lsKey in lsItems) {
       // send both key and value to entropy estimation
       lsItem = lsItems[lsKey];
-      // console.log("Checking localstorage item", lsKey, lsItem);
+      pb.log("Checking localstorage item", lsKey, lsItem);
       estimatedEntropy += Utils.estimateMaxEntropy(lsKey + lsItem);
       if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD){
-        // console.log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
+        pb.log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
         return true;
       }
     }
@@ -361,11 +329,11 @@ var Utils = exports.Utils = {
   },
 
   /**
-   * Get Supercookie data from local Storage
+   * Get Supercookie data from storage
    * @returns {*|{}} Dict with Supercookie domains
    */
   getSupercookieDomains: function() {
-    return JSON.parse(localStorage.getItem("supercookieDomains")) || {};
+    return pb.storage.getBadgerStorageObject('supercookie_domains');
   }
 
 };

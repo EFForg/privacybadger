@@ -1,0 +1,62 @@
+{
+  "name": "qunitjs",
+  "title": "QUnit",
+  "description": "An easy-to-use JavaScript Unit Testing framework.",
+  "version": "1.15.0",
+  "homepage": "http://qunitjs.com",
+  "author": {
+    "name": "jQuery Foundation and other contributors",
+    "url": "https://github.com/jquery/qunit/blob/1.15.0/AUTHORS.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jquery/qunit.git"
+  },
+  "keywords": [
+    "testing",
+    "unit",
+    "jquery"
+  ],
+  "bugs": {
+    "url": "https://github.com/jquery/qunit/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jquery/qunit/blob/1.15.0/LICENSE.txt"
+    }
+  ],
+  "files": [
+    "qunit/qunit.js",
+    "qunit/qunit.css",
+    "LICENSE.txt"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "commitplease": "1.7.0",
+    "grunt": "0.4.2",
+    "grunt-contrib-concat": "0.3.0",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-watch": "0.5.3",
+    "grunt-coveralls": "0.3.0",
+    "grunt-git-authors": "1.2.0",
+    "grunt-jscs": "0.6.1",
+    "grunt-qunit-istanbul": "0.4.5",
+    "load-grunt-tasks": "0.3.0",
+    "testswarm": "1.1.0"
+  },
+  "scripts": {
+    "ci": "grunt && grunt coveralls",
+    "test": "grunt",
+    "prepublish": "grunt build"
+  },
+  "main": "qunit/qunit.js",
+  "readme": "[![Build Status](http://jenkins.jquery.com/job/QUnit/badge/icon)](http://jenkins.jquery.com/job/QUnit/)\n[![Coverage Status](https://coveralls.io/repos/jquery/qunit/badge.png)](https://coveralls.io/r/jquery/qunit)\n\n# [QUnit](http://qunitjs.com) - A JavaScript Unit Testing Framework.\n\nQUnit is a powerful, easy-to-use, JavaScript unit testing framework. It's used by the jQuery\nproject to test its code and plugins but is capable of testing any generic\nJavaScript code (and even capable of testing JavaScript code on the server-side).\n\nQUnit is especially useful for regression testing: Whenever a bug is reported,\nwrite a test that asserts the existence of that particular bug. Then fix it and\ncommit both. Every time you work on the code again, run the tests. If the bug\ncomes up again - a regression - you'll spot it immediately and know how to fix\nit, because you know what code you just changed.\n\nHaving good unit test coverage makes safe refactoring easy and cheap. You can\nrun the tests after each small refactoring step and always know what change\nbroke something.\n\nQUnit is similar to other unit testing frameworks like JUnit, but makes use of\nthe features JavaScript provides and helps with testing code in the browser, e.g.\nwith its stop/start facilities for testing asynchronous code.\n\nIf you are interested in helping developing QUnit, you are in the right place.\nFor related discussions, visit the\n[QUnit and Testing forum](http://forum.jquery.com/qunit-and-testing).\n\n## Development\n\nTo submit patches, fork the repository, create a branch for the change. Then implement\nthe change, run `grunt` to lint and test it, then commit, push and create a pull request.\n\nInclude some background for the change in the commit message and `Fixes #nnn`, referring\nto the issue number you're addressing.\n\nTo run `grunt`, you need [Node.js](http://nodejs.org/download/), which includes `npm`, then `npm install -g grunt-cli`. That gives you a global grunt binary. For additional grunt tasks, also run `npm install`.\n\n## Releases\n\nUse [jquery-release](https://github.com/jquery/jquery-release). The following aren't yet handled there:\n\n* Install [git-extras](https://github.com/visionmedia/git-extras) and run `git changelog` to update History.md. Clean up the changelog, removing merge commits or whitespace cleanups.\n* Run `grunt authors` and add any new authors to AUTHORS.txt\n* Update the version property in `package.json` to have the right -pre version. Not necessary for patch releases.\n\nCommit these, then run the script.\n\nUpdate web sites, replacing previous versions with new ones:\n\n* jquery/jquery-wp-content themes/jquery/footer-qunit.php\n* jquery/qunitjs.com pages/index.html\n\nFinally announce on Twitter @qunitjs\n\n\tReleased @VERSION: https://github.com/jquery/qunit/tree/@VERSION\n\tChangelog: https://github.com/jquery/qunit/blob/@VERSION/History.md\n",
+  "readmeFilename": "README.md",
+  "_id": "qunitjs@1.15.0",
+  "dist": {
+    "shasum": "b13379ee4d799b8b3b67f15d924fca03fc8d802c"
+  },
+  "_from": "qunitjs@1.15.0",
+  "_resolved": "https://registry.npmjs.org/qunitjs/-/qunitjs-1.15.0.tgz"
+}

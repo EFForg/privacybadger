@@ -16,58 +16,16 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-/*
- * This file is part of Adblock Plus <http://adblockplus.org/>,
- * Copyright (C) 2006-2013 Eyeo GmbH
- *
- * Adblock Plus is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 3 as
- * published by the Free Software Foundation.
- *
- * Adblock Plus is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
- */
+ // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up. 
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var imports = ["require", "isWhitelisted", "extractHostFromURL", "refreshIconAndContextMenu", "getAction", "blockedOriginCount", "activelyBlockedOriginCount", "userConfiguredOriginCount", "getAllOriginsForTab", "console", "whitelistUrl", "removeFilter", "setupCookieBlocking", "teardownCookieBlocking", "reloadTab", "saveAction", "getHostForTab", "getBaseDomain", "getPresumedAction"];
-var i18n = chrome.i18n;
-for (var i = 0; i < imports.length; i++){
-  window[imports[i]] = backgroundPage[imports[i]];
-}
-
-with(require("filterClasses"))
-{
-  this.Filter = Filter;
-  this.RegExpFilter = RegExpFilter;
-  this.BlockingFilter = BlockingFilter;
-  this.WhitelistFilter = WhitelistFilter;
-}
-with(require("subscriptionClasses"))
-{
-  this.Subscription = Subscription;
-  this.DownloadableSubscription = DownloadableSubscription;
-  this.SpecialSubscription = SpecialSubscription;
-}
-var FilterStorage = require("filterStorage").FilterStorage;
-var matcherStore = require("matcher").matcherStore;
-var Utils = require("utils").Utils;
+var pb = backgroundPage.pb;
+var Utils = pb.utils;
 var htmlUtils = require("htmlutils").htmlUtils;
-
+var i18n = chrome.i18n;
 var tab = null;
-
-function closeOverlay() {
-  $('#overlay').toggleClass('active', false);
-  $("#report_success").toggleClass("hidden", true);
-  $("#report_fail").toggleClass("hidden", true);
-  $("#error_input").val("");
-}
+var settings = pb.storage.getBadgerStorageObject('settings_map');
 
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
@@ -76,11 +34,10 @@ function init() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
 
-  var seenComic = JSON.parse(localStorage.getItem("seenComic")) || false; 
-  console.log(seenComic);
+  var seenComic = settings.getItem("seenComic") || false; 
 
   function _setSeenComic() {
-    localStorage.setItem("seenComic", "true");
+    settings.setItem("seenComic", "true");
   }
 
   function _hideNag(){
@@ -139,7 +96,7 @@ function init() {
     chrome.tabs.getSelected(w.id, function(t)
     {
       tab = t;
-      if(!Utils.isPrivacyBadgerEnabled(extractHostFromURL(tab.url))) {
+      if(!Utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(tab.url))) {
         $("#blockedResourcesContainer").hide();
         $("#activate_site_btn").show();
         $("#deactivate_site_btn").hide();
@@ -149,7 +106,15 @@ function init() {
 }
 $(init);
 
-
+/**
+ * Close the error reporting overlay
+ */
+function closeOverlay() {
+  $('#overlay').toggleClass('active', false);
+  $("#report_success").toggleClass("hidden", true);
+  $("#report_fail").toggleClass("hidden", true);
+  $("#error_input").val("");
+}
 
 /**
  * Send errors to PB error reporting server
@@ -159,16 +124,16 @@ $(init);
 function send_error(message) {
   var browser = window.navigator.userAgent;
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var origins = getAllOriginsForTab(tabId);
+  var origins = backgroundPage.getAllOriginsForTab(tabId);
   if(!origins){ return; }
-  var version = localStorage.currentVersion;
+  var version = chrome.runtime.getManifest().version;
   //TODO "there's got to be a better way!"
   var fqdn = tab.url.split("/",3)[2];
   var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
   for (var i = 0; i < origins.length; i++){
      var origin = origins[i];
-     var action = getAction(tabId, origin);
-     if (!action){ action = "notracking"; }
+     var action = backgroundPage.getAction(tabId, origin);
+     if (!action){ action = pb.NO_TRACKING; }
      if (out[action]){
        out[action] += ","+origin;
      }
@@ -211,9 +176,9 @@ function active_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").show();
-  Utils.enablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
+  Utils.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+  backgroundPage.refreshIconAndContextMenu(tab);
+  pb.reloadTab(tab.id);
 }
 
 /**
@@ -223,9 +188,9 @@ function deactive_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").hide();
-  Utils.disablePrivacyBadgerForOrigin(extractHostFromURL(tab.url));
-  refreshIconAndContextMenu(tab);
-  reloadTab(tab.id);
+  Utils.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+  backgroundPage.refreshIconAndContextMenu(tab);
+  pb.reloadTab(tab.id);
 }
 
 /**
@@ -235,98 +200,19 @@ function deactive_site(){
  * @returns {boolean} false
  */
 function revertDomainControl(e){
-  $elm = $(e.target).parent();
+  var $elm = $(e.target).parent();
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  var original_action = $elm.data('original-action');
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var stores = {'block': 'userRed',
-                'cookieblock': 'userYellow',
-                'noaction': 'userGreen'};
-  var filter = "||" + origin + "^$third-party";
-  var siteFilter = "@@||" + origin + "^$third-party,domain=" + getHostForTab(tabId);
-  var store = stores[original_action];
-  removeFilter(store,filter);
-  removeFilter(store,siteFilter);
-  var defaultAction = getPresumedAction(origin);
+  pb.storage.revertUserAction(origin);
+  var defaultAction = pb.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
-  reloadTab(tabId);
+  pb.reloadTab(tab.id);
   return false;
 }
-
-/**
- * Toggles the icon, not used
- */
-function toggleEnabled() {
-  console.log("Refreshing icon and context menu");
-  refreshIconAndContextMenu(tab);
-}
-
-/**
- * Toggle the GUI blocked status of GUI element(s)
- *
- * @param {String} elt Identify the object(s) to manipulate
- * @param {String} status New status to set, optional
- */
-function toggleBlockedStatus(elt,status) {
-  console.log('toggle blocked status', elt, status);
-  if(status){
-    $(elt).removeClass("block cookieblock noaction").addClass(status);
-    $(elt).addClass("userset");
-    return;
-  }
-
-  var originalAction = elt.getAttribute('data-original-action');
-  if ($(elt).hasClass("block"))
-    $(elt).toggleClass("block");
-  else if ($(elt).hasClass("cookieblock")) {
-    $(elt).toggleClass("block");
-    $(elt).toggleClass("cookieblock");
-  }
-  else
-    $(elt).toggleClass("cookieblock");
-  if ($(elt).hasClass(originalAction) || (originalAction == 'noaction' && !($(elt).hasClass("block") ||
-                                                                            $(elt).hasClass("cookieblock"))))
-    $(elt).removeClass("userset");
-  else
-    $(elt).addClass("userset");
-}
-
-/**
- * Compare 2 domains. Reversing them to start comparing the least significant parts (TLD) first
- *
- * @param a First domain
- * @param b Second domain
- * @returns {number} standard compare returns
- */
-function compareReversedDomains(a, b){
-  fqdn1 = makeSortable(a);
-  fqdn2 = makeSortable(b);
-  if(fqdn1 < fqdn2){
-    return -1;
-  }
-  if(fqdn1 > fqdn2){
-    return 1;
-  }
-  return 0;
-}
-
-/**
- * Reverse order of domain items to have the least exact (TLD) first)
- *
- * @param {String} domain The domain to shuffle
- * @returns {String} The 'reversed' domain
- */
-function makeSortable(domain){
-  var tmp = domain.split('.').reverse();
-  tmp.shift();
-  return tmp.join('');
-}
-
 /**
  * this is a terrible function that repeats
  * a lot of the work that getAction does
@@ -335,29 +221,22 @@ function makeSortable(domain){
  * in the ABP filters without repeatedly
  * querying them
  */
-function getTopLevel(action, origin, tabId){
-  if (action == "usercookieblock"){
-    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    return  top;
-  }
-  if (action == "userblock"){
-    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    return top;
-  }
-  if (action == "usernoaction"){
-    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-    return top;
-  }
-}
-
-function isDomainWhitelisted(action, origin){
-  var flag = false;
-  if (action == "usernoaction"){
-    if (localStorage.whitelisted && JSON.parse(localStorage.whitelisted).hasOwnProperty(origin)){
-      flag = true;
-    }
-  }
-  return flag;
+//TODO re-write this by having get best action return the domain the rule
+// comes from, and combine that way?
+function getTopLevel(action, origin/*, tabId*/){
+//  if (action == "usercookieblock"){
+//    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+//    return  top;
+//  }
+//  if (action == "userblock"){
+//    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+//    return top;
+//  }
+//  if (action == "usernoaction"){
+//    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+//    return top;
+//  }
+  return origin;
 }
 
 /**
@@ -368,7 +247,7 @@ function isDomainWhitelisted(action, origin){
 function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + tabId);
   //TODO this is calling get action and then being used to call get Action
-  var origins = getAllOriginsForTab(tabId);
+  var origins = backgroundPage.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
     hideNoInitialBlockingLink();
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
@@ -386,25 +265,28 @@ function refreshPopup(tabId) {
     '</div></div>'+
     '<div class="spacer"></div><div class="clickerContainer">';
   var nonTracking = [];
-  origins.sort(compareReversedDomains);
-  originCount = 0;
+  origins.sort(htmlUtils.compareReversedDomains);
+  var originCount = 0;
   var compressedOrigins = {};
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
-    var action = getAction(tabId, origin);
-    if(!action){
+    var action = backgroundPage.getAction(tabId, origin);
+    if(action == pb.NO_TRACKING){
+        console.log('pushing', origin, 'onto non tracking');
         nonTracking.push(origin);
         continue;
     }
     else {
       if (action.includes("user")){
         var prevOrigin = origin;
-        var baseDomain = getBaseDomain(prevOrigin);
+        var baseDomain = backgroundPage.getBaseDomain(prevOrigin);
+        // TODO make some re-implementation of getBestAction that returns where the 
+        // user rule is coming from
         if (getTopLevel(action, origin, tabId) == baseDomain && baseDomain != origin){
           origin = baseDomain;
           if (compressedOrigins.hasOwnProperty(origin)){
-            compressedOrigins[origin]['subs'].push(prevOrigin.replace(origin, ''));
+            compressedOrigins[origin].subs.push(prevOrigin.replace(origin, ''));
             continue;
           }
           compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
@@ -413,21 +295,23 @@ function refreshPopup(tabId) {
       }
     }
     originCount++;
-    var flag = isDomainWhitelisted(action, origin);
+    var flag = (action == pb.DNT);
     printable = htmlUtils.addOriginHtml(printable, origin, action, flag);
   }
-  for (key in compressedOrigins){
-    var flag2 = isDomainWhitelisted(action, origin);
-    printable = htmlUtils.addOriginHtml(printable, key, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
+  for (var key in compressedOrigins){
+    var flag2 = (compressedOrigins[key].action == pb.DNT);
+    printable = htmlUtils.addOriginHtml(printable, key, compressedOrigins[key].action, flag2, compressedOrigins[key].subs.length);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
+  console.log('len', nonTracking.length);
   if(nonTracking.length > 0){
     printable = printable +
         '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
-    for (var i = 0; i < nonTracking.length; i++){
-      var ntOrigin = nonTracking[i];
-      printable = htmlUtils.addOriginHtml(printable, ntOrigin, "noaction", false);
+    for (var c = 0; c < nonTracking.length; c++){
+      var ntOrigin = nonTracking[c];
+      console.log('calling printable for non-tracking');
+      printable = htmlUtils.addOriginHtml(printable, ntOrigin, pb.NO_TRACKING, false);
     }
   }
   $('#number_trackers').text(originCount);
@@ -437,12 +321,12 @@ function refreshPopup(tabId) {
   $('.switch-toggle').each(function(){
     var radios = $(this).children('input');
     var value = $(this).children('input:checked').val();
-    var userHandle = $(this).children('a');
+    //var userHandle = $(this).children('a');
     var slider = $("<div></div>").slider({
       min: 0,
       max: 2,
       value: value,
-      create: function(event, ui){
+      create: function(/*event, ui*/){
         $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
       },
       slide: function(event, ui) {
@@ -472,8 +356,8 @@ function updateOrigin(event){
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
-  $switchContainer.removeClass('block cookieblock noaction').addClass(action);
-  toggleBlockedStatus($clicker, action);
+  $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
+  htmlUtils.toggleBlockedStatus($($clicker), action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
@@ -492,8 +376,9 @@ function hideNoInitialBlockingLink() {
  */
 function adjustNoInitialBlockingLink() {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var origins = blockedOriginCount(tabId);
-  var totalBlocked = activelyBlockedOriginCount(tabId), userBlocked = userConfiguredOriginCount(tabId);
+  var origins = backgroundPage.blockedOriginCount(tabId);
+  var totalBlocked = backgroundPage.activelyBlockedOriginCount(tabId);
+  var userBlocked = backgroundPage.userConfiguredOriginCount(tabId);
   if (origins > 0 && totalBlocked === 0 && userBlocked === 0) {
     $("#noBlockingLink").show();
   } else {
@@ -557,29 +442,14 @@ function syncSettingsDict(settingsDict) {
   // closing a popup is authoritative and we should sync the real state to that
   for (var origin in settingsDict) {
     var userAction = settingsDict[origin];
-    if (saveAction(userAction, origin))
-      reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"?
-                           // would be fun to check with jsperf.com
+    if (pb.saveAction(userAction, origin)) {
+      reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"? would be fun to check with jsperf.com
+    }
   }
   console.log("Finished syncing. Now refreshing popup.");
   // the popup needs to be refreshed to display current results
   refreshPopup(tabId);
   return reloadNeeded;
-}
-
-/**
- * Get the action class from the element
- *
- * @param elt Element
- * @returns {String} block/cookieblock/noaction
- */
-function getCurrentClass(elt) {
-  if ($(elt).hasClass("block"))
-    return "block";
-  else if ($(elt).hasClass("cookieblock"))
-    return "cookieblock";
-  else
-    return "noaction";
 }
 
 /**
@@ -591,14 +461,17 @@ function buildSettingsDict() {
   var settingsDict = {};
   $('.clicker').each(function() {
     var origin = $(this).attr("data-origin");
-    if ($(this).hasClass("userset") && getCurrentClass(this) != $(this).attr("data-original-action")) {
-      // todo: DRY; same as code above, break out into helper
-      if ($(this).hasClass("block"))
-        settingsDict[origin] = "block";
-      else if ($(this).hasClass("cookieblock"))
-        settingsDict[origin] = "cookieblock";
-      else
-        settingsDict[origin] = "noaction";
+    if ($(this).hasClass("userset") && htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action")) {
+      // TODO: DRY; same as code above, break out into helper
+      if ($(this).hasClass(pb.BLOCK)) {
+        settingsDict[origin] = pb.BLOCK;
+      } else if ($(this).hasClass(pb.COOKIEBLOCK)) {
+        settingsDict[origin] = pb.COOKIEBLOCK;
+      } else if ($(this).hasClass(pb.ALLOW)) {
+        settingsDict[origin] = pb.ALLOW;
+      } else {
+        settingsDict[origin] = pb.ALLOW;
+      }
     }
   });
   return settingsDict;
@@ -613,7 +486,7 @@ function syncUISelections() {
   console.log("Sync of userset options: " + JSON.stringify(settingsDict));
   var tabId = syncSettingsDict(settingsDict);
   if (tabId){
-    reloadTab(tabId);
+    pb.reloadTab(tabId);
   }
 }
 
@@ -622,17 +495,17 @@ function syncUISelections() {
  * Convenience function for the test harness
  * Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
  */
-function setTabToUrl( query_url ) {
+function setTabToUrl( query_url ) { /* jshint ignore:line */
   chrome.tabs.query( {url: query_url}, function(ta) {
     if ( typeof ta == "undefined" ) {
       console.log("error doing tabs query for " + query_url);
       return;
     }
-    if ( ta.length == 0 ) {
+    if ( ta.length === 0 ) {
       console.log("no match found in tabs query for " + query_url);
       return;
     }
-    tabid = ta[0].id;
+    var tabid = ta[0].id;
     console.log("match found for query " + query_url + " tabId: " + tabid );
     refreshPopup( tabid );
   });

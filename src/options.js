@@ -14,37 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
+ // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var seenThirdParties = backgroundPage.seenThirdParties;
-var imports = ["require", "saveAction", "removeFilter", "updateBadge"]
-for (var i = 0; i < imports.length; i++){
-      window[imports[i]] = backgroundPage[imports[i]];
-}
+var pb = backgroundPage.pb;
 var Utils = require("utils").Utils;
 var htmlUtils = require("htmlutils").htmlUtils;
-var filterWhitelist = {}
-
-with(require("filterClasses"))
-{
-  this.Filter = Filter;
-  this.WhitelistFilter = WhitelistFilter;
-}
-with(require("subscriptionClasses"))
-{
-  this.Subscription = Subscription;
-  this.SpecialSubscription = SpecialSubscription;
-  this.DownloadableSubscription = DownloadableSubscription;
-}
-var FilterStorage = require("filterStorage").FilterStorage;
-var FilterNotifier = require("filterNotifier").FilterNotifier;
-var Prefs = require("prefs").Prefs;
-var Synchronizer = require("synchronizer").Synchronizer;
+var i18n = chrome.i18n;
 var originCache = null;
+var settings = pb.storage.getBadgerStorageObject("settings_map");
 
 /*
- * Loads options from localStorage and sets UI elements accordingly.
+ * Loads options from pb storage and sets UI elements accordingly.
  */
 function loadOptions() {
   $('#blockedResources').css('max-height',$(window).height() - 300);
@@ -53,10 +35,8 @@ function loadOptions() {
   document.title = i18n.getMessage("options_title");
 
   // Add event listeners
-  window.addEventListener("unload", unloadOptions, false);
   $("#whitelistForm").submit(addWhitelistDomain);
   $("#removeWhitelist").click(removeWhitelistDomain);
-  FilterNotifier.addListener(onFilterChange);
 
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").attr("placeholder", i18n.getMessage("options_domain_search"));
@@ -76,15 +56,14 @@ function loadOptions() {
   $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
-  $("#activate_socialwidget_btn").click(active_socialwidget);
-  $("#deactivate_socialwidget_btn").click(deactive_socialwidget);
+  $("#activate_socialwidget_btn").click(activateSocialWidgetReplacement);
+  $("#deactivate_socialwidget_btn").click(deactivateSocialWidgetReplacement);
   if(!Utils.isSocialWidgetReplacementEnabled()) {
     $("#activate_socialwidget_btn").show();
     $("#deactivate_socialwidget_btn").hide();
   }
-  $("#toggle_counter_checkbox").click(toggle_counter)
-   .prop("checked", Utils.showCounter());
-  filterWhitelist = convertWhitelistToHash(FilterStorage.subscriptions[0].filters);
+  $("#toggle_counter_checkbox").click(toggleCounter);
+  $("#toggle_counter_checkbox").prop("checked", Utils.showCounter());
 
   // Show user's filters
   reloadWhitelist();
@@ -92,53 +71,42 @@ function loadOptions() {
 }
 $(loadOptions);
 
-function active_socialwidget(){
+function activateSocialWidgetReplacement() {
   $("#activate_socialwidget_btn").toggle();
   $("#deactivate_socialwidget_btn").toggle();
-  localStorage.socialWidgetReplacementEnabled = "true";
+  settings.setItem('socialWidgetReplacementEnabled', true);
 }
 
-function deactive_socialwidget(){
+function deactivateSocialWidgetReplacement() {
   $("#activate_socialwidget_btn").toggle();
   $("#deactivate_socialwidget_btn").toggle();
-  localStorage.socialWidgetReplacementEnabled = "false";
+  settings.setItem('socialWidgetReplacementEnabled', false);
 }
 
-function toggle_counter(){
+function toggleCounter() {
   if ($("#toggle_counter_checkbox").prop("checked")) {
-    localStorage.showCounter = "true";
+    settings.setItem("showCounter", true);
   } else {
-    localStorage.showCounter = "false";
+    settings.setItem("showCounter", false);
   }
   chrome.windows.getAll(null, function(windows) {
     windows.forEach(function(window) {
       chrome.tabs.getAllInWindow(window.id, function(tabs) {
         tabs.forEach(function(tab) {
-          updateBadge(tab.id);
+          pb.updateBadge(tab.id);
         });
       });
     });
   });
 }
 
-function convertWhitelistToHash(filters)
-{
-  out = {}
-  for (var i = 0; i < filters.length; i++){
-    out[filters[i].regexp.source] = 1;
-  }
-  return out
-}
-
-function reloadWhitelist()
-{
-  var sites = JSON.parse(localStorage.disabledSites || "[]");
+function reloadWhitelist() {
+  var sites = settings.getItem("disabledSites");
   var sitesList = $('#excludedDomainsBox');
   sitesList.html("");
   for( var i = 0; i < sites.length; i++){
     $('<option>').text(sites[i]).appendTo(sitesList);
   }
-
 }
 
 /**
@@ -150,41 +118,39 @@ function refreshOriginCache() {
 
 /**
  * Gets array of encountered origins.
+ * @param filterText {String} Text to filter origins with.
  * @return {Array}
  */
-function getOriginsArray() {
-  var originsArray = [];
-  for (var origin in originCache) {
-    originsArray.push(origin);
+function getOriginsArray(filterText) {
+  // Make sure filterText is lower case for case-insensitive matching.
+  if (filterText) {
+    filterText = filterText.toLowerCase();
+  } else {
+    filterText = "";
   }
-  return originsArray;
+
+  // Include only origins containing given filter text.
+  function containsFilterText(origin) {
+    return origin.toLowerCase().indexOf(filterText) !== -1;
+  }
+  return Object.keys(originCache).filter(containsFilterText);
 }
 
-// Cleans up when the options window is closed
-function unloadOptions()
-{
-  FilterNotifier.removeListener(onFilterChange);
-}
-
-function onFilterChange(action, item, param1, param2) {
-  syncSettings();
-}
-
-function addWhitelistDomain(event)
-{
+function addWhitelistDomain(event) {
   event.preventDefault();
 
   var domain = document.getElementById("newWhitelistDomain").value.replace(/\s/g, "");
   document.getElementById("newWhitelistDomain").value = "";
-  if (!domain)
+  if (!domain) {
     return;
+  }
 
-  Utils.disablePrivacyBadgerForOrigin(domain)
-  reloadWhitelist()
+  Utils.disablePrivacyBadgerForOrigin(domain);
+  reloadWhitelist();
 }
 
-function removeWhitelistDomain(event)
-{
+function removeWhitelistDomain(event) {
+  event.preventDefault();
   var selected = $(document.getElementById("excludedDomainsBox")).find('option:selected');
   for(var i = 0; i < selected.length; i++){
     Utils.enablePrivacyBadgerForOrigin(selected[i].text);
@@ -198,51 +164,16 @@ function removeWhitelistDomain(event)
  * Gets all encountered origins with associated actions.
  * @return {Object}
  */
-function getOrigins()
-{
-  origins = {};
-
-  // Process origins allowed by user.
-  var green = FilterStorage.knownSubscriptions.userGreen.filters;
-  for (var i = 0; i < green.length; i++) {
-    origins[green[i].regexp.source] = 'usernoaction';
+function getOrigins() {
+  var origins = {};
+  var action_map = pb.storage.getBadgerStorageObject('action_map');
+  for (var domain in action_map.getItemClones()) {
+      var action = pb.storage.getBestAction(domain);
+      // Do not show non tracking origins
+      if(action != pb.NO_TRACKING){
+        origins[domain] = action;
+      }
   }
-
-  // Process origins cookie-blocked by user.
-  var yellow = FilterStorage.knownSubscriptions.userYellow.filters;
-  for (var i = 0; i < yellow.length; i++) {
-    origins[yellow[i].regexp.source] = 'usercookieblock';
-  }
-
-  // Process origins blocked by user.
-  var red = FilterStorage.knownSubscriptions.userRed.filters;
-  for (var i = 0; i < red.length; i++) {
-    origins[red[i].regexp.source] = 'userblock';
-  }
-
-  // Process origins blocked/cookie-blocked by heuristic.
-  var heuristics = FilterStorage.knownSubscriptions.frequencyHeuristic.filters;
-  for (var i = 0; i < heuristics.length; i++){
-    var origin = heuristics[i].regexp.source;
-    if (origins[origin]) {
-      continue;
-    }
-    if (filterWhitelist[origin]) {
-      origins[origin] = 'cookieblock';
-    } else {
-      origins[origin] = 'block';
-    }
-  }
-
-  // Process origins that have been seen but not blocked yet.
-  var seen = Object.keys(seenThirdParties);
-  for (var i = 0; i < seen.length; i++) {
-    var origin = seen[i];
-    if (! origins[origin]) {
-      origins[origin] = 'noaction';
-    }
-  }
-
   return origins;
 }
 
@@ -256,81 +187,25 @@ function getOriginAction(origin) {
     refreshOriginCache();
   }
 
-  var action = originCache[origin];
-  if (action) {
-    return action;
-  }
-  return "noaction";
+  return originCache[origin];
 }
 
+//TODO unduplicate this code? since it's also in popup
 function revertDomainControl(e){
-  $elm = $(e.target).parent();
-  console.log('revert to privacy badger control for', $elm);
+  var $elm = $(e.target).parent();
+  pb.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  var original_action = $elm.data('original-action');
-  var stores = {'block': 'userRed',
-                'cookieblock': 'userYellow',
-                'noaction': 'userGreen'};
-  var filter = "||" + origin + "^$third-party";
-  var store = stores[original_action];
-  removeFilter(store,filter);
-  var defaultAction = getOriginAction(origin);
+  pb.storage.revertUserAction(origin);
+  var defaultAction = pb.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
-  console.log('selector', selector);
+  pb.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
+  refreshFilterPage(origin);
   return false;
 }
 
-function toggleEnabled() {
-  console.log("Refreshing icon and context menu");
-  refreshIconAndContextMenu(tab);
-}
-
-function toggleBlockedStatus(elt,status) {
-  console.log('toggle blocked status', elt, status);
-  if(status){
-    $(elt).removeClass("block cookieblock noaction").addClass(status);
-    $(elt).addClass("userset");
-    return;
-  }
-
-  var originalAction = elt.getAttribute('data-original-action');
-  if ($(elt).hasClass("block"))
-    $(elt).toggleClass("block");
-  else if ($(elt).hasClass("cookieblock")) {
-    $(elt).toggleClass("block");
-    $(elt).toggleClass("cookieblock");
-  }
-  else
-    $(elt).toggleClass("cookieblock");
-  if ($(elt).hasClass(originalAction) || (originalAction == 'noaction' && !($(elt).hasClass("block") ||
-                                                                            $(elt).hasClass("cookieblock"))))
-    $(elt).removeClass("userset");
-  else
-    $(elt).addClass("userset");
-}
-
-function compareReversedDomains(a, b){
-  fqdn1 = makeSortable(a);
-  fqdn2 = makeSortable(b);
-  if(fqdn1 < fqdn2){
-    return -1;
-  }
-  if(fqdn1 > fqdn2){
-    return 1;
-  }
-  return 0;
-}
-
-function makeSortable(domain){
-  var tmp = domain.split('.').reverse();
-  tmp.shift();
-  return tmp.join('');
-}
-
-// TODO major DRY sins, refactor popup.js to make this easier to maintain
 /**
  * Displays list of all tracking domains along with toggle controls.
  */
@@ -339,7 +214,7 @@ function refreshFilterPage() {
 
   // Check to see if any tracking domains have been found before continuing.
   var allTrackingDomains = getOriginsArray();
-  if (!allTrackingDomains || allTrackingDomains.length == 0) {
+  if (!allTrackingDomains || allTrackingDomains.length === 0) {
     $("#blockedResources").html("Could not detect any tracking cookies.");
     return;
   }
@@ -361,15 +236,23 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracking domains.
-  showTrackingDomains(allTrackingDomains);
-  console.log("Done refreshing options page");
+  var originsToDisplay;
+  var searchText = $("#trackingDomainSearch").val();
+  if (searchText.length > 0) {
+    originsToDisplay = getOriginsArray(searchText);
+  } else {
+    originsToDisplay = allTrackingDomains;
+  }
+  showTrackingDomains(originsToDisplay);
+
+  pb.log("Done refreshing options page");
 }
 
 /**
  * Displays filtered list of tracking domains based on user input.
  * @param event Input event triggered by user.
  */
-function filterTrackingDomains(event) {
+function filterTrackingDomains(/*event*/) {
   var initialSearchText = $('#trackingDomainSearch').val().toLowerCase();
 
   // Wait a short period of time and see if search text has changed.
@@ -382,19 +265,9 @@ function filterTrackingDomains(event) {
       return;
     }
 
-    // Filter tracking domains based on search text.
-    var allTrackingDomains = getOriginsArray();
-    var filteredTrackingDomains = [];
-    for (var i = 0; i < allTrackingDomains.length; i++) {
-      var trackingDomain = allTrackingDomains[i];
-
-      // Ignore domains that do not contain search text.
-      if (trackingDomain.toLowerCase().indexOf(searchText) !== -1) {
-        filteredTrackingDomains.push(trackingDomain);
-      }
-    }
-
-    showTrackingDomains(filteredTrackingDomains);
+    // Show filtered origins.
+    var filteredOrigins = getOriginsArray(searchText);
+    showTrackingDomains(filteredOrigins);
   }, timeToWait);
 }
 
@@ -403,7 +276,7 @@ function filterTrackingDomains(event) {
  * @param domains Tracking domains to display.
  */
 function showTrackingDomains(domains) {
-  domains.sort(compareReversedDomains);
+  domains.sort(htmlUtils.compareReversedDomains);
 
   // Create HTML for list of tracking domains.
   var trackingDetails = '<div id="blockedResourcesInner" class="clickerContainer">';
@@ -419,7 +292,7 @@ function showTrackingDomains(domains) {
 
   // Display tracking domains.
   $('#blockedResourcesInner').html(trackingDetails);
-  $('.switch-toggle').each(function() { registerToggleHandlers(this) });
+  $('.switch-toggle').each(function() { registerToggleHandlers(this); });
 }
 
 /**
@@ -434,7 +307,7 @@ function registerToggleHandlers(element) {
     min: 0,
     max: 2,
     value: value,
-    create: function(event, ui) {
+    create: function(/*event, ui*/) {
       $(element).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
     },
     slide: function(event, ui) {
@@ -445,7 +318,8 @@ function registerToggleHandlers(element) {
 
       // Save change for origin.
       var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-      syncSettings(origin);
+      var action = htmlUtils.getCurrentClass($(element).parents('.clicker'));
+      syncSettings(origin, action);
     },
   }).appendTo(element);
 
@@ -456,12 +330,12 @@ function registerToggleHandlers(element) {
 
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  console.log('updating origin for', $elm);
+  pb.log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
-  $switchContainer.removeClass('block cookieblock noaction').addClass(action);
-  toggleBlockedStatus($clicker, action);
+  $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
+  htmlUtils.toggleBlockedStatus($($clicker), action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
@@ -472,7 +346,7 @@ var tooltipDelay = 300;
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var displayTipTimer = setTimeout(function(){
-    if($elm.attr('tooltip').length == 0){ return; }
+    if(!$elm.attr('tooltip').length){ return; }
     var $container = $elm.closest('.clicker').children('.tooltipContainer');
     if($container.length === 0){
       $container = $elm.siblings('.tooltipContainer');
@@ -481,7 +355,7 @@ function displayTooltip(event){
     $container.show();
     $container.siblings('.tooltipArrow').show();
   },tooltipDelay);
-  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer)});
+  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);});
 }
 
 function hideTooltip(event){
@@ -496,45 +370,7 @@ function hideTooltip(event){
     $container.hide();
     $container.siblings('.tooltipArrow').hide();
   },tooltipDelay);
-  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer)});
-}
-
-function getCurrentClass(elt) {
-  if ($(elt).hasClass("block"))
-    return "block";
-  else if ($(elt).hasClass("cookieblock"))
-    return "cookieblock";
-  else
-    return "noaction";
-}
-
-/**
- * Fetches origins that need to be synced.
- *
- * @param originToCheck {String} Origin to check for changes, optional. If null,
- *                               all origins are checked.
- * @return {Object}
- */
-function getOriginsToSync(originToCheck) {
-  // Function to add origin if set by user and changed.
-  _fetchOrigins = function() {
-    var origin = $(this).attr("data-origin");
-    var userset = $(this).hasClass("userset");
-    var changed = getCurrentClass(this) != $(this).attr("data-original-action");
-    if (userset && changed) {
-      origins[origin] = getCurrentClass(this);
-    }
-  }
-
-  // Check each element for any changes by user.
-  var origins = {};
-  if (originToCheck) {
-    $('.clicker[data-origin="' + originToCheck + '"]').each(_fetchOrigins);
-  } else {
-    $('.clicker').each(_fetchOrigins);
-  }
-
-  return origins;
+  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer);});
 }
 
 /**
@@ -543,23 +379,19 @@ function getOriginsToSync(originToCheck) {
  * @param originToCheck {String} Origin to check for changes, optional. If null,
  *                               all origins are checked.
  */
-function syncSettings(originToCheck) {
-  var originsToSync = getOriginsToSync(originToCheck);
-  console.log("Syncing userset options: " + JSON.stringify(originsToSync));
+function syncSettings(origin, userAction) {
+  pb.log("Syncing userset options: ", origin, userAction);
 
   // Save new action for updated origins.
-  for (var origin in originsToSync) {
-    var userAction = originsToSync[origin];
-    saveAction(userAction, origin);
-  }
-  console.log("Finished syncing.");
+  pb.saveAction(userAction, origin);
+  pb.log("Finished syncing.");
 
   // Options page needs to be refreshed to display current results.
   refreshFilterPage();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  chrome.tabs.getSelected(null, function(tab) {
+  chrome.tabs.getSelected(null, function(/*tab*/) {
     refreshFilterPage();
   });
 });

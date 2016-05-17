@@ -21,7 +21,7 @@
  */
 
 
- function insertScript(text) {
+ function insertCcScript(text) {
    var parent = document.documentElement,
      script = document.createElement('script');
 
@@ -32,34 +32,15 @@
    parent.removeChild(script);
  }
 
-
-
-
-
-
 chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
   if (blocked) {
     var code = '('+ function(){
       var dummyCookie = "x=y";
-      document.__defineSetter__("cookie", function(value) { return dummyCookie; });
+      document.__defineSetter__("cookie", function(/*value*/) { return dummyCookie; });
       document.__defineGetter__("cookie", function() { return dummyCookie; });
-    } +')();'
+    } +')();';
 
-    insertScript(code);
+    insertCcScript(code);
     }
   return true;
 });
-// Clobber local storage, using a function closure to keep the dummy private
-/*(function() {
-  var dummyLocalStorage = { };
-  Object.defineProperty(window, "localStorage", {
-    __proto__: null,
-    configurable: false,
-    get: function () {
-      return dummyLocalStorage;
-    },
-    set: function (newValue) {
-      // Do nothing
-    }
-  });
-})(); */

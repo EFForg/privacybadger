@@ -20,15 +20,16 @@
 <html>
   <head>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css"/>
+    <link rel="stylesheet" href="../lib/qunitjs/qunit/qunit.css"/>
     <script src="../lib/jquery-ui/js/jquery-1.10.2.js"></script>
-    <script src="../node_modules/qunitjs/qunit/qunit.js"></script>
+    <script src="../lib/qunitjs/qunit/qunit.js"></script>
     <script src="../lib/compat.js"></script>
     <script src="../lib/io.js"></script>
+    <script src="../src/storage.js"></script>
     <script src="../src/utils.js"></script>
-    <script src="../src/htmlutils.js"></script>
-    <script src="../src/cookieblocklist.js"></script>
     <script src="../src/domainExceptions.js"></script>
+    <script src="../src/webrequest.js"></script>
+    <script src="../src/heuristicblocking.js"></script>
     <script src="../lib/adblockplus.js"></script>
     <script src="../lib/publicSuffixList.js"></script>
     <script src="../lib/punycode.js"></script>
@@ -36,14 +37,19 @@
     <script src="../lib/sha1.js"></script>
     <script src="../lib/jsbn.js"></script>
     <script src="../lib/rsa.js"></script>
+    <script src="../lib/underscore-min.js"></script>
+    <script src="../src/socialwidgetloader.js"></script>
+    <script src="../src/htmlutils.js"></script>
+    <script src="../src/migrations.js"></script>
+    <script src="../src/background.js"></script>
     <script src="common.js"></script>
-    <script src="tests/cookieblocklist.js"></script>
     <script src="tests/versionComparator.js"></script>
     <script src="tests/baseDomain.js"></script>
     <script src="tests/signatures.js"></script>
     <script src="tests/utils.js"></script>
     <script src="tests/htmlutils.js"></script>
     <script src="tests/domain_exception_list.js"></script>
+    <script src="tests/storage.js"></script>
 
   </head>
   <body>
