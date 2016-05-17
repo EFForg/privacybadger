@@ -74,7 +74,7 @@ var pb = {
   MAX_COOKIE_ENTROPY: 12,
 
   // Display debug messages
-  DEBUG: true,
+  DEBUG: false,
   INITIALIZED: false,
 
   /**
@@ -126,6 +126,7 @@ var pb = {
           pb.runMigrations();
           pb.initializeCookieBlockList();
           pb.initializeDNT();
+          pb.showFirstRunPage();
         }
       });
 
@@ -137,7 +138,6 @@ var pb = {
           }
         }
       });
-      pb.showFirstRunPage();
 
       // TODO: register all privacy badger listeners here in the storage callback
 
