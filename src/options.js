@@ -318,7 +318,8 @@ function registerToggleHandlers(element) {
 
       // Save change for origin.
       var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-      syncSettings(origin);
+      var action = htmlUtils.getCurrentClass($(element).parents('.clicker'));
+      syncSettings(origin, action);
     },
   }).appendTo(element);
 
@@ -373,51 +374,16 @@ function hideTooltip(event){
 }
 
 /**
- * Fetches origins that need to be synced.
- *
- * TODO: It is probably stupid that we are redefining the _fetchOrigins function
- * every time this is called. Investigate doing this in a better way.
- * @param originToCheck {String} Origin to check for changes, optional. If null,
- *                               all origins are checked.
- * @return {Object}
- */
-function getOriginsToSync(originToCheck) {
-  // Function to add origin if set by user and changed.
-  var _fetchOrigins = function() {
-    var origin = $(this).attr("data-origin");
-    var userset = $(this).hasClass("userset");
-    var changed = htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action");
-    if (userset && changed) {
-      origins[origin] = htmlUtils.getCurrentClass($(this));
-    }
-  };
-
-  // Check each element for any changes by user.
-  var origins = {};
-  if (originToCheck) {
-    $('.clicker[data-origin="' + originToCheck + '"]').each(_fetchOrigins);
-  } else {
-    $('.clicker').each(_fetchOrigins);
-  }
-
-  return origins;
-}
-
-/**
  * Syncs settings for origins changed by user.
  *
  * @param originToCheck {String} Origin to check for changes, optional. If null,
  *                               all origins are checked.
  */
-function syncSettings(originToCheck) {
-  var originsToSync = getOriginsToSync(originToCheck);
-  pb.log("Syncing userset options: " + JSON.stringify(originsToSync));
+function syncSettings(origin, userAction) {
+  pb.log("Syncing userset options: ", origin, userAction);
 
   // Save new action for updated origins.
-  for (var origin in originsToSync) {
-    var userAction = originsToSync[origin];
-    pb.saveAction(userAction, origin);
-  }
+  pb.saveAction(userAction, origin);
   pb.log("Finished syncing.");
 
   // Options page needs to be refreshed to display current results.
