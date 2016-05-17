@@ -1,5 +1,19 @@
 Changes for Privacy Badger 
 ====================================
+## 2015.5.16 (2.0RC1)
+* Remove Adblock Plus Engine
+* Switch to using storage.js and chrome storage API
+* Massive refactoring of code
+* Huge speed improvements
+* Fixes bug where privacy badger "forgets" settings
+* Fixes first run tab opening on every startup
+* Fix waiting for privacy badger bug
+* Fix high CPU usage bug
+* Uses separate data store for incognito mode
+* Ads selenium test to run pbtest.org sweet
+* Fixes weird subdomain handling edge case
+* Fixes bug where pages stop loading sometimes
+
 ## 2015.4.6 (1.8)
 * Fix "waiting for privacy badger bug"
 * Huge speed improvement
