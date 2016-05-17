@@ -193,13 +193,13 @@ function getOriginAction(origin) {
 //TODO unduplicate this code? since it's also in popup
 function revertDomainControl(e){
   var $elm = $(e.target).parent();
-  console.log('revert to privacy badger control for', $elm);
+  pb.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   pb.storage.revertUserAction(origin);
   var defaultAction = pb.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
-  console.log('selector', selector);
+  pb.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
   return false;
@@ -244,7 +244,7 @@ function refreshFilterPage() {
   }
   showTrackingDomains(originsToDisplay);
 
-  console.log("Done refreshing options page");
+  pb.log("Done refreshing options page");
 }
 
 /**
@@ -328,7 +328,7 @@ function registerToggleHandlers(element) {
 
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  console.log('updating origin for', $elm);
+  pb.log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
@@ -410,14 +410,14 @@ function getOriginsToSync(originToCheck) {
  */
 function syncSettings(originToCheck) {
   var originsToSync = getOriginsToSync(originToCheck);
-  console.log("Syncing userset options: " + JSON.stringify(originsToSync));
+  pb.log("Syncing userset options: " + JSON.stringify(originsToSync));
 
   // Save new action for updated origins.
   for (var origin in originsToSync) {
     var userAction = originsToSync[origin];
     pb.saveAction(userAction, origin);
   }
-  console.log("Finished syncing.");
+  pb.log("Finished syncing.");
 
   // Options page needs to be refreshed to display current results.
   refreshFilterPage();
