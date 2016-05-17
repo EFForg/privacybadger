@@ -202,6 +202,7 @@ function revertDomainControl(e){
   pb.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
+  refreshFilterPage(origin);
   return false;
 }
 
