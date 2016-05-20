@@ -50,16 +50,25 @@ function setupSubdomainsForCookieblock(origin){
  */
 var blacklistOrigin = function(baseDomain, fqdn) { /* jshint ignore:line */
   var cbl = pbStorage.getBadgerStorageObject("cookieblock_list");
-  var domain, i;
+
   // Setup Cookieblock or block for base domain and fqdn
-  for (i in arguments){
-    domain = arguments[i];
-    // TODO: we need to check if the cookie block list contains any parent domains as well
+  if(cbl.hasItem(baseDomain)){
+    pbStorage.setupHeuristicAction(baseDomain, pb.COOKIEBLOCK);
+  } else {
+    pbStorage.setupHeuristicAction(baseDomain, pb.BLOCK);
+  }
+
+  // Check if a parent domain of the fqdn is on the cookie block list
+  var set = false;
+  _.each(Utils.explodeSubdomains(fqdn), function(domain){
     if(cbl.hasItem(domain)){
-      pbStorage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
-    } else {
-      pbStorage.setupHeuristicAction(domain, pb.BLOCK);
+      pbStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
+      set = true;
     }
+  });
+  // if no parent domains are on the cookie block list then block fqdn 
+  if(!set){
+    pbStorage.setupHeuristicAction(fqdn, pb.BLOCK);
   }
   
   setupSubdomainsForCookieblock(baseDomain);

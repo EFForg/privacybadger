@@ -22,6 +22,7 @@
 require.scopes.migrations = (function() {
 var pbStorage = require("storage");
 var heuristicBlocking = require("heuristicblocking");
+var Utils = require("utils").Utils;
   
 var exports = {};
 exports.Migrations= {
@@ -142,9 +143,24 @@ exports.Migrations= {
 
 
     console.log('ABP IS OVER!!!!');
-  }
+  },
+
+  migrateBlockedSubdomainsToCookieblock(){
+    console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
+    var cbl = pbStorage.getBadgerStorageObject('cookieblock_list');
+    _.each(pbStorage.getAllDomainsByPresumedAction(pb.BLOCK), function(fqdn){
+      _.each(Utils.explodeSubdomains(fqdn), function(domain){
+        if(cbl.hasItem(domain)){
+          console.log('moving', fqdn, 'from block to cookie block');
+          pbStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
+        }
+      });
+    });
+  },
 
 };
+
+
 
 return exports;
 })(); //require scopes

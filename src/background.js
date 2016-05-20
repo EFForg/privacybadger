@@ -396,6 +396,7 @@ var pb = {
     var migrations = [
       Migrations.changePrivacySettings,
       Migrations.migrateAbpToStorage,
+      Migrations.migrateBlockedSubdomainsToCookieblock,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
