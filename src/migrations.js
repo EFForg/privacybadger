@@ -64,43 +64,60 @@ exports.Migrations= {
     settings.setItem('isFirstRun', false);
 
     //migrate snitch_map
-    var seenThirdParties = JSON.parse(localStorage.seenThirdParties);
-    var oldSeen = {};
-    _.each(seenThirdParties, function(val , key){
-      oldSeen[key] = _.keys(val);
-      pbStorage.setupHeuristicAction(key, pb.ALLOW);
-    });
-    snitch_map.updateObject(oldSeen);
+    try {
+      var seenThirdParties = JSON.parse(localStorage.seenThirdParties);
+      var oldSeen = {};
+      _.each(seenThirdParties, function(val , key){
+        oldSeen[key] = _.keys(val);
+        pbStorage.setupHeuristicAction(key, pb.ALLOW);
+      });
+      snitch_map.updateObject(oldSeen);
+    } catch (e) {
+      console.log(e);
+    }
+
 
     // migrate supercookie_domains
-    supercookie_domains.updateObject(JSON.parse(localStorage.supercookieDomains));
+    try {
+      supercookie_domains.updateObject(JSON.parse(localStorage.supercookieDomains));
+    } catch (e) {
+      console.log(e);
+    }
 
     // setup cookieblock list
-    var tmp_cbl = {};
-    _.each(FilterStorage.knownSubscriptions["https://www.eff.org/files/cookieblocklist.txt"].filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      tmp_cbl[domain] = true;
-    });
-    cookieblock_list.updateObject(tmp_cbl);
+    try {
+      var tmp_cbl = {};
+      _.each(FilterStorage.knownSubscriptions["https://www.eff.org/files/cookieblocklist.txt"].filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        tmp_cbl[domain] = true;
+      });
+      cookieblock_list.updateObject(tmp_cbl);
+    } catch (e) {
+      console.log(e);
+    }
     
     // Migrate action_map
-    _.each(FilterStorage.knownSubscriptions.frequencyHeuristic.filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      var baseDomain = window.getBaseDomain(domain);
-      heuristicBlocking.blacklistOrigin(baseDomain, domain);
-    });
-    _.each(FilterStorage.knownSubscriptions.userRed.filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      pbStorage.setupUserAction(domain, pb.USER_BLOCK);
-    });
-    _.each(FilterStorage.knownSubscriptions.userYellow.filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      pbStorage.setupUserAction(domain, pb.USER_COOKIE_BLOCK);
-    });
-    _.each(FilterStorage.knownSubscriptions.userGreen.filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      pbStorage.setupUserAction(domain, pb.USER_ALLOW);
-    });
+    try {
+      _.each(FilterStorage.knownSubscriptions.frequencyHeuristic.filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        var baseDomain = window.getBaseDomain(domain);
+        heuristicBlocking.blacklistOrigin(baseDomain, domain);
+      });
+      _.each(FilterStorage.knownSubscriptions.userRed.filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        pbStorage.setupUserAction(domain, pb.USER_BLOCK);
+      });
+      _.each(FilterStorage.knownSubscriptions.userYellow.filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        pbStorage.setupUserAction(domain, pb.USER_COOKIE_BLOCK);
+      });
+      _.each(FilterStorage.knownSubscriptions.userGreen.filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        pbStorage.setupUserAction(domain, pb.USER_ALLOW);
+      });
+    } catch (e) {
+      console.log(e);
+    }
 
     // Migrate DNT domains
     if(localStorage.whitelisted){
