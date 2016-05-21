@@ -8,7 +8,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 
 class OptionsPageTest(pbtest.PBSeleniumTest):
@@ -88,6 +88,39 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
                                                  orig_tooltip_css)))
         except TimeoutException as e:
             self.fail("Tooltip is not displayed for tracker origin. %s" % e)
+
+    def test_origin_display_and_removal(self):
+        """Ensure origin is displayed and removed properly."""
+        # Add test tracking origin.
+        self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
+        self.js("pb.storage.setupHeuristicAction('pbtest.org', 'block');")
+
+        origin_xpath = './/div[@data-origin="pbtest.org"]'
+        origin_display_xpath = '//div[@class="origin" and text()="pbtest.org"]'
+        origin_remove_xpath = '//div[@class="removeOrigin"]'
+
+        # Reload options page and make sure origin is displayed.
+        self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
+        try:
+            origins = self.driver.find_element_by_id("blockedResourcesInner")
+            origins.find_element_by_xpath(
+                origin_xpath + origin_display_xpath)
+            remove_origin_element = origins.find_element_by_xpath(
+                origin_xpath + origin_remove_xpath)
+        except NoSuchElementException:
+            self.fail("Tracking origin is not displayed")
+
+        # Remove origin and make sure it's no longer displayed.
+        remove_origin_element.click()
+        self.driver.switch_to.alert.accept()
+        try:
+            origins = self.driver.find_element_by_id("blockedResourcesInner")
+            origin_element = origins.find_element_by_xpath(
+                origin_xpath + origin_display_xpath)
+        except NoSuchElementException:
+            origin_element = None
+        self.assertIsNone(
+            origin_element, "Origin should not be displayed after removal")
 
 
 if __name__ == "__main__":
