@@ -149,7 +149,7 @@ exports.Migrations= {
     console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
     var cbl = pbStorage.getBadgerStorageObject('cookieblock_list');
     _.each(pbStorage.getAllDomainsByPresumedAction(pb.BLOCK), function(fqdn){
-      _.each(Utils.explodeSubdomains(fqdn), function(domain){
+      _.each(Utils.explodeSubdomains(fqdn, true), function(domain){
         if(cbl.hasItem(domain)){
           console.log('moving', fqdn, 'from block to cookie block');
           pbStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);

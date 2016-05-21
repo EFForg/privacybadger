@@ -60,7 +60,7 @@ var blacklistOrigin = function(baseDomain, fqdn) { /* jshint ignore:line */
 
   // Check if a parent domain of the fqdn is on the cookie block list
   var set = false;
-  _.each(Utils.explodeSubdomains(fqdn), function(domain){
+  _.each(Utils.explodeSubdomains(fqdn, true), function(domain){
     if(cbl.hasItem(domain)){
       pbStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
       set = true;

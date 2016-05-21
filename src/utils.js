@@ -167,10 +167,20 @@ var Utils = exports.Utils = {
 
   /**
    * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
-   * eTLD+1.
+   * eTLD+1. e.g. [a.b.eff.org, b.eff.org, eff.org]
+   * if 'all' is passed in then the array will include all domain levels, not 
+   * just down to the base domain
+   * @param {String} fqdn the domain to split
+   * @param {boolean} all whether to include all domain levels
+   *
    **/
-   explodeSubdomains: function(fqdn){
-     var baseDomain = window.getBaseDomain(fqdn);
+   explodeSubdomains: function(fqdn, all){
+     var baseDomain;
+     if(all){
+       baseDomain = fqdn.split('.').pop();
+     } else {
+       baseDomain = window.getBaseDomain(fqdn);
+     }
      var baseLen = baseDomain.split('.').length;
      var parts = fqdn.split('.');
      var numLoops = parts.length - baseLen;
