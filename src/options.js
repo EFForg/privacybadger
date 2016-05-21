@@ -216,9 +216,13 @@ function refreshFilterPage() {
   // Check to see if any tracking domains have been found before continuing.
   var allTrackingDomains = getOriginsArray();
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
+    $("#count").text(0);
     $("#blockedResources").html("Could not detect any tracking cookies.");
     return;
   }
+
+  // Update tracking domain count.
+  $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
   var trackerTooltips = '<div id="associatedTab" data-tab-id="000"></div>' +
@@ -232,9 +236,6 @@ function refreshFilterPage() {
     '<div class="spacer"></div>' +
     '<div id="blockedResourcesInner" class="clickerContainer"></div>';
   $("#blockedResources").html(trackerTooltips);
-
-  // Update tracking domain count.
-  $("#count").text(allTrackingDomains.length);
 
   // Display tracking domains.
   var originsToDisplay;
