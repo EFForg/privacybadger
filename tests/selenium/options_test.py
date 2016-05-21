@@ -89,45 +89,62 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         except TimeoutException as e:
             self.fail("Tooltip is not displayed for tracker origin. %s" % e)
 
-    def test_origin_display_and_removal(self):
-        """Ensure origin is displayed and removed properly."""
-        # Add test tracking origin.
+    def add_test_origin(self, origin, action):
+        """Add given origin to backend storage."""
         self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
-        self.js("pb.storage.setupHeuristicAction('pbtest.org', 'block');")
+        self.js("pb.storage.setupHeuristicAction('{}', '{}');".format(origin, action))
 
-        origin_xpath = './/div[@data-origin="pbtest.org"]'
-        origin_display_xpath = '//div[@class="origin" and text()="pbtest.org"]'
-        origin_remove_xpath = '//div[@class="removeOrigin"]'
+    def test_added_origin_display(self):
+        """Ensure origin and tracker count is displayed."""
+        self.add_test_origin("pbtest.org", "block")
 
-        # Reload options page and make sure origin is displayed.
         self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
         origins = self.driver.find_element_by_id("blockedResourcesInner")
-        self.assertEqual(self.driver.find_element_by_id("count").text, "1",
-                         "Origin count should be 1 after adding origin")
+
+        # Check tracker count.
+        error_message = "Origin tracker count should be 1 after adding origin"
+        self.assertEqual(
+            self.driver.find_element_by_id("count").text, "1", error_message)
+
+        # Check that origin is displayed.
         try:
             origins.find_element_by_xpath(
-                origin_xpath + origin_display_xpath)
-            remove_origin_element = origins.find_element_by_xpath(
-                origin_xpath + origin_remove_xpath)
+                './/div[@data-origin="pbtest.org"]' +
+                '//div[@class="origin" and text()="pbtest.org"]')
         except NoSuchElementException:
             self.fail("Tracking origin is not displayed")
 
-        # Remove origin and make sure it's no longer displayed.
+    def test_removed_origin_display(self):
+        """Ensure origin is displayed and removed properly."""
+        self.add_test_origin("pbtest.org", "block")
+
+        self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
+        origins = self.driver.find_element_by_id("blockedResourcesInner")
+
+        # Remove displayed origin.
+        try:
+            remove_origin_element = origins.find_element_by_xpath(
+                './/div[@data-origin="pbtest.org"]' +
+                '//div[@class="removeOrigin"]')
+        except NoSuchElementException:
+            self.fail("Tracking origin is not displayed")
         remove_origin_element.click()
         self.driver.switch_to.alert.accept()
-        try:
-            origins = self.driver.find_element_by_id("blockedResourcesInner")
-            origin_element = origins.find_element_by_xpath(
-                origin_xpath + origin_display_xpath)
-        except NoSuchElementException:
-            origin_element = None
-        self.assertIsNone(origin_element,
-                          "Origin should not be displayed after removal")
+
+        # Check tracker count.
         try:
             WebDriverWait(self.driver, 5).until(
                 EC.text_to_be_present_in_element((By.ID, "count"), "0"))
         except TimeoutException:
             self.fail("Origin count should be 0 after deleting origin")
+
+        # Check that no origins are displayed.
+        try:
+            origins = self.driver.find_element_by_id("blockedResourcesInner")
+        except NoSuchElementException:
+            origins = None
+        error_message = "Origin should not be displayed after removal"
+        self.assertIsNone(origins, error_message)
 
 
 if __name__ == "__main__":
