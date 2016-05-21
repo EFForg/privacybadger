@@ -57,7 +57,7 @@ var pb = {
   MAX_COOKIE_ENTROPY: 12,
 
   // Display debug messages
-  DEBUG: true,
+  DEBUG: false,
   INITIALIZED: false,
 
   /**
