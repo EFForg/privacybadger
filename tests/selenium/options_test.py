@@ -101,8 +101,10 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
         # Reload options page and make sure origin is displayed.
         self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
+        origins = self.driver.find_element_by_id("blockedResourcesInner")
+        self.assertEqual(self.driver.find_element_by_id("count").text, "1",
+                         "Origin count should be 1 after adding origin")
         try:
-            origins = self.driver.find_element_by_id("blockedResourcesInner")
             origins.find_element_by_xpath(
                 origin_xpath + origin_display_xpath)
             remove_origin_element = origins.find_element_by_xpath(
@@ -119,8 +121,13 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
                 origin_xpath + origin_display_xpath)
         except NoSuchElementException:
             origin_element = None
-        self.assertIsNone(
-            origin_element, "Origin should not be displayed after removal")
+        self.assertIsNone(origin_element,
+                          "Origin should not be displayed after removal")
+        try:
+            WebDriverWait(self.driver, 5).until(
+                EC.text_to_be_present_in_element((By.ID, "count"), "0"))
+        except TimeoutException:
+            self.fail("Origin count should be 0 after deleting origin")
 
 
 if __name__ == "__main__":
