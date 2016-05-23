@@ -1,6 +1,10 @@
 Changes for Privacy Badger 
 ====================================
-## 2015.5.16 (2.0RC1)
+## 2016.5.23 (2.0RC2)
+* Fix cookie block list adding bug
+* New migration to fix bug retroactively
+
+## 2016.5.16 (2.0RC1)
 * Remove Adblock Plus Engine
 * Switch to using storage.js and chrome storage API
 * Massive refactoring of code
