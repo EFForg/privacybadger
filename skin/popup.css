@@ -19,13 +19,15 @@
 
 body {
   min-width: 400px;
+  max-width: 400px;
   font-size: 12px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
   padding-left: 7px;
   padding-right: 7px;
-  overflow-y: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 a { text-decoration: none }
