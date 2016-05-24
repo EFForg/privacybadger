@@ -17,6 +17,8 @@
 
 
 require.scopes.migrations = (function() {
+var pbStorage = require("storage");
+var Utils = require("utils").Utils;
   
 var exports = {};
 exports.Migrations= {
@@ -62,43 +64,59 @@ exports.Migrations= {
     settings.setItem('isFirstRun', false);
 
     //migrate snitch_map
-    var seenThirdParties = JSON.parse(localStorage.seenThirdParties);
-    var oldSeen = {};
-    _.each(seenThirdParties, function(val , key){
-      oldSeen[key] = _.keys(val);
-      pbStorage.setupHeuristicAction(key, pb.ALLOW);
-    });
-    snitch_map.updateObject(oldSeen);
+    try {
+      var seenThirdParties = JSON.parse(localStorage.seenThirdParties);
+      var oldSeen = {};
+      _.each(seenThirdParties, function(val , key){
+        oldSeen[key] = _.keys(val);
+        pbStorage.setupHeuristicAction(key, pb.ALLOW);
+      });
+      snitch_map.updateObject(oldSeen);
+    } catch (e) {
+      console.log(e);
+    }
+
 
     // migrate supercookie_domains
-    supercookie_domains.updateObject(JSON.parse(localStorage.supercookieDomains));
+    try {
+      supercookie_domains.updateObject(JSON.parse(localStorage.supercookieDomains));
+    } catch (e) {
+      console.log(e);
+    }
 
     // setup cookieblock list
-    var tmp_cbl = {};
-    _.each(FilterStorage.knownSubscriptions["https://www.eff.org/files/cookieblocklist.txt"].filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      tmp_cbl[domain] = true;
-    });
-    cookieblock_list.updateObject(tmp_cbl);
+    try {
+      var tmp_cbl = {};
+      _.each(FilterStorage.knownSubscriptions["https://www.eff.org/files/cookieblocklist.txt"].filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        tmp_cbl[domain] = true;
+      });
+      cookieblock_list.updateObject(tmp_cbl);
+    } catch (e) {
+      console.log(e);
+    }
     
     // Migrate action_map
-    _.each(FilterStorage.knownSubscriptions.frequencyHeuristic.filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      var baseDomain = window.getBaseDomain(domain);
-      heuristicBlocking.blacklistOrigin(baseDomain, domain);
-    });
-    _.each(FilterStorage.knownSubscriptions.userRed.filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      pbStorage.setupUserAction(domain, pb.USER_BLOCK);
-    });
-    _.each(FilterStorage.knownSubscriptions.userYellow.filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      pbStorage.setupUserAction(domain, pb.USER_COOKIE_BLOCK);
-    });
-    _.each(FilterStorage.knownSubscriptions.userGreen.filters, function(filter){
-      var domain = getDomainFromFilter(filter.text);
-      pbStorage.setupUserAction(domain, pb.USER_ALLOW);
-    });
+    try {
+      _.each(FilterStorage.knownSubscriptions.frequencyHeuristic.filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        var baseDomain = window.getBaseDomain(domain);
+        heuristicBlocking.blacklistOrigin(baseDomain, domain);
+      });
+      _.each(FilterStorage.knownSubscriptions.userRed.filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        pbStorage.setupUserAction(domain, pb.USER_BLOCK);
+      });
+      _.each(FilterStorage.knownSubscriptions.userYellow.filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        pbStorage.setupUserAction(domain, pb.USER_COOKIE_BLOCK); });
+      _.each(FilterStorage.knownSubscriptions.userGreen.filters, function(filter){
+        var domain = getDomainFromFilter(filter.text);
+        pbStorage.setupUserAction(domain, pb.USER_ALLOW);
+      });
+    } catch (e) {
+      console.log(e);
+    }
 
     // Migrate DNT domains
     if(localStorage.whitelisted){
@@ -124,9 +142,26 @@ exports.Migrations= {
 
     console.log('ABP IS OVER!!!!');
     */
-  }
+  },
+
+  migrateBlockedSubdomainsToCookieblock(){
+    setTimeout(function(){
+      console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
+      var cbl = pbStorage.getBadgerStorageObject('cookieblock_list');
+      _.each(pbStorage.getAllDomainsByPresumedAction(pb.BLOCK), function(fqdn){
+        _.each(Utils.explodeSubdomains(fqdn, true), function(domain){
+          if(cbl.hasItem(domain)){
+            console.log('moving', fqdn, 'from block to cookie block');
+            pbStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
+          }
+        });
+      });
+    }, 1000 * 30);
+  },
 
 };
+
+
 
 return exports;
 })(); //require scopes
