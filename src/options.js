@@ -42,12 +42,13 @@ function loadOptions() {
   $("#trackingDomainSearch").attr("placeholder", i18n.getMessage("options_domain_search"));
   $("#trackingDomainSearch").on("input", filterTrackingDomains);
 
-  // load resources for filter sliders
+  // Add event listeners for origins container.
   $(function () {
     $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
+    $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
   });
 
   // Display jQuery UI elements
@@ -215,9 +216,13 @@ function refreshFilterPage() {
   // Check to see if any tracking domains have been found before continuing.
   var allTrackingDomains = getOriginsArray();
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
+    $("#count").text(0);
     $("#blockedResources").html("Could not detect any tracking cookies.");
     return;
   }
+
+  // Update tracking domain count.
+  $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
   var trackerTooltips = '<div id="associatedTab" data-tab-id="000"></div>' +
@@ -231,9 +236,6 @@ function refreshFilterPage() {
     '<div class="spacer"></div>' +
     '<div id="blockedResourcesInner" class="clickerContainer"></div>';
   $("#blockedResources").html(trackerTooltips);
-
-  // Update tracking domain count.
-  $("#count").text(allTrackingDomains.length);
 
   // Display tracking domains.
   var originsToDisplay;
@@ -339,6 +341,28 @@ function updateOrigin(event){
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
+}
+
+/**
+ * Remove origin from Privacy Badger.
+ * @param event {Event} Click event triggered by user.
+ */
+function removeOrigin(event) {
+  // Confirm removal before proceeding.
+  var removalConfirmed = confirm(i18n.getMessage("options_remove_origin_confirm"));
+  if (!removalConfirmed) {
+    return;
+  }
+
+  // Remove traces of origin from storage.
+  var $element = $(event.target).parent();
+  var origin = $element.data('origin');
+  pb.storage.getBadgerStorageObject("snitch_map").deleteItem(origin);
+  pb.storage.getBadgerStorageObject("action_map").deleteItem(origin);
+  pb.storage.getBadgerStorageObject("supercookie_domains").deleteItem(origin);
+  pb.log('Removed', origin, 'from Privacy Badger');
+
+  refreshFilterPage();
 }
 
 var tooltipDelay = 300;
