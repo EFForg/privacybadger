@@ -350,6 +350,10 @@ olark.com
 omroep.nl
 amazoncustomerservice.d2.sc.omtrdc.net
 onswipe.com
+ak.c.ooyala.com
+api.ooyala.com
+l.ooyala.com
+player.ooyala.com
 tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
