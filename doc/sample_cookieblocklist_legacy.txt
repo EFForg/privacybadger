@@ -79,6 +79,7 @@
 @@||cloudfront.net^$third-party
 @@||bbc.co.uk^$third-party
 @@||bbci.co.uk^$third-party
+@@||gr-assets.com^$third-party
 @@||grapeshot.co.uk^$third-party
 @@||guardian.co.uk^$third-party
 @@||mediaworks.co.nz^$third-party

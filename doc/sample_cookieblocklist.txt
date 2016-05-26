@@ -80,6 +80,7 @@ cloudfront.net
 bbc.co.uk
 bbci.co.uk
 grapeshot.co.uk
+gr-assets.com
 guardian.co.uk
 mediaworks.co.nz
 com.com
