@@ -53,6 +53,9 @@
     "options_loading": {
         "message": "Loading..."
     },
+    "options_remove_origin_confirm": {
+        "message": "Are you sure you want to remove this origin from Privacy Badger?"
+    },
     "options_slider_text": {
         "message": "Privacy Badger is protecting you across the web! These sliders let you control how Privacy Badger handles each tracker that it has flagged through your browsing."
     },
