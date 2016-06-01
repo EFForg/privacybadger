@@ -526,4 +526,3 @@ window.addEventListener('unload', function() {
   syncUISelections();
   console.log("unloaded popup");
 });
-

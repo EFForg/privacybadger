@@ -152,6 +152,10 @@ var pb = {
     pb.tabData[tabId].trackers[fqdn] = action;
   },
 
+  logIncognito: function(inIncognito) {
+      pb.inIncognito = inIncognito
+  },
+
   showFirstRunPage: function(){
     var settings = pb.storage.getBadgerStorageObject("settings_map");
     if (settings.getItem("isFirstRun") && !chrome.extension.inIncognitoContext) {

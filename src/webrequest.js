@@ -629,7 +629,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   if (request.checkEnabled) {
     sendResponse(Utils.isPrivacyBadgerEnabled(tabHost));
-
+  } else if (request.contentIncognito) {
+      pb.logIncognito(request.contentIncognito);
+      sendResponse();
   } else if (request.checkLocation) {
     if (Utils.isPrivacyBadgerEnabled(tabHost)) {
       var documentHost = request.checkLocation.href;
