@@ -173,6 +173,7 @@
 @@||getpocket.com^$third-party
 @@||giant.gfycat.com^$third-party
 @@||ggpht.com^$third-party
+@@||giphy.com^$third-party
 @@||github.com^$third-party
 @@||githubusercontent.com^$third-party
 @@||gmodules.com^$third-party
