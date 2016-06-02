@@ -79,6 +79,7 @@
 @@||cloudfront.net^$third-party
 @@||bbc.co.uk^$third-party
 @@||bbci.co.uk^$third-party
+@@||gr-assets.com^$third-party
 @@||grapeshot.co.uk^$third-party
 @@||guardian.co.uk^$third-party
 @@||mediaworks.co.nz^$third-party
@@ -350,6 +351,10 @@
 @@||omroep.nl^$third-party
 @@||amazoncustomerservice.d2.sc.omtrdc.net^$third-party
 @@||onswipe.com^$third-party
+@@||c.ooyala.com^$third-party
+@@||api.ooyala.com^$third-party
+@@||l.ooyala.com^$third-party
+@@||player.ooyala.com^$third-party
 @@||tile.opencyclemap.org^$third-party
 @@||tile2.opencyclemap.org^$third-party
 @@||openlayers.org^$third-party
@@ -377,6 +382,7 @@
 @@||plex.tv^$third-party
 @@||poll.fm^$third-party
 @@||polldaddy.com^$third-party
+@@||postimg.org^$third-party
 @@||powerreviews.com^$third-party
 @@||pricegrabber.com^$third-party
 @@||printfriendly.com^$third-party

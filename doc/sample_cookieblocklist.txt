@@ -80,6 +80,7 @@ cloudfront.net
 bbc.co.uk
 bbci.co.uk
 grapeshot.co.uk
+gr-assets.com
 guardian.co.uk
 mediaworks.co.nz
 com.com
@@ -350,6 +351,10 @@ olark.com
 omroep.nl
 amazoncustomerservice.d2.sc.omtrdc.net
 onswipe.com
+c.ooyala.com
+api.ooyala.com
+l.ooyala.com
+player.ooyala.com
 tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
@@ -377,6 +382,7 @@ pixietrixcomix.com
 plex.tv
 poll.fm
 polldaddy.com
+postimg.org
 powerreviews.com
 pricegrabber.com
 printfriendly.com
