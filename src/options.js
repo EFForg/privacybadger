@@ -391,7 +391,7 @@ function syncSettings(origin, userAction) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  chrome.tabs.getSelected(null, function(/*tab*/) {
+  chrome.tabs.query({currentWindow: true}, function(/*tab*/) {
     refreshFilterPage();
   });
 });
