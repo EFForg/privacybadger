@@ -152,8 +152,8 @@ var pb = {
     pb.tabData[tabId].trackers[fqdn] = action;
   },
 
-  logIncognito: function(inIncognito) {
-      pb.inIncognito = inIncognito
+  logIncognitoOnTab: function(tabId, inIncognito) {
+      pb.tabData[tabId].inIncognito = inIncognito
   },
 
   showFirstRunPage: function(){
