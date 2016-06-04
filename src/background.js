@@ -204,13 +204,6 @@ Badger.prototype = {
     return true;
   },
 
-  /**
-  * reloads a tab
-  * @param {Integer} tabId the chrome tab id
-  */
-  reloadTab: function(tabId){
-    chrome.tabs.reload(tabId);
-  },
 
   /**
   * Populate tabs object with currently open tabs when extension is updated or installed.
@@ -429,7 +422,13 @@ Badger.prototype = {
 var pb = new Badger({})
 var incognito_pb = false
 
-/******* methods which should be moved into pb global *********/
+/**
+* reloads a tab
+* @param {Integer} tabId the chrome tab id
+*/
+function reloadTab(tabId) {
+    chrome.tabs.reload(tabId);
+}
 
 /**
  * Wrappers to be called by popup.js

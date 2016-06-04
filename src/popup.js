@@ -178,7 +178,7 @@ function active_site(){
   $("#blockedResourcesContainer").show();
   Utils.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
   backgroundPage.refreshIconAndContextMenu(tab);
-  pb.reloadTab(tab.id);
+  backgroundPage.reloadTab(tab.id);
 }
 
 /**
@@ -190,7 +190,7 @@ function deactive_site(){
   $("#blockedResourcesContainer").hide();
   Utils.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
   backgroundPage.refreshIconAndContextMenu(tab);
-  pb.reloadTab(tab.id);
+  backgroundPage.reloadTab(tab.id);
 }
 
 /**
@@ -210,7 +210,7 @@ function revertDomainControl(e){
   console.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
-  pb.reloadTab(tab.id);
+  backgroundPage.reloadTab(tab.id);
   return false;
 }
 /**
@@ -496,7 +496,7 @@ function syncUISelections() {
   console.log("Sync of userset options: " + JSON.stringify(settingsDict));
   var tabId = syncSettingsDict(settingsDict);
   if (tabId){
-    pb.reloadTab(tabId);
+    backgroundPage.reloadTab(tabId);
   }
 }
 
