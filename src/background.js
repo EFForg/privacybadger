@@ -33,7 +33,8 @@ var Migrations = require("migrations").Migrations;
 /**
 * privacy badger initializer
 */
-function  Badger() {
+function  Badger(tabData) {
+    this.tabData = JSON.parse(JSON.stringify(tabData));
     this.storage.initialize(function() {
         if(this.INITIALIZED) { return; }
         this.updateTabList();
@@ -405,7 +406,8 @@ Badger.prototype = {
 
 };
 
-var pb = new Badger()
+var pb = new Badger({})
+var incognito_pb = false
 
 /******* methods which should be moved into pb global *********/
 
