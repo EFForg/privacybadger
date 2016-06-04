@@ -97,16 +97,16 @@ var pb = {
    */
   init: function(){
 
-    pb.storage.initialize(function(){
-      if(pb.INITIALIZED) { return; }
-      pb.updateTabList();
-      pb.initializeDefaultSettings();
+    this.storage.initialize(function(){
+      if(this.INITIALIZED) { return; }
+      this.updateTabList();
+      this.initializeDefaultSettings();
       try {
-        pb.runMigrations();
+        this.runMigrations();
       } finally {
-        pb.initializeCookieBlockList();
-        pb.initializeDNT();
-        pb.showFirstRunPage();
+        this.initializeCookieBlockList();
+        this.initializeDNT();
+        this.showFirstRunPage();
       }
 
       // Show icon as page action for all tabs that already exist
@@ -120,7 +120,7 @@ var pb = {
 
       // TODO: register all privacy badger listeners here in the storage callback
 
-      pb.INITIALIZED = true;
+      this.INITIALIZED = true;
       console.log('privacy badger is ready to rock');
       console.log('set pb.DEBUG=1 to view console messages');
     });
@@ -130,13 +130,13 @@ var pb = {
    * Log a message to the conosle if debugging is enabled
    */
   log: function(/*...*/){
-    if(pb.DEBUG) {
+    if(this.DEBUG) {
       console.log.apply(console, arguments);
     }
   },
 
   error: function(/*...*/){
-    if(pb.DEBUG) {
+    if(this.DEBUG) {
       console.error.apply(console, arguments);
     }
   },
@@ -149,15 +149,15 @@ var pb = {
    * @param action the action we are taking
    **/
   logTrackerOnTab: function(tabId, fqdn, action){
-    pb.tabData[tabId].trackers[fqdn] = action;
+    this.tabData[tabId].trackers[fqdn] = action;
   },
 
   logIncognitoOnTab: function(tabId, inIncognito) {
-      pb.tabData[tabId].inIncognito = inIncognito
+      this.tabData[tabId].inIncognito = inIncognito
   },
 
   showFirstRunPage: function(){
-    var settings = pb.storage.getBadgerStorageObject("settings_map");
+    var settings = this.storage.getBadgerStorageObject("settings_map");
     if (settings.getItem("isFirstRun") && !chrome.extension.inIncognitoContext) {
       chrome.tabs.create({
         url: chrome.extension.getURL("/skin/firstRun.html")
@@ -173,11 +173,11 @@ var pb = {
   * @param {String} origin the third party origin to take action on
   */
   saveAction: function(userAction, origin) {
-    var allUserActions = {'block': pb.USER_BLOCK,
-                          'cookieblock': pb.USER_COOKIE_BLOCK,
-                          'allow': pb.USER_ALLOW};
-    pb.storage.setupUserAction(origin, allUserActions[userAction]);
-    pb.log("Finished saving action " + userAction + " for " + origin);
+    var allUserActions = {'block': this.USER_BLOCK,
+                          'cookieblock': this.USER_COOKIE_BLOCK,
+                          'allow': this.USER_ALLOW};
+    this.storage.setupUserAction(origin, allUserActions[userAction]);
+    this.log("Finished saving action " + userAction + " for " + origin);
 
     // TODO: right now we don't determine whether a reload is needed
     return true;
@@ -196,11 +196,11 @@ var pb = {
   */
   updateTabList: function(){
     // Initialize the tabData/frames object if it is falsey
-    pb.tabData = pb.tabData || {};
+    this.tabData = this.tabData || {};
     chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
       for(var i = 0; i < tabs.length; i++){
         var tab = tabs[i];
-        pb.tabData[tab.id] = {
+        this.tabData[tab.id] = {
           frames: {
             0: {
               parent: -1,
@@ -221,8 +221,8 @@ var pb = {
    * Set a timer to update every 24 hours
    **/
   initializeCookieBlockList: function(){
-    pb.updateCookieBlockList();
-    setInterval(pb.updateCookieBlockList, pb.utils.oneDay());
+    this.updateCookieBlockList();
+    setInterval(this.updateCookieBlockList, this.utils.oneDay());
   },
 
   /**
@@ -232,35 +232,35 @@ var pb = {
   * from the action map
   **/
   updateCookieBlockList: function(){
-    pb.utils.xhrRequest(pb.COOKIE_BLOCK_LIST_URL, function(err,response){
+    this.utils.xhrRequest(this.COOKIE_BLOCK_LIST_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
-                  pb.COOKIE_BLOCK_LIST_URL, err.status, err.message);
+                  this.COOKIE_BLOCK_LIST_URL, err.status, err.message);
         return;
       }
-      var cookieblock_list = pb.storage.getBadgerStorageObject('cookieblock_list');
-      var action_map = pb.storage.getBadgerStorageObject('action_map');
+      var cookieblock_list = this.storage.getBadgerStorageObject('cookieblock_list');
+      var action_map = this.storage.getBadgerStorageObject('action_map');
 
       var newCbDomains = _.map(response.split("\n"), function(d){ return d.trim();});
       var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
 
       var addedDomains = _.difference(newCbDomains, oldCbDomains);
       var removedDomains = _.difference(oldCbDomains, newCbDomains);
-      pb.log('adding to cookie blocklist:', addedDomains);
-      pb.log('removing from cookie blocklist:', removedDomains);
+      this.log('adding to cookie blocklist:', addedDomains);
+      this.log('removing from cookie blocklist:', removedDomains);
 
       // Change any removed domains back to blocked status
       _.each(removedDomains, function(domain){
         cookieblock_list.deleteItem(domain);
         if(action_map.hasItem(domain)){
-          pb.storage.setupHeuristicAction(domain, pb.BLOCK);
+          this.storage.setupHeuristicAction(domain, this.BLOCK);
         }
         var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
                                   });
         _.each(removedDomains, function(domain){
-          pb.storage.setupHeuristicAction(domain, pb.BLOCK);
+          this.storage.setupHeuristicAction(domain, this.BLOCK);
         });
       });
 
@@ -269,9 +269,9 @@ var pb = {
         cookieblock_list.setItem(domain, true);
         var baseDomain = window.getBaseDomain(domain);
         if(action_map.hasItem(baseDomain) &&
-           _.contains([pb.BLOCK, pb.COOKIEBLOCK],
+           _.contains([this.BLOCK, this.COOKIEBLOCK],
                       action_map.getItem(baseDomain).heuristicAction)){
-          pb.storage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
+          this.storage.setupHeuristicAction(domain, this.COOKIEBLOCK);
         }
       });
 
@@ -284,23 +284,23 @@ var pb = {
   * * set up listener to recheck blocked domains and DNT domains
   */
   initializeDNT: function(){
-    pb.updateDNTPolicyHashes();
-    pb.recheckDNTPolicyForDomains();
-    setInterval(pb.recheckDNTPolicyForDomains, pb.utils.oneHour());
-    setInterval(pb.updateDNTPolicyHashes, pb.utils.oneDay() * 4);
+    this.updateDNTPolicyHashes();
+    this.recheckDNTPolicyForDomains();
+    setInterval(this.recheckDNTPolicyForDomains, this.utils.oneHour());
+    setInterval(this.updateDNTPolicyHashes, this.utils.oneDay() * 4);
   },
 
   /**
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function(){
-    pb.utils.xhrRequest(pb.DNT_POLICIES_URL, function(err,response){
+    this.utils.xhrRequest(this.DNT_POLICIES_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
-                 pb.DNT_POLICIES_URL, err.status, err.message);
+                 this.DNT_POLICIES_URL, err.status, err.message);
         return;
       }
-      pb.storage.updateDNTHashes(JSON.parse(response));
+      this.storage.updateDNTHashes(JSON.parse(response));
     });
   },
 
@@ -310,9 +310,9 @@ var pb = {
   * Loop through all known domains and recheck any that need to be rechecked for a dnt-policy file
   */
   recheckDNTPolicyForDomains: function(){
-    var action_map = pb.storage.getBadgerStorageObject('action_map');
+    var action_map = this.storage.getBadgerStorageObject('action_map');
     for(var domain in action_map.getItemClones()){
-      pb.checkForDNTPolicy(domain, pb.storage.getNextUpdateForDomain(domain));
+      this.checkForDNTPolicy(domain, this.storage.getNextUpdateForDomain(domain));
     }
   },
 
@@ -324,16 +324,16 @@ var pb = {
   */
   checkForDNTPolicy: function(domain, nextUpdate){
     if(Date.now() < nextUpdate){ return; }
-    pb.log('Checking', domain, 'for DNT policy.');
-    pb.checkPrivacyBadgerPolicy(domain, function(success){
+    this.log('Checking', domain, 'for DNT policy.');
+    this.checkPrivacyBadgerPolicy(domain, function(success){
       if(success){
-        pb.log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
-        pb.storage.setupDNT(domain);
+        this.log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
+        this.storage.setupDNT(domain);
       } else {
-        pb.log('It looks like', domain, 'has NOT adopted Do Not Track');
-        pb.storage.revertDNT(domain);
+        this.log('It looks like', domain, 'has NOT adopted Do Not Track');
+        this.storage.revertDNT(domain);
       }
-      pb.storage.touchDNTRecheckTime(domain, pb.utils.oneDayFromNow() * 7);
+      this.storage.touchDNTRecheckTime(domain, this.utils.oneDayFromNow() * 7);
     });
   },
 
@@ -347,9 +347,9 @@ var pb = {
   checkPrivacyBadgerPolicy: function(origin, callback){
     var successStatus = false;
     var url = "https://" + origin + "/.well-known/dnt-policy.txt";
-    var dnt_hashes = pb.storage.getBadgerStorageObject('dnt_hashes');
+    var dnt_hashes = this.storage.getBadgerStorageObject('dnt_hashes');
 
-    pb.utils.xhrRequest(url,function(err,response){
+    this.utils.xhrRequest(url,function(err,response){
       if(err){
         callback(successStatus);
         return;
@@ -378,17 +378,17 @@ var pb = {
    * initialize default settings if nonexistent
    */
   initializeDefaultSettings: function(){
-    var settings = pb.storage.getBadgerStorageObject("settings_map");
-    _.each(pb.defaultSettings, function(value, key){
+    var settings = this.storage.getBadgerStorageObject("settings_map");
+    _.each(this.defaultSettings, function(value, key){
       if(!settings.hasItem(key)){
-        pb.log("setting", key, ":", value);
+        this.log("setting", key, ":", value);
         settings.setItem(key, value);
       }
     });
   },
 
   runMigrations: function(){
-    var settings = pb.storage.getBadgerStorageObject("settings_map");
+    var settings = this.storage.getBadgerStorageObject("settings_map");
     var migrationLevel = settings.getItem('migrationLevel');
     var migrations = [
       Migrations.changePrivacySettings,
