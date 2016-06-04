@@ -24,6 +24,7 @@ var constants = backgroundPage.constants;
 
 var pb = backgroundPage.pb;
 var incognito_pb = backgroundPage.incognito_pb;
+var pbstorage = backgroundPage.pbstorage
 
 
 var Utils = require("utils").Utils;
@@ -31,7 +32,7 @@ var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var tab = null;
 
-var settings = backgroundPage.pbstorage.getBadgerStorageObject('settings_map');
+var settings = pbstorage.getBadgerStorageObject('settings_map');
 
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
@@ -97,8 +98,8 @@ function init() {
   });
 
   //toggle activation buttons if privacy badger is not enabled for current url
-  chrome.tabs.query({active: true, currentWindow: true}, function(t) {
-    tab = t[0];
+  getTab(function(t) {
+    tab = t;
     if(!Utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(tab.url))) {
       $("#blockedResourcesContainer").hide();
       $("#activate_site_btn").show();
@@ -205,8 +206,8 @@ function revertDomainControl(e){
   var $elm = $(e.target).parent();
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  pb.storage.revertUserAction(origin);
-  var defaultAction = pb.storage.getBestAction(origin);
+  pbstorage.revertUserAction(origin);
+  var defaultAction = pbstorage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
@@ -523,22 +524,22 @@ function setTabToUrl( query_url ) { /* jshint ignore:line */
   });
 }
 
-function getTab() {
-  var tab
-  chrome.tabs.query({active: true, currentWindow: true}, function(t) { tab = t[0] })
-  return tab
+function getTab(callback) {
+  var tab;
+  chrome.tabs.query({active: true, currentWindow: true}, function(t) { tab = t[0] });
+  return callback(tab)
 }
 
 function isIncognito(pb) {
-    var tab = getTab()
-    return pb.tabData[tab.id].inIncognito || false
+    return getTab(function(t) {
+        return pb.tabData[t.id].inIncognito || false
+        });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  chrome.tabs.query({active: true, currentWindow: true}, function(t) {
-    var tab = t[0];
+  getTab(function(t) {
     console.log("from addEventListener");
-    refreshPopup(tab.id);
+    refreshPopup(t);
   });
 });
 
