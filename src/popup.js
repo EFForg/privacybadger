@@ -20,15 +20,17 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
+var constants = backgroundPage.constants;
 
 var pb = backgroundPage.pb;
 var incognito_pb = backgroundPage.incognito_pb;
-var constants = backgroundPage.constants;
 
-var Utils = pb.utils;
+
+var Utils = require("utils").Utils;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var tab = null;
+
 var settings = pb.storage.getBadgerStorageObject('settings_map');
 
 /**
