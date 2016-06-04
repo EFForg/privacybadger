@@ -20,7 +20,11 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
+
 var pb = backgroundPage.pb;
+var incognito_pb = backgroundPage.incognito_pb;
+var constants = backgroundPage.constants;
+
 var Utils = pb.utils;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
@@ -129,7 +133,7 @@ function send_error(message) {
   for (var i = 0; i < origins.length; i++){
      var origin = origins[i];
      var action = backgroundPage.getAction(tabId, origin);
-     if (!action){ action = pb.NO_TRACKING; }
+     if (!action){ action = constants.NO_TRACKING; }
      if (out[action]){
        out[action] += ","+origin;
      }
@@ -268,7 +272,7 @@ function refreshPopup(tabId) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     var action = backgroundPage.getAction(tabId, origin);
-    if(action == pb.NO_TRACKING){
+    if(action == constants.NO_TRACKING){
         console.log('pushing', origin, 'onto non tracking');
         nonTracking.push(origin);
         continue;
@@ -291,11 +295,11 @@ function refreshPopup(tabId) {
       }
     }
     originCount++;
-    var flag = (action == pb.DNT);
+    var flag = (action == constants.DNT);
     printable = htmlUtils.addOriginHtml(printable, origin, action, flag);
   }
   for (var key in compressedOrigins){
-    var flag2 = (compressedOrigins[key].action == pb.DNT);
+    var flag2 = (compressedOrigins[key].action == constants.DNT);
     printable = htmlUtils.addOriginHtml(printable, key, compressedOrigins[key].action, flag2, compressedOrigins[key].subs.length);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
@@ -307,7 +311,7 @@ function refreshPopup(tabId) {
     for (var c = 0; c < nonTracking.length; c++){
       var ntOrigin = nonTracking[c];
       console.log('calling printable for non-tracking');
-      printable = htmlUtils.addOriginHtml(printable, ntOrigin, pb.NO_TRACKING, false);
+      printable = htmlUtils.addOriginHtml(printable, ntOrigin, constants.NO_TRACKING, false);
     }
   }
   $('#number_trackers').text(originCount);
@@ -358,7 +362,11 @@ function updateOrigin(event){
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
-  $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
+  $switchContainer.removeClass([
+          constants.BLOCK,
+          constants.COOKIEBLOCK,
+          constants.ALLOW,
+          constants.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($($clicker), action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
@@ -465,14 +473,14 @@ function buildSettingsDict() {
     var origin = $(this).attr("data-origin");
     if ($(this).hasClass("userset") && htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action")) {
       // TODO: DRY; same as code above, break out into helper
-      if ($(this).hasClass(pb.BLOCK)) {
-        settingsDict[origin] = pb.BLOCK;
-      } else if ($(this).hasClass(pb.COOKIEBLOCK)) {
-        settingsDict[origin] = pb.COOKIEBLOCK;
-      } else if ($(this).hasClass(pb.ALLOW)) {
-        settingsDict[origin] = pb.ALLOW;
+      if ($(this).hasClass(constants.BLOCK)) {
+        settingsDict[origin] = constants.BLOCK;
+      } else if ($(this).hasClass(constants.COOKIEBLOCK)) {
+        settingsDict[origin] = constants.COOKIEBLOCK;
+      } else if ($(this).hasClass(constants.ALLOW)) {
+        settingsDict[origin] = constants.ALLOW;
       } else {
-        settingsDict[origin] = pb.ALLOW;
+        settingsDict[origin] = constants.ALLOW;
       }
     }
   });

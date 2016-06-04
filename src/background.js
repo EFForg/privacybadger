@@ -30,6 +30,26 @@ var webrequest = require("webrequest");
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 var Migrations = require("migrations").Migrations;
 
+constants = { // duplicated in pb.prototype, remove those eventually
+  // Tracking status constants
+  NO_TRACKING: "noaction",
+  ALLOW: "allow",
+  BLOCK: "block",
+  COOKIEBLOCK: "cookieblock",
+  DNT: "dnt",
+  USER_ALLOW: "user_allow",
+  USER_BLOCK: "user_block",
+  USER_COOKIE_BLOCK: "user_cookieblock",
+
+  // URLS
+  DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
+  COOKIE_BLOCK_LIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",
+
+  // The number of 1st parties a 3rd party can be seen on
+  TRACKING_THRESHOLD: 3,
+  MAX_COOKIE_ENTROPY: 12,
+}
+
 /**
 * privacy badger initializer
 */
