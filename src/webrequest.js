@@ -630,6 +630,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.inIncognito) {
       if (!incognito_pb) {
           incognito_pb = new Badger(pb.tabData)
+      }
       badger = incognito_pb
   }
 
