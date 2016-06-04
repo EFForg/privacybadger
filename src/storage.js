@@ -404,7 +404,9 @@ BadgerStorage.prototype = {
 };
 
 var _syncStorage = function(badger){
-  if(pb.tabData[tab.id].inIncognito) { return; }
+  var tab
+  chrome.tabs.query({active: true, currentWindow: true}, function(t) { tab = t[0] })
+  if(tab && pb.tabData[tab.id].inIncognito) { return; }
   var obj = {};
   obj[badger.name] = badger._store;
   chrome.storage.local.set(obj);
