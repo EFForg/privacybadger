@@ -30,7 +30,40 @@ var webrequest = require("webrequest");
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 var Migrations = require("migrations").Migrations;
 
-var pb = {
+/**
+* privacy badger initializer
+*/
+function  Badger() {
+    this.storage.initialize(function() {
+        if(this.INITIALIZED) { return; }
+        this.updateTabList();
+        this.initializeDefaultSettings();
+        try {
+          this.runMigrations();
+        } finally {
+          this.initializeCookieBlockList();
+          this.initializeDNT();
+          this.showFirstRunPage();
+        }
+
+        // Show icon as page action for all tabs that already exist
+        chrome.windows.getAll({populate: true}, function(windows) {
+          for (var i = 0; i < windows.length; i++) {
+            for (var j = 0; j < windows[i].tabs.length; j++) {
+              refreshIconAndContextMenu(windows[i].tabs[j]);
+            }
+          }
+        });
+
+        // TODO: register all privacy badger listeners here in the storage callback
+
+        this.INITIALIZED = true;
+        console.log('privacy badger is ready to rock');
+        console.log('set pb.DEBUG=1 to view console messages');
+    });
+}
+
+Badger.prototype = {
   // imports
   heuristicBlocking: HeuristicBlocking,
   utils: Utils,
@@ -92,39 +125,6 @@ var pb = {
 
 
   // Methods
-  /**
-   * initialize privacy badger
-   */
-  init: function(){
-
-    this.storage.initialize(function(){
-      if(this.INITIALIZED) { return; }
-      this.updateTabList();
-      this.initializeDefaultSettings();
-      try {
-        this.runMigrations();
-      } finally {
-        this.initializeCookieBlockList();
-        this.initializeDNT();
-        this.showFirstRunPage();
-      }
-
-      // Show icon as page action for all tabs that already exist
-      chrome.windows.getAll({populate: true}, function(windows) {
-        for (var i = 0; i < windows.length; i++) {
-          for (var j = 0; j < windows[i].tabs.length; j++) {
-            refreshIconAndContextMenu(windows[i].tabs[j]);
-          }
-        }
-      });
-
-      // TODO: register all privacy badger listeners here in the storage callback
-
-      this.INITIALIZED = true;
-      console.log('privacy badger is ready to rock');
-      console.log('set pb.DEBUG=1 to view console messages');
-    });
-  },
 
   /**
    * Log a message to the conosle if debugging is enabled
@@ -405,7 +405,7 @@ var pb = {
 
 };
 
-pb.init();
+var pb = new Badger()
 
 /******* methods which should be moved into pb global *********/
 
