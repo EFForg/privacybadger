@@ -31,7 +31,7 @@ var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var tab = null;
 
-var settings = pb.storage.getBadgerStorageObject('settings_map');
+var settings = backgroundPage.pbstorage.getBadgerStorageObject('settings_map');
 
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
