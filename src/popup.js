@@ -91,7 +91,7 @@ function init() {
   });
 
   //toggle activation buttons if privacy badger is not enabled for current url
-  chrome.tabs.query({active: true}, function(t) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(t) {
     tab = t[0];
     if(!Utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(tab.url))) {
       $("#blockedResourcesContainer").hide();
@@ -514,7 +514,7 @@ function setTabToUrl( query_url ) { /* jshint ignore:line */
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  chrome.tabs.query({active: true}, function(t) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(t) {
     var tab = t[0];
     console.log("from addEventListener");
     refreshPopup(tab.id);
