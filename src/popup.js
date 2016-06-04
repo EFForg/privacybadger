@@ -523,6 +523,17 @@ function setTabToUrl( query_url ) { /* jshint ignore:line */
   });
 }
 
+function getTab() {
+  var tab
+  chrome.tabs.query({active: true, currentWindow: true}, function(t) { tab = t[0] })
+  return tab
+}
+
+function isIncognito(pb) {
+    var tab = getTab()
+    return pb.tabData[tab.id].inIncognito || false
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   chrome.tabs.query({active: true, currentWindow: true}, function(t) {
     var tab = t[0];
