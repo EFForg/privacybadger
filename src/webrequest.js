@@ -621,17 +621,20 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
  */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   var tabHost;
+  var badger = pb
   if (sender.tab && sender.tab.url) {
     tabHost = window.extractHostFromURL(sender.tab.url);
   } else {
     pb.log("tabhost is  blank!!");
   }
+  if (request.inIncognito) {
+      if (!incognito_pb) {
+          incognito_pb = new Badger(pb.tabData)
+      badger = incognito_pb
+  }
 
   if (request.checkEnabled) {
     sendResponse(Utils.isPrivacyBadgerEnabled(tabHost));
-  } else if (request.contentIncognito) {
-      pb.logIncognitoOnTab(sender.tab.id, request.contentIncognito);
-      sendResponse();
 
   } else if (request.checkLocation) {
     if (Utils.isPrivacyBadgerEnabled(tabHost)) {

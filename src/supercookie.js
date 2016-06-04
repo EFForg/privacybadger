@@ -114,7 +114,8 @@ function getScPageScript() {
 
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
-  checkEnabledAndThirdParty: true
+  checkEnabledAndThirdParty: true,
+  inIncognito: chrome.extension.inIncognitoContext
 }, function (enabledAndThirdParty) {
   if (!enabledAndThirdParty) {
     return;

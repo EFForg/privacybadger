@@ -49,7 +49,6 @@
         "src/clobbercookie.js",
         "src/clobberlocalstorage.js",
         "src/fingerprinting.js",
-        "src/incognito.js",
         "src/supercookie.js"
       ],
       "matches": [

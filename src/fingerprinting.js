@@ -287,11 +287,11 @@ var event_id = Math.random();
 document.addEventListener(event_id, function (e) {
   // pass these on to the background page
   chrome.runtime.sendMessage({
-    'fpReport': e.detail
+    'fpReport': e.detail,
+    'inIncognito': chrome.extension.inIncognitoContext
   });
 });
 
 insertFpScript(getFpPageScript(), {
   event_id: event_id
 });
-
