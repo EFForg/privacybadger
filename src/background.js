@@ -56,15 +56,15 @@ constants = { // duplicated in pb.prototype, remove those eventually
 function  Badger(tabData) {
     this.tabData = JSON.parse(JSON.stringify(tabData));
     this.storage.initialize(function() {
-        if(this.INITIALIZED) { return; }
-        this.updateTabList();
-        this.initializeDefaultSettings();
+        if(Badger.prototype.INITIALIZED) { return; }
+        Badger.prototype.updateTabList();
+        Badger.prototype.initializeDefaultSettings();
         try {
-          this.runMigrations();
+          Badger.prototype.runMigrations();
         } finally {
-          this.initializeCookieBlockList();
-          this.initializeDNT();
-          this.showFirstRunPage();
+          Badger.prototype.initializeCookieBlockList();
+          Badger.prototype.initializeDNT();
+          Badger.prototype.showFirstRunPage();
         }
 
         // Show icon as page action for all tabs that already exist
@@ -78,7 +78,7 @@ function  Badger(tabData) {
 
         // TODO: register all privacy badger listeners here in the storage callback
 
-        this.INITIALIZED = true;
+        Badger.prototype.INITIALIZED = true;
         console.log('privacy badger is ready to rock');
         console.log('set pb.DEBUG=1 to view console messages');
     });
@@ -211,10 +211,11 @@ Badger.prototype = {
   updateTabList: function(){
     // Initialize the tabData/frames object if it is falsey
     this.tabData = this.tabData || {};
+    thesetabs = this.tabData
     chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
       for(var i = 0; i < tabs.length; i++){
         var tab = tabs[i];
-        this.tabData[tab.id] = {
+        thesetabs[tab.id] = {
           frames: {
             0: {
               parent: -1,
@@ -246,35 +247,37 @@ Badger.prototype = {
   * from the action map
   **/
   updateCookieBlockList: function(){
-    this.utils.xhrRequest(this.COOKIE_BLOCK_LIST_URL, function(err,response){
+    var thisStorage = this.storage;
+    var log = this.log;
+    this.utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
-                  this.COOKIE_BLOCK_LIST_URL, err.status, err.message);
+                  constants.COOKIE_BLOCK_LIST_URL, err.status, err.message);
         return;
       }
-      var cookieblock_list = this.storage.getBadgerStorageObject('cookieblock_list');
-      var action_map = this.storage.getBadgerStorageObject('action_map');
+      var cookieblock_list = thisStorage.getBadgerStorageObject('cookieblock_list');
+      var action_map = thisStorage.getBadgerStorageObject('action_map');
 
       var newCbDomains = _.map(response.split("\n"), function(d){ return d.trim();});
       var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
 
       var addedDomains = _.difference(newCbDomains, oldCbDomains);
       var removedDomains = _.difference(oldCbDomains, newCbDomains);
-      this.log('adding to cookie blocklist:', addedDomains);
-      this.log('removing from cookie blocklist:', removedDomains);
+      log('adding to cookie blocklist:', addedDomains);
+      log('removing from cookie blocklist:', removedDomains);
 
       // Change any removed domains back to blocked status
       _.each(removedDomains, function(domain){
         cookieblock_list.deleteItem(domain);
         if(action_map.hasItem(domain)){
-          this.storage.setupHeuristicAction(domain, this.BLOCK);
+          thisStorage.setupHeuristicAction(domain, constants.BLOCK);
         }
         var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
                                   });
         _.each(removedDomains, function(domain){
-          this.storage.setupHeuristicAction(domain, this.BLOCK);
+          thisStorage.setupHeuristicAction(domain, constants.BLOCK);
         });
       });
 
@@ -283,9 +286,9 @@ Badger.prototype = {
         cookieblock_list.setItem(domain, true);
         var baseDomain = window.getBaseDomain(domain);
         if(action_map.hasItem(baseDomain) &&
-           _.contains([this.BLOCK, this.COOKIEBLOCK],
+           _.contains([constants.BLOCK, constants.COOKIEBLOCK],
                       action_map.getItem(baseDomain).heuristicAction)){
-          this.storage.setupHeuristicAction(domain, this.COOKIEBLOCK);
+          thisStorage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
         }
       });
 
@@ -308,13 +311,14 @@ Badger.prototype = {
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function(){
+    var thisStorage = this.storage
     this.utils.xhrRequest(this.DNT_POLICIES_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
                  this.DNT_POLICIES_URL, err.status, err.message);
         return;
       }
-      this.storage.updateDNTHashes(JSON.parse(response));
+      thisStorage.updateDNTHashes(JSON.parse(response));
     });
   },
 
@@ -339,15 +343,17 @@ Badger.prototype = {
   checkForDNTPolicy: function(domain, nextUpdate){
     if(Date.now() < nextUpdate){ return; }
     this.log('Checking', domain, 'for DNT policy.');
+    var log = this.log
+    var thisStorage = this.storage
     this.checkPrivacyBadgerPolicy(domain, function(success){
       if(success){
-        this.log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
-        this.storage.setupDNT(domain);
+        log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
+        thisStorage.setupDNT(domain);
       } else {
-        this.log('It looks like', domain, 'has NOT adopted Do Not Track');
-        this.storage.revertDNT(domain);
+        log('It looks like', domain, 'has NOT adopted Do Not Track');
+        thisStorage.revertDNT(domain);
       }
-      this.storage.touchDNTRecheckTime(domain, this.utils.oneDayFromNow() * 7);
+      thisStorage.touchDNTRecheckTime(domain, Utils.oneDayFromNow() * 7);
     });
   },
 
