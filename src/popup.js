@@ -525,9 +525,7 @@ function setTabToUrl( query_url ) { /* jshint ignore:line */
 }
 
 function getTab(callback) {
-  var tab;
-  chrome.tabs.query({active: true, currentWindow: true}, function(t) { tab = t[0] });
-  return callback(tab)
+  chrome.tabs.query({active: true, currentWindow: true}, function(t) { callback(t[0]); });
 }
 
 function isIncognito(pb) {
@@ -539,7 +537,7 @@ function isIncognito(pb) {
 document.addEventListener('DOMContentLoaded', function () {
   getTab(function(t) {
     console.log("from addEventListener");
-    refreshPopup(t);
+    refreshPopup(t.id);
   });
 });
 
