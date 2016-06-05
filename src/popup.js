@@ -24,7 +24,7 @@ var constants = backgroundPage.constants;
 
 var pb = backgroundPage.pb;
 var incognito_pb = backgroundPage.incognito_pb;
-var pbstorage = backgroundPage.pbstorage
+var pbStorage = backgroundPage.pbStorage
 
 
 var Utils = require("utils").Utils;
@@ -32,7 +32,7 @@ var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var tab = null;
 
-var settings = pbstorage.getBadgerStorageObject('settings_map');
+var settings = pbStorage.getBadgerStorageObject('settings_map');
 
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
@@ -206,8 +206,8 @@ function revertDomainControl(e){
   var $elm = $(e.target).parent();
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  pbstorage.revertUserAction(origin);
-  var defaultAction = pbstorage.getBestAction(origin);
+  pbStorage.revertUserAction(origin);
+  var defaultAction = pbStorage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
