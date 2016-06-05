@@ -528,10 +528,14 @@ function getTab(callback) {
   chrome.tabs.query({active: true, currentWindow: true}, function(t) { callback(t[0]); });
 }
 
-function isIncognito(pb) {
-    return getTab(function(t) {
-        return pb.tabData[t.id].inIncognito || false
-        });
+function getPB(callback) {
+    getTab(function(t) {
+        if (pb.tabData[t.id]) {
+            callback(pb)
+        } else if (incognito_pb.tabData[t.id]) {
+            callback(incognito_pb)
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
