@@ -259,26 +259,28 @@ function getHostForTab(tabId){
  * @param frameUrl The url of the frame
  */
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
-  if (!pb.tabData.hasOwnProperty(tabId)){
-    pb.tabData[tabId] = {
-      frames: {},
-      trackers: {}
-    };
-  }
-  // check if this is a prerendered (bg) tab or not
-  chrome.tabs.get(tabId, function(/*tab*/){
-    if (chrome.runtime.lastError){
-      // chrome will throw error for the prerendered tabs
-      pb.tabData[tabId].bgTab = true;
-    }else{
-      pb.tabData[tabId].bgTab = false;
+    var badger = getBadgerWithTab(tabId);
+    if (!badger.tabData.hasOwnProperty(tabId)){
+      badger.tabData[tabId] = {
+        frames: {},
+        trackers: {}
+      };
     }
-  });
+    // check if this is a prerendered (bg) tab or not
+    chrome.tabs.get(tabId, function(/*tab*/){
+      if (chrome.runtime.lastError){
+        // chrome will throw error for the prerendered tabs
+        badger.tabData[tabId].bgTab = true;
+      }else{
+        badger.tabData[tabId].bgTab = false;
+      }
+    });
 
-  pb.tabData[tabId].frames[frameId] = {
-    url: frameUrl,
-    parent: parentFrameId
-  };
+    badger.tabData[tabId].frames[frameId] = {
+      url: frameUrl,
+      parent: parentFrameId
+    };
+  });
 }
 
 /**
@@ -628,10 +630,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     pb.log("tabhost is  blank!!");
   }
   if (request.inIncognito) {
-      if (!incognito_pb) {
-          incognito_pb = new Badger(pb.tabData)
-          incognito_pb.inIncognito = true
-      }
       badger = incognito_pb
   }
 
