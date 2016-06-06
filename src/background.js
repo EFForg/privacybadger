@@ -438,8 +438,8 @@ Badger.prototype = {
 
 };
 
-var pb = new Badger({})
-var incognito_pb = false
+var pb = new Badger({});
+var incognito_pb = new Badger({});
 
 /**
 * reloads a tab
