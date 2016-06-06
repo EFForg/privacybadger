@@ -235,19 +235,20 @@ function onTabReplaced(addedTabId, removedTabId){
  * @return {String} the host name for the tab
  */
 function getHostForTab(tabId){
+  var badger = getBadgerWithTab(tabId);
   var mainFrameIdx = 0;
-  if (!pb.tabData[tabId]) {
+  if (!badger.tabData[tabId]) {
     return '';
   }
   if (_isTabAnExtension(tabId)) {
     // If the tab is an extension get the url of the first frame for its implied URL
     // since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(pb.tabData[tabId].frames)[1] || 0;
+    mainFrameIdx = Object.keys(badger.tabData[tabId].frames)[1] || 0;
   }
-  if (!pb.tabData[tabId].frames[mainFrameIdx]) {
+  if (!badger.tabData[tabId].frames[mainFrameIdx]) {
     return '';
   }
-  return window.extractHostFromURL(pb.tabData[tabId].frames[mainFrameIdx].url);
+  return window.extractHostFromURL(badger.tabData[tabId].frames[mainFrameIdx].url);
 }
 
 /**
@@ -339,23 +340,24 @@ function recordFingerprinting(tabId, msg) {
     getImageData: true,
     toDataURL: true
   };
+  var badger = getBadgerWithTab(tabId);
 
-  if (!pb.tabData[tabId].hasOwnProperty('fpData')) {
-    pb.tabData[tabId].fpData = {};
+  if (!badger.tabData[tabId].hasOwnProperty('fpData')) {
+    badger.tabData[tabId].fpData = {};
   }
 
   var script_origin = window.getBaseDomain(script_host);
 
   // initialize script TLD-level data
-  if (!pb.tabData[tabId].fpData.hasOwnProperty(script_origin)) {
-    pb.tabData[tabId].fpData[script_origin] = {
+  if (!badger.tabData[tabId].fpData.hasOwnProperty(script_origin)) {
+    badger.tabData[tabId].fpData[script_origin] = {
       canvas: {
         fingerprinting: false,
         write: false
       }
     };
   }
-  var scriptData = pb.tabData[tabId].fpData[script_origin];
+  var scriptData = badger.tabData[tabId].fpData[script_origin];
 
   if (msg.extra.hasOwnProperty('canvas')) {
     if (scriptData.canvas.fingerprinting) {
@@ -370,10 +372,10 @@ function recordFingerprinting(tabId, msg) {
         if (msg.extra.width > 16 && msg.extra.height > 16) {
           // let's call it fingerprinting
           scriptData.canvas.fingerprinting = true;
-          pb.log(script_host, 'caught fingerprinting on', document_host);
+          badger.log(script_host, 'caught fingerprinting on', document_host);
 
           // mark this is a strike
-          pb.heuristicBlocking.recordPrevalence(
+          badger.heuristicBlocking.recordPrevalence(
             script_host, script_origin, window.getBaseDomain(document_host));
         }
       }
@@ -393,11 +395,12 @@ function recordFingerprinting(tabId, msg) {
  * @returns {*} Frame data object or null
  */
 function getFrameData(tabId, frameId) {
-  if (tabId in pb.tabData && frameId in pb.tabData[tabId].frames){
-    return pb.tabData[tabId].frames[frameId];
-  } else if (frameId > 0 && tabId in pb.tabData && 0 in pb.tabData[tabId].frames) {
+  var badger = getBadgerWithTab(tabId);
+  if (tabId in badger.tabData && frameId in badger.tabData[tabId].frames){
+    return badger.tabData[tabId].frames[frameId];
+  } else if (frameId > 0 && tabId in badger.tabData && 0 in badger.tabData[tabId].frames) {
     // We don't know anything about javascript: or data: frames, use top frame
-    return pb.tabData[tabId].frames[0];
+    return badger.tabData[tabId].frames[0];
   }
   return null;
 }
@@ -420,7 +423,8 @@ function getFrameUrl(tabId, frameId) {
  * @param {Integer} tabId The id of the tab
  */
 function forgetTab(tabId) {
-  delete pb.tabData[tabId];
+  var badger = getBadgerWithTab(tabId);
+  delete badger.tabData[tabId];
   delete temporarySocialWidgetUnblock[tabId];
 }
 
@@ -483,9 +487,10 @@ function checkAction(tabId, url, quiet, frameId){
  * @private
  */
 function _frameUrlStartsWith(tabId, piece){
-  return pb.tabData[tabId] &&
-    pb.tabData[tabId].frames[0] &&
-    (pb.tabData[tabId].frames[0].url.indexOf(piece) === 0);
+  var badger = getBadgerWithTab(tabId);
+  return badger.tabData[tabId] &&
+    badger.tabData[tabId].frames[0] &&
+    (badger.tabData[tabId].frames[0].url.indexOf(piece) === 0);
 }
 
 /**
