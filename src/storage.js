@@ -54,7 +54,7 @@ var incognito = require("incognito");
 var badgerPen = {};
 
 
-var initialize = function(callback){
+var initialize = function(isIncognito, callback){
   console.log('loading badgers into the pen');
   var storage_objects = [
     "snitch_map",
@@ -65,7 +65,7 @@ var initialize = function(callback){
     "settings_map"
   ];
 
-  _initializeCache(storage_objects, callback);
+  _initializeCache(isIncognito, storage_objects, callback);
 };
 
 var getScore = function(action){
@@ -274,15 +274,15 @@ var getBadgerStorageObject = function(key) {
   console.error('cant initialize cache from getBadgerStorageObject. You are using this API improperly');
 };
 
-var _initializeCache = function(keys, cb) {
+var _initializeCache = function(isIncognito, keys, cb) {
 
   // now check localStorage
   chrome.storage.local.get(keys, function(store){
     _.each(keys, function(key){
       if(store.hasOwnProperty(key)){
-        badgerPen[key] = new BadgerStorage(key, store[key]);
+        badgerPen[key] = new BadgerStorage(isIncognito, key, store[key]);
       } else {
-        var storage_obj = new BadgerStorage(key, {});
+        var storage_obj = new BadgerStorage(isIncognito, key, {});
         badgerPen[key] = storage_obj;
         _syncStorage(storage_obj);
       }
@@ -324,9 +324,11 @@ var _initializeCache = function(keys, cb) {
  * @param {Object} seed the base object which we are instantiating from
  * @return {BadgerStorage} an existing BadgerStorage object or an empty new object
  **/
-var BadgerStorage = function(name, seed){
+var BadgerStorage = function(isIncognito, name, seed){
   this.name = name;
   this._store = seed;
+  this.incognito = isIncognito;
+  console.log("making an new badgerbell with incog == " + isIncognito + " called: " + name)
 };
 
 BadgerStorage.prototype = {
@@ -404,17 +406,14 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = function(badger){
-  chrome.tabs.query({active: true, currentWindow: true}, function(t) {
-      if (incognito.tabIsIncognito(tabId)) {
-          return;
-      } else {
-      console.log("savin stuff frome tab " + t[0])
-      var obj = {};
-      obj[badger.name] = badger._store;
-      chrome.storage.local.set(obj);
-      }
-  });
+var _syncStorage = function(badgerStorage){
+  if (badgerStorage.incognito) {
+      console.log("no more food for this badger");
+      return;
+  }
+  var obj = {};
+  obj[badgerStorage.name] = badgerStorage._store;
+  chrome.storage.local.set(obj);
 };
 /************************************** exports */
 var exports = {};

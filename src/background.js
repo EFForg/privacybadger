@@ -55,9 +55,10 @@ constants = { // duplicated in pb.prototype, remove those eventually
 /**
 * privacy badger initializer
 */
-function  Badger(tabData) {
+function  Badger(tabData, isIncognito) {
+    this.isIncognito = isIncognito
     this.tabData = JSON.parse(JSON.stringify(tabData));
-    this.storage.initialize(function() {
+    this.storage.initialize(isIncognito, function() {
         if(Badger.prototype.INITIALIZED) { return; }
         Badger.prototype.updateTabList();
         Badger.prototype.initializeDefaultSettings();
@@ -535,8 +536,8 @@ Badger.prototype = {
   }
 };
 
-var pb = new Badger({});
-var incognito_pb = new Badger({});
+var pb = new Badger({}, false);
+var incognito_pb = new Badger({}, true);
 
 /**
  * Chooese a privacy badger object to apply a callback to.

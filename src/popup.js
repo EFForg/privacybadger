@@ -28,7 +28,6 @@ var pbStorage = backgroundPage.pbStorage
 var Utils = require("utils").Utils;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
-var tab = null;
 
 var settings = pbStorage.getBadgerStorageObject('settings_map');
 
@@ -97,8 +96,7 @@ function init() {
 
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
-    tab = t;
-    if(!Utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(tab.url))) {
+    if(!Utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
       $("#blockedResourcesContainer").hide();
       $("#activate_site_btn").show();
       $("#deactivate_site_btn").hide();
@@ -202,11 +200,13 @@ function deactive_site(){
  * @returns {boolean} false
  */
 function revertDomainControl(e){
+  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  var badger = backgroundPage.getBadgerWithTab(tabId);
   var $elm = $(e.target).parent();
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  pbStorage.revertUserAction(origin);
-  var defaultAction = pbStorage.getBestAction(origin);
+  badger.storage.revertUserAction(origin);
+  var defaultAction = badger.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   console.log('selector', selector);
