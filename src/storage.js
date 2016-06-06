@@ -259,13 +259,6 @@ var getTrackingCount = function(fqdn){
   }
 };
 
-/**
- * A factory for getting BadgerStorage objects, this will either get a badger 
- * storage object from the cache or return a new BadgerStorage object. 
- * @param {String} key the name of the stored object
- * @return {BadgerStorage} A badgerStorage object 
- **/
- 
 var getBadgerStorageObject = function(key) {
 
   if(badgerPen.hasOwnProperty(key)){
