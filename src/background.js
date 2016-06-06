@@ -21,6 +21,7 @@
 
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
+var incognito = require("incognito");
 var Utils = require("utils").Utils;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var HeuristicBlocking = require("heuristicblocking");
@@ -29,33 +30,6 @@ var pbStorage = require("storage");
 var webrequest = require("webrequest");
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 var Migrations = require("migrations").Migrations;
-
-function ifIncognitoTab(tabId, ifIncog, ifNotIncog) {
-    chrome.tabs.get(tabId, function(tab) {
-        if (tab.incognito) {
-            ifIncog(tab);
-        } else {
-            ifNotIncog(tab);
-        }
-    });
-};
-
-/**
- * Add the tracker and action to the tab.trackers object in tabData
- * which will be used by the privacy badger popup
- * @param tabId the tab we are on
- * @param fqdn the tracker to add
- * @param action the action we are taking
- **/
-function logTrackerOnTab(tabId, fqdn, action) {
-    ifIncognitoTab(tabId,
-    function (tab) {
-        incognito_pb.tabData[tabId].trackers[fqdn] = action;
-    },
-    function (tab) {
-        pb.tabData[tabId].trackers[fqdn] = action;
-    });
-}
 
 
 constants = { // duplicated in pb.prototype, remove those eventually
@@ -436,10 +410,178 @@ Badger.prototype = {
 
   },
 
+  /**
+   * Helper function returns a list of all blocked origins for a tab
+   * @param {Integer} tabId requested tab id as provided by chrome
+   * @returns {*} A dictionary of third party origins and their actions
+   */
+  getAllOriginsForTab: function(tabId) {
+    return Object.keys(this.tabData[tabId].trackers);
+  },
+
+  /**
+   * count of blocked origins for a given tab
+   * @param {Integer} tabId chrome tab id
+   * @return {Integer} count of blocked origins
+   */
+  blockedOriginCount: function(tabId) {
+    return getAllOriginsForTab(tabId).length;
+  },
+
+  /**
+   * Counts the actively blocked trackers
+   * TODO: move to popup.js and refactor
+   *
+   * @param tabId Tab ID to count for
+   * @returns {Integer} The number of blocked trackers
+   */
+  activelyBlockedOriginCount: function(tabId){
+    return getAllOriginsForTab(tabId)
+      .reduce(function(memo,origin){
+        var action = getAction(tabId, origin);
+        if(action && action !== "noaction"){
+          memo+=1;
+        }
+        return memo;
+      }, 0);
+  },
+
+  /**
+   * Counts total blocked trackers and blocked cookies trackers
+   * TODO: ugly code, refactor
+   *
+   * @param tabId Tab ID to count for
+   * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
+   */
+  blockedTrackerCount: function(tabId){
+    return getAllOriginsForTab(tabId)
+      .reduce(function(memo,origin){
+        var action = getAction(tabId,origin);
+        if(action && (action == constants.USER_BLOCK || action ==
+                    constants.BLOCK || action == constants.COOKIEBLOCK ||
+                    action == constants.USER_COOKIE_BLOCK)){
+          memo+=1;
+        }
+        return memo;
+      }, 0);
+  },
+
+  /**
+   * Counts trackers blocked by the user
+   *
+   * TODO: ugly code refactor
+   * @param tabId Tab ID to count for
+   * @returns {Integer} The number of blocked trackers
+   */
+  userConfiguredOriginCount: function(tabId){
+    return getAllOriginsForTab(tabId)
+      .reduce(function(memo,origin){
+        var action = getAction(tabId,origin);
+        if(action && action.lastIndexOf("user", 0) === 0){
+          memo+=1;
+        }
+        return memo;
+      }, 0);
+  },
+  /**
+   * Update page action badge with current count
+   * @param {Integer} tabId chrome tab id
+   */
+  updateBadge: function(tabId){
+    if (!Utils.showCounter()){
+      chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
+      return;
+    }
+    var numBlocked = this.blockedTrackerCount(tabId);
+    if(numBlocked === 0){
+      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
+    } else {
+      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
+    }
+    chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+  },
+
+  /**
+   * Checks conditions for updating page action badge and call updateBadge
+   * @param {Object} details details object from onBeforeRequest event
+   */
+  updateCount: function(details){
+    if (details.tabId == -1){
+      return {};
+    }
+
+    if(!Utils.isPrivacyBadgerEnabled(this.webrequest.getHostForTab(details.tabId))){
+      return;
+    }
+
+    var tabId = details.tabId;
+    if (!this.tabData[tabId]) {
+      return;
+    }
+    if(this.tabData[tabId].bgTab === true){
+      // prerendered tab, Chrome will throw error for setBadge functions, don't call
+      return;
+    } else {
+      chrome.tabs.get(tabId, function(tab){
+        if (chrome.runtime.lastError){
+          this.tabData[tabId].bgTab = true;
+        } else {
+          this.tabData[tabId].bgTab = false;
+          this.updateBadge(tabId);
+        }
+      });
+    }
+  }
 };
 
 var pb = new Badger({});
 var incognito_pb = new Badger({});
+
+/**
+ * Chooese a privacy badger object to apply a callback to
+ * by checking if the tab is incognito.
+ */
+function chooseWithTab(tabId, callback) {
+    if (tabId == -1){
+      return;
+    }
+    if (incognito.tabIsIncognito(tabId) {
+        callback(incognito_pb);
+    } else {
+        callback(pb);
+    }
+};
+
+function getBadgerWithTab(tabId) {
+    if (tabId == -1){
+      return;
+    }
+    if (incognito.tabIsIncognito(tabId) {
+        return incognito_pb;
+    } else {
+        return pb;
+    }
+};
+
+
+/**
+ * Add the tracker and action to the tab.trackers object in tabData
+ * which will be used by the privacy badger popup
+ * @param tabId the tab we are on
+ * @param fqdn the tracker to add
+ * @param action the action we are taking
+ **/
+function logTrackerOnTab(tabId, fqdn, action) {
+    chooseWithTab(tabId, function (badger, tab) {
+        badger.tabData[tabId].trackers[fqdn] = action;
+    });
+};
+
+function updateCount(details) {
+    chooseWithTab(details.tabId, function (badger, tab) {
+        badger.updateCount(details);
+    });
+};
 
 /**
 * reloads a tab
