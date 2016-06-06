@@ -403,15 +403,25 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = function(badger){
-  var tab
-  chrome.tabs.query({active: true, currentWindow: true}, function(t) { tab = t[0] })
-  if(tab && pb.tabData[tab.id].inIncognito) { return; }
-  var obj = {};
-  obj[badger.name] = badger._store;
-  chrome.storage.local.set(obj);
+function incognitoTab(tab) {
+    if (!tab) { return false }
+    else if (incognito_pb.tabData[tab.id]) {return true;}
+    else {return false;}
 };
 
+var _syncStorage = function(badger){
+  chrome.tabs.query({active: true, currentWindow: true}, function(t) {
+      if (incognitoTab(t[0])) {
+          console.log("Not savin incognito stuff yo from tab " + t[0].id);
+          return;
+      } else {
+      console.log("savin stuff frome tab " + t[0])
+      var obj = {};
+      obj[badger.name] = badger._store;
+      chrome.storage.local.set(obj);
+      }
+  });
+};
 /************************************** exports */
 var exports = {};
 
