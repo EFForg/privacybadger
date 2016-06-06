@@ -1,3 +1,4 @@
+require.scopes.incognito = (function() {
 var tabs = {};
 
 // Get all existing tabs
@@ -9,8 +10,9 @@ chrome.tabs.query({}, function(results) {
 
 // Create tab event listeners
 function onUpdatedListener(tabId, changeInfo, tab) {
-    tabs[tab.id] = tab.incognito.
+    tabs[tab.id] = tab.incognito;
 }
+
 function onRemovedListener(tabId) {
     delete tabs[tabId];
 }
@@ -21,4 +23,12 @@ chrome.tabs.onRemoved.addListener(onRemovedListener);
 
 function tabIsIncognito(tabId) {
     return tabs[tabId] || false
-}
+};
+
+/************************************** exports */
+var exports = {};
+exports.tabIsIncognito = tabIsIncognito;
+
+return exports;
+/************************************** exports */
+})();

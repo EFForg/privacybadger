@@ -280,8 +280,7 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
       url: frameUrl,
       parent: parentFrameId
     };
-  });
-}
+};
 
 /**
  * Store super cookie data in memory. Also stored in Local Storage
@@ -623,14 +622,11 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
  */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   var tabHost;
-  var badger = pb
+  var badger = getBadgerWithTab(sender.tab.id);
   if (sender.tab && sender.tab.url) {
     tabHost = window.extractHostFromURL(sender.tab.url);
   } else {
     pb.log("tabhost is  blank!!");
-  }
-  if (request.inIncognito) {
-      badger = incognito_pb
   }
 
   if (request.checkEnabled) {

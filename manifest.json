@@ -32,6 +32,7 @@
       "lib/jsbn.js",
       "lib/rsa.js",
       "lib/underscore-min.js",
+      "src/incognito.js",
       "src/storage.js",
       "src/utils.js",
       "src/htmlutils.js",

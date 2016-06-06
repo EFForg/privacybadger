@@ -544,7 +544,7 @@ function chooseWithTab(tabId, callback) {
     if (tabId == -1){
       return;
     }
-    if (incognito.tabIsIncognito(tabId) {
+    if (incognito.tabIsIncognito(tabId)) {
         callback(incognito_pb);
     } else {
         callback(pb);
@@ -558,7 +558,7 @@ function getBadgerWithTab(tabId) {
     if (tabId == -1){
       return;
     }
-    if (incognito.tabIsIncognito(tabId) {
+    if (incognito.tabIsIncognito(tabId)) {
         return incognito_pb;
     } else {
         return pb;
