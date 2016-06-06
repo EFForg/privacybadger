@@ -21,7 +21,6 @@
 
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
-var incognito = require("incognito");
 var Utils = require("utils").Utils;
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var HeuristicBlocking = require("heuristicblocking");
@@ -30,6 +29,7 @@ var pbStorage = require("storage");
 var webrequest = require("webrequest");
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 var Migrations = require("migrations").Migrations;
+var incognito = require("incognito");
 
 
 constants = { // duplicated in pb.prototype, remove those eventually
@@ -425,7 +425,7 @@ Badger.prototype = {
    * @return {Integer} count of blocked origins
    */
   blockedOriginCount: function(tabId) {
-    return getAllOriginsForTab(tabId).length;
+    return this.getAllOriginsForTab(tabId).length;
   },
 
   /**
@@ -436,7 +436,7 @@ Badger.prototype = {
    * @returns {Integer} The number of blocked trackers
    */
   activelyBlockedOriginCount: function(tabId){
-    return getAllOriginsForTab(tabId)
+    return this.getAllOriginsForTab(tabId)
       .reduce(function(memo,origin){
         var action = getAction(tabId, origin);
         if(action && action !== "noaction"){
@@ -454,7 +454,7 @@ Badger.prototype = {
    * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
    */
   blockedTrackerCount: function(tabId){
-    return getAllOriginsForTab(tabId)
+    return this.getAllOriginsForTab(tabId)
       .reduce(function(memo,origin){
         var action = getAction(tabId,origin);
         if(action && (action == constants.USER_BLOCK || action ==
@@ -474,7 +474,7 @@ Badger.prototype = {
    * @returns {Integer} The number of blocked trackers
    */
   userConfiguredOriginCount: function(tabId){
-    return getAllOriginsForTab(tabId)
+    return this.getAllOriginsForTab(tabId)
       .reduce(function(memo,origin){
         var action = getAction(tabId,origin);
         if(action && action.lastIndexOf("user", 0) === 0){
@@ -505,7 +505,7 @@ Badger.prototype = {
    * Checks conditions for updating page action badge and call updateBadge
    * @param {Object} details details object from onBeforeRequest event
    */
-  updateCount: function(details){
+  updateCount: function(details) {
     if (details.tabId == -1){
       return {};
     }
@@ -522,12 +522,13 @@ Badger.prototype = {
       // prerendered tab, Chrome will throw error for setBadge functions, don't call
       return;
     } else {
+      var badger = this
       chrome.tabs.get(tabId, function(tab){
         if (chrome.runtime.lastError){
-          this.tabData[tabId].bgTab = true;
+          badger.tabData[tabId].bgTab = true;
         } else {
-          this.tabData[tabId].bgTab = false;
-          this.updateBadge(tabId);
+          badger.tabData[tabId].bgTab = false;
+          badger.updateBadge(tabId);
         }
       });
     }
@@ -612,16 +613,7 @@ function getAction(tabId, origin) {
  */
 function requestWouldBeBlocked(tabId, origin) {
   var action = getAction(tabId, origin);
-  return action == pb.BLOCK || action == pb.USER_BLOCK;
-}
-
-/**
- * Helper function returns a list of all blocked origins for a tab
- * @param {Integer} tabId requested tab id as provided by chrome
- * @returns {*} A dictionary of third party origins and their actions
- */
-function getAllOriginsForTab(tabId) {
-  return Object.keys(pb.tabData[tabId].trackers);
+  return action == constants.BLOCK || action == constants.USER_BLOCK;
 }
 
 /**
@@ -632,7 +624,10 @@ function getAllOriginsForTab(tabId) {
 function isWhitelisted(url) {
   var host = window.extractHostFromURL(url);
   var action = pb.storage.getBestAction(host);
-  if ([pb.ALLOW, pb.USER_ALLOW, pb.NO_TRACKING, pb.DNT].indexOf(action) >= 0){
+  if ([constants.ALLOW,
+       constants.USER_ALLOW,
+       constants.NO_TRACKING,
+       constants.DNT].indexOf(action) >= 0){
       return true;
   } else {
       return false;
@@ -653,145 +648,6 @@ function refreshIconAndContextMenu(tab) {
   chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
 }
 
-/**
- * This function is a hack - we only know the tabId and document URL for a
- * message but we need to know the frame ID. Try to find it in webRequest's
- * frame data.
- * TODO: Unused
- * @param {Integer} tabId tab id from chrome
- * @param {String} url url of request
- * @return {Integer} frameId or -1 on fail
- */
-function getFrameId(tabId, url) {
-  if (tabId in pb.tabData) {
-    for (var f in pb.tabData[tabId].frames) {
-      if (pb.webrequest.getFrameUrl(tabId, f) == url) {
-        return f;
-      }
-    }
-  }
-  return -1;
-}
-
-/**
- * count of blocked origins for a given tab
- * @param {Integer} tabId chrome tab id
- * @return {Integer} count of blocked origins
- */
-function blockedOriginCount(tabId){
-  return getAllOriginsForTab(tabId).length;
-}
-
-/**
- * Counts the actively blocked trackers
- * TODO: move to popup.js and refactor
- *
- * @param tabId Tab ID to count for
- * @returns {Integer} The number of blocked trackers
- */
-function activelyBlockedOriginCount(tabId){
-  return getAllOriginsForTab(tabId)
-    .reduce(function(memo,origin){
-      var action = getAction(tabId,origin);
-      if(action && action !== "noaction"){
-        memo+=1;
-      }
-      return memo;
-    }, 0);
-}
-
-/**
- * Counts total blocked trackers and blocked cookies trackers
- * TODO: ugly code, refactor
- *
- * @param tabId Tab ID to count for
- * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
- */
-function blockedTrackerCount(tabId){
-  return getAllOriginsForTab(tabId)
-    .reduce(function(memo,origin){
-      var action = getAction(tabId,origin);
-      if(action && (action == pb.USER_BLOCK || action == pb.BLOCK || action == pb.COOKIEBLOCK || action == pb.USER_COOKIE_BLOCK)){
-        memo+=1;
-      }
-      return memo;
-    }, 0);
-}
-
-
-// TODO: unused - remove
-function originHasTracking(tabId,fqdn){
-  return pb.tabData[tabId] &&
-    pb.tabData[tabId].trackers &&
-    !!pb.tabData[tabId].trackers[fqdn];
-}
-/**
- * Counts trackers blocked by the user
- *
- * TODO: ugly code refactor
- * @param tabId Tab ID to count for
- * @returns {Integer} The number of blocked trackers
- */
-function userConfiguredOriginCount(tabId){
-  return getAllOriginsForTab(tabId)
-    .reduce(function(memo,origin){
-      var action = getAction(tabId,origin);
-      if(action && action.lastIndexOf("user", 0) === 0){
-        memo+=1;
-      }
-      return memo;
-    }, 0);
-}
-
-/**
- * Update page action badge with current count
- * @param {Integer} tabId chrome tab id
- */
-function updateBadge(tabId){
-  if (!Utils.showCounter()){
-    chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
-    return;
-  }
-  var numBlocked = blockedTrackerCount(tabId);
-  if(numBlocked === 0){
-    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
-  } else {
-    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
-  }
-  chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
-}
-
-/**
- * Checks conditions for updating page action badge and call updateBadge
- * @param {Object} details details object from onBeforeRequest event
- */
-function updateCount(details){
-  if (details.tabId == -1){
-    return {};
-  }
-
-  if(!Utils.isPrivacyBadgerEnabled(pb.webrequest.getHostForTab(details.tabId))){
-    return;
-  }
-
-  var tabId = details.tabId;
-  if (!pb.tabData[tabId]) {
-    return;
-  }
-  if(pb.tabData[tabId].bgTab === true){
-    // prerendered tab, Chrome will throw error for setBadge functions, don't call
-    return;
-  } else {
-    chrome.tabs.get(tabId, function(tab){
-      if (chrome.runtime.lastError){
-        pb.tabData[tabId].bgTab = true;
-      } else {
-        pb.tabData[tabId].bgTab = false;
-        updateBadge(tabId);
-      }
-    });
-  }
-}
 
 /**
  * Check if a specific frame is whitelisted
