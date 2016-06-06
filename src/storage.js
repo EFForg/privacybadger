@@ -48,6 +48,7 @@ require.scopes.storage = (function() {
  *   "creativecommons.org": true,
  * }
  **/
+var incognito = require("incognito");
 
 // Cache of BadgerStorage objects
 var badgerPen = {};
@@ -403,16 +404,9 @@ BadgerStorage.prototype = {
   }
 };
 
-function incognitoTab(tab) {
-    if (!tab) { return false }
-    else if (incognito_pb.tabData[tab.id]) {return true;}
-    else {return false;}
-};
-
 var _syncStorage = function(badger){
   chrome.tabs.query({active: true, currentWindow: true}, function(t) {
-      if (incognitoTab(t[0])) {
-          console.log("Not savin incognito stuff yo from tab " + t[0].id);
+      if (incognito.tabIsIncognito(tabId)) {
           return;
       } else {
       console.log("savin stuff frome tab " + t[0])
