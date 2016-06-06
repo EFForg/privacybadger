@@ -538,8 +538,7 @@ var pb = new Badger({});
 var incognito_pb = new Badger({});
 
 /**
- * Chooese a privacy badger object to apply a callback to
- * by checking if the tab is incognito.
+ * Chooese a privacy badger object to apply a callback to.
  */
 function chooseWithTab(tabId, callback) {
     if (tabId == -1){
@@ -552,6 +551,9 @@ function chooseWithTab(tabId, callback) {
     }
 };
 
+/**
+ * Chooses the right badger to use badse on tabId.
+ */
 function getBadgerWithTab(tabId) {
     if (tabId == -1){
       return;
@@ -572,13 +574,13 @@ function getBadgerWithTab(tabId) {
  * @param action the action we are taking
  **/
 function logTrackerOnTab(tabId, fqdn, action) {
-    chooseWithTab(tabId, function (badger, tab) {
+    chooseWithTab(tabId, function (badger) {
         badger.tabData[tabId].trackers[fqdn] = action;
     });
 };
 
 function updateCount(details) {
-    chooseWithTab(details.tabId, function (badger, tab) {
+    chooseWithTab(details.tabId, function (badger) {
         badger.updateCount(details);
     });
 };
