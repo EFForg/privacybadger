@@ -468,7 +468,7 @@ function checkAction(tabId, url, quiet, frameId){
   var action = pbStorage.getBestAction(requestHost);
 
   if (action && ! quiet) {
-    pb.logTrackerOnTab(tabId, requestHost, action);
+    logTrackerOnTab(tabId, requestHost, action);
   }
   return action;
 }

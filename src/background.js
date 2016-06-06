@@ -30,6 +30,34 @@ var webrequest = require("webrequest");
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
 var Migrations = require("migrations").Migrations;
 
+function ifIncognitoTab(tabId, ifIncog, ifNotIncog) {
+    chrome.tabs.get(tabId, function(tab) {
+        if (tab.incognito) {
+            ifIncog(tab);
+        } else {
+            ifNotIncog(tab);
+        }
+    });
+};
+
+/**
+ * Add the tracker and action to the tab.trackers object in tabData
+ * which will be used by the privacy badger popup
+ * @param tabId the tab we are on
+ * @param fqdn the tracker to add
+ * @param action the action we are taking
+ **/
+function logTrackerOnTab(tabId, fqdn, action) {
+    ifIncognitoTab(tabId,
+    function (tab) {
+        incognito_pb.tabData[tabId].trackers[fqdn] = action;
+    },
+    function (tab) {
+        pb.tabData[tabId].trackers[fqdn] = action;
+    });
+}
+
+
 constants = { // duplicated in pb.prototype, remove those eventually
   // Tracking status constants
   NO_TRACKING: "noaction",
@@ -160,21 +188,6 @@ Badger.prototype = {
     if(this.DEBUG) {
       console.error.apply(console, arguments);
     }
-  },
-
-  /**
-   * Add the tracker and action to the tab.trackers object in tabData
-   * which will be used by the privacy badger popup
-   * @param tabId the tab we are on
-   * @param fqdn the tracker to add
-   * @param action the action we are taking
-   **/
-  logTrackerOnTab: function(tabId, fqdn, action){
-    this.tabData[tabId].trackers[fqdn] = action;
-  },
-
-  logIncognitoOnTab: function(tabId, inIncognito) {
-      this.tabData[tabId].inIncognito = inIncognito
   },
 
   showFirstRunPage: function(){
