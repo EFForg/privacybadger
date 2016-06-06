@@ -22,8 +22,6 @@ var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var constants = backgroundPage.constants;
 
-var pb = backgroundPage.pb;
-var incognito_pb = backgroundPage.incognito_pb;
 var pbStorage = backgroundPage.pbStorage
 
 
@@ -127,7 +125,8 @@ function closeOverlay() {
 function send_error(message) {
   var browser = window.navigator.userAgent;
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var origins = backgroundPage.getAllOriginsForTab(tabId);
+  var badger = backgroundPage.getBadgerWithTab(tabId);
+  var origins = badger.getAllOriginsForTab(tabId);
   if(!origins){ return; }
   var version = chrome.runtime.getManifest().version;
   //TODO "there's got to be a better way!"
@@ -250,7 +249,8 @@ function getTopLevel(action, origin/*, tabId*/){
 function refreshPopup(tabId) {
   console.log("Refreshing popup for tab id " + tabId);
   //TODO this is calling get action and then being used to call get Action
-  var origins = backgroundPage.getAllOriginsForTab(tabId);
+  var badger = backgroundPage.getBadgerWithTab(tabId);
+  var origins = badger.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
     hideNoInitialBlockingLink();
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
@@ -389,9 +389,10 @@ function hideNoInitialBlockingLink() {
  */
 function adjustNoInitialBlockingLink() {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var origins = backgroundPage.blockedOriginCount(tabId);
-  var totalBlocked = backgroundPage.activelyBlockedOriginCount(tabId);
-  var userBlocked = backgroundPage.userConfiguredOriginCount(tabId);
+  var badger = backgroundPage.getBadgerWithTab(tabId);
+  var origins = badger.blockedOriginCount(tabId);
+  var totalBlocked = badger.activelyBlockedOriginCount(tabId);
+  var userBlocked = badger.userConfiguredOriginCount(tabId);
   if (origins > 0 && totalBlocked === 0 && userBlocked === 0) {
     $("#noBlockingLink").show();
   } else {
@@ -451,11 +452,12 @@ function syncSettingsDict(settingsDict) {
   // track whether reload is needed: only if things are being unblocked
   var reloadNeeded = false;
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  var badger = backgroundPage.getBadgerWithTab(tabId);
   // we get the blocked data again in case anything changed, but the user's change when
   // closing a popup is authoritative and we should sync the real state to that
   for (var origin in settingsDict) {
     var userAction = settingsDict[origin];
-    if (pb.saveAction(userAction, origin)) {
+    if (badger.saveAction(userAction, origin)) {
       reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"? would be fun to check with jsperf.com
     }
   }
@@ -526,16 +528,6 @@ function setTabToUrl( query_url ) { /* jshint ignore:line */
 
 function getTab(callback) {
   chrome.tabs.query({active: true, currentWindow: true}, function(t) { callback(t[0]); });
-}
-
-function getPB(callback) {
-    getTab(function(t) {
-        if (pb.tabData[t.id]) {
-            callback(pb)
-        } else if (incognito_pb.tabData[t.id]) {
-            callback(incognito_pb)
-        }
-    });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
