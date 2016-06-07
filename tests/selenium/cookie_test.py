@@ -85,7 +85,7 @@ class CookieTest(pbtest.PBSeleniumTest):
                 window_utils.close_windows_with_url( self.driver, PB_CHROME_PU_URL )
                 print("popup UI has not been updated yet. try again in 10 seconds")
                 time.sleep(10)
-    self.assertTrue( self.cookieBlocked.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
+        self.assertTrue( self.cookieBlocked.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
 
     def load_pb_ui(self, target_scheme_and_host ):
         """Show the PB popup as a new tab.
