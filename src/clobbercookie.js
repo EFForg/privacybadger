@@ -32,10 +32,7 @@
    parent.removeChild(script);
  }
 
-var msg = {checkLocation:document.location,
-           inIncognito: chrome.extension.inIncognitoContext}
-
-chrome.runtime.sendMessage(msg, function(blocked) {
+chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
   if (blocked) {
     var code = '('+ function(){
       var dummyCookie = "x=y";

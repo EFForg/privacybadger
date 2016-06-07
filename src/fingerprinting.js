@@ -287,8 +287,7 @@ var event_id = Math.random();
 document.addEventListener(event_id, function (e) {
   // pass these on to the background page
   chrome.runtime.sendMessage({
-    'fpReport': e.detail,
-    'inIncognito': chrome.extension.inIncognitoContext
+    'fpReport': e.detail
   });
 });
 
