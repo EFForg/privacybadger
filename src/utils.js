@@ -65,21 +65,6 @@ Utils.prototype = {
     return null;
   },
 
-  /**
-   * removes an element or range of elements from an array and reindexes the
-   * array. Directly modifies the array in question.
-   *
-   * @param ary The array to modify
-   * @param {Integer} Start item of the hole
-   * @param {Integer} End item of the hole
-   * @returns {*}
-   */
-  removeElementFromArray: function(/*array*/ ary, /*int*/ from, /*int*/ to){
-    var rest = ary.slice((to || from) + 1 || ary.length);
-    ary.length = from < 0 ? ary.length + from : from;
-    return ary.push.apply(ary, rest);
-  },
-
   oneHour: function(){
     return 1000 * 60 * 60;
   },
@@ -173,7 +158,7 @@ Utils.prototype = {
     var disabledSites = settings.getItem("disabledSites");
     var idx = disabledSites.indexOf(origin);
     if(idx >= 0){
-      Utils.removeElementFromArray(disabledSites, idx);
+      removeElementFromArray(disabledSites, idx);
       settings.setItem("disabledSites", disabledSites);
     }
   },
@@ -350,10 +335,27 @@ function makeURI(url){
     return new URI(url);
 };
 
+/**
+* removes an element or range of elements from an array and reindexes the
+* array. Directly modifies the array in question.
+*
+* @param ary The array to modify
+* @param {Integer} Start item of the hole
+* @param {Integer} End item of the hole
+* @returns {*}
+*/
+function removeElementFromArray(/*array*/ ary, /*int*/ from, /*int*/ to){
+    var rest = ary.slice((to || from) + 1 || ary.length);
+    ary.length = from < 0 ? ary.length + from : from;
+    return ary.push.apply(ary, rest);
+}
+
+
 
 /************************************** exports */
 var exports = {};
 
+exports.removeElementFromArray = removeElementFromArray;
 exports.makeURI = makeURI;
 exports.xhrRequest = xhrRequest;
 exports.explodeSubdomains = explodeSubdomains;
