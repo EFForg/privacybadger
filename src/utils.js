@@ -235,7 +235,7 @@ Utils.prototype = {
       // send both key and value to entropy estimation
       lsItem = lsItems[lsKey];
       log("Checking localstorage item", lsKey, lsItem);
-      estimatedEntropy += Utils.estimateMaxEntropy(lsKey + lsItem);
+      estimatedEntropy += this.estimateMaxEntropy(lsKey + lsItem);
       if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD){
         log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
         return true;
@@ -252,7 +252,7 @@ Utils.prototype = {
    */
   hasSuperCookie: function(storageItems) {
     return (
-      Utils.hasLocalStorageSuperCookie(storageItems.localStorageItems)
+      this.hasLocalStorageSuperCookie(storageItems.localStorageItems)
       // || Utils.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
       // || Utils.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
       // TODO: Do we need separate functions for other supercookie vectors?
