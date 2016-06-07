@@ -73,17 +73,17 @@ class CookieTest(pbtest.PBSeleniumTest):
 	# reloading the first site should now cause the cookie to be blocked
 	# it can take a long time for the UI to be updated, so retry a number of
 	# times before giving up. See bug #702.
-	print "this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed"
+	print("this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed")
         self.load_url( PB_CHROME_SITE1_URL )
 	window_utils.close_windows_with_url( self.driver, PB_CHROME_SITE3_URL )
 	for i in range(60):
 		self.load_pb_ui( PB_CHROME_SITE1_URL )
 		self.get_tracker_state()
 		if self.cookieBlocked.has_key( PB_CHROME_THIRD_PARTY_TRACKER ):
-			print "Popup UI has been updated. Yay!"
+			print("Popup UI has been updated. Yay!")
 			break
 		window_utils.close_windows_with_url( self.driver, PB_CHROME_PU_URL )
-		print "popup UI has not been updated yet. try again in 10 seconds"
+		print("popup UI has not been updated yet. try again in 10 seconds")
 		time.sleep(10)
 	self.assertTrue( self.cookieBlocked.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
 
@@ -153,7 +153,7 @@ class CookieTest(pbtest.PBSeleniumTest):
 		elif action_type == 'block':
 			self.blocked[origin] = True 
 		else:
-			print "what is this?!? " + str(action_type)
+			print("what is this?!? " + str(action_type))
 			self.assertTrue(False)
 
 

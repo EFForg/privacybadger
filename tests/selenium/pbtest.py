@@ -45,7 +45,7 @@ class PBSeleniumTest(unittest.TestCase):
         if "PB_EXT_PATH" in os.environ:
             return os.environ["PB_EXT_PATH"]
         else:  # check the default path if PB_EXT_PATH env. variable is empty
-            print "Can't find the env. variable PB_EXT_PATH, will check ../.."
+            print("Can't find the env. variable PB_EXT_PATH, will check ../..")
             # if the PB_EXT_PATH environment variable is not set
             # check the default location for the last modified crx file
             exts = glob("../../*.crx")  # get matching files
@@ -67,7 +67,7 @@ class PBSeleniumTest(unittest.TestCase):
             opts.add_argument("--no-sandbox")
         opts.add_extension(self.pb_ext_path)  # will fail if ext can't be found
         if self.browser_bin:  # otherwise will use webdriver's default binary
-            print "Browser binary:", absp(self.browser_bin)
+            print("Browser binary:", absp(self.browser_bin))
             opts.binary_location = self.browser_bin  # set binary location
         # Fix for https://code.google.com/p/chromedriver/issues/detail?id=799
         opts.add_experimental_option("excludeSwitches",

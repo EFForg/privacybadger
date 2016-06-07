@@ -37,12 +37,12 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
 	# page; switch to the first time page and close it; then go back
 	# to the pb test page and reload the page again. 
         self.driver.get( PBTEST_ORG_URL )
-	print "loaded window at %s" % ( PBTEST_ORG_URL)
+	print("loaded window at %s" % ( PBTEST_ORG_URL))
 	time.sleep(5)
 	for w in self.driver.window_handles:
 		self.driver.switch_to.window( w )
 		if self.driver.current_url.startswith(u'chrome-extension://'):
-			print "going to close window " + self.driver.current_url
+			print("going to close window " + self.driver.current_url)
 			self.driver.close()
 	self.driver.switch_to.window( self.driver.window_handles[0] )
         self.driver.get( PBTEST_ORG_URL )
@@ -66,7 +66,7 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
 					continue
 				# skip the rows that are not user-visible
 				if not tr.is_displayed():
-					print tr.text + ": this is not displayed - ignore"
+					print(tr.text + ": this is not displayed - ignore")
 					continue
 
 				# pull out the test label and test status from the row
@@ -74,21 +74,21 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
 
 				# sort according to the test status
 				if PASS in teststatus.text:
-					#print tr.text + ": test has passed"
+					#print(tr.text + ": test has passed")
 					tr_states['passed'].append( tr )
 				elif FAIL in teststatus.text:
 					tr_states['failed'].append( tr )
-					#print tr.text + ": test has failed"
+					#print(tr.text + ": test has failed")
 				elif u'undefined' in teststatus.text:
 					tr_states['undefined'].append( tr )
-					#print tr.text + ": test is undefined"
+					#print(tr.text + ": test is undefined")
 				else:
-					#print tr.text + ": test is executing"
+					#print(tr.text + ": test is executing")
 					tr_states['executing'].append( tr )
 
 			# some tests are not finished yet. sleep a bit and try again.
 			if tr_states['executing']:
-				print "test not all completed yet. try again"
+				print("test not all completed yet. try again")
 				time.sleep(5)
 				continue
 
@@ -103,7 +103,7 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
 	self.assertTrue( len(tr_states['executing']) == 0, msg="Problem test results execution on the server side.")
 
 	# now we have all the completed test results. complain about any failed tests.
-	print "pbtest_org_test: %d tests passed, %d tests failed, %d tests undefined" % ( len(tr_states['passed']), len(tr_states['failed']), len(tr_states['undefined']) )
+	print("pbtest_org_test: %d tests passed, %d tests failed, %d tests undefined" % ( len(tr_states['passed']), len(tr_states['failed']), len(tr_states['undefined']) ))
 	failed_tests = [t.text for t in tr_states['failed']]
 	fail_msg = "%d tests failed: %s" % ( len(failed_tests), ", ".join(failed_tests) )
 	self.assertTrue( len(failed_tests) == 0, msg=fail_msg  )

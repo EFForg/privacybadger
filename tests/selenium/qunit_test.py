@@ -23,8 +23,8 @@ class Test(pbtest.PBSeleniumTest):
             self.fail("Cannot find the results of QUnit tests %s" % exc)
         passed = self.txt_by_css("#qunit-testresult > span.passed")
         total = self.txt_by_css("#qunit-testresult > span.total")
-        print "User agent:", self.txt_by_css("#qunit-userAgent")
-        print "QUnits tests: Failed: %s Passed: %s Total: %s" %\
+        print("User agent:", self.txt_by_css("#qunit-userAgent"))
+        print("QUnits tests: Failed: %s Passed: %s Total: %s" %\)
                                          (failed, passed, total)
         self.assertEqual("0", failed)
         # TODO: Report failed QUnit tests
