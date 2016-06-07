@@ -89,12 +89,12 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
                         time.sleep(5)
                         continue
 
-        # handle the case where the elements haven't been added to the DOM yet with a retry
-        except (NoSuchElementException, StaleElementReferenceException, ValueError):
+            # handle the case where the elements haven't been added to the DOM yet with a retry
+            except (NoSuchElementException, StaleElementReferenceException, ValueError):
                 time.sleep(5)
                 continue
 
-        break
+            break
 
         # complain if all tests haven't completed by now
         self.assertTrue( len(tr_states['executing']) == 0, msg="Problem test results execution on the server side.")
