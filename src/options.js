@@ -25,6 +25,8 @@ var i18n = chrome.i18n;
 var originCache = null;
 var settings = pb.storage.getBadgerStorageObject("settings_map");
 
+var log = backgroundPage.log;
+
 /*
  * Loads options from pb storage and sets UI elements accordingly.
  */
@@ -194,13 +196,13 @@ function getOriginAction(origin) {
 //TODO unduplicate this code? since it's also in popup
 function revertDomainControl(e){
   var $elm = $(e.target).parent();
-  pb.log('revert to privacy badger control for', $elm);
+  log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   pb.storage.revertUserAction(origin);
   var defaultAction = pb.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
-  pb.log('selector', selector);
+  log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
   refreshFilterPage(origin);
@@ -247,7 +249,7 @@ function refreshFilterPage() {
   }
   showTrackingDomains(originsToDisplay);
 
-  pb.log("Done refreshing options page");
+  log("Done refreshing options page");
 }
 
 /**
@@ -332,7 +334,7 @@ function registerToggleHandlers(element) {
 
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  pb.log('updating origin for', $elm);
+  log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
@@ -404,11 +406,11 @@ function hideTooltip(event){
  *                               all origins are checked.
  */
 function syncSettings(origin, userAction) {
-  pb.log("Syncing userset options: ", origin, userAction);
+  log("Syncing userset options: ", origin, userAction);
 
   // Save new action for updated origins.
   pb.saveAction(userAction, origin);
-  pb.log("Finished syncing.");
+  log("Finished syncing.");
 
   // Options page needs to be refreshed to display current results.
   refreshFilterPage();
