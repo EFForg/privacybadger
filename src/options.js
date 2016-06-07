@@ -18,8 +18,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var pb = backgroundPage.pb;
-var Utils = require("utils").Utils;
+var pb = backgroundPage.pb; // incognito_pb can't use this page
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var originCache = null;
@@ -62,12 +61,12 @@ function loadOptions() {
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $("#activate_socialwidget_btn").click(activateSocialWidgetReplacement);
   $("#deactivate_socialwidget_btn").click(deactivateSocialWidgetReplacement);
-  if(!Utils.isSocialWidgetReplacementEnabled()) {
+  if(!pb.utils.isSocialWidgetReplacementEnabled()) {
     $("#activate_socialwidget_btn").show();
     $("#deactivate_socialwidget_btn").hide();
   }
   $("#toggle_counter_checkbox").click(toggleCounter);
-  $("#toggle_counter_checkbox").prop("checked", Utils.showCounter());
+  $("#toggle_counter_checkbox").prop("checked", pb.utils.showCounter());
 
   // Show user's filters
   reloadWhitelist();
@@ -149,7 +148,7 @@ function addWhitelistDomain(event) {
     return;
   }
 
-  Utils.disablePrivacyBadgerForOrigin(domain);
+  pb.utils.disablePrivacyBadgerForOrigin(domain);
   reloadWhitelist();
 }
 
@@ -157,7 +156,7 @@ function removeWhitelistDomain(event) {
   event.preventDefault();
   var selected = $(document.getElementById("excludedDomainsBox")).find('option:selected');
   for(var i = 0; i < selected.length; i++){
-    Utils.enablePrivacyBadgerForOrigin(selected[i].text);
+    pb.utils.enablePrivacyBadgerForOrigin(selected[i].text);
   }
   reloadWhitelist();
 }
