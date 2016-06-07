@@ -137,7 +137,7 @@ function onBeforeSendHeaders(details) {
     // would cause it to be blocked we should check immediately if it will be blocked.
     if (requestAction == pb.ALLOW && 
         badger.storage.getTrackingCount(requestDomain) == pb.TRACKING_THRESHOLD - 1){
-      pb.heuristicBlocking.heuristicBlockingAccounting(details);
+      badger.heuristicBlocking.heuristicBlockingAccounting(details);
       requestAction = checkAction(details.tabId, details.url, false, details.frameId);
     }
 
@@ -226,7 +226,8 @@ function onTabRemoved(tabId){
 function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
   // Update the badge of the added tab, which was probably used for prerendering.
-  window.updateBadge(addedTabId);
+  var badger = getBadgerWithTab(addedTabId);
+  badger.updateBadge(addedTabId);
 }
 
 /******** Utility Functions **********/

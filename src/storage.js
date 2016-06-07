@@ -314,7 +314,6 @@ var BadgerStorage = function(isIncognito, name, seed){
   this.name = name;
   this._store = seed;
   this.incognito = isIncognito;
-  console.log("making an new badgerbell with incog == " + isIncognito + " called: " + name)
 };
 
 BadgerStorage.prototype = {
