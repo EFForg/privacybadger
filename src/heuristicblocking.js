@@ -495,11 +495,12 @@ var hasCookieTracking = function(details, origin) {
   return false;
 };
 
-function heuristicListeners(badger) {
+function startListeners() {
     /**
      * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
      */
     chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
+      var badger = getBadgerWithTab(details.tab.id);
       return badger.heuristicBlocking.heuristicBlockingAccounting(details);
     }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
 
@@ -516,6 +517,7 @@ function heuristicListeners(badger) {
       }
       if(hasSetCookie) {
         //var origin = window.getBaseDomain(Utils.makeURI(details.url).host);
+        var badger = getBadgerWithTab(details.tab.id);
         return badger.heuristicBlocking.heuristicBlockingAccounting(details);
       }
     },
@@ -525,7 +527,7 @@ function heuristicListeners(badger) {
 /************************************** exports */
 var exports = {};
 exports.HeuristicBlocker = HeuristicBlocker;
-exports.heuristicListeners = heuristicListeners;
+exports.startListeners = startListeners;
 return exports;
 /************************************** exports */
 })();

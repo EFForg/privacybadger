@@ -31,13 +31,6 @@ require.scopes.webrequest = (function() {
 var utils = require("utils");
 var temporarySocialWidgetUnblock = {};
 
-/*************** Register Event Listeners *********************/
-chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
-chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
-chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
-chrome.tabs.onRemoved.addListener(onTabRemoved);
-chrome.tabs.onReplaced.addListener(onTabReplaced);
-
 /***************** Blocking Listener Functions **************/
 
 /**
@@ -628,10 +621,7 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
 }
 
-/**
- * Handle the different tracker variants. The big dispatcher
- */
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+function dispatcher(request, sender, sendResponse) {
   var tabHost;
   var badger = getBadgerWithTab(sender.tab.id);
   if (sender.tab && sender.tab.url) {
@@ -682,14 +672,24 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   } else if (request.checkSocialWidgetReplacementEnabled) {
     sendResponse(badger.utils.isPrivacyBadgerEnabled(tabHost) && badger.utils.isSocialWidgetReplacementEnabled());
   }
+};
 
-});
+/*************** Event Listeners *********************/
+function startListeners() {
+    chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
+    chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
+    chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
+    chrome.tabs.onRemoved.addListener(onTabRemoved);
+    chrome.tabs.onReplaced.addListener(onTabReplaced);
+    chrome.runtime.onMessage.addListener(dispatcher);
+};
 
 /************************************** exports */
 var exports = {};
 exports.getFrameData = getFrameData;
 exports.getHostForTab = getHostForTab;
 exports.getFrameUrl = getFrameUrl;
+exports.startListeners = startListeners;
 exports.isSocialWidgetTemporaryUnblock = isSocialWidgetTemporaryUnblock;
 
 return exports;

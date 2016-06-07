@@ -60,6 +60,7 @@ function BadgerPen(isIncognito, callback) {
     "settings_map"
   ];
 
+  this.incognito = isIncognito;
   var bp = this;
   // now check localStorage
   chrome.storage.local.get(keys, function(store){

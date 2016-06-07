@@ -66,7 +66,6 @@ function  Badger(tabData, isIncognito) {
         if(badger.INITIALIZED) { return; }
         badger.utils = new utils.Utils(badger);
         badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(badger.utils, thisStorage);
-        HeuristicBlocking.heuristicListeners(badger);
         badger.updateTabList();
         badger.initializeDefaultSettings();
         try {
@@ -522,9 +521,6 @@ Badger.prototype = {
   }
 };
 
-var pb = new Badger({}, false);
-var incognito_pb = new Badger({}, true);
-
 /**
 * Log a message to the conosle if debugging is enabled
 */
@@ -682,45 +678,64 @@ function isFrameWhitelisted(tabId, frameId, type) {
 }
 
 /**************************** Listeners ****************************/
-chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 
-// Update icon if a tab changes location
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  if(changeInfo.status == "loading") {
-    refreshIconAndContextMenu(tab);
-  }
-});
+function startBackgroundListeners() {
+  chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
 
-// Update icon if a tab is replaced or loaded from cache
-chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
-  chrome.tabs.get(addedTabId, function(tab){
-    refreshIconAndContextMenu(tab);
+  // Update icon if a tab changes location
+  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    if(changeInfo.status == "loading") {
+      if (tabId != tab.id) {
+          console.log("what is going on!!??");
+      }
+      refreshIconAndContextMenu(tab);
+    }
   });
-});
 
-// Listening for Avira Autopilot remote control UI
-// The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
-// The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
-if(chrome.runtime.onMessageExternal){
-  chrome.runtime.onMessageExternal.addListener(
-    function(request, sender, sendResponse) {
-      // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
-      if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
-        var badger = getBadgerWithTab(sender.tab.id);
-        if (request.command == "getDisabledSites") {
-          sendResponse({origins: badger.utils.listOriginsWherePrivacyBadgerIsDisabled()});
-        }
-        else if (request.command == "enable") {
-          badger.utils.enablePrivacyBadgerForOrigin(request.origin);
-        }
-        else if (request.command == "disable") {
-          badger.utils.disablePrivacyBadgerForOrigin(request.origin);
+  // Update icon if a tab is replaced or loaded from cache
+  chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
+    chrome.tabs.get(addedTabId, function(tab){
+      refreshIconAndContextMenu(tab);
+    });
+  });
+
+  // Listening for Avira Autopilot remote control UI
+  // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
+  // The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
+  if(chrome.runtime.onMessageExternal){
+    chrome.runtime.onMessageExternal.addListener(
+      function(request, sender, sendResponse) {
+        // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
+        if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
+          var badger = getBadgerWithTab(sender.tab.id);
+          if (request.command == "getDisabledSites") {
+            sendResponse({origins: badger.utils.listOriginsWherePrivacyBadgerIsDisabled()});
+          }
+          else if (request.command == "enable") {
+            badger.utils.enablePrivacyBadgerForOrigin(request.origin);
+          }
+          else if (request.command == "disable") {
+            badger.utils.disablePrivacyBadgerForOrigin(request.origin);
+          }
         }
       }
-    }
-  );
-}
-
+    );
+  }
   // Refresh domain exceptions popup list once every 24 hours and on startup
   setInterval(DomainExceptions.updateList,86400000);
   DomainExceptions.updateList();
+};
+
+/**
+ * lets get this party started
+ */
+var pb = new Badger({}, false);
+var incognito_pb = new Badger({}, true);
+
+/**
+ * Start all the listeners
+ */
+incognito.startListeners();
+webrequest.startListeners();
+HeuristicBlocking.startListeners();
+startBackgroundListeners();
