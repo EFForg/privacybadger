@@ -369,7 +369,7 @@ function recordFingerprinting(tabId, msg) {
         if (msg.extra.width > 16 && msg.extra.height > 16) {
           // let's call it fingerprinting
           scriptData.canvas.fingerprinting = true;
-          badger.log(script_host, 'caught fingerprinting on', document_host);
+          log(script_host, 'caught fingerprinting on', document_host);
 
           // mark this is a strike
           badger.heuristicBlocking.recordPrevalence(
