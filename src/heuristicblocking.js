@@ -18,7 +18,7 @@ require.scopes.heuristicblocking = (function() {
 
 /*********************** heuristicblocking scope **/
 
-var Utils = require("utils").Utils;
+var utils = require("utils");
 var pbStorage = require("storage");
 var webrequest = require("webrequest");
 var tabOrigins = { }; // TODO roll into tabData?
@@ -60,7 +60,7 @@ var blacklistOrigin = function(baseDomain, fqdn) { /* jshint ignore:line */
 
   // Check if a parent domain of the fqdn is on the cookie block list
   var set = false;
-  _.each(Utils.explodeSubdomains(fqdn, true), function(domain){
+  _.each(utils.explodeSubdomains(fqdn, true), function(domain){
     if(cbl.hasItem(domain)){
       pbStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
       set = true;
@@ -308,8 +308,8 @@ var extractCookieString = function(details) {
   } else if(details.responseHeaders) {
     headers = details.responseHeaders;
   } else {
-    pb.log("A request was made with no headers! Crazy!");
-    pb.log(details);
+    log("A request was made with no headers! Crazy!");
+    log(details);
     return false;
   }
 
@@ -358,7 +358,8 @@ var hasSupercookieTracking = function(details, origin) {
     // console.log("hasSupercookieTracking (frameData)", frameData.superCookie, origin, details.tabId, details.frameId);
     return frameData.superCookie;
   } else { // Check localStorage if we can't find the frame in frameData
-    return Utils.getSupercookieDomains().hasItem(origin);
+    var badger = getBadgerWithTab(details.tabId);
+    return badger.utils.getSupercookieDomains().hasItem(origin);
   }
 };
 
@@ -397,16 +398,16 @@ var hasCookieTracking = function(details, origin) {
     }
   }
   if (hasCookies) {
-     pb.log("All cookies for " + origin + " deemed low entropy...");
+     log("All cookies for " + origin + " deemed low entropy...");
      for (var n = 0; n < cookies.length; n++) {
-        pb.log("    " + cookies[n]);
+        log("    " + cookies[n]);
      }
      if (estimatedEntropy > pb.MAX_COOKIE_ENTROPY) {
-       pb.log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
+       log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
        return true;
      }
   } else {
-    pb.log(origin, "has no cookies!");
+    log(origin, "has no cookies!");
   }
   return false;
 };
@@ -424,17 +425,18 @@ var heuristicBlockingAccounting = function(details) {
   }
  
 
-  var fqdn = Utils.makeURI(details.url).host;
+  var fqdn = utils.makeURI(details.url).host;
   var origin = window.getBaseDomain(fqdn);
+  var badger = getBadgerWithTab(details.tabId);
 
-  var action = pbStorage.getActionForFqdn(fqdn);
+  var action = badger.storage.getActionForFqdn(fqdn);
   if(action != pb.NO_TRACKING && action != pb.ALLOW){ 
     return {}; 
   }
   
   // Save the origin associated with the tab if this is a main window request
   if(details.type == "main_frame") {
-    pb.log("Origin: " + origin + "\tURL: " + details.url);
+    log("Origin: " + origin + "\tURL: " + details.url);
     tabOrigins[details.tabId] = origin;
     return { };
   }
@@ -483,7 +485,7 @@ function recordPrevalence(fqdn, origin, tabOrigin) {
 
   //block the origin if it has been seen on multiple first party domains
   if (httpRequestPrevalence >= pb.TRACKING_THRESHOLD) {
-    pb.log('blacklisting origin', fqdn);
+    log('blacklisting origin', fqdn);
     blacklistOrigin(origin, fqdn);
   }
 }

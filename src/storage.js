@@ -48,15 +48,10 @@ require.scopes.storage = (function() {
  *   "creativecommons.org": true,
  * }
  **/
-var incognito = require("incognito");
 
-// Cache of BadgerStorage objects
-var badgerPen = {};
-
-
-var initialize = function(isIncognito, callback){
+function BadgerPen(isIncognito, callback) {
   console.log('loading badgers into the pen');
-  var storage_objects = [
+  var keys = [
     "snitch_map",
     "action_map",
     "cookieblock_list",
@@ -65,8 +60,200 @@ var initialize = function(isIncognito, callback){
     "settings_map"
   ];
 
-  _initializeCache(isIncognito, storage_objects, callback);
+  var bp = this;
+  // now check localStorage
+  chrome.storage.local.get(keys, function(store){
+    _.each(keys, function(key){
+      if(store.hasOwnProperty(key)){
+        bp[key] = new BadgerStorage(isIncognito, key, store[key]);
+      } else {
+        var storage_obj = new BadgerStorage(isIncognito, key, {});
+        bp[key] = storage_obj;
+        _syncStorage(storage_obj);
+      }
+    });
+    if(_.isFunction(callback)){
+        callback();
+    }
+  });
 };
+
+BadgerPen.prototype = {
+    getBadgerStorageObject: function(key) {
+
+      if(this.hasOwnProperty(key)){
+        return this[key];
+      }
+      console.error('cant initialize cache from getBadgerStorageObject. You are using this API improperly');
+    },
+
+    /**
+     * get the current presumed action for a specific fqdn, ignoring any rules for subdomains
+     * below or above it
+     * @param {Object|String} domain domain object from action_map
+     * @returns {String} the presumed action for this FQDN
+     **/
+    getActionForFqdn: function(domain){
+      if (_.isString(domain)) {
+        domain = this.getBadgerStorageObject('action_map').getItem(domain) || {};
+      }
+      if(domain.userAction){ return domain.userAction; }
+      if(domain.dnt){ return pb.DNT; } 
+      if(domain.heuristicAction){ return domain.heuristicAction; } 
+      return pb.NO_TRACKING;
+    }, 
+
+    touchDNTRecheckTime: function(domain, time){
+      var action_map = this.getBadgerStorageObject('action_map');
+      var domainObj = action_map.getItem(domain);
+      domainObj.nextUpdateTime = time;
+      action_map.setItem(domain, domainObj);
+    },
+
+    getNextUpdateForDomain: function(domain){
+      var action_map = this.getBadgerStorageObject('action_map');
+      if(action_map.hasItem(domain)){
+        return action_map.getItem(domain).nextUpdateTime;
+      } else {
+        return 0;
+      }
+    },
+
+    /**
+     * update DNT policy hashes
+     */
+    updateDNTHashes: function(hashes){
+      var dnt_hashes = this.getBadgerStorageObject('dnt_hashes');
+      dnt_hashes.updateObject(_.invert(hashes));
+    },
+
+    /**
+     * find the best action to take for an FQDN, assuming it is third party and 
+     * privacy badger is enabled. Traverses the action list for the
+     * fqdn and each of its subdomains and then takes the most appropriate
+     * action
+     * @param {String} fqdn the FQDN we want to determine the action for
+     * @returns {String} the best action for the FQDN
+     **/
+    getBestAction: function(fqdn) {
+      var best_action = pb.NO_TRACKING;
+      var subdomains = utils.explodeSubdomains(fqdn);
+      var action_map = this.getBadgerStorageObject('action_map');
+      var relevantDomains = [];
+      var i;
+
+      for( i = 0; i < subdomains.length; i++ ){
+        if(action_map.hasItem(subdomains[i])){
+          // First collect the actions for any domains or subdomains of the fqdn
+          // Order from base domain to FQDN
+          relevantDomains.unshift(action_map.getItem(subdomains[i]));
+        }
+      }
+
+      // Loop through each subdomain we have a rule for from least to most specific
+      // and keep the one which has the best score. 
+      for( i = 0; i < relevantDomains.length; i++ ){
+        var action = this.getActionForFqdn(relevantDomains[i]);
+        if(getScore(action) >= getScore(best_action)){
+          best_action = action;
+        }
+      }
+
+      return best_action;
+    },
+
+    /**
+     * Find every domain in the action_map where the presumed acttion would be {action}
+     * @param {String} selector the action to select by
+     * @return {Array} an array of FQDN strings
+     **/
+    getAllDomainsByPresumedAction: function(selector){
+      var action_map = this.getBadgerStorageObject('action_map');
+      var relevantDomains = [];
+      for(var domain in action_map.getItemClones()){
+        if(selector == this.getActionForFqdn(domain)){
+          relevantDomains.push(domain); 
+        }
+      }
+      return relevantDomains;
+    },
+
+    /**
+     * Get the number of domains that the given FQDN has been seen tracking on
+     * @param fqdn domain to check status of
+     * @return int the number of domains fqdn has been tracking on 
+     */
+    getTrackingCount: function(fqdn){
+      var snitch_map = this.getBadgerStorageObject('snitch_map');
+      if(snitch_map.hasItem(fqdn)){
+        return snitch_map.getItem(fqdn).length;
+      } else {
+        return 0;
+      }
+    }, 
+
+    /**
+     * set up an action for a domain of the given action type in action_map
+     * @param domain the domain to set the action for
+     * @param action the action to take e.g. BLOCK || COOKIEBLOCK || DNT
+     * @param actionType the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
+     * @private
+     */
+    _setupDomainAction: function(domain, action, actionType){
+      var action_map = this.getBadgerStorageObject("action_map");
+      var actionObj = {};
+      if (action_map.hasItem(domain)) {
+        actionObj = action_map.getItem(domain);
+      } else {
+        actionObj = _newActionMapObject();
+      }
+      actionObj[actionType] = action;
+      action_map.setItem(domain, actionObj);
+    },
+
+    /**
+     * adds a heuristic action for a domain
+     * @param {String} domain Domain to add
+     * @param {String} action The heuristic action to take
+     */
+    setupHeuristicAction: function(domain, action){
+      this._setupDomainAction(domain, action, "heuristicAction");
+    },
+
+    /**
+     * Sets up a domain for DNT
+     * @param {String} domain Domain to add
+     */
+    setupDNT: function(domain){
+      this._setupDomainAction(domain, true, "dnt"); 
+    },
+      
+    /**
+    * remove DNT setting from a domain
+    * @param domain FQDN string
+    **/
+    revertDNT: function(domain){
+      this._setupDomainAction(domain, false, "dnt");
+    },
+
+    /**
+     * adds a heuristic action for a domain
+     * @param {String} domain Domain to add
+     * @param {String} action The heuristic action to take
+     */
+    setupUserAction: function(domain, action){
+      this._setupDomainAction(domain, action, "userAction");
+    },
+      
+    /**
+    * remove user set action from a domain
+    * @param domain FQDN string
+    **/
+    revertUserAction: function(domain){
+      this._setupDomainAction(domain, "", "userAction");
+    }
+}
+
 
 var getScore = function(action){
   switch(action){
@@ -80,108 +267,6 @@ var getScore = function(action){
 };
 
 /**
- * get the current presumed action for a specific fqdn, ignoring any rules for subdomains
- * below or above it
- * @param {Object|String} domain domain object from action_map
- * @returns {String} the presumed action for this FQDN
- **/
-var getActionForFqdn = function(domain){
-  if (_.isString(domain)) {
-    domain = getBadgerStorageObject('action_map').getItem(domain) || {};
-  }
-  if(domain.userAction){ return domain.userAction; }
-  if(domain.dnt){ return pb.DNT; } 
-  if(domain.heuristicAction){ return domain.heuristicAction; } 
-  return pb.NO_TRACKING;
-};
-
-/**
- * adds a heuristic action for a domain
- * @param {String} domain Domain to add
- * @param {String} action The heuristic action to take
- */
-var setupHeuristicAction = function(domain, action){
-  _setupDomainAction(domain, action, "heuristicAction");
-};
-
-/**
- * Sets up a domain for DNT
- * @param {String} domain Domain to add
- */
-var setupDNT = function(domain){
-  _setupDomainAction(domain, true, "dnt"); 
-};
-  
-/**
-* remove DNT setting from a domain
-* @param domain FQDN string
-**/
-var revertDNT = function(domain){
-  _setupDomainAction(domain, false, "dnt");
-};
-
-var touchDNTRecheckTime = function(domain, time){
-  var action_map = getBadgerStorageObject('action_map');
-  var domainObj = action_map.getItem(domain);
-  domainObj.nextUpdateTime = time;
-  action_map.setItem(domain, domainObj);
-};
-
-var getNextUpdateForDomain = function(domain){
-  var action_map = getBadgerStorageObject('action_map');
-  if(action_map.hasItem(domain)){
-    return action_map.getItem(domain).nextUpdateTime;
-  } else {
-    return 0;
-  }
-};
-
-/**
- * update DNT policy hashes
- */
-var updateDNTHashes = function(hashes){
-  var dnt_hashes = getBadgerStorageObject('dnt_hashes');
-  dnt_hashes.updateObject(_.invert(hashes));
-};
-
-/**
- * adds a heuristic action for a domain
- * @param {String} domain Domain to add
- * @param {String} action The heuristic action to take
- */
-var setupUserAction = function(domain, action){
-  _setupDomainAction(domain, action, "userAction");
-};
-  
-/**
-* remove user set action from a domain
-* @param domain FQDN string
-**/
-var revertUserAction = function(domain){
-  _setupDomainAction(domain, "", "userAction");
-};
-
-  
-/**
- * set up an action for a domain of the given action type in action_map
- * @param domain the domain to set the action for
- * @param action the action to take e.g. BLOCK || COOKIEBLOCK || DNT
- * @param actionType the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
- * @private
- */
-var _setupDomainAction = function(domain, action, actionType){
-  var action_map = getBadgerStorageObject("action_map");
-  var actionObj = {};
-  if (action_map.hasItem(domain)) {
-    actionObj = action_map.getItem(domain);
-  } else {
-    actionObj = _newActionMapObject();
-  }
-  actionObj[actionType] = action;
-  action_map.setItem(domain, actionObj);
-};
-
-/**
  * @returns {{userAction: null, dnt: null, heuristicAction: null}}
  * @private
  */
@@ -192,98 +277,6 @@ var _newActionMapObject = function() {
     heuristicAction: "",
     nextUpdateTime: 0
   };
-};
-
-/**
- * find the best action to take for an FQDN, assuming it is third party and 
- * privacy badger is enabled. Traverses the action list for the
- * fqdn and each of its subdomains and then takes the most appropriate
- * action
- * @param {String} fqdn the FQDN we want to determine the action for
- * @returns {String} the best action for the FQDN
- **/
-var getBestAction = function(fqdn) {
-  var best_action = pb.NO_TRACKING;
-  var subdomains = pb.utils.explodeSubdomains(fqdn);
-  var action_map = getBadgerStorageObject('action_map');
-  var relevantDomains = [];
-  var i;
-
-  for( i = 0; i < subdomains.length; i++ ){
-    if(action_map.hasItem(subdomains[i])){
-      // First collect the actions for any domains or subdomains of the fqdn
-      // Order from base domain to FQDN
-      relevantDomains.unshift(action_map.getItem(subdomains[i]));
-    }
-  }
-
-  // Loop through each subdomain we have a rule for from least to most specific
-  // and keep the one which has the best score. 
-  for( i = 0; i < relevantDomains.length; i++ ){
-    var action = getActionForFqdn(relevantDomains[i]);
-    if(getScore(action) >= getScore(best_action)){
-      best_action = action;
-    }
-  }
-
-  return best_action;
-};
-
-/**
- * Find every domain in the action_map where the presumed acttion would be {action}
- * @param {String} selector the action to select by
- * @return {Array} an array of FQDN strings
- **/
-var getAllDomainsByPresumedAction = function(selector){
-  var action_map = getBadgerStorageObject('action_map');
-  var relevantDomains = [];
-  for(var domain in action_map.getItemClones()){
-    if(selector == getActionForFqdn(domain)){
-      relevantDomains.push(domain); 
-    }
-  }
-  return relevantDomains;
-};
-
-/**
- * Get the number of domains that the given FQDN has been seen tracking on
- * @param fqdn domain to check status of
- * @return int the number of domains fqdn has been tracking on 
- */
-var getTrackingCount = function(fqdn){
-  var snitch_map = getBadgerStorageObject('snitch_map');
-  if(snitch_map.hasItem(fqdn)){
-    return snitch_map.getItem(fqdn).length;
-  } else {
-    return 0;
-  }
-};
-
-var getBadgerStorageObject = function(key) {
-
-  if(badgerPen.hasOwnProperty(key)){
-    return badgerPen[key];
-  }
-  console.error('cant initialize cache from getBadgerStorageObject. You are using this API improperly');
-};
-
-var _initializeCache = function(isIncognito, keys, cb) {
-
-  // now check localStorage
-  chrome.storage.local.get(keys, function(store){
-    _.each(keys, function(key){
-      if(store.hasOwnProperty(key)){
-        badgerPen[key] = new BadgerStorage(isIncognito, key, store[key]);
-      } else {
-        var storage_obj = new BadgerStorage(isIncognito, key, {});
-        badgerPen[key] = storage_obj;
-        _syncStorage(storage_obj);
-      }
-    });
-    if(_.isFunction(cb)){
-      cb();
-    }
-  });
 };
 
 /**
@@ -411,20 +404,7 @@ var _syncStorage = function(badgerStorage){
 /************************************** exports */
 var exports = {};
 
-exports.getBestAction = getBestAction;
-exports.getActionForFqdn = getActionForFqdn;
-exports.getAllDomainsByPresumedAction = getAllDomainsByPresumedAction;
-exports.getNextUpdateForDomain = getNextUpdateForDomain;
-exports.setupHeuristicAction = setupHeuristicAction;
-exports.setupDNT = setupDNT;
-exports.revertDNT = revertDNT;
-exports.updateDNTHashes = updateDNTHashes;
-exports.touchDNTRecheckTime = touchDNTRecheckTime;
-exports.setupUserAction = setupUserAction;
-exports.revertUserAction = revertUserAction;
-exports.getBadgerStorageObject = getBadgerStorageObject;
-exports.getTrackingCount = getTrackingCount;
-exports.initialize = initialize;
+exports.BadgerPen = BadgerPen;
 
 return exports;
 /************************************** exports */

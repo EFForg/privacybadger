@@ -22,46 +22,49 @@ var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var constants = backgroundPage.constants;
 
-var pbStorage = backgroundPage.pbStorage
 
 
 var Utils = require("utils").Utils;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 
-var settings = pbStorage.getBadgerStorageObject('settings_map');
-
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
  */
 function init() {
+  console.log("init this dang popup");
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
 
-  var seenComic = settings.getItem("seenComic") || false;
+  /* if they aint seen the comic*/
+  getTab(function(tab) {
+      var badger = backgroundPage.getBadgerWithTab(tab.id)
+      var settings = badger.storage.getBadgerStorageObject('settings_map');
+      var seenComic = settings.getItem("seenComic") || false; 
 
-  function _setSeenComic() {
-    settings.setItem("seenComic", "true");
-  }
+      function _setSeenComic() {
+        settings.setItem("seenComic", "true");
+      }
 
-  function _hideNag(){
-    _setSeenComic();
-    nag.fadeOut();
-    outer.fadeOut();
-  }
+      function _hideNag(){
+        _setSeenComic();
+        nag.fadeOut();
+        outer.fadeOut();
+      }
 
-  if (!seenComic) {
-    nag.show();
-    outer.show();
-    // Attach event listeners
-    $('#fittslaw').click(_hideNag);
-    $("#firstRun").click(function() {
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
-      });
-      _hideNag();
-    });
-  }
+      if (!seenComic) {
+        nag.show(); 
+        outer.show();
+        // Attach event listeners
+        $('#fittslaw').click(_hideNag);
+        $("#firstRun").click(function() {
+          chrome.tabs.create({
+            url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+          });
+          _hideNag();
+        });
+      } 
+  });
 
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
@@ -96,7 +99,8 @@ function init() {
 
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
-    if(!Utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
+    var badger = backgroundPage.getBadgerWithTab(t.id)
+    if(!badger.utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
       $("#blockedResourcesContainer").hide();
       $("#activate_site_btn").show();
       $("#deactivate_site_btn").hide();

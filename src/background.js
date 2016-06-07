@@ -21,7 +21,7 @@
 
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
-var Utils = require("utils").Utils;
+var utils = require("utils");
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
@@ -31,6 +31,9 @@ var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialw
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
 
+
+// Display debug messages
+DEBUG = false,
 
 constants = { // duplicated in pb.prototype, remove those eventually
   // Tracking status constants
@@ -58,16 +61,18 @@ constants = { // duplicated in pb.prototype, remove those eventually
 function  Badger(tabData, isIncognito) {
     this.isIncognito = isIncognito
     this.tabData = JSON.parse(JSON.stringify(tabData));
-    this.storage.initialize(isIncognito, function() {
-        if(Badger.prototype.INITIALIZED) { return; }
-        Badger.prototype.updateTabList();
-        Badger.prototype.initializeDefaultSettings();
+    var badger = this;
+    this.storage = new pbStorage.BadgerPen(isIncognito, function() {
+        if(badger.INITIALIZED) { return; }
+        badger.utils = new utils.Utils(badger);
+        badger.updateTabList();
+        badger.initializeDefaultSettings();
         try {
-          Badger.prototype.runMigrations();
+          badger.runMigrations();
         } finally {
-          Badger.prototype.initializeCookieBlockList();
-          Badger.prototype.initializeDNT();
-          Badger.prototype.showFirstRunPage();
+          badger.initializeCookieBlockList();
+          badger.initializeDNT();
+          badger.showFirstRunPage();
         }
 
         // Show icon as page action for all tabs that already exist
@@ -81,7 +86,7 @@ function  Badger(tabData, isIncognito) {
 
         // TODO: register all privacy badger listeners here in the storage callback
 
-        Badger.prototype.INITIALIZED = true;
+        badger.INITIALIZED = true;
         console.log('privacy badger is ready to rock');
         console.log('set pb.DEBUG=1 to view console messages');
     });
@@ -90,8 +95,6 @@ function  Badger(tabData, isIncognito) {
 Badger.prototype = {
   // imports
   heuristicBlocking: HeuristicBlocking,
-  utils: Utils,
-  storage: pbStorage,
   webrequest: webrequest,
 
   // Tracking status constants
@@ -112,8 +115,6 @@ Badger.prototype = {
   TRACKING_THRESHOLD: 3,
   MAX_COOKIE_ENTROPY: 12,
 
-  // Display debug messages
-  DEBUG: false,
   INITIALIZED: false,
 
   /**
@@ -150,21 +151,6 @@ Badger.prototype = {
 
   // Methods
 
-  /**
-   * Log a message to the conosle if debugging is enabled
-   */
-  log: function(/*...*/){
-    if(this.DEBUG) {
-      console.log.apply(console, arguments);
-    }
-  },
-
-  error: function(/*...*/){
-    if(this.DEBUG) {
-      console.error.apply(console, arguments);
-    }
-  },
-
   showFirstRunPage: function(){
     var settings = this.storage.getBadgerStorageObject("settings_map");
     if (settings.getItem("isFirstRun") && !chrome.extension.inIncognitoContext) {
@@ -186,7 +172,7 @@ Badger.prototype = {
                           'cookieblock': this.USER_COOKIE_BLOCK,
                           'allow': this.USER_ALLOW};
     this.storage.setupUserAction(origin, allUserActions[userAction]);
-    this.log("Finished saving action " + userAction + " for " + origin);
+    log("Finished saving action " + userAction + " for " + origin);
 
     // TODO: right now we don't determine whether a reload is needed
     return true;
@@ -236,8 +222,7 @@ Badger.prototype = {
   **/
   updateCookieBlockList: function(){
     var thisStorage = this.storage;
-    var log = this.log;
-    this.utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function(err,response){
+    utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
                   constants.COOKIE_BLOCK_LIST_URL, err.status, err.message);
@@ -300,7 +285,7 @@ Badger.prototype = {
   */
   updateDNTPolicyHashes: function(){
     var thisStorage = this.storage
-    this.utils.xhrRequest(this.DNT_POLICIES_URL, function(err,response){
+    utils.xhrRequest(this.DNT_POLICIES_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
                  this.DNT_POLICIES_URL, err.status, err.message);
@@ -330,18 +315,18 @@ Badger.prototype = {
   */
   checkForDNTPolicy: function(domain, nextUpdate){
     if(Date.now() < nextUpdate){ return; }
-    this.log('Checking', domain, 'for DNT policy.');
-    var log = this.log
-    var thisStorage = this.storage
+    log('Checking', domain, 'for DNT policy.');
+    var badger = this;
+
     this.checkPrivacyBadgerPolicy(domain, function(success){
       if(success){
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
-        thisStorage.setupDNT(domain);
+        badger.storage.setupDNT(domain);
       } else {
         log('It looks like', domain, 'has NOT adopted Do Not Track');
-        thisStorage.revertDNT(domain);
+        badger.storage.revertDNT(domain);
       }
-      thisStorage.touchDNTRecheckTime(domain, Utils.oneDayFromNow() * 7);
+      badger.storage.touchDNTRecheckTime(domain, badger.utils.oneDayFromNow() * 7);
     });
   },
 
@@ -357,7 +342,7 @@ Badger.prototype = {
     var url = "https://" + origin + "/.well-known/dnt-policy.txt";
     var dnt_hashes = this.storage.getBadgerStorageObject('dnt_hashes');
 
-    this.utils.xhrRequest(url,function(err,response){
+    utils.xhrRequest(url,function(err,response){
       if(err){
         callback(successStatus);
         return;
@@ -389,7 +374,7 @@ Badger.prototype = {
     var settings = this.storage.getBadgerStorageObject("settings_map");
     _.each(this.defaultSettings, function(value, key){
       if(!settings.hasItem(key)){
-        this.log("setting", key, ":", value);
+        log("setting", key, ":", value);
         settings.setItem(key, value);
       }
     });
@@ -489,7 +474,7 @@ Badger.prototype = {
    * @param {Integer} tabId chrome tab id
    */
   updateBadge: function(tabId){
-    if (!Utils.showCounter()){
+    if (!this.utils.showCounter()){
       chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
       return;
     }
@@ -511,7 +496,7 @@ Badger.prototype = {
       return {};
     }
 
-    if(!Utils.isPrivacyBadgerEnabled(this.webrequest.getHostForTab(details.tabId))){
+    if(!this.utils.isPrivacyBadgerEnabled(this.webrequest.getHostForTab(details.tabId))){
       return;
     }
 
@@ -538,6 +523,21 @@ Badger.prototype = {
 
 var pb = new Badger({}, false);
 var incognito_pb = new Badger({}, true);
+
+/**
+* Log a message to the conosle if debugging is enabled
+*/
+function log(/*...*/) {
+    if(DEBUG) {
+      console.log.apply(console, arguments);
+    }
+};
+
+function error(/*...*/) {
+    if(DEBUG) {
+      console.error.apply(console, arguments);
+    }
+};
 
 /**
  * Chooese a privacy badger object to apply a callback to.
@@ -603,7 +603,8 @@ function reloadTab(tabId) {
  * @returns {String} The action defined for this tab/origin
  */
 function getAction(tabId, origin) {
-  return pb.storage.getBestAction(origin);
+  var badger = getBadgerWithTab(tabId)
+  return badger.storage.getBestAction(origin);
 }
 
 /**
@@ -643,7 +644,8 @@ function refreshIconAndContextMenu(tab) {
 
   if(!tab){return;}
 
-  var iconFilename = Utils.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
+  var badger = getBadgerWithTab(tab.id);
+  var iconFilename = badger.utils.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
 
   chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
@@ -703,14 +705,15 @@ if(chrome.runtime.onMessageExternal){
     function(request, sender, sendResponse) {
       // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
       if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
+        var badger = getBadgerWithTab(sender.tab.id);
         if (request.command == "getDisabledSites") {
-          sendResponse({origins: Utils.listOriginsWherePrivacyBadgerIsDisabled()});
+          sendResponse({origins: badger.utils.listOriginsWherePrivacyBadgerIsDisabled()});
         }
         else if (request.command == "enable") {
-          Utils.enablePrivacyBadgerForOrigin(request.origin);
+          badger.utils.enablePrivacyBadgerForOrigin(request.origin);
         }
         else if (request.command == "disable") {
-          Utils.disablePrivacyBadgerForOrigin(request.origin);
+          badger.utils.disablePrivacyBadgerForOrigin(request.origin);
         }
       }
     }

@@ -8,7 +8,7 @@ require.scopes.domainExceptions = (function() {
 
 var exports = {};
 
-var Utils = require('utils').Utils;
+var utils = require('utils')
 
 var DomainExceptions = {
 
@@ -26,7 +26,7 @@ var DomainExceptions = {
     });
 
     //get list from server
-    Utils.xhrRequest(this.domainExceptionListURL, function(err,msg){
+    utils.xhrRequest(this.domainExceptionListURL, function(err,msg){
       if(err){
         console.error("Error downloading domain exception list:", msg);
         return false;

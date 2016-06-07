@@ -28,8 +28,7 @@ require.scopes.webrequest = (function() {
 
 /************ Local Variables *****************/
 // var DomainExceptions = require("domainExceptions").DomainExceptions;
-var Utils = require("utils").Utils;
-var pbStorage = require("storage");
+var utils = require("utils");
 var temporarySocialWidgetUnblock = {};
 
 /*************** Register Event Listeners *********************/
@@ -64,7 +63,8 @@ function onBeforeRequest(details){
   var tabDomain = getHostForTab(details.tabId);
   var requestDomain = window.extractHostFromURL(details.url);
    
-  if (Utils.isPrivacyBadgerDisabled(tabDomain)) {
+  var badger = getBadgerWithTab(details.tabId);
+  if (badger.utils.isPrivacyBadgerDisabled(tabDomain)) {
     return {};
   }
 
@@ -75,10 +75,10 @@ function onBeforeRequest(details){
   // read the supercookie state from localStorage and store it in frameData
   var frameData = getFrameData(details.tabId, details.frameId);
   if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
-    var supercookieDomains = Utils.getSupercookieDomains();
+    var supercookieDomains = badger.utils.getSupercookieDomains();
     var origin = window.getBaseDomain(window.extractHostFromURL(details.url));
     frameData.superCookie = supercookieDomains.hasItem(origin) ? true : false;
-    pb.log("onBeforeRequest: read superCookie state from localstorage for",
+    log("onBeforeRequest: read superCookie state from localstorage for",
             origin, frameData.superCookie, details.tabId, details.frameId);
   } 
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
@@ -128,14 +128,15 @@ function onBeforeSendHeaders(details) {
 
   var tabDomain = getHostForTab(details.tabId);
   var requestDomain = window.extractHostFromURL(details.url);
+  var badger = getBadgerWithTab(details.tabId);
 
-  if (Utils.isPrivacyBadgerEnabled(tabDomain) && 
+  if (badger.utils.isPrivacyBadgerEnabled(tabDomain) && 
       window.isThirdParty(requestDomain, tabDomain)) {
     var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
     // If this might be the third stike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
     if (requestAction == pb.ALLOW && 
-        pbStorage.getTrackingCount(requestDomain) == pb.TRACKING_THRESHOLD - 1){
+        badger.storage.getTrackingCount(requestDomain) == pb.TRACKING_THRESHOLD - 1){
       pb.heuristicBlocking.heuristicBlockingAccounting(details);
       requestAction = checkAction(details.tabId, details.url, false, details.frameId);
     }
@@ -182,7 +183,8 @@ function onHeadersReceived(details){
   var tabDomain = getHostForTab(details.tabId);
   var requestDomain = window.extractHostFromURL(details.url);
    
-  if (Utils.isPrivacyBadgerDisabled(tabDomain)) {
+  var badger = getBadgerWithTab(details.tabId);
+  if (badger.utils.isPrivacyBadgerDisabled(tabDomain)) {
     return {};
   }
 
@@ -294,6 +296,7 @@ function recordSuperCookie(sender, msg) {
   var frameHost = window.extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
   var frameOrigin = window.getBaseDomain(frameHost);
   var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+  var badger = getBadgerWithTab(sender.tab.id);
   if (!window.isThirdParty(frameHost, pageHost)) {
     // only happens on the start page for google.com.
     return;
@@ -305,7 +308,7 @@ function recordSuperCookie(sender, msg) {
     frameData.superCookie = true;
   }
   // now add the finding to localStorage for persistence
-  var supercookieDomains = Utils.getSupercookieDomains();
+  var supercookieDomains = badger.utils.getSupercookieDomains();
   // We could store the type of supercookie once we start to check multiple storage vectors
   // Could be useful for debugging & bookkeeping.
   
@@ -470,7 +473,8 @@ function checkAction(tabId, url, quiet, frameId){
   }
 
   // Determine action is request is from third party and tab is valid.
-  var action = pbStorage.getBestAction(requestHost);
+  var badger = getBadgerWithTab(tabId);
+  var action = badger.storage.getBestAction(requestHost);
 
   if (action && ! quiet) {
     logTrackerOnTab(tabId, requestHost, action);
@@ -557,12 +561,13 @@ function _askUserToWhitelist(tabId, whitelistDomains, englishName){
  *
  * @returns a specific dict
  */
-function getSocialWidgetBlockList() {
+function getSocialWidgetBlockList(tabId) {
 
   // a mapping of individual SocialWidget objects to boolean values
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
-  var green_domains = pbStorage.getAllDomainsByPresumedAction(pb.USER_ALLOW);
+  var badger = getBadgerWithTab(tabId);
+  var green_domains = badger.storage.getAllDomainsByPresumedAction(pb.USER_ALLOW);
 
   window.SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
@@ -631,14 +636,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (sender.tab && sender.tab.url) {
     tabHost = window.extractHostFromURL(sender.tab.url);
   } else {
-    pb.log("tabhost is  blank!!");
+    log("tabhost is  blank!!");
   }
 
   if (request.checkEnabled) {
-    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost));
+    sendResponse(badger.utils.isPrivacyBadgerEnabled(tabHost));
 
   } else if (request.checkLocation) {
-    if (Utils.isPrivacyBadgerEnabled(tabHost)) {
+    if (badger.utils.isPrivacyBadgerEnabled(tabHost)) {
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == pb.COOKIEBLOCK || reqAction == pb.USER_COOKIE_BLOCK;
@@ -646,8 +651,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
 
   } else if (request.checkReplaceButton) {
-    if (Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled()) {
-      var socialWidgetBlockList = getSocialWidgetBlockList();
+    if (badger.utils.isPrivacyBadgerEnabled(tabHost) && badger.utils.isSocialWidgetReplacementEnabled()) {
+      var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id);
       sendResponse(socialWidgetBlockList);
     }
   } else if (request.unblockSocialWidget) {
@@ -657,7 +662,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   // canvas fingerprinting
   } else if (request.fpReport) {
-    if (!Utils.isPrivacyBadgerEnabled(tabHost)) { return; }
+    if (!badger.utils.isPrivacyBadgerEnabled(tabHost)) { return; }
     if (Array.isArray(request.fpReport)) {
       request.fpReport.forEach(function (msg) {
         recordFingerprinting(sender.tab.id, msg);
@@ -667,14 +672,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
 
   } else if (request.superCookieReport) {
-    if (Utils.hasSuperCookie(request.superCookieReport)){
+    if (badger.utils.hasSuperCookie(request.superCookieReport)){
       recordSuperCookie(sender, request.superCookieReport);
     }
   } else if (request.checkEnabledAndThirdParty) {
     var pageHost = window.extractHostFromURL(sender.url);
-    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && window.isThirdParty(pageHost, tabHost));
+    sendResponse(badger.utils.isPrivacyBadgerEnabled(tabHost) && window.isThirdParty(pageHost, tabHost));
   } else if (request.checkSocialWidgetReplacementEnabled) {
-    sendResponse(Utils.isPrivacyBadgerEnabled(tabHost) && Utils.isSocialWidgetReplacementEnabled());
+    sendResponse(badger.utils.isPrivacyBadgerEnabled(tabHost) && badger.utils.isSocialWidgetReplacementEnabled());
   }
 
 });

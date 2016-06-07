@@ -21,11 +21,14 @@
  /* globals URI */
 
 require.scopes.utils = (function() {
-var pbStorage = require("storage");
   
-var exports = {};
-var Utils = exports.Utils = {
-  getSettings: function(){ return pbStorage.getBadgerStorageObject('settings_map'); },
+
+function Utils(badger) {
+    this.badger = badger;
+};
+
+Utils.prototype = {
+  getSettings: function(){ return this.badger.storage.getBadgerStorageObject('settings_map'); },
   systemPrincipal: null,
   getString: function(id)
   {
@@ -44,18 +47,6 @@ var Utils = exports.Utils = {
     var locale = chrome.i18n.getMessage("@@ui_locale").replace(/_/g, "-");
     this.__defineGetter__("appLocale", function() {return locale;});
     return this.appLocale;
-  },
-
-  /**
-   * Generator for URI objects
-   *
-   * @param {String} url the url to convert to URI
-   * @returns {URI|{scheme, spec, QueryInterface}}
-   */
-  makeURI: function(url)
-  {
-    // URI defined in lib/basedomain.js
-    return new URI(url);
   },
 
   checkLocalePrefixMatch: function(prefixes)
@@ -101,34 +92,6 @@ var Utils = exports.Utils = {
   },
 
   /**
-   * Generic interface to make an XHR request
-   *
-   * @param url The url to get
-   * @param callback The callback to call after request has finished
-   * @param method GET/POST
-   */
-  xhrRequest: function(url,callback,method){
-    if(!method){
-      method = "GET";
-    }
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-      //on done
-      if(xhr.readyState == xhr.DONE){
-        //on success
-        if(xhr.status == 200){
-          callback(null,xhr.responseText);
-        } else {
-          var error = {status: xhr.status, message: xhr.responseText, object: xhr};
-          callback(error,error.message);
-        }
-      }
-    };
-    xhr.open(method, url, true);
-    xhr.send();
-  },
-
-  /**
    * check if privacy badger is enabled, take an origin and
    * check against the disabledSites list
    *
@@ -164,32 +127,6 @@ var Utils = exports.Utils = {
   isPrivacyBadgerDisabled: function(origin){
     return !this.isPrivacyBadgerEnabled(origin);
   },
-
-  /**
-   * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
-   * eTLD+1. e.g. [a.b.eff.org, b.eff.org, eff.org]
-   * if 'all' is passed in then the array will include all domain levels, not 
-   * just down to the base domain
-   * @param {String} fqdn the domain to split
-   * @param {boolean} all whether to include all domain levels
-   *
-   **/
-   explodeSubdomains: function(fqdn, all){
-     var baseDomain;
-     if(all){
-       baseDomain = fqdn.split('.').pop();
-     } else {
-       baseDomain = window.getBaseDomain(fqdn);
-     }
-     var baseLen = baseDomain.split('.').length;
-     var parts = fqdn.split('.');
-     var numLoops = parts.length - baseLen;
-     var subdomains = [];
-     for(var i=0; i<=numLoops; i++){
-       subdomains.push(parts.slice(i).join('.'));
-     }
-     return subdomains;
-   },
 
   /**
    * check if social widget replacement functionality is enabled
@@ -312,10 +249,10 @@ var Utils = exports.Utils = {
     for (lsKey in lsItems) {
       // send both key and value to entropy estimation
       lsItem = lsItems[lsKey];
-      pb.log("Checking localstorage item", lsKey, lsItem);
+      log("Checking localstorage item", lsKey, lsItem);
       estimatedEntropy += Utils.estimateMaxEntropy(lsKey + lsItem);
       if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD){
-        pb.log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
+        log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
         return true;
       }
     }
@@ -343,10 +280,85 @@ var Utils = exports.Utils = {
    * @returns {*|{}} Dict with Supercookie domains
    */
   getSupercookieDomains: function() {
-    return pb.storage.getBadgerStorageObject('supercookie_domains');
+    return this.badger.storage.getBadgerStorageObject('supercookie_domains');
   }
 
 };
 
+/**
+* Generic interface to make an XHR request
+*
+* @param url The url to get
+* @param callback The callback to call after request has finished
+* @param method GET/POST
+*/
+function xhrRequest(url, callback, method){
+    if(!method){
+      method = "GET";
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+      //on done
+      if(xhr.readyState == xhr.DONE){
+        //on success
+        if(xhr.status == 200){
+          callback(null,xhr.responseText);
+        } else {
+          var error = {status: xhr.status, message: xhr.responseText, object: xhr};
+          callback(error,error.message);
+        }
+      }
+    };
+    xhr.open(method, url, true);
+    xhr.send();
+};
+
+/**
+* Return an array of all subdomains in an FQDN, ordered from the FQDN to the
+* eTLD+1. e.g. [a.b.eff.org, b.eff.org, eff.org]
+* if 'all' is passed in then the array will include all domain levels, not 
+* just down to the base domain
+* @param {String} fqdn the domain to split
+* @param {boolean} all whether to include all domain levels
+*
+**/
+function explodeSubdomains(fqdn, all){
+     var baseDomain;
+     if(all){
+       baseDomain = fqdn.split('.').pop();
+     } else {
+       baseDomain = window.getBaseDomain(fqdn);
+     }
+     var baseLen = baseDomain.split('.').length;
+     var parts = fqdn.split('.');
+     var numLoops = parts.length - baseLen;
+     var subdomains = [];
+     for(var i=0; i<=numLoops; i++){
+       subdomains.push(parts.slice(i).join('.'));
+     }
+     return subdomains;
+};
+
+/**
+* Generator for URI objects
+*
+* @param {String} url the url to convert to URI
+* @returns {URI|{scheme, spec, QueryInterface}}
+*/
+function makeURI(url){
+    // URI defined in lib/basedomain.js
+    return new URI(url);
+};
+
+
+/************************************** exports */
+var exports = {};
+
+exports.makeURI = makeURI;
+exports.xhrRequest = xhrRequest;
+exports.explodeSubdomains = explodeSubdomains;
+exports.Utils = Utils;
+
 return exports;
+/************************************** exports */
 })(); //require scopes
