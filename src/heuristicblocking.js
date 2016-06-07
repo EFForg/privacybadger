@@ -18,60 +18,177 @@ require.scopes.heuristicblocking = (function() {
 
 /*********************** heuristicblocking scope **/
 
-var utils = require("utils");
-var pbStorage = require("storage");
+// make hueristic obj with utils and storage properties and put the things on it
 var webrequest = require("webrequest");
+var utils = require("utils");
 var tabOrigins = { }; // TODO roll into tabData?
 
-/**
- * Adds Cookie blocking for all more specific domains than the blocked origin
- * - if they're on the cb list
- *
- * @param {String} origin Origin to check
- */
-function setupSubdomainsForCookieblock(origin){
-  var cbl = pbStorage.getBadgerStorageObject("cookieblock_list");
-  for(var domain in cbl.getItemClones()){
-    if(origin == window.getBaseDomain(domain)){
-      pbStorage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
-    }
-  }
-  // iterate through all elements of cookie block list
-  // if element has basedomain add it to action_map
-  // or update it's action with cookieblock
-  origin = null;
-  return false;
+function HeuristicBlocker(utils, pbStorage) {
+    this.utils = utils;
+    this.storage = pbStorage;
 }
 
-/**
- * Decide if to blacklist and add blacklist filters
- * @param {String} baseDomain The base domain (etld+1) to blacklist
- * @param {String} fqdn The FQDN
- */
-var blacklistOrigin = function(baseDomain, fqdn) { /* jshint ignore:line */
-  var cbl = pbStorage.getBadgerStorageObject("cookieblock_list");
+HeuristicBlocker.prototype = {
 
-  // Setup Cookieblock or block for base domain and fqdn
-  if(cbl.hasItem(baseDomain)){
-    pbStorage.setupHeuristicAction(baseDomain, pb.COOKIEBLOCK);
-  } else {
-    pbStorage.setupHeuristicAction(baseDomain, pb.BLOCK);
-  }
+    /**
+     * Adds Cookie blocking for all more specific domains than the blocked origin
+     * - if they're on the cb list
+     *
+     * @param {String} origin Origin to check
+     */
+    setupSubdomainsForCookieblock: function(origin) {
+      var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
+      for(var domain in cbl.getItemClones()){
+        if(origin == window.getBaseDomain(domain)){
+          this.storage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
+        }
+      }
+      // iterate through all elements of cookie block list
+      // if element has basedomain add it to action_map
+      // or update it's action with cookieblock
+      origin = null;
+      return false;
+    },
 
-  // Check if a parent domain of the fqdn is on the cookie block list
-  var set = false;
-  _.each(utils.explodeSubdomains(fqdn, true), function(domain){
-    if(cbl.hasItem(domain)){
-      pbStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
-      set = true;
+    /**
+     * Decide if to blacklist and add blacklist filters
+     * @param {String} baseDomain The base domain (etld+1) to blacklist
+     * @param {String} fqdn The FQDN
+     */
+    blacklistOrigin: function(baseDomain, fqdn) { /* jshint ignore:line */
+      var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
+
+      // Setup Cookieblock or block for base domain and fqdn
+      if(cbl.hasItem(baseDomain)){
+        this.storage.setupHeuristicAction(baseDomain, pb.COOKIEBLOCK);
+      } else {
+        this.storage.setupHeuristicAction(baseDomain, pb.BLOCK);
+      }
+
+      // Check if a parent domain of the fqdn is on the cookie block list
+      var set = false;
+      _.each(this.utils.explodeSubdomains(fqdn, true), function(domain){
+        if(cbl.hasItem(domain)){
+          this.storage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
+          set = true;
+        }
+      });
+      // if no parent domains are on the cookie block list then block fqdn 
+      if(!set){
+        this.storage.setupHeuristicAction(fqdn, pb.BLOCK);
+      }
+      
+      this.setupSubdomainsForCookieblock(baseDomain);
+    },
+
+    /**
+     * Check if SuperCookie tracking is done
+     *
+     * @param details onBeforeSendHeaders details
+     * @param origin The URL
+     * @returns {*} null or the supercookie data structure
+     */
+    hasSupercookieTracking: function(details, origin) {
+      /* This function is called before we hear from the localstorage check in supercookie.js.
+       * So, we're missing the scripts which may have supercookies.
+       * Alternatively, we could record the prevalence when we find hi-entropy localstorage items
+       * and check that record to see if the frame hasSupercookieTracking.
+       */
+      var frameData = webrequest.getFrameData(details.tabId, details.frameId);
+      if (frameData){
+        return frameData.superCookie;
+      } else { // Check localStorage if we can't find the frame in frameData
+        return this.utils.getSupercookieDomains().hasItem(origin);
+      }
+    },
+
+    /**
+     * Decides if a origin has tracking
+     *
+     * @param details onBeforeSendHeaders details
+     * @param origin The URL
+     * @returns {bool} true if it has tracking
+     */
+    hasTracking: function(details, origin) {
+      return (hasCookieTracking(details, origin) || this.hasSupercookieTracking(details, origin));
+    },
+
+    /**
+     * Increment counts of how many first party domains we've seen a third party track on
+     * Ignore requests that are outside a tabbed window
+     *
+     * @param details are those from onBeforeSendHeaders
+     * @returns {*}
+     */
+    heuristicBlockingAccounting: function(details) {
+      if(details.tabId < 0){
+        return { };
+      }
+     
+
+      var fqdn = utils.makeURI(details.url).host;
+      var origin = window.getBaseDomain(fqdn);
+
+      var action = this.storage.getActionForFqdn(fqdn);
+      if(action != pb.NO_TRACKING && action != pb.ALLOW){ 
+        return {}; 
+      }
+      
+      // Save the origin associated with the tab if this is a main window request
+      if(details.type == "main_frame") {
+        log("Origin: " + origin + "\tURL: " + details.url);
+        tabOrigins[details.tabId] = origin;
+        return { };
+      }
+      else {
+        var tabOrigin = tabOrigins[details.tabId];
+        // Ignore first-party requests
+        if (!tabOrigin || origin == tabOrigin){
+          return { };
+        }
+        window.setTimeout(function(){
+         pb.checkForDNTPolicy(fqdn, pb.storage.getNextUpdateForDomain(fqdn));
+        }, 10);
+        // if there are no tracking cookies or similar things, ignore
+        if (!this.hasTracking(details, origin)){
+          return { };
+        }
+        this.recordPrevalence(fqdn, origin, tabOrigin);
+      }
+    },
+
+    /**
+     * Record HTTP request prevalence. Block a tracker if seen on more than [pb.TRACKING_THRESHOLD] pages
+     *
+     * @param {String} fqdn Host
+     * @param {String} origin Base domain of host
+     * @param {String} tabOrigin The main origin for this tab
+     */
+    recordPrevalence: function(fqdn, origin, tabOrigin) {
+      var snitch_map = this.storage.getBadgerStorageObject('snitch_map');
+      var trackerBaseDomain = window.getBaseDomain(fqdn);
+      var firstParties = [];
+
+      if (snitch_map.hasItem(trackerBaseDomain)){
+        firstParties = snitch_map.getItem(trackerBaseDomain);
+      }
+
+      if(firstParties.indexOf(tabOrigin) === -1){
+        firstParties.push(tabOrigin);
+        snitch_map.setItem(trackerBaseDomain, firstParties);
+        this.storage.setupHeuristicAction(fqdn, pb.ALLOW);
+        this.storage.setupHeuristicAction(trackerBaseDomain, pb.ALLOW);
+      }
+
+      // Blocking based on outbound cookies
+      var httpRequestPrevalence = firstParties.length;
+
+      //block the origin if it has been seen on multiple first party domains
+      if (httpRequestPrevalence >= pb.TRACKING_THRESHOLD) {
+        log('blacklisting origin', fqdn);
+        this.blacklistOrigin(origin, fqdn);
+      }
     }
-  });
-  // if no parent domains are on the cookie block list then block fqdn 
-  if(!set){
-    pbStorage.setupHeuristicAction(fqdn, pb.BLOCK);
-  }
-  
-  setupSubdomainsForCookieblock(baseDomain);
 };
 
 
@@ -330,40 +447,6 @@ var extractCookieString = function(details) {
 };
 
 /**
- * Decides if a origin has tracking
- *
- * @param details onBeforeSendHeaders details
- * @param origin The URL
- * @returns {bool} true if it has tracking
- */
-var hasTracking = function(details, origin) {
-  return (hasCookieTracking(details, origin) || hasSupercookieTracking(details, origin));
-};
-
-/**
- * Check if SuperCookie tracking is done
- *
- * @param details onBeforeSendHeaders details
- * @param origin The URL
- * @returns {*} null or the supercookie data structure
- */
-var hasSupercookieTracking = function(details, origin) {
-  /* This function is called before we hear from the localstorage check in supercookie.js.
-   * So, we're missing the scripts which may have supercookies.
-   * Alternatively, we could record the prevalence when we find hi-entropy localstorage items
-   * and check that record to see if the frame hasSupercookieTracking.
-   */
-  var frameData = webrequest.getFrameData(details.tabId, details.frameId);
-  if (frameData){
-    // console.log("hasSupercookieTracking (frameData)", frameData.superCookie, origin, details.tabId, details.frameId);
-    return frameData.superCookie;
-  } else { // Check localStorage if we can't find the frame in frameData
-    var badger = getBadgerWithTab(details.tabId);
-    return badger.utils.getSupercookieDomains().hasItem(origin);
-  }
-};
-
-/**
  * Check if page is doing cookie tracking. Doing this by estimating the entropy of the cookies
  *
  * @param details details onBeforeSendHeaders details
@@ -412,113 +495,37 @@ var hasCookieTracking = function(details, origin) {
   return false;
 };
 
-/**
- * Increment counts of how many first party domains we've seen a third party track on
- * Ignore requests that are outside a tabbed window
- *
- * @param details are those from onBeforeSendHeaders
- * @returns {*}
- */
-var heuristicBlockingAccounting = function(details) {
-  if(details.tabId < 0){
-    return { };
-  }
- 
+function heuristicListeners(badger) {
+    /**
+     * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
+     */
+    chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
+      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
+    }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
 
-  var fqdn = utils.makeURI(details.url).host;
-  var origin = window.getBaseDomain(fqdn);
-  var badger = getBadgerWithTab(details.tabId);
-
-  var action = badger.storage.getActionForFqdn(fqdn);
-  if(action != pb.NO_TRACKING && action != pb.ALLOW){ 
-    return {}; 
-  }
-  
-  // Save the origin associated with the tab if this is a main window request
-  if(details.type == "main_frame") {
-    log("Origin: " + origin + "\tURL: " + details.url);
-    tabOrigins[details.tabId] = origin;
-    return { };
-  }
-  else {
-    var tabOrigin = tabOrigins[details.tabId];
-    // Ignore first-party requests
-    if (!tabOrigin || origin == tabOrigin){
-      return { };
-    }
-    window.setTimeout(function(){
-     pb.checkForDNTPolicy(fqdn, pb.storage.getNextUpdateForDomain(fqdn));
-    }, 10);
-    // if there are no tracking cookies or similar things, ignore
-    if (!hasTracking(details, origin)){
-      return { };
-    }
-    recordPrevalence(fqdn, origin, tabOrigin);
-  }
-};
-
-/**
- * Record HTTP request prevalence. Block a tracker if seen on more than [pb.TRACKING_THRESHOLD] pages
- *
- * @param {String} fqdn Host
- * @param {String} origin Base domain of host
- * @param {String} tabOrigin The main origin for this tab
- */
-function recordPrevalence(fqdn, origin, tabOrigin) {
-  var snitch_map = pbStorage.getBadgerStorageObject('snitch_map');
-  var trackerBaseDomain = window.getBaseDomain(fqdn);
-  var firstParties = [];
-
-  if (snitch_map.hasItem(trackerBaseDomain)){
-    firstParties = snitch_map.getItem(trackerBaseDomain);
-  }
-
-  if(firstParties.indexOf(tabOrigin) === -1){
-    firstParties.push(tabOrigin);
-    snitch_map.setItem(trackerBaseDomain, firstParties);
-    pbStorage.setupHeuristicAction(fqdn, pb.ALLOW);
-    pbStorage.setupHeuristicAction(trackerBaseDomain, pb.ALLOW);
-  }
-
-  // Blocking based on outbound cookies
-  var httpRequestPrevalence = firstParties.length;
-
-  //block the origin if it has been seen on multiple first party domains
-  if (httpRequestPrevalence >= pb.TRACKING_THRESHOLD) {
-    log('blacklisting origin', fqdn);
-    blacklistOrigin(origin, fqdn);
-  }
+    /**
+     * Adds onResponseStarted listener. Monitor for cookies
+     */
+    chrome.webRequest.onResponseStarted.addListener(function(details) {
+      var hasSetCookie = false;
+      for(var i = 0; i < details.responseHeaders.length; i++) {
+        if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
+          hasSetCookie = true;
+          break;
+        }
+      }
+      if(hasSetCookie) {
+        //var origin = window.getBaseDomain(Utils.makeURI(details.url).host);
+        return badger.heuristicBlocking.heuristicBlockingAccounting(details);
+      }
+    },
+    {urls: ["<all_urls>"]}, ["responseHeaders"]);
 }
 
-/**
- * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
- */
-chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-  return heuristicBlockingAccounting(details);
-}, {urls: ["<all_urls>"]}, ["requestHeaders"]);
-
-/**
- * Adds onResponseStarted listener. Monitor for cookies
- */
-chrome.webRequest.onResponseStarted.addListener(function(details) {
-  var hasSetCookie = false;
-  for(var i = 0; i < details.responseHeaders.length; i++) {
-    if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
-      hasSetCookie = true;
-      break;
-    }
-  }
-  if(hasSetCookie) {
-    //var origin = window.getBaseDomain(Utils.makeURI(details.url).host);
-    return heuristicBlockingAccounting(details);
-  }
-},
-{urls: ["<all_urls>"]}, ["responseHeaders"]);
-
+/************************************** exports */
 var exports = {};
-exports.heuristicBlockingAccounting = heuristicBlockingAccounting;
-exports.recordPrevalence = recordPrevalence;
-exports.blacklistOrigin = blacklistOrigin;
+exports.HeuristicBlocker = HeuristicBlocker;
+exports.heuristicListeners = heuristicListeners;
 return exports;
 /************************************** exports */
 })();

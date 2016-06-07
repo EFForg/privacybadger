@@ -62,9 +62,11 @@ function  Badger(tabData, isIncognito) {
     this.isIncognito = isIncognito
     this.tabData = JSON.parse(JSON.stringify(tabData));
     var badger = this;
-    this.storage = new pbStorage.BadgerPen(isIncognito, function() {
+    this.storage = new pbStorage.BadgerPen(isIncognito, function(thisStorage) {
         if(badger.INITIALIZED) { return; }
         badger.utils = new utils.Utils(badger);
+        badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(badger.utils, thisStorage);
+        HeuristicBlocking.heuristicListeners(badger);
         badger.updateTabList();
         badger.initializeDefaultSettings();
         try {
@@ -94,7 +96,6 @@ function  Badger(tabData, isIncognito) {
 
 Badger.prototype = {
   // imports
-  heuristicBlocking: HeuristicBlocking,
   webrequest: webrequest,
 
   // Tracking status constants
