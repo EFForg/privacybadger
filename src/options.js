@@ -26,6 +26,7 @@ var originCache = null;
 var settings = pb.storage.getBadgerStorageObject("settings_map");
 
 var log = backgroundPage.log;
+var getBadger = backgroundPage.getBadgerWithTab;
 
 /*
  * Loads options from pb storage and sets UI elements accordingly.
@@ -96,7 +97,7 @@ function toggleCounter() {
     windows.forEach(function(window) {
       chrome.tabs.getAllInWindow(window.id, function(tabs) {
         tabs.forEach(function(tab) {
-          pb.updateBadge(tab.id);
+          getBadger(tab.id).updateBadge(tab.id);
         });
       });
     });
