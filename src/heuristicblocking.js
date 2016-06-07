@@ -67,7 +67,7 @@ HeuristicBlocker.prototype = {
 
       // Check if a parent domain of the fqdn is on the cookie block list
       var set = false;
-      _.each(this.utils.explodeSubdomains(fqdn, true), function(domain){
+      _.each(utils.explodeSubdomains(fqdn, true), function(domain){
         if(cbl.hasItem(domain)){
           this.storage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
           set = true;
