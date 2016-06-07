@@ -33,7 +33,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
             "Timed out while waiting for the localStorage.badgerHashes")
         # now check the downloaded policy hash
         policy_hash = self.js("return (pb.storage.getBadgerStorageObject('dnt_hashes').getItemClones())")
-        for k, v in policy_hash.iteritems():
+        for k, v in policy_hash.items():
             # self.assertIn("DNT Policy", k)  # e.g. DNT Policy V1.0
             self.assertEqual(PB_POLICY_HASH_LEN, len(k))  # check hash length
 
