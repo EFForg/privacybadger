@@ -522,6 +522,10 @@ Badger.prototype = {
 };
 
 /**
+ * functions that don't depend on Badger state.
+ */
+
+/**
 * Log a message to the conosle if debugging is enabled
 */
 function log(/*...*/) {
