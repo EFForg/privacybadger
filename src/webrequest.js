@@ -100,7 +100,7 @@ function onBeforeRequest(details){
     }
     */
 
-    if (requestAction == pb.BLOCK || requestAction == pb.USER_BLOCK) {
+    if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
@@ -135,15 +135,15 @@ function onBeforeSendHeaders(details) {
     var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
     // If this might be the third stike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
-    if (requestAction == pb.ALLOW && 
-        badger.storage.getTrackingCount(requestDomain) == pb.TRACKING_THRESHOLD - 1){
+    if (requestAction == constants.ALLOW && 
+        badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1){
       badger.heuristicBlocking.heuristicBlockingAccounting(details);
       requestAction = checkAction(details.tabId, details.url, false, details.frameId);
     }
 
     // This will only happen if the above code sets the action for the request
     // to block
-    if (requestAction == pb.BLOCK) {
+    if (requestAction == constants.BLOCK) {
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
@@ -155,7 +155,7 @@ function onBeforeSendHeaders(details) {
     }
 
     // This is the typical codepath
-    if (requestAction == pb.COOKIEBLOCK || requestAction == pb.USER_COOKIE_BLOCK) {
+    if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
       var newHeaders = details.requestHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
@@ -195,7 +195,7 @@ function onHeadersReceived(details){
 
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction) {
-    if (requestAction == pb.COOKIEBLOCK || requestAction == pb.USER_COOKIE_BLOCK) {
+    if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
@@ -568,7 +568,7 @@ function getSocialWidgetBlockList(tabId) {
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
   var badger = getBadgerWithTab(tabId);
-  var green_domains = badger.storage.getAllDomainsByPresumedAction(pb.USER_ALLOW);
+  var green_domains = badger.storage.getAllDomainsByPresumedAction(constants.USER_ALLOW);
 
   window.SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
@@ -647,7 +647,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (badger.utils.isPrivacyBadgerEnabled(tabHost)) {
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
-      var cookieBlock = reqAction == pb.COOKIEBLOCK || reqAction == pb.USER_COOKIE_BLOCK;
+      var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
       sendResponse(cookieBlock);
     }
 
