@@ -81,7 +81,7 @@ function getScPageScript() {
         // the user has disabled 3rd party cookies and site data. See, http://git.io/vLwff
         return {};
       }
-      // console.log("getLocalStorageItems will return", lsItems);
+      //console.log("getLocalStorageItems will return", lsItems);
       return lsItems;
     };
 

@@ -32,7 +32,6 @@ var i18n = chrome.i18n;
  * Init function. Showing/hiding popup.html elements and setting up event handler
  */
 function init() {
-  console.log("init this dang popup");
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
 

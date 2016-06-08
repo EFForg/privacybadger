@@ -689,9 +689,6 @@ function startBackgroundListeners() {
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
-      if (tabId != tab.id) {
-          console.log("what is going on!!??");
-      }
       refreshIconAndContextMenu(tab);
     }
   });

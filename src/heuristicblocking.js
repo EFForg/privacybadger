@@ -459,7 +459,6 @@ var hasCookieTracking = function(details, origin) {
 
   var cookies = extractCookieString(details);
   if (!cookies) {
-    //console.log(details);
     return false;
   }
   cookies = cookies.split(";");

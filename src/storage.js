@@ -394,7 +394,6 @@ BadgerStorage.prototype = {
 
 var _syncStorage = function(badgerStorage){
   if (badgerStorage.incognito) {
-      console.log("no more food for this badger");
       return;
   }
   var obj = {};
