@@ -73,7 +73,7 @@ function  Badger(tabData, isIncognito) {
         } finally {
           badger.initializeCookieBlockList();
           badger.initializeDNT();
-          badger.showFirstRunPage();
+          if (!badger.isIncognito) {badger.showFirstRunPage();}
         }
 
         // Show icon as page action for all tabs that already exist
