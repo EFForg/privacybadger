@@ -23,8 +23,6 @@ var require = backgroundPage.require;
 var constants = backgroundPage.constants;
 
 
-
-var Utils = require("utils").Utils;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 
@@ -125,50 +123,52 @@ function closeOverlay() {
  */
 function send_error(message) {
   var browser = window.navigator.userAgent;
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var badger = backgroundPage.getBadgerWithTab(tabId);
-  var origins = badger.getAllOriginsForTab(tabId);
-  if(!origins){ return; }
-  var version = chrome.runtime.getManifest().version;
-  //TODO "there's got to be a better way!"
-  var fqdn = tab.url.split("/",3)[2];
-  var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
-  for (var i = 0; i < origins.length; i++){
-     var origin = origins[i];
-     var action = backgroundPage.getAction(tabId, origin);
-     if (!action){ action = constants.NO_TRACKING; }
-     if (out[action]){
-       out[action] += ","+origin;
-     }
-     else{
-       out[action] = origin;
-     }
-  }
-  var out_data = JSON.stringify(out);
-  console.log(out_data);
-  var sendReport = $.ajax({
-    type: "POST",
-    url: "https://privacybadger.org/reporting",
-    data: out_data,
-    contentType: "application/json"
-  });
-  sendReport.done(function() {
-    $("#error_input").val("");
-    $("#report_success").toggleClass("hidden", false);
-    setTimeout(function(){
-      $("#report_button").prop("disabled", false);
-      $("#report_cancel").prop("disabled", false);
-      $("#report_success").toggleClass("hidden", true);
-      closeOverlay();
-   }, 3000);
-  });
-  sendReport.fail(function() {
-    $("#report_fail").toggleClass("hidden");
-    setTimeout(function(){
-      $("#report_button").prop("disabled", false);
-      $("#report_cancel").prop("disabled", false);
-      $("#report_fail").toggleClass("hidden", true);
-   }, 3000);
+  getTab(function(tab) {
+    var tabId = tab.id;
+    var badger = backgroundPage.getBadgerWithTab(tabId);
+    var origins = badger.getAllOriginsForTab(tabId);
+    if(!origins){ return; }
+    var version = chrome.runtime.getManifest().version;
+    //TODO "there's got to be a better way!"
+    var fqdn = tab.url.split("/",3)[2];
+    var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
+    for (var i = 0; i < origins.length; i++){
+       var origin = origins[i];
+       var action = backgroundPage.getAction(tabId, origin);
+       if (!action){ action = constants.NO_TRACKING; }
+       if (out[action]){
+         out[action] += ","+origin;
+       }
+       else{
+         out[action] = origin;
+       }
+    }
+    var out_data = JSON.stringify(out);
+    console.log(out_data);
+    var sendReport = $.ajax({
+      type: "POST",
+      url: "https://privacybadger.org/reporting",
+      data: out_data,
+      contentType: "application/json"
+    });
+    sendReport.done(function() {
+      $("#error_input").val("");
+      $("#report_success").toggleClass("hidden", false);
+      setTimeout(function(){
+        $("#report_button").prop("disabled", false);
+        $("#report_cancel").prop("disabled", false);
+        $("#report_success").toggleClass("hidden", true);
+        closeOverlay();
+     }, 3000);
+    });
+    sendReport.fail(function() {
+      $("#report_fail").toggleClass("hidden");
+      setTimeout(function(){
+        $("#report_button").prop("disabled", false);
+        $("#report_cancel").prop("disabled", false);
+        $("#report_fail").toggleClass("hidden", true);
+     }, 3000);
+    });
   });
 }
 
@@ -179,9 +179,12 @@ function active_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").show();
-  Utils.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-  backgroundPage.refreshIconAndContextMenu(tab);
-  backgroundPage.reloadTab(tab.id);
+  getTab(function(tab) {
+    var badger = backgroundPage.getBadgerWithTab(tab.id)
+    badger.utils.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+    backgroundPage.refreshIconAndContextMenu(tab);
+    backgroundPage.reloadTab(tab.id);
+  });
 }
 
 /**
@@ -191,9 +194,12 @@ function deactive_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").hide();
-  Utils.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-  backgroundPage.refreshIconAndContextMenu(tab);
-  backgroundPage.reloadTab(tab.id);
+  getTab(function(tab) {
+    var badger = backgroundPage.getBadgerWithTab(tab.id);
+    badger.utils.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+    backgroundPage.refreshIconAndContextMenu(tab);
+    backgroundPage.reloadTab(tab.id);
+  });
 }
 
 /**
@@ -215,7 +221,7 @@ function revertDomainControl(e){
   console.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
-  backgroundPage.reloadTab(tab.id);
+  backgroundPage.reloadTab(tabId);
   return false;
 }
 /**
@@ -529,8 +535,17 @@ function setTabToUrl( query_url ) { /* jshint ignore:line */
   });
 }
 
+/**
+ * We use this function where:
+ * * getting the tabId from the associatedTab id won't work because
+ *   associatedTab isn't set yet.
+ * * we need more info than just tab.id, like tab.url.
+ *
+ * Maybe we don't even need to use the associatedTab id. It's only advantage
+ * seems to be that it is synchronous.
+ */
 function getTab(callback) {
-  chrome.tabs.query({active: true, currentWindow: true}, function(t) { callback(t[0]); });
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, function(t) { callback(t[0]); });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
