@@ -33,9 +33,9 @@ var incognito = require("incognito");
 
 
 // Display debug messages
-DEBUG = false,
+var DEBUG = false;
 
-constants = { // duplicated in pb.prototype, remove those eventually
+var constants = { // duplicated in pb.prototype, remove those eventually
   // Tracking status constants
   NO_TRACKING: "noaction",
   ALLOW: "allow",
@@ -53,44 +53,44 @@ constants = { // duplicated in pb.prototype, remove those eventually
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
   MAX_COOKIE_ENTROPY: 12,
-}
+};
 
 /**
 * privacy badger initializer
 */
-function  Badger(tabData, isIncognito) {
-    this.isIncognito = isIncognito
-    this.tabData = JSON.parse(JSON.stringify(tabData));
-    var badger = this;
-    this.storage = new pbStorage.BadgerPen(isIncognito, function(thisStorage) {
-        if(badger.INITIALIZED) { return; }
-        badger.utils = new utils.Utils(badger);
-        badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(badger.utils, thisStorage);
-        badger.updateTabList();
-        badger.initializeDefaultSettings();
-        try {
-          badger.runMigrations();
-        } finally {
-          badger.initializeCookieBlockList();
-          badger.initializeDNT();
-          if (!badger.isIncognito) {badger.showFirstRunPage();}
+function Badger(tabData, isIncognito) {
+  this.isIncognito = isIncognito;
+  this.tabData = JSON.parse(JSON.stringify(tabData));
+  var badger = this;
+  this.storage = new pbStorage.BadgerPen(isIncognito, function (thisStorage) {
+    if (badger.INITIALIZED) { return; }
+    badger.utils = new utils.Utils(badger);
+    badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(badger.utils, thisStorage);
+    badger.updateTabList();
+    badger.initializeDefaultSettings();
+    try {
+      badger.runMigrations();
+    } finally {
+      badger.initializeCookieBlockList();
+      badger.initializeDNT();
+      if (!badger.isIncognito) {badger.showFirstRunPage();}
+    }
+
+    // Show icon as page action for all tabs that already exist
+    chrome.windows.getAll({populate: true}, function (windows) {
+      for (var i = 0; i < windows.length; i++) {
+        for (var j = 0; j < windows[i].tabs.length; j++) {
+          refreshIconAndContextMenu(windows[i].tabs[j]);
         }
-
-        // Show icon as page action for all tabs that already exist
-        chrome.windows.getAll({populate: true}, function(windows) {
-          for (var i = 0; i < windows.length; i++) {
-            for (var j = 0; j < windows[i].tabs.length; j++) {
-              refreshIconAndContextMenu(windows[i].tabs[j]);
-            }
-          }
-        });
-
-        // TODO: register all privacy badger listeners here in the storage callback
-
-        badger.INITIALIZED = true;
-        console.log('privacy badger is ready to rock');
-        console.log('set pb.DEBUG=1 to view console messages');
+      }
     });
+
+    // TODO: register all privacy badger listeners here in the storage callback
+
+    badger.INITIALIZED = true;
+    console.log('privacy badger is ready to rock');
+    console.log('set pb.DEBUG=1 to view console messages');
+  });
 }
 
 Badger.prototype = {
@@ -185,7 +185,7 @@ Badger.prototype = {
   updateTabList: function(){
     // Initialize the tabData/frames object if it is falsey
     this.tabData = this.tabData || {};
-    thesetabs = this.tabData
+    var thesetabs = this.tabData;
     chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
       for(var i = 0; i < tabs.length; i++){
         var tab = tabs[i];
@@ -284,7 +284,7 @@ Badger.prototype = {
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function(){
-    var thisStorage = this.storage
+    var thisStorage = this.storage;
     utils.xhrRequest(this.DNT_POLICIES_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
@@ -508,7 +508,7 @@ Badger.prototype = {
       // prerendered tab, Chrome will throw error for setBadge functions, don't call
       return;
     } else {
-      var badger = this
+      var badger = this;
       chrome.tabs.get(tabId, function(tab){
         if (chrome.runtime.lastError){
           badger.tabData[tabId].bgTab = true;
@@ -529,44 +529,44 @@ Badger.prototype = {
 * Log a message to the conosle if debugging is enabled
 */
 function log(/*...*/) {
-    if(DEBUG) {
-      console.log.apply(console, arguments);
-    }
-};
+  if(DEBUG) {
+    console.log.apply(console, arguments);
+  }
+}
 
 function error(/*...*/) {
-    if(DEBUG) {
-      console.error.apply(console, arguments);
-    }
-};
+  if(DEBUG) {
+    console.error.apply(console, arguments);
+  }
+}
 
 /**
  * Chooese a privacy badger object to apply a callback to.
  */
 function chooseWithTab(tabId, callback) {
-    if (tabId == -1){
-      return;
-    }
-    if (incognito.tabIsIncognito(tabId)) {
-        callback(incognito_pb);
-    } else {
-        callback(pb);
-    }
-};
+  if (tabId == -1){
+    return;
+  }
+  if (incognito.tabIsIncognito(tabId)) {
+    callback(incognito_pb);
+  } else {
+    callback(pb);
+  }
+}
 
 /**
  * Chooses the right badger to use badse on tabId.
  */
 function getBadgerWithTab(tabId) {
-    if (tabId == -1){
-      return;
-    }
-    if (incognito.tabIsIncognito(tabId)) {
-        return incognito_pb;
-    } else {
-        return pb;
-    }
-};
+  if (tabId == -1){
+    return;
+  }
+  if (incognito.tabIsIncognito(tabId)) {
+    return incognito_pb;
+  } else {
+    return pb;
+  }
+}
 
 
 /**
@@ -577,23 +577,23 @@ function getBadgerWithTab(tabId) {
  * @param action the action we are taking
  **/
 function logTrackerOnTab(tabId, fqdn, action) {
-    chooseWithTab(tabId, function (badger) {
-        badger.tabData[tabId].trackers[fqdn] = action;
-    });
-};
+  chooseWithTab(tabId, function (badger) {
+    badger.tabData[tabId].trackers[fqdn] = action;
+  });
+}
 
 function updateCount(details) {
-    chooseWithTab(details.tabId, function (badger) {
-        badger.updateCount(details);
-    });
-};
+  chooseWithTab(details.tabId, function (badger) {
+    badger.updateCount(details);
+  });
+}
 
 /**
 * reloads a tab
 * @param {Integer} tabId the chrome tab id
 */
 function reloadTab(tabId) {
-    chrome.tabs.reload(tabId);
+  chrome.tabs.reload(tabId);
 }
 
 /**
@@ -604,7 +604,7 @@ function reloadTab(tabId) {
  * @returns {String} The action defined for this tab/origin
  */
 function getAction(tabId, origin) {
-  var badger = getBadgerWithTab(tabId)
+  var badger = getBadgerWithTab(tabId);
   return badger.storage.getBestAction(origin);
 }
 
@@ -631,9 +631,9 @@ function isWhitelisted(url) {
        constants.USER_ALLOW,
        constants.NO_TRACKING,
        constants.DNT].indexOf(action) >= 0){
-      return true;
+    return true;
   } else {
-      return false;
+    return false;
   }
 }
 
@@ -725,7 +725,7 @@ function startBackgroundListeners() {
   // Refresh domain exceptions popup list once every 24 hours and on startup
   setInterval(DomainExceptions.updateList,86400000);
   DomainExceptions.updateList();
-};
+}
 
 /**
  * lets get this party started
