@@ -8,7 +8,7 @@ require.scopes.domainExceptions = (function() {
 
 var exports = {};
 
-var utils = require('utils')
+var utils = require('utils');
 
 var DomainExceptions = {
 

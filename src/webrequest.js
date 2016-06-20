@@ -28,7 +28,6 @@ require.scopes.webrequest = (function() {
 
 /************ Local Variables *****************/
 // var DomainExceptions = require("domainExceptions").DomainExceptions;
-var utils = require("utils");
 var temporarySocialWidgetUnblock = {};
 
 /***************** Blocking Listener Functions **************/
@@ -277,7 +276,7 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
       url: frameUrl,
       parent: parentFrameId
     };
-};
+}
 
 /**
  * Store super cookie data in memory. Also stored in Local Storage
@@ -672,7 +671,7 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.checkSocialWidgetReplacementEnabled) {
     sendResponse(badger.utils.isPrivacyBadgerEnabled(tabHost) && badger.utils.isSocialWidgetReplacementEnabled());
   }
-};
+}
 
 /*************** Event Listeners *********************/
 function startListeners() {
@@ -682,7 +681,7 @@ function startListeners() {
     chrome.tabs.onRemoved.addListener(onTabRemoved);
     chrome.tabs.onReplaced.addListener(onTabReplaced);
     chrome.runtime.onMessage.addListener(dispatcher);
-};
+}
 
 /************************************** exports */
 var exports = {};

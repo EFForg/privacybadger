@@ -608,6 +608,7 @@ function requestWouldBeBlocked(tabId, origin) {
  */
 function isWhitelisted(url) {
   var host = window.extractHostFromURL(url);
+  // whitelist should be the same in pb and incognito_pb
   var action = pb.storage.getBestAction(host);
   if ([constants.ALLOW,
        constants.USER_ALLOW,

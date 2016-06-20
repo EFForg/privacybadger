@@ -35,7 +35,7 @@ function init() {
 
   /* if they aint seen the comic*/
   getTab(function(tab) {
-      var badger = backgroundPage.getBadgerWithTab(tab.id)
+      var badger = backgroundPage.getBadgerWithTab(tab.id);
       var settings = badger.storage.getBadgerStorageObject('settings_map');
       var seenComic = settings.getItem("seenComic") || false; 
 
@@ -96,7 +96,7 @@ function init() {
 
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
-    var badger = backgroundPage.getBadgerWithTab(t.id)
+    var badger = backgroundPage.getBadgerWithTab(t.id);
     if(!badger.utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
       $("#blockedResourcesContainer").hide();
       $("#activate_site_btn").show();
@@ -180,7 +180,7 @@ function active_site(){
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").show();
   getTab(function(tab) {
-    var badger = backgroundPage.getBadgerWithTab(tab.id)
+    var badger = backgroundPage.getBadgerWithTab(tab.id);
     badger.utils.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     backgroundPage.refreshIconAndContextMenu(tab);
     backgroundPage.reloadTab(tab.id);

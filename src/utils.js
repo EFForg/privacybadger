@@ -25,7 +25,7 @@ require.scopes.utils = (function() {
 
 function Utils(badger) {
     this.badger = badger;
-};
+}
 
 Utils.prototype = {
   getSettings: function(){ return this.badger.storage.getBadgerStorageObject('settings_map'); },
@@ -296,7 +296,7 @@ function xhrRequest(url, callback, method){
     };
     xhr.open(method, url, true);
     xhr.send();
-};
+}
 
 /**
 * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
@@ -308,21 +308,21 @@ function xhrRequest(url, callback, method){
 *
 **/
 function explodeSubdomains(fqdn, all){
-     var baseDomain;
-     if(all){
-       baseDomain = fqdn.split('.').pop();
-     } else {
-       baseDomain = window.getBaseDomain(fqdn);
-     }
-     var baseLen = baseDomain.split('.').length;
-     var parts = fqdn.split('.');
-     var numLoops = parts.length - baseLen;
-     var subdomains = [];
-     for(var i=0; i<=numLoops; i++){
-       subdomains.push(parts.slice(i).join('.'));
-     }
-     return subdomains;
-};
+   var baseDomain;
+   if(all){
+     baseDomain = fqdn.split('.').pop();
+   } else {
+     baseDomain = window.getBaseDomain(fqdn);
+   }
+   var baseLen = baseDomain.split('.').length;
+   var parts = fqdn.split('.');
+   var numLoops = parts.length - baseLen;
+   var subdomains = [];
+   for(var i=0; i<=numLoops; i++){
+     subdomains.push(parts.slice(i).join('.'));
+   }
+   return subdomains;
+}
 
 /**
 * Generator for URI objects
@@ -333,7 +333,7 @@ function explodeSubdomains(fqdn, all){
 function makeURI(url){
     // URI defined in lib/basedomain.js
     return new URI(url);
-};
+}
 
 /**
 * removes an element or range of elements from an array and reindexes the
