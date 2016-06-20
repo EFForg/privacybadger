@@ -35,7 +35,7 @@ var incognito = require("incognito");
 // Display debug messages
 var DEBUG = false;
 
-var constants = { // duplicated in pb.prototype, remove those eventually
+var constants = {
   // Tracking status constants
   NO_TRACKING: "noaction",
   ALLOW: "allow",
@@ -89,31 +89,13 @@ function Badger(tabData, isIncognito) {
 
     badger.INITIALIZED = true;
     console.log('privacy badger is ready to rock');
-    console.log('set pb.DEBUG=1 to view console messages');
+    console.log('set DEBUG=1 to view console messages');
   });
 }
 
 Badger.prototype = {
   // imports
   webrequest: webrequest,
-
-  // Tracking status constants
-  NO_TRACKING: "noaction",
-  ALLOW: "allow",
-  BLOCK: "block",
-  COOKIEBLOCK: "cookieblock",
-  DNT: "dnt",
-  USER_ALLOW: "user_allow",
-  USER_BLOCK: "user_block",
-  USER_COOKIE_BLOCK: "user_cookieblock",
-
-  // URLS
-  DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
-  COOKIE_BLOCK_LIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",
-
-  // The number of 1st parties a 3rd party can be seen on
-  TRACKING_THRESHOLD: 3,
-  MAX_COOKIE_ENTROPY: 12,
 
   INITIALIZED: false,
 
@@ -168,9 +150,9 @@ Badger.prototype = {
   * @param {String} origin the third party origin to take action on
   */
   saveAction: function(userAction, origin) {
-    var allUserActions = {'block': this.USER_BLOCK,
-                          'cookieblock': this.USER_COOKIE_BLOCK,
-                          'allow': this.USER_ALLOW};
+    var allUserActions = {'block': constants.USER_BLOCK,
+                          'cookieblock': constants.USER_COOKIE_BLOCK,
+                          'allow': constants.USER_ALLOW};
     this.storage.setupUserAction(origin, allUserActions[userAction]);
     log("Finished saving action " + userAction + " for " + origin);
 
@@ -285,10 +267,10 @@ Badger.prototype = {
   */
   updateDNTPolicyHashes: function(){
     var thisStorage = this.storage;
-    utils.xhrRequest(this.DNT_POLICIES_URL, function(err,response){
+    utils.xhrRequest(constants.DNT_POLICIES_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
-                 this.DNT_POLICIES_URL, err.status, err.message);
+                 constants.DNT_POLICIES_URL, err.status, err.message);
         return;
       }
       thisStorage.updateDNTHashes(JSON.parse(response));

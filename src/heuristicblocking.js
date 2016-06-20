@@ -40,7 +40,7 @@ HeuristicBlocker.prototype = {
       var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
       for(var domain in cbl.getItemClones()){
         if(origin == window.getBaseDomain(domain)){
-          this.storage.setupHeuristicAction(domain, pb.COOKIEBLOCK);
+          this.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
         }
       }
       // iterate through all elements of cookie block list
@@ -60,9 +60,9 @@ HeuristicBlocker.prototype = {
 
       // Setup Cookieblock or block for base domain and fqdn
       if(cbl.hasItem(baseDomain)){
-        this.storage.setupHeuristicAction(baseDomain, pb.COOKIEBLOCK);
+        this.storage.setupHeuristicAction(baseDomain, constants.COOKIEBLOCK);
       } else {
-        this.storage.setupHeuristicAction(baseDomain, pb.BLOCK);
+        this.storage.setupHeuristicAction(baseDomain, constants.BLOCK);
       }
 
       // Check if a parent domain of the fqdn is on the cookie block list
@@ -70,13 +70,13 @@ HeuristicBlocker.prototype = {
       var thisStorage = this.storage;
       _.each(utils.explodeSubdomains(fqdn, true), function(domain){
         if(cbl.hasItem(domain)){
-          thisStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
+          thisStorage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           set = true;
         }
       });
       // if no parent domains are on the cookie block list then block fqdn 
       if(!set){
-        this.storage.setupHeuristicAction(fqdn, pb.BLOCK);
+        this.storage.setupHeuristicAction(fqdn, constants.BLOCK);
       }
       
       this.setupSubdomainsForCookieblock(baseDomain);
@@ -131,7 +131,7 @@ HeuristicBlocker.prototype = {
       var origin = window.getBaseDomain(fqdn);
 
       var action = this.storage.getActionForFqdn(fqdn);
-      if(action != pb.NO_TRACKING && action != pb.ALLOW){ 
+      if(action != constants.NO_TRACKING && action != constants.ALLOW){
         return {}; 
       }
       
@@ -159,7 +159,7 @@ HeuristicBlocker.prototype = {
     },
 
     /**
-     * Record HTTP request prevalence. Block a tracker if seen on more than [pb.TRACKING_THRESHOLD] pages
+     * Record HTTP request prevalence. Block a tracker if seen on more than [constants.TRACKING_THRESHOLD] pages
      *
      * @param {String} fqdn Host
      * @param {String} origin Base domain of host
@@ -177,15 +177,15 @@ HeuristicBlocker.prototype = {
       if(firstParties.indexOf(tabOrigin) === -1){
         firstParties.push(tabOrigin);
         snitch_map.setItem(trackerBaseDomain, firstParties);
-        this.storage.setupHeuristicAction(fqdn, pb.ALLOW);
-        this.storage.setupHeuristicAction(trackerBaseDomain, pb.ALLOW);
+        this.storage.setupHeuristicAction(fqdn, constants.ALLOW);
+        this.storage.setupHeuristicAction(trackerBaseDomain, constants.ALLOW);
       }
 
       // Blocking based on outbound cookies
       var httpRequestPrevalence = firstParties.length;
 
       //block the origin if it has been seen on multiple first party domains
-      if (httpRequestPrevalence >= pb.TRACKING_THRESHOLD) {
+      if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
         log('blacklisting origin', fqdn);
         this.blacklistOrigin(origin, fqdn);
       }
@@ -485,7 +485,7 @@ var hasCookieTracking = function(details, origin) {
      for (var n = 0; n < cookies.length; n++) {
         log("    " + cookies[n]);
      }
-     if (estimatedEntropy > pb.MAX_COOKIE_ENTROPY) {
+     if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
        log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
        return true;
      }

@@ -173,7 +173,7 @@ function getOrigins() {
   for (var domain in action_map.getItemClones()) {
       var action = pb.storage.getBestAction(domain);
       // Do not show non tracking origins
-      if(action != pb.NO_TRACKING){
+      if(action != constants.NO_TRACKING){
         origins[domain] = action;
       }
   }
@@ -338,7 +338,7 @@ function updateOrigin(event){
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
-  $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
+  $switchContainer.removeClass([constants.BLOCK, constants.COOKIEBLOCK, constants.ALLOW, constants.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($($clicker), action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));

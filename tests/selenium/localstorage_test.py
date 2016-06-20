@@ -41,7 +41,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
         self.load_url(pbtest.PB_CHROME_BG_URL)
         js = self.js
         self.check_policy_download()
-        self.assertEqual(js("return pb.COOKIE_BLOCK_LIST_URL"),
+        self.assertEqual(js("return constants.COOKIE_BLOCK_LIST_URL"),
                          "https://www.eff.org/files/cookieblocklist_new.txt")
 
         disabled_sites = js("return (pb.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'))");

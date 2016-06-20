@@ -99,9 +99,9 @@ BadgerPen.prototype = {
         domain = this.getBadgerStorageObject('action_map').getItem(domain) || {};
       }
       if(domain.userAction){ return domain.userAction; }
-      if(domain.dnt){ return pb.DNT; } 
+      if(domain.dnt){ return constants.DNT; }
       if(domain.heuristicAction){ return domain.heuristicAction; } 
-      return pb.NO_TRACKING;
+      return constants.NO_TRACKING;
     }, 
 
     touchDNTRecheckTime: function(domain, time){
@@ -137,7 +137,7 @@ BadgerPen.prototype = {
      * @returns {String} the best action for the FQDN
      **/
     getBestAction: function(fqdn) {
-      var best_action = pb.NO_TRACKING;
+      var best_action = constants.NO_TRACKING;
       var subdomains = utils.explodeSubdomains(fqdn);
       var action_map = this.getBadgerStorageObject('action_map');
       var relevantDomains = [];
@@ -258,11 +258,11 @@ BadgerPen.prototype = {
 
 var getScore = function(action){
   switch(action){
-    case pb.NO_TRACKING: return 0;
-    case pb.ALLOW: return 1;
-    case pb.BLOCK: return 2;
-    case pb.COOKIEBLOCK: return 3;
-    case pb.DNT: return 4;
+    case constants.NO_TRACKING: return 0;
+    case constants.ALLOW: return 1;
+    case constants.BLOCK: return 2;
+    case constants.COOKIEBLOCK: return 3;
+    case constants.DNT: return 4;
     default: return 5; 
   }
 };
