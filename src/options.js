@@ -19,6 +19,7 @@
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var pb = backgroundPage.pb; // incognito_pb can't use this page
+var constants = backgroundPage.constants;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var originCache = null;
