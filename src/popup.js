@@ -144,7 +144,7 @@ function send_error(message) {
        }
     }
     var out_data = JSON.stringify(out);
-    console.log(out_data);
+    backgroundPage.log(out_data);
     var sendReport = $.ajax({
       type: "POST",
       url: "https://privacybadger.org/reporting",
@@ -212,13 +212,13 @@ function revertDomainControl(e){
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var badger = backgroundPage.getBadgerWithTab(tabId);
   var $elm = $(e.target).parent();
-  console.log('revert to privacy badger control for', $elm);
+  backgroundPage.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   badger.storage.revertUserAction(origin);
   var defaultAction = badger.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
-  console.log('selector', selector);
+  backgroundPage.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
   backgroundPage.reloadTab(tabId);
@@ -256,7 +256,7 @@ function getTopLevel(action, origin/*, tabId*/){
  * @param {Integer} tabId The id of the tab
  */
 function refreshPopup(tabId) {
-  console.log("Refreshing popup for tab id " + tabId);
+  backgroundPage.log("Refreshing popup for tab id " + tabId);
   //TODO this is calling get action and then being used to call get Action
   var badger = backgroundPage.getBadgerWithTab(tabId);
   var origins = badger.getAllOriginsForTab(tabId);
@@ -285,7 +285,7 @@ function refreshPopup(tabId) {
     // todo: gross hack, use templating framework
     var action = backgroundPage.getAction(tabId, origin);
     if(action == constants.NO_TRACKING){
-        console.log('pushing', origin, 'onto non tracking');
+        backgroundPage.log('pushing', origin, 'onto non tracking');
         nonTracking.push(origin);
         continue;
     }
@@ -316,13 +316,13 @@ function refreshPopup(tabId) {
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
-  console.log('len', nonTracking.length);
+  backgroundPage.log('len', nonTracking.length);
   if(nonTracking.length > 0){
     printable = printable +
         '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
     for (var c = 0; c < nonTracking.length; c++){
       var ntOrigin = nonTracking[c];
-      console.log('calling printable for non-tracking');
+      backgroundPage.log('calling printable for non-tracking');
       printable = htmlUtils.addOriginHtml(printable, ntOrigin, constants.NO_TRACKING, false);
     }
   }
@@ -359,7 +359,7 @@ function refreshPopup(tabId) {
   // to have removal ability here.
   $('.removeOrigin').hide();
 
-  console.log("Done refreshing popup");
+  backgroundPage.log("Done refreshing popup");
 }
 
 
@@ -370,7 +370,7 @@ function refreshPopup(tabId) {
  */
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  console.log('updating origin for', $elm);
+  backgroundPage.log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
@@ -470,7 +470,7 @@ function syncSettingsDict(settingsDict) {
       reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"? would be fun to check with jsperf.com
     }
   }
-  console.log("Finished syncing. Now refreshing popup.");
+  backgroundPage.log("Finished syncing. Now refreshing popup.");
   // the popup needs to be refreshed to display current results
   refreshPopup(tabId);
   return reloadNeeded;
@@ -507,7 +507,7 @@ function buildSettingsDict() {
  */
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
-  console.log("Sync of userset options: " + JSON.stringify(settingsDict));
+  backgroundPage.log("Sync of userset options: " + JSON.stringify(settingsDict));
   var tabId = syncSettingsDict(settingsDict);
   if (tabId){
     backgroundPage.reloadTab(tabId);
@@ -522,15 +522,15 @@ function syncUISelections() {
 function setTabToUrl( query_url ) { /* jshint ignore:line */
   chrome.tabs.query( {url: query_url}, function(ta) {
     if ( typeof ta == "undefined" ) {
-      console.log("error doing tabs query for " + query_url);
+      backgroundPage.log("error doing tabs query for " + query_url);
       return;
     }
     if ( ta.length === 0 ) {
-      console.log("no match found in tabs query for " + query_url);
+      backgroundPage.log("no match found in tabs query for " + query_url);
       return;
     }
     var tabid = ta[0].id;
-    console.log("match found for query " + query_url + " tabId: " + tabid );
+    backgroundPage.log("match found for query " + query_url + " tabId: " + tabid );
     refreshPopup( tabid );
   });
 }
@@ -550,13 +550,13 @@ function getTab(callback) {
 
 document.addEventListener('DOMContentLoaded', function () {
   getTab(function(t) {
-    console.log("from addEventListener");
+    backgroundPage.log("from addEventListener");
     refreshPopup(t.id);
   });
 });
 
 window.addEventListener('unload', function() {
-  console.log("Starting to unload popup");
+  backgroundPage.log("Starting to unload popup");
   syncUISelections();
-  console.log("unloaded popup");
+  backgroundPage.log("unloaded popup");
 });
