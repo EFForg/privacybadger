@@ -24,7 +24,7 @@ require.scopes.utils = (function() {
   
 
 function Utils(badger) {
-    this.badger = badger;
+  this.badger = badger;
 }
 
 Utils.prototype = {
@@ -278,24 +278,24 @@ Utils.prototype = {
 * @param method GET/POST
 */
 function xhrRequest(url, callback, method){
-    if(!method){
-      method = "GET";
-    }
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-      //on done
-      if(xhr.readyState == xhr.DONE){
-        //on success
-        if(xhr.status == 200){
-          callback(null,xhr.responseText);
-        } else {
-          var error = {status: xhr.status, message: xhr.responseText, object: xhr};
-          callback(error,error.message);
-        }
+  if(!method){
+    method = "GET";
+  }
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(){
+    //on done
+    if(xhr.readyState == xhr.DONE){
+      //on success
+      if(xhr.status == 200){
+        callback(null,xhr.responseText);
+      } else {
+        var error = {status: xhr.status, message: xhr.responseText, object: xhr};
+        callback(error,error.message);
       }
-    };
-    xhr.open(method, url, true);
-    xhr.send();
+    }
+  };
+  xhr.open(method, url, true);
+  xhr.send();
 }
 
 /**
@@ -308,20 +308,20 @@ function xhrRequest(url, callback, method){
 *
 **/
 function explodeSubdomains(fqdn, all){
-   var baseDomain;
-   if(all){
-     baseDomain = fqdn.split('.').pop();
-   } else {
-     baseDomain = window.getBaseDomain(fqdn);
-   }
-   var baseLen = baseDomain.split('.').length;
-   var parts = fqdn.split('.');
-   var numLoops = parts.length - baseLen;
-   var subdomains = [];
-   for(var i=0; i<=numLoops; i++){
-     subdomains.push(parts.slice(i).join('.'));
-   }
-   return subdomains;
+  var baseDomain;
+  if(all){
+    baseDomain = fqdn.split('.').pop();
+  } else {
+    baseDomain = window.getBaseDomain(fqdn);
+  }
+  var baseLen = baseDomain.split('.').length;
+  var parts = fqdn.split('.');
+  var numLoops = parts.length - baseLen;
+  var subdomains = [];
+  for(var i=0; i<=numLoops; i++){
+    subdomains.push(parts.slice(i).join('.'));
+  }
+  return subdomains;
 }
 
 /**
@@ -331,8 +331,8 @@ function explodeSubdomains(fqdn, all){
 * @returns {URI|{scheme, spec, QueryInterface}}
 */
 function makeURI(url){
-    // URI defined in lib/basedomain.js
-    return new URI(url);
+  // URI defined in lib/basedomain.js
+  return new URI(url);
 }
 
 /**
@@ -345,9 +345,9 @@ function makeURI(url){
 * @returns {*}
 */
 function removeElementFromArray(/*array*/ ary, /*int*/ from, /*int*/ to){
-    var rest = ary.slice((to || from) + 1 || ary.length);
-    ary.length = from < 0 ? ary.length + from : from;
-    return ary.push.apply(ary, rest);
+  var rest = ary.slice((to || from) + 1 || ary.length);
+  ary.length = from < 0 ? ary.length + from : from;
+  return ary.push.apply(ary, rest);
 }
 
 
