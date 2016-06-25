@@ -389,9 +389,3 @@ function syncSettings(origin, userAction) {
   // Options page needs to be refreshed to display current results.
   refreshFilterPage();
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-  chrome.tabs.query({currentWindow: true}, function(/*tab*/) {
-    refreshFilterPage();
-  });
-});
