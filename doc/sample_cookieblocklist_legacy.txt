@@ -352,9 +352,10 @@
 @@||omroep.nl^$third-party
 @@||amazoncustomerservice.d2.sc.omtrdc.net^$third-party
 @@||onswipe.com^$third-party
-@@||c.ooyala.com^$third-party
 @@||api.ooyala.com^$third-party
+@@||c.ooyala.com^$third-party
 @@||l.ooyala.com^$third-party
+@@||opf.ooyala.com^third-party
 @@||player.ooyala.com^$third-party
 @@||tile.opencyclemap.org^$third-party
 @@||tile2.opencyclemap.org^$third-party
