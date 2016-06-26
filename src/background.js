@@ -167,11 +167,11 @@ Badger.prototype = {
   updateTabList: function(){
     // Initialize the tabData/frames object if it is falsey
     this.tabData = this.tabData || {};
-    var thesetabs = this.tabData;
+    var thisTabData = this.tabData;
     chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
       for(var i = 0; i < tabs.length; i++){
         var tab = tabs[i];
-        thesetabs[tab.id] = {
+        thisTabData[tab.id] = {
           frames: {
             0: {
               parent: -1,
