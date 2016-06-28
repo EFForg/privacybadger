@@ -167,11 +167,11 @@ Badger.prototype = {
   updateTabList: function(){
     // Initialize the tabData/frames object if it is falsey
     this.tabData = this.tabData || {};
-    var thisTabData = this.tabData;
+    self = this;
     chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
       for(var i = 0; i < tabs.length; i++){
         var tab = tabs[i];
-        thisTabData[tab.id] = {
+        self.tabData[tab.id] = {
           frames: {
             0: {
               parent: -1,
@@ -203,15 +203,15 @@ Badger.prototype = {
   * from the action map
   **/
   updateCookieBlockList: function(){
-    var thisStorage = this.storage;
+    self = this;
     utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
                   constants.COOKIE_BLOCK_LIST_URL, err.status, err.message);
         return;
       }
-      var cookieblock_list = thisStorage.getBadgerStorageObject('cookieblock_list');
-      var action_map = thisStorage.getBadgerStorageObject('action_map');
+      var cookieblock_list = self.Storage.getBadgerStorageObject('cookieblock_list');
+      var action_map = self.Storage.getBadgerStorageObject('action_map');
 
       var newCbDomains = _.map(response.split("\n"), function(d){ return d.trim();});
       var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
@@ -225,14 +225,14 @@ Badger.prototype = {
       _.each(removedDomains, function(domain){
         cookieblock_list.deleteItem(domain);
         if(action_map.hasItem(domain)){
-          thisStorage.setupHeuristicAction(domain, constants.BLOCK);
+          self.Storage.setupHeuristicAction(domain, constants.BLOCK);
         }
         var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
                                   });
         _.each(removedDomains, function(domain){
-          thisStorage.setupHeuristicAction(domain, constants.BLOCK);
+          self.Storage.setupHeuristicAction(domain, constants.BLOCK);
         });
       });
 
@@ -243,7 +243,7 @@ Badger.prototype = {
         if(action_map.hasItem(baseDomain) &&
            _.contains([constants.BLOCK, constants.COOKIEBLOCK],
                       action_map.getItem(baseDomain).heuristicAction)){
-          thisStorage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
+          self.Storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
         }
       });
 
@@ -266,14 +266,14 @@ Badger.prototype = {
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function(){
-    var thisStorage = this.storage;
+    self = this;
     utils.xhrRequest(constants.DNT_POLICIES_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
                  constants.DNT_POLICIES_URL, err.status, err.message);
         return;
       }
-      thisStorage.updateDNTHashes(JSON.parse(response));
+      self.Storage.updateDNTHashes(JSON.parse(response));
     });
   },
 
