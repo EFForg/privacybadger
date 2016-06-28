@@ -210,8 +210,8 @@ Badger.prototype = {
                   constants.COOKIE_BLOCK_LIST_URL, err.status, err.message);
         return;
       }
-      var cookieblock_list = self.Storage.getBadgerStorageObject('cookieblock_list');
-      var action_map = self.Storage.getBadgerStorageObject('action_map');
+      var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
+      var action_map = self.storage.getBadgerStorageObject('action_map');
 
       var newCbDomains = _.map(response.split("\n"), function(d){ return d.trim();});
       var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
@@ -225,14 +225,14 @@ Badger.prototype = {
       _.each(removedDomains, function(domain){
         cookieblock_list.deleteItem(domain);
         if(action_map.hasItem(domain)){
-          self.Storage.setupHeuristicAction(domain, constants.BLOCK);
+          self.storage.setupHeuristicAction(domain, constants.BLOCK);
         }
         var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
                                   });
         _.each(removedDomains, function(domain){
-          self.Storage.setupHeuristicAction(domain, constants.BLOCK);
+          self.storage.setupHeuristicAction(domain, constants.BLOCK);
         });
       });
 
@@ -243,7 +243,7 @@ Badger.prototype = {
         if(action_map.hasItem(baseDomain) &&
            _.contains([constants.BLOCK, constants.COOKIEBLOCK],
                       action_map.getItem(baseDomain).heuristicAction)){
-          self.Storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
+          self.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
         }
       });
 
@@ -273,7 +273,7 @@ Badger.prototype = {
                  constants.DNT_POLICIES_URL, err.status, err.message);
         return;
       }
-      self.Storage.updateDNTHashes(JSON.parse(response));
+      self.storage.updateDNTHashes(JSON.parse(response));
     });
   },
 
