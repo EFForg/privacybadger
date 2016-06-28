@@ -167,7 +167,7 @@ Badger.prototype = {
   updateTabList: function(){
     // Initialize the tabData/frames object if it is falsey
     this.tabData = this.tabData || {};
-    self = this;
+    var self = this;
     chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs){
       for(var i = 0; i < tabs.length; i++){
         var tab = tabs[i];
@@ -203,7 +203,7 @@ Badger.prototype = {
   * from the action map
   **/
   updateCookieBlockList: function(){
-    self = this;
+    var self = this;
     utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
@@ -266,7 +266,7 @@ Badger.prototype = {
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function(){
-    self = this;
+    var self = this;
     utils.xhrRequest(constants.DNT_POLICIES_URL, function(err,response){
       if(err){
         console.error('Problem fetching privacy badger policy hash list at',
