@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up. 
+ // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
@@ -34,7 +34,7 @@ function init() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
 
-  var seenComic = settings.getItem("seenComic") || false; 
+  var seenComic = settings.getItem("seenComic") || false;
 
   function _setSeenComic() {
     settings.setItem("seenComic", "true");
@@ -47,7 +47,7 @@ function init() {
   }
 
   if (!seenComic) {
-    nag.show(); 
+    nag.show();
     outer.show();
     // Attach event listeners
     $('#fittslaw').click(_hideNag);
@@ -57,7 +57,7 @@ function init() {
       });
       _hideNag();
     });
-  } 
+  }
 
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
@@ -277,7 +277,7 @@ function refreshPopup(tabId) {
       if (action.includes("user")){
         var prevOrigin = origin;
         var baseDomain = backgroundPage.getBaseDomain(prevOrigin);
-        // TODO make some re-implementation of getBestAction that returns where the 
+        // TODO make some re-implementation of getBestAction that returns where the
         // user rule is coming from
         if (getTopLevel(action, origin, tabId) == baseDomain && baseDomain != origin){
           origin = baseDomain;
@@ -337,6 +337,12 @@ function refreshPopup(tabId) {
     });
   });
   adjustNoInitialBlockingLink();
+
+  // Hide elements for removing origins (controlled from the options page).
+  // Popup shows what's loaded for the current page so it doesn't make sense
+  // to have removal ability here.
+  $('.removeOrigin').hide();
+
   console.log("Done refreshing popup");
 }
 

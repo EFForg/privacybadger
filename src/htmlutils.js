@@ -132,6 +132,7 @@ var htmlUtils = exports.htmlUtils = {
     var originHtml = '' +
       '<div ' + classText + ' data-origin="' + origin + '" tooltip="' + actionDescription + '" data-original-action="' + action + '">' +
       '<div class="origin">' + whitelistedText + htmlUtils.trim(origin + subdomainText, 30) + '</div>' +
+      '<div class="removeOrigin">&#10006</div>' +
       htmlUtils.getToggleHtml(origin, action) +
       '<div class="honeybadgerPowered tooltip" tooltip="'+ tooltipText + '"></div>' +
       '<img class="tooltipArrow" src="/icons/badger-tb-arrow.png">' +

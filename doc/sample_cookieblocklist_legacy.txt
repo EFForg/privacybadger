@@ -61,6 +61,7 @@
 @@||break.com^$third-party
 @@||breakingburner.com^$third-party
 @@||brightcove.com^$third-party
+@@||players.brightcove.net^$third-party
 @@||buzzfed.com^$third-party
 @@||buzzfeed.com^$third-party
 @@||cachefly.net^$third-party
@@ -79,8 +80,14 @@
 @@||cloudfront.net^$third-party
 @@||bbc.co.uk^$third-party
 @@||bbci.co.uk^$third-party
+@@||gr-assets.com^$third-party
 @@||grapeshot.co.uk^$third-party
+@@||w.graphiq.com^$third-party
+@@||s.graphiq.com^$third-party
+@@||s2.graphiq.com^$third-party
+@@||s3.graphiq.com^$third-party
 @@||guardian.co.uk^$third-party
+@@||media-imdb.com^$third-party
 @@||mediaworks.co.nz^$third-party
 @@||com.com^$third-party
 @@||complex.com^$third-party
@@ -127,6 +134,7 @@
 @@||eltrafiko.com^$third-party
 @@||api.embed.ly^$third-party
 @@||cdn.embedly.com^$third-party
+@@||i-cdn.embed.ly^$third-party
 @@||epoch.com^$third-party
 @@||estara.com^$third-party
 @@||ethn.io^$third-party
@@ -172,6 +180,7 @@
 @@||getpocket.com^$third-party
 @@||giant.gfycat.com^$third-party
 @@||ggpht.com^$third-party
+@@||giphy.com^$third-party
 @@||github.com^$third-party
 @@||githubusercontent.com^$third-party
 @@||gmodules.com^$third-party
@@ -206,6 +215,7 @@
 @@||mts0.google.com^$third-party
 @@||mts1.google.com^$third-party
 @@||mw1.google.com^$third-party
+@@||mw2.google.com^$third-party
 @@||picasaweb.google.com^$third-party
 @@||plus.google.com^$third-party
 @@||spreadsheets.google.com^$third-party
@@ -228,6 +238,7 @@
 @@||helium.com^$third-party
 @@||hellobar.com^$third-party
 @@||herokuapp.com^$third-party
+@@||code.highcharts.com^$third-party
 @@||honcode.ch^$third-party
 @@||hootsuite.com^$third-party
 @@||howaboutwe.com^$third-party
@@ -285,6 +296,8 @@
 @@||klm.com^$third-party
 @@||licdn.com^$third-party
 @@||licensebuttons.net^$third-party
+@@||addon.lidl.de^$third-party
+@@||media.lidl.com^$third-party
 @@||linkwithin.com^$third-party
 @@||i.lithium.com^$third-party
 @@||messenger.live.com^$third-party
@@ -349,7 +362,13 @@
 @@||olark.com^$third-party
 @@||omroep.nl^$third-party
 @@||amazoncustomerservice.d2.sc.omtrdc.net^$third-party
+@@||attservicesinc.tt.omtrdc.net^$third-party
 @@||onswipe.com^$third-party
+@@||api.ooyala.com^$third-party
+@@||c.ooyala.com^$third-party
+@@||l.ooyala.com^$third-party
+@@||opf.ooyala.com^third-party
+@@||player.ooyala.com^$third-party
 @@||tile.opencyclemap.org^$third-party
 @@||tile2.opencyclemap.org^$third-party
 @@||openlayers.org^$third-party
@@ -377,6 +396,7 @@
 @@||plex.tv^$third-party
 @@||poll.fm^$third-party
 @@||polldaddy.com^$third-party
+@@||postimg.org^$third-party
 @@||powerreviews.com^$third-party
 @@||pricegrabber.com^$third-party
 @@||printfriendly.com^$third-party
@@ -443,6 +463,7 @@
 @@||syracuse.com^$third-party
 @@||public.tableausoftware.com^$third-party
 @@||c.tadst.com^$third-party
+@@||uploads.tapatalk-cdn.com^$third-party
 @@||targetimg1.com^$third-party
 @@||targetimg2.com^$third-party
 @@||technorati.com^$third-party
@@ -484,6 +505,8 @@
 @@||vimeocdn.com^$third-party
 @@||virtualearth.net^$third-party
 @@||vmixcore.com^$third-party
+@@||voxmedia.com^$third-party
+@@||vox-cdn.com^$third-party
 @@||w3.org^$third-party
 @@||wallst.com^$third-party
 @@||weather.com^$third-party

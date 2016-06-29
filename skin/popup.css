@@ -85,6 +85,18 @@ a:hover { color: #ec9329 }
   float: left;
   display: inline;
 }
+
+.removeOrigin {
+  cursor: pointer;
+  float: right;
+  margin-right: 0px;
+  width: 10px;
+}
+
+.removeOrigin:hover {
+  color: red;
+}
+
 .switch-container{
   width: 115px;
   display: block;
@@ -116,10 +128,11 @@ a:hover { color: #ec9329 }
   background-color: #339900;
 }
 .honeybadgerPowered{
+  margin-right: 10px;
   width: 20px;
   height: 20px;
   position: relative;
-  left: 345px;
+  left: 337px;
   bottom: 15px;
   cursor: pointer;
 }
