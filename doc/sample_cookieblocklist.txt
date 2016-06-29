@@ -61,6 +61,7 @@ brcdn.com
 break.com
 breakingburner.com
 brightcove.com
+players.brightcove.net
 buzzfed.com
 buzzfeed.com
 cachefly.net
@@ -80,8 +81,13 @@ cloudfront.net
 bbc.co.uk
 bbci.co.uk
 grapeshot.co.uk
+w.graphiq.com
+s.graphiq.com
+s2.graphiq.com
+s3.graphiq.com
 gr-assets.com
 guardian.co.uk
+media-imdb.com
 mediaworks.co.nz
 com.com
 complex.com
@@ -128,6 +134,7 @@ elasticbeanstalk.com
 eltrafiko.com
 api.embed.ly
 cdn.embedly.com
+i-cdn.embed.ly
 epoch.com
 estara.com
 ethn.io
@@ -208,6 +215,7 @@ mt1.google.com
 mts0.google.com
 mts1.google.com
 mw1.google.com
+mw2.google.com
 picasaweb.google.com
 plus.google.com
 spreadsheets.google.com
@@ -230,6 +238,7 @@ hackerone-user-content.com
 helium.com
 hellobar.com
 herokuapp.com
+code.highcharts.com
 honcode.ch
 hootsuite.com
 howaboutwe.com
@@ -287,6 +296,8 @@ kinja-static.com
 klm.com
 licdn.com
 licensebuttons.net
+addon.lidl.de
+media.lidl.com
 linkwithin.com
 i.lithium.com
 messenger.live.com
@@ -351,6 +362,7 @@ ocsn.com
 olark.com
 omroep.nl
 amazoncustomerservice.d2.sc.omtrdc.net
+attservicesinc.tt.omtrdc.net
 onswipe.com
 api.ooyala.com
 c.ooyala.com
@@ -452,6 +464,7 @@ surveymonkey.com
 syracuse.com
 public.tableausoftware.com
 c.tadst.com
+uploads.tapatalk-cdn.com
 targetimg1.com
 targetimg2.com
 technorati.com
@@ -493,6 +506,8 @@ vimeo.com
 vimeocdn.com
 virtualearth.net
 vmixcore.com
+voxmedia.com
+vox-cdn.com
 w3.org
 wallst.com
 weather.com
