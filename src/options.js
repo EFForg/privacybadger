@@ -363,7 +363,7 @@ function removeOrigin(event) {
   pb.storage.getBadgerStorageObject("snitch_map").deleteItem(origin);
   pb.storage.getBadgerStorageObject("action_map").deleteItem(origin);
   pb.storage.getBadgerStorageObject("supercookie_domains").deleteItem(origin);
-  pb.log('Removed', origin, 'from Privacy Badger');
+  backgroundPage.log('Removed', origin, 'from Privacy Badger');
 
   refreshFilterPage();
 }
