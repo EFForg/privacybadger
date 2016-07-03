@@ -258,14 +258,6 @@ Utils.prototype = {
       // TODO: Do we need separate functions for other supercookie vectors?
       // Let's wait until we implement them in the content script
     );
-  },
-
-  /**
-   * Get Supercookie data from storage
-   * @returns {*|{}} Dict with Supercookie domains
-   */
-  getSupercookieDomains: function() {
-    return this.badger.storage.getBadgerStorageObject('supercookie_domains');
   }
 
 };

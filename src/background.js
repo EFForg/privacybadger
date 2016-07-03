@@ -478,7 +478,16 @@ Badger.prototype = {
         }
       });
     }
+  },
+
+  /**
+   * Get Supercookie data from storage
+   * @returns {*|{}} Dict with Supercookie domains
+   */
+  getSupercookieDomains: function() {
+    return this.storage.getBadgerStorageObject('supercookie_domains');
   }
+
 };
 
 /**

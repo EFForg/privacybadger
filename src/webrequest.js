@@ -69,7 +69,7 @@ function onBeforeRequest(details){
   // read the supercookie state from localStorage and store it in frameData
   var frameData = getFrameData(details.tabId, details.frameId);
   if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
-    var supercookieDomains = badger.utils.getSupercookieDomains();
+    var supercookieDomains = badger.getSupercookieDomains();
     var origin = window.getBaseDomain(window.extractHostFromURL(details.url));
     frameData.superCookie = supercookieDomains.hasItem(origin) ? true : false;
     log("onBeforeRequest: read superCookie state from localstorage for",
@@ -303,7 +303,7 @@ function recordSuperCookie(sender, msg) {
     frameData.superCookie = true;
   }
   // now add the finding to localStorage for persistence
-  var supercookieDomains = badger.utils.getSupercookieDomains();
+  var supercookieDomains = badger.getSupercookieDomains();
   // We could store the type of supercookie once we start to check multiple storage vectors
   // Could be useful for debugging & bookkeeping.
   
