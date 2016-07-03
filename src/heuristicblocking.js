@@ -16,6 +16,9 @@
  */
 
 var constants = require("constants");
+var backgroundPage = chrome.extension.getBackgroundPage();
+var log = backgroundPage.log;
+var getBadgerWithTab = backgroundPage.getBadgerWithTab;
 
 require.scopes.heuristicblocking = (function() {
 

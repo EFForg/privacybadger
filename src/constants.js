@@ -36,7 +36,7 @@ COOKIE_BLOCK_LIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",
 // The number of 1st parties a 3rd party can be seen on
 TRACKING_THRESHOLD: 3,
 MAX_COOKIE_ENTROPY: 12
-}
+};
 
 return exports;
 })();

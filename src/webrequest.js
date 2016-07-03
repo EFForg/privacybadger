@@ -22,9 +22,12 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var constants = require('constants');
-
 require.scopes.webrequest = (function() {
+
+var constants = require('constants');
+var backgroundPage = chrome.extension.getBackgroundPage();
+var log = backgroundPage.log;
+var getBadgerWithTab = backgroundPage.getBadgerWithTab;
 
 /*********************** webrequest scope **/
 
@@ -472,7 +475,7 @@ function checkAction(tabId, url, quiet, frameId){
   var action = badger.storage.getBestAction(requestHost);
 
   if (action && ! quiet) {
-    logTrackerOnTab(tabId, requestHost, action);
+    backgroundPage.logTrackerOnTab(tabId, requestHost, action);
   }
   return action;
 }

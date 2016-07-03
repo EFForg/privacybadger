@@ -16,6 +16,7 @@
  */
 
 var constants = require("constants");
+var utils = require("utils");
 
 require.scopes.storage = (function() {
 

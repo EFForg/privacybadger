@@ -123,7 +123,7 @@ function closeOverlay() {
 */
 function send_error(message) {
   var browser = window.navigator.useragent;
-  gettab(function(tab) {
+  getTab(function(tab) {
     var tabId = tab.id;
     var badger = backgroundPage.getBadgerWithTab(tabId);
     var origins = badger.getAllOriginsForTab(tabId);
