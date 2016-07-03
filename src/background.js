@@ -75,9 +75,6 @@ function Badger(tabData, isIncognito) {
 }
 
 Badger.prototype = {
-  // imports
-  webrequest: webrequest,
-
   INITIALIZED: false,
 
   /**
@@ -459,7 +456,7 @@ Badger.prototype = {
       return {};
     }
 
-    if(!this.utils.isPrivacyBadgerEnabled(this.webrequest.getHostForTab(details.tabId))){
+    if(!this.utils.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
       return;
     }
 
