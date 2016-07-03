@@ -26,7 +26,7 @@ var webrequest = require("webrequest");
 var utils = require("utils");
 var tabOrigins = { }; // TODO roll into tabData?
 
-function HeuristicBlocker(utils, pbStorage) {
+function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
 }
 
