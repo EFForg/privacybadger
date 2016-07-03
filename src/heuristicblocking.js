@@ -14,6 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+var constants = require("constants");
+
 require.scopes.heuristicblocking = (function() {
 
 /*********************** heuristicblocking scope **/

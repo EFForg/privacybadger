@@ -19,6 +19,7 @@
 require.scopes.migrations = (function() {
 var pbStorage = require("storage");
 var Utils = require("utils").Utils;
+var constants = require("constants");
   
 var exports = {};
 exports.Migrations= {

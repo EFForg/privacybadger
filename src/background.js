@@ -22,6 +22,7 @@
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
 var utils = require("utils");
+var constants = require("constants");
 var DomainExceptions = require("domainExceptions").DomainExceptions;
 var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
@@ -34,26 +35,6 @@ var incognito = require("incognito");
 
 // Display debug messages
 var DEBUG = false;
-
-var constants = {
-  // Tracking status constants
-  NO_TRACKING: "noaction",
-  ALLOW: "allow",
-  BLOCK: "block",
-  COOKIEBLOCK: "cookieblock",
-  DNT: "dnt",
-  USER_ALLOW: "user_allow",
-  USER_BLOCK: "user_block",
-  USER_COOKIE_BLOCK: "user_cookieblock",
-
-  // URLS
-  DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
-  COOKIE_BLOCK_LIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",
-
-  // The number of 1st parties a 3rd party can be seen on
-  TRACKING_THRESHOLD: 3,
-  MAX_COOKIE_ENTROPY: 12,
-};
 
 /**
 * privacy badger initializer
