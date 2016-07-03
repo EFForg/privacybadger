@@ -45,7 +45,6 @@ function Badger(tabData, isIncognito) {
   var badger = this;
   this.storage = new pbStorage.BadgerPen(isIncognito, function (thisStorage) {
     if (badger.INITIALIZED) { return; }
-    badger.utils = new utils.Utils(badger);
     badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(badger.utils, thisStorage);
     badger.updateTabList();
     badger.initializeDefaultSettings();
@@ -171,7 +170,7 @@ Badger.prototype = {
    **/
   initializeCookieBlockList: function(){
     this.updateCookieBlockList();
-    setInterval(this.updateCookieBlockList, this.utils.oneDay());
+    setInterval(this.updateCookieBlockList, utils.oneDay());
   },
 
   /**
@@ -236,8 +235,8 @@ Badger.prototype = {
   initializeDNT: function(){
     this.updateDNTPolicyHashes();
     this.recheckDNTPolicyForDomains();
-    setInterval(this.recheckDNTPolicyForDomains, this.utils.oneHour());
-    setInterval(this.updateDNTPolicyHashes, this.utils.oneDay() * 4);
+    setInterval(this.recheckDNTPolicyForDomains, utils.oneHour());
+    setInterval(this.updateDNTPolicyHashes, utils.oneDay() * 4);
   },
 
   /**
@@ -286,7 +285,7 @@ Badger.prototype = {
         log('It looks like', domain, 'has NOT adopted Do Not Track');
         badger.storage.revertDNT(domain);
       }
-      badger.storage.touchDNTRecheckTime(domain, badger.utils.oneDayFromNow() * 7);
+      badger.storage.touchDNTRecheckTime(domain, utils.oneDayFromNow() * 7);
     });
   },
 
@@ -434,7 +433,7 @@ Badger.prototype = {
    * @param {Integer} tabId chrome tab id
    */
   updateBadge: function(tabId){
-    if (!this.utils.showCounter()){
+    if (!this.showCounter()){
       chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
       return;
     }
@@ -456,7 +455,7 @@ Badger.prototype = {
       return {};
     }
 
-    if(!this.utils.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
+    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
       return;
     }
 
@@ -486,6 +485,134 @@ Badger.prototype = {
    */
   getSupercookieDomains: function() {
     return this.storage.getBadgerStorageObject('supercookie_domains');
+  },
+  getSettings: function(){ return this.storage.getBadgerStorageObject('settings_map'); },
+
+  /**
+   * check if privacy badger is enabled, take an origin and
+   * check against the disabledSites list
+   *
+   * @param {String} origin
+   * @returns {Boolean} true if enabled
+   **/
+  isPrivacyBadgerEnabled: function(origin){
+    var settings = this.getSettings();
+    var disabledSites = settings.getItem("disabledSites");
+    if(disabledSites && disabledSites.length > 0){
+      for(var i = 0; i < disabledSites.length; i++){
+        var site = disabledSites[i];
+        if(site.startsWith("*")){
+          if(window.getBaseDomain(site) === window.getBaseDomain(origin)){
+            return false;
+          }
+        }
+        if(disabledSites[i] === origin){
+          return false;
+        }
+      }
+    }
+    return true;
+  },
+  
+  /**
+   * check if privacy badger is disabled, take an origin and
+   * check against the disabledSites list
+   *
+   * @param {String} origin
+   * @returns {Boolean} true if disabled
+   **/
+  isPrivacyBadgerDisabled: function(origin){
+    return !this.isPrivacyBadgerEnabled(origin);
+  },
+
+  /**
+   * check if social widget replacement functionality is enabled
+   */
+  isSocialWidgetReplacementEnabled: function() {
+    return this.getSettings().getItem("socialWidgetReplacementEnabled");
+  },
+
+  /**
+   * check if we should show the counter on the icon
+   */
+  showCounter: function() {
+    return this.getSettings().getItem("showCounter");
+  },
+
+  /**
+   * add an origin to the disabled sites list
+   *
+   * @param {String} origin The origin to disable the PB for
+   **/
+  disablePrivacyBadgerForOrigin: function(origin){
+    var settings = this.getSettings();
+    var disabledSites = settings.getItem('disabledSites');
+    if(disabledSites.indexOf(origin) < 0){
+      disabledSites.push(origin);
+      settings.setItem("disabledSites", disabledSites);
+    }
+  },
+
+  /**
+   * interface to get the current whitelisted domains
+   */
+  listOriginsWherePrivacyBadgerIsDisabled: function(){
+    return this.getSettings().getItem("disabledSites");
+  },
+
+  /**
+   * remove an origin from the disabledSites list
+   *
+   * @param {String} origin The origin to disable the PB for
+   **/
+  enablePrivacyBadgerForOrigin: function(origin){
+    var settings = this.getSettings();
+    var disabledSites = settings.getItem("disabledSites");
+    var idx = disabledSites.indexOf(origin);
+    if(idx >= 0){
+      utils.removeElementFromArray(disabledSites, idx);
+      settings.setItem("disabledSites", disabledSites);
+    }
+  },
+
+  /**
+   * Checks if local storage ( in dict) has any high-entropy keys
+   *
+   * @param lsItems Local storage dict
+   * @returns {boolean} true if it seems there are supercookies
+   */
+  hasLocalStorageSuperCookie: function(lsItems) {
+    var LOCALSTORAGE_ENTROPY_THRESHOLD = 33, // in bits
+      estimatedEntropy = 0,
+      lsKey = "",
+      lsItem = "";
+    for (lsKey in lsItems) {
+      // send both key and value to entropy estimation
+      lsItem = lsItems[lsKey];
+      log("Checking localstorage item", lsKey, lsItem);
+      estimatedEntropy += utils.estimateMaxEntropy(lsKey + lsItem);
+      if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD){
+        log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
+        return true;
+      }
+    }
+    return false;
+  },
+
+  /**
+   * check if there seems to be any type of Super Cookie
+   *
+   * @param storageItems Dict with storage items
+   * @returns {*} true if there seems to be any Super cookie
+   */
+  hasSuperCookie: function(storageItems) {
+    return (
+      this.hasLocalStorageSuperCookie(storageItems.localStorageItems)
+      // || Utils.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
+      // || Utils.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
+      // TODO: Do we need separate functions for other supercookie vectors?
+      // Let's wait until we implement them in the content script
+    );
   }
 
 };
@@ -616,7 +743,7 @@ function refreshIconAndContextMenu(tab) {
   if(!tab){return;}
 
   var badger = getBadgerWithTab(tab.id);
-  var iconFilename = badger.utils.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
+  var iconFilename = badger.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
 
   chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
@@ -680,13 +807,13 @@ function startBackgroundListeners() {
         if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
           var badger = getBadgerWithTab(sender.tab.id);
           if (request.command == "getDisabledSites") {
-            sendResponse({origins: badger.utils.listOriginsWherePrivacyBadgerIsDisabled()});
+            sendResponse({origins: badger.listOriginsWherePrivacyBadgerIsDisabled()});
           }
           else if (request.command == "enable") {
-            badger.utils.enablePrivacyBadgerForOrigin(request.origin);
+            badger.enablePrivacyBadgerForOrigin(request.origin);
           }
           else if (request.command == "disable") {
-            badger.utils.disablePrivacyBadgerForOrigin(request.origin);
+            badger.disablePrivacyBadgerForOrigin(request.origin);
           }
         }
       }

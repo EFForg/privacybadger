@@ -18,7 +18,7 @@
 
 require.scopes.migrations = (function() {
 var pbStorage = require("storage");
-var Utils = require("utils").Utils;
+var utils = require("utils");
 var constants = require("constants");
   
 var exports = {};
@@ -150,7 +150,7 @@ exports.Migrations= {
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
       var cbl = pbStorage.getBadgerStorageObject('cookieblock_list');
       _.each(pbStorage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
-        _.each(Utils.explodeSubdomains(fqdn, true), function(domain){
+        _.each(utils.explodeSubdomains(fqdn, true), function(domain){
           if(cbl.hasItem(domain)){
             console.log('moving', fqdn, 'from block to cookie block');
             pbStorage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);

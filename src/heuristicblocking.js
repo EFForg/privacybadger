@@ -27,7 +27,6 @@ var utils = require("utils");
 var tabOrigins = { }; // TODO roll into tabData?
 
 function HeuristicBlocker(utils, pbStorage) {
-  this.utils = utils;
   this.storage = pbStorage;
 }
 

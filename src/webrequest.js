@@ -58,7 +58,7 @@ function onBeforeRequest(details){
   var requestDomain = window.extractHostFromURL(details.url);
    
   var badger = getBadgerWithTab(details.tabId);
-  if (badger.utils.isPrivacyBadgerDisabled(tabDomain)) {
+  if (badger.isPrivacyBadgerDisabled(tabDomain)) {
     return {};
   }
 
@@ -124,7 +124,7 @@ function onBeforeSendHeaders(details) {
   var requestDomain = window.extractHostFromURL(details.url);
   var badger = getBadgerWithTab(details.tabId);
 
-  if (badger.utils.isPrivacyBadgerEnabled(tabDomain) && 
+  if (badger.isPrivacyBadgerEnabled(tabDomain) && 
       window.isThirdParty(requestDomain, tabDomain)) {
     var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
     // If this might be the third stike against the potential tracker which
@@ -178,7 +178,7 @@ function onHeadersReceived(details){
   var requestDomain = window.extractHostFromURL(details.url);
    
   var badger = getBadgerWithTab(details.tabId);
-  if (badger.utils.isPrivacyBadgerDisabled(tabDomain)) {
+  if (badger.isPrivacyBadgerDisabled(tabDomain)) {
     return {};
   }
 
@@ -632,10 +632,10 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   if (request.checkEnabled) {
-    sendResponse(badger.utils.isPrivacyBadgerEnabled(tabHost));
+    sendResponse(badger.isPrivacyBadgerEnabled(tabHost));
 
   } else if (request.checkLocation) {
-    if (badger.utils.isPrivacyBadgerEnabled(tabHost)) {
+    if (badger.isPrivacyBadgerEnabled(tabHost)) {
       var documentHost = request.checkLocation.href;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
@@ -643,7 +643,7 @@ function dispatcher(request, sender, sendResponse) {
     }
 
   } else if (request.checkReplaceButton) {
-    if (badger.utils.isPrivacyBadgerEnabled(tabHost) && badger.utils.isSocialWidgetReplacementEnabled()) {
+    if (badger.isPrivacyBadgerEnabled(tabHost) && badger.isSocialWidgetReplacementEnabled()) {
       var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id);
       sendResponse(socialWidgetBlockList);
     }
@@ -654,7 +654,7 @@ function dispatcher(request, sender, sendResponse) {
 
   // canvas fingerprinting
   } else if (request.fpReport) {
-    if (!badger.utils.isPrivacyBadgerEnabled(tabHost)) { return; }
+    if (!badger.isPrivacyBadgerEnabled(tabHost)) { return; }
     if (Array.isArray(request.fpReport)) {
       request.fpReport.forEach(function (msg) {
         recordFingerprinting(sender.tab.id, msg);
@@ -664,14 +664,14 @@ function dispatcher(request, sender, sendResponse) {
     }
 
   } else if (request.superCookieReport) {
-    if (badger.utils.hasSuperCookie(request.superCookieReport)){
+    if (badger.hasSuperCookie(request.superCookieReport)){
       recordSuperCookie(sender, request.superCookieReport);
     }
   } else if (request.checkEnabledAndThirdParty) {
     var pageHost = window.extractHostFromURL(sender.url);
-    sendResponse(badger.utils.isPrivacyBadgerEnabled(tabHost) && window.isThirdParty(pageHost, tabHost));
+    sendResponse(badger.isPrivacyBadgerEnabled(tabHost) && window.isThirdParty(pageHost, tabHost));
   } else if (request.checkSocialWidgetReplacementEnabled) {
-    sendResponse(badger.utils.isPrivacyBadgerEnabled(tabHost) && badger.utils.isSocialWidgetReplacementEnabled());
+    sendResponse(badger.isPrivacyBadgerEnabled(tabHost) && badger.isSocialWidgetReplacementEnabled());
   }
 }
 

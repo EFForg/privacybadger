@@ -62,12 +62,12 @@ function loadOptions() {
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $("#activate_socialwidget_btn").click(activateSocialWidgetReplacement);
   $("#deactivate_socialwidget_btn").click(deactivateSocialWidgetReplacement);
-  if(!pb.utils.isSocialWidgetReplacementEnabled()) {
+  if(!pb.isSocialWidgetReplacementEnabled()) {
     $("#activate_socialwidget_btn").show();
     $("#deactivate_socialwidget_btn").hide();
   }
   $("#toggle_counter_checkbox").click(toggleCounter);
-  $("#toggle_counter_checkbox").prop("checked", pb.utils.showCounter());
+  $("#toggle_counter_checkbox").prop("checked", pb.showCounter());
 
   // Show user's filters
   reloadWhitelist();
@@ -149,7 +149,7 @@ function addWhitelistDomain(event) {
     return;
   }
 
-  pb.utils.disablePrivacyBadgerForOrigin(domain);
+  pb.disablePrivacyBadgerForOrigin(domain);
   reloadWhitelist();
 }
 
@@ -157,7 +157,7 @@ function removeWhitelistDomain(event) {
   event.preventDefault();
   var selected = $(document.getElementById("excludedDomainsBox")).find('option:selected');
   for(var i = 0; i < selected.length; i++){
-    pb.utils.enablePrivacyBadgerForOrigin(selected[i].text);
+    pb.enablePrivacyBadgerForOrigin(selected[i].text);
   }
   reloadWhitelist();
 }

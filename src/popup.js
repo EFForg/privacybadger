@@ -97,7 +97,7 @@ function init() {
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
     var badger = backgroundPage.getBadgerWithTab(t.id);
-    if(!badger.utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
+    if(!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
       $("#blockedResourcesContainer").hide();
       $("#activate_site_btn").show();
       $("#deactivate_site_btn").hide();
@@ -181,7 +181,7 @@ function active_site(){
   $("#blockedResourcesContainer").show();
   getTab(function(tab) {
     var badger = backgroundPage.getBadgerWithTab(tab.id);
-    badger.utils.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+    badger.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     backgroundPage.refreshIconAndContextMenu(tab);
     backgroundPage.reloadTab(tab.id);
   });
@@ -196,7 +196,7 @@ function deactive_site(){
   $("#blockedResourcesContainer").hide();
   getTab(function(tab) {
     var badger = backgroundPage.getBadgerWithTab(tab.id);
-    badger.utils.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+    badger.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     backgroundPage.refreshIconAndContextMenu(tab);
     backgroundPage.reloadTab(tab.id);
   });

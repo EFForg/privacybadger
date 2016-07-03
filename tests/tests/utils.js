@@ -52,22 +52,22 @@
   });
 
   test("isPrivacyBadgerEnabled", function(){
-    ok(pb.utils.isPrivacyBadgerEnabled("eff.org"), "enabled for site");
+    ok(pb.isPrivacyBadgerEnabled("eff.org"), "enabled for site");
 
-    pb.utils.disablePrivacyBadgerForOrigin("example.com");
-    ok(!pb.utils.isPrivacyBadgerEnabled("example.com"), "disabled for site");
-    pb.utils.enablePrivacyBadgerForOrigin("example.com");
-    ok(pb.utils.isPrivacyBadgerEnabled("example.com"), "enabled for site");
+    pb.disablePrivacyBadgerForOrigin("example.com");
+    ok(!pb.isPrivacyBadgerEnabled("example.com"), "disabled for site");
+    pb.enablePrivacyBadgerForOrigin("example.com");
+    ok(pb.isPrivacyBadgerEnabled("example.com"), "enabled for site");
   });
   
   test("disable/enable privacy badger for origin", function(){
     var parsed = function(){ return pb.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'); };
     var origLength = parsed() && parsed().length || 0
 
-    pb.utils.disablePrivacyBadgerForOrigin('foo.com');
+    pb.disablePrivacyBadgerForOrigin('foo.com');
     ok(parsed().length == (origLength + 1), "one more disabled site");
 
-    pb.utils.enablePrivacyBadgerForOrigin('foo.com');
+    pb.enablePrivacyBadgerForOrigin('foo.com');
     ok(parsed().length == origLength, "one less disabled site");
   });
 
@@ -78,7 +78,7 @@
         results = [];
 
     for(var i = 0; i < iterations; i++){
-      results.push(pb.utils.getRandom(min,max));
+      results.push(utils.getRandom(min,max));
     }
     ok(Math.max.apply(null,results) === max, "max is max");
     ok(Math.min.apply(null,results) === min, "min is min");
