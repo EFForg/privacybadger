@@ -16,6 +16,9 @@
  */
 
 var constants = require("constants");
+var webrequest = require("webrequest");
+var utils = require("utils");
+
 var backgroundPage = chrome.extension.getBackgroundPage();
 var log = backgroundPage.log;
 var getBadgerWithTab = backgroundPage.getBadgerWithTab;
@@ -25,8 +28,6 @@ require.scopes.heuristicblocking = (function() {
 /*********************** heuristicblocking scope **/
 
 // make hueristic obj with utils and storage properties and put the things on it
-var webrequest = require("webrequest");
-var utils = require("utils");
 var tabOrigins = { }; // TODO roll into tabData?
 
 function HeuristicBlocker(pbStorage) {

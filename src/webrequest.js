@@ -22,14 +22,15 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.webrequest = (function() {
-
 var constants = require('constants');
 var backgroundPage = chrome.extension.getBackgroundPage();
 var log = backgroundPage.log;
 var getBadgerWithTab = backgroundPage.getBadgerWithTab;
 
+require.scopes.webrequest = (function() {
+
 /*********************** webrequest scope **/
+
 
 /************ Local Variables *****************/
 // var DomainExceptions = require("domainExceptions").DomainExceptions;

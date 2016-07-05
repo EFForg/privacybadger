@@ -4,11 +4,12 @@
 * the value is an array where index 0 is the domain to whitelist if the user wishes to login.
 * Index 1 is the English name of the service.
 **/
+
+var utils = require('utils');
+
 require.scopes.domainExceptions = (function() {
 
 var exports = {};
-
-var utils = require('utils');
 
 var DomainExceptions = {
 

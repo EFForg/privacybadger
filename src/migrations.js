@@ -15,12 +15,12 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-require.scopes.migrations = (function() {
 var pbStorage = require("storage");
 var utils = require("utils");
 var constants = require("constants");
-  
+
+require.scopes.migrations = (function() {
+
 var exports = {};
 exports.Migrations= {
   changePrivacySettings: function() {
