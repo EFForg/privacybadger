@@ -72,6 +72,9 @@ class PBSeleniumTest(unittest.TestCase):
         # Fix for https://code.google.com/p/chromedriver/issues/detail?id=799
         opts.add_experimental_option("excludeSwitches",
                                      ["ignore-certificate-errors"])
+        prefs = {"profile.block_third_party_cookies": False}
+        opts.add_experimental_option("prefs", prefs)
+
         return webdriver.Chrome(chrome_options=opts)
 
     def tearDown(self):
