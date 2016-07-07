@@ -676,15 +676,6 @@ function getBadgerWithTab(tabId) {
   }
 }
 
-
-/**
-* reloads a tab
-* @param {Integer} tabId the chrome tab id
-*/
-function reloadTab(tabId) {
-  chrome.tabs.reload(tabId);
-}
-
 /**
  * Wrappers to be called by popup.js
  * Gets the action defined for the given tab/origin

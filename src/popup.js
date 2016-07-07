@@ -25,6 +25,7 @@ var constants = backgroundPage.constants;
 
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
+var reloadTab = chrome.tabs.reload;
 
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
@@ -183,7 +184,7 @@ function active_site(){
     var badger = backgroundPage.getBadgerWithTab(tab.id);
     badger.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     backgroundPage.refreshIconAndContextMenu(tab);
-    backgroundPage.reloadTab(tab.id);
+    reloadTab(tab.id);
   });
 }
 
@@ -198,7 +199,7 @@ function deactive_site(){
     var badger = backgroundPage.getBadgerWithTab(tab.id);
     badger.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     backgroundPage.refreshIconAndContextMenu(tab);
-    backgroundPage.reloadTab(tab.id);
+    reloadTab(tab.id);
   });
 }
 
@@ -221,7 +222,7 @@ function revertDomainControl(e){
   backgroundPage.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
-  backgroundPage.reloadTab(tabId);
+  reloadTab(tabId);
   return false;
 }
 
