@@ -183,7 +183,7 @@ function active_site(){
   getTab(function(tab) {
     var badger = backgroundPage.getBadgerWithTab(tab.id);
     badger.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-    backgroundPage.refreshIconAndContextMenu(tab);
+    badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
   });
 }
@@ -198,7 +198,7 @@ function deactive_site(){
   getTab(function(tab) {
     var badger = backgroundPage.getBadgerWithTab(tab.id);
     badger.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-    backgroundPage.refreshIconAndContextMenu(tab);
+    badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
   });
 }

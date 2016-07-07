@@ -60,7 +60,7 @@ function Badger(tabData, isIncognito) {
     chrome.windows.getAll({populate: true}, function (windows) {
       for (var i = 0; i < windows.length; i++) {
         for (var j = 0; j < windows[i].tabs.length; j++) {
-          refreshIconAndContextMenu(windows[i].tabs[j]);
+          badger.refreshIconAndContextMenu(windows[i].tabs[j]);
         }
       }
     });
@@ -624,6 +624,20 @@ Badger.prototype = {
    **/
   logTrackerOnTab: function(tabId, fqdn, action) {
       this.tabData[tabId].trackers[fqdn] = action;
+  },
+
+  /**
+   * Enables or disables page action icon according to options.
+   * @param {Object} tab The tab to set the badger icon for
+   */
+  refreshIconAndContextMenu: function(tab) {
+
+    if(!tab){return;}
+
+    var iconFilename = this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
+
+    chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
+    chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
   }
 
 };
@@ -675,21 +689,6 @@ function getBadgerWithTab(tabId) {
   }
 }
 
-/**
- * Enables or disables page action icon according to options.
- * @param {Object} tab The tab to set the badger icon for
- */
-function refreshIconAndContextMenu(tab) {
-
-  if(!tab){return;}
-
-  var badger = getBadgerWithTab(tab.id);
-  var iconFilename = badger.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
-
-  chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
-  chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
-}
-
 
 /**************************** Listeners ****************************/
 
@@ -704,14 +703,16 @@ function startBackgroundListeners() {
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
-      refreshIconAndContextMenu(tab);
+      var badger = getBadgerWithTab(tab.id);
+      badger.refreshIconAndContextMenu(tab);
     }
   });
 
   // Update icon if a tab is replaced or loaded from cache
   chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
     chrome.tabs.get(addedTabId, function(tab){
-      refreshIconAndContextMenu(tab);
+      var badger = getBadgerWithTab(tab.id);
+      badger.refreshIconAndContextMenu(tab);
     });
   });
 
