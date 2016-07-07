@@ -624,7 +624,6 @@ Badger.prototype = {
    **/
   logTrackerOnTab: function(tabId, fqdn, action) {
       this.tabData[tabId].trackers[fqdn] = action;
-    });
   }
 
 };
