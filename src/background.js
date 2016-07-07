@@ -734,34 +734,6 @@ function refreshIconAndContextMenu(tab) {
 }
 
 
-/**
- * Check if a specific frame is whitelisted
- * TODO: used in popup-blocker.js inspect if necessary
- *
- * @param {Integer} tabId The id of the tab
- * @param {Integer} frameId The id of the frame
- * @param {String} type Content type to be checked
- * @returns {boolean} true if whitelisted
- */
-function isFrameWhitelisted(tabId, frameId, type) {
-  var parent = frameId;
-  var parentData = webrequest.getFrameData(tabId, parent);
-  while (parentData)
-  {
-    var frameData = parentData;
-
-    parent = frameData.parent;
-    parentData = webrequest.getFrameData(tabId, parent);
-
-    var frameUrl = frameData.url;
-    var parentUrl = (parentData ? parentData.url : frameUrl);
-    if ("keyException" in frameData || isWhitelisted(frameUrl)){
-      return true;
-    }
-  }
-  return false;
-}
-
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
