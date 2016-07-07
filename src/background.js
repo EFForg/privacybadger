@@ -676,25 +676,6 @@ function getBadgerWithTab(tabId) {
 }
 
 /**
- * Checks whether a host is blocked
- * @param {String} url
- * @return {Boolean} true if the url is allowed false if not
- */
-function isWhitelisted(url) {
-  var host = window.extractHostFromURL(url);
-  // whitelist should be the same in pb and incognito_pb
-  var action = pb.storage.getBestAction(host);
-  if ([constants.ALLOW,
-       constants.USER_ALLOW,
-       constants.NO_TRACKING,
-       constants.DNT].indexOf(action) >= 0){
-    return true;
-  } else {
-    return false;
-  }
-}
-
-/**
  * Enables or disables page action icon according to options.
  * @param {Object} tab The tab to set the badger icon for
  */
