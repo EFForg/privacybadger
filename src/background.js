@@ -676,18 +676,6 @@ function getBadgerWithTab(tabId) {
 }
 
 /**
- * Wrappers to be called by popup.js
- * Gets the action defined for the given tab/origin
- * @param {Integer} tabId The id to look up
- * @param {String} origin The URL of the 3rd party
- * @returns {String} The action defined for this tab/origin
- */
-function getAction(tabId, origin) {
-  var badger = getBadgerWithTab(tabId);
-  return badger.storage.getBestAction(origin);
-}
-
-/**
  * Determine if a request would be blocked
  * @param {Integer} tabId Tab Id to check if the 3rd party should be blocked in
  * @param {String} origin URL of 3rd party to check if it should be blocked
