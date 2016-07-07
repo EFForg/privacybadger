@@ -676,17 +676,6 @@ function getBadgerWithTab(tabId) {
 }
 
 /**
- * Determine if a request would be blocked
- * @param {Integer} tabId Tab Id to check if the 3rd party should be blocked in
- * @param {String} origin URL of 3rd party to check if it should be blocked
- * @return {Boolean} true if block is requested
- */
-function requestWouldBeBlocked(tabId, origin) {
-  var action = getAction(tabId, origin);
-  return action == constants.BLOCK || action == constants.USER_BLOCK;
-}
-
-/**
  * Checks whether a host is blocked
  * @param {String} url
  * @return {Boolean} true if the url is allowed false if not
