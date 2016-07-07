@@ -662,20 +662,6 @@ function error(/*...*/) {
 }
 
 /**
- * Chooese a privacy badger object to apply a callback to.
- */
-function chooseWithTab(tabId, callback) {
-  if (tabId == -1){
-    return;
-  }
-  if (incognito.tabIsIncognito(tabId)) {
-    callback(incognito_pb);
-  } else {
-    callback(pb);
-  }
-}
-
-/**
  * Chooses the right badger to use badse on tabId.
  */
 function getBadgerWithTab(tabId) {
@@ -694,9 +680,8 @@ function getBadgerWithTab(tabId) {
 
 function startBackgroundListeners() {
   chrome.webRequest.onBeforeRequest.addListener(function(details) {
-      chooseWithTab(details.tabId, function (badger) {
-        badger.updateCount(details);
-      });
+      var badger = getBadgerWithTab(details.tabId);
+      badger.updateCount(details);
     }, {urls: ["http://*/*", "https://*/*"]}, []);
 
 
