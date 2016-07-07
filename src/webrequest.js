@@ -476,7 +476,7 @@ function checkAction(tabId, url, quiet, frameId){
   var action = badger.storage.getBestAction(requestHost);
 
   if (action && ! quiet) {
-    backgroundPage.logTrackerOnTab(tabId, requestHost, action);
+    badger.logTrackerOnTab(tabId, requestHost, action);
   }
   return action;
 }

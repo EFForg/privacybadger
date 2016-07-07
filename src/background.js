@@ -613,6 +613,18 @@ Badger.prototype = {
       // TODO: Do we need separate functions for other supercookie vectors?
       // Let's wait until we implement them in the content script
     );
+  },
+
+  /**
+   * Add the tracker and action to the tab.trackers object in tabData
+   * which will be used by the privacy badger popup
+   * @param tabId the tab we are on
+   * @param fqdn the tracker to add
+   * @param action the action we are taking
+   **/
+  logTrackerOnTab: function(tabId, fqdn, action) {
+      this.tabData[tabId].trackers[fqdn] = action;
+    });
   }
 
 };
@@ -664,25 +676,6 @@ function getBadgerWithTab(tabId) {
   }
 }
 
-
-/**
- * Add the tracker and action to the tab.trackers object in tabData
- * which will be used by the privacy badger popup
- * @param tabId the tab we are on
- * @param fqdn the tracker to add
- * @param action the action we are taking
- **/
-function logTrackerOnTab(tabId, fqdn, action) {
-  chooseWithTab(tabId, function (badger) {
-    badger.tabData[tabId].trackers[fqdn] = action;
-  });
-}
-
-function updateCount(details) {
-  chooseWithTab(details.tabId, function (badger) {
-    badger.updateCount(details);
-  });
-}
 
 /**
 * reloads a tab
@@ -781,7 +774,12 @@ function isFrameWhitelisted(tabId, frameId, type) {
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
-  chrome.webRequest.onBeforeRequest.addListener(updateCount, {urls: ["http://*/*", "https://*/*"]}, []);
+  chrome.webRequest.onBeforeRequest.addListener(function(details) {
+      chooseWithTab(details.tabId, function (badger) {
+        badger.updateCount(details);
+      });
+    }, {urls: ["http://*/*", "https://*/*"]}, []);
+
 
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
