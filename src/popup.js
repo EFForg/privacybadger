@@ -135,7 +135,7 @@ function send_error(message) {
     var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
     for (var i = 0; i < origins.length; i++){
        var origin = origins[i];
-       var action = badger.storage.getBestAction(tabId, origin);
+       var action = badger.storage.getBestAction(origin);
        if (!action){ action = constants.NO_TRACKING; }
        if (out[action]){
          out[action] += ","+origin;
@@ -285,7 +285,7 @@ function refreshPopup(tabId) {
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
-    var action = badger.storage.getBestAction(tabId, origin);
+    var action = badger.storage.getBestAction(origin);
     if(action == constants.NO_TRACKING){
         backgroundPage.log('pushing', origin, 'onto non tracking');
         nonTracking.push(origin);

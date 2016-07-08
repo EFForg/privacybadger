@@ -381,9 +381,10 @@ Badger.prototype = {
    * @returns {Integer} The number of blocked trackers
    */
   activelyBlockedOriginCount: function(tabId){
-    return this.getAllOriginsForTab(tabId)
+    var self = this;
+    return self.getAllOriginsForTab(tabId)
       .reduce(function(memo,origin){
-        var action = getAction(tabId, origin);
+        var action = self.storage.getBestAction(origin);
         if(action && action !== "noaction"){
           memo+=1;
         }
@@ -399,9 +400,10 @@ Badger.prototype = {
    * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
    */
   blockedTrackerCount: function(tabId){
-    return this.getAllOriginsForTab(tabId)
+    var self = this;
+    return self.getAllOriginsForTab(tabId)
       .reduce(function(memo,origin){
-        var action = getAction(tabId,origin);
+        var action = self.storage.getBestAction(origin);
         if(action && (action == constants.USER_BLOCK || action ==
                     constants.BLOCK || action == constants.COOKIEBLOCK ||
                     action == constants.USER_COOKIE_BLOCK)){
@@ -419,9 +421,10 @@ Badger.prototype = {
    * @returns {Integer} The number of blocked trackers
    */
   userConfiguredOriginCount: function(tabId){
-    return this.getAllOriginsForTab(tabId)
+    var self = this;
+    return self.getAllOriginsForTab(tabId)
       .reduce(function(memo,origin){
-        var action = getAction(tabId,origin);
+        var action = self.storage.getBestAction(origin);
         if(action && action.lastIndexOf("user", 0) === 0){
           memo+=1;
         }
