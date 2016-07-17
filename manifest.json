@@ -32,6 +32,7 @@
       "lib/adblockplus.js",
       "lib/punycode.js",
       "lib/publicSuffixList.js",
+      "lib/crossDomainList.js",
       "lib/basedomain.js",
       "lib/sha1.js",
       "lib/jsbn.js",
