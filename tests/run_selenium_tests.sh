@@ -4,6 +4,9 @@ if [ -x /usr/local/bin/chromedriver ]; then
 elif [ -x /usr/lib/chromium-browser/chromedriver ]; then
         export PATH=$PATH:/usr/lib/chromium-browser
         echo "Will use ChromeDriver at /usr/lib/chromium-browser/chromedriver"
+elif [ -x /usr/lib/chromium/chromedriver ]; then
+        export PATH=$PATH:/usr/lib/chromium
+        echo "Will use ChromeDriver at /usr/lib/chromium/chromedriver"
 else
 	echo "Could not find ChromeDriver in the PATH. Aborting!"
 	exit 1

@@ -3,17 +3,17 @@
   module("Privacy Badger Storage");
 
   var BadgerStore = require('storage');
-  BadgerStore.initialize(function(){
+  BadgerStore.BadgerPen(true, function(){
   
     test("testGetBadgerStorage", function(){
       expect(1);
-      var action_map = BadgerStore.getBadgerStorageObject('action_map');
+      var action_map = pb.storage.getBadgerStorageObject('action_map');
       ok(action_map.updateObject instanceof Function, "action_map is a pbstorage");
     });
 
     test("test BadgerStorage methods", function(){
       expect(3);
-      var action_map = BadgerStore.getBadgerStorageObject('action_map');
+      var action_map = pb.storage.getBadgerStorageObject('action_map');
       action_map.setItem('foo', 'bar');
       ok(action_map.getItem('foo') === 'bar');
       ok(action_map.hasItem('foo'));

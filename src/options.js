@@ -18,12 +18,15 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var pb = backgroundPage.pb;
-var Utils = require("utils").Utils;
+var pb = backgroundPage.pb; // incognito_pb can't use this page
+var constants = backgroundPage.constants;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var originCache = null;
 var settings = pb.storage.getBadgerStorageObject("settings_map");
+
+var log = backgroundPage.log;
+var getBadger = backgroundPage.getBadgerWithTab;
 
 /*
  * Loads options from pb storage and sets UI elements accordingly.
@@ -59,12 +62,12 @@ function loadOptions() {
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $("#activate_socialwidget_btn").click(activateSocialWidgetReplacement);
   $("#deactivate_socialwidget_btn").click(deactivateSocialWidgetReplacement);
-  if(!Utils.isSocialWidgetReplacementEnabled()) {
+  if(!pb.isSocialWidgetReplacementEnabled()) {
     $("#activate_socialwidget_btn").show();
     $("#deactivate_socialwidget_btn").hide();
   }
   $("#toggle_counter_checkbox").click(toggleCounter);
-  $("#toggle_counter_checkbox").prop("checked", Utils.showCounter());
+  $("#toggle_counter_checkbox").prop("checked", pb.showCounter());
 
   // Show user's filters
   reloadWhitelist();
@@ -94,7 +97,7 @@ function toggleCounter() {
     windows.forEach(function(window) {
       chrome.tabs.getAllInWindow(window.id, function(tabs) {
         tabs.forEach(function(tab) {
-          pb.updateBadge(tab.id);
+          getBadger(tab.id).updateBadge(tab.id);
         });
       });
     });
@@ -146,7 +149,7 @@ function addWhitelistDomain(event) {
     return;
   }
 
-  Utils.disablePrivacyBadgerForOrigin(domain);
+  pb.disablePrivacyBadgerForOrigin(domain);
   reloadWhitelist();
 }
 
@@ -154,7 +157,7 @@ function removeWhitelistDomain(event) {
   event.preventDefault();
   var selected = $(document.getElementById("excludedDomainsBox")).find('option:selected');
   for(var i = 0; i < selected.length; i++){
-    Utils.enablePrivacyBadgerForOrigin(selected[i].text);
+    pb.enablePrivacyBadgerForOrigin(selected[i].text);
   }
   reloadWhitelist();
 }
@@ -171,7 +174,7 @@ function getOrigins() {
   for (var domain in action_map.getItemClones()) {
       var action = pb.storage.getBestAction(domain);
       // Do not show non tracking origins
-      if(action != pb.NO_TRACKING){
+      if(action != constants.NO_TRACKING){
         origins[domain] = action;
       }
   }
@@ -194,13 +197,13 @@ function getOriginAction(origin) {
 //TODO unduplicate this code? since it's also in popup
 function revertDomainControl(e){
   var $elm = $(e.target).parent();
-  pb.log('revert to privacy badger control for', $elm);
+  log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   pb.storage.revertUserAction(origin);
   var defaultAction = pb.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
-  pb.log('selector', selector);
+  log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
   refreshFilterPage(origin);
@@ -247,7 +250,7 @@ function refreshFilterPage() {
   }
   showTrackingDomains(originsToDisplay);
 
-  pb.log("Done refreshing options page");
+  log("Done refreshing options page");
 }
 
 /**
@@ -332,11 +335,11 @@ function registerToggleHandlers(element) {
 
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  pb.log('updating origin for', $elm);
+  log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
-  $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
+  $switchContainer.removeClass([constants.BLOCK, constants.COOKIEBLOCK, constants.ALLOW, constants.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($($clicker), action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
@@ -360,7 +363,7 @@ function removeOrigin(event) {
   pb.storage.getBadgerStorageObject("snitch_map").deleteItem(origin);
   pb.storage.getBadgerStorageObject("action_map").deleteItem(origin);
   pb.storage.getBadgerStorageObject("supercookie_domains").deleteItem(origin);
-  pb.log('Removed', origin, 'from Privacy Badger');
+  backgroundPage.log('Removed', origin, 'from Privacy Badger');
 
   refreshFilterPage();
 }
@@ -404,11 +407,11 @@ function hideTooltip(event){
  *                               all origins are checked.
  */
 function syncSettings(origin, userAction) {
-  pb.log("Syncing userset options: ", origin, userAction);
+  log("Syncing userset options: ", origin, userAction);
 
   // Save new action for updated origins.
   pb.saveAction(userAction, origin);
-  pb.log("Finished syncing.");
+  log("Finished syncing.");
 
   // Options page needs to be refreshed to display current results.
   refreshFilterPage();

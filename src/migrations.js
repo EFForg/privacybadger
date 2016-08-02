@@ -15,11 +15,12 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var pbStorage = require("storage");
+var utils = require("utils");
+var constants = require("constants");
 
 require.scopes.migrations = (function() {
-var pbStorage = require("storage");
-var Utils = require("utils").Utils;
-  
+
 var exports = {};
 exports.Migrations= {
   changePrivacySettings: function() {
@@ -69,7 +70,7 @@ exports.Migrations= {
       var oldSeen = {};
       _.each(seenThirdParties, function(val , key){
         oldSeen[key] = _.keys(val);
-        pbStorage.setupHeuristicAction(key, pb.ALLOW);
+        pbStorage.setupHeuristicAction(key, constants.ALLOW);
       });
       snitch_map.updateObject(oldSeen);
     } catch (e) {
@@ -105,14 +106,14 @@ exports.Migrations= {
       });
       _.each(FilterStorage.knownSubscriptions.userRed.filters, function(filter){
         var domain = getDomainFromFilter(filter.text);
-        pbStorage.setupUserAction(domain, pb.USER_BLOCK);
+        pbStorage.setupUserAction(domain, constants.USER_BLOCK);
       });
       _.each(FilterStorage.knownSubscriptions.userYellow.filters, function(filter){
         var domain = getDomainFromFilter(filter.text);
-        pbStorage.setupUserAction(domain, pb.USER_COOKIE_BLOCK); });
+        pbStorage.setupUserAction(domain, constants.USER_COOKIE_BLOCK); });
       _.each(FilterStorage.knownSubscriptions.userGreen.filters, function(filter){
         var domain = getDomainFromFilter(filter.text);
-        pbStorage.setupUserAction(domain, pb.USER_ALLOW);
+        pbStorage.setupUserAction(domain, constants.USER_ALLOW);
       });
     } catch (e) {
       console.log(e);
@@ -148,11 +149,11 @@ exports.Migrations= {
     setTimeout(function(){
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
       var cbl = pbStorage.getBadgerStorageObject('cookieblock_list');
-      _.each(pbStorage.getAllDomainsByPresumedAction(pb.BLOCK), function(fqdn){
-        _.each(Utils.explodeSubdomains(fqdn, true), function(domain){
+      _.each(pbStorage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
+        _.each(utils.explodeSubdomains(fqdn, true), function(domain){
           if(cbl.hasItem(domain)){
             console.log('moving', fqdn, 'from block to cookie block');
-            pbStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
+            pbStorage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           }
         });
       });

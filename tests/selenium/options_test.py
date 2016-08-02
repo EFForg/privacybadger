@@ -59,7 +59,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
                 break
 
         tooltip_css = "div.keyContainer > div > div.tooltipContainer"
-        for icon_no in xrange(1, 4):  # repeat for all three icons
+        for icon_no in range(1, 4):  # repeat for all three icons
             # CSS selector for icons in the keyContainer
             ico_css = "div.keyContainer > div > img:nth-child(%s)" % icon_no
             icon_to_hover = find_el_by_css(ico_css)

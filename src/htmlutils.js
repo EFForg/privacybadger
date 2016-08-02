@@ -19,6 +19,8 @@ var i18n = chrome.i18n;
 
 require.scopes.htmlutils = (function() {
 
+var constants = chrome.extension.getBackgroundPage().constants;
+
 // Ugly HTML helpers.
 // TODO: Some or all of these should be replace but have been moved here to
 // eliminate code duplication elsewhere.
@@ -48,7 +50,7 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} 'checked' if both actions match otherwise empty string.
    */
   isChecked: function(inputAction, originAction) {
-    if(originAction == pb.NO_TRACKING) { originAction = pb.ALLOW; }
+    if(originAction == constants.NO_TRACKING) { originAction = constants.ALLOW; }
     return (inputAction === originAction) ? 'checked' : '';
   },
 
@@ -107,7 +109,7 @@ var htmlUtils = exports.htmlUtils = {
       classes.push('userset');
       action = action.substr(5);
     }
-    if (action === pb.BLOCK || action === pb.COOKIEBLOCK || action === pb.ALLOW || action === pb.NO_TRACKING) {
+    if (action === constants.BLOCK || action === constants.COOKIEBLOCK || action === constants.ALLOW || action === constants.NO_TRACKING) {
       classes.push(action);
     }
     var classText = 'class="' + classes.join(' ') + '"';
@@ -151,22 +153,22 @@ var htmlUtils = exports.htmlUtils = {
   toggleBlockedStatus: function (elt,status) {
     console.log('toggle blocked status', elt, status);
     if(status){
-      elt.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(status);
+      elt.removeClass([constants.BLOCK, constants.COOKIEBLOCK, constants.ALLOW, constants.NO_TRACKING].join(" ")).addClass(status);
       elt.addClass("userset");
       return;
     }
 
     var originalAction = elt.getAttribute('data-original-action');
-    if (elt.hasClass(pb.BLOCK)) {
-      elt.toggleClass(pb.BLOCK);
-    } else if (elt.hasClass(pb.COOKIEBLOCK)) {
-      elt.toggleClass(pb.BLOCK);
-      elt.toggleClass(pb.COOKIEBLOCK);
+    if (elt.hasClass(constants.BLOCK)) {
+      elt.toggleClass(constants.BLOCK);
+    } else if (elt.hasClass(constants.COOKIEBLOCK)) {
+      elt.toggleClass(constants.BLOCK);
+      elt.toggleClass(constants.COOKIEBLOCK);
     } else {
-      elt.toggleClass(pb.COOKIEBLOCK);
+      elt.toggleClass(constants.COOKIEBLOCK);
     }
-    if (elt.hasClass(originalAction) || (originalAction == pb.ALLOW && !(elt.hasClass(pb.BLOCK) ||
-                                                                              elt.hasClass(pb.COOKIEBLOCK)))) {
+    if (elt.hasClass(originalAction) || (originalAction == constants.ALLOW && !(elt.hasClass(constants.BLOCK) ||
+                                                                              elt.hasClass(constants.COOKIEBLOCK)))) {
       elt.removeClass("userset");
     } else {
       elt.addClass("userset");
@@ -211,14 +213,14 @@ var htmlUtils = exports.htmlUtils = {
   * @returns {String} block/cookieblock/noaction
   */
   getCurrentClass: function(elt) {
-    if (elt.hasClass(pb.BLOCK)) {
-      return pb.BLOCK;
-    } else if (elt.hasClass(pb.COOKIEBLOCK)) {
-      return pb.COOKIEBLOCK;
-    } else if (elt.hasClass(pb.ALLOW)) {
-      return pb.ALLOW;
+    if (elt.hasClass(constants.BLOCK)) {
+      return constants.BLOCK;
+    } else if (elt.hasClass(constants.COOKIEBLOCK)) {
+      return constants.COOKIEBLOCK;
+    } else if (elt.hasClass(constants.ALLOW)) {
+      return constants.ALLOW;
     } else {
-      return pb.NO_TRACKING;
+      return constants.NO_TRACKING;
     }
   },
 
