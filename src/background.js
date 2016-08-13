@@ -573,9 +573,9 @@ function updateBadge(tabId){
   }
   var numBlocked = blockedTrackerCount(tabId);
   if(numBlocked === 0){
-    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00ff00"});
+    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
   } else {
-    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#ff0000"});
+    chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
   }
   chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
 }
