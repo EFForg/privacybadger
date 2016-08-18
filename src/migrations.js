@@ -2,9 +2,6 @@
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
  *
- * Derived from Adblock Plus 
- * Copyright (C) 2006-2013 Eyeo GmbH
- *
  * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
  * published by the Free Software Foundation.
@@ -18,16 +15,16 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var pbStorage = require("storage");
+var utils = require("utils");
+var constants = require("constants");
 
 require.scopes.migrations = (function() {
-var pbStorage = require("storage");
-var heuristicBlocking = require("heuristicblocking");
-var Utils = require("utils").Utils;
-  
+
 var exports = {};
 exports.Migrations= {
   changePrivacySettings: function() {
-    if (!chrome.extension.inIncognitoContext) {
+    if (!chrome.extension.inIncognitoContext && chrome.privacy ) {
       console.log('changing privacy settings');
       chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
       chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
@@ -35,6 +32,9 @@ exports.Migrations= {
   },
 
   migrateAbpToStorage: function(){
+    return _.noop();
+    /*
+    ABP migration code, no longer needed, kept for historical purposes. 
     if(!localStorage.seenThirdParties) { return; } //We do not have any ABP data 
     console.log('migrating data out of ABP');
 
@@ -70,7 +70,7 @@ exports.Migrations= {
       var oldSeen = {};
       _.each(seenThirdParties, function(val , key){
         oldSeen[key] = _.keys(val);
-        pbStorage.setupHeuristicAction(key, pb.ALLOW);
+        pbStorage.setupHeuristicAction(key, constants.ALLOW);
       });
       snitch_map.updateObject(oldSeen);
     } catch (e) {
@@ -106,14 +106,14 @@ exports.Migrations= {
       });
       _.each(FilterStorage.knownSubscriptions.userRed.filters, function(filter){
         var domain = getDomainFromFilter(filter.text);
-        pbStorage.setupUserAction(domain, pb.USER_BLOCK);
+        pbStorage.setupUserAction(domain, constants.USER_BLOCK);
       });
       _.each(FilterStorage.knownSubscriptions.userYellow.filters, function(filter){
         var domain = getDomainFromFilter(filter.text);
-        pbStorage.setupUserAction(domain, pb.USER_COOKIE_BLOCK); });
+        pbStorage.setupUserAction(domain, constants.USER_COOKIE_BLOCK); });
       _.each(FilterStorage.knownSubscriptions.userGreen.filters, function(filter){
         var domain = getDomainFromFilter(filter.text);
-        pbStorage.setupUserAction(domain, pb.USER_ALLOW);
+        pbStorage.setupUserAction(domain, constants.USER_ALLOW);
       });
     } catch (e) {
       console.log(e);
@@ -142,17 +142,18 @@ exports.Migrations= {
 
 
     console.log('ABP IS OVER!!!!');
+    */
   },
 
   migrateBlockedSubdomainsToCookieblock(){
     setTimeout(function(){
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
       var cbl = pbStorage.getBadgerStorageObject('cookieblock_list');
-      _.each(pbStorage.getAllDomainsByPresumedAction(pb.BLOCK), function(fqdn){
-        _.each(Utils.explodeSubdomains(fqdn, true), function(domain){
+      _.each(pbStorage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
+        _.each(utils.explodeSubdomains(fqdn, true), function(domain){
           if(cbl.hasItem(domain)){
             console.log('moving', fqdn, 'from block to cookie block');
-            pbStorage.setupHeuristicAction(fqdn, pb.COOKIEBLOCK);
+            pbStorage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           }
         });
       });

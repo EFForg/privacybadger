@@ -294,4 +294,3 @@ document.addEventListener(event_id, function (e) {
 insertFpScript(getFpPageScript(), {
   event_id: event_id
 });
-

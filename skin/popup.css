@@ -19,13 +19,15 @@
 
 body {
   min-width: 400px;
+  max-width: 400px;
   font-size: 12px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
   padding-left: 7px;
   padding-right: 7px;
-  overflow-y: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 a { text-decoration: none }
@@ -223,14 +225,14 @@ font-size: 16px;
   overflow-y: auto;
   background-color: #E8E9EA;
 }
-.key{
-  position: absolute;
+.key {
+  position: fixed;
   height: 25px;
   width: 390px;
-  padding-left: 215px;
   z-index: 30;
   background: #fefefe;
-  padding-top: 7px;
+  padding-top: 4px;
+  padding-left: 215px;
 }
 .key img{
   margin-left: 19px;

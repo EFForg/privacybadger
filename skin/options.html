@@ -27,7 +27,6 @@
 <script type="text/javascript" src="/lib/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
 <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
 <script type="text/javascript" src="/src/options.js" charset="utf-8"></script>
-<script type="text/javascript" src="/src/cookieblocklist.js"></script>
 <title class="i18n_options_title"></title>
 <style type="text/css" media="screen">
 body
@@ -53,7 +52,9 @@ button
 {
   white-space: pre;
 }
-
+#tabs {
+  min-width: 750px;
+}
 #subscriptionTemplate,
 #addSubscriptionContainer,
 #customSubscriptionContainer
@@ -78,6 +79,11 @@ button
 {
   margin: 3px 0px;
 }
+
+#pbInstructions{
+  width:450px;
+}
+
 
 .subscriptionRemoveButton,
 .subscriptionEnabledContainer,
@@ -210,7 +216,6 @@ a, a:hover, a:active, a:visited{
   </div>
 
   <div id="tab-general-settings">
-    <p class="i18n_general_settings_help"></p>
     <form id="settingsForm" action="#">
       <div class="checkbox">
         <label><input type="checkbox" id="toggle_counter_checkbox"><span class="i18n_show_counter_checkbox"></span></label>
