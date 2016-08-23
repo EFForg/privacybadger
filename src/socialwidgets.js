@@ -117,7 +117,8 @@ function createReplacementButtonImage(tracker, trackerElem) {
       button.addEventListener("click", function() {
         window.open(popupUrl);
       });
-    break;
+
+      break;
 
     case 1: // in place button type; replace the existing button with an
             // iframe when clicked
@@ -130,7 +131,8 @@ function createReplacementButtonImage(tracker, trackerElem) {
         // clicked as well)
         replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, iframeUrl);
       });
-    break;
+
+      break;
 
     case 2: // in place button type; replace the existing button with code
             // specified in the Trackers file
@@ -141,14 +143,13 @@ function createReplacementButtonImage(tracker, trackerElem) {
         // clicked as well)
         replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
       });
-    break;
+      break;
 
     case 3:
       button.addEventListener("click", function() {
         replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, trackerElem);
       });
-    break;
-
+      break;
 
     default:
       throw "Invalid button type specified: " + buttonType;
@@ -249,20 +250,20 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
  * with executable scripts.
  */
 function replaceScriptsRecurse(node) {
-        if (node.getAttribute && node.getAttribute("type") == "text/javascript") {
-                var script  = document.createElement("script");
-                script.text = node.innerHTML;
+  if (node.getAttribute && node.getAttribute("type") == "text/javascript") {
+    var script = document.createElement("script");
+    script.text = node.innerHTML;
     script.src = node.src;
-                node.parentNode.replaceChild(script, node);
-        } else {
+    node.parentNode.replaceChild(script, node);
+  } else {
     var i = 0;
     var children = node.childNodes;
-    while ( i < children.length) {
-                        replaceScriptsRecurse(children[i]);
-                        i++;
+    while (i < children.length) {
+      replaceScriptsRecurse(children[i]);
+      i++;
     }
   }
-        return node;
+  return node;
 }
 
 

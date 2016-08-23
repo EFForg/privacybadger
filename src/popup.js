@@ -134,15 +134,15 @@ function send_error(message) {
     var fqdn = tab.url.split("/",3)[2];
     var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
     for (var i = 0; i < origins.length; i++){
-       var origin = origins[i];
-       var action = badger.storage.getBestAction(origin);
-       if (!action){ action = constants.NO_TRACKING; }
-       if (out[action]){
-         out[action] += ","+origin;
-       }
-       else{
-         out[action] = origin;
-       }
+      var origin = origins[i];
+      var action = badger.storage.getBestAction(origin);
+      if (!action){ action = constants.NO_TRACKING; }
+      if (out[action]){
+        out[action] += ","+origin;
+      }
+      else{
+        out[action] = origin;
+      }
     }
     var out_data = JSON.stringify(out);
     backgroundPage.log(out_data);
@@ -160,7 +160,7 @@ function send_error(message) {
         $("#report_cancel").prop("disabled", false);
         $("#report_success").toggleClass("hidden", true);
         closeOverlay();
-     }, 3000);
+      }, 3000);
     });
     sendReport.fail(function() {
       $("#report_fail").toggleClass("hidden");
@@ -287,9 +287,9 @@ function refreshPopup(tabId) {
     // todo: gross hack, use templating framework
     var action = badger.storage.getBestAction(origin);
     if(action == constants.NO_TRACKING){
-        backgroundPage.log('pushing', origin, 'onto non tracking');
-        nonTracking.push(origin);
-        continue;
+      backgroundPage.log('pushing', origin, 'onto non tracking');
+      nonTracking.push(origin);
+      continue;
     }
     else {
       if (action.includes("user")){
@@ -375,10 +375,10 @@ function updateOrigin(event){
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
   $switchContainer.removeClass([
-        constants.BLOCK,
-        constants.COOKIEBLOCK,
-        constants.ALLOW,
-        constants.NO_TRACKING].join(" ")).addClass(action);
+    constants.BLOCK,
+    constants.COOKIEBLOCK,
+    constants.ALLOW,
+    constants.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($($clicker), action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
@@ -420,7 +420,7 @@ function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var displayTipTimer = setTimeout(function(){
     if($elm.attr('tooltip').length === 0){ return; }
-      var $container = $elm.closest('.clicker').children('.tooltipContainer');
+    var $container = $elm.closest('.clicker').children('.tooltipContainer');
     if($container.length === 0){
       $container = $elm.siblings('.tooltipContainer');
     }
@@ -519,7 +519,7 @@ function syncUISelections() {
 * Convenience function for the test harness
 * Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
 */
-function setTabToUrl( query_url ) {
+function setTabToUrl( query_url ) { // eslint-disable-line no-unused-vars
   chrome.tabs.query( {url: query_url}, function(ta) {
     if ( typeof ta == "undefined" ) {
       backgroundPage.log("error doing tabs query for " + query_url);
@@ -550,8 +550,8 @@ function getTab(callback) {
 
 document.addEventListener('DOMContentLoaded', function () {
   getTab(function(t) {
-      backgroundPage.log("from addEventListener");
-      refreshPopup(t.id);
+    backgroundPage.log("from addEventListener");
+    refreshPopup(t.id);
   });
 });
 

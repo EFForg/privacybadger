@@ -26,30 +26,30 @@
   * @param {String} text The script to insert into the page
  */
 
- function insertClsScript(text) {
-   var parent = document.documentElement,
-     script = document.createElement('script');
+function insertClsScript(text) {
+  var parent = document.documentElement,
+    script = document.createElement('script');
 
-   script.text = text;
-   script.async = false;
+  script.text = text;
+  script.async = false;
 
-   parent.insertBefore(script, parent.firstChild);
-   parent.removeChild(script);
- }
+  parent.insertBefore(script, parent.firstChild);
+  parent.removeChild(script);
+}
 
 chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
   if (blocked) {
     var code =
       '('+ function() {
-          window.localStorage.getItem = function () {
-               return {};
-           };
-          window.localStorage.setItem=function (/*newValue*/) {
-              //doNothing
-                       };
-        } +')()';
+        window.localStorage.getItem = function () {
+          return {};
+        };
+        window.localStorage.setItem=function (/*newValue*/) {
+          //doNothing
+        };
+      } +')()';
 
     insertClsScript(code);
-    }
+  }
   return true;
 });

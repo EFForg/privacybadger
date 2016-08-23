@@ -172,11 +172,11 @@ function getOrigins() {
   var origins = {};
   var action_map = pb.storage.getBadgerStorageObject('action_map');
   for (var domain in action_map.getItemClones()) {
-      var action = pb.storage.getBestAction(domain);
-      // Do not show non tracking origins
-      if(action != constants.NO_TRACKING){
-        origins[domain] = action;
-      }
+    var action = pb.storage.getBestAction(domain);
+    // Do not show non tracking origins
+    if(action != constants.NO_TRACKING){
+      origins[domain] = action;
+    }
   }
   return origins;
 }

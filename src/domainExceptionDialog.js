@@ -39,7 +39,7 @@ chrome.runtime.onConnect.addListener(
         var buttons = document.getElementsByClassName("pbButton");
         for(var i =0; i < buttons.length; i++){
           var elem = buttons[i];   
-          elem.addEventListener('click',function(e){
+          elem.addEventListener('click',function(e){ // eslint-disable-line no-loop-func
             var action = e.currentTarget.id;
             port.postMessage({action: action});
 

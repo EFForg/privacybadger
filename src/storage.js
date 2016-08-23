@@ -77,7 +77,7 @@ function BadgerPen(isIncognito, callback) {
       }
     });
     if(_.isFunction(callback)){
-        callback(bp);
+      callback(bp);
     }
   });
 }
