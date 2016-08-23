@@ -60,7 +60,7 @@ HeuristicBlocker.prototype = {
    * @param {String} baseDomain The base domain (etld+1) to blacklist
    * @param {String} fqdn The FQDN
    */
-  blacklistOrigin: function(baseDomain, fqdn) { /* jshint ignore:line */
+  blacklistOrigin: function(baseDomain, fqdn) {
     var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
 
     // Setup Cookieblock or block for base domain and fqdn
@@ -476,7 +476,7 @@ var hasCookieTracking = function(details, origin) {
     hasCookies = true;
     var c = cookies[i].trim();
     var cut = c.indexOf("=");
-    var name = c.slice(0,cut); /*jshint ignore:line*/
+    var name = c.slice(0,cut);
     var value = c.slice(cut+1);
     var lvalue = value.toLowerCase();
     if (!(lvalue in lowEntropyCookieValues)) {

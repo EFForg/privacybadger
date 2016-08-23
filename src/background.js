@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- /*jshint unused:false*/
 
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 

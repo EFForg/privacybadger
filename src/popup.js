@@ -519,7 +519,7 @@ function syncUISelections() {
 * Convenience function for the test harness
 * Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
 */
-function setTabToUrl( query_url ) { /* jshint ignore:line */
+function setTabToUrl( query_url ) {
   chrome.tabs.query( {url: query_url}, function(ta) {
     if ( typeof ta == "undefined" ) {
       backgroundPage.log("error doing tabs query for " + query_url);
