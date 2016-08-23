@@ -1,0 +1,25 @@
+env:
+  browser: true
+  es6: true
+  jquery: true
+  webextensions: true
+extends: 'eslint:recommended'
+globals:
+  # false to disallow overwriting
+  pb: false
+  require: false
+  _: false
+rules:
+  indent:
+    - error
+    - 2
+    - outerIIFEBody: 0
+      SwitchCase: 1
+  linebreak-style:
+    - error
+    - unix
+  no-console: off
+  no-loop-func: error
+  semi:
+    - error
+    - always
