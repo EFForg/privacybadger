@@ -12,6 +12,14 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* global
+extractHostFromURL:false,
+getBaseDomain: false,
+ipAddressToNumber: false,
+isPrivateDomain:false,
+isThirdParty:false,
+URI:false,
+*/
 
 (function()
 {
@@ -46,6 +54,8 @@
     ];
     for (var i = 0; i < tests.length; i++)
     {
+      // TODO the no-loop-func eslint error below looks like a bug:
+      // "i" is always tests.length-1?
       throws(
         function() {
           return new URI(tests[i]);
@@ -169,7 +179,7 @@
       "192.168.0.1": 3232235521,
       "256.0.0.1": 0,
       "privacybadger.org": 0,
-    }
+    };
 
     for (var ip in testResults) {
       // Ignore object properties.

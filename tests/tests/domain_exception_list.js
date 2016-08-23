@@ -1,4 +1,4 @@
-var Utils           = require('utils').Utils;
+//var Utils           = require('utils').Utils;
 var DomainExceptions = require('domainExceptions').DomainExceptions;
 var domainExceptions;
 
@@ -17,10 +17,10 @@ asyncTest("list is valid", function(){
     ok(typeof domainExceptions.list === 'object', "domain exception list is an object");
     ok(domainExceptions.list != {}, "Domain exception list is not empty");
     var count = 0;
-    for(domain in domainExceptions.list){
+    for(var domain in domainExceptions.list){ // eslint-disable-line no-unused-vars
       count += 1;
-    };
-    ok(count >= 1, 'There is atleast 1 domain in the list');
+    }
+    ok(count >= 1, 'There is at least 1 domain in the list');
     start();
   });
 });
