@@ -57,11 +57,11 @@ exports.loadSocialWidgetsFromFile = loadSocialWidgetsFromFile;
  * @return {Object} the JSON at the file at filePath
  */
 function loadJSONFromFile(filePath) {
-	var jsonString = getFileContents(filePath);
-	var jsonParsed = JSON.parse(jsonString);
-	Object.freeze(jsonParsed); // prevent modifications to jsonParsed
+  var jsonString = getFileContents(filePath);
+  var jsonParsed = JSON.parse(jsonString);
+  Object.freeze(jsonParsed); // prevent modifications to jsonParsed
 
-	return jsonParsed;
+  return jsonParsed;
 }
 
 /**
@@ -72,13 +72,13 @@ function loadJSONFromFile(filePath) {
  * @return {String} the contents of the file
  */
 function getFileContents(filePath) {
-	var url = chrome.extension.getURL(filePath);
+  var url = chrome.extension.getURL(filePath);
 
-	var request = new XMLHttpRequest();
-	request.open("GET", url, false);
-	request.send();
+  var request = new XMLHttpRequest();
+  request.open("GET", url, false);
+  request.send();
 
-	return request.responseText;
+  return request.responseText;
 }
 
 /**
@@ -91,17 +91,17 @@ function getFileContents(filePath) {
  *                 filePath
  */
 function loadSocialWidgetsFromFile(filePath) {
-	var socialwidgets = [];
-	var socialwidgetsJson = loadJSONFromFile(filePath);
+  var socialwidgets = [];
+  var socialwidgetsJson = loadJSONFromFile(filePath);
 
-	// loop over each socialwidget, making a SocialWidget object
-	for (var socialwidgetName in socialwidgetsJson) {
-		var socialwidgetProperties = socialwidgetsJson[socialwidgetName];
-		var socialwidgetObject = new SocialWidget(socialwidgetName, socialwidgetProperties);
-		socialwidgets.push(socialwidgetObject);
-	}
+  // loop over each socialwidget, making a SocialWidget object
+  for (var socialwidgetName in socialwidgetsJson) {
+    var socialwidgetProperties = socialwidgetsJson[socialwidgetName];
+    var socialwidgetObject = new SocialWidget(socialwidgetName, socialwidgetProperties);
+    socialwidgets.push(socialwidgetObject);
+  }
 
-	return socialwidgets;
+  return socialwidgets;
 }
 
 /**
@@ -111,11 +111,11 @@ function loadSocialWidgetsFromFile(filePath) {
  * @param {Object} properties the properties of the socialwidget
  */
 function SocialWidget(name, properties) {
-	this.name = name;
+  this.name = name;
 
-	for (var property in properties) {
-		this[property] = properties[property];
-	}
+  for (var property in properties) {
+    this[property] = properties[property];
+  }
 }
 
 return exports;

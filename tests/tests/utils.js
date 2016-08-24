@@ -43,7 +43,7 @@
 
   asyncTest("send faling xhrRequest", function(){
     expect(3); //expect 1 assertion
-    utils.xhrRequest("https://www.eff.org/nonexistent-page", function(err,resp){
+    utils.xhrRequest("https://www.eff.org/nonexistent-page", function(err/*,resp*/){
       ok(true, "xhr calls callback");
       ok(err, "there was an error");
       ok(err.status === 404, "error was 404");
@@ -62,7 +62,7 @@
   
   test("disable/enable privacy badger for origin", function(){
     var parsed = function(){ return pb.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'); };
-    var origLength = parsed() && parsed().length || 0
+    var origLength = parsed() && parsed().length || 0;
 
     pb.disablePrivacyBadgerForOrigin('foo.com');
     ok(parsed().length == (origLength + 1), "one more disabled site");

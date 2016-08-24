@@ -1,0 +1,8 @@
+env:
+  qunit: true
+rules:
+  indent:
+    - error
+    - 2
+    - VariableDeclarator:
+        var: 2

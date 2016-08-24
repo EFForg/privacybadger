@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- /*jshint unused:false*/
 
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
@@ -28,7 +27,7 @@ var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
 var pbStorage = require("storage");
 var webrequest = require("webrequest");
-var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
+var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json"); // eslint-disable-line no-unused-vars
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
 
@@ -204,10 +203,12 @@ Badger.prototype = {
         if(action_map.hasItem(domain)){
           self.storage.setupHeuristicAction(domain, constants.BLOCK);
         }
+        // TODO likely bug here
         var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
                                   });
+        // TODO dupe of above "each" loop; "removedDomains" should be "rmvdSubdomains"?
         _.each(removedDomains, function(domain){
           self.storage.setupHeuristicAction(domain, constants.BLOCK);
         });
@@ -306,7 +307,7 @@ Badger.prototype = {
         callback(successStatus);
         return;
       }
-      var hash = window.SHA1(response);
+      var hash = window.SHA1(response); // eslint-disable-line new-cap
       if(dnt_hashes.hasItem(hash)){
         successStatus = true;
       }
@@ -471,7 +472,7 @@ Badger.prototype = {
       return;
     } else {
       var badger = this;
-      chrome.tabs.get(tabId, function(tab){
+      chrome.tabs.get(tabId, function(/*tab*/){
         if (chrome.runtime.lastError){
           badger.tabData[tabId].bgTab = true;
         } else {
@@ -626,7 +627,7 @@ Badger.prototype = {
    * @param action the action we are taking
    **/
   logTrackerOnTab: function(tabId, fqdn, action) {
-      this.tabData[tabId].trackers[fqdn] = action;
+    this.tabData[tabId].trackers[fqdn] = action;
   },
 
   /**
@@ -650,7 +651,7 @@ Badger.prototype = {
  */
 
 /**
-* Log a message to the conosle if debugging is enabled
+* Log a message to the console if debugging is enabled
 */
 function log(/*...*/) {
   if(DEBUG) {
@@ -658,11 +659,11 @@ function log(/*...*/) {
   }
 }
 
-function error(/*...*/) {
-  if(DEBUG) {
-    console.error.apply(console, arguments);
-  }
-}
+//function error(/*...*/) {
+//  if(DEBUG) {
+//    console.error.apply(console, arguments);
+//  }
+//}
 
 /**
  * Chooses the right badger to use badse on tabId.
@@ -683,9 +684,9 @@ function getBadgerWithTab(tabId) {
 
 function startBackgroundListeners() {
   chrome.webRequest.onBeforeRequest.addListener(function(details) {
-      var badger = getBadgerWithTab(details.tabId);
-      badger.updateCount(details);
-    }, {urls: ["http://*/*", "https://*/*"]}, []);
+    var badger = getBadgerWithTab(details.tabId);
+    badger.updateCount(details);
+  }, {urls: ["http://*/*", "https://*/*"]}, []);
 
 
   // Update icon if a tab changes location
@@ -697,7 +698,7 @@ function startBackgroundListeners() {
   });
 
   // Update icon if a tab is replaced or loaded from cache
-  chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
+  chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/){
     chrome.tabs.get(addedTabId, function(tab){
       var badger = getBadgerWithTab(tab.id);
       badger.refreshIconAndContextMenu(tab);
