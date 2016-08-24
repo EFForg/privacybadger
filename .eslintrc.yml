@@ -9,7 +9,12 @@ globals:
   pb: false
   require: false
   _: false
+parserOptions:
+  # strict mode
+  sourceType: module
 rules:
+  curly: error
+  dot-notation: warn
   indent:
     - error
     - 2
@@ -18,8 +23,25 @@ rules:
   linebreak-style:
     - error
     - unix
+  new-cap: error
+  no-array-constructor: error
+  no-bitwise: warn
+  no-caller: error
   no-console: off
+  no-eval: warn
+  no-implied-eval: warn
+  no-iterator: error
   no-loop-func: error
+  no-multi-str: warn
+  no-new: error
+  no-new-func: warn
+  no-new-object: error
+  no-new-wrappers: error
+  no-proto: error
+  no-script-url: warn
+  no-shadow: warn
+  no-shadow-restricted-names: error
+  no-unused-expressions: warn
   semi:
     - error
     - always
