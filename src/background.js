@@ -67,8 +67,6 @@ function Badger(tabData, isIncognito) {
     // TODO: register all privacy badger listeners here in the storage callback
 
     badger.INITIALIZED = true;
-    console.log('privacy badger is ready to rock');
-    console.log('set DEBUG=1 to view console messages');
   });
 }
 
@@ -733,6 +731,8 @@ function startBackgroundListeners() {
 /**
  * lets get this party started
  */
+console.log('Loading badgers into the pen.');
+
 var pb = new Badger({}, false);
 var incognito_pb = new Badger({}, true);
 
@@ -743,3 +743,6 @@ incognito.startListeners();
 webrequest.startListeners();
 HeuristicBlocking.startListeners();
 startBackgroundListeners();
+
+console.log('Privacy badger is ready to rock!');
+console.log('Set DEBUG=1 to view console messages.');
