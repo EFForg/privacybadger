@@ -15,7 +15,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var pbStorage = require("storage");
 var utils = require("utils");
 var constants = require("constants");
 
@@ -145,15 +144,15 @@ exports.Migrations= {
     */
   },
 
-  migrateBlockedSubdomainsToCookieblock(){
+  migrateBlockedSubdomainsToCookieblock(storage){
     setTimeout(function(){
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
-      var cbl = pbStorage.getBadgerStorageObject('cookieblock_list');
-      _.each(pbStorage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
+      var cbl = storage.getBadgerStorageObject('cookieblock_list');
+      _.each(storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
         _.each(utils.explodeSubdomains(fqdn, true), function(domain){
           if(cbl.hasItem(domain)){
             console.log('moving', fqdn, 'from block to cookie block');
-            pbStorage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
+            storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           }
         });
       });

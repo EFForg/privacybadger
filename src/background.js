@@ -348,7 +348,7 @@ Badger.prototype = {
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations);
+      migrations[i].call(Migrations, this.storage);
       settings.setItem('migrationLevel', i+1);
     }
 
