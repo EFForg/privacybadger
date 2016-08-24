@@ -42,6 +42,4 @@ rules:
   no-shadow: warn
   no-shadow-restricted-names: error
   no-unused-expressions: warn
-  semi:
-    - error
-    - always
+  semi: error
