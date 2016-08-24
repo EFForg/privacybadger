@@ -307,7 +307,7 @@ Badger.prototype = {
         callback(successStatus);
         return;
       }
-      var hash = window.SHA1(response);
+      var hash = window.SHA1(response); // eslint-disable-line new-cap
       if(dnt_hashes.hasItem(hash)){
         successStatus = true;
       }

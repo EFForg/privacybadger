@@ -39,8 +39,9 @@ URI:false,
       ["http://[2001::7334]:8000/test@foo.example.com/bar", "2001::7334"],
     ];
 
-    for (var i = 0; i < tests.length; i++)
+    for (var i = 0; i < tests.length; i++) {
       equal(extractHostFromURL(tests[i][0]), tests[i][1], tests[i][0]);
+    }
   });
 
   test("Invalid URI recognition", function()
@@ -138,8 +139,9 @@ URI:false,
       var url = tests[i][0];
       var uri = new URI(url);
       equal(uri.spec, url, "URI(" + url + ").spec");
-      for (var k in tests[i][1])
+      for (var k in tests[i][1]) {
         equal(uri[k], tests[i][1][k], "URI(" + url + ")." + k);
+      }
     }
   });
 
@@ -167,8 +169,9 @@ URI:false,
       ["test.xn--e1aybc.xn--p1ai", "тест.рф"],
     ];
 
-    for (var i = 0; i < tests.length; i++)
+    for (var i = 0; i < tests.length; i++) {
       equal(getBaseDomain(tests[i][0]), tests[i][1], tests[i][0]);
+    }
   });
 
   test("Converting IP address to number checks", function()
@@ -240,7 +243,8 @@ URI:false,
       ["1.2.3.4", "2.2.3.4", true],
     ];
 
-    for (var i = 0; i < tests.length; i++)
+    for (var i = 0; i < tests.length; i++) {
       equal(isThirdParty(tests[i][0], tests[i][1]), tests[i][2], tests[i][0] + " and " + tests[i][1]);
+    }
   });
 })();
