@@ -208,7 +208,7 @@ Badger.prototype = {
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
                                   });
-        _.each(removedDomains, function(domain){
+        _.each(rmvdSubdomains, function(domain){
           self.storage.setupHeuristicAction(domain, constants.BLOCK);
         });
       });
