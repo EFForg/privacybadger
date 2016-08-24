@@ -455,10 +455,6 @@ Badger.prototype = {
    * @param {Object} details details object from onBeforeRequest event
    */
   updateCount: function(details) {
-    if (details.tabId == -1){
-      return {};
-    }
-
     if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
       return;
     }
@@ -684,8 +680,10 @@ function getBadgerWithTab(tabId) {
 
 function startBackgroundListeners() {
   chrome.webRequest.onBeforeRequest.addListener(function(details) {
-    var badger = getBadgerWithTab(details.tabId);
-    badger.updateCount(details);
+    if (details.tabId != -1){
+      var badger = getBadgerWithTab(details.tabId);
+      badger.updateCount(details);
+    }
   }, {urls: ["http://*/*", "https://*/*"]}, []);
 
 
