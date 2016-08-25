@@ -67,8 +67,6 @@ function Badger(tabData, isIncognito) {
     // TODO: register all privacy badger listeners here in the storage callback
 
     badger.INITIALIZED = true;
-    console.log('privacy badger is ready to rock');
-    console.log('set DEBUG=1 to view console messages');
   });
 }
 
@@ -350,7 +348,7 @@ Badger.prototype = {
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations);
+      migrations[i].call(Migrations, this.storage);
       settings.setItem('migrationLevel', i+1);
     }
 
@@ -455,10 +453,6 @@ Badger.prototype = {
    * @param {Object} details details object from onBeforeRequest event
    */
   updateCount: function(details) {
-    if (details.tabId == -1){
-      return {};
-    }
-
     if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
       return;
     }
@@ -684,8 +678,10 @@ function getBadgerWithTab(tabId) {
 
 function startBackgroundListeners() {
   chrome.webRequest.onBeforeRequest.addListener(function(details) {
-    var badger = getBadgerWithTab(details.tabId);
-    badger.updateCount(details);
+    if (details.tabId != -1){
+      var badger = getBadgerWithTab(details.tabId);
+      badger.updateCount(details);
+    }
   }, {urls: ["http://*/*", "https://*/*"]}, []);
 
 
@@ -735,6 +731,8 @@ function startBackgroundListeners() {
 /**
  * lets get this party started
  */
+console.log('Loading badgers into the pen.');
+
 var pb = new Badger({}, false);
 var incognito_pb = new Badger({}, true);
 
@@ -745,3 +743,6 @@ incognito.startListeners();
 webrequest.startListeners();
 HeuristicBlocking.startListeners();
 startBackgroundListeners();
+
+console.log('Privacy badger is ready to rock!');
+console.log('Set DEBUG=1 to view console messages.');
