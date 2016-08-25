@@ -46,23 +46,27 @@ var temporarySocialWidgetUnblock = {};
  * @returns {*} Can cancel requests
  */
 function onBeforeRequest(details){
-  var type = details.type;
+  var frame_id = details.frameId,
+    tab_id = details.tabId,
+    type = details.type,
+    url = details.url;
+
   if (type == "main_frame"){
-    forgetTab(details.tabId);
+    forgetTab(tab_id);
   }
 
   if (type == "main_frame" || type == "sub_frame"){
-    recordFrame(details.tabId, details.frameId, details.parentFrameId, details.url);
+    recordFrame(tab_id, frame_id, details.parentFrameId, url);
   }
 
-  if ( _isTabChromeInternal(details.tabId)){
+  if ( _isTabChromeInternal(tab_id)){
     return {};
   }
 
-  var tabDomain = getHostForTab(details.tabId);
-  var requestDomain = window.extractHostFromURL(details.url);
+  var tabDomain = getHostForTab(tab_id);
+  var requestDomain = window.extractHostFromURL(url);
    
-  var badger = getBadgerWithTab(details.tabId);
+  var badger = getBadgerWithTab(tab_id);
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
     return {};
   }
@@ -72,15 +76,15 @@ function onBeforeRequest(details){
   }
 
   // read the supercookie state from localStorage and store it in frameData
-  var frameData = getFrameData(details.tabId, details.frameId);
+  var frameData = getFrameData(tab_id, frame_id);
   if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
     var supercookieDomains = badger.getSupercookieDomains();
-    var origin = window.getBaseDomain(window.extractHostFromURL(details.url));
+    var origin = window.getBaseDomain(window.extractHostFromURL(url));
     frameData.superCookie = supercookieDomains.hasItem(origin) ? true : false;
     log("onBeforeRequest: read superCookie state from localstorage for",
-            origin, frameData.superCookie, details.tabId, details.frameId);
+            origin, frameData.superCookie, tab_id, frame_id);
   } 
-  var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
+  var requestAction = checkAction(tab_id, url, false, frame_id);
   if (requestAction) {
     // TODO: reimplement whitelist request stuff in storage.js
     //add domain to list of blocked domains if it is not there already
@@ -90,9 +94,9 @@ function onBeforeRequest(details){
       //if settings for this domain are still controlled by badger and it is in
       //the list of domain exceptions ask the user if they would like to unblock.
       if(requestAction.indexOf('user') < 0){
-        var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
+        var whitelistAry = DomainExceptions.getWhitelistForPath(url);
         if( whitelistAry){
-          _askUserToWhitelist(details.tabId, whitelistAry.whitelist_urls, whitelistAry.english_name);
+          _askUserToWhitelist(tab_id, whitelistAry.whitelist_urls, whitelistAry.english_name);
         }
       }
 
@@ -103,9 +107,9 @@ function onBeforeRequest(details){
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
-        trackerDomain: window.extractHostFromURL(details.url)
+        trackerDomain: window.extractHostFromURL(url)
       };
-      chrome.tabs.sendMessage(details.tabId, msg);
+      chrome.tabs.sendMessage(tab_id, msg);
 
       return {cancel: true};
     }
@@ -121,23 +125,27 @@ function onBeforeRequest(details){
  * @returns {*} modified headers
  */
 function onBeforeSendHeaders(details) {
-  if(_isTabChromeInternal(details.tabId)){
+  var frame_id = details.frameId,
+    tab_id = details.tabId,
+    url = details.url;
+
+  if(_isTabChromeInternal(tab_id)){
     return {};
   }
 
-  var tabDomain = getHostForTab(details.tabId);
-  var requestDomain = window.extractHostFromURL(details.url);
-  var badger = getBadgerWithTab(details.tabId);
+  var tabDomain = getHostForTab(tab_id);
+  var requestDomain = window.extractHostFromURL(url);
+  var badger = getBadgerWithTab(tab_id);
 
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
       isThirdPartyDomain(requestDomain, tabDomain)) {
-    var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
+    var requestAction = checkAction(tab_id, url, false, frame_id);
     // If this might be the third stike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
     if (requestAction == constants.ALLOW && 
         badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1){
       badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      requestAction = checkAction(details.tabId, details.url, false, details.frameId);
+      requestAction = checkAction(tab_id, url, false, frame_id);
     }
 
     // This will only happen if the above code sets the action for the request
@@ -146,9 +154,9 @@ function onBeforeSendHeaders(details) {
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
-        trackerDomain: window.extractHostFromURL(details.url)
+        trackerDomain: window.extractHostFromURL(url)
       };
-      chrome.tabs.sendMessage(details.tabId, msg);
+      chrome.tabs.sendMessage(tab_id, msg);
 
       return {cancel: true};
     }
@@ -175,14 +183,17 @@ function onBeforeSendHeaders(details) {
  * @returns {*} The new response header
  */
 function onHeadersReceived(details){
-  if(_isTabChromeInternal(details.tabId)){
+  var tab_id = details.tabId,
+    url = details.url;
+
+  if(_isTabChromeInternal(tab_id)){
     return {};
   }
 
-  var tabDomain = getHostForTab(details.tabId);
-  var requestDomain = window.extractHostFromURL(details.url);
+  var tabDomain = getHostForTab(tab_id);
+  var requestDomain = window.extractHostFromURL(url);
    
-  var badger = getBadgerWithTab(details.tabId);
+  var badger = getBadgerWithTab(tab_id);
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
     return {};
   }
@@ -192,7 +203,7 @@ function onHeadersReceived(details){
   }
 
 
-  var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
+  var requestAction = checkAction(tab_id, url, false, details.frameId);
   if (requestAction) {
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
