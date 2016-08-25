@@ -23,7 +23,9 @@
  */
 
 var constants = require('constants');
+var getSurrogateURI = require('surrogates').getSurrogateURI;
 var mdfp = require('multiDomainFP');
+
 var backgroundPage = chrome.extension.getBackgroundPage();
 var log = backgroundPage.log;
 var getBadgerWithTab = backgroundPage.getBadgerWithTab;
@@ -104,6 +106,13 @@ function onBeforeRequest(details){
     */
 
     if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
+      if (details.type == 'script') {
+        var surrogate = getSurrogateURI(url);
+        if (surrogate) {
+          return {redirectUrl: surrogate};
+        }
+      }
+
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
@@ -151,6 +160,13 @@ function onBeforeSendHeaders(details) {
     // This will only happen if the above code sets the action for the request
     // to block
     if (requestAction == constants.BLOCK) {
+      if (details.type == 'script') {
+        var surrogate = getSurrogateURI(url);
+        if (surrogate) {
+          return {redirectUrl: surrogate};
+        }
+      }
+
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,

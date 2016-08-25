@@ -43,6 +43,7 @@
       "src/heuristicblocking.js",
       "src/socialwidgetloader.js",
       "src/migrations.js",
+      "src/surrogates.js",
       "src/background.js"
     ]
   },
