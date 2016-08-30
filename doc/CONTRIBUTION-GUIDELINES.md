@@ -34,7 +34,7 @@ When making a code change:
  - Take time to ensure your code works as expected, effort skipped here merely
    pushes the burden onto whomever reviews your commit
 
- - Run jshint on your code and fix any linting errors before sumbitting.
+ - Run [ESLint](http://eslint.org/) on your code and fix any linting errors before submitting.
    Additionally make sure commented lines and print statements are removed
 
  - If there are changes that effect the visible operations of Privacy Badger

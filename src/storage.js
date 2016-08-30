@@ -53,7 +53,6 @@ require.scopes.storage = (function() {
  **/
 
 function BadgerPen(isIncognito, callback) {
-  console.log('loading badgers into the pen');
   var keys = [
     "snitch_map",
     "action_map",
@@ -77,7 +76,7 @@ function BadgerPen(isIncognito, callback) {
       }
     });
     if(_.isFunction(callback)){
-        callback(bp);
+      callback(bp);
     }
   });
 }

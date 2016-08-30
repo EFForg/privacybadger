@@ -21,16 +21,16 @@
  */
 
 
- function insertCcScript(text) {
-   var parent = document.documentElement,
-     script = document.createElement('script');
+function insertCcScript(text) {
+  var parent = document.documentElement,
+    script = document.createElement('script');
 
-   script.text = text;
-   script.async = false;
+  script.text = text;
+  script.async = false;
 
-   parent.insertBefore(script, parent.firstChild);
-   parent.removeChild(script);
- }
+  parent.insertBefore(script, parent.firstChild);
+  parent.removeChild(script);
+}
 
 chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
   if (blocked) {
@@ -41,6 +41,6 @@ chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) 
     } +')();';
 
     insertCcScript(code);
-    }
+  }
   return true;
 });

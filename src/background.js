@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- /*jshint unused:false*/
 
 // TODO: Encapsulate code and replace window.* calls throught code with pb.*
 
@@ -28,7 +27,7 @@ var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
 var pbStorage = require("storage");
 var webrequest = require("webrequest");
-var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json");
+var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json"); // eslint-disable-line no-unused-vars
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
 
@@ -68,8 +67,6 @@ function Badger(tabData, isIncognito) {
     // TODO: register all privacy badger listeners here in the storage callback
 
     badger.INITIALIZED = true;
-    console.log('privacy badger is ready to rock');
-    console.log('set DEBUG=1 to view console messages');
   });
 }
 
@@ -204,6 +201,7 @@ Badger.prototype = {
         if(action_map.hasItem(domain)){
           self.storage.setupHeuristicAction(domain, constants.BLOCK);
         }
+        // TODO likely bug here
         var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
@@ -306,7 +304,7 @@ Badger.prototype = {
         callback(successStatus);
         return;
       }
-      var hash = window.SHA1(response);
+      var hash = window.SHA1(response); // eslint-disable-line new-cap
       if(dnt_hashes.hasItem(hash)){
         successStatus = true;
       }
@@ -349,7 +347,7 @@ Badger.prototype = {
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations);
+      migrations[i].call(Migrations, this.storage);
       settings.setItem('migrationLevel', i+1);
     }
 
@@ -454,10 +452,6 @@ Badger.prototype = {
    * @param {Object} details details object from onBeforeRequest event
    */
   updateCount: function(details) {
-    if (details.tabId == -1){
-      return {};
-    }
-
     if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
       return;
     }
@@ -471,7 +465,7 @@ Badger.prototype = {
       return;
     } else {
       var badger = this;
-      chrome.tabs.get(tabId, function(tab){
+      chrome.tabs.get(tabId, function(/*tab*/){
         if (chrome.runtime.lastError){
           badger.tabData[tabId].bgTab = true;
         } else {
@@ -626,7 +620,7 @@ Badger.prototype = {
    * @param action the action we are taking
    **/
   logTrackerOnTab: function(tabId, fqdn, action) {
-      this.tabData[tabId].trackers[fqdn] = action;
+    this.tabData[tabId].trackers[fqdn] = action;
   },
 
   /**
@@ -650,7 +644,7 @@ Badger.prototype = {
  */
 
 /**
-* Log a message to the conosle if debugging is enabled
+* Log a message to the console if debugging is enabled
 */
 function log(/*...*/) {
   if(DEBUG) {
@@ -658,11 +652,11 @@ function log(/*...*/) {
   }
 }
 
-function error(/*...*/) {
-  if(DEBUG) {
-    console.error.apply(console, arguments);
-  }
-}
+//function error(/*...*/) {
+//  if(DEBUG) {
+//    console.error.apply(console, arguments);
+//  }
+//}
 
 /**
  * Chooses the right badger to use badse on tabId.
@@ -683,9 +677,11 @@ function getBadgerWithTab(tabId) {
 
 function startBackgroundListeners() {
   chrome.webRequest.onBeforeRequest.addListener(function(details) {
+    if (details.tabId != -1){
       var badger = getBadgerWithTab(details.tabId);
       badger.updateCount(details);
-    }, {urls: ["http://*/*", "https://*/*"]}, []);
+    }
+  }, {urls: ["http://*/*", "https://*/*"]}, []);
 
 
   // Update icon if a tab changes location
@@ -697,7 +693,7 @@ function startBackgroundListeners() {
   });
 
   // Update icon if a tab is replaced or loaded from cache
-  chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId){
+  chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/){
     chrome.tabs.get(addedTabId, function(tab){
       var badger = getBadgerWithTab(tab.id);
       badger.refreshIconAndContextMenu(tab);
@@ -734,6 +730,8 @@ function startBackgroundListeners() {
 /**
  * lets get this party started
  */
+console.log('Loading badgers into the pen.');
+
 var pb = new Badger({}, false);
 var incognito_pb = new Badger({}, true);
 
@@ -744,3 +742,6 @@ incognito.startListeners();
 webrequest.startListeners();
 HeuristicBlocking.startListeners();
 startBackgroundListeners();
+
+console.log('Privacy badger is ready to rock!');
+console.log('Set DEBUG=1 to view console messages.');

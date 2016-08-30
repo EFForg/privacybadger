@@ -23,7 +23,7 @@
 require.scopes.utils = (function() {
   
 
-function Utils(badger) {
+function Utils() {
 }
 
 Utils.prototype = {
@@ -206,7 +206,7 @@ function oneHour(){
 }
 
 function oneDay(){
- return oneHour() * 24;
+  return oneHour() * 24;
 }
 
 function oneDayFromNow(){

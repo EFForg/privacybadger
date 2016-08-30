@@ -5,7 +5,7 @@
 
   test("trim", function() {
     // Test parameters
-    tests = [
+    var tests = [
       {
         inputString: "This is a test",
         maxLength: 30,
@@ -30,7 +30,7 @@
 
   test("isChecked", function() {
     // Test parameters
-    tests = [
+    var tests = [
       {
         inputAction: "allow",
         originAction: "allow",
@@ -55,7 +55,7 @@
 
   test("getActionDescription", function() {
     // Test parameters
-    tests = [
+    var tests = [
       {
         action: "block",
         origin: "pbtest.org",
@@ -85,7 +85,7 @@
 
   test("getToggleHtml", function() {
     // Test parameters
-    tests = [
+    var tests = [
       {
         origin: "pbtest.org",
         action: "block",
@@ -117,7 +117,7 @@
 
   test("addOriginHtml", function() {
     // Test parameters
-    tests = [
+    var tests = [
       {
         existingHtml: '<div id="existinghtml"></div>',
         origin: "pbtest.org",
