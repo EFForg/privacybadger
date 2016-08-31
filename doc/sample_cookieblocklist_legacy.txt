@@ -496,6 +496,7 @@
 @@||typography.com^$third-party
 @@||uicdn.com^$third-party
 @@||ui-portal.de^$third-party
+@@||ultraimg.com^$third-party
 @@||usa.gov^$third-party
 @@||viafoura.net^$third-party
 @@||viddler.com^$third-party
