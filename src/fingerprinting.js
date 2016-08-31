@@ -98,7 +98,7 @@ function getFpPageScript() {
 
       if (structured) {
         origFormatter = ERROR.prepareStackTrace;
-        ERROR.prepareStackTrace = function (err, structuredStackTrace) {
+        ERROR.prepareStackTrace = function (_, structuredStackTrace) {
           return structuredStackTrace;
         };
       }
@@ -294,4 +294,3 @@ document.addEventListener(event_id, function (e) {
 insertFpScript(getFpPageScript(), {
   event_id: event_id
 });
-

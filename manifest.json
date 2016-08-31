@@ -1,5 +1,5 @@
 {
-  "version": "2016.5.23",
+  "version": "2016.8.29",
   "author": {
     "email": "eff.software.projects@gmail.com"
   },
@@ -8,7 +8,7 @@
       "id": "privacybadger@mozilla.org"
     }
   },
-  "incognito": "split",
+  "incognito": "spanning",
   "permissions": [
     "tabs",
     "http://*/*",
@@ -25,19 +25,18 @@
   "background": {
     "scripts": [
       "lib/compat.js",
-      "lib/io.js",
-      "src/storage.js",
-      "src/utils.js",
-      "src/htmlutils.js",
-      "lib/adblockplus.js",
       "lib/punycode.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
       "lib/sha1.js",
       "lib/jsbn.js",
       "lib/rsa.js",
-      "lib/popupBlocker.js",
       "lib/underscore-min.js",
+      "src/incognito.js",
+      "src/constants.js",
+      "src/storage.js",
+      "src/utils.js",
+      "src/htmlutils.js",
       "src/domainExceptions.js",
       "src/webrequest.js",
       "src/heuristicblocking.js",

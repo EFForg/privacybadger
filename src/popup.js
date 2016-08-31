@@ -20,12 +20,12 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var pb = backgroundPage.pb;
-var Utils = pb.utils;
+var constants = backgroundPage.constants;
+
+
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
-var tab = null;
-var settings = pb.storage.getBadgerStorageObject('settings_map');
+var reloadTab = chrome.tabs.reload;
 
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
@@ -34,30 +34,35 @@ function init() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
 
-  var seenComic = settings.getItem("seenComic") || false;
+  /* if they aint seen the comic*/
+  getTab(function(tab) {
+    var badger = backgroundPage.getBadgerWithTab(tab.id);
+    var settings = badger.storage.getBadgerStorageObject('settings_map');
+    var seenComic = settings.getItem("seenComic") || false;
 
-  function _setSeenComic() {
-    settings.setItem("seenComic", "true");
-  }
+    function _setSeenComic() {
+      settings.setItem("seenComic", "true");
+    }
 
-  function _hideNag(){
-    _setSeenComic();
-    nag.fadeOut();
-    outer.fadeOut();
-  }
+    function _hideNag(){
+      _setSeenComic();
+      nag.fadeOut();
+      outer.fadeOut();
+    }
 
-  if (!seenComic) {
-    nag.show();
-    outer.show();
-    // Attach event listeners
-    $('#fittslaw').click(_hideNag);
-    $("#firstRun").click(function() {
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+    if (!seenComic) {
+      nag.show();
+      outer.show();
+      // Attach event listeners
+      $('#fittslaw').click(_hideNag);
+      $("#firstRun").click(function() {
+        chrome.tabs.create({
+          url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+        });
+        _hideNag();
       });
-      _hideNag();
-    });
-  }
+    }
+  });
 
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
@@ -70,18 +75,18 @@ function init() {
 
   var overlay = $('#overlay');
   $("#error").click(function(){
-      overlay.toggleClass('active');
+    overlay.toggleClass('active');
   });
   $("#report_cancel").click(function(){
-      closeOverlay();
+    closeOverlay();
   });
   $("#report_button").click(function(){
-      $(this).prop("disabled", true);
-      $("#report_cancel").prop("disabled", true);
-      send_error($("#error_input").val());
+    $(this).prop("disabled", true);
+    $("#report_cancel").prop("disabled", true);
+    send_error($("#error_input").val());
   });
   $("#report_close").click(function(){
-      closeOverlay();
+    closeOverlay();
   });
   $(document).ready(function () {
     $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
@@ -91,24 +96,20 @@ function init() {
   });
 
   //toggle activation buttons if privacy badger is not enabled for current url
-  chrome.windows.getCurrent(function(w)
-  {
-    chrome.tabs.getSelected(w.id, function(t)
-    {
-      tab = t;
-      if(!Utils.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(tab.url))) {
-        $("#blockedResourcesContainer").hide();
-        $("#activate_site_btn").show();
-        $("#deactivate_site_btn").hide();
-      }
-    });
+  getTab(function(t) {
+    var badger = backgroundPage.getBadgerWithTab(t.id);
+    if(!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
+      $("#blockedResourcesContainer").hide();
+      $("#activate_site_btn").show();
+      $("#deactivate_site_btn").hide();
+    }
   });
 }
 $(init);
 
 /**
- * Close the error reporting overlay
- */
+* Close the error reporting overlay
+*/
 function closeOverlay() {
   $('#overlay').toggleClass('active', false);
   $("#report_success").toggleClass("hidden", true);
@@ -117,153 +118,166 @@ function closeOverlay() {
 }
 
 /**
- * Send errors to PB error reporting server
- *
- * @param {String} message The message to send
- */
+* Send errors to PB error reporting server
+*
+* @param {String} message The message to send
+*/
 function send_error(message) {
-  var browser = window.navigator.userAgent;
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var origins = backgroundPage.getAllOriginsForTab(tabId);
-  if(!origins){ return; }
-  var version = chrome.runtime.getManifest().version;
-  //TODO "there's got to be a better way!"
-  var fqdn = tab.url.split("/",3)[2];
-  var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
-  for (var i = 0; i < origins.length; i++){
-     var origin = origins[i];
-     var action = backgroundPage.getAction(tabId, origin);
-     if (!action){ action = pb.NO_TRACKING; }
-     if (out[action]){
-       out[action] += ","+origin;
-     }
-     else{
-       out[action] = origin;
-     }
-  }
-  var out_data = JSON.stringify(out);
-  console.log(out_data);
-  var sendReport = $.ajax({
-    type: "POST",
-    url: "https://privacybadger.org/reporting",
-    data: out_data,
-    contentType: "application/json"
-  });
-  sendReport.done(function() {
-    $("#error_input").val("");
-    $("#report_success").toggleClass("hidden", false);
-    setTimeout(function(){
-      $("#report_button").prop("disabled", false);
-      $("#report_cancel").prop("disabled", false);
-      $("#report_success").toggleClass("hidden", true);
-      closeOverlay();
-   }, 3000);
-  });
-  sendReport.fail(function() {
-    $("#report_fail").toggleClass("hidden");
-    setTimeout(function(){
-      $("#report_button").prop("disabled", false);
-      $("#report_cancel").prop("disabled", false);
-      $("#report_fail").toggleClass("hidden", true);
-   }, 3000);
+  var browser = window.navigator.useragent;
+  getTab(function(tab) {
+    var tabId = tab.id;
+    var badger = backgroundPage.getBadgerWithTab(tabId);
+    var origins = badger.getAllOriginsForTab(tabId);
+    if(!origins){ return; }
+    var version = chrome.runtime.getManifest().version;
+    //TODO "there's got to be a better way!"
+    var fqdn = tab.url.split("/",3)[2];
+    var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
+    for (var i = 0; i < origins.length; i++){
+      var origin = origins[i];
+      var action = badger.storage.getBestAction(origin);
+      if (!action){ action = constants.NO_TRACKING; }
+      if (out[action]){
+        out[action] += ","+origin;
+      }
+      else{
+        out[action] = origin;
+      }
+    }
+    var out_data = JSON.stringify(out);
+    backgroundPage.log(out_data);
+    var sendReport = $.ajax({
+      type: "POST",
+      url: "https://privacybadger.org/reporting",
+      data: out_data,
+      contentType: "application/json"
+    });
+    sendReport.done(function() {
+      $("#error_input").val("");
+      $("#report_success").toggleClass("hidden", false);
+      setTimeout(function(){
+        $("#report_button").prop("disabled", false);
+        $("#report_cancel").prop("disabled", false);
+        $("#report_success").toggleClass("hidden", true);
+        closeOverlay();
+      }, 3000);
+    });
+    sendReport.fail(function() {
+      $("#report_fail").toggleClass("hidden");
+      setTimeout(function(){
+        $("#report_button").prop("disabled", false);
+        $("#report_cancel").prop("disabled", false);
+        $("#report_fail").toggleClass("hidden", true);
+      }, 3000);
+    });
   });
 }
 
 /**
- * activate PB for site event handler
- */
+* activate PB for site event handler
+*/
 function active_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").show();
-  Utils.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-  backgroundPage.refreshIconAndContextMenu(tab);
-  pb.reloadTab(tab.id);
+  getTab(function(tab) {
+    var badger = backgroundPage.getBadgerWithTab(tab.id);
+    badger.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+    badger.refreshIconAndContextMenu(tab);
+    reloadTab(tab.id);
+  });
 }
 
 /**
- * de-activate PB for site event handler
- */
+* de-activate PB for site event handler
+*/
 function deactive_site(){
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").hide();
-  Utils.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-  backgroundPage.refreshIconAndContextMenu(tab);
-  pb.reloadTab(tab.id);
+  getTab(function(tab) {
+    var badger = backgroundPage.getBadgerWithTab(tab.id);
+    badger.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+    badger.refreshIconAndContextMenu(tab);
+    reloadTab(tab.id);
+  });
 }
 
 /**
- * Handler to undo user selection for a tracker
- *
- * @param e The object the event triggered on
- * @returns {boolean} false
- */
+* Handler to undo user selection for a tracker
+*
+* @param e The object the event triggered on
+* @returns {boolean} false
+*/
 function revertDomainControl(e){
+  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  var badger = backgroundPage.getBadgerWithTab(tabId);
   var $elm = $(e.target).parent();
-  console.log('revert to privacy badger control for', $elm);
+  backgroundPage.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  pb.storage.revertUserAction(origin);
-  var defaultAction = pb.storage.getBestAction(origin);
+  badger.storage.revertUserAction(origin);
+  var defaultAction = badger.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
-  console.log('selector', selector);
+  backgroundPage.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
-  pb.reloadTab(tab.id);
+  reloadTab(tabId);
   return false;
 }
+
 /**
- * this is a terrible function that repeats
- * a lot of the work that getAction does
- * because getAction stores things in mysery
- * land and there's no real way to get what's
- * in the ABP filters without repeatedly
- * querying them
- */
+* this is a terrible function that repeats
+* a lot of the work that getAction does
+* because getAction stores things in mysery
+* land and there's no real way to get what's
+* in the ABP filters without repeatedly
+* querying them
+*/
 //TODO re-write this by having get best action return the domain the rule
 // comes from, and combine that way?
 function getTopLevel(action, origin/*, tabId*/){
-//  if (action == "usercookieblock"){
-//    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-//    return  top;
-//  }
-//  if (action == "userblock"){
-//    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-//    return top;
-//  }
-//  if (action == "usernoaction"){
-//    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-//    return top;
-//  }
+  //  if (action == "usercookieblock"){
+  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+  //    return  top;
+  //  }
+  //  if (action == "userblock"){
+  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+  //    return top;
+  //  }
+  //  if (action == "usernoaction"){
+  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
+  //    return top;
+  //  }
   return origin;
 }
 
 /**
- * Refresh the content of the popup window
- *
- * @param {Integer} tabId The id of the tab
- */
+* Refresh the content of the popup window
+*
+* @param {Integer} tabId The id of the tab
+*/
 function refreshPopup(tabId) {
-  console.log("Refreshing popup for tab id " + tabId);
+  backgroundPage.log("Refreshing popup for tab id " + tabId);
   //TODO this is calling get action and then being used to call get Action
-  var origins = backgroundPage.getAllOriginsForTab(tabId);
+  var badger = backgroundPage.getBadgerWithTab(tabId);
+  var origins = badger.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
     hideNoInitialBlockingLink();
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
-  $('#number_trackers').text('0');
+    $('#number_trackers').text('0');
     return;
   }
   var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
   printable = printable +
-    '<div class="keyContainer">'+
-    '<div class="key">'+
-    '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
-    '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
-    '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
-    '<div class="tooltipContainer"></div>' +
-    '</div></div>'+
-    '<div class="spacer"></div><div class="clickerContainer">';
+  '<div class="keyContainer">'+
+  '<div class="key">'+
+  '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
+  '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
+  '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
+  '<div class="tooltipContainer"></div>' +
+  '</div></div>'+
+  '<div class="spacer"></div><div class="clickerContainer">';
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
   var originCount = 0;
@@ -271,11 +285,11 @@ function refreshPopup(tabId) {
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
-    var action = backgroundPage.getAction(tabId, origin);
-    if(action == pb.NO_TRACKING){
-        console.log('pushing', origin, 'onto non tracking');
-        nonTracking.push(origin);
-        continue;
+    var action = badger.storage.getBestAction(origin);
+    if(action == constants.NO_TRACKING){
+      backgroundPage.log('pushing', origin, 'onto non tracking');
+      nonTracking.push(origin);
+      continue;
     }
     else {
       if (action.includes("user")){
@@ -295,23 +309,22 @@ function refreshPopup(tabId) {
       }
     }
     originCount++;
-    var flag = (action == pb.DNT);
+    var flag = (action == constants.DNT);
     printable = htmlUtils.addOriginHtml(printable, origin, action, flag);
   }
   for (var key in compressedOrigins){
-    var flag2 = (compressedOrigins[key].action == pb.DNT);
+    var flag2 = (compressedOrigins[key].action == constants.DNT);
     printable = htmlUtils.addOriginHtml(printable, key, compressedOrigins[key].action, flag2, compressedOrigins[key].subs.length);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
-  console.log('len', nonTracking.length);
+  backgroundPage.log('len', nonTracking.length);
   if(nonTracking.length > 0){
-    printable = printable +
-        '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
+    printable = printable + '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
     for (var c = 0; c < nonTracking.length; c++){
       var ntOrigin = nonTracking[c];
-      console.log('calling printable for non-tracking');
-      printable = htmlUtils.addOriginHtml(printable, ntOrigin, pb.NO_TRACKING, false);
+      backgroundPage.log('calling printable for non-tracking');
+      printable = htmlUtils.addOriginHtml(printable, ntOrigin, constants.NO_TRACKING, false);
     }
   }
   $('#number_trackers').text(originCount);
@@ -347,22 +360,25 @@ function refreshPopup(tabId) {
   // to have removal ability here.
   $('.removeOrigin').hide();
 
-  console.log("Done refreshing popup");
+  backgroundPage.log("Done refreshing popup");
 }
 
-
 /**
- * Event handler for on change (blocked resources container)
- *
- * @param event
- */
+* Event handler for on change (blocked resources container)
+*
+* @param event
+*/
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  console.log('updating origin for', $elm);
+  backgroundPage.log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
-  $switchContainer.removeClass([pb.BLOCK, pb.COOKIEBLOCK, pb.ALLOW, pb.NO_TRACKING].join(" ")).addClass(action);
+  $switchContainer.removeClass([
+    constants.BLOCK,
+    constants.COOKIEBLOCK,
+    constants.ALLOW,
+    constants.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($($clicker), action);
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
@@ -371,20 +387,21 @@ function updateOrigin(event){
 }
 
 /**
- * Hide #noBlockingLink
- */
+* Hide #noBlockingLink
+*/
 function hideNoInitialBlockingLink() {
   $("#noBlockingLink").hide();
 }
 
 /**
- * Hide or show additional info depending on if there is any additional info
- */
+* Hide or show additional info depending on if there is any additional info
+*/
 function adjustNoInitialBlockingLink() {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var origins = backgroundPage.blockedOriginCount(tabId);
-  var totalBlocked = backgroundPage.activelyBlockedOriginCount(tabId);
-  var userBlocked = backgroundPage.userConfiguredOriginCount(tabId);
+  var badger = backgroundPage.getBadgerWithTab(tabId);
+  var origins = badger.blockedOriginCount(tabId);
+  var totalBlocked = badger.activelyBlockedOriginCount(tabId);
+  var userBlocked = badger.userConfiguredOriginCount(tabId);
   if (origins > 0 && totalBlocked === 0 && userBlocked === 0) {
     $("#noBlockingLink").show();
   } else {
@@ -395,10 +412,10 @@ function adjustNoInitialBlockingLink() {
 var tooltipDelay = 300;
 
 /**
- * Show tooltip for elements
- *
- * @param event
- */
+* Show tooltip for elements
+*
+* @param event
+*/
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var displayTipTimer = setTimeout(function(){
@@ -415,10 +432,10 @@ function displayTooltip(event){
 }
 
 /**
- * Hide tooltip for element
- *
- * @param event
- */
+* Hide tooltip for element
+*
+* @param event
+*/
 function hideTooltip(event){
   var $elm = $(event.currentTarget);
   var hideTipTimer = setTimeout(function(){
@@ -435,48 +452,49 @@ function hideTooltip(event){
 }
 
 /**
- * Check if origin is in setting dict. If yes, popup needs refresh
- *
- * @param settingsDict The settings dict to check
- * @returns {boolean} false or the tab id
- */
+* Check if origin is in setting dict. If yes, popup needs refresh
+*
+* @param settingsDict The settings dict to check
+* @returns {boolean} false or the tab id
+*/
 function syncSettingsDict(settingsDict) {
   // track whether reload is needed: only if things are being unblocked
   var reloadNeeded = false;
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+  var badger = backgroundPage.getBadgerWithTab(tabId);
   // we get the blocked data again in case anything changed, but the user's change when
   // closing a popup is authoritative and we should sync the real state to that
   for (var origin in settingsDict) {
     var userAction = settingsDict[origin];
-    if (pb.saveAction(userAction, origin)) {
+    if (badger.saveAction(userAction, origin)) {
       reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"? would be fun to check with jsperf.com
     }
   }
-  console.log("Finished syncing. Now refreshing popup.");
+  backgroundPage.log("Finished syncing. Now refreshing popup.");
   // the popup needs to be refreshed to display current results
   refreshPopup(tabId);
   return reloadNeeded;
 }
 
 /**
- * Generates dict Origin->action based on GUI elements
- *
- * @returns {{}} The generated dict
- */
+* Generates dict Origin->action based on GUI elements
+*
+* @returns {{}} The generated dict
+*/
 function buildSettingsDict() {
   var settingsDict = {};
   $('.clicker').each(function() {
     var origin = $(this).attr("data-origin");
     if ($(this).hasClass("userset") && htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action")) {
       // TODO: DRY; same as code above, break out into helper
-      if ($(this).hasClass(pb.BLOCK)) {
-        settingsDict[origin] = pb.BLOCK;
-      } else if ($(this).hasClass(pb.COOKIEBLOCK)) {
-        settingsDict[origin] = pb.COOKIEBLOCK;
-      } else if ($(this).hasClass(pb.ALLOW)) {
-        settingsDict[origin] = pb.ALLOW;
+      if ($(this).hasClass(constants.BLOCK)) {
+        settingsDict[origin] = constants.BLOCK;
+      } else if ($(this).hasClass(constants.COOKIEBLOCK)) {
+        settingsDict[origin] = constants.COOKIEBLOCK;
+      } else if ($(this).hasClass(constants.ALLOW)) {
+        settingsDict[origin] = constants.ALLOW;
       } else {
-        settingsDict[origin] = pb.ALLOW;
+        settingsDict[origin] = constants.ALLOW;
       }
     }
   });
@@ -484,49 +502,61 @@ function buildSettingsDict() {
 }
 
 /**
- * syncs the user-selected cookie blocking options, etc.
- * Reloads the tab if needed
- */
+* syncs the user-selected cookie blocking options, etc.
+* Reloads the tab if needed
+*/
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
-  console.log("Sync of userset options: " + JSON.stringify(settingsDict));
+  backgroundPage.log("Sync of userset options: " + JSON.stringify(settingsDict));
   var tabId = syncSettingsDict(settingsDict);
   if (tabId){
-    pb.reloadTab(tabId);
+    backgroundPage.reloadTab(tabId);
   }
 }
 
 /**
- * if the query url pattern matches a tab, switch the module's tab object to that tab
- * Convenience function for the test harness
- * Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
- */
-function setTabToUrl( query_url ) { /* jshint ignore:line */
+* if the query url pattern matches a tab, switch the module's tab object to that tab
+* Convenience function for the test harness
+* Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
+*/
+function setTabToUrl( query_url ) { // eslint-disable-line no-unused-vars
   chrome.tabs.query( {url: query_url}, function(ta) {
     if ( typeof ta == "undefined" ) {
-      console.log("error doing tabs query for " + query_url);
+      backgroundPage.log("error doing tabs query for " + query_url);
       return;
     }
     if ( ta.length === 0 ) {
-      console.log("no match found in tabs query for " + query_url);
+      backgroundPage.log("no match found in tabs query for " + query_url);
       return;
     }
     var tabid = ta[0].id;
-    console.log("match found for query " + query_url + " tabId: " + tabid );
+    backgroundPage.log("match found for query " + query_url + " tabId: " + tabid );
     refreshPopup( tabid );
   });
 }
 
+/**
+* We use this function where:
+* * getting the tabId from the associatedTab id won't work because
+*   associatedTab isn't set yet.
+* * we need more info than just tab.id, like tab.url.
+*
+* Maybe we don't even need to use the associatedTab id. It's only advantage
+* seems to be that it is synchronous.
+*/
+function getTab(callback) {
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, function(t) { callback(t[0]); });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
-  chrome.tabs.getSelected(null, function(tab) {
-    console.log("from addEventListener");
-    refreshPopup(tab.id);
+  getTab(function(t) {
+    backgroundPage.log("from addEventListener");
+    refreshPopup(t.id);
   });
 });
 
 window.addEventListener('unload', function() {
-  console.log("Starting to unload popup");
+  backgroundPage.log("Starting to unload popup");
   syncUISelections();
-  console.log("unloaded popup");
+  backgroundPage.log("unloaded popup");
 });
-

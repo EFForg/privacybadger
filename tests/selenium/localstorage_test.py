@@ -33,7 +33,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
             "Timed out while waiting for the localStorage.badgerHashes")
         # now check the downloaded policy hash
         policy_hash = self.js("return (pb.storage.getBadgerStorageObject('dnt_hashes').getItemClones())")
-        for k, v in policy_hash.iteritems():
+        for k, v in policy_hash.items():
             # self.assertIn("DNT Policy", k)  # e.g. DNT Policy V1.0
             self.assertEqual(PB_POLICY_HASH_LEN, len(k))  # check hash length
 
@@ -41,7 +41,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
         self.load_url(pbtest.PB_CHROME_BG_URL)
         js = self.js
         self.check_policy_download()
-        self.assertEqual(js("return pb.COOKIE_BLOCK_LIST_URL"),
+        self.assertEqual(js("return constants.COOKIE_BLOCK_LIST_URL"),
                          "https://www.eff.org/files/cookieblocklist_new.txt")
 
         disabled_sites = js("return (pb.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'))");

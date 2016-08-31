@@ -1,5 +1,15 @@
 Changes for Privacy Badger 
 ====================================
+## 2016.8.29
+* UI Tweaks
+* Remove last adblock plus code
+* Feature: remove domains from list
+* Refactor incognito mode handling
+* Compatibile with firefox web extensions
+
+## 2016.5.24 (2.0RC3)
+* Fix build error
+
 ## 2016.5.23 (2.0RC2)
 * Fix cookie block list adding bug
 * New migration to fix bug retroactively
