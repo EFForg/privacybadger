@@ -54,7 +54,6 @@ var _multiDomainFirstPartiesArray = [
  * Make a data structure for quick lookups of whether two domains are the same first party
  */
 function _makeDomainLookup() {
-  console.log("MAKE DOMAIN LOOKUP");
   var arr = _multiDomainFirstPartiesArray;
   var out = {};
   var arrLength = arr.length;
