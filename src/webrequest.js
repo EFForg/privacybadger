@@ -23,6 +23,7 @@
  */
 
 var constants = require('constants');
+var mdfp = require('multiDomainFP');
 var backgroundPage = chrome.extension.getBackgroundPage();
 var log = backgroundPage.log;
 var getBadgerWithTab = backgroundPage.getBadgerWithTab;
@@ -66,7 +67,7 @@ function onBeforeRequest(details){
     return {};
   }
 
-  if (!window.isThirdParty(requestDomain, tabDomain)) {
+  if (!isThirdPartyDomain(requestDomain, tabDomain)) {
     return {};
   }
 
@@ -129,7 +130,7 @@ function onBeforeSendHeaders(details) {
   var badger = getBadgerWithTab(details.tabId);
 
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
-      window.isThirdParty(requestDomain, tabDomain)) {
+      isThirdPartyDomain(requestDomain, tabDomain)) {
     var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
     // If this might be the third stike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
@@ -186,7 +187,7 @@ function onHeadersReceived(details){
     return {};
   }
 
-  if (!window.isThirdParty(requestDomain, tabDomain)) {
+  if (!isThirdPartyDomain(requestDomain, tabDomain)) {
     return {};
   }
 
@@ -229,6 +230,23 @@ function onTabReplaced(addedTabId, removedTabId){
 }
 
 /******** Utility Functions **********/
+
+/**
+ * check if a domain is third party
+ * @param {String} domain1 an fqdn
+ * @param {String} domain2 a second fqdn
+ *
+ * @return boolean true if the domains are third party
+ */ 
+ function isThirdPartyDomain(domain1, domain2){
+   var base1 = window.getBaseDomain(domain1);
+   var base2 = window.getBaseDomain(domain2);
+
+   if(window.isThirdParty(base1, base2)){
+     return !mdfp.isMultiDomainFirstParty(base1, base2);
+   }
+   return false;
+ }
 
 /**
  * Gets the host name for a given tab id
@@ -296,7 +314,7 @@ function recordSuperCookie(sender, msg) {
   var frameOrigin = window.getBaseDomain(frameHost);
   var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
   var badger = getBadgerWithTab(sender.tab.id);
-  if (!window.isThirdParty(frameHost, pageHost)) {
+  if (!isThirdPartyDomain(frameHost, pageHost)) {
     // only happens on the start page for google.com.
     return;
   }
@@ -330,7 +348,7 @@ function recordFingerprinting(tabId, msg) {
   // ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
     document_host = window.extractHostFromURL(getFrameUrl(tabId, 0));
-  if (!window.isThirdParty(script_host, document_host)) {
+  if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
 
@@ -466,7 +484,7 @@ function checkAction(tabId, url, quiet, frameId){
 
   // Ignore requests that aren't from a third party.
   var documentHost = window.extractHostFromURL(documentUrl);
-  var thirdParty = window.isThirdParty(requestHost, documentHost);
+  var thirdParty = isThirdPartyDomain(requestHost, documentHost);
   if (! thirdParty) {
     return false;
   }
@@ -673,7 +691,7 @@ function dispatcher(request, sender, sendResponse) {
     }
   } else if (request.checkEnabledAndThirdParty) {
     var pageHost = window.extractHostFromURL(sender.url);
-    sendResponse(badger.isPrivacyBadgerEnabled(tabHost) && window.isThirdParty(pageHost, tabHost));
+    sendResponse(badger.isPrivacyBadgerEnabled(tabHost) && isThirdPartyDomain(pageHost, tabHost));
   } else if (request.checkSocialWidgetReplacementEnabled) {
     sendResponse(badger.isPrivacyBadgerEnabled(tabHost) && badger.isSocialWidgetReplacementEnabled());
   }

@@ -2,6 +2,7 @@
   module("Privacy Badger Utils");
 
   var utils = require('utils');
+  var mdfp = require('multiDomainFP');
 
   test("removeElementFromArray", function(){
     var testAry = [1,2,3,4,5,6];
@@ -82,5 +83,11 @@
     }
     ok(Math.max.apply(null,results) === max, "max is max");
     ok(Math.min.apply(null,results) === min, "min is min");
+  });
+
+  test("multi domain first party", function(){
+    ok(mdfp.isMultiDomainFirstParty("dummy", "dummy"));
+    ok(mdfp.isMultiDomainFirstParty("google.com", "youtube.com"));
+    ok(!mdfp.isMultiDomainFirstParty("google.com", "nyt.com"));
   });
 })();
