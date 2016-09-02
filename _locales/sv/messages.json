@@ -114,9 +114,6 @@
     "report_input_label": {
         "message": "Beskrivning"
     },
-    "report_broken_site": {
-        "message": "Påpeka en trasig sida"
-    },
     "report_success": {
         "message": "Tack! Vi kommer att till botten med detta."
     },

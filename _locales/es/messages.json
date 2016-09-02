@@ -117,9 +117,6 @@
     "report_input_label": {
         "message": "Descripción"
     },
-    "report_broken_site": {
-        "message": "Reportar un sitio roto"
-    },
     "report_success": {
         "message": "¡Gracias! Llegaremos al fondo del asunto."
     },
