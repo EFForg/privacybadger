@@ -1,5 +1,13 @@
 Changes for Privacy Badger 
 ====================================
+## 2016.9.7
+* Add exceptions for multi domain first parties
+* Fix google drive download issue
+* Fix wikipedia login issue
+* Fix youtube comments and notifications issues
+* Several other broken site fixes
+* Hopefully a fix for the "corrupted extension" issue
+
 ## 2016.8.29
 * UI Tweaks
 * Remove last adblock plus code
