@@ -60,14 +60,10 @@ function loadOptions() {
   $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
-  $("#activate_socialwidget_btn").click(activateSocialWidgetReplacement);
-  $("#deactivate_socialwidget_btn").click(deactivateSocialWidgetReplacement);
-  if(!pb.isSocialWidgetReplacementEnabled()) {
-    $("#activate_socialwidget_btn").show();
-    $("#deactivate_socialwidget_btn").hide();
-  }
-  $("#toggle_counter_checkbox").click(toggleCounter);
-  $("#toggle_counter_checkbox").prop("checked", pb.showCounter());
+  $("#show_counter_checkbox").click(updateShowCounter);
+  $("#show_counter_checkbox").prop("checked", pb.showCounter());
+  $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
+  $("#replace_social_widgets_checkbox").prop("checked", pb.isSocialWidgetReplacementEnabled());
 
   // Show user's filters
   reloadWhitelist();
@@ -75,24 +71,14 @@ function loadOptions() {
 }
 $(loadOptions);
 
-function activateSocialWidgetReplacement() {
-  $("#activate_socialwidget_btn").toggle();
-  $("#deactivate_socialwidget_btn").toggle();
-  settings.setItem('socialWidgetReplacementEnabled', true);
-}
+/**
+ * Update setting for whether or not to show counter on Privacy Badger badge.
+ */
+function updateShowCounter() {
+  var showCounter = $("#show_counter_checkbox").prop("checked");
+  settings.setItem("showCounter", showCounter);
 
-function deactivateSocialWidgetReplacement() {
-  $("#activate_socialwidget_btn").toggle();
-  $("#deactivate_socialwidget_btn").toggle();
-  settings.setItem('socialWidgetReplacementEnabled', false);
-}
-
-function toggleCounter() {
-  if ($("#toggle_counter_checkbox").prop("checked")) {
-    settings.setItem("showCounter", true);
-  } else {
-    settings.setItem("showCounter", false);
-  }
+  // Refresh display for each tab's PB badge.
   chrome.windows.getAll(null, function(windows) {
     windows.forEach(function(window) {
       chrome.tabs.getAllInWindow(window.id, function(tabs) {
@@ -102,6 +88,14 @@ function toggleCounter() {
       });
     });
   });
+}
+
+/**
+ * Update setting for whether or not to replace social widgets.
+ */
+function updateSocialWidgetReplacement() {
+  var replaceSocialWidgets = $("#replace_social_widgets_checkbox").prop("checked");
+  settings.setItem("socialWidgetReplacementEnabled", replaceSocialWidgets);
 }
 
 function reloadWhitelist() {
