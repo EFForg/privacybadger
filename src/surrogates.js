@@ -26,7 +26,7 @@ var db = {
 function getSurrogateURI(script_url) {
   if (db.hasOwnProperty(script_url)) {
     // there is a match
-    return 'data:application/javascript,' + encodeURIComponent(db[script_url]);
+    return 'data:application/javascript;base64,' + btoa(db[script_url]);
   }
 
   return false;
