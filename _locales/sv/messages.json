@@ -50,14 +50,8 @@
     "options_slider_text": {
         "message": "Privacy Badger skyddar dig på webben! Dessa reglage låter dig bestämma hur Privacy Badger hanterar varje spanare som har upptäckts när du surfat."
     },
-    "options_social_disable": {
-        "message": "Avaktivera Social Widget-ersättare"
-    },
-    "options_social_enable": {
-        "message": "Aktivera Social Widget-ersättare"
-    },
-    "options_social_settings": {
-        "message": "Social Widget-inställningar"
+    "options_social_widgets_checkbox": {
+        "message": "Byt sociala widgets"
     },
     "options_title": {
         "message": "Privacy Badger-inställningar"

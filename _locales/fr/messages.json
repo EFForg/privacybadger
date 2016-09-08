@@ -49,19 +49,13 @@
     "options_slider_text": {
         "message": "Privacy Badger vous protège sur le web ! Ces curseurs vous permettent de contrôler la manière dont Privacy Badger traite chaque traqueur relevé au cours de votre navigation."
     },
-    "options_social_disable": {
-        "message": "Désactiver le remplacement des widgets sociaux"
-    },
-    "options_social_enable": {
-        "message": "Activer le remplacement des widgets sociaux"
-    },
-    "options_social_settings": {
-        "message": "Configuration des widgets sociaux"
+    "options_social_widgets_checkbox": {
+        "message": "Remplacer widgets sociaux"
     },
     "options_title": {
         "message": "Options de Privacy Badger"
     },
-    "pb_detected": {    
+    "pb_detected": {
         "message": "Privacy Badger détecté"
      },
     "popup_blocked": {
