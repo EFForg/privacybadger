@@ -2,6 +2,7 @@
   module("Privacy Badger Utils");
 
   var utils = require('utils');
+  var getSurrogateURI = require('surrogates').getSurrogateURI;
   var mdfp = require('multiDomainFP');
 
   test("removeElementFromArray", function(){
@@ -89,5 +90,10 @@
     ok(mdfp.isMultiDomainFirstParty("dummy", "dummy"));
     ok(mdfp.isMultiDomainFirstParty("google.com", "youtube.com"));
     ok(!mdfp.isMultiDomainFirstParty("google.com", "nyt.com"));
+  });
+
+  test("surrogate script URL lookups", function() {
+    // URLs that should have a surrogate
+    ok(!!getSurrogateURI('http://www.google-analytics.com/ga.js'));
   });
 })();
