@@ -265,15 +265,15 @@ function onTabReplaced(addedTabId, removedTabId){
  *
  * @return boolean true if the domains are third party
  */ 
- function isThirdPartyDomain(domain1, domain2){
-   var base1 = window.getBaseDomain(domain1);
-   var base2 = window.getBaseDomain(domain2);
+function isThirdPartyDomain(domain1, domain2) {
+  var base1 = window.getBaseDomain(domain1);
+  var base2 = window.getBaseDomain(domain2);
 
-   if(window.isThirdParty(base1, base2)){
-     return !mdfp.isMultiDomainFirstParty(base1, base2);
-   }
-   return false;
- }
+  if (window.isThirdParty(base1, base2)) {
+    return !mdfp.isMultiDomainFirstParty(base1, base2);
+  }
+  return false;
+}
 
 /**
  * Gets the host name for a given tab id
