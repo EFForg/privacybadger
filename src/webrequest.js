@@ -106,7 +106,7 @@ function onBeforeRequest(details){
     */
 
     if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
-      if (details.type == 'script') {
+      if (type == 'script') {
         var surrogate = getSurrogateURI(url);
         if (surrogate) {
           return {redirectUrl: surrogate};
