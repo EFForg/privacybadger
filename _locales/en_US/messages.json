@@ -59,14 +59,8 @@
     "options_slider_text": {
         "message": "Privacy Badger is protecting you across the web! These sliders let you control how Privacy Badger handles each tracker that it has flagged through your browsing."
     },
-    "options_social_disable": {
-        "message": "Disable Social Widget Replacement"
-    },
-    "options_social_enable": {
-        "message": "Enable Social Widget Replacement"
-    },
-    "options_social_settings": {
-        "message": "Social Widget Settings"
+    "options_social_widgets_checkbox": {
+        "message": "Replace social widgets"
     },
     "options_title": {
         "message": "Privacy Badger Options"

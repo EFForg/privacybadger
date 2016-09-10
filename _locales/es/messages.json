@@ -53,14 +53,8 @@
     "options_slider_text": {
         "message": "¡Privacy Badger está protegiéndote por toda la web! Estos controles deslizantes te permiten controlar cómo Privacy Badger maneja cada rastreador que ha sido marcado a través de tu navegador."
     },
-    "options_social_disable": {
-        "message": "Deshabilitar Social Widget Replacement"
-    },
-    "options_social_enable": {
-        "message": "Habilitar Social Widget Replacement"
-    },
-    "options_social_settings": {
-        "message": "Ajuses de Social Widget"
+    "options_social_widgets_checkbox": {
+        "message": "Vuelva a colocar widgets sociales"
     },
     "options_title": {
         "message": "Opciones de Privacy Badger"

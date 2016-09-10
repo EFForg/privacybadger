@@ -47,14 +47,8 @@
     "options_slider_text": {
         "message": "Privacy Badger beschützt Sie im Web! Diese Schieberegler kontrollieren, wie Privacy Badger die einzelnen gefundenen Tracker handhabt."
     },
-    "options_social_disable": {
-        "message": "De-aktivieren der Social Widget Ersetzung"
-    },
-    "options_social_enable": {
-        "message": "Aktivieren der Social Widget Ersetzung"
-    },
-    "options_social_settings": {
-        "message": "Social Widget Einstellungen"
+    "options_social_widgets_checkbox": {
+        "message": "Ersetzen soziale Widgets"
     },
     "options_title": {
         "message": "Privacy Badger Optionen"

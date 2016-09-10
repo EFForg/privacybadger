@@ -44,14 +44,8 @@
     "options_slider_text": {
         "message": "Met de schuifbalkjes kunt u instellen hoe Privacy Badger omgaat met een tracker."
     },
-    "options_social_disable": {
-        "message": "Blokkeer plugins voor sociale netwerken"
-    },
-    "options_social_enable": {
-        "message": "Sta plugins voor sociale netwerken toe"
-    },
-    "options_social_settings": {
-        "message": "Instellingen voor plugins voor sociale netwerken"
+    "options_social_widgets_checkbox": {
+        "message": "Vervang plugins voor sociale netwerken"
     },
     "options_title": {
         "message": "Privacy Badger Opties"

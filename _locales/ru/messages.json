@@ -56,14 +56,8 @@
     "options_slider_text": {
         "message": "Privacy Badger защищает вас в Интернете! С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым трекером, обнаруженным во время посещения сайтов."
     },
-    "options_social_disable": {
-        "message": "Отключить замену виджетов социальных сетей"
-    },
-    "options_social_enable": {
-        "message": "Включить замену виджетов социальных сетей"
-    },
-    "options_social_settings": {
-        "message": "Настройки виджетов социальных сетей"
+    "options_social_widgets_checkbox": {
+        "message": "Заменить виджеты социальных сетей"
     },
     "options_title": {
         "message": "Настройки Privacy Badger"
