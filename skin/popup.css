@@ -377,3 +377,12 @@ font-size: 16px;
 .hidden {
   display: none;
 }
+#overlay p {
+  font-size: 12px;
+}
+#overlay label {
+  font-size: 13px;
+}
+#siteControls button {
+  font-size: 12px;
+}
