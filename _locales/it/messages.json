@@ -53,14 +53,8 @@
     "options_slider_text": {
         "message": "Privacy Badger ti sta proteggendo per tutta la rete! Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker trovato durante la tua navigazione."
     },
-    "options_social_disable": {
-        "message": "Disattiva Sostituto per Widget Social"
-    },
-    "options_social_enable": {
-        "message": "Attiva Sostituto per Widget Social"
-    },
-    "options_social_settings": {
-        "message": "Impostazioni Widget Social"
+    "options_social_widgets_checkbox": {
+        "message": "Sostituisci widget sociali"
     },
     "options_title": {
         "message": "Opzioni di Privacy Badger"
