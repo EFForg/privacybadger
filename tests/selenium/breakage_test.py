@@ -8,15 +8,16 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class Test(pbtest.PBSeleniumTest):
-    """Make sure we don't badly break things when we install the extension.
+    """Make sure the extension doesn't break common sites and use cases.
     e.g. we should be able to load a website, search on Google.
-    TODO: Add other tests to simulate most common web use cases:
+    TODO: Add tests to simulate most common web use cases:
     e.g. play Youtube videos, login to popular services, tweet some text,
     add Reddit comments etc."""
 
     def test_should_load_eff_org(self):
         self.load_url("https://www.eff.org")
-        WebDriverWait(self.driver, 10).until(EC.title_contains("Electronic Frontier Foundation"))
+        WebDriverWait(self.driver, 10).\
+            until(EC.title_contains("Electronic Frontier Foundation"))
 
     def test_should_search_google(self):
         self.load_url("https://www.google.com/")

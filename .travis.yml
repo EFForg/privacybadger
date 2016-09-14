@@ -10,13 +10,11 @@ addons:
     - google-chrome
     packages:
     - google-chrome-stable
+    - python-virtualenv
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-install:
-  - sudo apt-get update
-  - sudo apt-get -qq install python-virtualenv
 before_script:
   - ./scripts/setup_travis.sh
   - cd tests
-script:  ./run_selenium_tests.sh
+script:  travis_retry ./run_selenium_tests.sh
