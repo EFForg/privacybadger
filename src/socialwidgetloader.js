@@ -75,6 +75,8 @@ function getFileContents(filePath) {
   var url = chrome.extension.getURL(filePath);
 
   var request = new XMLHttpRequest();
+  // TODO replace synchronous main thread XHR with async
+  // TODO https://xhr.spec.whatwg.org/#sync-warning
   request.open("GET", url, false);
   request.send();
 
