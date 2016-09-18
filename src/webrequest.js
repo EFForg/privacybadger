@@ -584,13 +584,13 @@ function getSocialWidgetBlockList(tabId) {
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
   var badger = getBadgerWithTab(tabId);
-  var green_domains = badger.storage.getAllDomainsByPresumedAction(constants.USER_ALLOW);
+  var user_allow = badger.storage.getBadgerStorageObject('user_allow');
 
   window.SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
 
     // replace them if the user hasn't greened them
-    if (green_domains.indexOf(socialwidget.domain) > -1 ) {
+    if (user_allow.hasItem(socialwidget.domain)) {
       socialWidgetsToReplace[socialWidgetName] = false;
     } else {
       socialWidgetsToReplace[socialWidgetName] = true;
@@ -599,7 +599,7 @@ function getSocialWidgetBlockList(tabId) {
 
   return {
     "trackers" : window.SocialWidgetList,
-    "trackerButtonsToReplace" : socialWidgetsToReplace,
+    "trackerButtonsToReplace" : socialWidgetsToReplace
   };
 }
 

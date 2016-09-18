@@ -52,6 +52,7 @@ function Badger(tabData, isIncognito) {
     } finally {
       badger.initializeCookieBlockList();
       badger.initializeDNT();
+      badger.updateUserAllowList();
       if (!badger.isIncognito) {badger.showFirstRunPage();}
     }
 
@@ -235,6 +236,22 @@ Badger.prototype = {
     this.recheckDNTPolicyForDomains();
     setInterval(this.recheckDNTPolicyForDomains, utils.oneHour());
     setInterval(this.updateDNTPolicyHashes, utils.oneDay() * 4);
+  },
+
+  /**
+   * Search through action_map list and update list of domains
+   * that user has manually set to "allow"
+   */
+  updateUserAllowList: function() {
+    var self = this;
+    var action_map = this.storage.getBadgerStorageObject('action_map');
+    var user_allow = this.storage.getBadgerStorageObject('user_allow');
+    for(var domain in action_map.getItemClones()){
+      if(constants.USER_ALLOW == this.storage.getActionForFqdn(domain)
+         && !user_allow.hasItem(domain)){
+          user_allow.setItem(domain, true);
+        }
+      }
   },
 
   /**

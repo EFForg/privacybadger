@@ -59,7 +59,8 @@ function BadgerPen(isIncognito, callback) {
     "cookieblock_list",
     "supercookie_domains",
     "dnt_hashes",
-    "settings_map"
+    "settings_map",
+    "user_allow"
   ];
 
   this.incognito = isIncognito;
@@ -240,20 +241,26 @@ BadgerPen.prototype = {
   },
 
   /**
-   * adds a heuristic action for a domain
+   * adds a heuristic action for a domain and adds domain to
+   * user_allow list if user manually allowed it
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
   setupUserAction: function(domain, action){
     this._setupDomainAction(domain, action, "userAction");
+    if (action == constants.USER_ALLOW) {
+      this.getBadgerStorageObject('user_allow').setItem(domain, true);
+    }
   },
 
   /**
-  * remove user set action from a domain
+  * remove user set action from a domain and remove it from user_allow
+   * list in case it was previously allowed by user
   * @param domain FQDN string
   **/
   revertUserAction: function(domain){
     this._setupDomainAction(domain, "", "userAction");
+    this.getBadgerStorageObject('user_allow').deleteItem(domain);
   }
 };
 
