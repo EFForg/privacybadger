@@ -89,7 +89,7 @@
 @@||s3.graphiq.com^$third-party
 @@||guardian.co.uk^$third-party
 @@||media-imdb.com^$third-party
-$@@||mediaworks.co.nz^$third-party
+@@||mediaworks.co.nz^$third-party
 @@||com.com^$third-party
 @@||complex.com^$third-party
 @@||convio.net^$third-party
