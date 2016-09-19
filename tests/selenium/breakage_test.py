@@ -5,6 +5,7 @@ import unittest
 import pbtest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import re
 
 
 class Test(pbtest.PBSeleniumTest):
@@ -24,6 +25,12 @@ class Test(pbtest.PBSeleniumTest):
         qry_el.send_keys("EFF")  # search term
         qry_el.submit()
         WebDriverWait(self.driver, 10).until(EC.title_contains("EFF"))
+
+    def test_cookieblock_format(self):
+        with open('../doc/sample_cookieblocklist_legacy.txt') as cbl:
+            for line in cbl:
+                pattern = re.compile("^@@||.*\^\$third-party$")
+                self.assertTrue(pattern.match(line))
 
 
 if __name__ == "__main__":
