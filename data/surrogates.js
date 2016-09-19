@@ -18,13 +18,13 @@
 
 require.scopes.surrogatedb = (function() {
 
-var hostnames = {
+const hostnames = {
   'www.google-analytics.com': [
     '/ga.js',
   ],
 };
 
-var surrogates = {
+const surrogates = {
   // Google Analytics (legacy ga.js)
   //
   // sourced from https://github.com/uBlockOrigin/uAssets/ under GPLv3
@@ -127,7 +127,7 @@ var surrogates = {
     /* eslint-enable no-extra-semi */
 };
 
-var exports = {
+const exports = {
   hostnames: hostnames,
   surrogates: surrogates,
 };

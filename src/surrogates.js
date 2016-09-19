@@ -18,14 +18,14 @@
 
 require.scopes.surrogates = (function() {
 
-var db = require('surrogatedb');
+const db = require('surrogatedb');
 
 // gets called within request-blocking listeners
 // needs to be fast!
 function getSurrogateURI(script_url, script_hostname) {
   // do we have an entry for the script hostname?
   if (db.hostnames.hasOwnProperty(script_hostname)) {
-    var hosts = db.hostnames[script_hostname];
+    const hosts = db.hostnames[script_hostname];
     // do any of the pattern tokens for that hostname match the script URL?
     for (let i = 0; i < hosts.length; i++) {
       const token = hosts[i];
@@ -39,8 +39,9 @@ function getSurrogateURI(script_url, script_hostname) {
   return false;
 }
 
-var exports = {};
-exports.getSurrogateURI = getSurrogateURI;
+const exports = {
+  getSurrogateURI: getSurrogateURI,
+};
 
 return exports;
 })();
