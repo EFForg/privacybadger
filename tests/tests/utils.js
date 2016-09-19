@@ -94,6 +94,6 @@
 
   test("surrogate script URL lookups", function() {
     // URLs that should have a surrogate
-    ok(!!getSurrogateURI('http://www.google-analytics.com/ga.js'));
+    ok(!!getSurrogateURI('http://www.google-analytics.com/ga.js', 'www.google-analytics.com'));
   });
 })();

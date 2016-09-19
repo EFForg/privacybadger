@@ -107,7 +107,7 @@ function onBeforeRequest(details){
 
     if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
       if (type == 'script') {
-        var surrogate = getSurrogateURI(url);
+        var surrogate = getSurrogateURI(url, requestDomain);
         if (surrogate) {
           return {redirectUrl: surrogate};
         }
@@ -161,7 +161,7 @@ function onBeforeSendHeaders(details) {
     // to block
     if (requestAction == constants.BLOCK) {
       if (details.type == 'script') {
-        var surrogate = getSurrogateURI(url);
+        var surrogate = getSurrogateURI(url, requestDomain);
         if (surrogate) {
           return {redirectUrl: surrogate};
         }

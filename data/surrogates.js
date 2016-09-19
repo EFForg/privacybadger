@@ -18,7 +18,13 @@
 
 require.scopes.surrogatedb = (function() {
 
-var db = {
+var hostnames = {
+  'www.google-analytics.com': [
+    '/ga.js',
+  ],
+};
+
+var surrogates = {
   // Google Analytics (legacy ga.js)
   //
   // sourced from https://github.com/uBlockOrigin/uAssets/ under GPLv3
@@ -30,7 +36,7 @@ var db = {
   // API reference:
   // https://developers.google.com/analytics/devguides/collection/gajs/methods/
   /* eslint-disable no-extra-semi */
-  'http://www.google-analytics.com/ga.js': '(' +
+  '/ga.js': '(' +
     function() {
       var noopfn = function() {
         ;
@@ -121,8 +127,10 @@ var db = {
     /* eslint-enable no-extra-semi */
 };
 
-var exports = {};
-exports.db = db;
+var exports = {
+  hostnames: hostnames,
+  surrogates: surrogates,
+};
 
 return exports;
 })();
