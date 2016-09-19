@@ -81,7 +81,7 @@ function onBeforeRequest(details){
   var frameData = getFrameData(tab_id, frame_id);
   if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
     var supercookieDomains = badger.getSupercookieDomains();
-    var origin = window.getBaseDomain(window.extractHostFromURL(url));
+    var origin = window.getBaseDomain(requestDomain);
     frameData.superCookie = supercookieDomains.hasItem(origin) ? true : false;
     log("onBeforeRequest: read superCookie state from localstorage for",
             origin, frameData.superCookie, tab_id, frame_id);
@@ -116,7 +116,7 @@ function onBeforeRequest(details){
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
-        trackerDomain: window.extractHostFromURL(url)
+        trackerDomain: requestDomain
       };
       chrome.tabs.sendMessage(tab_id, msg);
 
@@ -170,7 +170,7 @@ function onBeforeSendHeaders(details) {
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
-        trackerDomain: window.extractHostFromURL(url)
+        trackerDomain: requestDomain
       };
       chrome.tabs.sendMessage(tab_id, msg);
 
