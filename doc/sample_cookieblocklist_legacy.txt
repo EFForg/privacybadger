@@ -247,6 +247,7 @@
 @@||howaboutwe.com^$third-party
 @@||howstuffworks.com^$third-party
 @@||huffpost.com^$third-party
+@@||humblebundle.com^$third-party
 @@||hwcdn.net^$third-party
 @@||hypothes.is^$third-party
 @@||ibsys.com^$third-party
@@ -287,7 +288,7 @@
 @@||jwpltx.com^$third-party
 @@||cdnapi.kaltura.com^$third-party
 @@||cdnbakmi.kaltura.com^$third-party
-@@||cfvod.kaltura.com^$third-party
+^@@||cfvod.kaltura.com^$third-party
 @@||www.kaltura.com^$third-party
 @@||kampyle.com^$third-party
 @@||kataweb.it^$third-party
@@ -458,6 +459,7 @@
 @@||staticamzn.com^$third-party
 @@||cdn.static-economist.com^$third-party
 @@||staticflickr.com^$third-party
+@@||steampowered.com^$third-party
 @@||store.akamai.steamstatic.com^$third-party
 @@||steamusercontent.com^$third-party
 @@||stellaservice.com^$third-party
