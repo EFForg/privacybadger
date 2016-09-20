@@ -220,8 +220,8 @@ font-size: 16px;
 #noBlockingLink a {
   color:#4183c4;
 }
-#blockedResources{
-  max-height: 320px;
+.clickerContainer {
+  max-height: 290px;
   overflow-y: auto;
   background-color: #E8E9EA;
 }
