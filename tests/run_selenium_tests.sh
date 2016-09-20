@@ -1,16 +1,5 @@
 #!/bin/bash
-if [ -x /usr/local/bin/chromedriver ]; then
-	echo "Will use ChromeDriver at /usr/local/bin/chromedriver"
-elif [ -x /usr/lib/chromium-browser/chromedriver ]; then
-        export PATH=$PATH:/usr/lib/chromium-browser
-        echo "Will use ChromeDriver at /usr/lib/chromium-browser/chromedriver"
-elif [ -x /usr/lib/chromium/chromedriver ]; then
-        export PATH=$PATH:/usr/lib/chromium
-        echo "Will use ChromeDriver at /usr/lib/chromium/chromedriver"
-else
-	echo "Could not find ChromeDriver in the PATH. Aborting!"
-	exit 1
-fi
+command -v chromedriver >/dev/null 2>&1 || { echo >&2 "Cannot find chromedriver in PATH. Aborting."; exit 1; }
 
 pushd .
 cd ..
@@ -30,5 +19,5 @@ export BROWSER_BIN=""   # Path to the browser binary. Optional.
 # If empty, Selenium will pick the default binary for the selected browser.
 # To run tests with Chromium (instead of default Google Chrome) export BROWSER_BIN="/usr/bin/chromium-browser"
 export ENABLE_XVFB=1    # run the tests headless using Xvfb. Set 0 to disable
-py.test -s -v selenium  # autodiscover and run the tests
-
+# for i in {1..20}; do echo "Run "$i; py.test -s -v --durations=10 selenium; done  # autodiscover and run the tests
+py.test -s -v --durations=10 selenium  # autodiscover and run the tests
