@@ -36,7 +36,6 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
         get_dnt_hashes =\
             "return (pb.storage.getBadgerStorageObject('dnt_hashes')."\
             "getItemClones())"
-        print self.js("return pb.storage.getBadgerStorageObject('dnt_hashes')")
         policy_hashes = self.js(get_dnt_hashes)
         for policy_hash in policy_hashes.keys():
             self.assertEqual(PB_POLICY_HASH_LEN, len(policy_hash))

@@ -29,7 +29,7 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
                       wait_on_site=5)
         self.driver.switch_to_frame(self.driver.
                                     find_element_by_tag_name("iframe"))
-        print self.js("return localStorage['frameId']")
+        print(self.js("return localStorage['frameId']"))
         self.assertTrue(self.has_supercookies("githack.com"))
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
