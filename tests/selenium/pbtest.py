@@ -12,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from time import sleep
 
+
 # PB_EXT_BG_URL_BASE = "chrome-extension://pkehgijcmpdhfbdbbnkijodmdjhbjlgp/"
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
 PB_CHROME_BG_URL = PB_EXT_BG_URL_BASE + "_generated_background_page.html"
@@ -22,21 +23,27 @@ SEL_DEFAULT_WAIT_TIMEOUT = 30
 class PBSeleniumTest(unittest.TestCase):
     def setUp(self):
         env = os.environ
+        # setting DBUS_SESSION_BUS_ADDRESS to nonsense prevents frequent
+        # hangs of chromedriver (possibly due to crbug.com/309093).
+        # https://github.com/SeleniumHQ/docker-selenium/issues/87#issuecomment-187580115
+        env["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
         self.browser_bin = env.get("BROWSER_BIN", "")  # o/w use WD's default
-        if "TRAVIS" in os.environ:
-            self.xvfb = 1
-        else:
-            # by default don't use XVFB if we are not running on CI
-            self.xvfb = int(env.get("ENABLE_XVFB", 0))
         self.pb_ext_path = self.get_extension_path()  # path to the extension
-        if self.xvfb:
+        self.xvfb = int(env.get("ENABLE_XVFB", 0))
+        # We start an xvfb on Travis, don't need to do it twice.
+        if "TRAVIS" not in os.environ and self.xvfb:
             self.vdisplay = Xvfb(width=1280, height=720)
             self.vdisplay.start()
+        else:
+            self.xvfb = 0
+
         self.driver = self.get_chrome_driver()
+        print("\nSuccessfully initialized the chromedriver")
         self.js = self.driver.execute_script
 
     def load_url(self, url, wait_on_site=0):
         """Load a URL and wait before returning."""
+        print("Will load %s" % url)
         self.driver.get(url)
         sleep(wait_on_site)
 
@@ -74,7 +81,6 @@ class PBSeleniumTest(unittest.TestCase):
                                      ["ignore-certificate-errors"])
         prefs = {"profile.block_third_party_cookies": False}
         opts.add_experimental_option("prefs", prefs)
-
         return webdriver.Chrome(chrome_options=opts)
 
     def tearDown(self):

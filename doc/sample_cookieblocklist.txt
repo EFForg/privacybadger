@@ -1,5 +1,6 @@
 123greetings.com
 122.2o7.net
+112.2o7.net
 5min.com
 accuweather.com
 auth.adobe.com
@@ -148,6 +149,8 @@ fastly.net
 fbcdn.net
 attachment.fbsbx.com
 feedburner.com
+api.filepicker.io
+dialog.filepicker.io
 financialcontent.com
 findnsave.com
 firstlook.org

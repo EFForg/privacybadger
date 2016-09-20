@@ -1,5 +1,6 @@
 @@||123greetings.com^$third-party
 @@||122.2o7.net^$third-party
+@@||112.2o7.net^$third-party
 @@||5min.com^$third-party
 @@||accuweather.com^$third-party
 @@||auth.adobe.com^$third-party
@@ -148,6 +149,8 @@
 @@||fbcdn.net^$third-party
 @@||attachment.fbsbx.com^$third-party
 @@||feedburner.com^$third-party
+@@||api.filepicker.io^$third-party
+@@||dialog.filepicker.io^$third-party
 @@||financialcontent.com^$third-party
 @@||findnsave.com^$third-party
 @@||firstlook.org^$third-party
