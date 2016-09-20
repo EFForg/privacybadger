@@ -4,17 +4,33 @@ os: linux
 dist: trusty
 python:
   - "2.7"
+env:
+  matrix:
+    - TRAVIS_EXTRA_JOB_WORKAROUND=true
+matrix:
+  fast_finish: true
+  include:
+    - python: "2.7"
+      env: CHROME="google-chrome-stable"
+    - python: "2.7"
+      env: CHROME_PATH="google-chrome-beta"
+  allow_failures:
+    - python: "2.7"
+      env: CHROME_PATH="google-chrome-beta"
+  exclude:
+    - env: TRAVIS_EXTRA_JOB_WORKAROUND=true
 addons:
   apt:
     sources:
     - google-chrome
     packages:
     - google-chrome-stable
+    - google-chrome-beta
     - python-virtualenv
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 before_script:
-  - ./scripts/setup_travis.sh
+  - . ./scripts/setup_travis.sh
   - cd tests
 script:  travis_retry ./run_selenium_tests.sh
