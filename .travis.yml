@@ -12,6 +12,8 @@ matrix:
   include:
     - python: "2.7"
       env: CHROME="google-chrome-stable"
+    - python: "3.4"
+      env: CHROME="google-chrome-stable"
     - python: "2.7"
       env: CHROME_PATH="google-chrome-beta"
   allow_failures:
