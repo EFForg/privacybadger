@@ -369,8 +369,7 @@ function refreshPopup(tabId) {
 * @param event
 */
 function updateOrigin(event){
-  var domain = event.currentTarget.id;
-  var $elm = $('label[for="' + domain + '"]');
+  var $elm = $('label[for="' + event.currentTarget.id + '"]');
   backgroundPage.log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
@@ -381,12 +380,6 @@ function updateOrigin(event){
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($($clicker), action);
-  if (action == constants.ALLOW) {
-    // if user manually selected to allow domain, add it to user_allow list
-    var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-    var badger = backgroundPage.getBadgerWithTab(tabId);
-    badger.storage.getBadgerStorageObject('user_allow').setItem(domain, true);
-  }
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));

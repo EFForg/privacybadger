@@ -21,6 +21,19 @@
       ok(!action_map.hasItem('foo'));
     });
 
+    test("test user override of default action for domain", function(){
+      expect(4); // how many to test?
+      var user_allow = pb.storage.getBadgerStorageObject('user_allow');
+      pb.saveAction("allow", "pbtest.org");
+      ok(user_allow.hasItem('pbtest.org'));
+      pb.saveAction("block", "pbtest.org");
+      ok(!user_allow.hasItem('pbtest.org'));
+      pb.saveAction("allow", "pbtest.org");
+      ok(user_allow.hasItem('pbtest.org'));
+      pb.storage.revertUserAction("pbtest.org");
+      ok(!user_allow.hasItem('pbtest.org'));
+    });
+
     test("data presists to local storage", function(){
       // TODO: Figure out how to test this. 
       expect(1); //expect 1 assertion

@@ -241,16 +241,20 @@ BadgerPen.prototype = {
   },
 
   /**
-   * adds a heuristic action for a domain and adds domain to
-   * user_allow list if user manually allowed it
+   * adds a heuristic action for a domain and adds/removes domain from
+   * `user_allow` list if needed
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
   setupUserAction: function(domain, action){
-    this._setupDomainAction(domain, action, "userAction");
-    if (action == constants.USER_ALLOW) {
+    var user_allow = this.getBadgerStorageObject('user_allow');
+    if (user_allow.hasItem(domain) && action !== constants.USER_ALLOW) {
+      user_allow.deleteItem(domain);
+    } else if (action == constants.USER_ALLOW) {
       this.getBadgerStorageObject('user_allow').setItem(domain, true);
     }
+
+    this._setupDomainAction(domain, action, "userAction");
   },
 
   /**
