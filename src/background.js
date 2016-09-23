@@ -42,6 +42,7 @@ function Badger(tabData, isIncognito) {
   this.isIncognito = isIncognito;
   this.tabData = JSON.parse(JSON.stringify(tabData));
   var badger = this;
+  this.userAllow = [];
   this.storage = new pbStorage.BadgerPen(isIncognito, function (thisStorage) {
     if (badger.INITIALIZED) { return; }
     badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
@@ -52,7 +53,7 @@ function Badger(tabData, isIncognito) {
     } finally {
       badger.initializeCookieBlockList();
       badger.initializeDNT();
-      badger.updateUserAllowList();
+      badger.initializeUserAllowList();
       if (!badger.isIncognito) {badger.showFirstRunPage();}
     }
 
@@ -242,14 +243,11 @@ Badger.prototype = {
    * Search through action_map list and update list of domains
    * that user has manually set to "allow"
    */
-  updateUserAllowList: function() {
-    var self = this;
+  initializeUserAllowList: function() {
     var action_map = this.storage.getBadgerStorageObject('action_map');
-    var user_allow = this.storage.getBadgerStorageObject('user_allow');
     for(var domain in action_map.getItemClones()){
-      if(constants.USER_ALLOW == this.storage.getActionForFqdn(domain)
-         && !user_allow.hasItem(domain)){
-          user_allow.setItem(domain, true);
+      if(this.storage.getActionForFqdn(domain) === constants.USER_ALLOW){
+          this.userAllow.push(domain);
         }
       }
   },

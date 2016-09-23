@@ -584,17 +584,12 @@ function getSocialWidgetBlockList(tabId) {
   // saying if the content script should replace that tracker's buttons
   var socialWidgetsToReplace = {};
   var badger = getBadgerWithTab(tabId);
-  var user_allow = badger.storage.getBadgerStorageObject('user_allow');
 
   window.SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
 
-    // replace them if the user hasn't greened them
-    if (user_allow.hasItem(socialwidget.domain)) {
-      socialWidgetsToReplace[socialWidgetName] = false;
-    } else {
-      socialWidgetsToReplace[socialWidgetName] = true;
-    }
+    // replace them if the user hasn't manually allowed them
+    socialWidgetsToReplace[socialWidgetName] = !(badger.userAllow.indexOf(socialwidget.domain) > -1);
   });
 
   return {

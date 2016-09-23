@@ -60,7 +60,6 @@ function BadgerPen(isIncognito, callback) {
     "supercookie_domains",
     "dnt_hashes",
     "settings_map",
-    "user_allow"
   ];
 
   this.incognito = isIncognito;
@@ -242,29 +241,33 @@ BadgerPen.prototype = {
 
   /**
    * adds a heuristic action for a domain and adds/removes domain from
-   * `user_allow` list if needed
+   * `userAllow` list if needed
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
   setupUserAction: function(domain, action){
-    var user_allow = this.getBadgerStorageObject('user_allow');
-    if (user_allow.hasItem(domain) && action !== constants.USER_ALLOW) {
-      user_allow.deleteItem(domain);
-    } else if (action == constants.USER_ALLOW) {
-      this.getBadgerStorageObject('user_allow').setItem(domain, true);
+    var index = pb.userAllow.indexOf(domain);
+    if (index > -1 && action !== constants.USER_ALLOW) {
+      pb.userAllow.splice(index, 1);
+    } else if (index <= -1 && action === constants.USER_ALLOW) {
+      pb.userAllow.push(domain);
     }
 
     this._setupDomainAction(domain, action, "userAction");
   },
 
   /**
-  * remove user set action from a domain and remove it from user_allow
+  * remove user set action from a domain and remove it from userAllow
    * list in case it was previously allowed by user
   * @param domain FQDN string
   **/
   revertUserAction: function(domain){
     this._setupDomainAction(domain, "", "userAction");
-    this.getBadgerStorageObject('user_allow').deleteItem(domain);
+
+    var index = pb.userAllow.indexOf(domain);
+    if (index > -1) {
+      pb.userAllow.splice(index, 1);
+    }
   }
 };
 
