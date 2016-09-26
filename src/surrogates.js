@@ -20,8 +20,23 @@ require.scopes.surrogates = (function() {
 
 const db = require('surrogatedb');
 
-// gets called within request-blocking listeners
-// needs to be fast!
+/**
+ * Blocking tracking scripts (trackers) can cause parts of webpages to break.
+ * Surrogate scripts are dummy pieces of JavaScript meant to supply just enough
+ * of the original tracker's functionality to allow pages to continue working.
+ *
+ * This method gets called within request-blocking listeners:
+ * It needs to be fast!
+ *
+ * @param {String} script_url The full URL of the script resource being requested.
+ *
+ * @param {String} script_hostname The hostname component of the script_url
+ * parameter. This is an optimization: the calling context should already have
+ * this information.
+ *
+ * @return {String|Boolean} The surrogate script as a data URI when there is a
+ * match, or boolean false when there is no match.
+ */
 function getSurrogateURI(script_url, script_hostname) {
   // do we have an entry for the script hostname?
   if (db.hostnames.hasOwnProperty(script_hostname)) {

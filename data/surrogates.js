@@ -18,12 +18,22 @@
 
 require.scopes.surrogatedb = (function() {
 
+// "hostnames" maps hostnames to arrays of surrogate pattern tokens.
+//
+// A hostname can have one or more surrogate scripts.
+//
+// Surrogate pattern tokens are used to look up the actual
+// surrogate script code (stored in "surrogates" object below).
 const hostnames = {
   'www.google-analytics.com': [
     '/ga.js',
   ],
 };
 
+// "surrogates" maps surrogate pattern tokens to surrogate script code.
+//
+// There is currently one type of surrogate pattern token: suffix.
+// Does the script URL (querystring excluded) end with the token?
 const surrogates = {
   // Google Analytics (legacy ga.js)
   //
