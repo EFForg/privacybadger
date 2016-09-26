@@ -93,7 +93,26 @@
   });
 
   test("surrogate script URL lookups", function() {
-    // URLs that should have a surrogate
-    ok(!!getSurrogateURI('http://www.google-analytics.com/ga.js', 'www.google-analytics.com'));
+    ok(
+      !!getSurrogateURI(
+        'http://www.google-analytics.com/ga.js',
+        'www.google-analytics.com'
+      ),
+      "Google Analytics ga.js surrogate match over http"
+    );
+    ok(
+      !!getSurrogateURI(
+        'https://www.google-analytics.com/ga.js',
+        'www.google-analytics.com'
+      ),
+      "Google Analytics ga.js surrogate match over https"
+    );
+    ok(
+      !getSurrogateURI(
+        'https://a1.nyt.com/assets/homepage/20160920-111441/js/foundation/lib/framework.js',
+        'a1.nyt.com'
+      ),
+      "NYT script URL no match"
+    );
   });
 })();
