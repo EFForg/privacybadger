@@ -22,6 +22,7 @@ var DomainExceptions = {
    */
   updateList: function(callback){
     //update object from local storage
+    // TODO what's the point of storage.local? we read and write to it, but we always query the server ...
     chrome.storage.local.get('domainExceptionList', function(l){
       if(l){ DomainExceptions.list = l; }
     });
