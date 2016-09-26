@@ -40,11 +40,11 @@ const db = require('surrogatedb');
 function getSurrogateURI(script_url, script_hostname) {
   // do we have an entry for the script hostname?
   if (db.hostnames.hasOwnProperty(script_hostname)) {
-    const hosts = db.hostnames[script_hostname];
+    const tokens = db.hostnames[script_hostname];
 
     // do any of the pattern tokens for that hostname match the script URL?
-    for (let i = 0; i < hosts.length; i++) {
-      const token = hosts[i],
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i],
         qs_start = script_url.indexOf('?');
 
       let match = false;
