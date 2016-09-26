@@ -26,10 +26,25 @@ function getSurrogateURI(script_url, script_hostname) {
   // do we have an entry for the script hostname?
   if (db.hostnames.hasOwnProperty(script_hostname)) {
     const hosts = db.hostnames[script_hostname];
+
     // do any of the pattern tokens for that hostname match the script URL?
     for (let i = 0; i < hosts.length; i++) {
-      const token = hosts[i];
-      if (script_url.endsWith(token)) {
+      const token = hosts[i],
+        qs_start = script_url.indexOf('?');
+
+      let match = false;
+
+      if (qs_start == -1) {
+        if (script_url.endsWith(token)) {
+          match = true;
+        }
+      } else {
+        if (script_url.endsWith(token, qs_start)) {
+          match = true;
+        }
+      }
+
+      if (match) {
         // there is a match, return the surrogate code
         return 'data:application/javascript;base64,' + btoa(db.surrogates[token]);
       }
