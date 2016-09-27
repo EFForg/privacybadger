@@ -59,7 +59,7 @@ class PBSeleniumTest(unittest.TestCase):
             return max(exts, key=os.path.getctime) if exts else ""
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
-        """Find an element by CSS selector and return it's text."""
+        """Find an element by CSS selector and return its text."""
         return self.find_el_by_css(css_selector, timeout).text
 
     def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
