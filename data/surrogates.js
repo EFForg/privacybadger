@@ -25,6 +25,9 @@ require.scopes.surrogatedb = (function() {
 // Surrogate pattern tokens are used to look up the actual
 // surrogate script code (stored in "surrogates" object below).
 const hostnames = {
+  'ssl.google-analytics.com': [
+    '/ga.js',
+  ],
   'www.google-analytics.com': [
     '/ga.js',
   ],
@@ -38,10 +41,11 @@ const surrogates = {
   // Google Analytics (legacy ga.js)
   //
   // sourced from https://github.com/uBlockOrigin/uAssets/ under GPLv3
-  // https://github.com/uBlockOrigin/uAssets/blob/a821390c2c249a8241543a6eeb9632016f7f9eb7/filters/resources.txt#L149-L243
+  // https://github.com/uBlockOrigin/uAssets/blob/f79f3e69c1e20c47df1876efe2dd43027bf05b89/filters/resources.txt#L162-L256
   //
   // test cases:
   // http://checkin.avianca.com/
+  // https://www.vmware.com/support/pubs/ws_pubs.html (release notes links)
   //
   // API reference:
   // https://developers.google.com/analytics/devguides/collection/gajs/methods/
@@ -65,7 +69,15 @@ const surrogates = {
       Gaq.prototype._getPlugin = noopfn;
       Gaq.prototype.push = function(a) {
         if ( typeof a === 'function' ) {
-          a();
+          a(); return;
+        }
+        if ( Array.isArray(a) === false ) {
+          return;
+        }
+        // https://twitter.com/catovitch/status/776442930345218048
+        // https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiDomainDirectory#_gat.GA_Tracker_._link
+        if ( a[0] === '_link' && typeof a[1] === 'string' ) {
+          window.location.assign(a[1]);
         }
       };
       //
