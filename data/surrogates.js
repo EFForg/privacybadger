@@ -25,6 +25,10 @@ require.scopes.surrogatedb = (function() {
 // Surrogate pattern tokens are used to look up the actual
 // surrogate script code (stored in "surrogates" object below).
 const hostnames = {
+  'b.scorecardresearch.com': [
+    '/beacon.js',
+    '/c2/plugins/streamsense_plugin_html5.js',
+  ],
   'ssl.google-analytics.com': [
     '/ga.js',
   ],
@@ -38,6 +42,8 @@ const hostnames = {
 // There is currently one type of surrogate pattern token: suffix.
 // Does the script URL (querystring excluded) end with the token?
 const surrogates = {
+  /* eslint-disable no-extra-semi */
+
   // Google Analytics (legacy ga.js)
   //
   // sourced from https://github.com/uBlockOrigin/uAssets/ under GPLv3
@@ -49,7 +55,6 @@ const surrogates = {
   //
   // API reference:
   // https://developers.google.com/analytics/devguides/collection/gajs/methods/
-  /* eslint-disable no-extra-semi */
   '/ga.js': '(' +
     function() {
       var noopfn = function() {
@@ -146,7 +151,26 @@ const surrogates = {
       })();
       window._gaq = gaq.qf = gaq;
     } + ')();',
-    /* eslint-enable no-extra-semi */
+
+  // https://github.com/gorhill/uBlock/issues/1265
+  '/beacon.js': '(' +
+    function() {
+      window.COMSCORE = {
+        purge: function() {
+          _comscore = []; // eslint-disable-line no-undef
+        },
+        beacon: function() {
+          ;
+        }
+      };
+    } + ')();',
+
+  // http://www.dplay.se/ett-jobb-for-berg/ (videos)
+  '/c2/plugins/streamsense_plugin_html5.js': '(' +
+    function() {
+    } + ')();',
+
+  /* eslint-enable no-extra-semi */
 };
 
 const exports = {
