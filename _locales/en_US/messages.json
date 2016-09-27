@@ -97,7 +97,7 @@
         "message": "Remove selected"
     },
     "report_broken_site": {
-        "message": "Report Broken Site"
+        "message": "Did Privacy Badger break this site? Let us know!"
     },
     "report_button": {
         "message": "Submit Error"
