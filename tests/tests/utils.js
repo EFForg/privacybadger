@@ -118,6 +118,11 @@
     }
 
     ok(
+      ga_js_surrogate.startsWith('data:application/javascript;base64,'),
+      "The returned ga.js surrogate is a base64-encoded JavaScript data URI"
+    );
+
+    ok(
       !getSurrogateURI(
         'https://a1.nyt.com/assets/homepage/20160920-111441/js/foundation/lib/framework.js',
         'a1.nyt.com'
