@@ -5,31 +5,32 @@ from __future__ import unicode_literals
 
 import unittest
 import pbtest
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import re
 
 
+# TODO move to eff.org: https://github.com/EFForg/privacybadgerchrome/issues/928
 class Test(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
-    # TODO move to eff.org: https://github.com/EFForg/privacybadgerchrome/issues/928
-    # verify site loads
-    def test_should_load_avianca_checkin_page(self):
+    def load_avianca_checkin_page(self):
         self.load_url("http://checkin.avianca.com/")
-        self.driver.switch_to.frame(
-            self.driver.find_element_by_tag_name("iframe")
+        WebDriverWait(self.driver, pbtest.SEL_DEFAULT_WAIT_TIMEOUT).until(
+            EC.frame_to_be_available_and_switch_to_it((By.TAG_NAME, 'iframe'))
         )
-        el = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, 'page-instruction'))
-        )
-        self.assertTrue((
+        text = self.txt_by_css('p.page-instruction')
+        return (
             "Encuentra tu reserva mediante una de las "
             "opciones que se muestran a continuación"
-        ) in el.text)
+        ) in text
 
-    # TODO configure to block the hostname known to break a site
+    # verify site loads
+    def test_should_load_avianca_checkin_page(self):
+        self.assertTrue(self.load_avianca_checkin_page())
+
+    # TODO configure to block the hostname known to break the site
     # TODO load that site without surrogate
     # TODO verify site is broken
     # TODO reload with surrogate
