@@ -93,33 +93,36 @@
   });
 
   test("surrogate script URL lookups", function() {
-    ok(
-      !!getSurrogateURI(
-        'http://www.google-analytics.com/ga.js',
+    const GA_JS_TESTS = [
+      {
+        url: 'http://www.google-analytics.com/ga.js',
+        msg: "Google Analytics ga.js http URL should match"
+      },
+      {
+        url: 'https://www.google-analytics.com/ga.js',
+        msg: "Google Analytics ga.js https URL should match"
+      },
+      {
+        url: 'https://www.google-analytics.com/ga.js?foo=bar',
+        msg: "Google Analytics ga.js querystring URL should match"
+      },
+    ];
+    let ga_js_surrogate;
+
+    for (let i = 0; i < GA_JS_TESTS.length; i++) {
+      ga_js_surrogate = getSurrogateURI(
+        GA_JS_TESTS[i].url,
         'www.google-analytics.com'
-      ),
-      "Google Analytics ga.js surrogate match over http"
-    );
-    ok(
-      !!getSurrogateURI(
-        'https://www.google-analytics.com/ga.js',
-        'www.google-analytics.com'
-      ),
-      "Google Analytics ga.js surrogate match over https"
-    );
-    ok(
-      !!getSurrogateURI(
-        'https://www.google-analytics.com/ga.js?foo=bar',
-        'www.google-analytics.com'
-      ),
-      "Google Analytics ga.js surrogate match with a querystring"
-    );
+      );
+      ok(ga_js_surrogate, GA_JS_TESTS[i].msg);
+    }
+
     ok(
       !getSurrogateURI(
         'https://a1.nyt.com/assets/homepage/20160920-111441/js/foundation/lib/framework.js',
         'a1.nyt.com'
       ),
-      "NYT script URL no match"
+      "New York Times script URL should not match any surrogates"
     );
   });
 })();
