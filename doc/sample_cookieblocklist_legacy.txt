@@ -413,6 +413,7 @@
 @@||rackcdn.com^$third-party
 @@||rackspacecloud.com^$third-party
 @@||rambler.ru^$third-party
+@@||images.rapgenius.com^$third-party
 @@||readability.com^$third-party
 @@||readthedocs.org^$third-party
 @@||recaptcha.net^$third-party
@@ -503,6 +504,7 @@
 @@||uicdn.com^$third-party
 @@||ui-portal.de^$third-party
 @@||ultraimg.com^$third-party
+@@||uplynk.com^$third-party
 @@||usa.gov^$third-party
 @@||viafoura.net^$third-party
 @@||viddler.com^$third-party
