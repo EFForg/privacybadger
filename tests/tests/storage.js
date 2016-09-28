@@ -21,7 +21,19 @@
       ok(!action_map.hasItem('foo'));
     });
 
-    test("data presists to local storage", function(){
+    test("test user override of default action for domain", function(){
+      expect(4);
+      pb.saveAction("allow", "pbtest.org");
+      ok(pb.userAllow.indexOf('pbtest.org') > -1);
+      pb.saveAction("block", "pbtest.org");
+      ok(pb.userAllow.indexOf('pbtest.org') <= -1);
+      pb.saveAction("allow", "pbtest.org");
+      ok(pb.userAllow.indexOf('pbtest.org') > -1);
+      pb.storage.revertUserAction("pbtest.org");
+      ok(pb.userAllow.indexOf('pbtest.org') <= -1);
+    });
+
+    test("data persists to local storage", function(){
       // TODO: Figure out how to test this. 
       expect(1); //expect 1 assertion
       /*var action_map = BadgerStore.getBadgerStorageObject('action_map');

@@ -71,7 +71,7 @@ function onBeforeRequest(details){
     return {};
   }
 
-  // read the supercookie state from localStorage and store it in frameData
+  // Read the supercookie state from localStorage and store it in frameData
   var frameData = getFrameData(details.tabId, details.frameId);
   if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
     var supercookieDomains = badger.getSupercookieDomains();
@@ -83,7 +83,7 @@ function onBeforeRequest(details){
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction) {
     // TODO: reimplement whitelist request stuff in storage.js
-    //add domain to list of blocked domains if it is not there already
+    // Add domain to list of blocked domains if it is not there already
     /*
     if(requestAction == "block" || requestAction == "cookieblock"){
 
@@ -315,16 +315,16 @@ function recordSuperCookie(sender, msg) {
   var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
   var badger = getBadgerWithTab(sender.tab.id);
   if (!isThirdPartyDomain(frameHost, pageHost)) {
-    // only happens on the start page for google.com.
+    // Only happens on the start page for google.com.
     return;
   }
 
-  // keep frame's supercookie state in frameData for faster lookups
+  // Keep frame's supercookie state in frameData for faster lookups
   var frameData = getFrameData(sender.tab.id, sender.frameId);
   if (frameData){
     frameData.superCookie = true;
   }
-  // now add the finding to localStorage for persistence
+  // Now add the finding to localStorage for persistence
   var supercookieDomains = badger.getSupercookieDomains();
   // We could store the type of supercookie once we start to check multiple storage vectors
   // Could be useful for debugging & bookkeeping.
@@ -339,13 +339,13 @@ function recordSuperCookie(sender, msg) {
  * @param msg specific fingerprinting data
  */
 function recordFingerprinting(tabId, msg) {
-  // bail if we failed to determine the originating script's URL
+  // Abort if we failed to determine the originating script's URL
   // TODO find and fix where this happens
   if (!msg.scriptUrl) {
     return;
   }
 
-  // ignore first-party scripts
+  // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
     document_host = window.extractHostFromURL(getFrameUrl(tabId, 0));
   if (!isThirdPartyDomain(script_host, document_host)) {
@@ -368,7 +368,7 @@ function recordFingerprinting(tabId, msg) {
 
   var script_origin = window.getBaseDomain(script_host);
 
-  // initialize script TLD-level data
+  // Initialize script TLD-level data
   if (!badger.tabData[tabId].fpData.hasOwnProperty(script_origin)) {
     badger.tabData[tabId].fpData[script_origin] = {
       canvas: {
@@ -384,22 +384,22 @@ function recordFingerprinting(tabId, msg) {
       return;
     }
 
-    // if this script already had a canvas write
+    // If this script already had a canvas write...
     if (scriptData.canvas.write) {
-      // and if this is a canvas read
+      // ...and if this is a canvas read...
       if (CANVAS_READ.hasOwnProperty(msg.prop)) {
-        // and it got enough data
+        // ...and it got enough data...
         if (msg.extra.width > 16 && msg.extra.height > 16) {
-          // let's call it fingerprinting
+          // ...we will classify it as fingerprinting
           scriptData.canvas.fingerprinting = true;
           log(script_host, 'caught fingerprinting on', document_host);
 
-          // mark this is a strike
+          // Mark this is a strike
           badger.heuristicBlocking.recordPrevalence(
             script_host, script_origin, window.getBaseDomain(document_host));
         }
       }
-      // this is a canvas write
+      // This is a canvas write
     } else if (CANVAS_WRITE.hasOwnProperty(msg.prop)) {
       scriptData.canvas.write = true;
     }
@@ -408,7 +408,7 @@ function recordFingerprinting(tabId, msg) {
 
 
 /**
- * read the frame data from memory
+ * Read the frame data from memory
  *
  * @param tabId TabId to check for
  * @param frameId FrameID to check for
@@ -580,26 +580,21 @@ function _askUserToWhitelist(tabId, whitelistDomains, englishName){
  */
 function getSocialWidgetBlockList(tabId) {
 
-  // a mapping of individual SocialWidget objects to boolean values
-  // saying if the content script should replace that tracker's buttons
+  // A mapping of individual SocialWidget objects to boolean values that determine
+  // whether the content script should replace that tracker's social buttons
   var socialWidgetsToReplace = {};
   var badger = getBadgerWithTab(tabId);
-  var green_domains = badger.storage.getAllDomainsByPresumedAction(constants.USER_ALLOW);
 
   window.SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
 
-    // replace them if the user hasn't greened them
-    if (green_domains.indexOf(socialwidget.domain) > -1 ) {
-      socialWidgetsToReplace[socialWidgetName] = false;
-    } else {
-      socialWidgetsToReplace[socialWidgetName] = true;
-    }
+    // Only replace social widgets that the user has not manually allowed
+    socialWidgetsToReplace[socialWidgetName] = !(badger.userAllow.indexOf(socialwidget.domain) > -1);
   });
 
   return {
     "trackers" : window.SocialWidgetList,
-    "trackerButtonsToReplace" : socialWidgetsToReplace,
+    "trackerButtonsToReplace" : socialWidgetsToReplace
   };
 }
 
@@ -674,7 +669,7 @@ function dispatcher(request, sender, sendResponse) {
     unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
     sendResponse();
 
-  // canvas fingerprinting
+  // Canvas fingerprinting
   } else if (request.fpReport) {
     if (!badger.isPrivacyBadgerEnabled(tabHost)) { return; }
     if (Array.isArray(request.fpReport)) {
