@@ -41,6 +41,10 @@ class PBSeleniumTest(unittest.TestCase):
         print("\nSuccessfully initialized the chromedriver")
         self.js = self.driver.execute_script
 
+    def open_window(self):
+        self.js('window.open()')
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+
     def load_url(self, url, wait_on_site=0):
         """Load a URL and wait before returning."""
         print("Will load %s" % url)
