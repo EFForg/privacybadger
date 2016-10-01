@@ -129,6 +129,15 @@
     "show_counter_checkbox": {
         "message": "Show count of blocked items"
     },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
     "whitelisted_domains": {
         "description": "This is a tab heading.",
         "message": "Whitelisted domains"
