@@ -268,11 +268,16 @@ function refreshPopup(tabId) {
     $('#number_trackers').text('0');
     return;
   }
-  var printable = '' +
+
+  // Display tracker tooltips.
+  var trackerTooltips = '' +
     '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
     htmlUtils.getTrackerTooltipHtml() +
     '<div class="spacer"></div>' +
-    '<div class="clickerContainer">';
+    '<div id="blockedResourcesInner" class="clickerContainer"></div>';
+  $("#blockedResources").html(trackerTooltips);
+
+  var printable = '';
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
   var originCount = 0;
@@ -323,9 +328,8 @@ function refreshPopup(tabId) {
     }
   }
   $('#number_trackers').text(originCount);
-  printable += "</div>";
-  $("#blockedResources").empty();
-  $("#blockedResources").html(printable);
+  $("#blockedResourcesInner").html(printable);
+
   $('.switch-toggle').each(function(){
     var radios = $(this).children('input');
     var value = $(this).children('input:checked').val();
