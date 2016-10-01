@@ -268,16 +268,11 @@ function refreshPopup(tabId) {
     $('#number_trackers').text('0');
     return;
   }
-  var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
-  printable = printable +
-  '<div class="keyContainer">'+
-  '<div class="key">'+
-  '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="' + i18n.getMessage("tooltip_block") + '">' +
-  '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="' + i18n.getMessage("tooltip_cookieblock") + '">' +
-  '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="' + i18n.getMessage("tooltip_allow") + '">' +
-  '<div class="tooltipContainer"></div>' +
-  '</div></div>'+
-  '<div class="spacer"></div><div class="clickerContainer">';
+  var printable = '' +
+    '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
+    htmlUtils.getTrackerTooltipHtml() +
+    '<div class="spacer"></div>' +
+    '<div class="clickerContainer">';
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
   var originCount = 0;

@@ -91,6 +91,21 @@ var htmlUtils = exports.htmlUtils = {
   },
 
   /**
+   * Get HTML for tracker tooltips.
+   */
+  getTrackerTooltipHtml: function() {
+    var tooltipHtml = '' +
+      '<div class="keyContainer">' +
+      '<div class="key">' +
+      '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="' + i18n.getMessage("tooltip_block") + '">' +
+      '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="' + i18n.getMessage("tooltip_cookieblock") + '">' +
+      '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="' + i18n.getMessage("tooltip_allow") + '">' +
+      '<div class="tooltipContainer"></div>' +
+      '</div></div>';
+    return tooltipHtml;
+  },
+
+  /**
    * Adds HTML for given origin to existing HTML.
    *
    * @param {String} existingHtml Existing HTML to append origin HTML to.

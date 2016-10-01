@@ -222,14 +222,9 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
-  var trackerTooltips = '<div id="associatedTab" data-tab-id="000"></div>' +
-    '<div class="keyContainer">'+
-    '<div class="key">'+
-    '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="' + i18n.getMessage("tooltip_block") + '">' +
-    '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="' + i18n.getMessage("tooltip_cookieblock") + '">' +
-    '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="' + i18n.getMessage("tooltip_allow") + '">' +
-    '<div class="tooltipContainer"></div>' +
-    '</div></div>'+
+  var trackerTooltips = '' +
+    '<div id="associatedTab" data-tab-id="000"></div>' +
+    htmlUtils.getTrackerTooltipHtml() +
     '<div class="spacer"></div>' +
     '<div id="blockedResourcesInner" class="clickerContainer"></div>';
   $("#blockedResources").html(trackerTooltips);
