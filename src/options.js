@@ -222,12 +222,7 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
-  var trackerTooltips = '' +
-    '<div id="associatedTab" data-tab-id="000"></div>' +
-    htmlUtils.getTrackerTooltipHtml() +
-    '<div class="spacer"></div>' +
-    '<div id="blockedResourcesInner" class="clickerContainer"></div>';
-  $("#blockedResources").html(trackerTooltips);
+  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml());
 
   // Display tracking domains.
   var originsToDisplay;

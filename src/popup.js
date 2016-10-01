@@ -270,12 +270,7 @@ function refreshPopup(tabId) {
   }
 
   // Display tracker tooltips.
-  var trackerTooltips = '' +
-    '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
-    htmlUtils.getTrackerTooltipHtml() +
-    '<div class="spacer"></div>' +
-    '<div id="blockedResourcesInner" class="clickerContainer"></div>';
-  $("#blockedResources").html(trackerTooltips);
+  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml(tabId));
 
   var printable = '';
   var nonTracking = [];
