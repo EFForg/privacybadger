@@ -3,7 +3,7 @@
   module("Privacy Badger Storage");
 
   var BadgerStore = require('storage');
-  BadgerStore.BadgerPen(true, function(){
+  BadgerStore.BadgerPen(true, function(){ // eslint-disable-line new-cap
   
     test("testGetBadgerStorage", function(){
       expect(1);
