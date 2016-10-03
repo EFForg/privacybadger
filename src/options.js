@@ -278,7 +278,7 @@ function showTrackingDomains(domains) {
   domains.sort(htmlUtils.compareReversedDomains);
 
   // Create HTML for list of tracking domains.
-  var trackingDetails = '<div id="blockedResourcesInner" class="clickerContainer">';
+  var trackingDetails = '';
   for (var i = 0; i < domains.length; i++) {
     var trackingDomain = domains[i];
     // todo: gross hack, use templating framework

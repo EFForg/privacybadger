@@ -93,9 +93,9 @@ chrome.runtime.onConnect.addListener(
               var cur_idx = tab_count % 3;
               tab_count += 1;
               var new_idx = tab_count % 3;
-              var buttons = document.getElementsByClassName("pbButton");
-              var oldButton = buttons[cur_idx];
-              var newButton = buttons[new_idx];
+              var btns = document.getElementsByClassName("pbButton");
+              var oldButton = btns[cur_idx];
+              var newButton = btns[new_idx];
               oldButton.className = oldButton.className.replace(/\bdefault\b/, '');
               newButton.className += ' default';
               break;
