@@ -203,7 +203,6 @@ Badger.prototype = {
         if(action_map.hasItem(domain)){
           self.storage.setupHeuristicAction(domain, constants.BLOCK);
         }
-        // TODO likely bug here
         var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
