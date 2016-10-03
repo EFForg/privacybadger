@@ -410,6 +410,9 @@ psswrdbx.com
 publiekeomroep.nl
 qualtrics.com
 quotemedia.com
+api.razorpay.com
+checkout.razorpay.com
+razorpay.com
 rackcdn.com
 rackspacecloud.com
 rambler.ru
