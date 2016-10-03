@@ -55,10 +55,8 @@ URI:false,
     ];
     for (var i = 0; i < tests.length; i++)
     {
-      // TODO the no-loop-func eslint error below looks like a bug:
-      // "i" is always tests.length-1?
       throws(
-        function() {
+        function() { // eslint-disable-line no-loop-func
           return new URI(tests[i]);
         },
         'Invalid URI recognition.'

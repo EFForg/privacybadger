@@ -203,13 +203,12 @@ Badger.prototype = {
         if(action_map.hasItem(domain)){
           self.storage.setupHeuristicAction(domain, constants.BLOCK);
         }
-        // TODO likely bug here
         var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
                                   function(subdomain){
                                     return subdomain.endsWith(domain);
                                   });
-        _.each(rmvdSubdomains, function(domain){
-          self.storage.setupHeuristicAction(domain, constants.BLOCK);
+        _.each(rmvdSubdomains, function(subDomain){
+          self.storage.setupHeuristicAction(subDomain, constants.BLOCK);
         });
       });
 
@@ -247,9 +246,9 @@ Badger.prototype = {
     var action_map = this.storage.getBadgerStorageObject('action_map');
     for(var domain in action_map.getItemClones()){
       if(this.storage.getActionForFqdn(domain) === constants.USER_ALLOW){
-          this.userAllow.push(domain);
-        }
+        this.userAllow.push(domain);
       }
+    }
   },
 
   /**
