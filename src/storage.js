@@ -17,7 +17,6 @@
 
 var constants = require("constants");
 var utils = require("utils");
-var incognito = require("incognito");
 
 require.scopes.storage = (function() {
 
@@ -418,10 +417,7 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = function(badgerStorage, tabId){
-  if (incognito.tabIsIncognito(tabId)) {
-    return;
-  }
+var _syncStorage = function(badgerStorage){
   var obj = {};
   obj[badgerStorage.name] = badgerStorage._store;
   chrome.storage.local.set(obj);

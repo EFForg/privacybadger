@@ -24,6 +24,7 @@
 
 var constants = require('constants');
 var mdfp = require('multiDomainFP');
+var incognito = require("incognito");
 var log = window.log;
 var badger = window.badger;
 
@@ -306,6 +307,9 @@ function recordSuperCookie(sender, msg) {
   var frameHost = window.extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
   var frameOrigin = window.getBaseDomain(frameHost);
   var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+  if (incognito.tabIsIncognito(sender.tab.id)) {
+    return;
+  }
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com.
     return;

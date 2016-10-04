@@ -17,6 +17,7 @@
 
 var constants = require("constants");
 var utils = require("utils");
+var incognito = require("incognito");
 var log = window.log;
 var badger = window.badger;
 
@@ -124,7 +125,7 @@ HeuristicBlocker.prototype = {
    * @returns {*}
    */
   heuristicBlockingAccounting: function(details) {
-    if(details.tabId < 0){
+    if(details.tabId < 0 || incognito.tabIsIncognito[details.tabId]){
       return { };
     }
 
