@@ -37,12 +37,11 @@ var log = window.log;
 /**
 * privacy badger initializer
 */
-function Badger(tabData, isIncognito) {
-  this.isIncognito = isIncognito;
-  this.tabData = JSON.parse(JSON.stringify(tabData));
+function Badger() {
+  this.tabData = {};
   var badger = this;
   this.userAllow = [];
-  this.storage = new pbStorage.BadgerPen(isIncognito, function (thisStorage) {
+  this.storage = new pbStorage.BadgerPen(function(thisStorage) {
     if (badger.INITIALIZED) { return; }
     badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     badger.updateTabList();
@@ -648,50 +647,19 @@ Badger.prototype = {
 
     chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
     chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
+  },
+
+  getFrameData: function(tabId, frameId){
+    return webrequest.getFrameData(tabId, frameId);
   }
 
 };
-
-/**
- * functions that don't depend on Badger state.
- */
-
-/**
-* Log a message to the console if debugging is enabled
-*/
-function log(/*...*/) {
-  if(DEBUG) {
-    console.log.apply(console, arguments);
-  }
-}
-
-//function error(/*...*/) {
-//  if(DEBUG) {
-//    console.error.apply(console, arguments);
-//  }
-//}
-
-/**
- * Chooses the right badger to use badse on tabId.
- */
-function getBadgerWithTab(tabId) {
-  if (tabId == -1){
-    return;
-  }
-  if (incognito.tabIsIncognito(tabId)) {
-    return incognito_pb;
-  } else {
-    return pb;
-  }
-}
-
 
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
   chrome.webRequest.onBeforeRequest.addListener(function(details) {
     if (details.tabId != -1){
-      var badger = getBadgerWithTab(details.tabId);
       badger.updateCount(details);
     }
   }, {urls: ["http://*/*", "https://*/*"]}, []);
@@ -700,7 +668,6 @@ function startBackgroundListeners() {
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
-      var badger = getBadgerWithTab(tab.id);
       badger.refreshIconAndContextMenu(tab);
     }
   });
@@ -708,7 +675,6 @@ function startBackgroundListeners() {
   // Update icon if a tab is replaced or loaded from cache
   chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/){
     chrome.tabs.get(addedTabId, function(tab){
-      var badger = getBadgerWithTab(tab.id);
       badger.refreshIconAndContextMenu(tab);
     });
   });
@@ -721,7 +687,6 @@ function startBackgroundListeners() {
       function(request, sender, sendResponse) {
         // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
         if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
-          var badger = getBadgerWithTab(sender.tab.id);
           if (request.command == "getDisabledSites") {
             sendResponse({origins: badger.listOriginsWherePrivacyBadgerIsDisabled()});
           }
@@ -735,9 +700,6 @@ function startBackgroundListeners() {
       }
     );
   }
-  // Refresh domain exceptions popup list once every 24 hours and on startup
-  setInterval(DomainExceptions.updateList,86400000);
-  DomainExceptions.updateList();
 }
 
 /**

@@ -97,7 +97,7 @@ HeuristicBlocker.prototype = {
      * Alternatively, we could record the prevalence when we find hi-entropy localstorage items
      * and check that record to see if the frame hasSupercookieTracking.
      */
-    var frameData = webrequest.getFrameData(details.tabId, details.frameId);
+    var frameData = badger.getFrameData(details.tabId, details.frameId);
     if (frameData){
       return frameData.superCookie;
     } else { // Check localStorage if we can't find the frame in frameData

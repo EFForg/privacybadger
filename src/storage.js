@@ -17,6 +17,7 @@
 
 var constants = require("constants");
 var utils = require("utils");
+var incognito = require("incognito");
 
 require.scopes.storage = (function() {
 
@@ -52,7 +53,7 @@ require.scopes.storage = (function() {
  * }
  **/
 
-function BadgerPen(isIncognito, callback) {
+function BadgerPen(callback) {
   var keys = [
     "snitch_map",
     "action_map",
@@ -62,17 +63,16 @@ function BadgerPen(isIncognito, callback) {
     "settings_map",
   ];
 
-  this.incognito = isIncognito;
   var bp = this;
   // Now check localStorage
   chrome.storage.local.get(keys, function(store){
     _.each(keys, function(key){
       if(store.hasOwnProperty(key)){
-        bp[key] = new BadgerStorage(isIncognito, key, store[key]);
+        bp[key] = new BadgerStorage(key, store[key]);
       } else {
-        var storage_obj = new BadgerStorage(isIncognito, key, {});
+        var storage_obj = new BadgerStorage(key, {});
         bp[key] = storage_obj;
-        _syncStorage(storage_obj);
+        _syncStorage(storage_obj, 0);
       }
     });
     if(_.isFunction(callback)){
@@ -334,10 +334,9 @@ var _newActionMapObject = function() {
  * @param {Object} seed - the base object which we are instantiating from
  * @return {BadgerStorage} an existing BadgerStorage object or an empty new object
  **/
-var BadgerStorage = function(isIncognito, name, seed){
+var BadgerStorage = function(name, seed){
   this.name = name;
   this._store = seed;
-  this.incognito = isIncognito;
 };
 
 BadgerStorage.prototype = {
@@ -419,8 +418,8 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = function(badgerStorage){
-  if (badgerStorage.incognito) {
+var _syncStorage = function(badgerStorage, tabId){
+  if (incognito.tabIsIncognito(tabId)) {
     return;
   }
   var obj = {};
