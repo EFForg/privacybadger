@@ -21,9 +21,9 @@
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var constants = backgroundPage.constants;
-
-
+var badger = backgroundPage.badger;
 var htmlUtils = require("htmlutils").htmlUtils;
+
 var i18n = chrome.i18n;
 var reloadTab = chrome.tabs.reload;
 
@@ -35,34 +35,31 @@ function init() {
   var outer = $("#instruction-outer");
 
   /* if they aint seen the comic*/
-  getTab(function(tab) {
-    var badger = backgroundPage.getBadgerWithTab(tab.id);
-    var settings = badger.storage.getBadgerStorageObject('settings_map');
-    var seenComic = settings.getItem("seenComic") || false;
+  var settings = badger.storage.getBadgerStorageObject('settings_map');
+  var seenComic = settings.getItem("seenComic") || false;
 
-    function _setSeenComic() {
-      settings.setItem("seenComic", "true");
-    }
+  function _setSeenComic() {
+    settings.setItem("seenComic", "true");
+  }
 
-    function _hideNag(){
-      _setSeenComic();
-      nag.fadeOut();
-      outer.fadeOut();
-    }
+  function _hideNag(){
+    _setSeenComic();
+    nag.fadeOut();
+    outer.fadeOut();
+  }
 
-    if (!seenComic) {
-      nag.show();
-      outer.show();
-      // Attach event listeners
-      $('#fittslaw').click(_hideNag);
-      $("#firstRun").click(function() {
-        chrome.tabs.create({
-          url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
-        });
-        _hideNag();
+  if (!seenComic) {
+    nag.show();
+    outer.show();
+    // Attach event listeners
+    $('#fittslaw').click(_hideNag);
+    $("#firstRun").click(function() {
+      chrome.tabs.create({
+        url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
       });
-    }
-  });
+      _hideNag();
+    });
+  }
 
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
@@ -97,7 +94,6 @@ function init() {
 
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
-    var badger = backgroundPage.getBadgerWithTab(t.id);
     if(!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
       $("#blockedResourcesContainer").hide();
       $("#activate_site_btn").show();
@@ -126,7 +122,6 @@ function send_error(message) {
   var browser = window.navigator.useragent;
   getTab(function(tab) {
     var tabId = tab.id;
-    var badger = backgroundPage.getBadgerWithTab(tabId);
     var origins = badger.getAllOriginsForTab(tabId);
     if(!origins){ return; }
     var version = chrome.runtime.getManifest().version;
@@ -181,7 +176,6 @@ function active_site(){
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").show();
   getTab(function(tab) {
-    var badger = backgroundPage.getBadgerWithTab(tab.id);
     badger.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
@@ -196,7 +190,6 @@ function deactive_site(){
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").hide();
   getTab(function(tab) {
-    var badger = backgroundPage.getBadgerWithTab(tab.id);
     badger.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
@@ -211,7 +204,6 @@ function deactive_site(){
 */
 function revertDomainControl(e){
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var badger = backgroundPage.getBadgerWithTab(tabId);
   var $elm = $(e.target).parent();
   backgroundPage.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
@@ -260,7 +252,6 @@ function getTopLevel(action, origin/*, tabId*/){
 function refreshPopup(tabId) {
   backgroundPage.log("Refreshing popup for tab id " + tabId);
   //TODO this is calling get action and then being used to call get Action
-  var badger = backgroundPage.getBadgerWithTab(tabId);
   var origins = badger.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
     hideNoInitialBlockingLink();
@@ -398,7 +389,6 @@ function hideNoInitialBlockingLink() {
 */
 function adjustNoInitialBlockingLink() {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var badger = backgroundPage.getBadgerWithTab(tabId);
   var origins = badger.blockedOriginCount(tabId);
   var totalBlocked = badger.activelyBlockedOriginCount(tabId);
   var userBlocked = badger.userConfiguredOriginCount(tabId);
@@ -461,7 +451,6 @@ function syncSettingsDict(settingsDict) {
   // track whether reload is needed: only if things are being unblocked
   var reloadNeeded = false;
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var badger = backgroundPage.getBadgerWithTab(tabId);
   // we get the blocked data again in case anything changed, but the user's change when
   // closing a popup is authoritative and we should sync the real state to that
   for (var origin in settingsDict) {

@@ -18,15 +18,13 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var pb = backgroundPage.pb; // incognito_pb can't use this page
+var pb = backgroundPage.badger; // incognito_pb can't use this page
+var log = backgroundPage.log;
 var constants = backgroundPage.constants;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var originCache = null;
 var settings = pb.storage.getBadgerStorageObject("settings_map");
-
-var log = backgroundPage.log;
-var getBadger = backgroundPage.getBadgerWithTab;
 
 /*
  * Loads options from pb storage and sets UI elements accordingly.
@@ -83,7 +81,7 @@ function updateShowCounter() {
     windows.forEach(function(window) {
       chrome.tabs.getAllInWindow(window.id, function(tabs) {
         tabs.forEach(function(tab) {
-          getBadger(tab.id).updateBadge(tab.id);
+          pb.updateBadge(tab.id);
         });
       });
     });
