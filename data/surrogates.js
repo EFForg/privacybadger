@@ -153,6 +153,7 @@ const surrogates = {
     } + ')();',
 
   // https://github.com/gorhill/uBlock/issues/1265
+  // https://github.com/uBlockOrigin/uAssets/blob/581f2c93eeca0e55991aa331721b6942f3162615/filters/resources.txt#L736-L746
   '/beacon.js': '(' +
     function() {
       window.COMSCORE = {
