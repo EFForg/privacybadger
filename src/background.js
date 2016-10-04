@@ -22,18 +22,17 @@
 
 var utils = require("utils");
 var constants = require("constants");
-var DomainExceptions = require("domainExceptions").DomainExceptions;
-var HeuristicBlocking = require("heuristicblocking");
-var SocialWidgetLoader = require("socialwidgetloader");
 var pbStorage = require("storage");
+
+var HeuristicBlocking = require("heuristicblocking");
 var webrequest = require("webrequest");
+
+var SocialWidgetLoader = require("socialwidgetloader");
 var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json"); // eslint-disable-line no-unused-vars
+
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
-
-
-// Display debug messages
-var DEBUG = false;
+var log = window.log;
 
 /**
 * privacy badger initializer
@@ -746,8 +745,7 @@ function startBackgroundListeners() {
  */
 console.log('Loading badgers into the pen.');
 
-var pb = new Badger({}, false);
-var incognito_pb = new Badger({}, true);
+var badger = window.badger = new Badger();
 
 /**
  * Start all the listeners

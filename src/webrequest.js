@@ -24,9 +24,8 @@
 
 var constants = require('constants');
 var mdfp = require('multiDomainFP');
-var backgroundPage = chrome.extension.getBackgroundPage();
-var log = backgroundPage.log;
-var getBadgerWithTab = backgroundPage.getBadgerWithTab;
+var log = window.log;
+var badger = window.badger;
 
 require.scopes.webrequest = (function() {
 
@@ -62,7 +61,6 @@ function onBeforeRequest(details){
   var tabDomain = getHostForTab(details.tabId);
   var requestDomain = window.extractHostFromURL(details.url);
    
-  var badger = getBadgerWithTab(details.tabId);
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
     return {};
   }
@@ -127,7 +125,6 @@ function onBeforeSendHeaders(details) {
 
   var tabDomain = getHostForTab(details.tabId);
   var requestDomain = window.extractHostFromURL(details.url);
-  var badger = getBadgerWithTab(details.tabId);
 
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
       isThirdPartyDomain(requestDomain, tabDomain)) {
@@ -182,7 +179,6 @@ function onHeadersReceived(details){
   var tabDomain = getHostForTab(details.tabId);
   var requestDomain = window.extractHostFromURL(details.url);
    
-  var badger = getBadgerWithTab(details.tabId);
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
     return {};
   }
@@ -225,7 +221,6 @@ function onTabRemoved(tabId){
 function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
   // Update the badge of the added tab, which was probably used for prerendering.
-  var badger = getBadgerWithTab(addedTabId);
   badger.updateBadge(addedTabId);
 }
 
@@ -254,7 +249,6 @@ function isThirdPartyDomain(domain1, domain2){
  * @return {String} the host name for the tab
  */
 function getHostForTab(tabId){
-  var badger = getBadgerWithTab(tabId);
   var mainFrameIdx = 0;
   if (!badger.tabData[tabId]) {
     return '';
@@ -279,7 +273,6 @@ function getHostForTab(tabId){
  * @param frameUrl The url of the frame
  */
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
-  var badger = getBadgerWithTab(tabId);
   if (!badger.tabData.hasOwnProperty(tabId)){
     badger.tabData[tabId] = {
       frames: {},
@@ -313,7 +306,6 @@ function recordSuperCookie(sender, msg) {
   var frameHost = window.extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
   var frameOrigin = window.getBaseDomain(frameHost);
   var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
-  var badger = getBadgerWithTab(sender.tab.id);
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com.
     return;
@@ -360,7 +352,6 @@ function recordFingerprinting(tabId, msg) {
     getImageData: true,
     toDataURL: true
   };
-  var badger = getBadgerWithTab(tabId);
 
   if (!badger.tabData[tabId].hasOwnProperty('fpData')) {
     badger.tabData[tabId].fpData = {};
@@ -415,7 +406,6 @@ function recordFingerprinting(tabId, msg) {
  * @returns {*} Frame data object or null
  */
 function getFrameData(tabId, frameId) {
-  var badger = getBadgerWithTab(tabId);
   if (tabId in badger.tabData && frameId in badger.tabData[tabId].frames){
     return badger.tabData[tabId].frames[frameId];
   } else if (frameId > 0 && tabId in badger.tabData && 0 in badger.tabData[tabId].frames) {
@@ -443,7 +433,6 @@ function getFrameUrl(tabId, frameId) {
  * @param {Integer} tabId The id of the tab
  */
 function forgetTab(tabId) {
-  var badger = getBadgerWithTab(tabId);
   delete badger.tabData[tabId];
   delete temporarySocialWidgetUnblock[tabId];
 }
@@ -490,7 +479,6 @@ function checkAction(tabId, url, quiet, frameId){
   }
 
   // Determine action is request is from third party and tab is valid.
-  var badger = getBadgerWithTab(tabId);
   var action = badger.storage.getBestAction(requestHost);
 
   if (action && ! quiet) {
@@ -508,7 +496,6 @@ function checkAction(tabId, url, quiet, frameId){
  * @private
  */
 function _frameUrlStartsWith(tabId, piece){
-  var badger = getBadgerWithTab(tabId);
   return badger.tabData[tabId] &&
     badger.tabData[tabId].frames[0] &&
     (badger.tabData[tabId].frames[0].url.indexOf(piece) === 0);
@@ -578,12 +565,11 @@ function _askUserToWhitelist(tabId, whitelistDomains, englishName){
  *
  * @returns a specific dict
  */
-function getSocialWidgetBlockList(tabId) {
+function getSocialWidgetBlockList() {
 
   // A mapping of individual SocialWidget objects to boolean values that determine
   // whether the content script should replace that tracker's social buttons
   var socialWidgetsToReplace = {};
-  var badger = getBadgerWithTab(tabId);
 
   window.SocialWidgetList.forEach(function(socialwidget) {
     var socialWidgetName = socialwidget.name;
@@ -641,7 +627,6 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
 
 function dispatcher(request, sender, sendResponse) {
   var tabHost;
-  var badger = getBadgerWithTab(sender.tab.id);
   if (sender.tab && sender.tab.url) {
     tabHost = window.extractHostFromURL(sender.tab.url);
   } else {
@@ -661,7 +646,7 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.checkReplaceButton) {
     if (badger.isPrivacyBadgerEnabled(tabHost) && badger.isSocialWidgetReplacementEnabled()) {
-      var socialWidgetBlockList = getSocialWidgetBlockList(sender.tab.id);
+      var socialWidgetBlockList = getSocialWidgetBlockList();
       sendResponse(socialWidgetBlockList);
     }
   } else if (request.unblockSocialWidget) {

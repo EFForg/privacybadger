@@ -24,7 +24,7 @@
   ],
   "background": {
     "scripts": [
-      "lib/compat.js",
+      "src/bootstrap.js",
       "lib/punycode.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",

@@ -16,12 +16,9 @@
  */
 
 var constants = require("constants");
-var webrequest = require("webrequest");
 var utils = require("utils");
-
-var backgroundPage = chrome.extension.getBackgroundPage();
-var log = backgroundPage.log;
-var getBadgerWithTab = backgroundPage.getBadgerWithTab;
+var log = window.log;
+var badger = window.badger;
 
 require.scopes.heuristicblocking = (function() {
 
@@ -153,7 +150,6 @@ HeuristicBlocker.prototype = {
         return { };
       }
       window.setTimeout(function(){
-        var badger = getBadgerWithTab(details.tabId);
         badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
       }, 10);
       // if there are no tracking cookies or similar things, ignore
@@ -506,7 +502,6 @@ function startListeners() {
    * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
    */
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    var badger = getBadgerWithTab(details.tabId);
     if (badger) {
       return badger.heuristicBlocking.heuristicBlockingAccounting(details);
     } else {
@@ -527,7 +522,6 @@ function startListeners() {
     }
     if(hasSetCookie) {
       //var origin = window.getBaseDomain(Utils.makeURI(details.url).host);
-      var badger = getBadgerWithTab(details.tabId);
       if (badger) {
         return badger.heuristicBlocking.heuristicBlockingAccounting(details);
       } else {
