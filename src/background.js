@@ -18,7 +18,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// TODO: Encapsulate code and replace window.* calls throught code with pb.*
+/* globals log:false */
 
 var utils = require("utils");
 var constants = require("constants");
@@ -32,7 +32,6 @@ var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialw
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
-var log = window.log;
 
 /**
 * privacy badger initializer

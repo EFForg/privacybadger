@@ -1,9 +1,8 @@
-/*globals test, module, ok, asyncTest, expect*/
+/* globals badger:false */
 (function() {
   module("Privacy Badger Storage");
 
   var BadgerStore = require('storage');
-  var badger = window.badger;
 
   BadgerStore.BadgerPen(function(){ // eslint-disable-line new-cap
   

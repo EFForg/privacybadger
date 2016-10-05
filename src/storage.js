@@ -15,9 +15,10 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals badger:false */
+
 var constants = require("constants");
 var utils = require("utils");
-var badger = window.badger;
 
 require.scopes.storage = (function() {
 
