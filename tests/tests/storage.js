@@ -5,7 +5,7 @@
   var BadgerStore = require('storage');
   var badger = window.badger;
 
-  BadgerStore.BadgerPen(function(){ // eslint-disable-line new-cap
+  new BadgerStore.BadgerPen(function(){ // eslint-disable-line no-new
   
     test("testGetBadgerStorage", function(){
       expect(1);

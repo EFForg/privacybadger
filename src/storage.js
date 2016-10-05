@@ -72,7 +72,7 @@ function BadgerPen(callback) {
       } else {
         var storage_obj = new BadgerStorage(key, {});
         bp[key] = storage_obj;
-        _syncStorage(storage_obj, 0);
+        _syncStorage(storage_obj);
       }
     });
     if(_.isFunction(callback)){

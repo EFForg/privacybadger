@@ -303,13 +303,13 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
  * @param msg super cookie message dict
  */
 function recordSuperCookie(sender, msg) {
+  if (incognito.tabIsIncognito(sender.tab.id)) {
+    return;
+  }
   /* Update frameData and localStorage about the supercookie finding */
   var frameHost = window.extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
   var frameOrigin = window.getBaseDomain(frameHost);
   var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
-  if (incognito.tabIsIncognito(sender.tab.id)) {
-    return;
-  }
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com.
     return;
@@ -340,14 +340,14 @@ function recordFingerprinting(tabId, msg) {
   if (!msg.scriptUrl) {
     return;
   }
+  if (incognito.tabIsIncognito(tabId)){
+    return;
+  }
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
     document_host = window.extractHostFromURL(getFrameUrl(tabId, 0));
   if (!isThirdPartyDomain(script_host, document_host)) {
-    return;
-  }
-  if (incognito.tabIsIncognito(tabId)){
     return;
   }
 
