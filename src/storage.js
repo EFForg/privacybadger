@@ -17,6 +17,7 @@
 
 var constants = require("constants");
 var utils = require("utils");
+var badger = window.badger;
 
 require.scopes.storage = (function() {
 
@@ -252,11 +253,11 @@ BadgerPen.prototype = {
    * @param {String} action The heuristic action to take
    */
   setupUserAction: function(domain, action){
-    var index = pb.userAllow.indexOf(domain);
+    var index = badger.userAllow.indexOf(domain);
     if (index > -1 && action !== constants.USER_ALLOW) {
-      pb.userAllow.splice(index, 1);
+      badger.userAllow.splice(index, 1);
     } else if (index <= -1 && action === constants.USER_ALLOW) {
-      pb.userAllow.push(domain);
+      badger.userAllow.push(domain);
     }
 
     this._setupDomainAction(domain, action, "userAction");
@@ -270,9 +271,9 @@ BadgerPen.prototype = {
   revertUserAction: function(domain){
     this._setupDomainAction(domain, "", "userAction");
 
-    var index = pb.userAllow.indexOf(domain);
+    var index = badger.userAllow.indexOf(domain);
     if (index > -1) {
-      pb.userAllow.splice(index, 1);
+      badger.userAllow.splice(index, 1);
     }
   }
 };

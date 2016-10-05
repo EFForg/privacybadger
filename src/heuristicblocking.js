@@ -102,7 +102,7 @@ HeuristicBlocker.prototype = {
     if (frameData){
       return frameData.superCookie;
     } else { // Check localStorage if we can't find the frame in frameData
-      return this.getSupercookieDomains().hasItem(origin);
+      return badger.getSupercookieDomains().hasItem(origin);
     }
   },
 
