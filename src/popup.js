@@ -27,14 +27,10 @@ var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var reloadTab = chrome.tabs.reload;
 
-/**
- * Init function. Showing/hiding popup.html elements and setting up event handler
- */
-function init() {
+/* if they aint seen the comic*/
+function showNagMaybe() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
-
-  /* if they aint seen the comic*/
   var settings = badger.storage.getBadgerStorageObject('settings_map');
   var seenComic = settings.getItem("seenComic") || false;
 
@@ -60,6 +56,13 @@ function init() {
       _hideNag();
     });
   }
+}
+
+/**
+ * Init function. Showing/hiding popup.html elements and setting up event handler
+ */
+function init() {
+  showNagMaybe();
 
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
