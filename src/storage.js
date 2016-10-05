@@ -419,11 +419,12 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = function(badgerStorage){
+function _syncStorage(badgerStorage) {
   var obj = {};
   obj[badgerStorage.name] = badgerStorage._store;
   chrome.storage.local.set(obj);
-};
+}
+
 /************************************** exports */
 var exports = {};
 
