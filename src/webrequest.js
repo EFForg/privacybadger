@@ -347,6 +347,9 @@ function recordFingerprinting(tabId, msg) {
   if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
+  if (incognito.tabIsIncognito(tabId)){
+    return;
+  }
 
   var CANVAS_WRITE = {
     fillText: true,

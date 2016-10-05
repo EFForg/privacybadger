@@ -125,7 +125,7 @@ HeuristicBlocker.prototype = {
    * @returns {*}
    */
   heuristicBlockingAccounting: function(details) {
-    if(details.tabId < 0 || incognito.tabIsIncognito[details.tabId]){
+    if(details.tabId < 0 || incognito.tabIsIncognito(details.tabId)){
       return { };
     }
 
