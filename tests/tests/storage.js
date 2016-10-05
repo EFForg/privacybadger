@@ -3,17 +3,19 @@
   module("Privacy Badger Storage");
 
   var BadgerStore = require('storage');
-  BadgerStore.BadgerPen(true, function(){ // eslint-disable-line new-cap
+  var badger = window.badger;
+
+  BadgerStore.BadgerPen(function(){ // eslint-disable-line new-cap
   
     test("testGetBadgerStorage", function(){
       expect(1);
-      var action_map = pb.storage.getBadgerStorageObject('action_map');
+      var action_map = badger.storage.getBadgerStorageObject('action_map');
       ok(action_map.updateObject instanceof Function, "action_map is a pbstorage");
     });
 
     test("test BadgerStorage methods", function(){
       expect(3);
-      var action_map = pb.storage.getBadgerStorageObject('action_map');
+      var action_map = badger.storage.getBadgerStorageObject('action_map');
       action_map.setItem('foo', 'bar');
       ok(action_map.getItem('foo') === 'bar');
       ok(action_map.hasItem('foo'));
@@ -23,14 +25,14 @@
 
     test("test user override of default action for domain", function(){
       expect(4);
-      pb.saveAction("allow", "pbtest.org");
-      ok(pb.userAllow.indexOf('pbtest.org') > -1);
-      pb.saveAction("block", "pbtest.org");
-      ok(pb.userAllow.indexOf('pbtest.org') <= -1);
-      pb.saveAction("allow", "pbtest.org");
-      ok(pb.userAllow.indexOf('pbtest.org') > -1);
-      pb.storage.revertUserAction("pbtest.org");
-      ok(pb.userAllow.indexOf('pbtest.org') <= -1);
+      badger.saveAction("allow", "pbtest.org");
+      ok(badger.userAllow.indexOf('pbtest.org') > -1);
+      badger.saveAction("block", "pbtest.org");
+      ok(badger.userAllow.indexOf('pbtest.org') <= -1);
+      badger.saveAction("allow", "pbtest.org");
+      ok(badger.userAllow.indexOf('pbtest.org') > -1);
+      badger.storage.revertUserAction("pbtest.org");
+      ok(badger.userAllow.indexOf('pbtest.org') <= -1);
     });
 
     test("data persists to local storage", function(){

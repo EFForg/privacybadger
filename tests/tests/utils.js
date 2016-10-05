@@ -3,6 +3,7 @@
 
   var utils = require('utils');
   var mdfp = require('multiDomainFP');
+  var badger = window.badger;
 
   test("removeElementFromArray", function(){
     var testAry = [1,2,3,4,5,6];
@@ -53,22 +54,22 @@
   });
 
   test("isPrivacyBadgerEnabled", function(){
-    ok(pb.isPrivacyBadgerEnabled("eff.org"), "enabled for site");
+    ok(badger.isPrivacyBadgerEnabled("eff.org"), "enabled for site");
 
-    pb.disablePrivacyBadgerForOrigin("example.com");
-    ok(!pb.isPrivacyBadgerEnabled("example.com"), "disabled for site");
-    pb.enablePrivacyBadgerForOrigin("example.com");
-    ok(pb.isPrivacyBadgerEnabled("example.com"), "enabled for site");
+    badger.disablePrivacyBadgerForOrigin("example.com");
+    ok(!badger.isPrivacyBadgerEnabled("example.com"), "disabled for site");
+    badger.enablePrivacyBadgerForOrigin("example.com");
+    ok(badger.isPrivacyBadgerEnabled("example.com"), "enabled for site");
   });
   
   test("disable/enable privacy badger for origin", function(){
-    var parsed = function(){ return pb.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'); };
+    var parsed = function(){ return badger.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'); };
     var origLength = parsed() && parsed().length || 0;
 
-    pb.disablePrivacyBadgerForOrigin('foo.com');
+    badger.disablePrivacyBadgerForOrigin('foo.com');
     ok(parsed().length == (origLength + 1), "one more disabled site");
 
-    pb.enablePrivacyBadgerForOrigin('foo.com');
+    badger.enablePrivacyBadgerForOrigin('foo.com');
     ok(parsed().length == origLength, "one less disabled site");
   });
 
