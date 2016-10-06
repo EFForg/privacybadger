@@ -29,6 +29,15 @@
     "first_run_text": {
         "message": "Lär dig hur Privacy Badger skyddar din integritet."
     },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
     "name": {
         "message": "Privacy Badger"
     },

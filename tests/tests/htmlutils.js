@@ -125,7 +125,7 @@
     // Test missing tab ID.
     htmlResult = htmlUtils.getTrackerContainerHtml();
     var defaultTabIdExists = htmlResult.indexOf('data-tab-id="000"') > -1;
-    ok(defaultTabIdExists, "Default tab ID should be set")
+    ok(defaultTabIdExists, "Default tab ID should be set");
   });
 
   test("addOriginHtml", function() {

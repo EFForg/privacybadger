@@ -164,6 +164,15 @@
     "ded_never_allow": {
         "message": "Immer Anfragen Dritter blockieren von "
     },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
     "donate_to_eff": {
       "message": "Donate to EFF"
     }

@@ -98,7 +98,7 @@ var htmlUtils = exports.htmlUtils = {
    */
   getTrackerContainerHtml: function(tabId) {
     if (tabId === undefined) {
-      tabId = "000"
+      tabId = "000";
     }
     var trackerHtml = '' +
       '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +

@@ -126,6 +126,15 @@
     "show_counter_checkbox": {
         "message": "Отображать счетчик заблокированных элементов"
     },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
     "whitelisted_domains": {
         "description": "Это заголовок вкладки.",
         "message": "Белый список доменов"

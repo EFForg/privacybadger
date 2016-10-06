@@ -123,6 +123,15 @@
     "show_counter_checkbox": {
         "message": "Mostrar recuento de elementos bloqueados"
     },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
     "whitelisted_domains": {
         "description": "Esto es el encabezado de la pestaña.",
         "message": "Dominios permitidos"
