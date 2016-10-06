@@ -27,10 +27,10 @@ var HeuristicBlocking = require("heuristicblocking");
 var SocialWidgetLoader = require("socialwidgetloader");
 var pbStorage = require("storage");
 var webrequest = require("webrequest");
-var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json"); // eslint-disable-line no-unused-vars
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
 
+window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json");
 
 // Display debug messages
 var DEBUG = false;
