@@ -41,6 +41,10 @@ class PBSeleniumTest(unittest.TestCase):
         print("\nSuccessfully initialized the chromedriver")
         self.js = self.driver.execute_script
 
+    def open_window(self):
+        self.js('window.open()')
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+
     def load_url(self, url, wait_on_site=0):
         """Load a URL and wait before returning."""
         print("Will load %s" % url)
@@ -59,7 +63,7 @@ class PBSeleniumTest(unittest.TestCase):
             return max(exts, key=os.path.getctime) if exts else ""
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
-        """Find an element by CSS selector and return it's text."""
+        """Find an element by CSS selector and return its text."""
         return self.find_el_by_css(css_selector, timeout).text
 
     def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):

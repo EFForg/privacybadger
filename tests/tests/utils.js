@@ -4,6 +4,7 @@
   module("Privacy Badger Utils");
 
   var utils = require('utils');
+  var getSurrogateURI = require('surrogates').getSurrogateURI;
   var mdfp = require('multiDomainFP');
 
   test("removeElementFromArray", function(){
@@ -91,5 +92,44 @@
     ok(mdfp.isMultiDomainFirstParty("dummy", "dummy"));
     ok(mdfp.isMultiDomainFirstParty("google.com", "youtube.com"));
     ok(!mdfp.isMultiDomainFirstParty("google.com", "nyt.com"));
+  });
+
+  test("surrogate script URL lookups", function() {
+    const GA_JS_TESTS = [
+      {
+        url: 'http://www.google-analytics.com/ga.js',
+        msg: "Google Analytics ga.js http URL should match"
+      },
+      {
+        url: 'https://www.google-analytics.com/ga.js',
+        msg: "Google Analytics ga.js https URL should match"
+      },
+      {
+        url: 'https://www.google-analytics.com/ga.js?foo=bar',
+        msg: "Google Analytics ga.js querystring URL should match"
+      },
+    ];
+    let ga_js_surrogate;
+
+    for (let i = 0; i < GA_JS_TESTS.length; i++) {
+      ga_js_surrogate = getSurrogateURI(
+        GA_JS_TESTS[i].url,
+        'www.google-analytics.com'
+      );
+      ok(ga_js_surrogate, GA_JS_TESTS[i].msg);
+    }
+
+    ok(
+      ga_js_surrogate.startsWith('data:application/javascript;base64,'),
+      "The returned ga.js surrogate is a base64-encoded JavaScript data URI"
+    );
+
+    ok(
+      !getSurrogateURI(
+        'https://a1.nyt.com/assets/homepage/20160920-111441/js/foundation/lib/framework.js',
+        'a1.nyt.com'
+      ),
+      "New York Times script URL should not match any surrogates"
+    );
   });
 })();

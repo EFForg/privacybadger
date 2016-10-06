@@ -28,7 +28,7 @@ var HeuristicBlocking = require("heuristicblocking");
 var webrequest = require("webrequest");
 
 var SocialWidgetLoader = require("socialwidgetloader");
-var SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("src/socialwidgets.json"); // eslint-disable-line no-unused-vars
+window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json");
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
