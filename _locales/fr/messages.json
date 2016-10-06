@@ -104,6 +104,15 @@
     "show_counter_checkbox": {
         "message": "Afficher le nombre d'articles bloqués"
     },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
     "whitelisted_domains": {
         "description": "Intitulé de l'onglet.",
         "message": "Noms de domaine acceptés"

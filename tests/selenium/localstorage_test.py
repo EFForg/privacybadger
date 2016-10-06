@@ -22,7 +22,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
     def check_policy_download(self):
         timeout = POLICY_DOWNLOAD_TIMEOUT
         dnt_hashes_not_empty =\
-            "return (pb.storage.getBadgerStorageObject('dnt_hashes') != {})"
+            "return (badger.storage.getBadgerStorageObject('dnt_hashes') != {})"
         # give updatePrivacyPolicyHashes() sometime to download the policy hash
         while (timeout > 0 and not self.js(dnt_hashes_not_empty)):
             sleep(1)
@@ -34,7 +34,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
                            "localStorage.badgerHashes")
         # now check the downloaded policy hash
         get_dnt_hashes =\
-            "return (pb.storage.getBadgerStorageObject('dnt_hashes')."\
+            "return (badger.storage.getBadgerStorageObject('dnt_hashes')."\
             "getItemClones())"
         policy_hashes = self.js(get_dnt_hashes)
         for policy_hash in policy_hashes.keys():
@@ -47,7 +47,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
         self.assertEqual(js("return constants.COOKIE_BLOCK_LIST_URL"),
                          "https://www.eff.org/files/cookieblocklist_new.txt")
 
-        get_disabled_sites = "return (pb.storage.getBadgerStorageObject("\
+        get_disabled_sites = "return (badger.storage.getBadgerStorageObject("\
             "'settings_map').getItem('disabledSites'))"
         disabled_sites = js(get_disabled_sites)
 

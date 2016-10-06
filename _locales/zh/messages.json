@@ -32,6 +32,15 @@
     "name": {
         "message": "隐私獾"
     },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
     "new_filters_added": {
         "message": "新的过滤已添加；点击 <a id='options_url' target='_blank'>选择</a> 以管理它们。"
     },

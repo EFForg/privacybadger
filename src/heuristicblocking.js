@@ -15,13 +15,11 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var constants = require("constants");
-var webrequest = require("webrequest");
-var utils = require("utils");
+/* globals badger:false, log:false */
 
-var backgroundPage = chrome.extension.getBackgroundPage();
-var log = backgroundPage.log;
-var getBadgerWithTab = backgroundPage.getBadgerWithTab;
+var constants = require("constants");
+var utils = require("utils");
+var incognito = require("incognito");
 
 require.scopes.heuristicblocking = (function() {
 
@@ -100,11 +98,11 @@ HeuristicBlocker.prototype = {
      * Alternatively, we could record the prevalence when we find hi-entropy localstorage items
      * and check that record to see if the frame hasSupercookieTracking.
      */
-    var frameData = webrequest.getFrameData(details.tabId, details.frameId);
+    var frameData = badger.getFrameData(details.tabId, details.frameId);
     if (frameData){
       return frameData.superCookie;
     } else { // Check localStorage if we can't find the frame in frameData
-      return this.getSupercookieDomains().hasItem(origin);
+      return badger.getSupercookieDomains().hasItem(origin);
     }
   },
 
@@ -127,7 +125,7 @@ HeuristicBlocker.prototype = {
    * @returns {*}
    */
   heuristicBlockingAccounting: function(details) {
-    if(details.tabId < 0){
+    if(details.tabId < 0 || incognito.tabIsIncognito(details.tabId)){
       return { };
     }
 
@@ -153,7 +151,6 @@ HeuristicBlocker.prototype = {
         return { };
       }
       window.setTimeout(function(){
-        var badger = getBadgerWithTab(details.tabId);
         badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
       }, 10);
       // if there are no tracking cookies or similar things, ignore
@@ -506,7 +503,6 @@ function startListeners() {
    * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
    */
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    var badger = getBadgerWithTab(details.tabId);
     if (badger) {
       return badger.heuristicBlocking.heuristicBlockingAccounting(details);
     } else {
@@ -526,8 +522,6 @@ function startListeners() {
       }
     }
     if(hasSetCookie) {
-      //var origin = window.getBaseDomain(Utils.makeURI(details.url).host);
-      var badger = getBadgerWithTab(details.tabId);
       if (badger) {
         return badger.heuristicBlocking.heuristicBlockingAccounting(details);
       } else {
