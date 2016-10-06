@@ -61,6 +61,13 @@ function onBeforeRequest(details){
     recordFrame(tab_id, frame_id, details.parentFrameId, url);
   }
 
+  // Block ping requests sent by navigator.sendBeacon (see, #587)
+  // tabId for pings are always -1 due to Chrome bugs #522124 and #522129
+  // Once these bugs are fixed, PB will treat pings as any other request
+  if (type == "ping" && tab_id < 0 ){
+    return {cancel: true};
+  }
+
   if ( _isTabChromeInternal(tab_id)){
     return {};
   }

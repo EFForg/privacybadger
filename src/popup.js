@@ -268,16 +268,11 @@ function refreshPopup(tabId) {
     $('#number_trackers').text('0');
     return;
   }
-  var printable = '<div id="associatedTab" data-tab-id="' + tabId + '"></div>';
-  printable = printable +
-  '<div class="keyContainer">'+
-  '<div class="key">'+
-  '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
-  '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
-  '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
-  '<div class="tooltipContainer"></div>' +
-  '</div></div>'+
-  '<div class="spacer"></div><div class="clickerContainer">';
+
+  // Display tracker tooltips.
+  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml(tabId));
+
+  var printable = '';
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
   var originCount = 0;
@@ -328,9 +323,8 @@ function refreshPopup(tabId) {
     }
   }
   $('#number_trackers').text(originCount);
-  printable += "</div>";
-  $("#blockedResources").empty();
-  $("#blockedResources").html(printable);
+  $("#blockedResourcesInner").html(printable);
+
   $('.switch-toggle').each(function(){
     var radios = $(this).children('input');
     var value = $(this).children('input:checked').val();
