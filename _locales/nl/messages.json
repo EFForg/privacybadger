@@ -20,6 +20,15 @@
     "error_input": {
         "message": "Wat ging er mis?"
     },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
     "feed_the_badger_title": {
         "message": "klik om deze tracker over te laten aan Privacy Badger"
     },
