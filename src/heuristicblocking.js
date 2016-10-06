@@ -15,11 +15,11 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals badger:false, log:false */
+
 var constants = require("constants");
 var utils = require("utils");
 var incognito = require("incognito");
-var log = window.log;
-var badger = window.badger;
 
 require.scopes.heuristicblocking = (function() {
 

@@ -22,11 +22,11 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals badger:false, log:false */
+
 var constants = require('constants');
 var mdfp = require('multiDomainFP');
 var incognito = require("incognito");
-var log = window.log;
-var badger = window.badger;
 
 require.scopes.webrequest = (function() {
 
@@ -34,7 +34,6 @@ require.scopes.webrequest = (function() {
 
 
 /************ Local Variables *****************/
-// var DomainExceptions = require("domainExceptions").DomainExceptions;
 var temporarySocialWidgetUnblock = {};
 
 /***************** Blocking Listener Functions **************/
@@ -81,23 +80,6 @@ function onBeforeRequest(details){
   } 
   var requestAction = checkAction(details.tabId, details.url, false, details.frameId);
   if (requestAction) {
-    // TODO: reimplement whitelist request stuff in storage.js
-    // Add domain to list of blocked domains if it is not there already
-    /*
-    if(requestAction == "block" || requestAction == "cookieblock"){
-
-      //if settings for this domain are still controlled by badger and it is in
-      //the list of domain exceptions ask the user if they would like to unblock.
-      if(requestAction.indexOf('user') < 0){
-        var whitelistAry = DomainExceptions.getWhitelistForPath(details.url);
-        if( whitelistAry){
-          _askUserToWhitelist(details.tabId, whitelistAry.whitelist_urls, whitelistAry.english_name);
-        }
-      }
-
-    }
-    */
-
     if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
       // Notify the content script...
       var msg = {
@@ -530,43 +512,6 @@ function _isTabAnExtension(tabId){
   return _frameUrlStartsWith(tabId, "chrome-extension://");
 }
 
-/**
- * Ask user what to do with a specific url. Dialog is handled by domainExceptionDialog
- *
- * @param {Integer} tabId The id of the tab
- * @param whitelistDomains dict with whitelist information
- * @param englishName English description for domain
- * @private
- */
-/* TODO: reimplement using storage.js
-function _askUserToWhitelist(tabId, whitelistDomains, englishName){
-  console.log('asking user to whitelist');
-  var port = chrome.tabs.connect(tabId);
-  port.postMessage({action: 'attemptWhitelist', whitelistDomain:englishName, currentDomain:getHostForTab(tabId)});
-  port.onMessage.addListener(function(msg){
-    for(var i = 0; i < whitelistDomains.length; i++){
-      if(msg.action === "allow_all"){
-        saveAction('noaction', whitelistDomains[i]);
-        reloadTab(tabId);
-      }
-      if(msg.action === "allow_once"){
-        //allow blag on this site only
-        saveAction('noaction', whitelistDomains[i], getHostForTab(tabId));
-        reloadTab(tabId);
-      }
-      if(msg.action === "never"){
-        //block third party domain always
-        console.log('never allow');
-        saveAction('cookieblock', whitelistDomains[i]);
-        reloadTab(tabId);
-      }
-      //if(msg.action === "not_now"){
-      //  //do nothing
-      //}
-    }
-  });
-}
-*/
 /**
  * Provides the social widget blocking content script with list of social widgets to block
  *

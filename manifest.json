@@ -38,7 +38,6 @@
       "src/storage.js",
       "src/utils.js",
       "src/htmlutils.js",
-      "src/domainExceptions.js",
       "src/webrequest.js",
       "src/heuristicblocking.js",
       "src/socialwidgetloader.js",
@@ -68,19 +67,6 @@
         "<all_urls>"
       ],
       "all_frames": true,
-      "run_at": "document_idle"
-    },
-    {
-      "js": [
-        "src/domainExceptionDialog.js"
-      ],
-      "css": [
-        "skin/badger.css"
-      ],
-      "matches": [
-        "<all_urls>"
-      ],
-      "all_frames": false,
       "run_at": "document_idle"
     }
   ],

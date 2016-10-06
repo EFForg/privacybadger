@@ -1,9 +1,10 @@
+/* globals badger:false */
+
 (function() {
   module("Privacy Badger Utils");
 
   var utils = require('utils');
   var mdfp = require('multiDomainFP');
-  var badger = window.badger;
 
   test("removeElementFromArray", function(){
     var testAry = [1,2,3,4,5,6];
