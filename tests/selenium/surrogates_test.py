@@ -11,39 +11,38 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from window_utils import switch_to_window_with_url
 
-# TODO move to eff.org: https://github.com/EFForg/privacybadgerchrome/issues/928
+
+WAIT_TIMEOUT = 5
+
+
 class Test(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
-    def load_avianca_checkin_page(self):
-        self.load_url("http://checkin.avianca.com/")
-        WebDriverWait(self.driver, pbtest.SEL_DEFAULT_WAIT_TIMEOUT).until(
+    def load_ga_js_test_page(self):
+        # TODO update to pbtest.org URL
+        # TODO and remove the HTML pages from eff.org then
+        self.load_url("https://www.eff.org/files/pbtest/ga_js_surrogate_test.html")
+        wait = WebDriverWait(self.driver, WAIT_TIMEOUT)
+        wait.until(
             EC.frame_to_be_available_and_switch_to_it((By.TAG_NAME, 'iframe'))
         )
         try:
-            return WebDriverWait(self.driver, pbtest.SEL_DEFAULT_WAIT_TIMEOUT).until(
-                EC.text_to_be_present_in_element(
-                    (By.CSS_SELECTOR, 'p.page-instruction'),
-                    (
-                        "Encuentra tu reserva mediante una de las "
-                        "opciones que se muestran a continuación"
-                    )
-                )
-            )
+            return wait.until(EC.text_to_be_present_in_element(
+                (By.CSS_SELECTOR, 'h1'), "It worked!"
+            ))
         except TimeoutException:
             return False
 
-    def test_avianca(self):
+    def test_ga_js_surrogate(self):
         # verify site loads
-        self.assertTrue(self.load_avianca_checkin_page())
-
-        # open and switch to a new window to avoid the beforeunload dialog
-        self.open_window()
+        self.assertTrue(self.load_ga_js_test_page())
 
         # block ga.js (known to break the site)
         self.load_url(pbtest.PB_CHROME_BG_URL, wait_on_site=1)
         ga_backup = self.js(
+            # TODO s/pb/badger/ once https://github.com/EFForg/privacybadgerchrome/pull/951 is merged
             "pb.saveAction('block', 'www.google-analytics.com');"
             "const sdb = require('surrogatedb');"
             "return JSON.stringify(sdb.hostnames['www.google-analytics.com']);"
@@ -59,10 +58,10 @@ class Test(pbtest.PBSeleniumTest):
         self.open_window()
 
         # verify site breaks
-        self.assertFalse(self.load_avianca_checkin_page())
+        self.assertFalse(self.load_ga_js_test_page())
 
         # switch back to PB's background page
-        self.driver.switch_to_window(self.driver.window_handles[-2])
+        switch_to_window_with_url(self.driver, pbtest.PB_CHROME_BG_URL)
 
         # re-enable surrogate
         self.js(
@@ -74,7 +73,7 @@ class Test(pbtest.PBSeleniumTest):
         self.open_window()
 
         # verify site loads again
-        self.assertTrue(self.load_avianca_checkin_page())
+        self.assertTrue(self.load_ga_js_test_page())
 
 
 if __name__ == "__main__":
