@@ -37,7 +37,6 @@ var incognito = require("incognito");
 * privacy badger initializer
 */
 function Badger() {
-  this.tabData = {};
   var badger = this;
   this.userAllow = [];
   this.storage = new pbStorage.BadgerPen(function(thisStorage) {

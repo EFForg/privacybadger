@@ -28,7 +28,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""
         self.load_options_page()
-        self.js("pb.storage.setupHeuristicAction('{}', '{}');".format(origin,
+        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(origin,
                                                                       action))
 
     def test_page_title(self):

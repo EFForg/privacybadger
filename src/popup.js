@@ -35,7 +35,7 @@ function showNagMaybe() {
   var seenComic = settings.getItem("seenComic") || false;
 
   function _setSeenComic() {
-    settings.setItem("seenComic", "true");
+    settings.setItem("seenComic", true);
   }
 
   function _hideNag(){

@@ -522,7 +522,6 @@ function startListeners() {
       }
     }
     if(hasSetCookie) {
-      //var origin = window.getBaseDomain(Utils.makeURI(details.url).host);
       if (badger) {
         return badger.heuristicBlocking.heuristicBlockingAccounting(details);
       } else {
