@@ -42,8 +42,7 @@ class Test(pbtest.PBSeleniumTest):
         # block ga.js (known to break the site)
         self.load_url(pbtest.PB_CHROME_BG_URL, wait_on_site=1)
         ga_backup = self.js(
-            # TODO s/pb/badger/ once https://github.com/EFForg/privacybadgerchrome/pull/951 is merged
-            "pb.saveAction('block', 'www.google-analytics.com');"
+            "badger.saveAction('block', 'www.google-analytics.com');"
             "const sdb = require('surrogatedb');"
             "return JSON.stringify(sdb.hostnames['www.google-analytics.com']);"
         )
