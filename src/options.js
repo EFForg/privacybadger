@@ -222,17 +222,7 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
-  var trackerTooltips = '<div id="associatedTab" data-tab-id="000"></div>' +
-    '<div class="keyContainer">'+
-    '<div class="key">'+
-    '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
-    '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
-    '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
-    '<div class="tooltipContainer"></div>' +
-    '</div></div>'+
-    '<div class="spacer"></div>' +
-    '<div id="blockedResourcesInner" class="clickerContainer"></div>';
-  $("#blockedResources").html(trackerTooltips);
+  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml());
 
   // Display tracking domains.
   var originsToDisplay;
