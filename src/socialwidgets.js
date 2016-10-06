@@ -287,7 +287,7 @@ function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
  * Individually replaces tracker buttons blocked after initial check.
  */
 function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
-  if (trackerInfo.length === 0) { return; }
+  if (trackerInfo === undefined || trackerInfo.length === 0) { return; }
   trackerInfo.forEach(function(tracker) {
     var replaceTrackerButtons = (tracker.domain == trackerDomain);
     if (replaceTrackerButtons) {
