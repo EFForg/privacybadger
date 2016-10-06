@@ -15,6 +15,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals badger:false */
+
 var constants = require("constants");
 var utils = require("utils");
 
@@ -52,7 +54,7 @@ require.scopes.storage = (function() {
  * }
  **/
 
-function BadgerPen(isIncognito, callback) {
+function BadgerPen(callback) {
   var keys = [
     "snitch_map",
     "action_map",
@@ -62,15 +64,14 @@ function BadgerPen(isIncognito, callback) {
     "settings_map",
   ];
 
-  this.incognito = isIncognito;
   var bp = this;
   // Now check localStorage
   chrome.storage.local.get(keys, function(store){
     _.each(keys, function(key){
       if(store.hasOwnProperty(key)){
-        bp[key] = new BadgerStorage(isIncognito, key, store[key]);
+        bp[key] = new BadgerStorage(key, store[key]);
       } else {
-        var storage_obj = new BadgerStorage(isIncognito, key, {});
+        var storage_obj = new BadgerStorage(key, {});
         bp[key] = storage_obj;
         _syncStorage(storage_obj);
       }
@@ -253,11 +254,11 @@ BadgerPen.prototype = {
    * @param {String} action The heuristic action to take
    */
   setupUserAction: function(domain, action){
-    var index = pb.userAllow.indexOf(domain);
+    var index = badger.userAllow.indexOf(domain);
     if (index > -1 && action !== constants.USER_ALLOW) {
-      pb.userAllow.splice(index, 1);
+      badger.userAllow.splice(index, 1);
     } else if (index <= -1 && action === constants.USER_ALLOW) {
-      pb.userAllow.push(domain);
+      badger.userAllow.push(domain);
     }
 
     this._setupDomainAction(domain, action, "userAction");
@@ -271,9 +272,9 @@ BadgerPen.prototype = {
   revertUserAction: function(domain){
     this._setupDomainAction(domain, "", "userAction");
 
-    var index = pb.userAllow.indexOf(domain);
+    var index = badger.userAllow.indexOf(domain);
     if (index > -1) {
-      pb.userAllow.splice(index, 1);
+      badger.userAllow.splice(index, 1);
     }
   }
 };
@@ -334,10 +335,9 @@ var _newActionMapObject = function() {
  * @param {Object} seed - the base object which we are instantiating from
  * @return {BadgerStorage} an existing BadgerStorage object or an empty new object
  **/
-var BadgerStorage = function(isIncognito, name, seed){
+var BadgerStorage = function(name, seed){
   this.name = name;
   this._store = seed;
-  this.incognito = isIncognito;
 };
 
 BadgerStorage.prototype = {
@@ -419,14 +419,12 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = function(badgerStorage){
-  if (badgerStorage.incognito) {
-    return;
-  }
+function _syncStorage(badgerStorage) {
   var obj = {};
   obj[badgerStorage.name] = badgerStorage._store;
   chrome.storage.local.set(obj);
-};
+}
+
 /************************************** exports */
 var exports = {};
 

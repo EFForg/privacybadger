@@ -48,8 +48,8 @@ $(function() {
   $(".jcarousel-pagination").click(setSeenComic);
 
   function setSeenComic() {
-    var pb = chrome.extension.getBackgroundPage().pb;
-    var settings = pb.storage.getBadgerStorageObject("settings_map");
+    var badger = chrome.extension.getBackgroundPage().badger;
+    var settings = badger.storage.getBadgerStorageObject("settings_map");
     settings.setItem("seenComic", true);
   }
 });
