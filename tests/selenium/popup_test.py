@@ -89,6 +89,30 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.fail("Options page not opened after clicking options button on popup")
 
+    def test_trackers_link(self):
+        """Ensure trackers link opens EFF website."""
+        self.open_popup()
+
+        try:
+            trackers_link = self.driver.find_element_by_link_text("trackers")
+        except NoSuchElementException:
+            self.fail("Unable to find trackers link on popup")
+        trackers_link.click()
+
+        # Make sure EFF website not opened in same window.
+        time.sleep(1)
+        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+            self.fail("EFF website not opened in new window")
+
+        # Look for EFF website and return if found.
+        eff_url = "https://www.eff.org/privacybadger#trackers"
+        for window in self.driver.window_handles:
+            self.driver.switch_to.window(window)
+            if self.driver.current_url == eff_url:
+                return
+
+        self.fail("EFF website not opened after clicking trackers link")
+
 
 if __name__ == "__main__":
     unittest.main()
