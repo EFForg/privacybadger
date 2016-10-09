@@ -70,6 +70,25 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.fail("First run page not opened after clicking help button on popup")
 
+    def test_options_button(self):
+        """Ensure options page is opened when button is clicked."""
+        self.open_popup()
+
+        try:
+            options_button = self.driver.find_element_by_id("options")
+        except NoSuchElementException:
+            self.fail("Unable to find options button on popup")
+        options_button.click()
+
+        # Look for options page and return if found.
+        time.sleep(1)
+        for window in self.driver.window_handles:
+            self.driver.switch_to.window(window)
+            if self.driver.current_url == pbtest.PB_CHROME_OPTIONS_PAGE_URL:
+                return
+
+        self.fail("Options page not opened after clicking options button on popup")
+
 
 if __name__ == "__main__":
     unittest.main()
