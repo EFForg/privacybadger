@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import time
 import unittest
 import pbtest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
@@ -31,6 +32,25 @@ class PopupTest(pbtest.PBSeleniumTest):
             except TimeoutException:
                 self.fail("Unable to close popup overlay")
 
+    def test_overlay(self):
+        """Ensure overlay links to first run comic."""
+        self.open_popup(close_overlay=False)
+
+        try:
+            comic_link = self.driver.find_element_by_id("firstRun")
+        except NoSuchElementException:
+            self.fail("Unable to find link to comic on popup overlay")
+        comic_link.click()
+
+        # Look for first run page and return if found.
+        time.sleep(1)
+        for window in self.driver.window_handles:
+            self.driver.switch_to.window(window)
+            if self.driver.current_url.startswith(pbtest.PB_CHROME_FIRST_RUN_PAGE_URL):
+                return
+
+        self.fail("First run comic not opened after clicking link in popup overlay")
+
     def test_help_button(self):
         """Ensure first run page is opened when help button is clicked."""
         self.open_popup()
@@ -42,6 +62,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         help_button.click()
 
         # Look for first run page and return if found.
+        time.sleep(1)
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
             if self.driver.current_url == pbtest.PB_CHROME_FIRST_RUN_PAGE_URL:
