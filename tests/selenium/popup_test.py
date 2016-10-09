@@ -125,6 +125,30 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.fail("EFF website not opened after clicking trackers link")
 
+    def test_donate_button(self):
+        """Ensure donate button opens EFF website."""
+        self.open_popup()
+
+        try:
+            donate_button = self.driver.find_element_by_id("donate")
+        except NoSuchElementException:
+            self.fail("Unable to find donate button on popup")
+        donate_button.click()
+
+        # Make sure EFF website not opened in same window.
+        time.sleep(1)
+        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+            self.fail("EFF website not opened in new window")
+
+        # Look for EFF website and return if found.
+        eff_url = "https://supporters.eff.org/donate/support-privacy-badger"
+        for window in self.driver.window_handles:
+            self.driver.switch_to.window(window)
+            if self.driver.current_url == eff_url:
+                return
+
+        self.fail("EFF website not opened after clicking donate button on popup")
+
 
 if __name__ == "__main__":
     unittest.main()
