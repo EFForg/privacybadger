@@ -17,6 +17,8 @@ from time import sleep
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
 PB_CHROME_BG_URL = PB_EXT_BG_URL_BASE + "_generated_background_page.html"
 PB_CHROME_OPTIONS_PAGE_URL = PB_EXT_BG_URL_BASE + "skin/options.html"
+PB_CHROME_POPUP_URL = PB_EXT_BG_URL_BASE + "skin/popup.html"
+PB_CHROME_FIRST_RUN_PAGE_URL = PB_EXT_BG_URL_BASE + "skin/firstRun.html"
 SEL_DEFAULT_WAIT_TIMEOUT = 30
 
 
