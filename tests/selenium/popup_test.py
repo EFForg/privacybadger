@@ -42,8 +42,12 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("Unable to find link to comic on popup overlay")
         comic_link.click()
 
-        # Look for first run page and return if found.
+        # Make sure first run comic not opened in same window.
         time.sleep(1)
+        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+            self.fail("First run comic not opened in new window")
+
+        # Look for first run page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
             if self.driver.current_url.startswith(pbtest.PB_CHROME_FIRST_RUN_PAGE_URL):
@@ -61,14 +65,18 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("Unable to find help button on popup")
         help_button.click()
 
-        # Look for first run page and return if found.
+        # Make sure first run page not opened in same window.
         time.sleep(1)
+        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+            self.fail("Options page not opened in new window")
+
+        # Look for first run page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
             if self.driver.current_url == pbtest.PB_CHROME_FIRST_RUN_PAGE_URL:
                 return
 
-        self.fail("First run page not opened after clicking help button on popup")
+        self.fail("Options page not opened after clicking help button on popup")
 
     def test_options_button(self):
         """Ensure options page is opened when button is clicked."""
@@ -80,8 +88,12 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("Unable to find options button on popup")
         options_button.click()
 
-        # Look for options page and return if found.
+        # Make sure options page not opened in same window.
         time.sleep(1)
+        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+            self.fail("Options page not opened in new window")
+
+        # Look for options page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
             if self.driver.current_url == pbtest.PB_CHROME_OPTIONS_PAGE_URL:
