@@ -68,7 +68,7 @@
         "message": "Activer Privacy Badger pour ce site"
     },
     "popup_instructions": {
-        "message": "Privacy Badger vous protège sur cette page. Ces curseurs vous permettent de contrôler la manière dont Privacy Badger traite chaque traqueur."
+        "message": "Privacy Badger vous protège sur cette page. Ces curseurs vous permettent de contrôler la manière dont Privacy Badger traite chaque <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>traqueur</a>."
     },
     "popup_noblocked": {
         "message": "Pourquoi n'y a-t-il rien de bloqué ?"

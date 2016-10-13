@@ -72,7 +72,7 @@
         "message": "Schakel Privacy Badger in op deze webpagina"
     },
     "popup_instructions": {
-        "message": "<a href='https://www.eff.org/privacybadger#trackers'>trackers</a> op deze webpagina. Met de schuifbalkjes kunt u instellen hoe Privacy Badger omgaat met een tracker."
+        "message": "<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>trackers</a> op deze webpagina. Met de schuifbalkjes kunt u instellen hoe Privacy Badger omgaat met een tracker."
     },
     "popup_noblocked": {
         "message": "Waarom wekt blokkeren niet?"

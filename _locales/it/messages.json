@@ -72,7 +72,7 @@
         "message": "Attiva Privacy Badger in questo sito"
     },
     "popup_instructions": {
-        "message": "potenziali <a href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
+        "message": "potenziali <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
     },
     "popup_noblocked": {
         "message": "Perchè non c'è niente bloccato?"
