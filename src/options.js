@@ -18,15 +18,13 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var pb = backgroundPage.pb; // incognito_pb can't use this page
+var badger = backgroundPage.badger; 
+var log = backgroundPage.log;
 var constants = backgroundPage.constants;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var originCache = null;
-var settings = pb.storage.getBadgerStorageObject("settings_map");
-
-var log = backgroundPage.log;
-var getBadger = backgroundPage.getBadgerWithTab;
+var settings = badger.storage.getBadgerStorageObject("settings_map");
 
 /*
  * Loads options from pb storage and sets UI elements accordingly.
@@ -61,9 +59,9 @@ function loadOptions() {
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $("#show_counter_checkbox").click(updateShowCounter);
-  $("#show_counter_checkbox").prop("checked", pb.showCounter());
+  $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
-  $("#replace_social_widgets_checkbox").prop("checked", pb.isSocialWidgetReplacementEnabled());
+  $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
 
   // Show user's filters
   reloadWhitelist();
@@ -83,7 +81,7 @@ function updateShowCounter() {
     windows.forEach(function(window) {
       chrome.tabs.getAllInWindow(window.id, function(tabs) {
         tabs.forEach(function(tab) {
-          getBadger(tab.id).updateBadge(tab.id);
+          badger.updateBadge(tab.id);
         });
       });
     });
@@ -143,7 +141,7 @@ function addWhitelistDomain(event) {
     return;
   }
 
-  pb.disablePrivacyBadgerForOrigin(domain);
+  badger.disablePrivacyBadgerForOrigin(domain);
   reloadWhitelist();
 }
 
@@ -151,7 +149,7 @@ function removeWhitelistDomain(event) {
   event.preventDefault();
   var selected = $(document.getElementById("excludedDomainsBox")).find('option:selected');
   for(var i = 0; i < selected.length; i++){
-    pb.enablePrivacyBadgerForOrigin(selected[i].text);
+    badger.enablePrivacyBadgerForOrigin(selected[i].text);
   }
   reloadWhitelist();
 }
@@ -164,9 +162,9 @@ function removeWhitelistDomain(event) {
  */
 function getOrigins() {
   var origins = {};
-  var action_map = pb.storage.getBadgerStorageObject('action_map');
+  var action_map = badger.storage.getBadgerStorageObject('action_map');
   for (var domain in action_map.getItemClones()) {
-    var action = pb.storage.getBestAction(domain);
+    var action = badger.storage.getBestAction(domain);
     // Do not show non tracking origins
     if(action != constants.NO_TRACKING){
       origins[domain] = action;
@@ -193,8 +191,8 @@ function revertDomainControl(e){
   var $elm = $(e.target).parent();
   log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  pb.storage.revertUserAction(origin);
-  var defaultAction = pb.storage.getBestAction(origin);
+  badger.storage.revertUserAction(origin);
+  var defaultAction = badger.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
   log('selector', selector);
@@ -222,17 +220,7 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
-  var trackerTooltips = '<div id="associatedTab" data-tab-id="000"></div>' +
-    '<div class="keyContainer">'+
-    '<div class="key">'+
-    '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
-    '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
-    '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
-    '<div class="tooltipContainer"></div>' +
-    '</div></div>'+
-    '<div class="spacer"></div>' +
-    '<div id="blockedResourcesInner" class="clickerContainer"></div>';
-  $("#blockedResources").html(trackerTooltips);
+  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml());
 
   // Display tracking domains.
   var originsToDisplay;
@@ -278,7 +266,7 @@ function showTrackingDomains(domains) {
   domains.sort(htmlUtils.compareReversedDomains);
 
   // Create HTML for list of tracking domains.
-  var trackingDetails = '<div id="blockedResourcesInner" class="clickerContainer">';
+  var trackingDetails = '';
   for (var i = 0; i < domains.length; i++) {
     var trackingDomain = domains[i];
     // todo: gross hack, use templating framework
@@ -354,9 +342,9 @@ function removeOrigin(event) {
   // Remove traces of origin from storage.
   var $element = $(event.target).parent();
   var origin = $element.data('origin');
-  pb.storage.getBadgerStorageObject("snitch_map").deleteItem(origin);
-  pb.storage.getBadgerStorageObject("action_map").deleteItem(origin);
-  pb.storage.getBadgerStorageObject("supercookie_domains").deleteItem(origin);
+  badger.storage.getBadgerStorageObject("snitch_map").deleteItem(origin);
+  badger.storage.getBadgerStorageObject("action_map").deleteItem(origin);
+  badger.storage.getBadgerStorageObject("supercookie_domains").deleteItem(origin);
   backgroundPage.log('Removed', origin, 'from Privacy Badger');
 
   refreshFilterPage();
@@ -404,7 +392,7 @@ function syncSettings(origin, userAction) {
   log("Syncing userset options: ", origin, userAction);
 
   // Save new action for updated origins.
-  pb.saveAction(userAction, origin);
+  badger.saveAction(userAction, origin);
   log("Finished syncing.");
 
   // Options page needs to be refreshed to display current results.

@@ -17,6 +17,8 @@ from time import sleep
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
 PB_CHROME_BG_URL = PB_EXT_BG_URL_BASE + "_generated_background_page.html"
 PB_CHROME_OPTIONS_PAGE_URL = PB_EXT_BG_URL_BASE + "skin/options.html"
+PB_CHROME_POPUP_URL = PB_EXT_BG_URL_BASE + "skin/popup.html"
+PB_CHROME_FIRST_RUN_PAGE_URL = PB_EXT_BG_URL_BASE + "skin/firstRun.html"
 SEL_DEFAULT_WAIT_TIMEOUT = 30
 
 
@@ -41,6 +43,10 @@ class PBSeleniumTest(unittest.TestCase):
         print("\nSuccessfully initialized the chromedriver")
         self.js = self.driver.execute_script
 
+    def open_window(self):
+        self.js('window.open()')
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+
     def load_url(self, url, wait_on_site=0):
         """Load a URL and wait before returning."""
         print("Will load %s" % url)
@@ -59,7 +65,7 @@ class PBSeleniumTest(unittest.TestCase):
             return max(exts, key=os.path.getctime) if exts else ""
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
-        """Find an element by CSS selector and return it's text."""
+        """Find an element by CSS selector and return its text."""
         return self.find_el_by_css(css_selector, timeout).text
 
     def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):

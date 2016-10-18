@@ -91,6 +91,30 @@ var htmlUtils = exports.htmlUtils = {
   },
 
   /**
+   * Get HTML for tracker container.
+   *
+   * @param {Integer} tabId ID of tab trackers are associated with.
+   * @returns {String} HTML for empty tracker container.
+   */
+  getTrackerContainerHtml: function(tabId) {
+    if (tabId === undefined) {
+      tabId = "000";
+    }
+    var trackerHtml = '' +
+      '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
+      '<div class="keyContainer">' +
+      '<div class="key">' +
+      '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="' + i18n.getMessage("tooltip_block") + '">' +
+      '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="' + i18n.getMessage("tooltip_cookieblock") + '">' +
+      '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="' + i18n.getMessage("tooltip_allow") + '">' +
+      '<div class="tooltipContainer"></div>' +
+      '</div></div>' +
+      '<div class="spacer"></div>' +
+      '<div id="blockedResourcesInner" class="clickerContainer"></div>';
+    return trackerHtml;
+  },
+
+  /**
    * Adds HTML for given origin to existing HTML.
    *
    * @param {String} existingHtml Existing HTML to append origin HTML to.

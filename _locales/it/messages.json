@@ -72,7 +72,7 @@
         "message": "Attiva Privacy Badger in questo sito"
     },
     "popup_instructions": {
-        "message": "potenziali <a href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
+        "message": "potenziali <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
     },
     "popup_noblocked": {
         "message": "Perchè non c'è niente bloccato?"
@@ -193,6 +193,15 @@
     },
     "options_so_far": {
       "message": "finora. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker."
+    },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
     },
     "slideshow_1": {
       "message": " Ciao, sono Privacy Badger! Grazie per avermi installato. Sono qui per darti alcuni preziosi consigli, in modo che tutto funzioni bene."

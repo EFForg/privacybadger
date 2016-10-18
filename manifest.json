@@ -24,7 +24,7 @@
   ],
   "background": {
     "scripts": [
-      "lib/compat.js",
+      "src/bootstrap.js",
       "lib/punycode.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
@@ -32,13 +32,14 @@
       "lib/jsbn.js",
       "lib/rsa.js",
       "lib/underscore-min.js",
+      "data/surrogates.js",
+      "src/surrogates.js",
       "src/multiDomainFirstParties.js",
       "src/incognito.js",
       "src/constants.js",
       "src/storage.js",
       "src/utils.js",
       "src/htmlutils.js",
-      "src/domainExceptions.js",
       "src/webrequest.js",
       "src/heuristicblocking.js",
       "src/socialwidgetloader.js",
@@ -68,19 +69,6 @@
         "<all_urls>"
       ],
       "all_frames": true,
-      "run_at": "document_idle"
-    },
-    {
-      "js": [
-        "src/domainExceptionDialog.js"
-      ],
-      "css": [
-        "skin/badger.css"
-      ],
-      "matches": [
-        "<all_urls>"
-      ],
-      "all_frames": false,
       "run_at": "document_idle"
     }
   ],

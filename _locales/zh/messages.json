@@ -32,6 +32,15 @@
     "name": {
         "message": "隐私獾"
     },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
     "new_filters_added": {
         "message": "新的过滤已添加；点击 <a id='options_url' target='_blank'>选择</a> 以管理它们。"
     },
@@ -69,7 +78,7 @@
         "message": "在当前的网页上启用隐私獾"
     },
     "popup_instructions": {
-        "message": "在这个网站上有潜在的<a href='https://www.eff.org/privacybadger#trackers'>跟踪器</a> 。这些滑块让你控制隐私獾如何处理每一个跟踪器。你不必调整他们，除非隐私獾造成网页显示异常。"
+        "message": "在这个网站上有潜在的<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>跟踪器</a> 。这些滑块让你控制隐私獾如何处理每一个跟踪器。你不必调整他们，除非隐私獾造成网页显示异常。"
     },
     "popup_noblocked": {
         "message": "为什么没有任何东西被屏蔽？"

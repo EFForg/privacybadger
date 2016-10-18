@@ -28,7 +28,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""
         self.load_options_page()
-        self.js("pb.storage.setupHeuristicAction('{}', '{}');".format(origin,
+        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(origin,
                                                                       action))
 
     def test_page_title(self):
@@ -45,9 +45,9 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
     def test_should_display_tooltips_on_hover(self):
         driver = self.driver
         find_el_by_css = self.find_el_by_css  # find with WebDriver wait
-        TOOLTIP_TXTS = ("Move the slider left to block a domain.",
-                        "Center the slider to block cookies.",
-                        "Move the slider right to allow a domain.")
+        TOOLTIP_TXTS = ("Move the slider left to block a domain",
+                        "Center the slider to block cookies",
+                        "Move the slider right to allow a domain")
         # Add a tracking domain
         self.add_test_origin("pbtest.org", "block")
         self.load_options_page()

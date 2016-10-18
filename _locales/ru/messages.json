@@ -75,7 +75,7 @@
         "message": "Включить Privacy Badger для этого сайта"
     },
     "popup_instructions": {
-        "message": "потенциальных <a href='https://www.eff.org/privacybadger#trackers'>трекеров</a> на этой странице. С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым из них. Их нужно регулировать только в случае проблем с работой сайта."
+        "message": "потенциальных <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>трекеров</a> на этой странице. С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым из них. Их нужно регулировать только в случае проблем с работой сайта."
     },
     "popup_noblocked": {
         "message": "Почему ничего не заблокировано?"
@@ -125,6 +125,15 @@
     },
     "show_counter_checkbox": {
         "message": "Отображать счетчик заблокированных элементов"
+    },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
     },
     "whitelisted_domains": {
         "description": "Это заголовок вкладки.",

@@ -15,6 +15,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals badger:false */
+
 var constants = require("constants");
 var utils = require("utils");
 
@@ -52,25 +54,24 @@ require.scopes.storage = (function() {
  * }
  **/
 
-function BadgerPen(isIncognito, callback) {
+function BadgerPen(callback) {
   var keys = [
     "snitch_map",
     "action_map",
     "cookieblock_list",
     "supercookie_domains",
     "dnt_hashes",
-    "settings_map"
+    "settings_map",
   ];
 
-  this.incognito = isIncognito;
   var bp = this;
-  // now check localStorage
+  // Now check localStorage
   chrome.storage.local.get(keys, function(store){
     _.each(keys, function(key){
       if(store.hasOwnProperty(key)){
-        bp[key] = new BadgerStorage(isIncognito, key, store[key]);
+        bp[key] = new BadgerStorage(key, store[key]);
       } else {
-        var storage_obj = new BadgerStorage(isIncognito, key, {});
+        var storage_obj = new BadgerStorage(key, {});
         bp[key] = storage_obj;
         _syncStorage(storage_obj);
       }
@@ -87,12 +88,13 @@ BadgerPen.prototype = {
     if(this.hasOwnProperty(key)){
       return this[key];
     }
-    console.error('cant initialize cache from getBadgerStorageObject. You are using this API improperly');
+    console.error("Can't initialize cache from getBadgerStorageObject. You are using this API improperly");
   },
 
   /**
-   * get the current presumed action for a specific fqdn, ignoring any rules for subdomains
-   * below or above it
+   * Get the current presumed action for a specific fully qualified domain name (FQDN),
+   * ignoring any rules for subdomains below or above it
+   *
    * @param {Object|String} domain domain object from action_map
    * @returns {String} the presumed action for this FQDN
    **/
@@ -123,7 +125,7 @@ BadgerPen.prototype = {
   },
 
   /**
-   * update DNT policy hashes
+   * Update DNT policy hashes
    */
   updateDNTHashes: function(hashes){
     var dnt_hashes = this.getBadgerStorageObject('dnt_hashes');
@@ -131,10 +133,10 @@ BadgerPen.prototype = {
   },
 
   /**
-   * find the best action to take for an FQDN, assuming it is third party and
-   * privacy badger is enabled. Traverses the action list for the
-   * fqdn and each of its subdomains and then takes the most appropriate
-   * action
+   * Find the best action to take for an FQDN, assuming it is third party and
+   * Privacy Badger is enabled. Traverse the action list for the FQDN and each
+   * of its subdomains and then takes the most appropriate action
+   *
    * @param {String} fqdn the FQDN we want to determine the action for
    * @returns {String} the best action for the FQDN
    **/
@@ -147,7 +149,7 @@ BadgerPen.prototype = {
 
     for( i = 0; i < subdomains.length; i++ ){
       if(action_map.hasItem(subdomains[i])){
-        // First collect the actions for any domains or subdomains of the fqdn
+        // First collect the actions for any domains or subdomains of the FQDN
         // Order from base domain to FQDN
         relevantDomains.unshift(action_map.getItem(subdomains[i]));
       }
@@ -166,7 +168,8 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Find every domain in the action_map where the presumed acttion would be {action}
+   * Find every domain in the action_map where the presumed action would be {selector}
+   *
    * @param {String} selector the action to select by
    * @return {Array} an array of FQDN strings
    **/
@@ -183,6 +186,7 @@ BadgerPen.prototype = {
 
   /**
    * Get the number of domains that the given FQDN has been seen tracking on
+   *
    * @param fqdn domain to check status of
    * @return int the number of domains fqdn has been tracking on
    */
@@ -196,7 +200,8 @@ BadgerPen.prototype = {
   },
 
   /**
-   * set up an action for a domain of the given action type in action_map
+   * Set up an action for a domain of the given action type in action_map
+   *
    * @param domain the domain to set the action for
    * @param action the action to take e.g. BLOCK || COOKIEBLOCK || DNT
    * @param actionType the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
@@ -215,7 +220,8 @@ BadgerPen.prototype = {
   },
 
   /**
-   * adds a heuristic action for a domain
+   * Add a heuristic action for a domain
+   *
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
@@ -224,7 +230,8 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Sets up a domain for DNT
+   * Set up a domain for DNT
+   *
    * @param {String} domain Domain to add
    */
   setupDNT: function(domain){
@@ -232,28 +239,43 @@ BadgerPen.prototype = {
   },
 
   /**
-  * remove DNT setting from a domain
-  * @param domain FQDN string
-  **/
+   * Remove DNT setting from a domain*
+   * @param domain FQDN string
+   */
   revertDNT: function(domain){
     this._setupDomainAction(domain, false, "dnt");
   },
 
   /**
-   * adds a heuristic action for a domain
+   * Add a heuristic action for a domain and add/remove domain from
+   * userAllow list if needed
+   *
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
   setupUserAction: function(domain, action){
+    var index = badger.userAllow.indexOf(domain);
+    if (index > -1 && action !== constants.USER_ALLOW) {
+      badger.userAllow.splice(index, 1);
+    } else if (index <= -1 && action === constants.USER_ALLOW) {
+      badger.userAllow.push(domain);
+    }
+
     this._setupDomainAction(domain, action, "userAction");
   },
 
   /**
-  * remove user set action from a domain
+   * Remove user set action from a domain and remove it from userAllow
+   * list in case it was previously allowed by user
   * @param domain FQDN string
   **/
   revertUserAction: function(domain){
     this._setupDomainAction(domain, "", "userAction");
+
+    var index = badger.userAllow.indexOf(domain);
+    if (index > -1) {
+      badger.userAllow.splice(index, 1);
+    }
   }
 };
 
@@ -309,20 +331,20 @@ var _newActionMapObject = function() {
 /**
  * BadgerStorage constructor
  * *DO NOT USE DIRECTLY* Instead call `getBadgerStorageObject(name)`
- * @param {String} name the name of the storage object
- * @param {Object} seed the base object which we are instantiating from
+ * @param {String} name - the name of the storage object
+ * @param {Object} seed - the base object which we are instantiating from
  * @return {BadgerStorage} an existing BadgerStorage object or an empty new object
  **/
-var BadgerStorage = function(isIncognito, name, seed){
+var BadgerStorage = function(name, seed){
   this.name = name;
   this._store = seed;
-  this.incognito = isIncognito;
 };
 
 BadgerStorage.prototype = {
   /**
-   * check if this storage object has an item
-   * @param {String} key the key for the item
+   * Check if this storage object has an item
+   *
+   * @param {String} key - the key for the item
    * @return boolean
    **/
   hasItem: function(key){
@@ -331,8 +353,9 @@ BadgerStorage.prototype = {
   },
 
   /**
-   * get an item
-   * @param {String} key the key for the item
+   * Get an item
+   *
+   * @param {String} key - the key for the item
    * @return the value for that key or null
    **/
   getItem: function(key) {
@@ -345,7 +368,8 @@ BadgerStorage.prototype = {
   },
 
   /**
-   * get all items in the object as a copy
+   * Get all items in the object as a copy
+   *
    * #return {*} the items in badgerObject
    */
   getItemClones: function() {
@@ -354,9 +378,10 @@ BadgerStorage.prototype = {
   },
 
   /**
-   * set an item
-   * @param {String} key the key for the item
-   * @param {*} value the new value
+   * Set an item
+   *
+   * @param {String} key - the key for the item
+   * @param {*} value - the new value
    **/
   setItem: function(key,value){
     var self = this;
@@ -368,8 +393,9 @@ BadgerStorage.prototype = {
   },
 
   /**
-   * delete an item
-   * @param {String} key the key for the item
+   * Delete an item
+   *
+   * @param {String} key - the key for the item
    **/
   deleteItem: function(key){
     var self = this;
@@ -383,9 +409,9 @@ BadgerStorage.prototype = {
   /**
    * Update the entire object that this instance is storing
    */
-  updateObject: function(objekt){
+  updateObject: function(object){
     var self = this;
-    self._store = objekt;
+    self._store = object;
     // Async call to syncStorage.
     setTimeout(function(){
       _syncStorage(self);
@@ -393,14 +419,12 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = function(badgerStorage){
-  if (badgerStorage.incognito) {
-    return;
-  }
+function _syncStorage(badgerStorage) {
   var obj = {};
   obj[badgerStorage.name] = badgerStorage._store;
   chrome.storage.local.set(obj);
-};
+}
+
 /************************************** exports */
 var exports = {};
 

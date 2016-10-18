@@ -12,7 +12,7 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
     def has_supercookies(self, origin):
         """Check if the given origin has supercookies in PB's localStorage."""
         self.load_url(pbtest.PB_CHROME_BG_URL, wait_on_site=1)
-        get_sc_domains_js = "return JSON.stringify(pb.storage."\
+        get_sc_domains_js = "return JSON.stringify(badger.storage."\
             "getBadgerStorageObject('supercookie_domains').getItemClones())"
         supercookieDomains = json.loads(self.js(get_sc_domains_js))
         return origin in supercookieDomains
@@ -29,7 +29,7 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
                       wait_on_site=5)
         self.driver.switch_to_frame(self.driver.
                                     find_element_by_tag_name("iframe"))
-        print self.js("return localStorage['frameId']")
+        print(self.js("return localStorage['frameId']"))
         self.assertTrue(self.has_supercookies("githack.com"))
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):

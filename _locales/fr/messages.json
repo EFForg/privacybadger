@@ -68,7 +68,7 @@
         "message": "Activer Privacy Badger pour ce site"
     },
     "popup_instructions": {
-        "message": "Privacy Badger vous protège sur cette page. Ces curseurs vous permettent de contrôler la manière dont Privacy Badger traite chaque traqueur."
+        "message": "Privacy Badger vous protège sur cette page. Ces curseurs vous permettent de contrôler la manière dont Privacy Badger traite chaque <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>traqueur</a>."
     },
     "popup_noblocked": {
         "message": "Pourquoi n'y a-t-il rien de bloqué ?"
@@ -103,6 +103,15 @@
     },
     "show_counter_checkbox": {
         "message": "Afficher le nombre d'articles bloqués"
+    },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
     },
     "whitelisted_domains": {
         "description": "Intitulé de l'onglet.",

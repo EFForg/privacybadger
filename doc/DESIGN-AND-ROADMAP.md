@@ -184,7 +184,7 @@ by third party origins with local, static equivalents that either replace the
 original widget faithfully, or create a click-through step before the widget
 is loaded and tracks the user.
 
-The widget replacement table lives in the [socialwidgets.json file](https://github.com/EFForg/privacyBadgerchrome/blob/master/src/socialwidgets.json).
+The widget replacement table lives in the [socialwidgets.json file](https://github.com/EFForg/privacyBadgerchrome/blob/master/data/socialwidgets.json).
 Widgets are replaced unless the user has chosen to specifically allow that third party
 domain (by moving the slider to 'green' in the UI), so users can selectively
 disable this functionality if they wish. The code for social media widgets is
