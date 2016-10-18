@@ -86,6 +86,7 @@ w.graphiq.com
 s.graphiq.com
 s2.graphiq.com
 s3.graphiq.com
+files.graphiq.com
 gr-assets.com
 guardian.co.uk
 media-imdb.com
@@ -357,6 +358,7 @@ ngfiles.com
 nj.com
 nmcdn.us
 nola.com
+npmcdn.com
 nrcdn.com
 nsimg.net
 media.nu.nl
@@ -444,6 +446,7 @@ shoprunner.com
 siteimprove.com
 sketchfab.com
 slidedeck.com
+public.slidesharecdn.com
 s-msft.com
 s-msn.com
 smugmug.com
@@ -537,9 +540,11 @@ wistia.net
 wistia.com
 sslstatic.wix.com
 gatherer.wizards.com
+s.w.org
 wordpress.com
 worldnow.com
 wp.com
+wpengine.com
 wufoo.com
 wunderground.com
 wxc.com

@@ -87,6 +87,7 @@
 @@||s.graphiq.com^$third-party
 @@||s2.graphiq.com^$third-party
 @@||s3.graphiq.com^$third-party
+@@||files.graphiq.com^$third-party
 @@||guardian.co.uk^$third-party
 @@||media-imdb.com^$third-party
 @@||mediaworks.co.nz^$third-party
@@ -357,6 +358,7 @@
 @@||nj.com^$third-party
 @@||nmcdn.us^$third-party
 @@||nola.com^$third-party
+@@||npmcdn.com^$third-party
 @@||nrcdn.com^$third-party
 @@||nsimg.net^$third-party
 @@||media.nu.nl^$third-party
@@ -441,6 +443,7 @@
 @@||siteimprove.com^$third-party
 @@||sketchfab.com^$third-party
 @@||slidedeck.com^$third-party
+@@||public.slidesharecdn.com^$third-party
 @@||s-msft.com^$third-party
 @@||s-msn.com^$third-party
 @@||smugmug.com^$third-party
@@ -534,9 +537,11 @@
 @@||wistia.com^$third-party
 @@||sslstatic.wix.com^$third-party
 @@||gatherer.wizards.com^$third-party
+@@||w.org^$third-party
 @@||wordpress.com^$third-party
 @@||worldnow.com^$third-party
 @@||wp.com^$third-party
+@@||wpengine.com^$third-party
 @@||wufoo.com^$third-party
 @@||wunderground.com^$third-party
 @@||wxc.com^$third-party
