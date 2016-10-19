@@ -26,7 +26,6 @@ var pbStorage = require("storage");
 
 var HeuristicBlocking = require("heuristicblocking");
 var webrequest = require("webrequest");
-//var webrtc = require("webrtc");
 var SocialWidgetLoader = require("socialwidgetloader");
 window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json");
 
@@ -50,6 +49,7 @@ function Badger() {
       badger.initializeCookieBlockList();
       badger.initializeDNT();
       badger.initializeUserAllowList();
+      badger.enableWebRTCProtection();
       if (!badger.isIncognito) {badger.showFirstRunPage();}
     }
 
@@ -66,160 +66,6 @@ function Badger() {
 
     badger.INITIALIZED = true;
   });
-  this.webrtc = {
-    webRTCSupported: undefined,
-
-    // https://github.com/gorhill/uBlock/issues/875
-    // Must not leave `lastError` unchecked.
-    noopCallback: function() {
-      void chrome.runtime.lastError;
-    },
-
-    // Calling with `true` means IP address leak is not prevented.
-    // https://github.com/gorhill/uBlock/issues/533
-    //   We must first check wether this Chromium-based browser was compiled
-    //   with WebRTC support. To do this, we use an iframe, this way the
-    //   empty RTCPeerConnection object we create to test for support will
-    //   be properly garbage collected. This prevents issues such as
-    //   a computer unable to enter into sleep mode, as reported in the
-    //   Chrome store:
-    // https://github.com/gorhill/uBlock/issues/533#issuecomment-167931681
-    setWebrtcIPAddress: function(setting) {
-      // We don't know yet whether this browser supports WebRTC: find out.
-      if ( this.webRTCSupported === undefined ) {
-        this.webRTCSupported = { setting: setting };
-        var iframe = document.createElement('iframe');
-        var me = this;
-        var messageHandler = function(ev) {
-          if ( ev.origin !== self.location.origin ) {
-            return;
-          }
-          window.removeEventListener('message', messageHandler);
-          var setting = me.webRTCSupported.setting;
-          me.webRTCSupported = ev.data === 'webRTCSupported';
-          me.setWebrtcIPAddress(setting);
-          iframe.parentNode.removeChild(iframe);
-          iframe = null;
-        };
-        window.addEventListener('message', messageHandler);
-        iframe.src = 'src/is-webrtc-supported.html';
-        document.body.appendChild(iframe);
-        return;
-      }
-
-      // We are waiting for a response from our iframe. This makes the code
-      // safe to re-entrancy.
-      if ( typeof this.webRTCSupported === 'object' ) {
-        this.webRTCSupported.setting = setting;
-        return;
-      }
-
-      // https://github.com/gorhill/uBlock/issues/533
-      // WebRTC not supported: `webRTCMultipleRoutesEnabled` can NOT be
-      // safely accessed. Accessing the property will cause full browser
-      // crash.
-      if ( this.webRTCSupported !== true ) {
-        return;
-      }
-
-      var cp = chrome.privacy,
-          cpn = cp.network;
-
-      // Older version of Chromium do not support this setting, and is
-      // marked as "deprecated" since Chromium 48.
-      if ( typeof cpn.webRTCMultipleRoutesEnabled === 'object' ) {
-        try {
-          if ( setting ) {
-            cpn.webRTCMultipleRoutesEnabled.clear({
-              scope: 'regular'
-            }, this.noopCallback);
-          } else {
-            cpn.webRTCMultipleRoutesEnabled.set({
-              value: false,
-              scope: 'regular'
-            }, this.noopCallback);
-          }
-        } catch(ex) {
-          console.error(ex);
-        }
-      }
-
-      // This setting became available in Chromium 48.
-      if ( typeof cpn.webRTCIPHandlingPolicy === 'object' ) {
-        try {
-          if ( setting ) {
-            cpn.webRTCIPHandlingPolicy.clear({
-              scope: 'regular'
-            }, this.noopCallback);
-          } else {
-            // Respect current stricter setting if any.
-            cpn.webRTCIPHandlingPolicy.get({}, function(details) {
-              var value = details.value === 'disable_non_proxied_udp' ?
-                  'disable_non_proxied_udp' :
-                  'default_public_interface_only';
-              cpn.webRTCIPHandlingPolicy.set({
-                value: value,
-                scope: 'regular'
-              }, this.noopCallback);
-            }.bind(this));
-          }
-        } catch(ex) {
-          console.error(ex);
-        }
-      }
-    },
-
-    set: function(details) {
-      for ( var setting in details ) {
-        if ( details.hasOwnProperty(setting) === false ) {
-          continue;
-        }
-        switch ( setting ) {
-          case 'prefetching':
-            try {
-              if ( !!details[setting] ) {
-                chrome.privacy.network.networkPredictionEnabled.clear({
-                  scope: 'regular'
-                }, this.noopCallback);
-              } else {
-                chrome.privacy.network.networkPredictionEnabled.set({
-                  value: false,
-                  scope: 'regular'
-                }, this.noopCallback);
-              }
-            } catch(ex) {
-              console.error(ex);
-            }
-            break;
-
-          case 'hyperlinkAuditing':
-            try {
-              if ( !!details[setting] ) {
-                chrome.privacy.websites.hyperlinkAuditingEnabled.clear({
-                  scope: 'regular'
-                }, this.noopCallback);
-              } else {
-                chrome.privacy.websites.hyperlinkAuditingEnabled.set({
-                  value: false,
-                  scope: 'regular'
-                }, this.noopCallback);
-              }
-            } catch(ex) {
-              console.error(ex);
-            }
-            break;
-
-          case 'webrtcIPAddress':
-            this.setWebrtcIPAddress(!!details[setting]);
-            break;
-
-          default:
-            break;
-        }
-      }
-    }
-  };
-  this.webrtc.setWebrtcIPAddress(false);
 }
 
 Badger.prototype = {
@@ -320,6 +166,18 @@ Badger.prototype = {
   initializeCookieBlockList: function(){
     this.updateCookieBlockList();
     setInterval(this.updateCookieBlockList, utils.oneDay());
+  },
+
+  enableWebRTCProtection: function(){
+    var cpn = chrome.privacy.network;
+    cpn.webRTCIPHandlingPolicy.get({}, function(result) {
+      // Only update value if stronger setting is not already active
+      if (result.value !== 'disable_non_proxied_udp') {
+        cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
+            function(){ // empty callback
+            })
+      }
+    });
   },
 
   /**
@@ -517,7 +375,102 @@ Badger.prototype = {
 
   },
 
-  /**
+  // Calling with `true` means IP address leak is not prevented.
+  // https://github.com/gorhill/uBlock/issues/533
+  //   We must first check wether this Chromium-based browser was compiled
+  //   with WebRTC support. To do this, we use an iframe, this way the
+  //   empty RTCPeerConnection object we create to test for support will
+  //   be properly garbage collected. This prevents issues such as
+  //   a computer unable to enter into sleep mode, as reported in the
+  //   Chrome store:
+  // https://github.com/gorhill/uBlock/issues/533#issuecomment-167931681
+  setWebrtcIPAddress: function(setting) {
+    // We don't know yet whether this browser supports WebRTC: find out.
+    if ( this.webRTCSupported === undefined ) {
+      this.webRTCSupported = { setting: setting };
+      var iframe = document.createElement('iframe');
+      var me = this;
+      var messageHandler = function(ev) {
+        if ( ev.origin !== self.location.origin ) {
+          return;
+        }
+        window.removeEventListener('message', messageHandler);
+        var setting = me.webRTCSupported.setting;
+        me.webRTCSupported = ev.data === 'webRTCSupported';
+        me.setWebrtcIPAddress(setting);
+        iframe.parentNode.removeChild(iframe);
+        iframe = null;
+      };
+      window.addEventListener('message', messageHandler);
+      iframe.src = 'is-webrtc-supported.html';
+      document.body.appendChild(iframe);
+      return;
+    }
+
+    // We are waiting for a response from our iframe. This makes the code
+    // safe to re-entrancy.
+    if ( typeof this.webRTCSupported === 'object' ) {
+      this.webRTCSupported.setting = setting;
+      return;
+    }
+
+    // https://github.com/gorhill/uBlock/issues/533
+    // WebRTC not supported: `webRTCMultipleRoutesEnabled` can NOT be
+    // safely accessed. Accessing the property will cause full browser
+    // crash.
+    if ( this.webRTCSupported !== true ) {
+      return;
+    }
+
+    var cp = chrome.privacy,
+        cpn = cp.network;
+
+    // Older version of Chromium do not support this setting, and is
+    // marked as "deprecated" since Chromium 48.
+    if ( typeof cpn.webRTCMultipleRoutesEnabled === 'object' ) {
+      try {
+        if ( setting ) {
+          cpn.webRTCMultipleRoutesEnabled.clear({
+            scope: 'regular'
+          }, this.noopCallback);
+        } else {
+          cpn.webRTCMultipleRoutesEnabled.set({
+            value: false,
+            scope: 'regular'
+          }, this.noopCallback);
+        }
+      } catch(ex) {
+        console.error(ex);
+      }
+    }
+
+    // This setting became available in Chromium 48.
+    if ( typeof cpn.webRTCIPHandlingPolicy === 'object' ) {
+      try {
+        if ( setting ) {
+          cpn.webRTCIPHandlingPolicy.clear({
+            scope: 'regular'
+          }, this.noopCallback);
+        } else {
+          // Respect current stricter setting if any.
+          cpn.webRTCIPHandlingPolicy.get({}, function(details) {
+            var value = details.value === 'disable_non_proxied_udp' ?
+                'disable_non_proxied_udp' :
+                'default_public_interface_only';
+            cpn.webRTCIPHandlingPolicy.set({
+              value: value,
+              scope: 'regular'
+            }, this.noopCallback);
+          }.bind(this));
+        }
+      } catch(ex) {
+        console.error(ex);
+      }
+    }
+  },
+
+
+/**
    * Helper function returns a list of all blocked origins for a tab
    * @param {Integer} tabId requested tab id as provided by chrome
    * @returns {*} A dictionary of third party origins and their actions
