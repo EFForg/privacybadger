@@ -11,6 +11,7 @@ todo:
 logging:
 	grep -rn 'console.log' src lib
 xpi:
+	# TODO when does "make xpi" get called? should probably use same zip flags (exclude list, ...) as "make zip"
 	zip -r privacybadger.xpi *
 upload:
 	scp doc/sample_cookieblocklist.txt $$COOKIE_BLOCK_UPLOAD_PATH
