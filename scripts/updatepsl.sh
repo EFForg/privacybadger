@@ -10,16 +10,17 @@ TEMPFILE=$(mktemp)
 trap 'rm $TEMPFILE' EXIT
 
 echo "fetching Public Suffix List ..."
-if wget -q -T 30 -O "$TEMPFILE" -- $PSL_URL; then
-	if [ -s "$TEMPFILE" ]; then
-		python scripts/convertpsl.py "$TEMPFILE"
-		if cmp -s "$TEMPFILE" $PSL_PATH; then
-			echo "    no PSL updates"
-		else
-			cp "$TEMPFILE" $PSL_PATH
-			echo "    updated PSL at $PSL_PATH"
-			echo "    please verify and commit!"
-			exit 1
-		fi
+if wget -q -T 30 -O "$TEMPFILE" -- $PSL_URL && [ -s "$TEMPFILE" ]; then
+	python scripts/convertpsl.py "$TEMPFILE"
+	if cmp -s "$TEMPFILE" $PSL_PATH; then
+		echo "    no PSL updates"
+	else
+		cp "$TEMPFILE" $PSL_PATH
+		echo "    updated PSL at $PSL_PATH"
+		echo "    please verify and commit!"
+		exit 1
 	fi
+else
+	echo "    PSL fetching failed!"
+	exit 1
 fi
