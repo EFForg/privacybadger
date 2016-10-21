@@ -16,8 +16,8 @@ if wget -q -T 30 -O "$TEMPFILE" -- $PSL_URL; then
 		if cmp -s "$TEMPFILE" $PSL_PATH; then
 			echo "    no PSL updates"
 		else
-			echo "    updated PSL at $PSL_PATH"
 			cp "$TEMPFILE" $PSL_PATH
+			echo "    updated PSL at $PSL_PATH"
 			echo "    please verify and commit!"
 			exit 1
 		fi

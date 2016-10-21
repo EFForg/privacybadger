@@ -1,4 +1,5 @@
 build: updatepsl zip crx
+travisbuild: zip crx
 updatepsl:
 	scripts/updatepsl.sh
 zip:
@@ -17,4 +18,4 @@ upload:
 	#scp doc/dnt-policies-example.json $$DNT_POLICIES_UPLOAD_PATH
 lint:
 	./node_modules/.bin/eslint .
-.PHONY: build updatepsl zip crx todo logging lint
+.PHONY: build travisbuild updatepsl zip crx todo logging lint
