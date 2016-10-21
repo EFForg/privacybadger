@@ -21,6 +21,7 @@ if wget -q -T 30 -O "$TEMPFILE" -- $PSL_URL && [ -s "$TEMPFILE" ]; then
 		exit 1
 	fi
 else
-	echo "    PSL fetching failed!"
+	echo "    failed to fetch PSL from $PSL_URL"
+	echo "    aborting build!"
 	exit 1
 fi
