@@ -214,6 +214,40 @@ function oneDayFromNow(){
 }
 
 
+/**
+ * Loads a JSON file at filePath and returns the parsed object.
+ *
+ * @param {String} filePath the path to the JSON file, relative to the
+ *                          extension's data folder
+ * @return {Object} the JSON at the file at filePath
+ */
+function loadJSONFromFile (filePath) {
+  var jsonString = getFileContents(filePath);
+  var jsonParsed = JSON.parse(jsonString);
+  Object.freeze(jsonParsed); // prevent modifications to jsonParsed
+
+  return jsonParsed;
+}
+
+/**
+ * Returns the contents of the file at filePath.
+ *
+ * @param {String} filePath the path to the file
+ *
+ * @return {String} the contents of the file
+ */
+function getFileContents (filePath) {
+  var url = chrome.extension.getURL(filePath);
+
+  var request = new XMLHttpRequest();
+  // TODO replace synchronous main thread XHR with async
+  // TODO https://xhr.spec.whatwg.org/#sync-warning
+  request.open("GET", url, false);
+  request.send();
+
+  return request.responseText;
+}
+
 /************************************** exports */
 var exports = {};
 
@@ -226,6 +260,8 @@ exports.makeURI = makeURI;
 exports.xhrRequest = xhrRequest;
 exports.explodeSubdomains = explodeSubdomains;
 exports.getRandom = getRandom;
+exports.loadJSONFromFile = loadJSONFromFile;
+exports.getFileContents = getFileContents;
 exports.Utils = Utils;
 
 return exports;

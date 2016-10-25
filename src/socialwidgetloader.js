@@ -44,44 +44,13 @@
 */
 /* globals chrome */
 
+var utils = require("utils");
+
 require.scopes.socialwidgetloader = (function() {
 
 var exports = {};
 exports.loadSocialWidgetsFromFile = loadSocialWidgetsFromFile;
 
-/**
- * Loads a JSON file at filePath and returns the parsed object.
- *
- * @param {String} filePath the path to the JSON file, relative to the
- *                          extension's data folder
- * @return {Object} the JSON at the file at filePath
- */
-function loadJSONFromFile(filePath) {
-  var jsonString = getFileContents(filePath);
-  var jsonParsed = JSON.parse(jsonString);
-  Object.freeze(jsonParsed); // prevent modifications to jsonParsed
-
-  return jsonParsed;
-}
-
-/**
- * Returns the contents of the file at filePath.
- *
- * @param {String} filePath the path to the file
- *
- * @return {String} the contents of the file
- */
-function getFileContents(filePath) {
-  var url = chrome.extension.getURL(filePath);
-
-  var request = new XMLHttpRequest();
-  // TODO replace synchronous main thread XHR with async
-  // TODO https://xhr.spec.whatwg.org/#sync-warning
-  request.open("GET", url, false);
-  request.send();
-
-  return request.responseText;
-}
 
 /**
  * Returns an array of SocialWidget objects that are loaded from the file at
@@ -94,7 +63,7 @@ function getFileContents(filePath) {
  */
 function loadSocialWidgetsFromFile(filePath) {
   var socialwidgets = [];
-  var socialwidgetsJson = loadJSONFromFile(filePath);
+  var socialwidgetsJson = utils.loadJSONFromFile(filePath);
 
   // loop over each socialwidget, making a SocialWidget object
   for (var socialwidgetName in socialwidgetsJson) {
