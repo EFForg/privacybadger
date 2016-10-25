@@ -158,7 +158,7 @@ Badger.prototype = {
 
   /**
    * Initialize the Cookieblock List:
-   * * Download list form eff
+   * * Download list from eff
    * * Merge with existing cookieblock list if any
    * * Add any new domains to the action map
    * Set a timer to update every 24 hours
@@ -168,12 +168,20 @@ Badger.prototype = {
     setInterval(this.updateCookieBlockList, utils.oneDay());
   },
 
+  /**
+   * (Currently Chrome only)
+   * Change default WebRTC handling browser policy to more
+   * private setting that only shows public facing IP address.
+   * Only update if user does not have the strictest setting enabled
+  **/
   enableWebRTCProtection: function(){
     var cpn = chrome.privacy.network;
     cpn.webRTCIPHandlingPolicy.get({}, function(result) {
-      // Only update value if stronger setting is not already active
-      if (result.value !== 'disable_non_proxied_udp') {
-        cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
+      if (result.value === 'disable_non_proxied_udp') {
+        return; // Current setting is stricter than our preferred setting
+      }
+
+      cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
             function(){ // empty callback
             });
       }
