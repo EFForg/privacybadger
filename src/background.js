@@ -182,9 +182,8 @@ Badger.prototype = {
       }
 
       cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
-            function(){ // empty callback
-            });
-      }
+        function(){ // empty callback
+          });
     });
   },
 
