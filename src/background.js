@@ -175,6 +175,8 @@ Badger.prototype = {
    * Only update if user does not have the strictest setting enabled
   **/
   enableWebRTCProtection: function(){
+    // Return early if browser doesn't implement chrome.privacy
+    if (!chrome.privacy) {return;}
     var cpn = chrome.privacy.network;
     cpn.webRTCIPHandlingPolicy.get({}, function(result) {
       if (result.value === 'disable_non_proxied_udp') {
