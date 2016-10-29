@@ -168,14 +168,26 @@ a, a:hover, a:active, a:visited{
 
   <div id="tab-pb-status">
     <p class=""></p>
-    <div id="blockedResourcesContainer">
+    <div style="float:left">
       <p id="pbInstructions">
-      <span class="i18n_options_pb_has_detected"></span>
-      <span id='count'>0</span>
-      <span class="i18n_options_potential"></span>
-      <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers"><span class="i18n_options_tracking_domains"></span></a>
-      <span class="i18n_options_so_far"></span>
+        <span class="i18n_options_pb_has_detected"></span>
+        <span id='count'>0</span>
+        <span class="i18n_options_potential"></span>
+        <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers"><span class="i18n_options_tracking_domains"></span></a>
+        <span class="i18n_options_so_far"></span>
       </p>
+    </div>
+    <div id="importExportControls">
+      <table>
+        <tr>
+          <button class="importButton" type="submit">Import tracker list</button>
+        </tr>
+        <tr>
+          <button class="exportButton" type="submit">Export tracker list</button>
+        </tr>
+      </table>
+    </div>
+    <div id="blockedResourcesContainer">
       <div class="spacer"></div>
       <input id="trackingDomainSearch" type="text" value="" style="width:100%">
       <div id="blockedResources"><span class="i18n_options_loading"></span></div>

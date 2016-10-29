@@ -50,6 +50,8 @@ function loadOptions() {
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
     $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
+    $('#importExportControls').on('click', '.importButton', importTrackerList);
+    $('#importExportControls').on('click', '.exportButton', exportTrackerList);
   });
 
   // Display jQuery UI elements
@@ -58,6 +60,8 @@ function loadOptions() {
   $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
+  $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
+  $(".exportButton").button("option", "icons", {primary: "ui-icon-extlink"});
   $("#show_counter_checkbox").click(updateShowCounter);
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
@@ -68,6 +72,38 @@ function loadOptions() {
   refreshFilterPage();
 }
 $(loadOptions);
+
+/**
+ * Import a list of trackers supplied by the user
+ * NOTE: list must be in JSON format to be parseable
+ */
+function importTrackerList() {
+  // TODO implement function
+}
+
+/**
+ * Export the user's list of trackers from action_map and snitch_map.
+ * List will be exported and sent to user via chrome.downloads API
+ * and will be in JSON format that can be edited and reimported
+ * in another instance of Privacy Badger
+ */
+function exportTrackerList() {
+  chrome.storage.local.get("action_map", function(action) {
+    var actionMap = JSON.stringify(action);
+
+    chrome.storage.local.get("snitch_map", function(snitch) {
+      var snitchMap = JSON.stringify(snitch);
+
+      var maps = actionMap + snitchMap;
+
+      var downloadURL = 'data:application/json;base64,' + btoa(maps);
+      chrome.downloads.download({
+        url: downloadURL,
+        filename: 'PB_tracker_list.json'
+      });
+    });
+  });
+}
 
 /**
  * Update setting for whether or not to show counter on Privacy Badger badge.
