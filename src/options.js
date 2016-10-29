@@ -38,6 +38,8 @@ function loadOptions() {
   // Add event listeners
   $("#whitelistForm").submit(addWhitelistDomain);
   $("#removeWhitelist").click(removeWhitelistDomain);
+  $('#importTrackerButton').click(importTrackerList);
+  $('#exportTrackers').click(exportTrackerList);
 
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").attr("placeholder", i18n.getMessage("options_domain_search"));
@@ -50,8 +52,6 @@ function loadOptions() {
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
     $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
-    $('#importExportControls').on('click', '.importButton', importTrackerList);
-    $('#importExportControls').on('click', '.exportButton', exportTrackerList);
   });
 
   // Display jQuery UI elements
@@ -78,7 +78,17 @@ $(loadOptions);
  * NOTE: list must be in JSON format to be parseable
  */
 function importTrackerList() {
-  // TODO implement function
+  var file = $('#inputFile')[0].files[0];
+
+  if (file) {
+    console.log(file);
+    var reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function(e) {
+      console.log("output: ", e.target.result);
+      // TODO parse tracker list
+    }
+  }
 }
 
 /**
