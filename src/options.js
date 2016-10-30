@@ -81,14 +81,47 @@ function importTrackerList() {
   var file = $('#inputFile')[0].files[0];
 
   if (file) {
-    console.log(file);
+    // console.log(file);
     var reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function(e) {
-      console.log("output: ", e.target.result);
+      // console.log("output: ", e.target.result);
       // TODO parse tracker list
+      parseTrackerList(e.target.result);
     }
   }
+}
+
+/**
+ * Parse the tracker lists uploaded by the user, adding to
+ * action_map and snitch_map anything that isn't currently present.
+ *
+ * @param trackerLists - data from JSON file that user provided
+ */
+function parseTrackerList(trackerLists) {
+  // TODO add error handling to alert user about any errors in supplied file
+  var lists = JSON.parse(trackerLists);
+  console.log(lists);
+  for (i in lists) {
+    if (lists[i].action_map) {
+      console.log("parsing action_map");
+      updateMap(lists[i].action_map, "action_map");
+    } else if (lists[i].snitch_map) {
+      console.log("parsing snitch_map");
+      updateMap(lists[i].snitch_map, "snitch_map");
+    }
+  }
+}
+
+/**
+ * Update the specified storage map with the elements
+ * from the given list
+ *
+ * @param list - the list of data to be added
+ * @param map - the map in which the data is to be inserted
+ */
+function updateMap(list, map) {
+  // TODO insert data from list into appropriate map
 }
 
 /**
@@ -99,14 +132,13 @@ function importTrackerList() {
  */
 function exportTrackerList() {
   chrome.storage.local.get("action_map", function(action) {
-    var actionMap = JSON.stringify(action);
 
     chrome.storage.local.get("snitch_map", function(snitch) {
-      var snitchMap = JSON.stringify(snitch);
+      var maps = [];
+      maps.push(action, snitch);
+      var mapJSON = JSON.stringify(maps);
+      var downloadURL = 'data:application/json;base64,' + btoa(mapJSON);
 
-      var maps = actionMap + snitchMap;
-
-      var downloadURL = 'data:application/json;base64,' + btoa(maps);
       chrome.downloads.download({
         url: downloadURL,
         filename: 'PB_tracker_list.json'
