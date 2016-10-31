@@ -81,15 +81,14 @@ function importTrackerList() {
   var file = $('#inputFile')[0].files[0];
 
   if (file) {
-    // console.log(file);
     var reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function(e) {
-      // console.log("output: ", e.target.result);
-      // TODO parse tracker list
       parseTrackerList(e.target.result);
-    }
+    };
   }
+
+  document.getElementById("inputFile").value = '';
 }
 
 /**
@@ -101,27 +100,45 @@ function importTrackerList() {
 function parseTrackerList(trackerLists) {
   // TODO add error handling to alert user about any errors in supplied file
   var lists = JSON.parse(trackerLists);
-  console.log(lists);
-  for (i in lists) {
-    if (lists[i].action_map) {
-      console.log("parsing action_map");
-      updateMap(lists[i].action_map, "action_map");
-    } else if (lists[i].snitch_map) {
-      console.log("parsing snitch_map");
-      updateMap(lists[i].snitch_map, "snitch_map");
+  //console.log(lists);
+  for (var i in lists) {
+    var elem = lists[i];
+    if (elem.action_map) {
+      updateMap(elem.action_map, "action_map");
+    } else if (elem.snitch_map) {
+      updateMap(elem.snitch_map, "snitch_map");
     }
   }
+
+  // Update list to reflect new status of map
+  refreshFilterPage();
 }
 
 /**
  * Update the specified storage map with the elements
- * from the given list
+ * from the given list. Supported maps are currently `action_map`
+ * and `snitch_map`
  *
  * @param list - the list of data to be added
  * @param map - the map in which the data is to be inserted
  */
 function updateMap(list, map) {
-  // TODO insert data from list into appropriate map
+  console.log("this is list from updateMap: ", list);
+  var storageMap;
+  if (map === "action_map") {
+    storageMap = badger.storage.getBadgerStorageObject("action_map");
+
+  } else if (map === "snitch_map") {
+    storageMap = badger.storage.getBadgerStorageObject("snitch_map");
+  } else {
+    return; // TODO add error here since map type is not supported?
+  }
+
+  var keys = Object.keys(list);
+  for (var key in keys) {
+    var domain = keys[key];
+    storageMap.setItem(domain, list[domain]);
+  }
 }
 
 /**
