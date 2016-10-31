@@ -100,7 +100,6 @@ function importTrackerList() {
  * @param trackerLists - data from JSON file that user provided
  */
 function parseTrackerList(trackerLists) {
-  // TODO add error handling to alert user about any errors in supplied file
   var lists;
 
   try {
