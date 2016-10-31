@@ -86,6 +86,8 @@ function importTrackerList() {
     reader.onload = function(e) {
       parseTrackerList(e.target.result);
     };
+  } else {
+      confirm("Please select a file to import.");
   }
 
   document.getElementById("inputFile").value = '';
@@ -99,8 +101,14 @@ function importTrackerList() {
  */
 function parseTrackerList(trackerLists) {
   // TODO add error handling to alert user about any errors in supplied file
-  var lists = JSON.parse(trackerLists);
-  //console.log(lists);
+  var lists;
+
+  try {
+    var lists = JSON.parse(trackerLists);
+  } catch (e) {
+    confirm("File must be of type .json.");
+  }
+
   for (var i in lists) {
     var elem = lists[i];
     if (elem.action_map) {
@@ -112,6 +120,7 @@ function parseTrackerList(trackerLists) {
 
   // Update list to reflect new status of map
   refreshFilterPage();
+  confirm("Tracker list updated successfully!");
 }
 
 /**
@@ -123,7 +132,6 @@ function parseTrackerList(trackerLists) {
  * @param map - the map in which the data is to be inserted
  */
 function updateMap(list, map) {
-  console.log("this is list from updateMap: ", list);
   var storageMap;
   if (map === "action_map") {
     storageMap = badger.storage.getBadgerStorageObject("action_map");
@@ -131,7 +139,7 @@ function updateMap(list, map) {
   } else if (map === "snitch_map") {
     storageMap = badger.storage.getBadgerStorageObject("snitch_map");
   } else {
-    return; // TODO add error here since map type is not supported?
+    return; // If map type not supported, skip it
   }
 
   var keys = Object.keys(list);
