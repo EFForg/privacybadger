@@ -87,7 +87,7 @@ function importTrackerList() {
       parseTrackerList(e.target.result);
     };
   } else {
-      confirm("Please select a file to import.");
+    confirm("Please select a file to import.");
   }
 
   document.getElementById("inputFile").value = '';
@@ -104,7 +104,7 @@ function parseTrackerList(trackerLists) {
   var lists;
 
   try {
-    var lists = JSON.parse(trackerLists);
+    lists = JSON.parse(trackerLists);
   } catch (e) {
     confirm("File must be of type .json.");
   }
