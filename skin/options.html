@@ -136,6 +136,21 @@ button
   visibility: hidden;
 }
 
+#tab-pb-status {
+  width: 750px;
+  overflow: auto;
+}
+
+#resourceList {
+  width: 450px;
+  float: left;
+}
+
+#importExport {
+  width: 300px;
+  float: left;
+}
+
 /* Filter list entry status message */
 .flMsg {
     display: none;
@@ -173,34 +188,27 @@ a, a:hover, a:active, a:visited{
 
   <div id="tab-pb-status">
     <p class=""></p>
-    <table>
-      <td>
-        <p id="pbInstructions">
-          <span class="i18n_options_pb_has_detected"></span>
-          <span id='count'>0</span>
-          <span class="i18n_options_potential"></span>
-          <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers"><span class="i18n_options_tracking_domains"></span></a>
-          <span class="i18n_options_so_far"></span>
-        </p>
-
-        <div id="blockedResourcesContainer">
-          <div class="spacer"></div>
-          <input id="trackingDomainSearch" type="text" value="" style="width:100%">
-          <div id="blockedResources"><span class="i18n_options_loading"></span></div>
-        </div>
-      </td>
-      <td>
-        <!--TODO fix HTML here so buttons are separated-->
-        <!--<button id="openFileBrowser">Import Trackers</button>-->
-        <!--<form id="importTrackerForm" action="submit">-->
-          <input type="file" id="inputFile" accept=".json">
-          <!--TODO eventually get this to auto submit-->
-          <!--<input id="importTrackers" type="file" accept=".json">-->
-          <button id="importTrackerButton" type="submit">Submit</button>
-        <!--</form>-->
-        <button id="exportTrackers" class="exportButton">Download tracker list</button>
-      </td>
-    </table>
+    <div id="resourceList">
+      <p id="pbInstructions">
+        <span class="i18n_options_pb_has_detected"></span>
+        <span id='count'>0</span>
+        <span class="i18n_options_potential"></span>
+        <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers"><span class="i18n_options_tracking_domains"></span></a>
+        <span class="i18n_options_so_far"></span>
+      </p>
+      <div id="blockedResourcesContainer">
+        <div class="spacer"></div>
+        <input id="trackingDomainSearch" type="text" value="" style="width:100%">
+        <div id="blockedResources"><span class="i18n_options_loading"></span></div>
+      </div>
+    </div>
+    <div id="importExport">
+      <!--TODO eventually get this to auto submit-->
+      <input type="file" id="inputFile" accept=".json">
+      <button id="importTrackerButton" class="importButton" type="submit">Import tracker list</button>
+      <p></p>
+      <button id="exportTrackers" class="exportButton">Download tracker list</button>
+    </div>
   </div>
 
 
