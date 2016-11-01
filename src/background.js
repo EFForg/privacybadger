@@ -704,16 +704,25 @@ function startBackgroundListeners() {
  * lets get this party started
  */
 console.log('Loading badgers into the pen.');
+var badger;
+var legacyStorage; 
 
-var badger = window.badger = new Badger();
+chrome.storage.local.get(null, function(legacy){
+  // blockedOrigins, disabledSites, originFrequency, policyWhitelist, userGreen, userYellow, userRed
+  if(legacy){
+    legacyStorage = legacy;
+    console.log('LEGACY', legacyStorage);
+  }
+  badger = window.badger = new Badger();
 
-/**
- * Start all the listeners
- */
-incognito.startListeners();
-webrequest.startListeners();
-HeuristicBlocking.startListeners();
-startBackgroundListeners();
+  /**
+  * Start all the listeners
+  */
+  incognito.startListeners();
+  webrequest.startListeners();
+  HeuristicBlocking.startListeners();
+  startBackgroundListeners();
 
-console.log('Privacy badger is ready to rock!');
-console.log('Set DEBUG=1 to view console messages.');
+  console.log('Privacy badger is ready to rock!');
+  console.log('Set DEBUG=1 to view console messages.');
+});
