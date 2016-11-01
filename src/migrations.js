@@ -159,6 +159,9 @@ exports.Migrations= {
     }, 1000 * 30);
   },
 
+  migrateLegacyFirefoxData: function(){
+  },
+
 };
 
 
