@@ -706,13 +706,13 @@ function startBackgroundListeners() {
  */
 console.log('Loading badgers into the pen.');
 var badger;
-var legacyStorage; 
+window.legacyStorage = null; 
 
 chrome.storage.local.get(null, function(legacy){
   // blockedOrigins, disabledSites, originFrequency, policyWhitelist, userGreen, userYellow, userRed
   if(legacy){
-    legacyStorage = legacy;
-    console.log('LEGACY', legacyStorage);
+    window.legacyStorage = legacy;
+    console.log('LEGACY', window.legacyStorage);
   }
   badger = window.badger = new Badger();
 

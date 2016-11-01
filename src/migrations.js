@@ -144,7 +144,7 @@ exports.Migrations= {
     */
   },
 
-  migrateBlockedSubdomainsToCookieblock(storage){
+  migrateBlockedSubdomainsToCookieblock: function(storage){
     setTimeout(function(){
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
       var cbl = storage.getBadgerStorageObject('cookieblock_list');
@@ -160,6 +160,10 @@ exports.Migrations= {
   },
 
   migrateLegacyFirefoxData: function(){
+    //POC
+    console.log('MIGRATING FIREFOX DATA');
+    chrome.storage.local.set({"legacy_storage": window.legacyStorage},
+      function(){ return; });
   },
 
 };
