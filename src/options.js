@@ -39,7 +39,7 @@ function loadOptions() {
   $("#whitelistForm").submit(addWhitelistDomain);
   $("#removeWhitelist").click(removeWhitelistDomain);
   $('#importTrackerButton').click(importTrackerList);
-  $('#exportTrackers').click(exportTrackerList);
+  $('#exportTrackers').click(exportUserData);
 
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").attr("placeholder", i18n.getMessage("options_domain_search"));
@@ -84,7 +84,7 @@ function importTrackerList() {
     var reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function(e) {
-      parseTrackerList(e.target.result);
+      parseUserDataFile(e.target.result);
     };
   } else {
     confirm("Please select a file to import.");
@@ -94,18 +94,18 @@ function importTrackerList() {
 }
 
 /**
- * Parse the tracker lists uploaded by the user, adding to
- * action_map and snitch_map anything that isn't currently present.
+ * Parse the tracker lists uploaded by the user, adding to the
+ * storage maps anything that isn't currently present.
  *
- * @param trackerLists - data from JSON file that user provided
+ * @param storageMapsList - data from JSON file that user provided
  */
-function parseTrackerList(trackerLists) {
+function parseUserDataFile(storageMapsList) {
   var lists;
 
   try {
-    lists = JSON.parse(trackerLists);
+    lists = JSON.parse(storageMapsList);
   } catch (e) {
-    confirm("File must be of type .json.");
+    confirm("Invalid JSON file.");
   }
 
   for (var i in lists) {
@@ -131,6 +131,7 @@ function parseTrackerList(trackerLists) {
  * @param map - the map in which the data is to be inserted
  */
 function updateMap(list, map) {
+  // TODO add new function call in storage.js and call that instead of updating here
   var storageMap;
   if (map === "action_map") {
     storageMap = badger.storage.getBadgerStorageObject("action_map");
@@ -149,24 +150,21 @@ function updateMap(list, map) {
 }
 
 /**
- * Export the user's list of trackers from action_map and snitch_map.
+ * Export the user's data, including their list of trackers from
+ * action_map and snitch_map, along with their settings.
  * List will be exported and sent to user via chrome.downloads API
  * and will be in JSON format that can be edited and reimported
- * in another instance of Privacy Badger
+ * in another instance of Privacy Badger.
  */
-function exportTrackerList() {
-  chrome.storage.local.get("action_map", function(action) {
+function exportUserData() {
+  chrome.storage.local.get(["action_map", "snitch_map", "settings_map"], function(maps) {
 
-    chrome.storage.local.get("snitch_map", function(snitch) {
-      var maps = [];
-      maps.push(action, snitch);
-      var mapJSON = JSON.stringify(maps);
-      var downloadURL = 'data:application/json;base64,' + btoa(mapJSON);
+    var mapJSON = JSON.stringify(maps);
+    var downloadURL = 'data:application/json;base64,' + btoa(mapJSON);
 
-      chrome.downloads.download({
-        url: downloadURL,
-        filename: 'PB_tracker_list.json'
-      });
+    chrome.downloads.download({
+      url: downloadURL,
+      filename: 'PB_tracker_list.json'
     });
   });
 }
