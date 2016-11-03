@@ -315,6 +315,31 @@ function registerToggleHandlers(element) {
   });
 }
 
+/**
+ * https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
+ * (Chrome only)
+ * Toggle WebRTC IP address leak protection setting. "False" value means
+ * policy is set to Mode 3 (default_public_interface_only), whereas "true"
+ * value means policy is set to Mode 4 (disable_non_proxied_udp).
+ */
+function toggleWebRTCIPProtection() {
+  var cpn = chrome.privacy.network;
+  var settings = this.storage.getBadgerStorageObject("settings_map");
+  cpn.webRTCIPHandlingPolicy.get({}, function(result) {
+    var newVal;
+
+    // Update new value to be opposite of current browser setting
+    if (result.value === 'disable_non_proxied_udp') {
+      newVal = 'default_public_interface_only';
+    } else {
+      newVal = 'disable_non_proxied_udp';
+    }
+    cpn.webRTCIPHandlingPolicy.set( {value: newVal}, function() {
+      settings.setItem("webRTCIPProtection", (newVal === 'disable_non_proxied_udp'));
+    });
+  });
+}
+
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
   log('updating origin for', $elm);

@@ -173,19 +173,26 @@ Badger.prototype = {
    * Change default WebRTC handling browser policy to more
    * private setting that only shows public facing IP address.
    * Only update if user does not have the strictest setting enabled
-  **/
+   **/
   enableWebRTCProtection: function(){
     // Return early if browser doesn't implement chrome.privacy
     if (!chrome.privacy) {return;}
     var cpn = chrome.privacy.network;
+
+    var settings = this.storage.getBadgerStorageObject("settings_map");
     cpn.webRTCIPHandlingPolicy.get({}, function(result) {
       if (result.value === 'disable_non_proxied_udp') {
-        return; // Current setting is stricter than our preferred setting
+        // TODO is there case where other extension controls this and PB
+        // TODO cannot modify it?
+        // Make sure we display correct setting on options page
+        settings.setItem("webRTCIPProtection", true);
+        return;
       }
 
       cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
-        function(){ // empty callback
-        });
+          function(){
+            settings.setItem("webRTCIPProtection", false);
+          });
     });
   },
 
