@@ -525,7 +525,7 @@ Badger.prototype = {
   getSettings: function(){ return this.storage.getBadgerStorageObject('settings_map'); },
 
   /**
-   * check if privacy badger is enabled, take an origin and
+   * Check if privacy badger is enabled, take an origin and
    * check against the disabledSites list
    *
    * @param {String} origin
@@ -551,7 +551,7 @@ Badger.prototype = {
   },
   
   /**
-   * check if privacy badger is disabled, take an origin and
+   * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
    *
    * @param {String} origin
@@ -562,21 +562,28 @@ Badger.prototype = {
   },
 
   /**
-   * check if social widget replacement functionality is enabled
+   * Check if social widget replacement functionality is enabled
    */
   isSocialWidgetReplacementEnabled: function() {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
   /**
-   * check if we should show the counter on the icon
+   * Check if WebRTC IP leak protection is enabled
+   */
+  isWebRTCIPProtectionEnabled: function() {
+    return this.getSettings().getItem("webRTCIPProtection");
+  },
+
+  /**
+   * Check if we should show the counter on the icon
    */
   showCounter: function() {
     return this.getSettings().getItem("showCounter");
   },
 
   /**
-   * add an origin to the disabled sites list
+   * Add an origin to the disabled sites list
    *
    * @param {String} origin The origin to disable the PB for
    **/
@@ -590,14 +597,14 @@ Badger.prototype = {
   },
 
   /**
-   * interface to get the current whitelisted domains
+   * Interface to get the current whitelisted domains
    */
   listOriginsWherePrivacyBadgerIsDisabled: function(){
     return this.getSettings().getItem("disabledSites");
   },
 
   /**
-   * remove an origin from the disabledSites list
+   * Remove an origin from the disabledSites list
    *
    * @param {String} origin The origin to disable the PB for
    **/

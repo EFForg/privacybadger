@@ -62,6 +62,8 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
+  $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
+  $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
 
   // Show user's filters
   reloadWhitelist();
@@ -324,7 +326,7 @@ function registerToggleHandlers(element) {
  */
 function toggleWebRTCIPProtection() {
   var cpn = chrome.privacy.network;
-  var settings = this.storage.getBadgerStorageObject("settings_map");
+  var settings = badger.getSettings();
   cpn.webRTCIPHandlingPolicy.get({}, function(result) {
     var newVal;
 
