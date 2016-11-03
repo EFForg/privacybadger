@@ -416,7 +416,57 @@ BadgerStorage.prototype = {
     setTimeout(function(){
       _syncStorage(self);
     }, 0);
+  },
+
+  /**
+   * Merge the object into the existing map
+   *
+   * @param list - the object containing storage map data to merge
+   */
+  mergeObject: function(list) {
+    var self = this;
+    var keys = Object.keys(list);
+
+    if (self.name === "settings_map") {
+      for (var key in keys) {
+        var prop = keys[key];
+        if (prop === "disabledSites") {
+          // Add only new sites to list of existing disabled sites
+          list[prop].forEach(function(entry) {
+            if (self._store[prop].indexOf(entry) === -1) {
+              self._store[prop].push(entry);
+            }
+          });
+        } else {
+          // Overwrite previous setting with setting from import.
+          self._store[prop] = list[prop];
+        }
+      }
+    } else if (self.name === "action_map") {
+      for (var key in keys) {
+        var domain = keys[key];
+        self._store[domain] = list[domain];
+      }
+    } else if (self.name === "snitch_map") {
+      for (var key in keys) {
+        var domain = keys[key];
+        if (self._store[domain]) {
+          // If array already exists, concatenate deduplicated
+          // version of array from input
+          var dedupedArray = [];
+          list[domain].forEach(function(entry) {
+            if (self._store[domain].indexOf(entry) === -1) {
+              dedupedArray.push(entry);
+            }
+          });
+          self._store[domain] = self._store[domain].concat(dedupedArray);
+        } else {
+          self._store[domain] = list[domain];
+        }
+      }
+    }
   }
+
 };
 
 function _syncStorage(badgerStorage) {

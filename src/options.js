@@ -106,47 +106,22 @@ function parseUserDataFile(storageMapsList) {
     lists = JSON.parse(storageMapsList);
   } catch (e) {
     confirm("Invalid JSON file.");
+    return;
   }
 
-  for (var i in lists) {
-    var elem = lists[i];
-    if (elem.action_map) {
-      updateMap(elem.action_map, "action_map");
-    } else if (elem.snitch_map) {
-      updateMap(elem.snitch_map, "snitch_map");
+  var keys = Object.keys(lists);
+  for (var key in keys) {
+    var map = keys[key];
+    var storageMap = badger.storage.getBadgerStorageObject(map);
+
+    if (storageMap) {
+      storageMap.mergeObject(lists[map]);
     }
   }
 
   // Update list to reflect new status of map
   refreshFilterPage();
   confirm("Tracker list updated successfully!");
-}
-
-/**
- * Update the specified storage map with the elements
- * from the given list. Supported maps are currently `action_map`
- * and `snitch_map`
- *
- * @param list - the list of data to be added
- * @param map - the map in which the data is to be inserted
- */
-function updateMap(list, map) {
-  // TODO add new function call in storage.js and call that instead of updating here
-  var storageMap;
-  if (map === "action_map") {
-    storageMap = badger.storage.getBadgerStorageObject("action_map");
-
-  } else if (map === "snitch_map") {
-    storageMap = badger.storage.getBadgerStorageObject("snitch_map");
-  } else {
-    return; // If map type not supported, skip it
-  }
-
-  var keys = Object.keys(list);
-  for (var key in keys) {
-    var domain = keys[key];
-    storageMap.setItem(domain, list[domain]);
-  }
 }
 
 /**
@@ -164,7 +139,7 @@ function exportUserData() {
 
     chrome.downloads.download({
       url: downloadURL,
-      filename: 'PB_tracker_list.json'
+      filename: 'PB_trackers_and_settings.json'
     });
   });
 }
