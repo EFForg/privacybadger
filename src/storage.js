@@ -426,26 +426,27 @@ BadgerStorage.prototype = {
   mergeObject: function(list) {
     var self = this;
     var keys = Object.keys(list);
+    let mapData = list;
 
     if (self.name === "settings_map") {
       for (let key in keys) {
         var prop = keys[key];
         if (prop === "disabledSites") {
           // Add only new sites to list of existing disabled sites
-          list[prop].forEach( entry => {
+          mapData[prop].forEach( entry => {
             if (self._store[prop].indexOf(entry) === -1) {
             self._store[prop].push(entry);
             }
           });
         } else {
           // Overwrite previous setting with setting from import.
-          self._store[prop] = list[prop];
+          self._store[prop] = mapData[prop];
         }
       }
     } else if (self.name === "action_map") {
       for (let key in keys) {
         let domain = keys[key];
-        self._store[domain] = list[domain];
+        self._store[domain] = mapData[domain];
       }
     } else if (self.name === "snitch_map") {
       for (let key in keys) {
@@ -454,14 +455,14 @@ BadgerStorage.prototype = {
           // If array already exists, concatenate deduplicated
           // version of array from input
           var dedupedArray = [];
-          list[domain].forEach( entry => {
+          mapData[domain].forEach( entry => {
             if (self._store[domain].indexOf(entry) === -1) {
               dedupedArray.push(entry);
             }
           });
           self._store[domain] = self._store[domain].concat(dedupedArray);
         } else {
-          self._store[domain] = list[domain];
+          self._store[domain] = mapData[domain];
         }
       }
     }
