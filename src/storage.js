@@ -435,7 +435,7 @@ BadgerStorage.prototype = {
           // Add only new sites to list of existing disabled sites
           mapData[prop].forEach( entry => {
             if (self._store[prop].indexOf(entry) === -1) {
-            self._store[prop].push(entry);
+              self._store[prop].push(entry);
             }
           });
         } else {
@@ -454,20 +454,25 @@ BadgerStorage.prototype = {
         if (self._store[domain]) {
           // If array already exists, concatenate deduplicated
           // version of array from input
-          var dedupedArray = [];
-          mapData[domain].forEach( entry => {
-            if (self._store[domain].indexOf(entry) === -1) {
-              dedupedArray.push(entry);
-            }
-          });
+
+          var dedupedArray = self.createDedupedArray(list[domain], self._store[domain]);
           self._store[domain] = self._store[domain].concat(dedupedArray);
         } else {
           self._store[domain] = mapData[domain];
         }
       }
     }
-  }
+  },
 
+  createDedupedArray(newList, existingList) {
+    var dedupedArray;
+    newList.forEach( entry => {
+      if (existingList.indexOf(entry) === -1 && entry) {
+        dedupedArray.push(entry);
+      }
+    });
+    return dedupedArray;
+  }
 };
 
 function _syncStorage(badgerStorage) {
