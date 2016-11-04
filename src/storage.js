@@ -433,11 +433,13 @@ BadgerStorage.prototype = {
         var prop = keys[key];
         if (prop === "disabledSites") {
           // Add only new sites to list of existing disabled sites
-          mapData[prop].forEach( entry => {
-            if (self._store[prop].indexOf(entry) === -1) {
-              self._store[prop].push(entry);
-            }
-          });
+          // TODO this needs to be defined??
+          if (!self._store[prop]) {
+            self._store[prop] = mapData[prop];
+          } else {
+            var newItems = self.createDedupedArray(mapData[prop], self._store[prop]);
+            self._store[prop] = self._store[prop].concat(newItems);
+          }
         } else {
           // Overwrite previous setting with setting from import.
           self._store[prop] = mapData[prop];
@@ -452,11 +454,10 @@ BadgerStorage.prototype = {
       for (let key in keys) {
         let domain = keys[key];
         if (self._store[domain]) {
-          // If array already exists, concatenate deduplicated
-          // version of array from input
-
-          var dedupedArray = self.createDedupedArray(list[domain], self._store[domain]);
-          self._store[domain] = self._store[domain].concat(dedupedArray);
+          // If existing map has data for a specific domain,
+          // concatenate only new items from input
+          // var dedupedArray = self.createDedupedArray(mapData[domain], self._store[domain]);
+          // self._store[domain] = self._store[domain].concat(dedupedArray);
         } else {
           self._store[domain] = mapData[domain];
         }
@@ -464,10 +465,19 @@ BadgerStorage.prototype = {
     }
   },
 
+  /**
+   * Returns the subset of elements from newList that aren't
+   * currently present in existingList.
+   *
+   * @param {Array} newList The list of new items to be reduced
+   * @param {Array} existingList The list of existing items
+   * @returns {Array} The set from newList that did not exist
+   *          in existingList
+   */
   createDedupedArray(newList, existingList) {
-    var dedupedArray;
+    var dedupedArray = [];
     newList.forEach( entry => {
-      if (existingList.indexOf(entry) === -1 && entry) {
+      if (existingList.indexOf(entry) === -1) {
         dedupedArray.push(entry);
       }
     });
