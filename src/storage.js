@@ -421,20 +421,20 @@ BadgerStorage.prototype = {
   /**
    * Merge the object into the existing map
    *
-   * @param list - the object containing storage map data to merge
+   * @param {Object} list The object containing storage map data to merge
    */
   mergeObject: function(list) {
     var self = this;
     var keys = Object.keys(list);
 
     if (self.name === "settings_map") {
-      for (var key in keys) {
+      for (let key in keys) {
         var prop = keys[key];
         if (prop === "disabledSites") {
           // Add only new sites to list of existing disabled sites
-          list[prop].forEach(function(entry) {
+          list[prop].forEach( entry => {
             if (self._store[prop].indexOf(entry) === -1) {
-              self._store[prop].push(entry);
+            self._store[prop].push(entry);
             }
           });
         } else {
@@ -443,18 +443,18 @@ BadgerStorage.prototype = {
         }
       }
     } else if (self.name === "action_map") {
-      for (var key in keys) {
-        var domain = keys[key];
+      for (let key in keys) {
+        let domain = keys[key];
         self._store[domain] = list[domain];
       }
     } else if (self.name === "snitch_map") {
-      for (var key in keys) {
-        var domain = keys[key];
+      for (let key in keys) {
+        let domain = keys[key];
         if (self._store[domain]) {
           // If array already exists, concatenate deduplicated
           // version of array from input
           var dedupedArray = [];
-          list[domain].forEach(function(entry) {
+          list[domain].forEach( entry => {
             if (self._store[domain].indexOf(entry) === -1) {
               dedupedArray.push(entry);
             }

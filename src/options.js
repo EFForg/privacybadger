@@ -97,7 +97,7 @@ function importTrackerList() {
  * Parse the tracker lists uploaded by the user, adding to the
  * storage maps anything that isn't currently present.
  *
- * @param storageMapsList - data from JSON file that user provided
+ * @param {string} storageMapsList Data from JSON file that user provided
  */
 function parseUserDataFile(storageMapsList) {
   var lists;
