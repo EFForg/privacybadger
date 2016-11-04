@@ -84,23 +84,16 @@ button
     padding:3px;
 }
 
-#importTrackers {
-  display: block;
-  visibility: hidden;
-}
-
-#tab-pb-status {
+#tab-import-export {
   width: 750px;
   overflow: auto;
 }
-
-#resourceList {
-  width: 450px;
+#import {
+  width: 350px;
   float: left;
 }
-
-#importExport {
-  width: 300px;
+#export {
+  width: 350px;
   float: left;
 }
 
@@ -137,11 +130,13 @@ a, a:hover, a:active, a:visited{
     <li><a href="#tab-pb-status"><span class="i18n_options_filter_settings"></span></a></li>
     <li><a href="#tab-whitelisted"><span class="i18n_whitelisted_domains"></span></a></li>
     <li><a href="#tab-general-settings"><span class="i18n_options_general_settings"></span></a></li>
+    <li><a href="#tab-import-export">Import/Export</a></li>
   </ul>
+    <!-- TODO add i18n string for "Import/Export" -->
 
   <div id="tab-pb-status">
     <p class=""></p>
-    <div id="resourceList">
+    <div id="blockedResourcesContainer">
       <p id="pbInstructions">
         <span class="i18n_options_pb_has_detected"></span>
         <span id='count'>0</span>
@@ -149,18 +144,9 @@ a, a:hover, a:active, a:visited{
         <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers"><span class="i18n_options_tracking_domains"></span></a>
         <span class="i18n_options_so_far"></span>
       </p>
-      <div id="blockedResourcesContainer">
-        <div class="spacer"></div>
-        <input id="trackingDomainSearch" type="text" value="" style="width:100%">
-        <div id="blockedResources"><span class="i18n_options_loading"></span></div>
-      </div>
-    </div>
-    <div id="importExport">
-      <!--TODO eventually get this to auto submit-->
-      <input type="file" id="inputFile" accept=".json">
-      <button id="importTrackerButton" class="importButton" type="submit">Import tracker list</button>
-      <p></p>
-      <button id="exportTrackers" class="exportButton">Download tracker list</button>
+      <div class="spacer"></div>
+      <input id="trackingDomainSearch" type="text" value="" style="width:100%">
+      <div id="blockedResources"><span class="i18n_options_loading"></span></div>
     </div>
   </div>
 
@@ -169,25 +155,25 @@ a, a:hover, a:active, a:visited{
     <p class="i18n_disabled_for_these_domains"></p>
 
     <form id="whitelistForm" action="#">
-    <table>
-      <tr>
-        <td style="max-width:100%">
-          <input type="text" value="" id="newWhitelistDomain" style="width:100%">
-        </td>
-        <td>
-          <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
-        </td>
-      </tr>
+      <table>
+        <tr>
+          <td style="max-width:100%">
+            <input type="text" value="" id="newWhitelistDomain" style="width:100%">
+          </td>
+          <td>
+            <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
+          </td>
+        </tr>
 
-      <tr>
-        <td>
-          <select id="excludedDomainsBox" size="10" multiple style="width:500px; background: white;"></select>
-        </td>
-        <td>
-          <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
-        </td>
-      </tr>
-    </table>
+        <tr>
+          <td>
+            <select id="excludedDomainsBox" size="10" multiple style="width:500px; background: white;"></select>
+          </td>
+          <td>
+            <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
+          </td>
+        </tr>
+      </table>
     </form>
   </div>
 
@@ -204,7 +190,23 @@ a, a:hover, a:active, a:visited{
           <input type="checkbox" id="replace_social_widgets_checkbox">
           <span class="i18n_options_social_widgets_checkbox"></span>
         </label>
+      </div>
     </form>
+  </div>
+
+  <div id="tab-import-export">
+      <p class=""></p>
+
+    <div id="import">
+      <h3>Import user data</h3>
+      <input type="file" id="inputFile" accept=".json">
+      <button id="importTrackerButton" class="importButton" type="submit">Import</button>
+    </div>
+    <div id="export">
+      <h3>Export user data</h3>
+      <br/>
+      <button id="exportTrackers" class="exportButton">Download</button>
+    </div>
   </div>
 
 
