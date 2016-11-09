@@ -432,16 +432,10 @@ BadgerStorage.prototype = {
       for (let key in keys) {
         var prop = keys[key];
         if (prop === "disabledSites") {
-          // Add only new sites to list of existing disabled sites
-          // TODO this needs to be defined??
-          if (!self._store[prop]) {
-            self._store[prop] = mapData[prop];
-          } else {
-            var newItems = self.createDedupedArray(mapData[prop], self._store[prop]);
-            self._store[prop] = self._store[prop].concat(newItems);
-          }
+          // Add new sites to list of existing disabled sites
+            self._store[prop] = _.union(self._store[prop], mapData[prop]);
         } else {
-          // Overwrite previous setting with setting from import.
+          // Overwrite existing setting with setting from import.
           self._store[prop] = mapData[prop];
         }
       }
@@ -453,35 +447,9 @@ BadgerStorage.prototype = {
     } else if (self.name === "snitch_map") {
       for (let key in keys) {
         let domain = keys[key];
-        if (self._store[domain]) {
-          // If existing map has data for a specific domain,
-          // concatenate only new items from input
-          // var dedupedArray = self.createDedupedArray(mapData[domain], self._store[domain]);
-          // self._store[domain] = self._store[domain].concat(dedupedArray);
-        } else {
-          self._store[domain] = mapData[domain];
-        }
+        self._store[domain] = _.union(self._store[domain], mapData[domain]);
       }
     }
-  },
-
-  /**
-   * Returns the subset of elements from newList that aren't
-   * currently present in existingList.
-   *
-   * @param {Array} newList The list of new items to be reduced
-   * @param {Array} existingList The list of existing items
-   * @returns {Array} The set from newList that did not exist
-   *          in existingList
-   */
-  createDedupedArray(newList, existingList) {
-    var dedupedArray = [];
-    newList.forEach( entry => {
-      if (existingList.indexOf(entry) === -1) {
-        dedupedArray.push(entry);
-      }
-    });
-    return dedupedArray;
   }
 };
 

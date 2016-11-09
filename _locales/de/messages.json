@@ -26,6 +26,15 @@
     "firstRun_title": {
         "message": "Privacy Badger wurde installiert"
     },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
+    },
     "name": {
         "message": "Privacy Badger"
     },

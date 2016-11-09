@@ -87,7 +87,8 @@ function importTrackerList() {
       parseUserDataFile(e.target.result);
     };
   } else {
-    confirm("Please select a file to import.");
+    var selectFile = i18n.getMessage("import_select_file");
+    confirm(selectFile);
   }
 
   document.getElementById("inputFile").value = '';
@@ -105,7 +106,8 @@ function parseUserDataFile(storageMapsList) {
   try {
     lists = JSON.parse(storageMapsList);
   } catch (e) {
-    confirm("Invalid JSON file.");
+    let invalidJSON = i18n.getMessage("invalid_json");
+    confirm(invalidJSON);
     return;
   }
 
@@ -120,8 +122,10 @@ function parseUserDataFile(storageMapsList) {
   }
 
   // Update list to reflect new status of map
+  reloadWhitelist();
   refreshFilterPage();
-  confirm("Tracker list updated successfully!");
+  var importSuccessful = i18n.getMessage("import_successful");
+  confirm(importSuccessful);
 }
 
 /**

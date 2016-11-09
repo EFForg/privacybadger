@@ -17,8 +17,14 @@
     "disabled_for_these_domains": {
         "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the address bar or by typing the domain (not a URL) in the box and clicking the \"Add domain\" button."
     },
+    "download": {
+        "message": "Download"
+    },
     "error_input": {
         "message": "What's Wrong?"
+    },
+    "export_user_data": {
+        "message": "Export user data"
     },
     "feed_the_badger_title": {
         "message": "click to return control of this tracker to Privacy Badger"
@@ -28,6 +34,21 @@
     },
     "first_run_text": {
         "message": "Learn how Privacy Badger protects your privacy."
+    },
+    "import": {
+        "message": "Import"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
     },
     "name": {
         "message": "Privacy Badger"

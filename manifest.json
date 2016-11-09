@@ -97,6 +97,9 @@
     "default_title": "__MSG_name__"
   },
   "options_page": "/skin/options.html",
+  "storage": {
+    "scripts": "lib/underscore-min.js"
+  },
   "update_url": "http://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [
     "skin/*",
