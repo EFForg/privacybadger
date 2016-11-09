@@ -433,7 +433,7 @@ BadgerStorage.prototype = {
         var prop = keys[key];
         if (prop === "disabledSites") {
           // Add new sites to list of existing disabled sites
-            self._store[prop] = _.union(self._store[prop], mapData[prop]);
+          self._store[prop] = _.union(self._store[prop], mapData[prop]);
         } else {
           // Overwrite existing setting with setting from import.
           self._store[prop] = mapData[prop];
