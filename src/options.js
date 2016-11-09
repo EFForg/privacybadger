@@ -332,7 +332,7 @@ function registerToggleHandlers(element) {
  */
 function toggleWebRTCIPProtection() {
   var cp = chrome.privacy;
-  if (cp) { return; } // Return early if user's browser does not support chrome.privacy
+  if (!cp) { return; } // Return early if user's browser does not support chrome.privacy
   var cpn = cp.network;
   cpn.webRTCIPHandlingPolicy.get({}, function(result) {
     var newVal;
