@@ -65,6 +65,12 @@ function loadOptions() {
   $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
   $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
 
+  // Hide WebRTC-related settings for non-Chrome browsers
+  if (!chrome.privacy) {
+    $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
+    $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
+  }
+
   // Show user's filters
   reloadWhitelist();
   refreshFilterPage();
@@ -325,7 +331,9 @@ function registerToggleHandlers(element) {
  * value means policy is set to Mode 4 (disable_non_proxied_udp).
  */
 function toggleWebRTCIPProtection() {
-  var cpn = chrome.privacy.network;
+  var cp = chrome.privacy;
+  if (cp) { return } // Return early if user's browser does not support chrome.privacy
+  var cpn = cp.network;
   var settings = badger.getSettings();
   cpn.webRTCIPHandlingPolicy.get({}, function(result) {
     var newVal;
