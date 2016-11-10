@@ -11,6 +11,9 @@
     "badger_status_noaction": {
         "message": "Este dominio está desbloqueado, desliza para bloquearlo completamento o bloquear las cookies."
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "¡Privacy Badger te protege de rastreadores mientras surfeas por la web!"
     },

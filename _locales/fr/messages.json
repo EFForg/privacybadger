@@ -11,6 +11,9 @@
     "badger_status_noaction": {
         "message": "Permis "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger vous protège des traqueurs lorsque vous surfez sur le web !"
     },

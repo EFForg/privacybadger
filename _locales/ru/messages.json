@@ -11,6 +11,9 @@
     "badger_status_noaction": {
         "message": "Разрешен "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger защищает вас от трекеров во время работы в Интернете!"
     },

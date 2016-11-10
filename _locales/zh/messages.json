@@ -11,6 +11,9 @@
     "badger_status_noaction": {
         "message": "允许 "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "你在网上冲浪的时候，隐私獾会保护你免受跟踪器的烦恼！"
     },

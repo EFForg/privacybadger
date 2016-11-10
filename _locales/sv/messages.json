@@ -11,6 +11,9 @@
     "badger_status_noaction": {
         "message": "Tillåten "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger skyddar dig mot spanare medan du surfar!"
     },

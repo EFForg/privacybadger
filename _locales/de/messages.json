@@ -11,6 +11,9 @@
     "badger_status_noaction": {
         "message": "Dürfen "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger schützt sie vor Trackern während Sie im Web surfen !"
     },

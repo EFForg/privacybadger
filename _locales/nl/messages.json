@@ -11,6 +11,9 @@
     "badger_status_noaction": {
         "message": "Toegestaan "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger geeft u meer controle over het gevolgd worden op internet!"
     },
