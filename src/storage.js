@@ -428,11 +428,9 @@ BadgerStorage.prototype = {
    *
    * @param {Object} mapData The object containing storage map data to merge
    */
-  mergeObject: function(mapData) {
+  merge: function(mapData) {
     var self = this;
-    // var keys = Object.keys(list);
 
-    // TODO replace the Object.keys calls with standard (let prop in list)
     if (self.name === "settings_map") {
       for (let prop in mapData) {
         if (prop === "disabledSites") {
