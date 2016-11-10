@@ -577,7 +577,7 @@ Badger.prototype = {
     var self = this;
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
       self.getSettings().setItem("webRTCIPProtection",
-          (result.value === "disable_non_proxied_udp"))
+          (result.value === "disable_non_proxied_udp"));
     });
     return this.getSettings().getItem("webRTCIPProtection");
   },
