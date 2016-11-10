@@ -331,9 +331,8 @@ function registerToggleHandlers(element) {
  * value means policy is set to Mode 4 (disable_non_proxied_udp).
  */
 function toggleWebRTCIPProtection() {
-  var cp = chrome.privacy;
-  if (!cp) { return; } // Return early if user's browser does not support chrome.privacy
-  var cpn = cp.network;
+  if (!chrome.privacy) { return; } // Return early if user's browser does not support chrome.privacy
+  var cpn = chrome.privacy.network;
   cpn.webRTCIPHandlingPolicy.get({}, function(result) {
     var newVal;
 
