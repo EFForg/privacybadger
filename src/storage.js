@@ -419,18 +419,22 @@ BadgerStorage.prototype = {
   },
 
   /**
-   * Merge the object into the existing map
+   * When a user imports a tracker and settings list via the Import function,
+   * we want to overwrite any existing settings, while simultaneously merging
+   * in any new information (i.e. the set of whitelisted domains). In order
+   * to do this, we need different logic for each of the storage maps based on
+   * their internal structure. The three cases in this function handle each of
+   * the three storage maps that can be exported.
    *
-   * @param {Object} list The object containing storage map data to merge
+   * @param {Object} mapData The object containing storage map data to merge
    */
-  mergeObject: function(list) {
+  mergeObject: function(mapData) {
     var self = this;
-    var keys = Object.keys(list);
-    let mapData = list;
+    // var keys = Object.keys(list);
 
+    // TODO replace the Object.keys calls with standard (let prop in list)
     if (self.name === "settings_map") {
-      for (let key in keys) {
-        var prop = keys[key];
+      for (let prop in mapData) {
         if (prop === "disabledSites") {
           // Add new sites to list of existing disabled sites
           self._store[prop] = _.union(self._store[prop], mapData[prop]);
@@ -440,13 +444,13 @@ BadgerStorage.prototype = {
         }
       }
     } else if (self.name === "action_map") {
-      for (let key in keys) {
-        let domain = keys[key];
+      for (let domain in mapData) {
+        // Overwrite local setting (if exists) for any imported domain
         self._store[domain] = mapData[domain];
       }
     } else if (self.name === "snitch_map") {
-      for (let key in keys) {
-        let domain = keys[key];
+      for (let domain in mapData) {
+        // Merge any new domains into each existing snitch_map key
         self._store[domain] = _.union(self._store[domain], mapData[domain]);
       }
     }

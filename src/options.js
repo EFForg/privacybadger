@@ -111,9 +111,9 @@ function parseUserDataFile(storageMapsList) {
     return;
   }
 
-  var keys = Object.keys(lists);
-  for (var key in keys) {
-    var map = keys[key];
+  // var keys = Object.keys(lists);
+  for (let map in lists) {
+    // var map = keys[key];
     var storageMap = badger.storage.getBadgerStorageObject(map);
 
     if (storageMap) {
