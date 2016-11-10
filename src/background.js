@@ -569,9 +569,16 @@ Badger.prototype = {
   },
 
   /**
-   * Check if WebRTC IP leak protection is enabled
+   * Check if WebRTC IP leak protection is enabled; query Chrome's internal
+   * value, update our local setting if it has gone out of sync, then return our
+   * setting's value.
    */
   isWebRTCIPProtectionEnabled: function() {
+    var self = this;
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
+      self.getSettings().setItem("webRTCIPProtection",
+          (result.value === "disable_non_proxied_udp"))
+    });
     return this.getSettings().getItem("webRTCIPProtection");
   },
 
