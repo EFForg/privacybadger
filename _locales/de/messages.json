@@ -17,8 +17,14 @@
     "disabled_for_these_domains": {
         "message": "Privacy Badger ist de-aktiviert für die unten aufgelisteten Domains. Sie können eine Domain hinzufügen, indem Sie entweder dass Privacy Badger Icon in der Adresszeile klicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf \"Domain hinzufügen\" klicken."
     },
+    "download": {
+        "message": "Download"
+    },
     "error_input": {
         "message": "Was ist kaputt ?"
+    },
+    "export_user_data": {
+        "message": "Export user data"
     },
     "feed_the_badger_title": {
         "message": "klicken, um die Kontrolle dieses Trackers an Privacy Badger zu übergeben"
@@ -26,11 +32,17 @@
     "firstRun_title": {
         "message": "Privacy Badger wurde installiert"
     },
+    "import": {
+        "message": "Import"
+    },
     "import_select_file": {
         "message": "Please select a file to import."
     },
     "import_successful": {
         "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
     },
     "invalid_json": {
         "message": "Invalid JSON file."
