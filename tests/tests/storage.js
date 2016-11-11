@@ -1,20 +1,24 @@
 /* globals badger:false */
 (function() {
-  let settings_map, DISABLED_SITES, SHOW_COUNTER;
+  let BACKUP = {};
 
   module("Privacy Badger Storage", {
+    // note: setup is not module-level, called before every test
     setup: () => {
-      settings_map = badger.storage.getBadgerStorageObject('settings_map');
-
-      // back up original settings
-      DISABLED_SITES = settings_map.getItem('disabledSites');
-      SHOW_COUNTER = settings_map.getItem('showCounter');
+      // back up settings and heuristic learning
+      ['action_map', 'settings_map', 'snitch_map'].forEach(item => {
+        let obj = badger.storage.getBadgerStorageObject(item);
+        BACKUP[item] = obj.getItemClones();
+      });
     },
 
+    // called after every test
     teardown: () => {
-      // restore original settings
-      settings_map.setItem('disabledSites', DISABLED_SITES);
-      settings_map.setItem('showCounter', SHOW_COUNTER);
+      // restore original settings and heuristic learning
+      ['action_map', 'settings_map', 'snitch_map'].forEach(item => {
+        let obj = badger.storage.getBadgerStorageObject(item);
+        obj.updateObject(BACKUP[item]);
+      });
     }
   });
 
@@ -59,13 +63,9 @@
     ok(true);
   });
 
-  test("every badger storage map has a merge method", () => {
-    ['action_map', 'settings_map', 'snitch_map'].forEach(obj => {
-      ok(typeof badger.storage.getBadgerStorageObject(obj).merge == "function");
-    });
-  });
-
   test("settings map merging", () => {
+    let settings_map = badger.storage.getBadgerStorageObject('settings_map');
+
     // overwrite settings with test values
     settings_map.setItem('disabledSites', ['example.com']);
     settings_map.setItem('showCounter', true);
