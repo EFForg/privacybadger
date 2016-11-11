@@ -86,6 +86,8 @@ function importTrackerList() {
     reader.onload = function(e) {
       parseUserDataFile(e.target.result);
     };
+  // TODO let's eliminate this case by consolidating on one button,
+  // the file input, and reacting to its change events
   } else {
     var selectFile = i18n.getMessage("import_select_file");
     confirm(selectFile);
@@ -141,6 +143,7 @@ function exportUserData() {
 
     chrome.downloads.download({
       url: downloadURL,
+      // TODO timestamp
       filename: 'PB_trackers_and_settings.json'
     });
   });

@@ -85,4 +85,12 @@
     ok(!settings_map.getItem('showCounter'), "other settings are overwritten");
   });
 
+  // TODO
+  //test("action map merging", () => {
+  //});
+
+  // TODO
+  //test("snitch map merging", () => {
+  //});
+
 })();
