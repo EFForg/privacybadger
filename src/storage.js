@@ -454,7 +454,10 @@ BadgerStorage.prototype = {
       }
     }
 
-    // TODO do we need to call _syncStorage?
+    // Async call to syncStorage.
+    setTimeout(function(){
+      _syncStorage(self);
+    }, 0);
   }
 };
 
