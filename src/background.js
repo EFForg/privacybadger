@@ -173,19 +173,26 @@ Badger.prototype = {
    * Change default WebRTC handling browser policy to more
    * private setting that only shows public facing IP address.
    * Only update if user does not have the strictest setting enabled
-  **/
+   **/
   enableWebRTCProtection: function(){
     // Return early if browser doesn't implement chrome.privacy
     if (!chrome.privacy) {return;}
     var cpn = chrome.privacy.network;
+
+    var settings = this.storage.getBadgerStorageObject("settings_map");
     cpn.webRTCIPHandlingPolicy.get({}, function(result) {
       if (result.value === 'disable_non_proxied_udp') {
-        return; // Current setting is stricter than our preferred setting
+        // TODO is there case where other extension controls this and PB
+        // TODO cannot modify it?
+        // Make sure we display correct setting on options page
+        settings.setItem("webRTCIPProtection", true);
+        return;
       }
 
       cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
-        function(){ // empty callback
-        });
+          function(){
+            settings.setItem("webRTCIPProtection", false);
+          });
     });
   },
 
@@ -518,7 +525,7 @@ Badger.prototype = {
   getSettings: function(){ return this.storage.getBadgerStorageObject('settings_map'); },
 
   /**
-   * check if privacy badger is enabled, take an origin and
+   * Check if privacy badger is enabled, take an origin and
    * check against the disabledSites list
    *
    * @param {String} origin
@@ -544,7 +551,7 @@ Badger.prototype = {
   },
   
   /**
-   * check if privacy badger is disabled, take an origin and
+   * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
    *
    * @param {String} origin
@@ -555,21 +562,35 @@ Badger.prototype = {
   },
 
   /**
-   * check if social widget replacement functionality is enabled
+   * Check if social widget replacement functionality is enabled
    */
   isSocialWidgetReplacementEnabled: function() {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
   /**
-   * check if we should show the counter on the icon
+   * Check if WebRTC IP leak protection is enabled; query Chrome's internal
+   * value, update our local setting if it has gone out of sync, then return our
+   * setting's value.
+   */
+  isWebRTCIPProtectionEnabled: function() {
+    var self = this;
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
+      self.getSettings().setItem("webRTCIPProtection",
+          (result.value === "disable_non_proxied_udp"));
+    });
+    return this.getSettings().getItem("webRTCIPProtection");
+  },
+
+  /**
+   * Check if we should show the counter on the icon
    */
   showCounter: function() {
     return this.getSettings().getItem("showCounter");
   },
 
   /**
-   * add an origin to the disabled sites list
+   * Add an origin to the disabled sites list
    *
    * @param {String} origin The origin to disable the PB for
    **/
@@ -583,14 +604,14 @@ Badger.prototype = {
   },
 
   /**
-   * interface to get the current whitelisted domains
+   * Interface to get the current whitelisted domains
    */
   listOriginsWherePrivacyBadgerIsDisabled: function(){
     return this.getSettings().getItem("disabledSites");
   },
 
   /**
-   * remove an origin from the disabledSites list
+   * Remove an origin from the disabledSites list
    *
    * @param {String} origin The origin to disable the PB for
    **/
