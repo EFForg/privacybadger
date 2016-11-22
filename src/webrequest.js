@@ -409,7 +409,7 @@ function recordFingerprinting(tabId, msg) {
 
           // Mark this is a strike
           badger.heuristicBlocking.recordPrevalence(
-            script_host, script_origin, window.getBaseDomain(document_host));
+            script_host, window.getBaseDomain(document_host));
         }
       }
       // This is a canvas write
