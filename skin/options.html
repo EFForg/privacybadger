@@ -113,6 +113,14 @@ button
   width: 390px;
 }
 
+#settingsSuffix{
+  color: #555;
+  font-size: 12px;
+  width: 500px;
+  position: relative;
+  left: 50px;
+}
+
 a, a:hover, a:active, a:visited{
   color: #00aaaa;
   text-decoration: underline;
@@ -196,6 +204,16 @@ a, a:hover, a:active, a:visited{
           <input type="checkbox" id="replace_social_widgets_checkbox">
           <span class="i18n_options_social_widgets_checkbox"></span>
         </label>
+      </div>
+      <div class="checkbox" id="webRTCToggle">
+        <label>
+          <input type="checkbox" id="toggle_webrtc_mode">
+          <span class="i18n_options_webrtc_setting"></span>
+        </label>
+      </div>
+      <div id="settingsSuffix">
+        <br>
+        <span class="i18n_options_webrtc_warning"></span>
       </div>
     </form>
   </div>

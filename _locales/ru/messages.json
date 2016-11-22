@@ -86,6 +86,12 @@
     "options_title": {
         "message": "Настройки Privacy Badger"
     },
+    "options_webrtc_setting": {
+        "message": "Prevent WebRTC from leaking local IP address *"
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+    },
     "pb_detected": {
         "message": "Privacy Badger обнаружил"
     },
