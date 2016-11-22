@@ -447,10 +447,11 @@ BadgerStorage.prototype = {
         self._store[domain] = mapData[domain];
       }
     } else if (self.name === "snitch_map") {
-      for (let domain in mapData) {
-        // TODO how is snitch_map used? what happens if union op results in a "new tracker"?
-        // Merge any new domains into each existing snitch_map key
-        self._store[domain] = _.union(self._store[domain], mapData[domain]);
+      for (let thirdPartyTracker in mapData) {
+        var firstPartyOrigins = mapData[thirdPartyTracker];
+        for (let origin in firstPartyOrigins) {
+          badger.heuristicBlocking.recordPrevalence(thirdPartyTracker, firstPartyOrigins[origin]);
+        }
       }
     }
 
