@@ -38,7 +38,8 @@ function loadOptions() {
   // Add event listeners
   $("#whitelistForm").submit(addWhitelistDomain);
   $("#removeWhitelist").click(removeWhitelistDomain);
-  $('#importTrackerButton').click(importTrackerList);
+  $('#importTrackerButton').click(loadFileChooser);
+  $('#importTrackers').change(importTrackerList);
   $('#exportTrackers').click(exportUserData);
 
   // Set up input for searching through tracking domains.
@@ -74,11 +75,20 @@ function loadOptions() {
 $(loadOptions);
 
 /**
+ * Opens the file chooser to allow a user to select
+ * a file to import.
+ */
+function loadFileChooser() {
+  var fileChooser = document.getElementById('importTrackers');
+  fileChooser.click();
+}
+
+/**
  * Import a list of trackers supplied by the user
- * NOTE: list must be in JSON format to be parseable
+ * NOTE: list must be in JSON format to be parsable
  */
 function importTrackerList() {
-  var file = $('#inputFile')[0].files[0];
+  var file = this.files[0];
 
   if (file) {
     var reader = new FileReader();
@@ -93,7 +103,7 @@ function importTrackerList() {
     confirm(selectFile);
   }
 
-  document.getElementById("inputFile").value = '';
+  document.getElementById("importTrackers").value = '';
 }
 
 /**
@@ -141,10 +151,14 @@ function exportUserData() {
     var mapJSON = JSON.stringify(maps);
     var downloadURL = 'data:application/json;base64,' + btoa(mapJSON);
 
+    // Append the formatted date to the exported file name
+    var currDate = new Date().toLocaleString();
+    var formattedDate = currDate.replace(/[/]/g, '-').replace(/[:,]/g, '_').replace(/ /g, '');
+    var filename = 'PrivacyBadger_user_data_' + formattedDate + '.json';
+
     chrome.downloads.download({
       url: downloadURL,
-      // TODO timestamp
-      filename: 'PB_trackers_and_settings.json'
+      filename: filename
     });
   });
 }

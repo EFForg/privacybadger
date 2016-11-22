@@ -102,6 +102,13 @@ button
     display: none;
     color: #b0b0b0;
 }
+
+.importInput{
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
 #blockedResourcesContainer{
   width: 390px;
 }
@@ -198,12 +205,11 @@ a, a:hover, a:active, a:visited{
 
     <div id="import">
       <h3><span class="i18n_import_user_data"></span></h3>
-      <input type="file" id="inputFile" accept=".json">
+      <input type="file" class="importInput" id="importTrackers" accept=".json">
       <button id="importTrackerButton" class="importButton" type="submit"><span class="i18n_import"></span></button>
     </div>
     <div id="export">
       <h3><span class="i18n_export_user_data"></span></h3>
-      <br/>
       <button id="exportTrackers" class="exportButton"><span class="i18n_download"></span></button>
     </div>
   </div>
