@@ -85,12 +85,42 @@
     ok(!settings_map.getItem('showCounter'), "other settings are overwritten");
   });
 
-  // TODO
-  //test("action map merging", () => {
-  //});
+  test("action map merging", () => {
+    expect(2);
+    let action_map = badger.storage.getBadgerStorageObject('action_map');
 
-  // TODO
-  //test("snitch map merging", () => {
-  //});
+    action_map.setItem('testsite.com',
+        {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
+    ok(action_map.getItem('testsite.com').nextUpdateTime === 100);
+
+    let newValue = {dnt: false, heuristicAction: "", nextUpdateTime: 101, userAction: ""};
+    action_map.merge({'testsite.com': newValue});
+
+    // Merged in object should have new nextUpdateTime value
+    ok(action_map.getItem('testsite.com').nextUpdateTime === 101);
+  });
+
+
+  test("snitch map merging", () => {
+    expect(5);
+    let snitch_map = badger.storage.getBadgerStorageObject('snitch_map');
+    let action_map = badger.storage.getBadgerStorageObject('action_map');
+
+    action_map.setItem('testsite.com',
+        {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
+
+    snitch_map.setItem('testsite.com', ['firstparty.org']);
+    ok(snitch_map.getItem('testsite.com').indexOf('firstparty.org') > -1);
+
+    // Check to make sure existing and new domain are present
+    snitch_map.merge({"testsite.com": ['firstparty2.org']});
+    ok(snitch_map.getItem('testsite.com').indexOf('firstparty.org') > -1);
+    ok(snitch_map.getItem('testsite.com').indexOf('firstparty2.org') > -1);
+
+    // Verify 'block' status is triggered once TRACKING_THRESHOLD is hit
+    ok(action_map.getItem('testsite.com').heuristicAction === "allow");
+    snitch_map.merge({'testsite.com': ["firstparty3.org"]});
+    ok(action_map.getItem('testsite.com').heuristicAction === "block");
+  });
 
 })();
