@@ -55,60 +55,13 @@ button
 #tabs {
   min-width: 750px;
 }
-#subscriptionTemplate,
-#addSubscriptionContainer,
-#customSubscriptionContainer
-{
-  display: none;
-}
 
-#acceptableAdsContainer
-{
-  margin-top: 10px;
-}
 .tooltipArrow {
   bottom: 27px;
-}
-#acceptableAdsLink,
-#acceptableAdsDocs
-{
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.subscription
-{
-  margin: 3px 0px;
 }
 
 #pbInstructions{
   width:450px;
-}
-
-
-.subscriptionRemoveButton,
-.subscriptionEnabledContainer,
-.subscriptionTitle
-{
-  margin-right: 1em;
-}
-
-.subscriptionRemoveButton
-{
-  font-weight: normal !important;
-  font-size: 20px !important;
-  color: #FF0000 !important;
-  border: none !important;
-  outline: none !important;
-  background: none !important;
-}
-
-.subscriptionUpdate
-{
-  color: #B0B0B0;
-}
-.subscriptionUpdate.error
-{
-  color: #FF0000;
 }
 
 #rawFilters {
@@ -131,11 +84,31 @@ button
     padding:3px;
 }
 
+#tab-import-export {
+  width: 750px;
+  overflow: auto;
+}
+#import {
+  width: 350px;
+  float: left;
+}
+#export {
+  width: 350px;
+  float: left;
+}
+
 /* Filter list entry status message */
 .flMsg {
     display: none;
     color: #b0b0b0;
 }
+
+.importInput{
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
 #blockedResourcesContainer{
   width: 390px;
 }
@@ -172,17 +145,18 @@ a, a:hover, a:active, a:visited{
     <li><a href="#tab-pb-status"><span class="i18n_options_filter_settings"></span></a></li>
     <li><a href="#tab-whitelisted"><span class="i18n_whitelisted_domains"></span></a></li>
     <li><a href="#tab-general-settings"><span class="i18n_options_general_settings"></span></a></li>
+    <li><a href="#tab-import-export"><span class="i18n_data_settings"></span></a></li>
   </ul>
 
   <div id="tab-pb-status">
     <p class=""></p>
     <div id="blockedResourcesContainer">
       <p id="pbInstructions">
-      <span class="i18n_options_pb_has_detected"></span>
-      <span id='count'>0</span>
-      <span class="i18n_options_potential"></span>
-      <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers"><span class="i18n_options_tracking_domains"></span></a>
-      <span class="i18n_options_so_far"></span>
+        <span class="i18n_options_pb_has_detected"></span>
+        <span id='count'>0</span>
+        <span class="i18n_options_potential"></span>
+        <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#trackers"><span class="i18n_options_tracking_domains"></span></a>
+        <span class="i18n_options_so_far"></span>
       </p>
       <div class="spacer"></div>
       <input id="trackingDomainSearch" type="text" value="" style="width:100%">
@@ -195,25 +169,25 @@ a, a:hover, a:active, a:visited{
     <p class="i18n_disabled_for_these_domains"></p>
 
     <form id="whitelistForm" action="#">
-    <table>
-      <tr>
-        <td style="max-width:100%">
-          <input type="text" value="" id="newWhitelistDomain" style="width:100%">
-        </td>
-        <td>
-          <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
-        </td>
-      </tr>
+      <table>
+        <tr>
+          <td style="max-width:100%">
+            <input type="text" value="" id="newWhitelistDomain" style="width:100%">
+          </td>
+          <td>
+            <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
+          </td>
+        </tr>
 
-      <tr>
-        <td>
-          <select id="excludedDomainsBox" size="10" multiple style="width:500px; background: white;"></select>
-        </td>
-        <td>
-          <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
-        </td>
-      </tr>
-    </table>
+        <tr>
+          <td>
+            <select id="excludedDomainsBox" size="10" multiple style="width:500px; background: white;"></select>
+          </td>
+          <td>
+            <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
+          </td>
+        </tr>
+      </table>
     </form>
   </div>
 
@@ -242,6 +216,20 @@ a, a:hover, a:active, a:visited{
         <span class="i18n_options_webrtc_warning"></span>
       </div>
     </form>
+  </div>
+
+  <div id="tab-import-export">
+      <p class=""></p>
+
+    <div id="import">
+      <h3><span class="i18n_import_user_data"></span></h3>
+      <input type="file" class="importInput" id="importTrackers" accept=".json">
+      <button id="importTrackerButton" class="importButton" type="submit"><span class="i18n_import"></span></button>
+    </div>
+    <div id="export">
+      <h3><span class="i18n_export_user_data"></span></h3>
+      <button id="exportTrackers" class="exportButton"><span class="i18n_download"></span></button>
+    </div>
   </div>
 
 

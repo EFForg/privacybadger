@@ -11,14 +11,23 @@
     "badger_status_noaction": {
         "message": "Permesso "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger ti protegge dai tracker mentre navighi in rete!"
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger è disabilitato per i domini elencati sotto. Puoi aggiungere un dominio usando l'icona di Privacy Badger nella barra indirizzi o digitando il dominio (non un URL) nella casella e cliccando il pulsante \"Aggiungi dominio\"."
     },
+    "download": {
+        "message": "Download"
+    },
     "error_input": {
         "message": "Che c'è che non va?"
+    },
+    "export_user_data": {
+        "message": "Export user data"
     },
     "feed_the_badger_title": {
         "message": "clicca per restituire il controllo di questo tracker a Privacy Badger"
@@ -28,6 +37,21 @@
     },
     "first_run_text": {
         "message": "Scopri come Privacy Badger protegge la tua privacy."
+    },
+    "import": {
+        "message": "Import"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
     },
     "name": {
         "message": "Privacy Badger"

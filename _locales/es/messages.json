@@ -11,14 +11,23 @@
     "badger_status_noaction": {
         "message": "Este dominio está desbloqueado, desliza para bloquearlo completamento o bloquear las cookies."
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "¡Privacy Badger te protege de rastreadores mientras surfeas por la web!"
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger está deshabilitado para la lista de dominios que se muestran debajo. Puedes añadir un dominio ya sea mediante el icono de Privacy Badger en la barra de direcciones o escribiéndo el dominio (no la URL) en el recuadro y haciendo click en el botón \"Añadir dominio\"."
     },
+    "download": {
+        "message": "Download"
+    },
     "error_input": {
         "message": "¿Qué está mal?"
+    },
+    "export_user_data": {
+        "message": "Export user data"
     },
     "feed_the_badger_title": {
         "message": "haz click para devolver el control de este rastreador a Privacy Badger"
@@ -28,6 +37,21 @@
     },
     "first_run_text": {
         "message": "¡Aprenda cómo Privacy Badger protege su privacidad."
+    },
+    "import": {
+        "message": "Import"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
     },
     "name": {
         "message": "Privacy Badger"

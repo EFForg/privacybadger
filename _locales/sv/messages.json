@@ -11,14 +11,23 @@
     "badger_status_noaction": {
         "message": "Tillåten "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger skyddar dig mot spanare medan du surfar!"
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger är avaktiverad för domäner listade nedanför. Du kan lägga till domäner med Privacy Badger-ikonen i adressfältet eller genom att skriva in domänen (inte URL:en) i rutan och klicka på knappen \"Lägg till domän\"."
     },
+    "download": {
+        "message": "Download"
+    },
     "error_input": {
         "message": "Hur står det till?"
+    },
+    "export_user_data": {
+        "message": "Export user data"
     },
     "feed_the_badger_title": {
         "message": "klicka för att återge kontrollen av spanaren till Privacy Badger"
@@ -29,6 +38,9 @@
     "first_run_text": {
         "message": "Lär dig hur Privacy Badger skyddar din integritet."
     },
+    "import": {
+        "message": "Import"
+    },
     "tooltip_allow": {
         "message": "Move the slider right to allow a domain"
     },
@@ -37,6 +49,18 @@
     },
     "tooltip_cookieblock": {
         "message": "Center the slider to block cookies"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
     },
     "name": {
         "message": "Privacy Badger"
