@@ -144,26 +144,73 @@ exports.Migrations= {
     */
   },
 
-  migrateBlockedSubdomainsToCookieblock: function(storage){
+  migrateBlockedSubdomainsToCookieblock: function(badger){
     setTimeout(function(){
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
-      var cbl = storage.getBadgerStorageObject('cookieblock_list');
-      _.each(storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
+      var cbl = badger.storage.getBadgerStorageObject('cookieblock_list');
+      _.each(badger.storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
         _.each(utils.explodeSubdomains(fqdn, true), function(domain){
           if(cbl.hasItem(domain)){
             console.log('moving', fqdn, 'from block to cookie block');
-            storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
+            badger.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           }
         });
       });
     }, 1000 * 30);
   },
 
-  migrateLegacyFirefoxData: function(){
-    //POC
-    console.log('MIGRATING FIREFOX DATA');
-    chrome.storage.local.set({"legacy_storage": window.legacyStorage},
-      function(){ return; });
+  migrateLegacyFirefoxData: function(badger){
+    if(!window.legacyStorage){
+      console.log("No legacy firefox data found. Nothing to migrate");
+      return; 
+    }
+
+    console.log('MIGRATING FIREFOX DATA', window.legacyStorage);
+
+    var originFrequency = window.legacyStorage.originFrequency;
+    var disabledSites = window.legacyStorage.disabledSites;
+    var policyWhitelist = window.legacyStorage.policyWhitelist;
+    var userGreen = window.legacyStorage.userGreen;
+    var userYellow = window.legacyStorage.userYellow;
+    var userRed = window.legacyStorage.userRed;
+
+    // Import snitch map 
+    _.each(originFrequency, function(fpDomains, trackingDomain){
+      _.each(fpDomains, function(v, firstParty){
+        badger.heuristicBlocking.recordPrevalence(trackingDomain, trackingDomain, firstParty);
+      });
+    });
+
+    // Import action map
+    _.each(userGreen, function(v, domain){
+      badger.storage.setupUserAction(domain, constants.USER_ALLOW);
+    });
+
+    _.each(userYellow, function(v, domain){
+      badger.storage.setupUserAction(domain, constants.USER_COOKIE_BLOCK);
+    });
+    
+    _.each(userRed, function(v, domain){
+      badger.storage.setupUserAction(domain, constants.USER_BLOCK);
+    });
+
+    _.each(policyWhitelist, function(v, domain){
+      badger.checkForDNTPolicy(domain, 0);
+    });
+
+    // Import disabled sites and set seen comic flag
+    _.each(disabledSites, function(v, domain){
+      badger.disablePrivacyBadgerForOrigin(domain);
+    });
+
+    var settings = badger.storage.getBadgerStorageObject("settings_map");
+    settings.setItem("seenComic", true);
+
+    // Cleanup
+    chrome.storage.local.remove(Object.keys(window.legacyStorage), function(){
+      console.log("Finished migrating storage. Cleaned up on my way out.");
+    });
+     
   },
 
 };

@@ -369,7 +369,8 @@ Badger.prototype = {
   },
 
   runMigrations: function(){
-    var settings = this.storage.getBadgerStorageObject("settings_map");
+    var badger = this;
+    var settings = badger.storage.getBadgerStorageObject("settings_map");
     var migrationLevel = settings.getItem('migrationLevel');
     var migrations = [
       Migrations.changePrivacySettings,
@@ -379,7 +380,7 @@ Badger.prototype = {
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations, this.storage);
+      migrations[i].call(Migrations, badger);
       settings.setItem('migrationLevel', i+1);
     }
 
