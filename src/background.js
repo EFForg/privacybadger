@@ -730,8 +730,8 @@ function startBackgroundListeners() {
 console.log('Loading badgers into the pen.');
 var badger;
 window.legacyStorage = null; 
-
-chrome.storage.local.get(null, function(legacy){
+var legacyKeys = ["cookieDb","domainExceptionSites","userRed","userYellow","userGreen","disabledSites","disabledSitesPrivate","domainExceptions","domainExceptionsPrivate","seenComic","changedCookies","preloads","originFrequency","originFrequencyPrivate","blockedOrigins","policyHashes","policyWhitelist","nextBlockedSitesCheck"];
+chrome.storage.local.get(legacyKeys, function(legacy){
   // blockedOrigins, disabledSites, originFrequency, policyWhitelist, userGreen, userYellow, userRed
   if(legacy){
     window.legacyStorage = legacy;
