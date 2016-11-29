@@ -11,14 +11,23 @@
     "badger_status_noaction": {
         "message": "Toegestaan "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger geeft u meer controle over het gevolgd worden op internet!"
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger is uitgeschakeld voor de volgende (derde) partijen. U kunt een (derde) partij op twee manieren blokkeren, met het Privacy Badger pictogram in de adresbalk, of door de domeinnaam (niet de URL) in te typen en vervolgens de \"Partij toevoegen\"-knop aan te klikken."
     },
+    "download": {
+        "message": "Download"
+    },
     "error_input": {
         "message": "Wat ging er mis?"
+    },
+    "export_user_data": {
+        "message": "Export user data"
     },
     "tooltip_allow": {
         "message": "Move the slider right to allow a domain"
@@ -34,6 +43,21 @@
     },
     "firstRun_title": {
         "message": "Dank u voor het installeren van Privacy Badger!"
+    },
+    "import": {
+        "message": "Import"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
     },
     "name": {
         "message": "Privacy Badger"
@@ -58,6 +82,12 @@
     },
     "options_title": {
         "message": "Privacy Badger Opties"
+    },
+    "options_webrtc_setting": {
+        "message": "Prevent WebRTC from leaking local IP address *"
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
     },
     "pb_detected": {
         "message": "Privacy Badger gedetecteerd"

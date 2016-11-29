@@ -157,31 +157,32 @@ HeuristicBlocker.prototype = {
       if (!this.hasTracking(details, origin)){
         return { };
       }
-      this.recordPrevalence(fqdn, origin, tabOrigin);
+      this.recordPrevalence(fqdn, tabOrigin);
     }
   },
 
   /**
-   * Record HTTP request prevalence. Block a tracker if seen on more than [constants.TRACKING_THRESHOLD] pages
+   * Record HTTP request prevalence. Block a tracker if seen on more
+   * than [constants.TRACKING_THRESHOLD] pages
    *
-   * @param {String} fqdn Host
-   * @param {String} origin Base domain of host
-   * @param {String} tabOrigin The main origin for this tab
+   *
+   * @param {String} thirdPartyTrackerFQDN The FQDN of the third party tracker
+   * @param {String} firstPartyOrigin The origin of the page where the third party
+   *                                  tracker was loaded
    */
-  recordPrevalence: function(fqdn, origin, tabOrigin) {
+  recordPrevalence: function (thirdPartyTrackerFQDN, firstPartyOrigin) {
     var snitch_map = this.storage.getBadgerStorageObject('snitch_map');
-    var trackerBaseDomain = window.getBaseDomain(fqdn);
     var firstParties = [];
-
-    if (snitch_map.hasItem(trackerBaseDomain)){
-      firstParties = snitch_map.getItem(trackerBaseDomain);
+    var thirdPartyTrackerOrigin = window.getBaseDomain(thirdPartyTrackerFQDN);
+    if (snitch_map.hasItem(thirdPartyTrackerOrigin)){
+      firstParties = snitch_map.getItem(thirdPartyTrackerOrigin);
     }
 
-    if(firstParties.indexOf(tabOrigin) === -1){
-      firstParties.push(tabOrigin);
-      snitch_map.setItem(trackerBaseDomain, firstParties);
-      this.storage.setupHeuristicAction(fqdn, constants.ALLOW);
-      this.storage.setupHeuristicAction(trackerBaseDomain, constants.ALLOW);
+    if(firstParties.indexOf(firstPartyOrigin) === -1){
+      firstParties.push(firstPartyOrigin);
+      snitch_map.setItem(thirdPartyTrackerOrigin, firstParties);
+      this.storage.setupHeuristicAction(thirdPartyTrackerFQDN, constants.ALLOW);
+      this.storage.setupHeuristicAction(thirdPartyTrackerOrigin, constants.ALLOW);
     }
 
     // Blocking based on outbound cookies
@@ -189,8 +190,8 @@ HeuristicBlocker.prototype = {
 
     //block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
-      log('blacklisting origin', fqdn);
-      this.blacklistOrigin(origin, fqdn);
+      log('blacklisting origin', thirdPartyTrackerFQDN);
+      this.blacklistOrigin(thirdPartyTrackerOrigin, thirdPartyTrackerFQDN);
     }
   }
 };

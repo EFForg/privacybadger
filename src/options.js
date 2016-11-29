@@ -38,6 +38,9 @@ function loadOptions() {
   // Add event listeners
   $("#whitelistForm").submit(addWhitelistDomain);
   $("#removeWhitelist").click(removeWhitelistDomain);
+  $('#importTrackerButton').click(loadFileChooser);
+  $('#importTrackers').change(importTrackerList);
+  $('#exportTrackers').click(exportUserData);
 
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").attr("placeholder", i18n.getMessage("options_domain_search"));
@@ -58,16 +61,113 @@ function loadOptions() {
   $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
+  $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
+  $(".exportButton").button("option", "icons", {primary: "ui-icon-extlink"});
   $("#show_counter_checkbox").click(updateShowCounter);
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
+  $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
+  $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
+
+  // Hide WebRTC-related settings for non-Chrome browsers
+  if (!chrome.privacy) {
+    $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
+    $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
+  }
 
   // Show user's filters
   reloadWhitelist();
   refreshFilterPage();
 }
 $(loadOptions);
+
+/**
+ * Opens the file chooser to allow a user to select
+ * a file to import.
+ */
+function loadFileChooser() {
+  var fileChooser = document.getElementById('importTrackers');
+  fileChooser.click();
+}
+
+/**
+ * Import a list of trackers supplied by the user
+ * NOTE: list must be in JSON format to be parsable
+ */
+function importTrackerList() {
+  var file = this.files[0];
+
+  if (file) {
+    var reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function(e) {
+      parseUserDataFile(e.target.result);
+    };
+  } else {
+    var selectFile = i18n.getMessage("import_select_file");
+    confirm(selectFile);
+  }
+
+  document.getElementById("importTrackers").value = '';
+}
+
+/**
+ * Parse the tracker lists uploaded by the user, adding to the
+ * storage maps anything that isn't currently present.
+ *
+ * @param {string} storageMapsList Data from JSON file that user provided
+ */
+function parseUserDataFile(storageMapsList) {
+  var lists;
+
+  try {
+    lists = JSON.parse(storageMapsList);
+  } catch (e) {
+    let invalidJSON = i18n.getMessage("invalid_json");
+    confirm(invalidJSON);
+    return;
+  }
+
+  for (let map in lists) {
+    var storageMap = badger.storage.getBadgerStorageObject(map);
+
+    if (storageMap) {
+      storageMap.merge(lists[map]);
+    }
+  }
+
+  // Update list to reflect new status of map
+  reloadWhitelist();
+  refreshFilterPage();
+  var importSuccessful = i18n.getMessage("import_successful");
+  confirm(importSuccessful);
+}
+
+/**
+ * Export the user's data, including their list of trackers from
+ * action_map and snitch_map, along with their settings.
+ * List will be exported and sent to user via chrome.downloads API
+ * and will be in JSON format that can be edited and reimported
+ * in another instance of Privacy Badger.
+ */
+function exportUserData() {
+  chrome.storage.local.get(["action_map", "snitch_map", "settings_map"], function(maps) {
+
+    var mapJSON = JSON.stringify(maps);
+    var downloadURL = 'data:application/json;base64,' + btoa(mapJSON);
+
+    // Append the formatted date to the exported file name
+    var currDate = new Date().toLocaleString();
+    var formattedDate = currDate.replace(/[/]/g, '-').replace(/[:,]/g, '_').replace(/ /g, '');
+    var filename = 'PrivacyBadger_user_data_' + formattedDate + '.json';
+
+    chrome.downloads.download({
+      url: downloadURL,
+      filename: filename
+    });
+  });
+}
 
 /**
  * Update setting for whether or not to show counter on Privacy Badger badge.
@@ -312,6 +412,31 @@ function registerToggleHandlers(element) {
 
   radios.change(function() {
     slider.slider('value', radios.filter(':checked').val());
+  });
+}
+
+/**
+ * https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
+ * (Chrome only)
+ * Toggle WebRTC IP address leak protection setting. "False" value means
+ * policy is set to Mode 3 (default_public_interface_only), whereas "true"
+ * value means policy is set to Mode 4 (disable_non_proxied_udp).
+ */
+function toggleWebRTCIPProtection() {
+  if (!chrome.privacy) { return; } // Return early if user's browser does not support chrome.privacy
+  var cpn = chrome.privacy.network;
+  cpn.webRTCIPHandlingPolicy.get({}, function(result) {
+    var newVal;
+
+    // Update new value to be opposite of current browser setting
+    if (result.value === 'disable_non_proxied_udp') {
+      newVal = 'default_public_interface_only';
+    } else {
+      newVal = 'disable_non_proxied_udp';
+    }
+    cpn.webRTCIPHandlingPolicy.set( {value: newVal}, function() {
+      settings.setItem("webRTCIPProtection", (newVal === 'disable_non_proxied_udp'));
+    });
   });
 }
 
