@@ -177,7 +177,7 @@ exports.Migrations= {
     // Import snitch map 
     _.each(originFrequency, function(fpDomains, trackingDomain){
       _.each(fpDomains, function(v, firstParty){
-        badger.heuristicBlocking.recordPrevalence(trackingDomain, trackingDomain, firstParty);
+        badger.heuristicBlocking.recordPrevalence(trackingDomain, firstParty);
       });
     });
 
