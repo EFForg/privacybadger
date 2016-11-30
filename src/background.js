@@ -381,7 +381,6 @@ Badger.prototype = {
     var migrationLevel = settings.getItem('migrationLevel');
     var migrations = [
       Migrations.changePrivacySettings,
-      Migrations.migrateAbpToStorage,
       Migrations.migrateBlockedSubdomainsToCookieblock,
       Migrations.migrateLegacyFirefoxData,
     ];
