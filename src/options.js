@@ -199,8 +199,8 @@ function updateSocialWidgetReplacement() {
 function reloadWhitelist() {
   var sites = settings.getItem("disabledSites");
   var sitesList = $('#excludedDomainsBox');
-  // Sort the sites list alphabetically
-  sites.sort();
+  // Sort the white listed sites in the same way the blocked sites are
+  sites.sort(htmlUtils.compareReversedDomains);
   sitesList.html("");
   for( var i = 0; i < sites.length; i++){
     $('<option>').text(sites[i]).appendTo(sitesList);
