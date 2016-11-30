@@ -18,7 +18,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var badger = backgroundPage.badger; 
+var badger = backgroundPage.badger;
 var log = backgroundPage.log;
 var constants = backgroundPage.constants;
 var htmlUtils = require("htmlutils").htmlUtils;
@@ -199,6 +199,8 @@ function updateSocialWidgetReplacement() {
 function reloadWhitelist() {
   var sites = settings.getItem("disabledSites");
   var sitesList = $('#excludedDomainsBox');
+  // Sort the sites list alphabetically
+  sites.sort();
   sitesList.html("");
   for( var i = 0; i < sites.length; i++){
     $('<option>').text(sites[i]).appendTo(sitesList);
