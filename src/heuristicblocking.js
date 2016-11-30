@@ -173,6 +173,10 @@ HeuristicBlocker.prototype = {
   recordPrevalence: function (thirdPartyTrackerFQDN, firstPartyOrigin) {
     var snitch_map = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = [];
+    // TODO this is a hot path, right?
+    // called by heuristicBlockingAccounting, which is called by webRequest listeners
+    // better to pass thirdPartyTrackerOrigin from outside where it's already available ...
+    // this would partially revert 7de83c91c16b17c5280f87f3abf52a49450bf5c7
     var thirdPartyTrackerOrigin = window.getBaseDomain(thirdPartyTrackerFQDN);
     if (snitch_map.hasItem(thirdPartyTrackerOrigin)){
       firstParties = snitch_map.getItem(thirdPartyTrackerOrigin);
@@ -191,6 +195,7 @@ HeuristicBlocker.prototype = {
     //block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
       log('blacklisting origin', thirdPartyTrackerFQDN);
+      // TODO no unit test; messing up parameters here should break tests
       this.blacklistOrigin(thirdPartyTrackerOrigin, thirdPartyTrackerFQDN);
     }
   }
