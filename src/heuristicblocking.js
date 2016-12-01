@@ -181,6 +181,7 @@ HeuristicBlocker.prototype = {
     if(firstParties.indexOf(page_origin) === -1){
       firstParties.push(page_origin);
       snitch_map.setItem(tracker_origin, firstParties);
+      // TODO removing this line/messing up parameters should break integration tests
       this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
       this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
     }
@@ -191,7 +192,6 @@ HeuristicBlocker.prototype = {
     //block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
       log('blacklisting origin', tracker_fqdn);
-      // TODO no unit test; messing up parameters here should break tests
       this.blacklistOrigin(tracker_origin, tracker_fqdn);
     }
   }
