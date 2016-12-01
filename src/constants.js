@@ -35,6 +35,7 @@ var exports = {
 
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
+  ACCELERATED_TRACKING_THRESHOLD: 1,
   MAX_COOKIE_ENTROPY: 12
 };
 

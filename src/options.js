@@ -67,6 +67,8 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
+  $("#cookie_setting_checkbox").click(updateCookieBlockSetting);
+  $("#cookie_setting_checkbox").prop("checked", badger.cookieBlockSetting());
   $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
   $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
 
@@ -189,9 +191,19 @@ function updateShowCounter() {
 }
 
 /**
+ * Update setting for whether or not to block tracked cookies after 1 occurrence
+ * instead of 3 occurrences (default is 3)
+ */
+function updateCookieBlockSetting() {
+  var cookieBlockSetting = $("#cookie_setting_checkbox").prop("checked");
+  settings.setItem("cookieBlockSetting", cookieBlockSetting);
+}
+
+/**
  * Update setting for whether or not to replace social widgets.
  */
 function updateSocialWidgetReplacement() {
+  console.log("updating social widget replacement");
   var replaceSocialWidgets = $("#replace_social_widgets_checkbox").prop("checked");
   settings.setItem("socialWidgetReplacementEnabled", replaceSocialWidgets);
 }

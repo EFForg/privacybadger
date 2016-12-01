@@ -11,6 +11,9 @@
     "badger_status_noaction": {
         "message": "Allowed "
     },
+    "cookie_setting_checkbox": {
+        "message": "Block trackers at first occurrence"
+    },
     "data_settings": {
         "message": "Manage Data"
     },

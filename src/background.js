@@ -355,6 +355,7 @@ Badger.prototype = {
    */
   defaultSettings: {
     socialWidgetReplacementEnabled: true,
+    cookieBlockSetting: false,
     showCounter: true,
     disabledSites: [],
     isFirstRun: true,
@@ -549,7 +550,7 @@ Badger.prototype = {
     }
     return true;
   },
-  
+
   /**
    * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
@@ -566,6 +567,14 @@ Badger.prototype = {
    */
   isSocialWidgetReplacementEnabled: function() {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
+  },
+
+  /**
+   * Check if cookie block settings are enabled to block after
+   * one occurrence instead of three occurrences
+   */
+  cookieBlockSetting: function() {
+    return this.getSettings().getItem("cookieBlockSetting");
   },
 
   /**

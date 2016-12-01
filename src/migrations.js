@@ -33,8 +33,8 @@ exports.Migrations= {
   migrateAbpToStorage: function(){
     return _.noop();
     /*
-    ABP migration code, no longer needed, kept for historical purposes. 
-    if(!localStorage.seenThirdParties) { return; } //We do not have any ABP data 
+    ABP migration code, no longer needed, kept for historical purposes.
+    if(!localStorage.seenThirdParties) { return; } //We do not have any ABP data
     console.log('migrating data out of ABP');
 
     var FilterStorage = require("filterStorage").FilterStorage;
@@ -43,7 +43,7 @@ exports.Migrations= {
       return filter.match('[|][|]([^\^]*)')[1];
     };
 
-    var settings = pbStorage.getBadgerStorageObject('settings_map'); 
+    var settings = pbStorage.getBadgerStorageObject('settings_map');
     var snitch_map = pbStorage.getBadgerStorageObject('snitch_map');
     var cookieblock_list = pbStorage.getBadgerStorageObject('cookieblock_list');
     var supercookie_domains = pbStorage.getBadgerStorageObject('supercookie_domains');
@@ -95,7 +95,7 @@ exports.Migrations= {
     } catch (e) {
       console.log(e);
     }
-    
+
     // Migrate action_map
     try {
       _.each(FilterStorage.knownSubscriptions.frequencyHeuristic.filters, function(filter){
