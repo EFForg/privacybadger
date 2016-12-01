@@ -447,12 +447,12 @@ BadgerStorage.prototype = {
         self._store[domain] = mapData[domain];
       }
     } else if (self.name === "snitch_map") {
-      for (let thirdPartyTracker in mapData) {
-        var firstPartyOrigins = mapData[thirdPartyTracker];
+      for (let tracker_fqdn in mapData) {
+        var firstPartyOrigins = mapData[tracker_fqdn];
         for (let origin in firstPartyOrigins) {
           badger.heuristicBlocking.recordPrevalence(
-            thirdPartyTracker,
-            window.getBaseDomain(thirdPartyTracker),
+            tracker_fqdn,
+            window.getBaseDomain(tracker_fqdn), // tracker "origin"
             firstPartyOrigins[origin]
           );
         }
