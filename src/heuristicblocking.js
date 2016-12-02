@@ -157,7 +157,7 @@ HeuristicBlocker.prototype = {
       if (!this.hasTracking(details, origin)){
         return { };
       }
-      this.recordPrevalence(fqdn, tabOrigin);
+      this.recordPrevalence(fqdn, origin, tabOrigin);
     }
   },
 
@@ -166,23 +166,24 @@ HeuristicBlocker.prototype = {
    * than [constants.TRACKING_THRESHOLD] pages
    *
    *
-   * @param {String} thirdPartyTrackerFQDN The FQDN of the third party tracker
-   * @param {String} firstPartyOrigin The origin of the page where the third party
+   * @param {String} tracker_fqdn The FQDN of the third party tracker
+   * @param {String} tracker_origin Base domain of the third party tracker
+   * @param {String} page_origin The origin of the page where the third party
    *                                  tracker was loaded
    */
-  recordPrevalence: function (thirdPartyTrackerFQDN, firstPartyOrigin) {
+  recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
     var snitch_map = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = [];
-    var thirdPartyTrackerOrigin = window.getBaseDomain(thirdPartyTrackerFQDN);
-    if (snitch_map.hasItem(thirdPartyTrackerOrigin)){
-      firstParties = snitch_map.getItem(thirdPartyTrackerOrigin);
+    if (snitch_map.hasItem(tracker_origin)){
+      firstParties = snitch_map.getItem(tracker_origin);
     }
 
-    if(firstParties.indexOf(firstPartyOrigin) === -1){
-      firstParties.push(firstPartyOrigin);
-      snitch_map.setItem(thirdPartyTrackerOrigin, firstParties);
-      this.storage.setupHeuristicAction(thirdPartyTrackerFQDN, constants.ALLOW);
-      this.storage.setupHeuristicAction(thirdPartyTrackerOrigin, constants.ALLOW);
+    if(firstParties.indexOf(page_origin) === -1){
+      firstParties.push(page_origin);
+      snitch_map.setItem(tracker_origin, firstParties);
+      // TODO removing this line/messing up parameters should break integration tests
+      this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
+      this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
     }
 
     // Blocking based on outbound cookies
@@ -190,8 +191,8 @@ HeuristicBlocker.prototype = {
 
     //block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
-      log('blacklisting origin', thirdPartyTrackerFQDN);
-      this.blacklistOrigin(thirdPartyTrackerOrigin, thirdPartyTrackerFQDN);
+      log('blacklisting origin', tracker_fqdn);
+      this.blacklistOrigin(tracker_origin, tracker_fqdn);
     }
   }
 };

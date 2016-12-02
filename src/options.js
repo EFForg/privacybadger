@@ -159,8 +159,13 @@ function exportUserData() {
 
     // Append the formatted date to the exported file name
     var currDate = new Date().toLocaleString();
-    var formattedDate = currDate.replace(/[/]/g, '-').replace(/[:,]/g, '_').replace(/ /g, '');
-    var filename = 'PrivacyBadger_user_data_' + formattedDate + '.json';
+    var escapedDate = currDate
+      // illegal filename charset regex from
+      // https://github.com/parshap/node-sanitize-filename/blob/ef1e8ad58e95eb90f8a01f209edf55cd4176e9c8/index.js
+      .replace(/[\/\?<>\\:\*\|":]/g, '_')
+      // also collapse-replace commas and spaces
+      .replace(/[, ]+/g, '_');
+    var filename = 'PrivacyBadger_user_data-' + escapedDate + '.json';
 
     chrome.downloads.download({
       url: downloadURL,
