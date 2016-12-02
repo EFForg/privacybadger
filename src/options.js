@@ -18,7 +18,7 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var badger = backgroundPage.badger; 
+var badger = backgroundPage.badger;
 var log = backgroundPage.log;
 var constants = backgroundPage.constants;
 var htmlUtils = require("htmlutils").htmlUtils;
@@ -159,8 +159,13 @@ function exportUserData() {
 
     // Append the formatted date to the exported file name
     var currDate = new Date().toLocaleString();
-    var formattedDate = currDate.replace(/[/]/g, '-').replace(/[:,]/g, '_').replace(/ /g, '');
-    var filename = 'PrivacyBadger_user_data_' + formattedDate + '.json';
+    var escapedDate = currDate
+      // illegal filename charset regex from
+      // https://github.com/parshap/node-sanitize-filename/blob/ef1e8ad58e95eb90f8a01f209edf55cd4176e9c8/index.js
+      .replace(/[\/\?<>\\:\*\|":]/g, '_')
+      // also collapse-replace commas and spaces
+      .replace(/[, ]+/g, '_');
+    var filename = 'PrivacyBadger_user_data-' + escapedDate + '.json';
 
     chrome.downloads.download({
       url: downloadURL,
@@ -199,6 +204,8 @@ function updateSocialWidgetReplacement() {
 function reloadWhitelist() {
   var sites = settings.getItem("disabledSites");
   var sitesList = $('#excludedDomainsBox');
+  // Sort the white listed sites in the same way the blocked sites are
+  sites.sort(htmlUtils.compareReversedDomains);
   sitesList.html("");
   for( var i = 0; i < sites.length; i++){
     $('<option>').text(sites[i]).appendTo(sitesList);
