@@ -30,6 +30,8 @@ exports.Migrations= {
     }
   },
 
+  migrateAbpToStorage: function () {},
+
   migrateBlockedSubdomainsToCookieblock: function(badger){
     setTimeout(function(){
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
