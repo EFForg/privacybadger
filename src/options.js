@@ -366,6 +366,23 @@ function filterTrackingDomains(/*event*/) {
 }
 
 /**
+ * Add origins to the blocked resources list on scroll.
+ *
+*/
+function addOrigins(e) {
+  var domains = e.data;
+  var target = e.target;
+  var totalHeight = target.scrollHeight - target.clientHeight;
+  if ((totalHeight - target.scrollTop) < 100) {
+    var domain = domains.shift();
+    var action = getOriginAction(domain);
+    if (action) {
+      target.innerHTML += htmlUtils.addOriginHtml('', domain, action);
+    }
+  }
+}
+
+/**
  * Displays list of tracking domains along with toggle controls.
  * @param domains Tracking domains to display.
  */
@@ -374,8 +391,8 @@ function showTrackingDomains(domains) {
 
   // Create HTML for list of tracking domains.
   var trackingDetails = '';
-  for (var i = 0; i < domains.length; i++) {
-    var trackingDomain = domains[i];
+  for (var i = 0; (i < 50) && (domains.length > 0); i++) {
+    var trackingDomain = domains.shift();
     // todo: gross hack, use templating framework
     var action = getOriginAction(trackingDomain);
     if (action) {
@@ -386,6 +403,7 @@ function showTrackingDomains(domains) {
 
   // Display tracking domains.
   $('#blockedResourcesInner').html(trackingDetails);
+  $('#blockedResourcesInner').scroll(domains, addOrigins);
   $('.switch-toggle').each(function() { registerToggleHandlers(this); });
 }
 
