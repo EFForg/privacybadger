@@ -15,8 +15,17 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
  // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
-
-var backgroundPage = chrome.extension.getBackgroundPage();
+/**
+ * @cooperq - 2016/12/05
+ * This is a workaround for a bug in firefox 50.0.2 (no bugzilla id I could find)
+ * This bug is fixed as of firefox 52.0 and the try/catch can be removed at that
+ * time
+ **/
+try {
+  var backgroundPage = chrome.extension.getBackgroundPage();
+} catch (e) {
+  location.reload();
+}
 var require = backgroundPage.require;
 var badger = backgroundPage.badger;
 var log = backgroundPage.log;
