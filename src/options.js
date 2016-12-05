@@ -67,8 +67,10 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
-  $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
-  $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
+  if(chrome.privacy){
+    $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
+    $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
+  }
 
   // Hide WebRTC-related settings for non-Chrome browsers
   if (!chrome.privacy) {
