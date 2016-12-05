@@ -373,7 +373,7 @@ function addOrigins(e) {
   var domains = e.data;
   var target = e.target;
   var totalHeight = target.scrollHeight - target.clientHeight;
-  if ((totalHeight - target.scrollTop) < 100) {
+  if ((totalHeight - target.scrollTop) < 400) {
     var domain = domains.shift();
     var action = getOriginAction(domain);
     if (action) {
