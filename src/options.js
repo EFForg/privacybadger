@@ -403,6 +403,7 @@ function showTrackingDomains(domains) {
 
   // Display tracking domains.
   $('#blockedResourcesInner').html(trackingDetails);
+  $('#blockedResourcesInner').off('scroll');
   $('#blockedResourcesInner').scroll(domains, addOrigins);
   $('.switch-toggle').each(function() { registerToggleHandlers(this); });
 }
