@@ -48,7 +48,7 @@ exports.Migrations= {
   },
 
   migrateLegacyFirefoxData: function(badger){
-    if(!window.legacyStorage){
+    if(_.isEmpty(window.legacyStorage)){
       console.log("No legacy firefox data found. Nothing to migrate");
       return; 
     }
@@ -97,6 +97,7 @@ exports.Migrations= {
 
     var settings = badger.storage.getBadgerStorageObject("settings_map");
     settings.setItem("seenComic", true);
+    settings.setItem("isFirstRun", false);
 
     // Cleanup
     chrome.storage.local.remove(Object.keys(window.legacyStorage), function(){
