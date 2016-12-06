@@ -62,6 +62,7 @@ var _multiDomainFirstPartiesArray = [
   ["twitch.tv", "ttvnw.net", "jtvnw.net"],
   ["guardian.co.uk", "guim.co.uk", "guardianapps.co.uk", "theguardian.com", "gu-web.net"],
   ["wsj.com", "wsj.net"],
+  ["nymag.com", "vulture.com", "grubstreet.com"],
   ["dummy"]
 ];
 

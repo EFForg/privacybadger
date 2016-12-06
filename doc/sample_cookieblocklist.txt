@@ -581,3 +581,4 @@ assets.nflxext.com
 assets.ubuntu.com
 y3.analytics.yahoo.com
 seatme.yelp.com
+jsdelivr.net
