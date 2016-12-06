@@ -122,7 +122,7 @@ function closeOverlay() {
 * @param {String} message The message to send
 */
 function send_error(message) {
-  var browser = window.navigator.useragent;
+  var browser = window.navigator.userAgent;
   getTab(function(tab) {
     var tabId = tab.id;
     var origins = badger.getAllOriginsForTab(tabId);
