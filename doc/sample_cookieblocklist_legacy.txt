@@ -48,6 +48,7 @@
 @@||bankrate.com^$third-party
 @@||bcbits.com^$third-party
 @@||betterttv.net^$third-party
+@@||www.bing.com^$third-party
 @@||bit.ly^$third-party
 @@||bizrate.com^$third-party
 @@||blogblog.com^$third-party
@@ -81,12 +82,13 @@
 @@||cloudfront.net^$third-party
 @@||bbc.co.uk^$third-party
 @@||bbci.co.uk^$third-party
-@@||gr-assets.com^$third-party
 @@||grapeshot.co.uk^$third-party
 @@||w.graphiq.com^$third-party
 @@||s.graphiq.com^$third-party
 @@||s2.graphiq.com^$third-party
 @@||s3.graphiq.com^$third-party
+@@||files.graphiq.com^$third-party
+@@||gr-assets.com^$third-party
 @@||guardian.co.uk^$third-party
 @@||media-imdb.com^$third-party
 @@||mediaworks.co.nz^$third-party
@@ -357,6 +359,7 @@
 @@||nj.com^$third-party
 @@||nmcdn.us^$third-party
 @@||nola.com^$third-party
+@@||npmcdn.com^$third-party
 @@||nrcdn.com^$third-party
 @@||nsimg.net^$third-party
 @@||media.nu.nl^$third-party
@@ -372,7 +375,7 @@
 @@||api.ooyala.com^$third-party
 @@||c.ooyala.com^$third-party
 @@||l.ooyala.com^$third-party
-@@||opf.ooyala.com^third-party
+@@||opf.ooyala.com^$third-party
 @@||player.ooyala.com^$third-party
 @@||tile.opencyclemap.org^$third-party
 @@||tile2.opencyclemap.org^$third-party
@@ -410,6 +413,9 @@
 @@||publiekeomroep.nl^$third-party
 @@||qualtrics.com^$third-party
 @@||quotemedia.com^$third-party
+@@||api.razorpay.com^$third-party
+@@||checkout.razorpay.com^$third-party
+@@||razorpay.com^$third-party
 @@||rackcdn.com^$third-party
 @@||rackspacecloud.com^$third-party
 @@||rambler.ru^$third-party
@@ -441,6 +447,7 @@
 @@||siteimprove.com^$third-party
 @@||sketchfab.com^$third-party
 @@||slidedeck.com^$third-party
+@@||public.slidesharecdn.com^$third-party
 @@||s-msft.com^$third-party
 @@||s-msn.com^$third-party
 @@||smugmug.com^$third-party
@@ -465,6 +472,7 @@
 @@||steamusercontent.com^$third-party
 @@||stellaservice.com^$third-party
 @@||stripe.com^$third-party
+@@||stripecdn.com^$third-party
 @@||surveygizmo.com^$third-party
 @@||surveymonkey.com^$third-party
 @@||syracuse.com^$third-party
@@ -534,9 +542,11 @@
 @@||wistia.com^$third-party
 @@||sslstatic.wix.com^$third-party
 @@||gatherer.wizards.com^$third-party
+@@||s.w.org^$third-party
 @@||wordpress.com^$third-party
 @@||worldnow.com^$third-party
 @@||wp.com^$third-party
+@@||wpengine.com^$third-party
 @@||wufoo.com^$third-party
 @@||wunderground.com^$third-party
 @@||wxc.com^$third-party
@@ -571,3 +581,4 @@
 @@||assets.ubuntu.com^$third-party
 @@||y3.analytics.yahoo.com^$third-party
 @@||seatme.yelp.com^$third-party
+@@||jsdelivr.net^$third-party

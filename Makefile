@@ -14,6 +14,7 @@ xpi:
 	# TODO when does "make xpi" get called? should probably use same zip flags (exclude list, ...) as "make zip"
 	zip -r privacybadger.xpi *
 upload:
+	scripts/legacy-cookies.sh
 	scp doc/sample_cookieblocklist.txt $$COOKIE_BLOCK_UPLOAD_PATH
 	scp doc/sample_cookieblocklist_legacy.txt $$COOKIE_BLOCK_LEGACY_UPLOAD_PATH
 	#scp doc/dnt-policies-example.json $$DNT_POLICIES_UPLOAD_PATH
