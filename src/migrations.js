@@ -30,133 +30,80 @@ exports.Migrations= {
     }
   },
 
-  migrateAbpToStorage: function(){
-    return _.noop();
-    /*
-    ABP migration code, no longer needed, kept for historical purposes. 
-    if(!localStorage.seenThirdParties) { return; } //We do not have any ABP data 
-    console.log('migrating data out of ABP');
+  migrateAbpToStorage: function () {},
 
-    var FilterStorage = require("filterStorage").FilterStorage;
-
-    var getDomainFromFilter = function(filter){
-      return filter.match('[|][|]([^\^]*)')[1];
-    };
-
-    var settings = pbStorage.getBadgerStorageObject('settings_map'); 
-    var snitch_map = pbStorage.getBadgerStorageObject('snitch_map');
-    var cookieblock_list = pbStorage.getBadgerStorageObject('cookieblock_list');
-    var supercookie_domains = pbStorage.getBadgerStorageObject('supercookie_domains');
-
-    // migrate settings
-    if(localStorage.socialWidgetReplacementEnabled){
-      settings.setItem('socialWidgetReplacementEnabled', JSON.parse(localStorage.socialWidgetReplacementEnabled));
-    }
-    if(localStorage.showCounter){
-      settings.setItem('showCounter', JSON.parse(localStorage.showCounter));
-    }
-    if(localStorage.seenComic){
-      settings.setItem('seenComic', JSON.parse(localStorage.seenComic));
-    }
-    if(localStorage.disabledSites){
-      settings.setItem('disabledSites', JSON.parse(localStorage.disabledSites));
-    }
-    settings.setItem('isFirstRun', false);
-
-    //migrate snitch_map
-    try {
-      var seenThirdParties = JSON.parse(localStorage.seenThirdParties);
-      var oldSeen = {};
-      _.each(seenThirdParties, function(val , key){
-        oldSeen[key] = _.keys(val);
-        pbStorage.setupHeuristicAction(key, constants.ALLOW);
-      });
-      snitch_map.updateObject(oldSeen);
-    } catch (e) {
-      console.log(e);
-    }
-
-
-    // migrate supercookie_domains
-    try {
-      supercookie_domains.updateObject(JSON.parse(localStorage.supercookieDomains));
-    } catch (e) {
-      console.log(e);
-    }
-
-    // setup cookieblock list
-    try {
-      var tmp_cbl = {};
-      _.each(FilterStorage.knownSubscriptions["https://www.eff.org/files/cookieblocklist.txt"].filters, function(filter){
-        var domain = getDomainFromFilter(filter.text);
-        tmp_cbl[domain] = true;
-      });
-      cookieblock_list.updateObject(tmp_cbl);
-    } catch (e) {
-      console.log(e);
-    }
-    
-    // Migrate action_map
-    try {
-      _.each(FilterStorage.knownSubscriptions.frequencyHeuristic.filters, function(filter){
-        var domain = getDomainFromFilter(filter.text);
-        var baseDomain = window.getBaseDomain(domain);
-        heuristicBlocking.blacklistOrigin(baseDomain, domain);
-      });
-      _.each(FilterStorage.knownSubscriptions.userRed.filters, function(filter){
-        var domain = getDomainFromFilter(filter.text);
-        pbStorage.setupUserAction(domain, constants.USER_BLOCK);
-      });
-      _.each(FilterStorage.knownSubscriptions.userYellow.filters, function(filter){
-        var domain = getDomainFromFilter(filter.text);
-        pbStorage.setupUserAction(domain, constants.USER_COOKIE_BLOCK); });
-      _.each(FilterStorage.knownSubscriptions.userGreen.filters, function(filter){
-        var domain = getDomainFromFilter(filter.text);
-        pbStorage.setupUserAction(domain, constants.USER_ALLOW);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-
-    // Migrate DNT domains
-    if(localStorage.whitelisted){
-      _.each(_.keys(JSON.parse(localStorage.whitelisted)), function(domain){
-        pbStorage.setupDNT(domain);
-      });
-    }
-
-    // remove local storage objects
-    _.each(_.keys(localStorage), function(key){
-      localStorage.removeItem(key);
-    });
-
-    // remove ABP subscriptions
-    _.each(FilterStorage.subscriptions, function(sub){
-      try {
-        FilterStorage.removeSubscription(sub);
-      } catch (e){
-        console.error(e);
-      }
-    });
-
-
-    console.log('ABP IS OVER!!!!');
-    */
-  },
-
-  migrateBlockedSubdomainsToCookieblock(storage){
+  migrateBlockedSubdomainsToCookieblock: function(badger){
     setTimeout(function(){
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
-      var cbl = storage.getBadgerStorageObject('cookieblock_list');
-      _.each(storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
+      var cbl = badger.storage.getBadgerStorageObject('cookieblock_list');
+      _.each(badger.storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
         _.each(utils.explodeSubdomains(fqdn, true), function(domain){
           if(cbl.hasItem(domain)){
             console.log('moving', fqdn, 'from block to cookie block');
-            storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
+            badger.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           }
         });
       });
     }, 1000 * 30);
+  },
+
+  migrateLegacyFirefoxData: function(badger){
+    if(_.isEmpty(window.legacyStorage)){
+      console.log("No legacy firefox data found. Nothing to migrate");
+      return; 
+    }
+
+    console.log('MIGRATING FIREFOX DATA', window.legacyStorage);
+
+    var originFrequency = window.legacyStorage.originFrequency;
+    var disabledSites = window.legacyStorage.disabledSites;
+    var policyWhitelist = window.legacyStorage.policyWhitelist;
+    var userGreen = window.legacyStorage.userGreen;
+    var userYellow = window.legacyStorage.userYellow;
+    var userRed = window.legacyStorage.userRed;
+
+    // Import snitch map 
+    _.each(originFrequency, function(fpDomains, trackingDomain){
+      _.each(fpDomains, function(v, firstParty){
+        badger.heuristicBlocking.recordPrevalence(
+          trackingDomain,
+          trackingDomain,
+          firstParty
+        );
+      });
+    });
+
+    // Import action map
+    _.each(userGreen, function(v, domain){
+      badger.storage.setupUserAction(domain, constants.USER_ALLOW);
+    });
+
+    _.each(userYellow, function(v, domain){
+      badger.storage.setupUserAction(domain, constants.USER_COOKIE_BLOCK);
+    });
+    
+    _.each(userRed, function(v, domain){
+      badger.storage.setupUserAction(domain, constants.USER_BLOCK);
+    });
+
+    _.each(policyWhitelist, function(v, domain){
+      badger.checkForDNTPolicy(domain, 0);
+    });
+
+    // Import disabled sites and set seen comic flag
+    _.each(disabledSites, function(v, domain){
+      badger.disablePrivacyBadgerForOrigin(domain);
+    });
+
+    var settings = badger.storage.getBadgerStorageObject("settings_map");
+    settings.setItem("seenComic", true);
+    settings.setItem("isFirstRun", false);
+
+    // Cleanup
+    chrome.storage.local.remove(Object.keys(window.legacyStorage), function(){
+      console.log("Finished migrating storage. Cleaned up on my way out.");
+    });
+     
   },
 
 };

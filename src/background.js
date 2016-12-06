@@ -376,16 +376,20 @@ Badger.prototype = {
   },
 
   runMigrations: function(){
-    var settings = this.storage.getBadgerStorageObject("settings_map");
+    var badger = this;
+    var settings = badger.storage.getBadgerStorageObject("settings_map");
     var migrationLevel = settings.getItem('migrationLevel');
+    // TODO do not remove any migration methods
+    // TODO w/o refactoring migrationLevel handling to work differently
     var migrations = [
       Migrations.changePrivacySettings,
       Migrations.migrateAbpToStorage,
       Migrations.migrateBlockedSubdomainsToCookieblock,
+      Migrations.migrateLegacyFirefoxData,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations, this.storage);
+      migrations[i].call(Migrations, badger);
       settings.setItem('migrationLevel', i+1);
     }
 
@@ -747,16 +751,32 @@ function startBackgroundListeners() {
  * lets get this party started
  */
 console.log('Loading badgers into the pen.');
-
-var badger = window.badger = new Badger();
-
+var badger;
+window.legacyStorage = null; 
 /**
- * Start all the listeners
- */
-incognito.startListeners();
-webrequest.startListeners();
-HeuristicBlocking.startListeners();
-startBackgroundListeners();
+ * CJQ - 2016/12/05
+ * Loading legacy keys into memory before badger is initialized due to race 
+ * condition which sometimes removes these from storage before privacy badger
+ * has a chance to migrate them. 
+ * This code can be removed once all firefox users have upgraded to the web 
+ * extensions version.
+ **/
+var legacyKeys = ["cookieDb","domainExceptionSites","userRed","userYellow","userGreen","disabledSites","disabledSitesPrivate","domainExceptions","domainExceptionsPrivate","seenComic","changedCookies","preloads","originFrequency","originFrequencyPrivate","blockedOrigins","policyHashes","policyWhitelist","nextBlockedSitesCheck"];
+chrome.storage.local.get(legacyKeys, function(legacy){
+  if(legacy){
+    window.legacyStorage = legacy;
+    console.log('LEGACY', window.legacyStorage);
+  }
+  badger = window.badger = new Badger();
 
-console.log('Privacy badger is ready to rock!');
-console.log('Set DEBUG=1 to view console messages.');
+  /**
+  * Start all the listeners
+  */
+  incognito.startListeners();
+  webrequest.startListeners();
+  HeuristicBlocking.startListeners();
+  startBackgroundListeners();
+
+  console.log('Privacy badger is ready to rock!');
+  console.log('Set DEBUG=1 to view console messages.');
+});
