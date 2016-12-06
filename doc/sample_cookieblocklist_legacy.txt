@@ -581,3 +581,4 @@
 @@||assets.ubuntu.com^$third-party
 @@||y3.analytics.yahoo.com^$third-party
 @@||seatme.yelp.com^$third-party
+@@||jsdelivr.net^$third-party
