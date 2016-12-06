@@ -193,13 +193,9 @@ function updateShowCounter() {
   settings.setItem("showCounter", showCounter);
 
   // Refresh display for each tab's PB badge.
-  chrome.windows.getAll(null, function(windows) {
-    windows.forEach(function(window) {
-      chrome.tabs.getAllInWindow(window.id, function(tabs) {
-        tabs.forEach(function(tab) {
-          badger.updateBadge(tab.id);
-        });
-      });
+  chrome.tabs.query({}, function(tabs) {
+    tabs.forEach(function(tab) {
+      badger.updateBadge(tab.id);
     });
   });
 }
