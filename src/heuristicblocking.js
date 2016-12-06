@@ -162,26 +162,28 @@ HeuristicBlocker.prototype = {
   },
 
   /**
-   * Record HTTP request prevalence. Block a tracker if seen on more than [constants.TRACKING_THRESHOLD] pages
+   * Record HTTP request prevalence. Block a tracker if seen on more
+   * than [constants.TRACKING_THRESHOLD] pages
    *
-   * @param {String} fqdn Host
-   * @param {String} origin Base domain of host
-   * @param {String} tabOrigin The main origin for this tab
+   *
+   * @param {String} tracker_fqdn The FQDN of the third party tracker
+   * @param {String} tracker_origin Base domain of the third party tracker
+   * @param {String} page_origin The origin of the page where the third party
+   *                                  tracker was loaded
    */
-  recordPrevalence: function(fqdn, origin, tabOrigin) {
+  recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
     var snitch_map = this.storage.getBadgerStorageObject('snitch_map');
-    var trackerBaseDomain = window.getBaseDomain(fqdn);
     var firstParties = [];
-
-    if (snitch_map.hasItem(trackerBaseDomain)){
-      firstParties = snitch_map.getItem(trackerBaseDomain);
+    if (snitch_map.hasItem(tracker_origin)){
+      firstParties = snitch_map.getItem(tracker_origin);
     }
 
-    if(firstParties.indexOf(tabOrigin) === -1){
-      firstParties.push(tabOrigin);
-      snitch_map.setItem(trackerBaseDomain, firstParties);
-      this.storage.setupHeuristicAction(fqdn, constants.ALLOW);
-      this.storage.setupHeuristicAction(trackerBaseDomain, constants.ALLOW);
+    if(firstParties.indexOf(page_origin) === -1){
+      firstParties.push(page_origin);
+      snitch_map.setItem(tracker_origin, firstParties);
+      // TODO removing this line/messing up parameters should break integration tests
+      this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
+      this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
     }
 
     // Blocking based on outbound cookies
@@ -189,8 +191,8 @@ HeuristicBlocker.prototype = {
 
     //block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
-      log('blacklisting origin', fqdn);
-      this.blacklistOrigin(origin, fqdn);
+      log('blacklisting origin', tracker_fqdn);
+      this.blacklistOrigin(tracker_origin, tracker_fqdn);
     }
   }
 };

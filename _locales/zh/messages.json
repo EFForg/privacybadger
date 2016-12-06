@@ -11,14 +11,23 @@
     "badger_status_noaction": {
         "message": "允许 "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "你在网上冲浪的时候，隐私獾会保护你免受跟踪器的烦恼！"
     },
     "disabled_for_these_domains": {
         "message": "隐私獾被禁用在以下域名。你可以通过点击地址栏的隐私獾图标单击“添加域名”按钮，在方框中输入域名（而不是URL）进行添加域名。"
     },
+    "download": {
+        "message": "Download"
+    },
     "error_input": {
         "message": "问题是什么？"
+    },
+    "export_user_data": {
+        "message": "Export user data"
     },
     "feed_the_badger_title": {
         "message": "点击以让隐私獾控制这个跟踪器的"
@@ -28,6 +37,21 @@
     },
     "first_run_text": {
         "message": "了解隐私獾如何保护你的隐私。"
+    },
+    "import": {
+        "message": "Import"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
     },
     "name": {
         "message": "隐私獾"
@@ -63,7 +87,13 @@
         "message": "更换社交网络工具"
     },
     "options_title": {
-        "message": "隐私獾设置"
+    "message": "隐私獾设置"
+    },
+    "options_webrtc_setting": {
+        "message": "Prevent WebRTC from leaking local IP address *"
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
     },
     "pb_detected": {
         "message": "隐私獾检测到"

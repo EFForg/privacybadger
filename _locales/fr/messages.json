@@ -11,21 +11,44 @@
     "badger_status_noaction": {
         "message": "Permis "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger vous protège des traqueurs lorsque vous surfez sur le web !"
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger est désactivé pour les noms de domaine listés ci-dessous. Vous pouvez ajouter un nom de domaine soit par le biais de l'icone du Privacy Badger présente sur la barre d'adresse soit en tapant le nom de domaine (pas l'URL) dans la fenêtre en cliquant sur le bouton \"Ajouter un nom de domaine\"."
     },
+    "download": {
+        "message": "Download"
+    },
     "error_input": {
      "message": "Qu'est ce qui ne va pas ?"
     },
-
+    "export_user_data": {
+        "message": "Export user data"
+    },
     "feed_the_badger_title": {
         "message": "cliquer pour laisser le contrôle de ce traqueur au Privacy Badger"
     },
     "firstRun_title": {
         "message": "Privacy Badger a été installé"
+    },
+    "import": {
+        "message": "Import"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
     },
     "name": {
         "message": "Privacy Badger"
@@ -54,6 +77,12 @@
     },
     "options_title": {
         "message": "Options de Privacy Badger"
+    },
+    "options_webrtc_setting": {
+        "message": "Prevent WebRTC from leaking local IP address *"
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
     },
     "pb_detected": {
         "message": "Privacy Badger détecté"

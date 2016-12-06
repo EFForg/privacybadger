@@ -1,4 +1,7 @@
-build: zip crx
+build: updatepsl zip crx
+travisbuild: zip crx
+updatepsl:
+	scripts/updatepsl.sh
 zip:
 	scripts/makezip.sh 
 crx:
@@ -8,6 +11,7 @@ todo:
 logging:
 	grep -rn 'console.log' src lib
 xpi:
+	# TODO when does "make xpi" get called? should probably use same zip flags (exclude list, ...) as "make zip"
 	zip -r privacybadger.xpi *
 upload:
 	scp doc/sample_cookieblocklist.txt $$COOKIE_BLOCK_UPLOAD_PATH
@@ -15,4 +19,4 @@ upload:
 	#scp doc/dnt-policies-example.json $$DNT_POLICIES_UPLOAD_PATH
 lint:
 	./node_modules/.bin/eslint .
-.PHONY: build todo logging zip crx lint
+.PHONY: build travisbuild updatepsl zip crx todo logging lint
