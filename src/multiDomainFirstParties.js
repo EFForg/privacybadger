@@ -47,6 +47,7 @@ var _multiDomainFirstPartiesArray = [
   ["ebay.com", "ebayimg.com", "ebayrtm.com", "ebaystatic.com"],
   ["wordpress.com", "wp.com"], 
   ["netflix.com", "nflxext.com", "nflximg.net"],
+  ["nymag.com", "vulture.com", "grubstreet.com"],
   ["dummy"]
 ];
 
