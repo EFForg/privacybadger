@@ -48,6 +48,7 @@ bankid.no
 bankrate.com
 bcbits.com
 betterttv.net
+www.bing.com
 bit.ly
 bizrate.com
 blogblog.com
@@ -471,6 +472,7 @@ store.akamai.steamstatic.com
 steamusercontent.com
 stellaservice.com
 stripe.com
+stripecdn.com
 surveygizmo.com
 surveymonkey.com
 syracuse.com

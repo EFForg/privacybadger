@@ -48,6 +48,7 @@
 @@||bankrate.com^$third-party
 @@||bcbits.com^$third-party
 @@||betterttv.net^$third-party
+@@||www.bing.com^$third-party
 @@||bit.ly^$third-party
 @@||bizrate.com^$third-party
 @@||blogblog.com^$third-party
@@ -81,13 +82,13 @@
 @@||cloudfront.net^$third-party
 @@||bbc.co.uk^$third-party
 @@||bbci.co.uk^$third-party
-@@||gr-assets.com^$third-party
 @@||grapeshot.co.uk^$third-party
 @@||w.graphiq.com^$third-party
 @@||s.graphiq.com^$third-party
 @@||s2.graphiq.com^$third-party
 @@||s3.graphiq.com^$third-party
 @@||files.graphiq.com^$third-party
+@@||gr-assets.com^$third-party
 @@||guardian.co.uk^$third-party
 @@||media-imdb.com^$third-party
 @@||mediaworks.co.nz^$third-party
@@ -374,7 +375,7 @@
 @@||api.ooyala.com^$third-party
 @@||c.ooyala.com^$third-party
 @@||l.ooyala.com^$third-party
-@@||opf.ooyala.com^third-party
+@@||opf.ooyala.com^$third-party
 @@||player.ooyala.com^$third-party
 @@||tile.opencyclemap.org^$third-party
 @@||tile2.opencyclemap.org^$third-party
@@ -412,6 +413,9 @@
 @@||publiekeomroep.nl^$third-party
 @@||qualtrics.com^$third-party
 @@||quotemedia.com^$third-party
+@@||api.razorpay.com^$third-party
+@@||checkout.razorpay.com^$third-party
+@@||razorpay.com^$third-party
 @@||rackcdn.com^$third-party
 @@||rackspacecloud.com^$third-party
 @@||rambler.ru^$third-party
@@ -468,6 +472,7 @@
 @@||steamusercontent.com^$third-party
 @@||stellaservice.com^$third-party
 @@||stripe.com^$third-party
+@@||stripecdn.com^$third-party
 @@||surveygizmo.com^$third-party
 @@||surveymonkey.com^$third-party
 @@||syracuse.com^$third-party
@@ -537,7 +542,7 @@
 @@||wistia.com^$third-party
 @@||sslstatic.wix.com^$third-party
 @@||gatherer.wizards.com^$third-party
-@@||w.org^$third-party
+@@||s.w.org^$third-party
 @@||wordpress.com^$third-party
 @@||worldnow.com^$third-party
 @@||wp.com^$third-party
