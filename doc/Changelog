@@ -1,6 +1,10 @@
 Changes for Privacy Badger 
 ====================================
-## 2016.12.7.2 (2.0)
+## 2016.12.8 (2.0)
+* Fix ublock origin warnings 
+* Remove need for download permission
+
+## 2016.12.7.2 (2.0RC1)
 * Huge speed improvements
 * Multiprocess Compatible (E10S) for firefox
 * Breaks many fewer websites
