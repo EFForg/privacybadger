@@ -47,7 +47,7 @@ const surrogates = {
   // Google Analytics (legacy ga.js)
   //
   // sourced from https://github.com/uBlockOrigin/uAssets/ under GPLv3
-  // https://github.com/uBlockOrigin/uAssets/blob/f79f3e69c1e20c47df1876efe2dd43027bf05b89/filters/resources.txt#L162-L256
+  // https://github.com/uBlockOrigin/uAssets/blob/2dfeece7cfe671e93573db6d176901cf2df37623/filters/resources.txt#L162-L260
   //
   // test cases:
   // http://checkin.avianca.com/
@@ -83,6 +83,10 @@ const surrogates = {
         // https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiDomainDirectory#_gat.GA_Tracker_._link
         if ( a[0] === '_link' && typeof a[1] === 'string' ) {
           window.location.assign(a[1]);
+        }
+        // https://github.com/gorhill/uBlock/issues/2162
+        if ( a[0] === '_set' && a[1] === 'hitCallback' && typeof a[2] === 'function' ) {
+          a[2]();
         }
       };
       //
