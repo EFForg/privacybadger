@@ -16,5 +16,4 @@ pkg/*
 README.md
 release-utils/*
 scripts/*
-tests/*
 .travis.yml

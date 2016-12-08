@@ -1,12 +1,12 @@
 {
-  "version": "2016.12.7.2",
+  "version": "2016.12.8",
   "author": {
     "email": "eff.software.projects@gmail.com"
   },
   "applications": {
     "gecko": {
       "id": "jid1-MnnxcxisBPnSXQ@jetpack",
-      "update_url": "https://www.eff.org/files/prviacy-badger-updates.json"
+      "update_url": "https://www.eff.org/files/privacy-badger-updates.json"
     }
   },
   "incognito": "spanning",
