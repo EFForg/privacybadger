@@ -154,17 +154,19 @@ const surrogates = {
 
   // https://github.com/gorhill/uBlock/issues/1265
   // https://github.com/uBlockOrigin/uAssets/blob/581f2c93eeca0e55991aa331721b6942f3162615/filters/resources.txt#L736-L746
+  /* eslint-disable no-undef */
   '/beacon.js': '(' +
     function() {
       window.COMSCORE = {
         purge: function() {
-          _comscore = []; // eslint-disable-line no-undef
+          _comscore = [];
         },
         beacon: function() {
           ;
         }
       };
     } + ')();',
+  /* eslint-enable no-undef */
 
   // http://www.dplay.se/ett-jobb-for-berg/ (videos)
   '/c2/plugins/streamsense_plugin_html5.js': '(' +
@@ -173,6 +175,17 @@ const surrogates = {
 
   /* eslint-enable no-extra-semi */
 };
+
+// reformat surrogate strings to exactly match formatting in uAssets
+Object.keys(surrogates).map(key => {
+  surrogates[key] = surrogates[key]
+    // remove space from anon function if present
+    .replace(/^\(function \(/, '(function(')
+    // fix indentation
+    .split(/[\r\n]/).map(str => str.replace(/^ {4}/, '')).join('\n')
+    // replace spaces by tabs
+    .replace(/ {2}/g, '\t');
+});
 
 const exports = {
   hostnames: hostnames,
