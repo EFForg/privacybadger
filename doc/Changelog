@@ -1,5 +1,17 @@
 Changes for Privacy Badger 
 ====================================
+## 2016.12.7 (2.0)
+* Huge speed improvements
+* Multiprocess Compatible (E10S) for firefox
+* Breaks many fewer websites
+* Many small bugfixes
+* Import and Export your data
+* Block WebRTC from leaking your IP address
+* Forget data in incognito mode
+* block html5 "ping" tracking
+* Translation fixes 
+* (Developers) Firefox and Chrome versions now share one code base!
+
 ## 2016.9.7
 * Add exceptions for multi domain first parties
 * Fix google drive download issue
