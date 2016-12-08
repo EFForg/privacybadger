@@ -1,6 +1,22 @@
 Changes for Privacy Badger 
 ====================================
-## 2016.9.7
+## 2016.12.8 (2.0)
+* Fix ublock origin warnings 
+* Remove need for download permission
+
+## 2016.12.7.2 (2.0RC1)
+* Huge speed improvements
+* Multiprocess Compatible (E10S) for firefox
+* Breaks many fewer websites
+* Many small bugfixes
+* Import and Export your data
+* Block WebRTC from leaking your IP address
+* Forget data in incognito mode
+* block html5 "ping" tracking
+* Translation fixes 
+* (Developers) Firefox and Chrome versions now share one code base!
+
+## 2016.9.7 (1.13)
 * Add exceptions for multi domain first parties
 * Fix google drive download issue
 * Fix wikipedia login issue
@@ -8,21 +24,21 @@ Changes for Privacy Badger
 * Several other broken site fixes
 * Hopefully a fix for the "corrupted extension" issue
 
-## 2016.8.29
+## 2016.8.29 (1.12)
 * UI Tweaks
 * Remove last adblock plus code
 * Feature: remove domains from list
 * Refactor incognito mode handling
 * Compatibile with firefox web extensions
 
-## 2016.5.24 (2.0RC3)
+## 2016.5.24 (1.11)
 * Fix build error
 
-## 2016.5.23 (2.0RC2)
+## 2016.5.23 (1.10)
 * Fix cookie block list adding bug
 * New migration to fix bug retroactively
 
-## 2016.5.16 (2.0RC1)
+## 2016.5.16 (1.9)
 * Remove Adblock Plus Engine
 * Switch to using storage.js and chrome storage API
 * Massive refactoring of code

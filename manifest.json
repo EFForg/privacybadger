@@ -1,11 +1,12 @@
 {
-  "version": "2016.9.7",
+  "version": "2016.12.8",
   "author": {
     "email": "eff.software.projects@gmail.com"
   },
   "applications": {
     "gecko": {
-      "id": "jid1-MnnxcxisBPnSXQ@jetpack"
+      "id": "jid1-MnnxcxisBPnSXQ@jetpack",
+      "update_url": "https://www.eff.org/files/privacy-badger-updates.json"
     }
   },
   "incognito": "spanning",
@@ -17,7 +18,6 @@
     "webRequest",
     "webRequestBlocking",
     "webNavigation",
-    "unlimitedStorage",
     "storage",
     "cookies",
     "privacy"
