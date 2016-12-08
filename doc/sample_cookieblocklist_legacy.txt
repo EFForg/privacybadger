@@ -23,8 +23,7 @@
 @@||tkx2-prod.anvato.net^$third-party
 @@||up.anv.bz^$third-party
 @@||mcp-media5.anvato.net^$third-party
-@@||mcp-media5.cdn.anvato.net^$third-party
-@@||mcp-media6.cdn.anvato.net^$third-party
+@@||cdn.anvato.net^$third-party
 @@||aol.com^$third-party
 @@||aolcdn.com^$third-party
 @@||ap.org^$third-party
@@ -55,6 +54,7 @@
 @@||blogger.com^$third-party
 @@||blogher.org^$third-party
 @@||blogspot.com^$third-party
+@@||bp.blogspot.com^$third-party
 @@||bloxcms.com^$third-party
 @@||boldchat.com^$third-party
 @@||bootstrapcdn.com^$third-party
@@ -80,6 +80,7 @@
 @@||cleveland.com^$third-party
 @@||cloudflare.com^$third-party
 @@||cloudfront.net^$third-party
+@@||bbb.org^$third-party
 @@||bbc.co.uk^$third-party
 @@||bbci.co.uk^$third-party
 @@||grapeshot.co.uk^$third-party
@@ -136,7 +137,9 @@
 @@||elasticbeanstalk.com^$third-party
 @@||eltrafiko.com^$third-party
 @@||api.embed.ly^$third-party
+@@||cdn.embed.ly^$third-party
 @@||cdn.embedly.com^$third-party
+@@||i.embed.ly^$third-party
 @@||i-cdn.embed.ly^$third-party
 @@||epoch.com^$third-party
 @@||estara.com^$third-party
@@ -156,6 +159,7 @@
 @@||financialcontent.com^$third-party
 @@||findnsave.com^$third-party
 @@||firstlook.org^$third-party
+@@||framasoft.org^$third-party
 @@||frz.io^$third-party
 @@||build.origami.ft.com^$third-party
 @@||fz.io^$third-party
@@ -341,6 +345,7 @@
 @@||mycapture.com^$third-party
 @@||mzstatic.com^$third-party
 @@||nationbuilder.com^$third-party
+@@||nationalgeographic.com^$third-party
 @@||nbcuni.com^$third-party
 @@||neighborsink.com^$third-party
 @@||netdna-cdn.com^$third-party
@@ -445,6 +450,7 @@
 @@||shopping.com^$third-party
 @@||shoprunner.com^$third-party
 @@||siteimprove.com^$third-party
+@@||shield.sitelock.com^$third-party
 @@||sketchfab.com^$third-party
 @@||slidedeck.com^$third-party
 @@||public.slidesharecdn.com^$third-party
@@ -482,6 +488,7 @@
 @@||targetimg1.com^$third-party
 @@||targetimg2.com^$third-party
 @@||technorati.com^$third-party
+@@||tegna-media.com^$third-party
 @@||theplatform.com^$third-party
 @@||tile.thunderforest.com^$third-party
 @@||timeinc.net^$third-party
@@ -496,6 +503,7 @@
 @@||trbimg.com^$third-party
 @@||tripadvisor.com^$third-party
 @@||trumba.com^$third-party
+@@||privacy-policy.truste.com^$third-party
 @@||trustkeeper.net^$third-party
 @@||trustwave.com^$third-party
 @@||ttvnw.net^$third-party
@@ -508,6 +516,7 @@
 @@||syndication.twitter.com^$third-party
 @@||typekit.net^$third-party
 @@||typekit.com^$third-party
+@@||typepad.com^$third-party
 @@||typography.com^$third-party
 @@||uicdn.com^$third-party
 @@||ui-portal.de^$third-party
@@ -540,9 +549,11 @@
 @@||wishabi.com^$third-party
 @@||wistia.net^$third-party
 @@||wistia.com^$third-party
-@@||sslstatic.wix.com^$third-party
+@@||wix.com^$third-party
 @@||gatherer.wizards.com^$third-party
 @@||s.w.org^$third-party
+@@||ts.w.org^$third-party
+@@||ps.w.org^$third-party
 @@||wordpress.com^$third-party
 @@||worldnow.com^$third-party
 @@||wp.com^$third-party
