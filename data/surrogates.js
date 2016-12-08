@@ -47,7 +47,7 @@ const surrogates = {
   // Google Analytics (legacy ga.js)
   //
   // sourced from https://github.com/uBlockOrigin/uAssets/ under GPLv3
-  // https://github.com/uBlockOrigin/uAssets/blob/f79f3e69c1e20c47df1876efe2dd43027bf05b89/filters/resources.txt#L162-L256
+  // https://github.com/uBlockOrigin/uAssets/blob/2dfeece7cfe671e93573db6d176901cf2df37623/filters/resources.txt#L162-L260
   //
   // test cases:
   // http://checkin.avianca.com/
@@ -83,6 +83,10 @@ const surrogates = {
         // https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiDomainDirectory#_gat.GA_Tracker_._link
         if ( a[0] === '_link' && typeof a[1] === 'string' ) {
           window.location.assign(a[1]);
+        }
+        // https://github.com/gorhill/uBlock/issues/2162
+        if ( a[0] === '_set' && a[1] === 'hitCallback' && typeof a[2] === 'function' ) {
+          a[2]();
         }
       };
       //
@@ -154,17 +158,19 @@ const surrogates = {
 
   // https://github.com/gorhill/uBlock/issues/1265
   // https://github.com/uBlockOrigin/uAssets/blob/581f2c93eeca0e55991aa331721b6942f3162615/filters/resources.txt#L736-L746
+  /* eslint-disable no-undef */
   '/beacon.js': '(' +
     function() {
       window.COMSCORE = {
         purge: function() {
-          _comscore = []; // eslint-disable-line no-undef
+          _comscore = [];
         },
         beacon: function() {
           ;
         }
       };
     } + ')();',
+  /* eslint-enable no-undef */
 
   // http://www.dplay.se/ett-jobb-for-berg/ (videos)
   '/c2/plugins/streamsense_plugin_html5.js': '(' +
@@ -173,6 +179,17 @@ const surrogates = {
 
   /* eslint-enable no-extra-semi */
 };
+
+// reformat surrogate strings to exactly match formatting in uAssets
+Object.keys(surrogates).map(key => {
+  surrogates[key] = surrogates[key]
+    // remove space from anon function if present
+    .replace(/^\(function \(/, '(function(')
+    // fix indentation
+    .split(/[\r\n]/).map(str => str.replace(/^ {4}/, '')).join('\n')
+    // replace spaces by tabs
+    .replace(/ {2}/g, '\t');
+});
 
 const exports = {
   hostnames: hostnames,

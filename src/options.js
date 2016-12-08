@@ -178,10 +178,12 @@ function exportUserData() {
       .replace(/[, ]+/g, '_');
     var filename = 'PrivacyBadger_user_data-' + escapedDate + '.json';
 
-    chrome.downloads.download({
-      url: downloadURL,
-      filename: filename
-    });
+    // Download workaround taken from uBlock Origin:
+    // https://github.com/gorhill/uBlock/blob/40a85f8c04840ae5f5875c1e8b5fa17578c5bd1a/platform/chromium/vapi-common.js
+    var a = document.createElement('a');
+    a.href = downloadURL;
+    a.setAttribute('download', filename || '');
+    a.dispatchEvent(new MouseEvent('click'));
   });
 }
 

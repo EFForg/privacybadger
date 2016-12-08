@@ -23,8 +23,7 @@ anonymto.me
 tkx2-prod.anvato.net
 up.anv.bz
 mcp-media5.anvato.net
-mcp-media5.cdn.anvato.net
-mcp-media6.cdn.anvato.net
+cdn.anvato.net
 aol.com
 aolcdn.com
 ap.org
@@ -55,6 +54,7 @@ blogblog.com
 blogger.com
 blogher.org
 blogspot.com
+bp.blogspot.com
 bloxcms.com
 boldchat.com
 bootstrapcdn.com
@@ -80,6 +80,7 @@ cleanprint.net
 cleveland.com
 cloudflare.com
 cloudfront.net
+bbb.org
 bbc.co.uk
 bbci.co.uk
 grapeshot.co.uk
@@ -136,7 +137,9 @@ files.edx.org
 elasticbeanstalk.com
 eltrafiko.com
 api.embed.ly
+cdn.embed.ly
 cdn.embedly.com
+i.embed.ly
 i-cdn.embed.ly
 epoch.com
 estara.com
@@ -156,6 +159,7 @@ dialog.filepicker.io
 financialcontent.com
 findnsave.com
 firstlook.org
+framasoft.org
 frz.io
 build.origami.ft.com
 fz.io
@@ -341,6 +345,7 @@ mtvnservices.com
 mycapture.com
 mzstatic.com
 nationbuilder.com
+nationalgeographic.com
 nbcuni.com
 neighborsink.com
 netdna-cdn.com
@@ -445,6 +450,7 @@ shopify.com
 shopping.com
 shoprunner.com
 siteimprove.com
+shield.sitelock.com
 sketchfab.com
 slidedeck.com
 public.slidesharecdn.com
@@ -482,6 +488,7 @@ uploads.tapatalk-cdn.com
 targetimg1.com
 targetimg2.com
 technorati.com
+tegna-media.com
 theplatform.com
 tile.thunderforest.com
 timeinc.net
@@ -496,6 +503,7 @@ trb.com
 trbimg.com
 tripadvisor.com
 trumba.com
+privacy-policy.truste.com
 trustkeeper.net
 trustwave.com
 ttvnw.net
@@ -508,6 +516,7 @@ platform.twitter.com
 syndication.twitter.com
 typekit.net
 typekit.com
+typepad.com
 typography.com
 uicdn.com
 ui-portal.de
@@ -540,9 +549,11 @@ windows.net
 wishabi.com
 wistia.net
 wistia.com
-sslstatic.wix.com
+wix.com
 gatherer.wizards.com
 s.w.org
+ts.w.org
+ps.w.org
 wordpress.com
 worldnow.com
 wp.com

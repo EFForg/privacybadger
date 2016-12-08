@@ -20,8 +20,7 @@
     "webNavigation",
     "storage",
     "cookies",
-    "privacy",
-    "downloads"
+    "privacy"
   ],
   "background": {
     "scripts": [
