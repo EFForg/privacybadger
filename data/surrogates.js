@@ -38,6 +38,9 @@ const hostnames = {
   'www.googletagservices.com': [
     '/gpt.js',
   ],
+  'api.youneeq.ca': [
+    '/app/yqmin',
+  ],
 };
 
 // "surrogates" maps surrogate pattern tokens to surrogate script code.
@@ -180,6 +183,7 @@ const surrogates = {
     function() {
     } + ')();',
 
+  // https://github.com/EFForg/privacybadger/issues/993
   // https://github.com/uBlockOrigin/uAssets/blob/bf64bebf742732d6afadb39f516d943dd21efb84/filters/resources.txt#L319-L442
   /* eslint-disable no-empty */
   '/gpt.js': '(' +
@@ -308,6 +312,25 @@ const surrogates = {
       }
     } + ')();',
   /* eslint-enable no-empty */
+
+  // https://github.com/EFForg/privacybadger/issues/1014
+  /* eslint-disable no-unused-expressions */
+  '/app/yqmin': '(' +
+    function() {
+      var noopfn = function() {
+        ;
+      };
+      function YqClass() {
+        this.observe = noopfn;
+        this.observeMin = noopfn;
+        this.scroll_event = noopfn;
+        this.onready = noopfn;
+        this.yq_panel_click = noopfn;
+        this.titleTrim = noopfn;
+      }
+      window.Yq || (window.Yq = new YqClass);
+    } + ')();',
+  /* eslint-enable no-unused-expressions */
 
   /* eslint-enable no-extra-semi */
 };
