@@ -5,8 +5,7 @@
   },
   "applications": {
     "gecko": {
-      "id": "jid1-MnnxcxisBPnSXQ@jetpack",
-      "update_url": "https://www.eff.org/files/privacy-badger-updates.json"
+      "id": "jid1-MnnxcxisBPnSXQ@jetpack"
     }
   },
   "incognito": "spanning",
