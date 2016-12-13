@@ -1,5 +1,8 @@
 Changes for Privacy Badger 
 ====================================
+## 2016.12.8.1 (2.0.1)
+* Sanitize origin and action in popup
+
 ## 2016.12.8 (2.0)
 * Fix ublock origin warnings 
 * Remove need for download permission
