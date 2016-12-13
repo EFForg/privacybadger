@@ -25,6 +25,24 @@ function getFpPageScript() {
   // return a string
   return "(" + function (ERROR) {
 
+    // monkey patch captureStackTrace for 6to5 - this isn't a polyfill at all!
+    ERROR.captureStackTrace = ERROR.captureStackTrace || function (obj) {
+      if (ERROR.prepareStackTrace) {
+        var frame = {
+          isEval: function () { return false; },
+          getFileName: function () { return "filename"; },
+          getLineNumber: function () { return 1; },
+          getColumnNumber: function () { return 1; },
+          getFunctionName: function () { return "functionName"; }
+        };
+
+        obj.stack = ERROR.prepareStackTrace(obj, [frame, frame, frame]);
+      } else {
+        obj.stack = obj.stack || obj.name || "Error";
+      }
+    };
+
+
     ERROR.stackTraceLimit = Infinity; // collect all frames
 
     var event_id = document.currentScript.getAttribute('data-event-id');
