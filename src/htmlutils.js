@@ -128,6 +128,8 @@ var htmlUtils = exports.htmlUtils = {
     // Get classes for main div and tooltip text for inner div.
     var tooltipText = '';
     var classes = ['clicker', 'tooltip'];
+    action = _.escape(action);
+    origin = _.escape(origin);
     if (action.indexOf('user') === 0) {
       tooltipText = i18n.getMessage('feed_the_badger_title');
       classes.push('userset');
