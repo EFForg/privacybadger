@@ -194,7 +194,7 @@ const surrogates = {
     } + ')();',
 
   // https://github.com/EFForg/privacybadger/issues/993
-  // https://github.com/uBlockOrigin/uAssets/blob/bf64bebf742732d6afadb39f516d943dd21efb84/filters/resources.txt#L319-L442
+  // https://github.com/uBlockOrigin/uAssets/blob/257f936a0f01ad824dd7cb34dce215f60e34161a/filters/resources.txt#L319-L444
   /* eslint-disable no-empty */
   '/gpt.js': '(' +
     function() {
@@ -309,12 +309,14 @@ const surrogates = {
       gpt.content = function() { return contentService; };
       gpt.defineOutOfPageSlot = function() { return new Slot(); };
       gpt.defineSlot = function() { return new Slot(); };
+      gpt.destroySlots = noopfn;
       gpt.disablePublisherConsole = noopfn;
       gpt.display = noopfn;
       gpt.enableServices = noopfn;
       gpt.getVersion = noopstrfn;
       gpt.pubads = function() { return pubAdsService; };
       gpt.pubadsReady = true;
+      gpt.setAdIframeTitle = noopfn;
       gpt.sizeMapping = function() { return new SizeMappingBuilder(); };
       window.googletag = gpt;
       while ( cmd.length !== 0 ) {
