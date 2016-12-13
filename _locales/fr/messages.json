@@ -30,7 +30,7 @@
         "message": "Export user data"
     },
     "feed_the_badger_title": {
-        "message": "cliquer pour laisser le contrôle de ce traqueur au Privacy Badger"
+        "message": "cliquer pour laisser le contrôle de ce traqueur à Privacy Badger"
     },
     "firstRun_title": {
         "message": "Privacy Badger a été installé"
@@ -39,7 +39,7 @@
         "message": "Import"
     },
     "import_select_file": {
-        "message": "Please select a file to import."
+        "message": "Veuillez sélectionner un fichier à importer."
     },
     "import_successful": {
         "message": "Tracker list and settings updated successfully!"
@@ -58,7 +58,7 @@
     },
 
      "non_tracker": {
-     "message": "Les noms de domaines ci-dessous ne semblent pas vous traquer"
+     "message": "Les noms de domaines ci-dessous ne semblent pas vous pister"
     },
     "options_filter_settings": {
         "message": "Configurations des filtres utilisateur"
@@ -109,7 +109,7 @@
         "message": "Privacy Badger"
     },
     "privacy_badger_what_is": {
-        "message": "Qu'est ce que le Privacy Badger ?"
+        "message": "Qu'est-ce que Privacy Badger ?"
     },
     "remove_button": {
         "description": "Il s'agit de l'étiquette pour les boutons 'Supprimer la sélection'.",
@@ -128,26 +128,26 @@
         "message": "Donnez une brève description ci-dessous de l'erreur"
     },
     "report_broken_site": {
-      "message": "Reporter un site cassé"
+      "message": "Signaler un site cassé"
     },
     "show_counter_checkbox": {
         "message": "Afficher le nombre d'articles bloqués"
     },
     "tooltip_allow": {
-        "message": "Move the slider right to allow a domain"
+        "message": "Déplacer le curseur à droite pour autoriser un domaine"
     },
     "tooltip_block": {
-        "message": "Move the slider left to block a domain"
+        "message": "Déplacer le curseur à gauche pour bloquer un domaine"
     },
     "tooltip_cookieblock": {
-        "message": "Center the slider to block cookies"
+        "message": "Centrer le curseur pour bloquer les cookies"
     },
     "whitelisted_domains": {
         "description": "Intitulé de l'onglet.",
         "message": "Noms de domaine acceptés"
     },
     "donate_to_eff": {
-      "message": "Donate to EFF"
+      "message": "Faire un don à l'EFF"
     }
 }
 
