@@ -41,6 +41,16 @@ const hostnames = {
   'api.youneeq.ca': [
     '/app/yqmin',
   ],
+  'cdn.gigya.com': [
+    '/js/gigya.js',
+    '/JS/gigya.js',
+    '/JS/socialize.js',
+  ],
+  'cdns.gigya.com': [
+    '/js/gigya.js',
+    '/JS/gigya.js',
+    '/JS/socialize.js',
+  ],
 };
 
 // "surrogates" maps surrogate pattern tokens to surrogate script code.
@@ -332,8 +342,75 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-unused-expressions */
 
+  // https://github.com/EFForg/privacybadger/issues/823
+  /* eslint-disable no-undef */
+  '/js/gigya.js': '(' +
+    function() {
+      var noopfn = function() {
+        ;
+      };
+      gigya = {
+        isGigya: true,
+        services: {}
+      };
+      gigya.__initialized = true;
+      gigya.socialize = gigya.services.socialize = {
+        UserAction: function () {
+          return {
+            clone: noopfn,
+            getTemplate: noopfn,
+            setTemplate: noopfn,
+            getActor: noopfn,
+            setActionName: noopfn,
+            getActionName: noopfn,
+            getTemplateFields: noopfn,
+            setTemplateField: noopfn,
+            getTemplateField: noopfn,
+            addTarget: noopfn,
+            addActionLink: noopfn,
+            addMediaItem: noopfn,
+            setTitle: noopfn,
+            setLinkBack: noopfn,
+            setUserMessage: noopfn,
+            setDescription: noopfn,
+            addImage: noopfn,
+            getImages: noopfn,
+            getTargets: noopfn,
+            setIconURL: noopfn,
+            getIconURL: noopfn,
+            getDate: noopfn,
+            setActionData1: noopfn,
+            getActionData1: noopfn,
+            setActionData2: noopfn,
+            getActionData2: noopfn,
+            setSubtitle: noopfn,
+            getSubtitle: noopfn,
+          };
+        },
+        addEventHandlers: noopfn,
+        showCommentsUI: noopfn,
+        showShareBarUI: noopfn,
+        getUserInfo: noopfn,
+      };
+      gigya.gcs = gigya.services.gcs = {};
+      gigya.gm = gigya.services.gm = {};
+      gigya.comments = gigya.services.comments = {
+        getStreamInfo: noopfn,
+      };
+      gigya.accounts = gigya.services.accounts = {
+        addEventHandlers: noopfn,
+        getAccountInfo: noopfn,
+      };
+      gigya.chat = {};
+      gigya.gscounters = {};
+    } + ')();',
+  /* eslint-enable no-undef */
+
   /* eslint-enable no-extra-semi */
 };
+
+// aliases
+surrogates['/JS/socialize.js'] = surrogates['/JS/gigya.js'] = surrogates['/js/gigya.js'];
 
 // reformat surrogate strings to exactly match formatting in uAssets
 Object.keys(surrogates).map(key => {
