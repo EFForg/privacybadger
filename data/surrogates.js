@@ -31,6 +31,7 @@ const hostnames = {
   ],
   'ssl.google-analytics.com': [
     '/ga.js',
+    '/analytics.js',
   ],
   'www.google-analytics.com': [
     '/ga.js',
@@ -407,6 +408,53 @@ const surrogates = {
       gigya.gscounters = {};
     } + ')();',
   /* eslint-enable no-undef */
+
+  // https://github.com/uBlockOrigin/uAssets/blob/257f936a0f01ad824dd7cb34dce215f60e34161a/filters/resources.txt#L263-L304
+  /* eslint-disable no-empty */
+  '/analytics.js': '(' +
+    function() {
+      // https://developers.google.com/analytics/devguides/collection/analyticsjs/
+      var noopfn = function() {
+        ;
+      };
+      var noopnullfn = function() {
+        return null;
+      };
+      //
+      var Tracker = function() {
+        ;
+      };
+      var p = Tracker.prototype;
+      p.get = noopfn;
+      p.set = noopfn;
+      p.send = noopfn;
+      //
+      var gaName = window.GoogleAnalyticsObject || 'ga';
+      var ga = function() {
+        var len = arguments.length;
+        if ( len === 0 ) {
+          return;
+        }
+        var f = arguments[len-1];
+        if ( typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function' ) {
+          return;
+        }
+        try {
+          f.hitCallback();
+        } catch (ex) {
+        }
+      };
+      ga.create = function() {
+        return new Tracker();
+      };
+      ga.getByName = noopnullfn;
+      ga.getAll = function() {
+        return [];
+      };
+      ga.remove = noopfn;
+      window[gaName] = ga;
+    } + ')();',
+  /* eslint-enable no-empty */
 
   /* eslint-enable no-extra-semi */
 };
