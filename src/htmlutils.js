@@ -104,9 +104,9 @@ var htmlUtils = exports.htmlUtils = {
       '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
       '<div class="keyContainer">' +
       '<div class="key">' +
-      '<img class="tooltip" src="/icons/UI-icons-red.png" tooltip="' + i18n.getMessage("tooltip_block") + '">' +
-      '<img class="tooltip" src="/icons/UI-icons-yellow.png" tooltip="' + i18n.getMessage("tooltip_cookieblock") + '">' +
-      '<img class="tooltip" src="/icons/UI-icons-green.png" tooltip="' + i18n.getMessage("tooltip_allow") + '">' +
+      '<img class="tooltip" src="/icons/UI-icons-red.svg" tooltip="' + i18n.getMessage("tooltip_block") + '">' +
+      '<img class="tooltip" src="/icons/UI-icons-yellow.svg" tooltip="' + i18n.getMessage("tooltip_cookieblock") + '">' +
+      '<img class="tooltip" src="/icons/UI-icons-green.svg" tooltip="' + i18n.getMessage("tooltip_allow") + '">' +
       '<div class="tooltipContainer"></div>' +
       '</div></div>' +
       '<div class="spacer"></div>' +
