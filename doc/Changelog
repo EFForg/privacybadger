@@ -1,6 +1,6 @@
 Changes for Privacy Badger 
 ====================================
-## 2016.12.15 (2.0.2)
+## 2016.12.15.1 (2.0.2)
 * BUGFIX: Chrome browsers no longer display privacy badger as (corrupted)
 * BUGFIX: Fixes lockup issue on some versions of firefox
 * BUGFIX: Fixes issue where privacy badger panel gets cut off 
