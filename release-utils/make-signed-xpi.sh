@@ -23,6 +23,7 @@ if [ $# -ne 1 ] ; then
   echo "Usage: $0 <version to release>"
   exit 1
 fi
+sed -i 's,\s*"src/fingerprinting.js\n",,' ../checkout/manifest.json
 
 # Insert self hosted package id
 sed -i 's,"id": "jid1-MnnxcxisBPnSXQ@jetpack","id": "jid1-MnnxcxisBPnSXQ-eff@jetpack",\n      "update_url": "https://www.eff.org/files/privacy-badger-updates.json"
