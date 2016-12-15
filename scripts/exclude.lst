@@ -18,3 +18,4 @@ release-utils
 scripts
 tests
 .travis.yml
+lib/qunitjs
