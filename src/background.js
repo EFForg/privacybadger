@@ -386,6 +386,7 @@ Badger.prototype = {
       Migrations.migrateAbpToStorage,
       Migrations.migrateBlockedSubdomainsToCookieblock,
       Migrations.migrateLegacyFirefoxData,
+      Migrations.migrateDntRecheckTimes,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
