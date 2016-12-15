@@ -18,7 +18,7 @@
  /*csslint ids:ignore*/
 
 body {
-  min-width: 400px;
+  min-width: 200px;
   max-width: 400px;
   font-size: 12px;
   background: #fefefe;
@@ -28,6 +28,7 @@ body {
   padding-right: 7px;
   overflow-y: hidden;
   overflow-x: hidden;
+  width: 400px;
 }
 
 a { text-decoration: none }
@@ -247,7 +248,6 @@ font-size: 16px;
   display: none;
   position: fixed;
   height: calc(100% - 15px);
-  width: 400px;
   z-index: 99;
   background-color:#000;
   opacity: 0.1;
@@ -257,7 +257,7 @@ font-size: 16px;
   position: fixed;
   z-index: 100;
   background-color: #fff;
-  width: 370px;
+  width: calc(100% - 60px);
   color: #333;
   text-align: left;
   padding: 15px;
