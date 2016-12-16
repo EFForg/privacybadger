@@ -6,28 +6,28 @@
         "message": "Bloqué "
     },
     "badger_status_cookieblock": {
-        "message": "Les cookies bloqués à partir de "
+        "message": "Cookies bloqués en provenance de "
     },
     "badger_status_noaction": {
-        "message": "Permis "
+        "message": "Autorisé "
     },
     "data_settings": {
-        "message": "Manage Data"
+        "message": "Gestions des données"
     },
     "description": {
         "message": "Privacy Badger vous protège des traqueurs lorsque vous surfez sur le web !"
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger est désactivé pour les noms de domaine listés ci-dessous. Vous pouvez ajouter un nom de domaine soit par le biais de l'icone du Privacy Badger présente sur la barre d'adresse soit en tapant le nom de domaine (pas l'URL) dans la fenêtre en cliquant sur le bouton \"Ajouter un nom de domaine\"."
+        "message": "Privacy Badger est désactivé pour les noms de domaine listés ci-dessous. Vous pouvez ajouter un nom de domaine soit par le biais de l'icône de Privacy Badger présente sur la barre d'adresse soit en tapant le nom de domaine (pas l'URL) dans la fenêtre en cliquant sur le bouton \"Ajouter un nom de domaine\"."
     },
     "download": {
-        "message": "Download"
+        "message": "Télécharger"
     },
     "error_input": {
-     "message": "Qu'est ce qui ne va pas ?"
+     "message": "Quel est le problème ?"
     },
     "export_user_data": {
-        "message": "Export user data"
+        "message": "Exporter les données utilisateurs"
     },
     "feed_the_badger_title": {
         "message": "cliquer pour laisser le contrôle de ce traqueur à Privacy Badger"
@@ -36,19 +36,19 @@
         "message": "Privacy Badger a été installé"
     },
     "import": {
-        "message": "Import"
+        "message": "Importer"
     },
     "import_select_file": {
         "message": "Veuillez sélectionner un fichier à importer."
     },
     "import_successful": {
-        "message": "Tracker list and settings updated successfully!"
+        "message": "Liste des traqueurs et paramètres mis à jour avec succès !"
     },
     "import_user_data": {
-        "message": "Import user data"
+        "message": "Importer les données utilisateurs"
     },
     "invalid_json": {
-        "message": "Invalid JSON file."
+        "message": "Fichier JSON invalide."
     },
     "name": {
         "message": "Privacy Badger"
@@ -73,22 +73,22 @@
         "message": "Privacy Badger vous protège sur le web ! Ces curseurs vous permettent de contrôler la manière dont Privacy Badger traite chaque traqueur relevé au cours de votre navigation."
     },
     "options_social_widgets_checkbox": {
-        "message": "Remplacer widgets sociaux"
+        "message": "Remplacer les boutons sociaux"
     },
     "options_title": {
         "message": "Options de Privacy Badger"
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address *"
+        "message": "Empêcher la fuite des adresses IP locales via WebRTC *"
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+        "message": "* WebRTC peut ébruiter vos adresses IP locales. Les paramètres par défaut de Privacy Badger aident à vous protéger, mais pour plus de protection, vous pouvez activer cette option. Notez cependant que cela peut dégrader les performances de certains outils comme Google Hangouts."
     },
     "pb_detected": {
         "message": "Privacy Badger détecté"
      },
     "popup_blocked": {
-        "message": "Aucun cookie traqueur n'a été détecté...."
+        "message": "Aucun cookie traqueur n'a été détecté..."
     },
     "popup_disable_for_site": {
         "message": "Désactiver Privacy Badger pour ce site"
@@ -116,22 +116,22 @@
         "message": "Supprimer la sélection"
     },
     "report_button": {
-     "message": "Soumettre une erreur"
+     "message": "Soumettre l'erreur"
     },
     "report_cancel": {
      "message": "Annuler"
     },
     "report_terms": {
-        "message": "Cela va transmettre des informations à EFF dont : le site actuellement visité, la version du navigateur, la version de Privacy Badger, et l'état de tous les curseurs pour ce site"
+        "message": "Des informations comme le site actuellement visité, le réglage des curseurs associés, la version du navigateur et de Privacy Badger seront transmis à l'EFF."
     },
     "report_text": {
         "message": "Donnez une brève description ci-dessous de l'erreur"
     },
     "report_broken_site": {
-      "message": "Signaler un site cassé"
+      "message": "Signaler un site non fonctionnel"
     },
     "show_counter_checkbox": {
-        "message": "Afficher le nombre d'articles bloqués"
+        "message": "Afficher le nombre d'éléments bloqués"
     },
     "tooltip_allow": {
         "message": "Déplacer le curseur à droite pour autoriser un domaine"
