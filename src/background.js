@@ -179,6 +179,19 @@ Badger.prototype = {
     if (!chrome.privacy) {return;}
     var cpn = chrome.privacy.network;
 
+    // Chrome still has various RTC mechanisms when webRTC is disabled
+    // at build time. Check to see if we can actually use some of them.
+    try {
+      var RTCPC = window.webkitRTCPeerConnection;
+      var pc = new RTCPC(null);
+    } catch(err) {
+      return;
+    }
+
+    if (pc != null && pc.close) {
+      pc.close();
+    }
+
     var settings = this.storage.getBadgerStorageObject("settings_map");
     cpn.webRTCIPHandlingPolicy.get({}, function(result) {
       if (result.value === 'disable_non_proxied_udp') {
