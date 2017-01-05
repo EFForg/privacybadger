@@ -76,13 +76,13 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
-  if(chrome.privacy){
+  if(chrome.privacy && badger.webRTCAvailable){
     $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
     $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
   }
 
-  // Hide WebRTC-related settings for non-Chrome browsers
-  if (!chrome.privacy) {
+  // Hide WebRTC-related settings for non-supporting browsers
+  if (!chrome.privacy || !badger.webRTCAvailable) {
     $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
     $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
   }
@@ -458,8 +458,10 @@ function registerToggleHandlers(element) {
  * value means policy is set to Mode 4 (disable_non_proxied_udp).
  */
 function toggleWebRTCIPProtection() {
-  if (!chrome.privacy) { return; } // Return early if user's browser does not support chrome.privacy
+  // Return early with non-supporting browsers
+  if (!chrome.privacy || !badger.webRTCAvailable) { return; }
   var cpn = chrome.privacy.network;
+
   cpn.webRTCIPHandlingPolicy.get({}, function(result) {
     var newVal;
 
