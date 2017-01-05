@@ -166,7 +166,7 @@ function exportUserData() {
   chrome.storage.local.get(["action_map", "snitch_map", "settings_map"], function(maps) {
 
     var mapJSON = JSON.stringify(maps);
-    var downloadURL = 'data:application/json;base64,' + btoa(mapJSON);
+    var downloadURL = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
 
     // Append the formatted date to the exported file name
     var currDate = new Date().toLocaleString();
