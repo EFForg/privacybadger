@@ -198,9 +198,7 @@
         "message": "Grønt"
     },
     "intro_no_tracker":{
-        "message": "betyr at Personvernsgrevlingen tror at denne siden ikke er en sporer. Du kan klikke på Personverngrevlings-ikonet i din nettlesers verktøylinje hvis du ønsker å overstyre de automatiske 
-blokkeringsinnstillingene. 
-Eller du kan surfe i fred mens Personvernsgrevlingen finner og spiser opp vevsporere én etter én."
+        "message": "betyr at Personvernsgrevlingen tror at denne siden ikke er en sporer. Du kan klikke på Personverngrevlings-ikonet i din nettlesers verktøylinje hvis du ønsker å overstyre de automatiske blokkeringsinnstillingene. Eller du kan surfe i fred mens Personvernsgrevlingen finner og spiser opp vevsporere én etter én."
     },
     "intro_hungry":{
         "message":"Ingenting kan stoppe Personvernsgrevlingen i å spise kaker når den er sulten!"
