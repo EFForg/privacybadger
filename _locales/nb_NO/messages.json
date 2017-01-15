@@ -18,8 +18,7 @@
         "message": "Personvernsgrevlingen beskytter deg fra sporere når du surfer på nettet!"
     },
     "disabled_for_these_domains": {
-        "message": "Personvernsgrevlingen er avskrudd for domenene nedenfor. Du kan enten legge til et domene via Personverngrevlings-ikonet i adressefeltet eller ved å skrive domenet (ikke en nettadresse) i boksen å klikke på 
-knappen \"Legg til domene\"."
+        "message": "Personvernsgrevlingen er avskrudd for domenene nedenfor. Du kan enten legge til et domene via Personverngrevlings-ikonet i adressefeltet eller ved å skrive domenet (ikke en nettadresse) i boksen å klikke på knappen \"Legg til domene\"."
     },
     "download": {
         "message": "Last ned"
