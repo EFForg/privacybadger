@@ -18,8 +18,8 @@
         "message": "Personvernsgrevlingen beskytter deg fra sporere når du surfer på nettet!"
     },
     "disabled_for_these_domains": {
-        "message": "Personvernsgrevlingen er avskrudd for domenene nedenfor. Du kan enten legge til et domene via Privacy Badger-ikonet i adressefeltet eller ved å skrive domenet (ikke en nettadresse) i boksen å klikke på knappen 
-\"Legg til domene\"."
+        "message": "Personvernsgrevlingen er avskrudd for domenene nedenfor. Du kan enten legge til et domene via Personverngrevlings-ikonet i adressefeltet eller ved å skrive domenet (ikke en nettadresse) i boksen å klikke på 
+knappen \"Legg til domene\"."
     },
     "download": {
         "message": "Last ned"
@@ -55,7 +55,7 @@
         "message": "Ugyldig JSON-fil."
     },
     "name": {
-        "message": "Privacy Badger"
+        "message": "Personvernsgrevlingen"
     },
     "new_filters_added": {
         "message": "Nye filter har blitt lagt til; se <a id='options_url' target='_blank'>Valg</a> for å behandle dem."
@@ -64,8 +64,7 @@
         "message": "Domenene nedenfor ser ikke ut til å spore deg"
     },
     "non_tracker_tip": {
-        "message": "Personvernsgrevlingen sjekker for tiden bare om tredjeparter bruker kaker, lokal lagring i HTML5, eller lerret-fingeravtrykk for å spore din nettleserhistorikk. Det kan hende noen av disse domenene gjør bruk 
-av metoder som ikke  oppdages av Personvernsgrevlingen."
+        "message": "Personvernsgrevlingen sjekker for tiden bare om tredjeparter bruker kaker, lokal lagring i HTML5, eller lerret-fingeravtrykk for å spore din nettleserhistorikk. Det kan hende noen av disse domenene gjør bruk av metoder som ikke  oppdages av Personvernsgrevlingen."
     },
     "options_domain_search": {
         "message": "Søk i domener"
@@ -110,8 +109,7 @@ av metoder som ikke  oppdages av Personvernsgrevlingen."
         "message": "Skru på Personvernsgrevlingen for denne siden"
     },
     "popup_instructions": {
-        "message": "potensielle <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>sporere</a> på denne siden. Disse glidebryterne lar deg kontrollere hvordan Personvernsgrevlingen behandler hver av dem. Du skal 
-ikke trenge å bruke dem hvis ikke noe har gått galt."
+        "message": "potensielle <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>sporere</a> på denne siden. Disse glidebryterne lar deg kontrollere hvordan Personvernsgrevlingen behandler hver av dem. Du skal ikke trenge å bruke dem hvis ikke noe har gått galt."
     },
     "popup_noblocked": {
         "message": "Hvorfor blokkeres ikke noe?"
@@ -177,12 +175,10 @@ ikke trenge å bruke dem hvis ikke noe har gått galt."
     },
     "intro1": {
         "description": "firstRun.html intro to Privacy Badger",
-        "message": "Personvernsgrevlingen blokkerer spoinerende reklame og usynlige sporere. Den har til hensikt å forhindre at selskaper kan spore din surfing uten ditt samtykke."
+        "message": "Personvernsgrevlingen blokkerer spionerende reklame og usynlige sporere. Den har til hensikt å forhindre at selskaper kan spore din surfing uten ditt samtykke."
     },
     "intro2":{
-        "message": "Dette programtillegget er laget for å automatisk beskytte dine gjøren og laden fra tredjepartssporere som lastes inn usynlig når du surfer på veven. Vi sender «Ikke spor meg»-hodet sammen med hver 
-forespørsel, og vårt programtillegg vurderer sansynligheten for om du fremdeles spores. Hvis algoritmen anser at sjansen er for høy, blokkeres din forespørsel automatisk fra å bli sendt til domenet. Ha i minnet at 
-personvernsgrevlingen er i betaversjon, og at algoritmens antagelser ikke er å anse som en fullverdig sannhet for om hvorvidt domenet sporer deg."
+        "message": "Dette programtillegget er laget for å automatisk beskytte dine gjøren og laden fra tredjepartssporere som lastes inn usynlig når du surfer på veven. Vi sender «Ikke spor meg»-hodet sammen med hver forespørsel, og vårt programtillegg vurderer sansynligheten for om du fremdeles spores. Hvis algoritmen anser at sjansen er for høy, blokkeres din forespørsel automatisk fra å bli sendt til domenet. Ha i minnet at Personvernsgrevlingen er i betaversjon, og at algoritmens antagelser ikke er å anse som en fullverdig sannhet for om hvorvidt domenet sporer deg."
     },
     "intro_3_states":{
         "message": "Vårt programtillegg har tre tilstander. "
@@ -197,13 +193,14 @@ personvernsgrevlingen er i betaversjon, og at algoritmens antagelser ikke er å 
         "message": "Gult"
     },
     "intro_cookie_blocked":{
-        "message": "betyr at dette domenet sannsynligvis både sporer og har en rolle i sidens funksjon, slik at Privacy Badger tillater det, men blokkerer dets kaker."
+        "message": "betyr at dette domenet sannsynligvis både sporer og har en rolle i sidens funksjon, slik at Personvernsgrevlingen tillater det, men blokkerer dets kaker."
     },
     "intro_green":{
         "message": "Grønt"
     },
     "intro_no_tracker":{
-        "message": "betyr at Personvernsgrevlingen tror at denne siden ikke er en sporer. Du kan klikke på Privacy Badger-ikonet i din nettlesers verktøylinje hvis du ønsker å overstyre de automatiske blokkeringsinnstillingene. 
+        "message": "betyr at Personvernsgrevlingen tror at denne siden ikke er en sporer. Du kan klikke på Personverngrevlings-ikonet i din nettlesers verktøylinje hvis du ønsker å overstyre de automatiske 
+blokkeringsinnstillingene. 
 Eller du kan surfe i fred mens Personvernsgrevlingen finner og spiser opp vevsporere én etter én."
     },
     "intro_hungry":{
@@ -267,15 +264,13 @@ Eller du kan surfe i fred mens Personvernsgrevlingen finner og spiser opp vevspo
       "message": " Hvis glidebryteren er rød, betyr det at jeg har blokkert den sporeren i sin helhet! Den lømmelen vil ikke plage deg mer."
     },
     "slideshow_6": {
-      "message": " Hvis glidebryteren er gul, betyr det at jeg har delvis blokkert den sporeren. Jeg vil gjøre mitt beste for å forhindre den fra å spore deg ved å spise dens kaker, men å blokkere den helt vil kanskje knekke 
-siden."
+      "message": " Hvis glidebryteren er gul, betyr det at jeg har delvis blokkert den sporeren. Jeg vil gjøre mitt beste for å forhindre den fra å spore deg ved å spise dens kaker, men å blokkere den helt vil kanskje knekke siden."
     },
     "slideshow_7": {
       "message": " Hvis glidebryteren er grønn betyr det at jeg ikke kan ta rede på om dette domenet sporer deg enda. Det kan hende det ikke gjør det, men jeg vil holde øye med det."
     },
     "slideshow_8": {
-      "message": " Første gang du kikker på ikonet mitt kan det hende at alle sporerne er grønne. Frykt ikke! Jeg er forskjellig fra annen blokkeringsprogramvare i det at jeg lærer hva som skal blokkeres mens du surfer i steden 
-for å vite alt på forhånd. Hvis jeg ikke blokkerer noe enda, prøv å surfe rundt på 4-5 forskjellige nettsteder. Jeg burde ha begynt å blokkere vanlige sporere etter det."
+      "message": " Første gang du kikker på ikonet mitt kan det hende at alle sporerne er grønne. Frykt ikke! Jeg er forskjellig fra annen blokkeringsprogramvare i det at jeg lærer hva som skal blokkeres mens du surfer i steden for å vite alt på forhånd. Hvis jeg ikke blokkerer noe enda, prøv å surfe rundt på 4-5 forskjellige nettsteder. Jeg burde ha begynt å blokkere vanlige sporere etter det."
     },
     "slideshow_9": {
       "message": " Jeg lærer mens jeg arbeider, så desto lenger du bruker meg desto bedre vil jeg bli på å beskytte deg fra snikende sporere!"
