@@ -125,6 +125,7 @@ HeuristicBlocker.prototype = {
    * @returns {*}
    */
   heuristicBlockingAccounting: function(details) {
+    // TODO rename this function to something more meaningful
     if(details.tabId < 0 || incognito.tabIsIncognito(details.tabId)){
       return { };
     }
@@ -135,7 +136,7 @@ HeuristicBlocker.prototype = {
 
     var action = this.storage.getActionForFqdn(fqdn);
     if(action != constants.NO_TRACKING && action != constants.ALLOW){
-      return {};
+      return { };
     }
 
     // Save the origin associated with the tab if this is a main window request
@@ -157,21 +158,43 @@ HeuristicBlocker.prototype = {
       if (!this.hasTracking(details, origin)){
         return { };
       }
-      this.recordPrevalence(fqdn, origin, tabOrigin);
+      this._recordPrevalence(fqdn, origin, tabOrigin);
     }
+  },
+
+  /**
+   * Check existing snitch_map entry for presence of tracker domain, then
+   * append page origin to list and block tracker if threshold is met
+   *
+   * @param tracker_fqdn The fully qualified domain name of the tracker
+   * @param page_origin The base domain of the page where the tracker
+   *                         was detected
+   * @returns {*}
+   */
+  updateTrackerPrevalence: function(tracker_fqdn, page_origin) {
+    let action = this.storage.getActionForFqdn(tracker_fqdn);
+    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+      return { };
+    }
+
+    this._recordPrevalence(tracker_fqdn, window.getBaseDomain(tracker_fqdn), page_origin);
   },
 
   /**
    * Record HTTP request prevalence. Block a tracker if seen on more
    * than [constants.TRACKING_THRESHOLD] pages
    *
+   * NOTE: This is a private function and should never be called directly.
+   * All calls should be routed through heuristicAccountingBlocking for normal usage
+   * and updateTrackerPrevalence for manual modifications (e.g. importing
+   * tracker lists).
    *
    * @param {String} tracker_fqdn The FQDN of the third party tracker
    * @param {String} tracker_origin Base domain of the third party tracker
    * @param {String} page_origin The origin of the page where the third party
    *                                  tracker was loaded
    */
-  recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
     var snitch_map = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = [];
     if (snitch_map.hasItem(tracker_origin)){

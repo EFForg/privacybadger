@@ -450,11 +450,10 @@ BadgerStorage.prototype = {
       for (let tracker_fqdn in mapData) {
         var firstPartyOrigins = mapData[tracker_fqdn];
         for (let origin in firstPartyOrigins) {
-          badger.heuristicBlocking.recordPrevalence(
-            tracker_fqdn,
-            window.getBaseDomain(tracker_fqdn), // tracker "origin"
-            firstPartyOrigins[origin]
-          );
+            badger.heuristicBlocking.updateTrackerPrevalence(
+                tracker_fqdn,
+                firstPartyOrigins[origin]
+            );
         }
       }
     }
