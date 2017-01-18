@@ -179,7 +179,7 @@ HeuristicBlocker.prototype = {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getActionForFqdn(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
-      return { };
+      return;
     }
 
     this._recordPrevalence(tracker_fqdn, window.getBaseDomain(tracker_fqdn), page_origin);
