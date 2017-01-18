@@ -25,7 +25,7 @@ require.scopes.heuristicblocking = (function() {
 
 /*********************** heuristicblocking scope **/
 
-// make hueristic obj with utils and storage properties and put the things on it
+// make heuristic obj with utils and storage properties and put the things on it
 var tabOrigins = { }; // TODO roll into tabData?
 
 function HeuristicBlocker(pbStorage) {
@@ -206,13 +206,15 @@ HeuristicBlocker.prototype = {
       firstParties = snitch_map.getItem(tracker_origin);
     }
 
-    if(firstParties.indexOf(page_origin) === -1){
-      firstParties.push(page_origin);
-      snitch_map.setItem(tracker_origin, firstParties);
-    }
+      if(firstParties.indexOf(page_origin) !== -1) {
+          return; // We already know about the presence of this tracker on the given domain
+      } else {
+          firstParties.push(page_origin);
+          snitch_map.setItem(tracker_origin, firstParties);
+      }
 
     var action_map = this.storage.getBadgerStorageObject('action_map');
-    // If tracker_origin is not yet in action_map, add it with action `constants.ALLOW`
+    // Check if tracker is present in action_map; if not, add it with `allow` action
     if (!action_map.hasItem(tracker_origin)) {
       this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
       this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
