@@ -48,60 +48,68 @@ exports.Migrations= {
   },
 
   migrateLegacyFirefoxData: function(badger){
-    if(_.isEmpty(window.legacyStorage)){
-      console.log("No legacy firefox data found. Nothing to migrate");
-      return; 
-    }
+    var legacyKeys = ["cookieDb","domainExceptionSites","userRed","userYellow","userGreen","disabledSites","disabledSitesPrivate","domainExceptions","domainExceptionsPrivate","seenComic","changedCookies","preloads","originFrequency","originFrequencyPrivate","blockedOrigins","policyHashes","policyWhitelist","nextBlockedSitesCheck"];
+    chrome.storage.local.get(legacyKeys, function(legacyStorage){
+      if(legacyStorage){
+        console.log('LEGACY', legacyStorage);
+      }
 
-    console.log('MIGRATING FIREFOX DATA', window.legacyStorage);
+      if(_.isEmpty(legacyStorage)){
+        console.log("No legacy firefox data found. Nothing to migrate");
+        return; 
+      }
 
-    var originFrequency = window.legacyStorage.originFrequency;
-    var disabledSites = window.legacyStorage.disabledSites;
-    var policyWhitelist = window.legacyStorage.policyWhitelist;
-    var userGreen = window.legacyStorage.userGreen;
-    var userYellow = window.legacyStorage.userYellow;
-    var userRed = window.legacyStorage.userRed;
+      console.log('MIGRATING FIREFOX DATA', legacyStorage);
 
-    // Import snitch map 
-    _.each(originFrequency, function(fpDomains, trackingDomain){
-      _.each(fpDomains, function(v, firstParty){
-        badger.heuristicBlocking.recordPrevalence(
-          trackingDomain,
-          trackingDomain,
-          firstParty
-        );
+      var originFrequency = legacyStorage.originFrequency;
+      var disabledSites = legacyStorage.disabledSites;
+      var policyWhitelist = legacyStorage.policyWhitelist;
+      var userGreen = legacyStorage.userGreen;
+      var userYellow = legacyStorage.userYellow;
+      var userRed = legacyStorage.userRed;
+
+      // Import snitch map 
+      _.each(originFrequency, function(fpDomains, trackingDomain){
+        _.each(fpDomains, function(v, firstParty){
+          badger.heuristicBlocking.recordPrevalence(
+            trackingDomain,
+            trackingDomain,
+            firstParty
+          );
+        });
       });
-    });
 
-    // Import action map
-    _.each(userGreen, function(v, domain){
-      badger.storage.setupUserAction(domain, constants.USER_ALLOW);
-    });
+      // Import action map
+      _.each(userGreen, function(v, domain){
+        badger.storage.setupUserAction(domain, constants.USER_ALLOW);
+      });
 
-    _.each(userYellow, function(v, domain){
-      badger.storage.setupUserAction(domain, constants.USER_COOKIE_BLOCK);
-    });
-    
-    _.each(userRed, function(v, domain){
-      badger.storage.setupUserAction(domain, constants.USER_BLOCK);
-    });
+      _.each(userYellow, function(v, domain){
+        badger.storage.setupUserAction(domain, constants.USER_COOKIE_BLOCK);
+      });
+      
+      _.each(userRed, function(v, domain){
+        badger.storage.setupUserAction(domain, constants.USER_BLOCK);
+      });
 
-    _.each(policyWhitelist, function(v, domain){
-      badger.checkForDNTPolicy(domain, 0);
-    });
+      _.each(policyWhitelist, function(v, domain){
+        badger.checkForDNTPolicy(domain, 0);
+      });
 
-    // Import disabled sites and set seen comic flag
-    _.each(disabledSites, function(v, domain){
-      badger.disablePrivacyBadgerForOrigin(domain);
-    });
+      // Import disabled sites and set seen comic flag
+      _.each(disabledSites, function(v, domain){
+        badger.disablePrivacyBadgerForOrigin(domain);
+      });
 
-    var settings = badger.storage.getBadgerStorageObject("settings_map");
-    settings.setItem("seenComic", true);
-    settings.setItem("isFirstRun", false);
+      var settings = badger.storage.getBadgerStorageObject("settings_map");
+      settings.setItem("seenComic", true);
+      settings.setItem("isFirstRun", false);
 
-    // Cleanup
-    chrome.storage.local.remove(Object.keys(window.legacyStorage), function(){
-      console.log("Finished migrating storage. Cleaned up on my way out.");
+      // Cleanup
+      chrome.storage.local.remove(Object.keys(legacyStorage), function(){
+        console.log("Finished migrating storage. Cleaned up on my way out.");
+      });
+
     });
      
   },
