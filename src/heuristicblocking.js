@@ -121,7 +121,7 @@ HeuristicBlocker.prototype = {
    * Wraps _recordPrevalence for use from webRequest listeners.
    * Also saves tab (page) origins. TODO Should be handled by tabData instead.
    * Also sets a timeout for checking DNT policy for third-party FQDNs.
-   * TODO does too much, should be broken up ...
+   * TODO Does too much, should be broken up ...
    *
    * Called from performance-critical webRequest listeners!
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
