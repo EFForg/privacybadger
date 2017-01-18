@@ -118,22 +118,27 @@ HeuristicBlocker.prototype = {
   },
 
   /**
-   * Increment counts of how many first party domains we've seen a third party track on
-   * Ignore requests that are outside a tabbed window
+   * Wraps _recordPrevalence for use from webRequest listeners.
+   * Also saves tab (page) origins. TODO Should be handled by tabData instead.
+   * Also sets a timeout for checking DNT policy for third-party FQDNs.
+   * TODO does too much, should be broken up ...
+   *
+   * Called from performance-critical webRequest listeners!
+   * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
    * @param details are those from onBeforeSendHeaders
    * @returns {*}
    */
   heuristicBlockingAccounting: function(details) {
-    // TODO rename this function to something more meaningful
+    // ignore requests that are outside a tabbed window
     if(details.tabId < 0 || incognito.tabIsIncognito(details.tabId)){
       return { };
     }
 
-
     var fqdn = utils.makeURI(details.url).host;
     var origin = window.getBaseDomain(fqdn);
 
+    // abort if we already made a decision for this fqdn
     var action = this.storage.getActionForFqdn(fqdn);
     if(action != constants.NO_TRACKING && action != constants.ALLOW){
       return { };
@@ -163,8 +168,7 @@ HeuristicBlocker.prototype = {
   },
 
   /**
-   * Check existing snitch_map entry for presence of tracker domain, then
-   * append page origin to list and block tracker if threshold is met
+   * Wraps _recordPrevalence for use outside of webRequest listeners.
    *
    * @param tracker_fqdn The fully qualified domain name of the tracker
    * @param page_origin The base domain of the page where the tracker
@@ -172,6 +176,7 @@ HeuristicBlocker.prototype = {
    * @returns {*}
    */
   updateTrackerPrevalence: function(tracker_fqdn, page_origin) {
+    // abort if we already made a decision for this fqdn
     let action = this.storage.getActionForFqdn(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return { };
@@ -185,7 +190,7 @@ HeuristicBlocker.prototype = {
    * than [constants.TRACKING_THRESHOLD] pages
    *
    * NOTE: This is a private function and should never be called directly.
-   * All calls should be routed through heuristicAccountingBlocking for normal usage
+   * All calls should be routed through heuristicBlockingAccounting for normal usage
    * and updateTrackerPrevalence for manual modifications (e.g. importing
    * tracker lists).
    *
