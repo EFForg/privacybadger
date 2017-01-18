@@ -407,7 +407,7 @@ function recordFingerprinting(tabId, msg) {
           scriptData.canvas.fingerprinting = true;
           log(script_host, 'caught fingerprinting on', document_host);
 
-          // Mark this is a strike
+          // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
             script_host, window.getBaseDomain(document_host));
         }
