@@ -106,10 +106,7 @@
     let snitch_map = badger.storage.getBadgerStorageObject('snitch_map');
     let action_map = badger.storage.getBadgerStorageObject('action_map');
 
-    action_map.setItem('testsite.com',
-        {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
-
-    snitch_map.setItem('testsite.com', ['firstparty.org']);
+    snitch_map.merge({"testsite.com": ['firstparty.org']});
     ok(snitch_map.getItem('testsite.com').indexOf('firstparty.org') > -1);
 
     // Check to make sure existing and new domain are present
