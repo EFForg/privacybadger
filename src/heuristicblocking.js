@@ -211,6 +211,13 @@ HeuristicBlocker.prototype = {
       snitch_map.setItem(tracker_origin, firstParties);
     }
 
+    var action_map = this.storage.getBadgerStorageObject('action_map');
+    // If tracker_origin is not yet in action_map, add it with action `constants.ALLOW`
+    if (!action_map.hasItem(tracker_origin)) {
+      this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
+      this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
+    }
+
     // Blocking based on outbound cookies
     var httpRequestPrevalence = firstParties.length;
 
