@@ -208,10 +208,10 @@ HeuristicBlocker.prototype = {
 
     if(firstParties.indexOf(page_origin) !== -1) {
       return; // We already know about the presence of this tracker on the given domain
-    } else {
-      firstParties.push(page_origin);
-      snitch_map.setItem(tracker_origin, firstParties);
     }
+
+    firstParties.push(page_origin);
+    snitch_map.setItem(tracker_origin, firstParties);
 
     var action_map = this.storage.getBadgerStorageObject('action_map');
     // Check if tracker is present in action_map; if not, add it with `allow` action

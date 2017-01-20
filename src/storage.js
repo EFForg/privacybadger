@@ -465,11 +465,23 @@ BadgerStorage.prototype = {
   }
 };
 
-function _syncStorage(badgerStorage) {
+function tempPrivateSyncStorage(badgerStorage) {
   var obj = {};
   obj[badgerStorage.name] = badgerStorage._store;
   chrome.storage.local.set(obj);
 }
+
+var _syncStorage = (function () {
+  var fns = {}; // preserved by the closure
+  return function (badgerStorage) {
+    if (!fns.hasOwnProperty(badgerStorage.name)) {
+      fns[badgerStorage.name] = _.debounce(function () {
+        tempPrivateSyncStorage(badgerStorage);
+      });
+    }
+    fns[badgerStorage.name]();
+  };
+}());
 
 /************************************** exports */
 var exports = {};
