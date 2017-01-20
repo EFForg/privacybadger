@@ -1,0 +1,287 @@
+{
+    "add_domain_button": {
+        "message": "添加域名"
+    },
+    "badger_status_block": {
+        "message": "屏蔽 "
+    },
+    "badger_status_cookieblock": {
+        "message": "屏蔽此网站的 cookies "
+    },
+    "badger_status_noaction": {
+        "message": "允许 "
+    },
+    "data_settings": {
+        "message": "Manage Data"
+    },
+    "description": {
+        "message": "你在网上冲浪的时候，隐私獾会保护你免受跟踪器的烦恼！"
+    },
+    "disabled_for_these_domains": {
+        "message": "隐私獾被禁用在以下域名。你可以通过点击地址栏的隐私獾图标单击“添加域名”按钮，在方框中输入域名（而不是URL）进行添加域名。"
+    },
+    "download": {
+        "message": "Download"
+    },
+    "error_input": {
+        "message": "问题是什么？"
+    },
+    "export_user_data": {
+        "message": "Export user data"
+    },
+    "feed_the_badger_title": {
+        "message": "点击以让隐私獾控制这个跟踪器的"
+    },
+    "firstRun_title": {
+        "message": "感谢你安装隐私獾！"
+    },
+    "first_run_text": {
+        "message": "了解隐私獾如何保护你的隐私。"
+    },
+    "import": {
+        "message": "Import"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
+    },
+    "name": {
+        "message": "隐私獾"
+    },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
+    "new_filters_added": {
+        "message": "新的过滤已添加；点击 <a id='options_url' target='_blank'>选择</a> 以管理它们。"
+    },
+    "non_tracker": {
+        "message": "以下域名看起来不在跟踪你"
+    },
+    "non_tracker_tip": {
+        "message": "目前隐私獾只检查第三方 cookies，第五代超文本标记语言(HTML5)本地存储，帆布指纹识别(canvas fingerprinting)跟踪你浏览网页的情况。 有些域名可能使用了隐私獾无法检测的跟踪方式。"
+    },
+    "options_filter_settings": {
+        "message": "用户过滤设置"
+    },
+    "options_loading": {
+        "message": "加载中…"
+    },
+    "options_slider_text": {
+        "message": "隐私獾保护你浏览网页！这些滑块让你控制隐私獾如何处理每个在你的浏览期间被标记的跟踪器。"
+    },
+    "options_social_widgets_checkbox": {
+        "message": "更换社交网络工具"
+    },
+    "options_title": {
+    "message": "隐私獾设置"
+    },
+    "options_webrtc_setting": {
+        "message": "Prevent WebRTC from leaking local IP address *"
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+    },
+    "pb_detected": {
+        "message": "隐私獾检测到"
+    },
+    "popup_blocked": {
+        "message": "该站点没有第三方资源。"
+    },
+    "popup_disable_for_site": {
+        "message": "在当前的网页上禁用隐私獾"
+    },
+    "popup_enable_for_site": {
+        "message": "在当前的网页上启用隐私獾"
+    },
+    "popup_instructions": {
+        "message": "在这个网站上有潜在的<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>跟踪器</a> 。这些滑块让你控制隐私獾如何处理每一个跟踪器。你不必调整他们，除非隐私獾造成网页显示异常。"
+    },
+    "popup_noblocked": {
+        "message": "为什么没有任何东西被屏蔽？"
+    },
+    "popup_options_button": {
+        "message": "选项"
+    },
+    "privacy_badger": {
+        "message": "隐私獾"
+    },
+    "privacy_badger_what_is": {
+        "message": "什么是隐私獾？"
+    },
+    "remove_button": {
+        "description": "这是“删除所选”的按钮标签。",
+        "message": "删除所选"
+    },
+    "report_broken_site": {
+        "message": "报告隐私獾导致的显示异常的网站"
+    },
+    "report_button": {
+        "message": "报告错误"
+    },
+    "report_cancel": {
+        "message": "取消"
+    },
+    "report_terms": {
+        "message": "这会自动把以下的信息报告给电子前哨基金会：你现在访问的网站，浏览器版本，隐私獾版本和这个网站所有滑块的状态。"
+    },
+    "report_title": {
+        "message": "报告错误"
+    },
+    "report_text": {
+        "message": "在下面简要描述发生的错误。"
+    },
+    "report_input_label": {
+        "message": "描述"
+    },
+    "report_success": {
+        "message": "谢谢！我们将会调查这个问题。"
+    },
+    "report_fail": {
+        "message": "哎呀。出错了。"
+    },
+    "report_close": {
+        "message": "关闭"
+    },
+    "show_counter_checkbox": {
+        "message": "显示屏蔽数目"
+    },
+    "whitelisted_domains": {
+        "description": "这是一个标签头。",
+        "message": "域名白名单"
+    },
+    "intro1": {
+        "description": "firstRun.html 隐私獾介绍",
+        "message": "隐私獾屏蔽间谍广告和隐形的跟踪器。它的目的是确保公司在没有没有你的同意的情况下无法跟踪你的网络浏览行为。"
+    },
+    "intro2":{
+        "message": "这个扩展被设计用来自动保护你的隐私以免受你在浏览网页时无形中加载的第三方跟踪器。我们在每个请求中发送了“请勿跟踪”(Do Not Track,DNT)头, 并且我们的扩展仍然会评估被跟踪的可能性。如果算法认为可能性太高，我们自动屏蔽被发送到这个域名的请求。请了解隐私獾处于测试阶段, 而算法的测定并不肯定那个域名在跟踪你。"
+    },
+    "intro_3_states":{
+        "message": "我们的扩展有三钟状态. "
+    },
+    "intro_red":{
+        "message": "红色"
+    },
+    "intro_has_blocked":{
+        "message": " 意味着隐私獾这个这个域名是一个跟踪器，并屏蔽了它。 "
+    },
+    "intro_yellow":{
+        "message": "黄色"
+    },
+    "intro_cookie_blocked":{
+        "message": "意味着域名既是一个跟踪器也是页面必要的功能，所以隐私獾在允许它但是屏蔽了它的 cookies。"
+    },
+    "intro_green":{
+        "message": "绿色"
+    },
+    "intro_no_tracker":{
+        "message": "意味着隐私獾认为这不是一个跟踪器。如果你想更改自动屏蔽设置，你可以点击浏览器的隐私獾图标。或者你可以安静的浏览，而隐私獾会寻找并一个一个的吃掉跟踪器。"
+    },
+    "intro_hungry":{
+        "message":"隐私獾肚子饿的时候，没有任何东西可以阻止它吃 cookies ！"
+    },
+    "intro_by_eff":{
+        "message": "电子前哨基金会一个的项目"
+    },
+    "intro_social_share": {
+        "message": "让世界知道你反对网路跟踪的立场"
+    },
+    "ded_privacy_badger_alert": {
+        "message": "隐私獾警告！"
+    },
+    "ded_logging_into": {
+        "message": "登录到 "
+    },
+    "ded_can_allow_to_track": {
+        "message": " 允许它在网络上跟踪你。"
+    },
+    "ded_only_allow": {
+        "message": "只允许 "
+    },
+    "ded_on": {
+        "message": " 开 "
+    },
+    "ded_always_allow": {
+        "message": "永久允许 "
+    },
+    "ded_never_allow": {
+        "message": "永久屏蔽第三方请求从 "
+    },
+    "options_pb_has_detected": {
+      "message": "隐私獾发现了"
+    },
+    "options_potential": {
+      "message": "潜在的"
+    },
+    "options_tracking_domains": {
+      "message": "跟踪的域名"
+    },
+    "options_so_far": {
+      "message": "到目前为止。这些滑块让你控制隐私獾如何处理每个跟踪器。"
+    },
+    "slideshow_1": {
+      "message": " 你好，我是隐私獾！感谢你安装我。我在这儿为了给你有用的提示，我们可以一起工作。"
+    },
+    "slideshow_2": {
+      "message": " 我会在你的浏览器里面，关注那些记录你网上痕迹的间谍广告和跟踪器。"
+    },
+    "slideshow_3": {
+      "message": " 如果我发现一个行为像跟踪器的东西，我会用屏蔽的方法阻止它。  "
+    },
+    "slideshow_4": {
+      "message": " 如果你单击我的图标你可以看见在当前标签页上的潜在的跟踪器。"
+    },
+    "slideshow_5": {
+      "message": " 如果滑块是红色，这意味我完全屏蔽了那个跟踪器！那个恶魔不会再打扰你了。"
+    },
+    "slideshow_6": {
+      "message": " 如果滑块是黄色，这意味我屏蔽了部分跟踪器。我会以屏蔽它cookies的方式尽到我最大的努力阻止它跟踪你，但是完全阻止它可能会导致页面显示异常。"
+    },
+    "slideshow_7": {
+      "message": " 如果滑块是绿色，我还不清楚这个域名是否在跟踪你。它可能不是，可是我还会关注它的。"
+    },
+    "slideshow_8": {
+      "message": " 当你你第一次点击我的图标，你可能会发现所有的跟踪器是绿色——别担心！我与其他跟踪器屏蔽软件不同——我在你浏览网页时学习哪些是该屏蔽的，而不是一上来就根据已知的列表屏蔽。如果我啥都没开始屏蔽，你可以尝试浏览四到五个不同的网站。之后我就开始屏蔽常见的跟踪器。"
+    },
+    "slideshow_9": {
+      "message": " 我会在浏览中学习，因此用我的时间越长你就可以更好的免受鬼鬼祟祟的跟踪器的烦恼！"
+    },
+    "slideshow_10": {
+      "message": " 如果你觉得我在跟踪器的屏蔽上犯了错，你可以把滑块移到红色处以完全屏蔽之，黄色处是部分屏蔽，绿色处则是允许之。"
+    },
+    "slideshow_11": {
+      "message": " 如果你更改我的设置，你随时可以点击撤销箭头让我来控制它的设置。"
+    },
+    "slideshow_12": {
+      "message": " 如果你浏览网页出现问题，并且你觉得是我造成的，你可以点击禁用按钮。我会开始睡觉，不再会屏蔽那个网页上的东西。"
+    },
+    "slideshow_13": {
+      "message": " 如果我造成了页面显示异常，请让我的开发者知道，以便让他们修复这个问题！点击这个按钮报告问题。"
+    },
+    "slideshow_14": {
+      "message": " 如果你要更改其他设置，你可以点击这个齿轮图标。"
+    },
+    "slideshow_15": {
+      "message": " 当然你也可以不管这些设置，而我会继续静默地处理掉我发现的跟踪器。"
+    },
+    "slideshow_16": {
+      "message": " 感谢你迈出了通往保护自我隐私重要而又简单的一步！如果你需要帮助，可以点击此处，你也点击下面告诉世界你反对网络跟踪的立场。"
+    },
+    "donate_to_eff": {
+      "message": "向电子前哨基金会捐款"
+    }
+}

@@ -1,10 +1,41 @@
+sudo: required
 language: python
+os: linux
+dist: trusty
 python:
   - "2.7"
-install:
-  - sudo apt-get -qq install xvfb python-virtualenv
-  - npm install
+node_js:
+  - "node"
+env:
+  matrix:
+    - TRAVIS_EXTRA_JOB_WORKAROUND=true
+matrix:
+  fast_finish: true
+  include:
+    - python: "2.7"
+      env: CHROME="google-chrome-stable"
+    - python: "3.4"
+      env: CHROME="google-chrome-stable"
+    - python: "2.7"
+      env: CHROME_PATH="google-chrome-beta"
+  allow_failures:
+    - python: "2.7"
+      env: CHROME_PATH="google-chrome-beta"
+  exclude:
+    - env: TRAVIS_EXTRA_JOB_WORKAROUND=true
+addons:
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+    - google-chrome-beta
+    - python-virtualenv
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 before_script:
-  - ./setup_travis.sh
+  - npm install # install JS dependencies (eslint) from package.json
+  - . ./scripts/setup_travis.sh
   - cd tests
-script:  ./run_selenium_tests.sh
+script:  travis_retry ./run_selenium_tests.sh

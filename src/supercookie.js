@@ -24,7 +24,7 @@
  * @param {String} text The script to insert into the page
  * @param {Object} data a dictionary containing attribut-value pairs
  */
-function insertScript(text, data) {
+function insertScScript(text, data) {
   var parent = document.documentElement,
     script = document.createElement('script');
 
@@ -45,8 +45,7 @@ function insertScript(text, data) {
  *
  * @returns {string}
  */
-function getPageScript() {
-
+function getScPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
@@ -82,7 +81,6 @@ function getPageScript() {
         // the user has disabled 3rd party cookies and site data. See, http://git.io/vLwff
         return {};
       }
-      // console.log("getLocalStorageItems will return", lsItems);
       return lsItems;
     };
 
@@ -132,7 +130,7 @@ chrome.runtime.sendMessage({
   });
 
   // console.log("Will search for supercookies at", document.location.href)
-  insertScript(getPageScript(), {
+  insertScScript(getScPageScript(), {
     event_id_super_cookie: event_id_super_cookie
   });
 

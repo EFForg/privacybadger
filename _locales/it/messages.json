@@ -3,13 +3,13 @@
         "message": "Aggiungi dominio"
     },
     "badger_status_block": {
-        "message": "Questo tracker è BLOCCATO, trascina per sbloccarlo o bloccarne i cookie."
+        "message": "Bloccato "
     },
     "badger_status_cookieblock": {
-        "message": "I cookie di questo tracker sono bloccati, trascina per bloccare o sbloccare il tracker."
+        "message": "Cookie bloccati da "
     },
     "badger_status_noaction": {
-        "message": "Questo dominio non è bloccato, trascina per bloccarlo totalmente o bloccarne i cookie."
+        "message": "Permesso "
     },
     "data_settings": {
         "message": "Gestisci dati"
@@ -108,7 +108,7 @@
         "message": "Attiva Privacy Badger in questo sito"
     },
     "popup_instructions": {
-        "message": "potenziali <a href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
+        "message": "potenziali <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
     },
     "popup_noblocked": {
         "message": "Perchè non c'è niente di bloccato?"
@@ -296,5 +296,5 @@
     "donate_to_eff": {
       "message": "Dona alla EFF"
     }
-    
+
 }

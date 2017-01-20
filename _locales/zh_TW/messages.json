@@ -1,0 +1,299 @@
+{
+    "add_domain_button": {
+        "message": "新增網域"
+    },
+    "badger_status_block": {
+        "message": "封鎖"
+    },
+    "badger_status_cookieblock": {
+        "message": "封鎖此網站的 cookie"
+    },
+    "badger_status_noaction": {
+        "message": "允許"
+    },
+    "data_settings": {
+        "message": "管理資料"
+    },
+    "description": {
+        "message": "您在網上衝浪的時候，Privacy Badger 會保護您免於被追蹤器追蹤的煩惱！"
+    },
+    "disabled_for_these_domains": {
+        "message": "已為下列網域停用 Privacy Badger。您可以點擊網址列中 Privacy Badger 的圖示，或在下方輸入框中輸入網域名稱（而非網址），然後點擊「新增網域」按鈕來新增要停用 Privacy Badger 的網域。"
+    },
+    "download": {
+        "message": "下載"
+    },
+    "error_input": {
+        "message": "有什麼問題？"
+    },
+    "export_user_data": {
+        "message": "匯出使用者資料"
+    },
+    "feed_the_badger_title": {
+        "message": "點選以讓 Privacy Badger 控制這個追蹤器"
+    },
+    "firstRun_title": {
+        "message": "感謝您安裝 Privacy Badger！"
+    },
+    "first_run_text": {
+        "message": "瞭解 Privacy Badger 如何保護您的隱私。"
+    },
+    "import": {
+        "message": "匯入"
+    },
+    "import_select_file": {
+        "message": "請選擇要匯入的檔案"
+    },
+    "import_successful": {
+        "message": "追蹤器清單和設定更新成功！"
+    },
+    "import_user_data": {
+        "message": "匯入使用者資料"
+    },
+    "invalid_json": {
+        "message": "無效的 JSON 檔案。"
+    },
+    "name": {
+        "message": "Privacy Badger"
+    },
+    "tooltip_allow": {
+        "message": "將滾動條滑到右邊允許該網域"
+    },
+    "tooltip_block": {
+        "message": "將滾動條滑到左邊封鎖該網域"
+    },
+    "tooltip_cookieblock": {
+        "message": "將滾動條滑到中間封鎖該網域的 cookie"
+    },
+    "new_filters_added": {
+        "message": "已加入新的過濾器，點選 <a id='options_url' target='_blank'>選項</a> 來管理。"
+    },
+    "non_tracker": {
+        "message": "以下網域看起來都沒有在追蹤您"
+    },
+    "non_tracker_tip": {
+        "message": "目前 Privacy Badger 只檢查透過第三方 cookie、HTML5 Local Storage、Canvas 指紋來追蹤您瀏覽網頁的情況。有些網域可能使用了 Privacy Badger 無法偵測的追蹤方式。"
+    },
+    "options_domain_search": {
+        "message": "搜尋網域"
+    },
+    "options_filter_settings": {
+        "message": "使用者過濾器設定"
+    },
+    "options_general_settings": {
+        "message": "一般設定"
+    },
+    "options_loading": {
+        "message": "載入中…"
+    },
+    "options_remove_origin_confirm": {
+        "message": "您確定要從 Privacy Badger 移除此來源嗎？"
+    },
+    "options_slider_text": {
+        "message": "Privacy Badger 保護您瀏覽網頁！這些滾動條可讓您選擇 Privacy Badger 要如何處理瀏覽時找到的追蹤器。"
+    },
+    "options_social_widgets_checkbox": {
+        "message": "替換社交網路小工具"
+    },
+    "options_title": {
+        "message": "Privacy Badger 設定"
+    },
+    "options_webrtc_setting": {
+        "message": "防止 WebRTC 洩漏本機 IP 地址 *"
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC 可能會洩漏您的 IP 地址。Privacy Badger 的預設設定即可保護您了，若您還想要更進一步的保護的話可以開啟此選項，但開啟此選項可能會造成 Google Hangouts 等工具的效能變差。"
+    },
+    "pb_detected": {
+        "message": "Privacy Badger 偵測到這個網站上有"
+    },
+    "popup_blocked": {
+        "message": "此網站當中沒有第三方資源。"
+    },
+    "popup_disable_for_site": {
+        "message": "在目前網頁停用 Privacy Badger"
+    },
+    "popup_enable_for_site": {
+        "message": "在目前網頁開啟 Privacy Badger"
+    },
+    "popup_instructions": {
+        "message": "可疑的<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>追蹤器</a>。<br>這些滾動條讓您可控制 Privacy Badger 如何處理每一個追蹤器，但除非 Privacy Badger 造成網頁顯示異常，不必特別調整。"
+    },
+    "popup_noblocked": {
+        "message": "為什麼沒有封鎖任何東西？"
+    },
+    "popup_options_button": {
+        "message": "選項"
+    },
+    "privacy_badger": {
+        "message": "Privacy Badger"
+    },
+    "privacy_badger_what_is": {
+        "message": "Privacy Badger 是什麼？"
+    },
+    "remove_button": {
+        "description": "這是「刪除所選」的按鈕標籤。",
+        "message": "刪除所選"
+    },
+    "report_broken_site": {
+        "message": "回報 Privacy Badger 導致顯示異常的網站"
+    },
+    "report_button": {
+        "message": "送出錯誤"
+    },
+    "report_cancel": {
+        "message": "取消"
+    },
+    "report_terms": {
+        "message": "將會自動回報下列資訊給 EFF 電子前鋒基金會: 您目前造訪的網站、瀏覽器版本、 Privacy Badger 版本，以及此網站所有滾動條的狀態。"
+    },
+    "report_title": {
+        "message": "回報錯誤"
+    },
+    "report_text": {
+        "message": "在下面簡要描述發生的錯誤。"
+    },
+    "report_input_label": {
+        "message": "描述"
+    },
+    "report_success": {
+        "message": "謝謝！我們將會調查這個問題。"
+    },
+    "report_fail": {
+        "message": "哎呀。出錯了。"
+    },
+    "report_close": {
+        "message": "關閉"
+    },
+    "show_counter_checkbox": {
+        "message": "顯示封鎖數目"
+    },
+    "whitelisted_domains": {
+        "description": "這是清單標題列。",
+        "message": "網域白名單"
+    },
+    "intro1": {
+        "description": "firstRun.html Privacy Badger 介紹",
+        "message": "Privacy Badger 會封鎖間諜廣告和隱形的追蹤器。它的目的是確保企業在未經您同意的情況下無法追蹤您的網路瀏覽行為。"
+    },
+    "intro2":{
+        "message": "這個擴充套件被設計來自動保護您的隱私以免受您在瀏覽網頁時無形中載入的第三方追蹤器。我們在每個請求中傳送了「請勿追蹤」(Do Not Track, DNT) 檔頭，我們的擴充套件仍然會評估被追蹤的可能性。如果演算法認為可能性太高，我們自動封鎖被發送到這個網域的請求。請注意 Privacy Badger 仍處於測試階段，而演算法無法完全肯定網域在追蹤您。"
+    },
+    "intro_3_states":{
+        "message": "我們的擴充套件有三種狀態。"
+    },
+    "intro_red":{
+        "message": "紅色"
+    },
+    "intro_has_blocked":{
+        "message": "代表 Privacy Badger 認為這個網域是一個追蹤器，並封鎖了它。"
+    },
+    "intro_yellow":{
+        "message": "黃色"
+    },
+    "intro_cookie_blocked":{
+        "message": "代表此網域既是追蹤器，但亦是頁面必需的部分，所以 Privacy Badger 允許它只封鎖 cookie。"
+    },
+    "intro_green":{
+        "message": "綠色"
+    },
+    "intro_no_tracker":{
+        "message": "意味著 Privacy Badger 認為這不是追蹤器。如果您想更改自動封鎖設定，可以點選瀏覽器工具列上的 Privacy Badger 圖示；也可以繼續上網，Privacy Badger 會找出並一個一個吃掉追蹤器。"
+    },
+    "intro_hungry":{
+        "message":"Privacy Badger 肚子餓的時候，沒有任何東西可以阻止它吃 cookie！"
+    },
+    "intro_by_eff":{
+        "message": "EFF 電子前鋒基金會的專案"
+    },
+    "intro_social_share": {
+        "message": "讓世界知道您反對網路追蹤的立場"
+    },
+    "intro_text": {
+        "message": "Privacy Badger 正在保護您，若要了解 Privacy Badger 的運作原理，請點擊下方進行快速教學。"
+    },
+    "ded_privacy_badger_alert": {
+        "message": "Privacy Badger 警告！"
+    },
+    "ded_logging_into": {
+        "message": "登入到"
+    },
+    "ded_can_allow_to_track": {
+        "message": "允許它在網路上追蹤您。"
+    },
+    "ded_only_allow": {
+        "message": "只允許"
+    },
+    "ded_on": {
+        "message": " 於 "
+    },
+    "ded_always_allow": {
+        "message": "永久允許"
+    },
+    "ded_never_allow": {
+        "message": "永久封鎖第三方請求從"
+    },
+    "options_pb_has_detected": {
+        "message": "目前為止，Privacy Badger 偵測到"
+    },
+    "options_potential": {
+        "message": "個可能的"
+    },
+    "options_tracking_domains": {
+        "message": "追蹤器網域"
+    },
+    "options_so_far": {
+        "message": "這些滾動條可讓您控制 Privacy Badger 要如何處理追蹤器。"
+    },
+    "slideshow_1": {
+        "message": "您好，我是 Privacy Badger！感謝您安裝我。以下是一些有用的訣竅，以便我們可以合作愉快。"
+    },
+    "slideshow_2": {
+        "message": "我會在您的瀏覽器裡面，注意那些記錄您上網紀錄的間諜廣告和追蹤器。"
+    },
+    "slideshow_3": {
+        "message": "如果我發現像是追蹤器的東西，就會封鎖它。"
+    },
+    "slideshow_4": {
+        "message": "單擊我的圖示，可以看見目前分頁中有哪些可能的追蹤器。"
+    },
+    "slideshow_5": {
+        "message": "如果滾動條是紅色的，代表我完全封鎖了那個追蹤器！那個惡魔不會再打擾您了。"
+    },
+    "slideshow_6": {
+        "message": "如果滾動條是黃色的，代表我封鎖了部分追蹤器。我會吃掉來自該網域的 cookie 來盡量阻止它追蹤，但是完全阻止它可能會導致頁面顯示異常。"
+    },
+    "slideshow_7": {
+        "message": "如果滾動條是綠色的，代表我還不清楚這個網域是否在追蹤您。它可能不是，可是我還會關注它的。"
+    },
+    "slideshow_8": {
+        "message": " 第一次點選我的圖示，可能會發現所有追蹤器都是綠色的，別擔心！我與其他追蹤器封鎖軟體不同。我會在您瀏覽網頁時學習哪些是該封鎖的，而不是一上來就根據已知的清單封鎖。如果我啥都沒開始封鎖，您可以嘗試瀏覽四五個網站。之後就會開始封鎖常見的追蹤器。"
+    },
+    "slideshow_9": {
+        "message": "我會在瀏覽中學習，因此用我的時間越長您就可以更加躲開鬼鬼祟祟的追蹤器們！"
+    },
+    "slideshow_10": {
+        "message": "如果您覺得我搞錯了該封鎖的追蹤器，您可以把滾動條移到紅色處完全封鎖、黃色處部分封鎖、綠色處則是允許。"
+    },
+    "slideshow_11": {
+        "message": "如果您修改了我的設定，可以隨時點選還原箭頭讓我來控制它的設定。"
+    },
+    "slideshow_12": {
+        "message": "如果您瀏覽網頁出現問題，並且您覺得是我造成的，您可以點選這裡的停用。我會開始睡覺，不再封鎖該網站上的東西。"
+    },
+    "slideshow_13": {
+        "message": "如果我造成頁面顯示異常，請讓我的開發者知道，以便他們修正這個問題！可以點擊這個按鈕回報問題。"
+    },
+    "slideshow_14": {
+        "message": "如果您要更改其他設定，可以點選這個齒輪圖示。"
+    },
+    "slideshow_15": {
+        "message": "當然您也可以不管這些設定，我會繼續安靜地吃掉我發現的追蹤器。"
+    },
+    "slideshow_16": {
+        "message": "感謝您邁出了通往保護隱私重要而又簡單的一步！如果您需要幫助，可以點選此處。您也可以點選下面的按鈕，告訴世界您反對網路追蹤的立場。"
+    },
+    "donate_to_eff": {
+        "message": "捐款給 EFF 電子前鋒基金會"
+    }
+}

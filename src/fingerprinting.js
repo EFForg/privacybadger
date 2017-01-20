@@ -18,7 +18,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function getPageScript() {
+function getFpPageScript() {
 
   // code below is not a content script: no chrome.* APIs /////////////////////
 
@@ -73,7 +73,7 @@ function getPageScript() {
           detail: messages
         }));
 
-        // clear the queue
+        // clear the queue 
         messages = [];
       }, 100);
 
@@ -98,7 +98,7 @@ function getPageScript() {
 
       if (structured) {
         origFormatter = ERROR.prepareStackTrace;
-        ERROR.prepareStackTrace = function (err, structuredStackTrace) {
+        ERROR.prepareStackTrace = function (_, structuredStackTrace) {
           return structuredStackTrace;
         };
       }
@@ -263,7 +263,7 @@ function getPageScript() {
  * @param text The content of the script to insert
  * @param data attributes to set in the inserted script tag
  */
-function insertScript(text, data) {
+function insertFpScript(text, data) {
   var parent = document.documentElement,
     script = document.createElement('script');
 
@@ -278,29 +278,19 @@ function insertScript(text, data) {
   parent.removeChild(script);
 }
 
-// TODO race condition; fix waiting on https://crbug.com/478183
 /**
  * Communicating to webrequest.js
  */
-chrome.runtime.sendMessage({
-  checkEnabled: true
-}, function (enabled) {
-  if (!enabled) {
-    return;
-  }
+var event_id = Math.random();
 
-  var event_id = Math.random();
-
-  // listen for messages from the script we are about to insert
-  document.addEventListener(event_id, function (e) {
-    // pass these on to the background page
-    chrome.runtime.sendMessage({
-      'fpReport': e.detail
-    });
+// listen for messages from the script we are about to insert
+document.addEventListener(event_id, function (e) {
+  // pass these on to the background page
+  chrome.runtime.sendMessage({
+    'fpReport': e.detail
   });
+});
 
-  insertScript(getPageScript(), {
-    event_id: event_id
-  });
-
+insertFpScript(getFpPageScript(), {
+  event_id: event_id
 });

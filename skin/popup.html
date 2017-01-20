@@ -22,43 +22,53 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link type="text/css" href="/lib/jquery-ui/css/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
-<link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" /> 
-<link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" /> 
-<script type="text/javascript" src="/lib/jquery-ui/js/jquery-1.10.2.js"></script>
+<link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
+<link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" />
+<script type="text/javascript" src="/lib/jquery-ui/js/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="/lib/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
 <script type="text/javascript" src="/src/popup.js"></script>
 <script type="text/javascript" src="/lib/i18n.js"></script>
-
 </head>
 <body id="main">
-  <div id="firstRun">
-    <p class="i18n_first_run_text"></p>
+  <div id="instruction-outer">
   </div>
-  <div id="overlay">
+  <div id="instruction" class="overlay">
+    <img src='/icons/badger-48.png'>
+    <svg id="fittslaw" width="30" height="30" fill="white">
+      <line x1="5" y1="5" x2="20" y2="20" style="stroke:rgb(22,22,22);stroke-width:3;fill:transparent"/>
+      <line x1="5" y1="20" x2="20" y2="5" style="stroke:rgb(22,22,22);stroke-width:3;fill:transparent"/>
+    </svg>
+    <p class="i18n_intro_text"></p>
+    <br>
+    <div id="firstRun">
+      <p class="i18n_first_run_text"></p>
+    </div>
+  </div>
+  <div id="overlay" class="overlay">
     <h1 id="report_title" class="i18n_report_title"></h1>
-      <span id="report_close" class="i18n_report_close"></span>
-      <p id="report_text" class="i18n_report_text"></p>
-        <label id="report_label" for="error_input" class="i18n_report_input_label"></label>
-        <textarea id="error_input" name="error_input" maxlength="300" placeholder="What's wrong?"></textarea>
-        <button id="report_button" class="i18n_report_button"></button>       
-        <button id="report_cancel" class="i18n_report_cancel"></button>
-        <span id="report_success" class="i18n_report_success hidden"></span>
-        <span id="report_fail" class="i18n_report_fail hidden"></span>
-        <p id="report_terms" class="i18n_report_terms"></p>
-
+    <span id="report_close" class="i18n_report_close"></span>
+    <p id="report_text" class="i18n_report_text"></p>
+    <label id="report_label" for="error_input" class="i18n_report_input_label"></label>
+    <textarea id="error_input" name="error_input" maxlength="300" placeholder="What's wrong?"></textarea>
+    <button id="report_button" class="i18n_report_button"></button>
+    <button id="report_cancel" class="i18n_report_cancel"></button>
+    <span id="report_success" class="i18n_report_success hidden"></span>
+    <span id="report_fail" class="i18n_report_fail hidden"></span>
+    <br><br>
+    <p id="report_terms" class="i18n_report_terms"></p>
   </div>
 <div id="mustReloadMsg" style="display:none"><span class="i18n_new_filters_added"></span></div>
 
 <div id='privacyBadgerHeader'>
-  <a id="options" title="options" href='/skin/options.html' class="control-button grey-button" stlye="display:block" target="blank"><img src='/icons/options.png'></a>
-  <a id="help" title="help" href='/skin/firstRun.html' class="control-button grey-button" stlye="display:block" target="blank"><img src='/icons/help.png'></a>
+  <a id="options" title="options" href='/skin/options.html' class="control-button grey-button" style="display:block" target="_blank"><img src='/icons/options.svg'></a>
+  <a id="help" title="help" href='/skin/firstRun.html' class="control-button grey-button" style="display:block" target="_blank"><img src='/icons/help.svg'></a>
     <div id='title'><img src='/icons/badger-48.png'> <h2><span class="i18n_privacy_badger"></span></h2></div>
   <div class='clear'></div>
 </div>
 <div id="blockedResourcesContainer">
   <p id="pbInstructions"> <span class="i18n_pb_detected"></span> <span id='number_trackers'></span> <span class="i18n_popup_instructions"></span></p>
-    <p id="noBlockingLink"><!-- TODO: tooltip into _locales --><a href="https://www.eff.org/privacybadger#how_is_it_different" target="_blank" tabindex="-1" title="Blocking starts only if privacy badger detects an attempt to track you across multiple websites. Domains listed below did not tracked you yet. It is either because they had no chance yet (you did not browsed enough) or because they do not engage in tracking. "><span class=i18n_popup_noblocked"></span></a></p>
   <div class="spacer"></div>
   <div id="blockedResources"><span class="options_loading"></span></div>
 </div>
@@ -66,7 +76,8 @@
 <div id="siteControls">
     <center><button id="deactivate_site_btn" class="pbButton" style="display:block"><span class="i18n_popup_disable_for_site"></span></button></center>
   <center><button id="activate_site_btn" class="pbButton" style="display:none"> <span class="i18n_popup_enable_for_site"></span></button></center>
-  <center><button id="error" class="pbButton" stlye="display:block" target="blank"><span class="i18n_report_broken_site"></span></button></center>
+  <center><button id="error" class="pbButton" style="display:block" target="blank"><span class="i18n_report_broken_site"></span></button></center>
+  <center><button id="donate" class="pbButton" style="display:block" target="blank"><span class="i18n_donate_to_eff"></span></button></center>
 </div>
 <div class='clear'></div>
 </body>

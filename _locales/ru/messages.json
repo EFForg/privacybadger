@@ -1,0 +1,297 @@
+{
+    "add_domain_button": {
+        "message": "Добавить домен"
+    },
+    "badger_status_block": {
+        "message": "Заблокирован "
+    },
+    "badger_status_cookieblock": {
+        "message": "Заблокированы файлы cookie домена "
+    },
+    "badger_status_noaction": {
+        "message": "Разрешен "
+    },
+    "data_settings": {
+        "message": "Manage Data"
+    },
+    "description": {
+        "message": "Privacy Badger защищает вас от трекеров во время работы в Интернете!"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger отключен для сайтов из списка, приведенного ниже. Вы можете добавить домен с помощью значка Privacy Badger в адресной строке или напечатать домен (НЕ URL) в текстовом поле и нажать кнопку «Добавить домен»."
+    },
+    "download": {
+        "message": "Download"
+    },
+    "error_input": {
+        "message": "Что случилось?"
+    },
+    "export_user_data": {
+        "message": "Export user data"
+    },
+    "feed_the_badger_title": {
+        "message": "Щелкните, чтобы вернуть этот трекер под контроль Privacy Badger"
+    },
+    "firstRun_title": {
+        "message": "Спасибо вам за то, что установили Privacy Badger!"
+    },
+    "first_run_text": {
+        "message": "Узнайте, как Privacy Badger защищает вашу приватность."
+    },
+    "import": {
+        "message": "Import"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
+    },
+    "name": {
+        "message": "Privacy Badger"
+    },
+    "new_filters_added": {
+        "message": "Добавлены новые фильтры. Для управления ими перейдите в <a id='options_url' target='_blank'>Настройки</a>."
+    },
+    "non_tracker": {
+        "message": "У приведенных ниже доменов отслеживающая активность не обнаружена"
+    },
+    "non_tracker_tip": {
+        "message": "На данный момент Privacy Badger проверяет только использование сторонних файлов cookie, локального хранилища HTML5 или метода canvas fingerprinting для отслеживания вашей сетевой активности. Некоторые домены могут использовать методы отслеживания, которые Privacy Badger не может обнаружить."
+    },
+    "options_domain_search": {
+        "message": "Найти домены"
+    },
+    "options_filter_settings": {
+        "message": "Настройки пользовательских фильтров"
+    },
+    "options_general_settings": {
+        "message": "Общие настройки"
+    },
+    "options_loading": {
+        "message": "Загрузка..."
+    },
+    "options_slider_text": {
+        "message": "Privacy Badger защищает вас в Интернете! С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым трекером, обнаруженным во время посещения сайтов."
+    },
+    "options_social_widgets_checkbox": {
+        "message": "Заменить виджеты социальных сетей"
+    },
+    "options_title": {
+        "message": "Настройки Privacy Badger"
+    },
+    "options_webrtc_setting": {
+        "message": "Prevent WebRTC from leaking local IP address *"
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+    },
+    "pb_detected": {
+        "message": "Privacy Badger обнаружил"
+    },
+    "popup_blocked": {
+        "message": "На данном сайте нет сторонних трекеров."
+    },
+    "popup_disable_for_site": {
+        "message": "Отключить Privacy Badger для этого сайта"
+    },
+    "popup_enable_for_site": {
+        "message": "Включить Privacy Badger для этого сайта"
+    },
+    "popup_instructions": {
+        "message": "потенциальных <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>трекеров</a> на этой странице. С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым из них. Их нужно регулировать только в случае проблем с работой сайта."
+    },
+    "popup_noblocked": {
+        "message": "Почему ничего не заблокировано?"
+    },
+    "popup_options_button": {
+        "message": "Настройки"
+    },
+    "privacy_badger": {
+        "message": "Privacy Badger"
+    },
+    "privacy_badger_what_is": {
+        "message": "Что такое Privacy Badger?"
+    },
+    "remove_button": {
+        "description": "Это надпись для кнопки 'Удалить выбранные элементы' buttons.",
+        "message": "Удалить выбранные элементы"
+    },
+    "report_broken_site": {
+        "message": "Сообщить о неполадках на сайте"
+    },
+    "report_button": {
+        "message": "Отправить сообщение об ошибке"
+    },
+    "report_cancel": {
+        "message": "Отмена"
+    },
+    "report_terms": {
+        "message": "Это действие автоматически отправит в EFF следующую информацию: адрес сайта, на котором вы находитесь в данный момент, версию вашего браузера, версию Privacy Badger и состояние всех переключателей, установленных для этого сайта."
+    },
+    "report_title": {
+        "message": "Сообщить об ошибке"
+    },
+    "report_text": {
+        "message": "Введите короткое описание ошибки."
+    },
+    "report_input_label": {
+        "message": "Описание"
+    },
+    "report_success": {
+        "message": "Спасибо! Мы внимательно изучим эту проблему."
+    },
+    "report_fail": {
+        "message": "Ой, что-то пошло не так."
+    },
+    "report_close": {
+        "message": "Закрыть"
+    },
+    "show_counter_checkbox": {
+        "message": "Отображать счетчик заблокированных элементов"
+    },
+    "tooltip_allow": {
+        "message": "Move the slider right to allow a domain"
+    },
+    "tooltip_block": {
+        "message": "Move the slider left to block a domain"
+    },
+    "tooltip_cookieblock": {
+        "message": "Center the slider to block cookies"
+    },
+    "whitelisted_domains": {
+        "description": "Это заголовок вкладки.",
+        "message": "Белый список доменов"
+    },
+    "intro1": {
+        "description": "firstRun.html вступление в Privacy Badger",
+        "message": "Privacy Badger блокирует шпионские рекламные сети и скрытые трекеры. Он гарантирует, что компании не смогут отследить вашу активность в Интернете без вашего согласия."
+    },
+    "intro2":{
+        "message": "Это расширение разработано для автоматической защиты вашей приватности от посторонних трекеров, которые незаметно загружаются во время вашей работы в Интернете. Мы отправляем вместе с каждым запросом заголовок Do Not Track, и наше расширение оценивает вероятность отслеживания вашей активности. Если алгоритм посчитает эту вероятность слишком высокой, мы автоматически заблокируем запрос к этому домену. Пожалуйста, поймите, что Privacy Badger находится в стадии beta, и алгоритм не может определить точно, отслеживает вас домен или нет."
+    },
+    "intro_3_states":{
+        "message": "Наше расширение может иметь три состояния. "
+    },
+    "intro_red":{
+        "message": "Красный"
+    },
+    "intro_has_blocked":{
+        "message": "означает, что Privacy Badger считает этот домен трекером и заблокировал его. "
+    },
+    "intro_yellow":{
+        "message": "Желтый"
+    },
+    "intro_cookie_blocked":{
+        "message": "означает, что Privacy Badger считает этот домен трекером, необходимым для нормального функционирования страницы сайта, поэтому он разрешил его работу, заблокировав файлы cookie."
+    },
+    "intro_green":{
+        "message": "Зеленый"
+    },
+    "intro_no_tracker":{
+        "message": "означает, что Privacy Badger не считает этот домен трекером. Вы можете щелкнуть на значке Privacy Badger в панели браузера для изменения настройки автоматической блокировки или начать спокойно работать в Интернете, пока Privacy Badger ищет и поедает трекеры один за другим."
+    },
+    "intro_hungry":{
+        "message":"Ничто не помешает Privacy Badger поедать файлы cookie, когда он голоден!"
+    },
+    "intro_by_eff":{
+        "message": "Проект Electronic Frontier Foundation"
+    },
+    "intro_social_share": {
+        "message": "Сообщите миру о том, что вы против отслеживания активности в Интернете"
+    },
+    "intro_text": {
+        "message": "Теперь вы под защитой Privacy Badger. Чтобы узнать, как работает Privacy Badger, щелкните ниже и пройдите обучение."
+    },
+    "ded_privacy_badger_alert": {
+        "message": "Предупреждение Privacy Badger!"
+    },
+    "ded_logging_into": {
+        "message": "Переход на "
+    },
+    "ded_can_allow_to_track": {
+        "message": " может позволить домену отслеживать вашу активность в Интернете."
+    },
+    "ded_only_allow": {
+        "message": "Разрешать только "
+    },
+    "ded_on": {
+        "message": " на "
+    },
+    "ded_always_allow": {
+        "message": "Всегда разрешать "
+    },
+    "ded_never_allow": {
+        "message": "Всегда блокировать сторонние запросы от "
+    },
+    "options_pb_has_detected": {
+      "message": "Privacy Badger обнаружил"
+    },
+    "options_potential": {
+      "message": "потенциальных"
+    },
+    "options_tracking_domains": {
+      "message": "трекеров"
+    },
+    "options_so_far": {
+      "message": "на данный момент. С помощью этих переключателей вы сможете выбрать, какое действие Privacy Badger будет выполнять с каждым трекером."
+    },
+    "slideshow_1": {
+      "message": " Привет, я — Privacy Badger! Спасибо, что установили меня. Я здесь, чтобы научить вас нескольким полезным приемам. Мы можем начать работать вместе."
+    },
+    "slideshow_2": {
+      "message": " Я буду находиться в вашем браузере и наблюдать за шпионскими рекламными сетями и трекерами, которые сохраняют все, чем вы занимаетесь в Интернете."
+    },
+    "slideshow_3": {
+      "message": " Если я обнаружу что-то, похожее на трекер, я остановлю его и заблокирую. "
+    },
+    "slideshow_4": {
+      "message": " Если вы щелкнете на моем значке, то увидите список потенциальных трекеров на текущей вкладке браузера."
+    },
+    "slideshow_5": {
+      "message": " Если ползунок красного цвета, то это означает, что я заблокировал трекер полностью! Этот злодей больше вас не потревожит."
+    },
+    "slideshow_6": {
+      "message": " Если ползунок желтого цвета, то это означает, что я заблокировал трекер частично. Я предотвращу отслеживание как смогу, поедая его файлы cookie, однако его полная блокировка может привести к нарушению функционирования сайта."
+    },
+    "slideshow_7": {
+      "message": " Если ползунок зеленого цвета, то это означает, что я не могу сказать точно, отслеживает вас этот домен или нет. Возможно, он вас не отслеживает, но я все равно буду за ним наблюдать."
+    },
+    "slideshow_8": {
+      "message": " Возможно, при первом открытии моего значка вы увидите, что все трекеры зеленого цвета. Не волнуйтесь! В отличие от других блокировщиков трекеров я работаю по другому принципу: вместо блокирования заранее заданной отслеживающей активности я учусь этому во время вашей работы в Интернете. Если я еще ничего не блокирую, попробуйте перейти на 4-5 других сайтов. После этого я смогу блокировать трекеры со схожей активностью."
+    },
+    "slideshow_9": {
+      "message": " Чем дольше я работаю, тем больше учусь. Поэтому чем дольше вы меня используете, тем лучше я буду защищать вас от коварных трекеров!"
+    },
+    "slideshow_10": {
+      "message": " Если вы считаете, что я принял неверное решение для трекера, вы можете передвинуть переключатель в положение «Красный», чтобы заблокировать его полностью, «Желтый» — чтобы заблокировать его частично, и «Зеленый» — чтобы разрешить его работу."
+    },
+    "slideshow_11": {
+      "message": " Если вы измените установленное мной положение переключателя, то вы можете вернуть его под мой контроль, нажав стрелку для отмены."
+    },
+    "slideshow_12": {
+      "message": " Если возникли проблемы с работой страницы и вы думаете, что это из-за меня, то можете нажать кнопку отключения. Я пойду спать и больше ничего не буду блокировать на этом сайте."
+    },
+    "slideshow_13": {
+      "message": " Если из-за меня не работает страница, пожалуйста, сообщите моим разработчикам, и они исправят проблему! Для этого вы можете нажать вот эту кнопку."
+    },
+    "slideshow_14": {
+      "message": " Если вы хотите изменить другие настройки, нажмите на значок шестеренки."
+    },
+    "slideshow_15": {
+      "message": " Конечно, вы можете не изменять настройки, и я продолжу тихо поедать все трекеры, которые обнаружу."
+    },
+    "slideshow_16": {
+      "message": " Спасибо за то, что сделали важный шаг к защите вашей приватности! Вы можете щелкнуть здесь, если вам снова понадобится помощь, и ниже, чтобы сообщить миру о том, что вы против отслеживания активности в Интернете."
+    },
+    "donate_to_eff": {
+      "message": "Пожертвовать EFF"
+    }
+
+}

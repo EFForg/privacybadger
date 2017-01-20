@@ -1,0 +1,300 @@
+{
+    "add_domain_button": {
+        "message": "Legg til domene"
+    },
+    "badger_status_block": {
+        "message": "Blokkert "
+    },
+    "badger_status_cookieblock": {
+        "message": "Blokkerte kaker fra "
+    },
+    "badger_status_noaction": {
+        "message": "Tillatt "
+    },
+    "data_settings": {
+        "message": "Behandle data"
+    },
+    "description": {
+        "message": "Personvernsgrevlingen beskytter deg fra sporere når du surfer på nettet!"
+    },
+    "disabled_for_these_domains": {
+        "message": "Personvernsgrevlingen er avskrudd for domenene nedenfor. Du kan enten legge til et domene via Personverngrevlings-ikonet i adressefeltet eller ved å skrive domenet (ikke en nettadresse) i boksen å klikke på knappen \"Legg til domene\"."
+    },
+    "download": {
+        "message": "Last ned"
+    },
+    "error_input": {
+        "message": "Hva er galt?"
+    },
+    "export_user_data": {
+        "message": "Eksporter brukerdata"
+    },
+    "feed_the_badger_title": {
+        "message": "klikk for å gi Personvernsgrevlingen tilbake kontrollen over denne sporeren"
+    },
+    "firstRun_title": {
+        "message": "Takk for at du installerer personvernsgrevling!"
+    },
+    "first_run_text": {
+        "message": "Lær hvordan Personvernsgrevlingen beskytter ditt personvern."
+    },
+    "import": {
+        "message": "Importer"
+    },
+    "import_select_file": {
+        "message": "Velg ei fil å importere."
+    },
+    "import_successful": {
+        "message": "Sporerliste og innstillinger oppdatert!"
+    },
+    "import_user_data": {
+        "message": "Importer brukerdata"
+    },
+    "invalid_json": {
+        "message": "Ugyldig JSON-fil."
+    },
+    "name": {
+        "message": "Personvernsgrevlingen"
+    },
+    "new_filters_added": {
+        "message": "Nye filter har blitt lagt til; se <a id='options_url' target='_blank'>Valg</a> for å behandle dem."
+    },
+    "non_tracker": {
+        "message": "Domenene nedenfor ser ikke ut til å spore deg"
+    },
+    "non_tracker_tip": {
+        "message": "Personvernsgrevlingen sjekker for tiden bare om tredjeparter bruker kaker, lokal lagring i HTML5, eller lerret-fingeravtrykk for å spore din nettleserhistorikk. Det kan hende noen av disse domenene gjør bruk av metoder som ikke  oppdages av Personvernsgrevlingen."
+    },
+    "options_domain_search": {
+        "message": "Søk i domener"
+    },
+    "options_filter_settings": {
+        "message": "Brukerfilter-innstillinger"
+    },
+    "options_general_settings": {
+        "message": "Hovedinnstillinger"
+    },
+    "options_loading": {
+        "message": "Laster inn…"
+    },
+    "options_remove_origin_confirm": {
+        "message": "Fjern dette opphavet fra Personvernsgrevlingen?"
+    },
+    "options_slider_text": {
+        "message": "Personvernsgrevlingen beskytter deg på hele veven! Disse glidebryterne lar deg kontrollere hvordan Personvernsgrevlingen behandler hver sporer den har plukket opp fra surfingen din."
+    },
+    "options_social_widgets_checkbox": {
+        "message": "Erstatt sosiale skjermelementer"
+    },
+    "options_title": {
+        "message": "Valg for Personvernsgrevlingen"
+    },
+    "options_webrtc_setting": {
+        "message": "Forhindre WebRTC i å lekke lokal IP-adresse *"
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC kan lekke din lokale IP-adresse. Personvernsgrevlingens forvalgte innstilling beskytter deg, men for bedret sikkerhet kan du skru på dette valget. Merk deg at å gjøre det kan føre med seg dårligere ytelse i noen fall, som f.eks. med Google Hangouts."
+    },
+    "pb_detected": {
+        "message": "Personvernsgrevling oppdaget"
+    },
+    "popup_blocked": {
+        "message": "Det er ingen tredjepartsressurser på denne siden."
+    },
+    "popup_disable_for_site": {
+        "message": "Skru av Personvernsgrevlingen for denne siden"
+    },
+    "popup_enable_for_site": {
+        "message": "Skru på Personvernsgrevlingen for denne siden"
+    },
+    "popup_instructions": {
+        "message": "potensielle <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>sporere</a> på denne siden. Disse glidebryterne lar deg kontrollere hvordan Personvernsgrevlingen behandler hver av dem. Du skal ikke trenge å bruke dem hvis ikke noe har gått galt."
+    },
+    "popup_noblocked": {
+        "message": "Hvorfor blokkeres ikke noe?"
+    },
+    "popup_options_button": {
+        "message": "Valg"
+    },
+    "privacy_badger": {
+        "message": "Personvernsgrevlingen"
+    },
+    "privacy_badger_what_is": {
+        "message": "Hva er Personvernsgrevlingen?"
+    },
+    "remove_button": {
+        "description": "This is the label for the 'Remove selected' buttons.",
+        "message": "Fjern valgte"
+    },
+    "report_broken_site": {
+        "message": "Knakk Personvernsgrevlingen denne siden? La det komme oss til kjenne!"
+    },
+    "report_button": {
+        "message": "Innrapporter feil"
+    },
+    "report_cancel": {
+        "message": "Avbryt"
+    },
+    "report_terms": {
+        "message": "Dette vil automatisk sende følgende informasjon til EFF: Siden du besøker, nettleserversjon, versjonen av Personvernsgrevlingen du bruker, samt alle glidebryterinnstillingene for denne siden."
+    },
+    "report_title": {
+        "message": "Innrapporter en feil"
+    },
+    "report_text": {
+        "message": "Gi en kort beskrivelse av feilen nedenfor."
+    },
+    "report_input_label": {
+        "message": "Beskrivelse"
+    },
+    "report_success": {
+        "message": "Takk! Vi skal komme til bunns i det."
+    },
+    "report_fail": {
+        "message": "Oida. Noe gikk galt."
+    },
+    "report_close": {
+        "message": "Lukk"
+    },
+    "show_counter_checkbox": {
+        "message": "Vis antall blokkerte elementer"
+    },
+    "tooltip_allow": {
+        "message": "Flytt glidebryteren til høyre for å tillate et domene"
+    },
+    "tooltip_block": {
+        "message": "Flytt glidebryteren til venstre for å blokkere et domene"
+    },
+    "tooltip_cookieblock": {
+        "message": "Sentrer glidebryteren for å blokkere kaker"
+    },
+    "whitelisted_domains": {
+        "description": "This is a tab heading.",
+        "message": "Hvitlistede domener"
+    },
+    "intro1": {
+        "description": "firstRun.html intro to Privacy Badger",
+        "message": "Personvernsgrevlingen blokkerer spionerende reklame og usynlige sporere. Den har til hensikt å forhindre at selskaper kan spore din surfing uten ditt samtykke."
+    },
+    "intro2":{
+        "message": "Dette programtillegget er laget for å automatisk beskytte dine gjøren og laden fra tredjepartssporere som lastes inn usynlig når du surfer på veven. Vi sender «Ikke spor meg»-hodet sammen med hver forespørsel, og vårt programtillegg vurderer sansynligheten for om du fremdeles spores. Hvis algoritmen anser at sjansen er for høy, blokkeres din forespørsel automatisk fra å bli sendt til domenet. Ha i minnet at Personvernsgrevlingen er i betaversjon, og at algoritmens antagelser ikke er å anse som en fullverdig sannhet for om hvorvidt domenet sporer deg."
+    },
+    "intro_3_states":{
+        "message": "Vårt programtillegg har tre tilstander. "
+    },
+    "intro_red":{
+        "message": "Rødt"
+    },
+    "intro_has_blocked":{
+        "message": " betyr at Personvernsgrevlingen tror at dette domenet er en sporer, og følgelig har blokkert det. "
+    },
+    "intro_yellow":{
+        "message": "Gult"
+    },
+    "intro_cookie_blocked":{
+        "message": "betyr at dette domenet sannsynligvis både sporer og har en rolle i sidens funksjon, slik at Personvernsgrevlingen tillater det, men blokkerer dets kaker."
+    },
+    "intro_green":{
+        "message": "Grønt"
+    },
+    "intro_no_tracker":{
+        "message": "betyr at Personvernsgrevlingen tror at denne siden ikke er en sporer. Du kan klikke på Personverngrevlings-ikonet i din nettlesers verktøylinje hvis du ønsker å overstyre de automatiske blokkeringsinnstillingene. Eller du kan surfe i fred mens Personvernsgrevlingen finner og spiser opp vevsporere én etter én."
+    },
+    "intro_hungry":{
+        "message":"Ingenting kan stoppe Personvernsgrevlingen i å spise kaker når den er sulten!"
+    },
+    "intro_by_eff":{
+        "message": "Et av Electronic Frontier Foundations prosjekter"
+    },
+    "intro_social_share": {
+        "message": "La hele veden vite at du tar et standpunkt mot nettbasert sporing."
+    },
+    "intro_text": {
+        "message": "Du er nå beskyttet av Personvernsgrevlingen. For å lære mer om hvordan den fungerer, klikk nedenfor for å få en rask veiledning."
+    },
+    "ded_privacy_badger_alert": {
+        "message": "Varsling fra Personvernsgrevlingen!"
+    },
+    "ded_logging_into": {
+        "message": "Å logge inn på "
+    },
+    "ded_can_allow_to_track": {
+        "message": " kan tillate det i å spore deg rundt omkring på veven."
+    },
+    "ded_only_allow": {
+        "message": "Bare tillat "
+    },
+    "ded_on": {
+        "message": " på "
+    },
+    "ded_always_allow": {
+        "message": "Alltid tillat "
+    },
+    "ded_never_allow": {
+        "message": "Altid blokker tredjepartsforespørsler fra "
+    },
+    "options_pb_has_detected": {
+      "message": "Personvernsgrevlingen har oppdaget"
+    },
+    "options_potential": {
+      "message": "potensielt"
+    },
+    "options_tracking_domains": {
+      "message": "sporende domener"
+    },
+    "options_so_far": {
+      "message": "så langt. Disse glidebryterne lar deg kontrollere hvordan Personvernsgrevlingen behandler hver sporer."
+    },
+    "slideshow_1": {
+      "message": " Hei, jeg er Personvernsgrevlingen! Takk for at du installerte meg. Jeg er her for å gi deg nyttige tips, slik at vi kan jobbe sammen."
+    },
+    "slideshow_2": {
+      "message": " Jeg vil sitte her i nettleseren din å se etter spionerende reklame og sporere som registrerer hva du gjør på nettet."
+    },
+    "slideshow_3": {
+      "message": " Hvis jeg oppdager noe som oppfører seg som en sporer, vil jeg sette en stopper for det og blokkere det.  "
+    },
+    "slideshow_4": {
+      "message": " Hvis du klikker på ikonet mitt kan de se en liste over potensielle sporere i gjeldende fane."
+    },
+    "slideshow_5": {
+      "message": " Hvis glidebryteren er rød, betyr det at jeg har blokkert den sporeren i sin helhet! Den lømmelen vil ikke plage deg mer."
+    },
+    "slideshow_6": {
+      "message": " Hvis glidebryteren er gul, betyr det at jeg har delvis blokkert den sporeren. Jeg vil gjøre mitt beste for å forhindre den fra å spore deg ved å spise dens kaker, men å blokkere den helt vil kanskje knekke siden."
+    },
+    "slideshow_7": {
+      "message": " Hvis glidebryteren er grønn betyr det at jeg ikke kan ta rede på om dette domenet sporer deg enda. Det kan hende det ikke gjør det, men jeg vil holde øye med det."
+    },
+    "slideshow_8": {
+      "message": " Første gang du kikker på ikonet mitt kan det hende at alle sporerne er grønne. Frykt ikke! Jeg er forskjellig fra annen blokkeringsprogramvare i det at jeg lærer hva som skal blokkeres mens du surfer i steden for å vite alt på forhånd. Hvis jeg ikke blokkerer noe enda, prøv å surfe rundt på 4-5 forskjellige nettsteder. Jeg burde ha begynt å blokkere vanlige sporere etter det."
+    },
+    "slideshow_9": {
+      "message": " Jeg lærer mens jeg arbeider, så desto lenger du bruker meg desto bedre vil jeg bli på å beskytte deg fra snikende sporere!"
+    },
+    "slideshow_10": {
+      "message": " Hvis du tror jeg har tatt feil beslutning om en sporer, kan du flytte glidebryteren til rødt for å blokkere den, gult for å delvis blokkere, og til grønt for å tillate den."
+    },
+    "slideshow_11": {
+      "message": " Hvis du endrer en innstilling jeg har gjort, kan du alltids gi meg kontrollen tilbake ved å klikke på angre-pila."
+    },
+    "slideshow_12": {
+      "message": " Hvis du har problemer med en side og tror det er min feil, kan du klikke på «Skru av»-knappen her. Jeg vil ta meg en lur og ikke blokkere noe på den nettsiden."
+    },
+    "slideshow_13": {
+      "message": " Hvis jeg knekker en side, la utviklerne mine få nyss om det slik at de kan fikse problemet! Du kan gjøre det ved å klikke denne knappen."
+    },
+    "slideshow_14": {
+      "message": " Hvis du ønsker å endre andre innstillinger, kan du klikke på dette tannhjuls-ikonet."
+    },
+    "slideshow_15": {
+      "message": " Du kan også la alle disse innstillingene være, og jeg vil i all stillhet spise opp alle sporerne jeg kommer over."
+    },
+    "slideshow_16": {
+      "message": " Takk for at du tar et viktig, enkelt grep for å hegne om ditt personvern! Du kan klikke her hvis du trenger hjelp igjen, og du kan klikke nedenfor for å la verden vite at du tar et standpunkt mot nettbasert sporing."
+    },
+    "donate_to_eff": {
+      "message": "Doner til EFF"
+    }
+
+}

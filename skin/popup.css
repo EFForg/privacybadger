@@ -16,21 +16,39 @@
  */
  /*adjoining-classes:ignore*/
  /*csslint ids:ignore*/
+
 body {
-  min-width: 390px;
-  font-size: 14px;
+  min-width: 200px;
+  max-width: 400px;
+  font-size: 12px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
+  padding-left: 7px;
+  padding-right: 7px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: calc(100% - 30px);
 }
 
 a { text-decoration: none }
-a:hover { color: #eeeeff }
+a:hover { color: #ec9329 }
 
 #filtersList {
   border: 1px dotted gray;
   padding: 1px;
   display: none;
+  background-color: #BFBFBF;
+}
+
+.checkbox label {
+  min-height: 20px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.checkbox label span {
+  padding-left: 0.5em;
 }
 
 .ui-button {
@@ -54,7 +72,7 @@ a:hover { color: #eeeeff }
 -o-transition:background-color 0.2s ease-in-out;
 -moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
 .click-nav ul li a:hover {background:#F2F2F2;}
-.click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;} 
+.click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;}
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
@@ -68,6 +86,18 @@ a:hover { color: #eeeeff }
   float: left;
   display: inline;
 }
+
+.removeOrigin {
+  cursor: pointer;
+  float: right;
+  margin-right: 0px;
+  width: 10px;
+}
+
+.removeOrigin:hover {
+  color: red;
+}
+
 .switch-container{
   width: 115px;
   display: block;
@@ -87,17 +117,23 @@ a:hover { color: #eeeeff }
 .block .switch-candy a {
   background-color: #c61223;
 }
+.switch-candy:hover {
+  background: #868686;
+  cursor: pointer;
+}
 .cookieblock .switch-candy a{
   background-color: #ffcc00;
 }
+.allow .switch-candy a,
 .noaction .switch-candy a{
   background-color: #339900;
 }
 .honeybadgerPowered{
+  margin-right: 10px;
   width: 20px;
   height: 20px;
   position: relative;
-  left: 345px;
+  left: 337px;
   bottom: 15px;
   cursor: pointer;
 }
@@ -133,7 +169,7 @@ font-size: 16px;
   color: #707070;
   font-size: 26px;
   font-weight: normal;
-  font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif;;
+  font-family: helvetica, arial, 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', sans-serif;;
 }
 #privacyBadgerHeader img{
   float: left;
@@ -158,16 +194,24 @@ font-size: 16px;
 }
 
 #firstRun {
-  display: none;
   color: #EC9329;
   text-align: center;
   border-radius: 3px;
   margin: 5px 0;
   border: 2px solid #EC9329;
+  height: 68px;
+  padding-top: 24px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 #firstRun:hover {
+  /*color: #6ECD00;
+  border: 2px solid #6ECD00;*/
+  cursor: pointer;
   text-decoration: underline;
+  background-color: #EC9329;
+  color: #333;
 }
 #noBlockingLink{
   text-align: center;
@@ -177,17 +221,19 @@ font-size: 16px;
 #noBlockingLink a {
   color:#4183c4;
 }
-#blockedResources{
-  max-height: 320px;
+.clickerContainer {
+  max-height: 290px;
   overflow-y: auto;
+  background-color: #E8E9EA;
 }
-.key{
+.key {
   position: fixed;
   height: 25px;
-  width: 160px;
-  padding-left: 215px;
+  width: 235px;
   z-index: 30;
-  background: #fff;
+  background: #fefefe;
+  padding-top: 4px;
+  padding-left: 215px;
 }
 .key img{
   margin-left: 19px;
@@ -196,39 +242,81 @@ font-size: 16px;
   position: absolute;
   left: 3px;
   top:-1;
+  box-shadow: 0px 5px 5px #000;
+}
+#instruction-outer {
+  display: none;
+  position: fixed;
+  height: calc(100% - 15px);
+  z-index: 99;
+  background-color:#000;
+  opacity: 0.1;
+}
+#instruction {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  background-color: #fff;
+  width: calc(100% - 60px);
+  color: #333;
+  text-align: left;
+  padding: 15px;
+  font-size: 14px;
+  border: 1px solid #555;
+  box-shadow: 5px 5px 5px #333;
+  border-radius: 4px;
+}
+#instruction img{
+  float: left;
+  display: inline;
+  padding: 10px 10px 0 0;
+}
+#fittslaw {
+  position: relative;
+  float: right;
+  padding: 0 0 10px 0;
+  cursor: pointer;
 }
 #options{
   float: right;
+  padding-top: 7px;
 }
 #help{
   float: right;
   padding-right: 5px;
+  padding-top: 7px;
 }
 .clickerContainer{
   margin-top: 25px;
 }
 #pbInstructions{
-  color: #707070;
+  color: #505050;
   font-size: 16px;
   margin: 0;
 }
 
 .pbButton{
-  border: 1px solid #333;
-  border-radius: 4px;
-  background: linear-gradient(#efefef, #e0e0e0);
+  border-radius: 3px;
   padding: 5px;
   cursor: pointer;
-  margin: 5px 0;
-  font-weight: bold;
   text-align: center;
+  margin: 8px 0;
+  border: 2px solid #707070;
   width: 100%;
+  color: #707070;
+  background-color: #fefefe;
 }
+
+.pbButton:hover {
+  color: #000;
+  border: 2px solid #000;
+}
+
 #nonTrackers {
   text-align: center;
   color: #f9f9f9;
   background: #555;
-  height: 20px;
+  height: auto;
   font-size: 14px;
   font-weight: bold;
 }
@@ -288,4 +376,13 @@ font-size: 16px;
 }
 .hidden {
   display: none;
+}
+#overlay p {
+  font-size: 12px;
+}
+#overlay label {
+  font-size: 13px;
+}
+#siteControls button {
+  font-size: 12px;
 }
