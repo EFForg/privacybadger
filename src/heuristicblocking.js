@@ -216,6 +216,7 @@ HeuristicBlocker.prototype = {
 
     // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
     // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
+    // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
     // TODO missing tests: removing below lines/messing up parameters
     // should break integration tests, but currently does not
     this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
