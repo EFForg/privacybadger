@@ -214,24 +214,17 @@ HeuristicBlocker.prototype = {
     firstParties.push(page_origin);
     snitch_map.setItem(tracker_origin, firstParties);
 
-    // Check if tracker is present in action_map; if not, add it with `allow` action.
-    // ALLOW indicates this is a tracker still below the tracking threshold
+    // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
     // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
-    var action_map = this.storage.getBadgerStorageObject('action_map');
-    if (!action_map.hasItem(tracker_fqdn)) {
-      // TODO missing tests: removing below lines/messing up parameters
-      // should break integration tests, but currently does not
-      // TODO should also test that if cond. above breaks functionality
-      // (FQDNs past the first for an origin no longer get initialized)
-      // when provided tracker_origin
-      this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
-      this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
-    }
+    // TODO missing tests: removing below lines/messing up parameters
+    // should break integration tests, but currently does not
+    this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
+    this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
 
     // Blocking based on outbound cookies
     var httpRequestPrevalence = firstParties.length;
 
-    //block the origin if it has been seen on multiple first party domains
+    // block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
       log('blacklisting origin', tracker_fqdn);
       this.blacklistOrigin(tracker_origin, tracker_fqdn);
