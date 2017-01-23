@@ -206,15 +206,18 @@ HeuristicBlocker.prototype = {
       firstParties = snitch_map.getItem(tracker_origin);
     }
 
-    if (firstParties.indexOf(page_origin) !== -1) {
+    if (firstParties.indexOf(page_origin) != -1) {
       return; // We already know about the presence of this tracker on the given domain
     }
 
+    // record that we've seen this tracker on this domain (in snitch map)
     firstParties.push(page_origin);
     snitch_map.setItem(tracker_origin, firstParties);
 
+    // Check if tracker is present in action_map; if not, add it with `allow` action.
+    // ALLOW indicates this is a tracker still below the tracking threshold
+    // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
     var action_map = this.storage.getBadgerStorageObject('action_map');
-    // Check if tracker is present in action_map; if not, add it with `allow` action
     if (!action_map.hasItem(tracker_origin)) {
       // TODO missing tests: removing below lines/messing up parameters
       // should break integration tests, but currently does not
