@@ -206,7 +206,7 @@ HeuristicBlocker.prototype = {
       firstParties = snitch_map.getItem(tracker_origin);
     }
 
-    if(firstParties.indexOf(page_origin) !== -1) {
+    if (firstParties.indexOf(page_origin) !== -1) {
       return; // We already know about the presence of this tracker on the given domain
     }
 
@@ -216,6 +216,8 @@ HeuristicBlocker.prototype = {
     var action_map = this.storage.getBadgerStorageObject('action_map');
     // Check if tracker is present in action_map; if not, add it with `allow` action
     if (!action_map.hasItem(tracker_origin)) {
+      // TODO missing tests: removing below lines/messing up parameters
+      // should break integration tests, but currently does not
       this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
       this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
     }
