@@ -779,32 +779,15 @@ function startBackgroundListeners() {
  * lets get this party started
  */
 console.log('Loading badgers into the pen.');
-var badger;
-window.legacyStorage = null; 
+var badger = window.badger = new Badger();
+
 /**
- * CJQ - 2016/12/05
- * Loading legacy keys into memory before badger is initialized due to race 
- * condition which sometimes removes these from storage before privacy badger
- * has a chance to migrate them. 
- * This code can be removed once all firefox users have upgraded to the web 
- * extensions version.
- **/
-var legacyKeys = ["cookieDb","domainExceptionSites","userRed","userYellow","userGreen","disabledSites","disabledSitesPrivate","domainExceptions","domainExceptionsPrivate","seenComic","changedCookies","preloads","originFrequency","originFrequencyPrivate","blockedOrigins","policyHashes","policyWhitelist","nextBlockedSitesCheck"];
-chrome.storage.local.get(legacyKeys, function(legacy){
-  if(legacy){
-    window.legacyStorage = legacy;
-    console.log('LEGACY', window.legacyStorage);
-  }
-  badger = window.badger = new Badger();
+* Start all the listeners
+*/
+incognito.startListeners();
+webrequest.startListeners();
+HeuristicBlocking.startListeners();
+startBackgroundListeners();
 
-  /**
-  * Start all the listeners
-  */
-  incognito.startListeners();
-  webrequest.startListeners();
-  HeuristicBlocking.startListeners();
-  startBackgroundListeners();
-
-  console.log('Privacy badger is ready to rock!');
-  console.log('Set DEBUG=1 to view console messages.');
-});
+console.log('Privacy badger is ready to rock!');
+console.log('Set DEBUG=1 to view console messages.');
