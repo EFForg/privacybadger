@@ -218,9 +218,12 @@ HeuristicBlocker.prototype = {
     // ALLOW indicates this is a tracker still below the tracking threshold
     // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
     var action_map = this.storage.getBadgerStorageObject('action_map');
-    if (!action_map.hasItem(tracker_origin)) {
+    if (!action_map.hasItem(tracker_fqdn)) {
       // TODO missing tests: removing below lines/messing up parameters
       // should break integration tests, but currently does not
+      // TODO should also test that if cond. above breaks functionality
+      // (FQDNs past the first for an origin no longer get initialized)
+      // when provided tracker_origin
       this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
       this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
     }
