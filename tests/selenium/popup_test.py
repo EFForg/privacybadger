@@ -175,8 +175,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         enable_button = self.get_enable_button()
         self.assertFalse(enable_button.is_displayed(),
                          "Enable button" + displayed_error)
-    # TODO: This test is failing for mysterious reasons
-    def XXXtest_error_button(self):
+    def test_error_button(self):
         """Ensure error button opens report error overlay."""
         self.open_popup()
 

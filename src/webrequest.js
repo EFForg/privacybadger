@@ -56,6 +56,11 @@ function onBeforeRequest(details){
   }
 
   if (type == "main_frame" || type == "sub_frame"){
+    // Firefox workaround: https://bugzilla.mozilla.org/show_bug.cgi?id=1329299
+    // TODO remove after Firefox 51 is no longer in use
+    if (type == "main_frame" && frame_id != 0) {
+      frame_id = 0;
+    }
     recordFrame(tab_id, frame_id, details.parentFrameId, url);
   }
 

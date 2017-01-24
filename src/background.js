@@ -38,6 +38,7 @@ var incognito = require("incognito");
 function Badger() {
   var badger = this;
   this.userAllow = [];
+  this.webRTCAvailable = checkWebRTCBrowserSupport();
   this.storage = new pbStorage.BadgerPen(function(thisStorage) {
     if (badger.INITIALIZED) { return; }
     badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
@@ -66,6 +67,27 @@ function Badger() {
 
     badger.INITIALIZED = true;
   });
+
+  /**
+  * WebRTC availability check
+  */
+  function checkWebRTCBrowserSupport(){
+    var available = true;
+    var connection = null;
+    try{
+      var RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection;
+      if(RTCPeerConnection){
+        connection = new RTCPeerConnection(null);
+      }
+    } catch (ex){
+      available = false;
+    }
+
+    if(connection !== null && connection.close){
+      connection.close();
+    }
+    return available;
+  }
 }
 
 Badger.prototype = {
@@ -175,11 +197,12 @@ Badger.prototype = {
    * Only update if user does not have the strictest setting enabled
    **/
   enableWebRTCProtection: function(){
-    // Return early if browser doesn't implement chrome.privacy
-    if (!chrome.privacy) {return;}
-    var cpn = chrome.privacy.network;
+    // Return early with non-supporting browsers
+    if (!chrome.privacy || !badger.webRTCAvailable) { return; }
 
+    var cpn = chrome.privacy.network;
     var settings = this.storage.getBadgerStorageObject("settings_map");
+
     cpn.webRTCIPHandlingPolicy.get({}, function(result) {
       if (result.value === 'disable_non_proxied_udp') {
         // TODO is there case where other extension controls this and PB
@@ -580,6 +603,10 @@ Badger.prototype = {
    */
   isWebRTCIPProtectionEnabled: function() {
     var self = this;
+
+    // Return early with non-supporting browsers
+    if (!chrome.privacy || !badger.webRTCAvailable) { return; }
+
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
       self.getSettings().setItem("webRTCIPProtection",
           (result.value === "disable_non_proxied_udp"));
@@ -752,32 +779,15 @@ function startBackgroundListeners() {
  * lets get this party started
  */
 console.log('Loading badgers into the pen.');
-var badger;
-window.legacyStorage = null; 
+var badger = window.badger = new Badger();
+
 /**
- * CJQ - 2016/12/05
- * Loading legacy keys into memory before badger is initialized due to race 
- * condition which sometimes removes these from storage before privacy badger
- * has a chance to migrate them. 
- * This code can be removed once all firefox users have upgraded to the web 
- * extensions version.
- **/
-var legacyKeys = ["cookieDb","domainExceptionSites","userRed","userYellow","userGreen","disabledSites","disabledSitesPrivate","domainExceptions","domainExceptionsPrivate","seenComic","changedCookies","preloads","originFrequency","originFrequencyPrivate","blockedOrigins","policyHashes","policyWhitelist","nextBlockedSitesCheck"];
-chrome.storage.local.get(legacyKeys, function(legacy){
-  if(legacy){
-    window.legacyStorage = legacy;
-    console.log('LEGACY', window.legacyStorage);
-  }
-  badger = window.badger = new Badger();
+* Start all the listeners
+*/
+incognito.startListeners();
+webrequest.startListeners();
+HeuristicBlocking.startListeners();
+startBackgroundListeners();
 
-  /**
-  * Start all the listeners
-  */
-  incognito.startListeners();
-  webrequest.startListeners();
-  HeuristicBlocking.startListeners();
-  startBackgroundListeners();
-
-  console.log('Privacy badger is ready to rock!');
-  console.log('Set DEBUG=1 to view console messages.');
-});
+console.log('Privacy badger is ready to rock!');
+console.log('Set DEBUG=1 to view console messages.');
