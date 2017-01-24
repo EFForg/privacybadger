@@ -66,6 +66,9 @@ var _multiDomainFirstPartiesArray = [
   ["pcworld.com", "staticworld.net", "idg.com", "idg.net", "infoworld.com", "macworld.com", 
     "techhive.com", "idg.tv"],
   ["xfinity.com", "comcast.net"],
+  ["philips.com", "philips.nl"],
+  ["vk.com", "vk.me", "vkontakte.ru"],
+  ["volkskrant.nl", "persgroep.net", "persgroep.nl", "parool.nl"],
   ["dummy"]
 ];
 
