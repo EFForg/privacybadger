@@ -20,6 +20,7 @@ Within the command line, install the dependencies.
 $ npm install
 ```
 
+Developers should sign up for the privacy badger mailing list at https://lists.eff.org/mailman/listinfo/privacybadger
 ### Testing
 
 After "unpacking" the extension, find your extension's ID and
