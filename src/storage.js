@@ -450,9 +450,8 @@ BadgerStorage.prototype = {
       for (let tracker_fqdn in mapData) {
         var firstPartyOrigins = mapData[tracker_fqdn];
         for (let origin in firstPartyOrigins) {
-          badger.heuristicBlocking.recordPrevalence(
+          badger.heuristicBlocking.updateTrackerPrevalence(
             tracker_fqdn,
-            window.getBaseDomain(tracker_fqdn), // tracker "origin"
             firstPartyOrigins[origin]
           );
         }
@@ -466,11 +465,26 @@ BadgerStorage.prototype = {
   }
 };
 
-function _syncStorage(badgerStorage) {
-  var obj = {};
-  obj[badgerStorage.name] = badgerStorage._store;
-  chrome.storage.local.set(obj);
-}
+var _syncStorage = (function () {
+  var debouncedFuncs = {};
+
+  function sync(badgerStorage) {
+    var obj = {};
+    obj[badgerStorage.name] = badgerStorage._store;
+    chrome.storage.local.set(obj);
+  }
+
+  // Creates debounced versions of "sync" function,
+  // one for each distinct badgerStorage value.
+  return function (badgerStorage) {
+    if (!debouncedFuncs.hasOwnProperty(badgerStorage.name)) {
+      debouncedFuncs[badgerStorage.name] = _.debounce(function () {
+        sync(badgerStorage);
+      });
+    }
+    debouncedFuncs[badgerStorage.name]();
+  };
+}());
 
 /************************************** exports */
 var exports = {};

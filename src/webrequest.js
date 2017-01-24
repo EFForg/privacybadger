@@ -412,9 +412,9 @@ function recordFingerprinting(tabId, msg) {
           scriptData.canvas.fingerprinting = true;
           log(script_host, 'caught fingerprinting on', document_host);
 
-          // Mark this is a strike
-          badger.heuristicBlocking.recordPrevalence(
-            script_host, script_origin, window.getBaseDomain(document_host));
+          // Mark this as a strike
+          badger.heuristicBlocking.updateTrackerPrevalence(
+            script_host, window.getBaseDomain(document_host));
         }
       }
       // This is a canvas write
