@@ -235,6 +235,7 @@ ajax.googleapis.com
 googleapis.com
 googlecode.com
 googlecommerce.com
+googletagservices.com
 cdn.leafletjs.com
 lh4.googleusercontent.com
 googleusercontent.com
