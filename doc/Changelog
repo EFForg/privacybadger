@@ -1,5 +1,23 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.1.24
+* Huge speed improvements for settings import and on startup
+* Fixes no content blocking bug (firefox) 
+* Several fixes for broken websites
+* Translations fixes
+* New Translation: Nordic
+* New Translation: Traditional Chineese (Taiwan)
+* New Translation: Serbian
+* Bugfix: Crash on browsers without WebRTC
+* Bugfix: narrow poup if icon is in the menu (firefox) 
+* Bugfix: Import/Export now uses utf-8 and can handle non english character
+sets
+
+## 2016.12.15.1
+* Bugfix: Lockup on import (firefox)
+* Enhancement: Convert icons to SVG
+* Enhancement: Script surrogate for google analytics, gigya, and more...
+
 ## 2016.12.8.1 (2.0.1)
 * Sanitize origin and action in popup
 
