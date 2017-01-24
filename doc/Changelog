@@ -12,18 +12,25 @@ Changes for Privacy Badger
 * Bugfix: narrow poup if icon is in the menu (firefox) 
 * Bugfix: Import/Export now uses utf-8 and can handle non english character
 sets
-
-## 2016.12.15.1
-* Bugfix: Lockup on import (firefox)
 * Enhancement: Convert icons to SVG
 * Enhancement: Script surrogate for google analytics, gigya, and more...
+* KNOWN ISSUE: Chrome will now display a message "Not downloaded from chrome
+
+## 2016.12.15.1 (2.0.2)
+* BUGFIX: Chrome browsers no longer display privacy badger as (corrupted)
+* BUGFIX: Fixes lockup issue on some versions of firefox
+* BUGFIX: Fixes issue where privacy badger panel gets cut off 
+* BUGFIX: Fixes a non implmeneted API in firefox which was causing numerous
+sites to break. 
+* KNOWN ISSUE: Chrome will now display a message "Not downloaded from chrome
+store". This is a known side effect of a workaround for a different bug. 
 
 ## 2016.12.8.1 (2.0.1)
-* Sanitize origin and action in popup
+* BUGFIX: Sanitize origin and action in popup
 
 ## 2016.12.8 (2.0)
-* Fix ublock origin warnings 
-* Remove need for download permission
+* BUGFIX: Fix ublock origin warnings 
+* BUGFIX: Remove need for download permission
 
 ## 2016.12.7.2 (2.0RC1)
 * Huge speed improvements
