@@ -235,6 +235,7 @@
 @@||googleapis.com^$third-party
 @@||googlecode.com^$third-party
 @@||googlecommerce.com^$third-party
+@@||googletagservices.com^$third-party
 @@||cdn.leafletjs.com^$third-party
 @@||lh4.googleusercontent.com^$third-party
 @@||googleusercontent.com^$third-party
