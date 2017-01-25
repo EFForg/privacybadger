@@ -64,7 +64,7 @@ echo "},"
 echo ""
 echo "Now please upload $POSTPKGCWS to the Chrome Developer Dashboard"
 echo "Also please edit https://eff.org/privacybadger to point to this release number"
-echo "And check to confirm that the pervious release is auto-updating to this one."
+echo "And check to confirm that the previous release is auto-updating to this one."
 MSG=/tmp/email$$
 echo "Privacy Badger $TARGET has been released:" > $MSG
 echo "" >> $MSG

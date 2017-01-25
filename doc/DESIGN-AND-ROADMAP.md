@@ -174,8 +174,8 @@ combinations of them so long as their total estimated entropy is under 12 bits.
 #### Widget Substitution
 
 Many social media widgets are inherently designed to combine tracking
-and occassionally-useful functionality in a single resouce load.
-Privacy Badger aims to give the user acess to the functionality when they want
+and occassionally-useful functionality in a single resource load.
+Privacy Badger aims to give the user access to the functionality when they want
 it, but protection against the tracking at all other times.
 
 To that end, Privacy Badger has incorporated code from the ShareMeNot project
@@ -238,7 +238,7 @@ Sites can agree to this policy by posting at https://subdomain.example.com/.well
 where "subdomain" is any domain to which the policy applies, for a given third party.
 
 #### Fingerprinting detection
-Certian aspects of the browser, such as fonts, add-ons or extensions, screen size,
+Certain aspects of the browser, such as fonts, add-ons or extensions, screen size,
 and seen links, can be used to give the browser a fingerprint that is unique out
 of a very small amount of users (see [Panopticlick](https://panopticlick.eff.org/) for more information).
 
