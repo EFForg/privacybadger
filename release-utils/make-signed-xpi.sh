@@ -27,10 +27,6 @@ fi
 echo "remove fingerprinting"
 sed -i '/        "src\/fingerprinting.js",/d' ../checkout/manifest.json
 
-echo "insert self hosting package id"
-# Insert self hosted package id
-sed -i 's,"id": "jid1-MnnxcxisBPnSXQ@jetpack","id": "jid1-MnnxcxisBPnSXQ-eff@jetpack"\,\n      "update_url": "https://www.eff.org/files/privacy-badger-updates.json",' ../checkout/manifest.json
-
 echo "change author value"
 sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "eff.software.projects@gmail.com",/' ../checkout/manifest.json
 
@@ -38,6 +34,10 @@ echo "making zip file for AMO"
 pushd ../checkout
 zip -r ../pkg/$AMO_ZIP_NAME *
 popd
+
+echo "insert self hosting package id"
+# Insert self hosted package id
+sed -i 's,"id": "jid1-MnnxcxisBPnSXQ@jetpack","id": "jid1-MnnxcxisBPnSXQ-eff@jetpack"\,\n      "update_url": "https://www.eff.org/files/privacy-badger-updates.json",' ../checkout/manifest.json
 
 #"update_url": "https://www.eff.org/files/privacy-badger-updates.json"
 # Build and sign the XPI 
