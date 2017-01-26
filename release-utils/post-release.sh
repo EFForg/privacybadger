@@ -30,7 +30,6 @@ cp $CHROME_PKG $CHROME_ALT
 echo Copying .crx files...
 scp $CHROME_PKG $USER@$SERVER:/www/eff.org/files/ || exit 1
 scp $CHROME_ALT $USER@$SERVER:/www/eff.org/files/ || exit 1
-
 echo Copying Changelog.txt
 git show release-$TARGET:doc/Changelog > /tmp/pbchangelog$$ || exit 1
 scp /tmp/pbchangelog$$ $USER@$SERVER:/www/eff.org/docs/files/pbChangelog.txt || exit 1
@@ -49,13 +48,14 @@ echo To send email to the mailing list...
 echo mutt -s "$TARGET\ for\ Chromium\ released" privacybadger@eff.org '<' $MSG
 echo "Now please edit https://www.eff.org/files/privacy-badger-updates.json to include the following"
 echo ""
-echo "{ \"version\": \"$TARGET\","
+echo "{"
+echo "  \"version\": \"$TARGET\","
 echo "  \"update_link\": \"https://eff.org/files/privacy-badger-eff-$TARGET.xpi\","
 echo "  \"update_hash\": \"sha256:`sha256sum $PKG | cut -c 1-64`\","
 echo "  \"applications\": {"
 echo "    \"gecko\": { \"strict_min_version\": \"50.0.2\" } "
 echo "  } "
-echo "},"
+echo "}"
 echo ""
 echo "Now please upload $POSTPKGCWS to the Chrome Developer Dashboard"
 echo "AND CLEAR THE VARNISH CACHE on the server"
