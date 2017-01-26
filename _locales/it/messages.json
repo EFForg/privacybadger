@@ -12,7 +12,7 @@
         "message": "Permesso "
     },
     "data_settings": {
-        "message": "Manage Data"
+        "message": "Gestisci dati"
     },
     "description": {
         "message": "Privacy Badger ti protegge dai tracker mentre navighi in rete!"
@@ -21,13 +21,13 @@
         "message": "Privacy Badger è disabilitato per i domini elencati sotto. Puoi aggiungere un dominio usando l'icona di Privacy Badger nella barra indirizzi o digitando il dominio (non un URL) nella casella e cliccando il pulsante \"Aggiungi dominio\"."
     },
     "download": {
-        "message": "Download"
+        "message": "Scarica"
     },
     "error_input": {
         "message": "Che c'è che non va?"
     },
     "export_user_data": {
-        "message": "Export user data"
+        "message": "Esporta dati utente"
     },
     "feed_the_badger_title": {
         "message": "clicca per restituire il controllo di questo tracker a Privacy Badger"
@@ -39,19 +39,19 @@
         "message": "Scopri come Privacy Badger protegge la tua privacy."
     },
     "import": {
-        "message": "Import"
+        "message": "Importa"
     },
     "import_select_file": {
-        "message": "Please select a file to import."
+        "message": "Seleziona un file da importare."
     },
     "import_successful": {
-        "message": "Tracker list and settings updated successfully!"
+        "message": "Lista di tracker e impostazioni aggiornate correttamente!"
     },
     "import_user_data": {
-        "message": "Import user data"
+        "message": "Importa dati utente"
     },
     "invalid_json": {
-        "message": "Invalid JSON file."
+        "message": "File JSON non valido."
     },
     "name": {
         "message": "Privacy Badger"
@@ -66,28 +66,34 @@
         "message": "Attualmente Privacy Badger controlla solo se terze parti stanno usando dei cookie, il local storage HTML5 o le impronte canvas per tracciare la tua navigazione. Alcuni di questi domini potrebbero usare metodi di tracciamento che Privacy Badger non può rilevare."
     },
     "options_domain_search": {
-        "message": "Cerca i domini"
+        "message": "Cerca domini"
     },
     "options_filter_settings": {
         "message": "Impostazioni filtri utente"
     },
+    "options_general_settings": {
+        "message": "Impostazioni generali"
+    },
     "options_loading": {
         "message": "Caricamento..."
+    },
+    "options_remove_origin_confirm": {
+        "message": "Sei sicuro di volere rimuovere questa origine da Privacy Badger?"
     },
     "options_slider_text": {
         "message": "Privacy Badger ti sta proteggendo per tutta la rete! Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker trovato durante la tua navigazione."
     },
     "options_social_widgets_checkbox": {
-        "message": "Sostituisci widget sociali"
+        "message": "Sostituisci i widget social"
     },
     "options_title": {
         "message": "Opzioni di Privacy Badger"
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address *"
+        "message": "Impedisci a WebRTC di rivelare l'indirizzo IP locale *"
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+        "message": "* WebRTC può rivelare il tuo indirizzo IP locale. L'impostazione predefinita di Privacy Badger aiuta a proteggerti, ma per una protezione aggiuntiva dovresti attivare questa opzione. Nota che questo potrebbe diminuire le prestazioni di alcuni strumenti come Google Hangouts."
     },
     "pb_detected": {
         "message": "Privacy Badger ha rilevato"
@@ -105,7 +111,7 @@
         "message": "potenziali <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
     },
     "popup_noblocked": {
-        "message": "Perchè non c'è niente bloccato?"
+        "message": "Perchè non c'è niente di bloccato?"
     },
     "popup_options_button": {
         "message": "Opzioni"
@@ -150,6 +156,18 @@
     "report_close": {
         "message": "Chiudi"
     },
+    "show_counter_checkbox": {
+        "message": "Mostra numero di elementi bloccati"
+    },
+    "tooltip_allow": {
+        "message": "Sposta l'interruttore a destra per consentire un dominio"
+    },
+    "tooltip_block": {
+        "message": "Sposta l'interruttore a sinistra per bloccare un dominio"
+    },
+    "tooltip_cookieblock": {
+        "message": "Centra l'interruttore per bloccare i cookie"
+    },
     "whitelisted_domains": {
         "description": "This is a tab heading.",
         "message": "Domini consentiti"
@@ -191,11 +209,14 @@
     "intro_social_share": {
         "message": "Fai sapere al mondo che stai prendendo posizione contro il tracciamento online"
     },
+    "intro_text": {
+        "message": "Ora sei protetto da Privacy Badger. Per sapere come funziona Privacy Badger, clicca sotto per una breve guida."
+    },
     "ded_privacy_badger_alert": {
         "message": "Avviso di Privacy Badger!"
     },
     "ded_logging_into": {
-        "message": "Log in "
+        "message": "Accesso "
     },
     "ded_can_allow_to_track": {
         "message": " può consentirgli di tracciarti in giro per la rete."
@@ -224,17 +245,8 @@
     "options_so_far": {
       "message": "finora. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker."
     },
-    "tooltip_allow": {
-        "message": "Move the slider right to allow a domain"
-    },
-    "tooltip_block": {
-        "message": "Move the slider left to block a domain"
-    },
-    "tooltip_cookieblock": {
-        "message": "Center the slider to block cookies"
-    },
     "slideshow_1": {
-      "message": " Ciao, sono Privacy Badger! Grazie per avermi installato. Sono qui per darti alcuni preziosi consigli, in modo che tutto funzioni bene."
+      "message": " Ciao, sono il tasso della privacy! Grazie per avermi installato. Sono qui per darti alcuni preziosi consigli, in modo che tutto funzioni bene."
     },
     "slideshow_2": {
       "message": " Starò seduto quassù in cima al tuo browser a cercare pubblicità spione e tracker che monitorano cosa stai facendo online."
@@ -282,8 +294,7 @@
       "message": " Grazie per aver fatto un semplice ma importante passo per proteggere la tua privacy! Puoi cliccare qui se ti serve ancora aiuto, oppure clicca sotto per fare sapere al mondo che stai prendendo posizione contro il tracciamento online."
     },
     "donate_to_eff": {
-      "message": "Donate to EFF"
+      "message": "Dona alla EFF"
     }
-
 
 }
