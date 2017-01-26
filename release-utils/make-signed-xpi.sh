@@ -8,6 +8,7 @@ LATEST_SDK_VERSION=1.6.0
 # Auto-generated XPI name from 'web-ext sign'
 PRE_XPI_NAME=privacy_badger_by_eff-$TARGET-an+fx.xpi
 XPI_NAME="privacy-badger-eff-$1.xpi"
+AMO_ZIP_NAME="privacy_badger-$1.amo.zip"
 
 if ! type web-ext > /dev/null; then
   echo "Please install web-ext before running this script."
@@ -33,6 +34,10 @@ sed -i 's,"id": "jid1-MnnxcxisBPnSXQ@jetpack","id": "jid1-MnnxcxisBPnSXQ-eff@jet
 echo "change author value"
 sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "eff.software.projects@gmail.com",/' ../checkout/manifest.json
 
+echo "making zip file for AMO"
+pushd ../checkout
+zip -r ../pkg/$AMO_ZIP_NAME *
+popd
 
 #"update_url": "https://www.eff.org/files/privacy-badger-updates.json"
 # Build and sign the XPI 
