@@ -2,15 +2,17 @@
 set -e
 ffpath=/usr/bin/firefox-aurora
 
-runwebext() {
-    node_modules/web-ext/bin/web-ext run --firefox=$ffpath --pref marionette.defaultPrefs.enabled=true
+node_modules/web-ext/bin/web-ext run --firefox=$ffpath --pref marionette.defaultPrefs.enabled=true &
+ext_PID=$!
+
+geckodriver --connect-existing --marionette-port 2828 &
+gecko_PID=$!
+
+cleanstuff () {
+    kill $gecko_PID
+    kill $ext_PID
 }
 
-coproc webextfd { runwebext; }
-
-rungeckodriver () {
-    geckodriver --connect-existing --marionette-port 2828
-}
-coproc geckodriverfd { rungeckodriver; }
+trap cleanstuff EXIT
 
 python firefox_test.py
