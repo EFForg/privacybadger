@@ -8,17 +8,6 @@ runwebext() {
 
 coproc webextfd { runwebext; }
 
-exec 3>&${webextfd[0]}
-
-while read -u 3 -r line
-do
-    if echo $line | grep "Firefox with profile"
-    then
-        profpath=$(echo $line | sed -e 's/.*profile at \(.*$\)/\1/')
-        break
-    fi
-done
-
 rungeckodriver () {
     geckodriver --connect-existing --marionette-port 2828
 }
