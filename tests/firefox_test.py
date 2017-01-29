@@ -6,6 +6,7 @@ import subprocess
 from selenium.webdriver import DesiredCapabilities
 from selenium import webdriver
 
+
 @contextmanager
 def get_driver():
     cmd = ['./firefox_selenium.sh']
