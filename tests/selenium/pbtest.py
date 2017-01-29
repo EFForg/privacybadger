@@ -6,9 +6,12 @@ import os
 from glob import glob
 from time import sleep
 from contextlib import contextmanager
+import subprocess
+import time
 
 from xvfbwrapper import Xvfb
 from selenium import webdriver
+from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -27,12 +30,16 @@ def get_extension_path():
 
 @contextmanager
 def xvfb_manager(env):
-    vdisplay = Xvfb(width=1280, height=720)
-    vdisplay.start()
-    try:
-        yield vdisplay
-    finally:
-        vdisplay.stop()
+    wants_xvfb = int(env.get("ENABLE_XVFB", 0))
+    if wants_xvfb:
+        vdisplay = Xvfb(width=1280, height=720)
+        vdisplay.start()
+        try:
+            yield vdisplay
+        finally:
+            vdisplay.stop()
+    else:
+        yield
 
 @contextmanager
 def driver_manager(driver):
@@ -40,6 +47,20 @@ def driver_manager(driver):
         yield driver
     finally:
         driver.quit()
+
+@contextmanager
+def firefox_manager():
+    cmd = ['./firefox_selenium.sh']
+    proc = subprocess.Popen(cmd)
+    time.sleep(0.5)
+
+    ffcaps = DesiredCapabilities.FIREFOX
+    driver = webdriver.Remote('http://127.0.0.1:4444', ffcaps)
+    try:
+        with driver_manager(driver):
+            yield driver
+    finally:
+        proc.terminate()
 
 @contextmanager
 def chrome_manager():
@@ -61,20 +82,6 @@ def chrome_manager():
     with driver_manager(webdriver.Chrome(chrome_options=opts)) as driver:
         yield driver
 
-@contextmanager
-def firefox_manager():
-    cmd = ['./firefox_selenium.sh']
-    proc = subprocess.Popen(cmd)
-    time.sleep(0.5)
-    ffcaps = DesiredCapabilities.FIREFOX
-    driver = webdriver.Remote('http://127.0.0.1:4444', ffcaps)
-    try:
-        with driver_manager(driver):
-            yield driver
-    finally:
-        proc.terminate()
-
-
 
 # PB_EXT_BG_URL_BASE = "chrome-extension://pkehgijcmpdhfbdbbnkijodmdjhbjlgp/"
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
@@ -93,13 +100,14 @@ class PBSeleniumTest(unittest.TestCase):
         else:
             manager = chrome_manager
 
-        with xvfb_manager as xvfb:
+        with xvfb_manager(env) as xvfb:
             with manager() as driver:
                 self.xvfb = xvfb
                 self.driver = driver
                 super(PBSeleniumTest, self).run(result)
 
 
+    '''
     def setUp(self):
         env = os.environ
         # setting DBUS_SESSION_BUS_ADDRESS to nonsense prevents frequent
@@ -120,6 +128,12 @@ class PBSeleniumTest(unittest.TestCase):
         print("\nSuccessfully initialized the chromedriver")
         self.js = self.driver.execute_script
 
+    def tearDown(self):
+        self.driver.quit()
+        if self.xvfb and self.vdisplay:
+            self.vdisplay.stop()
+    '''
+
     def open_window(self):
         self.js('window.open()')
         self.driver.switch_to_window(self.driver.window_handles[-1])
@@ -138,7 +152,3 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
-    def tearDown(self):
-        self.driver.quit()
-        if self.xvfb and self.vdisplay:
-            self.vdisplay.stop()
