@@ -14,5 +14,4 @@ cleanstuff () {
 }
 
 trap cleanstuff EXIT
-
-python firefox_test.py
+wait
