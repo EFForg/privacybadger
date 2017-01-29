@@ -104,6 +104,7 @@ class PBSeleniumTest(unittest.TestCase):
             with manager() as driver:
                 self.xvfb = xvfb
                 self.driver = driver
+                self.js = self.driver.execute_script
                 super(PBSeleniumTest, self).run(result)
 
 
