@@ -17,6 +17,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+
 def get_extension_path():
     """Return the path to the extension to be tested."""
     if "PB_EXT_PATH" in os.environ:
@@ -27,6 +28,7 @@ def get_extension_path():
         # check the default location for the last modified crx file
         exts = glob("../../*.crx")  # get matching files
         return max(exts, key=os.path.getctime) if exts else ""
+
 
 @contextmanager
 def xvfb_manager(env):
@@ -41,6 +43,7 @@ def xvfb_manager(env):
     else:
         yield
 
+
 @contextmanager
 def driver_manager(driver):
     try:
@@ -48,42 +51,45 @@ def driver_manager(driver):
     finally:
         driver.quit()
 
+
 @contextmanager
 def firefox_manager():
     cmd = ['./firefox_selenium.sh']
     proc = subprocess.Popen(cmd)
-    time.sleep(0.5)
-
+    time.sleep(2)
     ffcaps = DesiredCapabilities.FIREFOX
-    driver = webdriver.Remote('http://127.0.0.1:4444', ffcaps)
     try:
+        driver = webdriver.Remote('http://127.0.0.1:4444', ffcaps)
+        time.sleep(2)
+        while driver.window_handles < 2:
+            pass
+
         with driver_manager(driver):
             yield driver
     finally:
         proc.terminate()
 
+
 @contextmanager
 def chrome_manager():
     """Setup and return a Chrom[e|ium] browser for Selenium."""
     opts = Options()
-    absp = os.path.abspath
     browser_bin = os.environ.get("BROWSER_BIN", "")
     if "TRAVIS" in os.environ:  # github.com/travis-ci/travis-ci/issues/938
         opts.add_argument("--no-sandbox")
     opts.add_extension(get_extension_path())  # will fail if ext can't be found
     if browser_bin:  # otherwise will use webdriver's default binary
-        print("Browser binary:", absp(browser_bin))
         opts.binary_location = browser_bin  # set binary location
     # Fix for https://code.google.com/p/chromedriver/issues/detail?id=799
     opts.add_experimental_option("excludeSwitches",
                                  ["ignore-certificate-errors"])
     prefs = {"profile.block_third_party_cookies": False}
     opts.add_experimental_option("prefs", prefs)
-    with driver_manager(webdriver.Chrome(chrome_options=opts)) as driver:
+    driver = webdriver.Chrome(chrome_options=opts)
+    with driver_manager(driver):
         yield driver
 
 
-# PB_EXT_BG_URL_BASE = "chrome-extension://pkehgijcmpdhfbdbbnkijodmdjhbjlgp/"
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
 PB_CHROME_BG_URL = PB_EXT_BG_URL_BASE + "_generated_background_page.html"
 PB_CHROME_OPTIONS_PAGE_URL = PB_EXT_BG_URL_BASE + "skin/options.html"
@@ -106,7 +112,6 @@ class PBSeleniumTest(unittest.TestCase):
                 self.driver = driver
                 self.js = self.driver.execute_script
                 super(PBSeleniumTest, self).run(result)
-
 
     '''
     def setUp(self):
@@ -153,3 +158,23 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
+    def get_ext_url(self):
+        if os.environ.get('BROWSER') != 'firefox':
+            return PB_EXT_BG_URL_BASE
+        if hasattr(self, '_url') and self._url is not None:
+            return self._url
+        prof_dir = self.driver.capabilities['moz:profile']
+        prefsjs = prof_dir + '/prefs.js'
+
+        with open(prefsjs, 'r') as fp:
+            data = fp.readlines()
+            for l in data:
+                if l.startswith('user_pref("extensions.webextensions.uuids"'):
+                    break
+        # got the line, now get the uuid
+        uuid = l.split(':')[-1][2:-7]
+        self._url = 'moz-extension://' + uuid + '/'
+        return self._url
+
+    def get_ext_bg_url(self):
+        return self.get_ext_url() + "_generated_background_page.html"
