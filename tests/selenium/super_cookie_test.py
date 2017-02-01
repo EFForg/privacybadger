@@ -11,7 +11,7 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
 
     def has_supercookies(self, origin):
         """Check if the given origin has supercookies in PB's localStorage."""
-        self.load_url(self.get_ext_bg_url(), wait_on_site=1)
+        self.load_url(self.bg_url, wait_on_site=1)
         get_sc_domains_js = "return JSON.stringify(badger.storage."\
             "getBadgerStorageObject('supercookie_domains').getItemClones())"
         supercookieDomains = json.loads(self.js(get_sc_domains_js))

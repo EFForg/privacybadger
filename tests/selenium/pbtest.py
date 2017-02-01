@@ -18,6 +18,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 
+PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
+SEL_DEFAULT_WAIT_TIMEOUT = 30
+
+
 def get_extension_path():
     """Return the path to the extension to be tested."""
     if "PB_EXT_PATH" in os.environ:
@@ -90,14 +94,6 @@ def chrome_manager():
         yield driver
 
 
-PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
-PB_CHROME_BG_URL = PB_EXT_BG_URL_BASE + "_generated_background_page.html"
-PB_CHROME_OPTIONS_PAGE_URL = PB_EXT_BG_URL_BASE + "skin/options.html"
-PB_CHROME_POPUP_URL = PB_EXT_BG_URL_BASE + "skin/popup.html"
-PB_CHROME_FIRST_RUN_PAGE_URL = PB_EXT_BG_URL_BASE + "skin/firstRun.html"
-SEL_DEFAULT_WAIT_TIMEOUT = 30
-
-
 class PBSeleniumTest(unittest.TestCase):
     def run(self, result=None):
         env = os.environ
@@ -113,32 +109,6 @@ class PBSeleniumTest(unittest.TestCase):
                 self.js = self.driver.execute_script
                 super(PBSeleniumTest, self).run(result)
 
-    '''
-    def setUp(self):
-        env = os.environ
-        # setting DBUS_SESSION_BUS_ADDRESS to nonsense prevents frequent
-        # hangs of chromedriver (possibly due to crbug.com/309093).
-        # https://github.com/SeleniumHQ/docker-selenium/issues/87#issuecomment-187580115
-        env["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
-        self.browser_bin = env.get("BROWSER_BIN", "")  # o/w use WD's default
-        self.pb_ext_path = get_extension_path()  # path to the extension
-        self.xvfb = int(env.get("ENABLE_XVFB", 0))
-        # We start an xvfb on Travis, don't need to do it twice.
-        if "TRAVIS" not in os.environ and self.xvfb:
-            self.vdisplay = Xvfb(width=1280, height=720)
-            self.vdisplay.start()
-        else:
-            self.xvfb = 0
-
-        self.driver = self.get_chrome_driver()
-        print("\nSuccessfully initialized the chromedriver")
-        self.js = self.driver.execute_script
-
-    def tearDown(self):
-        self.driver.quit()
-        if self.xvfb and self.vdisplay:
-            self.vdisplay.stop()
-    '''
 
     def open_window(self):
         self.js('window.open()')
@@ -158,7 +128,8 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
-    def get_ext_url(self):
+    @property
+    def base_url(self):
         if os.environ.get('BROWSER') != 'firefox':
             return PB_EXT_BG_URL_BASE
         if hasattr(self, '_url') and self._url is not None:
@@ -176,5 +147,22 @@ class PBSeleniumTest(unittest.TestCase):
         self._url = 'moz-extension://' + uuid + '/'
         return self._url
 
-    def get_ext_bg_url(self):
-        return self.get_ext_url() + "_generated_background_page.html"
+    @property
+    def bg_url(self):
+        return self.base_url + "_generated_background_page.html"
+
+    @property
+    def options_url(self):
+        return self.base_url + "skin/options.html"
+
+    @property
+    def popup_url(self):
+        return self.base_url + "skin/popup.html"
+
+    @property
+    def first_run_url(self):
+        return self.base_url + "skin/firstRun.html"
+
+    @property
+    def test_url(self):
+        return self.base_url + "tests/index.html"

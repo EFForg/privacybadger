@@ -16,7 +16,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
-        self.load_url(pbtest.PB_CHROME_POPUP_URL, wait_on_site=1)
+        self.load_url(self.popup_url, wait_on_site=1)
         if close_overlay:
             # Click 'X' element to close overlay.
             try:
@@ -59,13 +59,13 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Make sure first run comic not opened in same window.
         time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        if self.driver.current_url != self.popup_url:
             self.fail("First run comic not opened in new window")
 
         # Look for first run page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
-            if self.driver.current_url.startswith(pbtest.PB_CHROME_FIRST_RUN_PAGE_URL):
+            if self.driver.current_url.startswith(self.first_run_url):
                 return
 
         self.fail("First run comic not opened after clicking link in popup overlay")
@@ -82,13 +82,13 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Make sure first run page not opened in same window.
         time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        if self.driver.current_url != self.popup_url:
             self.fail("Options page not opened in new window")
 
         # Look for first run page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
-            if self.driver.current_url == pbtest.PB_CHROME_FIRST_RUN_PAGE_URL:
+            if self.driver.current_url == self.first_run_url:
                 return
 
         self.fail("Options page not opened after clicking help button on popup")
@@ -105,13 +105,13 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Make sure options page not opened in same window.
         time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        if self.driver.current_url != self.popup_url:
             self.fail("Options page not opened in new window")
 
         # Look for options page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
-            if self.driver.current_url == pbtest.PB_CHROME_OPTIONS_PAGE_URL:
+            if self.driver.current_url == self.popup_url:
                 return
 
         self.fail("Options page not opened after clicking options button on popup")
@@ -128,7 +128,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Make sure EFF website not opened in same window.
         time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        if self.driver.current_url != self.popup_url:
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
@@ -224,7 +224,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Make sure EFF website not opened in same window.
         time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        if self.driver.current_url != self.popup_url:
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.

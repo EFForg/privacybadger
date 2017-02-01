@@ -21,8 +21,6 @@ PB_CHROME_SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazon
 
 PB_CHROME_THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 
-PB_CHROME_PU_URL = pbtest.PB_EXT_BG_URL_BASE + "skin/popup.html"
-PB_CHROME_FR_URL = pbtest.PB_EXT_BG_URL_BASE + "skin/firstRun.html"
 
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
@@ -51,7 +49,6 @@ class CookieTest(pbtest.PBSeleniumTest):
 
         # load the first site with the third party code that reads and writes a cookie
         self.load_url( PB_CHROME_SITE1_URL )
-        #window_utils.close_windows_with_url( self.driver, PB_CHROME_FR_URL )
         self.load_pb_ui( PB_CHROME_SITE1_URL )
         self.get_tracker_state()
         self.assertTrue( self.nonTrackers.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
@@ -82,7 +79,7 @@ class CookieTest(pbtest.PBSeleniumTest):
                 if self.cookieBlocked.has_key( PB_CHROME_THIRD_PARTY_TRACKER ):
                     print("Popup UI has been updated. Yay!")
                     break
-                window_utils.close_windows_with_url( self.driver, PB_CHROME_PU_URL )
+                window_utils.close_windows_with_url( self.driver, self.popup_url)
                 print("popup UI has not been updated yet. try again in 10 seconds")
                 time.sleep(10)
         self.assertTrue( self.cookieBlocked.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
@@ -113,10 +110,10 @@ class CookieTest(pbtest.PBSeleniumTest):
         button = self.driver.find_element_by_id("newwindowbutton")
         button.click()
         window_utils.switch_to_window_with_url( self.driver, "about:blank" )
-        self.load_url(PB_CHROME_PU_URL)
+        self.load_url(self.popup_url)
 
         # use the new convenience function to get the popup populated with status information for the correct url
-        window_utils.switch_to_window_with_url( self.driver, PB_CHROME_PU_URL )
+        window_utils.switch_to_window_with_url(self.driver, self.popup_url)
         target_url = target_scheme_and_host + "/*"
         javascript_src = "setTabToUrl('" + target_url + "');"
         self.js( javascript_src )

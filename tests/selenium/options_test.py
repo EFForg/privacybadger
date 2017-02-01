@@ -22,8 +22,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             (By.CSS_SELECTOR, css_selector)))
 
     def load_options_page(self):
-        self.load_url(pbtest.PB_CHROME_BG_URL)  # load a dummy page
-        self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL, wait_on_site=1)
+        self.load_url(self.bg_url)  # load a dummy page
+        self.load_url(self.options_url, wait_on_site=1)
 
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""
@@ -109,7 +109,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         """Ensure origin is displayed and removed properly."""
         self.add_test_origin("pbtest.org", "block")
 
-        self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
+        self.load_url(self.options_url)
         origins = self.driver.find_element_by_id("blockedResourcesInner")
 
         # Remove displayed origin.

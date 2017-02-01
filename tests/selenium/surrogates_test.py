@@ -40,7 +40,7 @@ class Test(pbtest.PBSeleniumTest):
         self.assertTrue(self.load_ga_js_test_page())
 
         # block ga.js (known to break the site)
-        self.load_url(pbtest.PB_CHROME_BG_URL, wait_on_site=1)
+        self.load_url(self.bg_url, wait_on_site=1)
         ga_backup = self.js(
             "badger.saveAction('block', 'www.google-analytics.com');"
             "const sdb = require('surrogatedb');"
@@ -60,7 +60,7 @@ class Test(pbtest.PBSeleniumTest):
         self.assertFalse(self.load_ga_js_test_page())
 
         # switch back to PB's background page
-        switch_to_window_with_url(self.driver, pbtest.PB_CHROME_BG_URL)
+        switch_to_window_with_url(self.driver, self.bg_url)
 
         # re-enable surrogate
         self.js(
