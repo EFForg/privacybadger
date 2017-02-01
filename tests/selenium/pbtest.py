@@ -118,6 +118,7 @@ class PBSeleniumTest(unittest.TestCase):
         """Load a URL and wait before returning."""
         print("Will load %s" % url)
         self.driver.get(url)
+        self.driver.switch_to_window(self.driver.current_window_handle)
         sleep(wait_on_site)
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):

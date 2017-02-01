@@ -27,7 +27,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             # Element will fade out so wait for it to disappear.
             try:
-                WebDriverWait(self.driver, 3).until(
+                WebDriverWait(self.driver, 5).until(
                     expected_conditions.invisibility_of_element_located(
                         (By.ID, "fittslaw")))
             except TimeoutException:
@@ -220,6 +220,8 @@ class PopupTest(pbtest.PBSeleniumTest):
             donate_button = self.driver.find_element_by_id("donate")
         except NoSuchElementException:
             self.fail("Unable to find donate button on popup")
+        handles_before = set(self.driver.window_handles)
+
         donate_button.click()
 
         # Make sure EFF website not opened in same window.
@@ -228,13 +230,12 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        eff_url = "https://supporters.eff.org/donate/support-privacy-badger"
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == eff_url:
-                return
+        new_handle = set(self.driver.window_handles).difference(handles_before)
+        self.driver.switch_to_window(new_handle.pop())
 
-        self.fail("EFF website not opened after clicking donate button on popup")
+        eff_url = "https://supporters.eff.org/donate/support-privacy-badger"
+        self.assertEqual(self.driver.current_url, eff_url,
+            "EFF website should open after clicking donate button on popup")
 
 
 if __name__ == "__main__":
