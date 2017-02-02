@@ -179,38 +179,29 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Ensure error button opens report error overlay."""
         self.open_popup()
 
+        # TODO: selenium firefox has a bug where is_displayed() is always True
+        # for these elements. But we should use is_displayed when this is fixed.
+        #overlay_input = self.driver.find_element_by_id("error_input")
+        #self.assertTrue(overlay_input.is_displayed(), "User input" + error_message)
+
+        # assert error reporting menu is not open
+        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
+                'error reporting should not be open')
+
         # Click error button to open overlay for reporting sites.
-        try:
-            error_button = self.driver.find_element_by_id("error")
-        except NoSuchElementException:
-            self.fail("Unable to find error button on popup")
+        error_button = self.driver.find_element_by_id("error")
         error_button.click()
         time.sleep(1)
 
-        try:
-            overlay_input = self.driver.find_element_by_id("error_input")
-            overlay_submit = self.driver.find_element_by_id("report_button")
-            overlay_cancel = self.driver.find_element_by_id("report_cancel")
-            overlay_close = self.driver.find_element_by_id("report_close")
-        except NoSuchElementException:
-            self.fail("Unable to find submit error overlay elements on popup")
+        # check error is open
+        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 1,
+                'error reporting should be open')
 
-        # Make sure overlay elements are displayed.
-        error_message = " should be displayed on popup overlay"
-        self.assertTrue(overlay_input.is_displayed(), "User input" + error_message)
-        self.assertTrue(overlay_submit.is_displayed(), "Submit button" + error_message)
-        self.assertTrue(overlay_cancel.is_displayed(), "Cancel button" + error_message)
-        self.assertTrue(overlay_close.is_displayed(), "Close element" + error_message)
-
+        overlay_close = self.driver.find_element_by_id("report_close")
         overlay_close.click()
         time.sleep(1)
-
-        #Make sure overlay is hidden after clicking close element.
-        error_message = " should not be displayed on popup overlay"
-        self.assertFalse(overlay_input.is_displayed(), "User input" + error_message)
-        self.assertFalse(overlay_submit.is_displayed(), "Submit button" + error_message)
-        self.assertFalse(overlay_cancel.is_displayed(), "Cancel button" + error_message)
-        self.assertFalse(overlay_close.is_displayed(), "Close element" + error_message)
+        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
+                'error reporting should be closed again')
 
     def test_donate_button(self):
         """Ensure donate button opens EFF website."""
