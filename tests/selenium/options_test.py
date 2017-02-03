@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import os
 import unittest
-import pbtest
+
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
+import pbtest
 
 class OptionsPageTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
@@ -42,6 +44,9 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
                       " expected (%s)"
                       % (self.driver.title, localized_title))
 
+
+    @unittest.skipIf(os.environ.get('BROWSER') == 'firefox',
+            "selenium move_to is currently broken in firefox")
     def test_should_display_tooltips_on_hover(self):
         driver = self.driver
         find_el_by_css = self.find_el_by_css  # find with WebDriver wait

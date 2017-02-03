@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import time
 import unittest
-import pbtest
 import json
 
+import pbtest
+
+from selenium.webdriver.common.keys import Keys
 
 class SuperCookieTest(pbtest.PBSeleniumTest):
     """Make sure we detect potential supercookies. """
@@ -26,9 +29,10 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         Perhaps related to: https://github.com/ghostwords/chameleon/issues/5
         """
         self.load_url("https://rawgit.com/gunesacar/24d81a5c964cb563614162c264be32f0/raw/8fa10f97b87343dfb62ae9b98b753c73a995157e/frame_ls.html",  # noqa
-                      wait_on_site=5)
+                      wait_on_site=2)
         self.driver.switch_to_frame(self.driver.
                                     find_element_by_tag_name("iframe"))
+        time.sleep(1)
         print(self.js("return localStorage['frameId']"))
         self.assertTrue(self.has_supercookies("githack.com"))
 

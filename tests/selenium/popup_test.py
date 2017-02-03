@@ -216,7 +216,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         donate_button.click()
 
         # Make sure EFF website not opened in same window.
-        time.sleep(1)
+        time.sleep(2)
         if self.driver.current_url != self.popup_url:
             self.fail("EFF website not opened in new window")
 
