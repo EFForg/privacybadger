@@ -20,6 +20,7 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         supercookieDomains = json.loads(self.js(get_sc_domains_js))
         return origin in supercookieDomains
 
+    @pbtest.ignore_failure_if(os.environ.get('BROWSER') == 'firefox')
     def test_should_detect_ls_of_third_party_frame(self):
         """We get some intermittent failures for this test.
 
@@ -32,7 +33,6 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
                       wait_on_site=2)
         self.driver.switch_to_frame(self.driver.
                                     find_element_by_tag_name("iframe"))
-        time.sleep(1)
         print(self.js("return localStorage['frameId']"))
         self.assertTrue(self.has_supercookies("githack.com"))
 

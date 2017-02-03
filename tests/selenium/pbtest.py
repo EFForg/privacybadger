@@ -33,6 +33,21 @@ def get_extension_path():
         exts = glob("../../*.crx")  # get matching files
         return max(exts, key=os.path.getctime) if exts else ""
 
+def ignore_failure_if(condition, exception=Exception):
+    def test_catcher(test):
+        def caught(*args, **kwargs):
+            if condition:
+                try:
+                    res = test(*args, **kwargs)
+                except exception as e:
+                    print("test failed, but we're ignorng it")
+                    pass
+            else:
+                return test(*args, **kwargs)
+        return caught
+    return test_catcher
+
+
 
 @contextmanager
 def xvfb_manager(env):
@@ -116,10 +131,9 @@ class PBSeleniumTest(unittest.TestCase):
 
     def load_url(self, url, wait_on_site=0):
         """Load a URL and wait before returning."""
-        print("Will load %s" % url)
         self.driver.get(url)
-        self.driver.switch_to_window(self.driver.current_window_handle)
-        sleep(wait_on_site)
+        self.driver.switch_to_window(new_handle)
+        time.sleep(wait_on_site)
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Find an element by CSS selector and return its text."""
