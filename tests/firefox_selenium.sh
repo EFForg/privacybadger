@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 set -e
-ffpath=/usr/bin/firefox-aurora
 
-../node_modules/web-ext/bin/web-ext run --pre-install --source-dir="../" --firefox=$ffpath --pref marionette.defaultPrefs.enabled=true &
+# web-ext uses these to launch and install the browser
+#export WEB_EXT_PRE_INSTALL=true
+export WEB_EXT_SOURCE_DIR=`dirname $PWD`
+export WEB_EXT_PREF="marionette.defaultPrefs.enabled=true"
+export WEB_EXT_FIREFOX="/usr/bin/firefox"
+
+../node_modules/web-ext/bin/web-ext run &
 ext_PID=$!
 sleep 0.5
 
