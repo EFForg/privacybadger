@@ -2,7 +2,6 @@
 set -e
 
 # web-ext uses these to launch and install the browser
-#export WEB_EXT_PRE_INSTALL=true
 export WEB_EXT_SOURCE_DIR=`dirname $PWD`
 export WEB_EXT_PREF="marionette.defaultPrefs.enabled=true"
 export WEB_EXT_FIREFOX="/usr/bin/firefox"

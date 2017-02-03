@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import time
+import os
 import unittest
 import json
 
@@ -29,8 +30,9 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
 
         Perhaps related to: https://github.com/ghostwords/chameleon/issues/5
         """
+        #self.load_url("https://rawgit.com/cowlicks/e04533cacf5717cd2cae51e0452032c0/raw/548c8ba38a7c9c67bcb267c0c83a7eccd7b849bf/frame_ls.html", # noqa
         self.load_url("https://rawgit.com/gunesacar/24d81a5c964cb563614162c264be32f0/raw/8fa10f97b87343dfb62ae9b98b753c73a995157e/frame_ls.html",  # noqa
-                      wait_on_site=2)
+                      wait_on_site=5)
         self.driver.switch_to_frame(self.driver.
                                     find_element_by_tag_name("iframe"))
         print(self.js("return localStorage['frameId']"))
