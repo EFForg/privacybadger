@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import unittest
+import json
 import os
+import unittest
 from glob import glob
-from time import sleep
 from contextlib import contextmanager
 import subprocess
 import time
@@ -20,6 +20,7 @@ from selenium.webdriver.common.by import By
 
 PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
 SEL_DEFAULT_WAIT_TIMEOUT = 30
+MARIONETTE_PORT = 2828
 
 
 def get_extension_path():
@@ -132,7 +133,7 @@ class PBSeleniumTest(unittest.TestCase):
     def load_url(self, url, wait_on_site=0):
         """Load a URL and wait before returning."""
         self.driver.get(url)
-        self.driver.switch_to_window(new_handle)
+        self.driver.switch_to_window(self.driver.current_window_handle)
         time.sleep(wait_on_site)
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
@@ -149,16 +150,12 @@ class PBSeleniumTest(unittest.TestCase):
             return PB_EXT_BG_URL_BASE
         if hasattr(self, '_url') and self._url is not None:
             return self._url
-        prof_dir = self.driver.capabilities['moz:profile']
-        prefsjs = prof_dir + '/prefs.js'
+        from marionette_driver.marionette import Marionette
+        client = Marionette('localhost', port=MARIONETTE_PORT)
+        client.start_session()
+        uuid_pref = client.get_pref('extensions.webextensions.uuids')
+        uuid = json.loads(uuid_pref).values().pop()
 
-        with open(prefsjs, 'r') as fp:
-            data = fp.readlines()
-            for l in data:
-                if l.startswith('user_pref("extensions.webextensions.uuids"'):
-                    break
-        # got the line, now get the uuid
-        uuid = l.split(':')[-1][2:-7]
         self._url = 'moz-extension://' + uuid + '/'
         return self._url
 
