@@ -13,14 +13,18 @@ matrix:
   fast_finish: true
   include:
     - python: "2.7"
-      env: CHROME_PATH="google-chrome-stable"
+      env: BROWSER="google-chrome-stable"
     - python: "3.4"
-      env: CHROME_PATH="google-chrome-stable"
+      env: BROWSER="google-chrome-stable"
     - python: "2.7"
-      env: CHROME_PATH="google-chrome-beta"
+      env: BROWSER="google-chrome-beta"
+    - python: "2.7"
+      env: BROWSER="google-chrome-beta"
+    - python: "2.7"
+      env: BROWSER="firefox"
   allow_failures:
     - python: "2.7"
-      env: CHROME_PATH="google-chrome-beta"
+      env: BROWSER="google-chrome-beta"
   exclude:
     - env: TRAVIS_EXTRA_JOB_WORKAROUND=true
 addons:
@@ -28,6 +32,7 @@ addons:
     sources:
     - google-chrome
     packages:
+    - firefox
     - google-chrome-stable
     - google-chrome-beta
     - python-virtualenv

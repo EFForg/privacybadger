@@ -7,4 +7,4 @@ sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 sudo chmod a+x /usr/local/bin/chromedriver
 
 # Set the path to the browser binary we want to test against
-export BROWSER_BIN=`which ${CHROME_PATH}`
+export BROWSER_BIN=`which ${BROWSER}`
