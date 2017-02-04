@@ -23,7 +23,6 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
        suite and assert that none of the tests failed. Ignores tests with a
        status of "undefined" and any tests not visible to the user."""
 
-    @repeat_if_failed(5)
     def test_should_pass_pbtest_org_suite(self):
         driver = self.driver
         driver.delete_all_cookies()
