@@ -19,8 +19,6 @@ matrix:
     - python: "2.7"
       env: BROWSER="google-chrome-beta"
     - python: "2.7"
-      env: BROWSER="google-chrome-beta"
-    - python: "2.7"
       env: BROWSER="firefox"
   allow_failures:
     - python: "2.7"
