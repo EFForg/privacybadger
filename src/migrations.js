@@ -54,11 +54,22 @@ exports.Migrations= {
     for(var domain in action_map.getItemClones()){
       if(badger.storage.getNextUpdateForDomain(domain) === 0){
         // Recheck at a random time in the next week
-        var recheckTime = utils.getRandom(Date.now(), Date.now() + (utils.oneDay() * 7));
+        var recheckTime = utils.getRandom(utils.nDaysFromNow(7), utils.nDaysFromNow(14));
         badger.storage.touchDNTRecheckTime(domain, recheckTime);
       }
     }
 
+  },
+  
+  // Fixes https://github.com/EFForg/privacybadger/issues/1181
+  migrateDntRecheckTimes2: function(badger){
+    console.log('fixing DNT check times');
+    var action_map = badger.storage.getBadgerStorageObject('action_map');
+    for(var domain in action_map.getItemClones()){
+      // Recheck at a random time in the next week
+      var recheckTime = utils.getRandom(utils.nDaysFromNow(7), utils.nDaysFromNow(14));
+      badger.storage.touchDNTRecheckTime(domain, recheckTime);
+    }
   },
 
 };

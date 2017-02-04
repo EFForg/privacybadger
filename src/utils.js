@@ -209,9 +209,14 @@ function oneDay(){
   return oneHour() * 24;
 }
 
-function oneDayFromNow(){
-  return Date.now() + oneDay();
+function nDaysFromNow(n){
+  return Date.now() + (oneDay() * n);
 }
+
+function oneDayFromNow(){
+  return nDaysFromNow(1);
+}
+
 
 
 /************************************** exports */
@@ -220,6 +225,7 @@ var exports = {};
 exports.oneHour = oneHour;
 exports.oneDay = oneDay;
 exports.oneDayFromNow = oneDayFromNow;
+exports.nDaysFromNow = nDaysFromNow;
 exports.removeElementFromArray = removeElementFromArray;
 exports.estimateMaxEntropy = estimateMaxEntropy;
 exports.makeURI = makeURI;

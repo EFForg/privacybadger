@@ -344,7 +344,9 @@ Badger.prototype = {
         log('It looks like', domain, 'has NOT adopted Do Not Track');
         badger.storage.revertDNT(domain);
       }
-      badger.storage.touchDNTRecheckTime(domain, utils.oneDayFromNow() * 7);
+      
+      var recheckTime = utils.getRandom(utils.oneDayFromNow(), utils.nDaysFromNow(7));
+      badger.storage.touchDNTRecheckTime(domain, recheckTime);
     });
   },
 
@@ -410,6 +412,8 @@ Badger.prototype = {
       Migrations.migrateBlockedSubdomainsToCookieblock,
       Migrations.migrateLegacyFirefoxData,
       Migrations.migrateDntRecheckTimes,
+      // Need to run this migration again for everyone to #1181
+      Migrations.migrateDntRecheckTimes2,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
