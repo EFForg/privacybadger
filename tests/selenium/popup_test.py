@@ -124,21 +124,22 @@ class PopupTest(pbtest.PBSeleniumTest):
             trackers_link = self.driver.find_element_by_link_text("trackers")
         except NoSuchElementException:
             self.fail("Unable to find trackers link on popup")
+
+        handles_before = set(self.driver.window_handles)
         trackers_link.click()
 
         # Make sure EFF website not opened in same window.
-        time.sleep(1)
+        time.sleep(5)
         if self.driver.current_url != self.popup_url:
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        eff_url = "https://www.eff.org/privacybadger#trackers"
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == eff_url:
-                return
+        new_handle = set(self.driver.window_handles).difference(handles_before)
+        self.driver.switch_to_window(new_handle.pop())
 
-        self.fail("EFF website not opened after clicking trackers link")
+        eff_url = "https://www.eff.org/privacybadger#trackers"
+        self.assertEqual(self.driver.current_url, eff_url,
+            "EFF website should open after clicking donate button on popup")
 
     def test_disable_enable_buttons(self):
         """Ensure disable/enable buttons change popup state."""
@@ -216,7 +217,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         donate_button.click()
 
         # Make sure EFF website not opened in same window.
-        time.sleep(2)
+        time.sleep(5)
         if self.driver.current_url != self.popup_url:
             self.fail("EFF website not opened in new window")
 
