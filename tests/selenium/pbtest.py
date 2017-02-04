@@ -53,7 +53,7 @@ def ignore_failure_if(condition):
             if condition:
                 try:
                     res = test(*args, **kwargs)
-                except exception as e:
+                except Exception as e:
                     print("test failed, but we're ignorng it")
                     pass
             else:
@@ -61,23 +61,28 @@ def ignore_failure_if(condition):
         return caught
     return test_catcher
 
+
 def repeat_if_failed(ntimes):
-    '''Retry the tests `ntimes` until it passes'''
+    '''
+    Retry the tests `ntimes` until it passes. Must be used on a subclass of
+    unittest.TestCase
+    '''
     def test_catcher(test):
         def caught(*args, **kwargs):
+            self = args[0]
             for i in range(ntimes):
                 try:
-                    return test(*args, **kwargs)
-                except exception as e:
+                    return self.run()
+                except Exception as e:
                     if i == ntimes - 1:
                         raise
                     else:
+                        self.tearDown()
+                        self.doCleanups()
                         print("test failed, we're retrying it")
                         continue
         return caught
     return test_catcher
-
-
 
 
 @contextmanager
