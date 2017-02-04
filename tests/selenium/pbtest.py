@@ -161,6 +161,8 @@ class PBSeleniumTest(unittest.TestCase):
                         super(PBSeleniumTest, self).run(result)
                         if result._excinfo:
                             raise Exception(result._excinfo.pop())
+                        else:
+                            break
 
             except Exception as e:
                 if i == nretries - 1:
