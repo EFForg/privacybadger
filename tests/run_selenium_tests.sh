@@ -16,11 +16,16 @@ popd
 # virtualenv PBTESTENV
 # source PBTESTENV/bin/activate
 pip install -r sel_requirements.txt
+if [ $BROWSER == "firefox" ]; then
+    # only needed for ff, and only works for python 2
+    pip install marionette_driver
+fi
 
 # TODO: take command line arguments to set the following environment variables
 export PB_EXT_PATH=$ext_path  # extension on this path will be used in the tests
 # if this var is empty, extension base dir will be searched for the last modified .crx.
-echo "Chrome path: "$BROWSER_BIN
+echo "Browesr path: "$BROWSER_BIN
+echo "Extension path: "$PB_EXT_PATH
 # export BROWSER_BIN="/path/to/chrome"   # Optional.
 # If BROWSER_BIN is empty, Selenium will pick the default binary for Chrome.
 # To run tests with Chromium (instead of Google Chrome) export BROWSER_BIN="/usr/bin/chromium-browser"
