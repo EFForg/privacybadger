@@ -169,6 +169,7 @@ class PBSeleniumTest(unittest.TestCase):
                 if i == nretries - 1:
                     raise
                 else:
+                    print('Retrying test %s\n' % (result,))
                     continue
 
 
