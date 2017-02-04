@@ -148,39 +148,28 @@ class PBSeleniumTest(unittest.TestCase):
         else:
             manager = chrome_manager
 
-        if result.name in attempts:
-            self.run_with_retries(manager, result)
-        else:
-            with xvfb_manager(self.env) as xvfb:
-                with manager() as (driver, base_url):
-                    self.base_url = base_url
-                    self.xvfb = xvfb
-                    self.driver = driver
-                    self.js = self.driver.execute_script
-                    super(PBSeleniumTest, self).run(result)
+        nretries = attempts.get(result.name, 1)
+        for i in range(nretries):
+            try:
+                with xvfb_manager(self.env) as xvfb:
+                    with manager() as (driver, base_url):
+                        self.base_url = base_url
+                        self.xvfb = xvfb
+                        self.driver = driver
+                        self.js = self.driver.execute_script
 
-    def run_with_retries(self, manager, result):
-            nretries = attempts.get(result.name, 1)
-            for i in range(nretries):
-                try:
-                    with xvfb_manager(self.env) as xvfb:
-                        with manager() as (driver, base_url):
-                            self.base_url = base_url
-                            self.xvfb = xvfb
-                            self.driver = driver
-                            self.js = self.driver.execute_script
+                        super(PBSeleniumTest, self).run(result)
 
-                            super(PBSeleniumTest, self).run(result)
-                            if result._excinfo:
-                                raise Exception(result._excinfo.pop())
-                            else:
-                                break
+                        if result.name in attempts and result._excinfo:
+                            raise Exception(result._excinfo.pop())
+                        else:
+                            break
 
-                except Exception as e:
-                    if i == nretries - 1:
-                        raise
-                    else:
-                        continue
+            except Exception as e:
+                if i == nretries - 1:
+                    raise
+                else:
+                    continue
 
 
     def open_window(self):
