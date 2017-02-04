@@ -46,7 +46,8 @@ def get_extension_path():
         exts = glob("../../*.crx")  # get matching files
         return max(exts, key=os.path.getctime) if exts else ""
 
-def ignore_failure_if(condition, exception=Exception):
+def ignore_failure_if(condition):
+    '''If the test fails, then ignore it if `condition` is true'''
     def test_catcher(test):
         def caught(*args, **kwargs):
             if condition:
@@ -59,6 +60,23 @@ def ignore_failure_if(condition, exception=Exception):
                 return test(*args, **kwargs)
         return caught
     return test_catcher
+
+def repeat_if_failed(ntimes):
+    '''Retry the tests `ntimes` until it passes'''
+    def test_catcher(test):
+        def caught(*args, **kwargs):
+            for i in range(ntimes):
+                try:
+                    return test(*args, **kwargs)
+                except exception as e:
+                    if i == ntimes - 1:
+                        raise
+                    else:
+                        print("test failed, we're retrying it")
+                        continue
+        return caught
+    return test_catcher
+
 
 
 
