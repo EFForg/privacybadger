@@ -1,5 +1,4 @@
 #!/bin/bash
-command -v chromedriver >/dev/null 2>&1 || { echo >&2 "Cannot find chromedriver in PATH. Aborting."; exit 1; }
 
 pushd .
 cd ..
@@ -8,6 +7,7 @@ if [ $? != 0 ]; then
   echo "Linting errors"
   exit 1
 fi
+
 make travisbuild # pack the extension
 ext_path=`ls -1tr $PWD/*.crx | tail -n 1` # get the last modified crx
 popd
