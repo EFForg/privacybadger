@@ -22,6 +22,8 @@ PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
 SEL_DEFAULT_WAIT_TIMEOUT = 30
 MARIONETTE_PORT = 2828
 
+attempts = {}
+
 def get_base_url():
     if os.environ.get('BROWSER') != 'firefox':
         return PB_EXT_BG_URL_BASE
@@ -68,19 +70,9 @@ def repeat_if_failed(ntimes):
     unittest.TestCase
     '''
     def test_catcher(test):
+        attempts[test.__name__] = ntimes
         def caught(*args, **kwargs):
-            self = args[0]
-            for i in range(ntimes):
-                try:
-                    return self.run()
-                except Exception as e:
-                    if i == ntimes - 1:
-                        raise
-                    else:
-                        self.tearDown()
-                        self.doCleanups()
-                        print("test failed, we're retrying it")
-                        continue
+            return test(*args, **kwargs)
         return caught
     return test_catcher
 
@@ -155,14 +147,26 @@ class PBSeleniumTest(unittest.TestCase):
         else:
             manager = chrome_manager
 
-        with xvfb_manager(env) as xvfb:
-            with manager() as (driver, base_url):
-                self.base_url = base_url
-                self.xvfb = xvfb
-                self.driver = driver
-                self.js = self.driver.execute_script
-                super(PBSeleniumTest, self).run(result)
+        nretries = attempts.get(result.name, 1)
+        for i in range(nretries):
+            try:
+                with xvfb_manager(env) as xvfb:
+                    with manager() as (driver, base_url):
 
+                        self.base_url = base_url
+                        self.xvfb = xvfb
+                        self.driver = driver
+                        self.js = self.driver.execute_script
+
+                        super(PBSeleniumTest, self).run(result)
+                        if result._excinfo:
+                            raise Exception(result._excinfo.pop())
+
+            except Exception as e:
+                if i == nretries - 1:
+                    raise
+                else:
+                    continue
 
     def open_window(self):
         self.js('window.open()')
