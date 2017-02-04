@@ -48,6 +48,7 @@ def get_extension_path():
         exts = glob("../../*.crx")  # get matching files
         return max(exts, key=os.path.getctime) if exts else ""
 
+
 def ignore_failure_if(condition):
     '''If the test fails, then ignore it if `condition` is true'''
     def test_catcher(test):
@@ -138,37 +139,49 @@ def chrome_manager():
     with driver_manager(driver):
         yield driver, PB_EXT_BG_URL_BASE
 
-
 class PBSeleniumTest(unittest.TestCase):
+
     def run(self, result=None):
-        env = os.environ
-        if env.get('BROWSER') == 'firefox':
+        self.env = os.environ
+        if self.env.get('BROWSER') == 'firefox':
             manager = firefox_manager
         else:
             manager = chrome_manager
 
-        nretries = attempts.get(result.name, 1)
-        for i in range(nretries):
-            try:
-                with xvfb_manager(env) as xvfb:
-                    with manager() as (driver, base_url):
+        if result.name in attempts:
+            self.run_with_retries(manager, result)
+        else:
+            with xvfb_manager(self.env) as xvfb:
+                with manager() as (driver, base_url):
+                    self.base_url = base_url
+                    self.xvfb = xvfb
+                    self.driver = driver
+                    self.js = self.driver.execute_script
+                    super(PBSeleniumTest, self).run(result)
 
-                        self.base_url = base_url
-                        self.xvfb = xvfb
-                        self.driver = driver
-                        self.js = self.driver.execute_script
+    def run_with_retries(self, manager, result):
+            nretries = attempts.get(result.name, 1)
+            for i in range(nretries):
+                try:
+                    with xvfb_manager(self.env) as xvfb:
+                        with manager() as (driver, base_url):
+                            self.base_url = base_url
+                            self.xvfb = xvfb
+                            self.driver = driver
+                            self.js = self.driver.execute_script
 
-                        super(PBSeleniumTest, self).run(result)
-                        if result._excinfo:
-                            raise Exception(result._excinfo.pop())
-                        else:
-                            break
+                            super(PBSeleniumTest, self).run(result)
+                            if result._excinfo:
+                                raise Exception(result._excinfo.pop())
+                            else:
+                                break
 
-            except Exception as e:
-                if i == nretries - 1:
-                    raise
-                else:
-                    continue
+                except Exception as e:
+                    if i == nretries - 1:
+                        raise
+                    else:
+                        continue
+
 
     def open_window(self):
         self.js('window.open()')
