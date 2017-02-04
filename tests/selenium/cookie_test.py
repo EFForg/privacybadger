@@ -15,11 +15,11 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import window_utils
 
-PB_CHROME_SITE1_URL = "http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
-PB_CHROME_SITE2_URL = "http://eff-tracker-site2-test.s3-website-us-west-2.amazonaws.com"
-PB_CHROME_SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
+SITE1_URL = "http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
+SITE2_URL = "http://eff-tracker-site2-test.s3-website-us-west-2.amazonaws.com"
+SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
 
-PB_CHROME_THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
+THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 
 
 class CookieTest(pbtest.PBSeleniumTest):
@@ -48,41 +48,41 @@ class CookieTest(pbtest.PBSeleniumTest):
         # fixme: check for chrome settings for third party cookies?
 
         # load the first site with the third party code that reads and writes a cookie
-        self.load_url( PB_CHROME_SITE1_URL )
-        self.load_pb_ui( PB_CHROME_SITE1_URL )
+        self.load_url( SITE1_URL )
+        self.load_pb_ui( SITE1_URL )
         self.get_tracker_state()
-        self.assertTrue( self.nonTrackers.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
+        self.assertTrue( self.nonTrackers.has_key( THIRD_PARTY_TRACKER ) )
 
         # go to second site
-        self.load_url( PB_CHROME_SITE2_URL )
-        window_utils.close_windows_with_url( self.driver, PB_CHROME_SITE1_URL )
-        self.load_pb_ui( PB_CHROME_SITE2_URL )
+        self.load_url( SITE2_URL )
+        window_utils.close_windows_with_url( self.driver, SITE1_URL )
+        self.load_pb_ui( SITE2_URL )
         self.get_tracker_state()
-        self.assertTrue( self.nonTrackers.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
+        self.assertTrue( self.nonTrackers.has_key( THIRD_PARTY_TRACKER ) )
 
         # go to third site
-        self.load_url( PB_CHROME_SITE3_URL )
-        window_utils.close_windows_with_url( self.driver, PB_CHROME_SITE2_URL )
-        self.load_pb_ui( PB_CHROME_SITE3_URL )
+        self.load_url( SITE3_URL )
+        window_utils.close_windows_with_url( self.driver, SITE2_URL )
+        self.load_pb_ui( SITE3_URL )
         self.get_tracker_state()
-        self.assertTrue( self.nonTrackers.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
+        self.assertTrue( self.nonTrackers.has_key( THIRD_PARTY_TRACKER ) )
 
         # reloading the first site should now cause the cookie to be blocked
         # it can take a long time for the UI to be updated, so retry a number of
         # times before giving up. See bug #702.
         print("this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed")
-        self.load_url( PB_CHROME_SITE1_URL )
-        window_utils.close_windows_with_url( self.driver, PB_CHROME_SITE3_URL )
+        self.load_url( SITE1_URL )
+        window_utils.close_windows_with_url( self.driver, SITE3_URL )
         for i in range(60):
-                self.load_pb_ui( PB_CHROME_SITE1_URL )
+                self.load_pb_ui( SITE1_URL )
                 self.get_tracker_state()
-                if self.cookieBlocked.has_key( PB_CHROME_THIRD_PARTY_TRACKER ):
+                if self.cookieBlocked.has_key( THIRD_PARTY_TRACKER ):
                     print("Popup UI has been updated. Yay!")
                     break
                 window_utils.close_windows_with_url( self.driver, self.popup_url)
                 print("popup UI has not been updated yet. try again in 10 seconds")
                 time.sleep(10)
-        self.assertTrue( self.cookieBlocked.has_key( PB_CHROME_THIRD_PARTY_TRACKER ) )
+        self.assertTrue( self.cookieBlocked.has_key( THIRD_PARTY_TRACKER ) )
 
     def load_pb_ui(self, target_scheme_and_host ):
         """Show the PB popup as a new tab.
