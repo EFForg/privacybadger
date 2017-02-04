@@ -67,7 +67,7 @@ exports.Migrations= {
     var action_map = badger.storage.getBadgerStorageObject('action_map');
     for(var domain in action_map.getItemClones()){
       // Recheck at a random time in the next week
-      var recheckTime = utils.getRandom(utils.nDaysFromNow(7), utils.nDaysFromNow(14));
+      var recheckTime = utils.getRandom(utils.oneDayFromNow(), utils.nDaysFromNow(7));
       badger.storage.touchDNTRecheckTime(domain, recheckTime);
     }
   },
