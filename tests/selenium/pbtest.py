@@ -165,6 +165,7 @@ class PBSeleniumTest(unittest.TestCase):
 
     def load_url(self, url, wait_on_site=0):
         """Load a URL and wait before returning."""
+        print("loading %s" % (url,))
         self.driver.get(url)
         self.driver.switch_to_window(self.driver.current_window_handle)
         time.sleep(wait_on_site)
