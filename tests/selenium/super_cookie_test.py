@@ -21,7 +21,7 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         supercookieDomains = json.loads(self.js(get_sc_domains_js))
         return origin in supercookieDomains
 
-    @pbtest.ignore_failure_if(os.environ.get('BROWSER') == 'firefox')
+    @pbtest.repeat_if_failed(5)
     def test_should_detect_ls_of_third_party_frame(self):
         """We get some intermittent failures for this test.
 

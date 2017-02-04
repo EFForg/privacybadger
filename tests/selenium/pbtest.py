@@ -24,6 +24,7 @@ MARIONETTE_PORT = 2828
 
 attempts = {}
 
+
 def get_base_url():
     if os.environ.get('BROWSER') != 'firefox':
         return PB_EXT_BG_URL_BASE
@@ -37,6 +38,7 @@ def get_base_url():
 
     return 'moz-extension://' + uuid + '/'
 
+
 def get_extension_path():
     """Return the path to the extension to be tested."""
     if "PB_EXT_PATH" in os.environ:
@@ -47,22 +49,6 @@ def get_extension_path():
         # check the default location for the last modified crx file
         exts = glob("../../*.crx")  # get matching files
         return max(exts, key=os.path.getctime) if exts else ""
-
-
-def ignore_failure_if(condition):
-    '''If the test fails, then ignore it if `condition` is true'''
-    def test_catcher(test):
-        def caught(*args, **kwargs):
-            if condition:
-                try:
-                    res = test(*args, **kwargs)
-                except Exception as e:
-                    print("test failed, but we're ignorng it")
-                    pass
-            else:
-                return test(*args, **kwargs)
-        return caught
-    return test_catcher
 
 
 def repeat_if_failed(ntimes):
@@ -139,6 +125,7 @@ def chrome_manager():
     with driver_manager(driver):
         yield driver, PB_EXT_BG_URL_BASE
 
+
 class PBSeleniumTest(unittest.TestCase):
 
     def run(self, result=None):
@@ -171,7 +158,6 @@ class PBSeleniumTest(unittest.TestCase):
                 else:
                     print('Retrying test %s\n' % (result,))
                     continue
-
 
     def open_window(self):
         self.js('window.open()')
