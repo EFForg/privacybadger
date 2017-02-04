@@ -22,6 +22,18 @@ PB_EXT_BG_URL_BASE = "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
 SEL_DEFAULT_WAIT_TIMEOUT = 30
 MARIONETTE_PORT = 2828
 
+def get_base_url():
+    if os.environ.get('BROWSER') != 'firefox':
+        return PB_EXT_BG_URL_BASE
+    from marionette_driver.marionette import Marionette
+
+    marionette_client = Marionette('localhost', port=MARIONETTE_PORT)
+    marionette_client.start_session()
+    uuid_pref = marionette_client.get_pref('extensions.webextensions.uuids')
+    uuid = json.loads(uuid_pref).values().pop()
+    marionette_client.delete_session()
+
+    return 'moz-extension://' + uuid + '/'
 
 def get_extension_path():
     """Return the path to the extension to be tested."""
@@ -79,13 +91,15 @@ def firefox_manager():
     time.sleep(2)
     ffcaps = DesiredCapabilities.FIREFOX
     try:
+        url = get_base_url()
+
         driver = webdriver.Remote('http://127.0.0.1:4444', ffcaps)
         time.sleep(2)
         while driver.window_handles < 2:
             pass
 
         with driver_manager(driver):
-            yield driver
+            yield driver, url
     finally:
         proc.terminate()
 
@@ -107,7 +121,7 @@ def chrome_manager():
     opts.add_experimental_option("prefs", prefs)
     driver = webdriver.Chrome(chrome_options=opts)
     with driver_manager(driver):
-        yield driver
+        yield driver, PB_EXT_BG_URL_BASE
 
 
 class PBSeleniumTest(unittest.TestCase):
@@ -119,7 +133,8 @@ class PBSeleniumTest(unittest.TestCase):
             manager = chrome_manager
 
         with xvfb_manager(env) as xvfb:
-            with manager() as driver:
+            with manager() as (driver, base_url):
+                self.base_url = base_url
                 self.xvfb = xvfb
                 self.driver = driver
                 self.js = self.driver.execute_script
@@ -143,21 +158,6 @@ class PBSeleniumTest(unittest.TestCase):
     def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
-
-    @property
-    def base_url(self):
-        if os.environ.get('BROWSER') != 'firefox':
-            return PB_EXT_BG_URL_BASE
-        if hasattr(self, '_url') and self._url is not None:
-            return self._url
-        from marionette_driver.marionette import Marionette
-        client = Marionette('localhost', port=MARIONETTE_PORT)
-        client.start_session()
-        uuid_pref = client.get_pref('extensions.webextensions.uuids')
-        uuid = json.loads(uuid_pref).values().pop()
-
-        self._url = 'moz-extension://' + uuid + '/'
-        return self._url
 
     @property
     def bg_url(self):
