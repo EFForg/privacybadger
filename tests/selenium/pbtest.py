@@ -130,6 +130,9 @@ class PBSeleniumTest(unittest.TestCase):
 
     def run(self, result=None):
         self.env = os.environ
+        # setting DBUS_SESSION_BUS_ADDRESS to nonsense prevents frequent
+        # hangs of chromedriver (possibly due to crbug.com/309093).
+        self.env["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
         if self.env.get('BROWSER') == 'firefox':
             manager = firefox_manager
         else:
