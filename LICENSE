@@ -67,10 +67,6 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 Alternatively, this code may be distributed or
 otherwise used under the terms of GPL v3
 
-Incorporating code from jsbn.js
-Copyright (c) 2003-2005  Tom Wu
-Licensed MIT
-
 Incorporating code from Punycode.js
 http://mths.be/punycode
 Copyright 2011 Mathias Bynens <http://mathiasbynens.be/>

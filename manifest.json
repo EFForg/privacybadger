@@ -26,7 +26,6 @@
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
       "lib/sha1.js",
-      "lib/jsbn.js",
       "lib/underscore-min.js",
       "data/surrogates.js",
       "src/surrogates.js",
