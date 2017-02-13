@@ -83,12 +83,29 @@ function BadgerPen(callback) {
 }
 
 BadgerPen.prototype = {
+
+  preSeedData: {},
+
   getBadgerStorageObject: function(key) {
 
     if(this.hasOwnProperty(key)){
       return this[key];
     }
     console.error("Can't initialize cache from getBadgerStorageObject. You are using this API improperly");
+  },
+
+  /**
+   * Reads pre-set actions from a configuration file. Reduces over-blocking and allows to have already good start values
+   * for important domains that protect without training.
+   *
+   * @param: {String} subdomain subdomain to check db for
+   * @returns {undefined|String} blocking action or undefined if not found
+   **/
+  getPreSeededAction: function(subdomain){
+    if (subdomain in this.preSeedData){
+      return this.preSeedData[subdomain];
+    }
+    return undefined;
   },
 
   /**
@@ -100,9 +117,13 @@ BadgerPen.prototype = {
    **/
   getActionForFqdn: function(domain){
     if (_.isString(domain)) {
+      var odomain = domain;
       domain = this.getBadgerStorageObject('action_map').getItem(domain) || {};
+      domain.subdomain = odomain;
     }
     if(domain.userAction){ return domain.userAction; }
+    var ps = this.getPreSeededAction(domain.subdomain);
+    if (ps) { return ps; }
     if(domain.dnt){ return constants.DNT; }
     if(domain.heuristicAction){ return domain.heuristicAction; }
     return constants.NO_TRACKING;
@@ -151,7 +172,9 @@ BadgerPen.prototype = {
       if(action_map.hasItem(subdomains[i])){
         // First collect the actions for any domains or subdomains of the FQDN
         // Order from base domain to FQDN
-        relevantDomains.unshift(action_map.getItem(subdomains[i]));
+        var item = action_map.getItem(subdomains[i]);
+        item.subdomain = subdomains[i];
+        relevantDomains.unshift(item);
       }
     }
 

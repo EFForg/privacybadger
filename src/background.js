@@ -48,6 +48,7 @@ function Badger() {
       badger.runMigrations();
     } finally {
       badger.initializeCookieBlockList();
+      badger.initializePreSeed();
       badger.initializeDNT();
       badger.initializeUserAllowList();
       badger.enableWebRTCProtection();
@@ -217,6 +218,14 @@ Badger.prototype = {
             settings.setItem("webRTCIPProtection", false);
           });
     });
+  },
+
+   /**
+   * Initialize preSeed data (pre-configured tracker settings). To prevent over-blocking and to be able
+   * to initialize the most common trackers
+   */
+  initializePreSeed: function(){
+    this.storage.preSeedData = utils.loadJSONFromFile("data/preseed.json");
   },
 
   /**
