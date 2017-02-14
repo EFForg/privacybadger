@@ -58,14 +58,13 @@ class CookieTest(pbtest.PBSeleniumTest):
         window_utils.close_windows_with_url( self.driver, SITE1_URL )
         self.load_pb_ui( SITE2_URL )
         self.get_tracker_state()
-        self.assertTrue(THIRD_PARTY_TRACKER  in self.nonTrackers)
+        self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
 
         # go to third site
         self.load_url( SITE3_URL )
         window_utils.close_windows_with_url( self.driver, SITE2_URL )
         self.load_pb_ui( SITE3_URL )
         self.get_tracker_state()
-        
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
 
         # reloading the first site should now cause the cookie to be blocked
