@@ -51,21 +51,22 @@ class CookieTest(pbtest.PBSeleniumTest):
         self.load_url( SITE1_URL )
         self.load_pb_ui( SITE1_URL )
         self.get_tracker_state()
-        self.assertTrue( self.nonTrackers.has_key( THIRD_PARTY_TRACKER ) )
+        self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
 
         # go to second site
         self.load_url( SITE2_URL )
         window_utils.close_windows_with_url( self.driver, SITE1_URL )
         self.load_pb_ui( SITE2_URL )
         self.get_tracker_state()
-        self.assertTrue( self.nonTrackers.has_key( THIRD_PARTY_TRACKER ) )
+        self.assertTrue(THIRD_PARTY_TRACKER  in self.nonTrackers)
 
         # go to third site
         self.load_url( SITE3_URL )
         window_utils.close_windows_with_url( self.driver, SITE2_URL )
         self.load_pb_ui( SITE3_URL )
         self.get_tracker_state()
-        self.assertTrue( self.nonTrackers.has_key( THIRD_PARTY_TRACKER ) )
+        
+        self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
 
         # reloading the first site should now cause the cookie to be blocked
         # it can take a long time for the UI to be updated, so retry a number of
@@ -76,13 +77,15 @@ class CookieTest(pbtest.PBSeleniumTest):
         for i in range(60):
                 self.load_pb_ui( SITE1_URL )
                 self.get_tracker_state()
-                if self.cookieBlocked.has_key( THIRD_PARTY_TRACKER ):
+                
+                if THIRD_PARTY_TRACKER in self.cookieBlocked:
                     print("Popup UI has been updated. Yay!")
                     break
                 window_utils.close_windows_with_url( self.driver, self.popup_url)
                 print("popup UI has not been updated yet. try again in 10 seconds")
                 time.sleep(10)
-        self.assertTrue( self.cookieBlocked.has_key( THIRD_PARTY_TRACKER ) )
+
+        self.assertTrue(THIRD_PARTY_TRACKER in self.cookieBlocked)
 
     def load_pb_ui(self, target_scheme_and_host ):
         """Show the PB popup as a new tab.
@@ -136,9 +139,9 @@ class CookieTest(pbtest.PBSeleniumTest):
                 origin = t.get_attribute('data-origin')
 
                 # assert that this origin is never duplicated in the UI
-                self.assertTrue( not self.nonTrackers.has_key(origin) )
-                self.assertTrue( not self.cookieBlocked.has_key(origin) )
-                self.assertTrue( not self.blocked.has_key(origin) )
+                self.assertTrue(origin not in self.nonTrackers)
+                self.assertTrue(origin not in self.cookieBlocked)
+                self.assertTrue(origin not in self.blocked)
 
                 action_type = t.get_attribute('data-original-action')
                 if action_type == 'allow':
