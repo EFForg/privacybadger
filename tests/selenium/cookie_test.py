@@ -3,15 +3,7 @@
 
 import unittest
 import pbtest
-import re
-#import sys
 import time
-
-from selenium.webdriver.common.action_chains import ActionChains
-#from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 import window_utils
 
@@ -22,14 +14,16 @@ SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
 THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 
 
+
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
 
     def assert_pass_opera_cookie_test(self, url, test_name):
         self.load_url(url)
-        self.assertEqual("PASS",
-             self.js("return document.getElementById('result').innerHTML"),
-             "Cookie test failed: %s" % test_name)
+        self.assertEqual(
+                "PASS",
+                self.js("return document.getElementById('result').innerHTML"),
+                "Cookie test failed: %s" % test_name)
 
     def test_should_pass_std_cookie_test(self):
         self.assert_pass_opera_cookie_test("https://gistcdn.githack.com/gunesacar/79aa14bac95694d38425d458843dacd6/raw/3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html",  # noqa
@@ -48,22 +42,22 @@ class CookieTest(pbtest.PBSeleniumTest):
         # fixme: check for chrome settings for third party cookies?
 
         # load the first site with the third party code that reads and writes a cookie
-        self.load_url( SITE1_URL )
-        self.load_pb_ui( SITE1_URL )
+        self.load_url(SITE1_URL)
+        self.load_pb_ui(SITE1_URL)
         self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
 
         # go to second site
-        self.load_url( SITE2_URL )
-        window_utils.close_windows_with_url( self.driver, SITE1_URL )
-        self.load_pb_ui( SITE2_URL )
+        self.load_url(SITE2_URL)
+        window_utils.close_windows_with_url(self.driver, SITE1_URL)
+        self.load_pb_ui(SITE2_URL)
         self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
 
         # go to third site
-        self.load_url( SITE3_URL )
-        window_utils.close_windows_with_url( self.driver, SITE2_URL )
-        self.load_pb_ui( SITE3_URL )
+        self.load_url(SITE3_URL)
+        window_utils.close_windows_with_url(self.driver, SITE2_URL)
+        self.load_pb_ui(SITE3_URL)
         self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
 
@@ -71,22 +65,23 @@ class CookieTest(pbtest.PBSeleniumTest):
         # it can take a long time for the UI to be updated, so retry a number of
         # times before giving up. See bug #702.
         print("this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed")
-        self.load_url( SITE1_URL )
-        window_utils.close_windows_with_url( self.driver, SITE3_URL )
+        self.load_url(SITE1_URL)
+        window_utils.close_windows_with_url(self.driver, SITE3_URL)
         for i in range(60):
-                self.load_pb_ui( SITE1_URL )
+                self.load_pb_ui(SITE1_URL)
                 self.get_tracker_state()
                 
                 if THIRD_PARTY_TRACKER in self.cookieBlocked:
                     print("Popup UI has been updated. Yay!")
                     break
-                window_utils.close_windows_with_url( self.driver, self.popup_url)
+                window_utils.close_windows_with_url(self.driver, self.popup_url)
+                window_utils.close_windows_with_url(self.driver, PU_URL)
                 print("popup UI has not been updated yet. try again in 10 seconds")
                 time.sleep(10)
 
         self.assertTrue(THIRD_PARTY_TRACKER in self.cookieBlocked)
 
-    def load_pb_ui(self, target_scheme_and_host ):
+    def load_pb_ui(self, target_scheme_and_host):
         """Show the PB popup as a new tab.
 
         If Selenium would let us just programmatically launch an extension from its icon,
@@ -108,17 +103,17 @@ class CookieTest(pbtest.PBSeleniumTest):
         # open a new tab. And if you inject javascript to open a window and you have the
         # popup blocker turned on, it won't work. Workaround: embed a button on the target page
         # that opens a new window when clicked.
-        window_utils.switch_to_window_with_url( self.driver, target_scheme_and_host )
+        window_utils.switch_to_window_with_url(self.driver, target_scheme_and_host)
         button = self.driver.find_element_by_id("newwindowbutton")
         button.click()
-        window_utils.switch_to_window_with_url( self.driver, "about:blank" )
+        window_utils.switch_to_window_with_url(self.driver, "about:blank")
         self.load_url(self.popup_url)
 
         # use the new convenience function to get the popup populated with status information for the correct url
         window_utils.switch_to_window_with_url(self.driver, self.popup_url)
         target_url = target_scheme_and_host + "/*"
         javascript_src = "setTabToUrl('" + target_url + "');"
-        self.js( javascript_src )
+        self.js(javascript_src)
         #print "executed " + javascript_src
 
     def get_tracker_state(self):
@@ -128,7 +123,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         self.blocked = {}
         try:
                 clickerContainer = self.driver.find_element_by_class_name("clickerContainer")
-                self.assertTrue( clickerContainer )
+                self.assertTrue(clickerContainer)
         except:
                 print("no action state information was found")
                 return
