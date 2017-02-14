@@ -28,8 +28,8 @@ class CookieTest(pbtest.PBSeleniumTest):
     def test_should_pass_std_cookie_test(self):
         self.assert_pass_opera_cookie_test("https://gistcdn.githack.com/gunesacar/79aa14bac95694d38425d458843dacd6/raw/3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html",  # noqa
                                            "Set 1st party cookie")
-    # TODO: FIXME!
-    def FIXMEtest_cookie_tracker_detection(self):
+
+    def test_cookie_tracker_detection(self):
         """Tests basic cookie tracking. The tracking site has no DNT file,
         and gets blocked by PB.
 
