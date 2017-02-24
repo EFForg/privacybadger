@@ -435,13 +435,13 @@ function showTrackingDomains(domains) {
 
         // Save change for origin.
         var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-        var action = htmlUtils.getCurrentClass($(this).parents('.clicker'));
-        syncSettings(origin, action);
+        var setting = htmlUtils.getCurrentClass($(this).parents('.clicker'));
+        syncSettings(origin, setting);
       },
     }).appendTo(this);
 
     radios.change(function() {
-        slider.slider('value', radios.filter(':checked').val());
+      slider.slider('value', radios.filter(':checked').val());
     });
   });
 }
