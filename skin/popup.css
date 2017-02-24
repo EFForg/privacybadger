@@ -28,7 +28,7 @@ body {
   padding-right: 7px;
   overflow-y: hidden;
   overflow-x: hidden;
-  width: calc(100% - 30px);
+  width: 400px;
 }
 
 a { text-decoration: none }
