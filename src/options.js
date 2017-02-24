@@ -421,23 +421,23 @@ function showTrackingDomains(domains) {
     var value = $(this).children('input:checked').val();
 
     var slider = $('<div></div>').slider({
-        min: 0,
-        max: 2,
-        value: value,
-        create: function(/*event, ui*/) {
-            $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-        },
-        slide: function(event, ui) {
-            radios.filter('[value=' + ui.value + ']').click();
-        },
-        stop: function(event, ui) {
-            $(ui.handle).css('margin-left', -16 * ui.value + 'px');
+      min: 0,
+      max: 2,
+      value: value,
+      create: function(/*event, ui*/) {
+        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+      },
+      slide: function(event, ui) {
+        radios.filter('[value=' + ui.value + ']').click();
+      },
+      stop: function(event, ui) {
+        $(ui.handle).css('margin-left', -16 * ui.value + 'px');
 
-            // Save change for origin.
-            var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-            var action = htmlUtils.getCurrentClass($(this).parents('.clicker'));
-            syncSettings(origin, action);
-        },
+        // Save change for origin.
+        var origin = radios.filter('[value=' + ui.value + ']')[0].name;
+        var action = htmlUtils.getCurrentClass($(this).parents('.clicker'));
+        syncSettings(origin, action);
+      },
     }).appendTo(this);
 
     radios.change(function() {
