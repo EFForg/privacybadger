@@ -18,7 +18,7 @@
         "message": "Privacy Badger vous protège des traqueurs lorsque vous surfez sur le web !"
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger est désactivé pour la liste de domaines ci-dessous. Vous pouvez la compléter par l'icône de Privacy Badger présente sur la barre d'adresse ou en tapant le nom de domaine (pas l'URL) dans le champ ci-dessous et en cliquant sur le bouton \« Ajouter un nom de domaine \»."
+        "message": "Privacy Badger est désactivé pour la liste de domaines ci-dessous. Vous pouvez la compléter par l'icône de Privacy Badger présente sur la barre d'adresse ou en tapant le nom de domaine (pas l'URL) dans le champ ci-dessous et en cliquant sur le bouton \"Ajouter un nom de domaine \"."
     },
     "download": {
         "message": "Télécharger"
