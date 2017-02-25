@@ -414,39 +414,35 @@ function showTrackingDomains(domains) {
   $('#blockedResourcesInner').html(trackingDetails);
   $('#blockedResourcesInner').off('scroll');
   $('#blockedResourcesInner').scroll(domains, addOrigins);
-  $('.switch-toggle').each(function() { registerToggleHandlers(this); });
-}
 
-/**
- * Registers handlers for tracking domain toggle controls.
- * @param element HTML element containing toggle control.
- */
-function registerToggleHandlers(element) {
-  var radios = $(element).children('input');
-  var value = $(element).children('input:checked').val();
+  // Register handlers for tracking domain toggle controls.
+  $('.switch-toggle').each(function() {
+    var radios = $(this).children('input');
+    var value = $(this).children('input:checked').val();
 
-  var slider = $('<div></div>').slider({
-    min: 0,
-    max: 2,
-    value: value,
-    create: function(/*event, ui*/) {
-      $(element).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-    },
-    slide: function(event, ui) {
-      radios.filter('[value=' + ui.value + ']').click();
-    },
-    stop: function(event, ui) {
-      $(ui.handle).css('margin-left', -16 * ui.value + 'px');
+    var slider = $('<div></div>').slider({
+      min: 0,
+      max: 2,
+      value: value,
+      create: function(/*event, ui*/) {
+        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+      },
+      slide: function(event, ui) {
+        radios.filter('[value=' + ui.value + ']').click();
+      },
+      stop: function(event, ui) {
+        $(ui.handle).css('margin-left', -16 * ui.value + 'px');
 
-      // Save change for origin.
-      var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-      var action = htmlUtils.getCurrentClass($(element).parents('.clicker'));
-      syncSettings(origin, action);
-    },
-  }).appendTo(element);
+        // Save change for origin.
+        var origin = radios.filter('[value=' + ui.value + ']')[0].name;
+        var setting = htmlUtils.getCurrentClass($(this).parents('.clicker'));
+        syncSettings(origin, setting);
+      },
+    }).appendTo(this);
 
-  radios.change(function() {
-    slider.slider('value', radios.filter(':checked').val());
+    radios.change(function() {
+      slider.slider('value', radios.filter(':checked').val());
+    });
   });
 }
 
