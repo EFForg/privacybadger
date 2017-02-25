@@ -14,7 +14,6 @@ SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
 THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 
 
-
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
 
@@ -70,12 +69,12 @@ class CookieTest(pbtest.PBSeleniumTest):
         for i in range(60):
                 self.load_pb_ui(SITE1_URL)
                 self.get_tracker_state()
-                
+
                 if THIRD_PARTY_TRACKER in self.cookieBlocked:
                     print("Popup UI has been updated. Yay!")
                     break
                 window_utils.close_windows_with_url(self.driver, self.popup_url)
-                window_utils.close_windows_with_url(self.driver, PU_URL)
+                window_utils.close_windows_with_url(self.driver, self.popup_url)
                 print("popup UI has not been updated yet. try again in 10 seconds")
                 time.sleep(10)
 
@@ -114,7 +113,6 @@ class CookieTest(pbtest.PBSeleniumTest):
         target_url = target_scheme_and_host + "/*"
         javascript_src = "setTabToUrl('" + target_url + "');"
         self.js(javascript_src)
-        #print "executed " + javascript_src
 
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
