@@ -155,6 +155,7 @@ var _multiDomainFirstPartiesArray = [
   ["xiami.com", "alipay.com"],
   ["zendesk.com", "zopim.com"],
   ["zonealarm.com", "zonelabs.com"],
+  ["archive.org", "openlibrary.org"],
   ["dummy"]
 ];
 

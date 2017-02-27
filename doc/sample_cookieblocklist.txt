@@ -387,6 +387,7 @@ player.ooyala.com
 tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
+openlibrary.org
 nominatim.openstreetmap.org
 tile.openstreetmap.fr
 tile.openstreetmap.org
