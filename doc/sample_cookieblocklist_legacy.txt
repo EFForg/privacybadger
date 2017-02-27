@@ -387,6 +387,7 @@
 @@||tile.opencyclemap.org^$third-party
 @@||tile2.opencyclemap.org^$third-party
 @@||openlayers.org^$third-party
+@@||openlibrary.org^$third-party
 @@||nominatim.openstreetmap.org^$third-party
 @@||tile.openstreetmap.fr^$third-party
 @@||tile.openstreetmap.org^$third-party
