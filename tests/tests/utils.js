@@ -133,32 +133,39 @@
     );
   });
 
-  asyncTest("rateLimit should only allow one call per interval", () => {
+  asyncTest("rateLimit", () => {
     let start_ts = Date.now(),
       call_count = 0,
       interval = 100,
       num_tests = 5;
 
-    expect(num_tests);
+    expect(num_tests * 3); // each test performs multiple assertions
 
-    let fn = utils.rateLimit((i) => {
+    let fn = utils.rateLimit(function (password, i) {
       // check timestamps
       let elapsed_actual = Date.now() - start_ts;
 
       // check call count
       // time elapsed divided by interval provides expected number of calls
       ok(call_count == Math.round(elapsed_actual / interval),
-         "function call count matches expectation");
+         "rateLimit should only allow one call per interval");
       call_count++;
 
+      // check args
+      ok(password == "qwerty" && i+1 == call_count,
+         "rateLimit should preserve args");
+
+      // check context
+      ok(this.foo == "bar", "rateLimit should preserve context");
+
       // resume QUnit tests once we're done here
-      if (i == num_tests - 1) {
+      if (call_count == num_tests) {
         start();
       }
-    }, interval);
+    }, interval, {foo:"bar"});
 
     for (let i = 0; i < num_tests; i++) {
-      fn(i);
+      fn("qwerty", i);
     }
   });
 })();
