@@ -136,7 +136,7 @@
   asyncTest("rateLimit should only allow one call per interval", () => {
     let start_ts = Date.now(),
       call_count = 0,
-      delay = 100,
+      interval = 100,
       num_tests = 5;
 
     expect(num_tests);
@@ -146,8 +146,8 @@
       let elapsed_actual = Date.now() - start_ts;
 
       // check call count
-      // time elapsed divided by delay provides expected number of calls
-      ok(call_count == Math.round(elapsed_actual / delay),
+      // time elapsed divided by interval provides expected number of calls
+      ok(call_count == Math.round(elapsed_actual / interval),
          "function call count matches expectation");
       call_count++;
 
@@ -155,7 +155,7 @@
       if (i == num_tests - 1) {
         start();
       }
-    }, delay);
+    }, interval);
 
     for (let i = 0; i < num_tests; i++) {
       fn(i);

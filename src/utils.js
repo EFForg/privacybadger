@@ -219,7 +219,7 @@ function oneDayFromNow(){
 
 /**
  * Creates a rate-limited function that delays invoking `fn` until after
- * `delay` milliseconds have elapsed since the last time the rate-limited
+ * `interval` milliseconds have elapsed since the last time the rate-limited
  * function was invoked.
  *
  * Does not drop invocations (lossless), unlike `_.throttle`.
@@ -231,11 +231,11 @@ function oneDayFromNow(){
  * http://stackoverflow.com/questions/23072815/throttle-javascript-function-calls-but-with-queuing-dont-discard-calls
  *
  * @param {Function} fn The function to rate-limit.
- * @param {number} delay The number of milliseconds to rate-limit invocations to.
+ * @param {number} interval The number of milliseconds to rate-limit invocations to.
  * @param {Object} context The context object (optional).
  * @returns {Function} Returns the new rate-limited function.
  **/
-function rateLimit(fn, delay, context) {
+function rateLimit(fn, interval, context) {
   let canInvoke = true,
     queue = [],
     timer_id,
@@ -255,7 +255,7 @@ function rateLimit(fn, delay, context) {
     if (queue.length) {
       item = queue.splice(0, 1)[0];
       fn.apply(item.context, item.arguments); // invoke fn
-      timer_id = window.setTimeout(timeEnd, delay);
+      timer_id = window.setTimeout(timeEnd, interval);
     } else {
       canInvoke = true;
     }
