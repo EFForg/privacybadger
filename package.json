@@ -4,7 +4,7 @@
   "description": "Developer tools for Privacy Badger for Chrome.",
   "dependencies": {
     "eslint": "~3.3.1",
-    "web-ext": "~1.6.0"
+    "web-ext": "^1.7.0"
   },
   "private": true
 }

@@ -3,6 +3,7 @@
 @@||112.2o7.net^$third-party
 @@||5min.com^$third-party
 @@||accuweather.com^$third-party
+@@||actionnetwork.org^$third-party
 @@||auth.adobe.com^$third-party
 @@||wwwimages.adobe.com^$third-party
 @@||xsdownload.adobe.com^$third-party
@@ -386,6 +387,7 @@
 @@||tile.opencyclemap.org^$third-party
 @@||tile2.opencyclemap.org^$third-party
 @@||openlayers.org^$third-party
+@@||openlibrary.org^$third-party
 @@||nominatim.openstreetmap.org^$third-party
 @@||tile.openstreetmap.fr^$third-party
 @@||tile.openstreetmap.org^$third-party

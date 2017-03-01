@@ -16,7 +16,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
-        self.load_url(pbtest.PB_CHROME_POPUP_URL, wait_on_site=1)
+        self.load_url(self.popup_url, wait_on_site=1)
         if close_overlay:
             # Click 'X' element to close overlay.
             try:
@@ -27,7 +27,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             # Element will fade out so wait for it to disappear.
             try:
-                WebDriverWait(self.driver, 3).until(
+                WebDriverWait(self.driver, 5).until(
                     expected_conditions.invisibility_of_element_located(
                         (By.ID, "fittslaw")))
             except TimeoutException:
@@ -59,13 +59,13 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Make sure first run comic not opened in same window.
         time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        if self.driver.current_url != self.popup_url:
             self.fail("First run comic not opened in new window")
 
         # Look for first run page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
-            if self.driver.current_url.startswith(pbtest.PB_CHROME_FIRST_RUN_PAGE_URL):
+            if self.driver.current_url.startswith(self.first_run_url):
                 return
 
         self.fail("First run comic not opened after clicking link in popup overlay")
@@ -82,13 +82,13 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Make sure first run page not opened in same window.
         time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        if self.driver.current_url != self.popup_url:
             self.fail("Options page not opened in new window")
 
         # Look for first run page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
-            if self.driver.current_url == pbtest.PB_CHROME_FIRST_RUN_PAGE_URL:
+            if self.driver.current_url == self.first_run_url:
                 return
 
         self.fail("Options page not opened after clicking help button on popup")
@@ -105,13 +105,13 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Make sure options page not opened in same window.
         time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        if self.driver.current_url != self.popup_url:
             self.fail("Options page not opened in new window")
 
         # Look for options page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
-            if self.driver.current_url == pbtest.PB_CHROME_OPTIONS_PAGE_URL:
+            if self.driver.current_url == self.popup_url:
                 return
 
         self.fail("Options page not opened after clicking options button on popup")
@@ -124,21 +124,22 @@ class PopupTest(pbtest.PBSeleniumTest):
             trackers_link = self.driver.find_element_by_link_text("trackers")
         except NoSuchElementException:
             self.fail("Unable to find trackers link on popup")
+
+        handles_before = set(self.driver.window_handles)
         trackers_link.click()
 
         # Make sure EFF website not opened in same window.
-        time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        time.sleep(5)
+        if self.driver.current_url != self.popup_url:
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        eff_url = "https://www.eff.org/privacybadger#trackers"
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == eff_url:
-                return
+        new_handle = set(self.driver.window_handles).difference(handles_before)
+        self.driver.switch_to_window(new_handle.pop())
 
-        self.fail("EFF website not opened after clicking trackers link")
+        eff_url = "https://www.eff.org/privacybadger#trackers"
+        self.assertEqual(self.driver.current_url, eff_url,
+            "EFF website should open after clicking donate button on popup")
 
     def test_disable_enable_buttons(self):
         """Ensure disable/enable buttons change popup state."""
@@ -179,38 +180,29 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Ensure error button opens report error overlay."""
         self.open_popup()
 
+        # TODO: selenium firefox has a bug where is_displayed() is always True
+        # for these elements. But we should use is_displayed when this is fixed.
+        #overlay_input = self.driver.find_element_by_id("error_input")
+        #self.assertTrue(overlay_input.is_displayed(), "User input" + error_message)
+
+        # assert error reporting menu is not open
+        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
+                'error reporting should not be open')
+
         # Click error button to open overlay for reporting sites.
-        try:
-            error_button = self.driver.find_element_by_id("error")
-        except NoSuchElementException:
-            self.fail("Unable to find error button on popup")
+        error_button = self.driver.find_element_by_id("error")
         error_button.click()
         time.sleep(1)
 
-        try:
-            overlay_input = self.driver.find_element_by_id("error_input")
-            overlay_submit = self.driver.find_element_by_id("report_button")
-            overlay_cancel = self.driver.find_element_by_id("report_cancel")
-            overlay_close = self.driver.find_element_by_id("report_close")
-        except NoSuchElementException:
-            self.fail("Unable to find submit error overlay elements on popup")
+        # check error is open
+        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 1,
+                'error reporting should be open')
 
-        # Make sure overlay elements are displayed.
-        error_message = " should be displayed on popup overlay"
-        self.assertTrue(overlay_input.is_displayed(), "User input" + error_message)
-        self.assertTrue(overlay_submit.is_displayed(), "Submit button" + error_message)
-        self.assertTrue(overlay_cancel.is_displayed(), "Cancel button" + error_message)
-        self.assertTrue(overlay_close.is_displayed(), "Close element" + error_message)
-
+        overlay_close = self.driver.find_element_by_id("report_close")
         overlay_close.click()
         time.sleep(1)
-
-        #Make sure overlay is hidden after clicking close element.
-        error_message = " should not be displayed on popup overlay"
-        self.assertFalse(overlay_input.is_displayed(), "User input" + error_message)
-        self.assertFalse(overlay_submit.is_displayed(), "Submit button" + error_message)
-        self.assertFalse(overlay_cancel.is_displayed(), "Cancel button" + error_message)
-        self.assertFalse(overlay_close.is_displayed(), "Close element" + error_message)
+        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
+                'error reporting should be closed again')
 
     def test_donate_button(self):
         """Ensure donate button opens EFF website."""
@@ -220,21 +212,22 @@ class PopupTest(pbtest.PBSeleniumTest):
             donate_button = self.driver.find_element_by_id("donate")
         except NoSuchElementException:
             self.fail("Unable to find donate button on popup")
+        handles_before = set(self.driver.window_handles)
+
         donate_button.click()
 
         # Make sure EFF website not opened in same window.
-        time.sleep(1)
-        if self.driver.current_url != pbtest.PB_CHROME_POPUP_URL:
+        time.sleep(5)
+        if self.driver.current_url != self.popup_url:
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        eff_url = "https://supporters.eff.org/donate/support-privacy-badger"
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == eff_url:
-                return
+        new_handle = set(self.driver.window_handles).difference(handles_before)
+        self.driver.switch_to_window(new_handle.pop())
 
-        self.fail("EFF website not opened after clicking donate button on popup")
+        eff_url = "https://supporters.eff.org/donate/support-privacy-badger"
+        self.assertEqual(self.driver.current_url, eff_url,
+            "EFF website should open after clicking donate button on popup")
 
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@
 112.2o7.net
 5min.com
 accuweather.com
+actionnetwork.org
 auth.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
@@ -386,6 +387,7 @@ player.ooyala.com
 tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
+openlibrary.org
 nominatim.openstreetmap.org
 tile.openstreetmap.fr
 tile.openstreetmap.org

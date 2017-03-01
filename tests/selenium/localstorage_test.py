@@ -41,7 +41,7 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
             self.assertEqual(PB_POLICY_HASH_LEN, len(policy_hash))
 
     def test_should_init_local_storage_entries(self):
-        self.load_url(pbtest.PB_CHROME_BG_URL, wait_on_site=3)
+        self.load_url(self.bg_url, wait_on_site=3)
         js = self.js
         self.check_policy_download()
         self.assertEqual(js("return constants.COOKIE_BLOCK_LIST_URL"),

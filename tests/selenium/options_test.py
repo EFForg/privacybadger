@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import os
 import unittest
-import pbtest
+
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
+import pbtest
 
 class OptionsPageTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
@@ -22,8 +24,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             (By.CSS_SELECTOR, css_selector)))
 
     def load_options_page(self):
-        self.load_url(pbtest.PB_CHROME_BG_URL)  # load a dummy page
-        self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL, wait_on_site=1)
+        self.load_url(self.bg_url)  # load a dummy page
+        self.load_url(self.options_url, wait_on_site=1)
 
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""
@@ -42,6 +44,9 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
                       " expected (%s)"
                       % (self.driver.title, localized_title))
 
+
+    @unittest.skipIf(os.environ.get('BROWSER') == 'firefox',
+            "selenium move_to is currently broken in firefox")
     def test_should_display_tooltips_on_hover(self):
         driver = self.driver
         find_el_by_css = self.find_el_by_css  # find with WebDriver wait
@@ -109,7 +114,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         """Ensure origin is displayed and removed properly."""
         self.add_test_origin("pbtest.org", "block")
 
-        self.load_url(pbtest.PB_CHROME_OPTIONS_PAGE_URL)
+        self.load_url(self.options_url)
         origins = self.driver.find_element_by_id("blockedResourcesInner")
 
         # Remove displayed origin.
