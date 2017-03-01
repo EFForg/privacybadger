@@ -25,7 +25,6 @@
       "lib/punycode.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
-      "lib/sha1.js",
       "lib/underscore-min.js",
       "data/surrogates.js",
       "src/surrogates.js",

@@ -213,6 +213,18 @@ function oneDayFromNow(){
   return Date.now() + oneDay();
 }
 
+function buf2hex(buffer) { // buffer is an ArrayBuffer
+  return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
+}
+
+function sha1(input, callback) {
+  return window.crypto.subtle.digest(
+    { name: "SHA-1", },
+    new TextEncoder().encode(input)
+  ).then(hashed => {
+    return callback(buf2hex(hashed));
+  });
+}
 
 /************************************** exports */
 var exports = {};
@@ -226,6 +238,7 @@ exports.makeURI = makeURI;
 exports.xhrRequest = xhrRequest;
 exports.explodeSubdomains = explodeSubdomains;
 exports.getRandom = getRandom;
+exports.sha1 = sha1;
 exports.Utils = Utils;
 
 return exports;
