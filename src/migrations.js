@@ -54,7 +54,7 @@ exports.Migrations= {
     for(var domain in action_map.getItemClones()){
       if(badger.storage.getNextUpdateForDomain(domain) === 0){
         // Recheck at a random time in the next week
-        var recheckTime = utils.getRandom(utils.oneDayFromNow(), utils.nDaysFromNow(7));
+        var recheckTime = utils.getRandom(Date.now(), utils.nDaysFromNow(7));
         badger.storage.touchDNTRecheckTime(domain, recheckTime);
       }
     }
