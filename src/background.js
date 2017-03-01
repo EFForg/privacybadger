@@ -331,7 +331,7 @@ Badger.prototype = {
   * @param {String} domain The domain to check
   * @param {timestamp} nextUpdate time when the DNT policy should be rechecked
   */
-  checkForDNTPolicy: function(domain, nextUpdate){
+  checkForDNTPolicy: utils.rateLimit(function (domain, nextUpdate) {
     if(Date.now() < nextUpdate){ return; }
     log('Checking', domain, 'for DNT policy.');
     var badger = this;
@@ -348,7 +348,7 @@ Badger.prototype = {
       var recheckTime = utils.getRandom(utils.oneDayFromNow(), utils.nDaysFromNow(7));
       badger.storage.touchDNTRecheckTime(domain, recheckTime);
     });
-  },
+  }, utils.oneSecond() * 5), // rate-limited to five seconds
 
 
   /**

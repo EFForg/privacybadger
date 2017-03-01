@@ -201,8 +201,16 @@ function getRandom(min, max){
   return min + Math.floor(Math.random() * (max - min + 1));
 }
 
+function oneSecond() {
+  return 1000;
+}
+
+function oneMinute() {
+  return oneSecond() * 60;
+}
+
 function oneHour(){
-  return 1000 * 60 * 60;
+  return oneMinute() * 60;
 }
 
 function oneDay(){
@@ -281,6 +289,8 @@ exports.nDaysFromNow = nDaysFromNow;
 exports.oneDayFromNow = oneDayFromNow;
 exports.oneDay = oneDay;
 exports.oneHour = oneHour;
+exports.oneMinute = oneMinute;
+exports.oneSecond = oneSecond;
 exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
 exports.Utils = Utils;
