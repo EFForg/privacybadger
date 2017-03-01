@@ -187,7 +187,7 @@ Badger.prototype = {
    **/
   initializeCookieBlockList: function(){
     this.updateCookieBlockList();
-    setInterval(this.updateCookieBlockList, utils.oneDay());
+    setInterval(this.updateCookieBlockList.bind(this), utils.oneDay());
   },
 
   /**
