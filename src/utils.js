@@ -278,6 +278,19 @@ function rateLimit(fn, interval, context) {
   return limited;
 }
 
+function buf2hex(buffer) { // buffer is an ArrayBuffer
+  return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
+}
+
+function sha1(input, callback) {
+  return window.crypto.subtle.digest(
+    { name: "SHA-1", },
+    new TextEncoder().encode(input)
+  ).then(hashed => {
+    return callback(buf2hex(hashed));
+  });
+}
+
 /************************************** exports */
 var exports = {};
 
@@ -293,6 +306,7 @@ exports.oneMinute = oneMinute;
 exports.oneSecond = oneSecond;
 exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
+exports.sha1 = sha1;
 exports.Utils = Utils;
 exports.xhrRequest = xhrRequest;
 

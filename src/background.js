@@ -374,11 +374,12 @@ Badger.prototype = {
         callback(successStatus);
         return;
       }
-      var hash = window.SHA1(response); // eslint-disable-line new-cap
-      if(dnt_hashes.hasItem(hash)){
-        successStatus = true;
-      }
-      callback(successStatus);
+      utils.sha1(response, function(hash) {
+        if(dnt_hashes.hasItem(hash)){
+          successStatus = true;
+        }
+        callback(successStatus);
+      });
     });
   }, utils.oneSecond() * 2), // rate-limited to every two seconds
 
