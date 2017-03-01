@@ -281,8 +281,8 @@ Badger.prototype = {
   initializeDNT: function(){
     this.updateDNTPolicyHashes();
     this.recheckDNTPolicyForDomains();
-    setInterval(this.recheckDNTPolicyForDomains, utils.oneHour());
-    setInterval(this.updateDNTPolicyHashes, utils.oneDay() * 4);
+    setInterval(this.recheckDNTPolicyForDomains.bind(this), utils.oneHour());
+    setInterval(this.updateDNTPolicyHashes.bind(this), utils.oneDay() * 4);
   },
 
   /**
