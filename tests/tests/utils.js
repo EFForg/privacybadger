@@ -132,4 +132,33 @@
       "New York Times script URL should not match any surrogates"
     );
   });
+
+  asyncTest("rateLimit should only allow one call per interval", () => {
+    let start_ts = Date.now(),
+      call_count = 0,
+      delay = 100,
+      num_tests = 5;
+
+    expect(num_tests);
+
+    let fn = utils.rateLimit((i) => {
+      // check timestamps
+      let elapsed_actual = Date.now() - start_ts;
+
+      // check call count
+      // time elapsed divided by delay provides expected number of calls
+      ok(call_count == Math.round(elapsed_actual / delay),
+         "function call count matches expectation");
+      call_count++;
+
+      // resume QUnit tests once we're done here
+      if (i == num_tests - 1) {
+        start();
+      }
+    }, delay);
+
+    for (let i = 0; i < num_tests; i++) {
+      fn(i);
+    }
+  });
 })();

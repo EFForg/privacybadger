@@ -217,22 +217,72 @@ function oneDayFromNow(){
   return nDaysFromNow(1);
 }
 
+/**
+ * Creates a rate-limited function that delays invoking `fn` until after
+ * `delay` milliseconds have elapsed since the last time the rate-limited
+ * function was invoked.
+ *
+ * The rate-limited function comes with a `cancel` method to cancel delayed
+ * `fn` invocations.
+ *
+ * Adapted from
+ * http://stackoverflow.com/questions/23072815/throttle-javascript-function-calls-but-with-queuing-dont-discard-calls
+ *
+ * @param {Function} fn The function to rate-limit.
+ * @param {number} delay The number of milliseconds to rate-limit invocations to.
+ * @param {Object} context The context object (optional).
+ * @returns {Function} Returns the new rate-limited function.
+ **/
+function rateLimit(fn, delay, context) {
+  let canInvoke = true,
+    queue = [],
+    timer_id,
+    limited = function () {
+      queue.push({
+        context: context || this,
+        arguments: Array.prototype.slice.call(arguments)
+      });
+      if (canInvoke) {
+        canInvoke = false;
+        timeEnd();
+      }
+    };
 
+  function timeEnd() {
+    let item;
+    if (queue.length) {
+      item = queue.splice(0, 1)[0];
+      fn.apply(item.context, item.arguments); // invoke fn
+      timer_id = window.setTimeout(timeEnd, delay);
+    } else {
+      canInvoke = true;
+    }
+  }
+
+  limited.cancel = function () {
+    window.clearTimeout(timer_id);
+    queue = [];
+    canInvoke = true;
+  };
+
+  return limited;
+}
 
 /************************************** exports */
 var exports = {};
 
-exports.oneHour = oneHour;
-exports.oneDay = oneDay;
-exports.oneDayFromNow = oneDayFromNow;
-exports.nDaysFromNow = nDaysFromNow;
-exports.removeElementFromArray = removeElementFromArray;
 exports.estimateMaxEntropy = estimateMaxEntropy;
-exports.makeURI = makeURI;
-exports.xhrRequest = xhrRequest;
 exports.explodeSubdomains = explodeSubdomains;
 exports.getRandom = getRandom;
+exports.makeURI = makeURI;
+exports.nDaysFromNow = nDaysFromNow;
+exports.oneDayFromNow = oneDayFromNow;
+exports.oneDay = oneDay;
+exports.oneHour = oneHour;
+exports.rateLimit = rateLimit;
+exports.removeElementFromArray = removeElementFromArray;
 exports.Utils = Utils;
+exports.xhrRequest = xhrRequest;
 
 return exports;
 /************************************** exports */
