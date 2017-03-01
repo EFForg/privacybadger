@@ -222,6 +222,8 @@ function oneDayFromNow(){
  * `delay` milliseconds have elapsed since the last time the rate-limited
  * function was invoked.
  *
+ * Does not drop invocations (lossless), unlike `_.throttle`.
+ *
  * The rate-limited function comes with a `cancel` method to cancel delayed
  * `fn` invocations.
  *
