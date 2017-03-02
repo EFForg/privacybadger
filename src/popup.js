@@ -257,7 +257,6 @@ function refreshPopup(tabId) {
   //TODO this is calling get action and then being used to call get Action
   var origins = badger.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
-    hideNoInitialBlockingLink();
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
     $('#number_trackers').text('0');
     return;
@@ -341,7 +340,6 @@ function refreshPopup(tabId) {
       slider.slider("value",radios.filter(':checked').val());
     });
   });
-  adjustNoInitialBlockingLink();
 
   // Hide elements for removing origins (controlled from the options page).
   // Popup shows what's loaded for the current page so it doesn't make sense
@@ -371,29 +369,6 @@ function updateOrigin(event){
   var origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
-  hideNoInitialBlockingLink();
-}
-
-/**
-* Hide #noBlockingLink
-*/
-function hideNoInitialBlockingLink() {
-  $("#noBlockingLink").hide();
-}
-
-/**
-* Hide or show additional info depending on if there is any additional info
-*/
-function adjustNoInitialBlockingLink() {
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  var origins = badger.blockedOriginCount(tabId);
-  var totalBlocked = badger.activelyBlockedOriginCount(tabId);
-  var userBlocked = badger.userConfiguredOriginCount(tabId);
-  if (origins > 0 && totalBlocked === 0 && userBlocked === 0) {
-    $("#noBlockingLink").show();
-  } else {
-    $("#noBlockingLink").hide();
-  }
 }
 
 var tooltipDelay = 300;

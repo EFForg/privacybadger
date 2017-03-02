@@ -213,14 +213,6 @@ font-size: 16px;
   background-color: #EC9329;
   color: #333;
 }
-#noBlockingLink{
-  text-align: center;
-  z-index: 20;
-  margin: auto;
-}
-#noBlockingLink a {
-  color:#4183c4;
-}
 .clickerContainer {
   max-height: 290px;
   overflow-y: auto;
