@@ -440,25 +440,6 @@ Badger.prototype = {
   },
 
   /**
-   * Counts the actively blocked trackers
-   * TODO: move to popup.js and refactor
-   *
-   * @param tabId Tab ID to count for
-   * @returns {Integer} The number of blocked trackers
-   */
-  activelyBlockedOriginCount: function(tabId){
-    var self = this;
-    return self.getAllOriginsForTab(tabId)
-      .reduce(function(memo,origin){
-        var action = self.storage.getBestAction(origin);
-        if(action && action !== "noaction"){
-          memo+=1;
-        }
-        return memo;
-      }, 0);
-  },
-
-  /**
    * Counts total blocked trackers and blocked cookies trackers
    * TODO: ugly code, refactor
    *
@@ -479,24 +460,6 @@ Badger.prototype = {
       }, 0);
   },
 
-  /**
-   * Counts trackers blocked by the user
-   *
-   * TODO: ugly code refactor
-   * @param tabId Tab ID to count for
-   * @returns {Integer} The number of blocked trackers
-   */
-  userConfiguredOriginCount: function(tabId){
-    var self = this;
-    return self.getAllOriginsForTab(tabId)
-      .reduce(function(memo,origin){
-        var action = self.storage.getBestAction(origin);
-        if(action && action.lastIndexOf("user", 0) === 0){
-          memo+=1;
-        }
-        return memo;
-      }, 0);
-  },
   /**
    * Update page action badge with current count
    * @param {Integer} tabId chrome tab id
