@@ -232,9 +232,6 @@ function oneDayFromNow(){
  *
  * Does not drop invocations (lossless), unlike `_.throttle`.
  *
- * The rate-limited function comes with a `cancel` method to cancel delayed
- * `fn` invocations.
- *
  * Adapted from
  * http://stackoverflow.com/questions/23072815/throttle-javascript-function-calls-but-with-queuing-dont-discard-calls
  *
@@ -246,7 +243,7 @@ function oneDayFromNow(){
 function rateLimit(fn, interval, context) {
   let canInvoke = true,
     queue = [],
-    timer_id,
+    timer_id, // eslint-disable-line no-unused-vars
     limited = function () {
       queue.push({
         context: context || this,
@@ -269,11 +266,12 @@ function rateLimit(fn, interval, context) {
     }
   }
 
-  limited.cancel = function () {
-    window.clearTimeout(timer_id);
-    queue = [];
-    canInvoke = true;
-  };
+  // TODO useful for debugging
+  //limited.cancel = function () {
+  //  window.clearTimeout(timer_id);
+  //  queue = [];
+  //  canInvoke = true;
+  //};
 
   return limited;
 }
