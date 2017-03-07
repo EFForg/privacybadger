@@ -331,45 +331,34 @@ Badger.prototype = {
   * @param {String} domain The domain to check
   * @param {timestamp} nextUpdate time when the DNT policy should be rechecked
   */
-  checkForDNTPolicy: (function () {
-    // used to avoid checking the same domain multiple times
-    // TODO this doesn't work with rateLimit's cancellation feature
-    let domains_in_queue = {};
+  checkForDNTPolicy: function (domain, nextUpdate) {
+    if (Date.now() < nextUpdate) {
+      // not yet time
+      return;
+    }
 
-    return function (domain, nextUpdate) {
-      if (domains_in_queue.hasOwnProperty(domain)) {
-        // domain is queued for checking or being checked right now
-        return;
+    log('Checking', domain, 'for DNT policy.');
+
+    var badger = this;
+
+    // update timestamp first;
+    // avoids queuing the same domain multiple times
+    var recheckTime = utils.getRandom(
+      utils.oneDayFromNow(),
+      utils.nDaysFromNow(7)
+    );
+    badger.storage.touchDNTRecheckTime(domain, recheckTime);
+
+    this.checkPrivacyBadgerPolicy(domain, function (success) {
+      if (success) {
+        log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
+        badger.storage.setupDNT(domain);
+      } else {
+        log('It looks like', domain, 'has NOT adopted Do Not Track');
+        badger.storage.revertDNT(domain);
       }
-      if (Date.now() < nextUpdate) {
-        // not yet time
-        return;
-      }
-
-      log('Checking', domain, 'for DNT policy.');
-      domains_in_queue[domain] = true;
-
-      var badger = this;
-
-      this.checkPrivacyBadgerPolicy(domain, function (success) {
-        if (success) {
-          log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
-          badger.storage.setupDNT(domain);
-        } else {
-          log('It looks like', domain, 'has NOT adopted Do Not Track');
-          badger.storage.revertDNT(domain);
-        }
-
-        var recheckTime = utils.getRandom(
-          utils.oneDayFromNow(),
-          utils.nDaysFromNow(7)
-        );
-        badger.storage.touchDNTRecheckTime(domain, recheckTime);
-
-        delete domains_in_queue[domain];
-      });
-    };
-  }()),
+    });
+  },
 
 
   /**

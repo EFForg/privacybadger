@@ -243,7 +243,7 @@ function oneDayFromNow(){
 function rateLimit(fn, interval, context) {
   let canInvoke = true,
     queue = [],
-    timer_id, // eslint-disable-line no-unused-vars
+    timer_id,
     limited = function () {
       queue.push({
         context: context || this,
@@ -266,12 +266,12 @@ function rateLimit(fn, interval, context) {
     }
   }
 
-  // TODO useful for debugging
-  //limited.cancel = function () {
-  //  window.clearTimeout(timer_id);
-  //  queue = [];
-  //  canInvoke = true;
-  //};
+  // useful for debugging
+  limited.cancel = function () {
+    window.clearTimeout(timer_id);
+    queue = [];
+    canInvoke = true;
+  };
 
   return limited;
 }
