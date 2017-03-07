@@ -384,7 +384,7 @@ Badger.prototype = {
         callback(successStatus);
       });
     });
-  }, utils.oneSecond() * 2), // rate-limited to every two seconds
+  }, utils.oneSecond()), // rate-limited to at least one second apart
 
   /**
    * Default privacy badger settings
