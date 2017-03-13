@@ -201,16 +201,79 @@ function getRandom(min, max){
   return min + Math.floor(Math.random() * (max - min + 1));
 }
 
+function oneSecond() {
+  return 1000;
+}
+
+function oneMinute() {
+  return oneSecond() * 60;
+}
+
 function oneHour(){
-  return 1000 * 60 * 60;
+  return oneMinute() * 60;
 }
 
 function oneDay(){
   return oneHour() * 24;
 }
 
+function nDaysFromNow(n){
+  return Date.now() + (oneDay() * n);
+}
+
 function oneDayFromNow(){
-  return Date.now() + oneDay();
+  return nDaysFromNow(1);
+}
+
+/**
+ * Creates a rate-limited function that delays invoking `fn` until after
+ * `interval` milliseconds have elapsed since the last time the rate-limited
+ * function was invoked.
+ *
+ * Does not drop invocations (lossless), unlike `_.throttle`.
+ *
+ * Adapted from
+ * http://stackoverflow.com/questions/23072815/throttle-javascript-function-calls-but-with-queuing-dont-discard-calls
+ *
+ * @param {Function} fn The function to rate-limit.
+ * @param {number} interval The number of milliseconds to rate-limit invocations to.
+ * @param {Object} context The context object (optional).
+ * @returns {Function} Returns the new rate-limited function.
+ **/
+function rateLimit(fn, interval, context) {
+  let canInvoke = true,
+    queue = [],
+    timer_id,
+    limited = function () {
+      queue.push({
+        context: context || this,
+        arguments: Array.prototype.slice.call(arguments)
+      });
+      if (canInvoke) {
+        canInvoke = false;
+        timeEnd();
+      }
+    };
+
+  function timeEnd() {
+    let item;
+    if (queue.length) {
+      item = queue.splice(0, 1)[0];
+      fn.apply(item.context, item.arguments); // invoke fn
+      timer_id = window.setTimeout(timeEnd, interval);
+    } else {
+      canInvoke = true;
+    }
+  }
+
+  // useful for debugging
+  limited.cancel = function () {
+    window.clearTimeout(timer_id);
+    queue = [];
+    canInvoke = true;
+  };
+
+  return limited;
 }
 
 function buf2hex(buffer) { // buffer is an ArrayBuffer
@@ -229,17 +292,21 @@ function sha1(input, callback) {
 /************************************** exports */
 var exports = {};
 
-exports.oneHour = oneHour;
-exports.oneDay = oneDay;
-exports.oneDayFromNow = oneDayFromNow;
-exports.removeElementFromArray = removeElementFromArray;
 exports.estimateMaxEntropy = estimateMaxEntropy;
-exports.makeURI = makeURI;
-exports.xhrRequest = xhrRequest;
 exports.explodeSubdomains = explodeSubdomains;
 exports.getRandom = getRandom;
+exports.makeURI = makeURI;
+exports.nDaysFromNow = nDaysFromNow;
+exports.oneDayFromNow = oneDayFromNow;
+exports.oneDay = oneDay;
+exports.oneHour = oneHour;
+exports.oneMinute = oneMinute;
+exports.oneSecond = oneSecond;
+exports.rateLimit = rateLimit;
+exports.removeElementFromArray = removeElementFromArray;
 exports.sha1 = sha1;
 exports.Utils = Utils;
+exports.xhrRequest = xhrRequest;
 
 return exports;
 /************************************** exports */

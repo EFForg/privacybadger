@@ -109,10 +109,7 @@ BadgerPen.prototype = {
   },
 
   touchDNTRecheckTime: function(domain, time){
-    var action_map = this.getBadgerStorageObject('action_map');
-    var domainObj = action_map.getItem(domain);
-    domainObj.nextUpdateTime = time;
-    action_map.setItem(domain, domainObj);
+    this._setupDomainAction(domain, time, "nextUpdateTime");
   },
 
   getNextUpdateForDomain: function(domain){
