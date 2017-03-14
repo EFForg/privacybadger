@@ -1,5 +1,6 @@
-env:
-  qunit: true
+globals:
+  # false to disallow overwriting
+  QUnit: false
 rules:
   indent:
     - error
