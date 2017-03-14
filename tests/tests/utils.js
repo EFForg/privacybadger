@@ -28,7 +28,6 @@
   QUnit.test("explodeSubdomains", function (assert) {
     var fqdn = "test.what.yea.eff.org";
     var subs = utils.explodeSubdomains(fqdn);
-    console.log(subs);
     assert.ok(subs.length == 4);
     assert.ok(subs[0] == fqdn);
     assert.ok(subs[3] == 'eff.org');
@@ -41,7 +40,6 @@
       assert.ok(true, "xhr calls callback");
       assert.ok(err === null, "there was no error");
       assert.ok(resp === "test passed\n", "got response text");
-      console.log(resp);
       done();
     });
   });
