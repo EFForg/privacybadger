@@ -96,6 +96,10 @@ function xhrRequest(url, callback, method){
       callback(error, error.message);
     }
   };
+  // triggered by network problems
+  xhr.onerror = function () {
+    callback({ status: 0, message: "", object: xhr }, "");
+  };
   xhr.open(method, url, true);
   xhr.send();
 }
