@@ -2,7 +2,7 @@
 (function() {
   let BACKUP = {};
 
-  module("Privacy Badger Storage", {
+  module("Storage", {
     // note: setup is not module-level, called before every test
     setup: () => {
       // back up settings and heuristic learning

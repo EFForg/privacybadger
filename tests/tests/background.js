@@ -1,6 +1,6 @@
 /* globals badger:false */
 (function() {
-  module("Privacy Badger background tests");
+  module("Background");
   asyncTest("DNT policy checking works", function(){
     expect(1);
     badger.checkForDNTPolicy('eff.org', 0, function(successStatus) {

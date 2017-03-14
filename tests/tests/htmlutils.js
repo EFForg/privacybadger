@@ -1,5 +1,5 @@
 (function() {
-  module("Privacy Badger HTML Utils");
+  module("HTML Utils");
 
   var htmlUtils = require("htmlutils").htmlUtils;
 

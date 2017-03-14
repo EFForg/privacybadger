@@ -1,7 +1,7 @@
 /* globals badger:false */
 
 (function() {
-  module("Privacy Badger Utils");
+  module("Utils");
 
   var utils = require('utils');
   var getSurrogateURI = require('surrogates').getSurrogateURI;
