@@ -327,11 +327,13 @@ Badger.prototype = {
 
 
   /**
-  * Check a domain for a DNT policy and unblock it if it has one
+  * Checks a domain for the EFF DNT policy.
+  *
   * @param {String} domain The domain to check
-  * @param {timestamp} nextUpdate time when the DNT policy should be rechecked
+  * @param {timestamp} nextUpdate Time when the DNT policy should be rechecked
+  * @param {Function} cb Callback that receives check status boolean (optional)
   */
-  checkForDNTPolicy: function (domain, nextUpdate) {
+  checkForDNTPolicy: function (domain, nextUpdate, cb) {
     if (Date.now() < nextUpdate) {
       // not yet time
       return;
@@ -349,7 +351,7 @@ Badger.prototype = {
     );
     badger.storage.touchDNTRecheckTime(domain, recheckTime);
 
-    this.checkPrivacyBadgerPolicy(domain, function (success) {
+    this._checkPrivacyBadgerPolicy(domain, function (success) {
       if (success) {
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
         badger.storage.setupDNT(domain);
@@ -357,17 +359,22 @@ Badger.prototype = {
         log('It looks like', domain, 'has NOT adopted Do Not Track');
         badger.storage.revertDNT(domain);
       }
+      if (typeof cb == "function") {
+        cb(success);
+      }
     });
   },
 
 
   /**
-  * Asyncronously check if the domain has /.well-known/dnt-policy.txt and add it to the user whitelist if it does
-  * TODO: Use sha256
+  * Asyncronously checks if the domain has /.well-known/dnt-policy.txt.
+  *
+  * Rate-limited to at least one second apart.
+  *
   * @param {String} origin The host to check
   * @param {Function} callback callback(successStatus)
   */
-  checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
+  _checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
     var successStatus = false;
     var url = "https://" + origin + "/.well-known/dnt-policy.txt";
     var dnt_hashes = this.storage.getBadgerStorageObject('dnt_hashes');
@@ -377,6 +384,7 @@ Badger.prototype = {
         callback(successStatus);
         return;
       }
+      // TODO Use sha256
       utils.sha1(response, function(hash) {
         if(dnt_hashes.hasItem(hash)){
           successStatus = true;
@@ -384,7 +392,7 @@ Badger.prototype = {
         callback(successStatus);
       });
     });
-  }, utils.oneSecond()), // rate-limited to at least one second apart
+  }, utils.oneSecond()),
 
   /**
    * Default privacy badger settings
