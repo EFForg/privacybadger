@@ -229,7 +229,7 @@ Badger.prototype = {
     var self = this;
     utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function(err,response){
       if(err){
-        console.error('Problem fetching privacy badger policy hash list at',
+        console.error('Problem fetching cookieblock list at',
                   constants.COOKIE_BLOCK_LIST_URL, err.status, err.message);
         return;
       }
@@ -305,7 +305,7 @@ Badger.prototype = {
     var self = this;
     utils.xhrRequest(constants.DNT_POLICIES_URL, function(err,response){
       if(err){
-        console.error('Problem fetching privacy badger policy hash list at',
+        console.error('Problem fetching DNT policy hash list at',
                  constants.DNT_POLICIES_URL, err.status, err.message);
         return;
       }
