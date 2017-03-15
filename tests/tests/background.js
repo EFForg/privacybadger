@@ -6,12 +6,30 @@
 
   let utils = require('utils');
 
-  let server;
+  let server,
+    dnt_policy_txt;
 
   QUnit.module("Background", {
+    before: (assert) => {
+      let done = assert.async();
+
+      // fetch locally stored DNT policy
+      utils.xhrRequest(POLICY_URL, function (err, data) {
+        dnt_policy_txt = data;
+        done();
+      });
+    },
+
     beforeEach: (/*assert*/) => {
       server = sinon.fakeServer.create();
+
+      server.respondWith(
+        "GET",
+        "https://eff.org/.well-known/dnt-policy.txt",
+        [200, {}, dnt_policy_txt]
+      );
     },
+
     afterEach: (/*assert*/) => {
       server.restore();
     }
@@ -26,16 +44,7 @@
       done();
     });
 
-    // need to let XHR to fetch DNT policy go through for real
-    server.xhr.useFilters = true;
-    server.xhr.addFilter(function (method, url) {
-      return url == POLICY_URL;
-    });
-    // fetch locally stored DNT policy
-    utils.xhrRequest(POLICY_URL, function (err, dnt_policy) {
-      // respond from fake server
-      server.requests[0].respond(200, {}, dnt_policy);
-    });
+    server.respond();
   });
 
 }());
