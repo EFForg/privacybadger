@@ -101,6 +101,7 @@ function onBeforeRequest(details){
       if (type == 'script') {
         var surrogate = getSurrogateURI(url, requestDomain);
         if (surrogate) {
+          log('[Privacy Badger] replaced ' + url + ' with ' + surrogate);
           return {redirectUrl: surrogate};
         }
       }
@@ -112,6 +113,7 @@ function onBeforeRequest(details){
       };
       chrome.tabs.sendMessage(tab_id, msg);
 
+      log('[Privacy Badger] blocked ' + url);
       return {cancel: true};
     }
   }
