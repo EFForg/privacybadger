@@ -1,6 +1,6 @@
 /*
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
- * Copyright (C) 2014 Electronic Frontier Foundation
+ * Copyright (C) 2015 Electronic Frontier Foundation
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -15,30 +15,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-window.DEBUG = false;
-window.badger = {};
-
-/**
-* Log a message to the console if debugging is enabled
-*/
-window.log = function (/*...*/) {
-  if(window.DEBUG) {
-    console.log.apply(console, arguments);
-  }
-};
-
-/**
- * Log a message to the console of an active tab
- */
-window.consoleBroadcast = function (tab_id, message) {
-  chrome.tabs.sendMessage(tab_id, message)
-};
-
-/**
- * Basic implementation of requirejs
- * for requiring other javascript files
- */
-function require(module) {
-  return require.scopes[module];
+function logMessage (message) {
+  console.log(message);
 }
-require.scopes = {};
+
+chrome.runtime.onMessage.addListener(logMessage);

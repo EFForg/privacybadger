@@ -47,7 +47,8 @@
         "src/clobbercookie.js",
         "src/clobberlocalstorage.js",
         "src/fingerprinting.js",
-        "src/supercookie.js"
+        "src/supercookie.js",
+        "src/console.js"
       ],
       "matches": [
         "<all_urls>"
