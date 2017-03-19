@@ -30,8 +30,8 @@ window.log = function (/*...*/) {
 /**
  * Log a message to the console of an active tab
  */
-window.consoleBroadcast = function (tab_id, message) {
-  chrome.tabs.sendMessage(tab_id, message);
+window.consoleBroadcast = function (tab_id, text) {
+  chrome.tabs.sendMessage(tab_id, { type: 'LOG', text: text });
 }
 
 /**
