@@ -25,9 +25,11 @@ window.logMessage = function () {
       messages = [];
     }, 0);
   }, 100)
-  return function (message) {
-    messages.push(message);
-    _log();
+    return function (message) {
+      if (message.type === 'LOG') {
+        messages.push(message.text);
+        _log();
+      }
   }
 }
 
