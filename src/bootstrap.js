@@ -31,8 +31,8 @@ window.log = function (/*...*/) {
  * Log a message to the console of an active tab
  */
 window.consoleBroadcast = function (tab_id, message) {
-  chrome.tabs.sendMessage(tab_id, message)
-};
+  chrome.tabs.sendMessage(tab_id, message);
+}
 
 /**
  * Basic implementation of requirejs
