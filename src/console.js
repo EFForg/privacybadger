@@ -24,12 +24,12 @@ window.logMessage = function () {
       })
       messages = [];
     }, 0);
-  }, 100)
-    return function (message) {
-      if (message.type === 'LOG') {
-        messages.push(message.text);
-        _log();
-      }
+  }, 1000)
+  return function (message) {
+    if (message.type === 'LOG' && messages.indexOf(message.text) === -1) {
+      messages.push(message.text);
+      _log();
+    }
   }
 }
 
