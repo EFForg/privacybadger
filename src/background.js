@@ -392,7 +392,7 @@ Badger.prototype = {
         callback(successStatus);
       });
     });
-  }, utils.oneSecond()),
+  }, constants.DNT_POLICY_CHECK_INTERVAL),
 
   /**
    * Default privacy badger settings

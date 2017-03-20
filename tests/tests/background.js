@@ -5,7 +5,8 @@
   const DNT_COMPLIANT_DOMAIN = 'eff.org',
     POLICY_URL = chrome.extension.getURL('doc/dnt-policy/dnt-policy.txt');
 
-  let utils = require('utils');
+  let utils = require('utils'),
+    constants = require('constants');
 
   let clock,
     server,
@@ -70,7 +71,7 @@
     });
 
     // advance the clock enough to trigger all rate-limited calls
-    clock.tick(utils.oneSecond() * NUM_TESTS);
+    clock.tick(constants.DNT_POLICY_CHECK_INTERVAL * NUM_TESTS);
   });
 
   QUnit.test("Several checks for same domain resolve to one XHR", (assert) => {
@@ -88,7 +89,7 @@
     }
 
     // advance the clock
-    clock.tick(utils.oneSecond() * NUM_CHECKS);
+    clock.tick(constants.DNT_POLICY_CHECK_INTERVAL * NUM_CHECKS);
 
     assert.equal(xhrSpy.callCount, 1, "XHR method gets called exactly once");
     assert.equal(
@@ -111,7 +112,7 @@
         0,
         function () { // eslint-disable-line no-loop-func
           assert.equal(xhrSpy.callCount, i+1);
-          clock.tick(utils.oneSecond());
+          clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
           done();
         }
       );
