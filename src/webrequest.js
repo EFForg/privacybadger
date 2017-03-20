@@ -22,7 +22,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals badger:false, log:false */
+/* globals badger:false, log:false, consoleBroadcast:false */
 
 var constants = require('constants');
 var getSurrogateURI = require('surrogates').getSurrogateURI;

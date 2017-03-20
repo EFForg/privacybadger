@@ -15,22 +15,22 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-window.logMessage = function () {
+function logMessage () {
   var messages = [];
   var _log = debounce(function () {
     setTimeout(function () {
       messages.forEach(function (message) {
         console.log(message);
-      })
+      });
       messages = [];
     }, 0);
-  }, 1000)
+  }, 1000);
   return function (message) {
     if (message.type === 'LOG' && messages.indexOf(message.text) === -1) {
       messages.push(message.text);
       _log();
     }
-  }
+  };
 }
 
 chrome.runtime.onMessage.addListener(logMessage());
@@ -65,5 +65,5 @@ function debounce(func, wait, immediate) {
     }
 
     return result;
-  }
+  };
 }

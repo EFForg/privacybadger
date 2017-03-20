@@ -32,7 +32,7 @@ window.log = function (/*...*/) {
  */
 window.consoleBroadcast = function (tab_id, text) {
   chrome.tabs.sendMessage(tab_id, { type: 'LOG', text: text });
-}
+};
 
 /**
  * Basic implementation of requirejs
