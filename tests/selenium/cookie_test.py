@@ -74,7 +74,6 @@ class CookieTest(pbtest.PBSeleniumTest):
                     print("Popup UI has been updated. Yay!")
                     break
                 window_utils.close_windows_with_url(self.driver, self.popup_url)
-                window_utils.close_windows_with_url(self.driver, self.popup_url)
                 print("popup UI has not been updated yet. try again in 10 seconds")
                 time.sleep(10)
 
