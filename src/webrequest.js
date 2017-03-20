@@ -22,7 +22,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals badger:false, log:false, consoleBroadcast:false */
+/* globals badger:false, log:false, logToTab:false */
 
 var constants = require('constants');
 var getSurrogateURI = require('surrogates').getSurrogateURI;
@@ -102,7 +102,7 @@ function onBeforeRequest(details){
         var surrogate = getSurrogateURI(url, requestDomain);
         if (surrogate) {
           log('[Privacy Badger] replaced ' + url + ' with ' + surrogate);
-          consoleBroadcast(tab_id, '[Privacy Badger] replaced ' + url + ' with ' + surrogate);
+          logToTab(tab_id, '[Privacy Badger] replaced ' + url + ' with ' + surrogate);
           return {redirectUrl: surrogate};
         }
       }
@@ -115,7 +115,7 @@ function onBeforeRequest(details){
       chrome.tabs.sendMessage(tab_id, msg);
 
       log('[Privacy Badger] blocked ' + url);
-      consoleBroadcast(tab_id, '[Privacy Badger] blocked ' + url);
+      logToTab(tab_id, '[Privacy Badger] blocked ' + url);
       return {cancel: true};
     }
   }
