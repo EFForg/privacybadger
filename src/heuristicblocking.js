@@ -475,7 +475,7 @@ var extractCookieString = function(details) {
 
   for (var i = 0; i < headers.length; i++) {
     var header = headers[i];
-    if (header.name == "Cookie" || header.name == "Set-Cookie" ) {
+    if (header.name.toLowerCase() == "cookie" || header.name.toLowerCase() == "set-cookie" ) {
       if (!cookies) {
         cookies = header.value;
       } else {
