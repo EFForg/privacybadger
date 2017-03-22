@@ -20,9 +20,9 @@ class CookieTest(pbtest.PBSeleniumTest):
     def assert_pass_opera_cookie_test(self, url, test_name):
         self.load_url(url)
         self.assertEqual(
-                "PASS",
-                self.js("return document.getElementById('result').innerHTML"),
-                "Cookie test failed: %s" % test_name)
+            "PASS",
+            self.js("return document.getElementById('result').innerHTML"),
+            "Cookie test failed: %s" % test_name)
 
     def test_should_pass_std_cookie_test(self):
         self.assert_pass_opera_cookie_test("https://gistcdn.githack.com/gunesacar/79aa14bac95694d38425d458843dacd6/raw/3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html",  # noqa
@@ -67,16 +67,15 @@ class CookieTest(pbtest.PBSeleniumTest):
         self.load_url(SITE1_URL)
         window_utils.close_windows_with_url(self.driver, SITE3_URL)
         for i in range(60):
-                self.load_pb_ui(SITE1_URL)
-                self.get_tracker_state()
+            self.load_pb_ui(SITE1_URL)
+            self.get_tracker_state()
 
-                if THIRD_PARTY_TRACKER in self.cookieBlocked:
-                    print("Popup UI has been updated. Yay!")
-                    break
-                window_utils.close_windows_with_url(self.driver, self.popup_url)
-                window_utils.close_windows_with_url(self.driver, self.popup_url)
-                print("popup UI has not been updated yet. try again in 10 seconds")
-                time.sleep(10)
+            if THIRD_PARTY_TRACKER in self.cookieBlocked:
+                print("Popup UI has been updated. Yay!")
+                break
+            window_utils.close_windows_with_url(self.driver, self.popup_url)
+            print("popup UI has not been updated yet. try again in 10 seconds")
+            time.sleep(10)
 
         self.assertTrue(THIRD_PARTY_TRACKER in self.cookieBlocked)
 
@@ -120,33 +119,33 @@ class CookieTest(pbtest.PBSeleniumTest):
         self.cookieBlocked = {}
         self.blocked = {}
         try:
-                clickerContainer = self.driver.find_element_by_class_name("clickerContainer")
-                self.assertTrue(clickerContainer)
+            clickerContainer = self.driver.find_element_by_class_name("clickerContainer")
+            self.assertTrue(clickerContainer)
         except:
-                print("no action state information was found")
-                return
+            print("no action state information was found")
+            return
 
         tooltips = clickerContainer.find_elements_by_xpath("//*[contains(@class,'clicker tooltip')]")
         for t in tooltips:
-                origin = t.get_attribute('data-origin')
+            origin = t.get_attribute('data-origin')
 
-                # assert that this origin is never duplicated in the UI
-                self.assertTrue(origin not in self.nonTrackers)
-                self.assertTrue(origin not in self.cookieBlocked)
-                self.assertTrue(origin not in self.blocked)
+            # assert that this origin is never duplicated in the UI
+            self.assertTrue(origin not in self.nonTrackers)
+            self.assertTrue(origin not in self.cookieBlocked)
+            self.assertTrue(origin not in self.blocked)
 
-                action_type = t.get_attribute('data-original-action')
-                if action_type == 'allow':
-                    self.nonTrackers[origin] = True
-                elif action_type == 'noaction':
-                    self.nonTrackers[origin] = True
-                elif action_type == 'cookieblock':
-                    self.cookieBlocked[origin] = True
-                elif action_type == 'block':
-                    self.blocked[origin] = True
-                else:
-                    print("what is this?!? " + str(action_type))
-                    self.assertTrue(False)
+            action_type = t.get_attribute('data-original-action')
+            if action_type == 'allow':
+                self.nonTrackers[origin] = True
+            elif action_type == 'noaction':
+                self.nonTrackers[origin] = True
+            elif action_type == 'cookieblock':
+                self.cookieBlocked[origin] = True
+            elif action_type == 'block':
+                self.blocked[origin] = True
+            else:
+                print("what is this?!? " + str(action_type))
+                self.assertTrue(False)
 
 
 if __name__ == "__main__":
