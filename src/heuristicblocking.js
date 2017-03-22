@@ -25,7 +25,7 @@ require.scopes.heuristicblocking = (function() {
 
 /*********************** heuristicblocking scope **/
 
-// make hueristic obj with utils and storage properties and put the things on it
+// make heuristic obj with utils and storage properties and put the things on it
 var tabOrigins = { }; // TODO roll into tabData?
 
 function HeuristicBlocker(pbStorage) {
@@ -118,24 +118,30 @@ HeuristicBlocker.prototype = {
   },
 
   /**
-   * Increment counts of how many first party domains we've seen a third party track on
-   * Ignore requests that are outside a tabbed window
+   * Wraps _recordPrevalence for use from webRequest listeners.
+   * Also saves tab (page) origins. TODO Should be handled by tabData instead.
+   * Also sets a timeout for checking DNT policy for third-party FQDNs.
+   * TODO Does too much, should be broken up ...
+   *
+   * Called from performance-critical webRequest listeners!
+   * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
    * @param details are those from onBeforeSendHeaders
    * @returns {*}
    */
   heuristicBlockingAccounting: function(details) {
+    // ignore requests that are outside a tabbed window
     if(details.tabId < 0 || incognito.tabIsIncognito(details.tabId)){
       return { };
     }
 
-
     var fqdn = utils.makeURI(details.url).host;
     var origin = window.getBaseDomain(fqdn);
 
+    // abort if we already made a decision for this fqdn
     var action = this.storage.getActionForFqdn(fqdn);
     if(action != constants.NO_TRACKING && action != constants.ALLOW){
-      return {};
+      return { };
     }
 
     // Save the origin associated with the tab if this is a main window request
@@ -157,40 +163,72 @@ HeuristicBlocker.prototype = {
       if (!this.hasTracking(details, origin)){
         return { };
       }
-      this.recordPrevalence(fqdn, origin, tabOrigin);
+      this._recordPrevalence(fqdn, origin, tabOrigin);
     }
   },
 
   /**
-   * Record HTTP request prevalence. Block a tracker if seen on more than [constants.TRACKING_THRESHOLD] pages
+   * Wraps _recordPrevalence for use outside of webRequest listeners.
    *
-   * @param {String} fqdn Host
-   * @param {String} origin Base domain of host
-   * @param {String} tabOrigin The main origin for this tab
+   * @param tracker_fqdn The fully qualified domain name of the tracker
+   * @param page_origin The base domain of the page where the tracker
+   *                         was detected
+   * @returns {*}
    */
-  recordPrevalence: function(fqdn, origin, tabOrigin) {
+  updateTrackerPrevalence: function(tracker_fqdn, page_origin) {
+    // abort if we already made a decision for this fqdn
+    let action = this.storage.getActionForFqdn(tracker_fqdn);
+    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+      return;
+    }
+
+    this._recordPrevalence(tracker_fqdn, window.getBaseDomain(tracker_fqdn), page_origin);
+  },
+
+  /**
+   * Record HTTP request prevalence. Block a tracker if seen on more
+   * than [constants.TRACKING_THRESHOLD] pages
+   *
+   * NOTE: This is a private function and should never be called directly.
+   * All calls should be routed through heuristicBlockingAccounting for normal usage
+   * and updateTrackerPrevalence for manual modifications (e.g. importing
+   * tracker lists).
+   *
+   * @param {String} tracker_fqdn The FQDN of the third party tracker
+   * @param {String} tracker_origin Base domain of the third party tracker
+   * @param {String} page_origin The origin of the page where the third party
+   *                                  tracker was loaded
+   */
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
     var snitch_map = this.storage.getBadgerStorageObject('snitch_map');
-    var trackerBaseDomain = window.getBaseDomain(fqdn);
     var firstParties = [];
-
-    if (snitch_map.hasItem(trackerBaseDomain)){
-      firstParties = snitch_map.getItem(trackerBaseDomain);
+    if (snitch_map.hasItem(tracker_origin)){
+      firstParties = snitch_map.getItem(tracker_origin);
     }
 
-    if(firstParties.indexOf(tabOrigin) === -1){
-      firstParties.push(tabOrigin);
-      snitch_map.setItem(trackerBaseDomain, firstParties);
-      this.storage.setupHeuristicAction(fqdn, constants.ALLOW);
-      this.storage.setupHeuristicAction(trackerBaseDomain, constants.ALLOW);
+    if (firstParties.indexOf(page_origin) != -1) {
+      return; // We already know about the presence of this tracker on the given domain
     }
+
+    // record that we've seen this tracker on this domain (in snitch map)
+    firstParties.push(page_origin);
+    snitch_map.setItem(tracker_origin, firstParties);
+
+    // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
+    // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
+    // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
+    // TODO missing tests: removing below lines/messing up parameters
+    // should break integration tests, but currently does not
+    this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
+    this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
 
     // Blocking based on outbound cookies
     var httpRequestPrevalence = firstParties.length;
 
-    //block the origin if it has been seen on multiple first party domains
+    // block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
-      log('blacklisting origin', fqdn);
-      this.blacklistOrigin(origin, fqdn);
+      log('blacklisting origin', tracker_fqdn);
+      this.blacklistOrigin(tracker_origin, tracker_fqdn);
     }
   }
 };

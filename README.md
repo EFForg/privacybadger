@@ -1,4 +1,4 @@
-Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadgerchrome.svg)](https://travis-ci.org/EFForg/privacybadgerchrome)
+Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadger.svg)](https://travis-ci.org/EFForg/privacybadger)
 ===================
 Privacy Badger blocks spying ads and invisible trackers. It's there to ensure that companies can't track your browsing without your consent.
 
@@ -20,17 +20,17 @@ Within the command line, install the dependencies.
 $ npm install
 ```
 
+Developers should sign up for the privacy badger mailing list at https://lists.eff.org/mailman/listinfo/privacybadger
 ### Testing
 
-After "unpacking" the extension, find your extension's ID and
+This project is using the [QUnit](http://qunitjs.com/), [py.test](http://pytest.org/), [Selenium](http://www.seleniumhq.org/) test frameworks
+along with [Travis CI](https://travis-ci.org/) for continuous integration.
+
+To run unit tests, find your extension's ID (look for it on `chrome://extensions/`) and
 visit `chrome-extension://YOUR_EXTENSION_ID/tests/index.html`, replacing
 `YOUR_EXTENSION_ID` with your 32 character ID.
 
-For Selenium tests, run `./run_selenium_tests.sh` in the `tests` directory. 
-You need to have `chromedriver`, `xvfb` and `python-virtualenv` installed.
-
-This project is using the [QUnit](http://qunitjs.com/), [py.test](http://pytest.org/), [Selenium](http://www.seleniumhq.org/) test frameworks 
-along with [Travis CI](https://travis-ci.org/) for continuous integration.
+To run functional tests powered by Selenium, you need to have `chromedriver`, `xvfb` and `python-virtualenv` installed. Also `geckodriver` to run functional tests in Firefox. See [scripts/setup_travis.sh](scripts/setup_travis.sh) and [tests/run_selenium_tests.sh](tests/run_selenium_tests.sh).
 
 ##License
 Privacy Badger is licensed under the GPLv3. See LICENSE for more details

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Update the Public Suffix List (psl)
 
 # stop on errors (nonzero exit codes), uninitialized vars
 set -eu

@@ -109,10 +109,7 @@ BadgerPen.prototype = {
   },
 
   touchDNTRecheckTime: function(domain, time){
-    var action_map = this.getBadgerStorageObject('action_map');
-    var domainObj = action_map.getItem(domain);
-    domainObj.nextUpdateTime = time;
-    action_map.setItem(domain, domainObj);
+    this._setupDomainAction(domain, time, "nextUpdateTime");
   },
 
   getNextUpdateForDomain: function(domain){
@@ -416,14 +413,75 @@ BadgerStorage.prototype = {
     setTimeout(function(){
       _syncStorage(self);
     }, 0);
+  },
+
+  /**
+   * When a user imports a tracker and settings list via the Import function,
+   * we want to overwrite any existing settings, while simultaneously merging
+   * in any new information (i.e. the set of whitelisted domains). In order
+   * to do this, we need different logic for each of the storage maps based on
+   * their internal structure. The three cases in this function handle each of
+   * the three storage maps that can be exported.
+   *
+   * @param {Object} mapData The object containing storage map data to merge
+   */
+  merge: function(mapData) {
+    var self = this;
+
+    if (self.name === "settings_map") {
+      for (let prop in mapData) {
+        if (prop === "disabledSites") {
+          // Add new sites to list of existing disabled sites
+          self._store[prop] = _.union(self._store[prop], mapData[prop]);
+        } else {
+          // Overwrite existing setting with setting from import.
+          self._store[prop] = mapData[prop];
+        }
+      }
+    } else if (self.name === "action_map") {
+      for (let domain in mapData) {
+        // Overwrite local setting (if exists) for any imported domain
+        self._store[domain] = mapData[domain];
+      }
+    } else if (self.name === "snitch_map") {
+      for (let tracker_fqdn in mapData) {
+        var firstPartyOrigins = mapData[tracker_fqdn];
+        for (let origin in firstPartyOrigins) {
+          badger.heuristicBlocking.updateTrackerPrevalence(
+            tracker_fqdn,
+            firstPartyOrigins[origin]
+          );
+        }
+      }
+    }
+
+    // Async call to syncStorage.
+    setTimeout(function(){
+      _syncStorage(self);
+    }, 0);
   }
 };
 
-function _syncStorage(badgerStorage) {
-  var obj = {};
-  obj[badgerStorage.name] = badgerStorage._store;
-  chrome.storage.local.set(obj);
-}
+var _syncStorage = (function () {
+  var debouncedFuncs = {};
+
+  function sync(badgerStorage) {
+    var obj = {};
+    obj[badgerStorage.name] = badgerStorage._store;
+    chrome.storage.local.set(obj);
+  }
+
+  // Creates debounced versions of "sync" function,
+  // one for each distinct badgerStorage value.
+  return function (badgerStorage) {
+    if (!debouncedFuncs.hasOwnProperty(badgerStorage.name)) {
+      debouncedFuncs[badgerStorage.name] = _.debounce(function () {
+        sync(badgerStorage);
+      });
+    }
+    debouncedFuncs[badgerStorage.name]();
+  };
+}());
 
 /************************************** exports */
 var exports = {};

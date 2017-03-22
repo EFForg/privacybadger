@@ -174,8 +174,8 @@ combinations of them so long as their total estimated entropy is under 12 bits.
 #### Widget Substitution
 
 Many social media widgets are inherently designed to combine tracking
-and occassionally-useful functionality in a single resouce load.
-Privacy Badger aims to give the user acess to the functionality when they want
+and occassionally-useful functionality in a single resource load.
+Privacy Badger aims to give the user access to the functionality when they want
 it, but protection against the tracking at all other times.
 
 To that end, Privacy Badger has incorporated code from the ShareMeNot project
@@ -206,7 +206,7 @@ UI prompts the user to log in to the third party. Common examples include users
 attempting to log into Disqus widgets to post comments, or users trying to log
 into accounts.google.com to comment on youtube.com.
 
-We have implemented experimental solutions which invovle manually identifying
+We have implemented experimental solutions which involve manually identifying
 such situations, and triggering a request to the user to allow the request on
 this site, allow it across the web, or prevent it.
 
@@ -238,7 +238,7 @@ Sites can agree to this policy by posting at https://subdomain.example.com/.well
 where "subdomain" is any domain to which the policy applies, for a given third party.
 
 #### Fingerprinting detection
-Certian aspects of the browser, such as fonts, add-ons or extensions, screen size,
+Certain aspects of the browser, such as fonts, add-ons or extensions, screen size,
 and seen links, can be used to give the browser a fingerprint that is unique out
 of a very small amount of users (see [Panopticlick](https://panopticlick.eff.org/) for more information).
 
@@ -272,7 +272,7 @@ are the origins making the request, and the values are the first party origins t
 requests were made on. If that list of third parties contains three or more first party
 origins the third party origin gets added to another list of known trackers.
 When Privacy Badger gets a request from an origin on the known trackers list, if it
-is not on the the cookie block list then Privacy Badger blocks that request. If it
+is not on the cookie block list then Privacy Badger blocks that request. If it
 is on the cookie block list then the request is allowed to resolve, but all cookie
 setting and getting parts of it are blocked, as well as referer headers. Both of
 these lists are stored on disk, and persist between browser sessions.
@@ -280,6 +280,6 @@ these lists are stored on disk, and persist between browser sessions.
 Additionally users can manually set the desired action for any FQDN.
 These get added to their own lists, which are also stored on disk, and get checked
 before Privacy Badger does its default action for a given origin. These are managed
-from the popup window for privacy Badger on the page as well as the options menu
+from the popup window for Privacy Badger on the page as well as the options menu
 for the whole extension.
 

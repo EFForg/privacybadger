@@ -1,11 +1,9 @@
 {
-  "version": "2016.9.7",
-  "author": {
-    "email": "eff.software.projects@gmail.com"
-  },
+  "version": "2017.1.26.1",
+  "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
-      "id": "privacybadger@mozilla.org"
+      "id": "jid1-MnnxcxisBPnSXQ@jetpack"
     }
   },
   "incognito": "spanning",
@@ -17,7 +15,6 @@
     "webRequest",
     "webRequestBlocking",
     "webNavigation",
-    "unlimitedStorage",
     "storage",
     "cookies",
     "privacy"
@@ -28,9 +25,6 @@
       "lib/punycode.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
-      "lib/sha1.js",
-      "lib/jsbn.js",
-      "lib/rsa.js",
       "lib/underscore-min.js",
       "data/surrogates.js",
       "src/surrogates.js",
@@ -96,7 +90,6 @@
     "default_title": "__MSG_name__"
   },
   "options_page": "/skin/options.html",
-  "update_url": "http://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [
     "skin/*",
     "icons/*"

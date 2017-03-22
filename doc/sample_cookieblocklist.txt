@@ -3,6 +3,7 @@
 112.2o7.net
 5min.com
 accuweather.com
+actionnetwork.org
 auth.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
@@ -23,8 +24,7 @@ anonymto.me
 tkx2-prod.anvato.net
 up.anv.bz
 mcp-media5.anvato.net
-mcp-media5.cdn.anvato.net
-mcp-media6.cdn.anvato.net
+cdn.anvato.net
 aol.com
 aolcdn.com
 ap.org
@@ -48,12 +48,14 @@ bankid.no
 bankrate.com
 bcbits.com
 betterttv.net
+www.bing.com
 bit.ly
 bizrate.com
 blogblog.com
 blogger.com
 blogher.org
 blogspot.com
+bp.blogspot.com
 bloxcms.com
 boldchat.com
 bootstrapcdn.com
@@ -79,6 +81,7 @@ cleanprint.net
 cleveland.com
 cloudflare.com
 cloudfront.net
+bbb.org
 bbc.co.uk
 bbci.co.uk
 grapeshot.co.uk
@@ -86,6 +89,7 @@ w.graphiq.com
 s.graphiq.com
 s2.graphiq.com
 s3.graphiq.com
+files.graphiq.com
 gr-assets.com
 guardian.co.uk
 media-imdb.com
@@ -134,7 +138,9 @@ files.edx.org
 elasticbeanstalk.com
 eltrafiko.com
 api.embed.ly
+cdn.embed.ly
 cdn.embedly.com
+i.embed.ly
 i-cdn.embed.ly
 epoch.com
 estara.com
@@ -154,6 +160,7 @@ dialog.filepicker.io
 financialcontent.com
 findnsave.com
 firstlook.org
+framasoft.org
 frz.io
 build.origami.ft.com
 fz.io
@@ -229,6 +236,7 @@ ajax.googleapis.com
 googleapis.com
 googlecode.com
 googlecommerce.com
+googletagservices.com
 cdn.leafletjs.com
 lh4.googleusercontent.com
 googleusercontent.com
@@ -339,6 +347,7 @@ mtvnservices.com
 mycapture.com
 mzstatic.com
 nationbuilder.com
+nationalgeographic.com
 nbcuni.com
 neighborsink.com
 netdna-cdn.com
@@ -357,6 +366,7 @@ ngfiles.com
 nj.com
 nmcdn.us
 nola.com
+npmcdn.com
 nrcdn.com
 nsimg.net
 media.nu.nl
@@ -377,6 +387,7 @@ player.ooyala.com
 tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
+openlibrary.org
 nominatim.openstreetmap.org
 tile.openstreetmap.fr
 tile.openstreetmap.org
@@ -443,8 +454,10 @@ shopify.com
 shopping.com
 shoprunner.com
 siteimprove.com
+shield.sitelock.com
 sketchfab.com
 slidedeck.com
+public.slidesharecdn.com
 s-msft.com
 s-msn.com
 smugmug.com
@@ -469,6 +482,7 @@ store.akamai.steamstatic.com
 steamusercontent.com
 stellaservice.com
 stripe.com
+stripecdn.com
 surveygizmo.com
 surveymonkey.com
 syracuse.com
@@ -478,6 +492,7 @@ uploads.tapatalk-cdn.com
 targetimg1.com
 targetimg2.com
 technorati.com
+tegna-media.com
 theplatform.com
 tile.thunderforest.com
 timeinc.net
@@ -492,6 +507,7 @@ trb.com
 trbimg.com
 tripadvisor.com
 trumba.com
+privacy-policy.truste.com
 trustkeeper.net
 trustwave.com
 ttvnw.net
@@ -504,6 +520,7 @@ platform.twitter.com
 syndication.twitter.com
 typekit.net
 typekit.com
+typepad.com
 typography.com
 uicdn.com
 ui-portal.de
@@ -536,11 +553,15 @@ windows.net
 wishabi.com
 wistia.net
 wistia.com
-sslstatic.wix.com
+wix.com
 gatherer.wizards.com
+s.w.org
+ts.w.org
+ps.w.org
 wordpress.com
 worldnow.com
 wp.com
+wpengine.com
 wufoo.com
 wunderground.com
 wxc.com
@@ -575,3 +596,4 @@ assets.nflxext.com
 assets.ubuntu.com
 y3.analytics.yahoo.com
 seatme.yelp.com
+jsdelivr.net

@@ -26,7 +26,6 @@ var pbStorage = require("storage");
 
 var HeuristicBlocking = require("heuristicblocking");
 var webrequest = require("webrequest");
-
 var SocialWidgetLoader = require("socialwidgetloader");
 window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json");
 
@@ -39,6 +38,7 @@ var incognito = require("incognito");
 function Badger() {
   var badger = this;
   this.userAllow = [];
+  this.webRTCAvailable = checkWebRTCBrowserSupport();
   this.storage = new pbStorage.BadgerPen(function(thisStorage) {
     if (badger.INITIALIZED) { return; }
     badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
@@ -50,6 +50,7 @@ function Badger() {
       badger.initializeCookieBlockList();
       badger.initializeDNT();
       badger.initializeUserAllowList();
+      badger.enableWebRTCProtection();
       if (!badger.isIncognito) {badger.showFirstRunPage();}
     }
 
@@ -66,6 +67,27 @@ function Badger() {
 
     badger.INITIALIZED = true;
   });
+
+  /**
+  * WebRTC availability check
+  */
+  function checkWebRTCBrowserSupport(){
+    var available = true;
+    var connection = null;
+    try{
+      var RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection;
+      if(RTCPeerConnection){
+        connection = new RTCPeerConnection(null);
+      }
+    } catch (ex){
+      available = false;
+    }
+
+    if(connection !== null && connection.close){
+      connection.close();
+    }
+    return available;
+  }
 }
 
 Badger.prototype = {
@@ -158,14 +180,43 @@ Badger.prototype = {
 
   /**
    * Initialize the Cookieblock List:
-   * * Download list form eff
+   * * Download list from eff
    * * Merge with existing cookieblock list if any
    * * Add any new domains to the action map
    * Set a timer to update every 24 hours
    **/
   initializeCookieBlockList: function(){
     this.updateCookieBlockList();
-    setInterval(this.updateCookieBlockList, utils.oneDay());
+    setInterval(this.updateCookieBlockList.bind(this), utils.oneDay());
+  },
+
+  /**
+   * (Currently Chrome only)
+   * Change default WebRTC handling browser policy to more
+   * private setting that only shows public facing IP address.
+   * Only update if user does not have the strictest setting enabled
+   **/
+  enableWebRTCProtection: function(){
+    // Return early with non-supporting browsers
+    if (!chrome.privacy || !badger.webRTCAvailable) { return; }
+
+    var cpn = chrome.privacy.network;
+    var settings = this.storage.getBadgerStorageObject("settings_map");
+
+    cpn.webRTCIPHandlingPolicy.get({}, function(result) {
+      if (result.value === 'disable_non_proxied_udp') {
+        // TODO is there case where other extension controls this and PB
+        // TODO cannot modify it?
+        // Make sure we display correct setting on options page
+        settings.setItem("webRTCIPProtection", true);
+        return;
+      }
+
+      cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
+          function(){
+            settings.setItem("webRTCIPProtection", false);
+          });
+    });
   },
 
   /**
@@ -230,8 +281,8 @@ Badger.prototype = {
   initializeDNT: function(){
     this.updateDNTPolicyHashes();
     this.recheckDNTPolicyForDomains();
-    setInterval(this.recheckDNTPolicyForDomains, utils.oneHour());
-    setInterval(this.updateDNTPolicyHashes, utils.oneDay() * 4);
+    setInterval(this.recheckDNTPolicyForDomains.bind(this), utils.oneHour());
+    setInterval(this.updateDNTPolicyHashes.bind(this), utils.oneDay() * 4);
   },
 
   /**
@@ -280,20 +331,32 @@ Badger.prototype = {
   * @param {String} domain The domain to check
   * @param {timestamp} nextUpdate time when the DNT policy should be rechecked
   */
-  checkForDNTPolicy: function(domain, nextUpdate){
-    if(Date.now() < nextUpdate){ return; }
+  checkForDNTPolicy: function (domain, nextUpdate) {
+    if (Date.now() < nextUpdate) {
+      // not yet time
+      return;
+    }
+
     log('Checking', domain, 'for DNT policy.');
+
     var badger = this;
 
-    this.checkPrivacyBadgerPolicy(domain, function(success){
-      if(success){
+    // update timestamp first;
+    // avoids queuing the same domain multiple times
+    var recheckTime = utils.getRandom(
+      utils.oneDayFromNow(),
+      utils.nDaysFromNow(7)
+    );
+    badger.storage.touchDNTRecheckTime(domain, recheckTime);
+
+    this.checkPrivacyBadgerPolicy(domain, function (success) {
+      if (success) {
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
         badger.storage.setupDNT(domain);
       } else {
         log('It looks like', domain, 'has NOT adopted Do Not Track');
         badger.storage.revertDNT(domain);
       }
-      badger.storage.touchDNTRecheckTime(domain, utils.oneDayFromNow() * 7);
     });
   },
 
@@ -304,7 +367,7 @@ Badger.prototype = {
   * @param {String} origin The host to check
   * @param {Function} callback callback(successStatus)
   */
-  checkPrivacyBadgerPolicy: function(origin, callback){
+  checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
     var successStatus = false;
     var url = "https://" + origin + "/.well-known/dnt-policy.txt";
     var dnt_hashes = this.storage.getBadgerStorageObject('dnt_hashes');
@@ -314,13 +377,14 @@ Badger.prototype = {
         callback(successStatus);
         return;
       }
-      var hash = window.SHA1(response); // eslint-disable-line new-cap
-      if(dnt_hashes.hasItem(hash)){
-        successStatus = true;
-      }
-      callback(successStatus);
+      utils.sha1(response, function(hash) {
+        if(dnt_hashes.hasItem(hash)){
+          successStatus = true;
+        }
+        callback(successStatus);
+      });
     });
-  },
+  }, utils.oneSecond()), // rate-limited to at least one second apart
 
   /**
    * Default privacy badger settings
@@ -348,22 +412,30 @@ Badger.prototype = {
   },
 
   runMigrations: function(){
-    var settings = this.storage.getBadgerStorageObject("settings_map");
+    var badger = this;
+    var settings = badger.storage.getBadgerStorageObject("settings_map");
     var migrationLevel = settings.getItem('migrationLevel');
+    // TODO do not remove any migration methods
+    // TODO w/o refactoring migrationLevel handling to work differently
     var migrations = [
       Migrations.changePrivacySettings,
       Migrations.migrateAbpToStorage,
       Migrations.migrateBlockedSubdomainsToCookieblock,
+      Migrations.migrateLegacyFirefoxData,
+      Migrations.migrateDntRecheckTimes,
+      // Need to run this migration again for everyone to #1181
+      Migrations.migrateDntRecheckTimes2,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations, this.storage);
+      migrations[i].call(Migrations, badger);
       settings.setItem('migrationLevel', i+1);
     }
 
   },
 
-  /**
+
+/**
    * Helper function returns a list of all blocked origins for a tab
    * @param {Integer} tabId requested tab id as provided by chrome
    * @returns {*} A dictionary of third party origins and their actions
@@ -379,25 +451,6 @@ Badger.prototype = {
    */
   blockedOriginCount: function(tabId) {
     return this.getAllOriginsForTab(tabId).length;
-  },
-
-  /**
-   * Counts the actively blocked trackers
-   * TODO: move to popup.js and refactor
-   *
-   * @param tabId Tab ID to count for
-   * @returns {Integer} The number of blocked trackers
-   */
-  activelyBlockedOriginCount: function(tabId){
-    var self = this;
-    return self.getAllOriginsForTab(tabId)
-      .reduce(function(memo,origin){
-        var action = self.storage.getBestAction(origin);
-        if(action && action !== "noaction"){
-          memo+=1;
-        }
-        return memo;
-      }, 0);
   },
 
   /**
@@ -421,24 +474,6 @@ Badger.prototype = {
       }, 0);
   },
 
-  /**
-   * Counts trackers blocked by the user
-   *
-   * TODO: ugly code refactor
-   * @param tabId Tab ID to count for
-   * @returns {Integer} The number of blocked trackers
-   */
-  userConfiguredOriginCount: function(tabId){
-    var self = this;
-    return self.getAllOriginsForTab(tabId)
-      .reduce(function(memo,origin){
-        var action = self.storage.getBestAction(origin);
-        if(action && action.lastIndexOf("user", 0) === 0){
-          memo+=1;
-        }
-        return memo;
-      }, 0);
-  },
   /**
    * Update page action badge with current count
    * @param {Integer} tabId chrome tab id
@@ -496,7 +531,7 @@ Badger.prototype = {
   getSettings: function(){ return this.storage.getBadgerStorageObject('settings_map'); },
 
   /**
-   * check if privacy badger is enabled, take an origin and
+   * Check if privacy badger is enabled, take an origin and
    * check against the disabledSites list
    *
    * @param {String} origin
@@ -522,7 +557,7 @@ Badger.prototype = {
   },
   
   /**
-   * check if privacy badger is disabled, take an origin and
+   * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
    *
    * @param {String} origin
@@ -533,21 +568,39 @@ Badger.prototype = {
   },
 
   /**
-   * check if social widget replacement functionality is enabled
+   * Check if social widget replacement functionality is enabled
    */
   isSocialWidgetReplacementEnabled: function() {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
   /**
-   * check if we should show the counter on the icon
+   * Check if WebRTC IP leak protection is enabled; query Chrome's internal
+   * value, update our local setting if it has gone out of sync, then return our
+   * setting's value.
+   */
+  isWebRTCIPProtectionEnabled: function() {
+    var self = this;
+
+    // Return early with non-supporting browsers
+    if (!chrome.privacy || !badger.webRTCAvailable) { return; }
+
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
+      self.getSettings().setItem("webRTCIPProtection",
+          (result.value === "disable_non_proxied_udp"));
+    });
+    return this.getSettings().getItem("webRTCIPProtection");
+  },
+
+  /**
+   * Check if we should show the counter on the icon
    */
   showCounter: function() {
     return this.getSettings().getItem("showCounter");
   },
 
   /**
-   * add an origin to the disabled sites list
+   * Add an origin to the disabled sites list
    *
    * @param {String} origin The origin to disable the PB for
    **/
@@ -561,14 +614,14 @@ Badger.prototype = {
   },
 
   /**
-   * interface to get the current whitelisted domains
+   * Interface to get the current whitelisted domains
    */
   listOriginsWherePrivacyBadgerIsDisabled: function(){
     return this.getSettings().getItem("disabledSites");
   },
 
   /**
-   * remove an origin from the disabledSites list
+   * Remove an origin from the disabledSites list
    *
    * @param {String} origin The origin to disable the PB for
    **/
@@ -704,12 +757,11 @@ function startBackgroundListeners() {
  * lets get this party started
  */
 console.log('Loading badgers into the pen.');
-
 var badger = window.badger = new Badger();
 
 /**
- * Start all the listeners
- */
+* Start all the listeners
+*/
 incognito.startListeners();
 webrequest.startListeners();
 HeuristicBlocking.startListeners();

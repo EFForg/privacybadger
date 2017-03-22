@@ -1,22 +1,27 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import time
+import os
 import unittest
-import pbtest
 import json
 
+import pbtest
+
+from selenium.webdriver.common.keys import Keys
 
 class SuperCookieTest(pbtest.PBSeleniumTest):
     """Make sure we detect potential supercookies. """
 
     def has_supercookies(self, origin):
         """Check if the given origin has supercookies in PB's localStorage."""
-        self.load_url(pbtest.PB_CHROME_BG_URL, wait_on_site=1)
+        self.load_url(self.bg_url, wait_on_site=1)
         get_sc_domains_js = "return JSON.stringify(badger.storage."\
             "getBadgerStorageObject('supercookie_domains').getItemClones())"
         supercookieDomains = json.loads(self.js(get_sc_domains_js))
         return origin in supercookieDomains
 
+    @pbtest.repeat_if_failed(5)
     def test_should_detect_ls_of_third_party_frame(self):
         """We get some intermittent failures for this test.
 
@@ -33,8 +38,9 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         self.assertTrue(self.has_supercookies("githack.com"))
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
-        self.load_url("https://rawgit.com/gunesacar/gunesacar/6f0c39fb728a218ccd91215bfefbd4e0/raw/f438eb4e5ce10dc8623a8834b1298fd4a846c6fa/low_entropy_localstorage_from_third_party_script.html",  # noqa
+        self.load_url("https://gistcdn.githack.com/gunesacar/6f0c39fb728a218ccd91215bfefbd4e0/raw/f438eb4e5ce10dc8623a8834b1298fd4a846c6fa/low_entropy_localstorage_from_third_party_script.html",  #noqa
                       wait_on_site=5)
+
         self.assertFalse(self.has_supercookies("githack.com"))
 
     def test_should_not_detect_first_party_ls(self):
@@ -47,6 +53,7 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         self.load_url("https://rawgit.com/gunesacar/b366e3b03231dbee9709fe0a614faf10/raw/48e02456aa257e272092b398772a712391cf8b11/localstorage_from_third_party_script.html",  # noqa
                       wait_on_site=5)
         self.assertFalse(self.has_supercookies("githack.com"))
+
 
 if __name__ == "__main__":
     unittest.main()

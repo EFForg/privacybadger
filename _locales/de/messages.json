@@ -11,20 +11,44 @@
     "badger_status_noaction": {
         "message": "Dürfen "
     },
+    "data_settings": {
+        "message": "Manage Data"
+    },
     "description": {
         "message": "Privacy Badger schützt sie vor Trackern während Sie im Web surfen !"
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger ist de-aktiviert für die unten aufgelisteten Domains. Sie können eine Domain hinzufügen, indem Sie entweder dass Privacy Badger Icon in der Adresszeile klicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf \"Domain hinzufügen\" klicken."
     },
+    "download": {
+        "message": "Download"
+    },
     "error_input": {
         "message": "Was ist kaputt ?"
+    },
+    "export_user_data": {
+        "message": "Export user data"
     },
     "feed_the_badger_title": {
         "message": "klicken, um die Kontrolle dieses Trackers an Privacy Badger zu übergeben"
     },
     "firstRun_title": {
         "message": "Privacy Badger wurde installiert"
+    },
+    "import": {
+        "message": "Import"
+    },
+    "import_select_file": {
+        "message": "Please select a file to import."
+    },
+    "import_successful": {
+        "message": "Tracker list and settings updated successfully!"
+    },
+    "import_user_data": {
+        "message": "Import user data"
+    },
+    "invalid_json": {
+        "message": "Invalid JSON file."
     },
     "name": {
         "message": "Privacy Badger"
@@ -53,6 +77,12 @@
     "options_title": {
         "message": "Privacy Badger Optionen"
     },
+    "options_webrtc_setting": {
+        "message": "Prevent WebRTC from leaking local IP address *"
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+    },
     "pb_detected": {
         "message": "Privacy Badger erkannte"
     },
@@ -66,7 +96,7 @@
         "message": "Privacy Badger für diese Site aktivieren"
     },
     "popup_instructions": {
-        "message": "<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>Tracker</a> auf dieser Seite. Diese Regler lassen Sie kontrollieren, wie Privacy Badger damit umgeht."
+        "message": "potenzielle <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>Trackers</a> auf dieser Seite. Diese Regler lassen Sie kontrollieren, wie Privacy Badger damit umgeht."
     },
     "popup_noblocked": {
         "message": "Warum wird nichts blockiert?"

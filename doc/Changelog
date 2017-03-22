@@ -1,6 +1,54 @@
 Changes for Privacy Badger 
 ====================================
-## 2016.9.7
+## 2017.1.26.1 
+* AMO only release
+* Fixes an error in the build scripts which reintroduced a firefox bug for AMO users
+  
+## 2017.1.26
+* Huge speed improvements for settings import and on startup
+* Fixes no content blocking bug (firefox) 
+* Several fixes for broken websites
+* Translations fixes
+* New Translation: Nordic
+* New Translation: Traditional Chineese (Taiwan)
+* New Translation: Serbian
+* Bugfix: Crash on browsers without WebRTC
+* Bugfix: narrow poup if icon is in the menu (firefox) 
+* Bugfix: Import/Export now uses utf-8 and can handle non english character
+sets
+* Enhancement: Convert icons to SVG
+* Enhancement: Script surrogate for google analytics, gigya, and more...
+* KNOWN ISSUE: Chrome will now display a message "Not downloaded from chrome
+
+## 2016.12.15.1 (2.0.2)
+* BUGFIX: Chrome browsers no longer display privacy badger as (corrupted)
+* BUGFIX: Fixes lockup issue on some versions of firefox
+* BUGFIX: Fixes issue where privacy badger panel gets cut off 
+* BUGFIX: Fixes a non implmeneted API in firefox which was causing numerous
+sites to break. 
+* KNOWN ISSUE: Chrome will now display a message "Not downloaded from chrome
+store". This is a known side effect of a workaround for a different bug. 
+
+## 2016.12.8.1 (2.0.1)
+* BUGFIX: Sanitize origin and action in popup
+
+## 2016.12.8 (2.0)
+* BUGFIX: Fix ublock origin warnings 
+* BUGFIX: Remove need for download permission
+
+## 2016.12.7.2 (2.0RC1)
+* Huge speed improvements
+* Multiprocess Compatible (E10S) for firefox
+* Breaks many fewer websites
+* Many small bugfixes
+* Import and Export your data
+* Block WebRTC from leaking your IP address
+* Forget data in incognito mode
+* block html5 "ping" tracking
+* Translation fixes 
+* (Developers) Firefox and Chrome versions now share one code base!
+
+## 2016.9.7 (1.13)
 * Add exceptions for multi domain first parties
 * Fix google drive download issue
 * Fix wikipedia login issue
@@ -8,21 +56,21 @@ Changes for Privacy Badger
 * Several other broken site fixes
 * Hopefully a fix for the "corrupted extension" issue
 
-## 2016.8.29
+## 2016.8.29 (1.12)
 * UI Tweaks
 * Remove last adblock plus code
 * Feature: remove domains from list
 * Refactor incognito mode handling
 * Compatibile with firefox web extensions
 
-## 2016.5.24 (2.0RC3)
+## 2016.5.24 (1.11)
 * Fix build error
 
-## 2016.5.23 (2.0RC2)
+## 2016.5.23 (1.10)
 * Fix cookie block list adding bug
 * New migration to fix bug retroactively
 
-## 2016.5.16 (2.0RC1)
+## 2016.5.16 (1.9)
 * Remove Adblock Plus Engine
 * Switch to using storage.js and chrome storage API
 * Massive refactoring of code
