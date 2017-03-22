@@ -134,39 +134,37 @@
   });
 
   QUnit.test("rateLimit", (assert) => {
-    let done = assert.async(),
-      start_ts = Date.now(),
-      call_count = 0,
-      interval = 100,
-      num_tests = 5;
+    const INTERVAL = 100,
+      NUM_TESTS = 5;
 
-    assert.expect(num_tests * 3); // each test performs multiple assertions
+    let clock = sinon.useFakeTimers(+new Date());
 
-    let fn = utils.rateLimit(function (password, i) {
-      // check timestamps
-      let elapsed_actual = Date.now() - start_ts;
-
-      // check call count
-      // time elapsed divided by interval provides expected number of calls
-      assert.ok(call_count == Math.round(elapsed_actual / interval),
-         "rateLimit should only allow one call per interval");
-      call_count++;
-
+    let callback = sinon.spy(function (password, i) {
       // check args
-      assert.ok(password == "qwerty" && i+1 == call_count,
-         "rateLimit should preserve args");
+      assert.equal(password, "qwerty",
+        "rateLimit should preserve args");
+      assert.equal(i + 1, callback.callCount,
+        "rateLimit should preserve args and call order");
 
       // check context
       assert.ok(this.foo == "bar", "rateLimit should preserve context");
+    });
 
-      // resume QUnit tests once we're done here
-      if (call_count == num_tests) {
-        done();
-      }
-    }, interval, {foo:"bar"});
+    let fn = utils.rateLimit(callback, INTERVAL, {foo:"bar"});
 
-    for (let i = 0; i < num_tests; i++) {
+    for (let i = 0; i < NUM_TESTS; i++) {
       fn("qwerty", i);
     }
+
+    for (let i = 0; i < NUM_TESTS; i++) {
+      // check rate limiting
+      assert.equal(callback.callCount, i + 1,
+        "rateLimit should allow only one call per interval");
+
+      // advance the clock
+      clock.tick(INTERVAL);
+    }
+
+    clock.restore();
   });
 })();
