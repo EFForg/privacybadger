@@ -1,9 +1,13 @@
 Changes for Privacy Badger 
 ====================================
-## 2017.1.26.1 
+## 2017.3.22
+* AMO (Firefox) only release.
+* Fix cookie tracking detection in Firefox.
+
+## 2017.1.26.1
 * AMO only release
 * Fixes an error in the build scripts which reintroduced a firefox bug for AMO users
-  
+
 ## 2017.1.26
 * Huge speed improvements for settings import and on startup
 * Fixes no content blocking bug (firefox) 
