@@ -3,31 +3,31 @@
         "message": "Domain hinzufügen"
     },
     "badger_status_block": {
-        "message": "Gesperrt "
+        "message": "Blockiert "
     },
     "badger_status_cookieblock": {
         "message": "Blockiert Cookies von "
     },
     "badger_status_noaction": {
-        "message": "Dürfen "
+        "message": "Erlaubt "
     },
     "data_settings": {
-        "message": "Manage Data"
+        "message": "Benutzerdaten verwalten"
     },
     "description": {
-        "message": "Privacy Badger schützt sie vor Trackern während Sie im Web surfen !"
+        "message": "Privacy Badger schützt Sie vor Trackern während Sie im Web surfen!"
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist de-aktiviert für die unten aufgelisteten Domains. Sie können eine Domain hinzufügen, indem Sie entweder dass Privacy Badger Icon in der Adresszeile klicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf \"Domain hinzufügen\" klicken."
+        "message": "Privacy Badger ist für die unten gelisteten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger Icon in der Adresszeile klicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf \"Domain hinzufügen\" klicken."
     },
     "download": {
-        "message": "Download"
+        "message": "Exportieren"
     },
     "error_input": {
-        "message": "Was ist kaputt ?"
+        "message": "Was ist defekt?"
     },
     "export_user_data": {
-        "message": "Export user data"
+        "message": "Benutzerdaten exportieren"
     },
     "feed_the_badger_title": {
         "message": "klicken, um die Kontrolle dieses Trackers an Privacy Badger zu übergeben"
@@ -35,20 +35,23 @@
     "firstRun_title": {
         "message": "Privacy Badger wurde installiert"
     },
+    "first_run_text": {
+        "message": "Lernen Sie wie Privacy Badger Ihre Privatsphäre schützt."
+    },
     "import": {
-        "message": "Import"
+        "message": "Importieren"
     },
     "import_select_file": {
-        "message": "Please select a file to import."
+        "message": "Bitte eine Datei zum Importieren auswählen."
     },
     "import_successful": {
-        "message": "Tracker list and settings updated successfully!"
+        "message": "Benutzerdaten wurden erfolgreich importiert!"
     },
     "import_user_data": {
-        "message": "Import user data"
+        "message": "Benutzerdaten importieren"
     },
     "invalid_json": {
-        "message": "Invalid JSON file."
+        "message": "Ungültige JSON Datei."
     },
     "name": {
         "message": "Privacy Badger"
@@ -57,7 +60,13 @@
         "message": "Neue Filter hinzugefügt; Siehe <a id='options_url' target='_blank'>Optionen</a> um sie zu verwalten."
     },
     "non_tracker": {
-        "message": "Die unten stehenden Domains scheinen Sie nicht zu tracken"
+        "message": "Die unten gelisteten Domains scheinen Sie nicht zu tracken"
+    },
+    "non_tracker_tip": {
+        "message": "Im Moment überprüft Privacy Badger nur, ob Drittparteien Cookies, lokalen HTML5 Speicher oder Canvas Fingerprinting benutzt um Ihr Surfverhalten zu tracken. Einige dieser Domains könnten allerdings Tracking-Methoden benutzen, welche Privacy Badger nicht erkennen kann."
+    },
+    "options_domain_search": {
+        "message": "Domains suchen"
     },
     "options_filter_settings": {
         "message": "Benutzerfilter Einstellungen"
@@ -66,37 +75,40 @@
         "message": "Allgemeine Einstellungen"
     },
     "options_loading": {
-        "message": "Lade..."
+        "message": "Lädt..."
+    },
+    "options_remove_origin_confirm": {
+        "message": "Sind Sie sicher dass Sie diese domain aus Privacy Badger entfernen möchten?"
     },
     "options_slider_text": {
         "message": "Privacy Badger beschützt Sie im Web! Diese Schieberegler kontrollieren, wie Privacy Badger die einzelnen gefundenen Tracker handhabt."
     },
     "options_social_widgets_checkbox": {
-        "message": "Ersetzen soziale Widgets"
+        "message": "Soziale Widgets ersetzen"
     },
     "options_title": {
         "message": "Privacy Badger Optionen"
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address *"
+        "message": "WebRTC daran hindern, die lokale IP-Adresse zu verraten"
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+        "message": "* WebRTC ist ein Feature, welches Ihre lokale IP-Adresse an Drittpartei-Webseiten verraten kann. Standardmäßig hilft Privacy Badger nur Sie zu beschützen, Sie können diese Option allerdings für weiteren Schutz aktivieren. Beachten Sie, dass das Aktivieren die Leistung von einigen Webseiten wie etwa Google Hangouts beeinträchtigen könnte."
     },
     "pb_detected": {
         "message": "Privacy Badger erkannte"
     },
     "popup_blocked": {
-        "message": "Konnte keine Tracking Cookies erkennen...."
+        "message": "Es scheinen keine Drittpartei Ressourcen auf dieser Webseite vorhanden zu sein."
     },
     "popup_disable_for_site": {
-        "message": "Privacy Badger für diese Site de-aktivieren"
+        "message": "Privacy Badger für diese Webseite deaktivieren"
     },
     "popup_enable_for_site": {
-        "message": "Privacy Badger für diese Site aktivieren"
+        "message": "Privacy Badger für diese Webseite aktivieren"
     },
     "popup_instructions": {
-        "message": "potenzielle <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>Trackers</a> auf dieser Seite. Diese Regler lassen Sie kontrollieren, wie Privacy Badger damit umgeht."
+        "message": "potenzielle <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>Tracker</a> auf dieser Seite. Diese Schieberegler kontrollieren, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme beim Laden dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen."
     },
     "popup_noblocked": {
         "message": "Warum wird nichts blockiert?"
@@ -112,7 +124,10 @@
     },
     "remove_button": {
         "description": "This is the label for the 'Remove selected' buttons.",
-        "message": "Ausgewähltes entfernen"
+        "message": "Ausgewählte entfernen"
+    },
+    "report_broken_site": {
+        "message": "Gab es ein Problem beim Laden dieser Webseite? Bitte lassen Sie es uns wissen!"
     },
     "report_button": {
         "message": "Fehler melden"
@@ -121,20 +136,41 @@
         "message": "Abbrechen"
     },
     "report_terms": {
-        "message": "Dies wird Informationen an die EFF senden. Diese beinhalten: die Seite, auf der Sie sind, die Browser Version, die Version von Privacy Badger, und den Status aller Regler für diese Seite"
+        "message": "Dies wird Informationen an die EFF senden. Diese beinhalten: Die von Ihnen aufgerufene Webseite, Ihre Browser Version, die Version von Privacy Badger und den Status aller Regler für diese Webseite."
+    },
+    "report_title": {
+        "message": "Fehler mit dieser Webseite melden"
     },
     "report_text": {
-        "message": "Beschreiben Sie hier Ihren Fehler"
+        "message": "Beschreiben Sie bitte den Fehler"
     },
-    "report_broken_site": {
-      "message": "Kaputte Seite melden"
+    "report_input_label": {
+        "message": "Beschreibung"
+    },
+    "report_success": {
+        "message": "Vielen Dank! Wir werden den Fehler umgehend analysieren."
+    },
+    "report_fail": {
+        "messages": "Oops, das hat leider nicht geklappt."
+    },
+    "report_close": {
+        "messages": "Schließen"
     },
     "show_counter_checkbox": {
-      "message": "Anzahl der blockierten Artikel anzeigen"
+        "message": "Anzahl der blockierten Ressourcen anzeigen"
+    },
+    "tooltip_allow": {
+        "message": "Schieben Sie den Regler nach rechts um eine Domain zu erlauben"
+    },
+    "tooltip_block": {
+        "message": "Schieben Sie den Regler nach links um eine Domain zu blockieren"
+    },
+    "tooltip_cookieblock": {
+        "message": "Schieben Sie den Regler in die Mitte um Cookies einer Domain zu blockieren"
     },
     "whitelisted_domains": {
         "description": "This is a tab heading.",
-        "message": "Positivliste der Domaine"
+        "message": "Erlaubte Domains"
     },
     "intro1": {
         "description": "firstRun.html Intro zu Privacy Badger",
@@ -144,34 +180,37 @@
         "message": "Diese Erweiterung wurde geschaffen, um Ihre Privatsphäre automatisch vor unsichtbaren Trackern Dritter zu schützen, während Sie im Web surfen. Wir senden mit jeder Anfrage den Do-Not-Track Header und unsere Erweiterung bewertet die Wahrscheinlichkeit, dass sie trotzdem überwacht werden. Wenn die Wahrscheinlichkeit zu groß ist, blockieren wir die Anfrage an die Domain automatisch. Bitte beachten Sie: Privacy Badger ist noch im Beta Stadium und der Algorithmus noch nicht ausgereift."
     },
     "intro_3_states":{
-        "message": "Die Erweiterung hat 3 Zustände. "
+        "message": "Die Erweiterung hat drei Einstellungen. "
     },
     "intro_red":{
         "message": "Rot"
     },
     "intro_has_blocked":{
-        "message": " bedeutet, Privacy Badger glaubt, die Domain ist ein Tracker und blockiert sie. "
+        "message": " bedeutet dass Privacy Badger denkt, die Domain ist ein Tracker und blockiert sie. "
     },
     "intro_yellow":{
         "message": "Gelb"
     },
     "intro_cookie_blocked":{
-        "message": "bedeutet, dass die Domain sowohl ein Tracker als auch integraler Bestandteil der Seite ist. Darum wird Privacy Badger ausschließlich deren Cookies blockieren."
+        "message": "bedeutet, dass die Domain sowohl ein Tracker als auch integraler Bestandteil der besuchten Webseite ist. Darum wird Privacy Badger ausschließlich deren Cookies blockieren."
     },
     "intro_green":{
         "message": "Grün"
     },
     "intro_no_tracker":{
-        "message": "bedeutet, Privacy Badger nimmt nicht an, dass dies ein Tracker ist. Sie können den Privacy Badger Knopf im Browser klicken, um selbst zu konfigurieren, was geblockt werden soll. Oder Sie warten. Privacy Badger lernt dazu, während Sie im Internet surfen."
+        "message": "bedeutet, Privacy Badger nimmt nicht an, dass die Domain ein Tracker ist. Sie können den Privacy Badger Button im Browser anklicken, um selbst zu entscheiden, was geblockt werden soll. Oder Sie warten, denn Privacy Badger lernt dazu, während Sie im Internet surfen."
     },
     "intro_hungry":{
-        "message":"Nichts hält Privacy Badger davon ab, Cookies zu essen, wenn er hungrig ist !"
+        "message":"Nichts hält Privacy Badger davon ab, Cookies zu essen, wenn er hungrig ist!"
     },
     "intro_by_eff":{
-        "message":"Privacy Badger ist ein Projekt der Electronic Frontier Foundation."
+        "message":"Privacy Badger ist ein Projekt der Electronic Frontier Foundation"
     },
     "intro_social_share": {
-        "message": "Lassen Sie die Welt wissen, dass Sie gegen online Überwachung sind"
+        "message": "Lassen Sie die Welt wissen, dass Sie gegen Online-Überwachung sind"
+    },
+    "intro_text": {
+        "message": "Sie werden nun von Privacy Badger geschützt. Um zu verstehen, wie Privacy Badger funktioniert, klicken Sie bitte unten für eine kleine Einleitung."
     },
     "ded_privacy_badger_alert": {
         "message": "Privacy Badger Alarm!"
@@ -194,16 +233,67 @@
     "ded_never_allow": {
         "message": "Immer Anfragen Dritter blockieren von "
     },
-    "tooltip_allow": {
-        "message": "Move the slider right to allow a domain"
+    "options_pb_has_detected": {
+        "message": "Privacy Badger hat bisher"
     },
-    "tooltip_block": {
-        "message": "Move the slider left to block a domain"
+    "options_potential": {
+        "message": "potenzielle"
     },
-    "tooltip_cookieblock": {
-        "message": "Center the slider to block cookies"
+    "options_tracking_domains": {
+        "message": "Tracking Domains"
+    },
+    "options_so_far": {
+      "message": "entdeckt. Diese Schieberegler kontrollieren, wie Privacy Badger die einzelnen gefundenen Tracker handhabt."
+    },
+    "slideshow_1": {
+      "message": " Hallo, Ich bin Privacy Badger! Vielen Dank dass Sie mich installiert haben. Ich bin hier um Ihnen wertvolle Tipps zu geben, wie wir besser zusammenarbeiten können."
+    },
+    "slideshow_2": {
+      "message": " Ich werde hier oben in Ihrem Browser sitzen und nach spionierender Werbung und unsichtbaren Trackern, welche Ihr Surf-Verhalten im Internet speichern, ausschau halten."
+    },
+    "slideshow_3": {
+      "message": " Wenn mir etwas auffällt, das sich wie ein Tracker verhält, werde ich es daran hindern indem ich es blockiere."
+    },
+    "slideshow_4": {
+      "message": " Wenn Sie auf mein Icon klicken, sehen Sie alle potenziellen Tracker auf der besuchten Webseite."
+    },
+    "slideshow_5": {
+      "message": " Wenn der Schieberegler rot ist, habe ich einen Tracker komplett blockiert."
+    },
+    "slideshow_6": {
+      "message": " Ist der Schieberegler gelb, ist der Tracker nur teilweise blockiert. Ich werde in so einem Fall mein Bestes versuchen, um den Tracker daran zu hintern, Sie auszuspionieren."
+    },
+    "slideshow_7": {
+      "message": " Grün bedeutet, dass mir (bisher) nichts komisches an der Domain aufgefallen ist. Ich werde trotzdem ein Auge darauf werfen."
+    },
+    "slideshow_8": {
+      "message": " Wenn Sie das erste Mal auf mein Icon klicken, kann es sein, dass alle Domains grün aufscheinen, aber seien Sie nicht besorgt! Ich funktioniere nicht wir herkömmliche Tracking blocker. Stattdessen lerne ich mit, während Sie Ihre Webseien besuchen."
+    },
+    "slideshow_9": {
+      "message": " Ich lerne während Sie im Internet surfen. Je länger Sie mich Ihnen helfen lassen, desto wahrscheinlicher wird es, dass ich Sie von hinterhältigen Trackern beschützen kann."
+    },
+    "slideshow_10": {
+      "message": " Wenn Sie denken, dass ich eine Entscheidung nicht so getroffen habe, wie Sie es gerne hätten, können Sie den Schieberegler benutzen um eine Domain anzupassen."
+    },
+    "slideshow_11": {
+      "message": " Wenn Sie eine Anpassung vorgenommen haben, können Sie diese jederzeit rückgängig machen, indem Sie auf den Pfeil klicken."
+    },
+    "slideshow_12": {
+      "message": " Wenn es ein Problem beim Aufrufen einer Webseite gibt und Sie denken dass es meine Schuld ist, können Sie auf den deaktivieren Button klicken, dann werde ich nichts blockieren wenn Sie diese Webseite in Zukunft besuchen."
+    },
+    "slideshow_13": {
+      "message": " So oder so sollten Sie es meinen Entwicklern wissen lassen, wenn es Probleme beim Aufrufen einer Webseite gibt. Dies können Sie mittels diesem melden Button tun."
+    },
+    "slideshow_14": {
+      "message": " Hier können Sie weitere Einstellungen ändern wenn Sie dies möchten."
+    },
+    "slideshow_15": {
+      "message": " Natürlich können Sie auch alle Werkseinstellungen so belassen und ich werde unauffällig alle Tracker blockieren."
+    },
+    "slideshow_16": {
+      "message": " Vielen Dank, dass Sie diesen wichtigen, einfachen Schritt machen um Ihre Privatsphäre zu Schützen. Sie können hier klicken, sollten Sie nochmal hilfe benötigen und weiter unten können Sie die Welt wissen lassen, dass Sie gegen Online-Überwachung sind.
     },
     "donate_to_eff": {
-      "message": "Donate to EFF"
+      "message": "An EFF spenden"
     }
 }
