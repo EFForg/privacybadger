@@ -151,10 +151,10 @@
         "message": "Vielen Dank! Wir werden den Fehler umgehend analysieren."
     },
     "report_fail": {
-        "messages": "Oops, das hat leider nicht geklappt."
+        "message": "Oops, das hat leider nicht geklappt."
     },
     "report_close": {
-        "messages": "Schließen"
+        "message": "Schließen"
     },
     "show_counter_checkbox": {
         "message": "Anzahl der blockierten Ressourcen anzeigen"
