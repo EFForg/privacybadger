@@ -21,10 +21,23 @@
 
 <html>
   <head>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="../lib/qunitjs/qunit/qunit.css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Privacy Badger unit tests</title>
+
+    <link rel="stylesheet" href="lib/vendor/qunit-2.2.0.css"/>
+
     <script src="../lib/jquery-ui/js/jquery-2.2.4.min.js"></script>
-    <script src="../lib/qunitjs/qunit/qunit.js"></script>
+
+    <script src="lib/vendor/qunit-2.2.0.js"></script>
+    <script src="lib/qunit_config.js"></script>
+    <script src="lib/vendor/sinon-2.0.0.js"></script>
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
     <script src="../src/bootstrap.js"></script>
     <script src="../data/surrogates.js"></script>
     <script src="../src/surrogates.js"></script>
@@ -43,19 +56,12 @@
     <script src="../src/htmlutils.js"></script>
     <script src="../src/migrations.js"></script>
     <script src="../src/background.js"></script>
-    <script src="tests/qunit_config.js"></script>
+
+    <script src="tests/background.js"></script>
     <script src="tests/baseDomain.js"></script>
-    <script src="tests/utils.js"></script>
+    <script src="tests/heuristic.js"></script>
     <script src="tests/htmlutils.js"></script>
     <script src="tests/storage.js"></script>
-    <script src="tests/background.js"></script>
-
-  </head>
-  <body>
-    <h1 id="qunit-header">Privacy Badger unit tests</h1>
-    <h2 id="qunit-banner"></h2>
-    <div id="qunit-testrunner-toolbar"></div>
-    <h2 id="qunit-userAgent"></h2>
-    <ol id="qunit-tests"></ol>
+    <script src="tests/utils.js"></script>
   </body>
 </html>

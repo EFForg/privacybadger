@@ -574,6 +574,7 @@ function startListeners() {
 var exports = {};
 exports.HeuristicBlocker = HeuristicBlocker;
 exports.startListeners = startListeners;
+exports.hasCookieTracking = hasCookieTracking;
 return exports;
 /************************************** exports */
 })();

@@ -80,21 +80,25 @@ Utils.prototype = {
 * @param method GET/POST
 */
 function xhrRequest(url, callback, method){
-  if(!method){
+  if (!method) {
     method = "GET";
   }
   var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function(){
-    //on done
-    if(xhr.readyState == xhr.DONE){
-      //on success
-      if(xhr.status == 200){
-        callback(null,xhr.responseText);
-      } else {
-        var error = {status: xhr.status, message: xhr.responseText, object: xhr};
-        callback(error,error.message);
-      }
+  xhr.onload = function () {
+    if (xhr.status == 200) {
+      callback(null, xhr.responseText);
+    } else {
+      var error = {
+        status: xhr.status,
+        message: xhr.responseText,
+        object: xhr
+      };
+      callback(error, error.message);
     }
+  };
+  // triggered by network problems
+  xhr.onerror = function () {
+    callback({ status: 0, message: "", object: xhr }, "");
   };
   xhr.open(method, url, true);
   xhr.send();

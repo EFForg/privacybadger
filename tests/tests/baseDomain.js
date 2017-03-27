@@ -23,10 +23,9 @@ URI:false,
 
 (function()
 {
-  module("URL/host tools");
+  QUnit.module("URL/host tools");
 
-  test("Host name extraction", function()
-  {
+  QUnit.test("Host name extraction", function (assert) {
     var tests = [
       [null, ""],
       ["/foo/bar", ""],
@@ -40,12 +39,11 @@ URI:false,
     ];
 
     for (var i = 0; i < tests.length; i++) {
-      equal(extractHostFromURL(tests[i][0]), tests[i][1], tests[i][0]);
+      assert.equal(extractHostFromURL(tests[i][0]), tests[i][1], tests[i][0]);
     }
   });
 
-  test("Invalid URI recognition", function()
-  {
+  QUnit.test("Invalid URI recognition", function (assert) {
     var tests = [
       null,
       "",
@@ -53,19 +51,14 @@ URI:false,
       "http:foo.bar/",
       "http://foo.bar"
     ];
-    for (var i = 0; i < tests.length; i++)
-    {
-      throws(
-        function() { // eslint-disable-line no-loop-func
-          return new URI(tests[i]);
-        },
-        'Invalid URI recognition.'
-      );
+    for (var i = 0; i < tests.length; i++) {
+      assert.raises(function() { // eslint-disable-line no-loop-func
+        return new URI(tests[i]);
+      }, Error, "Invalid URI recognition.");
     }
   });
 
-  test("URI parsing", function()
-  {
+  QUnit.test("URI parsing", function (assert) {
     var tests = [
       ["http://example.com/", {
         scheme: "http",
@@ -136,15 +129,14 @@ URI:false,
     {
       var url = tests[i][0];
       var uri = new URI(url);
-      equal(uri.spec, url, "URI(" + url + ").spec");
+      assert.equal(uri.spec, url, "URI(" + url + ").spec");
       for (var k in tests[i][1]) {
-        equal(uri[k], tests[i][1][k], "URI(" + url + ")." + k);
+        assert.equal(uri[k], tests[i][1][k], "URI(" + url + ")." + k);
       }
     }
   });
 
-  test("Determining base domain", function()
-  {
+  QUnit.test("Determining base domain", function (assert) {
     var tests = [
       ["com", "com"],
       ["example.com", "example.com"],
@@ -168,12 +160,11 @@ URI:false,
     ];
 
     for (var i = 0; i < tests.length; i++) {
-      equal(getBaseDomain(tests[i][0]), tests[i][1], tests[i][0]);
+      assert.equal(getBaseDomain(tests[i][0]), tests[i][1], tests[i][0]);
     }
   });
 
-  test("Converting IP address to number checks", function()
-  {
+  QUnit.test("Converting IP address to number checks", function (assert) {
     var testResults = {
       "127.0.0.1": 2130706433,
       "8.8.8.8": 134744072,
@@ -188,12 +179,11 @@ URI:false,
         continue;
       }
 
-      equal(ipAddressToNumber(ip), testResults[ip], ip);
+      assert.equal(ipAddressToNumber(ip), testResults[ip], ip);
     }
   });
 
-  test("Private domain checks", function()
-  {
+  QUnit.test("Private domain checks", function (assert) {
     var testResults = {
       "localhost": true,
       "126.0.0.13": false,
@@ -222,12 +212,11 @@ URI:false,
         continue;
       }
 
-      equal(isPrivateDomain(domain), testResults[domain], domain);
+      assert.equal(isPrivateDomain(domain), testResults[domain], domain);
     }
   });
 
-  test("Third party checks", function()
-  {
+  QUnit.test("Third party checks", function (assert) {
     var tests = [
       ["foo", "foo", false],
       ["foo", "bar", true],
@@ -242,7 +231,7 @@ URI:false,
     ];
 
     for (var i = 0; i < tests.length; i++) {
-      equal(isThirdParty(tests[i][0], tests[i][1]), tests[i][2], tests[i][0] + " and " + tests[i][1]);
+      assert.equal(isThirdParty(tests[i][0], tests[i][1]), tests[i][2], tests[i][0] + " and " + tests[i][1]);
     }
   });
 })();

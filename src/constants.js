@@ -35,7 +35,9 @@ var exports = {
 
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
-  MAX_COOKIE_ENTROPY: 12
+  MAX_COOKIE_ENTROPY: 12,
+
+  DNT_POLICY_CHECK_INTERVAL: 1000, // one second
 };
 
 return exports;

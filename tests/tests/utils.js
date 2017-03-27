@@ -1,81 +1,81 @@
 /* globals badger:false */
 
 (function() {
-  module("Privacy Badger Utils");
+  QUnit.module("Utils");
 
   var utils = require('utils');
   var getSurrogateURI = require('surrogates').getSurrogateURI;
   var mdfp = require('multiDomainFP');
 
-  test("removeElementFromArray", function(){
+  QUnit.test("removeElementFromArray", function (assert) {
     var testAry = [1,2,3,4,5,6];
     utils.removeElementFromArray(testAry,2);
-    ok(testAry.length === 5, "Array length is 5");
-    ok(testAry.indexOf(3) === -1, "second element has been deleted");
-    ok(testAry[2] === 4);
+    assert.ok(testAry.length === 5, "Array length is 5");
+    assert.ok(testAry.indexOf(3) === -1, "second element has been deleted");
+    assert.ok(testAry[2] === 4);
   });
 
-  test("removeElementsFromArray", function(){
+  QUnit.test("removeElementsFromArray", function (assert) {
     var testAry = [1,2,3,4,5,6];
     utils.removeElementFromArray(testAry,2, 4);
-    ok(testAry.length === 3, "Array length is 3");
-    ok(testAry.indexOf(3) === -1, "second element deleted");
-    ok(testAry.indexOf(4) === -1, "third element deleted");
-    ok(testAry.indexOf(5) === -1, "fourth element deleted");
-    ok(testAry[2] === 6, "correct value at idx 2");
+    assert.ok(testAry.length === 3, "Array length is 3");
+    assert.ok(testAry.indexOf(3) === -1, "second element deleted");
+    assert.ok(testAry.indexOf(4) === -1, "third element deleted");
+    assert.ok(testAry.indexOf(5) === -1, "fourth element deleted");
+    assert.ok(testAry[2] === 6, "correct value at idx 2");
   });
 
-  test("explodeSubdomains", function(){
+  QUnit.test("explodeSubdomains", function (assert) {
     var fqdn = "test.what.yea.eff.org";
     var subs = utils.explodeSubdomains(fqdn);
-    console.log(subs);
-    ok(subs.length == 4);
-    ok(subs[0] == fqdn);
-    ok(subs[3] == 'eff.org');
+    assert.ok(subs.length == 4);
+    assert.ok(subs[0] == fqdn);
+    assert.ok(subs[3] == 'eff.org');
   });
 
-  asyncTest("send xhrRequest", function(){
-    expect(3); //expect 1 assertion
+  QUnit.test("send xhrRequest", function (assert) {
+    let done = assert.async();
+    assert.expect(3);
     utils.xhrRequest("https://www.eff.org/files/badgertest.txt", function(err,resp){
-      ok(true, "xhr calls callback");
-      ok(err === null, "there was no error");
-      ok(resp === "test passed\n", "got response text");
-      console.log(resp);
-      start();
+      assert.ok(true, "xhr calls callback");
+      assert.ok(err === null, "there was no error");
+      assert.ok(resp === "test passed\n", "got response text");
+      done();
     });
   });
 
-  asyncTest("send faling xhrRequest", function(){
-    expect(3); //expect 1 assertion
+  QUnit.test("send faling xhrRequest", function (assert) {
+    let done = assert.async();
+    assert.expect(3);
     utils.xhrRequest("https://www.eff.org/nonexistent-page", function(err/*,resp*/){
-      ok(true, "xhr calls callback");
-      ok(err, "there was an error");
-      ok(err.status === 404, "error was 404");
-      start();
+      assert.ok(true, "xhr calls callback");
+      assert.ok(err, "there was an error");
+      assert.ok(err.status === 404, "error was 404");
+      done();
     });
   });
 
-  test("isPrivacyBadgerEnabled", function(){
-    ok(badger.isPrivacyBadgerEnabled("eff.org"), "enabled for site");
+  QUnit.test("isPrivacyBadgerEnabled", function (assert) {
+    assert.ok(badger.isPrivacyBadgerEnabled("eff.org"), "enabled for site");
 
     badger.disablePrivacyBadgerForOrigin("example.com");
-    ok(!badger.isPrivacyBadgerEnabled("example.com"), "disabled for site");
+    assert.ok(!badger.isPrivacyBadgerEnabled("example.com"), "disabled for site");
     badger.enablePrivacyBadgerForOrigin("example.com");
-    ok(badger.isPrivacyBadgerEnabled("example.com"), "enabled for site");
+    assert.ok(badger.isPrivacyBadgerEnabled("example.com"), "enabled for site");
   });
   
-  test("disable/enable privacy badger for origin", function(){
+  QUnit.test("disable/enable privacy badger for origin", function (assert) {
     var parsed = function(){ return badger.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'); };
     var origLength = parsed() && parsed().length || 0;
 
     badger.disablePrivacyBadgerForOrigin('foo.com');
-    ok(parsed().length == (origLength + 1), "one more disabled site");
+    assert.ok(parsed().length == (origLength + 1), "one more disabled site");
 
     badger.enablePrivacyBadgerForOrigin('foo.com');
-    ok(parsed().length == origLength, "one less disabled site");
+    assert.ok(parsed().length == origLength, "one less disabled site");
   });
 
-  test("getRandom", function(){
+  QUnit.test("getRandom", function (assert) {
     var min = 1,
         max = 10,
         iterations = 1000,
@@ -84,17 +84,17 @@
     for(var i = 0; i < iterations; i++){
       results.push(utils.getRandom(min,max));
     }
-    ok(Math.max.apply(null,results) === max, "max is max");
-    ok(Math.min.apply(null,results) === min, "min is min");
+    assert.ok(Math.max.apply(null,results) === max, "max is max");
+    assert.ok(Math.min.apply(null,results) === min, "min is min");
   });
 
-  test("multi domain first party", function(){
-    ok(mdfp.isMultiDomainFirstParty("dummy", "dummy"));
-    ok(mdfp.isMultiDomainFirstParty("google.com", "youtube.com"));
-    ok(!mdfp.isMultiDomainFirstParty("google.com", "nyt.com"));
+  QUnit.test("multi domain first party", function (assert) {
+    assert.ok(mdfp.isMultiDomainFirstParty("dummy", "dummy"));
+    assert.ok(mdfp.isMultiDomainFirstParty("google.com", "youtube.com"));
+    assert.ok(!mdfp.isMultiDomainFirstParty("google.com", "nyt.com"));
   });
 
-  test("surrogate script URL lookups", function() {
+  QUnit.test("surrogate script URL lookups", function (assert) {
     const GA_JS_TESTS = [
       {
         url: 'http://www.google-analytics.com/ga.js',
@@ -116,15 +116,15 @@
         GA_JS_TESTS[i].url,
         'www.google-analytics.com'
       );
-      ok(ga_js_surrogate, GA_JS_TESTS[i].msg);
+      assert.ok(ga_js_surrogate, GA_JS_TESTS[i].msg);
     }
 
-    ok(
+    assert.ok(
       ga_js_surrogate.startsWith('data:application/javascript;base64,'),
       "The returned ga.js surrogate is a base64-encoded JavaScript data URI"
     );
 
-    ok(
+    assert.ok(
       !getSurrogateURI(
         'https://a1.nyt.com/assets/homepage/20160920-111441/js/foundation/lib/framework.js',
         'a1.nyt.com'
@@ -133,39 +133,38 @@
     );
   });
 
-  asyncTest("rateLimit", () => {
-    let start_ts = Date.now(),
-      call_count = 0,
-      interval = 100,
-      num_tests = 5;
+  QUnit.test("rateLimit", (assert) => {
+    const INTERVAL = 100,
+      NUM_TESTS = 5;
 
-    expect(num_tests * 3); // each test performs multiple assertions
+    let clock = sinon.useFakeTimers(+new Date());
 
-    let fn = utils.rateLimit(function (password, i) {
-      // check timestamps
-      let elapsed_actual = Date.now() - start_ts;
-
-      // check call count
-      // time elapsed divided by interval provides expected number of calls
-      ok(call_count == Math.round(elapsed_actual / interval),
-         "rateLimit should only allow one call per interval");
-      call_count++;
-
+    let callback = sinon.spy(function (password, i) {
       // check args
-      ok(password == "qwerty" && i+1 == call_count,
-         "rateLimit should preserve args");
+      assert.equal(password, "qwerty",
+        "rateLimit should preserve args");
+      assert.equal(i + 1, callback.callCount,
+        "rateLimit should preserve args and call order");
 
       // check context
-      ok(this.foo == "bar", "rateLimit should preserve context");
+      assert.ok(this.foo == "bar", "rateLimit should preserve context");
+    });
 
-      // resume QUnit tests once we're done here
-      if (call_count == num_tests) {
-        start();
-      }
-    }, interval, {foo:"bar"});
+    let fn = utils.rateLimit(callback, INTERVAL, {foo:"bar"});
 
-    for (let i = 0; i < num_tests; i++) {
+    for (let i = 0; i < NUM_TESTS; i++) {
       fn("qwerty", i);
     }
+
+    for (let i = 0; i < NUM_TESTS; i++) {
+      // check rate limiting
+      assert.equal(callback.callCount, i + 1,
+        "rateLimit should allow only one call per interval");
+
+      // advance the clock
+      clock.tick(INTERVAL);
+    }
+
+    clock.restore();
   });
 })();
