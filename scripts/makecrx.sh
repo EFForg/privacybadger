@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=`grep '"version":' manifest.json | cut -c14- | sed 's/[",[:space:]\n]//g'`
+VERSION=`grep '"version":' dist/manifest.json | cut -c14- | sed 's/[",[:space:]\n]//g'`
 PREFIX=privacy_badger
 name=$PREFIX-$VERSION
 key=scripts/dummy-chromium.pem
