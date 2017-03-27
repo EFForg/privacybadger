@@ -10,7 +10,7 @@ Nothing can stop the Privacy Badger from eating cookies when it's hungry!
 
 Privacy Badger is a project of the Electronic Frontier Foundation.
 
-##Developing
+## Developing
 For an easy build, simply enable developer mode in chrome://extensions, hit
 the "load unpacked extension" button and load up this directory.
 
@@ -32,5 +32,5 @@ visit `chrome-extension://YOUR_EXTENSION_ID/tests/index.html`, replacing
 
 To run functional tests powered by Selenium, you need to have `chromedriver`, `xvfb` and `python-virtualenv` installed. Also `geckodriver` to run functional tests in Firefox. See [scripts/setup_travis.sh](scripts/setup_travis.sh) and [tests/run_selenium_tests.sh](tests/run_selenium_tests.sh).
 
-##License
+## License
 Privacy Badger is licensed under the GPLv3. See LICENSE for more details
