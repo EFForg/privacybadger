@@ -1,9 +1,9 @@
 (function() {
-  module("Privacy Badger HTML Utils");
+  QUnit.module("HTML Utils");
 
   var htmlUtils = require("htmlutils").htmlUtils;
 
-  test("trim", function() {
+  QUnit.test("trim", function (assert) {
     // Test parameters
     var tests = [
       {
@@ -24,11 +24,11 @@
       var maxLength = tests[i].maxLength;
       var expected = tests[i].expectedResult;
       var message = "Inputs: '" + inputString + "' and " + maxLength;
-      equal(htmlUtils.trim(inputString, maxLength), expected, message);
+      assert.equal(htmlUtils.trim(inputString, maxLength), expected, message);
     }
   });
 
-  test("isChecked", function() {
+  QUnit.test("isChecked", function (assert) {
     // Test parameters
     var tests = [
       {
@@ -49,11 +49,11 @@
       var originAction = tests[i].originAction;
       var expected = tests[i].expectedResult;
       var message = "Inputs: '" + inputAction + "' and '" + originAction + "'";
-      equal(htmlUtils.isChecked(inputAction, originAction), expected, message);
+      assert.equal(htmlUtils.isChecked(inputAction, originAction), expected, message);
     }
   });
 
-  test("getActionDescription", function() {
+  QUnit.test("getActionDescription", function (assert) {
     // Test parameters
     var tests = [
       {
@@ -79,11 +79,11 @@
       var origin = tests[i].origin;
       var expected = tests[i].expectedResult;
       var message = "Inputs: '" + action + "' and '" + origin + "'";
-      equal(htmlUtils.getActionDescription(action, origin), expected, message);
+      assert.equal(htmlUtils.getActionDescription(action, origin), expected, message);
     }
   });
 
-  test("getToggleHtml", function() {
+  QUnit.test("getToggleHtml", function (assert) {
     // Test parameters
     var tests = [
       {
@@ -111,24 +111,24 @@
       var message = "Inputs: '" + origin + "' and '" + action + "'";
       var html = htmlUtils.getToggleHtml(origin, action);
       var inputValue = $('input[name="' + origin + '"]:checked', html).val();
-      equal(inputValue, expected, message);
+      assert.equal(inputValue, expected, message);
     }
   });
 
-  test("getTrackerContainerHtml", function() {
+  QUnit.test("getTrackerContainerHtml", function (assert) {
     // Test given tab ID.
     var tabId = 1;
     var htmlResult = htmlUtils.getTrackerContainerHtml(tabId);
     var tabIdExists = htmlResult.indexOf('data-tab-id="' + tabId + '"') > -1;
-    ok(tabIdExists, "Given tab ID should be set");
+    assert.ok(tabIdExists, "Given tab ID should be set");
 
     // Test missing tab ID.
     htmlResult = htmlUtils.getTrackerContainerHtml();
     var defaultTabIdExists = htmlResult.indexOf('data-tab-id="000"') > -1;
-    ok(defaultTabIdExists, "Default tab ID should be set");
+    assert.ok(defaultTabIdExists, "Default tab ID should be set");
   });
 
-  test("addOriginHtml", function() {
+  QUnit.test("addOriginHtml", function (assert) {
     // Test parameters
     var tests = [
       {
@@ -160,22 +160,22 @@
 
       // Make sure existing HTML is present.
       var existingHtmlExists = htmlResult.indexOf(existingHtml) > -1;
-      ok(existingHtmlExists, "Existing HTML should be present");
+      assert.ok(existingHtmlExists, "Existing HTML should be present");
 
       // Make sure origin and original action are set.
       var originDataExists = htmlResult.indexOf('data-origin="' + origin + '"') > -1;
-      ok(originDataExists, "Origin should be set");
+      assert.ok(originDataExists, "Origin should be set");
       var originalActionExists = htmlResult.indexOf('data-original-action="' + action + '"') > -1;
-      ok(originalActionExists, "Original action should be set");
+      assert.ok(originalActionExists, "Original action should be set");
 
       // Check for presence of subdomain count.
       var countExists = htmlResult.indexOf(subdomainCount + " subdomains") > 0;
-      equal(countExists, subdomainCount > 0,
+      assert.equal(countExists, subdomainCount > 0,
         "Subdomain count should " + ((countExists) ? "": "not ") + "be present");
 
       // Check for presence of DNT content.
       var dntExists = htmlResult.indexOf('id="dnt-compliant"') > -1;
-      equal(dntExists, isWhitelisted,
+      assert.equal(dntExists, isWhitelisted,
         "DNT div should " + ((dntExists) ? "" : "not ") + "be present");
     }
   });
