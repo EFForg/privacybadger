@@ -298,11 +298,11 @@ function refreshPopup(tabId) {
     }
     originCount++;
     var flag = (action == constants.DNT);
-    printable = htmlUtils.addOriginHtml(printable, origin, action, flag);
+    printable += htmlUtils.getOriginHtml(origin, action, flag);
   }
   for (var key in compressedOrigins){
     var flag2 = (compressedOrigins[key].action == constants.DNT);
-    printable = htmlUtils.addOriginHtml(printable, key, compressedOrigins[key].action, flag2, compressedOrigins[key].subs.length);
+    printable += htmlUtils.getOriginHtml(key, compressedOrigins[key].action, flag2, compressedOrigins[key].subs.length);
   }
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
@@ -312,7 +312,7 @@ function refreshPopup(tabId) {
     for (var c = 0; c < nonTracking.length; c++){
       var ntOrigin = nonTracking[c];
       backgroundPage.log('calling printable for non-tracking');
-      printable = htmlUtils.addOriginHtml(printable, ntOrigin, constants.NO_TRACKING, false);
+      printable += htmlUtils.getOriginHtml(ntOrigin, constants.NO_TRACKING, false);
     }
   }
   $('#number_trackers').text(originCount);
