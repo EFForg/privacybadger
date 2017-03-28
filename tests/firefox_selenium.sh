@@ -2,7 +2,7 @@
 set -e
 
 # web-ext uses these to launch and install the browser
-export WEB_EXT_SOURCE_DIR=`dirname $PWD`
+export WEB_EXT_SOURCE_DIR=$(dirname "$PWD")/dist
 export WEB_EXT_PREF="marionette.defaultPrefs.enabled=true"
 export WEB_EXT_FIREFOX="/usr/bin/firefox"
 
@@ -14,8 +14,8 @@ geckodriver --connect-existing --marionette-port 2828 &
 gecko_PID=$!
 
 cleanstuff () {
-    kill $gecko_PID
-    kill $ext_PID
+    kill "$gecko_PID"
+    kill "$ext_PID"
 }
 
 trap cleanstuff EXIT
