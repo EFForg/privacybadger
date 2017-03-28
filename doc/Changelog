@@ -1,5 +1,17 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.3.28
+* New Translations (Ukranian)
+* Translation Updates
+* Fix bug in DNT policy re-checking code
+* Rate limit DNT checking to one request per second
+* Fix issue with multiple DNT checks at once for a single domain
+* Fix cookieblock updating issue
+* Fix popup width issue
+* Fix DNT hash updating issue
+* Fixing toggle switch issue
+* Other minor bugfixes and broken site fixes
+
 ## 2017.3.22
 * AMO (Firefox) only release.
 * Fix cookie tracking detection in Firefox.
