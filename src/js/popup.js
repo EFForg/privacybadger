@@ -265,7 +265,7 @@ function refreshPopup(tabId) {
   // Display tracker tooltips.
   $("#blockedResources").html(htmlUtils.getTrackerContainerHtml(tabId));
 
-  var printable = '';
+  var printable = [];
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
   var originCount = 0;
@@ -297,22 +297,40 @@ function refreshPopup(tabId) {
       }
     }
     originCount++;
-    var flag = (action == constants.DNT);
-    printable += htmlUtils.getOriginHtml(origin, action, flag);
+    printable.push(
+      htmlUtils.getOriginHtml(
+        origin, action, action == constants.DNT
+      )
+    );
   }
+
   for (var key in compressedOrigins){
-    var flag2 = (compressedOrigins[key].action == constants.DNT);
-    printable += htmlUtils.getOriginHtml(key, compressedOrigins[key].action, flag2, compressedOrigins[key].subs.length);
+    printable.push(
+      htmlUtils.getOriginHtml(
+        key,
+        compressedOrigins[key].action,
+        compressedOrigins[key].action == constants.DNT,
+        compressedOrigins[key].subs.length
+      )
+    );
   }
+
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
   backgroundPage.log('len', nonTracking.length);
   if(nonTracking.length > 0){
-    printable = printable + '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
+    printable.push(
+      '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
+    );
     for (var c = 0; c < nonTracking.length; c++){
-      var ntOrigin = nonTracking[c];
       backgroundPage.log('calling printable for non-tracking');
-      printable += htmlUtils.getOriginHtml(ntOrigin, constants.NO_TRACKING, false);
+      printable.push(
+        htmlUtils.getOriginHtml(
+          nonTracking[c],
+          constants.NO_TRACKING,
+          false
+        )
+      );
     }
   }
   $('#number_trackers').text(originCount);
