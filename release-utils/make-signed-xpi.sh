@@ -42,13 +42,14 @@ echo "change author value"
 sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "eff.software.projects@gmail.com",/' ../$CHECKOUT/manifest.json
 
 echo "making zip file for AMO"
-pushd ../checkout
+
+cd ../checkout
 if [ -d dist ]; then
   (cd dist && zip -r ../../pkg/"$AMO_ZIP_NAME" ./*)
 else
   zip -r ../pkg/"$AMO_ZIP_NAME" ./*
 fi
-popd
+cd "$(dirname "$0")"
 
 echo "insert self hosting package id"
 # Insert self hosted package id
