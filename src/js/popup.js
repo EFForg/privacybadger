@@ -143,7 +143,6 @@ function send_error(message) {
       }
     }
     var out_data = JSON.stringify(out);
-    backgroundPage.log(out_data);
     var sendReport = $.ajax({
       type: "POST",
       url: "https://privacybadger.org/reporting",
@@ -208,13 +207,11 @@ function deactive_site(){
 function revertDomainControl(e){
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var $elm = $(e.target).parent();
-  backgroundPage.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   badger.storage.revertUserAction(origin);
   var defaultAction = badger.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector =   $(selectorId);
-  backgroundPage.log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
   reloadTab(tabId);
@@ -253,7 +250,6 @@ function getTopLevel(action, origin/*, tabId*/){
 * @param {Integer} tabId The id of the tab
 */
 function refreshPopup(tabId) {
-  backgroundPage.log("Refreshing popup for tab id " + tabId);
   //TODO this is calling get action and then being used to call get Action
   var origins = badger.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
@@ -275,7 +271,6 @@ function refreshPopup(tabId) {
     // todo: gross hack, use templating framework
     var action = badger.storage.getBestAction(origin);
     if(action == constants.NO_TRACKING){
-      backgroundPage.log('pushing', origin, 'onto non tracking');
       nonTracking.push(origin);
       continue;
     }
@@ -317,13 +312,11 @@ function refreshPopup(tabId) {
 
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
-  backgroundPage.log('len', nonTracking.length);
   if(nonTracking.length > 0){
     printable.push(
       '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
     );
     for (var c = 0; c < nonTracking.length; c++){
-      backgroundPage.log('calling printable for non-tracking');
       printable.push(
         htmlUtils.getOriginHtml(
           nonTracking[c],
@@ -363,8 +356,6 @@ function refreshPopup(tabId) {
   // Popup shows what's loaded for the current page so it doesn't make sense
   // to have removal ability here.
   $('.removeOrigin').hide();
-
-  backgroundPage.log("Done refreshing popup");
 }
 
 /**
@@ -374,7 +365,6 @@ function refreshPopup(tabId) {
 */
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  backgroundPage.log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
@@ -449,7 +439,7 @@ function syncSettingsDict(settingsDict) {
       reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"? would be fun to check with jsperf.com
     }
   }
-  backgroundPage.log("Finished syncing. Now refreshing popup.");
+
   // the popup needs to be refreshed to display current results
   refreshPopup(tabId);
   return reloadNeeded;
@@ -486,7 +476,6 @@ function buildSettingsDict() {
 */
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
-  backgroundPage.log("Sync of userset options: " + JSON.stringify(settingsDict));
   var tabId = syncSettingsDict(settingsDict);
   if (tabId){
     backgroundPage.reloadTab(tabId);
@@ -501,15 +490,12 @@ function syncUISelections() {
 function setTabToUrl( query_url ) { // eslint-disable-line no-unused-vars
   chrome.tabs.query( {url: query_url}, function(ta) {
     if ( typeof ta == "undefined" ) {
-      backgroundPage.log("error doing tabs query for " + query_url);
       return;
     }
     if ( ta.length === 0 ) {
-      backgroundPage.log("no match found in tabs query for " + query_url);
       return;
     }
     var tabid = ta[0].id;
-    backgroundPage.log("match found for query " + query_url + " tabId: " + tabid );
     refreshPopup( tabid );
   });
 }
@@ -529,13 +515,10 @@ function getTab(callback) {
 
 document.addEventListener('DOMContentLoaded', function () {
   getTab(function(t) {
-    backgroundPage.log("from addEventListener");
     refreshPopup(t.id);
   });
 });
 
 window.addEventListener('unload', function() {
-  backgroundPage.log("Starting to unload popup");
   syncUISelections();
-  backgroundPage.log("unloaded popup");
 });
