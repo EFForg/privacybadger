@@ -13,12 +13,14 @@ if [ -n "$1" ]; then
   cd $SUBDIR
   git reset --hard "$1"
 
+  # new folder structure: https://github.com/EFForg/privacybadger/pull/1278
   if [ -d dist ]; then
-    # new folder structure: https://github.com/EFForg/privacybadger/pull/1278
     rm -rf dist/tests # unit tests
     rm dist/data/dnt-policy.txt # only used by unit tests
+    cp LICENSE dist/ # include LICENSE in build
+
+  # old folder structure
   else
-    # old folder structure
     for file in `cat ../scripts/exclude.lst`; do
       rm -rf "$file"
     done
