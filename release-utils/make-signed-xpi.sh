@@ -26,9 +26,9 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-if [ -d ../checkout/dist ]; then
+if [ -d ../checkout/src ]; then
   # new folder structure: https://github.com/EFForg/privacybadger/pull/1278
-  CHECKOUT=checkout/dist
+  CHECKOUT=checkout/src
 else
   # old folder structure
   CHECKOUT=checkout
@@ -44,8 +44,8 @@ sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "e
 echo "making zip file for AMO"
 
 cd ../checkout
-if [ -d dist ]; then
-  (cd dist && zip -r ../../pkg/"$AMO_ZIP_NAME" ./*)
+if [ -d src ]; then
+  (cd src && zip -r ../../pkg/"$AMO_ZIP_NAME" ./*)
 else
   zip -r ../pkg/"$AMO_ZIP_NAME" ./*
 fi

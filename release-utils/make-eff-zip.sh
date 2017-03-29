@@ -14,10 +14,10 @@ if [ -n "$1" ]; then
   git reset --hard "$1"
 
   # new folder structure: https://github.com/EFForg/privacybadger/pull/1278
-  if [ -d dist ]; then
-    rm -rf dist/tests # unit tests
-    rm dist/data/dnt-policy.txt # only used by unit tests
-    cp LICENSE dist/ # include LICENSE in build
+  if [ -d src ]; then
+    rm -rf src/tests # unit tests
+    rm src/data/dnt-policy.txt # only used by unit tests
+    cp LICENSE src/ # include LICENSE in build
 
   # old folder structure
   else
@@ -33,8 +33,8 @@ fi
 
 echo "Building chrome version" "$1"
 
-if [ -d dist ]; then
-  (cd dist && zip -q -r ../privacy_badger-"$TARGET".zip .)
+if [ -d src ]; then
+  (cd src && zip -q -r ../privacy_badger-"$TARGET".zip .)
 else
   zip -q -r privacy_badger-"$TARGET".zip .
 fi
