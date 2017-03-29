@@ -332,37 +332,40 @@ function refreshPopup(tabId) {
   }
 
   $('#number_trackers').text(originCount);
+  $("#blockedResourcesInner").html(printable.splice(0, 8));
 
-  $("#blockedResourcesInner").html(printable);
+  setTimeout(function () {
+    $("#blockedResourcesInner").append(printable);
 
-  $('.switch-toggle').each(function(){
-    var radios = $(this).children('input');
-    var value = $(this).children('input:checked').val();
-    //var userHandle = $(this).children('a');
-    var slider = $("<div></div>").slider({
-      min: 0,
-      max: 2,
-      value: value,
-      create: function(/*event, ui*/){
-        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-      },
-      slide: function(event, ui) {
-        radios.filter("[value=" + ui.value + "]").click();
-      },
-      stop: function(event, ui){
-        $(ui.handle).css('margin-left', -16 * ui.value + "px");
-      },
-    }).appendTo(this);
+    $('.switch-toggle').each(function(){
+      var radios = $(this).children('input');
+      var value = $(this).children('input:checked').val();
+      //var userHandle = $(this).children('a');
+      var slider = $("<div></div>").slider({
+        min: 0,
+        max: 2,
+        value: value,
+        create: function(/*event, ui*/){
+          $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+        },
+        slide: function(event, ui) {
+          radios.filter("[value=" + ui.value + "]").click();
+        },
+        stop: function(event, ui){
+          $(ui.handle).css('margin-left', -16 * ui.value + "px");
+        },
+      }).appendTo(this);
 
-    radios.change(function(){
-      slider.slider("value",radios.filter(':checked').val());
+      radios.change(function(){
+        slider.slider("value",radios.filter(':checked').val());
+      });
     });
-  });
 
-  // Hide elements for removing origins (controlled from the options page).
-  // Popup shows what's loaded for the current page so it doesn't make sense
-  // to have removal ability here.
-  $('.removeOrigin').hide();
+    // Hide elements for removing origins (controlled from the options page).
+    // Popup shows what's loaded for the current page so it doesn't make sense
+    // to have removal ability here.
+    $('.removeOrigin').hide();
+  }, 1);
 }
 
 /**
