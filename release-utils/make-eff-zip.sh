@@ -13,9 +13,16 @@ if [ -n "$1" ]; then
   cd $SUBDIR
   git reset --hard "$1"
 
-  for file in `cat ../scripts/exclude.lst`; do
-    rm -rf "$file"
-  done
+  if [ -d dist ]; then
+    # new folder structure: https://github.com/EFForg/privacybadger/pull/1278
+    rm -rf dist/tests # unit tests
+    rm dist/data/dnt-policy.txt # only used by unit tests
+  else
+    # old folder structure
+    for file in `cat ../scripts/exclude.lst`; do
+      rm -rf "$file"
+    done
+  fi
 else
   echo "Please supply a tag name for the release you are zipping"
   exit 1
