@@ -13,9 +13,11 @@ if [ -n "$1" ]; then
   cd $SUBDIR
   git reset --hard "$1"
 
-  for file in `cat ../scripts/exclude.lst`; do
-    rm -rf "$file"
-  done
+  # clean up
+  rm -rf src/tests # remove unit tests
+  rm src/data/dnt-policy.txt # only used by unit tests
+  cp LICENSE src/ # include LICENSE in build
+
 else
   echo "Please supply a tag name for the release you are zipping"
   exit 1
@@ -24,11 +26,7 @@ fi
 
 echo "Building chrome version" "$1"
 
-if [ -d dist ]; then
-  (cd dist && zip -q -r ../privacy_badger-"$TARGET".zip .)
-else
-  zip -q -r privacy_badger-"$TARGET".zip .
-fi
+(cd src && zip -q -r ../privacy_badger-"$TARGET".zip .)
 mv privacy_badger*.zip ../pkg/
 cd -
 

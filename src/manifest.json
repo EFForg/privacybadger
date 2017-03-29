@@ -21,33 +21,33 @@
   ],
   "background": {
     "scripts": [
-      "src/bootstrap.js",
+      "js/bootstrap.js",
       "lib/punycode.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
       "lib/underscore-min.js",
       "data/surrogates.js",
-      "src/surrogates.js",
-      "src/multiDomainFirstParties.js",
-      "src/incognito.js",
-      "src/constants.js",
-      "src/storage.js",
-      "src/utils.js",
-      "src/htmlutils.js",
-      "src/webrequest.js",
-      "src/heuristicblocking.js",
-      "src/socialwidgetloader.js",
-      "src/migrations.js",
-      "src/background.js"
+      "js/surrogates.js",
+      "js/multiDomainFirstParties.js",
+      "js/incognito.js",
+      "js/constants.js",
+      "js/storage.js",
+      "js/utils.js",
+      "js/htmlutils.js",
+      "js/webrequest.js",
+      "js/heuristicblocking.js",
+      "js/socialwidgetloader.js",
+      "js/migrations.js",
+      "js/background.js"
     ]
   },
   "content_scripts": [
     {
       "js": [
-        "src/clobbercookie.js",
-        "src/clobberlocalstorage.js",
-        "src/fingerprinting.js",
-        "src/supercookie.js"
+        "js/clobbercookie.js",
+        "js/clobberlocalstorage.js",
+        "js/fingerprinting.js",
+        "js/supercookie.js"
       ],
       "matches": [
         "<all_urls>"
@@ -57,7 +57,7 @@
     },
     {
       "js": [
-	"src/socialwidgets.js"
+	"js/socialwidgets.js"
       ],
       "matches": [
         "<all_urls>"

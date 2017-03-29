@@ -1,7 +1,7 @@
 Changes for Privacy Badger 
 ====================================
 ## 2017.3.28
-* New Translations (Ukranian)
+* New Translations (Czech)
 * Translation Updates
 * Fix bug in DNT policy re-checking code
 * Rate limit DNT checking to one request per second
@@ -9,7 +9,8 @@ Changes for Privacy Badger
 * Fix cookieblock updating issue
 * Fix popup width issue
 * Fix DNT hash updating issue
-* Fixing toggle switch issue
+* Fix toggle switch issue
+* Automated tests now also run on Firefox
 * Other minor bugfixes and broken site fixes
 
 ## 2017.3.22
