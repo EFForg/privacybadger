@@ -211,7 +211,7 @@ function revertDomainControl(e){
   badger.storage.revertUserAction(origin);
   var defaultAction = badger.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
-  var selector =   $(selectorId);
+  var selector = $(selectorId);
   selector.click();
   $elm.removeClass('userset');
   reloadTab(tabId);
@@ -266,16 +266,18 @@ function refreshPopup(tabId) {
   origins.sort(htmlUtils.compareReversedDomains);
   var originCount = 0;
   var compressedOrigins = {};
-  for (var i=0; i < origins.length; i++) {
+
+  for (let i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     var action = badger.storage.getBestAction(origin);
-    if(action == constants.NO_TRACKING){
+
+    if (action == constants.NO_TRACKING) {
       nonTracking.push(origin);
       continue;
-    }
-    else {
-      if (action.includes("user")){
+
+    } else {
+      if (action.includes("user")) {
         var prevOrigin = origin;
         var baseDomain = backgroundPage.getBaseDomain(prevOrigin);
         // TODO make some re-implementation of getBestAction that returns where the
@@ -291,6 +293,7 @@ function refreshPopup(tabId) {
         }
       }
     }
+
     originCount++;
     printable.push(
       htmlUtils.getOriginHtml(
@@ -299,7 +302,7 @@ function refreshPopup(tabId) {
     );
   }
 
-  for (var key in compressedOrigins){
+  for (let key in compressedOrigins){
     printable.push(
       htmlUtils.getOriginHtml(
         key,
@@ -312,21 +315,24 @@ function refreshPopup(tabId) {
 
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
-  if(nonTracking.length > 0){
+
+  if (nonTracking.length > 0) {
     printable.push(
       '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
     );
-    for (var c = 0; c < nonTracking.length; c++){
+    for (let i = 0; i < nonTracking.length; i++) {
       printable.push(
         htmlUtils.getOriginHtml(
-          nonTracking[c],
+          nonTracking[i],
           constants.NO_TRACKING,
           false
         )
       );
     }
   }
+
   $('#number_trackers').text(originCount);
+
   $("#blockedResourcesInner").html(printable);
 
   $('.switch-toggle').each(function(){
@@ -347,6 +353,7 @@ function refreshPopup(tabId) {
         $(ui.handle).css('margin-left', -16 * ui.value + "px");
       },
     }).appendTo(this);
+
     radios.change(function(){
       slider.slider("value",radios.filter(':checked').val());
     });
@@ -487,16 +494,17 @@ function syncUISelections() {
 * Convenience function for the test harness
 * Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
 */
-function setTabToUrl( query_url ) { // eslint-disable-line no-unused-vars
+// TODO only used by a Selenium test (tests/selenium/cookie_test.py), should be moved there
+function setTabToUrl(query_url) { // eslint-disable-line no-unused-vars
   chrome.tabs.query( {url: query_url}, function(ta) {
-    if ( typeof ta == "undefined" ) {
+    if (typeof ta == "undefined") {
       return;
     }
-    if ( ta.length === 0 ) {
+    if (ta.length === 0) {
       return;
     }
     var tabid = ta[0].id;
-    refreshPopup( tabid );
+    refreshPopup(tabid);
   });
 }
 
