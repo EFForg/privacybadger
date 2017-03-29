@@ -36,7 +36,7 @@ fi
 
 # TODO restore: https://github.com/EFForg/privacybadger/issues/1158
 echo "remove fingerprinting"
-sed -i '/        "src\/fingerprinting.js",/d' ../$CHECKOUT/manifest.json
+sed -i '/        "js\/fingerprinting.js",/d' ../$CHECKOUT/manifest.json
 
 echo "change author value"
 sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "eff.software.projects@gmail.com",/' ../$CHECKOUT/manifest.json

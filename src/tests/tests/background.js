@@ -88,7 +88,7 @@
     badger.storage.touchDNTRecheckTime(DNT_COMPLIANT_DOMAIN, +new Date());
 
     for (let i = 0; i < NUM_CHECKS; i++) {
-      // mirroring call signature in src/heuristicblocking.js
+      // mirroring call signature in js/heuristicblocking.js
       badger.checkForDNTPolicy(
         DNT_COMPLIANT_DOMAIN,
         badger.storage.getNextUpdateForDomain(DNT_COMPLIANT_DOMAIN)
