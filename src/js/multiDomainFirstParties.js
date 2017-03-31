@@ -59,6 +59,7 @@ var _multiDomainFirstPartiesArray = [
     "office.com",
     "onestore.ms",
     "passport.net",
+    "sharepoint.com",
     "s-microsoft.com",
     "windows.com",
     "xboxlive.com",
