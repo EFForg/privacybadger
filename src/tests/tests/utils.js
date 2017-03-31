@@ -88,10 +88,19 @@
     assert.ok(Math.min.apply(null,results) === min, "min is min");
   });
 
-  QUnit.test("multi domain first party", function (assert) {
-    assert.ok(mdfp.isMultiDomainFirstParty("dummy", "dummy"));
-    assert.ok(mdfp.isMultiDomainFirstParty("google.com", "youtube.com"));
-    assert.ok(!mdfp.isMultiDomainFirstParty("google.com", "nyt.com"));
+  QUnit.test("multi-domain first party", (assert) => {
+    assert.ok(
+      mdfp.isMultiDomainFirstParty("google.com", "youtube.com"),
+      "google.com and youtube.com are the same party"
+    );
+    assert.notOk(
+      mdfp.isMultiDomainFirstParty("google.com", "nyt.com"),
+      "google.com and nyt.com are not the same party"
+    );
+    assert.ok(
+      mdfp.isMultiDomainFirstParty("live.com", "sharepoint.com"),
+      "live.com and sharepoint.com are the same party"
+    );
   });
 
   QUnit.test("surrogate script URL lookups", function (assert) {
