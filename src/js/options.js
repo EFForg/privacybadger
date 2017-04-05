@@ -336,7 +336,7 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
-  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml());
+  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // Display tracking domains.
   var originsToDisplay;

@@ -284,7 +284,7 @@ function refreshPopup(tabId) {
   }
 
   // Display tracker tooltips.
-  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml(tabId));
+  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
 
   var printable = [];
   var nonTracking = [];
