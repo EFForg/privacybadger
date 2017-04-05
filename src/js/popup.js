@@ -321,9 +321,7 @@ function refreshPopup(tabId) {
 
     originCount++;
     printable.push(
-      htmlUtils.getOriginHtml(
-        origin, action, action == constants.DNT
-      )
+      htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
     );
   }
 
@@ -347,11 +345,7 @@ function refreshPopup(tabId) {
     );
     for (let i = 0; i < nonTracking.length; i++) {
       printable.push(
-        htmlUtils.getOriginHtml(
-          nonTracking[i],
-          constants.NO_TRACKING,
-          false
-        )
+        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
       );
     }
   }
@@ -373,14 +367,14 @@ function refreshPopup(tabId) {
     $domains.appendTo('#blockedResourcesInner');
 
     if (domains.length) {
-      setTimeout(function () {
+      requestAnimationFrame(function () {
         renderDomains(domains);
-      }, 1);
+      });
     }
   }
-  setTimeout(function () {
+  requestAnimationFrame(function () {
     renderDomains(printable);
-  }, 1);
+  });
 }
 
 /**
