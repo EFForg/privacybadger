@@ -508,25 +508,6 @@ function syncUISelections() {
 }
 
 /**
-* if the query url pattern matches a tab, switch the module's tab object to that tab
-* Convenience function for the test harness
-* Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
-*/
-// TODO only used by a Selenium test (tests/selenium/cookie_test.py), should be moved there
-function setTabToUrl(query_url) { // eslint-disable-line no-unused-vars
-  chrome.tabs.query( {url: query_url}, function(ta) {
-    if (typeof ta == "undefined") {
-      return;
-    }
-    if (ta.length === 0) {
-      return;
-    }
-    var tabid = ta[0].id;
-    refreshPopup(tabid);
-  });
-}
-
-/**
 * We use this function where:
 * * getting the tabId from the associatedTab id won't work because
 *   associatedTab isn't set yet.
