@@ -359,7 +359,7 @@ function refreshPopup(tabId) {
   $('#number_trackers').text(originCount);
 
   function renderDomains(domains) {
-    const CHUNK = 12;
+    const CHUNK = 1;
 
     let $domains = $(domains.splice(0, CHUNK).join(""));
 
@@ -378,7 +378,9 @@ function refreshPopup(tabId) {
       }, 1);
     }
   }
-  renderDomains(printable);
+  setTimeout(function () {
+    renderDomains(printable);
+  }, 1);
 }
 
 /**
