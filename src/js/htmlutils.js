@@ -61,15 +61,17 @@ var htmlUtils = exports.htmlUtils = {
    * @param {String} origin The origin to get description for.
    * @returns {String} Localized action description with origin.
    */
-  getActionDescription: function(action, origin) {
+  getActionDescription: (function () {
     var actionDescriptions = {
       block: i18n.getMessage('badger_status_block'),
       cookieblock: i18n.getMessage('badger_status_cookieblock'),
       noaction: "No tracking for ",
       allow: i18n.getMessage('badger_status_noaction'),
     };
-    return actionDescriptions[action] + origin;
-  },
+    return function (action, origin) {
+      return actionDescriptions[action] + origin;
+    };
+  }()),
 
   /**
    * Gets HTML for origin action toggle switch (block, block cookies, allow).
