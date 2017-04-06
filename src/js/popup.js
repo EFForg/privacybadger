@@ -352,29 +352,25 @@ function refreshPopup(tabId) {
 
   $('#number_trackers').text(originCount);
 
-  function renderDomains(domains) {
+  function renderDomains() {
     const CHUNK = 1;
 
-    let $domains = $(domains.splice(0, CHUNK).join(""));
+    let $printable = $(printable.splice(0, CHUNK).join(""));
 
-    $domains.find('.switch-toggle').each(registerToggleHandlers);
+    $printable.find('.switch-toggle').each(registerToggleHandlers);
 
     // Hide elements for removing origins (controlled from the options page).
     // Popup shows what's loaded for the current page so it doesn't make sense
     // to have removal ability here.
-    $domains.find('.removeOrigin').hide();
+    $printable.find('.removeOrigin').hide();
 
-    $domains.appendTo('#blockedResourcesInner');
+    $printable.appendTo('#blockedResourcesInner');
 
-    if (domains.length) {
-      requestAnimationFrame(function () {
-        renderDomains(domains);
-      });
+    if (printable.length) {
+      requestAnimationFrame(renderDomains);
     }
   }
-  requestAnimationFrame(function () {
-    renderDomains(printable);
-  });
+  requestAnimationFrame(renderDomains);
 }
 
 /**
