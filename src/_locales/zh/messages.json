@@ -12,7 +12,7 @@
         "message": "允许 "
     },
     "data_settings": {
-        "message": "Manage Data"
+        "message": "管理数据"
     },
     "description": {
         "message": "你在网上冲浪的时候，隐私獾会保护你免受跟踪器的烦恼！"
@@ -21,13 +21,13 @@
         "message": "隐私獾被禁用在以下域名。你可以通过点击地址栏的隐私獾图标单击“添加域名”按钮，在方框中输入域名（而不是URL）进行添加域名。"
     },
     "download": {
-        "message": "Download"
+        "message": "下载"
     },
     "error_input": {
         "message": "问题是什么？"
     },
     "export_user_data": {
-        "message": "Export user data"
+        "message": "导出用户数据"
     },
     "feed_the_badger_title": {
         "message": "点击以让隐私獾控制这个跟踪器的"
@@ -39,31 +39,31 @@
         "message": "了解隐私獾如何保护你的隐私。"
     },
     "import": {
-        "message": "Import"
+        "message": "导入"
     },
     "import_select_file": {
-        "message": "Please select a file to import."
+        "message": "请选择一个你要导入的文件。"
     },
     "import_successful": {
-        "message": "Tracker list and settings updated successfully!"
+        "message": "追踪器列表与设置成功更新！"
     },
     "import_user_data": {
-        "message": "Import user data"
+        "message": "导入用户数据"
     },
     "invalid_json": {
-        "message": "Invalid JSON file."
+        "message": "无效的 JSON 文件。"
     },
     "name": {
         "message": "隐私獾"
     },
     "tooltip_allow": {
-        "message": "Move the slider right to allow a domain"
+        "message": "将滑块移至右边来允许一个域名"
     },
     "tooltip_block": {
-        "message": "Move the slider left to block a domain"
+        "message": "将滑块移至左边来屏蔽一个域名"
     },
     "tooltip_cookieblock": {
-        "message": "Center the slider to block cookies"
+        "message": "将滑块移至中间来屏蔽 cookies"
     },
     "new_filters_added": {
         "message": "新的过滤已添加；点击 <a id='options_url' target='_blank'>选择</a> 以管理它们。"
@@ -90,10 +90,10 @@
     "message": "隐私獾设置"
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address *"
+        "message": "避免 WebRTC 泄露本地 IP 地址 *"
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+        "message": "* WebRTC 会泄露你的本地 IP 地址。隐私獾的默认设置帮助保护你，但是为了额外的保护你可能需要启用这个选项。请注意，这样做可能会降低 Google 环聊等工具的性能。"
     },
     "pb_detected": {
         "message": "隐私獾检测到"
