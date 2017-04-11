@@ -313,18 +313,26 @@ Badger.prototype = {
     });
   },
 
-
-
   /**
-  * Loop through all known domains and recheck any that need to be rechecked for a dnt-policy file
+  * Loop through blocked domains and recheck any that need to be rechecked for a dnt-policy file
   */
-  recheckDNTPolicyForDomains: function(){
-    var action_map = this.storage.getBadgerStorageObject('action_map');
-    for(var domain in action_map.getItemClones()){
-      this.checkForDNTPolicy(domain, this.storage.getNextUpdateForDomain(domain));
-    }
-  },
+  recheckDNTPolicyForDomains: function () {
+    const ACTIONS_TO_RECHECK = [
+      constants.BLOCK,
+      constants.COOKIEBLOCK,
+      constants.DNT,
+    ];
+    let action_map = this.storage.getBadgerStorageObject('action_map');
 
+    // arrow functions bind "this",
+    // no need to bind it ourselves or enclose it in local var
+    _.each(action_map.getItemClones(), (domainMap, domain) => {
+      let action = this.storage.getActionForFqdn(domainMap);
+      if (ACTIONS_TO_RECHECK.indexOf(action) != -1) {
+        this.checkForDNTPolicy(domain, domainMap.nextUpdateTime);
+      }
+    });
+  },
 
   /**
   * Checks a domain for the EFF DNT policy.
