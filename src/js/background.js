@@ -279,9 +279,9 @@ Badger.prototype = {
   * * set up listener to recheck blocked domains and DNT domains
   */
   initializeDNT: function(){
-    this.updateDNTPolicyHashes();
-    this.recheckDNTPolicyForDomains();
     setInterval(this.recheckDNTPolicyForDomains.bind(this), utils.oneHour());
+
+    this.updateDNTPolicyHashes();
     setInterval(this.updateDNTPolicyHashes.bind(this), utils.oneDay() * 4);
   },
 
