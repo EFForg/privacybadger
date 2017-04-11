@@ -138,12 +138,6 @@ HeuristicBlocker.prototype = {
     let fqdn = utils.makeURI(details.url).host,
       origin = window.getBaseDomain(fqdn);
 
-    // abort if we already made a decision for this FQDN
-    let action = this.storage.getActionForFqdn(fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
-      return {};
-    }
-
     // if this is a main window request
     if (details.type == "main_frame") {
       // save the origin associated with the tab
@@ -162,6 +156,12 @@ HeuristicBlocker.prototype = {
     window.setTimeout(function () {
       badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
     }, 10);
+
+    // abort if we already made a decision for this FQDN
+    let action = this.storage.getActionForFqdn(fqdn);
+    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+      return {};
+    }
 
     // if there are no tracking cookies or similar things, ignore
     if (!this.hasTracking(details, origin)) {
