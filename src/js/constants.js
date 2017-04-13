@@ -37,7 +37,7 @@ var exports = {
   TRACKING_THRESHOLD: 3,
   MAX_COOKIE_ENTROPY: 12,
 
-  DNT_POLICY_CHECK_INTERVAL: 3000, // three seconds
+  DNT_POLICY_CHECK_INTERVAL: 1000, // one second
 };
 
 return exports;
