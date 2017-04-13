@@ -274,14 +274,9 @@ Badger.prototype = {
   },
 
   /**
-  * Initialize DNT policy subsystem:
-  * * download acceptable hashes from EFF
-  * * set up listener to recheck DNT-respecting domains
+  * Initialize DNT policy subsystem by downloading acceptable hashes from EFF
   */
   initializeDNT: function () {
-    this.recheckDNTPolicyForDomains();
-    setInterval(this.recheckDNTPolicyForDomains.bind(this), utils.oneHour());
-
     this.updateDNTPolicyHashes();
     setInterval(this.updateDNTPolicyHashes.bind(this), utils.oneDay() * 4);
   },
@@ -311,22 +306,6 @@ Badger.prototype = {
         return;
       }
       self.storage.updateDNTHashes(JSON.parse(response));
-    });
-  },
-
-  /**
-  * Loop through DNT-respecting domains, and recheck any that need to be
-  * rechecked for a DNT policy file.
-  */
-  recheckDNTPolicyForDomains: function () {
-    let action_map = this.storage.getBadgerStorageObject('action_map');
-
-    // arrow functions bind "this",
-    // no need to bind it ourselves or enclose it in local var
-    _.each(action_map.getItemClones(), (domainMap, domain) => {
-      if (this.storage.getActionForFqdn(domainMap) == constants.DNT) {
-        this.checkForDNTPolicy(domain, domainMap.nextUpdateTime);
-      }
     });
   },
 
