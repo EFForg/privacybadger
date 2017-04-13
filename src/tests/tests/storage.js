@@ -148,7 +148,7 @@
     );
   });
 
-  QUnit.todo("DNT does not cascade", (assert) => {
+  QUnit.test("DNT does not cascade", (assert) => {
     badger.storage.setupDNT(DOMAIN);
 
     // check domain itself
