@@ -63,9 +63,9 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
         if self.env.get('BROWSER') == 'firefox' and failed_tests == firefox_failures:
             return
 
-        fail_msg = "%d tests failed: %s" % (
+        fail_msg = "%d tests failed:\n  * %s" % (
             len(failed_tests),
-            ", ".join(failed_tests).replace(u'\u2717', 'x'),
+            "\n  * ".join(failed_tests).replace(u'\u2717', 'x'),
         )
         self.assertTrue(len(failed_tests) == 0, msg=fail_msg)
 
