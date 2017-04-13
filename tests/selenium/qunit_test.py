@@ -17,16 +17,17 @@ class Test(pbtest.PBSeleniumTest):
         self.load_url(self.test_url)
 
         try:
-            failed = self.txt_by_css("#qunit-testresult-display > span.failed",
-                                     timeout=120)
+            # this text appears when tests finish running
+            _ = self.txt_by_css(
+                "#qunit-testresult-display > span.total",
+                timeout=120
+            )
         except TimeoutException as exc:
             self.fail("Cannot find the results of QUnit tests %s" % exc)
 
-        passed = self.txt_by_css("#qunit-testresult-display > span.passed")
-        total = self.txt_by_css("#qunit-testresult-display > span.total")
-        print("QUnits tests: Failed: %s Passed: %s Total: %s" % (failed,
-                                                                 passed,
-                                                                 total))
+        print("QUnit summary:")
+        print(self.txt_by_css("#qunit-testresult-display"))
+
         failed_test_els = self.driver.find_elements_by_css_selector(
             ".fail .test-name"
         )
@@ -34,7 +35,7 @@ class Test(pbtest.PBSeleniumTest):
             "\n  * ".join([el.text for el in failed_test_els])
         )
 
-        self.assertTrue(failed == "0", msg=fail_msg)
+        self.assertTrue(len(failed_test_els) == 0, msg=fail_msg)
 
 if __name__ == "__main__":
     unittest.main()
