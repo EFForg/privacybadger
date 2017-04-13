@@ -138,6 +138,11 @@ BadgerPen.prototype = {
    * @returns {String} the best action for the FQDN
    **/
   getBestAction: function (fqdn) {
+    // if FQDN itself has DNT and no user action set, DNT is the best action
+    if (this.getActionForFqdn(fqdn) == constants.DNT) {
+      return constants.DNT;
+    }
+
     let best_action = constants.NO_TRACKING;
     let subdomains = utils.explodeSubdomains(fqdn);
     let action_map = this.getBadgerStorageObject('action_map');
@@ -145,11 +150,11 @@ BadgerPen.prototype = {
 
     function getScore(action) {
       switch (action) {
+        case constants.DNT: return -1; // never prefer DNT: should not cascade
         case constants.NO_TRACKING: return 0;
         case constants.ALLOW: return 1;
         case constants.BLOCK: return 2;
         case constants.COOKIEBLOCK: return 3;
-        case constants.DNT: return 4;
         default: return 5; // user allow/block/cookieblock
       }
     }
