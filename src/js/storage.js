@@ -137,15 +137,25 @@ BadgerPen.prototype = {
    * @param {String} fqdn the FQDN we want to determine the action for
    * @returns {String} the best action for the FQDN
    **/
-  getBestAction: function(fqdn) {
-    var best_action = constants.NO_TRACKING;
-    var subdomains = utils.explodeSubdomains(fqdn);
-    var action_map = this.getBadgerStorageObject('action_map');
-    var relevantDomains = [];
-    var i;
+  getBestAction: function (fqdn) {
+    let best_action = constants.NO_TRACKING;
+    let subdomains = utils.explodeSubdomains(fqdn);
+    let action_map = this.getBadgerStorageObject('action_map');
+    let relevantDomains = [];
 
-    for( i = 0; i < subdomains.length; i++ ){
-      if(action_map.hasItem(subdomains[i])){
+    function getScore(action) {
+      switch (action) {
+        case constants.NO_TRACKING: return 0;
+        case constants.ALLOW: return 1;
+        case constants.BLOCK: return 2;
+        case constants.COOKIEBLOCK: return 3;
+        case constants.DNT: return 4;
+        default: return 5; // user allow/block/cookieblock
+      }
+    }
+
+    for (let i = 0; i < subdomains.length; i++) {
+      if (action_map.hasItem(subdomains[i])) {
         // First collect the actions for any domains or subdomains of the FQDN
         // Order from base domain to FQDN
         relevantDomains.unshift(action_map.getItem(subdomains[i]));
@@ -154,9 +164,9 @@ BadgerPen.prototype = {
 
     // Loop through each subdomain we have a rule for from least to most specific
     // and keep the one which has the best score.
-    for( i = 0; i < relevantDomains.length; i++ ){
+    for (let i = 0; i < relevantDomains.length; i++) {
       var action = this.getActionForFqdn(relevantDomains[i]);
-      if(getScore(action) >= getScore(best_action)){
+      if (getScore(action) >= getScore(best_action)) {
         best_action = action;
       }
     }
@@ -273,18 +283,6 @@ BadgerPen.prototype = {
     if (index > -1) {
       badger.userAllow.splice(index, 1);
     }
-  }
-};
-
-
-var getScore = function(action){
-  switch(action){
-    case constants.NO_TRACKING: return 0;
-    case constants.ALLOW: return 1;
-    case constants.BLOCK: return 2;
-    case constants.COOKIEBLOCK: return 3;
-    case constants.DNT: return 4;
-    default: return 5;
   }
 };
 
