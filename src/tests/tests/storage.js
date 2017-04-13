@@ -1,5 +1,10 @@
-/* globals badger:false */
-(function() {
+/* globals badger:false, constants:false */
+
+(function () {
+
+  const DOMAIN = "example.com",
+    SUBDOMAIN = "widgets.example.com";
+
   let BACKUP = {};
 
   QUnit.module("Storage", {
@@ -114,4 +119,61 @@
     assert.ok(action_map.getItem('testsite.com').heuristicAction === "block");
   });
 
-})();
+  QUnit.test("blocking cascades", (assert) => {
+    // mark a domain for blocking
+    badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
+
+    // check domain itself
+    assert.equal(
+      badger.storage.getActionForFqdn(DOMAIN),
+      constants.BLOCK,
+      "domain is marked for blocking directly"
+    );
+    assert.equal(
+      badger.storage.getBestAction(DOMAIN),
+      constants.BLOCK,
+      "domain is marked for blocking"
+    );
+
+    // check that subdomain inherits blocking
+    assert.equal(
+      badger.storage.getActionForFqdn(SUBDOMAIN),
+      constants.NO_TRACKING,
+      "subdomain is not marked for blocking directly"
+    );
+    assert.equal(
+      badger.storage.getBestAction(SUBDOMAIN),
+      constants.BLOCK,
+      "subdomain is marked for blocking (via parent domain)"
+    );
+  });
+
+  QUnit.todo("DNT does not cascade", (assert) => {
+    badger.storage.setupDNT(DOMAIN);
+
+    // check domain itself
+    assert.equal(
+      badger.storage.getActionForFqdn(DOMAIN),
+      constants.DNT,
+      "domain is marked as DNT-respecting directly"
+    );
+    assert.equal(
+      badger.storage.getBestAction(DOMAIN),
+      constants.DNT,
+      "domain is marked as DNT-respecting"
+    );
+
+    // check that subdomain does not inherit DNT
+    assert.equal(
+      badger.storage.getActionForFqdn(SUBDOMAIN),
+      constants.NO_TRACKING,
+      "subdomain is not marked as DNT-respecting directly"
+    );
+    assert.equal(
+      badger.storage.getBestAction(SUBDOMAIN),
+      constants.NO_TRACKING,
+      "subdomain is not marked as DNT-respecting (via parent domain)"
+    );
+  });
+
+}());
