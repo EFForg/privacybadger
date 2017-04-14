@@ -7,12 +7,14 @@
 
   let BACKUP = {};
 
+  let storage = badger.storage;
+
   QUnit.module("Storage", {
     // called before every test
     beforeEach: () => {
       // back up settings and heuristic learning
       ['action_map', 'settings_map', 'snitch_map'].forEach(item => {
-        let obj = badger.storage.getBadgerStorageObject(item);
+        let obj = storage.getBadgerStorageObject(item);
         BACKUP[item] = obj.getItemClones();
       });
     },
@@ -21,19 +23,19 @@
     afterEach: () => {
       // restore original settings and heuristic learning
       ['action_map', 'settings_map', 'snitch_map'].forEach(item => {
-        let obj = badger.storage.getBadgerStorageObject(item);
+        let obj = storage.getBadgerStorageObject(item);
         obj.updateObject(BACKUP[item]);
       });
     }
   });
 
   QUnit.test("testGetBadgerStorage", function (assert) {
-    var action_map = badger.storage.getBadgerStorageObject('action_map');
+    var action_map = storage.getBadgerStorageObject('action_map');
     assert.ok(action_map.updateObject instanceof Function, "action_map is a pbstorage");
   });
 
   QUnit.test("test BadgerStorage methods", function (assert) {
-    var action_map = badger.storage.getBadgerStorageObject('action_map');
+    var action_map = storage.getBadgerStorageObject('action_map');
     action_map.setItem('foo', 'bar');
     assert.ok(action_map.getItem('foo') === 'bar');
     assert.ok(action_map.hasItem('foo'));
@@ -48,7 +50,7 @@
     assert.ok(badger.userAllow.indexOf('pbtest.org') <= -1);
     badger.saveAction("allow", "pbtest.org");
     assert.ok(badger.userAllow.indexOf('pbtest.org') > -1);
-    badger.storage.revertUserAction("pbtest.org");
+    storage.revertUserAction("pbtest.org");
     assert.ok(badger.userAllow.indexOf('pbtest.org') <= -1);
   });
 
@@ -65,7 +67,7 @@
   });
 
   QUnit.test("settings map merging", (assert) => {
-    let settings_map = badger.storage.getBadgerStorageObject('settings_map');
+    let settings_map = storage.getBadgerStorageObject('settings_map');
 
     // overwrite settings with test values
     settings_map.setItem('disabledSites', ['example.com']);
@@ -87,7 +89,7 @@
   });
 
   QUnit.test("action map merging", (assert) => {
-    let action_map = badger.storage.getBadgerStorageObject('action_map');
+    let action_map = storage.getBadgerStorageObject('action_map');
 
     action_map.setItem('testsite.com',
         {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
@@ -102,8 +104,8 @@
 
 
   QUnit.test("snitch map merging", (assert) => {
-    let snitch_map = badger.storage.getBadgerStorageObject('snitch_map');
-    let action_map = badger.storage.getBadgerStorageObject('action_map');
+    let snitch_map = storage.getBadgerStorageObject('snitch_map');
+    let action_map = storage.getBadgerStorageObject('action_map');
 
     snitch_map.merge({"testsite.com": ['firstparty.org']});
     assert.ok(snitch_map.getItem('testsite.com').indexOf('firstparty.org') > -1);
@@ -121,58 +123,58 @@
 
   QUnit.test("blocking cascades", (assert) => {
     // mark a domain for blocking
-    badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
+    storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
 
     // check domain itself
     assert.equal(
-      badger.storage.getAction(DOMAIN),
+      storage.getAction(DOMAIN),
       constants.BLOCK,
       "domain is marked for blocking directly"
     );
     assert.equal(
-      badger.storage.getBestAction(DOMAIN),
+      storage.getBestAction(DOMAIN),
       constants.BLOCK,
       "domain is marked for blocking"
     );
 
     // check that subdomain inherits blocking
     assert.equal(
-      badger.storage.getAction(SUBDOMAIN),
+      storage.getAction(SUBDOMAIN),
       constants.NO_TRACKING,
       "subdomain is not marked for blocking directly"
     );
     assert.equal(
-      badger.storage.getBestAction(SUBDOMAIN),
+      storage.getBestAction(SUBDOMAIN),
       constants.BLOCK,
       "subdomain is marked for blocking (via parent domain)"
     );
   });
 
   QUnit.test("DNT does not cascade", (assert) => {
-    badger.storage.setupDNT(DOMAIN);
+    storage.setupDNT(DOMAIN);
 
     // check domain itself
     assert.equal(
-      badger.storage.getAction(DOMAIN),
+      storage.getAction(DOMAIN),
       constants.DNT,
-      "domain is marked as DNT-respecting directly"
+      "domain is marked as DNT directly"
     );
     assert.equal(
-      badger.storage.getBestAction(DOMAIN),
+      storage.getBestAction(DOMAIN),
       constants.DNT,
-      "domain is marked as DNT-respecting"
+      "domain is marked as DNT"
     );
 
     // check that subdomain does not inherit DNT
     assert.equal(
-      badger.storage.getAction(SUBDOMAIN),
+      storage.getAction(SUBDOMAIN),
       constants.NO_TRACKING,
-      "subdomain is not marked as DNT-respecting directly"
+      "subdomain is not marked as DNT directly"
     );
     assert.equal(
-      badger.storage.getBestAction(SUBDOMAIN),
+      storage.getBestAction(SUBDOMAIN),
       constants.NO_TRACKING,
-      "subdomain is not marked as DNT-respecting (via parent domain)"
+      "subdomain is not marked as DNT (via parent domain)"
     );
   });
 
