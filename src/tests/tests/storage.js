@@ -125,7 +125,7 @@
 
     // check domain itself
     assert.equal(
-      badger.storage.getActionForFqdn(DOMAIN),
+      badger.storage.getAction(DOMAIN),
       constants.BLOCK,
       "domain is marked for blocking directly"
     );
@@ -137,7 +137,7 @@
 
     // check that subdomain inherits blocking
     assert.equal(
-      badger.storage.getActionForFqdn(SUBDOMAIN),
+      badger.storage.getAction(SUBDOMAIN),
       constants.NO_TRACKING,
       "subdomain is not marked for blocking directly"
     );
@@ -153,7 +153,7 @@
 
     // check domain itself
     assert.equal(
-      badger.storage.getActionForFqdn(DOMAIN),
+      badger.storage.getAction(DOMAIN),
       constants.DNT,
       "domain is marked as DNT-respecting directly"
     );
@@ -165,7 +165,7 @@
 
     // check that subdomain does not inherit DNT
     assert.equal(
-      badger.storage.getActionForFqdn(SUBDOMAIN),
+      badger.storage.getAction(SUBDOMAIN),
       constants.NO_TRACKING,
       "subdomain is not marked as DNT-respecting directly"
     );

@@ -288,7 +288,7 @@ Badger.prototype = {
   initializeUserAllowList: function() {
     var action_map = this.storage.getBadgerStorageObject('action_map');
     for(var domain in action_map.getItemClones()){
-      if(this.storage.getActionForFqdn(domain) === constants.USER_ALLOW){
+      if(this.storage.getAction(domain) === constants.USER_ALLOW){
         this.userAllow.push(domain);
       }
     }

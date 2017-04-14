@@ -98,7 +98,7 @@ BadgerPen.prototype = {
    * @param {Object|String} domain domain object from action_map
    * @returns {String} the presumed action for this FQDN
    **/
-  getActionForFqdn: function(domain){
+  getAction: function(domain){
     if (_.isString(domain)) {
       domain = this.getBadgerStorageObject('action_map').getItem(domain) || {};
     }
@@ -139,7 +139,7 @@ BadgerPen.prototype = {
    **/
   getBestAction: function (fqdn) {
     // if FQDN itself has DNT and no user action set, DNT is the best action
-    if (this.getActionForFqdn(fqdn) == constants.DNT) {
+    if (this.getAction(fqdn) == constants.DNT) {
       return constants.DNT;
     }
 
@@ -170,7 +170,7 @@ BadgerPen.prototype = {
     // Loop through each subdomain we have a rule for from least to most specific
     // and keep the one which has the best score.
     for (let i = 0; i < relevantDomains.length; i++) {
-      var action = this.getActionForFqdn(relevantDomains[i]);
+      var action = this.getAction(relevantDomains[i]);
       if (getScore(action) >= getScore(best_action)) {
         best_action = action;
       }
@@ -189,7 +189,7 @@ BadgerPen.prototype = {
     var action_map = this.getBadgerStorageObject('action_map');
     var relevantDomains = [];
     for(var domain in action_map.getItemClones()){
-      if(selector == this.getActionForFqdn(domain)){
+      if(selector == this.getAction(domain)){
         relevantDomains.push(domain);
       }
     }
