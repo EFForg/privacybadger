@@ -3,7 +3,8 @@
 (function () {
 
   const DOMAIN = "example.com",
-    SUBDOMAIN = "widgets.example.com";
+    SUBDOMAIN = "widgets." + DOMAIN,
+    SUBSUBDOMAIN = "cdn." + SUBDOMAIN;
 
   let BACKUP = {};
 
@@ -175,6 +176,174 @@
       storage.getBestAction(SUBDOMAIN),
       constants.NO_TRACKING,
       "subdomain is not marked as DNT (via parent domain)"
+    );
+  });
+
+  QUnit.todo("blocking still cascades after domain declares DNT", (assert) => {
+    storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
+    storage.setupDNT(DOMAIN);
+
+    // check domain itself
+    assert.equal(
+      storage.getBestAction(DOMAIN),
+      constants.DNT,
+      "domain is marked as DNT"
+    );
+
+    // check that subdomain inherits blocking
+    assert.equal(
+      storage.getAction(SUBDOMAIN),
+      constants.NO_TRACKING,
+      "subdomain is not marked for blocking directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBDOMAIN),
+      constants.BLOCK,
+      "subdomain is marked for blocking (via parent domain)"
+    );
+  });
+
+  QUnit.test("cascading doesn't work the other way", (assert) => {
+    // mark a subdomain for blocking
+    storage.setupHeuristicAction(SUBDOMAIN, constants.BLOCK);
+
+    // check subdomain itself
+    assert.equal(
+      storage.getAction(SUBDOMAIN),
+      constants.BLOCK,
+      "subdomain is marked for blocking directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBDOMAIN),
+      constants.BLOCK,
+      "subdomain is marked for blocking"
+    );
+
+    // check that parent domain does not inherit blocking
+    assert.equal(
+      storage.getAction(DOMAIN),
+      constants.NO_TRACKING,
+      "domain is not marked for blocking directly"
+    );
+    assert.equal(
+      storage.getBestAction(DOMAIN),
+      constants.NO_TRACKING,
+      "domain is not marked for blocking"
+    );
+  });
+
+  QUnit.test("cookieblocking overrules blocking", (assert) => {
+    // mark a domain for cookieblocking
+    storage.setupHeuristicAction(DOMAIN, constants.COOKIEBLOCK);
+    // mark a subdomain for blocking
+    storage.setupHeuristicAction(SUBDOMAIN, constants.BLOCK);
+
+    // check domain itself
+    assert.equal(
+      storage.getAction(DOMAIN),
+      constants.COOKIEBLOCK,
+      "domain is marked for cookieblocking directly"
+    );
+    assert.equal(
+      storage.getBestAction(DOMAIN),
+      constants.COOKIEBLOCK,
+      "domain is marked for cookieblocking"
+    );
+
+    // check that subdomain inherits cookieblocking
+    assert.equal(
+      storage.getAction(SUBDOMAIN),
+      constants.BLOCK,
+      "subdomain is marked for blocking directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBDOMAIN),
+      constants.COOKIEBLOCK,
+      "subdomain is marked for cookieblocking (via parent domain)"
+    );
+  });
+
+  QUnit.todo("user actions overrule everything else", (assert) => {
+    storage.setupHeuristicAction(DOMAIN, constants.USER_BLOCK);
+    storage.setupHeuristicAction(SUBDOMAIN, constants.COOKIEBLOCK);
+    storage.setupHeuristicAction(SUBSUBDOMAIN, constants.DNT);
+
+    // check domain itself
+    assert.equal(
+      storage.getAction(DOMAIN),
+      constants.USER_BLOCK,
+      "domain is marked as userblock directly"
+    );
+    assert.equal(
+      storage.getBestAction(DOMAIN),
+      constants.USER_BLOCK,
+      "domain is marked as userblock"
+    );
+
+    // check subdomain
+    assert.equal(
+      storage.getAction(SUBDOMAIN),
+      constants.COOKIEBLOCK,
+      "subdomain is marked for cookie blocking directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBDOMAIN),
+      constants.USER_BLOCK,
+      "subdomain is marked as userblock"
+    );
+
+    // check subsubdomain
+    assert.equal(
+      storage.getAction(SUBSUBDOMAIN),
+      constants.DNT,
+      "subsubdomain is marked as DNT directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBSUBDOMAIN),
+      constants.USER_BLOCK,
+      "subsubdomain is marked as userblock"
+    );
+  });
+
+  QUnit.test("specificity of rules of equal priority", (assert) => {
+    storage.setupHeuristicAction(DOMAIN, constants.USER_BLOCK);
+    storage.setupHeuristicAction(SUBDOMAIN, constants.USER_ALLOW);
+    storage.setupHeuristicAction(SUBSUBDOMAIN, constants.USER_COOKIE_BLOCK);
+
+    // check domain itself
+    assert.equal(
+      storage.getAction(DOMAIN),
+      constants.USER_BLOCK,
+      "domain is marked as userblock directly"
+    );
+    assert.equal(
+      storage.getBestAction(DOMAIN),
+      constants.USER_BLOCK,
+      "domain is marked as userblock"
+    );
+
+    // check subdomain
+    assert.equal(
+      storage.getAction(SUBDOMAIN),
+      constants.USER_ALLOW,
+      "subdomain is marked as userallow directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBDOMAIN),
+      constants.USER_ALLOW,
+      "subdomain is marked as userallow"
+    );
+
+    // check subsubdomain
+    assert.equal(
+      storage.getAction(SUBSUBDOMAIN),
+      constants.USER_COOKIE_BLOCK,
+      "subsubdomain is marked as usercookieblock directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBSUBDOMAIN),
+      constants.USER_COOKIE_BLOCK,
+      "subsubdomain is marked as usercookieblock"
     );
   });
 
