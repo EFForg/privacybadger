@@ -123,7 +123,7 @@
   });
 
   QUnit.test("blocking cascades", (assert) => {
-    // mark a domain for blocking
+    // mark domain for blocking
     storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
 
     // check domain itself
@@ -148,6 +148,18 @@
       storage.getBestAction(SUBDOMAIN),
       constants.BLOCK,
       "subdomain is marked for blocking (via parent domain)"
+    );
+
+    // check that subsubdomain inherits blocking
+    assert.equal(
+      storage.getAction(SUBSUBDOMAIN),
+      constants.NO_TRACKING,
+      "subsubdomain is not marked for blocking directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBSUBDOMAIN),
+      constants.BLOCK,
+      "subsubdomain is marked for blocking (via grandparent domain)"
     );
   });
 
@@ -185,6 +197,11 @@
 
     // check domain itself
     assert.equal(
+      storage.getAction(DOMAIN, true),
+      constants.BLOCK,
+      "domain is marked for blocking directly"
+    );
+    assert.equal(
       storage.getBestAction(DOMAIN),
       constants.DNT,
       "domain is marked as DNT"
@@ -204,7 +221,7 @@
   });
 
   QUnit.test("cascading doesn't work the other way", (assert) => {
-    // mark a subdomain for blocking
+    // mark subdomain for blocking
     storage.setupHeuristicAction(SUBDOMAIN, constants.BLOCK);
 
     // check subdomain itself
@@ -232,10 +249,41 @@
     );
   });
 
+  QUnit.test("blocking overrules allowing", (assert) => {
+    // mark domain for blocking
+    storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
+    // mark subsubdomain as "allow" (not-yet-over-the-threshold tracker)
+    storage.setupHeuristicAction(SUBSUBDOMAIN, constants.ALLOW);
+
+    // check domain itself
+    assert.equal(
+      storage.getAction(DOMAIN),
+      constants.BLOCK,
+      "domain is marked for blocking directly"
+    );
+    assert.equal(
+      storage.getBestAction(DOMAIN),
+      constants.BLOCK,
+      "domain is marked for blocking"
+    );
+
+    // check that subsubdomain inherits blocking
+    assert.equal(
+      storage.getAction(SUBSUBDOMAIN),
+      constants.ALLOW,
+      "subdomain is marked as 'allow' directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBSUBDOMAIN),
+      constants.BLOCK,
+      "subsubdomain is marked for blocking (via grandparent domain)"
+    );
+  });
+
   QUnit.test("cookieblocking overrules blocking", (assert) => {
-    // mark a domain for cookieblocking
+    // mark domain for cookieblocking
     storage.setupHeuristicAction(DOMAIN, constants.COOKIEBLOCK);
-    // mark a subdomain for blocking
+    // mark subdomain for blocking
     storage.setupHeuristicAction(SUBDOMAIN, constants.BLOCK);
 
     // check domain itself
@@ -305,6 +353,8 @@
     );
   });
 
+  // all three user actions are equally important
+  // but the one closest to the FQDN being checked should win
   QUnit.test("specificity of rules of equal priority", (assert) => {
     storage.setupHeuristicAction(DOMAIN, constants.USER_BLOCK);
     storage.setupHeuristicAction(SUBDOMAIN, constants.USER_ALLOW);
@@ -344,6 +394,48 @@
       storage.getBestAction(SUBSUBDOMAIN),
       constants.USER_COOKIE_BLOCK,
       "subsubdomain is marked as usercookieblock"
+    );
+  });
+
+  QUnit.test("unexpected heuristic actions are ignored", (assert) => {
+    storage.setupHeuristicAction(DOMAIN, "foo");
+    storage.setupHeuristicAction(SUBDOMAIN, constants.ALLOW);
+    storage.setupHeuristicAction(SUBSUBDOMAIN, "bar");
+
+    // check domain itself
+    assert.equal(
+      storage.getAction(DOMAIN),
+      "foo",
+      "domain is marked as 'foo' directly"
+    );
+    assert.equal(
+      storage.getBestAction(DOMAIN),
+      constants.NO_TRACKING,
+      "best action for domain is 'no tracking'"
+    );
+
+    // check subdomain
+    assert.equal(
+      storage.getAction(SUBDOMAIN),
+      constants.ALLOW,
+      "subdomain is marked as 'allow' directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBDOMAIN),
+      constants.ALLOW,
+      "best action for subdomain is 'allow'"
+    );
+
+    // check subsubdomain
+    assert.equal(
+      storage.getAction(SUBSUBDOMAIN),
+      "bar",
+      "subsubdomain is marked as 'bar' directly"
+    );
+    assert.equal(
+      storage.getBestAction(SUBSUBDOMAIN),
+      constants.ALLOW,
+      "best action for subsubdomain is 'allow'"
     );
   });
 

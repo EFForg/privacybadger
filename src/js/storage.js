@@ -158,8 +158,6 @@ BadgerPen.prototype = {
         case constants.USER_BLOCK:
         case constants.USER_COOKIE_BLOCK:
           return 5;
-        default:
-          return -1;
       }
     }
 
