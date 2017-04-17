@@ -108,7 +108,7 @@
         "message": "Enable Privacy Badger for This Site"
     },
     "popup_instructions": {
-        "message": "potential <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust them unless something is broken."
+        "message": "potential <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust them unless something is broken."
     },
     "popup_noblocked": {
         "message": "Why isn't anything blocked?"

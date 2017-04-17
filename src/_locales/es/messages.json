@@ -102,7 +102,7 @@
         "message": "Habilitar Privacy Badger para este sitio"
     },
     "popup_instructions": {
-        "message": "potenciales <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>rastreadores</a> en esta página. Estos controles deslizante te permitirán controlar cómo Privacy Badger maneja cada uno."
+        "message": "potenciales <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastreadores</a> en esta página. Estos controles deslizante te permitirán controlar cómo Privacy Badger maneja cada uno."
     },
     "popup_noblocked": {
         "message": "¿Por qué no hay nada bloqueado?"
