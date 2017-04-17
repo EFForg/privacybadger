@@ -141,7 +141,6 @@ BadgerPen.prototype = {
     let best_action = constants.NO_TRACKING;
     let subdomains = utils.explodeSubdomains(fqdn);
     let action_map = this.getBadgerStorageObject('action_map');
-    let relevantDomains = [];
 
     function getScore(action) {
       switch (action) {
@@ -164,27 +163,20 @@ BadgerPen.prototype = {
       }
     }
 
-    // First collect the actions for any domains or subdomains of the FQDN
-    // Order from base domain to FQDN
-    for (let i = subdomains.length; i >= 0; i--) {
-      if (action_map.hasItem(subdomains[i])) {
-        relevantDomains.push({
-          map: action_map.getItem(subdomains[i]),
-          domain: subdomains[i]
-        });
-      }
-    }
-
-    // Loop through each subdomain we have a rule for from least to most specific
+    // Loop through each subdomain we have a rule for
+    // from least (base domain) to most (FQDN) specific
     // and keep the one which has the best score.
-    for (let i = 0, count = relevantDomains.length; i < count; i++) {
-      var action = this.getAction(
-        relevantDomains[i].map,
-        // ignore DNT unless it's directly on the FQDN being checked
-        relevantDomains[i].domain != fqdn
-      );
-      if (getScore(action) >= getScore(best_action)) {
-        best_action = action;
+    for (let i = subdomains.length; i >= 0; i--) {
+      let domain = subdomains[i];
+      if (action_map.hasItem(domain)) {
+        let action = this.getAction(
+          action_map.getItem(domain),
+          // ignore DNT unless it's directly on the FQDN being checked
+          domain != fqdn
+        );
+        if (getScore(action) >= getScore(best_action)) {
+          best_action = action;
+        }
       }
     }
 
