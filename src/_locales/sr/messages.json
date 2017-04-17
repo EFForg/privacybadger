@@ -108,7 +108,7 @@
         "message": "Омогући Privacy Badger на овом сајту"
     },
     "popup_instructions": {
-        "message": "могући <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>пратиоци</a> на овом сајту. Ови клизачи вам омогућују да контролишете како да Privacy Badger рукује сваким од њих. Не би требало да их подешавате осим ако нешто није покварено."
+        "message": "могући <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>пратиоци</a> на овом сајту. Ови клизачи вам омогућују да контролишете како да Privacy Badger рукује сваким од њих. Не би требало да их подешавате осим ако нешто није покварено."
     },
     "popup_noblocked": {
         "message": "Зашто ништа није блокирано?"
