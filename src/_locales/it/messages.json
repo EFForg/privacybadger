@@ -63,7 +63,7 @@
         "message": "I domini sottostanti non sembrano tracciarti"
     },
     "non_tracker_tip": {
-        "message": "Attualmente Privacy Badger controlla solo se terze parti stanno usando dei cookie, il local storage HTML5 o le impronte canvas per tracciare la tua navigazione. Alcuni di questi domini potrebbero usare metodi di tracciamento che Privacy Badger non può rilevare."
+        "message": "Attualmente Privacy Badger controlla solo se terze parti stanno usando dei cookie, il local storage HTML5 o il canvas fingerprinting per tracciare la tua navigazione. Alcuni di questi domini potrebbero usare metodi di tracciamento che Privacy Badger non può rilevare."
     },
     "options_domain_search": {
         "message": "Cerca domini"
