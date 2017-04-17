@@ -179,7 +179,7 @@
     );
   });
 
-  QUnit.todo("blocking still cascades after domain declares DNT", (assert) => {
+  QUnit.test("blocking still cascades after domain declares DNT", (assert) => {
     storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
     storage.setupDNT(DOMAIN);
 
@@ -263,10 +263,10 @@
     );
   });
 
-  QUnit.todo("user actions overrule everything else", (assert) => {
+  QUnit.test("user actions overrule everything else", (assert) => {
     storage.setupHeuristicAction(DOMAIN, constants.USER_BLOCK);
     storage.setupHeuristicAction(SUBDOMAIN, constants.COOKIEBLOCK);
-    storage.setupHeuristicAction(SUBSUBDOMAIN, constants.DNT);
+    storage.setupDNT(SUBSUBDOMAIN);
 
     // check domain itself
     assert.equal(

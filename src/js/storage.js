@@ -98,13 +98,13 @@ BadgerPen.prototype = {
    * @param {Object|String} domain domain object from action_map
    * @returns {String} the presumed action for this FQDN
    **/
-  getAction: function(domain){
+  getAction: function (domain, ignoreDNT) {
     if (_.isString(domain)) {
       domain = this.getBadgerStorageObject('action_map').getItem(domain) || {};
     }
-    if(domain.userAction){ return domain.userAction; }
-    if(domain.dnt){ return constants.DNT; }
-    if(domain.heuristicAction){ return domain.heuristicAction; }
+    if (domain.userAction) { return domain.userAction; }
+    if (domain.dnt && !ignoreDNT) { return constants.DNT; }
+    if (domain.heuristicAction) { return domain.heuristicAction; }
     return constants.NO_TRACKING;
   },
 
@@ -138,11 +138,6 @@ BadgerPen.prototype = {
    * @returns {String} the best action for the FQDN
    **/
   getBestAction: function (fqdn) {
-    // if FQDN itself has DNT and no user action set, DNT is the best action
-    if (this.getAction(fqdn) == constants.DNT) {
-      return constants.DNT;
-    }
-
     let best_action = constants.NO_TRACKING;
     let subdomains = utils.explodeSubdomains(fqdn);
     let action_map = this.getBadgerStorageObject('action_map');
@@ -150,27 +145,44 @@ BadgerPen.prototype = {
 
     function getScore(action) {
       switch (action) {
-        case constants.DNT: return -1; // never prefer DNT: should not cascade
-        case constants.NO_TRACKING: return 0;
-        case constants.ALLOW: return 1;
-        case constants.BLOCK: return 2;
-        case constants.COOKIEBLOCK: return 3;
-        default: return 5; // user allow/block/cookieblock
+        case constants.NO_TRACKING:
+          return 0;
+        case constants.ALLOW:
+          return 1;
+        case constants.BLOCK:
+          return 2;
+        case constants.COOKIEBLOCK:
+          return 3;
+        case constants.DNT:
+          return 4;
+        case constants.USER_ALLOW:
+        case constants.USER_BLOCK:
+        case constants.USER_COOKIE_BLOCK:
+          return 5;
+        default:
+          return -1;
       }
     }
 
-    for (let i = 0; i < subdomains.length; i++) {
+    // First collect the actions for any domains or subdomains of the FQDN
+    // Order from base domain to FQDN
+    for (let i = subdomains.length; i >= 0; i--) {
       if (action_map.hasItem(subdomains[i])) {
-        // First collect the actions for any domains or subdomains of the FQDN
-        // Order from base domain to FQDN
-        relevantDomains.unshift(action_map.getItem(subdomains[i]));
+        relevantDomains.push({
+          map: action_map.getItem(subdomains[i]),
+          domain: subdomains[i]
+        });
       }
     }
 
     // Loop through each subdomain we have a rule for from least to most specific
     // and keep the one which has the best score.
-    for (let i = 0; i < relevantDomains.length; i++) {
-      var action = this.getAction(relevantDomains[i]);
+    for (let i = 0, count = relevantDomains.length; i < count; i++) {
+      var action = this.getAction(
+        relevantDomains[i].map,
+        // ignore DNT unless it's directly on the FQDN being checked
+        relevantDomains[i].domain != fqdn
+      );
       if (getScore(action) >= getScore(best_action)) {
         best_action = action;
       }
