@@ -312,7 +312,7 @@
   });
 
   QUnit.test("user actions overrule everything else", (assert) => {
-    storage.setupHeuristicAction(DOMAIN, constants.USER_BLOCK);
+    storage.setupUserAction(DOMAIN, constants.USER_BLOCK);
     storage.setupHeuristicAction(SUBDOMAIN, constants.COOKIEBLOCK);
     storage.setupDNT(SUBSUBDOMAIN);
 
@@ -356,9 +356,9 @@
   // all three user actions are equally important
   // but the one closest to the FQDN being checked should win
   QUnit.test("specificity of rules of equal priority", (assert) => {
-    storage.setupHeuristicAction(DOMAIN, constants.USER_BLOCK);
-    storage.setupHeuristicAction(SUBDOMAIN, constants.USER_ALLOW);
-    storage.setupHeuristicAction(SUBSUBDOMAIN, constants.USER_COOKIE_BLOCK);
+    storage.setupUserAction(DOMAIN, constants.USER_BLOCK);
+    storage.setupUserAction(SUBDOMAIN, constants.USER_ALLOW);
+    storage.setupUserAction(SUBSUBDOMAIN, constants.USER_COOKIE_BLOCK);
 
     // check domain itself
     assert.equal(
