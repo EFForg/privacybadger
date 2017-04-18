@@ -108,7 +108,7 @@
         "message": "Activer Privacy Badger pour ce site."
     },
     "popup_instructions": {
-        "message": "<a target='_blank' href='https://www.eff.org/fr/privacybadger'>traqueurs</a> potentiels sur cette page. Ces curseurs vous permettent de contrôler comment Privacy Badger va les gérer. Vous ne devriez pas avoir besoin de les modifier à moins d'un site non fonctionnel."
+        "message": "<a target='_blank' href=\"https://www.eff.org/fr/privacybadger#faq-Qu'est-ce-qu'un-tracker-tiers ?\">traqueurs</a> potentiels sur cette page. Ces curseurs vous permettent de contrôler comment Privacy Badger va les gérer. Vous ne devriez pas avoir besoin de les modifier à moins d'un site non fonctionnel."
     },
     "popup_noblocked": {
         "message": "Pourquoi rien n'est-il bloqué ?"
