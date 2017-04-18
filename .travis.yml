@@ -41,4 +41,4 @@ before_script:
   - npm install # install JS dependencies (eslint) from package.json
   - . ./scripts/setup_travis.sh
   - cd tests
-script:  travis_retry ./run_selenium_tests.sh
+script: ./run_selenium_tests.sh

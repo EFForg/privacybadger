@@ -129,42 +129,46 @@ HeuristicBlocker.prototype = {
    * @param details are those from onBeforeSendHeaders
    * @returns {*}
    */
-  heuristicBlockingAccounting: function(details) {
+  heuristicBlockingAccounting: function (details) {
     // ignore requests that are outside a tabbed window
-    if(details.tabId < 0 || incognito.tabIsIncognito(details.tabId)){
-      return { };
+    if (details.tabId < 0 || incognito.tabIsIncognito(details.tabId)) {
+      return {};
     }
 
-    var fqdn = utils.makeURI(details.url).host;
-    var origin = window.getBaseDomain(fqdn);
+    let fqdn = utils.makeURI(details.url).host,
+      origin = window.getBaseDomain(fqdn);
 
-    // abort if we already made a decision for this fqdn
-    var action = this.storage.getActionForFqdn(fqdn);
-    if(action != constants.NO_TRACKING && action != constants.ALLOW){
-      return { };
-    }
-
-    // Save the origin associated with the tab if this is a main window request
-    if(details.type == "main_frame") {
+    // if this is a main window request
+    if (details.type == "main_frame") {
+      // save the origin associated with the tab
       log("Origin: " + origin + "\tURL: " + details.url);
       tabOrigins[details.tabId] = origin;
-      return { };
+      return {};
     }
-    else {
-      var tabOrigin = tabOrigins[details.tabId];
-      // Ignore first-party requests
-      if (!tabOrigin || origin == tabOrigin){
-        return { };
-      }
-      window.setTimeout(function(){
-        badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
-      }, 10);
-      // if there are no tracking cookies or similar things, ignore
-      if (!this.hasTracking(details, origin)){
-        return { };
-      }
-      this._recordPrevalence(fqdn, origin, tabOrigin);
+
+    let tabOrigin = tabOrigins[details.tabId];
+
+    // ignore first-party requests
+    if (!tabOrigin || origin == tabOrigin) {
+      return {};
     }
+
+    window.setTimeout(function () {
+      badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
+    }, 10);
+
+    // abort if we already made a decision for this FQDN
+    let action = this.storage.getAction(fqdn);
+    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+      return {};
+    }
+
+    // if there are no tracking cookies or similar things, ignore
+    if (!this.hasTracking(details, origin)) {
+      return {};
+    }
+
+    this._recordPrevalence(fqdn, origin, tabOrigin);
   },
 
   /**
@@ -177,7 +181,7 @@ HeuristicBlocker.prototype = {
    */
   updateTrackerPrevalence: function(tracker_fqdn, page_origin) {
     // abort if we already made a decision for this fqdn
-    let action = this.storage.getActionForFqdn(tracker_fqdn);
+    let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return;
     }

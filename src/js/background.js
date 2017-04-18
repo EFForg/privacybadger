@@ -274,14 +274,10 @@ Badger.prototype = {
   },
 
   /**
-  * Initialize DNT Setup:
-  * * download acceptable hashes from EFF
-  * * set up listener to recheck blocked domains and DNT domains
+  * Initialize DNT policy subsystem by downloading acceptable hashes from EFF
   */
-  initializeDNT: function(){
+  initializeDNT: function () {
     this.updateDNTPolicyHashes();
-    this.recheckDNTPolicyForDomains();
-    setInterval(this.recheckDNTPolicyForDomains.bind(this), utils.oneHour());
     setInterval(this.updateDNTPolicyHashes.bind(this), utils.oneDay() * 4);
   },
 
@@ -292,7 +288,7 @@ Badger.prototype = {
   initializeUserAllowList: function() {
     var action_map = this.storage.getBadgerStorageObject('action_map');
     for(var domain in action_map.getItemClones()){
-      if(this.storage.getActionForFqdn(domain) === constants.USER_ALLOW){
+      if(this.storage.getAction(domain) === constants.USER_ALLOW){
         this.userAllow.push(domain);
       }
     }
@@ -312,19 +308,6 @@ Badger.prototype = {
       self.storage.updateDNTHashes(JSON.parse(response));
     });
   },
-
-
-
-  /**
-  * Loop through all known domains and recheck any that need to be rechecked for a dnt-policy file
-  */
-  recheckDNTPolicyForDomains: function(){
-    var action_map = this.storage.getBadgerStorageObject('action_map');
-    for(var domain in action_map.getItemClones()){
-      this.checkForDNTPolicy(domain, this.storage.getNextUpdateForDomain(domain));
-    }
-  },
-
 
   /**
   * Checks a domain for the EFF DNT policy.

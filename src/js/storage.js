@@ -98,13 +98,13 @@ BadgerPen.prototype = {
    * @param {Object|String} domain domain object from action_map
    * @returns {String} the presumed action for this FQDN
    **/
-  getActionForFqdn: function(domain){
+  getAction: function (domain, ignoreDNT) {
     if (_.isString(domain)) {
       domain = this.getBadgerStorageObject('action_map').getItem(domain) || {};
     }
-    if(domain.userAction){ return domain.userAction; }
-    if(domain.dnt){ return constants.DNT; }
-    if(domain.heuristicAction){ return domain.heuristicAction; }
+    if (domain.userAction) { return domain.userAction; }
+    if (domain.dnt && !ignoreDNT) { return constants.DNT; }
+    if (domain.heuristicAction) { return domain.heuristicAction; }
     return constants.NO_TRACKING;
   },
 
@@ -137,27 +137,44 @@ BadgerPen.prototype = {
    * @param {String} fqdn the FQDN we want to determine the action for
    * @returns {String} the best action for the FQDN
    **/
-  getBestAction: function(fqdn) {
-    var best_action = constants.NO_TRACKING;
-    var subdomains = utils.explodeSubdomains(fqdn);
-    var action_map = this.getBadgerStorageObject('action_map');
-    var relevantDomains = [];
-    var i;
+  getBestAction: function (fqdn) {
+    let best_action = constants.NO_TRACKING;
+    let subdomains = utils.explodeSubdomains(fqdn);
+    let action_map = this.getBadgerStorageObject('action_map');
 
-    for( i = 0; i < subdomains.length; i++ ){
-      if(action_map.hasItem(subdomains[i])){
-        // First collect the actions for any domains or subdomains of the FQDN
-        // Order from base domain to FQDN
-        relevantDomains.unshift(action_map.getItem(subdomains[i]));
+    function getScore(action) {
+      switch (action) {
+        case constants.NO_TRACKING:
+          return 0;
+        case constants.ALLOW:
+          return 1;
+        case constants.BLOCK:
+          return 2;
+        case constants.COOKIEBLOCK:
+          return 3;
+        case constants.DNT:
+          return 4;
+        case constants.USER_ALLOW:
+        case constants.USER_BLOCK:
+        case constants.USER_COOKIE_BLOCK:
+          return 5;
       }
     }
 
-    // Loop through each subdomain we have a rule for from least to most specific
+    // Loop through each subdomain we have a rule for
+    // from least (base domain) to most (FQDN) specific
     // and keep the one which has the best score.
-    for( i = 0; i < relevantDomains.length; i++ ){
-      var action = this.getActionForFqdn(relevantDomains[i]);
-      if(getScore(action) >= getScore(best_action)){
-        best_action = action;
+    for (let i = subdomains.length; i >= 0; i--) {
+      let domain = subdomains[i];
+      if (action_map.hasItem(domain)) {
+        let action = this.getAction(
+          action_map.getItem(domain),
+          // ignore DNT unless it's directly on the FQDN being checked
+          domain != fqdn
+        );
+        if (getScore(action) >= getScore(best_action)) {
+          best_action = action;
+        }
       }
     }
 
@@ -174,7 +191,7 @@ BadgerPen.prototype = {
     var action_map = this.getBadgerStorageObject('action_map');
     var relevantDomains = [];
     for(var domain in action_map.getItemClones()){
-      if(selector == this.getActionForFqdn(domain)){
+      if(selector == this.getAction(domain)){
         relevantDomains.push(domain);
       }
     }
@@ -273,18 +290,6 @@ BadgerPen.prototype = {
     if (index > -1) {
       badger.userAllow.splice(index, 1);
     }
-  }
-};
-
-
-var getScore = function(action){
-  switch(action){
-    case constants.NO_TRACKING: return 0;
-    case constants.ALLOW: return 1;
-    case constants.BLOCK: return 2;
-    case constants.COOKIEBLOCK: return 3;
-    case constants.DNT: return 4;
-    default: return 5;
   }
 };
 
