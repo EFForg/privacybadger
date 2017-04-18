@@ -108,7 +108,7 @@
         "message": "Увімкнути Privacy Badger для цього сайту"
     },
     "popup_instructions": {
-        "message": "можливе <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>стеження</a> на цій сторінці. Ці перемикачі дозволяють вам контролювати, як Privacy Badger обробляє їх. Вам не потрібно змінювати їх, доки щось на сторінці не буде пошкоджено."
+        "message": "можливе <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>стеження</a> на цій сторінці. Ці перемикачі дозволяють вам контролювати, як Privacy Badger обробляє їх. Вам не потрібно змінювати їх, доки щось на сторінці не буде пошкоджено."
     },
     "popup_noblocked": {
         "message": "Чому не блокується будь-що?"

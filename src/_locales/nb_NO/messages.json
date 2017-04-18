@@ -108,7 +108,7 @@
         "message": "Skru på Personvernsgrevlingen for denne siden"
     },
     "popup_instructions": {
-        "message": "potensielle <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>sporere</a> på denne siden. Disse glidebryterne lar deg kontrollere hvordan Personvernsgrevlingen behandler hver av dem. Du skal ikke trenge å bruke dem hvis ikke noe har gått galt."
+        "message": "potensielle <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporere</a> på denne siden. Disse glidebryterne lar deg kontrollere hvordan Personvernsgrevlingen behandler hver av dem. Du skal ikke trenge å bruke dem hvis ikke noe har gått galt."
     },
     "popup_noblocked": {
         "message": "Hvorfor blokkeres ikke noe?"

@@ -108,7 +108,7 @@
         "message": "Aktivera Privacy Badger för denna sida"
     },
     "popup_instructions": {
-        "message": "<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>spanare</a> på denna sida. Dessa reglage låter dig bestämma hur Privacy Badger hanterar varje spanare."
+        "message": "<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spanare</a> på denna sida. Dessa reglage låter dig bestämma hur Privacy Badger hanterar varje spanare."
     },
     "popup_noblocked": {
         "message": "Varför är inget blockerat?"

@@ -117,7 +117,7 @@
         "message": "在目前網頁開啟 Privacy Badger"
     },
     "popup_instructions": {
-        "message": "可疑的<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>追蹤器</a>。<br>這些滾動條讓您可控制 Privacy Badger 如何處理每一個追蹤器，但除非 Privacy Badger 造成網頁顯示異常，不必特別調整。"
+        "message": "可疑的<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤器</a>。<br>這些滾動條讓您可控制 Privacy Badger 如何處理每一個追蹤器，但除非 Privacy Badger 造成網頁顯示異常，不必特別調整。"
     },
     "popup_noblocked": {
         "message": "為什麼沒有封鎖任何東西？"

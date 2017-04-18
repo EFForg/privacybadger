@@ -108,7 +108,7 @@
         "message": "Privacy Badger für diese Webseite aktivieren"
     },
     "popup_instructions": {
-        "message": "potenzielle <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>Tracker</a> auf dieser Seite. Diese Schieberegler kontrollieren, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme beim Laden dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen."
+        "message": "potenzielle <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracker</a> auf dieser Seite. Diese Schieberegler kontrollieren, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme beim Laden dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen."
     },
     "popup_noblocked": {
         "message": "Warum wird nichts blockiert?"
