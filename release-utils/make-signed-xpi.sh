@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-LATEST_SDK_VERSION=1.6.0
+LATEST_SDK_VERSION=1.9.0
 
 # Auto-generated XPI name from 'web-ext sign'
 PRE_XPI_NAME=privacy_badger_by_eff-$TARGET-an+fx.xpi
