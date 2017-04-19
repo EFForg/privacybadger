@@ -1,6 +1,6 @@
 Changes for Privacy Badger 
 ====================================
-## 2017.4.19
+## 2017.4.19.1
 * Rework DNT policy rechecking to only happen during browsing. Eliminates
 needless rechecking of unlikely-to-be-visited-again domains. Should further
 mitigate CPU issues.
