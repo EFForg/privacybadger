@@ -145,6 +145,7 @@ BadgerPen.prototype = {
     function getScore(action) {
       switch (action) {
         case constants.NO_TRACKING:
+        case "":
           return 0;
         case constants.ALLOW:
           return 1;
@@ -301,7 +302,7 @@ var _newActionMapObject = function() {
   return {
     userAction: "",
     dnt: false,
-    heuristicAction: "",
+    heuristicAction: constants.NO_TRACKING,
     nextUpdateTime: 0
   };
 };
