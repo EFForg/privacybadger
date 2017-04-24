@@ -26,11 +26,11 @@ matrix:
   exclude:
     - env: TRAVIS_EXTRA_JOB_WORKAROUND=true
 addons:
+  firefox: latest
   apt:
     sources:
     - google-chrome
     packages:
-    - firefox
     - google-chrome-stable
     - google-chrome-beta
     - python-virtualenv
