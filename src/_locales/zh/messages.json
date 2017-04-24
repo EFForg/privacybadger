@@ -74,8 +74,14 @@
     "non_tracker_tip": {
         "message": "目前隐私獾只检查第三方 cookies，第五代超文本标记语言(HTML5)本地存储，帆布指纹识别(canvas fingerprinting)跟踪你浏览网页的情况。 有些域名可能使用了隐私獾无法检测的跟踪方式。"
     },
+    "options_domain_search": {
+        "message": "搜索域名"
+    },
     "options_filter_settings": {
         "message": "用户过滤设置"
+    },
+    "options_general_settings": {
+        "message": "通用设置"
     },
     "options_loading": {
         "message": "加载中…"
