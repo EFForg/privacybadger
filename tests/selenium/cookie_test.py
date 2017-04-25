@@ -5,6 +5,11 @@ import unittest
 import pbtest
 import time
 
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 import window_utils
 
 SITE1_URL = "http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
@@ -16,6 +21,46 @@ THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
+
+    def XXX_test_dnt_check_should_not_set_cookies(self):
+        # TODO update to EFF URL
+        TEST_DOMAIN = "localhost"
+        TEST_URL = "https://{}/".format(TEST_DOMAIN)
+
+        RUN_DNT_JS = """badger.checkForDNTPolicy(
+  '{}', 0, r => window.DNT_CHECK_RESULT = r
+);""".format(TEST_DOMAIN)
+        CHECK_FINISHED_JS = "return window.DNT_CHECK_RESULT === false"
+
+        # verify that the domain itself doesn't set cookies
+        self.load_url(TEST_URL)
+        self.assertEqual(len(self.driver.get_cookies()), 0,
+            "No cookies initially")
+
+        # directly visit a DNT policy URL known to set cookies
+        self.load_url(TEST_URL + ".well-known/dnt-policy.txt")
+
+        # verify we got a cookie
+        self.load_url(TEST_URL)
+        self.assertEqual(len(self.driver.get_cookies()), 1,
+            "DNT policy URL set a cookie")
+
+        # clear cookies and verify
+        self.driver.delete_all_cookies()
+        self.load_url(TEST_URL)
+        self.assertEqual(len(self.driver.get_cookies()), 0,
+            "No cookies again")
+
+        # perform a DNT policy check
+        self.load_url(self.bg_url, wait_on_site=1)
+        self.js(RUN_DNT_JS)
+        # wait until checkForDNTPolicy completed
+        self.wait_for_script(CHECK_FINISHED_JS)
+
+        # check that we didn't get cookied by the DNT URL
+        self.load_url(TEST_URL)
+        self.assertEqual(len(self.driver.get_cookies()), 0,
+            "Shouldn't have any cookies after the DNT check")
 
     def assert_pass_opera_cookie_test(self, url, test_name):
         self.load_url(url)
