@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import os
 import unittest
 
 from selenium.webdriver.common.action_chains import ActionChains
