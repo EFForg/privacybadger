@@ -22,9 +22,8 @@ THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
 
-    def XXX_test_dnt_check_should_not_set_cookies(self):
-        # TODO update to EFF URL
-        TEST_DOMAIN = "localhost"
+    def test_dnt_check_should_not_set_cookies(self):
+        TEST_DOMAIN = "dnt-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
 
         RUN_DNT_JS = """badger.checkForDNTPolicy(
