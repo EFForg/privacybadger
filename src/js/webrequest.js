@@ -230,15 +230,12 @@ function onHeadersReceived(details) {
     return {};
   }
 
-
   var requestAction = checkAction(tab_id, url, false, details.frameId);
   if (requestAction) {
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
-      newHeaders.push({name:'x-marks-the-spot', value:'foo'});
-      //TODO don't return this unless we modified headers
       return {responseHeaders: newHeaders};
     }
   }
