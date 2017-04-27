@@ -38,7 +38,7 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 before_script:
-  - npm install # install JS dependencies (eslint) from package.json
+  - travis_retry npm install # install JS dependencies (eslint) from package.json
   - . ./scripts/setup_travis.sh
   - cd tests
 script: ./run_selenium_tests.sh

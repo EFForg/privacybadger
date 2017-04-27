@@ -92,6 +92,9 @@ def firefox_manager():
     proc = subprocess.Popen(cmd)
     time.sleep(2)
     ffcaps = DesiredCapabilities.FIREFOX
+    # workaround for our wacky selenium/web-ext/geckodriver setup
+    # https://github.com/SeleniumHQ/selenium/issues/3915#issuecomment-297530793
+    ffcaps.pop('marionette', None)
     try:
         url = get_base_url()
 
