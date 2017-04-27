@@ -42,11 +42,13 @@ https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
 
         # directly visit a DNT policy URL known to set cookies
         self.load_url(TEST_URL + ".well-known/dnt-policy.txt")
+        self.assertEqual(len(self.driver.get_cookies()), 1,
+            "DNT policy URL set a cookie")
 
         # verify we got a cookie
         self.load_url(TEST_URL)
         self.assertEqual(len(self.driver.get_cookies()), 1,
-            "DNT policy URL set a cookie")
+            "We still have just one cookie")
 
         # clear cookies and verify
         self.driver.delete_all_cookies()
