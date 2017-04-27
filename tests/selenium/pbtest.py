@@ -184,6 +184,14 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
+    def wait_for_script(self, script, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        """Variant of self.js that executes script continuously until it
+        returns True."""
+        return WebDriverWait(self.driver, timeout).until(
+            lambda driver: driver.execute_script(script),
+            "Timed out waiting for execute_script to eval to True"
+        )
+
     @property
     def bg_url(self):
         return self.base_url + "_generated_background_page.html"
