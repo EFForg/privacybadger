@@ -106,11 +106,11 @@ function init() {
   });
   utils.xhrRequest("manifest.json", function(err, response){
     if(err){
-     console.error('Problem loading manifest.json:', err.status, err.message);
-     return;
+      console.error('Problem loading manifest.json:', err.status, err.message);
+      return;
     }
     response = JSON.parse(response);
-    $("#version_number").text("v" + response["display_version"]);
+    $("#version_number").text("v" + response.display_version);
   });
 }
 $(init);
