@@ -104,14 +104,10 @@ function init() {
       $("#deactivate_site_btn").hide();
     }
   });
-  utils.xhrRequest("manifest.json", function(err, response){
-    if(err){
-      console.error('Problem loading manifest.json:', err.status, err.message);
-      return;
-    }
-    response = JSON.parse(response);
-    $("#version_number").text("v" + response.display_version);
-  });
+
+  manifest = chrome.runtime.getManifest();
+  version = i18n.getMessage("version") + " " +  manifest["version"];
+  $("#version").text(version);
 }
 $(init);
 
