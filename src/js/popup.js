@@ -23,7 +23,6 @@ var require = backgroundPage.require;
 var constants = backgroundPage.constants;
 var badger = backgroundPage.badger;
 var htmlUtils = require("htmlutils").htmlUtils;
-var utils = require("utils");
 
 var i18n = chrome.i18n;
 var reloadTab = chrome.tabs.reload;
@@ -105,8 +104,7 @@ function init() {
     }
   });
 
-  manifest = chrome.runtime.getManifest();
-  version = i18n.getMessage("version") + " " +  manifest["version"];
+  var version = i18n.getMessage("version") + " " +  chrome.runtime.getManifest().version;
   $("#version").text(version);
 }
 $(init);
