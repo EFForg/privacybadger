@@ -93,5 +93,5 @@
   "web_accessible_resources": [
     "skin/*",
     "icons/*"
-  ],
+  ]
 }
