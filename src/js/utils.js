@@ -244,17 +244,17 @@ function sha1(input, callback) {
 }
 
 function parseCookies(str) {
-  var parsed = [];
+  let parsed = [];
 
-  var cookies = str.split(";");
+  let cookies = str.split(";");
 
-  for (var i = 0; i < cookies.length; i++) {
+  for (let i = 0; i < cookies.length; i++) {
     // TODO urgh I can't believe we're parsing cookies.  Probably wrong
     // what if the value has spaces in it?
-    var c = cookies[i].trim();
-    var cut = c.indexOf("=");
-    var name = c.slice(0, cut);
-    var value = c.slice(cut + 1);
+    let c = cookies[i].trim();
+    let cut = c.indexOf("=");
+    let name = c.slice(0, cut);
+    let value = c.slice(cut + 1);
     parsed.push({
       name: name,
       value: value

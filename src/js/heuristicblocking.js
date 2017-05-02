@@ -460,11 +460,11 @@ var lowEntropyCookieValues = {
  * @param details Details for onBeforeSendHeaders
  * @returns {*} False or a string combining all Cookies
  */
-var extractCookieString = function(details) {
+function _extractCookieString(details) {
   // @details are those from onBeforeSendHeaders
   // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
-  var cookies = "";
-  var headers;
+  let cookies = "";
+  let headers;
 
   if(details.requestHeaders) {
     headers = details.requestHeaders;
@@ -477,8 +477,8 @@ var extractCookieString = function(details) {
   }
 
 
-  for (var i = 0; i < headers.length; i++) {
-    var header = headers[i];
+  for (let i = 0; i < headers.length; i++) {
+    let header = headers[i];
     if (header.name.toLowerCase() == "cookie" || header.name.toLowerCase() == "set-cookie" ) {
       if (!cookies) {
         cookies = header.value;
@@ -490,7 +490,7 @@ var extractCookieString = function(details) {
   }
 
   return cookies;
-};
+}
 
 /**
  * Check if page is doing cookie tracking. Doing this by estimating the entropy of the cookies
@@ -499,29 +499,30 @@ var extractCookieString = function(details) {
  * @param {String} origin URL
  * @returns {boolean} true if it has cookie tracking
  */
-var hasCookieTracking = function(details, origin) {
+function hasCookieTracking(details, origin) {
   // @details are those from onBeforeSendHeaders
 
-  var cookies = extractCookieString(details);
+  let cookies = _extractCookieString(details);
   if (!cookies) {
     return false;
   }
   cookies = utils.parseCookies(cookies);
-  var estimatedEntropy = 0;
-  for (var i = 0; i < cookies.length; i++) {
-    //var name = cookies[i].name;
-    var value = cookies[i].value;
-    var lvalue = value.toLowerCase();
+  let estimatedEntropy = 0;
+  for (let i = 0; i < cookies.length; i++) {
+    //let name = cookies[i].name;
+    let value = cookies[i].value;
+
+    let lvalue = value.toLowerCase();
+
     if (!(lvalue in lowEntropyCookieValues)) {
       return true;
     }
-    if(lvalue in lowEntropyCookieValues){
-      estimatedEntropy += lowEntropyCookieValues[lvalue];
-    }
+
+    estimatedEntropy += lowEntropyCookieValues[lvalue];
   }
   if (cookies.length) {
     log("All cookies for " + origin + " deemed low entropy...");
-    for (var n = 0; n < cookies.length; n++) {
+    for (let n = 0; n < cookies.length; n++) {
       log("    " + cookies[n].name + "=" + cookies[n].value);
     }
     if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
@@ -531,8 +532,9 @@ var hasCookieTracking = function(details, origin) {
   } else {
     log(origin, "has no cookies!");
   }
+
   return false;
-};
+}
 
 function startListeners() {
   /**
