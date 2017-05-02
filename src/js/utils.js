@@ -243,6 +243,27 @@ function sha1(input, callback) {
   });
 }
 
+function parseCookies(str) {
+  var parsed = [];
+
+  var cookies = str.split(";");
+
+  for (var i = 0; i < cookies.length; i++) {
+    // TODO urgh I can't believe we're parsing cookies.  Probably wrong
+    // what if the value has spaces in it?
+    var c = cookies[i].trim();
+    var cut = c.indexOf("=");
+    var name = c.slice(0, cut);
+    var value = c.slice(cut + 1);
+    parsed.push({
+      name: name,
+      value: value
+    });
+  }
+
+  return parsed;
+}
+
 /************************************** exports */
 var exports = {};
 
@@ -256,6 +277,7 @@ exports.oneDay = oneDay;
 exports.oneHour = oneHour;
 exports.oneMinute = oneMinute;
 exports.oneSecond = oneSecond;
+exports.parseCookies = parseCookies;
 exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
 exports.sha1 = sha1;

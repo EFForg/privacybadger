@@ -506,17 +506,11 @@ var hasCookieTracking = function(details, origin) {
   if (!cookies) {
     return false;
   }
-  cookies = cookies.split(";");
-  var hasCookies = false;
+  cookies = utils.parseCookies(cookies);
   var estimatedEntropy = 0;
   for (var i = 0; i < cookies.length; i++) {
-    // TODO urgh I can't believe we're parsing cookies.  Probably wrong
-    // what if the value has spaces in it?
-    hasCookies = true;
-    var c = cookies[i].trim();
-    var cut = c.indexOf("=");
-    //var name = c.slice(0,cut);
-    var value = c.slice(cut+1);
+    //var name = cookies[i].name;
+    var value = cookies[i].value;
     var lvalue = value.toLowerCase();
     if (!(lvalue in lowEntropyCookieValues)) {
       return true;
@@ -525,10 +519,10 @@ var hasCookieTracking = function(details, origin) {
       estimatedEntropy += lowEntropyCookieValues[lvalue];
     }
   }
-  if (hasCookies) {
+  if (cookies.length) {
     log("All cookies for " + origin + " deemed low entropy...");
     for (var n = 0; n < cookies.length; n++) {
-      log("    " + cookies[n]);
+      log("    " + cookies[n].name + "=" + cookies[n].value);
     }
     if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
       log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
