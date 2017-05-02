@@ -284,6 +284,7 @@ font-size: 16px;
 #pbInstructions{
   color: #505050;
   font-size: 16px;
+  padding-top: 10px;
   margin: 0;
 }
 
@@ -380,6 +381,8 @@ font-size: 16px;
 }
 
 #version{
+  float: left;
+  margin-top: -15px;
   padding-left: 55px;
   color: #707070;
   font-size: 10px;
