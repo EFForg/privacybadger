@@ -455,37 +455,23 @@ var lowEntropyCookieValues = {
 /**
  * Extract cookies from onBeforeSendHeaders
  *
- * https://developer.chrome.com/extensions/webRequest#event-onBeforeSendHeaders
- *
  * @param details Details for onBeforeSendHeaders
- * @returns {*} False or a string combining all Cookies
+ * @returns {*} an array combining all Cookies
  */
-function _extractCookieString(details) {
-  // @details are those from onBeforeSendHeaders
-  // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
-  let cookies = "";
-  let headers;
+function _extractCookies(details) {
+  let cookies = [],
+    headers = [];
 
-  if(details.requestHeaders) {
+  if (details.requestHeaders) {
     headers = details.requestHeaders;
-  } else if(details.responseHeaders) {
+  } else if (details.responseHeaders) {
     headers = details.responseHeaders;
-  } else {
-    log("A request was made with no headers! Crazy!");
-    log(details);
-    return false;
   }
-
 
   for (let i = 0; i < headers.length; i++) {
     let header = headers[i];
     if (header.name.toLowerCase() == "cookie" || header.name.toLowerCase() == "set-cookie" ) {
-      if (!cookies) {
-        cookies = header.value;
-      } else {
-        // Should not happen?  Except perhaps due to crazy extensions?
-        cookies = cookies + ";" + header.value;
-      }
+      cookies.push(header.value);
     }
   }
 
@@ -500,30 +486,39 @@ function _extractCookieString(details) {
  * @returns {boolean} true if it has cookie tracking
  */
 function hasCookieTracking(details, origin) {
-  // @details are those from onBeforeSendHeaders
-
-  let cookies = _extractCookieString(details);
-  if (!cookies) {
+  let cookies = _extractCookies(details);
+  if (!cookies.length) {
     return false;
   }
-  cookies = utils.parseCookies(cookies);
+
   let estimatedEntropy = 0;
+
+  // loop over every cookie
   for (let i = 0; i < cookies.length; i++) {
-    //let name = cookies[i].name;
-    let value = cookies[i].value;
+    let cookie = utils.parseCookie(cookies[i]);
 
-    let lvalue = value.toLowerCase();
+    // loop over every name/value pair in every cookie
+    for (let name in cookie) {
+      if (!cookie.hasOwnProperty(name)) {
+        continue;
+      }
 
-    if (!(lvalue in lowEntropyCookieValues)) {
-      return true;
+      let value = cookie[name];
+
+      let lvalue = value.toLowerCase();
+
+      if (!(lvalue in lowEntropyCookieValues)) {
+        return true;
+      }
+
+      estimatedEntropy += lowEntropyCookieValues[lvalue];
     }
-
-    estimatedEntropy += lowEntropyCookieValues[lvalue];
   }
+
   if (cookies.length) {
     log("All cookies for " + origin + " deemed low entropy...");
-    for (let n = 0; n < cookies.length; n++) {
-      log("    " + cookies[n].name + "=" + cookies[n].value);
+    for (let i = 0; i < cookies.length; i++) {
+      log("    " + cookies[i]);
     }
     if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
       log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");

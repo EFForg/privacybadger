@@ -243,8 +243,8 @@ function sha1(input, callback) {
   });
 }
 
-function parseCookies(str) {
-  let parsed = [];
+function parseCookie(str) {
+  let parsed = {};
 
   let cookies = str.split(";");
 
@@ -255,10 +255,8 @@ function parseCookies(str) {
     let cut = c.indexOf("=");
     let name = c.slice(0, cut);
     let value = c.slice(cut + 1);
-    parsed.push({
-      name: name,
-      value: value
-    });
+
+    parsed[name] = value;
   }
 
   return parsed;
@@ -277,7 +275,7 @@ exports.oneDay = oneDay;
 exports.oneHour = oneHour;
 exports.oneMinute = oneMinute;
 exports.oneSecond = oneSecond;
-exports.parseCookies = parseCookies;
+exports.parseCookie = parseCookie;
 exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
 exports.sha1 = sha1;
