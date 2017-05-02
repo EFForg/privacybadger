@@ -22,56 +22,6 @@
 
 require.scopes.utils = (function() {
   
-
-function Utils() {
-}
-
-Utils.prototype = {
-  systemPrincipal: null,
-  getString: function(id)
-  {
-    return id;
-  },
-  runAsync: function(callback, thisPtr)
-  {
-    var params = Array.prototype.slice.call(arguments, 2);
-    window.setTimeout(function()
-    {
-      callback.apply(thisPtr, params);
-    }, 0);
-  },
-  get appLocale()
-  {
-    var locale = chrome.i18n.getMessage("@@ui_locale").replace(/_/g, "-");
-    this.__defineGetter__("appLocale", function() {return locale;});
-    return this.appLocale;
-  },
-
-  checkLocalePrefixMatch: function(prefixes)
-  {
-    if (!prefixes){
-      return null;
-    }
-
-    var list = prefixes.split(",");
-    for (var i = 0; i < list.length; i++) {
-      if (new RegExp("^" + list[i] + "\\b").test(this.appLocale)) {
-        return list[i];
-      }
-    }
-
-    return null;
-  },
-
-  /**
-  * Shortcut for document.getElementById(id)
-  */
-  E: function(id) {
-    return document.getElementById(id);
-  }
-
-};
-
 /**
 * Generic interface to make an XHR request
 *
@@ -309,7 +259,6 @@ exports.oneSecond = oneSecond;
 exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
 exports.sha1 = sha1;
-exports.Utils = Utils;
 exports.xhrRequest = xhrRequest;
 
 return exports;
