@@ -103,6 +103,9 @@ function init() {
       $("#deactivate_site_btn").hide();
     }
   });
+
+  var version = i18n.getMessage("version") + " " +  chrome.runtime.getManifest().version;
+  $("#version").text(version);
 }
 $(init);
 
