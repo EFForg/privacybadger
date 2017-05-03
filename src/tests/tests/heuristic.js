@@ -104,9 +104,18 @@
     // set it to a low-entropy value
     details.requestHeaders[CHROME_COOKIE_INDEX] = {
       name: "Cookie",
-      value: "ab"
+      value: "key=ab"
     };
     assert.notOk(hb.hasCookieTracking(details), "Low-entropy cookie header");
+
+    // check when individual entropy is low but overall entropy is over threshold
+    // add another low entropy cookie
+    details.requestHeaders.push({
+      name: "Cookie",
+      value: "key=ab"
+    });
+    assert.ok(hb.hasCookieTracking(details),
+      "Two low-entropy cookies combine to cross tracking threshold");
   });
 
   QUnit.test("HTTP header names are case-insensitive", (assert) => {
