@@ -268,9 +268,17 @@ function parseCookie(str, opts) {
       value,
       cut = cookie.indexOf("=");
 
+    // it's a key=value pair
     if (cut != -1) {
       name = cookie.slice(0, cut).trim();
       value = cookie.slice(cut + 1).trim();
+
+      // handle value quoting
+      if (value[0] == '"') {
+        value = value.slice(1, -1);
+      }
+
+    // not a key=value pair
     } else {
       if (opts.skipNonValues) {
         continue;
@@ -284,10 +292,6 @@ function parseCookie(str, opts) {
       continue;
     }
 
-    if (value[0] == '"') {
-      value = value.slice(1, -1);
-    }
-
     let decode = opts.decode || decodeURIComponent;
     try {
       name = decode(name);
@@ -297,12 +301,14 @@ function parseCookie(str, opts) {
         continue;
       }
     }
-    try {
-      value = decode(value);
-    } catch (e) {
-      // ditto
-      if (opts.skipInvalid) {
-        continue;
+    if (value) {
+      try {
+        value = decode(value);
+      } catch (e) {
+        // ditto
+        if (opts.skipInvalid) {
+          continue;
+        }
       }
     }
 
