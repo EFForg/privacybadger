@@ -503,6 +503,11 @@ function hasCookieTracking(details, origin) {
         continue;
       }
 
+      // ignore CloudFlare
+      if (name == "__cfduid") {
+        continue;
+      }
+
       let value = cookie[name].toLowerCase();
 
       if (!(value in lowEntropyCookieValues)) {

@@ -139,4 +139,19 @@
     }
   });
 
+  QUnit.test("CloudFlare cookies should get ignored", (assert) => {
+    let CLOUDFLARE_COOKIES = [
+      '__cfduid=d3c728f97e01b1ab6969828f24b42ab111493693758',
+      '__cfduid=d9758e8613dd4acbba3248dde15e74f8d1493774432; expires=Thu, 03-May-18 01:20:32 GMT; path=/; domain=.medium.com; HttpOnly',
+      '__cfduid=de8a1734f91060dba20e2833705018b911493771353; expires=Thu, 03-May-18 02:25:53 GMT; path=/; domain=.fightforthefuture.org; HttpOnly',
+    ];
+
+    let details = JSON.parse(JSON.stringify(chromeDetails));
+    for (let i = 0; i < CLOUDFLARE_COOKIES.length; i++) {
+      details.requestHeaders[CHROME_COOKIE_INDEX].value = CLOUDFLARE_COOKIES[i];
+      assert.notOk(hb.hasCookieTracking(details),
+        "CloudFlare cookie test #" + i);
+    }
+  });
+
 }());
