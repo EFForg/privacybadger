@@ -68,7 +68,13 @@ var htmlUtils = exports.htmlUtils = {
       noaction: "No tracking for ",
       allow: i18n.getMessage('badger_status_noaction'),
     };
-    return actionDescriptions[action] + origin;
+
+    var rv_action = actionDescriptions[action];
+    if (typeof(rv_action) == "undefined") {
+      return origin;
+    } else {
+      return actionDescriptions[action] + origin;
+    }
   },
 
   /**
