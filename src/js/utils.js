@@ -263,7 +263,7 @@ function parseCookie(str, opts) {
     cookies = str.replace(/\n/g, ";").split(";");
 
   for (let i = 0; i < cookies.length; i++) {
-    let cookie = cookies[i].trim(),
+    let cookie = cookies[i],
       name,
       value,
       cut = cookie.indexOf("=");
