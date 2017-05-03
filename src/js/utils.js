@@ -250,6 +250,15 @@ function parseCookie(str, opts) {
 
   opts = opts || {};
 
+  let COOKIE_ATTRIBUTES = [
+    "domain",
+    "expires",
+    "httponly",
+    "max-age",
+    "path",
+    "secure",
+  ];
+
   let parsed = {},
     cookies = str.replace(/\n/g, ";").split(";");
 
@@ -268,6 +277,11 @@ function parseCookie(str, opts) {
       }
       name = cookie.trim();
       value = "";
+    }
+
+    if (opts.skipAttributes &&
+        COOKIE_ATTRIBUTES.indexOf(name.toLowerCase()) != -1) {
+      continue;
     }
 
     if (value[0] == '"') {

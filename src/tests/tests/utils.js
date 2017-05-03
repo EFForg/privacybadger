@@ -317,9 +317,6 @@
       "1ASIE": "T"
     };
 
-    // TODO move COOKIE_ATTRIBUTES to constants
-    let COOKIE_ATTRIBUTES = ["expires", "max-age", "domain", "path", "secure", "httponly"];
-
     // compare actual to expected
     let test_number = 0;
     for (let cookieString in COOKIES) {
@@ -331,20 +328,9 @@
         let actual = utils.parseCookie(
           cookieString, {
             decode: _.identity,
+            skipAttributes: true,
             skipNonValues: true
           }
-        );
-        // strip cookie attributes to match legacy Firefox implementation
-        // https://github.com/EFForg/privacybadgerfirefox-legacy/blob/00d88bbf42649d31bba181b49a7886c8381682ae/lib/cookieUtils.js#L93-L98
-        actual = _.reduce(
-          actual,
-          (memo, val, key) => {
-            if (COOKIE_ATTRIBUTES.indexOf(key.toLowerCase()) == -1) {
-              memo[key] = val;
-            }
-            return memo;
-          },
-          {}
         );
 
         assert.deepEqual(actual, expected, "cookie test #" + test_number);
