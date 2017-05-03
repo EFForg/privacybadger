@@ -503,29 +503,20 @@ function hasCookieTracking(details, origin) {
         continue;
       }
 
-      let value = cookie[name];
+      let value = cookie[name].toLowerCase();
 
-      let lvalue = value.toLowerCase();
-
-      if (!(lvalue in lowEntropyCookieValues)) {
+      if (!(value in lowEntropyCookieValues)) {
         return true;
       }
 
-      estimatedEntropy += lowEntropyCookieValues[lvalue];
+      estimatedEntropy += lowEntropyCookieValues[value];
     }
   }
 
-  if (cookies.length) {
-    log("All cookies for " + origin + " deemed low entropy...");
-    for (let i = 0; i < cookies.length; i++) {
-      log("    " + cookies[i]);
-    }
-    if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
-      log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
-      return true;
-    }
-  } else {
-    log(origin, "has no cookies!");
+  log("All cookies for " + origin + " deemed low entropy...");
+  if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
+    log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
+    return true;
   }
 
   return false;
