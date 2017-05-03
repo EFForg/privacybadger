@@ -327,7 +327,7 @@
 
         let actual = utils.parseCookie(
           cookieString, {
-            decode: _.identity,
+            noDecode: true,
             skipAttributes: true,
             skipNonValues: true
           }

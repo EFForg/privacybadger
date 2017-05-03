@@ -496,6 +496,7 @@ function hasCookieTracking(details, origin) {
   // loop over every cookie
   for (let i = 0; i < cookies.length; i++) {
     let cookie = utils.parseCookie(cookies[i], {
+      noDecode: true,
       skipAttributes: true,
       skipNonValues: true
     });

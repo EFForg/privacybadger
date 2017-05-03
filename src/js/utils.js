@@ -292,22 +292,24 @@ function parseCookie(str, opts) {
       continue;
     }
 
-    let decode = opts.decode || decodeURIComponent;
-    try {
-      name = decode(name);
-    } catch (e) {
-      // invalid URL encoding probably (URIError: URI malformed)
-      if (opts.skipInvalid) {
-        continue;
-      }
-    }
-    if (value) {
+    if (!opts.noDecode) {
+      let decode = opts.decode || decodeURIComponent;
       try {
-        value = decode(value);
+        name = decode(name);
       } catch (e) {
-        // ditto
+        // invalid URL encoding probably (URIError: URI malformed)
         if (opts.skipInvalid) {
           continue;
+        }
+      }
+      if (value) {
+        try {
+          value = decode(value);
+        } catch (e) {
+          // ditto
+          if (opts.skipInvalid) {
+            continue;
+          }
         }
       }
     }
