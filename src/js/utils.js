@@ -243,20 +243,58 @@ function sha1(input, callback) {
   });
 }
 
-function parseCookie(str) {
-  let parsed = {};
+function parseCookie(str, opts) {
+  if (!str) {
+    return {};
+  }
 
-  let cookies = str.split(";");
+  opts = opts || {};
+
+  let parsed = {},
+    cookies = str.replace(/\n/g, ";").split(";");
 
   for (let i = 0; i < cookies.length; i++) {
-    // TODO urgh I can't believe we're parsing cookies.  Probably wrong
-    // what if the value has spaces in it?
-    let c = cookies[i].trim();
-    let cut = c.indexOf("=");
-    let name = c.slice(0, cut);
-    let value = c.slice(cut + 1);
+    let cookie = cookies[i].trim(),
+      name,
+      value,
+      cut = cookie.indexOf("=");
 
-    parsed[name] = value;
+    if (cut != -1) {
+      name = cookie.slice(0, cut).trim();
+      value = cookie.slice(cut + 1).trim();
+    } else {
+      if (opts.skipNonValues) {
+        continue;
+      }
+      name = cookie.trim();
+      value = "";
+    }
+
+    if (value[0] == '"') {
+      value = value.slice(1, -1);
+    }
+
+    let decode = opts.decode || decodeURIComponent;
+    try {
+      name = decode(name);
+    } catch (e) {
+      // invalid URL encoding probably (URIError: URI malformed)
+      if (opts.skipInvalid) {
+        continue;
+      }
+    }
+    try {
+      value = decode(value);
+    } catch (e) {
+      // ditto
+      if (opts.skipInvalid) {
+        continue;
+      }
+    }
+
+    if (!opts.noOverwrite || !parsed.hasOwnProperty(name)) {
+      parsed[name] = value;
+    }
   }
 
   return parsed;
