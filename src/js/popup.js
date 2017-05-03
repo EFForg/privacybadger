@@ -146,7 +146,6 @@ function send_error(message) {
       }
     }
     var out_data = JSON.stringify(out);
-    backgroundPage.log(out_data);
     var sendReport = $.ajax({
       type: "POST",
       url: "https://privacybadger.org/reporting",
@@ -211,13 +210,11 @@ function deactive_site(){
 function revertDomainControl(e){
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var $elm = $(e.target).parent();
-  backgroundPage.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   badger.storage.revertUserAction(origin);
   var defaultAction = badger.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
-  var selector =   $(selectorId);
-  backgroundPage.log('selector', selector);
+  var selector = $(selectorId);
   selector.click();
   $elm.removeClass('userset');
   reloadTab(tabId);
@@ -250,13 +247,37 @@ function getTopLevel(action, origin/*, tabId*/){
   return origin;
 }
 
+function registerToggleHandlers() {
+  var radios = $(this).children('input');
+  var value = $(this).children('input:checked').val();
+  //var userHandle = $(this).children('a');
+
+  var slider = $("<div></div>").slider({
+    min: 0,
+    max: 2,
+    value: value,
+    create: function(/*event, ui*/){
+      $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+    },
+    slide: function(event, ui) {
+      radios.filter("[value=" + ui.value + "]").click();
+    },
+    stop: function(event, ui){
+      $(ui.handle).css('margin-left', -16 * ui.value + "px");
+    },
+  }).appendTo(this);
+
+  radios.change(function(){
+    slider.slider("value",radios.filter(':checked').val());
+  });
+}
+
 /**
 * Refresh the content of the popup window
 *
 * @param {Integer} tabId The id of the tab
 */
 function refreshPopup(tabId) {
-  backgroundPage.log("Refreshing popup for tab id " + tabId);
   //TODO this is calling get action and then being used to call get Action
   var origins = badger.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
@@ -266,24 +287,25 @@ function refreshPopup(tabId) {
   }
 
   // Display tracker tooltips.
-  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml(tabId));
+  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
 
-  var printable = '';
+  var printable = [];
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
   var originCount = 0;
   var compressedOrigins = {};
-  for (var i=0; i < origins.length; i++) {
+
+  for (let i=0; i < origins.length; i++) {
     var origin = origins[i];
     // todo: gross hack, use templating framework
     var action = badger.storage.getBestAction(origin);
-    if(action == constants.NO_TRACKING){
-      backgroundPage.log('pushing', origin, 'onto non tracking');
+
+    if (action == constants.NO_TRACKING) {
       nonTracking.push(origin);
       continue;
-    }
-    else {
-      if (action.includes("user")){
+
+    } else {
+      if (action.includes("user")) {
         var prevOrigin = origin;
         var baseDomain = backgroundPage.getBaseDomain(prevOrigin);
         // TODO make some re-implementation of getBestAction that returns where the
@@ -299,57 +321,59 @@ function refreshPopup(tabId) {
         }
       }
     }
+
     originCount++;
-    var flag = (action == constants.DNT);
-    printable = htmlUtils.addOriginHtml(printable, origin, action, flag);
+    printable.push(
+      htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
+    );
   }
-  for (var key in compressedOrigins){
-    var flag2 = (compressedOrigins[key].action == constants.DNT);
-    printable = htmlUtils.addOriginHtml(printable, key, compressedOrigins[key].action, flag2, compressedOrigins[key].subs.length);
+
+  for (let key in compressedOrigins){
+    printable.push(
+      htmlUtils.getOriginHtml(
+        key,
+        compressedOrigins[key].action,
+        compressedOrigins[key].action == constants.DNT,
+        compressedOrigins[key].subs.length
+      )
+    );
   }
+
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
-  backgroundPage.log('len', nonTracking.length);
-  if(nonTracking.length > 0){
-    printable = printable + '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>';
-    for (var c = 0; c < nonTracking.length; c++){
-      var ntOrigin = nonTracking[c];
-      backgroundPage.log('calling printable for non-tracking');
-      printable = htmlUtils.addOriginHtml(printable, ntOrigin, constants.NO_TRACKING, false);
+
+  if (nonTracking.length > 0) {
+    printable.push(
+      '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
+    );
+    for (let i = 0; i < nonTracking.length; i++) {
+      printable.push(
+        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
+      );
     }
   }
+
   $('#number_trackers').text(originCount);
-  $("#blockedResourcesInner").html(printable);
 
-  $('.switch-toggle').each(function(){
-    var radios = $(this).children('input');
-    var value = $(this).children('input:checked').val();
-    //var userHandle = $(this).children('a');
-    var slider = $("<div></div>").slider({
-      min: 0,
-      max: 2,
-      value: value,
-      create: function(/*event, ui*/){
-        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-      },
-      slide: function(event, ui) {
-        radios.filter("[value=" + ui.value + "]").click();
-      },
-      stop: function(event, ui){
-        $(ui.handle).css('margin-left', -16 * ui.value + "px");
-      },
-    }).appendTo(this);
-    radios.change(function(){
-      slider.slider("value",radios.filter(':checked').val());
-    });
-  });
+  function renderDomains() {
+    const CHUNK = 1;
 
-  // Hide elements for removing origins (controlled from the options page).
-  // Popup shows what's loaded for the current page so it doesn't make sense
-  // to have removal ability here.
-  $('.removeOrigin').hide();
+    let $printable = $(printable.splice(0, CHUNK).join(""));
 
-  backgroundPage.log("Done refreshing popup");
+    $printable.find('.switch-toggle').each(registerToggleHandlers);
+
+    // Hide elements for removing origins (controlled from the options page).
+    // Popup shows what's loaded for the current page so it doesn't make sense
+    // to have removal ability here.
+    $printable.find('.removeOrigin').hide();
+
+    $printable.appendTo('#blockedResourcesInner');
+
+    if (printable.length) {
+      requestAnimationFrame(renderDomains);
+    }
+  }
+  requestAnimationFrame(renderDomains);
 }
 
 /**
@@ -359,7 +383,6 @@ function refreshPopup(tabId) {
 */
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  backgroundPage.log('updating origin for', $elm);
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
@@ -434,7 +457,7 @@ function syncSettingsDict(settingsDict) {
       reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"? would be fun to check with jsperf.com
     }
   }
-  backgroundPage.log("Finished syncing. Now refreshing popup.");
+
   // the popup needs to be refreshed to display current results
   refreshPopup(tabId);
   return reloadNeeded;
@@ -471,32 +494,10 @@ function buildSettingsDict() {
 */
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
-  backgroundPage.log("Sync of userset options: " + JSON.stringify(settingsDict));
   var tabId = syncSettingsDict(settingsDict);
   if (tabId){
     backgroundPage.reloadTab(tabId);
   }
-}
-
-/**
-* if the query url pattern matches a tab, switch the module's tab object to that tab
-* Convenience function for the test harness
-* Chrome url patterns are docs here: https://developer.chrome.com/extensions/match_patterns
-*/
-function setTabToUrl( query_url ) { // eslint-disable-line no-unused-vars
-  chrome.tabs.query( {url: query_url}, function(ta) {
-    if ( typeof ta == "undefined" ) {
-      backgroundPage.log("error doing tabs query for " + query_url);
-      return;
-    }
-    if ( ta.length === 0 ) {
-      backgroundPage.log("no match found in tabs query for " + query_url);
-      return;
-    }
-    var tabid = ta[0].id;
-    backgroundPage.log("match found for query " + query_url + " tabId: " + tabid );
-    refreshPopup( tabid );
-  });
 }
 
 /**
@@ -514,13 +515,10 @@ function getTab(callback) {
 
 document.addEventListener('DOMContentLoaded', function () {
   getTab(function(t) {
-    backgroundPage.log("from addEventListener");
     refreshPopup(t.id);
   });
 });
 
 window.addEventListener('unload', function() {
-  backgroundPage.log("Starting to unload popup");
   syncUISelections();
-  backgroundPage.log("unloaded popup");
 });

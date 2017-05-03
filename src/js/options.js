@@ -336,7 +336,7 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
-  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml());
+  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // Display tracking domains.
   var originsToDisplay;
@@ -386,7 +386,7 @@ function addOrigins(e) {
     var domain = domains.shift();
     var action = getOriginAction(domain);
     if (action) {
-      target.innerHTML += htmlUtils.addOriginHtml('', domain, action);
+      target.innerHTML += htmlUtils.getOriginHtml(domain, action);
     }
   }
 }
@@ -405,7 +405,7 @@ function showTrackingDomains(domains) {
     // todo: gross hack, use templating framework
     var action = getOriginAction(trackingDomain);
     if (action) {
-      trackingDetails = htmlUtils.addOriginHtml(trackingDetails, trackingDomain, action);
+      trackingDetails += htmlUtils.getOriginHtml(trackingDomain, action);
     }
   }
   trackingDetails += '</div>';
