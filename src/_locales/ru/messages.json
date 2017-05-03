@@ -105,7 +105,7 @@
         "message": "Включить Privacy Badger для этого сайта"
     },
     "popup_instructions": {
-        "message": "потенциальных <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>трекеров</a> на этой странице. С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым из них. Их нужно регулировать только в случае проблем с работой сайта."
+        "message": "потенциальных <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекеров</a> на этой странице. С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым из них. Их нужно регулировать только в случае проблем с работой сайта."
     },
     "popup_noblocked": {
         "message": "Почему ничего не заблокировано?"

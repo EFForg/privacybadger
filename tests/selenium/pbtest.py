@@ -92,6 +92,9 @@ def firefox_manager():
     proc = subprocess.Popen(cmd)
     time.sleep(2)
     ffcaps = DesiredCapabilities.FIREFOX
+    # workaround for our wacky selenium/web-ext/geckodriver setup
+    # https://github.com/SeleniumHQ/selenium/issues/3915#issuecomment-297530793
+    ffcaps.pop('marionette', None)
     try:
         url = get_base_url()
 
@@ -180,6 +183,14 @@ class PBSeleniumTest(unittest.TestCase):
     def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
+
+    def wait_for_script(self, script, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        """Variant of self.js that executes script continuously until it
+        returns True."""
+        return WebDriverWait(self.driver, timeout).until(
+            lambda driver: driver.execute_script(script),
+            "Timed out waiting for execute_script to eval to True"
+        )
 
     @property
     def bg_url(self):

@@ -108,7 +108,7 @@
         "message": "Zapnout Privacy Badger pro tuto stránku"
     },
     "popup_instructions": {
-        "message": "Potenciální <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>stopaři</a> na této stránce. Tyto posuvníky vám umožňují nastavit jak s každým z nich zacházet. Pokud vše funguje správně, nemělo by být třeba je upravovat."
+        "message": "Potenciální <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>stopaři</a> na této stránce. Tyto posuvníky vám umožňují nastavit jak s každým z nich zacházet. Pokud vše funguje správně, nemělo by být třeba je upravovat."
     },
     "popup_noblocked": {
         "message": "Proč není nic blokováno?"

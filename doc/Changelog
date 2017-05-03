@@ -1,5 +1,15 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.4.19.1
+* Rework DNT policy rechecking to only happen during browsing. Eliminates
+needless rechecking of unlikely-to-be-visited-again domains. Should further
+mitigate CPU issues.
+* Fix DNT policies to only apply to specific domains they are posted on
+* New translations (Ukrainian)
+* Improved translations (Simplified Chinese, Italian)
+* Fix "trackers" link on popup and options pages
+* Fix broken site (sharepoint.com)
+
 ## 2017.3.28
 * New Translations (Czech)
 * Translation Updates

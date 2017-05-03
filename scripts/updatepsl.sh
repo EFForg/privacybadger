@@ -4,7 +4,7 @@
 # stop on errors (nonzero exit codes), uninitialized vars
 set -eu
 
-PSL_PATH=lib/publicSuffixList.js
+PSL_PATH=src/lib/publicSuffixList.js
 PSL_URL=https://publicsuffix.org/list/public_suffix_list.dat
 TEMPFILE=$(mktemp)
 

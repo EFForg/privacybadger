@@ -137,7 +137,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         new_handle = set(self.driver.window_handles).difference(handles_before)
         self.driver.switch_to_window(new_handle.pop())
 
-        eff_url = "https://www.eff.org/privacybadger#trackers"
+        eff_url = "https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?"
         self.assertEqual(self.driver.current_url, eff_url,
             "EFF website should open after clicking donate button on popup")
 

@@ -1,4 +1,4 @@
-Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadger.svg)](https://travis-ci.org/EFForg/privacybadger)
+Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadger.svg?branch=master)](https://travis-ci.org/EFForg/privacybadger)
 ===================
 Privacy Badger blocks spying ads and invisible trackers. It's there to ensure that companies can't track your browsing without your consent.
 
@@ -21,6 +21,7 @@ $ npm install
 ```
 
 Developers should sign up for the privacy badger mailing list at https://lists.eff.org/mailman/listinfo/privacybadger
+
 ### Testing
 
 This project is using the [QUnit](http://qunitjs.com/), [py.test](http://pytest.org/), [Selenium](http://www.seleniumhq.org/) test frameworks

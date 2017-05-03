@@ -24,7 +24,7 @@ fi
 # TODO: take command line arguments to set the following environment variables
 export PB_EXT_PATH=$ext_path  # extension on this path will be used in the tests
 # if this var is empty, extension base dir will be searched for the last modified .crx.
-echo "Browesr path: "$BROWSER_BIN
+echo "Browser path: "$BROWSER_BIN
 echo "Extension path: "$PB_EXT_PATH
 # export BROWSER_BIN="/path/to/chrome"   # Optional.
 # If BROWSER_BIN is empty, Selenium will pick the default binary for Chrome.

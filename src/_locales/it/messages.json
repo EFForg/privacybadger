@@ -63,7 +63,7 @@
         "message": "I domini sottostanti non sembrano tracciarti"
     },
     "non_tracker_tip": {
-        "message": "Attualmente Privacy Badger controlla solo se terze parti stanno usando dei cookie, il local storage HTML5 o le impronte canvas per tracciare la tua navigazione. Alcuni di questi domini potrebbero usare metodi di tracciamento che Privacy Badger non può rilevare."
+        "message": "Attualmente Privacy Badger controlla solo se terze parti stanno usando dei cookie, il local storage HTML5 o il canvas fingerprinting per tracciare la tua navigazione. Alcuni di questi domini potrebbero usare metodi di tracciamento che Privacy Badger non può rilevare."
     },
     "options_domain_search": {
         "message": "Cerca domini"
@@ -108,7 +108,7 @@
         "message": "Attiva Privacy Badger in questo sito"
     },
     "popup_instructions": {
-        "message": "potenziali <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
+        "message": "potenziali <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male."
     },
     "popup_noblocked": {
         "message": "Perchè non c'è niente di bloccato?"
@@ -166,7 +166,7 @@
         "message": "Sposta l'interruttore a sinistra per bloccare un dominio"
     },
     "tooltip_cookieblock": {
-        "message": "Centra l'interruttore per bloccare i cookie"
+        "message": "Sposta l'interruttore al centro l'interruttore per bloccare i cookie"
     },
     "whitelisted_domains": {
         "description": "This is a tab heading.",
@@ -174,10 +174,10 @@
     },
     "intro1": {
         "description": "firstRun.html intro to Privacy Badger",
-        "message": "Privacy Badger blocca le pubblicità spione e i tracker invisibili.  È qui per garantire che le aziende non possano tracciare la tua navigazione senza il tuo consenso."
+        "message": "Privacy Badger blocca le pubblicità che ti spiano e i tracker invisibili.  È qui per garantire che le aziende non possano tracciare la tua navigazione senza il tuo consenso."
     },
     "intro2":{
-        "message": "Questa estensione è progettata per proteggere automaticamente la tua privacy da tracker di terze parti che si caricano di nascosto quando navighi in rete. Inviamo l'header Do Not Track ad ogni richiesta e la nostra estensione     valuta la probabilità che tu sia ancora tracciato. Se l'algoritmo stabilisce che la probabilità è troppo alta, blocchiamo automaticamente l'invio della richiesta al dominio. Per favore, ricorda che Privacy Badger è in beta e la valutazione dell'algoritmo non è determinante sul fatto che il dominio ti possa tracciare."
+        "message": "Questa estensione è progettata per proteggere automaticamente la tua privacy da tracker di terze parti che si caricano di nascosto quando navighi in rete. Inviamo l'header Do Not Track ad ogni richiesta e la nostra estensione     valuta la probabilità che tu sia ancora tracciato. Se l'algoritmo stabilisce che la probabilità è troppo alta, blocchiamo automaticamente l'invio della richiesta al dominio. Per favore, ricorda che Privacy Badger è in beta e la valutazione dell'algoritmo non determina con certezza che il dominio ti stia tracciando."
     },
     "intro_3_states":{
         "message": "La nostra estensione ha tre stati. "
@@ -192,13 +192,13 @@
         "message": "Giallo"
     },
     "intro_cookie_blocked":{
-        "message": "significa che il dominio è ritenuto sia un tracker sia necessario per il funzionamento della pagina, quindi Privacy Badger lo consente ma blocca i suoi cookie."
+        "message": "significa che il dominio è ritenuto un tracker ma è necessario per il funzionamento della pagina, quindi Privacy Badger lo consente ma blocca i suoi cookie."
     },
     "intro_green":{
         "message": "Verde"
     },
     "intro_no_tracker":{
-        "message": "significa che Privacy Badger ritiene non sia un tracker. Puoi cliccare l'icona di Privacy Badger nella barra strumenti del browser se desideri sovrascrivere le impostazioni di blocco automatico. Oppure puoi navigare in pace mentre Privacy Badger inizia a trovare e divorare i tracker uno ad uno."
+        "message": "significa che Privacy Badger ritiene che il dominio non sia un tracker. Puoi cliccare l'icona di Privacy Badger nella barra strumenti del browser se desideri sovrascrivere le impostazioni di blocco automatico. Oppure puoi navigare in pace mentre Privacy Badger inizia a trovare e divorare i tracker uno ad uno."
     },
     "intro_hungry":{
         "message":"Nulla può impedire a Privacy Badger di mangiare i cookie quando ha fame!"
@@ -291,7 +291,7 @@
       "message": " Ovviamente puoi anche ignorare tutte queste impostazioni e io continuerò a mangiare silenziosamente tutti i tracker che rilevo."
     },
     "slideshow_16": {
-      "message": " Grazie per aver fatto un semplice ma importante passo per proteggere la tua privacy! Puoi cliccare qui se ti serve ancora aiuto, oppure clicca sotto per fare sapere al mondo che stai prendendo posizione contro il tracciamento online."
+      "message": " Grazie per aver fatto un semplice ma importante passo per proteggere la tua privacy! Puoi cliccare qui se ti serve ancora aiuto, oppure clicca sotto per far sapere al mondo che stai prendendo posizione contro il tracciamento online."
     },
     "donate_to_eff": {
       "message": "Dona alla EFF"

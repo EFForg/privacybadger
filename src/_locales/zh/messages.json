@@ -12,7 +12,7 @@
         "message": "允许 "
     },
     "data_settings": {
-        "message": "Manage Data"
+        "message": "管理数据"
     },
     "description": {
         "message": "你在网上冲浪的时候，隐私獾会保护你免受跟踪器的烦恼！"
@@ -21,13 +21,13 @@
         "message": "隐私獾被禁用在以下域名。你可以通过点击地址栏的隐私獾图标单击“添加域名”按钮，在方框中输入域名（而不是URL）进行添加域名。"
     },
     "download": {
-        "message": "Download"
+        "message": "下载"
     },
     "error_input": {
         "message": "问题是什么？"
     },
     "export_user_data": {
-        "message": "Export user data"
+        "message": "导出用户数据"
     },
     "feed_the_badger_title": {
         "message": "点击以让隐私獾控制这个跟踪器的"
@@ -39,31 +39,31 @@
         "message": "了解隐私獾如何保护你的隐私。"
     },
     "import": {
-        "message": "Import"
+        "message": "导入"
     },
     "import_select_file": {
-        "message": "Please select a file to import."
+        "message": "请选择一个你要导入的文件。"
     },
     "import_successful": {
-        "message": "Tracker list and settings updated successfully!"
+        "message": "追踪器列表与设置成功更新！"
     },
     "import_user_data": {
-        "message": "Import user data"
+        "message": "导入用户数据"
     },
     "invalid_json": {
-        "message": "Invalid JSON file."
+        "message": "无效的 JSON 文件。"
     },
     "name": {
         "message": "隐私獾"
     },
     "tooltip_allow": {
-        "message": "Move the slider right to allow a domain"
+        "message": "将滑块移至右边来允许一个域名"
     },
     "tooltip_block": {
-        "message": "Move the slider left to block a domain"
+        "message": "将滑块移至左边来屏蔽一个域名"
     },
     "tooltip_cookieblock": {
-        "message": "Center the slider to block cookies"
+        "message": "将滑块移至中间来屏蔽 cookies"
     },
     "new_filters_added": {
         "message": "新的过滤已添加；点击 <a id='options_url' target='_blank'>选择</a> 以管理它们。"
@@ -74,8 +74,14 @@
     "non_tracker_tip": {
         "message": "目前隐私獾只检查第三方 cookies，第五代超文本标记语言(HTML5)本地存储，帆布指纹识别(canvas fingerprinting)跟踪你浏览网页的情况。 有些域名可能使用了隐私獾无法检测的跟踪方式。"
     },
+    "options_domain_search": {
+        "message": "搜索域名"
+    },
     "options_filter_settings": {
         "message": "用户过滤设置"
+    },
+    "options_general_settings": {
+        "message": "通用设置"
     },
     "options_loading": {
         "message": "加载中…"
@@ -90,10 +96,10 @@
     "message": "隐私獾设置"
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address *"
+        "message": "避免 WebRTC 泄露本地 IP 地址 *"
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+        "message": "* WebRTC 会泄露你的本地 IP 地址。隐私獾的默认设置帮助保护你，但是为了额外的保护你可能需要启用这个选项。请注意，这样做可能会降低 Google 环聊等工具的性能。"
     },
     "pb_detected": {
         "message": "隐私獾检测到"
@@ -108,7 +114,7 @@
         "message": "在当前的网页上启用隐私獾"
     },
     "popup_instructions": {
-        "message": "在这个网站上有潜在的<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>跟踪器</a> 。这些滑块让你控制隐私獾如何处理每一个跟踪器。你不必调整他们，除非隐私獾造成网页显示异常。"
+        "message": "在这个网站上有潜在的<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>跟踪器</a> 。这些滑块让你控制隐私獾如何处理每一个跟踪器。你不必调整他们，除非隐私獾造成网页显示异常。"
     },
     "popup_noblocked": {
         "message": "为什么没有任何东西被屏蔽？"

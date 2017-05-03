@@ -21,46 +21,46 @@
         "message": "Privacy Badger är avaktiverad för domäner listade nedanför. Du kan lägga till domäner med Privacy Badger-ikonen i adressfältet eller genom att skriva in domänen (inte URL:en) i rutan och klicka på knappen \"Lägg till domän\"."
     },
     "download": {
-        "message": "Download"
+        "message": "Ladda ner"
     },
     "error_input": {
         "message": "Hur står det till?"
     },
     "export_user_data": {
-        "message": "Export user data"
+        "message": "Exportera användardata"
     },
     "feed_the_badger_title": {
         "message": "klicka för att återge kontrollen av spanaren till Privacy Badger"
     },
     "firstRun_title": {
-        "message": "Du ska ha tack för att ha installerat Privacy Badger!"
+        "message": "Tack för att du har installerat Privacy Badger!"
     },
     "first_run_text": {
         "message": "Lär dig hur Privacy Badger skyddar din integritet."
     },
     "import": {
-        "message": "Import"
+        "message": "Importera"
     },
     "tooltip_allow": {
-        "message": "Move the slider right to allow a domain"
+        "message": "Flytta skjutreglaget till höger för att tillåta en domän"
     },
     "tooltip_block": {
-        "message": "Move the slider left to block a domain"
+        "message": "Flytta skjutreglaget till vänster för att blockera en domän"
     },
     "tooltip_cookieblock": {
-        "message": "Center the slider to block cookies"
+        "message": "Ha skjutreglaget i mitten för att blockera kakor"
     },
     "import_select_file": {
-        "message": "Please select a file to import."
+        "message": "Vänligen välj en fil att importera"
     },
     "import_successful": {
-        "message": "Tracker list and settings updated successfully!"
+        "message": "Spårarlista och inställningar uppdaterades utan fel!"
     },
     "import_user_data": {
-        "message": "Import user data"
+        "message": "Importera användardata"
     },
     "invalid_json": {
-        "message": "Invalid JSON file."
+        "message": "Ogiltig JSON-fil."
     },
     "name": {
         "message": "Privacy Badger"
@@ -90,16 +90,16 @@
         "message": "Privacy Badger-inställningar"
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address *"
+        "message": "Förhindra WebRTC från att läcka din lokala IP-adress *"
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts."
+        "message": "* WebRTC kan läcka din lokala IP-adress. Privacy Badgers standardinställningar hjälper att skydda dig men för extra skydd kan du slå på denna funktion. Notera att detta kan minska prestandan för vissa verktyg så som Google Hangouts."
     },
     "pb_detected": {
-        "message": "Privacy Badger detekterad"
+        "message": "Privacy Badger upptäckte"
     },
     "popup_blocked": {
-        "message": "Kunde inte detektera några spårande kakor...."
+        "message": "Kunde inte upptäcka några spårande kakor...."
     },
     "popup_disable_for_site": {
         "message": "Avaktivera Privacy Badger för denna sida"
@@ -108,7 +108,7 @@
         "message": "Aktivera Privacy Badger för denna sida"
     },
     "popup_instructions": {
-        "message": "<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>spanare</a> på denna sida. Dessa reglage låter dig bestämma hur Privacy Badger hanterar varje spanare."
+        "message": "<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spanare</a> på denna sida. Dessa reglage låter dig bestämma hur Privacy Badger hanterar varje spanare."
     },
     "popup_noblocked": {
         "message": "Varför är inget blockerat?"
@@ -148,7 +148,7 @@
         "message": "Beskrivning"
     },
     "report_success": {
-        "message": "Tack! Vi kommer att till botten med detta."
+        "message": "Tack! Vi kommer att gå till botten med detta."
     },
     "report_fail": {
         "message": "Hoppsan. Något gick snett."
@@ -219,10 +219,10 @@
         "message": "Blockera alla tredjepartsförfrågningar från "
     },
     "options_pb_has_detected": {
-      "message": "Privacy Badger har detekterats"
+      "message": "Privacy Badger har upptäckt"
     },
     "options_potential": {
-      "message": "potentiell"
+      "message": "potentiellt"
     },
     "options_tracking_domains": {
       "message": "spanande domäner"
@@ -231,6 +231,6 @@
       "message": "än så länge. Dessa reglage låter dig justera hur Privacy Badger hanterar varje spanare."
     },
     "donate_to_eff": {
-      "message": "Donate to EFF"
+      "message": "Donera till EFF"
     }
 }

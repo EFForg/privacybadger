@@ -21,12 +21,6 @@
       utils.xhrRequest(POLICY_URL, function (err, data) {
         dnt_policy_txt = data;
 
-        // disable recheckDNTPolicyForDomains
-        // to prevent it from messing with tests below
-        sinon.stub(badger, "recheckDNTPolicyForDomains");
-        // clear out any domains waiting to be checked
-        badger._checkPrivacyBadgerPolicy.cancel();
-
         // set up fake server to simulate XMLHttpRequests
         server = sinon.fakeServer.create({
           respondImmediately: true
@@ -57,7 +51,6 @@
     after: (/*assert*/) => {
       clock.restore();
       server.restore();
-      badger.recheckDNTPolicyForDomains.restore();
     }
   });
 

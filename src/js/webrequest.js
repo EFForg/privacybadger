@@ -189,11 +189,33 @@ function onBeforeSendHeaders(details) {
  * @param details The event details
  * @returns {*} The new response header
  */
-function onHeadersReceived(details){
+function onHeadersReceived(details) {
   var tab_id = details.tabId,
     url = details.url;
 
-  if(_isTabChromeInternal(tab_id)){
+  if (_isTabChromeInternal(tab_id)) {
+    // DNT policy responses: strip cookies, reject redirects
+    if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
+      // if it's a redirect, cancel it
+      if (details.statusCode >= 300 && details.statusCode < 400) {
+        return {
+          cancel: true
+        };
+      }
+
+      // remove Set-Cookie headers
+      let headers = details.responseHeaders,
+        newHeaders = [];
+      for (let i = 0, count = headers.length; i < count; i++) {
+        if (headers[i].name.toLowerCase() != "set-cookie") {
+          newHeaders.push(headers[i]);
+        }
+      }
+      return {
+        responseHeaders: newHeaders
+      };
+    }
+
     return {};
   }
 
@@ -208,15 +230,12 @@ function onHeadersReceived(details){
     return {};
   }
 
-
   var requestAction = checkAction(tab_id, url, false, details.frameId);
   if (requestAction) {
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
-      newHeaders.push({name:'x-marks-the-spot', value:'foo'});
-      //TODO don't return this unless we modified headers
       return {responseHeaders: newHeaders};
     }
   }
