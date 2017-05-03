@@ -181,9 +181,14 @@ function setTabToUrl(query_url) {
 
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
+
+        # give asynchronously-rendered tracker list time to load
+        time.sleep(1)
+
         self.nonTrackers = {}
         self.cookieBlocked = {}
         self.blocked = {}
+
         try:
             clickerContainer = self.driver.find_element_by_class_name("clickerContainer")
             self.assertTrue(clickerContainer)
@@ -192,6 +197,7 @@ function setTabToUrl(query_url) {
             return
 
         tooltips = clickerContainer.find_elements_by_xpath("//*[contains(@class,'clicker tooltip')]")
+
         for t in tooltips:
             origin = t.get_attribute('data-origin')
 
