@@ -34,25 +34,28 @@
     assert.ok(subs[3] == 'eff.org');
   });
 
-  QUnit.test("send xhrRequest", function (assert) {
-    let done = assert.async();
-    assert.expect(3);
-    utils.xhrRequest("https://www.eff.org/files/badgertest.txt", function(err,resp){
-      assert.ok(true, "xhr calls callback");
-      assert.ok(err === null, "there was no error");
-      assert.ok(resp === "test passed\n", "got response text");
-      done();
+  QUnit.test("xhrRequest", function (assert) {
+    // set up fake server to simulate XMLHttpRequests
+    let server = sinon.fakeServer.create({
+      respondImmediately: true
     });
-  });
+    server.respondWith("GET", "https://www.eff.org/files/badgertest.txt",
+      [200, {}, "test passed\n"]);
 
-  QUnit.test("send faling xhrRequest", function (assert) {
     let done = assert.async();
-    assert.expect(3);
-    utils.xhrRequest("https://www.eff.org/nonexistent-page", function(err/*,resp*/){
-      assert.ok(true, "xhr calls callback");
-      assert.ok(err, "there was an error");
-      assert.ok(err.status === 404, "error was 404");
-      done();
+    assert.expect(4);
+
+    utils.xhrRequest("https://www.eff.org/files/badgertest.txt", function (err1, resp) {
+      assert.strictEqual(err1, null, "there was no error");
+      assert.equal(resp, "test passed\n", "got expected response text");
+
+      utils.xhrRequest("https://www.eff.org/nonexistent-page", function(err2/*, resp*/) {
+        assert.ok(err2, "there was an error");
+        assert.equal(err2.status, 404, "error was 404");
+
+        server.restore();
+        done();
+      });
     });
   });
 
