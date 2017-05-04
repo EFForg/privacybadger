@@ -119,9 +119,6 @@ def chrome_manager():
     opts.add_extension(get_extension_path())  # will fail if ext can't be found
     if browser_bin:  # otherwise will use webdriver's default binary
         opts.binary_location = browser_bin  # set binary location
-    # Fix for https://code.google.com/p/chromedriver/issues/detail?id=799
-    opts.add_experimental_option("excludeSwitches",
-                                 ["ignore-certificate-errors"])
     prefs = {"profile.block_third_party_cookies": False}
     opts.add_experimental_option("prefs", prefs)
     driver = webdriver.Chrome(chrome_options=opts)
