@@ -126,11 +126,27 @@ function onBeforeRequest(details){
  * @returns {*} modified headers
  */
 function onBeforeSendHeaders(details) {
-  var frame_id = details.frameId,
+  let frame_id = details.frameId,
+    headers = details.requestHeaders,
     tab_id = details.tabId,
+    type = details.type,
     url = details.url;
 
-  if(_isTabChromeInternal(tab_id)){
+  if (_isTabChromeInternal(tab_id)) {
+    // DNT policy requests: strip cookies
+    if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
+      // remove Cookie headers
+      let newHeaders = [];
+      for (let i = 0, count = headers.length; i < count; i++) {
+        if (headers[i].name.toLowerCase() != "cookie") {
+          newHeaders.push(headers[i]);
+        }
+      }
+      return {
+        requestHeaders: newHeaders
+      };
+    }
+
     return {};
   }
 
@@ -151,7 +167,7 @@ function onBeforeSendHeaders(details) {
     // This will only happen if the above code sets the action for the request
     // to block
     if (requestAction == constants.BLOCK) {
-      if (details.type == 'script') {
+      if (type == 'script') {
         var surrogate = getSurrogateURI(url, requestDomain);
         if (surrogate) {
           return {redirectUrl: surrogate};
@@ -170,7 +186,7 @@ function onBeforeSendHeaders(details) {
 
     // This is the typical codepath
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-      var newHeaders = details.requestHeaders.filter(function(header) {
+      var newHeaders = headers.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
       newHeaders.push({name: "DNT", value: "1"});
@@ -179,8 +195,8 @@ function onBeforeSendHeaders(details) {
   }
 
   // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-  details.requestHeaders.push({name: "DNT", value: "1"});
-  return {requestHeaders: details.requestHeaders};
+  headers.push({name: "DNT", value: "1"});
+  return {requestHeaders: headers};
 }
 
 /**
