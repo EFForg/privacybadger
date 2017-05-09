@@ -1,5 +1,13 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.5.9
+* Improved popup rendering
+* Added version number to popup
+* Restricted Do Not Track policy checking from being able to set cookies
+* Fixed several cookie parsing issues
+* Added workaround for CloudFlare security cookies
+* Improved translations (Simplified Chinese, Swedish, Ukrainian)
+
 ## 2017.4.19.1
 * Rework DNT policy rechecking to only happen during browsing. Eliminates
 needless rechecking of unlikely-to-be-visited-again domains. Should further
