@@ -5,7 +5,7 @@ Changes for Privacy Badger
 * Added version number to popup
 * Restricted Do Not Track policy checking from being able to set cookies
 * Fixed several cookie parsing issues
-* Added workaround for CloudFlare security cookies
+* Added workaround for Cloudflare security cookies
 * Improved translations (Simplified Chinese, Swedish, Ukrainian)
 
 ## 2017.4.19.1
