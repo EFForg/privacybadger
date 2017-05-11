@@ -309,6 +309,8 @@ function getHostForTab(tabId){
   if (!badger.tabData[tabId]) {
     return '';
   }
+  // TODO what does this actually do?
+  // meant to address https://github.com/EFForg/privacybadger/issues/136
   if (_isTabAnExtension(tabId)) {
     // If the tab is an extension get the url of the first frame for its implied URL
     // since the url of frame 0 will be the hash of the extension key
@@ -553,14 +555,13 @@ function checkAction(tabId, url, quiet, frameId){
  * Check if the url of the tab starts with the given string
  *
  * @param {Integer} tabId Id of the tab
- * @param {String} piece String to check against
+ * @param {String} str String to check against
  * @returns {boolean} true if starts with string
  * @private
  */
-function _frameUrlStartsWith(tabId, piece){
-  return badger.tabData[tabId] &&
-    badger.tabData[tabId].frames[0] &&
-    (badger.tabData[tabId].frames[0].url.indexOf(piece) === 0);
+function _frameUrlStartsWith(tabId, str) {
+  let frameData = getFrameData(tabId, 0);
+  return frameData && frameData.url.indexOf(str) === 0;
 }
 
 /**
@@ -570,7 +571,7 @@ function _frameUrlStartsWith(tabId, piece){
  * @returns {boolean} Returns true if the tab is chrome internal
  * @private
  */
-function _isTabChromeInternal(tabId){
+function _isTabChromeInternal(tabId) {
   return tabId < 0 || !_frameUrlStartsWith(tabId, "http");
 }
 
@@ -581,8 +582,11 @@ function _isTabChromeInternal(tabId){
  * @returns {boolean} Returns true if the tab is from a chrome-extension
  * @private
  */
-function _isTabAnExtension(tabId){
-  return _frameUrlStartsWith(tabId, "chrome-extension://");
+function _isTabAnExtension(tabId) {
+  return (
+    _frameUrlStartsWith(tabId, "chrome-extension://") ||
+    _frameUrlStartsWith(tabId, "moz-extension://")
+   );
 }
 
 /**
