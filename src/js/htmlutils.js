@@ -61,11 +61,11 @@ var htmlUtils = exports.htmlUtils = {
    * @param {String} origin The origin to get description for.
    * @returns {String} Localized action description with origin.
    */
-  getActionDescription: (function () {
+  getActionDescription: function (action, origin) {
     var actionDescriptions = {
       block: i18n.getMessage('badger_status_block'),
       cookieblock: i18n.getMessage('badger_status_cookieblock'),
-      noaction: "No tracking for ",
+      noaction: i18n.getMessage('dnt_noaction'),
       allow: i18n.getMessage('badger_status_noaction'),
     };
     var rv_action = actionDescriptions[action];
