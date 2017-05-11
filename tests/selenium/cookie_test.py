@@ -65,8 +65,8 @@ https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
         self.assertEqual(len(self.driver.get_cookies()), 0,
             "Shouldn't have any cookies after the DNT check")
 
-    def XXX_test_dnt_check_should_not_send_cookies(self):
-        TEST_DOMAIN = "localhost"
+    def test_dnt_check_should_not_send_cookies(self):
+        TEST_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
 
         # directly visit a DNT policy URL known to set cookies
