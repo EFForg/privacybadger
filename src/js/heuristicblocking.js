@@ -455,42 +455,28 @@ var lowEntropyCookieValues = {
 /**
  * Extract cookies from onBeforeSendHeaders
  *
- * https://developer.chrome.com/extensions/webRequest#event-onBeforeSendHeaders
- *
  * @param details Details for onBeforeSendHeaders
- * @returns {*} False or a string combining all Cookies
+ * @returns {*} an array combining all Cookies
  */
-var extractCookieString = function(details) {
-  // @details are those from onBeforeSendHeaders
-  // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
-  var cookies = "";
-  var headers;
+function _extractCookies(details) {
+  let cookies = [],
+    headers = [];
 
-  if(details.requestHeaders) {
+  if (details.requestHeaders) {
     headers = details.requestHeaders;
-  } else if(details.responseHeaders) {
+  } else if (details.responseHeaders) {
     headers = details.responseHeaders;
-  } else {
-    log("A request was made with no headers! Crazy!");
-    log(details);
-    return false;
   }
 
-
-  for (var i = 0; i < headers.length; i++) {
-    var header = headers[i];
+  for (let i = 0; i < headers.length; i++) {
+    let header = headers[i];
     if (header.name.toLowerCase() == "cookie" || header.name.toLowerCase() == "set-cookie" ) {
-      if (!cookies) {
-        cookies = header.value;
-      } else {
-        // Should not happen?  Except perhaps due to crazy extensions?
-        cookies = cookies + ";" + header.value;
-      }
+      cookies.push(header.value);
     }
   }
 
   return cookies;
-};
+}
 
 /**
  * Check if page is doing cookie tracking. Doing this by estimating the entropy of the cookies
@@ -499,46 +485,51 @@ var extractCookieString = function(details) {
  * @param {String} origin URL
  * @returns {boolean} true if it has cookie tracking
  */
-var hasCookieTracking = function(details, origin) {
-  // @details are those from onBeforeSendHeaders
-
-  var cookies = extractCookieString(details);
-  if (!cookies) {
+function hasCookieTracking(details, origin) {
+  let cookies = _extractCookies(details);
+  if (!cookies.length) {
     return false;
   }
-  cookies = cookies.split(";");
-  var hasCookies = false;
-  var estimatedEntropy = 0;
-  for (var i = 0; i < cookies.length; i++) {
-    // TODO urgh I can't believe we're parsing cookies.  Probably wrong
-    // what if the value has spaces in it?
-    hasCookies = true;
-    var c = cookies[i].trim();
-    var cut = c.indexOf("=");
-    //var name = c.slice(0,cut);
-    var value = c.slice(cut+1);
-    var lvalue = value.toLowerCase();
-    if (!(lvalue in lowEntropyCookieValues)) {
-      return true;
-    }
-    if(lvalue in lowEntropyCookieValues){
-      estimatedEntropy += lowEntropyCookieValues[lvalue];
+
+  let estimatedEntropy = 0;
+
+  // loop over every cookie
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = utils.parseCookie(cookies[i], {
+      noDecode: true,
+      skipAttributes: true,
+      skipNonValues: true
+    });
+
+    // loop over every name/value pair in every cookie
+    for (let name in cookie) {
+      if (!cookie.hasOwnProperty(name)) {
+        continue;
+      }
+
+      // ignore CloudFlare
+      if (name == "__cfduid") {
+        continue;
+      }
+
+      let value = cookie[name].toLowerCase();
+
+      if (!(value in lowEntropyCookieValues)) {
+        return true;
+      }
+
+      estimatedEntropy += lowEntropyCookieValues[value];
     }
   }
-  if (hasCookies) {
-    log("All cookies for " + origin + " deemed low entropy...");
-    for (var n = 0; n < cookies.length; n++) {
-      log("    " + cookies[n]);
-    }
-    if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
-      log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
-      return true;
-    }
-  } else {
-    log(origin, "has no cookies!");
+
+  log("All cookies for " + origin + " deemed low entropy...");
+  if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
+    log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
+    return true;
   }
+
   return false;
-};
+}
 
 function startListeners() {
   /**
