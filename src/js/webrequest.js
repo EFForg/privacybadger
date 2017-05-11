@@ -571,7 +571,7 @@ function _frameUrlStartsWith(tabId, piece){
  * @private
  */
 function _isTabChromeInternal(tabId){
-  return tabId < 0 || _frameUrlStartsWith(tabId, "chrome");
+  return tabId < 0 || !_frameUrlStartsWith(tabId, "http");
 }
 
 /**
