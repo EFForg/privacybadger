@@ -152,7 +152,7 @@ var htmlUtils = exports.htmlUtils = {
       whitelistedText = '' +
         '<div id="dnt-compliant">' +
         '<a target=_blank href="https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?">' +
-        '<img src="/icons/dnt-16.png" title="This domain promises not to track you."></a></div>';
+        '<img src="/icons/dnt-16.png" title="' + i18n.getMessage("dnt_tooltip") + '"></a></div>';
     }
 
     // If there are multiple subdomains set text showing count.
