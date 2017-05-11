@@ -61,14 +61,13 @@ var htmlUtils = exports.htmlUtils = {
    * @param {String} origin The origin to get description for.
    * @returns {String} Localized action description with origin.
    */
-  getActionDescription: function(action, origin) {
+  getActionDescription: (function () {
     var actionDescriptions = {
       block: i18n.getMessage('badger_status_block'),
       cookieblock: i18n.getMessage('badger_status_cookieblock'),
       noaction: "No tracking for ",
       allow: i18n.getMessage('badger_status_noaction'),
     };
-
     var rv_action = actionDescriptions[action];
     if (typeof(rv_action) == "undefined") {
       return origin;
@@ -76,7 +75,6 @@ var htmlUtils = exports.htmlUtils = {
       return actionDescriptions[action] + origin;
     }
   },
-
   /**
    * Gets HTML for origin action toggle switch (block, block cookies, allow).
    *
@@ -121,16 +119,15 @@ var htmlUtils = exports.htmlUtils = {
   },
 
   /**
-   * Adds HTML for given origin to existing HTML.
+   * Generates HTML for given origin.
    *
-   * @param {String} existingHtml Existing HTML to append origin HTML to.
    * @param {String} origin Origin to get HTML for.
    * @param {String} action Action for given origin.
    * @param {Boolean} isWhitelisted Whether origin is whitelisted or not.
    * @param {Integer} subdomainCount Number of subdomains for given origin.
-   * @returns {String} Existing HTML with origin HTML appended.
+   * @returns {String} Origin HTML.
    */
-  addOriginHtml: function(existingHtml, origin, action, isWhitelisted, subdomainCount) {
+  getOriginHtml: function(origin, action, isWhitelisted, subdomainCount) {
     // Get classes for main div and tooltip text for inner div.
     var tooltipText = '';
     var classes = ['clicker', 'tooltip'];
@@ -174,7 +171,7 @@ var htmlUtils = exports.htmlUtils = {
       '<div class="tooltipContainer"></div>' +
       '</div>';
 
-    return existingHtml + originHtml;
+    return originHtml;
   },
   /**
   * Toggle the GUI blocked status of GUI element(s)

@@ -22,56 +22,6 @@
 
 require.scopes.utils = (function() {
   
-
-function Utils() {
-}
-
-Utils.prototype = {
-  systemPrincipal: null,
-  getString: function(id)
-  {
-    return id;
-  },
-  runAsync: function(callback, thisPtr)
-  {
-    var params = Array.prototype.slice.call(arguments, 2);
-    window.setTimeout(function()
-    {
-      callback.apply(thisPtr, params);
-    }, 0);
-  },
-  get appLocale()
-  {
-    var locale = chrome.i18n.getMessage("@@ui_locale").replace(/_/g, "-");
-    this.__defineGetter__("appLocale", function() {return locale;});
-    return this.appLocale;
-  },
-
-  checkLocalePrefixMatch: function(prefixes)
-  {
-    if (!prefixes){
-      return null;
-    }
-
-    var list = prefixes.split(",");
-    for (var i = 0; i < list.length; i++) {
-      if (new RegExp("^" + list[i] + "\\b").test(this.appLocale)) {
-        return list[i];
-      }
-    }
-
-    return null;
-  },
-
-  /**
-  * Shortcut for document.getElementById(id)
-  */
-  E: function(id) {
-    return document.getElementById(id);
-  }
-
-};
-
 /**
 * Generic interface to make an XHR request
 *
@@ -293,6 +243,85 @@ function sha1(input, callback) {
   });
 }
 
+function parseCookie(str, opts) {
+  if (!str) {
+    return {};
+  }
+
+  opts = opts || {};
+
+  let COOKIE_ATTRIBUTES = [
+    "domain",
+    "expires",
+    "httponly",
+    "max-age",
+    "path",
+    "secure",
+  ];
+
+  let parsed = {},
+    cookies = str.replace(/\n/g, ";").split(";");
+
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i],
+      name,
+      value,
+      cut = cookie.indexOf("=");
+
+    // it's a key=value pair
+    if (cut != -1) {
+      name = cookie.slice(0, cut).trim();
+      value = cookie.slice(cut + 1).trim();
+
+      // handle value quoting
+      if (value[0] == '"') {
+        value = value.slice(1, -1);
+      }
+
+    // not a key=value pair
+    } else {
+      if (opts.skipNonValues) {
+        continue;
+      }
+      name = cookie.trim();
+      value = "";
+    }
+
+    if (opts.skipAttributes &&
+        COOKIE_ATTRIBUTES.indexOf(name.toLowerCase()) != -1) {
+      continue;
+    }
+
+    if (!opts.noDecode) {
+      let decode = opts.decode || decodeURIComponent;
+      try {
+        name = decode(name);
+      } catch (e) {
+        // invalid URL encoding probably (URIError: URI malformed)
+        if (opts.skipInvalid) {
+          continue;
+        }
+      }
+      if (value) {
+        try {
+          value = decode(value);
+        } catch (e) {
+          // ditto
+          if (opts.skipInvalid) {
+            continue;
+          }
+        }
+      }
+    }
+
+    if (!opts.noOverwrite || !parsed.hasOwnProperty(name)) {
+      parsed[name] = value;
+    }
+  }
+
+  return parsed;
+}
+
 /************************************** exports */
 var exports = {};
 
@@ -306,10 +335,10 @@ exports.oneDay = oneDay;
 exports.oneHour = oneHour;
 exports.oneMinute = oneMinute;
 exports.oneSecond = oneSecond;
+exports.parseCookie = parseCookie;
 exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
 exports.sha1 = sha1;
-exports.Utils = Utils;
 exports.xhrRequest = xhrRequest;
 
 return exports;

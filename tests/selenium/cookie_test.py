@@ -157,17 +157,38 @@ https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
         window_utils.switch_to_window_with_url(self.driver, "about:blank")
         self.load_url(self.popup_url)
 
-        # use the new convenience function to get the popup populated with status information for the correct url
+        # get the popup populated with status information for the correct url
         window_utils.switch_to_window_with_url(self.driver, self.popup_url)
         target_url = target_scheme_and_host + "/*"
-        javascript_src = "setTabToUrl('" + target_url + "');"
-        self.js(javascript_src)
+        javascript_src = """/**
+* if the query url pattern matches a tab, switch the module's tab object to that tab
+* Convenience function for the test harness
+* Chrome URL pattern docs: https://developer.chrome.com/extensions/match_patterns
+*/
+function setTabToUrl(query_url) {
+  chrome.tabs.query( {url: query_url}, function(ta) {
+    if (typeof ta == "undefined") {
+      return;
+    }
+    if (ta.length === 0) {
+      return;
+    }
+    var tabid = ta[0].id;
+    refreshPopup(tabid);
+  });
+}"""
+        self.js(javascript_src + "setTabToUrl('{}');".format(target_url))
 
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
+
+        # give asynchronously-rendered tracker list time to load
+        time.sleep(1)
+
         self.nonTrackers = {}
         self.cookieBlocked = {}
         self.blocked = {}
+
         try:
             clickerContainer = self.driver.find_element_by_class_name("clickerContainer")
             self.assertTrue(clickerContainer)
@@ -176,6 +197,7 @@ https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
             return
 
         tooltips = clickerContainer.find_elements_by_xpath("//*[contains(@class,'clicker tooltip')]")
+
         for t in tooltips:
             origin = t.get_attribute('data-origin')
 

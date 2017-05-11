@@ -298,6 +298,8 @@
     },
     "donate_to_eff": {
       "message": "Donate to EFF"
+    },
+    "version": {
+      "message": "version"
     }
-
 }

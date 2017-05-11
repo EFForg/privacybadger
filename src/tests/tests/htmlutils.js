@@ -128,7 +128,7 @@
     assert.ok(defaultTabIdExists, "Default tab ID should be set");
   });
 
-  QUnit.test("addOriginHtml", function (assert) {
+  QUnit.test("getOriginHtml", function (assert) {
     // Test parameters
     var tests = [
       {
@@ -155,8 +155,8 @@
       var isWhitelisted = tests[i].isWhitelisted;
       var subdomainCount = tests[i].subdomainCount;
 
-      var htmlResult = htmlUtils.addOriginHtml(
-        existingHtml, origin, action, isWhitelisted, subdomainCount);
+      var htmlResult = existingHtml + htmlUtils.getOriginHtml(
+        origin, action, isWhitelisted, subdomainCount);
 
       // Make sure existing HTML is present.
       var existingHtmlExists = htmlResult.indexOf(existingHtml) > -1;
