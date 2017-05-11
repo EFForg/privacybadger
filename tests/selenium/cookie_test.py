@@ -19,6 +19,9 @@ SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
 
 THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 
+CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
+'{}', 0, r => window.DNT_CHECK_RESULT = r
+);"""
 
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
@@ -29,11 +32,6 @@ https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
     def test_dnt_check_should_not_set_cookies(self):
         TEST_DOMAIN = "dnt-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
-
-        RUN_DNT_JS = """badger.checkForDNTPolicy(
-  '{}', 0, r => window.DNT_CHECK_RESULT = r
-);""".format(TEST_DOMAIN)
-        CHECK_FINISHED_JS = "return window.DNT_CHECK_RESULT === false"
 
         # verify that the domain itself doesn't set cookies
         self.load_url(TEST_URL)
@@ -58,14 +56,39 @@ https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
 
         # perform a DNT policy check
         self.load_url(self.bg_url, wait_on_site=1)
-        self.js(RUN_DNT_JS)
+        self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
         # wait until checkForDNTPolicy completed
-        self.wait_for_script(CHECK_FINISHED_JS)
+        self.wait_for_script("return window.DNT_CHECK_RESULT === false")
 
         # check that we didn't get cookied by the DNT URL
         self.load_url(TEST_URL)
         self.assertEqual(len(self.driver.get_cookies()), 0,
             "Shouldn't have any cookies after the DNT check")
+
+    def test_dnt_check_should_not_send_cookies(self):
+        TEST_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
+        TEST_URL = "https://{}/".format(TEST_DOMAIN)
+
+        # directly visit a DNT policy URL known to set cookies
+        self.load_url(TEST_URL + ".well-known/dnt-policy.txt")
+        self.assertEqual(len(self.driver.get_cookies()), 1,
+            "DNT policy URL set a cookie")
+
+        # how to check we didn't send a cookie along with request?
+        # the DNT policy URL used by this test returns "cookies=X"
+        # where X is the number of cookies it got
+        # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
+        self.load_url(self.bg_url, wait_on_site=1)
+        self.js("""badger.storage.updateDNTHashes(
+{ "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
+
+        # perform a DNT policy check
+        self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
+        # wait until checkForDNTPolicy completed
+        self.wait_for_script("return typeof window.DNT_CHECK_RESULT != 'undefined';")
+        # get the result
+        result = self.js("return window.DNT_CHECK_RESULT;")
+        self.assertTrue(result, "No cookies were sent")
 
     def assert_pass_opera_cookie_test(self, url, test_name):
         self.load_url(url)

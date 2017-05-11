@@ -126,11 +126,27 @@ function onBeforeRequest(details){
  * @returns {*} modified headers
  */
 function onBeforeSendHeaders(details) {
-  var frame_id = details.frameId,
+  let frame_id = details.frameId,
+    headers = details.requestHeaders,
     tab_id = details.tabId,
+    type = details.type,
     url = details.url;
 
-  if(_isTabChromeInternal(tab_id)){
+  if (_isTabChromeInternal(tab_id)) {
+    // DNT policy requests: strip cookies
+    if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
+      // remove Cookie headers
+      let newHeaders = [];
+      for (let i = 0, count = headers.length; i < count; i++) {
+        if (headers[i].name.toLowerCase() != "cookie") {
+          newHeaders.push(headers[i]);
+        }
+      }
+      return {
+        requestHeaders: newHeaders
+      };
+    }
+
     return {};
   }
 
@@ -151,7 +167,7 @@ function onBeforeSendHeaders(details) {
     // This will only happen if the above code sets the action for the request
     // to block
     if (requestAction == constants.BLOCK) {
-      if (details.type == 'script') {
+      if (type == 'script') {
         var surrogate = getSurrogateURI(url, requestDomain);
         if (surrogate) {
           return {redirectUrl: surrogate};
@@ -170,7 +186,7 @@ function onBeforeSendHeaders(details) {
 
     // This is the typical codepath
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-      var newHeaders = details.requestHeaders.filter(function(header) {
+      var newHeaders = headers.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
       newHeaders.push({name: "DNT", value: "1"});
@@ -179,8 +195,8 @@ function onBeforeSendHeaders(details) {
   }
 
   // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-  details.requestHeaders.push({name: "DNT", value: "1"});
-  return {requestHeaders: details.requestHeaders};
+  headers.push({name: "DNT", value: "1"});
+  return {requestHeaders: headers};
 }
 
 /**
@@ -293,6 +309,8 @@ function getHostForTab(tabId){
   if (!badger.tabData[tabId]) {
     return '';
   }
+  // TODO what does this actually do?
+  // meant to address https://github.com/EFForg/privacybadger/issues/136
   if (_isTabAnExtension(tabId)) {
     // If the tab is an extension get the url of the first frame for its implied URL
     // since the url of frame 0 will be the hash of the extension key
@@ -537,14 +555,13 @@ function checkAction(tabId, url, quiet, frameId){
  * Check if the url of the tab starts with the given string
  *
  * @param {Integer} tabId Id of the tab
- * @param {String} piece String to check against
+ * @param {String} str String to check against
  * @returns {boolean} true if starts with string
  * @private
  */
-function _frameUrlStartsWith(tabId, piece){
-  return badger.tabData[tabId] &&
-    badger.tabData[tabId].frames[0] &&
-    (badger.tabData[tabId].frames[0].url.indexOf(piece) === 0);
+function _frameUrlStartsWith(tabId, str) {
+  let frameData = getFrameData(tabId, 0);
+  return frameData && frameData.url.indexOf(str) === 0;
 }
 
 /**
@@ -554,8 +571,8 @@ function _frameUrlStartsWith(tabId, piece){
  * @returns {boolean} Returns true if the tab is chrome internal
  * @private
  */
-function _isTabChromeInternal(tabId){
-  return tabId < 0 || _frameUrlStartsWith(tabId, "chrome");
+function _isTabChromeInternal(tabId) {
+  return tabId < 0 || !_frameUrlStartsWith(tabId, "http");
 }
 
 /**
@@ -565,8 +582,11 @@ function _isTabChromeInternal(tabId){
  * @returns {boolean} Returns true if the tab is from a chrome-extension
  * @private
  */
-function _isTabAnExtension(tabId){
-  return _frameUrlStartsWith(tabId, "chrome-extension://");
+function _isTabAnExtension(tabId) {
+  return (
+    _frameUrlStartsWith(tabId, "chrome-extension://") ||
+    _frameUrlStartsWith(tabId, "moz-extension://")
+   );
 }
 
 /**
