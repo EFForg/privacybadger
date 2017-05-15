@@ -145,11 +145,16 @@ var htmlUtils = exports.htmlUtils = {
 
     // If origin has been whitelisted set text for DNT.
     var whitelistedText = '';
+    var actionDescription = '';
     if (isWhitelisted) {
       whitelistedText = '' +
         '<div id="dnt-compliant">' +
         '<a target=_blank href="https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?">' +
-        '<img src="/icons/dnt-16.png" title="' + i18n.getMessage("dnt_tooltip") + '"></a></div>';
+        '<img src="/icons/dnt-16.png"></a></div>';
+
+      actionDescription = i18n.getMessage('dnt_tooltip');
+    } else {
+      actionDescription = htmlUtils.getActionDescription(action, origin);
     }
 
     // If there are multiple subdomains set text showing count.
@@ -159,7 +164,6 @@ var htmlUtils = exports.htmlUtils = {
     }
 
     // Construct HTML for origin.
-    var actionDescription = htmlUtils.getActionDescription(action, origin);
     var originHtml = '' +
       '<div ' + classText + ' data-origin="' + origin + '" tooltip="' + actionDescription + '" data-original-action="' + action + '">' +
       '<div class="origin">' + whitelistedText + htmlUtils.trim(origin + subdomainText, 30) + '</div>' +
