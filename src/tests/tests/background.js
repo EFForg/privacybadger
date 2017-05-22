@@ -11,7 +11,8 @@
   let clock,
     server,
     xhrSpy,
-    dnt_policy_txt;
+    dnt_policy_txt,
+    old_dnt_check_func;
 
   QUnit.module("Background", {
     before: (assert) => {
@@ -34,6 +35,9 @@
         // set up fake timers to simulate window.setTimeout and co.
         clock = sinon.useFakeTimers(+new Date());
 
+        old_dnt_check_func = badger.isCheckingDNTPolicyEnabled;
+        badger.isCheckingDNTPolicyEnabled = () => true;
+        
         done();
       });
     },
@@ -51,6 +55,7 @@
     after: (/*assert*/) => {
       clock.restore();
       server.restore();
+      badger.isCheckingDNTPolicyEnabled = old_dnt_check_func;
     }
   });
 
@@ -119,4 +124,22 @@
     }
   });
 
+  QUnit.test("DNT checking obeys user setting", (assert) => {
+    const NUM_TESTS = 5;
+
+    let done = assert.async(NUM_TESTS);
+
+    assert.expect(NUM_TESTS);
+
+    badger.isCheckingDNTPolicyEnabled = () => false;
+
+    for (let i = 0; i < NUM_TESTS; i++) {
+      badger.checkForDNTPolicy(
+        DNT_COMPLIANT_DOMAIN,
+        0);
+      clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
+      assert.equal(xhrSpy.callCount, 0);
+      done();
+    }
+  });
 }());

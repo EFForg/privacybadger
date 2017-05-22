@@ -164,6 +164,8 @@
   });
 
   QUnit.test("DNT does not cascade", (assert) => {
+    let settings_map = storage.getBadgerStorageObject('settings_map');
+    settings_map.setItem("checkForDNTPolicy", true);
     storage.setupDNT(DOMAIN);
 
     // check domain itself
@@ -191,7 +193,26 @@
     );
   });
 
+  QUnit.test("DNT does not return as an action if user has chosen not to", (assert) => {
+    let settings_map = storage.getBadgerStorageObject('settings_map');
+    settings_map.setItem("checkForDNTPolicy", false);
+    storage.setupDNT(DOMAIN);
+
+    assert.equal(
+      storage.getAction(DOMAIN),
+      constants.NO_TRACKING,
+      "domain is marked as DNT directly"
+    );
+    assert.equal(
+      storage.getBestAction(DOMAIN),
+      constants.NO_TRACKING,
+      "domain is marked as DNT"
+    );
+  });
+
   QUnit.test("blocking still cascades after domain declares DNT", (assert) => {
+    let settings_map = storage.getBadgerStorageObject('settings_map');
+    settings_map.setItem("checkForDNTPolicy", true);
     storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
     storage.setupDNT(DOMAIN);
 
@@ -312,6 +333,8 @@
   });
 
   QUnit.test("user actions overrule everything else", (assert) => {
+    let settings_map = storage.getBadgerStorageObject('settings_map');
+    settings_map.setItem("checkForDNTPolicy", true);
     storage.setupUserAction(DOMAIN, constants.USER_BLOCK);
     storage.setupHeuristicAction(SUBDOMAIN, constants.COOKIEBLOCK);
     storage.setupDNT(SUBSUBDOMAIN);

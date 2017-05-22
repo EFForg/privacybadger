@@ -298,6 +298,11 @@ Badger.prototype = {
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function(){
+    if (! badger.isCheckingDNTPolicyEnabled()) {
+      // user has disabled this, we can check when they re-enable
+      return ;
+    }
+
     var self = this;
     utils.xhrRequest(constants.DNT_POLICIES_URL, function(err,response){
       if(err){
@@ -322,9 +327,14 @@ Badger.prototype = {
       return;
     }
 
-    log('Checking', domain, 'for DNT policy.');
-
     var badger = this;
+
+    if (! badger.isCheckingDNTPolicyEnabled()) {
+      // user has disabled this check
+      return ;
+    }
+
+    log('Checking', domain, 'for DNT policy.');
 
     // update timestamp first;
     // avoids queuing the same domain multiple times
@@ -382,6 +392,7 @@ Badger.prototype = {
    */
   defaultSettings: {
     socialWidgetReplacementEnabled: true,
+    checkForDNTPolicy: false,
     showCounter: true,
     disabledSites: [],
     isFirstRun: true,
@@ -563,6 +574,10 @@ Badger.prototype = {
    */
   isSocialWidgetReplacementEnabled: function() {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
+  },
+
+  isCheckingDNTPolicyEnabled: function() {
+    return this.getSettings().getItem("checkForDNTPolicy");
   },
 
   /**
