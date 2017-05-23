@@ -201,12 +201,12 @@
     assert.equal(
       storage.getAction(DOMAIN),
       constants.NO_TRACKING,
-      "domain is marked as DNT directly"
+      "domain is marked as DNT directly, but returns as NO_TRACKING because user has disabled DNT"
     );
     assert.equal(
       storage.getBestAction(DOMAIN),
       constants.NO_TRACKING,
-      "domain is marked as DNT"
+      "domain is marked as DNT directly, but returns as NO_TRACKING because user has disabled DNT"
     );
   });
 
