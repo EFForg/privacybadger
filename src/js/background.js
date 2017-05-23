@@ -392,7 +392,7 @@ Badger.prototype = {
    */
   defaultSettings: {
     socialWidgetReplacementEnabled: true,
-    checkForDNTPolicy: false,
+    checkForDNTPolicy: true,
     showCounter: true,
     disabledSites: [],
     isFirstRun: true,
