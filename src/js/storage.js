@@ -99,13 +99,15 @@ BadgerPen.prototype = {
    * @returns {String} the presumed action for this FQDN
    **/
   getAction: function (domain, ignoreDNT) {
-    let checking_dnt = badger.isCheckingDNTPolicyEnabled();
+    if(! badger.isCheckingDNTPolicyEnabled()){
+      ignoreDNT = true;
+    }
 
     if (_.isString(domain)) {
       domain = this.getBadgerStorageObject('action_map').getItem(domain) || {};
     }
     if (domain.userAction) { return domain.userAction; }
-    if (domain.dnt && !ignoreDNT && checking_dnt) { return constants.DNT; }
+    if (domain.dnt && !ignoreDNT) { return constants.DNT; }
     if (domain.heuristicAction) { return domain.heuristicAction; }
     return constants.NO_TRACKING;
   },
