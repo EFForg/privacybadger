@@ -44,6 +44,7 @@
   "content_scripts": [
     {
       "js": [
+        "js/first_parties.js",
         "js/clobbercookie.js",
         "js/clobberlocalstorage.js",
         "js/fingerprinting.js",
