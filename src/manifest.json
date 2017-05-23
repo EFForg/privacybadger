@@ -44,10 +44,11 @@
   "content_scripts": [
     {
       "js": [
-        "js/first_parties.js"
+        "js/first_parties/twitter.js"
       ],
       "matches": [
-        "<all_urls>"
+        "http://twitter.com/*",
+        "https://twitter.com/*"
       ],
       "run_at": "document_idle",
       "all_frames": false
@@ -101,7 +102,6 @@
   },
   "options_page": "/skin/options.html",
   "web_accessible_resources": [
-    "js/first_parties/*",
     "skin/*",
     "icons/*"
   ]
