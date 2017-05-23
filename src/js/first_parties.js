@@ -30,25 +30,16 @@ function insertScript(text) {
 
 
 var code = '(' + function() {
-  var console = {}
-  window.console = console;
-  window.console.log = function () {};
   function setConsole() {
     iframe = document.createElement('iframe');
     iframe.style.display = 'none';
-    if (!document.body) {
-      return
-    }
-
     document.body.appendChild(iframe);
     console = iframe.contentWindow.console;
     window.console = console;
     console.log("got console")
   }
-  setConsole();
 
   var elems = [];
-  console.log(elems);
   function unwrap(elem) { 
     var url = elem.href;
     if (url && url.toLowerCase().startsWith("https://t.co/")) {
@@ -61,12 +52,12 @@ var code = '(' + function() {
   }
 
   function unwrapTwitterURLs() {
+    setConsole();
+    console.log(elems);
     var aElems = document.getElementsByTagName("a");
     var n = aElems.length;
-    console.log(n);
     for (var i = 0; i < n; i++) {
       var elem = aElems[i];
-
       unwrap(elem);
     }
   }
