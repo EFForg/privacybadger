@@ -90,7 +90,7 @@
         "message": "Privacy Badger Options"
     },
     "options_dnt_policy_setting": {
-        "message": "Check if sites have a DNT policy and unblock them"
+        "message": "Check if sites comply with EFF's Do Not Track policy"
     },
     "options_dnt_policy_learn_more": {
         "message": "Learn more"
