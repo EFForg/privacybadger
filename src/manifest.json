@@ -44,7 +44,16 @@
   "content_scripts": [
     {
       "js": [
-        "js/first_parties.js",
+        "js/first_parties.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "js": [
         "js/clobbercookie.js",
         "js/clobberlocalstorage.js",
         "js/fingerprinting.js",
@@ -92,6 +101,7 @@
   },
   "options_page": "/skin/options.html",
   "web_accessible_resources": [
+    "js/first_parties/*",
     "skin/*",
     "icons/*"
   ]
