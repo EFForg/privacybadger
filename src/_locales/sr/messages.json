@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Додај домен"
     },
+    "badger_status_allow": {
+        "message": "Дозвољено "
+    },
     "badger_status_block": {
         "message": "Блокирано "
     },
     "badger_status_cookieblock": {
         "message": "Блокирани колачићи са "
-    },
-    "badger_status_noaction": {
-        "message": "Дозвољено "
     },
     "data_settings": {
         "message": "Управљај подацима"

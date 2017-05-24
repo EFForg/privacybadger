@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "新增網域"
     },
+    "badger_status_allow": {
+        "message": "允許"
+    },
     "badger_status_block": {
         "message": "封鎖"
     },
     "badger_status_cookieblock": {
         "message": "封鎖此網站的 cookie"
-    },
-    "badger_status_noaction": {
-        "message": "允許"
     },
     "data_settings": {
         "message": "管理資料"

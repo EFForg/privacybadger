@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Añadir dominio"
     },
+    "badger_status_allow": {
+        "message": "Este dominio está desbloqueado, desliza para bloquearlo completamento o bloquear las cookies."
+    },
     "badger_status_block": {
         "message": "Este rastreador está BLOQUEADO, desliza para desbloquear el rastreador o bloquear las cookies."
     },
     "badger_status_cookieblock": {
         "message": "Las cookies de este rastreador están bloqueadas, desliza para bloquear o desbloquear el rastreador."
-    },
-    "badger_status_noaction": {
-        "message": "Este dominio está desbloqueado, desliza para bloquearlo completamento o bloquear las cookies."
     },
     "data_settings": {
         "message": "Manage Data"

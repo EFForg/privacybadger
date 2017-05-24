@@ -386,7 +386,7 @@ function addOrigins(e) {
     var domain = domains.shift();
     var action = getOriginAction(domain);
     if (action) {
-      target.innerHTML += htmlUtils.getOriginHtml(domain, action);
+      target.innerHTML += htmlUtils.getOriginHtml(domain, action, action == constants.DNT);
     }
   }
 }
@@ -405,7 +405,7 @@ function showTrackingDomains(domains) {
     // todo: gross hack, use templating framework
     var action = getOriginAction(trackingDomain);
     if (action) {
-      trackingDetails += htmlUtils.getOriginHtml(trackingDomain, action);
+      trackingDetails += htmlUtils.getOriginHtml(trackingDomain, action, action == constants.DNT);
     }
   }
   trackingDetails += '</div>';

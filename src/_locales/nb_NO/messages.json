@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Legg til domene"
     },
+    "badger_status_allow": {
+        "message": "Tillatt "
+    },
     "badger_status_block": {
         "message": "Blokkert "
     },
     "badger_status_cookieblock": {
         "message": "Blokkerte kaker fra "
-    },
-    "badger_status_noaction": {
-        "message": "Tillatt "
     },
     "data_settings": {
         "message": "Behandle data"
