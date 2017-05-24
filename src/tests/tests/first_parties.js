@@ -1,32 +1,41 @@
 (function() {
-  QUnit.test("test twitter content script", (assert) => {
-    const NUM_CHECKS = 1;
-    let done = assert.async(NUM_CHECKS);
+  QUnit.module("First parties");
 
-    // create element as we'd get it from twitter
+  QUnit.test("test twitter content script", (assert) => {
+    const NUM_TESTS = 2,
+      done = assert.async(NUM_TESTS);
+    assert.expect(NUM_TESTS);
+
+    // mock out twitter's click listener
+    let qf = document.getElementById("qunit-fixture");
+    qf.setAttribute("twitterHeardClick", "no");
+    qf.addEventListener("click", function () {
+      qf.setAttribute("twitterHeardClick", "yes");
+    });
+
+    // create a tweet element like we'd get from twitter
     let tco = "http://t.co/beach-detour/";
     let destination = "https://the.beach/";
     let el = document.createElement("div");
-    el.setAttribute("href", tco);
+    el.href = tco;
     el.setAttribute("data-expanded-url", destination);
-    document.querySelectorAll = function () {
-      return [el];
-    };
+
+    const selector = sinon.stub(document, "querySelectorAll");
+    selector.returns([el]);
+    qf.appendChild(el);
 
     // load the content script
     let script = document.createElement("script");
     script.src = "../js/first_parties/twitter.js";
     script.onload = function () {
-      unwrapTwitterURLs();
+      el.click();
+      assert.equal(el.href, destination, "we replaced the link");
+      assert.equal(qf.getAttribute("twitterHeardClick"), "no", "twitter didn't hear our click");
 
-      // check we unwrapped it
-      assert.equal(el.href, destination);
+      selector.restore();
       done();
     };
-
-    let qf = document.getElementById("qunit-fixture");
     qf.appendChild(script);
-    qf.remove();
 
   });
 }());
