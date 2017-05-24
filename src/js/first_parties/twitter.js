@@ -6,6 +6,9 @@ function unwrapTwitterURLs() {
     let deu = elem.getAttribute("data-expanded-url");
     if (deu && (deu.startsWith("https://") || deu.startsWith("http://"))) {
       elem.href = deu;
+      elem.addEventListener("click", function (e) {
+        e.stopPropagation(); // don't let the event click propogate to twitter
+      });
     }
   }
 }
