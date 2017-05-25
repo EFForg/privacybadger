@@ -119,4 +119,25 @@
     }
   });
 
+  QUnit.test("DNT checking obeys user setting", (assert) => {
+    const NUM_TESTS = 5;
+
+    let done = assert.async(NUM_TESTS);
+    // TODO: unit tests may be effected by user settings, and should be isolated somehow
+    let old_dnt_check_func = badger.isCheckingDNTPolicyEnabled;
+
+    assert.expect(NUM_TESTS);
+    badger.isCheckingDNTPolicyEnabled = () => false;
+
+    for (let i = 0; i < NUM_TESTS; i++) {
+      badger.checkForDNTPolicy(
+        DNT_COMPLIANT_DOMAIN,
+        0);
+      clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
+      assert.equal(xhrSpy.callCount, 0);
+      done();
+    }
+
+    badger.isCheckingDNTPolicyEnabled = old_dnt_check_func;
+  });
 }());

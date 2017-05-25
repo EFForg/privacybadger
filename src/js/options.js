@@ -76,6 +76,8 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
+  $("#check_dnt_policy_checkbox").click(updateCheckingDNTPolicy);
+  $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled());
   if(chrome.privacy && badger.webRTCAvailable){
     $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
     $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
@@ -208,6 +210,12 @@ function updateShowCounter() {
 function updateSocialWidgetReplacement() {
   var replaceSocialWidgets = $("#replace_social_widgets_checkbox").prop("checked");
   settings.setItem("socialWidgetReplacementEnabled", replaceSocialWidgets);
+}
+
+function updateCheckingDNTPolicy() {
+  var newDNTSetting = $("#check_dnt_policy_checkbox").prop("checked");
+  settings.setItem("checkForDNTPolicy", newDNTSetting);
+  refreshFilterPage(); // This setting means sites need to be re-evaluated
 }
 
 function reloadWhitelist() {

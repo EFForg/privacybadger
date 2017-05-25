@@ -99,6 +99,10 @@ BadgerPen.prototype = {
    * @returns {String} the presumed action for this FQDN
    **/
   getAction: function (domain, ignoreDNT) {
+    if(! badger.isCheckingDNTPolicyEnabled()){
+      ignoreDNT = true;
+    }
+
     if (_.isString(domain)) {
       domain = this.getBadgerStorageObject('action_map').getItem(domain) || {};
     }

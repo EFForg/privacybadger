@@ -53,6 +53,10 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
 
         self.assertFalse(len(disabled_sites),
                          "Shouldn't have any disabledSites after installation")
+        
+        self.assertTrue(js("return (badger.storage.getBadgerStorageObject("\
+            "'settings_map').getItem('checkForDNTPolicy'))"),
+            "Should start with DNT policy enabled")
         # TODO: do we expect currentVersion to be present after the first run?
 
 

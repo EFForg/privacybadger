@@ -191,6 +191,23 @@
     );
   });
 
+  QUnit.test("DNT does not return as an action if user has chosen not to", (assert) => {
+    let settings_map = storage.getBadgerStorageObject('settings_map');
+    settings_map.setItem("checkForDNTPolicy", false);
+    storage.setupDNT(DOMAIN);
+
+    assert.equal(
+      storage.getAction(DOMAIN),
+      constants.NO_TRACKING,
+      "domain is marked as DNT directly, but returns as NO_TRACKING because user has disabled DNT"
+    );
+    assert.equal(
+      storage.getBestAction(DOMAIN),
+      constants.NO_TRACKING,
+      "domain is marked as DNT directly, but returns as NO_TRACKING because user has disabled DNT"
+    );
+  });
+
   QUnit.test("blocking still cascades after domain declares DNT", (assert) => {
     storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
     storage.setupDNT(DOMAIN);
