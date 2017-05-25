@@ -123,7 +123,6 @@
     const NUM_TESTS = 5;
 
     let done = assert.async(NUM_TESTS);
-    // TODO: unit tests may be effected by user settings, and should be isolated somehow
     let old_dnt_check_func = badger.isCheckingDNTPolicyEnabled;
 
     assert.expect(NUM_TESTS);
