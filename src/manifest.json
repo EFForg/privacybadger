@@ -47,8 +47,8 @@
         "js/first_parties/twitter.js"
       ],
       "matches": [
-        "http://twitter.com/*",
-        "https://twitter.com/*"
+        "*://tweetdeck.twitter.com/*",
+        "*://twitter.com/*"
       ],
       "run_at": "document_idle",
       "all_frames": false
