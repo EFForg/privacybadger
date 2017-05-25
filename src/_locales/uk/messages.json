@@ -89,6 +89,12 @@
     "options_title": {
         "message": "Налаштування Privacy Badger"
     },
+    "options_dnt_policy_setting": {
+        "message": "Перевірити, чи сайти підтримують політику EFF щодо відмови від стеження"
+    },
+    "options_dnt_policy_learn_more": {
+        "message": "Докладніше"
+    },
     "options_webrtc_setting": {
         "message": "Не дозволяти WebRTC виявляти локальну IP-адресу *"
     },
@@ -295,6 +301,9 @@
     },
     "donate_to_eff": {
       "message": "Зробити внесок для EFF"
+    },
+    "version": {
+      "message": "версія"
     }
 
 }
