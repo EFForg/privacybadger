@@ -2,9 +2,9 @@
   QUnit.module("First parties");
 
   QUnit.test("test twitter content script", (assert) => {
-    const NUM_TESTS = 2,
-      done = assert.async(NUM_TESTS);
-    assert.expect(NUM_TESTS);
+    const NUM_CHECKS = 3;
+    assert.expect(NUM_CHECKS);
+    let done = assert.async();
 
     // mock out twitter's click listener
     let qf = document.getElementById("qunit-fixture");
@@ -31,9 +31,10 @@
       el.click();
       assert.equal(el.href, destination, "we replaced the link");
       assert.equal(qf.getAttribute("twitterHeardClick"), "no", "twitter didn't hear our click");
+      assert.equal(el.rel.includes("noreferrer"), true, "we add noreferrer");
+      done();
 
       selector.restore();
-      done();
     };
     qf.appendChild(script);
 
