@@ -391,13 +391,13 @@ Badger.prototype = {
    * Default privacy badger settings
    */
   defaultSettings: {
-    socialWidgetReplacementEnabled: true,
     checkForDNTPolicy: true,
-    showCounter: true,
     disabledSites: [],
     isFirstRun: true,
+    migrationLevel: 0,
     seenComic: false,
-    migrationLevel: 0
+    showCounter: true,
+    socialWidgetReplacementEnabled: true,
   },
 
   /**
