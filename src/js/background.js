@@ -696,11 +696,23 @@ Badger.prototype = {
    * Enables or disables page action icon according to options.
    * @param {Object} tab The tab to set the badger icon for
    */
-  refreshIconAndContextMenu: function(tab) {
+  refreshIconAndContextMenu: function (tab) {
+    if (!tab) {
+      return;
+    }
 
-    if(!tab){return;}
-
-    var iconFilename = this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
+    let iconFilename;
+    if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url))) {
+      iconFilename = {
+        "19": chrome.runtime.getURL("icons/badger-19.png"),
+        "38": chrome.runtime.getURL("icons/badger-38.png")
+      };
+    } else {
+      iconFilename = {
+        "19": chrome.runtime.getURL("icons/badger-19-disabled.png"),
+        "38": chrome.runtime.getURL("icons/badger-38-disabled.png")
+      };
+    }
 
     chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
     chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
