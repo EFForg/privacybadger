@@ -2,6 +2,9 @@
 
 (function () {
 
+  const DNT_HASHES_URL = chrome.extension.getURL(
+    'data/dnt-policies-example.json');
+
   let BACKUP = {};
 
   QUnit.config.testTimeout = 6400;
@@ -12,15 +15,24 @@
 
   // make it seem like there is nothing in storage
   // unit tests shouldn't read from your Badger's storage either
-  chrome.storage.local.get = (_, cb) => {
-    setTimeout(() => {
-      cb({
-        // don't open the firstrun page though
+  chrome.storage.local.get = (keys, callback) => {
+    // note that callback has to be async
+
+    // ensure DNT hashes are loaded
+    // TODO anything else tests depend on that might not yet be ready
+    // at the time tests run?
+    // TODO would be better to set QUnit.config.autostart to false
+    // and QUnit.start() tests only when Badger declares itself ready
+    require('utils').xhrRequest(DNT_HASHES_URL, (err, data) => {
+      callback({
+        dnt_hashes: _.invert(JSON.parse(data)),
+
+        // don't open the firstrun page
         settings_map: {
           isFirstRun: false,
         }
       });
-    }, 1);
+    });
   };
 
   // reset state between tests
