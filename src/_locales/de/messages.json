@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Domain hinzufügen"
     },
+    "badger_status_allow": {
+        "message": "Erlaubt "
+    },
     "badger_status_block": {
         "message": "Blockiert "
     },
     "badger_status_cookieblock": {
         "message": "Blockiert Cookies von "
-    },
-    "badger_status_noaction": {
-        "message": "Erlaubt "
     },
     "data_settings": {
         "message": "Benutzerdaten verwalten"

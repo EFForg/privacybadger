@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Voeg (derde) partij toe"
     },
+    "badger_status_allow": {
+        "message": "Toegestaan "
+    },
     "badger_status_block": {
         "message": "Geblokkeerd "
     },
     "badger_status_cookieblock": {
         "message": "Geblokkeerd cookies van "
-    },
-    "badger_status_noaction": {
-        "message": "Toegestaan "
     },
     "data_settings": {
         "message": "Manage Data"

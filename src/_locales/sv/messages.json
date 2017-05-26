@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Lägg till domän"
     },
+    "badger_status_allow": {
+        "message": "Tillåten "
+    },
     "badger_status_block": {
         "message": "Blockerad "
     },
     "badger_status_cookieblock": {
         "message": "Blockerade cookies från "
-    },
-    "badger_status_noaction": {
-        "message": "Tillåten "
     },
     "data_settings": {
         "message": "Manage Data"

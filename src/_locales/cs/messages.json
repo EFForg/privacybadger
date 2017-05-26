@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Přidat doménu"
     },
+    "badger_status_allow": {
+        "message": "Povoleno "
+    },
     "badger_status_block": {
         "message": "Blokováno "
     },
     "badger_status_cookieblock": {
         "message": "Blokovány cookies od "
-    },
-    "badger_status_noaction": {
-        "message": "Povoleno "
     },
     "data_settings": {
         "message": "Spravovat data"

@@ -2,6 +2,9 @@
     "add_domain_button": {
         "message": "Add domain"
     },
+    "badger_status_allow": {
+        "message": "Allowed "
+    },
     "badger_status_block": {
         "message": "Blocked "
     },
@@ -9,7 +12,7 @@
         "message": "Blocked cookies from "
     },
     "badger_status_noaction": {
-        "message": "Allowed "
+        "message": "No tracking for "
     },
     "data_settings": {
         "message": "Manage Data"
@@ -19,6 +22,9 @@
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the address bar or by typing the domain (not a URL) in the box and clicking the \"Add domain\" button."
+    },
+    "dnt_tooltip": {
+        "message": "This domain promises to not track you"
     },
     "download": {
         "message": "Download"

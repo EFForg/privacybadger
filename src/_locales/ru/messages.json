@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Добавить домен"
     },
+    "badger_status_allow": {
+        "message": "Разрешен "
+    },
     "badger_status_block": {
         "message": "Заблокирован "
     },
     "badger_status_cookieblock": {
         "message": "Заблокированы файлы cookie домена "
-    },
-    "badger_status_noaction": {
-        "message": "Разрешен "
     },
     "data_settings": {
         "message": "Manage Data"

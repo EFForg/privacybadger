@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "添加域名"
     },
+    "badger_status_allow": {
+        "message": "允许 "
+    },
     "badger_status_block": {
         "message": "屏蔽 "
     },
     "badger_status_cookieblock": {
         "message": "屏蔽此网站的 cookies "
-    },
-    "badger_status_noaction": {
-        "message": "允许 "
     },
     "data_settings": {
         "message": "管理数据"

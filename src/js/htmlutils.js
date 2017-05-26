@@ -65,14 +65,21 @@ var htmlUtils = exports.htmlUtils = {
     var actionDescriptions = {
       block: i18n.getMessage('badger_status_block'),
       cookieblock: i18n.getMessage('badger_status_cookieblock'),
-      noaction: "No tracking for ",
-      allow: i18n.getMessage('badger_status_noaction'),
+      noaction: i18n.getMessage('badger_status_noaction'),
+      allow: i18n.getMessage('badger_status_allow'),
+      dntTooltip: i18n.getMessage('dnt_tooltip')
     };
-    return function (action, origin) {
-      return actionDescriptions[action] + origin;
+    return function(action, origin, isWhitelisted) {
+      var rv_action = actionDescriptions[action];
+      if (typeof(isWhitelisted) !== 'undefined' && isWhitelisted) {
+        return actionDescriptions.dntTooltip;
+      } else if (typeof(rv_action) == 'undefined'){
+        return origin;
+      } else {
+        return rv_action + origin;
+      }
     };
   }()),
-
   /**
    * Gets HTML for origin action toggle switch (block, block cookies, allow).
    *
@@ -147,7 +154,7 @@ var htmlUtils = exports.htmlUtils = {
       whitelistedText = '' +
         '<div id="dnt-compliant">' +
         '<a target=_blank href="https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?">' +
-        '<img src="/icons/dnt-16.png" title="This domain promises not to track you."></a></div>';
+        '<img src="/icons/dnt-16.png"></a></div>';
     }
 
     // If there are multiple subdomains set text showing count.
@@ -157,7 +164,7 @@ var htmlUtils = exports.htmlUtils = {
     }
 
     // Construct HTML for origin.
-    var actionDescription = htmlUtils.getActionDescription(action, origin);
+    var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
     var originHtml = '' +
       '<div ' + classText + ' data-origin="' + origin + '" tooltip="' + actionDescription + '" data-original-action="' + action + '">' +
       '<div class="origin">' + whitelistedText + htmlUtils.trim(origin + subdomainText, 30) + '</div>' +
