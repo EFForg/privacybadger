@@ -6,21 +6,22 @@
 
   QUnit.config.testTimeout = 6400;
 
-  // runs before any tests begin
-  QUnit.begin(() => {
-    // disable storage persistence
-    chrome.storage.local.set = () => {};
+  // disable storage persistence
+  // unit tests shouldn't be able to affect your Badger's storage
+  chrome.storage.local.set = () => {};
 
-    // set defaults
-    var settings = badger.storage.getBadgerStorageObject("settings_map");
-    for (let key in badger.defaultSettings) {
-      settings.setItem(key, badger.defaultSettings[key]);
-    }
-  });
-
-  // runs after all tests finished
-  QUnit.done(() => {
-  });
+  // make it seem like there is nothing in storage
+  // unit tests shouldn't read from your Badger's storage either
+  chrome.storage.local.get = (_, cb) => {
+    setTimeout(() => {
+      cb({
+        // don't open the firstrun page though
+        settings_map: {
+          isFirstRun: false,
+        }
+      });
+    }, 1);
+  };
 
   QUnit.testStart(() => {
     // back up settings and heuristic learning
