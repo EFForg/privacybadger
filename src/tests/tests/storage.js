@@ -6,29 +6,9 @@
     SUBDOMAIN = "widgets." + DOMAIN,
     SUBSUBDOMAIN = "cdn." + SUBDOMAIN;
 
-  let BACKUP = {};
-
   let storage = badger.storage;
 
-  QUnit.module("Storage", {
-    // called before every test
-    beforeEach: () => {
-      // back up settings and heuristic learning
-      ['action_map', 'settings_map', 'snitch_map'].forEach(item => {
-        let obj = storage.getBadgerStorageObject(item);
-        BACKUP[item] = obj.getItemClones();
-      });
-    },
-
-    // called after every test
-    afterEach: () => {
-      // restore original settings and heuristic learning
-      ['action_map', 'settings_map', 'snitch_map'].forEach(item => {
-        let obj = storage.getBadgerStorageObject(item);
-        obj.updateObject(BACKUP[item]);
-      });
-    }
-  });
+  QUnit.module("Storage");
 
   QUnit.test("testGetBadgerStorage", function (assert) {
     var action_map = storage.getBadgerStorageObject('action_map');
@@ -204,7 +184,7 @@
     assert.equal(
       storage.getBestAction(DOMAIN),
       constants.NO_TRACKING,
-      "domain is marked as DNT directly, but returns as NO_TRACKING because user has disabled DNT"
+      "domain is marked as DNT, but returns as NO_TRACKING because user has disabled DNT"
     );
   });
 
