@@ -7,7 +7,7 @@ function maybeAddNoreferrer(element) {
 }
 
 function unwrapTwitterURLs() {
-  let query = "a[" + config.queryParam + "][href^='https://t.co/']";
+  let query = "a[" + config.queryParam + "][href^='https://t.co/'], a[" + config.queryParam + "][href^='http://t.co/']";
   let aElems = document.querySelectorAll(query);
   let n = aElems.length;
   for (let i = 0; i < n; i++) {
