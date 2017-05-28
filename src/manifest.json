@@ -38,21 +38,11 @@
       "js/heuristicblocking.js",
       "js/socialwidgetloader.js",
       "js/migrations.js",
+      "js/first_parties.js",
       "js/background.js"
     ]
   },
   "content_scripts": [
-    {
-      "js": [
-        "js/first_parties/twitter.js"
-      ],
-      "matches": [
-        "*://tweetdeck.twitter.com/*",
-        "*://twitter.com/*"
-      ],
-      "run_at": "document_idle",
-      "all_frames": false
-    },
     {
       "js": [
         "js/clobbercookie.js",

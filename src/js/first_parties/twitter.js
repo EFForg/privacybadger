@@ -1,29 +1,30 @@
-const deu = "data-expanded-url",
-  dfu = "data-full-url";
-const twitterQuery = "a[" + deu + "][href^='https://t.co/']",
-  tweetdeckQuery = "a[" + dfu + "][href^='https://t.co/']";
+/* globals config */
 
-function maybeAddNoreferrer(el) {
-  let rel = el.rel ? el.rel : "";
+function maybeAddNoreferrer(element) {
+  let rel = element.rel ? element.rel : "";
   if (!rel.includes("noreferrer")) {rel += " noreferrer";}
-  el.rel = rel;
+  element.rel = rel;
 }
 
 function unwrapTwitterURLs() {
-  let aElems = document.querySelectorAll(twitterQuery + ", " + tweetdeckQuery);
+  let query = "a[" + config.queryParam + "][href^='https://t.co/']";
+  let aElems = document.querySelectorAll(query);
   let n = aElems.length;
   for (let i = 0; i < n; i++) {
-    let elem = aElems[i];
-    let attr = elem.getAttribute(deu);
-    if (!attr) {attr = elem.getAttribute(dfu);}
+    let element = aElems[i];
+    let attr = element.getAttribute(config.queryParam);
     if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
-      elem.href = attr;
-      elem.addEventListener("click", function (e) {
+      element.href = attr;
+      element.addEventListener("click", function (e) {
         e.stopPropagation();
       });
-      maybeAddNoreferrer(elem);
+      maybeAddNoreferrer(element);
     }
   }
-  setTimeout(() => {unwrapTwitterURLs();}, 1500);
+  setTimeout(() => {unwrapTwitterURLs();}, 2000);
 }
-unwrapTwitterURLs();
+
+if (typeof wasrun === "undefined" || !wasrun) {
+  var wasrun = true;
+  unwrapTwitterURLs();
+}
