@@ -1,42 +1,57 @@
 (function() {
+  let tco = "http://t.co/beach-detour/";
+  let destination = "https://the.beach/";
+
+  function makeTweet(destURL) {
+    let elemnt = document.createElement("div");
+    elemnt.href = tco;
+    elemnt.setAttribute(destURL, destination);
+    return elemnt;
+  }
+
+  function addClickListener(element) {
+    element.setAttribute("heardClick", "no");
+    element.addEventListener("click", function () {
+      element.setAttribute("heardClick", "yes");
+    });
+    return element;
+  }
+
   QUnit.module("First parties");
 
-  QUnit.test("test twitter content script", (assert) => {
-    const NUM_CHECKS = 3;
+  QUnit.test("twitter", (assert) => {
+    let attribute = 'data-expanded-url';
+    const NUM_CHECKS = 3,
+      done = assert.async();
     assert.expect(NUM_CHECKS);
-    let done = assert.async();
 
-    // mock out twitter's click listener
-    let qf = document.getElementById("qunit-fixture");
-    qf.setAttribute("twitterHeardClick", "no");
-    qf.addEventListener("click", function () {
-      qf.setAttribute("twitterHeardClick", "yes");
-    });
-
-    // create a tweet element like we'd get from twitter
-    let tco = "http://t.co/beach-detour/";
-    let destination = "https://the.beach/";
-    let el = document.createElement("div");
-    el.href = tco;
-    el.setAttribute("data-expanded-url", destination);
+    let fixture = document.getElementById("qunit-fixture");
+    addClickListener(fixture);
+    let tweet = makeTweet(attribute);
 
     const selector = sinon.stub(document, "querySelectorAll");
-    selector.returns([el]);
-    qf.appendChild(el);
+    selector.returns([tweet]);
+
+    // set the config for twitter.js
+    window.config = {"queryParam": attribute};
 
     // load the content script
     let script = document.createElement("script");
     script.src = "../js/first_parties/twitter.js";
-    script.onload = function () {
-      el.click();
-      assert.equal(el.href, destination, "we replaced the link");
-      assert.equal(qf.getAttribute("twitterHeardClick"), "no", "twitter didn't hear our click");
-      assert.equal(el.rel.includes("noreferrer"), true, "we add noreferrer");
-      done();
+    script.onload = function() {
+      tweet.click();
+
+      assert.equal(tweet.href, destination, "we replaced the link");
+      assert.equal(fixture.getAttribute("heardClick"), "no", "twitter didn't hear our click");
+      assert.equal(tweet.rel.includes("noreferrer"), true, "we add noreferrer");
 
       selector.restore();
+      done();
     };
-    qf.appendChild(script);
+
+    fixture.appendChild(tweet);
+    fixture.appendChild(script);
 
   });
+
 }());
