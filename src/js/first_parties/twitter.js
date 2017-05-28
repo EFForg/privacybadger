@@ -25,6 +25,6 @@ function unwrapTwitterURLs() {
 }
 
 if (typeof wasrun === "undefined" || !wasrun) {
-  var wasrun = true;
+  window.wasrun = true;
   unwrapTwitterURLs();
 }
