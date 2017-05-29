@@ -104,7 +104,6 @@ function getScPageScript() {
         });
     }
 
-  // save locally to keep from getting overwritten by site code
   } + "());";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
