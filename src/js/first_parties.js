@@ -1,4 +1,3 @@
-/* globals log:false */
 require.scopes.firstparties = (function() {
 
 var firstPartyScripts = {

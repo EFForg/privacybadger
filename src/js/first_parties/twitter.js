@@ -16,10 +16,10 @@ function unwrapTwitterURLs() {
     let attr = element.getAttribute(config.queryParam);
     if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
       // replace all the t.co url's tha correspond to this destination
-      matchingTcos = document.querySelectorAll("a[href='" + element.href + "']");
-      nMatches = matchingTcos.length;
+      let matchingTcos = document.querySelectorAll("a[href='" + element.href + "']");
+      let nMatches = matchingTcos.length;
       for (let j = 0; j < nMatches; j++) {
-        tco = matchingTcos[j];
+        let tco = matchingTcos[j];
         tco.href = attr;
         tco.addEventListener("click", function (e) {
           e.stopPropagation();
@@ -31,7 +31,7 @@ function unwrapTwitterURLs() {
   setTimeout(() => {unwrapTwitterURLs();}, 2000);
 }
 
-if (typeof wasrun === "undefined" || !wasrun) {
+if (typeof wasrun === "undefined" || !wasrun) {  // eslint-disable-line no-undef
   window.wasrun = true;
   unwrapTwitterURLs();
 }
