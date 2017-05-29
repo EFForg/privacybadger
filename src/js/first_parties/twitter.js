@@ -31,7 +31,7 @@ function unwrapTwitterURLs() {
   setTimeout(() => {unwrapTwitterURLs();}, 2000);
 }
 
-if (typeof wasrun === "undefined" || !wasrun) {  // eslint-disable-line no-undef
+if (typeof window.wasrun === "undefined" || !window.wasrun) {
   window.wasrun = true;
   unwrapTwitterURLs();
 }
