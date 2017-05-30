@@ -16,22 +16,52 @@ function unwrapTco(tco, attr) {
 
 function unwrapTwitterURLs() {
   let query = "a[" + config.queryParam + "][href^='https://t.co/'], a[" + config.queryParam + "][href^='http://t.co/']";
-  // get links with t.co url's and destination url
   let aElems = document.querySelectorAll(query);
   for (let element of aElems) {
     let attr = element.getAttribute(config.queryParam);
     if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
-      // replace all the t.co url's tha correspond to this destination
-      let matchingTcos = document.querySelectorAll("a[href='" + element.href + "']");
-      for (let tco of matchingTcos) {
-        unwrapTco(tco, attr);
+      let toBeReplaced = element.href;
+      fixes[toBeReplaced] = attr;
+      if (badURLQuery) {
+        badURLQuery += ", ";
+      }
+      badURLQuery += "a[href='" + toBeReplaced + "']";
+      unwrapTco(element, attr);
+    }
+  }
+  setTimeout(unwrapTwitterURLs, 2000);
+}
+
+function catchReappearingURLs() {
+  function innerCatcher(bads) {
+    for (let bad of bads) {
+      let fix = fixes[bad.href];
+      if (fix) {
+        unwrapTco(bad, fix);
       }
     }
   }
-  setTimeout(() => {unwrapTwitterURLs();}, 2000);
+
+  if (badURLQuery) {
+    innerCatcher(document.querySelectorAll(badURLQuery));
+
+    let iframes = document.querySelectorAll("iframe");
+    for (let iframe of iframes) {
+      try {
+        innerCatcher(iframe.contentDocument.querySelectorAll(badURLQuery));
+      } catch(e) {
+        continue;
+      }
+    }
+  }
+  setTimeout(catchReappearingURLs, 5000);
 }
 
 if (typeof window.wasrun === "undefined" || !window.wasrun) {
   window.wasrun = true;
+  var badURLQuery = "";
+  var fixes = {};
+
   unwrapTwitterURLs();
+  catchReappearingURLs();
 }
