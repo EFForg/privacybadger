@@ -700,12 +700,8 @@ function startListeners() {
 
 /************************************** exports */
 var exports = {};
-exports.getFrameData = getFrameData;
 exports.getHostForTab = getHostForTab;
-exports.getFrameUrl = getFrameUrl;
 exports.startListeners = startListeners;
-exports.isSocialWidgetTemporaryUnblock = isSocialWidgetTemporaryUnblock;
-
 return exports;
 /************************************** exports */
 })();

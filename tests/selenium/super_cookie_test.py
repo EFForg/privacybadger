@@ -57,9 +57,6 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         """
         self.load_url("https://rawgit.com/gunesacar/24d81a5c964cb563614162c264be32f0/raw/8fa10f97b87343dfb62ae9b98b753c73a995157e/frame_ls.html",  # noqa
                       wait_on_site=5)
-        #self.driver.switch_to_frame(self.driver.
-        #                            find_element_by_tag_name("iframe"))
-        #print(self.js("return localStorage['frameId']"))
         self.assertTrue(self.detected_tracking_by("githack.com"))
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
