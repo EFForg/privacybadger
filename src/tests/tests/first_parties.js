@@ -37,7 +37,7 @@
 
     // load the content script
     let script = document.createElement("script");
-    script.src = "../js/first_parties/twitter.js";
+    script.src = "../js/firstparties/twitter.js";
     script.onload = function() {
       tweet.click();
 
