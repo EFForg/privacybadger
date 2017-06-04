@@ -465,16 +465,15 @@ function recordFingerprinting(tabId, msg) {
 /**
  * Read the frame data from memory
  *
- * @param tabId TabId to check for
- * @param frameId FrameID to check for
+ * @param tab_id Tab ID to check for
+ * @param frame_id Frame ID to check for
  * @returns {*} Frame data object or null
  */
-function getFrameData(tabId, frameId) {
-  if (tabId in badger.tabData && frameId in badger.tabData[tabId].frames){
-    return badger.tabData[tabId].frames[frameId];
-  } else if (frameId > 0 && tabId in badger.tabData && 0 in badger.tabData[tabId].frames) {
-    // We don't know anything about javascript: or data: frames, use top frame
-    return badger.tabData[tabId].frames[0];
+function getFrameData(tab_id, frame_id) {
+  if (badger.tabData.hasOwnProperty(tab_id)) {
+    if (badger.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
+      return badger.tabData[tab_id].frames[frame_id];
+    }
   }
   return null;
 }
