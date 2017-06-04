@@ -10,8 +10,19 @@ import pbtest
 
 from selenium.webdriver.common.keys import Keys
 
+
 class SuperCookieTest(pbtest.PBSeleniumTest):
     """Make sure we detect potential supercookies. """
+
+    def detected_tracking_by(self, origin):
+        self.load_url(self.bg_url, wait_on_site=1)
+
+        CHECK_SNITCH_MAP_JS = """return (
+  badger.storage.getBadgerStorageObject('snitch_map')
+    .getItemClones().hasOwnProperty('{}')
+);""".format(origin)
+
+        return self.js(CHECK_SNITCH_MAP_JS)
 
     def has_supercookies(self, origin):
         """Check if the given origin has supercookies in PB's localStorage."""
@@ -20,6 +31,24 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
             "getBadgerStorageObject('supercookie_domains').getItemClones())"
         supercookieDomains = json.loads(self.js(get_sc_domains_js))
         return origin in supercookieDomains
+
+    # test for https://github.com/EFForg/privacybadger/pull/1403
+    def test_async_navigation_tracker_misattribution(self):
+        self.load_url("https://cdn.rawgit.com/ghostwords/d3685dc39f7e67dddf1edf2614beb6fc/raw/a78cfd6c86d51a8d8ab1e214e4e49e2c025d4715/privacy_badger_async_bug_test_fixture.html")
+
+        # the above HTML page reloads itself furiously to trigger our bug
+        # we need to wait for it to finish reloading
+        self.wait_for_script("return window.DONE_RELOADING === true")
+
+        # the HTML page contains:
+
+        # an iframe from gistcdn.githack.com that writes to localStorage
+        self.assertTrue(self.detected_tracking_by("githack.com"),
+            msg="IFrame sets localStorage but was not flagged as a tracker.")
+
+        # and an image from raw.githubusercontent.com that doesn't do any tracking
+        self.assertFalse(self.detected_tracking_by("raw.githubusercontent.com"),
+            msg="Image is not a tracker but was flagged as one.")
 
     @pbtest.repeat_if_failed(5)
     def test_should_detect_ls_of_third_party_frame(self):
