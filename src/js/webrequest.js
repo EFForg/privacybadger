@@ -86,15 +86,6 @@ function onBeforeRequest(details){
     return {};
   }
 
-  // Read the supercookie state from localStorage and store it in frameData
-  var frameData = getFrameData(tab_id, frame_id);
-  if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
-    var supercookieDomains = badger.getSupercookieDomains();
-    var origin = window.getBaseDomain(requestDomain);
-    frameData.superCookie = supercookieDomains.hasItem(origin) ? true : false;
-    log("onBeforeRequest: read superCookie state from localstorage for",
-            origin, frameData.superCookie, tab_id, frame_id);
-  } 
   var requestAction = checkAction(tab_id, url, false, frame_id);
   if (requestAction) {
     if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
@@ -354,7 +345,7 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
 }
 
 /**
- * Store super cookie data in memory. Also stored in Local Storage
+ * Record "supercookie" tracking
  *
  * @param sender message sender
  * @param msg super cookie message dict
@@ -363,26 +354,18 @@ function recordSuperCookie(sender, msg) {
   if (incognito.tabIsIncognito(sender.tab.id)) {
     return;
   }
-  /* Update frameData and localStorage about the supercookie finding */
-  var frameHost = window.extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
-  var frameOrigin = window.getBaseDomain(frameHost);
+
+  // docUrl: url of the frame with supercookie
+  var frameHost = window.extractHostFromURL(msg.docUrl);
   var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+
   if (!isThirdPartyDomain(frameHost, pageHost)) {
-    // Only happens on the start page for google.com.
+    // Only happens on the start page for google.com
     return;
   }
 
-  // Keep frame's supercookie state in frameData for faster lookups
-  var frameData = getFrameData(sender.tab.id, sender.frameId);
-  if (frameData){
-    frameData.superCookie = true;
-  }
-  // Now add the finding to localStorage for persistence
-  var supercookieDomains = badger.getSupercookieDomains();
-  // We could store the type of supercookie once we start to check multiple storage vectors
-  // Could be useful for debugging & bookkeeping.
-  
-  supercookieDomains.setItem(frameOrigin, true);
+  badger.heuristicBlocking.updateTrackerPrevalence(
+    frameHost, window.getBaseDomain(pageHost));
 }
 
 /**

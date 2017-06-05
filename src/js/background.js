@@ -523,14 +523,9 @@ Badger.prototype = {
     }
   },
 
-  /**
-   * Get Supercookie data from storage
-   * @returns {*|{}} Dict with Supercookie domains
-   */
-  getSupercookieDomains: function() {
-    return this.storage.getBadgerStorageObject('supercookie_domains');
+  getSettings: function() {
+    return this.storage.getBadgerStorageObject('settings_map');
   },
-  getSettings: function(){ return this.storage.getBadgerStorageObject('settings_map'); },
 
   /**
    * Check if privacy badger is enabled, take an origin and
@@ -717,10 +712,6 @@ Badger.prototype = {
     chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
     chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
   },
-
-  getFrameData: function(tabId, frameId){
-    return webrequest.getFrameData(tabId, frameId);
-  }
 
 };
 
