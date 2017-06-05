@@ -92,7 +92,6 @@
   },
   "options_page": "/skin/options.html",
   "web_accessible_resources": [
-    "skin/*",
-    "icons/*"
+    "skin/socialwidgets/*"
   ]
 }

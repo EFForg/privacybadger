@@ -52,7 +52,7 @@ var REPLACEMENT_BUTTONS_FOLDER_PATH = chrome.extension.getURL("skin/socialwidget
 /**
  * The absolute path to the stylesheet that is injected into every page.
  */
-var CONTENT_SCRIPT_STYLESHEET_PATH = chrome.extension.getURL("skin/socialwidgets.css");
+var CONTENT_SCRIPT_STYLESHEET_PATH = chrome.extension.getURL("skin/socialwidgets/socialwidgets.css");
 
 /**
  * Social widget tracker data, read from file.
