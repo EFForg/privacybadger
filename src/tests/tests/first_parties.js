@@ -3,10 +3,12 @@
   let destination = "https://the.beach/";
 
   function makeTweet(destURL) {
-    let elemnt = document.createElement("div");
-    elemnt.href = tco;
-    elemnt.setAttribute(destURL, destination);
-    return elemnt;
+    let element = document.createElement("a");
+    element.id = 'timeline';
+    element.href = tco;
+    element.rel = '';
+    element.setAttribute(destURL, destination);
+    return element;
   }
 
   function addClickListener(element) {
@@ -29,9 +31,6 @@
     addClickListener(fixture);
     let tweet = makeTweet(attribute);
 
-    const selector = sinon.stub(document, "querySelectorAll");
-    selector.returns([tweet]);
-
     // set the config for twitter.js
     window.config = {"queryParam": attribute};
 
@@ -43,9 +42,8 @@
 
       assert.equal(tweet.href, destination, "we replaced the link");
       assert.equal(fixture.getAttribute("heardClick"), "no", "twitter didn't hear our click");
-      assert.equal(tweet.rel.includes("noreferrer"), true, "we add noreferrer");
+      assert.equal(tweet.getAttribute('rel').includes("noreferrer"), true, "we add noreferrer");
 
-      selector.restore();
       done();
     };
 

@@ -1,4 +1,39 @@
-/* globals config */
+ /* todo:
+  * * setup observers
+  * the tests are 
+ */
+
+let queryParam = 'data-expanded-url';
+let badURLQuery = "";
+let fixes = {};
+let query = "a[" + queryParam + "][href^='https://t.co/'], a[" + queryParam + "][href^='http://t.co/']";
+
+function startObserver() {
+  let observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node.matches(query)) {
+          let attr = node.getAttribute(queryParam);
+          if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
+            let toBeReplaced = node.href;
+            fixes[toBeReplaced] = attr;
+            if (badURLQuery) {
+              badURLQuery += ", ";
+            }
+            console.log('unwrapped in observer');
+            unwrapTco(node, attr);
+            badURLQuery += "a[href='" + toBeReplaced + "']";
+          }
+        }
+      });
+    });
+  });
+
+  let timeline = document.getElementById('timeline');
+  let config = {childList: true, subtree: true};
+  observer.observe(timeline, config);
+  return observer;
+}
 
 function maybeAddNoreferrer(element) {
   let rel = element.rel ? element.rel : "";
@@ -7,6 +42,7 @@ function maybeAddNoreferrer(element) {
 }
 
 function unwrapTco(tco, attr) {
+  console.log('unwrapping ' + tco + attr);
   tco.href = attr;
   tco.addEventListener("click", function (e) {
     e.stopPropagation();
@@ -14,24 +50,33 @@ function unwrapTco(tco, attr) {
   maybeAddNoreferrer(tco);
 }
 
-function unwrapTwitterURLs() {
-  let query = "a[" + config.queryParam + "][href^='https://t.co/'], a[" + config.queryParam + "][href^='http://t.co/']";
-  let aElems = document.querySelectorAll(query);
-  for (let element of aElems) {
-    let attr = element.getAttribute(config.queryParam);
-    if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
-      let toBeReplaced = element.href;
-      fixes[toBeReplaced] = attr;
-      if (badURLQuery) {
-        badURLQuery += ", ";
-      }
-      badURLQuery += "a[href='" + toBeReplaced + "']";
-      unwrapTco(element, attr);
+function checkLink(linkElelement) {
+  let attr = linkElelement.getAttribute(queryParam);
+  if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
+    let toBeReplaced = linkElelement.href;
+    fixes[toBeReplaced] = attr;
+    if (badURLQuery) {
+      badURLQuery += ", ";
     }
+    unwrapTco(linkElelement, attr);
+    badURLQuery += "a[href='" + toBeReplaced + "']";
+    console.log('unwrapped one');
   }
-  setTimeout(unwrapTwitterURLs, 2000);
 }
 
+function unwrapTwitterURLs() {
+  debugger;
+  let aElems = document.querySelectorAll(query);
+  for (let element of aElems) {
+    console.log('found elem');
+    checkLink(element);
+  }
+}
+/* main */
+startObserver();
+unwrapTwitterURLs();
+
+/* deprecate below */
 function catchReappearingURLs() {
   function innerCatcher(bads) {
     for (let bad of bads) {
@@ -55,13 +100,4 @@ function catchReappearingURLs() {
     }
   }
   setTimeout(catchReappearingURLs, 5000);
-}
-
-if (typeof window.wasrun === "undefined" || !window.wasrun) {
-  window.wasrun = true;
-  var badURLQuery = "";
-  var fixes = {};
-
-  unwrapTwitterURLs();
-  catchReappearingURLs();
 }
