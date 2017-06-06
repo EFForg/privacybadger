@@ -2,6 +2,20 @@
   let tco = 'http://t.co/beach-detour/';
   let destination = 'https://the.beach/';
 
+  document.querySelectorAllBefore = document.querySelectorAll;
+  function stub(tweet) {
+    document.querySelectorAll = function (query) {
+      if (query.includes('data-expanded-url')) {
+        return [tweet];
+      } else {
+        return document.querySelectorAllBefore(query);
+      }
+    }
+  }
+  function unstub() {
+    document.querySelectorAll = document.querySelectorAllBefore;
+  }
+
   function makeTweet(destURL) {
     let element = document.createElement('div');
     element.href = tco;
@@ -22,7 +36,7 @@
 
   QUnit.test('twitter', (assert) => {
     let attribute = 'data-expanded-url';
-    const NUM_CHECKS = 3,
+    const NUM_CHECKS = 1,
       done = assert.async();
     assert.expect(NUM_CHECKS);
 
@@ -39,14 +53,17 @@
     script.onload = function() {
       tweet.click();
 
-      assert.equal(
-        (tweet.href == destination) && 
-        (fixture.getAttribute('heardClick') == 'no') && 
-        (tweet.getAttribute('rel').includes('noreferrer') == true));
+      assert.ok(
+        (tweet.href == destination) &&  // replaced the link
+        (fixture.getAttribute('heardClick') == 'no') &&  // twitter didn't hear the click
+        (tweet.rel.includes('noreferrer') == true) // added noreferrer
+      );
 
+      unstub();
       done();
     };
 
+    stub(tweet);
     fixture.appendChild(tweet);
     fixture.appendChild(script);
 
