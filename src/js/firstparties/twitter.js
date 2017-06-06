@@ -1,39 +1,7 @@
- /* todo:
-  * * setup observers
-  * the tests are 
- */
-
-let queryParam = 'data-expanded-url';
-let badURLQuery = "";
+let query_param = 'data-expanded-url';
+let found_tcos_query = "";
 let fixes = {};
-let query = "a[" + queryParam + "][href^='https://t.co/'], a[" + queryParam + "][href^='http://t.co/']";
-
-function startObserver() {
-  let observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach((node) => {
-        if (node.matches(query)) {
-          let attr = node.getAttribute(queryParam);
-          if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
-            let toBeReplaced = node.href;
-            fixes[toBeReplaced] = attr;
-            if (badURLQuery) {
-              badURLQuery += ", ";
-            }
-            console.log('unwrapped in observer');
-            unwrapTco(node, attr);
-            badURLQuery += "a[href='" + toBeReplaced + "']";
-          }
-        }
-      });
-    });
-  });
-
-  let timeline = document.getElementById('timeline');
-  let config = {childList: true, subtree: true};
-  observer.observe(timeline, config);
-  return observer;
-}
+let tcos_with_target_query = "a[" + query_param + "][href^='https://t.co/'], a[" + query_param + "][href^='http://t.co/']";
 
 function maybeAddNoreferrer(element) {
   let rel = element.rel ? element.rel : "";
@@ -41,9 +9,11 @@ function maybeAddNoreferrer(element) {
   element.rel = rel;
 }
 
-function unwrapTco(tco, attr) {
-  console.log('unwrapping ' + tco + attr);
-  tco.href = attr;
+function unwrapTco(tco, target) {
+  if (!target) {
+    return;
+  }
+  tco.href = target;
   tco.addEventListener("click", function (e) {
     e.stopPropagation();
   });
@@ -51,53 +21,42 @@ function unwrapTco(tco, attr) {
 }
 
 function checkLink(linkElelement) {
-  let attr = linkElelement.getAttribute(queryParam);
+  let attr = linkElelement.getAttribute(query_param);
   if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
     let toBeReplaced = linkElelement.href;
     fixes[toBeReplaced] = attr;
-    if (badURLQuery) {
-      badURLQuery += ", ";
+    if (found_tcos_query) {
+      found_tcos_query += ", ";
     }
     unwrapTco(linkElelement, attr);
-    badURLQuery += "a[href='" + toBeReplaced + "']";
-    console.log('unwrapped one');
+    found_tcos_query += "a[href='" + toBeReplaced + "']";
   }
 }
 
 function unwrapTwitterURLs() {
-  debugger;
-  let aElems = document.querySelectorAll(query);
-  for (let element of aElems) {
-    console.log('found elem');
-    checkLink(element);
+  function removeInDoc(doc) {
+    let yes_target = doc.querySelectorAll(tcos_with_target_query);
+    for (let i = 0; i < yes_target.length; i++) {
+      checkLink(yes_target[i]);
+    }
+    if (found_tcos_query) {
+      let no_target = doc.querySelectorAll(found_tcos_query);
+      for (let i = 0; i < no_target.length; i++) {
+        unwrapTco(no_target[i], fixes[no_target[i].href]);
+      }
+    }
+  }
+
+  removeInDoc(document);
+  let iframes = document.getElementsByTagName('iframe');
+  for (let i = 0; i < iframes.length; i++) {
+    try {
+      removeInDoc(iframes[i].contentDocument);
+    } catch(e) {
+      console.log(e);
+    }
   }
 }
-/* main */
-startObserver();
+
 unwrapTwitterURLs();
-
-/* deprecate below */
-function catchReappearingURLs() {
-  function innerCatcher(bads) {
-    for (let bad of bads) {
-      let fix = fixes[bad.href];
-      if (fix) {
-        unwrapTco(bad, fix);
-      }
-    }
-  }
-
-  if (badURLQuery) {
-    innerCatcher(document.querySelectorAll(badURLQuery));
-
-    let iframes = document.querySelectorAll("iframe");
-    for (let iframe of iframes) {
-      try {
-        innerCatcher(iframe.contentDocument.querySelectorAll(badURLQuery));
-      } catch(e) {
-        continue;
-      }
-    }
-  }
-  setTimeout(catchReappearingURLs, 5000);
-}
+setInterval(unwrapTwitterURLs, 1500);
