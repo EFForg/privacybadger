@@ -22,6 +22,8 @@ $ npm install
 
 Developers should sign up for the privacy badger mailing list at https://lists.eff.org/mailman/listinfo/privacybadger
 
+We have public meetings for discussing development every Monday and Thursday at 11:30am PST on https://meet.jit.si/PoliteBadgersSingEuphoricly
+
 ### Testing
 
 This project is using the [QUnit](http://qunitjs.com/), [py.test](http://pytest.org/), [Selenium](http://www.seleniumhq.org/) test frameworks
