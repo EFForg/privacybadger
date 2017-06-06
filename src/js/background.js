@@ -31,7 +31,6 @@ window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/soc
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
-var firstparties = require("firstparties");
 
 /**
 * privacy badger initializer
@@ -755,7 +754,6 @@ var badger = window.badger = new Badger();
 * Start all the listeners
 */
 incognito.startListeners();
-firstparties.startListeners();
 webrequest.startListeners();
 HeuristicBlocking.startListeners();
 startBackgroundListeners();
