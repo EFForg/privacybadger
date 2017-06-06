@@ -20,15 +20,15 @@ function unwrapTco(tco, target) {
   maybeAddNoreferrer(tco);
 }
 
-function checkLink(linkElelement) {
-  let attr = linkElelement.getAttribute(query_param);
+function checkLink(linkElement) {
+  let attr = linkElement.getAttribute(query_param);
   if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
-    let toBeReplaced = linkElelement.href;
+    let toBeReplaced = linkElement.href;
     fixes[toBeReplaced] = attr;
     if (found_tcos_query) {
       found_tcos_query += ", ";
     }
-    unwrapTco(linkElelement, attr);
+    unwrapTco(linkElement, attr);
     found_tcos_query += "a[href='" + toBeReplaced + "']";
   }
 }
