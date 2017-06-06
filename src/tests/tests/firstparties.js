@@ -10,7 +10,7 @@
       } else {
         return document.querySelectorAllBefore(query);
       }
-    }
+    };
   }
   function unstub() {
     document.querySelectorAll = document.querySelectorAllBefore;
