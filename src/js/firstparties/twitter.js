@@ -1,62 +1,55 @@
 let query_param = 'data-expanded-url';
-let found_tcos_query = "";
+let tcos_with_destination = "a[" + query_param + "][href^='https://t.co/'], a[" + query_param + "][href^='http://t.co/']";
 let fixes = {};
-let tcos_with_target_query = "a[" + query_param + "][href^='https://t.co/'], a[" + query_param + "][href^='http://t.co/']";
 
-function maybeAddNoreferrer(element) {
-  let rel = element.rel ? element.rel : "";
+function maybeAddNoreferrer(link) {
+  let rel = link.rel ? link.rel : "";
   if (!rel.includes("noreferrer")) {rel += " noreferrer";}
-  element.rel = rel;
+  link.rel = rel;
 }
 
-function unwrapTco(tco, target) {
-  if (!target) {
+function unwrapTco(tco, destination) {
+  if (!destination) {
     return;
   }
-  tco.href = target;
+  tco.href = destination;
   tco.addEventListener("click", function (e) {
     e.stopPropagation();
   });
   maybeAddNoreferrer(tco);
 }
 
-function checkLink(linkElement) {
-  let attr = linkElement.getAttribute(query_param);
-  if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
-    let toBeReplaced = linkElement.href;
-    fixes[toBeReplaced] = attr;
-    if (found_tcos_query) {
-      found_tcos_query += ", ";
-    }
-    unwrapTco(linkElement, attr);
-    found_tcos_query += "a[href='" + toBeReplaced + "']";
-  }
-}
-
-function unwrapTwitterURLs() {
-  function removeInDoc(doc) {
-    let yes_target = doc.querySelectorAll(tcos_with_target_query);
-    for (let i = 0; i < yes_target.length; i++) {
-      checkLink(yes_target[i]);
-    }
-    if (found_tcos_query) {
-      let no_target = doc.querySelectorAll(found_tcos_query);
-      for (let i = 0; i < no_target.length; i++) {
-        unwrapTco(no_target[i], fixes[no_target[i].href]);
-      }
-    }
-  }
-
-  removeInDoc(document);
-  let iframes = document.getElementsByTagName('iframe');
-  for (let i = 0; i < iframes.length; i++) {
+function findInAllFrames(query) {
+  let out = [];
+  document.querySelectorAll(query).forEach((node) => {
+    out.push(node);
+  });
+  Array.from(document.getElementsByTagName('iframe')).forEach((iframe) => {
     try {
-      removeInDoc(iframes[i].contentDocument);
+      iframe.contentDocument.querySelectorAll(query).forEach((node) => {
+        out.push(node);
+      });
     } catch(e) {
       console.log(e);
     }
-  }
+  });
+  return out;
+}
+
+function unwrapTwitterURLs() {
+  findInAllFrames(tcos_with_destination).forEach((link) => {
+    let attr = link.getAttribute(query_param);
+    if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
+      fixes[link.href] = attr;
+      unwrapTco(link, attr);
+    }
+  });
+  findInAllFrames("a[href^='https://t.co/'], a[href^='http://t.co/'").forEach((link) => {
+    if (fixes.hasOwnProperty(link.href)) {
+      unwrapTco(link, fixes[link.href]);
+    }
+  });
 }
 
 unwrapTwitterURLs();
-setInterval(unwrapTwitterURLs, 1500);
+setInterval(unwrapTwitterURLs, 2000);
