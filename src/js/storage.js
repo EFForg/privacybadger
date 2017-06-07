@@ -54,16 +54,17 @@ require.scopes.storage = (function() {
  * }
  **/
 
-function BadgerPen(callback) {
-  var keys = [
-    "snitch_map",
-    "action_map",
-    "cookieblock_list",
-    "supercookie_domains",
-    "dnt_hashes",
-    "settings_map",
-  ];
+let keys = [
+  "snitch_map",
+  "action_map",
+  "cookieblock_list",
+  "supercookie_domains",
+  "dnt_hashes",
+  "settings_map",
+];
 
+
+function BadgerPen(callback) {
   var bp = this;
   // Now check localStorage
   chrome.storage.local.get(keys, function(store){
@@ -83,6 +84,19 @@ function BadgerPen(callback) {
 }
 
 BadgerPen.prototype = {
+  /**
+   * Reset the storage on the badeger.
+   * THIS WILL WIPE ALL DATA
+   **/
+  factoryReset: function () {
+    let bp = this;
+    _.each(keys, function(key) {
+      let storage_obj = new BadgerStorage(key, {});
+      bp[key] = storage_obj;
+      _syncStorage(storage_obj);
+    });
+  },
+
   getBadgerStorageObject: function(key) {
 
     if(this.hasOwnProperty(key)){
