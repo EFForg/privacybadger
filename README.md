@@ -20,9 +20,13 @@ Within the command line, install the dependencies.
 $ npm install
 ```
 
-Developers should sign up for the privacy badger mailing list at https://lists.eff.org/mailman/listinfo/privacybadger
+### Get in touch
 
-We have public meetings for discussing development every Monday and Thursday at 11:30am PST on https://meet.jit.si/PoliteBadgersSingEuphoricly
+If you want to chat about Privacy Badger please join us in the [`#privacybadger`](https://webchat.freenode.net/?channels=privacybadger) IRC channel on freenode.
+
+We have public hang outs for discussing development, bugs, feature, trackers etc. every Monday and Thursday at 11:30am PST on https://meet.jit.si/PoliteBadgersSingEuphoricly
+
+We also have a mailing list at https://lists.eff.org/mailman/listinfo/privacybadger
 
 ### Testing
 
