@@ -12,7 +12,7 @@
         "message": "Blockerade kakor från "
     },
     "badger_status_noaction": {
-        "message": "No tracking for "
+        "message": "Ingen spårning för "
     },
     "data_settings": {
         "message": "Hantera data"
@@ -39,13 +39,13 @@
         "message": "Privacy Badger-larm!"
     },
     "description": {
-        "message": "Privacy Badger skyddar dig från spårare när du surfar på nätet!"
+        "message": "Privacy Badger skyddar dig mot spårare när du surfar på nätet!"
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger är avaktiverad för domänerna som anges nedan. Du kan lägga till en domän antingen via Privacy Badger-ikonen i adressfältet eller genom att skriva domänen (inte en webbadress) i rutan och klicka på knappen \"Lägg till domän\"."
+        "message": "Privacy Badger är inaktiverad för domänerna som anges nedan. Du kan lägga till en domän antingen via Privacy Badger-ikonen i adressfältet eller genom att skriva domänen (inte en webbadress) i rutan och klicka på knappen \"Lägg till domän\"."
     },
     "dnt_tooltip": {
-        "message": "This domain promises to not track you"
+        "message": "Denna domän lovar att inte spåra dig"
     },
     "donate_to_eff": {
         "message": "Donera till EFF"
@@ -60,7 +60,7 @@
         "message": "Exportera användardata"
     },
     "feed_the_badger_title": {
-        "message": "klicka för att returnera kontrollen över denna spårare till Privacy Badger"
+        "message": "klicka för att återge kontrollen över denna spårare till Privacy Badger"
     },
     "firstRun_title": {
         "message": "Tack för att du installerat Privacy Badger!"
@@ -72,10 +72,10 @@
         "message": "Importera"
     },
     "import_select_file": {
-        "message": "Var god välj en fil att importera."
+        "message": "Vänligen välj en fil att importera."
     },
     "import_successful": {
-        "message": "Lista över spårare och inställningar uppdaterats!"
+        "message": "Lista över spårare och inställningar uppdaterades!"
     },
     "import_user_data": {
         "message": "Importera användardata"
@@ -103,7 +103,7 @@
         "message": "betyder att Privacy Badger tror att den här domänen är en spårare och har blockerat den."
     },
     "intro_hungry": {
-        "message": "Inget kan stoppa Privacy Badger från att äta cookies när den är hungrig!"
+        "message": "Inget kan stoppa Privacy Badger från att äta kakor när den är hungrig!"
     },
     "intro_no_tracker": {
         "message": "innebär att Privacy Badger anser att detta inte är spårare. Du kan klicka på Privacy Badger ikonen i webbläsarens verktygsfält om du vill åsidosätta de automatiska blockeringsinställningarna. Eller du kan bläddra i fred eftersom Privacy Badger börjar hitta och äta upp webbspårare en efter en."
@@ -118,7 +118,7 @@
         "message": "Du skyddas nu av Privacy Badger. För att lära dig hur Privacy Badger fungerar, klicka nedan för en snabb handledning."
     },
     "intro_yellow": {
-        "message": "Gult"
+        "message": "Gul"
     },
     "invalid_json": {
         "message": "Ogiltig JSON-fil."
@@ -133,13 +133,13 @@
         "message": "Domänerna nedan verkar inte spåra dig"
     },
     "non_tracker_tip": {
-        "message": "För närvarande kontrollerar Privacy Badger bara om tredjeparter använder cookies, HTML5-lagring eller canvas fingeravtryck för att spåra din surfning. Vissa av domänerna kan använda spårningsmetoder som Privacy Badger inte kan upptäcka."
+        "message": "För närvarande kontrollerar Privacy Badger bara om tredjeparter använder kakor, HTML5-lagring eller canvas fingeravtryck för att spåra din surfning. Vissa av domänerna kan använda spårningsmetoder som Privacy Badger inte kan upptäcka."
     },
     "options_dnt_policy_learn_more": {
-        "message": "Learn more"
+        "message": "Lär dig mer"
     },
     "options_dnt_policy_setting": {
-        "message": "Check if sites comply with EFF's Do Not Track policy"
+        "message": "Kontrollera om webbplatser överensstämmer med EFF:s Spåra inte-policy"
     },
     "options_domain_search": {
         "message": "Sök domäner"
@@ -154,7 +154,7 @@
         "message": "Laddar..."
     },
     "options_pb_has_detected": {
-        "message": "Sekretess Badger har upptäckt"
+        "message": "Privacy Badger har upptäckte"
     },
     "options_potential": {
         "message": "potentiell"
@@ -163,7 +163,7 @@
         "message": "Är du säker på att du vill ta bort det här ursprunget från Privacy Badger?"
     },
     "options_slider_text": {
-        "message": "Privacy Badger skyddar dig över nätet! Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare som den har flaggat genom din surfning."
+        "message": "Privacy Badger skyddar dig på nätet! Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare som den har flaggat genom din surfning."
     },
     "options_so_far": {
         "message": "än så länge. Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare."
@@ -172,10 +172,10 @@
         "message": "Ersätt sociala widgetar"
     },
     "options_title": {
-        "message": "Privacy Badger alternativ"
+        "message": "Privacy Badger-alternativ"
     },
     "options_tracking_domains": {
-        "message": "spåra domäner"
+        "message": "spårningsdomäner"
     },
     "options_webrtc_setting": {
         "message": "Förhindra WebRTC från att läcka din lokala IP-adress *"
@@ -184,13 +184,13 @@
         "message": "* WebRTC kan läcka din lokala IP-adress. Privacy Badgers standardinställning hjälper dig att skydda dig, men för extra skydd kan du aktivera det här alternativet. Observera att det kan minska prestandan på vissa verktyg som Google Hangouts."
     },
     "pb_detected": {
-        "message": "Privacy Badger upptäckt"
+        "message": "Privacy Badger upptäckte"
     },
     "popup_blocked": {
         "message": "Det finns inga tredjeparts resurser på den här webbplatsen."
     },
     "popup_disable_for_site": {
-        "message": "Avaktivera Privacy Badger för denna webbplats"
+        "message": "Inaktivera Privacy Badger för denna webbplats"
     },
     "popup_enable_for_site": {
         "message": "Aktivera Privacy Badger för denna webbplats"
@@ -199,7 +199,7 @@
         "message": "potentiell <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan. Med dessa reglage kan du styra hur Privacy Badger hanterar var och en. Du behöver inte justera dem om inte något är trasigt."
     },
     "popup_noblocked": {
-        "message": "Varför är inte något blockerat?"
+        "message": "Varför är inget blockerat?"
     },
     "popup_options_button": {
         "message": "Alternativ"
@@ -245,7 +245,7 @@
         "message": "Påpeka ett fel"
     },
     "show_counter_checkbox": {
-        "message": "Visa räkning av blockerade objekt"
+        "message": "Visa antal blockerade objekt"
     },
     "slideshow_1": {
         "message": "Hej, jag är Privacy Badger! Tack för att du installerade mig. Jag är här för att ge dig några användbara tips, så vi kan arbeta tillsammans."
