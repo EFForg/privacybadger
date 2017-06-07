@@ -510,7 +510,6 @@ function removeOrigin(event) {
   var origin = $element.data('origin');
   badger.storage.getBadgerStorageObject("snitch_map").deleteItem(origin);
   badger.storage.getBadgerStorageObject("action_map").deleteItem(origin);
-  badger.storage.getBadgerStorageObject("supercookie_domains").deleteItem(origin);
   backgroundPage.log('Removed', origin, 'from Privacy Badger');
 
   refreshFilterPage();

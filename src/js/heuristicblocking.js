@@ -86,38 +86,6 @@ HeuristicBlocker.prototype = {
   },
 
   /**
-   * Check if SuperCookie tracking is done
-   *
-   * @param details onBeforeSendHeaders details
-   * @param origin The URL
-   * @returns {*} null or the supercookie data structure
-   */
-  hasSupercookieTracking: function(details, origin) {
-    /* This function is called before we hear from the localstorage check in supercookie.js.
-     * So, we're missing the scripts which may have supercookies.
-     * Alternatively, we could record the prevalence when we find hi-entropy localstorage items
-     * and check that record to see if the frame hasSupercookieTracking.
-     */
-    var frameData = badger.getFrameData(details.tabId, details.frameId);
-    if (frameData){
-      return frameData.superCookie;
-    } else { // Check localStorage if we can't find the frame in frameData
-      return badger.getSupercookieDomains().hasItem(origin);
-    }
-  },
-
-  /**
-   * Decides if a origin has tracking
-   *
-   * @param details onBeforeSendHeaders details
-   * @param origin The URL
-   * @returns {bool} true if it has tracking
-   */
-  hasTracking: function(details, origin) {
-    return (hasCookieTracking(details, origin) || this.hasSupercookieTracking(details, origin));
-  },
-
-  /**
    * Wraps _recordPrevalence for use from webRequest listeners.
    * Also saves tab (page) origins. TODO Should be handled by tabData instead.
    * Also sets a timeout for checking DNT policy for third-party FQDNs.
@@ -163,8 +131,8 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    // if there are no tracking cookies or similar things, ignore
-    if (!this.hasTracking(details, origin)) {
+    // ignore if there are no tracking cookies
+    if (!hasCookieTracking(details, origin)) {
       return {};
     }
 

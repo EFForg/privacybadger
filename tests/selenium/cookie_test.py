@@ -139,7 +139,7 @@ https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
         print("this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed")
         self.load_url(SITE1_URL)
         window_utils.close_windows_with_url(self.driver, SITE3_URL)
-        for i in range(60):
+        for i in range(5):
             self.load_pb_ui(SITE1_URL)
             self.get_tracker_state()
 

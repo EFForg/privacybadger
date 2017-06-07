@@ -59,7 +59,6 @@ function BadgerPen(callback) {
     "snitch_map",
     "action_map",
     "cookieblock_list",
-    "supercookie_domains",
     "dnt_hashes",
     "settings_map",
   ];
