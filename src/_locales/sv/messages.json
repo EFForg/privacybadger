@@ -154,7 +154,7 @@
         "message": "Laddar..."
     },
     "options_pb_has_detected": {
-        "message": "Privacy Badger har upptäckte"
+        "message": "Privacy Badger har upptäckt"
     },
     "options_potential": {
         "message": "potentiell"
@@ -245,7 +245,7 @@
         "message": "Påpeka ett fel"
     },
     "show_counter_checkbox": {
-        "message": "Visa antal blockerade objekt"
+        "message": "Visa antalet blockerade objekt"
     },
     "slideshow_1": {
         "message": "Hej, jag är Privacy Badger! Tack för att du installerade mig. Jag är här för att ge dig några användbara tips, så vi kan arbeta tillsammans."
