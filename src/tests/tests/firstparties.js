@@ -24,7 +24,7 @@
   QUnit.test('twitter', (assert) => {
     function stub(tweet) {
       document.querySelectorAllBefore = document.querySelectorAll;
-      document.setIntervalBefore = document.setInterval;
+      window.setIntervalBefore = window.setInterval;
 
       document.querySelectorAll = function (query) {
         if (query.includes('data-expanded-url')) {
@@ -33,12 +33,12 @@
           return document.querySelectorAllBefore(query);
         }
       };
-      document.setInterval = function () {};
+      window.setInterval = function () {};
 
     }
     function unstub() {
       document.querySelectorAll = document.querySelectorAllBefore;
-      document.setInterval = document.setIntervalBefore;
+      window.setInterval = window.setIntervalBefore;
     }
 
 
