@@ -2,20 +2,6 @@
   let tco = 'http://t.co/beach-detour/';
   let destination = 'https://the.beach/';
 
-  document.querySelectorAllBefore = document.querySelectorAll;
-  function stub(tweet) {
-    document.querySelectorAll = function (query) {
-      if (query.includes('data-expanded-url')) {
-        return [tweet];
-      } else {
-        return document.querySelectorAllBefore(query);
-      }
-    };
-  }
-  function unstub() {
-    document.querySelectorAll = document.querySelectorAllBefore;
-  }
-
   function makeTweet(destURL) {
     let element = document.createElement('div');
     element.href = tco;
@@ -34,7 +20,28 @@
 
   QUnit.module('First parties');
 
+
   QUnit.test('twitter', (assert) => {
+    function stub(tweet) {
+      document.querySelectorAllBefore = document.querySelectorAll;
+      document.setIntervalBefore = document.setInterval;
+
+      document.querySelectorAll = function (query) {
+        if (query.includes('data-expanded-url')) {
+          return [tweet];
+        } else {
+          return document.querySelectorAllBefore(query);
+        }
+      };
+      document.setInterval = function () {};
+
+    }
+    function unstub() {
+      document.querySelectorAll = document.querySelectorAllBefore;
+      document.setInterval = document.setIntervalBefore;
+    }
+
+
     let attribute = 'data-expanded-url';
     const NUM_CHECKS = 1,
       done = assert.async();
@@ -43,9 +50,6 @@
     let fixture = document.getElementById('qunit-fixture');
     addClickListener(fixture);
     let tweet = makeTweet(attribute);
-
-    // set the config for twitter.js
-    window.config = {'queryParam': attribute};
 
     // load the content script
     let script = document.createElement('script');

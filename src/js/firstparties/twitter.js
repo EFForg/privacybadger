@@ -30,7 +30,7 @@ function findInAllFrames(query) {
         out.push(node);
       });
     } catch(e) {
-      console.log(e);
+      // pass on cross origin iframe errors
     }
   });
   return out;
