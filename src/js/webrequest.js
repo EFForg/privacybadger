@@ -335,8 +335,8 @@ function recordSuperCookie(sender, msg) {
   }
 
   // docUrl: url of the frame with supercookie
-  var frameHost = window.extractHostFromURL(msg.docUrl);
-  var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+  let frameHost = window.extractHostFromURL(msg.docUrl);
+  let pageHost = tabs.getTabHost(sender.tab.id);
 
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com
@@ -365,7 +365,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = window.extractHostFromURL(getFrameUrl(tabId, 0));
+    document_host = tabs.getFrameHost(tabId);
   if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -484,7 +484,7 @@ function checkAction(tabId, url, quiet, frameId){
   }
 
   // Ignore requests that don't have a document URL for some reason.
-  var documentUrl = getFrameUrl(tabId, 0);
+  var documentUrl = tabs.getTabHost(tabId);
   if (! documentUrl) {
     return false;
   }
@@ -591,7 +591,7 @@ function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var requestHost = window.extractHostFromURL(url);
   var requestExcept = (exceptions.indexOf(requestHost) != -1);
 
-  var frameHost = window.extractHostFromURL(getFrameUrl(tabId, frameId));
+  var frameHost = tabs.getFrameHost(tabId, frameId);
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
   return (requestExcept || frameExcept);
