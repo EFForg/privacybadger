@@ -21,27 +21,53 @@ function isMainPage(details) {
   return false;
 }
 
-// receives the details object that is passed from webRequest.onBeforeRequest 
+function isSubFrame(details) {
+  if (details.frameId > 0 &&
+      (details.type == 'main_frame' || details.type == 'sub_frame')) {
+    return true;
+  }
+  return false;
+}
+
+
+/**
+ * Receives the details object that is passed from webRequest.onBeforeRequest
+ */
 function requestAccountant(details) {
+  console.log(details);
   if (isMainPage(details)) {
     log('New tab url: ' + details.url);
-    tabs[details.tabId] = details.url;
+    tabs[details.tabId] = {0: details.url};
+  } else if (isSubFrame(details)) {
+    let frames = tabs[details.tabId];
+    if (!frames) {
+      log('ERROR unitialized tab for :' + details.tabId);
+    }
+    frames[details.frameId] = details.url;
   }
+}
+
+function getFrameHost(tabId, frameId) {
+  let frames = tabs[tabId];
+  if (!frames) {
+    log('ERROR: missing tab data for tabId: ' + tabId);
+    return '';
+  }
+  let url = frames[frameId];
+  if (!url) {
+    log('ERROR: missing subframe url for: ' + url);
+  }
+  return window.extractHostFromURL(frames[frameId]);
 }
 
 
 /**
  * Gets the host name for a given tab id
- * @param {details} the details object passed into the callback of onBeforeRequest
+ * @param {Integer} tabId chrome tab id
  * @return {String} the host name for the tab
  */
-function getTabHost(details) {
-  let url = tabs[details.tabId];
-  if (!url) {
-    log('ERROR: missing url for tabId: ' + details.tabId);
-    return '';
-  }
-  return window.extractHostFromURL(url);
+function getTabHost(tabId) {
+  return getFrameHost(tabId, 0);
 }
 
 
