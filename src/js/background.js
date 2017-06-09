@@ -31,6 +31,7 @@ window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/soc
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
+var tabs = require("tabs");
 
 /**
 * privacy badger initializer
@@ -499,7 +500,7 @@ Badger.prototype = {
    * @param {Object} details details object from onBeforeRequest event
    */
   updateCount: function(details) {
-    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
+    if(!this.isPrivacyBadgerEnabled(tabs.getTabHost(details))){
       return;
     }
 

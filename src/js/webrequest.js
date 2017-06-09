@@ -28,6 +28,7 @@ var constants = require('constants');
 var getSurrogateURI = require('surrogates').getSurrogateURI;
 var mdfp = require('multiDomainFP');
 var incognito = require("incognito");
+var tabs = require('tabs');
 
 require.scopes.webrequest = (function() {
 
@@ -46,6 +47,7 @@ var temporarySocialWidgetUnblock = {};
  * @returns {*} Can cancel requests
  */
 function onBeforeRequest(details){
+  tabs.requestAccountant(details);
   var frame_id = details.frameId,
     tab_id = details.tabId,
     type = details.type,
@@ -75,7 +77,7 @@ function onBeforeRequest(details){
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
+  var tabDomain = tabs.getTabHost(details);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
@@ -141,7 +143,7 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
+  var tabDomain = tabs.getTabHost(details);
   var requestDomain = window.extractHostFromURL(url);
 
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
@@ -226,7 +228,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
+  var tabDomain = tabs.getTabHost(details);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
@@ -568,7 +570,7 @@ function _isTabAnExtension(tabId) {
   return (
     _frameUrlStartsWith(tabId, "chrome-extension://") ||
     _frameUrlStartsWith(tabId, "moz-extension://")
-   );
+  );
 }
 
 /**
@@ -700,7 +702,6 @@ function startListeners() {
 
 /************************************** exports */
 var exports = {};
-exports.getHostForTab = getHostForTab;
 exports.startListeners = startListeners;
 return exports;
 /************************************** exports */
