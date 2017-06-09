@@ -10,7 +10,47 @@
 /* globals log:false */
 require.scopes.tabs = (function() {
 
+
+let ready = false;
 let tabs = {};
+
+function newFrameData(tabURL, frameURL) {
+  return {'tabURL': tabURL, 'frameURL': frameURL};
+}
+
+
+/* must run before requestAccountant is listening */
+function initialize() {
+  log('initializing existing tabs');
+  chrome.tabs.query({}, (tabArray) => {
+    tabArray.forEach((tab) => {
+      tabs[tab.id] = {0: newFrameData(tab.url, tab.url)};
+      log('initializing tab: ' + tab.id + '\nwith url: ' + tab.url);
+    });
+    ready = true;
+    log('done initializing tabs');
+  });
+}
+
+function onTabCreated(tab) {
+  let frames = tabs[tab.id];
+  if (!frames) {
+    tabs[tab.id] = {0: newFrameData(tab.url, tab.url)};
+  }
+}
+
+function onTabUpdated(tabId, changeInfo, tab) {
+  if (!changeInfo.url) {
+    return;
+  }
+  if (tabs[tabId] && tabs[tabId][0]) {
+    if (tabs[tabId][0].tabURL == changeInfo.url) {
+      log('onTabUpdated: this tab has the correct url already');
+    } else {
+      tabs[tabId][0] = newFrameData(changeInfo.url, changeInfo.url);
+    }
+  }
+}
 
 function isMainPage(details) {
   if (details.frameId == 0 &&
