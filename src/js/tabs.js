@@ -27,19 +27,18 @@ function requestAccountant(details) {
     log('New tab url: ' + details.url);
     tabs[details.tabId] = details.url;
   }
-  console.log(details);
 }
 
 
 /**
  * Gets the host name for a given tab id
- * @param {Integer} tabId chrome tab id
+ * @param {details} the details object passed into the callback of onBeforeRequest
  * @return {String} the host name for the tab
  */
 function getTabHost(details) {
   let url = tabs[details.tabId];
   if (!url) {
-    log('ERROR: missing url');
+    log('ERROR: missing url for tabId: ' + details.tabId);
     return '';
   }
   return window.extractHostFromURL(url);

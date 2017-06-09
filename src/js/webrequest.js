@@ -293,29 +293,6 @@ function isThirdPartyDomain(domain1, domain2) {
 }
 
 /**
- * Gets the host name for a given tab id
- * @param {Integer} tabId chrome tab id
- * @return {String} the host name for the tab
- */
-function getHostForTab(tabId){
-  var mainFrameIdx = 0;
-  if (!badger.tabData[tabId]) {
-    return '';
-  }
-  // TODO what does this actually do?
-  // meant to address https://github.com/EFForg/privacybadger/issues/136
-  if (_isTabAnExtension(tabId)) {
-    // If the tab is an extension get the url of the first frame for its implied URL
-    // since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(badger.tabData[tabId].frames)[1] || 0;
-  }
-  if (!badger.tabData[tabId].frames[mainFrameIdx]) {
-    return '';
-  }
-  return window.extractHostFromURL(badger.tabData[tabId].frames[mainFrameIdx].url);
-}
-
-/**
  * Generate representation in internal data structure for frame
  *
  * @param tabId ID of the tab
