@@ -44,10 +44,10 @@
   "content_scripts": [
     {
       "js": [
-        "js/clobbercookie.js",
-        "js/clobberlocalstorage.js",
-        "js/fingerprinting.js",
-        "js/supercookie.js"
+        "js/contentscripts/clobbercookie.js",
+        "js/contentscripts/clobberlocalstorage.js",
+        "js/contentscripts/fingerprinting.js",
+        "js/contentscripts/supercookie.js"
       ],
       "matches": [
         "<all_urls>"
@@ -57,7 +57,7 @@
     },
     {
       "js": [
-	"js/socialwidgets.js"
+	"js/contentscripts/socialwidgets.js"
       ],
       "matches": [
         "<all_urls>"
