@@ -441,18 +441,6 @@ function getFrameData(tab_id, frame_id) {
 }
 
 /**
- * Based on tab/frame ids, get the URL
- *
- * @param {Integer} tabId The tab id to look up
- * @param {Integer} frameId The frame id to look up
- * @returns {String} The url
- */
-function getFrameUrl(tabId, frameId) {
-  var frameData = getFrameData(tabId, frameId);
-  return (frameData ? frameData.url : null);
-}
-
-/**
  * Delete tab data, de-register tab
  *
  * @param {Integer} tabId The id of the tab
