@@ -500,7 +500,7 @@ Badger.prototype = {
    * @param {Object} details details object from onBeforeRequest event
    */
   updateCount: function(details) {
-    if(!this.isPrivacyBadgerEnabled(tabs.getTabHost(details))){
+    if(!this.isPrivacyBadgerEnabled(tabs.getTabHost(details.tabId))){
       return;
     }
 

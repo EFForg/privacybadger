@@ -77,7 +77,7 @@ function onBeforeRequest(details){
     return {};
   }
 
-  var tabDomain = tabs.getTabHost(details);
+  var tabDomain = tabs.getTabHost(tab_id);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
@@ -143,7 +143,7 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var tabDomain = tabs.getTabHost(details);
+  var tabDomain = tabs.getTabHost(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
@@ -228,7 +228,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var tabDomain = tabs.getTabHost(details);
+  var tabDomain = tabs.getTabHost(tab_id);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
