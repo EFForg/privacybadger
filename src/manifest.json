@@ -44,6 +44,16 @@
   "content_scripts": [
     {
       "js": [
+        "js/firstparties/twitter.js"
+      ],
+      "matches": [
+        "https://twitter.com/*",
+        "http://twitter.com/*"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
         "js/clobbercookie.js",
         "js/clobberlocalstorage.js",
         "js/fingerprinting.js",
