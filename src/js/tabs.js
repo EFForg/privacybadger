@@ -47,32 +47,23 @@ function requestAccountant(details) {
   }
 }
 
-function getFrameHost(tabId, frameId) {
-  let frames = tabs[tabId];
-  if (!frames) {
-    log('ERROR: missing tab data for tabId: ' + tabId);
-    return '';
-  }
-  let url = frames[frameId];
-  if (!url) {
-    log('ERROR: missing subframe url for: ' + url);
-  }
-  return window.extractHostFromURL(frames[frameId]);
+function getFrameHostname(tabId, frameId) {
+  return window.extractHostFromURL(tabs[tabId][frameId].frameURL);
 }
-
 
 /**
  * Gets the host name for a given tab id
  * @param {Integer} tabId chrome tab id
  * @return {String} the host name for the tab
  */
-function getTabHost(tabId) {
-  return getFrameHost(tabId, 0);
+function getTabHostname(tabId) {
+  return getFrameHostname(tabId, 0);
 }
 
 
 let exports = {};
 exports.requestAccountant = requestAccountant;
-exports.getTabHost = getTabHost;
+exports.getTabHostname = getTabHostname;
+exports.getFrameHostname = getFrameHostname;
 return exports;
 })();

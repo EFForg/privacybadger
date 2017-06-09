@@ -77,7 +77,7 @@ function onBeforeRequest(details){
     return {};
   }
 
-  var tabDomain = tabs.getTabHost(tab_id);
+  var tabDomain = tabs.getTabHostname(tab_id);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
@@ -143,7 +143,7 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var tabDomain = tabs.getTabHost(tab_id);
+  var tabDomain = tabs.getTabHostname(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
@@ -228,7 +228,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var tabDomain = tabs.getTabHost(tab_id);
+  var tabDomain = tabs.getTabHostname(tab_id);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
@@ -336,7 +336,7 @@ function recordSuperCookie(sender, msg) {
 
   // docUrl: url of the frame with supercookie
   let frameHost = window.extractHostFromURL(msg.docUrl);
-  let pageHost = tabs.getTabHost(sender.tab.id);
+  let pageHost = tabs.getTabHostname(sender.tab.id);
 
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com
@@ -365,7 +365,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = tabs.getFrameHost(tabId);
+    document_host = tabs.getTabHostname(tabId);
   if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -472,7 +472,7 @@ function checkAction(tabId, url, quiet, frameId){
   }
 
   // Ignore requests that don't have a document URL for some reason.
-  var documentUrl = tabs.getTabHost(tabId);
+  var documentUrl = tabs.getTabHostname(tabId);
   if (! documentUrl) {
     return false;
   }
@@ -509,8 +509,8 @@ function checkAction(tabId, url, quiet, frameId){
  * @private
  */
 function _frameUrlStartsWith(tabId, str) {
-  let frameData = getFrameData(tabId, 0);
-  return frameData && frameData.url.indexOf(str) === 0;
+  var tabDomain = tabs.getTabHostname(tab_id);
+  return tabDomain && tabDomain.indexOf(str) === 0;
 }
 
 /**
@@ -579,7 +579,7 @@ function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var requestHost = window.extractHostFromURL(url);
   var requestExcept = (exceptions.indexOf(requestHost) != -1);
 
-  var frameHost = tabs.getFrameHost(tabId, frameId);
+  var frameHost = tabs.getFrameHostname(tabId, frameId);
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
   return (requestExcept || frameExcept);
