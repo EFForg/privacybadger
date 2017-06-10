@@ -61,6 +61,13 @@ function isMainPage(details) {
   return false;
 }
 
+function storeMainPage(details) {
+  if (!tabs[details.tabId]) {
+    tabs[details.tabId] = {0: newFrameData(details.url, details.url)}
+  } else {
+    tabs[details.tabId][0] = newFrameData(details.url, details.url)}
+}
+
 function isSubFrame(details) {
   if (details.frameId > 0 &&
       (details.type == 'main_frame' || details.type == 'sub_frame')) {
@@ -69,21 +76,28 @@ function isSubFrame(details) {
   return false;
 }
 
+function storeSubFrame(details) {
+  let frames = tabs[details.tabId];
+  if (!frames) {
+    throw('ERROR unitialized tab for :' + details.tabId);
+  }
+  let tabURL = frames[0].tabURL;
+  frames[details.frameId] = newFrameData(tabURL, details.url);
+}
 
 /**
  * Receives the details object that is passed from webRequest.onBeforeRequest
  */
 function requestAccountant(details) {
-  console.log(details);
+  if (!ready) {
+    console.log('ERROR: tabs not ready yet');
+    //requestAccountant(details); // dirty hack to force synchronicity
+    return;
+  }
   if (isMainPage(details)) {
-    log('New tab url: ' + details.url);
-    tabs[details.tabId] = {0: details.url};
+    storeMainPage(details);
   } else if (isSubFrame(details)) {
-    let frames = tabs[details.tabId];
-    if (!frames) {
-      log('ERROR unitialized tab for :' + details.tabId);
-    }
-    frames[details.frameId] = details.url;
+    storeSubFrame(details);
   }
 }
 
