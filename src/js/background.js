@@ -779,3 +779,4 @@ startBackgroundListeners();
 
 console.log('Privacy badger is ready to rock!');
 console.log('Set DEBUG=1 to view console messages.');
+var DEBUG=1;

@@ -10,6 +10,20 @@
  * since it is used there.
  */
 /* globals log:false */
+/*
+ * tabs = {
+ *          tabId: {
+ *                   frameId: {
+ *                              'frameURL' : '...',
+ *                              'tabURL'   : '...'
+ *                 }
+ *        }
+ *
+ * maybe this should be refactored around "frame" objects since the would
+ * inherently have info about their state when they are created, like
+ * "isthirdparty" or whatever.
+ */
+
 require.scopes.tabs = (function() {
 
 

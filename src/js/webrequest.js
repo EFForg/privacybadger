@@ -60,6 +60,7 @@ function onBeforeRequest(details){
   if (type == "main_frame" || type == "sub_frame"){
     // Firefox workaround: https://bugzilla.mozilla.org/show_bug.cgi?id=1329299
     // TODO remove after Firefox 51 is no longer in use
+    // fix this with onTabCreated
     if (type == "main_frame" && frame_id != 0) {
       frame_id = 0;
     }
@@ -297,7 +298,7 @@ function isThirdPartyDomain(domain1, domain2) {
  *
  * @param tabId ID of the tab
  * @param frameId ID of the frame
- * @param parentFrameId ID of the parent frame
+ * @param parentFrameId ID of the parent frame // blake: unused
  * @param frameUrl The url of the frame
  */
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
