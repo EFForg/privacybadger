@@ -509,7 +509,7 @@ function checkAction(tabId, url, quiet, frameId){
  * @private
  */
 function _frameUrlStartsWith(tabId, str) {
-  var tabDomain = tabs.getTabHostname(tab_id);
+  var tabDomain = tabs.getTabHostname(tabId);
   return tabDomain && tabDomain.indexOf(str) === 0;
 }
 
