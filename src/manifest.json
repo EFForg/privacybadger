@@ -29,6 +29,7 @@
       "data/surrogates.js",
       "js/surrogates.js",
       "js/multiDomainFirstParties.js",
+      "js/badge.js",
       "js/incognito.js",
       "js/constants.js",
       "js/storage.js",
