@@ -6,31 +6,19 @@
  * https://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
  * this is what twitter does
  *
+ * This will initialize tabs, it should run before webrequests is initialized
+ * since it is used there.
  */
 /* globals log:false */
 require.scopes.tabs = (function() {
 
 
-let ready = false;
 let tabs = {};
 
 function newFrameData(tabURL, frameURL) {
   return {'tabURL': tabURL, 'frameURL': frameURL};
 }
 
-
-/* must run before requestAccountant is listening */
-function initialize() {
-  log('initializing existing tabs');
-  chrome.tabs.query({}, (tabArray) => {
-    tabArray.forEach((tab) => {
-      tabs[tab.id] = {0: newFrameData(tab.url, tab.url)};
-      log('initializing tab: ' + tab.id + '\nwith url: ' + tab.url);
-    });
-    ready = true;
-    log('done initializing tabs');
-  });
-}
 
 function onTabCreated(tab) {
   let frames = tabs[tab.id];
@@ -89,11 +77,6 @@ function storeSubFrame(details) {
  * Receives the details object that is passed from webRequest.onBeforeRequest
  */
 function requestAccountant(details) {
-  if (!ready) {
-    console.log('ERROR: tabs not ready yet');
-    //requestAccountant(details); // dirty hack to force synchronicity
-    return;
-  }
   if (isMainPage(details)) {
     storeMainPage(details);
   } else if (isSubFrame(details)) {
@@ -113,6 +96,23 @@ function getFrameHostname(tabId, frameId) {
 function getTabHostname(tabId) {
   return getFrameHostname(tabId, 0);
 }
+
+/* must run before requestAccountant is listening */
+function initialize() {
+  log('initializing existing tabs');
+  chrome.tabs.query({}, (tabArray) => {
+    tabArray.forEach((tab) => {
+      tabs[tab.id] = {0: newFrameData(tab.url, tab.url)};
+      log('initializing tab: ' + tab.id + '\nwith url: ' + tab.url);
+    });
+    log('done initializing tabs');
+  });
+
+  chrome.tabs.onCreated.addListener(onTabCreated);
+  chrome.tabs.onUpdated.addListener(onTabUpdated);
+}
+
+initialize(); // start greedily
 
 
 let exports = {};
