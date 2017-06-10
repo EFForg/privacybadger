@@ -5,9 +5,12 @@
 
 require.scopes.badge = (function() {
 
-let sizes = [16, 19, 24, 32, 38, 48, 64, 128, 170];
+let disabled_sizes = [19, 38];
+let enabled_sizes = [16, 19, 38, 48, 64, 128];
+
 function getIcons(enabled) {
   let out = {};
+  let sizes = (enabled ? enabled_sizes : disabled_sizes);
   sizes.forEach((size) => {
     let filename = 'icons/badger-' + size + (enabled ? '' : '-disabled') + '.png';
     out[size] =  chrome.runtime.getURL(filename);
@@ -24,12 +27,14 @@ function refresh(tab) {
   chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
 }
 
-function initialize() {
+function initializeAndStartListeners() {
+  /* put a badge on every tab */
   chrome.tabs.query({}, (tabs) => {
     tabs.forEach((tab) => {
       refresh(tab);
     });
   });
+  /* start listeners */
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.url) {
       refresh(tab);
@@ -43,6 +48,6 @@ function initialize() {
 }
 
 var exports = {};
-exports.initialize = initialize;
+exports.initializeAndStartListeners = initializeAndStartListeners;
 return exports;
 })();
