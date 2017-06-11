@@ -76,7 +76,6 @@ exports.Migrations= {
     let MISTAKES = [
       'akamaized.net',
       'bootcss.com',
-      'cloudinary.com',
       'edgesuite.net',
       'ehowcdn.com',
       'ewscloud.com',
@@ -89,7 +88,6 @@ exports.Migrations= {
       'kinja-img.com',
       'kxcdn.com',
       'ldwgroup.com',
-      'meme.am',
       'metapix.net',
       'optnmstr.com',
       'parastorage.com',
@@ -101,6 +99,7 @@ exports.Migrations= {
       'slidesharecdn.com',
       'staticworld.net',
       'taleo.net',
+      'techhive.com',
       'unpkg.com',
       'uvcdn.com',
       'washingtonpost.com',
