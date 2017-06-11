@@ -50,7 +50,9 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} 'checked' if both actions match otherwise empty string.
    */
   isChecked: function(inputAction, originAction) {
-    if(originAction == constants.NO_TRACKING) { originAction = constants.ALLOW; }
+    if((originAction == constants.NO_TRACKING) || (originAction == constants.DNT)) {
+      originAction = constants.ALLOW;
+    }
     return (inputAction === originAction) ? 'checked' : '';
   },
 
