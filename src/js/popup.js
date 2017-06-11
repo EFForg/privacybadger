@@ -130,8 +130,7 @@ function send_error(message) {
     var origins = badger.getAllOriginsForTab(tabId);
     if (!origins) { return; }
     var version = chrome.runtime.getManifest().version;
-    //TODO "there's got to be a better way!"
-    var fqdn = tab.url.split("/",3)[2];
+    var fqdn = backgroundPage.extractHostFromURL(tab.url);
     var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
     for (var i = 0; i < origins.length; i++) {
       var origin = origins[i];
