@@ -769,6 +769,33 @@ Badger.prototype = {
     chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   },
 
+  debugSite: function(url) {
+    let self = this;
+    chrome.tabs.query({'active': true}, (tabs) => {
+      let tab = tabs[0];
+      console.log('using tab with url: ' + tab.url);
+      let browser = window.navigator.userAgent;
+      let version = chrome.runtime.getManifest().version;
+      let fqdn = window.extractHostFromURL(tab.url);
+      /* origin info:
+       * {'info': {'trackers':[{'origin': origin, 'action': action, 'snitch_map': snitch_map}, ...],
+       *           'browser': useragent,
+       *           'version': pbversion,
+       *           'fqdn': fqdn}}
+       */
+      let out = {info: {trackers: [], 'browser': browser, 'version': version, 'fqdn': fqdn}};
+      let action_map = self.storage.getBadgerStorageObject('action_map');
+      let snitch_map = self.storage.getBadgerStorageObject('snitch_map');
+      self.getAllOriginsForTab(tab.id).forEach((origin) => {
+        out.info.trackers.push({
+          'origin': origin,
+          'action_info': action_map.hasItem(origin) ? action_map.getItem(origin) : 'no action info',
+          'snitch_info': snitch_map.hasItem(origin) ? snitch_map.getItem(origin) : 'no snitch info',
+        });
+      });
+      console.log(JSON.stringify(out));
+    });
+  },
 };
 
 /**************************** Listeners ****************************/
