@@ -72,6 +72,73 @@ exports.Migrations= {
     }
   },
 
+  forgetMistakenlyBlockedDomains: function (badger) {
+    let MISTAKES = [
+      'akamaized.net',
+      'bootcss.com',
+      'cloudinary.com',
+      'edgesuite.net',
+      'ehowcdn.com',
+      'ewscloud.com',
+      'fncstatic.com',
+      'hgmsites.net',
+      'hsforms.net',
+      'hubspot.com',
+      'jsdelivr.net',
+      'jwplatform.com',
+      'kinja-img.com',
+      'kxcdn.com',
+      'ldwgroup.com',
+      'meme.am',
+      'metapix.net',
+      'optnmstr.com',
+      'parastorage.com',
+      'polyfill.io',
+      'qbox.me',
+      'rfdcontent.com',
+      'scene7.com',
+      'sinaimg.cn',
+      'slidesharecdn.com',
+      'staticworld.net',
+      'taleo.net',
+      'unpkg.com',
+      'uvcdn.com',
+      'washingtonpost.com',
+      'wixstatic.com',
+      'ykimg.com',
+    ];
+
+    let action_map = badger.storage.getBadgerStorageObject("action_map"),
+      snitch_map = badger.storage.getBadgerStorageObject("snitch_map");
+
+    // remove from action map
+    let actions = action_map.getItemClones();
+    for (let domain in actions) {
+      for (let i = 0; i < MISTAKES.length; i++) {
+        if (domain.endsWith(MISTAKES[i])) {
+          // remove only if domain was seen tracking
+          // and user did not set an override
+          if (actions[domain].userAction == "" && (
+            actions[domain].heuristicAction == constants.ALLOW ||
+            actions[domain].heuristicAction == constants.BLOCK ||
+            actions[domain].heuristicAction == constants.COOKIEBLOCK
+          )) {
+            action_map.deleteItem(domain);
+          }
+        }
+      }
+    }
+
+    // remove from snitch map
+    for (let domain in snitch_map.getItemClones()) {
+      for (let i = 0; i < MISTAKES.length; i++) {
+        if (domain.endsWith(MISTAKES[i])) {
+          snitch_map.deleteItem(domain);
+        }
+      }
+    }
+  },
+
 };
 
 
