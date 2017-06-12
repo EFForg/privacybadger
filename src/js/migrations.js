@@ -84,7 +84,6 @@ exports.Migrations= {
       'hsforms.net',
       'hubspot.com',
       'jsdelivr.net',
-      'jwplatform.com',
       'kinja-img.com',
       'kxcdn.com',
       'ldwgroup.com',
