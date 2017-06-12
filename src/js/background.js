@@ -787,13 +787,15 @@ Badger.prototype = {
       let action_map = self.storage.getBadgerStorageObject('action_map');
       let snitch_map = self.storage.getBadgerStorageObject('snitch_map');
       self.getAllOriginsForTab(tab.id).forEach((origin) => {
+        let base = window.getBaseDomain(origin);
         out.info.trackers.push({
           'origin': origin,
-          'action_info': action_map.hasItem(origin) ? action_map.getItem(origin) : 'no action info',
-          'snitch_info': snitch_map.hasItem(origin) ? snitch_map.getItem(origin) : 'no snitch info',
+          'baseDomain': base,
+          'action_info': action_map.hasItem(base) ? action_map.getItem(base) : 'no action info',
+          'snitch_info': snitch_map.hasItem(base) ? snitch_map.getItem(base) : 'no snitch info',
         });
       });
-      console.log(JSON.stringify(out));
+      console.log(JSON.stringify(out, null, 4));
     });
   },
 };
