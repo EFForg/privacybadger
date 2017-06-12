@@ -73,6 +73,8 @@ exports.Migrations= {
   },
 
   forgetMistakenlyBlockedDomains: function (badger) {
+    console.log("Running migration to forget mistakenly flagged domains ...");
+
     let MISTAKES = [
       'akamaized.net',
       'bootcss.com',
