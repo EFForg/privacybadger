@@ -1,5 +1,14 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.6.13
+* Added automatic replacement of t.co shortened tracking URLs with original
+unobfuscated URLs on twitter.com
+* Added option to disable Do Not Track policy checking
+* Restricted DNT policy checking from sending cookies
+* Fixed tooltips for DNT-compliant domains in popup
+* Fixed localStorage tracking being attributed to unrelated domains sometimes
+* Improved translations (Swedish, Ukrainian)
+
 ## 2017.5.9
 * Improved popup rendering
 * Added version number to popup
