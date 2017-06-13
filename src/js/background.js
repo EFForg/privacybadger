@@ -769,7 +769,7 @@ Badger.prototype = {
     chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   },
 
-  debugSite: function(url) {
+  debugSite: function() {
     let self = this;
     chrome.tabs.query({'active': true}, (tabs) => {
       let tab = tabs[0];
