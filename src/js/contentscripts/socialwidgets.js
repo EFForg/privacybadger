@@ -52,7 +52,7 @@ var REPLACEMENT_BUTTONS_FOLDER_PATH = chrome.extension.getURL("skin/socialwidget
 /**
  * The absolute path to the stylesheet that is injected into every page.
  */
-var CONTENT_SCRIPT_STYLESHEET_PATH = chrome.extension.getURL("skin/socialwidgets/socialwidgets.css");
+var STYLESHEET_URL = chrome.extension.getURL("skin/socialwidgets/socialwidgets.css");
 
 /**
  * Social widget tracker data, read from file.
@@ -69,12 +69,6 @@ function initialize() {
 
     trackerInfo = trackers;
 
-    // add the Content.css stylesheet to the page
-    var head = document.querySelector("head");
-    var stylesheetLinkElement = getStylesheetLinkElement(CONTENT_SCRIPT_STYLESHEET_PATH);
-    if (head !== null) {
-      head.appendChild(stylesheetLinkElement);
-    }
 
     replaceInitialTrackerButtonsHelper(trackerButtonsToReplace);
   });
@@ -86,6 +80,29 @@ function initialize() {
     }
   });
 }
+
+/**
+ * Add socialwidgets.css This function is idempotent, so it only adds the css
+ * once, even if called multiple times.
+ */
+let styleSheetAdded = false;
+function addStyleSheet() {
+  if (styleSheetAdded) {
+    return;
+  }
+  // add the Content.css stylesheet to the page
+  let link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href =  STYLESHEET_URL;
+
+  let head = document.querySelector("head");
+  if (head !== null) {
+    head.appendChild(link);
+    styleSheetAdded = true;
+  }
+}
+
 
 /**
  * Creates a replacement button element for the given tracker.
@@ -172,22 +189,6 @@ function getReplacementButtonUrl(replacementButtonLocation) {
   return REPLACEMENT_BUTTONS_FOLDER_PATH + replacementButtonLocation;
 }
 
-/**
- * Returns a HTML link element for a stylesheet at the given URL.
- *
- * @param {String} URL the URL of the stylesheet to link
- *
- * @return {Element} the HTML link element for a stylesheet at the given URL
- */
-function getStylesheetLinkElement(url) {
-  var linkElement = document.createElement("link");
-
-  linkElement.setAttribute("rel", "stylesheet");
-  linkElement.setAttribute("type", "text/css");
-  linkElement.setAttribute("href", url);
-
-  return linkElement;
-}
 
 /**
  * Unblocks the given tracker and replaces the given button with an iframe
@@ -314,6 +315,7 @@ function replaceIndividualButton(tracker) {
     var button =
       createReplacementButtonImage(tracker, buttonToReplace);
 
+    addStyleSheet();
     buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
   }
 }
