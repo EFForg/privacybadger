@@ -124,7 +124,7 @@ function createReplacementButtonImage(tracker, trackerElem) {
 
   button.setAttribute("src", buttonUrl);
   button.setAttribute("class", "privacyBadgerReplacementButton");
-  button.setAttribute("title", "PrivacyBadger has replaced this " + 
+  button.setAttribute("title", "Privacy Badger has replaced this " +
                             tracker.name + " button.");
 
   switch (buttonType) {
