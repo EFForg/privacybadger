@@ -356,7 +356,7 @@ DebugLog.prototype = {
    * 4
    */
   mod: function(num) {
-    var remainder = (num % this.maxSize);
+    let remainder = (num % this.maxSize);
     if (remainder < 0) {
       return this.maxSize + remainder;
     } else {
@@ -369,11 +369,11 @@ DebugLog.prototype = {
    * recent entry is at index zero.
    */
   output: function() {
-    var out = [];
-    var maxSize = this.maxSize;
-    var start = this.mod(this.index - 1);
-    for (var i = 0; i < maxSize; i++) {
-      var entry = this.logBook[this.mod(start - i)];
+    let out = [];
+    let maxSize = this.maxSize;
+    let start = this.mod(this.index - 1);
+    for (let i = 0; i < maxSize; i++) {
+      let entry = this.logBook[this.mod(start - i)];
       if ("undefined" == typeof entry) {
         break;
       } else {
