@@ -78,13 +78,12 @@ function loadOptions() {
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
   $("#check_dnt_policy_checkbox").click(updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled());
-  if(chrome.privacy && badger.webRTCAvailable){
+
+  if (badger.webRTCAvailable) {
     $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
     $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
-  }
-
-  // Hide WebRTC-related settings for non-supporting browsers
-  if (!chrome.privacy || !badger.webRTCAvailable) {
+  } else {
+    // Hide WebRTC-related settings for non-supporting browsers
     $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
     $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
   }
@@ -463,7 +462,9 @@ function showTrackingDomains(domains) {
  */
 function toggleWebRTCIPProtection() {
   // Return early with non-supporting browsers
-  if (!chrome.privacy || !badger.webRTCAvailable) { return; }
+  if (!badger.webRTCAvailable) {
+    return;
+  }
   var cpn = chrome.privacy.network;
 
   cpn.webRTCIPHandlingPolicy.get({}, function(result) {

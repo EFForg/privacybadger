@@ -25,8 +25,12 @@ exports.Migrations= {
   changePrivacySettings: function() {
     if (!chrome.extension.inIncognitoContext && chrome.privacy ) {
       console.log('changing privacy settings');
-      chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
-      chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
+      if (chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
+        chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
+      }
+      if (chrome.privacy.websites && chrome.privacy.websites.hyperlinkAuditingEnabled) {
+        chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
+      }
     }
   },
 
