@@ -72,20 +72,29 @@ function Badger() {
   * WebRTC availability check
   */
   function checkWebRTCBrowserSupport(){
+    if (!(chrome.privacy && chrome.privacy.network &&
+      chrome.privacy.network.webRTCIPHandlingPolicy)) {
+      return false;
+    }
+
     var available = true;
     var connection = null;
-    try{
-      var RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection;
-      if(RTCPeerConnection){
+
+    try {
+      var RTCPeerConnection = (
+        window.RTCPeerConnection || window.webkitRTCPeerConnection
+      );
+      if (RTCPeerConnection) {
         connection = new RTCPeerConnection(null);
       }
-    } catch (ex){
+    } catch (ex) {
       available = false;
     }
 
-    if(connection !== null && connection.close){
+    if (connection !== null && connection.close) {
       connection.close();
     }
+
     return available;
   }
 }
@@ -198,7 +207,9 @@ Badger.prototype = {
    **/
   enableWebRTCProtection: function(){
     // Return early with non-supporting browsers
-    if (!chrome.privacy || !badger.webRTCAvailable) { return; }
+    if (!badger.webRTCAvailable) {
+      return;
+    }
 
     var cpn = chrome.privacy.network;
     var settings = this.storage.getBadgerStorageObject("settings_map");
@@ -585,7 +596,9 @@ Badger.prototype = {
     var self = this;
 
     // Return early with non-supporting browsers
-    if (!chrome.privacy || !badger.webRTCAvailable) { return; }
+    if (!badger.webRTCAvailable) {
+      return;
+    }
 
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
       self.getSettings().setItem("webRTCIPProtection",
