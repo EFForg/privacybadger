@@ -32,7 +32,7 @@ echo "remove fingerprinting"
 sed -i '/        "js\/contentscripts\/fingerprinting.js",/d' ../checkout/src/manifest.json
 
 echo "change author value"
-sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "eff.software.projects@gmail.com",/' ../checkout/src/manifest.json
+sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "privacybadger-owner@eff.org",/' ../checkout/src/manifest.json
 
 echo "making zip file for AMO"
 
