@@ -1,12 +1,16 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.6.13.1
+* Added workaround for validation issue preventing upload to Chrome Web Store
+* Fixed chrome.privacy-related exceptions in Firefox 54
+
 ## 2017.6.13
 * Added automatic replacement of t.co shortened tracking URLs with original
 unobfuscated URLs on twitter.com
 * Added option to disable Do Not Track policy checking
 * Restricted DNT policy checking from sending cookies
 * Fixed tooltips for DNT-compliant domains in popup
-* Fixed localStorage tracking being attributed to unrelated domains sometimes
+* Fixed localStorage tracking sometimes being attributed to unrelated domains
 * Improved translations (Swedish, Ukrainian)
 
 ## 2017.5.9
