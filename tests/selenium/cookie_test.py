@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-
-import os
-import pbtest
 import time
 import unittest
 
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+import pbtest
 import window_utils
 
 SITE1_URL = "http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
@@ -26,9 +23,7 @@ CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
 
-    @unittest.skipIf(os.environ.get('BROWSER') == 'firefox', """
-Disabled until Firefox fixes bug:
-https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
+    @pbtest.if_firefox(unittest.skip("Disabled until Firefox fixes bug: https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773"))
     def test_dnt_check_should_not_set_cookies(self):
         TEST_DOMAIN = "dnt-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
@@ -109,47 +104,53 @@ https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
         that reads and writes a cookie. The third party cookie will be picked up by
         PB after each of the site loads, but no action will be taken. Then the first
         site will be reloaded, and the UI will show the third party cookie as blocked."""
-
-        self.driver.delete_all_cookies()
-        # fixme: check for chrome settings for third party cookies?
+        avg_load = 1
 
         # load the first site with the third party code that reads and writes a cookie
-        self.load_url(SITE1_URL)
-        self.load_pb_ui(SITE1_URL)
+        tabs = window_utils.Tabs(self)
+        tabs.goto_background()
+
+        site1_tab_id = tabs.new_tab(SITE1_URL)
+        popup_tab_id = tabs.new_tab(self.popup_url)
+        tabs.goto_popup()
+        time.sleep(avg_load)
+        tabs.refresh_popup(site1_tab_id)
+
         self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
+
+        tabs.remove_tab(site1_tab_id)
 
         # go to second site
-        self.load_url(SITE2_URL)
-        window_utils.close_windows_with_url(self.driver, SITE1_URL)
-        self.load_pb_ui(SITE2_URL)
+        site2_tab_id = tabs.new_tab(SITE2_URL)
+        time.sleep(avg_load)
+        tabs.refresh_popup(site2_tab_id)
+
         self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
 
+        tabs.remove_tab(site2_tab_id)
+
         # go to third site
-        self.load_url(SITE3_URL)
-        window_utils.close_windows_with_url(self.driver, SITE2_URL)
-        self.load_pb_ui(SITE3_URL)
+        site3_tab_id = tabs.new_tab(SITE3_URL)
+        time.sleep(avg_load)
+        tabs.refresh_popup(site3_tab_id)
+
         self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
+
+        tabs.remove_tab(site3_tab_id)
 
         # reloading the first site should now cause the cookie to be blocked
         # it can take a long time for the UI to be updated, so retry a number of
         # times before giving up. See bug #702.
         print("this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed")
-        self.load_url(SITE1_URL)
-        window_utils.close_windows_with_url(self.driver, SITE3_URL)
-        for i in range(5):
-            self.load_pb_ui(SITE1_URL)
-            self.get_tracker_state()
 
-            if THIRD_PARTY_TRACKER in self.cookieBlocked:
-                print("Popup UI has been updated. Yay!")
-                break
-            window_utils.close_windows_with_url(self.driver, self.popup_url)
-            print("popup UI has not been updated yet. try again in 10 seconds")
-            time.sleep(10)
+        site1_tab_id = tabs.new_tab(SITE1_URL)
+        time.sleep(avg_load)
+        tabs.refresh_popup(site1_tab_id)
 
+        self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.cookieBlocked)
 
     def load_pb_ui(self, target_scheme_and_host):
@@ -206,21 +207,15 @@ function setTabToUrl(query_url) {
         """Parse the UI to group all third party origins into their respective action states."""
 
         # give asynchronously-rendered tracker list time to load
-        time.sleep(1)
-
         self.nonTrackers = {}
         self.cookieBlocked = {}
         self.blocked = {}
+        self.driver.switch_to.window(self.driver.current_window_handle)
 
-        try:
-            clickerContainer = self.driver.find_element_by_class_name("clickerContainer")
-            self.assertTrue(clickerContainer)
-        except:
-            print("no action state information was found")
-            return
-
-        tooltips = clickerContainer.find_elements_by_xpath("//*[contains(@class,'clicker tooltip')]")
-
+        WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR,
+             "#blockedResourcesInner > div.clicker.tooltip")))
+        tooltips = self.driver.find_elements_by_css_selector("#blockedResourcesInner > div.clicker.tooltip")
         for t in tooltips:
             origin = t.get_attribute('data-origin')
 

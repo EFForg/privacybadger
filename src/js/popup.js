@@ -277,7 +277,7 @@ function registerToggleHandlers() {
 *
 * @param {Integer} tabId The id of the tab
 */
-function refreshPopup(tabId) {
+function refreshPopup(tabId, callback) {
   //TODO this is calling get action and then being used to call get Action
   var origins = badger.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
@@ -374,6 +374,9 @@ function refreshPopup(tabId) {
     }
   }
   requestAnimationFrame(renderDomains);
+  if (callback) {
+    callback();
+  }
 }
 
 /**

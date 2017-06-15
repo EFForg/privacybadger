@@ -1,44 +1,32 @@
+group: edge
 sudo: required
 language: python
 os: linux
 dist: trusty
 python:
-  - "2.7"
+  - 3.6
 node_js:
-  - "node"
-env:
-  matrix:
-    - TRAVIS_EXTRA_JOB_WORKAROUND=true
+  - node
 matrix:
-  fast_finish: true
   include:
-    - python: "2.7"
-      env: BROWSER="google-chrome-stable"
-    - python: "3.4"
-      env: BROWSER="google-chrome-stable"
-    - python: "2.7"
-      env: BROWSER="google-chrome-beta"
-    - python: "2.7"
-      env: BROWSER="firefox"
-  allow_failures:
-    - python: "2.7"
-      env: BROWSER="google-chrome-beta"
-  exclude:
-    - env: TRAVIS_EXTRA_JOB_WORKAROUND=true
-addons:
-  firefox: latest
-  apt:
-    sources:
-    - google-chrome
-    packages:
-    - google-chrome-stable
-    - google-chrome-beta
-    - python-virtualenv
+    - env: INFO="lint"
+    - addons:
+        chrome: beta
+      env: INFO="chrome beta" BROWSER=google-chrome-beta ENABLE_XVFB=1
+    - addons:
+        chrome: stable
+      env: INFO="chrome stable" BROWSER=google-chrome-stable ENABLE_XVFB=1
+    - addons:
+        firefox: latest-dev
+      env: INFO="firefox dev" BROWSER=firefox ENABLE_XVFB=1
+    - addons:
+        firefox: latest-nigtly
+      env: INFO="firefox nightly" BROWSER=firefox ENABLE_XVFB=1
+    - addons:
+        firefox: latest-unsigned
+      env: INFO="firefox unsigned" BROWSER=firefox ENABLE_XVFB=1
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-before_script:
-  - travis_retry npm install # install JS dependencies (eslint) from package.json
-  - . ./scripts/setup_travis.sh
-  - cd tests
-script: ./run_selenium_tests.sh
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+before_script: . ./scripts/setup_travis.sh
+script: . ./scripts/run_travis.sh

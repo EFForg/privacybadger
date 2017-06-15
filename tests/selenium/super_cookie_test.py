@@ -25,6 +25,7 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         return self.js(CHECK_SNITCH_MAP_JS)
 
     # test for https://github.com/EFForg/privacybadger/pull/1403
+    @pbtest.if_firefox(pbtest.repeat_if_failed(5))
     def test_async_tracking_misattribution_bug(self):
         self.load_url("https://cdn.rawgit.com/ghostwords/d3685dc39f7e67dddf1edf2614beb6fc/raw/a78cfd6c86d51a8d8ab1e214e4e49e2c025d4715/privacy_badger_async_bug_test_fixture.html")
 
@@ -41,10 +42,6 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         # and an image from raw.githubusercontent.com that doesn't do any tracking
         self.assertFalse(self.detected_tracking_by("raw.githubusercontent.com"),
             msg="Image is not a tracker but was flagged as one.")
-    if os.environ.get('BROWSER') == 'firefox':
-        test_async_tracking_misattribution_bug = (
-            pbtest.repeat_if_failed(5)(test_async_tracking_misattribution_bug)
-        )
 
     @pbtest.repeat_if_failed(5)
     def test_should_detect_ls_of_third_party_frame(self):
