@@ -1,314 +1,414 @@
 {
-    "add_domain_button": {
-        "message": "Lägg till domän"
-    },
-    "badger_status_allow": {
-        "message": "Tillåten "
-    },
     "badger_status_block": {
-        "message": "Blockerade "
-    },
-    "badger_status_cookieblock": {
-        "message": "Blockerade kakor från "
-    },
-    "badger_status_noaction": {
-        "message": "Ingen spårning för "
-    },
-    "data_settings": {
-        "message": "Hantera data"
-    },
-    "ded_always_allow": {
-        "message": "Tillåt alltid "
-    },
-    "ded_can_allow_to_track": {
-        "message": "kan låta den spåra dina surfvanor."
-    },
-    "ded_logging_into": {
-        "message": "Logga in"
-    },
-    "ded_never_allow": {
-        "message": "Blockera alltid tredjepartsförfrågningar från "
-    },
-    "ded_on": {
-        "message": "på "
-    },
-    "ded_only_allow": {
-        "message": "Tillåt endast "
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Privacy Badger-larm!"
-    },
-    "description": {
-        "message": "Privacy Badger skyddar dig mot spårare när du surfar på nätet!"
-    },
-    "disabled_for_these_domains": {
-        "message": "Privacy Badger är inaktiverad för domänerna som anges nedan. Du kan lägga till en domän antingen via Privacy Badger-ikonen i adressfältet eller genom att skriva domänen (inte en webbadress) i rutan och klicka på knappen \"Lägg till domän\"."
-    },
-    "dnt_tooltip": {
-        "message": "Denna domän lovar att inte spåra dig"
-    },
-    "donate_to_eff": {
-        "message": "Donera till EFF"
-    },
-    "download": {
-        "message": "Hämta"
-    },
-    "error_input": {
-        "message": "Vad är fel?"
-    },
-    "export_user_data": {
-        "message": "Exportera användardata"
-    },
-    "feed_the_badger_title": {
-        "message": "klicka för att återge kontrollen över denna spårare till Privacy Badger"
-    },
-    "firstRun_title": {
-        "message": "Tack för att du installerat Privacy Badger!"
-    },
-    "first_run_text": {
-        "message": "Lär dig hur Privacy Badger skyddar din integritet."
-    },
-    "import": {
-        "message": "Importera"
-    },
-    "import_select_file": {
-        "message": "Vänligen välj en fil att importera."
-    },
-    "import_successful": {
-        "message": "Lista över spårare och inställningar uppdaterades!"
-    },
-    "import_user_data": {
-        "message": "Importera användardata"
-    },
-    "intro1": {
-        "description": "firstRun.html intro to Privacy Badger",
-        "message": "Privacy Badger blockerar spårande annonser och osynliga spanare. Vi finns där för att företag inte ska kunna spåra dig utan ditt medgivande."
-    },
-    "intro2": {
-        "message": "Denna tillbyggnad är utformad för att automatiskt skydda din integritet från tredjepartsspårare som laddas osynligt när du surfar på webben. Vi skickar Spåra inte rubriken med varje förfrågan, och vår tillbyggnad utvärderar sannolikheten för att du fortfarande spåras. Om algoritmen anser att sannolikheten är för hög blockerar vi automatiskt din förfrågan från att skickas till domänen. Vänligen förstå att Privacy Badger är i beta, och algoritmens beslutsamhet är inte avgörande för att domänen spårar dig."
-    },
-    "intro_3_states": {
-        "message": "Vår tillbyggnad har tre lägen."
-    },
-    "intro_by_eff": {
-        "message": "Ett projekt av Electronic Frontier Foundation"
-    },
-    "intro_cookie_blocked": {
-        "message": "betyder att domänen anses vara både en spårare och nödvändig för sidans funktion, så Privacy Badger tillåter den men blockerar dess kakor."
-    },
-    "intro_green": {
-        "message": "Grön"
-    },
-    "intro_has_blocked": {
-        "message": "betyder att Privacy Badger tror att den här domänen är en spårare och har blockerat den."
-    },
-    "intro_hungry": {
-        "message": "Inget kan stoppa Privacy Badger från att äta kakor när den är hungrig!"
-    },
-    "intro_no_tracker": {
-        "message": "innebär att Privacy Badger anser att detta inte är spårare. Du kan klicka på Privacy Badger ikonen i webbläsarens verktygsfält om du vill åsidosätta de automatiska blockeringsinställningarna. Eller du kan bläddra i fred eftersom Privacy Badger börjar hitta och äta upp webbspårare en efter en."
-    },
-    "intro_red": {
-        "message": "Röd"
-    },
-    "intro_social_share": {
-        "message": "Låt världen veta att du tar ställning mot spårning på nätet"
-    },
-    "intro_text": {
-        "message": "Du skyddas nu av Privacy Badger. För att lära dig hur Privacy Badger fungerar, klicka nedan för en snabb handledning."
-    },
-    "intro_yellow": {
-        "message": "Gul"
+        "message": "Blockerade ",
+        "description": ""
     },
     "invalid_json": {
-        "message": "Ogiltig JSON-fil."
-    },
-    "name": {
-        "message": "Privacy Badger"
-    },
-    "new_filters_added": {
-        "message": "Nya filter lades till; se <a id='options_url' target='_blank'>Alternativ</a> för att hantera dem."
-    },
-    "non_tracker": {
-        "message": "Domänerna nedan verkar inte spåra dig"
-    },
-    "non_tracker_tip": {
-        "message": "För närvarande kontrollerar Privacy Badger bara om tredjeparter använder kakor, HTML5-lagring eller canvas fingeravtryck för att spåra din surfning. Vissa av domänerna kan använda spårningsmetoder som Privacy Badger inte kan upptäcka."
-    },
-    "options_dnt_policy_learn_more": {
-        "message": "Lär dig mer"
-    },
-    "options_dnt_policy_setting": {
-        "message": "Kontrollera om webbplatser överensstämmer med EFF:s Spåra inte-policy"
-    },
-    "options_domain_search": {
-        "message": "Sök domäner"
-    },
-    "options_filter_settings": {
-        "message": "Användarfilterinställningar"
-    },
-    "options_general_settings": {
-        "message": "Allmänna inställningar"
-    },
-    "options_loading": {
-        "message": "Laddar..."
-    },
-    "options_pb_has_detected": {
-        "message": "Privacy Badger har upptäckt"
-    },
-    "options_potential": {
-        "message": "potentiell"
+        "message": "Ogiltig JSON-fil.",
+        "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Är du säker på att du vill ta bort det här ursprunget från Privacy Badger?"
+        "message": "Är du säker på att du vill ta bort det här ursprunget från Privacy Badger?",
+        "description": ""
     },
-    "options_slider_text": {
-        "message": "Privacy Badger skyddar dig på nätet! Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare som den har flaggat genom din surfning."
+    "badger_status_noaction": {
+        "message": "Ingen spårning för ",
+        "description": ""
     },
-    "options_so_far": {
-        "message": "än så länge. Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare."
+    "non_tracker_tip": {
+        "message": "För närvarande kontrollerar Privacy Badger bara om tredjeparter använder kakor, HTML5-lagring eller canvas fingeravtryck för att spåra din surfning. Vissa av domänerna kan använda spårningsmetoder som Privacy Badger inte kan upptäcka.",
+        "description": ""
     },
-    "options_social_widgets_checkbox": {
-        "message": "Ersätt sociala widgetar"
+    "intro_hungry": {
+        "message": "Inget kan stoppa Privacy Badger från att äta kakor när den är hungrig!",
+        "description": ""
     },
-    "options_title": {
-        "message": "Privacy Badger alternativ"
+    "ded_only_allow": {
+        "message": "Tillåt endast ",
+        "description": ""
     },
-    "options_tracking_domains": {
-        "message": "spårningsdomäner"
+    "options_dnt_policy_setting": {
+        "message": "Kontrollera om webbplatser överensstämmer med EFF:s Spåra inte-policy",
+        "description": ""
     },
-    "options_webrtc_setting": {
-        "message": "Förhindra WebRTC från att läcka din lokala IP-adress *"
+    "intro2": {
+        "message": "Denna tillbyggnad är utformad för att automatiskt skydda din integritet från tredjepartsspårare som laddas osynligt när du surfar på webben. Vi skickar Spåra inte rubriken med varje förfrågan, och vår tillbyggnad utvärderar sannolikheten för att du fortfarande spåras. Om algoritmen anser att sannolikheten är för hög blockerar vi automatiskt din förfrågan från att skickas till domänen. Vänligen förstå att Privacy Badger är i beta, och algoritmens beslutsamhet är inte avgörande för att domänen spårar dig.",
+        "description": ""
     },
-    "options_webrtc_warning": {
-        "message": "* WebRTC kan läcka din lokala IP-adress. Privacy Badgers standardinställning hjälper dig att skydda dig, men för extra skydd kan du aktivera det här alternativet. Observera att det kan minska prestandan på vissa verktyg som Google Hangouts."
-    },
-    "pb_detected": {
-        "message": "Privacy Badger upptäckte"
-    },
-    "popup_blocked": {
-        "message": "Det finns inga tredjeparts resurser på den här webbplatsen."
-    },
-    "popup_disable_for_site": {
-        "message": "Inaktivera Privacy Badger för denna webbplats"
-    },
-    "popup_enable_for_site": {
-        "message": "Aktivera Privacy Badger för denna webbplats"
-    },
-    "popup_instructions": {
-        "message": "potentiell(a) <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan. Med dessa reglage kan du styra hur Privacy Badger hanterar var och en. Du behöver inte justera dem om inte något är trasigt."
-    },
-    "popup_noblocked": {
-        "message": "Varför är inget blockerat?"
-    },
-    "popup_options_button": {
-        "message": "Alternativ"
-    },
-    "privacy_badger": {
-        "message": "Privacy Badger"
-    },
-    "privacy_badger_what_is": {
-        "message": "Vad är Privacy Badger?"
-    },
-    "remove_button": {
-        "description": "This is the label for the 'Remove selected' buttons.",
-        "message": "Ta bort valda"
-    },
-    "report_broken_site": {
-        "message": "Bröt Privacy Badger den här webbplatsen? Låt oss veta!"
-    },
-    "report_button": {
-        "message": "Skicka fel"
-    },
-    "report_cancel": {
-        "message": "Avbryt"
-    },
-    "report_close": {
-        "message": "Stäng"
-    },
-    "report_fail": {
-        "message": "Hoppsan. Något gick snett."
-    },
-    "report_input_label": {
-        "message": "Beskrivning"
+    "donate_to_eff": {
+        "message": "Donera till EFF",
+        "description": ""
     },
     "report_success": {
-        "message": "Tack! Vi kommer att gå till botten med det."
+        "message": "Tack! Vi kommer att gå till botten med det.",
+        "description": ""
     },
-    "report_terms": {
-        "message": "Detta skickar automatiskt följande information till EFF: den webbplats du besöker för tillfället, din webbläsareversion, versionen av Privacy Badger och läget för alla skjutreglaget för den här webbplatsen."
+    "dnt_tooltip": {
+        "message": "Denna domän lovar att inte spåra dig",
+        "description": ""
     },
-    "report_text": {
-        "message": "Beskriv kortfattat felet nedan."
+    "options_dnt_policy_learn_more": {
+        "message": "Lär dig mer",
+        "description": ""
     },
-    "report_title": {
-        "message": "Påpeka ett fel"
-    },
-    "show_counter_checkbox": {
-        "message": "Visa antalet blockerade objekt"
-    },
-    "slideshow_1": {
-        "message": "Hej, jag är Privacy Badger! Tack för att du installerade mig. Jag är här för att ge dig några användbara tips, så vi kan arbeta tillsammans."
-    },
-    "slideshow_10": {
-        "message": "Om du tror att jag har fattat fel beslut för en spårare kan du flytta skjutreglaget till rött för att blockera det, gult för att delvis blockera det och grönt för att tillåta det."
-    },
-    "slideshow_11": {
-        "message": "Om du ändrar en inställning som jag har gjort kan du alltid sätta tillbaka den under min kontroll genom att klicka på ångra pilen."
-    },
-    "slideshow_12": {
-        "message": "Om du har problem med en sida och du tycker att det är mitt fel, kan du klicka på avaktiverningsknappen här. Jag kommer att somna och inte blockera någonting på den webbplatsen."
+    "data_settings": {
+        "message": "Hantera data",
+        "description": ""
     },
     "slideshow_13": {
-        "message": "Om jag bryter en sida, låt mina utvecklare veta så att de kan lösa problemet! Du kan göra det genom att klicka på den här knappen."
+        "message": "Om jag bryter en sida, låt mina utvecklare veta så att de kan lösa problemet! Du kan göra det genom att klicka på den här knappen.",
+        "description": ""
     },
-    "slideshow_14": {
-        "message": "Om du vill ändra andra inställningar kan du klicka på den här kugghjulsikonen."
-    },
-    "slideshow_15": {
-        "message": "Självklart kan du bara låta alla dessa inställningar vara, och jag fortsätter att tyst äta upp alla spårare som jag upptäcker."
-    },
-    "slideshow_16": {
-        "message": "Tack för att du tagit ett viktigt och enkelt steg mot att skydda din integritet! Du kan klicka här om du behöver hjälp igen, och du kan klicka nedan för att låta världen veta att du tar ställning till spårning på nätet."
-    },
-    "slideshow_2": {
-        "message": "Jag kommer att sitta uppe här i din webbläsare och spana efter spionerande annonser och spårare som registrerar vad du gör på nätet."
-    },
-    "slideshow_3": {
-        "message": "Om jag upptäcker något som beter sig som en spårare, kommer jag att stoppa det genom att blockera det."
+    "report_title": {
+        "message": "Påpeka ett fel",
+        "description": ""
     },
     "slideshow_4": {
-        "message": "Om du klickar på min ikon kan du se listan över potentiella spårare på den aktuella fliken."
+        "message": "Om du klickar på min ikon kan du se listan över potentiella spårare på den aktuella fliken.",
+        "description": ""
     },
     "slideshow_5": {
-        "message": "Om skjutreglaget är rött betyder det att jag har blockerat den spåraren helt! Den fienden kommer inte att störa dig mer."
+        "message": "Om skjutreglaget är rött betyder det att jag har blockerat den spåraren helt! Den fienden kommer inte att störa dig mer.",
+        "description": ""
     },
-    "slideshow_6": {
-        "message": "Om skjutreglaget är gult betyder det att jag delvis har blockerat den spåraren. Jag kommer att göra mitt bästa för att förhindra att den spårar dig genom att äta dess kakor, men att blockera den helt kan bryta sidan."
+    "popup_instructions": {
+        "message": "potentiell(a) <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan. Med dessa reglage kan du styra hur Privacy Badger hanterar var och en. Du behöver inte justera dem om inte något är trasigt.",
+        "description": ""
     },
-    "slideshow_7": {
-        "message": "Om skjutreglaget är grönt betyder det att jag inte kan säga om den här domänen spårar dig ännu. Den kanske inte gör det, men jag kommer fortfarande att hålla ett öga på den."
+    "options_webrtc_setting": {
+        "message": "Förhindra WebRTC från att läcka din lokala IP-adress *",
+        "description": ""
     },
-    "slideshow_8": {
-        "message": "Första gången du klickar på min ikon kan du se att alla spårare är gröna, oroa dig inte! Jag skiljer mig från andra spårningsblockerande mjukvaror—istället för att veta en lista med saker att blockera genast, jag lär mig vad jag ska blockera medan du surfar. Om jag inte blockerar någonting ännu, försök att surfa till 4 eller 5 olika webbplatser. Jag borde börja blockera gemensamma spårare efter det."
+    "options_so_far": {
+        "message": "än så länge. Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare.",
+        "description": ""
     },
-    "slideshow_9": {
-        "message": "Jag lär medan jag är igång, så ju längre du använder mig, desto bättre kommer jag att bli på att skydda dig från lömska spårare!"
+    "error_input": {
+        "message": "Vad är fel?",
+        "description": ""
     },
-    "tooltip_allow": {
-        "message": "Flytta skjutreglaget till höger för att tillåta en domän"
+    "options_slider_text": {
+        "message": "Privacy Badger skyddar dig på nätet! Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare som den har flaggat genom din surfning.",
+        "description": ""
     },
-    "tooltip_block": {
-        "message": "Flytta skjutreglaget till vänster för att blockera en domän"
+    "intro1": {
+        "message": "Privacy Badger blockerar spårande annonser och osynliga spanare. Vi finns där för att företag inte ska kunna spåra dig utan ditt medgivande.",
+        "description": "firstRun.html intro to Privacy Badger"
     },
-    "tooltip_cookieblock": {
-        "message": "Centrera skjutreglaget för att blockera kakor"
+    "first_run_text": {
+        "message": "Lär dig hur Privacy Badger skyddar din integritet.",
+        "description": ""
     },
-    "version": {
-        "message": "version"
+    "download": {
+        "message": "Hämta",
+        "description": ""
+    },
+    "feed_the_badger_title": {
+        "message": "klicka för att återge kontrollen över denna spårare till Privacy Badger",
+        "description": ""
+    },
+    "intro_has_blocked": {
+        "message": "betyder att Privacy Badger tror att den här domänen är en spårare och har blockerat den.",
+        "description": ""
+    },
+    "import": {
+        "message": "Importera",
+        "description": ""
+    },
+    "options_social_widgets_checkbox": {
+        "message": "Ersätt sociala widgetar",
+        "description": ""
+    },
+    "options_tracking_domains": {
+        "message": "spårningsdomäner",
+        "description": ""
+    },
+    "report_button": {
+        "message": "Skicka fel",
+        "description": ""
+    },
+    "badger_status_allow": {
+        "message": "Tillåten ",
+        "description": ""
+    },
+    "privacy_badger_what_is": {
+        "message": "Vad är Privacy Badger?",
+        "description": ""
+    },
+    "options_domain_search": {
+        "message": "Sök domäner",
+        "description": ""
+    },
+    "show_counter_checkbox": {
+        "message": "Visa antalet blockerade objekt",
+        "description": ""
+    },
+    "privacy_badger": {
+        "message": "Privacy Badger",
+        "description": ""
+    },
+    "slideshow_1": {
+        "message": "Hej, jag är Privacy Badger! Tack för att du installerade mig. Jag är här för att ge dig några användbara tips, så vi kan arbeta tillsammans.",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Privacy Badger alternativ",
+        "description": ""
+    },
+    "options_pb_has_detected": {
+        "message": "Privacy Badger har upptäckt",
+        "description": ""
+    },
+    "slideshow_11": {
+        "message": "Om du ändrar en inställning som jag har gjort kan du alltid sätta tillbaka den under min kontroll genom att klicka på ångra pilen.",
+        "description": ""
+    },
+    "report_terms": {
+        "message": "Detta skickar automatiskt följande information till EFF: den webbplats du besöker för tillfället, din webbläsareversion, versionen av Privacy Badger och läget för alla skjutreglaget för den här webbplatsen.",
+        "description": ""
     },
     "whitelisted_domains": {
-        "description": "This is a tab heading.",
-        "message": "Vitlistade domäner"
+        "message": "Vitlistade domäner",
+        "description": "This is a tab heading."
+    },
+    "popup_enable_for_site": {
+        "message": "Aktivera Privacy Badger för denna webbplats",
+        "description": ""
+    },
+    "import_successful": {
+        "message": "Lista över spårare och inställningar uppdaterades!",
+        "description": ""
+    },
+    "export_user_data": {
+        "message": "Exportera användardata",
+        "description": ""
+    },
+    "intro_text": {
+        "message": "Du skyddas nu av Privacy Badger. För att lära dig hur Privacy Badger fungerar, klicka nedan för en snabb handledning.",
+        "description": ""
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC kan läcka din lokala IP-adress. Privacy Badgers standardinställning hjälper dig att skydda dig, men för extra skydd kan du aktivera det här alternativet. Observera att det kan minska prestandan på vissa verktyg som Google Hangouts.",
+        "description": ""
+    },
+    "options_general_settings": {
+        "message": "Allmänna inställningar",
+        "description": ""
+    },
+    "slideshow_7": {
+        "message": "Om skjutreglaget är grönt betyder det att jag inte kan säga om den här domänen spårar dig ännu. Den kanske inte gör det, men jag kommer fortfarande att hålla ett öga på den.",
+        "description": ""
+    },
+    "version": {
+        "message": "version",
+        "description": ""
+    },
+    "badger_status_cookieblock": {
+        "message": "Blockerade kakor från ",
+        "description": ""
+    },
+    "options_loading": {
+        "message": "Laddar...",
+        "description": ""
+    },
+    "firstRun_title": {
+        "message": "Tack för att du installerat Privacy Badger!",
+        "description": ""
+    },
+    "import_select_file": {
+        "message": "Vänligen välj en fil att importera.",
+        "description": ""
+    },
+    "popup_blocked": {
+        "message": "Det finns inga tredjeparts resurser på den här webbplatsen.",
+        "description": ""
+    },
+    "report_broken_site": {
+        "message": "Bröt Privacy Badger den här webbplatsen? Låt oss veta!",
+        "description": ""
+    },
+    "tooltip_cookieblock": {
+        "message": "Centrera skjutreglaget för att blockera kakor",
+        "description": ""
+    },
+    "ded_can_allow_to_track": {
+        "message": "kan låta den spåra dina surfvanor.",
+        "description": ""
+    },
+    "ded_privacy_badger_alert": {
+        "message": "Privacy Badger-larm!",
+        "description": ""
+    },
+    "slideshow_12": {
+        "message": "Om du har problem med en sida och du tycker att det är mitt fel, kan du klicka på avaktiverningsknappen här. Jag kommer att somna och inte blockera någonting på den webbplatsen.",
+        "description": ""
+    },
+    "slideshow_3": {
+        "message": "Om jag upptäcker något som beter sig som en spårare, kommer jag att stoppa det genom att blockera det.",
+        "description": ""
+    },
+    "report_close": {
+        "message": "Stäng",
+        "description": ""
+    },
+    "slideshow_9": {
+        "message": "Jag lär medan jag är igång, så ju längre du använder mig, desto bättre kommer jag att bli på att skydda dig från lömska spårare!",
+        "description": ""
+    },
+    "slideshow_2": {
+        "message": "Jag kommer att sitta uppe här i din webbläsare och spana efter spionerande annonser och spårare som registrerar vad du gör på nätet.",
+        "description": ""
+    },
+    "import_user_data": {
+        "message": "Importera användardata",
+        "description": ""
+    },
+    "slideshow_8": {
+        "message": "Första gången du klickar på min ikon kan du se att alla spårare är gröna, oroa dig inte! Jag skiljer mig från andra spårningsblockerande mjukvaror—istället för att veta en lista med saker att blockera genast, jag lär mig vad jag ska blockera medan du surfar. Om jag inte blockerar någonting ännu, försök att surfa till 4 eller 5 olika webbplatser. Jag borde börja blockera gemensamma spårare efter det.",
+        "description": ""
+    },
+    "options_filter_settings": {
+        "message": "Användarfilterinställningar",
+        "description": ""
+    },
+    "ded_logging_into": {
+        "message": "Logga in",
+        "description": ""
+    },
+    "report_cancel": {
+        "message": "Avbryt",
+        "description": ""
+    },
+    "tooltip_block": {
+        "message": "Flytta skjutreglaget till vänster för att blockera en domän",
+        "description": ""
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger är inaktiverad för domänerna som anges nedan. Du kan lägga till en domän antingen via Privacy Badger-ikonen i adressfältet eller genom att skriva domänen (inte en webbadress) i rutan och klicka på knappen \"Lägg till domän\".",
+        "description": ""
+    },
+    "pb_detected": {
+        "message": "Privacy Badger upptäckte",
+        "description": ""
+    },
+    "intro_by_eff": {
+        "message": "Ett projekt av Electronic Frontier Foundation",
+        "description": ""
+    },
+    "add_domain_button": {
+        "message": "Lägg till domän",
+        "description": ""
+    },
+    "tooltip_allow": {
+        "message": "Flytta skjutreglaget till höger för att tillåta en domän",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Inaktivera Privacy Badger för denna webbplats",
+        "description": ""
+    },
+    "intro_social_share": {
+        "message": "Låt världen veta att du tar ställning mot spårning på nätet",
+        "description": ""
+    },
+    "intro_yellow": {
+        "message": "Gul",
+        "description": ""
+    },
+    "name": {
+        "message": "Privacy Badger",
+        "description": ""
+    },
+    "intro_3_states": {
+        "message": "Vår tillbyggnad har tre lägen.",
+        "description": ""
+    },
+    "intro_cookie_blocked": {
+        "message": "betyder att domänen anses vara både en spårare och nödvändig för sidans funktion, så Privacy Badger tillåter den men blockerar dess kakor.",
+        "description": ""
+    },
+    "report_text": {
+        "message": "Beskriv kortfattat felet nedan.",
+        "description": ""
+    },
+    "ded_on": {
+        "message": "på ",
+        "description": ""
+    },
+    "new_filters_added": {
+        "message": "Nya filter lades till; se <a id='options_url' target='_blank'>Alternativ</a> för att hantera dem.",
+        "description": ""
+    },
+    "intro_red": {
+        "message": "Röd",
+        "description": ""
+    },
+    "options_potential": {
+        "message": "potentiell",
+        "description": ""
+    },
+    "remove_button": {
+        "message": "Ta bort valda",
+        "description": "This is the label for the 'Remove selected' buttons."
+    },
+    "intro_green": {
+        "message": "Grön",
+        "description": ""
+    },
+    "intro_no_tracker": {
+        "message": "innebär att Privacy Badger anser att detta inte är spårare. Du kan klicka på Privacy Badger ikonen i webbläsarens verktygsfält om du vill åsidosätta de automatiska blockeringsinställningarna. Eller du kan bläddra i fred eftersom Privacy Badger börjar hitta och äta upp webbspårare en efter en.",
+        "description": ""
+    },
+    "slideshow_15": {
+        "message": "Självklart kan du bara låta alla dessa inställningar vara, och jag fortsätter att tyst äta upp alla spårare som jag upptäcker.",
+        "description": ""
+    },
+    "report_input_label": {
+        "message": "Beskrivning",
+        "description": ""
+    },
+    "non_tracker": {
+        "message": "Domänerna nedan verkar inte spåra dig",
+        "description": ""
+    },
+    "slideshow_14": {
+        "message": "Om du vill ändra andra inställningar kan du klicka på den här kugghjulsikonen.",
+        "description": ""
+    },
+    "popup_options_button": {
+        "message": "Alternativ",
+        "description": ""
+    },
+    "slideshow_6": {
+        "message": "Om skjutreglaget är gult betyder det att jag delvis har blockerat den spåraren. Jag kommer att göra mitt bästa för att förhindra att den spårar dig genom att äta dess kakor, men att blockera den helt kan bryta sidan.",
+        "description": ""
+    },
+    "slideshow_16": {
+        "message": "Tack för att du tagit ett viktigt och enkelt steg mot att skydda din integritet! Du kan klicka här om du behöver hjälp igen, och du kan klicka nedan för att låta världen veta att du tar ställning till spårning på nätet.",
+        "description": ""
+    },
+    "ded_always_allow": {
+        "message": "Tillåt alltid ",
+        "description": ""
+    },
+    "description": {
+        "message": "Privacy Badger skyddar dig mot spårare när du surfar på nätet!",
+        "description": ""
+    },
+    "popup_noblocked": {
+        "message": "Varför är inget blockerat?",
+        "description": ""
+    },
+    "report_fail": {
+        "message": "Hoppsan. Något gick snett.",
+        "description": ""
+    },
+    "ded_never_allow": {
+        "message": "Blockera alltid tredjepartsförfrågningar från ",
+        "description": ""
+    },
+    "slideshow_10": {
+        "message": "Om du tror att jag har fattat fel beslut för en spårare kan du flytta skjutreglaget till rött för att blockera det, gult för att delvis blockera det och grönt för att tillåta det.",
+        "description": ""
     }
 }
