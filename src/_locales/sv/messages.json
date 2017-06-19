@@ -172,7 +172,7 @@
         "message": "Ersätt sociala widgetar"
     },
     "options_title": {
-        "message": "Privacy Badger-alternativ"
+        "message": "Privacy Badger alternativ"
     },
     "options_tracking_domains": {
         "message": "spårningsdomäner"
@@ -196,7 +196,7 @@
         "message": "Aktivera Privacy Badger för denna webbplats"
     },
     "popup_instructions": {
-        "message": "potentiell <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan. Med dessa reglage kan du styra hur Privacy Badger hanterar var och en. Du behöver inte justera dem om inte något är trasigt."
+        "message": "potentiell(a) <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan. Med dessa reglage kan du styra hur Privacy Badger hanterar var och en. Du behöver inte justera dem om inte något är trasigt."
     },
     "popup_noblocked": {
         "message": "Varför är inget blockerat?"
