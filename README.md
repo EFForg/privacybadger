@@ -21,7 +21,7 @@ In Firefox, visit `about:debugging`, click "Load Temporary Add-on" and select th
 
 ### Get in touch
 
-If you want to chat about Privacy Badger, please join us in the [`#privacybadger`](https://webchat.freenode.net/?channels=privacybadger) IRC channel on freenode.
+If you want to chat about Privacy Badger, please join us in the [`#privacybadger`](https://webchat.oftc.net/?channels=privacybadger&uio=d4) IRC channel on OFTC.
 
 We have public meetings for discussing development, bugs, feature, trackers, etc. every Monday and Thursday at 11:30am PST on [Jitsi video chat](https://meet.jit.si/PoliteBadgersSingEuphoricly).
 
