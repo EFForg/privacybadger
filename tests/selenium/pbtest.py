@@ -139,7 +139,7 @@ def install_pb_on_ff(driver):
     cmd = 'addonInstall'
     driver.command_executor._commands[cmd] = ('POST', '/session/$sessionId/moz/addon/install')
     driver.command_executor.execute(cmd, params)
-
+    time.sleep(2)
 
 @contextmanager
 def firefox_manager(self):
@@ -154,11 +154,10 @@ def firefox_manager(self):
     try:
         yield driver, 'moz-extension://%s/' % uuid
     finally:
+        time.sleep(2)
         driver.quit()
-        if 'TRAVIS' in os.environ:
-            time.sleep(10)
-        else:
-            time.sleep(10)
+        time.sleep(2)
+
 
 
 @contextmanager
