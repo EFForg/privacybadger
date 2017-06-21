@@ -181,14 +181,6 @@ def chrome_manager(self):
         driver.quit()
 
 
-def init(self, base_url, driver):
-    self._logs = []
-    self.base_url = base_url
-    self.driver = driver
-    self.driver.set_script_timeout(10)
-    self.js = self.driver.execute_script
-
-
 class PBSeleniumTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -202,6 +194,7 @@ class PBSeleniumTest(unittest.TestCase):
         # hangs of chromedriver (possibly due to crbug.com/309093).
         os.environ["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
         cls.proj_root = get_root()
+        cls.cookieblocklist_path = os.path.join(cls.proj_root, 'doc/sample_cookieblocklist_legacy.txt')
         if browser_type == 'firefox':
             cls.manager = firefox_manager
         else:
@@ -212,12 +205,24 @@ class PBSeleniumTest(unittest.TestCase):
         if cls.wants_xvfb:
             cls.vdisplay.stop()
 
+    def init(self, base_url, driver):
+        self._logs = []
+        self.base_url = base_url
+        self.driver = driver
+        self.driver.set_script_timeout(10)
+        self.js = self.driver.execute_script
+        self.bg_url = self.base_url + "_generated_background_page.html"
+        self.options_url = self.base_url + "skin/options.html"
+        self.popup_url = self.base_url + "skin/popup.html"
+        self.first_run_url = self.base_url + "skin/firstRun.html"
+        self.test_url = self.base_url + "tests/index.html"
+
     def run(self, result=None):
         nretries = attempts.get(result.name, 1)
         for i in range(nretries):
             try:
                 with self.manager() as (driver, base_url):
-                    init(self, base_url, driver)
+                    self.init(base_url, driver)
                     super(PBSeleniumTest, self).run(result)
 
                     # retry test magic
@@ -257,40 +262,6 @@ class PBSeleniumTest(unittest.TestCase):
             lambda driver: driver.execute_script(script),
             "Timed out waiting for execute_script to eval to True"
         )
-
-    @property
-    def bg_url(self):
-        return self.base_url + "_generated_background_page.html"
-
-    @property
-    def options_url(self):
-        return self.base_url + "skin/options.html"
-
-    @property
-    def popup_url(self):
-        return self.base_url + "skin/popup.html"
-
-    @property
-    def first_run_url(self):
-        return self.base_url + "skin/firstRun.html"
-
-    @property
-    def test_url(self):
-        return self.base_url + "tests/index.html"
-
-    @property
-    def cookieblocklist_path(self):
-        return os.path.join(self.proj_root, 'doc/sample_cookieblocklist_legacy.txt')
-
-    @property
-    def url_to_handle_map(self):
-        out = {}
-        before = self.driver.current_window_handle
-        for w in self.driver.window_handles:
-            self.driver.switch_to.window(w)
-            out[self.driver.current_url] = self.driver.current_window_handle
-        self.driver.switch_to.window(before)
-        return out
 
     @property
     def logs(self):
