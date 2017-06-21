@@ -156,9 +156,9 @@ def firefox_manager(self):
     finally:
         driver.quit()
         if 'TRAVIS' in os.environ:
-            time.sleep(5)
+            time.sleep(10)
         else:
-            time.sleep(3)
+            time.sleep(10)
 
 
 @contextmanager
