@@ -5,7 +5,6 @@ import unittest
 from contextlib import contextmanager
 import subprocess
 import time
-import shutil
 from functools import wraps
 
 from selenium import webdriver
@@ -135,6 +134,13 @@ def repeat_if_failed(ntimes):
     return test_catcher
 
 
+def install_pb_on_ff(driver):
+    params = {'path': extension_path, 'temporary': True, 'sessionId': driver.session_id}
+    cmd = 'addonInstall'
+    driver.command_executor._commands[cmd] = ('POST', '/session/$sessionId/moz/addon/install')
+    driver.command_executor.execute(cmd, params)
+
+
 @contextmanager
 def firefox_manager(self):
     id_ = "jid1-MnnxcxisBPnSXQ@jetpack"
@@ -142,12 +148,9 @@ def firefox_manager(self):
 
     ffp = webdriver.FirefoxProfile()
     ffp.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' % (id_, uuid))
-    tmp_ext_path = os.path.join(ffp.extensionsDir, id_)
-
-    os.mkdir(ffp.extensionsDir)
-    shutil.copytree(extension_path, tmp_ext_path, symlinks=True)
 
     driver = webdriver.Firefox(firefox_profile=ffp, firefox_binary=browser_path)
+    install_pb_on_ff(driver)
     try:
         yield driver, 'moz-extension://%s/' % uuid
     finally:
