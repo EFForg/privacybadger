@@ -13,7 +13,7 @@ function run_lint {
 }
 
 function run_selenium {
-  py.test --exitfirst --capture=no --verbose --durations=10 ${testdir} # autodiscover and run the tests
+  py.test --capture=no --verbose --durations=10 ${testdir} # autodiscover and run the tests
 }
 
 function set_info {
