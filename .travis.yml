@@ -1,4 +1,3 @@
-group: edge
 sudo: required
 language: python
 os: linux
@@ -17,14 +16,14 @@ matrix:
         chrome: stable
       env: INFO="chrome stable" BROWSER=google-chrome-stable ENABLE_XVFB=1
     - addons:
-        firefox: latest-dev
-      env: INFO="firefox dev" BROWSER=firefox ENABLE_XVFB=1
+        firefox: latest
+      env: INFO="firefox" BROWSER=firefox ENABLE_XVFB=1
     - addons:
-        firefox: latest-nigtly
-      env: INFO="firefox nightly" BROWSER=firefox ENABLE_XVFB=1
+        firefox: latest-esr
+      env: INFO="firefox esr" BROWSER=firefox ENABLE_XVFB=1
     - addons:
-        firefox: latest-unsigned
-      env: INFO="firefox unsigned" BROWSER=firefox ENABLE_XVFB=1
+        firefox: latest-beta
+      env: INFO="firefox beta" BROWSER=firefox ENABLE_XVFB=1
 before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
