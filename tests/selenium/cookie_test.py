@@ -104,53 +104,47 @@ class CookieTest(pbtest.PBSeleniumTest):
         that reads and writes a cookie. The third party cookie will be picked up by
         PB after each of the site loads, but no action will be taken. Then the first
         site will be reloaded, and the UI will show the third party cookie as blocked."""
-        avg_load = 1
+
+        self.driver.delete_all_cookies()
+        # fixme: check for chrome settings for third party cookies?
 
         # load the first site with the third party code that reads and writes a cookie
-        tabs = window_utils.Tabs(self)
-        tabs.goto_background()
-
-        site1_tab_id = tabs.new_tab(SITE1_URL)
-        popup_tab_id = tabs.new_tab(self.popup_url)
-        tabs.goto_popup()
-        time.sleep(avg_load)
-        tabs.refresh_popup(site1_tab_id)
-
+        self.load_url(SITE1_URL)
+        self.load_pb_ui(SITE1_URL)
         self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
-
-        tabs.remove_tab(site1_tab_id)
 
         # go to second site
-        site2_tab_id = tabs.new_tab(SITE2_URL)
-        time.sleep(avg_load)
-        tabs.refresh_popup(site2_tab_id)
-
+        self.load_url(SITE2_URL)
+        window_utils.close_windows_with_url(self.driver, SITE1_URL)
+        self.load_pb_ui(SITE2_URL)
         self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
-
-        tabs.remove_tab(site2_tab_id)
 
         # go to third site
-        site3_tab_id = tabs.new_tab(SITE3_URL)
-        time.sleep(avg_load)
-        tabs.refresh_popup(site3_tab_id)
-
+        self.load_url(SITE3_URL)
+        window_utils.close_windows_with_url(self.driver, SITE2_URL)
+        self.load_pb_ui(SITE3_URL)
         self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
-
-        tabs.remove_tab(site3_tab_id)
 
         # reloading the first site should now cause the cookie to be blocked
         # it can take a long time for the UI to be updated, so retry a number of
         # times before giving up. See bug #702.
         print("this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed")
+        self.load_url(SITE1_URL)
+        window_utils.close_windows_with_url(self.driver, SITE3_URL)
+        for i in range(5):
+            self.load_pb_ui(SITE1_URL)
+            self.get_tracker_state()
 
-        site1_tab_id = tabs.new_tab(SITE1_URL)
-        time.sleep(avg_load)
-        tabs.refresh_popup(site1_tab_id)
+            if THIRD_PARTY_TRACKER in self.cookieBlocked:
+                print("Popup UI has been updated. Yay!")
+                break
+            window_utils.close_windows_with_url(self.driver, self.popup_url)
+            print("popup UI has not been updated yet. try again in 10 seconds")
+            time.sleep(10)
 
-        self.get_tracker_state()
         self.assertTrue(THIRD_PARTY_TRACKER in self.cookieBlocked)
 
     def load_pb_ui(self, target_scheme_and_host):
