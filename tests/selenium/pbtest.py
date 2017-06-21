@@ -155,6 +155,10 @@ def firefox_manager(self):
         yield driver, 'moz-extension://%s/' % uuid
     finally:
         driver.quit()
+        if 'TRAVIS' in os.environ:
+            time.sleep(5)
+        else:
+            time.sleep(3)
 
 
 @contextmanager
