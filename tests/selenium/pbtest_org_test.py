@@ -60,7 +60,7 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
 
         firefox_failures = [u'Does Privacy Badger Honor the Cookie Block List \u2717 Fail']
         # ignore this failure on firefox
-        if pbtest.browser_type == 'firefox' and failed_tests == firefox_failures:
+        if pbtest.shim.browser_type == 'firefox' and failed_tests == firefox_failures:
             return
 
         fail_msg = "%d tests failed:\n  * %s" % (
