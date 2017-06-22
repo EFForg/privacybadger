@@ -24,7 +24,7 @@ var _multiDomainFirstPartiesArray = [
     "google.co.uk", "google.fr", "google.com.br", "google.ru", "google.it", "google.no",
     "google.ca", "gmail.com"],
   ["facebook.com", "fbcdn.com", "fbcdn.net", "facebook.net", "messenger.com"],
-  ["newyorktimes.com", "nyt.com"],
+  ["newyorktimes.com", "nytimes.com", "nyt.com"],
   ["yahooapis.com", "yimg.com", "yahoo.com", "yahoo.co.jp", "overture.com", "flickr.com"],
   ["reddit.com", "redditmedia.com", "redditstatic.com", "redd.it", "redditenhancementsuite.com", "reddituploads.com", "imgur.com"],
   ["github.com", "githubapp.com", "githubusercontent.com"],
