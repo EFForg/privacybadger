@@ -76,6 +76,7 @@ var _multiDomainFirstPartiesArray = [
   ["mandtbank.com", "mtb.com"],
   ["mathletics.com", "mathletics.com.au", "mathletics.co.uk"],
   ["mdsol.com", "imedidata.com"],
+  ["meetup.com", "meetupstatic.com"],
   ["mercadolivre.com", "mercadolivre.com.br", "mercadolibre.com", "mercadolibre.com.ar", "mercadolibre.com.mx"],
   ["mi.com", "xiaomi.com"],
   [
