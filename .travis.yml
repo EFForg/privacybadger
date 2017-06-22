@@ -11,21 +11,21 @@ matrix:
     - env: INFO="lint"
     - addons:
         chrome: beta
-      env: INFO="chrome beta" BROWSER=google-chrome-beta ENABLE_XVFB=1
+      env: INFO="chrome beta" BROWSER=google-chrome-beta
     - addons:
         chrome: stable
-      env: INFO="chrome stable" BROWSER=google-chrome-stable ENABLE_XVFB=1
+      env: INFO="chrome stable" BROWSER=google-chrome-stable
     - addons:
         firefox: latest
-      env: INFO="firefox" BROWSER=firefox ENABLE_XVFB=1
+      env: INFO="firefox" BROWSER=firefox
     - addons:
         firefox: latest-esr
-      env: INFO="firefox esr" BROWSER=firefox ENABLE_XVFB=1
+      env: INFO="firefox esr" BROWSER=firefox
     - addons:
         firefox: latest-beta
-      env: INFO="firefox beta" BROWSER=firefox ENABLE_XVFB=1
+      env: INFO="firefox beta" BROWSER=firefox
 before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-before_script: . ./scripts/setup_travis.sh
+before_script: travis_retry ./scripts/setup_travis.sh
 script: . ./scripts/run_travis.sh
