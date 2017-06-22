@@ -200,6 +200,7 @@ godatafeed.com
 gogousenet.com
 accounts.google.com
 apis.google.com
+books.google.com
 calendar.google.com
 checkout.google.com
 clients1.google.com
@@ -209,6 +210,7 @@ developers.google.com
 docs.google.com
 drive.google.com
 feedburner.google.com
+fusiontables.google.com
 groups.google.com
 kh.google.com
 khms0.google.com
@@ -217,9 +219,9 @@ khms2.google.com
 khms3.google.com
 khms4.google.com
 labs.google.com
-maps.google.com
 maps-api-ssl.google.com
 mapsengine.google.com
+maps.google.com
 mt0.google.com
 mt1.google.com
 mts0.google.com
@@ -227,10 +229,15 @@ mts1.google.com
 mw1.google.com
 mw2.google.com
 picasaweb.google.com
+play.google.com
 plus.google.com
+sites.google.com
 spreadsheets.google.com
+storage.googleapis.com
 talkgadget.google.com
 translate.google.com
+trends.google.com
+video.google.com
 www.google.com
 ajax.googleapis.com
 googleapis.com
