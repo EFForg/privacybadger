@@ -330,7 +330,7 @@ function replaceIndividualButton(tracker) {
 *                            replaced
 */
 function getTrackerData(callback) {
-  chrome.runtime.sendMessage({checkReplaceButton:document.location}, function(response) {
+  chrome.runtime.sendMessage({checkReplaceButton:document.location.hostname}, function(response) {
     if (response){
       var trackers = response.trackers;
       var trackerButtonsToReplace = response.trackerButtonsToReplace;
