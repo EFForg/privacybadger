@@ -1,8 +1,8 @@
-#!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 import os
 import unittest
 from contextlib import contextmanager
+from collections import namedtuple
 import subprocess
 import time
 from functools import wraps
@@ -18,6 +18,11 @@ SEL_DEFAULT_WAIT_TIMEOUT = 30
 
 BROWSER_TYPES = ['chrome', 'firefox']
 BROWSER_NAMES = ['google-chrome', 'google-chrome-stable', 'google-chrome-beta', 'firefox']
+
+Specifics = namedtuple('Specifics', ['manager', 'background_url', 'info'])
+
+firefox_info = {'extension_id': 'jid1-MnnxcxisBPnSXQ@jetpack', 'uuid': 'd56a5b99-51b6-4e83-ab23-796216679614'}
+chrome_info = {'extension_id': 'mcgekeccgjgcmhnhbabplanchdogjcnh'}
 
 
 def parse_stdout(res):
@@ -37,6 +42,12 @@ def unix_which(command, silent=False):
         raise e
 
 
+def build_crx():
+    '''Builds the crx file for chrome and returns the path to it'''
+    cmd = ['make', '-sC', get_root(), 'travisbuild']
+    return os.path.join(get_root(), parse_stdout(subprocess.check_output(cmd).split()[-1]))
+
+
 def get_browser_type(string):
     for t in BROWSER_TYPES:
         if t in string:
@@ -54,50 +65,108 @@ def get_browser_name(string):
         raise ValueError('Could not get browser name from %s' % string)
 
 
-def build_crx():
-    '''Builds the crx file for chrome and returns the path to it'''
-    cmd = ['make', '-sC', get_root(), 'travisbuild']
-    return os.path.join(get_root(), parse_stdout(subprocess.check_output(cmd).split()[-1]))
-
-
-def get_ext_path(browser_type):
-    if browser_type == 'chrome':
-        return build_crx()
-    elif browser_type == 'firefox':
-        return os.path.join(get_root(), 'src')
-    else:
-        raise ValueError("bad browser type")
-
-
-def set_config():
+class Shim:
     '''
-    Get a configuration from the supplied BROWSER environment variable.
-    This function any of:
+    Chooses the correct driver and extension_url based on the BROWSER environment
+    variable. BROWSER should be one of:
     * /path/to/a/browser
     * a browser executable name so we can find the browser with "which $BROWSER"
     * something from BROWSER_TYPES
     '''
-    browser = os.environ['BROWSER']
-    if ("/" in browser) or ("\\" in browser):  # path to a browser binary
-        bpath = browser
-        btype = get_browser_type(bpath)
+    def __init__(self):
+        print('configuring the test run: ')
+        self._specifics = None
+        browser = os.environ['BROWSER']
+        # get browser_path and broser_type first
+        if ("/" in browser) or ("\\" in browser):  # path to a browser binary
+            self.browser_path = browser
+            self.browser_type = get_browser_type(self.browser_path)
 
-    elif unix_which(browser, silent=True):  # executable browser name like 'google-chrome-stable'
-        bpath = unix_which(browser)
-        btype = get_browser_type(browser)
+        elif unix_which(browser, silent=True):  # executable browser name like 'google-chrome-stable'
+            self.browser_path = unix_which(browser)
+            self.browser_type = get_browser_type(browser)
 
-    elif get_browser_type(browser):  # browser type like 'firefox' or 'chrome'
-        bname = get_browser_name(browser)
-        bpath = unix_which(bname)
-        btype = browser
-    else:
-        raise ValueError("could not infer BROWSER from %s" % browser)
-    return bpath, btype, get_ext_path(btype)
+        elif get_browser_type(browser):  # browser type like 'firefox' or 'chrome'
+            bname = get_browser_name(browser)
+            self.browser_path = unix_which(bname)
+            self.browser_type = browser
+        else:
+            raise ValueError("could not infer BROWSER from %s" % browser)
+
+        self.extension_path = self.get_ext_path()
+        self._set_specifics()
+        print('\nUsing browser path: %s \nwith browser type: %s \nand extension path: %s' %
+              (self.browser_path, self.browser_type, self.extension_path))
+
+    def _set_specifics(self):
+        self._specifics = self._specifics or {
+            'chrome': Specifics(self.chrome_manager, 'chrome-extension://%s/' % chrome_info['extension_id'], chrome_info),
+            'firefox': Specifics(self.firefox_manager, 'moz-extension://%s/' % firefox_info['uuid'], firefox_info)}
+        self.manager, self.bg_url, self.info = (*self._specifics[self.browser_type],)
+
+    def get_ext_path(self):
+        if self.browser_type == 'chrome':
+            return build_crx()
+        elif self.browser_type == 'firefox':
+            return os.path.join(get_root(), 'src')
+        else:
+            raise ValueError("bad browser getting extension path")
+
+    @property
+    def wants_xvfb(self):
+        if self.on_travis or bool(int(os.environ.get('ENABLE_XVFB'))):
+            return True
+        return False
+
+    @property
+    def on_travis(self):
+        if "TRAVIS" in os.environ:
+            return True
+        return False
+
+    @contextmanager
+    def chrome_manager(self):
+        opts = Options()
+        if self.on_travis:  # github.com/travis-ci/travis-ci/issues/938
+            opts.add_argument("--no-sandbox")
+        opts.add_extension(self.extension_path)
+        opts.binary_location = self.browser_path
+        opts.add_experimental_option("prefs", {"profile.block_third_party_cookies": False})
+
+        caps = DesiredCapabilities.CHROME.copy()
+        caps['loggingPrefs'] = {'browser': 'ALL'}
+
+        driver = webdriver.Chrome(chrome_options=opts, desired_capabilities=caps)
+        try:
+            yield driver
+        finally:
+            driver.quit()
+
+    @contextmanager
+    def firefox_manager(self):
+        ffp = webdriver.FirefoxProfile()
+        # make extension id constant across runs
+        ffp.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' %
+                           (self.info['extension_id'], self.info['uuid']))
+
+        driver = webdriver.Firefox(firefox_profile=ffp, firefox_binary=self.browser_path)
+
+        # install extension on firefox
+        params = {'path': self.extension_path, 'temporary': True, 'sessionId': driver.session_id}
+        cmd = 'addonInstall'
+        driver.command_executor._commands[cmd] = ('POST', '/session/$sessionId/moz/addon/install')
+        driver.command_executor.execute(cmd, params)
+        time.sleep(2)
+
+        try:
+            yield driver
+        finally:
+            time.sleep(2)
+            driver.quit()
+            time.sleep(2)
 
 
-print('configuring the test run: ')
-browser_path, browser_type, extension_path = set_config()
-print('Using browser path: %s \nwith browser type: %s \n and extension path: %s' % (browser_path, browser_type, extension_path))
+shim = Shim()  # create the browser shim
 
 
 def if_firefox(wrapper):
@@ -110,7 +179,7 @@ def if_firefox(wrapper):
         ...
     '''
     def test_catcher(test):
-        if browser_type == 'firefox':
+        if shim.browser_type == 'firefox':
             return wraps(test)(wrapper)(test)
         else:
             return test
@@ -118,7 +187,7 @@ def if_firefox(wrapper):
 
 
 attempts = {}  # used to count test retries
-def repeat_if_failed(ntimes):
+def repeat_if_failed(ntimes): # noqa
     '''
     A decorator that retries the test if it fails `ntimes`. The TestCase must
     be used on a subclass of unittest.TestCase. NB: this just register's function
@@ -134,57 +203,12 @@ def repeat_if_failed(ntimes):
     return test_catcher
 
 
-def install_pb_on_ff(driver):
-    params = {'path': extension_path, 'temporary': True, 'sessionId': driver.session_id}
-    cmd = 'addonInstall'
-    driver.command_executor._commands[cmd] = ('POST', '/session/$sessionId/moz/addon/install')
-    driver.command_executor.execute(cmd, params)
-    time.sleep(2)
-
-@contextmanager
-def firefox_manager(self):
-    id_ = "jid1-MnnxcxisBPnSXQ@jetpack"
-    uuid = "d56a5b99-51b6-4e83-ab23-796216679614"
-
-    ffp = webdriver.FirefoxProfile()
-    ffp.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' % (id_, uuid))
-
-    driver = webdriver.Firefox(firefox_profile=ffp, firefox_binary=browser_path)
-    install_pb_on_ff(driver)
-    try:
-        yield driver, 'moz-extension://%s/' % uuid
-    finally:
-        time.sleep(2)
-        driver.quit()
-        time.sleep(2)
-
-
-
-@contextmanager
-def chrome_manager(self):
-    """Setup and return a Chrom[e|ium] browser for Selenium."""
-    opts = Options()
-    if "TRAVIS" in os.environ:  # github.com/travis-ci/travis-ci/issues/938
-        opts.add_argument("--no-sandbox")
-    opts.add_extension(extension_path)
-    opts.binary_location = browser_path
-    prefs = {"profile.block_third_party_cookies": False}
-    opts.add_experimental_option("prefs", prefs)
-
-    caps = DesiredCapabilities.CHROME.copy()
-    caps['loggingPrefs'] = {'browser': 'ALL'}
-
-    driver = webdriver.Chrome(chrome_options=opts, desired_capabilities=caps)
-    try:
-        yield driver, "chrome-extension://mcgekeccgjgcmhnhbabplanchdogjcnh/"
-    finally:
-        driver.quit()
-
-
 class PBSeleniumTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.wants_xvfb = int(os.environ.get("ENABLE_XVFB", 1))
+        cls.manager = shim.manager
+        cls.base_url = shim.bg_url
+        cls.wants_xvfb = shim.wants_xvfb
         if cls.wants_xvfb:
             from xvfbwrapper import Xvfb
             cls.vdisplay = Xvfb(width=1280, height=720)
@@ -195,19 +219,14 @@ class PBSeleniumTest(unittest.TestCase):
         os.environ["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
         cls.proj_root = get_root()
         cls.cookieblocklist_path = os.path.join(cls.proj_root, 'doc/sample_cookieblocklist_legacy.txt')
-        if browser_type == 'firefox':
-            cls.manager = firefox_manager
-        else:
-            cls.manager = chrome_manager
 
     @classmethod
     def tearDownClass(cls):
         if cls.wants_xvfb:
             cls.vdisplay.stop()
 
-    def init(self, base_url, driver):
+    def init(self, driver):
         self._logs = []
-        self.base_url = base_url
         self.driver = driver
         self.driver.set_script_timeout(10)
         self.js = self.driver.execute_script
@@ -221,8 +240,8 @@ class PBSeleniumTest(unittest.TestCase):
         nretries = attempts.get(result.name, 1)
         for i in range(nretries):
             try:
-                with self.manager() as (driver, base_url):
-                    self.init(base_url, driver)
+                with self.manager() as driver:
+                    self.init(driver)
                     super(PBSeleniumTest, self).run(result)
 
                     # retry test magic
