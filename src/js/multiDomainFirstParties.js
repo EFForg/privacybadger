@@ -58,6 +58,7 @@ var _multiDomainFirstPartiesArray = [
   ["express-scripts.com", "medcohealth.com"],
   ["facebook.com", "fbcdn.com", "fbcdn.net", "facebook.net", "messenger.com"],
   ["firefox.com", "mozilla.org"],
+  ["foxnews.com", "foxbusiness.com", "fncstatic.com"],
   ["github.com", "githubapp.com", "githubusercontent.com"],
   ["gizmodo.com", "kinja-img.com", "kinja-static.com", "deadspin.com", "lifehacker.com",
     "technoratimedia.com", "kinja.com", "jalopnik.com", "jezebel.com"],
