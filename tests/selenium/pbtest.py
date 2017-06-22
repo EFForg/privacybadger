@@ -24,28 +24,20 @@ Specifics = namedtuple('Specifics', ['manager', 'background_url', 'info'])
 firefox_info = {'extension_id': 'jid1-MnnxcxisBPnSXQ@jetpack', 'uuid': 'd56a5b99-51b6-4e83-ab23-796216679614'}
 chrome_info = {'extension_id': 'mcgekeccgjgcmhnhbabplanchdogjcnh'}
 
+parse_stdout = lambda res: res.strip().decode('utf-8')
 
-def parse_stdout(res):
-    return res.strip().decode('utf-8')
+run_shell_command = lambda command: parse_stdout(subprocess.check_output(command))
 
-
-def get_root():
-    return parse_stdout(subprocess.check_output(['git', 'rev-parse', '--show-toplevel']))
+get_git_root = lambda: run_shell_command(['git', 'rev-parse', '--show-toplevel'])
 
 
 def unix_which(command, silent=False):
     try:
-        return parse_stdout(subprocess.check_output(['which', command]))
+        return run_shell_command(['which', command])
     except subprocess.CalledProcessError as e:
         if silent:
             return None
         raise e
-
-
-def build_crx():
-    '''Builds the crx file for chrome and returns the path to it'''
-    cmd = ['make', '-sC', get_root(), 'travisbuild']
-    return os.path.join(get_root(), parse_stdout(subprocess.check_output(cmd).split()[-1]))
 
 
 def get_browser_type(string):
@@ -65,6 +57,12 @@ def get_browser_name(string):
         raise ValueError('Could not get browser name from %s' % string)
 
 
+def build_crx():
+    '''Builds the .crx file for Chrome and returns the path to it'''
+    cmd = ['make', '-sC', get_git_root(), 'travisbuild']
+    return os.path.join(get_git_root(), run_shell_command(cmd).split()[-1])
+
+
 class Shim:
     '''
     Chooses the correct driver and extension_url based on the BROWSER environment
@@ -74,7 +72,7 @@ class Shim:
     * something from BROWSER_TYPES
     '''
     def __init__(self):
-        print('configuring the test run: ')
+        print('Configuring the test run')
         self._specifics = None
         browser = os.environ['BROWSER']
         # get browser_path and broser_type first
@@ -108,7 +106,7 @@ class Shim:
         if self.browser_type == 'chrome':
             return build_crx()
         elif self.browser_type == 'firefox':
-            return os.path.join(get_root(), 'src')
+            return os.path.join(get_git_root(), 'src')
         else:
             raise ValueError("bad browser getting extension path")
 
@@ -217,7 +215,7 @@ class PBSeleniumTest(unittest.TestCase):
         # setting DBUS_SESSION_BUS_ADDRESS to nonsense prevents frequent
         # hangs of chromedriver (possibly due to crbug.com/309093).
         os.environ["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
-        cls.proj_root = get_root()
+        cls.proj_root = get_git_root()
         cls.cookieblocklist_path = os.path.join(cls.proj_root, 'doc/sample_cookieblocklist_legacy.txt')
 
     @classmethod
