@@ -50,6 +50,7 @@ var _multiDomainFirstPartiesArray = [
   ["cricketwireless.com", "aiowireless.com"],
   ["dcu.org", "dcu-online.org"],
   ["diapers.com", "soap.com", "wag.com", "yoyo.com", "beautybar.com", "casa.com", "afterschool.com", "vine.com", "bookworm.com", "look.com", "vinemarket.com"],
+  ["dictionary.com", "thesaurus.com", "sfdict.com"],
   ["discountbank.co.il", "telebank.co.il"],
   ["discover.com", "discovercard.com"],
   ["dropbox.com", "dropboxstatic.com", "getdropbox.com"],
