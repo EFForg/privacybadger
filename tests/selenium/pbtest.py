@@ -63,6 +63,18 @@ def build_crx():
     return os.path.join(get_git_root(), run_shell_command(cmd).split()[-1])
 
 
+def install_ext_on_ff(driver, extension_path):
+    '''
+    Use Selenium's internal API's to manually send a message to geckodriver
+    to install the extension. We should remove this once the functionality is
+    included in Selenium.
+    '''
+    command = 'addonInstall'
+    driver.command_executor._commands[command] = ('POST', '/session/$sessionId/moz/addon/install')
+    driver.execute(command, params={'path': extension_path, 'temporary': True})
+    time.sleep(2)
+
+
 class Shim:
     '''
     Chooses the correct driver and extension_url based on the BROWSER environment
@@ -148,14 +160,7 @@ class Shim:
                            (self.info['extension_id'], self.info['uuid']))
 
         driver = webdriver.Firefox(firefox_profile=ffp, firefox_binary=self.browser_path)
-
-        # install extension on firefox
-        params = {'path': self.extension_path, 'temporary': True, 'sessionId': driver.session_id}
-        cmd = 'addonInstall'
-        driver.command_executor._commands[cmd] = ('POST', '/session/$sessionId/moz/addon/install')
-        driver.command_executor.execute(cmd, params)
-        time.sleep(2)
-
+        install_ext_on_ff(driver, self.extension_path)
         try:
             yield driver
         finally:
