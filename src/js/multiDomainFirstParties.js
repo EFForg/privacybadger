@@ -100,6 +100,7 @@ var _multiDomainFirstPartiesArray = [
     "windows.com",
     "xboxlive.com",
   ],
+  ["mobilism.org.in", "mobilism.org"],
   ["morganstanley.com", "morganstanleyclientserv.com", "stockplanconnect.com", "ms.com"],
   ["my-bookings.org", "my-bookings.cc"],
   ["mycanal.fr", "canal-plus.com"],
