@@ -32,12 +32,16 @@ We also have a [mailing list](https://lists.eff.org/mailman/listinfo/privacybadg
 This project uses the [QUnit](http://qunitjs.com/), [py.test](http://pytest.org/), [Selenium](http://www.seleniumhq.org/) test frameworks
 along with [Travis CI](https://travis-ci.org/) for continuous integration.
 
+#### Unit tests
+
 To run unit tests on Chrome find your extension's ID look for it on
 `chrome://extensions/`) and visit
 `chrome-extension://YOUR_EXTENSION_ID/tests/index.html`, replacing
 `YOUR_EXTENSION_ID` with your 32 character ID. For Firefox you can find your
 extensions's "UUID" on `about:debugging`, then visit
 `moz_extension://YOUR_EXTENSION_UUID/tests/index.html`.
+
+#### Functional tests
 
 To run the Selenium functional tests, you'll need to install `chromedriver` for
 Chrome or `geckodriver` for Firefox. Optionally you can also install `xvfb` to
@@ -46,16 +50,15 @@ run the tests headlessly. You also need some python packages which can be instal
 $ pip install -r tests/requirements.txt
 ```
 
-Before you need to set two environment variables:
+Now you should be able to run the selenium tests! Try running
 ```bash
-$ export CRX_PATH=path/to/the/extension.crx
-$ export BROWSER_PATH=path/to/the/browser/binary
+$ BROWSER=chrome py.test
 ```
 
-Then the selenium tests can be run with:
-```bash
-$ py.test path/to/a/test.py
-```
+The BROWSER environment variable must be set. It must be one of:
+* `BROWSER=/path/to/a/browser`
+* the name of a browser executable that can be found like `which $BROWSER`
+* or simply `BROWSER=chrome` or `BROWSER=firefox` if you have them installed
 
 Refer to the our Travis-CI scripts for more information:
 [`scripts/setup_travis.sh`](scripts/setup_travis.sh) and
