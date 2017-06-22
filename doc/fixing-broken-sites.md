@@ -6,12 +6,20 @@ Here are the [open "broken site" and "good-volunteer-task"-labeled issues](https
 
 The first thing to do is to confirm that Privacy Badger blocks (or will eventually learn to block) the domain, and that blocking the domain does indeed break the site.
 
-Next, you should understand what kind of breakage you are looking at. Privacy Badger has several mechanisms for addressing site issues. Which mechanism addresses the issue most specifically, resolving the breakage while increasing privacy exposure by the smallest amount?
+Once the issue is confirmed, you should try to find the most appropriate way to resolve it. Privacy Badger has several existing ways of resolving site issues:
+
+- Multi-domain first parties
+- Script surrogates
+- Widget replacement
+- EFF's Do Not Track policy
+- Yellowlisting
+
+The question to ask is, which way addresses the issue most specifically, resolving the breakage while increasing privacy exposure by the smallest amount? Let's look at some common kinds of breakages.
 
 
 ### Domains that are part of the site but don't look like it
 
-Does the blocked domain actually belong to the site, but Privacy Badger doesn't know that and so treats the domain as an external tracker? Sounds like a job for [multi-domain first-parties](https://github.com/EFForg/privacybadger/issues/781).
+Does the blocked domain actually belong to the site, but Privacy Badger doesn't know that and so treats the domain as an external tracker? Sounds like a job for [multi-domain first parties](https://github.com/EFForg/privacybadger/issues/781).
 
 
 ### JavaScript errors
