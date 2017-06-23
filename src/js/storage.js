@@ -260,6 +260,9 @@ BadgerPen.prototype = {
    */
   setupHeuristicAction: function(domain, action){
     this._setupDomainAction(domain, action, "heuristicAction");
+    if (this.isActionMapEmptyForDomain(domain)) {
+      this.getBadgerStorageObject('action_map').deleteItem(domain);
+    }
   },
 
   /**
@@ -277,8 +280,14 @@ BadgerPen.prototype = {
    * @param domain FQDN string
    */
   revertDNT: function(domain){
+    if (this.isActionMapEmptyForDomain(domain)) {
+      return;
+    }
     this.touchDNTRecheckTime(domain);
     this._setupDomainAction(domain, false, "dnt");
+    if (this.isActionMapEmptyForDomain(domain)) {
+      this.getBadgerStorageObject('action_map').deleteItem(domain);
+    }
   },
 
   /**
@@ -311,8 +320,24 @@ BadgerPen.prototype = {
     if (index > -1) {
       badger.userAllow.splice(index, 1);
     }
+    if (this.isActionMapEmptyForDomain(domain)) {
+      this.getBadgerStorageObject('action_map').deleteItem(domain);
+    }
+  },
+
+  isActionMapEmptyForDomain: function(domain) {
+    let obj = this.getBadgerStorageObject('action_map').getItem(domain);
+    if (obj &&
+        obj.userAction == "" &&
+        obj.dnt == false &&
+        (obj.heuristicAction == "" || obj.heuristicAction == constants.NO_TRACKING)) {
+      return true;
+    }
+    return false;
   }
+
 };
+
 
 /**
  * @returns {{userAction: null, dnt: null, heuristicAction: null}}
