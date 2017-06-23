@@ -2,13 +2,11 @@ sudo: required
 language: python
 os: linux
 dist: trusty
-python:
-  - 3.6
-node_js:
-  - node
+python: 3.4
 matrix:
   include:
     - env: INFO="lint"
+      node_js: node
     - addons:
         chrome: beta
       env: INFO="chrome beta" BROWSER=google-chrome-beta

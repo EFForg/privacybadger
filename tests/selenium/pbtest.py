@@ -112,7 +112,7 @@ class Shim:
         self._specifics = self._specifics or {
             'chrome': Specifics(self.chrome_manager, 'chrome-extension://%s/' % chrome_info['extension_id'], chrome_info),
             'firefox': Specifics(self.firefox_manager, 'moz-extension://%s/' % firefox_info['uuid'], firefox_info)}
-        self.manager, self.bg_url, self.info = (*self._specifics[self.browser_type],)
+        self.manager, self.bg_url, self.info = self._specifics[self.browser_type]
 
     def get_ext_path(self):
         if self.browser_type == 'chrome':
