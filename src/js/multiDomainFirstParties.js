@@ -64,7 +64,7 @@ var _multiDomainFirstPartiesArray = [
   ["gizmodo.com", "kinja-img.com", "kinja-static.com", "deadspin.com", "lifehacker.com",
     "technoratimedia.com", "kinja.com", "jalopnik.com", "jezebel.com"],
   ["gogoair.com", "gogoinflight.com"],
-  ["google.com", "youtube.com", "blogger.com", "gstatic.com", "googleapis.com",
+  ["google.com", "youtube.com", "blogger.com", "gstatic.com", "storage.googleapis.com",
     "googleusercontent.com", "ggpht.com", "ytimg.com", "googlevideo.com",
     "youtube-nocookie.com", "google.co.in", "google.co.jp", "google.de",
     "google.co.uk", "google.fr", "google.com.br", "google.ru", "google.it", "google.no",
