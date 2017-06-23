@@ -28,8 +28,8 @@ Privacy Badger is a project of the Electronic Frontier Foundation.
 ## Contribute
 
 
-* [How to contribute]()
-* [Contribution Guidelines]()
+* [How to contribute](doc/README.md)
+* [Contribution Guidelines](doc/CONTRIBUTION-GUIDELINES.md)
 
 ### Load the extension from source code
 
