@@ -199,13 +199,12 @@ function setTabToUrl(query_url) {
 
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
-
-        # give asynchronously-rendered tracker list time to load
         self.nonTrackers = {}
         self.cookieBlocked = {}
         self.blocked = {}
         self.driver.switch_to.window(self.driver.current_window_handle)
 
+        # wait for asynchronously-rendered tracker list to load
         WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(
             (By.CSS_SELECTOR,
              "#blockedResourcesInner > div.clicker.tooltip")))
