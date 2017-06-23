@@ -67,7 +67,7 @@ def install_ext_on_ff(driver, extension_path):
     '''
     Use Selenium's internal API's to manually send a message to geckodriver
     to install the extension. We should remove this once the functionality is
-    included in Selenium.
+    included in Selenium. See https://github.com/SeleniumHQ/selenium/issues/4215
     '''
     command = 'addonInstall'
     driver.command_executor._commands[command] = ('POST', '/session/$sessionId/moz/addon/install')
