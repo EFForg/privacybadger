@@ -124,7 +124,7 @@ class Shim:
 
     @property
     def wants_xvfb(self):
-        if self.on_travis or bool(int(os.environ.get('ENABLE_XVFB'))):
+        if self.on_travis or bool(int(os.environ.get('ENABLE_XVFB', 0))):
             return True
         return False
 
