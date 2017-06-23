@@ -62,7 +62,7 @@ The BROWSER environment variable must be set. It must be one of:
 
 Refer to the our Travis-CI scripts for more information:
 [`scripts/setup_travis.sh`](scripts/setup_travis.sh) and
-[`tests/run_selenium_tests.sh`](tests/run_selenium_tests.sh).
+[`scripts/run_travis.sh`](scripts/run_travis.sh).
 
 ## License
 Privacy Badger is licensed under the GPLv3. See LICENSE for more details
