@@ -384,15 +384,6 @@ Badger.prototype = {
     }
 
     log('Checking', domain, 'for DNT policy.');
-
-    // update timestamp first;
-    // avoids queuing the same domain multiple times
-    var recheckTime = utils.getRandom(
-      utils.oneDayFromNow(),
-      utils.nDaysFromNow(7)
-    );
-    badger.storage.touchDNTRecheckTime(domain, recheckTime);
-
     this._checkPrivacyBadgerPolicy(domain, function (success) {
       if (success) {
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');

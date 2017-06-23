@@ -112,7 +112,15 @@ BadgerPen.prototype = {
   },
 
   touchDNTRecheckTime: function(domain, time){
-    this._setupDomainAction(domain, time, "nextUpdateTime");
+    if (this.getBadgerStorageObject('action_map').hasItem(domain)) {
+      if (!time) {
+        time = utils.getRandom(
+          utils.oneDayFromNow(),
+          utils.nDaysFromNow(7)
+        );
+      }
+      this._setupDomainAction(domain, time, "nextUpdateTime");
+    }
   },
 
   getNextUpdateForDomain: function(domain){
@@ -260,6 +268,7 @@ BadgerPen.prototype = {
    * @param {String} domain Domain to add
    */
   setupDNT: function(domain){
+    this.touchDNTRecheckTime(domain);
     this._setupDomainAction(domain, true, "dnt");
   },
 
@@ -268,6 +277,7 @@ BadgerPen.prototype = {
    * @param domain FQDN string
    */
   revertDNT: function(domain){
+    this.touchDNTRecheckTime(domain);
     this._setupDomainAction(domain, false, "dnt");
   },
 
