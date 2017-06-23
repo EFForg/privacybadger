@@ -336,7 +336,7 @@ function DebugLog(maxSize) {
  */
 DebugLog.prototype = {
   // The maximum number of entries the log stores.
-  maxSize: 1000,
+  maxSize: 300,
 
    // Add an entry to the logBook. This is always O(1).
   doLog: function(toLog) {
