@@ -76,19 +76,21 @@ def install_ext_on_ff(driver, extension_path):
 
 
 class Shim:
-    '''
-    Chooses the correct driver and extension_url based on the BROWSER environment
-    variable. BROWSER should be one of:
-    * /path/to/a/browser
-    * a browser executable name so we can find the browser with "which $BROWSER"
-    * something from BROWSER_TYPES
-    '''
+    _browser_msg = '''BROWSER should be one of:
+* /path/to/a/browser
+* a browser executable name so we can find the browser with "which $BROWSER"
+* something from BROWSER_TYPES
+'''
+    __doc__ = 'Chooses the correct driver and extension_url based on the BROWSER environment\nvariable. ' + _browser_msg
+
     def __init__(self):
         print('Configuring the test run')
         self._specifics = None
-        browser = os.environ['BROWSER']
+        browser = os.environ.get('BROWSER')
         # get browser_path and broser_type first
-        if ("/" in browser) or ("\\" in browser):  # path to a browser binary
+        if browser is None:
+            raise ValueError("The BROWSER environment variable is not set. " + self._browser_msg)
+        elif ("/" in browser) or ("\\" in browser):  # path to a browser binary
             self.browser_path = browser
             self.browser_type = get_browser_type(self.browser_path)
 
