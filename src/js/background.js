@@ -788,7 +788,6 @@ var badger = window.badger = new Badger();
 */
 incognito.startListeners();
 webrequest.startListeners();
-HeuristicBlocking.startListeners();
 startBackgroundListeners();
 
 console.log('Privacy badger is ready to rock!');

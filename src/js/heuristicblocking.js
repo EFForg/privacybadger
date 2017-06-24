@@ -499,23 +499,9 @@ function hasCookieTracking(details, origin) {
   return false;
 }
 
-function startListeners() {
-  /**
-   * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
-   */
-  chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    if (badger) {
-      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-    } else {
-      return {};
-    }
-  }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
-}
-
 /************************************** exports */
 var exports = {};
 exports.HeuristicBlocker = HeuristicBlocker;
-exports.startListeners = startListeners;
 exports.hasCookieTracking = hasCookieTracking;
 return exports;
 /************************************** exports */

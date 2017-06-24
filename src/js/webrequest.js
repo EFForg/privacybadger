@@ -118,6 +118,12 @@ function onBeforeRequest(details){
  * @returns {*} modified headers
  */
 function onBeforeSendHeaders(details) {
+  if (badger) {
+    setTimeout(function() {
+      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
+    }, 0);
+  }
+
   let frame_id = details.frameId,
     headers = details.requestHeaders,
     tab_id = details.tabId,
