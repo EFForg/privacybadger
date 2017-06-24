@@ -732,11 +732,12 @@ Badger.prototype = {
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
-  chrome.webRequest.onBeforeRequest.addListener(function(details) {
-    if (details.tabId != -1){
-      badger.updateCount(details);
-    }
-  }, {urls: ["http://*/*", "https://*/*"]}, []);
+  // TODO Remove this.
+  // chrome.webRequest.onBeforeRequest.addListener(function(details) {
+  //   if (details.tabId != -1){
+  //     badger.updateCount(details);
+  //   }
+  // }, {urls: ["http://*/*", "https://*/*"]}, []);
 
 
   // Update icon if a tab changes location
