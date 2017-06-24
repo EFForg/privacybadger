@@ -508,14 +508,13 @@ Badger.prototype = {
 
   /**
    * Checks conditions for updating page action badge and call updateBadge
-   * @param {Object} details details object from onBeforeRequest event
+   * @param {Object} tabId The tab ID whose badge we want to update.
    */
-  updateCount: function(details) {
-    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
+  updateCount: function(tabId) {
+    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(tabId))){
       return;
     }
 
-    var tabId = details.tabId;
     if (!this.tabData[tabId]) {
       return;
     }
