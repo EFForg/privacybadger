@@ -649,7 +649,7 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.checkLocation) {
     if (badger.isPrivacyBadgerEnabled(tabHost)) {
-      var documentHost = request.checkLocation.href;
+      var documentHost = request.checkLocation;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
       sendResponse(cookieBlock);

@@ -28,7 +28,7 @@ class Test(pbtest.PBSeleniumTest):
         WebDriverWait(self.driver, 10).until(EC.title_contains("EFF"))
 
     def test_cookieblock_format(self):
-        with open('../doc/sample_cookieblocklist_legacy.txt') as cbl:
+        with open(self.cookieblocklist_path) as cbl:
             for line in cbl:
                 pattern = re.compile("^@@||.*\^\$third-party$")
                 self.assertTrue(pattern.match(line))

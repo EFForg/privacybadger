@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-
-import os
-import pbtest
 import time
 import unittest
 
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+import pbtest
 import window_utils
 
 SITE1_URL = "http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
@@ -26,9 +23,7 @@ CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
 
-    @unittest.skipIf(os.environ.get('BROWSER') == 'firefox', """
-Disabled until Firefox fixes bug:
-https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773""")
+    @pbtest.if_firefox(unittest.skip("Disabled until Firefox fixes bug: https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773"))
     def test_dnt_check_should_not_set_cookies(self):
         TEST_DOMAIN = "dnt-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
@@ -204,23 +199,16 @@ function setTabToUrl(query_url) {
 
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
-
-        # give asynchronously-rendered tracker list time to load
-        time.sleep(1)
-
         self.nonTrackers = {}
         self.cookieBlocked = {}
         self.blocked = {}
+        self.driver.switch_to.window(self.driver.current_window_handle)
 
-        try:
-            clickerContainer = self.driver.find_element_by_class_name("clickerContainer")
-            self.assertTrue(clickerContainer)
-        except:
-            print("no action state information was found")
-            return
-
-        tooltips = clickerContainer.find_elements_by_xpath("//*[contains(@class,'clicker tooltip')]")
-
+        # wait for asynchronously-rendered tracker list to load
+        WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR,
+             "#blockedResourcesInner > div.clicker.tooltip")))
+        tooltips = self.driver.find_elements_by_css_selector("#blockedResourcesInner > div.clicker.tooltip")
         for t in tooltips:
             origin = t.get_attribute('data-origin')
 

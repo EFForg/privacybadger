@@ -37,7 +37,7 @@ function insertClsScript(text) {
   parent.removeChild(script);
 }
 
-chrome.runtime.sendMessage({checkLocation:document.location}, function(blocked) {
+chrome.runtime.sendMessage({checkLocation:document.location.href}, function(blocked) {
   if (blocked) {
     var code =
       '('+ function() {

@@ -1,5 +1,6 @@
 build: updatepsl zip crx
 travisbuild: zip crx
+	ls -1tr *.crx | tail -n 1
 updatepsl:
 	scripts/updatepsl.sh
 zip:

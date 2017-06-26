@@ -25,6 +25,7 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         return self.js(CHECK_SNITCH_MAP_JS)
 
     # test for https://github.com/EFForg/privacybadger/pull/1403
+    @pbtest.if_firefox(pbtest.repeat_if_failed(5))
     def test_async_tracking_misattribution_bug(self):
         self.load_url("https://cdn.rawgit.com/ghostwords/d3685dc39f7e67dddf1edf2614beb6fc/raw/a78cfd6c86d51a8d8ab1e214e4e49e2c025d4715/privacy_badger_async_bug_test_fixture.html")
 
@@ -41,10 +42,6 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         # and an image from raw.githubusercontent.com that doesn't do any tracking
         self.assertFalse(self.detected_tracking_by("raw.githubusercontent.com"),
             msg="Image is not a tracker but was flagged as one.")
-    if os.environ.get('BROWSER') == 'firefox':
-        test_async_tracking_misattribution_bug = (
-            pbtest.repeat_if_failed(5)(test_async_tracking_misattribution_bug)
-        )
 
     @pbtest.repeat_if_failed(5)
     def test_should_detect_ls_of_third_party_frame(self):
@@ -56,7 +53,9 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         Perhaps related to: https://github.com/ghostwords/chameleon/issues/5
         """
         self.load_url("https://rawgit.com/gunesacar/24d81a5c964cb563614162c264be32f0/raw/8fa10f97b87343dfb62ae9b98b753c73a995157e/frame_ls.html",  # noqa
-                      wait_on_site=5)
+                      wait_on_site=1)
+        self.driver.refresh()
+        time.sleep(1)
         self.assertTrue(self.detected_tracking_by("githack.com"))
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
