@@ -37,3 +37,5 @@ We should also ask the service to to adopt the [EFF Do Not Track policy](https:/
 ### External domains too complex to surrogate or replace with placeholders
 
 If nothing else seems to fit, adding the affected domain to the "[yellowlist](/doc/yellowlist-criteria.md)" will make Privacy Badger set the domain to "yellow" (cookie-blocked) instead of "red" (blocked) after seeing it track on three or more sites.
+
+Resources from yellowlisted domains are requested without referrer headers, and are restricted from reading or writing cookies or localStorage.
