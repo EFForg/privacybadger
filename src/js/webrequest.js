@@ -46,36 +46,36 @@ var temporarySocialWidgetUnblock = {};
  * @returns {*} Can cancel requests
  */
 function onBeforeRequest(details){
-  var frame_id = details.frameId,
-    tab_id = details.tabId,
+  var frameId = details.frameId,
+    tabId = details.tabId,
     type = details.type,
     url = details.url;
 
   if (type == "main_frame"){
-    forgetTab(tab_id);
+    forgetTab(tabId);
   }
 
   if (type == "main_frame" || type == "sub_frame"){
     // Firefox workaround: https://bugzilla.mozilla.org/show_bug.cgi?id=1329299
     // TODO remove after Firefox 51 is no longer in use
-    if (type == "main_frame" && frame_id != 0) {
-      frame_id = 0;
+    if (type == "main_frame" && frameId != 0) {
+      frameId = 0;
     }
-    recordFrame(tab_id, frame_id, details.parentFrameId, url);
+    recordFrame(tabId, frameId, details.parentFrameId, url);
   }
 
   // Block ping requests sent by navigator.sendBeacon (see, #587)
   // tabId for pings are always -1 due to Chrome bugs #522124 and #522129
   // Once these bugs are fixed, PB will treat pings as any other request
-  if (type == "ping" && tab_id < 0 ){
+  if (type == "ping" && tabId < 0 ){
     return {cancel: true};
   }
 
-  if ( _isTabChromeInternal(tab_id)){
+  if ( _isTabChromeInternal(tabId)){
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
+  var tabDomain = getHostForTab(tabId);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
@@ -86,7 +86,7 @@ function onBeforeRequest(details){
     return {};
   }
 
-  var requestAction = checkAction(tab_id, url, false, frame_id);
+  var requestAction = checkAction(tabId, url, false, frameId);
   if (requestAction) {
     if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
       if (type == 'script') {
@@ -101,7 +101,7 @@ function onBeforeRequest(details){
         replaceSocialWidget: true,
         trackerDomain: requestDomain
       };
-      chrome.tabs.sendMessage(tab_id, msg);
+      chrome.tabs.sendMessage(tabId, msg);
 
       return {cancel: true};
     }
@@ -123,13 +123,13 @@ function onBeforeSendHeaders(details) {
     }, 0);
   }
 
-  let frame_id = details.frameId,
+  let frameId = details.frameId,
     headers = details.requestHeaders,
-    tab_id = details.tabId,
+    tabId = details.tabId,
     type = details.type,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
+  if (_isTabChromeInternal(tabId)) {
     // DNT policy requests: strip cookies
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
@@ -147,18 +147,18 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
+  var tabDomain = getHostForTab(tabId);
   var requestDomain = window.extractHostFromURL(url);
 
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
       isThirdPartyDomain(requestDomain, tabDomain)) {
-    var requestAction = checkAction(tab_id, url, false, frame_id);
+    var requestAction = checkAction(tabId, url, false, frameId);
     // If this might be the third strike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
     if (requestAction == constants.ALLOW && 
         badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1){
       badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      requestAction = checkAction(tab_id, url, false, frame_id);
+      requestAction = checkAction(tabId, url, false, frameId);
     }
 
     // This will only happen if the above code sets the action for the request
@@ -176,7 +176,7 @@ function onBeforeSendHeaders(details) {
         replaceSocialWidget: true,
         trackerDomain: requestDomain
       };
-      chrome.tabs.sendMessage(tab_id, msg);
+      chrome.tabs.sendMessage(tabId, msg);
 
       return {cancel: true};
     }
@@ -203,10 +203,10 @@ function onBeforeSendHeaders(details) {
  * @returns {*} The new response header
  */
 function onHeadersReceived(details) {
-  var tab_id = details.tabId,
+  var tabId = details.tabId,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
+  if (_isTabChromeInternal(tabId)) {
     // DNT policy responses: strip cookies, reject redirects
     if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // if it's a redirect, cancel it
@@ -232,7 +232,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
+  var tabDomain = getHostForTab(tabId);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
@@ -243,7 +243,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, url, false, details.frameId);
+  var requestAction = checkAction(tabId, url, false, details.frameId);
   if (requestAction) {
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
@@ -454,14 +454,14 @@ function recordFingerprinting(tabId, msg) {
 /**
  * Read the frame data from memory
  *
- * @param tab_id Tab ID to check for
- * @param frame_id Frame ID to check for
+ * @param tabId Tab ID to check for
+ * @param frameId Frame ID to check for
  * @returns {*} Frame data object or null
  */
-function getFrameData(tab_id, frame_id) {
-  if (badger.tabData.hasOwnProperty(tab_id)) {
-    if (badger.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
-      return badger.tabData[tab_id].frames[frame_id];
+function getFrameData(tabId, frameId) {
+  if (badger.tabData.hasOwnProperty(tabId)) {
+    if (badger.tabData[tabId].frames.hasOwnProperty(frameId)) {
+      return badger.tabData[tabId].frames[frameId];
     }
   }
   return null;
