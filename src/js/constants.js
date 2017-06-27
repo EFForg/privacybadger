@@ -29,6 +29,13 @@ var exports = {
   USER_BLOCK: "user_block",
   USER_COOKIE_BLOCK: "user_cookieblock",
 
+  BLOCKED_ACTIONS: [
+    "block",
+    "cookieblock",
+    "user_block",
+    "user_cookieblock"
+  ],
+
   // URLS
   DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
   COOKIE_BLOCK_LIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",

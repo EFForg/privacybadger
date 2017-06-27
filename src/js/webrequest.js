@@ -103,7 +103,6 @@ function onBeforeRequest(details){
       };
       chrome.tabs.sendMessage(tab_id, msg);
 
-      badger.updateCount(details.tabId);
       return {cancel: true};
     }
   }
@@ -179,7 +178,6 @@ function onBeforeSendHeaders(details) {
       };
       chrome.tabs.sendMessage(tab_id, msg);
 
-      badger.updateCount(details.tabId);
       return {cancel: true};
     }
 
@@ -537,6 +535,9 @@ function checkAction(tabId, url, quiet, frameId){
 
   if (action && ! quiet) {
     badger.logTrackerOnTab(tabId, requestHost, action);
+    if (_.contains(constants.BLOCKED_ACTIONS, action)) {
+      badger.updateCount(tabId);
+    }
   }
   return action;
 }
