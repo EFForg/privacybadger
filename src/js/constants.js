@@ -29,13 +29,6 @@ var exports = {
   USER_BLOCK: "user_block",
   USER_COOKIE_BLOCK: "user_cookieblock",
 
-  BLOCKED_ACTIONS: {
-    "block": true,
-    "cookieblock": true,
-    "user_block": true,
-    "user_cookieblock": true
-  },
-
   // URLS
   DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
   COOKIE_BLOCK_LIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",
@@ -45,6 +38,13 @@ var exports = {
   MAX_COOKIE_ENTROPY: 12,
 
   DNT_POLICY_CHECK_INTERVAL: 1000, // one second
+};
+
+exports.BLOCKED_ACTIONS = {
+  [exports.BLOCK]: true,
+  [exports.USER_BLOCK]: true,
+  [exports.COOKIEBLOCK]: true,
+  [exports.USER_COOKIE_BLOCK]: true
 };
 
 return exports;
