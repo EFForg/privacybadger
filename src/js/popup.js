@@ -292,7 +292,7 @@ function refreshPopup(tabId) {
   var printable = [];
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
-  var originCount = 0;
+  var trackerCount = 0;
   var compressedOrigins = {};
 
   for (let i=0; i < origins.length; i++) {
@@ -322,7 +322,9 @@ function refreshPopup(tabId) {
       }
     }
 
-    originCount++;
+    if (action != constants.DNT) {
+      trackerCount++;
+    }
     printable.push(
       htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
     );
@@ -353,7 +355,7 @@ function refreshPopup(tabId) {
     }
   }
 
-  $('#number_trackers').text(originCount);
+  $('#number_trackers').text(trackerCount);
 
   function renderDomains() {
     const CHUNK = 1;
