@@ -266,6 +266,15 @@ function onTabRemoved(tabId){
 }
 
 /**
+ * Event handler to update the badge when the tab is updated.
+ *
+ * @param {Integer} tabId Id of the tab
+ */
+function onTabUpdated(tabId){
+  badger.updateBadge(tabId);
+}
+
+/**
  * Update internal db on tabs when a tab gets replaced
  *
  * @param {Integer} addedTabId The new tab id that replaces
@@ -706,6 +715,7 @@ function startListeners() {
   chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
   chrome.tabs.onRemoved.addListener(onTabRemoved);
   chrome.tabs.onReplaced.addListener(onTabReplaced);
+  chrome.tabs.onUpdated.addListener(onTabUpdated);
   chrome.runtime.onMessage.addListener(dispatcher);
 }
 
