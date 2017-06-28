@@ -119,7 +119,7 @@ function onBeforeRequest(details){
 function onBeforeSendHeaders(details) {
   if (badger) {
     setTimeout(function() {
-      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
+      badger.heuristicBlocking.heuristicBlockingAccounting(details);
     }, 0);
   }
 
@@ -536,7 +536,9 @@ function checkAction(tabId, url, quiet, frameId){
   if (action && ! quiet) {
     badger.logTrackerOnTab(tabId, requestHost, action);
     if (constants.BLOCKED_ACTIONS.hasOwnProperty(action)) {
-      setTimeout(badger.updateCount(tabId), 0);
+      setTimeout(function() {
+        badger.updateCount(tabId)
+      }, 0);
     }
   }
   return action;
