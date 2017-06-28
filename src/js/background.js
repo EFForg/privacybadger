@@ -479,7 +479,7 @@ Badger.prototype = {
     return self.getAllOriginsForTab(tabId)
       .reduce(function(memo,origin){
         var action = self.storage.getBestAction(origin);
-        if(action && _.contains(constants.BLOCKED_ACTIONS, action)){
+        if(action && constants.BLOCKED_ACTIONS.hasOwnProperty(action)){
           memo+=1;
         }
         return memo;

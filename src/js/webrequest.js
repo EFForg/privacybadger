@@ -535,7 +535,7 @@ function checkAction(tabId, url, quiet, frameId){
 
   if (action && ! quiet) {
     badger.logTrackerOnTab(tabId, requestHost, action);
-    if (_.contains(constants.BLOCKED_ACTIONS, action)) {
+    if (constants.BLOCKED_ACTIONS.hasOwnProperty(action)) {
       setTimeout(badger.updateCount(tabId), 0);
     }
   }

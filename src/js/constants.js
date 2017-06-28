@@ -29,12 +29,12 @@ var exports = {
   USER_BLOCK: "user_block",
   USER_COOKIE_BLOCK: "user_cookieblock",
 
-  BLOCKED_ACTIONS: [
-    "block",
-    "cookieblock",
-    "user_block",
-    "user_cookieblock"
-  ],
+  BLOCKED_ACTIONS: {
+    "block": true,
+    "cookieblock": true,
+    "user_block": true,
+    "user_cookieblock": true
+  },
 
   // URLS
   DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
