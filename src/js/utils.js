@@ -344,6 +344,10 @@ CheckedDNTBuffer.prototype = {
       this.index = (this.index + 1) % this.size;
       return false;
     }
+  },
+
+  delete: function(item) {
+    return this.set.delete(item);
   }
 };
 

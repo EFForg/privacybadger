@@ -271,6 +271,7 @@ BadgerPen.prototype = {
    * @param {String} domain Domain to add
    */
   setupDNT: function(domain){
+    badger.checkedDNT.delete(domain);
     this.touchDNTRecheckTime(domain);
     this._setupDomainAction(domain, true, "dnt");
   },

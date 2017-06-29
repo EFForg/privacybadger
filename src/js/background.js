@@ -373,12 +373,12 @@ Badger.prototype = {
   * @param {Function} cb Callback that receives check status boolean (optional)
   */
   checkForDNTPolicy: function (domain, nextUpdate, cb) {
-    if (this.checkedDNT.hasOrSet(domain)) {
-      return;
-    }
-
     if (Date.now() < nextUpdate) {
       // not yet time
+      return;
+    }
+    // return if we've checked for DNT already and failed
+    if (this.checkedDNT.hasOrSet(domain)) {
       return;
     }
 
