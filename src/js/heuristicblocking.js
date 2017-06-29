@@ -149,34 +149,7 @@ HeuristicBlocker.prototype = {
    * @param details are those from onBeforeSendHeaders
    * @returns {*}
    */
-  heuristicBlockingAccounting: function (details) {
-    // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || incognito.tabIsIncognito(details.tabId)) {
-      return {};
-    }
-
-    let fqdn = utils.makeURI(details.url).host,
-      origin = window.getBaseDomain(fqdn);
-
-    // if this is a main window request
-    if (details.type == "main_frame") {
-      // save the origin associated with the tab
-      log("Origin: " + origin + "\tURL: " + details.url);
-      tabOrigins[details.tabId] = origin;
-      return {};
-    }
-
-    let tabOrigin = tabOrigins[details.tabId];
-
-    // ignore first-party requests
-    if (!tabOrigin || origin == tabOrigin) {
-      return {};
-    }
-
-    window.setTimeout(function () {
-      badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
-    }, 10);
-
+  heuristicBlockingAccounting: function (details, fqdn, origin, tabOrigin) {
     // abort if we already made a decision for this FQDN
     let action = this.storage.getAction(fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
