@@ -133,7 +133,7 @@ Badger.prototype = {
   tabData: {},
 
   // DNT
-  checkedDNT: new Set(),
+  checkedDNT: new utils.CheckedDNTBuffer(),
 
   // Methods
 
@@ -373,10 +373,8 @@ Badger.prototype = {
   * @param {Function} cb Callback that receives check status boolean (optional)
   */
   checkForDNTPolicy: function (domain, nextUpdate, cb) {
-    if (this.checkedDNT.has(domain)) {
+    if (this.checkedDNT.hasOrSet(domain)) {
       return;
-    } else {
-      this.checkedDNT.add(domain);
     }
 
     if (Date.now() < nextUpdate) {

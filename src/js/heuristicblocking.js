@@ -151,7 +151,6 @@ HeuristicBlocker.prototype = {
   }
 };
 
-
 // This maps cookies to a rough estimate of how many bits of
 // identifying info we might be letting past by allowing them.
 // (map values to lower case before using)
