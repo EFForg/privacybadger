@@ -28,6 +28,41 @@ require.scopes.heuristicblocking = (function() {
 // make heuristic obj with utils and storage properties and put the things on it
 var tabOrigins = { }; // TODO roll into tabData?
 
+function ifRelevant(details, callback) {
+  // ignore requests that are outside a tabbed window
+  if (details.tabId < 0 || incognito.tabIsIncognito(details.tabId)) {
+    return {};
+  }
+
+  let fqdn = utils.makeURI(details.url).host,
+    origin = window.getBaseDomain(fqdn);
+
+  // if this is a main window request
+  if (details.type == "main_frame") {
+    // save the origin associated with the tab
+    log("Origin: " + origin + "\tURL: " + details.url);
+    tabOrigins[details.tabId] = origin;
+    return {};
+  }
+
+  let tabOrigin = tabOrigins[details.tabId];
+
+  // ignore first-party requests
+  if (!tabOrigin || origin == tabOrigin) {
+    return {};
+  }
+  return callback(details, fqdn, origin, tabOrigin);
+}
+
+function onRelevantBeforeSendHeaders(details, fqdn, origin, tabOrigin) {
+  badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
+  return badger.heuristicBlocking.heuristicBlockingAccounting(details, fqdn, origin, tabOrigin);
+}
+
+function onBeforeSendHeaders(details) {
+  return ifRelevant(details, onRelevantBeforeSendHeaders);
+}
+
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
 }
