@@ -200,6 +200,7 @@
 @@||gogousenet.com^$third-party
 @@||accounts.google.com^$third-party
 @@||apis.google.com^$third-party
+@@||books.google.com^$third-party
 @@||calendar.google.com^$third-party
 @@||checkout.google.com^$third-party
 @@||clients1.google.com^$third-party
@@ -209,6 +210,7 @@
 @@||docs.google.com^$third-party
 @@||drive.google.com^$third-party
 @@||feedburner.google.com^$third-party
+@@||fusiontables.google.com^$third-party
 @@||groups.google.com^$third-party
 @@||kh.google.com^$third-party
 @@||khms0.google.com^$third-party
@@ -217,9 +219,9 @@
 @@||khms3.google.com^$third-party
 @@||khms4.google.com^$third-party
 @@||labs.google.com^$third-party
-@@||maps.google.com^$third-party
 @@||maps-api-ssl.google.com^$third-party
 @@||mapsengine.google.com^$third-party
+@@||maps.google.com^$third-party
 @@||mt0.google.com^$third-party
 @@||mt1.google.com^$third-party
 @@||mts0.google.com^$third-party
@@ -227,12 +229,15 @@
 @@||mw1.google.com^$third-party
 @@||mw2.google.com^$third-party
 @@||picasaweb.google.com^$third-party
+@@||play.google.com^$third-party
 @@||plus.google.com^$third-party
+@@||sites.google.com^$third-party
 @@||spreadsheets.google.com^$third-party
 @@||talkgadget.google.com^$third-party
 @@||translate.google.com^$third-party
+@@||trends.google.com^$third-party
+@@||video.google.com^$third-party
 @@||www.google.com^$third-party
-@@||ajax.googleapis.com^$third-party
 @@||googleapis.com^$third-party
 @@||googlecode.com^$third-party
 @@||googlecommerce.com^$third-party
