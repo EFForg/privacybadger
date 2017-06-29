@@ -379,7 +379,6 @@ Badger.prototype = {
       this.checkedDNT.add(domain);
     }
 
-
     if (Date.now() < nextUpdate) {
       // not yet time
       return;

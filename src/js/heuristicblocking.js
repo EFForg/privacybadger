@@ -25,82 +25,9 @@ require.scopes.heuristicblocking = (function() {
 
 /*********************** heuristicblocking scope **/
 
-// make heuristic obj with utils and storage properties and put the things on it
 var tabOrigins = { }; // TODO roll into tabData?
 
-function ifRelevant(details, callback) {
-  // ignore requests that are outside a tabbed window
-  if (details.tabId < 0 || incognito.tabIsIncognito(details.tabId)) {
-    return {};
-  }
-
-  let fqdn = utils.makeURI(details.url).host,
-    origin = window.getBaseDomain(fqdn);
-
-  // if this is a main window request
-  if (details.type == "main_frame") {
-    // save the origin associated with the tab
-    log("Origin: " + origin + "\tURL: " + details.url);
-    tabOrigins[details.tabId] = origin;
-    return {};
-  }
-
-  let tabOrigin = tabOrigins[details.tabId];
-
-  // ignore first-party requests
-  if (!tabOrigin || origin == tabOrigin) {
-    return {};
-  }
-  return callback(details, fqdn, origin, tabOrigin);
-}
-
-function onRelevantBeforeSendHeaders(details, fqdn, origin, tabOrigin) {
-  badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
-  return heuristicBlockingAccounting(details, fqdn, origin, tabOrigin);
-}
-
-function onBeforeSendHeaders(details) {
-  return ifRelevant(details, onRelevantBeforeSendHeaders);
-}
-
-function onBeforeResponseStarted(details) {
-  if (badger) {
-    for(let i = 0; i < details.responseHeaders.length; i++) {
-      if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
-        return ifRelevant(details, heuristicBlockingAccounting);
-      }
-    }
-  }
-  return {};
-}
-
-/**
- * Wraps _recordPrevalence for use from webRequest listeners.
- * Also saves tab (page) origins. TODO Should be handled by tabData instead.
- * Also sets a timeout for checking DNT policy for third-party FQDNs.
- * TODO Does too much, should be broken up ...
- *
- * Called from performance-critical webRequest listeners!
- * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
- *
- * @param details are those from onBeforeSendHeaders
- * @returns {*}
- */
-function heuristicBlockingAccounting(details, fqdn, origin, tabOrigin) {
-  // abort if we already made a decision for this FQDN
-  let action = badger.storage.getAction(fqdn);
-  if (action != constants.NO_TRACKING && action != constants.ALLOW) {
-    return {};
-  }
-
-  // ignore if there are no tracking cookies
-  if (!hasCookieTracking(details, origin)) {
-    return {};
-  }
-  badger.heuristicBlocking._recordPrevalence(fqdn, origin, tabOrigin);
-}
-
-
+// make heuristic obj with storage property and put the things on it
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
 }
@@ -516,6 +443,77 @@ function hasCookieTracking(details, origin) {
   }
 
   return false;
+}
+
+function ifRelevant(details, callback) {
+  // ignore requests that are outside a tabbed window
+  if (details.tabId < 0 || incognito.tabIsIncognito(details.tabId)) {
+    return {};
+  }
+
+  let fqdn = utils.makeURI(details.url).host,
+    origin = window.getBaseDomain(fqdn);
+
+  // if this is a main window request
+  if (details.type == "main_frame") {
+    // save the origin associated with the tab
+    log("Origin: " + origin + "\tURL: " + details.url);
+    tabOrigins[details.tabId] = origin;
+    return {};
+  }
+
+  let tabOrigin = tabOrigins[details.tabId];
+  // ignore first-party requests
+  if (!tabOrigin || origin == tabOrigin) {
+    return {};
+  }
+  return callback(details, fqdn, origin, tabOrigin);
+}
+
+function onRelevantBeforeSendHeaders(details, fqdn, origin, tabOrigin) {
+  badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
+  return heuristicBlockingAccounting(details, fqdn, origin, tabOrigin);
+}
+
+function onBeforeSendHeaders(details) {
+  return ifRelevant(details, onRelevantBeforeSendHeaders);
+}
+
+function onBeforeResponseStarted(details) {
+  if (badger) {
+    for(let i = 0; i < details.responseHeaders.length; i++) {
+      if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
+        return ifRelevant(details, heuristicBlockingAccounting);
+      }
+    }
+  }
+  return {};
+}
+
+/**
+ * Wraps _recordPrevalence for use from webRequest listeners.
+ * Also saves tab (page) origins. TODO Should be handled by tabData instead.
+ * Also sets a timeout for checking DNT policy for third-party FQDNs.
+ * TODO Does too much, should be broken up ...
+ *
+ * Called from performance-critical webRequest listeners!
+ * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
+ *
+ * @param details are those from onBeforeSendHeaders
+ * @returns {*}
+ */
+function heuristicBlockingAccounting(details, fqdn, origin, tabOrigin) {
+  // abort if we already made a decision for this FQDN
+  let action = badger.storage.getAction(fqdn);
+  if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+    return {};
+  }
+
+  // ignore if there are no tracking cookies
+  if (!hasCookieTracking(details, origin)) {
+    return {};
+  }
+  badger.heuristicBlocking._recordPrevalence(fqdn, origin, tabOrigin);
 }
 
 function startListeners() {
