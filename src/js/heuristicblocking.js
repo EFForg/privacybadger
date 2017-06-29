@@ -63,6 +63,23 @@ function onBeforeSendHeaders(details) {
   return ifRelevant(details, onRelevantBeforeSendHeaders);
 }
 
+function onBeforeResponseStarted(details) {
+  var hasSetCookie = false;
+  for(var i = 0; i < details.responseHeaders.length; i++) {
+    if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
+      hasSetCookie = true;
+      break;
+    }
+  }
+  if(hasSetCookie) {
+    if (badger) {
+      return ifRelevant(details, badger.heuristicBlocking.heuristicBlockingAccounting);
+    } else {
+      return {};
+    }
+  }
+}
+
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
 }
