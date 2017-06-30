@@ -49,10 +49,9 @@
 
   let clock,
     server,
-    xhrSpy,
     dnt_policy_txt;
 
-  QUnit.module("Background", {
+  QUnit.module("DNT checks", {
     before: (assert) => {
       let done = assert.async();
 
@@ -79,12 +78,11 @@
 
     beforeEach: (/*assert*/) => {
       // spy on utils.xhrRequest
-      xhrSpy = sinon.spy(utils, "xhrRequest");
+      badger.checkedDNT = new utils.CheckedDNTBuffer();
     },
 
     afterEach: (/*assert*/) => {
       // reset call counts, etc. after each test
-      utils.xhrRequest.restore();
     },
 
     after: (/*assert*/) => {
@@ -113,8 +111,9 @@
     clock.tick(constants.DNT_POLICY_CHECK_INTERVAL * NUM_TESTS);
   });
 
-  QUnit.test("Several checks for same domain resolve to one XHR", (assert) => {
+  QUnit.test("Checks are not repeated", (assert) => {
     const NUM_CHECKS = 5;
+    let xhrSpy = sinon.spy(utils, "xhrRequest");
 
     // set recheck time to now
     badger.storage.touchDNTRecheckTime(DNT_COMPLIANT_DOMAIN, +new Date());
@@ -136,32 +135,30 @@
       "https://" + DNT_COMPLIANT_DOMAIN + "/.well-known/dnt-policy.txt",
       "XHR method gets called with expected DNT URL"
     );
+    xhrSpy.restore();
   });
 
   QUnit.test("DNT checking is rate limited", (assert) => {
-    const NUM_TESTS = 5;
+    const NUM_TESTS = 1;
 
-    let done = assert.async(NUM_TESTS);
-
-    assert.expect(NUM_TESTS);
-
-    for (let i = 0; i < NUM_TESTS; i++) {
-      badger.checkForDNTPolicy(
-        DNT_COMPLIANT_DOMAIN,
-        0,
-        function () { // eslint-disable-line no-loop-func
-          assert.equal(xhrSpy.callCount, i+1);
-          clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
-          done();
-        }
-      );
+    let done = assert.async(NUM_TESTS),
+      stub = sinon.stub(utils, "xhrRequest"),
+      domain = 'example.com';
+    for (let i = 0; i < 5; i++) { // run 5 times
+      domain = 'a' + domain;
+      badger.checkForDNTPolicy(domain, 0);
     }
+    assert.equal(stub.callCount, 1); // assert xhr only called once
+    stub.restore();
+    badger._checkPrivacyBadgerPolicy.cancel(); // clear the queued calls
+    done();
   });
 
   QUnit.test("DNT checking obeys user setting", (assert) => {
     const NUM_TESTS = 5;
 
     let done = assert.async(NUM_TESTS);
+    let xhrSpy = sinon.spy(utils, "xhrRequest");
     let old_dnt_check_func = badger.isCheckingDNTPolicyEnabled;
 
     assert.expect(NUM_TESTS);
@@ -177,6 +174,7 @@
     }
 
     badger.isCheckingDNTPolicyEnabled = old_dnt_check_func;
+    xhrSpy.restore();
   });
 
   QUnit.module("tabData", {
