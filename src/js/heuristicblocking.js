@@ -211,7 +211,7 @@ HeuristicBlocker.prototype = {
 // (map values to lower case before using)
 // TODO: We need a better heuristic
 var lowEntropyCookieValues = {
-  "":3,
+  "":1,
   "nodata":3,
   "no_data":3,
   "yes":3,
