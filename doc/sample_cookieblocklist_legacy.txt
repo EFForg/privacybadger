@@ -233,11 +233,13 @@
 @@||plus.google.com^$third-party
 @@||sites.google.com^$third-party
 @@||spreadsheets.google.com^$third-party
+@@||storage.googleapis.com^$third-party
 @@||talkgadget.google.com^$third-party
 @@||translate.google.com^$third-party
 @@||trends.google.com^$third-party
 @@||video.google.com^$third-party
 @@||www.google.com^$third-party
+@@||ajax.googleapis.com^$third-party
 @@||googleapis.com^$third-party
 @@||googlecode.com^$third-party
 @@||googlecommerce.com^$third-party
