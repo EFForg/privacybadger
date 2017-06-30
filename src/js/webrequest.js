@@ -117,6 +117,12 @@ function onBeforeRequest(details){
  * @returns {*} modified headers
  */
 function onBeforeSendHeaders(details) {
+  if (badger) {
+    setTimeout(function() {
+      badger.heuristicBlocking.heuristicBlockingAccounting(details);
+    }, 0);
+  }
+
   let frame_id = details.frameId,
     headers = details.requestHeaders,
     tab_id = details.tabId,
@@ -147,7 +153,7 @@ function onBeforeSendHeaders(details) {
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
       isThirdPartyDomain(requestDomain, tabDomain)) {
     var requestAction = checkAction(tab_id, url, false, frame_id);
-    // If this might be the third stike against the potential tracker which
+    // If this might be the third strike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
     if (requestAction == constants.ALLOW && 
         badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1){
@@ -257,6 +263,15 @@ function onHeadersReceived(details) {
  */
 function onTabRemoved(tabId){
   forgetTab(tabId);
+}
+
+/**
+ * Event handler to update the badge when the tab is updated.
+ *
+ * @param {Integer} tabId Id of the tab
+ */
+function onTabUpdated(tabId){
+  badger.updateBadge(tabId);
 }
 
 /**
@@ -529,6 +544,11 @@ function checkAction(tabId, url, quiet, frameId){
 
   if (action && ! quiet) {
     badger.logTrackerOnTab(tabId, requestHost, action);
+    if (constants.BLOCKED_ACTIONS.hasOwnProperty(action)) {
+      setTimeout(function() {
+        badger.updateCount(tabId)
+      }, 0);
+    }
   }
   return action;
 }
@@ -695,6 +715,7 @@ function startListeners() {
   chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
   chrome.tabs.onRemoved.addListener(onTabRemoved);
   chrome.tabs.onReplaced.addListener(onTabReplaced);
+  chrome.tabs.onUpdated.addListener(onTabUpdated);
   chrome.runtime.onMessage.addListener(dispatcher);
 }
 

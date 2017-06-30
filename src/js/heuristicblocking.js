@@ -499,44 +499,9 @@ function hasCookieTracking(details, origin) {
   return false;
 }
 
-function startListeners() {
-  /**
-   * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
-   */
-  chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    if (badger) {
-      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-    } else {
-      return {};
-    }
-  }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
-
-  /**
-   * Adds onResponseStarted listener. Monitor for cookies
-   */
-  chrome.webRequest.onResponseStarted.addListener(function(details) {
-    var hasSetCookie = false;
-    for(var i = 0; i < details.responseHeaders.length; i++) {
-      if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
-        hasSetCookie = true;
-        break;
-      }
-    }
-    if(hasSetCookie) {
-      if (badger) {
-        return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      } else {
-        return {};
-      }
-    }
-  },
-  {urls: ["<all_urls>"]}, ["responseHeaders"]);
-}
-
 /************************************** exports */
 var exports = {};
 exports.HeuristicBlocker = HeuristicBlocker;
-exports.startListeners = startListeners;
 exports.hasCookieTracking = hasCookieTracking;
 return exports;
 /************************************** exports */

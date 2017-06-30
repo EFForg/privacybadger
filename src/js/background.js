@@ -479,9 +479,7 @@ Badger.prototype = {
     return self.getAllOriginsForTab(tabId)
       .reduce(function(memo,origin){
         var action = self.storage.getBestAction(origin);
-        if(action && (action == constants.USER_BLOCK || action ==
-                    constants.BLOCK || action == constants.COOKIEBLOCK ||
-                    action == constants.USER_COOKIE_BLOCK)){
+        if(action && constants.BLOCKED_ACTIONS.hasOwnProperty(action)){
           memo+=1;
         }
         return memo;
@@ -508,14 +506,13 @@ Badger.prototype = {
 
   /**
    * Checks conditions for updating page action badge and call updateBadge
-   * @param {Object} details details object from onBeforeRequest event
+   * @param {Object} tabId The tab ID whose badge we want to update.
    */
-  updateCount: function(details) {
-    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
+  updateCount: function(tabId) {
+    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(tabId))){
       return;
     }
 
-    var tabId = details.tabId;
     if (!this.tabData[tabId]) {
       return;
     }
@@ -732,13 +729,6 @@ Badger.prototype = {
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
-  chrome.webRequest.onBeforeRequest.addListener(function(details) {
-    if (details.tabId != -1){
-      badger.updateCount(details);
-    }
-  }, {urls: ["http://*/*", "https://*/*"]}, []);
-
-
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
@@ -787,7 +777,6 @@ var badger = window.badger = new Badger();
 */
 incognito.startListeners();
 webrequest.startListeners();
-HeuristicBlocking.startListeners();
 startBackgroundListeners();
 
 console.log('Privacy badger is ready to rock!');
