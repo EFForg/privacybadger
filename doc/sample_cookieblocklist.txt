@@ -233,11 +233,13 @@ play.google.com
 plus.google.com
 sites.google.com
 spreadsheets.google.com
+storage.googleapis.com
 talkgadget.google.com
 translate.google.com
 trends.google.com
 video.google.com
 www.google.com
+ajax.googleapis.com
 googleapis.com
 googlecode.com
 googlecommerce.com
