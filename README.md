@@ -16,7 +16,7 @@ We're glad you want to help! We have a **[handy guide for
 contributors](/doc/CONTRIBUTING.md)**. It can hopefully point you to helpful
 resources if you have any questions (please let us know if it doesn't). To get
 started with most things, you'll need to [install Privacy Badger from
-source](#install-from-sourc)  But to hack on Privacy Badger you need to install
+source](#install-from-source)  But to hack on Privacy Badger you need to install
 it from source first, so we'll start there.
 
 ### Install from source
@@ -32,13 +32,11 @@ To test it out by running the unit tests. On chrome you can run them by clicking
 
 ### Get in touch
 
-If you have questions, comments, ideas, proposal or just want to chat about privacy. There are a few ways to contact us.
+If you have questions, comments, ideas, proposal or just want to chat about privacy, then please get in touch. There are a few ways to get in touch:
 
-You can join us in the [`#privacybadger`](https://webchat.oftc.net/?channels=privacybadger&uio=d4) IRC channel on OFTC.
-
-We have public office hours for discussing development, bugs, feature, trackers, etc. every Monday and Thursday at 11:30am PST on [Jitsi video chat](https://meet.jit.si/PoliteBadgersSingEuphoricly).
-
-We also have a [mailing list](https://lists.eff.org/mailman/listinfo/privacybadger).
+* You can join us in the [`#privacybadger`](https://webchat.oftc.net/?channels=privacybadger&uio=d4) IRC channel on OFTC.
+* We have public office hours for discussing development, bugs, feature, trackers, etc. every Monday and Thursday at 11:30am PST on [Jitsi video chat](https://meet.jit.si/PoliteBadgersSingEuphoricly).
+* We also have a [mailing list](https://lists.eff.org/mailman/listinfo/privacybadger).
 
 And of course, we try to respond in a timely manner to GitHub issues, pull requests, and comments.
 
