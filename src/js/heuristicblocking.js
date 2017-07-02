@@ -510,27 +510,6 @@ function startListeners() {
       return {};
     }
   }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
-
-  /**
-   * Adds onResponseStarted listener. Monitor for cookies
-   */
-  chrome.webRequest.onResponseStarted.addListener(function(details) {
-    var hasSetCookie = false;
-    for(var i = 0; i < details.responseHeaders.length; i++) {
-      if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
-        hasSetCookie = true;
-        break;
-      }
-    }
-    if(hasSetCookie) {
-      if (badger) {
-        return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      } else {
-        return {};
-      }
-    }
-  },
-  {urls: ["<all_urls>"]}, ["responseHeaders"]);
 }
 
 /************************************** exports */
