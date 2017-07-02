@@ -30,6 +30,8 @@ function tabIsIncognito(tabId) {
 /************************************** exports */
 var exports = {};
 exports.startListeners = startListeners;
+exports.onRemoved = onRemovedListener;
+exports.onUpdated = onUpdatedListener;
 exports.tabIsIncognito = tabIsIncognito;
 
 return exports;
