@@ -274,6 +274,12 @@ function onTabRemoved(tabId){
  */
 function onTabReplaced(addedTabId, removedTabId){
   forgetTab(removedTabId);
+
+  // Update icon if a tab is replaced or loaded from cache
+  chrome.tabs.get(addedTabId, function(tab){
+    badger.refreshIconAndContextMenu(tab);
+  });
+  
   // Update the badge of the added tab, which was probably used for prerendering.
   badger.updateBadge(addedTabId);
 }

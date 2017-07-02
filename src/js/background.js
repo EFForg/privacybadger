@@ -747,13 +747,6 @@ function startBackgroundListeners() {
     incognito.onUpdated(tab);
   });
 
-  // Update icon if a tab is replaced or loaded from cache
-  chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/){
-    chrome.tabs.get(addedTabId, function(tab){
-      badger.refreshIconAndContextMenu(tab);
-    });
-  });
-
   // Listening for Avira Autopilot remote control UI
   // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
   // The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
