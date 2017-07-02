@@ -17,19 +17,12 @@ function onRemovedListener(tabId) {
   delete tabs[tabId];
 }
 
-// Subscribe to tab events
-function startListeners() {
-  chrome.tabs.onUpdated.addListener(onUpdatedListener);
-  chrome.tabs.onRemoved.addListener(onRemovedListener);
-}
-
 function tabIsIncognito(tabId) {
   return tabs[tabId] || false;
 }
 
 /************************************** exports */
 var exports = {};
-exports.startListeners = startListeners;
 exports.onRemoved = onRemovedListener;
 exports.onUpdated = onUpdatedListener;
 exports.tabIsIncognito = tabIsIncognito;

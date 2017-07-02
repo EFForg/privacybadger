@@ -786,7 +786,6 @@ var badger = window.badger = new Badger();
 /**
 * Start all the listeners
 */
-incognito.startListeners();
 webrequest.startListeners();
 startBackgroundListeners();
 
