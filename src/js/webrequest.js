@@ -147,7 +147,7 @@ function onBeforeSendHeaders(details) {
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
       isThirdPartyDomain(requestDomain, tabDomain)) {
     var requestAction = checkAction(tab_id, url, false, frame_id);
-    // If this might be the third stike against the potential tracker which
+    // If this might be the third strike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
     if (requestAction == constants.ALLOW && 
         badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1){
