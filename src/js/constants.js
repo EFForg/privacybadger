@@ -40,5 +40,12 @@ var exports = {
   DNT_POLICY_CHECK_INTERVAL: 1000, // one second
 };
 
+exports.BLOCKED_ACTIONS = {
+  [exports.BLOCK]: true,
+  [exports.USER_BLOCK]: true,
+  [exports.COOKIEBLOCK]: true,
+  [exports.USER_COOKIE_BLOCK]: true
+};
+
 return exports;
 })();
