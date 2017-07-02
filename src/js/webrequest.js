@@ -529,6 +529,11 @@ function checkAction(tabId, url, quiet, frameId){
 
   if (action && ! quiet) {
     badger.logTrackerOnTab(tabId, requestHost, action);
+    if (constants.BLOCKED_ACTIONS.hasOwnProperty(action)) {
+      setTimeout(function() {
+        badger.updateCount(tabId);
+      }, 0);
+    }
   }
   return action;
 }

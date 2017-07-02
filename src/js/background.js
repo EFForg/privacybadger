@@ -548,28 +548,27 @@ Badger.prototype = {
 
   /**
    * Checks conditions for updating page action badge and call updateBadge
-   * @param {Object} details details object from onBeforeRequest event
+   * @param {Object} tab_id ID of the tab we want to update the badge on
    */
-  updateCount: function(details) {
-    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
+  updateCount: function(tab_id) {
+    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(tab_id))){
       return;
     }
 
-    var tabId = details.tabId;
-    if (!this.tabData[tabId]) {
+    if (!this.tabData[tab_id]) {
       return;
     }
-    if(this.tabData[tabId].bgTab === true){
+    if(this.tabData[tab_id].bgTab === true){
       // prerendered tab, Chrome will throw error for setBadge functions, don't call
       return;
     } else {
       var badger = this;
-      chrome.tabs.get(tabId, function(/*tab*/){
+      chrome.tabs.get(tab_id, function(/*tab*/){
         if (chrome.runtime.lastError){
-          badger.tabData[tabId].bgTab = true;
+          badger.tabData[tab_id].bgTab = true;
         } else {
-          badger.tabData[tabId].bgTab = false;
-          badger.updateBadge(tabId);
+          badger.tabData[tab_id].bgTab = false;
+          badger.updateBadge(tab_id);
         }
       });
     }
@@ -771,12 +770,6 @@ Badger.prototype = {
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
-  chrome.webRequest.onBeforeRequest.addListener(function(details) {
-    if (details.tabId != -1){
-      badger.updateCount(details);
-    }
-  }, {urls: ["http://*/*", "https://*/*"]}, []);
-
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
