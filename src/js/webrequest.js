@@ -263,7 +263,7 @@ function onHeadersReceived(details) {
  */
 function onTabRemoved(tabId){
   forgetTab(tabId);
-  incognito.tabRemoved(tabId);
+  incognito.onRemoved(tabId);
 }
 
 /**

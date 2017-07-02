@@ -8,12 +8,12 @@ chrome.tabs.query({}, function(results) {
   });
 });
 
-// Create tab event listeners
-function onUpdatedListener(tabId, changeInfo, tab) {
+// Tab event handlers
+function onUpdatedHandler(tab) {
   tabs[tab.id] = tab.incognito;
 }
 
-function onRemovedListener(tabId) {
+function onRemovedHandler(tabId) {
   delete tabs[tabId];
 }
 
@@ -23,8 +23,8 @@ function tabIsIncognito(tabId) {
 
 /************************************** exports */
 var exports = {};
-exports.onRemoved = onRemovedListener;
-exports.onUpdated = onUpdatedListener;
+exports.onRemoved = onRemovedHandler;
+exports.onUpdated = onUpdatedHandler;
 exports.tabIsIncognito = tabIsIncognito;
 
 return exports;

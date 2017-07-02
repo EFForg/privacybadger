@@ -744,7 +744,7 @@ function startBackgroundListeners() {
     if(changeInfo.status == "loading") {
       badger.refreshIconAndContextMenu(tab);
     }
-    incognito.onUpdated(tabId, changeInfo, tab);
+    incognito.onUpdated(tab);
   });
 
   // Update icon if a tab is replaced or loaded from cache
