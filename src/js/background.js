@@ -472,6 +472,7 @@ Badger.prototype = {
       Migrations.migrateDntRecheckTimes2,
       Migrations.forgetMistakenlyBlockedDomains,
       Migrations.unblockIncorrectlyBlockedDomains,
+      Migrations.removeEmptyActionMapEntries,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
