@@ -366,14 +366,15 @@ Badger.prototype = {
   },
 
   /**
-  * Checks a domain for the EFF DNT policy.
+  * Checks a domain for the EFF DNT policy if the needed.
   *
   * @param {String} domain The domain to check
-  * @param {timestamp} nextUpdate Time when the DNT policy should be rechecked
   * @param {Function} cb Callback that receives check status boolean (optional)
   */
-  checkForDNTPolicy: function (domain, nextUpdate, cb) {
-    if (Date.now() < nextUpdate) {
+  checkForDNTPolicy: function (domain, cb) {
+    let self = this;
+
+    if (Date.now() < self.storage.getBadgerStorageObject(domain)) {
       // not yet time
       return;
     }
@@ -382,9 +383,7 @@ Badger.prototype = {
       return;
     }
 
-    var badger = this;
-
-    if (! badger.isCheckingDNTPolicyEnabled()) {
+    if (! self.isCheckingDNTPolicyEnabled()) {
       // user has disabled this check
       return ;
     }
@@ -393,10 +392,10 @@ Badger.prototype = {
     this._checkPrivacyBadgerPolicy(domain, function (success) {
       if (success) {
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
-        badger.storage.setupDNT(domain);
+        self.storage.setupDNT(domain);
       } else {
         log('It looks like', domain, 'has NOT adopted Do Not Track');
-        badger.storage.revertDNT(domain);
+        self.storage.revertDNT(domain);
       }
       if (typeof cb == "function") {
         cb(success);
