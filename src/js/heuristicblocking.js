@@ -478,7 +478,7 @@ function _processWebRequest(details, callback, checkDNT) {
   }
 
   if (checkDNT) {
-    badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
+    badger.checkForDNTPolicy(fqdn);
   }
 
   return callback(details, fqdn, baseDomain, tabOrigin);
