@@ -1,9 +1,9 @@
-# Travis-CI
+# Travis CI
 
-Every pull request runs the full suite of functional tests (which test the unittests) on Travis-CI. We test on Chrome stable and beta, on Firefox we test ESR, latest, and beta. See our `.travis.yml` for the configuration, as well as [`scripts/setup_travis.sh`](scripts/setup_travis.sh) and
+Every pull request runs the full suite of functional tests, and unit tests on Travis CI. We test on Chrome stable and beta, on Firefox we test ESR, latest, and beta. See our `[.travis.yml](/.travis.yml)` for the configuration, as well as [`scripts/setup_travis.sh`](scripts/setup_travis.sh) and
 [`scripts/run_travis.sh`](scripts/run_travis.sh).
 
-We also run [eslint](https://eslint.org) on Travis to test for javascript style and errors. See `.eslintrc.yml` and `.eslintignore` for specifics.
+We also run [ESLint](https://eslint.org) on Travis to test for JavaScript style and errors. See `.eslintrc.yml` and `.eslintignore` for specifics.
 
 # Unit tests
 
@@ -25,7 +25,7 @@ You also need some python packages which can be installed by running:
 $ pip install -r tests/requirements.txt
 ```
 
-Now you should be able to run the selenium tests!
+Now you should be able to run the Selenium tests!
 Try them out by running the code below.
 This should take several minutes.
 ```bash
@@ -62,7 +62,7 @@ Like this:
 $ BROWSER=~/Downloads/firefox/firefox ENABLE_XVFB=1 pytest -s -v -k pbtest_org
 ```
 
-Refer to the our Travis-CI scripts for more information:
+Refer to the our Travis CI scripts for more information:
 [`scripts/setup_travis.sh`](scripts/setup_travis.sh) and
 [`scripts/run_travis.sh`](scripts/run_travis.sh).
 

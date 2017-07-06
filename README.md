@@ -16,8 +16,7 @@ We're glad you want to help! We have a **[handy guide for
 contributors](/doc/CONTRIBUTING.md)**. It can hopefully point you to helpful
 resources if you have any questions (please let us know if it doesn't). To get
 started with most things, you'll need to [install Privacy Badger from
-source](#install-from-source)  But to hack on Privacy Badger you need to install
-it from source first, so we'll start there.
+source](#install-from-source) so we'll start there.
 
 ### Install from source
 
@@ -27,12 +26,12 @@ In Chrome, visit `chrome://extensions`, enable "Developer mode", click "Load unp
 
 In Firefox, visit `about:debugging`, click "Load Temporary Add-on" and select the `src` subdirectory.
 
-To test it out by running the unit tests. On chrome you can run them by clicking [here](chrome-extension://mekoeccjihallkjjjkcfpogljdnekmkd/tests/index.html), for Firefox follow [these instructions](/doc/tests.md#unit-tests).
+To test your installation, try running the unit tests by following [these instructions](/doc/tests.md#unit-tests).
 
 
 ### Get in touch
 
-If you have questions, comments, ideas, proposal or just want to chat about privacy, then please get in touch. There are a few ways to get in touch:
+If you have questions, comments, ideas, proposals, or just want to chat about privacy, then please get in touch. There are a few ways to get in touch:
 
 * You can join us in the [`#privacybadger`](https://webchat.oftc.net/?channels=privacybadger&uio=d4) IRC channel on OFTC.
 * We have public office hours for discussing development, bugs, feature, trackers, etc. every Monday and Thursday at 11:30am PST on [Jitsi video chat](https://meet.jit.si/PoliteBadgersSingEuphoricly).
@@ -44,9 +43,9 @@ And of course, we try to respond in a timely manner to GitHub issues, pull reque
 
 We have a few different types of tests:
 
-* We use [unit tests](/doc/tests.md#unit-tests) for testing smaller pieces of code behave as expected.
+* We use [unit tests](/doc/tests.md#unit-tests) for confirming that smaller pieces of code behave as expected.
 * [Functional tests](/doc/tests.md#functional-tests) test the UI and that things integrate together properly.
-* [Travi-CI](/doc/tests.md#travis-ci) runs all these automatically for every pull request on both Chrome and Firefox.
+* [Travis CI](/doc/tests.md#travis-ci) runs all these automatically for every pull request on both Chrome and Firefox.
 
 ## License
 Privacy Badger is licensed under the GPLv3. See LICENSE for more details

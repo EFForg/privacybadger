@@ -1,5 +1,5 @@
-Welcome dear contributor, there are many ways to help this Badger. From quick
-and whimsical to involved and academic. From Javascript to Japanese. From
+Welcome dear contributor, there are many ways to help Privacy Badger. From quick
+and whimsical to involved and academic. From JavaScript to Japanese. From
 algorithmic and O(n²) to grammatical and stylistic. There is surely a way you
 can help. Here's a quick orientation to guide your adventure:
 
@@ -8,9 +8,9 @@ can help. Here's a quick orientation to guide your adventure:
 * Security vulnerabilities can be reported privately at
   [vulnerabilities@eff.org](mailto:vulnerabilities@eff.org), the GPG key and
   other information can be found [here](https://www.eff.org/security).
-* Translations are currently done on github. Here is an great
+* Translations are currently done on GitHub. Here is a great
   [example](https://github.com/EFForg/privacybadger/pull/1270) of a
-  contribution. See the [translations
+  translation pull request. See the [translations
   label](https://github.com/EFForg/privacybadger/issues?utf8=%E2%9C%93&q=label%3Atranslations%20)
   for related issues and more example pull requests.
 * Tests are crucial, so here's a guide on how to use them.
@@ -23,9 +23,8 @@ can help. Here's a quick orientation to guide your adventure:
 -->
 
 
-Ignorance is a fleeting virtue. Sometimes our developers are blinded by
-familiarity with the codebase and development process. If you find something
-confusing, esoteric, non-obvious, or uncool speak up! We don't bite. We believe
-in making Privacy Badger better by making it easier for you to contribute.
+If you find something confusing, esoteric, non-obvious, or uncool speak up! We
+don't bite. We believe in making Privacy Badger better by making it easier for
+you to contribute.
 
 Thank you!
