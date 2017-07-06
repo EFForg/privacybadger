@@ -1,3 +1,5 @@
+# Contributing
+
 Welcome dear contributor, there are many ways to help Privacy Badger. From quick
 and whimsical to involved and academic. From JavaScript to Japanese. From
 algorithmic and O(n²) to grammatical and stylistic. There is surely a way you
