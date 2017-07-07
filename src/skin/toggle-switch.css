@@ -130,9 +130,8 @@
       position: absolute;
       opacity: 0; }
     .switch-toggle input + label {
-      position: relative;
+      position: absolute;
       z-index: 2;
-      float: left;
       width: 50%;
       height: 100%;
       margin: 0;
@@ -332,7 +331,6 @@
 }
 
 .switch-candy a {
-  border-radius: 0;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
 }
 
@@ -352,4 +350,20 @@
 
 .block .switch-candy a {
   background-color: #F44336;
+}
+
+label.actionToggle {
+    top: 0;
+}
+
+label.actionToggle:nth-of-type(1) {
+    left: 0;
+}
+
+label.actionToggle:nth-of-type(2) {
+    left: 33.33333%;
+}
+
+label.actionToggle:nth-of-type(3) {
+    left: 66.66667%;
 }
