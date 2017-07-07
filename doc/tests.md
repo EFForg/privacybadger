@@ -13,14 +13,14 @@ Your browser should navigate to an internal URL that starts with `chrome-extensi
 Replace `/skin/options.html` with `/tests/index.html` and hit enter.
 This will open the unit tests and run them.
 
-Unit tests are located in `/src/tests/tests`. The unit test dependencies are in `/src/tests/lib`. Please add unit tests whenever possible.
+Unit tests are located in [`/src/tests/tests`](/src/tests/tests). The unit test dependencies are in [`/src/tests/lib`](/src/tests/lib). Please add unit tests whenever possible.
 
 # Functional tests
 
 Our functional tests are written in [Python](https://www.python.org/) and driven by
 [Selenium](https://selenium-python.readthedocs.io/) and [pytest](https://docs.pytest.org/en/latest/).
-To run the Selenium functional tests, you'll need to install `chromedriver` ([link](https://github.com/EFForg/privacybadger/blob/0760b82730fe06d229a9866b3c5e270e48f0fd18/scripts/setup_travis.sh#L3-L7)) for Chrome
-or `geckodriver` ([link](https://github.com/EFForg/privacybadger/blob/0760b82730fe06d229a9866b3c5e270e48f0fd18/scripts/setup_travis.sh#L3-L7)) for Firefox.
+To run the Selenium functional tests, you'll need to install `chromedriver` ([link](https://github.com/EFForg/privacybadger/blob/d8fa42766a65687aed90cb0c41c38066bfa91dce/scripts/setup_travis.sh#L5-L10)) for Chrome
+or `geckodriver` ([link](https://github.com/EFForg/privacybadger/blob/d8fa42766a65687aed90cb0c41c38066bfa91dce/scripts/setup_travis.sh#L14-L18)) for Firefox.
 You also need some python packages which can be installed by running:
 ```bash
 $ pip install -r tests/requirements.txt
