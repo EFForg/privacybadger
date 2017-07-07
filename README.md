@@ -10,6 +10,16 @@ Nothing can stop the Privacy Badger from eating cookies when it's hungry!
 
 Privacy Badger is a project of the Electronic Frontier Foundation.
 
+## Get in touch
+
+If you have questions, comments, ideas, proposals, or just want to chat about privacy, then please get in touch. There are a few ways to get in touch:
+
+* You can join us in the [`#privacybadger`](https://webchat.oftc.net/?channels=privacybadger&uio=d4) IRC channel on OFTC.
+* We have public office hours for discussing development, bugs, feature, trackers, etc. every Monday and Thursday at 11:30am PST on [Jitsi video chat](https://meet.jit.si/PoliteBadgersSingEuphoricly).
+* We also have a [mailing list](https://lists.eff.org/mailman/listinfo/privacybadger).
+
+And of course, we try to respond in a timely manner to GitHub issues, pull requests, and comments.
+
 ## Developing
 
 We're glad you want to help! We have a **[handy guide for
@@ -28,16 +38,6 @@ In Firefox, visit `about:debugging`, click "Load Temporary Add-on" and select th
 
 To test your installation, try running the unit tests by following [these instructions](/doc/tests.md#unit-tests).
 
-
-### Get in touch
-
-If you have questions, comments, ideas, proposals, or just want to chat about privacy, then please get in touch. There are a few ways to get in touch:
-
-* You can join us in the [`#privacybadger`](https://webchat.oftc.net/?channels=privacybadger&uio=d4) IRC channel on OFTC.
-* We have public office hours for discussing development, bugs, feature, trackers, etc. every Monday and Thursday at 11:30am PST on [Jitsi video chat](https://meet.jit.si/PoliteBadgersSingEuphoricly).
-* We also have a [mailing list](https://lists.eff.org/mailman/listinfo/privacybadger).
-
-And of course, we try to respond in a timely manner to GitHub issues, pull requests, and comments.
 
 ### Testing
 
