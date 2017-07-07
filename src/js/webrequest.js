@@ -28,6 +28,7 @@ var constants = require('constants');
 var getSurrogateURI = require('surrogates').getSurrogateURI;
 var mdfp = require('multiDomainFP');
 var incognito = require("incognito");
+var tabs = require('tabs');
 
 require.scopes.webrequest = (function() {
 
@@ -46,6 +47,7 @@ var temporarySocialWidgetUnblock = {};
  * @returns {*} Can cancel requests
  */
 function onBeforeRequest(details){
+  tabs.requestAccountant(details);
   var frame_id = details.frameId,
     tab_id = details.tabId,
     type = details.type,
@@ -58,6 +60,7 @@ function onBeforeRequest(details){
   if (type == "main_frame" || type == "sub_frame"){
     // Firefox workaround: https://bugzilla.mozilla.org/show_bug.cgi?id=1329299
     // TODO remove after Firefox 51 is no longer in use
+    // fix this with onTabCreated
     if (type == "main_frame" && frame_id != 0) {
       frame_id = 0;
     }
@@ -75,7 +78,7 @@ function onBeforeRequest(details){
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
+  var tabDomain = tabs.getTabHostname(tab_id);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
@@ -141,7 +144,7 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
+  var tabDomain = tabs.getTabHostname(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
@@ -226,7 +229,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
+  var tabDomain = tabs.getTabHostname(tab_id);
   var requestDomain = window.extractHostFromURL(url);
    
   if (badger.isPrivacyBadgerDisabled(tabDomain)) {
@@ -291,34 +294,11 @@ function isThirdPartyDomain(domain1, domain2) {
 }
 
 /**
- * Gets the host name for a given tab id
- * @param {Integer} tabId chrome tab id
- * @return {String} the host name for the tab
- */
-function getHostForTab(tabId){
-  var mainFrameIdx = 0;
-  if (!badger.tabData[tabId]) {
-    return '';
-  }
-  // TODO what does this actually do?
-  // meant to address https://github.com/EFForg/privacybadger/issues/136
-  if (_isTabAnExtension(tabId)) {
-    // If the tab is an extension get the url of the first frame for its implied URL
-    // since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(badger.tabData[tabId].frames)[1] || 0;
-  }
-  if (!badger.tabData[tabId].frames[mainFrameIdx]) {
-    return '';
-  }
-  return window.extractHostFromURL(badger.tabData[tabId].frames[mainFrameIdx].url);
-}
-
-/**
  * Generate representation in internal data structure for frame
  *
  * @param tabId ID of the tab
  * @param frameId ID of the frame
- * @param parentFrameId ID of the parent frame
+ * @param parentFrameId ID of the parent frame // blake: unused
  * @param frameUrl The url of the frame
  */
 function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
@@ -356,8 +336,8 @@ function recordSuperCookie(sender, msg) {
   }
 
   // docUrl: url of the frame with supercookie
-  var frameHost = window.extractHostFromURL(msg.docUrl);
-  var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+  let frameHost = window.extractHostFromURL(msg.docUrl);
+  let pageHost = tabs.getTabHostname(sender.tab.id);
 
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com
@@ -386,7 +366,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = window.extractHostFromURL(getFrameUrl(tabId, 0));
+    document_host = tabs.getTabHostname(tabId);
   if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -462,18 +442,6 @@ function getFrameData(tab_id, frame_id) {
 }
 
 /**
- * Based on tab/frame ids, get the URL
- *
- * @param {Integer} tabId The tab id to look up
- * @param {Integer} frameId The frame id to look up
- * @returns {String} The url
- */
-function getFrameUrl(tabId, frameId) {
-  var frameData = getFrameData(tabId, frameId);
-  return (frameData ? frameData.url : null);
-}
-
-/**
  * Delete tab data, de-register tab
  *
  * @param {Integer} tabId The id of the tab
@@ -505,7 +473,7 @@ function checkAction(tabId, url, quiet, frameId){
   }
 
   // Ignore requests that don't have a document URL for some reason.
-  var documentUrl = getFrameUrl(tabId, 0);
+  var documentUrl = tabs.getTabHostname(tabId);
   if (! documentUrl) {
     return false;
   }
@@ -542,8 +510,8 @@ function checkAction(tabId, url, quiet, frameId){
  * @private
  */
 function _frameUrlStartsWith(tabId, str) {
-  let frameData = getFrameData(tabId, 0);
-  return frameData && frameData.url.indexOf(str) === 0;
+  var tabDomain = tabs.getTabHostname(tabId);
+  return tabDomain && tabDomain.indexOf(str) === 0;
 }
 
 /**
@@ -568,7 +536,7 @@ function _isTabAnExtension(tabId) {
   return (
     _frameUrlStartsWith(tabId, "chrome-extension://") ||
     _frameUrlStartsWith(tabId, "moz-extension://")
-   );
+  );
 }
 
 /**
@@ -612,7 +580,7 @@ function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var requestHost = window.extractHostFromURL(url);
   var requestExcept = (exceptions.indexOf(requestHost) != -1);
 
-  var frameHost = window.extractHostFromURL(getFrameUrl(tabId, frameId));
+  var frameHost = tabs.getFrameHostname(tabId, frameId);
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
   return (requestExcept || frameExcept);
@@ -700,7 +668,6 @@ function startListeners() {
 
 /************************************** exports */
 var exports = {};
-exports.getHostForTab = getHostForTab;
 exports.startListeners = startListeners;
 return exports;
 /************************************** exports */
