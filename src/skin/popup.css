@@ -97,36 +97,8 @@ a:hover { color: #ec9329 }
 .removeOrigin:hover {
   color: red;
 }
-
-.switch-container{
-  width: 115px;
-  display: block;
-  margin-left: 220px;
-}
-.options .switch-container{
-  max-width: 114px;
-}
 .clear{
   clear: both;
-}
-.switch-candy a img{
-  width: 16px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.block .switch-candy a {
-  background-color: #c61223;
-}
-.switch-candy:hover {
-  background: #868686;
-  cursor: pointer;
-}
-.cookieblock .switch-candy a{
-  background-color: #ffcc00;
-}
-.allow .switch-candy a,
-.noaction .switch-candy a{
-  background-color: #339900;
 }
 .honeybadgerPowered{
   margin-right: 10px;

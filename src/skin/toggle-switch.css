@@ -300,3 +300,56 @@
 
   to {
     -webkit-transform: translate3d(0, 0, 0); } }
+
+/* privacy badger skin
+ * overwriting candy theme
+ */
+
+.switch-container {
+  width: 115px;
+  display: block;
+  margin-left: 220px;
+}
+
+.options .switch-container {
+  max-width: 114px;
+}
+
+.noaction .switch-candy a {
+  background-color: #339900;
+}
+
+.switch-candy {
+  height: 18px;
+  border: 1px solid #515050;
+}
+
+.switch-candy:hover {
+  background: #868686;
+  border-color: #868686;
+
+  cursor: pointer;
+}
+
+.switch-candy a {
+  border-radius: 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
+}
+
+.switch-candy a img {
+  width: 16px;
+  margin: 0 auto;
+  transform: rotate(90deg);
+}
+
+.allow .switch-candy a {
+  background-color: #4CAF50;
+}
+
+.cookieblock .switch-candy a {
+  background-color: #FFEB3B;
+}
+
+.block .switch-candy a {
+  background-color: #F44336;
+}
