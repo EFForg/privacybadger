@@ -15,7 +15,7 @@ can help. Here's a quick orientation to guide your adventure:
   translation pull request. See the [translations
   label](https://github.com/EFForg/privacybadger/issues?utf8=%E2%9C%93&q=label%3Atranslations%20)
   for related issues and more example pull requests.
-* Tests are crucial, so here's a guide on how to use them.
+* Tests are crucial, so here's a [*guide*](/doc/tests.md) on how to use them.
 <!---
 * Tell us about our bugs [here]()! Tips to make you're report 10x helpful are in this [bug tips document]().
 * Pull Requests welcome! Our PR workflow is documented [here]().
