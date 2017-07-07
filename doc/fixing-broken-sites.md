@@ -9,7 +9,8 @@ Here are the [open "broken site" and "good-volunteer-task"-labeled issues](https
 
 The first thing to do is to confirm that Privacy Badger blocks (or will eventually learn to block) the domain, and that blocking the domain does indeed break the site.
 
-Does disabling Privacy Badger for the site and reloading the page fix the issue? If it doesn't, does disabling the entire Privacy Badger add-on and reloading the page fix the issue? If it still doesn't, Privacy Badger is not at fault.
+Try disabling Privacy Badger for the site and reloading the page by pressing Ctrl + Shift + R (to avoid the cache).
+Does that fix the issue? If it doesn't, does disabling the entire Privacy Badger add-on and reloading the page fix the issue? If it still doesn't, Privacy Badger is not at fault.
 
 If disabling Badger and reloading the page fixed the issue, and re-enabling and reloading brought the issue back, let's try to figure out the responsible domain(s). Try allowing half the blocked domains to load. If (after reloading the page) the issue was fixed, pick half of those domains and revert them back to Badger's control. Eventually you should find the exact domain(s) that, when blocked, cause the issue to appear.
 
