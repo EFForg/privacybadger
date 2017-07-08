@@ -325,7 +325,7 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (!badger.tabData.hasOwnProperty(tabId)){
     badger.tabData[tabId] = {
       frames: {},
-      trackers: {},
+      origins: {},
       blocked: {
         [constants.BLOCK]: {},
         [constants.USER_BLOCK]: {},
@@ -535,7 +535,7 @@ function checkAction(tabId, url, quiet, frameId){
   var action = badger.storage.getBestAction(requestHost);
 
   if (action && ! quiet) {
-    let update = badger.logTrackerOnTab(tabId, requestHost, action);
+    let update = badger.logThirdPartyOriginOnTab(tabId, requestHost, action);
     if (update) {
       setTimeout(function() {
         badger.updateCount(tabId);
