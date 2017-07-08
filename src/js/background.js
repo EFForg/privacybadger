@@ -488,7 +488,7 @@ Badger.prototype = {
 
 
 /**
-   * Helper function returns a list of all blocked origins for a tab
+   * Helper function returns a list of all third party origins for a tab
    * @param {Integer} tabId requested tab id as provided by chrome
    * @returns {*} A dictionary of third party origins and their actions
    */
