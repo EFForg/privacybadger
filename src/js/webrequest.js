@@ -535,8 +535,8 @@ function checkAction(tabId, url, quiet, frameId){
   var action = badger.storage.getBestAction(requestHost);
 
   if (action && ! quiet) {
-    badger.logTrackerOnTab(tabId, requestHost, action);
-    if (constants.BLOCKED_ACTIONS.hasOwnProperty(action)) {
+    let update = badger.logTrackerOnTab(tabId, requestHost, action);
+    if (update) {
       setTimeout(function() {
         badger.updateCount(tabId);
       }, 0);

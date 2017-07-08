@@ -519,6 +519,7 @@ Badger.prototype = {
 
     let thisTab = this.tabData[tabId];
     let numBlocked = thisTab ? thisTab.blockedCount : 0;
+    console.log("numBlocked: " + numBlocked);
 
     if(numBlocked === 0){
       chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
@@ -718,6 +719,8 @@ Badger.prototype = {
    * @param tabId the tab we are on
    * @param fqdn the tracker to add
    * @param action the action we are taking
+   *
+   * @returns {boolean} true if badge count should be incremented
    **/
   logTrackerOnTab: function(tabId, fqdn, action) {
     this.tabData[tabId].trackers[fqdn] = action;
@@ -726,8 +729,10 @@ Badger.prototype = {
       if (!this.tabData[tabId].blocked[action].hasOwnProperty(fqdn)) {
         this.tabData[tabId].blocked[action][fqdn] = true;
         this.tabData[tabId].blockedCount += 1;
+        return true;
       }
     }
+    return false;
   },
 
   /**
