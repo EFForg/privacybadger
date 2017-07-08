@@ -544,7 +544,10 @@ Badger.prototype = {
       chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
       return;
     }
-    var numBlocked = this.blockedTrackerCount(tabId);
+
+    let thisTab = this.tabData[tabId];
+    let numBlocked = thisTab ? thisTab.blockedCount : 0;
+
     if(numBlocked === 0){
       chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
     } else {
@@ -569,13 +572,13 @@ Badger.prototype = {
       // prerendered tab, Chrome will throw error for setBadge functions, don't call
       return;
     } else {
-      var badger = this;
+      let self = this;
       chrome.tabs.get(tab_id, function(/*tab*/){
         if (chrome.runtime.lastError){
-          badger.tabData[tab_id].bgTab = true;
+          self.tabData[tab_id].bgTab = true;
         } else {
-          badger.tabData[tab_id].bgTab = false;
-          badger.updateBadge(tab_id);
+          self.tabData[tab_id].bgTab = false;
+          self.updateBadge(tab_id);
         }
       });
     }
@@ -737,14 +740,22 @@ Badger.prototype = {
   },
 
   /**
-   * Add the tracker and action to the tab.trackers object in tabData
-   * which will be used by the privacy badger popup
+   * Add the tracker and action to the tabData[tabId] object
+   * so it can be used for the popup and the badge count.
+   *
    * @param tabId the tab we are on
    * @param fqdn the tracker to add
    * @param action the action we are taking
    **/
   logTrackerOnTab: function(tabId, fqdn, action) {
     this.tabData[tabId].trackers[fqdn] = action;
+
+    if (constants.BLOCKED_ACTIONS.hasOwnProperty(action)) {
+      if (!this.tabData[tabId].blocked[action].hasOwnProperty(fqdn)) {
+        this.tabData[tabId].blocked[action][fqdn] = true;
+        this.tabData[tabId].blockedCount += 1;
+      }
+    }
   },
 
   /**
