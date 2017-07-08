@@ -180,7 +180,14 @@ Badger.prototype = {
               url: tab.url
             }
           },
-          trackers: {}
+          trackers: {},
+          blocked: {
+            [constants.BLOCK]: {},
+            [constants.USER_BLOCK]: {},
+            [constants.COOKIEBLOCK]: {},
+            [constants.USER_COOKIE_BLOCK]: {}
+          },
+          blockedCount: 0
         };
       }
     });

@@ -325,7 +325,14 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (!badger.tabData.hasOwnProperty(tabId)){
     badger.tabData[tabId] = {
       frames: {},
-      trackers: {}
+      trackers: {},
+      blocked: {
+        [constants.BLOCK]: {},
+        [constants.USER_BLOCK]: {},
+        [constants.COOKIEBLOCK]: {},
+        [constants.USER_COOKIE_BLOCK]: {}
+      },
+      blockedCount: 0
     };
   }
   // check if this is a prerendered (bg) tab or not
