@@ -504,34 +504,6 @@ Badger.prototype = {
   },
 
   /**
-   * count of blocked origins for a given tab
-   * @param {Integer} tabId chrome tab id
-   * @return {Integer} count of blocked origins
-   */
-  blockedOriginCount: function(tabId) {
-    return this.getAllOriginsForTab(tabId).length;
-  },
-
-  /**
-   * Counts total blocked trackers and blocked cookies trackers
-   * TODO: ugly code, refactor
-   *
-   * @param tabId Tab ID to count for
-   * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
-   */
-  blockedTrackerCount: function(tabId){
-    var self = this;
-    return self.getAllOriginsForTab(tabId)
-      .reduce(function(memo,origin){
-        var action = self.storage.getBestAction(origin);
-        if(action && constants.BLOCKED_ACTIONS.hasOwnProperty(action)){
-          memo+=1;
-        }
-        return memo;
-      }, 0);
-  },
-
-  /**
    * Update page action badge with current count
    * @param {Integer} tabId chrome tab id
    */
