@@ -519,7 +519,6 @@ Badger.prototype = {
 
     let thisTab = this.tabData[tabId];
     let numBlocked = thisTab ? thisTab.blockedCount : 0;
-    console.log("numBlocked: " + numBlocked);
 
     if(numBlocked === 0){
       chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
