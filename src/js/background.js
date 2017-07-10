@@ -238,12 +238,19 @@ Badger.prototype = {
   **/
   updateCookieBlockList: function(){
     var self = this;
-    utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function(err,response){
-      if(err){
-        console.error('Problem fetching cookieblock list at',
-                  constants.COOKIE_BLOCK_LIST_URL, err.status, err.message);
+
+    utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function (err, response) {
+      if (err) {
+        console.error(
+          "Problem fetching cookieblock list at",
+          constants.COOKIE_BLOCK_LIST_URL,
+          err.status,
+          err.message
+        );
+
         return;
       }
+
       var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
       var action_map = self.storage.getBadgerStorageObject('action_map');
 
