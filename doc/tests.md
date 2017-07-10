@@ -1,9 +1,10 @@
 # Travis CI
 
-Every pull request runs the full suite of function and unit tests on [Travis CI](https://travis-ci.org/). We test on Chrome stable and beta, on Firefox we test ESR, latest, and beta. See our [`.travis.yml`](/.travis.yml) for the configuration, as well as [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) and
-[`scripts/run_travis.sh`](/scripts/run_travis.sh).
+Every pull request runs the full suite of functional and unit tests on [Travis CI](https://travis-ci.org/). We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Firefox Beta and Firefox ESR.
 
-We also run [ESLint](https://eslint.org) on Travis to test for JavaScript style and errors. See [`.eslintrc.yml`](/.eslintrc.yml) and [`.eslintignore`](/.eslintignore) for specifics.
+See [`.travis.yml`](/.travis.yml) for Travis configuration, [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) for test setup, and [`scripts/run_travis.sh`](/scripts/run_travis.sh) for test execution procedures.
+
+We use [ESLint](https://eslint.org) to flag potential JavaScript errors and style issues. See [`.eslintrc.yml`](/.eslintrc.yml) and [`.eslintignore`](/.eslintignore) for specifics.
 
 # Unit tests
 
@@ -19,7 +20,7 @@ Unit tests are located in [`/src/tests/tests`](/src/tests/tests). The unit test 
 
 Our functional tests are written in [Python](https://www.python.org/) and driven by
 [Selenium](https://selenium-python.readthedocs.io/) and [pytest](https://docs.pytest.org/en/latest/).
-To run the Selenium functional tests, you'll need to install `chromedriver` ([link](https://github.com/EFForg/privacybadger/blob/d8fa42766a65687aed90cb0c41c38066bfa91dce/scripts/setup_travis.sh#L5-L10)) for Chrome
+To run them, you'll need to install `chromedriver` ([link](https://github.com/EFForg/privacybadger/blob/d8fa42766a65687aed90cb0c41c38066bfa91dce/scripts/setup_travis.sh#L5-L10)) for Chrome
 or `geckodriver` ([link](https://github.com/EFForg/privacybadger/blob/d8fa42766a65687aed90cb0c41c38066bfa91dce/scripts/setup_travis.sh#L14-L18)) for Firefox.
 You also need some python packages which can be installed by running:
 ```bash
