@@ -506,14 +506,13 @@ Badger.prototype = {
       return;
     }
 
-    if (!this.showCounter()){
+    let thisTab = this.tabData[tabId];
+    if (!this.showCounter() || !thisTab) {
       chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
       return;
     }
 
-    let thisTab = this.tabData[tabId];
     let numBlocked = thisTab ? thisTab.blockedCount : 0;
-
     if(numBlocked === 0){
       chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
     } else {
