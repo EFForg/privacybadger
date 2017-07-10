@@ -2,11 +2,9 @@
 
 (function () {
 
-  const DNT_HASHES_URL = chrome.extension.getURL(
-    'data/dnt-policies-example.json');
-
   let BACKUP = {};
 
+  QUnit.config.autostart = false;
   QUnit.config.testTimeout = 6400;
 
   // disable storage persistence
@@ -16,23 +14,15 @@
   // make it seem like there is nothing in storage
   // unit tests shouldn't read from your Badger's storage either
   chrome.storage.local.get = (keys, callback) => {
-    // note that callback has to be async
-
-    // ensure DNT hashes are loaded
-    // TODO anything else tests depend on that might not yet be ready
-    // at the time tests run?
-    // TODO would be better to set QUnit.config.autostart to false
-    // and QUnit.start() tests only when Badger declares itself ready
-    require('utils').xhrRequest(DNT_HASHES_URL, (err, data) => {
+    // callback has to be async
+    setTimeout(function () {
       callback({
-        dnt_hashes: _.invert(JSON.parse(data)),
-
         // don't open the firstrun page
         settings_map: {
           isFirstRun: false,
         }
       });
-    });
+    }, 0);
   };
 
   // reset state between tests
@@ -53,5 +43,28 @@
       obj.updateObject(BACKUP[item]);
     });
   });
+
+  // kick off tests when we have what we need from Badger
+  function wait_for_badger() {
+    function get_storage_length(store) {
+      return Object.keys(
+        badger.storage.getBadgerStorageObject(store).getItemClones()
+      ).length;
+    }
+
+    if (
+      typeof badger == "object" &&
+      badger.INITIALIZED &&
+      // TODO have badger.INITIALIZED account
+      // for things getting initialized async
+      !!get_storage_length('dnt_hashes') &&
+      !!get_storage_length('cookieblock_list')
+    ) {
+      QUnit.start();
+    } else {
+      setTimeout(wait_for_badger, 10);
+    }
+  }
+  setTimeout(wait_for_badger, 10);
 
 }());
