@@ -522,34 +522,6 @@ Badger.prototype = {
     chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
   },
 
-  /**
-   * Checks conditions for updating page action badge and call updateBadge
-   * @param {Object} tab_id ID of the tab we want to update the badge on
-   */
-  updateCount: function(tab_id) {
-    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(tab_id))){
-      return;
-    }
-
-    if (!this.tabData[tab_id]) {
-      return;
-    }
-    if(this.tabData[tab_id].bgTab === true){
-      // prerendered tab, Chrome will throw error for setBadge functions, don't call
-      return;
-    } else {
-      let self = this;
-      chrome.tabs.get(tab_id, function(/*tab*/){
-        if (chrome.runtime.lastError){
-          self.tabData[tab_id].bgTab = true;
-        } else {
-          self.tabData[tab_id].bgTab = false;
-          self.updateBadge(tab_id);
-        }
-      });
-    }
-  },
-
   getSettings: function() {
     return this.storage.getBadgerStorageObject('settings_map');
   },
@@ -707,24 +679,35 @@ Badger.prototype = {
 
   /**
    * Add only new third party origins to the tabData[tabId] object for
-   * use in the popup and return 'true' if the badge needs to be refreshed
-   * to display an updated number.
+   * use in the popup and, if needed, call updateBadge.
    *
    * @param tabId the tab we are on
    * @param fqdn the third party origin to add
    * @param action the action we are taking
    *
-   * @returns {boolean} true if badge needs to be updated
    **/
   logThirdPartyOriginOnTab: function(tabId, fqdn, action) {
     if(!this.tabData[tabId].origins.hasOwnProperty(fqdn)) {
       this.tabData[tabId].origins[fqdn] = action;
       if (constants.BLOCKED_ACTIONS.has(action)) {
         this.tabData[tabId].blockedCount += 1;
-        return true;
+
+        if (this.tabData[tabId].bgTab === true) {
+          // Prerendered tab; Chrome will throw error for setBadge functions.
+          return;
+        }
+        setTimeout(function() {
+          chrome.tabs.get(tabId, function(/*tab*/){
+            if (chrome.runtime.lastError){
+              badger.tabData[tabId].bgTab = true;
+            } else {
+              badger.tabData[tabId].bgTab = false;
+              badger.updateBadge(tabId);
+            }
+          });
+        }, 0);
       }
     }
-    return false;
   },
 
   /**

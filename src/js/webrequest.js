@@ -529,12 +529,7 @@ function checkAction(tabId, url, quiet, frameId){
   var action = badger.storage.getBestAction(requestHost);
 
   if (action && ! quiet) {
-    let update = badger.logThirdPartyOriginOnTab(tabId, requestHost, action);
-    if (update) {
-      setTimeout(function() {
-        badger.updateCount(tabId);
-      }, 0);
-    }
+    badger.logThirdPartyOriginOnTab(tabId, requestHost, action);
   }
   return action;
 }
