@@ -181,12 +181,6 @@ Badger.prototype = {
             }
           },
           origins: {},
-          blocked: {
-            [constants.BLOCK]: {},
-            [constants.USER_BLOCK]: {},
-            [constants.COOKIEBLOCK]: {},
-            [constants.USER_COOKIE_BLOCK]: {}
-          },
           blockedCount: 0
         };
       }
@@ -712,21 +706,20 @@ Badger.prototype = {
   },
 
   /**
-   * Add the third party origin and action to the tabData[tabId] object
-   * so it can be used for the popup and the badge count.
+   * Add only new third party origins to the tabData[tabId] object for
+   * use in the popup and return 'true' if the badge needs to be refreshed
+   * to display an updated number.
    *
    * @param tabId the tab we are on
    * @param fqdn the third party origin to add
    * @param action the action we are taking
    *
-   * @returns {boolean} true if badge count should be incremented
+   * @returns {boolean} true if badge needs to be updated
    **/
   logThirdPartyOriginOnTab: function(tabId, fqdn, action) {
-    this.tabData[tabId].origins[fqdn] = action;
-
-    if (constants.BLOCKED_ACTIONS.hasOwnProperty(action)) {
-      if (!this.tabData[tabId].blocked[action].hasOwnProperty(fqdn)) {
-        this.tabData[tabId].blocked[action][fqdn] = true;
+    if(!this.tabData[tabId].origins.hasOwnProperty(fqdn)) {
+      this.tabData[tabId].origins[fqdn] = action;
+      if (constants.BLOCKED_ACTIONS.hasOwnProperty(action)) {
         this.tabData[tabId].blockedCount += 1;
         return true;
       }

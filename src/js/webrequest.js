@@ -326,12 +326,6 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
     badger.tabData[tabId] = {
       frames: {},
       origins: {},
-      blocked: {
-        [constants.BLOCK]: {},
-        [constants.USER_BLOCK]: {},
-        [constants.COOKIEBLOCK]: {},
-        [constants.USER_COOKIE_BLOCK]: {}
-      },
       blockedCount: 0
     };
   }
