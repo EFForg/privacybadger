@@ -55,19 +55,11 @@ require.scopes.storage = (function() {
  **/
 
 function BadgerPen(callback) {
-  var keys = [
-    "snitch_map",
-    "action_map",
-    "cookieblock_list",
-    "dnt_hashes",
-    "settings_map",
-  ];
-
   var bp = this;
   // Now check localStorage
-  chrome.storage.local.get(keys, function(store){
-    _.each(keys, function(key){
-      if(store.hasOwnProperty(key)){
+  chrome.storage.local.get(bp.KEYS, function (store) {
+    _.each(bp.KEYS, function (key) {
+      if (store.hasOwnProperty(key)) {
         bp[key] = new BadgerStorage(key, store[key]);
       } else {
         var storage_obj = new BadgerStorage(key, {});
@@ -75,13 +67,21 @@ function BadgerPen(callback) {
         _syncStorage(storage_obj);
       }
     });
-    if(_.isFunction(callback)){
+    if (_.isFunction(callback)) {
       callback(bp);
     }
   });
 }
 
 BadgerPen.prototype = {
+  KEYS: [
+    "snitch_map",
+    "action_map",
+    "cookieblock_list",
+    "dnt_hashes",
+    "settings_map",
+  ],
+
   getBadgerStorageObject: function(key) {
 
     if(this.hasOwnProperty(key)){

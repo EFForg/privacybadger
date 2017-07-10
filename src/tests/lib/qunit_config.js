@@ -40,7 +40,7 @@
   QUnit.testStart(() => {
     // back up settings and heuristic learning
     // TODO any other state we should reset? tabData?
-    ['action_map', 'settings_map', 'snitch_map'].forEach(item => {
+    badger.storage.KEYS.forEach(item => {
       let obj = badger.storage.getBadgerStorageObject(item);
       BACKUP[item] = obj.getItemClones();
     });
@@ -48,7 +48,7 @@
 
   QUnit.testDone(() => {
     // restore original settings and heuristic learning
-    ['action_map', 'settings_map', 'snitch_map'].forEach(item => {
+    badger.storage.KEYS.forEach(item => {
       let obj = badger.storage.getBadgerStorageObject(item);
       obj.updateObject(BACKUP[item]);
     });
