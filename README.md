@@ -23,7 +23,7 @@ And of course, we try to respond in a timely manner to GitHub issues, pull reque
 ## Developing
 
 We're glad you want to help! We have a **[handy guide for
-contributors](/doc/CONTRIBUTING.md)**. It can hopefully point you to helpful
+contributors](/.github/CONTRIBUTING.md)**. It can hopefully point you to helpful
 resources if you have any questions (please let us know if it doesn't). To get
 started with most things, you'll need to [install Privacy Badger from
 source](#install-from-source) so we'll start there.
