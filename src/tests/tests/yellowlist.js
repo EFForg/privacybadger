@@ -41,7 +41,7 @@
 
     badger.updateCookieBlockList(function (success) {
       assert.ok(success, "Callback status indicates success");
-      assert.deepEqual(ylist, get_ylist(), "List got updated");
+      assert.deepEqual(get_ylist(), ylist, "List got updated");
       done();
     });
   });
@@ -59,7 +59,7 @@
 
     badger.updateCookieBlockList(function (success) {
       assert.ok(success, "Callback status indicates success");
-      assert.deepEqual(ylist, get_ylist(), "List did not get updated");
+      assert.deepEqual(get_ylist(), ylist, "List did not get updated");
       done();
     });
   });
@@ -77,7 +77,7 @@
 
     badger.updateCookieBlockList(function (success) {
       assert.ok(success, "Callback status indicates success");
-      assert.deepEqual(ylist, get_ylist(), "List did not get updated");
+      assert.deepEqual(get_ylist(), ylist, "List did not get updated");
       done();
     });
   });
