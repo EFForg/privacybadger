@@ -54,6 +54,7 @@
     },
     {
       "js": [
+        "js/contentscripts/injector.js",
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
         "js/contentscripts/fingerprinting.js",
@@ -102,6 +103,7 @@
   },
   "options_page": "/skin/options.html",
   "web_accessible_resources": [
+    "js/injected/fingercounting.js",
     "skin/socialwidgets/*"
   ]
 }
