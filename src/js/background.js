@@ -719,7 +719,7 @@ Badger.prototype = {
   logThirdPartyOriginOnTab: function(tabId, fqdn, action) {
     if(!this.tabData[tabId].origins.hasOwnProperty(fqdn)) {
       this.tabData[tabId].origins[fqdn] = action;
-      if (constants.BLOCKED_ACTIONS.hasOwnProperty(action)) {
+      if (constants.BLOCKED_ACTIONS.has(action)) {
         this.tabData[tabId].blockedCount += 1;
         return true;
       }
