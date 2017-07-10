@@ -139,4 +139,26 @@
 
     badger.isCheckingDNTPolicyEnabled = old_dnt_check_func;
   });
+
+  QUnit.test("Blocked domain only counted once in badge", (assert) => {
+    badger.tabData[-1] = {
+      frames: {},
+      origins: {},
+      blocked: {
+        [constants.BLOCK]: {},
+        [constants.USER_BLOCK]: {},
+        [constants.COOKIEBLOCK]: {},
+        [constants.USER_COOKIE_BLOCK]: {}
+      },
+      blockedCount: 0
+    };
+
+    badger.logThirdPartyOriginOnTab(-1, "test.com", constants.BLOCK);
+    assert.equal(badger.tabData[-1].blockedCount, 1);
+
+    // Verify that a second occurrence of 'test.com' doesn't result in
+    // the blockedCount (used for the badge) incrementing again.
+    badger.logThirdPartyOriginOnTab(-1, "test.com", constants.BLOCK);
+    assert.equal(badger.tabData[-1].blockedCount, 1);
+  });
 }());
