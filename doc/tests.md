@@ -1,6 +1,6 @@
 # Travis CI
 
-Every pull request runs the full suite of function and unit tests on [Travis CI](https://travis-ci.org/). We test on Chrome stable and beta, on Firefox we test ESR, latest, and beta. See our `[.travis.yml](/.travis.yml)` for the configuration, as well as [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) and
+Every pull request runs the full suite of function and unit tests on [Travis CI](https://travis-ci.org/). We test on Chrome stable and beta, on Firefox we test ESR, latest, and beta. See our [`.travis.yml`](/.travis.yml) for the configuration, as well as [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) and
 [`scripts/run_travis.sh`](/scripts/run_travis.sh).
 
 We also run [ESLint](https://eslint.org) on Travis to test for JavaScript style and errors. See [`.eslintrc.yml`](/.eslintrc.yml) and [`.eslintignore`](/.eslintignore) for specifics.
