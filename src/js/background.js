@@ -235,8 +235,10 @@ Badger.prototype = {
   * add any new entries that already have a parent domain in the action_map
   * and remove any old entries that are no longer in the cookie block list
   * from the action map
+  *
+  * @param {Function} [callback] optional callback, gets success status boolean
   **/
-  updateCookieBlockList: function(){
+  updateCookieBlockList: function (callback) {
     var self = this;
 
     utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function (err, response) {
@@ -247,6 +249,10 @@ Badger.prototype = {
           err.status,
           err.message
         );
+
+        if (callback) {
+          callback(false);
+        }
 
         return;
       }
@@ -287,6 +293,10 @@ Badger.prototype = {
           self.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
         }
       });
+
+      if (callback) {
+        callback(true);
+      }
 
     });
   },
