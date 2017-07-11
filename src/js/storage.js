@@ -15,7 +15,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals badger:false */
+/* globals badger:false, log:false */
 
 var constants = require("constants");
 var utils = require("utils");
@@ -224,15 +224,22 @@ BadgerPen.prototype = {
    * @param actionType the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
    * @private
    */
-  _setupDomainAction: function(domain, action, actionType){
+  _setupDomainAction: function (domain, action, actionType) {
+    let msg = "action_map['%s'].%s = %s";
+
     var action_map = this.getBadgerStorageObject("action_map");
     var actionObj = {};
+
     if (action_map.hasItem(domain)) {
       actionObj = action_map.getItem(domain);
+      msg = "Updating " + msg;
     } else {
       actionObj = _newActionMapObject();
+      msg = "Initializing " + msg;
     }
     actionObj[actionType] = action;
+
+    log(msg, domain, actionType, JSON.stringify(action));
     action_map.setItem(domain, actionObj);
   },
 
