@@ -45,26 +45,41 @@
   });
 
   // kick off tests when we have what we need from Badger
-  function wait_for_badger() {
+  (function () {
+
     function get_storage_length(store) {
       return Object.keys(
         badger.storage.getBadgerStorageObject(store).getItemClones()
       ).length;
     }
 
-    if (
-      typeof badger == "object" &&
-      badger.INITIALIZED &&
-      // TODO have badger.INITIALIZED account
-      // for things getting initialized async
-      !!get_storage_length('dnt_hashes') &&
-      !!get_storage_length('cookieblock_list')
-    ) {
-      QUnit.start();
-    } else {
-      setTimeout(wait_for_badger, 10);
+    const WAIT_INTERVAL = 10,
+      MAX_WAIT = 1000;
+
+    let elapsed = 0;
+
+    function wait_for_badger() {
+      elapsed += WAIT_INTERVAL;
+
+      if (elapsed >= MAX_WAIT) {
+        // give up
+        QUnit.start();
+      }
+
+      if (typeof badger == "object" && badger.INITIALIZED &&
+        // TODO have badger.INITIALIZED account
+        // for things getting initialized async
+        !!get_storage_length('dnt_hashes') &&
+        !!get_storage_length('cookieblock_list')
+      ) {
+        QUnit.start();
+      } else {
+        setTimeout(wait_for_badger, WAIT_INTERVAL);
+      }
     }
-  }
-  setTimeout(wait_for_badger, 10);
+
+    setTimeout(wait_for_badger, WAIT_INTERVAL);
+
+  }());
 
 }());
