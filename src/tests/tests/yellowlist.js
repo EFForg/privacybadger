@@ -46,7 +46,7 @@
     });
   });
 
-  QUnit.todo("Updating receives a blank response", (assert) => {
+  QUnit.test("Updating receives a blank response", (assert) => {
     let done = assert.async();
     assert.expect(3);
 

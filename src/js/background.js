@@ -257,16 +257,23 @@ Badger.prototype = {
         return callback(false);
       }
 
-      var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
-      var action_map = self.storage.getBadgerStorageObject('action_map');
+      // handle empty response
+      if (!response.trim()) {
+        return callback(false);
+      }
 
       var newCbDomains = _.map(response.split("\n"), function(d){ return d.trim();});
+
+      var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
       var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
 
       var addedDomains = _.difference(newCbDomains, oldCbDomains);
       var removedDomains = _.difference(oldCbDomains, newCbDomains);
+
       log('adding to cookie blocklist:', addedDomains);
       log('removing from cookie blocklist:', removedDomains);
+
+      var action_map = self.storage.getBadgerStorageObject('action_map');
 
       // Change any removed domains back to blocked status
       _.each(removedDomains, function(domain){
