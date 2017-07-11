@@ -76,7 +76,7 @@ a:hover { color: #ec9329 }
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
-  height: 40px;
+  height: 43px;
   overflow: hidden;
 }
 .clicker.greyed { background: #aaa; }
@@ -120,7 +120,7 @@ font-size: 12px;
 background-color: #555;
 height: 12px;
 border-radius: 7px;
-padding: 3px;
+padding: 1px 3px 3px 3px;
 position: relative;
 bottom: 30px;
 left: 0;
