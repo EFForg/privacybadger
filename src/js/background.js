@@ -262,7 +262,7 @@ Badger.prototype = {
         return callback(false);
       }
 
-      var newCbDomains = _.map(response.split("\n"), function(d){ return d.trim();});
+      var newCbDomains = _.map(response.trim().split("\n"), domain => domain.trim());
 
       var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
       var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
@@ -275,6 +275,7 @@ Badger.prototype = {
 
       var action_map = self.storage.getBadgerStorageObject('action_map');
 
+      // TODO watch out for "" getting removed for example
       // TODO https://github.com/EFForg/privacybadger/issues/1474
       _.each(removedDomains, function (domain) {
         cookieblock_list.deleteItem(domain);
