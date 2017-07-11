@@ -290,7 +290,7 @@ Badger.prototype = {
         });
       });
 
-      // Add any new cookie block domains who's parent domain is already blocked
+      // Add any new cookie block domains whose parent domain is already blocked
       _.each(addedDomains, function(domain){
         cookieblock_list.setItem(domain, true);
         var baseDomain = window.getBaseDomain(domain);
