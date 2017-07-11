@@ -334,7 +334,7 @@ function CheckedDNTBuffer(size) {
 CheckedDNTBuffer.prototype = {
   size: 1000,
   // if we've seen item, return true. if we haven't store it and return false
-  hasOrSet: function(item) {
+  hasElseAdd: function(item) {
     if (this.set.has(item)) {
       return true;
     } else {

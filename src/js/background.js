@@ -377,7 +377,7 @@ Badger.prototype = {
     if (Date.now() < self.storage.getNextUpdateForDomain(domain)) {
       return; // not yet time to re-check
     }
-    if (self.checkedDNT.hasOrSet(domain)) {
+    if (self.checkedDNT.hasElseAdd(domain)) {
       return; // checked for DNT already and failed
     }
 

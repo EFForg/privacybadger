@@ -404,18 +404,18 @@
 
   QUnit.test("Test CheckedDNTBuffer", function (assert) {
     let checkedDNT = new utils.CheckedDNTBuffer(3);
-    assert.notOk(checkedDNT.hasOrSet('1')); // adds '1'
-    assert.ok(checkedDNT.hasOrSet('1'));
+    assert.notOk(checkedDNT.hasElseAdd('1')); // adds '1'
+    assert.ok(checkedDNT.hasElseAdd('1'));
 
-    assert.notOk(checkedDNT.hasOrSet('2')); // adds '2'
-    assert.notOk(checkedDNT.hasOrSet('3')); // adds '3'
-    assert.ok(checkedDNT.hasOrSet('2'));
-    assert.ok(checkedDNT.hasOrSet('3'));
+    assert.notOk(checkedDNT.hasElseAdd('2')); // adds '2'
+    assert.notOk(checkedDNT.hasElseAdd('3')); // adds '3'
+    assert.ok(checkedDNT.hasElseAdd('2'));
+    assert.ok(checkedDNT.hasElseAdd('3'));
 
-    assert.notOk(checkedDNT.hasOrSet('4')); // overwrites '1'
-    assert.notOk(checkedDNT.hasOrSet('1')); // overwrites '2'
-    assert.ok(checkedDNT.hasOrSet('4'));
-    assert.ok(checkedDNT.hasOrSet('1'));
+    assert.notOk(checkedDNT.hasElseAdd('4')); // overwrites '1'
+    assert.notOk(checkedDNT.hasElseAdd('1')); // overwrites '2'
+    assert.ok(checkedDNT.hasElseAdd('4'));
+    assert.ok(checkedDNT.hasElseAdd('1'));
 
     assert.notOk(checkedDNT.delete('6'));
     assert.ok(checkedDNT.delete('1'));
