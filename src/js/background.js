@@ -275,9 +275,11 @@ Badger.prototype = {
 
       var action_map = self.storage.getBadgerStorageObject('action_map');
 
-      // Change any removed domains back to blocked status
-      _.each(removedDomains, function(domain){
+      // TODO https://github.com/EFForg/privacybadger/issues/1474
+      _.each(removedDomains, function (domain) {
         cookieblock_list.deleteItem(domain);
+        /*
+        // Change any removed domains back to blocked status
         if(action_map.hasItem(domain)){
           self.storage.setupHeuristicAction(domain, constants.BLOCK);
         }
@@ -288,6 +290,7 @@ Badger.prototype = {
         _.each(rmvdSubdomains, function(subDomain){
           self.storage.setupHeuristicAction(subDomain, constants.BLOCK);
         });
+        */
       });
 
       // Add any new cookie block domains whose parent domain is already blocked
