@@ -811,5 +811,6 @@ webrequest.startListeners();
 HeuristicBlocking.startListeners();
 startBackgroundListeners();
 
+// TODO move listeners and this message behind INITIALIZED
 console.log('Privacy badger is ready to rock!');
 console.log('Set DEBUG=1 to view console messages.');
