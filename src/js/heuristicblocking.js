@@ -491,7 +491,7 @@ function onBeforeSendHeaders(details) {
   return _processWebRequest(details, heuristicBlockingAccounting, true);
 }
 
-function onBeforeResponseStarted(details) {
+function onResponesStarted(details) {
   if (badger) {
     for(let i = 0; i < details.responseHeaders.length; i++) {
       if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
@@ -508,7 +508,7 @@ function onBeforeResponseStarted(details) {
  * Called from performance-critical webRequest listeners!
  * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
  *
- * @param details are those from onBeforeSendHeaders or onBeforeResponseStarted
+ * @param details are those from onBeforeSendHeaders or onResponesStarted
  * @param fqdn string for the full domain
  * @param baseDomain the etld+1 for the fqdn
  * @param tabOrigin the origin of the tab (aka the first party)
@@ -533,7 +533,7 @@ function startListeners() {
     onBeforeSendHeaders,
     {urls: ["<all_urls>"]}, ["requestHeaders"]);
   chrome.webRequest.onResponseStarted.addListener(
-    onBeforeResponseStarted,
+    onResponesStarted,
     {urls: ["<all_urls>"]}, ["responseHeaders"]);
 }
 
