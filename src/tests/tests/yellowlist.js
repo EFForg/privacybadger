@@ -65,20 +65,33 @@
   });
 
   QUnit.test("Updating receives an invalid response", (assert) => {
-    let done = assert.async();
-    assert.expect(3);
+    let BAD_RESPONSES = [
+      "page not found",
+      "page\nnot\nfound",
+      "pagenotfound",
+      "eff.org\n...\n",
+      "...eff.org...",
+      "<html><body>eff.org</body></html>",
+    ];
+
+    let done = assert.async(BAD_RESPONSES.length);
+    assert.expect(1 + (2 * BAD_RESPONSES.length));
 
     let ylist = get_ylist();
     assert.ok(!!Object.keys(ylist).length, "Yellowlist is not empty");
 
-    // respond with some random text
-    server.respondWith("GET", constants.COOKIE_BLOCK_LIST_URL,
-      [200, {}, "page not found"]);
+    BAD_RESPONSES.forEach(response => {
+      // respond with stuff that may look like the yellowlist but is not
+      server.respondWith("GET", constants.COOKIE_BLOCK_LIST_URL,
+        [200, {}, response]);
 
-    badger.updateCookieBlockList(function (success) {
-      assert.notOk(success, "Callback status indicates failure");
-      assert.deepEqual(get_ylist(), ylist, "List did not get updated");
-      done();
+      badger.updateCookieBlockList(function (success) {
+        assert.notOk(success,
+          "Callback status indicates failure for " + JSON.stringify(response));
+        assert.deepEqual(get_ylist(), ylist,
+          "List did not get updated for " + JSON.stringify(response));
+        done();
+      });
     });
   });
 

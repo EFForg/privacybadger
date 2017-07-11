@@ -265,11 +265,18 @@ Badger.prototype = {
       var newCbDomains = _.map(response.trim().split("\n"), domain => domain.trim());
 
       // validate the response
-      if (!_.every(newCbDomains, domain => {
+      if (!_.every(newCbDomains, (domain) => {
         // all domains must contain at least one dot
         if (domain.indexOf('.') == -1) {
           return false;
         }
+
+        // validate character set
+        // TODO overly restrictive but that's OK for now, we manage the list
+        if (!/^[a-z0-9][a-z0-9.-]+[a-z]$/.test(domain)) {
+          return false;
+        }
+
         return true;
       })) {
         return callback(false);
