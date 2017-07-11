@@ -147,7 +147,7 @@
     }
     assert.equal(stub.callCount, 1); // assert xhr only called once
     stub.restore();
-    badger._checkPrivacyBadgerPolicy.cancel(); // clear the queued calls
+    badger._doDNTCheck.cancel(); // clear the queued calls
     done();
   });
 

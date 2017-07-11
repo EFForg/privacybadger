@@ -386,7 +386,7 @@ Badger.prototype = {
     }
 
     log('Checking', domain, 'for DNT policy.');
-    self._checkPrivacyBadgerPolicy(domain, function (success) {
+    self._doDNTCheck(domain, function (success) {
       if (success) {
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
         self.checkedDNT.delete(domain); // remove from checkedDNT since the check passed
@@ -410,7 +410,7 @@ Badger.prototype = {
   * @param {String} origin The host to check
   * @param {Function} callback callback(successStatus)
   */
-  _checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
+  _doDNTCheck: utils.rateLimit(function (origin, callback) {
     var successStatus = false;
     var url = "https://" + origin + "/.well-known/dnt-policy.txt";
     var dnt_hashes = this.storage.getBadgerStorageObject('dnt_hashes');
