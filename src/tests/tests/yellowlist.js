@@ -64,7 +64,7 @@
     });
   });
 
-  QUnit.todo("Updating receives an invalid response", (assert) => {
+  QUnit.test("Updating receives an invalid response", (assert) => {
     let done = assert.async();
     assert.expect(3);
 

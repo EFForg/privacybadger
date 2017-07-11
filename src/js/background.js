@@ -264,6 +264,17 @@ Badger.prototype = {
 
       var newCbDomains = _.map(response.trim().split("\n"), domain => domain.trim());
 
+      // validate the response
+      if (!_.every(newCbDomains, domain => {
+        // all domains must contain at least one dot
+        if (domain.indexOf('.') == -1) {
+          return false;
+        }
+        return true;
+      })) {
+        return callback(false);
+      }
+
       var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
       var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
 
