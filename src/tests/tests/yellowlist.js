@@ -58,7 +58,7 @@
       [200, {}, ""]);
 
     badger.updateCookieBlockList(function (success) {
-      assert.ok(success, "Callback status indicates success");
+      assert.notOk(success, "Callback status indicates failure");
       assert.deepEqual(get_ylist(), ylist, "List did not get updated");
       done();
     });
@@ -76,7 +76,7 @@
       [200, {}, "page not found"]);
 
     badger.updateCookieBlockList(function (success) {
-      assert.ok(success, "Callback status indicates success");
+      assert.notOk(success, "Callback status indicates failure");
       assert.deepEqual(get_ylist(), ylist, "List did not get updated");
       done();
     });
