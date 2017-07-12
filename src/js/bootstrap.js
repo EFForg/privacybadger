@@ -15,12 +15,11 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-window.DEBUG = false;
-window.badger = {};
 
 /**
 * Log a message to the console if debugging is enabled
 */
+window.DEBUG = false;
 window.log = function (/*...*/) {
   if(window.DEBUG) {
     console.log.apply(console, arguments);
