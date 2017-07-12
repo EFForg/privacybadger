@@ -460,9 +460,8 @@ function syncSettingsDict(settingsDict) {
   // closing a popup is authoritative and we should sync the real state to that
   for (var origin in settingsDict) {
     var userAction = settingsDict[origin];
-    client.saveAction(userAction, origin);
+    badger.saveAction(userAction, origin);
     reloadNeeded = tabId;
-    }
   }
 
   // the popup needs to be refreshed to display current results
