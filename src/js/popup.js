@@ -19,7 +19,6 @@
  // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
 var backgroundPage = chrome.extension.getBackgroundPage();
-var require = backgroundPage.require;
 var badger = backgroundPage.badger;
 var FirefoxAndroid = backgroundPage.FirefoxAndroid;
 var htmlUtils = require("htmlutils").htmlUtils;
@@ -28,6 +27,8 @@ var messages = require("messages");
 
 var i18n = chrome.i18n;
 var reloadTab = chrome.tabs.reload;
+
+let client = new messages.Client();
 
 /* if they aint seen the comic*/
 function showNagMaybe() {
@@ -99,7 +100,7 @@ function init() {
 
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
-    messages.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url), (enabled) => {
+    client.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url), (enabled) => {
       if (enabled) {
         $("#blockedResourcesContainer").hide();
         $("#activate_site_btn").show();
