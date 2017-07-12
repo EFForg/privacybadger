@@ -523,7 +523,7 @@ function getTab(callback) {
     return;
   }
 
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, function(t) { callback(t[0]); });
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, t => callback(t[0]));
 }
 
 document.addEventListener('DOMContentLoaded', function () {
