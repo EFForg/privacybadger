@@ -101,7 +101,7 @@ function init() {
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
     client.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url), (enabled) => {
-      if (enabled) {
+      if (!enabled) {
         $("#blockedResourcesContainer").hide();
         $("#activate_site_btn").show();
         $("#deactivate_site_btn").hide();
