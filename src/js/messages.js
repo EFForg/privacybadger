@@ -2,6 +2,7 @@ require.scopes.messages = (() => {
 
 let methods = new Set([
   'isPrivacyBadgerEnabled',
+  'saveAction',
 ]);
 
 function Listener(badger) {
@@ -23,6 +24,9 @@ function Client() {
 
   this.isPrivacyBadgerEnabled = function(origin, callback) {
     sendMessage('isPrivacyBadgerEnabled', [origin], callback);
+  };
+  this.saveAction = function(userAction, origin, callback) {
+    sendMessage('saveAction', [userAction, origin], callback);
   };
 }
 
