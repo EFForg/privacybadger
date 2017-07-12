@@ -20,10 +20,10 @@
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
-var constants = backgroundPage.constants;
 var badger = backgroundPage.badger;
 var FirefoxAndroid = backgroundPage.FirefoxAndroid;
 var htmlUtils = require("htmlutils").htmlUtils;
+var constants = require("constants");
 
 var i18n = chrome.i18n;
 var reloadTab = chrome.tabs.reload;

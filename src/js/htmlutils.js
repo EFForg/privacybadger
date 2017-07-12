@@ -17,9 +17,8 @@
 
 var i18n = chrome.i18n;
 
+var constants = require("constants");
 require.scopes.htmlutils = (function() {
-
-var constants = chrome.extension.getBackgroundPage().constants;
 
 // Ugly HTML helpers.
 // TODO: Some or all of these should be replace but have been moved here to
