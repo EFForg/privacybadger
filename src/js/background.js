@@ -32,6 +32,7 @@ window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/soc
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
+var messages = require("messages");
 
 /**
 * privacy badger initializer
@@ -63,6 +64,7 @@ function Badger() {
     });
 
     // TODO: register all privacy badger listeners here in the storage callback
+    badger.listener = new messages.Listener(badger);
 
     badger.INITIALIZED = true;
   });

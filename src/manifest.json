@@ -39,6 +39,7 @@
       "js/socialwidgetloader.js",
       "js/migrations.js",
       "js/firefoxandroid.js",
+      "js/messages.js",
       "js/background.js"
     ]
   },
