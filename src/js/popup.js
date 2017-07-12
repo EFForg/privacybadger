@@ -99,11 +99,13 @@ function init() {
 
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
-    if(!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
-      $("#blockedResourcesContainer").hide();
-      $("#activate_site_btn").show();
-      $("#deactivate_site_btn").hide();
-    }
+    messages.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url), (enabled) => {
+      if (enabled) {
+        $("#blockedResourcesContainer").hide();
+        $("#activate_site_btn").show();
+        $("#deactivate_site_btn").hide();
+      }
+    });
   });
 
   var version = i18n.getMessage("version") + " " +  chrome.runtime.getManifest().version;
