@@ -10,7 +10,7 @@ function Listener(badger) {
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       if (methods.has(request.method)) {
-        sendResponse(badger[request.method](badger, request.args));
+        sendResponse(badger[request.method].apply(badger, request.args));
       }
     }
   );
