@@ -24,6 +24,7 @@ var badger = backgroundPage.badger;
 var FirefoxAndroid = backgroundPage.FirefoxAndroid;
 var htmlUtils = require("htmlutils").htmlUtils;
 var constants = require("constants");
+var messages = require("messages");
 
 var i18n = chrome.i18n;
 var reloadTab = chrome.tabs.reload;
