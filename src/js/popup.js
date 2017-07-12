@@ -460,8 +460,8 @@ function syncSettingsDict(settingsDict) {
   // closing a popup is authoritative and we should sync the real state to that
   for (var origin in settingsDict) {
     var userAction = settingsDict[origin];
-    if (badger.saveAction(userAction, origin)) {
-      reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"? would be fun to check with jsperf.com
+    client.saveAction(userAction, origin);
+    reloadNeeded = tabId;
     }
   }
 
