@@ -274,6 +274,7 @@ function refreshPopup(tabId) {
   $('#number_trackers').text(trackerCount);
 
   requestAnimationFrame(renderDomains);
+
   function processOrigins(origins) {
     let tracking = [],
       nonTracking = [];
@@ -288,7 +289,6 @@ function refreshPopup(tabId) {
         nonTracking.push(htmlUtils.getOriginHtml(origin, constants.NO_TRACKING, false));
         continue;
       }
-
       if (action != constants.DNT) {
         trackerCount++;
       }
@@ -298,11 +298,10 @@ function refreshPopup(tabId) {
     printable.push.apply(printable, tracking);
 
     if (nonTracking.length > 0) {
-      let nonTracker = i18n.getMessage("non_tracker"),
-        nonTrackerTip = i18n.getMessage("non_tracker_tip");
       printable.push(
         '<div class="clicker" id="nonTrackers" title="' +
-        nonTrackerTip + '">' + nonTracker + '</div>'
+        i18n.getMessage("non_tracker_tip") + '">' +
+        i18n.getMessage("non_tracker") + '</div>'
       );
     }
 
