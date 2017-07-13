@@ -2,12 +2,10 @@ require.scopes.messages = (() => {
 
 let methods = new Set([
   'isPrivacyBadgerEnabled',
-  'saveAction',
+  'getAllOriginsForTab',
 ]);
 
 function Listener(badger) {
-  this.badger = badger;
-  this.methods = methods;
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       if (methods.has(request.method)) {
@@ -19,14 +17,15 @@ function Listener(badger) {
 
 function Client() {
   function sendMessage(method, args, callback) {
+    console.log(arguments);
     chrome.runtime.sendMessage({'method': method, 'args': args}, callback);
   };
 
   this.isPrivacyBadgerEnabled = function(origin, callback) {
     sendMessage('isPrivacyBadgerEnabled', [origin], callback);
   };
-  this.saveAction = function(userAction, origin, callback) {
-    sendMessage('saveAction', [userAction, origin], callback);
+  this.getAllOriginsForTab = function(tabId, callback) {
+    sendMessage('getAllOriginsForTab', [tabId], callback);
   };
 }
 
