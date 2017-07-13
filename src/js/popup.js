@@ -257,8 +257,10 @@ function registerToggleHandlers() {
 * @param {Integer} tabId The id of the tab
 */
 function refreshPopup(tabId) {
-  //TODO this is calling get action and then being used to call get Action
-  var origins = badger.getAllOriginsForTab(tabId);
+  let trackerCount = 0,
+    origins = badger.getAllOriginsForTab(tabId),
+    printable = [];
+
   if (!origins || origins.length === 0) {
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
     $('#number_trackers').text('0');
@@ -268,44 +270,45 @@ function refreshPopup(tabId) {
   // Display tracker tooltips.
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
 
-  var printable = [];
-  var nonTracking = [];
-  origins.sort(htmlUtils.compareReversedDomains);
-  var trackerCount = 0;
+  processOrigins(origins);
+  $('#number_trackers').text(trackerCount);
 
-  for (let i=0; i < origins.length; i++) {
-    var origin = origins[i];
-    // todo: gross hack, use templating framework
-    var action = badger.storage.getBestAction(origin);
+  requestAnimationFrame(renderDomains);
+  function processOrigins(origins) {
+    let tracking = [],
+      nonTracking = [];
 
-    if (action == constants.NO_TRACKING) {
-      nonTracking.push(origin);
-      continue;
+    origins.sort(htmlUtils.compareReversedDomains);
+
+    for (let i=0; i < origins.length; i++) {
+      let origin = origins[i],
+        action = badger.storage.getBestAction(origin);
+
+      if (action == constants.NO_TRACKING) {
+        nonTracking.push(htmlUtils.getOriginHtml(origin, constants.NO_TRACKING, false));
+        continue;
+      }
+
+      if (action != constants.DNT) {
+        trackerCount++;
+      }
+      tracking.push(htmlUtils.getOriginHtml(origin, action, action == constants.DNT));
     }
 
-    if (action != constants.DNT) {
-      trackerCount++;
-    }
-    printable.push(
-      htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
-    );
-  }
+    printable.push.apply(printable, tracking);
 
-  var nonTrackerText = i18n.getMessage("non_tracker");
-  var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
-
-  if (nonTracking.length > 0) {
-    printable.push(
-      '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
-    );
-    for (let i = 0; i < nonTracking.length; i++) {
+    if (nonTracking.length > 0) {
+      let nonTracker = i18n.getMessage("non_tracker"),
+        nonTrackerTip = i18n.getMessage("non_tracker_tip");
       printable.push(
-        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
+        '<div class="clicker" id="nonTrackers" title="' +
+        nonTrackerTip + '">' + nonTracker + '</div>'
       );
     }
-  }
 
-  $('#number_trackers').text(trackerCount);
+    printable.push.apply(printable, nonTracking);
+    return printable;
+  }
 
   function renderDomains() {
     const CHUNK = 1;
@@ -325,7 +328,6 @@ function refreshPopup(tabId) {
       requestAnimationFrame(renderDomains);
     }
   }
-  requestAnimationFrame(renderDomains);
 }
 
 /**
