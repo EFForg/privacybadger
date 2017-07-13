@@ -1,39 +1,55 @@
 require.scopes.messages = (() => {
 
 let methods = new Set([
-  'isPrivacyBadgerEnabled',
-  'getAllOriginsForTab',
-  'enablePrivacyBadgerForOrigin',
-  'disablePrivacyBadgerForOrigin',
-  'refreshIconAndContextMenu',
+  'badger.isPrivacyBadgerEnabled',
+  'badger.getAllOriginsForTab',
+  'badger.enablePrivacyBadgerForOrigin',
+  'badger.disablePrivacyBadgerForOrigin',
+  'badger.refreshIconAndContextMenu',
+  'badger.storage.revertUserAction',
 ]);
 
 function Listener(badger) {
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       if (methods.has(request.method)) {
-        sendResponse(badger[request.method].apply(badger, request.args));
+        let arr = request.method.split('.'),
+          last = arr.pop(),
+          base = window[arr.shift()];
+          if (arr) {
+            base = arr.reduce((o, i) => o[i], base);
+          }
+
+        sendResponse(base[last].apply(base, request.args));
       }
     }
   );
 }
 
-function _makeMethodCaller(name) {
-  return function() {
+function _makeMethodCaller(client, dottedName) {
+  let arr = dottedName.split('.'),
+    part = client;
+  arr.shift();
+  for (let i = 0; i < arr.length - 1; i++) {
+    part = part[arr[i]];
+  }
+
+  part[arr.pop()] = function() {
     let args = Array.from(arguments);
     console.log(args);
     if (typeof args[args.length - 1] === "function") {
       let callback = args.pop();
-      chrome.runtime.sendMessage({'method': name, 'args': args}, callback);
+      chrome.runtime.sendMessage({'method': dottedName, 'args': args}, callback);
     } else {
-      chrome.runtime.sendMessage({'method': name, 'args': args});
+      chrome.runtime.sendMessage({'method': dottedName, 'args': args});
     }
   };
 }
 
 function Client() {
-  for (let name of methods) {
-    this[name] = _makeMethodCaller(name);
+  this.storage = {};
+  for (let dottedName of methods) {
+    _makeMethodCaller(this, dottedName);
   }
   console.log(this);
 }
