@@ -258,22 +258,23 @@ function registerToggleHandlers() {
 */
 function refreshPopup(tabId) {
   let trackerCount = 0,
-    origins = badger.getAllOriginsForTab(tabId),
     printable = [];
 
-  if (!origins || origins.length === 0) {
-    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
-    $('#number_trackers').text('0');
-    return;
-  }
+  client.getAllOriginsForTab(tabId, (origins) => {
+    if (!origins || origins.length === 0) {
+      $("#blockedResources").html(i18n.getMessage("popup_blocked"));
+      $('#number_trackers').text('0');
+      return;
+    }
 
-  // Display tracker tooltips.
-  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
+    // Display tracker tooltips.
+    $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
 
-  processOrigins(origins);
-  $('#number_trackers').text(trackerCount);
+    processOrigins(origins);
+    $('#number_trackers').text(trackerCount);
 
-  requestAnimationFrame(renderDomains);
+    requestAnimationFrame(renderDomains);
+  });
 
   function processOrigins(origins) {
     let tracking = [],
