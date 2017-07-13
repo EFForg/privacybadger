@@ -225,10 +225,9 @@ BadgerPen.prototype = {
    * @private
    */
   _setupDomainAction: function (domain, action, actionType) {
-    let msg = "action_map['%s'].%s = %s";
-
-    var action_map = this.getBadgerStorageObject("action_map");
-    var actionObj = {};
+    let msg = "action_map['%s'].%s = %s",
+      action_map = this.getBadgerStorageObject("action_map"),
+      actionObj = {};
 
     if (action_map.hasItem(domain)) {
       actionObj = action_map.getItem(domain);
