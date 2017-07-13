@@ -3,6 +3,9 @@ require.scopes.messages = (() => {
 let methods = new Set([
   'isPrivacyBadgerEnabled',
   'getAllOriginsForTab',
+  'enablePrivacyBadgerForOrigin',
+  'disablePrivacyBadgerForOrigin',
+  'refreshIconAndContextMenu',
 ]);
 
 function Listener(badger) {
@@ -17,9 +20,14 @@ function Listener(badger) {
 
 function _makeMethodCaller(name) {
   return function() {
-    let args = Array.from(arguments),
-      callback = args.pop();
-    chrome.runtime.sendMessage({'method': name, 'args': args}, callback);
+    let args = Array.from(arguments);
+    console.log(args);
+    if (typeof args[args.length - 1] === "function") {
+      let callback = args.pop();
+      chrome.runtime.sendMessage({'method': name, 'args': args}, callback);
+    } else {
+      chrome.runtime.sendMessage({'method': name, 'args': args});
+    }
   };
 }
 
