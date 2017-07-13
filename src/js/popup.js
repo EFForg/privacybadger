@@ -189,7 +189,7 @@ function active_site(){
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").show();
   getTab(function(tab) {
-    badger.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+    client.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
   });
@@ -203,7 +203,7 @@ function deactive_site(){
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").hide();
   getTab(function(tab) {
-    badger.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
+    client.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
   });
