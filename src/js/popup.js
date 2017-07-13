@@ -190,7 +190,7 @@ function active_site(){
   $("#blockedResourcesContainer").show();
   getTab(function(tab) {
     client.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-    badger.refreshIconAndContextMenu(tab);
+    client.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
   });
 }
@@ -204,7 +204,7 @@ function deactive_site(){
   $("#blockedResourcesContainer").hide();
   getTab(function(tab) {
     client.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-    badger.refreshIconAndContextMenu(tab);
+    client.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
   });
 }
@@ -219,7 +219,7 @@ function revertDomainControl(e){
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var $elm = $(e.target).parent();
   var origin = $elm.data('origin');
-  badger.storage.revertUserAction(origin);
+  client.storage.revertUserAction(origin);
   var defaultAction = badger.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
   var selector = $(selectorId);
