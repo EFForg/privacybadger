@@ -15,18 +15,19 @@ function Listener(badger) {
   );
 }
 
-function Client() {
-  function sendMessage(method, args, callback) {
-    console.log(arguments);
-    chrome.runtime.sendMessage({'method': method, 'args': args}, callback);
+function _makeMethodCaller(name) {
+  return function() {
+    let args = Array.from(arguments),
+      callback = args.pop();
+    chrome.runtime.sendMessage({'method': name, 'args': args}, callback);
   };
+}
 
-  this.isPrivacyBadgerEnabled = function(origin, callback) {
-    sendMessage('isPrivacyBadgerEnabled', [origin], callback);
-  };
-  this.getAllOriginsForTab = function(tabId, callback) {
-    sendMessage('getAllOriginsForTab', [tabId], callback);
-  };
+function Client() {
+  for (let name of methods) {
+    this[name] = _makeMethodCaller(name);
+  }
+  console.log(this);
 }
 
 let exports = {
