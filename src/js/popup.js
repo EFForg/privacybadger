@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
-
 var backgroundPage = chrome.extension.getBackgroundPage();
 var badger = backgroundPage.badger;
 var FirefoxAndroid = backgroundPage.FirefoxAndroid;
@@ -130,15 +128,20 @@ function closeOverlay() {
 * @param {String} message The message to send
 */
 function send_error(message) {
-  var browser = window.navigator.userAgent;
-  getTab(function(tab) {
-    var tabId = tab.id;
-    var origins = badger.getAllOriginsForTab(tabId);
+  function getOriginsAndTab(callback) {
+    getTab((tab) => {
+      client.getAllOriginsForTab(tab, (origins) => {
+        callback(origins, tab);
+      });
+    });
+  }
+  getOriginsAndTab(function(origins, tab) {
+    let browser = window.navigator.userAgent,
+      version = chrome.runtime.getManifest().version,
+      fqdn = tab.url.split("/",3)[2],
+      out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
+
     if(!origins){ return; }
-    var version = chrome.runtime.getManifest().version;
-    //TODO "there's got to be a better way!"
-    var fqdn = tab.url.split("/",3)[2];
-    var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
     for (var i = 0; i < origins.length; i++){
       var origin = origins[i];
       var action = badger.storage.getBestAction(origin);
