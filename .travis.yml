@@ -4,6 +4,7 @@ os: linux
 dist: trusty
 python: 3.4
 matrix:
+  fast_finish: true
   include:
     - env: INFO="lint"
       node_js: node
@@ -22,6 +23,10 @@ matrix:
     - addons:
         firefox: latest-beta
       env: INFO="firefox beta" BROWSER=firefox
+  allow_failures:
+    - addons:
+        firefox: latest-esr
+      env: INFO="firefox esr" BROWSER=firefox
 before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
