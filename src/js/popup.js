@@ -226,32 +226,6 @@ function revertDomainControl(e){
   return false;
 }
 
-/**
-* this is a terrible function that repeats
-* a lot of the work that getAction does
-* because getAction stores things in mysery
-* land and there's no real way to get what's
-* in the ABP filters without repeatedly
-* querying them
-*/
-//TODO re-write this by having get best action return the domain the rule
-// comes from, and combine that way?
-function getTopLevel(action, origin/*, tabId*/){
-  //  if (action == "usercookieblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return  top;
-  //  }
-  //  if (action == "userblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
-  //  if (action == "usernoaction"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
-  return origin;
-}
-
 function registerToggleHandlers() {
   var radios = $(this).children('input');
   var value = $(this).children('input:checked').val();
