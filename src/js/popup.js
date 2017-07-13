@@ -298,7 +298,6 @@ function refreshPopup(tabId) {
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
   var trackerCount = 0;
-  var compressedOrigins = {};
 
   for (let i=0; i < origins.length; i++) {
     var origin = origins[i];
@@ -308,23 +307,6 @@ function refreshPopup(tabId) {
     if (action == constants.NO_TRACKING) {
       nonTracking.push(origin);
       continue;
-
-    } else {
-      if (action.includes("user")) {
-        var prevOrigin = origin;
-        var baseDomain = backgroundPage.getBaseDomain(prevOrigin);
-        // TODO make some re-implementation of getBestAction that returns where the
-        // user rule is coming from
-        if (getTopLevel(action, origin, tabId) == baseDomain && baseDomain != origin){
-          origin = baseDomain;
-          if (compressedOrigins.hasOwnProperty(origin)){
-            compressedOrigins[origin].subs.push(prevOrigin.replace(origin, ''));
-            continue;
-          }
-          compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
-          continue;
-        }
-      }
     }
 
     if (action != constants.DNT) {
@@ -332,17 +314,6 @@ function refreshPopup(tabId) {
     }
     printable.push(
       htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
-    );
-  }
-
-  for (let key in compressedOrigins){
-    printable.push(
-      htmlUtils.getOriginHtml(
-        key,
-        compressedOrigins[key].action,
-        compressedOrigins[key].action == constants.DNT,
-        compressedOrigins[key].subs.length
-      )
     );
   }
 
