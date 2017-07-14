@@ -274,44 +274,43 @@ function refreshPopup(tabId) {
     // Display tracker tooltips.
     $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
 
-    processOrigins(origins);
-    $('#number_trackers').text(trackerCount);
-
-    requestAnimationFrame(renderDomains);
+    processOrigins(origins, () => {
+      $('#number_trackers').text(trackerCount);
+      requestAnimationFrame(renderDomains);
+    });
   });
 
-  function processOrigins(origins) {
+  function processOrigins(origins, callback) {
     let tracking = [],
       nonTracking = [];
 
     origins.sort(htmlUtils.compareReversedDomains);
-
-    for (let i=0; i < origins.length; i++) {
-      let origin = origins[i],
-        action = badger.storage.getBestAction(origin);
-
-      if (action == constants.NO_TRACKING) {
-        nonTracking.push(htmlUtils.getOriginHtml(origin, constants.NO_TRACKING, false));
-        continue;
+    process();
+    function process() {
+      if (origins.length != 0) {
+        let origin = origins.shift();
+        client.storage.getBestAction(origin, (action) => {
+          if (action != constants.DNT) {trackerCount++;}
+          if (action == constants.NO_TRACKING) {
+            nonTracking.push(htmlUtils.getOriginHtml(origin, constants.NO_TRACKING, false));
+          } else {
+            tracking.push(htmlUtils.getOriginHtml(origin, action, action == constants.DNT));
+          }
+          process();
+        });
+      } else {
+        printable.push.apply(printable, tracking);
+        if (nonTracking.length > 0) {
+          printable.push(
+            '<div class="clicker" id="nonTrackers" title="' +
+            i18n.getMessage("non_tracker_tip") + '">' +
+            i18n.getMessage("non_tracker") + '</div>'
+          );
+        }
+        printable.push.apply(printable, nonTracking);
+        callback();
       }
-      if (action != constants.DNT) {
-        trackerCount++;
-      }
-      tracking.push(htmlUtils.getOriginHtml(origin, action, action == constants.DNT));
     }
-
-    printable.push.apply(printable, tracking);
-
-    if (nonTracking.length > 0) {
-      printable.push(
-        '<div class="clicker" id="nonTrackers" title="' +
-        i18n.getMessage("non_tracker_tip") + '">' +
-        i18n.getMessage("non_tracker") + '</div>'
-      );
-    }
-
-    printable.push.apply(printable, nonTracking);
-    return printable;
   }
 
   function renderDomains() {
