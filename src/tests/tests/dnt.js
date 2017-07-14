@@ -136,19 +136,25 @@
   });
 
   QUnit.test("DNT checking is rate limited", (assert) => {
-    const NUM_TESTS = 1;
+    const NUM_TESTS = 5;
+    let done = assert.async(NUM_TESTS);
+    assert.expect(NUM_TESTS);
+    xhrSpy = sinon.spy(utils, "xhrRequest");
 
-    let done = assert.async(NUM_TESTS),
-      stub = sinon.stub(utils, "xhrRequest"),
-      domain = 'example.com';
-    for (let i = 0; i < 5; i++) { // run 5 times
-      domain = 'a' + domain;
-      badger.checkForDNTPolicy(domain);
+    for (let i = 0; i < NUM_TESTS; i++) {
+      debugger;
+      badger.checkForDNTPolicy(
+        DNT_COMPLIANT_DOMAIN + i,
+        function () { // eslint-disable-line no-loop-func
+          debugger;
+          console.log('foo');
+          assert.equal(xhrSpy.callCount, i+1);
+          clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
+          done();
+        }
+      );
     }
-    assert.equal(stub.callCount, 1); // assert xhr only called once
-    stub.restore();
-    badger._doDNTCheck.cancel(); // clear the queued calls
-    done();
+    xhrSpy.restore();
   });
 
   QUnit.test("DNT checking obeys user setting", (assert) => {
