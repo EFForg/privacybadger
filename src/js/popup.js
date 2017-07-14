@@ -98,7 +98,7 @@ function init() {
 
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
-    client.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url), (enabled) => {
+    client.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url)).then(enabled => {
       if (!enabled) {
         $("#blockedResourcesContainer").hide();
         $("#activate_site_btn").show();
@@ -130,7 +130,7 @@ function closeOverlay() {
 function send_error(message) {
   function getOriginsAndTab(callback) {
     getTab((tab) => {
-      client.getAllOriginsForTab(tab, (origins) => {
+      client.getAllOriginsForTab(tab).then(origins => {
         callback(origins, tab);
       });
     });
@@ -220,7 +220,7 @@ function revertDomainControl(e){
   var $elm = $(e.target).parent();
   var origin = $elm.data('origin');
   client.storage.revertUserAction(origin);
-  client.storage.getBestAction(origin, (action) => {
+  client.storage.getBestAction(origin).then(action => {
     var selectorId = "#"+ action +"-" + origin.replace(/\./g,'-');
     var selector = $(selectorId);
     selector.click();
@@ -264,7 +264,7 @@ function refreshPopup(tabId) {
   let trackerCount = 0,
     printable = [];
 
-  client.getAllOriginsForTab(tabId, (origins) => {
+  client.getAllOriginsForTab(tabId).then(origins => {
     if (!origins || origins.length === 0) {
       $("#blockedResources").html(i18n.getMessage("popup_blocked"));
       $('#number_trackers').text('0');
@@ -289,7 +289,7 @@ function refreshPopup(tabId) {
     function process() {
       if (origins.length != 0) {
         let origin = origins.shift();
-        client.storage.getBestAction(origin, (action) => {
+        client.storage.getBestAction(origin).then(action => {
           if (action != constants.DNT) {trackerCount++;}
           if (action == constants.NO_TRACKING) {
             nonTracking.push(htmlUtils.getOriginHtml(origin, constants.NO_TRACKING, false));
