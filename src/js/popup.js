@@ -220,12 +220,13 @@ function revertDomainControl(e){
   var $elm = $(e.target).parent();
   var origin = $elm.data('origin');
   client.storage.revertUserAction(origin);
-  var defaultAction = badger.storage.getBestAction(origin);
-  var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
-  var selector = $(selectorId);
-  selector.click();
-  $elm.removeClass('userset');
-  reloadTab(tabId);
+  client.storage.getBestAction(origin, (action) => {
+    var selectorId = "#"+ action +"-" + origin.replace(/\./g,'-');
+    var selector = $(selectorId);
+    selector.click();
+    $elm.removeClass('userset');
+    reloadTab(tabId);
+  });
   return false;
 }
 
