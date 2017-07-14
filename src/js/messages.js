@@ -7,6 +7,7 @@ let methods = new Set([
   'badger.disablePrivacyBadgerForOrigin',
   'badger.refreshIconAndContextMenu',
   'badger.storage.revertUserAction',
+  'badger.storage.getBestAction',
 ]);
 
 function Listener(badger) {
