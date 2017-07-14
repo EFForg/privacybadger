@@ -31,9 +31,13 @@
     let ylist = get_ylist();
     assert.ok(!!Object.keys(ylist).length, "Yellowlist is not empty");
 
-    // add the new domain
+    // add a domain
     const NEW_YLIST_DOMAIN = "widgets.example.com";
     ylist[NEW_YLIST_DOMAIN] = true;
+
+    // remove a domain
+    let removed_domain = Object.keys(ylist)[0];
+    delete ylist[removed_domain];
 
     // respond with current list plus new domain
     server.respondWith("GET", constants.COOKIE_BLOCK_LIST_URL,
