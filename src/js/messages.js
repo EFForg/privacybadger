@@ -36,13 +36,15 @@ function _makeMethodCaller(client, dottedName) {
 
   part[arr.pop()] = function() {
     let args = Array.from(arguments);
-    console.log(args);
-    if (typeof args[args.length - 1] === "function") {
-      let callback = args.pop();
-      chrome.runtime.sendMessage({'method': dottedName, 'args': args}, callback);
-    } else {
-      chrome.runtime.sendMessage({'method': dottedName, 'args': args});
-    }
+    return new Promise(function(resolve) {
+      if (typeof args[args.length - 1] === "function") {
+        let callback = args.pop();
+        chrome.runtime.sendMessage({'method': dottedName, 'args': args}, (resp) => {resolve(callback(resp));}
+        );
+      } else {
+        chrome.runtime.sendMessage({'method': dottedName, 'args': args}, (resp) => {resolve(resp)});
+      }
+    });
   };
 }
 
