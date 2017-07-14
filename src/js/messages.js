@@ -10,17 +10,16 @@ let methods = new Set([
   'badger.storage.getBestAction',
 ]);
 
-function Listener(badger) {
+function Listener() {
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       if (methods.has(request.method)) {
         let arr = request.method.split('.'),
           last = arr.pop(),
           base = window[arr.shift()];
-          if (arr) {
-            base = arr.reduce((o, i) => o[i], base);
-          }
-
+        if (arr) {
+          base = arr.reduce((o, i) => o[i], base);
+        }
         sendResponse(base[last].apply(base, request.args));
       }
     }
