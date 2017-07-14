@@ -301,23 +301,10 @@ Badger.prototype = {
 
       var action_map = self.storage.getBadgerStorageObject('action_map');
 
-      // TODO watch out for "" getting removed for example
-      // TODO https://github.com/EFForg/privacybadger/issues/1474
       _.each(removedDomains, function (domain) {
         cookieblock_list.deleteItem(domain);
-        /*
-        // Change any removed domains back to blocked status
-        if(action_map.hasItem(domain)){
-          self.storage.setupHeuristicAction(domain, constants.BLOCK);
-        }
-        var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
-                                  function(subdomain){
-                                    return subdomain.endsWith(domain);
-                                  });
-        _.each(rmvdSubdomains, function(subDomain){
-          self.storage.setupHeuristicAction(subDomain, constants.BLOCK);
-        });
-        */
+        // TODO restore domain removal logic:
+        // https://github.com/EFForg/privacybadger/issues/1474
       });
 
       // Add any new cookie block domains whose parent domain is already blocked
