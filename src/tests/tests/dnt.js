@@ -121,7 +121,6 @@
     badger.storage.touchDNTRecheckTime(DNT_COMPLIANT_DOMAIN, +new Date());
 
     for (let i = 0; i < NUM_CHECKS; i++) {
-      // mirroring call signature in js/heuristicblocking.js
       badger.checkForDNTPolicy(DNT_COMPLIANT_DOMAIN);
     }
 
@@ -145,7 +144,6 @@
       badger._doDNTCheck(
         DNT_COMPLIANT_DOMAIN,
         function () { // eslint-disable-line no-loop-func
-          console.log('foo');
           assert.equal(xhrSpy.callCount, i+1);
           clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
           done();

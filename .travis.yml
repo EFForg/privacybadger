@@ -4,7 +4,6 @@ os: linux
 dist: trusty
 python: 3.4
 matrix:
-  fast_finish: true
   include:
     - env: INFO="lint"
       node_js: node

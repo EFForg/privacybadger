@@ -335,9 +335,7 @@ BadgerPen.prototype = {
     }
     return false;
   }
-
 };
-
 
 /**
  * @returns {{userAction: null, dnt: null, heuristicAction: null}}
