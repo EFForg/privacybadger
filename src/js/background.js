@@ -272,7 +272,15 @@ Badger.prototype = {
         }
 
         // validate character set
-        // TODO overly restrictive but that's OK for now, we manage the list
+        //
+        // regex says:
+        // - domain starts with lowercase English letter or Arabic numeral
+        // - following that, it contains one or more
+        // letter/numeral/dot/dash characters
+        // - following the previous two requirements, domain ends with a letter
+        //
+        // TODO both overly restrictive and inaccurate
+        // but that's OK for now, we manage the list
         if (!/^[a-z0-9][a-z0-9.-]+[a-z]$/.test(domain)) {
           return false;
         }
