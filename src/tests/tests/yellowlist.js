@@ -40,7 +40,7 @@
     delete ylist[removed_domain];
 
     // respond with current list plus new domain
-    server.respondWith("GET", constants.COOKIE_BLOCK_LIST_URL,
+    server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, Object.keys(ylist).join("\n")]);
 
     badger.updateCookieBlockList(function (success) {
@@ -58,7 +58,7 @@
     assert.ok(!!Object.keys(ylist).length, "Yellowlist is not empty");
 
     // respond with no content
-    server.respondWith("GET", constants.COOKIE_BLOCK_LIST_URL,
+    server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, ""]);
 
     badger.updateCookieBlockList(function (success) {
@@ -86,7 +86,7 @@
 
     BAD_RESPONSES.forEach(response => {
       // respond with stuff that may look like the yellowlist but is not
-      server.respondWith("GET", constants.COOKIE_BLOCK_LIST_URL,
+      server.respondWith("GET", constants.YELLOWLIST_URL,
         [200, {}, response]);
 
       badger.updateCookieBlockList(function (success) {
@@ -104,7 +104,7 @@
     assert.expect(1);
 
     // respond with a 404 error
-    server.respondWith("GET", constants.COOKIE_BLOCK_LIST_URL,
+    server.respondWith("GET", constants.YELLOWLIST_URL,
       [404, {}, "page not found"]);
 
     badger.updateCookieBlockList(function (success) {

@@ -245,11 +245,11 @@ Badger.prototype = {
       callback = _.noop;
     }
 
-    utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function (err, response) {
+    utils.xhrRequest(constants.YELLOWLIST_URL, function (err, response) {
       if (err) {
         console.error(
           "Problem fetching cookieblock list at",
-          constants.COOKIE_BLOCK_LIST_URL,
+          constants.YELLOWLIST_URL,
           err.status,
           err.message
         );
