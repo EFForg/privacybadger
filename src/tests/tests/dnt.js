@@ -142,11 +142,9 @@
     xhrSpy = sinon.spy(utils, "xhrRequest");
 
     for (let i = 0; i < NUM_TESTS; i++) {
-      debugger;
-      badger.checkForDNTPolicy(
-        DNT_COMPLIANT_DOMAIN + i,
+      badger._doDNTCheck(
+        DNT_COMPLIANT_DOMAIN,
         function () { // eslint-disable-line no-loop-func
-          debugger;
           console.log('foo');
           assert.equal(xhrSpy.callCount, i+1);
           clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
