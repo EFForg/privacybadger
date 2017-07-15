@@ -83,7 +83,6 @@ BadgerPen.prototype = {
   ],
 
   getBadgerStorageObject: function(key) {
-
     if(this.hasOwnProperty(key)){
       return this[key];
     }

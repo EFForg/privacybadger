@@ -8,6 +8,7 @@ let methods = new Set([
   'badger.refreshIconAndContextMenu',
   'badger.storage.revertUserAction',
   'badger.storage.getBestAction',
+  'badger.storage.getBadgerStorageObject',
 ]);
 
 function Listener() {
@@ -39,10 +40,13 @@ function _makeMethodCaller(client, dottedName) {
     return new Promise(function(resolve) {
       if (typeof args[args.length - 1] === "function") {
         let callback = args.pop();
-        chrome.runtime.sendMessage({'method': dottedName, 'args': args}, (resp) => {resolve(callback(resp));}
-        );
+        chrome.runtime.sendMessage({'method': dottedName, 'args': args}, (resp) => {
+          resolve(callback(resp));
+        });
       } else {
-        chrome.runtime.sendMessage({'method': dottedName, 'args': args}, (resp) => {resolve(resp)});
+        chrome.runtime.sendMessage({'method': dottedName, 'args': args}, (resp) => {
+          resolve(resp);
+        });
       }
     });
   };
@@ -53,7 +57,6 @@ function Client() {
   for (let dottedName of methods) {
     _makeMethodCaller(this, dottedName);
   }
-  console.log(this);
 }
 
 let exports = {
