@@ -107,15 +107,37 @@ let _objectsHelper = (dottedString) => {
     'name': dottedString,
     'baseObj': base,
     'propName': last
-  }
+  };
 };
 
-function Counter() {
+// get the origin of arguments.callee.caller
+function scriptOrigin() {
+  try {
+    yo = dog;  // eslint-disable-line
+  } catch (e) {
+    return e.stack.split('\n')[3].split('/')[2];
+  }
+}
+
+function Counter(methods, onFingerPrinting) {
+  this.methods = methods;
+  this.origins = {};
+  this.nMethods = methods.length;
+  this.isFingerprinting = false;
+  this.onFingerPrinting = onFingerPrinting;
+  for (let m of methods) {
+    this.wrapMethod(m);
+  }
 }
 
 Counter.prototype = {
-  counts: {},
-  countProp: function(dottedPropName) {
+  // triggered when an origin crosses the fingerprinting threshold
+  onFingerPrinting: function () {
+    console.log('onFingerPrinting dummy function fired. You should overwrite me to do something useful.');
+  },
+
+  // wrap a dotted method name with a counter
+  wrapMethod: function(dottedPropName) {
     let self = this,
       propInfo = _objectsHelper(dottedPropName),
       name = propInfo.name,
@@ -123,28 +145,42 @@ Counter.prototype = {
       propName = propInfo.propName,
       before = baseObj[propName];
 
-    self.counts[name] = 0;
     Object.defineProperty(baseObj, propName, {
       get: function() {
-        self.counts[name] += 1;
+        self.addCall(name, scriptOrigin());
         return before;
       }
     });
   },
-  score: function() {
-    let out = 0,
-      vals = Object.values(this.counts);
-    for (let val of vals) {
-      if (val > 0) {
-        out += 1;
-      }
+
+  addOrigin: function() {
+    let out = {counts: {}, nnzCounts: 0};
+    for (let m of this.methods) {
+      out.counts[m] = 0;
     }
-    return out/vals.length;
+    return out;
   },
 
-  isFingerprinting: function() {
-    return this.score > threshold;
-  }
+  /*
+   * Keep a running score/nnzCounts. This lets us avoid polling
+   * counter.isFingerPrinting.
+   */
+  addCall: function(name, origin) {
+    // register origin if we haven't seen it
+    if (!this.origins.hasOwnProperty(origin)) {
+      this.origins[origin] = this.addOrigin();
+    }
+
+    if (this.origins[origin].counts[name] === 0) {
+      this.origins[origin].nnzCounts += 1;
+      if ((this.origins[origin].nnzCounts/this.nMethods) > threshold &&
+          (!this.isFingerprinting)) {
+        this.isFingerprinting = true;
+        this.onFingerPrinting(origin);
+      }
+    }
+    this.origins[origin].counts[name] += 1;
+  },
 };
 
 let counter = new Counter();
