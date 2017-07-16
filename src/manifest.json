@@ -101,6 +101,9 @@
     "default_title": "__MSG_name__"
   },
   "options_page": "/skin/options.html",
+  "options_ui": {
+      "page": "/android/showOptions.html"
+  },
   "web_accessible_resources": [
     "skin/socialwidgets/*"
   ]
