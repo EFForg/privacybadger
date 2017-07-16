@@ -512,7 +512,31 @@ function syncUISelections() {
 * seems to be that it is synchronous.
 */
 function getTab(callback) {
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, function(t) { callback(t[0]); });
+  function getParameterByName(name, url) {
+    if (!url) { url = window.location.href; }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
+    if (!results) { return null; }
+    if (!results[2]) { return ''; }
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  chrome.runtime.getPlatformInfo(function (platformInfo) {
+    if(platformInfo.os == "android"){
+      chrome.tabs.query({active: true, lastFocusedWindow: true}, function(focusedTab) {
+        var id = getParameterByName("id", focusedTab[0].url);
+        chrome.tabs.get(Number(id),
+          function(t) {
+            console.log(t);
+            callback(t);
+          }
+        );
+      });
+    } else {
+      chrome.tabs.query({active: true, lastFocusedWindow: true}, function(t) { callback(t[0]); });
+    }
+  });
+
 }
 
 document.addEventListener('DOMContentLoaded', function () {
