@@ -183,12 +183,15 @@ Counter.prototype = {
   },
 };
 
-let counter = new Counter();
-for (let obj of objects) {
-  counter.countProp(obj);
+function send(origin) {
+  console.log(origin);
+  document.dispatchEvent(new CustomEvent(event_id, {
+    detail: {countedFingers: true, origin: origin},
+  }));
 }
 
-console.log('injected');
-setInterval(()=>{console.log(counter.score());}, 2000);
-setInterval(()=>{console.log(counter.isFingerprinting());}, 2000);
+// get this asap before the script tag is removed
+let event_id = document.currentScript.getAttribute('data');
+/* start 'em up */
+let counter = new Counter(objects, send); // eslint-disable-line
 })();
