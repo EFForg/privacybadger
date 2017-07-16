@@ -1,3 +1,4 @@
+(function() {
 /**
  * This sets up a counter on methods that are commonly used for fingerprinting.
  * 
@@ -152,3 +153,4 @@ for (let obj of objects) {
 console.log('injected');
 setInterval(()=>{console.log(counter.score());}, 2000);
 setInterval(()=>{console.log(counter.isFingerprinting());}, 2000);
+})();
