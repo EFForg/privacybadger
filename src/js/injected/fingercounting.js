@@ -1,7 +1,7 @@
 (function() {
 /**
  * This sets up a counter on methods that are commonly used for fingerprinting.
- * 
+ *
  * # thoughts for a metric over the counts:
  * We can think about each finger printing method a dimension in N dimensional
  * space. Then we can think about this as a metric on an N dimensional vector.
@@ -14,10 +14,12 @@
  * consider the number of times each function is called.
  *
  * Hopefully this will work okay, it kinda assumes the dimensions are linearly
- * independent. Once we have more data, we can empirically determine a
- * transformation function that would account for non-independence.
+ * independent. This certainly isn't true. Once we have more data, we can
+ * empirically determine a transformation function that would account for
+ * non-independence.
  *
- * test sites:
+ * test sites found with: https://publicwww.com/websites/%22fingerprint2.min.js%22/
+ *
  * ryanair.com  # interesting 0.8 result
  * biggo.com.tw
  * https://www.sitejabber.com/
@@ -25,7 +27,7 @@
  * https://adsbackend.com/  # is this broken? lol
  *
  * it seems like 0.8 is the minimum for sites using fpjs2,
- * 0.45 is the max I've seen (from github). So I set the threshold 
+ * 0.45 is the max I've seen (from github). So I set the threshold
  * at 0.75 for now.
  *
  * this site is loading from augur.io (I think?) and scoring 0.85.
@@ -36,7 +38,7 @@ let threshold = 0.75;
 
 /**
  * fingerprintjs2 defines the following "keys"
- * 
+ *
  * then some jsFontsKeys and flashFontsKeys
  *
  * I'll try to catch each of these
@@ -91,7 +93,7 @@ let objects = [
   //    keys = this.hasLiedOsKey(keys);
   //    keys = this.hasLiedBrowserKey(keys);
   //    keys = this.customEntropyFunction(keys);
-]; 
+];
 
 // todo: what is a better data structure here?
 let _objectsHelper = (dottedString) => {
