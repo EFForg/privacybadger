@@ -38,7 +38,8 @@
       "js/heuristicblocking.js",
       "js/socialwidgetloader.js",
       "js/migrations.js",
-      "js/background.js"
+      "js/background.js",
+      "android/background.js"
     ]
   },
   "content_scripts": [
