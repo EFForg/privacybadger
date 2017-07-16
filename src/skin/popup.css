@@ -206,7 +206,7 @@ font-size: 16px;
 .key .tooltipContainer{
   position: absolute;
   left: 3px;
-  top:-1;
+  top: 3;
 }
 #instruction-outer {
   display: none;
