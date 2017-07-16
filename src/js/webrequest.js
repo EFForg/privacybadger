@@ -566,9 +566,9 @@ function _isTabChromeInternal(tabId) {
  */
 function _isTabAnExtension(tabId) {
   return (
-    _frameUrlStartsWith(tabId, "chrome-extension://") ||
-    _frameUrlStartsWith(tabId, "moz-extension://")
-   );
+   _frameUrlStartsWith(tabId, "chrome-extension://") ||
+   _frameUrlStartsWith(tabId, "moz-extension://")
+  );
 }
 
 /**
