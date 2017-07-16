@@ -494,16 +494,22 @@ Badger.prototype = {
    */
   updateBadge: function(tabId){
     if (!this.showCounter()){
-      chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
+      if(chrome.browserAction.setBadgeText){
+        chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
+      }
       return;
     }
     var numBlocked = this.blockedTrackerCount(tabId);
-    if(numBlocked === 0){
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
-    } else {
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
+    if(chrome.browserAction.setBadgeBackgroundColor){
+      if(numBlocked === 0){
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
+      } else {
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
+      }
     }
-    chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+    if(chrome.browserAction.setBadgeText){
+      chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+    }
   },
 
   /**
@@ -564,7 +570,7 @@ Badger.prototype = {
     }
     return true;
   },
-  
+
   /**
    * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
@@ -723,7 +729,7 @@ Badger.prototype = {
       };
     }
 
-    chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
+    if(chrome.browserAction.setIcon){ chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename}); }
     chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
   },
 
