@@ -49,10 +49,10 @@
  */
 let trackerInfo;
 let styleSheetAdded = false;
+let metaTagInserted = false;
 
 let REPLACEMENT_BUTTONS_FOLDER_PATH = chrome.extension.getURL("skin/socialwidgets/");
 let STYLESHEET_URL = chrome.extension.getURL("skin/socialwidgets/socialwidgets.css");
-
 
 /**
  * Initializes the content script.
@@ -64,6 +64,9 @@ function initialize() {
     trackerInfo = trackers;
     replaceInitialTrackerButtonsHelper(trackerButtonsToReplace);
   });
+
+  // add twitter dnt meta tag if needed
+  maybeAddTwitterDNTMetaTag();
 
   // Set up listener for blocks that happen after initial check
   chrome.runtime.onMessage.addListener( function(request/*, sender, sendResponse*/) {
@@ -346,6 +349,26 @@ function unblockTracker(buttonUrls, callback) {
     "buttonUrls": buttonUrls
   };
   chrome.runtime.sendMessage(request, callback);
+}
+
+/*
+ * Add the twitter dnt meta tag:
+ * <meta name="twitter:dnt" content="on">
+ * to pages that load the platform.twitter.com/wigets.js
+ * This makes twitter apply their old DNT policy.
+ */
+function maybeAddTwitterDNTMetaTag() {
+  if (metaTagInserted) {
+    return;
+  }
+  let maybe = document.querySelector('script[src*="//platform.twitter.com/widgets.js"]');
+  if (maybe) {
+    let m = document.createElement('meta');
+    m.name = 'twitter:dnt';
+    m.content = 'on';
+    (document.head || document.documentElement).appendChild(m);
+    metaTagInserted = true;
+  }
 }
 
 chrome.runtime.sendMessage({
