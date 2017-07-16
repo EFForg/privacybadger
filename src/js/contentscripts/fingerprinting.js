@@ -1,3 +1,4 @@
+(function() {
 /*
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2015 Electronic Frontier Foundation
@@ -294,3 +295,4 @@ document.addEventListener(event_id, function (e) {
 insertFpScript(getFpPageScript(), {
   event_id: event_id
 });
+})();
