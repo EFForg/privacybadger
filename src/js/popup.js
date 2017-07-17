@@ -412,7 +412,9 @@ function syncSettingsDict(settingsDict) {
 
   // the popup needs to be refreshed to display current results
   refreshPopup(tabId);
-  return reloadNeeded;
+  if (tabId){
+    reloadTab(tabId);
+  }
 }
 
 /**
@@ -425,7 +427,6 @@ function buildSettingsDict() {
   $('.clicker').each(function() {
     var origin = $(this).attr("data-origin");
     if ($(this).hasClass("userset") && htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action")) {
-      // TODO: DRY; same as code above, break out into helper
       if ($(this).hasClass(constants.BLOCK)) {
         settingsDict[origin] = constants.BLOCK;
       } else if ($(this).hasClass(constants.COOKIEBLOCK)) {
@@ -445,11 +446,8 @@ function buildSettingsDict() {
 * Reloads the tab if needed
 */
 function syncUISelections() {
-  var settingsDict = buildSettingsDict();
-  var tabId = syncSettingsDict(settingsDict);
-  if (tabId){
-    backgroundPage.reloadTab(tabId);
-  }
+  let settingsDict = buildSettingsDict();
+  syncSettingsDict(settingsDict);
 }
 
 /**
