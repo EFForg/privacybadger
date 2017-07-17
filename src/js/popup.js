@@ -335,19 +335,21 @@ function refreshPopup(tabId) {
 * @param event
 */
 function updateOrigin(event){
-  var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  var $switchContainer = $elm.parents('.switch-container').first();
-  var $clicker = $elm.parents('.clicker').first();
-  var action = $elm.data('action');
+  let $elm = $('label[for="' + event.currentTarget.id + '"]');
+  let $switchContainer = $elm.parents('.switch-container').first();
+  let $clicker = $elm.parents('.clicker').first();
+  let action = $elm.data('action');
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
+
   htmlUtils.toggleBlockedStatus($($clicker), action);
-  var origin = $clicker.data('origin');
+  let origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
+  badger.saveAction(action, origin);
 }
 
 var tooltipDelay = 300;
@@ -393,61 +395,19 @@ function hideTooltip(event){
 }
 
 /**
-* Check if origin is in setting dict. If yes, popup needs refresh
-*
-* @param settingsDict The settings dict to check
-* @returns {boolean} false or the tab id
+* reloads the tab and popup if needed
 */
-function syncSettingsDict(settingsDict) {
-  // track whether reload is needed: only if things are being unblocked
-  var reloadNeeded = false;
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  // we get the blocked data again in case anything changed, but the user's change when
-  // closing a popup is authoritative and we should sync the real state to that
-  for (var origin in settingsDict) {
-    var userAction = settingsDict[origin];
-    badger.saveAction(userAction, origin);
-    reloadNeeded = tabId;
-  }
-
-  // the popup needs to be refreshed to display current results
-  refreshPopup(tabId);
-  if (tabId){
-    reloadTab(tabId);
-  }
-}
-
-/**
-* Generates dict Origin->action based on GUI elements
-*
-* @returns {{}} The generated dict
-*/
-function buildSettingsDict() {
-  var settingsDict = {};
+function reloadIfNeeded() {
   $('.clicker').each(function() {
-    var origin = $(this).attr("data-origin");
-    if ($(this).hasClass("userset") && htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action")) {
-      if ($(this).hasClass(constants.BLOCK)) {
-        settingsDict[origin] = constants.BLOCK;
-      } else if ($(this).hasClass(constants.COOKIEBLOCK)) {
-        settingsDict[origin] = constants.COOKIEBLOCK;
-      } else if ($(this).hasClass(constants.ALLOW)) {
-        settingsDict[origin] = constants.ALLOW;
-      } else {
-        settingsDict[origin] = constants.ALLOW;
-      }
+    if ($(this).hasClass("userset") &&
+        htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action")) {
+      let tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+      refreshPopup(tabId);
+      reloadTab(tabId);
+      return true;
     }
   });
-  return settingsDict;
-}
-
-/**
-* syncs the user-selected cookie blocking options, etc.
-* Reloads the tab if needed
-*/
-function syncUISelections() {
-  let settingsDict = buildSettingsDict();
-  syncSettingsDict(settingsDict);
+  return false;
 }
 
 /**
@@ -476,5 +436,5 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener('unload', function() {
-  syncUISelections();
+  reloadIfNeeded();
 });
