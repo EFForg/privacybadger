@@ -39,7 +39,7 @@
     const NEW_YLIST_DOMAIN = "widgets.example.com";
     ylist[NEW_YLIST_DOMAIN] = true;
 
-    // respond with current list plus new domain
+    // respond with the modified list
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, Object.keys(ylist).join("\n")]);
 
