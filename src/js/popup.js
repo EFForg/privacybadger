@@ -349,7 +349,7 @@ function updateOrigin(event){
   let origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
-  badger.saveAction(action, origin);
+  client.saveAction(action, origin);
 }
 
 var tooltipDelay = 300;
