@@ -30,33 +30,29 @@ let client = new messages.Client();
 
 /* if they aint seen the comic*/
 function showNagMaybe() {
-  var nag = $("#instruction");
-  var outer = $("#instruction-outer");
-  var settings = badger.storage.getBadgerStorageObject('settings_map');
-  var seenComic = settings.getItem("seenComic") || false;
-
-  function _setSeenComic() {
-    settings.setItem("seenComic", true);
-  }
+  let nag = $("#instruction"),
+    outer = $("#instruction-outer");
 
   function _hideNag(){
-    _setSeenComic();
+    client.settings.setItem("seenComic", true);
     nag.fadeOut();
     outer.fadeOut();
   }
 
-  if (!seenComic) {
-    nag.show();
-    outer.show();
-    // Attach event listeners
-    $('#fittslaw').click(_hideNag);
-    $("#firstRun").click(function() {
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+  client.settings.getItem('seenComic').then((seen) => {
+    if (!seen) {
+      nag.show();
+      outer.show();
+      // Attach event listeners
+      $('#fittslaw').click(_hideNag);
+      $("#firstRun").click(function() {
+        chrome.tabs.create({
+          url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+        });
+        _hideNag();
       });
-      _hideNag();
-    });
-  }
+    }
+  });
 }
 
 /**
