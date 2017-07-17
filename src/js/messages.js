@@ -11,6 +11,7 @@ let methods = new Set([
   'badger.settings.getItem',
   'badger.settings.setItem',
   'badger.saveAction',
+  'badger.extractHostFromURL',
 ]);
 
 function Listener() {

@@ -137,6 +137,7 @@ Badger.prototype = {
 
 
   // Methods
+  extractHostFromURL: window.extractHostFromURL,
 
   showFirstRunPage: function(){
     var settings = this.storage.getBadgerStorageObject("settings_map");
