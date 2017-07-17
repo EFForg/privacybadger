@@ -133,14 +133,11 @@ function send_error(message) {
     let browser = window.navigator.userAgent,
       version = chrome.runtime.getManifest().version,
       fqdn = tab.url.split("/",3)[2],
-      out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version},
-      promises = [];
+      out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
 
     if(!origins){ return; }
-
-    for (var i = 0; i < origins.length; i++){
-      var origin = origins[i];
-      promises.push(client.storage.getBestAction(origin).then((action) => {
+    let promises = origins.map(origin => {
+      return client.storage.getBestAction(origin).then(action => {
         if (!action){ action = constants.NO_TRACKING; }
         if (out[action]){
           out[action] += ","+origin;
@@ -148,8 +145,9 @@ function send_error(message) {
         else{
           out[action] = origin;
         }
-      }));
-    }
+      });
+    });
+
     Promise.all(promises).then(() => {
       var out_data = JSON.stringify(out);
       var sendReport = $.ajax({
