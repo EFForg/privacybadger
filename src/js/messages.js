@@ -2,9 +2,12 @@ require.scopes.messages = (() => {
 
 let methods = new Set([
   'badger.isPrivacyBadgerEnabled',
+  'badger.isPrivacyBadgerEnabledForURL',
   'badger.getAllOriginsForTab',
   'badger.enablePrivacyBadgerForOrigin',
   'badger.disablePrivacyBadgerForOrigin',
+  'badger.enablePrivacyBadgerForOriginFromURL',
+  'badger.disablePrivacyBadgerForOriginFromURL',
   'badger.refreshIconAndContextMenu',
   'badger.storage.revertUserAction',
   'badger.storage.getBestAction',

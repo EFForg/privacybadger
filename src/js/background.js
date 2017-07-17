@@ -560,6 +560,10 @@ Badger.prototype = {
     return true;
   },
 
+  isPrivacyBadgerEnabledForURL: function(url) {
+    return this.isPrivacyBadgerEnabled(window.extractHostFromURL(url));
+  },
+
   /**
    * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
@@ -569,6 +573,10 @@ Badger.prototype = {
    **/
   isPrivacyBadgerDisabled: function(origin){
     return !this.isPrivacyBadgerEnabled(origin);
+  },
+
+  isPrivacyBadgerDisabledForURL: function(url) {
+    return this.isPrivacyBadgerDisabled(window.extractHostFromURL(url));
   },
 
   /**
@@ -623,6 +631,10 @@ Badger.prototype = {
     }
   },
 
+  disablePrivacyBadgerForOriginFromURL: function(url) {
+    this.disablePrivacyBadgerForOrigin(window.extractHostFromURL(url));
+  },
+
   /**
    * Interface to get the current whitelisted domains
    */
@@ -643,6 +655,10 @@ Badger.prototype = {
       utils.removeElementFromArray(disabledSites, idx);
       settings.setItem("disabledSites", disabledSites);
     }
+  },
+
+  enablePrivacyBadgerForOriginFromURL: function(url) {
+    this.enablePrivacyBadgerForOrigin(window.extractHostFromURL(url));
   },
 
   /**
