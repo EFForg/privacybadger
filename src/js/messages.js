@@ -10,6 +10,7 @@ let methods = new Set([
   'badger.storage.getBestAction',
   'badger.settings.getItem',
   'badger.settings.setItem',
+  'badger.saveAction',
 ]);
 
 function Listener() {
