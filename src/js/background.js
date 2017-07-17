@@ -235,42 +235,79 @@ Badger.prototype = {
   * add any new entries that already have a parent domain in the action_map
   * and remove any old entries that are no longer in the cookie block list
   * from the action map
+  *
+  * @param {Function} [callback] optional callback, gets success status boolean
   **/
-  updateCookieBlockList: function(){
+  updateCookieBlockList: function (callback) {
     var self = this;
-    utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function(err,response){
-      if(err){
-        console.error('Problem fetching cookieblock list at',
-                  constants.COOKIE_BLOCK_LIST_URL, err.status, err.message);
-        return;
-      }
-      var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
-      var action_map = self.storage.getBadgerStorageObject('action_map');
 
-      var newCbDomains = _.map(response.split("\n"), function(d){ return d.trim();});
+    if (!callback) {
+      callback = _.noop;
+    }
+
+    utils.xhrRequest(constants.YELLOWLIST_URL, function (err, response) {
+      if (err) {
+        console.error(
+          "Problem fetching cookieblock list at",
+          constants.YELLOWLIST_URL,
+          err.status,
+          err.message
+        );
+
+        return callback(false);
+      }
+
+      // handle empty response
+      if (!response.trim()) {
+        return callback(false);
+      }
+
+      var newCbDomains = _.map(response.trim().split("\n"), domain => domain.trim());
+
+      // validate the response
+      if (!_.every(newCbDomains, (domain) => {
+        // all domains must contain at least one dot
+        if (domain.indexOf('.') == -1) {
+          return false;
+        }
+
+        // validate character set
+        //
+        // regex says:
+        // - domain starts with lowercase English letter or Arabic numeral
+        // - following that, it contains one or more
+        // letter/numeral/dot/dash characters
+        // - following the previous two requirements, domain ends with a letter
+        //
+        // TODO both overly restrictive and inaccurate
+        // but that's OK for now, we manage the list
+        if (!/^[a-z0-9][a-z0-9.-]+[a-z]$/.test(domain)) {
+          return false;
+        }
+
+        return true;
+      })) {
+        return callback(false);
+      }
+
+      var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
       var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
 
       var addedDomains = _.difference(newCbDomains, oldCbDomains);
       var removedDomains = _.difference(oldCbDomains, newCbDomains);
+
       log('adding to cookie blocklist:', addedDomains);
       log('removing from cookie blocklist:', removedDomains);
 
-      // Change any removed domains back to blocked status
-      _.each(removedDomains, function(domain){
+      var action_map = self.storage.getBadgerStorageObject('action_map');
+
+      _.each(removedDomains, function (domain) {
         cookieblock_list.deleteItem(domain);
-        if(action_map.hasItem(domain)){
-          self.storage.setupHeuristicAction(domain, constants.BLOCK);
-        }
-        var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
-                                  function(subdomain){
-                                    return subdomain.endsWith(domain);
-                                  });
-        _.each(rmvdSubdomains, function(subDomain){
-          self.storage.setupHeuristicAction(subDomain, constants.BLOCK);
-        });
+        // TODO restore domain removal logic:
+        // https://github.com/EFForg/privacybadger/issues/1474
       });
 
-      // Add any new cookie block domains who's parent domain is already blocked
+      // Add any new cookie block domains whose parent domain is already blocked
       _.each(addedDomains, function(domain){
         cookieblock_list.setItem(domain, true);
         var baseDomain = window.getBaseDomain(domain);
@@ -281,6 +318,7 @@ Badger.prototype = {
         }
       });
 
+      return callback(true);
     });
   },
 
@@ -790,5 +828,6 @@ webrequest.startListeners();
 HeuristicBlocking.startListeners();
 startBackgroundListeners();
 
+// TODO move listeners and this message behind INITIALIZED
 console.log('Privacy badger is ready to rock!');
 console.log('Set DEBUG=1 to view console messages.');
