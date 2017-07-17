@@ -16,11 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
-var backgroundPage = chrome.extension.getBackgroundPage();
-var badger = backgroundPage.badger;
-var FirefoxAndroid = backgroundPage.FirefoxAndroid;
 var htmlUtils = require("htmlutils").htmlUtils;
 var constants = require("constants");
+var FirefoxAndroid = require('firefoxandroid');
 var messages = require("messages");
 
 var i18n = chrome.i18n;
