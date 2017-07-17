@@ -143,6 +143,48 @@ exports.Migrations= {
     }
   },
 
+  unblockBlockedDomainsOnYellowlist: function (badger) {
+    console.log("Running migration to unblock yellowlisted but blocked domains ...");
+
+    let action_map = badger.storage.getBadgerStorageObject("action_map"),
+      snitch_map = badger.storage.getBadgerStorageObject("snitch_map"),
+      ylist = badger.storage.getBadgerStorageObject("cookieblock_list");
+
+    // for every blocked domain
+    for (let domain in action_map.getItemClones()) {
+      if (action_map.getItem(domain).heuristicAction != constants.BLOCK) {
+        continue;
+      }
+
+      let base_domain = window.getBaseDomain(domain);
+
+      // see if the domain (or its base domain) is on the yellowlist
+      if (ylist.hasItem(domain) || ylist.hasItem(base_domain)) {
+        // OK, that's not good, we have a yellowlisted, blocked domain
+
+        // what should we set the domain and its base domain to instead?
+        // let's check snitch map ...
+        let sites = snitch_map.getItem(base_domain);
+
+        // "no tracking" (not constants.NO_TRACKING to match current behavior)
+        let action = "";
+
+        if (sites && sites.length) {
+          if (sites.length >= constants.TRACKING_THRESHOLD) {
+            // tracking domain
+            action = constants.COOKIEBLOCK;
+          } else {
+            // tracking domain below threshold
+            action = constants.ALLOW;
+          }
+        }
+
+        badger.storage.setupHeuristicAction(domain, action);
+        badger.storage.setupHeuristicAction(base_domain, action);
+      }
+    }
+  },
+
 };
 
 

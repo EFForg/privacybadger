@@ -439,6 +439,7 @@ Badger.prototype = {
       // Need to run this migration again for everyone to #1181
       Migrations.migrateDntRecheckTimes2,
       Migrations.forgetMistakenlyBlockedDomains,
+      Migrations.unblockBlockedDomainsOnYellowlist,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
