@@ -8,7 +8,8 @@ let methods = new Set([
   'badger.refreshIconAndContextMenu',
   'badger.storage.revertUserAction',
   'badger.storage.getBestAction',
-  'badger.storage.getBadgerStorageObject',
+  'badger.settings.getItem',
+  'badger.settings.setItem',
 ]);
 
 function Listener() {
@@ -54,6 +55,7 @@ function _makeMethodCaller(client, dottedName) {
 
 function Client() {
   this.storage = {};
+  this.settings = {};
   for (let dottedName of methods) {
     _makeMethodCaller(this, dottedName);
   }
