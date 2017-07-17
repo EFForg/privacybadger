@@ -126,7 +126,7 @@ function closeOverlay() {
 function send_error(message) {
   function getOriginsAndTab(callback) {
     getTab((tab) => {
-      client.getAllOriginsForTab(tab).then(origins => {
+      client.getAllOriginsForTab(tab.id).then(origins => {
         callback(origins, tab);
       });
     });
@@ -135,44 +135,49 @@ function send_error(message) {
     let browser = window.navigator.userAgent,
       version = chrome.runtime.getManifest().version,
       fqdn = tab.url.split("/",3)[2],
-      out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
+      out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version},
+      promises = [];
 
     if(!origins){ return; }
+
     for (var i = 0; i < origins.length; i++){
       var origin = origins[i];
-      var action = badger.storage.getBestAction(origin);
-      if (!action){ action = constants.NO_TRACKING; }
-      if (out[action]){
-        out[action] += ","+origin;
-      }
-      else{
-        out[action] = origin;
-      }
+      promises.push(client.storage.getBestAction(origin).then((action) => {
+        if (!action){ action = constants.NO_TRACKING; }
+        if (out[action]){
+          out[action] += ","+origin;
+        }
+        else{
+          out[action] = origin;
+        }
+      }));
     }
-    var out_data = JSON.stringify(out);
-    var sendReport = $.ajax({
-      type: "POST",
-      url: "https://privacybadger.org/reporting",
-      data: out_data,
-      contentType: "application/json"
-    });
-    sendReport.done(function() {
-      $("#error_input").val("");
-      $("#report_success").toggleClass("hidden", false);
-      setTimeout(function(){
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
-        $("#report_success").toggleClass("hidden", true);
-        closeOverlay();
-      }, 3000);
-    });
-    sendReport.fail(function() {
-      $("#report_fail").toggleClass("hidden");
-      setTimeout(function(){
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
-        $("#report_fail").toggleClass("hidden", true);
-      }, 3000);
+    Promise.all(promises).then(() => {
+      var out_data = JSON.stringify(out);
+      var sendReport = $.ajax({
+        type: "POST",
+        url: "https://privacybadger.org/reporting",
+        data: out_data,
+        contentType: "application/json"
+      });
+      sendReport.done(function() {
+        $("#error_input").val("");
+        $("#report_success").toggleClass("hidden", false);
+        setTimeout(function(){
+          $("#report_button").prop("disabled", false);
+          $("#report_cancel").prop("disabled", false);
+          $("#report_success").toggleClass("hidden", true);
+          closeOverlay();
+        }, 3000);
+      });
+      sendReport.fail(function() {
+        $("#report_fail").toggleClass("hidden");
+        setTimeout(function(){
+          $("#report_button").prop("disabled", false);
+          $("#report_cancel").prop("disabled", false);
+          $("#report_fail").toggleClass("hidden", true);
+        }, 3000);
+      });
     });
   });
 }
