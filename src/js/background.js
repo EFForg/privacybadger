@@ -745,7 +745,8 @@ function startBackgroundListeners() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
       badger.refreshIconAndContextMenu(tab);
-      if (changeInfo.url.indexOf("http") !== 0 || badger.isPrivacyBadgerDisabled(webrequest.getHostForTab(tabId))) {
+      if ((changeInfo.url && changeInfo.url.indexOf("http") !== 0)
+        || badger.isPrivacyBadgerDisabled(webrequest.getHostForTab(tabId))) {
         badger.updateBadge(tabId, true);
       } else {
         badger.updateBadge(tabId);
