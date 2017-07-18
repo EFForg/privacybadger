@@ -15,7 +15,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals badger:false */
+/* globals badger:false, log:false */
 
 var constants = require("constants");
 var utils = require("utils");
@@ -55,19 +55,11 @@ require.scopes.storage = (function() {
  **/
 
 function BadgerPen(callback) {
-  var keys = [
-    "snitch_map",
-    "action_map",
-    "cookieblock_list",
-    "dnt_hashes",
-    "settings_map",
-  ];
-
   var bp = this;
   // Now check localStorage
-  chrome.storage.local.get(keys, function(store){
-    _.each(keys, function(key){
-      if(store.hasOwnProperty(key)){
+  chrome.storage.local.get(bp.KEYS, function (store) {
+    _.each(bp.KEYS, function (key) {
+      if (store.hasOwnProperty(key)) {
         bp[key] = new BadgerStorage(key, store[key]);
       } else {
         var storage_obj = new BadgerStorage(key, {});
@@ -75,13 +67,21 @@ function BadgerPen(callback) {
         _syncStorage(storage_obj);
       }
     });
-    if(_.isFunction(callback)){
+    if (_.isFunction(callback)) {
       callback(bp);
     }
   });
 }
 
 BadgerPen.prototype = {
+  KEYS: [
+    "snitch_map",
+    "action_map",
+    "cookieblock_list",
+    "dnt_hashes",
+    "settings_map",
+  ],
+
   getBadgerStorageObject: function(key) {
 
     if(this.hasOwnProperty(key)){
@@ -224,15 +224,23 @@ BadgerPen.prototype = {
    * @param actionType the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
    * @private
    */
-  _setupDomainAction: function(domain, action, actionType){
-    var action_map = this.getBadgerStorageObject("action_map");
-    var actionObj = {};
+  _setupDomainAction: function (domain, action, actionType) {
+    let msg = "action_map['%s'].%s = %s",
+      action_map = this.getBadgerStorageObject("action_map"),
+      actionObj = {};
+
     if (action_map.hasItem(domain)) {
       actionObj = action_map.getItem(domain);
+      msg = "Updating " + msg;
     } else {
       actionObj = _newActionMapObject();
+      msg = "Initializing " + msg;
     }
     actionObj[actionType] = action;
+
+    if (window.DEBUG) { // to avoid needless JSON.stringify calls
+      log(msg, domain, actionType, JSON.stringify(action));
+    }
     action_map.setItem(domain, actionObj);
   },
 
