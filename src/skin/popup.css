@@ -18,17 +18,16 @@
  /*csslint ids:ignore*/
 
 body {
+  margin: 0;
   min-width: 200px;
-  max-width: 400px;
+  max-width: 100%;
   font-size: 12px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
-  padding-left: 7px;
-  padding-right: 7px;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  padding: 8px 15px;
   width: 400px;
+  box-sizing: border-box;
 }
 
 a { text-decoration: none }
@@ -192,7 +191,7 @@ font-size: 16px;
   background-color: #E8E9EA;
 }
 .key {
-  position: fixed;
+  position: absolute;
   height: 25px;
   width: 235px;
   z-index: 30;
@@ -296,6 +295,7 @@ font-size: 16px;
   z-index: -1;
   opacity: 0;
   padding: 3%;
+  box-sizing: border-box;
   color: #ccc;
   background: url("/skin/background.png");
   transition: opacity .1s ease;
