@@ -148,7 +148,8 @@ exports.Migrations= {
 
     let action_map = badger.storage.getBadgerStorageObject("action_map"),
       snitch_map = badger.storage.getBadgerStorageObject("snitch_map"),
-      ylist = badger.storage.getBadgerStorageObject("cookieblock_list");
+      ylist = badger.storage.getBadgerStorageObject("cookieblock_list"),
+      ylist_domains = Object.keys(ylist.getItemClones());
 
     // for every blocked domain
     for (let domain in action_map.getItemClones()) {
@@ -158,11 +159,11 @@ exports.Migrations= {
 
       let base_domain = window.getBaseDomain(domain);
 
-      // see if the domain (or its base domain) is on the yellowlist
-      if (ylist.hasItem(domain) || ylist.hasItem(base_domain)) {
-        // OK, that's not good, we have a yellowlisted, blocked domain
+      // see if the domain ends with any yellowlisted domains
+      if (_.some(ylist_domains, ydomain => domain.endsWith(ydomain))) {
+        // OK, we have a potentially incorrectly blocked domain
 
-        // what should we set the domain and its base domain to instead?
+        // what should we set the domain to instead?
         // let's check snitch map ...
         let sites = snitch_map.getItem(base_domain);
 
@@ -171,8 +172,9 @@ exports.Migrations= {
 
         if (sites && sites.length) {
           if (sites.length >= constants.TRACKING_THRESHOLD) {
-            // tracking domain
-            action = constants.COOKIEBLOCK;
+            // tracking domain over threshold, set it to cookieblock or block
+            badger.heuristicBlocking.blacklistOrigin(base_domain, domain);
+            continue;
           } else {
             // tracking domain below threshold
             action = constants.ALLOW;
@@ -180,7 +182,6 @@ exports.Migrations= {
         }
 
         badger.storage.setupHeuristicAction(domain, action);
-        badger.storage.setupHeuristicAction(base_domain, action);
       }
     }
   },
