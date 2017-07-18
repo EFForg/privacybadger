@@ -143,13 +143,11 @@ exports.Migrations= {
     }
   },
 
-  unblockBlockedDomainsOnYellowlist: function (badger) {
-    console.log("Running migration to unblock yellowlisted but blocked domains ...");
+  unblockIncorrectlyBlockedDomains: function (badger) {
+    console.log("Running migration to unblock likely incorrectly blocked domains ...");
 
     let action_map = badger.storage.getBadgerStorageObject("action_map"),
-      snitch_map = badger.storage.getBadgerStorageObject("snitch_map"),
-      ylist = badger.storage.getBadgerStorageObject("cookieblock_list"),
-      ylist_domains = Object.keys(ylist.getItemClones());
+      snitch_map = badger.storage.getBadgerStorageObject("snitch_map");
 
     // for every blocked domain
     for (let domain in action_map.getItemClones()) {
@@ -159,30 +157,27 @@ exports.Migrations= {
 
       let base_domain = window.getBaseDomain(domain);
 
-      // see if the domain ends with any yellowlisted domains
-      if (_.some(ylist_domains, ydomain => domain.endsWith(ydomain))) {
-        // OK, we have a potentially incorrectly blocked domain
+      // let's check snitch map
+      // to see what state the blocked domain should be in instead
+      let sites = snitch_map.getItem(base_domain);
 
-        // what should we set the domain to instead?
-        // let's check snitch map ...
-        let sites = snitch_map.getItem(base_domain);
+      // default to "no tracking"
+      // using "" and not constants.NO_TRACKING to match current behavior
+      let action = "";
 
-        // "no tracking" (not constants.NO_TRACKING to match current behavior)
-        let action = "";
+      if (sites && sites.length) {
+        if (sites.length >= constants.TRACKING_THRESHOLD) {
+          // tracking domain over threshold, set it to cookieblock or block
+          badger.heuristicBlocking.blacklistOrigin(base_domain, domain);
+          continue;
 
-        if (sites && sites.length) {
-          if (sites.length >= constants.TRACKING_THRESHOLD) {
-            // tracking domain over threshold, set it to cookieblock or block
-            badger.heuristicBlocking.blacklistOrigin(base_domain, domain);
-            continue;
-          } else {
-            // tracking domain below threshold
-            action = constants.ALLOW;
-          }
+        } else {
+          // tracking domain below threshold
+          action = constants.ALLOW;
         }
-
-        badger.storage.setupHeuristicAction(domain, action);
       }
+
+      badger.storage.setupHeuristicAction(domain, action);
     }
   },
 
