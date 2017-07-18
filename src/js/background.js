@@ -501,13 +501,13 @@ Badger.prototype = {
    * Update page action badge with current count
    * @param {Integer} tabId chrome tab id
    */
-  updateBadge: function(tabId){
+  updateBadge: function(tabId, disabled) {
     if(FirefoxAndroid.isUsed){
       return;
     }
 
     let thisTab = this.tabData[tabId];
-    if (!this.showCounter() || !thisTab) {
+    if (!this.showCounter() || !thisTab || disabled) {
       chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
       return;
     }
@@ -743,7 +743,11 @@ function startBackgroundListeners() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
       badger.refreshIconAndContextMenu(tab);
-      badger.updateBadge(tabId);
+      if (badger.isPrivacyBadgerDisabled(webrequest.getHostForTab(tabId))) {
+        badger.updateBadge(tabId, true);
+      } else {
+        badger.updateBadge(tabId);
+      }
     }
   });
 
