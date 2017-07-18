@@ -739,11 +739,13 @@ Badger.prototype = {
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
-  // Update icon if a tab changes location
+  // Update icon if a tab changes location. If new location is a background
+  // tab or Privacy Badger is disabled on the new origin, hide the badge
+  // counter. Else refresh the badge counter to '0'.
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
       badger.refreshIconAndContextMenu(tab);
-      if (badger.isPrivacyBadgerDisabled(webrequest.getHostForTab(tabId))) {
+      if (changeInfo.url.indexOf("http") !== 0 || badger.isPrivacyBadgerDisabled(webrequest.getHostForTab(tabId))) {
         badger.updateBadge(tabId, true);
       } else {
         badger.updateBadge(tabId);
