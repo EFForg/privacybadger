@@ -259,7 +259,10 @@ class PBSeleniumTest(unittest.TestCase):
                 if i == nretries - 1:
                     raise
                 else:
-                    print('\nRetrying {} ...'.format(result))
+                    wait_secs = 2 ** i
+                    print('\nRetrying {} after {} seconds ...'.format(
+                        result, wait_secs))
+                    time.sleep(wait_secs)
                     continue
 
     def open_window(self):
