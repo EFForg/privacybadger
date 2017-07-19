@@ -195,7 +195,7 @@ attempts = {}  # used to count test retries
 def repeat_if_failed(ntimes): # noqa
     '''
     A decorator that retries the test if it fails `ntimes`. The TestCase must
-    be used on a subclass of unittest.TestCase. NB: this just register's function
+    be used on a subclass of unittest.TestCase. NB: this just registers function
     to be retried. The try/except logic is in PBSeleniumTest.run.
     '''
     def test_catcher(test):
@@ -259,7 +259,7 @@ class PBSeleniumTest(unittest.TestCase):
                 if i == nretries - 1:
                     raise
                 else:
-                    print('Retrying test %s\n' % (result,))
+                    print('\nRetrying {} ...'.format(result))
                     continue
 
     def open_window(self):
