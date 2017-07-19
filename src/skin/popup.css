@@ -19,15 +19,19 @@
 
 body {
   margin: 0;
-  min-width: 200px;
+  min-width: 400px;
   max-width: 100%;
   font-size: 12px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
   padding: 8px 15px;
-  width: 400px;
   box-sizing: border-box;
+}
+@media screen and (min--moz-device-pixel-ratio:0) {
+    body{
+        width: 400px;
+    }
 }
 
 a { text-decoration: none }
