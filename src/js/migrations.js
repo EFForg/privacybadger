@@ -143,6 +143,44 @@ exports.Migrations= {
     }
   },
 
+  unblockIncorrectlyBlockedDomains: function (badger) {
+    console.log("Running migration to unblock likely incorrectly blocked domains ...");
+
+    let action_map = badger.storage.getBadgerStorageObject("action_map"),
+      snitch_map = badger.storage.getBadgerStorageObject("snitch_map");
+
+    // for every blocked domain
+    for (let domain in action_map.getItemClones()) {
+      if (action_map.getItem(domain).heuristicAction != constants.BLOCK) {
+        continue;
+      }
+
+      let base_domain = window.getBaseDomain(domain);
+
+      // let's check snitch map
+      // to see what state the blocked domain should be in instead
+      let sites = snitch_map.getItem(base_domain);
+
+      // default to "no tracking"
+      // using "" and not constants.NO_TRACKING to match current behavior
+      let action = "";
+
+      if (sites && sites.length) {
+        if (sites.length >= constants.TRACKING_THRESHOLD) {
+          // tracking domain over threshold, set it to cookieblock or block
+          badger.heuristicBlocking.blacklistOrigin(base_domain, domain);
+          continue;
+
+        } else {
+          // tracking domain below threshold
+          action = constants.ALLOW;
+        }
+      }
+
+      badger.storage.setupHeuristicAction(domain, action);
+    }
+  },
+
 };
 
 
