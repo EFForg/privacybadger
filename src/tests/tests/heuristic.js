@@ -1,6 +1,9 @@
+/* global badger:false */
+
 (function () {
 
-  let hb = require('heuristicblocking');
+  let hb = require('heuristicblocking'),
+    constants = require('constants');
 
   let chromeDetails = {
     frameId: 35,
@@ -161,6 +164,45 @@
       assert.notOk(hb.hasCookieTracking(details),
         "CloudFlare cookie test #" + i);
     }
+  });
+
+  QUnit.test("blacklisting base domain followed by subdomain", (assert) => {
+    const SUBDOMAIN = 'consent.google.com';
+    const BASE_DOMAIN = window.getBaseDomain(SUBDOMAIN);
+
+    let ylist = badger.storage.getBadgerStorageObject('cookieblock_list');
+    assert.notOk(ylist.hasItem(BASE_DOMAIN),
+      "Base domain is not on the yellowlist");
+    assert.ok(ylist.hasItem(SUBDOMAIN),
+      "Subdomain is on the yellowlist");
+
+    // populate snitch map for the subdomain
+    let snitch_map = badger.storage.getBadgerStorageObject('snitch_map');
+    snitch_map.setItem(BASE_DOMAIN, ['example.com', 'example.net', 'example.org']);
+
+    // block both directly
+    // TODO how would the base domain ever get blocked if it's not on the yellowlist?
+    badger.storage.setupHeuristicAction(BASE_DOMAIN, constants.BLOCK);
+    badger.storage.setupHeuristicAction(SUBDOMAIN, constants.BLOCK);
+
+    // first blacklist the base domain
+    badger.heuristicBlocking.blacklistOrigin(BASE_DOMAIN, BASE_DOMAIN);
+    // then blacklist the subdomain
+    badger.heuristicBlocking.blacklistOrigin(BASE_DOMAIN, SUBDOMAIN);
+
+    assert.equal(
+      badger.storage.getBestAction(BASE_DOMAIN),
+      constants.BLOCK,
+      "Base domain is still blocked"
+    );
+    assert.equal(
+      badger.storage.getBestAction(SUBDOMAIN),
+      constants.COOKIEBLOCK,
+      "Subdomain is cookieblocked"
+    );
+  });
+
+  QUnit.todo("blacklisting subdomain followed by base domain", () => {
   });
 
 }());
