@@ -38,8 +38,7 @@
       "js/heuristicblocking.js",
       "js/socialwidgetloader.js",
       "js/migrations.js",
-      "js/background.js",
-      "android/background.js"
+      "js/background.js"
     ]
   },
   "content_scripts": [
@@ -102,9 +101,6 @@
     "default_title": "__MSG_name__"
   },
   "options_page": "/skin/options.html",
-  "options_ui": {
-      "page": "/android/showOptions.html"
-  },
   "web_accessible_resources": [
     "skin/socialwidgets/*"
   ]

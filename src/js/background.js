@@ -782,6 +782,25 @@ function startBackgroundListeners() {
     }
   }, {urls: ["http://*/*", "https://*/*"]}, []);
 
+  // Temporary fix for android while it doesn't support `browser_action.default_popup`
+  // Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159
+  if(!chrome.browserAction.getPopup) {
+    chrome.browserAction.onClicked.addListener(() => {
+      chrome.tabs.query({active: true, lastFocusedWindow: true}, (tabs) => {
+        var url = chrome.runtime.getManifest().browser_action.default_popup + "?id=" + tabs[0].id;
+
+        // check if popup already is open
+        chrome.tabs.query({url}, (popupTabs) => {
+          if(popupTabs.length > 0){
+            chrome.tabs.update(popupTabs[0].id, {active: true});
+            chrome.tabs.reload(popupTabs[0].id);
+          } else {
+            chrome.tabs.create({url, index: tabs[0].index + 1});
+          }
+        });
+      });
+    });
+  }
 
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
