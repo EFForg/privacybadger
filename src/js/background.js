@@ -55,11 +55,9 @@ function Badger() {
     }
 
     // Show icon as page action for all tabs that already exist
-    chrome.windows.getAll({populate: true}, function (windows) {
-      for (var i = 0; i < windows.length; i++) {
-        for (var j = 0; j < windows[i].tabs.length; j++) {
-          badger.refreshIconAndContextMenu(windows[i].tabs[j]);
-        }
+    chrome.tabs.query({}, function (tabs) {
+      for (var i = 0; i < tabs.length; i++) {
+        badger.refreshIconAndContextMenu(tabs[i]);
       }
     });
 
