@@ -66,10 +66,8 @@ function Client() {
   }
 }
 
-let exports = {
+return {
   Listener: Listener,
   Client: Client,
 };
-
-return exports;
 })();
