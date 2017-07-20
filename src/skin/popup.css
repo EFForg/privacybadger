@@ -19,8 +19,8 @@
 
 body {
   margin: 0;
-  min-width: 400px;
-  max-width: 100%;
+  min-width: 430px; /* Chrome */
+  max-width: 100%;  /* FF android */
   font-size: 12px;
   background: #fefefe;
   color: #333;
@@ -30,7 +30,8 @@ body {
 }
 @media screen and (min--moz-device-pixel-ratio:0) {
     body{
-        width: 400px;
+        min-width: 200px; /* FF android */
+        width: 430px;     /* FF desktop */
     }
 }
 
@@ -193,11 +194,13 @@ font-size: 16px;
   max-height: 290px;
   overflow-y: auto;
   background-color: #E8E9EA;
+  position: relative;
 }
 .key {
   position: absolute;
   height: 25px;
-  width: 235px;
+  left: 0;
+  right: 0;
   z-index: 30;
   background: #fefefe;
   padding-top: 4px;
