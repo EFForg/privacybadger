@@ -160,5 +160,9 @@
     // the blockedCount (used for the badge) incrementing again.
     badger.logThirdPartyOriginOnTab(-1, "test.com", constants.BLOCK);
     assert.equal(badger.tabData[-1].blockedCount, 1);
+
+    // Verify that non-blocked domains don't increment badge count.
+    badger.logThirdPartyOriginOnTab(-1, "test2.com", constants.ALLOW);
+    assert.equal(badger.tabData[-1].blockedCount, 1);
   });
 }());
