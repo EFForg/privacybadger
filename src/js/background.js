@@ -529,23 +529,23 @@ Badger.prototype = {
    * @param {Integer} tabId chrome tab id
    */
   updateBadge: function(tabId){
+    if(!chrome.browserAction.setBadgeText || !chrome.browserAction.setBadgeBackgroundColor){
+      return;
+    }
+
     if (!this.showCounter()){
-      if(chrome.browserAction.setBadgeText){
-        chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
-      }
+      chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
       return;
     }
     var numBlocked = this.blockedTrackerCount(tabId);
-    if(chrome.browserAction.setBadgeBackgroundColor){
-      if(numBlocked === 0){
-        chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
-      } else {
-        chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
-      }
+
+    if(numBlocked === 0){
+      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
+    } else {
+      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
     }
-    if(chrome.browserAction.setBadgeText){
-      chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
-    }
+
+    chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
   },
 
   /**
@@ -748,7 +748,7 @@ Badger.prototype = {
    * @param {Object} tab The tab to set the badger icon for
    */
   refreshIconAndContextMenu: function (tab) {
-    if (!tab) {
+    if (!tab || !chrome.browserAction.setIcon) {
       return;
     }
 
@@ -765,8 +765,7 @@ Badger.prototype = {
       };
     }
 
-    if(chrome.browserAction.setIcon){ chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename}); }
-    chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
+    chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   },
 
 };
