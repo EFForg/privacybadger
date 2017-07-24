@@ -557,6 +557,7 @@ where.com
 widgetserver.com
 wikidata.org
 wikimedia.org
+wikipedia.org
 wildapricot.org
 windows.net
 wishabi.com
