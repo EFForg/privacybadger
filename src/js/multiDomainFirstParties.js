@@ -188,12 +188,12 @@ var _multiDomainFirstPartiesArray = [
  * Make a data structure for quick lookups of whether two domains are the same first party
  */
 function makeDomainLookup(mdfpArray) {
-  let out = {};
-  let arrLength = mdfpArray.length;
+  let out = {},
+    arrLength = mdfpArray.length;
   for (let i = 0; i < arrLength; i++) {
-    let inLength = mdfpArray[i].length;
-    for (let j = 0; j < inLength; j++) {
-      out[mdfpArray[i][j]] = mdfpArray[i];
+    let inner = new Set(mdfpArray[i]);
+    for (let domain of inner) {
+      out[domain] = inner;
     }
   }
   return out;
@@ -202,7 +202,7 @@ function makeDomainLookup(mdfpArray) {
 function makeIsMultiDomainFirstParty(domainLookup) {
   return function (domain1, domain2) {
     if (domain1 in domainLookup) {
-      return (domainLookup[domain1].indexOf(domain2) >= 0);
+      return (domainLookup[domain1].has(domain2));
     }
     return false;
   };
