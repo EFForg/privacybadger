@@ -5,7 +5,8 @@ import time
 import unittest
 import pbtest
 from selenium.common.exceptions import (
-    NoSuchElementException, StaleElementReferenceException, TimeoutException)
+    NoSuchElementException, StaleElementReferenceException, TimeoutException,
+    WebDriverException)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
@@ -26,12 +27,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             close_element.click()
 
             # Element will fade out so wait for it to disappear.
-            try:
-                WebDriverWait(self.driver, 5).until(
-                    expected_conditions.invisibility_of_element_located(
-                        (By.ID, "fittslaw")))
-            except TimeoutException:
-                self.fail("Unable to close popup overlay")
+            self.wait(expected_conditions.invisibility_of_element_located((By.ID, "fittslaw")))
 
     def get_enable_button(self):
         """Get enable button on popup."""
@@ -148,8 +144,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         disable_button = self.get_disable_button()
         disable_button.click()
 
-        WebDriverWait(self.driver, 3).until(
-            expected_conditions.staleness_of(disable_button))
+        self.wait(expected_conditions.staleness_of(disable_button), WebDriverException)
 
         displayed_error = " should not be displayed on popup"
         not_displayed_error = " should be displayed on popup"
@@ -164,8 +159,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         enable_button.click()
 
-        WebDriverWait(self.driver, 3).until(
-            expected_conditions.staleness_of(enable_button))
+        self.wait(expected_conditions.staleness_of(disable_button), WebDriverException)
 
         # Check that popup state changed after re-enabling.
         disable_button = self.get_disable_button()
