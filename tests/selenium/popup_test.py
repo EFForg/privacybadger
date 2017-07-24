@@ -149,8 +149,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         disable_button.click()
 
         WebDriverWait(self.driver, 3).until(
-            expected_conditions.presence_of_element_located(
-                (By.ID, "deactivate_site_btn")))
+            expected_conditions.staleness_of(disable_button))
 
         displayed_error = " should not be displayed on popup"
         not_displayed_error = " should be displayed on popup"
@@ -166,8 +165,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         enable_button.click()
 
         WebDriverWait(self.driver, 3).until(
-            expected_conditions.presence_of_element_located(
-                (By.ID, "activate_site_btn")))
+            expected_conditions.staleness_of(enable_button))
 
         # Check that popup state changed after re-enabling.
         disable_button = self.get_disable_button()
