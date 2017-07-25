@@ -20,7 +20,8 @@ require.scopes.multiDomainFP = (function() {
 var _multiDomainFirstPartiesArray = [
   ["1800contacts.com", "800contacts.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
-  ["abcnews.com", "go.com", "espn.com", "espncdn.com", "disneymoviesanywhere.com", "disney.com", "dadt.com"],
+  ["abcnews.com", "go.com", "espn.com", "espncdn.com", "disneymoviesanywhere.com", "disney.com", "dadt.com",
+    "6abc.com", "abc7.com", "abc7ny.com"],
   ["accountonline.com", "citi.com", "citibank.com", "citicards.com", "citibankonline.com"],
   ["allstate.com", "myallstate.com"],
   ["altra.org", "altraonline.org"],
