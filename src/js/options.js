@@ -167,7 +167,7 @@ function exportUserData() {
   chrome.storage.local.get(["action_map", "snitch_map", "settings_map"], function(maps) {
 
     var mapJSON = JSON.stringify(maps);
-    var downloadURL = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
+    var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
 
     // Append the formatted date to the exported file name
     var currDate = new Date().toLocaleString();
@@ -180,7 +180,7 @@ function exportUserData() {
     var filename = 'PrivacyBadger_user_data-' + escapedDate + '.json';
 
     chrome.downloads.download({
-      url: downloadURL,
+      url: URL.createObjectURL(blob),
       filename: filename
     });
   });
