@@ -182,6 +182,8 @@ function exportUserData() {
     chrome.downloads.download({
       url: URL.createObjectURL(blob),
       filename: filename
+    }, () => {
+      URL.revokeObjectURL(blob);
     });
   });
 }
