@@ -503,26 +503,6 @@ function syncUISelections() {
 }
 
 /**
-* Get's the value of specific key within a url.
-* Temporary function for android while it doesn't support `browser_action.default_popup`
-*
-* Source: https://stackoverflow.com/a/901144/2662749
-* Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159
-*
-* @param  {String} key Key to get from url
-* @param  {String} url
-* @return {String}     Value of the key
-*/
-function getParameterByName(key, url) {
-  if (!url) { url = window.location.href; }
-  key = key.replace(/[\[\]]/g, "\\$&");
-  var regex = new RegExp("[?&]" + key + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
-  if (!results) { return null; }
-  if (!results[2]) { return ''; }
-  return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-/**
 * We use this function where:
 * * getting the tabId from the associatedTab id won't work because
 *   associatedTab isn't set yet.
@@ -532,13 +512,13 @@ function getParameterByName(key, url) {
 * seems to be that it is synchronous.
 */
 function getTab(callback) {
-  /*
-   * Temporary fix for android while it doesn't support `browser_action.default_popup`
-   * Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159
-   */
   if(!chrome.browserAction.getPopup){
+    /*
+    * Temporary fix for android while it doesn't support `browser_action.default_popup`
+    * Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159
+    */
     chrome.tabs.query({active: true, lastFocusedWindow: true}, function(focusedTab) {
-      var id = getParameterByName("id", focusedTab[0].url);
+      var id = parseInt(new URL(focusedTab[0].url).searchParams.get('tabId'));
       chrome.tabs.get(Number(id),  function(t) { callback(t); });
     });
   } else {
