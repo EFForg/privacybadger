@@ -167,7 +167,6 @@ function exportUserData() {
   chrome.storage.local.get(["action_map", "snitch_map", "settings_map"], function(maps) {
 
     var mapJSON = JSON.stringify(maps);
-    var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
 
     // Append the formatted date to the exported file name
     var currDate = new Date().toLocaleString();
@@ -179,12 +178,29 @@ function exportUserData() {
       .replace(/[, ]+/g, '_');
     var filename = 'PrivacyBadger_user_data-' + escapedDate + '.json';
 
-    chrome.downloads.download({
-      url: URL.createObjectURL(blob),
-      filename: filename
-    }, () => {
+    // Download workaround taken from uBlock Origin:		 +    chrome.downloads.download({
+    // https://github.com/gorhill/uBlock/blob/40a85f8c04840ae5f5875c1e8b5fa17578c5bd1a/platform/chromium/vapi-common.js		 +      url: URL.createObjectURL(blob),
+    var a = document.createElement('a');
+    a.setAttribute('download', filename || '');
+
+    if(chrome.runtime.getBrowserInfo){
+      chrome.runtime.getBrowserInfo((info) => {
+        if(info.name == "Firefox"){
+          a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
+          a.dispatchEvent(new MouseEvent('click'));
+        } else {
+          var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
+          a.href = URL.createObjectURL(blob);
+          a.dispatchEvent(new MouseEvent('click'));
+          URL.revokeObjectURL(blob);
+        }
+      });
+    } else {
+      var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
+      a.href = URL.createObjectURL(blob);
+      a.dispatchEvent(new MouseEvent('click'));
       URL.revokeObjectURL(blob);
-    });
+    }
   });
 }
 
