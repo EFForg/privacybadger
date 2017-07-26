@@ -66,6 +66,10 @@ function Badger() {
     badger.INITIALIZED = true;
   });
 
+  // Temporary feature check for firefox android while it doesn't support the full browserAction API
+  // Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159
+  this.isFirefoxMobile = !(chrome.browserAction.setBadgeText && chrome.browserAction.setPopup && chrome.browserAction.getPopup);
+
   /**
   * WebRTC availability check
   */
@@ -529,7 +533,7 @@ Badger.prototype = {
    * @param {Integer} tabId chrome tab id
    */
   updateBadge: function(tabId){
-    if(!chrome.browserAction.setBadgeText || !chrome.browserAction.setBadgeBackgroundColor){
+    if(!this.isFirefoxMobile || !chrome.browserAction.setBadgeBackgroundColor){
       return;
     }
 
@@ -779,23 +783,27 @@ function startBackgroundListeners() {
     }
   }, {urls: ["http://*/*", "https://*/*"]}, []);
 
-  // Temporary fix for android while it doesn't support `browser_action.default_popup`
-  // Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159
-  if(!chrome.browserAction.getPopup) {
+  if(badger.isFirefoxMobile) {
+    // keeps track of popup id while one is open
+    var openPopupId;
+
+    // fake a popup
     chrome.browserAction.onClicked.addListener(() => {
       chrome.tabs.query({active: true, lastFocusedWindow: true}, (tabs) => {
-        var url = chrome.runtime.getManifest().browser_action.default_popup + "?id=" + tabs[0].id;
-
-        // check if popup already is open
-        chrome.tabs.query({url}, (popupTabs) => {
-          if(popupTabs.length > 0){
-            chrome.tabs.update(popupTabs[0].id, {active: true});
-            chrome.tabs.reload(popupTabs[0].id);
-          } else {
-            chrome.tabs.create({url, index: tabs[0].index + 1});
-          }
+        var url = chrome.runtime.getManifest().browser_action.default_popup + "?tabId=" + tabs[0].id;
+        chrome.tabs.create({url, index: tabs[0].index + 1}, (tab) => {
+          openPopupId = tab.id;
         });
       });
+    });
+
+    // remove the 'popup' when another tab is activated
+    chrome.tabs.onActivated.addListener((activeInfo) => {
+      if(badger.isFirefoxMobile && openPopupId && openPopupId != activeInfo.tabId) {
+        chrome.tabs.remove(openPopupId, () => {
+          openPopupId = null;
+        });
+      }
     });
   }
 
