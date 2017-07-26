@@ -533,7 +533,7 @@ Badger.prototype = {
    * @param {Integer} tabId chrome tab id
    */
   updateBadge: function(tabId){
-    if(!this.isFirefoxMobile || !chrome.browserAction.setBadgeBackgroundColor){
+    if(this.isFirefoxMobile){
       return;
     }
 
@@ -752,7 +752,7 @@ Badger.prototype = {
    * @param {Object} tab The tab to set the badger icon for
    */
   refreshIconAndContextMenu: function (tab) {
-    if (!tab || !chrome.browserAction.setIcon) {
+    if (!tab || this.isFirefoxMobile) {
       return;
     }
 
@@ -799,7 +799,7 @@ function startBackgroundListeners() {
 
     // remove the 'popup' when another tab is activated
     chrome.tabs.onActivated.addListener((activeInfo) => {
-      if(badger.isFirefoxMobile && openPopupId && openPopupId != activeInfo.tabId) {
+      if(openPopupId && openPopupId != activeInfo.tabId) {
         chrome.tabs.remove(openPopupId, () => {
           openPopupId = null;
         });
