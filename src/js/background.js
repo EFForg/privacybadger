@@ -542,13 +542,11 @@ Badger.prototype = {
       return;
     }
     var numBlocked = this.blockedTrackerCount(tabId);
-
     if(numBlocked === 0){
       chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
     } else {
       chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
     }
-
     chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
   },
 
@@ -610,7 +608,7 @@ Badger.prototype = {
     }
     return true;
   },
-
+  
   /**
    * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
