@@ -401,5 +401,31 @@
     assert.equal(cookies.title, "front end engineer", "Cookie 'title' should have value 'front end engineer'.");
 
   });
+  QUnit.test('test DebugLog', function(assert) {
+    var msg = 'Oh brave new world that has such people in it.'.split(' ');
+    var dl = new utils.DebugLog();
+    dl.maxSize = 5; // decrease maxSize for testing
+
+    // test log that isn't filled up all the way
+    dl.doLog('foo');
+    dl.doLog('bar');
+
+    var res1 = dl.output();
+    assert.ok(res1.indexOf('bar') === 0, 'last entry is first');
+    assert.ok(res1.indexOf('foo') === 1, '2nd to last entry is 2nd');
+    assert.equal(res1.length, 2, 'debug log is a long as number of entries, if it has had less than maxSize entries');
+
+    // test log that wraps around
+    for (var i = 0; i < msg.length; i++) {
+      dl.doLog(msg[i]);
+    }
+
+    var res = dl.output();
+    msg.reverse();
+    for (var j = 0; j < 5; j++) {
+      assert.ok(msg[j] === res[j], 'output is in correct order');
+    }
+    assert.ok(res.length === 5, 'output is maxSize');
+  });
 
 })();
