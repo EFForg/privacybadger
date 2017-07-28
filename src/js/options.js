@@ -183,7 +183,9 @@ function exportUserData() {
     var a = document.createElement('a');
     a.setAttribute('download', filename || '');
 
-    if(chrome.runtime.getBrowserInfo){
+    // TODO remove browser check and simplify code once Firefox 52 goes away
+    // https://github.com/EFForg/privacybadger/pull/1532#issuecomment-318702372
+    if (chrome.runtime.getBrowserInfo) {
       chrome.runtime.getBrowserInfo((info) => {
         if(info.name == "Firefox"){
           a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
