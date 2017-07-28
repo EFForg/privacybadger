@@ -786,31 +786,35 @@ Badger.prototype = {
 
   debugSite: function() {
     let self = this;
-    chrome.tabs.query({'active': true}, (tabs) => {
-      let tab = tabs[0];
-      console.log('using tab with url: ' + tab.url);
-      let browser = window.navigator.userAgent;
-      let version = chrome.runtime.getManifest().version;
-      let fqdn = window.extractHostFromURL(tab.url);
-      /* origin info:
-       * {'info': {'trackers':[{'origin': origin, 'action': action, 'snitch_map': snitch_map}, ...],
-       *           'browser': useragent,
-       *           'version': pbversion,
-       *           'fqdn': fqdn}}
-       */
-      let out = {info: {trackers: [], 'browser': browser, 'version': version, 'fqdn': fqdn}};
-      let action_map = self.storage.getBadgerStorageObject('action_map');
-      let snitch_map = self.storage.getBadgerStorageObject('snitch_map');
-      self.getAllOriginsForTab(tab.id).forEach((origin) => {
-        let base = window.getBaseDomain(origin);
-        out.info.trackers.push({
-          'origin': origin,
-          'baseDomain': base,
-          'action_info': action_map.hasItem(base) ? action_map.getItem(base) : 'no action info',
-          'snitch_info': snitch_map.hasItem(base) ? snitch_map.getItem(base) : 'no snitch info',
+    chrome.tabs.query({'active': true}, tabs => {
+      tabs.forEach(tab => {
+        let action_map = self.storage.getBadgerStorageObject('action_map').getItemClones(),
+          snitch_map = self.storage.getBadgerStorageObject('snitch_map').getItemClones(),
+          seen = new Set(),
+          out = {
+            info: {
+              origins: [],
+              action_maps: {},
+              snitch_maps: {},
+              browser: window.navigator.userAgent,
+              version: chrome.runtime.getManifest().version,
+              fqdn: window.extractHostFromURL(tab.url),
+            }
+          };
+        console.log('------- Debug infor for tab with url: ' + tab.url + ' -------');
+        self.getAllOriginsForTab(tab.id).forEach(origin => {
+          let base = window.getBaseDomain(origin);
+          out.info.origins.push(origin);
+          for (let am_fqdn in action_map) {
+            if (base == window.getBaseDomain(am_fqdn) && !seen.has(am_fqdn)) {
+              seen.add(am_fqdn);
+              out.info.action_maps[am_fqdn] = action_map[am_fqdn];
+              out.info.snitch_maps[base] = snitch_map[base] || 'no snitch info';
+            }
+          }
         });
+        console.log(JSON.stringify(out, null, 2));
       });
-      console.log(JSON.stringify(out, null, 4));
     });
   },
 };
