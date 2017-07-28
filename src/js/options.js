@@ -159,8 +159,7 @@ function parseUserDataFile(storageMapsList) {
 /**
  * Export the user's data, including their list of trackers from
  * action_map and snitch_map, along with their settings.
- * List will be exported and sent to user via chrome.downloads API
- * and will be in JSON format that can be edited and reimported
+ * List will be in JSON format that can be edited and reimported
  * in another instance of Privacy Badger.
  */
 function exportUserData() {
