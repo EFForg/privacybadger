@@ -124,6 +124,7 @@
 @@||dmcdn.com^$third-party
 @@||screendoor.dobt.co^$third-party
 @@||domainnamesales.com^$third-party
+@@||dotsub.com^$third-party
 @@||dl.dropboxusercontent.com^$third-party
 @@||dudamobile.com^$third-party
 @@||dumpert.nl^$third-party
