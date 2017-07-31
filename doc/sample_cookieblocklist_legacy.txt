@@ -301,6 +301,7 @@
 @@||justin.tv^$third-party
 @@||jwpcdn.com^$third-party
 @@||jwpltx.com^$third-party
+@@||content.jwplatform.com^$third-party
 @@||cdnapi.kaltura.com^$third-party
 @@||cdnbakmi.kaltura.com^$third-party
 @@||cfvod.kaltura.com^$third-party

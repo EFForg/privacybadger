@@ -302,6 +302,7 @@ jtvnw.net
 justin.tv
 jwpcdn.com
 jwpltx.com
+content.jwplatform.com
 cdnapi.kaltura.com
 cdnbakmi.kaltura.com
 cfvod.kaltura.com
