@@ -784,6 +784,18 @@ Badger.prototype = {
     chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   },
 
+  showCookies: function(fqdn) {
+    let domain = window.getBaseDomain(fqdn);
+    chrome.cookies.getAll({domain}, cookies => {
+      console.log('Cookies for domain: ' + domain);
+      cookies.forEach(cookie => {
+        console.log('\t -------------');
+        console.log('\t cookie name: ' + cookie.name);
+        console.log('\t cookie domain: ' + cookie.domain);
+      });
+    });
+  },
+
   debugSite: function() {
     let self = this;
     chrome.tabs.query({'active': true}, tabs => {
