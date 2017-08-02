@@ -784,14 +784,33 @@ Badger.prototype = {
     chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
   },
 
-  showCookies: function(fqdn) {
-    let domain = window.getBaseDomain(fqdn);
+  printCookie: function(cookie, printString) {
+    if (!printString) {
+      printString = '\t cookie %s: %s';
+    }
+    ['name', 'domain', 'hostOnly', 'path', 'secure', 'httpOnly', 'sameSite', 'session', 'expirationDate']
+      .forEach(field => {
+        if (cookie.hasOwnProperty(field)) {
+          console.log(printString, field, cookie[field]);
+        }
+      });
+  },
+
+  showCookies: function(domain, showRelated) {
+    let self = this,
+      msg = 'Cookies for domain: %s';
+    if (typeof showRelated == 'undefined') {
+      showRelated = true;
+    }
+    if (showRelated) {
+      msg = 'Cookies for domains related to: %s';
+      domain = window.getBaseDomain(domain);
+    }
     chrome.cookies.getAll({domain}, cookies => {
-      console.log('Cookies for domain: ' + domain);
+      console.log(msg, domain);
       cookies.forEach(cookie => {
         console.log('\t -------------');
-        console.log('\t cookie name: ' + cookie.name);
-        console.log('\t cookie domain: ' + cookie.domain);
+        self.printCookie(cookie);
       });
     });
   },
