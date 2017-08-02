@@ -68,21 +68,21 @@
     let done = assert.async(3);
     assert.expect(3);
     window.base = {
-      method: () => {return 'base.method';},
-      another: {thing: () => {return 'base.another.thing';}},
-      even: {longer: {stuff: () => {return 'base.even.longer.stuff';}}},
+      method: function() {return 'base.method ' + Array.from(arguments);},
+      another: {thing: function() {return 'base.another.thing ' + Array.from(arguments);}},
+      even: {longer: {stuff: function() {return 'base.even.longer.stuff ' + Array.from(arguments);}}},
     };
     let onMessage = messages.makeOnMessage(methods);
-    onMessage({'method': 'base.method'}, {}, (result) => {
-      assert.ok(result == 'base.method');
+    onMessage({method: 'base.method', args: [6, 7, 8]}, {}, function(result) {
+      assert.ok(result == 'base.method 6,7,8');
       done();
     });
-    onMessage({'method': 'base.another.thing'}, {}, (result) => {
-      assert.ok(result == 'base.another.thing');
+    onMessage({method: 'base.another.thing', args: []}, {}, (result) => {
+      assert.ok(result == 'base.another.thing ');
       done();
     });
-    onMessage({'method': 'base.even.longer.stuff'}, {}, (result) => {
-      assert.ok(result == 'base.even.longer.stuff');
+    onMessage({method: 'base.even.longer.stuff', args: [1]}, {}, (result) => {
+      assert.ok(result == 'base.even.longer.stuff 1');
       done();
     });
   });
