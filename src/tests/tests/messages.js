@@ -20,9 +20,8 @@
   });
 
   QUnit.test('Client test', (assert) => {
-    let done = assert.async(2);
-    assert.expect(12);
-
+    let done = assert.async(3);
+    assert.expect(10);
 
     let client = new messages.Client(methods);
 
@@ -33,19 +32,14 @@
 
     client.method('foo', 'bar').then(obj => {
       assert.ok(obj.method === 'base.method');
-      assert.ok(obj.args[0] == 'foo');
-      assert.ok(obj.args[1] == 'bar');
-      assert.ok(obj.args.length == 2);
+      assert.deepEqual(obj.args, ['foo', 'bar']);
 
       done();
     });
 
     client.another.thing(1, 2, 3).then(obj => {
       assert.ok(obj.method === 'base.another.thing');
-      assert.ok(obj.args[0] == 1);
-      assert.ok(obj.args[1] == 2);
-      assert.ok(obj.args[2] == 3);
-      assert.ok(obj.args.length == 3);
+      assert.deepEqual(obj.args, [1, 2, 3]);
 
       done();
     });
@@ -55,10 +49,8 @@
       res.callbackCalled = true;
       return res;
     }).then(obj => {
-      assert.ok(obj.method === 'base.even.longer.stuff');
-      assert.ok(obj.args[0] == 1);
-      assert.ok(obj.args[1] == 2);
-      assert.ok(obj.args.length == 2);
+      assert.ok(obj.method == 'base.even.longer.stuff');
+      assert.deepEqual(obj.args, [1, 2])
       assert.ok(obj.callbackCalled);
 
       done();
