@@ -41,6 +41,20 @@ let defaultMethods = new Set([
   'badger.extractHostFromURL',
 ]);
 
+function makeOnMessage(methods) {
+  return function (request, sender, sendResponse) {
+    if (methods.has(request.method)) {
+      let arr = request.method.split('.'),
+        last = arr.pop(),
+        base = window[arr.shift()];
+      if (arr) {
+        base = arr.reduce((o, i) => o[i], base);
+      }
+      sendResponse(base[last].apply(base, request.args));
+    }
+  };
+}
+
 /**
  * Listen for messages from the client. Call requested functions and return the result.
  */
@@ -48,19 +62,7 @@ function Listener(methods) {
   if (!methods) {
     methods = defaultMethods;
   }
-  chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-      if (methods.has(request.method)) {
-        let arr = request.method.split('.'),
-          last = arr.pop(),
-          base = window[arr.shift()];
-        if (arr) {
-          base = arr.reduce((o, i) => o[i], base);
-        }
-        sendResponse(base[last].apply(base, request.args));
-      }
-    }
-  );
+  chrome.runtime.onMessage.addListener(makeOnMessage(methods));
 }
 
 /**
@@ -109,5 +111,5 @@ function Client(methods) {
   }
 }
 
-return {Listener, Client};
+return {Listener, Client, makeOnMessage}
 })();
