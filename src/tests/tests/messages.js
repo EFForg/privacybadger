@@ -64,4 +64,26 @@
       done();
     });
   });
+  QUnit.test('Listener test', (assert) => {
+    let done = assert.async(3);
+    assert.expect(3);
+    window.base = {
+      method: () => {return 'base.method';},
+      another: {thing: () => {return 'base.another.thing';}},
+      even: {longer: {stuff: () => {return 'base.even.longer.stuff';}}},
+    };
+    let onMessage = messages.makeOnMessage(methods);
+    onMessage({'method': 'base.method'}, {}, (result) => {
+      assert.ok(result == 'base.method');
+      done();
+    });
+    onMessage({'method': 'base.another.thing'}, {}, (result) => {
+      assert.ok(result == 'base.another.thing');
+      done();
+    });
+    onMessage({'method': 'base.even.longer.stuff'}, {}, (result) => {
+      assert.ok(result == 'base.even.longer.stuff');
+      done();
+    });
+  });
 })();
