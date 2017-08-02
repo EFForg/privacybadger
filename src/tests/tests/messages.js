@@ -50,7 +50,7 @@
       return res;
     }).then(obj => {
       assert.ok(obj.method == 'base.even.longer.stuff');
-      assert.deepEqual(obj.args, [1, 2])
+      assert.deepEqual(obj.args, [1, 2]);
       assert.ok(obj.callbackCalled);
 
       done();

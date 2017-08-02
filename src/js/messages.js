@@ -111,5 +111,5 @@ function Client(methods) {
   }
 }
 
-return {Listener, Client, makeOnMessage}
+return {Listener, Client, makeOnMessage};
 })();
