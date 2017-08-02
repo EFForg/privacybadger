@@ -282,9 +282,9 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
-    def wait(self, condition, exception=None):
+    def wait(self, condition, exception=None, timeout=3):
         try:
-            WebDriverWait(self.driver, 3).until(condition)
+            WebDriverWait(self.driver, timeout).until(condition)
         except Exception as e:
             if (exception is None) or not isinstance(e, exception):
                 raise e
