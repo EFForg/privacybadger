@@ -64,7 +64,7 @@ function Badger() {
     });
 
     // TODO: register all privacy badger listeners here in the storage callback
-    badger.listener = new messages.Listener(badger);
+    badger.listener = new messages.Listener();
     badger.settings = badger.storage.getBadgerStorageObject('settings_map');
 
     badger.INITIALIZED = true;
