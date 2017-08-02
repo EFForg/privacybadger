@@ -551,6 +551,7 @@
 @@||weather.gov^$third-party
 @@||weatherbug.com^$third-party
 @@||weathernationtv.com^$third-party
+@@||weatherzone.com.au^$third-party
 @@||webtype.com^$third-party
 @@||where.com^$third-party
 @@||widgetserver.com^$third-party
