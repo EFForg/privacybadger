@@ -832,7 +832,7 @@ Badger.prototype = {
               fqdn: window.extractHostFromURL(tab.url),
             }
           };
-        console.log('------- Debug infor for tab with url: ' + tab.url + ' -------');
+        console.log('------- Debug info for tab with url: ' + tab.url + ' -------');
         self.getAllOriginsForTab(tab.id).forEach(origin => {
           let base = window.getBaseDomain(origin);
           out.info.origins.push(origin);
