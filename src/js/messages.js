@@ -68,7 +68,7 @@ function Listener(methods) {
 /**
  * Build a remote function from a dottedName
  */
-function _makeMethodCaller(client, dottedName) {
+function makeMethodCaller(client, dottedName) {
   let arr = dottedName.split('.'),
     part = client;
   // walk out from the client up to the 2nd to last property in the array
@@ -107,7 +107,7 @@ function Client(methods) {
   }
   // build the RPC functions
   for (let dottedName of methods) {
-    _makeMethodCaller(this, dottedName);
+    makeMethodCaller(this, dottedName);
   }
 }
 
