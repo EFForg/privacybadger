@@ -53,7 +53,7 @@ function debugTab(tab) {
         seen.add(am_fqdn);
         out.info.action_maps[am_fqdn] = action_map[am_fqdn];
         if (base in snitch_map) {
-          out.info.snitch_maps[base] = snitch_map[base]
+          out.info.snitch_maps[base] = snitch_map[base];
         }
       }
     }
@@ -69,5 +69,5 @@ function debugSite() {
     });
   });
 }
-return {cookieFields, getCookies, debugTab, debugSite};
+return {cookieFields, printCookies, getCookies, debugTab, debugSite};
 })();

@@ -21,7 +21,7 @@
 /* globals log:false */
 
 var utils = require("utils");
-var debug = require("debug");
+window.debug = require("debug");
 var constants = require("constants");
 var pbStorage = require("storage");
 
