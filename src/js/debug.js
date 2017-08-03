@@ -1,25 +1,16 @@
 require.scopes.debug = (function() {
 let cookieFields = ['name', 'domain', 'hostOnly', 'path', 'secure', 'httpOnly', 'sameSite', 'session', 'expirationDate'];
 
-function printCookie(cookie, fieldString) {
-  if (!fieldString) {
-    fieldString = '\t cookie %s: %s';
-  }
-  cookieFields.forEach(field => {
-    if (cookie.hasOwnProperty(field)) {
-      console.log(fieldString, field, cookie[field]);
-    }
+function printCookies(domain) {
+  getCookies(domain, true, (cookie) => {
+    console.log('----------------');
+    console.log(JSON.stringify(cookie, null, 2));
   });
 }
 
-function getCookies(domain, showRelated) {
-  let msg = 'Cookies for domain: %s',
-    out = {};
-  if (typeof showRelated == 'undefined') {
-    showRelated = true;
-  }
+function getCookies(domain, showRelated, cookieCallback) {
+  let out ={};
   if (showRelated) {
-    msg = 'Cookies for domains related to: %s';
     domain = window.getBaseDomain(domain);
   }
   out[domain] = [];
@@ -28,11 +19,12 @@ function getCookies(domain, showRelated) {
       cookies.forEach(cookie => {
         let info = {};
         cookieFields.forEach(field => {
-          if (cookie.hasOwnProperty(field)) {
+          if (field in cookie) {
             info[field] = cookie[field];
           }
         });
         out[domain].push(info);
+        cookieCallback(info);
       });
       resolve(out);
     });
@@ -77,5 +69,5 @@ function debugSite() {
     });
   });
 }
-return {getCookies, debugTab, debugSite};
+return {cookieFields, getCookies, debugTab, debugSite};
 })();
