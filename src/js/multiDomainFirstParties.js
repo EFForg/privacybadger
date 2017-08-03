@@ -169,7 +169,7 @@ var _multiDomainFirstPartiesArray = [
   ["walmart.com", "wal.co"],
   ["wellsfargo.com", "wf.com"],
   ["wikia.com", "wikia.net", "nocookie.net"],
-  ["wfmlabs.org","wikipedia.org", "wikimedia.org", "wikimediafoundation.org", "wiktionary.org",
+  ["wmflabs.org","wikipedia.org", "wikimedia.org", "wikimediafoundation.org", "wiktionary.org",
     "wikiquote.org", "wikibooks.org", "wikisource.org", "wikinews.org",
     "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org"],
   ["wordpress.com", "wp.com"],
