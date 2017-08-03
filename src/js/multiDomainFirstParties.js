@@ -187,7 +187,7 @@ var _multiDomainFirstPartiesArray = [
     "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org"],
   ["wordpress.com", "wp.com"],
   ["wpcu.coop", "wpcuonline.com"],
-  ["wsj.com", "wsj.net"],
+  ["wsj.com", "wsj.net", "barrons.com", "dowjones.com", "marketwatch.com"],
   ["xda-developers.com", "xda-cdn.com"],
   ["xfinity.com", "comcast.net", "comcast.com"],
   ["xiami.com", "alipay.com"],
