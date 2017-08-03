@@ -31,6 +31,7 @@
       "js/multiDomainFirstParties.js",
       "js/incognito.js",
       "js/constants.js",
+      "js/debug.js",
       "js/storage.js",
       "js/utils.js",
       "js/htmlutils.js",
