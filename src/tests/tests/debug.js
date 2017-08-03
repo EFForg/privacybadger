@@ -1,11 +1,14 @@
 (function() {
   let debug = require("debug"),
     beforeGetBadgerStorageObject = window.badger.storage.getBadgerStorageObject,
-    beforeGetAllOriginsForTab = window.badger.getAllOriginsForTab;
+    beforeGetAllOriginsForTab = window.badger.getAllOriginsForTab,
+    beforeCookiesGetAll = chrome.cookies.getAll;
+
   QUnit.module("Debug", {
-    after: () => {
+    afterEach: () => {
       window.badger.storage.getBadgerStorageObject = beforeGetBadgerStorageObject;
       window.badger.getAllOriginsForTab = beforeGetAllOriginsForTab;
+      chrome.cookies.getAll = beforeCookiesGetAll;
     },
   });
 
@@ -44,5 +47,28 @@
     assert.deepEqual(Object.keys(result.info.action_maps).sort(), inActionMap);
     assert.deepEqual(Object.keys(result.info.snitch_maps).sort(), inSnitchMap);
     assert.equal(result.info.fqdn, 'testmybadger.com');
+  });
+
+  QUnit.test("getCookies", (assert) => {
+    let domain = 'stuff.com',
+      done = assert.async(1);
+    assert.expect(7);
+
+    chrome.cookies.getAll = function(obj, callback) {
+      callback([{name: 'homestarrunner.com', session: true}, {name: 'something', secure: true}]);
+    };
+
+    debug.getCookies(domain, true, ()=>{}).then(info => {
+      assert.ok(domain in info);
+
+      let logged = JSON.stringify(info);
+      assert.ok(logged.match(/\[\{.*\}\]/));
+      assert.ok(logged.match(/\"name\":\"homestarrunner.com\"/));
+      assert.ok(logged.match(/\"session\":true/));
+      assert.ok(logged.match(/\"name\":\"something\"/));
+      assert.ok(logged.match(/\"secure\":true/));
+      assert.ok(logged.match(/\"name\".*\"name\"/));
+      done();
+    });
   });
 })();
