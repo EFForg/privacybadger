@@ -48,7 +48,7 @@ function debugTab(tab) {
   window.badger.getAllOriginsForTab(tab.id).forEach(origin => {
     let base = window.getBaseDomain(origin);
     out.info.origins.push(origin);
-    for (let am_fqdn in action_map) {
+    for (let am_fqdn in action_map) {  // look for domains related to this origin in the action_map
       if (base == window.getBaseDomain(am_fqdn) && !seen.has(am_fqdn)) {
         seen.add(am_fqdn);
         out.info.action_maps[am_fqdn] = action_map[am_fqdn];
