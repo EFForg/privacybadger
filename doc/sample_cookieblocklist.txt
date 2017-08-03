@@ -471,6 +471,7 @@ s-msn.com
 smugmug.com
 snapengage.com
 sndcdn.com
+solvemedia.com
 auth.api.sonyentertainmentnetwork.com
 cdn-a.sonyentertainmentnetwork.com
 soundcloud.com
