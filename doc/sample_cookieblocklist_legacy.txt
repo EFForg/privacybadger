@@ -538,6 +538,7 @@
 @@||viafoura.net^$third-party
 @@||viddler.com^$third-party
 @@||videobash.com^$third-party
+@@||vidible.tv^$third-party
 @@||viduki.com^$third-party
 @@||vimeo.com^$third-party
 @@||vimeocdn.com^$third-party
