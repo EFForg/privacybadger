@@ -1,5 +1,5 @@
 (function(){
-  QUnit.module("multiDomainFirstParties.js");
+  QUnit.module("Multi-domain first parties");
 
   let mdfp = require('multiDomainFP');
 
