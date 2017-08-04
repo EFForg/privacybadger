@@ -1,14 +1,26 @@
 require.scopes.debug = (function() {
-let cookieFields = ['name', 'domain', 'hostOnly', 'path', 'secure', 'httpOnly', 'sameSite', 'session', 'expirationDate'];
+let cookieFields = [
+  'domain',
+  'expirationDate',
+  'hostOnly',
+  'httpOnly',
+  'name',
+  'path',
+  'sameSite',
+  'secure',
+  'session',
+];
 
 function printCookies(domain) {
-  getCookies(domain, true, (cookie) => {
-    console.log('----------------');
-    console.log(JSON.stringify(cookie, null, 2));
+  getCookies(domain, true).then(cookies => {
+    cookies.forEach(cookie => {
+      console.log('----------------');
+      console.log(JSON.stringify(cookie, null, 2));
+    });
   });
 }
 
-function getCookies(domain, showRelated, cookieCallback) {
+function getCookies(domain, showRelated) {
   let out ={};
   if (showRelated) {
     domain = window.getBaseDomain(domain);
@@ -24,7 +36,6 @@ function getCookies(domain, showRelated, cookieCallback) {
           }
         });
         out[domain].push(info);
-        cookieCallback(info);
       });
       resolve(out);
     });
