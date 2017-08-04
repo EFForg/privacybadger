@@ -201,21 +201,28 @@ var _multiDomainFirstPartiesArray = [
 /**
  * Make a data structure for quick lookups of whether two domains are the same first party
  */
-function _makeDomainLookup() {
-  var arr = _multiDomainFirstPartiesArray;
-  var out = {};
-  var arrLength = arr.length;
-  for (var i = 0; i < arrLength; i++) {
-    var inLength = arr[i].length;
-    for (var j = 0; j < inLength; j++) {
-      out[arr[i][j]] = arr[i];
+function makeDomainLookup(mdfpArray) {
+  let out = {},
+    arrLength = mdfpArray.length;
+  for (let i = 0; i < arrLength; i++) {
+    let inner = new Set(mdfpArray[i]);
+    for (let domain of inner) {
+      out[domain] = inner;
     }
   }
   return out;
 }
 
-var DomainLookup = _makeDomainLookup();
+function makeIsMultiDomainFirstParty(domainLookup) {
+  return function (domain1, domain2) {
+    if (domain1 in domainLookup) {
+      return (domainLookup[domain1].has(domain2));
+    }
+    return false;
+  };
+}
 
+let _domainLookup = makeDomainLookup(_multiDomainFirstPartiesArray);
 /**
  * Check if two domains belong to the same effective first party
  * @param {String} domain1 a base doamin
@@ -223,18 +230,7 @@ var DomainLookup = _makeDomainLookup();
  *
  * @return boolean true if the domains are the same first party
  **/
-function isMultiDomainFirstParty(domain1, domain2) {
-  if (domain1 in DomainLookup) {
-    return (DomainLookup[domain1].indexOf(domain2) >= 0);
-  }
-  return false;
-}
-
+let isMultiDomainFirstParty = makeIsMultiDomainFirstParty(_domainLookup);
 /************************************** exports */
-var exports = {};
-
-exports.isMultiDomainFirstParty = isMultiDomainFirstParty;
-
-return exports;
-/************************************** exports */
+return {isMultiDomainFirstParty, makeDomainLookup, makeIsMultiDomainFirstParty};
 })(); //require scopes
