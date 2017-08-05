@@ -13,6 +13,8 @@
     xhrSpy,
     dnt_policy_txt;
 
+  let beforeChromeTabsGet = chrome.tabs.get;
+
   QUnit.module("Background", {
     before: (assert) => {
       let done = assert.async();
@@ -46,6 +48,7 @@
     afterEach: (/*assert*/) => {
       // reset call counts, etc. after each test
       utils.xhrRequest.restore();
+      chrome.tabs.get = beforeChromeTabsGet;
     },
 
     after: (/*assert*/) => {
@@ -141,6 +144,10 @@
   });
 
   QUnit.test("Blocked domain only counted once in badge", (assert) => {
+    chrome.tabs.get = (tabId, callback) => {
+      callback();
+    };
+
     badger.tabData[-1] = {
       frames: {},
       origins: {},
