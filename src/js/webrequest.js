@@ -329,15 +329,6 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
       blockedCount: 0
     };
   }
-  // check if this is a prerendered (bg) tab or not
-  chrome.tabs.get(tabId, function(/*tab*/){
-    if (chrome.runtime.lastError){
-      // chrome will throw error for the prerendered tabs
-      badger.tabData[tabId].bgTab = true;
-    }else{
-      badger.tabData[tabId].bgTab = false;
-    }
-  });
 
   badger.tabData[tabId].frames[frameId] = {
     url: frameUrl,
@@ -569,7 +560,7 @@ function _isTabAnExtension(tabId) {
   return (
     _frameUrlStartsWith(tabId, "chrome-extension://") ||
     _frameUrlStartsWith(tabId, "moz-extension://")
-   );
+  );
 }
 
 /**

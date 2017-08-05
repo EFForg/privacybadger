@@ -501,24 +501,29 @@ Badger.prototype = {
    * Update page action badge with current count
    * @param {Integer} tabId chrome tab id
    */
-  updateBadge: function(tabId, disabled) {
+  updateBadge: function(tabId, disabled){
     if(FirefoxAndroid.isUsed){
       return;
     }
 
-    let thisTab = this.tabData[tabId];
-    if (!this.showCounter() || !thisTab || disabled) {
-      chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
-      return;
-    }
+    let self = this;
+    chrome.tabs.get(tabId, () => {  // avoid setting on background tabs
+      if (!chrome.runtime.lastError) {
+        let thisTab = self.tabData[tabId];
+        if (!self.showCounter() || !thisTab || disabled) {
+          chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
+          return;
+        }
 
-    let numBlocked = thisTab ? thisTab.blockedCount : 0;
-    if(numBlocked === 0){
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
-    } else {
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
-    }
-    chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+        let numBlocked = thisTab ? thisTab.blockedCount : 0;
+        if(numBlocked === 0){
+          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
+        } else {
+          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
+        }
+        chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+      }
+    });
   },
 
   getSettings: function() {
@@ -690,21 +695,7 @@ Badger.prototype = {
       this.tabData[tabId].origins[fqdn] = action;
       if (constants.BLOCKED_ACTIONS.has(action)) {
         this.tabData[tabId].blockedCount += 1;
-
-        if (this.tabData[tabId].bgTab === true) {
-          // Prerendered tab; Chrome will throw error for setBadge functions.
-          return;
-        }
-        setTimeout(function() {
-          chrome.tabs.get(tabId, function(/*tab*/){
-            if (chrome.runtime.lastError){
-              badger.tabData[tabId].bgTab = true;
-            } else {
-              badger.tabData[tabId].bgTab = false;
-              badger.updateBadge(tabId);
-            }
-          });
-        }, 0);
+        badger.updateBadge(tabId);
       }
     }
   },
