@@ -63,8 +63,7 @@ function Badger() {
       }
     });
 
-    // TODO: register all privacy badger listeners here in the storage callback
-
+    self.startAllListeners();
     self.INITIALIZED = true;
   });
 
@@ -766,68 +765,65 @@ Badger.prototype = {
     chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
   },
 
-};
-
-/**************************** Listeners ****************************/
-
-function startBackgroundListeners() {
-  chrome.webRequest.onBeforeRequest.addListener(function(details) {
-    if (details.tabId != -1){
-      badger.updateCount(details);
-    }
-  }, {urls: ["http://*/*", "https://*/*"]}, []);
+  startBadgerListeners: function() {
+    let self = this;
+    chrome.webRequest.onBeforeRequest.addListener(function(details) {
+      if (details.tabId != -1){
+        self.updateCount(details);
+      }
+    }, {urls: ["http://*/*", "https://*/*"]}, []);
 
 
-  // Update icon if a tab changes location
-  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    if(changeInfo.status == "loading") {
-      badger.refreshIconAndContextMenu(tab);
-    }
-  });
-
-  // Update icon if a tab is replaced or loaded from cache
-  chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/){
-    chrome.tabs.get(addedTabId, function(tab){
-      badger.refreshIconAndContextMenu(tab);
+    // Update icon if a tab changes location
+    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+      if(changeInfo.status == "loading") {
+        self.refreshIconAndContextMenu(tab);
+      }
     });
-  });
 
-  // Listening for Avira Autopilot remote control UI
-  // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
-  // The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
-  if(chrome.runtime.onMessageExternal){
-    chrome.runtime.onMessageExternal.addListener(
-      function(request, sender, sendResponse) {
-        // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
-        if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
-          if (request.command == "getDisabledSites") {
-            sendResponse({origins: badger.listOriginsWherePrivacyBadgerIsDisabled()});
-          }
-          else if (request.command == "enable") {
-            badger.enablePrivacyBadgerForOrigin(request.origin);
-          }
-          else if (request.command == "disable") {
-            badger.disablePrivacyBadgerForOrigin(request.origin);
+    // Update icon if a tab is replaced or loaded from cache
+    chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/){
+      chrome.tabs.get(addedTabId, function(tab){
+        self.refreshIconAndContextMenu(tab);
+      });
+    });
+
+    // Listening for Avira Autopilot remote control UI
+    // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
+    // The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
+    if(chrome.runtime.onMessageExternal){
+      chrome.runtime.onMessageExternal.addListener(
+        function(request, sender, sendResponse) {
+          // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
+          if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
+            if (request.command == "getDisabledSites") {
+              sendResponse({origins: self.listOriginsWherePrivacyBadgerIsDisabled()});
+            }
+            else if (request.command == "enable") {
+              self.enablePrivacyBadgerForOrigin(request.origin);
+            }
+            else if (request.command == "disable") {
+              self.disablePrivacyBadgerForOrigin(request.origin);
+            }
           }
         }
-      }
-    );
-  }
-}
+      );
+    }
+  },
+
+  startAllListeners: function() {
+    incognito.startListeners();
+    webrequest.startListeners();
+    HeuristicBlocking.startListeners();
+    this.startBadgerListeners();
+  },
+};
 
 /**
  * lets get this party started
  */
 console.log('Loading badgers into the pen.');
 var badger = window.badger = new Badger();
-
-/**
-* Start all the listeners
-*/
-incognito.startListeners();
-webrequest.startListeners();
-HeuristicBlocking.startListeners();
-startBackgroundListeners();
 
 // TODO move listeners and this message behind INITIALIZED
 console.log('Privacy badger is ready to rock!');
