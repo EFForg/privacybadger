@@ -17,7 +17,7 @@ require.scopes.multiDomainFP = (function() {
  * 2d array of related domains, all domains owned by the same entity go into
  * an array, this is later transformed for efficient lookups.
  */
-var _multiDomainFirstPartiesArray = [
+var multiDomainFirstPartiesArray = [
   ["1800contacts.com", "800contacts.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
   ["abcnews.com", "go.com", "espn.com", "espncdn.com", "disneymoviesanywhere.com", "disney.com", "dadt.com",
@@ -222,7 +222,7 @@ function makeIsMultiDomainFirstParty(domainLookup) {
   };
 }
 
-let _domainLookup = makeDomainLookup(_multiDomainFirstPartiesArray);
+let _domainLookup = makeDomainLookup(multiDomainFirstPartiesArray);
 /**
  * Check if two domains belong to the same effective first party
  * @param {String} domain1 a base doamin
@@ -232,5 +232,10 @@ let _domainLookup = makeDomainLookup(_multiDomainFirstPartiesArray);
  **/
 let isMultiDomainFirstParty = makeIsMultiDomainFirstParty(_domainLookup);
 /************************************** exports */
-return {isMultiDomainFirstParty, makeDomainLookup, makeIsMultiDomainFirstParty};
+return {
+  isMultiDomainFirstParty,
+  makeDomainLookup,
+  makeIsMultiDomainFirstParty,
+  multiDomainFirstPartiesArray,
+};
 })(); //require scopes
