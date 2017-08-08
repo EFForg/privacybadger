@@ -322,25 +322,21 @@ function parseCookie(str, opts) {
   return parsed;
 }
 
-/************************************** exports */
-var exports = {};
-
-exports.estimateMaxEntropy = estimateMaxEntropy;
-exports.explodeSubdomains = explodeSubdomains;
-exports.getRandom = getRandom;
-exports.makeURI = makeURI;
-exports.nDaysFromNow = nDaysFromNow;
-exports.oneDayFromNow = oneDayFromNow;
-exports.oneDay = oneDay;
-exports.oneHour = oneHour;
-exports.oneMinute = oneMinute;
-exports.oneSecond = oneSecond;
-exports.parseCookie = parseCookie;
-exports.rateLimit = rateLimit;
-exports.removeElementFromArray = removeElementFromArray;
-exports.sha1 = sha1;
-exports.xhrRequest = xhrRequest;
-
-return exports;
-/************************************** exports */
+return {
+  estimateMaxEntropy,
+  explodeSubdomains,
+  getRandom,
+  makeURI,
+  nDaysFromNow,
+  oneDayFromNow,
+  oneDay,
+  oneHour,
+  oneMinute,
+  oneSecond,
+  parseCookie,
+  rateLimit,
+  removeElementFromArray,
+  sha1,
+  xhrRequest,
+};
 })(); //require scopes
