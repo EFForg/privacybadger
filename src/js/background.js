@@ -42,7 +42,7 @@ function Badger() {
   self.storage = new pbStorage.BadgerPen(function(thisStorage) {
     if (self.INITIALIZED) { return; }
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
-    self.updateTabList();
+    self.updateTabData();
     self.initializeDefaultSettings();
     try {
       self.runMigrations();
@@ -162,11 +162,10 @@ Badger.prototype = {
     return true;
   },
 
-
   /**
   * Populate tabs object with currently open tabs when extension is updated or installed.
   */
-  updateTabList: function(){
+  updateTabData: function(){
     // Initialize the tabData/frames object if it is falsey
     this.tabData = this.tabData || {};
     var self = this;
