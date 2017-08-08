@@ -533,11 +533,14 @@ function startListeners() {
   {urls: ["<all_urls>"]}, ["responseHeaders"]);
 }
 
-/************************************** exports */
-var exports = {};
-exports.HeuristicBlocker = HeuristicBlocker;
-exports.startListeners = startListeners;
-exports.hasCookieTracking = hasCookieTracking;
-return exports;
-/************************************** exports */
+function restart() {
+  tabOrigins = {};
+}
+
+return {
+  HeuristicBlocker,
+  startListeners,
+  hasCookieTracking,
+  restart,
+};
 })();
