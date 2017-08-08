@@ -36,36 +36,36 @@ var incognito = require("incognito");
 * privacy badger initializer
 */
 function Badger() {
-  var badger = this;
-  this.userAllow = [];
-  this.webRTCAvailable = checkWebRTCBrowserSupport();
-  this.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (badger.INITIALIZED) { return; }
-    badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
-    badger.updateTabList();
-    badger.initializeDefaultSettings();
+  let self = this;
+  self.userAllow = [];
+  self.webRTCAvailable = checkWebRTCBrowserSupport();
+  self.storage = new pbStorage.BadgerPen(function(thisStorage) {
+    if (self.INITIALIZED) { return; }
+    self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
+    self.updateTabList();
+    self.initializeDefaultSettings();
     try {
-      badger.runMigrations();
+      self.runMigrations();
     } finally {
-      badger.initializeCookieBlockList();
-      badger.initializeDNT();
-      badger.initializeUserAllowList();
-      badger.enableWebRTCProtection();
-      if (!badger.isIncognito) {badger.showFirstRunPage();}
+      self.initializeCookieBlockList();
+      self.initializeDNT();
+      self.initializeUserAllowList();
+      self.enableWebRTCProtection();
+      if (!self.isIncognito) {self.showFirstRunPage();}
     }
 
     // Show icon as page action for all tabs that already exist
     chrome.windows.getAll({populate: true}, function (windows) {
       for (var i = 0; i < windows.length; i++) {
         for (var j = 0; j < windows[i].tabs.length; j++) {
-          badger.refreshIconAndContextMenu(windows[i].tabs[j]);
+          self.refreshIconAndContextMenu(windows[i].tabs[j]);
         }
       }
     });
 
     // TODO: register all privacy badger listeners here in the storage callback
 
-    badger.INITIALIZED = true;
+    self.INITIALIZED = true;
   });
 
   /**
