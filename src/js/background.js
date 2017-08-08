@@ -152,12 +152,10 @@ Badger.prototype = {
   * @param {String} origin the third party origin to take action on
   */
   saveAction: function(userAction, origin) {
-    var allUserActions = {'block': constants.USER_BLOCK,
-                          'cookieblock': constants.USER_COOKIE_BLOCK,
-                          'allow': constants.USER_ALLOW};
-    this.storage.setupUserAction(origin, allUserActions[userAction]);
-    log("Finished saving action " + userAction + " for " + origin);
-
+    if (constants.userActions.has(userAction)) {
+      this.storage.setupUserAction(origin, userAction);
+      log("Finished saving action " + userAction + " for " + origin);
+    }
     // TODO: right now we don't determine whether a reload is needed
     return true;
   },
