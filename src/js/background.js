@@ -37,7 +37,6 @@ var incognito = require("incognito");
 */
 function Badger() {
   let self = this;
-  self.userAllow = [];
   self.webRTCAvailable = checkWebRTCBrowserSupport();
   self.storage = new pbStorage.BadgerPen(function(thisStorage) {
     if (self.INITIALIZED) { return; }
@@ -49,7 +48,6 @@ function Badger() {
     } finally {
       self.initializeCookieBlockList();
       self.initializeDNT();
-      self.initializeUserAllowList();
       self.enableWebRTCProtection();
       if (!self.isIncognito) {self.showFirstRunPage();}
     }
@@ -324,19 +322,6 @@ Badger.prototype = {
   initializeDNT: function () {
     this.updateDNTPolicyHashes();
     setInterval(this.updateDNTPolicyHashes.bind(this), utils.oneDay() * 4);
-  },
-
-  /**
-   * Search through action_map list and update list of domains
-   * that user has manually set to "allow"
-   */
-  initializeUserAllowList: function() {
-    var action_map = this.storage.getBadgerStorageObject('action_map');
-    for(var domain in action_map.getItemClones()){
-      if(this.storage.getAction(domain) === constants.USER_ALLOW){
-        this.userAllow.push(domain);
-      }
-    }
   },
 
   /**

@@ -583,12 +583,10 @@ function getSocialWidgetBlockList() {
   var socialWidgetsToReplace = {};
 
   window.SocialWidgetList.forEach(function(socialwidget) {
-    var socialWidgetName = socialwidget.name;
-
-    // Only replace social widgets that the user has not manually allowed
-    socialWidgetsToReplace[socialWidgetName] = !(badger.userAllow.indexOf(socialwidget.domain) > -1);
+    socialWidgetsToReplace[socialWidget.name] = (
+      badger.storage.getAction(domain) === constants.USER_ALLOW
+    );
   });
-
   return {
     "trackers" : window.SocialWidgetList,
     "trackerButtonsToReplace" : socialWidgetsToReplace

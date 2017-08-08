@@ -272,35 +272,21 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Add a heuristic action for a domain and add/remove domain from
-   * userAllow list if needed
+   * Add a heuristic action for a domain
    *
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
   setupUserAction: function(domain, action){
-    var index = badger.userAllow.indexOf(domain);
-    if (index > -1 && action !== constants.USER_ALLOW) {
-      badger.userAllow.splice(index, 1);
-    } else if (index <= -1 && action === constants.USER_ALLOW) {
-      badger.userAllow.push(domain);
-    }
-
     this._setupDomainAction(domain, action, "userAction");
   },
 
   /**
-   * Remove user set action from a domain and remove it from userAllow
-   * list in case it was previously allowed by user
+   * Remove user set action from a domain
   * @param domain FQDN string
   **/
   revertUserAction: function(domain){
     this._setupDomainAction(domain, "", "userAction");
-
-    var index = badger.userAllow.indexOf(domain);
-    if (index > -1) {
-      badger.userAllow.splice(index, 1);
-    }
   }
 };
 
