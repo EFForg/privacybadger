@@ -40,4 +40,21 @@
       "both domains are not in test data"
     );
   });
+
+  QUnit.test('Test dynamic TLDs', assert => {
+    let testData = [
+      [['amazon', mdfp.genCcNode], ['amazon', mdfp.genCcNode /* ignored bc already set*/, mdfp.ccNode]],
+      [['reddit', mdfp.genCcNode], 'redditstatic.com'],
+    ];
+
+    let isMdfp = mdfp.makeIsMultiDomainFirstParty(mdfp.makeDomainLookup(testData));
+    assert.ok(isMdfp('amazon.co.uk', 'amazon.com'));
+    assert.ok(isMdfp('amazon.com', 'amazon.com.br'));
+    assert.notOk(isMdfp('amazon.fake.com', 'amazon.com'));
+
+    assert.ok(isMdfp('reddit.com', 'reddit.br'));
+    assert.ok(isMdfp('reddit.com', 'redditstatic.com'));
+
+    assert.notOk(isMdfp('reddit.com', 'amazon.com'));
+  });
 })();

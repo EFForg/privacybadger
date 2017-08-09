@@ -13,7 +13,13 @@
  **/
 require.scopes.multiDomainFP = (function() {
 
-let trees = require('trees');
+let trees = require('trees'),
+  genTldSet = new Set(['com', 'co', 'org']),
+  genCcTldSet = new Set([...genTldSet, ...window.ccTLDs]);
+
+let ccNode = trees.dynamicNode(label => {return window.ccTLDs.has(label);}),
+  genNode = trees.dynamicNode(label => {return genCcTldSet.has(label);}),
+  genCcNode = trees.dynamicNode(label => {return genCcTldSet.has(label);});
 
 /**
  * 2d array of related domains, all domains owned by the same entity go into
@@ -203,6 +209,8 @@ var _multiDomainFirstPartiesArray = [
 function splitter(input) {
   if (typeof input == 'string') {
     return input.split('.');
+  } else {
+    return input; // array
   }
 }
 
@@ -240,5 +248,5 @@ let _domainLookup = makeDomainLookup(_multiDomainFirstPartiesArray);
  **/
 let isMultiDomainFirstParty = makeIsMultiDomainFirstParty(_domainLookup);
 /************************************** exports */
-return {isMultiDomainFirstParty, makeDomainLookup, makeIsMultiDomainFirstParty};
+return {isMultiDomainFirstParty, makeDomainLookup, makeIsMultiDomainFirstParty, ccNode, genCcNode};
 })(); //require scopes
