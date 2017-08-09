@@ -24,6 +24,7 @@
       "js/bootstrap.js",
       "lib/punycode.js",
       "lib/publicSuffixList.js",
+      "lib/ccTLDSet.js",
       "lib/basedomain.js",
       "lib/underscore-min.js",
       "data/surrogates.js",
