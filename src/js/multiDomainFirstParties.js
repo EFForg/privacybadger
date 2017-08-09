@@ -13,6 +13,8 @@
  **/
 require.scopes.multiDomainFP = (function() {
 
+let trees = require('trees');
+
 /**
  * 2d array of related domains, all domains owned by the same entity go into
  * an array, this is later transformed for efficient lookups.
@@ -198,16 +200,21 @@ var _multiDomainFirstPartiesArray = [
   ["zonealarm.com", "zonelabs.com"],
 ];
 
+function splitter(input) {
+  if (typeof input == 'string') {
+    return input.split('.');
+  }
+}
+
 /**
  * Make a data structure for quick lookups of whether two domains are the same first party
  */
 function makeDomainLookup(mdfpArray) {
-  let out = {},
+  let out = new trees.Tree(splitter),
     arrLength = mdfpArray.length;
   for (let i = 0; i < arrLength; i++) {
-    let inner = new Set(mdfpArray[i]);
-    for (let domain of inner) {
-      out[domain] = inner;
+    for (let domain of mdfpArray[i]) {
+      out.setItem(domain, i);
     }
   }
   return out;
@@ -215,10 +222,11 @@ function makeDomainLookup(mdfpArray) {
 
 function makeIsMultiDomainFirstParty(domainLookup) {
   return function (domain1, domain2) {
-    if (domain1 in domainLookup) {
-      return (domainLookup[domain1].has(domain2));
+    let i = domainLookup.getItem(domain1);
+    if (typeof i == 'undefined') {
+      return false;
     }
-    return false;
+    return i == domainLookup.getItem(domain2);
   };
 }
 
