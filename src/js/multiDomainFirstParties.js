@@ -177,7 +177,7 @@ var _multiDomainFirstPartiesArray = [
   ["techdata.com", "techdata.ch"],
   ["telekom.com", "t-online.de"],
   ["tesla.com", "teslamotors.com"],
-  ["tripadvisor.com", "tacdn.com", "tamgrt.com"],
+  [["tripadvisor", genCcNode, ccNode], ["tripadvisor", genCcNode], "tacdn.com", "tamgrt.com"],
   ["trsretire.com", "divinvest.com"],
   ["turbotax.com", "intuit.com"],
   ["twitch.tv", "ttvnw.net", "jtvnw.net"],
