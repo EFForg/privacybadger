@@ -227,15 +227,17 @@ function unmock(mocked) {
       },
     });
     QUnit.test("disabled", function(assert) {
-      let called1 = false,
-        called2 = false;
+      let done = assert.async(),
+        called = false;
       chrome.tabs.get = noop;
-      chrome.browserAction.setBadgeText = () => {called1 = true;};
-      chrome.browserAction.setBadgeBackgroundColor = () => {called2 = true;};
+      chrome.browserAction.setBadgeText = (obj) => {
+        assert.deepEqual(obj, {tabId: this.tabId, text: ''});
+        done();
+      };
+      chrome.browserAction.setBadgeBackgroundColor = () => {called = true;};
 
       badger.updateBadge(this.tabId, true);
-      assert.ok(called1);
-      assert.notOk(called2);
+      assert.notOk(called);
     });
 
     QUnit.test("numblocked zero", function(assert) {
