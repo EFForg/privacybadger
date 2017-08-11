@@ -1,47 +1,45 @@
 /* globals badger:false */
-
-function noop () {
-  Array.from(arguments).forEach(arg => {
-    if (typeof arg == 'function') {
-      arg();
-    }
-  });
-}
-
-function getter(name) {
-  let parts = name.split('.'),
-    out = window;
-  parts.forEach(part => {
-    out = out[part];
-  });
-  return out;
-}
-
-function setter(name, value) {
-  let parts = name.split('.'),
-    last = parts.pop(),
-    part = window;
-  parts.forEach(partName => {
-    part = part[partName];
-  });
-  part[last] = value;
-}
-
-function beforeMock(names) {
-  let mocked = {};
-  names.forEach(name => {
-    mocked[name] = getter(name);
-  });
-  return mocked;
-}
-
-function unmock(mocked) {
-  Object.keys(mocked).forEach(name => {
-    setter(name, mocked[name]);
-  });
-}
-
 (function() {
+  function noop () {
+    Array.from(arguments).forEach(arg => {
+      if (typeof arg == 'function') {
+        arg();
+      }
+    });
+  }
+
+  function getter(name) {
+    let parts = name.split('.'),
+      out = window;
+    parts.forEach(part => {
+      out = out[part];
+    });
+    return out;
+  }
+
+  function setter(name, value) {
+    let parts = name.split('.'),
+      last = parts.pop(),
+      part = window;
+    parts.forEach(partName => {
+      part = part[partName];
+    });
+    part[last] = value;
+  }
+
+  function beforeMock(names) {
+    let mocked = {};
+    names.forEach(name => {
+      mocked[name] = getter(name);
+    });
+    return mocked;
+  }
+
+  function unmock(mocked) {
+    Object.keys(mocked).forEach(name => {
+      setter(name, mocked[name]);
+    });
+  }
 
   const DNT_COMPLIANT_DOMAIN = 'eff.org',
     POLICY_URL = chrome.extension.getURL('data/dnt-policy.txt');
