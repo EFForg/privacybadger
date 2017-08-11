@@ -1,5 +1,46 @@
 /* globals badger:false */
 
+function noop () {
+  Array.from(arguments).forEach(arg => {
+    if (typeof arg == 'function') {
+      arg();
+    }
+  });
+}
+
+function getter(name) {
+  let parts = name.split('.'),
+    out = window;
+  parts.forEach(part => {
+    out = out[part];
+  });
+  return out;
+}
+
+function setter(name, value) {
+  let parts = name.split('.'),
+    last = parts.pop(),
+    part = window;
+  parts.forEach(partName => {
+    part = part[partName];
+  });
+  part[last] = value;
+}
+
+function beforeMock(names) {
+  let mocked = {};
+  names.forEach(name => {
+    mocked[name] = getter(name);
+  });
+  return mocked;
+}
+
+function unmock(mocked) {
+  Object.keys(mocked).forEach(name => {
+    setter(name, mocked[name]);
+  });
+}
+
 (function() {
 
   const DNT_COMPLIANT_DOMAIN = 'eff.org',
@@ -12,8 +53,6 @@
     server,
     xhrSpy,
     dnt_policy_txt;
-
-  let beforeChromeTabsGet = chrome.tabs.get;
 
   QUnit.module("Background", {
     before: (assert) => {
@@ -48,7 +87,6 @@
     afterEach: (/*assert*/) => {
       // reset call counts, etc. after each test
       utils.xhrRequest.restore();
-      chrome.tabs.get = beforeChromeTabsGet;
     },
 
     after: (/*assert*/) => {
@@ -143,33 +181,89 @@
     badger.isCheckingDNTPolicyEnabled = old_dnt_check_func;
   });
 
-  QUnit.test("Blocked domain only counted once in badge", (assert) => {
-    chrome.tabs.get = (tabId, callback) => {
-      callback();
-    };
-
-    badger.tabData[-1] = {
-      frames: {},
-      origins: {},
-      blocked: {
-        [constants.BLOCK]: {},
-        [constants.USER_BLOCK]: {},
-        [constants.COOKIEBLOCK]: {},
-        [constants.USER_COOKIE_BLOCK]: {}
+  QUnit.module("tabData", {
+    beforeEach: function () {
+      this.tabId = -1;
+      badger.tabData[this.tabId] = {
+        frames: {},
+        origins: {},
+        blockedCount: 0
+      };
+    },
+  },
+  function() {
+    QUnit.module("logThirdPartyOriginOnTab", {
+      beforeEach: function () {
+        this.before = beforeMock(['badger.updateBadge']);
+        badger.updateBadge = noop;
       },
-      blockedCount: 0
-    };
+      afterEach: function () {
+        unmock(this.before);
+      },
+    });
+    QUnit.test("increment blocked count", function(assert) {
+      let tabId = this.tabId;
+      assert.equal(badger.tabData[tabId].blockedCount, 0);
 
-    badger.logThirdPartyOriginOnTab(-1, "test.com", constants.BLOCK);
-    assert.equal(badger.tabData[-1].blockedCount, 1);
+      badger.logThirdPartyOriginOnTab(tabId, 'stuff', constants.BLOCK);
+      assert.equal(badger.tabData[tabId].blockedCount, 1);
 
-    // Verify that a second occurrence of 'test.com' doesn't result in
-    // the blockedCount (used for the badge) incrementing again.
-    badger.logThirdPartyOriginOnTab(-1, "test.com", constants.BLOCK);
-    assert.equal(badger.tabData[-1].blockedCount, 1);
+      badger.logThirdPartyOriginOnTab(tabId, 'stuff', constants.BLOCK);
+      assert.equal(badger.tabData[tabId].blockedCount, 1);
 
-    // Verify that non-blocked domains don't increment badge count.
-    badger.logThirdPartyOriginOnTab(-1, "test2.com", constants.ALLOW);
-    assert.equal(badger.tabData[-1].blockedCount, 1);
+      badger.logThirdPartyOriginOnTab(tabId, 'eff.org', constants.COOKIEBLOCK);
+      assert.equal(badger.tabData[tabId].blockedCount, 2);
+    });
+    QUnit.module('updateBadge', {
+      beforeEach: function() {
+        this.before = beforeMock([
+          'chrome.tabs.get',
+          'chrome.browserAction.setBadgeText',
+          'chrome.browserAction.setBadgeBackgroundColor'
+        ]);
+      },
+      afterEach: function() {
+        unmock(this.before);
+      },
+    });
+    QUnit.test("disabled", function(assert) {
+      let called1 = false,
+        called2 = false;
+      chrome.tabs.get = noop;
+      chrome.browserAction.setBadgeText = () => {called1 = true;};
+      chrome.browserAction.setBadgeBackgroundColor = () => {called2 = true;};
+
+      badger.updateBadge(this.tabId, true);
+      assert.ok(called1);
+      assert.notOk(called2);
+    });
+
+    QUnit.test("numblocked zero", function(assert) {
+      let done = assert.async(2);
+      chrome.tabs.get = noop;
+      chrome.browserAction.setBadgeText = (obj) => {
+        assert.deepEqual(obj, {tabId: this.tabId, text: "0"});
+        done();
+      };
+      chrome.browserAction.setBadgeBackgroundColor = (obj) => {
+        assert.deepEqual(obj, {tabId: this.tabId, color: "#00cc00"});
+        done();
+      };
+      badger.updateBadge(this.tabId);
+    });
+    QUnit.test("numblocked many", function(assert) {
+      let done = assert.async(2);
+      badger.tabData[this.tabId].blockedCount = "many";
+      chrome.tabs.get = noop;
+      chrome.browserAction.setBadgeText = (obj) => {
+        assert.deepEqual(obj, {tabId: this.tabId, text: "many"});
+        done();
+      };
+      chrome.browserAction.setBadgeBackgroundColor = (obj) => {
+        assert.deepEqual(obj, {tabId: this.tabId, color: "#cc0000"});
+        done();
+      };
+      badger.updateBadge(this.tabId);
+    });
   });
 }());
