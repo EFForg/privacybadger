@@ -233,7 +233,6 @@ class PBSeleniumTest(unittest.TestCase):
     def init(self, driver):
         self._logs = []
         self.driver = driver
-        self.driver.set_script_timeout(10)
         self.js = self.driver.execute_script
         self.bg_url = self.base_url + "_generated_background_page.html"
         self.options_url = self.base_url + "skin/options.html"
