@@ -54,9 +54,9 @@
     },
     {
       "js": [
+        "js/contentscripts/injector.js",
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
-        "js/contentscripts/fingerprinting.js",
         "js/contentscripts/supercookie.js"
       ],
       "matches": [
@@ -99,6 +99,7 @@
   },
   "options_page": "/skin/options.html",
   "web_accessible_resources": [
+    "js/injected/*",
     "skin/socialwidgets/*"
   ]
 }
