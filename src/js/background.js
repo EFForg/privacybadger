@@ -608,7 +608,7 @@ Badger.prototype = {
     }
     return true;
   },
-  
+
   /**
    * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
@@ -783,12 +783,13 @@ function startBackgroundListeners() {
 
   if(badger.isFirefoxMobile) {
     // keeps track of popup id while one is open
-    var openPopupId;
+    var openPopupId = false;
+    var popup_url = chrome.runtime.getManifest().browser_action.default_popup;
 
     // fake a popup
     chrome.browserAction.onClicked.addListener(() => {
       chrome.tabs.query({active: true, lastFocusedWindow: true}, (tabs) => {
-        var url = chrome.runtime.getManifest().browser_action.default_popup + "?tabId=" + tabs[0].id;
+        var url = popup_url + "?tabId=" + tabs[0].id;
         chrome.tabs.create({url, index: tabs[0].index + 1}, (tab) => {
           openPopupId = tab.id;
         });
@@ -797,10 +798,23 @@ function startBackgroundListeners() {
 
     // remove the 'popup' when another tab is activated
     chrome.tabs.onActivated.addListener((activeInfo) => {
-      if(openPopupId && openPopupId != activeInfo.tabId) {
+      if(openPopupId != false && openPopupId != activeInfo.tabId) {
         chrome.tabs.remove(openPopupId, () => {
-          openPopupId = null;
+          openPopupId = false;
         });
+      }
+    });
+
+    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+      if(tab.url){
+        var new_url = new URL(tab.url);
+      }
+
+      if(
+        (openPopupId != false && openPopupId != tabId) ||
+        (tab.url && new_url.origin + new_url.pathname != popup_url )
+      ){
+        openPopupId = false;
       }
     });
   }
