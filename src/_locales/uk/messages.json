@@ -11,6 +11,9 @@
     "badger_status_cookieblock": {
         "message": "Заблоковано куки з "
     },
+    "badger_status_noaction": {
+        "message": "Немає стеження для"
+    },
     "data_settings": {
         "message": "Керувати даними"
     },
@@ -19,6 +22,9 @@
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger вимкнено для доменів, зазначених нижче. Ви можете додати домен через піктограму Privacy Badger в панелі адреси, або ввівши домен (не URL) в полі й натиснувши кнопку \"Додати домен\"."
+    },
+    "dnt_tooltip": {
+        "message": "Цей домен обіцяє не стежити за вами"
     },
     "download": {
         "message": "Завантажити"
@@ -305,5 +311,4 @@
     "version": {
       "message": "версія"
     }
-
 }
