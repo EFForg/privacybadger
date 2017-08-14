@@ -225,7 +225,7 @@
       },
     });
     QUnit.test("disabled", function(assert) {
-      let done = assert.async(),
+      let done = assert.async(2),
         called = false;
       chrome.tabs.get = noop;
       chrome.browserAction.setBadgeText = (obj) => {
@@ -236,6 +236,7 @@
 
       badger.updateBadge(this.tabId, true);
       assert.notOk(called);
+      done();
     });
 
     QUnit.test("numblocked zero", function(assert) {
