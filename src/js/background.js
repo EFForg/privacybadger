@@ -804,25 +804,21 @@ function startBackgroundListeners() {
         });
       }
     });
-
-    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-      if(tab.url){
-        var new_url = new URL(tab.url);
-      }
-
-      if(
-        (openPopupId != false && openPopupId != tabId) ||
-        (tab.url && new_url.origin + new_url.pathname != popup_url )
-      ){
-        openPopupId = false;
-      }
-    });
   }
 
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
       badger.refreshIconAndContextMenu(tab);
+    }
+
+    if(badger.isFirefoxMobile && tab.url && openPopupId == tabId){
+      var new_url = new URL(tab.url);
+
+      // forget the popup id, because the user as overwritten the url
+      if(new_url.origin + new_url.pathname != popup_url){
+        openPopupId = false;
+      }
     }
   });
 
