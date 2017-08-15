@@ -179,7 +179,7 @@ var _multiDomainFirstPartiesArray = [
   ["wikia.com", "wikia.net", "nocookie.net"],
   ["wikipedia.org", "wikimedia.org", "wikimediafoundation.org", "wiktionary.org",
     "wikiquote.org", "wikibooks.org", "wikisource.org", "wikinews.org",
-    "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org"],
+    "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org", "tools.wmflabs.org"],
   ["wordpress.com", "wp.com"],
   ["wpcu.coop", "wpcuonline.com"],
   ["wsj.com", "wsj.net", "barrons.com", "dowjones.com", "marketwatch.com"],
