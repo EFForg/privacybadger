@@ -366,6 +366,7 @@
 @@||newsinc.com^$third-party
 @@||newslook.com^$third-party
 @@||newstogram.com^$third-party
+@@||cdn.lib.newsvine.com^$third-party
 @@||nextopiasoftware.com^$third-party
 @@||nfl.com^$third-party
 @@||nflcdn.com^$third-party
