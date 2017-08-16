@@ -25,6 +25,7 @@ var constants = require("constants");
 var pbStorage = require("storage");
 
 var HeuristicBlocking = require("heuristicblocking");
+var FirefoxAndroid = require("firefoxandroid");
 var webrequest = require("webrequest");
 var SocialWidgetLoader = require("socialwidgetloader");
 window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json");
@@ -65,10 +66,6 @@ function Badger() {
 
     badger.INITIALIZED = true;
   });
-
-  // Temporary feature check for firefox android while it doesn't support the full browserAction API
-  // Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159
-  this.isFirefoxMobile = !(chrome.browserAction.setBadgeText && chrome.browserAction.setPopup && chrome.browserAction.getPopup);
 
   /**
   * WebRTC availability check
@@ -533,7 +530,7 @@ Badger.prototype = {
    * @param {Integer} tabId chrome tab id
    */
   updateBadge: function(tabId){
-    if(this.isFirefoxMobile){
+    if(FirefoxAndroid.isUsed){
       return;
     }
 
@@ -781,44 +778,10 @@ function startBackgroundListeners() {
     }
   }, {urls: ["http://*/*", "https://*/*"]}, []);
 
-  if(badger.isFirefoxMobile) {
-    // keeps track of popup id while one is open
-    var openPopupId = false;
-    var popup_url = chrome.runtime.getManifest().browser_action.default_popup;
-
-    // fake a popup
-    chrome.browserAction.onClicked.addListener(() => {
-      chrome.tabs.query({active: true, lastFocusedWindow: true}, (tabs) => {
-        var url = popup_url + "?tabId=" + tabs[0].id;
-        chrome.tabs.create({url, index: tabs[0].index + 1}, (tab) => {
-          openPopupId = tab.id;
-        });
-      });
-    });
-
-    // remove the 'popup' when another tab is activated
-    chrome.tabs.onActivated.addListener((activeInfo) => {
-      if(openPopupId != false && openPopupId != activeInfo.tabId) {
-        chrome.tabs.remove(openPopupId, () => {
-          openPopupId = false;
-        });
-      }
-    });
-  }
-
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading") {
       badger.refreshIconAndContextMenu(tab);
-    }
-
-    if(badger.isFirefoxMobile && tab.url && openPopupId == tabId){
-      var new_url = new URL(tab.url);
-
-      // forget the popup id, because the user as overwritten the url
-      if(new_url.origin + new_url.pathname != popup_url){
-        openPopupId = false;
-      }
     }
   });
 
@@ -864,6 +827,7 @@ var badger = window.badger = new Badger();
 incognito.startListeners();
 webrequest.startListeners();
 HeuristicBlocking.startListeners();
+FirefoxAndroid.startListeners();
 startBackgroundListeners();
 
 // TODO move listeners and this message behind INITIALIZED
