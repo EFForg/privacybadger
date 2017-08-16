@@ -71,7 +71,7 @@ function startListeners() {
 }
 
 function getParentOfPopup(callback){
-  chrome.tabs.getCurrent(function(focusedTab) {
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, function(focusedTab) {
     var parentId = parseInt(new URL(focusedTab[0].url).searchParams.get('tabId'));
     chrome.tabs.get(parentId, callback);
   });

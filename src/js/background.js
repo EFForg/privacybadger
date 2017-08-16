@@ -748,7 +748,7 @@ Badger.prototype = {
    * @param {Object} tab The tab to set the badger icon for
    */
   refreshIconAndContextMenu: function (tab) {
-    if (!tab || this.isFirefoxMobile) {
+    if (!tab || FirefoxAndroid.isUsed) {
       return;
     }
 
