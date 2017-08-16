@@ -1,5 +1,5 @@
 {
-  "version": "2017.6.13.1",
+  "version": "2017.7.24",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
@@ -57,8 +57,7 @@
       "js": [
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
-        "js/contentscripts/fingerprinting.js",
-        "js/contentscripts/supercookie.js"
+        "js/contentscripts/fingerprinting.js"
       ],
       "matches": [
         "<all_urls>"
@@ -68,7 +67,8 @@
     },
     {
       "js": [
-	"js/contentscripts/socialwidgets.js"
+        "js/contentscripts/socialwidgets.js",
+        "js/contentscripts/supercookie.js"
       ],
       "matches": [
         "<all_urls>"
@@ -82,13 +82,10 @@
   "icons": {
     "16": "icons/badger-16.png",
     "19": "icons/badger-19.png",
-    "24": "icons/badger-24.png",
-    "32": "icons/badger-32.png",
     "38": "icons/badger-38.png",
     "48": "icons/badger-48.png",
     "64": "icons/badger-64.png",
-    "128": "icons/badger-128.png",
-    "170": "icons/badger-170.png"
+    "128": "icons/badger-128.png"
   },
   "manifest_version": 2,
   "minimum_chrome_version": "18.0",

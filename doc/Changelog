@@ -1,5 +1,14 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.7.24
+* Added validation to yellowlist (f.k.a. "cookieblock list") updating
+* Removed faulty yellowlist domain removal logic, which, together with missing
+validation and eff.org serving a maintenance page instead of the actual
+yellowlist, resulted in major breakages all across the Web, something this
+update should prevent from happening ever again
+* Fixed various site breakages
+* Improved translations (Swedish)
+
 ## 2017.6.13.1
 * Added workaround for validation issue preventing upload to Chrome Web Store
 * Fixed chrome.privacy-related exceptions in Firefox 54

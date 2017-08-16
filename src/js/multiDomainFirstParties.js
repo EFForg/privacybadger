@@ -20,7 +20,8 @@ require.scopes.multiDomainFP = (function() {
 var _multiDomainFirstPartiesArray = [
   ["1800contacts.com", "800contacts.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
-  ["abcnews.com", "go.com", "espn.com", "espncdn.com", "disneymoviesanywhere.com", "disney.com", "dadt.com"],
+  ["abcnews.com", "go.com", "espn.com", "espncdn.com", "disneymoviesanywhere.com", "disney.com", "dadt.com",
+    "6abc.com", "abc7.com", "abc7ny.com"],
   ["accountonline.com", "citi.com", "citibank.com", "citicards.com", "citibankonline.com"],
   ["allstate.com", "myallstate.com"],
   ["altra.org", "altraonline.org"],
@@ -125,6 +126,7 @@ var _multiDomainFirstPartiesArray = [
   ],
   ["mobilism.org.in", "mobilism.org"],
   ["morganstanley.com", "morganstanleyclientserv.com", "stockplanconnect.com", "ms.com"],
+  ["msnbc.com", "newsvine.com"],
   ["my-bookings.org", "my-bookings.cc"],
   ["mycanal.fr", "canal-plus.com"],
   ["mymerrill.com", "ml.com", "merrilledge.com"],
@@ -186,7 +188,7 @@ var _multiDomainFirstPartiesArray = [
     "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org"],
   ["wordpress.com", "wp.com"],
   ["wpcu.coop", "wpcuonline.com"],
-  ["wsj.com", "wsj.net"],
+  ["wsj.com", "wsj.net", "barrons.com", "dowjones.com", "marketwatch.com"],
   ["xda-developers.com", "xda-cdn.com"],
   ["xfinity.com", "comcast.net", "comcast.com"],
   ["xiami.com", "alipay.com"],
@@ -200,21 +202,28 @@ var _multiDomainFirstPartiesArray = [
 /**
  * Make a data structure for quick lookups of whether two domains are the same first party
  */
-function _makeDomainLookup() {
-  var arr = _multiDomainFirstPartiesArray;
-  var out = {};
-  var arrLength = arr.length;
-  for (var i = 0; i < arrLength; i++) {
-    var inLength = arr[i].length;
-    for (var j = 0; j < inLength; j++) {
-      out[arr[i][j]] = arr[i];
+function makeDomainLookup(mdfpArray) {
+  let out = {},
+    arrLength = mdfpArray.length;
+  for (let i = 0; i < arrLength; i++) {
+    let inner = new Set(mdfpArray[i]);
+    for (let domain of inner) {
+      out[domain] = inner;
     }
   }
   return out;
 }
 
-var DomainLookup = _makeDomainLookup();
+function makeIsMultiDomainFirstParty(domainLookup) {
+  return function (domain1, domain2) {
+    if (domain1 in domainLookup) {
+      return (domainLookup[domain1].has(domain2));
+    }
+    return false;
+  };
+}
 
+let _domainLookup = makeDomainLookup(_multiDomainFirstPartiesArray);
 /**
  * Check if two domains belong to the same effective first party
  * @param {String} domain1 a base doamin
@@ -222,18 +231,7 @@ var DomainLookup = _makeDomainLookup();
  *
  * @return boolean true if the domains are the same first party
  **/
-function isMultiDomainFirstParty(domain1, domain2) {
-  if (domain1 in DomainLookup) {
-    return (DomainLookup[domain1].indexOf(domain2) >= 0);
-  }
-  return false;
-}
-
+let isMultiDomainFirstParty = makeIsMultiDomainFirstParty(_domainLookup);
 /************************************** exports */
-var exports = {};
-
-exports.isMultiDomainFirstParty = isMultiDomainFirstParty;
-
-return exports;
-/************************************** exports */
+return {isMultiDomainFirstParty, makeDomainLookup, makeIsMultiDomainFirstParty};
 })(); //require scopes

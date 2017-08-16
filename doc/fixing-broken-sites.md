@@ -33,6 +33,8 @@ The question to ask is, which way addresses the issue most specifically, resolvi
 
 Does the blocked domain actually belong to the site, but Privacy Badger doesn't know that and so treats the domain as an external tracker? Sounds like a job for [multi-domain first parties](https://github.com/EFForg/privacybadger/issues/781).
 
+For example, see [this "Disney–ABC Television Group" pull request](https://github.com/EFForg/privacybadger/pull/1526).
+
 
 ### JavaScript errors
 
@@ -48,6 +50,8 @@ We should also ask the service to to adopt the [EFF Do Not Track policy](https:/
 
 ### External domains too complex to surrogate or replace with placeholders
 
-If nothing else seems to fit, adding the affected domain to the "[yellowlist](/doc/yellowlist-criteria.md)" will make Privacy Badger set the domain to "yellow" (cookie-blocked) instead of "red" (blocked) after seeing it track on three or more sites.
+If nothing else seems to fit, adding the affected domain to the "[yellowlist](/doc/yellowlist-criteria.md)" will make Privacy Badger set the domain to "yellow" ("cookie-blocked") instead of "red" (blocked) after seeing it track on three or more sites.
 
 Resources from yellowlisted domains are requested without referrer headers, and are restricted from reading or writing cookies or localStorage.
+
+[Here is an example yellowlist pull request](https://github.com/EFForg/privacybadger/pull/1543) that shows what's good to know when deciding how to fix a breakage, and how to get that information.

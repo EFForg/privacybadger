@@ -34,7 +34,7 @@ To hack on privacy badger you need to install it from source.
 
 In Chrome, visit `chrome://extensions`, enable "Developer mode", click "Load unpacked extension..." and select the [`src`](src/) subdirectory inside your copy of the Privacy Badger source code.
 
-In Firefox, visit `about:debugging`, click "Load Temporary Add-on" and select the `src` subdirectory.
+In Firefox, visit `about:debugging`, click "Load Temporary Add-on" and select the `src/manifest.json` file. Note that this only installs the extension temporarily, it is removed when you close Firefox.
 
 To test your installation, try running the unit tests by following [these instructions](/doc/tests.md#unit-tests).
 

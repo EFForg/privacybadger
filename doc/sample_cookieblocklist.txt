@@ -124,6 +124,7 @@ dmcdn.net
 dmcdn.com
 screendoor.dobt.co
 domainnamesales.com
+dotsub.com
 dl.dropboxusercontent.com
 dudamobile.com
 dumpert.nl
@@ -301,6 +302,7 @@ jtvnw.net
 justin.tv
 jwpcdn.com
 jwpltx.com
+content.jwplatform.com
 cdnapi.kaltura.com
 cdnbakmi.kaltura.com
 cfvod.kaltura.com
@@ -549,6 +551,7 @@ weather.com
 weather.gov
 weatherbug.com
 weathernationtv.com
+weatherzone.com.au
 webtype.com
 where.com
 widgetserver.com

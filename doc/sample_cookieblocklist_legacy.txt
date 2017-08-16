@@ -124,6 +124,7 @@
 @@||dmcdn.com^$third-party
 @@||screendoor.dobt.co^$third-party
 @@||domainnamesales.com^$third-party
+@@||dotsub.com^$third-party
 @@||dl.dropboxusercontent.com^$third-party
 @@||dudamobile.com^$third-party
 @@||dumpert.nl^$third-party
@@ -301,6 +302,7 @@
 @@||justin.tv^$third-party
 @@||jwpcdn.com^$third-party
 @@||jwpltx.com^$third-party
+@@||content.jwplatform.com^$third-party
 @@||cdnapi.kaltura.com^$third-party
 @@||cdnbakmi.kaltura.com^$third-party
 @@||cfvod.kaltura.com^$third-party
@@ -549,6 +551,7 @@
 @@||weather.gov^$third-party
 @@||weatherbug.com^$third-party
 @@||weathernationtv.com^$third-party
+@@||weatherzone.com.au^$third-party
 @@||webtype.com^$third-party
 @@||where.com^$third-party
 @@||widgetserver.com^$third-party
