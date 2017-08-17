@@ -494,6 +494,7 @@ stripe.com
 stripecdn.com
 surveygizmo.com
 surveymonkey.com
+swiftype.com
 syracuse.com
 public.tableausoftware.com
 c.tadst.com
