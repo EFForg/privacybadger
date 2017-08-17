@@ -116,7 +116,7 @@
         "description": ""
     },
     "options_social_widgets_checkbox": {
-        "message": "Ersätt sociala widgetar",
+        "message": "Ersätt sociala gränssnittskomponenter",
         "description": ""
     },
     "options_tracking_domains": {
@@ -344,7 +344,7 @@
         "description": ""
     },
     "options_potential": {
-        "message": "potentiell",
+        "message": "potentiell(a)",
         "description": ""
     },
     "remove_button": {
