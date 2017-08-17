@@ -36,36 +36,33 @@ var incognito = require("incognito");
 * privacy badger initializer
 */
 function Badger() {
-  var badger = this;
-  this.userAllow = [];
-  this.webRTCAvailable = checkWebRTCBrowserSupport();
-  this.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (badger.INITIALIZED) { return; }
-    badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
-    badger.updateTabList();
-    badger.initializeDefaultSettings();
+  let self = this;
+  self.webRTCAvailable = checkWebRTCBrowserSupport();
+  self.storage = new pbStorage.BadgerPen(function(thisStorage) {
+    if (self.INITIALIZED) { return; }
+    self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
+    self.updateTabData();
+    self.initializeDefaultSettings();
     try {
-      badger.runMigrations();
+      self.runMigrations();
     } finally {
-      badger.initializeCookieBlockList();
-      badger.initializeDNT();
-      badger.initializeUserAllowList();
-      badger.enableWebRTCProtection();
-      if (!badger.isIncognito) {badger.showFirstRunPage();}
+      self.initializeCookieBlockList();
+      self.initializeDNT();
+      self.enableWebRTCProtection();
+      if (!self.isIncognito) {self.showFirstRunPage();}
     }
 
     // Show icon as page action for all tabs that already exist
     chrome.windows.getAll({populate: true}, function (windows) {
       for (var i = 0; i < windows.length; i++) {
         for (var j = 0; j < windows[i].tabs.length; j++) {
-          badger.refreshIconAndContextMenu(windows[i].tabs[j]);
+          self.refreshIconAndContextMenu(windows[i].tabs[j]);
         }
       }
     });
 
-    // TODO: register all privacy badger listeners here in the storage callback
-
-    badger.INITIALIZED = true;
+    self.startAllListeners();
+    self.INITIALIZED = true;
   });
 
   /**
@@ -153,21 +150,18 @@ Badger.prototype = {
   * @param {String} origin the third party origin to take action on
   */
   saveAction: function(userAction, origin) {
-    var allUserActions = {'block': constants.USER_BLOCK,
-                          'cookieblock': constants.USER_COOKIE_BLOCK,
-                          'allow': constants.USER_ALLOW};
-    this.storage.setupUserAction(origin, allUserActions[userAction]);
-    log("Finished saving action " + userAction + " for " + origin);
-
+    if (constants.userActions.has(userAction)) {
+      this.storage.setupUserAction(origin, userAction);
+      log("Finished saving action " + userAction + " for " + origin);
+    }
     // TODO: right now we don't determine whether a reload is needed
     return true;
   },
 
-
   /**
   * Populate tabs object with currently open tabs when extension is updated or installed.
   */
-  updateTabList: function(){
+  updateTabData: function(){
     // Initialize the tabData/frames object if it is falsey
     this.tabData = this.tabData || {};
     var self = this;
@@ -328,19 +322,6 @@ Badger.prototype = {
   initializeDNT: function () {
     this.updateDNTPolicyHashes();
     setInterval(this.updateDNTPolicyHashes.bind(this), utils.oneDay() * 4);
-  },
-
-  /**
-   * Search through action_map list and update list of domains
-   * that user has manually set to "allow"
-   */
-  initializeUserAllowList: function() {
-    var action_map = this.storage.getBadgerStorageObject('action_map');
-    for(var domain in action_map.getItemClones()){
-      if(this.storage.getAction(domain) === constants.USER_ALLOW){
-        this.userAllow.push(domain);
-      }
-    }
   },
 
   /**
@@ -766,68 +747,65 @@ Badger.prototype = {
     chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
   },
 
-};
-
-/**************************** Listeners ****************************/
-
-function startBackgroundListeners() {
-  chrome.webRequest.onBeforeRequest.addListener(function(details) {
-    if (details.tabId != -1){
-      badger.updateCount(details);
-    }
-  }, {urls: ["http://*/*", "https://*/*"]}, []);
+  startBadgerListeners: function() {
+    let self = this;
+    chrome.webRequest.onBeforeRequest.addListener(function(details) {
+      if (details.tabId != -1){
+        self.updateCount(details);
+      }
+    }, {urls: ["http://*/*", "https://*/*"]}, []);
 
 
-  // Update icon if a tab changes location
-  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    if(changeInfo.status == "loading") {
-      badger.refreshIconAndContextMenu(tab);
-    }
-  });
-
-  // Update icon if a tab is replaced or loaded from cache
-  chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/){
-    chrome.tabs.get(addedTabId, function(tab){
-      badger.refreshIconAndContextMenu(tab);
+    // Update icon if a tab changes location
+    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+      if(changeInfo.status == "loading") {
+        self.refreshIconAndContextMenu(tab);
+      }
     });
-  });
 
-  // Listening for Avira Autopilot remote control UI
-  // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
-  // The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
-  if(chrome.runtime.onMessageExternal){
-    chrome.runtime.onMessageExternal.addListener(
-      function(request, sender, sendResponse) {
-        // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
-        if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
-          if (request.command == "getDisabledSites") {
-            sendResponse({origins: badger.listOriginsWherePrivacyBadgerIsDisabled()});
-          }
-          else if (request.command == "enable") {
-            badger.enablePrivacyBadgerForOrigin(request.origin);
-          }
-          else if (request.command == "disable") {
-            badger.disablePrivacyBadgerForOrigin(request.origin);
+    // Update icon if a tab is replaced or loaded from cache
+    chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/){
+      chrome.tabs.get(addedTabId, function(tab){
+        self.refreshIconAndContextMenu(tab);
+      });
+    });
+
+    // Listening for Avira Autopilot remote control UI
+    // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
+    // The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
+    if(chrome.runtime.onMessageExternal){
+      chrome.runtime.onMessageExternal.addListener(
+        function(request, sender, sendResponse) {
+          // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
+          if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
+            if (request.command == "getDisabledSites") {
+              sendResponse({origins: self.listOriginsWherePrivacyBadgerIsDisabled()});
+            }
+            else if (request.command == "enable") {
+              self.enablePrivacyBadgerForOrigin(request.origin);
+            }
+            else if (request.command == "disable") {
+              self.disablePrivacyBadgerForOrigin(request.origin);
+            }
           }
         }
-      }
-    );
-  }
-}
+      );
+    }
+  },
+
+  startAllListeners: function() {
+    incognito.startListeners();
+    webrequest.startListeners();
+    HeuristicBlocking.startListeners();
+    this.startBadgerListeners();
+  },
+};
 
 /**
  * lets get this party started
  */
 console.log('Loading badgers into the pen.');
 var badger = window.badger = new Badger();
-
-/**
-* Start all the listeners
-*/
-incognito.startListeners();
-webrequest.startListeners();
-HeuristicBlocking.startListeners();
-startBackgroundListeners();
 
 // TODO move listeners and this message behind INITIALIZED
 console.log('Privacy badger is ready to rock!');

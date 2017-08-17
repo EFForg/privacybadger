@@ -4,12 +4,22 @@
 
   let BACKUP = {};
 
+  function callbackCaller() {
+    for (let a of arguments) {
+      if (typeof a == 'function') {
+        a();
+      }
+    }
+  }
+
   QUnit.config.autostart = false;
   QUnit.config.testTimeout = 6400;
 
   // disable storage persistence
   // unit tests shouldn't be able to affect your Badger's storage
-  chrome.storage.local.set = () => {};
+  chrome.storage.local.set = callbackCaller;
+  chrome.tabs.sendMessage = callbackCaller;
+  chrome.runtime.sendMessage = callbackCaller;
 
   // make it seem like there is nothing in storage
   // unit tests shouldn't read from your Badger's storage either

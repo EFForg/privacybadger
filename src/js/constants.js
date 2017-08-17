@@ -18,7 +18,6 @@
 require.scopes.constants = (function() {
 
 var exports = {
-
   // Tracking status constants
   NO_TRACKING: "noaction",
   ALLOW: "allow",
@@ -39,6 +38,12 @@ var exports = {
 
   DNT_POLICY_CHECK_INTERVAL: 1000, // one second
 };
+
+exports.userActions = new Set([
+  exports.USER_BLOCK,
+  exports.USER_COOKIE_BLOCK,
+  exports.USER_ALLOW,
+]);
 
 return exports;
 })();

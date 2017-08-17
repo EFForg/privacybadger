@@ -25,11 +25,11 @@
   });
 
   QUnit.test("test user override of default action for domain", function (assert) {
-    badger.saveAction("allow", "pbtest.org");
+    badger.saveAction(constants.ALLOW, "pbtest.org");
     assert.ok(badger.userAllow.indexOf('pbtest.org') > -1);
-    badger.saveAction("block", "pbtest.org");
+    badger.saveAction(constants.BLOCK, "pbtest.org");
     assert.ok(badger.userAllow.indexOf('pbtest.org') <= -1);
-    badger.saveAction("allow", "pbtest.org");
+    badger.saveAction(constants.ALLOW, "pbtest.org");
     assert.ok(badger.userAllow.indexOf('pbtest.org') > -1);
     storage.revertUserAction("pbtest.org");
     assert.ok(badger.userAllow.indexOf('pbtest.org') <= -1);
