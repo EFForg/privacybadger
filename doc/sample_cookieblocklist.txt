@@ -459,6 +459,7 @@ securitymetrics.com
 seeclickfix.com
 sgizmo.com
 shopify.com
+shopifycdn.com
 shopping.com
 shoprunner.com
 siteimprove.com
