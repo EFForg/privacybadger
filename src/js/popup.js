@@ -22,6 +22,7 @@ var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var constants = backgroundPage.constants;
 var badger = backgroundPage.badger;
+var FirefoxAndroid = backgroundPage.FirefoxAndroid;
 var htmlUtils = require("htmlutils").htmlUtils;
 
 var i18n = chrome.i18n;
@@ -512,6 +513,12 @@ function syncUISelections() {
 * seems to be that it is synchronous.
 */
 function getTab(callback) {
+  // Temporary fix for Firefox Android
+  if(FirefoxAndroid.isUsed){
+    FirefoxAndroid.getParentOfPopup(callback);
+    return;
+  }
+
   chrome.tabs.query({active: true, lastFocusedWindow: true}, function(t) { callback(t[0]); });
 }
 

@@ -25,6 +25,7 @@ var constants = require("constants");
 var pbStorage = require("storage");
 
 var HeuristicBlocking = require("heuristicblocking");
+var FirefoxAndroid = require("firefoxandroid");
 var webrequest = require("webrequest");
 var SocialWidgetLoader = require("socialwidgetloader");
 window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json");
@@ -55,11 +56,9 @@ function Badger() {
     }
 
     // Show icon as page action for all tabs that already exist
-    chrome.windows.getAll({populate: true}, function (windows) {
-      for (var i = 0; i < windows.length; i++) {
-        for (var j = 0; j < windows[i].tabs.length; j++) {
-          badger.refreshIconAndContextMenu(windows[i].tabs[j]);
-        }
+    chrome.tabs.query({}, function (tabs) {
+      for (var i = 0; i < tabs.length; i++) {
+        badger.refreshIconAndContextMenu(tabs[i]);
       }
     });
 
@@ -532,6 +531,10 @@ Badger.prototype = {
    * @param {Integer} tabId chrome tab id
    */
   updateBadge: function(tabId){
+    if(FirefoxAndroid.isUsed){
+      return;
+    }
+
     if (!this.showCounter()){
       chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
       return;
@@ -603,7 +606,7 @@ Badger.prototype = {
     }
     return true;
   },
-  
+
   /**
    * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
@@ -745,7 +748,7 @@ Badger.prototype = {
    * @param {Object} tab The tab to set the badger icon for
    */
   refreshIconAndContextMenu: function (tab) {
-    if (!tab) {
+    if (!tab || FirefoxAndroid.isUsed) {
       return;
     }
 
@@ -763,7 +766,6 @@ Badger.prototype = {
     }
 
     chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
-    chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
   },
 
 };
@@ -776,7 +778,6 @@ function startBackgroundListeners() {
       badger.updateCount(details);
     }
   }, {urls: ["http://*/*", "https://*/*"]}, []);
-
 
   // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
@@ -827,6 +828,7 @@ var badger = window.badger = new Badger();
 incognito.startListeners();
 webrequest.startListeners();
 HeuristicBlocking.startListeners();
+FirefoxAndroid.startListeners();
 startBackgroundListeners();
 
 // TODO move listeners and this message behind INITIALIZED
