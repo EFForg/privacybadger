@@ -9,16 +9,22 @@
         "message": "Blokováno "
     },
     "badger_status_cookieblock": {
-        "message": "Blokovány cookies od "
+        "message": "Blokovány soubory cookies od "
+    },
+    "badger_status_noaction": {
+        "message": "Žádné sledovací prvky pro "
     },
     "data_settings": {
         "message": "Spravovat data"
     },
     "description": {
-        "message": "Privacy Badger vás chrání před sledováním při brouzdání na webu!"
+        "message": "Privacy Badger vás chrání před sledováním při procházení internetu!"
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger je vypnutý pro domény na seznamu níže. Doménu můžete přidat také pomocí ikony Privacy Badger v adresním řádku nebo napsaním domény (ne URL) do rámečku a kliknutím na tlačítko \"Přidat doménu\"."
+        "message": "Privacy Badger je vypnutý pro domény na seznamu níže. Doménu můžete přidat také pomocí ikony Privacy Badger v adresním řádku nebo napsáním domény (ne URL) do rámečku a kliknutím na tlačítko \"Přidat doménu\"."
+    },
+    "dnt_tooltip": {
+        "message": "Tato doména slibuje, že vás nebude sledovat"
     },
     "download": {
         "message": "Stáhnout"
@@ -30,46 +36,46 @@
         "message": "Exportovat uživatelská data"
     },
     "feed_the_badger_title": {
-        "message": "Klikněte pro vrácení kontroly nad tímhle stopařem do rukou Privacy Badger"
+        "message": "klikněte pro navrácení kontroly nad tímto sledovacím prvkem do rukou Privacy Badger"
     },
     "firstRun_title": {
         "message": "Děkujeme za instalaci Privacy Badger!"
     },
     "first_run_text": {
-        "message": "Zjistěte jak Privacy Badger chrání vaše soukromý."
+        "message": "Zjistěte, jak Privacy Badger chrání vaše soukromí."
     },
     "import": {
-        "message": "Import"
+        "message": "Importovat"
     },
     "import_select_file": {
-        "message": "Vyberte prosým soubor pro import."
+        "message": "Vyberte prosím soubor pro importování."
     },
     "import_successful": {
-        "message": "Seznam stopařů a nastavení byly úpěšně aktualizovány!"
+        "message": "Seznam sledovacích prvků a nastavení bylo úspěšně aktualizováno!"
     },
     "import_user_data": {
-        "message": "Importotvat uživatelská data"
+        "message": "Importovat uživatelská data"
     },
     "invalid_json": {
-        "message": "Neplatný JSON soubor."
+        "message": "Neplatný soubor JSON."
     },
     "name": {
         "message": "Privacy Badger"
     },
     "new_filters_added": {
-        "message": "Nové filtry přidány; viz <a id='options_url' target='_blank'>Nastavení</a> pro jejich zprávu."
+        "message": "Nové filtry přidány; otevřete <a id='options_url' target='_blank'>Nastavení</a> pro jejich úpravu."
     },
     "non_tracker": {
-        "message": "Domény níže nevypadají že by vás sledovaly"
+        "message": "Domény níže nevypadají, že vás sledují"
     },
     "non_tracker_tip": {
-        "message": "V současnosti Privacy Badger kontroluje jen zda třetí strany používají cookies, místní uložiště HTML5, nebo canvas fingerprinting pro sledování vašeho brouzdání. Některé z těchto domén mohou používat metody které Privacy Badger neumí rozpoznat."
+        "message": "V současnosti kontroluje Privacy Badger pouze soubory cookies třetích stran, HTML5 lokální úložiště a canvas fingerprinting, jestli nesledují vaše procházení. Některé domény mohou používat metody, které Privacy Badger nedokáže detekovat."
     },
     "options_domain_search": {
         "message": "Hledat domény"
     },
     "options_filter_settings": {
-        "message": "Uživatelské nastavení filtrů"
+        "message": "Nastavení uživatelských filtrů"
     },
     "options_general_settings": {
         "message": "Obecná nastavení"
@@ -78,28 +84,34 @@
         "message": "Načítání..."
     },
     "options_remove_origin_confirm": {
-        "message": "Jste si jistí že chcete odebrat tento zdroj z Privacy Badger?"
+        "message": "Jste si jisti, že chcete odebrat tento zdroj z Privacy Badger?"
     },
     "options_slider_text": {
-        "message": "Privacy Badger vás chrání napříč weby! Tyto posuvníky umožují kontrolovat jak Privacy Badger zachází se stopaři kteří se oběvyly během važeho brouzdání."
+        "message": "Privacy Badger vás chrání napříč internetem. Tyto posuvníky vám umožní upravit nastavení jednotlivých sledovacích prvků, které byly detekovány při procházení internetu."
     },
     "options_social_widgets_checkbox": {
-        "message": "Nahradit tlačitka sociálních sítí"
+        "message": "Nahradit tlačítka sociálních sítí"
     },
     "options_title": {
         "message": "Nastavení Privacy Badger"
     },
+    "options_dnt_policy_setting": {
+        "message": "Kontrolovat, zda stránky dodržují pravidla Do Not Track od EFF"
+    },
+    "options_dnt_policy_learn_more": {
+        "message": "Zjistit více"
+    },
     "options_webrtc_setting": {
-        "message": "Zabránit uniku lokální IP adresy skrze WebRTC *"
+        "message": "Bránit uniku lokální IP adresy skrze WebRTC *"
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC může prozradit vaši místní IP adresu. Základní nastavení Privacy Badger pomáhá vás chránit, ale pro zvýšení ochrany můžete povolit tuto možnost. Takové nastavení ale může ovlivnit aplikace jako Google Hangouts."
+        "message": "* WebRTC může prozradit vaši místní IP adresu. Základní nastavení Privacy Badger pomáhá vás chránit, ale pro zvýšení ochrany můžete povolit tuto možnost. Takové nastavení může ovšem ovlivnit aplikace jako Google Hangouts."
     },
     "pb_detected": {
         "message": "Privacy Badger detekoval"
     },
     "popup_blocked": {
-        "message": "Na této stránce nejsou žádné zdrjoje od třetích stran."
+        "message": "Na této stránce nejsou žádné zdroje od třetích stran."
     },
     "popup_disable_for_site": {
         "message": "Vypnout Privacy Badger pro tuto stránku"
@@ -108,7 +120,7 @@
         "message": "Zapnout Privacy Badger pro tuto stránku"
     },
     "popup_instructions": {
-        "message": "Potenciální <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>stopaři</a> na této stránce. Tyto posuvníky vám umožňují nastavit jak s každým z nich zacházet. Pokud vše funguje správně, nemělo by být třeba je upravovat."
+        "message": "Potenciální <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sledovací prvky</a> na této stránce. Tyto posuvníky vám umožňují nastavit, jak s každým z nich zacházet. Pokud vše funguje správně, není třeba je upravovat."
     },
     "popup_noblocked": {
         "message": "Proč není nic blokováno?"
@@ -123,7 +135,7 @@
         "message": "Co je to Privacy Badger?"
     },
     "remove_button": {
-        "description": "This is the label for the 'Remove selected' buttons.",
+        "description": "Toto je popisek pro tlačítka \"Smazat vybrané\"",
         "message": "Smazat vybrané"
     },
     "report_broken_site": {
@@ -136,19 +148,19 @@
         "message": "Zrušit"
     },
     "report_terms": {
-        "message": "Následující informace budou automaticky odeslány EFF: strának na které právě jste, verze vašeho prohlížeče, verze Privacy Badger, a nastavení všch jezdců pro tuto stránku."
+        "message": "Následující informace budou automaticky odeslány do EFF: stránka na které se nacházíte, verze vašeho prohlížeče, verze Privacy Badger a nastavení všech posuvníků pro tuto stránku."
     },
     "report_title": {
         "message": "Nahlásit chybu"
     },
     "report_text": {
-        "message": "Níže stručne popište chybu."
+        "message": "Níže stručně popište chybu."
     },
     "report_input_label": {
         "message": "Popis"
     },
     "report_success": {
-        "message": "Děkujeme! Příjdeme tomu na kloub."
+        "message": "Děkujeme! Přijdeme tomu na kloub."
     },
     "report_fail": {
         "message": "Jejda. Něco se pokazilo."
@@ -157,60 +169,60 @@
         "message": "Zavřít"
     },
     "show_counter_checkbox": {
-        "message": "Ukazovat počet blokovaných prvků"
+        "message": "Zobrazovat počet blokovaných prvků"
     },
     "tooltip_allow": {
-        "message": "Přesuňte posuvník v pravo pro povolení domény"
+        "message": "Posuňte posuvník vpravo pro povolení domény"
     },
     "tooltip_block": {
-        "message": "Pro blokování domény přesuňte posuvník v levo"
+        "message": "Posuňte posuvník vlevo pro blokování domény"
     },
     "tooltip_cookieblock": {
         "message": "Umístěte posuvník doprostřed pro zablokování cookies"
     },
     "whitelisted_domains": {
-        "description": "This is a tab heading.",
+        "description": "Toto je nadpis karty.",
         "message": "Povolené domény"
     },
     "intro1": {
-        "description": "firstRun.html intro to Privacy Badger",
-        "message": "Privacy Badger blokuje šmírující reklamy a nevyditelné stopaře. Je tady aby zabránil společnostem sledovat vaše brouzdáni na internetu bez vašeho souhlasu."
+        "description": "firstRun.html úvod pro Privacy Badger",
+        "message": "Privacy Badger blokuje šmírující reklamy a sledující prvky. Je tady, aby zabránil společnostem sledovat vaše brouzdáni na internetu bez vašeho souhlasu."
     },
     "intro2":{
-        "message": "Toto rozšíření je vytvořeno tak aby automaticky chránilo vaše soukromý před stopaři třetích stran kteří se nevyditelně načítají když brouzdáte na webu. Odesíláme hlavičku Do Not Track s každýnm požadavkem, a naše rozšíření vyhodnocuje pravděpodobnost, že jste stále sledováni. Pokud algoritmus rozhodne že pravděpodobnost je příliš vysoká, automaticky zablokuje odesílaní požadavků na takovou doménu. Vezměte prosím na vědomý že Privacy Badger je ve fázi beta, a rozhodnutí algorithu není důkazem toho že vás doména sleduje."
+        "message": "Toto rozšíření je vytvořeno tak, aby automaticky chránilo vaše soukromí před sledovacími prvky třetích stran, které se tajně načítají při procházení webu. Odesíláme hlavičku Do Not Track s každým požadavkem a naše rozšíření vyhodnocuje pravděpodobnost, že jste stále sledováni. Pokud algoritmus rozhodne že pravděpodobnost je příliš vysoká, automaticky zablokuje odesílaní požadavků na takovou doménu. Vezměte prosím na vědomí, že Privacy Badger je ve fázi beta a rozhodnutí algoritmu není důkazem toho, že vás doména opravdu sleduje."
     },
     "intro_3_states":{
         "message": "Naše rozšíření má tři stavy. "
     },
     "intro_red":{
-        "message": "Črevený"
+        "message": "Červená"
     },
     "intro_has_blocked":{
-        "message": " znamená že Privacy Badger veří že tato doména je stopař, a blokuje ji. "
+        "message": " znamená, že Privacy Badger věří, že vás tato doména sleduje, takže ji blokuje. "
     },
     "intro_yellow":{
-        "message": "Žlutý"
+        "message": "Žlutá"
     },
     "intro_cookie_blocked":{
-        "message": " znamená že doména je pokládána za stopaře ale je nezbytná pro fukčnost stránek, takže Privacy Badger ji toleruje a blokuje jen její cookies."
+        "message": " znamená, že doména vás sleduje, ale je nezbytná pro funkčnost stránky, takže ji Privacy Badger toleruje a blokuje jen její cookies."
     },
     "intro_green":{
-        "message": "Zelený"
+        "message": "Zelená"
     },
     "intro_no_tracker":{
-        "message": "znamená že Privacy Badger veří že tato doména není stopař. Můžete kliknout na ikonu Privacy Badger v nástrojové ličtě vašeho prohlížeče pokud chcete nahradit automatické nastavení. Nebo můžete v klidu brouzdat a Privacy Badger začne hledat a požírat stopaře jednoho po druhém."
+        "message": "znamená, že Privacy Badger věří, že tato doména vás nesleduje. Můžete kliknout na ikonu Privacy Badger v nástrojové liště vašeho prohlížeče, pokud chcete upravit automatická nastavení. Nebo můžete v klidu brouzdat a Privacy Badger začne hledat a detekovat sledovací prvky jeden po druhém."
     },
     "intro_hungry":{
-        "message":"Nic nemůže zastavit Privacy Badger před snědením cookies když je hladový!"
+        "message":"Nic nemůže zastavit Privacy Badger před snězením cookies, když je hladový!"
     },
     "intro_by_eff":{
         "message": "Projekt Electronic Frontier Foundation"
     },
     "intro_social_share": {
-        "message": "Řekněte světu že jste se postavili online sledování"
+        "message": "Řekněte světu, že jste se postavili proti online sledování"
     },
     "intro_text": {
-        "message": "Nyni vás chrání Privacy Badger. Pokud chcete vědět jak Privacy Badger funguje, klikněte níže pro rychlý tutoriál."
+        "message": "Nyní vás chrání Privacy Badger. Pokud chcete vědět, jak Privacy Badger funguje, klikněte níže pro rychlý tutoriál."
     },
     "ded_privacy_badger_alert": {
         "message": "Výstraha Privacy Badger!"
@@ -222,7 +234,7 @@
         "message": " může umožnit vaše sledování na internetu."
     },
     "ded_only_allow": {
-        "message": "Povolit je "
+        "message": "Povolit pouze"
     },
     "ded_on": {
         "message": " na "
@@ -234,67 +246,69 @@
         "message": "Vždy zakázat požadavky třetích stran od "
     },
     "options_pb_has_detected": {
-      "message": "Privacy Badger rozpoznal"
+      "message": "Privacy Badger do této doby detekoval"
     },
     "options_potential": {
-      "message": "potenciální"
+      "message": "potenciálních"
     },
     "options_tracking_domains": {
-      "message": "stopařskou doménu"
+      "message": "domén, které vás sledují"
     },
     "options_so_far": {
-      "message": ". Tyto posuvníky vám umožují kontrolovat jak Privacy Badger zacházi s jednotlivymi stopařir."
+      "message": " Tyto posuvníky vám umožňují ovládat, jak Privacy Badger zachází s jednotlivými sledovacími prvky."
     },
     "slideshow_1": {
-      "message": " Ahoj, já jsem Privacy Badger! Díky že jsi mě nainstaloval. Jsem tu abych ti poradil, aby jsme mohly spolupracovat."
+      "message": " Ahoj, já jsem Privacy Badger! Díky, že jste mě nainstaloval. Jsem tu, abych vám dal pár užitečných rad, které usnadní naši spolupráci."
     },
     "slideshow_2": {
-      "message": " Budu sedět tady nahoře ve tvém prohlížeči a hledat šmírující reklamy a stopaře kteří sledují co děláš na internetu."
+      "message": " Zůstanu tady nahoře ve vašem prohlížeči, kde budu hledat šmírující reklamy a sledovací prvky, které vás sledují, zatímco procházíte internet."
     },
     "slideshow_3": {
-      "message": " Pokud zaznamenám něco co se chová jako stopař, zastavím to pomocí blokování.  "
+      "message": " Pokud najdu něco, co se chová jako sledovací prvek, tak to zablokuji.  "
     },
     "slideshow_4": {
-      "message": " Pokud na mě klikneš uvidíš seznam potenciálních stopařů na současném panelu."
+      "message": " Pokud kliknete na mou ikonu, tak můžete vidět seznam potenciálních sledovacích prvků na současné stránce."
     },
     "slideshow_5": {
-      "message": " Pokud je posuvník červený, znamená to že daného stopaře úplně blokuji!  Ten zloduch už tě dál nebude obtěžovat."
+      "message": " Pokud je posuvník červený, znamená to, že jsem tento sledovací prvek zablokoval úplně! Tenhle šmírák vás už sledovat nebude."
     },
     "slideshow_6": {
-      "message": " Pokud je posuvník žlutý, znamenáto že jesm daného stopaře částečně zablokoval. Udělám co budu moct abych mu zabráil ve sledování tím že budu požírat jeho cookies, úplné zablokování by ale mohlo stránku rozbít."
+      "message": " Pokud je posuvník žlutý, znamená to, že jsem částečně zablokoval tento sledovací prvek. Udělám, co je v mých silách, abych zabránil vašemu sledování tím, že zničím soubor cookie. Úplné zablokování by totiž mohlo rozbít stránku."
     },
     "slideshow_7": {
-      "message": " Pokud je posuvník zelený, znamená to že nemůžu říct zda tě daná stránka sleduje. Možná ne, ale já ji stejně budu dál pozorovat."
+      "message": " Pokud je posuvník zelený, znamená to, že zatím nedokážu říct, jestli vás tato doména sleduje. Raději ji budu dále sledovat."
     },
     "slideshow_8": {
-      "message": " Poprvé když na mě klikneš může se stát že jsou všechny posuvníky zelené—ale žádný strach! Jsem jiný ež ostatní blokovací programy—místo seznamu věcí o kterých vím že je zablkovat, se já učím co blokovat s tím jak brouzdáš. pokud ještě nic neblokuji, zkus navštívit 4 až 5 různých webů. Po tom bych měl začít blkovat známé stopaře."
+      "message": " Když na mou ikonu kliknete poprvé, může se stát, že všechny sledovací prvky jsou zelené – ale nemějte strach! Jsem odlišný od ostatních programů pro blokování: místo toho, abych měl seznam věcí, které mám hned zablokovat, tak se učím, zatímco používáte internet. Pokud zatím nic neblokuji, zkuste navštívit 4 až 5 různých stránek. Potom už určitě nějaké blokovat budu."
     },
     "slideshow_9": {
-      "message": " Postupně se učím, takže čím déle mě budeš používat tím lépe tě ochráním před záludnými stopaři!"
+      "message": " Učím se za pochodu – čím déle mě používáte, tím lépe vás budu chránit proti zákeřným sledovacím prvkům!"
     },
     "slideshow_10": {
-      "message": " Pokud myslíš že jsem nějakého stopaře odhadl špatně, může přesunout posuvník na červenou aby jsi ho zablkoval, na žlutou pro částečnou blokaci, a zelenou pro volný přístup."
+      "message": " Pokud myslíte, že jsem se pro nějaký sledovací prvek rozhodl špatně, tak můžete změnit posuvník na červenou pro blokaci, na žlutou pro částečnou blokaci a na zelenou pro povolení."
     },
     "slideshow_11": {
-      "message": " Pokud změníš můj odhad, vždycky my může rozhodování vrátit zpět do rukou pomocí šipky zpět."
+      "message": " Jestliže chcete vrátit rozhodnutí, které jste provedl, můžete to vždy udělat pomocí šipky zpět."
     },
     "slideshow_12": {
-      "message": " Pokud máš potíže s nějakou stránkou a myslš že je to moje chyba, můžeš kliknout na tlačítko vypnout. Půjdu spát a nebudu blokovat nic na tomhle webu."
+      "message": " Pokud máte problém s webovou stránkou a myslíte si, že je to moje chyba, můžete mě pomocí tohoto tlačítka vypnout. Dám si šlofíka a na této stránce nic blokovat nebudu."
     },
     "slideshow_13": {
-      "message": " Pokud rozbíjím stránku, dej to vědět mým vývojářům ať můžou chybu napravit! To můžeš udělat kliknutím na tohle tlačítko."
+      "message": " Pokud jsem rozbil nějakou stránku, napište prosím mým vývojářům, aby mě mohli opravit! Můžete to provést pomocí tohoto tlačítka."
     },
     "slideshow_14": {
-      "message": " Pokud chceš změnit další nastavení, můžeš kliknout na ikonu ozubeného kola."
+      "message": " Pokud chcete ukázat další nastavení, můžete kliknout na ikonu ozubeného kola."
     },
     "slideshow_15": {
-      "message": " Samozřejmě můžeš klidně nechat všechna nastavení jak jsou, a já budu dál žrát všechny stopaře na které narazím."
+      "message": " Samozřejmě můžete klidně nechat všechna nastavení tak, jak jsou, a já budu dál potichu bojovat proti všem sledovacím prvkům, které objevím."
     },
     "slideshow_16": {
-      "message": " Díky že jsi udělal důležitý, jednoduchý krok ve směru ocharny tvého soukromý! Můžeš kliknout sem pokud budeš potřebovat znovu pomoct, a niž můžeš kliknout a dát světu vědět že stojíš proti sledování online."
+      "message": " Díky, že jste udělal tento důležitý, přesto snadný, krok pro ochranu svého soukromí! Můžete kliknout zde, pokud byste znovu potřeboval pomoct. Také můžete kliknout níže a dát světu znát, že jste se postavil proti sledování na internetu."
     },
     "donate_to_eff": {
       "message": "Přispět EFF"
+    },
+    "version": {
+      "message": "verze"
     }
-
 }
