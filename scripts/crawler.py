@@ -691,11 +691,13 @@ def crawl(timeout=7, n_urls=len(urls), start=0):
 
 if __name__ == '__main__':
     import sys
+
+    branch = get_git_branch()
+    hash_ = get_git_hash()
+
     args = [3, 50, 0]
     for i, v in enumerate(sys.argv[1:]):
         args[i] = int(v)
     data = crawl(*args)
-    branch = get_git_branch()
-    hash_ = get_git_hash()
     out_file = os.environ.get('OUT_FILE', '%s.%s.results.json' % (branch, hash_))
     save_json(out_file, data)
