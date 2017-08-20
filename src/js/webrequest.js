@@ -147,7 +147,7 @@ function onBeforeSendHeaders(details) {
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
       isThirdPartyDomain(requestDomain, tabDomain)) {
     var requestAction = checkAction(tab_id, url, false, frame_id);
-    // If this might be the third stike against the potential tracker which
+    // If this might be the third strike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
     if (requestAction == constants.ALLOW && 
         badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1){
@@ -325,18 +325,10 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (!badger.tabData.hasOwnProperty(tabId)){
     badger.tabData[tabId] = {
       frames: {},
-      trackers: {}
+      origins: {},
+      blockedCount: 0
     };
   }
-  // check if this is a prerendered (bg) tab or not
-  chrome.tabs.get(tabId, function(/*tab*/){
-    if (chrome.runtime.lastError){
-      // chrome will throw error for the prerendered tabs
-      badger.tabData[tabId].bgTab = true;
-    }else{
-      badger.tabData[tabId].bgTab = false;
-    }
-  });
 
   badger.tabData[tabId].frames[frameId] = {
     url: frameUrl,
@@ -528,7 +520,7 @@ function checkAction(tabId, url, quiet, frameId){
   var action = badger.storage.getBestAction(requestHost);
 
   if (action && ! quiet) {
-    badger.logTrackerOnTab(tabId, requestHost, action);
+    badger.logThirdPartyOriginOnTab(tabId, requestHost, action);
   }
   return action;
 }
@@ -568,7 +560,7 @@ function _isTabAnExtension(tabId) {
   return (
     _frameUrlStartsWith(tabId, "chrome-extension://") ||
     _frameUrlStartsWith(tabId, "moz-extension://")
-   );
+  );
 }
 
 /**

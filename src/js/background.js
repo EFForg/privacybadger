@@ -122,7 +122,7 @@ Badger.prototype = {
             },
             ...
           },
-          trackers: {
+          origins: {
             domain.tld: bool
             ...
           }
@@ -180,7 +180,8 @@ Badger.prototype = {
               url: tab.url
             }
           },
-          trackers: {}
+          origins: {},
+          blockedCount: 0
         };
       }
     });
@@ -488,93 +489,41 @@ Badger.prototype = {
 
 
 /**
-   * Helper function returns a list of all blocked origins for a tab
+   * Helper function returns a list of all third party origins for a tab
    * @param {Integer} tabId requested tab id as provided by chrome
    * @returns {*} A dictionary of third party origins and their actions
    */
   getAllOriginsForTab: function(tabId) {
-    return Object.keys(this.tabData[tabId].trackers);
-  },
-
-  /**
-   * count of blocked origins for a given tab
-   * @param {Integer} tabId chrome tab id
-   * @return {Integer} count of blocked origins
-   */
-  blockedOriginCount: function(tabId) {
-    return this.getAllOriginsForTab(tabId).length;
-  },
-
-  /**
-   * Counts total blocked trackers and blocked cookies trackers
-   * TODO: ugly code, refactor
-   *
-   * @param tabId Tab ID to count for
-   * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
-   */
-  blockedTrackerCount: function(tabId){
-    var self = this;
-    return self.getAllOriginsForTab(tabId)
-      .reduce(function(memo,origin){
-        var action = self.storage.getBestAction(origin);
-        if(action && (action == constants.USER_BLOCK || action ==
-                    constants.BLOCK || action == constants.COOKIEBLOCK ||
-                    action == constants.USER_COOKIE_BLOCK)){
-          memo+=1;
-        }
-        return memo;
-      }, 0);
+    return Object.keys(this.tabData[tabId].origins);
   },
 
   /**
    * Update page action badge with current count
    * @param {Integer} tabId chrome tab id
    */
-  updateBadge: function(tabId){
+  updateBadge: function(tabId, disabled){
     if(FirefoxAndroid.isUsed){
       return;
     }
 
-    if (!this.showCounter()){
-      chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
-      return;
-    }
-    var numBlocked = this.blockedTrackerCount(tabId);
-    if(numBlocked === 0){
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
-    } else {
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
-    }
-    chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
-  },
-
-  /**
-   * Checks conditions for updating page action badge and call updateBadge
-   * @param {Object} details details object from onBeforeRequest event
-   */
-  updateCount: function(details) {
-    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
-      return;
-    }
-
-    var tabId = details.tabId;
-    if (!this.tabData[tabId]) {
-      return;
-    }
-    if(this.tabData[tabId].bgTab === true){
-      // prerendered tab, Chrome will throw error for setBadge functions, don't call
-      return;
-    } else {
-      var badger = this;
-      chrome.tabs.get(tabId, function(/*tab*/){
-        if (chrome.runtime.lastError){
-          badger.tabData[tabId].bgTab = true;
-        } else {
-          badger.tabData[tabId].bgTab = false;
-          badger.updateBadge(tabId);
+    let self = this;
+    chrome.tabs.get(tabId, () => {  // avoid setting on background tabs
+      if (!chrome.runtime.lastError) {
+        let thisTab = self.tabData[tabId];
+        if (!self.showCounter() || !thisTab || disabled) {
+          chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
+          return;
         }
-      });
-    }
+
+        let numBlocked = thisTab ? thisTab.blockedCount : 0;
+        if(numBlocked === 0){
+          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
+        } else {
+          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
+        }
+        chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+      }
+    });
   },
 
   getSettings: function() {
@@ -733,14 +682,22 @@ Badger.prototype = {
   },
 
   /**
-   * Add the tracker and action to the tab.trackers object in tabData
-   * which will be used by the privacy badger popup
+   * Add only new third party origins to the tabData[tabId] object for
+   * use in the popup and, if needed, call updateBadge.
+   *
    * @param tabId the tab we are on
-   * @param fqdn the tracker to add
+   * @param fqdn the third party origin to add
    * @param action the action we are taking
+   *
    **/
-  logTrackerOnTab: function(tabId, fqdn, action) {
-    this.tabData[tabId].trackers[fqdn] = action;
+  logThirdPartyOriginOnTab: function(tabId, fqdn, action) {
+    if(!this.tabData[tabId].origins.hasOwnProperty(fqdn)) {
+      this.tabData[tabId].origins[fqdn] = action;
+      if (constants.BLOCKED_ACTIONS.has(action)) {
+        this.tabData[tabId].blockedCount += 1;
+        badger.updateBadge(tabId);
+      }
+    }
   },
 
   /**
@@ -773,16 +730,14 @@ Badger.prototype = {
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
-  chrome.webRequest.onBeforeRequest.addListener(function(details) {
-    if (details.tabId != -1){
-      badger.updateCount(details);
-    }
-  }, {urls: ["http://*/*", "https://*/*"]}, []);
-
-  // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    if(changeInfo.status == "loading") {
+    if(changeInfo.status == "loading" && tab.url) {
       badger.refreshIconAndContextMenu(tab);
+      if (badger.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url))) {
+        badger.updateBadge(tabId, true);
+      } else {
+        badger.updateBadge(tabId);
+      }
     }
   });
 
