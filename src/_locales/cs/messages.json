@@ -120,7 +120,7 @@
         "message": "Zapnout Privacy Badger pro tuto stránku"
     },
     "popup_instructions": {
-        "message": "Potenciální <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sledovací prvky</a> na této stránce. Tyto posuvníky vám umožňují nastavit, jak s každým z nich zacházet. Pokud vše funguje správně, není třeba je upravovat."
+        "message": "potenciální <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sledovací prvky</a> na této stránce. Tyto posuvníky vám umožní nastavit, jak s každým z nich zacházet. Jestliže vše funguje správně, není třeba je upravovat."
     },
     "popup_noblocked": {
         "message": "Proč není nic blokováno?"
