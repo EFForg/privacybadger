@@ -20,11 +20,10 @@ var i18n = chrome.i18n;
 // Loads and inserts i18n strings into matching elements. Any inner HTML already in the
 // element is parsed as JSON and used as parameters to substitute into placeholders in the
 // i18n message.
-function loadI18nStrings()
-{
-  var nodes = document.querySelectorAll("[class^='i18n_']");
-  for(var i = 0; i < nodes.length; i++)
-  {
+function loadI18nStrings() {
+  // replace span contents by their class names
+  let nodes = document.querySelectorAll("[class^='i18n_']");
+  for (let i = 0; i < nodes.length; i++) {
     var arguments = JSON.parse("[" + nodes[i].textContent + "]");
     var className = nodes[i].className;
     if (className instanceof SVGAnimatedString)
@@ -35,6 +34,13 @@ function loadI18nStrings()
       nodes[i][prop] = i18n.getMessage(stringName, arguments);
     else
       nodes[i][prop] = i18n.getMessage(stringName);
+  }
+
+  // also replace tooltip attributes
+  nodes = document.querySelectorAll("[tooltip^='i18n_']");
+  for (let i = 0; i < nodes.length; i++) {
+    let tooltip = nodes[i].getAttribute('tooltip');
+    nodes[i].setAttribute('tooltip', i18n.getMessage(tooltip.slice(5)));
   }
 }
 
