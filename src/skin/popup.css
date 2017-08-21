@@ -160,7 +160,8 @@ left: 0;
 color: #505050;
 font-size: 16px;
 }
-#privacyBadgerHeader h2{
+
+#privacyBadgerHeader h2, h2#nothing-found {
   margin: 5px;
   padding-left: 5px;
   float: left;
