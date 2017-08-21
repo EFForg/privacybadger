@@ -459,6 +459,7 @@
 @@||seeclickfix.com^$third-party
 @@||sgizmo.com^$third-party
 @@||shopify.com^$third-party
+@@||shopifycdn.com^$third-party
 @@||shopping.com^$third-party
 @@||shoprunner.com^$third-party
 @@||siteimprove.com^$third-party
