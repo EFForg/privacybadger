@@ -12,7 +12,7 @@ let cookieFields = [
 ];
 
 function printCookies(domain) {
-  getCookies(domain, true).then(cookies => {
+  getCookies(domain, true, cookies => {
     cookies.forEach(cookie => {
       console.log('----------------');
       console.log(JSON.stringify(cookie, null, 2));
@@ -20,25 +20,23 @@ function printCookies(domain) {
   });
 }
 
-function getCookies(domain, showRelated) {
+function getCookies(domain, showRelated, callback) {
   let out ={};
   if (showRelated) {
     domain = window.getBaseDomain(domain);
   }
   out[domain] = [];
-  return new Promise((resolve) => {
-    chrome.cookies.getAll({domain}, cookies => {
-      cookies.forEach(cookie => {
-        let info = {};
-        cookieFields.forEach(field => {
-          if (field in cookie) {
-            info[field] = cookie[field];
-          }
-        });
-        out[domain].push(info);
+  chrome.cookies.getAll({domain}, cookies => {
+    cookies.forEach(cookie => {
+      let info = {};
+      cookieFields.forEach(field => {
+        if (field in cookie) {
+          info[field] = cookie[field];
+        }
       });
-      resolve(out);
+      out[domain].push(info);
     });
+    callback(out);
   });
 }
 

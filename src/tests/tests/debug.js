@@ -74,7 +74,7 @@
       callback([{name: 'homestarrunner.com', session: true}, {name: 'something', secure: true}]);
     };
 
-    debug.getCookies(domain, true).then(info => {
+    debug.getCookies(domain, true, info => {
       assert.ok(domain in info, 'domain in info');
 
       let logged = JSON.stringify(info);
