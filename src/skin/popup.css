@@ -59,13 +59,6 @@ a:hover { color: #ec9329 }
     padding: .6em 1em;
 }
 
-.spacer {
-  height: 7px;
-  width: 5px;
-  display: block;
-  clear: both;
-}
-
 .click-nav ul {position:relative;font-weight:900;list-style-type:none;}
 .click-nav ul li {position:relative;list-style:none;cursor:pointer;}
 .click-nav ul li ul {position:relative;}
@@ -218,31 +211,23 @@ font-size: 16px;
   background-color: #EC9329;
   color: #333;
 }
-.clickerContainer {
-  max-height: 290px;
-  overflow-y: auto;
-  background-color: #E8E9EA;
-  position: relative;
-}
+
 .key {
-  position: absolute;
-  height: 25px;
-  left: 0;
-  right: 0;
-  z-index: 30;
-  background: #fefefe;
-  padding-top: 4px;
-  padding-left: 215px;
+    position: relative;
+    padding: 4px 0 5px 215px;
 }
-.key img{
-  margin-left: 19px;
+
+.key img {
+    margin-left: 19px;
 }
-.key .tooltipContainer{
-  position: absolute;
-  left: 3px;
-  top:-1;
-  box-shadow: 0px 5px 5px #000;
+
+.key .tooltipContainer {
+    position: absolute;
+    left: 3px;
+    top: -1px;
+    box-shadow: 0px 5px 5px #000;
 }
+
 #instruction-outer {
   display: none;
   position: fixed;
@@ -284,9 +269,6 @@ font-size: 16px;
   float: right;
   padding-right: 5px;
   padding-top: 7px;
-}
-.clickerContainer{
-  margin-top: 25px;
 }
 #pbInstructions{
   color: #505050;

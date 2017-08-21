@@ -1,0 +1,50 @@
+body {
+    overflow: hidden;
+    margin: 8px 8px 0;
+    padding: 0 7px;
+}
+
+.table {
+    display: table;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+}
+
+.container {
+    height: 38em;
+}
+
+.header {
+}
+
+.body {
+    height: 100%;
+}
+
+.body-content-outer-wrapper {
+    height: 100%;
+
+    vertical-align: middle;
+}
+
+.body-content-inner-wrapper {
+    height: 100%;
+    position: relative;
+    overflow: auto;
+
+    background-color: #e8e9ea;
+}
+
+.body-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

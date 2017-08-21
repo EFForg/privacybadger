@@ -29,8 +29,9 @@ button
   bottom: 27px;
 }
 
-#pbInstructions{
-  width:450px;
+#pbInstructions {
+    margin: 5px 0 15px;
+    width: 450px;
 }
 
 #rawFilters {
@@ -78,7 +79,7 @@ button
   width: 0;
 }
 
-#blockedResourcesContainer{
+#blockedResourcesContainer, #trackingDomainSearch {
   width: 390px;
 }
 
@@ -93,4 +94,10 @@ button
 a, a:hover, a:active, a:visited{
   color: #00aaaa;
   text-decoration: underline;
+}
+
+.clickerContainer {
+    background-color: #e8e9ea;
+    max-height: 290px;
+    overflow-y: auto;
 }

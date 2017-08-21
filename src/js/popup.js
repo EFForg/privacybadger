@@ -90,10 +90,15 @@ function init() {
     closeOverlay();
   });
   $(document).ready(function () {
-    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
-    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
-    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
+    $('#blockedResourcesContainer')
+      .on('mouseenter', '.tooltip', displayTooltip)
+      .on('mouseleave', '.tooltip', hideTooltip)
+      .on('change', 'input:radio', updateOrigin)
+      .on('click', '.userset .honeybadgerPowered', revertDomainControl);
+
+    $('.keyContainer')
+      .on('mouseenter', '.tooltip', displayTooltip)
+      .on('mouseleave', '.tooltip', hideTooltip);
   });
 
   //toggle activation buttons if privacy badger is not enabled for current url
@@ -288,6 +293,7 @@ function refreshPopup(tabId) {
   }
 
   // Display tracker tooltips.
+  $(".keyContainer").removeClass("hidden");
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
 
   var printable = [];

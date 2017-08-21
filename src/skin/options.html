@@ -54,19 +54,30 @@
   </ul>
 
   <div id="tab-pb-status">
-    <p class=""></p>
-    <div id="blockedResourcesContainer">
-      <p id="pbInstructions">
+
+    <p id="pbInstructions">
         <span class="i18n_options_pb_has_detected"></span>
         <span id='count'>0</span>
         <span class="i18n_options_potential"></span>
         <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?"><span class="i18n_options_tracking_domains"></span></a>
         <span class="i18n_options_so_far"></span>
-      </p>
-      <div class="spacer"></div>
-      <input id="trackingDomainSearch" type="text" value="" style="width:100%">
-      <div id="blockedResources"><span class="i18n_options_loading"></span></div>
+    </p>
+
+    <input id="trackingDomainSearch" type="text" value="">
+
+    <div class="keyContainer hidden">
+        <div class="key">
+            <img class="tooltip" src="/icons/UI-icons-red.svg" tooltip="i18n_tooltip_block"><img class="tooltip" src="/icons/UI-icons-yellow.svg" tooltip="i18n_tooltip_cookieblock"><img class="tooltip" src="/icons/UI-icons-green.svg" tooltip="i18n_tooltip_allow">
+            <div class="tooltipContainer"></div>
+        </div>
     </div>
+
+    <div id="blockedResourcesContainer">
+      <div id="blockedResources">
+          <span class="i18n_options_loading"></span>
+      </div>
+    </div>
+
   </div>
 
 
