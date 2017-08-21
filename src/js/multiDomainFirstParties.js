@@ -113,7 +113,7 @@ var _multiDomainFirstPartiesArray = [
   ],
   ["mobilism.org.in", "mobilism.org"],
   ["morganstanley.com", "morganstanleyclientserv.com", "stockplanconnect.com", "ms.com"],
-  ["msnbc.com", "newsvine.com"],
+  ["msnbc.com", "nbcnews.com", "newsvine.com"],
   ["my-bookings.org", "my-bookings.cc"],
   ["mycanal.fr", "canal-plus.com"],
   ["mymerrill.com", "ml.com", "merrilledge.com"],
