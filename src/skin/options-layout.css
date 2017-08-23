@@ -1,0 +1,103 @@
+body
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  padding: 20px;
+}
+
+td
+{
+  font-size: 13px;
+  vertical-align: top;
+  text-align: left;
+}
+
+p
+{
+  margin-top: 0.5em;
+}
+
+button
+{
+  white-space: pre;
+}
+#tabs {
+  min-width: 750px;
+}
+
+.tooltipArrow {
+  bottom: 27px;
+}
+
+#pbInstructions {
+    margin: 5px 0 15px;
+    width: 450px;
+}
+
+#rawFilters {
+  display: none;
+}
+
+.okMsg {
+    display: none;
+    color: #ffffff;
+    background: #30e030;
+    font-weight: bold;
+    padding: 3px;
+}
+
+.errMsg {
+    display: none;
+    color: #ffffff;
+    background: #e03030;
+    font-weight:bold;
+    padding:3px;
+}
+
+#tab-import-export {
+  width: 750px;
+  overflow: auto;
+}
+#import {
+  width: 350px;
+  float: left;
+}
+#export {
+  width: 350px;
+  float: left;
+}
+
+/* Filter list entry status message */
+.flMsg {
+    display: none;
+    color: #b0b0b0;
+}
+
+.importInput{
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+#blockedResourcesContainer, #trackingDomainSearch {
+  width: 390px;
+}
+
+#settingsSuffix{
+  color: #555;
+  font-size: 12px;
+  width: 500px;
+  position: relative;
+  left: 50px;
+}
+
+a, a:hover, a:active, a:visited{
+  color: #00aaaa;
+  text-decoration: underline;
+}
+
+.clickerContainer {
+    background-color: #e8e9ea;
+    max-height: 290px;
+    overflow-y: auto;
+}

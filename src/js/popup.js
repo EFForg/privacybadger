@@ -90,10 +90,15 @@ function init() {
     closeOverlay();
   });
   $(document).ready(function () {
-    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
-    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
-    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
+    $('#blockedResourcesContainer')
+      .on('mouseenter', '.tooltip', displayTooltip)
+      .on('mouseleave', '.tooltip', hideTooltip)
+      .on('change', 'input:radio', updateOrigin)
+      .on('click', '.userset .honeybadgerPowered', revertDomainControl);
+
+    $('.keyContainer')
+      .on('mouseenter', '.tooltip', displayTooltip)
+      .on('mouseleave', '.tooltip', hideTooltip);
   });
 
   //toggle activation buttons if privacy badger is not enabled for current url
@@ -282,12 +287,13 @@ function refreshPopup(tabId) {
   //TODO this is calling get action and then being used to call get Action
   var origins = badger.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
-    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
+    $("#blockedResources").html('<h2 id="nothing-found">' + i18n.getMessage("popup_blocked") + '</h2>');
     $('#number_trackers').text('0');
     return;
   }
 
   // Display tracker tooltips.
+  $(".keyContainer").removeClass("hidden");
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
 
   var printable = [];

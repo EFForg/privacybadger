@@ -25,111 +25,13 @@
 <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css" rel="stylesheet" />
 <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
+<link type="text/css" media="screen" href="/skin/options-layout.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" />
 <script type="text/javascript" src="/lib/vendor/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/options.js" charset="utf-8"></script>
 <title class="i18n_options_title"></title>
-<style type="text/css" media="screen">
-body
-{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  padding: 20px;
-}
-
-td
-{
-  font-size: 13px;
-  vertical-align: top;
-  text-align: left;
-}
-
-p
-{
-  margin-top: 0.5em;
-}
-
-button
-{
-  white-space: pre;
-}
-#tabs {
-  min-width: 750px;
-}
-
-.tooltipArrow {
-  bottom: 27px;
-}
-
-#pbInstructions{
-  width:450px;
-}
-
-#rawFilters {
-  display: none;
-}
-
-.okMsg {
-    display: none;
-    color: #ffffff;
-    background: #30e030;
-    font-weight: bold;
-    padding: 3px;
-}
-
-.errMsg {
-    display: none;
-    color: #ffffff;
-    background: #e03030;
-    font-weight:bold;
-    padding:3px;
-}
-
-#tab-import-export {
-  width: 750px;
-  overflow: auto;
-}
-#import {
-  width: 350px;
-  float: left;
-}
-#export {
-  width: 350px;
-  float: left;
-}
-
-/* Filter list entry status message */
-.flMsg {
-    display: none;
-    color: #b0b0b0;
-}
-
-.importInput{
-  visibility: hidden;
-  height: 0;
-  width: 0;
-}
-
-#blockedResourcesContainer{
-  width: 390px;
-}
-
-#settingsSuffix{
-  color: #555;
-  font-size: 12px;
-  width: 500px;
-  position: relative;
-  left: 50px;
-}
-
-a, a:hover, a:active, a:visited{
-  color: #00aaaa;
-  text-decoration: underline;
-}
-
-</style>
 </head>
 <body class="options">
 <table>
@@ -152,19 +54,30 @@ a, a:hover, a:active, a:visited{
   </ul>
 
   <div id="tab-pb-status">
-    <p class=""></p>
-    <div id="blockedResourcesContainer">
-      <p id="pbInstructions">
+
+    <p id="pbInstructions">
         <span class="i18n_options_pb_has_detected"></span>
         <span id='count'>0</span>
         <span class="i18n_options_potential"></span>
         <a target=_blank tabindex=-1 title="What is a tracker?" href="https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?"><span class="i18n_options_tracking_domains"></span></a>
         <span class="i18n_options_so_far"></span>
-      </p>
-      <div class="spacer"></div>
-      <input id="trackingDomainSearch" type="text" value="" style="width:100%">
-      <div id="blockedResources"><span class="i18n_options_loading"></span></div>
+    </p>
+
+    <input id="trackingDomainSearch" type="text" value="">
+
+    <div class="keyContainer hidden">
+        <div class="key">
+            <img class="tooltip" src="/icons/UI-icons-red.svg" tooltip="i18n_tooltip_block"><img class="tooltip" src="/icons/UI-icons-yellow.svg" tooltip="i18n_tooltip_cookieblock"><img class="tooltip" src="/icons/UI-icons-green.svg" tooltip="i18n_tooltip_allow">
+            <div class="tooltipContainer"></div>
+        </div>
     </div>
+
+    <div id="blockedResourcesContainer">
+      <div id="blockedResources">
+          <span class="i18n_options_loading"></span>
+      </div>
+    </div>
+
   </div>
 
 

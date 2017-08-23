@@ -57,11 +57,16 @@ function loadOptions() {
 
   // Add event listeners for origins container.
   $(function () {
-    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
-    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
-    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
-    $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
+    $('#blockedResourcesContainer')
+      .on('mouseenter', '.tooltip', displayTooltip)
+      .on('mouseleave', '.tooltip', hideTooltip)
+      .on('change', 'input:radio', updateOrigin)
+      .on('click', '.userset .honeybadgerPowered', revertDomainControl)
+      .on('click', '.removeOrigin', removeOrigin);
+
+    $('.keyContainer')
+      .on('mouseenter', '.tooltip', displayTooltip)
+      .on('mouseleave', '.tooltip', hideTooltip);
   });
 
   // Display jQuery UI elements
@@ -360,6 +365,7 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
+  $(".keyContainer").removeClass("hidden");
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // Display tracking domains.
