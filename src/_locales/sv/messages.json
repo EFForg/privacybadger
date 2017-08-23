@@ -72,7 +72,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "potentiell(a) <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan. Med dessa reglage kan du styra hur Privacy Badger hanterar var och en. Du behöver inte justera dem om inte något är trasigt.",
+        "message": "potentiella <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan. Med dessa reglage kan du styra hur Privacy Badger hanterar var och en. Du behöver inte justera dem om inte något är trasigt.",
         "description": ""
     },
     "options_webrtc_setting": {
@@ -128,7 +128,7 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Tillåtit ",
+        "message": "Tillät ",
         "description": ""
     },
     "privacy_badger_what_is": {
@@ -344,7 +344,7 @@
         "description": ""
     },
     "options_potential": {
-        "message": "potentiell(a)",
+        "message": "potentiella",
         "description": ""
     },
     "remove_button": {
