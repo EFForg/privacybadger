@@ -254,82 +254,73 @@ function registerToggleHandlers() {
   });
 }
 
+function processOrigins(originsWithActions, callback) {
+  let out = [],
+    tracking = [],
+    nonTracking = [],
+    trackerCount = 0;
+  originsWithActions.sort((a, b) => htmlUtils.compareReversedDomains(a[0], b[0]));
+  for (let [origin, action] of originsWithActions) {
+    if (action != constants.DNT) {trackerCount++;}
+    if (action == constants.NO_TRACKING) {
+      nonTracking.push(htmlUtils.getOriginHtml(origin, constants.NO_TRACKING, false));
+    } else {
+      tracking.push(htmlUtils.getOriginHtml(origin, action, action == constants.DNT));
+    }
+  }
+  out.push.apply(out, tracking);
+  if (nonTracking.length > 0) {
+    out.push(
+      '<div class="clicker" id="nonTrackers" title="' +
+      i18n.getMessage("non_tracker_tip") + '">' +
+      i18n.getMessage("non_tracker") + '</div>'
+    );
+  }
+  out.push.apply(out, nonTracking);
+  callback(out, trackerCount);
+}
+
+function renderDomains(printable) {
+  const CHUNK = 1;
+
+  let $printable = $(printable.splice(0, CHUNK).join(""));
+
+  $printable.find('.switch-toggle').each(registerToggleHandlers);
+
+  // Hide elements for removing origins (controlled from the options page).
+  // Popup shows what's loaded for the current page so it doesn't make sense
+  // to have removal ability here.
+  $printable.find('.removeOrigin').hide();
+
+  $printable.appendTo('#blockedResourcesInner');
+
+  if (printable.length) {
+    requestAnimationFrame(() => renderDomains(printable));
+  }
+}
+
 /**
 * Refresh the content of the popup window
 *
 * @param {Integer} tabId The id of the tab
 */
 function refreshPopup(tabId) {
-  let trackerCount = 0,
-    printable = [];
-
-  client.getAllOriginsForTab(tabId).then(origins => {
-    if (!origins || origins.length === 0) {
+  client.getAllOriginsWithActionsFromTab(tabId).then(originsWithActions => {
+    if (!originsWithActions || originsWithActions.length === 0) {
       $("#blockedResources").html(i18n.getMessage("popup_blocked"));
       $('#number_trackers').text('0');
       return;
     }
 
-    // Display tracker tooltips.
-    $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
-
-    processOrigins(origins, () => {
+    processOrigins(originsWithActions, (printable, trackerCount) => {
       $('#number_trackers').text(trackerCount);
-      requestAnimationFrame(renderDomains);
+      requestAnimationFrame(() => {
+        // Display tracker tooltips.
+        $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
+        renderDomains(printable);
+      });
     });
   });
-
-  function processOrigins(origins, callback) {
-    let tracking = [],
-      nonTracking = [];
-
-    origins.sort(htmlUtils.compareReversedDomains);
-    process();
-    function process() {
-      if (origins.length != 0) {
-        let origin = origins.shift();
-        client.storage.getBestAction(origin).then(action => {
-          if (action != constants.DNT) {trackerCount++;}
-          if (action == constants.NO_TRACKING) {
-            nonTracking.push(htmlUtils.getOriginHtml(origin, constants.NO_TRACKING, false));
-          } else {
-            tracking.push(htmlUtils.getOriginHtml(origin, action, action == constants.DNT));
-          }
-          process();
-        });
-      } else {
-        printable.push.apply(printable, tracking);
-        if (nonTracking.length > 0) {
-          printable.push(
-            '<div class="clicker" id="nonTrackers" title="' +
-            i18n.getMessage("non_tracker_tip") + '">' +
-            i18n.getMessage("non_tracker") + '</div>'
-          );
-        }
-        printable.push.apply(printable, nonTracking);
-        callback();
-      }
-    }
-  }
-
-  function renderDomains() {
-    const CHUNK = 1;
-
-    let $printable = $(printable.splice(0, CHUNK).join(""));
-
-    $printable.find('.switch-toggle').each(registerToggleHandlers);
-
-    // Hide elements for removing origins (controlled from the options page).
-    // Popup shows what's loaded for the current page so it doesn't make sense
-    // to have removal ability here.
-    $printable.find('.removeOrigin').hide();
-
-    $printable.appendTo('#blockedResourcesInner');
-
-    if (printable.length) {
-      requestAnimationFrame(renderDomains);
-    }
-  }
 }
 
 /**
