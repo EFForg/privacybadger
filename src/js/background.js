@@ -501,6 +501,15 @@ Badger.prototype = {
     return Object.keys(this.tabData[tabId].origins);
   },
 
+  getAllOriginsWithActionsFromTab: function(tabId) {
+    let out = [],
+      self = this;
+    self.getAllOriginsForTab(tabId).forEach(origin => {
+      out.push([origin, self.storage.getBestAction(origin)]);
+    });
+    return out;
+  },
+
   /**
    * Update page action badge with current count
    * @param {Integer} tabId chrome tab id

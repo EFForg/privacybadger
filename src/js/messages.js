@@ -39,6 +39,7 @@ let defaultMethods = new Set([
   'badger.settings.setItem',
   'badger.saveAction',
   'badger.extractHostFromURL',
+  'badger.getAllOriginsWithActionsFromTab',
 ]);
 
 function makeOnMessage(methods) {
