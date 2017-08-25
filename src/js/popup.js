@@ -59,6 +59,7 @@ function showNagMaybe() {
 function init() {
   showNagMaybe();
 
+  $("#options").click(optionsOpener);
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
   $("#donate").click(function() {
@@ -432,3 +433,17 @@ document.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('unload', function() {
   reloadIfNeeded();
 });
+
+function optionsOpener() {
+  let url = '/skin/options.html';
+  chrome.windows.getAll({windowTypes: ["normal"]}, windows => {
+    for (let w of windows) {
+      if (!w.incognito) {
+        chrome.tabs.create({url, windowId: w.id, active: true}, () => chrome.windows.update(w.id, {focused: true}));
+        return;
+      }
+    }
+    // firefox doesn't support `focused: true` in windows.create
+    chrome.windows.create({url, incognito: false}, w => windows.update(w.id, {focused: true}));
+  });
+}
