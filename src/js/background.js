@@ -514,30 +514,36 @@ Badger.prototype = {
   },
 
   /**
-   * Update page action badge with current count
-   * @param {Integer} tabId chrome tab id
+   * Update page action badge with current count.
+   * @param {Integer} tab_id browser tab ID
    */
-  updateBadge: function(tabId, disabled){
-    if(FirefoxAndroid.isUsed){
+  updateBadge: function (tab_id, disabled) {
+    if (FirefoxAndroid.isUsed) {
       return;
     }
 
     let self = this;
-    chrome.tabs.get(tabId, () => {  // avoid setting on background tabs
-      if (!chrome.runtime.lastError) {
-        if (!self.showCounter() || disabled) {
-          chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
-          return;
-        }
 
-        let numBlocked = self.getBlockedOriginCount(tabId);
-        if(numBlocked === 0){
-          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
-        } else {
-          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
-        }
-        chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+    chrome.tabs.get(tab_id, function () {
+      if (chrome.runtime.lastError) {
+        // don't set on background (prerendered) tabs to avoid Chrome errors
+        return;
       }
+
+      if (!self.showCounter() || disabled) {
+        chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
+        return;
+      }
+
+      let count = self.getBlockedOriginCount(tab_id);
+
+      if (count === 0) {
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#00cc00"});
+      } else {
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
+      }
+
+      chrome.browserAction.setBadgeText({tabId: tab_id, text: count + ""});
     });
   },
 
