@@ -682,20 +682,21 @@ Badger.prototype = {
   },
 
   /**
-   * Add only new third party origins to the tabData[tabId] object for
+   * Add only new third party origins to the tabData[tab_id] object for
    * use in the popup and, if needed, call updateBadge.
    *
-   * @param tabId the tab we are on
+   * @param tab_id the tab we are on
    * @param fqdn the third party origin to add
    * @param action the action we are taking
    *
    **/
-  logThirdPartyOriginOnTab: function(tabId, fqdn, action) {
-    if(!this.tabData[tabId].origins.hasOwnProperty(fqdn)) {
-      this.tabData[tabId].origins[fqdn] = true;
+  logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
+    if (!this.tabData[tab_id].origins.hasOwnProperty(fqdn)) {
+      this.tabData[tab_id].origins[fqdn] = true;
+
       if (constants.BLOCKED_ACTIONS.has(action)) {
-        this.tabData[tabId].blockedCount += 1;
-        badger.updateBadge(tabId);
+        this.tabData[tab_id].blockedCount++;
+        badger.updateBadge(tab_id);
       }
     }
   },
