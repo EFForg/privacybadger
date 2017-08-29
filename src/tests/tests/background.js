@@ -184,8 +184,7 @@
       this.tabId = -1;
       badger.tabData[this.tabId] = {
         frames: {},
-        origins: {},
-        blockedCount: 0
+        origins: {}
       };
     },
   },
@@ -201,16 +200,18 @@
     });
     QUnit.test("increment blocked count", function(assert) {
       let tabId = this.tabId;
-      assert.equal(badger.tabData[tabId].blockedCount, 0);
+      assert.equal(badger.getBlockedOriginCount(tabId), 0);
+
+      badger.storage.setupHeuristicAction('stuff', constants.BLOCK);
+      badger.logThirdPartyOriginOnTab(tabId, 'stuff', constants.BLOCK);
+      assert.equal(badger.getBlockedOriginCount(tabId), 1);
 
       badger.logThirdPartyOriginOnTab(tabId, 'stuff', constants.BLOCK);
-      assert.equal(badger.tabData[tabId].blockedCount, 1);
+      assert.equal(badger.getBlockedOriginCount(tabId), 1);
 
-      badger.logThirdPartyOriginOnTab(tabId, 'stuff', constants.BLOCK);
-      assert.equal(badger.tabData[tabId].blockedCount, 1);
-
+      badger.storage.setupHeuristicAction('eff.org', constants.COOKIEBLOCK);
       badger.logThirdPartyOriginOnTab(tabId, 'eff.org', constants.COOKIEBLOCK);
-      assert.equal(badger.tabData[tabId].blockedCount, 2);
+      assert.equal(badger.getBlockedOriginCount(tabId), 2);
     });
     QUnit.module('updateBadge', {
       beforeEach: function() {
@@ -252,19 +253,6 @@
       };
       badger.updateBadge(this.tabId);
     });
-    QUnit.test("numblocked many", function(assert) {
-      let done = assert.async(2);
-      badger.tabData[this.tabId].blockedCount = "many";
-      chrome.tabs.get = noop;
-      chrome.browserAction.setBadgeText = (obj) => {
-        assert.deepEqual(obj, {tabId: this.tabId, text: "many"});
-        done();
-      };
-      chrome.browserAction.setBadgeBackgroundColor = (obj) => {
-        assert.deepEqual(obj, {tabId: this.tabId, color: "#cc0000"});
-        done();
-      };
-      badger.updateBadge(this.tabId);
-    });
+
   });
 }());

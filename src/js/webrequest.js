@@ -325,8 +325,7 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (!badger.tabData.hasOwnProperty(tabId)){
     badger.tabData[tabId] = {
       frames: {},
-      origins: {},
-      blockedCount: 0
+      origins: {}
     };
   }
 

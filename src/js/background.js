@@ -180,8 +180,7 @@ Badger.prototype = {
               url: tab.url
             }
           },
-          origins: {},
-          blockedCount: 0
+          origins: {}
         };
       }
     });
@@ -488,13 +487,30 @@ Badger.prototype = {
   },
 
 
-/**
+  /**
    * Helper function returns a list of all third party origins for a tab
    * @param {Integer} tabId requested tab id as provided by chrome
    * @returns {*} A dictionary of third party origins and their actions
    */
   getAllOriginsForTab: function(tabId) {
     return Object.keys(this.tabData[tabId].origins);
+  },
+
+  /**
+   * Returns the count of blocked/cookieblocked origins for a tab.
+   * @param {Integer} tab_id browser tab ID
+   * @returns {Integer} blocked origin count
+   */
+  getBlockedOriginCount: function (tab_id) {
+    let self = this;
+
+    return self.getAllOriginsForTab(tab_id).reduce((memo, origin) => {
+      let action = self.storage.getBestAction(origin);
+      if (constants.BLOCKED_ACTIONS.has(action)) {
+        memo++;
+      }
+      return memo;
+    }, 0);
   },
 
   /**
@@ -509,13 +525,12 @@ Badger.prototype = {
     let self = this;
     chrome.tabs.get(tabId, () => {  // avoid setting on background tabs
       if (!chrome.runtime.lastError) {
-        let thisTab = self.tabData[tabId];
-        if (!self.showCounter() || !thisTab || disabled) {
+        if (!self.showCounter() || disabled) {
           chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
           return;
         }
 
-        let numBlocked = thisTab ? thisTab.blockedCount : 0;
+        let numBlocked = self.getBlockedOriginCount(tabId);
         if(numBlocked === 0){
           chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
         } else {
@@ -682,7 +697,7 @@ Badger.prototype = {
   },
 
   /**
-   * Add only new third party origins to the tabData[tab_id] object for
+   * Save third party origins to tabData[tab_id] object for
    * use in the popup and, if needed, call updateBadge.
    *
    * @param tab_id the tab we are on
@@ -691,13 +706,10 @@ Badger.prototype = {
    *
    **/
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
-    if (!this.tabData[tab_id].origins.hasOwnProperty(fqdn)) {
-      this.tabData[tab_id].origins[fqdn] = true;
+    this.tabData[tab_id].origins[fqdn] = true;
 
-      if (constants.BLOCKED_ACTIONS.has(action)) {
-        this.tabData[tab_id].blockedCount++;
-        badger.updateBadge(tab_id);
-      }
+    if (constants.BLOCKED_ACTIONS.has(action)) {
+      badger.updateBadge(tab_id);
     }
   },
 
