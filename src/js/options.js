@@ -32,6 +32,7 @@ var log = backgroundPage.log;
 var constants = backgroundPage.constants;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
+var privacySettings = require("privacySettings");
 var originCache = null;
 var settings = badger.storage.getBadgerStorageObject("settings_map");
 
@@ -87,6 +88,15 @@ function loadOptions() {
     $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
     $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
   }
+
+  privacySettings.isAlternateErrorPagesAvailable().then(
+    details => {
+      $("#checkbox_alternate_error_pages").click(privacySettings.toggleAlternateErrorPages);
+      $("#checkbox_alternate_error_pages").prop("checked", details.value);
+    }, details => {
+      $("#alternate_error_pages").css({"visibility": "hidden", "height": 0});
+    }
+  );
 
   // Show user's filters
   reloadWhitelist();

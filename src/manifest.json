@@ -27,6 +27,7 @@
       "lib/basedomain.js",
       "lib/underscore-min.js",
       "data/surrogates.js",
+      "js/privacy_settings.js",
       "js/surrogates.js",
       "js/multiDomainFirstParties.js",
       "js/incognito.js",
