@@ -53,3 +53,4 @@ web-ext-artifacts
 pkg
 release-utils/config.sh
 release-utils/xpi
+.cache
