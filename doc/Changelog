@@ -1,5 +1,45 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.7.24
+* Added validation to yellowlist (f.k.a. "cookieblock list") updating
+* Removed faulty yellowlist domain removal logic, which, together with missing
+validation and eff.org serving a maintenance page instead of the actual
+yellowlist, resulted in major breakages all across the Web, something this
+update should prevent from happening ever again
+* Fixed various site breakages
+* Improved translations (Swedish)
+
+## 2017.6.13.1
+* Added workaround for validation issue preventing upload to Chrome Web Store
+* Fixed chrome.privacy-related exceptions in Firefox 54
+
+## 2017.6.13
+* Added automatic replacement of t.co shortened tracking URLs with original
+unobfuscated URLs on twitter.com
+* Added option to disable Do Not Track policy checking
+* Restricted DNT policy checking from sending cookies
+* Fixed tooltips for DNT-compliant domains in popup
+* Fixed localStorage tracking sometimes being attributed to unrelated domains
+* Improved translations (Swedish, Ukrainian)
+
+## 2017.5.9
+* Improved popup rendering
+* Added version number to popup
+* Restricted Do Not Track policy checking from being able to set cookies
+* Fixed several cookie parsing issues
+* Added workaround for Cloudflare security cookies
+* Improved translations (Simplified Chinese, Swedish, Ukrainian)
+
+## 2017.4.19.1
+* Rework DNT policy rechecking to only happen during browsing. Eliminates
+needless rechecking of unlikely-to-be-visited-again domains. Should further
+mitigate CPU issues.
+* Fix DNT policies to only apply to specific domains they are posted on
+* New translations (Ukrainian)
+* Improved translations (Simplified Chinese, Italian)
+* Fix "trackers" link on popup and options pages
+* Fix broken site (sharepoint.com)
+
 ## 2017.3.28
 * New Translations (Czech)
 * Translation Updates

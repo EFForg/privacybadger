@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "新增網域"
     },
+    "badger_status_allow": {
+        "message": "允許"
+    },
     "badger_status_block": {
         "message": "封鎖"
     },
     "badger_status_cookieblock": {
         "message": "封鎖此網站的 cookie"
-    },
-    "badger_status_noaction": {
-        "message": "允許"
     },
     "data_settings": {
         "message": "管理資料"
@@ -117,7 +117,7 @@
         "message": "在目前網頁開啟 Privacy Badger"
     },
     "popup_instructions": {
-        "message": "可疑的<a target='_blank' href='https://www.eff.org/privacybadger#trackers'>追蹤器</a>。<br>這些滾動條讓您可控制 Privacy Badger 如何處理每一個追蹤器，但除非 Privacy Badger 造成網頁顯示異常，不必特別調整。"
+        "message": "可疑的<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤器</a>。<br>這些滾動條讓您可控制 Privacy Badger 如何處理每一個追蹤器，但除非 Privacy Badger 造成網頁顯示異常，不必特別調整。"
     },
     "popup_noblocked": {
         "message": "為什麼沒有封鎖任何東西？"

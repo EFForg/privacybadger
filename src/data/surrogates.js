@@ -34,6 +34,7 @@ const hostnames = {
     '/analytics.js',
   ],
   'www.google-analytics.com': [
+    '/analytics.js',
     '/ga.js',
   ],
   'www.googletagservices.com': [

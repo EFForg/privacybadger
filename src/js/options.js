@@ -76,13 +76,14 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
-  if(chrome.privacy && badger.webRTCAvailable){
+  $("#check_dnt_policy_checkbox").click(updateCheckingDNTPolicy);
+  $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled());
+
+  if (badger.webRTCAvailable) {
     $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
     $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
-  }
-
-  // Hide WebRTC-related settings for non-supporting browsers
-  if (!chrome.privacy || !badger.webRTCAvailable) {
+  } else {
+    // Hide WebRTC-related settings for non-supporting browsers
     $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
     $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
   }
@@ -158,15 +159,13 @@ function parseUserDataFile(storageMapsList) {
 /**
  * Export the user's data, including their list of trackers from
  * action_map and snitch_map, along with their settings.
- * List will be exported and sent to user via chrome.downloads API
- * and will be in JSON format that can be edited and reimported
+ * List will be in JSON format that can be edited and reimported
  * in another instance of Privacy Badger.
  */
 function exportUserData() {
   chrome.storage.local.get(["action_map", "snitch_map", "settings_map"], function(maps) {
 
     var mapJSON = JSON.stringify(maps);
-    var downloadURL = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
 
     // Append the formatted date to the exported file name
     var currDate = new Date().toLocaleString();
@@ -178,12 +177,31 @@ function exportUserData() {
       .replace(/[, ]+/g, '_');
     var filename = 'PrivacyBadger_user_data-' + escapedDate + '.json';
 
-    // Download workaround taken from uBlock Origin:
+    // Download workaround taken from uBlock Origin
     // https://github.com/gorhill/uBlock/blob/40a85f8c04840ae5f5875c1e8b5fa17578c5bd1a/platform/chromium/vapi-common.js
     var a = document.createElement('a');
-    a.href = downloadURL;
     a.setAttribute('download', filename || '');
-    a.dispatchEvent(new MouseEvent('click'));
+
+    // TODO remove browser check and simplify code once Firefox 52 goes away
+    // https://github.com/EFForg/privacybadger/pull/1532#issuecomment-318702372
+    if (chrome.runtime.getBrowserInfo) {
+      chrome.runtime.getBrowserInfo((info) => {
+        if(info.name == "Firefox"){
+          a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
+          a.dispatchEvent(new MouseEvent('click'));
+        } else {
+          var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
+          a.href = URL.createObjectURL(blob);
+          a.dispatchEvent(new MouseEvent('click'));
+          URL.revokeObjectURL(blob);
+        }
+      });
+    } else {
+      var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
+      a.href = URL.createObjectURL(blob);
+      a.dispatchEvent(new MouseEvent('click'));
+      URL.revokeObjectURL(blob);
+    }
   });
 }
 
@@ -208,6 +226,12 @@ function updateShowCounter() {
 function updateSocialWidgetReplacement() {
   var replaceSocialWidgets = $("#replace_social_widgets_checkbox").prop("checked");
   settings.setItem("socialWidgetReplacementEnabled", replaceSocialWidgets);
+}
+
+function updateCheckingDNTPolicy() {
+  var newDNTSetting = $("#check_dnt_policy_checkbox").prop("checked");
+  settings.setItem("checkForDNTPolicy", newDNTSetting);
+  refreshFilterPage(); // This setting means sites need to be re-evaluated
 }
 
 function reloadWhitelist() {
@@ -336,7 +360,7 @@ function refreshFilterPage() {
   $("#count").text(allTrackingDomains.length);
 
   // Display tracker tooltips.
-  $("#blockedResources").html(htmlUtils.getTrackerContainerHtml());
+  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // Display tracking domains.
   var originsToDisplay;
@@ -386,7 +410,7 @@ function addOrigins(e) {
     var domain = domains.shift();
     var action = getOriginAction(domain);
     if (action) {
-      target.innerHTML += htmlUtils.addOriginHtml('', domain, action);
+      target.innerHTML += htmlUtils.getOriginHtml(domain, action, action == constants.DNT);
     }
   }
 }
@@ -405,7 +429,7 @@ function showTrackingDomains(domains) {
     // todo: gross hack, use templating framework
     var action = getOriginAction(trackingDomain);
     if (action) {
-      trackingDetails = htmlUtils.addOriginHtml(trackingDetails, trackingDomain, action);
+      trackingDetails += htmlUtils.getOriginHtml(trackingDomain, action, action == constants.DNT);
     }
   }
   trackingDetails += '</div>';
@@ -455,7 +479,9 @@ function showTrackingDomains(domains) {
  */
 function toggleWebRTCIPProtection() {
   // Return early with non-supporting browsers
-  if (!chrome.privacy || !badger.webRTCAvailable) { return; }
+  if (!badger.webRTCAvailable) {
+    return;
+  }
   var cpn = chrome.privacy.network;
 
   cpn.webRTCIPHandlingPolicy.get({}, function(result) {
@@ -502,7 +528,6 @@ function removeOrigin(event) {
   var origin = $element.data('origin');
   badger.storage.getBadgerStorageObject("snitch_map").deleteItem(origin);
   badger.storage.getBadgerStorageObject("action_map").deleteItem(origin);
-  badger.storage.getBadgerStorageObject("supercookie_domains").deleteItem(origin);
   backgroundPage.log('Removed', origin, 'from Privacy Badger');
 
   refreshFilterPage();

@@ -86,15 +86,6 @@ function onBeforeRequest(details){
     return {};
   }
 
-  // Read the supercookie state from localStorage and store it in frameData
-  var frameData = getFrameData(tab_id, frame_id);
-  if (frameData && !("superCookie" in frameData)){ // check if we already read localStorage for this frame
-    var supercookieDomains = badger.getSupercookieDomains();
-    var origin = window.getBaseDomain(requestDomain);
-    frameData.superCookie = supercookieDomains.hasItem(origin) ? true : false;
-    log("onBeforeRequest: read superCookie state from localstorage for",
-            origin, frameData.superCookie, tab_id, frame_id);
-  } 
   var requestAction = checkAction(tab_id, url, false, frame_id);
   if (requestAction) {
     if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
@@ -126,11 +117,27 @@ function onBeforeRequest(details){
  * @returns {*} modified headers
  */
 function onBeforeSendHeaders(details) {
-  var frame_id = details.frameId,
+  let frame_id = details.frameId,
+    headers = details.requestHeaders,
     tab_id = details.tabId,
+    type = details.type,
     url = details.url;
 
-  if(_isTabChromeInternal(tab_id)){
+  if (_isTabChromeInternal(tab_id)) {
+    // DNT policy requests: strip cookies
+    if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
+      // remove Cookie headers
+      let newHeaders = [];
+      for (let i = 0, count = headers.length; i < count; i++) {
+        if (headers[i].name.toLowerCase() != "cookie") {
+          newHeaders.push(headers[i]);
+        }
+      }
+      return {
+        requestHeaders: newHeaders
+      };
+    }
+
     return {};
   }
 
@@ -140,7 +147,7 @@ function onBeforeSendHeaders(details) {
   if (badger.isPrivacyBadgerEnabled(tabDomain) && 
       isThirdPartyDomain(requestDomain, tabDomain)) {
     var requestAction = checkAction(tab_id, url, false, frame_id);
-    // If this might be the third stike against the potential tracker which
+    // If this might be the third strike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
     if (requestAction == constants.ALLOW && 
         badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1){
@@ -151,7 +158,7 @@ function onBeforeSendHeaders(details) {
     // This will only happen if the above code sets the action for the request
     // to block
     if (requestAction == constants.BLOCK) {
-      if (details.type == 'script') {
+      if (type == 'script') {
         var surrogate = getSurrogateURI(url, requestDomain);
         if (surrogate) {
           return {redirectUrl: surrogate};
@@ -170,7 +177,7 @@ function onBeforeSendHeaders(details) {
 
     // This is the typical codepath
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-      var newHeaders = details.requestHeaders.filter(function(header) {
+      var newHeaders = headers.filter(function(header) {
         return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
       });
       newHeaders.push({name: "DNT", value: "1"});
@@ -179,8 +186,8 @@ function onBeforeSendHeaders(details) {
   }
 
   // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-  details.requestHeaders.push({name: "DNT", value: "1"});
-  return {requestHeaders: details.requestHeaders};
+  headers.push({name: "DNT", value: "1"});
+  return {requestHeaders: headers};
 }
 
 /**
@@ -189,11 +196,33 @@ function onBeforeSendHeaders(details) {
  * @param details The event details
  * @returns {*} The new response header
  */
-function onHeadersReceived(details){
+function onHeadersReceived(details) {
   var tab_id = details.tabId,
     url = details.url;
 
-  if(_isTabChromeInternal(tab_id)){
+  if (_isTabChromeInternal(tab_id)) {
+    // DNT policy responses: strip cookies, reject redirects
+    if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
+      // if it's a redirect, cancel it
+      if (details.statusCode >= 300 && details.statusCode < 400) {
+        return {
+          cancel: true
+        };
+      }
+
+      // remove Set-Cookie headers
+      let headers = details.responseHeaders,
+        newHeaders = [];
+      for (let i = 0, count = headers.length; i < count; i++) {
+        if (headers[i].name.toLowerCase() != "set-cookie") {
+          newHeaders.push(headers[i]);
+        }
+      }
+      return {
+        responseHeaders: newHeaders
+      };
+    }
+
     return {};
   }
 
@@ -208,15 +237,12 @@ function onHeadersReceived(details){
     return {};
   }
 
-
   var requestAction = checkAction(tab_id, url, false, details.frameId);
   if (requestAction) {
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
       });
-      newHeaders.push({name:'x-marks-the-spot', value:'foo'});
-      //TODO don't return this unless we modified headers
       return {responseHeaders: newHeaders};
     }
   }
@@ -274,6 +300,8 @@ function getHostForTab(tabId){
   if (!badger.tabData[tabId]) {
     return '';
   }
+  // TODO what does this actually do?
+  // meant to address https://github.com/EFForg/privacybadger/issues/136
   if (_isTabAnExtension(tabId)) {
     // If the tab is an extension get the url of the first frame for its implied URL
     // since the url of frame 0 will be the hash of the extension key
@@ -297,18 +325,10 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
   if (!badger.tabData.hasOwnProperty(tabId)){
     badger.tabData[tabId] = {
       frames: {},
-      trackers: {}
+      origins: {},
+      blockedCount: 0
     };
   }
-  // check if this is a prerendered (bg) tab or not
-  chrome.tabs.get(tabId, function(/*tab*/){
-    if (chrome.runtime.lastError){
-      // chrome will throw error for the prerendered tabs
-      badger.tabData[tabId].bgTab = true;
-    }else{
-      badger.tabData[tabId].bgTab = false;
-    }
-  });
 
   badger.tabData[tabId].frames[frameId] = {
     url: frameUrl,
@@ -317,7 +337,7 @@ function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
 }
 
 /**
- * Store super cookie data in memory. Also stored in Local Storage
+ * Record "supercookie" tracking
  *
  * @param sender message sender
  * @param msg super cookie message dict
@@ -326,26 +346,18 @@ function recordSuperCookie(sender, msg) {
   if (incognito.tabIsIncognito(sender.tab.id)) {
     return;
   }
-  /* Update frameData and localStorage about the supercookie finding */
-  var frameHost = window.extractHostFromURL(msg.docUrl); // docUrl: url of the frame with supercookie
-  var frameOrigin = window.getBaseDomain(frameHost);
+
+  // docUrl: url of the frame with supercookie
+  var frameHost = window.extractHostFromURL(msg.docUrl);
   var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+
   if (!isThirdPartyDomain(frameHost, pageHost)) {
-    // Only happens on the start page for google.com.
+    // Only happens on the start page for google.com
     return;
   }
 
-  // Keep frame's supercookie state in frameData for faster lookups
-  var frameData = getFrameData(sender.tab.id, sender.frameId);
-  if (frameData){
-    frameData.superCookie = true;
-  }
-  // Now add the finding to localStorage for persistence
-  var supercookieDomains = badger.getSupercookieDomains();
-  // We could store the type of supercookie once we start to check multiple storage vectors
-  // Could be useful for debugging & bookkeeping.
-  
-  supercookieDomains.setItem(frameOrigin, true);
+  badger.heuristicBlocking.updateTrackerPrevalence(
+    frameHost, window.getBaseDomain(pageHost));
 }
 
 /**
@@ -428,16 +440,15 @@ function recordFingerprinting(tabId, msg) {
 /**
  * Read the frame data from memory
  *
- * @param tabId TabId to check for
- * @param frameId FrameID to check for
+ * @param tab_id Tab ID to check for
+ * @param frame_id Frame ID to check for
  * @returns {*} Frame data object or null
  */
-function getFrameData(tabId, frameId) {
-  if (tabId in badger.tabData && frameId in badger.tabData[tabId].frames){
-    return badger.tabData[tabId].frames[frameId];
-  } else if (frameId > 0 && tabId in badger.tabData && 0 in badger.tabData[tabId].frames) {
-    // We don't know anything about javascript: or data: frames, use top frame
-    return badger.tabData[tabId].frames[0];
+function getFrameData(tab_id, frame_id) {
+  if (badger.tabData.hasOwnProperty(tab_id)) {
+    if (badger.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
+      return badger.tabData[tab_id].frames[frame_id];
+    }
   }
   return null;
 }
@@ -509,7 +520,7 @@ function checkAction(tabId, url, quiet, frameId){
   var action = badger.storage.getBestAction(requestHost);
 
   if (action && ! quiet) {
-    badger.logTrackerOnTab(tabId, requestHost, action);
+    badger.logThirdPartyOriginOnTab(tabId, requestHost, action);
   }
   return action;
 }
@@ -518,14 +529,13 @@ function checkAction(tabId, url, quiet, frameId){
  * Check if the url of the tab starts with the given string
  *
  * @param {Integer} tabId Id of the tab
- * @param {String} piece String to check against
+ * @param {String} str String to check against
  * @returns {boolean} true if starts with string
  * @private
  */
-function _frameUrlStartsWith(tabId, piece){
-  return badger.tabData[tabId] &&
-    badger.tabData[tabId].frames[0] &&
-    (badger.tabData[tabId].frames[0].url.indexOf(piece) === 0);
+function _frameUrlStartsWith(tabId, str) {
+  let frameData = getFrameData(tabId, 0);
+  return frameData && frameData.url.indexOf(str) === 0;
 }
 
 /**
@@ -535,8 +545,8 @@ function _frameUrlStartsWith(tabId, piece){
  * @returns {boolean} Returns true if the tab is chrome internal
  * @private
  */
-function _isTabChromeInternal(tabId){
-  return tabId < 0 || _frameUrlStartsWith(tabId, "chrome");
+function _isTabChromeInternal(tabId) {
+  return tabId < 0 || !_frameUrlStartsWith(tabId, "http");
 }
 
 /**
@@ -546,8 +556,11 @@ function _isTabChromeInternal(tabId){
  * @returns {boolean} Returns true if the tab is from a chrome-extension
  * @private
  */
-function _isTabAnExtension(tabId){
-  return _frameUrlStartsWith(tabId, "chrome-extension://");
+function _isTabAnExtension(tabId) {
+  return (
+    _frameUrlStartsWith(tabId, "chrome-extension://") ||
+    _frameUrlStartsWith(tabId, "moz-extension://")
+  );
 }
 
 /**
@@ -628,7 +641,7 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.checkLocation) {
     if (badger.isPrivacyBadgerEnabled(tabHost)) {
-      var documentHost = request.checkLocation.href;
+      var documentHost = request.checkLocation;
       var reqAction = checkAction(sender.tab.id, documentHost, true);
       var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
       sendResponse(cookieBlock);
@@ -679,12 +692,8 @@ function startListeners() {
 
 /************************************** exports */
 var exports = {};
-exports.getFrameData = getFrameData;
 exports.getHostForTab = getHostForTab;
-exports.getFrameUrl = getFrameUrl;
 exports.startListeners = startListeners;
-exports.isSocialWidgetTemporaryUnblock = isSocialWidgetTemporaryUnblock;
-
 return exports;
 /************************************** exports */
 })();

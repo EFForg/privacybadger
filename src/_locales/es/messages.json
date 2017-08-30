@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Añadir dominio"
     },
+    "badger_status_allow": {
+        "message": "Este dominio está desbloqueado, desliza para bloquearlo completamento o bloquear las cookies."
+    },
     "badger_status_block": {
         "message": "Este rastreador está BLOQUEADO, desliza para desbloquear el rastreador o bloquear las cookies."
     },
     "badger_status_cookieblock": {
         "message": "Las cookies de este rastreador están bloqueadas, desliza para bloquear o desbloquear el rastreador."
-    },
-    "badger_status_noaction": {
-        "message": "Este dominio está desbloqueado, desliza para bloquearlo completamento o bloquear las cookies."
     },
     "data_settings": {
         "message": "Manage Data"
@@ -102,7 +102,7 @@
         "message": "Habilitar Privacy Badger para este sitio"
     },
     "popup_instructions": {
-        "message": "potenciales <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>rastreadores</a> en esta página. Estos controles deslizante te permitirán controlar cómo Privacy Badger maneja cada uno."
+        "message": "potenciales <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastreadores</a> en esta página. Estos controles deslizante te permitirán controlar cómo Privacy Badger maneja cada uno."
     },
     "popup_noblocked": {
         "message": "¿Por qué no hay nada bloqueado?"

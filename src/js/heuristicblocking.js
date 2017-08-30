@@ -86,38 +86,6 @@ HeuristicBlocker.prototype = {
   },
 
   /**
-   * Check if SuperCookie tracking is done
-   *
-   * @param details onBeforeSendHeaders details
-   * @param origin The URL
-   * @returns {*} null or the supercookie data structure
-   */
-  hasSupercookieTracking: function(details, origin) {
-    /* This function is called before we hear from the localstorage check in supercookie.js.
-     * So, we're missing the scripts which may have supercookies.
-     * Alternatively, we could record the prevalence when we find hi-entropy localstorage items
-     * and check that record to see if the frame hasSupercookieTracking.
-     */
-    var frameData = badger.getFrameData(details.tabId, details.frameId);
-    if (frameData){
-      return frameData.superCookie;
-    } else { // Check localStorage if we can't find the frame in frameData
-      return badger.getSupercookieDomains().hasItem(origin);
-    }
-  },
-
-  /**
-   * Decides if a origin has tracking
-   *
-   * @param details onBeforeSendHeaders details
-   * @param origin The URL
-   * @returns {bool} true if it has tracking
-   */
-  hasTracking: function(details, origin) {
-    return (hasCookieTracking(details, origin) || this.hasSupercookieTracking(details, origin));
-  },
-
-  /**
    * Wraps _recordPrevalence for use from webRequest listeners.
    * Also saves tab (page) origins. TODO Should be handled by tabData instead.
    * Also sets a timeout for checking DNT policy for third-party FQDNs.
@@ -129,42 +97,46 @@ HeuristicBlocker.prototype = {
    * @param details are those from onBeforeSendHeaders
    * @returns {*}
    */
-  heuristicBlockingAccounting: function(details) {
+  heuristicBlockingAccounting: function (details) {
     // ignore requests that are outside a tabbed window
-    if(details.tabId < 0 || incognito.tabIsIncognito(details.tabId)){
-      return { };
+    if (details.tabId < 0 || incognito.tabIsIncognito(details.tabId)) {
+      return {};
     }
 
-    var fqdn = utils.makeURI(details.url).host;
-    var origin = window.getBaseDomain(fqdn);
+    let fqdn = utils.makeURI(details.url).host,
+      origin = window.getBaseDomain(fqdn);
 
-    // abort if we already made a decision for this fqdn
-    var action = this.storage.getActionForFqdn(fqdn);
-    if(action != constants.NO_TRACKING && action != constants.ALLOW){
-      return { };
-    }
-
-    // Save the origin associated with the tab if this is a main window request
-    if(details.type == "main_frame") {
+    // if this is a main window request
+    if (details.type == "main_frame") {
+      // save the origin associated with the tab
       log("Origin: " + origin + "\tURL: " + details.url);
       tabOrigins[details.tabId] = origin;
-      return { };
+      return {};
     }
-    else {
-      var tabOrigin = tabOrigins[details.tabId];
-      // Ignore first-party requests
-      if (!tabOrigin || origin == tabOrigin){
-        return { };
-      }
-      window.setTimeout(function(){
-        badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
-      }, 10);
-      // if there are no tracking cookies or similar things, ignore
-      if (!this.hasTracking(details, origin)){
-        return { };
-      }
-      this._recordPrevalence(fqdn, origin, tabOrigin);
+
+    let tabOrigin = tabOrigins[details.tabId];
+
+    // ignore first-party requests
+    if (!tabOrigin || origin == tabOrigin) {
+      return {};
     }
+
+    window.setTimeout(function () {
+      badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
+    }, 10);
+
+    // abort if we already made a decision for this FQDN
+    let action = this.storage.getAction(fqdn);
+    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+      return {};
+    }
+
+    // ignore if there are no tracking cookies
+    if (!hasCookieTracking(details, origin)) {
+      return {};
+    }
+
+    this._recordPrevalence(fqdn, origin, tabOrigin);
   },
 
   /**
@@ -177,7 +149,7 @@ HeuristicBlocker.prototype = {
    */
   updateTrackerPrevalence: function(tracker_fqdn, page_origin) {
     // abort if we already made a decision for this fqdn
-    let action = this.storage.getActionForFqdn(tracker_fqdn);
+    let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return;
     }
@@ -451,42 +423,28 @@ var lowEntropyCookieValues = {
 /**
  * Extract cookies from onBeforeSendHeaders
  *
- * https://developer.chrome.com/extensions/webRequest#event-onBeforeSendHeaders
- *
  * @param details Details for onBeforeSendHeaders
- * @returns {*} False or a string combining all Cookies
+ * @returns {*} an array combining all Cookies
  */
-var extractCookieString = function(details) {
-  // @details are those from onBeforeSendHeaders
-  // The RFC allows cookies to be separated by ; or , (!!@$#!) but chrome uses ;
-  var cookies = "";
-  var headers;
+function _extractCookies(details) {
+  let cookies = [],
+    headers = [];
 
-  if(details.requestHeaders) {
+  if (details.requestHeaders) {
     headers = details.requestHeaders;
-  } else if(details.responseHeaders) {
+  } else if (details.responseHeaders) {
     headers = details.responseHeaders;
-  } else {
-    log("A request was made with no headers! Crazy!");
-    log(details);
-    return false;
   }
 
-
-  for (var i = 0; i < headers.length; i++) {
-    var header = headers[i];
+  for (let i = 0; i < headers.length; i++) {
+    let header = headers[i];
     if (header.name.toLowerCase() == "cookie" || header.name.toLowerCase() == "set-cookie" ) {
-      if (!cookies) {
-        cookies = header.value;
-      } else {
-        // Should not happen?  Except perhaps due to crazy extensions?
-        cookies = cookies + ";" + header.value;
-      }
+      cookies.push(header.value);
     }
   }
 
   return cookies;
-};
+}
 
 /**
  * Check if page is doing cookie tracking. Doing this by estimating the entropy of the cookies
@@ -495,46 +453,51 @@ var extractCookieString = function(details) {
  * @param {String} origin URL
  * @returns {boolean} true if it has cookie tracking
  */
-var hasCookieTracking = function(details, origin) {
-  // @details are those from onBeforeSendHeaders
-
-  var cookies = extractCookieString(details);
-  if (!cookies) {
+function hasCookieTracking(details, origin) {
+  let cookies = _extractCookies(details);
+  if (!cookies.length) {
     return false;
   }
-  cookies = cookies.split(";");
-  var hasCookies = false;
-  var estimatedEntropy = 0;
-  for (var i = 0; i < cookies.length; i++) {
-    // TODO urgh I can't believe we're parsing cookies.  Probably wrong
-    // what if the value has spaces in it?
-    hasCookies = true;
-    var c = cookies[i].trim();
-    var cut = c.indexOf("=");
-    //var name = c.slice(0,cut);
-    var value = c.slice(cut+1);
-    var lvalue = value.toLowerCase();
-    if (!(lvalue in lowEntropyCookieValues)) {
-      return true;
-    }
-    if(lvalue in lowEntropyCookieValues){
-      estimatedEntropy += lowEntropyCookieValues[lvalue];
+
+  let estimatedEntropy = 0;
+
+  // loop over every cookie
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = utils.parseCookie(cookies[i], {
+      noDecode: true,
+      skipAttributes: true,
+      skipNonValues: true
+    });
+
+    // loop over every name/value pair in every cookie
+    for (let name in cookie) {
+      if (!cookie.hasOwnProperty(name)) {
+        continue;
+      }
+
+      // ignore CloudFlare
+      if (name == "__cfduid") {
+        continue;
+      }
+
+      let value = cookie[name].toLowerCase();
+
+      if (!(value in lowEntropyCookieValues)) {
+        return true;
+      }
+
+      estimatedEntropy += lowEntropyCookieValues[value];
     }
   }
-  if (hasCookies) {
-    log("All cookies for " + origin + " deemed low entropy...");
-    for (var n = 0; n < cookies.length; n++) {
-      log("    " + cookies[n]);
-    }
-    if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
-      log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
-      return true;
-    }
-  } else {
-    log(origin, "has no cookies!");
+
+  log("All cookies for " + origin + " deemed low entropy...");
+  if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
+    log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
+    return true;
   }
+
   return false;
-};
+}
 
 function startListeners() {
   /**

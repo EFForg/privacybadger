@@ -36,16 +36,19 @@ scp /tmp/pbchangelog$$ $USER@$SERVER:/www/eff.org/docs/files/pbChangelog.txt || 
 rm -f /tmp/changelog$$
 
 MSG=/tmp/email$$
-echo "Privacy Badger for Chrome $TARGET has been released:" > $MSG
+
+echo "Privacy Badger $TARGET has been released for all supported browsers." > $MSG
+echo "As always, you can get it from https://www.eff.org/privacybadger" >> $MSG
+echo "or from your browser's add-on gallery." >> $MSG
 echo "" >> $MSG
-echo "https://www.eff.org/files/`basename $PREPKG`" >> $MSG
+echo "Notable updates:" >> $MSG
 echo "" >> $MSG
-echo "From the Changelog:" >> $MSG
-echo "" >> $MSG
-cat ../doc/Changelog | sed '/^$/q' >> $MSG
+tail -n+3 ../doc/Changelog | sed '/^$/q' >> $MSG
+echo "For further details, consult our release notes on GitHub:" >> $MSG
+echo "https://github.com/EFForg/privacybadger/releases/tag/release-$TARGET" >> $MSG
 
 echo To send email to the mailing list...
-echo mutt -s "$TARGET\ for\ Chromium\ released" privacybadger@eff.org '<' $MSG
+echo mutt -s "Privacy\ Badger\ version\ $TARGET\ released" privacybadger@eff.org '<' $MSG
 echo "Now please edit https://www.eff.org/files/privacy-badger-updates.json to include the following"
 echo ""
 echo "{"
@@ -59,5 +62,4 @@ echo "}"
 echo ""
 echo "Now please upload $POSTPKGCWS to the Chrome Developer Dashboard"
 echo "AND CLEAR THE VARNISH CACHE on the server"
-echo "Also please edit https://eff.org/privacybadger to point to this release number"
 echo "And check to confirm that the previous release is auto-updating to this one."

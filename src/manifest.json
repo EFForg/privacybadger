@@ -1,5 +1,5 @@
 {
-  "version": "2017.3.28",
+  "version": "2017.7.24",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
@@ -38,16 +38,26 @@
       "js/heuristicblocking.js",
       "js/socialwidgetloader.js",
       "js/migrations.js",
+      "js/firefoxandroid.js",
       "js/background.js"
     ]
   },
   "content_scripts": [
     {
       "js": [
-        "js/clobbercookie.js",
-        "js/clobberlocalstorage.js",
-        "js/fingerprinting.js",
-        "js/supercookie.js"
+        "js/firstparties/twitter.js"
+      ],
+      "matches": [
+        "https://twitter.com/*",
+        "http://twitter.com/*"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
+        "js/contentscripts/clobbercookie.js",
+        "js/contentscripts/clobberlocalstorage.js",
+        "js/contentscripts/fingerprinting.js"
       ],
       "matches": [
         "<all_urls>"
@@ -57,7 +67,8 @@
     },
     {
       "js": [
-	"js/socialwidgets.js"
+        "js/contentscripts/socialwidgets.js",
+        "js/contentscripts/supercookie.js"
       ],
       "matches": [
         "<all_urls>"
@@ -69,14 +80,12 @@
   "default_locale": "en_US",
   "description": "__MSG_description__",
   "icons": {
-    "128": "icons/badger-128.png",
     "16": "icons/badger-16.png",
-    "170": "icons/badger-170.png",
     "19": "icons/badger-19.png",
-    "24": "icons/badger-24.png",
-    "32": "icons/badger-32.png",
     "38": "icons/badger-38.png",
-    "48": "icons/badger-48.png"
+    "48": "icons/badger-48.png",
+    "64": "icons/badger-64.png",
+    "128": "icons/badger-128.png"
   },
   "manifest_version": 2,
   "minimum_chrome_version": "18.0",
@@ -91,7 +100,6 @@
   },
   "options_page": "/skin/options.html",
   "web_accessible_resources": [
-    "skin/*",
-    "icons/*"
+    "skin/socialwidgets/*"
   ]
 }

@@ -18,17 +18,21 @@
  /*csslint ids:ignore*/
 
 body {
-  min-width: 200px;
-  max-width: 400px;
+  margin: 0;
+  min-width: 430px; /* Chrome */
+  max-width: 100%;  /* FF android */
   font-size: 12px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
-  padding-left: 7px;
-  padding-right: 7px;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  width: 400px;
+  padding: 8px 15px;
+  box-sizing: border-box;
+}
+@media screen and (min--moz-device-pixel-ratio:0) {
+    body{
+        min-width: 200px; /* FF android */
+        width: 430px;     /* FF desktop */
+    }
 }
 
 a { text-decoration: none }
@@ -52,7 +56,7 @@ a:hover { color: #ec9329 }
 }
 
 .ui-button {
-    padding: 3px;
+    padding: .6em 1em;
 }
 
 .spacer {
@@ -164,10 +168,11 @@ color: #505050;
 font-size: 16px;
 }
 #privacyBadgerHeader h2{
-  margin: 10px;
+  margin: 5px;
+  padding-left: 5px;
   float: left;
   color: #707070;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: normal;
   font-family: helvetica, arial, 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', sans-serif;;
 }
@@ -217,11 +222,13 @@ font-size: 16px;
   max-height: 290px;
   overflow-y: auto;
   background-color: #E8E9EA;
+  position: relative;
 }
 .key {
-  position: fixed;
+  position: absolute;
   height: 25px;
-  width: 235px;
+  left: 0;
+  right: 0;
   z-index: 30;
   background: #fefefe;
   padding-top: 4px;
@@ -284,6 +291,7 @@ font-size: 16px;
 #pbInstructions{
   color: #505050;
   font-size: 16px;
+  padding-top: 10px;
   margin: 0;
 }
 
@@ -323,6 +331,7 @@ font-size: 16px;
   z-index: -1;
   opacity: 0;
   padding: 3%;
+  box-sizing: border-box;
   color: #ccc;
   background: url("/skin/background.png");
   transition: opacity .1s ease;
@@ -365,6 +374,7 @@ font-size: 16px;
 #dnt-compliant {
   float: left;
   display: inline;
+  padding-right: 5px;
 }
 .hidden {
   display: none;
@@ -377,4 +387,12 @@ font-size: 16px;
 }
 #siteControls button {
   font-size: 12px;
+}
+
+#version{
+  float: left;
+  margin-top: -15px;
+  padding-left: 60px;
+  color: #707070;
+  font-size: 10px;
 }

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import os
 import unittest
 
 from selenium.webdriver.common.action_chains import ActionChains
@@ -44,9 +43,6 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
                       " expected (%s)"
                       % (self.driver.title, localized_title))
 
-
-    @unittest.skipIf(os.environ.get('BROWSER') == 'firefox',
-            "selenium move_to is currently broken in firefox")
     def test_should_display_tooltips_on_hover(self):
         driver = self.driver
         find_el_by_css = self.find_el_by_css  # find with WebDriver wait

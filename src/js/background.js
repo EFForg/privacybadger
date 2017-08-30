@@ -25,6 +25,7 @@ var constants = require("constants");
 var pbStorage = require("storage");
 
 var HeuristicBlocking = require("heuristicblocking");
+var FirefoxAndroid = require("firefoxandroid");
 var webrequest = require("webrequest");
 var SocialWidgetLoader = require("socialwidgetloader");
 window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json");
@@ -55,11 +56,9 @@ function Badger() {
     }
 
     // Show icon as page action for all tabs that already exist
-    chrome.windows.getAll({populate: true}, function (windows) {
-      for (var i = 0; i < windows.length; i++) {
-        for (var j = 0; j < windows[i].tabs.length; j++) {
-          badger.refreshIconAndContextMenu(windows[i].tabs[j]);
-        }
+    chrome.tabs.query({}, function (tabs) {
+      for (var i = 0; i < tabs.length; i++) {
+        badger.refreshIconAndContextMenu(tabs[i]);
       }
     });
 
@@ -72,20 +71,29 @@ function Badger() {
   * WebRTC availability check
   */
   function checkWebRTCBrowserSupport(){
+    if (!(chrome.privacy && chrome.privacy.network &&
+      chrome.privacy.network.webRTCIPHandlingPolicy)) {
+      return false;
+    }
+
     var available = true;
     var connection = null;
-    try{
-      var RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection;
-      if(RTCPeerConnection){
+
+    try {
+      var RTCPeerConnection = (
+        window.RTCPeerConnection || window.webkitRTCPeerConnection
+      );
+      if (RTCPeerConnection) {
         connection = new RTCPeerConnection(null);
       }
-    } catch (ex){
+    } catch (ex) {
       available = false;
     }
 
-    if(connection !== null && connection.close){
+    if (connection !== null && connection.close) {
       connection.close();
     }
+
     return available;
   }
 }
@@ -114,7 +122,7 @@ Badger.prototype = {
             },
             ...
           },
-          trackers: {
+          origins: {
             domain.tld: bool
             ...
           }
@@ -172,7 +180,8 @@ Badger.prototype = {
               url: tab.url
             }
           },
-          trackers: {}
+          origins: {},
+          blockedCount: 0
         };
       }
     });
@@ -198,7 +207,9 @@ Badger.prototype = {
    **/
   enableWebRTCProtection: function(){
     // Return early with non-supporting browsers
-    if (!chrome.privacy || !badger.webRTCAvailable) { return; }
+    if (!badger.webRTCAvailable) {
+      return;
+    }
 
     var cpn = chrome.privacy.network;
     var settings = this.storage.getBadgerStorageObject("settings_map");
@@ -224,42 +235,79 @@ Badger.prototype = {
   * add any new entries that already have a parent domain in the action_map
   * and remove any old entries that are no longer in the cookie block list
   * from the action map
+  *
+  * @param {Function} [callback] optional callback, gets success status boolean
   **/
-  updateCookieBlockList: function(){
+  updateCookieBlockList: function (callback) {
     var self = this;
-    utils.xhrRequest(constants.COOKIE_BLOCK_LIST_URL, function(err,response){
-      if(err){
-        console.error('Problem fetching cookieblock list at',
-                  constants.COOKIE_BLOCK_LIST_URL, err.status, err.message);
-        return;
-      }
-      var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
-      var action_map = self.storage.getBadgerStorageObject('action_map');
 
-      var newCbDomains = _.map(response.split("\n"), function(d){ return d.trim();});
+    if (!callback) {
+      callback = _.noop;
+    }
+
+    utils.xhrRequest(constants.YELLOWLIST_URL, function (err, response) {
+      if (err) {
+        console.error(
+          "Problem fetching cookieblock list at",
+          constants.YELLOWLIST_URL,
+          err.status,
+          err.message
+        );
+
+        return callback(false);
+      }
+
+      // handle empty response
+      if (!response.trim()) {
+        return callback(false);
+      }
+
+      var newCbDomains = _.map(response.trim().split("\n"), domain => domain.trim());
+
+      // validate the response
+      if (!_.every(newCbDomains, (domain) => {
+        // all domains must contain at least one dot
+        if (domain.indexOf('.') == -1) {
+          return false;
+        }
+
+        // validate character set
+        //
+        // regex says:
+        // - domain starts with lowercase English letter or Arabic numeral
+        // - following that, it contains one or more
+        // letter/numeral/dot/dash characters
+        // - following the previous two requirements, domain ends with a letter
+        //
+        // TODO both overly restrictive and inaccurate
+        // but that's OK for now, we manage the list
+        if (!/^[a-z0-9][a-z0-9.-]+[a-z]$/.test(domain)) {
+          return false;
+        }
+
+        return true;
+      })) {
+        return callback(false);
+      }
+
+      var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
       var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
 
       var addedDomains = _.difference(newCbDomains, oldCbDomains);
       var removedDomains = _.difference(oldCbDomains, newCbDomains);
+
       log('adding to cookie blocklist:', addedDomains);
       log('removing from cookie blocklist:', removedDomains);
 
-      // Change any removed domains back to blocked status
-      _.each(removedDomains, function(domain){
+      var action_map = self.storage.getBadgerStorageObject('action_map');
+
+      _.each(removedDomains, function (domain) {
         cookieblock_list.deleteItem(domain);
-        if(action_map.hasItem(domain)){
-          self.storage.setupHeuristicAction(domain, constants.BLOCK);
-        }
-        var rmvdSubdomains = _.filter(Object.keys(action_map.getItemClones()),
-                                  function(subdomain){
-                                    return subdomain.endsWith(domain);
-                                  });
-        _.each(rmvdSubdomains, function(subDomain){
-          self.storage.setupHeuristicAction(subDomain, constants.BLOCK);
-        });
+        // TODO restore domain removal logic:
+        // https://github.com/EFForg/privacybadger/issues/1474
       });
 
-      // Add any new cookie block domains who's parent domain is already blocked
+      // Add any new cookie block domains whose parent domain is already blocked
       _.each(addedDomains, function(domain){
         cookieblock_list.setItem(domain, true);
         var baseDomain = window.getBaseDomain(domain);
@@ -270,18 +318,15 @@ Badger.prototype = {
         }
       });
 
+      return callback(true);
     });
   },
 
   /**
-  * Initialize DNT Setup:
-  * * download acceptable hashes from EFF
-  * * set up listener to recheck blocked domains and DNT domains
+  * Initialize DNT policy subsystem by downloading acceptable hashes from EFF
   */
-  initializeDNT: function(){
+  initializeDNT: function () {
     this.updateDNTPolicyHashes();
-    this.recheckDNTPolicyForDomains();
-    setInterval(this.recheckDNTPolicyForDomains.bind(this), utils.oneHour());
     setInterval(this.updateDNTPolicyHashes.bind(this), utils.oneDay() * 4);
   },
 
@@ -292,7 +337,7 @@ Badger.prototype = {
   initializeUserAllowList: function() {
     var action_map = this.storage.getBadgerStorageObject('action_map');
     for(var domain in action_map.getItemClones()){
-      if(this.storage.getActionForFqdn(domain) === constants.USER_ALLOW){
+      if(this.storage.getAction(domain) === constants.USER_ALLOW){
         this.userAllow.push(domain);
       }
     }
@@ -302,6 +347,11 @@ Badger.prototype = {
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function(){
+    if (! badger.isCheckingDNTPolicyEnabled()) {
+      // user has disabled this, we can check when they re-enable
+      return ;
+    }
+
     var self = this;
     utils.xhrRequest(constants.DNT_POLICIES_URL, function(err,response){
       if(err){
@@ -312,19 +362,6 @@ Badger.prototype = {
       self.storage.updateDNTHashes(JSON.parse(response));
     });
   },
-
-
-
-  /**
-  * Loop through all known domains and recheck any that need to be rechecked for a dnt-policy file
-  */
-  recheckDNTPolicyForDomains: function(){
-    var action_map = this.storage.getBadgerStorageObject('action_map');
-    for(var domain in action_map.getItemClones()){
-      this.checkForDNTPolicy(domain, this.storage.getNextUpdateForDomain(domain));
-    }
-  },
-
 
   /**
   * Checks a domain for the EFF DNT policy.
@@ -339,9 +376,14 @@ Badger.prototype = {
       return;
     }
 
-    log('Checking', domain, 'for DNT policy.');
-
     var badger = this;
+
+    if (! badger.isCheckingDNTPolicyEnabled()) {
+      // user has disabled this check
+      return ;
+    }
+
+    log('Checking', domain, 'for DNT policy.');
 
     // update timestamp first;
     // avoids queuing the same domain multiple times
@@ -398,12 +440,13 @@ Badger.prototype = {
    * Default privacy badger settings
    */
   defaultSettings: {
-    socialWidgetReplacementEnabled: true,
-    showCounter: true,
+    checkForDNTPolicy: true,
     disabledSites: [],
     isFirstRun: true,
+    migrationLevel: 0,
     seenComic: false,
-    migrationLevel: 0
+    showCounter: true,
+    socialWidgetReplacementEnabled: true,
   },
 
   /**
@@ -433,6 +476,8 @@ Badger.prototype = {
       Migrations.migrateDntRecheckTimes,
       // Need to run this migration again for everyone to #1181
       Migrations.migrateDntRecheckTimes2,
+      Migrations.forgetMistakenlyBlockedDomains,
+      Migrations.unblockIncorrectlyBlockedDomains,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
@@ -444,99 +489,46 @@ Badger.prototype = {
 
 
 /**
-   * Helper function returns a list of all blocked origins for a tab
+   * Helper function returns a list of all third party origins for a tab
    * @param {Integer} tabId requested tab id as provided by chrome
    * @returns {*} A dictionary of third party origins and their actions
    */
   getAllOriginsForTab: function(tabId) {
-    return Object.keys(this.tabData[tabId].trackers);
-  },
-
-  /**
-   * count of blocked origins for a given tab
-   * @param {Integer} tabId chrome tab id
-   * @return {Integer} count of blocked origins
-   */
-  blockedOriginCount: function(tabId) {
-    return this.getAllOriginsForTab(tabId).length;
-  },
-
-  /**
-   * Counts total blocked trackers and blocked cookies trackers
-   * TODO: ugly code, refactor
-   *
-   * @param tabId Tab ID to count for
-   * @returns {Integer} The sum of blocked trackers and cookie blocked trackers
-   */
-  blockedTrackerCount: function(tabId){
-    var self = this;
-    return self.getAllOriginsForTab(tabId)
-      .reduce(function(memo,origin){
-        var action = self.storage.getBestAction(origin);
-        if(action && (action == constants.USER_BLOCK || action ==
-                    constants.BLOCK || action == constants.COOKIEBLOCK ||
-                    action == constants.USER_COOKIE_BLOCK)){
-          memo+=1;
-        }
-        return memo;
-      }, 0);
+    return Object.keys(this.tabData[tabId].origins);
   },
 
   /**
    * Update page action badge with current count
    * @param {Integer} tabId chrome tab id
    */
-  updateBadge: function(tabId){
-    if (!this.showCounter()){
-      chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
-      return;
-    }
-    var numBlocked = this.blockedTrackerCount(tabId);
-    if(numBlocked === 0){
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
-    } else {
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
-    }
-    chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
-  },
-
-  /**
-   * Checks conditions for updating page action badge and call updateBadge
-   * @param {Object} details details object from onBeforeRequest event
-   */
-  updateCount: function(details) {
-    if(!this.isPrivacyBadgerEnabled(webrequest.getHostForTab(details.tabId))){
+  updateBadge: function(tabId, disabled){
+    if(FirefoxAndroid.isUsed){
       return;
     }
 
-    var tabId = details.tabId;
-    if (!this.tabData[tabId]) {
-      return;
-    }
-    if(this.tabData[tabId].bgTab === true){
-      // prerendered tab, Chrome will throw error for setBadge functions, don't call
-      return;
-    } else {
-      var badger = this;
-      chrome.tabs.get(tabId, function(/*tab*/){
-        if (chrome.runtime.lastError){
-          badger.tabData[tabId].bgTab = true;
-        } else {
-          badger.tabData[tabId].bgTab = false;
-          badger.updateBadge(tabId);
+    let self = this;
+    chrome.tabs.get(tabId, () => {  // avoid setting on background tabs
+      if (!chrome.runtime.lastError) {
+        let thisTab = self.tabData[tabId];
+        if (!self.showCounter() || !thisTab || disabled) {
+          chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
+          return;
         }
-      });
-    }
+
+        let numBlocked = thisTab ? thisTab.blockedCount : 0;
+        if(numBlocked === 0){
+          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
+        } else {
+          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
+        }
+        chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+      }
+    });
   },
 
-  /**
-   * Get Supercookie data from storage
-   * @returns {*|{}} Dict with Supercookie domains
-   */
-  getSupercookieDomains: function() {
-    return this.storage.getBadgerStorageObject('supercookie_domains');
+  getSettings: function() {
+    return this.storage.getBadgerStorageObject('settings_map');
   },
-  getSettings: function(){ return this.storage.getBadgerStorageObject('settings_map'); },
 
   /**
    * Check if privacy badger is enabled, take an origin and
@@ -563,7 +555,7 @@ Badger.prototype = {
     }
     return true;
   },
-  
+
   /**
    * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
@@ -582,6 +574,10 @@ Badger.prototype = {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
+  isCheckingDNTPolicyEnabled: function() {
+    return this.getSettings().getItem("checkForDNTPolicy");
+  },
+
   /**
    * Check if WebRTC IP leak protection is enabled; query Chrome's internal
    * value, update our local setting if it has gone out of sync, then return our
@@ -591,7 +587,9 @@ Badger.prototype = {
     var self = this;
 
     // Return early with non-supporting browsers
-    if (!chrome.privacy || !badger.webRTCAvailable) { return; }
+    if (!badger.webRTCAvailable) {
+      return;
+    }
 
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
       self.getSettings().setItem("webRTCIPProtection",
@@ -684,50 +682,62 @@ Badger.prototype = {
   },
 
   /**
-   * Add the tracker and action to the tab.trackers object in tabData
-   * which will be used by the privacy badger popup
+   * Add only new third party origins to the tabData[tabId] object for
+   * use in the popup and, if needed, call updateBadge.
+   *
    * @param tabId the tab we are on
-   * @param fqdn the tracker to add
+   * @param fqdn the third party origin to add
    * @param action the action we are taking
+   *
    **/
-  logTrackerOnTab: function(tabId, fqdn, action) {
-    this.tabData[tabId].trackers[fqdn] = action;
+  logThirdPartyOriginOnTab: function(tabId, fqdn, action) {
+    if(!this.tabData[tabId].origins.hasOwnProperty(fqdn)) {
+      this.tabData[tabId].origins[fqdn] = action;
+      if (constants.BLOCKED_ACTIONS.has(action)) {
+        this.tabData[tabId].blockedCount += 1;
+        badger.updateBadge(tabId);
+      }
+    }
   },
 
   /**
    * Enables or disables page action icon according to options.
    * @param {Object} tab The tab to set the badger icon for
    */
-  refreshIconAndContextMenu: function(tab) {
+  refreshIconAndContextMenu: function (tab) {
+    if (!tab || FirefoxAndroid.isUsed) {
+      return;
+    }
 
-    if(!tab){return;}
-
-    var iconFilename = this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url)) ? {"19": "icons/badger-19.png", "38": "icons/badger-38.png"} : {"19": "icons/badger-19-disabled.png", "38": "icons/badger-38-disabled.png"};
+    let iconFilename;
+    if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url))) {
+      iconFilename = {
+        "19": chrome.runtime.getURL("icons/badger-19.png"),
+        "38": chrome.runtime.getURL("icons/badger-38.png")
+      };
+    } else {
+      iconFilename = {
+        "19": chrome.runtime.getURL("icons/badger-19-disabled.png"),
+        "38": chrome.runtime.getURL("icons/badger-38-disabled.png")
+      };
+    }
 
     chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
-    chrome.browserAction.setTitle({tabId: tab.id, title: "Privacy Badger"});
   },
-
-  getFrameData: function(tabId, frameId){
-    return webrequest.getFrameData(tabId, frameId);
-  }
 
 };
 
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
-  chrome.webRequest.onBeforeRequest.addListener(function(details) {
-    if (details.tabId != -1){
-      badger.updateCount(details);
-    }
-  }, {urls: ["http://*/*", "https://*/*"]}, []);
-
-
-  // Update icon if a tab changes location
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    if(changeInfo.status == "loading") {
+    if(changeInfo.status == "loading" && tab.url) {
       badger.refreshIconAndContextMenu(tab);
+      if (badger.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url))) {
+        badger.updateBadge(tabId, true);
+      } else {
+        badger.updateBadge(tabId);
+      }
     }
   });
 
@@ -773,7 +783,9 @@ var badger = window.badger = new Badger();
 incognito.startListeners();
 webrequest.startListeners();
 HeuristicBlocking.startListeners();
+FirefoxAndroid.startListeners();
 startBackgroundListeners();
 
+// TODO move listeners and this message behind INITIALIZED
 console.log('Privacy badger is ready to rock!');
 console.log('Set DEBUG=1 to view console messages.');

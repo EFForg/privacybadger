@@ -1,4 +1,4 @@
-Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadger.svg)](https://travis-ci.org/EFForg/privacybadger)
+Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadger.svg?branch=master)](https://travis-ci.org/EFForg/privacybadger)
 ===================
 Privacy Badger blocks spying ads and invisible trackers. It's there to ensure that companies can't track your browsing without your consent.
 
@@ -10,27 +10,42 @@ Nothing can stop the Privacy Badger from eating cookies when it's hungry!
 
 Privacy Badger is a project of the Electronic Frontier Foundation.
 
+## Get in touch
+
+If you have questions, comments, ideas, proposals, or just want to chat about privacy, then please get in touch. There are a few ways to get in touch:
+
+* You can join us in the [`#privacybadger`](https://webchat.oftc.net/?channels=privacybadger&uio=d4) IRC channel on OFTC.
+* We have public office hours for discussing development, bugs, feature, trackers, etc. every Monday and Thursday at 11:30am PST on [Jitsi video chat](https://meet.jit.si/PoliteBadgersSingEuphoricly).
+* We also have a [mailing list](https://lists.eff.org/mailman/listinfo/privacybadger).
+
+And of course, we try to respond in a timely manner to GitHub issues, pull requests, and comments.
+
 ## Developing
-For an easy build, simply enable developer mode in chrome://extensions, hit
-the "load unpacked extension" button and load up this directory.
 
-Within the command line, install the dependencies.
+We're glad you want to help! We have a **[handy guide for
+contributors](/CONTRIBUTING.md)**. It can hopefully point you to helpful
+resources if you have any questions (please let us know if it doesn't). To get
+started with most things, you'll need to [install Privacy Badger from
+source](#install-from-source) so we'll start there.
 
-```bash
-$ npm install
-```
+### Install from source
 
-Developers should sign up for the privacy badger mailing list at https://lists.eff.org/mailman/listinfo/privacybadger
+To hack on privacy badger you need to install it from source.
+
+In Chrome, visit `chrome://extensions`, enable "Developer mode", click "Load unpacked extension..." and select the [`src`](src/) subdirectory inside your copy of the Privacy Badger source code.
+
+In Firefox, visit `about:debugging`, click "Load Temporary Add-on" and select the `src/manifest.json` file. Note that this only installs the extension temporarily, it is removed when you close Firefox.
+
+To test your installation, try running the unit tests by following [these instructions](/doc/tests.md#unit-tests).
+
+
 ### Testing
 
-This project is using the [QUnit](http://qunitjs.com/), [py.test](http://pytest.org/), [Selenium](http://www.seleniumhq.org/) test frameworks
-along with [Travis CI](https://travis-ci.org/) for continuous integration.
+We have a few different types of tests:
 
-To run unit tests, find your extension's ID (look for it on `chrome://extensions/`) and
-visit `chrome-extension://YOUR_EXTENSION_ID/tests/index.html`, replacing
-`YOUR_EXTENSION_ID` with your 32 character ID.
-
-To run functional tests powered by Selenium, you need to have `chromedriver`, `xvfb` and `python-virtualenv` installed. Also `geckodriver` to run functional tests in Firefox. See [scripts/setup_travis.sh](scripts/setup_travis.sh) and [tests/run_selenium_tests.sh](tests/run_selenium_tests.sh).
+* We use [unit tests](/doc/tests.md#unit-tests) for confirming that smaller pieces of code behave as expected.
+* [Functional tests](/doc/tests.md#functional-tests) test the UI and that things integrate together properly.
+* [Travis CI](/doc/tests.md#travis-ci) runs all these automatically for every pull request on both Chrome and Firefox.
 
 ## License
 Privacy Badger is licensed under the GPLv3. See LICENSE for more details

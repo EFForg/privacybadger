@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-
-import unittest
-import pbtest
 import time
+import unittest
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+import pbtest
 import window_utils
 
 SITE1_URL = "http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
@@ -13,9 +16,74 @@ SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
 
 THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 
+CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
+'{}', 0, r => window.DNT_CHECK_RESULT = r
+);"""
 
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
+
+    @pbtest.if_firefox(unittest.skip("Disabled until Firefox fixes bug: https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773"))
+    def test_dnt_check_should_not_set_cookies(self):
+        TEST_DOMAIN = "dnt-test.trackersimulator.org"
+        TEST_URL = "https://{}/".format(TEST_DOMAIN)
+
+        # verify that the domain itself doesn't set cookies
+        self.load_url(TEST_URL)
+        self.assertEqual(len(self.driver.get_cookies()), 0,
+            "No cookies initially")
+
+        # directly visit a DNT policy URL known to set cookies
+        self.load_url(TEST_URL + ".well-known/dnt-policy.txt")
+        self.assertEqual(len(self.driver.get_cookies()), 1,
+            "DNT policy URL set a cookie")
+
+        # verify we got a cookie
+        self.load_url(TEST_URL)
+        self.assertEqual(len(self.driver.get_cookies()), 1,
+            "We still have just one cookie")
+
+        # clear cookies and verify
+        self.driver.delete_all_cookies()
+        self.load_url(TEST_URL)
+        self.assertEqual(len(self.driver.get_cookies()), 0,
+            "No cookies again")
+
+        # perform a DNT policy check
+        self.load_url(self.bg_url, wait_on_site=1)
+        self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
+        # wait until checkForDNTPolicy completed
+        self.wait_for_script("return window.DNT_CHECK_RESULT === false")
+
+        # check that we didn't get cookied by the DNT URL
+        self.load_url(TEST_URL)
+        self.assertEqual(len(self.driver.get_cookies()), 0,
+            "Shouldn't have any cookies after the DNT check")
+
+    def test_dnt_check_should_not_send_cookies(self):
+        TEST_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
+        TEST_URL = "https://{}/".format(TEST_DOMAIN)
+
+        # directly visit a DNT policy URL known to set cookies
+        self.load_url(TEST_URL + ".well-known/dnt-policy.txt")
+        self.assertEqual(len(self.driver.get_cookies()), 1,
+            "DNT policy URL set a cookie")
+
+        # how to check we didn't send a cookie along with request?
+        # the DNT policy URL used by this test returns "cookies=X"
+        # where X is the number of cookies it got
+        # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
+        self.load_url(self.bg_url, wait_on_site=1)
+        self.js("""badger.storage.updateDNTHashes(
+{ "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
+
+        # perform a DNT policy check
+        self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
+        # wait until checkForDNTPolicy completed
+        self.wait_for_script("return typeof window.DNT_CHECK_RESULT != 'undefined';")
+        # get the result
+        result = self.js("return window.DNT_CHECK_RESULT;")
+        self.assertTrue(result, "No cookies were sent")
 
     def assert_pass_opera_cookie_test(self, url, test_name):
         self.load_url(url)
@@ -66,7 +134,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         print("this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed")
         self.load_url(SITE1_URL)
         window_utils.close_windows_with_url(self.driver, SITE3_URL)
-        for i in range(60):
+        for i in range(5):
             self.load_pb_ui(SITE1_URL)
             self.get_tracker_state()
 
@@ -107,25 +175,40 @@ class CookieTest(pbtest.PBSeleniumTest):
         window_utils.switch_to_window_with_url(self.driver, "about:blank")
         self.load_url(self.popup_url)
 
-        # use the new convenience function to get the popup populated with status information for the correct url
+        # get the popup populated with status information for the correct url
         window_utils.switch_to_window_with_url(self.driver, self.popup_url)
         target_url = target_scheme_and_host + "/*"
-        javascript_src = "setTabToUrl('" + target_url + "');"
-        self.js(javascript_src)
+        javascript_src = """/**
+* if the query url pattern matches a tab, switch the module's tab object to that tab
+* Convenience function for the test harness
+* Chrome URL pattern docs: https://developer.chrome.com/extensions/match_patterns
+*/
+function setTabToUrl(query_url) {
+  chrome.tabs.query( {url: query_url}, function(ta) {
+    if (typeof ta == "undefined") {
+      return;
+    }
+    if (ta.length === 0) {
+      return;
+    }
+    var tabid = ta[0].id;
+    refreshPopup(tabid);
+  });
+}"""
+        self.js(javascript_src + "setTabToUrl('{}');".format(target_url))
 
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
         self.nonTrackers = {}
         self.cookieBlocked = {}
         self.blocked = {}
-        try:
-            clickerContainer = self.driver.find_element_by_class_name("clickerContainer")
-            self.assertTrue(clickerContainer)
-        except:
-            print("no action state information was found")
-            return
+        self.driver.switch_to.window(self.driver.current_window_handle)
 
-        tooltips = clickerContainer.find_elements_by_xpath("//*[contains(@class,'clicker tooltip')]")
+        # wait for asynchronously-rendered tracker list to load
+        WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR,
+             "#blockedResourcesInner > div.clicker.tooltip")))
+        tooltips = self.driver.find_elements_by_css_selector("#blockedResourcesInner > div.clicker.tooltip")
         for t in tooltips:
             origin = t.get_attribute('data-origin')
 

@@ -197,22 +197,6 @@ which are a more privacy-protective alternative to yellowlisting certain
 third party JavaScript domains. If that occurs, <tt>socialwidgets.json</tt>
 should also be periodically fetched from a live EFF URL.
 
-#### Consent Prompts for Third Party Logins
-
-There are very rare instances where third party domains are necessary
-for first-party functionality on a site, and those third parties will not
-function with their cookies blocked. Typically this occurs when the site
-UI prompts the user to log in to the third party. Common examples include users
-attempting to log into Disqus widgets to post comments, or users trying to log
-into accounts.google.com to comment on youtube.com.
-
-We have implemented experimental solutions which involve manually identifying
-such situations, and triggering a request to the user to allow the request on
-this site, allow it across the web, or prevent it.
-
-The login URLs that trigger this UI are [fetched from an
-EFF url](https://www.eff.org/files/domain_exception_list.json).
-
 
 #### What are the states for domain responses?
 

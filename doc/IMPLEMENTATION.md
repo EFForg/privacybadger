@@ -1,4 +1,12 @@
-# PRIVACY BADGER DESIGN NOTES
+# :warning: THIS DOCUMENT IS OUT OF DATE :warning:
+
+---------------
+
+### Privacy Badger is no longer based on AdBlock Plus!
+
+---------------
+
+#PRIVACY BADGER DESIGN NOTES
 ###BLOCKING
 
 Blocking happens in webrequest.js; currently in onBeforeSendHeaders, but that

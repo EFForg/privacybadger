@@ -4,19 +4,20 @@ set -e
 
 cd "$(dirname "$0")"
 
-LATEST_SDK_VERSION=1.6.0
+LATEST_SDK_VERSION=1.9.1
+WEB_EXT=../node_modules/.bin/web-ext
 
 # Auto-generated XPI name from 'web-ext sign'
 PRE_XPI_NAME=privacy_badger_by_eff-$TARGET-an+fx.xpi
 XPI_NAME="privacy-badger-eff-$1.xpi"
 AMO_ZIP_NAME="privacy_badger-$1.amo.zip"
 
-if ! type web-ext > /dev/null; then
+if ! type $WEB_EXT > /dev/null; then
   echo "Please install web-ext before running this script."
   exit 1
 fi
 
-if ! web-ext --version | grep -q "$LATEST_SDK_VERSION"; then
+if ! $WEB_EXT --version | grep -q "$LATEST_SDK_VERSION"; then
   echo "Please use the latest stable web-ext version or edit this script to the current version."
   exit 1
 fi
@@ -28,10 +29,10 @@ fi
 
 # TODO restore: https://github.com/EFForg/privacybadger/issues/1158
 echo "remove fingerprinting"
-sed -i '/        "js\/fingerprinting.js",/d' ../checkout/src/manifest.json
+sed -i '/        "js\/contentscripts\/fingerprinting.js",/d' ../checkout/src/manifest.json
 
 echo "change author value"
-sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "eff.software.projects@gmail.com",/' ../checkout/src/manifest.json
+sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "privacybadger-owner@eff.org",/' ../checkout/src/manifest.json
 
 echo "making zip file for AMO"
 
@@ -44,5 +45,5 @@ sed -i 's,"id": "jid1-MnnxcxisBPnSXQ@jetpack","id": "jid1-MnnxcxisBPnSXQ-eff@jet
 #"update_url": "https://www.eff.org/files/privacy-badger-updates.json"
 # Build and sign the XPI 
 echo "Running web-ext sign"
-web-ext sign -s ../checkout/src --api-key "$AMO_API_KEY" --api-secret "$AMO_API_SECRET" -a ../pkg
+$WEB_EXT sign -s ../checkout/src --api-key "$AMO_API_KEY" --api-secret "$AMO_API_SECRET" -a ../pkg
 mv "../pkg/$PRE_XPI_NAME" "../pkg/$XPI_NAME"

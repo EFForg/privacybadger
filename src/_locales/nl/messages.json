@@ -2,14 +2,14 @@
     "add_domain_button": {
         "message": "Voeg (derde) partij toe"
     },
+    "badger_status_allow": {
+        "message": "Toegestaan "
+    },
     "badger_status_block": {
         "message": "Geblokkeerd "
     },
     "badger_status_cookieblock": {
         "message": "Geblokkeerd cookies van "
-    },
-    "badger_status_noaction": {
-        "message": "Toegestaan "
     },
     "data_settings": {
         "message": "Manage Data"
@@ -102,7 +102,7 @@
         "message": "Schakel Privacy Badger in op deze webpagina"
     },
     "popup_instructions": {
-        "message": "potentiële <a target='_blank' href='https://www.eff.org/privacybadger#trackers'>trackers</a> op deze webpagina. Met de schuifbalkjes kunt u instellen hoe Privacy Badger omgaat met een tracker."
+        "message": "potentiële <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> op deze webpagina. Met de schuifbalkjes kunt u instellen hoe Privacy Badger omgaat met een tracker."
     },
     "popup_noblocked": {
         "message": "Waarom wekt blokkeren niet?"

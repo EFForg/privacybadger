@@ -1,5 +1,6 @@
 build: updatepsl zip crx
 travisbuild: zip crx
+	ls -1tr *.crx | tail -n 1
 updatepsl:
 	scripts/updatepsl.sh
 zip:
@@ -14,7 +15,7 @@ upload:
 	scripts/legacy-cookies.sh
 	scp doc/sample_cookieblocklist.txt $$COOKIE_BLOCK_UPLOAD_PATH
 	scp doc/sample_cookieblocklist_legacy.txt $$COOKIE_BLOCK_LEGACY_UPLOAD_PATH
-	#scp doc/dnt-policies-example.json $$DNT_POLICIES_UPLOAD_PATH
+	#scp data/dnt-policies-example.json $$DNT_POLICIES_UPLOAD_PATH
 lint:
 	./node_modules/.bin/eslint .
 .PHONY: build travisbuild updatepsl zip crx todo logging lint
