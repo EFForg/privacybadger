@@ -537,7 +537,11 @@ Badger.prototype = {
 
       let disabled = tab.url && badger.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url));
 
-      if (!self.showCounter() || disabled) {
+      // don't show the counter for any of these:
+      // - the counter is disabled
+      // - the page is whitelisted
+      // - we don't have tabData for whatever reason (special browser pages)
+      if (!self.showCounter() || disabled || !badger.tabData.hasOwnProperty(tab_id)) {
         chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
         return;
       }
