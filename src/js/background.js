@@ -530,6 +530,11 @@ Badger.prototype = {
         return;
       }
 
+      if (!tab.active) {
+        // don't set on inactive tabs
+        return;
+      }
+
       let disabled = tab.url && badger.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url));
 
       if (!self.showCounter() || disabled) {
@@ -763,6 +768,10 @@ function startBackgroundListeners() {
     chrome.tabs.get(addedTabId, function(tab){
       badger.refreshIconAndContextMenu(tab);
     });
+  });
+
+  chrome.tabs.onActivated.addListener(function (activeInfo) {
+    badger.updateBadge(activeInfo.tabId);
   });
 
   // Listening for Avira Autopilot remote control UI

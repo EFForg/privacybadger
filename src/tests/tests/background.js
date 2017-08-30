@@ -181,7 +181,10 @@
         // stub chrome.tabs.get manually as we have some sort of issue stubbing with Sinon in Firefox
         this.chromeTabsGet = chrome.tabs.get;
         chrome.tabs.get = (tab_id, callback) => {
-          return callback({ url: SITE_URL });
+          return callback({
+            active: true,
+            url: SITE_URL
+          });
         };
 
         this.setBadgeText = sinon.stub(chrome.browserAction, "setBadgeText");
