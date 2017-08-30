@@ -40,4 +40,15 @@
       "both domains are not in test data"
     );
   });
+
+  QUnit.test('Check MDFP real domains are all base domains', (assert) => {
+    for (var group of mdfp.multiDomainFirstPartiesArray) {
+      for (var domain of group) {
+        assert.ok(
+          window.getBaseDomain('fakesubdomain.' + domain) == domain,
+          domain + ' is a basedomain'
+        );
+      }
+    }
+  });
 })();
