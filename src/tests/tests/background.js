@@ -149,6 +149,8 @@
     },
   },
   function() {
+    let SITE_URL = "http://example.com/";
+
     QUnit.module("logThirdPartyOriginOnTab", {
       beforeEach: function () {
         sinon.stub(badger, "updateBadge");
@@ -178,7 +180,9 @@
       beforeEach: function() {
         // stub chrome.tabs.get manually as we have some sort of issue stubbing with Sinon in Firefox
         this.chromeTabsGet = chrome.tabs.get;
-        chrome.tabs.get = (tab_id, callback) => callback();
+        chrome.tabs.get = (tab_id, callback) => {
+          return callback({ url: SITE_URL });
+        };
 
         this.setBadgeText = sinon.stub(chrome.browserAction, "setBadgeText");
 
@@ -196,13 +200,15 @@
       let done = assert.async(2),
         called = false;
 
+      badger.disablePrivacyBadgerForOrigin(window.extractHostFromURL(SITE_URL));
+
       this.setBadgeText.callsFake((obj) => {
         assert.deepEqual(obj, {tabId: this.tabId, text: ''});
         done();
       });
       chrome.browserAction.setBadgeBackgroundColor = () => {called = true;};
 
-      badger.updateBadge(this.tabId, true);
+      badger.updateBadge(this.tabId);
 
       assert.notOk(called, "setBadgeBackgroundColor does not get called");
 

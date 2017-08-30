@@ -517,18 +517,20 @@ Badger.prototype = {
    * Update page action badge with current count.
    * @param {Integer} tab_id browser tab ID
    */
-  updateBadge: function (tab_id, disabled) {
+  updateBadge: function (tab_id) {
     if (FirefoxAndroid.isUsed) {
       return;
     }
 
     let self = this;
 
-    chrome.tabs.get(tab_id, function () {
+    chrome.tabs.get(tab_id, function (tab) {
       if (chrome.runtime.lastError) {
         // don't set on background (prerendered) tabs to avoid Chrome errors
         return;
       }
+
+      let disabled = tab.url && badger.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url));
 
       if (!self.showCounter() || disabled) {
         chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
@@ -752,11 +754,7 @@ function startBackgroundListeners() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading" && tab.url) {
       badger.refreshIconAndContextMenu(tab);
-      if (badger.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url))) {
-        badger.updateBadge(tabId, true);
-      } else {
-        badger.updateBadge(tabId);
-      }
+      badger.updateBadge(tabId);
     }
   });
 
