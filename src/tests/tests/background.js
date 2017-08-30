@@ -1,45 +1,5 @@
 /* globals badger:false */
 (function() {
-  function noop () {
-    Array.from(arguments).forEach(arg => {
-      if (typeof arg == 'function') {
-        arg();
-      }
-    });
-  }
-
-  function getter(name) {
-    let parts = name.split('.'),
-      out = window;
-    parts.forEach(part => {
-      out = out[part];
-    });
-    return out;
-  }
-
-  function setter(name, value) {
-    let parts = name.split('.'),
-      last = parts.pop(),
-      part = window;
-    parts.forEach(partName => {
-      part = part[partName];
-    });
-    part[last] = value;
-  }
-
-  function beforeMock(names) {
-    let mocked = {};
-    names.forEach(name => {
-      mocked[name] = getter(name);
-    });
-    return mocked;
-  }
-
-  function unmock(mocked) {
-    Object.keys(mocked).forEach(name => {
-      setter(name, mocked[name]);
-    });
-  }
 
   const DNT_COMPLIANT_DOMAIN = 'eff.org',
     POLICY_URL = chrome.extension.getURL('data/dnt-policy.txt');
@@ -191,11 +151,10 @@
   function() {
     QUnit.module("logThirdPartyOriginOnTab", {
       beforeEach: function () {
-        this.before = beforeMock(['badger.updateBadge']);
-        badger.updateBadge = noop;
+        sinon.stub(badger, "updateBadge");
       },
       afterEach: function () {
-        unmock(this.before);
+        badger.updateBadge.restore();
       },
     });
     QUnit.test("increment blocked count", function(assert) {
@@ -215,42 +174,44 @@
     });
     QUnit.module('updateBadge', {
       beforeEach: function() {
-        this.before = beforeMock([
-          'chrome.tabs.get',
-          'chrome.browserAction.setBadgeText',
-          'chrome.browserAction.setBadgeBackgroundColor'
-        ]);
+        sinon.stub(chrome.tabs, "get").callsFake(function (tab_id, callback) {
+          callback();
+        });
+        sinon.stub(chrome.browserAction, "setBadgeText");
+        sinon.stub(chrome.browserAction, "setBadgeBackgroundColor");
       },
       afterEach: function() {
-        unmock(this.before);
+        chrome.tabs.get.restore();
+        chrome.browserAction.setBadgeText.restore();
+        chrome.browserAction.setBadgeBackgroundColor.restore();
       },
     });
+
     QUnit.test("disabled", function(assert) {
-      let done = assert.async(2),
-        called = false;
-      chrome.tabs.get = noop;
-      chrome.browserAction.setBadgeText = (obj) => {
+      let done = assert.async(2);
+
+      chrome.browserAction.setBadgeText.callsFake((obj) => {
         assert.deepEqual(obj, {tabId: this.tabId, text: ''});
         done();
-      };
-      chrome.browserAction.setBadgeBackgroundColor = () => {called = true;};
+      });
 
       badger.updateBadge(this.tabId, true);
-      assert.notOk(called);
+
+      assert.equal(chrome.browserAction.setBadgeBackgroundColor.callCount, 0);
+
       done();
     });
 
     QUnit.test("numblocked zero", function(assert) {
       let done = assert.async(2);
-      chrome.tabs.get = noop;
-      chrome.browserAction.setBadgeText = (obj) => {
+      chrome.browserAction.setBadgeText.callsFake((obj) => {
         assert.deepEqual(obj, {tabId: this.tabId, text: "0"});
         done();
-      };
-      chrome.browserAction.setBadgeBackgroundColor = (obj) => {
+      });
+      chrome.browserAction.setBadgeBackgroundColor.callsFake((obj) => {
         assert.deepEqual(obj, {tabId: this.tabId, color: "#00cc00"});
         done();
-      };
+      });
       badger.updateBadge(this.tabId);
     });
 
