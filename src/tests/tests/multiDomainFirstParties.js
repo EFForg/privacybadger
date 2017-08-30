@@ -61,5 +61,6 @@
   QUnit.test('Test real data', assert => {
     assert.ok(mdfp.isMultiDomainFirstParty('tripadvisor.com', 'tacdn.com'));
     assert.ok(mdfp.isMultiDomainFirstParty('tripadvisor.co.uk', 'tamgrt.com'));
+    assert.ok(mdfp.isMultiDomainFirstParty('kayak.com.au', 'r9cdn.net'));
   });
 })();

@@ -17,8 +17,8 @@ let trees = require('trees'),
   genTldSet = new Set(['com', 'co', 'org']),
   genCcTldSet = new Set([...genTldSet, ...window.ccTLDs]);
 
-let ccNode = trees.dynamicNode(label => {return window.ccTLDs.has(label);}),
-  genCcNode = trees.dynamicNode(label => {return genCcTldSet.has(label);});
+let ccNode = trees.dynamicNode(label =>  window.ccTLDs.has(label)),
+  genCcNode = trees.dynamicNode(label => genCcTldSet.has(label));
 
 /**
  * 2d array of related domains, all domains owned by the same entity go into
@@ -90,6 +90,7 @@ var _multiDomainFirstPartiesArray = [
   ["guardian.co.uk", "guim.co.uk", "guardianapps.co.uk", "theguardian.com", "gu-web.net"],
   ["healthfusion.com", "healthfusionclaims.com"],
   ["hvfcu.org", "hvfcuonline.org"],
+  [["kayak", genCcNode, ccNode], ["kayak", genCcNode], "r9cdn.net"],
   ["logmein.com", "logme.in"],
   ["mandtbank.com", "mtb.com"],
   ["mathletics.com", "mathletics.com.au", "mathletics.co.uk"],
