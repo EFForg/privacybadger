@@ -174,44 +174,51 @@
     });
     QUnit.module('updateBadge', {
       beforeEach: function() {
-        sinon.stub(chrome.tabs, "get").callsFake(function (tab_id, callback) {
-          callback();
-        });
-        sinon.stub(chrome.browserAction, "setBadgeText");
-        sinon.stub(chrome.browserAction, "setBadgeBackgroundColor");
+        // stub chrome.tabs.get manually as we have some sort of issue stubbing with Sinon in Firefox
+        this.chromeTabsGet = chrome.tabs.get;
+        chrome.tabs.get = (tab_id, callback) => callback();
+
+        this.setBadgeText = sinon.stub(chrome.browserAction, "setBadgeText");
+
+        // another Firefox workaround: setBadgeText gets stubbed fine but setBadgeBackgroundColor doesn't
+        this.setBadgeBackgroundColor = chrome.browserAction.setBadgeBackgroundColor;
       },
       afterEach: function() {
-        chrome.tabs.get.restore();
-        chrome.browserAction.setBadgeText.restore();
-        chrome.browserAction.setBadgeBackgroundColor.restore();
+        chrome.tabs.get = this.chromeTabsGet;
+        this.setBadgeText.restore();
+        chrome.browserAction.setBadgeBackgroundColor = this.setBadgeBackgroundColor;
       },
     });
 
     QUnit.test("disabled", function(assert) {
-      let done = assert.async(2);
+      let done = assert.async(2),
+        called = false;
 
-      chrome.browserAction.setBadgeText.callsFake((obj) => {
+      this.setBadgeText.callsFake((obj) => {
         assert.deepEqual(obj, {tabId: this.tabId, text: ''});
         done();
       });
+      chrome.browserAction.setBadgeBackgroundColor = () => {called = true;};
 
       badger.updateBadge(this.tabId, true);
 
-      assert.equal(chrome.browserAction.setBadgeBackgroundColor.callCount, 0);
+      assert.notOk(called);
 
       done();
     });
 
     QUnit.test("numblocked zero", function(assert) {
       let done = assert.async(2);
-      chrome.browserAction.setBadgeText.callsFake((obj) => {
+
+      this.setBadgeText.callsFake((obj) => {
         assert.deepEqual(obj, {tabId: this.tabId, text: "0"});
         done();
       });
-      chrome.browserAction.setBadgeBackgroundColor.callsFake((obj) => {
+      chrome.browserAction.setBadgeBackgroundColor = (obj) => {
         assert.deepEqual(obj, {tabId: this.tabId, color: "#00cc00"});
         done();
-      });
+      };
+
       badger.updateBadge(this.tabId);
     });
 
