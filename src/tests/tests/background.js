@@ -157,6 +157,7 @@
         badger.updateBadge.restore();
       },
     });
+
     QUnit.test("increment blocked count", function(assert) {
       let tabId = this.tabId;
       assert.equal(badger.getBlockedOriginCount(tabId), 0);
@@ -172,6 +173,7 @@
       badger.logThirdPartyOriginOnTab(tabId, 'eff.org', constants.COOKIEBLOCK);
       assert.equal(badger.getBlockedOriginCount(tabId), 2);
     });
+
     QUnit.module('updateBadge', {
       beforeEach: function() {
         // stub chrome.tabs.get manually as we have some sort of issue stubbing with Sinon in Firefox
@@ -202,7 +204,7 @@
 
       badger.updateBadge(this.tabId, true);
 
-      assert.notOk(called);
+      assert.notOk(called, "setBadgeBackgroundColor does not get called");
 
       done();
     });
@@ -211,11 +213,19 @@
       let done = assert.async(2);
 
       this.setBadgeText.callsFake((obj) => {
-        assert.deepEqual(obj, {tabId: this.tabId, text: "0"});
+        assert.deepEqual(
+          obj,
+          {tabId: this.tabId, text: "0"},
+          "setBadgeText called with expected args"
+        );
         done();
       });
       chrome.browserAction.setBadgeBackgroundColor = (obj) => {
-        assert.deepEqual(obj, {tabId: this.tabId, color: "#00cc00"});
+        assert.deepEqual(
+          obj,
+          {tabId: this.tabId, color: "#00cc00"},
+          "setBadgeBackgroundColor called with expected args"
+        );
         done();
       };
 
