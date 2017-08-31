@@ -13,7 +13,7 @@ let cookieFields = [
 
 function printCookies(domain) {
   getCookies(domain, true, cookies => {
-    cookies.forEach(cookie => {
+    cookies[domain].forEach(cookie => {
       console.log('----------------');
       console.log(JSON.stringify(cookie, null, 2));
     });
@@ -21,11 +21,10 @@ function printCookies(domain) {
 }
 
 function getCookies(domain, showRelated, callback) {
-  let out ={};
+  let out = {[domain]: []};
   if (showRelated) {
     domain = window.getBaseDomain(domain);
   }
-  out[domain] = [];
   chrome.cookies.getAll({domain}, cookies => {
     cookies.forEach(cookie => {
       let info = {};
