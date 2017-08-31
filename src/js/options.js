@@ -93,7 +93,8 @@ function loadOptions() {
     details => {
       $("#checkbox_alternate_error_pages").click(privacySettings.toggleAlternateErrorPages);
       $("#checkbox_alternate_error_pages").prop("checked", details.value);
-    }, details => {
+    },
+    () => {
       $("#alternate_error_pages").css({"visibility": "hidden", "height": 0});
     }
   );

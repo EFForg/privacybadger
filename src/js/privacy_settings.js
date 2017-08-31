@@ -5,10 +5,18 @@ const canControl = new Set([
   'controlled_by_this_extension'
 ]);
 
-const alternateErrorPages = chrome.privacy.services.alternateErrorPagesEnabled;
+let alternateErrorPages;
+try {
+  alternateErrorPages = chrome.privacy.services.alternateErrorPagesEnabled;
+} catch (e) {
+  alternateErrorPages = false;
+}
 
 function set(setting, obj) {
   return new Promise((resolve, reject) => {
+    if (!setting) {
+      return reject();
+    }
     setting.set(obj, () => {
       if (chrome.runtime.lastError === undefined) {
         resolve();
@@ -21,6 +29,9 @@ function set(setting, obj) {
 
 function get(setting) {
   return new Promise((resolve, reject) => {
+    if (!setting) {
+      return reject();
+    }
     setting.get({}, function(details) {
       if (canControl.has(details.levelOfControl)) {
         resolve(details);
