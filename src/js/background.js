@@ -723,10 +723,24 @@ Badger.prototype = {
    *
    **/
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
-    this.tabData[tab_id].origins[fqdn] = true;
+    let blocked = constants.BLOCKED_ACTIONS.has(action);
 
-    if (constants.BLOCKED_ACTIONS.has(action)) {
-      badger.updateBadge(tab_id);
+    if (this.tabData[tab_id].origins.hasOwnProperty(fqdn)) {
+      // we've seen this origin on this tab already
+      // still want to update badge if we haven't yet seen origin as blocked
+      if (blocked && !this.tabData[tab_id].origins[fqdn]) {
+        // record that origin has been seen as blocked
+        this.tabData[tab_id].origins[fqdn] = true;
+
+        badger.updateBadge(tab_id);
+      }
+    } else {
+      // haven't seen the origin on this tab yet
+      this.tabData[tab_id].origins[fqdn] = blocked;
+
+      if (blocked) {
+        badger.updateBadge(tab_id);
+      }
     }
   },
 
