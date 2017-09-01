@@ -494,7 +494,11 @@ Badger.prototype = {
    * @returns {*} A dictionary of third party origins and their actions
    */
   getAllOriginsForTab: function(tabId) {
-    return Object.keys(this.tabData[tabId].origins);
+    try {
+      return Object.keys(this.tabData[tabId].origins);
+    } catch (e) { // No tabData, tab, or origins.
+      return [];
+    }
   },
 
   /**
