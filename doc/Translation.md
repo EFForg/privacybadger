@@ -7,7 +7,7 @@ will find instructions to help you in the process.
 At the moment we handle the translations of Privacy Badger with two different
 platforms: Transifex and GitHub. Feel free to use the tool you prefer.
 
-### GitHub
+## GitHub
 
 Translations on GitHub are done with JSON files.
 Each language has its own folder inside src/_locales (e.g. 'es' for Spanish,
@@ -29,7 +29,7 @@ you should follow the instructions below to setup the JSON file for your languag
 If the translation for your language is already there you can contribute by checking
 its accuracy and by correcting any error you find.
 
-##### Add a new language
+#### Add a new language
 
 To add a new language to GitHub, follow these steps:
 
