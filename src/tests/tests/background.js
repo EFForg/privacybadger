@@ -141,59 +141,100 @@
 
   QUnit.module("tabData", {
     beforeEach: function () {
+
+      this.SITE_URL = "http://example.com/";
       this.tabId = -1;
+
       badger.tabData[this.tabId] = {
         frames: {},
         origins: {}
       };
+
+      // stub chrome.tabs.get manually as we have some sort of issue stubbing with Sinon in Firefox
+      this.chromeTabsGet = chrome.tabs.get;
+      chrome.tabs.get = (tab_id, callback) => {
+        return callback({
+          active: true,
+          url: this.SITE_URL
+        });
+      };
     },
+
+    afterEach: function () {
+      chrome.tabs.get = this.chromeTabsGet;
+    }
   },
   function() {
-    let SITE_URL = "http://example.com/";
-
     QUnit.module("logThirdPartyOriginOnTab", {
       beforeEach: function () {
-        sinon.stub(badger, "updateBadge");
+        sinon.stub(chrome.browserAction, "setBadgeText");
       },
       afterEach: function () {
-        badger.updateBadge.restore();
+        chrome.browserAction.setBadgeText.restore();
       },
     });
 
     QUnit.test("increment blocked count", function(assert) {
-      let tabId = this.tabId;
-      assert.equal(badger.getBlockedOriginCount(tabId), 0);
+      const DOMAIN1 = "stuff",
+        DOMAIN2 = "eff.org";
 
-      badger.storage.setupHeuristicAction('stuff', constants.BLOCK);
-      badger.logThirdPartyOriginOnTab(tabId, 'stuff', constants.BLOCK);
-      assert.equal(badger.getBlockedOriginCount(tabId), 1);
+      let tab_id = this.tabId;
 
-      badger.logThirdPartyOriginOnTab(tabId, 'stuff', constants.BLOCK);
-      assert.equal(badger.getBlockedOriginCount(tabId), 1);
+      assert.equal(badger.getBlockedOriginCount(tab_id), 0);
 
-      badger.storage.setupHeuristicAction('eff.org', constants.COOKIEBLOCK);
-      badger.logThirdPartyOriginOnTab(tabId, 'eff.org', constants.COOKIEBLOCK);
-      assert.equal(badger.getBlockedOriginCount(tabId), 2);
+      // log unblocked domain
+      badger.logThirdPartyOriginOnTab(tab_id, DOMAIN1, constants.ALLOW);
+      assert.equal(badger.getBlockedOriginCount(tab_id), 0);
+      assert.ok(
+        chrome.browserAction.setBadgeText.notCalled,
+        "updateBadge does not get called when we see an unblocked domain"
+      );
+
+      // set up domain blocking (used by getBlockedOriginCount)
+      badger.storage.setupHeuristicAction(DOMAIN1, constants.BLOCK);
+      badger.storage.setupHeuristicAction(DOMAIN2, constants.COOKIEBLOCK);
+
+      // log blocked domain
+      badger.logThirdPartyOriginOnTab(tab_id, DOMAIN1, constants.BLOCK);
+      assert.equal(badger.getBlockedOriginCount(tab_id), 1);
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledOnce,
+        "updateBadge gets called when we see a blocked domain"
+      );
+      assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+        tabId: tab_id,
+        text: "1"
+      }), "setBadgeText was called with expected args");
+
+      // log same blocked domain
+      badger.logThirdPartyOriginOnTab(tab_id, DOMAIN1, constants.BLOCK);
+      assert.equal(badger.getBlockedOriginCount(tab_id), 1);
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledOnce,
+        "updateBadge doesn't get called when we see the same blocked domain again"
+      );
+
+      // log different cookieblocked domain
+      badger.logThirdPartyOriginOnTab(tab_id, DOMAIN2, constants.COOKIEBLOCK);
+      assert.equal(badger.getBlockedOriginCount(tab_id), 2);
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledTwice,
+        "updateBadge gets called when we see a cookieblocked domain"
+      );
+      assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+        tabId: tab_id,
+        text: "2"
+      }), "setBadgeText was called with expected args");
     });
 
     QUnit.module('updateBadge', {
       beforeEach: function() {
-        // stub chrome.tabs.get manually as we have some sort of issue stubbing with Sinon in Firefox
-        this.chromeTabsGet = chrome.tabs.get;
-        chrome.tabs.get = (tab_id, callback) => {
-          return callback({
-            active: true,
-            url: SITE_URL
-          });
-        };
-
         this.setBadgeText = sinon.stub(chrome.browserAction, "setBadgeText");
 
         // another Firefox workaround: setBadgeText gets stubbed fine but setBadgeBackgroundColor doesn't
         this.setBadgeBackgroundColor = chrome.browserAction.setBadgeBackgroundColor;
       },
       afterEach: function() {
-        chrome.tabs.get = this.chromeTabsGet;
         this.setBadgeText.restore();
         chrome.browserAction.setBadgeBackgroundColor = this.setBadgeBackgroundColor;
       },
@@ -203,7 +244,7 @@
       let done = assert.async(2),
         called = false;
 
-      badger.disablePrivacyBadgerForOrigin(window.extractHostFromURL(SITE_URL));
+      badger.disablePrivacyBadgerForOrigin(window.extractHostFromURL(this.SITE_URL));
 
       this.setBadgeText.callsFake((obj) => {
         assert.deepEqual(obj, {tabId: this.tabId, text: ''});
