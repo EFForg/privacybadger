@@ -7,6 +7,10 @@ will find instructions to help you in the process.
 At the moment we handle the translations of Privacy Badger with two different
 platforms: Transifex and GitHub. Feel free to use the tool you prefer.
 
+When translating you should always use the original (english) version as a 
+reference. You can also use other languages translations to help you in case
+of doubt but you should always consider the english version as the correct one.
+
 ## GitHub
 
 Translations on GitHub are done with JSON files.
@@ -27,7 +31,7 @@ status of your local language translation: if you can't see a folder with your
 local language code, the translation for that language is missing. In this case
 you should follow the instructions below to setup the JSON file for your language.
 If the translation for your language is already there you can contribute by checking
-its accuracy and by correcting any error you find.
+its accuracy and by correcting any error you find (see below for instructions).
 
 #### Add a new language
 
@@ -41,4 +45,14 @@ with your local language code;
 english strings with the translated ones;
 5. When you have completed the translation open a pull request from
 your fork to the EFF/privacybadger repository (here you can find
-a great example of a pull request for a translation: #1270)
+a great example of a pull request for a translation: #1270).
+
+#### Correct an existing translation
+
+To correct some error in an existing translation:
+
+1. Fork this repository;
+2. Open your local language json file and apply the changes;
+3. When you have completed your work open a pull request from
+your fork to the EFF/privacybadger repository (here you can find
+a great example of a pull request for a translation: #1270).
