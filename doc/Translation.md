@@ -56,3 +56,13 @@ To correct some error in an existing translation:
 3. When you have completed your work open a pull request from
 your fork to the EFF/privacybadger repository (here you can find
 a great example of a pull request for a translation: #1270).
+
+## Transifex
+
+To contribute to the translation through Transifex you should have
+an account on the website. You can create a free account from the 
+[Transifex homepage](https://www.transifex.com/).
+
+To translate Privacy Badger with Transifex, go to this page: [Privacy Badger](https://www.transifex.com/eff/privacy-badger/dashboard/), login to your account and click on the Translate button.
+The Transifex platform is quite intuitive to use. For any question about
+Transifex refer to its [documentation](https://docs.transifex.com/).
