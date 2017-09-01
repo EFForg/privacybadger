@@ -19,7 +19,7 @@ strings for that language. Each entry on the JSON file follows this structure:
         "message": "String text"
     }
     
-The translated string is the '"String text"' part and you should **NOT** change
+The translated string is the `"String text"` part and you should **NOT** change
 any other part of the entry.
 
 To contribute to the Privacy Badger translation through GitHub, first check the
@@ -34,7 +34,7 @@ its accuracy and by correcting any error you find.
 To add a new language to GitHub, follow these steps:
 
 1. Fork this repository;
-2. Inside your fork, create a folder inside src/_locales and name it
+2. Inside your fork, create a folder in src/_locales and name it
 with your local language code;
 3. Copy the en_US/messages.json files inside the folder you created;
 4. Start translating each message to your language by replacing the
