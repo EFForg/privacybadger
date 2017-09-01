@@ -282,7 +282,9 @@ function refreshPopup(tabId) {
   //TODO this is calling get action and then being used to call get Action
   var origins = badger.getAllOriginsForTab(tabId);
   if (!origins || origins.length === 0) {
-    $("#pbInstructions").html(i18n.getMessage("popup_blocked"));
+    $("#pbInstructions")
+      .html(i18n.getMessage("popup_blocked"))
+      .show();
     return;
   }
 
@@ -356,6 +358,7 @@ function refreshPopup(tabId) {
   }
 
   $('#number_trackers').text(trackerCount);
+  $('#pbInstructions').show();
 
   function renderDomains() {
     const CHUNK = 1;
