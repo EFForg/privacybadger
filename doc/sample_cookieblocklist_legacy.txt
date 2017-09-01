@@ -471,6 +471,7 @@
 @@||smugmug.com^$third-party
 @@||snapengage.com^$third-party
 @@||sndcdn.com^$third-party
+@@||solvemedia.com^$third-party
 @@||auth.api.sonyentertainmentnetwork.com^$third-party
 @@||cdn-a.sonyentertainmentnetwork.com^$third-party
 @@||soundcloud.com^$third-party
