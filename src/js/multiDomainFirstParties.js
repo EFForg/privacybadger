@@ -135,6 +135,17 @@ var _multiDomainFirstPartiesArray = [
   ["pokemon-gl.com", "pokemon.com"],
   ["pornhub.com", "phncdn.com"],
   ["postepay.it", "poste.it"],
+  [
+    "qq.com",
+    "dnspod.cn",
+    "gtimg.cn",
+    "gtimg.com",
+    "qcloud.com",
+    "tencent.com",
+    "wechat.com",
+    "wegame.com",
+    "weiyun.com",
+  ],
   ["railnation.ru", "railnation.de", "rail-nation.com", "railnation.gr", "railnation.us", "trucknation.de", "traviangames.com"],
   ["rakuten.com", "buy.com"],
   ["reddit.com", "redditmedia.com", "redditstatic.com", "redd.it", "redditenhancementsuite.com", "reddituploads.com", "imgur.com"],
@@ -183,6 +194,7 @@ var _multiDomainFirstPartiesArray = [
   ["yandex.ru", "yastatic.net", "yandex.net"],
   ["zendesk.com", "zopim.com"],
   ["zillow.com", "zillowstatic.com", "zillowcloud.com"],
+  ["zoho.com", "zoho.eu", "zohocorp.com", "zohocreator.com", "zohopublic.com", "zohostatic.com"],
   ["zonealarm.com", "zonelabs.com"],
 ];
 
