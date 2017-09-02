@@ -66,3 +66,18 @@ an account on the website. You can create a free account from the
 To translate Privacy Badger with Transifex, go to this page: [Privacy Badger](https://www.transifex.com/eff/privacy-badger/dashboard/), login to your account and click on the Translate button.
 The Transifex platform is quite intuitive to use. For any question about
 Transifex refer to its [documentation](https://docs.transifex.com/).
+Before starting to Translate through Transifex, send a message to
+ghostwords that will check if Transifex and GitHub translations are correctly
+synced (to send him a message, go to [his profile](https://www.transifex.com/user/profile/ghostwords/)
+and click on "Send message"). In this way you will avoid to translate
+something that has already been translated or that is currently being
+translated. Also, send him a message when you have finished your work
+so that he will upload your translation to GitHub.
+
+In case of doubts when translating on Transifex you can leave comments
+under the strings entries.
+
+## Other information
+
+For other inoformation you can take a look at the issues and pull
+requests regarding the translation (marked with the [translations(https://github.com/EFForg/privacybadger/issues?utf8=%E2%9C%93&q=label%3Atranslations%20) label).
