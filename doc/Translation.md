@@ -80,4 +80,4 @@ under the strings entries.
 ## Other information
 
 For other inoformation you can take a look at the issues and pull
-requests regarding the translation (marked with the [translations(https://github.com/EFForg/privacybadger/issues?utf8=%E2%9C%93&q=label%3Atranslations%20) label).
+requests regarding the translation (marked with the [translations](https://github.com/EFForg/privacybadger/issues?utf8=%E2%9C%93&q=label%3Atranslations%20) label).
