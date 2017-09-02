@@ -89,7 +89,7 @@ function getBaseDomain(/**String*/ hostname) /**String*/
 
   while (true)
   {
-    var suffix = publicSuffixes[curDomain];
+    var suffix = publicSuffixes.get(curDomain);
     if (typeof(suffix) != 'undefined')
     {
       tld = suffix;
