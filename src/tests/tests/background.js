@@ -174,55 +174,190 @@
       },
     });
 
-    QUnit.test("increment blocked count", function(assert) {
-      const DOMAIN1 = "stuff",
-        DOMAIN2 = "eff.org";
+    QUnit.test("logging blocked domain", function (assert) {
+      const DOMAIN = "example.com";
 
-      let tab_id = this.tabId;
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId), 0, "count starts at zero"
+      );
 
-      assert.equal(badger.getBlockedOriginCount(tab_id), 0);
+      // set up domain blocking (used by getBlockedOriginCount)
+      badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
 
-      // log unblocked domain
-      badger.logThirdPartyOriginOnTab(tab_id, DOMAIN1, constants.ALLOW);
-      assert.equal(badger.getBlockedOriginCount(tab_id), 0);
+      // log blocked domain
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId), 1, "count gets incremented"
+      );
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledOnce,
+        "updateBadge gets called when we see a blocked domain"
+      );
+      assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+        tabId: this.tabId,
+        text: "1"
+      }), "setBadgeText was called with expected args");
+    });
+
+    QUnit.test("logging unblocked domain", function (assert) {
+      badger.logThirdPartyOriginOnTab(this.tabId, "example.com", constants.ALLOW);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId), 0, "count stays at zero"
+      );
       assert.ok(
         chrome.browserAction.setBadgeText.notCalled,
         "updateBadge does not get called when we see an unblocked domain"
       );
+    });
+
+    QUnit.test("logging as unblocked then as blocked", function (assert) {
+      const DOMAIN = "example.com";
+
+      // log unblocked domain
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.ALLOW);
+
+      // set up domain blocking (used by getBlockedOriginCount)
+      badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
+
+      // log the same domain, this time as blocked
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId), 1, "count gets incremented"
+      );
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledOnce,
+        "updateBadge gets called when we see a blocked domain"
+      );
+      assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+        tabId: this.tabId,
+        text: "1"
+      }), "setBadgeText was called with expected args");
+    });
+
+    QUnit.test("logging blocked domain twice", function (assert) {
+      const DOMAIN = "example.com";
+
+      // set up domain blocking (used by getBlockedOriginCount)
+      badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
+
+      // log blocked domain
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId), 1, "count gets incremented"
+      );
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledOnce,
+        "updateBadge gets called when we see a blocked domain"
+      );
+      assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+        tabId: this.tabId,
+        text: "1"
+      }), "setBadgeText was called with expected args");
+
+      // log the same blocked domain again
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId),
+        1,
+        "count does not get incremented"
+      );
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledOnce,
+        "updateBadge not called when we see the same blocked domain again"
+      );
+    });
+
+    QUnit.test("logging 2x unblocked then 2x blocked", function (assert) {
+      const DOMAIN = "example.com";
+
+      // log unblocked domain twice
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.ALLOW);
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.ALLOW);
+
+      // set up domain blocking (used by getBlockedOriginCount)
+      badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
+
+      // log blocked domain
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId), 1, "count gets incremented"
+      );
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledOnce,
+        "updateBadge gets called when we see a blocked domain"
+      );
+      assert.deepEqual(chrome.browserAction.setBadgeText.getCall(0).args[0], {
+        tabId: this.tabId,
+        text: "1"
+      }, "setBadgeText was called with expected args");
+
+      // log the same blocked domain again
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId),
+        1,
+        "count does not get incremented"
+      );
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledOnce,
+        "updateBadge not called when we see the same blocked domain again"
+      );
+    });
+
+    QUnit.test("logging cookieblocked domain", function (assert) {
+      const DOMAIN = "example.com";
+
+      // set up domain blocking (used by getBlockedOriginCount)
+      badger.storage.setupHeuristicAction(DOMAIN, constants.COOKIEBLOCK);
+
+      // log cookieblocked domain
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.COOKIEBLOCK);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId), 1, "count gets incremented"
+      );
+      assert.ok(
+        chrome.browserAction.setBadgeText.calledOnce,
+        "updateBadge gets called when we see a cookieblocked domain"
+      );
+      assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+        tabId: this.tabId,
+        text: "1"
+      }), "setBadgeText was called with expected args");
+    });
+
+    QUnit.test("logging several domains", function (assert) {
+      const DOMAIN1 = "example.com",
+        DOMAIN2 = "example.net";
 
       // set up domain blocking (used by getBlockedOriginCount)
       badger.storage.setupHeuristicAction(DOMAIN1, constants.BLOCK);
       badger.storage.setupHeuristicAction(DOMAIN2, constants.COOKIEBLOCK);
 
       // log blocked domain
-      badger.logThirdPartyOriginOnTab(tab_id, DOMAIN1, constants.BLOCK);
-      assert.equal(badger.getBlockedOriginCount(tab_id), 1);
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN1, constants.BLOCK);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId), 1, "count gets incremented"
+      );
       assert.ok(
         chrome.browserAction.setBadgeText.calledOnce,
         "updateBadge gets called when we see a blocked domain"
       );
       assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
-        tabId: tab_id,
+        tabId: this.tabId,
         text: "1"
       }), "setBadgeText was called with expected args");
 
-      // log same blocked domain
-      badger.logThirdPartyOriginOnTab(tab_id, DOMAIN1, constants.BLOCK);
-      assert.equal(badger.getBlockedOriginCount(tab_id), 1);
-      assert.ok(
-        chrome.browserAction.setBadgeText.calledOnce,
-        "updateBadge doesn't get called when we see the same blocked domain again"
+      // log cookieblocked domain
+      badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN2, constants.COOKIEBLOCK);
+      assert.equal(
+        badger.getBlockedOriginCount(this.tabId), 2, "count gets incremented again"
       );
-
-      // log different cookieblocked domain
-      badger.logThirdPartyOriginOnTab(tab_id, DOMAIN2, constants.COOKIEBLOCK);
-      assert.equal(badger.getBlockedOriginCount(tab_id), 2);
       assert.ok(
         chrome.browserAction.setBadgeText.calledTwice,
         "updateBadge gets called when we see a cookieblocked domain"
       );
       assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
-        tabId: tab_id,
+        tabId: this.tabId,
         text: "2"
       }), "setBadgeText was called with expected args");
     });
