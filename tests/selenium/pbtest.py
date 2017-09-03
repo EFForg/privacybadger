@@ -223,7 +223,6 @@ class PBSeleniumTest(unittest.TestCase):
         # hangs of chromedriver (possibly due to crbug.com/309093).
         os.environ["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
         cls.proj_root = get_git_root()
-        cls.yellowlist_path = os.path.join(cls.proj_root, 'doc/yellowlist_legacy.txt')
 
     @classmethod
     def tearDownClass(cls):
