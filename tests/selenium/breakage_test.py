@@ -27,8 +27,8 @@ class Test(pbtest.PBSeleniumTest):
         qry_el.submit()
         WebDriverWait(self.driver, 10).until(EC.title_contains("EFF"))
 
-    def test_cookieblock_format(self):
-        with open(self.cookieblocklist_path) as cbl:
+    def test_yellowlist_format(self):
+        with open(self.yellowlist_path) as cbl:
             for line in cbl:
                 pattern = re.compile("^@@||.*\^\$third-party$")
                 self.assertTrue(pattern.match(line))
