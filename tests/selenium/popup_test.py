@@ -14,19 +14,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
-    def open_url_and_popup(self, url, close_overlay=True):
-        self.load_url(self.bg_url)
-
+    def open_url_and_popup(self, url=None, close_overlay=True):
         js_src = """/**
 * open a page, wait, then open the popup for it
 */
 (() => {
-let url = "%s";
-chrome.tabs.create({url}, tab => {
+chrome.tabs.create(%s, tab => {
   setTimeout(() => utils.openPopupForTab(tab), 2000);
 });
 })();
-""" % url
+"""
+        if url is None:
+            js_src %= '{}'
+        else:
+            js_src %= ('{url: "%s"}' % url)
+
+        self.load_url(self.bg_url)
+
         before_handles = len(self.driver.window_handles)
         self.js(js_src)
         while len(self.driver.window_handles) < before_handles + 2:
