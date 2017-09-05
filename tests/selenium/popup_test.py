@@ -161,15 +161,15 @@ chrome.tabs.create(%s, tab => {
 
         handles_before = self.driver.window_handles
         trackers_link.click()
-        while len(handles_before) == len(self.driver.window_handles):
-            sleep(0.1)
+        self.wait(lambda driver: len(handles_before) != len(self.driver.window_handles))
         new_handle = set(self.driver.window_handles).difference(set(handles_before)).pop()
         self.driver.switch_to.window(new_handle)
 
         # Look for EFF website and return if found.
         eff_url = "https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?"
+        self.wait(lambda driver: driver.current_url == eff_url)
         self.assertEqual(self.driver.current_url, eff_url,
-            "tracker explanation should open after clicking trackers button on popup")
+                "tracker explanation should open after clicking trackers button on popup")
 
     def test_no_third_party(self):
         self.open_url_and_popup()
