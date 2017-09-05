@@ -515,13 +515,13 @@ function syncUISelections() {
 * seems to be that it is synchronous.
 */
 function getTab(callback) {
-  // Temporary fix for Firefox Android
-  if(FirefoxAndroid.isUsed){
-    FirefoxAndroid.getParentOfPopup(callback);
-    return;
+  // If opened with a tabId parameter, use that.
+  let tabId = parseInt(new URL(window.location.href).searchParams.get('tabId'));
+  if (!Number.isNaN(tabId)) {
+    return chrome.tabs.get(tabId, callback);
   }
 
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, function(t) { callback(t[0]); });
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, (t) => callback(t[0]));
 }
 
 document.addEventListener('DOMContentLoaded', function () {
