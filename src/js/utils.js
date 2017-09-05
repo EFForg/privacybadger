@@ -145,6 +145,14 @@ function estimateMaxEntropy(str) {
   return maxBits;  // May return Infinity when the content is too long.
 }
 
+function openPopupForTab(tab) {
+  var popup_url = chrome.runtime.getManifest().browser_action.default_popup,
+    url = popup_url + "?tabId=" + tab.id;
+  return new Promise(resolve => {
+    chrome.tabs.create({url, index: tab.index + 1}, resolve);
+  });
+}
+
 /**
  * Get a random number in the inclusive range min..max
  *
@@ -335,6 +343,7 @@ exports.oneDay = oneDay;
 exports.oneHour = oneHour;
 exports.oneMinute = oneMinute;
 exports.oneSecond = oneSecond;
+exports.openPopupForTab = openPopupForTab;
 exports.parseCookie = parseCookie;
 exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
