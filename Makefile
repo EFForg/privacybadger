@@ -21,7 +21,7 @@ logging:
 upload:
 	$(eval TMPFILE := $(shell mktemp))
 	scp src/data/yellowlist.txt $$YELLOWLIST_UPLOAD_PATH
-	scripts/legacy-cookies.sh > $(TMPFILE) && scp $(TMPFILE) $$YELLOWLIST_LEGACY_UPLOAD_PATH && rm $(TMPFILE)
+	scripts/generate-legacy-yellowlist.sh > $(TMPFILE) && scp $(TMPFILE) $$YELLOWLIST_LEGACY_UPLOAD_PATH && rm $(TMPFILE)
 	#scp data/dnt-policies-example.json $$DNT_POLICIES_UPLOAD_PATH
 
 lint:
