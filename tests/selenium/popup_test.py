@@ -14,6 +14,48 @@ from selenium.webdriver.support.ui import WebDriverWait
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
+    def open_url_and_popup(self, url, close_overlay=True):
+        self.load_url(self.bg_url)
+
+        js_src = """/**
+* open a page, wait, then open the popup for it
+*/
+(() => {
+let url = "%s";
+chrome.tabs.create({url}, tab => {
+  setTimeout(() => utils.openPopupForTab(tab), 2000);
+});
+})();
+""" % url
+        before_handles = len(self.driver.window_handles)
+        self.js(js_src)
+        while len(self.driver.window_handles) < before_handles + 2:
+            time.sleep(0.1)
+        for w in self.driver.window_handles:
+            self.driver.switch_to.window(w)
+            if 'popup.html' in self.driver.current_url:
+                break
+        if close_overlay:
+            self.close_popup_overlay(ignore_missing_overlay=True)
+
+    def close_popup_overlay(self, ignore_missing_overlay=False):
+        # Click 'X' element to close overlay.
+        try:
+            close_element = self.find_el_by_css('#fittslaw')
+        except (NoSuchElementException, TimeoutException) as e:
+            if ignore_missing_overlay:
+                return
+            self.fail("Unable to find element to close popup overlay")
+        close_element.click()
+
+        # Element will fade out so wait for it to disappear.
+        try:
+            WebDriverWait(self.driver, 5).until(
+                expected_conditions.invisibility_of_element_located(
+                    (By.ID, "fittslaw")))
+        except TimeoutException:
+            self.fail("Unable to close popup overlay")
+
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
         self.load_url(self.popup_url, wait_on_site=1)
