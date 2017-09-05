@@ -290,6 +290,9 @@ class PBSeleniumTest(unittest.TestCase):
             "Timed out waiting for execute_script to eval to True"
         )
 
+    def wait(self, func, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(func)
+
     @property
     def logs(self):
         def strip(l):
