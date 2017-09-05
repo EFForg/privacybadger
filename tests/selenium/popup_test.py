@@ -147,28 +147,25 @@ chrome.tabs.create({url}, tab => {
 
     def test_trackers_link(self):
         """Ensure trackers link opens EFF website."""
-        self.open_popup()
+        url = "https://cdn.rawgit.com/cowlicks/5d5c0c5b674268a74c62a8b1000ade69/raw/6893f945fd707c57cdfa7eef2d309f77fab92621/one_origin.html"
+        self.open_url_and_popup(url);
 
         try:
             trackers_link = self.driver.find_element_by_link_text("trackers")
         except NoSuchElementException:
             self.fail("Unable to find trackers link on popup")
 
-        handles_before = set(self.driver.window_handles)
+        handles_before = self.driver.window_handles
         trackers_link.click()
-
-        # Make sure EFF website not opened in same window.
-        time.sleep(5)
-        if self.driver.current_url != self.popup_url:
-            self.fail("EFF website not opened in new window")
+        while len(handles_before) == len(self.driver.window_handles):
+            sleep(0.1)
+        new_handle = set(self.driver.window_handles).difference(set(handles_before)).pop()
+        self.driver.switch_to.window(new_handle)
 
         # Look for EFF website and return if found.
-        new_handle = set(self.driver.window_handles).difference(handles_before)
-        self.driver.switch_to.window(new_handle.pop())
-
         eff_url = "https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?"
         self.assertEqual(self.driver.current_url, eff_url,
-            "EFF website should open after clicking donate button on popup")
+            "tracker explanation should open after clicking donate button on popup")
 
     def test_disable_enable_buttons(self):
         """Ensure disable/enable buttons change popup state."""
