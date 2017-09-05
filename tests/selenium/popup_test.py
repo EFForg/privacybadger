@@ -169,7 +169,13 @@ chrome.tabs.create(%s, tab => {
         # Look for EFF website and return if found.
         eff_url = "https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?"
         self.assertEqual(self.driver.current_url, eff_url,
-            "tracker explanation should open after clicking donate button on popup")
+            "tracker explanation should open after clicking trackers button on popup")
+
+    def test_no_third_party(self):
+        self.open_url_and_popup()
+
+        self.assertIn('no third party', self.find_el_by_css('#pbInstructions').text)
+        self.assertFalse(self.find_el_by_css('#blockedResources').is_displayed())
 
     def test_disable_enable_buttons(self):
         """Ensure disable/enable buttons change popup state."""
