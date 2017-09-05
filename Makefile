@@ -13,8 +13,8 @@ logging:
 	grep -rn 'console.log' src lib
 upload:
 	scripts/legacy-cookies.sh
-	scp doc/sample_cookieblocklist.txt $$COOKIE_BLOCK_UPLOAD_PATH
-	scp doc/sample_cookieblocklist_legacy.txt $$COOKIE_BLOCK_LEGACY_UPLOAD_PATH
+	scp src/data/yellowlist.txt $$COOKIE_BLOCK_UPLOAD_PATH
+	scp doc/yellowlist_legacy.txt $$COOKIE_BLOCK_LEGACY_UPLOAD_PATH
 	#scp data/dnt-policies-example.json $$DNT_POLICIES_UPLOAD_PATH
 lint:
 	./node_modules/.bin/eslint .

@@ -1,1 +1,1 @@
-sed -e "s/^\([^\!].*\)$/@@||\1^\$third-party/g" doc/sample_cookieblocklist.txt > doc/sample_cookieblocklist_legacy.txt
+sed -e "s/^\([^\!].*\)$/@@||\1^\$third-party/g" src/data/yellowlist.txt > doc/yellowlist_legacy.txt
