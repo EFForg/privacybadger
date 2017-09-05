@@ -22,7 +22,6 @@ var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var constants = backgroundPage.constants;
 var badger = backgroundPage.badger;
-var FirefoxAndroid = backgroundPage.FirefoxAndroid;
 var htmlUtils = require("htmlutils").htmlUtils;
 
 var i18n = chrome.i18n;
