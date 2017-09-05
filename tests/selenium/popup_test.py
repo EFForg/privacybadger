@@ -60,20 +60,7 @@ chrome.tabs.create({url}, tab => {
         """Open popup and optionally close overlay."""
         self.load_url(self.popup_url, wait_on_site=1)
         if close_overlay:
-            # Click 'X' element to close overlay.
-            try:
-                close_element = self.driver.find_element_by_id("fittslaw")
-            except NoSuchElementException:
-                self.fail("Unable to find element to close popup overlay")
-            close_element.click()
-
-            # Element will fade out so wait for it to disappear.
-            try:
-                WebDriverWait(self.driver, 5).until(
-                    expected_conditions.invisibility_of_element_located(
-                        (By.ID, "fittslaw")))
-            except TimeoutException:
-                self.fail("Unable to close popup overlay")
+            self.close_popup_overlay()
 
     def get_enable_button(self):
         """Get enable button on popup."""
