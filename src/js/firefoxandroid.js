@@ -22,6 +22,9 @@
  */
 
 require.scopes.firefoxandroid = (function() {
+
+var utils = require('utils');
+
 var isFirefoxAndroid = !(
   chrome.browserAction.setBadgeText &&
   chrome.browserAction.setPopup &&
@@ -35,10 +38,8 @@ var popup_url = chrome.runtime.getManifest().browser_action.default_popup;
 // fakes a popup
 function openPopup() {
   chrome.tabs.query({active: true, lastFocusedWindow: true}, (tabs) => {
-    var url = popup_url + "?tabId=" + tabs[0].id;
-    chrome.tabs.create({url, index: tabs[0].index + 1}, (tab) => {
-      openPopupId = tab.id;
-    });
+    utils.openPopupForTab(tabs[0])
+      .then(popupTab => openPopupId = popupTab.id);
   });
 }
 
