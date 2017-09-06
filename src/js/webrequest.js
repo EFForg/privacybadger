@@ -158,13 +158,6 @@ function onBeforeSendHeaders(details) {
     // This will only happen if the above code sets the action for the request
     // to block
     if (requestAction == constants.BLOCK) {
-      if (type == 'script') {
-        var surrogate = getSurrogateURI(url, requestDomain);
-        if (surrogate) {
-          return {redirectUrl: surrogate};
-        }
-      }
-
       // Notify the content script...
       var msg = {
         replaceSocialWidget: true,
