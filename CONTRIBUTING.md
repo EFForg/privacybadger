@@ -10,7 +10,7 @@ can help. Here's a quick orientation to guide your adventure:
 * Security vulnerabilities can be reported privately at
   [vulnerabilities@eff.org](mailto:vulnerabilities@eff.org), the GPG key and
   other information can be found [here](https://www.eff.org/security).
-* Want to translate Transifex to your local language? [here](/doc/Translation.md)
+* Want to translate Privacy Badger to your local language? [**Here**](/doc/Translation.md)
   you will find a guide to help you.
 * Tests are crucial, so here's a [**guide**](/doc/tests.md) on how to use them.
 <!---
