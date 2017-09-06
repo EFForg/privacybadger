@@ -80,11 +80,16 @@
     beforeEach: (/*assert*/) => {
       // spy on utils.xhrRequest
       xhrSpy = sinon.spy(utils, "xhrRequest");
+      this.before = beforeMock([
+        'badger.storage.getNextUpdateForDomain',
+        'badger.isCheckingDNTPolicyEnabled',
+      ]);
     },
 
     afterEach: (/*assert*/) => {
       // reset call counts, etc. after each test
       utils.xhrRequest.restore();
+      unmock(this.before);
     },
 
     after: (/*assert*/) => {
@@ -159,7 +164,6 @@
     const NUM_TESTS = 5;
 
     let done = assert.async(NUM_TESTS);
-    let old_dnt_check_func = badger.isCheckingDNTPolicyEnabled;
 
     assert.expect(NUM_TESTS);
     badger.isCheckingDNTPolicyEnabled = () => false;
@@ -170,8 +174,6 @@
       assert.equal(xhrSpy.callCount, 0);
       done();
     }
-
-    badger.isCheckingDNTPolicyEnabled = old_dnt_check_func;
   });
 
   QUnit.module("tabData", {
