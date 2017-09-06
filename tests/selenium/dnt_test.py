@@ -11,7 +11,7 @@ from window_utils import switch_to_window_with_url
 
 
 CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
-'{}', 0, r => window.DNT_CHECK_RESULT = r
+'{}', r => window.DNT_CHECK_RESULT = r
 );"""
 
 

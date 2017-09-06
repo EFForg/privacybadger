@@ -369,13 +369,15 @@ Badger.prototype = {
   * @param {timestamp} nextUpdate Time when the DNT policy should be rechecked
   * @param {Function} cb Callback that receives check status boolean (optional)
   */
-  checkForDNTPolicy: function (domain, nextUpdate, cb) {
+  checkForDNTPolicy: function (domain, cb) {
+    var badger = this,
+      nextUpdate = badger.storage.getNextUpdateForDomain(domain);
+
     if (Date.now() < nextUpdate) {
       // not yet time
       return;
     }
 
-    var badger = this;
 
     if (! badger.isCheckingDNTPolicyEnabled()) {
       // user has disabled this check
