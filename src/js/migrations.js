@@ -181,6 +181,17 @@ exports.Migrations= {
     }
   },
 
+  unblockEff: function(badger) {
+    let action_map = badger.storage.getBadgerStorageObject("action_map"),
+      snitch_map = badger.storage.getBadgerStorageObject("snitch_map");
+
+    for (let domain in action_map.getItemClones()) {
+      if (window.getBaseDomain(domain) == 'eff.org') {
+        action_map.deleteItem(domain);
+        snitch_map.deleteItem(domain);
+      }
+    }
+  },
 };
 
 
