@@ -16,7 +16,7 @@
         "description": ""
     },
     "non_tracker_tip": {
-        "message": "Attualmente Privacy Badger controlla solo se terze parti stanno usando dei cookie, il local storage HTML5 o il canvas fingerprinting per tracciare la tua navigazione. Alcuni di questi domini potrebbero usare metodi di tracciamento che Privacy Badger non può rilevare.",
+        "message": "Al momento Privacy Badger sta controllando esclusivamente se terze parti stanno usando dei cookie, il local storage HTML5 o il canvas fingerprinting per tracciare la navigazione. Alcuni di questi domini potrebbero utilizzare metodi di tracciamento che Privacy Badger non è in grado rilevare.",
         "description": ""
     },
     "intro_hungry": {
@@ -40,7 +40,7 @@
         "description": ""
     },
     "report_success": {
-        "message": "Grazie! Lo indagheremo a fondo.",
+        "message": "Grazie! Indagheremo a fondo.",
         "description": ""
     },
     "dnt_tooltip": {
@@ -52,7 +52,7 @@
         "description": ""
     },
     "data_settings": {
-        "message": "Gestisci dati",
+        "message": "Gestione dati",
         "description": ""
     },
     "slideshow_13": {
@@ -80,7 +80,7 @@
         "description": ""
     },
     "options_so_far": {
-        "message": "finora. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker.",
+        "message": "finora. Con questi interruttori puoi controllare il comportamento di Privacy Badger per ciascun tracker.",
         "description": ""
     },
     "error_input": {
@@ -88,7 +88,7 @@
         "description": ""
     },
     "options_slider_text": {
-        "message": "Privacy Badger ti sta proteggendo per tutta la rete! Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker trovato durante la tua navigazione.",
+        "message": "Privacy Badger ti sta proteggendo su tutta la rete! Con questi interruttori puoi controllare le impostazioni per ciascun tracker trovato durante la navigazione.",
         "description": ""
     },
     "intro1": {
@@ -116,7 +116,7 @@
         "description": ""
     },
     "options_social_widgets_checkbox": {
-        "message": "Sostituisci i widget social",
+        "message": "Sostituzione dei widget social",
         "description": ""
     },
     "options_tracking_domains": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Invia errore",
+        "message": "Inviare errore",
         "description": ""
     },
     "badger_status_allow": {
@@ -148,7 +148,7 @@
         "description": ""
     },
     "slideshow_1": {
-        "message": " Ciao, sono il tasso della privacy! Grazie per avermi installato. Sono qui per darti alcuni preziosi consigli, in modo che tutto funzioni bene.",
+        "message": " Ciao, sono Privacy Badger! Grazie per avermi installato. Sono qui per darti alcuni preziosi consigli, in modo che tutto funzioni al meglio.",
         "description": ""
     },
     "options_title": {
@@ -156,15 +156,15 @@
         "description": ""
     },
     "options_pb_has_detected": {
-        "message": "Privacy Badger ha rilevato",
+        "message": "Sono stati rilevati",
         "description": ""
     },
     "slideshow_11": {
-        "message": " Se cambi un'impostazione fatta da me, puoi sempre farla tornare sotto il mio controllo cliccando la freccia Indietro.",
+        "message": "Se un'impostazione viene modificata manualmente, è possibile farla tornare sotto il controllo di Privacy Badger cliccando sulla freccia Indietro.",
         "description": ""
     },
     "report_terms": {
-        "message": "Verranno inviate automaticamente le seguenti informazioni alla EFF: il sito che stai visitando, la versione del browser, la versione di Privacy Badger, lo stato di tutti gli interruttori per questo sito.",
+        "message": "Verranno inviate automaticamente le seguenti informazioni alla EFF: il sito che stai visitando, la versione del browser, la versione di Privacy Badger e lo stato di tutti gli interruttori per questo sito.",
         "description": ""
     },
     "whitelisted_domains": {
@@ -172,7 +172,7 @@
         "description": "This is a tab heading."
     },
     "popup_enable_for_site": {
-        "message": "Attiva Privacy Badger in questo sito",
+        "message": "Attiva Privacy Badger per questo sito",
         "description": ""
     },
     "import_successful": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "intro_text": {
-        "message": "Ora sei protetto da Privacy Badger. Per sapere come funziona Privacy Badger, clicca sotto per una breve guida.",
+        "message": "Ora sei protetto da Privacy Badger. Per conoscere il funzionamento del programma, cliccare sotto per una breve guida.",
         "description": ""
     },
     "options_webrtc_warning": {
@@ -196,7 +196,7 @@
         "description": ""
     },
     "slideshow_7": {
-        "message": " Se l'interruttore è verde significa che non riesco a capire se questo dominio ti stia già tracciando. Potrebbe non farlo, ma lo terrò sotto controllo.  ",
+        "message": " Se l'interruttore è verde significa che non è possibile stabilire se questo dominio ti stia già tracciando. Potrebbe non farlo, ma verrà comunque tenuto sotto controllo.  ",
         "description": ""
     },
     "version": {
@@ -212,7 +212,7 @@
         "description": ""
     },
     "firstRun_title": {
-        "message": "Grazie per avere installato Privacy Badger!",
+        "message": "Grazie per aver installato Privacy Badger!",
         "description": ""
     },
     "import_select_file": {
@@ -228,11 +228,11 @@
         "description": ""
     },
     "tooltip_cookieblock": {
-        "message": "Sposta l'interruttore al centro l'interruttore per bloccare i cookie",
+        "message": "Spostare l'interruttore al centro per bloccare i cookie",
         "description": ""
     },
     "ded_can_allow_to_track": {
-        "message": " può consentirgli di tracciarti in giro per la rete.",
+        "message": " può consentirgli di tracciarti sul web.",
         "description": ""
     },
     "ded_privacy_badger_alert": {
@@ -240,11 +240,11 @@
         "description": ""
     },
     "slideshow_12": {
-        "message": " Se stai avendo problemi con una pagina e pensi che sia colpa mia, puoi disabilitarmi cliccando il pulsante qui. Andrò a dormire e non bloccherò nulla in quel sito.",
+        "message": "Nel caso di problemi su una pagina imputabili a Privacy Badger, è possibile disabilitarlo cliccando su questo bottone. Andrò a dormire e non bloccherò nulla in quel sito.",
         "description": ""
     },
     "slideshow_3": {
-        "message": " Se scopro qualcosa che si comporta come un tracker, porrò fine alla cosa bloccandolo.  ",
+        "message": " Se scopro un tracker, lo blocco.  ",
         "description": ""
     },
     "report_close": {
@@ -252,11 +252,11 @@
         "description": ""
     },
     "slideshow_9": {
-        "message": " Imparo mentre lavoro, quindi più mi usi più diventerò bravo a proteggerti dai quei tracker sfuggenti!",
+        "message": " Privacy Badger migliora durante la navigazione. Un maggiore utilizzo porta all'aumento della protezione dai tracker.",
         "description": ""
     },
     "slideshow_2": {
-        "message": " Starò seduto quassù in cima al tuo browser a cercare pubblicità spione e tracker che monitorano cosa stai facendo online.",
+        "message": " Starò seduto quassù in cima al tuo browser a cercare le pubblicità che ti spiano e i tracker che monitorano cosa stai facendo online.",
         "description": ""
     },
     "import_user_data": {
@@ -264,7 +264,7 @@
         "description": ""
     },
     "slideshow_8": {
-        "message": " La prima volta che clicchi la mia icona potresti notare che tutti i tracker sono verdi—non preoccuparti! Sono diverso da altri software che bloccano i tracker—invece di conoscere una lista di cose da bloccare subito, imparo cosa bloccare mentre navighi. Se non sto ancora bloccando nulla, prova a navigare per 4 o 5 siti diversi. Dovrei a quel punto iniziare a bloccare i tracker comuni.",
+        "message": " La prima volta che clicchi sull'icona di Privacy Badger potresti notare che tutti i tracker sono verdi, non preoccuparti! A differenza di altri software simili, che utilizzano una lista predefinita di domini da bloccare, Privacy Badger impara cosa bloccare durante la navigazione. Se Privacy Badger non blocca ancora nulla, prova a visitare 4 o 5 siti diversi. A quel punto dovrebbe iniziare a bloccare i tracker più comuni.",
         "description": ""
     },
     "options_filter_settings": {
@@ -280,11 +280,11 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Sposta l'interruttore a sinistra per bloccare un dominio",
+        "message": "Spostare l'interruttore a sinistra per bloccare un dominio",
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger è disabilitato per i domini elencati sotto. Puoi aggiungere un dominio usando l'icona di Privacy Badger nella barra indirizzi o digitando il dominio (non un URL) nella casella e cliccando il pulsante \"Aggiungi dominio\".",
+        "message": "Privacy Badger è disabilitato per i domini elencati qui sotto. È possibile aggiungere un dominio usando l'icona di Privacy Badger nella barra indirizzi o digitando il dominio (non un URL) nella casella e cliccando sul pulsante \"Aggiungi dominio\".",
         "description": ""
     },
     "pb_detected": {
@@ -300,11 +300,11 @@
         "description": ""
     },
     "tooltip_allow": {
-        "message": "Sposta l'interruttore a destra per consentire un dominio",
+        "message": "Spostare l'interruttore a destra per consentire un dominio",
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Disattiva Privacy Badger in questo sito",
+        "message": "Disattivare Privacy Badger per questo sito",
         "description": ""
     },
     "intro_social_share": {
@@ -324,11 +324,11 @@
         "description": ""
     },
     "intro_cookie_blocked": {
-        "message": "significa che il dominio è ritenuto un tracker ma è necessario per il funzionamento della pagina, quindi Privacy Badger lo consente ma blocca i suoi cookie.",
+        "message": "significa che il dominio è ritenuto un tracker ma è necessario per il funzionamento della pagina, quindi viene consentito ma vengono bloccati i suoi cookie.",
         "description": ""
     },
     "report_text": {
-        "message": "Descrivi brevemente l'errore qua sotto.",
+        "message": "Descrivere brevemente l'errore qua sotto.",
         "description": ""
     },
     "ded_on": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "remove_button": {
-        "message": "Rimuovi selezionati",
+        "message": "Rimuovere selezionati",
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_green": {
@@ -356,7 +356,7 @@
         "description": ""
     },
     "intro_no_tracker": {
-        "message": "significa che Privacy Badger ritiene che il dominio non sia un tracker. Puoi cliccare l'icona di Privacy Badger nella barra strumenti del browser se desideri sovrascrivere le impostazioni di blocco automatico. Oppure puoi navigare in pace mentre Privacy Badger inizia a trovare e divorare i tracker uno ad uno.",
+        "message": "significa che Privacy Badger ritiene che il dominio non sia un tracker. Puoi cliccare l'icona di Privacy Badger nella barra degli strumenti del browser se desideri sovrascrivere le impostazioni di blocco automatico. Oppure puoi navigare in pace mentre Privacy Badger inizia a trovare e divorare i tracker uno ad uno.",
         "description": ""
     },
     "slideshow_15": {
@@ -368,11 +368,11 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "I domini sottostanti non sembrano tracciarti",
+        "message": "I domini sottostanti sembrano non tracciarti",
         "description": ""
     },
     "slideshow_14": {
-        "message": " Se vuoi cambiare altre impostazioni, puoi cliccare l'icona di questo ingranaggio.",
+        "message": " Per cambiare altre impostazioni, cliccare sull'icona con l'ingranaggio.",
         "description": ""
     },
     "popup_options_button": {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "slideshow_6": {
-        "message": " Se l'interruttore è giallo, significa che ho bloccato quel tracker parzialmente. Farò del mio meglio per impedire che ti tracci mangiando i suoi biscotti (cookie), ma bloccarlo totalmente potrebbe dare problemi alla pagina.",
+        "message": " Se l'interruttore è giallo, significa che il tracker è stato bloccato parzialmente, perché il blocco completo potrebbe causare problemi nella visualizzazione della pagina. Verranno comunque scartati i cookie provenienti da questo dominio, per cercare di impedire il tracciamento.",
         "description": ""
     },
     "slideshow_16": {
@@ -396,7 +396,7 @@
         "description": ""
     },
     "popup_noblocked": {
-        "message": "Perchè non c'è niente di bloccato?",
+        "message": "Perchè non è stato bloccato nulla?",
         "description": ""
     },
     "report_fail": {
@@ -408,7 +408,7 @@
         "description": ""
     },
     "slideshow_10": {
-        "message": " Se pensi che abbia fatto la decisione sbagliata per un tracker, puoi muovere l'interruttore sul rosso per bloccarlo, giallo per un blocco parziale, verde per consentirlo.",
+        "message": "Nel caso si voglia cambiare l'impostazione per un tracker, è possibile muovere l'interruttore sul rosso per bloccarlo, sul giallo per un blocco parziale o sul verde per consentirlo.",
         "description": ""
     }
 }
