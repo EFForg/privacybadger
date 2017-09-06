@@ -107,6 +107,7 @@ function init() {
 
   var version = i18n.getMessage("version") + " " +  chrome.runtime.getManifest().version;
   $("#version").text(version);
+  adjustNoInitialBlockingLink();
 }
 $(init);
 
@@ -502,6 +503,21 @@ function syncUISelections() {
     backgroundPage.reloadTab(tabId);
   }
 }
+
+
+/**
+* Hide or show additional info depending on if there is any additional info
+*/
+function adjustNoInitialBlockingLink() {
+  getTab(tab => {
+    if (badger.blockedOriginCount(tab.id) == 0) {
+      $("#noBlockingLink").show();
+    } else {
+      $("#noBlockingLink").hide();
+    }
+  });
+}
+
 
 /**
 * We use this function where:

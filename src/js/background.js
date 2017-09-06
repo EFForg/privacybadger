@@ -498,6 +498,15 @@ Badger.prototype = {
   },
 
   /**
+   * Count of blocked origins for a given tab
+   * @param {Integer} tabId chrome tab id
+   * @return {Integer} count of blocked origins
+   */
+  blockedOriginCount: function(tabId) {
+    return this.tabData[tabId].blockedCount;
+  },
+
+  /**
    * Update page action badge with current count
    * @param {Integer} tabId chrome tab id
    */
