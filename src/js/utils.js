@@ -322,12 +322,42 @@ function parseCookie(str, opts) {
   return parsed;
 }
 
+/**
+ * Get an js variable from its string representation. For example,
+ * getter("window.location.href") returns window.location.href. This is useful
+ * when for handling code like data. Basically equivalent to eval, except it is
+ * safe.
+ */
+function getter(name) {
+  let parts = name.split('.'),
+    out = window;
+  parts.forEach(part => {
+    out = out[part];
+  });
+  return out;
+}
+
+/**
+ * Set a js variable represented by the string `name` to value. Equivalent to
+ * eval(name) = value, except it is safe.
+ */
+function setter(name, value) {
+  let parts = name.split('.'),
+    last = parts.pop(),
+    part = window;
+  parts.forEach(partName => {
+    part = part[partName];
+  });
+  part[last] = value;
+}
+
 /************************************** exports */
 var exports = {};
 
 exports.estimateMaxEntropy = estimateMaxEntropy;
 exports.explodeSubdomains = explodeSubdomains;
 exports.getRandom = getRandom;
+exports.getter = getter;
 exports.makeURI = makeURI;
 exports.nDaysFromNow = nDaysFromNow;
 exports.oneDayFromNow = oneDayFromNow;
@@ -338,6 +368,7 @@ exports.oneSecond = oneSecond;
 exports.parseCookie = parseCookie;
 exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
+exports.setter = setter;
 exports.sha1 = sha1;
 exports.xhrRequest = xhrRequest;
 
