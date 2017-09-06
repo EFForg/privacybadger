@@ -112,7 +112,15 @@ BadgerPen.prototype = {
   },
 
   touchDNTRecheckTime: function(domain, time){
-    this._setupDomainAction(domain, time, "nextUpdateTime");
+    if (this.getBadgerStorageObject('action_map').hasItem(domain)) {
+      if (!time) {
+        time = utils.getRandom(
+          utils.oneDayFromNow(),
+          utils.nDaysFromNow(7)
+        );
+      }
+      this._setupDomainAction(domain, time, "nextUpdateTime");
+    }
   },
 
   getNextUpdateForDomain: function(domain){
@@ -252,6 +260,9 @@ BadgerPen.prototype = {
    */
   setupHeuristicAction: function(domain, action){
     this._setupDomainAction(domain, action, "heuristicAction");
+    if (this.isActionMapEmptyForDomain(domain)) {
+      this.getBadgerStorageObject('action_map').deleteItem(domain);
+    }
   },
 
   /**
@@ -260,6 +271,7 @@ BadgerPen.prototype = {
    * @param {String} domain Domain to add
    */
   setupDNT: function(domain){
+    this.touchDNTRecheckTime(domain);
     this._setupDomainAction(domain, true, "dnt");
   },
 
@@ -268,7 +280,14 @@ BadgerPen.prototype = {
    * @param domain FQDN string
    */
   revertDNT: function(domain){
+    if (this.isActionMapEmptyForDomain(domain)) {
+      return;
+    }
+    this.touchDNTRecheckTime(domain);
     this._setupDomainAction(domain, false, "dnt");
+    if (this.isActionMapEmptyForDomain(domain)) {
+      this.getBadgerStorageObject('action_map').deleteItem(domain);
+    }
   },
 
   /**
@@ -301,6 +320,20 @@ BadgerPen.prototype = {
     if (index > -1) {
       badger.userAllow.splice(index, 1);
     }
+    if (this.isActionMapEmptyForDomain(domain)) {
+      this.getBadgerStorageObject('action_map').deleteItem(domain);
+    }
+  },
+
+  isActionMapEmptyForDomain: function(domain) {
+    let obj = this.getBadgerStorageObject('action_map').getItem(domain);
+    if (obj &&
+        obj.userAction == "" &&
+        obj.dnt == false &&
+        (obj.heuristicAction == "" || obj.heuristicAction == constants.NO_TRACKING)) {
+      return true;
+    }
+    return false;
   }
 };
 

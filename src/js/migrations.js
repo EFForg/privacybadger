@@ -181,6 +181,19 @@ exports.Migrations= {
     }
   },
 
+  removeEmptyActionMapEntries: function (badger) {
+    console.log('removing empty action map entries');
+    let am = badger.storage.getBadgerStorageObject('action_map'),
+      count = 0;
+    for (let domain in am.getItemClones()) {
+      if (badger.storage.isActionMapEmptyForDomain(domain)) {
+        am.deleteItem(domain);
+        console.log('removing domain: ' + domain);
+        count += 1;
+      }
+    }
+    console.log('removed ' + count + ' domains');
+  },
 };
 
 

@@ -322,6 +322,35 @@ function parseCookie(str, opts) {
   return parsed;
 }
 
+function CheckedDNTBuffer(size) {
+  if (size) {
+    this.size = size;
+  }
+  this.index = 0;
+  this.array = new Array(this.size);
+  this.set = new Set();
+}
+
+CheckedDNTBuffer.prototype = {
+  size: 1000,
+  // if we've seen item, return true. if we haven't store it and return false
+  hasElseAdd: function(item) {
+    if (this.set.has(item)) {
+      return true;
+    } else {
+      this.set.delete(this.array[this.index]);
+      this.set.add(item);
+      this.array[this.index] = item;
+      this.index = (this.index + 1) % this.size;
+      return false;
+    }
+  },
+
+  delete: function(item) {
+    return this.set.delete(item);
+  }
+};
+
 /************************************** exports */
 var exports = {};
 
@@ -340,6 +369,7 @@ exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
 exports.sha1 = sha1;
 exports.xhrRequest = xhrRequest;
+exports.CheckedDNTBuffer = CheckedDNTBuffer;
 
 return exports;
 /************************************** exports */

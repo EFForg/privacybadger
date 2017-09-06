@@ -132,6 +132,8 @@ Badger.prototype = {
   */
   tabData: {},
 
+  // DNT
+  checkedDNT: new utils.CheckedDNTBuffer(),
 
   // Methods
 
@@ -364,42 +366,34 @@ Badger.prototype = {
   },
 
   /**
-  * Checks a domain for the EFF DNT policy.
+  * Checks a domain for the EFF DNT policy if needed.
   *
   * @param {String} domain The domain to check
-  * @param {timestamp} nextUpdate Time when the DNT policy should be rechecked
   * @param {Function} cb Callback that receives check status boolean (optional)
   */
-  checkForDNTPolicy: function (domain, nextUpdate, cb) {
-    if (Date.now() < nextUpdate) {
-      // not yet time
-      return;
+  checkForDNTPolicy: function (domain, cb) {
+    let self = this;
+
+    if (Date.now() < self.storage.getNextUpdateForDomain(domain)) {
+      return; // not yet time to re-check
+    }
+    if (self.checkedDNT.hasElseAdd(domain)) {
+      return; // checked for DNT already and failed
     }
 
-    var badger = this;
-
-    if (! badger.isCheckingDNTPolicyEnabled()) {
-      // user has disabled this check
-      return ;
+    if (! self.isCheckingDNTPolicyEnabled()) {
+      return; // user has disabled this check
     }
 
     log('Checking', domain, 'for DNT policy.');
-
-    // update timestamp first;
-    // avoids queuing the same domain multiple times
-    var recheckTime = utils.getRandom(
-      utils.oneDayFromNow(),
-      utils.nDaysFromNow(7)
-    );
-    badger.storage.touchDNTRecheckTime(domain, recheckTime);
-
-    this._checkPrivacyBadgerPolicy(domain, function (success) {
+    self._doDNTCheck(domain, function (success) {
       if (success) {
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
-        badger.storage.setupDNT(domain);
+        self.checkedDNT.delete(domain); // remove from checkedDNT since the check passed
+        self.storage.setupDNT(domain);
       } else {
         log('It looks like', domain, 'has NOT adopted Do Not Track');
-        badger.storage.revertDNT(domain);
+        self.storage.revertDNT(domain);
       }
       if (typeof cb == "function") {
         cb(success);
@@ -416,7 +410,7 @@ Badger.prototype = {
   * @param {String} origin The host to check
   * @param {Function} callback callback(successStatus)
   */
-  _checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
+  _doDNTCheck: utils.rateLimit(function (origin, callback) {
     var successStatus = false;
     var url = "https://" + origin + "/.well-known/dnt-policy.txt";
     var dnt_hashes = this.storage.getBadgerStorageObject('dnt_hashes');
@@ -478,6 +472,7 @@ Badger.prototype = {
       Migrations.migrateDntRecheckTimes2,
       Migrations.forgetMistakenlyBlockedDomains,
       Migrations.unblockIncorrectlyBlockedDomains,
+      Migrations.removeEmptyActionMapEntries,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {

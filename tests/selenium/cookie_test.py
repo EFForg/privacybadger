@@ -17,7 +17,7 @@ SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
 THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 
 CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
-'{}', 0, r => window.DNT_CHECK_RESULT = r
+'{}', r => window.DNT_CHECK_RESULT = r
 );"""
 
 class CookieTest(pbtest.PBSeleniumTest):

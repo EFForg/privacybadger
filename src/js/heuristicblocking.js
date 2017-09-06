@@ -25,9 +25,10 @@ require.scopes.heuristicblocking = (function() {
 
 /*********************** heuristicblocking scope **/
 
-// make heuristic obj with utils and storage properties and put the things on it
+// map tabId to the base domain of the tab's url
 var tabOrigins = { }; // TODO roll into tabData?
 
+// make heuristic obj with storage property and put the things on it
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
 }
@@ -83,60 +84,6 @@ HeuristicBlocker.prototype = {
     }
 
     this.setupSubdomainsForCookieblock(baseDomain);
-  },
-
-  /**
-   * Wraps _recordPrevalence for use from webRequest listeners.
-   * Also saves tab (page) origins. TODO Should be handled by tabData instead.
-   * Also sets a timeout for checking DNT policy for third-party FQDNs.
-   * TODO Does too much, should be broken up ...
-   *
-   * Called from performance-critical webRequest listeners!
-   * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
-   *
-   * @param details are those from onBeforeSendHeaders
-   * @returns {*}
-   */
-  heuristicBlockingAccounting: function (details) {
-    // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || incognito.tabIsIncognito(details.tabId)) {
-      return {};
-    }
-
-    let fqdn = utils.makeURI(details.url).host,
-      origin = window.getBaseDomain(fqdn);
-
-    // if this is a main window request
-    if (details.type == "main_frame") {
-      // save the origin associated with the tab
-      log("Origin: " + origin + "\tURL: " + details.url);
-      tabOrigins[details.tabId] = origin;
-      return {};
-    }
-
-    let tabOrigin = tabOrigins[details.tabId];
-
-    // ignore first-party requests
-    if (!tabOrigin || origin == tabOrigin) {
-      return {};
-    }
-
-    window.setTimeout(function () {
-      badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
-    }, 10);
-
-    // abort if we already made a decision for this FQDN
-    let action = this.storage.getAction(fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
-      return {};
-    }
-
-    // ignore if there are no tracking cookies
-    if (!hasCookieTracking(details, origin)) {
-      return {};
-    }
-
-    this._recordPrevalence(fqdn, origin, tabOrigin);
   },
 
   /**
@@ -204,7 +151,6 @@ HeuristicBlocker.prototype = {
     }
   }
 };
-
 
 // This maps cookies to a rough estimate of how many bits of
 // identifying info we might be letting past by allowing them.
@@ -499,38 +445,96 @@ function hasCookieTracking(details, origin) {
   return false;
 }
 
-function startListeners() {
-  /**
-   * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
-   */
-  chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    if (badger) {
-      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-    } else {
-      return {};
-    }
-  }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
+/**
+ * Process a webrequest for use by heuristicblocking accounting. If the request
+ * isn't relevant then we return early. Optionally check the origin for DNT.
+ *
+ * @param details from onBeforeSendHeaders or onBeforeResponseStarted
+ * @param callback heuristicBlockingAccounting
+ * @param checkDNT bool whether to check the origin for DNT
+ * @ returns {*}
+ */
+function _processWebRequest(details, callback, checkDNT) {
+  // ignore requests that not from tabs, or are from incognito tabs
+  if (details.tabId < 0 || incognito.tabIsIncognito(details.tabId)) {
+    return {};
+  }
 
-  /**
-   * Adds onResponseStarted listener. Monitor for cookies
-   */
-  chrome.webRequest.onResponseStarted.addListener(function(details) {
-    var hasSetCookie = false;
-    for(var i = 0; i < details.responseHeaders.length; i++) {
+  let fqdn = utils.makeURI(details.url).host,
+    baseDomain = window.getBaseDomain(fqdn);
+
+  // if this is a main window request aka first party origin
+  if (details.type == "main_frame") {
+    // save the origin associated with the tab
+    log("Origin: " + baseDomain + "\tURL: " + details.url);
+    tabOrigins[details.tabId] = baseDomain;
+    return {};
+  }
+
+  let tabOrigin = tabOrigins[details.tabId];
+  // ignore first-party requests
+  if (!tabOrigin || baseDomain == tabOrigin) {
+    return {};
+  }
+
+  if (checkDNT) {
+    badger.checkForDNTPolicy(fqdn);
+  }
+
+  return callback(details, fqdn, baseDomain, tabOrigin);
+}
+
+/**
+ * Asynchronous onBeforeSendHeaders listener.
+ */
+function onBeforeSendHeaders(details) {
+  return _processWebRequest(details, heuristicBlockingAccounting, true);
+}
+
+function onResponesStarted(details) {
+  if (badger) {
+    for(let i = 0; i < details.responseHeaders.length; i++) {
       if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
-        hasSetCookie = true;
-        break;
+        return _processWebRequest(details, heuristicBlockingAccounting, false);
       }
     }
-    if(hasSetCookie) {
-      if (badger) {
-        return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      } else {
-        return {};
-      }
-    }
-  },
-  {urls: ["<all_urls>"]}, ["responseHeaders"]);
+  }
+  return {};
+}
+
+/**
+ * Wraps _recordPrevalence for use from webRequest listeners.
+ *
+ * Called from performance-critical webRequest listeners!
+ * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
+ *
+ * @param details are those from onBeforeSendHeaders or onResponesStarted
+ * @param fqdn string for the full domain
+ * @param baseDomain the etld+1 for the fqdn
+ * @param tabOrigin the origin of the tab (aka the first party)
+ * @returns {*}
+ */
+function heuristicBlockingAccounting(details, fqdn, baseDomain, tabOrigin) {
+  // abort if we already made a decision for this FQDN
+  let action = badger.storage.getAction(fqdn);
+  if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+    return {};
+  }
+
+  // ignore if there are no tracking cookies
+  if (!hasCookieTracking(details, baseDomain)) {
+    return {};
+  }
+  badger.heuristicBlocking._recordPrevalence(fqdn, baseDomain, tabOrigin);
+}
+
+function startListeners() {
+  chrome.webRequest.onBeforeSendHeaders.addListener(
+    onBeforeSendHeaders,
+    {urls: ["<all_urls>"]}, ["requestHeaders"]);
+  chrome.webRequest.onResponseStarted.addListener(
+    onResponesStarted,
+    {urls: ["<all_urls>"]}, ["responseHeaders"]);
 }
 
 /************************************** exports */
