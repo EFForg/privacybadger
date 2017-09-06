@@ -99,12 +99,12 @@
 
     assert.expect(NUM_TESTS);
 
-    badger.checkForDNTPolicy(DNT_COMPLIANT_DOMAIN, 0, function (successStatus) {
+    badger.checkForDNTPolicy(DNT_COMPLIANT_DOMAIN, function (successStatus) {
       assert.ok(successStatus, "Domain returns good DNT policy");
       done();
     });
 
-    badger.checkForDNTPolicy('ecorp.example', 0, function (successStatus) {
+    badger.checkForDNTPolicy('ecorp.example', function (successStatus) {
       assert.notOk(successStatus, "Domain returns 200 but no valid policy");
       done();
     });
@@ -121,10 +121,7 @@
 
     for (let i = 0; i < NUM_CHECKS; i++) {
       // mirroring call signature in js/heuristicblocking.js
-      badger.checkForDNTPolicy(
-        DNT_COMPLIANT_DOMAIN,
-        badger.storage.getNextUpdateForDomain(DNT_COMPLIANT_DOMAIN)
-      );
+      badger.checkForDNTPolicy(DNT_COMPLIANT_DOMAIN);
     }
 
     // advance the clock
@@ -144,11 +141,11 @@
     let done = assert.async(NUM_TESTS);
 
     assert.expect(NUM_TESTS);
+    badger.storage.getNextUpdateForDomain = () => 0;
 
     for (let i = 0; i < NUM_TESTS; i++) {
       badger.checkForDNTPolicy(
         DNT_COMPLIANT_DOMAIN,
-        0,
         function () { // eslint-disable-line no-loop-func
           assert.equal(xhrSpy.callCount, i+1);
           clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
@@ -168,9 +165,7 @@
     badger.isCheckingDNTPolicyEnabled = () => false;
 
     for (let i = 0; i < NUM_TESTS; i++) {
-      badger.checkForDNTPolicy(
-        DNT_COMPLIANT_DOMAIN,
-        0);
+      badger.checkForDNTPolicy(DNT_COMPLIANT_DOMAIN);
       clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
       assert.equal(xhrSpy.callCount, 0);
       done();
