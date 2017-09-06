@@ -33,6 +33,7 @@
       "js/constants.js",
       "js/storage.js",
       "js/utils.js",
+      "js/tabdata.js",
       "js/htmlutils.js",
       "js/webrequest.js",
       "js/heuristicblocking.js",
