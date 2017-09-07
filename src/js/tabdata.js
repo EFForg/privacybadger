@@ -127,6 +127,11 @@ TabData.prototype = {
 
     this.onLogRequest.dispatch(tab, frame, origin);
   },
+
+  /* utilities */
+  getAllOriginsForTab: function(tabId) {
+    return this.getTab(tabId).origins.keys();
+  },
 };
 
 return {TabData};
