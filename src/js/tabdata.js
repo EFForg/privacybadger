@@ -12,17 +12,24 @@ function newFrame(url, id, parentId) {
   return out;
 }
 
+/* constructor */
 function TabData() {
   this._data = new Map();
-  let self = this;
-  chrome.tabs.query({}, tabs => {
-    tabs.forEach(tab => {
-      self.recordMainFrame({url: tab.url, tabId: tab.id, frameId: 0});
-    });
-  });
+  this.initializeTabs();
 }
 
 TabData.prototype = {
+  /* initializers */
+  initializeTabs: function() {
+    let self = this;
+    chrome.tabs.query({}, tabs => { // update all tabs
+      tabs.forEach(tab => {
+        self.recordMainFrame({url: tab.url, tabId: tab.id, frameId: 0});
+      });
+    });
+  },
+
+  /* tab handling */
   hasTab: function(tabId) {
     return this._data.has(tabId);
   },
