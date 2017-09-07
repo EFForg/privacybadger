@@ -46,58 +46,53 @@ TabData.prototype = {
     return this._data.delete(tabId);
   },
 
-  logRequest: function(details) {
-    if (details.type.endsWith('_frame')) {
-      this.recordFrame(details);
-    } else {
-      if (!this.hasTab(details.tabId)) {
-        return;
-      }
-      this.recordOrigin(details);
-    }
-  },
-
+  /* request accounting */
   recordMainFrame: function(details) {
+    // firefox bug, remove when there is no more ff51
     if (details.frameId != 0 && details.type == 'main_frame') {
       details.frameId = 0;
     }
+
     let frame = newFrame(details.url, details.tabId, -1);
+
+    if (this.hasTab(details.tabId)) {
+      this.forgetTab(details.tabId);
+    }
+
     this.setTab(details.tabId, frame);
     return frame;
   },
 
   recordSubFrame: function(details) {
     let tab = this.getTab(details.tabId),
-      frame = newFrame(details.url, details.frameId, details.parentFrameId);
+      frame = newFrame(details.url, details.frameId, details.parentFrameId),
+      parentFrame = tab.frames.get(details.parentFrameId);
     // add new frame
     tab.frames.set(details.frameId, frame);
-    // link parent to new frame
-    tab.frames.get(details.parentFrameId).frames.set(details.frameId, frame);
-    // record the frame origin
-    this.recordOrigin(details);
-  },
 
-  recordFrame: function(details) {
-    if (details.type.startsWith('main')) {
-      this.recordMainFrame(details);
-    } else {
-      this.recordSubFrame(details);
+    // link to its parent frame, if it exists
+    if (parentFrame) {
+      parentFrame.frames.set(details.frameId, frame);
     }
+    return frame;
   },
 
-  recordOrigin: function(details) {
-    let og = window.extractHostFromURL(details.url),
-      tab = this.getTab(details.tabId);
+  logRequest: function(details) {
+    let origin = window.extractHostFromURL(details.url),
+      tab = this.getTab(details.tabId),
+      frame;
 
-    if (!tab) {
+    if (!tab) { // create the tab/main_frame if we don't have it
       tab = this.recordMainFrame(details);
     }
-    tab.origins.add(og);
 
-    if (!tab.frames.has(details.frameId)) {
-      this.recordSubFrame(details);
+    frame = tab.frames.get(details.frameId);
+    if (!frame) { // create sub_frame if we don't have it
+      frame = this.recordSubFrame(details);
     }
-    tab.frames.get(details.frameId).origins.add(og);
+
+    tab.origins.add(origin);    // add the origin to the tab
+    frame.origins.add(origin);  // add the origin to its frame
   },
 };
 
