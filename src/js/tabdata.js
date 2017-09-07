@@ -1,13 +1,15 @@
 require.scopes.tabdata = (function() {
 
 function newFrame(url, id, parentId) {
-  return {
+  let out = {
     url,
     id,
     parentId,
     frames: new Map(),
     origins: new Set(),
   };
+  out.frames.set(id, out); // this.id refers to self
+  return out;
 }
 
 function TabData() {
@@ -54,7 +56,6 @@ TabData.prototype = {
     }
     let frame = newFrame(details.url, details.tabId, -1);
     this.setTab(details.tabId, frame);
-    frame.frames.set(0, frame);
     return frame;
   },
 
