@@ -233,18 +233,6 @@ function revertDomainControl(e){
 //TODO re-write this by having get best action return the domain the rule
 // comes from, and combine that way?
 function getTopLevel(action, origin/*, tabId*/){
-  //  if (action == "usercookieblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return  top;
-  //  }
-  //  if (action == "userblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
-  //  if (action == "usernoaction"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
   return origin;
 }
 
