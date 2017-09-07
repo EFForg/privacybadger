@@ -1,5 +1,28 @@
 require.scopes.tabdata = (function() {
 
+/* events */
+function Occurrence(name) {
+  this.name = name;
+  this.listeners = [];
+}
+
+Occurrence.prototype = {
+  addListener: function(func) {
+    this.listeners.push(func);
+  },
+  dispatch: function() {
+    this.listeners.forEach(func => func.apply(null, arguments));
+  },
+};
+
+let events = [
+  'onForgetTab',
+  'onRecordMainFrame',
+  'onRecordSubFrame',
+  'onLogRequest',
+];
+
+/* utils */
 function newFrame(url, id, parentId) {
   let out = {
     url,
@@ -15,11 +38,16 @@ function newFrame(url, id, parentId) {
 /* constructor */
 function TabData() {
   this._data = new Map();
+  this.initializeEvents();
   this.initializeTabs();
 }
 
 TabData.prototype = {
   /* initializers */
+  initializeEvents: function() {
+    events.forEach(name => this[name] = new Occurrence(name));
+  },
+
   initializeTabs: function() {
     let self = this;
     chrome.tabs.query({}, tabs => { // update all tabs
@@ -43,6 +71,7 @@ TabData.prototype = {
   },
 
   forgetTab: function(tabId) {
+    this.onForgetTab.dispatch(tabId);
     return this._data.delete(tabId);
   },
 
@@ -60,6 +89,7 @@ TabData.prototype = {
     }
 
     this.setTab(details.tabId, frame);
+    this.onRecordMainFrame.dispatch(frame);
     return frame;
   },
 
@@ -74,6 +104,7 @@ TabData.prototype = {
     if (parentFrame) {
       parentFrame.frames.set(details.frameId, frame);
     }
+    this.onRecordSubFrame.dispatch(frame);
     return frame;
   },
 
@@ -93,6 +124,8 @@ TabData.prototype = {
 
     tab.origins.add(origin);    // add the origin to the tab
     frame.origins.add(origin);  // add the origin to its frame
+
+    this.onLogRequest.dispatch(tab, frame, origin);
   },
 };
 
