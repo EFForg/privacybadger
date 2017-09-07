@@ -42,6 +42,7 @@ c64.assets-yammer.com
 assetfiles.com
 authorize.net
 autoforums.com
+azureedge.net
 bac-assets.com
 bandcamp.com
 bankid.no
