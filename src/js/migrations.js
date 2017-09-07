@@ -181,7 +181,7 @@ exports.Migrations= {
     }
   },
 
-  unblockEff: function(badger) {
+  unblockEFF: function(badger) {
     let action_map = badger.storage.getBadgerStorageObject("action_map"),
       snitch_map = badger.storage.getBadgerStorageObject("snitch_map");
 
