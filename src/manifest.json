@@ -48,8 +48,8 @@
         "js/firstparties/twitter.js"
       ],
       "matches": [
-        "https://twitter.com/*",
-        "http://twitter.com/*"
+        "*://twitter.com/*",
+        "*://tweetdeck.twitter.com/*"
       ],
       "run_at": "document_idle"
     },
