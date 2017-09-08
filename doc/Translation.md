@@ -29,7 +29,7 @@ any other part of the entry.
 
 The `"Some useful info"` part sometimes contains useful information (in English) about the
 string. Usually it provides the context of the string (if it is a button, an heading,... and
-where is it located inside the UI). You should never translate it.
+where it is located inside the UI). You should never translate it.
 
 To contribute to the Privacy Badger translation through GitHub, first check the
 status of your local language translation: if you don't see a folder with your 
