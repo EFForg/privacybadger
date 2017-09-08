@@ -10,11 +10,8 @@ can help. Here's a quick orientation to guide your adventure:
 * Security vulnerabilities can be reported privately at
   [vulnerabilities@eff.org](mailto:vulnerabilities@eff.org), the GPG key and
   other information can be found [here](https://www.eff.org/security).
-* Translations are currently done on GitHub. Here is a great
-  [example](https://github.com/EFForg/privacybadger/pull/1270) of a
-  translation pull request. See the [translations
-  label](https://github.com/EFForg/privacybadger/issues?utf8=%E2%9C%93&q=label%3Atranslations%20)
-  for related issues and more example pull requests.
+* Want to translate Privacy Badger to your local language? [**Here**](/doc/Translation.md)
+  you will find a guide to help you.
 * Tests are crucial, so here's a [**guide**](/doc/tests.md) on how to use them.
 <!---
 * Tell us about our bugs [here]()! Tips to make you're report 10x helpful are in this [bug tips document]().
