@@ -181,14 +181,18 @@ exports.Migrations= {
     }
   },
 
-  unblockEFF: function(badger) {
+  forgetBlockedDNTDomains: function(badger) {
+    console.log('unblocking mistakenly blocked DNT domains');
     let action_map = badger.storage.getBadgerStorageObject("action_map"),
-      snitch_map = badger.storage.getBadgerStorageObject("snitch_map");
+      snitch_map = badger.storage.getBadgerStorageObject("snitch_map"),
+      domainsToFix = new Set(['eff.org', 'medium.com']);
 
     for (let domain in action_map.getItemClones()) {
-      if (window.getBaseDomain(domain) == 'eff.org') {
+      let base = window.getBaseDomain(domain);
+      if (domainsToFix.has(base)) {
         action_map.deleteItem(domain);
         snitch_map.deleteItem(domain);
+        snitch_map.deleteItem(base);
       }
     }
   },
