@@ -1,6 +1,15 @@
-let query_param = 'data-expanded-url';
-let tcos_with_destination = "a[" + query_param + "][href^='https://t.co/'], a[" + query_param + "][href^='http://t.co/']";
-let fixes = {};
+let query_param,
+  tcos_with_destination,
+  fixes = {};
+
+function setQuery() {
+  if (/https?:\/\/tweetdeck.twitter.com\//.test(window.location.href)) {
+    query_param = 'data-full-url';     // tweetdeck
+  } else {
+    query_param = 'data-expanded-url'; // twitter and tests
+  }
+  tcos_with_destination = "a[" + query_param + "][href^='https://t.co/'], a[" + query_param + "][href^='http://t.co/']";
+}
 
 function maybeAddNoreferrer(link) {
   let rel = link.rel ? link.rel : "";
@@ -51,5 +60,6 @@ function unwrapTwitterURLs() {
   });
 }
 
+setQuery();
 unwrapTwitterURLs();
 setInterval(unwrapTwitterURLs, 2000);
