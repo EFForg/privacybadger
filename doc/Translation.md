@@ -21,10 +21,15 @@ strings for that language. Each entry in the JSON file follows this structure:
 
     "string_identifier": {
         "message": "String text"
+        "description": "Some useful info"
     }
     
 The translated string is the `"String text"` part and you should **NOT** change
 any other part of the entry.
+
+The `"Some useful info"` part sometimes contains useful information (in English) about the
+string. Usually it provides the context of the string (if it is a button, an heading,... and
+where is it located inside the UI). You should never translate it.
 
 To contribute to the Privacy Badger translation through GitHub, first check the
 status of your local language translation: if you don't see a folder with your 
