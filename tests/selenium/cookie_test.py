@@ -23,6 +23,7 @@ CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
 
+    @pbtest.if_firefox(unittest.skip("Disabled until Firefox fixes bug: https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773"))
     def test_dnt_check_should_not_set_cookies(self):
         TEST_DOMAIN = "dnt-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
