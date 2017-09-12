@@ -8,11 +8,11 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Sei sicuro di volere rimuovere questa origine da Privacy Badger?",
+        "message": "Sei sicuro di voler rimuovere questa origine da Privacy Badger?",
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
+        "message": "Niente tracking su ",
         "description": ""
     },
     "non_tracker_tip": {
@@ -28,11 +28,11 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Check if sites comply with EFF's Do Not Track policy",
+        "message": "Verifica se i siti rispettano la policy Do Not Track dell'EFF",
         "description": ""
     },
     "intro2": {
-        "message": "Questa estensione è progettata per proteggere automaticamente la tua privacy da tracker di terze parti che si caricano di nascosto quando navighi in rete. Inviamo l'header Do Not Track ad ogni richiesta e la nostra estensione     valuta la probabilità che tu sia ancora tracciato. Se l'algoritmo stabilisce che la probabilità è troppo alta, blocchiamo automaticamente l'invio della richiesta al dominio. Per favore, ricorda che Privacy Badger è in beta e la valutazione dell'algoritmo non determina con certezza che il dominio ti stia tracciando.",
+        "message": "Questa estensione è progettata per proteggere automaticamente la tua privacy da tracker di terze parti che si caricano di nascosto quando navighi in rete. Inviamo l'header Do Not Track a ogni richiesta e la nostra estensione     valuta la probabilità che tu sia ancora tracciato. Se l'algoritmo stabilisce che la probabilità è troppo alta, blocchiamo automaticamente l'invio della richiesta al dominio. Per favore, ricorda che Privacy Badger è in beta e la valutazione dell'algoritmo non determina con certezza che il dominio ti stia tracciando.",
         "description": ""
     },
     "donate_to_eff": {
@@ -44,11 +44,11 @@
         "description": ""
     },
     "dnt_tooltip": {
-        "message": "This domain promises to not track you",
+        "message": "Questo dominio si impegna a non tracciarti",
         "description": ""
     },
     "options_dnt_policy_learn_more": {
-        "message": "Learn more",
+        "message": "Scopri di più",
         "description": ""
     },
     "data_settings": {
@@ -56,7 +56,7 @@
         "description": ""
     },
     "slideshow_13": {
-        "message": " Se sto rovinando una pagina, fallo sapere ai miei sviluppatori in modo che possano correggere il problema! Puoi farlo cliccando questo pulsante.",
+        "message": " Se Privacy Badger sta rovinando una pagina, fallo sapere agli sviluppatori in modo che possano correggere il problema. Puoi farlo cliccando questo pulsante.",
         "description": ""
     },
     "report_title": {
@@ -64,15 +64,15 @@
         "description": ""
     },
     "slideshow_4": {
-        "message": " Se clicchi la mia icona vedrai l'elenco dei potenziali tracker nella scheda attuale.",
+        "message": " Se clicchi l'icona di Privacy Badger vedrai l'elenco dei potenziali tracker nella scheda attuale.",
         "description": ""
     },
     "slideshow_5": {
-        "message": " Se l'interruttore è rosso, significa che ho bloccato quel tracker totalmente!  Quel mostro non ti darà più fastidio.",
+        "message": " Se l'interruttore è rosso, significa che quel tracker è stato bloccato totalmente!  In questo modo non ti darà più fastidio.",
         "description": ""
     },
     "popup_instructions": {
-        "message": "potenziali <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni male.",
+        "message": "potenziali <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni corettamente.",
         "description": ""
     },
     "options_webrtc_setting": {
@@ -84,7 +84,7 @@
         "description": ""
     },
     "error_input": {
-        "message": "Che c'è che non va?",
+        "message": "Cosa c'è che non va?",
         "description": ""
     },
     "options_slider_text": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Inviare errore",
+        "message": "Invia errore",
         "description": ""
     },
     "badger_status_allow": {
@@ -220,7 +220,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "Non ci sono risorse di terze parti in questo sito.",
+        "message": "Non ci sono risorse di terze parti su questo sito.",
         "description": ""
     },
     "report_broken_site": {
@@ -240,11 +240,11 @@
         "description": ""
     },
     "slideshow_12": {
-        "message": "Nel caso di problemi su una pagina imputabili a Privacy Badger, è possibile disabilitarlo cliccando su questo bottone. Andrò a dormire e non bloccherò nulla in quel sito.",
+        "message": "Nel caso di problemi su una pagina imputabili a Privacy Badger, è possibile disabilitarlo cliccando su questo bottone. Privacy Badger non bloccherà più nulla su quel sito.",
         "description": ""
     },
     "slideshow_3": {
-        "message": " Se scopro un tracker, lo blocco.  ",
+        "message": " Se Privacy Badger scopre un tracker, lo blocca.  ",
         "description": ""
     },
     "report_close": {
@@ -256,7 +256,7 @@
         "description": ""
     },
     "slideshow_2": {
-        "message": " Starò seduto quassù in cima al tuo browser a cercare le pubblicità che ti spiano e i tracker che monitorano cosa stai facendo online.",
+        "message": " Privacy Badger starà seduto in cima al tuo browser a cercare le pubblicità che ti spiano e i tracker che monitorano cosa stai facendo online.",
         "description": ""
     },
     "import_user_data": {
@@ -360,7 +360,7 @@
         "description": ""
     },
     "slideshow_15": {
-        "message": " Ovviamente puoi anche ignorare tutte queste impostazioni e io continuerò a mangiare silenziosamente tutti i tracker che rilevo.",
+        "message": " Ovviamente puoi anche ignorare tutte queste impostazioni e Privacy Badger continua a mangiare silenziosamente tutti i tracker che rileva.",
         "description": ""
     },
     "report_input_label": {
