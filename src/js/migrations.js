@@ -182,7 +182,8 @@ exports.Migrations= {
   },
 
   forgetBlockedDNTDomains: function(badger) {
-    console.log('unblocking mistakenly blocked DNT domains');
+    console.log('Running migration to forget mistakenly blocked DNT domains');
+
     let action_map = badger.storage.getBadgerStorageObject("action_map"),
       snitch_map = badger.storage.getBadgerStorageObject("snitch_map"),
       domainsToFix = new Set(['eff.org', 'medium.com']);
