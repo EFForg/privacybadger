@@ -1,5 +1,14 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.9.12
+* Fixed DNT policy checking for blocked domains
+* Fixed exporting large Badger datasets
+* Made progress on Firefox for Android compatibility
+* Fixed various site breakages
+* Improved badge updating performance
+* Improved translations (Czech, Italian, Swedish, Ukrainian)
+* Added Danish translation
+
 ## 2017.7.24
 * Added validation to yellowlist (f.k.a. "cookieblock list") updating
 * Removed faulty yellowlist domain removal logic, which, together with missing
