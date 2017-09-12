@@ -103,6 +103,10 @@ function onBeforeRequest(details){
       };
       chrome.tabs.sendMessage(tab_id, msg);
 
+      window.setTimeout(function () {
+        badger.checkForDNTPolicy(requestDomain, badger.storage.getNextUpdateForDomain(requestDomain));
+      }, 10);
+
       return {cancel: true};
     }
   }
@@ -171,6 +175,10 @@ function onBeforeSendHeaders(details) {
         trackerDomain: requestDomain
       };
       chrome.tabs.sendMessage(tab_id, msg);
+
+      window.setTimeout(function () {
+        badger.checkForDNTPolicy(requestDomain, badger.storage.getNextUpdateForDomain(requestDomain));
+      }, 10);
 
       return {cancel: true};
     }

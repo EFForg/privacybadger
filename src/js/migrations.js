@@ -181,6 +181,22 @@ exports.Migrations= {
     }
   },
 
+  forgetBlockedDNTDomains: function(badger) {
+    console.log('Running migration to forget mistakenly blocked DNT domains');
+
+    let action_map = badger.storage.getBadgerStorageObject("action_map"),
+      snitch_map = badger.storage.getBadgerStorageObject("snitch_map"),
+      domainsToFix = new Set(['eff.org', 'medium.com']);
+
+    for (let domain in action_map.getItemClones()) {
+      let base = window.getBaseDomain(domain);
+      if (domainsToFix.has(base)) {
+        action_map.deleteItem(domain);
+        snitch_map.deleteItem(domain);
+        snitch_map.deleteItem(base);
+      }
+    }
+  },
 };
 
 
