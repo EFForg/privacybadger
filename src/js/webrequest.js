@@ -103,9 +103,10 @@ function onBeforeRequest(details){
       };
       chrome.tabs.sendMessage(tab_id, msg);
 
-      setTimeout(() => {
+      window.setTimeout(function () {
         badger.checkForDNTPolicy(requestDomain, badger.storage.getNextUpdateForDomain(requestDomain));
-      });
+      }, 10);
+
       return {cancel: true};
     }
   }
@@ -175,9 +176,10 @@ function onBeforeSendHeaders(details) {
       };
       chrome.tabs.sendMessage(tab_id, msg);
 
-      setTimeout(() => {
+      window.setTimeout(function () {
         badger.checkForDNTPolicy(requestDomain, badger.storage.getNextUpdateForDomain(requestDomain));
-      });
+      }, 10);
+
       return {cancel: true};
     }
 
