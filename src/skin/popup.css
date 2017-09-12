@@ -25,7 +25,7 @@ body {
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
-  padding: 8px 15px;
+  padding: 8px 15px 0;
   box-sizing: border-box;
 }
 @media screen and (min--moz-device-pixel-ratio:0) {
