@@ -180,8 +180,7 @@ Badger.prototype = {
               url: tab.url
             }
           },
-          origins: {},
-          blockedCount: 0
+          origins: {}
         };
       }
     });
@@ -488,7 +487,7 @@ Badger.prototype = {
   },
 
 
-/**
+  /**
    * Helper function returns a list of all third party origins for a tab
    * @param {Integer} tabId requested tab id as provided by chrome
    * @returns {*} A dictionary of third party origins and their actions
@@ -498,31 +497,64 @@ Badger.prototype = {
   },
 
   /**
-   * Update page action badge with current count
-   * @param {Integer} tabId chrome tab id
+   * Returns the count of blocked/cookieblocked origins for a tab.
+   * @param {Integer} tab_id browser tab ID
+   * @returns {Integer} blocked origin count
    */
-  updateBadge: function(tabId, disabled){
-    if(FirefoxAndroid.isUsed){
+  getBlockedOriginCount: function (tab_id) {
+    let self = this;
+
+    return self.getAllOriginsForTab(tab_id).reduce((memo, origin) => {
+      let action = self.storage.getBestAction(origin);
+      if (constants.BLOCKED_ACTIONS.has(action)) {
+        memo++;
+      }
+      return memo;
+    }, 0);
+  },
+
+  /**
+   * Update page action badge with current count.
+   * @param {Integer} tab_id browser tab ID
+   */
+  updateBadge: function (tab_id) {
+    if (FirefoxAndroid.isUsed) {
       return;
     }
 
     let self = this;
-    chrome.tabs.get(tabId, () => {  // avoid setting on background tabs
-      if (!chrome.runtime.lastError) {
-        let thisTab = self.tabData[tabId];
-        if (!self.showCounter() || !thisTab || disabled) {
-          chrome.browserAction.setBadgeText({tabId: tabId, text: ""});
-          return;
-        }
 
-        let numBlocked = thisTab ? thisTab.blockedCount : 0;
-        if(numBlocked === 0){
-          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#00cc00"});
-        } else {
-          chrome.browserAction.setBadgeBackgroundColor({tabId: tabId, color: "#cc0000"});
-        }
-        chrome.browserAction.setBadgeText({tabId: tabId, text: numBlocked + ""});
+    chrome.tabs.get(tab_id, function (tab) {
+      if (chrome.runtime.lastError) {
+        // don't set on background (prerendered) tabs to avoid Chrome errors
+        return;
       }
+
+      if (!tab.active) {
+        // don't set on inactive tabs
+        return;
+      }
+
+      let disabled = tab.url && self.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url));
+
+      // don't show the counter for any of these:
+      // - the counter is disabled
+      // - the page is whitelisted
+      // - we don't have tabData for whatever reason (special browser pages)
+      if (!self.showCounter() || disabled || !self.tabData.hasOwnProperty(tab_id)) {
+        chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
+        return;
+      }
+
+      let count = self.getBlockedOriginCount(tab_id);
+
+      if (count === 0) {
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#00cc00"});
+      } else {
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
+      }
+
+      chrome.browserAction.setBadgeText({tabId: tab_id, text: count + ""});
     });
   },
 
@@ -682,20 +714,32 @@ Badger.prototype = {
   },
 
   /**
-   * Add only new third party origins to the tabData[tabId] object for
+   * Save third party origins to tabData[tab_id] object for
    * use in the popup and, if needed, call updateBadge.
    *
-   * @param tabId the tab we are on
+   * @param tab_id the tab we are on
    * @param fqdn the third party origin to add
    * @param action the action we are taking
    *
    **/
-  logThirdPartyOriginOnTab: function(tabId, fqdn, action) {
-    if(!this.tabData[tabId].origins.hasOwnProperty(fqdn)) {
-      this.tabData[tabId].origins[fqdn] = action;
-      if (constants.BLOCKED_ACTIONS.has(action)) {
-        this.tabData[tabId].blockedCount += 1;
-        badger.updateBadge(tabId);
+  logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
+    let blocked = constants.BLOCKED_ACTIONS.has(action);
+
+    if (this.tabData[tab_id].origins.hasOwnProperty(fqdn)) {
+      // we've seen this origin on this tab already
+      // still want to update badge if we haven't yet seen origin as blocked
+      if (blocked && !this.tabData[tab_id].origins[fqdn]) {
+        // record that origin has been seen as blocked
+        this.tabData[tab_id].origins[fqdn] = true;
+
+        badger.updateBadge(tab_id);
+      }
+    } else {
+      // haven't seen the origin on this tab yet
+      this.tabData[tab_id].origins[fqdn] = blocked;
+
+      if (blocked) {
+        badger.updateBadge(tab_id);
       }
     }
   },
@@ -733,11 +777,7 @@ function startBackgroundListeners() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(changeInfo.status == "loading" && tab.url) {
       badger.refreshIconAndContextMenu(tab);
-      if (badger.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url))) {
-        badger.updateBadge(tabId, true);
-      } else {
-        badger.updateBadge(tabId);
-      }
+      badger.updateBadge(tabId);
     }
   });
 
@@ -746,6 +786,10 @@ function startBackgroundListeners() {
     chrome.tabs.get(addedTabId, function(tab){
       badger.refreshIconAndContextMenu(tab);
     });
+  });
+
+  chrome.tabs.onActivated.addListener(function (activeInfo) {
+    badger.updateBadge(activeInfo.tabId);
   });
 
   // Listening for Avira Autopilot remote control UI

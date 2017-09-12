@@ -205,6 +205,7 @@ books.google.com
 calendar.google.com
 checkout.google.com
 clients1.google.com
+clients6.google.com
 consent.google.com
 cse.google.com
 developers.google.com
@@ -493,9 +494,11 @@ stripe.com
 stripecdn.com
 surveygizmo.com
 surveymonkey.com
+swiftype.com
 syracuse.com
 public.tableausoftware.com
 c.tadst.com
+taleo.net
 uploads.tapatalk-cdn.com
 targetimg1.com
 targetimg2.com
