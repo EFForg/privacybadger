@@ -28,8 +28,9 @@ class CookieTest(pbtest.PBSeleniumTest):
             "Cookie test failed: %s" % test_name)
 
     def test_should_pass_std_cookie_test(self):
-        self.assert_pass_opera_cookie_test("https://gistcdn.githack.com/gunesacar/79aa14bac95694d38425d458843dacd6/raw/3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html",  # noqa
-                                           "Set 1st party cookie")
+        self.assert_pass_opera_cookie_test(
+"""https://gistcdn.githack.com/gunesacar/79aa14bac95694d38425d458843dacd6/raw/3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html""",
+            "Set 1st party cookie")
 
     def test_cookie_tracker_detection(self):
         """Tests basic cookie tracking. The tracking site has no DNT file,
@@ -69,7 +70,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         print("this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed")
         self.load_url(SITE1_URL)
         window_utils.close_windows_with_url(self.driver, SITE3_URL)
-        for i in range(5):
+        for _ in range(5):
             self.load_pb_ui(SITE1_URL)
             self.get_tracker_state()
 
@@ -163,7 +164,7 @@ function setTabToUrl(query_url) {
                 self.blocked[origin] = True
             else:
                 print("what is this?!? " + str(action_type))
-                self.assertTrue(False)
+                self.assertTrue(False) # pylint: disable=redundant-unittest-assert
 
 
 if __name__ == "__main__":

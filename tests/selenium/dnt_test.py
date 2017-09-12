@@ -16,7 +16,7 @@ CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
 
 
 class DNTTest(pbtest.PBSeleniumTest):
-    """Tests to make sure DNT policy checking works as expected"""
+    """Tests to make sure DNT policy checking works as expected."""
 
     def domain_was_detected(self, domain):
         return self.js("""return (
@@ -38,7 +38,9 @@ class DNTTest(pbtest.PBSeleniumTest):
 );""".format(domain, domain))
 
     def test_dnt_check_should_happen_for_blocked_domains(self):
-        PAGE_URL = "https://cdn.rawgit.com/ghostwords/74585c942a918509b20bf2db5659646e/raw/f42d25717e5b4f735c7affa527a2e0b62286c005/privacy_badger_dnt_test_fixture.html"
+        PAGE_URL = (
+"""https://cdn.rawgit.com/ghostwords/74585c942a918509b20bf2db5659646e/raw/f42d25717e5b4f735c7affa527a2e0b62286c005/privacy_badger_dnt_test_fixture.html"""
+        )
         DNT_DOMAIN = "www.eff.org"
         BLOCK_DOMAIN_JS = """(function () {{
   badger.storage.setupHeuristicAction('{}', constants.BLOCK);
