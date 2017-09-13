@@ -298,6 +298,7 @@ issuu.com
 janrain.com
 jquery.com
 jquerytools.org
+jsdelivr.net
 jsonip.com
 jtvnw.net
 justin.tv
@@ -370,6 +371,7 @@ newstogram.com
 nextopiasoftware.com
 nfl.com
 nflcdn.com
+assets.nflxext.com
 cdn3.nflxext.com
 nflxext.com
 ngfiles.com
@@ -533,6 +535,7 @@ typekit.net
 typekit.com
 typepad.com
 typography.com
+assets.ubuntu.com
 uicdn.com
 ui-portal.de
 ultraimg.com
@@ -557,6 +560,8 @@ weather.gov
 weatherbug.com
 weathernationtv.com
 weatherzone.com.au
+webs.com
+websimages.com
 webtype.com
 where.com
 widgetserver.com
@@ -581,6 +586,7 @@ wufoo.com
 wunderground.com
 wxc.com
 wxug.com
+y3.analytics.yahoo.com
 pipes.yahoo.com
 search.yahoo.com
 yahoo.net
@@ -590,6 +596,7 @@ yandex.ru
 yandex.ua
 yardbarker.com
 yellowpages.com
+seatme.yelp.com
 yelpcdn.com
 yimg.com
 youku.com
@@ -607,8 +614,3 @@ zombaio.com
 zope.net
 zopim.com
 zvents.com
-assets.nflxext.com
-assets.ubuntu.com
-y3.analytics.yahoo.com
-seatme.yelp.com
-jsdelivr.net
