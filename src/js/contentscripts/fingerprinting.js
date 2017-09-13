@@ -85,66 +85,16 @@ function getFpPageScript() {
       };
     }());
 
-    // https://code.google.com/p/v8-wiki/wiki/JavaScriptStackTraceApi
-    /**
-     * Customize the stack trace
-     * @param structured If true, change to customized version
-     * @returns {*} Returns the stack trace
-     */
-    function getStackTrace(structured) {
-      var err = {},
-        origFormatter,
-        stack;
-
-      if (structured) {
-        origFormatter = ERROR.prepareStackTrace;
-        ERROR.prepareStackTrace = function (_, structuredStackTrace) {
-          return structuredStackTrace;
-        };
+    function getScriptURL() {
+      let urlRegex = /\bhttps?:\/\/\S+/gi,
+        rmLineAndCol = /:\d+:.*$/;
+      try {
+        yo = dog;  // eslint-disable-line
+      } catch (e) {
+        return e.stack.split('\n')[3]
+          .match(urlRegex)[0]
+          .replace(rmLineAndCol, '');
       }
-
-      ERROR.captureStackTrace(err, getStackTrace);
-      stack = err.stack;
-
-      if (structured) {
-        ERROR.prepareStackTrace = origFormatter;
-      }
-
-      return stack;
-    }
-
-    /**
-     * Checks the stack trace for the originating URL
-     * @returns {String} The URL of the originating script (URL:Line number:Column number)
-     */
-    function getOriginatingScriptUrl() {
-      var trace = getStackTrace(true);
-
-      if (trace.length < 2) {
-        return '';
-      }
-
-      // this script is at 0 and 1
-      var callSite = trace[2];
-
-      if (callSite.isEval()) {
-        // argh, getEvalOrigin returns a string ...
-        var eval_origin = callSite.getEvalOrigin(),
-          script_url_matches = eval_origin.match(/\((http.*:\d+:\d+)/);
-
-        return script_url_matches && script_url_matches[1] || eval_origin;
-      } else {
-        return callSite.getFileName() + ':' + callSite.getLineNumber() + ':' + callSite.getColumnNumber();
-      }
-    }
-
-    /**
-     *  Strip away the line and column number (from stack trace urls)
-     * @param script_url The stack trace url to strip
-     * @returns {String} the pure URL
-     */
-    function stripLineAndColumnNumbers(script_url) {
-      return script_url.replace(/:\d+:\d+$/, '');
     }
 
     /**
@@ -169,12 +119,11 @@ function getFpPageScript() {
             }
           }
 
-          var script_url = getOriginatingScriptUrl(),
-            msg = {
-              obj: item.objName,
-              prop: item.propName,
-              scriptUrl: stripLineAndColumnNumbers(script_url)
-            };
+          var msg = {
+            obj: item.objName,
+            prop: item.propName,
+            scriptUrl: getScriptURL(),
+          };
 
           if (item.hasOwnProperty('extra')) {
             msg.extra = item.extra.apply(this, args);
