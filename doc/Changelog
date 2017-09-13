@@ -1,5 +1,8 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.9.12.1
+* Fixed build script issue that reintroduced major site breakages on Firefox
+
 ## 2017.9.12
 * Fixed DNT policy checking for blocked domains
 * Fixed exporting large Badger datasets
