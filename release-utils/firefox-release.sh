@@ -25,9 +25,9 @@ if ! git show release-$TARGET > /dev/null 2> /dev/null ; then
   exit 1
 fi
 
-if ! [ -x `which festival` ] ; then
-  echo "festival is not installed, cannot speak hashes aloud..."
-fi
+type festival >/dev/null 2>&1 || {
+  echo >&2 "festival is not installed, cannot speak hashes aloud..."
+}
 
 PKG=$RDFDIR/privacy-badger-eff-$TARGET.xpi
 ALT=$RDFDIR/privacy-badger-eff-latest.xpi
