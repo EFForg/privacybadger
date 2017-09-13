@@ -2,6 +2,11 @@
 
 # To make a privacy badger release see wiki
 
+type python3 >/dev/null 2>&1 || {
+  echo >&2 "python3 is required but not installed, aborting."
+  exit 1
+}
+
 if [ $# -ne 1 ] ; then
   echo "Usage: $0 <version to release>"
   exit 1
