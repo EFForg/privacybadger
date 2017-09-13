@@ -29,7 +29,7 @@ fi
 
 # TODO restore: https://github.com/EFForg/privacybadger/issues/1158
 echo "remove fingerprinting"
-python3 -c "import json, sys; obj = json.load(sys.stdin); obj['content_scripts'] = [{key: ([script for script in val if script != 'js/contentscripts/fingerprinting.js'] if key == 'js' else val) for (key, val) in csdef.items()} for csdef in obj['content_scripts']]; print(json.dumps(obj, indent=4, sort_keys=True));" < ../checkout/src/manifest.json > ../pkg/manifest_tmp.json && mv ../pkg/manifest_tmp.json ../checkout/src/manifest.json
+sed -i '/        "js\/contentscripts\/fingerprinting.js",/d' ../checkout/src/manifest.json
 
 echo "change author value"
 sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "privacybadger-owner@eff.org",/' ../checkout/src/manifest.json
