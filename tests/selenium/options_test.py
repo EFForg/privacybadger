@@ -22,6 +22,9 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         WebDriverWait(self.driver, 5).until(EC.invisibility_of_element_located(
             (By.CSS_SELECTOR, css_selector)))
 
+    def select_domain_list_tab(self):
+        self.driver.find_element_by_css_selector('a[href="#tab-pb-status"]').click()
+
     def load_options_page(self):
         self.load_url(self.bg_url)  # load a dummy page
         self.load_url(self.options_url, wait_on_site=1)
@@ -29,8 +32,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""
         self.load_options_page()
-        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(origin,
-                                                                      action))
+        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
+            origin, action))
 
     def test_page_title(self):
         self.load_options_page()
@@ -38,7 +41,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         try:
             WebDriverWait(self.driver, 3).\
                 until(EC.title_contains(localized_title))
-        except:
+        except TimeoutException:
             self.fail("Unexpected title for the Options page. Got (%s),"
                       " expected (%s)"
                       % (self.driver.title, localized_title))
@@ -51,10 +54,10 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
                         "Move the slider right to allow a domain")
         # Add a tracking domain
         self.add_test_origin("pbtest.org", "block")
+
         self.load_options_page()
-        WebDriverWait(self.driver, 5).\
-            until(EC.element_to_be_clickable((By.ID, "ui-id-1")))
-        driver.find_element_by_id("ui-id-1").click()
+        self.select_domain_list_tab()
+
         tooltip_css = "div.keyContainer > div > div.tooltipContainer"
         for icon_no in range(1, 4):  # repeat for all three icons
             # CSS selector for icons in the keyContainer
@@ -91,6 +94,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.add_test_origin("pbtest.org", "block")
 
         self.load_options_page()
+        self.select_domain_list_tab()
+
         origins = self.driver.find_element_by_id("blockedResourcesInner")
 
         # Check tracker count.
@@ -111,6 +116,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.add_test_origin("pbtest.org", "block")
 
         self.load_url(self.options_url)
+        self.select_domain_list_tab()
+
         origins = self.driver.find_element_by_id("blockedResourcesInner")
 
         # Remove displayed origin.
