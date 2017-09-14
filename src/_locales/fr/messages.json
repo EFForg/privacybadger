@@ -12,7 +12,7 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Pas de traqueur pour ",
+        "message": "Pas de pistage de la part de ",
         "description": ""
     },
     "non_tracker_tip": {
