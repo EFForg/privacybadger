@@ -383,23 +383,27 @@ function getHostForTab(tabId) {
  * @param {Integer} tab_id browser tab ID
  * @param {String} frame_url URL of the frame with supercookie
  */
-function recordSuperCookie(tab_id, frame_url) {
+function recordSuperCookie(tab_id, frame_url, reason) {
   if (!incognito.learningEnabled(tab_id)) {
     return;
   }
 
   const frame_host = window.extractHostFromURL(frame_url),
-    page_host = badger.getFrameData(tab_id).host;
+    {url: page_url, host: page_host} = badger.getFrameData(tab_id);
 
   if (!utils.isThirdPartyDomain(frame_host, page_host)) {
     // Only happens on the start page for google.com
     return;
   }
 
+  reason.url = frame_url;
+  reason.pageUrl = page_url;
+
   badger.heuristicBlocking.updateTrackerPrevalence(
     frame_host,
     window.getBaseDomain(frame_host),
-    window.getBaseDomain(page_host)
+    window.getBaseDomain(page_host),
+    reason
   );
 }
 
@@ -421,7 +425,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = badger.getFrameData(tabId).host;
+    {url: document_url, host: document_host} = badger.getFrameData(tabId);
   if (!utils.isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -469,7 +473,15 @@ function recordFingerprinting(tabId, msg) {
 
           // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, script_origin, window.getBaseDomain(document_host));
+            script_host,
+            script_origin,
+            window.getBaseDomain(document_host),
+            {
+              type: 'canvas',
+              url: msg.scriptUrl,
+              pageUrl: document_url
+            }
+          );
         }
       }
       // This is a canvas write
@@ -787,8 +799,11 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "supercookieReport": {
-    if (request.frameUrl && badger.hasSuperCookie(request.data)) {
-      recordSuperCookie(sender.tab.id, request.frameUrl);
+    if (request.frameUrl) {
+      let tracking = badger.hasSuperCookie(request.data);
+      if (tracking) {
+        recordSuperCookie(sender.tab.id, request.frameUrl, tracking);
+      }
     }
     break;
   }

@@ -650,7 +650,9 @@ BadgerStorage.prototype = {
           badger.heuristicBlocking.updateTrackerPrevalence(
             tracker_origin,
             tracker_origin,
-            firstPartyOrigins[i]
+            firstPartyOrigins[i],
+            // TODO migrate tracking details if present
+            false
           );
         }
       }

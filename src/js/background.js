@@ -864,7 +864,12 @@ Badger.prototype = {
       if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD) {
         log("Found high-entropy localStorage: ", estimatedEntropy,
           " bits, key: ", lsKey);
-        return true;
+        return {
+          type: 'localstorage',
+          data: {
+            [lsKey]: lsItem // ES6 computed property name
+          }
+        };
       }
     }
     return false;
