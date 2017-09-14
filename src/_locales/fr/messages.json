@@ -12,7 +12,7 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
+        "message": "Pas de traqueur pour ",
         "description": ""
     },
     "non_tracker_tip": {
@@ -28,11 +28,11 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Check if sites comply with EFF's Do Not Track policy",
+        "message": "Vérifier si les sites respectent le contrat Ne pas me pister de l'EFF",
         "description": ""
     },
     "intro2": {
-        "message": "Cette extension est conçue pour protéger automatiquement votre vie privée des traqueurs invisibles qui se chargent lorsque vous surfez sur le web. Après envoi de l'entête Ne pas me pister, notre extension évalue la probabilité d'être encore traqué. Si l'algorithme juge celle-ci est trop élevée, nous bloquons automatiquement l'envoi des requêtes à ce domaine. Gardez en tête que Privacy Badger est en cours de développement et que le résultat de son analyse ne garantie pas qu'un domaine vous piste.",
+        "message": "Cette extension est conçue pour protéger automatiquement votre vie privée des traqueurs invisibles qui se chargent lorsque vous surfez sur le web. Après envoi de l'entête Ne pas me pister, notre extension évalue la probabilité d'être encore traqué. Si l'algorithme juge celle-ci est trop élevée, nous bloquons automatiquement l'envoi des requêtes à ce domaine. Gardez en tête que Privacy Badger est en cours de développement et que le résultat de son analyse ne garantit pas qu'un domaine vous piste.",
         "description": ""
     },
     "donate_to_eff": {
@@ -44,11 +44,11 @@
         "description": ""
     },
     "dnt_tooltip": {
-        "message": "This domain promises to not track you",
+        "message": "Ce domaine s'engage à ne pas vous pister",
         "description": ""
     },
     "options_dnt_policy_learn_more": {
-        "message": "Learn more",
+        "message": "Plus d'informations",
         "description": ""
     },
     "data_settings": {
@@ -56,7 +56,7 @@
         "description": ""
     },
     "slideshow_13": {
-        "message": " Si je rends un site non fonctionnel, n'hésitez pas à prévenir mes programmeurs pour qu'il puisse corriger l'erreur ! Pour cela, cliquez sur ce bouton.",
+        "message": " Si je rends un site non fonctionnel, n'hésitez pas à prévenir mes programmeurs pour qu'ils puissent corriger l'erreur ! Pour cela, cliquez sur ce bouton.",
         "description": ""
     },
     "report_title": {
