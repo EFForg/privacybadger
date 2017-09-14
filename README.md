@@ -12,9 +12,8 @@ Privacy Badger is a project of the Electronic Frontier Foundation.
 
 ## Get in touch
 
-If you have questions, comments, ideas, proposals, or just want to chat about privacy, then please get in touch. There are a few ways to get in touch:
+If you have questions, comments, ideas, proposals, or just want to chat about privacy, then please get in touch:
 
-* You can join us in the [`#privacybadger`](https://webchat.oftc.net/?channels=privacybadger&uio=d4) IRC channel on OFTC.
 * We have public office hours for discussing development, bugs, feature, trackers, etc. every Monday and Thursday at 11:30am PST on [Jitsi video chat](https://meet.jit.si/PoliteBadgersSingEuphoricly).
 * We also have a [mailing list](https://lists.eff.org/mailman/listinfo/privacybadger).
 
