@@ -143,10 +143,6 @@
         "message": "Отображать счетчик заблокированных элементов",
         "description": ""
     },
-    "privacy_badger": {
-        "message": "Privacy Badger",
-        "description": ""
-    },
     "slideshow_1": {
         "message": " Привет, я — Privacy Badger! Спасибо, что установили меня. Я здесь, чтобы научить вас нескольким полезным приемам. Мы можем начать работать вместе.",
         "description": ""

@@ -143,10 +143,6 @@
         "message": "Afficher le nombre d'éléments bloqués",
         "description": ""
     },
-    "privacy_badger": {
-        "message": "Privacy Badger",
-        "description": ""
-    },
     "slideshow_1": {
         "message": " Bonjour, je suis Privacy Badger ! Merci de m'avoir installé. Je suis ici pour vous donner quelques astuces afin de pouvoir travailler ensemble.",
         "description": ""

@@ -143,10 +143,6 @@
         "message": "Show count of blocked items",
         "description": ""
     },
-    "privacy_badger": {
-        "message": "Privacy Badger",
-        "description": ""
-    },
     "slideshow_1": {
         "message": " Hi, I'm Privacy Badger! Thanks for installing me. I'm here to give you some helpful tips, so we can work together.",
         "description": ""
