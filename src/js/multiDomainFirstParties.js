@@ -4,7 +4,7 @@ require.scopes.multiDomainFP = (function() {
  * 2d array of related domains (etld+1), all domains owned by the same entity go into
  * an array, this is later transformed for efficient lookups.
  */
-var _multiDomainFirstPartiesArray = [
+var multiDomainFirstPartiesArray = [
   ["1800contacts.com", "800contacts.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
   ["abcnews.com", "go.com", "espn.com", "espncdn.com", "disneymoviesanywhere.com", "disney.com", "dadt.com",
@@ -48,7 +48,7 @@ var _multiDomainFirstPartiesArray = [
   ["facebook.com", "fbcdn.com", "fbcdn.net", "facebook.net", "messenger.com"],
   ["firefox.com", "mozilla.org"],
   ["foxnews.com", "foxbusiness.com", "fncstatic.com"],
-  ["github.com", "githubapp.com", "githubusercontent.com"],
+  ["github.com", "githubapp.com"],
   ["gizmodo.com", "kinja-img.com", "kinja-static.com", "deadspin.com", "lifehacker.com",
     "technoratimedia.com", "kinja.com", "jalopnik.com", "jezebel.com"],
   ["gogoair.com", "gogoinflight.com"],
@@ -164,7 +164,7 @@ var _multiDomainFirstPartiesArray = [
   ["sprint.com", "sprintpcs.com", "nextel.com"],
   ["steampowered.com", "steamstatic.com", "steamcommunity.com"],
   ["taobao.com", "alicdn.net", "tmail.com", "tbcdn.cn", "alibaba.com",
-    "aliexpress.com", "tmall.com", "alimama.com", "1688.com", "aliyun.com", "net.cn", "www.net.cn"],
+    "aliexpress.com", "tmall.com", "alimama.com", "1688.com", "aliyun.com", "www.net.cn"],
   ["techdata.com", "techdata.ch"],
   ["telekom.com", "t-online.de"],
   ["tesla.com", "teslamotors.com"],
@@ -222,7 +222,7 @@ function makeIsMultiDomainFirstParty(domainLookup) {
   };
 }
 
-let _domainLookup = makeDomainLookup(_multiDomainFirstPartiesArray);
+let _domainLookup = makeDomainLookup(multiDomainFirstPartiesArray);
 /**
  * Check if two domains belong to the same effective first party
  * @param {String} domain1 a base doamin
@@ -232,5 +232,10 @@ let _domainLookup = makeDomainLookup(_multiDomainFirstPartiesArray);
  **/
 let isMultiDomainFirstParty = makeIsMultiDomainFirstParty(_domainLookup);
 /************************************** exports */
-return {isMultiDomainFirstParty, makeDomainLookup, makeIsMultiDomainFirstParty};
+return {
+  isMultiDomainFirstParty,
+  makeDomainLookup,
+  makeIsMultiDomainFirstParty,
+  multiDomainFirstPartiesArray,
+};
 })(); //require scopes

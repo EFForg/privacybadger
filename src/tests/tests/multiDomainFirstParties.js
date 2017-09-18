@@ -1,4 +1,5 @@
-(function(){
+(function () {
+
   QUnit.module("Multi-domain first parties");
 
   let mdfp = require('multiDomainFP');
@@ -40,4 +41,19 @@
       "both domains are not in test data"
     );
   });
-})();
+
+  // "lint" our MDFP definitions to avoid accidentally adding PSL domains
+  // for example:
+  // https://github.com/EFForg/privacybadger/pull/1550#pullrequestreview-54480652
+  QUnit.test('MDFP domains are all base domains', (assert) => {
+    for (let group of mdfp.multiDomainFirstPartiesArray) {
+      for (let domain of group) {
+        assert.ok(
+          window.getBaseDomain('fakesubdomain.' + domain) == domain,
+          domain + ' is a base domain (eTLD+1)'
+        );
+      }
+    }
+  });
+
+}());
