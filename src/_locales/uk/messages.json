@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Керувати даними",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " Якщо я зламав сторінку, будь ласка, дайте знати про це моїм розробникам, щоб вони могли владнати проблему! Ви можете зробити це натисканням на цю кнопку.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger захищає вас в Інтернеті! Ці перемикачі дозволяють вам контролювати, як Privacy Badger обробляє кожен елемент.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger блокує рекламу й невидимі елементи, що стежать за вами.  Це робиться для того, щоб компанії не могли стежити за вами без вашої згоди.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Білий список доменів",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Увімкнути Privacy Badger для цього сайту",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Загальні налаштування",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " Якщо перемикач зелений, це значить що я досі не виявив стеження цього домену за вами. І все ж це можливо, але я буду спостерігати за ним.",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " Вперше натиснувши на мою піктограму ви можете побачити, що всі елементи стеження зеленого кольору — не хвилюйтесь! Я відрізняюсь від інших програм — замість блокування за списком відомих елементів стеження, я вивчаю що потрібно блокувати поки ви переглядаєте сторінки в Інтернеті. Якщо я ще нічого не блокую, спробуйте переглянути 4 чи 5 різних веб-сайтів. Після цього я почну блокувати загальні елементи стеження.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Налаштування фільтрів",
         "description": ""
     },
     "ded_logging_into": {

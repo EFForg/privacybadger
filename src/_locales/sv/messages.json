@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Hantera data",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": "Om jag bryter en sida, låt mina utvecklare veta så att de kan lösa problemet! Du kan göra det genom att klicka på den här knappen.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger skyddar dig på nätet! Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare som den har flaggat genom din surfning.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger blockerar spårande annonser och osynliga spanare. Vi finns där för att företag inte ska kunna spåra dig utan ditt medgivande.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Vitlistade domäner",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Aktivera Privacy Badger för denna webbplats",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Allmänna inställningar",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": "Om skjutreglaget är grönt betyder det att jag inte kan säga om den här domänen spårar dig ännu. Den kanske inte gör det, men jag kommer fortfarande att hålla ett öga på den.",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": "Första gången du klickar på min ikon kan du se att alla spårare är gröna, oroa dig inte! Jag skiljer mig från andra spårningsblockerande mjukvaror—istället för att veta en lista med saker att blockera genast, jag lär mig vad jag ska blockera medan du surfar. Om jag inte blockerar någonting ännu, försök att surfa till 4 eller 5 olika webbplatser. Jag borde börja blockera gemensamma spårare efter det.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Användarfilterinställningar",
         "description": ""
     },
     "ded_logging_into": {

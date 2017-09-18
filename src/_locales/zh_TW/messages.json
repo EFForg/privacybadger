@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "管理資料",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": "如果我造成頁面顯示異常，請讓我的開發者知道，以便他們修正這個問題！可以點擊這個按鈕回報問題。",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger 保護您瀏覽網頁！這些滾動條可讓您選擇 Privacy Badger 要如何處理瀏覽時找到的追蹤器。",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger 會封鎖間諜廣告和隱形的追蹤器。它的目的是確保企業在未經您同意的情況下無法追蹤您的網路瀏覽行為。",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "網域白名單",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "在目前網頁開啟 Privacy Badger",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "一般設定",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": "如果滾動條是綠色的，代表我還不清楚這個網域是否在追蹤您。它可能不是，可是我還會關注它的。",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " 第一次點選我的圖示，可能會發現所有追蹤器都是綠色的，別擔心！我與其他追蹤器封鎖軟體不同。我會在您瀏覽網頁時學習哪些是該封鎖的，而不是一上來就根據已知的清單封鎖。如果我啥都沒開始封鎖，您可以嘗試瀏覽四五個網站。之後就會開始封鎖常見的追蹤器。",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "使用者過濾器設定",
         "description": ""
     },
     "ded_logging_into": {

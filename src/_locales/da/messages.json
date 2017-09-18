@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Håndter Data",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " Hvis jeg ødelægger en side, så fortæl det til mine udviklere så de kan fikse problemet! Det kan du gøre ved at klikke på denne knap.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger beskytter dig hen over nettet! Disse skydere lader dig styre hvordan Privacy Badger håndterer hver sporing som den har markeret via din netlæsning.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger blokerer spionerende reklamer og usynlige sporinger.  Den er der til at sikre at virksomheder ikke kan spore din netlæsning uden dit samtykke.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Hvidlistede Domæner",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Aktiver Privacy Badger for dette netsted",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Generelle Indstillinger",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " Hvis skyderen er grøn, betyder det at jeg ikke kan se om dette domæne sporer dig endnu. Måske gør det ikke, men jeg vil stadig holde øje med det.",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " Første gang du klikker på mit ikon vil du måske se at alle sporingerne er grønne—det er o.k! Jeg er anderledes end andet programmel der blokerer sporing—i stedet for at kende en liste af ting der skal blokeres med det samme, lærer jeg hvad der skal blokeres efterhånden som du læser på nettet. Hvis ikke jeg blokerer noget endnu så prøv at læse rundt på 4 eller 5 forskellige netsteder. Efter det skulle jeg begynde at blokere almindelige sporinger.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Brugerfilterindstillinger",
         "description": ""
     },
     "ded_logging_into": {

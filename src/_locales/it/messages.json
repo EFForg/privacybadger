@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Gestione dati",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " Se Privacy Badger sta rovinando una pagina, fallo sapere agli sviluppatori in modo che possano correggere il problema. Puoi farlo cliccando questo pulsante.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger ti sta proteggendo su tutta la rete! Con questi interruttori puoi controllare le impostazioni per ciascun tracker trovato durante la navigazione.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger blocca le pubblicità che ti spiano e i tracker invisibili.  È qui per garantire che le aziende non possano tracciare la tua navigazione senza il tuo consenso.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Domini consentiti",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Attiva Privacy Badger per questo sito",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Impostazioni generali",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " Se l'interruttore è verde significa che non è possibile stabilire se questo dominio ti stia già tracciando. Potrebbe non farlo, ma verrà comunque tenuto sotto controllo.  ",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " La prima volta che clicchi sull'icona di Privacy Badger potresti notare che tutti i tracker sono verdi, non preoccuparti! A differenza di altri software simili, che utilizzano una lista predefinita di domini da bloccare, Privacy Badger impara cosa bloccare durante la navigazione. Se Privacy Badger non blocca ancora nulla, prova a visitare 4 o 5 siti diversi. A quel punto dovrebbe iniziare a bloccare i tracker più comuni.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Impostazioni filtri utente",
         "description": ""
     },
     "ded_logging_into": {

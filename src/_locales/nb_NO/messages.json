@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Behandle data",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " Hvis jeg knekker en side, la utviklerne mine få nyss om det slik at de kan fikse problemet! Du kan gjøre det ved å klikke denne knappen.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Personvernsgrevlingen beskytter deg på hele veven! Disse glidebryterne lar deg kontrollere hvordan Personvernsgrevlingen behandler hver sporer den har plukket opp fra surfingen din.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Personvernsgrevlingen blokkerer spionerende reklame og usynlige sporere. Den har til hensikt å forhindre at selskaper kan spore din surfing uten ditt samtykke.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Hvitlistede domener",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Skru på Personvernsgrevlingen for denne siden",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Hovedinnstillinger",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " Hvis glidebryteren er grønn betyr det at jeg ikke kan ta rede på om dette domenet sporer deg enda. Det kan hende det ikke gjør det, men jeg vil holde øye med det.",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " Første gang du kikker på ikonet mitt kan det hende at alle sporerne er grønne. Frykt ikke! Jeg er forskjellig fra annen blokkeringsprogramvare i det at jeg lærer hva som skal blokkeres mens du surfer i steden for å vite alt på forhånd. Hvis jeg ikke blokkerer noe enda, prøv å surfe rundt på 4-5 forskjellige nettsteder. Jeg burde ha begynt å blokkere vanlige sporere etter det.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Brukerfilter-innstillinger",
         "description": ""
     },
     "ded_logging_into": {

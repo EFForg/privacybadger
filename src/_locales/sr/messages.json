@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Управљај подацима",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " Ако покварим страницу, обаветите моје програмере тако да могу решити проблем! Можете то урадити кликом на ово дугме.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger вас штити на вебу! Ови клизачи вам омогућавају да контролишете како Privacy Badger рукује са сваким трагачем који је откривен док прегледате.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger блокира шпијунске рекламе и невидљиве трагаче.  Ту је да спречи праћење вашег прегледања веба без вашег пристанка.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Дозвољени домени",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Омогући Privacy Badger на овом сајту",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Општа подешавања",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " Ако је трагач зелен то значи да не могу рећи да ли вас домен прати. Можда не, али ћу још увек држати око на њега.",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " Први пут када кликнете на моју иконицу, можете видети да су сви трагачи зелени — не брините! Ја сам другачији од осталих блокатора трача — уместо познавања списка ствари које треба блокирати одмах, учим шта да блокирам док прегледате веб. Ако још ништа нисам блокирао, прегледајте око 4-5 различитих веб сајтова. Требало би да почнем са блокирањем уобичајених трагача након тога.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Подешавања корисничких филтера",
         "description": ""
     },
     "ded_logging_into": {

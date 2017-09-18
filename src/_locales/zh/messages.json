@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "管理数据",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " 如果我造成了页面显示异常，请让我的开发者知道，以便让他们修复这个问题！点击这个按钮报告问题。",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "隐私獾保护你浏览网页！这些滑块让你控制隐私獾如何处理每个在你的浏览期间被标记的跟踪器。",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "隐私獾屏蔽间谍广告和隐形的跟踪器。它的目的是确保公司在没有没有你的同意的情况下无法跟踪你的网络浏览行为。",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "域名白名单",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "在当前的网页上启用隐私獾",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "通用设置",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " 如果滑块是绿色，我还不清楚这个域名是否在跟踪你。它可能不是，可是我还会关注它的。",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " 当你你第一次点击我的图标，你可能会发现所有的跟踪器是绿色——别担心！我与其他跟踪器屏蔽软件不同——我在你浏览网页时学习哪些是该屏蔽的，而不是一上来就根据已知的列表屏蔽。如果我啥都没开始屏蔽，你可以尝试浏览四到五个不同的网站。之后我就开始屏蔽常见的跟踪器。",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "用户过滤设置",
         "description": ""
     },
     "ded_logging_into": {

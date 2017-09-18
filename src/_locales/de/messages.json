@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Benutzerdaten verwalten",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " So oder so sollten Sie es meinen Entwicklern wissen lassen, wenn es Probleme beim Aufrufen einer Webseite gibt. Dies können Sie mittels diesem melden Button tun.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger beschützt Sie im Web! Diese Schieberegler kontrollieren, wie Privacy Badger die einzelnen gefundenen Tracker handhabt.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger blockiert spionierende Werbung und unsichtbare Tracker. Es wurde geschaffen, um zu verhindern, dass Firmen Sie ohne Ihre Zustimmung überwachen können.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Erlaubte Domains",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Privacy Badger für diese Webseite aktivieren",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Allgemeine Einstellungen",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " Grün bedeutet, dass mir (bisher) nichts komisches an der Domain aufgefallen ist. Ich werde trotzdem ein Auge darauf werfen.",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " Wenn Sie das erste Mal auf mein Icon klicken, kann es sein, dass alle Domains grün aufscheinen, aber seien Sie nicht besorgt! Ich funktioniere nicht wir herkömmliche Tracking blocker. Stattdessen lerne ich mit, während Sie Ihre Webseien besuchen.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Benutzerfilter Einstellungen",
         "description": ""
     },
     "ded_logging_into": {

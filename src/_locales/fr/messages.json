@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Gestion des données",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " Si je rends un site non fonctionnel, n'hésitez pas à prévenir mes programmeurs pour qu'ils puissent corriger l'erreur ! Pour cela, cliquez sur ce bouton.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger vous protège sur le web ! Ces curseurs vous permettent de définir comment Privacy Badger gère chaque traqueur détecté au cours de votre navigation.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger bloque les publicités espionnes et les traqueurs invisibles. Son rôle est d'empêcher les entreprises de vous pister sans votre consentement.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Domaines autorisés",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Activer Privacy Badger pour ce site.",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Réglages généraux",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " Si le curseur est vert, cela signifie que je ne sais pas encore si le domaine vous traque. Peut-être pas, mais je l'aurai quand même à l'oeil.",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " La première fois que vous cliquerez sur mon icône, tous les traqueurs risquent d'être verts. Pas de panique ! Je suis différent des autres logiciels de protection contre le pistage. Au lieu de me baser sur une liste préétablie à bloquer, j'apprends en même temps que vous naviguez. Si je n'ai encore rien bloqué, essayer de surfez sur quelques sites ; je devrais commencer à contrer les traqueurs les plus courants après ça.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Paramètres des filtres utilisateur",
         "description": ""
     },
     "ded_logging_into": {

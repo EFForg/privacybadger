@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Manage Data",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " Если из-за меня не работает страница, пожалуйста, сообщите моим разработчикам, и они исправят проблему! Для этого вы можете нажать вот эту кнопку.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger защищает вас в Интернете! С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым трекером, обнаруженным во время посещения сайтов.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger блокирует шпионские рекламные сети и скрытые трекеры. Он гарантирует, что компании не смогут отследить вашу активность в Интернете без вашего согласия.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Белый список доменов",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Включить Privacy Badger для этого сайта",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Общие настройки",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " Если ползунок зеленого цвета, то это означает, что я не могу сказать точно, отслеживает вас этот домен или нет. Возможно, он вас не отслеживает, но я все равно буду за ним наблюдать.",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " Возможно, при первом открытии моего значка вы увидите, что все трекеры зеленого цвета. Не волнуйтесь! В отличие от других блокировщиков трекеров я работаю по другому принципу: вместо блокирования заранее заданной отслеживающей активности я учусь этому во время вашей работы в Интернете. Если я еще ничего не блокирую, попробуйте перейти на 4-5 других сайтов. После этого я смогу блокировать трекеры со схожей активностью.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Настройки пользовательских фильтров",
         "description": ""
     },
     "ded_logging_into": {

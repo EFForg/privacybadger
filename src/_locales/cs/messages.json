@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Spravovat data",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " Pokud jsem rozbil nějakou stránku, napište prosím mým vývojářům, aby mě mohli opravit! Můžete to provést pomocí tohoto tlačítka.",
@@ -90,6 +90,10 @@
     "options_slider_text": {
         "message": "Privacy Badger vás chrání napříč internetem. Tyto posuvníky vám umožní upravit nastavení jednotlivých sledovacích prvků, které byly detekovány při procházení internetu.",
         "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "intro1": {
         "message": "Privacy Badger blokuje šmírující reklamy a sledující prvky. Je tady, aby zabránil společnostem sledovat vaše brouzdáni na internetu bez vašeho souhlasu.",
@@ -165,7 +169,7 @@
     },
     "whitelisted_domains": {
         "message": "Povolené domény",
-        "description": "This is a tab heading."
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Zapnout Privacy Badger pro tuto stránku",
@@ -189,7 +193,7 @@
     },
     "options_general_settings": {
         "message": "Obecná nastavení",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " Pokud je posuvník zelený, znamená to, že zatím nedokážu říct, jestli vás tato doména sleduje. Raději ji budu dále sledovat.",
@@ -261,10 +265,6 @@
     },
     "slideshow_8": {
         "message": " Když na mou ikonu kliknete poprvé, může se stát, že všechny sledovací prvky jsou zelené – ale nemějte strach! Jsem odlišný od ostatních programů pro blokování: místo toho, abych měl seznam věcí, které mám hned zablokovat, tak se učím, zatímco používáte internet. Pokud zatím nic neblokuji, zkuste navštívit 4 až 5 různých stránek. Potom už určitě nějaké blokovat budu.",
-        "description": ""
-    },
-    "options_filter_settings": {
-        "message": "Nastavení uživatelských filtrů",
         "description": ""
     },
     "ded_logging_into": {
