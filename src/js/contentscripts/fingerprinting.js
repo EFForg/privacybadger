@@ -85,66 +85,62 @@ function getFpPageScript() {
       };
     }());
 
-    // https://code.google.com/p/v8-wiki/wiki/JavaScriptStackTraceApi
     /**
-     * Customize the stack trace
-     * @param structured If true, change to customized version
+     * Gets the stack trace using the V8 stack trace API:
+     * https://github.com/v8/v8/wiki/Stack-Trace-API
      * @returns {*} Returns the stack trace
      */
-    function getStackTrace(structured) {
-      var err = {},
+    function getStackTrace() {
+      let err = {},
         origFormatter,
         stack;
 
-      if (structured) {
-        origFormatter = ERROR.prepareStackTrace;
-        ERROR.prepareStackTrace = function (_, structuredStackTrace) {
-          return structuredStackTrace;
-        };
-      }
+      origFormatter = ERROR.prepareStackTrace;
+      ERROR.prepareStackTrace = function (_, structuredStackTrace) {
+        return structuredStackTrace;
+      };
 
       ERROR.captureStackTrace(err, getStackTrace);
       stack = err.stack;
 
-      if (structured) {
-        ERROR.prepareStackTrace = origFormatter;
-      }
+      ERROR.prepareStackTrace = origFormatter;
 
       return stack;
     }
 
     /**
+     * Strip away the line and column number (from stack trace urls)
+     * @param script_url The stack trace url to strip
+     * @returns {String} the pure URL
+     */
+    function stripLineAndColumnNumbers(script_url) {
+      return script_url.replace(/:\d+:\d+$/, '');
+    }
+
+    /**
      * Checks the stack trace for the originating URL
-     * @returns {String} The URL of the originating script (URL:Line number:Column number)
+     * @returns {String} The URL of the originating script
      */
     function getOriginatingScriptUrl() {
-      var trace = getStackTrace(true);
+      let trace = getStackTrace();
 
       if (trace.length < 2) {
         return '';
       }
 
       // this script is at 0 and 1
-      var callSite = trace[2];
+      let callSite = trace[2];
 
       if (callSite.isEval()) {
         // argh, getEvalOrigin returns a string ...
-        var eval_origin = callSite.getEvalOrigin(),
+        let eval_origin = callSite.getEvalOrigin(),
           script_url_matches = eval_origin.match(/\((http.*:\d+:\d+)/);
 
-        return script_url_matches && script_url_matches[1] || eval_origin;
+        // TODO do we need stripLineAndColumnNumbers (in both places) here?
+        return script_url_matches && stripLineAndColumnNumbers(script_url_matches[1]) || stripLineAndColumnNumbers(eval_origin);
       } else {
-        return callSite.getFileName() + ':' + callSite.getLineNumber() + ':' + callSite.getColumnNumber();
+        return callSite.getFileName();
       }
-    }
-
-    /**
-     *  Strip away the line and column number (from stack trace urls)
-     * @param script_url The stack trace url to strip
-     * @returns {String} the pure URL
-     */
-    function stripLineAndColumnNumbers(script_url) {
-      return script_url.replace(/:\d+:\d+$/, '');
     }
 
     /**
@@ -173,7 +169,7 @@ function getFpPageScript() {
             msg = {
               obj: item.objName,
               prop: item.propName,
-              scriptUrl: stripLineAndColumnNumbers(script_url)
+              scriptUrl: script_url
             };
 
           if (item.hasOwnProperty('extra')) {
