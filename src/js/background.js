@@ -519,7 +519,7 @@ Badger.prototype = {
    * @param {Integer} tab_id browser tab ID
    */
   updateBadge: function (tab_id) {
-    if (FirefoxAndroid.hasBadgeSupport) {
+    if (!FirefoxAndroid.hasBadgeSupport) {
       return;
     }
 
@@ -750,7 +750,7 @@ Badger.prototype = {
    * @param {Object} tab The tab to set the badger icon for
    */
   refreshIconAndContextMenu: function (tab) {
-    if (!tab || FirefoxAndroid.hasPopupSupport) {
+    if (!tab || !FirefoxAndroid.hasPopupSupport) {
       return;
     }
 

@@ -22,11 +22,11 @@
  */
 
 require.scopes.firefoxandroid = (function() {
-var hasPopupSupport = !(
+var hasPopupSupport = !!(
   chrome.browserAction.setPopup &&
   chrome.browserAction.getPopup
 );
-var hasBadgeSupport = !chrome.browserAction.setBadgeText;
+var hasBadgeSupport = !!chrome.browserAction.setBadgeText;
 
 // keeps track of popup id while one is open
 var openPopupId = false;
@@ -64,7 +64,7 @@ function onUpdated(tabId, changeInfo, tab) {
 
 // Subscribe to events needed to fake a popup
 function startListeners() {
-  if(hasPopupSupport){
+  if(!hasPopupSupport){
     chrome.browserAction.onClicked.addListener(openPopup);
     chrome.tabs.onActivated.addListener(onActivated);
     chrome.tabs.onUpdated.addListener(onUpdated);
