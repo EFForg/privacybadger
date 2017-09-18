@@ -27,11 +27,6 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-# TODO restore: https://github.com/EFForg/privacybadger/issues/1158
-echo "remove fingerprinting"
-sed -i '/        "js\/contentscripts\/fingerprinting.js"/d' ../checkout/src/manifest.json
-sed -i 's/        "js\/contentscripts\/clobberlocalstorage.js",/        "js\/contentscripts\/clobberlocalstorage.js"/' ../checkout/src/manifest.json
-
 echo "change author value"
 sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "privacybadger-owner@eff.org",/' ../checkout/src/manifest.json
 
