@@ -53,7 +53,7 @@
     },
     "data_settings": {
         "message": "Manage Data",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_13": {
         "message": " If I am breaking a page, please let my developers know so that they can fix the problem! You can do so by clicking this button.",
@@ -164,8 +164,8 @@
         "description": ""
     },
     "whitelisted_domains": {
-        "message": "Whitelisted domains",
-        "description": "This is a tab heading."
+        "message": "Whitelisted Domains",
+        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Enable Privacy Badger for This Site",
@@ -189,7 +189,7 @@
     },
     "options_general_settings": {
         "message": "General Settings",
-        "description": ""
+        "description": "This is an options page tab heading."
     },
     "slideshow_7": {
         "message": " If the slider is green that means that I can't tell if this domain is tracking you yet. It might not be, but I will still keep an eye on it.",
@@ -263,9 +263,9 @@
         "message": " The first time you click my icon you might see that all the trackers are green—don't worry! I'm different from other tracker blocking software—instead of knowing a list of things to block right away, I learn what to block as you browse. If I'm not blocking anything yet, try browsing around to 4 or 5 different websites. I should start blocking common trackers after that.",
         "description": ""
     },
-    "options_filter_settings": {
-        "message": "User Filter Settings",
-        "description": ""
+    "options_domain_list_tab": {
+        "message": "Tracking Domains",
+        "description": "This is an options page tab heading."
     },
     "ded_logging_into": {
         "message": "Logging into ",
