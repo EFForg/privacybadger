@@ -25,7 +25,14 @@ function getFpPageScript() {
   // return a string
   return "(" + function (ERROR) {
 
-    ERROR.stackTraceLimit = Infinity; // collect all frames
+    const V8_STACK_TRACE_API = !!(ERROR && ERROR.captureStackTrace);
+
+    if (V8_STACK_TRACE_API) {
+      ERROR.stackTraceLimit = Infinity; // collect all frames
+    } else {
+      // from https://github.com/csnover/TraceKit/blob/b76ad786f84ed0c94701c83d8963458a8da54d57/tracekit.js#L641
+      var geckoCallSiteRe = /^\s*(.*?)(?:\((.*?)\))?@?((?:file|https?|chrome):.*?):(\d+)(?::(\d+))?\s*$/i;
+    }
 
     var event_id = document.currentScript.getAttribute('data-event-id');
 
@@ -86,6 +93,22 @@ function getFpPageScript() {
     }());
 
     /**
+     * Gets the stack trace by throwing and catching an exception.
+     * @returns {*} Returns the stack trace
+     */
+    function getStackTraceFirefox() {
+      let stack;
+
+      try {
+        throw new Error();
+      } catch (err) {
+        stack = err.stack;
+      }
+
+      return stack.split('\n');
+    }
+
+    /**
      * Gets the stack trace using the V8 stack trace API:
      * https://github.com/v8/v8/wiki/Stack-Trace-API
      * @returns {*} Returns the stack trace
@@ -118,7 +141,26 @@ function getFpPageScript() {
     }
 
     /**
-     * Checks the stack trace for the originating URL
+     * Parses the stack trace for the originating script URL
+     * without using the V8 stack trace API.
+     * @returns {String} The URL of the originating script
+     */
+    function getOriginatingScriptUrlFirefox() {
+      let trace = getStackTraceFirefox();
+
+      if (trace.length < 4) {
+        return '';
+      }
+
+      // this script is at 0, 1 and 2
+      let callSite = trace[3];
+
+      let scriptUrlMatches = callSite.match(geckoCallSiteRe);
+      return scriptUrlMatches && scriptUrlMatches[3] || '';
+    }
+
+    /**
+     * Parses the stack trace for the originating script URL.
      * @returns {String} The URL of the originating script
      */
     function getOriginatingScriptUrl() {
@@ -165,7 +207,11 @@ function getFpPageScript() {
             }
           }
 
-          var script_url = getOriginatingScriptUrl(),
+          var script_url = (
+              V8_STACK_TRACE_API ?
+                getOriginatingScriptUrl() :
+                getOriginatingScriptUrlFirefox()
+            ),
             msg = {
               obj: item.objName,
               prop: item.propName,
