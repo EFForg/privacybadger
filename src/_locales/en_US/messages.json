@@ -168,7 +168,7 @@
         "description": ""
     },
     "whitelisted_domains": {
-        "message": "Whitelisted domains",
+        "message": "Whitelisted Domains",
         "description": "This is a tab heading."
     },
     "popup_enable_for_site": {
