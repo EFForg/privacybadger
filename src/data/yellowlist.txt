@@ -156,8 +156,7 @@ fastly.net
 fbcdn.net
 attachment.fbsbx.com
 feedburner.com
-api.filepicker.io
-dialog.filepicker.io
+filepicker.io
 financialcontent.com
 findnsave.com
 firstlook.org
