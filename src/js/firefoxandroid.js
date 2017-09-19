@@ -22,11 +22,11 @@
  */
 
 require.scopes.firefoxandroid = (function() {
-var isFirefoxAndroid = !(
-  chrome.browserAction.setBadgeText &&
+var hasPopupSupport = !!(
   chrome.browserAction.setPopup &&
   chrome.browserAction.getPopup
 );
+var hasBadgeSupport = !!chrome.browserAction.setBadgeText;
 
 // keeps track of popup id while one is open
 var openPopupId = false;
@@ -64,7 +64,7 @@ function onUpdated(tabId, changeInfo, tab) {
 
 // Subscribe to events needed to fake a popup
 function startListeners() {
-  if(isFirefoxAndroid){
+  if(!hasPopupSupport){
     chrome.browserAction.onClicked.addListener(openPopup);
     chrome.tabs.onActivated.addListener(onActivated);
     chrome.tabs.onUpdated.addListener(onUpdated);
@@ -73,7 +73,7 @@ function startListeners() {
 
 // Used in popup.js, figures out which tab opened the 'fake' popup
 function getParentOfPopup(callback){
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, function(focusedTab) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(focusedTab) {
     var parentId = parseInt(new URL(focusedTab[0].url).searchParams.get('tabId'));
     chrome.tabs.get(parentId, callback);
   });
@@ -82,7 +82,8 @@ function getParentOfPopup(callback){
 /************************************** exports */
 var exports = {};
 exports.startListeners = startListeners;
-exports.isUsed = isFirefoxAndroid;
+exports.hasPopupSupport = hasPopupSupport;
+exports.hasBadgeSupport = hasBadgeSupport;
 exports.getParentOfPopup = getParentOfPopup;
 return exports;
 /************************************** exports */

@@ -514,7 +514,7 @@ function syncUISelections() {
 */
 function getTab(callback) {
   // Temporary fix for Firefox Android
-  if(FirefoxAndroid.isUsed){
+  if(!FirefoxAndroid.hasPopupSupport){
     FirefoxAndroid.getParentOfPopup(callback);
     return;
   }
