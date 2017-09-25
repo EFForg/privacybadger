@@ -72,7 +72,6 @@ function init() {
       url: "https://supporters.eff.org/donate/support-privacy-badger"
     });
   });
-  $("#error_input").attr("placeholder", i18n.getMessage("error_input"));
 
   var overlay = $('#overlay');
   $("#error").click(function(){

@@ -367,6 +367,10 @@
         "message": " If you want to change other settings, you can click this gear icon.",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "popup_options_button": {
         "message": "Options",
         "description": ""
