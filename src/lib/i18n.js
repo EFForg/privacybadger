@@ -76,18 +76,5 @@ function loadI18nStrings() {
   }
 }
 
-// Provides a more readable string of the current date and time
-function i18n_timeDateStrings(when)
-{
-  var d = new Date(when);
-  var timeString = d.toLocaleTimeString();
-
-  var now = new Date();
-  if (d.toDateString() == now.toDateString())
-    return [timeString];
-  else
-    return [timeString, d.toLocaleDateString()];
-}
-
 // Fill in the strings as soon as possible
 window.addEventListener("DOMContentLoaded", loadI18nStrings, true);
