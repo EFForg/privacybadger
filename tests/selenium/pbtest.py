@@ -281,6 +281,13 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
+    def wait(self, condition, exception=None, timeout=3):
+        try:
+            WebDriverWait(self.driver, timeout).until(condition)
+        except Exception as e:
+            if (exception is None) or not isinstance(e, exception):
+                raise e
+
     def wait_for_script(self, script, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Variant of self.js that executes script continuously until it
         returns True."""

@@ -32,6 +32,7 @@ window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/soc
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
+var messages = require("messages");
 
 /**
 * privacy badger initializer
@@ -63,6 +64,8 @@ function Badger() {
     });
 
     // TODO: register all privacy badger listeners here in the storage callback
+    badger.listener = new messages.Listener();
+    badger.settings = badger.storage.getBadgerStorageObject('settings_map');
 
     badger.INITIALIZED = true;
   });
@@ -134,6 +137,7 @@ Badger.prototype = {
 
 
   // Methods
+  extractHostFromURL: window.extractHostFromURL,
 
   showFirstRunPage: function(){
     var settings = this.storage.getBadgerStorageObject("settings_map");
@@ -497,6 +501,15 @@ Badger.prototype = {
     return Object.keys(this.tabData[tabId].origins);
   },
 
+  getAllOriginsWithActionsFromTab: function(tabId) {
+    let out = [],
+      self = this;
+    self.getAllOriginsForTab(tabId).forEach(origin => {
+      out.push([origin, self.storage.getBestAction(origin)]);
+    });
+    return out;
+  },
+
   /**
    * Returns the count of blocked/cookieblocked origins for a tab.
    * @param {Integer} tab_id browser tab ID
@@ -589,6 +602,10 @@ Badger.prototype = {
     return true;
   },
 
+  isPrivacyBadgerEnabledForURL: function(url) {
+    return this.isPrivacyBadgerEnabled(window.extractHostFromURL(url));
+  },
+
   /**
    * Check if privacy badger is disabled, take an origin and
    * check against the disabledSites list
@@ -598,6 +615,10 @@ Badger.prototype = {
    **/
   isPrivacyBadgerDisabled: function(origin){
     return !this.isPrivacyBadgerEnabled(origin);
+  },
+
+  isPrivacyBadgerDisabledForURL: function(url) {
+    return this.isPrivacyBadgerDisabled(window.extractHostFromURL(url));
   },
 
   /**
@@ -652,6 +673,10 @@ Badger.prototype = {
     }
   },
 
+  disablePrivacyBadgerForOriginFromURL: function(url) {
+    this.disablePrivacyBadgerForOrigin(window.extractHostFromURL(url));
+  },
+
   /**
    * Interface to get the current whitelisted domains
    */
@@ -672,6 +697,10 @@ Badger.prototype = {
       utils.removeElementFromArray(disabledSites, idx);
       settings.setItem("disabledSites", disabledSites);
     }
+  },
+
+  enablePrivacyBadgerForOriginFromURL: function(url) {
+    this.enablePrivacyBadgerForOrigin(window.extractHostFromURL(url));
   },
 
   /**

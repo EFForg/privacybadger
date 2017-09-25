@@ -16,47 +16,41 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
-
-var backgroundPage = chrome.extension.getBackgroundPage();
-var require = backgroundPage.require;
-var constants = backgroundPage.constants;
-var badger = backgroundPage.badger;
-var FirefoxAndroid = backgroundPage.FirefoxAndroid;
 var htmlUtils = require("htmlutils").htmlUtils;
+var constants = require("constants");
+var FirefoxAndroid = require('firefoxandroid');
+var messages = require("messages");
 
 var i18n = chrome.i18n;
 var reloadTab = chrome.tabs.reload;
 
+let client = new messages.Client();
+
 /* if they aint seen the comic*/
 function showNagMaybe() {
-  var nag = $("#instruction");
-  var outer = $("#instruction-outer");
-  var settings = badger.storage.getBadgerStorageObject('settings_map');
-  var seenComic = settings.getItem("seenComic") || false;
-
-  function _setSeenComic() {
-    settings.setItem("seenComic", true);
-  }
+  let nag = $("#instruction"),
+    outer = $("#instruction-outer");
 
   function _hideNag(){
-    _setSeenComic();
+    client.settings.setItem("seenComic", true);
     nag.fadeOut();
     outer.fadeOut();
   }
 
-  if (!seenComic) {
-    nag.show();
-    outer.show();
-    // Attach event listeners
-    $('#fittslaw').click(_hideNag);
-    $("#firstRun").click(function() {
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+  client.settings.getItem('seenComic').then((seen) => {
+    if (!seen) {
+      nag.show();
+      outer.show();
+      // Attach event listeners
+      $('#fittslaw').click(_hideNag);
+      $("#firstRun").click(function() {
+        chrome.tabs.create({
+          url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+        });
+        _hideNag();
       });
-      _hideNag();
-    });
-  }
+    }
+  });
 }
 
 /**
@@ -65,6 +59,7 @@ function showNagMaybe() {
 function init() {
   showNagMaybe();
 
+  $("#options").click(optionsOpener);
   $("#activate_site_btn").click(active_site);
   $("#deactivate_site_btn").click(deactive_site);
   $("#donate").click(function() {
@@ -98,11 +93,13 @@ function init() {
 
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
-    if(!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
-      $("#blockedResourcesContainer").hide();
-      $("#activate_site_btn").show();
-      $("#deactivate_site_btn").hide();
-    }
+    client.isPrivacyBadgerEnabledForURL(t.url).then(enabled => {
+      if (!enabled) {
+        $("#blockedResourcesContainer").hide();
+        $("#activate_site_btn").show();
+        $("#deactivate_site_btn").hide();
+      }
+    });
   });
 
   var version = i18n.getMessage("version") + " " +  chrome.runtime.getManifest().version;
@@ -126,50 +123,58 @@ function closeOverlay() {
 * @param {String} message The message to send
 */
 function send_error(message) {
-  var browser = window.navigator.userAgent;
-  getTab(function(tab) {
-    var tabId = tab.id;
-    var origins = badger.getAllOriginsForTab(tabId);
+  function getOriginsAndTab(callback) {
+    getTab((tab) => {
+      client.getAllOriginsForTab(tab.id).then(origins => {
+        callback(origins, tab);
+      });
+    });
+  }
+  getOriginsAndTab(function(origins, tab) {
+    let browser = window.navigator.userAgent,
+      version = chrome.runtime.getManifest().version,
+      fqdn = tab.url.split("/",3)[2],
+      out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
+
     if(!origins){ return; }
-    var version = chrome.runtime.getManifest().version;
-    //TODO "there's got to be a better way!"
-    var fqdn = tab.url.split("/",3)[2];
-    var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
-    for (var i = 0; i < origins.length; i++){
-      var origin = origins[i];
-      var action = badger.storage.getBestAction(origin);
-      if (!action){ action = constants.NO_TRACKING; }
-      if (out[action]){
-        out[action] += ","+origin;
-      }
-      else{
-        out[action] = origin;
-      }
-    }
-    var out_data = JSON.stringify(out);
-    var sendReport = $.ajax({
-      type: "POST",
-      url: "https://privacybadger.org/reporting",
-      data: out_data,
-      contentType: "application/json"
+    let promises = origins.map(origin => {
+      return client.storage.getBestAction(origin).then(action => {
+        if (!action){ action = constants.NO_TRACKING; }
+        if (out[action]){
+          out[action] += ","+origin;
+        }
+        else{
+          out[action] = origin;
+        }
+      });
     });
-    sendReport.done(function() {
-      $("#error_input").val("");
-      $("#report_success").toggleClass("hidden", false);
-      setTimeout(function(){
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
-        $("#report_success").toggleClass("hidden", true);
-        closeOverlay();
-      }, 3000);
-    });
-    sendReport.fail(function() {
-      $("#report_fail").toggleClass("hidden");
-      setTimeout(function(){
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
-        $("#report_fail").toggleClass("hidden", true);
-      }, 3000);
+
+    Promise.all(promises).then(() => {
+      var out_data = JSON.stringify(out);
+      var sendReport = $.ajax({
+        type: "POST",
+        url: "https://privacybadger.org/reporting",
+        data: out_data,
+        contentType: "application/json"
+      });
+      sendReport.done(function() {
+        $("#error_input").val("");
+        $("#report_success").toggleClass("hidden", false);
+        setTimeout(function(){
+          $("#report_button").prop("disabled", false);
+          $("#report_cancel").prop("disabled", false);
+          $("#report_success").toggleClass("hidden", true);
+          closeOverlay();
+        }, 3000);
+      });
+      sendReport.fail(function() {
+        $("#report_fail").toggleClass("hidden");
+        setTimeout(function(){
+          $("#report_button").prop("disabled", false);
+          $("#report_cancel").prop("disabled", false);
+          $("#report_fail").toggleClass("hidden", true);
+        }, 3000);
+      });
     });
   });
 }
@@ -182,9 +187,10 @@ function active_site(){
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").show();
   getTab(function(tab) {
-    badger.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-    badger.refreshIconAndContextMenu(tab);
-    reloadTab(tab.id);
+    client.enablePrivacyBadgerForOriginFromURL(tab.url).then(() => {
+      client.refreshIconAndContextMenu(tab);
+      reloadTab(tab.id);
+    });
   });
 }
 
@@ -196,9 +202,10 @@ function deactive_site(){
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").hide();
   getTab(function(tab) {
-    badger.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
-    badger.refreshIconAndContextMenu(tab);
-    reloadTab(tab.id);
+    client.disablePrivacyBadgerForOriginFromURL(tab.url).then(() => {
+      client.refreshIconAndContextMenu(tab);
+      reloadTab(tab.id);
+    });
   });
 }
 
@@ -212,40 +219,15 @@ function revertDomainControl(e){
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var $elm = $(e.target).parent();
   var origin = $elm.data('origin');
-  badger.storage.revertUserAction(origin);
-  var defaultAction = badger.storage.getBestAction(origin);
-  var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
-  var selector = $(selectorId);
-  selector.click();
-  $elm.removeClass('userset');
-  reloadTab(tabId);
+  client.storage.revertUserAction(origin);
+  client.storage.getBestAction(origin).then(action => {
+    var selectorId = "#"+ action +"-" + origin.replace(/\./g,'-');
+    var selector = $(selectorId);
+    selector.click();
+    $elm.removeClass('userset');
+    reloadTab(tabId);
+  });
   return false;
-}
-
-/**
-* this is a terrible function that repeats
-* a lot of the work that getAction does
-* because getAction stores things in mysery
-* land and there's no real way to get what's
-* in the ABP filters without repeatedly
-* querying them
-*/
-//TODO re-write this by having get best action return the domain the rule
-// comes from, and combine that way?
-function getTopLevel(action, origin/*, tabId*/){
-  //  if (action == "usercookieblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return  top;
-  //  }
-  //  if (action == "userblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
-  //  if (action == "usernoaction"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
-  return origin;
 }
 
 function registerToggleHandlers() {
@@ -273,110 +255,73 @@ function registerToggleHandlers() {
   });
 }
 
+function processOrigins(originsWithActions, callback) {
+  let out = [],
+    tracking = [],
+    nonTracking = [],
+    trackerCount = 0;
+  originsWithActions.sort((a, b) => htmlUtils.compareReversedDomains(a[0], b[0]));
+  for (let [origin, action] of originsWithActions) {
+    if (action != constants.DNT) {trackerCount++;}
+    if (action == constants.NO_TRACKING) {
+      nonTracking.push(htmlUtils.getOriginHtml(origin, constants.NO_TRACKING, false));
+    } else {
+      tracking.push(htmlUtils.getOriginHtml(origin, action, action == constants.DNT));
+    }
+  }
+  out.push.apply(out, tracking);
+  if (nonTracking.length > 0) {
+    out.push(
+      '<div class="clicker" id="nonTrackers" title="' +
+      i18n.getMessage("non_tracker_tip") + '">' +
+      i18n.getMessage("non_tracker") + '</div>'
+    );
+  }
+  out.push.apply(out, nonTracking);
+  callback(out, trackerCount);
+}
+
+function renderDomains(printable) {
+  const CHUNK = 1;
+
+  let $printable = $(printable.splice(0, CHUNK).join(""));
+
+  $printable.find('.switch-toggle').each(registerToggleHandlers);
+
+  // Hide elements for removing origins (controlled from the options page).
+  // Popup shows what's loaded for the current page so it doesn't make sense
+  // to have removal ability here.
+  $printable.find('.removeOrigin').hide();
+
+  $printable.appendTo('#blockedResourcesInner');
+
+  if (printable.length) {
+    requestAnimationFrame(() => renderDomains(printable));
+  }
+}
+
 /**
 * Refresh the content of the popup window
 *
 * @param {Integer} tabId The id of the tab
 */
 function refreshPopup(tabId) {
-  //TODO this is calling get action and then being used to call get Action
-  var origins = badger.getAllOriginsForTab(tabId);
-  if (!origins || origins.length === 0) {
-    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
-    $('#number_trackers').text('0');
-    return;
-  }
-
-  // Display tracker tooltips.
-  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
-
-  var printable = [];
-  var nonTracking = [];
-  origins.sort(htmlUtils.compareReversedDomains);
-  var trackerCount = 0;
-  var compressedOrigins = {};
-
-  for (let i=0; i < origins.length; i++) {
-    var origin = origins[i];
-    // todo: gross hack, use templating framework
-    var action = badger.storage.getBestAction(origin);
-
-    if (action == constants.NO_TRACKING) {
-      nonTracking.push(origin);
-      continue;
-
-    } else {
-      if (action.includes("user")) {
-        var prevOrigin = origin;
-        var baseDomain = backgroundPage.getBaseDomain(prevOrigin);
-        // TODO make some re-implementation of getBestAction that returns where the
-        // user rule is coming from
-        if (getTopLevel(action, origin, tabId) == baseDomain && baseDomain != origin){
-          origin = baseDomain;
-          if (compressedOrigins.hasOwnProperty(origin)){
-            compressedOrigins[origin].subs.push(prevOrigin.replace(origin, ''));
-            continue;
-          }
-          compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
-          continue;
-        }
-      }
+  client.getAllOriginsWithActionsFromTab(tabId).then(originsWithActions => {
+    if (!originsWithActions || originsWithActions.length === 0) {
+      $("#blockedResources").html(i18n.getMessage("popup_blocked"));
+      $('#number_trackers').text('0');
+      return;
     }
 
-    if (action != constants.DNT) {
-      trackerCount++;
-    }
-    printable.push(
-      htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
-    );
-  }
-
-  for (let key in compressedOrigins){
-    printable.push(
-      htmlUtils.getOriginHtml(
-        key,
-        compressedOrigins[key].action,
-        compressedOrigins[key].action == constants.DNT,
-        compressedOrigins[key].subs.length
-      )
-    );
-  }
-
-  var nonTrackerText = i18n.getMessage("non_tracker");
-  var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
-
-  if (nonTracking.length > 0) {
-    printable.push(
-      '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
-    );
-    for (let i = 0; i < nonTracking.length; i++) {
-      printable.push(
-        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
-      );
-    }
-  }
-
-  $('#number_trackers').text(trackerCount);
-
-  function renderDomains() {
-    const CHUNK = 1;
-
-    let $printable = $(printable.splice(0, CHUNK).join(""));
-
-    $printable.find('.switch-toggle').each(registerToggleHandlers);
-
-    // Hide elements for removing origins (controlled from the options page).
-    // Popup shows what's loaded for the current page so it doesn't make sense
-    // to have removal ability here.
-    $printable.find('.removeOrigin').hide();
-
-    $printable.appendTo('#blockedResourcesInner');
-
-    if (printable.length) {
-      requestAnimationFrame(renderDomains);
-    }
-  }
-  requestAnimationFrame(renderDomains);
+    processOrigins(originsWithActions, (printable, trackerCount) => {
+      $('#number_trackers').text(trackerCount);
+      requestAnimationFrame(() => {
+        // Display tracker tooltips.
+        $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
+        renderDomains(printable);
+      });
+    });
+  });
 }
 
 /**
@@ -385,19 +330,21 @@ function refreshPopup(tabId) {
 * @param event
 */
 function updateOrigin(event){
-  var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  var $switchContainer = $elm.parents('.switch-container').first();
-  var $clicker = $elm.parents('.clicker').first();
-  var action = $elm.data('action');
+  let $elm = $('label[for="' + event.currentTarget.id + '"]');
+  let $switchContainer = $elm.parents('.switch-container').first();
+  let $clicker = $elm.parents('.clicker').first();
+  let action = $elm.data('action');
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
+
   htmlUtils.toggleBlockedStatus($($clicker), action);
-  var origin = $clicker.data('origin');
+  let origin = $clicker.data('origin');
   $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
   $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
+  client.saveAction(action, origin);
 }
 
 var tooltipDelay = 300;
@@ -443,64 +390,19 @@ function hideTooltip(event){
 }
 
 /**
-* Check if origin is in setting dict. If yes, popup needs refresh
-*
-* @param settingsDict The settings dict to check
-* @returns {boolean} false or the tab id
+* reloads the tab and popup if needed
 */
-function syncSettingsDict(settingsDict) {
-  // track whether reload is needed: only if things are being unblocked
-  var reloadNeeded = false;
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  // we get the blocked data again in case anything changed, but the user's change when
-  // closing a popup is authoritative and we should sync the real state to that
-  for (var origin in settingsDict) {
-    var userAction = settingsDict[origin];
-    if (badger.saveAction(userAction, origin)) {
-      reloadNeeded = tabId; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"? would be fun to check with jsperf.com
-    }
-  }
-
-  // the popup needs to be refreshed to display current results
-  refreshPopup(tabId);
-  return reloadNeeded;
-}
-
-/**
-* Generates dict Origin->action based on GUI elements
-*
-* @returns {{}} The generated dict
-*/
-function buildSettingsDict() {
-  var settingsDict = {};
+function reloadIfNeeded() {
   $('.clicker').each(function() {
-    var origin = $(this).attr("data-origin");
-    if ($(this).hasClass("userset") && htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action")) {
-      // TODO: DRY; same as code above, break out into helper
-      if ($(this).hasClass(constants.BLOCK)) {
-        settingsDict[origin] = constants.BLOCK;
-      } else if ($(this).hasClass(constants.COOKIEBLOCK)) {
-        settingsDict[origin] = constants.COOKIEBLOCK;
-      } else if ($(this).hasClass(constants.ALLOW)) {
-        settingsDict[origin] = constants.ALLOW;
-      } else {
-        settingsDict[origin] = constants.ALLOW;
-      }
+    if ($(this).hasClass("userset") &&
+        htmlUtils.getCurrentClass($(this)) != $(this).attr("data-original-action")) {
+      let tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
+      refreshPopup(tabId);
+      reloadTab(tabId);
+      return true;
     }
   });
-  return settingsDict;
-}
-
-/**
-* syncs the user-selected cookie blocking options, etc.
-* Reloads the tab if needed
-*/
-function syncUISelections() {
-  var settingsDict = buildSettingsDict();
-  var tabId = syncSettingsDict(settingsDict);
-  if (tabId){
-    backgroundPage.reloadTab(tabId);
-  }
+  return false;
 }
 
 /**
@@ -519,7 +421,7 @@ function getTab(callback) {
     return;
   }
 
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, function(t) { callback(t[0]); });
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, t => callback(t[0]));
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -529,5 +431,19 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener('unload', function() {
-  syncUISelections();
+  reloadIfNeeded();
 });
+
+function optionsOpener() {
+  let url = '/skin/options.html';
+  chrome.windows.getAll({windowTypes: ["normal"]}, windows => {
+    for (let w of windows) {
+      if (!w.incognito) {
+        chrome.tabs.create({url, windowId: w.id, active: true}, () => chrome.windows.update(w.id, {focused: true}));
+        return;
+      }
+    }
+    // firefox doesn't support `focused: true` in windows.create
+    chrome.windows.create({url, incognito: false}, w => windows.update(w.id, {focused: true}));
+  });
+}
