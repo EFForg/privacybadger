@@ -543,7 +543,6 @@ ultraimg.com
 unicornmedia.com
 uplynk.com
 usa.gov
-vcas1.visa.com
 viafoura.net
 viddler.com
 videobash.com
@@ -552,6 +551,7 @@ viduki.com
 vimeo.com
 vimeocdn.com
 virtualearth.net
+visa.com
 vmixcore.com
 voxmedia.com
 vox-cdn.com
