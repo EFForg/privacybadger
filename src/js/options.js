@@ -52,7 +52,6 @@ function loadOptions() {
   $('#exportTrackers').click(exportUserData);
 
   // Set up input for searching through tracking domains.
-  $("#trackingDomainSearch").attr("placeholder", i18n.getMessage("options_domain_search"));
   $("#trackingDomainSearch").on("input", filterTrackingDomains);
 
   // Add event listeners for origins container.
