@@ -3,6 +3,13 @@
 (function () {
 
   const DNT_COMPLIANT_DOMAIN = 'eff.org',
+    DNT_DOMAINS = [
+      DNT_COMPLIANT_DOMAIN,
+      'dnt2.example',
+      'dnt3.example',
+      'dnt4.example',
+      'dnt5.example',
+    ],
     POLICY_URL = chrome.extension.getURL('data/dnt-policy.txt');
 
   let utils = require('utils'),
@@ -25,11 +32,13 @@
         server = sinon.fakeServer.create({
           respondImmediately: true
         });
-        server.respondWith(
-          "GET",
-          "https://eff.org/.well-known/dnt-policy.txt",
-          [200, {}, dnt_policy_txt]
-        );
+        DNT_DOMAINS.forEach(domain => {
+          server.respondWith(
+            "GET",
+            "https://" + domain + "/.well-known/dnt-policy.txt",
+            [200, {}, dnt_policy_txt]
+          );
+        });
 
         // set up fake timers to simulate window.setTimeout and co.
         clock = sinon.useFakeTimers(+new Date());
@@ -101,11 +110,10 @@
     let done = assert.async(NUM_TESTS);
 
     assert.expect(NUM_TESTS);
-    badger.storage.getNextUpdateForDomain = () => 0;
 
     for (let i = 0; i < NUM_TESTS; i++) {
       badger.checkForDNTPolicy(
-        DNT_COMPLIANT_DOMAIN,
+        DNT_DOMAINS[i],
         function () { // eslint-disable-line no-loop-func
           assert.equal(xhrSpy.callCount, i+1);
           clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
