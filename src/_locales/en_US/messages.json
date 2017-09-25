@@ -414,5 +414,15 @@
     "whitelist_form_domain_input_placeholder": {
         "message": "e.g. www.domain.com, *.domain.net, domain.org",
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page.",
+        "placeholders": {
+            "social_service": {
+                "content": "$1",
+                "example": "Twitter"
+            }
+        }
     }
 }
