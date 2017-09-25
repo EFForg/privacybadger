@@ -61,8 +61,16 @@ function loadI18nStrings() {
 
       // if the attribute exists and looks like i18n_KEY
       if (key) {
+        // get chrome.i18n placeholders, if any
+        let placeholders = nodes[i].dataset.i18n_placeholders;
+        if (placeholders) {
+          placeholders = placeholders.split("@@");
+        } else {
+          placeholders = [];
+        }
+
         // update the attribute with the result of a translation lookup by KEY
-        nodes[i].setAttribute(attr_type, i18n.getMessage(key));
+        nodes[i].setAttribute(attr_type, i18n.getMessage(key, placeholders));
       }
     });
   }
