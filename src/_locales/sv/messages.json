@@ -92,7 +92,7 @@
         "description": ""
     },
     "options_domain_list_tab": {
-        "message": "Tracking Domains",
+        "message": "Spårningsdomäner",
         "description": "This is an options page tab heading."
     },
     "intro1": {
@@ -152,7 +152,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Privacy Badger alternativ",
+        "message": "Privacy Badger-alternativ",
         "description": ""
     },
     "options_pb_has_detected": {
