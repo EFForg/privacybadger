@@ -103,6 +103,10 @@
         "message": "Privacy Badger bloque les publicités espionnes et les traqueurs invisibles. Son rôle est d'empêcher les entreprises de vous pister sans votre consentement.",
         "description": "firstRun.html intro to Privacy Badger"
     },
+    "share_button_title_twitter": {
+        "message": "Share on Twitter",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
     "first_run_text": {
         "message": "Apprendre comment Privacy Badger protège votre vie privée.",
         "description": ""
@@ -283,8 +287,8 @@
         "message": "Connexion à ",
         "description": ""
     },
-    "share_button_title": {
-        "message": "Share on $SOCIAL_SERVICE$",
+    "share_button_title_google": {
+        "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -394,6 +398,10 @@
     "slideshow_16": {
         "message": " Félicitations pour cette étape simple, mais importante, pour le respect de votre vie privée ! Vous pouvez cliquer ici si vous avez encore besoin d'aide et ci-dessous pour avertir le reste du monde que vous vous mobilisez contre le pistage en ligne.",
         "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Share on Facebook",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
         "message": "Toujours autoriser ",

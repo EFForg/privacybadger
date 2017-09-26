@@ -103,6 +103,10 @@
         "message": "Privacy Badger 會封鎖間諜廣告和隱形的追蹤器。它的目的是確保企業在未經您同意的情況下無法追蹤您的網路瀏覽行為。",
         "description": "firstRun.html intro to Privacy Badger"
     },
+    "share_button_title_twitter": {
+        "message": "Share on Twitter",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
     "first_run_text": {
         "message": "瞭解 Privacy Badger 如何保護您的隱私。",
         "description": ""
@@ -283,8 +287,8 @@
         "message": "登入到",
         "description": ""
     },
-    "share_button_title": {
-        "message": "Share on $SOCIAL_SERVICE$",
+    "share_button_title_google": {
+        "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -394,6 +398,10 @@
     "slideshow_16": {
         "message": "感謝您邁出了通往保護隱私重要而又簡單的一步！如果您需要幫助，可以點選此處。您也可以點選下面的按鈕，告訴世界您反對網路追蹤的立場。",
         "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Share on Facebook",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
         "message": "永久允許",

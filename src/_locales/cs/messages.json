@@ -103,6 +103,10 @@
         "message": "Privacy Badger blokuje šmírující reklamy a sledující prvky. Je tady, aby zabránil společnostem sledovat vaše brouzdáni na internetu bez vašeho souhlasu.",
         "description": "firstRun.html intro to Privacy Badger"
     },
+    "share_button_title_twitter": {
+        "message": "Share on Twitter",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
     "first_run_text": {
         "message": "Zjistěte, jak Privacy Badger chrání vaše soukromí.",
         "description": ""
@@ -283,8 +287,8 @@
         "message": "Přihlášení na ",
         "description": ""
     },
-    "share_button_title": {
-        "message": "Share on $SOCIAL_SERVICE$",
+    "share_button_title_google": {
+        "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -394,6 +398,10 @@
     "slideshow_16": {
         "message": " Díky, že jste udělal tento důležitý, přesto snadný, krok pro ochranu svého soukromí! Můžete kliknout zde, pokud byste znovu potřeboval pomoct. Také můžete kliknout níže a dát světu znát, že jste se postavil proti sledování na internetu.",
         "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Share on Facebook",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
         "message": "Vždy povolit ",

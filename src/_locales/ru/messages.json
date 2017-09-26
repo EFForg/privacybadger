@@ -103,6 +103,10 @@
         "message": "Privacy Badger блокирует шпионские рекламные сети и скрытые трекеры. Он гарантирует, что компании не смогут отследить вашу активность в Интернете без вашего согласия.",
         "description": "firstRun.html intro to Privacy Badger"
     },
+    "share_button_title_twitter": {
+        "message": "Share on Twitter",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
     "first_run_text": {
         "message": "Узнайте, как Privacy Badger защищает вашу приватность.",
         "description": ""
@@ -283,8 +287,8 @@
         "message": "Переход на ",
         "description": ""
     },
-    "share_button_title": {
-        "message": "Share on $SOCIAL_SERVICE$",
+    "share_button_title_google": {
+        "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -394,6 +398,10 @@
     "slideshow_16": {
         "message": " Спасибо за то, что сделали важный шаг к защите вашей приватности! Вы можете щелкнуть здесь, если вам снова понадобится помощь, и ниже, чтобы сообщить миру о том, что вы против отслеживания активности в Интернете.",
         "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Share on Facebook",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
         "message": "Всегда разрешать ",

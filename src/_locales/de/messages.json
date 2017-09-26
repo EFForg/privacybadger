@@ -103,6 +103,10 @@
         "message": "Privacy Badger blockiert spionierende Werbung und unsichtbare Tracker. Es wurde geschaffen, um zu verhindern, dass Firmen Sie ohne Ihre Zustimmung überwachen können.",
         "description": "firstRun.html intro to Privacy Badger"
     },
+    "share_button_title_twitter": {
+        "message": "Share on Twitter",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
     "first_run_text": {
         "message": "Lernen Sie wie Privacy Badger Ihre Privatsphäre schützt.",
         "description": ""
@@ -283,8 +287,8 @@
         "message": "Einloggen in ",
         "description": ""
     },
-    "share_button_title": {
-        "message": "Share on $SOCIAL_SERVICE$",
+    "share_button_title_google": {
+        "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -394,6 +398,10 @@
     "slideshow_16": {
         "message": " Vielen Dank, dass Sie diesen wichtigen, einfachen Schritt machen um Ihre Privatsphäre zu Schützen. Sie können hier klicken, sollten Sie nochmal hilfe benötigen und weiter unten können Sie die Welt wissen lassen, dass Sie gegen Online-Überwachung sind.",
         "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Share on Facebook",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
         "message": "Immer erlauben von ",

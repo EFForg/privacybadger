@@ -103,6 +103,10 @@
         "message": "Personvernsgrevlingen blokkerer spionerende reklame og usynlige sporere. Den har til hensikt å forhindre at selskaper kan spore din surfing uten ditt samtykke.",
         "description": "firstRun.html intro to Privacy Badger"
     },
+    "share_button_title_twitter": {
+        "message": "Share on Twitter",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
     "first_run_text": {
         "message": "Lær hvordan Personvernsgrevlingen beskytter ditt personvern.",
         "description": ""
@@ -283,8 +287,8 @@
         "message": "Å logge inn på ",
         "description": ""
     },
-    "share_button_title": {
-        "message": "Share on $SOCIAL_SERVICE$",
+    "share_button_title_google": {
+        "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -394,6 +398,10 @@
     "slideshow_16": {
         "message": " Takk for at du tar et viktig, enkelt grep for å hegne om ditt personvern! Du kan klikke her hvis du trenger hjelp igjen, og du kan klikke nedenfor for å la verden vite at du tar et standpunkt mot nettbasert sporing.",
         "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Share on Facebook",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
         "message": "Alltid tillat ",

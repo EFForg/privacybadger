@@ -103,6 +103,10 @@
         "message": "Privacy Badger bloquea anuncios espías y rastreadores invisibles.  Está ahí para asegurarse que las empresas no pueden rastrear tu navegación por la red sin tu consentimiento.",
         "description": "firstRun.html intro to Privacy Badger"
     },
+    "share_button_title_twitter": {
+        "message": "Share on Twitter",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
     "first_run_text": {
         "message": "¡Aprenda cómo Privacy Badger protege su privacidad.",
         "description": ""
@@ -283,8 +287,8 @@
         "message": "Iniciar sesión ",
         "description": ""
     },
-    "share_button_title": {
-        "message": "Share on $SOCIAL_SERVICE$",
+    "share_button_title_google": {
+        "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -394,6 +398,10 @@
     "slideshow_16": {
         "message": " Thanks for taking an important, easy step toward protecting your privacy! You can click here if you need help again, and you can click below to let the world know you take a stand against online tracking.",
         "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Share on Facebook",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
         "message": "Permitir siempre ",
