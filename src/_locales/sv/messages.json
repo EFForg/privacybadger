@@ -64,7 +64,7 @@
         "description": ""
     },
     "whitelist_form_domain_input_placeholder": {
-        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "message": "t.ex. www.domain.com, *.domain.net, domain.org",
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
     },
     "slideshow_4": {
@@ -100,11 +100,11 @@
         "description": "This is an options page tab heading."
     },
     "intro1": {
-        "message": "Privacy Badger blockerar spårande annonser och osynliga spanare. Vi finns där för att företag inte ska kunna spåra dig utan ditt medgivande.",
+        "message": "Privacy Badger blockerar spårande annonser och osynliga spårare. Vi finns där för att företag inte ska kunna spåra dig utan ditt medgivande.",
         "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
-        "message": "Share on Twitter",
+        "message": "Dela på Twitter",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "first_run_text": {
@@ -156,7 +156,7 @@
         "description": ""
     },
     "what_is_a_tracker": {
-        "message": "What is a tracker?",
+        "message": "Vad är en spårare?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "popup_help_button": {
-        "message": "Help",
+        "message": "Hjälp",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "ded_logging_into": {
@@ -288,7 +288,7 @@
         "description": ""
     },
     "share_button_title_google": {
-        "message": "Share on Google Plus",
+        "message": "Dela på Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -400,7 +400,7 @@
         "description": ""
     },
     "share_button_title_facebook": {
-        "message": "Share on Facebook",
+        "message": "Dela på Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
