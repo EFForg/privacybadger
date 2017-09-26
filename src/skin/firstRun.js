@@ -1,6 +1,6 @@
 (function($) {
 
-$(function() {
+$(window).load(function () {
   $('.jcarousel').jcarousel();
 
   $('.jcarousel-control-prev')
