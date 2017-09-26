@@ -125,6 +125,7 @@ var multiDomainFirstPartiesArray = [
   ["netflix.com", "nflxext.com", "nflximg.net", "nflxvideo.net"],
   ["norsk-tipping.no", "buypass.no"],
   ["nymag.com", "vulture.com", "grubstreet.com"],
+  ["nypublicradio.org", "radiolab.org", "wnyc.org", "wqxr.org", "thegreenespace.org"],
   ["nytimes.com", "newyorktimes.com", "nyt.com"],
   ["onlineatnsb.com", "norwaysavingsbank.com"],
   ["paypal.com", "paypal-search.com"],
