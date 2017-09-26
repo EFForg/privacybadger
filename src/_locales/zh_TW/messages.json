@@ -63,6 +63,10 @@
         "message": "回報錯誤",
         "description": ""
     },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
     "slideshow_4": {
         "message": "單擊我的圖示，可以看見目前分頁中有哪些可能的追蹤器。",
         "description": ""
@@ -146,6 +150,10 @@
     "show_counter_checkbox": {
         "message": "顯示封鎖數目",
         "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "What is a tracker?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
         "message": "您好，我是 Privacy Badger！感謝您安裝我。以下是一些有用的訣竅，以便我們可以合作愉快。",
@@ -267,9 +275,17 @@
         "message": " 第一次點選我的圖示，可能會發現所有追蹤器都是綠色的，別擔心！我與其他追蹤器封鎖軟體不同。我會在您瀏覽網頁時學習哪些是該封鎖的，而不是一上來就根據已知的清單封鎖。如果我啥都沒開始封鎖，您可以嘗試瀏覽四五個網站。之後就會開始封鎖常見的追蹤器。",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "ded_logging_into": {
         "message": "登入到",
         "description": ""
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
         "message": "取消",
@@ -329,10 +345,6 @@
     },
     "ded_on": {
         "message": " 於 ",
-        "description": ""
-    },
-    "new_filters_added": {
-        "message": "已加入新的過濾器，點選 <a id='options_url' target='_blank'>選項</a> 來管理。",
         "description": ""
     },
     "intro_red": {

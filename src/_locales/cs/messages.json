@@ -63,6 +63,10 @@
         "message": "Nahlásit chybu",
         "description": ""
     },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
     "slideshow_4": {
         "message": " Pokud kliknete na mou ikonu, tak můžete vidět seznam potenciálních sledovacích prvků na současné stránce.",
         "description": ""
@@ -146,6 +150,10 @@
     "show_counter_checkbox": {
         "message": "Zobrazovat počet blokovaných prvků",
         "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "What is a tracker?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
         "message": " Ahoj, já jsem Privacy Badger! Díky, že jste mě nainstaloval. Jsem tu, abych vám dal pár užitečných rad, které usnadní naši spolupráci.",
@@ -267,9 +275,17 @@
         "message": " Když na mou ikonu kliknete poprvé, může se stát, že všechny sledovací prvky jsou zelené – ale nemějte strach! Jsem odlišný od ostatních programů pro blokování: místo toho, abych měl seznam věcí, které mám hned zablokovat, tak se učím, zatímco používáte internet. Pokud zatím nic neblokuji, zkuste navštívit 4 až 5 různých stránek. Potom už určitě nějaké blokovat budu.",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "ded_logging_into": {
         "message": "Přihlášení na ",
         "description": ""
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
         "message": "Zrušit",
@@ -329,10 +345,6 @@
     },
     "ded_on": {
         "message": " na ",
-        "description": ""
-    },
-    "new_filters_added": {
-        "message": "Nové filtry přidány; otevřete <a id='options_url' target='_blank'>Nastavení</a> pro jejich úpravu.",
         "description": ""
     },
     "intro_red": {

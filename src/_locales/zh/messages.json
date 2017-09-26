@@ -63,6 +63,10 @@
         "message": "报告错误",
         "description": ""
     },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
     "slideshow_4": {
         "message": " 如果你单击我的图标你可以看见在当前标签页上的潜在的跟踪器。",
         "description": ""
@@ -146,6 +150,10 @@
     "show_counter_checkbox": {
         "message": "显示屏蔽数目",
         "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "What is a tracker?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
         "message": " 你好，我是隐私獾！感谢你安装我。我在这儿为了给你有用的提示，我们可以一起工作。",
@@ -267,9 +275,17 @@
         "message": " 当你你第一次点击我的图标，你可能会发现所有的跟踪器是绿色——别担心！我与其他跟踪器屏蔽软件不同——我在你浏览网页时学习哪些是该屏蔽的，而不是一上来就根据已知的列表屏蔽。如果我啥都没开始屏蔽，你可以尝试浏览四到五个不同的网站。之后我就开始屏蔽常见的跟踪器。",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "ded_logging_into": {
         "message": "登录到 ",
         "description": ""
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
         "message": "取消",
@@ -329,10 +345,6 @@
     },
     "ded_on": {
         "message": " 开 ",
-        "description": ""
-    },
-    "new_filters_added": {
-        "message": "新的过滤已添加；点击 <a id='options_url' target='_blank'>选择</a> 以管理它们。",
         "description": ""
     },
     "intro_red": {

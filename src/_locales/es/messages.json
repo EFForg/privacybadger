@@ -63,6 +63,10 @@
         "message": "Reportar un error",
         "description": ""
     },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
     "slideshow_4": {
         "message": " If you click on my icon you can see the list of potential trackers on the current tab.",
         "description": ""
@@ -146,6 +150,10 @@
     "show_counter_checkbox": {
         "message": "Mostrar recuento de elementos bloqueados",
         "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "What is a tracker?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
         "message": " Hi, I'm Privacy Badger! Thanks for installing me. I'm here to give you some helpful tips, so we can work together.",
@@ -267,9 +275,17 @@
         "message": " The first time you click my icon you might see that all the trackers are green—don't worry! I'm different from other tracker blocking software—instead of knowing a list of things to block right away, I learn what to block as you browse. If I'm not blocking anything yet, try browsing around to 4 or 5 different websites. I should start blocking common trackers after that.",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "ded_logging_into": {
         "message": "Iniciar sesión ",
         "description": ""
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
         "message": "Cancelar",
@@ -329,10 +345,6 @@
     },
     "ded_on": {
         "message": " on ",
-        "description": ""
-    },
-    "new_filters_added": {
-        "message": "Nuevos filtros añadidos; vea <a id='options_url' target='_blank'>Opciones</a> para gestionarlas.",
         "description": ""
     },
     "intro_red": {

@@ -63,6 +63,10 @@
         "message": "Звіт про помилку",
         "description": ""
     },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
     "slideshow_4": {
         "message": " Якщо ви натиснете на мою піктограму, то побачите список потенційних елементів стеження поточної вкладки.",
         "description": ""
@@ -146,6 +150,10 @@
     "show_counter_checkbox": {
         "message": "Показувати лічильник заблокованих елементів",
         "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "What is a tracker?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
         "message": " Привіт, я Privacy Badger! Дякую, що встановили мене. Я тут для того, щоб дати вам кілька корисних порад, щоб ми змогли працювати разом.",
@@ -267,9 +275,17 @@
         "message": " Вперше натиснувши на мою піктограму ви можете побачити, що всі елементи стеження зеленого кольору — не хвилюйтесь! Я відрізняюсь від інших програм — замість блокування за списком відомих елементів стеження, я вивчаю що потрібно блокувати поки ви переглядаєте сторінки в Інтернеті. Якщо я ще нічого не блокую, спробуйте переглянути 4 чи 5 різних веб-сайтів. Після цього я почну блокувати загальні елементи стеження.",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "ded_logging_into": {
         "message": "Вхід до ",
         "description": ""
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
         "message": "Скасувати",
@@ -329,10 +345,6 @@
     },
     "ded_on": {
         "message": " для ",
-        "description": ""
-    },
-    "new_filters_added": {
-        "message": "Додано нові фільтри; дивіться <a id='options_url' target='_blank'>Налаштування</a> для керування ними.",
         "description": ""
     },
     "intro_red": {

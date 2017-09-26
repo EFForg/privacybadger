@@ -63,6 +63,10 @@
         "message": "Segnala un errore",
         "description": ""
     },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
     "slideshow_4": {
         "message": " Se clicchi l'icona di Privacy Badger vedrai l'elenco dei potenziali tracker nella scheda attuale.",
         "description": ""
@@ -146,6 +150,10 @@
     "show_counter_checkbox": {
         "message": "Mostra numero di elementi bloccati",
         "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "What is a tracker?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
         "message": " Ciao, sono Privacy Badger! Grazie per avermi installato. Sono qui per darti alcuni preziosi consigli, in modo che tutto funzioni al meglio.",
@@ -267,9 +275,17 @@
         "message": " La prima volta che clicchi sull'icona di Privacy Badger potresti notare che tutti i tracker sono verdi, non preoccuparti! A differenza di altri software simili, che utilizzano una lista predefinita di domini da bloccare, Privacy Badger impara cosa bloccare durante la navigazione. Se Privacy Badger non blocca ancora nulla, prova a visitare 4 o 5 siti diversi. A quel punto dovrebbe iniziare a bloccare i tracker più comuni.",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "ded_logging_into": {
         "message": "Accesso ",
         "description": ""
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
         "message": "Annulla",
@@ -329,10 +345,6 @@
     },
     "ded_on": {
         "message": " su ",
-        "description": ""
-    },
-    "new_filters_added": {
-        "message": "Aggiunti nuovi filtri; vedi le <a id='options_url' target='_blank'>Opzioni</a> per gestirli.",
         "description": ""
     },
     "intro_red": {

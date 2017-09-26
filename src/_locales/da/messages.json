@@ -63,6 +63,10 @@
         "message": "Rapporter en fejl",
         "description": ""
     },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
     "slideshow_4": {
         "message": " Hvis du klikker på mit ikon kan du se en liste af potentielle sporinger på den nuværende fane.",
         "description": ""
@@ -146,6 +150,10 @@
     "show_counter_checkbox": {
         "message": "Vis antal blokerede enheder",
         "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "What is a tracker?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
         "message": " Hej, jeg er Privacy Badger! Tak for at installere mig. Jeg er her for at give dig nogle hjælpsomme tips, så vi kan arbejde sammen.",
@@ -267,9 +275,17 @@
         "message": " Første gang du klikker på mit ikon vil du måske se at alle sporingerne er grønne—det er o.k! Jeg er anderledes end andet programmel der blokerer sporing—i stedet for at kende en liste af ting der skal blokeres med det samme, lærer jeg hvad der skal blokeres efterhånden som du læser på nettet. Hvis ikke jeg blokerer noget endnu så prøv at læse rundt på 4 eller 5 forskellige netsteder. Efter det skulle jeg begynde at blokere almindelige sporinger.",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "ded_logging_into": {
         "message": "Logger ind på ",
         "description": ""
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
         "message": "Annuller",
@@ -329,10 +345,6 @@
     },
     "ded_on": {
         "message": " på ",
-        "description": ""
-    },
-    "new_filters_added": {
-        "message": "Nye filtre tilføjet; se <a id='options_url' target='_blank'>Opsætning</a> for at håndtere dem.",
         "description": ""
     },
     "intro_red": {

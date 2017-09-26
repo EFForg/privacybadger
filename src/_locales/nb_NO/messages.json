@@ -63,6 +63,10 @@
         "message": "Innrapporter en feil",
         "description": ""
     },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
     "slideshow_4": {
         "message": " Hvis du klikker på ikonet mitt kan de se en liste over potensielle sporere i gjeldende fane.",
         "description": ""
@@ -146,6 +150,10 @@
     "show_counter_checkbox": {
         "message": "Vis antall blokkerte elementer",
         "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "What is a tracker?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
         "message": " Hei, jeg er Personvernsgrevlingen! Takk for at du installerte meg. Jeg er her for å gi deg nyttige tips, slik at vi kan jobbe sammen.",
@@ -267,9 +275,17 @@
         "message": " Første gang du kikker på ikonet mitt kan det hende at alle sporerne er grønne. Frykt ikke! Jeg er forskjellig fra annen blokkeringsprogramvare i det at jeg lærer hva som skal blokkeres mens du surfer i steden for å vite alt på forhånd. Hvis jeg ikke blokkerer noe enda, prøv å surfe rundt på 4-5 forskjellige nettsteder. Jeg burde ha begynt å blokkere vanlige sporere etter det.",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "ded_logging_into": {
         "message": "Å logge inn på ",
         "description": ""
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
         "message": "Avbryt",
@@ -329,10 +345,6 @@
     },
     "ded_on": {
         "message": " på ",
-        "description": ""
-    },
-    "new_filters_added": {
-        "message": "Nye filter har blitt lagt til; se <a id='options_url' target='_blank'>Valg</a> for å behandle dem.",
         "description": ""
     },
     "intro_red": {
