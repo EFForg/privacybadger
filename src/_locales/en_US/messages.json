@@ -331,10 +331,6 @@
         "message": " on ",
         "description": ""
     },
-    "new_filters_added": {
-        "message": "New filters added; see <a id='options_url' target='_blank'>Options</a> to manage them.",
-        "description": ""
-    },
     "intro_red": {
         "message": "Red",
         "description": ""
@@ -371,6 +367,10 @@
         "message": " If you want to change other settings, you can click this gear icon.",
         "description": ""
     },
+    "popup_help_button": {
+        "message": "Help",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
     "popup_options_button": {
         "message": "Options",
         "description": ""
@@ -406,5 +406,23 @@
     "slideshow_10": {
         "message": " If you think that I've made the wrong decision for a tracker, you can move the slider to red to block it, yellow to partly block it, and green to allow it.",
         "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "What is a tracker?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
+    },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
+    "share_button_title": {
+        "message": "Share on $SOCIAL_SERVICE$",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page.",
+        "placeholders": {
+            "social_service": {
+                "content": "$1",
+                "example": "Twitter"
+            }
+        }
     }
 }
