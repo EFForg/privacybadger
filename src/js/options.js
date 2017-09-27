@@ -15,7 +15,11 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
  // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
+
+const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
+
 /**
+ * TODO
  * @cooperq - 2016/12/05
  * This is a workaround for a bug in firefox 50.0.2 (no bugzilla id I could find)
  * This bug is fixed as of firefox 52.0 and the try/catch can be removed at that
@@ -135,9 +139,15 @@ function parseUserDataFile(storageMapsList) {
   try {
     lists = JSON.parse(storageMapsList);
   } catch (e) {
-    let invalidJSON = i18n.getMessage("invalid_json");
-    confirm(invalidJSON);
-    return;
+    return confirm(i18n.getMessage("invalid_json"));
+  }
+
+  // validate by checking we have the same keys in the import as in the export
+  if (!_.isEqual(
+    Object.keys(lists).sort(),
+    USER_DATA_EXPORT_KEYS.sort()
+  )) {
+    return confirm(i18n.getMessage("invalid_json"));
   }
 
   for (let map in lists) {
@@ -162,7 +172,7 @@ function parseUserDataFile(storageMapsList) {
  * in another instance of Privacy Badger.
  */
 function exportUserData() {
-  chrome.storage.local.get(["action_map", "snitch_map", "settings_map"], function(maps) {
+  chrome.storage.local.get(USER_DATA_EXPORT_KEYS, function (maps) {
 
     var mapJSON = JSON.stringify(maps);
 
