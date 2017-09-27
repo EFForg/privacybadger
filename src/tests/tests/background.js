@@ -3,6 +3,13 @@
 (function () {
 
   const DNT_COMPLIANT_DOMAIN = 'eff.org',
+    DNT_DOMAINS = [
+      DNT_COMPLIANT_DOMAIN,
+      'dnt2.example',
+      'dnt3.example',
+      'dnt4.example',
+      'dnt5.example',
+    ],
     POLICY_URL = chrome.extension.getURL('data/dnt-policy.txt');
 
   let utils = require('utils'),
@@ -25,11 +32,13 @@
         server = sinon.fakeServer.create({
           respondImmediately: true
         });
-        server.respondWith(
-          "GET",
-          "https://eff.org/.well-known/dnt-policy.txt",
-          [200, {}, dnt_policy_txt]
-        );
+        DNT_DOMAINS.forEach(domain => {
+          server.respondWith(
+            "GET",
+            "https://" + domain + "/.well-known/dnt-policy.txt",
+            [200, {}, dnt_policy_txt]
+          );
+        });
 
         // set up fake timers to simulate window.setTimeout and co.
         clock = sinon.useFakeTimers(+new Date());
@@ -60,12 +69,12 @@
 
     assert.expect(NUM_TESTS);
 
-    badger.checkForDNTPolicy(DNT_COMPLIANT_DOMAIN, 0, function (successStatus) {
+    badger.checkForDNTPolicy(DNT_COMPLIANT_DOMAIN, function (successStatus) {
       assert.ok(successStatus, "Domain returns good DNT policy");
       done();
     });
 
-    badger.checkForDNTPolicy('ecorp.example', 0, function (successStatus) {
+    badger.checkForDNTPolicy('ecorp.example', function (successStatus) {
       assert.notOk(successStatus, "Domain returns 200 but no valid policy");
       done();
     });
@@ -81,11 +90,7 @@
     badger.storage.touchDNTRecheckTime(DNT_COMPLIANT_DOMAIN, +new Date());
 
     for (let i = 0; i < NUM_CHECKS; i++) {
-      // mirroring call signature in js/heuristicblocking.js
-      badger.checkForDNTPolicy(
-        DNT_COMPLIANT_DOMAIN,
-        badger.storage.getNextUpdateForDomain(DNT_COMPLIANT_DOMAIN)
-      );
+      badger.checkForDNTPolicy(DNT_COMPLIANT_DOMAIN);
     }
 
     // advance the clock
@@ -100,7 +105,7 @@
   });
 
   QUnit.test("DNT checking is rate limited", (assert) => {
-    const NUM_TESTS = 5;
+    const NUM_TESTS = DNT_DOMAINS.length;
 
     let done = assert.async(NUM_TESTS);
 
@@ -108,8 +113,7 @@
 
     for (let i = 0; i < NUM_TESTS; i++) {
       badger.checkForDNTPolicy(
-        DNT_COMPLIANT_DOMAIN,
-        0,
+        DNT_DOMAINS[i],
         function () { // eslint-disable-line no-loop-func
           assert.equal(xhrSpy.callCount, i+1);
           clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
@@ -120,7 +124,7 @@
   });
 
   QUnit.test("DNT checking obeys user setting", (assert) => {
-    const NUM_TESTS = 5;
+    const NUM_TESTS = DNT_DOMAINS.length;
 
     let done = assert.async(NUM_TESTS);
     let old_dnt_check_func = badger.isCheckingDNTPolicyEnabled;
@@ -129,9 +133,7 @@
     badger.isCheckingDNTPolicyEnabled = () => false;
 
     for (let i = 0; i < NUM_TESTS; i++) {
-      badger.checkForDNTPolicy(
-        DNT_COMPLIANT_DOMAIN,
-        0);
+      badger.checkForDNTPolicy(DNT_DOMAINS[i]);
       clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
       assert.equal(xhrSpy.callCount, 0);
       done();

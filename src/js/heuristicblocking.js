@@ -122,7 +122,7 @@ HeuristicBlocker.prototype = {
     }
 
     window.setTimeout(function () {
-      badger.checkForDNTPolicy(fqdn, badger.storage.getNextUpdateForDomain(fqdn));
+      badger.checkForDNTPolicy(fqdn);
     }, 10);
 
     // abort if we already made a decision for this FQDN

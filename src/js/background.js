@@ -366,20 +366,20 @@ Badger.prototype = {
   * Checks a domain for the EFF DNT policy.
   *
   * @param {String} domain The domain to check
-  * @param {timestamp} nextUpdate Time when the DNT policy should be rechecked
   * @param {Function} cb Callback that receives check status boolean (optional)
   */
-  checkForDNTPolicy: function (domain, nextUpdate, cb) {
-    if (Date.now() < nextUpdate) {
+  checkForDNTPolicy: function (domain, cb) {
+    var badger = this,
+      next_update = badger.storage.getNextUpdateForDomain(domain);
+
+    if (Date.now() < next_update) {
       // not yet time
       return;
     }
 
-    var badger = this;
-
-    if (! badger.isCheckingDNTPolicyEnabled()) {
+    if (!badger.isCheckingDNTPolicyEnabled()) {
       // user has disabled this check
-      return ;
+      return;
     }
 
     log('Checking', domain, 'for DNT policy.');
