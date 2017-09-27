@@ -105,7 +105,7 @@
   });
 
   QUnit.test("DNT checking is rate limited", (assert) => {
-    const NUM_TESTS = 5;
+    const NUM_TESTS = DNT_DOMAINS.length;
 
     let done = assert.async(NUM_TESTS);
 
@@ -124,7 +124,7 @@
   });
 
   QUnit.test("DNT checking obeys user setting", (assert) => {
-    const NUM_TESTS = 5;
+    const NUM_TESTS = DNT_DOMAINS.length;
 
     let done = assert.async(NUM_TESTS);
     let old_dnt_check_func = badger.isCheckingDNTPolicyEnabled;
@@ -133,7 +133,7 @@
     badger.isCheckingDNTPolicyEnabled = () => false;
 
     for (let i = 0; i < NUM_TESTS; i++) {
-      badger.checkForDNTPolicy(DNT_COMPLIANT_DOMAIN);
+      badger.checkForDNTPolicy(DNT_DOMAINS[i]);
       clock.tick(constants.DNT_POLICY_CHECK_INTERVAL);
       assert.equal(xhrSpy.callCount, 0);
       done();

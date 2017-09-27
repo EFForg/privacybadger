@@ -377,9 +377,9 @@ Badger.prototype = {
       return;
     }
 
-    if (! badger.isCheckingDNTPolicyEnabled()) {
+    if (!badger.isCheckingDNTPolicyEnabled()) {
       // user has disabled this check
-      return ;
+      return;
     }
 
     log('Checking', domain, 'for DNT policy.');
