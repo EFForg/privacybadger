@@ -297,7 +297,7 @@ function refreshPopup(tabId) {
 
   if (nonTracking.length > 0) {
     printable.push(
-      '<div class="clicker tooltip" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
+      '<div class="clicker tooltip" id="nonTrackers" title="'+nonTrackerTooltip+'" data-tooltipster=\'{"side":"top"}\'>'+nonTrackerText+'</div>'
     );
     for (let i = 0; i < nonTracking.length; i++) {
       printable.push(

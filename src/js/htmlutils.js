@@ -23,9 +23,6 @@ var constants = chrome.extension.getBackgroundPage().constants;
 
 const UNDO_ARROW_TOOLTIP_TEXT = i18n.getMessage('feed_the_badger_title');
 
-// Ugly HTML helpers.
-// TODO: Some or all of these should be replace but have been moved here to
-// eliminate code duplication elsewhere.
 var exports = {};
 var htmlUtils = exports.htmlUtils = {
 
@@ -33,6 +30,23 @@ var htmlUtils = exports.htmlUtils = {
   DOMAIN_TOOLTIP_CONF: {
     delay: 100,
     side: 'bottom',
+
+    // allow per-instance option overriding
+    functionInit: function (instance, helper) {
+      let dataOptions = helper.origin.dataset.tooltipster;
+
+      if (dataOptions) {
+        try {
+          dataOptions = JSON.parse(dataOptions);
+        } catch (e) {
+          console.error(e);
+        }
+
+        for (let name in dataOptions) {
+          instance.option(name, dataOptions[name]);
+        }
+      }
+    },
   },
 
   /**
