@@ -29,6 +29,11 @@ const UNDO_ARROW_TOOLTIP_TEXT = i18n.getMessage('feed_the_badger_title');
 var exports = {};
 var htmlUtils = exports.htmlUtils = {
 
+  // Tooltipster config for domain list tooltips
+  DOMAIN_TOOLTIP_CONF: {
+    delay: 100,
+    side: 'bottom',
+  },
 
   /**
    * Determines if radio input is checked based on origin's action.
@@ -82,9 +87,9 @@ var htmlUtils = exports.htmlUtils = {
     var toggleHtml = '' +
       '<div class="switch-container ' + action + '">' +
       '<div class="switch-toggle switch-3 switch-candy">' +
-      '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label title="click here to block this tracker entirely" class="actionToggle" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
-      '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label title="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
-      '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label title="click here to allow this tracker" class="actionToggle" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
+      '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label title="click here to block this tracker entirely" class="actionToggle tooltip" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
+      '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label title="click here to block this tracker from setting cookies" class="actionToggle tooltip" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
+      '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label title="click here to allow this tracker" class="actionToggle tooltip" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
       '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
     return toggleHtml;
   },
@@ -103,9 +108,9 @@ var htmlUtils = exports.htmlUtils = {
       '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
       '<div class="keyContainer">' +
       '<div class="key">' +
-      '<img src="/icons/UI-icons-red.svg" title="' + i18n.getMessage("tooltip_block") + '">' +
-      '<img src="/icons/UI-icons-yellow.svg" title="' + i18n.getMessage("tooltip_cookieblock") + '">' +
-      '<img src="/icons/UI-icons-green.svg" title="' + i18n.getMessage("tooltip_allow") + '">' +
+      '<img src="/icons/UI-icons-red.svg" class="tooltip" title="' + i18n.getMessage("tooltip_block") + '">' +
+      '<img src="/icons/UI-icons-yellow.svg" class="tooltip" title="' + i18n.getMessage("tooltip_cookieblock") + '">' +
+      '<img src="/icons/UI-icons-green.svg" class="tooltip" title="' + i18n.getMessage("tooltip_allow") + '">' +
       '</div></div>' +
       '<div class="spacer"></div>' +
       '<div id="blockedResourcesInner" class="clickerContainer"></div>';
@@ -121,10 +126,11 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} Origin HTML.
    */
   getOriginHtml: function(origin, action, isWhitelisted) {
-    // Get classes for main div.
-    var classes = ['clicker'];
     action = _.escape(action);
     origin = _.escape(origin);
+
+    // Get classes for main div.
+    var classes = ['clicker'];
     if (action.indexOf('user') === 0) {
       classes.push('userset');
       action = action.substr(5);
@@ -132,7 +138,6 @@ var htmlUtils = exports.htmlUtils = {
     if (action === constants.BLOCK || action === constants.COOKIEBLOCK || action === constants.ALLOW || action === constants.NO_TRACKING) {
       classes.push(action);
     }
-    var classText = 'class="' + classes.join(' ') + '"';
 
     // If origin has been whitelisted set text for DNT.
     var whitelistedText = '';
@@ -148,11 +153,11 @@ var htmlUtils = exports.htmlUtils = {
     // Construct HTML for origin.
     var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
     var originHtml = '' +
-      '<div ' + classText + ' data-origin="' + origin + '" title="' + actionDescription + '" data-original-action="' + action + '">' +
-      '<div class="origin">' + whitelistedText + origin + '</div>' +
+      '<div class="' + classes.join(' ') + '" data-origin="' + origin + '" data-original-action="' + action + '">' +
+      '<div class="origin tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</div>' +
       '<div class="removeOrigin">&#10006</div>' +
       htmlUtils.getToggleHtml(origin, action) +
-      '<div class="honeybadgerPowered" title="'+ UNDO_ARROW_TOOLTIP_TEXT + '"></div>' +
+      '<div class="honeybadgerPowered tooltip" title="'+ UNDO_ARROW_TOOLTIP_TEXT + '"></div>' +
       '</div>';
 
     return originHtml;

@@ -55,8 +55,11 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         # Check that origin is displayed.
         try:
             origins.find_element_by_xpath(
-                './/div[@data-origin="pbtest.org"]' +
-                '//div[@class="origin" and text()="pbtest.org"]')
+                './/div[@data-origin="pbtest.org"]'
+                # test that "origin" is one of the classes on the element:
+                # https://stackoverflow.com/a/1390680
+                '//div[contains(concat(" ", normalize-space(@class), " "), " origin ") and text()="pbtest.org"]'
+            )
         except NoSuchElementException:
             self.fail("Tracking origin is not displayed")
 

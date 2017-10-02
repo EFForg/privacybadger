@@ -252,14 +252,22 @@ function registerToggleHandlers() {
 function refreshPopup(tabId) {
   //TODO this is calling get action and then being used to call get Action
   var origins = badger.getAllOriginsForTab(tabId);
+
   if (!origins || origins.length === 0) {
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
     $('#number_trackers').text('0');
+
+    // activate tooltips
+    $('.tooltip').tooltipster();
+
     return;
   }
 
   // Get containing HTML for domain list along with toggle legend icons.
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
+
+  // activate tooltips
+  $('.tooltip').tooltipster();
 
   var printable = [];
   var nonTracking = [];
@@ -289,7 +297,7 @@ function refreshPopup(tabId) {
 
   if (nonTracking.length > 0) {
     printable.push(
-      '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
+      '<div class="clicker tooltip" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
     );
     for (let i = 0; i < nonTracking.length; i++) {
       printable.push(
@@ -314,6 +322,10 @@ function refreshPopup(tabId) {
 
     $printable.appendTo('#blockedResourcesInner');
 
+    // activate tooltips
+    $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
+      htmlUtils.DOMAIN_TOOLTIP_CONF);
+
     if (printable.length) {
       requestAnimationFrame(renderDomains);
     }
@@ -326,7 +338,7 @@ function refreshPopup(tabId) {
 *
 * @param event
 */
-function updateOrigin(event){
+function updateOrigin(event) {
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
@@ -339,10 +351,12 @@ function updateOrigin(event){
   htmlUtils.toggleBlockedStatus($($clicker), action);
 
   // reinitialize the domain tooltip
-  $clicker.attr(
+  $clicker.find('.origin').tooltipster('destroy');
+  $clicker.find('.origin').attr(
     'title',
     htmlUtils.getActionDescription(action, $clicker.data('origin'))
   );
+  $clicker.find('.origin').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 }
 
 /**
