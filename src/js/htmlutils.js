@@ -64,7 +64,7 @@ var htmlUtils = exports.htmlUtils = {
       allow: i18n.getMessage('badger_status_allow'),
       dntTooltip: i18n.getMessage('dnt_tooltip')
     };
-    return function(action, origin, isWhitelisted) {
+    return function (action, origin, isWhitelisted) {
       var rv_action = actionDescriptions[action];
       if (typeof(isWhitelisted) !== 'undefined' && isWhitelisted) {
         return actionDescriptions.dntTooltip;
@@ -82,17 +82,27 @@ var htmlUtils = exports.htmlUtils = {
    * @param {String} action Current action of given origin.
    * @returns {String} HTML for toggle switch.
    */
-  getToggleHtml: function(origin, action) {
-    var originId = origin.replace(/\./g, '-');
-    var toggleHtml = '' +
-      '<div class="switch-container ' + action + '">' +
-      '<div class="switch-toggle switch-3 switch-candy">' +
-      '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label title="' + i18n.getMessage('domain_slider_block_tooltip') + '" class="actionToggle tooltip" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
-      '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label title="' + i18n.getMessage('domain_slider_cookieblock_tooltip') + '" class="actionToggle tooltip" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
-      '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label title="' + i18n.getMessage('domain_slider_allow_tooltip') + '" class="actionToggle tooltip" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
-      '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
-    return toggleHtml;
-  },
+  getToggleHtml: (function () {
+    let tooltips = {
+      block: i18n.getMessage('domain_slider_block_tooltip'),
+      cookieblock: i18n.getMessage('domain_slider_cookieblock_tooltip'),
+      allow: i18n.getMessage('domain_slider_allow_tooltip')
+    };
+
+    return function (origin, action) {
+      var originId = origin.replace(/\./g, '-');
+
+      var toggleHtml = '' +
+        '<div class="switch-container ' + action + '">' +
+        '<div class="switch-toggle switch-3 switch-candy">' +
+        '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label title="' + tooltips.block + '" class="actionToggle tooltip" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
+        '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label title="' + tooltips.cookieblock + '" class="actionToggle tooltip" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
+        '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label title="' + tooltips.allow + '" class="actionToggle tooltip" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
+        '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
+
+      return toggleHtml;
+    };
+  }()),
 
   /**
    * Get HTML for tracker container.
