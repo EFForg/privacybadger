@@ -21,6 +21,8 @@ require.scopes.htmlutils = (function() {
 
 var constants = chrome.extension.getBackgroundPage().constants;
 
+const UNDO_ARROW_TOOLTIP_TEXT = i18n.getMessage('feed_the_badger_title');
+
 // Ugly HTML helpers.
 // TODO: Some or all of these should be replace but have been moved here to
 // eliminate code duplication elsewhere.
@@ -121,12 +123,10 @@ var htmlUtils = exports.htmlUtils = {
    */
   getOriginHtml: function(origin, action, isWhitelisted, subdomainCount) {
     // Get classes for main div.
-    var tooltipText = '';
     var classes = ['clicker'];
     action = _.escape(action);
     origin = _.escape(origin);
     if (action.indexOf('user') === 0) {
-      tooltipText = i18n.getMessage('feed_the_badger_title');
       classes.push('userset');
       action = action.substr(5);
     }
@@ -159,7 +159,7 @@ var htmlUtils = exports.htmlUtils = {
       '<div class="origin">' + whitelistedText + origin + subdomainText + '</div>' +
       '<div class="removeOrigin">&#10006</div>' +
       htmlUtils.getToggleHtml(origin, action) +
-      '<div class="honeybadgerPowered" title="'+ tooltipText + '"></div>' +
+      '<div class="honeybadgerPowered" title="'+ UNDO_ARROW_TOOLTIP_TEXT + '"></div>' +
       '</div>';
 
     return originHtml;
