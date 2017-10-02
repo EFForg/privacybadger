@@ -439,10 +439,10 @@ function showTrackingDomains(domains) {
       trackingDetails += htmlUtils.getOriginHtml(trackingDomain, action, action == constants.DNT);
     }
   }
-  trackingDetails += '</div>';
 
   // Display tracking domains.
   $('#blockedResourcesInner').html(trackingDetails);
+
   $('#blockedResourcesInner').off('scroll');
   $('#blockedResourcesInner').scroll(domains, addOrigins);
 
