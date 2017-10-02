@@ -68,7 +68,13 @@ function loadOptions() {
   });
 
   // Display jQuery UI elements
-  $("#tabs").tabs();
+  $("#tabs").tabs({
+    activate: function (event, ui) {
+      // update options page URL fragment identifier
+      // to preserve selected tab on page reload
+      window.location.hash = ui.newPanel.attr('id');
+    }
+  });
   $("button").button();
   $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
