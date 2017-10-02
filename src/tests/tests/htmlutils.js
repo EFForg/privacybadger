@@ -111,14 +111,12 @@
         origin: "pbtest.org",
         action: "allow",
         isWhitelisted: false,
-        subdomainCount: 3,
       },
       {
         existingHtml: '<div id="existinghtml"></div>',
         origin: "pbtest.org",
         action: "block",
         isWhitelisted: true,
-        subdomainCount: 0,
       },
     ];
 
@@ -128,10 +126,9 @@
       var origin = tests[i].origin;
       var action = tests[i].action;
       var isWhitelisted = tests[i].isWhitelisted;
-      var subdomainCount = tests[i].subdomainCount;
 
       var htmlResult = existingHtml + htmlUtils.getOriginHtml(
-        origin, action, isWhitelisted, subdomainCount);
+        origin, action, isWhitelisted);
 
       // Make sure existing HTML is present.
       var existingHtmlExists = htmlResult.indexOf(existingHtml) > -1;
@@ -142,11 +139,6 @@
       assert.ok(originDataExists, "Origin should be set");
       var originalActionExists = htmlResult.indexOf('data-original-action="' + action + '"') > -1;
       assert.ok(originalActionExists, "Original action should be set");
-
-      // Check for presence of subdomain count.
-      var countExists = htmlResult.indexOf(subdomainCount + " subdomains") > 0;
-      assert.equal(countExists, subdomainCount > 0,
-        "Subdomain count should " + ((countExists) ? "": "not ") + "be present");
 
       // Check for presence of DNT content.
       var dntExists = htmlResult.indexOf('id="dnt-compliant"') > -1;

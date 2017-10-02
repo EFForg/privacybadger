@@ -118,10 +118,9 @@ var htmlUtils = exports.htmlUtils = {
    * @param {String} origin Origin to get HTML for.
    * @param {String} action Action for given origin.
    * @param {Boolean} isWhitelisted Whether origin is whitelisted or not.
-   * @param {Integer} subdomainCount Number of subdomains for given origin.
    * @returns {String} Origin HTML.
    */
-  getOriginHtml: function(origin, action, isWhitelisted, subdomainCount) {
+  getOriginHtml: function(origin, action, isWhitelisted) {
     // Get classes for main div.
     var classes = ['clicker'];
     action = _.escape(action);
@@ -146,17 +145,11 @@ var htmlUtils = exports.htmlUtils = {
         '"></a></div>';
     }
 
-    // If there are multiple subdomains set text showing count.
-    var subdomainText = '';
-    if (subdomainCount) {
-      subdomainText = ' (' + subdomainCount + ' subdomains)';
-    }
-
     // Construct HTML for origin.
     var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
     var originHtml = '' +
       '<div ' + classText + ' data-origin="' + origin + '" title="' + actionDescription + '" data-original-action="' + action + '">' +
-      '<div class="origin">' + whitelistedText + origin + subdomainText + '</div>' +
+      '<div class="origin">' + whitelistedText + origin + '</div>' +
       '<div class="removeOrigin">&#10006</div>' +
       htmlUtils.getToggleHtml(origin, action) +
       '<div class="honeybadgerPowered" title="'+ UNDO_ARROW_TOOLTIP_TEXT + '"></div>' +

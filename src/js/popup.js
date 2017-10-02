@@ -219,32 +219,6 @@ function revertDomainControl(e){
   return false;
 }
 
-/**
-* this is a terrible function that repeats
-* a lot of the work that getAction does
-* because getAction stores things in mysery
-* land and there's no real way to get what's
-* in the ABP filters without repeatedly
-* querying them
-*/
-//TODO re-write this by having get best action return the domain the rule
-// comes from, and combine that way?
-function getTopLevel(action, origin/*, tabId*/){
-  //  if (action == "usercookieblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return  top;
-  //  }
-  //  if (action == "userblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
-  //  if (action == "usernoaction"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
-  return origin;
-}
-
 function registerToggleHandlers() {
   var radios = $(this).children('input');
   var value = $(this).children('input:checked').val();
@@ -291,7 +265,6 @@ function refreshPopup(tabId) {
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
   var trackerCount = 0;
-  var compressedOrigins = {};
 
   for (let i=0; i < origins.length; i++) {
     var origin = origins[i];
@@ -301,23 +274,6 @@ function refreshPopup(tabId) {
     if (action == constants.NO_TRACKING) {
       nonTracking.push(origin);
       continue;
-
-    } else {
-      if (action.includes("user")) {
-        var prevOrigin = origin;
-        var baseDomain = backgroundPage.getBaseDomain(prevOrigin);
-        // TODO make some re-implementation of getBestAction that returns where the
-        // user rule is coming from
-        if (getTopLevel(action, origin, tabId) == baseDomain && baseDomain != origin){
-          origin = baseDomain;
-          if (compressedOrigins.hasOwnProperty(origin)){
-            compressedOrigins[origin].subs.push(prevOrigin.replace(origin, ''));
-            continue;
-          }
-          compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
-          continue;
-        }
-      }
     }
 
     if (action != constants.DNT) {
@@ -325,17 +281,6 @@ function refreshPopup(tabId) {
     }
     printable.push(
       htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
-    );
-  }
-
-  for (let key in compressedOrigins){
-    printable.push(
-      htmlUtils.getOriginHtml(
-        key,
-        compressedOrigins[key].action,
-        compressedOrigins[key].action == constants.DNT,
-        compressedOrigins[key].subs.length
-      )
     );
   }
 
