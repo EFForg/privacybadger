@@ -28,7 +28,11 @@ var HeuristicBlocking = require("heuristicblocking");
 var FirefoxAndroid = require("firefoxandroid");
 var webrequest = require("webrequest");
 var SocialWidgetLoader = require("socialwidgetloader");
-window.SocialWidgetList = SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json");
+
+window.SocialWidgetList = [];
+SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json", function(socialWidgets) {
+  window.SocialWidgetList = socialWidgets;
+});
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
