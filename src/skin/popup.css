@@ -85,10 +85,11 @@ a:hover { color: #ec9329 }
 }
 .clicker.greyed { background: #aaa; }
 .origin{
-  width: 60%;
+  max-width: 210px;
   color: #555555;
   float: left;
-  display: inline;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .removeOrigin {

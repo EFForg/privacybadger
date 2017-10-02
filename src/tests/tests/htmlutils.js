@@ -3,31 +3,6 @@
 
   var htmlUtils = require("htmlutils").htmlUtils;
 
-  QUnit.test("trim", function (assert) {
-    // Test parameters
-    var tests = [
-      {
-        inputString: "This is a test",
-        maxLength: 30,
-        expectedResult: "This is a test",
-      },
-      {
-        inputString: "This is a test",
-        maxLength: 10,
-        expectedResult: "This is...",
-      },
-    ];
-
-    // Run each test.
-    for (var i = 0; i < tests.length; i++) {
-      var inputString = tests[i].inputString;
-      var maxLength = tests[i].maxLength;
-      var expected = tests[i].expectedResult;
-      var message = "Inputs: '" + inputString + "' and " + maxLength;
-      assert.equal(htmlUtils.trim(inputString, maxLength), expected, message);
-    }
-  });
-
   QUnit.test("isChecked", function (assert) {
     // Test parameters
     var tests = [

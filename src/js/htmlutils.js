@@ -27,20 +27,6 @@ var constants = chrome.extension.getBackgroundPage().constants;
 var exports = {};
 var htmlUtils = exports.htmlUtils = {
 
-  /**
-   * Trims a given string to a given length if necessary.
-   *
-   * @param {String} inputString String to trim.
-   * @param {Integer} maxLength Length to trim inputString to.
-   * @returns {String} Trimmed string.
-   */
-  trim: function(inputString, maxLength) {
-    if (inputString.length > maxLength) {
-      return inputString.slice(0, maxLength - 3) + '...';
-    } else {
-      return inputString;
-    }
-  },
 
   /**
    * Determines if radio input is checked based on origin's action.
@@ -171,7 +157,7 @@ var htmlUtils = exports.htmlUtils = {
     var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
     var originHtml = '' +
       '<div ' + classText + ' data-origin="' + origin + '" tooltip="' + actionDescription + '" data-original-action="' + action + '">' +
-      '<div class="origin">' + whitelistedText + htmlUtils.trim(origin + subdomainText, 30) + '</div>' +
+      '<div class="origin">' + whitelistedText + origin + subdomainText + '</div>' +
       '<div class="removeOrigin">&#10006</div>' +
       htmlUtils.getToggleHtml(origin, action) +
       '<div class="honeybadgerPowered tooltip" tooltip="'+ tooltipText + '"></div>' +
