@@ -134,6 +134,7 @@ a:hover { color: #ec9329 }
   background-color: #339900;
 }
 .honeybadgerPowered{
+  display: none;
   margin-right: 10px;
   width: 20px;
   height: 20px;
@@ -143,6 +144,7 @@ a:hover { color: #ec9329 }
   cursor: pointer;
 }
 .userset .honeybadgerPowered{
+  display: block;
   background: url('/icons/badger-pin.png') no-repeat;
 }
 
