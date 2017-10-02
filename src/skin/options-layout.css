@@ -54,8 +54,7 @@ button
     padding:3px;
 }
 
-#tab-import-export {
-  width: 750px;
+#tab-manage-data {
   overflow: auto;
 }
 #import {
