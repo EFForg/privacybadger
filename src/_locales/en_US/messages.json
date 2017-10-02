@@ -426,5 +426,17 @@
     "slideshow_10": {
         "message": " If you think that I've made the wrong decision for a tracker, you can move the slider to red to block it, yellow to partly block it, and green to allow it.",
         "description": ""
+    },
+    "domain_slider_block_tooltip": {
+        "message": "click here to block this tracker entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "click here to block this tracker from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "click here to allow this tracker",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     }
 }
