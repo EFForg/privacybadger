@@ -164,14 +164,7 @@ font-size: 16px;
 #privacyBadgerHeader img{
   float: left;
 }
-#helplink {
-  padding-top: 5px;
-  color: #4183c4;
-}
-#thirdPartyCookiesError {
-  background-color: #f00;
-  color: #f0f0f0;
-}
+
 .ui-slider {
   opacity: 0;
   z-index: 20;
