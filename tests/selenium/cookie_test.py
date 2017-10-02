@@ -143,17 +143,17 @@ function setTabToUrl(query_url) {
         # wait for asynchronously-rendered tracker list to load
         WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(
             (By.CSS_SELECTOR,
-             "#blockedResourcesInner > div.clicker.tooltip")))
-        tooltips = self.driver.find_elements_by_css_selector("#blockedResourcesInner > div.clicker.tooltip")
-        for t in tooltips:
-            origin = t.get_attribute('data-origin')
+             "#blockedResourcesInner > div.clicker[data-origin]")))
+        domain_divs = self.driver.find_elements_by_css_selector("#blockedResourcesInner > div.clicker[data-origin]")
+        for div in domain_divs:
+            origin = div.get_attribute('data-origin')
 
             # assert that this origin is never duplicated in the UI
             self.assertTrue(origin not in self.nonTrackers)
             self.assertTrue(origin not in self.cookieBlocked)
             self.assertTrue(origin not in self.blocked)
 
-            action_type = t.get_attribute('data-original-action')
+            action_type = div.get_attribute('data-original-action')
             if action_type == 'allow':
                 self.nonTrackers[origin] = True
             elif action_type == 'noaction':

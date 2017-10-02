@@ -61,8 +61,6 @@ function loadOptions() {
   // Add event listeners for origins container.
   $(function () {
     $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
-    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
     $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
   });
@@ -368,7 +366,7 @@ function refreshFilterPage() {
   // Update tracking domain count.
   $("#count").text(allTrackingDomains.length);
 
-  // Display tracker tooltips.
+  // Get containing HTML for domain list along with toggle legend icons.
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // Display tracking domains.
@@ -516,9 +514,12 @@ function updateOrigin(event){
   var action = $elm.data('action');
   $switchContainer.removeClass([constants.BLOCK, constants.COOKIEBLOCK, constants.ALLOW, constants.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($($clicker), action);
-  var origin = $clicker.data('origin');
-  $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
-  $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
+
+  // reinitialize the domain tooltip
+  $clicker.attr(
+    'title',
+    htmlUtils.getActionDescription(action, $clicker.data('origin'))
+  );
 }
 
 /**
@@ -540,38 +541,6 @@ function removeOrigin(event) {
   backgroundPage.log('Removed', origin, 'from Privacy Badger');
 
   refreshFilterPage();
-}
-
-var tooltipDelay = 300;
-
-function displayTooltip(event){
-  var $elm = $(event.currentTarget);
-  var displayTipTimer = setTimeout(function(){
-    if(!$elm.attr('tooltip').length){ return; }
-    var $container = $elm.closest('.clicker').children('.tooltipContainer');
-    if($container.length === 0){
-      $container = $elm.siblings('.tooltipContainer');
-    }
-    $container.text($elm.attr('tooltip'));
-    $container.show();
-    $container.siblings('.tooltipArrow').show();
-  },tooltipDelay);
-  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);});
-}
-
-function hideTooltip(event){
-  var $elm = $(event.currentTarget);
-  var hideTipTimer = setTimeout(function(){
-    var $container = $elm.closest('.clicker').children('.tooltipContainer');
-    if($container.length === 0){
-      $container = $elm.siblings('.tooltipContainer');
-    }
-    if($container.is(':hidden')){return;}
-    $container.text('');
-    $container.hide();
-    $container.siblings('.tooltipArrow').hide();
-  },tooltipDelay);
-  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer);});
 }
 
 /**

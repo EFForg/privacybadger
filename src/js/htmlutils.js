@@ -80,9 +80,9 @@ var htmlUtils = exports.htmlUtils = {
     var toggleHtml = '' +
       '<div class="switch-container ' + action + '">' +
       '<div class="switch-toggle switch-3 switch-candy">' +
-      '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
-      '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
-      '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label tooltip="click here to allow this tracker" class="actionToggle" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
+      '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label title="click here to block this tracker entirely" class="actionToggle" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
+      '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label title="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
+      '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label title="click here to allow this tracker" class="actionToggle" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
       '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
     return toggleHtml;
   },
@@ -101,10 +101,9 @@ var htmlUtils = exports.htmlUtils = {
       '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
       '<div class="keyContainer">' +
       '<div class="key">' +
-      '<img class="tooltip" src="/icons/UI-icons-red.svg" tooltip="' + i18n.getMessage("tooltip_block") + '">' +
-      '<img class="tooltip" src="/icons/UI-icons-yellow.svg" tooltip="' + i18n.getMessage("tooltip_cookieblock") + '">' +
-      '<img class="tooltip" src="/icons/UI-icons-green.svg" tooltip="' + i18n.getMessage("tooltip_allow") + '">' +
-      '<div class="tooltipContainer"></div>' +
+      '<img src="/icons/UI-icons-red.svg" title="' + i18n.getMessage("tooltip_block") + '">' +
+      '<img src="/icons/UI-icons-yellow.svg" title="' + i18n.getMessage("tooltip_cookieblock") + '">' +
+      '<img src="/icons/UI-icons-green.svg" title="' + i18n.getMessage("tooltip_allow") + '">' +
       '</div></div>' +
       '<div class="spacer"></div>' +
       '<div id="blockedResourcesInner" class="clickerContainer"></div>';
@@ -121,9 +120,9 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} Origin HTML.
    */
   getOriginHtml: function(origin, action, isWhitelisted, subdomainCount) {
-    // Get classes for main div and tooltip text for inner div.
+    // Get classes for main div.
     var tooltipText = '';
-    var classes = ['clicker', 'tooltip'];
+    var classes = ['clicker'];
     action = _.escape(action);
     origin = _.escape(origin);
     if (action.indexOf('user') === 0) {
@@ -156,14 +155,11 @@ var htmlUtils = exports.htmlUtils = {
     // Construct HTML for origin.
     var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
     var originHtml = '' +
-      '<div ' + classText + ' data-origin="' + origin + '" tooltip="' + actionDescription + '" data-original-action="' + action + '">' +
+      '<div ' + classText + ' data-origin="' + origin + '" title="' + actionDescription + '" data-original-action="' + action + '">' +
       '<div class="origin">' + whitelistedText + origin + subdomainText + '</div>' +
       '<div class="removeOrigin">&#10006</div>' +
       htmlUtils.getToggleHtml(origin, action) +
-      '<div class="honeybadgerPowered tooltip" tooltip="'+ tooltipText + '"></div>' +
-      '<img class="tooltipArrow" src="/icons/badger-tb-arrow.png">' +
-      '<div class="clear"></div>' +
-      '<div class="tooltipContainer"></div>' +
+      '<div class="honeybadgerPowered" title="'+ tooltipText + '"></div>' +
       '</div>';
 
     return originHtml;

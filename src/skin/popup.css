@@ -145,25 +145,7 @@ a:hover { color: #ec9329 }
 .userset .honeybadgerPowered{
   background: url('/icons/badger-pin.png') no-repeat;
 }
-.tooltipContainer{
-display: none;
-clear: both;
-color: #fcfcfc;
-font-size: 12px;
-background-color: #555;
-height: 12px;
-border-radius: 7px;
-padding: 3px;
-position: relative;
-bottom: 30px;
-left: 0;
-}
-.tooltipArrow{
-  position: relative;
-  bottom: 30px;
-  left: 5px;
-  display: none;
-}
+
 #privacyBadgerHeader{
 color: #505050;
 font-size: 16px;
@@ -240,12 +222,6 @@ font-size: 16px;
 }
 .key img{
   margin-left: 19px;
-}
-.key .tooltipContainer{
-  position: absolute;
-  left: 3px;
-  top:-1;
-  box-shadow: 0px 5px 5px #000;
 }
 #instruction-outer {
   display: none;

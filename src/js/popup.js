@@ -90,8 +90,6 @@ function init() {
   });
   $(document).ready(function () {
     $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
-    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   });
 
@@ -286,7 +284,7 @@ function refreshPopup(tabId) {
     return;
   }
 
-  // Display tracker tooltips.
+  // Get containing HTML for domain list along with toggle legend icons.
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
 
   var printable = [];
@@ -394,51 +392,12 @@ function updateOrigin(event){
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($($clicker), action);
-  var origin = $clicker.data('origin');
-  $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
-  $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
-}
 
-var tooltipDelay = 300;
-
-/**
-* Show tooltip for elements
-*
-* @param event
-*/
-function displayTooltip(event){
-  var $elm = $(event.currentTarget);
-  var displayTipTimer = setTimeout(function(){
-    if($elm.attr('tooltip').length === 0){ return; }
-    var $container = $elm.closest('.clicker').children('.tooltipContainer');
-    if($container.length === 0){
-      $container = $elm.siblings('.tooltipContainer');
-    }
-    $container.text($elm.attr('tooltip'));
-    $container.show();
-    $container.siblings('.tooltipArrow').show();
-  },tooltipDelay);
-  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);});
-}
-
-/**
-* Hide tooltip for element
-*
-* @param event
-*/
-function hideTooltip(event){
-  var $elm = $(event.currentTarget);
-  var hideTipTimer = setTimeout(function(){
-    var $container = $elm.closest('.clicker').children('.tooltipContainer');
-    if($container.length === 0){
-      $container = $elm.siblings('.tooltipContainer');
-    }
-    if($container.is(':hidden')){return;}
-    $container.text('');
-    $container.hide();
-    $container.siblings('.tooltipArrow').hide();
-  },tooltipDelay);
-  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer);});
+  // reinitialize the domain tooltip
+  $clicker.attr(
+    'title',
+    htmlUtils.getActionDescription(action, $clicker.data('origin'))
+  );
 }
 
 /**
