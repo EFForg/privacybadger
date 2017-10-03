@@ -4,8 +4,7 @@
 import time
 import unittest
 import pbtest
-from selenium.common.exceptions import (
-    NoSuchElementException, StaleElementReferenceException, TimeoutException)
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
@@ -13,6 +12,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
+
+    def wait_for_page_to_start_loading(self, url):
+        """Waits until the title element is present. Used to work around
+        Firefox not updating self.driver.current_url fast enough."""
+        try:
+            WebDriverWait(self.driver, 10).until(
+                expected_conditions.presence_of_element_located(
+                    (By.CSS_SELECTOR, "title")))
+        except TimeoutException:
+            self.fail("Timed out waiting for %s to start loading" % url)
 
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
@@ -118,6 +127,9 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_trackers_link(self):
         """Ensure trackers link opens EFF website."""
+
+        EFF_URL = "https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?"
+
         self.open_popup()
 
         try:
@@ -129,7 +141,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         trackers_link.click()
 
         # Make sure EFF website not opened in same window.
-        time.sleep(5)
         if self.driver.current_url != self.popup_url:
             self.fail("EFF website not opened in new window")
 
@@ -137,9 +148,10 @@ class PopupTest(pbtest.PBSeleniumTest):
         new_handle = set(self.driver.window_handles).difference(handles_before)
         self.driver.switch_to.window(new_handle.pop())
 
-        eff_url = "https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?"
-        self.assertEqual(self.driver.current_url, eff_url,
-            "EFF website should open after clicking donate button on popup")
+        self.wait_for_page_to_start_loading(EFF_URL)
+
+        self.assertEqual(self.driver.current_url, EFF_URL,
+            "EFF website should open after clicking trackers link on popup")
 
     def test_disable_enable_buttons(self):
         """Ensure disable/enable buttons change popup state."""
@@ -206,6 +218,9 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_donate_button(self):
         """Ensure donate button opens EFF website."""
+
+        EFF_URL = "https://supporters.eff.org/donate/support-privacy-badger"
+
         self.open_popup()
 
         try:
@@ -217,7 +232,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         donate_button.click()
 
         # Make sure EFF website not opened in same window.
-        time.sleep(5)
         if self.driver.current_url != self.popup_url:
             self.fail("EFF website not opened in new window")
 
@@ -225,8 +239,9 @@ class PopupTest(pbtest.PBSeleniumTest):
         new_handle = set(self.driver.window_handles).difference(handles_before)
         self.driver.switch_to.window(new_handle.pop())
 
-        eff_url = "https://supporters.eff.org/donate/support-privacy-badger"
-        self.assertEqual(self.driver.current_url, eff_url,
+        self.wait_for_page_to_start_loading(EFF_URL)
+
+        self.assertEqual(self.driver.current_url, EFF_URL,
             "EFF website should open after clicking donate button on popup")
 
 
