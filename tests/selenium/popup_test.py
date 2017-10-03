@@ -14,7 +14,7 @@ class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
     def wait_for_page_to_start_loading(self, url):
-        """Waits until the title element is present. Used to work around
+        """Wait until the title element is present. Use it to work around
         Firefox not updating self.driver.current_url fast enough."""
         try:
             WebDriverWait(self.driver, 10).until(
@@ -22,6 +22,24 @@ class PopupTest(pbtest.PBSeleniumTest):
                     (By.CSS_SELECTOR, "title")))
         except TimeoutException:
             self.fail("Timed out waiting for %s to start loading" % url)
+
+    def switch_to_new_window(self, handles_before, max_retries=5):
+        """Given a set of handles, switch with retrying to the first handle
+        that is not found in the original set."""
+
+        new_handle = set(self.driver.window_handles).difference(handles_before)
+
+        for _ in range(max_retries):
+            if not new_handle:
+                time.sleep(1)
+                new_handle = set(self.driver.window_handles).difference(handles_before)
+            else:
+                break
+
+        if not new_handle:
+            self.fail("Failed to find any new window handles")
+
+        self.driver.switch_to.window(new_handle.pop())
 
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
@@ -145,8 +163,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        new_handle = set(self.driver.window_handles).difference(handles_before)
-        self.driver.switch_to.window(new_handle.pop())
+        self.switch_to_new_window(handles_before)
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
@@ -236,8 +253,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        new_handle = set(self.driver.window_handles).difference(handles_before)
-        self.driver.switch_to.window(new_handle.pop())
+        self.switch_to_new_window(handles_before)
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
