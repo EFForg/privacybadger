@@ -23,7 +23,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             (By.CSS_SELECTOR, css_selector)))
 
     def select_domain_list_tab(self):
-        self.driver.find_element_by_css_selector('a[href="#tab-pb-status"]').click()
+        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
 
     def load_options_page(self):
         self.load_url(self.bg_url)  # load a dummy page
