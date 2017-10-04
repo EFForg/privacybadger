@@ -13,11 +13,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
-    def wait_for_page_to_start_loading(self, url):
+    def wait_for_page_to_start_loading(self, url, timeout=20):
         """Wait until the title element is present. Use it to work around
         Firefox not updating self.driver.current_url fast enough."""
         try:
-            WebDriverWait(self.driver, 10).until(
+            WebDriverWait(self.driver, timeout).until(
                 expected_conditions.presence_of_element_located(
                     (By.CSS_SELECTOR, "title")))
         except TimeoutException:
