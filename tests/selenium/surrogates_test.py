@@ -14,17 +14,14 @@ from selenium.webdriver.support import expected_conditions as EC
 from window_utils import switch_to_window_with_url
 
 
-WAIT_TIMEOUT = 5
-
-
 class Test(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
-    def load_ga_js_test_page(self):
+    def load_ga_js_test_page(self, timeout=10):
         # TODO update to pbtest.org URL
         # TODO and remove the HTML pages from eff.org then
         self.load_url("https://www.eff.org/files/pbtest/ga_js_surrogate_test.html")
-        wait = WebDriverWait(self.driver, WAIT_TIMEOUT)
+        wait = WebDriverWait(self.driver, timeout)
         wait.until(
             EC.frame_to_be_available_and_switch_to_it((By.TAG_NAME, 'iframe'))
         )
