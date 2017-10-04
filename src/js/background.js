@@ -191,15 +191,34 @@ Badger.prototype = {
   },
 
   /**
-   * Initialize the Cookieblock List:
-   * * Download list from eff
-   * * Merge with existing cookieblock list if any
-   * * Add any new domains to the action map
-   * Set a timer to update every 24 hours
-   **/
-  initializeCookieBlockList: function(){
-    this.updateCookieBlockList();
-    setInterval(this.updateCookieBlockList.bind(this), utils.oneDay());
+   * Initializes the yellowlist from disk, if first time initializing.
+   * Then updates to the latest yellowlist from eff.org.
+   * Sets up periodic yellowlist updating from eff.org.
+   */
+  initializeCookieBlockList: function () {
+    let self = this,
+      yellowlistStorage = self.storage.getBadgerStorageObject('cookieblock_list');
+
+    if (!_.size(yellowlistStorage.getItemClones())) {
+      // we don't have the yellowlist initialized yet
+      // first initialize from disk
+      utils.xhrRequest(constants.YELLOWLIST_LOCAL_URL, (error, response) => {
+        if (!error) {
+          self.storage.updateYellowlist(response.trim().split("\n"));
+        }
+
+        // get the latest yellowlist from eff.org
+        self.updateCookieBlockList();
+      });
+
+    } else {
+      // already got the yellowlist initialized
+      // get the latest yellowlist from eff.org
+      self.updateCookieBlockList();
+    }
+
+    // set up periodic fetching of the yellowlist from eff.org
+    setInterval(self.updateCookieBlockList.bind(self), utils.oneDay());
   },
 
   /**
@@ -234,13 +253,9 @@ Badger.prototype = {
   },
 
   /**
-  * Update the cookie block list with a new list
-  * add any new entries that already have a parent domain in the action_map
-  * and remove any old entries that are no longer in the cookie block list
-  * from the action map
-  *
-  * @param {Function} [callback] optional callback, gets success status boolean
-  **/
+   * Updates to the latest yellowlist from eff.org.
+   * @param {Function} [callback] optional callback, gets success status boolean
+   */
   updateCookieBlockList: function (callback) {
     var self = this;
 
@@ -300,11 +315,33 @@ Badger.prototype = {
   },
 
   /**
-  * Initialize DNT policy subsystem by downloading acceptable hashes from EFF
-  */
+   * Initializes DNT policy hashes from disk, if first time initializing.
+   * Then updates to the latest hashes from eff.org.
+   * Sets up periodic updating of hashes from eff.org.
+   */
   initializeDNT: function () {
-    this.updateDNTPolicyHashes();
-    setInterval(this.updateDNTPolicyHashes.bind(this), utils.oneDay() * 4);
+    let self = this;
+
+    if (!_.size(self.storage.getBadgerStorageObject('dnt_hashes').getItemClones())) {
+      // we don't have DNT hashes initialized yet
+      // first initialize from disk
+      utils.xhrRequest(constants.DNT_POLICIES_LOCAL_URL, (error, response) => {
+        if (!error) {
+          self.storage.updateDNTHashes(JSON.parse(response));
+        }
+
+        // get the latest hashes from eff.org
+        self.updateDNTPolicyHashes();
+      });
+
+    } else {
+      // already got DNT hashes initialized
+      // get the latest hashes from eff.org
+      self.updateDNTPolicyHashes();
+    }
+
+    // set up periodic fetching of hashes from eff.org
+    setInterval(self.updateDNTPolicyHashes.bind(self), utils.oneDay() * 4);
   },
 
   /**
