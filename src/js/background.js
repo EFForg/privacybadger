@@ -280,10 +280,10 @@ Badger.prototype = {
         return callback(false);
       }
 
-      var newCbDomains = response.trim().split("\n").map(domain => domain.trim());
+      var domains = response.trim().split("\n").map(domain => domain.trim());
 
       // validate the response
-      if (!_.every(newCbDomains, (domain) => {
+      if (!_.every(domains, (domain) => {
         // all domains must contain at least one dot
         if (domain.indexOf('.') == -1) {
           return false;
@@ -308,7 +308,7 @@ Badger.prototype = {
         return callback(false);
       }
 
-      self.storage.updateYellowlist(newCbDomains);
+      self.storage.updateYellowlist(domains);
 
       return callback(true);
     });

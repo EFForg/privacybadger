@@ -130,36 +130,36 @@ BadgerPen.prototype = {
    * For each added domain, sets it to be cookieblocked
    * if its parent domain is set to be blocked.
    *
-   * @param {Array} newCbDomains domains to use for the new yellowlist
+   * @param {Array} newDomains domains to use for the new yellowlist
    */
-  updateYellowlist: function (newCbDomains) {
-    let self = this;
+  updateYellowlist: function (newDomains) {
+    let self = this,
+      actionMap = self.getBadgerStorageObject('action_map'),
+      yellowlistStorage = self.getBadgerStorageObject('cookieblock_list'),
+      oldDomains = Object.keys(yellowlistStorage.getItemClones());
 
-    var cookieblock_list = self.getBadgerStorageObject('cookieblock_list');
-    var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
+    let addedDomains = _.difference(newDomains, oldDomains),
+      removedDomains = _.difference(oldDomains, newDomains);
 
-    var addedDomains = _.difference(newCbDomains, oldCbDomains);
-    var removedDomains = _.difference(oldCbDomains, newCbDomains);
-
-    log('adding to cookie blocklist:', addedDomains);
     log('removing from cookie blocklist:', removedDomains);
-
-    var action_map = self.getBadgerStorageObject('action_map');
-
-    _.each(removedDomains, function (domain) {
-      cookieblock_list.deleteItem(domain);
+    removedDomains.forEach(function (domain) {
+      yellowlistStorage.deleteItem(domain);
       // TODO restore domain removal logic:
       // https://github.com/EFForg/privacybadger/issues/1474
     });
 
-    // Add any new cookie block domains whose parent domain is already blocked
-    _.each(addedDomains, function(domain){
-      cookieblock_list.setItem(domain, true);
-      var baseDomain = window.getBaseDomain(domain);
-      if(action_map.hasItem(baseDomain) &&
-         _.contains([constants.BLOCK, constants.COOKIEBLOCK],
-                    action_map.getItem(baseDomain).heuristicAction)){
-        self.setupHeuristicAction(domain, constants.COOKIEBLOCK);
+    log('adding to cookie blocklist:', addedDomains);
+    addedDomains.forEach(function (domain) {
+      yellowlistStorage.setItem(domain, true);
+
+      let base_domain = window.getBaseDomain(domain);
+      if (actionMap.hasItem(base_domain)) {
+        let action = actionMap.getItem(base_domain).heuristicAction;
+        // if the domain's base domain is marked for blocking
+        if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
+          // cookieblock the domain
+          self.setupHeuristicAction(domain, constants.COOKIEBLOCK);
+        }
       }
     });
   },
