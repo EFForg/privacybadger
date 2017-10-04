@@ -16,7 +16,6 @@ if [ -n "$1" ]; then
   # clean up
   rm -rf src/tests # remove unit tests
   rm src/data/dnt-policy.txt # only used by unit tests
-  rm src/data/dnt-policies.json # unused
   cp LICENSE src/ # include LICENSE in build
 
 else
