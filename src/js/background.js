@@ -293,33 +293,7 @@ Badger.prototype = {
         return callback(false);
       }
 
-      var cookieblock_list = self.storage.getBadgerStorageObject('cookieblock_list');
-      var oldCbDomains = Object.keys(cookieblock_list.getItemClones());
-
-      var addedDomains = _.difference(newCbDomains, oldCbDomains);
-      var removedDomains = _.difference(oldCbDomains, newCbDomains);
-
-      log('adding to cookie blocklist:', addedDomains);
-      log('removing from cookie blocklist:', removedDomains);
-
-      var action_map = self.storage.getBadgerStorageObject('action_map');
-
-      _.each(removedDomains, function (domain) {
-        cookieblock_list.deleteItem(domain);
-        // TODO restore domain removal logic:
-        // https://github.com/EFForg/privacybadger/issues/1474
-      });
-
-      // Add any new cookie block domains whose parent domain is already blocked
-      _.each(addedDomains, function(domain){
-        cookieblock_list.setItem(domain, true);
-        var baseDomain = window.getBaseDomain(domain);
-        if(action_map.hasItem(baseDomain) &&
-           _.contains([constants.BLOCK, constants.COOKIEBLOCK],
-                      action_map.getItem(baseDomain).heuristicAction)){
-          self.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
-        }
-      });
+      self.storage.updateYellowlist(newCbDomains);
 
       return callback(true);
     });
