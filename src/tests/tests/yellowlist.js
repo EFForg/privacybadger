@@ -43,7 +43,7 @@
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, Object.keys(ylist).join("\n")]);
 
-    badger.updateCookieBlockList(function (success) {
+    badger.updateYellowlist(function (success) {
       assert.ok(success, "Callback status indicates success");
       assert.deepEqual(get_ylist(), ylist, "List got updated");
       done();
@@ -61,7 +61,7 @@
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, ""]);
 
-    badger.updateCookieBlockList(function (success) {
+    badger.updateYellowlist(function (success) {
       assert.notOk(success, "Callback status indicates failure");
       assert.deepEqual(get_ylist(), ylist, "List did not get updated");
       done();
@@ -89,7 +89,7 @@
       server.respondWith("GET", constants.YELLOWLIST_URL,
         [200, {}, response]);
 
-      badger.updateCookieBlockList(function (success) {
+      badger.updateYellowlist(function (success) {
         assert.notOk(success,
           "Callback status indicates failure for " + JSON.stringify(response));
         assert.deepEqual(get_ylist(), ylist,
@@ -107,7 +107,7 @@
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [404, {}, "page not found"]);
 
-    badger.updateCookieBlockList(function (success) {
+    badger.updateYellowlist(function (success) {
       assert.notOk(success, "Callback status indicates failure");
       done();
     });

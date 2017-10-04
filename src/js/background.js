@@ -52,7 +52,7 @@ function Badger() {
     try {
       badger.runMigrations();
     } finally {
-      badger.initializeCookieBlockList();
+      badger.initializeYellowlist();
       badger.initializeDNT();
       badger.initializeUserAllowList();
       badger.enableWebRTCProtection();
@@ -195,7 +195,7 @@ Badger.prototype = {
    * Then updates to the latest yellowlist from eff.org.
    * Sets up periodic yellowlist updating from eff.org.
    */
-  initializeCookieBlockList: function () {
+  initializeYellowlist: function () {
     let self = this,
       yellowlistStorage = self.storage.getBadgerStorageObject('cookieblock_list');
 
@@ -208,17 +208,17 @@ Badger.prototype = {
         }
 
         // get the latest yellowlist from eff.org
-        self.updateCookieBlockList();
+        self.updateYellowlist();
       });
 
     } else {
       // already got the yellowlist initialized
       // get the latest yellowlist from eff.org
-      self.updateCookieBlockList();
+      self.updateYellowlist();
     }
 
     // set up periodic fetching of the yellowlist from eff.org
-    setInterval(self.updateCookieBlockList.bind(self), utils.oneDay());
+    setInterval(self.updateYellowlist.bind(self), utils.oneDay());
   },
 
   /**
@@ -256,7 +256,7 @@ Badger.prototype = {
    * Updates to the latest yellowlist from eff.org.
    * @param {Function} [callback] optional callback, gets success status boolean
    */
-  updateCookieBlockList: function (callback) {
+  updateYellowlist: function (callback) {
     var self = this;
 
     if (!callback) {
@@ -266,7 +266,7 @@ Badger.prototype = {
     utils.xhrRequest(constants.YELLOWLIST_URL, function (err, response) {
       if (err) {
         console.error(
-          "Problem fetching cookieblock list at",
+          "Problem fetching yellowlist at",
           constants.YELLOWLIST_URL,
           err.status,
           err.message

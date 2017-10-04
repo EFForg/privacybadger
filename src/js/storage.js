@@ -44,7 +44,7 @@ require.scopes.storage = (function() {
  *   "widget.eff.org": { heuristicAction: "block", dnt: true, userAction: ""}
  * }
  *
- * cookieblock_list is where we store the current cookie block list as
+ * cookieblock_list is where we store the current yellowlist as
  * downloaded from eff.org. The keys are the domains which should be blocked.
  * The values are simply 'true'
  *
