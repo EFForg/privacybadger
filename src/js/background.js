@@ -280,7 +280,7 @@ Badger.prototype = {
         return callback(false);
       }
 
-      var newCbDomains = _.map(response.trim().split("\n"), domain => domain.trim());
+      var newCbDomains = response.trim().split("\n").map(domain => domain.trim());
 
       // validate the response
       if (!_.every(newCbDomains, (domain) => {
