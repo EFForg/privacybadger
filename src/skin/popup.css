@@ -90,6 +90,7 @@ a:hover { color: #ec9329 }
   float: left;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .removeOrigin {
