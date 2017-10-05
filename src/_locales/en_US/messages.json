@@ -75,6 +75,10 @@
         "message": " If the slider is red, it means I have blocked that tracker entirely!  That fiend won't bother you any more.",
         "description": ""
     },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Click here to block this domain from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
     "popup_instructions": {
         "message": "potential <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust them unless something is broken.",
         "description": ""
@@ -211,6 +215,10 @@
         "message": " If the slider is green that means that I can't tell if this domain is tracking you yet. It might not be, but I will still keep an eye on it.",
         "description": ""
     },
+    "domain_slider_block_tooltip": {
+        "message": "Click here to block this domain entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
     "version": {
         "message": "version",
         "description": ""
@@ -331,6 +339,10 @@
         "message": "Yellow",
         "description": ""
     },
+    "domain_slider_allow_tooltip": {
+        "message": "Click here to allow this domain",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
+    },
     "name": {
         "message": "Privacy Badger",
         "description": ""
@@ -426,17 +438,5 @@
     "slideshow_10": {
         "message": " If you think that I've made the wrong decision for a tracker, you can move the slider to red to block it, yellow to partly block it, and green to allow it.",
         "description": ""
-    },
-    "domain_slider_block_tooltip": {
-        "message": "Click here to block this domain entirely",
-        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
-    },
-    "domain_slider_cookieblock_tooltip": {
-        "message": "Click here to block this domain from setting cookies",
-        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
-    },
-    "domain_slider_allow_tooltip": {
-        "message": "Click here to allow this domain",
-        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     }
 }
