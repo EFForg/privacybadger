@@ -133,6 +133,7 @@ ebay.com
 ebayimg.com
 ebayrtm.com
 ebaystatic.com
+ecwid.com
 edgecastcdn.net
 edgefcs.net
 edgekey.net
