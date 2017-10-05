@@ -140,11 +140,12 @@ edgekey.net
 files.edx.org
 elasticbeanstalk.com
 eltrafiko.com
+api-cdn.embed.ly
 api.embed.ly
 cdn.embed.ly
 cdn.embedly.com
-i.embed.ly
 i-cdn.embed.ly
+i.embed.ly
 epoch.com
 estara.com
 ethn.io
