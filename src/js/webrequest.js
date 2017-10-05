@@ -51,6 +51,7 @@ function onBeforeRequest(details){
     type = details.type,
     url = details.url;
 
+  badger.newTabData.logRequest(details);
   if (type == "main_frame"){
     forgetTab(tab_id);
   }
@@ -699,7 +700,6 @@ function startListeners() {
 
 /************************************** exports */
 var exports = {};
-exports.getHostForTab = getHostForTab;
 exports.startListeners = startListeners;
 return exports;
 /************************************** exports */

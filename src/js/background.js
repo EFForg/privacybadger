@@ -23,6 +23,7 @@
 var utils = require("utils");
 var constants = require("constants");
 var pbStorage = require("storage");
+var tabdata = require('tabdata');
 
 var HeuristicBlocking = require("heuristicblocking");
 var FirefoxAndroid = require("firefoxandroid");
@@ -42,6 +43,7 @@ var incognito = require("incognito");
 */
 function Badger() {
   var badger = this;
+  this.newTabData = new tabdata.TabData();
   this.userAllow = [];
   this.webRTCAvailable = checkWebRTCBrowserSupport();
   this.storage = new pbStorage.BadgerPen(function(thisStorage) {
@@ -135,7 +137,6 @@ Badger.prototype = {
       }
   */
   tabData: {},
-
 
   // Methods
 
