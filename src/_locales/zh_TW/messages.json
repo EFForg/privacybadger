@@ -75,6 +75,10 @@
         "message": "如果滾動條是紅色的，代表我完全封鎖了那個追蹤器！那個惡魔不會再打擾您了。",
         "description": ""
     },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Click here to block this domain from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
     "popup_instructions": {
         "message": "可疑的<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤器</a>。<br>這些滾動條讓您可控制 Privacy Badger 如何處理每一個追蹤器，但除非 Privacy Badger 造成網頁顯示異常，不必特別調整。",
         "description": ""
@@ -211,6 +215,10 @@
         "message": "如果滾動條是綠色的，代表我還不清楚這個網域是否在追蹤您。它可能不是，可是我還會關注它的。",
         "description": ""
     },
+    "domain_slider_block_tooltip": {
+        "message": "Click here to block this domain entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
     "version": {
         "message": "version",
         "description": ""
@@ -330,6 +338,10 @@
     "intro_yellow": {
         "message": "黃色",
         "description": ""
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Click here to allow this domain",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
         "message": "Privacy Badger",

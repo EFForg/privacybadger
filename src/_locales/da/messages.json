@@ -75,6 +75,10 @@
         "message": " Hvis skyderen er rød, betyder det at jeg har blokeret den sporing helt!  Den djævel vil ikke plage dig mere.",
         "description": ""
     },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Click here to block this domain from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
     "popup_instructions": {
         "message": "potentielle <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporinger</a> på denne side. Disse skydere lader dig styre hvordan Privacy Badger håndterer hver især. Du burde ikke have nødigt at justere dem medmindre noget er i stykker.",
         "description": ""
@@ -211,6 +215,10 @@
         "message": " Hvis skyderen er grøn, betyder det at jeg ikke kan se om dette domæne sporer dig endnu. Måske gør det ikke, men jeg vil stadig holde øje med det.",
         "description": ""
     },
+    "domain_slider_block_tooltip": {
+        "message": "Click here to block this domain entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
     "version": {
         "message": "version",
         "description": ""
@@ -330,6 +338,10 @@
     "intro_yellow": {
         "message": "Gul",
         "description": ""
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Click here to allow this domain",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
         "message": "Privacy Badger",

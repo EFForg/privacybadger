@@ -75,6 +75,10 @@
         "message": " Якщо перемикач червоний, це значить що я повністю заблокував цей елемент стеження! Цей зловмисник більше не буде вас турбувати.",
         "description": ""
     },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Click here to block this domain from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
     "popup_instructions": {
         "message": "можливих <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>елементів стеження</a> на цій сторінці. Перемикачі дозволяють контролювати їх. Не варто їх регулювати, якщо все працює як слід.",
         "description": ""
@@ -211,6 +215,10 @@
         "message": " Якщо перемикач зелений, це значить що я досі не виявив стеження цього домену за вами. І все ж це можливо, але я буду спостерігати за ним.",
         "description": ""
     },
+    "domain_slider_block_tooltip": {
+        "message": "Click here to block this domain entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
     "version": {
         "message": "версія",
         "description": ""
@@ -330,6 +338,10 @@
     "intro_yellow": {
         "message": "Жовтий",
         "description": ""
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Click here to allow this domain",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
         "message": "Privacy Badger",

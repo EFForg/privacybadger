@@ -75,6 +75,10 @@
         "message": " Se l'interruttore è rosso, significa che quel tracker è stato bloccato totalmente!  In questo modo non ti darà più fastidio.",
         "description": ""
     },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Click here to block this domain from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
     "popup_instructions": {
         "message": "potenziali <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> in questa pagina. Con questi interruttori puoi controllare come Privacy Badger tratta ciascun tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni corettamente.",
         "description": ""
@@ -211,6 +215,10 @@
         "message": " Se l'interruttore è verde significa che non è possibile stabilire se questo dominio ti stia già tracciando. Potrebbe non farlo, ma verrà comunque tenuto sotto controllo.  ",
         "description": ""
     },
+    "domain_slider_block_tooltip": {
+        "message": "Click here to block this domain entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
     "version": {
         "message": "versione",
         "description": ""
@@ -330,6 +338,10 @@
     "intro_yellow": {
         "message": "Giallo",
         "description": ""
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Click here to allow this domain",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
         "message": "Privacy Badger",

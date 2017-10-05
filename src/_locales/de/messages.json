@@ -75,6 +75,10 @@
         "message": " Wenn der Schieberegler rot ist, habe ich einen Tracker komplett blockiert.",
         "description": ""
     },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Click here to block this domain from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
     "popup_instructions": {
         "message": "potenzielle <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracker</a> auf dieser Seite. Diese Schieberegler kontrollieren, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme beim Laden dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen.",
         "description": ""
@@ -211,6 +215,10 @@
         "message": " Grün bedeutet, dass mir (bisher) nichts komisches an der Domain aufgefallen ist. Ich werde trotzdem ein Auge darauf werfen.",
         "description": ""
     },
+    "domain_slider_block_tooltip": {
+        "message": "Click here to block this domain entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
     "version": {
         "message": "version",
         "description": ""
@@ -330,6 +338,10 @@
     "intro_yellow": {
         "message": "Gelb",
         "description": ""
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Click here to allow this domain",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
         "message": "Privacy Badger",

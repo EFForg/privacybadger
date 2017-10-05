@@ -75,6 +75,10 @@
         "message": " Si le curseur est rouge, cela signifie que j'ai entièrement bloqué le traqueur ! Il ne vous embêtera plus.",
         "description": ""
     },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Click here to block this domain from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
     "popup_instructions": {
         "message": "<a target='_blank' href=\"https://www.eff.org/fr/privacybadger#faq-Qu'est-ce-qu'un-tracker-tiers ?\">traqueurs</a> potentiels sur cette page. Ces curseurs vous permettent de contrôler comment Privacy Badger va les gérer. Vous ne devriez pas avoir besoin de les modifier à moins d'un site non fonctionnel.",
         "description": ""
@@ -211,6 +215,10 @@
         "message": " Si le curseur est vert, cela signifie que je ne sais pas encore si le domaine vous traque. Peut-être pas, mais je l'aurai quand même à l'oeil.",
         "description": ""
     },
+    "domain_slider_block_tooltip": {
+        "message": "Click here to block this domain entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
     "version": {
         "message": "version",
         "description": ""
@@ -330,6 +338,10 @@
     "intro_yellow": {
         "message": "Jaune",
         "description": ""
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Click here to allow this domain",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
         "message": "Privacy Badger",
