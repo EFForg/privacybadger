@@ -193,6 +193,7 @@ geoplugin.net
 geotrust.com
 getpocket.com
 giant.gfycat.com
+gfycat.com
 ggpht.com
 giphy.com
 github.com
