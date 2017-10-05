@@ -75,6 +75,10 @@
         "message": " Если ползунок красного цвета, то это означает, что я заблокировал трекер полностью! Этот злодей больше вас не потревожит.",
         "description": ""
     },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Click here to block this domain from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
     "popup_instructions": {
         "message": "потенциальных <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекеров</a> на этой странице. С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым из них. Их нужно регулировать только в случае проблем с работой сайта.",
         "description": ""
@@ -211,6 +215,10 @@
         "message": " Если ползунок зеленого цвета, то это означает, что я не могу сказать точно, отслеживает вас этот домен или нет. Возможно, он вас не отслеживает, но я все равно буду за ним наблюдать.",
         "description": ""
     },
+    "domain_slider_block_tooltip": {
+        "message": "Click here to block this domain entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
     "version": {
         "message": "version",
         "description": ""
@@ -330,6 +338,10 @@
     "intro_yellow": {
         "message": "Желтый",
         "description": ""
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Click here to allow this domain",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
         "message": "Privacy Badger",

@@ -85,10 +85,12 @@ a:hover { color: #ec9329 }
 }
 .clicker.greyed { background: #aaa; }
 .origin{
-  width: 60%;
+  max-width: 210px;
   color: #555555;
   float: left;
-  display: inline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .removeOrigin {
@@ -133,6 +135,7 @@ a:hover { color: #ec9329 }
   background-color: #339900;
 }
 .honeybadgerPowered{
+  display: none;
   margin-right: 10px;
   width: 20px;
   height: 20px;
@@ -142,27 +145,10 @@ a:hover { color: #ec9329 }
   cursor: pointer;
 }
 .userset .honeybadgerPowered{
+  display: block;
   background: url('/icons/badger-pin.png') no-repeat;
 }
-.tooltipContainer{
-display: none;
-clear: both;
-color: #fcfcfc;
-font-size: 12px;
-background-color: #555;
-height: 12px;
-border-radius: 7px;
-padding: 3px;
-position: relative;
-bottom: 30px;
-left: 0;
-}
-.tooltipArrow{
-  position: relative;
-  bottom: 30px;
-  left: 5px;
-  display: none;
-}
+
 #privacyBadgerHeader{
 color: #505050;
 font-size: 16px;
@@ -179,14 +165,7 @@ font-size: 16px;
 #privacyBadgerHeader img{
   float: left;
 }
-#helplink {
-  padding-top: 5px;
-  color: #4183c4;
-}
-#thirdPartyCookiesError {
-  background-color: #f00;
-  color: #f0f0f0;
-}
+
 .ui-slider {
   opacity: 0;
   z-index: 20;
@@ -239,12 +218,6 @@ font-size: 16px;
 }
 .key img{
   margin-left: 19px;
-}
-.key .tooltipContainer{
-  position: absolute;
-  left: 3px;
-  top:-1;
-  box-shadow: 0px 5px 5px #000;
 }
 #instruction-outer {
   display: none;
@@ -398,4 +371,15 @@ font-size: 16px;
   padding-left: 60px;
   color: #707070;
   font-size: 10px;
+}
+
+.tooltipster-sidetip .tooltipster-box {
+    color: #fcfcfc;
+    font-size: 13px;
+    background: #555;
+    border: none;
+    border-radius: 7px;
+}
+.tooltipster-sidetip .tooltipster-arrow-border {
+    border: none;
 }

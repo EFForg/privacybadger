@@ -75,6 +75,10 @@
         "message": " 如果滑块是红色，这意味我完全屏蔽了那个跟踪器！那个恶魔不会再打扰你了。",
         "description": ""
     },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Click here to block this domain from setting cookies",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
     "popup_instructions": {
         "message": "在这个网站上有潜在的<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>跟踪器</a> 。这些滑块让你控制隐私獾如何处理每一个跟踪器。你不必调整他们，除非隐私獾造成网页显示异常。",
         "description": ""
@@ -211,6 +215,10 @@
         "message": " 如果滑块是绿色，我还不清楚这个域名是否在跟踪你。它可能不是，可是我还会关注它的。",
         "description": ""
     },
+    "domain_slider_block_tooltip": {
+        "message": "Click here to block this domain entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
     "version": {
         "message": "version",
         "description": ""
@@ -330,6 +338,10 @@
     "intro_yellow": {
         "message": "黄色",
         "description": ""
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Click here to allow this domain",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
         "message": "隐私獾",

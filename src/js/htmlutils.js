@@ -21,25 +21,32 @@ require.scopes.htmlutils = (function() {
 
 var constants = chrome.extension.getBackgroundPage().constants;
 
-// Ugly HTML helpers.
-// TODO: Some or all of these should be replace but have been moved here to
-// eliminate code duplication elsewhere.
+const UNDO_ARROW_TOOLTIP_TEXT = i18n.getMessage('feed_the_badger_title');
+
 var exports = {};
 var htmlUtils = exports.htmlUtils = {
 
-  /**
-   * Trims a given string to a given length if necessary.
-   *
-   * @param {String} inputString String to trim.
-   * @param {Integer} maxLength Length to trim inputString to.
-   * @returns {String} Trimmed string.
-   */
-  trim: function(inputString, maxLength) {
-    if (inputString.length > maxLength) {
-      return inputString.slice(0, maxLength - 3) + '...';
-    } else {
-      return inputString;
-    }
+  // Tooltipster config for domain list tooltips
+  DOMAIN_TOOLTIP_CONF: {
+    delay: 100,
+    side: 'bottom',
+
+    // allow per-instance option overriding
+    functionInit: function (instance, helper) {
+      let dataOptions = helper.origin.dataset.tooltipster;
+
+      if (dataOptions) {
+        try {
+          dataOptions = JSON.parse(dataOptions);
+        } catch (e) {
+          console.error(e);
+        }
+
+        for (let name in dataOptions) {
+          instance.option(name, dataOptions[name]);
+        }
+      }
+    },
   },
 
   /**
@@ -71,7 +78,7 @@ var htmlUtils = exports.htmlUtils = {
       allow: i18n.getMessage('badger_status_allow'),
       dntTooltip: i18n.getMessage('dnt_tooltip')
     };
-    return function(action, origin, isWhitelisted) {
+    return function (action, origin, isWhitelisted) {
       var rv_action = actionDescriptions[action];
       if (typeof(isWhitelisted) !== 'undefined' && isWhitelisted) {
         return actionDescriptions.dntTooltip;
@@ -89,17 +96,27 @@ var htmlUtils = exports.htmlUtils = {
    * @param {String} action Current action of given origin.
    * @returns {String} HTML for toggle switch.
    */
-  getToggleHtml: function(origin, action) {
-    var originId = origin.replace(/\./g, '-');
-    var toggleHtml = '' +
-      '<div class="switch-container ' + action + '">' +
-      '<div class="switch-toggle switch-3 switch-candy">' +
-      '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label tooltip="click here to block this tracker entirely" class="actionToggle" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
-      '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label tooltip="click here to block this tracker from setting cookies" class="actionToggle" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
-      '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label tooltip="click here to allow this tracker" class="actionToggle" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
-      '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
-    return toggleHtml;
-  },
+  getToggleHtml: (function () {
+    let tooltips = {
+      block: i18n.getMessage('domain_slider_block_tooltip'),
+      cookieblock: i18n.getMessage('domain_slider_cookieblock_tooltip'),
+      allow: i18n.getMessage('domain_slider_allow_tooltip')
+    };
+
+    return function (origin, action) {
+      var originId = origin.replace(/\./g, '-');
+
+      var toggleHtml = '' +
+        '<div class="switch-container ' + action + '">' +
+        '<div class="switch-toggle switch-3 switch-candy">' +
+        '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label title="' + tooltips.block + '" class="actionToggle tooltip" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
+        '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label title="' + tooltips.cookieblock + '" class="actionToggle tooltip" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
+        '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label title="' + tooltips.allow + '" class="actionToggle tooltip" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
+        '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
+
+      return toggleHtml;
+    };
+  }()),
 
   /**
    * Get HTML for tracker container.
@@ -115,10 +132,9 @@ var htmlUtils = exports.htmlUtils = {
       '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
       '<div class="keyContainer">' +
       '<div class="key">' +
-      '<img class="tooltip" src="/icons/UI-icons-red.svg" tooltip="' + i18n.getMessage("tooltip_block") + '">' +
-      '<img class="tooltip" src="/icons/UI-icons-yellow.svg" tooltip="' + i18n.getMessage("tooltip_cookieblock") + '">' +
-      '<img class="tooltip" src="/icons/UI-icons-green.svg" tooltip="' + i18n.getMessage("tooltip_allow") + '">' +
-      '<div class="tooltipContainer"></div>' +
+      '<img src="/icons/UI-icons-red.svg" class="tooltip" title="' + i18n.getMessage("tooltip_block") + '">' +
+      '<img src="/icons/UI-icons-yellow.svg" class="tooltip" title="' + i18n.getMessage("tooltip_cookieblock") + '">' +
+      '<img src="/icons/UI-icons-green.svg" class="tooltip" title="' + i18n.getMessage("tooltip_allow") + '">' +
       '</div></div>' +
       '<div class="spacer"></div>' +
       '<div id="blockedResourcesInner" class="clickerContainer"></div>';
@@ -131,24 +147,21 @@ var htmlUtils = exports.htmlUtils = {
    * @param {String} origin Origin to get HTML for.
    * @param {String} action Action for given origin.
    * @param {Boolean} isWhitelisted Whether origin is whitelisted or not.
-   * @param {Integer} subdomainCount Number of subdomains for given origin.
    * @returns {String} Origin HTML.
    */
-  getOriginHtml: function(origin, action, isWhitelisted, subdomainCount) {
-    // Get classes for main div and tooltip text for inner div.
-    var tooltipText = '';
-    var classes = ['clicker', 'tooltip'];
+  getOriginHtml: function(origin, action, isWhitelisted) {
     action = _.escape(action);
     origin = _.escape(origin);
+
+    // Get classes for main div.
+    var classes = ['clicker'];
     if (action.indexOf('user') === 0) {
-      tooltipText = i18n.getMessage('feed_the_badger_title');
       classes.push('userset');
       action = action.substr(5);
     }
     if (action === constants.BLOCK || action === constants.COOKIEBLOCK || action === constants.ALLOW || action === constants.NO_TRACKING) {
       classes.push(action);
     }
-    var classText = 'class="' + classes.join(' ') + '"';
 
     // If origin has been whitelisted set text for DNT.
     var whitelistedText = '';
@@ -161,23 +174,14 @@ var htmlUtils = exports.htmlUtils = {
         '"></a></div>';
     }
 
-    // If there are multiple subdomains set text showing count.
-    var subdomainText = '';
-    if (subdomainCount) {
-      subdomainText = ' (' + subdomainCount + ' subdomains)';
-    }
-
     // Construct HTML for origin.
     var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
     var originHtml = '' +
-      '<div ' + classText + ' data-origin="' + origin + '" tooltip="' + actionDescription + '" data-original-action="' + action + '">' +
-      '<div class="origin">' + whitelistedText + htmlUtils.trim(origin + subdomainText, 30) + '</div>' +
+      '<div class="' + classes.join(' ') + '" data-origin="' + origin + '" data-original-action="' + action + '">' +
+      '<div class="origin tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</div>' +
       '<div class="removeOrigin">&#10006</div>' +
       htmlUtils.getToggleHtml(origin, action) +
-      '<div class="honeybadgerPowered tooltip" tooltip="'+ tooltipText + '"></div>' +
-      '<img class="tooltipArrow" src="/icons/badger-tb-arrow.png">' +
-      '<div class="clear"></div>' +
-      '<div class="tooltipContainer"></div>' +
+      '<div class="honeybadgerPowered tooltip" title="'+ UNDO_ARROW_TOOLTIP_TEXT + '"></div>' +
       '</div>';
 
     return originHtml;

@@ -90,8 +90,6 @@ function init() {
   });
   $(document).ready(function () {
     $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
-    $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   });
 
@@ -221,32 +219,6 @@ function revertDomainControl(e){
   return false;
 }
 
-/**
-* this is a terrible function that repeats
-* a lot of the work that getAction does
-* because getAction stores things in mysery
-* land and there's no real way to get what's
-* in the ABP filters without repeatedly
-* querying them
-*/
-//TODO re-write this by having get best action return the domain the rule
-// comes from, and combine that way?
-function getTopLevel(action, origin/*, tabId*/){
-  //  if (action == "usercookieblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userYellow.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return  top;
-  //  }
-  //  if (action == "userblock"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userRed.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
-  //  if (action == "usernoaction"){
-  //    var top = backgroundPage.getDomainFromFilter(matcherStore.combinedMatcherStore.userGreen.matchesAny(origin, "SUBDOCUMENT", getHostForTab(tabId), true).text);
-  //    return top;
-  //  }
-  return origin;
-}
-
 function registerToggleHandlers() {
   var radios = $(this).children('input');
   var value = $(this).children('input:checked').val();
@@ -280,20 +252,27 @@ function registerToggleHandlers() {
 function refreshPopup(tabId) {
   //TODO this is calling get action and then being used to call get Action
   var origins = badger.getAllOriginsForTab(tabId);
+
   if (!origins || origins.length === 0) {
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
     $('#number_trackers').text('0');
+
+    // activate tooltips
+    $('.tooltip').tooltipster();
+
     return;
   }
 
-  // Display tracker tooltips.
+  // Get containing HTML for domain list along with toggle legend icons.
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml(tabId);
+
+  // activate tooltips
+  $('.tooltip').tooltipster();
 
   var printable = [];
   var nonTracking = [];
   origins.sort(htmlUtils.compareReversedDomains);
   var trackerCount = 0;
-  var compressedOrigins = {};
 
   for (let i=0; i < origins.length; i++) {
     var origin = origins[i];
@@ -303,23 +282,6 @@ function refreshPopup(tabId) {
     if (action == constants.NO_TRACKING) {
       nonTracking.push(origin);
       continue;
-
-    } else {
-      if (action.includes("user")) {
-        var prevOrigin = origin;
-        var baseDomain = backgroundPage.getBaseDomain(prevOrigin);
-        // TODO make some re-implementation of getBestAction that returns where the
-        // user rule is coming from
-        if (getTopLevel(action, origin, tabId) == baseDomain && baseDomain != origin){
-          origin = baseDomain;
-          if (compressedOrigins.hasOwnProperty(origin)){
-            compressedOrigins[origin].subs.push(prevOrigin.replace(origin, ''));
-            continue;
-          }
-          compressedOrigins[origin] = {'action': action, 'subs':[prevOrigin.replace(origin, '')]};
-          continue;
-        }
-      }
     }
 
     if (action != constants.DNT) {
@@ -330,23 +292,12 @@ function refreshPopup(tabId) {
     );
   }
 
-  for (let key in compressedOrigins){
-    printable.push(
-      htmlUtils.getOriginHtml(
-        key,
-        compressedOrigins[key].action,
-        compressedOrigins[key].action == constants.DNT,
-        compressedOrigins[key].subs.length
-      )
-    );
-  }
-
   var nonTrackerText = i18n.getMessage("non_tracker");
   var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
 
   if (nonTracking.length > 0) {
     printable.push(
-      '<div class="clicker" id="nonTrackers" title="'+nonTrackerTooltip+'">'+nonTrackerText+'</div>'
+      '<div class="clicker tooltip" id="nonTrackers" title="'+nonTrackerTooltip+'" data-tooltipster=\'{"side":"top"}\'>'+nonTrackerText+'</div>'
     );
     for (let i = 0; i < nonTracking.length; i++) {
       printable.push(
@@ -371,6 +322,10 @@ function refreshPopup(tabId) {
 
     $printable.appendTo('#blockedResourcesInner');
 
+    // activate tooltips
+    $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
+      htmlUtils.DOMAIN_TOOLTIP_CONF);
+
     if (printable.length) {
       requestAnimationFrame(renderDomains);
     }
@@ -383,7 +338,7 @@ function refreshPopup(tabId) {
 *
 * @param event
 */
-function updateOrigin(event){
+function updateOrigin(event) {
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
@@ -394,51 +349,14 @@ function updateOrigin(event){
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
   htmlUtils.toggleBlockedStatus($($clicker), action);
-  var origin = $clicker.data('origin');
-  $clicker.attr('tooltip', htmlUtils.getActionDescription(action, origin));
-  $clicker.children('.tooltipContainer').html(htmlUtils.getActionDescription(action, origin));
-}
 
-var tooltipDelay = 300;
-
-/**
-* Show tooltip for elements
-*
-* @param event
-*/
-function displayTooltip(event){
-  var $elm = $(event.currentTarget);
-  var displayTipTimer = setTimeout(function(){
-    if($elm.attr('tooltip').length === 0){ return; }
-    var $container = $elm.closest('.clicker').children('.tooltipContainer');
-    if($container.length === 0){
-      $container = $elm.siblings('.tooltipContainer');
-    }
-    $container.text($elm.attr('tooltip'));
-    $container.show();
-    $container.siblings('.tooltipArrow').show();
-  },tooltipDelay);
-  $elm.on('mouseleave', function(){clearTimeout(displayTipTimer);});
-}
-
-/**
-* Hide tooltip for element
-*
-* @param event
-*/
-function hideTooltip(event){
-  var $elm = $(event.currentTarget);
-  var hideTipTimer = setTimeout(function(){
-    var $container = $elm.closest('.clicker').children('.tooltipContainer');
-    if($container.length === 0){
-      $container = $elm.siblings('.tooltipContainer');
-    }
-    if($container.is(':hidden')){return;}
-    $container.text('');
-    $container.hide();
-    $container.siblings('.tooltipArrow').hide();
-  },tooltipDelay);
-  $elm.on('mouseenter',function(){clearTimeout(hideTipTimer);});
+  // reinitialize the domain tooltip
+  $clicker.find('.origin').tooltipster('destroy');
+  $clicker.find('.origin').attr(
+    'title',
+    htmlUtils.getActionDescription(action, $clicker.data('origin'))
+  );
+  $clicker.find('.origin').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 }
 
 /**
