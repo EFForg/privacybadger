@@ -1,7 +1,7 @@
 {
   "name": "privacy-badger-chrome-dev-tools",
   "version": "1.0.0",
-  "description": "Developer tools for Privacy Badger for Chrome.",
+  "description": "Developer tools for Privacy Badger.",
   "dependencies": {
     "eslint": "~3.3.1"
   },
