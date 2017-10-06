@@ -76,7 +76,7 @@
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Click here to block this domain from setting cookies",
+        "message": "Klik her for at blokere dette domæne fra at sætte cookies",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
@@ -216,7 +216,7 @@
         "description": ""
     },
     "domain_slider_block_tooltip": {
-        "message": "Click here to block this domain entirely",
+        "message": "Klik her for at blokere dette domæne fuldstændigt",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
@@ -340,7 +340,7 @@
         "description": ""
     },
     "domain_slider_allow_tooltip": {
-        "message": "Click here to allow this domain",
+        "message": "Klik her for at tillade dette domæne",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
