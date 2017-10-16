@@ -68,15 +68,15 @@ function getScPageScript() {
      * Read the local storage and returns content
      * @returns {{}}
      */
-    var getLocalStorageItems = function(){
+    var getLocalStorageItems = function() {
       var lsItems = {};
       var lsKey = "";
-      try{
+      try {
         for (var i = 0; i < localStorage.length; i++) {
           lsKey = localStorage.key(i);
           lsItems[lsKey] = localStorage.getItem(lsKey);
         }
-      } catch(err){
+      } catch (err) {
         // We get a SecurityError when our injected script runs in a 3rd party frame and
         // the user has disabled 3rd party cookies and site data. See, http://git.io/vLwff
         return {};
@@ -84,17 +84,17 @@ function getScPageScript() {
       return lsItems;
     };
 
-    var getIndexedDBItems = function(){
+    var getIndexedDBItems = function() {
       return {};
     };
 
-    var getFileSystemAPIItems = function(){
+    var getFileSystemAPIItems = function() {
       // TODO: See "Reading a directory's contents" on
       // http://www.html5rocks.com/en/tutorials/file/filesystem/
       return {};
     };
 
-    if (event_id){  // inserted script may run before the event_id is available
+    if (event_id) { // inserted script may run before the event_id is available
       // send to content script. TODO: Any other detail we need to send?
       send(
         { docUrl: document.location.href,

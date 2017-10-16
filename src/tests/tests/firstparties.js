@@ -58,8 +58,8 @@
       tweet.click();
 
       assert.ok(
-        (tweet.href == destination) &&  // replaced the link
-        (fixture.getAttribute('heardClick') == 'no') &&  // twitter didn't hear the click
+        (tweet.href == destination) && // replaced the link
+        (fixture.getAttribute('heardClick') == 'no') && // twitter didn't hear the click
         (tweet.rel.includes('noreferrer') == true) // added noreferrer
       );
 

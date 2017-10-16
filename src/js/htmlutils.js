@@ -57,7 +57,7 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} 'checked' if both actions match otherwise empty string.
    */
   isChecked: function(inputAction, originAction) {
-    if((originAction == constants.NO_TRACKING) || (originAction == constants.DNT)) {
+    if ((originAction == constants.NO_TRACKING) || (originAction == constants.DNT)) {
       originAction = constants.ALLOW;
     }
     return (inputAction === originAction) ? 'checked' : '';
@@ -82,7 +82,7 @@ var htmlUtils = exports.htmlUtils = {
       var rv_action = actionDescriptions[action];
       if (typeof(isWhitelisted) !== 'undefined' && isWhitelisted) {
         return actionDescriptions.dntTooltip;
-      } else if (typeof(rv_action) == 'undefined'){
+      } else if (typeof(rv_action) == 'undefined') {
         return origin;
       } else {
         return rv_action + origin;
@@ -194,7 +194,7 @@ var htmlUtils = exports.htmlUtils = {
   */
   toggleBlockedStatus: function (elt,status) {
     console.log('toggle blocked status', elt, status);
-    if(status){
+    if (status) {
       elt.removeClass([constants.BLOCK, constants.COOKIEBLOCK, constants.ALLOW, constants.NO_TRACKING].join(" ")).addClass(status);
       elt.addClass("userset");
       return;
@@ -224,13 +224,13 @@ var htmlUtils = exports.htmlUtils = {
   * @param b Second domain
   * @returns {number} standard compare returns
   */
-  compareReversedDomains: function(a, b){
+  compareReversedDomains: function(a, b) {
     var fqdn1 = htmlUtils.makeSortable(a);
     var fqdn2 = htmlUtils.makeSortable(b);
-    if(fqdn1 < fqdn2){
+    if (fqdn1 < fqdn2) {
       return -1;
     }
-    if(fqdn1 > fqdn2){
+    if (fqdn1 > fqdn2) {
       return 1;
     }
     return 0;
@@ -242,7 +242,7 @@ var htmlUtils = exports.htmlUtils = {
   * @param {String} domain The domain to shuffle
   * @returns {String} The 'reversed' domain
   */
-  makeSortable: function(domain){
+  makeSortable: function(domain) {
     var tmp = domain.split('.').reverse();
     tmp.shift();
     return tmp.join('');

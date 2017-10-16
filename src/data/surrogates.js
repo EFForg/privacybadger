@@ -60,7 +60,7 @@ const hostnames = {
 // There is currently one type of surrogate pattern token: suffix.
 // Does the script URL (querystring excluded) end with the token?
 const surrogates = {
-  /* eslint-disable no-extra-semi */
+  /* eslint-disable no-extra-semi, space-in-parens */
 
   // Google Analytics (legacy ga.js)
   //
@@ -457,7 +457,7 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-empty */
 
-  /* eslint-enable no-extra-semi */
+  /* eslint-enable no-extra-semi, space-in-parens */
 };
 
 // aliases

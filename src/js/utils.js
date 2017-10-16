@@ -2,7 +2,7 @@
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
  *
- * Derived from Adblock Plus 
+ * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 /* globals URI */
 
 require.scopes.utils = (function() {
-  
+
 /**
 * Generic interface to make an XHR request
 *
@@ -29,7 +29,7 @@ require.scopes.utils = (function() {
 * @param callback The callback to call after request has finished
 * @param method GET/POST
 */
-function xhrRequest(url, callback, method){
+function xhrRequest(url, callback, method) {
   if (!method) {
     method = "GET";
   }
@@ -57,15 +57,15 @@ function xhrRequest(url, callback, method){
 /**
 * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
 * eTLD+1. e.g. [a.b.eff.org, b.eff.org, eff.org]
-* if 'all' is passed in then the array will include all domain levels, not 
+* if 'all' is passed in then the array will include all domain levels, not
 * just down to the base domain
 * @param {String} fqdn the domain to split
 * @param {boolean} all whether to include all domain levels
 *
 **/
-function explodeSubdomains(fqdn, all){
+function explodeSubdomains(fqdn, all) {
   var baseDomain;
-  if(all){
+  if (all) {
     baseDomain = fqdn.split('.').pop();
   } else {
     baseDomain = window.getBaseDomain(fqdn);
@@ -74,7 +74,7 @@ function explodeSubdomains(fqdn, all){
   var parts = fqdn.split('.');
   var numLoops = parts.length - baseLen;
   var subdomains = [];
-  for(var i=0; i<=numLoops; i++){
+  for (var i=0; i<=numLoops; i++) {
     subdomains.push(parts.slice(i).join('.'));
   }
   return subdomains;
@@ -86,7 +86,7 @@ function explodeSubdomains(fqdn, all){
 * @param {String} url the url to convert to URI
 * @returns {URI|{scheme, spec, QueryInterface}}
 */
-function makeURI(url){
+function makeURI(url) {
   // URI defined in lib/basedomain.js
   return new URI(url);
 }
@@ -100,7 +100,7 @@ function makeURI(url){
 * @param {Integer} End item of the hole
 * @returns {*}
 */
-function removeElementFromArray(/*array*/ ary, /*int*/ from, /*int*/ to){
+function removeElementFromArray(/*array*/ ary, /*int*/ from, /*int*/ to) {
   var rest = ary.slice((to || from) + 1 || ary.length);
   ary.length = from < 0 ? ary.length + from : from;
   return ary.push.apply(ary, rest);
@@ -122,7 +122,7 @@ function estimateMaxEntropy(str) {
    */
   var MAX_LS_LEN_FOR_ENTROPY_EST = 256;
 
-  if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST){
+  if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST) {
     /*
      * Just return a higher-than-threshold entropy estimate.
      * We assume 1 bit per char, which will be well over the
@@ -137,12 +137,12 @@ function estimateMaxEntropy(str) {
   var minCharCode = Math.min.apply(Math, charCodes);
   var maxCharCode = Math.max.apply(Math, charCodes);
   // Guess the # of possible symbols, e.g. for 0101 it'd be 2.
-  var maxSymbolsGuess =  maxCharCode - minCharCode + 1;
+  var maxSymbolsGuess = maxCharCode - minCharCode + 1;
   var maxCombinations = Math.pow(maxSymbolsGuess, str.length);
   var maxBits = Math.log(maxCombinations)/Math.LN2;
   /* console.log("Local storage item length:", str.length, "# symbols guess:", maxSymbolsGuess,
     "Max # Combinations:", maxCombinations, "Max bits:", maxBits) */
-  return maxBits;  // May return Infinity when the content is too long.
+  return maxBits; // May return Infinity when the content is too long.
 }
 
 /**
@@ -151,7 +151,7 @@ function estimateMaxEntropy(str) {
  * @param {Integer} minimum number to get
  * @param {Integer} maximum number to get
  **/
-function getRandom(min, max){
+function getRandom(min, max) {
   return min + Math.floor(Math.random() * (max - min + 1));
 }
 
@@ -163,19 +163,19 @@ function oneMinute() {
   return oneSecond() * 60;
 }
 
-function oneHour(){
+function oneHour() {
   return oneMinute() * 60;
 }
 
-function oneDay(){
+function oneDay() {
   return oneHour() * 24;
 }
 
-function nDaysFromNow(n){
+function nDaysFromNow(n) {
   return Date.now() + (oneDay() * n);
 }
 
-function oneDayFromNow(){
+function oneDayFromNow() {
   return nDaysFromNow(1);
 }
 

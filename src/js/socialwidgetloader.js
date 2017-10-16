@@ -77,7 +77,7 @@ function getFileContents(filePath, callback) {
   var url = chrome.extension.getURL(filePath);
 
   utils.xhrRequest(url, function(err, responseText) {
-    if(err) {
+    if (err) {
       console.error(
         "Problem fetching contents of file at",
         filePath,

@@ -84,7 +84,7 @@ BadgerPen.prototype = {
 
   getBadgerStorageObject: function(key) {
 
-    if(this.hasOwnProperty(key)){
+    if (this.hasOwnProperty(key)) {
       return this[key];
     }
     console.error("Can't initialize cache from getBadgerStorageObject. You are using this API improperly");
@@ -98,7 +98,7 @@ BadgerPen.prototype = {
    * @returns {String} the presumed action for this FQDN
    **/
   getAction: function (domain, ignoreDNT) {
-    if(! badger.isCheckingDNTPolicyEnabled()){
+    if (! badger.isCheckingDNTPolicyEnabled()) {
       ignoreDNT = true;
     }
 
@@ -111,13 +111,13 @@ BadgerPen.prototype = {
     return constants.NO_TRACKING;
   },
 
-  touchDNTRecheckTime: function(domain, time){
+  touchDNTRecheckTime: function(domain, time) {
     this._setupDomainAction(domain, time, "nextUpdateTime");
   },
 
-  getNextUpdateForDomain: function(domain){
+  getNextUpdateForDomain: function(domain) {
     var action_map = this.getBadgerStorageObject('action_map');
-    if(action_map.hasItem(domain)){
+    if (action_map.hasItem(domain)) {
       return action_map.getItem(domain).nextUpdateTime;
     } else {
       return 0;
@@ -167,7 +167,7 @@ BadgerPen.prototype = {
   /**
    * Update DNT policy hashes
    */
-  updateDNTHashes: function(hashes){
+  updateDNTHashes: function(hashes) {
     var dnt_hashes = this.getBadgerStorageObject('dnt_hashes');
     dnt_hashes.updateObject(_.invert(hashes));
   },
@@ -230,11 +230,11 @@ BadgerPen.prototype = {
    * @param {String} selector the action to select by
    * @return {Array} an array of FQDN strings
    **/
-  getAllDomainsByPresumedAction: function(selector){
+  getAllDomainsByPresumedAction: function(selector) {
     var action_map = this.getBadgerStorageObject('action_map');
     var relevantDomains = [];
-    for(var domain in action_map.getItemClones()){
-      if(selector == this.getAction(domain)){
+    for (var domain in action_map.getItemClones()) {
+      if (selector == this.getAction(domain)) {
         relevantDomains.push(domain);
       }
     }
@@ -247,9 +247,9 @@ BadgerPen.prototype = {
    * @param fqdn domain to check status of
    * @return int the number of domains fqdn has been tracking on
    */
-  getTrackingCount: function(fqdn){
+  getTrackingCount: function(fqdn) {
     var snitch_map = this.getBadgerStorageObject('snitch_map');
-    if(snitch_map.hasItem(fqdn)){
+    if (snitch_map.hasItem(fqdn)) {
       return snitch_map.getItem(fqdn).length;
     } else {
       return 0;
@@ -290,7 +290,7 @@ BadgerPen.prototype = {
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
-  setupHeuristicAction: function(domain, action){
+  setupHeuristicAction: function(domain, action) {
     this._setupDomainAction(domain, action, "heuristicAction");
   },
 
@@ -299,7 +299,7 @@ BadgerPen.prototype = {
    *
    * @param {String} domain Domain to add
    */
-  setupDNT: function(domain){
+  setupDNT: function(domain) {
     this._setupDomainAction(domain, true, "dnt");
   },
 
@@ -307,7 +307,7 @@ BadgerPen.prototype = {
    * Remove DNT setting from a domain*
    * @param domain FQDN string
    */
-  revertDNT: function(domain){
+  revertDNT: function(domain) {
     this._setupDomainAction(domain, false, "dnt");
   },
 
@@ -318,7 +318,7 @@ BadgerPen.prototype = {
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
-  setupUserAction: function(domain, action){
+  setupUserAction: function(domain, action) {
     var index = badger.userAllow.indexOf(domain);
     if (index > -1 && action !== constants.USER_ALLOW) {
       badger.userAllow.splice(index, 1);
@@ -334,7 +334,7 @@ BadgerPen.prototype = {
    * list in case it was previously allowed by user
   * @param domain FQDN string
   **/
-  revertUserAction: function(domain){
+  revertUserAction: function(domain) {
     this._setupDomainAction(domain, "", "userAction");
 
     var index = badger.userAllow.indexOf(domain);
@@ -388,7 +388,7 @@ var _newActionMapObject = function() {
  * @param {Object} seed - the base object which we are instantiating from
  * @return {BadgerStorage} an existing BadgerStorage object or an empty new object
  **/
-var BadgerStorage = function(name, seed){
+var BadgerStorage = function(name, seed) {
   this.name = name;
   this._store = seed;
 };
@@ -400,7 +400,7 @@ BadgerStorage.prototype = {
    * @param {String} key - the key for the item
    * @return boolean
    **/
-  hasItem: function(key){
+  hasItem: function(key) {
     var self = this;
     return self._store.hasOwnProperty(key);
   },
@@ -413,7 +413,7 @@ BadgerStorage.prototype = {
    **/
   getItem: function(key) {
     var self = this;
-    if(self.hasItem(key)){
+    if (self.hasItem(key)) {
       return self._store[key];
     } else {
       return null;
@@ -436,11 +436,11 @@ BadgerStorage.prototype = {
    * @param {String} key - the key for the item
    * @param {*} value - the new value
    **/
-  setItem: function(key,value){
+  setItem: function(key,value) {
     var self = this;
     self._store[key] = value;
     // Async call to syncStorage.
-    setTimeout(function(){
+    setTimeout(function() {
       _syncStorage(self);
     }, 0);
   },
@@ -450,11 +450,11 @@ BadgerStorage.prototype = {
    *
    * @param {String} key - the key for the item
    **/
-  deleteItem: function(key){
+  deleteItem: function(key) {
     var self = this;
     delete self._store[key];
     // Async call to syncStorage.
-    setTimeout(function(){
+    setTimeout(function() {
       _syncStorage(self);
     }, 0);
   },
@@ -462,11 +462,11 @@ BadgerStorage.prototype = {
   /**
    * Update the entire object that this instance is storing
    */
-  updateObject: function(object){
+  updateObject: function(object) {
     var self = this;
     self._store = object;
     // Async call to syncStorage.
-    setTimeout(function(){
+    setTimeout(function() {
       _syncStorage(self);
     }, 0);
   },
@@ -512,7 +512,7 @@ BadgerStorage.prototype = {
     }
 
     // Async call to syncStorage.
-    setTimeout(function(){
+    setTimeout(function() {
       _syncStorage(self);
     }, 0);
   }

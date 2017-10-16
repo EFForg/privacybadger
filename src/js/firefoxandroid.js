@@ -44,7 +44,7 @@ function openPopup() {
 
 // remove the 'popup' when another tab is activated
 function onActivated(activeInfo) {
-  if(openPopupId != false && openPopupId != activeInfo.tabId) {
+  if (openPopupId != false && openPopupId != activeInfo.tabId) {
     chrome.tabs.remove(openPopupId, () => {
       openPopupId = false;
     });
@@ -53,10 +53,10 @@ function onActivated(activeInfo) {
 
 // forgets the popup when the url is overwritten by the user
 function onUpdated(tabId, changeInfo, tab) {
-  if(tab.url && openPopupId == tabId){
+  if (tab.url && openPopupId == tabId) {
     var new_url = new URL(tab.url);
 
-    if(new_url.origin + new_url.pathname != popup_url){
+    if (new_url.origin + new_url.pathname != popup_url) {
       openPopupId = false;
     }
   }
@@ -64,7 +64,7 @@ function onUpdated(tabId, changeInfo, tab) {
 
 // Subscribe to events needed to fake a popup
 function startListeners() {
-  if(!hasPopupSupport){
+  if (!hasPopupSupport) {
     chrome.browserAction.onClicked.addListener(openPopup);
     chrome.tabs.onActivated.addListener(onActivated);
     chrome.tabs.onUpdated.addListener(onUpdated);
@@ -72,7 +72,7 @@ function startListeners() {
 }
 
 // Used in popup.js, figures out which tab opened the 'fake' popup
-function getParentOfPopup(callback){
+function getParentOfPopup(callback) {
   chrome.tabs.query({active: true, currentWindow: true}, function(focusedTab) {
     var parentId = parseInt(new URL(focusedTab[0].url).searchParams.get('tabId'));
     chrome.tabs.get(parentId, callback);

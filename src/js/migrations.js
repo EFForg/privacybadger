@@ -23,7 +23,7 @@ require.scopes.migrations = (function() {
 var exports = {};
 exports.Migrations= {
   changePrivacySettings: function() {
-    if (!chrome.extension.inIncognitoContext && chrome.privacy ) {
+    if (!chrome.extension.inIncognitoContext && chrome.privacy) {
       console.log('changing privacy settings');
       if (chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
         chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
@@ -36,13 +36,13 @@ exports.Migrations= {
 
   migrateAbpToStorage: function () {},
 
-  migrateBlockedSubdomainsToCookieblock: function(badger){
-    setTimeout(function(){
+  migrateBlockedSubdomainsToCookieblock: function(badger) {
+    setTimeout(function() {
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
       var cbl = badger.storage.getBadgerStorageObject('cookieblock_list');
-      _.each(badger.storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn){
-        _.each(utils.explodeSubdomains(fqdn, true), function(domain){
-          if(cbl.hasItem(domain)){
+      _.each(badger.storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn) {
+        _.each(utils.explodeSubdomains(fqdn, true), function(domain) {
+          if (cbl.hasItem(domain)) {
             console.log('moving', fqdn, 'from block to cookie block');
             badger.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           }
@@ -51,12 +51,12 @@ exports.Migrations= {
     }, 1000 * 30);
   },
 
-  migrateLegacyFirefoxData: function(){ },
+  migrateLegacyFirefoxData: function() { },
 
-  migrateDntRecheckTimes: function(badger){
+  migrateDntRecheckTimes: function(badger) {
     var action_map = badger.storage.getBadgerStorageObject('action_map');
-    for(var domain in action_map.getItemClones()){
-      if(badger.storage.getNextUpdateForDomain(domain) === 0){
+    for (var domain in action_map.getItemClones()) {
+      if (badger.storage.getNextUpdateForDomain(domain) === 0) {
         // Recheck at a random time in the next week
         var recheckTime = utils.getRandom(Date.now(), utils.nDaysFromNow(7));
         badger.storage.touchDNTRecheckTime(domain, recheckTime);
@@ -64,12 +64,12 @@ exports.Migrations= {
     }
 
   },
-  
+
   // Fixes https://github.com/EFForg/privacybadger/issues/1181
-  migrateDntRecheckTimes2: function(badger){
+  migrateDntRecheckTimes2: function(badger) {
     console.log('fixing DNT check times');
     var action_map = badger.storage.getBadgerStorageObject('action_map');
-    for(var domain in action_map.getItemClones()){
+    for (var domain in action_map.getItemClones()) {
       // Recheck at a random time in the next week
       var recheckTime = utils.getRandom(utils.oneDayFromNow(), utils.nDaysFromNow(7));
       badger.storage.touchDNTRecheckTime(domain, recheckTime);

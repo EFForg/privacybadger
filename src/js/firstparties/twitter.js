@@ -29,7 +29,7 @@ function findInAllFrames(query) {
       iframe.contentDocument.querySelectorAll(query).forEach((node) => {
         out.push(node);
       });
-    } catch(e) {
+    } catch (e) {
       // pass on cross origin iframe errors
     }
   });

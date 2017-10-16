@@ -41,8 +41,8 @@ HeuristicBlocker.prototype = {
    */
   setupSubdomainsForCookieblock: function(origin) {
     var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
-    for(var domain in cbl.getItemClones()){
-      if(origin == window.getBaseDomain(domain)){
+    for (var domain in cbl.getItemClones()) {
+      if (origin == window.getBaseDomain(domain)) {
         this.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
       }
     }
@@ -62,7 +62,7 @@ HeuristicBlocker.prototype = {
     var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
 
     // Setup Cookieblock or block for base domain and fqdn
-    if(cbl.hasItem(baseDomain)){
+    if (cbl.hasItem(baseDomain)) {
       this.storage.setupHeuristicAction(baseDomain, constants.COOKIEBLOCK);
     } else {
       this.storage.setupHeuristicAction(baseDomain, constants.BLOCK);
@@ -71,14 +71,14 @@ HeuristicBlocker.prototype = {
     // Check if a parent domain of the fqdn is on the cookie block list
     var set = false;
     var thisStorage = this.storage;
-    _.each(utils.explodeSubdomains(fqdn, true), function(domain){
-      if(cbl.hasItem(domain)){
+    _.each(utils.explodeSubdomains(fqdn, true), function(domain) {
+      if (cbl.hasItem(domain)) {
         thisStorage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
         set = true;
       }
     });
     // if no parent domains are on the cookie block list then block fqdn
-    if(!set){
+    if (!set) {
       this.storage.setupHeuristicAction(fqdn, constants.BLOCK);
     }
 
@@ -174,7 +174,7 @@ HeuristicBlocker.prototype = {
   _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
     var snitch_map = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = [];
-    if (snitch_map.hasItem(tracker_origin)){
+    if (snitch_map.hasItem(tracker_origin)) {
       firstParties = snitch_map.getItem(tracker_origin);
     }
 
@@ -438,7 +438,7 @@ function _extractCookies(details) {
 
   for (let i = 0; i < headers.length; i++) {
     let header = headers[i];
-    if (header.name.toLowerCase() == "cookie" || header.name.toLowerCase() == "set-cookie" ) {
+    if (header.name.toLowerCase() == "cookie" || header.name.toLowerCase() == "set-cookie") {
       cookies.push(header.value);
     }
   }
@@ -516,13 +516,13 @@ function startListeners() {
    */
   chrome.webRequest.onResponseStarted.addListener(function(details) {
     var hasSetCookie = false;
-    for(var i = 0; i < details.responseHeaders.length; i++) {
-      if(details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
+    for (var i = 0; i < details.responseHeaders.length; i++) {
+      if (details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
         hasSetCookie = true;
         break;
       }
     }
-    if(hasSetCookie) {
+    if (hasSetCookie) {
       if (badger) {
         return badger.heuristicBlocking.heuristicBlockingAccounting(details);
       } else {

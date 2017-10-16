@@ -22,7 +22,7 @@ window.badger = {};
 * Log a message to the console if debugging is enabled
 */
 window.log = function (/*...*/) {
-  if(window.DEBUG) {
+  if (window.DEBUG) {
     console.log.apply(console, arguments);
   }
 };

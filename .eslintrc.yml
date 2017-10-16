@@ -19,6 +19,7 @@ rules:
     - 2
     - outerIIFEBody: 0
       SwitchCase: 1
+  keyword-spacing: warn
   linebreak-style:
     - error
     - unix
@@ -31,6 +32,7 @@ rules:
   no-implied-eval: warn
   no-iterator: error
   no-loop-func: error
+  no-multi-spaces: warn
   no-multi-str: warn
   no-new: error
   no-new-func: warn
@@ -40,5 +42,8 @@ rules:
   no-script-url: warn
   no-shadow: warn
   no-shadow-restricted-names: error
+  no-trailing-spaces: warn
   no-unused-expressions: warn
   semi: error
+  space-before-blocks: warn
+  space-in-parens: warn

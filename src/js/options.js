@@ -200,7 +200,7 @@ function exportUserData() {
     // https://github.com/EFForg/privacybadger/pull/1532#issuecomment-318702372
     if (chrome.runtime.getBrowserInfo) {
       chrome.runtime.getBrowserInfo((info) => {
-        if(info.name == "Firefox"){
+        if (info.name == "Firefox") {
           a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
           a.dispatchEvent(new MouseEvent('click'));
         } else {
@@ -254,7 +254,7 @@ function reloadWhitelist() {
   // Sort the white listed sites in the same way the blocked sites are
   sites.sort(htmlUtils.compareReversedDomains);
   sitesList.html("");
-  for( var i = 0; i < sites.length; i++){
+  for (var i = 0; i < sites.length; i++) {
     $('<option>').text(sites[i]).appendTo(sitesList);
   }
 }
@@ -302,7 +302,7 @@ function addWhitelistDomain(event) {
 function removeWhitelistDomain(event) {
   event.preventDefault();
   var selected = $(document.getElementById("excludedDomainsBox")).find('option:selected');
-  for(var i = 0; i < selected.length; i++){
+  for (var i = 0; i < selected.length; i++) {
     badger.enablePrivacyBadgerForOrigin(selected[i].text);
   }
   reloadWhitelist();
@@ -320,7 +320,7 @@ function getOrigins() {
   for (var domain in action_map.getItemClones()) {
     var action = badger.storage.getBestAction(domain);
     // Do not show non tracking origins
-    if(action != constants.NO_TRACKING){
+    if (action != constants.NO_TRACKING) {
       origins[domain] = action;
     }
   }
@@ -341,14 +341,14 @@ function getOriginAction(origin) {
 }
 
 //TODO unduplicate this code? since it's also in popup
-function revertDomainControl(e){
+function revertDomainControl(e) {
   var $elm = $(e.target).parent();
   log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   badger.storage.revertUserAction(origin);
   var defaultAction = badger.storage.getBestAction(origin);
   var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
-  var selector =   $(selectorId);
+  var selector = $(selectorId);
   log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
@@ -522,7 +522,7 @@ function toggleWebRTCIPProtection() {
     } else {
       newVal = 'disable_non_proxied_udp';
     }
-    cpn.webRTCIPHandlingPolicy.set( {value: newVal}, function() {
+    cpn.webRTCIPHandlingPolicy.set({value: newVal}, function() {
       settings.setItem("webRTCIPProtection", (newVal === 'disable_non_proxied_udp'));
     });
   });

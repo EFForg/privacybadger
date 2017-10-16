@@ -34,7 +34,7 @@ function insertCcScript(text) {
 
 chrome.runtime.sendMessage({checkLocation:document.location.href}, function(blocked) {
   if (blocked) {
-    var code = '('+ function(){
+    var code = '('+ function() {
       var dummyCookie = "x=y";
       document.__defineSetter__("cookie", function(/*value*/) { return dummyCookie; });
       document.__defineGetter__("cookie", function() { return dummyCookie; });

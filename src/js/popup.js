@@ -40,7 +40,7 @@ function showNagMaybe() {
     settings.setItem("seenComic", true);
   }
 
-  function _hideNag(){
+  function _hideNag() {
     _setSeenComic();
     nag.fadeOut();
     outer.fadeOut();
@@ -75,18 +75,18 @@ function init() {
   });
 
   var overlay = $('#overlay');
-  $("#error").click(function(){
+  $("#error").click(function() {
     overlay.toggleClass('active');
   });
-  $("#report_cancel").click(function(){
+  $("#report_cancel").click(function() {
     closeOverlay();
   });
-  $("#report_button").click(function(){
+  $("#report_button").click(function() {
     $(this).prop("disabled", true);
     $("#report_cancel").prop("disabled", true);
     send_error($("#error_input").val());
   });
-  $("#report_close").click(function(){
+  $("#report_close").click(function() {
     closeOverlay();
   });
   $(document).ready(function () {
@@ -96,14 +96,14 @@ function init() {
 
   //toggle activation buttons if privacy badger is not enabled for current url
   getTab(function(t) {
-    if(!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
+    if (!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
       $("#blockedResourcesContainer").hide();
       $("#activate_site_btn").show();
       $("#deactivate_site_btn").hide();
     }
   });
 
-  var version = i18n.getMessage("version") + " " +  chrome.runtime.getManifest().version;
+  var version = i18n.getMessage("version") + " " + chrome.runtime.getManifest().version;
   $("#version").text(version);
 }
 $(init);
@@ -128,19 +128,18 @@ function send_error(message) {
   getTab(function(tab) {
     var tabId = tab.id;
     var origins = badger.getAllOriginsForTab(tabId);
-    if(!origins){ return; }
+    if (!origins) { return; }
     var version = chrome.runtime.getManifest().version;
     //TODO "there's got to be a better way!"
     var fqdn = tab.url.split("/",3)[2];
     var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
-    for (var i = 0; i < origins.length; i++){
+    for (var i = 0; i < origins.length; i++) {
       var origin = origins[i];
       var action = badger.storage.getBestAction(origin);
-      if (!action){ action = constants.NO_TRACKING; }
-      if (out[action]){
+      if (!action) { action = constants.NO_TRACKING; }
+      if (out[action]) {
         out[action] += ","+origin;
-      }
-      else{
+      } else {
         out[action] = origin;
       }
     }
@@ -154,7 +153,7 @@ function send_error(message) {
     sendReport.done(function() {
       $("#error_input").val("");
       $("#report_success").toggleClass("hidden", false);
-      setTimeout(function(){
+      setTimeout(function() {
         $("#report_button").prop("disabled", false);
         $("#report_cancel").prop("disabled", false);
         $("#report_success").toggleClass("hidden", true);
@@ -163,7 +162,7 @@ function send_error(message) {
     });
     sendReport.fail(function() {
       $("#report_fail").toggleClass("hidden");
-      setTimeout(function(){
+      setTimeout(function() {
         $("#report_button").prop("disabled", false);
         $("#report_cancel").prop("disabled", false);
         $("#report_fail").toggleClass("hidden", true);
@@ -175,7 +174,7 @@ function send_error(message) {
 /**
 * activate PB for site event handler
 */
-function active_site(){
+function active_site() {
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").show();
@@ -189,7 +188,7 @@ function active_site(){
 /**
 * de-activate PB for site event handler
 */
-function deactive_site(){
+function deactive_site() {
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
   $("#blockedResourcesContainer").hide();
@@ -206,7 +205,7 @@ function deactive_site(){
 * @param e The object the event triggered on
 * @returns {boolean} false
 */
-function revertDomainControl(e){
+function revertDomainControl(e) {
   var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
   var $elm = $(e.target).parent();
   var origin = $elm.data('origin');
@@ -229,18 +228,18 @@ function registerToggleHandlers() {
     min: 0,
     max: 2,
     value: value,
-    create: function(/*event, ui*/){
+    create: function(/*event, ui*/) {
       $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
     },
     slide: function(event, ui) {
       radios.filter("[value=" + ui.value + "]").click();
     },
-    stop: function(event, ui){
+    stop: function(event, ui) {
       $(ui.handle).css('margin-left', -16 * ui.value + "px");
     },
   }).appendTo(this);
 
-  radios.change(function(){
+  radios.change(function() {
     slider.slider("value",radios.filter(':checked').val());
   });
 }
@@ -416,7 +415,7 @@ function buildSettingsDict() {
 function syncUISelections() {
   var settingsDict = buildSettingsDict();
   var tabId = syncSettingsDict(settingsDict);
-  if (tabId){
+  if (tabId) {
     backgroundPage.reloadTab(tabId);
   }
 }
@@ -432,7 +431,7 @@ function syncUISelections() {
 */
 function getTab(callback) {
   // Temporary fix for Firefox Android
-  if(!FirefoxAndroid.hasPopupSupport){
+  if (!FirefoxAndroid.hasPopupSupport) {
     FirefoxAndroid.getParentOfPopup(callback);
     return;
   }

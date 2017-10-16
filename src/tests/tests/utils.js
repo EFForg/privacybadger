@@ -66,9 +66,9 @@
     badger.enablePrivacyBadgerForOrigin("example.com");
     assert.ok(badger.isPrivacyBadgerEnabled("example.com"), "enabled for site");
   });
-  
+
   QUnit.test("disable/enable privacy badger for origin", function (assert) {
-    var parsed = function(){ return badger.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'); };
+    var parsed = function() { return badger.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'); };
     var origLength = parsed() && parsed().length || 0;
 
     badger.disablePrivacyBadgerForOrigin('foo.com');
@@ -84,7 +84,7 @@
         iterations = 1000,
         results = [];
 
-    for(var i = 0; i < iterations; i++){
+    for (var i = 0; i < iterations; i++) {
       results.push(utils.getRandom(min,max));
     }
     assert.ok(Math.max.apply(null,results) === max, "max is max");

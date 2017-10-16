@@ -66,7 +66,7 @@ function initialize() {
   });
 
   // Set up listener for blocks that happen after initial check
-  chrome.runtime.onMessage.addListener( function(request/*, sender, sendResponse*/) {
+  chrome.runtime.onMessage.addListener(function(request/*, sender, sendResponse*/) {
     if (request.replaceSocialWidget) {
       replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
     }
@@ -85,7 +85,7 @@ function addStyleSheet() {
   let link = document.createElement("link");
   link.rel = "stylesheet";
   link.type = "text/css";
-  link.href =  STYLESHEET_URL;
+  link.href = STYLESHEET_URL;
 
   let head = document.querySelector("head");
   if (head !== null) {
@@ -224,7 +224,7 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
       var codeContainer = document.createElement("div");
-      if(typeof html == "string") {
+      if (typeof html == "string") {
         codeContainer.innerHTML = html;
       } else {
         codeContainer.innerHTML = html.outerHTML;
@@ -326,7 +326,7 @@ function replaceIndividualButton(tracker) {
 */
 function getTrackerData(callback) {
   chrome.runtime.sendMessage({checkReplaceButton:document.location.hostname}, function(response) {
-    if (response){
+    if (response) {
       var trackers = response.trackers;
       var trackerButtonsToReplace = response.trackerButtonsToReplace;
       callback(trackers, trackerButtonsToReplace);
