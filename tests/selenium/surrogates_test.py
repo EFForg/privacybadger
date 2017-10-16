@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from __future__ import unicode_literals
-
 import unittest
 import pbtest
 
@@ -17,7 +15,7 @@ from window_utils import switch_to_window_with_url
 class Test(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
-    def load_ga_js_test_page(self, timeout=10):
+    def load_ga_js_test_page(self, timeout=5):
         # TODO update to pbtest.org URL
         # TODO and remove the HTML pages from eff.org then
         self.load_url("https://www.eff.org/files/pbtest/ga_js_surrogate_test.html")
@@ -33,20 +31,38 @@ class Test(pbtest.PBSeleniumTest):
             return False
 
     def test_ga_js_surrogate(self):
+        # open the background page
+        self.load_url(self.bg_url, wait_on_site=1)
+
+        # verify the surrogate is present
+        self.assertTrue(self.js(
+            "const sdb = require('surrogatedb');"
+            "return sdb.hostnames.hasOwnProperty('www.google-analytics.com');"
+        ), "Surrogate is missing but should be present.")
+
         # verify site loads
         self.assertTrue(self.load_ga_js_test_page())
 
         # block ga.js (known to break the site)
         self.load_url(self.bg_url, wait_on_site=1)
+        # also back up the surrogate definition before removing it
         ga_backup = self.js(
-            "badger.saveAction('block', 'www.google-analytics.com');"
+            "badger.heuristicBlocking.blacklistOrigin('www.google-analytics.com', 'google-analytics.com');"
             "const sdb = require('surrogatedb');"
             "return JSON.stringify(sdb.hostnames['www.google-analytics.com']);"
         )
-        # and disable surrogate
+        # now remove the surrogate
         self.js(
             "const sdb = require('surrogatedb');"
             "delete sdb.hostnames['www.google-analytics.com'];"
+        )
+
+        # wait until this happens
+        self.wait_for_script(
+            "const sdb = require('surrogatedb');"
+            "return !sdb.hostnames.hasOwnProperty('www.google-analytics.com');",
+            timeout=5,
+            message="Timed out waiting for surrogate to get removed."
         )
 
         # need to keep PB's background page open for our changes to persist ...
@@ -63,6 +79,14 @@ class Test(pbtest.PBSeleniumTest):
         self.js(
             "const sdb = require('surrogatedb');"
             "sdb.hostnames['www.google-analytics.com'] = JSON.parse('%s');" % ga_backup
+        )
+
+        # wait until this happens
+        self.wait_for_script(
+            "const sdb = require('surrogatedb');"
+            "return sdb.hostnames.hasOwnProperty('www.google-analytics.com');",
+            timeout=5,
+            message="Timed out waiting for surrogate to get readded."
         )
 
         # still need to keep PB's bg page open ...
