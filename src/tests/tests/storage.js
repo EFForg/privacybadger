@@ -62,8 +62,8 @@
 
     // verify
     assert.deepEqual(
-     settings_map.getItem('disabledSites'),
-     ['example.com', 'www.nytimes.com'],
+      settings_map.getItem('disabledSites'),
+      ['example.com', 'www.nytimes.com'],
       "disabled site lists are combined when merging settings"
     );
     assert.ok(!settings_map.getItem('showCounter'), "other settings are overwritten");
@@ -73,7 +73,7 @@
     let action_map = storage.getBadgerStorageObject('action_map');
 
     action_map.setItem('testsite.com',
-        {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
+      {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
     assert.ok(action_map.getItem('testsite.com').nextUpdateTime === 100);
 
     let newValue = {dnt: false, heuristicAction: "", nextUpdateTime: 101, userAction: ""};

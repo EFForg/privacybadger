@@ -128,8 +128,9 @@ function createReplacementButtonImage(tracker, trackerElem) {
 
       break;
 
-    case 1: // in place button type; replace the existing button with an
-            // iframe when clicked
+    // in place button type; replace the existing button
+    // with an iframe when clicked
+    case 1:
       var iframeUrl = details + encodeURIComponent(window.location.href);
 
       button.addEventListener("click", function() {
@@ -142,8 +143,9 @@ function createReplacementButtonImage(tracker, trackerElem) {
 
       break;
 
-    case 2: // in place button type; replace the existing button with code
-            // specified in the Trackers file
+    // in place button type; replace the existing button with code
+    // specified in the Trackers file
+    case 2:
       button.addEventListener("click", function() {
         // for some reason, the callback function can execute more than
         // once when the user clicks on a replacement button

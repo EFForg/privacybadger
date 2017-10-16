@@ -16,7 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
- // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
+
+// TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
 var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;

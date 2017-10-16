@@ -15,7 +15,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /*
+/*
  * Temporary polyfill for firefox android,
  * while it doesn't support the full browserAction API
  * Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159

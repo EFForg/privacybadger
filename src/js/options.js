@@ -14,7 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
- // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
+
+// TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
@@ -185,7 +186,7 @@ function exportUserData() {
     var escapedDate = currDate
       // illegal filename charset regex from
       // https://github.com/parshap/node-sanitize-filename/blob/ef1e8ad58e95eb90f8a01f209edf55cd4176e9c8/index.js
-      .replace(/[\/\?<>\\:\*\|":]/g, '_')
+      .replace(/[\/\?<>\\:\*\|":]/g, '_') /* eslint no-useless-escape:off */
       // also collapse-replace commas and spaces
       .replace(/[, ]+/g, '_');
     var filename = 'PrivacyBadger_user_data-' + escapedDate + '.json';

@@ -18,7 +18,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /* globals URI */
+/* globals URI */
 
 require.scopes.utils = (function() {
   

@@ -20,10 +20,10 @@
  * Communicates to webrequest.js to get orders if to delete cookies.
  */
 
- /**
-  * Insert script into page
-  *
-  * @param {String} text The script to insert into the page
+/**
+ * Insert script into page
+ *
+ * @param {String} text The script to insert into the page
  */
 
 function insertClsScript(text) {
