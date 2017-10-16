@@ -2,7 +2,7 @@
 
 Unfortunately, while working to protect your privacy, Privacy Badger can end up breaking website functionality. This document is about the process of classifying and resolving these breakages.
 
-Here are the [open "broken site" and "good-volunteer-task"-labeled issues](https://github.com/EFForg/privacybadger/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20label%3A%22broken%20site%22%20label%3A%22good%20volunteer%20task%22).
+Here are the [open "broken site" and "help wanted"-labeled issues](https://github.com/EFForg/privacybadger/issues?utf8=✓&q=is%3Aissue%20is%3Aopen%20label%3A"broken%20site"%20label%3A"help%20wanted"%20).
 
 
 ## Confirm Privacy Badger is responsible
