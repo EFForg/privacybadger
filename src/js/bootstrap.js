@@ -25,6 +25,10 @@ window.log = function (/*...*/) {
   if(window.DEBUG) {
     console.log.apply(console, arguments);
   }
+  if(window.badger && window.badger.debugLog) {
+    let msg = Array.from(arguments).map(e => e.toString());
+    window.badger.debugLog.doLog(msg);
+  }
 };
 
 /**

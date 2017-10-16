@@ -238,10 +238,9 @@ BadgerPen.prototype = {
     }
     actionObj[actionType] = action;
 
-    if (window.DEBUG) { // to avoid needless JSON.stringify calls
-      log(msg, domain, actionType, JSON.stringify(action));
-    }
     action_map.setItem(domain, actionObj);
+
+    log(msg, domain, actionType, action);
   },
 
   /**

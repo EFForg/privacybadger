@@ -322,6 +322,68 @@ function parseCookie(str, opts) {
   return parsed;
 }
 
+function DebugLog(maxSize) {
+  this.index = 0;
+  if (maxSize) {
+    this.maxSize = maxSize;
+  }
+  this.logBook = new Array(this.maxSize);
+}
+
+/**
+ * Logging utility. Addinding an entry is always O(1). We keep the last entries
+ * up to `maxSize`.
+ */
+DebugLog.prototype = {
+  // The maximum number of entries the log stores.
+  maxSize: 300,
+
+   // Add an entry to the logBook. This is always O(1).
+  doLog: function(toLog) {
+    if (typeof toLog == 'undefined') {
+      return;
+    }
+    this.logBook[this.index] = toLog;
+    this.index = this.mod(this.index + 1);
+  },
+
+  /**
+   * Modulus function - since % in js actually a remainder. This is used to
+   * wrap an index around the log book. For example if maxSize is 5:
+   * > mod(4)
+   * 4
+   * > mod(-1)  // but -1 % 5 == -1
+   * 4
+   */
+  mod: function(num) {
+    let remainder = (num % this.maxSize);
+    if (remainder < 0) {
+      return this.maxSize + remainder;
+    } else {
+      return remainder;
+    }
+  },
+
+  /**
+   * Dump entries from the log in reverse chronological order. So the most
+   * recent entry is at index zero.
+   */
+  output: function() {
+    let out = [];
+    let maxSize = this.maxSize;
+    let start = this.mod(this.index - 1);
+    for (let i = 0; i < maxSize; i++) {
+      let entry = this.logBook[this.mod(start - i)];
+      if ("undefined" == typeof entry) {
+        break;
+      } else {
+        out.push(entry);
+      }
+    }
+    return out;
+  }
+};
+
 /************************************** exports */
 var exports = {};
 
@@ -340,6 +402,7 @@ exports.rateLimit = rateLimit;
 exports.removeElementFromArray = removeElementFromArray;
 exports.sha1 = sha1;
 exports.xhrRequest = xhrRequest;
+exports.DebugLog = DebugLog;
 
 return exports;
 /************************************** exports */
