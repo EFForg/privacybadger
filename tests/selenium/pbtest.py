@@ -253,7 +253,7 @@ class PBSeleniumTest(unittest.TestCase):
                     else:
                         break
 
-            except Exception as e:
+            except Exception:
                 if i == nretries - 1:
                     raise
                 else:
@@ -281,12 +281,17 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
-    def wait_for_script(self, script, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+    def wait_for_script(
+        self,
+        script,
+        timeout=SEL_DEFAULT_WAIT_TIMEOUT,
+        message="Timed out waiting for execute_script to eval to True"
+    ):
         """Variant of self.js that executes script continuously until it
         returns True."""
         return WebDriverWait(self.driver, timeout).until(
             lambda driver: driver.execute_script(script),
-            "Timed out waiting for execute_script to eval to True"
+            message
         )
 
     @property
