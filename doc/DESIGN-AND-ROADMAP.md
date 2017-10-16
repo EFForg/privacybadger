@@ -38,7 +38,7 @@ Privacy Badger:
    Privacy Badger's "cookie block list" (aka the "yellow list"), in which case
    resources from the site are loaded, but with their (third party) cookies, as
    well as referer header, blocked. The cookie block list is routinely fetched
-   from [an EFF URL](https://www.eff.org/files/cookieblocklist.txt) to allow prompt fixes for breakage.
+   from [an EFF URL](https://www.eff.org/files/cookieblocklist_new.txt) to allow prompt fixes for breakage.
    Until methods for blocking them have been implemented, domains that perform
    fingerprinting or use third party supercookies should not be added to the
    cookie block list.

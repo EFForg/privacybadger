@@ -44,7 +44,7 @@ require.scopes.storage = (function() {
  *   "widget.eff.org": { heuristicAction: "block", dnt: true, userAction: ""}
  * }
  *
- * cookieblock_list is where we store the current cookie block list as
+ * cookieblock_list is where we store the current yellowlist as
  * downloaded from eff.org. The keys are the domains which should be blocked.
  * The values are simply 'true'
  *
@@ -122,6 +122,46 @@ BadgerPen.prototype = {
     } else {
       return 0;
     }
+  },
+
+  /**
+   * Updates the yellowlist to the provided array of domains.
+   *
+   * For each added domain, sets it to be cookieblocked
+   * if its parent domain is set to be blocked.
+   *
+   * @param {Array} newDomains domains to use for the new yellowlist
+   */
+  updateYellowlist: function (newDomains) {
+    let self = this,
+      actionMap = self.getBadgerStorageObject('action_map'),
+      yellowlistStorage = self.getBadgerStorageObject('cookieblock_list'),
+      oldDomains = Object.keys(yellowlistStorage.getItemClones());
+
+    let addedDomains = _.difference(newDomains, oldDomains),
+      removedDomains = _.difference(oldDomains, newDomains);
+
+    log('removing from cookie blocklist:', removedDomains);
+    removedDomains.forEach(function (domain) {
+      yellowlistStorage.deleteItem(domain);
+      // TODO restore domain removal logic:
+      // https://github.com/EFForg/privacybadger/issues/1474
+    });
+
+    log('adding to cookie blocklist:', addedDomains);
+    addedDomains.forEach(function (domain) {
+      yellowlistStorage.setItem(domain, true);
+
+      let base_domain = window.getBaseDomain(domain);
+      if (actionMap.hasItem(base_domain)) {
+        let action = actionMap.getItem(base_domain).heuristicAction;
+        // if the domain's base domain is marked for blocking
+        if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
+          // cookieblock the domain
+          self.setupHeuristicAction(domain, constants.COOKIEBLOCK);
+        }
+      }
+    });
   },
 
   /**

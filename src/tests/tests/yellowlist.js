@@ -43,7 +43,7 @@
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, Object.keys(ylist).join("\n")]);
 
-    badger.updateCookieBlockList(function (success) {
+    badger.updateYellowlist(function (success) {
       assert.ok(success, "Callback status indicates success");
       assert.deepEqual(get_ylist(), ylist, "List got updated");
       done();
@@ -61,7 +61,7 @@
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, ""]);
 
-    badger.updateCookieBlockList(function (success) {
+    badger.updateYellowlist(function (success) {
       assert.notOk(success, "Callback status indicates failure");
       assert.deepEqual(get_ylist(), ylist, "List did not get updated");
       done();
@@ -89,7 +89,7 @@
       server.respondWith("GET", constants.YELLOWLIST_URL,
         [200, {}, response]);
 
-      badger.updateCookieBlockList(function (success) {
+      badger.updateYellowlist(function (success) {
         assert.notOk(success,
           "Callback status indicates failure for " + JSON.stringify(response));
         assert.deepEqual(get_ylist(), ylist,
@@ -107,8 +107,38 @@
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [404, {}, "page not found"]);
 
-    badger.updateCookieBlockList(function (success) {
+    badger.updateYellowlist(function (success) {
       assert.notOk(success, "Callback status indicates failure");
+      done();
+    });
+  });
+
+  QUnit.test("Added domains get cookieblocked", (assert) => {
+    const DOMAIN = "example.com";
+
+    let done = assert.async();
+    assert.expect(2);
+
+    // mark domain for blocking
+    badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
+
+    // respond with this domain added
+    let ylist = get_ylist();
+    ylist[DOMAIN] = true;
+    server.respondWith("GET", constants.YELLOWLIST_URL,
+      [200, {}, Object.keys(ylist).join("\n")]);
+
+    // update yellowlist
+    badger.updateYellowlist(function (success) {
+      assert.ok(success, "Callback status indicates success");
+
+      // check that the domain got cookieblocked
+      assert.equal(
+        badger.storage.getAction(DOMAIN),
+        constants.COOKIEBLOCK,
+        "domain is marked for blocking"
+      );
+
       done();
     });
   });
