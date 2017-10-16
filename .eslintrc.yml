@@ -12,6 +12,10 @@ parserOptions:
   # strict mode
   sourceType: module
 rules:
+  brace-style:
+    - warn
+    - 1tbs
+    - allowSingleLine: true
   curly: error
   dot-notation: warn
   indent:

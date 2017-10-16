@@ -820,11 +820,9 @@ function startBackgroundListeners() {
         if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
           if (request.command == "getDisabledSites") {
             sendResponse({origins: badger.listOriginsWherePrivacyBadgerIsDisabled()});
-          }
-          else if (request.command == "enable") {
+          } else if (request.command == "enable") {
             badger.enablePrivacyBadgerForOrigin(request.origin);
-          }
-          else if (request.command == "disable") {
+          } else if (request.command == "disable") {
             badger.disablePrivacyBadgerForOrigin(request.origin);
           }
         }

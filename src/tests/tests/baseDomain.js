@@ -21,8 +21,7 @@ isThirdParty:false,
 URI:false,
 */
 
-(function()
-{
+(function() {
   QUnit.module("URL/host tools");
 
   QUnit.test("Host name extraction", function (assert) {
@@ -125,8 +124,7 @@ URI:false,
       }],
     ];
 
-    for (var i = 0; i < tests.length; i++)
-    {
+    for (var i = 0; i < tests.length; i++) {
       var url = tests[i][0];
       var uri = new URI(url);
       assert.equal(uri.spec, url, "URI(" + url + ").spec");
