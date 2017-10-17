@@ -285,17 +285,42 @@ function getOriginsArray(filterText) {
   return Object.keys(originCache).filter(containsFilterText);
 }
 
+function checkIfValidURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+  '((([a-z\\d\\*]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name and extension
+  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+  '(\\:\\d+)?'+ // port
+  '(\\/[-a-z\\d%_.~+&:]*)*'+ // path
+  '(\\?[;&a-z\\d%_.,~+&:=-]*)?'+ // query string
+  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return pattern.test(str);
+}
+
+function extractDomain(url) {
+  var match = url.match(/^(?:https?:)?(?:\/\/)?([^\/\?]+)/); 
+  return match[1];
+}
+
 function addWhitelistDomain(event) {
   event.preventDefault();
 
-  var domain = document.getElementById("newWhitelistDomain").value.replace(/\s/g, "");
-  document.getElementById("newWhitelistDomain").value = "";
-  if (!domain) {
+  var userInput = document.getElementById("newWhitelistDomain").value.replace(/\s/g, "");
+
+  if (!userInput) {
     return;
   }
 
-  badger.disablePrivacyBadgerForOrigin(domain);
-  reloadWhitelist();
+  if(checkIfValidURL(userInput)) {
+    var domain = extractDomain(userInput);
+    badger.disablePrivacyBadgerForOrigin(domain);
+    reloadWhitelist();  
+  } else {
+    var test = i18n.getMessage("invalid_domain");
+    confirm(test);
+    
+  }
+
+  document.getElementById("newWhitelistDomain").value = "";
 }
 
 function removeWhitelistDomain(event) {
