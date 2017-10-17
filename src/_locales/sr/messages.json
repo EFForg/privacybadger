@@ -7,6 +7,10 @@
         "message": "Неважећа JSON датотека.",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "options_remove_origin_confirm": {
         "message": "Да ли сте сигурни да желите да уклоните ово порекло из Privacy Badger?",
         "description": ""

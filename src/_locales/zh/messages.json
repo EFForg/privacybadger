@@ -7,6 +7,10 @@
         "message": "无效的 JSON 文件。",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "options_remove_origin_confirm": {
         "message": "Are you sure you want to remove this origin from Privacy Badger?",
         "description": ""
