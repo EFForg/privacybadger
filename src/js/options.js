@@ -315,9 +315,7 @@ function addWhitelistDomain(event) {
     badger.disablePrivacyBadgerForOrigin(domain);
     reloadWhitelist();  
   } else {
-    var test = i18n.getMessage("invalid_domain");
-    confirm(test);
-    
+    confirm(i18n.getMessage("invalid_domain"));    
   }
 
   document.getElementById("newWhitelistDomain").value = "";
