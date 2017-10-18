@@ -507,11 +507,14 @@ Badger.prototype = {
 
   /**
    * Helper function returns a list of all third party origins for a tab
-   * @param {Integer} tabId requested tab id as provided by chrome
+   * @param {Integer} tab_id requested tab id as provided by chrome
    * @returns {*} A dictionary of third party origins and their actions
    */
-  getAllOriginsForTab: function(tabId) {
-    return Object.keys(this.tabData[tabId].origins);
+  getAllOriginsForTab: function (tab_id) {
+    return (
+      this.tabData.hasOwnProperty(tab_id) &&
+      Object.keys(this.tabData[tab_id].origins)
+    );
   },
 
   /**
