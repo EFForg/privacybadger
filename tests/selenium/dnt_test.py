@@ -70,15 +70,21 @@ class DNTTest(pbtest.PBSeleniumTest):
         # reload it
         self.load_url(PAGE_URL)
 
-        # wait a second for the DNT check to complete
-        sleep(1)
-
         # switch back to Badger's background page
         switch_to_window_with_url(self.driver, self.bg_url)
 
         # verify that the domain is allowed
-        self.assertFalse(self.domain_was_blocked(DNT_DOMAIN),
-            msg="DNT-compliant resource should have gotten unblocked.")
+        for _ in range(10):
+            was_blocked = self.domain_was_blocked(DNT_DOMAIN)
+
+            if not was_blocked:
+                # success
+                break
+
+            print("\nWaiting a bit for DNT check to complete and retrying ...")
+            sleep(1)
+
+        self.assertFalse(was_blocked, msg="DNT-compliant resource should have gotten unblocked.")
 
     # TODO reenable when the oldest Firefox tests run on is 55 or later
     # (ESR is on 52 until June 2018 or so)
