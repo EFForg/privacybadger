@@ -61,7 +61,7 @@ function onBeforeRequest(details) {
     if (type == "main_frame" && frame_id != 0) {
       frame_id = 0;
     }
-    recordFrame(tab_id, frame_id, details.parentFrameId, url);
+    badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
   }
 
   // Block ping requests sent by navigator.sendBeacon (see, #587)
@@ -319,28 +319,6 @@ function getHostForTab(tabId) {
     return '';
   }
   return window.extractHostFromURL(badger.tabData[tabId].frames[mainFrameIdx].url);
-}
-
-/**
- * Generate representation in internal data structure for frame
- *
- * @param tabId ID of the tab
- * @param frameId ID of the frame
- * @param parentFrameId ID of the parent frame
- * @param frameUrl The url of the frame
- */
-function recordFrame(tabId, frameId, parentFrameId, frameUrl) {
-  if (!badger.tabData.hasOwnProperty(tabId)) {
-    badger.tabData[tabId] = {
-      frames: {},
-      origins: {}
-    };
-  }
-
-  badger.tabData[tabId].frames[frameId] = {
-    url: frameUrl,
-    parent: parentFrameId
-  };
 }
 
 /**
