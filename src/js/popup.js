@@ -182,6 +182,7 @@ function active_site() {
     badger.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
+    window.close();
   });
 }
 
@@ -196,6 +197,7 @@ function deactive_site() {
     badger.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
+    window.close();
   });
 }
 
@@ -216,6 +218,7 @@ function revertDomainControl(e) {
   selector.click();
   $elm.removeClass('userset');
   reloadTab(tabId);
+  window.close();
   return false;
 }
 
