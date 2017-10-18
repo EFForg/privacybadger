@@ -44,6 +44,25 @@ class PopupTest(pbtest.PBSeleniumTest):
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
         self.load_url(self.popup_url, wait_on_site=1)
+
+        # hack to get tabData populated for the popup's tab
+        # to get the popup shown for regular pages
+        # as opposed to special (no-tabData) browser pages
+        # TODO instead use a proper popup-opening function to open the popup
+        # for some test page like https://www.eff.org/files/badgertest.txt;
+        # for example, see https://github.com/EFForg/privacybadger/issues/1634
+        self.js("""getTab(function (tab) {
+  badger.recordFrame(tab.id, 0, -1, tab.url);
+  refreshPopup(tab.id);
+  window.DONE_REFRESHING = true;
+});""")
+        # wait until the async getTab function is done
+        self.wait_for_script(
+            "return typeof window.DONE_REFRESHING != 'undefined'",
+            timeout=5,
+            message="Timed out waiting for getTab() to complete."
+        )
+
         if close_overlay:
             # Click 'X' element to close overlay.
             try:

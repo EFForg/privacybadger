@@ -257,13 +257,8 @@ function refreshPopup(tabId) {
   // or a page that loaded everything before our most recent initialization
   if (!badger.tabData.hasOwnProperty(tabId)) {
     // replace inapplicable summary text with a Badger logo
-    $('#pbInstructions').html(
-      "<img src='" +
-      chrome.extension.getURL('icons/badger-128.png') +
-      "' alt=''>"
-    ).css({
-      "text-align": "center"
-    });
+    $('#blockedResourcesContainer').hide();
+    $('#big-badger-logo').show();
 
     // hide inapplicable buttons
     $('#deactivate_site_btn').hide();
@@ -273,6 +268,14 @@ function refreshPopup(tabId) {
     $('.tooltip').tooltipster();
 
     return;
+
+  } else {
+    // revert any hiding/showing above for cases when refreshPopup gets called
+    // more than once for the same popup, such as during functional testing
+    $('#blockedResourcesContainer').show();
+    $('#big-badger-logo').hide();
+    $('#deactivate_site_btn').show();
+    $('#error').show();
   }
 
   let origins = badger.getAllOriginsForTab(tabId);
