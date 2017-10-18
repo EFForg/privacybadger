@@ -250,8 +250,29 @@ function registerToggleHandlers() {
 * @param {Integer} tabId The id of the tab
 */
 function refreshPopup(tabId) {
-  //TODO this is calling get action and then being used to call get Action
-  var origins = badger.getAllOriginsForTab(tabId);
+  // must be a special browser page,
+  // or a page that loaded everything before our most recent initialization
+  if (!badger.tabData.hasOwnProperty(tabId)) {
+    // replace inapplicable summary text with a Badger logo
+    $('#pbInstructions').html(
+      "<img src='" +
+      chrome.extension.getURL('icons/badger-128.png') +
+      "' alt=''>"
+    ).css({
+      "text-align": "center"
+    });
+
+    // hide inapplicable buttons
+    $('#deactivate_site_btn').hide();
+    $('#error').hide();
+
+    // activate tooltips
+    $('.tooltip').tooltipster();
+
+    return;
+  }
+
+  let origins = badger.getAllOriginsForTab(tabId);
 
   if (!origins || origins.length === 0) {
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
