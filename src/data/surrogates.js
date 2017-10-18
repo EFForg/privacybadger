@@ -410,7 +410,7 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-undef */
 
-  // https://github.com/uBlockOrigin/uAssets/blob/257f936a0f01ad824dd7cb34dce215f60e34161a/filters/resources.txt#L263-L304
+  // https://github.com/uBlockOrigin/uAssets/blob/bf00b6e43a8a33b8d50f23de380eed707e8aa24a/filters/resources.txt#L287-L334
   /* eslint-disable no-empty */
   '/analytics.js': '(' +
     function() {
@@ -430,7 +430,8 @@ const surrogates = {
       p.set = noopfn;
       p.send = noopfn;
       //
-      var gaName = window.GoogleAnalyticsObject || 'ga';
+      var w = window,
+        gaName = w.GoogleAnalyticsObject || 'ga';
       var ga = function() {
         var len = arguments.length;
         if ( len === 0 ) {
@@ -453,7 +454,12 @@ const surrogates = {
         return [];
       };
       ga.remove = noopfn;
-      window[gaName] = ga;
+      w[gaName] = ga;
+      // https://github.com/gorhill/uBlock/issues/3075
+      var dl = w.dataLayer;
+      if ( dl instanceof Object && dl.hide instanceof Object && typeof dl.hide.end === 'function' ) {
+        dl.hide.end();
+      }
     } + ')();',
   /* eslint-enable no-empty */
 
