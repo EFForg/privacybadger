@@ -63,7 +63,7 @@ function showNagMaybe() {
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
  */
-function init() {
+function init(tab) {
   showNagMaybe();
 
   $("#activate_site_btn").click(active_site);
@@ -94,19 +94,16 @@ function init() {
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   });
 
-  //toggle activation buttons if privacy badger is not enabled for current url
-  getTab(function(t) {
-    if (!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
-      $("#blockedResourcesContainer").hide();
-      $("#activate_site_btn").show();
-      $("#deactivate_site_btn").hide();
-    }
-  });
+  // toggle activation buttons if privacy badger is not enabled for current url
+  if (!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(tab.url))) {
+    $("#blockedResourcesContainer").hide();
+    $("#activate_site_btn").show();
+    $("#deactivate_site_btn").hide();
+  }
 
   var version = i18n.getMessage("version") + " " + chrome.runtime.getManifest().version;
   $("#version").text(version);
 }
-$(init);
 
 /**
 * Close the error reporting overlay
@@ -467,8 +464,9 @@ function getTab(callback) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  getTab(function(t) {
-    refreshPopup(t.id);
+  getTab(function (tab) {
+    refreshPopup(tab.id);
+    init(tab);
   });
 });
 
