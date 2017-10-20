@@ -41,12 +41,16 @@ chrome.runtime.sendMessage({checkLocation:document.location.href}, function(bloc
   if (blocked) {
     var code =
       '('+ function() {
-        window.localStorage.getItem = function () {
-          return {};
-        };
-        window.localStorage.setItem=function (/*newValue*/) {
-          //doNothing
-        };
+        try {
+          window.localStorage.getItem = function() {
+            return {};
+          };
+          window.localStorage.setItem = function(/*newValue*/) {
+            //doNothing
+          };
+        } catch (ex) {
+          // ignore error
+        }
       } +')()';
 
     insertClsScript(code);
