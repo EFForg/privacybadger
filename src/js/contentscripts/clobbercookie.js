@@ -32,6 +32,7 @@ function insertCcScript(text) {
   parent.removeChild(script);
 }
 
+// TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({checkLocation:document.location.href}, function(blocked) {
   if (blocked) {
     var code = '('+ function() {
