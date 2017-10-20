@@ -49,7 +49,7 @@ chrome.runtime.sendMessage({checkLocation:document.location.href}, function(bloc
             //doNothing
           };
         } catch (ex) {
-          // ignore error
+          // ignore exceptions thrown when "Block third-party cookies" is enabled in Chrome
         }
       } +')()';
 
