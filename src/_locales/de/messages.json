@@ -16,7 +16,7 @@
         "description": ""
     },
     "non_tracker_tip": {
-        "message": "Im Moment überprüft Privacy Badger nur, ob Drittparteien Cookies, lokalen HTML5 Speicher oder Canvas Fingerprinting benutzt um Ihr Surfverhalten zu tracken. Einige dieser Domains könnten allerdings Tracking-Methoden benutzen, welche Privacy Badger nicht erkennen kann.",
+        "message": "Derzeit überprüft Privacy Badger nur, ob Drittparteien zum Verfolgen Ihres Surfverhaltens Cookies, lokalen HTML5-Speicher oder Canvas Fingerprinting verwenden. Einige dieser Domains könnten allerdings Tracking-Methoden benutzen, welche Privacy Badger nicht erkennen kann.",
         "description": ""
     },
     "intro_hungry": {
@@ -48,7 +48,7 @@
         "description": ""
     },
     "options_dnt_policy_learn_more": {
-        "message": "Learn more",
+        "message": "Mehr erfahren",
         "description": ""
     },
     "data_settings": {
@@ -64,7 +64,7 @@
         "description": ""
     },
     "whitelist_form_domain_input_placeholder": {
-        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "message": "z. B. www.domain.com, *.domain.net, domain.org",
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
     },
     "slideshow_4": {
@@ -84,11 +84,11 @@
         "description": ""
     },
     "options_webrtc_setting": {
-        "message": "WebRTC daran hindern, die lokale IP-Adresse zu verraten",
+        "message": "WebRTC hindern, die lokale IP-Adresse zu verraten *",
         "description": ""
     },
     "options_so_far": {
-        "message": "entdeckt. Diese Schieberegler kontrollieren, wie Privacy Badger die einzelnen gefundenen Tracker handhabt.",
+        "message": "entdeckt. Mittels der Schieberegler können Sie steuern, wie Privacy Badger die jeweiligen Tracker handhabt.",
         "description": ""
     },
     "error_input": {
@@ -108,11 +108,11 @@
         "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
-        "message": "Share on Twitter",
+        "message": "Auf Twitter teilen",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "first_run_text": {
-        "message": "Lernen Sie wie Privacy Badger Ihre Privatsphäre schützt.",
+        "message": "Erfahren Sie, wie Privacy Badger Ihre Privatsphäre schützt.",
         "description": ""
     },
     "download": {
@@ -132,11 +132,11 @@
         "description": ""
     },
     "options_social_widgets_checkbox": {
-        "message": "Soziale Widgets ersetzen",
+        "message": "Social Widgets ersetzen",
         "description": ""
     },
     "options_tracking_domains": {
-        "message": "Tracking Domains",
+        "message": "Tracking-Domains",
         "description": ""
     },
     "report_button": {
@@ -156,11 +156,11 @@
         "description": ""
     },
     "show_counter_checkbox": {
-        "message": "Anzahl der blockierten Ressourcen anzeigen",
+        "message": "Anzahl der blockierten Elemente anzeigen",
         "description": ""
     },
     "what_is_a_tracker": {
-        "message": "What is a tracker?",
+        "message": "Was ist ein Tracker?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Privacy Badger Optionen",
+        "message": "Privacy Badger-Optionen",
         "description": ""
     },
     "options_pb_has_detected": {
@@ -180,7 +180,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Dies wird Informationen an die EFF senden. Diese beinhalten: Die von Ihnen aufgerufene Webseite, Ihre Browser Version, die Version von Privacy Badger und den Status aller Regler für diese Webseite.",
+        "message": "Dies wird folgende Informationen automatisch an die EFF senden: Die von Ihnen derzeit besuchte Webseite, Ihre Browserversion, die Version von Privacy Badger und den Status aller Schieberegler für diese Webseite.",
         "description": ""
     },
     "whitelisted_domains": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC ist ein Feature, welches Ihre lokale IP-Adresse an Drittpartei-Webseiten verraten kann. Standardmäßig hilft Privacy Badger nur Sie zu beschützen, Sie können diese Option allerdings für weiteren Schutz aktivieren. Beachten Sie, dass das Aktivieren die Leistung von einigen Webseiten wie etwa Google Hangouts beeinträchtigen könnte.",
+        "message": "* WebRTC kann Ihre lokale IP-Adresse verraten. Während Privacy Badgers Standardeinstellung grundsätzlich hilft, Sie zu schützen, können Sie für einen erhöhten Schutz diese Option aktivieren. Beachten Sie, dass dies eventuell die Leistung einiger Tools wie z. B. Google Hangouts vermindern kann.",
         "description": ""
     },
     "options_general_settings": {
@@ -212,7 +212,7 @@
         "description": "This is an options page tab heading."
     },
     "slideshow_7": {
-        "message": " Grün bedeutet, dass mir (bisher) nichts komisches an der Domain aufgefallen ist. Ich werde trotzdem ein Auge darauf werfen.",
+        "message": "Ein grüner Schieberegler bedeutet, dass ich noch nicht sicher sagen kann, ob diese Domain Ihr Surfverhalten verfolgt. Vielleicht tut sie es nicht, ich werde sie jedoch trotzdem im Auge behalten.",
         "description": ""
     },
     "domain_slider_block_tooltip": {
@@ -220,7 +220,7 @@
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
-        "message": "version",
+        "message": "Version",
         "description": ""
     },
     "badger_status_cookieblock": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "Es scheinen keine Drittpartei Ressourcen auf dieser Webseite vorhanden zu sein.",
+        "message": "Auf dieser Seite sind keine Elemente von Drittparteien vorhanden.",
         "description": ""
     },
     "report_broken_site": {
@@ -248,7 +248,7 @@
         "description": ""
     },
     "tooltip_cookieblock": {
-        "message": "Schieben Sie den Regler in die Mitte um Cookies einer Domain zu blockieren",
+        "message": "Schieben Sie zum Blockieren von Cookies den Schieberegler in die Mitte",
         "description": ""
     },
     "ded_can_allow_to_track": {
@@ -256,7 +256,7 @@
         "description": ""
     },
     "ded_privacy_badger_alert": {
-        "message": "Privacy Badger Alarm!",
+        "message": "Privacy Badger-Alarm!",
         "description": ""
     },
     "slideshow_12": {
@@ -288,7 +288,7 @@
         "description": ""
     },
     "popup_help_button": {
-        "message": "Help",
+        "message": "Hilfe",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "ded_logging_into": {
@@ -296,7 +296,7 @@
         "description": ""
     },
     "share_button_title_google": {
-        "message": "Share on Google Plus",
+        "message": "Auf Google Plus teilen",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -304,7 +304,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Schieben Sie den Regler nach links um eine Domain zu blockieren",
+        "message": "Schieben Sie zum Blockieren einer Domain den Schieberegler nach links",
         "description": ""
     },
     "disabled_for_these_domains": {
@@ -324,7 +324,7 @@
         "description": ""
     },
     "tooltip_allow": {
-        "message": "Schieben Sie den Regler nach rechts um eine Domain zu erlauben",
+        "message": "Schieben Sie zum Erlauben einer Domain den Schieberegler nach rechts",
         "description": ""
     },
     "popup_disable_for_site": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "intro_3_states": {
-        "message": "Die Erweiterung hat drei Einstellungen. ",
+        "message": "Unsere Erweiterung besitzt drei Zustände.",
         "description": ""
     },
     "intro_cookie_blocked": {
@@ -356,7 +356,7 @@
         "description": ""
     },
     "report_text": {
-        "message": "Beschreiben Sie bitte den Fehler",
+        "message": "Beschreiben Sie bitte unten kurz den Fehler.",
         "description": ""
     },
     "ded_on": {
@@ -404,7 +404,7 @@
         "description": ""
     },
     "slideshow_6": {
-        "message": " Ist der Schieberegler gelb, ist der Tracker nur teilweise blockiert. Ich werde in so einem Fall mein Bestes versuchen, um den Tracker daran zu hintern, Sie auszuspionieren.",
+        "message": "Ein gelber Schieberegler bedeutet, dass ich diesen Tracker teilweise blockiert habe. Ich werde mein Bestes tun, um ein Verfolgen Ihres Surfverhaltens durch Löschen der Cookies zu verhindern. Ein vollständiges Blockieren würde eventuell zu einer fehlerhaften Seitendarstellung führen.",
         "description": ""
     },
     "slideshow_16": {
@@ -412,11 +412,11 @@
         "description": ""
     },
     "share_button_title_facebook": {
-        "message": "Share on Facebook",
+        "message": "Auf Facebook teilen",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
-        "message": "Immer erlauben von ",
+        "message": "Immer erlauben",
         "description": ""
     },
     "description": {
