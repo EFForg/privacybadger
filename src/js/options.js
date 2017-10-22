@@ -285,20 +285,19 @@ function getOriginsArray(filterText) {
   return Object.keys(originCache).filter(containsFilterText);
 }
 
-function checkIfValidURL(str) {
-  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-  '((([a-z\\d\\*]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name and extension
-  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-  '(\\:\\d+)?'+ // port
-  '(\\/[-a-z\\d%_.~+&:]*)*'+ // path
-  '(\\?[;&a-z\\d%_.,~+&:=-]*)?'+ // query string
-  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-  return pattern.test(str);
-}
+// if url doesn't have http in front, add 
+function makeValidURL(url) {
+  var match = url.match(/^(?:https?:)/); 
+  var endURL = url;
 
-function extractDomain(url) {
-  var match = url.match(/^(?:https?:)?(?:\/\/)?([^\/\?]+)/); 
-  return match[1];
+  if(!match) {
+    endURL =  "http://" + url;
+  }
+
+  if(endURL.slice(-1) !== "/") {
+    endURL += "/";
+  }
+  return endURL;
 }
 
 function addWhitelistDomain(event) {
@@ -310,14 +309,15 @@ function addWhitelistDomain(event) {
     return;
   }
 
-  if(checkIfValidURL(userInput)) {
-    var domain = extractDomain(userInput);
-    badger.disablePrivacyBadgerForOrigin(domain);
-    reloadWhitelist();  
-  } else {
-    confirm(i18n.getMessage("invalid_domain"));    
+  try {
+    var validURL =  new backgroundPage.URI(makeValidURL(userInput));
+  } catch(err) {
+    confirm(i18n.getMessage("invalid_domain"));
+    return;
   }
 
+  badger.disablePrivacyBadgerForOrigin(validURL.host);
+  reloadWhitelist();  
   document.getElementById("newWhitelistDomain").value = "";
 }
 
