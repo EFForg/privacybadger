@@ -2,15 +2,11 @@
 # -*- coding: UTF-8 -*-
 
 import time
-import os
 import unittest
-import json
 
 import pbtest
 
 from time import sleep
-
-from selenium.webdriver.common.keys import Keys
 
 
 class SuperCookieTest(pbtest.PBSeleniumTest):
@@ -28,7 +24,11 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
 
     # test for https://github.com/EFForg/privacybadger/pull/1403
     def test_async_tracking_misattribution_bug(self):
-        self.load_url("https://cdn.rawgit.com/ghostwords/d3685dc39f7e67dddf1edf2614beb6fc/raw/a78cfd6c86d51a8d8ab1e214e4e49e2c025d4715/privacy_badger_async_bug_test_fixture.html")
+        self.load_url(
+            "https://cdn.rawgit.com/ghostwords"
+            "/d3685dc39f7e67dddf1edf2614beb6fc/raw/a78cfd6c86d51a8d8ab1e214e4e49e2c025d4715"
+            "/privacy_badger_async_bug_test_fixture.html"
+        )
 
         # the above HTML page reloads itself furiously to trigger our bug
         # we need to wait for it to finish reloading
@@ -67,8 +67,11 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         self.assertTrue(self.detected_tracking_by("githack.com"))
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
-        self.load_url("https://gistcdn.githack.com/gunesacar/6f0c39fb728a218ccd91215bfefbd4e0/raw/f438eb4e5ce10dc8623a8834b1298fd4a846c6fa/low_entropy_localstorage_from_third_party_script.html",  #noqa
-                      wait_on_site=5)
+        self.load_url(
+            "https://gistcdn.githack.com/gunesacar"
+            "/6f0c39fb728a218ccd91215bfefbd4e0/raw/f438eb4e5ce10dc8623a8834b1298fd4a846c6fa"
+            "/low_entropy_localstorage_from_third_party_script.html",
+            wait_on_site=5)
 
         self.assertFalse(self.detected_tracking_by("githack.com"))
 
@@ -79,8 +82,11 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
 
     def test_should_not_detect_ls_of_third_party_script(self):
         # a third-party script included by the top page (not a 3rd party frame)
-        self.load_url("https://rawgit.com/gunesacar/b366e3b03231dbee9709fe0a614faf10/raw/48e02456aa257e272092b398772a712391cf8b11/localstorage_from_third_party_script.html",  # noqa
-                      wait_on_site=5)
+        self.load_url(
+            "https://rawgit.com/gunesacar"
+            "/b366e3b03231dbee9709fe0a614faf10/raw/48e02456aa257e272092b398772a712391cf8b11"
+            "/localstorage_from_third_party_script.html",
+            wait_on_site=5)
         self.assertFalse(self.detected_tracking_by("githack.com"))
 
 
