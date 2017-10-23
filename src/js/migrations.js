@@ -197,6 +197,21 @@ exports.Migrations= {
       }
     }
   },
+
+  reapplyYellowlist: function (badger) {
+    console.log("(Re)applying yellowlist ...");
+
+    let blocked = badger.storage.getAllDomainsByPresumedAction(
+      constants.BLOCK);
+
+    // reblock all blocked domains to trigger yellowlist logic
+    for (let i = 0; i < blocked.length; i++) {
+      let domain = blocked[i];
+      badger.heuristicBlocking.blacklistOrigin(
+        window.getBaseDomain(domain), domain);
+    }
+  },
+
 };
 
 
