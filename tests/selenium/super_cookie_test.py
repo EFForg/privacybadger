@@ -8,6 +8,8 @@ import json
 
 import pbtest
 
+from time import sleep
+
 from selenium.webdriver.common.keys import Keys
 
 
@@ -25,7 +27,6 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         return self.js(CHECK_SNITCH_MAP_JS)
 
     # test for https://github.com/EFForg/privacybadger/pull/1403
-    @pbtest.if_firefox(pbtest.repeat_if_failed(5))
     def test_async_tracking_misattribution_bug(self):
         self.load_url("https://cdn.rawgit.com/ghostwords/d3685dc39f7e67dddf1edf2614beb6fc/raw/a78cfd6c86d51a8d8ab1e214e4e49e2c025d4715/privacy_badger_async_bug_test_fixture.html")
 
@@ -33,10 +34,17 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         # we need to wait for it to finish reloading
         self.wait_for_script("return window.DONE_RELOADING === true")
 
+        for i in range(5):
+            tracking_detected = self.detected_tracking_by("githack.com")
+            if tracking_detected:
+                break
+            print("\nWaiting a bit and retrying ...")
+            sleep(2 ** i)
+
         # the HTML page contains:
 
         # an iframe from gistcdn.githack.com that writes to localStorage
-        self.assertTrue(self.detected_tracking_by("githack.com"),
+        self.assertTrue(tracking_detected,
             msg="IFrame sets localStorage but was not flagged as a tracker.")
 
         # and an image from raw.githubusercontent.com that doesn't do any tracking
