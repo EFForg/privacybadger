@@ -44,6 +44,25 @@ class PopupTest(pbtest.PBSeleniumTest):
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
         self.load_url(self.popup_url, wait_on_site=1)
+
+        # hack to get tabData populated for the popup's tab
+        # to get the popup shown for regular pages
+        # as opposed to special (no-tabData) browser pages
+        # TODO instead use a proper popup-opening function to open the popup
+        # for some test page like https://www.eff.org/files/badgertest.txt;
+        # for example, see https://github.com/EFForg/privacybadger/issues/1634
+        self.js("""getTab(function (tab) {
+  badger.recordFrame(tab.id, 0, -1, tab.url);
+  refreshPopup(tab.id);
+  window.DONE_REFRESHING = true;
+});""")
+        # wait until the async getTab function is done
+        self.wait_for_script(
+            "return typeof window.DONE_REFRESHING != 'undefined'",
+            timeout=5,
+            message="Timed out waiting for getTab() to complete."
+        )
+
         if close_overlay:
             # Click 'X' element to close overlay.
             try:
@@ -170,41 +189,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.assertEqual(self.driver.current_url, EFF_URL,
             "EFF website should open after clicking trackers link on popup")
 
-    def test_disable_enable_buttons(self):
-        """Ensure disable/enable buttons change popup state."""
-        self.open_popup()
-
-        disable_button = self.get_disable_button()
-        disable_button.click()
-
-        WebDriverWait(self.driver, 3).until(
-            expected_conditions.presence_of_element_located(
-                (By.ID, "deactivate_site_btn")))
-
-        displayed_error = " should not be displayed on popup"
-        not_displayed_error = " should be displayed on popup"
-
-        # Check that popup state changed after disabling.
-        disable_button = self.get_disable_button()
-        self.assertFalse(disable_button.is_displayed(),
-                         "Disable button" + displayed_error)
-        enable_button = self.get_enable_button()
-        self.assertTrue(enable_button.is_displayed(),
-                        "Enable button" + not_displayed_error)
-
-        enable_button.click()
-
-        WebDriverWait(self.driver, 3).until(
-            expected_conditions.presence_of_element_located(
-                (By.ID, "activate_site_btn")))
-
-        # Check that popup state changed after re-enabling.
-        disable_button = self.get_disable_button()
-        self.assertTrue(disable_button.is_displayed(),
-                        "Disable button" + not_displayed_error)
-        enable_button = self.get_enable_button()
-        self.assertFalse(enable_button.is_displayed(),
-                         "Enable button" + displayed_error)
     def test_error_button(self):
         """Ensure error button opens report error overlay."""
         self.open_popup()

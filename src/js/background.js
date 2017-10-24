@@ -175,21 +175,36 @@ Badger.prototype = {
   updateTabList: function() {
     // Initialize the tabData/frames object if it is falsey
     this.tabData = this.tabData || {};
-    var self = this;
-    chrome.tabs.query({currentWindow: true, status: 'complete'}, function(tabs) {
-      for (var i = 0; i < tabs.length; i++) {
-        var tab = tabs[i];
-        self.tabData[tab.id] = {
-          frames: {
-            0: {
-              parent: -1,
-              url: tab.url
-            }
-          },
-          origins: {}
-        };
-      }
+    let self = this;
+    chrome.tabs.query({}, tabs => {
+      tabs.forEach(tab => {
+        self.recordFrame(tab.id, 0, -1, tab.url);
+      });
     });
+  },
+
+  /**
+   * Generate representation in internal data structure for frame
+   *
+   * @param tabId ID of the tab
+   * @param frameId ID of the frame
+   * @param parentFrameId ID of the parent frame
+   * @param frameUrl The url of the frame
+   */
+  recordFrame: function(tabId, frameId, parentFrameId, frameUrl) {
+    let self = this;
+
+    if (!self.tabData.hasOwnProperty(tabId)) {
+      self.tabData[tabId] = {
+        frames: {},
+        origins: {}
+      };
+    }
+
+    self.tabData[tabId].frames[frameId] = {
+      url: frameUrl,
+      parent: parentFrameId
+    };
   },
 
   /**
@@ -507,11 +522,14 @@ Badger.prototype = {
 
   /**
    * Helper function returns a list of all third party origins for a tab
-   * @param {Integer} tabId requested tab id as provided by chrome
+   * @param {Integer} tab_id requested tab id as provided by chrome
    * @returns {*} A dictionary of third party origins and their actions
    */
-  getAllOriginsForTab: function(tabId) {
-    return Object.keys(this.tabData[tabId].origins);
+  getAllOriginsForTab: function (tab_id) {
+    return (
+      this.tabData.hasOwnProperty(tab_id) &&
+      Object.keys(this.tabData[tab_id].origins)
+    );
   },
 
   /**

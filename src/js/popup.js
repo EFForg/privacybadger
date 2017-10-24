@@ -63,7 +63,7 @@ function showNagMaybe() {
 /**
  * Init function. Showing/hiding popup.html elements and setting up event handler
  */
-function init() {
+function init(tab) {
   showNagMaybe();
 
   $("#activate_site_btn").click(active_site);
@@ -94,19 +94,16 @@ function init() {
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   });
 
-  //toggle activation buttons if privacy badger is not enabled for current url
-  getTab(function(t) {
-    if (!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(t.url))) {
-      $("#blockedResourcesContainer").hide();
-      $("#activate_site_btn").show();
-      $("#deactivate_site_btn").hide();
-    }
-  });
+  // toggle activation buttons if privacy badger is not enabled for current url
+  if (!badger.isPrivacyBadgerEnabled(backgroundPage.extractHostFromURL(tab.url))) {
+    $("#blockedResourcesContainer").hide();
+    $("#activate_site_btn").show();
+    $("#deactivate_site_btn").hide();
+  }
 
   var version = i18n.getMessage("version") + " " + chrome.runtime.getManifest().version;
   $("#version").text(version);
 }
-$(init);
 
 /**
 * Close the error reporting overlay
@@ -181,6 +178,7 @@ function active_site() {
     badger.enablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
+    window.close();
   });
 }
 
@@ -195,6 +193,7 @@ function deactive_site() {
     badger.disablePrivacyBadgerForOrigin(backgroundPage.extractHostFromURL(tab.url));
     badger.refreshIconAndContextMenu(tab);
     reloadTab(tab.id);
+    window.close();
   });
 }
 
@@ -215,6 +214,7 @@ function revertDomainControl(e) {
   selector.click();
   $elm.removeClass('userset');
   reloadTab(tabId);
+  window.close();
   return false;
 }
 
@@ -249,8 +249,32 @@ function registerToggleHandlers() {
 * @param {Integer} tabId The id of the tab
 */
 function refreshPopup(tabId) {
-  //TODO this is calling get action and then being used to call get Action
-  var origins = badger.getAllOriginsForTab(tabId);
+  // must be a special browser page,
+  // or a page that loaded everything before our most recent initialization
+  if (!badger.tabData.hasOwnProperty(tabId)) {
+    // replace inapplicable summary text with a Badger logo
+    $('#blockedResourcesContainer').hide();
+    $('#big-badger-logo').show();
+
+    // hide inapplicable buttons
+    $('#deactivate_site_btn').hide();
+    $('#error').hide();
+
+    // activate tooltips
+    $('.tooltip').tooltipster();
+
+    return;
+
+  } else {
+    // revert any hiding/showing above for cases when refreshPopup gets called
+    // more than once for the same popup, such as during functional testing
+    $('#blockedResourcesContainer').show();
+    $('#big-badger-logo').hide();
+    $('#deactivate_site_btn').show();
+    $('#error').show();
+  }
+
+  let origins = badger.getAllOriginsForTab(tabId);
 
   if (!origins || origins.length === 0) {
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
@@ -439,8 +463,9 @@ function getTab(callback) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  getTab(function(t) {
-    refreshPopup(t.id);
+  getTab(function (tab) {
+    refreshPopup(tab.id);
+    init(tab);
   });
 });
 
