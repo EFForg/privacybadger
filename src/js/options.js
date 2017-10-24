@@ -285,19 +285,17 @@ function getOriginsArray(filterText) {
   return Object.keys(originCache).filter(containsFilterText);
 }
 
-// if url doesn't have http in front, add 
 function makeValidURL(url) {
-  var match = url.match(/^(?:https?:)/); 
-  var endURL = url;
 
-  if(!match) {
-    endURL =  "http://" + url;
+  if(!url.startsWith("http")) {
+    url =  "http://" + url;
   }
 
-  if(endURL.slice(-1) !== "/") {
-    endURL += "/";
+  if(!url.endsWith("/")) {
+    url += "/";
   }
-  return endURL;
+
+  return url;
 }
 
 function addWhitelistDomain(event) {
