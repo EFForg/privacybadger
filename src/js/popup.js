@@ -29,6 +29,18 @@ var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var reloadTab = chrome.tabs.reload;
 
+// TODO hack: disable Tooltipster tooltips on Firefox 52 (ESR)
+// to avoid hangs on pages with enough domains to produce a scrollbar
+(function () {
+let [, browser, version] = navigator.userAgent.match(
+  // from https://gist.github.com/ticky/3909462
+  /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
+);
+if (browser == "Firefox" && version.startsWith("52.")) {
+  $.fn.tooltipster = function () {};
+}
+}());
+
 /* if they aint seen the comic*/
 function showNagMaybe() {
   var nag = $("#instruction");
