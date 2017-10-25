@@ -40,6 +40,8 @@ var i18n = chrome.i18n;
 var originCache = null;
 var settings = badger.storage.getBadgerStorageObject("settings_map");
 
+let migrations = require("migrations").Migrations;
+
 /*
  * Loads options from pb storage and sets UI elements accordingly.
  */
@@ -162,6 +164,9 @@ function parseUserDataFile(storageMapsList) {
       storageMap.merge(lists[map]);
     }
   }
+
+  // fix yellowlist getting out of sync
+  migrations.reapplyYellowlist(badger);
 
   // Update list to reflect new status of map
   reloadWhitelist();

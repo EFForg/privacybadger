@@ -510,6 +510,7 @@ Badger.prototype = {
       Migrations.forgetMistakenlyBlockedDomains,
       Migrations.unblockIncorrectlyBlockedDomains,
       Migrations.forgetBlockedDNTDomains,
+      Migrations.reapplyYellowlist,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {

@@ -531,9 +531,10 @@ var _syncStorage = (function () {
   // one for each distinct badgerStorage value.
   return function (badgerStorage) {
     if (!debouncedFuncs.hasOwnProperty(badgerStorage.name)) {
+      // call sync at most once every two seconds
       debouncedFuncs[badgerStorage.name] = _.debounce(function () {
         sync(badgerStorage);
-      });
+      }, 2000);
     }
     debouncedFuncs[badgerStorage.name]();
   };
