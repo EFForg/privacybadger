@@ -1,5 +1,8 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.10.25.1
+* Reverted manifest file change preventing upload to Chrome Web Store
+
 ## 2017.10.25
 * Added Beta support for Firefox for Android
 * Updated popup to close after doing anything that reloads the page
