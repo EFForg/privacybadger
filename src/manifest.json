@@ -1,6 +1,6 @@
 {
   "version": "2017.10.25",
-  "author": "eff.software.projects@gmail.com",
+  "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
       "id": "jid1-MnnxcxisBPnSXQ@jetpack"
