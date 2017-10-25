@@ -1,5 +1,17 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.10.25
+* Added Beta support for Firefox for Android
+* Updated popup to close after doing anything that reloads the page
+* Improved handling of long domain names
+* Improved tooltips
+* Restored canvas fingerprinting detection to Firefox
+* Fixed yellowlist updates not getting applied when importing Badger data
+* Updated to latest dummy Google Analytics script from uBlock Origin
+to avoid "failed to redirect a network request" warnings in Chrome
+* Fixed various site breakages
+* Improved translations (Danish, French, German, Italian, Swedish)
+
 ## 2017.9.12.1
 * Fixed build script issue that reintroduced major site breakages on Firefox
 
