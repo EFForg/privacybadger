@@ -59,15 +59,30 @@ function showNagMaybe() {
   }
 
   if (!seenComic) {
-    nag.show();
-    outer.show();
-    // Attach event listeners
-    $('#fittslaw').click(_hideNag);
-    $("#firstRun").click(function() {
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
-      });
-      _hideNag();
+    chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
+      var firstRunUrl = chrome.extension.getURL("/skin/firstRun.html");
+
+      // Show the popup instruction if the active tab is not firstRun.html page
+      if (!focusedTab[0].url.startsWith(firstRunUrl)) {
+        nag.show();
+        outer.show();
+        // Attach event listeners
+        $('#fittslaw').click(_hideNag);
+        $("#firstRun").click(function() {
+          // If there is a firstRun.html tab, switch to the tab.
+          // Otherwise, create a new tab
+          chrome.tabs.query({url: firstRunUrl}, function (tabs) {
+            if (tabs.length == 0) {
+              chrome.tabs.create({
+                url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+              });
+            } else {
+              chrome.tabs.update(tabs[0].id, {active: true});
+            }
+            _hideNag();
+          });
+        });
+      }
     });
   }
 }
