@@ -45,14 +45,16 @@ var multiDomainFirstPartiesArray = [
   ["ea.com", "origin.com", "play4free.com", "tiberiumalliance.com"],
   [
     "ebay.com",
+
+    "ebay.ca",
+    "ebay.com.au",
+    "ebay.co.uk",
+    "ebay.de",
+    "ebay.in",
+
     "ebayimg.com",
     "ebayrtm.com",
     "ebaystatic.com",
-    "ebay.de",
-    "ebay.ca",
-    "ebay.in",
-    "ebay.co.uk",
-    "ebay.com.au",
   ],
   ["express-scripts.com", "medcohealth.com"],
   ["facebook.com", "fbcdn.com", "fbcdn.net", "facebook.net", "messenger.com"],
