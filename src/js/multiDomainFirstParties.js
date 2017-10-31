@@ -28,6 +28,21 @@ var multiDomainFirstPartiesArray = [
   ["bankofamerica.com", "bofa.com", "mbna.com", "usecfo.com"],
   ["bank-yahav.co.il", "bankhapoalim.co.il"],
   ["belkin.com", "seedonk.com"],
+  [
+    "bitbucket.org",
+
+    "atlassian.com",
+    "atlassian.io",
+    "atlassian.net",
+
+    "customercase.com",
+    "enso.me",
+    "hipchat.com",
+    "jira.com",
+    "statuspage.io",
+    "stride.com",
+    "trello.com",
+  ],
   ["booking.com", "bstatic.com"],
   ["capitalone.com", "capitalone360.com"],
   ["century21.com", "21online.com"],
