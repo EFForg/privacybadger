@@ -76,6 +76,7 @@ cbsimg.net
 cbsistatic.com
 cdninstagram.com
 cdnpk.com
+cern.ch
 charter.com
 civicscience.com
 cleanprint.net
