@@ -12,8 +12,21 @@ var multiDomainFirstPartiesArray = [
   ["accountonline.com", "citi.com", "citibank.com", "citicards.com", "citibankonline.com"],
   ["allstate.com", "myallstate.com"],
   ["altra.org", "altraonline.org"],
-  ["amazon.com", "amazon.com.au", "amazon.ca", "amazon.co.jp", "amazon.co.uk", "amazon.de",
-    "amazon.es", "amazon.fr", "amazon.it", "ssl-images-amazon.com", "media-amazon.com"],
+  [
+    "amazon.com",
+
+    "amazon.ca",
+    "amazon.co.jp",
+    "amazon.com.au",
+    "amazon.co.uk",
+    "amazon.de",
+    "amazon.es",
+    "amazon.fr",
+    "amazon.it",
+
+    "media-amazon.com",
+    "ssl-images-amazon.com",
+  ],
   [
     "americanexpress.com",
 
