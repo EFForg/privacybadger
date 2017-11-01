@@ -29,6 +29,7 @@ var multiDomainFirstPartiesArray = [
   ["bank-yahav.co.il", "bankhapoalim.co.il"],
   ["belkin.com", "seedonk.com"],
   ["booking.com", "bstatic.com"],
+  ["box.com", "boxcdn.net"],
   ["capitalone.com", "capitalone360.com"],
   ["century21.com", "21online.com"],
   ["chart.io", "chartio.com"],
