@@ -18,11 +18,25 @@ var multiDomainFirstPartiesArray = [
     "amazon.ca",
     "amazon.co.jp",
     "amazon.com.au",
+    "amazon.com.mx",
     "amazon.co.uk",
     "amazon.de",
     "amazon.es",
     "amazon.fr",
+    "amazon.in",
     "amazon.it",
+
+    "audible.com",
+
+    "audible.co.uk",
+    "audible.de",
+
+    "6pm.com",
+    "imdb.com",
+    "primevideo.com",
+    "shopbop.com",
+    "twitch.tv",
+    "zappos.com",
 
     "media-amazon.com",
     "ssl-images-amazon.com",
