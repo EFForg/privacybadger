@@ -11,7 +11,14 @@ function setup_chrome {
 }
 
 function setup_firefox {
-    version="v0.17.0"
+    # TODO needed until Firefox ESR moves on from Firefox 52
+    # see https://github.com/mozilla/geckodriver/issues/1032#issuecomment-341337402
+    if [[ $INFO == "firefox esr" ]]; then
+      version="v0.17.0"
+    else
+      # Install the latest version of geckodriver
+      version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
+    fi
     url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-linux64.tar.gz"
     wget -O /tmp/geckodriver.tar.gz ${url}
     sudo tar -xvf /tmp/geckodriver.tar.gz -C /usr/local/bin/
