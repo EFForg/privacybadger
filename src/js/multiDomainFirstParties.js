@@ -14,6 +14,32 @@ var multiDomainFirstPartiesArray = [
   ["altra.org", "altraonline.org"],
   ["amazon.com", "amazon.com.au", "amazon.ca", "amazon.co.jp", "amazon.co.uk", "amazon.de",
     "amazon.es", "amazon.fr", "amazon.it", "ssl-images-amazon.com", "media-amazon.com"],
+  [
+    "americanexpress.com",
+
+    "americanexpress.ca",
+    "americanexpress.ch",
+    "americanexpress.com.au",
+    "americanexpress.co.uk",
+    "americanexpress.no",
+
+    "membershiprewards.ca",
+    "membershiprewards.com.ar",
+    "membershiprewards.com.au",
+    "membershiprewards.com.sg",
+    "membershiprewards.co.uk",
+    "membershiprewards.de",
+
+    "aetclocator.com",
+    "americanexpressfhr.com",
+    "amexnetwork.com",
+    "amextravel.com",
+    "amextravelresources.com",
+    "thecenturionlounge.com",
+    "yourcarrentalclaim.com",
+
+    "aexp-static.com",
+  ],
   ["ameritrade.com", "tdameritrade.com"],
   ["ancestry.com", "mfcreative.com"],
   ["androidcentral.com", "mobilenations.com"],
