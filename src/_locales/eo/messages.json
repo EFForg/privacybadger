@@ -1,0 +1,414 @@
+{
+    "badger_status_block": {
+        "message": "Blokita",
+        "description": ""
+    },
+    "invalid_json": {
+        "message": "Malĝusta dosiero JSON.",
+        "description": ""
+    },
+    "options_remove_origin_confirm": {
+        "message": "Ĉu vi certas pri forigi tiun ĉi nomregnon el Privata Melo?",
+        "description": ""
+    },
+    "badger_status_noaction": {
+        "message": "Ne spuras por",
+        "description": ""
+    },
+    "non_tracker_tip": {
+        "message": "Nune Privata Melo nur kontrolas ĉu eksteraj liverantoj uzas kuketojn, lokan konservejon HTML5 aŭ kanvasan fingrospuron por spuri vian retumadon. Iuj de tiuj nomregnoj povas uzi aliaj spuraj rimedojn, kiujn Privata Melo ne povas malkovri.",
+        "description": ""
+    },
+    "intro_hungry": {
+        "message": "Nenio povas haltigi Privatan Melon de manĝi kuketojn, kiam ĝi malsatas!",
+        "description": ""
+    },
+    "options_dnt_policy_setting": {
+        "message": "Kontroli ĉu retejoj kongruas kun politiko de nespurado de EFF.",
+        "description": ""
+    },
+    "intro2": {
+        "message": "Tiu ĉi aldonaĵo estas farita por aŭtomate protekti vian privatecon de ekster-liverantaj spuriloj, kiuj nevideble ŝargiĝas dum kiam vi retumas. Ni sendas peton “Ne Spuri Min” (DNT) kun ĉiu retpeto kaj la aldonaĵo pritaksas probablon ĉu vi plua estas spurata. Se la algoritmo konstatas, ke la probableco estas tro alta, ni aŭtomate blokas vian retpeton de esti sendita al la nomregno. Bonvolu kompreni, ke Privata Melo estas eksperimenta kaj la algoritmo ne eblas absolute decidi ĉu la nomregno spuras vin.",
+        "description": ""
+    },
+    "donate_to_eff": {
+        "message": "Donaci al EFF",
+        "description": ""
+    },
+    "report_success": {
+        "message": "Dankon! Ni okupiĝos pri tio.",
+        "description": ""
+    },
+    "dnt_tooltip": {
+        "message": "Tiu ĉi nomregno promesas al vi ne spuri.",
+        "description": ""
+    },
+    "options_dnt_policy_learn_more": {
+        "message": "Pli da informo",
+        "description": ""
+    },
+    "data_settings": {
+        "message": "Administri datumojn",
+        "description": "This is an options page tab heading."
+    },
+    "slideshow_13": {
+        "message": "Se mi difektas retpaĝon, bonvolu sciigi miajn programistojn pri tio, do ili povos ripari la problemon! Vi povas fari tion per klaki tiun ĉi butonon.",
+        "description": ""
+    },
+    "report_title": {
+        "message": "Raporti eraron",
+        "description": ""
+    },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "ekz. www.nomregno.com, *.nomregno.net, nomregno.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
+    "slideshow_4": {
+        "message": "Se vi klakos mian piktogramon, vi vidos liston de eblaj spuriloj pro la nuna langeto.",
+        "description": ""
+    },
+    "slideshow_5": {
+        "message": "Se la ŝovilo estas ruĝa, tio signifas, ke mi tute blokis tiun ŝpurilon! Tiu aĉaĵo ne klopodos vin plu.",
+        "description": ""
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Klaku tie ĉi por bloki tiun ĉi nomregnon de agordi kuketojn",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
+    "popup_instructions": {
+        "message": "ebla(j)n <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilo(j)n</a> sur tiu retpaĝo. Tiu ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ili. Vi ne devus ŝanĝi ilin escepte se io malfunkcias.",
+        "description": ""
+    },
+    "options_webrtc_setting": {
+        "message": "Preventi WebRTC de malkovri lokan IP-adreson",
+        "description": ""
+    },
+    "options_so_far": {
+        "message": "ĝin nun. Tiuj ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ĉiu spurilo.",
+        "description": ""
+    },
+    "error_input": {
+        "message": "Kio malfunkcias?",
+        "description": ""
+    },
+    "options_slider_text": {
+        "message": "Privata Melo protektas vin en la Teksaĵo! Tiuj ĉi ŝoviloj ebligas al vi regi kiel Privata Melo procedas pri ĉiu spurilo, kiun ĝi markis dum via retumado.",
+        "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "Spurantaj nomregnoj",
+        "description": "This is an options page tab heading."
+    },
+    "intro1": {
+        "message": "Privata Melo blokas spurajn reklamojn kaj nevideblajn spurilojn. Ĝi ĉeestas por certigi, ke firmaojn ne spuros vin sen via konsento.",
+        "description": "firstRun.html intro to Privacy Badger"
+    },
+    "share_button_title_twitter": {
+        "message": "Kunhavigi per Tvitero",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "first_run_text": {
+        "message": "Sciigi pri kiel Privata Melo protektas vian privatecon.",
+        "description": ""
+    },
+    "download": {
+        "message": "Elŝuti",
+        "description": ""
+    },
+    "feed_the_badger_title": {
+        "message": "klaku por permesi al Privata Melo decidi kiel trakti tiun ĉi spurilon",
+        "description": ""
+    },
+    "intro_has_blocked": {
+        "message": "signifas, ke Privata Melo opinias tiun ĉi nomregnon spurilon kaj blokis ĝin.",
+        "description": ""
+    },
+    "import": {
+        "message": "Enporti",
+        "description": ""
+    },
+    "options_social_widgets_checkbox": {
+        "message": "Anstataŭigi butonojn de sociajn retejojn",
+        "description": ""
+    },
+    "options_tracking_domains": {
+        "message": "spurantaj nomregnoj",
+        "description": ""
+    },
+    "report_button": {
+        "message": "Raporti eraron",
+        "description": ""
+    },
+    "badger_status_allow": {
+        "message": "Permesata",
+        "description": ""
+    },
+    "privacy_badger_what_is": {
+        "message": "Kio la Privata Melo estas?",
+        "description": ""
+    },
+    "options_domain_search": {
+        "message": "Serĉi nomregnojn",
+        "description": ""
+    },
+    "show_counter_checkbox": {
+        "message": "Montri nombron da blokitaj aĵoj",
+        "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "Kio estas spurilo?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
+    },
+    "slideshow_1": {
+        "message": "Saluton, Privata Melo tie ĉi! Dankon pro instali min. Mi estas tie ĉi por doni al vi kelkaj konsilojn por ke ni kunlaboru.",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Agordoj de Privata Melo",
+        "description": ""
+    },
+    "options_pb_has_detected": {
+        "message": "Privata Melo malkovris",
+        "description": ""
+    },
+    "slideshow_11": {
+        "message": "Se vi ŝanĝos ion agorditan de mi, vi ĉiam povas restarigi miajn agordojn per klaki la reen-sageton.",
+        "description": ""
+    },
+    "report_terms": {
+        "message": "Tio ĉi aŭtomate sendos la jenajn datumojn al EFF: la nune vizitatan retpaĝon, version de via retumilo, version de Privata Melo kaj staton de ĉiuj ŝovilojn ĉe tiu ĉi retejo.",
+        "description": ""
+    },
+    "whitelisted_domains": {
+        "message": "Ekskluzivaj nomregnoj",
+        "description": "This is an options page tab heading."
+    },
+    "popup_enable_for_site": {
+        "message": "Aktivigi Privatan Melon por tiu ĉi retejo",
+        "description": ""
+    },
+    "import_successful": {
+        "message": "Sukcese enportis spuril-liston kaj agordojn!",
+        "description": ""
+    },
+    "export_user_data": {
+        "message": "Elporti datumojn de uzanto",
+        "description": ""
+    },
+    "intro_text": {
+        "message": "Vi nun estas protektata de Privata Melo. Por lerni kiel Privata Melo funkcias, klaku sube por koncizan gvidilon.",
+        "description": ""
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC povas malkovri vian lokan IP-adreson. Implicita agordo de Privata Melo povas helpi protekti vin, tamen por pli bonan protekton vi povas aktivigi tiun ĉi agordon. Rimarku, ke tio ĉi povas malpliigi rendimenton de kelkaj iloj, ekz. Google Hangouts.",
+        "description": ""
+    },
+    "options_general_settings": {
+        "message": "Ĝeneralaj agordoj",
+        "description": "This is an options page tab heading."
+    },
+    "slideshow_7": {
+        "message": "Se la ŝovilo estas verda, tio signifas, ke mi povas precizigi ĉu tiu ĉi nomregno jam spuras vin. Ĝi povas ne, tamen mi plue observos ĝin.",
+        "description": ""
+    },
+    "domain_slider_block_tooltip": {
+        "message": "Klaku tie ĉi por tute bloki tiun ĉi nomregnon",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
+    "version": {
+        "message": "versio",
+        "description": ""
+    },
+    "badger_status_cookieblock": {
+        "message": "Blokitaj kuketoj el",
+        "description": ""
+    },
+    "options_loading": {
+        "message": "Ŝargado…",
+        "description": ""
+    },
+    "firstRun_title": {
+        "message": "Dankon al vi pro instali Privatan Melon!",
+        "description": ""
+    },
+    "import_select_file": {
+        "message": "Bonvolu elekti dosieron por enporti.",
+        "description": ""
+    },
+    "popup_blocked": {
+        "message": "Estas neniuj eksteraj rimedoj sur tiu ĉi retpaĝo.",
+        "description": ""
+    },
+    "report_broken_site": {
+        "message": "Ĉu Privata Melo difektis tiun ĉi retejon? Sciigu nin!",
+        "description": ""
+    },
+    "tooltip_cookieblock": {
+        "message": "Centrigi la ŝovilon por bloki kuketojn.",
+        "description": ""
+    },
+    "slideshow_12": {
+        "message": "Se okazas ia problemo pri retpaĝo kaj vi kulpigas min pri tio, vi povas klaki la butonon “malaktivigi”. Mi dormos kaj ne blokos ion ajn ĉe tiu retejo.",
+        "description": ""
+    },
+    "slideshow_3": {
+        "message": "Se mi ekrigardas ion, kio kondutas kiel spurilo, mi ĝin blokos.",
+        "description": ""
+    },
+    "report_close": {
+        "message": "Fermi",
+        "description": ""
+    },
+    "slideshow_9": {
+        "message": "Mi senĉese lernas, do ju pli multe vi uzas min, des pli bone mi protektas vin kontraŭ aĉaj spuriloj!",
+        "description": ""
+    },
+    "slideshow_2": {
+        "message": "Mi ĉeestos tie ĉi en via retumilo kaj observos ĉiujn spurantajn reklamojn kaj spurilojn, kiuj registras kion vi faras en la Teksaĵo.",
+        "description": ""
+    },
+    "import_user_data": {
+        "message": "Enporti datumojn de uzanto",
+        "description": ""
+    },
+    "slideshow_8": {
+        "message": "La unua foje, kiam vi klakas mian piktogramon vi povas vidi, ke ĉiuj spuriloj estas markitaj verde – ne ĉagreniĝu! Mi diferencas ol aliaj spuril-blokiloj – anstataŭ memori liston de blokendaĵoj, mi lernas kion bloki dum kiam vi retumadas. Se mi ne blokas iun ajn nun, provu retumi 4 aŭ 5 diversajn retejojn. Mi devos komenci bloki popularajn spurilojn post tio.",
+        "description": ""
+    },
+    "popup_help_button": {
+        "message": "Helpo",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "share_button_title_google": {
+        "message": "Kunhavigi per Google Plus",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "report_cancel": {
+        "message": "Nuligi",
+        "description": ""
+    },
+    "tooltip_block": {
+        "message": "Movu la ŝovilon maldekstren por bloki nomregnon",
+        "description": ""
+    },
+    "disabled_for_these_domains": {
+        "message": "Privata Melo estas malaktivigita por la subajn nomregnojn. Vi povas aldoni nomregnon aŭ per la piktogramo de Privata Melo sur la adresa breto aŭ per entajpi nomregnon (ne plenan retadreson) en la kampon sube kaj klaki la butonon “aldoni nomregnon”.",
+        "description": ""
+    },
+    "pb_detected": {
+        "message": "Privata Melo malkovris",
+        "description": ""
+    },
+    "intro_by_eff": {
+        "message": "Projekto de Electronic Frontier Foundation",
+        "description": ""
+    },
+    "add_domain_button": {
+        "message": "Aldoni nomregnon",
+        "description": ""
+    },
+    "tooltip_allow": {
+        "message": "Movu la ŝovilon rekten por permesi nomregnon",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Malaktivigi Privatan Melon por tiu ĉi retejo",
+        "description": ""
+    },
+    "intro_social_share": {
+        "message": "Sciigu la mondon ke vi kontraŭas enretan spuradon",
+        "description": ""
+    },
+    "intro_yellow": {
+        "message": "Flava",
+        "description": ""
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Klaku tie ĉi por permesi tiun ĉi nomregnon",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
+    },
+    "name": {
+        "message": "Privata Melo",
+        "description": ""
+    },
+    "intro_3_states": {
+        "message": "Nia aldonaĵo havas tri statojn.",
+        "description": ""
+    },
+    "intro_cookie_blocked": {
+        "message": "signifas, ke tiu ĉi nomregno estas opiniata kaj spurilo kaj necesa por funkcii la retejon, do Privata Melo permesas ĝin sed blokas ĝiajn kuketojn.",
+        "description": ""
+    },
+    "report_text": {
+        "message": "Koncize priskribu la eraron jene.",
+        "description": ""
+    },
+    "intro_red": {
+        "message": "Ruĝa",
+        "description": ""
+    },
+    "options_potential": {
+        "message": "ebla(j)n",
+        "description": ""
+    },
+    "remove_button": {
+        "message": "Forigi elektitajn",
+        "description": "This is the label for the 'Remove selected' buttons."
+    },
+    "intro_green": {
+        "message": "Verda",
+        "description": ""
+    },
+    "intro_no_tracker": {
+        "message": "signifas, ke Privata Melo opinias ĝin ne-spurilo. Vi povas klaku piktogramon de Privata Melo sur la retumila ilarstrio, se vi volas superskribi aŭtomatajn agordojn pri bloki. Vi ankaŭ povas  trankvile retumi dum kiam Privata Melo trovas kaj forigas spurilojn unu post la alia.",
+        "description": ""
+    },
+    "slideshow_15": {
+        "message": "Tamen vi povas ne ŝanĝi ĉiujn tiujn ĉi agordojn kaj mi iom post iom manĝos ĉiujn trovitajn spurilojn.",
+        "description": ""
+    },
+    "report_input_label": {
+        "message": "Priskribo",
+        "description": ""
+    },
+    "non_tracker": {
+        "message": "La subajn nomregnojn verŝajne ne spuras vin",
+        "description": ""
+    },
+    "slideshow_14": {
+        "message": "Se vi volas ŝanĝi aliajn agordojn, klaku la piktogramon de dentrado.",
+        "description": ""
+    },
+    "popup_options_button": {
+        "message": "Agordoj",
+        "description": ""
+    },
+    "slideshow_6": {
+        "message": "Se la ŝovilo estas flava, tio ĉi signifas, ke mi parte blokis tiun spurilon. Mi kiel eble plej zorgeme preventis ĝin de spuri vin per manĝi ĝiajn kuketojn, sed bloki ĝin tute povas misvidigi la retpaĝon.",
+        "description": ""
+    },
+    "slideshow_16": {
+        "message": "Dankon por fari gravan, tamen facilan paŝon privatecen! Vi povas klaki tie ĉi se vi ree bezonos helpon kaj vi povas klaki sube por sciigi la mondon, ke vi kontraŭas interretan spuradon.",
+        "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Kunhavigi per Fejsbuko",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "description": {
+        "message": "Privata Melo protektas vin kontraŭ spuriloj dum kiam vi retumas!",
+        "description": ""
+    },
+    "popup_noblocked": {
+        "message": "Kial nenio estas blokita?",
+        "description": ""
+    },
+    "report_fail": {
+        "message": "Ho ne! Eraro okazis.",
+        "description": ""
+    },
+    "slideshow_10": {
+        "message": "Se vi konstatas, ke mi eraris pri spurilo, vi povas movi la ŝovilon ruĝen por bloki ĝin, flaven por parte bloki ĝin kaj verden por malbloki ĝin.",
+        "description": ""
+    }
+}
