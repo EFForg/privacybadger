@@ -23,10 +23,6 @@
         "message": "Ingenting kan stoppe Personvernsgrevlingen i å spise kaker når den er sulten!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Bare tillat ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Sentrer glidebryteren for å blokkere kaker",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " kan tillate det i å spore deg rundt omkring på veven.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Varsling fra Personvernsgrevlingen!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " Hvis du har problemer med en side og tror det er min feil, kan du klikke på «Skru av»-knappen her. Jeg vil ta meg en lur og ikke blokkere noe på den nettsiden.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Å logge inn på ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Share on Google Plus",
@@ -359,10 +343,6 @@
         "message": "Gi en kort beskrivelse av feilen nedenfor.",
         "description": ""
     },
-    "ded_on": {
-        "message": " på ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Rødt",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Share on Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Alltid tillat ",
-        "description": ""
-    },
     "description": {
         "message": "Personvernsgrevlingen beskytter deg fra sporere når du surfer på nettet!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Oida. Noe gikk galt.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Altid blokker tredjepartsforespørsler fra ",
         "description": ""
     },
     "slideshow_10": {

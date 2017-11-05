@@ -23,10 +23,6 @@
         "message": "Ничто не помешает Privacy Badger поедать файлы cookie, когда он голоден!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Разрешать только ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Center the slider to block cookies",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " может позволить домену отслеживать вашу активность в Интернете.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Предупреждение Privacy Badger!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " Если возникли проблемы с работой страницы и вы думаете, что это из-за меня, то можете нажать кнопку отключения. Я пойду спать и больше ничего не буду блокировать на этом сайте.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Переход на ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Share on Google Plus",
@@ -359,10 +343,6 @@
         "message": "Введите короткое описание ошибки.",
         "description": ""
     },
-    "ded_on": {
-        "message": " на ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Красный",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Share on Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Всегда разрешать ",
-        "description": ""
-    },
     "description": {
         "message": "Privacy Badger защищает вас от трекеров во время работы в Интернете!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Ой, что-то пошло не так.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Всегда блокировать сторонние запросы от ",
         "description": ""
     },
     "slideshow_10": {

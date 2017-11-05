@@ -23,10 +23,6 @@
         "message": "Nichts hält Privacy Badger davon ab, Cookies zu essen, wenn er hungrig ist!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Ausschließlich erlauben von ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Schieben Sie zum Blockieren von Cookies den Schieberegler in die Mitte",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " kann der Seite erlauben, Sie durchs Web zu verfolgen.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Privacy Badger-Alarm!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " Wenn es ein Problem beim Aufrufen einer Webseite gibt und Sie denken dass es meine Schuld ist, können Sie auf den deaktivieren Button klicken, dann werde ich nichts blockieren wenn Sie diese Webseite in Zukunft besuchen.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Hilfe",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Einloggen in ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Auf Google Plus teilen",
@@ -359,10 +343,6 @@
         "message": "Beschreiben Sie bitte unten kurz den Fehler.",
         "description": ""
     },
-    "ded_on": {
-        "message": " auf ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Rot",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Auf Facebook teilen",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Immer erlauben",
-        "description": ""
-    },
     "description": {
         "message": "Privacy Badger schützt Sie vor Trackern während Sie im Web surfen!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Oops, das hat leider nicht geklappt.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Immer Anfragen Dritter blockieren von ",
         "description": ""
     },
     "slideshow_10": {

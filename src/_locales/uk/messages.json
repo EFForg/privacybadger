@@ -23,10 +23,6 @@
         "message": "Нічого не може спинити Privacy Badger від поїдання куків, коли він голодний!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Дозволити лише ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Перевірити, чи сайти підтримують політику EFF щодо відмови від стеження",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Встановіть перемикач посередині, щоб дозволити куки",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " може дозволити йому стеження за вами в Інтернеті.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Попередження Privacy Badger!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " Якщо у вас виникають проблеми зі сторінкою і ви вважаєте, що причина в мені, ви можете натиснути кнопку вимкнення тут. Я піду спати і не буду блокувати нічого на тому веб-сайті.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Допомога",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Вхід до ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Поширити в Google Plus",
@@ -359,10 +343,6 @@
         "message": "Коротко опишіть помилку.",
         "description": ""
     },
-    "ded_on": {
-        "message": " для ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Червоний",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Поширити на Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Завжди дозволяти ",
-        "description": ""
-    },
     "description": {
         "message": "Privacy Badger захищає вас від стеження поки ви переглядаєте сторінки в Інтернеті!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Ой. Щось пішло не так.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Завжди блокувати сторонні запити від ",
         "description": ""
     },
     "slideshow_10": {

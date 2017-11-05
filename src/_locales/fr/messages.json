@@ -23,10 +23,6 @@
         "message": "Rien ne peut empêcher Privacy Badger de manger des cookies lorsqu'il a faim !",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Autoriser seulement ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Vérifier si les sites se conforment aux règles de non-pistage de l'EFF",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Centrer le curseur pour bloquer les cookies",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " peut lui permettre de vous pister à travers le web.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Alerte de Privacy Badger !",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " Si vous pensez que je suis à l'origine d'un problème sur une page, cliquez sur le bouton de désactivation. Je me mettrai en sommeil et ne bloquerai plus rien sur le site.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Aide",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Connexion à ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Partager sur Google Plus",
@@ -359,10 +343,6 @@
         "message": "Décrivez brièvement ci-dessous l'erreur.",
         "description": ""
     },
-    "ded_on": {
-        "message": " pour ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Rouge",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Partager sur Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Toujours autoriser ",
-        "description": ""
-    },
     "description": {
         "message": "Privacy Badger vous protège des traqueurs lorsque vous surfez sur le web !",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Oups, quelque chose a râté.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Toujours bloquer les requêtes tierces de ",
         "description": ""
     },
     "slideshow_10": {

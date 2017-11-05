@@ -23,10 +23,6 @@
         "message": "Ништа не може зауставити Privacy Badger да једе колачиће када је гладан!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Дозволи само ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Провери да ли се овај сајт придржава EFF политике непраћења",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Центрирајте клизач за блокирање колачића",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " може дозволити домену да вас прати на вебу.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Privacy Badger упозорење!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " Ако имате проблем са страницом и мислите да је то моја грешка, можете кликнути на дугме за онемогућавање. Заспаћу и ништа нећу блокирати на том веб сајту.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Помоћ",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Пријава на ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Подели на Гугл Плусу",
@@ -359,10 +343,6 @@
         "message": "Укратко опишите проблем испод.",
         "description": ""
     },
-    "ded_on": {
-        "message": " на ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Црвено",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Подели на Фејсбуку",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Увек дозволи ",
-        "description": ""
-    },
     "description": {
         "message": "Privacy Badger вас штити од праћења док прегледате веб!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Упс. Нешто је кренуло како не треба.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Увек блокирај захтеве трећих страна од ",
         "description": ""
     },
     "slideshow_10": {

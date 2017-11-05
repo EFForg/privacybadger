@@ -23,10 +23,6 @@
         "message": "Niets weerhoudt een hongerige Privacy Badger van het eten van cookies!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Alleen toestaan ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Center the slider to block cookies",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " kan de pagina toestaan om u te volgen op het internet. het gevolgd worden op internet",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Privacy Badger waarschuwing!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " If you are having trouble with a page and you think it's my fault, you can click the disable button here. I'll go to sleep and not block anything on that website.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Inloggen op ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Share on Google Plus",
@@ -359,10 +343,6 @@
         "message": "Omschrijf de fout in het kort.",
         "description": ""
     },
-    "ded_on": {
-        "message": " aan ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Rood",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Share on Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Altijd toestaan ",
-        "description": ""
-    },
     "description": {
         "message": "Privacy Badger geeft u meer controle over het gevolgd worden op internet!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Oeps. Er is iets misgegaan.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Blokkeer altijd het web verkeer van en naar ",
         "description": ""
     },
     "slideshow_10": {

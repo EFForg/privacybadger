@@ -23,10 +23,6 @@
         "message": "Privacy Badger 肚子餓的時候，沒有任何東西可以阻止它吃 cookie！",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "只允許",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "將滾動條滑到中間封鎖該網域的 cookie",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": "允許它在網路上追蹤您。",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Privacy Badger 警告！",
-        "description": ""
-    },
     "slideshow_12": {
         "message": "如果您瀏覽網頁出現問題，並且您覺得是我造成的，您可以點選這裡的停用。我會開始睡覺，不再封鎖該網站上的東西。",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "登入到",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Share on Google Plus",
@@ -359,10 +343,6 @@
         "message": "在下面簡要描述發生的錯誤。",
         "description": ""
     },
-    "ded_on": {
-        "message": " 於 ",
-        "description": ""
-    },
     "intro_red": {
         "message": "紅色",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Share on Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "永久允許",
-        "description": ""
-    },
     "description": {
         "message": "您在網上衝浪的時候，Privacy Badger 會保護您免於被追蹤器追蹤的煩惱！",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "哎呀。出錯了。",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "永久封鎖第三方請求從",
         "description": ""
     },
     "slideshow_10": {

@@ -23,10 +23,6 @@
         "message": "Nulla può impedire a Privacy Badger di mangiare i cookie quando ha fame!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Consenti solo ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Verifica se i siti rispettano la policy Do Not Track dell'EFF",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Sposta il pulsante al centro per bloccare i cookie",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " può consentirgli di tracciarti sul web.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Avviso di Privacy Badger!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": "Nel caso di problemi su una pagina dovuti a Privacy Badger, è possibile disabilitarlo cliccando su questo bottone. Privacy Badger non bloccherà più nulla su quel sito.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Aiuto",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Accesso ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Condividi su Google Plus",
@@ -359,10 +343,6 @@
         "message": "Descrivi brevemente l'errore qui sotto.",
         "description": ""
     },
-    "ded_on": {
-        "message": " su ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Rosso",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Condividi su Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Consenti sempre ",
-        "description": ""
-    },
     "description": {
         "message": "Privacy Badger ti protegge dai tracker mentre navighi in rete!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Ops. Qualcosa è andato storto.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Blocca sempre le richieste di terze parti da ",
         "description": ""
     },
     "slideshow_10": {

@@ -23,10 +23,6 @@
         "message": "¡Nada puede para a Privacy Badger de comer cookies cuando está hambriento!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Sólo permitir ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Center the slider to block cookies",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " puede permitirlo rastrearle por toda la web.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "¡Alerta Privacy Badger!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " If you are having trouble with a page and you think it's my fault, you can click the disable button here. I'll go to sleep and not block anything on that website.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Iniciar sesión ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Share on Google Plus",
@@ -359,10 +343,6 @@
         "message": "Describe más abajo brevemente el error.",
         "description": ""
     },
-    "ded_on": {
-        "message": " on ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Rojo",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Share on Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Permitir siempre ",
-        "description": ""
-    },
     "description": {
         "message": "¡Privacy Badger te protege de rastreadores mientras surfeas por la web!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Oops. Algo salió mal.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Bloquear siempre peticiones de terceras partes ",
         "description": ""
     },
     "slideshow_10": {

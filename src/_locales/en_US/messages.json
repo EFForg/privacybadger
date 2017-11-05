@@ -23,10 +23,6 @@
         "message": "Nothing can stop the Privacy Badger from eating cookies when it's hungry!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Only allow ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Center the slider to block cookies",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " can allow it to track you around the web.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Privacy Badger Alert!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " If you are having trouble with a page and you think it's my fault, you can click the disable button here. I'll go to sleep and not block anything on that website.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Logging into ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Share on Google Plus",
@@ -359,10 +343,6 @@
         "message": "Briefly describe the error below.",
         "description": ""
     },
-    "ded_on": {
-        "message": " on ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Red",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Share on Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Always allow ",
-        "description": ""
-    },
     "description": {
         "message": "Privacy Badger protects you from trackers as you surf the web!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Oops. Something went wrong.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Always block third party requests from ",
         "description": ""
     },
     "slideshow_10": {

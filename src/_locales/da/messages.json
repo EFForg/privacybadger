@@ -23,10 +23,6 @@
         "message": "Intet kan stoppe Privacy Badger fra at spise cookies når den er sulten!",
         "description": ""
     },
-    "ded_only_allow": {
-        "message": "Tillad kun ",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Tjek om netsteder overholder EFF's Spor Ikke-politik",
         "description": ""
@@ -251,14 +247,6 @@
         "message": "Centrer skyderen for at blokere cookies",
         "description": ""
     },
-    "ded_can_allow_to_track": {
-        "message": " kan tillade det at spore dig rundt på nettet.",
-        "description": ""
-    },
-    "ded_privacy_badger_alert": {
-        "message": "Privacy Badger Advarsel!",
-        "description": ""
-    },
     "slideshow_12": {
         "message": " Hvis du har problemer med en side og du tror at det er min fejl, kan du klikke på deaktiveringsknappen her. Jeg lægger mig til at sove og blokerer intet fra det netsted.",
         "description": ""
@@ -290,10 +278,6 @@
     "popup_help_button": {
         "message": "Hjælp",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
-    },
-    "ded_logging_into": {
-        "message": "Logger ind på ",
-        "description": ""
     },
     "share_button_title_google": {
         "message": "Del på Google Plus",
@@ -359,10 +343,6 @@
         "message": "Beskriv fejlen kort herunder.",
         "description": ""
     },
-    "ded_on": {
-        "message": " på ",
-        "description": ""
-    },
     "intro_red": {
         "message": "Rød",
         "description": ""
@@ -415,10 +395,6 @@
         "message": "Del på Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
-    "ded_always_allow": {
-        "message": "Tillad altid ",
-        "description": ""
-    },
     "description": {
         "message": "Privacy Badger beskytter dig fra sporinger mens du surfer på nettet!",
         "description": ""
@@ -429,10 +405,6 @@
     },
     "report_fail": {
         "message": "Ups. Noget gik galt.",
-        "description": ""
-    },
-    "ded_never_allow": {
-        "message": "Bloker altid tredjepartsforespørgsler fra ",
         "description": ""
     },
     "slideshow_10": {
