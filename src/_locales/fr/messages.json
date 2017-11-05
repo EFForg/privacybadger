@@ -32,7 +32,7 @@
         "description": ""
     },
     "intro2": {
-        "message": "Cette extension est conçue pour protéger automatiquement votre vie privée des traqueurs invisibles qui se chargent lorsque vous surfez sur le web. Après envoi de l'entête Ne pas me pister, notre extension évalue la probabilité d'être encore traqué. Si l'algorithme juge celle-ci est trop élevée, nous bloquons automatiquement l'envoi des requêtes à ce domaine. Gardez en tête que Privacy Badger est en cours de développement et que le résultat de son analyse ne garantit pas qu'un domaine vous piste.",
+        "message": "Cette extension est conçue pour protéger automatiquement votre vie privée des traqueurs invisibles qui se chargent lorsque vous surfez sur le web. Après envoi de l'entête Ne pas me pister, notre extension évalue la probabilité d'être encore traqué. Si l'algorithme juge celle-ci trop élevée, nous bloquons automatiquement l'envoi des requêtes à ce domaine. Gardez en tête que Privacy Badger est en cours de développement et que le résultat de son analyse ne garantit pas qu'un domaine vous piste.",
         "description": ""
     },
     "donate_to_eff": {
@@ -188,7 +188,7 @@
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
-        "message": "Activer Privacy Badger pour ce site.",
+        "message": "Activer Privacy Badger pour ce site",
         "description": ""
     },
     "import_successful": {
@@ -272,7 +272,7 @@
         "description": ""
     },
     "slideshow_9": {
-        "message": " J'apprends au fur et à mesure, donc plus vous m'utiliserez, mieux je vous protégerai des traqueurs indiscrets !",
+        "message": " J'apprends au fur et à mesure ; plus vous m'utiliserez, mieux je vous protégerai des traqueurs indiscrets !",
         "description": ""
     },
     "slideshow_2": {

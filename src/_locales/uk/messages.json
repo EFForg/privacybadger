@@ -64,7 +64,7 @@
         "description": ""
     },
     "whitelist_form_domain_input_placeholder": {
-        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "message": "наприклад, www.domain.com, *.domain.net, domain.org",
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
     },
     "slideshow_4": {
@@ -76,7 +76,7 @@
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Click here to block this domain from setting cookies",
+        "message": "Натисніть тут, щоб заблокувати встановлення куків з цього домена",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
@@ -100,7 +100,7 @@
         "description": ""
     },
     "options_domain_list_tab": {
-        "message": "Tracking Domains",
+        "message": "Домени стеження",
         "description": "This is an options page tab heading."
     },
     "intro1": {
@@ -108,7 +108,7 @@
         "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
-        "message": "Share on Twitter",
+        "message": "Поширити у Twitter",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "first_run_text": {
@@ -160,7 +160,7 @@
         "description": ""
     },
     "what_is_a_tracker": {
-        "message": "What is a tracker?",
+        "message": "Що таке стеження?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
@@ -216,7 +216,7 @@
         "description": ""
     },
     "domain_slider_block_tooltip": {
-        "message": "Click here to block this domain entirely",
+        "message": "Натисніть тут, щоб повністю заблокувати цей домен",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
@@ -288,7 +288,7 @@
         "description": ""
     },
     "popup_help_button": {
-        "message": "Help",
+        "message": "Допомога",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "ded_logging_into": {
@@ -296,7 +296,7 @@
         "description": ""
     },
     "share_button_title_google": {
-        "message": "Share on Google Plus",
+        "message": "Поширити в Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -340,7 +340,7 @@
         "description": ""
     },
     "domain_slider_allow_tooltip": {
-        "message": "Click here to allow this domain",
+        "message": "Натисніть тут, щоб дозволити цей домен",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
@@ -412,7 +412,7 @@
         "description": ""
     },
     "share_button_title_facebook": {
-        "message": "Share on Facebook",
+        "message": "Поширити на Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "ded_always_allow": {
