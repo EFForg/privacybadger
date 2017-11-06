@@ -218,6 +218,7 @@ var lowEntropyCookieValues = {
   "no":3,
   "true":3,
   "false":3,
+  "dnt":3,
   "opt-out":3,
   "optout":3,
   "opt_out":3,
