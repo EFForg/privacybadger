@@ -1,8 +1,8 @@
 # How to fix broken site issues
 
-Unfortunately, while working to protect your privacy, Privacy Badger can end up breaking website functionality. This document is about the process of classifying and resolving these breakages.
+Unfortunately, while working to protect your privacy, Privacy Badger can end up breaking website functionality. Here are the [open "broken site" and "help wanted"-labeled issues](https://github.com/EFForg/privacybadger/issues?utf8=✓&q=is%3Aissue%20is%3Aopen%20label%3A"broken%20site"%20label%3A"help%20wanted"%20).
 
-Here are the [open "broken site" and "help wanted"-labeled issues](https://github.com/EFForg/privacybadger/issues?utf8=✓&q=is%3Aissue%20is%3Aopen%20label%3A"broken%20site"%20label%3A"help%20wanted"%20).
+This document is about the process of classifying and resolving these breakages.
 
 
 ## Confirm Privacy Badger is responsible
@@ -28,7 +28,9 @@ Once the issue is confirmed (and the responsible domains have been identified), 
 | EFF's Do Not Track policy | [DNT Policy](https://github.com/EFForg/privacybadger/labels/DNT%20policy)| - | n/a | Narrowly applicable |
 | Yellowlisting | [yellowlist](https://github.com/EFForg/privacybadger/labels/yellowlist)| - | Easy | Only protects against some types of tracking |
 
-The question to ask is, which way addresses the issue most specifically, resolving the breakage while increasing privacy exposure by the smallest amount? Let's look at some common kinds of breakages.
+The question to ask is, which way addresses the issue most specifically, resolving the breakage while increasing privacy exposure by the smallest amount? If you are not sure, that's OK! Opening a new issue (or chiming in on an existing issue) to ask for help is fine.
+
+Let's look at some common kinds of breakages and see how they relate to the approaches above.
 
 
 ### Domains that are part of the site but don't look like it
