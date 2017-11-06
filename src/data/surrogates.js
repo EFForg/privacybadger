@@ -63,6 +63,7 @@ const hostnames = {
     '/JS/gigya.js',
     '/JS/socialize.js',
   ],
+  'cdn.krxd.net': 'noopjs',
 };
 
 /**
@@ -471,6 +472,12 @@ const surrogates = {
       }
     } + ')();',
   /* eslint-enable no-empty */
+
+  // https://github.com/uBlockOrigin/uAssets/blob/0efcadb2ecc2a9f0daa5a1df79841d794b83860f/filters/resources.txt#L38-L41
+  'noopjs': '(' +
+    function() {
+      ;
+    } + ')();',
 
   /* eslint-enable no-extra-semi, space-in-parens */
 };
