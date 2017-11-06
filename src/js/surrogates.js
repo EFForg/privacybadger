@@ -43,9 +43,10 @@ function getSurrogateURI(script_url, script_hostname) {
     const tokens = db.hostnames[script_hostname];
 
     // do any of the pattern tokens for that hostname match the script URL?
+    const qs_start = script_url.indexOf('?');
+
     for (let i = 0; i < tokens.length; i++) {
-      const token = tokens[i],
-        qs_start = script_url.indexOf('?');
+      const token = tokens[i];
 
       let match = false;
 
