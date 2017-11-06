@@ -20,11 +20,13 @@ If disabling Badger and reloading the page fixed the issue, and re-enabling and 
 
 Once the issue is confirmed (and the responsible domains have been identified), you should try to find the most appropriate way to resolve it. Privacy Badger comes with several approaches:
 
-- Multi-domain first parties
-- Script surrogates
-- Widget replacement
-- EFF's Do Not Track policy
-- Yellowlisting
+| Approach | Label | Original issue | Difficulty | Notes |
+| --- | :---: | :---: | :---: | --- |
+| Multi-domain first parties | [MDFP](https://github.com/EFForg/privacybadger/labels/MDFP) | [781](https://github.com/EFForg/privacybadger/issues/781) | Easy | Narrowly applicable |
+| Script surrogates | - | [400](https://github.com/EFForg/privacybadger/issues/400) | Hard | Should use uBlock Origin's surrogates as much as possible |
+| Widget replacement | [widgets](https://github.com/EFForg/privacybadger/labels/widgets) | [196](https://github.com/EFForg/privacybadger/issues/196) | Hard | Needs review |
+| EFF's Do Not Track policy | [DNT Policy](https://github.com/EFForg/privacybadger/labels/DNT%20policy)| - | n/a | Narrowly applicable |
+| Yellowlisting | [yellowlist](https://github.com/EFForg/privacybadger/labels/yellowlist)| - | Easy | Only protects against some types of tracking |
 
 The question to ask is, which way addresses the issue most specifically, resolving the breakage while increasing privacy exposure by the smallest amount? Let's look at some common kinds of breakages.
 
