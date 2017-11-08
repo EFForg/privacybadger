@@ -107,6 +107,12 @@ function onBeforeRequest(details) {
         badger.checkForDNTPolicy(requestDomain);
       }, 10);
 
+      if (type == 'sub_frame') {
+        return {
+          redirectUrl: 'about:blank'
+        };
+      }
+
       return {cancel: true};
     }
   }
@@ -179,6 +185,12 @@ function onBeforeSendHeaders(details) {
       window.setTimeout(function () {
         badger.checkForDNTPolicy(requestDomain);
       }, 10);
+
+      if (type == 'sub_frame') {
+        return {
+          redirectUrl: 'about:blank'
+        };
+      }
 
       return {cancel: true};
     }
