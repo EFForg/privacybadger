@@ -73,7 +73,8 @@
 		"domain": "apis.google.com",
 		"buttonSelectors": [
 			"g\\:plusone",
-			".g-plusone"
+			".g-plusone",
+      "#___plus_0"
 		],
 		"replacementButton": {
 			"details": "https://plusone.google.com/se/0/_/+1/fastbutton?url=",
