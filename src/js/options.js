@@ -286,16 +286,25 @@ function getOriginsArray(filterText) {
 }
 
 function makeValidURL(url) {
-
-  if(!url.startsWith("http")) {
-    url =  "http://" + url;
+  if (!url.startsWith("http")) {
+    url = "http://" + url;
   }
 
-  if(!url.endsWith("/")) {
+  if (!url.endsWith("/")) {
     url += "/";
   }
 
   return url;
+}
+
+function checkValidURL(input){
+  try {
+    var validURL = new backgroundPage.URI(makeValidURL(input));
+    return validURL;
+  } catch (err) {
+    confirm(i18n.getMessage("invalid_domain"));
+    return false;
+  }
 }
 
 function addWhitelistDomain(event) {
@@ -307,15 +316,14 @@ function addWhitelistDomain(event) {
     return;
   }
 
-  try {
-    var validURL =  new backgroundPage.URI(makeValidURL(userInput));
-  } catch(err) {
-    confirm(i18n.getMessage("invalid_domain"));
+  var validURL = checkValidURL(userInput);
+
+  if(!validURL.host) {
     return;
   }
 
   badger.disablePrivacyBadgerForOrigin(validURL.host);
-  reloadWhitelist();  
+  reloadWhitelist();
   document.getElementById("newWhitelistDomain").value = "";
 }
 
