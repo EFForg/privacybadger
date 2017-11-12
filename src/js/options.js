@@ -297,7 +297,7 @@ function makeValidURL(url) {
   return url;
 }
 
-function checkValidURL(input){
+function checkValidURL(input) {
   try {
     var validURL = new backgroundPage.URI(makeValidURL(input));
     return validURL;
@@ -318,7 +318,7 @@ function addWhitelistDomain(event) {
 
   var validURL = checkValidURL(userInput);
 
-  if(!validURL.host) {
+  if (!validURL.host) {
     return;
   }
 
