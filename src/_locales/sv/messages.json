@@ -27,6 +27,10 @@
         "message": "Kontrollera om webbplatser överensstämmer med EFF:s Spåra inte-policy",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "Denna tillbyggnad är utformad för att automatiskt skydda din integritet från tredjepartsspårare som laddas osynligt när du surfar på webben. Vi skickar Spåra inte rubriken med varje förfrågan, och vår tillbyggnad utvärderar sannolikheten för att du fortfarande spåras. Om algoritmen anser att sannolikheten är för hög blockerar vi automatiskt din förfrågan från att skickas till domänen. Vänligen förstå att Privacy Badger är i beta, och algoritmens beslutsamhet är inte avgörande för att domänen spårar dig.",
         "description": ""

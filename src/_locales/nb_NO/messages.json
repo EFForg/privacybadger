@@ -27,6 +27,10 @@
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "Dette programtillegget er laget for å automatisk beskytte dine gjøren og laden fra tredjepartssporere som lastes inn usynlig når du surfer på veven. Vi sender «Ikke spor meg»-hodet sammen med hver forespørsel, og vårt programtillegg vurderer sansynligheten for om du fremdeles spores. Hvis algoritmen anser at sjansen er for høy, blokkeres din forespørsel automatisk fra å bli sendt til domenet. Ha i minnet at Personvernsgrevlingen er i betaversjon, og at algoritmens antagelser ikke er å anse som en fullverdig sannhet for om hvorvidt domenet sporer deg.",
         "description": ""

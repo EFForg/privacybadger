@@ -27,6 +27,10 @@
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "Esta extensión está diseñada para proteger automáticamente tu privacidad, de rastreadores de terceros que se cargan de manera invisible cuando navegas por la red. Mandamis una cabecera de No Rastrear con cada petción, y nuestra extensión evalua la probabilidad que todavía estes siendo rastreado. Si el algoritmo estima que la probabilidad es muy alta, nosotros automáticamente bloqueamos tu petición para que no sea enviada al dominio. Por favor entiende que Privacy Badger está en fase beta y la determinación del algoritmo no es concluyente de que el dominio este rastreándolo.",
         "description": ""

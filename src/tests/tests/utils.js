@@ -402,4 +402,30 @@
 
   });
 
+  QUnit.test("getHostFromDomainInput", assert => {
+    assert.equal(
+      utils.getHostFromDomainInput("www.spiegel.de"),
+      "www.spiegel.de",
+      "Valid domains are accepted"
+    );
+
+    assert.equal(
+      utils.getHostFromDomainInput("http://www.spiegel.de/"),
+      "www.spiegel.de",
+      "URLs get transformed into domains"
+    );
+
+    assert.equal(
+      utils.getHostFromDomainInput("http://www.spiegel.de"),
+      "www.spiegel.de",
+      "Trailing slashes are not required"
+    );
+
+    assert.equal(
+      utils.getHostFromDomainInput("@"),
+      false,
+      "Valid URIs with empty hosts are rejected."
+    );
+  });
+
 })();

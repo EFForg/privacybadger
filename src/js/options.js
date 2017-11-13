@@ -294,14 +294,18 @@ function getOriginsArray(filterText) {
 function addWhitelistDomain(event) {
   event.preventDefault();
 
-  var domain = document.getElementById("newWhitelistDomain").value.replace(/\s/g, "");
-  document.getElementById("newWhitelistDomain").value = "";
+  var domain = backgroundPage.utils.getHostFromDomainInput(
+    document.getElementById("newWhitelistDomain").value.replace(/\s/g, "")
+  );
+
   if (!domain) {
-    return;
+    return confirm(i18n.getMessage("invalid_domain"));
   }
 
   badger.disablePrivacyBadgerForOrigin(domain);
+
   reloadWhitelist();
+  document.getElementById("newWhitelistDomain").value = "";
 }
 
 function removeWhitelistDomain(event) {

@@ -27,6 +27,10 @@
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "這個擴充套件被設計來自動保護您的隱私以免受您在瀏覽網頁時無形中載入的第三方追蹤器。我們在每個請求中傳送了「請勿追蹤」(Do Not Track, DNT) 檔頭，我們的擴充套件仍然會評估被追蹤的可能性。如果演算法認為可能性太高，我們自動封鎖被發送到這個網域的請求。請注意 Privacy Badger 仍處於測試階段，而演算法無法完全肯定網域在追蹤您。",
         "description": ""

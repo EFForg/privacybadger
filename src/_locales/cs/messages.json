@@ -27,6 +27,10 @@
         "message": "Kontrolovat, zda stránky dodržují pravidla Do Not Track od EFF",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "Toto rozšíření je vytvořeno tak, aby automaticky chránilo vaše soukromí před sledovacími prvky třetích stran, které se tajně načítají při procházení webu. Odesíláme hlavičku Do Not Track s každým požadavkem a naše rozšíření vyhodnocuje pravděpodobnost, že jste stále sledováni. Pokud algoritmus rozhodne že pravděpodobnost je příliš vysoká, automaticky zablokuje odesílaní požadavků na takovou doménu. Vezměte prosím na vědomí, že Privacy Badger je ve fázi beta a rozhodnutí algoritmu není důkazem toho, že vás doména opravdu sleduje.",
         "description": ""

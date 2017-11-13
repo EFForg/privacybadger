@@ -27,6 +27,10 @@
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "Diese Erweiterung wurde geschaffen, um Ihre Privatsphäre automatisch vor unsichtbaren Trackern Dritter zu schützen, während Sie im Web surfen. Wir senden mit jeder Anfrage den Do-Not-Track Header und unsere Erweiterung bewertet die Wahrscheinlichkeit, dass sie trotzdem überwacht werden. Wenn die Wahrscheinlichkeit zu groß ist, blockieren wir die Anfrage an die Domain automatisch. Bitte beachten Sie: Privacy Badger ist noch im Beta Stadium und der Algorithmus noch nicht ausgereift.",
         "description": ""
