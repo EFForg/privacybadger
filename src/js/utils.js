@@ -322,11 +322,30 @@ function parseCookie(str, opts) {
   return parsed;
 }
 
+function getHostFromDomainInput(input) {
+  if (!input.startsWith("http")) {
+    input = "http://" + input;
+  }
+
+  if (!input.endsWith("/")) {
+    input += "/";
+  }
+
+  try {
+    var uri = new URI(input);
+  } catch (err) {
+    return false;
+  }
+
+  return uri.host;
+}
+
 /************************************** exports */
 var exports = {};
 
 exports.estimateMaxEntropy = estimateMaxEntropy;
 exports.explodeSubdomains = explodeSubdomains;
+exports.getHostFromDomainInput = getHostFromDomainInput;
 exports.getRandom = getRandom;
 exports.makeURI = makeURI;
 exports.nDaysFromNow = nDaysFromNow;

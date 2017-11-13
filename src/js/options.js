@@ -291,42 +291,15 @@ function getOriginsArray(filterText) {
   return Object.keys(originCache).filter(containsFilterText);
 }
 
-function makeValidURL(url) {
-  if (!url.startsWith("http")) {
-    url = "http://" + url;
-  }
-
-  if (!url.endsWith("/")) {
-    url += "/";
-  }
-
-  return url;
-}
-
-function checkValidURL(input) {
-  try {
-    var validURL = new backgroundPage.URI(makeValidURL(input));
-
-    if (validURL.host) {
-      return validURL.host;
-    } else {
-      throw 'No host';
-    }
-  } catch (err) {
-    confirm(i18n.getMessage("invalid_domain"));
-    return false;
-  }
-}
-
 function addWhitelistDomain(event) {
   event.preventDefault();
 
-  var userInput = document.getElementById("newWhitelistDomain").value.replace(/\s/g, "");
-
-  var domain = checkValidURL(userInput);
+  var domain = backgroundPage.utils.getHostFromDomainInput(
+    document.getElementById("newWhitelistDomain").value.replace(/\s/g, "")
+  );
 
   if (!domain) {
-    return;
+    return confirm(i18n.getMessage("invalid_domain"));
   }
 
   badger.disablePrivacyBadgerForOrigin(domain);
