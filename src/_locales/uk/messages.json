@@ -7,10 +7,6 @@
         "message": "Неправильний файл JSON.",
         "description": ""
     },
-    "invalid_domain": {
-        "message": "Please add a valid domain or URL.",
-        "description": ""
-    },
     "options_remove_origin_confirm": {
         "message": "Ви справді хочете вилучити це джерело з Privacy Badger?",
         "description": ""

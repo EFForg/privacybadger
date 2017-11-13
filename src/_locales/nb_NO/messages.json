@@ -7,10 +7,6 @@
         "message": "Ugyldig JSON-fil.",
         "description": ""
     },
-    "invalid_domain": {
-        "message": "Please add a valid domain or URL.",
-        "description": ""
-    },
     "options_remove_origin_confirm": {
         "message": "Fjern dette opphavet fra Personvernsgrevlingen?",
         "description": ""
