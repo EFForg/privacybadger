@@ -297,14 +297,14 @@ function makeValidURL(url) {
   return url;
 }
 
-function checkValidURL(input){
+function checkValidURL(input) {
   try {
     var validURL = new backgroundPage.URI(makeValidURL(input));
 
     if (validURL.host) {
       return validURL.host;
     } else {
-      throw "empty";
+      throw err;
     }
   } catch (err) {
     confirm(i18n.getMessage("invalid_domain"));
@@ -325,7 +325,7 @@ function addWhitelistDomain(event) {
 
   if (!domain) {
     return;
-  } 
+  }
 
   badger.disablePrivacyBadgerForOrigin(domain);
 
