@@ -76,11 +76,11 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "potential <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust them unless something is broken.",
+        "message": "These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust them unless something is broken.",
         "description": ""
     },
     "popup_instructions_no_trackers": {
-        "message": "potential <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. Horray for privacy!",
+        "message": "Horray for privacy!",
         "description": ""
     },
     "options_webrtc_setting": {
@@ -300,7 +300,7 @@
         "description": ""
     },
     "pb_detected": {
-        "message": "Privacy Badger detected",
+        "message": "Potential <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> detected on this page: ",
         "description": ""
     },
     "intro_by_eff": {
