@@ -7,6 +7,10 @@
         "message": "Fichier JSON invalide.",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "options_remove_origin_confirm": {
         "message": "Voulez-vous vraiment supprimer ce domaine de Privacy Badger ?",
         "description": ""

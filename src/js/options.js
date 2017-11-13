@@ -291,17 +291,48 @@ function getOriginsArray(filterText) {
   return Object.keys(originCache).filter(containsFilterText);
 }
 
+function makeValidURL(url) {
+  if (!url.startsWith("http")) {
+    url = "http://" + url;
+  }
+
+  if (!url.endsWith("/")) {
+    url += "/";
+  }
+
+  return url;
+}
+
+function checkValidURL(input) {
+  try {
+    var validURL = new backgroundPage.URI(makeValidURL(input));
+
+    if (validURL.host) {
+      return validURL.host;
+    } else {
+      throw 'No host';
+    }
+  } catch (err) {
+    confirm(i18n.getMessage("invalid_domain"));
+    return false;
+  }
+}
+
 function addWhitelistDomain(event) {
   event.preventDefault();
 
-  var domain = document.getElementById("newWhitelistDomain").value.replace(/\s/g, "");
-  document.getElementById("newWhitelistDomain").value = "";
+  var userInput = document.getElementById("newWhitelistDomain").value.replace(/\s/g, "");
+
+  var domain = checkValidURL(userInput);
+
   if (!domain) {
     return;
   }
 
   badger.disablePrivacyBadgerForOrigin(domain);
+
   reloadWhitelist();
+  document.getElementById("newWhitelistDomain").value = "";
 }
 
 function removeWhitelistDomain(event) {

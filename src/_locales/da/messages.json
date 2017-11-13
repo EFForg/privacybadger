@@ -7,6 +7,10 @@
         "message": "Ugyldig JSON-fil.",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "options_remove_origin_confirm": {
         "message": "Er du sikker på at du vil fjerne denne kilde fra Privacy Badger?",
         "description": ""
