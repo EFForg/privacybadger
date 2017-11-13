@@ -317,10 +317,6 @@ function addWhitelistDomain(event) {
 
   var userInput = document.getElementById("newWhitelistDomain").value.replace(/\s/g, "");
 
-  if (!userInput) {
-    return;
-  }
-
   var domain = checkValidURL(userInput);
 
   if (!domain) {
