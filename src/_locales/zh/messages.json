@@ -27,6 +27,10 @@
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "这个扩展被设计用来自动保护你的隐私以免受你在浏览网页时无形中加载的第三方跟踪器。我们在每个请求中发送了“请勿跟踪”(Do Not Track,DNT)头, 并且我们的扩展仍然会评估被跟踪的可能性。如果算法认为可能性太高，我们自动屏蔽被发送到这个域名的请求。请了解隐私獾处于测试阶段, 而算法的测定并不肯定那个域名在跟踪你。",
         "description": ""

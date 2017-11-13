@@ -27,6 +27,10 @@
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "De Privacy Badger browserextensie probeert te voorkomen dat u gevolgd wordt op het internet. Om aan te geven dat u niet gevolgd wilt worden sturen wij de Do Not Track header naar alle (derde) partijen. Privacy Badger detecteert automatisch met een wiskundig algoritme of u gevolgd wordt of niet. Indien de kans op gevolgd worden boven een drempelwaarde komt, wordt verkeer van en naar de tracker geblokkeerd. Opgelet: het kan zijn dat Privacy Badger (nog) niet naar behoren functioneert.",
         "description": ""

@@ -27,6 +27,10 @@
         "message": "Kontroli ĉu retejoj kongruas kun politiko de nespurado de EFF",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "Tiu ĉi aldonaĵo estas farita por aŭtomate protekti vian privatecon de ekster-liverantaj spuriloj, kiuj nevideble ŝargiĝas dum kiam vi retumas. Ni sendas peton “Ne Spuri Min” (DNT) kun ĉiu retpeto kaj la aldonaĵo pritaksas probablon ĉu vi plua estas spurata. Se la algoritmo konstatas, ke la probableco estas tro alta, ni aŭtomate blokas vian retpeton de esti sendita al la nomregno. Bonvolu kompreni, ke Privata Melo estas eksperimenta kaj la algoritmo ne eblas absolute decidi ĉu la nomregno spuras vin.",
         "description": ""
