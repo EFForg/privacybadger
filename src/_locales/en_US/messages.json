@@ -79,6 +79,10 @@
         "message": "potential <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust them unless something is broken.",
         "description": ""
     },
+    "popup_instructions_no_trackers": {
+        "message": "potential <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. Horray for privacy!",
+        "description": ""
+    },
     "options_webrtc_setting": {
         "message": "Prevent WebRTC from leaking local IP address *",
         "description": ""

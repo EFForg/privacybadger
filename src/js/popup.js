@@ -292,6 +292,10 @@ function refreshPopup(tabId) {
     $("#blockedResources").html(i18n.getMessage("popup_blocked"));
     $('#number_trackers').text('0');
 
+    // leave out slider instructions message if no sliders will be displayed
+    $("#sliders_explanation").hide();
+    $("#sliders_explanation_none").show();
+
     // activate tooltips
     $('.tooltip').tooltipster();
 
