@@ -84,7 +84,7 @@
         "description": ""
     },
     "popup_instructions_no_trackers": {
-        "message": "Horray for privacy!",
+        "message": "Hooray for privacy!",
         "description": ""
     },
     "options_webrtc_setting": {
@@ -136,7 +136,7 @@
         "description": ""
     },
     "options_domain_list_trackers": {
-        "message": "<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking domains</a> detected so far: ",
+        "message": "Potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> detected so far: ",
         "description": "Text introducing the overall number of trackers detected on the Tracking Domains options page"
     },
     "options_domain_list_instructions": {
