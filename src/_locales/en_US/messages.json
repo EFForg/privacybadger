@@ -87,10 +87,6 @@
         "message": "Prevent WebRTC from leaking local IP address *",
         "description": ""
     },
-    "options_so_far": {
-        "message": "so far. These sliders let you control how Privacy Badger handles each tracker.",
-        "description": ""
-    },
     "error_input": {
         "message": "What's Wrong?",
         "description": ""
@@ -135,9 +131,13 @@
         "message": "Replace social widgets",
         "description": ""
     },
-    "options_tracking_domains": {
-        "message": "tracking domains",
-        "description": ""
+    "options_domain_list_trackers": {
+        "message": "<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking domains</a> detected so far: ",
+        "description": "Text introducing the overall number of trackers detected on the Tracking Domains options page"
+    },
+    "options_domain_list_instructions": {
+        "message": "These sliders let you control how Privacy Badger handles each tracker.",
+        "description": "Instructions on the Tracking Domains options page"
     },
     "report_button": {
         "message": "Submit Error",
@@ -169,10 +169,6 @@
     },
     "options_title": {
         "message": "Privacy Badger Options",
-        "description": ""
-    },
-    "options_pb_has_detected": {
-        "message": "Privacy Badger has detected",
         "description": ""
     },
     "slideshow_11": {
@@ -349,10 +345,6 @@
     },
     "intro_red": {
         "message": "Red",
-        "description": ""
-    },
-    "options_potential": {
-        "message": "potential",
         "description": ""
     },
     "remove_button": {
