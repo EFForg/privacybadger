@@ -297,10 +297,15 @@ function makeValidURL(url) {
   return url;
 }
 
-function checkValidURL(input) {
+function checkValidURL(input){
   try {
     var validURL = new backgroundPage.URI(makeValidURL(input));
-    return validURL;
+
+    if (validURL.host) {
+      return validURL.host;
+    } else {
+      throw "empty";
+    }
   } catch (err) {
     confirm(i18n.getMessage("invalid_domain"));
     return false;
@@ -316,13 +321,14 @@ function addWhitelistDomain(event) {
     return;
   }
 
-  var validURL = checkValidURL(userInput);
+  var domain = checkValidURL(userInput);
 
-  if (!validURL.host) {
+  if (!domain) {
     return;
-  }
+  } 
 
-  badger.disablePrivacyBadgerForOrigin(validURL.host);
+  badger.disablePrivacyBadgerForOrigin(domain);
+
   reloadWhitelist();
   document.getElementById("newWhitelistDomain").value = "";
 }
