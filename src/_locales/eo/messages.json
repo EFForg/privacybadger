@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Kontroli ĉu retejoj kongruas kun politiko de nespurado de EFF.",
+        "message": "Kontroli ĉu retejoj kongruas kun politiko de nespurado de EFF",
         "description": ""
     },
     "intro2": {
@@ -76,7 +76,7 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "ebla(j)n <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilo(j)n</a> sur tiu retpaĝo. Tiu ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ili. Vi ne devus ŝanĝi ilin escepte se io malfunkcias.",
+        "message": "ebla(j)n <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilo(j)n</a> sur tiu retpaĝo. Tiuj ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ili. Vi ne devus ŝanĝi ilin escepte se io malfunkcias.",
         "description": ""
     },
     "options_webrtc_setting": {
@@ -84,7 +84,7 @@
         "description": ""
     },
     "options_so_far": {
-        "message": "ĝin nun. Tiuj ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ĉiu spurilo.",
+        "message": "ĝis nun. Tiuj ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ĉiu spurilo.",
         "description": ""
     },
     "error_input": {
@@ -128,11 +128,11 @@
         "description": ""
     },
     "options_social_widgets_checkbox": {
-        "message": "Anstataŭigi butonojn de sociajn retejojn",
+        "message": "Anstataŭigi butonojn de sociaj retejoj",
         "description": ""
     },
     "options_tracking_domains": {
-        "message": "spurantaj nomregnoj",
+        "message": "spuranta(j)n nomregno(j)n",
         "description": ""
     },
     "report_button": {
@@ -244,7 +244,7 @@
         "description": ""
     },
     "tooltip_cookieblock": {
-        "message": "Centrigi la ŝovilon por bloki kuketojn.",
+        "message": "Centrigu la ŝovilon por bloki kuketojn.",
         "description": ""
     },
     "slideshow_12": {
@@ -288,11 +288,11 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Movu la ŝovilon maldekstren por bloki nomregnon",
+        "message": "Movu la ŝovilon maldekstren por bloki nomregnon.",
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privata Melo estas malaktivigita por la subajn nomregnojn. Vi povas aldoni nomregnon aŭ per la piktogramo de Privata Melo sur la adresa breto aŭ per entajpi nomregnon (ne plenan retadreson) en la kampon sube kaj klaki la butonon “aldoni nomregnon”.",
+        "message": "Privata Melo estas malaktivigita por la subaj nomregnoj. Vi povas aldoni nomregnon aŭ per la piktogramo de Privata Melo sur la adresa breto aŭ per entajpi nomregnon (ne plenan retadreson) en la kampon sube kaj klaki la butonon “aldoni nomregnon”.",
         "description": ""
     },
     "pb_detected": {
@@ -308,7 +308,7 @@
         "description": ""
     },
     "tooltip_allow": {
-        "message": "Movu la ŝovilon rekten por permesi nomregnon",
+        "message": "Movu la ŝovilon rekten por permesi nomregnon.",
         "description": ""
     },
     "popup_disable_for_site": {
@@ -340,7 +340,7 @@
         "description": ""
     },
     "report_text": {
-        "message": "Koncize priskribu la eraron jene.",
+        "message": "Koncize priskribu la eraron sube.",
         "description": ""
     },
     "intro_red": {
