@@ -304,7 +304,7 @@ function checkValidURL(input) {
     if (validURL.host) {
       return validURL.host;
     } else {
-      throw err;
+      throw 'No host';
     }
   } catch (err) {
     confirm(i18n.getMessage("invalid_domain"));
