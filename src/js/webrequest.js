@@ -86,8 +86,10 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, url, false, frame_id);
+  var requestAction = checkAction(tab_id, url, frame_id);
   if (requestAction) {
+    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+
     if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
       if (type == 'script') {
         var surrogate = getSurrogateURI(url, requestDomain);
@@ -156,13 +158,24 @@ function onBeforeSendHeaders(details) {
 
   if (badger.isPrivacyBadgerEnabled(tabDomain) &&
       isThirdPartyDomain(requestDomain, tabDomain)) {
-    var requestAction = checkAction(tab_id, url, false, frame_id);
+
+    var requestAction = checkAction(tab_id, url, frame_id);
+
+    if (requestAction) {
+      badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+    }
+
     // If this might be the third strike against the potential tracker which
     // would cause it to be blocked we should check immediately if it will be blocked.
     if (requestAction == constants.ALLOW &&
         badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1) {
+
       badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      requestAction = checkAction(tab_id, url, false, frame_id);
+      requestAction = checkAction(tab_id, url, frame_id);
+
+      if (requestAction) {
+        badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+      }
     }
 
     // This will only happen if the above code sets the action for the request
@@ -257,8 +270,10 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, url, false, details.frameId);
+  var requestAction = checkAction(tab_id, url, details.frameId);
   if (requestAction) {
+    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
         return (header.name.toLowerCase() != "set-cookie");
@@ -477,11 +492,10 @@ function forgetTab(tabId) {
  *
  * @param {Integer} tabId The relevant tab
  * @param {String} url The URL
- * @param {Boolean} quiet Do not update internal data
  * @param {Integer} frameId The id of the frame
  * @returns {boolean} false or the action to take
  */
-function checkAction(tabId, url, quiet, frameId) {
+function checkAction(tabId, url, frameId) {
   // Ignore requests from temporarily unblocked social widgets.
   // Someone clicked the widget, so let it load.
   if (isSocialWidgetTemporaryUnblock(tabId, url, frameId)) {
@@ -513,13 +527,7 @@ function checkAction(tabId, url, quiet, frameId) {
     return false;
   }
 
-  // Determine action is request is from third party and tab is valid.
-  var action = badger.storage.getBestAction(requestHost);
-
-  if (action && ! quiet) {
-    badger.logThirdPartyOriginOnTab(tabId, requestHost, action);
-  }
-  return action;
+  return badger.storage.getBestAction(requestHost);
 }
 
 /**
@@ -639,7 +647,7 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.checkLocation) {
     if (badger.isPrivacyBadgerEnabled(tabHost)) {
       var documentHost = request.checkLocation;
-      var reqAction = checkAction(sender.tab.id, documentHost, true);
+      var reqAction = checkAction(sender.tab.id, documentHost);
       var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
       sendResponse(cookieBlock);
     }
