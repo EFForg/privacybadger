@@ -289,12 +289,14 @@ function refreshPopup(tabId) {
   let origins = badger.getAllOriginsForTab(tabId);
 
   if (!origins || origins.length === 0) {
-    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
-    $('#number_trackers').text('0');
-
-    // leave out slider instructions message if no sliders will be displayed
+    // leave out number of trackers and slider instructions message if no sliders will be displayed
+    $("#pb_detected").hide();
+    $("#number_trackers").hide();
     $("#sliders_explanation").hide();
-    $("#sliders_explanation_none").show();
+
+    // show "no trackers" message
+    $("#instructions_no_trackers").show();
+    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
 
     // activate tooltips
     $('.tooltip').tooltipster();
@@ -343,6 +345,16 @@ function refreshPopup(tabId) {
         htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
       );
     }
+  }
+
+  if (trackerCount === 1) {
+    // leave out messages about multiple trackers
+    $("#pb_detected").hide();
+    $("#number_trackers").hide();
+    $("#sliders_explanation").hide();
+
+    // show singular "tracker" message
+    $("#instructions_one_tracker").show();
   }
 
   $('#number_trackers').text(trackerCount);
