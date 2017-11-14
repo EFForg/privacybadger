@@ -506,7 +506,7 @@ function forgetTab(tabId) {
  * @param {Integer} tabId The relevant tab
  * @param {String} url The URL
  * @param {Integer} frameId The id of the frame
- * @returns {boolean} false or the action to take
+ * @returns {String|Boolean} false or the action to take
  */
 function checkAction(tabId, url, frameId) {
   // Ignore requests from temporarily unblocked social widgets.
