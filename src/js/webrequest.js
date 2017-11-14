@@ -78,10 +78,6 @@ function onBeforeRequest(details) {
   var tabDomain = getHostForTab(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
-  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
-    return {};
-  }
-
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
     return {};
   }
@@ -89,6 +85,10 @@ function onBeforeRequest(details) {
   var requestAction = checkAction(tab_id, url, frame_id);
   if (requestAction) {
     badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+
+    if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+      return {};
+    }
 
     if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
       if (type == 'script') {
@@ -156,8 +156,7 @@ function onBeforeSendHeaders(details) {
   var tabDomain = getHostForTab(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
-  if (badger.isPrivacyBadgerEnabled(tabDomain) &&
-      isThirdPartyDomain(requestDomain, tabDomain)) {
+  if (isThirdPartyDomain(requestDomain, tabDomain)) {
 
     var requestAction = checkAction(tab_id, url, frame_id);
 
@@ -176,6 +175,11 @@ function onBeforeSendHeaders(details) {
       if (requestAction) {
         badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
       }
+    }
+
+    if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+      headers.push({name: "DNT", value: "1"});
+      return {requestHeaders: headers};
     }
 
     // This will only happen if the above code sets the action for the request
@@ -262,10 +266,6 @@ function onHeadersReceived(details) {
   var tabDomain = getHostForTab(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
-  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
-    return {};
-  }
-
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
     return {};
   }
@@ -273,6 +273,10 @@ function onHeadersReceived(details) {
   var requestAction = checkAction(tab_id, url, details.frameId);
   if (requestAction) {
     badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+
+    if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+      return {};
+    }
 
     if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
       var newHeaders = details.responseHeaders.filter(function(header) {
