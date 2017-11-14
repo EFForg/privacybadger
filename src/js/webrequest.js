@@ -659,8 +659,7 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.checkLocation) {
     if (badger.isPrivacyBadgerEnabled(tabHost)) {
-      var documentHost = request.checkLocation;
-      var reqAction = checkAction(sender.tab.id, documentHost);
+      var reqAction = checkAction(sender.tab.id, request.checkLocation);
       var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
       sendResponse(cookieBlock);
     }
