@@ -15,7 +15,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals badger:false, log:false */
+/* globals badger:false, log:false, URI:false */
 
 var constants = require("constants");
 var utils = require("utils");
@@ -103,7 +103,7 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    let fqdn = utils.makeURI(details.url).host,
+    let fqdn = (new URI(details.url)).host,
       origin = window.getBaseDomain(fqdn);
 
     // if this is a main window request

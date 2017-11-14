@@ -18,7 +18,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals URI */
+/* globals URI:false */
 
 require.scopes.utils = (function() {
 
@@ -81,17 +81,6 @@ function explodeSubdomains(fqdn, all) {
 }
 
 /**
-* Generator for URI objects
-*
-* @param {String} url the url to convert to URI
-* @returns {URI|{scheme, spec, QueryInterface}}
-*/
-function makeURI(url) {
-  // URI defined in lib/basedomain.js
-  return new URI(url);
-}
-
-/**
 * removes an element or range of elements from an array and reindexes the
 * array. Directly modifies the array in question.
 *
@@ -143,16 +132,6 @@ function estimateMaxEntropy(str) {
   /* console.log("Local storage item length:", str.length, "# symbols guess:", maxSymbolsGuess,
     "Max # Combinations:", maxCombinations, "Max bits:", maxBits) */
   return maxBits; // May return Infinity when the content is too long.
-}
-
-/**
- * Get a random number in the inclusive range min..max
- *
- * @param {Integer} minimum number to get
- * @param {Integer} maximum number to get
- **/
-function getRandom(min, max) {
-  return min + Math.floor(Math.random() * (max - min + 1));
 }
 
 function oneSecond() {
@@ -346,8 +325,6 @@ var exports = {};
 exports.estimateMaxEntropy = estimateMaxEntropy;
 exports.explodeSubdomains = explodeSubdomains;
 exports.getHostFromDomainInput = getHostFromDomainInput;
-exports.getRandom = getRandom;
-exports.makeURI = makeURI;
 exports.nDaysFromNow = nDaysFromNow;
 exports.oneDayFromNow = oneDayFromNow;
 exports.oneDay = oneDay;
