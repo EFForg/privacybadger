@@ -100,8 +100,8 @@
     "default_title": "__MSG_name__"
   },
   "options_ui": {
-  	"page": "/skin/options.html",
-  	"open_in_tab": true
+    "page": "/skin/options.html",
+    "open_in_tab": true
   },
   "web_accessible_resources": [
     "skin/socialwidgets/*"
