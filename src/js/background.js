@@ -573,7 +573,7 @@ Badger.prototype = {
         return;
       }
 
-      let disabled = tab.url && self.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url));
+      let disabled = tab.url && !self.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url));
 
       // don't show the counter for any of these:
       // - the counter is disabled
@@ -624,17 +624,6 @@ Badger.prototype = {
       }
     }
     return true;
-  },
-
-  /**
-   * Check if privacy badger is disabled, take an origin and
-   * check against the disabledSites list
-   *
-   * @param {String} origin
-   * @returns {Boolean} true if disabled
-   **/
-  isPrivacyBadgerDisabled: function(origin) {
-    return !this.isPrivacyBadgerEnabled(origin);
   },
 
   /**
