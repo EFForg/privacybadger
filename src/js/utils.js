@@ -36,11 +36,11 @@ function xhrRequest(url, callback, method) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function () {
     if (xhr.status == 200) {
-      callback(null, xhr.responseText);
+      callback(null, xhr.response);
     } else {
       var error = {
         status: xhr.status,
-        message: xhr.responseText,
+        message: xhr.response,
         object: xhr
       };
       callback(error, error.message);
