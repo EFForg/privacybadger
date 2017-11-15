@@ -25,9 +25,9 @@ require.scopes.utils = (function() {
 /**
 * Generic interface to make an XHR request
 *
-* @param url The url to get
-* @param callback The callback to call after request has finished
-* @param method GET/POST
+* @param {String} url The url to get
+* @param {Function} callback The callback to call after request has finished
+* @param {String} method GET/POST
 */
 function xhrRequest(url, callback, method) {
   if (!method) {
