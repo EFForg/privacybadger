@@ -83,42 +83,45 @@ function onBeforeRequest(details) {
   }
 
   var requestAction = checkAction(tab_id, url, frame_id);
-  if (requestAction) {
-    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+  if (!requestAction) {
+    return {};
+  }
 
-    if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
-      return {};
-    }
+  badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
 
-    if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
-      if (type == 'script') {
-        var surrogate = getSurrogateURI(url, requestDomain);
-        if (surrogate) {
-          return {redirectUrl: surrogate};
-        }
-      }
+  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+    return {};
+  }
 
-      // Notify the content script...
-      var msg = {
-        replaceSocialWidget: true,
-        trackerDomain: requestDomain
-      };
-      chrome.tabs.sendMessage(tab_id, msg);
+  if (requestAction != constants.BLOCK && requestAction != constants.USER_BLOCK) {
+    return {};
+  }
 
-      window.setTimeout(function () {
-        badger.checkForDNTPolicy(requestDomain);
-      }, 10);
-
-      if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
-        return {
-          redirectUrl: 'about:blank'
-        };
-      }
-
-      return {cancel: true};
+  if (type == 'script') {
+    var surrogate = getSurrogateURI(url, requestDomain);
+    if (surrogate) {
+      return {redirectUrl: surrogate};
     }
   }
 
+  // Notify the content script...
+  var msg = {
+    replaceSocialWidget: true,
+    trackerDomain: requestDomain
+  };
+  chrome.tabs.sendMessage(tab_id, msg);
+
+  window.setTimeout(function () {
+    badger.checkForDNTPolicy(requestDomain);
+  }, 10);
+
+  if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
+    return {
+      redirectUrl: 'about:blank'
+    };
+  }
+
+  return {cancel: true};
 }
 
 /**
@@ -156,73 +159,77 @@ function onBeforeSendHeaders(details) {
   var tabDomain = getHostForTab(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
-  if (isThirdPartyDomain(requestDomain, tabDomain)) {
+  if (!isThirdPartyDomain(requestDomain, tabDomain)) {
+    // Still sending Do Not Track even if HTTP and cookie blocking are disabled
+    headers.push({name: "DNT", value: "1"});
+    return {requestHeaders: headers};
+  }
 
-    var requestAction = checkAction(tab_id, url, frame_id);
+  var requestAction = checkAction(tab_id, url, frame_id);
+
+  if (requestAction) {
+    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+  }
+
+  // If this might be the third strike against the potential tracker which
+  // would cause it to be blocked we should check immediately if it will be blocked.
+  if (requestAction == constants.ALLOW &&
+      badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1) {
+
+    badger.heuristicBlocking.heuristicBlockingAccounting(details);
+    requestAction = checkAction(tab_id, url, frame_id);
 
     if (requestAction) {
       badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
     }
-
-    // If this might be the third strike against the potential tracker which
-    // would cause it to be blocked we should check immediately if it will be blocked.
-    if (requestAction == constants.ALLOW &&
-        badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1) {
-
-      badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      requestAction = checkAction(tab_id, url, frame_id);
-
-      if (requestAction) {
-        badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
-      }
-    }
-
-    if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
-      headers.push({name: "DNT", value: "1"});
-      return {requestHeaders: headers};
-    }
-
-    // This will only happen if the above code sets the action for the request
-    // to block
-    if (requestAction == constants.BLOCK) {
-      if (type == 'script') {
-        var surrogate = getSurrogateURI(url, requestDomain);
-        if (surrogate) {
-          return {redirectUrl: surrogate};
-        }
-      }
-
-      // Notify the content script...
-      var msg = {
-        replaceSocialWidget: true,
-        trackerDomain: requestDomain
-      };
-      chrome.tabs.sendMessage(tab_id, msg);
-
-      window.setTimeout(function () {
-        badger.checkForDNTPolicy(requestDomain);
-      }, 10);
-
-      if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
-        return {
-          redirectUrl: 'about:blank'
-        };
-      }
-
-      return {cancel: true};
-    }
-
-    // This is the typical codepath
-    if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-      var newHeaders = headers.filter(function(header) {
-        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
-      });
-      newHeaders.push({name: "DNT", value: "1"});
-      return {requestHeaders: newHeaders};
-    }
   }
 
-  // Still sending Do Not Track even if HTTP and cookie blocking are disabled
+  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+    headers.push({name: "DNT", value: "1"});
+    return {requestHeaders: headers};
+  }
+
+  // This will only happen if the above code sets the action for the request
+  // to block
+  if (requestAction == constants.BLOCK) {
+    if (type == 'script') {
+      var surrogate = getSurrogateURI(url, requestDomain);
+      if (surrogate) {
+        return {redirectUrl: surrogate};
+      }
+    }
+
+    // Notify the content script...
+    var msg = {
+      replaceSocialWidget: true,
+      trackerDomain: requestDomain
+    };
+    chrome.tabs.sendMessage(tab_id, msg);
+
+    window.setTimeout(function () {
+      badger.checkForDNTPolicy(requestDomain);
+    }, 10);
+
+    if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
+      return {
+        redirectUrl: 'about:blank'
+      };
+    }
+
+    return {cancel: true};
+  }
+
+  // This is the typical codepath
+  if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
+    var newHeaders = headers.filter(function(header) {
+      return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
+    });
+    newHeaders.push({name: "DNT", value: "1"});
+    return {requestHeaders: newHeaders};
+  }
+
+  // if we are here, we're looking at a third party
+  // that's not yet blocked or cookieblocked
   headers.push({name: "DNT", value: "1"});
   return {requestHeaders: headers};
 }
@@ -271,19 +278,21 @@ function onHeadersReceived(details) {
   }
 
   var requestAction = checkAction(tab_id, url, details.frameId);
-  if (requestAction) {
-    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+  if (!requestAction) {
+    return {};
+  }
 
-    if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
-      return {};
-    }
+  badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
 
-    if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-      var newHeaders = details.responseHeaders.filter(function(header) {
-        return (header.name.toLowerCase() != "set-cookie");
-      });
-      return {responseHeaders: newHeaders};
-    }
+  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+    return {};
+  }
+
+  if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
+    var newHeaders = details.responseHeaders.filter(function(header) {
+      return (header.name.toLowerCase() != "set-cookie");
+    });
+    return {responseHeaders: newHeaders};
   }
 }
 
