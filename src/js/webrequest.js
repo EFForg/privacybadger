@@ -550,8 +550,7 @@ function getSocialWidgetBlockList() {
   // whether the content script should replace that tracker's social buttons
   var socialWidgetsToReplace = {};
 
-  window.SocialWidgetList.forEach(function(socialwidget) {
-
+  badger.socialWidgetList.forEach(function (socialwidget) {
     // Only replace social widgets that the user has not manually allowed
     var socialWidgetName = socialwidget.name;
     socialWidgetsToReplace[socialWidgetName] = (
@@ -560,8 +559,8 @@ function getSocialWidgetBlockList() {
   });
 
   return {
-    "trackers" : window.SocialWidgetList,
-    "trackerButtonsToReplace" : socialWidgetsToReplace
+    trackers: badger.socialWidgetList,
+    trackerButtonsToReplace: socialWidgetsToReplace
   };
 }
 
