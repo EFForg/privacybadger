@@ -107,7 +107,7 @@ function onBeforeRequest(details) {
         badger.checkForDNTPolicy(requestDomain);
       }, 10);
 
-      if (type == 'sub_frame') {
+      if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
         return {
           redirectUrl: 'about:blank'
         };
@@ -186,7 +186,7 @@ function onBeforeSendHeaders(details) {
         badger.checkForDNTPolicy(requestDomain);
       }, 10);
 
-      if (type == 'sub_frame') {
+      if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
         return {
           redirectUrl: 'about:blank'
         };
