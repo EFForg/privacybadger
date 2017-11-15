@@ -28,12 +28,18 @@ require.scopes.utils = (function() {
 * @param {String} url The url to get
 * @param {Function} callback The callback to call after request has finished
 * @param {String} method GET/POST
+* @param {Object} opts XMLHttpRequest options
 */
-function xhrRequest(url, callback, method) {
+function xhrRequest(url, callback, method, opts) {
   if (!method) {
     method = "GET";
   }
   var xhr = new XMLHttpRequest();
+  if (opts) {
+    _.each(opts, function (value, key) {
+      xhr[key] = value;
+    });
+  }
   xhr.onload = function () {
     if (xhr.status == 200) {
       callback(null, xhr.response);
