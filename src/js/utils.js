@@ -345,24 +345,23 @@ function getHostFromDomainInput(input) {
 }
 
 /************************************** exports */
-var exports = {};
-
-exports.arrayBufferToBase64 = arrayBufferToBase64;
-exports.estimateMaxEntropy = estimateMaxEntropy;
-exports.explodeSubdomains = explodeSubdomains;
-exports.getHostFromDomainInput = getHostFromDomainInput;
-exports.nDaysFromNow = nDaysFromNow;
-exports.oneDayFromNow = oneDayFromNow;
-exports.oneDay = oneDay;
-exports.oneHour = oneHour;
-exports.oneMinute = oneMinute;
-exports.oneSecond = oneSecond;
-exports.parseCookie = parseCookie;
-exports.rateLimit = rateLimit;
-exports.removeElementFromArray = removeElementFromArray;
-exports.sha1 = sha1;
-exports.xhrRequest = xhrRequest;
-
+var exports = {
+  arrayBufferToBase64,
+  estimateMaxEntropy,
+  explodeSubdomains,
+  getHostFromDomainInput,
+  nDaysFromNow,
+  oneDayFromNow,
+  oneDay,
+  oneHour,
+  oneMinute,
+  oneSecond,
+  parseCookie,
+  rateLimit,
+  removeElementFromArray,
+  sha1,
+  xhrRequest,
+};
 return exports;
 /************************************** exports */
 })(); //require scopes
