@@ -61,6 +61,25 @@ function xhrRequest(url, callback, method, opts) {
 }
 
 /**
+ * Converts binary data to base64-encoded text suitable for use in data URIs.
+ *
+ * Adapted from https://stackoverflow.com/a/9458996.
+ *
+ * @param {ArrayBuffer} buffer binary data
+ *
+ * @returns {String} base64-encoded text
+ */
+function arrayBufferToBase64(buffer) {
+  var binary = '';
+  var bytes = new Uint8Array(buffer);
+  var len = bytes.byteLength;
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+/**
 * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
 * eTLD+1. e.g. [a.b.eff.org, b.eff.org, eff.org]
 * if 'all' is passed in then the array will include all domain levels, not
@@ -328,6 +347,7 @@ function getHostFromDomainInput(input) {
 /************************************** exports */
 var exports = {};
 
+exports.arrayBufferToBase64 = arrayBufferToBase64;
 exports.estimateMaxEntropy = estimateMaxEntropy;
 exports.explodeSubdomains = explodeSubdomains;
 exports.getHostFromDomainInput = getHostFromDomainInput;
