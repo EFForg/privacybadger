@@ -68,7 +68,7 @@
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
     },
     "slideshow_4": {
-        "message": " Wenn Sie auf mein Icon klicken, sehen Sie alle potenziellen Tracker auf der besuchten Webseite.",
+        "message": "Wenn Sie auf mein Symbol klicken, sehen Sie eine Liste aller potentiellen Tracker des derzeit aktiven Tabs.",
         "description": ""
     },
     "slideshow_5": {
@@ -276,7 +276,7 @@
         "description": ""
     },
     "slideshow_8": {
-        "message": " Wenn Sie das erste Mal auf mein Icon klicken, kann es sein, dass alle Domains grün aufscheinen, aber seien Sie nicht besorgt! Ich funktioniere nicht wir herkömmliche Tracking blocker. Stattdessen lerne ich mit, während Sie Ihre Webseien besuchen.",
+        "message": "Falls Sie erstmalig mein Symbol anklicken, werden möglicherweise alle Tracker als grün angezeigt — seien Sie unbesorgt! Ich unterscheide mich von anderer Software zum Blocken von Trackern: Anstatt eine vorgegebene Liste von zu blockenden Elementen zu befolgen, lerne ich die zu blockierenden Elemente, während Sie im Web surfen. Falls ich derzeit überhaupt nichts blocken sollte, versuchen Sie, 4 oder 5 verschiedene Webseiten zu besuchen. Danach sollte ich damit beginnen, verbreitete Tracker zu blockieren.",
         "description": ""
     },
     "popup_help_button": {
@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist für die unten gelisteten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger Icon in der Adresszeile klicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf \"Domain hinzufügen\" klicken.",
+        "message": "Privacy Badger ist für die unten gelisteten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger-Symbol in der Adressleiste anklicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf die Schaltfläche \"Domain hinzufügen\" klicken.",
         "description": ""
     },
     "pb_detected": {
@@ -364,7 +364,7 @@
         "description": ""
     },
     "intro_no_tracker": {
-        "message": "bedeutet, Privacy Badger nimmt nicht an, dass die Domain ein Tracker ist. Sie können den Privacy Badger Button im Browser anklicken, um selbst zu entscheiden, was geblockt werden soll. Oder Sie warten, denn Privacy Badger lernt dazu, während Sie im Internet surfen.",
+        "message": "bedeutet, dass Privacy Badger glaubt, dass dies kein Tracker ist. Sie können auf das Privacy Badger-Symbol in der Symbolleiste Ihres Browsers klicken, um selbst zu entscheiden, was geblockt werden soll. Oder Sie surfen in Ruhe im Web, während Privacy Badger damit beginnt, Schritt für Schritt Web-Tracker aufzuspüren und Gegenmaßnahmen zu ergreifen.",
         "description": ""
     },
     "slideshow_15": {
