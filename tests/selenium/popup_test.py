@@ -169,12 +169,20 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.open_popup()
 
+        # Get all possible tracker links (none, one, multiple)
         try:
-            trackers_link = self.driver.find_element_by_link_text("trackers")
+            trackers_links = self.driver.find_elements_by_partial_link_text("tracker")
         except NoSuchElementException:
             self.fail("Unable to find trackers link on popup")
+        self.assertEqual(len(trackers_links), 3, "There should be a tracker link for the 0, 1 or more trackers cases")
+
+        # Get the one that's displayed on the page that this test is using
+        for link in trackers_links:
+            if link.is_displayed():
+                trackers_link = link
 
         handles_before = set(self.driver.window_handles)
+
         trackers_link.click()
 
         # Make sure EFF website not opened in same window.
