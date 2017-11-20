@@ -374,8 +374,15 @@ function refreshFilterPage() {
   // Check to see if any tracking domains have been found before continuing.
   var allTrackingDomains = getOriginsArray();
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
-    $("#count").text(0);
-    $("#blockedResources").html("Could not detect any tracking cookies.");
+    // leave out number of trackers and slider instructions message if no sliders will be displayed
+    $("#pb_has_detected").hide();
+    $("#count").hide();
+    $("#options_domain_list_trackers").hide();
+    $("#options_domain_list_one_tracker").hide();
+
+    // show "no trackers" message
+    $("#options_domain_list_no_trackers").show();
+    $("#blockedResources").html(i18n.getMessage("options_domain_list_no_trackers_message"));
 
     // activate tooltips
     $('.tooltip').tooltipster();
@@ -383,8 +390,21 @@ function refreshFilterPage() {
     return;
   }
 
-  // Update tracking domain count.
-  $("#count").text(allTrackingDomains.length);
+  // Update messages according to tracking domain count.
+  if (allTrackingDomains.length === 1) {
+    // leave out messages about multiple trackers
+    $("#pb_has_detected").hide();
+    $("#count").hide();
+    $("#options_domain_list_trackers").hide();
+
+    // show singular "tracker" message
+    $("#options_domain_list_one_tracker").show();
+  }
+  else {
+    $("#pb_has_detected").show();
+    $("#count").text(allTrackingDomains.length);
+    $("#options_domain_list_trackers").show();
+  }
 
   // Get containing HTML for domain list along with toggle legend icons.
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
