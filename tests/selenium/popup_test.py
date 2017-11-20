@@ -174,7 +174,6 @@ class PopupTest(pbtest.PBSeleniumTest):
             trackers_links = self.driver.find_elements_by_partial_link_text("tracker")
         except NoSuchElementException:
             self.fail("Unable to find trackers link on popup")
-        self.assertEqual(len(trackers_links), 3, "There should be a tracker link for the 0, 1 or more trackers cases")
 
         # Get the one that's displayed on the page that this test is using
         for link in trackers_links:
