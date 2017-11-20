@@ -1,5 +1,11 @@
 Changes for Privacy Badger 
 ====================================
+## 2017.11.20
+* Disabled custom tooltips in Firefox to work around browser freezing issues
+* Added validation to whitelisted domains form
+* Improved translations (Dutch, Esperanto and German)
+* Added Bulgarian and Polish translations
+
 ## 2017.11.9
 * Fixed various site breakages
 * Improved translations (French, Serbian and Ukrainian)
