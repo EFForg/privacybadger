@@ -4,19 +4,19 @@
         "description": ""
     },
     "invalid_json": {
-        "message": "Invalid JSON file.",
+        "message": "Ongeldig JSON bestand.",
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Are you sure you want to remove this origin from Privacy Badger?",
+        "message": "Weet U zeker dat U deze oorsprong wilt verwijderen uit Privacy Badger?",
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
+        "message": "Geen tracking voor ",
         "description": ""
     },
     "non_tracker_tip": {
-        "message": "Currently Privacy Badger only checks if third parties are using cookies, HTML5 local storage, or canvas fingerprinting to track your browsing. Some of these domains may be using tracking methods that Privacy Badger can't detect.",
+        "message": "Momenteel checkt Privacy badger alleen of derde partijen cookies, HTML5 lokale opslag, of canvas fingerprinting gebruiken om uw web-gebruik te tracken. Sommige van deze domeinen gebruiken wellicht tracking methoden die Privacy Badger (nog) niet detecteert.",
         "description": ""
     },
     "intro_hungry": {
@@ -24,11 +24,11 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Check if sites comply with EFF's Do Not Track policy",
+        "message": "Controleer of de sites voldoen aan het EFF Do Not Track beleid",
         "description": ""
     },
     "invalid_domain": {
-        "message": "Please add a valid domain or URL.",
+        "message": "Voeg een geldig domein of URL toe.",
         "description": ""
     },
     "intro2": {
@@ -36,7 +36,7 @@
         "description": ""
     },
     "donate_to_eff": {
-        "message": "Donate to EFF",
+        "message": "Doneer aan EFF",
         "description": ""
     },
     "report_success": {
@@ -44,19 +44,19 @@
         "description": ""
     },
     "dnt_tooltip": {
-        "message": "This domain promises to not track you",
+        "message": "Dit domein belooft U niet te volgen",
         "description": ""
     },
     "options_dnt_policy_learn_more": {
-        "message": "Learn more",
+        "message": "Meer weten?",
         "description": ""
     },
     "data_settings": {
-        "message": "Manage Data",
+        "message": "Data Beheren",
         "description": "This is an options page tab heading."
     },
     "slideshow_13": {
-        "message": " If I am breaking a page, please let my developers know so that they can fix the problem! You can do so by clicking this button.",
+        "message": " ALs een webpagina niet meer werkt, geef dit dan door aan de ontwikkelaars zodat zij dit probleem kunnen oplossen! U kunt dit doen door op deze knop te klikken.",
         "description": ""
     },
     "report_title": {
@@ -64,19 +64,19 @@
         "description": ""
     },
     "whitelist_form_domain_input_placeholder": {
-        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "message": "b.v. www.domain.com, *.domain.net, domain.org",
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
     },
     "slideshow_4": {
-        "message": " If you click on my icon you can see the list of potential trackers on the current tab.",
+        "message": " Als U op mijn icoon klikt, kunt U de lijst met mogelijke trackers op het huidige tabblad zien.",
         "description": ""
     },
     "slideshow_5": {
-        "message": " If the slider is red, it means I have blocked that tracker entirely!  That fiend won't bother you any more.",
+        "message": " Als het schuifbalkje op rood staat, betekent dat dat ik de tracker compleet heb geblokkeerd!  Dit misbaksel zal U niet meer storen.",
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Click here to block this domain from setting cookies",
+        "message": "Klik hier om dit domein de mogelijkheid te ontnemen om cookies te plaatsen",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
@@ -84,11 +84,11 @@
         "description": ""
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address *",
+        "message": "Verhinder dat WebRTC het lokale IP adres lekt *",
         "description": ""
     },
     "options_so_far": {
-        "message": "so far. These sliders let you control how Privacy Badger handles each tracker.",
+        "message": "tot hier. Deze schuifbalkjes geven U controle over het gedrag van Privacy Badger met betrekking tot verschillende trackers.",
         "description": ""
     },
     "error_input": {
@@ -108,11 +108,11 @@
         "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
-        "message": "Share on Twitter",
+        "message": "Deel op Twitter",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "first_run_text": {
-        "message": "Learn how Privacy Badger protects your privacy.",
+        "message": "Leer meer over hoe Privacy Badger uw privacy beschermt.",
         "description": ""
     },
     "download": {
@@ -128,19 +128,19 @@
         "description": ""
     },
     "import": {
-        "message": "Import",
+        "message": "Importeren",
         "description": ""
     },
     "options_social_widgets_checkbox": {
-        "message": "Vervang plugins voor sociale netwerken",
+        "message": "Vervang de plugins voor sociale netwerken",
         "description": ""
     },
     "options_tracking_domains": {
-        "message": "tracking domains",
+        "message": "tracking domeinen",
         "description": ""
     },
     "report_button": {
-        "message": "Verzend Error",
+        "message": "Verzend fout",
         "description": ""
     },
     "badger_status_allow": {
@@ -152,19 +152,19 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Search domains",
+        "message": "Zoekmachines",
         "description": ""
     },
     "show_counter_checkbox": {
-        "message": "Show count of blocked items",
+        "message": "Laat het aantal geblokkeerde onderdelen zien",
         "description": ""
     },
     "what_is_a_tracker": {
-        "message": "What is a tracker?",
+        "message": "Wat is een tracker?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
-        "message": " Hi, I'm Privacy Badger! Thanks for installing me. I'm here to give you some helpful tips, so we can work together.",
+        "message": " Hoi, ik ben Privacy Badger! Bedankt voor het installeren. Ik ben hier om U een paar handige tips te geven zodat we samen kunnen werken..",
         "description": ""
     },
     "options_title": {
@@ -172,11 +172,11 @@
         "description": ""
     },
     "options_pb_has_detected": {
-        "message": "Privacy Badger has detected",
+        "message": "Privacy Badger detecteerde",
         "description": ""
     },
     "slideshow_11": {
-        "message": " If you change a setting I've made, you can always put it back under my control by clicking the undo arrow.",
+        "message": " Elke wijziging kan weer onder mijn controle komen door op de ongedaan pijl te klikken.",
         "description": ""
     },
     "report_terms": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "whitelisted_domains": {
-        "message": "Whitelisted Domains",
+        "message": "Goedgekeurde Domeinen",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -192,39 +192,39 @@
         "description": ""
     },
     "import_successful": {
-        "message": "Tracker list and settings updated successfully!",
+        "message": "Tracker lijst en instellingen zijn succesful geupdate!",
         "description": ""
     },
     "export_user_data": {
-        "message": "Export user data",
+        "message": "Exporteer gebruikers data",
         "description": ""
     },
     "intro_text": {
-        "message": "You're now protected by Privacy Badger. To learn how Privacy Badger works, click below for a quick tutorial.",
+        "message": "U bent nu beschermd door Privacy Badger. Om meer te leren over hoe Privacy Badger werkt, klikt U hieronder voor een kort overzicht.",
         "description": ""
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts.",
+        "message": "* WebRTC kan uw lokale IP adres lekken. Privacy Badger's standaard instelling setting helpt U te beschermen, maar voor extra veiligheid kunt U deze optie activeren. De prestatie van sommige tools, zoals Google Hangout kan hierdoor verminderen.",
         "description": ""
     },
     "options_general_settings": {
-        "message": "General Settings",
+        "message": "Algemene Instellingen",
         "description": "This is an options page tab heading."
     },
     "slideshow_7": {
-        "message": " If the slider is green that means that I can't tell if this domain is tracking you yet. It might not be, but I will still keep an eye on it.",
+        "message": " Een groen schuifbakje betekent dat ik nog niet weet of dit domein U volgt. Misschien niet, maar ik blijf erop letten.",
         "description": ""
     },
     "domain_slider_block_tooltip": {
-        "message": "Click here to block this domain entirely",
+        "message": "Klik hier om dit domein helemaal te blokkeren",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
-        "message": "version",
+        "message": "versie",
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Geblokkeerd cookies van ",
+        "message": "Geblokkeerde cookies van ",
         "description": ""
     },
     "options_loading": {
@@ -236,7 +236,7 @@
         "description": ""
     },
     "import_select_file": {
-        "message": "Please select a file to import.",
+        "message": "Kies een bestand om te importeren.",
         "description": ""
     },
     "popup_blocked": {
@@ -248,15 +248,15 @@
         "description": ""
     },
     "tooltip_cookieblock": {
-        "message": "Center the slider to block cookies",
+        "message": "Zet het schuifbalkje in het midden om cookies te blokkeren",
         "description": ""
     },
     "slideshow_12": {
-        "message": " If you are having trouble with a page and you think it's my fault, you can click the disable button here. I'll go to sleep and not block anything on that website.",
+        "message": " Mocht U problemen hebben met een pagina en denkt U dat dat mijn fout is? Klik dan op de knop hieronder om mij uit te schakelen. Ik ga dan slapen en blokkeer niets meer op die website.",
         "description": ""
     },
     "slideshow_3": {
-        "message": " If I discover something that behaves like a tracker, I will put a stop to it by blocking it.  ",
+        "message": " Mocht ik iets ontdekken dat zich gedraagt als een tracker, dan blokkeer ik dat.  ",
         "description": ""
     },
     "report_close": {
@@ -264,19 +264,19 @@
         "description": ""
     },
     "slideshow_9": {
-        "message": " I learn as I go, so the longer you use me the better I will get at protecting you from sneaky trackers!",
+        "message": " Ik leer gaanderweg, dus hoe langer U me gebruikt, hoe beter ik U zal beschermen van stiekeme trackers!",
         "description": ""
     },
     "slideshow_2": {
-        "message": " I will sit up here in your browser and watch for spying ads and trackers that are recording what you're doing online.",
+        "message": " Ik zit hier in uw browser and houd mijn ogen open voor spionerende reclame en trackers die volgen wat U online doet.",
         "description": ""
     },
     "import_user_data": {
-        "message": "Import user data",
+        "message": "Importeer gebruikers data",
         "description": ""
     },
     "slideshow_8": {
-        "message": " The first time you click my icon you might see that all the trackers are green—don't worry! I'm different from other tracker blocking software—instead of knowing a list of things to block right away, I learn what to block as you browse. If I'm not blocking anything yet, try browsing around to 4 or 5 different websites. I should start blocking common trackers after that.",
+        "message": " De eerste keer dat U op mijn icoon klinkt zult U wellicht zien dat alle schuifbalkjes op groen staan! Geen reden om ongerust te zijn, want ik ben anders dan andere tracker blocking software; in plaats van een lijst met trackers die ik meteen blokkeer, leer ik wat ik moet blokkeren terwijl U surft. Na 4 of 5 verschillende websites bezocht te hebben, zou ik moeten beginnen met veel voorkomende trackers te blokkeren.",
         "description": ""
     },
     "popup_help_button": {
@@ -284,7 +284,7 @@
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "share_button_title_google": {
-        "message": "Share on Google Plus",
+        "message": "Deel op Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -292,7 +292,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Move the slider left to block a domain",
+        "message": "Schuif de balk naar links om een domein te blokkeren",
         "description": ""
     },
     "disabled_for_these_domains": {
@@ -312,7 +312,7 @@
         "description": ""
     },
     "tooltip_allow": {
-        "message": "Move the slider right to allow a domain",
+        "message": "Schuif de balk naar rechts om een domein toe te staan",
         "description": ""
     },
     "popup_disable_for_site": {
@@ -324,11 +324,11 @@
         "description": ""
     },
     "intro_yellow": {
-        "message": "Yellow",
+        "message": "Geel",
         "description": ""
     },
     "domain_slider_allow_tooltip": {
-        "message": "Click here to allow this domain",
+        "message": "Klik hier om dit domein toe te laten",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
@@ -352,7 +352,7 @@
         "description": ""
     },
     "options_potential": {
-        "message": "potential",
+        "message": "mogelijke",
         "description": ""
     },
     "remove_button": {
@@ -368,7 +368,7 @@
         "description": ""
     },
     "slideshow_15": {
-        "message": " Of course you can also just leave all these settings alone, and I will continue to silently eat up all the trackers that I detect.",
+        "message": " U kunt deze instellingen laten zo als ze zijn en ik zal op mijn hoede blijven om alle trackers op te eten die ik tegenkom.",
         "description": ""
     },
     "report_input_label": {
@@ -380,23 +380,23 @@
         "description": ""
     },
     "slideshow_14": {
-        "message": " If you want to change other settings, you can click this gear icon.",
+        "message": " Als U andere instellingen wilt wijzigen, dan kunt U op het tandwiel klikken.",
         "description": ""
     },
     "popup_options_button": {
-        "message": "Opties",
+        "message": "Instellingen",
         "description": ""
     },
     "slideshow_6": {
-        "message": " If the slider is yellow, that means that I have partially blocked that tracker. I will do my best to prevent it from tracking you by eating its cookies, but blocking it entirely might break the page.",
+        "message": " Is het schuifbalkje geel? Dat betekent dat ik die tracker gedeeltelijk heb geblokkeerd. Ik zal mijn best doen om te voorkomen dat deze U volgt door zijn cookies op te eten. Volledig blokkeren zou ervoor kunnen zorgen dat de webpagina niet meer werkt.",
         "description": ""
     },
     "slideshow_16": {
-        "message": " Thanks for taking an important, easy step toward protecting your privacy! You can click here if you need help again, and you can click below to let the world know you take a stand against online tracking.",
+        "message": " Bedankt voor het nemen van een belangrijke, gemakkelijke stap om uw privacy te beschermen! U kunt hier klikken als hulp nodig heeft en klik hierbeneden om de wereld te laten weten dat U stelling neemt tegen online tracking.",
         "description": ""
     },
     "share_button_title_facebook": {
-        "message": "Share on Facebook",
+        "message": "Deel op Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "description": {
@@ -404,7 +404,7 @@
         "description": ""
     },
     "popup_noblocked": {
-        "message": "Waarom wekt blokkeren niet?",
+        "message": "Waarom werkt blokkeren niet?",
         "description": ""
     },
     "report_fail": {
@@ -412,7 +412,7 @@
         "description": ""
     },
     "slideshow_10": {
-        "message": " If you think that I've made the wrong decision for a tracker, you can move the slider to red to block it, yellow to partly block it, and green to allow it.",
+        "message": " Als U denkt dat ik een verkeerde beslissing heb gemaakt over een tracker, dan kunt U het schuifbalkje naar rood slepen om deze blokkeren, naar geel om deze gedeeltelijk te blokkeren en naar groen om deze toe te staan.",
         "description": ""
     }
 }

@@ -28,7 +28,7 @@
         "description": ""
     },
     "invalid_domain": {
-        "message": "Please add a valid domain or URL.",
+        "message": "Lägg till en giltig domän eller webbadress.",
         "description": ""
     },
     "intro2": {

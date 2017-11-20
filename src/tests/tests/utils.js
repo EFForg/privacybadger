@@ -78,19 +78,6 @@
     assert.ok(parsed().length == origLength, "one less disabled site");
   });
 
-  QUnit.test("getRandom", function (assert) {
-    var min = 1,
-        max = 10,
-        iterations = 1000,
-        results = [];
-
-    for (var i = 0; i < iterations; i++) {
-      results.push(utils.getRandom(min,max));
-    }
-    assert.ok(Math.max.apply(null,results) === max, "max is max");
-    assert.ok(Math.min.apply(null,results) === min, "min is min");
-  });
-
   QUnit.test("surrogate script URL lookups", function (assert) {
     const GA_JS_TESTS = [
       {

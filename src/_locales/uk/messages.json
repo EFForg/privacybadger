@@ -28,7 +28,7 @@
         "description": ""
     },
     "invalid_domain": {
-        "message": "Please add a valid domain or URL.",
+        "message": "Будь ласка, додайте дійсний домен чи URL-адресу.",
         "description": ""
     },
     "intro2": {

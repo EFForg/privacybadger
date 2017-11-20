@@ -27,7 +27,7 @@ return (
 
     def detected_tracking(self, domain, page_url):
         return self.js("""let tracker_origin = window.getBaseDomain("{}"),
-  site_origin = window.getBaseDomain(utils.makeURI("{}").host),
+  site_origin = window.getBaseDomain((new URI("{}")).host),
   map = badger.storage.snitch_map.getItemClones();
 
 return (

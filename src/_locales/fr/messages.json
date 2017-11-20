@@ -28,7 +28,7 @@
         "description": ""
     },
     "invalid_domain": {
-        "message": "Please add a valid domain or URL.",
+        "message": "Veuillez ajouter un domaine ou une URL valide.",
         "description": ""
     },
     "intro2": {

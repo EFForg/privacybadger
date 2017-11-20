@@ -68,7 +68,7 @@
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
     },
     "slideshow_4": {
-        "message": " Wenn Sie auf mein Icon klicken, sehen Sie alle potenziellen Tracker auf der besuchten Webseite.",
+        "message": "Wenn Sie auf mein Symbol klicken, sehen Sie eine Liste aller potentiellen Tracker des derzeit aktiven Tabs.",
         "description": ""
     },
     "slideshow_5": {
@@ -164,7 +164,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
-        "message": " Hallo, Ich bin Privacy Badger! Vielen Dank dass Sie mich installiert haben. Ich bin hier um Ihnen wertvolle Tipps zu geben, wie wir besser zusammenarbeiten können.",
+        "message": "Hallo, ich bin Privacy Badger! Vielen Dank, dass Sie mich installiert haben. Ich bin hier, um Ihnen wertvolle Tipps zu einer guten Zusammenarbeit zu geben.",
         "description": ""
     },
     "options_title": {
@@ -176,7 +176,7 @@
         "description": ""
     },
     "slideshow_11": {
-        "message": " Wenn Sie eine Anpassung vorgenommen haben, können Sie diese jederzeit rückgängig machen, indem Sie auf den Pfeil klicken.",
+        "message": "Falls Sie eine von mir festgelegte Einstellung verändern, so können Sie deren Kontrolle jederzeit an mich zurückgeben, indem Sie den Rückgängig-Pfeil anklicken.",
         "description": ""
     },
     "report_terms": {
@@ -200,7 +200,7 @@
         "description": ""
     },
     "intro_text": {
-        "message": "Sie werden nun von Privacy Badger geschützt. Um zu verstehen, wie Privacy Badger funktioniert, klicken Sie bitte unten für eine kleine Einleitung.",
+        "message": "Sie werden nun von Privacy Badger geschützt. Um zu erfahren, wie Privacy Badger funktioniert, klicken Sie bitte unten für eine kurze Einführung.",
         "description": ""
     },
     "options_webrtc_warning": {
@@ -248,7 +248,7 @@
         "description": ""
     },
     "tooltip_cookieblock": {
-        "message": "Schieben Sie zum Blockieren von Cookies den Schieberegler in die Mitte",
+        "message": "Schieben Sie zum Blocken von Cookies den Schieberegler in die Mitte",
         "description": ""
     },
     "slideshow_12": {
@@ -256,7 +256,7 @@
         "description": ""
     },
     "slideshow_3": {
-        "message": " Wenn mir etwas auffällt, das sich wie ein Tracker verhält, werde ich es daran hindern indem ich es blockiere.",
+        "message": "Falls ich etwas entdecke, das sich wie ein Tracker verhält, werde ich dies unterbinden, indem ich es blocke.",
         "description": ""
     },
     "report_close": {
@@ -276,7 +276,7 @@
         "description": ""
     },
     "slideshow_8": {
-        "message": " Wenn Sie das erste Mal auf mein Icon klicken, kann es sein, dass alle Domains grün aufscheinen, aber seien Sie nicht besorgt! Ich funktioniere nicht wir herkömmliche Tracking blocker. Stattdessen lerne ich mit, während Sie Ihre Webseien besuchen.",
+        "message": "Falls Sie erstmalig mein Symbol anklicken, werden möglicherweise alle Tracker als grün angezeigt — seien Sie unbesorgt! Ich unterscheide mich von anderer Software zum Blocken von Trackern: Anstatt eine vorgegebene Liste von zu blockenden Elementen zu befolgen, lerne ich die zu blockenden Elemente, während Sie im Web surfen. Falls ich derzeit überhaupt nichts blocken sollte, versuchen Sie, 4 oder 5 verschiedene Webseiten zu besuchen. Danach sollte ich damit beginnen, verbreitete Tracker zu blocken.",
         "description": ""
     },
     "popup_help_button": {
@@ -292,11 +292,11 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Schieben Sie zum Blockieren einer Domain den Schieberegler nach links",
+        "message": "Schieben Sie zum Blocken einer Domain den Schieberegler nach links",
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist für die unten gelisteten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger Icon in der Adresszeile klicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf \"Domain hinzufügen\" klicken.",
+        "message": "Privacy Badger ist für die unten gelisteten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger-Symbol in der Adressleiste anklicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf die Schaltfläche \"Domain hinzufügen\" klicken.",
         "description": ""
     },
     "pb_detected": {
@@ -364,7 +364,7 @@
         "description": ""
     },
     "intro_no_tracker": {
-        "message": "bedeutet, Privacy Badger nimmt nicht an, dass die Domain ein Tracker ist. Sie können den Privacy Badger Button im Browser anklicken, um selbst zu entscheiden, was geblockt werden soll. Oder Sie warten, denn Privacy Badger lernt dazu, während Sie im Internet surfen.",
+        "message": "bedeutet, dass Privacy Badger glaubt, dass dies kein Tracker ist. Sie können auf das Privacy Badger-Symbol in der Symbolleiste Ihres Browsers klicken, um selbst zu entscheiden, was geblockt werden soll. Oder Sie surfen in Ruhe im Web, während Privacy Badger damit beginnt, Schritt für Schritt Web-Tracker aufzuspüren und Gegenmaßnahmen zu ergreifen.",
         "description": ""
     },
     "slideshow_15": {
@@ -376,7 +376,7 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "Die unten gelisteten Domains scheinen Sie nicht zu tracken",
+        "message": "Die unten aufgeführten Domains scheinen Ihr Surverhalten nicht zu verfolgen",
         "description": ""
     },
     "slideshow_14": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "slideshow_16": {
-        "message": " Vielen Dank, dass Sie diesen wichtigen, einfachen Schritt machen um Ihre Privatsphäre zu Schützen. Sie können hier klicken, sollten Sie nochmal hilfe benötigen und weiter unten können Sie die Welt wissen lassen, dass Sie gegen Online-Überwachung sind.",
+        "message": " Vielen Dank, dass Sie diesen wichtigen, einfachen Schritt zum Schutz Ihrer Privatsphäre machen. Sie können hier klicken, falls Sie nochmals Hilfe benötigen, und unten, um die Welt wissen zu lassen, dass Sie gegen Online-Tracking Stellung beziehen.",
         "description": ""
     },
     "share_button_title_facebook": {
@@ -412,7 +412,7 @@
         "description": ""
     },
     "slideshow_10": {
-        "message": " Wenn Sie denken, dass ich eine Entscheidung nicht so getroffen habe, wie Sie es gerne hätten, können Sie den Schieberegler benutzen um eine Domain anzupassen.",
+        "message": "Falls Sie denken, dass ich für einen Tracker die falsche Entscheidung getroffen habe, so können Sie den Schieberegler auf Rot bewegen, um diesen zu blocken, auf Gelb, um ihn teilweise zu blocken und auf Grün, um ihn zu erlauben.",
         "description": ""
     }
 }

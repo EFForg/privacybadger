@@ -4,8 +4,9 @@ toplevel=$(git rev-parse --show-toplevel)
 function setup_chrome {
     # Install the latest version of the chromedriver
     version=$(wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE -q -O -)
+    echo "Setting up chromedriver version $version ..."
     url="https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
-    wget -O /tmp/chromedriver.zip "$url"
+    wget -q -O /tmp/chromedriver.zip "$url"
     sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
     sudo chmod a+x /usr/local/bin/chromedriver
 }
@@ -19,8 +20,9 @@ function setup_firefox {
       # Install the latest version of geckodriver
       version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
     fi
+    echo "Setting up geckodriver version $version ..."
     url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-linux64.tar.gz"
-    wget -O /tmp/geckodriver.tar.gz "$url"
+    wget -q -O /tmp/geckodriver.tar.gz "$url"
     sudo tar -xvf /tmp/geckodriver.tar.gz -C /usr/local/bin/
     sudo chmod a+x /usr/local/bin/geckodriver
 }
