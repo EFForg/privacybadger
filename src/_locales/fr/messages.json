@@ -27,6 +27,10 @@
         "message": "Vérifier si les sites se conforment aux règles de non-pistage de l'EFF",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Veuillez ajouter un domaine ou une URL valide.",
+        "description": ""
+    },
     "intro2": {
         "message": "Cette extension est conçue pour protéger automatiquement votre vie privée des traqueurs invisibles qui se chargent lorsque vous surfez sur le web. Après envoi de l'entête Ne pas me pister, notre extension évalue la probabilité d'être encore traqué. Si l'algorithme juge celle-ci trop élevée, nous bloquons automatiquement l'envoi des requêtes à ce domaine. Gardez en tête que Privacy Badger est en cours de développement et que le résultat de son analyse ne garantit pas qu'un domaine vous piste.",
         "description": ""

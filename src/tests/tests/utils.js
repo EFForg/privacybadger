@@ -78,19 +78,6 @@
     assert.ok(parsed().length == origLength, "one less disabled site");
   });
 
-  QUnit.test("getRandom", function (assert) {
-    var min = 1,
-        max = 10,
-        iterations = 1000,
-        results = [];
-
-    for (var i = 0; i < iterations; i++) {
-      results.push(utils.getRandom(min,max));
-    }
-    assert.ok(Math.max.apply(null,results) === max, "max is max");
-    assert.ok(Math.min.apply(null,results) === min, "min is min");
-  });
-
   QUnit.test("surrogate script URL lookups", function (assert) {
     const GA_JS_TESTS = [
       {
@@ -400,6 +387,32 @@
     assert.equal(cookies.hash, "a=b&c=d&e=f&g=h", "Cookie 'hash' should have value 'a=b&c=d&e=f&g=h'.");
     assert.equal(cookies.title, "front end engineer", "Cookie 'title' should have value 'front end engineer'.");
 
+  });
+
+  QUnit.test("getHostFromDomainInput", assert => {
+    assert.equal(
+      utils.getHostFromDomainInput("www.spiegel.de"),
+      "www.spiegel.de",
+      "Valid domains are accepted"
+    );
+
+    assert.equal(
+      utils.getHostFromDomainInput("http://www.spiegel.de/"),
+      "www.spiegel.de",
+      "URLs get transformed into domains"
+    );
+
+    assert.equal(
+      utils.getHostFromDomainInput("http://www.spiegel.de"),
+      "www.spiegel.de",
+      "Trailing slashes are not required"
+    );
+
+    assert.equal(
+      utils.getHostFromDomainInput("@"),
+      false,
+      "Valid URIs with empty hosts are rejected."
+    );
   });
 
 })();

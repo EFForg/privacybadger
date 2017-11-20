@@ -27,6 +27,10 @@
         "message": "Verifica se i siti rispettano la policy Do Not Track dell'EFF",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "Questa estensione è progettata per proteggere automaticamente la tua privacy da tracker di terze parti che si caricano di nascosto quando navighi in rete. Inviamo lo header Do Not Track a ogni richiesta e la nostra estensione valuta la probabilità che tu sia ancora tracciato. Se l'algoritmo stabilisce che la probabilità è troppo alta, blocchiamo automaticamente l'invio della richiesta al dominio. Ricorda che Privacy Badger è in beta e la valutazione dell'algoritmo non determina con certezza che il dominio ti stia tracciando.",
         "description": ""

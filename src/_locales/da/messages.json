@@ -27,6 +27,10 @@
         "message": "Tjek om netsteder overholder EFF's Spor Ikke-politik",
         "description": ""
     },
+    "invalid_domain": {
+        "message": "Tilføj venligst et gyldigt domæne eller URL.",
+        "description": ""
+    },
     "intro2": {
         "message": "Denne tilføjelse er designet til automatisk at beskytte dit privatliv fra tredjepartssporinger der indlæses usynligt når du læser på nettet. Vi sender forepørgselshovedet \"Spor Ikke\" med hver forespørgsel, og vores tilføjelse vurderer sandsynligheden for at du stadig bliver sporet. Hvis algoritmen skønner at sandsynligheden er for høj, blokerer vi automatisk din forespørgsel fra at blive sendt til domænet. Det er vigtigt at forstå at Privacy Badger er i beta, og algoritmens beslutning ikke endegyldigt afgør at domænet sporer dig.",
         "description": ""

@@ -1,5 +1,5 @@
 {
-  "version": "2017.11.9",
+  "version": "2017.11.20",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
@@ -99,7 +99,10 @@
     "default_popup": "skin/popup.html",
     "default_title": "__MSG_name__"
   },
-  "options_page": "/skin/options.html",
+  "options_ui": {
+    "page": "/skin/options.html",
+    "open_in_tab": true
+  },
   "web_accessible_resources": [
     "skin/socialwidgets/*"
   ]
