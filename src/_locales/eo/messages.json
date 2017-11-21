@@ -80,7 +80,7 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "ebla(j)n <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilo(j)n</a> sur tiu retpaĝo. Tiuj ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ili. Vi ne devus ŝanĝi ilin escepte se io malfunkcias.",
+        "message": "ebla(j)n <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilo(j)n</a> sur tiu ĉi retpaĝo. Tiuj ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ili. Vi ne devus ŝanĝi ilin escepte se io malfunkcias.",
         "description": ""
     },
     "options_webrtc_setting": {
@@ -312,7 +312,7 @@
         "description": ""
     },
     "tooltip_allow": {
-        "message": "Movu la ŝovilon rekten por permesi nomregnon.",
+        "message": "Movu la ŝovilon dekstren por permesi nomregnon.",
         "description": ""
     },
     "popup_disable_for_site": {
