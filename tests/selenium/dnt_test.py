@@ -126,6 +126,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertEqual(len(self.driver.get_cookies()), 0,
             "Shouldn't have any cookies after the DNT check")
 
+    @unittest.expectedFailure
     def test_dnt_check_should_not_send_cookies(self):
         TEST_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
