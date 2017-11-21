@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist für die unten gelisteten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger-Symbol in der Adressleiste anklicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf die Schaltfläche \"Domain hinzufügen\" klicken.",
+        "message": "Privacy Badger ist für die unten gelisteten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger-Symbol in der Symbolleiste anklicken oder die Domain im Eingabefeld eingeben und auf die Schaltfläche \"Domain hinzufügen\" klicken.",
         "description": ""
     },
     "pb_detected": {
