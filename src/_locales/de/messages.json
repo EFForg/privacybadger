@@ -1,6 +1,6 @@
 {
     "badger_status_block": {
-        "message": "Blockiert ",
+        "message": "Geblockt",
         "description": ""
     },
     "invalid_json": {
@@ -28,7 +28,7 @@
         "description": ""
     },
     "invalid_domain": {
-        "message": "Bitte eine gültige Domäne oder Adresse hinzufügen.",
+        "message": "Bitte eine gültige Domain oder Adresse hinzufügen.",
         "description": ""
     },
     "intro2": {
@@ -72,7 +72,7 @@
         "description": ""
     },
     "slideshow_5": {
-        "message": " Wenn der Schieberegler rot ist, habe ich einen Tracker komplett blockiert.",
+        "message": "Falls der Schieberegler rot ist, habe ich einen Tracker komplett geblockt.",
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
@@ -104,7 +104,7 @@
         "description": "This is an options page tab heading."
     },
     "intro1": {
-        "message": "Privacy Badger blockiert spionierende Werbung und unsichtbare Tracker. Es wurde geschaffen, um zu verhindern, dass Firmen Sie ohne Ihre Zustimmung überwachen können.",
+        "message": "Privacy Badger blockt spionierende Werbung und unsichtbare Tracker. Es wurde geschaffen, um zu verhindern, dass Firmen Sie ohne Ihre Zustimmung überwachen können.",
         "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "intro_has_blocked": {
-        "message": " bedeutet dass Privacy Badger denkt, die Domain ist ein Tracker und blockiert sie. ",
+        "message": " bedeutet dass Privacy Badger denkt, die Domain ist ein Tracker und blockt sie. ",
         "description": ""
     },
     "import": {
@@ -156,7 +156,7 @@
         "description": ""
     },
     "show_counter_checkbox": {
-        "message": "Anzahl der blockierten Elemente anzeigen",
+        "message": "Anzahl der geblockten Elemente anzeigen",
         "description": ""
     },
     "what_is_a_tracker": {
@@ -216,7 +216,7 @@
         "description": ""
     },
     "domain_slider_block_tooltip": {
-        "message": "Hier klicken, um diese Domain vollständig zu blockieren",
+        "message": "Hier klicken, um diese Domain vollständig zu blocken",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
@@ -224,7 +224,7 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Blockiert Cookies von ",
+        "message": "Geblockte Cookies von ",
         "description": ""
     },
     "options_loading": {
@@ -388,7 +388,7 @@
         "description": ""
     },
     "slideshow_6": {
-        "message": "Ein gelber Schieberegler bedeutet, dass ich diesen Tracker teilweise blockiert habe. Ich werde mein Bestes tun, um ein Verfolgen Ihres Surfverhaltens durch Löschen der Cookies zu verhindern. Ein vollständiges Blockieren würde eventuell zu einer fehlerhaften Seitendarstellung führen.",
+        "message": "Ein gelber Schieberegler bedeutet, dass ich diesen Tracker teilweise geblockt habe. Ich werde mein Bestes tun, um ein Verfolgen Ihres Surfverhaltens durch Löschen der Cookies zu verhindern. Ein vollständiges Blockieren würde eventuell zu einer fehlerhaften Seitendarstellung führen.",
         "description": ""
     },
     "slideshow_16": {
@@ -404,7 +404,7 @@
         "description": ""
     },
     "popup_noblocked": {
-        "message": "Warum wird nichts blockiert?",
+        "message": "Warum wird nichts geblockt?",
         "description": ""
     },
     "report_fail": {
