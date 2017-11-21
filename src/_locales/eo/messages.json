@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privata Melo estas malaktivigita por la subaj nomregnoj. Vi povas aldoni nomregnon aŭ per la piktogramo de Privata Melo sur la adresa breto aŭ per entajpi nomregnon (ne plenan retadreson) en la kampon sube kaj klaki la butonon “aldoni nomregnon”.",
+        "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
         "description": ""
     },
     "pb_detected": {

@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger вимкнено для доменів, зазначених нижче. Ви можете додати домен через піктограму Privacy Badger в панелі адреси, або ввівши домен (не URL) в полі й натиснувши кнопку \"Додати домен\".",
+        "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
         "description": ""
     },
     "pb_detected": {

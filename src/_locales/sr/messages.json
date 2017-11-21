@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger је онемогућен за домене излистане испод. Можете додати домен преко Privacy Badger иконице на траци адресе или укуцавањем домена (не адресе) у пољу и кликом на дугме \"Додај домен\".",
+        "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
         "description": ""
     },
     "pb_detected": {
