@@ -30,8 +30,9 @@ button
   bottom: 27px;
 }
 
-#pbInstructions{
-  width:450px;
+#pbInstructions {
+  margin-bottom: 20px;
+  width: 500px;
 }
 
 #rawFilters {
@@ -78,7 +79,7 @@ button
   width: 0;
 }
 
-#blockedResourcesContainer{
+#tracking-domains-div {
   width: 390px;
 }
 
