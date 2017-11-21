@@ -99,10 +99,6 @@
         "message": "What's Wrong?",
         "description": ""
     },
-    "options_slider_text": {
-        "message": "Privacy Badger is protecting you across the web! These sliders let you control how Privacy Badger handles each tracker that it has flagged through your browsing.",
-        "description": ""
-    },
     "options_domain_list_tab": {
         "message": "Tracking Domains",
         "description": "This is an options page tab heading."
