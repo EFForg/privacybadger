@@ -80,11 +80,11 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust them unless something is broken.",
+        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. This slider lets you control how Privacy Badger handles it. You shouldn't need to adjust it unless something is broken.",
+        "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. The slider lets you control how Privacy Badger handles it. You shouldn't need to adjust the slider unless something is broken.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "popup_instructions_no_trackers": {
@@ -140,7 +140,7 @@
         "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger has detected one potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domain</a> so far. This slider lets you control how Privacy Badger handles it.",
+        "message": "Privacy Badger has detected one potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domain</a> so far. The slider lets you control how Privacy Badger handles it.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "options_domain_list_no_trackers": {
