@@ -88,7 +88,7 @@
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "popup_instructions_no_trackers": {
-        "message": "Privacy Badger didn't detect any potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. Hooray for privacy!",
+        "message": "No <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> detected. Hooray for privacy!",
         "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_webrtc_setting": {
