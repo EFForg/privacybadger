@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger je vypnutý pro domény na seznamu níže. Doménu můžete přidat také pomocí ikony Privacy Badger v adresním řádku nebo napsáním domény (ne URL) do rámečku a kliknutím na tlačítko \"Přidat doménu\".",
+        "message": "Privacy Badger je vypnutý pro domény na seznamu níže. Doménu můžete přidat také pomocí ikony Privacy Badger v nástrojové liště vašeho prohlížeče nebo napsáním domény do rámečku a kliknutím na tlačítko \"Přidat doménu\".",
         "description": ""
     },
     "pb_detected": {

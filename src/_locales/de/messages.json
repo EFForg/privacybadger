@@ -1,10 +1,10 @@
 {
     "badger_status_block": {
-        "message": "Blockiert ",
+        "message": "Geblockt",
         "description": ""
     },
     "invalid_json": {
-        "message": "Ungültige JSON Datei.",
+        "message": "Ungültige JSON-Datei.",
         "description": ""
     },
     "options_remove_origin_confirm": {
@@ -12,7 +12,7 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
+        "message": "Kein Tracking für",
         "description": ""
     },
     "non_tracker_tip": {
@@ -24,11 +24,11 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Check if sites comply with EFF's Do Not Track policy",
+        "message": "Überprüfen, ob Seiten EFFs \"Do Not Track\"-Richtlinie erfüllen",
         "description": ""
     },
     "invalid_domain": {
-        "message": "Please add a valid domain or URL.",
+        "message": "Bitte eine gültige Domain oder Adresse hinzufügen.",
         "description": ""
     },
     "intro2": {
@@ -44,7 +44,7 @@
         "description": ""
     },
     "dnt_tooltip": {
-        "message": "This domain promises to not track you",
+        "message": "Diese Domain verspricht, Sie nicht zu verfolgen",
         "description": ""
     },
     "options_dnt_policy_learn_more": {
@@ -72,11 +72,11 @@
         "description": ""
     },
     "slideshow_5": {
-        "message": " Wenn der Schieberegler rot ist, habe ich einen Tracker komplett blockiert.",
+        "message": "Falls der Schieberegler rot ist, habe ich einen Tracker komplett geblockt.",
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Click here to block this domain from setting cookies",
+        "message": "Hier klicken, um zu verhindern, dass diese Domain Cookies setzt",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
@@ -84,7 +84,7 @@
         "description": ""
     },
     "options_webrtc_setting": {
-        "message": "WebRTC hindern, die lokale IP-Adresse zu verraten *",
+        "message": "WebRTC daran hindern, die lokale IP-Adresse zu verraten *",
         "description": ""
     },
     "options_so_far": {
@@ -100,11 +100,11 @@
         "description": ""
     },
     "options_domain_list_tab": {
-        "message": "Tracking Domains",
+        "message": "Tracking-Domains",
         "description": "This is an options page tab heading."
     },
     "intro1": {
-        "message": "Privacy Badger blockiert spionierende Werbung und unsichtbare Tracker. Es wurde geschaffen, um zu verhindern, dass Firmen Sie ohne Ihre Zustimmung überwachen können.",
+        "message": "Privacy Badger blockt spionierende Werbung und unsichtbare Tracker. Es wurde geschaffen, um zu verhindern, dass Firmen Sie ohne Ihre Zustimmung überwachen können.",
         "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "intro_has_blocked": {
-        "message": " bedeutet dass Privacy Badger denkt, die Domain ist ein Tracker und blockiert sie. ",
+        "message": " bedeutet dass Privacy Badger denkt, die Domain ist ein Tracker und blockt sie. ",
         "description": ""
     },
     "import": {
@@ -156,7 +156,7 @@
         "description": ""
     },
     "show_counter_checkbox": {
-        "message": "Anzahl der blockierten Elemente anzeigen",
+        "message": "Anzahl der geblockten Elemente anzeigen",
         "description": ""
     },
     "what_is_a_tracker": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC kann Ihre lokale IP-Adresse verraten. Während Privacy Badgers Standardeinstellung grundsätzlich hilft, Sie zu schützen, können Sie für einen erhöhten Schutz diese Option aktivieren. Beachten Sie, dass dies eventuell die Leistung einiger Tools wie z. B. Google Hangouts vermindern kann.",
+        "message": "* WebRTC kann Ihre lokale IP-Adresse verraten. Privacy-Badgers-Standardeinstellung hilft grundsätzlich Sie zu schützen, aber für einen erhöhten Schutz können Sie diese Option aktivieren. Bitte beachten Sie, dass dies eventuell die Leistung einiger Werkzeuge wie z. B. Google Hangouts vermindern kann.",
         "description": ""
     },
     "options_general_settings": {
@@ -216,7 +216,7 @@
         "description": ""
     },
     "domain_slider_block_tooltip": {
-        "message": "Click here to block this domain entirely",
+        "message": "Hier klicken, um diese Domain vollständig zu blocken",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
@@ -224,11 +224,11 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Blockiert Cookies von ",
+        "message": "Geblockte Cookies von ",
         "description": ""
     },
     "options_loading": {
-        "message": "Lädt...",
+        "message": "Lädt …",
         "description": ""
     },
     "firstRun_title": {
@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist für die unten gelisteten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger-Symbol in der Adressleiste anklicken oder die Domain (nicht die URL) im Eingabefeld eingeben und auf die Schaltfläche \"Domain hinzufügen\" klicken.",
+        "message": "Privacy Badger ist für die unten gelisteten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy Badger-Symbol in der Symbolleiste anklicken oder die Domain im Eingabefeld eingeben und auf die Schaltfläche \"Domain hinzufügen\" klicken.",
         "description": ""
     },
     "pb_detected": {
@@ -328,7 +328,7 @@
         "description": ""
     },
     "domain_slider_allow_tooltip": {
-        "message": "Click here to allow this domain",
+        "message": "Hier klicken, um diese Domäne zu erlauben",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
@@ -388,7 +388,7 @@
         "description": ""
     },
     "slideshow_6": {
-        "message": "Ein gelber Schieberegler bedeutet, dass ich diesen Tracker teilweise blockiert habe. Ich werde mein Bestes tun, um ein Verfolgen Ihres Surfverhaltens durch Löschen der Cookies zu verhindern. Ein vollständiges Blockieren würde eventuell zu einer fehlerhaften Seitendarstellung führen.",
+        "message": "Ein gelber Schieberegler bedeutet, dass ich diesen Tracker teilweise geblockt habe. Ich werde mein Bestes tun, um ein Verfolgen Ihres Surfverhaltens durch Löschen der Cookies zu verhindern. Ein vollständiges Blockieren würde eventuell zu einer fehlerhaften Seitendarstellung führen.",
         "description": ""
     },
     "slideshow_16": {
@@ -404,11 +404,11 @@
         "description": ""
     },
     "popup_noblocked": {
-        "message": "Warum wird nichts blockiert?",
+        "message": "Warum wird nichts geblockt?",
         "description": ""
     },
     "report_fail": {
-        "message": "Oops, das hat leider nicht geklappt.",
+        "message": "Huch! Etwas ist schief gelaufen.",
         "description": ""
     },
     "slideshow_10": {
