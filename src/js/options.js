@@ -391,6 +391,10 @@ function refreshFilterPage() {
     return;
   }
 
+  // refreshFilterPage can be called multiple times, needs to be reversible
+  $("#options_domain_list_no_trackers").hide();
+  $("#tracking-domains-div").show();
+
   // Update messages according to tracking domain count.
   if (allTrackingDomains.length === 1) {
     // leave out messages about multiple trackers
@@ -400,10 +404,9 @@ function refreshFilterPage() {
 
     // show singular "tracker" message
     $("#options_domain_list_one_tracker").show();
-  }
-  else {
+  } else {
     $("#pb_has_detected").show();
-    $("#count").text(allTrackingDomains.length);
+    $("#count").text(allTrackingDomains.length).show();
     $("#options_domain_list_trackers").show();
   }
 
