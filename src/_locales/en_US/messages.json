@@ -85,11 +85,11 @@
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. This slider lets you control how Privacy Badger handles it. You shouldn't need to adjust it unless something is broken.",
-        "description": "The entire popup message shown when there is only 1 tracker on the page"
+        "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "popup_instructions_no_trackers": {
         "message": "Privacy Badger didn't detect any potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. Hooray for privacy!",
-        "description": "The entire popup message shown when there are no trackers on the page"
+        "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_webrtc_setting": {
         "message": "Prevent WebRTC from leaking local IP address *",
@@ -137,15 +137,15 @@
     },
     "options_domain_list_trackers": {
         "message": "potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far. These sliders let you control how Privacy Badger handles each tracker.",
-        "description": "Continuation of message on the Tracking Domains options page that shows overall number of trackers detected so far"
+        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "options_domain_list_one_tracker": {
         "message": "Privacy Badger has detected one potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domain</a> so far. This slider lets you control how Privacy Badger handles it.",
-        "description": "The entire message on the Tracking Domains options page that shows overall number of trackers detected so far, when there is just 1"
+        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger has detected no potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far.",
-        "description": "The entire message on the Tracking Domains options page that shows overall number of trackers detected so far, when there are none yet"
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "options_domain_list_no_trackers_message": {
         "message": "Could not detect any tracking cookies.",
@@ -185,7 +185,7 @@
     },
     "options_pb_has_detected": {
         "message": "Privacy Badger has detected",
-        "description": "Beginning of options message that shows overall number of trackers detected so far on the Tracking Domains options page"
+        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "slideshow_11": {
         "message": " If you change a setting I've made, you can always put it back under my control by clicking the undo arrow.",
@@ -313,7 +313,7 @@
     },
     "pb_detected": {
         "message": "Privacy Badger detected",
-        "description": "Beginning of popup message that shows number of trackers"
+        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "A project of the Electronic Frontier Foundation",
