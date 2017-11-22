@@ -382,7 +382,8 @@ function refreshFilterPage() {
 
     // show "no trackers" message
     $("#options_domain_list_no_trackers").show();
-    $("#blockedResources").html(i18n.getMessage("options_domain_list_no_trackers_message"));
+    $("#blockedResources").html('');
+    $("#tracking-domains-div").hide();
 
     // activate tooltips
     $('.tooltip').tooltipster();

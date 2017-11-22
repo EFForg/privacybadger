@@ -147,10 +147,6 @@
         "message": "Privacy Badger has detected no potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far.",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
-    "options_domain_list_no_trackers_message": {
-        "message": "Could not detect any tracking cookies.",
-        "description": ""
-    },
     "report_button": {
         "message": "Submit Error",
         "description": ""
