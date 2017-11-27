@@ -27,6 +27,7 @@ body {
   font-family: helvetica, arial, sans-serif;
   padding: 8px 15px 0;
   box-sizing: border-box;
+  min-height: 270px;
 }
 @media screen and (min--moz-device-pixel-ratio:0) {
     body{
@@ -164,6 +165,10 @@ font-size: 16px;
 }
 #privacyBadgerHeader img{
   float: left;
+}
+
+#blockedResourcesContainer {
+    min-height: 70px;
 }
 
 .ui-slider {
