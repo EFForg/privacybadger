@@ -663,7 +663,7 @@ function dispatcher(request, sender, sendResponse) {
     utils.xhrRequest(button_path, function (err, response) {
       // one data URI for SVGs
       if (image_type == "svg") {
-        return sendResponse('data:image/svg+xml;utf8,' + response);
+        return sendResponse('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(response));
       }
 
       // another data URI for all other image formats
