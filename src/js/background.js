@@ -473,6 +473,7 @@ Badger.prototype = {
   defaultSettings: {
     checkForDNTPolicy: true,
     disabledSites: [],
+    hideBlockedElements: true,
     isFirstRun: true,
     migrationLevel: 0,
     seenComic: false,
