@@ -4,15 +4,15 @@
         "description": ""
     },
     "invalid_json": {
-        "message": "Invalid JSON file.",
+        "message": "Неверный файл JSON.",
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Are you sure you want to remove this origin from Privacy Badger?",
+        "message": "Вы уверены, что хотите удалить этот источник из Privacy Badger?",
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
+        "message": "Нет отслеживающей активности на",
         "description": ""
     },
     "non_tracker_tip": {
@@ -24,11 +24,11 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Check if sites comply with EFF's Do Not Track policy",
+        "message": "Проверьте, соблюдает ли сайт политику конфиденциальности EFF \"Do Not Track\"",
         "description": ""
     },
     "invalid_domain": {
-        "message": "Please add a valid domain or URL.",
+        "message": "Пожалуйста, добавьте действительный домен или URL.",
         "description": ""
     },
     "intro2": {
@@ -44,15 +44,15 @@
         "description": ""
     },
     "dnt_tooltip": {
-        "message": "This domain promises to not track you",
+        "message": "Этот домен обещает не отслеживать вас",
         "description": ""
     },
     "options_dnt_policy_learn_more": {
-        "message": "Learn more",
+        "message": "Узнать больше",
         "description": ""
     },
     "data_settings": {
-        "message": "Manage Data",
+        "message": "Управление данными",
         "description": "This is an options page tab heading."
     },
     "slideshow_13": {
@@ -64,7 +64,7 @@
         "description": ""
     },
     "whitelist_form_domain_input_placeholder": {
-        "message": "e.g. www.domain.com, *.domain.net, domain.org",
+        "message": "например: www.domain.com, *.domain.net, domain.org",
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
     },
     "slideshow_4": {
@@ -76,7 +76,7 @@
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Click here to block this domain from setting cookies",
+        "message": "Щелкните здесь, чтобы заблокировать создание файлов cookie с этого домена",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
@@ -84,7 +84,7 @@
         "description": ""
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address *",
+        "message": "Предотвращать утечку локального IP-адреса через WebRTC *",
         "description": ""
     },
     "options_so_far": {
@@ -100,7 +100,7 @@
         "description": ""
     },
     "options_domain_list_tab": {
-        "message": "Tracking Domains",
+        "message": "Домены с отслеживающей активностью",
         "description": "This is an options page tab heading."
     },
     "intro1": {
@@ -108,7 +108,7 @@
         "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
-        "message": "Share on Twitter",
+        "message": "Поделиться в Twitter",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "first_run_text": {
@@ -116,7 +116,7 @@
         "description": ""
     },
     "download": {
-        "message": "Download",
+        "message": "Загрузить",
         "description": ""
     },
     "feed_the_badger_title": {
@@ -128,7 +128,7 @@
         "description": ""
     },
     "import": {
-        "message": "Import",
+        "message": "Импортировать",
         "description": ""
     },
     "options_social_widgets_checkbox": {
@@ -160,7 +160,7 @@
         "description": ""
     },
     "what_is_a_tracker": {
-        "message": "What is a tracker?",
+        "message": "Что такое трекер?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "slideshow_1": {
@@ -192,11 +192,11 @@
         "description": ""
     },
     "import_successful": {
-        "message": "Tracker list and settings updated successfully!",
+        "message": "Список трекеров и настройки успешно обновлены!",
         "description": ""
     },
     "export_user_data": {
-        "message": "Export user data",
+        "message": "Экспорт пользовательских данных",
         "description": ""
     },
     "intro_text": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Privacy Badger's default setting helps protect you, but for added protection you may enable this option. Note that doing so may degrade performance on some tools like Google Hangouts.",
+        "message": "* WebRTC может спровоцировать утечку вашего IP-адреса. Выставленные по умолчанию настройки Privacy Badger помогают защитить вас, но вы также можете включить эту опцию для дополнительной защиты. Важно: это может вызвать проблемы с работой таких сервисов, как Google Hangouts и ему подобные.",
         "description": ""
     },
     "options_general_settings": {
@@ -216,11 +216,11 @@
         "description": ""
     },
     "domain_slider_block_tooltip": {
-        "message": "Click here to block this domain entirely",
+        "message": "Щелкните здесь, чтобы заблокировать этот домен полностью",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
-        "message": "version",
+        "message": "версия",
         "description": ""
     },
     "badger_status_cookieblock": {
@@ -236,7 +236,7 @@
         "description": ""
     },
     "import_select_file": {
-        "message": "Please select a file to import.",
+        "message": "Пожалуйста, выберите файл для импорта.",
         "description": ""
     },
     "popup_blocked": {
@@ -248,7 +248,7 @@
         "description": ""
     },
     "tooltip_cookieblock": {
-        "message": "Center the slider to block cookies",
+        "message": "Передвиньте ползунок в центр, чтобы заблокировать файлы cookie",
         "description": ""
     },
     "slideshow_12": {
@@ -272,7 +272,7 @@
         "description": ""
     },
     "import_user_data": {
-        "message": "Import user data",
+        "message": "Импорт пользовательских данных",
         "description": ""
     },
     "slideshow_8": {
@@ -280,11 +280,11 @@
         "description": ""
     },
     "popup_help_button": {
-        "message": "Help",
+        "message": "Помощь",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "share_button_title_google": {
-        "message": "Share on Google Plus",
+        "message": "Поделиться в Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "report_cancel": {
@@ -292,7 +292,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Move the slider left to block a domain",
+        "message": "Передвиньте ползунок влево, чтобы заблокировать домен",
         "description": ""
     },
     "disabled_for_these_domains": {
@@ -312,7 +312,7 @@
         "description": ""
     },
     "tooltip_allow": {
-        "message": "Move the slider right to allow a domain",
+        "message": "Передвиньте ползунок вправо, чтобы разблокировать домен",
         "description": ""
     },
     "popup_disable_for_site": {
@@ -328,7 +328,7 @@
         "description": ""
     },
     "domain_slider_allow_tooltip": {
-        "message": "Click here to allow this domain",
+        "message": "Щелкните здесь, чтобы разблокировать этот домен",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "name": {
@@ -396,7 +396,7 @@
         "description": ""
     },
     "share_button_title_facebook": {
-        "message": "Share on Facebook",
+        "message": "Поделиться в Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "description": {
