@@ -189,6 +189,12 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.assertEqual(self.driver.current_url, EFF_URL,
             "EFF website should open after clicking trackers link on popup")
 
+        try:
+            faq_selector = 'a[href="{}"]'.format(EFF_URL[EFF_URL.index('#'):])
+            self.driver.find_element_by_css_selector(faq_selector)
+        except NoSuchElementException:
+            self.fail("Unable to find expected element ({}) on EFF website".format(faq_selector))
+
     def test_error_button(self):
         """Ensure error button opens report error overlay."""
         self.open_popup()
