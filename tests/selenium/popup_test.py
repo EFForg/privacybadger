@@ -170,7 +170,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_popup()
 
         try:
-            trackers_link = self.driver.find_element_by_link_text("trackers")
+            trackers_link = self.driver.find_element_by_css_selector("#pbInstructions a")
         except NoSuchElementException:
             self.fail("Unable to find trackers link on popup")
 
