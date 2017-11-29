@@ -71,7 +71,7 @@ function showNagMaybe() {
         $("#firstRun").click(function() {
           // If there is a firstRun.html tab, switch to the tab.
           // Otherwise, create a new tab
-          chrome.tabs.query({url: firstRunUrl, currentWindow: false}, function (tabs) {
+          chrome.tabs.query({url: firstRunUrl}, function (tabs) {
             if (tabs.length == 0) {
               chrome.tabs.create({
                 url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
