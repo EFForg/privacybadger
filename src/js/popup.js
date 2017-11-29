@@ -47,6 +47,7 @@ function showNagMaybe() {
   var outer = $("#instruction-outer");
   var settings = badger.storage.getBadgerStorageObject('settings_map');
   var seenComic = settings.getItem("seenComic") || false;
+  var firstRunUrl = chrome.extension.getURL("/skin/firstRun.html");
 
   function _setSeenComic() {
     settings.setItem("seenComic", true);
@@ -58,32 +59,34 @@ function showNagMaybe() {
     outer.fadeOut();
   }
 
+  function _showNag() {
+    nag.show();
+    outer.show();
+    // Attach event listeners
+    $('#fittslaw').click(_hideNag);
+    $("#firstRun").click(function() {
+      // If there is a firstRun.html tab, switch to the tab.
+      // Otherwise, create a new tab
+      chrome.tabs.query({url: firstRunUrl}, function (tabs) {
+        if (tabs.length == 0) {
+          chrome.tabs.create({
+            url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+          });
+        } else {
+          chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {
+            chrome.windows.update(tab.windowId, {focused: true});
+          });
+        }
+        _hideNag();
+      });
+    });
+  }
+
   if (!seenComic) {
     chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
-      var firstRunUrl = chrome.extension.getURL("/skin/firstRun.html");
-
       // Show the popup instruction if the active tab is not firstRun.html page
       if (!focusedTab[0].url.startsWith(firstRunUrl)) {
-        nag.show();
-        outer.show();
-        // Attach event listeners
-        $('#fittslaw').click(_hideNag);
-        $("#firstRun").click(function() {
-          // If there is a firstRun.html tab, switch to the tab.
-          // Otherwise, create a new tab
-          chrome.tabs.query({url: firstRunUrl}, function (tabs) {
-            if (tabs.length == 0) {
-              chrome.tabs.create({
-                url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
-              });
-            } else {
-              chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {
-                chrome.windows.update(tab.windowId, {focused: true});
-              });
-            }
-            _hideNag();
-          });
-        });
+        _showNag();
       }
     });
   }
