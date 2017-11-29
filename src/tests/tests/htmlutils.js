@@ -28,33 +28,38 @@
     }
   });
 
-  QUnit.test("getActionDescription", function (assert) {
+  QUnit.test("getActionDescription", (assert) => {
     // Test parameters
-    var tests = [
+    const getMessage = chrome.i18n.getMessage,
+      origin = "pbtest.org";
+    const tests = [
       {
         action: "block",
-        origin: "pbtest.org",
-        expectedResult: "Blocked pbtest.org",
+        origin,
+        expectedResult: getMessage('badger_status_block') + origin,
       },
       {
         action: "cookieblock",
-        origin: "pbtest.org",
-        expectedResult: "Blocked cookies from pbtest.org",
+        origin,
+        expectedResult: getMessage('badger_status_cookieblock') + origin,
       },
       {
         action: "allow",
-        origin: "pbtest.org",
-        expectedResult: "Allowed pbtest.org",
+        origin,
+        expectedResult: getMessage('badger_status_allow') + origin,
       },
     ];
 
     // Run each test.
-    for (var i = 0; i < tests.length; i++) {
-      var action = tests[i].action;
-      var origin = tests[i].origin;
-      var expected = tests[i].expectedResult;
-      var message = "Inputs: '" + action + "' and '" + origin + "'";
-      assert.equal(htmlUtils.getActionDescription(action, origin), expected, message);
+    for (let i = 0; i < tests.length; i++) {
+      const test = tests[i],
+        message = `Inputs: '${test.action}' and '${test.origin}'`;
+
+      assert.equal(
+        htmlUtils.getActionDescription(test.action, test.origin),
+        test.expectedResult,
+        message
+      );
     }
   });
 

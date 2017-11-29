@@ -34,7 +34,8 @@ function browser_setup {
 
 function setup_lint {
   pushd "$toplevel"
-    npm install
+    # "--production" to skip installing devDependencies modules
+    npm install --production
   popd
 
 }

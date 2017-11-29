@@ -18,12 +18,22 @@
 
 require.scopes.surrogatedb = (function() {
 
-// "hostnames" maps hostnames to arrays of surrogate pattern tokens.
-//
-// A hostname can have one or more surrogate scripts.
-//
-// Surrogate pattern tokens are used to look up the actual
-// surrogate script code (stored in "surrogates" object below).
+/**
+ * A hostname can have one or more surrogate scripts.
+ *
+ * "hostnames" maps hostnames to surrogate pattern tokens.
+ *
+ * Surrogate pattern tokens are used to look up the actual
+ * surrogate script code (stored in "surrogates" object below).
+ *
+ * There are currently two types of surrogate pattern tokens:
+ *
+ * - {Array} one or more suffix tokens:
+ *   Does the script URL (querystring excluded) end with the token?
+ *
+ * - {String} wildcard token:
+ *   Matches any script URL for the hostname.
+ */
 const hostnames = {
   'b.scorecardresearch.com': [
     '/beacon.js',
@@ -53,12 +63,12 @@ const hostnames = {
     '/JS/gigya.js',
     '/JS/socialize.js',
   ],
+  'cdn.krxd.net': 'noopjs',
 };
 
-// "surrogates" maps surrogate pattern tokens to surrogate script code.
-//
-// There is currently one type of surrogate pattern token: suffix.
-// Does the script URL (querystring excluded) end with the token?
+/**
+ * "surrogates" maps surrogate pattern tokens to surrogate script code.
+ */
 const surrogates = {
   /* eslint-disable no-extra-semi, space-in-parens */
 
@@ -462,6 +472,12 @@ const surrogates = {
       }
     } + ')();',
   /* eslint-enable no-empty */
+
+  // https://github.com/uBlockOrigin/uAssets/blob/0efcadb2ecc2a9f0daa5a1df79841d794b83860f/filters/resources.txt#L38-L41
+  'noopjs': '(' +
+    function() {
+      ;
+    } + ')();',
 
   /* eslint-enable no-extra-semi, space-in-parens */
 };

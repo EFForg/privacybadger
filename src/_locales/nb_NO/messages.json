@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Personvernsgrevlingen er avskrudd for domenene nedenfor. Du kan enten legge til et domene via Personverngrevlings-ikonet i adressefeltet eller ved å skrive domenet (ikke en nettadresse) i boksen å klikke på knappen \"Legg til domene\".",
+        "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
         "description": ""
     },
     "pb_detected": {

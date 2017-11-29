@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger est désactivé pour la liste de domaines ci-dessous. Vous pouvez la compléter par l'icône de Privacy Badger présente sur la barre d'adresse ou en tapant le nom de domaine (pas l'URL) dans le champ ci-dessous et en cliquant sur le bouton \"Ajouter un nom de domaine \".",
+        "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
         "description": ""
     },
     "pb_detected": {

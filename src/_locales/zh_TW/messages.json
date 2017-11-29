@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "已為下列網域停用 Privacy Badger。您可以點擊網址列中 Privacy Badger 的圖示，或在下方輸入框中輸入網域名稱（而非網址），然後點擊「新增網域」按鈕來新增要停用 Privacy Badger 的網域。",
+        "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
         "description": ""
     },
     "pb_detected": {

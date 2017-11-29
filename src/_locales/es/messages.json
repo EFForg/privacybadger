@@ -296,7 +296,7 @@
         "description": ""
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger está deshabilitado para la lista de dominios que se muestran debajo. Puedes añadir un dominio ya sea mediante el icono de Privacy Badger en la barra de direcciones o escribiéndo el dominio (no la URL) en el recuadro y haciendo click en el botón \"Añadir dominio\".",
+        "message": "Privacy Badger está deshabilitado para la lista de dominios que se muestran debajo. Puedes añadir un dominio ya sea mediante el icono de Privacy Badger en la barra de herramientas o escribiéndo el dominio en el recuadro y haciendo click en el botón \"Añadir dominio\".",
         "description": ""
     },
     "pb_detected": {

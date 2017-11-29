@@ -43,6 +43,14 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
+
+        # TODO Hack: Open a new window to work around popup.js thinking the
+        # active page is firstRun.html when popup.js checks whether the overlay
+        # should be shown. Opening a new window should make the popup think
+        # it's on popup.html instead. This doesn't change what happens in
+        # Chrome where popup.js will keep thinking it is on popup.html.
+        self.open_window()
+
         self.load_url(self.popup_url, wait_on_site=1)
 
         # hack to get tabData populated for the popup's tab
@@ -171,7 +179,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Get all possible tracker links (none, one, multiple)
         try:
-            trackers_links = self.driver.find_elements_by_partial_link_text("tracker")
+            trackers_links = self.driver.find_elements_by_css_selector("#pbInstructions a")
         except NoSuchElementException:
             self.fail("Unable to find trackers link on popup")
 
@@ -195,6 +203,15 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.assertEqual(self.driver.current_url, EFF_URL,
             "EFF website should open after clicking trackers link on popup")
+
+        # Verify EFF website contains the linked anchor element.
+        faq_selector = 'a[href="{}"]'.format(EFF_URL[EFF_URL.index('#'):])
+        try:
+            WebDriverWait(self.driver, pbtest.SEL_DEFAULT_WAIT_TIMEOUT).until(
+                expected_conditions.presence_of_element_located(
+                    (By.CSS_SELECTOR, faq_selector)))
+        except TimeoutException:
+            self.fail("Unable to find expected element ({}) on EFF website".format(faq_selector))
 
     def test_error_button(self):
         """Ensure error button opens report error overlay."""
