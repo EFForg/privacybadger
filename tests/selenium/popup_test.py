@@ -43,6 +43,14 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
+
+        # TODO Hack: Open a new window to work around popup.js thinking the
+        # active page is firstRun.html when popup.js checks whether the overlay
+        # should be shown. Opening a new window should make the popup think
+        # it's on popup.html instead. This doesn't change what happens in
+        # Chrome where popup.js will keep thinking it is on popup.html.
+        self.open_window()
+
         self.load_url(self.popup_url, wait_on_site=1)
 
         # hack to get tabData populated for the popup's tab
