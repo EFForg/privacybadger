@@ -41,11 +41,8 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.driver.switch_to.window(new_handle.pop())
 
-    def open_popup(self, close_overlay=True, new_url=True):
+    def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
-        if new_url:
-            self.load_url("http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com")
-
         self.load_url(self.popup_url, wait_on_site=1)
 
         # hack to get tabData populated for the popup's tab
@@ -66,7 +63,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             message="Timed out waiting for getTab() to complete."
         )
 
-        if close_overlay and new_url:
+        if close_overlay:
             # Click 'X' element to close overlay.
             try:
                 close_element = self.driver.find_element_by_id("fittslaw")
@@ -252,42 +249,6 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.assertEqual(self.driver.current_url, EFF_URL,
             "EFF website should open after clicking donate button on popup")
-
-    def test_not_show_instruction(self):
-        """Ensure the instruction message doesn't display on firstRun.html ."""
-        self.open_popup(new_url=False)
-
-        try:
-            instruction = self.driver.find_element_by_id("instruction")
-        except NoSuchElementException:
-            self.fail("Unable to find instruction on popup")
-        self.assertEqual(instruction.value_of_css_property("display"), "none",
-            "Instruction message should not display when the active tab is firstRun.html")
-
-    def test_switch_existing_first_run_tab(self):
-        """Ensure click the comic link switch to an existing tab"""
-
-        self.open_popup(close_overlay=False)
-
-        try:
-            comic_link = self.driver.find_element_by_id("firstRun")
-        except NoSuchElementException:
-            self.fail("Unable to find link to comic on popup overlay")
-        comic_link.click()
-
-        # Make sure first run comic not opened in same window.
-        time.sleep(1)
-
-        self.assertEqual(len(self.driver.window_handles), 2,
-            "Click firstrun link should switch existing tab")
-
-        # Look for first run page and return if found.
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url.startswith(self.first_run_url):
-                return
-
-        self.fail("First run comic not switched to existing tab after clicking link in popup overlay")
 
 
 if __name__ == "__main__":
