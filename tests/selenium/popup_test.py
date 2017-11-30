@@ -178,9 +178,8 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_popup()
 
         # Get all possible tracker links (none, one, multiple)
-        try:
-            trackers_links = self.driver.find_elements_by_css_selector("#pbInstructions a")
-        except NoSuchElementException:
+        trackers_links = self.driver.find_elements_by_css_selector("#pbInstructions a")
+        if not trackers_links:
             self.fail("Unable to find trackers link on popup")
 
         # Get the one that's displayed on the page that this test is using
