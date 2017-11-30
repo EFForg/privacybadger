@@ -59,9 +59,13 @@ function onBeforeRequest(details) {
     if (frame_id != 0) {
       frame_id = 0;
     }
+
+    badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
+
+    return {};
   }
 
-  if (type == "main_frame" || type == "sub_frame") {
+  if (type == "sub_frame") {
     badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
   }
 
