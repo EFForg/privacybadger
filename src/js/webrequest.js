@@ -509,12 +509,6 @@ function checkAction(tabId, url, frameId) {
     return false;
   }
 
-  // Ignore requests that don't have a document URL for some reason.
-  var documentData = getFrameData(tabId, 0);
-  if (!documentData || !documentData.host) {
-    return false;
-  }
-
   // Ignore requests from private domains.
   var requestHost = window.extractHostFromURL(url);
   var origin = window.getBaseDomain(requestHost);
