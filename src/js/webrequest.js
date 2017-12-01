@@ -637,26 +637,27 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse(badger.isPrivacyBadgerEnabled(tabHost));
 
   } else if (request.checkLocation) {
-    if (badger.isPrivacyBadgerEnabled(tabHost)) {
-
-      // Ignore requests from internal Chrome tabs.
-      if (_isTabChromeInternal(sender.tab.id)) {
-        return sendResponse();
-      }
-
-      // Ignore requests that aren't from a third party.
-      var thirdParty = isThirdPartyDomain(
-        window.extractHostFromURL(request.checkLocation),
-        tabHost
-      );
-      if (!thirdParty) {
-        return sendResponse();
-      }
-
-      var reqAction = checkAction(sender.tab.id, request.checkLocation);
-      var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
-      sendResponse(cookieBlock);
+    if (!badger.isPrivacyBadgerEnabled(tabHost)) {
+      return sendResponse();
     }
+
+    // Ignore requests from internal Chrome tabs.
+    if (_isTabChromeInternal(sender.tab.id)) {
+      return sendResponse();
+    }
+
+    // Ignore requests that aren't from a third party.
+    var thirdParty = isThirdPartyDomain(
+      window.extractHostFromURL(request.checkLocation),
+      tabHost
+    );
+    if (!thirdParty) {
+      return sendResponse();
+    }
+
+    var reqAction = checkAction(sender.tab.id, request.checkLocation);
+    var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
+    sendResponse(cookieBlock);
 
   } else if (request.checkReplaceButton) {
     if (badger.isPrivacyBadgerEnabled(tabHost) && badger.isSocialWidgetReplacementEnabled()) {
