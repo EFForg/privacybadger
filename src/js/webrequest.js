@@ -87,7 +87,7 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, url, frame_id);
+  var requestAction = checkAction(tab_id, requestDomain, frame_id);
   if (!requestAction) {
     return {};
   }
@@ -170,7 +170,7 @@ function onBeforeSendHeaders(details) {
     return {requestHeaders: headers};
   }
 
-  var requestAction = checkAction(tab_id, url, frame_id);
+  var requestAction = checkAction(tab_id, requestDomain, frame_id);
 
   if (requestAction) {
     badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
@@ -182,7 +182,7 @@ function onBeforeSendHeaders(details) {
       badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1) {
 
     badger.heuristicBlocking.heuristicBlockingAccounting(details);
-    requestAction = checkAction(tab_id, url, frame_id);
+    requestAction = checkAction(tab_id, requestDomain, frame_id);
 
     if (requestAction) {
       badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
@@ -282,7 +282,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, url, details.frameId);
+  var requestAction = checkAction(tab_id, requestDomain, details.frameId);
   if (!requestAction) {
     return {};
   }
@@ -495,21 +495,19 @@ function forgetTab(tabId) {
 }
 
 /**
- * Determines the action to take on a specific URL.
+ * Determines the action to take on a specific FQDN.
  *
  * @param {Integer} tabId The relevant tab
- * @param {String} url The URL
+ * @param {String} requestHost The FQDN
  * @param {Integer} frameId The id of the frame
  * @returns {String|Boolean} false or the action to take
  */
-function checkAction(tabId, url, frameId) {
+function checkAction(tabId, requestHost, frameId) {
   // Ignore requests from temporarily unblocked social widgets.
   // Someone clicked the widget, so let it load.
-  if (isSocialWidgetTemporaryUnblock(tabId, url, frameId)) {
+  if (isSocialWidgetTemporaryUnblock(tabId, requestHost, frameId)) {
     return false;
   }
-
-  var requestHost = window.extractHostFromURL(url);
 
   // Ignore requests from private domains.
   if (window.isPrivateDomain(requestHost)) {
@@ -582,17 +580,16 @@ function getSocialWidgetBlockList() {
  * Check if tab is temporarily unblocked for tracker
  *
  * @param tabId id of the tab to check
- * @param url url to check
+ * @param requestHost FQDN to check
  * @param frameId frame id to check
  * @returns {boolean} true if in exception list
  */
-function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
+function isSocialWidgetTemporaryUnblock(tabId, requestHost, frameId) {
   var exceptions = temporarySocialWidgetUnblock[tabId];
   if (exceptions === undefined) {
     return false;
   }
 
-  var requestHost = window.extractHostFromURL(url);
   var requestExcept = (exceptions.indexOf(requestHost) != -1);
 
   var frameHost = getFrameData(tabId, frameId).host;
@@ -640,12 +637,14 @@ function dispatcher(request, sender, sendResponse) {
       return sendResponse();
     }
 
+    let requestHost = window.extractHostFromURL(request.checkLocation);
+
     // Ignore requests that aren't from a third party.
-    if (!isThirdPartyDomain(window.extractHostFromURL(request.checkLocation), tabHost)) {
+    if (!isThirdPartyDomain(requestHost, tabHost)) {
       return sendResponse();
     }
 
-    var reqAction = checkAction(sender.tab.id, request.checkLocation);
+    var reqAction = checkAction(sender.tab.id, requestHost);
     var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
     sendResponse(cookieBlock);
 
