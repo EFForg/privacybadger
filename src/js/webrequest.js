@@ -509,10 +509,10 @@ function checkAction(tabId, url, frameId) {
     return false;
   }
 
-  // Ignore requests from private domains.
   var requestHost = window.extractHostFromURL(url);
-  var origin = window.getBaseDomain(requestHost);
-  if (window.isPrivateDomain(origin)) {
+
+  // Ignore requests from private domains.
+  if (window.isPrivateDomain(requestHost)) {
     return false;
   }
 
