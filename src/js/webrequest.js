@@ -647,11 +647,7 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     // Ignore requests that aren't from a third party.
-    var thirdParty = isThirdPartyDomain(
-      window.extractHostFromURL(request.checkLocation),
-      tabHost
-    );
-    if (!thirdParty) {
+    if (!isThirdPartyDomain(window.extractHostFromURL(request.checkLocation), tabHost)) {
       return sendResponse();
     }
 
