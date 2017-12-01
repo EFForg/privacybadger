@@ -334,11 +334,11 @@ function onTabReplaced(addedTabId, removedTabId) {
  * @return boolean true if the domains are third party
  */
 function isThirdPartyDomain(domain1, domain2) {
-  var base1 = window.getBaseDomain(domain1);
-  var base2 = window.getBaseDomain(domain2);
-
-  if (window.isThirdParty(base1, base2)) {
-    return !mdfp.isMultiDomainFirstParty(base1, base2);
+  if (window.isThirdParty(domain1, domain2)) {
+    return !mdfp.isMultiDomainFirstParty(
+      window.getBaseDomain(domain1),
+      window.getBaseDomain(domain2)
+    );
   }
   return false;
 }
