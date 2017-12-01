@@ -122,6 +122,7 @@ Badger.prototype = {
           frames: {
             <frame_id>: {
               url: string,
+              host: string,
               parent: int
             },
             ...
@@ -203,6 +204,7 @@ Badger.prototype = {
 
     self.tabData[tabId].frames[frameId] = {
       url: frameUrl,
+      host: window.extractHostFromURL(frameUrl),
       parent: parentFrameId
     };
   },

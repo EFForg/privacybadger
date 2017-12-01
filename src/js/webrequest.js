@@ -360,10 +360,11 @@ function getHostForTab(tabId) {
     // since the url of frame 0 will be the hash of the extension key
     mainFrameIdx = Object.keys(badger.tabData[tabId].frames)[1] || 0;
   }
-  if (!badger.tabData[tabId].frames[mainFrameIdx]) {
+  let frameData = getFrameData(tabId, mainFrameIdx);
+  if (!frameData) {
     return '';
   }
-  return window.extractHostFromURL(badger.tabData[tabId].frames[mainFrameIdx].url);
+  return frameData.host;
 }
 
 /**
@@ -379,7 +380,7 @@ function recordSuperCookie(sender, msg) {
 
   // docUrl: url of the frame with supercookie
   var frameHost = window.extractHostFromURL(msg.docUrl);
-  var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+  var pageHost = getFrameData(sender.tab.id, 0).host;
 
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com
@@ -408,7 +409,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = window.extractHostFromURL(getFrameUrl(tabId, 0));
+    document_host = getFrameData(tabId, 0).host;
   if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -484,18 +485,6 @@ function getFrameData(tab_id, frame_id) {
 }
 
 /**
- * Based on tab/frame ids, get the URL
- *
- * @param {Integer} tabId The tab id to look up
- * @param {Integer} frameId The frame id to look up
- * @returns {String} The url
- */
-function getFrameUrl(tabId, frameId) {
-  var frameData = getFrameData(tabId, frameId);
-  return (frameData ? frameData.url : null);
-}
-
-/**
  * Delete tab data, de-register tab
  *
  * @param {Integer} tabId The id of the tab
@@ -526,8 +515,8 @@ function checkAction(tabId, url, frameId) {
   }
 
   // Ignore requests that don't have a document URL for some reason.
-  var documentUrl = getFrameUrl(tabId, 0);
-  if (! documentUrl) {
+  var documentData = getFrameData(tabId, 0);
+  if (!documentData || !documentData.host) {
     return false;
   }
 
@@ -539,9 +528,8 @@ function checkAction(tabId, url, frameId) {
   }
 
   // Ignore requests that aren't from a third party.
-  var documentHost = window.extractHostFromURL(documentUrl);
-  var thirdParty = isThirdPartyDomain(requestHost, documentHost);
-  if (! thirdParty) {
+  var thirdParty = isThirdPartyDomain(requestHost, documentData.host);
+  if (!thirdParty) {
     return false;
   }
 
@@ -627,7 +615,7 @@ function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
   var requestHost = window.extractHostFromURL(url);
   var requestExcept = (exceptions.indexOf(requestHost) != -1);
 
-  var frameHost = window.extractHostFromURL(getFrameUrl(tabId, frameId));
+  var frameHost = getFrameData(tabId, frameId).host;
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
   return (requestExcept || frameExcept);
