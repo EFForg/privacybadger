@@ -537,19 +537,6 @@ function checkAction(tabId, url, frameId) {
 }
 
 /**
- * Check if the url of the tab starts with the given string
- *
- * @param {Integer} tabId Id of the tab
- * @param {String} str String to check against
- * @returns {boolean} true if starts with string
- * @private
- */
-function _frameUrlStartsWith(tabId, str) {
-  let frameData = getFrameData(tabId, 0);
-  return frameData && frameData.url.indexOf(str) === 0;
-}
-
-/**
  * Checks if the tab is chrome internal
  *
  * @param {Integer} tabId Id of the tab to test
@@ -557,7 +544,16 @@ function _frameUrlStartsWith(tabId, str) {
  * @private
  */
 function _isTabChromeInternal(tabId) {
-  return tabId < 0 || !_frameUrlStartsWith(tabId, "http");
+  if (tabId < 0) {
+    return true;
+  }
+
+  let frameData = getFrameData(tabId, 0);
+  if (!frameData || !frameData.url.startsWith("http")) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -568,10 +564,11 @@ function _isTabChromeInternal(tabId) {
  * @private
  */
 function _isTabAnExtension(tabId) {
-  return (
-    _frameUrlStartsWith(tabId, "chrome-extension://") ||
-    _frameUrlStartsWith(tabId, "moz-extension://")
-  );
+  let frameData = getFrameData(tabId, 0);
+  return (frameData && (
+    frameData.url.startsWith("chrome-extension://") ||
+    frameData.url.startsWith("moz-extension://")
+  ));
 }
 
 /**
