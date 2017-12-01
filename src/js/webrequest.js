@@ -509,11 +509,6 @@ function checkAction(tabId, url, frameId) {
     return false;
   }
 
-  // Ignore requests from internal Chrome tabs.
-  if (_isTabChromeInternal(tabId)) {
-    return false;
-  }
-
   // Ignore requests that don't have a document URL for some reason.
   var documentData = getFrameData(tabId, 0);
   if (!documentData || !documentData.host) {
@@ -524,12 +519,6 @@ function checkAction(tabId, url, frameId) {
   var requestHost = window.extractHostFromURL(url);
   var origin = window.getBaseDomain(requestHost);
   if (window.isPrivateDomain(origin)) {
-    return false;
-  }
-
-  // Ignore requests that aren't from a third party.
-  var thirdParty = isThirdPartyDomain(requestHost, documentData.host);
-  if (!thirdParty) {
     return false;
   }
 
@@ -649,6 +638,21 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.checkLocation) {
     if (badger.isPrivacyBadgerEnabled(tabHost)) {
+
+      // Ignore requests from internal Chrome tabs.
+      if (_isTabChromeInternal(sender.tab.id)) {
+        return sendResponse();
+      }
+
+      // Ignore requests that aren't from a third party.
+      var thirdParty = isThirdPartyDomain(
+        window.extractHostFromURL(request.checkLocation),
+        tabHost
+      );
+      if (!thirdParty) {
+        return sendResponse();
+      }
+
       var reqAction = checkAction(sender.tab.id, request.checkLocation);
       var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
       sendResponse(cookieBlock);
