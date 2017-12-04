@@ -53,14 +53,19 @@ function onBeforeRequest(details) {
 
   if (type == "main_frame") {
     forgetTab(tab_id);
-  }
 
-  if (type == "main_frame" || type == "sub_frame") {
     // Firefox workaround: https://bugzilla.mozilla.org/show_bug.cgi?id=1329299
     // TODO remove after Firefox 51 is no longer in use
-    if (type == "main_frame" && frame_id != 0) {
+    if (frame_id != 0) {
       frame_id = 0;
     }
+
+    badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
+
+    return {};
+  }
+
+  if (type == "sub_frame") {
     badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
   }
 
@@ -78,45 +83,50 @@ function onBeforeRequest(details) {
   var tabDomain = getHostForTab(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
-  if (badger.isPrivacyBadgerDisabled(tabDomain)) {
-    return {};
-  }
-
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, url, false, frame_id);
-  if (requestAction) {
-    if (requestAction == constants.BLOCK || requestAction == constants.USER_BLOCK) {
-      if (type == 'script') {
-        var surrogate = getSurrogateURI(url, requestDomain);
-        if (surrogate) {
-          return {redirectUrl: surrogate};
-        }
-      }
+  var requestAction = checkAction(tab_id, requestDomain, frame_id);
+  if (!requestAction) {
+    return {};
+  }
 
-      // Notify the content script...
-      var msg = {
-        replaceSocialWidget: true,
-        trackerDomain: requestDomain
-      };
-      chrome.tabs.sendMessage(tab_id, msg);
+  badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
 
-      window.setTimeout(function () {
-        badger.checkForDNTPolicy(requestDomain);
-      }, 10);
+  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+    return {};
+  }
 
-      if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
-        return {
-          redirectUrl: 'about:blank'
-        };
-      }
+  if (requestAction != constants.BLOCK && requestAction != constants.USER_BLOCK) {
+    return {};
+  }
 
-      return {cancel: true};
+  if (type == 'script') {
+    var surrogate = getSurrogateURI(url, requestDomain);
+    if (surrogate) {
+      return {redirectUrl: surrogate};
     }
   }
 
+  // Notify the content script...
+  var msg = {
+    replaceSocialWidget: true,
+    trackerDomain: requestDomain
+  };
+  chrome.tabs.sendMessage(tab_id, msg);
+
+  window.setTimeout(function () {
+    badger.checkForDNTPolicy(requestDomain);
+  }, 10);
+
+  if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
+    return {
+      redirectUrl: 'about:blank'
+    };
+  }
+
+  return {cancel: true};
 }
 
 /**
@@ -154,58 +164,77 @@ function onBeforeSendHeaders(details) {
   var tabDomain = getHostForTab(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
-  if (badger.isPrivacyBadgerEnabled(tabDomain) &&
-      isThirdPartyDomain(requestDomain, tabDomain)) {
-    var requestAction = checkAction(tab_id, url, false, frame_id);
-    // If this might be the third strike against the potential tracker which
-    // would cause it to be blocked we should check immediately if it will be blocked.
-    if (requestAction == constants.ALLOW &&
-        badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1) {
-      badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      requestAction = checkAction(tab_id, url, false, frame_id);
-    }
+  if (!isThirdPartyDomain(requestDomain, tabDomain)) {
+    // Still sending Do Not Track even if HTTP and cookie blocking are disabled
+    headers.push({name: "DNT", value: "1"});
+    return {requestHeaders: headers};
+  }
 
-    // This will only happen if the above code sets the action for the request
-    // to block
-    if (requestAction == constants.BLOCK) {
-      if (type == 'script') {
-        var surrogate = getSurrogateURI(url, requestDomain);
-        if (surrogate) {
-          return {redirectUrl: surrogate};
-        }
-      }
+  var requestAction = checkAction(tab_id, requestDomain, frame_id);
 
-      // Notify the content script...
-      var msg = {
-        replaceSocialWidget: true,
-        trackerDomain: requestDomain
-      };
-      chrome.tabs.sendMessage(tab_id, msg);
+  if (requestAction) {
+    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+  }
 
-      window.setTimeout(function () {
-        badger.checkForDNTPolicy(requestDomain);
-      }, 10);
+  // If this might be the third strike against the potential tracker which
+  // would cause it to be blocked we should check immediately if it will be blocked.
+  if (requestAction == constants.ALLOW &&
+      badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1) {
 
-      if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
-        return {
-          redirectUrl: 'about:blank'
-        };
-      }
+    badger.heuristicBlocking.heuristicBlockingAccounting(details);
+    requestAction = checkAction(tab_id, requestDomain, frame_id);
 
-      return {cancel: true};
-    }
-
-    // This is the typical codepath
-    if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-      var newHeaders = headers.filter(function(header) {
-        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
-      });
-      newHeaders.push({name: "DNT", value: "1"});
-      return {requestHeaders: newHeaders};
+    if (requestAction) {
+      badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
     }
   }
 
-  // Still sending Do Not Track even if HTTP and cookie blocking are disabled
+  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+    headers.push({name: "DNT", value: "1"});
+    return {requestHeaders: headers};
+  }
+
+  // This will only happen if the above code sets the action for the request
+  // to block
+  if (requestAction == constants.BLOCK) {
+    if (type == 'script') {
+      var surrogate = getSurrogateURI(url, requestDomain);
+      if (surrogate) {
+        return {redirectUrl: surrogate};
+      }
+    }
+
+    // Notify the content script...
+    var msg = {
+      replaceSocialWidget: true,
+      trackerDomain: requestDomain
+    };
+    chrome.tabs.sendMessage(tab_id, msg);
+
+    window.setTimeout(function () {
+      badger.checkForDNTPolicy(requestDomain);
+    }, 10);
+
+    if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
+      return {
+        redirectUrl: 'about:blank'
+      };
+    }
+
+    return {cancel: true};
+  }
+
+  // This is the typical codepath
+  if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
+    var newHeaders = headers.filter(function(header) {
+      return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
+    });
+    newHeaders.push({name: "DNT", value: "1"});
+    return {requestHeaders: newHeaders};
+  }
+
+  // if we are here, we're looking at a third party
+  // that's not yet blocked or cookieblocked
   headers.push({name: "DNT", value: "1"});
   return {requestHeaders: headers};
 }
@@ -249,22 +278,26 @@ function onHeadersReceived(details) {
   var tabDomain = getHostForTab(tab_id);
   var requestDomain = window.extractHostFromURL(url);
 
-  if (badger.isPrivacyBadgerDisabled(tabDomain)) {
-    return {};
-  }
-
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, url, false, details.frameId);
-  if (requestAction) {
-    if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-      var newHeaders = details.responseHeaders.filter(function(header) {
-        return (header.name.toLowerCase() != "set-cookie");
-      });
-      return {responseHeaders: newHeaders};
-    }
+  var requestAction = checkAction(tab_id, requestDomain, details.frameId);
+  if (!requestAction) {
+    return {};
+  }
+
+  badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+
+  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+    return {};
+  }
+
+  if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
+    var newHeaders = details.responseHeaders.filter(function(header) {
+      return (header.name.toLowerCase() != "set-cookie");
+    });
+    return {responseHeaders: newHeaders};
   }
 }
 
@@ -301,11 +334,11 @@ function onTabReplaced(addedTabId, removedTabId) {
  * @return boolean true if the domains are third party
  */
 function isThirdPartyDomain(domain1, domain2) {
-  var base1 = window.getBaseDomain(domain1);
-  var base2 = window.getBaseDomain(domain2);
-
-  if (window.isThirdParty(base1, base2)) {
-    return !mdfp.isMultiDomainFirstParty(base1, base2);
+  if (window.isThirdParty(domain1, domain2)) {
+    return !mdfp.isMultiDomainFirstParty(
+      window.getBaseDomain(domain1),
+      window.getBaseDomain(domain2)
+    );
   }
   return false;
 }
@@ -327,10 +360,11 @@ function getHostForTab(tabId) {
     // since the url of frame 0 will be the hash of the extension key
     mainFrameIdx = Object.keys(badger.tabData[tabId].frames)[1] || 0;
   }
-  if (!badger.tabData[tabId].frames[mainFrameIdx]) {
+  let frameData = badger.getFrameData(tabId, mainFrameIdx);
+  if (!frameData) {
     return '';
   }
-  return window.extractHostFromURL(badger.tabData[tabId].frames[mainFrameIdx].url);
+  return frameData.host;
 }
 
 /**
@@ -346,7 +380,7 @@ function recordSuperCookie(sender, msg) {
 
   // docUrl: url of the frame with supercookie
   var frameHost = window.extractHostFromURL(msg.docUrl);
-  var pageHost = window.extractHostFromURL(getFrameUrl(sender.tab.id, 0));
+  var pageHost = badger.getFrameData(sender.tab.id).host;
 
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com
@@ -375,7 +409,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = window.extractHostFromURL(getFrameUrl(tabId, 0));
+    document_host = badger.getFrameData(tabId).host;
   if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -433,35 +467,6 @@ function recordFingerprinting(tabId, msg) {
   }
 }
 
-
-/**
- * Read the frame data from memory
- *
- * @param tab_id Tab ID to check for
- * @param frame_id Frame ID to check for
- * @returns {*} Frame data object or null
- */
-function getFrameData(tab_id, frame_id) {
-  if (badger.tabData.hasOwnProperty(tab_id)) {
-    if (badger.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
-      return badger.tabData[tab_id].frames[frame_id];
-    }
-  }
-  return null;
-}
-
-/**
- * Based on tab/frame ids, get the URL
- *
- * @param {Integer} tabId The tab id to look up
- * @param {Integer} frameId The frame id to look up
- * @returns {String} The url
- */
-function getFrameUrl(tabId, frameId) {
-  var frameData = getFrameData(tabId, frameId);
-  return (frameData ? frameData.url : null);
-}
-
 /**
  * Delete tab data, de-register tab
  *
@@ -473,66 +478,26 @@ function forgetTab(tabId) {
 }
 
 /**
- * Determines the action to take on a specific URL.
+ * Determines the action to take on a specific FQDN.
  *
  * @param {Integer} tabId The relevant tab
- * @param {String} url The URL
- * @param {Boolean} quiet Do not update internal data
+ * @param {String} requestHost The FQDN
  * @param {Integer} frameId The id of the frame
- * @returns {boolean} false or the action to take
+ * @returns {String|Boolean} false or the action to take
  */
-function checkAction(tabId, url, quiet, frameId) {
+function checkAction(tabId, requestHost, frameId) {
   // Ignore requests from temporarily unblocked social widgets.
   // Someone clicked the widget, so let it load.
-  if (isSocialWidgetTemporaryUnblock(tabId, url, frameId)) {
-    return false;
-  }
-
-  // Ignore requests from internal Chrome tabs.
-  if (_isTabChromeInternal(tabId)) {
-    return false;
-  }
-
-  // Ignore requests that don't have a document URL for some reason.
-  var documentUrl = getFrameUrl(tabId, 0);
-  if (! documentUrl) {
+  if (isSocialWidgetTemporaryUnblock(tabId, requestHost, frameId)) {
     return false;
   }
 
   // Ignore requests from private domains.
-  var requestHost = window.extractHostFromURL(url);
-  var origin = window.getBaseDomain(requestHost);
-  if (window.isPrivateDomain(origin)) {
+  if (window.isPrivateDomain(requestHost)) {
     return false;
   }
 
-  // Ignore requests that aren't from a third party.
-  var documentHost = window.extractHostFromURL(documentUrl);
-  var thirdParty = isThirdPartyDomain(requestHost, documentHost);
-  if (! thirdParty) {
-    return false;
-  }
-
-  // Determine action is request is from third party and tab is valid.
-  var action = badger.storage.getBestAction(requestHost);
-
-  if (action && ! quiet) {
-    badger.logThirdPartyOriginOnTab(tabId, requestHost, action);
-  }
-  return action;
-}
-
-/**
- * Check if the url of the tab starts with the given string
- *
- * @param {Integer} tabId Id of the tab
- * @param {String} str String to check against
- * @returns {boolean} true if starts with string
- * @private
- */
-function _frameUrlStartsWith(tabId, str) {
-  let frameData = getFrameData(tabId, 0);
-  return frameData && frameData.url.indexOf(str) === 0;
+  return badger.storage.getBestAction(requestHost);
 }
 
 /**
@@ -543,7 +508,16 @@ function _frameUrlStartsWith(tabId, str) {
  * @private
  */
 function _isTabChromeInternal(tabId) {
-  return tabId < 0 || !_frameUrlStartsWith(tabId, "http");
+  if (tabId < 0) {
+    return true;
+  }
+
+  let frameData = badger.getFrameData(tabId);
+  if (!frameData || !frameData.url.startsWith("http")) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -554,10 +528,11 @@ function _isTabChromeInternal(tabId) {
  * @private
  */
 function _isTabAnExtension(tabId) {
-  return (
-    _frameUrlStartsWith(tabId, "chrome-extension://") ||
-    _frameUrlStartsWith(tabId, "moz-extension://")
-  );
+  let frameData = badger.getFrameData(tabId);
+  return (frameData && (
+    frameData.url.startsWith("chrome-extension://") ||
+    frameData.url.startsWith("moz-extension://")
+  ));
 }
 
 /**
@@ -588,20 +563,19 @@ function getSocialWidgetBlockList() {
  * Check if tab is temporarily unblocked for tracker
  *
  * @param tabId id of the tab to check
- * @param url url to check
+ * @param requestHost FQDN to check
  * @param frameId frame id to check
  * @returns {boolean} true if in exception list
  */
-function isSocialWidgetTemporaryUnblock(tabId, url, frameId) {
+function isSocialWidgetTemporaryUnblock(tabId, requestHost, frameId) {
   var exceptions = temporarySocialWidgetUnblock[tabId];
   if (exceptions === undefined) {
     return false;
   }
 
-  var requestHost = window.extractHostFromURL(url);
   var requestExcept = (exceptions.indexOf(requestHost) != -1);
 
-  var frameHost = window.extractHostFromURL(getFrameUrl(tabId, frameId));
+  var frameHost = badger.getFrameData(tabId, frameId).host;
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
   return (requestExcept || frameExcept);
@@ -637,12 +611,25 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse(badger.isPrivacyBadgerEnabled(tabHost));
 
   } else if (request.checkLocation) {
-    if (badger.isPrivacyBadgerEnabled(tabHost)) {
-      var documentHost = request.checkLocation;
-      var reqAction = checkAction(sender.tab.id, documentHost, true);
-      var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
-      sendResponse(cookieBlock);
+    if (!badger.isPrivacyBadgerEnabled(tabHost)) {
+      return sendResponse();
     }
+
+    // Ignore requests from internal Chrome tabs.
+    if (_isTabChromeInternal(sender.tab.id)) {
+      return sendResponse();
+    }
+
+    let requestHost = window.extractHostFromURL(request.checkLocation);
+
+    // Ignore requests that aren't from a third party.
+    if (!isThirdPartyDomain(requestHost, tabHost)) {
+      return sendResponse();
+    }
+
+    var reqAction = checkAction(sender.tab.id, requestHost);
+    var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
+    sendResponse(cookieBlock);
 
   } else if (request.checkReplaceButton) {
     if (badger.isPrivacyBadgerEnabled(tabHost) && badger.isSocialWidgetReplacementEnabled()) {
@@ -689,7 +676,6 @@ function startListeners() {
 
 /************************************** exports */
 var exports = {};
-exports.getHostForTab = getHostForTab;
 exports.startListeners = startListeners;
 return exports;
 /************************************** exports */

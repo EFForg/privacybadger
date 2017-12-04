@@ -122,6 +122,7 @@ Badger.prototype = {
           frames: {
             <frame_id>: {
               url: string,
+              host: string,
               parent: int
             },
             ...
@@ -203,8 +204,31 @@ Badger.prototype = {
 
     self.tabData[tabId].frames[frameId] = {
       url: frameUrl,
+      host: window.extractHostFromURL(frameUrl),
       parent: parentFrameId
     };
+  },
+
+  /**
+   * Read the frame data from memory
+   *
+   * @param {Integer} tab_id Tab ID to check for
+   * @param {Integer} [frame_id=0] Frame ID to check for.
+   *  Optional, defaults to frame 0 (the main document frame).
+   *
+   * @returns {Object|null} Frame data object or null
+   */
+  getFrameData: function (tab_id, frame_id) {
+    let self = this;
+
+    frame_id = frame_id || 0;
+
+    if (self.tabData.hasOwnProperty(tab_id)) {
+      if (self.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
+        return self.tabData[tab_id].frames[frame_id];
+      }
+    }
+    return null;
   },
 
   /**
@@ -573,13 +597,15 @@ Badger.prototype = {
         return;
       }
 
-      let disabled = tab.url && self.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url));
-
       // don't show the counter for any of these:
       // - the counter is disabled
-      // - the page is whitelisted
       // - we don't have tabData for whatever reason (special browser pages)
-      if (!self.showCounter() || disabled || !self.tabData.hasOwnProperty(tab_id)) {
+      // - the page is whitelisted
+      if (
+        !self.showCounter() ||
+        !self.tabData.hasOwnProperty(tab_id) ||
+        !self.isPrivacyBadgerEnabled(self.getFrameData(tab_id).host)
+      ) {
         chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
         return;
       }
@@ -624,17 +650,6 @@ Badger.prototype = {
       }
     }
     return true;
-  },
-
-  /**
-   * Check if privacy badger is disabled, take an origin and
-   * check against the disabledSites list
-   *
-   * @param {String} origin
-   * @returns {Boolean} true if disabled
-   **/
-  isPrivacyBadgerDisabled: function(origin) {
-    return !this.isPrivacyBadgerEnabled(origin);
   },
 
   /**
@@ -792,6 +807,7 @@ Badger.prototype = {
     }
 
     let iconFilename;
+    // TODO grab hostname from tabData instead
     if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url))) {
       iconFilename = {
         "19": chrome.runtime.getURL("icons/badger-19.png"),
