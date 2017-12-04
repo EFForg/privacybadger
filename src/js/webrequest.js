@@ -360,7 +360,7 @@ function getHostForTab(tabId) {
     // since the url of frame 0 will be the hash of the extension key
     mainFrameIdx = Object.keys(badger.tabData[tabId].frames)[1] || 0;
   }
-  let frameData = getFrameData(tabId, mainFrameIdx);
+  let frameData = badger.getFrameData(tabId, mainFrameIdx);
   if (!frameData) {
     return '';
   }
@@ -380,7 +380,7 @@ function recordSuperCookie(sender, msg) {
 
   // docUrl: url of the frame with supercookie
   var frameHost = window.extractHostFromURL(msg.docUrl);
-  var pageHost = getFrameData(sender.tab.id, 0).host;
+  var pageHost = badger.getFrameData(sender.tab.id, 0).host;
 
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com
@@ -409,7 +409,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = getFrameData(tabId, 0).host;
+    document_host = badger.getFrameData(tabId, 0).host;
   if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -467,23 +467,6 @@ function recordFingerprinting(tabId, msg) {
   }
 }
 
-
-/**
- * Read the frame data from memory
- *
- * @param tab_id Tab ID to check for
- * @param frame_id Frame ID to check for
- * @returns {*} Frame data object or null
- */
-function getFrameData(tab_id, frame_id) {
-  if (badger.tabData.hasOwnProperty(tab_id)) {
-    if (badger.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
-      return badger.tabData[tab_id].frames[frame_id];
-    }
-  }
-  return null;
-}
-
 /**
  * Delete tab data, de-register tab
  *
@@ -529,7 +512,7 @@ function _isTabChromeInternal(tabId) {
     return true;
   }
 
-  let frameData = getFrameData(tabId, 0);
+  let frameData = badger.getFrameData(tabId, 0);
   if (!frameData || !frameData.url.startsWith("http")) {
     return true;
   }
@@ -545,7 +528,7 @@ function _isTabChromeInternal(tabId) {
  * @private
  */
 function _isTabAnExtension(tabId) {
-  let frameData = getFrameData(tabId, 0);
+  let frameData = badger.getFrameData(tabId, 0);
   return (frameData && (
     frameData.url.startsWith("chrome-extension://") ||
     frameData.url.startsWith("moz-extension://")
@@ -592,7 +575,7 @@ function isSocialWidgetTemporaryUnblock(tabId, requestHost, frameId) {
 
   var requestExcept = (exceptions.indexOf(requestHost) != -1);
 
-  var frameHost = getFrameData(tabId, frameId).host;
+  var frameHost = badger.getFrameData(tabId, frameId).host;
   var frameExcept = (exceptions.indexOf(frameHost) != -1);
 
   return (requestExcept || frameExcept);

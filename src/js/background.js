@@ -210,6 +210,24 @@ Badger.prototype = {
   },
 
   /**
+   * Read the frame data from memory
+   *
+   * @param {Integer} tab_id Tab ID to check for
+   * @param {Integer} frame_id Frame ID to check for
+   * @returns {Object|null} Frame data object or null
+   */
+  getFrameData: function (tab_id, frame_id) {
+    let self = this;
+
+    if (self.tabData.hasOwnProperty(tab_id)) {
+      if (self.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
+        return self.tabData[tab_id].frames[frame_id];
+      }
+    }
+    return null;
+  },
+
+  /**
    * Initializes the yellowlist from disk, if first time initializing.
    * Then updates to the latest yellowlist from eff.org.
    * Sets up periodic yellowlist updating from eff.org.
