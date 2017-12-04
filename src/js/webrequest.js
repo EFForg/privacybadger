@@ -625,6 +625,17 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
 }
 
+/*
+ *
+ * checkEnabled
+ * checkLocation
+ * checkReplaceButton
+ * unblockSocialWidget
+ * fpReport
+ * superCookieReport
+ * checkEnabledAndThirdParty
+ * checkSocialWidgetReplacementEnabled
+ */
 function dispatcher(request, sender, sendResponse) {
   var tabHost;
   if (sender.tab && sender.tab.url) {
@@ -644,6 +655,9 @@ function dispatcher(request, sender, sendResponse) {
       sendResponse(cookieBlock);
     }
 
+  } else if (request.countedFingers) {
+    console.log('saw fingerprinting');
+    sendResponse();
   } else if (request.checkReplaceButton) {
     if (badger.isPrivacyBadgerEnabled(tabHost) && badger.isSocialWidgetReplacementEnabled()) {
       var socialWidgetBlockList = getSocialWidgetBlockList();
