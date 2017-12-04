@@ -10,23 +10,20 @@
       this.SITE_URL = "http://example.com/";
       this.tabId = -1;
 
-      badger.tabData[this.tabId] = {
-        frames: {},
-        origins: {}
-      };
+      badger.recordFrame(this.tabId, 0, -1, this.SITE_URL);
 
       // stub chrome.tabs.get manually as we have some sort of issue stubbing with Sinon in Firefox
       this.chromeTabsGet = chrome.tabs.get;
       chrome.tabs.get = (tab_id, callback) => {
         return callback({
-          active: true,
-          url: this.SITE_URL
+          active: true
         });
       };
     },
 
     afterEach: function () {
       chrome.tabs.get = this.chromeTabsGet;
+      delete badger.tabData[this.tabId];
     }
   },
   function() {

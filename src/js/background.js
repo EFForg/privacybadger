@@ -597,13 +597,15 @@ Badger.prototype = {
         return;
       }
 
-      let disabled = tab.url && !self.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url));
-
       // don't show the counter for any of these:
       // - the counter is disabled
-      // - the page is whitelisted
       // - we don't have tabData for whatever reason (special browser pages)
-      if (!self.showCounter() || disabled || !self.tabData.hasOwnProperty(tab_id)) {
+      // - the page is whitelisted
+      if (
+        !self.showCounter() ||
+        !self.tabData.hasOwnProperty(tab_id) ||
+        !self.isPrivacyBadgerEnabled(self.getFrameData(tab_id).host)
+      ) {
         chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
         return;
       }
@@ -805,6 +807,7 @@ Badger.prototype = {
     }
 
     let iconFilename;
+    // TODO grab hostname from tabData instead
     if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url))) {
       iconFilename = {
         "19": chrome.runtime.getURL("icons/badger-19.png"),
