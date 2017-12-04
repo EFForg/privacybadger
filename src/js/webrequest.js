@@ -380,7 +380,7 @@ function recordSuperCookie(sender, msg) {
 
   // docUrl: url of the frame with supercookie
   var frameHost = window.extractHostFromURL(msg.docUrl);
-  var pageHost = badger.getFrameData(sender.tab.id, 0).host;
+  var pageHost = badger.getFrameData(sender.tab.id).host;
 
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com
@@ -409,7 +409,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = badger.getFrameData(tabId, 0).host;
+    document_host = badger.getFrameData(tabId).host;
   if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -512,7 +512,7 @@ function _isTabChromeInternal(tabId) {
     return true;
   }
 
-  let frameData = badger.getFrameData(tabId, 0);
+  let frameData = badger.getFrameData(tabId);
   if (!frameData || !frameData.url.startsWith("http")) {
     return true;
   }
@@ -528,7 +528,7 @@ function _isTabChromeInternal(tabId) {
  * @private
  */
 function _isTabAnExtension(tabId) {
-  let frameData = badger.getFrameData(tabId, 0);
+  let frameData = badger.getFrameData(tabId);
   return (frameData && (
     frameData.url.startsWith("chrome-extension://") ||
     frameData.url.startsWith("moz-extension://")

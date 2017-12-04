@@ -213,11 +213,15 @@ Badger.prototype = {
    * Read the frame data from memory
    *
    * @param {Integer} tab_id Tab ID to check for
-   * @param {Integer} frame_id Frame ID to check for
+   * @param {Integer} [frame_id=0] Frame ID to check for.
+   *  Optional, defaults to frame 0 (the main document frame).
+   *
    * @returns {Object|null} Frame data object or null
    */
   getFrameData: function (tab_id, frame_id) {
     let self = this;
+
+    frame_id = frame_id || 0;
 
     if (self.tabData.hasOwnProperty(tab_id)) {
       if (self.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
