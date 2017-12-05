@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Перевірити, чи сайти підтримують політику EFF щодо відмови від стеження",
+        "message": "Перевіряти, чи сайти підтримують політику EFF щодо відмови від стеження",
         "description": ""
     },
     "invalid_domain": {
