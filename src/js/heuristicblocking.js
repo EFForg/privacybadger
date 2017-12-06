@@ -88,8 +88,6 @@ HeuristicBlocker.prototype = {
   /**
    * Wraps _recordPrevalence for use from webRequest listeners.
    * Also saves tab (page) origins. TODO Should be handled by tabData instead.
-   * Also sets a timeout for checking DNT policy for third-party FQDNs.
-   * TODO Does too much, should be broken up ...
    *
    * Called from performance-critical webRequest listeners!
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
@@ -120,10 +118,6 @@ HeuristicBlocker.prototype = {
     if (!tabOrigin || origin == tabOrigin) {
       return {};
     }
-
-    window.setTimeout(function () {
-      badger.checkForDNTPolicy(fqdn);
-    }, 10);
 
     // abort if we already made a decision for this FQDN
     let action = this.storage.getAction(fqdn);
@@ -181,6 +175,13 @@ HeuristicBlocker.prototype = {
     if (firstParties.indexOf(page_origin) != -1) {
       return; // We already know about the presence of this tracker on the given domain
     }
+
+    // Check this just-seen-tracking-on-this-site,
+    // not-yet-blocked domain for DNT policy.
+    // We check heuristically-blocked domains in webrequest.js.
+    window.setTimeout(function () {
+      badger.checkForDNTPolicy(tracker_fqdn);
+    }, 10);
 
     // record that we've seen this tracker on this domain (in snitch map)
     firstParties.push(page_origin);
