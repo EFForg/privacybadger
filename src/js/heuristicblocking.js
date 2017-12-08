@@ -136,24 +136,30 @@ HeuristicBlocker.prototype = {
   /**
    * Wraps _recordPrevalence for use outside of webRequest listeners.
    *
-   * @param tracker_fqdn The fully qualified domain name of the tracker
-   * @param page_origin The base domain of the page where the tracker
-   *                         was detected
-   * @returns {*}
+   * @param {String} tracker_fqdn The fully qualified domain name of the tracker
+   * @param {String} page_origin The base domain of the page
+   *   where the tracker was detected.
+   * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
+   *
    */
-  updateTrackerPrevalence: function(tracker_fqdn, page_origin) {
+  updateTrackerPrevalence: function(tracker_fqdn, page_origin, skip_dnt_check) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return;
     }
 
-    this._recordPrevalence(tracker_fqdn, window.getBaseDomain(tracker_fqdn), page_origin);
+    this._recordPrevalence(
+      tracker_fqdn,
+      window.getBaseDomain(tracker_fqdn),
+      page_origin,
+      skip_dnt_check
+    );
   },
 
   /**
    * Record HTTP request prevalence. Block a tracker if seen on more
-   * than [constants.TRACKING_THRESHOLD] pages
+   * than constants.TRACKING_THRESHOLD pages
    *
    * NOTE: This is a private function and should never be called directly.
    * All calls should be routed through heuristicBlockingAccounting for normal usage
@@ -163,13 +169,14 @@ HeuristicBlocker.prototype = {
    * @param {String} tracker_fqdn The FQDN of the third party tracker
    * @param {String} tracker_origin Base domain of the third party tracker
    * @param {String} page_origin The origin of the page where the third party
-   *                                  tracker was loaded
+   *   tracker was loaded.
+   * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
    */
-  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
-    var snitch_map = this.storage.getBadgerStorageObject('snitch_map');
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, skip_dnt_check) {
+    var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = [];
-    if (snitch_map.hasItem(tracker_origin)) {
-      firstParties = snitch_map.getItem(tracker_origin);
+    if (snitchMap.hasItem(tracker_origin)) {
+      firstParties = snitchMap.getItem(tracker_origin);
     }
 
     if (firstParties.indexOf(page_origin) != -1) {
@@ -179,13 +186,15 @@ HeuristicBlocker.prototype = {
     // Check this just-seen-tracking-on-this-site,
     // not-yet-blocked domain for DNT policy.
     // We check heuristically-blocked domains in webrequest.js.
-    window.setTimeout(function () {
-      badger.checkForDNTPolicy(tracker_fqdn);
-    }, 10);
+    if (!skip_dnt_check) {
+      window.setTimeout(function () {
+        badger.checkForDNTPolicy(tracker_fqdn);
+      }, 10);
+    }
 
     // record that we've seen this tracker on this domain (in snitch map)
     firstParties.push(page_origin);
-    snitch_map.setItem(tracker_origin, firstParties);
+    snitchMap.setItem(tracker_origin, firstParties);
 
     // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
     // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).

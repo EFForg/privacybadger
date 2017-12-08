@@ -499,7 +499,8 @@ BadgerStorage.prototype = {
         for (let origin in firstPartyOrigins) {
           badger.heuristicBlocking.updateTrackerPrevalence(
             tracker_fqdn,
-            firstPartyOrigins[origin]
+            firstPartyOrigins[origin],
+            true // skip DNT policy checking on data import
           );
         }
       }
