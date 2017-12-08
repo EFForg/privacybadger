@@ -328,10 +328,10 @@ BadgerPen.prototype = {
   revertUserAction: function(domain) {
     this._setupDomainAction(domain, "", "userAction");
 
-    // if unsetting userAction returns the domain's action map to all defaults,
-    // remove the action map for the domain
+    // if Privacy Badger never recorded tracking for this domain,
+    // remove the domain's entry from Privacy Badger's database
     const actionMap = this.getBadgerStorageObject("action_map");
-    if (_.isEqual(actionMap.getItem(domain), _newActionMapObject())) {
+    if (actionMap.getItem(domain).heuristicAction == "") {
       log("Removing %s from action_map", domain);
       actionMap.deleteItem(domain);
     }

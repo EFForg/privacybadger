@@ -212,6 +212,20 @@ exports.Migrations= {
     }
   },
 
+  forgetNontrackingDomains: function (badger) {
+    console.log("Forgetting non-tracking domains ...");
+
+    const actionMap = badger.storage.getBadgerStorageObject("action_map"),
+      actions = actionMap.getItemClones();
+
+    for (const domain in actions) {
+      const map = actions[domain];
+      if (map.userAction == "" && map.heuristicAction == "") {
+        actionMap.deleteItem(domain);
+      }
+    }
+  },
+
 };
 
 
