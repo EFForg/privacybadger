@@ -171,6 +171,7 @@ var multiDomainFirstPartiesArray = [
   ["healthfusion.com", "healthfusionclaims.com"],
   ["hvfcu.org", "hvfcuonline.org"],
   ["logmein.com", "logme.in"],
+  ["macys.com", "macysassets.com"],
   ["mandtbank.com", "mtb.com"],
   ["mathletics.com", "mathletics.com.au", "mathletics.co.uk"],
   ["mdsol.com", "imedidata.com"],
