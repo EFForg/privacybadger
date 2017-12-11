@@ -146,6 +146,8 @@ var multiDomainFirstPartiesArray = [
     "gmail.com",
     "blogger.com",
     "blog.google",
+    "googleblog.com",
+    "chromium.org",
 
     "ggpht.com",
     "googleusercontent.com",
