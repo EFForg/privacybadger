@@ -16,6 +16,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def select_domain_list_tab(self):
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
 
     def load_options_page(self):
         self.load_url(self.bg_url)  # load a dummy page
