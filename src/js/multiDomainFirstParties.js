@@ -143,13 +143,16 @@ var multiDomainFirstPartiesArray = [
   [
     "google.com",
     "youtube.com",
+    "gmail.com",
     "blogger.com",
-    "gstatic.com",
-    "googleusercontent.com",
+    "blog.google",
+
     "ggpht.com",
-    "ytimg.com",
+    "googleusercontent.com",
     "googlevideo.com",
+    "gstatic.com",
     "youtube-nocookie.com",
+    "ytimg.com",
 
     "google.ca",
     "google.co.in",
@@ -162,8 +165,6 @@ var multiDomainFirstPartiesArray = [
     "google.no",
     "google.ru",
 
-    "gmail.com",
-    "blog.google",
     "fonts.googleapis.com",
     "storage.googleapis.com",
     "www.googleapis.com",
