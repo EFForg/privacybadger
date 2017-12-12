@@ -52,6 +52,7 @@ let styleSheetAdded = false;
 
 let REPLACEMENT_BUTTONS_FOLDER_PATH = chrome.extension.getURL("skin/socialwidgets/");
 let STYLESHEET_URL = chrome.extension.getURL("skin/socialwidgets/socialwidgets.css");
+let i18n = chrome.i18n;
 
 
 /**
@@ -115,8 +116,8 @@ function createReplacementButtonImage(tracker, trackerElem) {
 
   button.setAttribute("src", buttonUrl);
   button.setAttribute("class", "privacyBadgerReplacementButton");
-  button.setAttribute("title", "Privacy Badger has replaced this " +
-                            tracker.name + " button.");
+  button.setAttribute("title", i18n.getMessage("social_tooltip_pb_has_replaced")  +
+                            tracker.name + i18n.getMessage("social_tooltip_button"));
 
   switch (buttonType) {
     case 0: // normal button type; just open a new window when clicked

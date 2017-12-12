@@ -414,5 +414,13 @@
     "slideshow_10": {
         "message": "Falls Sie denken, dass ich für einen Tracker die falsche Entscheidung getroffen habe, so können Sie den Schieberegler auf Rot bewegen, um diesen zu blocken, auf Gelb, um ihn teilweise zu blocken und auf Grün, um ihn zu erlauben.",
         "description": ""
+    },
+    "social_tooltip_pb_has_replaced": {
+      "message": "Privacy Badger has replaced this ",
+      "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
+    "social_tooltip_button": {
+      "message": " button.",
+      "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     }
 }

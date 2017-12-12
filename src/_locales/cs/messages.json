@@ -414,5 +414,13 @@
     "slideshow_10": {
         "message": " Pokud myslíte, že jsem se pro nějaký sledovací prvek rozhodl špatně, tak můžete změnit posuvník na červenou pro blokaci, na žlutou pro částečnou blokaci a na zelenou pro povolení.",
         "description": ""
+    },
+    "social_tooltip_pb_has_replaced": {
+      "message": "Privacy Badger has replaced this ",
+      "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
+    "social_tooltip_button": {
+      "message": " button.",
+      "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     }
 }
