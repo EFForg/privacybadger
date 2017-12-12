@@ -21,6 +21,13 @@ class PopupTest(pbtest.PBSeleniumTest):
                 expected_conditions.presence_of_element_located(
                     (By.CSS_SELECTOR, "title")))
         except TimeoutException:
+            # TODO debug info
+            print("\n")
+            print("driver.current_url=" + self.driver.current_url)
+            print()
+            print(self.driver.page_source[:5000])
+            print("...\n")
+
             self.fail("Timed out waiting for %s to start loading" % url)
 
     def switch_to_new_window(self, handles_before, max_retries=5):
