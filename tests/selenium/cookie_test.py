@@ -77,7 +77,7 @@ class CookieTest(pbtest.PBSeleniumTest):
             self.get_tracker_state()
 
             if THIRD_PARTY_TRACKER in self.cookieBlocked:
-                print("Popup UI has been updated. Yay!")
+                # Popup UI has been updated. Yay!
                 break
             window_utils.close_windows_with_url(self.driver, self.popup_url)
             print("popup UI has not been updated yet. try again in 10 seconds")

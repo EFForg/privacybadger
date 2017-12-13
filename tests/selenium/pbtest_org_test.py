@@ -49,7 +49,7 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
 
         # now we have all the completed test results.
         # print a summary
-        print("\npbtest_org test results: %d passed, %d failed, %d undefined\n" %
+        print("\npbtest_org test results: %d passed, %d failed, %d undefined" %
               (len(results['passed']), len(results['failed']),
                len(results['undefined'])))
         failed_tests = ([t for t in results['failed']] +
