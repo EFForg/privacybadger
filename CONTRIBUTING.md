@@ -8,14 +8,15 @@ Here is a quick orientation to guide your adventure:
 
 * Did we break a site? We want to fix it,
   so we wrote a [guide to fixing broken sites](/doc/fixing-broken-sites.md).
-* Want to help translate Privacy Badger?
-  See our [guide to translating Privacy Badger](/doc/Translation.md).
+* Want to help translate Privacy Badger? Working on a pull request that
+  involves updating translations?
+  Please see our [guide to translating Privacy Badger](/doc/Translation.md).
 * To review issues we would like help with, visit our
   ["good first issue"](https://github.com/EFForg/privacybadger/labels/good%20first%20issue)
   and
   ["help wanted"](https://github.com/EFForg/privacybadger/labels/help%20wanted)
   labels.
-* If working on Privacy Badger's codebase,
+* When working on Privacy Badger's codebase,
   please consult our [guide to setting up automated tests](/doc/tests.md).
 * Security vulnerabilities can be reported privately to
   [vulnerabilities@eff.org](mailto:vulnerabilities@eff.org). Please see our
