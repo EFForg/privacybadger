@@ -67,7 +67,9 @@ class CookieTest(pbtest.PBSeleniumTest):
         # reloading the first site should now cause the cookie to be blocked
         # it can take a long time for the UI to be updated, so retry a number of
         # times before giving up. See bug #702.
-        print("this is checking for a dnt file at a site without https, so we'll just have to wait for the connection to timeout before we proceed")
+        #
+        # this is checking for a dnt file at a site without https, so we'll
+        # just have to wait for the connection to time out before we proceed
         self.load_url(SITE1_URL)
         window_utils.close_windows_with_url(self.driver, SITE3_URL)
         for _ in range(5):
@@ -75,7 +77,7 @@ class CookieTest(pbtest.PBSeleniumTest):
             self.get_tracker_state()
 
             if THIRD_PARTY_TRACKER in self.cookieBlocked:
-                print("Popup UI has been updated. Yay!")
+                # Popup UI has been updated. Yay!
                 break
             window_utils.close_windows_with_url(self.driver, self.popup_url)
             print("popup UI has not been updated yet. try again in 10 seconds")
