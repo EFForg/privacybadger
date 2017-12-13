@@ -10,16 +10,26 @@
 
 import time
 
+from selenium.common.exceptions import NoSuchWindowException
+
 
 def switch_to_window_with_url(driver, url, max_tries=20):
     """Point the driver to the first window that matches this url."""
+
     for _ in range(max_tries):
         windows = get_windows_with_url(driver, url)
-        if len(windows) > 0:
+
+        if windows:
             # if multiple tabs point at this url, switch to the first one
-            driver.switch_to.window(windows[0])
-            return
+            try:
+                driver.switch_to.window(windows[0])
+            except NoSuchWindowException:
+                pass
+            else:
+                return
+
         time.sleep(1)
+
     raise Exception("was not able to find window for url " + url)
 
 
@@ -27,7 +37,7 @@ def refresh_window_with_url(driver, url, max_tries=20):
     """Have the driver redresh the first window that matches this url"""
     for _ in range(max_tries):
         windows = get_windows_with_url(driver, url)
-        if len(windows) > 0:
+        if windows:
             # if multiple tabs point at this url, refresh to the first one
             driver.switch_to.window(windows[0])
             driver.refresh()
@@ -41,9 +51,10 @@ def close_windows_with_url(driver, url, max_tries=20):
     are no more windows left this will close the browser too."""
     for _ in range(max_tries):
         windows = get_windows_with_url(driver, url)
-        if len(windows) > 0:
-            [close_window(driver, w) for w in windows]
-            if len(driver.window_handles) > 0:
+        if windows:
+            for w in windows:
+                close_window(driver, w)
+            if driver.window_handles:
                 driver.switch_to.window(driver.window_handles[0])
             return
         time.sleep(1)
