@@ -2,10 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import pbtest
-import time
 import unittest
-from selenium.common.exceptions import (NoSuchElementException,
-                                        StaleElementReferenceException)
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -32,7 +29,7 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
         driver.delete_all_cookies()
         results = {'passed': [], 'failed': [], 'undefined': []}
         self.load_url(PBTEST_ORG_URL)
-        element = WebDriverWait(driver, 100).until(
+        WebDriverWait(driver, 100).until(
             EC.presence_of_element_located((
                 By.XPATH,
                 "//*[@id='buttons'][contains(@style, 'display: block')]")))
@@ -52,7 +49,7 @@ class PBTest_Org_test(pbtest.PBSeleniumTest):
 
         # now we have all the completed test results.
         # print a summary
-        print("pbtest_org test results: %d passed, %d failed, %d undefined\n" %
+        print("\npbtest_org test results: %d passed, %d failed, %d undefined\n" %
               (len(results['passed']), len(results['failed']),
                len(results['undefined'])))
         failed_tests = ([t for t in results['failed']] +
