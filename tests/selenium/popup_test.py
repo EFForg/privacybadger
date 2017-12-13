@@ -4,10 +4,13 @@
 import time
 import unittest
 import pbtest
+
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
+
+from window_utils import switch_to_window_with_url
 
 
 class PopupTest(pbtest.PBSeleniumTest):
@@ -29,24 +32,6 @@ class PopupTest(pbtest.PBSeleniumTest):
             print("...\n")
 
             self.fail("Timed out waiting for %s to start loading" % url)
-
-    def switch_to_new_window(self, handles_before, max_retries=5):
-        """Given a set of handles, switch with retrying to the first handle
-        that is not found in the original set."""
-
-        new_handle = set(self.driver.window_handles).difference(handles_before)
-
-        for _ in range(max_retries):
-            if not new_handle:
-                time.sleep(1)
-                new_handle = set(self.driver.window_handles).difference(handles_before)
-            else:
-                break
-
-        if not new_handle:
-            self.fail("Failed to find any new window handles")
-
-        self.driver.switch_to.window(new_handle.pop())
 
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
@@ -189,7 +174,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         except NoSuchElementException:
             self.fail("Unable to find trackers link on popup")
 
-        handles_before = set(self.driver.window_handles)
         trackers_link.click()
 
         # Make sure EFF website not opened in same window.
@@ -197,7 +181,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        self.switch_to_new_window(handles_before)
+        switch_to_window_with_url(self.driver, EFF_URL)
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
@@ -252,7 +236,6 @@ class PopupTest(pbtest.PBSeleniumTest):
             donate_button = self.driver.find_element_by_id("donate")
         except NoSuchElementException:
             self.fail("Unable to find donate button on popup")
-        handles_before = set(self.driver.window_handles)
 
         donate_button.click()
 
@@ -261,7 +244,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        self.switch_to_new_window(handles_before)
+        switch_to_window_with_url(self.driver, EFF_URL)
 
         self.wait_for_page_to_start_loading(EFF_URL)
 

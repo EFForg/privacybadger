@@ -55,9 +55,6 @@ def get_windows_with_url(driver, url):
     windows = []
     for w in driver.window_handles:
         driver.switch_to.window(w)
-        if driver.current_window_handle != w:
-            # driver.current_window_handle
-            raise Exception("window handles don't match!")
         # current_url might have a trailing slash on it, so try it both ways
         alt_url = url
         if alt_url[-1] != '/':
