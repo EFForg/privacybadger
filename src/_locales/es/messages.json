@@ -1,4 +1,8 @@
 {
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger ha sustituido este botón de ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "badger_status_block": {
         "message": "Este rastreador está BLOQUEADO, desliza para desbloquear el rastreador o bloquear las cookies.",
         "description": ""
@@ -174,6 +178,10 @@
     "options_pb_has_detected": {
         "message": "Privacy Badger ha detectado",
         "description": ""
+    },
+    "social_tooltip_button": {
+        "message": ".",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
         "message": " If you change a setting I've made, you can always put it back under my control by clicking the undo arrow.",
@@ -414,13 +422,5 @@
     "slideshow_10": {
         "message": " If you think that I've made the wrong decision for a tracker, you can move the slider to red to block it, yellow to partly block it, and green to allow it.",
         "description": ""
-    },
-    "social_tooltip_pb_has_replaced": {
-      "message": "Privacy Badger ha sustituido este botón de ",
-      "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
-    "social_tooltip_button": {
-      "message": ".",
-      "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     }
 }

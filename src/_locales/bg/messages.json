@@ -1,4 +1,8 @@
 {
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger замени този ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "badger_status_block": {
         "message": "Блокирах ",
         "description": ""
@@ -174,6 +178,10 @@
     "options_pb_has_detected": {
         "message": "Privacy Badger е открил",
         "description": ""
+    },
+    "social_tooltip_button": {
+        "message": " бутон.",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
         "message": " Ако промениш някоя настройка, която съм направил, винаги можеш да ми я върнеш, за да я контролирам аз, като щракнеш на стрелката за отмяна.",
@@ -414,13 +422,5 @@
     "slideshow_10": {
         "message": " Ако мислиш, че съм взел грешното решение за някой преследвач, можеш да мръднеш плъзгача към червено за да го блокираш, жълто за да го блокираш наполовина, или зелено за да го позволиш.",
         "description": ""
-    },
-    "social_tooltip_pb_has_replaced": {
-      "message": "Privacy Badger замени този ",
-      "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
-    "social_tooltip_button": {
-      "message": " бутон.",
-      "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     }
 }
