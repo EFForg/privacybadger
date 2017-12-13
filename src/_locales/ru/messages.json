@@ -414,13 +414,5 @@
     "slideshow_10": {
         "message": " Если вы считаете, что я принял неверное решение для трекера, вы можете передвинуть переключатель в положение «Красный», чтобы заблокировать его полностью, «Желтый» — чтобы заблокировать его частично, и «Зеленый» — чтобы разрешить его работу.",
         "description": ""
-    },
-    "social_tooltip_pb_has_replaced": {
-      "message": "Privacy Badger has replaced this ",
-      "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
-    "social_tooltip_button": {
-      "message": " button.",
-      "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     }
 }

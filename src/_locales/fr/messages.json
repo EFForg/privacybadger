@@ -414,13 +414,5 @@
     "slideshow_10": {
         "message": " Si j'ai pris une mauvaise décision pour un traqueur, vous pouvez régler le curseur sur le rouge pour le bloquer, le jaune pour un blocage partiel ou le vert pour l'autoriser.",
         "description": ""
-    },
-    "social_tooltip_pb_has_replaced": {
-      "message": "Privacy Badger has replaced this ",
-      "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
-    "social_tooltip_button": {
-      "message": " button.",
-      "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     }
 }

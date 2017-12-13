@@ -414,13 +414,5 @@
     "slideshow_10": {
         "message": " Als U denkt dat ik een verkeerde beslissing heb gemaakt over een tracker, dan kunt U het schuifbalkje naar rood slepen om deze blokkeren, naar geel om deze gedeeltelijk te blokkeren en naar groen om deze toe te staan.",
         "description": ""
-    },
-    "social_tooltip_pb_has_replaced": {
-      "message": "Privacy Badger has replaced this ",
-      "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
-    "social_tooltip_button": {
-      "message": " button.",
-      "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     }
 }

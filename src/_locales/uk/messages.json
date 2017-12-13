@@ -414,13 +414,5 @@
     "slideshow_10": {
         "message": " Якщо ви вважаєте, що я зробив неправильне рішення для елемента, ви можете посунути перемикач на червоний колір для його блокування, жовтий для часткового блокування, або зелений для вимкнення блокування.",
         "description": ""
-    },
-    "social_tooltip_pb_has_replaced": {
-      "message": "Privacy Badger has replaced this ",
-      "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
-    "social_tooltip_button": {
-      "message": " button.",
-      "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     }
 }

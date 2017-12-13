@@ -414,13 +414,5 @@
     "slideshow_10": {
         "message": "如果您覺得我搞錯了該封鎖的追蹤器，您可以把滾動條移到紅色處完全封鎖、黃色處部分封鎖、綠色處則是允許。",
         "description": ""
-    },
-    "social_tooltip_pb_has_replaced": {
-      "message": "Privacy Badger has replaced this ",
-      "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
-    "social_tooltip_button": {
-      "message": " button.",
-      "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     }
 }
