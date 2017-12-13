@@ -1,4 +1,8 @@
 {
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger has replaced this ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "badger_status_block": {
         "message": "屏蔽 ",
         "description": ""
@@ -174,6 +178,10 @@
     "options_pb_has_detected": {
         "message": "隐私獾发现了",
         "description": ""
+    },
+    "social_tooltip_button": {
+        "message": " button.",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
         "message": " 如果你更改我的设置，你随时可以点击撤销箭头让我来控制它的设置。",

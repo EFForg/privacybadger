@@ -1,4 +1,8 @@
 {
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger has replaced this ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "badger_status_block": {
         "message": "Заблокирован ",
         "description": ""
@@ -174,6 +178,10 @@
     "options_pb_has_detected": {
         "message": "Privacy Badger обнаружил",
         "description": ""
+    },
+    "social_tooltip_button": {
+        "message": " button.",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
         "message": " Если вы измените установленное мной положение переключателя, то вы можете вернуть его под мой контроль, нажав стрелку для отмены.",

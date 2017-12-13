@@ -1,4 +1,8 @@
 {
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger has replaced this ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "badger_status_block": {
         "message": "Blokerede ",
         "description": ""
@@ -174,6 +178,10 @@
     "options_pb_has_detected": {
         "message": "Privacy Badger har opdaget",
         "description": ""
+    },
+    "social_tooltip_button": {
+        "message": " button.",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
         "message": " Hvis du ændrer en indstilling jeg har lavet. kan du altid sætte den tilbage under min kontrol ved at klikke på fortrydpilen.",
