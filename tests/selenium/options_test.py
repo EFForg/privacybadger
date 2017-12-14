@@ -39,20 +39,26 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
                       % (self.driver.title, localized_title))
 
     def test_added_origin_display(self):
-        """Ensure origin and tracker count is displayed."""
+        """Ensure origin and tracker message is displayed when there is 1 origin."""
         self.add_test_origin("pbtest.org", "block")
 
         self.load_options_page()
         self.select_domain_list_tab()
 
-        origins = self.driver.find_element_by_id("blockedResourcesInner")
-
-        # Check tracker count.
-        error_message = "Origin tracker count should be 1 after adding origin"
-        self.assertEqual(
-            self.driver.find_element_by_id("count").text, "1", error_message)
+        error_message = "Only the 'one tracker' message should be displayed after adding an origin"
+        self.assertTrue(
+            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("count").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
 
         # Check that origin is displayed.
+        origins = self.driver.find_element_by_id("blockedResourcesInner")
         try:
             origins.find_element_by_xpath(
                 './/div[@data-origin="pbtest.org"]'
@@ -63,8 +69,49 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         except NoSuchElementException:
             self.fail("Tracking origin is not displayed")
 
+    def test_added_multiple_origins_display(self):
+        """Ensure origin and tracker count is displayed when there are multiple origins."""
+        self.add_test_origin("pbtest.org", "block")
+        self.add_test_origin("pbtest1.org", "block")
+
+        self.load_options_page()
+        self.select_domain_list_tab()
+
+        error_message = "Only the 'multiple tracker' messages should be displayed after adding 2 origins"
+        self.assertTrue(
+            self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
+        self.assertTrue(
+            self.driver.find_element_by_id("count").is_displayed(), error_message)
+        self.assertTrue(
+            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+
+        # Check tracker count.
+        error_message = "Origin tracker count should be 2 after adding origin"
+        self.assertEqual(
+            self.driver.find_element_by_id("count").text, "2", error_message)
+
+        # Check those origins are displayed.
+        origins = self.driver.find_element_by_id("blockedResourcesInner")
+        try:
+            origins.find_element_by_xpath(
+                './/div[@data-origin="pbtest.org"]'
+                # test that "origin" is one of the classes on the element:
+                # https://stackoverflow.com/a/1390680
+                '//div[contains(concat(" ", normalize-space(@class), " "), " origin ") and text()="pbtest.org"]'
+            )
+            origins.find_element_by_xpath(
+                './/div[@data-origin="pbtest1.org"]'
+                '//div[contains(concat(" ", normalize-space(@class), " "), " origin ") and text()="pbtest1.org"]'
+            )
+        except NoSuchElementException:
+            self.fail("Tracking origin is not displayed")
+
     def test_removed_origin_display(self):
-        """Ensure origin is displayed and removed properly."""
+        """Ensure origin is removed properly."""
         self.add_test_origin("pbtest.org", "block")
 
         self.load_url(self.options_url)
@@ -80,15 +127,27 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         except NoSuchElementException:
             self.fail("Tracking origin is not displayed")
         remove_origin_element.click()
+
         # Make sure the alert is present. Otherwise we get intermittent errors.
         WebDriverWait(self.driver, 3).until(EC.alert_is_present())
         self.driver.switch_to.alert.accept()
-        # Check tracker count.
+
+        # Check that only the 'no trackers' message is displayed.
         try:
             WebDriverWait(self.driver, 5).until(
-                EC.text_to_be_present_in_element((By.ID, "count"), "0"))
+                EC.visibility_of_element_located((By.ID, "options_domain_list_no_trackers")))
         except TimeoutException:
-            self.fail("Origin count should be 0 after deleting origin")
+            self.fail("There should be a 'no trackers' message after deleting origin")
+
+        error_message = "Only the 'no trackers' message should be displayed before adding an origin"
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("count").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
 
         # Check that no origins are displayed.
         try:
