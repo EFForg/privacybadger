@@ -1,6 +1,6 @@
 {
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger has replaced this ",
+        "message": "Privacy Badger змінив цю ",
         "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "badger_status_block": {
@@ -180,7 +180,7 @@
         "description": ""
     },
     "social_tooltip_button": {
-        "message": " button.",
+        "message": " кнопку.",
         "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
