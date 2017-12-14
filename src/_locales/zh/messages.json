@@ -84,24 +84,20 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "在这个网站上有潜在的<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>跟踪器</a> 。这些滑块让你控制隐私獾如何处理每一个跟踪器。你不必调整他们，除非隐私獾造成网页显示异常。",
-        "description": ""
+        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
+        "description": "Continuation of the popup message that shows number of trackers"
     },
     "options_webrtc_setting": {
         "message": "避免 WebRTC 泄露本地 IP 地址 *",
-        "description": ""
-    },
-    "options_so_far": {
-        "message": "到目前为止。这些滑块让你控制隐私獾如何处理每个跟踪器。",
         "description": ""
     },
     "error_input": {
         "message": "问题是什么？",
         "description": ""
     },
-    "options_slider_text": {
-        "message": "隐私獾保护你浏览网页！这些滑块让你控制隐私獾如何处理每个在你的浏览期间被标记的跟踪器。",
-        "description": ""
+    "popup_instructions_no_trackers": {
+        "message": "No <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> detected. Hooray for privacy!",
+        "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
         "message": "Tracking Domains",
@@ -139,10 +135,6 @@
         "message": "更换社交网络工具",
         "description": ""
     },
-    "options_tracking_domains": {
-        "message": "跟踪的域名",
-        "description": ""
-    },
     "report_button": {
         "message": "报告错误",
         "description": ""
@@ -177,7 +169,7 @@
     },
     "options_pb_has_detected": {
         "message": "隐私獾发现了",
-        "description": ""
+        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "social_tooltip_button": {
         "message": " button.",
@@ -309,7 +301,7 @@
     },
     "pb_detected": {
         "message": "隐私獾检测到",
-        "description": ""
+        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "电子前哨基金会一个的项目",
@@ -318,6 +310,10 @@
     "add_domain_button": {
         "message": "添加域名",
         "description": ""
+    },
+    "options_domain_list_one_tracker": {
+        "message": "Privacy Badger has detected one potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domain</a> so far. The slider lets you control how Privacy Badger handles it.",
+        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
         "message": "将滑块移至右边来允许一个域名",
@@ -335,9 +331,17 @@
         "message": "黄色",
         "description": ""
     },
+    "popup_instructions_one_tracker": {
+        "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. The slider lets you control how Privacy Badger handles it. You shouldn't need to adjust the slider unless something is broken.",
+        "description": "Text shown in the popup when there is exactly one tracker on the page."
+    },
     "domain_slider_allow_tooltip": {
         "message": "Click here to allow this domain",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
+    },
+    "options_domain_list_trackers": {
+        "message": "potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far. These sliders let you control how Privacy Badger handles each tracker.",
+        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "name": {
         "message": "隐私獾",
@@ -359,10 +363,6 @@
         "message": "红色",
         "description": ""
     },
-    "options_potential": {
-        "message": "潜在的",
-        "description": ""
-    },
     "remove_button": {
         "message": "删除所选",
         "description": "This is the label for the 'Remove selected' buttons."
@@ -374,6 +374,10 @@
     "intro_no_tracker": {
         "message": "意味着隐私獾认为这不是一个跟踪器。如果你想更改自动屏蔽设置，你可以点击浏览器的隐私獾图标。或者你可以安静的浏览，而隐私獾会寻找并一个一个的吃掉跟踪器。",
         "description": ""
+    },
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "slideshow_15": {
         "message": " 当然你也可以不管这些设置，而我会继续静默地处理掉我发现的跟踪器。",

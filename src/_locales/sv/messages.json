@@ -84,24 +84,20 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "potentiella <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan. Med dessa reglage kan du styra hur Privacy Badger hanterar var och en. Du behöver inte justera dem om inte något är trasigt.",
-        "description": ""
+        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
+        "description": "Continuation of the popup message that shows number of trackers"
     },
     "options_webrtc_setting": {
         "message": "Förhindra WebRTC från att läcka din lokala IP-adress *",
-        "description": ""
-    },
-    "options_so_far": {
-        "message": "än så länge. Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare.",
         "description": ""
     },
     "error_input": {
         "message": "Vad är fel?",
         "description": ""
     },
-    "options_slider_text": {
-        "message": "Privacy Badger skyddar dig på nätet! Med dessa skjutreglage kan du styra hur Privacy Badger hanterar varje spårare som den har flaggat genom din surfning.",
-        "description": ""
+    "popup_instructions_no_trackers": {
+        "message": "No <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> detected. Hooray for privacy!",
+        "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
         "message": "Spårningsdomäner",
@@ -139,10 +135,6 @@
         "message": "Ersätt sociala gränssnittskomponenter",
         "description": ""
     },
-    "options_tracking_domains": {
-        "message": "spårningsdomäner",
-        "description": ""
-    },
     "report_button": {
         "message": "Skicka fel",
         "description": ""
@@ -177,7 +169,7 @@
     },
     "options_pb_has_detected": {
         "message": "Privacy Badger har upptäckt",
-        "description": ""
+        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "social_tooltip_button": {
         "message": " button.",
@@ -309,7 +301,7 @@
     },
     "pb_detected": {
         "message": "Privacy Badger upptäckte",
-        "description": ""
+        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "Ett projekt av Electronic Frontier Foundation",
@@ -318,6 +310,10 @@
     "add_domain_button": {
         "message": "Lägg till domän",
         "description": ""
+    },
+    "options_domain_list_one_tracker": {
+        "message": "Privacy Badger has detected one potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domain</a> so far. The slider lets you control how Privacy Badger handles it.",
+        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
         "message": "Flytta skjutreglaget till höger för att tillåta en domän",
@@ -335,9 +331,17 @@
         "message": "Gul",
         "description": ""
     },
+    "popup_instructions_one_tracker": {
+        "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. The slider lets you control how Privacy Badger handles it. You shouldn't need to adjust the slider unless something is broken.",
+        "description": "Text shown in the popup when there is exactly one tracker on the page."
+    },
     "domain_slider_allow_tooltip": {
         "message": "Klicka här för att registrera dig",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
+    },
+    "options_domain_list_trackers": {
+        "message": "potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far. These sliders let you control how Privacy Badger handles each tracker.",
+        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "name": {
         "message": "Privacy Badger",
@@ -359,10 +363,6 @@
         "message": "Röd",
         "description": ""
     },
-    "options_potential": {
-        "message": "potentiella",
-        "description": ""
-    },
     "remove_button": {
         "message": "Ta bort valda",
         "description": "This is the label for the 'Remove selected' buttons."
@@ -374,6 +374,10 @@
     "intro_no_tracker": {
         "message": "innebär att Privacy Badger anser att detta inte är spårare. Du kan klicka på Privacy Badger ikonen i webbläsarens verktygsfält om du vill åsidosätta de automatiska blockeringsinställningarna. Eller du kan bläddra i fred eftersom Privacy Badger börjar hitta och äta upp webbspårare en efter en.",
         "description": ""
+    },
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "slideshow_15": {
         "message": "Självklart kan du bara låta alla dessa inställningar vara, och jag fortsätter att tyst äta upp alla spårare som jag upptäcker.",
