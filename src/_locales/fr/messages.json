@@ -96,7 +96,7 @@
         "description": ""
     },
     "popup_instructions_no_trackers": {
-        "message": "Aucun <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>traqueurs</a> n'a été trouvé. Bonne nouvelle pour notre vie privée !",
+        "message": "Aucun <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>traqueur</a> n'a été trouvé. Bonne nouvelle pour notre vie privée !",
         "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
