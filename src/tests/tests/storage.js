@@ -24,6 +24,17 @@
     assert.ok(!action_map.hasItem('foo'));
   });
 
+  QUnit.test("test user override of default action for domain", function (assert) {
+    badger.saveAction("allow", "pbtest.org");
+    assert.ok(badger.storage.getAction("pbtest.org") === constants.USER_ALLOW);
+    badger.saveAction("block", "pbtest.org");
+    assert.ok(badger.storage.getAction("pbtest.org") === constants.USER_BLOCK);
+    badger.saveAction("allow", "pbtest.org");
+    assert.ok(badger.storage.getAction("pbtest.org") === constants.USER_ALLOW);
+    badger.storage.revertUserAction("pbtest.org");
+    assert.ok(badger.storage.getAction("pbtest.org") === "noaction");
+  });
+  
   // TODO: Figure out how to test this.
   QUnit.skip("data persists to local storage", function (/*assert*/) {
     /*let done = assert.async();
