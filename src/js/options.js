@@ -17,6 +17,17 @@
 
 // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
+// TODO hack: disable Tooltipster tooltips on Firefox to avoid unresponsive script warnings
+(function () {
+let [, browser, ] = navigator.userAgent.match(
+  // from https://gist.github.com/ticky/3909462
+  /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
+);
+if (browser == "Firefox") {
+  $.fn.tooltipster = function () {};
+}
+}());
+
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
 /**
