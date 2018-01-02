@@ -211,6 +211,7 @@ function exportUserData() {
 
     /**
      * Firefox workaround to insert the blob link in an iFrame
+     * https://bugzilla.mozilla.org/show_bug.cgi?id=1420419#c18
      */
     function addBlobWorkAroundForFirefox() {
       // Create or use existing iframe for the blob 'a' element
@@ -232,8 +233,8 @@ function exportUserData() {
       iframe.contentWindow.document.body.appendChild(a);
     }
 
-    // TODO remove browser check and simplify code once Firefox 52 goes away
-    // https://github.com/EFForg/privacybadger/pull/1532#issuecomment-318702372
+    // TODO remove browser check and simplify code once Firefox 58 goes away
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1420419
     if (chrome.runtime.getBrowserInfo) {
       chrome.runtime.getBrowserInfo((info) => {
         if (info.name == "Firefox") {
