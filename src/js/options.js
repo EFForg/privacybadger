@@ -209,29 +209,35 @@ function exportUserData() {
       URL.revokeObjectURL(blob);
     }
 
+    /**
+     * Firefox workaround to insert the blob link in an iFrame
+     */
+    function addBlobWorkAroundForFirefox() {
+      // Create or use existing iframe for the blob 'a' element
+      var iframe = document.getElementById('exportUserDataIframe');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = "exportUserDataIframe";
+        iframe.setAttribute("style", "visibility: hidden; height: 0; width: 0");
+        document.getElementById('export').appendChild(iframe);
+
+        iframe.contentWindow.document.open();
+        iframe.contentWindow.document.write('<html><head></head><body></body></html>');
+        iframe.contentWindow.document.close();
+      } else {
+        // Remove the old 'a' element from the iframe
+        var oldElement = iframe.contentWindow.document.body.lastChild;
+        iframe.contentWindow.document.body.removeChild(oldElement);
+      }
+      iframe.contentWindow.document.body.appendChild(a);
+    }
+
     // TODO remove browser check and simplify code once Firefox 52 goes away
     // https://github.com/EFForg/privacybadger/pull/1532#issuecomment-318702372
     if (chrome.runtime.getBrowserInfo) {
       chrome.runtime.getBrowserInfo((info) => {
         if (info.name == "Firefox") {
-          //TODO no longer need the following iframe when https://bugzilla.mozilla.org/show_bug.cgi?id=1379960 is fixed
-          // Create or use existing iframe for the 'a' element
-          var iframe = document.getElementById('exportUserDataIframe');
-          if (!iframe) {
-            iframe = document.createElement('iframe');
-            iframe.id = "exportUserDataIframe";
-            iframe.setAttribute("style", "visibility: hidden; height: 0; width: 0");
-            document.getElementById('export').appendChild(iframe);
-
-            iframe.contentWindow.document.open();
-            iframe.contentWindow.document.write('<html><head></head><body></body></html>');
-            iframe.contentWindow.document.close();
-          } else {
-            // Remove the old 'a' element from the iframe
-            var oldElement = iframe.contentWindow.document.body.lastChild;
-            iframe.contentWindow.document.body.removeChild(oldElement);
-          }
-          iframe.contentWindow.document.body.appendChild(a);
+          addBlobWorkAroundForFirefox();
         }
         clickBlobLink();
       });
