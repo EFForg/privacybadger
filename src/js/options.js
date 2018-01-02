@@ -201,6 +201,14 @@ function exportUserData() {
     var a = document.createElement('a');
     a.setAttribute('download', filename || '');
 
+    var blob = new Blob([mapJSON], { type: 'application/json' }); // pass a useful mime type here
+    a.href = URL.createObjectURL(blob);
+
+    function clickBlobLink() {
+      a.dispatchEvent(new MouseEvent('click'));
+      URL.revokeObjectURL(blob);
+    }
+
     // TODO remove browser check and simplify code once Firefox 52 goes away
     // https://github.com/EFForg/privacybadger/pull/1532#issuecomment-318702372
     if (chrome.runtime.getBrowserInfo) {
@@ -224,21 +232,11 @@ function exportUserData() {
             iframe.contentWindow.document.body.removeChild(oldElement);
           }
           iframe.contentWindow.document.body.appendChild(a);
-
-          a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
-          a.dispatchEvent(new MouseEvent('click'));
-        } else {
-          var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
-          a.href = URL.createObjectURL(blob);
-          a.dispatchEvent(new MouseEvent('click'));
-          URL.revokeObjectURL(blob);
         }
+        clickBlobLink();
       });
     } else {
-      var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
-      a.href = URL.createObjectURL(blob);
-      a.dispatchEvent(new MouseEvent('click'));
-      URL.revokeObjectURL(blob);
+      clickBlobLink();
     }
   });
 }
