@@ -32,9 +32,9 @@
     badger.saveAction("allow", "pbtest.org");
     assert.ok(badger.storage.getAction("pbtest.org") === constants.USER_ALLOW);
     badger.storage.revertUserAction("pbtest.org");
-    assert.ok(badger.storage.getAction("pbtest.org") === "noaction");
+    assert.ok(badger.storage.getAction("pbtest.org") === constants.NO_TRACKING);
   });
-  
+
   // TODO: Figure out how to test this.
   QUnit.skip("data persists to local storage", function (/*assert*/) {
     /*let done = assert.async();

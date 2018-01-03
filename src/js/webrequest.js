@@ -547,9 +547,11 @@ function getSocialWidgetBlockList() {
   var socialWidgetsToReplace = {};
 
   window.SocialWidgetList.forEach(function(socialwidget) {
+
+    // Only replace social widgets that the user has not manually allowed
     var socialWidgetName = socialwidget.name;
-    socialWidgetsToReplace[socialWidgetName] = !(
-      badger.storage.getAction(socialwidget.domain) === constants.USER_ALLOW
+    socialWidgetsToReplace[socialWidgetName] = (
+      badger.storage.getAction(socialwidget.domain) != constants.USER_ALLOW
     );
   });
 
