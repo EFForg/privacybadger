@@ -42,7 +42,6 @@ var incognito = require("incognito");
 */
 function Badger() {
   var badger = this;
-  this.userAllow = [];
   this.webRTCAvailable = checkWebRTCBrowserSupport();
   this.storage = new pbStorage.BadgerPen(function(thisStorage) {
     if (badger.INITIALIZED) { return; }
@@ -54,7 +53,6 @@ function Badger() {
     } finally {
       badger.initializeYellowlist();
       badger.initializeDNT();
-      badger.initializeUserAllowList();
       badger.enableWebRTCProtection();
       if (!badger.isIncognito) {badger.showFirstRunPage();}
     }
@@ -383,19 +381,6 @@ Badger.prototype = {
 
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDNTPolicyHashes.bind(self), utils.oneDay() * 4);
-  },
-
-  /**
-   * Search through action_map list and update list of domains
-   * that user has manually set to "allow"
-   */
-  initializeUserAllowList: function() {
-    var action_map = this.storage.getBadgerStorageObject('action_map');
-    for (var domain in action_map.getItemClones()) {
-      if (this.storage.getAction(domain) === constants.USER_ALLOW) {
-        this.userAllow.push(domain);
-      }
-    }
   },
 
   /**
