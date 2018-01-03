@@ -212,25 +212,49 @@ function exportUserData() {
     var a = document.createElement('a');
     a.setAttribute('download', filename || '');
 
-    // TODO remove browser check and simplify code once Firefox 52 goes away
-    // https://github.com/EFForg/privacybadger/pull/1532#issuecomment-318702372
+    var blob = new Blob([mapJSON], { type: 'application/json' }); // pass a useful mime type here
+    a.href = URL.createObjectURL(blob);
+
+    function clickBlobLink() {
+      a.dispatchEvent(new MouseEvent('click'));
+      URL.revokeObjectURL(blob);
+    }
+
+    /**
+     * Firefox workaround to insert the blob link in an iFrame
+     * https://bugzilla.mozilla.org/show_bug.cgi?id=1420419#c18
+     */
+    function addBlobWorkAroundForFirefox() {
+      // Create or use existing iframe for the blob 'a' element
+      var iframe = document.getElementById('exportUserDataIframe');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = "exportUserDataIframe";
+        iframe.setAttribute("style", "visibility: hidden; height: 0; width: 0");
+        document.getElementById('export').appendChild(iframe);
+
+        iframe.contentWindow.document.open();
+        iframe.contentWindow.document.write('<html><head></head><body></body></html>');
+        iframe.contentWindow.document.close();
+      } else {
+        // Remove the old 'a' element from the iframe
+        var oldElement = iframe.contentWindow.document.body.lastChild;
+        iframe.contentWindow.document.body.removeChild(oldElement);
+      }
+      iframe.contentWindow.document.body.appendChild(a);
+    }
+
+    // TODO remove browser check and simplify code once Firefox 58 goes away
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1420419
     if (chrome.runtime.getBrowserInfo) {
       chrome.runtime.getBrowserInfo((info) => {
         if (info.name == "Firefox") {
-          a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
-          a.dispatchEvent(new MouseEvent('click'));
-        } else {
-          var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
-          a.href = URL.createObjectURL(blob);
-          a.dispatchEvent(new MouseEvent('click'));
-          URL.revokeObjectURL(blob);
+          addBlobWorkAroundForFirefox();
         }
+        clickBlobLink();
       });
     } else {
-      var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
-      a.href = URL.createObjectURL(blob);
-      a.dispatchEvent(new MouseEvent('click'));
-      URL.revokeObjectURL(blob);
+      clickBlobLink();
     }
   });
 }
