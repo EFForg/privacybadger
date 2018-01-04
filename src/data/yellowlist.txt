@@ -155,6 +155,7 @@ ethn.io
 evcdn.com
 ebmedia.eventbrite.com
 s-static.ak.facebook.com
+staticxx.facebook.com
 www.facebook.com
 fansonly.com
 travis-ci-org.global.ssl.fastly.net
