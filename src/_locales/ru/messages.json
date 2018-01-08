@@ -96,7 +96,7 @@
         "description": ""
     },
     "popup_instructions_no_trackers": {
-        "message": "<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Трекеры</a> не обнаружены. Конфиденциальность соблюдена.",
+        "message": "<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Трекеры</a> не обнаружены. Приватность соблюдена.",
         "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
@@ -376,7 +376,7 @@
         "description": ""
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger не обнаружил пока присутствия <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекеров</a>. Продолжайте просмотр интернета.",
+        "message": "Privacy Badger не обнаружил пока присутствия <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекеров</a>. Продолжайте просмотр Интернета.",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "slideshow_15": {
