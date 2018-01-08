@@ -30,6 +30,7 @@ class Test(pbtest.PBSeleniumTest):
         except TimeoutException:
             return False
 
+    @pbtest.repeat_if_failed(2)
     def test_ga_js_surrogate(self):
         # open the background page
         self.load_url(self.bg_url, wait_on_site=1)
