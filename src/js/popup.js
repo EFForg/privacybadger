@@ -32,6 +32,8 @@ var reloadTab = chrome.tabs.reload;
 // TODO hack: disable Tooltipster tooltips on Firefox
 // to avoid hangs on pages with enough domains to produce a scrollbar
 (function () {
+
+/**** Change the following to the browser detection method used in options.js? ****/
 let [, browser, ] = navigator.userAgent.match(
   // from https://gist.github.com/ticky/3909462
   /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
