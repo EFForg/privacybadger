@@ -96,6 +96,7 @@ var multiDomainFirstPartiesArray = [
     "stride.com",
     "trello.com",
   ],
+  ["bloomberg.com", "bbthat.com", "bwbx.io"],
   ["booking.com", "bstatic.com"],
   ["box.com", "boxcdn.net"],
   ["capitalone.com", "capitalone360.com"],
