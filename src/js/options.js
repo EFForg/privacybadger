@@ -258,6 +258,8 @@ function exportUserData() {
 
     // TODO remove browser check and simplify code once Firefox 58 goes away
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1420419
+
+    /**** Change the following to the browser detection method used in popup.js? ****/
     if (chrome.runtime.getBrowserInfo) {
       chrome.runtime.getBrowserInfo((info) => {
         if (info.name == "Firefox") {
