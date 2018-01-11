@@ -69,6 +69,18 @@ function loadOptions() {
   $('#importTrackers').change(importTrackerList);
   $('#exportTrackers').click(exportUserData);
 
+  if (settings.getItem("showTrackingDomains")) {
+    $('#tracking-domains-overlay').hide();
+  } else {
+    $('#blockedResourcesContainer').hide();
+
+    $('#show-tracking-domains-checkbox').click(() => {
+      $('#tracking-domains-overlay').hide();
+      $('#blockedResourcesContainer').show();
+      settings.setItem("showTrackingDomains", true);
+    });
+  }
+
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").on("input", filterTrackingDomains);
 

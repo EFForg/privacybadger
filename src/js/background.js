@@ -487,6 +487,7 @@ Badger.prototype = {
     migrationLevel: 0,
     seenComic: false,
     showCounter: true,
+    showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
   },
 
