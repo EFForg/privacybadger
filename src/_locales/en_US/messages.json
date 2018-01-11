@@ -231,6 +231,10 @@
         "message": "Loading...",
         "description": ""
     },
+    "show_tracking_domains_acknowledgement": {
+        "message": "I understand; please show me the tracking domains list anyway",
+        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
+    },
     "firstRun_title": {
         "message": "Thank you for installing Privacy Badger!",
         "description": ""
@@ -286,6 +290,10 @@
     "share_button_title_google": {
         "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "show_tracking_domains_message": {
+        "message": "You shouldn't need to modify anything here.",
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
     "report_cancel": {
         "message": "Cancel",
@@ -426,13 +434,5 @@
     "slideshow_10": {
         "message": " If you think that I've made the wrong decision for a tracker, you can move the slider to red to block it, yellow to partly block it, and green to allow it.",
         "description": ""
-    },
-    "show_tracking_domains_message": {
-      "message": "You shouldn't need to modify anything here.",
-      "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
-    },
-    "show_tracking_domains_acknowledgement": {
-      "message": "I understand; please show me the tracking domains list anyway",
-      "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     }
 }
