@@ -84,7 +84,7 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
+        "message": "potenzielle <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracker</a> auf dieser Seite. Mittels der Schieberegler können Sie steuern, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
     "options_webrtc_setting": {
