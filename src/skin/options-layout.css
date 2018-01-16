@@ -80,7 +80,34 @@ button
 }
 
 #tracking-domains-div {
-  min-width: 750px;
+  min-width: 390px;
+  width: 89vw;
+}
+
+@media (min-width: 798px) {
+  #tracking-domains-div {
+    width: auto;
+    min-with: 750px;
+  }
+
+  .switch-container{
+      float: right;
+      margin-left: 0;
+      margin-right: 193px;
+  }
+
+  .honeybadgerPowered{
+    float: right;
+    left: 148px;
+    bottom: 0;
+  }
+
+  .key {
+    left: auto;
+    right: auto;
+    right: 215px;
+    padding-left: 0;
+  }
 }
 
 #settingsSuffix{
