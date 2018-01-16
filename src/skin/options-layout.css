@@ -22,9 +22,6 @@ button
 {
   white-space: pre;
 }
-#tabs {
-  min-width: 750px;
-}
 
 .tooltipArrow {
   bottom: 27px;
@@ -32,7 +29,6 @@ button
 
 #pbInstructions {
   margin-bottom: 20px;
-  width: 500px;
 }
 
 #rawFilters {
