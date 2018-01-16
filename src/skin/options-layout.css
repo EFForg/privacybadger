@@ -80,7 +80,7 @@ button
 }
 
 #tracking-domains-div {
-  width: 390px;
+  min-width: 750px;
 }
 
 #settingsSuffix{

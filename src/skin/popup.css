@@ -108,7 +108,8 @@ a:hover { color: #ec9329 }
 .switch-container{
   width: 115px;
   display: block;
-  margin-left: 220px;
+  float: right;
+  margin-right: 193px;
 }
 .options .switch-container{
   max-width: 114px;
@@ -141,8 +142,8 @@ a:hover { color: #ec9329 }
   width: 20px;
   height: 20px;
   position: relative;
-  left: 337px;
-  bottom: 15px;
+  float: right;
+  left: 148px;
   cursor: pointer;
 }
 .userset .honeybadgerPowered{
@@ -214,12 +215,10 @@ font-size: 16px;
 .key {
   position: absolute;
   height: 25px;
-  left: 0;
-  right: 0;
+  right: 215px;
   z-index: 30;
   background: #fefefe;
   padding-top: 4px;
-  padding-left: 215px;
 }
 .key img{
   margin-left: 19px;
