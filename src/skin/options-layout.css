@@ -23,32 +23,8 @@ button
   white-space: pre;
 }
 
-.tooltipArrow {
-  bottom: 27px;
-}
-
 #pbInstructions {
   margin-bottom: 20px;
-}
-
-#rawFilters {
-  display: none;
-}
-
-.okMsg {
-    display: none;
-    color: #ffffff;
-    background: #30e030;
-    font-weight: bold;
-    padding: 3px;
-}
-
-.errMsg {
-    display: none;
-    color: #ffffff;
-    background: #e03030;
-    font-weight:bold;
-    padding:3px;
 }
 
 #tab-manage-data {
@@ -61,12 +37,6 @@ button
 #export {
   width: 350px;
   float: left;
-}
-
-/* Filter list entry status message */
-.flMsg {
-    display: none;
-    color: #b0b0b0;
 }
 
 .importInput{
