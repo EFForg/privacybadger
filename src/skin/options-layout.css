@@ -102,10 +102,9 @@ button
   }
 
   .key {
-    left: auto;
-    right: auto;
-    right: 215px;
+    text-align: right;
     padding-left: 0;
+    padding-right: 215px;
   }
 }
 
