@@ -83,6 +83,19 @@ button
   width: 390px;
 }
 
+#tracking-domains-filters {
+    margin: 10px 0;
+}
+
+#tracking-domains-filters input, #tracking-domains-filters select {
+    margin: 5px 0;
+    width: 100%;
+}
+
+.clickerContainer {
+    max-height: 400px; /* override popup.css */
+}
+
 #settingsSuffix{
   color: #555;
   font-size: 12px;

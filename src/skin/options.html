@@ -74,7 +74,21 @@
         <span id="options_domain_list_no_trackers" class="i18n_options_domain_list_no_trackers" style="display:none"></span>
       </p>
       <div id="tracking-domains-div">
-          <input id="trackingDomainSearch" type="text" value="" style="width:100%" placeholder="i18n_options_domain_search">
+          <div id="tracking-domains-filters">
+              <input id="trackingDomainSearch" type="text" value="" placeholder="i18n_options_domain_search">
+              <!-- TODO i18n -->
+              <select id="tracking-domains-type-filter">
+                  <option value="">Show all domain types</option>
+                  <option value="user">Show user-controlled domains</option>
+                  <option value="dnt">Show DNT-compliant domains</option>
+              </select>
+              <select id="tracking-domains-status-filter">
+                  <option value="">Show all domain statuses</option>
+                  <option value="block">Show blocked domains</option>
+                  <option value="cookieblock">Show partially-blocked domains</option>
+                  <option value="allow">Show allowed domains</option>
+              </select>
+          </div>
           <div id="blockedResources"><span class="i18n_options_loading"></span></div>
       </div>
     </div>
