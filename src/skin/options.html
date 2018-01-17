@@ -77,30 +77,29 @@
           <ul id="tracking-domains-filters">
               <li>
                   <label for="trackingDomainSearch">
-                      <span class="i18n_options_domain_search"></span>:
+                      <span class="i18n_options_domain_search"></span>
                   </label>
                   <input id="trackingDomainSearch" type="text" value="">
               </li>
-              <!-- TODO i18n -->
               <li>
                   <label for="tracking-domains-type-filter">
-                      Filter by type:
+                      <span class="i18n_options_domain_type_filter"></span>
                   </label>
                   <select id="tracking-domains-type-filter">
-                      <option value="">all</option>
-                      <option value="user">user-controlled</option>
-                      <option value="dnt">DNT-compliant</option>
+                      <option value="" class="i18n_options_domain_filter_all"></option>
+                      <option value="user" class="i18n_options_domain_filter_user"></option>
+                      <option value="dnt" class="i18n_options_domain_filter_dnt"></option>
                   </select>
               </li>
               <li>
                   <label for="tracking-domains-status-filter">
-                      Filter by status:
+                      <span class="i18n_options_domain_status_filter"></span>
                   </label>
                   <select id="tracking-domains-status-filter">
-                      <option value="">all</option>
-                      <option value="block">blocked</option>
-                      <option value="cookieblock">partially-blocked</option>
-                      <option value="allow">allowed</option>
+                      <option value="" class="i18n_options_domain_filter_all"></option>
+                      <option value="block" class="i18n_options_domain_filter_block"></option>
+                      <option value="cookieblock" class="i18n_options_domain_filter_cookieblock"></option>
+                      <option value="allow" class="i18n_options_domain_filter_allow"></option>
                   </select>
               </li>
           </ul>

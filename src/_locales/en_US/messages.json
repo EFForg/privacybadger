@@ -148,8 +148,40 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Search domains",
-        "description": ""
+        "message": "Search domains:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
+    },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Show count of blocked items",
