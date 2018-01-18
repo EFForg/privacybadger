@@ -3,7 +3,9 @@ body
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
   padding: 20px;
+  margin: 0 auto;
   width: 100%;
+  max-width: 1400px;
 }
 
 td
@@ -80,32 +82,35 @@ button
 
 #tracking-domains-div {
   min-width: 390px;
-  width: 89vw;
+  width: 70%;
+  max-width: 750px;
 }
 
-@media (min-width: 798px) {
-  #tracking-domains-div {
-    width: auto;
-    min-width: 750px;
-  }
+.switch-container{
+  float: right;
+  margin-left: 0;
+  margin-right: 23px;
 
-  .switch-container{
-      float: right;
-      margin-left: 0;
-      margin-right: 193px;
-  }
+}
 
-  .honeybadgerPowered{
-    float: right;
-    left: 148px;
-    bottom: 0;
-  }
+.options .switch-container {
+  max-width: none;
+}
 
-  .key {
-    text-align: right;
-    padding-left: 0;
-    padding-right: 215px;
-  }
+.honeybadgerPowered{
+  float: right;
+  left: 148px;
+  bottom: 0;
+}
+
+.key {
+  text-align: right;
+  padding-left: 0;
+  padding-right: 46px;
+}
+
+.clickerContainer {
+  max-height: none;
 }
 
 #settingsSuffix{
