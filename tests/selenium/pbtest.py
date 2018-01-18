@@ -191,6 +191,23 @@ def if_firefox(wrapper):
     return test_catcher
 
 
+def retry_until(fun, cond=True, times=5, msg="Waiting a bit and retrying ..."):
+    """
+    Execute function `fun` until either its return equals `cond`,
+    or it gets executed X times, where X = `times` + 1.
+    """
+    for i in range(times):
+        result = fun()
+        if result == cond:
+            break
+        elif i == 0:
+            print("")
+        print(msg)
+        time.sleep(2 ** i)
+
+    return result
+
+
 attempts = {}  # used to count test retries
 def repeat_if_failed(ntimes): # noqa
     '''

@@ -6,7 +6,7 @@ import unittest
 
 import pbtest
 
-from time import sleep
+from functools import partial
 
 
 class SuperCookieTest(pbtest.PBSeleniumTest):
@@ -36,12 +36,8 @@ class SuperCookieTest(pbtest.PBSeleniumTest):
         # we need to wait for it to finish reloading
         self.wait_for_script("return window.DONE_RELOADING === true")
 
-        for i in range(5):
-            tracking_detected = self.detected_tracking_by("githack.com")
-            if tracking_detected:
-                break
-            print("\nWaiting a bit and retrying ...")
-            sleep(2 ** i)
+        tracking_detected = pbtest.retry_until(
+            partial(self.detected_tracking_by, "githack.com"))
 
         # the HTML page contains:
 

@@ -5,8 +5,9 @@ import unittest
 
 import pbtest
 
-from time import sleep
+from functools import partial
 
+from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
@@ -74,15 +75,10 @@ class DNTTest(pbtest.PBSeleniumTest):
         switch_to_window_with_url(self.driver, self.bg_url)
 
         # verify that the domain is allowed
-        for i in range(5):
-            was_blocked = self.domain_was_blocked(DNT_DOMAIN)
-
-            if not was_blocked:
-                # success
-                break
-
-            print("\nWaiting a bit for DNT check to complete and retrying ...")
-            sleep(2 ** i)
+        was_blocked = retry_until(
+            partial(self.domain_was_blocked, DNT_DOMAIN),
+            cond=False,
+            msg="Waiting a bit for DNT check to complete and retrying ...")
 
         self.assertFalse(was_blocked, msg="DNT-compliant resource should have gotten unblocked.")
 
