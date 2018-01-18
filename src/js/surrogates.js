@@ -34,7 +34,7 @@ const db = require('surrogatedb');
  * parameter. This is an optimization: the calling context should already have
  * this information.
  *
- * @return {String|Boolean} The surrogate script as a data URI when there is a
+ * @return {(String|Boolean)} The surrogate script as a data URI when there is a
  * match, or boolean false when there is no match.
  */
 function getSurrogateURI(script_url, script_hostname) {
