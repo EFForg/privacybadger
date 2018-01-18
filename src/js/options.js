@@ -57,8 +57,6 @@ let migrations = require("migrations").Migrations;
  * Loads options from pb storage and sets UI elements accordingly.
  */
 function loadOptions() {
-  $('#blockedResources').css('max-height',$(window).height() - 300);
-
   // Set page title to i18n version of "Privacy Badger Options"
   document.title = i18n.getMessage("options_title");
 
