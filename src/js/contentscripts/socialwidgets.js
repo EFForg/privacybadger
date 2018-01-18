@@ -118,6 +118,10 @@ function createReplacementButtonImage(tracker, trackerElem) {
   button.setAttribute("class", "privacyBadgerReplacementButton");
   button.setAttribute("title", i18n.getMessage("social_tooltip_pb_has_replaced")  +
                             tracker.name + i18n.getMessage("social_tooltip_button"));
+  button.setAttribute(
+    "style",
+    "border: none !important; cursor: pointer !important; height: auto !important; width: auto !important;"
+  );
 
   switch (buttonType) {
     case 0: // normal button type; just open a new window when clicked
