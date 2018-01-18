@@ -86,7 +86,7 @@ button
 @media (min-width: 798px) {
   #tracking-domains-div {
     width: auto;
-    min-with: 750px;
+    min-width: 750px;
   }
 
   .switch-container{
