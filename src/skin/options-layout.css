@@ -107,7 +107,7 @@ button
 }
 
 .clickerContainer {
-  max-height: none;
+  max-height: 50vh;
 }
 
 #settingsSuffix{
