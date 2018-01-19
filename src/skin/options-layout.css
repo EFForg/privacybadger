@@ -155,7 +155,7 @@ a, a:hover, a:active, a:visited{
     max-width: 250px;
   }
 
-  table, tbody, tr, td {
+  #whitelistForm table, #whitelistForm tbody, #whitelistForm tr, #whitelistForm td {
     display: block;
   }
 
