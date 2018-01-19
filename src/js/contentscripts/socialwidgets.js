@@ -206,7 +206,7 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
       var iframe = document.createElement("iframe");
 
       iframe.setAttribute("src", iframeUrl);
-      iframe.setAttribute("class", "privacyBadgerOriginalButton");
+      iframe.setAttribute("style", "border: none !important; height: 1.5em !important;");
 
       button.parentNode.replaceChild(iframe, button);
     }
