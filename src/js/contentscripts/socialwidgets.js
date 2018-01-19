@@ -48,10 +48,8 @@
  * Social widget tracker data, read from file.
  */
 let trackerInfo;
-let styleSheetAdded = false;
 
 let REPLACEMENT_BUTTONS_FOLDER_PATH = chrome.extension.getURL("skin/socialwidgets/");
-let STYLESHEET_URL = chrome.extension.getURL("skin/socialwidgets/socialwidgets.css");
 let i18n = chrome.i18n;
 
 
@@ -75,28 +73,6 @@ function initialize() {
 }
 
 /**
- * Add socialwidgets.css This function is idempotent, so it only adds the css
- * once, even if called multiple times.
- */
-function addStyleSheet() {
-  if (styleSheetAdded) {
-    return;
-  }
-  // add the Content.css stylesheet to the page
-  let link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.type = "text/css";
-  link.href = STYLESHEET_URL;
-
-  let head = document.querySelector("head");
-  if (head !== null) {
-    head.appendChild(link);
-    styleSheetAdded = true;
-  }
-}
-
-
-/**
  * Creates a replacement button element for the given tracker.
  *
  * @param {Tracker} tracker the Tracker object for the button
@@ -115,9 +91,12 @@ function createReplacementButtonImage(tracker, trackerElem) {
   var details = buttonData.details;
 
   button.setAttribute("src", buttonUrl);
-  button.setAttribute("class", "privacyBadgerReplacementButton");
   button.setAttribute("title", i18n.getMessage("social_tooltip_pb_has_replaced")  +
                             tracker.name + i18n.getMessage("social_tooltip_button"));
+  button.setAttribute(
+    "style",
+    "border: none !important; cursor: pointer !important; height: auto !important; width: auto !important;"
+  );
 
   switch (buttonType) {
     case 0: // normal button type; just open a new window when clicked
@@ -202,7 +181,7 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
       var iframe = document.createElement("iframe");
 
       iframe.setAttribute("src", iframeUrl);
-      iframe.setAttribute("class", "privacyBadgerOriginalButton");
+      iframe.setAttribute("style", "border: none !important; height: 1.5em !important;");
 
       button.parentNode.replaceChild(iframe, button);
     }
@@ -309,7 +288,6 @@ function replaceIndividualButton(tracker) {
     var button =
       createReplacementButtonImage(tracker, buttonToReplace);
 
-    addStyleSheet();
     buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
   }
 }
