@@ -160,7 +160,7 @@ a, a:hover, a:active, a:visited{
   }
 
   #excludedDomainsBox {
-    width: auto !important;
+    width: 100% !important;
   }
 
   #trackingDomainSearch {
