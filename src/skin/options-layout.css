@@ -121,6 +121,10 @@ button
   left: 50px;
 }
 
+.origin {
+  max-width: 325px;
+}
+
 a, a:hover, a:active, a:visited{
   color: #00aaaa;
   text-decoration: underline;
