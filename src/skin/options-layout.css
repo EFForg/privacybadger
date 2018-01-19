@@ -24,9 +24,6 @@ button
 {
   white-space: pre;
 }
-#tabs {
-  min-width: 750px;
-}
 
 .tooltipArrow {
   bottom: 27px;
@@ -128,4 +125,23 @@ button
 a, a:hover, a:active, a:visited{
   color: #00aaaa;
   text-decoration: underline;
+}
+
+@media (max-width: 749px) {
+  body {
+    padding: 0;
+    min-width: none;
+  }
+
+  #tab-tracking-domains {
+    padding: 0;
+  }
+
+  #tracking-domains-div {
+    width: auto;
+  }
+
+  .origin {
+    max-width: 250px;
+  }
 }
