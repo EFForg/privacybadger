@@ -137,6 +137,10 @@ a, a:hover, a:active, a:visited{
     min-width: none;
   }
 
+  #tracking-domains-overlay {
+    padding: 1em 1.4em;
+  }
+
   #tab-tracking-domains {
     padding: 0;
   }
