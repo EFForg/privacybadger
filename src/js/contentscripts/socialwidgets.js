@@ -115,7 +115,6 @@ function createReplacementButtonImage(tracker, trackerElem) {
   var details = buttonData.details;
 
   button.setAttribute("src", buttonUrl);
-  button.setAttribute("class", "privacyBadgerReplacementButton");
   button.setAttribute("title", i18n.getMessage("social_tooltip_pb_has_replaced")  +
                             tracker.name + i18n.getMessage("social_tooltip_button"));
   button.setAttribute(
