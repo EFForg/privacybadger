@@ -141,7 +141,17 @@ a, a:hover, a:active, a:visited{
     width: auto;
   }
 
+  #settingsSuffix{
+    width: auto;
+    left: 0;
+    padding-left: 50px;
+  }
+
   .origin {
     max-width: 250px;
+  }
+
+  table, tbody, tr, td {
+    display: block;
   }
 }
