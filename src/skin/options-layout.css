@@ -122,6 +122,10 @@ button
   max-width: 325px;
 }
 
+#trackingDomainSearch {
+  width: 99% !important;
+}
+
 a, a:hover, a:active, a:visited{
   color: #00aaaa;
   text-decoration: underline;
@@ -153,5 +157,13 @@ a, a:hover, a:active, a:visited{
 
   table, tbody, tr, td {
     display: block;
+  }
+
+  #excludedDomainsBox {
+    width: auto !important;
+  }
+
+  #trackingDomainSearch {
+    width: 98% !important;
   }
 }
