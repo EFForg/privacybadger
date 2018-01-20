@@ -78,7 +78,7 @@ button
 }
 
 #tracking-domains-div {
-  min-width: 408px;
+  min-width: 384px;
   width: 70%;
   max-width: 750px;
 }
@@ -119,7 +119,7 @@ button
 }
 
 .origin {
-  max-width: 325px;
+  max-width: 226px;
 }
 
 #trackingDomainSearch {
@@ -131,42 +131,42 @@ a, a:hover, a:active, a:visited{
   text-decoration: underline;
 }
 
+/* Handle smaller viewports */
 @media (max-width: 749px) {
+  /* Remove padding to better use available space */
   body {
     padding: 0;
     min-width: none;
   }
 
+  /* Add removed padding for acknowledgement text */
   #tracking-domains-overlay {
     padding: 1em 1.4em;
   }
 
-  #tab-tracking-domains {
-    padding: 0;
-  }
-
-  #tracking-domains-div {
-    width: calc(70% - 2.8em);
-  }
-
+  /* Fix padding on WebRTC notice */
   #settingsSuffix{
     width: auto;
     left: 0;
     padding-left: 50px;
   }
 
+  /* Set shorter max-chars for Tracking Domains because of less space */
   .origin {
     max-width: 250px;
   }
 
+  /* Display elements on "Whitelisted Domains" under eachother */
   #whitelistForm table, #whitelistForm tbody, #whitelistForm tr, #whitelistForm td {
     display: block;
   }
 
+  /* Set width of whitelist-box */
   #excludedDomainsBox {
     width: 100% !important;
   }
 
+  /* Adjust width to align with list of Tracking Domains */
   #trackingDomainSearch {
     width: 98% !important;
   }
