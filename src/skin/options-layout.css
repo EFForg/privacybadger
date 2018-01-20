@@ -78,8 +78,6 @@ button
 }
 
 #tracking-domains-div {
-  min-width: 384px;
-  width: 70%;
   max-width: 750px;
 }
 
@@ -118,8 +116,9 @@ button
   left: 50px;
 }
 
+/* Set max length of Tracking Domain origin in list to a relative value */
 .origin {
-  max-width: 226px;
+  max-width: 60%;
 }
 
 #trackingDomainSearch {
@@ -149,11 +148,6 @@ a, a:hover, a:active, a:visited{
     width: auto;
     left: 0;
     padding-left: 50px;
-  }
-
-  /* Set shorter max-chars for Tracking Domains because of less space */
-  .origin {
-    max-width: 250px;
   }
 
   /* Display elements on "Whitelisted Domains" under eachother */
