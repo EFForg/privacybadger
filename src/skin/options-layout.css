@@ -78,7 +78,7 @@ button
 }
 
 #tracking-domains-div {
-  min-width: 485px;
+  min-width: 408px;
   width: 70%;
   max-width: 750px;
 }
@@ -153,6 +153,10 @@ a, a:hover, a:active, a:visited{
     width: auto;
     left: 0;
     padding-left: 50px;
+  }
+
+  .origin {
+    max-width: 250px;
   }
 
   #whitelistForm table, #whitelistForm tbody, #whitelistForm tr, #whitelistForm td {
