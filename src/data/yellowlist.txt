@@ -83,6 +83,7 @@ cleanprint.net
 cleveland.com
 cloudflare.com
 cloudfront.net
+codecov.io
 bbb.org
 bbc.co.uk
 bbci.co.uk
