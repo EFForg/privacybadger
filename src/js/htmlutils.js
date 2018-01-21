@@ -124,14 +124,15 @@ var htmlUtils = exports.htmlUtils = {
    * @param {Integer} tabId ID of tab trackers are associated with.
    * @returns {String} HTML for empty tracker container.
    */
-  getTrackerContainerHtml: function(tabId) {
+  getTrackerContainerHtml: function(tabId, scrollbarWidth) {
     if (tabId === undefined) {
       tabId = "000";
     }
+
     var trackerHtml = '' +
       '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
       '<div class="keyContainer">' +
-      '<div class="key">' +
+      '<div class="key" style="margin-left: -' + scrollbarWidth + 'px;">' +
       '<img src="/icons/UI-icons-red.svg" class="tooltip" title="' + i18n.getMessage("tooltip_block") + '">' +
       '<img src="/icons/UI-icons-yellow.svg" class="tooltip" title="' + i18n.getMessage("tooltip_cookieblock") + '">' +
       '<img src="/icons/UI-icons-green.svg" class="tooltip" title="' + i18n.getMessage("tooltip_allow") + '">' +
@@ -179,9 +180,10 @@ var htmlUtils = exports.htmlUtils = {
     var originHtml = '' +
       '<div class="' + classes.join(' ') + '" data-origin="' + origin + '" data-original-action="' + action + '">' +
       '<div class="origin tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</div>' +
-      '<div class="removeOrigin">&#10006</div>' +
+      '<div class="clickables-container">' +
       htmlUtils.getToggleHtml(origin, action) +
       '<div class="honeybadgerPowered tooltip" title="'+ UNDO_ARROW_TOOLTIP_TEXT + '"></div>' +
+      '<div class="removeOrigin">&#10006</div></div>' +
       '</div>';
 
     return originHtml;

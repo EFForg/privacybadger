@@ -4,8 +4,14 @@ body
   font-size: 13px;
   padding: 20px;
   margin: 0 auto;
+  min-width: 430px;
   width: 100%;
   max-width: 1400px;
+}
+
+/* Set minimum viewport size */
+#tabs {
+  min-width: 432px;
 }
 
 td
@@ -82,30 +88,38 @@ button
 }
 
 .switch-container{
-  float: right;
   margin-left: 0;
-  margin-right: 23px;
-
+  position: absolute;
+  display: inline;
 }
 
 .options .switch-container {
   max-width: none;
 }
 
+.switch-toggle {
+  width: 115px;
+}
+
 .honeybadgerPowered{
-  float: right;
-  left: 148px;
   bottom: 0;
+  display: inline-block !important;
+  margin-left: 117px;
+  margin-right: 10px;
+  left: 0;
+}
+
+.removeOrigin {
+  display: inline;
 }
 
 .key {
-  text-align: right;
-  padding-left: 0;
-  padding-right: 46px;
+  padding-left: calc(100% - 172px);
 }
 
 .clickerContainer {
   max-height: 50vh;
+  min-width: 378px;
 }
 
 #settingsSuffix{
@@ -118,7 +132,13 @@ button
 
 /* Set max length of Tracking Domain origin in list to a relative value */
 .origin {
-  max-width: 60%;
+  width: calc(100% - 157px);
+  max-width: 593px;
+}
+
+.clickables-container {
+  display: inline-block;
+  width: 157px;
 }
 
 #trackingDomainSearch {
@@ -158,10 +178,5 @@ a, a:hover, a:active, a:visited{
   /* Set width of whitelist-box */
   #excludedDomainsBox {
     width: 100% !important;
-  }
-
-  /* Adjust width to align with list of Tracking Domains */
-  #trackingDomainSearch {
-    width: 98% !important;
   }
 }
