@@ -116,9 +116,13 @@ function onBeforeRequest(details) {
   };
   chrome.tabs.sendMessage(tab_id, msg);
 
-  window.setTimeout(function () {
-    badger.checkForDNTPolicy(requestDomain);
-  }, 10);
+  // if this is a heuristically- (not user-) blocked domain
+  if (requestAction == constants.BLOCK) {
+    // check for DNT policy
+    window.setTimeout(function () {
+      badger.checkForDNTPolicy(requestDomain);
+    }, 10);
+  }
 
   if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
     return {
@@ -483,7 +487,7 @@ function forgetTab(tabId) {
  * @param {Integer} tabId The relevant tab
  * @param {String} requestHost The FQDN
  * @param {Integer} frameId The id of the frame
- * @returns {String|Boolean} false or the action to take
+ * @returns {(String|Boolean)} false or the action to take
  */
 function checkAction(tabId, requestHost, frameId) {
   // Ignore requests from temporarily unblocked social widgets.

@@ -214,7 +214,7 @@ Badger.prototype = {
    * @param {Integer} [frame_id=0] Frame ID to check for.
    *  Optional, defaults to frame 0 (the main document frame).
    *
-   * @returns {Object|null} Frame data object or null
+   * @returns {?Object} Frame data object or null
    */
   getFrameData: function (tab_id, frame_id) {
     let self = this;
@@ -522,6 +522,7 @@ Badger.prototype = {
       Migrations.unblockIncorrectlyBlockedDomains,
       Migrations.forgetBlockedDNTDomains,
       Migrations.reapplyYellowlist,
+      Migrations.forgetNontrackingDomains,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {

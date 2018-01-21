@@ -191,6 +191,9 @@ function parseUserDataFile(storageMapsList) {
   // fix yellowlist getting out of sync
   migrations.reapplyYellowlist(badger);
 
+  // remove any non-tracking domains (in exports from older Badger versions)
+  migrations.forgetNontrackingDomains(badger);
+
   // Update list to reflect new status of map
   reloadWhitelist();
   refreshFilterPage();
