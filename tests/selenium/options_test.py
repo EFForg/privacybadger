@@ -124,6 +124,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         try:
             remove_origin_element = origins.find_element_by_xpath(
                 './/div[@data-origin="pbtest.org"]' +
+                '//div[@class="clickables-container"]' +
                 '//div[@class="removeOrigin"]')
         except NoSuchElementException:
             self.fail("Tracking origin is not displayed")
