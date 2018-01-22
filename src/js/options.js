@@ -362,14 +362,27 @@ function removeWhitelistDomain(event) {
   reloadWhitelist();
 }
 
+/**
+ * Gets width of scrollbar
+ * @return {String}
+ */
 function getScrollbarWidth() {
-  var div = $('<div style="width:50px;height:50px;overflow:hidden;position:absolute;top:-200px;left:-200px;"><div style="height:100px;"></div>');
+  // Add out of view div with taller div inside it; parent has "overflow: hidden"
+  var div = $('<div style="width:50px;height:50px;overflow:hidden;position:absolute;top:-200px;left:-200px;">' +
+    '<div style="height:100px;">' +
+    '</div>');
   $('body').append(div);
-  var w1 = $('div', div).innerWidth();
+
+  // Measure inner width
+  var widthWithoutScrollbar = $('div', div).innerWidth();
+
+  // Make parent div scroll on overflow, and measure new inner width (lower, thanks to scrollbar)
   div.css('overflow-y', 'scroll');
-  var w2 = $('div', div).innerWidth();
+  var widthWithScrollbar = $('div', div).innerWidth();
+
+  // Remove div from body, and return width of scrollbar
   $(div).remove();
-  return (w1 - w2);
+  return (widthWithoutScrollbar - widthWithScrollbar);
 }
 
 // filter slider functions
