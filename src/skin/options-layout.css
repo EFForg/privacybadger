@@ -101,9 +101,9 @@ button
   width: 115px;
 }
 
-.honeybadgerPowered{
+.userset .honeybadgerPowered{
   bottom: 0;
-  display: inline-block !important;
+  display: inline-block;
   margin-left: 117px;
   margin-right: 10px;
   left: 0;
