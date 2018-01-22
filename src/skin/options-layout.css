@@ -114,12 +114,15 @@ button
 }
 
 .key {
-  padding-left: calc(100% - 172px);
+  /* Position legend icons using width of .clickables-container,
+      and accounting for paddings in the list and margins on .key>img
+  */
+  padding-left: calc(calc(100% - 157px) - 15px);
 }
 
 .clickerContainer {
   max-height: 50vh;
-  min-width: 378px;
+  min-width: 378px; /* Minimum width of Tracking Domains list; fit origin + buttons */
 }
 
 #settingsSuffix{
@@ -132,7 +135,7 @@ button
 
 /* Set max length of Tracking Domain origin in list to a relative value */
 .origin {
-  width: calc(100% - 157px);
+  width: calc(100% - 157px); /* Use full width MINUS the width of .clickables-container (switch + buttons) */
   max-width: 593px;
 }
 
