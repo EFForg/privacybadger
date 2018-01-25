@@ -1,5 +1,9 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.1.25
+* Added workaround to avoid Privacy Badger getting disabled as "Not from
+Chrome Web Store" in Chrome
+
 ## 2018.1.22
 * Reduced amount of data stored as part of normal operation. Privacy Badger
 will no longer record (or check Do Not Track policies for) non-tracking
