@@ -602,7 +602,7 @@ Badger.prototype = {
       if (count === 0) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#00cc00"});
       } else {
-        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#ec9329"});
       }
 
       chrome.browserAction.setBadgeText({tabId: tab_id, text: count + ""});
