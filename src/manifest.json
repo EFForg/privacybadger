@@ -17,8 +17,7 @@
     "webNavigation",
     "storage",
     "cookies",
-    "privacy",
-    "unlimitedStorage"
+    "privacy"
   ],
   "background": {
     "scripts": [
