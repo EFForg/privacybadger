@@ -112,11 +112,11 @@ exports.Migrations= {
       'ykimg.com',
     ];
 
-    let action_map = badger.storage.getBadgerStorageObject("action_map"),
-      snitch_map = badger.storage.getBadgerStorageObject("snitch_map");
+    let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+      snitchMap = badger.storage.getBadgerStorageObject("snitch_map");
 
     // remove from action map
-    let actions = action_map.getItemClones();
+    let actions = actionMap.getItemClones();
     for (let domain in actions) {
       for (let i = 0; i < MISTAKES.length; i++) {
         if (domain.endsWith(MISTAKES[i])) {
@@ -127,17 +127,17 @@ exports.Migrations= {
             actions[domain].heuristicAction == constants.BLOCK ||
             actions[domain].heuristicAction == constants.COOKIEBLOCK
           )) {
-            action_map.deleteItem(domain);
+            actionMap.deleteItem(domain);
           }
         }
       }
     }
 
     // remove from snitch map
-    for (let domain in snitch_map.getItemClones()) {
+    for (let domain in snitchMap.getItemClones()) {
       for (let i = 0; i < MISTAKES.length; i++) {
         if (domain.endsWith(MISTAKES[i])) {
-          snitch_map.deleteItem(domain);
+          snitchMap.deleteItem(domain);
         }
       }
     }
