@@ -79,7 +79,7 @@ exports.Migrations= {
   forgetMistakenlyBlockedDomains: function (badger) {
     console.log("Running migration to forget mistakenly flagged domains ...");
 
-    let MISTAKES = [
+    const MISTAKES = new Set([
       'akamaized.net',
       'bootcss.com',
       'edgesuite.net',
@@ -110,36 +110,34 @@ exports.Migrations= {
       'washingtonpost.com',
       'wixstatic.com',
       'ykimg.com',
-    ];
+    ]);
 
-    let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+    const actionMap = badger.storage.getBadgerStorageObject("action_map"),
+      actions = actionMap.getItemClones(),
       snitchMap = badger.storage.getBadgerStorageObject("snitch_map");
 
-    // remove from action map
-    let actions = actionMap.getItemClones();
-    for (let domain in actions) {
-      for (let i = 0; i < MISTAKES.length; i++) {
-        if (domain.endsWith(MISTAKES[i])) {
-          // remove only if domain was seen tracking
-          // and user did not set an override
-          if (actions[domain].userAction == "" && (
-            actions[domain].heuristicAction == constants.ALLOW ||
-            actions[domain].heuristicAction == constants.BLOCK ||
-            actions[domain].heuristicAction == constants.COOKIEBLOCK
-          )) {
-            actionMap.deleteItem(domain);
-          }
-        }
-      }
-    }
+    for (const domain in actions) {
+      const base = window.getBaseDomain(domain);
 
-    // remove from snitch map
-    for (let domain in snitchMap.getItemClones()) {
-      for (let i = 0; i < MISTAKES.length; i++) {
-        if (domain.endsWith(MISTAKES[i])) {
-          snitchMap.deleteItem(domain);
-        }
+      if (!MISTAKES.has(base)) {
+        continue;
       }
+
+      // remove only if
+      // user did not set an override
+      // and domain was seen tracking
+      const map = actions[domain];
+      if (map.userAction != "" || (
+        map.heuristicAction != constants.ALLOW &&
+        map.heuristicAction != constants.BLOCK &&
+        map.heuristicAction != constants.COOKIEBLOCK
+      )) {
+        continue;
+      }
+
+      console.log("Removing %s ...", domain);
+      actionMap.deleteItem(domain);
+      snitchMap.deleteItem(base);
     }
   },
 
@@ -192,7 +190,6 @@ exports.Migrations= {
       let base = window.getBaseDomain(domain);
       if (domainsToFix.has(base)) {
         action_map.deleteItem(domain);
-        snitch_map.deleteItem(domain);
         snitch_map.deleteItem(base);
       }
     }
