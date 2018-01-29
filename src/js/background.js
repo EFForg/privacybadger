@@ -584,6 +584,12 @@ Badger.prototype = {
         return;
       }
 
+      if (badger.error) {
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
+        chrome.browserAction.setBadgeText({tabId: tab_id, text: "!"});
+        return;
+      }
+
       // don't show the counter for any of these:
       // - the counter is disabled
       // - we don't have tabData for whatever reason (special browser pages)
@@ -594,12 +600,6 @@ Badger.prototype = {
         !self.isPrivacyBadgerEnabled(self.getFrameData(tab_id).host)
       ) {
         chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
-        return;
-      }
-
-      if (badger.error) {
-        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
-        chrome.browserAction.setBadgeText({tabId: tab_id, text: "!"});
         return;
       }
 
