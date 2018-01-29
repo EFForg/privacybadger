@@ -106,5 +106,5 @@
   "web_accessible_resources": [
     "skin/socialwidgets/*"
   ],
-  "update_url": "http://clients2.google.com/service/update2/crx"
+  "update_url": "https://clients2.google.com/service/update2/crx"
 }
