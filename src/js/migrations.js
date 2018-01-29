@@ -80,16 +80,21 @@ exports.Migrations= {
     console.log("Running migration to forget mistakenly flagged domains ...");
 
     const MISTAKES = new Set([
+      '2mdn.net',
       'akamaized.net',
       'bootcss.com',
+      'cloudinary.com',
       'edgesuite.net',
       'ehowcdn.com',
       'ewscloud.com',
       'fncstatic.com',
+      'fontawesome.com',
       'hgmsites.net',
       'hsforms.net',
       'hubspot.com',
       'jsdelivr.net',
+      'jwplayer.com',
+      'jwpsrv.com',
       'kinja-img.com',
       'kxcdn.com',
       'ldwgroup.com',
