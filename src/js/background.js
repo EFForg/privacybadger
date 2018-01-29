@@ -597,6 +597,12 @@ Badger.prototype = {
         return;
       }
 
+      if (badger.error) {
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
+        chrome.browserAction.setBadgeText({tabId: tab_id, text: "!"});
+        return;
+      }
+
       let count = self.getBlockedOriginCount(tab_id);
 
       if (count === 0) {

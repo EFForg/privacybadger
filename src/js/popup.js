@@ -89,6 +89,11 @@ function showNagMaybe() {
         _showNag();
       }
     });
+  } else if (badger.error) {
+    $('#instruction-text').hide();
+    $('#error-text').show();
+    $('#error-message').text(badger.error);
+    _showNag();
   }
 }
 

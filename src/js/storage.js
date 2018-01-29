@@ -516,10 +516,18 @@ BadgerStorage.prototype = {
 var _syncStorage = (function () {
   var debouncedFuncs = {};
 
+  function cb() {
+    if (chrome.runtime.lastError) {
+      let err = chrome.runtime.lastError.message;
+      badger.error = err;
+      console.error("Error writing to chrome.storage.local:", err);
+    }
+  }
+
   function sync(badgerStorage) {
     var obj = {};
     obj[badgerStorage.name] = badgerStorage._store;
-    chrome.storage.local.set(obj);
+    chrome.storage.local.set(obj, cb);
   }
 
   // Creates debounced versions of "sync" function,
