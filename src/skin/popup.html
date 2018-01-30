@@ -38,15 +38,21 @@
   <div id="instruction-outer">
   </div>
   <div id="instruction" class="overlay">
-    <img src='/icons/badger-48.png'>
+    <img id="instruction-logo" src='/icons/badger-48.png'>
     <svg id="fittslaw" width="30" height="30" fill="white">
       <line x1="5" y1="5" x2="20" y2="20" style="stroke:rgb(22,22,22);stroke-width:3;fill:transparent"/>
       <line x1="5" y1="20" x2="20" y2="5" style="stroke:rgb(22,22,22);stroke-width:3;fill:transparent"/>
     </svg>
-    <p class="i18n_intro_text"></p>
-    <br>
-    <div id="firstRun">
-      <p class="i18n_first_run_text"></p>
+    <div id="instruction-text">
+        <p class="i18n_intro_text"></p>
+        <br>
+        <div id="firstRun">
+          <p class="i18n_first_run_text"></p>
+        </div>
+    </div>
+    <div id="error-text" style="display:none">
+        <p><span class="i18n_extension_error_text"></span></p>
+        <p style="color:#cc0000" id="error-message"></p>
     </div>
   </div>
   <div id="overlay" class="overlay">
