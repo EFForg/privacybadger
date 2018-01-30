@@ -91,7 +91,7 @@ function showNagMaybe() {
     });
   } else if (badger.error) {
     $('#instruction-text').hide();
-    $('#error-text').show();
+    $('#error-text').show().find('a').attr('id', 'firstRun').css('padding', '5px');
     $('#error-message').text(badger.error);
     _showNag();
   }
