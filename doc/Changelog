@@ -1,5 +1,9 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.1.30
+* Removed the "unlimitedStorage" permission from the manifest
+* Changed the tracker count badge color from red to "Privacy Badger orange"
+
 ## 2018.1.25
 * Added workaround to avoid Privacy Badger getting disabled as "Not from
 Chrome Web Store" in Chrome
