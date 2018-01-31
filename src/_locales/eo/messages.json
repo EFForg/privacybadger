@@ -56,7 +56,7 @@
         "description": ""
     },
     "extension_error_text": {
-        "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
+        "message": "Bonvolu <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>informi nin</a> pri la jena eraro:",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
@@ -112,7 +112,7 @@
         "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
-        "message": "Kunhavigi per Tvitero",
+        "message": "Kunhavigi per Twitter",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "first_run_text": {
@@ -420,7 +420,7 @@
         "description": ""
     },
     "share_button_title_facebook": {
-        "message": "Kunhavigi per Fejsbuko",
+        "message": "Kunhavigi per Facebook",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "description": {
