@@ -1,0 +1,442 @@
+{
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger bu ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
+    "badger_status_block": {
+        "message": "Engellendi ",
+        "description": ""
+    },
+    "invalid_json": {
+        "message": "Geçersiz JSON dosyası.",
+        "description": ""
+    },
+    "options_remove_origin_confirm": {
+        "message": "Bu kaynağı Privacy Badger'dan kaldırmak istediğinize emin misiniz?",
+        "description": ""
+    },
+    "badger_status_noaction": {
+        "message": "Takip yok ",
+        "description": ""
+    },
+    "non_tracker_tip": {
+        "message": "Şu an Privacy Badger sadece 3. partilerin çerez, yerel HTML5 depolaması, veya tuval parmak izi kullanarak taramanızı takip edip etmediğini kontrol ediyor. Bazı adresler Privacy Badger tarafından algılanmayan yöntemler kullanıyor olabilir.",
+        "description": ""
+    },
+    "intro_hungry": {
+        "message": "Hiçbir şey Privacy Badger'ı acıktığında çerez yemekten alıkoyamaz!",
+        "description": ""
+    },
+    "options_dnt_policy_setting": {
+        "message": "Sitelerin EFF'nin Takip Etme poliçesi ile uyumluluğunu kontrol et",
+        "description": ""
+    },
+    "invalid_domain": {
+        "message": "Lütfen geçerli bir adres veya URL girin.",
+        "description": ""
+    },
+    "intro2": {
+        "message": "Bu eklenti sizi, siz internette gezinirken gizlice yüklenen üçüncü parti takipçilerinden otomatik olarak korumak için tasarlanmıştır. Biz her istekle beraber Takip Etme başlığını gönderiyoruz ve eklentimiz hâlâ takip ediliyor olma riskinizi değerlendiriyor. Eğer algoritma riskin büyük olduğunu tespit ederse, isteklerinizin domaine ulaşmasını otomatik olarak engelliyoruz. Lütfen Privacy Badger'ın betada olduğunu, ve algoritmanın algı yeteneğinin takip ediliyor olmanız konusunda kesin olmadığını anlayın.",
+        "description": ""
+    },
+    "donate_to_eff": {
+        "message": "EFF'ye bağış yap.",
+        "description": ""
+    },
+    "report_success": {
+        "message": "Teşekkürler! Bunu araştıracağız.",
+        "description": ""
+    },
+    "dnt_tooltip": {
+        "message": "Bu adres sizi takip etmeme sözü veriyor.",
+        "description": ""
+    },
+    "options_dnt_policy_learn_more": {
+        "message": "Daha fazlasını öğrenin",
+        "description": ""
+    },
+    "extension_error_text": {
+        "message": "Lütfen bize şu hata hakkında <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>bilgi verin</a>:",
+        "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
+    },
+    "data_settings": {
+        "message": "Veriyi Düzenle",
+        "description": "This is an options page tab heading."
+    },
+    "slideshow_13": {
+        "message": " Eğer bir sayfayı bozuyorsam, lütfen sorunu çözmeleri için beni geliştiricilerime rapor edin! Bu butona tıklayarak bunu yapabilirsiniz.",
+        "description": ""
+    },
+    "report_title": {
+        "message": "Hata Rapor Et",
+        "description": ""
+    },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "örn. www.adres.com, *.adres.net, adres.org",
+        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+    },
+    "slideshow_4": {
+        "message": " Eğer ikonuma tıklarsanız bu sekmedeki potansiyel takipçileri görebilirsiniz.",
+        "description": ""
+    },
+    "slideshow_5": {
+        "message": " Eğer kaydırıcı kırmızı ise, takipçi tamamen engellendi demektir!  O şeytan sana bir daha bulaşmayacak.",
+        "description": ""
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Bu adresin çerez kullanmasını engellemek için buraya tıkla",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
+    "popup_instructions": {
+        "message": "tane potansiyel <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>takipçi</a> buldu. Bu kaydırıcılar Privacy Badger'in her biriyle nasıl başa çıkacağını ayarlamanızı sağlar. Ters giden birşey yoksa kaydırıcıları ayarlamanız gerekmez.",
+        "description": "Continuation of the popup message that shows number of trackers"
+    },
+    "options_webrtc_setting": {
+        "message": "WebRTC'nin yerel IP adresini açığa çıkarmasını engelle *",
+        "description": ""
+    },
+    "error_input": {
+        "message": "Sorun Nedir?",
+        "description": ""
+    },
+    "popup_instructions_no_trackers": {
+        "message": "Hiçbir <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>takipçi</a> algılanmadı. Yaşasın gizlilik!",
+        "description": "Text shown in the popup when there are no trackers on the page."
+    },
+    "options_domain_list_tab": {
+        "message": "Takip Eden Adresler",
+        "description": "This is an options page tab heading."
+    },
+    "intro1": {
+        "message": "Privacy Badger casus reklamları ve görünmez takipçileri engeller.  Şirketlerin gezintinizi sizin isteğiniz olmadan takip etmesini engeller.",
+        "description": "firstRun.html intro to Privacy Badger"
+    },
+    "share_button_title_twitter": {
+        "message": "Twitter'da Paylaş",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "first_run_text": {
+        "message": "Privacy Badger'ın gizliliğinizi nasıl koruduğunu öğrenin.",
+        "description": ""
+    },
+    "download": {
+        "message": "İndir",
+        "description": ""
+    },
+    "feed_the_badger_title": {
+        "message": "bu takipçinin kontrolünü Privacy Badger'a geri vermek için tıkla",
+        "description": ""
+    },
+    "intro_has_blocked": {
+        "message": " Privacy Badger'ın bu adresin bir takipçi olduğuna inanıp engellediği anlamına gelir. ",
+        "description": ""
+    },
+    "import": {
+        "message": "İçeri aktar",
+        "description": ""
+    },
+    "options_social_widgets_checkbox": {
+        "message": "Sosyal widgetları değiştir",
+        "description": ""
+    },
+    "report_button": {
+        "message": "Hata Gönder",
+        "description": ""
+    },
+    "badger_status_allow": {
+        "message": "Şuna izin verildi: ",
+        "description": ""
+    },
+    "privacy_badger_what_is": {
+        "message": "Privacy Badger nedir?",
+        "description": ""
+    },
+    "options_domain_search": {
+        "message": "Adresleri ara",
+        "description": ""
+    },
+    "show_counter_checkbox": {
+        "message": "Engellenen şeylerin sayısını göster",
+        "description": ""
+    },
+    "what_is_a_tracker": {
+        "message": "Takipçi nedir?",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
+    },
+    "slideshow_1": {
+        "message": " Merhaba, ben Privacy Badger! Beni yüklediğiniz için teşekkür ederim. Seninle çalışmam için yardımcı olacak birkaç ipucunu paylaşmak için buradayım.",
+        "description": ""
+    },
+    "options_title": {
+        "message": "Privacy Badger Seçenekleri",
+        "description": ""
+    },
+    "options_pb_has_detected": {
+        "message": "Privacy Badger şu ana dek ",
+        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
+    "social_tooltip_button": {
+        "message": " butonunu değiştirdi.",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
+    "slideshow_11": {
+        "message": " Eğer benim yaptığım bir ayarı değiştirirsen, geri alma oku ile her zaman onu tekrar benim kontrolüme bırakabilirsin.",
+        "description": ""
+    },
+    "report_terms": {
+        "message": "Bu EFF'ye otomatik olarak şu bilgileri gönderecek: şu an ziyaret ettiğin site, tarayıcı sürümün, Privacy Badger versiyonun, ve bu site için bütün kaydırıcıların durumu.",
+        "description": ""
+    },
+    "whitelisted_domains": {
+        "message": "Beyaz Listedeki Adresler",
+        "description": "This is an options page tab heading."
+    },
+    "popup_enable_for_site": {
+        "message": "Bu Site İçin Privacy Badger'ı Etkinleştir",
+        "description": ""
+    },
+    "import_successful": {
+        "message": "Takipçi listesi ve ayarlar başarıyla değiştirildi!",
+        "description": ""
+    },
+    "export_user_data": {
+        "message": "Kullanıcı verisini dışa aktar",
+        "description": ""
+    },
+    "intro_text": {
+        "message": "Şu an Privacy Badger tarafından korunuyorsunuz. Privacy Badger'ın nasıl çalıştığını öğrenmek için aşağıdaki kısa öğreticiye tıklayabilirsiniz.",
+        "description": ""
+    },
+    "options_webrtc_warning": {
+        "message": "* WebRTC yerel IP adresinizi belli edebilir. Privacy Badger'ın varsayılan ayarları korunmanıza yardımcı olur, ancak ekstra korunma için bu seçeneği aktifleştirebilirsiniz. Bu seçeneğin Google Hangouts gibi araçlarda performansı düşüreceğini göz önünde bulundurun.",
+        "description": ""
+    },
+    "options_general_settings": {
+        "message": "Genel Ayarlar",
+        "description": "This is an options page tab heading."
+    },
+    "slideshow_7": {
+        "message": " Eğer kaydırıcı yeşilse bu adresin sizi takip ettiğini algılayamadım demektir. Öyle olabilir, ama bir gözüm yine de üzerinde olacak.",
+        "description": ""
+    },
+    "domain_slider_block_tooltip": {
+        "message": "Bu adresi tamamen engellemek için tıklayın",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
+    "version": {
+        "message": "versiyon",
+        "description": ""
+    },
+    "badger_status_cookieblock": {
+        "message": "Şuradan çerezler engellendi: ",
+        "description": ""
+    },
+    "options_loading": {
+        "message": "Yükleniyor...",
+        "description": ""
+    },
+    "show_tracking_domains_acknowledgement": {
+        "message": "Anladım; yine de lütfen bana takip eden adreslerin listesini göster",
+        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
+    },
+    "firstRun_title": {
+        "message": "Privacy Badger'ı yüklediğiniz için teşekkürler!",
+        "description": ""
+    },
+    "import_select_file": {
+        "message": "İçeri aktarmak için bir dosya seçin.",
+        "description": ""
+    },
+    "popup_blocked": {
+        "message": "Bu sitede hiç üçüncü parti bir araç yok.",
+        "description": ""
+    },
+    "report_broken_site": {
+        "message": "Privacy Badger bu siteyi bozdu mu? Bizi bilgilendirin!",
+        "description": ""
+    },
+    "tooltip_cookieblock": {
+        "message": "Çerezleri engellemek için kaydırıcıyı ortalayın",
+        "description": ""
+    },
+    "slideshow_12": {
+        "message": " Eğer bir sayfa ile sıkıntı yaşıyor ve benim sebep olduğumu düşünüyorsanız, buradaki devre dışı bırakma butonuna tıklayabilirsiniz. Uyuyacağım ve bu websitesindeki hiçbir şeyi engellemeyeceğim.",
+        "description": ""
+    },
+    "slideshow_3": {
+        "message": " Eğer bir şeyin takipçi gibi davrandığını algılarsam, onu engelleyerek durduracağım.  ",
+        "description": ""
+    },
+    "report_close": {
+        "message": "Kapat",
+        "description": ""
+    },
+    "slideshow_9": {
+        "message": " Yaptıkça öğrenirim, beni ne kadar uzun süre kullanırsanız sizi takip eden sinsi takipçileri o kadar kolay yakalarım!",
+        "description": ""
+    },
+    "slideshow_2": {
+        "message": " Tarayıcınızda oturup casus reklamlara ve internette yaptıklarınızı kaydeden takipçilere karşı tetikte olacağım. ",
+        "description": ""
+    },
+    "import_user_data": {
+        "message": "Kullanıcı verisini içe aktar",
+        "description": ""
+    },
+    "slideshow_8": {
+        "message": " İkonuma ilk kez tıkladığınızda bütün takipçilerin yeşil olduğunu görebilirsiniz—endişelenmeyin! Ben diğer engelleme yazılımlarından farklıyım—hemen engellemem gereken şeylerin listesini baştan hazırlamak yerine neyi engellemem gerektiğini siz gezinirken öğrenirim. Eğer henüz hiçbir şey engellemiyorsam, 4-5 değişik website gezinmeyi deneyin. Ondan sonra belli başlı takipçileri durdurmaya başlarım.",
+        "description": ""
+    },
+    "popup_help_button": {
+        "message": "Yardım",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "share_button_title_google": {
+        "message": "Google Plus'ta Paylaş",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "show_tracking_domains_message": {
+        "message": "Buradaki hiçbir şeyi düzenlemeniz gerekmez.",
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
+    },
+    "report_cancel": {
+        "message": "İptal",
+        "description": ""
+    },
+    "tooltip_block": {
+        "message": "Bir adresi engellemek için kaydırıcıyı sola kaydırın",
+        "description": ""
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger aşağıda listelenen adresler için devre dışı bırakıldı. Adresleri tarayıcınızdaki Privacy Badger ikonundan ya da aşağıdaki kutuya adresi yazıp \"Adres Ekle\" butonuna basarak ekleyebilirsiniz.",
+        "description": ""
+    },
+    "pb_detected": {
+        "message": "Privacy Badger ",
+        "description": "Beginning of popup message that shows the number of trackers."
+    },
+    "intro_by_eff": {
+        "message": "Bir Electronic Frontier Foundation projesi",
+        "description": ""
+    },
+    "add_domain_button": {
+        "message": "Adres Ekle",
+        "description": ""
+    },
+    "options_domain_list_one_tracker": {
+        "message": "Privacy Badger şu ana kadar bir potansiyel <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>takipçi adres</a> buldu. Bu kaydırıcı Privacy Badger'in onunla nasıl başa çıkacağını ayarlamanızı sağlar.",
+        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
+    },
+    "tooltip_allow": {
+        "message": "Bir adrese izin vermek için kaydırıcıyı sağa kaydırın",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Bu Site İçin Privacy Badger'ı Devre Dışı Bırak",
+        "description": ""
+    },
+    "intro_social_share": {
+        "message": "Dünyanın online takibin karşısında durduğunuzu bilmesini sağlayın",
+        "description": ""
+    },
+    "intro_yellow": {
+        "message": "Sarı",
+        "description": ""
+    },
+    "popup_instructions_one_tracker": {
+        "message": "Privacy Badger bu sayfada potansiyel bir <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>takipçi</a> algıladı. Bu kaydırıcı Privacy Badger'in onunla nasıl başa çıkacağını ayarlamanızı sağlar. Ters giden birşeyler yoksa kaydırıcıyı ayarlamanız gerekmez.",
+        "description": "Text shown in the popup when there is exactly one tracker on the page."
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Bu adrese izin vermek için tıklayın",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
+    },
+    "options_domain_list_trackers": {
+        "message": "tane potansiyel <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>takipçi adres</a> buldu. Bu kaydırıcılar Privacy Badger'in her biriyle nasıl başa çıkacağını ayarlamanızı sağlar.",
+        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
+    "name": {
+        "message": "Privacy Badger",
+        "description": ""
+    },
+    "intro_3_states": {
+        "message": "Eklentimizin üç durumu vardır. ",
+        "description": ""
+    },
+    "intro_cookie_blocked": {
+        "message": "adresin hem bir takipçi hem de adresin çalışması için gerekli bir eleman olduğununa inanıldığı anlamına gelir, bu yüzden Privacy Badger ona izin veriyor ancak çerezlerini engelliyor.",
+        "description": ""
+    },
+    "report_text": {
+        "message": "Hatayı aşağıda kısaca özetleyin.",
+        "description": ""
+    },
+    "intro_red": {
+        "message": "Kırmızı",
+        "description": ""
+    },
+    "remove_button": {
+        "message": "Seçilenleri kaldır",
+        "description": "This is the label for the 'Remove selected' buttons."
+    },
+    "intro_green": {
+        "message": "Yeşil",
+        "description": ""
+    },
+    "intro_no_tracker": {
+        "message": "Privacy Badger'ın bunun takipçi olmadığına inandığı anlamına gelir. Tarayıcınızın araç çubuğunda Privacy Badger ikonuna tıklayarak otomatik engelleme ayarlarını değiştirebilirsiniz. Veya Privacy Badger otomatik olarak web takipçilerini bulup birer birer yerken huzur içinde gezinmeye devam edebilirsiniz.",
+        "description": ""
+    },
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger hiçbir <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>takipçi adres</a> algılamadı. Gezinmeye devam!",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+    },
+    "slideshow_15": {
+        "message": " Elbette bütün seçenekleri yalnız bırakabilirsiniz, ben de bulduğum takipçileri sessizce yerim.",
+        "description": ""
+    },
+    "report_input_label": {
+        "message": "Açıklama",
+        "description": ""
+    },
+    "non_tracker": {
+        "message": "Aşağıdaki adresler sizi takip etmiyor",
+        "description": ""
+    },
+    "slideshow_14": {
+        "message": " Diğer seçenekleri değiştirmek isterseniz, bu dişli ikonuna tıklayabilirsiniz.",
+        "description": ""
+    },
+    "popup_options_button": {
+        "message": "Ayarlar",
+        "description": ""
+    },
+    "slideshow_6": {
+        "message": " Eğer kaydırıcı sarıysa, bu takipçiyi kısmen engellediğim anlamına gelir. Çerezleri yiyip sizi izlemesini engellemek için elimden geleni yapacağım, ama onu tamamen engellemek sayfayı kullanılamaz hale getirebilir.",
+        "description": ""
+    },
+    "slideshow_16": {
+        "message": " Gizliliğinizi korumaya yönelik kolay ve önemli bir adım attığınız için teşekkürler! Eğer tekrar yardıma ihtiyacınız olursa buraya tıklayabilirsiniz, ve dünyanın online takibe karşı durduğunuzu bilmesini istiyorsanız aşağıya tıklayabilirsiniz.",
+        "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Facebook'ta Paylaş",
+        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "description": {
+        "message": "Privacy Badger siz internette dolaşırken sizi takipçilerden korur!",
+        "description": ""
+    },
+    "popup_noblocked": {
+        "message": "Neden hiçbir şey engellenmemiş?",
+        "description": ""
+    },
+    "report_fail": {
+        "message": "Tüh. Birşeyler ters gitti.",
+        "description": ""
+    },
+    "slideshow_10": {
+        "message": " Eğer bir takipçi hakkında yanlış karar verdiğimi düşünüyorsanız, kaydırıcıyı kırmızıya götürerek onu tamamen, sarıya götürerek kısmen engelleyebilir, ve yeşile götürerek ona izin verebilirsiniz.",
+        "description": ""
+    }
+}
