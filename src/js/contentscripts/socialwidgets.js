@@ -138,12 +138,8 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
       var iframeUrl = details + encodeURIComponent(window.location.href);
 
       button.addEventListener("click", function() {
-        // for some reason, the callback function can execute more than
-        // once when the user clicks on a replacement button
-        // (it executes for the buttons that have been previously
-        // clicked as well)
         replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, iframeUrl);
-      });
+      }, { once: true });
 
       break;
 
@@ -151,18 +147,14 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
     // specified in the Trackers file
     case 2:
       button.addEventListener("click", function() {
-        // for some reason, the callback function can execute more than
-        // once when the user clicks on a replacement button
-        // (it executes for the buttons that have been previously
-        // clicked as well)
         replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
-      });
+      }, { once: true });
       break;
 
     case 3:
       button.addEventListener("click", function() {
         replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, trackerElem);
-      });
+      }, { once: true });
       break;
 
     default:
@@ -223,8 +215,6 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
       button.parentNode.replaceChild(codeContainer, button);
 
       replaceScriptsRecurse(codeContainer);
-
-      button.removeEventListener("click");
     }
   });
 }
