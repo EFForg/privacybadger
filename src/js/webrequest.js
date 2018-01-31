@@ -552,10 +552,9 @@ function getSocialWidgetBlockList() {
   var socialWidgetsToReplace = {};
 
   badger.socialWidgetList.forEach(function (socialwidget) {
-    // Only replace social widgets that the user has not manually allowed
-    var socialWidgetName = socialwidget.name;
-    socialWidgetsToReplace[socialWidgetName] = (
-      badger.storage.getAction(socialwidget.domain) != constants.USER_ALLOW
+    // Only replace blocked and yellowlisted widgets
+    socialWidgetsToReplace[socialwidget.name] = constants.BLOCKED_ACTIONS.has(
+      badger.storage.getBestAction(socialwidget.domain)
     );
   });
 
