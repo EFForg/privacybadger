@@ -56,7 +56,7 @@
         "description": ""
     },
     "extension_error_text": {
-        "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
+        "message": "<a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>Berätta för oss</a> om följande fel:",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
@@ -88,7 +88,7 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "potentiella <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på denna sida. Dessa reglage låter dig styra hur Privacy Badger hanterar varje. Du behöver inte justera reglagen om inte något är trasigt.",
+        "message": "potentiella <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på denna sida. Dessa reglage låter dig styra hur Privacy Badger hanterar var och en. Du behöver inte justera reglagen om inte något är trasigt.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
     "options_webrtc_setting": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Privacy Badger-alternativ",
+        "message": "Privacy Badger alternativ",
         "description": ""
     },
     "options_pb_has_detected": {
