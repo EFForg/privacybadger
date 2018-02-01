@@ -28,7 +28,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Sitelerin EFF'nin Takip Etme poliçesi ile uyumluluğunu kontrol et",
+        "message": "Sitelerin EFF'nin Do Not Track poliçesi ile uyumluluğunu kontrol et",
         "description": ""
     },
     "invalid_domain": {
@@ -36,7 +36,7 @@
         "description": ""
     },
     "intro2": {
-        "message": "Bu eklenti sizi, siz internette gezinirken gizlice yüklenen üçüncü parti takipçilerinden otomatik olarak korumak için tasarlanmıştır. Biz her istekle beraber Takip Etme başlığını gönderiyoruz ve eklentimiz hâlâ takip ediliyor olma riskinizi değerlendiriyor. Eğer algoritma riskin büyük olduğunu tespit ederse, isteklerinizin domaine ulaşmasını otomatik olarak engelliyoruz. Lütfen Privacy Badger'ın betada olduğunu, ve algoritmanın algı yeteneğinin takip ediliyor olmanız konusunda kesin olmadığını anlayın.",
+        "message": "Bu eklenti sizi, siz internette gezinirken gizlice yüklenen üçüncü parti takipçilerinden otomatik olarak korumak için tasarlanmıştır. Biz her istekle beraber Do Not Track başlığını gönderiyoruz ve eklentimiz hâlâ takip ediliyor olma riskinizi değerlendiriyor. Eğer algoritma riskin büyük olduğunu tespit ederse, isteklerinizin adrese ulaşmasını otomatik olarak engelliyoruz. Lütfen Privacy Badger'ın betada olduğunu, ve algoritmanın algı yeteneğinin takip ediliyor olmanız konusunda kesin olmadığını anlayın.",
         "description": ""
     },
     "donate_to_eff": {
