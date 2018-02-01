@@ -324,7 +324,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger hat bisher eine potentiellen <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking-Domain</a> erkannt. Die Schieberegler lassen Sie steuern, wie Privacy Badger diese handhabt.",
+        "message": "Privacy Badger hat bisher eine potentielle <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking-Domain</a> erkannt. Der Schieberegler lässt Sie steuern, wie Privacy Badger diese handhabt.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
