@@ -403,6 +403,11 @@ amazoncustomerservice.d2.sc.omtrdc.net
 attservicesinc.tt.omtrdc.net
 onswipe.com
 ooyala.com
+api.ooyala.com
+c.ooyala.com
+l.ooyala.com
+opf.ooyala.com
+player.ooyala.com
 tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
