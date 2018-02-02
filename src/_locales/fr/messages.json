@@ -56,7 +56,7 @@
         "description": ""
     },
     "extension_error_text": {
-        "message": "S'il vous plaît <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>envoyez-nous</a> l'erreur suivante:",
+        "message": "Merci de nous <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>signaler</a> l'erreur suivante :",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
