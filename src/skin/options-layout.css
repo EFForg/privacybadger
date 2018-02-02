@@ -22,37 +22,9 @@ button
 {
   white-space: pre;
 }
-#tabs {
-  min-width: 750px;
-}
-
-.tooltipArrow {
-  bottom: 27px;
-}
 
 #pbInstructions {
   margin-bottom: 20px;
-  width: 500px;
-}
-
-#rawFilters {
-  display: none;
-}
-
-.okMsg {
-    display: none;
-    color: #ffffff;
-    background: #30e030;
-    font-weight: bold;
-    padding: 3px;
-}
-
-.errMsg {
-    display: none;
-    color: #ffffff;
-    background: #e03030;
-    font-weight:bold;
-    padding:3px;
 }
 
 #tab-manage-data {
@@ -67,20 +39,44 @@ button
   float: left;
 }
 
-/* Filter list entry status message */
-.flMsg {
-    display: none;
-    color: #b0b0b0;
-}
-
 .importInput{
   visibility: hidden;
   height: 0;
   width: 0;
 }
 
-#tracking-domains-div {
+#blockedResources {
   width: 390px;
+}
+
+#tracking-domains-filters {
+    color: #505050;
+    font-size: 14px;
+    list-style-type: none;
+    margin: 10px 0;
+    padding: 0;
+    max-width: 390px;
+}
+
+#tracking-domains-filters li {
+    margin: 5px 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#tracking-domains-filters > li > label {
+    flex: 1 0 150px; /* at least this wide */
+    max-width: 150px; /* at most this wide */
+}
+
+#tracking-domains-filters > li > label + * {
+    flex: 1 0 200px; /* at least this wide or wrap */
+}
+
+.clickerContainer {
+    max-height: 400px; /* override popup.css */
 }
 
 #settingsSuffix{
