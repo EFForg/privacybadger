@@ -91,6 +91,10 @@
         "message": "potencjalnych <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiegów</a> na tej stronie. Te suwaki pozwolą Ci kontrolować jak ma z nimi postępować Privacy Badger. Nie powinieneś nimi kręcić jeżeli wszystko działa.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "Zapobiegnij wyciekowi lokalnego IP przez WebRTC *",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Szukaj domen",
-        "description": ""
+        "message": "Szukaj domen:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Wyświetl liczbę zablokowanych obiektów",
@@ -195,6 +199,10 @@
         "message": "Włącz Privacy Badgera na tej stronie",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "Pomyślnie zaimportowano ustawienia i listę szpiegów!",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "Ładowanie…",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "Tak, rozumiem, ale proszę wyświetlić mi listę szpiegujących domen.",
@@ -287,9 +299,17 @@
         "message": "Początkowo po kliknięciu mojej ikony wszystkie śledziki są oznaczone na zielono – nie panikuj! Jestem inny niż pozostałe oprogramowanie chroniące prywatność – zamiast posiadać listę obiektów do zablokowania, uczę się co blokować podczas gdy Ty surfujesz. Jeżeli jeszcze czegoś nie blokuję, spróbuj poserfować po 4 czy 5 różnych stronach. Po tym powinienem zacząć blokować najbardziej popularnych szpiegów.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Pomoc",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Udostępnij na Google Plus",
@@ -299,6 +319,10 @@
         "message": "Nie powinieneś mieć potrzeby zmieniać czegokolwiek tutaj.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "Anuluj",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "Przesuń suwak w lewo, aby zablokować domenę",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger jest wyłączony dla poniższych domen. Możesz dodać domenę albo poprzez ikonę Prvacy Badgera na pasku przeglądarki albo poprzez ręczne wpisanie domeny w pole poniżej i kliknięciu przycisku „dodaj domenę”.",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": "oznacza, że ta domena jest uważana za szpiega i jednocześnie jest niezbędna do działania strony, więc Privacy Badger nie zablokuje jej, ale zablokuje jej ciasteczka.",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Zwięźle opisz problem poniżej.",

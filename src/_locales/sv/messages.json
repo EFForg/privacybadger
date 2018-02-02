@@ -91,6 +91,10 @@
         "message": "potentiella <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på denna sida. Dessa reglage låter dig styra hur Privacy Badger hanterar var och en. Du behöver inte justera reglagen om inte något är trasigt.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "Förhindra WebRTC från att läcka din lokala IP-adress *",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Sök domäner",
-        "description": ""
+        "message": "Sök domäner:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Visa antalet blockerade objekt",
@@ -195,6 +199,10 @@
         "message": "Aktivera Privacy Badger för denna webbplats",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "Lista över spårare och inställningar uppdaterades!",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "Laddar...",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "Jag förstår; visa mig spårningsdomänlistan ändå",
@@ -287,9 +299,17 @@
         "message": "Första gången du klickar på min ikon kan du se att alla spårare är gröna, oroa dig inte! Jag skiljer mig från andra spårningsblockerande mjukvaror—istället för att veta en lista med saker att blockera genast, jag lär mig vad jag ska blockera medan du surfar. Om jag inte blockerar någonting ännu, försök att surfa till 4 eller 5 olika webbplatser. Jag borde börja blockera gemensamma spårare efter det.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Hjälp",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Dela på Google Plus",
@@ -299,6 +319,10 @@
         "message": "Du ska inte behöva ändra någonting här.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "Avbryt",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "Flytta skjutreglaget till vänster för att blockera en domän",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger är inaktiverad för domänerna som anges nedan. Du kan lägga till en domän antingen via ikonen Privacy Badger i webbläsarverktygsfältet eller genom att skriva domänen i rutan nedan och klicka på \"Lägg till domän\"-knappen.",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": "betyder att domänen anses vara både en spårare och nödvändig för sidans funktion, så Privacy Badger tillåter den men blockerar dess kakor.",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Beskriv kortfattat felet nedan.",

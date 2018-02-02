@@ -91,6 +91,10 @@
         "message": "potentielle <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporinger</a> på denne side. Disse skydere lader dig styre hvordan Privacy Badger håndterer hver især. Du burde ikke have nødigt at justere dem medmindre noget er i stykker.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "Forhindr WebRTC i at lække lokal IP-adresse *",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Søg domæner",
-        "description": ""
+        "message": "Søg domæner:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Vis antal blokerede enheder",
@@ -195,6 +199,10 @@
         "message": "Aktiver Privacy Badger for dette netsted",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "Sporingsliste og opsætning successfuldt opdateret!",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "Indlæser...",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "Jeg forstår; vis mig listen over sporingsdomæner alligevel",
@@ -287,9 +299,17 @@
         "message": " Første gang du klikker på mit ikon vil du måske se at alle sporingerne er grønne—det er o.k! Jeg er anderledes end andet programmel der blokerer sporing—i stedet for at kende en liste af ting der skal blokeres med det samme, lærer jeg hvad der skal blokeres efterhånden som du læser på nettet. Hvis ikke jeg blokerer noget endnu så prøv at læse rundt på 4 eller 5 forskellige netsteder. Efter det skulle jeg begynde at blokere almindelige sporinger.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Hjælp",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Del på Google Plus",
@@ -299,6 +319,10 @@
         "message": "Du burde ikke have nødigt at ændre noget her.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "Annuller",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "Flyt skyderen til venstre for at blokere et domæne",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger er deaktiveret for domænerne listet herunder. Du kan tilføje et domæne enten via Privacy Badger-ikonet i din netlæsers værktøjsbjælke, eller ved at indtaste domænet i indtastningslinjen og klikke på knappen \"Tilføj domæne\".",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": "betyder at domænet menes både at være en sporing og være nødig for sidens funktion, så Privacy Badger tilader det men blokerer dets cookies.",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Beskriv fejlen kort herunder.",

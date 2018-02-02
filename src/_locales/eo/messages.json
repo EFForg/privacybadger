@@ -91,6 +91,10 @@
         "message": "eblajn <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilojn</a> sur tiu ĉi retpaĝo. Tiuj ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ili. Vi ne devus ŝanĝi ilin escepte se io malfunkcias.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "Preventi WebRTC de malkovri lokan IP-adreson",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Serĉi nomregnojn",
-        "description": ""
+        "message": "Serĉi nomregnojn:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Montri nombron da blokitaj aĵoj",
@@ -195,6 +199,10 @@
         "message": "Aktivigi Privatan Melon por tiu ĉi retejo",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "Sukcese enportis spuril-liston kaj agordojn!",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "Ŝargado…",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "Mi konscias, tamen bonvolu montri al mi la liston de spurantaj nomregnoj.",
@@ -287,9 +299,17 @@
         "message": "La unua foje, kiam vi klakas mian piktogramon vi povas vidi, ke ĉiuj spuriloj estas markitaj verde – ne ĉagreniĝu! Mi diferencas ol aliaj spuril-blokiloj – anstataŭ memori liston de blokendaĵoj, mi lernas kion bloki dum kiam vi retumadas. Se mi ne blokas iun ajn nun, provu retumi 4 aŭ 5 diversajn retejojn. Mi devos komenci bloki popularajn spurilojn post tio.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Helpo",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Kunhavigi per Google Plus",
@@ -299,6 +319,10 @@
         "message": "Vi ne devus bezoni modifi ion ajn tie ĉi.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "Nuligi",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "Movu la ŝovilon maldekstren por bloki nomregnon.",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privata Melo estas malaktivigita por la subaj nomregnoj. Vi povas aldoni nomregnon aŭ per la piktogramo de Privata Melo sur la retumila ilarstrio aŭ per entajpi nomregnon en la kampon sube kaj klaki la butonon “aldoni nomregnon”.",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": "signifas, ke tiu ĉi nomregno estas opiniata kaj spurilo kaj necesa por funkcii la retejon, do Privata Melo permesas ĝin sed blokas ĝiajn kuketojn.",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Koncize priskribu la eraron sube.",

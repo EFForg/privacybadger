@@ -91,6 +91,10 @@
         "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "Forhindre WebRTC i å lekke lokal IP-adresse *",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Søk i domener",
-        "description": ""
+        "message": "Søk i domener:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Vis antall blokkerte elementer",
@@ -195,6 +199,10 @@
         "message": "Skru på Personvernsgrevlingen for denne siden",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "Sporerliste og innstillinger oppdatert!",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "Laster inn…",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "I understand; please show me the tracking domains list anyway",
@@ -287,9 +299,17 @@
         "message": " Første gang du kikker på ikonet mitt kan det hende at alle sporerne er grønne. Frykt ikke! Jeg er forskjellig fra annen blokkeringsprogramvare i det at jeg lærer hva som skal blokkeres mens du surfer i steden for å vite alt på forhånd. Hvis jeg ikke blokkerer noe enda, prøv å surfe rundt på 4-5 forskjellige nettsteder. Jeg burde ha begynt å blokkere vanlige sporere etter det.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Share on Google Plus",
@@ -299,6 +319,10 @@
         "message": "You shouldn't need to modify anything here.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "Avbryt",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "Flytt glidebryteren til venstre for å blokkere et domene",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": "betyr at dette domenet sannsynligvis både sporer og har en rolle i sidens funksjon, slik at Personvernsgrevlingen tillater det, men blokkerer dets kaker.",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Gi en kort beskrivelse av feilen nedenfor.",

@@ -91,6 +91,10 @@
         "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "避免 WebRTC 泄露本地 IP 地址 *",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "搜索域名",
-        "description": ""
+        "message": "搜索域名:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "显示屏蔽数目",
@@ -195,6 +199,10 @@
         "message": "在当前的网页上启用隐私獾",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "追踪器列表与设置成功更新！",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "加载中…",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "I understand; please show me the tracking domains list anyway",
@@ -287,9 +299,17 @@
         "message": " 当你你第一次点击我的图标，你可能会发现所有的跟踪器是绿色——别担心！我与其他跟踪器屏蔽软件不同——我在你浏览网页时学习哪些是该屏蔽的，而不是一上来就根据已知的列表屏蔽。如果我啥都没开始屏蔽，你可以尝试浏览四到五个不同的网站。之后我就开始屏蔽常见的跟踪器。",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Share on Google Plus",
@@ -299,6 +319,10 @@
         "message": "You shouldn't need to modify anything here.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "取消",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "将滑块移至左边来屏蔽一个域名",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": "意味着域名既是一个跟踪器也是页面必要的功能，所以隐私獾在允许它但是屏蔽了它的 cookies。",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "在下面简要描述发生的错误。",

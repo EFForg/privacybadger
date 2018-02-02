@@ -91,6 +91,10 @@
         "message": "tane potansiyel <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>takipçi</a> buldu. Bu kaydırıcılar Privacy Badger'in her biriyle nasıl başa çıkacağını ayarlamanızı sağlar. Ters giden birşey yoksa kaydırıcıları ayarlamanız gerekmez.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "WebRTC'nin yerel IP adresini açığa çıkarmasını engelle *",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Adresleri ara",
-        "description": ""
+        "message": "Adresleri ara:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Engellenen şeylerin sayısını göster",
@@ -195,6 +199,10 @@
         "message": "Bu Site İçin Privacy Badger'ı Etkinleştir",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "Takipçi listesi ve ayarlar başarıyla değiştirildi!",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "Yükleniyor...",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "Anladım; yine de lütfen bana takip eden adreslerin listesini göster",
@@ -287,9 +299,17 @@
         "message": " İkonuma ilk kez tıkladığınızda bütün takipçilerin yeşil olduğunu görebilirsiniz—endişelenmeyin! Ben diğer engelleme yazılımlarından farklıyım—hemen engellemem gereken şeylerin listesini baştan hazırlamak yerine neyi engellemem gerektiğini siz gezinirken öğrenirim. Eğer henüz hiçbir şey engellemiyorsam, 4-5 değişik website gezinmeyi deneyin. Ondan sonra belli başlı takipçileri durdurmaya başlarım.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Yardım",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Google Plus'ta Paylaş",
@@ -299,6 +319,10 @@
         "message": "Buradaki hiçbir şeyi düzenlemeniz gerekmez.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "İptal",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "Bir adresi engellemek için kaydırıcıyı sola kaydırın",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger aşağıda listelenen adresler için devre dışı bırakıldı. Adresleri tarayıcınızdaki Privacy Badger ikonundan ya da aşağıdaki kutuya adresi yazıp \"Adres Ekle\" butonuna basarak ekleyebilirsiniz.",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": "adresin hem bir takipçi hem de adresin çalışması için gerekli bir eleman olduğununa inanıldığı anlamına gelir, bu yüzden Privacy Badger ona izin veriyor ancak çerezlerini engelliyor.",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Hatayı aşağıda kısaca özetleyin.",

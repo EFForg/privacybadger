@@ -91,6 +91,10 @@
         "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "Bránit uniku lokální IP adresy skrze WebRTC *",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Hledat domény",
-        "description": ""
+        "message": "Hledat domény:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Zobrazovat počet blokovaných prvků",
@@ -195,6 +199,10 @@
         "message": "Zapnout Privacy Badger pro tuto stránku",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "Seznam sledovacích prvků a nastavení bylo úspěšně aktualizováno!",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "Načítání...",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "I understand; please show me the tracking domains list anyway",
@@ -287,9 +299,17 @@
         "message": " Když na mou ikonu kliknete poprvé, může se stát, že všechny sledovací prvky jsou zelené – ale nemějte strach! Jsem odlišný od ostatních programů pro blokování: místo toho, abych měl seznam věcí, které mám hned zablokovat, tak se učím, zatímco používáte internet. Pokud zatím nic neblokuji, zkuste navštívit 4 až 5 různých stránek. Potom už určitě nějaké blokovat budu.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Share on Google Plus",
@@ -299,6 +319,10 @@
         "message": "You shouldn't need to modify anything here.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "Zrušit",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "Posuňte posuvník vlevo pro blokování domény",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger je vypnutý pro domény na seznamu níže. Doménu můžete přidat také pomocí ikony Privacy Badger v nástrojové liště vašeho prohlížeče nebo napsáním domény do rámečku a kliknutím na tlačítko \"Přidat doménu\".",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": " znamená, že doména vás sleduje, ale je nezbytná pro funkčnost stránky, takže ji Privacy Badger toleruje a blokuje jen její cookies.",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Níže stručně popište chybu.",

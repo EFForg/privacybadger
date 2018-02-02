@@ -91,6 +91,10 @@
         "message": "потенциальных <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекеров</a> на этой странице. С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым из них. Переключателей нужно регулировать только в случае проблем с работой сайта.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "Предотвращать утечку локального IP-адреса через WebRTC *",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Найти домены",
-        "description": ""
+        "message": "Найти домены:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Отображать счетчик заблокированных элементов",
@@ -195,6 +199,10 @@
         "message": "Включить Privacy Badger для этого сайта",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "Список трекеров и настройки успешно обновлены!",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "Загрузка...",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "Понятно; пожалуйста покажите список трекеров",
@@ -287,9 +299,17 @@
         "message": " Возможно, при первом открытии моего значка вы увидите, что все трекеры зеленого цвета. Не волнуйтесь! В отличие от других блокировщиков трекеров я работаю по другому принципу: вместо блокирования заранее заданной отслеживающей активности я учусь этому во время вашей работы в Интернете. Если я еще ничего не блокирую, попробуйте перейти на 4-5 других сайтов. После этого я смогу блокировать трекеры со схожей активностью.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Помощь",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Поделиться в Google Plus",
@@ -299,6 +319,10 @@
         "message": "Вам не придется здесь ничего менять.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "Отмена",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "Передвиньте ползунок влево, чтобы заблокировать домен",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger отключен для сайтов из списка, приведенного ниже. Вы можете добавить домен с помощью значка Privacy Badger в панели браузера или напечатать домен в текстовом поле и нажать кнопку «Добавить домен».",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": "означает, что Privacy Badger считает этот домен трекером, необходимым для нормального функционирования страницы сайта, поэтому он разрешил его работу, заблокировав файлы cookie.",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Введите короткое описание ошибки.",

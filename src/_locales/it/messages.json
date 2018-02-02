@@ -91,6 +91,10 @@
         "message": "potenziali <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> in questa pagina. Con questi pulsanti puoi controllare come Privacy Badger tratta ogni tracker. Non dovresti averne bisogno a meno che qualcosa non funzioni correttamente.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "options_webrtc_setting": {
         "message": "Impedisci a WebRTC di rivelare l'indirizzo IP locale *",
         "description": ""
@@ -152,8 +156,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Cerca domini",
-        "description": ""
+        "message": "Cerca domini:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Mostra numero di elementi bloccati",
@@ -195,6 +199,10 @@
         "message": "Attiva Privacy Badger per questo sito",
         "description": ""
     },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
     "import_successful": {
         "message": "Lista di tracker e impostazioni aggiornate correttamente!",
         "description": ""
@@ -234,6 +242,10 @@
     "options_loading": {
         "message": "Caricamento...",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
         "message": "Ho capito; mostrami comunque l'elenco dei domini traccianti",
@@ -287,9 +299,17 @@
         "message": " La prima volta che clicchi sull'icona potresti notare che tutti i tracker sono verdi, non preoccuparti! A differenza di altri software simili, che utilizzano una lista predefinita di domini da bloccare, Privacy Badger impara cosa bloccare durante la navigazione. Se non blocca ancora nulla, prova a visitare 4 o 5 siti diversi. A quel punto dovrebbe iniziare a bloccare i tracker più comuni.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Aiuto",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
         "message": "Condividi su Google Plus",
@@ -299,6 +319,10 @@
         "message": "Non dovresti aver bisogno di modificare nulla qui.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "report_cancel": {
         "message": "Annulla",
         "description": ""
@@ -306,6 +330,10 @@
     "tooltip_block": {
         "message": "Sposta il pulsante a sinistra per bloccare un dominio",
         "description": ""
+    },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger è disattivato per i domini sottostanti. Puoi aggiungere un dominio con l'icona di Privacy Badger nella barra degli strumenti del browser, o digitandolo nel campo qua sotto e cliccare il pulsante \"Aggiungi dominio\".",
@@ -366,6 +394,10 @@
     "intro_cookie_blocked": {
         "message": "significa che il dominio è ritenuto un tracker ma è necessario per il funzionamento della pagina, quindi viene consentito ma vengono bloccati i suoi cookie.",
         "description": ""
+    },
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Descrivi brevemente l'errore qui sotto.",
