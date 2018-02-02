@@ -407,6 +407,7 @@ c.ooyala.com
 l.ooyala.com
 opf.ooyala.com
 player.ooyala.com
+secure-cf-c.ooyala.com
 tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
