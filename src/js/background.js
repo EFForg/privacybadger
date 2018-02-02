@@ -36,39 +36,39 @@ var incognito = require("incognito");
 * privacy badger initializer
 */
 function Badger() {
-  var badger = this;
+  var self = this;
 
   this.webRTCAvailable = checkWebRTCBrowserSupport();
 
-  badger.socialWidgetList = [];
+  self.socialWidgetList = [];
   socialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json", (response) => {
-    badger.socialWidgetList = response;
+    self.socialWidgetList = response;
   });
 
   this.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (badger.INITIALIZED) { return; }
-    badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
-    badger.updateTabList();
-    badger.initializeDefaultSettings();
+    if (self.INITIALIZED) { return; }
+    self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
+    self.updateTabList();
+    self.initializeDefaultSettings();
     try {
-      badger.runMigrations();
+      self.runMigrations();
     } finally {
-      badger.initializeYellowlist();
-      badger.initializeDNT();
-      badger.enableWebRTCProtection();
-      if (!badger.isIncognito) {badger.showFirstRunPage();}
+      self.initializeYellowlist();
+      self.initializeDNT();
+      self.enableWebRTCProtection();
+      if (!self.isIncognito) {self.showFirstRunPage();}
     }
 
     // Show icon as page action for all tabs that already exist
     chrome.tabs.query({}, function (tabs) {
       for (var i = 0; i < tabs.length; i++) {
-        badger.refreshIconAndContextMenu(tabs[i]);
+        self.refreshIconAndContextMenu(tabs[i]);
       }
     });
 
     // TODO: register all privacy badger listeners here in the storage callback
 
-    badger.INITIALIZED = true;
+    self.INITIALIZED = true;
   });
 
   /**
@@ -412,15 +412,15 @@ Badger.prototype = {
   * @param {Function} cb Callback that receives check status boolean (optional)
   */
   checkForDNTPolicy: function (domain, cb) {
-    var badger = this,
-      next_update = badger.storage.getNextUpdateForDomain(domain);
+    var self = this,
+      next_update = self.storage.getNextUpdateForDomain(domain);
 
     if (Date.now() < next_update) {
       // not yet time
       return;
     }
 
-    if (!badger.isCheckingDNTPolicyEnabled()) {
+    if (!self.isCheckingDNTPolicyEnabled()) {
       // user has disabled this check
       return;
     }
@@ -433,15 +433,15 @@ Badger.prototype = {
       utils.oneDayFromNow(),
       utils.nDaysFromNow(7)
     );
-    badger.storage.touchDNTRecheckTime(domain, recheckTime);
+    self.storage.touchDNTRecheckTime(domain, recheckTime);
 
     this._checkPrivacyBadgerPolicy(domain, function (success) {
       if (success) {
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
-        badger.storage.setupDNT(domain);
+        self.storage.setupDNT(domain);
       } else {
         log('It looks like', domain, 'has NOT adopted Do Not Track');
-        badger.storage.revertDNT(domain);
+        self.storage.revertDNT(domain);
       }
       if (typeof cb == "function") {
         cb(success);
@@ -507,8 +507,8 @@ Badger.prototype = {
   },
 
   runMigrations: function() {
-    var badger = this;
-    var settings = badger.storage.getBadgerStorageObject("settings_map");
+    var self = this;
+    var settings = self.storage.getBadgerStorageObject("settings_map");
     var migrationLevel = settings.getItem('migrationLevel');
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently
@@ -529,7 +529,7 @@ Badger.prototype = {
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations, badger);
+      migrations[i].call(Migrations, self);
       settings.setItem('migrationLevel', i+1);
     }
 

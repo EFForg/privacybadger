@@ -55,20 +55,20 @@ require.scopes.storage = (function() {
  **/
 
 function BadgerPen(callback) {
-  var bp = this;
+  var self = this;
   // Now check localStorage
-  chrome.storage.local.get(bp.KEYS, function (store) {
-    _.each(bp.KEYS, function (key) {
+  chrome.storage.local.get(self.KEYS, function (store) {
+    _.each(self.KEYS, function (key) {
       if (store.hasOwnProperty(key)) {
-        bp[key] = new BadgerStorage(key, store[key]);
+        self[key] = new BadgerStorage(key, store[key]);
       } else {
         var storage_obj = new BadgerStorage(key, {});
-        bp[key] = storage_obj;
+        self[key] = storage_obj;
         _syncStorage(storage_obj);
       }
     });
     if (_.isFunction(callback)) {
-      callback(bp);
+      callback(self);
     }
   });
 }
