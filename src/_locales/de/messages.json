@@ -36,7 +36,7 @@
         "description": ""
     },
     "intro2": {
-        "message": "Diese Erweiterung wurde geschaffen, um Ihre Privatsphäre automatisch vor unsichtbaren Trackern Dritter zu schützen, während Sie im Web surfen. Wir senden mit jeder Anfrage den Do-Not-Track Header und unsere Erweiterung bewertet die Wahrscheinlichkeit, dass sie trotzdem überwacht werden. Wenn die Wahrscheinlichkeit zu groß ist, blockieren wir die Anfrage an die Domain automatisch. Bitte beachten Sie: Privacy Badger ist noch im Beta Stadium und der Algorithmus noch nicht ausgereift.",
+        "message": "Diese Erweiterung wurde geschaffen, um Ihre Privatsphäre automatisch vor unsichtbaren Trackern Dritter zu schützen, während Sie im Web surfen. Mit jeder Anfrage senden wir den Do-Not-Track-Header und unsere Erweiterung bewertet die Wahrscheinlichkeit, ob Sie trotzdem überwacht werden. Falls die Wahrscheinlichkeit zu groß ist, blockieren wir automatisch die Anfrage an die Domain. Bitte beachten Sie, dass sich Privacy Badger noch im Betastadium befindet und die Entscheidung des Algorithmus darüber, ob die Domain Ihr Surfverhalten verfolgt, nicht abschließend ist.",
         "description": ""
     },
     "donate_to_eff": {
@@ -96,7 +96,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "WebRTC daran hindern, die lokale IP-Adresse zu verraten *",
+        "message": "WebRTC hindern, die lokale IP-Adresse zu verraten *",
         "description": ""
     },
     "error_input": {
@@ -112,7 +112,7 @@
         "description": "This is an options page tab heading."
     },
     "intro1": {
-        "message": "Privacy Badger blockt spionierende Werbung und unsichtbare Tracker. Es wurde geschaffen, um zu verhindern, dass Firmen Sie ohne Ihre Zustimmung überwachen können.",
+        "message": "Privacy Badger blockt spionierende Werbung und unsichtbare Tracker. Es wurde geschaffen, um zu verhindern, dass Unternehmen Ihr Surfverhalten ohne Ihre Zustimmung überwachen können.",
         "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
@@ -288,7 +288,7 @@
         "description": ""
     },
     "slideshow_2": {
-        "message": " Ich werde hier oben in Ihrem Browser sitzen und nach spionierender Werbung und unsichtbaren Trackern, welche Ihr Surf-Verhalten im Internet speichern, ausschau halten.",
+        "message": " Ich werde hier oben in Ihrem Browser sitzen und nach spionierender Werbung und Trackern, die Ihr Surfverhalten aufzeichnen, Ausschau halten.",
         "description": ""
     },
     "import_user_data": {
@@ -340,7 +340,7 @@
         "description": ""
     },
     "pb_detected": {
-        "message": "Privacy Badger erkannte",
+        "message": "Privacy Badger hat bisher",
         "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
@@ -380,7 +380,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "options_domain_list_trackers": {
-        "message": "potentielle <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking-Domains</a> bisher. Diese Schieberegler lassen Sie steuern, wie Privacy Badger die jeweiligen Tracker handhabt.",
+        "message": "potentielle <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking-Domains</a> erkannt. Diese Schieberegler lassen Sie steuern, wie Privacy Badger die jeweiligen Tracker handhabt.",
         "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "name": {

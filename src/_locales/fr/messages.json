@@ -156,7 +156,7 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Rechercher un nom de domaine:",
+        "message": "Rechercher un nom de domaine :",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
