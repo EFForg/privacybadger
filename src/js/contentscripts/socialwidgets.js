@@ -42,14 +42,12 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-/* globals chrome, document, window, console*/
 
 /**
  * Social widget tracker data, read from file.
  */
 let trackerInfo;
 
-let REPLACEMENT_BUTTONS_FOLDER_PATH = chrome.extension.getURL("skin/socialwidgets/");
 let i18n = chrome.i18n;
 
 
@@ -79,19 +77,45 @@ function initialize() {
  *
  * @param {Element} trackerElem the tracking element that we are replacing
  *
- * @return {Element} a replacement button element for the tracker
+ * @param {Function} callback called with the replacement button element for the tracker
  */
-function createReplacementButtonImage(tracker, trackerElem) {
+function createReplacementButtonImage(tracker, trackerElem, callback) {
+  var buttonData = tracker.replacementButton;
+
+  // already have replace button image URI cached
+  if (buttonData.buttonUrl) {
+    return setTimeout(function () {
+      _createReplacementButtonImageCallback(tracker, trackerElem, callback);
+    }, 0);
+  }
+
+  if (buttonData.loading) {
+    return setTimeout(function () {
+      createReplacementButtonImage(tracker, trackerElem, callback);
+    }, 10);
+  }
+
+  // don't have image data cached yet, get it from the background page
+  buttonData.loading = true;
+  chrome.runtime.sendMessage({
+    getReplacementButton: buttonData.imagePath
+  }, function (response) {
+    buttonData.buttonUrl = response; // cache image data
+    _createReplacementButtonImageCallback(tracker, trackerElem, callback);
+  });
+}
+
+function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   var buttonData = tracker.replacementButton;
 
   var button = document.createElement("img");
 
-  var buttonUrl = getReplacementButtonUrl(buttonData.imagePath);
+  var buttonUrl = buttonData.buttonUrl;
   var buttonType = buttonData.type;
   var details = buttonData.details;
 
   button.setAttribute("src", buttonUrl);
-  button.setAttribute("title", i18n.getMessage("social_tooltip_pb_has_replaced")  +
+  button.setAttribute("title", i18n.getMessage("social_tooltip_pb_has_replaced") +
                             tracker.name + i18n.getMessage("social_tooltip_button"));
   button.setAttribute(
     "style",
@@ -114,12 +138,8 @@ function createReplacementButtonImage(tracker, trackerElem) {
       var iframeUrl = details + encodeURIComponent(window.location.href);
 
       button.addEventListener("click", function() {
-        // for some reason, the callback function can execute more than
-        // once when the user clicks on a replacement button
-        // (it executes for the buttons that have been previously
-        // clicked as well)
         replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, iframeUrl);
-      });
+      }, { once: true });
 
       break;
 
@@ -127,39 +147,21 @@ function createReplacementButtonImage(tracker, trackerElem) {
     // specified in the Trackers file
     case 2:
       button.addEventListener("click", function() {
-        // for some reason, the callback function can execute more than
-        // once when the user clicks on a replacement button
-        // (it executes for the buttons that have been previously
-        // clicked as well)
         replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
-      });
+      }, { once: true });
       break;
 
     case 3:
       button.addEventListener("click", function() {
         replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, trackerElem);
-      });
+      }, { once: true });
       break;
 
     default:
       throw "Invalid button type specified: " + buttonType;
   }
 
-  return button;
-}
-
-/**
- * Returns the absolute URL of a replacement button given its relative path
- * in the replacement buttons folder.
- *
- * @param {String} replacementButtonLocation the relative path of the
- * replacement button in the replacement buttons folder
- *
- * @return {String} the absolute URL of a replacement button given its relative
- * path in the replacement buttons folder
- */
-function getReplacementButtonUrl(replacementButtonLocation) {
-  return REPLACEMENT_BUTTONS_FOLDER_PATH + replacementButtonLocation;
+  callback(button);
 }
 
 
@@ -213,8 +215,6 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
       button.parentNode.replaceChild(codeContainer, button);
 
       replaceScriptsRecurse(codeContainer);
-
-      button.removeEventListener("click");
     }
   });
 }
@@ -281,15 +281,13 @@ function replaceIndividualButton(tracker) {
   var buttonsToReplace =
     document.querySelectorAll(buttonSelectorsString);
 
-  for (var i = 0; i < buttonsToReplace.length; i++) {
-    var buttonToReplace = buttonsToReplace[i];
+  buttonsToReplace.forEach(function (buttonToReplace) {
     console.log("Replacing social widget for " + tracker.name);
 
-    var button =
-      createReplacementButtonImage(tracker, buttonToReplace);
-
-    buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
-  }
+    createReplacementButtonImage(tracker, buttonToReplace, function (button) {
+      buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
+    });
+  });
 }
 
 /**

@@ -28,6 +28,7 @@ var constants = require('constants');
 var getSurrogateURI = require('surrogates').getSurrogateURI;
 var mdfp = require('multiDomainFP');
 var incognito = require("incognito");
+var utils = require("utils");
 
 require.scopes.webrequest = (function() {
 
@@ -550,18 +551,16 @@ function getSocialWidgetBlockList() {
   // whether the content script should replace that tracker's social buttons
   var socialWidgetsToReplace = {};
 
-  window.SocialWidgetList.forEach(function(socialwidget) {
-
-    // Only replace social widgets that the user has not manually allowed
-    var socialWidgetName = socialwidget.name;
-    socialWidgetsToReplace[socialWidgetName] = (
-      badger.storage.getAction(socialwidget.domain) != constants.USER_ALLOW
+  badger.socialWidgetList.forEach(function (socialwidget) {
+    // Only replace blocked and yellowlisted widgets
+    socialWidgetsToReplace[socialwidget.name] = constants.BLOCKED_ACTIONS.has(
+      badger.storage.getBestAction(socialwidget.domain)
     );
   });
 
   return {
-    "trackers" : window.SocialWidgetList,
-    "trackerButtonsToReplace" : socialWidgetsToReplace
+    trackers: badger.socialWidgetList,
+    trackerButtonsToReplace: socialWidgetsToReplace
   };
 }
 
@@ -646,6 +645,35 @@ function dispatcher(request, sender, sendResponse) {
     var socialWidgetUrls = request.buttonUrls;
     unblockSocialWidgetOnTab(sender.tab.id, socialWidgetUrls);
     sendResponse();
+
+  } else if (request.getReplacementButton) {
+
+    let button_path = chrome.extension.getURL(
+      "skin/socialwidgets/" + request.getReplacementButton);
+
+    let image_type = button_path.slice(button_path.lastIndexOf('.') + 1);
+
+    let xhrOptions = {};
+    if (image_type != "svg") {
+      xhrOptions.responseType = "arraybuffer";
+    }
+
+    // fetch replacement button image data
+    utils.xhrRequest(button_path, function (err, response) {
+      // one data URI for SVGs
+      if (image_type == "svg") {
+        return sendResponse('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(response));
+      }
+
+      // another data URI for all other image formats
+      sendResponse(
+        'data:image/' + image_type + ';base64,' +
+        utils.arrayBufferToBase64(response)
+      );
+    }, "GET", xhrOptions);
+
+    // indicate this is an async response to chrome.runtime.onMessage
+    return true;
 
   // Canvas fingerprinting
   } else if (request.fpReport) {

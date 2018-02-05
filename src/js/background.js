@@ -27,12 +27,7 @@ var pbStorage = require("storage");
 var HeuristicBlocking = require("heuristicblocking");
 var FirefoxAndroid = require("firefoxandroid");
 var webrequest = require("webrequest");
-var SocialWidgetLoader = require("socialwidgetloader");
-
-window.SocialWidgetList = [];
-SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json", function(socialWidgets) {
-  window.SocialWidgetList = socialWidgets;
-});
+var socialWidgetLoader = require("socialwidgetloader");
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
@@ -42,7 +37,14 @@ var incognito = require("incognito");
 */
 function Badger() {
   var badger = this;
+
   this.webRTCAvailable = checkWebRTCBrowserSupport();
+
+  badger.socialWidgetList = [];
+  socialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json", (response) => {
+    badger.socialWidgetList = response;
+  });
+
   this.storage = new pbStorage.BadgerPen(function(thisStorage) {
     if (badger.INITIALIZED) { return; }
     badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
