@@ -3,7 +3,8 @@
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
-      "id": "jid1-MnnxcxisBPnSXQ@jetpack"
+      "id": "jid1-MnnxcxisBPnSXQ@jetpack",
+      "strict_min_version": "50.0.2"
     }
   },
   "incognito": "spanning",
