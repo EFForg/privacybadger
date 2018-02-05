@@ -23,20 +23,12 @@
         "message": "I øjeblikket tjekker Privacy Badger kun om tredjeparter bruger cookies, HTML5 lokal lagring, eller kanvasfingeraftryk til at spore din netlæsning. Nogle af disse domæner kan bruge sporingsmetoder som Privacy Badger ikke kan opdage.",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "Intet kan stoppe Privacy Badger fra at spise cookies når den er sulten!",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Tjek om netsteder overholder EFF's Spor Ikke-politik",
         "description": ""
     },
     "invalid_domain": {
         "message": "Tilføj venligst et gyldigt domæne eller URL.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "Denne tilføjelse er designet til automatisk at beskytte dit privatliv fra tredjepartssporinger der indlæses usynligt når du læser på nettet. Vi sender forepørgselshovedet \"Spor Ikke\" med hver forespørgsel, og vores tilføjelse vurderer sandsynligheden for at du stadig bliver sporet. Hvis algoritmen skønner at sandsynligheden er for høj, blokerer vi automatisk din forespørgsel fra at blive sendt til domænet. Det er vigtigt at forstå at Privacy Badger er i beta, og algoritmens beslutning ikke endegyldigt afgør at domænet sporer dig.",
         "description": ""
     },
     "donate_to_eff": {
@@ -111,10 +103,6 @@
         "message": "Sporingsdomæner",
         "description": "This is an options page tab heading."
     },
-    "intro1": {
-        "message": "Privacy Badger blokerer spionerende reklamer og usynlige sporinger.  Den er der til at sikre at virksomheder ikke kan spore din netlæsning uden dit samtykke.",
-        "description": "firstRun.html intro to Privacy Badger"
-    },
     "share_button_title_twitter": {
         "message": "Del på Twitter",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
@@ -129,10 +117,6 @@
     },
     "feed_the_badger_title": {
         "message": "klik for at give kontrollen med denne sporing tilbage til Privacy Badger",
-        "description": ""
-    },
-    "intro_has_blocked": {
-        "message": " betyder at Privacy Badger mener at dette domæne er en sporing, og har blokeret det. ",
         "description": ""
     },
     "import": {
@@ -367,10 +351,6 @@
         "message": "Lad verden vide at du tager stilling til, og er imod, sporing på nettet",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "Gul",
-        "description": ""
-    },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger opdagede en potentiel <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporing</a> på denne side. Skyderen lader dig styre hvordan Privacy Badger håndterer den. Du burde ikke have nødigt at justere skyderen med mindre noget er i stykker.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
@@ -387,14 +367,6 @@
         "message": "Privacy Badger",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "Vores tilføjelse har tre tilstande. ",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": "betyder at domænet menes både at være en sporing og være nødig for sidens funktion, så Privacy Badger tilader det men blokerer dets cookies.",
-        "description": ""
-    },
     "options_domain_status_filter": {
         "message": "Filtrer efter status:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
@@ -403,21 +375,9 @@
         "message": "Beskriv fejlen kort herunder.",
         "description": ""
     },
-    "intro_red": {
-        "message": "Rød",
-        "description": ""
-    },
     "remove_button": {
         "message": "Fjern valgte",
         "description": "This is the label for the 'Remove selected' buttons."
-    },
-    "intro_green": {
-        "message": "Grøn",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "betyder at Privacy Badger mener at dette ikke er en sporing. Du kan klikke på Privacy Badger-ikonet i din netlæsers værktøjsbjælke hvis du vil tilsidesætte den automatiske blokering. Eller du kan læse i fred mens Privacy Badger begynder at finde og spise netsporinger en efter en.",
-        "description": ""
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger har ikke opdaget nogle <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporingsdomæner</a> endnu. Fortsæt med at browse!",

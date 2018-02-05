@@ -23,20 +23,12 @@
         "message": "Nune Privata Melo nur kontrolas ĉu eksteraj liverantoj uzas kuketojn, lokan konservejon HTML5 aŭ kanvasan fingrospuron por spuri vian retumadon. Iuj de tiuj nomregnoj povas uzi aliajn spurajn rimedojn, kiujn Privata Melo ne povas malkovri.",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "Nenio povas haltigi Privatan Melon de manĝi kuketojn, kiam ĝi malsatas!",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Kontroli ĉu retejoj kongruas kun politiko de nespurado de EFF",
         "description": ""
     },
     "invalid_domain": {
         "message": "Bonvolu aldoni ĝustan nomregnon aŭ URL-n.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "Tiu ĉi aldonaĵo estas farita por aŭtomate protekti vian privatecon de ekster-liverantaj spuriloj, kiuj nevideble ŝargiĝas dum kiam vi retumas. Ni sendas peton “Ne Spuri Min” (DNT) kun ĉiu retpeto kaj la aldonaĵo pritaksas probablon ĉu vi plua estas spurata. Se la algoritmo konstatas, ke la probableco estas tro alta, ni aŭtomate blokas vian retpeton de esti sendita al la nomregno. Bonvolu kompreni, ke Privata Melo estas eksperimenta kaj la algoritmo ne eblas absolute decidi ĉu la nomregno spuras vin.",
         "description": ""
     },
     "donate_to_eff": {
@@ -111,10 +103,6 @@
         "message": "Spurantaj nomregnoj",
         "description": "This is an options page tab heading."
     },
-    "intro1": {
-        "message": "Privata Melo blokas spurajn reklamojn kaj nevideblajn spurilojn. Ĝi ĉeestas por certigi, ke firmaojn ne spuros vin sen via konsento.",
-        "description": "firstRun.html intro to Privacy Badger"
-    },
     "share_button_title_twitter": {
         "message": "Kunhavigi per Twitter",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
@@ -129,10 +117,6 @@
     },
     "feed_the_badger_title": {
         "message": "klaku por permesi al Privata Melo decidi kiel trakti tiun ĉi spurilon",
-        "description": ""
-    },
-    "intro_has_blocked": {
-        "message": "signifas, ke Privata Melo opinias tiun ĉi nomregnon spurilon kaj blokis ĝin.",
         "description": ""
     },
     "import": {
@@ -367,10 +351,6 @@
         "message": "Sciigu la mondon ke vi kontraŭas enretan spuradon",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "Flava",
-        "description": ""
-    },
     "popup_instructions_one_tracker": {
         "message": "Privata Melo malkovris eblan <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilon</a> sur tiu ĉi retpaĝo. Tiu ĉi ŝovilo ebligas al vi agordi kiel Privata Melo procedas pri ĝi. Vi ne devus ŝanĝi ĝin escepte se io malfunkcias.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
@@ -387,14 +367,6 @@
         "message": "Privata Melo",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "Nia aldonaĵo havas tri statojn.",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": "signifas, ke tiu ĉi nomregno estas opiniata kaj spurilo kaj necesa por funkcii la retejon, do Privata Melo permesas ĝin sed blokas ĝiajn kuketojn.",
-        "description": ""
-    },
     "options_domain_status_filter": {
         "message": "Filtri laŭ stato:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
@@ -403,21 +375,9 @@
         "message": "Koncize priskribu la eraron sube.",
         "description": ""
     },
-    "intro_red": {
-        "message": "Ruĝa",
-        "description": ""
-    },
     "remove_button": {
         "message": "Forigi elektitajn",
         "description": "This is the label for the 'Remove selected' buttons."
-    },
-    "intro_green": {
-        "message": "Verda",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "signifas, ke Privata Melo opinias ĝin ne-spurilo. Vi povas klaku piktogramon de Privata Melo sur la retumila ilarstrio, se vi volas superskribi aŭtomatajn agordojn pri bloki. Vi ankaŭ povas  trankvile retumi dum kiam Privata Melo trovas kaj forigas spurilojn unu post la alia.",
-        "description": ""
     },
     "options_domain_list_no_trackers": {
         "message": "Privata Melo ne malkovris iujn ajn <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurantajn nomregnojn</a> ĝis nun. Pluigu retumi!",

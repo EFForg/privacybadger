@@ -23,20 +23,12 @@
         "message": "Тренутно Privacy Badger проверава само да ли треће стране користе колачиће, HTML5 локално складиште, или метод canvas fingerprinting за праћење вашег прегледања. Неки од ових домена могу користити методе праћења које Privacy Badger не може открити.",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "Ништа не може зауставити Privacy Badger да једе колачиће када је гладан!",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Провери да ли се овај сајт придржава EFF политике непраћења",
         "description": ""
     },
     "invalid_domain": {
         "message": "Please add a valid domain or URL.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "Ово проширење је направљено да аутоматски заштити вашу приватност од трагача трећих страна које се неприметно учитавају док прегледате веб. Шаљемо заглавље \"Не прати\" на сваки захтев и наше проширење     процењује вероватноћу да ли сте још увек праћени. Ако алгоритми процене да је вероватноћа сувише велика, ми аутоматски блокирамо слање вашег захтева домену. Имајте у виду да је Privacy Badger још увек бета и да одлука алгоритма да вас домен прати није коначна .",
         "description": ""
     },
     "donate_to_eff": {
@@ -111,10 +103,6 @@
         "message": "Домени трагача",
         "description": "This is an options page tab heading."
     },
-    "intro1": {
-        "message": "Privacy Badger блокира шпијунске рекламе и невидљиве трагаче.  Ту је да спречи праћење вашег прегледања веба без вашег пристанка.",
-        "description": "firstRun.html intro to Privacy Badger"
-    },
     "share_button_title_twitter": {
         "message": "Подели на Твитеру",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
@@ -129,10 +117,6 @@
     },
     "feed_the_badger_title": {
         "message": "клик за повратак контроле над овим трагачем у Privacy Badger",
-        "description": ""
-    },
-    "intro_has_blocked": {
-        "message": " значи да Privacy Badger верује да је овај домен трагач и блокира га. ",
         "description": ""
     },
     "import": {
@@ -367,10 +351,6 @@
         "message": "Нека свет зна да имате став против праћења на мрежи",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "Жуто",
-        "description": ""
-    },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. The slider lets you control how Privacy Badger handles it. You shouldn't need to adjust the slider unless something is broken.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
@@ -387,14 +367,6 @@
         "message": "Privacy Badger",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "Наше проширење има три стања. ",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": "значи да се верује да је домен трагач али и да је неопходан за функционисање странице, тако да га Privacy Badger дозвољава али блокира његове колачиће.",
-        "description": ""
-    },
     "options_domain_status_filter": {
         "message": "Filter by status:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
@@ -403,21 +375,9 @@
         "message": "Укратко опишите проблем испод.",
         "description": ""
     },
-    "intro_red": {
-        "message": "Црвено",
-        "description": ""
-    },
     "remove_button": {
         "message": "Уклони одабрано",
         "description": "This is the label for the 'Remove selected' buttons."
-    },
-    "intro_green": {
-        "message": "Зелено",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "значи да Privacy Badger верује да ово није трагач. Можете кликнути на Privacy Badger иконицу на траци алата вашег прегледача ако желите да прегазите подешавања аутоматског блокирања. Или можете прегледати веб у миру док Privacy Badger проналази и једе трагаче један за другим.",
-        "description": ""
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",

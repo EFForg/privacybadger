@@ -23,20 +23,12 @@
         "message": "Obecnie Privacy Badger sprawdza tylko czy strony trzecie używają ciasteczek, pamięci podręcznej HTML5 lub odcisku palca canvas, aby śledzić Twoją historię przeglądania. Niektóre z tych domen mogą śledzić metodami, których Privacy Badger nie potrafi wykryć.",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "Nic nie powstrzyma Privacy Badgera od zjadania ciasteczek kiedy jest głodny!",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Sprawdź, czy strony są zgodne z polityką o nieszpiegowaniu EFF.",
         "description": ""
     },
     "invalid_domain": {
         "message": "Wprowadź poprawną domenę lub URL.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "To rozszerzenie zostało zaprojektowane, aby automatycznie chronić Twoją prywatność przed śledzikami stron trzecich ładującymi się niewidzialnie podczas serfowania. Wysyłamy nagłówek „nie śledź” (DNT) do każdej domeny i oszacowujemy prawdopodobieństwo bycia śledzonym. Jeżeli algorytm oszacuje prawdopodobieństwo na zbyt wysokie, automatycznie zostanie zablokowane wysyłanie żądań do tej strony. Prosimy zrozumieć, że Privacy Badger jest w fazie rozwojowej i jego algorytm nie jest w stanie jednoznacznie stwierdzić czy dana domena szpieguje.",
         "description": ""
     },
     "donate_to_eff": {
@@ -111,10 +103,6 @@
         "message": "Szpiegujące domeny",
         "description": "This is an options page tab heading."
     },
-    "intro1": {
-        "message": "Privacy Badger blokuje szpiegujące reklamy i niewidzialne śledziki. Jego zadaniem jest zapewnienie, aby korporacje nie mogły śledzić Cię w Sieci bez Twojej zgody.",
-        "description": "firstRun.html intro to Privacy Badger"
-    },
     "share_button_title_twitter": {
         "message": "Udostępnij na Twitterze",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
@@ -129,10 +117,6 @@
     },
     "feed_the_badger_title": {
         "message": "kliknij, aby Privacy Badger zdecydował za Ciebie jak obchodzić się z tą domeną",
-        "description": ""
-    },
-    "intro_has_blocked": {
-        "message": "oznacza, że Privacy Badger uważa tę domenę za szpiega i ją zablokował.",
         "description": ""
     },
     "import": {
@@ -367,10 +351,6 @@
         "message": "Niech cały świat wie, że sprzeciwiasz się szpiegowaniu w Sieci",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "Żółty",
-        "description": ""
-    },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger wykrył potencjalnego <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiega</a> na tej stronie. Ten suwak pozwoli Ci kontrolować jak ma z nim postępować Privacy Badger. Nie powinieneś nim kręcić jeżeli wszystko działa. ",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
@@ -387,14 +367,6 @@
         "message": "Privacy Badger",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "Nasze rozszerzenie ma trzy stany.",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": "oznacza, że ta domena jest uważana za szpiega i jednocześnie jest niezbędna do działania strony, więc Privacy Badger nie zablokuje jej, ale zablokuje jej ciasteczka.",
-        "description": ""
-    },
     "options_domain_status_filter": {
         "message": "Filtruj wg stanu:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
@@ -403,21 +375,9 @@
         "message": "Zwięźle opisz problem poniżej.",
         "description": ""
     },
-    "intro_red": {
-        "message": "Czerwony",
-        "description": ""
-    },
     "remove_button": {
         "message": "Usuń zaznaczone",
         "description": "This is the label for the 'Remove selected' buttons."
-    },
-    "intro_green": {
-        "message": "Zielony",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "oznacza, że Privacy Badger nie uważa go za szpiega. Możesz kliknąć w ikonę Privacy Badgera na pasku przeglądarki, aby zmienić domyślne ustawienia. Albo możesz też spokojnie serfować podczas gdy Privacy Badger w tle będzie wykrywał i zjadał śledziki jeden po drugim.",
-        "description": ""
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger nie wykrył jakichkolwiek <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiegujących domen</a> do tej pory. Serfuj śmiało!",

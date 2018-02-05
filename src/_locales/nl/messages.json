@@ -23,20 +23,12 @@
         "message": "Momenteel checkt Privacy badger alleen of derde partijen cookies, HTML5 lokale opslag, of canvas fingerprinting gebruiken om uw web-gebruik te tracken. Sommige van deze domeinen gebruiken wellicht tracking methoden die Privacy Badger (nog) niet detecteert.",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "Niets weerhoudt een hongerige Privacy Badger van het eten van cookies!",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Controleer of de sites voldoen aan het EFF Do Not Track beleid",
         "description": ""
     },
     "invalid_domain": {
         "message": "Voeg een geldig domein of URL toe.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "De Privacy Badger browserextensie probeert te voorkomen dat u gevolgd wordt op het internet. Om aan te geven dat u niet gevolgd wilt worden sturen wij de Do Not Track header naar alle (derde) partijen. Privacy Badger detecteert automatisch met een wiskundig algoritme of u gevolgd wordt of niet. Indien de kans op gevolgd worden boven een drempelwaarde komt, wordt verkeer van en naar de tracker geblokkeerd. Opgelet: het kan zijn dat Privacy Badger (nog) niet naar behoren functioneert.",
         "description": ""
     },
     "donate_to_eff": {
@@ -111,10 +103,6 @@
         "message": "Tracking Domains",
         "description": "This is an options page tab heading."
     },
-    "intro1": {
-        "message": "Privacy Badger blokkeert het gevolgd worden op internet door (derde) partijen. Trackingcookies mogen alleen geplaatst en gelezen worden als u begrijpt voor wek doel en nadat u daarvoor toestemming gegeven heeft.",
-        "description": "firstRun.html intro to Privacy Badger"
-    },
     "share_button_title_twitter": {
         "message": "Deel op Twitter",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
@@ -129,10 +117,6 @@
     },
     "feed_the_badger_title": {
         "message": "klik om deze tracker over te laten aan Privacy Badger",
-        "description": ""
-    },
-    "intro_has_blocked": {
-        "message": " betekent dat Privacy Badger de tracker blokkeert. ",
         "description": ""
     },
     "import": {
@@ -367,10 +351,6 @@
         "message": "Laat anderen weten wat u vindt van het gevolgd worden op internet.",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "Geel",
-        "description": ""
-    },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. The slider lets you control how Privacy Badger handles it. You shouldn't need to adjust the slider unless something is broken.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
@@ -387,14 +367,6 @@
         "message": "Privacy Badger",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "De Privacy Badger browserextensie kent drie toestanden. ",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": "betekent dat deze (derde) partij u niet alleen volgt, maar ook nodig is voor de werking van de pagina. Privacy Badger staat de tracker daarom toe, maar blokkeert de trackingcookies.",
-        "description": ""
-    },
     "options_domain_status_filter": {
         "message": "Filter by status:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
@@ -403,21 +375,9 @@
         "message": "Omschrijf de fout in het kort.",
         "description": ""
     },
-    "intro_red": {
-        "message": "Rood",
-        "description": ""
-    },
     "remove_button": {
         "message": "Partij verwijderen",
         "description": "This is the label for the 'Remove selected' buttons."
-    },
-    "intro_green": {
-        "message": "Groen",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "Vooralsnog lijkt het erop dat deze (derde) partij u niet volgt. U kunt een (derde) partij op twee manieren blokkeren, met het Privacy Badger pictogram in de adresbalk, of door de domeinnaam (niet de URL) in te typen en vervolgens de \"Partij toevoegen\"-knop aan te klikken.",
-        "description": ""
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",

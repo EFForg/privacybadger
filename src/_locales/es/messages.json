@@ -23,20 +23,12 @@
         "message": "Actualmente Privacy Badger sólo comprueba si terceras partes utilizan cookies, almacenamiento local HTML5, o huella digital del escritorio para rastrear tu navegador. Algunos de estos dominios pueden estar usando métodos de rastreo que Privacy Badger no puede detectar.",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "¡Nada puede detener a Privacy Badger de comer cookies cuando está hambriento!",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Revisar si los sitios cumplen con la política de No Rastrear (DNT) de EFF.",
         "description": ""
     },
     "invalid_domain": {
         "message": "Favor de agregar un dominio o URL valido.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "Esta extensión está diseñada para proteger automáticamente tu privacidad, de rastreadores de terceros que se cargan de manera invisible cuando navegas por la red. Mandamis una cabecera de No Rastrear con cada petción, y nuestra extensión evalua la probabilidad que todavía estes siendo rastreado. Si el algoritmo estima que la probabilidad es muy alta, nosotros automáticamente bloqueamos tu petición para que no sea enviada al dominio. Por favor entiende que Privacy Badger está en fase beta y la determinación del algoritmo no es concluyente de que el dominio este rastreándolo.",
         "description": ""
     },
     "donate_to_eff": {
@@ -111,10 +103,6 @@
         "message": "Dominios de Rastreo",
         "description": "This is an options page tab heading."
     },
-    "intro1": {
-        "message": "Privacy Badger bloquea anuncios espías y rastreadores invisibles.  Está ahí para asegurarse que las empresas no pueden rastrear tu navegación por la red sin tu consentimiento.",
-        "description": "firstRun.html intro to Privacy Badger"
-    },
     "share_button_title_twitter": {
         "message": "Compartir en Twitter",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
@@ -129,10 +117,6 @@
     },
     "feed_the_badger_title": {
         "message": "haz click para devolver el control de este rastreador a Privacy Badger",
-        "description": ""
-    },
-    "intro_has_blocked": {
-        "message": " significa que Privacy Badger cree que este dominio es un rastreador, y lo ha bloqueado. ",
         "description": ""
     },
     "import": {
@@ -367,10 +351,6 @@
         "message": "Permite que el mundo sepa que estás tomando una postura en contra de rastreo en la red.",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "Amarillo",
-        "description": ""
-    },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger un <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastreador</a> potencial en este sitio. La barra te permite conrolar lo que Privacy Badger hace con el dominio. No deberías de necesitar de ajustar la barra a menos que algo no funcione.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
@@ -387,14 +367,6 @@
         "message": "Privacy Badger",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "Nuestra extensión tiene tres estados. ",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": "significa que el dominio es un rastreador pero necesario para el funcionamiento de la página, así que Privacy Badger lo está permitiendo pero está bloqueando sus cookies.",
-        "description": ""
-    },
     "options_domain_status_filter": {
         "message": "Filter by status:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
@@ -403,21 +375,9 @@
         "message": "Describe más abajo brevemente el error.",
         "description": ""
     },
-    "intro_red": {
-        "message": "Rojo",
-        "description": ""
-    },
     "remove_button": {
         "message": "Eliminar seleccionado",
         "description": "This is the label for the 'Remove selected' buttons."
-    },
-    "intro_green": {
-        "message": "Verde",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "significa que Privacy Badger cree que esto no es un rastreador. Puedes hacer click en el icono de Privacy Badger en la barra de herramientas si quieres anular los ajustes de bloqueo automático. O, puedes navegar en paz mientras Privacy Badger empieza a encontrar y a comerse rastreadores web uno por uno.",
-        "description": ""
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger no ha detectado algún <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio rastrador</a> por el momento. ¡Sigue navegando!",
