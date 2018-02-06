@@ -356,7 +356,9 @@ function getOriginsArray(filter_text, type_filter, status_filter) {
     }
 
     if (status_filter) {
-      if (status_filter != value.replace("user_", "")) {
+      if (status_filter != value.replace("user_", "") && !(
+        status_filter == "allow" && value == "dnt"
+      )) {
         return false;
       }
     }
