@@ -38,14 +38,14 @@ var incognito = require("incognito");
 function Badger() {
   var self = this;
 
-  this.webRTCAvailable = checkWebRTCBrowserSupport();
+  self.webRTCAvailable = checkWebRTCBrowserSupport();
 
   self.socialWidgetList = [];
   socialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json", (response) => {
     self.socialWidgetList = response;
   });
 
-  this.storage = new pbStorage.BadgerPen(function(thisStorage) {
+  self.storage = new pbStorage.BadgerPen(function(thisStorage) {
     if (self.INITIALIZED) { return; }
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     self.updateTabList();
@@ -175,8 +175,8 @@ Badger.prototype = {
   */
   updateTabList: function() {
     // Initialize the tabData/frames object if it is falsey
-    this.tabData = this.tabData || {};
     let self = this;
+    self.tabData = self.tabData || {};
     chrome.tabs.query({}, tabs => {
       tabs.forEach(tab => {
         self.recordFrame(tab.id, 0, -1, tab.url);
@@ -269,13 +269,15 @@ Badger.prototype = {
    * Only update if user does not have the strictest setting enabled
    **/
   enableWebRTCProtection: function() {
+    let self = this;
+
     // Return early with non-supporting browsers
-    if (!this.webRTCAvailable) {
+    if (!self.webRTCAvailable) {
       return;
     }
 
     var cpn = chrome.privacy.network;
-    var settings = this.storage.getBadgerStorageObject("settings_map");
+    var settings = self.storage.getBadgerStorageObject("settings_map");
 
     cpn.webRTCIPHandlingPolicy.get({}, function(result) {
       if (result.value === 'disable_non_proxied_udp') {
@@ -436,7 +438,7 @@ Badger.prototype = {
     );
     self.storage.touchDNTRecheckTime(domain, recheckTime);
 
-    this._checkPrivacyBadgerPolicy(domain, function (success) {
+    self._checkPrivacyBadgerPolicy(domain, function (success) {
       if (success) {
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
         self.storage.setupDNT(domain);
@@ -677,7 +679,7 @@ Badger.prototype = {
       self.getSettings().setItem("webRTCIPProtection",
         (result.value === "disable_non_proxied_udp"));
     });
-    return this.getSettings().getItem("webRTCIPProtection");
+    return self.getSettings().getItem("webRTCIPProtection");
   },
 
   /**
