@@ -16,6 +16,9 @@ rules:
     - warn
     - 1tbs
     - allowSingleLine: true
+  consistent-this:
+    - error
+    - self
   curly: error
   dot-notation: warn
   indent:
