@@ -590,7 +590,7 @@ Badger.prototype = {
         return;
       }
 
-      if (self.error) {
+      if (self.criticalError) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
         chrome.browserAction.setBadgeText({tabId: tab_id, text: "!"});
         return;

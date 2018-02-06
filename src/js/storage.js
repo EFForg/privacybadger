@@ -519,7 +519,7 @@ var _syncStorage = (function () {
   function cb() {
     if (chrome.runtime.lastError) {
       let err = chrome.runtime.lastError.message;
-      badger.error = err;
+      badger.criticalError = err;
       console.error("Error writing to chrome.storage.local:", err);
     }
   }
