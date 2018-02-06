@@ -270,7 +270,7 @@ Badger.prototype = {
    **/
   enableWebRTCProtection: function() {
     // Return early with non-supporting browsers
-    if (!badger.webRTCAvailable) {
+    if (!this.webRTCAvailable) {
       return;
     }
 
@@ -389,12 +389,13 @@ Badger.prototype = {
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function() {
-    if (! badger.isCheckingDNTPolicyEnabled()) {
+    var self = this;
+
+    if (!self.isCheckingDNTPolicyEnabled()) {
       // user has disabled this, we can check when they re-enable
       return ;
     }
 
-    var self = this;
     utils.xhrRequest(constants.DNT_POLICIES_URL, function(err, response) {
       if (err) {
         console.error('Problem fetching DNT policy hash list at',
@@ -587,7 +588,7 @@ Badger.prototype = {
         return;
       }
 
-      if (badger.error) {
+      if (self.error) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
         chrome.browserAction.setBadgeText({tabId: tab_id, text: "!"});
         return;
@@ -668,7 +669,7 @@ Badger.prototype = {
     var self = this;
 
     // Return early with non-supporting browsers
-    if (!badger.webRTCAvailable) {
+    if (!self.webRTCAvailable) {
       return;
     }
 
@@ -773,22 +774,23 @@ Badger.prototype = {
    **/
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
     let blocked = constants.BLOCKED_ACTIONS.has(action);
+    let self = this;
 
-    if (this.tabData[tab_id].origins.hasOwnProperty(fqdn)) {
+    if (self.tabData[tab_id].origins.hasOwnProperty(fqdn)) {
       // we've seen this origin on this tab already
       // still want to update badge if we haven't yet seen origin as blocked
-      if (blocked && !this.tabData[tab_id].origins[fqdn]) {
+      if (blocked && !self.tabData[tab_id].origins[fqdn]) {
         // record that origin has been seen as blocked
-        this.tabData[tab_id].origins[fqdn] = true;
+        self.tabData[tab_id].origins[fqdn] = true;
 
-        badger.updateBadge(tab_id);
+        self.updateBadge(tab_id);
       }
     } else {
       // haven't seen the origin on this tab yet
-      this.tabData[tab_id].origins[fqdn] = blocked;
+      self.tabData[tab_id].origins[fqdn] = blocked;
 
       if (blocked) {
-        badger.updateBadge(tab_id);
+        self.updateBadge(tab_id);
       }
     }
   },
