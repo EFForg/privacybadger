@@ -410,20 +410,23 @@ function refreshPopup(tabId) {
 }
 
 /**
-* Event handler for on change (blocked resources container)
-*
-* @param event
+* Update the user preferences displayed in the blocked resources container for this origin.
+* These UI changes will later be used to update user preferences data.
+* @param event {Event} Click event triggered by user.
 */
 function updateOrigin(event) {
+  // get the origin and new action for it
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  var $switchContainer = $elm.parents('.switch-container').first();
-  var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
+
+  // replace the old action with the new one
+  var $switchContainer = $elm.parents('.switch-container').first();
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
+  var $clicker = $elm.parents('.clicker').first();
   htmlUtils.toggleBlockedStatus($($clicker), action);
 
   // reinitialize the domain tooltip
