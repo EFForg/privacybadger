@@ -47,6 +47,7 @@ function showNagMaybe() {
   var outer = $("#instruction-outer");
   var settings = badger.storage.getBadgerStorageObject('settings_map');
   var seenComic = settings.getItem("seenComic") || false;
+  var firstRunUrl = chrome.extension.getURL("/skin/firstRun.html");
 
   function _setSeenComic() {
     settings.setItem("seenComic", true);
@@ -58,17 +59,41 @@ function showNagMaybe() {
     outer.fadeOut();
   }
 
-  if (!seenComic) {
+  function _showNag() {
     nag.show();
     outer.show();
     // Attach event listeners
     $('#fittslaw').click(_hideNag);
     $("#firstRun").click(function() {
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+      // If there is a firstRun.html tab, switch to the tab.
+      // Otherwise, create a new tab
+      chrome.tabs.query({url: firstRunUrl}, function (tabs) {
+        if (tabs.length == 0) {
+          chrome.tabs.create({
+            url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+          });
+        } else {
+          chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {
+            chrome.windows.update(tab.windowId, {focused: true});
+          });
+        }
+        _hideNag();
       });
-      _hideNag();
     });
+  }
+
+  if (!seenComic) {
+    chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
+      // Show the popup instruction if the active tab is not firstRun.html page
+      if (!focusedTab[0].url.startsWith(firstRunUrl)) {
+        _showNag();
+      }
+    });
+  } else if (badger.criticalError) {
+    $('#instruction-text').hide();
+    $('#error-text').show().find('a').attr('id', 'firstRun').css('padding', '5px');
+    $('#error-message').text(badger.criticalError);
+    _showNag();
   }
 }
 
@@ -289,12 +314,14 @@ function refreshPopup(tabId) {
   let origins = badger.getAllOriginsForTab(tabId);
 
   if (!origins || origins.length === 0) {
-    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
-    $('#number_trackers').text('0');
-
-    // leave out slider instructions message if no sliders will be displayed
+    // leave out number of trackers and slider instructions message if no sliders will be displayed
+    $("#pb_detected").hide();
+    $("#number_trackers").hide();
     $("#sliders_explanation").hide();
-    $("#sliders_explanation_none").show();
+
+    // show "no trackers" message
+    $("#instructions_no_trackers").show();
+    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
 
     // activate tooltips
     $('.tooltip').tooltipster();
@@ -343,6 +370,16 @@ function refreshPopup(tabId) {
         htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
       );
     }
+  }
+
+  if (trackerCount === 1) {
+    // leave out messages about multiple trackers
+    $("#pb_detected").hide();
+    $("#number_trackers").hide();
+    $("#sliders_explanation").hide();
+
+    // show singular "tracker" message
+    $("#instructions_one_tracker").show();
   }
 
   $('#number_trackers').text(trackerCount);

@@ -44,7 +44,7 @@ chrome.runtime.sendMessage({checkLocation:document.location.href}, function(bloc
       '('+ function() {
         try {
           window.localStorage.getItem = function() {
-            return {};
+            return null;
           };
           window.localStorage.setItem = function(/*newValue*/) {
             //doNothing

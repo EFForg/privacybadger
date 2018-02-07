@@ -4,10 +4,13 @@
 import time
 import unittest
 import pbtest
+
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
+
+from window_utils import switch_to_window_with_url
 
 
 class PopupTest(pbtest.PBSeleniumTest):
@@ -21,28 +24,25 @@ class PopupTest(pbtest.PBSeleniumTest):
                 expected_conditions.presence_of_element_located(
                     (By.CSS_SELECTOR, "title")))
         except TimeoutException:
+            # TODO debug info
+            print("\n")
+            print("driver.current_url=" + self.driver.current_url)
+            print()
+            print(self.driver.page_source[:5000])
+            print("...\n")
+
             self.fail("Timed out waiting for %s to start loading" % url)
-
-    def switch_to_new_window(self, handles_before, max_retries=5):
-        """Given a set of handles, switch with retrying to the first handle
-        that is not found in the original set."""
-
-        new_handle = set(self.driver.window_handles).difference(handles_before)
-
-        for _ in range(max_retries):
-            if not new_handle:
-                time.sleep(1)
-                new_handle = set(self.driver.window_handles).difference(handles_before)
-            else:
-                break
-
-        if not new_handle:
-            self.fail("Failed to find any new window handles")
-
-        self.driver.switch_to.window(new_handle.pop())
 
     def open_popup(self, close_overlay=True):
         """Open popup and optionally close overlay."""
+
+        # TODO Hack: Open a new window to work around popup.js thinking the
+        # active page is firstRun.html when popup.js checks whether the overlay
+        # should be shown. Opening a new window should make the popup think
+        # it's on popup.html instead. This doesn't change what happens in
+        # Chrome where popup.js will keep thinking it is on popup.html.
+        self.open_window()
+
         self.load_url(self.popup_url, wait_on_site=1)
 
         # hack to get tabData populated for the popup's tab
@@ -169,12 +169,16 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.open_popup()
 
-        try:
-            trackers_link = self.driver.find_element_by_link_text("trackers")
-        except NoSuchElementException:
+        # Get all possible tracker links (none, one, multiple)
+        trackers_links = self.driver.find_elements_by_css_selector("#pbInstructions a")
+        if not trackers_links:
             self.fail("Unable to find trackers link on popup")
 
-        handles_before = set(self.driver.window_handles)
+        # Get the one that's displayed on the page that this test is using
+        for link in trackers_links:
+            if link.is_displayed():
+                trackers_link = link
+
         trackers_link.click()
 
         # Make sure EFF website not opened in same window.
@@ -182,12 +186,21 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        self.switch_to_new_window(handles_before)
+        switch_to_window_with_url(self.driver, EFF_URL)
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
         self.assertEqual(self.driver.current_url, EFF_URL,
             "EFF website should open after clicking trackers link on popup")
+
+        # Verify EFF website contains the linked anchor element.
+        faq_selector = 'a[href="{}"]'.format(EFF_URL[EFF_URL.index('#'):])
+        try:
+            WebDriverWait(self.driver, pbtest.SEL_DEFAULT_WAIT_TIMEOUT).until(
+                expected_conditions.presence_of_element_located(
+                    (By.CSS_SELECTOR, faq_selector)))
+        except TimeoutException:
+            self.fail("Unable to find expected element ({}) on EFF website".format(faq_selector))
 
     def test_error_button(self):
         """Ensure error button opens report error overlay."""
@@ -228,7 +241,6 @@ class PopupTest(pbtest.PBSeleniumTest):
             donate_button = self.driver.find_element_by_id("donate")
         except NoSuchElementException:
             self.fail("Unable to find donate button on popup")
-        handles_before = set(self.driver.window_handles)
 
         donate_button.click()
 
@@ -237,7 +249,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        self.switch_to_new_window(handles_before)
+        switch_to_window_with_url(self.driver, EFF_URL)
 
         self.wait_for_page_to_start_loading(EFF_URL)
 

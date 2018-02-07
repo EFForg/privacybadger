@@ -1,9 +1,10 @@
 {
-  "version": "2017.11.20",
+  "version": "2018.2.5",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
-      "id": "jid1-MnnxcxisBPnSXQ@jetpack"
+      "id": "jid1-MnnxcxisBPnSXQ@jetpack",
+      "strict_min_version": "50.0.2"
     }
   },
   "incognito": "spanning",
@@ -17,8 +18,7 @@
     "webNavigation",
     "storage",
     "cookies",
-    "privacy",
-    "unlimitedStorage"
+    "privacy"
   ],
   "background": {
     "scripts": [
@@ -103,7 +103,5 @@
     "page": "/skin/options.html",
     "open_in_tab": true
   },
-  "web_accessible_resources": [
-    "skin/socialwidgets/*"
-  ]
+  "update_url": "https://clients2.google.com/service/update2/crx"
 }

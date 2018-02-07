@@ -1,4 +1,8 @@
 {
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger змінив цю ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "badger_status_block": {
         "message": "Заблоковано ",
         "description": ""
@@ -19,20 +23,12 @@
         "message": "В даний момент Privacy Badger лише перевіряє, чи сторонні елементи не використовують куки, локальне сховище HTML5, або відбиток canvas для стеження за вашим переглядом. Деякі з цих доменів можуть використовувати способи стеження, які Privacy Badger не в змозі виявити.",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "Нічого не може спинити Privacy Badger від поїдання куків, коли він голодний!",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
-        "message": "Перевірити, чи сайти підтримують політику EFF щодо відмови від стеження",
+        "message": "Перевіряти, чи сайти підтримують політику EFF щодо відмови від стеження",
         "description": ""
     },
     "invalid_domain": {
         "message": "Будь ласка, додайте дійсний домен чи URL-адресу.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "Це розширення створено, щоб автоматично захищати вашу приватність від сторонніх елементів стеження, що завантажуються поки ви знаходитесь в Інтернеті. Ми надсилаємо заголовок Не стежити з кожним запитом, а наше розширення     оцінює ймовірність того, що за вами все одно стежать. Якщо алгоритм вважає ймовірність дуже високою, ми автоматично блокуємо надсилання вашого запиту до домену. Зверніть увагу, що Privacy Badger знаходиться в стадії тестування й алгоритм не є вирішальним фактором факту стеження за вами.",
         "description": ""
     },
     "donate_to_eff": {
@@ -50,6 +46,10 @@
     "options_dnt_policy_learn_more": {
         "message": "Докладніше",
         "description": ""
+    },
+    "extension_error_text": {
+        "message": "Будь ласка, <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>розкажіть нам</a> про наступну помилку:",
+        "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
         "message": "Керувати даними",
@@ -80,32 +80,28 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "можливих <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>елементів стеження</a> на цій сторінці. Перемикачі дозволяють контролювати їх. Не варто їх регулювати, якщо все працює як слід.",
-        "description": ""
+        "message": "можливих <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>елементів стеження</a> на цій сторінці. Перемикачі дозволяють контролювати обробку кожного з них. Не варто їх регулювати, якщо все працює як слід.",
+        "description": "Continuation of the popup message that shows number of trackers"
+    },
+    "options_domain_filter_block": {
+        "message": "заблоковані",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
         "message": "Не дозволяти WebRTC виявляти локальну IP-адресу *",
-        "description": ""
-    },
-    "options_so_far": {
-        "message": "за весь час. Ці перемикачі дозволяють вам контролювати, як Privacy Badger обробляє кожне стеження.",
         "description": ""
     },
     "error_input": {
         "message": "Що не так?",
         "description": ""
     },
-    "options_slider_text": {
-        "message": "Privacy Badger захищає вас в Інтернеті! Ці перемикачі дозволяють вам контролювати, як Privacy Badger обробляє кожен елемент.",
-        "description": ""
+    "popup_instructions_no_trackers": {
+        "message": "<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Стеження</a> не виявлено. Приватність на найвищому рівні!",
+        "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
         "message": "Домени стеження",
         "description": "This is an options page tab heading."
-    },
-    "intro1": {
-        "message": "Privacy Badger блокує рекламу й невидимі елементи, що стежать за вами.  Це робиться для того, щоб компанії не могли стежити за вами без вашої згоди.",
-        "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
         "message": "Поширити у Twitter",
@@ -123,20 +119,12 @@
         "message": "натисніть для повернення контролю над цим елементом до Privacy Badger",
         "description": ""
     },
-    "intro_has_blocked": {
-        "message": " Privacy Badger вважає, що цей домен стежить за вами, і тому він заблокував його. ",
-        "description": ""
-    },
     "import": {
         "message": "Імпорт",
         "description": ""
     },
     "options_social_widgets_checkbox": {
         "message": "Заміна соціальних віджетів",
-        "description": ""
-    },
-    "options_tracking_domains": {
-        "message": "домени стеження",
         "description": ""
     },
     "report_button": {
@@ -152,8 +140,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Пошук доменів",
-        "description": ""
+        "message": "Пошук доменів:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Показувати лічильник заблокованих елементів",
@@ -173,7 +161,11 @@
     },
     "options_pb_has_detected": {
         "message": "Privacy Badger виявив",
-        "description": ""
+        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
+    "social_tooltip_button": {
+        "message": " кнопку.",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
         "message": " При зміні моїх налаштувань, ви завжди можете повернути їх під мій контроль, натиснувши на відповідну стрілку.",
@@ -190,6 +182,10 @@
     "popup_enable_for_site": {
         "message": "Увімкнути Privacy Badger для цього сайту",
         "description": ""
+    },
+    "options_domain_type_filter": {
+        "message": "Фільтр за типом:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
         "message": "Список елементів стеження й налаштування успішно оновлено!",
@@ -230,6 +226,14 @@
     "options_loading": {
         "message": "Завантаження...",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "частково заблоковані",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "show_tracking_domains_acknowledgement": {
+        "message": "Я розумію. Будь ласка, все одно покажіть мені перелік доменів стеження",
+        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "firstRun_title": {
         "message": "Дякуємо за встановлення Privacy Badger!",
@@ -279,13 +283,29 @@
         "message": " Вперше натиснувши на мою піктограму ви можете побачити, що всі елементи стеження зеленого кольору — не хвилюйтесь! Я відрізняюсь від інших програм — замість блокування за списком відомих елементів стеження, я вивчаю що потрібно блокувати поки ви переглядаєте сторінки в Інтернеті. Якщо я ще нічого не блокую, спробуйте переглянути 4 чи 5 різних веб-сайтів. Після цього я почну блокувати загальні елементи стеження.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-сумісні",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Допомога",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
+    "options_domain_filter_allow": {
+        "message": "дозволені",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "share_button_title_google": {
         "message": "Поширити в Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "show_tracking_domains_message": {
+        "message": "Вам не слід щось тут змінювати.",
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
+    },
+    "options_domain_filter_all": {
+        "message": "всі",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
         "message": "Скасувати",
@@ -295,13 +315,17 @@
         "message": "Змініть положення перемикача вліво, щоб заблокувати домен",
         "description": ""
     },
+    "options_domain_filter_user": {
+        "message": "контрольовані користувачем",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
+        "message": "Privacy Badger вимкнено для доменів, зазначених нижче. Ви можете додати домен через піктограму Privacy Badger в панелі браузера, або ввести домен в полі внизу й натиснути кнопку \"Додати домен\".",
         "description": ""
     },
     "pb_detected": {
         "message": "Privacy Badger виявив",
-        "description": ""
+        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "Проект Electronic Frontier Foundation",
@@ -310,6 +334,10 @@
     "add_domain_button": {
         "message": "Додати домен",
         "description": ""
+    },
+    "options_domain_list_one_tracker": {
+        "message": "Privacy Badger наразі виявив один можливий <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домен стеження</a>. Перемикач дозволяє контролювати його обробку.",
+        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
         "message": "Змініть положення перемикача вправо, щоб дозволити домен",
@@ -323,49 +351,37 @@
         "message": "Повідомте світу, що ви приймаєте участь у захисті від стеження онлайн",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "Жовтий",
-        "description": ""
+    "popup_instructions_one_tracker": {
+        "message": "Privacy Badger виявив можливий <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>елемент стеження</a> на цій сторінці. Перемикач дозволяє контролювати його обробку. Не варто змінювати його, якщо все працює як слід.",
+        "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
         "message": "Натисніть тут, щоб дозволити цей домен",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
+    "options_domain_list_trackers": {
+        "message": "можливих <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>доменів стеження</a> на цей час. Ці перемикачі дозволяють вам контролювати обробку кожного з них.",
+        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
     "name": {
         "message": "Privacy Badger",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "Наше розширення має три стани. ",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": "означає, що домен стежить за вами, але він потрібен для належної роботи сторінки, тому Privacy Badger дозволяє його і блокує його куки.",
-        "description": ""
+    "options_domain_status_filter": {
+        "message": "Фільтр за статусом:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Коротко опишіть помилку.",
-        "description": ""
-    },
-    "intro_red": {
-        "message": "Червоний",
-        "description": ""
-    },
-    "options_potential": {
-        "message": "можливі",
         "description": ""
     },
     "remove_button": {
         "message": "Вилучити обрані",
         "description": "This is the label for the 'Remove selected' buttons."
     },
-    "intro_green": {
-        "message": "Зелений",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "Privacy Badger вважає, що цей елемент не стежить за вами. Ви можете натиснути на піктограму Privacy Badger в панелі браузера, якщо ви бажаєте змінити автоматичні налаштування блокування. Або ж ви можете спокійно подорожувати Інтернетом поки Privacy Badger почне знаходити й блокувати стеження одне за одним.",
-        "description": ""
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger досі не виявив жодного <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домену стеження</a>. Продовжуйте перегляд!",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "slideshow_15": {
         "message": " Звичайно ж, ви можете просто залишити всі ці налаштування без змін і я продовжу тихенько поїдати всі виявлені елементи стеження.",

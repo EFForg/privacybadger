@@ -1,4 +1,8 @@
 {
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger has replaced this ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "badger_status_block": {
         "message": "封鎖",
         "description": ""
@@ -19,20 +23,12 @@
         "message": "目前 Privacy Badger 只檢查透過第三方 cookie、HTML5 Local Storage、Canvas 指紋來追蹤您瀏覽網頁的情況。有些網域可能使用了 Privacy Badger 無法偵測的追蹤方式。",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "Privacy Badger 肚子餓的時候，沒有任何東西可以阻止它吃 cookie！",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
     },
     "invalid_domain": {
         "message": "Please add a valid domain or URL.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "這個擴充套件被設計來自動保護您的隱私以免受您在瀏覽網頁時無形中載入的第三方追蹤器。我們在每個請求中傳送了「請勿追蹤」(Do Not Track, DNT) 檔頭，我們的擴充套件仍然會評估被追蹤的可能性。如果演算法認為可能性太高，我們自動封鎖被發送到這個網域的請求。請注意 Privacy Badger 仍處於測試階段，而演算法無法完全肯定網域在追蹤您。",
         "description": ""
     },
     "donate_to_eff": {
@@ -50,6 +46,10 @@
     "options_dnt_policy_learn_more": {
         "message": "Learn more",
         "description": ""
+    },
+    "extension_error_text": {
+        "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
+        "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
         "message": "管理資料",
@@ -80,32 +80,28 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "可疑的<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤器</a>。<br>這些滾動條讓您可控制 Privacy Badger 如何處理每一個追蹤器，但除非 Privacy Badger 造成網頁顯示異常，不必特別調整。",
-        "description": ""
+        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
+        "description": "Continuation of the popup message that shows number of trackers"
+    },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
         "message": "防止 WebRTC 洩漏本機 IP 地址 *",
-        "description": ""
-    },
-    "options_so_far": {
-        "message": "這些滾動條可讓您控制 Privacy Badger 要如何處理追蹤器。",
         "description": ""
     },
     "error_input": {
         "message": "有什麼問題？",
         "description": ""
     },
-    "options_slider_text": {
-        "message": "Privacy Badger 保護您瀏覽網頁！這些滾動條可讓您選擇 Privacy Badger 要如何處理瀏覽時找到的追蹤器。",
-        "description": ""
+    "popup_instructions_no_trackers": {
+        "message": "No <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> detected. Hooray for privacy!",
+        "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
         "message": "Tracking Domains",
         "description": "This is an options page tab heading."
-    },
-    "intro1": {
-        "message": "Privacy Badger 會封鎖間諜廣告和隱形的追蹤器。它的目的是確保企業在未經您同意的情況下無法追蹤您的網路瀏覽行為。",
-        "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
         "message": "Share on Twitter",
@@ -123,20 +119,12 @@
         "message": "點選以讓 Privacy Badger 控制這個追蹤器",
         "description": ""
     },
-    "intro_has_blocked": {
-        "message": "代表 Privacy Badger 認為這個網域是一個追蹤器，並封鎖了它。",
-        "description": ""
-    },
     "import": {
         "message": "匯入",
         "description": ""
     },
     "options_social_widgets_checkbox": {
         "message": "替換社交網路小工具",
-        "description": ""
-    },
-    "options_tracking_domains": {
-        "message": "追蹤器網域",
         "description": ""
     },
     "report_button": {
@@ -152,8 +140,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "搜尋網域",
-        "description": ""
+        "message": "搜尋網域:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "顯示封鎖數目",
@@ -173,7 +161,11 @@
     },
     "options_pb_has_detected": {
         "message": "目前為止，Privacy Badger 偵測到",
-        "description": ""
+        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
+    "social_tooltip_button": {
+        "message": " button.",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
         "message": "如果您修改了我的設定，可以隨時點選還原箭頭讓我來控制它的設定。",
@@ -190,6 +182,10 @@
     "popup_enable_for_site": {
         "message": "在目前網頁開啟 Privacy Badger",
         "description": ""
+    },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
         "message": "追蹤器清單和設定更新成功！",
@@ -230,6 +226,14 @@
     "options_loading": {
         "message": "載入中…",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "show_tracking_domains_acknowledgement": {
+        "message": "I understand; please show me the tracking domains list anyway",
+        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "firstRun_title": {
         "message": "感謝您安裝 Privacy Badger！",
@@ -279,13 +283,29 @@
         "message": " 第一次點選我的圖示，可能會發現所有追蹤器都是綠色的，別擔心！我與其他追蹤器封鎖軟體不同。我會在您瀏覽網頁時學習哪些是該封鎖的，而不是一上來就根據已知的清單封鎖。如果我啥都沒開始封鎖，您可以嘗試瀏覽四五個網站。之後就會開始封鎖常見的追蹤器。",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "share_button_title_google": {
         "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "show_tracking_domains_message": {
+        "message": "You shouldn't need to modify anything here.",
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
+    },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
         "message": "取消",
@@ -295,13 +315,17 @@
         "message": "將滾動條滑到左邊封鎖該網域",
         "description": ""
     },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "disabled_for_these_domains": {
         "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
         "description": ""
     },
     "pb_detected": {
         "message": "Privacy Badger 偵測到這個網站上有",
-        "description": ""
+        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "EFF 電子前鋒基金會的專案",
@@ -310,6 +334,10 @@
     "add_domain_button": {
         "message": "新增網域",
         "description": ""
+    },
+    "options_domain_list_one_tracker": {
+        "message": "Privacy Badger has detected one potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domain</a> so far. The slider lets you control how Privacy Badger handles it.",
+        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
         "message": "將滾動條滑到右邊允許該網域",
@@ -323,49 +351,37 @@
         "message": "讓世界知道您反對網路追蹤的立場",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "黃色",
-        "description": ""
+    "popup_instructions_one_tracker": {
+        "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. The slider lets you control how Privacy Badger handles it. You shouldn't need to adjust the slider unless something is broken.",
+        "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
         "message": "Click here to allow this domain",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
+    "options_domain_list_trackers": {
+        "message": "potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far. These sliders let you control how Privacy Badger handles each tracker.",
+        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
     "name": {
         "message": "Privacy Badger",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "我們的擴充套件有三種狀態。",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": "代表此網域既是追蹤器，但亦是頁面必需的部分，所以 Privacy Badger 允許它只封鎖 cookie。",
-        "description": ""
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "在下面簡要描述發生的錯誤。",
-        "description": ""
-    },
-    "intro_red": {
-        "message": "紅色",
-        "description": ""
-    },
-    "options_potential": {
-        "message": "個可能的",
         "description": ""
     },
     "remove_button": {
         "message": "刪除所選",
         "description": "This is the label for the 'Remove selected' buttons."
     },
-    "intro_green": {
-        "message": "綠色",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "意味著 Privacy Badger 認為這不是追蹤器。如果您想更改自動封鎖設定，可以點選瀏覽器工具列上的 Privacy Badger 圖示；也可以繼續上網，Privacy Badger 會找出並一個一個吃掉追蹤器。",
-        "description": ""
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "slideshow_15": {
         "message": "當然您也可以不管這些設定，我會繼續安靜地吃掉我發現的追蹤器。",

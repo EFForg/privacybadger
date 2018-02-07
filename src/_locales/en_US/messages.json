@@ -1,4 +1,8 @@
 {
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger has replaced this ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "badger_status_block": {
         "message": "Blocked ",
         "description": ""
@@ -19,20 +23,12 @@
         "message": "Currently Privacy Badger only checks if third parties are using cookies, HTML5 local storage, or canvas fingerprinting to track your browsing. Some of these domains may be using tracking methods that Privacy Badger can't detect.",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "Nothing can stop the Privacy Badger from eating cookies when it's hungry!",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": ""
     },
     "invalid_domain": {
         "message": "Please add a valid domain or URL.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "This extension is designed to automatically protect your privacy from third party trackers that load invisibly when you browse the web. We send the Do Not Track header with each request, and our extension     evaluates the likelihood that you are still being tracked. If the algorithm deems the likelihood is too high, we automatically block your request from being sent to the domain. Please understand that Privacy Badger is in beta, and the algorithm's determination is not conclusive that the domain is tracking you.",
         "description": ""
     },
     "donate_to_eff": {
@@ -50,6 +46,10 @@
     "options_dnt_policy_learn_more": {
         "message": "Learn more",
         "description": ""
+    },
+    "extension_error_text": {
+        "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
+        "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
         "message": "Manage Data",
@@ -80,12 +80,12 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust them unless something is broken.",
-        "description": ""
+        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
+        "description": "Continuation of the popup message that shows number of trackers"
     },
-    "popup_instructions_no_trackers": {
-        "message": "Horray for privacy!",
-        "description": ""
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
         "message": "Prevent WebRTC from leaking local IP address *",
@@ -95,17 +95,13 @@
         "message": "What's Wrong?",
         "description": ""
     },
-    "options_slider_text": {
-        "message": "Privacy Badger is protecting you across the web! These sliders let you control how Privacy Badger handles each tracker that it has flagged through your browsing.",
-        "description": ""
+    "popup_instructions_no_trackers": {
+        "message": "No <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> detected. Hooray for privacy!",
+        "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
         "message": "Tracking Domains",
         "description": "This is an options page tab heading."
-    },
-    "intro1": {
-        "message": "Privacy Badger blocks spying ads and invisible trackers.  It's there to ensure that companies can't track your browsing without your consent.",
-        "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
         "message": "Share on Twitter",
@@ -123,10 +119,6 @@
         "message": "click to return control of this tracker to Privacy Badger",
         "description": ""
     },
-    "intro_has_blocked": {
-        "message": " means Privacy Badger believes this domain is a tracker, and has blocked it. ",
-        "description": ""
-    },
     "import": {
         "message": "Import",
         "description": ""
@@ -134,14 +126,6 @@
     "options_social_widgets_checkbox": {
         "message": "Replace social widgets",
         "description": ""
-    },
-    "options_domain_list_trackers": {
-        "message": "<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking domains</a> detected so far: ",
-        "description": "Text introducing the overall number of trackers detected on the Tracking Domains options page"
-    },
-    "options_domain_list_instructions": {
-        "message": "These sliders let you control how Privacy Badger handles each tracker.",
-        "description": "Instructions on the Tracking Domains options page"
     },
     "report_button": {
         "message": "Submit Error",
@@ -156,8 +140,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Search domains",
-        "description": ""
+        "message": "Search domains:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Show count of blocked items",
@@ -175,6 +159,14 @@
         "message": "Privacy Badger Options",
         "description": ""
     },
+    "options_pb_has_detected": {
+        "message": "Privacy Badger has detected",
+        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
+    "social_tooltip_button": {
+        "message": " button.",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "slideshow_11": {
         "message": " If you change a setting I've made, you can always put it back under my control by clicking the undo arrow.",
         "description": ""
@@ -190,6 +182,10 @@
     "popup_enable_for_site": {
         "message": "Enable Privacy Badger for This Site",
         "description": ""
+    },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
         "message": "Tracker list and settings updated successfully!",
@@ -230,6 +226,14 @@
     "options_loading": {
         "message": "Loading...",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "show_tracking_domains_acknowledgement": {
+        "message": "I understand; please show me the tracking domains list anyway",
+        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "firstRun_title": {
         "message": "Thank you for installing Privacy Badger!",
@@ -279,13 +283,29 @@
         "message": " The first time you click my icon you might see that all the trackers are green—don't worry! I'm different from other tracker blocking software—instead of knowing a list of things to block right away, I learn what to block as you browse. If I'm not blocking anything yet, try browsing around to 4 or 5 different websites. I should start blocking common trackers after that.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "share_button_title_google": {
         "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "show_tracking_domains_message": {
+        "message": "You shouldn't need to modify anything here.",
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
+    },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
         "message": "Cancel",
@@ -295,13 +315,17 @@
         "message": "Move the slider left to block a domain",
         "description": ""
     },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "disabled_for_these_domains": {
         "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
         "description": ""
     },
     "pb_detected": {
-        "message": "Potential <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> detected on this page: ",
-        "description": ""
+        "message": "Privacy Badger detected",
+        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "A project of the Electronic Frontier Foundation",
@@ -310,6 +334,10 @@
     "add_domain_button": {
         "message": "Add domain",
         "description": ""
+    },
+    "options_domain_list_one_tracker": {
+        "message": "Privacy Badger has detected one potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domain</a> so far. The slider lets you control how Privacy Badger handles it.",
+        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
         "message": "Move the slider right to allow a domain",
@@ -323,45 +351,37 @@
         "message": "Let the world know that you are taking a stand against online tracking",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "Yellow",
-        "description": ""
+    "popup_instructions_one_tracker": {
+        "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. The slider lets you control how Privacy Badger handles it. You shouldn't need to adjust the slider unless something is broken.",
+        "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
         "message": "Click here to allow this domain",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
+    "options_domain_list_trackers": {
+        "message": "potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far. These sliders let you control how Privacy Badger handles each tracker.",
+        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
     "name": {
         "message": "Privacy Badger",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "Our extension has three states. ",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": "means the domain is believed to be both a tracker and necessary for the functioning of the page, so Privacy Badger is allowing it but blocking its cookies.",
-        "description": ""
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Briefly describe the error below.",
-        "description": ""
-    },
-    "intro_red": {
-        "message": "Red",
         "description": ""
     },
     "remove_button": {
         "message": "Remove selected",
         "description": "This is the label for the 'Remove selected' buttons."
     },
-    "intro_green": {
-        "message": "Green",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "means that Privacy Badger believes this is not tracker. You can click on the Privacy Badger icon in your browser's toolbar if you wish to override the automatic blocking settings. Or, you can browse in peace as Privacy Badger starts finding and eating up web trackers one by one.",
-        "description": ""
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "slideshow_15": {
         "message": " Of course you can also just leave all these settings alone, and I will continue to silently eat up all the trackers that I detect.",
