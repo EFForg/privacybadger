@@ -155,6 +155,7 @@ ethn.io
 evcdn.com
 ebmedia.eventbrite.com
 s-static.ak.facebook.com
+staticxx.facebook.com
 www.facebook.com
 fansonly.com
 travis-ci-org.global.ssl.fastly.net
@@ -319,10 +320,13 @@ www.kaltura.com
 kampyle.com
 kataweb.it
 kickapps.com
+kickstarter.com
 kickstatic.com
 kingfeatures.com
 kinja.com
 kinja-static.com
+klarna.com
+klarnacdn.net
 klm.com
 licdn.com
 licensebuttons.net
@@ -403,6 +407,7 @@ c.ooyala.com
 l.ooyala.com
 opf.ooyala.com
 player.ooyala.com
+secure-cf-c.ooyala.com
 tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org

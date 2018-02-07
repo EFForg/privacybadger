@@ -19,12 +19,24 @@ function setup_firefox {
     else
       # Install the latest version of geckodriver
       version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
+
+      # check that we got something
+      if [ -z "$version" ]; then
+        echo "Failed to determine the latest geckodriver version!"
+        exit 1
+      fi
     fi
     echo "Setting up geckodriver version $version ..."
     url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-linux64.tar.gz"
     wget -q -O /tmp/geckodriver.tar.gz "$url"
     sudo tar -xvf /tmp/geckodriver.tar.gz -C /usr/local/bin/
     sudo chmod a+x /usr/local/bin/geckodriver
+
+    # check that geckodriver is now present
+    type geckodriver >/dev/null 2>&1 || {
+      echo "Failed to install geckodriver!"
+      exit 1
+    }
 }
 
 function browser_setup {

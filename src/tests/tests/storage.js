@@ -26,13 +26,13 @@
 
   QUnit.test("test user override of default action for domain", function (assert) {
     badger.saveAction("allow", "pbtest.org");
-    assert.ok(badger.userAllow.indexOf('pbtest.org') > -1);
+    assert.ok(badger.storage.getAction("pbtest.org") === constants.USER_ALLOW);
     badger.saveAction("block", "pbtest.org");
-    assert.ok(badger.userAllow.indexOf('pbtest.org') <= -1);
+    assert.ok(badger.storage.getAction("pbtest.org") === constants.USER_BLOCK);
     badger.saveAction("allow", "pbtest.org");
-    assert.ok(badger.userAllow.indexOf('pbtest.org') > -1);
-    storage.revertUserAction("pbtest.org");
-    assert.ok(badger.userAllow.indexOf('pbtest.org') <= -1);
+    assert.ok(badger.storage.getAction("pbtest.org") === constants.USER_ALLOW);
+    badger.storage.revertUserAction("pbtest.org");
+    assert.ok(badger.storage.getAction("pbtest.org") === constants.NO_TRACKING);
   });
 
   // TODO: Figure out how to test this.

@@ -8,6 +8,7 @@ import time
 from functools import wraps
 
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
@@ -148,7 +149,16 @@ class Shim:
         caps = DesiredCapabilities.CHROME.copy()
         caps['loggingPrefs'] = {'browser': 'ALL'}
 
-        driver = webdriver.Chrome(chrome_options=opts, desired_capabilities=caps)
+        for i in range(5):
+            try:
+                driver = webdriver.Chrome(chrome_options=opts, desired_capabilities=caps)
+            except WebDriverException as e:
+                if i == 0: print("")
+                print("Chrome WebDriver initialization failed:")
+                print(str(e) + "Retrying ...")
+            else:
+                break
+
         try:
             yield driver
         finally:
@@ -189,6 +199,23 @@ def if_firefox(wrapper):
         else:
             return test
     return test_catcher
+
+
+def retry_until(fun, cond=True, times=5, msg="Waiting a bit and retrying ..."):
+    """
+    Execute function `fun` until either its return equals `cond`,
+    or it gets executed X times, where X = `times` + 1.
+    """
+    for i in range(times):
+        result = fun()
+        if result == cond:
+            break
+        elif i == 0:
+            print("")
+        print(msg)
+        time.sleep(2 ** i)
+
+    return result
 
 
 attempts = {}  # used to count test retries

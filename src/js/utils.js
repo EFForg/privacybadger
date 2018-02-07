@@ -25,22 +25,28 @@ require.scopes.utils = (function() {
 /**
 * Generic interface to make an XHR request
 *
-* @param url The url to get
-* @param callback The callback to call after request has finished
-* @param method GET/POST
+* @param {String} url The url to get
+* @param {Function} callback The callback to call after request has finished
+* @param {String} method GET/POST
+* @param {Object} opts XMLHttpRequest options
 */
-function xhrRequest(url, callback, method) {
+function xhrRequest(url, callback, method, opts) {
   if (!method) {
     method = "GET";
   }
   var xhr = new XMLHttpRequest();
+  if (opts) {
+    _.each(opts, function (value, key) {
+      xhr[key] = value;
+    });
+  }
   xhr.onload = function () {
     if (xhr.status == 200) {
-      callback(null, xhr.responseText);
+      callback(null, xhr.response);
     } else {
       var error = {
         status: xhr.status,
-        message: xhr.responseText,
+        message: xhr.response,
         object: xhr
       };
       callback(error, error.message);
@@ -52,6 +58,25 @@ function xhrRequest(url, callback, method) {
   };
   xhr.open(method, url, true);
   xhr.send();
+}
+
+/**
+ * Converts binary data to base64-encoded text suitable for use in data URIs.
+ *
+ * Adapted from https://stackoverflow.com/a/9458996.
+ *
+ * @param {ArrayBuffer} buffer binary data
+ *
+ * @returns {String} base64-encoded text
+ */
+function arrayBufferToBase64(buffer) {
+  var binary = '';
+  var bytes = new Uint8Array(buffer);
+  var len = bytes.byteLength;
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
 }
 
 /**
@@ -320,23 +345,23 @@ function getHostFromDomainInput(input) {
 }
 
 /************************************** exports */
-var exports = {};
-
-exports.estimateMaxEntropy = estimateMaxEntropy;
-exports.explodeSubdomains = explodeSubdomains;
-exports.getHostFromDomainInput = getHostFromDomainInput;
-exports.nDaysFromNow = nDaysFromNow;
-exports.oneDayFromNow = oneDayFromNow;
-exports.oneDay = oneDay;
-exports.oneHour = oneHour;
-exports.oneMinute = oneMinute;
-exports.oneSecond = oneSecond;
-exports.parseCookie = parseCookie;
-exports.rateLimit = rateLimit;
-exports.removeElementFromArray = removeElementFromArray;
-exports.sha1 = sha1;
-exports.xhrRequest = xhrRequest;
-
+var exports = {
+  arrayBufferToBase64,
+  estimateMaxEntropy,
+  explodeSubdomains,
+  getHostFromDomainInput,
+  nDaysFromNow,
+  oneDayFromNow,
+  oneDay,
+  oneHour,
+  oneMinute,
+  oneSecond,
+  parseCookie,
+  rateLimit,
+  removeElementFromArray,
+  sha1,
+  xhrRequest,
+};
 return exports;
 /************************************** exports */
 })(); //require scopes

@@ -1,5 +1,38 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.2.5
+* Added type/status filters to the tracking domains list on the options page
+* Reworked social widget replacement to avoid WebExtensions fingerprintability
+issue in Firefox
+* New translations (Turkish)
+* Improved translations (Danish, Esperanto, French, German, Polish, Swedish,
+Ukrainian)
+
+## 2018.1.30
+* Removed the "unlimitedStorage" permission from the manifest
+* Changed the tracker count badge color from red to "Privacy Badger orange"
+
+## 2018.1.25
+* Added workaround to avoid Privacy Badger getting disabled as "Not from
+Chrome Web Store" in Chrome
+
+## 2018.1.22
+* Reduced amount of data stored as part of normal operation. Privacy Badger
+will no longer record (or check Do Not Track policies for) non-tracking
+domains. This should enable us to remove the "unlimitedStorage" permission
+with the next Badger update.
+* Improved tracker detection status summaries in popup and options
+* Added explanatory acknowledgement to Tracking Domains options page tab
+* Fixed file download dialog not showing when exporting user data in Firefox
+* Removed tutorial reminder link from popup when already on tutorial page
+* Removed "Requests to the server have been blocked by an extension" messages
+in Chrome and Opera
+* Fixed style issue with replacement social widgets
+* Fixed error reporting on pages where Privacy Badger has been disabled
+* Fixed various site breakages
+* Improved translations (Bulgarian, Danish, Esperanto, French, German,
+Italian, Polish, Russian, Spanish, Swedish, Ukrainian)
+
 ## 2017.11.20
 * Disabled custom tooltips in Firefox to work around browser freezing issues
 * Added validation to whitelisted domains form

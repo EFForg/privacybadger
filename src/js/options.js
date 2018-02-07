@@ -17,6 +17,17 @@
 
 // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
+// TODO hack: disable Tooltipster tooltips on Firefox to avoid unresponsive script warnings
+(function () {
+let [, browser, ] = navigator.userAgent.match(
+  // from https://gist.github.com/ticky/3909462
+  /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
+);
+if (browser == "Firefox") {
+  $.fn.tooltipster = function () {};
+}
+}());
+
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
 /**
@@ -46,8 +57,6 @@ let migrations = require("migrations").Migrations;
  * Loads options from pb storage and sets UI elements accordingly.
  */
 function loadOptions() {
-  $('#blockedResources').css('max-height',$(window).height() - 300);
-
   // Set page title to i18n version of "Privacy Badger Options"
   document.title = i18n.getMessage("options_title");
 
@@ -58,8 +67,22 @@ function loadOptions() {
   $('#importTrackers').change(importTrackerList);
   $('#exportTrackers').click(exportUserData);
 
+  if (settings.getItem("showTrackingDomains")) {
+    $('#tracking-domains-overlay').hide();
+  } else {
+    $('#blockedResourcesContainer').hide();
+
+    $('#show-tracking-domains-checkbox').click(() => {
+      $('#tracking-domains-overlay').hide();
+      $('#blockedResourcesContainer').show();
+      settings.setItem("showTrackingDomains", true);
+    });
+  }
+
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").on("input", filterTrackingDomains);
+  $("#tracking-domains-type-filter").on("change", filterTrackingDomains);
+  $("#tracking-domains-status-filter").on("change", filterTrackingDomains);
 
   // Add event listeners for origins container.
   $(function () {
@@ -168,6 +191,9 @@ function parseUserDataFile(storageMapsList) {
   // fix yellowlist getting out of sync
   migrations.reapplyYellowlist(badger);
 
+  // remove any non-tracking domains (in exports from older Badger versions)
+  migrations.forgetNontrackingDomains(badger);
+
   // Update list to reflect new status of map
   reloadWhitelist();
   refreshFilterPage();
@@ -201,25 +227,49 @@ function exportUserData() {
     var a = document.createElement('a');
     a.setAttribute('download', filename || '');
 
-    // TODO remove browser check and simplify code once Firefox 52 goes away
-    // https://github.com/EFForg/privacybadger/pull/1532#issuecomment-318702372
+    var blob = new Blob([mapJSON], { type: 'application/json' }); // pass a useful mime type here
+    a.href = URL.createObjectURL(blob);
+
+    function clickBlobLink() {
+      a.dispatchEvent(new MouseEvent('click'));
+      URL.revokeObjectURL(blob);
+    }
+
+    /**
+     * Firefox workaround to insert the blob link in an iFrame
+     * https://bugzilla.mozilla.org/show_bug.cgi?id=1420419#c18
+     */
+    function addBlobWorkAroundForFirefox() {
+      // Create or use existing iframe for the blob 'a' element
+      var iframe = document.getElementById('exportUserDataIframe');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = "exportUserDataIframe";
+        iframe.setAttribute("style", "visibility: hidden; height: 0; width: 0");
+        document.getElementById('export').appendChild(iframe);
+
+        iframe.contentWindow.document.open();
+        iframe.contentWindow.document.write('<html><head></head><body></body></html>');
+        iframe.contentWindow.document.close();
+      } else {
+        // Remove the old 'a' element from the iframe
+        var oldElement = iframe.contentWindow.document.body.lastChild;
+        iframe.contentWindow.document.body.removeChild(oldElement);
+      }
+      iframe.contentWindow.document.body.appendChild(a);
+    }
+
+    // TODO remove browser check and simplify code once Firefox 58 goes away
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1420419
     if (chrome.runtime.getBrowserInfo) {
       chrome.runtime.getBrowserInfo((info) => {
         if (info.name == "Firefox") {
-          a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
-          a.dispatchEvent(new MouseEvent('click'));
-        } else {
-          var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
-          a.href = URL.createObjectURL(blob);
-          a.dispatchEvent(new MouseEvent('click'));
-          URL.revokeObjectURL(blob);
+          addBlobWorkAroundForFirefox();
         }
+        clickBlobLink();
       });
     } else {
-      var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
-      a.href = URL.createObjectURL(blob);
-      a.dispatchEvent(new MouseEvent('click'));
-      URL.revokeObjectURL(blob);
+      clickBlobLink();
     }
   });
 }
@@ -273,22 +323,51 @@ function refreshOriginCache() {
 
 /**
  * Gets array of encountered origins.
- * @param filterText {String} Text to filter origins with.
+ *
+ * @param filter_text {String} Text to filter origins with.
+ * @param type_filter {String} Type (user-controlled, DNT-compliant) to filter
+ *   origins by.
+ * @param status_filter {String} Status (blocked, cookieblocked, allowed) to
+ *   filter origins by.
+ *
  * @return {Array}
  */
-function getOriginsArray(filterText) {
-  // Make sure filterText is lower case for case-insensitive matching.
-  if (filterText) {
-    filterText = filterText.toLowerCase();
+function getOriginsArray(filter_text, type_filter, status_filter) {
+  // Make sure filter_text is lower case for case-insensitive matching.
+  if (filter_text) {
+    filter_text = filter_text.toLowerCase();
   } else {
-    filterText = "";
+    filter_text = "";
   }
 
-  // Include only origins containing given filter text.
-  function containsFilterText(origin) {
-    return origin.toLowerCase().indexOf(filterText) !== -1;
+  function matchesFormFilters(origin) {
+    const value = originCache[origin];
+
+    if (type_filter) {
+      if (type_filter == "user") {
+        if (!value.startsWith("user")) {
+          return false;
+        }
+      } else {
+        if (value != type_filter) {
+          return false;
+        }
+      }
+    }
+
+    if (status_filter) {
+      if (status_filter != value.replace("user_", "") && !(
+        status_filter == "allow" && value == "dnt"
+      )) {
+        return false;
+      }
+    }
+
+    return origin.toLowerCase().indexOf(filter_text) !== -1;
   }
-  return Object.keys(originCache).filter(containsFilterText);
+
+  // Include only origins that match given filters.
+  return Object.keys(originCache).filter(matchesFormFilters);
 }
 
 function addWhitelistDomain(event) {
@@ -374,8 +453,16 @@ function refreshFilterPage() {
   // Check to see if any tracking domains have been found before continuing.
   var allTrackingDomains = getOriginsArray();
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
-    $("#count").text(0);
-    $("#blockedResources").html("Could not detect any tracking cookies.");
+    // leave out number of trackers and slider instructions message if no sliders will be displayed
+    $("#pb_has_detected").hide();
+    $("#count").hide();
+    $("#options_domain_list_trackers").hide();
+    $("#options_domain_list_one_tracker").hide();
+
+    // show "no trackers" message
+    $("#options_domain_list_no_trackers").show();
+    $("#blockedResources").html('');
+    $("#tracking-domains-div").hide();
 
     // activate tooltips
     $('.tooltip').tooltipster();
@@ -383,8 +470,24 @@ function refreshFilterPage() {
     return;
   }
 
-  // Update tracking domain count.
-  $("#count").text(allTrackingDomains.length);
+  // refreshFilterPage can be called multiple times, needs to be reversible
+  $("#options_domain_list_no_trackers").hide();
+  $("#tracking-domains-div").show();
+
+  // Update messages according to tracking domain count.
+  if (allTrackingDomains.length === 1) {
+    // leave out messages about multiple trackers
+    $("#pb_has_detected").hide();
+    $("#count").hide();
+    $("#options_domain_list_trackers").hide();
+
+    // show singular "tracker" message
+    $("#options_domain_list_one_tracker").show();
+  } else {
+    $("#pb_has_detected").show();
+    $("#count").text(allTrackingDomains.length).show();
+    $("#options_domain_list_trackers").show();
+  }
 
   // Get containing HTML for domain list along with toggle legend icons.
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
@@ -393,14 +496,13 @@ function refreshFilterPage() {
   $('.tooltip').tooltipster();
 
   // Display tracking domains.
-  var originsToDisplay;
-  var searchText = $("#trackingDomainSearch").val();
-  if (searchText.length > 0) {
-    originsToDisplay = getOriginsArray(searchText);
-  } else {
-    originsToDisplay = allTrackingDomains;
-  }
-  showTrackingDomains(originsToDisplay);
+  showTrackingDomains(
+    getOriginsArray(
+      $("#trackingDomainSearch").val(),
+      $('#tracking-domains-type-filter').val(),
+      $('#tracking-domains-status-filter').val()
+    )
+  );
 
   log("Done refreshing options page");
 }
@@ -410,6 +512,15 @@ function refreshFilterPage() {
  * @param event Input event triggered by user.
  */
 function filterTrackingDomains(/*event*/) {
+  const $typeFilter = $('#tracking-domains-type-filter');
+  const $statusFilter = $('#tracking-domains-status-filter');
+
+  if ($typeFilter.val() == "dnt") {
+    $statusFilter.prop("disabled", true).val("");
+  } else {
+    $statusFilter.prop("disabled", false);
+  }
+
   var initialSearchText = $('#trackingDomainSearch').val().toLowerCase();
 
   // Wait a short period of time and see if search text has changed.
@@ -423,7 +534,11 @@ function filterTrackingDomains(/*event*/) {
     }
 
     // Show filtered origins.
-    var filteredOrigins = getOriginsArray(searchText);
+    var filteredOrigins = getOriginsArray(
+      searchText,
+      $typeFilter.val(),
+      $statusFilter.val()
+    );
     showTrackingDomains(filteredOrigins);
   }, timeToWait);
 }
@@ -451,7 +566,7 @@ function addOrigins(e) {
 
 /**
  * Displays list of tracking domains along with toggle controls.
- * @param domains Tracking domains to display.
+ * @param domains {Array} Tracking domains to display.
  */
 function showTrackingDomains(domains) {
   domains.sort(htmlUtils.compareReversedDomains);

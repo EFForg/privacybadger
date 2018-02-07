@@ -12,6 +12,15 @@ reference. You can also use existing translations from other languages to help
 you in case of doubt, but you should always consider the English version as the
 correct one.
 
+## A note about adding translation strings in PRs
+
+While working on a Privacy Badger enhancement, you might find yourself needing
+to add a localized string. You only need to add new strings to the source
+(`en_US`) locale. There is no need to manually add untranslated copies of new
+messages to all other locales. This will happen when a Privacy Badger
+maintainer syncs translations with Transifex after your pull request passes
+review.
+
 ## GitHub
 
 Translations on GitHub are done with JSON files.

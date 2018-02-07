@@ -54,7 +54,7 @@ function getFpPageScript() {
       };
 
       return function () {
-        context = this;
+        context = this; // eslint-disable-line consistent-this
         args = arguments;
         timestamp = Date.now();
         var callNow = immediate && !timeout;

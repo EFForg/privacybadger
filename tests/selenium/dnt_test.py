@@ -5,8 +5,9 @@ import unittest
 
 import pbtest
 
-from time import sleep
+from functools import partial
 
+from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
@@ -17,6 +18,11 @@ CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
 
 class DNTTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
+
+    def domain_was_recorded(self, domain):
+        return self.js("""return (
+  Object.keys(badger.storage.action_map.getItemClones()).indexOf('{}') != -1
+);""".format(domain))
 
     def domain_was_detected(self, domain):
         return self.js("""return (
@@ -74,15 +80,10 @@ class DNTTest(pbtest.PBSeleniumTest):
         switch_to_window_with_url(self.driver, self.bg_url)
 
         # verify that the domain is allowed
-        for i in range(5):
-            was_blocked = self.domain_was_blocked(DNT_DOMAIN)
-
-            if not was_blocked:
-                # success
-                break
-
-            print("\nWaiting a bit for DNT check to complete and retrying ...")
-            sleep(2 ** i)
+        was_blocked = retry_until(
+            partial(self.domain_was_blocked, DNT_DOMAIN),
+            cond=False,
+            msg="Waiting a bit for DNT check to complete and retrying ...")
 
         self.assertFalse(was_blocked, msg="DNT-compliant resource should have gotten unblocked.")
 
@@ -126,7 +127,6 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertEqual(len(self.driver.get_cookies()), 0,
             "Shouldn't have any cookies after the DNT check")
 
-    @unittest.expectedFailure
     def test_dnt_check_should_not_send_cookies(self):
         TEST_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
@@ -151,6 +151,42 @@ class DNTTest(pbtest.PBSeleniumTest):
         # get the result
         result = self.js("return window.DNT_CHECK_RESULT;")
         self.assertTrue(result, "No cookies were sent")
+
+    def test_should_not_record_nontracking_domains(self):
+        TEST_URL = (
+            "https://cdn.rawgit.com/ghostwords/"
+            "eef2c982fc3151e60a78136ca263294d/raw/13ed3d1e701994640b8d8065b835f8a9684ece92/"
+            "privacy_badger_recording_nontracking_domains_fixture.html"
+        )
+        TRACKING_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
+        NON_TRACKING_DOMAIN = "dnt-test.trackersimulator.org"
+
+        # open Badger's background page
+        self.load_url(self.bg_url, wait_on_site=1)
+
+        # need to keep Badger's background page open to record what's happening
+        # so, open and switch to a new window
+        self.open_window()
+
+        # visit a page containing two third-party resources,
+        # one from a cookie-tracking domain
+        # and one from a non-tracking domain
+        self.load_url(TEST_URL)
+
+        # switch back to Badger's background page
+        switch_to_window_with_url(self.driver, self.bg_url)
+
+        # verify that the cookie-tracking domain was recorded
+        self.assertTrue(
+            self.domain_was_recorded(TRACKING_DOMAIN),
+            "Tracking domain should have gotten recorded"
+        )
+
+        # verify that the non-tracking domain was not recorded
+        self.assertFalse(
+            self.domain_was_recorded(NON_TRACKING_DOMAIN),
+            "Non-tracking domain should not have gotten recorded"
+        )
 
 
 if __name__ == "__main__":

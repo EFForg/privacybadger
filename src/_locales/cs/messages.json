@@ -1,4 +1,8 @@
 {
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger has replaced this ",
+        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+    },
     "badger_status_block": {
         "message": "Blokováno ",
         "description": ""
@@ -19,20 +23,12 @@
         "message": "V současnosti kontroluje Privacy Badger pouze soubory cookies třetích stran, HTML5 lokální úložiště a canvas fingerprinting, jestli nesledují vaše procházení. Některé domény mohou používat metody, které Privacy Badger nedokáže detekovat.",
         "description": ""
     },
-    "intro_hungry": {
-        "message": "Nic nemůže zastavit Privacy Badger před snězením cookies, když je hladový!",
-        "description": ""
-    },
     "options_dnt_policy_setting": {
         "message": "Kontrolovat, zda stránky dodržují pravidla Do Not Track od EFF",
         "description": ""
     },
     "invalid_domain": {
         "message": "Please add a valid domain or URL.",
-        "description": ""
-    },
-    "intro2": {
-        "message": "Toto rozšíření je vytvořeno tak, aby automaticky chránilo vaše soukromí před sledovacími prvky třetích stran, které se tajně načítají při procházení webu. Odesíláme hlavičku Do Not Track s každým požadavkem a naše rozšíření vyhodnocuje pravděpodobnost, že jste stále sledováni. Pokud algoritmus rozhodne že pravděpodobnost je příliš vysoká, automaticky zablokuje odesílaní požadavků na takovou doménu. Vezměte prosím na vědomí, že Privacy Badger je ve fázi beta a rozhodnutí algoritmu není důkazem toho, že vás doména opravdu sleduje.",
         "description": ""
     },
     "donate_to_eff": {
@@ -50,6 +46,10 @@
     "options_dnt_policy_learn_more": {
         "message": "Zjistit více",
         "description": ""
+    },
+    "extension_error_text": {
+        "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
+        "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
         "message": "Spravovat data",
@@ -80,32 +80,28 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "potenciální <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sledovací prvky</a> na této stránce. Tyto posuvníky vám umožní nastavit, jak s každým z nich zacházet. Jestliže vše funguje správně, není třeba je upravovat.",
-        "description": ""
+        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
+        "description": "Continuation of the popup message that shows number of trackers"
+    },
+    "options_domain_filter_block": {
+        "message": "blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
         "message": "Bránit uniku lokální IP adresy skrze WebRTC *",
-        "description": ""
-    },
-    "options_so_far": {
-        "message": " Tyto posuvníky vám umožňují ovládat, jak Privacy Badger zachází s jednotlivými sledovacími prvky.",
         "description": ""
     },
     "error_input": {
         "message": "Co je špatně?",
         "description": ""
     },
-    "options_slider_text": {
-        "message": "Privacy Badger vás chrání napříč internetem. Tyto posuvníky vám umožní upravit nastavení jednotlivých sledovacích prvků, které byly detekovány při procházení internetu.",
-        "description": ""
+    "popup_instructions_no_trackers": {
+        "message": "No <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> detected. Hooray for privacy!",
+        "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
         "message": "Tracking Domains",
         "description": "This is an options page tab heading."
-    },
-    "intro1": {
-        "message": "Privacy Badger blokuje šmírující reklamy a sledující prvky. Je tady, aby zabránil společnostem sledovat vaše brouzdáni na internetu bez vašeho souhlasu.",
-        "description": "firstRun.html intro to Privacy Badger"
     },
     "share_button_title_twitter": {
         "message": "Share on Twitter",
@@ -123,20 +119,12 @@
         "message": "klikněte pro navrácení kontroly nad tímto sledovacím prvkem do rukou Privacy Badger",
         "description": ""
     },
-    "intro_has_blocked": {
-        "message": " znamená, že Privacy Badger věří, že vás tato doména sleduje, takže ji blokuje. ",
-        "description": ""
-    },
     "import": {
         "message": "Importovat",
         "description": ""
     },
     "options_social_widgets_checkbox": {
         "message": "Nahradit tlačítka sociálních sítí",
-        "description": ""
-    },
-    "options_tracking_domains": {
-        "message": "domén, které vás sledují",
         "description": ""
     },
     "report_button": {
@@ -152,8 +140,8 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Hledat domény",
-        "description": ""
+        "message": "Hledat domény:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "show_counter_checkbox": {
         "message": "Zobrazovat počet blokovaných prvků",
@@ -173,7 +161,11 @@
     },
     "options_pb_has_detected": {
         "message": "Privacy Badger do této doby detekoval",
-        "description": ""
+        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
+    "social_tooltip_button": {
+        "message": " button.",
+        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
         "message": " Jestliže chcete vrátit rozhodnutí, které jste provedl, můžete to vždy udělat pomocí šipky zpět.",
@@ -190,6 +182,10 @@
     "popup_enable_for_site": {
         "message": "Zapnout Privacy Badger pro tuto stránku",
         "description": ""
+    },
+    "options_domain_type_filter": {
+        "message": "Filter by type:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
         "message": "Seznam sledovacích prvků a nastavení bylo úspěšně aktualizováno!",
@@ -230,6 +226,14 @@
     "options_loading": {
         "message": "Načítání...",
         "description": ""
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "partially-blocked",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "show_tracking_domains_acknowledgement": {
+        "message": "I understand; please show me the tracking domains list anyway",
+        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "firstRun_title": {
         "message": "Děkujeme za instalaci Privacy Badger!",
@@ -279,13 +283,29 @@
         "message": " Když na mou ikonu kliknete poprvé, může se stát, že všechny sledovací prvky jsou zelené – ale nemějte strach! Jsem odlišný od ostatních programů pro blokování: místo toho, abych měl seznam věcí, které mám hned zablokovat, tak se učím, zatímco používáte internet. Pokud zatím nic neblokuji, zkuste navštívit 4 až 5 různých stránek. Potom už určitě nějaké blokovat budu.",
         "description": ""
     },
+    "options_domain_filter_dnt": {
+        "message": "DNT-compliant",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "popup_help_button": {
         "message": "Help",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
+    "options_domain_filter_allow": {
+        "message": "allowed",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "share_button_title_google": {
         "message": "Share on Google Plus",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+    },
+    "show_tracking_domains_message": {
+        "message": "You shouldn't need to modify anything here.",
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
+    },
+    "options_domain_filter_all": {
+        "message": "all",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
         "message": "Zrušit",
@@ -295,13 +315,17 @@
         "message": "Posuňte posuvník vlevo pro blokování domény",
         "description": ""
     },
+    "options_domain_filter_user": {
+        "message": "user-controlled",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
     "disabled_for_these_domains": {
         "message": "Privacy Badger je vypnutý pro domény na seznamu níže. Doménu můžete přidat také pomocí ikony Privacy Badger v nástrojové liště vašeho prohlížeče nebo napsáním domény do rámečku a kliknutím na tlačítko \"Přidat doménu\".",
         "description": ""
     },
     "pb_detected": {
         "message": "Privacy Badger detekoval",
-        "description": ""
+        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "Projekt Electronic Frontier Foundation",
@@ -310,6 +334,10 @@
     "add_domain_button": {
         "message": "Přidat doménu",
         "description": ""
+    },
+    "options_domain_list_one_tracker": {
+        "message": "Privacy Badger has detected one potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domain</a> so far. The slider lets you control how Privacy Badger handles it.",
+        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
         "message": "Posuňte posuvník vpravo pro povolení domény",
@@ -323,49 +351,37 @@
         "message": "Řekněte světu, že jste se postavili proti online sledování",
         "description": ""
     },
-    "intro_yellow": {
-        "message": "Žlutá",
-        "description": ""
+    "popup_instructions_one_tracker": {
+        "message": "Privacy Badger detected a potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> on this page. The slider lets you control how Privacy Badger handles it. You shouldn't need to adjust the slider unless something is broken.",
+        "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
         "message": "Click here to allow this domain",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
+    "options_domain_list_trackers": {
+        "message": "potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far. These sliders let you control how Privacy Badger handles each tracker.",
+        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+    },
     "name": {
         "message": "Privacy Badger",
         "description": ""
     },
-    "intro_3_states": {
-        "message": "Naše rozšíření má tři stavy. ",
-        "description": ""
-    },
-    "intro_cookie_blocked": {
-        "message": " znamená, že doména vás sleduje, ale je nezbytná pro funkčnost stránky, takže ji Privacy Badger toleruje a blokuje jen její cookies.",
-        "description": ""
+    "options_domain_status_filter": {
+        "message": "Filter by status:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
         "message": "Níže stručně popište chybu.",
-        "description": ""
-    },
-    "intro_red": {
-        "message": "Červená",
-        "description": ""
-    },
-    "options_potential": {
-        "message": "potenciálních",
         "description": ""
     },
     "remove_button": {
         "message": "Smazat vybrané",
         "description": "This is the label for the 'Remove selected' buttons."
     },
-    "intro_green": {
-        "message": "Zelená",
-        "description": ""
-    },
-    "intro_no_tracker": {
-        "message": "znamená, že Privacy Badger věří, že tato doména vás nesleduje. Můžete kliknout na ikonu Privacy Badger v nástrojové liště vašeho prohlížeče, pokud chcete upravit automatická nastavení. Nebo můžete v klidu brouzdat a Privacy Badger začne hledat a detekovat sledovací prvky jeden po druhém.",
-        "description": ""
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "slideshow_15": {
         "message": " Samozřejmě můžete klidně nechat všechna nastavení tak, jak jsou, a já budu dál potichu bojovat proti všem sledovacím prvkům, které objevím.",
