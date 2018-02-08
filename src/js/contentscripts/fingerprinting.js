@@ -320,19 +320,27 @@ function insertFpScript(text, data) {
   parent.removeChild(script);
 }
 
-/**
- * Communicating to webrequest.js
- */
-var event_id = Math.random();
+// TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({checkEnabled: true},
+  function (enabled) {
+    if (!enabled) {
+      return;
+    }
+    /**
+     * Communicating to webrequest.js
+     */
+    var event_id = Math.random();
 
-// listen for messages from the script we are about to insert
-document.addEventListener(event_id, function (e) {
-  // pass these on to the background page
-  chrome.runtime.sendMessage({
-    'fpReport': e.detail
-  });
-});
+    // listen for messages from the script we are about to insert
+    document.addEventListener(event_id, function (e) {
+      // pass these on to the background page
+      chrome.runtime.sendMessage({
+        'fpReport': e.detail
+      });
+    });
 
-insertFpScript(getFpPageScript(), {
-  event_id: event_id
-});
+    insertFpScript(getFpPageScript(), {
+      event_id: event_id
+    });
+  }
+);
