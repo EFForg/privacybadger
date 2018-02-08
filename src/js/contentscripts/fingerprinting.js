@@ -320,10 +320,11 @@ function insertFpScript(text, data) {
   parent.removeChild(script);
 }
 
+// TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({checkEnabled: true},
   function (enabled) {
     if (!enabled) {
-        return;
+      return;
     }
     /**
      * Communicating to webrequest.js
