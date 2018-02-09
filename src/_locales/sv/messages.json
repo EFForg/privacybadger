@@ -84,7 +84,7 @@
         "description": "Continuation of the popup message that shows number of trackers"
     },
     "options_domain_filter_block": {
-        "message": "blocked",
+        "message": "blockerad",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
@@ -156,7 +156,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Privacy Badger alternativ",
+        "message": "Privacy Badger-alternativ",
         "description": ""
     },
     "options_pb_has_detected": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "options_domain_type_filter": {
-        "message": "Filter by type:",
+        "message": "Filtrera efter typ:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
@@ -228,7 +228,7 @@
         "description": ""
     },
     "options_domain_filter_cookieblock": {
-        "message": "partially-blocked",
+        "message": "partiellt blockerad",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
@@ -284,7 +284,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT-compliant",
+        "message": "DNT-kompatibel",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -292,7 +292,7 @@
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "options_domain_filter_allow": {
-        "message": "allowed",
+        "message": "tillåten",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
@@ -304,7 +304,7 @@
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
     "options_domain_filter_all": {
-        "message": "all",
+        "message": "alla",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
@@ -316,7 +316,7 @@
         "description": ""
     },
     "options_domain_filter_user": {
-        "message": "user-controlled",
+        "message": "användarstyrd",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
@@ -368,7 +368,7 @@
         "description": ""
     },
     "options_domain_status_filter": {
-        "message": "Filter by status:",
+        "message": "Filtrera efter status:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
