@@ -121,9 +121,9 @@ function loadOptions() {
     $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
   }
 
-  // Show user's filters
+  // Set up option tabs
   reloadWhitelist();
-  refreshFilterPage();
+  reloadTrackingDomainsTab();
 }
 $(loadOptions);
 
@@ -196,7 +196,7 @@ function parseUserDataFile(storageMapsList) {
 
   // Update list to reflect new status of map
   reloadWhitelist();
-  refreshFilterPage();
+  reloadTrackingDomainsTab();
   var importSuccessful = i18n.getMessage("import_successful");
   confirm(importSuccessful);
 }
@@ -300,7 +300,7 @@ function updateSocialWidgetReplacement() {
 function updateCheckingDNTPolicy() {
   var newDNTSetting = $("#check_dnt_policy_checkbox").prop("checked");
   settings.setItem("checkForDNTPolicy", newDNTSetting);
-  refreshFilterPage(); // This setting means sites need to be re-evaluated
+  reloadTrackingDomainsTab(); // This setting means sites need to be re-evaluated
 }
 
 function reloadWhitelist() {
@@ -396,7 +396,7 @@ function removeWhitelistDomain(event) {
   reloadWhitelist();
 }
 
-// filter slider functions
+// Tracking Domains slider functions
 
 /**
  * Gets all encountered origins with associated actions.
@@ -440,14 +440,14 @@ function revertDomainControl(e) {
   log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
-  refreshFilterPage(origin);
+  reloadTrackingDomainsTab(origin);
   return false;
 }
 
 /**
  * Displays list of all tracking domains along with toggle controls.
  */
-function refreshFilterPage() {
+function reloadTrackingDomainsTab() {
   refreshOriginCache();
 
   // Check to see if any tracking domains have been found before continuing.
@@ -470,7 +470,7 @@ function refreshFilterPage() {
     return;
   }
 
-  // refreshFilterPage can be called multiple times, needs to be reversible
+  // reloadTrackingDomainsTab can be called multiple times, needs to be reversible
   $("#options_domain_list_no_trackers").hide();
   $("#tracking-domains-div").show();
 
@@ -504,7 +504,7 @@ function refreshFilterPage() {
     )
   );
 
-  log("Done refreshing options page");
+  log("Done refreshing tracking domains tab");
 }
 
 /**
@@ -701,7 +701,7 @@ function removeOrigin(event) {
   badger.storage.getBadgerStorageObject("action_map").deleteItem(origin);
   backgroundPage.log('Removed', origin, 'from Privacy Badger');
 
-  refreshFilterPage();
+  reloadTrackingDomainsTab();
 }
 
 /**
@@ -717,6 +717,6 @@ function syncSettings(origin, userAction) {
   badger.saveAction(userAction, origin);
   log("Finished syncing.");
 
-  // Options page needs to be refreshed to display current results.
-  refreshFilterPage();
+  // Needs to be refreshed to display current results.
+  reloadTrackingDomainsTab();
 }
