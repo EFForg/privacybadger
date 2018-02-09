@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import json
 import unittest
 
 import pbtest
@@ -18,6 +19,13 @@ CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
 
 class DNTTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
+
+    def disable_badger_on_site(self, url):
+        self.load_url(self.options_url)
+        self.driver.find_element_by_css_selector(
+            'a[href="#tab-whitelisted-domains"]').click()
+        self.driver.find_element_by_id('newWhitelistDomain').send_keys(url)
+        self.driver.find_element_by_css_selector('button.addButton').click()
 
     def domain_was_recorded(self, domain):
         return self.js("""return (
@@ -187,6 +195,32 @@ class DNTTest(pbtest.PBSeleniumTest):
             self.domain_was_recorded(NON_TRACKING_DOMAIN),
             "Non-tracking domain should not have gotten recorded"
         )
+
+    def test_first_party_dnt_header(self):
+        TEST_URL = "https://httpbin.org/get"
+
+        self.load_url(TEST_URL)
+
+        headers = json.loads(
+            self.driver.find_element_by_tag_name('body').text
+        )['headers']
+
+        self.assertIn('Dnt', headers, "DNT header should have been present")
+        self.assertEqual(headers['Dnt'], "1",
+            'DNT header should have been set to "1"')
+
+    def test_no_dnt_header_when_disabled(self):
+        TEST_URL = "https://httpbin.org/get"
+
+        self.disable_badger_on_site(TEST_URL)
+
+        self.load_url(TEST_URL)
+
+        headers = json.loads(
+            self.driver.find_element_by_tag_name('body').text
+        )['headers']
+
+        self.assertNotIn('Dnt', headers, "DNT header should have been missing")
 
 
 if __name__ == "__main__":
