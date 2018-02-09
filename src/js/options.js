@@ -544,7 +544,40 @@ function filterTrackingDomains(/*event*/) {
 }
 
 /**
- * Add origins to the blocked resources list on scroll.
+ * Registers handlers for tracking domain toggle controls.
+ * @param toggleElement {Object} Tracking domain html element to be registered.
+ */
+function registerTrackingDomainToggle(toggleElement) {
+  var radios = toggleElement.children('input');
+  var value = toggleElement.children('input:checked').val();
+
+  var slider = $('<div></div>').slider({
+    min: 0,
+    max: 2,
+    value: value,
+    create: function(/*event, ui*/) {
+      toggleElement.children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+    },
+    slide: function(event, ui) {
+      radios.filter('[value=' + ui.value + ']').click();
+    },
+    stop: function(event, ui) {
+      $(ui.handle).css('margin-left', -16 * ui.value + 'px');
+
+      // Save change for origin.
+      var origin = radios.filter('[value=' + ui.value + ']')[0].name;
+      var setting = htmlUtils.getCurrentClass(toggleElement.parents('.clicker'));
+      syncSettings(origin, setting);
+    },
+  }).appendTo(toggleElement);
+
+  radios.change(function() {
+    slider.slider('value', radios.filter(':checked').val());
+  });
+}
+
+/**
+ * Adds more origins to the blocked resources list on scroll.
  *
 */
 function addOrigins(e) {
@@ -562,6 +595,9 @@ function addOrigins(e) {
   // activate tooltips
   $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
     htmlUtils.DOMAIN_TOOLTIP_CONF);
+
+  // register the newly-created toggle switch so that user changes are saved
+  registerTrackingDomainToggle($(target).children().last().find('.switch-toggle'));
 }
 
 /**
@@ -571,7 +607,7 @@ function addOrigins(e) {
 function showTrackingDomains(domains) {
   domains.sort(htmlUtils.compareReversedDomains);
 
-  // Create HTML for list of tracking domains.
+  // Create HTML for the initial list of tracking domains.
   var trackingDetails = '';
   for (var i = 0; (i < 50) && (domains.length > 0); i++) {
     var trackingDomain = domains.shift();
@@ -594,32 +630,7 @@ function showTrackingDomains(domains) {
 
   // Register handlers for tracking domain toggle controls.
   $('.switch-toggle').each(function() {
-    var radios = $(this).children('input');
-    var value = $(this).children('input:checked').val();
-
-    var slider = $('<div></div>').slider({
-      min: 0,
-      max: 2,
-      value: value,
-      create: function(/*event, ui*/) {
-        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-      },
-      slide: function(event, ui) {
-        radios.filter('[value=' + ui.value + ']').click();
-      },
-      stop: function(event, ui) {
-        $(ui.handle).css('margin-left', -16 * ui.value + 'px');
-
-        // Save change for origin.
-        var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-        var setting = htmlUtils.getCurrentClass($(this).parents('.clicker'));
-        syncSettings(origin, setting);
-      },
-    }).appendTo(this);
-
-    radios.change(function() {
-      slider.slider('value', radios.filter(':checked').val());
-    });
+    registerTrackingDomainToggle($(this));
   });
 }
 
