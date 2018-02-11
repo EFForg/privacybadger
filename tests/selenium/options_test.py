@@ -9,6 +9,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotInteractableException
 
+from random import randint
+
 import pbtest
 
 
@@ -225,6 +227,47 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def test_tracking_user_overwrite_blocked_cookieblock(self):
         self.tracking_user_overwrite('block', 'cookieblock')
+
+    def test_tracking_user_overwrite_on_scroll(self):
+        # Create a bunch of origins with random actions,
+        # ensuring some will be generated on scroll (50+)
+        origins = {}
+        actions = ['allow', 'cookieblock', 'block']
+        for i in range (0, 52):
+            origins['pbtest' + str(i) + '.org'] = actions[randint(0,2)]
+        self.add_test_origins(origins)
+
+        self.load_options_page()
+        self.select_domain_list_tab()
+
+        # Scroll to the bottom
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        scrollable_div = self.driver.find_element_by_id('blockedResourcesInner')
+        self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
+
+        # Set a different action for the last origin
+        last_origin_element = scrollable_div.find_elements_by_css_selector(".clicker")[-1]
+        last_origin = last_origin_element.get_attribute('data-origin')
+        original_action = last_origin_element.get_attribute('data-original-action')
+        if original_action != 'block':
+            overwrite_action = 'block'
+        else:
+            overwrite_action = 'allow'
+        self.user_overwrite(last_origin, 'block')
+
+        # Re-open the tab
+        self.load_options_page()
+        self.select_domain_list_tab()
+
+        # Scroll to the bottom
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        scrollable_div = self.driver.find_element_by_id('blockedResourcesInner')
+        self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
+
+        # Check the user preferences for the origins are still displayed
+        self.assertEquals(self.driver.find_element_by_css_selector('div[data-origin="' + last_origin + '"]').get_attribute("class"),
+            "clicker userset " + overwrite_action,
+            "Scroll-generated origin should be displayed as " + overwrite_action + " after user overwrite of PB's decision to " + original_action)
 
     # early-warning check for the open_in_tab attribute of options_ui
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251
