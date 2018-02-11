@@ -6,6 +6,7 @@ import unittest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 import pbtest
@@ -27,6 +28,17 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
             origin, action))
+
+    def user_block(self):
+        # Get the slider that corresponds to this radio button
+        origin_div = self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]')
+        slider = origin_div.find_element_by_css_selector('.ui-slider')
+
+        # Click on the top left of the slider to block this origin
+        action = ActionChains(self.driver)
+        action.move_to_element_with_offset(slider, 1, 1)
+        action.click()
+        action.perform()
 
     def test_page_title(self):
         self.load_options_page()
@@ -157,6 +169,25 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             origins = None
         error_message = "Origin should not be displayed after removal"
         self.assertIsNone(origins, error_message)
+
+    def test_tracking_user_overwrite(self):
+        """Ensure preferences are persisted when a user overwrites pb's default behaviour for an origin."""
+        self.add_test_origin("pbtest.org", "allow")
+
+        self.load_options_page()
+        self.select_domain_list_tab()
+
+        self.user_block()
+
+        self.load_options_page()
+        # TODO call the function without the extra option-page load in it
+        # self.select_domain_list_tab()
+        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+
+        # Check the origin is now displayed as blocked
+        self.assertEquals(self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]').get_attribute("class"),
+            "clicker userset block",
+            "Origin should be displayed as blocked after user overwrite of the default setting")
 
     # early-warning check for the open_in_tab attribute of options_ui
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251
