@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotInteractableException
 
 import pbtest
 
@@ -17,7 +17,11 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def select_domain_list_tab(self):
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
-        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
+        try:
+            self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
+        except (NoSuchElementException, ElementNotInteractableException):
+            # The list will be loaded directly if we're opening the tab for the second time in this test
+            pass
 
     def load_options_page(self):
         self.load_url(self.bg_url)  # load a dummy page
@@ -29,16 +33,31 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
             origin, action))
 
-    def user_block(self):
+    def add_test_origins(self, origins_with_actions):
+        """Add a dictionary of origins with their actions to backend storage."""
+        self.load_options_page()
+        for origin in origins_with_actions:
+            self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
+                origin, origins_with_actions[origin]))
+
+    def user_overwrite(self, origin, action):
         # Get the slider that corresponds to this radio button
-        origin_div = self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]')
+        origin_div = self.driver.find_element_by_css_selector('div[data-origin="' + origin + '"]')
         slider = origin_div.find_element_by_css_selector('.ui-slider')
 
-        # Click on the top left of the slider to block this origin
-        action = ActionChains(self.driver)
-        action.move_to_element_with_offset(slider, 1, 1)
-        action.click()
-        action.perform()
+        # Click on the correct place over the slider to block this origin
+        click_action = ActionChains(self.driver)
+        if action == 'block':
+            # Top left (+2px)
+            click_action.move_to_element_with_offset(slider, 2, 2)
+        if action == 'cookieblock':
+            # Top middle
+            click_action.move_to_element_with_offset(slider, slider.size['width']/2, 2)
+        if action == 'allow':
+            # Top right
+            click_action.move_to_element_with_offset(slider, slider.size['width']-2, 2)
+        click_action.click()
+        click_action.perform()
 
     def test_page_title(self):
         self.load_options_page()
@@ -170,24 +189,42 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         error_message = "Origin should not be displayed after removal"
         self.assertIsNone(origins, error_message)
 
-    def test_tracking_user_overwrite(self):
+    def tracking_user_overwrite(self, original_action, overwrite_action):
         """Ensure preferences are persisted when a user overwrites pb's default behaviour for an origin."""
-        self.add_test_origin("pbtest.org", "allow")
+        self.add_test_origin("pbtest.org", original_action)
 
         self.load_options_page()
         self.select_domain_list_tab()
 
-        self.user_block()
+        # Change user preferences
+        self.user_overwrite("pbtest.org", overwrite_action)
 
+        # Re-open the tab
         self.load_options_page()
-        # TODO call the function without the extra option-page load in it
-        # self.select_domain_list_tab()
-        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        self.select_domain_list_tab()
 
-        # Check the origin is now displayed as blocked
+        # Check the user preferences for the origins are still displayed
         self.assertEquals(self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]').get_attribute("class"),
-            "clicker userset block",
-            "Origin should be displayed as blocked after user overwrite of the default setting")
+            "clicker userset " + overwrite_action,
+            "Origin should be displayed as " + overwrite_action + " after user overwrite of PB's decision to " + original_action)
+
+    def test_tracking_user_overwrite_allowed_block(self):
+        self.tracking_user_overwrite('allow', 'block')
+
+    def test_tracking_user_overwrite_allowed_cookieblock(self):
+        self.tracking_user_overwrite('allow', 'cookieblock')
+
+    def test_tracking_user_overwrite_cookieblocked_allow(self):
+        self.tracking_user_overwrite('cookieblock', 'allow')
+
+    def test_tracking_user_overwrite_cookieblocked_block(self):
+        self.tracking_user_overwrite('cookieblock', 'block')
+
+    def test_tracking_user_overwrite_blocked_allow(self):
+        self.tracking_user_overwrite('block', 'allow')
+
+    def test_tracking_user_overwrite_blocked_cookieblock(self):
+        self.tracking_user_overwrite('block', 'cookieblock')
 
     # early-warning check for the open_in_tab attribute of options_ui
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251
