@@ -124,6 +124,8 @@ function loadOptions() {
   // Show user's filters
   reloadWhitelist();
   refreshFilterPage();
+
+  $('html').css('visibility', 'visible');
 }
 $(loadOptions);
 
