@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-import time
 import unittest
 
 from selenium.webdriver.support.ui import WebDriverWait

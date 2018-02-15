@@ -547,7 +547,8 @@ function filterTrackingDomains(/*event*/) {
  * Registers handlers for tracking domain toggle controls.
  * @param toggleElement {Object} Tracking domain html element to be registered.
  */
-function registerTrackingDomainToggle(toggleElement) {
+ // TODO unduplicate this code? since a version of it is also in popup
+function registerToggleHandlers(toggleElement) {
   var radios = toggleElement.children('input');
   var value = toggleElement.children('input:checked').val();
 
@@ -597,7 +598,7 @@ function addOrigins(e) {
     htmlUtils.DOMAIN_TOOLTIP_CONF);
 
   // register the newly-created toggle switch so that user changes are saved
-  registerTrackingDomainToggle($(target).children().last().find('.switch-toggle'));
+  registerToggleHandlers($(target).children().last().find('.switch-toggle'));
 }
 
 /**
@@ -630,7 +631,7 @@ function showTrackingDomains(domains) {
 
   // Register handlers for tracking domain toggle controls.
   $('.switch-toggle').each(function() {
-    registerTrackingDomainToggle($(this));
+    registerToggleHandlers($(this));
   });
 }
 
