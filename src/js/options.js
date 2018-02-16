@@ -547,7 +547,7 @@ function filterTrackingDomains(/*event*/) {
  * Registers handlers for tracking domain toggle controls.
  * @param toggleElement {Object} Tracking domain html element to be registered.
  */
- // TODO unduplicate this code? since a version of it is also in popup
+// TODO unduplicate this code? since a version of it is also in popup
 function registerToggleHandlers(toggleElement) {
   var radios = toggleElement.children('input');
   var value = toggleElement.children('input:checked').val();

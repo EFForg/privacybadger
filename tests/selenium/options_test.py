@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotInteractableException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotInteractableException, ElementNotVisibleException
 
 from random import randint
 
@@ -20,7 +20,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
         try:
             self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
-        except (NoSuchElementException, ElementNotInteractableException):
+        except (NoSuchElementException, ElementNotInteractableException, ElementNotVisibleException):
             # The list will be loaded directly if we're opening the tab for the second time in this test
             pass
 
