@@ -745,8 +745,9 @@ Badger.prototype = {
       badger.idleContentScripts.unregister();
     }
 
+    // Convert the domains in disabledSites into URLs that can be matched against.
     const whitelistedURLs = badger.getSettings().getItem('disabledSites')
-    .map((site) => 'https:\/\/' + site + '/');
+    .map((site) => '*:\/\/' + site + '/*');
 
     const registerActive = browser.contentScripts.register({
       'js': [
