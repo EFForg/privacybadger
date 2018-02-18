@@ -747,7 +747,7 @@ Badger.prototype = {
 
     // Convert the domains in disabledSites into URLs that can be matched against.
     const whitelistedURLs = badger.getSettings().getItem('disabledSites')
-    .map((site) => '*:\/\/' + site + '/*');
+      .map((site) => '*://' + site + '/*');
 
     const registerActive = browser.contentScripts.register({
       'js': [
@@ -760,7 +760,7 @@ Badger.prototype = {
       'runAt': 'document_start'
     });
 
-    registerActive.then((res) => {badger.activeContentScripts = res});
+    registerActive.then((res) => {badger.activeContentScripts = res;});
 
     // TODO socialwidgets.js should only be loaded if widget replacement is enabled.
     const registerIdle = browser.contentScripts.register({
@@ -773,7 +773,7 @@ Badger.prototype = {
       'runAt': 'document_idle'
     });
 
-    registerIdle.then((res) => {badger.idleContentScripts = res});
+    registerIdle.then((res) => {badger.idleContentScripts = res;});
   },
 
   /**
