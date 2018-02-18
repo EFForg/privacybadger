@@ -50,6 +50,7 @@ function Badger() {
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     self.updateTabList();
     self.initializeDefaultSettings();
+    self.registerContentScripts();
     try {
       self.runMigrations();
     } finally {
@@ -700,6 +701,7 @@ Badger.prototype = {
     if (disabledSites.indexOf(origin) < 0) {
       disabledSites.push(origin);
       settings.setItem("disabledSites", disabledSites);
+      this.registerContentScripts();
     }
   },
 
@@ -722,7 +724,55 @@ Badger.prototype = {
     if (idx >= 0) {
       utils.removeElementFromArray(disabledSites, idx);
       settings.setItem("disabledSites", disabledSites);
+      this.registerContentScripts();
     }
+  },
+
+  // This handles the logic for the "checkEnabled" message being passed
+  // from the background page to the content scripts.
+  // TODO Figure out how to pass configuration with these scripts.
+  registerContentScripts: function() {
+    // This feature only works for browsers that support the contentScripts API.
+    if (browser && !browser.contentScripts) {
+      return;
+    }
+
+    if (badger.activeContentScripts) {
+      badger.activeContentScripts.unregister();
+    }
+
+    if (badger.idleContentScripts) {
+      badger.idleContentScripts.unregister();
+    }
+
+    const whitelistedURLs = badger.getSettings().getItem('disabledSites')
+    .map((site) => 'https:\/\/' + site + '/');
+
+    const registerActive = browser.contentScripts.register({
+      'js': [
+        {file: '/js/contentscripts/fingerprinting.js'},
+        {file: '/js/contentscripts/clobbercookie.js'},
+        {file: '/js/contentscripts/clobberlocalstorage.js'}],
+      'matches': ["http://*/*", "https://*/*"],
+      'excludeMatches': whitelistedURLs,
+      'allFrames': true,
+      'runAt': 'document_start'
+    });
+
+    registerActive.then((res) => {badger.activeContentScripts = res});
+
+    // TODO socialwidgets.js should only be loaded if widget replacement is enabled.
+    const registerIdle = browser.contentScripts.register({
+      'js': [
+        {file: '/js/contentscripts/socialwidgets.js'},
+        {file: '/js/contentscripts/supercookie.js'}],
+      'matches': ["http://*/*", "https://*/*"],
+      'excludeMatches': whitelistedURLs,
+      'allFrames': true,
+      'runAt': 'document_idle'
+    });
+
+    registerIdle.then((res) => {badger.idleContentScripts = res});
   },
 
   /**

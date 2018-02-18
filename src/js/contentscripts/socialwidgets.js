@@ -327,11 +327,4 @@ function unblockTracker(buttonUrls, callback) {
   chrome.runtime.sendMessage(request, callback);
 }
 
-chrome.runtime.sendMessage({
-  checkSocialWidgetReplacementEnabled: true
-}, function (checkSocialWidgetReplacementEnabled) {
-  if (!checkSocialWidgetReplacementEnabled) {
-    return;
-  }
-  initialize();
-});
+initialize();
