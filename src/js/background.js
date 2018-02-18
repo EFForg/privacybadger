@@ -719,6 +719,54 @@ Badger.prototype = {
     }
   },
 
+  // This handles the logic for the "checkEnabled" message being passed
+  // from the background page to the content scripts.
+  // TODO Figure out how to pass configuration with these scripts.
+  registerContentScripts: function() {
+    // This feature only works for browsers that support the contentScripts API.
+    if (browser && !browser.contentScripts) {
+      return;
+    }
+
+    if (badger.activeContentScripts) {
+      badger.activeContentScripts.unregister();
+    }
+
+    if (badger.idleContentScripts) {
+      badger.idleContentScripts.unregister();
+    }
+
+    // Convert the domains in disabledSites into URLs that can be matched against.
+    const whitelistedURLs = badger.getSettings().getItem('disabledSites')
+    .map((site) => '*:\/\/' + site + '/*');
+
+    const registerActive = browser.contentScripts.register({
+      'js': [
+        {file: '/js/contentscripts/fingerprinting.js'},
+        {file: '/js/contentscripts/clobbercookie.js'},
+        {file: '/js/contentscripts/clobberlocalstorage.js'}],
+      'matches': ["http://*/*", "https://*/*"],
+      'excludeMatches': whitelistedURLs,
+      'allFrames': true,
+      'runAt': 'document_start'
+    });
+
+    registerActive.then((res) => {badger.activeContentScripts = res});
+
+    // TODO socialwidgets.js should only be loaded if widget replacement is enabled.
+    const registerIdle = browser.contentScripts.register({
+      'js': [
+        {file: '/js/contentscripts/socialwidgets.js'},
+        {file: '/js/contentscripts/supercookie.js'}],
+      'matches': ["http://*/*", "https://*/*"],
+      'excludeMatches': whitelistedURLs,
+      'allFrames': true,
+      'runAt': 'document_idle'
+    });
+
+    registerIdle.then((res) => {badger.idleContentScripts = res});
+  },
+
   /**
    * Checks if local storage ( in dict) has any high-entropy keys
    *
