@@ -63,8 +63,8 @@ function showNagMaybe() {
     nag.show();
     outer.show();
     // Attach event listeners
-    $('#fittslaw').click(_hideNag);
-    $("#firstRun").click(function() {
+    $('#fittslaw').on("click", _hideNag);
+    $("#firstRun").on("click", function() {
       // If there is a firstRun.html tab, switch to the tab.
       // Otherwise, create a new tab
       chrome.tabs.query({url: firstRunUrl}, function (tabs) {
@@ -103,27 +103,27 @@ function showNagMaybe() {
 function init(tab) {
   showNagMaybe();
 
-  $("#activate_site_btn").click(active_site);
-  $("#deactivate_site_btn").click(deactive_site);
-  $("#donate").click(function() {
+  $("#activate_site_btn").on("click", active_site);
+  $("#deactivate_site_btn").on("click", deactive_site);
+  $("#donate").on("click", function() {
     chrome.tabs.create({
       url: "https://supporters.eff.org/donate/support-privacy-badger"
     });
   });
 
   var overlay = $('#overlay');
-  $("#error").click(function() {
+  $("#error").on("click", function() {
     overlay.toggleClass('active');
   });
-  $("#report_cancel").click(function() {
+  $("#report_cancel").on("click", function() {
     closeOverlay();
   });
-  $("#report_button").click(function() {
+  $("#report_button").on("click", function() {
     $(this).prop("disabled", true);
     $("#report_cancel").prop("disabled", true);
     send_error($("#error_input").val());
   });
-  $("#report_close").click(function() {
+  $("#report_close").on("click", function() {
     closeOverlay();
   });
   $(document).ready(function () {

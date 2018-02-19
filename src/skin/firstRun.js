@@ -1,6 +1,6 @@
 (function($) {
 
-$(window).load(function () {
+$(window).on("load", function () {
   $('.jcarousel').jcarousel();
 
   $('.jcarousel-control-prev')
@@ -44,8 +44,8 @@ $(window).load(function () {
     }
   });
 
-  $(".jcarousel-control-next").click(setSeenComic);
-  $(".jcarousel-pagination").click(setSeenComic);
+  $(".jcarousel-control-next").on("click", setSeenComic);
+  $(".jcarousel-pagination").on("click", setSeenComic);
 
   function setSeenComic() {
     var badger = chrome.extension.getBackgroundPage().badger;
