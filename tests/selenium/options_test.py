@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 import unittest
+import time
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -20,7 +21,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
         try:
             self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
-        except (NoSuchElementException, ElementNotInteractableException, ElementNotVisibleException):
+        except (ElementNotInteractableException, ElementNotVisibleException):
             # The list will be loaded directly if we're opening the tab for the second time in this test
             pass
 
@@ -251,6 +252,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
         # Scroll again to the first element generated on scroll
         self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
+        time.sleep(1)
 
         # Set a different action for the first origin generated on scroll.
         # First ensure it's been scrolled into view

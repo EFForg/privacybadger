@@ -427,7 +427,7 @@ function updateOrigin(event) {
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
   var $clicker = $elm.parents('.clicker').first();
-  htmlUtils.toggleBlockedStatus($($clicker), action);
+  htmlUtils.toggleBlockedStatus($clicker, action);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin').tooltipster('destroy');

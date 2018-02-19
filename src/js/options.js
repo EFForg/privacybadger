@@ -121,7 +121,6 @@ function loadOptions() {
     $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
   }
 
-  // Set up option tabs
   reloadWhitelist();
   reloadTrackingDomainsTab();
 }
@@ -590,15 +589,15 @@ function addOrigins(e) {
     var action = getOriginAction(domain);
     if (action) {
       $(target).append(htmlUtils.getOriginHtml(domain, action, action == constants.DNT));
+
+      // register the newly-created toggle switch so that user changes are saved
+      registerToggleHandlers($(target).find("[data-origin='" + domain + "'] .switch-toggle"));
     }
   }
 
   // activate tooltips
   $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
     htmlUtils.DOMAIN_TOOLTIP_CONF);
-
-  // register the newly-created toggle switch so that user changes are saved
-  registerToggleHandlers($(target).children().last().find('.switch-toggle'));
 }
 
 /**
@@ -633,8 +632,8 @@ function showTrackingDomains(domains) {
   $('.switch-toggle').each(function() {
     registerToggleHandlers($(this));
   });
-}
 
+}
 /**
  * https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
  * (Chrome only)
@@ -684,7 +683,7 @@ function updateOrigin(event) {
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
   var $clicker = $elm.parents('.clicker').first();
-  htmlUtils.toggleBlockedStatus($($clicker), action);
+  htmlUtils.toggleBlockedStatus($clicker, action);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin').tooltipster('destroy');
@@ -729,6 +728,6 @@ function syncSettings(origin, userAction) {
   badger.saveAction(userAction, origin);
   log("Finished syncing.");
 
-  // Needs to be refreshed to display current results.
+  // Tracking domain tab needs to be refreshed to display current results.
   reloadTrackingDomainsTab();
 }
