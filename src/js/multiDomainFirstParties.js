@@ -139,6 +139,21 @@ var multiDomainFirstPartiesArray = [
   ["facebook.com", "fbcdn.com", "fbcdn.net", "facebook.net", "messenger.com"],
   ["firefox.com", "mozilla.org"],
   ["foxnews.com", "foxbusiness.com", "fncstatic.com"],
+  [
+    "gettyimages.com",
+
+    "gettyimages.ca",
+    "gettyimages.com.au",
+    "gettyimages.co.uk",
+    "gettyimages.dk",
+    "gettyimages.fi",
+    "gettyimages.nl",
+
+    "istockphoto.com",
+
+    "thinkstockphotos.com",
+    "thinkstockphotos.ca",
+  ],
   ["github.com", "githubapp.com"],
   ["gizmodo.com", "kinja-img.com", "kinja-static.com", "deadspin.com", "lifehacker.com",
     "technoratimedia.com", "kinja.com", "jalopnik.com", "jezebel.com"],
