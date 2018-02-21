@@ -18,6 +18,17 @@ var multiDomainFirstPartiesArray = [
     "espn.com",
     "espncdn.com",
 
+    "espn.com.au",
+    "espn.com.br",
+    "espn.co.uk",
+
+    "espncricinfo.com",
+
+    "espnfc.com",
+    "espnfc.us",
+
+    "fivethirtyeight.com",
+
     "disney.com",
     "disneymoviesanywhere.com",
     "dadt.com",
