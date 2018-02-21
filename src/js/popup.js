@@ -256,6 +256,7 @@ function revertDomainControl(e) {
 }
 
 function registerToggleHandlers() {
+  // (this == .switch-toggle)
   var radios = $(this).children('input');
   var value = $(this).children('input:checked').val();
   //var userHandle = $(this).children('a');
@@ -265,6 +266,8 @@ function registerToggleHandlers() {
     max: 2,
     value: value,
     create: function(/*event, ui*/) {
+      // Set the margin for the handle of the slider we're currently creating,
+      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
       $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
     },
     slide: function(event, ui) {

@@ -558,7 +558,9 @@ function registerToggleHandlers(toggleElement) {
     max: 2,
     value: value,
     create: function(/*event, ui*/) {
-      toggleElement.children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+      // Set the margin for the handle of the slider we're currently creating,
+      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
+      $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
     },
     slide: function(event, ui) {
       radios.filter('[value=' + ui.value + ']').click();
