@@ -353,7 +353,7 @@ var multiDomainFirstPartiesArray = [
   ["vk.com", "vk.me", "vkontakte.ru"],
   ["volkskrant.nl", "persgroep.net", "persgroep.nl", "parool.nl"],
   ["volvooceanrace.com", "virtualregatta.com"],
-  ["walmart.com", "wal.co"],
+  ["walmart.com", "wal.co", "walmartimages.com", "walmart.ca"],
   ["weebly.com", "editmysite.com"],
   ["wellsfargo.com", "wf.com"],
   ["wikia.com", "wikia.net", "nocookie.net"],
