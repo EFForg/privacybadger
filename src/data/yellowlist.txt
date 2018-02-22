@@ -328,6 +328,7 @@ kinja-static.com
 klarna.com
 klarnacdn.net
 klm.com
+kxcdn.com
 licdn.com
 licensebuttons.net
 addon.lidl.de
