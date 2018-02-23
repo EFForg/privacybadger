@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 import unittest
-import time
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -60,6 +59,16 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             click_action.move_to_element_with_offset(slider, slider.size['width']-2, 2)
         click_action.click()
         click_action.perform()
+
+    def scroll_to_bottom(self):
+        # Scroll far enough to generate one new element in the tracking domains box
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        scrollable_div = self.driver.find_element_by_id('blockedResourcesInner')
+        self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
+
+    def scroll_to_origin(self, origin):
+        generated_element = self.driver.find_element_by_css_selector("div[data-origin='" + origin + "']")
+        self.driver.execute_script("return arguments[0].scrollIntoView(true);", generated_element)
 
     def test_page_title(self):
         self.load_options_page()
@@ -246,34 +255,41 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         self.select_domain_list_tab()
 
-        # Scroll to the bottom to get the generated origin to be added to the html
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        scrollable_div = self.driver.find_element_by_id('blockedResourcesInner')
-        self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
-        # Scroll again to the first element generated on scroll
-        self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
-        time.sleep(1)
+        # Scroll until the first generated origin is added to the html
+        self.scroll_to_bottom()
 
-        # Set a different action for the first origin generated on scroll.
-        # First ensure it's been scrolled into view
-        self.assertTrue(scrollable_div.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']"))
+        # Set a different action for it. First ensure it's been scrolled into view
+        self.scroll_to_origin('pbtest50-generated.org')
         self.user_overwrite("pbtest50-generated.org", 'block')
+
+        # The page should have refreshed, scroll once to generate the element and again to the very bottom
+        self.scroll_to_bottom()
+        self.scroll_to_bottom()
+
+        try:
+            WebDriverWait(self.driver, 3).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, '//div[@class="clicker userset block"][@data-origin="pbtest50-generated.org"]')))
+        except TimeoutException:
+            self.fail("Timed out waiting for element generated on scroll to have its slider value changed to userset block")
+
+        self.assertEquals(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
+            "clicker userset block",
+            "Scroll-generated origin should be displayed as blocked after user overwrite of PB's decision to allow")
+
+        ## Check that changes have been persisted
 
         # Re-open the tab
         self.load_options_page()
         self.select_domain_list_tab()
-
-        # Scroll to the bottom to get the generated origin to be added to the html
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        scrollable_div = self.driver.find_element_by_id('blockedResourcesInner')
-        self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
-        # Scroll again to the first element generated on scroll
-        self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
+        self.scroll_to_bottom()
+        self.scroll_to_bottom()
+        self.scroll_to_origin('pbtest50-generated.org')
 
         # Check the user preferences for the origins are still displayed
         self.assertEquals(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
             "clicker userset block",
-            "Scroll-generated origin should be displayed as blocked after user overwrite of PB's decision to allow")
+            "Scroll-generated origin should be persisted as blocked after user overwrite of PB's decision to allow")
 
 
     # early-warning check for the open_in_tab attribute of options_ui
