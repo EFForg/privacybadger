@@ -379,7 +379,7 @@ function getHostForTab(tabId) {
  * @param msg super cookie message dict
  */
 function recordSuperCookie(sender, msg) {
-  if (incognito.tabIsIncognito(sender.tab.id)) {
+  if (incognito.dontLearnInTab(sender.tab.id)) {
     return;
   }
 
@@ -408,7 +408,7 @@ function recordFingerprinting(tabId, msg) {
   if (!msg.scriptUrl) {
     return;
   }
-  if (incognito.tabIsIncognito(tabId)) {
+  if (incognito.dontLearnInTab(tabId)) {
     return;
   }
 

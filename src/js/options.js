@@ -121,6 +121,9 @@ function loadOptions() {
     $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
   }
 
+  $("#learn_in_incognito_checkbox").on("click", updateLearnInIncognito);
+  $("#learn_in_incognito_checkbox").prop("checked", badger.isLearnInIncognitoEnabled());
+
   // Show user's filters
   reloadWhitelist();
   refreshFilterPage();
@@ -303,6 +306,11 @@ function updateCheckingDNTPolicy() {
   var newDNTSetting = $("#check_dnt_policy_checkbox").prop("checked");
   settings.setItem("checkForDNTPolicy", newDNTSetting);
   refreshFilterPage(); // This setting means sites need to be re-evaluated
+}
+
+function updateLearnInIncognito() {
+  var newIncognitoSetting = $("#learn_in_incognito_checkbox").prop("checked");
+  settings.setItem("learnInIncognito", newIncognitoSetting);
 }
 
 function reloadWhitelist() {

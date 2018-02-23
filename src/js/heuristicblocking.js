@@ -97,7 +97,7 @@ HeuristicBlocker.prototype = {
    */
   heuristicBlockingAccounting: function (details) {
     // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || incognito.tabIsIncognito(details.tabId)) {
+    if (details.tabId < 0 || incognito.dontLearnInTab(details.tabId)) {
       return {};
     }
 

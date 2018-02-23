@@ -23,14 +23,18 @@ function startListeners() {
   chrome.tabs.onRemoved.addListener(onRemovedListener);
 }
 
-function tabIsIncognito(tabId) {
+function dontLearnInTab(tabId) {
+  if (badger.isLearnInIncognitoEnabled()) {
+    // Treat all pages as if they're not incognito
+    return false;
+  }
   return tabs[tabId] || false;
 }
 
 /************************************** exports */
 var exports = {};
 exports.startListeners = startListeners;
-exports.tabIsIncognito = tabIsIncognito;
+exports.dontLearnInTab = dontLearnInTab;
 
 return exports;
 /************************************** exports */
