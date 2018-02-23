@@ -257,6 +257,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
         # Scroll until the first generated origin is added to the html
         self.scroll_to_bottom()
+        self.scroll_to_bottom()
 
         # Set a different action for it. First ensure it's been scrolled into view
         self.scroll_to_origin('pbtest50-generated.org')
