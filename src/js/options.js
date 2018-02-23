@@ -61,18 +61,18 @@ function loadOptions() {
   document.title = i18n.getMessage("options_title");
 
   // Add event listeners
-  $("#whitelistForm").submit(addWhitelistDomain);
-  $("#removeWhitelist").click(removeWhitelistDomain);
-  $('#importTrackerButton').click(loadFileChooser);
-  $('#importTrackers').change(importTrackerList);
-  $('#exportTrackers').click(exportUserData);
+  $("#whitelistForm").on("submit", addWhitelistDomain);
+  $("#removeWhitelist").on("click", removeWhitelistDomain);
+  $('#importTrackerButton').on("click", loadFileChooser);
+  $('#importTrackers').on("change", importTrackerList);
+  $('#exportTrackers').on("click", exportUserData);
 
   if (settings.getItem("showTrackingDomains")) {
     $('#tracking-domains-overlay').hide();
   } else {
     $('#blockedResourcesContainer').hide();
 
-    $('#show-tracking-domains-checkbox').click(() => {
+    $('#show-tracking-domains-checkbox').on("click", () => {
       $('#tracking-domains-overlay').hide();
       $('#blockedResourcesContainer').show();
       settings.setItem("showTrackingDomains", true);
@@ -105,15 +105,15 @@ function loadOptions() {
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".exportButton").button("option", "icons", {primary: "ui-icon-extlink"});
-  $("#show_counter_checkbox").click(updateShowCounter);
+  $("#show_counter_checkbox").on("click", updateShowCounter);
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
-  $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
+  $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
-  $("#check_dnt_policy_checkbox").click(updateCheckingDNTPolicy);
+  $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled());
 
   if (badger.webRTCAvailable) {
-    $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
+    $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
     $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
@@ -124,6 +124,8 @@ function loadOptions() {
   // Show user's filters
   reloadWhitelist();
   refreshFilterPage();
+
+  $('html').css('visibility', 'visible');
 }
 $(loadOptions);
 
@@ -585,8 +587,8 @@ function showTrackingDomains(domains) {
   // Display tracking domains.
   $('#blockedResourcesInner').html(trackingDetails);
 
-  $('#blockedResourcesInner').off('scroll');
-  $('#blockedResourcesInner').scroll(domains, addOrigins);
+  $('#blockedResourcesInner').off("scroll");
+  $('#blockedResourcesInner').on("scroll", domains, addOrigins);
 
   // activate tooltips
   $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
@@ -617,7 +619,7 @@ function showTrackingDomains(domains) {
       },
     }).appendTo(this);
 
-    radios.change(function() {
+    radios.on("change", function() {
       slider.slider('value', radios.filter(':checked').val());
     });
   });
