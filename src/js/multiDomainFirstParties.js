@@ -371,6 +371,7 @@ var multiDomainFirstPartiesArray = [
   ["siriusxm.com", "sirius.com"],
   ["skygo.co.nz", "skytv.co.nz"],
   ["skysports.com", "skybet.com", "skyvegas.com"],
+  ["slickdeals.net", "slickdealscdn.com"],
   ["snapfish.com", "snapfish.ca"],
   ["sony.com", "sonyrewards.com"],
   ["soundcu.com", "netteller.com"],
