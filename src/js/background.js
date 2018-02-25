@@ -749,31 +749,33 @@ Badger.prototype = {
     const whitelistedURLs = badger.getSettings().getItem('disabledSites')
       .map((site) => '*://' + site + '/*');
 
-    if (whitelistedURLs.length > 0) {
-      const registerActive = browser.contentScripts.register({
-        'js': [
-          {file: '/js/contentscripts/fingerprinting.js'},
-          {file: '/js/contentscripts/clobbercookie.js'},
-          {file: '/js/contentscripts/clobberlocalstorage.js'}],
-        'matches': ["http://*/*", "https://*/*"],
-        'excludeMatches': whitelistedURLs,
-        'allFrames': true,
-        'runAt': 'document_start'
-      });
-      // TODO socialwidgets.js should only be loaded if widget replacement is enabled.
-      const registerIdle = browser.contentScripts.register({
-        'js': [
-          {file: '/js/contentscripts/socialwidgets.js'},
-          {file: '/js/contentscripts/supercookie.js'}],
-        'matches': ["http://*/*", "https://*/*"],
-        'excludeMatches': whitelistedURLs,
-        'allFrames': true,
-        'runAt': 'document_idle'
-      });
-
-      registerActive.then((res) => {badger.activeContentScripts = res;});
-      registerIdle.then((res) => {badger.idleContentScripts = res;});
+    if (whitelistedURLs.length === 0) {
+      return;
     }
+
+    const registerActive = browser.contentScripts.register({
+      'js': [
+        {file: '/js/contentscripts/fingerprinting.js'},
+        {file: '/js/contentscripts/clobbercookie.js'},
+        {file: '/js/contentscripts/clobberlocalstorage.js'}],
+      'matches': ["http://*/*", "https://*/*"],
+      'excludeMatches': whitelistedURLs,
+      'allFrames': true,
+      'runAt': 'document_start'
+    });
+    // TODO socialwidgets.js should only be loaded if widget replacement is enabled.
+    const registerIdle = browser.contentScripts.register({
+      'js': [
+        {file: '/js/contentscripts/socialwidgets.js'},
+        {file: '/js/contentscripts/supercookie.js'}],
+      'matches': ["http://*/*", "https://*/*"],
+      'excludeMatches': whitelistedURLs,
+      'allFrames': true,
+      'runAt': 'document_idle'
+    });
+
+    registerActive.then((res) => {badger.activeContentScripts = res;});
+    registerIdle.then((res) => {badger.idleContentScripts = res;});
   },
 
   /**
