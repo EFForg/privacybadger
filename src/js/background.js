@@ -719,12 +719,14 @@ Badger.prototype = {
     }
   },
 
-  // This handles the logic for the "checkEnabled" message being passed
-  // from the background page to the content scripts.
-  // TODO Figure out how to pass configuration with these scripts.
+  /**
+   * Registers content scripts using the contentScripts API; currently only
+   * available in FF59+.
+   * TODO Figure out how to pass configuration with these scripts.
+   */
   registerContentScripts: function() {
-    // This feature only works for browsers that support the contentScripts API.
-    if (browser && !browser.contentScripts) {
+    // TODO 'browser' is undefined in Chrome
+    if (!browser || !browser.contentScripts) {
       return;
     }
 
@@ -767,6 +769,49 @@ Badger.prototype = {
 
     registerActive.then((res) => {badger.activeContentScripts = res;});
     registerIdle.then((res) => {badger.idleContentScripts = res;});
+  },
+
+  /**
+   * Insert into the tab the required content scripts based on whitelisting status.
+   *
+   * @param {Integer} tab_id The ID of the tab
+   * @param {String} url The URL of the specified tab
+   */
+  insertContentScripts(tab_id, url) {
+    if (!this.isPrivacyBadgerEnabled(url)) {
+      return;
+    }
+
+    // Insert all scripts
+    // TODO Put this in a loop?
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/fingerprinting.js',
+      'allFrames': true,
+      'runAt': 'document_start'
+    });
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/clobbercookies.js',
+      'allFrames': true,
+      'runAt': 'document_start'
+    });
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/clobberlocalstorage.js',
+      'allFrames': true,
+      'runAt': 'document_start'
+    });
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/supercookie.js',
+      'allFrames': true,
+      'runAt': 'document_idle'
+    });
+
+    if (this.isSocialWidgetReplacementEnabled()) {
+      chrome.tabs.executeScript(tab_id, {
+        'file': '/js/contentscripts/fingerprinting.js',
+        'allFrames': true,
+        'runAt': 'document_start'
+      });
+    }
   },
 
   /**

@@ -52,6 +52,18 @@ function onBeforeRequest(details) {
     type = details.type,
     url = details.url;
 
+  var isInternal = _isTabChromeInternal(tab_id);
+
+  // TODO The first thing we want to do is to inject the scripts.
+  // This should be done in every case except for when Privacy Badger is not enabled.
+  if (!isInternal) {
+    // TODO Check if this is FF59 or up
+
+    // TODO Can this function be async? Can we run this only on 'main_frame' and have
+    // it get inserted into all frames? If so, we don't need (nor want?) async.
+    badger.insertContentScripts(tab_id, url);
+  }
+
   if (type == "main_frame") {
     forgetTab(tab_id);
 
@@ -77,7 +89,8 @@ function onBeforeRequest(details) {
     return {cancel: true};
   }
 
-  if (_isTabChromeInternal(tab_id)) {
+  // TODO Any danger in moving this above `main_frame` check?
+  if (isInternal) {
     return {};
   }
 
