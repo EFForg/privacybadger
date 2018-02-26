@@ -790,6 +790,12 @@ Badger.prototype = {
     if (!this.isPrivacyBadgerEnabled(url)) {
       return;
     }
+    // In FF 59+, content scripts are injected with registerContentScripts().
+    if (typeof browser !== "undefined" && browser.contentScripts) {
+      return;
+    }
+
+    // TODO Can we have these scripts only get inserted once for each frame?
 
     // Insert all scripts
     // TODO Put this in a loop?
