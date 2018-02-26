@@ -1,4 +1,4 @@
-/* globals badger:false, log:false */
+/* globals badger:false */
 
 require.scopes.incognito = (function() {
 var tabs = {};
