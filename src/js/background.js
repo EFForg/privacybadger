@@ -725,8 +725,8 @@ Badger.prototype = {
    * TODO Figure out how to pass configuration with these scripts.
    */
   registerContentScripts: function() {
-    // TODO 'browser' is undefined in Chrome
-    if (!browser || !browser.contentScripts) {
+    // If 'browser' is undefined, we are running in Chrome.
+    if (typeof browser === "undefined" || !browser.contentScripts) {
       return;
     }
 
