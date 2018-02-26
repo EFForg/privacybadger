@@ -118,7 +118,7 @@ function loadOptions() {
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
     $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
-    $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
+    $("#webrtc_warning").css({"visibility": "hidden", "height": 0});
   }
 
   $("#learn_in_incognito_checkbox").on("click", updateLearnInIncognito);

@@ -1,3 +1,5 @@
+/* globals badger:false, log:false */
+
 require.scopes.incognito = (function() {
 var tabs = {};
 
@@ -23,18 +25,23 @@ function startListeners() {
   chrome.tabs.onRemoved.addListener(onRemovedListener);
 }
 
-function dontLearnInTab(tabId) {
+function tabIsIncognito(tabId) {
+  return tabs[tabId] || false;
+}
+
+function learningEnabled(tabId) {
   if (badger.isLearnInIncognitoEnabled()) {
     // Treat all pages as if they're not incognito
-    return false;
+    return true;
   }
-  return tabs[tabId] || false;
+  // Else, do not learn in incognito tabs
+  return !tabIsIncognito(tabId);
 }
 
 /************************************** exports */
 var exports = {};
 exports.startListeners = startListeners;
-exports.dontLearnInTab = dontLearnInTab;
+exports.learningEnabled = learningEnabled;
 
 return exports;
 /************************************** exports */
