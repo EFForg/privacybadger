@@ -762,9 +762,7 @@ Badger.prototype = {
     };
 
     const idleScripts = {
-      'js': [
-        {file: '/js/contentscripts/socialwidgets.js'},
-        {file: '/js/contentscripts/supercookie.js'}],
+      'js': [{file: '/js/contentscripts/supercookie.js'}],
       'matches': ["http://*/*", "https://*/*"],
       'allFrames': true,
       'runAt': 'document_idle'
@@ -775,8 +773,11 @@ Badger.prototype = {
       idleScripts.excludeMatches = whitelistedURLs;
     }
 
+    if (badger.isSocialWidgetReplacementEnabled()) {
+      idleScripts.js.push({file: '/js/contentscripts/socialwidgets.js'});
+    }
+
     const registerActive = browser.contentScripts.register(activeScripts);
-    // TODO socialwidgets.js should only be loaded if widget replacement is enabled.
     const registerIdle = browser.contentScripts.register(idleScripts);
 
     registerActive.then((res) => {badger.activeContentScripts = res;});

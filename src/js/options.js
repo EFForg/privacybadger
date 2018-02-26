@@ -295,6 +295,7 @@ function updateShowCounter() {
 function updateSocialWidgetReplacement() {
   var replaceSocialWidgets = $("#replace_social_widgets_checkbox").prop("checked");
   settings.setItem("socialWidgetReplacementEnabled", replaceSocialWidgets);
+  badger.registerContentScripts();
 }
 
 function updateCheckingDNTPolicy() {
