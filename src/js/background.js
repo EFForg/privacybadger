@@ -751,30 +751,33 @@ Badger.prototype = {
     const whitelistedURLs = badger.getSettings().getItem('disabledSites')
       .map((site) => '*://' + site + '/*');
 
-    if (whitelistedURLs.length === 0) {
-      return;
-    }
-
-    const registerActive = browser.contentScripts.register({
+    const activeScripts = {
       'js': [
         {file: '/js/contentscripts/fingerprinting.js'},
         {file: '/js/contentscripts/clobbercookie.js'},
         {file: '/js/contentscripts/clobberlocalstorage.js'}],
       'matches': ["http://*/*", "https://*/*"],
-      'excludeMatches': whitelistedURLs,
       'allFrames': true,
       'runAt': 'document_start'
-    });
-    // TODO socialwidgets.js should only be loaded if widget replacement is enabled.
-    const registerIdle = browser.contentScripts.register({
+    };
+
+    const idleScripts = {
       'js': [
         {file: '/js/contentscripts/socialwidgets.js'},
         {file: '/js/contentscripts/supercookie.js'}],
       'matches': ["http://*/*", "https://*/*"],
-      'excludeMatches': whitelistedURLs,
       'allFrames': true,
       'runAt': 'document_idle'
-    });
+    };
+
+    if (whitelistedURLs.length > 0) {
+      activeScripts.excludeMatches = whitelistedURLs;
+      idleScripts.excludeMatches = whitelistedURLs;
+    }
+
+    const registerActive = browser.contentScripts.register(activeScripts);
+    // TODO socialwidgets.js should only be loaded if widget replacement is enabled.
+    const registerIdle = browser.contentScripts.register(idleScripts);
 
     registerActive.then((res) => {badger.activeContentScripts = res;});
     registerIdle.then((res) => {badger.idleContentScripts = res;});
