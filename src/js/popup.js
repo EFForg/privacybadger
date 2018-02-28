@@ -129,6 +129,46 @@ function init() {
 
   var version = i18n.getMessage("version") + " " + chrome.runtime.getManifest().version;
   $("#version").text(version);
+
+  if (POPUP_DATA.isPrivateWindow) {
+    $("#options").on("click", function (event) {
+      openOptionsPage();
+      event.preventDefault();
+    });
+  }
+}
+
+function openOptionsPage() {
+  const url = chrome.runtime.getURL("/skin/options.html");
+
+  chrome.windows.getAll({ windowTypes: ["normal"] }, (windows) => {
+    // first see if we can open a tab in an existing non-private window
+    for (let i = 0; i < windows.length; i++) {
+      if (windows[i].incognito) {
+        continue;
+      }
+
+      // create the new tab
+      chrome.tabs.create({
+        url,
+        windowId: windows[i].id,
+        active: true
+      }, () => {
+        // focus the window it is in
+        chrome.windows.update(windows[i].id, { focused: true });
+      });
+
+      return;
+    }
+
+    // if here, there are no already-open non-private windows
+    chrome.windows.create({
+      url,
+      incognito: false
+    }, (win) => {
+      windows.update(win.id, { focused: true });
+    });
+  });
 }
 
 /**
