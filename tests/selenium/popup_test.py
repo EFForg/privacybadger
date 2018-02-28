@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import json
 import time
 import unittest
 import pbtest
@@ -33,7 +34,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             self.fail("Timed out waiting for %s to start loading" % url)
 
-    def open_popup(self, close_overlay=True):
+    def open_popup(self, close_overlay=True, origins=None):
         """Open popup and optionally close overlay."""
 
         # TODO Hack: Open a new window to work around popup.js thinking the
@@ -51,19 +52,23 @@ class PopupTest(pbtest.PBSeleniumTest):
         # TODO instead use a proper popup-opening function to open the popup
         # for some test page like https://www.eff.org/files/badgertest.txt;
         # for example, see https://github.com/EFForg/privacybadger/issues/1634
-        self.js("""getTab(function (tab) {
+        js = """getTab(function (tab) {
   chrome.runtime.sendMessage({
     type: "getPopupData",
     tabId: tab.id,
     tabUrl: tab.url
   }, (response) => {
     response.noTabData = false;
-    response.origins = {};
+    response.origins = %s;
     setPopupData(response);
     refreshPopup();
     window.DONE_REFRESHING = true;
   });
-});""")
+});"""
+        js = js % (
+            json.dumps(origins) if origins else "{}",
+        )
+        self.js(js)
         # wait until the async getTab function is done
         self.wait_for_script(
             "return typeof window.DONE_REFRESHING != 'undefined'",
@@ -209,6 +214,34 @@ class PopupTest(pbtest.PBSeleniumTest):
                     (By.CSS_SELECTOR, faq_selector)))
         except TimeoutException:
             self.fail("Unable to find expected element ({}) on EFF website".format(faq_selector))
+
+    def test_toggling_sliders(self):
+        """Ensure toggling sliders is persisted."""
+
+        DOMAIN = "example.com"
+        DOMAIN_ID = DOMAIN.replace(".", "-")
+
+        self.open_popup(origins={DOMAIN:"allow"})
+
+        # click input with JavaScript to avoid "Element ... is not clickable" /
+        # "Other element would receive the click" Selenium limitation
+        self.js("$('#block-{}').click()".format(DOMAIN_ID))
+
+        close_windows_with_url(self.driver, self.popup_url)
+
+        # retrieve the new action
+        self.load_url(self.options_url, wait_on_site=1)
+        origins = self.js("""return %s.reduce((memo, origin) => {
+memo[origin] = badger.storage.getBestAction(origin);
+return memo;
+}, {});""" % ([DOMAIN],))
+
+        self.open_popup(close_overlay=False, origins=origins)
+
+        self.assertTrue(
+            self.driver.find_element_by_id("block-" + DOMAIN_ID).is_selected(),
+            "The domain should have gotten blocked."
+        )
 
     def test_disable_enable_buttons(self):
         """Ensure disable/enable buttons change popup state."""
