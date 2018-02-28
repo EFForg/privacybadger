@@ -161,14 +161,13 @@ function send_error(message) {
   var browser = window.navigator.userAgent;
   getTab(function(tab) {
     var tabId = tab.id;
-    var origins = badger.getAllOriginsForTab(tabId);
+    var origins = badger.tabData[tabId].origins;
     if (!origins) { return; }
     var version = chrome.runtime.getManifest().version;
     var fqdn = backgroundPage.extractHostFromURL(tab.url);
     var out = {"browser":browser, "url":tab.url,"fqdn":fqdn, "message":message, "version": version};
-    for (var i = 0; i < origins.length; i++) {
-      var origin = origins[i];
-      var action = badger.storage.getBestAction(origin);
+    for (let origin in origins) {
+      var action = origins[origin];
       if (!action) { action = constants.NO_TRACKING; }
       if (out[action]) {
         out[action] += ","+origin;
@@ -311,9 +310,13 @@ function refreshPopup(tabId) {
     $('#error').show();
   }
 
-  let origins = badger.getAllOriginsForTab(tabId);
+  let origins = badger.tabData[tabId].origins;
+  let originsArr = [];
+  if (origins) {
+    originsArr = Object.keys(origins);
+  }
 
-  if (!origins || origins.length === 0) {
+  if (!originsArr.length) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
     $("#pb_detected").hide();
     $("#number_trackers").hide();
@@ -337,13 +340,12 @@ function refreshPopup(tabId) {
 
   var printable = [];
   var nonTracking = [];
-  origins.sort(htmlUtils.compareReversedDomains);
+  originsArr.sort(htmlUtils.compareReversedDomains);
   var trackerCount = 0;
 
-  for (let i=0; i < origins.length; i++) {
-    var origin = origins[i];
-    // todo: gross hack, use templating framework
-    var action = badger.storage.getBestAction(origin);
+  for (let i=0; i < originsArr.length; i++) {
+    var origin = originsArr[i];
+    var action = origins[origin];
 
     if (action == constants.NO_TRACKING) {
       nonTracking.push(origin);

@@ -128,7 +128,7 @@ Badger.prototype = {
             ...
           },
           origins: {
-            domain.tld: bool
+            domain.tld: {String} action taken for this domain
             ...
           }
         },
@@ -538,34 +538,22 @@ Badger.prototype = {
 
   },
 
-
-  /**
-   * Helper function returns a list of all third party origins for a tab
-   * @param {Integer} tab_id requested tab id as provided by chrome
-   * @returns {*} A dictionary of third party origins and their actions
-   */
-  getAllOriginsForTab: function (tab_id) {
-    return (
-      this.tabData.hasOwnProperty(tab_id) &&
-      Object.keys(this.tabData[tab_id].origins)
-    );
-  },
-
   /**
    * Returns the count of blocked/cookieblocked origins for a tab.
    * @param {Integer} tab_id browser tab ID
    * @returns {Integer} blocked origin count
    */
   getBlockedOriginCount: function (tab_id) {
-    let self = this;
+    let origins = this.tabData[tab_id].origins,
+      count = 0;
 
-    return self.getAllOriginsForTab(tab_id).reduce((memo, origin) => {
-      let action = self.storage.getBestAction(origin);
-      if (constants.BLOCKED_ACTIONS.has(action)) {
-        memo++;
+    for (let domain in origins) {
+      if (constants.BLOCKED_ACTIONS.has(origins[domain])) {
+        count++;
       }
-      return memo;
-    }, 0);
+    }
+
+    return count;
   },
 
   /**
@@ -775,26 +763,23 @@ Badger.prototype = {
    *
    **/
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
-    let blocked = constants.BLOCKED_ACTIONS.has(action);
-    let self = this;
+    let self = this,
+      blocked = constants.BLOCKED_ACTIONS.has(action),
+      origins = self.tabData[tab_id].origins,
+      previously_seen = origins.hasOwnProperty(fqdn),
+      previously_blocked = constants.BLOCKED_ACTIONS.has(origins[fqdn]);
 
-    if (self.tabData[tab_id].origins.hasOwnProperty(fqdn)) {
-      // we've seen this origin on this tab already
-      // still want to update badge if we haven't yet seen origin as blocked
-      if (blocked && !self.tabData[tab_id].origins[fqdn]) {
-        // record that origin has been seen as blocked
-        self.tabData[tab_id].origins[fqdn] = true;
+    origins[fqdn] = action;
 
-        self.updateBadge(tab_id);
-      }
-    } else {
-      // haven't seen the origin on this tab yet
-      self.tabData[tab_id].origins[fqdn] = blocked;
-
-      if (blocked) {
-        self.updateBadge(tab_id);
-      }
+    if (!blocked) {
+      return;
     }
+
+    if (previously_seen && previously_blocked) {
+      return;
+    }
+
+    self.updateBadge(tab_id);
   },
 
   /**
