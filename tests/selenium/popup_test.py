@@ -52,9 +52,17 @@ class PopupTest(pbtest.PBSeleniumTest):
         # for some test page like https://www.eff.org/files/badgertest.txt;
         # for example, see https://github.com/EFForg/privacybadger/issues/1634
         self.js("""getTab(function (tab) {
-  badger.recordFrame(tab.id, 0, -1, tab.url);
-  refreshPopup(tab.id);
-  window.DONE_REFRESHING = true;
+  chrome.runtime.sendMessage({
+    type: "getPopupData",
+    tabId: tab.id,
+    tabUrl: tab.url
+  }, (response) => {
+    response.noTabData = false;
+    response.origins = {};
+    setPopupData(response);
+    refreshPopup();
+    window.DONE_REFRESHING = true;
+  });
 });""")
         # wait until the async getTab function is done
         self.wait_for_script(

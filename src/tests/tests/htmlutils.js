@@ -95,19 +95,6 @@
     }
   });
 
-  QUnit.test("getTrackerContainerHtml", function (assert) {
-    // Test given tab ID.
-    var tabId = 1;
-    var htmlResult = htmlUtils.getTrackerContainerHtml(tabId);
-    var tabIdExists = htmlResult.indexOf('data-tab-id="' + tabId + '"') > -1;
-    assert.ok(tabIdExists, "Given tab ID should be set");
-
-    // Test missing tab ID.
-    htmlResult = htmlUtils.getTrackerContainerHtml();
-    var defaultTabIdExists = htmlResult.indexOf('data-tab-id="000"') > -1;
-    assert.ok(defaultTabIdExists, "Default tab ID should be set");
-  });
-
   QUnit.test("getOriginHtml", function (assert) {
     // Test parameters
     var tests = [

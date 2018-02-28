@@ -62,7 +62,8 @@ function Badger() {
     // Show icon as page action for all tabs that already exist
     chrome.tabs.query({}, function (tabs) {
       for (var i = 0; i < tabs.length; i++) {
-        self.refreshIconAndContextMenu(tabs[i]);
+        let tab = tabs[i];
+        self.refreshIconAndContextMenu(tab.id, tab.url);
       }
     });
 
@@ -164,9 +165,6 @@ Badger.prototype = {
     };
     this.storage.setupUserAction(origin, allUserActions[userAction]);
     log("Finished saving action " + userAction + " for " + origin);
-
-    // TODO: right now we don't determine whether a reload is needed
-    return true;
   },
 
 
@@ -784,16 +782,17 @@ Badger.prototype = {
 
   /**
    * Enables or disables page action icon according to options.
-   * @param {Object} tab The tab to set the badger icon for
+   * @param {Integer} tab_id The tab ID to set the badger icon for
+   * @param {String} tab_url The tab URL to set the badger icon for
    */
-  refreshIconAndContextMenu: function (tab) {
-    if (!tab || !FirefoxAndroid.hasPopupSupport) {
+  refreshIconAndContextMenu: function (tab_id, tab_url) {
+    if (!tab_id || !tab_url || !FirefoxAndroid.hasPopupSupport) {
       return;
     }
 
     let iconFilename;
     // TODO grab hostname from tabData instead
-    if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url))) {
+    if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab_url))) {
       iconFilename = {
         "19": chrome.runtime.getURL("icons/badger-19.png"),
         "38": chrome.runtime.getURL("icons/badger-38.png")
@@ -805,7 +804,7 @@ Badger.prototype = {
       };
     }
 
-    chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
+    chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});
   },
 
 };
@@ -815,7 +814,7 @@ Badger.prototype = {
 function startBackgroundListeners() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == "loading" && tab.url) {
-      badger.refreshIconAndContextMenu(tab);
+      badger.refreshIconAndContextMenu(tab.id, tab.url);
       badger.updateBadge(tabId);
     }
   });
@@ -823,7 +822,7 @@ function startBackgroundListeners() {
   // Update icon if a tab is replaced or loaded from cache
   chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/) {
     chrome.tabs.get(addedTabId, function(tab) {
-      badger.refreshIconAndContextMenu(tab);
+      badger.refreshIconAndContextMenu(tab.id, tab.url);
     });
   });
 

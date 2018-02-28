@@ -15,11 +15,10 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var i18n = chrome.i18n;
-
 require.scopes.htmlutils = (function() {
 
-var constants = chrome.extension.getBackgroundPage().constants;
+const i18n = chrome.i18n;
+const constants = require("constants");
 
 const UNDO_ARROW_TOOLTIP_TEXT = i18n.getMessage('feed_the_badger_title');
 
@@ -121,15 +120,11 @@ var htmlUtils = exports.htmlUtils = {
   /**
    * Get HTML for tracker container.
    *
-   * @param {Integer} tabId ID of tab trackers are associated with.
    * @returns {String} HTML for empty tracker container.
    */
-  getTrackerContainerHtml: function(tabId) {
-    if (tabId === undefined) {
-      tabId = "000";
-    }
+  getTrackerContainerHtml: function() {
     var trackerHtml = '' +
-      '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
+      '<div id="associatedTab"></div>' +
       '<div class="keyContainer">' +
       '<div class="key">' +
       '<img src="/icons/UI-icons-red.svg" class="tooltip" title="' + i18n.getMessage("tooltip_block") + '">' +

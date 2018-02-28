@@ -697,6 +697,49 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.checkSocialWidgetReplacementEnabled) {
     sendResponse(badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) && badger.isSocialWidgetReplacementEnabled());
+
+  } else if (request.type == "getPopupData") {
+    let tab_id = request.tabId,
+      tab_url = request.tabUrl,
+      tab_host = window.extractHostFromURL(tab_url),
+      has_tab_data = badger.tabData.hasOwnProperty(tab_id);
+
+    sendResponse({
+      criticalError: badger.criticalError,
+      enabled: badger.isPrivacyBadgerEnabled(tab_host),
+      noTabData: !has_tab_data,
+      origins: has_tab_data && badger.tabData[tab_id].origins,
+      seenComic: badger.getSettings().getItem("seenComic"),
+      tabHost: tab_host,
+      tabId: tab_id,
+      tabUrl: tab_url
+    });
+
+  } else if (request.type == "seenComic") {
+    badger.getSettings().setItem("seenComic", true);
+
+  } else if (request.type == "activateOnSite") {
+    badger.enablePrivacyBadgerForOrigin(request.tabHost);
+    badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
+
+  } else if (request.type == "deactivateOnSite") {
+    badger.disablePrivacyBadgerForOrigin(request.tabHost);
+    badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
+
+  } else if (request.type == "revertDomainControl") {
+    badger.storage.revertUserAction(request.origin);
+    sendResponse({
+      action: badger.storage.getBestAction(request.origin)
+    });
+
+  } else if (request.type == "savePopupToggle") {
+    let domain = request.origin,
+      action = request.action;
+
+    badger.saveAction(action, domain);
+
+    // update cached tab data so that a reopened popup displays correct state
+    badger.tabData[request.tabId].origins[domain] = "user_" + action;
   }
 }
 

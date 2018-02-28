@@ -117,20 +117,21 @@ class CookieTest(pbtest.PBSeleniumTest):
         window_utils.switch_to_window_with_url(self.driver, self.popup_url)
         target_url = target_scheme_and_host + "/*"
         javascript_src = """/**
-* if the query url pattern matches a tab, switch the module's tab object to that tab
-* Convenience function for the test harness
-* Chrome URL pattern docs: https://developer.chrome.com/extensions/match_patterns
-*/
+ * if the query url pattern matches a tab, switch the module's tab object to that tab
+ */
 function setTabToUrl(query_url) {
-  chrome.tabs.query( {url: query_url}, function(ta) {
-    if (typeof ta == "undefined") {
+  chrome.tabs.query({url: query_url}, function (tabs) {
+    if (!tabs || !tabs.length) {
       return;
     }
-    if (ta.length === 0) {
-      return;
-    }
-    var tabid = ta[0].id;
-    refreshPopup(tabid);
+    chrome.runtime.sendMessage({
+      type: "getPopupData",
+      tabId: tabs[0].id,
+      tabUrl: tabs[0].url
+    }, (response) => {
+      setPopupData(response);
+      refreshPopup();
+    });
   });
 }"""
         self.js(javascript_src + "setTabToUrl('{}');".format(target_url))
