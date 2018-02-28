@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
-from window_utils import switch_to_window_with_url
+from window_utils import close_windows_with_url, switch_to_window_with_url
 
 
 class PopupTest(pbtest.PBSeleniumTest):
@@ -209,6 +209,40 @@ class PopupTest(pbtest.PBSeleniumTest):
                     (By.CSS_SELECTOR, faq_selector)))
         except TimeoutException:
             self.fail("Unable to find expected element ({}) on EFF website".format(faq_selector))
+
+    def test_disable_enable_buttons(self):
+        """Ensure disable/enable buttons change popup state."""
+
+        DISPLAYED_ERROR = " should not be displayed on popup"
+        NOT_DISPLAYED_ERROR = " should be displayed on popup"
+
+        self.open_popup()
+
+        self.get_disable_button().click()
+
+        close_windows_with_url(self.driver, self.popup_url)
+        self.open_popup(close_overlay=False)
+
+        # Check that popup state changed after disabling.
+        disable_button = self.get_disable_button()
+        self.assertFalse(disable_button.is_displayed(),
+                         "Disable button" + DISPLAYED_ERROR)
+        enable_button = self.get_enable_button()
+        self.assertTrue(enable_button.is_displayed(),
+                        "Enable button" + NOT_DISPLAYED_ERROR)
+
+        enable_button.click()
+
+        close_windows_with_url(self.driver, self.popup_url)
+        self.open_popup(close_overlay=False)
+
+        # Check that popup state changed after re-enabling.
+        disable_button = self.get_disable_button()
+        self.assertTrue(disable_button.is_displayed(),
+                        "Disable button" + NOT_DISPLAYED_ERROR)
+        enable_button = self.get_enable_button()
+        self.assertFalse(enable_button.is_displayed(),
+                         "Enable button" + DISPLAYED_ERROR)
 
     def test_error_button(self):
         """Ensure error button opens report error overlay."""

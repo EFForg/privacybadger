@@ -127,13 +127,6 @@ function init() {
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   });
 
-  // toggle activation buttons if privacy badger is not enabled for current url
-  if (!POPUP_DATA.enabled) {
-    $("#blockedResourcesContainer").hide();
-    $("#activate_site_btn").show();
-    $("#deactivate_site_btn").hide();
-  }
-
   var version = i18n.getMessage("version") + " " + chrome.runtime.getManifest().version;
   $("#version").text(version);
 }
@@ -329,6 +322,13 @@ function refreshPopup() {
     $('#big-badger-logo').hide();
     $('#deactivate_site_btn').show();
     $('#error').show();
+
+    // toggle activation buttons if privacy badger is not enabled for current url
+    if (!POPUP_DATA.enabled) {
+      $("#blockedResourcesContainer").hide();
+      $("#activate_site_btn").show();
+      $("#deactivate_site_btn").hide();
+    }
   }
 
   let origins = POPUP_DATA.origins;
