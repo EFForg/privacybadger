@@ -152,11 +152,11 @@ Badger.prototype = {
   },
 
   /**
-  * saves a user preference for an origin, overriding
-  * the default setting.
-  * @param {String} userAction enum of block, cookieblock, noaction
-  * @param {String} origin the third party origin to take action on
-  */
+   * Saves a user preference for an origin, overriding the default setting.
+   *
+   * @param {String} userAction enum of block, cookieblock, noaction
+   * @param {String} origin the third party origin to take action on
+   */
   saveAction: function(userAction, origin) {
     var allUserActions = {
       'block': constants.USER_BLOCK,
@@ -755,9 +755,9 @@ Badger.prototype = {
    * Save third party origins to tabData[tab_id] object for
    * use in the popup and, if needed, call updateBadge.
    *
-   * @param tab_id the tab we are on
-   * @param fqdn the third party origin to add
-   * @param action the action we are taking
+   * @param {Integer} tab_id the tab we are on
+   * @param {String} fqdn the third party origin to add
+   * @param {String} action the action we are taking
    *
    **/
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {

@@ -139,8 +139,8 @@ function init() {
 }
 
 /**
-* Close the error reporting overlay
-*/
+ * Close the error reporting overlay
+ */
 function closeOverlay() {
   $('#overlay').toggleClass('active', false);
   $("#report_success").toggleClass("hidden", true);
@@ -149,10 +149,10 @@ function closeOverlay() {
 }
 
 /**
-* Send errors to PB error reporting server
-*
-* @param {String} message The message to send
-*/
+ * Send errors to PB error reporting server
+ *
+ * @param {String} message The message to send
+ */
 function send_error(message) {
   // get the latest domain list from the background page
   chrome.runtime.sendMessage({
@@ -216,8 +216,8 @@ function send_error(message) {
 }
 
 /**
-* activate PB for site event handler
-*/
+ * activate PB for site event handler
+ */
 function activateOnSite() {
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
@@ -235,8 +235,8 @@ function activateOnSite() {
 }
 
 /**
-* de-activate PB for site event handler
-*/
+ * de-activate PB for site event handler
+ */
 function deactivateOnSite() {
   $("#activate_site_btn").toggle();
   $("#deactivate_site_btn").toggle();
@@ -254,10 +254,10 @@ function deactivateOnSite() {
 }
 
 /**
-* Handler to undo user selection for a tracker
-*
-* @param e The object the event triggered on
-*/
+ * Handler to undo user selection for a tracker
+ *
+ * @param {Event} e The object the event triggered on
+ */
 function revertDomainControl(e) {
   var $elm = $(e.target).parent();
   var origin = $elm.data('origin');
@@ -301,10 +301,10 @@ function registerToggleHandlers() {
 }
 
 /**
-* Refresh the content of the popup window
-*
-* @param {Integer} tabId The id of the tab
-*/
+ * Refresh the content of the popup window
+ *
+ * @param {Integer} tabId The id of the tab
+ */
 function refreshPopup() {
   // must be a special browser page,
   // or a page that loaded everything before our most recent initialization
@@ -433,10 +433,10 @@ function refreshPopup() {
 }
 
 /**
-* Event handler for on change (blocked resources container)
-*
-* @param event
-*/
+ * Event handler for on change (blocked resources container)
+ *
+ * @param {Event} event
+ */
 function updateOrigin(event) {
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
   var $switchContainer = $elm.parents('.switch-container').first();
