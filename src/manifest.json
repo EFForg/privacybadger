@@ -23,10 +23,10 @@
   "background": {
     "scripts": [
       "js/bootstrap.js",
-      "lib/punycode.js",
+      "lib/vendor/punycode.js",
       "lib/publicSuffixList.js",
-      "lib/basedomain.js",
-      "lib/underscore-min.js",
+      "lib/vendor/basedomain.js",
+      "lib/vendor/underscore-min.js",
       "data/surrogates.js",
       "js/surrogates.js",
       "js/multiDomainFirstParties.js",
