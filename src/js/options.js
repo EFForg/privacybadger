@@ -406,7 +406,7 @@ function refreshFilterPage() {
   refreshOriginCache();
 
   // Check to see if any tracking domains have been found before continuing.
-  var allTrackingDomains = getOriginsArray();
+  var allTrackingDomains = getOriginsArray(originCache);
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
     $("#pb_has_detected").hide();
@@ -453,6 +453,7 @@ function refreshFilterPage() {
   // Display tracking domains.
   showTrackingDomains(
     getOriginsArray(
+      originCache,
       $("#trackingDomainSearch").val(),
       $('#tracking-domains-type-filter').val(),
       $('#tracking-domains-status-filter').val()
@@ -490,6 +491,7 @@ function filterTrackingDomains(/*event*/) {
 
     // Show filtered origins.
     var filteredOrigins = getOriginsArray(
+      originCache,
       searchText,
       $typeFilter.val(),
       $statusFilter.val()

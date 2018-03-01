@@ -18,13 +18,14 @@
 /**
  * Gets array of encountered origins.
  *
+ * @param {Object} origins The starting set of domains to be filtered.
  * @param {String} [filter_text] Text to filter origins with.
  * @param {String} [type_filter] Type: user-controlled/DNT-compliant
  * @param {String} [status_filter] Status: blocked/cookieblocked/allowed
  *
  * @return {Array}
  */
-function getOriginsArray(filter_text, type_filter, status_filter) {
+window.getOriginsArray = (origins, filter_text, type_filter, status_filter) => {
   // Make sure filter_text is lower case for case-insensitive matching.
   if (filter_text) {
     filter_text = filter_text.toLowerCase();
@@ -36,7 +37,7 @@ function getOriginsArray(filter_text, type_filter, status_filter) {
    * @return {Boolean} Does the origin pass filters?
    */
   function matchesFormFilters(origin) {
-    const value = originCache[origin];
+    const value = origins[origin];
 
     // filter by type
     if (type_filter) {
@@ -97,5 +98,5 @@ function getOriginsArray(filter_text, type_filter, status_filter) {
   }
 
   // Include only origins that match given filters.
-  return Object.keys(originCache).filter(matchesFormFilters);
-}
+  return Object.keys(origins).filter(matchesFormFilters);
+};
