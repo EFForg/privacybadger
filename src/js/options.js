@@ -15,6 +15,8 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals getOriginsArray:false */
+
 // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
 // TODO hack: disable Tooltipster tooltips on Firefox to avoid unresponsive script warnings
@@ -321,91 +323,6 @@ function reloadWhitelist() {
  */
 function refreshOriginCache() {
   originCache = getOrigins();
-}
-
-/**
- * Gets array of encountered origins.
- *
- * @param {String} [filter_text] Text to filter origins with.
- * @param {String} [type_filter] Type: user-controlled/DNT-compliant
- * @param {String} [status_filter] Status: blocked/cookieblocked/allowed
- *
- * @return {Array}
- */
-function getOriginsArray(filter_text, type_filter, status_filter) {
-  // Make sure filter_text is lower case for case-insensitive matching.
-  if (filter_text) {
-    filter_text = filter_text.toLowerCase();
-  } else {
-    filter_text = "";
-  }
-
-  /**
-   * @return {Boolean} Does the origin pass filters?
-   */
-  function matchesFormFilters(origin) {
-    const value = originCache[origin];
-
-    // filter by type
-    if (type_filter) {
-      if (type_filter == "user") {
-        if (!value.startsWith("user")) {
-          return false;
-        }
-      } else {
-        if (value != type_filter) {
-          return false;
-        }
-      }
-    }
-
-    // filter by status
-    if (status_filter) {
-      if (status_filter != value.replace("user_", "") && !(
-        status_filter == "allow" && value == "dnt"
-      )) {
-        return false;
-      }
-    }
-
-    // filter by search text
-    // treat spaces as OR operators
-    // treat "-" prefixes as NOT operators
-    let textFilters = filter_text.split(" ").filter(i=>i); // remove empties
-
-    // no text filters, we have a match
-    if (!textFilters.length) {
-      return true;
-    }
-
-    let positiveFilters = textFilters.filter(i => i[0] != "-"),
-      lorigin = origin.toLowerCase();
-
-    // if we have any positive filters, and we don't match any,
-    // don't bother checking negative filters
-    if (positiveFilters.length) {
-      let result = positiveFilters.some(text => {
-        return lorigin.indexOf(text) != -1;
-      });
-      if (!result) {
-        return false;
-      }
-    }
-
-    // we either matched a positive filter,
-    // or we don't have any positive filters
-
-    // if we match any negative filters, discard the match
-    return textFilters.every(text => {
-      if (text[0] != "-" || text == "-") {
-        return true;
-      }
-      return lorigin.indexOf(text.slice(1)) == -1;
-    });
-  }
-
-  // Include only origins that match given filters.
-  return Object.keys(originCache).filter(matchesFormFilters);
 }
 
 function addWhitelistDomain(event) {
