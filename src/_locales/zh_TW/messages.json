@@ -4,7 +4,7 @@
         "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "badger_status_block": {
-        "message": "封鎖",
+        "message": "封鎖 ",
         "description": ""
     },
     "invalid_json": {
@@ -132,7 +132,7 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "允許",
+        "message": "允許 ",
         "description": ""
     },
     "privacy_badger_what_is": {
@@ -220,7 +220,7 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "封鎖此網站的 cookie",
+        "message": "封鎖此網站的 cookie ",
         "description": ""
     },
     "options_loading": {
