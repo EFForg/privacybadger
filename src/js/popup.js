@@ -337,7 +337,7 @@ function refreshPopup(tabId) {
 
   var printable = [];
   var nonTracking = [];
-  origins.sort(htmlUtils.compareReversedDomains);
+  origins = htmlUtils.sortDomains(origins);
   var trackerCount = 0;
 
   for (let i=0; i < origins.length; i++) {

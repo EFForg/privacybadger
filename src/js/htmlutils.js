@@ -221,23 +221,24 @@ var htmlUtils = exports.htmlUtils = {
    * Compare two domains, reversing them to start comparing the least
    * significant parts (TLD) first.
    *
-   * @param {String} a First domain
-   * @param {String} b Second domain
-   * @returns {Integer} standard compare returns
+   * @param {Array} domains The domains to sort.
+   * @returns {Array} Sorted domains.
    */
-  compareReversedDomains: function (a, b) {
-    let fqdn1 = htmlUtils.makeSortable(a),
-      fqdn2 = htmlUtils.makeSortable(b);
-
-    if (fqdn1 < fqdn2) {
-      return -1;
-    }
-
-    if (fqdn1 > fqdn2) {
-      return 1;
-    }
-
-    return 0;
+  sortDomains: (domains) => {
+    return domains.map((domain, i) => {
+      return {
+        index: i,
+        value: htmlUtils.makeSortable(domain)
+      };
+    }).sort((a, b) => {
+      if (a.value > b.value) {
+        return 1;
+      }
+      if (a.value < b.value) {
+        return -1;
+      }
+      return 0;
+    }).map(item => domains[item.index]);
   },
 
   /**

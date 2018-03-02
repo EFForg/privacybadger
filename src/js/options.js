@@ -309,7 +309,7 @@ function reloadWhitelist() {
   var sites = settings.getItem("disabledSites");
   var sitesList = $('#excludedDomainsBox');
   // Sort the white listed sites in the same way the blocked sites are
-  sites.sort(htmlUtils.compareReversedDomains);
+  sites = htmlUtils.sortDomains(sites);
   sitesList.html("");
   for (var i = 0; i < sites.length; i++) {
     $('<option>').text(sites[i]).appendTo(sitesList);
@@ -571,7 +571,7 @@ function addOrigins(e) {
  * @param domains {Array} Tracking domains to display.
  */
 function showTrackingDomains(domains) {
-  domains.sort(htmlUtils.compareReversedDomains);
+  domains = htmlUtils.sortDomains(domains);
 
   // Create HTML for list of tracking domains.
   var trackingDetails = '';
