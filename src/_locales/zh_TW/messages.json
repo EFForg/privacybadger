@@ -1,6 +1,6 @@
 {
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger 已經取代了",
+        "message": "Privacy Badger 已經取代了 ",
         "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "badger_status_block": {
@@ -16,7 +16,7 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "沒有追蹤",
+        "message": "沒有追蹤 ",
         "description": ""
     },
     "non_tracker_tip": {
@@ -164,7 +164,7 @@
         "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "social_tooltip_button": {
-        "message": "按鈕。",
+        "message": " 按鈕。",
         "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {
