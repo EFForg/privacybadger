@@ -218,34 +218,46 @@ var htmlUtils = exports.htmlUtils = {
   },
 
   /**
-  * Compare 2 domains. Reversing them to start comparing the least significant parts (TLD) first
-  *
-  * @param a First domain
-  * @param b Second domain
-  * @returns {number} standard compare returns
-  */
-  compareReversedDomains: function(a, b) {
-    var fqdn1 = htmlUtils.makeSortable(a);
-    var fqdn2 = htmlUtils.makeSortable(b);
+   * Compare two domains, reversing them to start comparing the least
+   * significant parts (TLD) first.
+   *
+   * @param {String} a First domain
+   * @param {String} b Second domain
+   * @returns {Integer} standard compare returns
+   */
+  compareReversedDomains: function (a, b) {
+    let fqdn1 = htmlUtils.makeSortable(a),
+      fqdn2 = htmlUtils.makeSortable(b);
+
     if (fqdn1 < fqdn2) {
       return -1;
     }
+
     if (fqdn1 > fqdn2) {
       return 1;
     }
+
     return 0;
   },
 
   /**
-  * Reverse order of domain items to have the least exact (TLD) first)
-  *
-  * @param {String} domain The domain to shuffle
-  * @returns {String} The 'reversed' domain
-  */
-  makeSortable: function(domain) {
-    var tmp = domain.split('.').reverse();
-    tmp.shift();
-    return tmp.join('');
+   * Reverse order of domain items to have the least exact (TLD) first.
+   *
+   * @param {String} domain The domain to shuffle
+   * @returns {String} The 'reversed' domain
+   */
+  makeSortable: (domain) => {
+    let base = window.getBaseDomain(domain),
+      base_minus_tld = base.slice(0, base.indexOf('.')),
+      rest_of_it_reversed = '';
+
+    if (domain.length > base.length) {
+      rest_of_it_reversed = domain
+        .slice(0, domain.length - base.length - 1)
+        .split('.').reverse().join('.');
+    }
+
+    return (base_minus_tld + '.' + rest_of_it_reversed);
   },
 
   /**
