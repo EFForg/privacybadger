@@ -20,6 +20,17 @@ CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
 class DNTTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
 
+    # TODO switch to non-delayed version (see below)
+    # once race condition (https://crbug.com/478183) is fixed
+    NAVIGATOR_DNT_TEST_URL = (
+        "https://cdn.rawgit.com/ghostwords/"
+        "1c50869a0469e38d5dabd53f1204d3de/raw/35732fef159fe3cbee66b6fdb4a91388039cda27/"
+        "privacy-badger-navigator-donottrack-delayed-fixture.html"
+        # non-delayed version:
+        #"9fc6900566a2f93edd8e4a1e48bbaa28/raw/741627c60ca53be69bc11bf21d6d1d0b42edb52a/"
+        #"privacy-badger-navigator-donottrack-fixture.html"
+    )
+
     def disable_badger_on_site(self, url):
         self.load_url(self.options_url)
         self.driver.find_element_by_css_selector(
@@ -221,6 +232,27 @@ class DNTTest(pbtest.PBSeleniumTest):
         )['headers']
 
         self.assertNotIn('Dnt', headers, "DNT header should have been missing")
+
+    def test_navigator_object(self):
+        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL)
+
+        self.assertEqual(
+            self.driver.find_element_by_tag_name('body').text,
+            'no tracking (navigator.doNotTrack="1")',
+            "navigator.DoNotTrack should have been set to \"1\""
+        )
+
+    def test_navigator_left_alone_when_disabled(self):
+        self.disable_badger_on_site(DNTTest.NAVIGATOR_DNT_TEST_URL)
+
+        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL)
+
+        # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
+        self.assertEqual(
+            self.driver.find_element_by_tag_name('body').text[0:5],
+            'unset',
+            "navigator.DoNotTrack should have been left unset"
+        )
 
 
 if __name__ == "__main__":
