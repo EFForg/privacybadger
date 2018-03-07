@@ -1,1 +1,11 @@
 @import 'app';
+@import 'share-links';
+
+body {
+  .top-bar {
+    background-color: $secondary-color;
+  }
+  header {
+    background-color: $primary-color;
+  }
+}
