@@ -173,8 +173,14 @@ HeuristicBlocker.prototype = {
    * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
    */
   _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, skip_dnt_check) {
+    // Don't save empty domain strings (caused by about:blank iframes)
+    if (!tracker_fqdn) {
+      return;
+    }
+
     var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = [];
+
     if (snitchMap.hasItem(tracker_origin)) {
       firstParties = snitchMap.getItem(tracker_origin);
     }

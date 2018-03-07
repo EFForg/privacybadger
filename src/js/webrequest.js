@@ -609,7 +609,7 @@ function dispatcher(request, sender, sendResponse) {
   if (sender.tab && sender.tab.url) {
     tabHost = window.extractHostFromURL(sender.tab.url);
   } else {
-    log("tabhost is  blank!!");
+    log("tabhost is blank!!");
   }
 
   if (request.checkEnabled) {
