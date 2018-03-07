@@ -28,61 +28,81 @@
   </style>
 </head>
 <body>
-  <!--p class="i18n_first_run_text"></p -->
-
-<div class="grid-container full">
+  <div class="grid-container full">
     <div class="grid-x">
       <div class="top-bar small-12 align-center cell">
-      A Project of the Electronic Frontier Foundation
+        A Project of the Electronic Frontier Foundation
       </div>
     </div>
-    <header class="grid-x align-center">
+
+    <header class="grid-x grid-padding-x grid-padding-y align-center">
       <div class="small-12 text-center cell">
-        <img id="header-banner-img" src="/icons/PB-header-1.png">
+        <img src="/icons/PB-header-1.png">
       </div>
-      <div class="title-bar small-12 cell text-center">
-          <h1>Privacy Badger</h1>
+      <div class="title-bar small-12 text-center cell">
+        <h1>Privacy Badger</h1>
       </div>
-      </header>
-      <div class="grid-x">
-        <div class="small-12 cell text-center align-center">
-          <h3>Thank you for installing Privacy Badger!</h3>
-        </div>
-      </div>
-      <div class="grid-x grid-padding-x grid-padding-y ">
-        <div class="large-3 large-offset-4 cell">
-          {img}
-        </div>
-        <div class="large-3  cell">
-          Learn as you browse
-        </div>
+    </header>
 
-        <div class="large-4 large-offset-4 cell">
-          Catches sneaky trackers
-        </div>
-        <div class="large-3  cell">
-          {img}
-        </div>
-
-        <div class="large-3 large-offset-4 cell">
-          {img}
-        </div>
-        <div class="large-3  cell">
-          Not an ad blocker, I'm different
-        </div>
-      </div>
-      <div class="grid-x align-center">
-        <div class="large-3 cell">
-          {img}
-          <p class="text-justify">If you think Privacy Badger is breaking a page... If you think Privacy Badger is breaking a page.. If you think Privacy Badger is breaking a page.. If you think Privacy Badger is breaking a page..<p>
-        </div>
-      </div>
-      <div class="grid-x align-center">
-        <div class="large-3  cell">
-          <h3>Privacy is a team sport</h3>
-          <p class="text-justify">When you use Privacy Badger... When you use Privacy Badger... When you use Privacy Badger... When you use Privacy Badger... When you use Privacy Badger...  <p>
-        </div>
-      </div>
+    <div class="share-links">
+      <a class="share-facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?display=popup&u=https%3A%2F%2Feff.org">
+        <i></i>
+        <span>Share on Facebook</span>
+      </a>
+      <a class="share-twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?related=&status=I+support+a+free+and+open+Internet+by+protecting+net+neutrality.+Do+you+know+where+your+representatives+stand%3F+https%3A%2F%2Fcheckyourreps.org">
+        <i></i>
+        <span>Share on Twitter</span>
+      </a>
+      <a class="share-google" target="_blank" rel="noopener noreferrer" href="https://plus.google.com/share?url=https%3A%2F%2Fcheckyourreps.org">
+        <i></i>
+        <span>Share on Google+</span>
+      </a>
     </div>
+
+
+  <div id="thank-you" class="grid-x grid-padding-x grid-padding-y align-center">
+    <div class="small-12 text-center cell ">
+      <h3>Thank you for installing Privacy Badger!</h3>
+      <a href="#pb-features">Take a tour</a>
+    </div>
+  </div>
+
+  <div id="pb-features" class="grid-x grid-padding-x grid-padding-y grid-margin-x grid-margin-y ">
+    <div class="small-12 large-3 large-offset-4 cell">
+      {img}
+    </div>
+    <div class="small-12 large-3 cell">
+      Learn as you browse
+    </div>
+
+    <div class="small-12 large-4 large-offset-4 cell">
+      Catches sneaky trackers
+    </div>
+    <div class="small-12 large-3  cell">
+      {img}
+    </div>
+
+    <div class="small-12 large-3 large-offset-4 cell">
+      {img}
+    </div>
+    <div class="small-12 large-3 cell">
+      Not an ad blocker, I'm different
+    </div>
+  </div>
+
+  <div id="pb-setting" class="grid-x grid-margin-x grid-padding-x grid-padding-y align-center">
+    <div class="small-12 large-3 cell text-center">
+      {img}
+      <p class="text-justify">If you think Privacy Badger is breaking a page... If you think Privacy Badger is breaking a page.. If you think Privacy Badger is breaking a page.. If you think Privacy Badger is breaking a page..
+      </p>
+    </div>
+  </div>
+  <div id="pb-donate" class="grid-x grid-margin-x grid-padding-x grid-padding-y align-center">
+    <div class="small-12 large-3 cell">
+      <h3>Privacy is a team sport</h3>
+      <p class="text-justify">When you use Privacy Badger... When you use Privacy Badger... When you use Privacy Badger... When you use Privacy Badger... When you use Privacy Badger...  </p>
+    </div>
+  </div>
+</div>
 </body>
 </html>
