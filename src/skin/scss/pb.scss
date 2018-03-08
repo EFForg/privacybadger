@@ -39,7 +39,7 @@ body {
   }
 
   #intro {
-    padding: 3rem 0 5rem;
+    padding: 4rem 0rem 14rem;
   }
   [id*="pb-features-"],
   #pb-settings {
@@ -48,7 +48,7 @@ body {
     div {
       @include xy-cell(12);
       @include breakpoint(medium) {
-        @include xy-cell(3);
+        @include xy-cell(4);
       }
     }
   }
@@ -85,9 +85,9 @@ body {
     background-image:
     linear-gradient(
     $light-gray,
-    $light-gray 30%,
-    white 30%
+    $light-gray 45%,
+    white 45%
     );
-    padding: 3rem 0;
+    padding: 7rem 0;
   }
 }
