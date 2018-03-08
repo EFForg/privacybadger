@@ -24,4 +24,15 @@ body {
   p {
     font-family: $sans-light;
   }
+
+  #pb-features {
+
+  }
+  #pb-setting {
+    background-color: $primary-color;
+  }
+
+  #pb-donate {
+    background-color: $light-gray;
+  }
 }
