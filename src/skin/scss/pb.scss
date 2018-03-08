@@ -1,12 +1,21 @@
 @import 'app';
 @import 'share-links';
 @import 'base/fonts';
+@import 'base/base';
 @import 'variables/typography';
 
 body {
   font-size: $default-font-size;
   .top-bar {
+    color: white;
     background-color: $secondary-color;
+    font-family: $sans-bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    img {
+      max-width: 3rem;
+      margin-right: 1rem;
+    }
   }
   header {
     background-color: $primary-color;
@@ -25,14 +34,32 @@ body {
     font-family: $sans-light;
   }
 
-  #pb-features {
-
+  [id*="pb-features-"],
+  #pb-settings {
+    @include xy-grid;
+    div {
+      @include xy-cell(12);
+      @include breakpoint(medium) {
+        @include xy-cell(3);
+      }
+    }
   }
-  #pb-setting {
+  #pb-settings {
     background-color: $primary-color;
+    background-size: auto 10px;
   }
 
-  #pb-donate {
+  [id*="pb-donate"] {
     background-color: $light-gray;
+    @include xy-grid;
+    img {
+      max-width: 250px;
+    }
+    div {
+      @include xy-cell(12);
+      @include breakpoint(medium) {
+        @include xy-cell(4);
+      }
+    }
   }
 }
