@@ -6,11 +6,15 @@
 
 body {
   font-size: $default-font-size;
+  padding-bottom: 3rem;
+  @include breakpoint(medium) {
+    padding-bottom: 6rem;
+  }
   .top-bar {
     color: white;
     background-color: $secondary-color;
     font-family: $sans-bold;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
     img {
       max-width: 3rem;
@@ -34,9 +38,13 @@ body {
     font-family: $sans-light;
   }
 
+  #intro {
+    padding: 3rem 0 5rem;
+  }
   [id*="pb-features-"],
   #pb-settings {
     @include xy-grid;
+    padding: 3rem 0 5rem;
     div {
       @include xy-cell(12);
       @include breakpoint(medium) {
@@ -44,6 +52,7 @@ body {
       }
     }
   }
+
   #pb-settings {
     background-image:
     linear-gradient(
@@ -55,8 +64,6 @@ body {
 
   [id*="pb-donate"] {
     @include xy-grid;
-
-
     img {
       max-width: 250px;
     }
@@ -66,7 +73,14 @@ body {
         @include xy-cell(4);
       }
     }
+    span {
+      color: $secondary-color;
+      font-family: $sans-bold;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
   }
+
   #pb-donate {
     background-image:
     linear-gradient(
@@ -74,5 +88,6 @@ body {
     $light-gray 30%,
     white 30%
     );
+    padding: 3rem 0;
   }
 }
