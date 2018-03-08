@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="717 -1124 61.5 61.5">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="620 -1124 61.5 61.5">
   <defs>
     <style>
       .cls-1 {
-        fill: #ec9329;
+        fill: #f06a0a;
       }
 
       .cls-2 {
@@ -10,7 +10,7 @@
       }
     </style>
   </defs>
-  <g id="twitter" transform="translate(393 -1877)">
+  <g id="twitter" transform="translate(296 -1877)">
     <g id="XMLID_48_" transform="translate(324 753)">
       <path id="XMLID_49_" class="cls-1" d="M0,3.2V64.7H61.5V3.2Z" transform="translate(0 -3.2)"/>
     </g>

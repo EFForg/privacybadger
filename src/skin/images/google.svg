@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="882 -1123.209 61.5 61.5">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="785 -1123.209 61.5 61.5">
   <defs>
     <style>
       .cls-1 {
-        fill: #ec9329;
+        fill: #f06a0a;
       }
 
       .cls-2 {
@@ -10,7 +10,7 @@
       }
     </style>
   </defs>
-  <g id="google" transform="translate(393 -1877)">
+  <g id="google" transform="translate(296 -1877)">
     <g id="XMLID_38_" transform="translate(489 753.791)">
       <path id="XMLID_41_" class="cls-1" d="M0,190v61.5H61.5V190Z" transform="translate(0 -190)"/>
     </g>

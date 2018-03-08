@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="799 -1123.104 61.5 61.418">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="702 -1123.104 61.5 61.418">
   <defs>
     <style>
       .cls-1 {
-        fill: #ec9329;
+        fill: #f06a0a;
       }
 
       .cls-2 {
@@ -10,7 +10,7 @@
       }
     </style>
   </defs>
-  <g id="facebook" transform="translate(393 -1877)">
+  <g id="facebook" transform="translate(296 -1877)">
     <g id="XMLID_44_" transform="translate(406 753.896)">
       <path id="XMLID_45_" class="cls-1" d="M0,96.6v61.418H61.5V96.6Z" transform="translate(0 -96.6)"/>
     </g>
