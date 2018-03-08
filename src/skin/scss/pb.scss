@@ -1,11 +1,27 @@
 @import 'app';
 @import 'share-links';
+@import 'base/fonts';
+@import 'variables/typography';
 
 body {
+  font-size: $default-font-size;
   .top-bar {
     background-color: $secondary-color;
   }
   header {
     background-color: $primary-color;
+    img {
+      max-width: 200px;
+      width: 15%;
+    }
+    .title-bar {
+      h1 {
+        color: white;
+        font-family: $title-font;
+      }
+    }
+  }
+  p {
+    font-family: $sans-light;
   }
 }
