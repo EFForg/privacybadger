@@ -45,13 +45,18 @@ body {
     }
   }
   #pb-settings {
-    background-color: $primary-color;
-    background-size: auto 10px;
+    background-image:
+    linear-gradient(
+    $primary-color,
+    $primary-color 30%,
+    white 30%
+    );
   }
 
   [id*="pb-donate"] {
-    background-color: $light-gray;
     @include xy-grid;
+
+
     img {
       max-width: 250px;
     }
@@ -61,5 +66,13 @@ body {
         @include xy-cell(4);
       }
     }
+  }
+  #pb-donate {
+    background-image:
+    linear-gradient(
+    $light-gray,
+    $light-gray 30%,
+    white 30%
+    );
   }
 }
