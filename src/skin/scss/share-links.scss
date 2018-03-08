@@ -55,21 +55,21 @@ $social-link-text-width: 12.5rem;
     }
 
     &.share-twitter i {
-      background: image-url("twitter-icon.svg");
+      background: url("../images/twitter.svg");
       &:hover {
         opacity: 0.7;
       }
     }
 
     &.share-facebook i {
-      background: image-url("fb-icon.svg");
+      background: url("../images/facebook.svg");
       &:hover {
         opacity: 0.7;
       }
     }
 
     &.share-google i {
-      background: image-url("google-icon.svg");
+      background: url("../images/google.svg");
       &:hover {
         opacity: 0.7;
       }
@@ -109,7 +109,7 @@ $social-link-text-width: 12.5rem;
     @include share-links-container($social-icon-desktop-size);
     padding-bottom: 0;
     position: absolute;
-    top: 18rem;
+    top: 25rem;
     width: 55px;
 
     > a {
