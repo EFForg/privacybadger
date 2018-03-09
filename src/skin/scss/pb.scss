@@ -11,6 +11,7 @@ body {
     padding-bottom: 6rem;
   }
   .top-bar {
+    @include xy-grid;
     color: white;
     background-color: $secondary-color;
     font-family: $sans-bold;
@@ -28,12 +29,13 @@ body {
     }
   }
   header {
+    @include xy-grid;
     background-color: $primary-color;
     img {
-      max-width: 200px;
       width: 7rem;
       @include breakpoint(medium) {
-        width: 15%;
+        margin: 1rem 0 0;
+        width: 15rem;
       }
     }
     .title-bar {
@@ -56,12 +58,19 @@ body {
   }
 
   #intro {
-    padding: 4rem 0rem 14rem;
+    padding: 2rem 0rem 4rem;
+    @include breakpoint(medium) {
+      padding: 4rem 0rem 14rem;
+    }
   }
+
   [id*="pb-features-"],
   #pb-settings {
     @include xy-grid;
-    padding: 3rem 0 5rem;
+    padding: 3rem 0 2rem;
+    @include breakpoint(medium) {
+        padding: 3rem 0 5rem;
+    }
     div {
       @include xy-cell(12);
       @include breakpoint(medium) {
