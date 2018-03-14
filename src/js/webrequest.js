@@ -729,9 +729,6 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.type == "revertDomainControl") {
     badger.storage.revertUserAction(request.origin);
-    sendResponse({
-      action: badger.storage.getBestAction(request.origin)
-    });
 
   } else if (request.type == "savePopupToggle") {
     let domain = request.origin,

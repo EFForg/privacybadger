@@ -297,12 +297,7 @@ function revertDomainControl(e) {
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
     origin: origin
-  }, (response) => {
-    var defaultAction = response.action;
-    var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
-    var selector = $(selectorId);
-    selector.click();
-    $elm.removeClass('userset');
+  }, () => {
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
   });
