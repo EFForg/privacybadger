@@ -189,27 +189,8 @@ var htmlUtils = exports.htmlUtils = {
   */
   toggleBlockedStatus: function (elt,status) {
     console.log('toggle blocked status', elt, status);
-    if (status) {
-      elt.removeClass([constants.BLOCK, constants.COOKIEBLOCK, constants.ALLOW, constants.NO_TRACKING].join(" ")).addClass(status);
-      elt.addClass("userset");
-      return;
-    }
-
-    var originalAction = elt.getAttribute('data-original-action');
-    if (elt.hasClass(constants.BLOCK)) {
-      elt.toggleClass(constants.BLOCK);
-    } else if (elt.hasClass(constants.COOKIEBLOCK)) {
-      elt.toggleClass(constants.BLOCK);
-      elt.toggleClass(constants.COOKIEBLOCK);
-    } else {
-      elt.toggleClass(constants.COOKIEBLOCK);
-    }
-    if (elt.hasClass(originalAction) || (originalAction == constants.ALLOW && !(elt.hasClass(constants.BLOCK) ||
-                                                                              elt.hasClass(constants.COOKIEBLOCK)))) {
-      elt.removeClass("userset");
-    } else {
-      elt.addClass("userset");
-    }
+    elt.removeClass([constants.BLOCK, constants.COOKIEBLOCK, constants.ALLOW, constants.NO_TRACKING].join(" ")).addClass(status);
+    elt.addClass("userset");
   },
 
   /**
