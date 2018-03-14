@@ -124,7 +124,6 @@ var htmlUtils = exports.htmlUtils = {
    */
   getTrackerContainerHtml: function() {
     var trackerHtml = '' +
-      '<div id="associatedTab"></div>' +
       '<div class="keyContainer">' +
       '<div class="key">' +
       '<img src="/icons/UI-icons-red.svg" class="tooltip" title="' + i18n.getMessage("tooltip_block") + '">' +
