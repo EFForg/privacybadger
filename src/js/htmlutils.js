@@ -185,13 +185,19 @@ var htmlUtils = exports.htmlUtils = {
   /**
    * Toggle the GUI blocked status of GUI element(s)
    *
-   * @param {jQuery} elt Identify the jQuery element object(s) to manipulate
+   * @param {jQuery} $el Identify the jQuery element object(s) to manipulate
    * @param {String} status New status to set
    */
-  toggleBlockedStatus: function (elt, status) {
-    console.log('toggle blocked status', elt, status);
-    elt.removeClass([constants.BLOCK, constants.COOKIEBLOCK, constants.ALLOW, constants.NO_TRACKING].join(" ")).addClass(status);
-    elt.addClass("userset");
+  toggleBlockedStatus: function ($el, status) {
+    $el
+      .removeClass([
+        constants.BLOCK,
+        constants.COOKIEBLOCK,
+        constants.ALLOW,
+        constants.NO_TRACKING
+      ].join(" "))
+      .addClass(status)
+      .addClass("userset");
   },
 
   /**
