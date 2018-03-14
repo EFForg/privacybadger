@@ -758,22 +758,16 @@ Badger.prototype = {
    * @param {Integer} tab_id the tab we are on
    * @param {String} fqdn the third party origin to add
    * @param {String} action the action we are taking
-   *
-   **/
+   */
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
     let self = this,
       blocked = constants.BLOCKED_ACTIONS.has(action),
       origins = self.tabData[tab_id].origins,
-      previously_seen = origins.hasOwnProperty(fqdn),
       previously_blocked = constants.BLOCKED_ACTIONS.has(origins[fqdn]);
 
     origins[fqdn] = action;
 
-    if (!blocked) {
-      return;
-    }
-
-    if (previously_seen && previously_blocked) {
+    if (!blocked || previously_blocked) {
       return;
     }
 
