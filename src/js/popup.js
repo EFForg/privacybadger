@@ -122,10 +122,8 @@ function init() {
   $("#report_close").on("click", function() {
     closeOverlay();
   });
-  $(document).ready(function () {
-    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
-  });
+  $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
+  $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
 
   var version = i18n.getMessage("version") + " " + chrome.runtime.getManifest().version;
   $("#version").text(version);
