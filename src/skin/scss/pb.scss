@@ -49,6 +49,9 @@ body {
     font-family: $sans-light;
   }
 
+  .text-justify {
+    margin: 1rem 0;
+  }
   .caret-down {
     @include xy-grid;
     padding: 3rem 0 5rem;
