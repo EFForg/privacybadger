@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
-from window_utils import close_windows_with_url, switch_to_window_with_url
+from window_utils import switch_to_window_with_url
 
 
 class PopupTest(pbtest.PBSeleniumTest):
@@ -298,7 +298,6 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.get_disable_button().click()
 
-        close_windows_with_url(self.driver, self.popup_url)
         self.open_popup(close_overlay=False)
 
         # Check that popup state changed after disabling.
@@ -311,7 +310,6 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         enable_button.click()
 
-        close_windows_with_url(self.driver, self.popup_url)
         self.open_popup(close_overlay=False)
 
         # Check that popup state changed after re-enabling.
