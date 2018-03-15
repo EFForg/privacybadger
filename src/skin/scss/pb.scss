@@ -57,6 +57,10 @@ body {
     }
   }
 
+  .grid-container.full {
+    margin-bottom: 20rem;
+  }
+
   #intro {
     padding: 2rem 0rem 4rem;
     @include breakpoint(medium) {
@@ -119,7 +123,7 @@ body {
     $light-gray 30%,
     white 30%
     );
-    padding: 2rem 0;
+    padding: 4rem 0;
     @include breakpoint(medium) {
       background-image:
       linear-gradient(
