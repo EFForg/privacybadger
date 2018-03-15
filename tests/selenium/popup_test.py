@@ -206,21 +206,36 @@ class PopupTest(pbtest.PBSeleniumTest):
         # "Other element would receive the click" Selenium limitation
         self.js("$('#block-{}').click()".format(DOMAIN_ID))
 
-        close_windows_with_url(self.driver, self.popup_url)
-
         # retrieve the new action
         self.load_url(self.options_url, wait_on_site=1)
-        origins = self.js("""return %s.reduce((memo, origin) => {
-memo[origin] = badger.storage.getBestAction(origin);
-return memo;
-}, {});""" % ([DOMAIN],))
+        label = self.driver.find_element_by_css_selector(
+            'input[name="{}"][checked] + label'.format(DOMAIN))
+        new_action = label.get_attribute('data-action')
 
-        self.open_popup(close_overlay=False, origins=origins)
+        self.assertEqual(new_action, "block",
+            "The domain should be blocked on options page.")
+
+        # test toggling some more
+        self.open_popup(close_overlay=False, origins={DOMAIN:"user_block"})
 
         self.assertTrue(
             self.driver.find_element_by_id("block-" + DOMAIN_ID).is_selected(),
-            "The domain should have gotten blocked."
+            "The domain should be shown as blocked in popup."
         )
+
+        # change to "cookieblock"
+        self.js("$('#cookieblock-{}').click()".format(DOMAIN_ID))
+        # change again to "block"
+        self.js("$('#block-{}').click()".format(DOMAIN_ID))
+
+        # retrieve the new action
+        self.load_url(self.options_url, wait_on_site=1)
+        label = self.driver.find_element_by_css_selector(
+            'input[name="{}"][checked] + label'.format(DOMAIN))
+        new_action = label.get_attribute('data-action')
+
+        self.assertEqual(new_action, "block",
+            "The domain should still be blocked on options page.")
 
     def test_disable_enable_buttons(self):
         """Ensure disable/enable buttons change popup state."""
