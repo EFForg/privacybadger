@@ -156,7 +156,11 @@ function setTabToUrl(query_url) {
             self.assertTrue(origin not in self.cookieBlocked)
             self.assertTrue(origin not in self.blocked)
 
-            action_type = div.get_attribute('data-original-action')
+            # get slider state for given origin
+            label = self.driver.find_element_by_css_selector(
+                'input[name="{}"][checked] + label'.format(origin))
+            action_type = label.get_attribute('data-action')
+
             if action_type == 'allow':
                 self.nonTrackers[origin] = True
             elif action_type == 'noaction':

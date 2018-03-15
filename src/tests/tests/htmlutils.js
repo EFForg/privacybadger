@@ -126,11 +126,9 @@
       var existingHtmlExists = htmlResult.indexOf(existingHtml) > -1;
       assert.ok(existingHtmlExists, "Existing HTML should be present");
 
-      // Make sure origin and original action are set.
+      // Make sure origin is set.
       var originDataExists = htmlResult.indexOf('data-origin="' + origin + '"') > -1;
       assert.ok(originDataExists, "Origin should be set");
-      var originalActionExists = htmlResult.indexOf('data-original-action="' + action + '"') > -1;
-      assert.ok(originalActionExists, "Original action should be set");
 
       // Check for presence of DNT content.
       var dntExists = htmlResult.indexOf('id="dnt-compliant"') > -1;

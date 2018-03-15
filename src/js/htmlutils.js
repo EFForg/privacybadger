@@ -171,7 +171,7 @@ var htmlUtils = exports.htmlUtils = {
     // Construct HTML for origin.
     var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
     var originHtml = '' +
-      '<div class="' + classes.join(' ') + '" data-origin="' + origin + '" data-original-action="' + action + '">' +
+      '<div class="' + classes.join(' ') + '" data-origin="' + origin + '">' +
       '<div class="origin tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</div>' +
       '<div class="removeOrigin">&#10006</div>' +
       htmlUtils.getToggleHtml(origin, action) +

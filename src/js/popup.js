@@ -503,16 +503,12 @@ function saveToggle($clicker) {
   let origin = $clicker.attr("data-origin"),
     action;
 
-  if ($clicker.hasClass("userset") && htmlUtils.getCurrentClass($clicker) != $clicker.attr("data-original-action")) {
-    if ($clicker.hasClass(constants.BLOCK)) {
-      action = constants.BLOCK;
-    } else if ($clicker.hasClass(constants.COOKIEBLOCK)) {
-      action = constants.COOKIEBLOCK;
-    } else if ($clicker.hasClass(constants.ALLOW)) {
-      action = constants.ALLOW;
-    } else {
-      action = constants.ALLOW;
-    }
+  if ($clicker.hasClass(constants.BLOCK)) {
+    action = constants.BLOCK;
+  } else if ($clicker.hasClass(constants.COOKIEBLOCK)) {
+    action = constants.COOKIEBLOCK;
+  } else if ($clicker.hasClass(constants.ALLOW)) {
+    action = constants.ALLOW;
   }
 
   if (action) {
