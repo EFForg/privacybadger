@@ -4,6 +4,7 @@
 import json
 import time
 import unittest
+
 import pbtest
 
 from selenium.common.exceptions import TimeoutException
@@ -236,6 +237,56 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.assertEqual(new_action, "block",
             "The domain should still be blocked on options page.")
+
+    def test_reverting_control(self):
+        """Test restoring control of a domain to Privacy Badger."""
+
+        DOMAIN = "example.com"
+        DOMAIN_ID = DOMAIN.replace(".", "-")
+
+        # record the domain as cookieblocked by Badger
+        self.load_url(self.options_url, wait_on_site=1)
+        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
+            DOMAIN, "cookieblock"))
+
+        # need to preserve original window
+        # restoring control auto-closes popup
+        self.open_window()
+
+        self.open_popup(origins={DOMAIN:"cookieblock"})
+
+        # set the domain to user control
+        # click input with JavaScript to avoid "Element ... is not clickable" /
+        # "Other element would receive the click" Selenium limitation
+        self.js("$('#block-{}').click()".format(DOMAIN_ID))
+
+        # restore control to Badger
+        self.driver.find_element_by_css_selector(
+            'div[data-origin="{}"] div.honeybadgerPowered'.format(DOMAIN)
+        ).click()
+
+        # verify the domain is no longer user controlled
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.load_url(self.options_url, wait_on_site=1)
+
+        # assert the action is not what we manually clicked
+        label = self.driver.find_element_by_css_selector(
+            'input[name="{}"][checked] + label'.format(DOMAIN))
+        self.assertEqual(
+            label.get_attribute('data-action'),
+            "cookieblock",
+            "Domain's action should have been restored."
+        )
+
+        # assert the undo arrow is not displayed
+        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
+        self.assertFalse(
+            self.driver.find_element_by_css_selector(
+                'div[data-origin="{}"] div.honeybadgerPowered'.format(DOMAIN)
+            ).is_displayed(),
+            "Undo arrow should not be displayed."
+        )
 
     def test_disable_enable_buttons(self):
         """Ensure disable/enable buttons change popup state."""
