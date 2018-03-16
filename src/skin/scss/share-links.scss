@@ -108,8 +108,8 @@ $social-link-text-width: 12.5rem;
   @include breakpoint(medium) {
     @include share-links-container($social-icon-desktop-size);
     padding-bottom: 0;
-    position: absolute;
-    top: 33rem;
+    position: fixed;
+    top: 5rem;
     width: 55px;
 
     > a {
