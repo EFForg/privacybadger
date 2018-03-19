@@ -10,6 +10,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import pbtest
 import window_utils
 
+from popup_test import get_domain_slider_state
+
 SITE1_URL = "http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
 SITE2_URL = "http://eff-tracker-site2-test.s3-website-us-west-2.amazonaws.com"
 SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
@@ -157,9 +159,7 @@ function setTabToUrl(query_url) {
             self.assertTrue(origin not in self.blocked)
 
             # get slider state for given origin
-            label = self.driver.find_element_by_css_selector(
-                'input[name="{}"][checked] + label'.format(origin))
-            action_type = label.get_attribute('data-action')
+            action_type = get_domain_slider_state(self.driver, origin)
 
             if action_type == 'allow':
                 self.nonTrackers[origin] = True

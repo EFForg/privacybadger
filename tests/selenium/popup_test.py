@@ -15,6 +15,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from window_utils import switch_to_window_with_url
 
 
+def get_domain_slider_state(driver, domain):
+    label = driver.find_element_by_css_selector(
+        'input[name="{}"][checked] + label'.format(domain))
+    return label.get_attribute('data-action')
+
+
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
@@ -209,9 +215,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # retrieve the new action
         self.load_url(self.options_url, wait_on_site=1)
-        label = self.driver.find_element_by_css_selector(
-            'input[name="{}"][checked] + label'.format(DOMAIN))
-        new_action = label.get_attribute('data-action')
+        new_action = get_domain_slider_state(self.driver, DOMAIN)
 
         self.assertEqual(new_action, "block",
             "The domain should be blocked on options page.")
@@ -231,9 +235,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # retrieve the new action
         self.load_url(self.options_url, wait_on_site=1)
-        label = self.driver.find_element_by_css_selector(
-            'input[name="{}"][checked] + label'.format(DOMAIN))
-        new_action = label.get_attribute('data-action')
+        new_action = get_domain_slider_state(self.driver, DOMAIN)
 
         self.assertEqual(new_action, "block",
             "The domain should still be blocked on options page.")
@@ -272,13 +274,9 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.load_url(self.options_url, wait_on_site=1)
 
         # assert the action is not what we manually clicked
-        label = self.driver.find_element_by_css_selector(
-            'input[name="{}"][checked] + label'.format(DOMAIN))
-        self.assertEqual(
-            label.get_attribute('data-action'),
-            "cookieblock",
-            "Domain's action should have been restored."
-        )
+        action = get_domain_slider_state(self.driver, DOMAIN)
+        self.assertEqual(action, "cookieblock",
+            "Domain's action should have been restored.")
 
         # assert the undo arrow is not displayed
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
