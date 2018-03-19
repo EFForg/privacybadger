@@ -51,8 +51,6 @@ var i18n = chrome.i18n;
 var originCache = null;
 var settings = badger.storage.getBadgerStorageObject("settings_map");
 
-let migrations = require("migrations").Migrations;
-
 /*
  * Loads options from pb storage and sets UI elements accordingly.
  */
@@ -182,25 +180,15 @@ function parseUserDataFile(storageMapsList) {
     return confirm(i18n.getMessage("invalid_json"));
   }
 
-  for (let map in lists) {
-    var storageMap = badger.storage.getBadgerStorageObject(map);
-
-    if (storageMap) {
-      storageMap.merge(lists[map]);
-    }
-  }
-
-  // fix yellowlist getting out of sync
-  migrations.reapplyYellowlist(badger);
-
-  // remove any non-tracking domains (in exports from older Badger versions)
-  migrations.forgetNontrackingDomains(badger);
-
-  // Update list to reflect new status of map
-  reloadWhitelist();
-  refreshFilterPage();
-  var importSuccessful = i18n.getMessage("import_successful");
-  confirm(importSuccessful);
+  chrome.runtime.sendMessage({
+    type: "mergeUserData",
+    data: lists
+  }, () => {
+    // Update list to reflect new status of map
+    reloadWhitelist();
+    refreshFilterPage();
+    confirm(i18n.getMessage("import_successful"));
+  });
 }
 
 /**

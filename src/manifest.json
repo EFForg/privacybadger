@@ -35,11 +35,11 @@
       "js/storage.js",
       "js/utils.js",
       "js/htmlutils.js",
-      "js/webrequest.js",
       "js/heuristicblocking.js",
       "js/socialwidgetloader.js",
       "js/migrations.js",
       "js/firefoxandroid.js",
+      "js/webrequest.js",
       "js/background.js"
     ]
   },
