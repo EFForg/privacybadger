@@ -47,6 +47,7 @@ bac-assets.com
 bandcamp.com
 bankid.no
 bankrate.com
+bazaarvoice.com
 bcbits.com
 betterttv.net
 www.bing.com
@@ -83,6 +84,7 @@ cleanprint.net
 cleveland.com
 cloudflare.com
 cloudfront.net
+cloudinary.com
 bbb.org
 bbc.co.uk
 bbci.co.uk
@@ -328,6 +330,7 @@ kinja-static.com
 klarna.com
 klarnacdn.net
 klm.com
+kxcdn.com
 licdn.com
 licensebuttons.net
 addon.lidl.de
@@ -518,6 +521,7 @@ targetimg1.com
 targetimg2.com
 technorati.com
 tegna-media.com
+textalk.se
 theplatform.com
 tile.thunderforest.com
 timeinc.net

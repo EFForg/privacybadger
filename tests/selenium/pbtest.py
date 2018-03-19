@@ -8,7 +8,7 @@ import time
 from functools import wraps
 
 from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
@@ -294,15 +294,23 @@ class PBSeleniumTest(unittest.TestCase):
         self.js('window.open()')
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    def load_url(self, url, wait_on_site=0, wait_for_body_text=False):
+    def load_url(self, url, wait_on_site=0, wait_for_body_text=False, retries=5):
         """Load a URL and wait before returning."""
-        self.driver.get(url)
+        for i in range(retries):
+            try:
+                self.driver.get(url)
+                break
+            except TimeoutException as e:
+                if i < retries - 1:
+                    continue
+                raise e
         self.driver.switch_to.window(self.driver.current_window_handle)
 
-        # wait until document.body.textContent isn't blank
         if wait_for_body_text:
-            retry_until(lambda: bool(
-                self.driver.find_element_by_tag_name('body').text))
+            retry_until(
+                lambda: bool(self.driver.find_element_by_tag_name('body').text),
+                msg="Waiting for document.body.textContent to get populated ..."
+            )
 
         time.sleep(wait_on_site)
 
