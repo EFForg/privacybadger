@@ -234,7 +234,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertNotIn('Dnt', headers, "DNT header should have been missing")
 
     def test_navigator_object(self):
-        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL)
+        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
 
         self.assertEqual(
             self.driver.find_element_by_tag_name('body').text,
@@ -245,7 +245,7 @@ class DNTTest(pbtest.PBSeleniumTest):
     def test_navigator_left_alone_when_disabled(self):
         self.disable_badger_on_site(DNTTest.NAVIGATOR_DNT_TEST_URL)
 
-        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL)
+        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         self.assertEqual(

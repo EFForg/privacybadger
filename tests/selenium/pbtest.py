@@ -294,10 +294,16 @@ class PBSeleniumTest(unittest.TestCase):
         self.js('window.open()')
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    def load_url(self, url, wait_on_site=0):
+    def load_url(self, url, wait_on_site=0, wait_for_body_text=False):
         """Load a URL and wait before returning."""
         self.driver.get(url)
         self.driver.switch_to.window(self.driver.current_window_handle)
+
+        # wait until document.body.textContent isn't blank
+        if wait_for_body_text:
+            retry_until(lambda: bool(
+                self.driver.find_element_by_tag_name('body').text))
+
         time.sleep(wait_on_site)
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
