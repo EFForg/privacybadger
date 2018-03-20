@@ -611,11 +611,6 @@ function showTrackingDomains(domains) {
       },
       stop: function(event, ui) {
         $(ui.handle).css('margin-left', -16 * ui.value + 'px');
-
-        // Save change for origin.
-        var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-        var setting = htmlUtils.getCurrentClass($(this).parents('.clicker'));
-        syncSettings(origin, setting);
       },
     }).appendTo(this);
 
@@ -674,6 +669,11 @@ function updateOrigin(event) {
     htmlUtils.getActionDescription(action, $clicker.data('origin'))
   );
   $clicker.find('.origin').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
+
+  // persist the change
+  var origin = $clicker.attr("data-origin");
+  var setting = htmlUtils.getCurrentClass($clicker);
+  syncSettings(origin, setting);
 }
 
 /**
