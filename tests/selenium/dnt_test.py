@@ -39,13 +39,16 @@ class DNTTest(pbtest.PBSeleniumTest):
         return self.js("""return (
   Object.keys(badger.tabData).some(tab_id => {{
     let origins = badger.tabData[tab_id].origins;
-    return origins.hasOwnProperty('{}') && !!origins['{}'];
+    return origins.hasOwnProperty('{}') && constants.BLOCKED_ACTIONS.has(origins['{}']);
   }})
 );""".format(domain, domain))
 
+    @pbtest.repeat_if_failed(3)
     def test_dnt_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
-"""https://cdn.rawgit.com/ghostwords/74585c942a918509b20bf2db5659646e/raw/f42d25717e5b4f735c7affa527a2e0b62286c005/privacy_badger_dnt_test_fixture.html"""
+            "https://cdn.rawgit.com/ghostwords/"
+            "74585c942a918509b20bf2db5659646e/raw/f42d25717e5b4f735c7affa527a2e0b62286c005/"
+            "privacy_badger_dnt_test_fixture.html"
         )
         DNT_DOMAIN = "www.eff.org"
         BLOCK_DOMAIN_JS = """(function () {{
