@@ -39,7 +39,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         return self.js("""return (
   Object.keys(badger.tabData).some(tab_id => {{
     let origins = badger.tabData[tab_id].origins;
-    return origins.hasOwnProperty('{}') && !!origins['{}'];
+    return origins.hasOwnProperty('{}') && constants.BLOCKED_ACTIONS.has(origins['{}']);
   }})
 );""".format(domain, domain))
 

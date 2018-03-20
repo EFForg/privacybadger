@@ -23,6 +23,7 @@ function setup_firefox {
       # check that we got something
       if [ -z "$version" ]; then
         echo "Failed to determine the latest geckodriver version!"
+        sleep 60
         exit 1
       fi
     fi
