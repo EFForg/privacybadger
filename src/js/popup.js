@@ -499,15 +499,7 @@ function updateOrigin(event) {
  */
 function saveToggle($clicker) {
   let origin = $clicker.attr("data-origin"),
-    action;
-
-  if ($clicker.hasClass(constants.BLOCK)) {
-    action = constants.BLOCK;
-  } else if ($clicker.hasClass(constants.COOKIEBLOCK)) {
-    action = constants.COOKIEBLOCK;
-  } else if ($clicker.hasClass(constants.ALLOW)) {
-    action = constants.ALLOW;
-  }
+    action = htmlUtils.getCurrentClass($clicker);
 
   if (action) {
     chrome.runtime.sendMessage({
