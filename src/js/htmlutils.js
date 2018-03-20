@@ -231,20 +231,18 @@ var htmlUtils = exports.htmlUtils = {
   },
 
   /**
-  * Get the action class from the element
-  *
-  * @param elt Element
-  * @returns {String} block/cookieblock/noaction
-  */
-  getCurrentClass: function(elt) {
-    if (elt.hasClass(constants.BLOCK)) {
+   * Get the action from the element's classes
+   *
+   * @param {jQuery} $el - the clicker element
+   * @returns {String} the action
+   */
+  getCurrentClass: function ($el) {
+    if ($el.hasClass(constants.BLOCK)) {
       return constants.BLOCK;
-    } else if (elt.hasClass(constants.COOKIEBLOCK)) {
+    } else if ($el.hasClass(constants.COOKIEBLOCK)) {
       return constants.COOKIEBLOCK;
-    } else if (elt.hasClass(constants.ALLOW)) {
+    } else if ($el.hasClass(constants.ALLOW)) {
       return constants.ALLOW;
-    } else {
-      return constants.NO_TRACKING;
     }
   },
 
