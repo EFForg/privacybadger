@@ -9,6 +9,12 @@ function setup_chrome {
     wget -q -O /tmp/chromedriver.zip "$url"
     sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
     sudo chmod a+x /usr/local/bin/chromedriver
+
+    # check that chromedriver is now present
+    type chromedriver >/dev/null 2>&1 || {
+      echo "Failed to install chromedriver!"
+      exit 1
+    }
 }
 
 function setup_firefox {
