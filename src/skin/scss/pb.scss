@@ -80,6 +80,7 @@ body {
     }
     div {
       @include xy-cell(12);
+      text-align: center;
       @include breakpoint(medium) {
         @include xy-cell(4);
       }
@@ -88,8 +89,11 @@ body {
       text-align: center;
       margin-top: 1rem;
       @include breakpoint(medium) {
-        text-align: inherit;
+        text-align: left;
       }
+    }
+    .text, p {
+      text-align: left;
     }
   }
 
