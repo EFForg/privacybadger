@@ -24,7 +24,7 @@ class DNTTest(pbtest.PBSeleniumTest):
     # once race condition (https://crbug.com/478183) is fixed
     NAVIGATOR_DNT_TEST_URL = (
         "https://cdn.rawgit.com/ghostwords/"
-        "1c50869a0469e38d5dabd53f1204d3de/raw/35732fef159fe3cbee66b6fdb4a91388039cda27/"
+        "1c50869a0469e38d5dabd53f1204d3de/raw/01e06af8d2b3e35228bf8f000bdc12d0b2871b64/"
         "privacy-badger-navigator-donottrack-delayed-fixture.html"
         # non-delayed version:
         #"9fc6900566a2f93edd8e4a1e48bbaa28/raw/741627c60ca53be69bc11bf21d6d1d0b42edb52a/"
