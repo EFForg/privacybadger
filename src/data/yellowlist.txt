@@ -316,7 +316,9 @@ jwpcdn.com
 jwpltx.com
 content.jwplatform.com
 cdnapi.kaltura.com
+cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
+cdnsecakmi.kaltura.com
 cfvod.kaltura.com
 www.kaltura.com
 kampyle.com
