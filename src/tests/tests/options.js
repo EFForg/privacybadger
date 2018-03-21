@@ -11,6 +11,7 @@
       "alsoblocked.org": "block",
       "cookieblocked.biz": "cookieblock",
       "userAllowed.net": "user_allow",
+      "dntDomain.co.uk": "dnt",
     };
 
     const tests = [
@@ -32,7 +33,7 @@
       {
         msg: "Status filter",
         args: [origins, "", "", "allow"],
-        expected: ["allowed.com", "userAllowed.net"]
+        expected: ["allowed.com", "userAllowed.net", "dntDomain.co.uk"]
       },
       {
         msg: "Text filter",
@@ -52,11 +53,16 @@
       {
         msg: "Negative text filter",
         args: [origins, "-.org"],
-        expected: ["allowed.com", "cookieblocked.biz", "userAllowed.net"]
+        expected: [
+          "allowed.com",
+          "cookieblocked.biz",
+          "userAllowed.net",
+          "dntDomain.co.uk",
+        ]
       },
       {
         msg: "Multiple negative text filter",
-        args: [origins, "-.net -cookie"],
+        args: [origins, "-.net -cookie -.co.uk"],
         expected: ["allowed.com", "blocked.org", "alsoblocked.org"]
       },
       {
