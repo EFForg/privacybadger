@@ -143,7 +143,6 @@ function onBeforeRequest(details) {
  */
 function onBeforeSendHeaders(details) {
   let frame_id = details.frameId,
-    headers = details.requestHeaders,
     tab_id = details.tabId,
     type = details.type,
     url = details.url;
@@ -153,9 +152,10 @@ function onBeforeSendHeaders(details) {
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
       let newHeaders = [];
-      for (let i = 0, count = headers.length; i < count; i++) {
-        if (headers[i].name.toLowerCase() != "cookie") {
-          newHeaders.push(headers[i]);
+      for (let i = 0, count = details.requestHeaders.length; i < count; i++) {
+        let header = details.requestHeaders[i];
+        if (header.name.toLowerCase() != "cookie") {
+          newHeaders.push(header);
         }
       }
       return {
@@ -170,9 +170,13 @@ function onBeforeSendHeaders(details) {
   var requestDomain = window.extractHostFromURL(url);
 
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
-    // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-    headers.push({name: "DNT", value: "1"});
-    return {requestHeaders: headers};
+    if (badger.isPrivacyBadgerEnabled(tabDomain)) {
+      // Still sending Do Not Track even if HTTP and cookie blocking are disabled
+      details.requestHeaders.push({name: "DNT", value: "1"});
+      return {requestHeaders: details.requestHeaders};
+    } else {
+      return {};
+    }
   }
 
   var requestAction = checkAction(tab_id, requestDomain, frame_id);
@@ -195,8 +199,7 @@ function onBeforeSendHeaders(details) {
   }
 
   if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
-    headers.push({name: "DNT", value: "1"});
-    return {requestHeaders: headers};
+    return {};
   }
 
   // This will only happen if the above code sets the action for the request
@@ -231,7 +234,7 @@ function onBeforeSendHeaders(details) {
 
   // This is the typical codepath
   if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-    var newHeaders = headers.filter(function(header) {
+    let newHeaders = details.requestHeaders.filter(function (header) {
       return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
     });
     newHeaders.push({name: "DNT", value: "1"});
@@ -240,8 +243,8 @@ function onBeforeSendHeaders(details) {
 
   // if we are here, we're looking at a third party
   // that's not yet blocked or cookieblocked
-  headers.push({name: "DNT", value: "1"});
-  return {requestHeaders: headers};
+  details.requestHeaders.push({name: "DNT", value: "1"});
+  return {requestHeaders: details.requestHeaders};
 }
 
 /**
