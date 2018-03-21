@@ -1,5 +1,5 @@
 {
-  "version": "2018.2.5",
+  "version": "2018.3.21",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
@@ -58,6 +58,7 @@
       "js": [
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
+        "js/contentscripts/dnt.js",
         "js/contentscripts/fingerprinting.js"
       ],
       "matches": [
