@@ -86,10 +86,12 @@ body {
       }
     }
     h3 {
+      font-size: 1.5rem;
       text-align: center;
       margin-top: 1rem;
       @include breakpoint(medium) {
         text-align: left;
+        font-size: 1.9375rem;
       }
     }
     .text, p {
@@ -122,10 +124,12 @@ body {
       }
     }
     h3 {
+      font-size: 1.5rem;
       text-align: center;
       margin-top: 1rem;
       @include breakpoint(medium) {
-        text-align: inherit;
+        text-align: left;
+        font-size: 1.9375rem;
       }
     }
     span {
