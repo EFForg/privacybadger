@@ -181,6 +181,19 @@ var multiDomainFirstPartiesArray = [
   ["github.com", "githubapp.com"],
   ["gizmodo.com", "kinja-img.com", "kinja-static.com", "deadspin.com", "lifehacker.com",
     "technoratimedia.com", "kinja.com", "jalopnik.com", "jezebel.com"],
+  [
+    "glassdoor.com",
+
+    "glassdoor.be",
+    "glassdoor.ca",
+    "glassdoor.co.in",
+    "glassdoor.com.au",
+    "glassdoor.co.uk",
+    "glassdoor.de",
+    "glassdoor.fr",
+    "glassdoor.ie",
+    "glassdoor.nl",
+  ],
   ["gogoair.com", "gogoinflight.com"],
   [
     "google.com",
