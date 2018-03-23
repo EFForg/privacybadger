@@ -233,6 +233,7 @@ var multiDomainFirstPartiesArray = [
     "google.com.uy",
     "google.com.vn",
     "google.co.ao",
+    "google.co.cr",
     "google.co.id",
     "google.co.il",
     "google.co.in",
