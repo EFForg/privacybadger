@@ -98,7 +98,9 @@ gr-assets.com
 guardian.co.uk
 media-imdb.com
 mediaworks.co.nz
+cc.cnetcontent.com
 cdn.cnetcontent.com
+ws.cnetcontent.com
 com.com
 complex.com
 convio.net
