@@ -40,6 +40,7 @@ cdn.arstechnica.net
 aspnetcdn.com
 c64.assets-yammer.com
 assetfiles.com
+assets-cdk.com
 authorize.net
 autoforums.com
 azureedge.net
