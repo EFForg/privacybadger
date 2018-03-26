@@ -1,73 +1,186 @@
 <!DOCTYPE html>
 <!--
-  - This file is part of Adblock Plus <http://adblockplus.org/>,
-  - Copyright (C) 2006-2013 Eyeo GmbH
-  -
-  - Adblock Plus is free software: you can redistribute it and/or modify
-  - it under the terms of the GNU General Public License version 3 as
-  - published by the Free Software Foundation.
-  -
-  - Adblock Plus is distributed in the hope that it will be useful,
-  - but WITHOUT ANY WARRANTY; without even the implied warranty of
-  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  - GNU General Public License for more details.
-  -
-  - You should have received a copy of the GNU General Public License
-  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
-  --> <html> <head>
-    <title class="i18n_firstRun_title"></title>
-    <meta charset="utf-8">
-    <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/lib/vendor/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/lib/jquery.jcarousel-core.min.js"></script>
-    <script type="text/javascript" src="/skin/firstRun.js"></script>
-    <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css" rel="stylesheet" />
-    <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css" rel="stylesheet" />
-    <link type="text/css" href="/skin/firstRun.css" rel="stylesheet" />
-    <style>
-      </style>
-  </head>
-  <body>
-      <!--p class="i18n_first_run_text"></p -->
-    <div id="header-container">
-      <div id='eff-header-wrapper'><div id="eff-header"><a href="https://www.eff.org"><img src="/skin/eff-logo.png" width=45 height=32><span class="i18n_intro_by_eff eff-text"></span></a></div></div>
-      <div id="badger-header-wrapper"><div id='badger-header'><img id="header-banner-img" src="/icons/PB-header-1.png"></div> </div>
+- This file is part of Adblock Plus <http://adblockplus.org/>,
+- Copyright (C) 2006-2013 Eyeo GmbH
+-
+- Adblock Plus is free software: you can redistribute it and/or modify
+- it under the terms of the GNU General Public License version 3 as
+- published by the Free Software Foundation.
+-
+- Adblock Plus is distributed in the hope that it will be useful,
+- but WITHOUT ANY WARRANTY; without even the implied warranty of
+- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- GNU General Public License for more details.
+-
+- You should have received a copy of the GNU General Public License
+- along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <title class="i18n_firstRun_title"></title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" href="css/pb.css" rel="stylesheet" />
+  <script type="text/javascript" src="js/jquery.min.js" ></script>
+  <script type="text/javascript" src="js/jquery.smooth-scroll.js" ></script>
+  <script type="text/javascript" src="js/pb.js" ></script>
+
+</head>
+<body>
+  <div class="grid-container full">
+    <div class="top-bar small-12 align-center cell">
+      <img src ="images/eff-logo.png" alt="eff logo">
+      A Project of the Electronic Frontier Foundation
     </div>
 
-    <div id="slideshow" class="maintext">
-      <div class="jcarousel-wrapper">
-        <div class="jcarousel">
-          <ul>
-            <li><img src='/icons/slideshow/PB-layouts-01.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-02.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-03.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-04.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-05.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-06.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-07.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-08.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-09.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-10.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-11.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-12.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-12a.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-13.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-14.png' alt=''></li>
-            <li><img src='/icons/slideshow/PB-layouts-15.png' alt=''></li>
-          </ul>
-        </div>
-        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-        <p class="jcarousel-pagination"></p>
+    <header class="grid-padding-y align-center">
+      <div class="small-12 text-center cell">
+        <img src="images/pb-logo.svg" alt="privacy badger logo">
+      </div>
+      <div class="title-bar small-12 text-center cell">
+        <h1>Privacy Badger</h1>
+      </div>
+    </header>
+
+    <!-- intro -->
+    <div id="intro" class="grid-x grid-padding-x align-center">
+      <div class="small-12 medium-10 text-center cell">
+        <h3>Thank you for installing Privacy Badger!</h3>
+      </div>
+      <div class="small-12 medium-10 large-4 text cell">
+        <p>Privacy Badger is a browser extension that discovers
+          invisible trackers and blocks them. Take a minute to see how.
+        </p>
+      </div>
+      <div class="small-12 text-center cell">
+        <a href="#pb-features-1" class="button large scroll-it">Take a tour</a>
+      </div>
+
+    </div>
+
+    <!-- privacy badger features -->
+    <div id="pb-features-1" class="align-center">
+      <div>
+        <img src="images/learn-browse.png" alt="image of how privacy badger learns">
+      </div>
+      <div>
+        <h3>Learns as you browse</h3>
+        <p>
+          Is your Badger not blocking anything yet? Keep browsing! Instead
+          of keeping lists of what to block, Privacy Badger is smart and
+          automatically discovers trackers as you browse the Web. So start
+          browsing a little to teach your Badger.
+        </p>
       </div>
     </div>
-
-    <div id="social-links">
-      <h3 class="i18n_intro_social_share"></h3>
-        <a target=_blank href="https://twitter.com/home?status=I%20just%20installed%20Privacy%20Badger%2C%20a%20new%20tool%20from%20@EFF%20to%20stop%20companies%20from%20spying%20on%20your%20browsing%20habits%20https%3A%2F%2Feff.org%2Fprivacybadger&related=eff"><img src="/icons/t.png" title="i18n_share_button_title_twitter"></a>
-        <a href="https://www.facebook.com/share.php?u=https%3A%2F%2Feff.org%2Fprivacybadger" target="_blank"><img src="/icons/f.png" title="i18n_share_button_title_facebook"></a>
-        <a href="https://plus.google.com/share?url=https%3A%2F%2Feff.org%2Fprivacybadger" target=_blank><img src="/icons/g.png" title="i18n_share_button_title_google"></a>
+    <div id="pb-features-2" class="align-center ">
+      <div class="cell hide-for-small-only">
+        <h3>Catches sneaky trackers</h3>
+        <p>
+          Invisible tracking happens in all sorts of ways; ads are just the
+          visible tip of the iceberg. Privacy Badger sends a signal to all
+          third-party trackers telling them not to track you. If they ignore
+          your wishes, your badger will learn to block them—whether they are
+          advertisers or trackers of other kinds.
+        <p>
+        </div>
+        <div class="small-12 large-3 cell">
+          <img src="images/catches-sneaky.png" alt="how privacy badger catches trackers">
+        </div>
+        <div class="cell hide-for-large hide-for-medium">
+          <h3>Catches sneaky trackers</h3>
+          <p>
+            Invisible tracking happens in all sorts of ways; ads are just the
+            visible tip of the iceberg. Privacy Badger sends a signal to all
+            third-party trackers telling them not to track you. If they ignore
+            your wishes, your badger will learn to block them—whether they are
+            advertisers or trackers of other kinds.
+          <p>
+          </div>
+      </div>
+      <div id="pb-features-3" class="align-center ">
+        <div class="cell">
+          <img src="images/not-ad-blocker.png" alt="privacy badger is a tracker blocker, not an ad blocker">
+        </div>
+        <div class="cell">
+          <h3>Not an ad blocker, I'm different</h3>
+          <p>
+            Privacy Badger starts blocking once it sees that tracker on three
+            different websites. Three strikes and it's out! (That's how we
+            determine a tracker is "tracking" you.) If you use other privacy
+            tools or ad blockers, great! Privacy Badger will learn much less,
+            but that's OK, it will catch whatever your other blockers miss.
+          </p>
+        </div>
+      </div>
+      <div class="caret-down align-center">
+        <a href="#pb-settings" class="scroll-it"><img src="images/carrot-down.svg" alt="scroll down to settings section"></a>
+      </div>
+      <!-- privacy badger settings -->
+      <div id="pb-settings" class="align-center">
+        <div class="text">
+          <img src="images/disable-pb.png" alt="How to disable privacy badger">
+          <p class="text">
+            If you think Privacy Badger is breaking a page, you can click the
+            'Disable' button. It will make your Badger sleep for that website
+            and won't block anything on it.
+          </p>
+          <p>
+            Please don't forget to click on 'Did Privacy Badger break this
+            site'. We respect your privacy so we don't send automatic reports.
+          </p>
+          <p>
+            Your Badger learns all by itself. Privacy badger will NEVER share
+            data about what sites you visit unless you choose to report an error.
+          </p>
+        </div>
+      </div>
+      <div class="caret-down align-center">
+        <a href="#pb-donate"  class="scroll-it"><img src="images/carrot-down.svg" alt="scroll down to donate section"></a>
+      </div>
+      <!-- donate ask -->
+      <div id="pb-donate" class="align-center">
+        <div class="text-center">
+          <img src="images/pb-logo-outline.svg" alt="privacy badger logo">
+          <h3>Privacy is a team sport!</h3>
+          <p class="text">
+            When you use Privacy Badger you join EFF and millions of other
+            users to fight for privacy. We are a non-profit fighting for your
+            rights on-line, thanks for joining us!
+          </p>
+          <p>
+            Help us by donating and sharing your support!
+          </p>
+        </div>
+      </div>
+      <div id="pb-donate-button" class="align-center">
+        <div class="text-center">
+          <a class="button large" href="https://supporters.eff.org/donate/support-privacy-badger">Donate</a>
+        </div>
+      </div>
+      <div id="pb-donate-help" class="align-center">
+        <span>Help us by donating and sharing your support for our tools</span>
+      </span>
     </div>
-  </body>
+
+    <!-- social media icons -->
+    <div class="share-links">
+      <a class="share-facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/share.php?u=https%3A%2F%2Feff.org%2Fprivacybadger">
+        <i></i>
+        <span>Share on Facebook</span>
+      </a>
+      <a class="share-twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/home?status=I%20just%20installed%20Privacy%20Badger%2C%20a%20new%20tool%20from%20@EFF%20to%20stop%20companies%20from%20spying%20on%20your%20browsing%20habits%20https%3A%2F%2Feff.org%2Fprivacybadger&related=eff">
+        <i></i>
+        <span>Share on Twitter</span>
+      </a>
+      <a class="share-google" target="_blank" rel="noopener noreferrer" href="https://plus.google.com/share?url=https%3A%2F%2Feff.org%2Fprivacybadger">
+        <i></i>
+        <span>Share on Google+</span>
+      </a>
+    </div>
+  </div>
+</body>
 </html>

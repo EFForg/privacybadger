@@ -1,0 +1,170 @@
+@import 'app';
+@import 'share-links';
+@import 'base/fonts';
+@import 'base/base';
+@import 'variables/typography';
+
+body {
+  font-size: $default-font-size;
+  padding-bottom: 3rem;
+  @include breakpoint(medium) {
+    padding-bottom: 6rem;
+  }
+  .top-bar {
+    @include xy-grid;
+    color: white;
+    background-color: $secondary-color;
+    font-family: $sans-bold;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    @include breakpoint(medium) {
+      font-size: 0.9rem;
+    }
+    img {
+      max-width: 3rem;
+      margin-right: 0.2rem;
+      @include breakpoint(medium) {
+        margin-right: 1rem;
+      }
+    }
+  }
+  header {
+    @include xy-grid;
+    background-color: $primary-color;
+    img {
+      width: 7rem;
+      @include breakpoint(medium) {
+        margin: 1rem 0 0;
+        width: 15rem;
+      }
+    }
+    .title-bar {
+      h1 {
+        color: white;
+        font-family: $title-font;
+      }
+    }
+  }
+  p {
+    font-family: $sans-light;
+  }
+
+  .text {
+    margin: 1rem 0;
+  }
+  .caret-down {
+    @include xy-grid;
+    padding: 3rem 0 5rem;
+    img {
+      width: 5rem;
+    }
+  }
+
+  .grid-container.full {
+    margin-bottom: 20rem;
+  }
+
+  #intro {
+    padding: 2rem 0rem 4rem;
+    @include breakpoint(medium) {
+      padding: 4rem 0rem 14rem;
+    }
+  }
+
+  [id*="pb-features-"],
+  #pb-settings {
+    @include xy-grid;
+    padding: 3rem 0 2rem;
+    @include breakpoint(medium) {
+        padding: 3rem 0 5rem;
+    }
+    div {
+      @include xy-cell(12);
+      text-align: center;
+      @include breakpoint(medium) {
+        @include xy-cell(4);
+      }
+    }
+    h3 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 1rem;
+      @include breakpoint(medium) {
+        text-align: left;
+        font-size: 1.9375rem;
+      }
+    }
+    .text, p {
+      text-align: left;
+    }
+  }
+
+  #pb-settings {
+    background-image:
+    linear-gradient(
+    $primary-color,
+    $primary-color 30%,
+    white 30%
+    );
+  }
+
+  [id*="pb-donate"] {
+    @include xy-grid;
+    img {
+      max-width: 200px;
+      @include breakpoint(medium) {
+        max-width: 250px;
+      }
+
+    }
+    div {
+      @include xy-cell(12);
+      @include breakpoint(medium) {
+        @include xy-cell(4);
+      }
+    }
+    h3 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 1rem;
+      @include breakpoint(medium) {
+        text-align: left;
+        font-size: 1.9375rem;
+      }
+    }
+    span {
+      color: $secondary-color;
+      font-family: $sans-bold;
+      font-size: 0.9rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+
+  #pb-donate {
+    background-image:
+    linear-gradient(
+    $light-gray,
+    $light-gray 30%,
+    white 30%
+    );
+    padding: 4rem 0;
+    @include breakpoint(medium) {
+      background-image:
+      linear-gradient(
+      $light-gray,
+      $light-gray 45%,
+      white 45%
+      );
+      padding: 7rem 0;
+    }
+
+  }
+
+  #pb-donate-help {
+    margin-bottom: 0;
+    @include breakpoint(medium) {
+      margin-bottom: 5rem;
+    }
+  }
+}
