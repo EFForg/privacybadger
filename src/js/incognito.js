@@ -41,6 +41,7 @@ function learningEnabled(tabId) {
 /************************************** exports */
 var exports = {};
 exports.startListeners = startListeners;
+exports.tabIsIncognito = tabIsIncognito;
 exports.learningEnabled = learningEnabled;
 
 return exports;
