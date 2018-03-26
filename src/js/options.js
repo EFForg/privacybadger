@@ -97,6 +97,7 @@ function loadOptions() {
       // update options page URL fragment identifier
       // to preserve selected tab on page reload
       window.location.hash = ui.newPanel.attr('id');
+      window.scrollTo(0,0);
     }
   });
   $("button").button();
