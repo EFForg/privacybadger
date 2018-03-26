@@ -7,8 +7,32 @@ require.scopes.multiDomainFP = (function() {
 var multiDomainFirstPartiesArray = [
   ["1800contacts.com", "800contacts.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
-  ["abcnews.com", "go.com", "espn.com", "espncdn.com", "disneymoviesanywhere.com", "disney.com", "dadt.com",
-    "6abc.com", "abc7.com", "abc7ny.com"],
+  [
+    "abcnews.com",
+    "6abc.com",
+    "abc7.com",
+    "abc7ny.com",
+
+    "go.com",
+
+    "espn.com",
+    "espncdn.com",
+
+    "espn.com.au",
+    "espn.com.br",
+    "espn.co.uk",
+
+    "espncricinfo.com",
+
+    "espnfc.com",
+    "espnfc.us",
+
+    "fivethirtyeight.com",
+
+    "disney.com",
+    "disneymoviesanywhere.com",
+    "dadt.com",
+  ],
   ["accountonline.com", "citi.com", "citibank.com", "citicards.com", "citibankonline.com"],
   ["allstate.com", "myallstate.com"],
   ["altra.org", "altraonline.org"],
@@ -137,8 +161,23 @@ var multiDomainFirstPartiesArray = [
   ],
   ["express-scripts.com", "medcohealth.com"],
   ["facebook.com", "fbcdn.com", "fbcdn.net", "facebook.net", "messenger.com"],
-  ["firefox.com", "mozilla.org"],
+  ["firefox.com", "firefoxusercontent.com", "mozilla.org"],
   ["foxnews.com", "foxbusiness.com", "fncstatic.com"],
+  [
+    "gettyimages.com",
+
+    "gettyimages.ca",
+    "gettyimages.com.au",
+    "gettyimages.co.uk",
+    "gettyimages.dk",
+    "gettyimages.fi",
+    "gettyimages.nl",
+
+    "istockphoto.com",
+
+    "thinkstockphotos.com",
+    "thinkstockphotos.ca",
+  ],
   ["github.com", "githubapp.com"],
   ["gizmodo.com", "kinja-img.com", "kinja-static.com", "deadspin.com", "lifehacker.com",
     "technoratimedia.com", "kinja.com", "jalopnik.com", "jezebel.com"],
@@ -194,6 +233,7 @@ var multiDomainFirstPartiesArray = [
     "google.com.uy",
     "google.com.vn",
     "google.co.ao",
+    "google.co.cr",
     "google.co.id",
     "google.co.il",
     "google.co.in",
@@ -297,6 +337,7 @@ var multiDomainFirstPartiesArray = [
   ["myuv.com", "uvvu.com"],
   ["nefcuonline.com", "nefcu.com"],
   ["netflix.com", "nflxext.com", "nflximg.net", "nflxvideo.net"],
+  ["newegg.com", "neweggbusiness.com", "newegg.ca"],
   ["norsk-tipping.no", "buypass.no"],
   ["nymag.com", "vulture.com", "grubstreet.com"],
   ["nypublicradio.org", "radiolab.org", "wnyc.org", "wqxr.org", "thegreenespace.org"],
@@ -331,6 +372,7 @@ var multiDomainFirstPartiesArray = [
   ["siriusxm.com", "sirius.com"],
   ["skygo.co.nz", "skytv.co.nz"],
   ["skysports.com", "skybet.com", "skyvegas.com"],
+  ["slickdeals.net", "slickdealscdn.com"],
   ["snapfish.com", "snapfish.ca"],
   ["sony.com", "sonyrewards.com"],
   ["soundcu.com", "netteller.com"],
@@ -353,7 +395,7 @@ var multiDomainFirstPartiesArray = [
   ["vk.com", "vk.me", "vkontakte.ru"],
   ["volkskrant.nl", "persgroep.net", "persgroep.nl", "parool.nl"],
   ["volvooceanrace.com", "virtualregatta.com"],
-  ["walmart.com", "wal.co"],
+  ["walmart.com", "wal.co", "walmartimages.com", "walmart.ca"],
   ["weebly.com", "editmysite.com"],
   ["wellsfargo.com", "wf.com"],
   ["wikia.com", "wikia.net", "nocookie.net"],

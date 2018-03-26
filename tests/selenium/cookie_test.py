@@ -10,6 +10,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import pbtest
 import window_utils
 
+from popup_test import get_domain_slider_state
+
 SITE1_URL = "http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
 SITE2_URL = "http://eff-tracker-site2-test.s3-website-us-west-2.amazonaws.com"
 SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
@@ -117,20 +119,21 @@ class CookieTest(pbtest.PBSeleniumTest):
         window_utils.switch_to_window_with_url(self.driver, self.popup_url)
         target_url = target_scheme_and_host + "/*"
         javascript_src = """/**
-* if the query url pattern matches a tab, switch the module's tab object to that tab
-* Convenience function for the test harness
-* Chrome URL pattern docs: https://developer.chrome.com/extensions/match_patterns
-*/
+ * if the query url pattern matches a tab, switch the module's tab object to that tab
+ */
 function setTabToUrl(query_url) {
-  chrome.tabs.query( {url: query_url}, function(ta) {
-    if (typeof ta == "undefined") {
+  chrome.tabs.query({url: query_url}, function (tabs) {
+    if (!tabs || !tabs.length) {
       return;
     }
-    if (ta.length === 0) {
-      return;
-    }
-    var tabid = ta[0].id;
-    refreshPopup(tabid);
+    chrome.runtime.sendMessage({
+      type: "getPopupData",
+      tabId: tabs[0].id,
+      tabUrl: tabs[0].url
+    }, (response) => {
+      setPopupData(response);
+      refreshPopup();
+    });
   });
 }"""
         self.js(javascript_src + "setTabToUrl('{}');".format(target_url))
@@ -155,7 +158,9 @@ function setTabToUrl(query_url) {
             self.assertTrue(origin not in self.cookieBlocked)
             self.assertTrue(origin not in self.blocked)
 
-            action_type = div.get_attribute('data-original-action')
+            # get slider state for given origin
+            action_type = get_domain_slider_state(self.driver, origin)
+
             if action_type == 'allow':
                 self.nonTrackers[origin] = True
             elif action_type == 'noaction':

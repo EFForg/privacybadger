@@ -40,6 +40,7 @@ cdn.arstechnica.net
 aspnetcdn.com
 c64.assets-yammer.com
 assetfiles.com
+assets-cdk.com
 authorize.net
 autoforums.com
 azureedge.net
@@ -47,6 +48,7 @@ bac-assets.com
 bandcamp.com
 bankid.no
 bankrate.com
+bazaarvoice.com
 bcbits.com
 betterttv.net
 www.bing.com
@@ -83,6 +85,7 @@ cleanprint.net
 cleveland.com
 cloudflare.com
 cloudfront.net
+cloudinary.com
 bbb.org
 bbc.co.uk
 bbci.co.uk
@@ -96,7 +99,9 @@ gr-assets.com
 guardian.co.uk
 media-imdb.com
 mediaworks.co.nz
+cc.cnetcontent.com
 cdn.cnetcontent.com
+ws.cnetcontent.com
 com.com
 complex.com
 convio.net
@@ -314,7 +319,9 @@ jwpcdn.com
 jwpltx.com
 content.jwplatform.com
 cdnapi.kaltura.com
+cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
+cdnsecakmi.kaltura.com
 cfvod.kaltura.com
 www.kaltura.com
 kampyle.com
@@ -328,6 +335,7 @@ kinja-static.com
 klarna.com
 klarnacdn.net
 klm.com
+kxcdn.com
 licdn.com
 licensebuttons.net
 addon.lidl.de
@@ -418,6 +426,7 @@ tile.openstreetmap.org
 optimizely.com
 oregonlive.com
 outlook.com
+pandacommerce.net
 passwordbox.com
 paypal.com
 paypalobjects.com
@@ -518,6 +527,7 @@ targetimg1.com
 targetimg2.com
 technorati.com
 tegna-media.com
+textalk.se
 theplatform.com
 tile.thunderforest.com
 timeinc.net
@@ -528,6 +538,7 @@ tmsbuyatoyota.com
 torbit.com
 townnews.com
 cookieblock.trackersimulate.org
+tradingview.com
 trb.com
 trbimg.com
 tripadvisor.com

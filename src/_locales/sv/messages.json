@@ -156,7 +156,7 @@
         "description": ""
     },
     "options_title": {
-        "message": "Privacy Badger-alternativ",
+        "message": "Privacy Badger alternativ",
         "description": ""
     },
     "options_pb_has_detected": {
@@ -164,7 +164,7 @@
         "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
     },
     "social_tooltip_button": {
-        "message": " knapp.",
+        "message": " knappen.",
         "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "slideshow_11": {

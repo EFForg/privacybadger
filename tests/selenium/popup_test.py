@@ -1,16 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import json
 import time
 import unittest
+
 import pbtest
 
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
 from window_utils import switch_to_window_with_url
+
+
+def get_domain_slider_state(driver, domain):
+    label = driver.find_element_by_css_selector(
+        'input[name="{}"][checked] + label'.format(domain))
+    return label.get_attribute('data-action')
 
 
 class PopupTest(pbtest.PBSeleniumTest):
@@ -33,7 +41,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             self.fail("Timed out waiting for %s to start loading" % url)
 
-    def open_popup(self, close_overlay=True):
+    def open_popup(self, close_overlay=True, origins=None):
         """Open popup and optionally close overlay."""
 
         # TODO Hack: Open a new window to work around popup.js thinking the
@@ -51,11 +59,23 @@ class PopupTest(pbtest.PBSeleniumTest):
         # TODO instead use a proper popup-opening function to open the popup
         # for some test page like https://www.eff.org/files/badgertest.txt;
         # for example, see https://github.com/EFForg/privacybadger/issues/1634
-        self.js("""getTab(function (tab) {
-  badger.recordFrame(tab.id, 0, -1, tab.url);
-  refreshPopup(tab.id);
-  window.DONE_REFRESHING = true;
-});""")
+        js = """getTab(function (tab) {
+  chrome.runtime.sendMessage({
+    type: "getPopupData",
+    tabId: tab.id,
+    tabUrl: tab.url
+  }, (response) => {
+    response.noTabData = false;
+    response.origins = %s;
+    setPopupData(response);
+    refreshPopup();
+    window.DONE_REFRESHING = true;
+  });
+});"""
+        js = js % (
+            json.dumps(origins) if origins else "{}",
+        )
+        self.js(js)
         # wait until the async getTab function is done
         self.wait_for_script(
             "return typeof window.DONE_REFRESHING != 'undefined'",
@@ -65,10 +85,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         if close_overlay:
             # Click 'X' element to close overlay.
-            try:
-                close_element = self.driver.find_element_by_id("fittslaw")
-            except NoSuchElementException:
-                self.fail("Unable to find element to close popup overlay")
+            close_element = self.driver.find_element_by_id("fittslaw")
             close_element.click()
 
             # Element will fade out so wait for it to disappear.
@@ -81,27 +98,17 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def get_enable_button(self):
         """Get enable button on popup."""
-        try:
-            return self.driver.find_element_by_id("activate_site_btn")
-        except NoSuchElementException:
-            self.fail("Unable to find enable button on poup")
+        return self.driver.find_element_by_id("activate_site_btn")
 
     def get_disable_button(self):
         """Get disable button on popup."""
-        try:
-            return self.driver.find_element_by_id("deactivate_site_btn")
-        except NoSuchElementException:
-            self.fail("Unable to find disable buttons on popup")
+        return self.driver.find_element_by_id("deactivate_site_btn")
 
     def test_overlay(self):
         """Ensure overlay links to first run comic."""
         self.open_popup(close_overlay=False)
 
-        try:
-            comic_link = self.driver.find_element_by_id("firstRun")
-        except NoSuchElementException:
-            self.fail("Unable to find link to comic on popup overlay")
-        comic_link.click()
+        self.driver.find_element_by_id("firstRun").click()
 
         # Make sure first run comic not opened in same window.
         time.sleep(1)
@@ -120,11 +127,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Ensure first run page is opened when help button is clicked."""
         self.open_popup()
 
-        try:
-            help_button = self.driver.find_element_by_id("help")
-        except NoSuchElementException:
-            self.fail("Unable to find help button on popup")
-        help_button.click()
+        self.driver.find_element_by_id("help").click()
 
         # Make sure first run page not opened in same window.
         time.sleep(1)
@@ -143,11 +146,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Ensure options page is opened when button is clicked."""
         self.open_popup()
 
-        try:
-            options_button = self.driver.find_element_by_id("options")
-        except NoSuchElementException:
-            self.fail("Unable to find options button on popup")
-        options_button.click()
+        self.driver.find_element_by_id("options").click()
 
         # Make sure options page not opened in same window.
         time.sleep(1)
@@ -162,6 +161,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.fail("Options page not opened after clicking options button on popup")
 
+    @pbtest.repeat_if_failed(5)
     def test_trackers_link(self):
         """Ensure trackers link opens EFF website."""
 
@@ -202,6 +202,133 @@ class PopupTest(pbtest.PBSeleniumTest):
         except TimeoutException:
             self.fail("Unable to find expected element ({}) on EFF website".format(faq_selector))
 
+    def test_toggling_sliders(self):
+        """Ensure toggling sliders is persisted."""
+
+        DOMAIN = "example.com"
+        DOMAIN_ID = DOMAIN.replace(".", "-")
+
+        self.open_popup(origins={DOMAIN:"allow"})
+
+        # click input with JavaScript to avoid "Element ... is not clickable" /
+        # "Other element would receive the click" Selenium limitation
+        self.js("$('#block-{}').click()".format(DOMAIN_ID))
+
+        # retrieve the new action
+        self.load_url(self.options_url, wait_on_site=1)
+        new_action = get_domain_slider_state(self.driver, DOMAIN)
+
+        self.assertEqual(new_action, "block",
+            "The domain should be blocked on options page.")
+
+        # test toggling some more
+        self.open_popup(close_overlay=False, origins={DOMAIN:"user_block"})
+
+        self.assertTrue(
+            self.driver.find_element_by_id("block-" + DOMAIN_ID).is_selected(),
+            "The domain should be shown as blocked in popup."
+        )
+
+        # change to "cookieblock"
+        self.js("$('#cookieblock-{}').click()".format(DOMAIN_ID))
+        # change again to "block"
+        self.js("$('#block-{}').click()".format(DOMAIN_ID))
+
+        # retrieve the new action
+        self.load_url(self.options_url, wait_on_site=1)
+        new_action = get_domain_slider_state(self.driver, DOMAIN)
+
+        self.assertEqual(new_action, "block",
+            "The domain should still be blocked on options page.")
+
+    def test_reverting_control(self):
+        """Test restoring control of a domain to Privacy Badger."""
+
+        DOMAIN = "example.com"
+        DOMAIN_ID = DOMAIN.replace(".", "-")
+
+        # record the domain as cookieblocked by Badger
+        self.load_url(self.options_url, wait_on_site=1)
+        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
+            DOMAIN, "cookieblock"))
+
+        # need to preserve original window
+        # restoring control auto-closes popup
+        self.open_window()
+
+        self.open_popup(origins={DOMAIN:"cookieblock"})
+
+        # set the domain to user control
+        # click input with JavaScript to avoid "Element ... is not clickable" /
+        # "Other element would receive the click" Selenium limitation
+        self.js("$('#block-{}').click()".format(DOMAIN_ID))
+
+        # restore control to Badger
+        self.driver.find_element_by_css_selector(
+            'div[data-origin="{}"] div.honeybadgerPowered'.format(DOMAIN)
+        ).click()
+
+        # get back to a valid window handle as the window just got closed
+        self.driver.switch_to.window(self.driver.window_handles[0])
+
+        # verify the domain is no longer user controlled
+        self.load_url(self.options_url, wait_on_site=1)
+
+        # assert the action is not what we manually clicked
+        action = get_domain_slider_state(self.driver, DOMAIN)
+        self.assertEqual(action, "cookieblock",
+            "Domain's action should have been restored.")
+
+        # assert the undo arrow is not displayed
+        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
+        self.assertFalse(
+            self.driver.find_element_by_css_selector(
+                'div[data-origin="{}"] div.honeybadgerPowered'.format(DOMAIN)
+            ).is_displayed(),
+            "Undo arrow should not be displayed."
+        )
+
+    def test_disable_enable_buttons(self):
+        """Ensure disable/enable buttons change popup state."""
+
+        DISPLAYED_ERROR = " should not be displayed on popup"
+        NOT_DISPLAYED_ERROR = " should be displayed on popup"
+
+        # need to preserve original window
+        # since enabling/disabling auto-closes popup
+        self.open_window()
+        self.open_popup()
+
+        self.get_disable_button().click()
+
+        # get back to a valid window handle as the window just got closed
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.open_window()
+        self.open_popup(close_overlay=False)
+
+        # Check that popup state changed after disabling.
+        disable_button = self.get_disable_button()
+        self.assertFalse(disable_button.is_displayed(),
+                         "Disable button" + DISPLAYED_ERROR)
+        enable_button = self.get_enable_button()
+        self.assertTrue(enable_button.is_displayed(),
+                        "Enable button" + NOT_DISPLAYED_ERROR)
+
+        enable_button.click()
+
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.open_window()
+        self.open_popup(close_overlay=False)
+
+        # Check that popup state changed after re-enabling.
+        disable_button = self.get_disable_button()
+        self.assertTrue(disable_button.is_displayed(),
+                        "Disable button" + NOT_DISPLAYED_ERROR)
+        enable_button = self.get_enable_button()
+        self.assertFalse(enable_button.is_displayed(),
+                         "Enable button" + DISPLAYED_ERROR)
+
     def test_error_button(self):
         """Ensure error button opens report error overlay."""
         self.open_popup()
@@ -230,6 +357,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
                 'error reporting should be closed again')
 
+    @pbtest.repeat_if_failed(5)
     def test_donate_button(self):
         """Ensure donate button opens EFF website."""
 
@@ -237,10 +365,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.open_popup()
 
-        try:
-            donate_button = self.driver.find_element_by_id("donate")
-        except NoSuchElementException:
-            self.fail("Unable to find donate button on popup")
+        donate_button = self.driver.find_element_by_id("donate")
 
         donate_button.click()
 
