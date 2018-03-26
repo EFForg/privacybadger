@@ -62,7 +62,8 @@ function Badger() {
     // Show icon as page action for all tabs that already exist
     chrome.tabs.query({}, function (tabs) {
       for (var i = 0; i < tabs.length; i++) {
-        self.refreshIconAndContextMenu(tabs[i]);
+        let tab = tabs[i];
+        self.refreshIconAndContextMenu(tab.id, tab.url);
       }
     });
 
@@ -128,7 +129,7 @@ Badger.prototype = {
             ...
           },
           origins: {
-            domain.tld: bool
+            domain.tld: {String} action taken for this domain
             ...
           }
         },
@@ -151,11 +152,11 @@ Badger.prototype = {
   },
 
   /**
-  * saves a user preference for an origin, overriding
-  * the default setting.
-  * @param {String} userAction enum of block, cookieblock, noaction
-  * @param {String} origin the third party origin to take action on
-  */
+   * Saves a user preference for an origin, overriding the default setting.
+   *
+   * @param {String} userAction enum of block, cookieblock, noaction
+   * @param {String} origin the third party origin to take action on
+   */
   saveAction: function(userAction, origin) {
     var allUserActions = {
       'block': constants.USER_BLOCK,
@@ -164,9 +165,6 @@ Badger.prototype = {
     };
     this.storage.setupUserAction(origin, allUserActions[userAction]);
     log("Finished saving action " + userAction + " for " + origin);
-
-    // TODO: right now we don't determine whether a reload is needed
-    return true;
   },
 
 
@@ -539,34 +537,22 @@ Badger.prototype = {
 
   },
 
-
-  /**
-   * Helper function returns a list of all third party origins for a tab
-   * @param {Integer} tab_id requested tab id as provided by chrome
-   * @returns {*} A dictionary of third party origins and their actions
-   */
-  getAllOriginsForTab: function (tab_id) {
-    return (
-      this.tabData.hasOwnProperty(tab_id) &&
-      Object.keys(this.tabData[tab_id].origins)
-    );
-  },
-
   /**
    * Returns the count of blocked/cookieblocked origins for a tab.
    * @param {Integer} tab_id browser tab ID
    * @returns {Integer} blocked origin count
    */
   getBlockedOriginCount: function (tab_id) {
-    let self = this;
+    let origins = this.tabData[tab_id].origins,
+      count = 0;
 
-    return self.getAllOriginsForTab(tab_id).reduce((memo, origin) => {
-      let action = self.storage.getBestAction(origin);
-      if (constants.BLOCKED_ACTIONS.has(action)) {
-        memo++;
+    for (let domain in origins) {
+      if (constants.BLOCKED_ACTIONS.has(origins[domain])) {
+        count++;
       }
-      return memo;
-    }, 0);
+    }
+
+    return count;
   },
 
   /**
@@ -777,46 +763,38 @@ Badger.prototype = {
    * Save third party origins to tabData[tab_id] object for
    * use in the popup and, if needed, call updateBadge.
    *
-   * @param tab_id the tab we are on
-   * @param fqdn the third party origin to add
-   * @param action the action we are taking
-   *
-   **/
+   * @param {Integer} tab_id the tab we are on
+   * @param {String} fqdn the third party origin to add
+   * @param {String} action the action we are taking
+   */
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
-    let blocked = constants.BLOCKED_ACTIONS.has(action);
-    let self = this;
+    let self = this,
+      blocked = constants.BLOCKED_ACTIONS.has(action),
+      origins = self.tabData[tab_id].origins,
+      previously_blocked = constants.BLOCKED_ACTIONS.has(origins[fqdn]);
 
-    if (self.tabData[tab_id].origins.hasOwnProperty(fqdn)) {
-      // we've seen this origin on this tab already
-      // still want to update badge if we haven't yet seen origin as blocked
-      if (blocked && !self.tabData[tab_id].origins[fqdn]) {
-        // record that origin has been seen as blocked
-        self.tabData[tab_id].origins[fqdn] = true;
+    origins[fqdn] = action;
 
-        self.updateBadge(tab_id);
-      }
-    } else {
-      // haven't seen the origin on this tab yet
-      self.tabData[tab_id].origins[fqdn] = blocked;
-
-      if (blocked) {
-        self.updateBadge(tab_id);
-      }
+    if (!blocked || previously_blocked) {
+      return;
     }
+
+    self.updateBadge(tab_id);
   },
 
   /**
    * Enables or disables page action icon according to options.
-   * @param {Object} tab The tab to set the badger icon for
+   * @param {Integer} tab_id The tab ID to set the badger icon for
+   * @param {String} tab_url The tab URL to set the badger icon for
    */
-  refreshIconAndContextMenu: function (tab) {
-    if (!tab || !FirefoxAndroid.hasPopupSupport) {
+  refreshIconAndContextMenu: function (tab_id, tab_url) {
+    if (!tab_id || !tab_url || !FirefoxAndroid.hasPopupSupport) {
       return;
     }
 
     let iconFilename;
     // TODO grab hostname from tabData instead
-    if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url))) {
+    if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab_url))) {
       iconFilename = {
         "19": chrome.runtime.getURL("icons/badger-19.png"),
         "38": chrome.runtime.getURL("icons/badger-38.png")
@@ -828,7 +806,7 @@ Badger.prototype = {
       };
     }
 
-    chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
+    chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});
   },
 
 };
@@ -838,7 +816,7 @@ Badger.prototype = {
 function startBackgroundListeners() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == "loading" && tab.url) {
-      badger.refreshIconAndContextMenu(tab);
+      badger.refreshIconAndContextMenu(tab.id, tab.url);
       badger.updateBadge(tabId);
     }
   });
@@ -846,7 +824,7 @@ function startBackgroundListeners() {
   // Update icon if a tab is replaced or loaded from cache
   chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/) {
     chrome.tabs.get(addedTabId, function(tab) {
-      badger.refreshIconAndContextMenu(tab);
+      badger.refreshIconAndContextMenu(tab.id, tab.url);
     });
   });
 

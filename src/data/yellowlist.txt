@@ -40,6 +40,7 @@ cdn.arstechnica.net
 aspnetcdn.com
 c64.assets-yammer.com
 assetfiles.com
+assets-cdk.com
 authorize.net
 autoforums.com
 azureedge.net
@@ -84,6 +85,7 @@ cleanprint.net
 cleveland.com
 cloudflare.com
 cloudfront.net
+cloudinary.com
 bbb.org
 bbc.co.uk
 bbci.co.uk
@@ -97,7 +99,9 @@ gr-assets.com
 guardian.co.uk
 media-imdb.com
 mediaworks.co.nz
+cc.cnetcontent.com
 cdn.cnetcontent.com
+ws.cnetcontent.com
 com.com
 complex.com
 convio.net
@@ -315,7 +319,9 @@ jwpcdn.com
 jwpltx.com
 content.jwplatform.com
 cdnapi.kaltura.com
+cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
+cdnsecakmi.kaltura.com
 cfvod.kaltura.com
 www.kaltura.com
 kampyle.com
@@ -420,6 +426,7 @@ tile.openstreetmap.org
 optimizely.com
 oregonlive.com
 outlook.com
+pandacommerce.net
 passwordbox.com
 paypal.com
 paypalobjects.com
@@ -531,6 +538,7 @@ tmsbuyatoyota.com
 torbit.com
 townnews.com
 cookieblock.trackersimulate.org
+tradingview.com
 trb.com
 trbimg.com
 tripadvisor.com
