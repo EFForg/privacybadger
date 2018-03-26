@@ -118,11 +118,12 @@ function loadOptions() {
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
     $("#webRTCToggle").hide();
-    $("#webrtc_warning").hide();
+    $("#webrtc-warning").hide();
   }
 
-  $("#learn_in_incognito_checkbox").on("click", updateLearnInIncognito);
-  $("#learn_in_incognito_checkbox").prop("checked", badger.isLearnInIncognitoEnabled());
+  $("#learn-in-incognito-checkbox")
+    .on("click", updateLearnInIncognito)
+    .prop("checked", badger.isLearnInIncognitoEnabled());
 
   // Show user's filters
   reloadWhitelist();
@@ -309,7 +310,7 @@ function updateCheckingDNTPolicy() {
 }
 
 function updateLearnInIncognito() {
-  var newIncognitoSetting = $("#learn_in_incognito_checkbox").prop("checked");
+  var newIncognitoSetting = $("#learn-in-incognito-checkbox").prop("checked");
   settings.setItem("learnInIncognito", newIncognitoSetting);
 }
 
