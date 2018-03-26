@@ -39,11 +39,11 @@ function learningEnabled(tabId) {
 }
 
 /************************************** exports */
-var exports = {};
-exports.startListeners = startListeners;
-exports.tabIsIncognito = tabIsIncognito;
-exports.learningEnabled = learningEnabled;
-
+let exports = {
+  learningEnabled,
+  startListeners,
+  tabIsIncognito,
+};
 return exports;
 /************************************** exports */
 })();
