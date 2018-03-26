@@ -117,8 +117,8 @@ function loadOptions() {
     $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
-    $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
-    $("#webrtc_warning").css({"visibility": "hidden", "height": 0});
+    $("#webRTCToggle").hide();
+    $("#webrtc_warning").hide();
   }
 
   $("#learn_in_incognito_checkbox").on("click", updateLearnInIncognito);
