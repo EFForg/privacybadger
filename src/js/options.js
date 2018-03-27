@@ -96,7 +96,7 @@ function loadOptions() {
     activate: function (event, ui) {
       // update options page URL fragment identifier
       // to preserve selected tab on page reload
-      history.pushState(null, null, "#" + ui.newPanel.attr('id'));
+      history.replaceState(null, null, "#" + ui.newPanel.attr('id'));
     }
   });
   $("button").button();
