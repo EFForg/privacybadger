@@ -28,10 +28,10 @@ require.scopes.webrequest = (function() {
 
 /*********************** webrequest scope **/
 
-var constants = require('constants');
-var getSurrogateURI = require('surrogates').getSurrogateURI;
+var constants = require("constants");
+var getSurrogateURI = require("surrogates").getSurrogateURI;
 var incognito = require("incognito");
-var mdfp = require('multiDomainFP');
+var mdfp = require("multiDomainFP");
 var migrations = require("migrations").Migrations;
 var utils = require("utils");
 
