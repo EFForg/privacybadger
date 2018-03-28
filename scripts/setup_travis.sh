@@ -24,12 +24,11 @@ function setup_firefox {
       version="v0.17.0"
     else
       # Install the latest version of geckodriver
-      version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
+      version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///')
 
       # check that we got something
       if [ -z "$version" ]; then
         echo "Failed to determine the latest geckodriver version!"
-        sleep 360 # wait six minutes
         exit 1
       fi
     fi
