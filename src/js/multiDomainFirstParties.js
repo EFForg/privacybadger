@@ -34,6 +34,16 @@ var multiDomainFirstPartiesArray = [
     "dadt.com",
   ],
   ["accountonline.com", "citi.com", "citibank.com", "citicards.com", "citibankonline.com"],
+  [
+    "adobe.com",
+    "adobeexchange.com",
+    "adobe.io",
+    "adobelogin.com",
+    "behance.net",
+    "mixamo.com",
+    "myportfolio.com",
+    "typekit.com",
+  ],
   ["allstate.com", "myallstate.com"],
   ["altra.org", "altraonline.org"],
   [
