@@ -7,8 +7,9 @@ $(window).on("load", function () {
     var settings = badger.storage.getBadgerStorageObject("settings_map");
     settings.setItem("seenComic", true);
   }
-  setSeenComic;
-  $(".scroll-it").smoothScroll();
+
+  $(".scroll-it").smoothScroll({afterScroll: function() {  setSeenComic; }});
+
 });
 
 })(jQuery);
