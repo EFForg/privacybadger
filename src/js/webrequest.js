@@ -742,6 +742,11 @@ function dispatcher(request, sender, sendResponse) {
     // update cached tab data so that a reopened popup displays correct state
     badger.tabData[request.tabId].origins[domain] = "user_" + action;
 
+  } else if (request.type == "saveOptionsToggle") {
+    // called when the user manually sets a slider on the options page
+    badger.saveAction(request.action, request.origin);
+    sendResponse();
+
   } else if (request.type == "mergeUserData") {
     for (let map in request.data) {
       let storageMap = badger.storage.getBadgerStorageObject(map);
@@ -753,6 +758,20 @@ function dispatcher(request, sender, sendResponse) {
 
     // remove any non-tracking domains (in exports from older Badger versions)
     migrations.forgetNontrackingDomains(badger);
+    sendResponse();
+
+  } else if (request.type == "updateSettings") {
+    var settings = badger.storage.getBadgerStorageObject("settings_map");
+    for (let key in request.data) {
+      settings.setItem(key, request.data[key]);
+      console.log(settings);
+    }
+
+    sendResponse();
+
+  } else if (request.type == "removeOrigin") {
+    badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);
+    badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
 
     sendResponse();
   }
