@@ -787,11 +787,13 @@ Badger.prototype = {
   /**
    * Insert into the tab the required content scripts based on whitelisting status.
    *
-   * @param {Integer} tab_id The ID of the tab
+   * @param {int} tab_id The ID of the tab
    * @param {String} url The URL of the specified tab
+   * @param {int} frame_id The ID from the current frame
+   * @param {Boolean} is_internal Whether this tab is an internal browser tab
    */
-  insertContentScripts(tab_id, url) {
-    if (!this.isPrivacyBadgerEnabled(url)) {
+  insertContentScripts(tab_id, url, frame_id, is_internal) {
+    if (!this.isPrivacyBadgerEnabled(url) || is_internal) {
       return;
     }
     // In FF 59+, content scripts are injected with registerContentScripts().
@@ -799,7 +801,8 @@ Badger.prototype = {
       return;
     }
 
-    // TODO Can we have these scripts only get inserted once for each frame?
+    // TODO Add frame_id to executeScript calls
+    // TODO Add no-op function for executeScript
 
     // Insert all scripts
     // TODO Put this in a loop?
@@ -809,7 +812,7 @@ Badger.prototype = {
       'runAt': 'document_start'
     });
     chrome.tabs.executeScript(tab_id, {
-      'file': '/js/contentscripts/clobbercookies.js',
+      'file': '/js/contentscripts/clobbercookie.js',
       'allFrames': true,
       'runAt': 'document_start'
     });
