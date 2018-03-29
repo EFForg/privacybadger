@@ -63,15 +63,15 @@ function onBeforeRequest(details) {
       frame_id = 0;
     }
 
-    badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
     badger.insertContentScripts(tab_id, url, frame_id, is_internal);
+    badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
 
     return {};
   }
 
   if (type == "sub_frame") {
-    badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
     badger.insertContentScripts(tab_id, url, frame_id, is_internal);
+    badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
   }
 
   // Block ping requests sent by navigator.sendBeacon (see, #587)
