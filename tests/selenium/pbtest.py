@@ -201,14 +201,17 @@ def if_firefox(wrapper):
     return test_catcher
 
 
-def retry_until(fun, cond=True, times=5, msg="Waiting a bit and retrying ..."):
+def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ..."):
     """
-    Execute function `fun` until either its return equals `cond`,
+    Execute function `fun` until either its return is truthy
+    (or if `tester` is set, until the result of calling `tester` with `fun`'s return is truthy),
     or it gets executed X times, where X = `times` + 1.
     """
     for i in range(times):
         result = fun()
-        if result == cond:
+        if tester is not None and tester(result):
+            break
+        elif result:
             break
         elif i == 0:
             print("")
@@ -308,7 +311,7 @@ class PBSeleniumTest(unittest.TestCase):
 
         if wait_for_body_text:
             retry_until(
-                lambda: bool(self.driver.find_element_by_tag_name('body').text),
+                lambda: self.driver.find_element_by_tag_name('body').text,
                 msg="Waiting for document.body.textContent to get populated ..."
             )
 

@@ -104,7 +104,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         # verify that the domain is allowed
         was_blocked = retry_until(
             partial(self.domain_was_blocked, DNT_DOMAIN),
-            cond=False,
+            tester=lambda x: not x,
             msg="Waiting a bit for DNT check to complete and retrying ...")
 
         self.assertFalse(was_blocked, msg="DNT-compliant resource should have gotten unblocked.")
