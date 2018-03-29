@@ -4142,7 +4142,6 @@ body [id*="pb-donate"] h3 {
 }
 @media print, screen and (min-width: 40em) {
   body [id*="pb-donate"] h3 {
-    text-align:left;
     font-size:1.9375rem
   }
 
