@@ -801,38 +801,41 @@ Badger.prototype = {
       return;
     }
 
-    // TODO Add frame_id to executeScript calls
-    // TODO Add no-op function for executeScript
+    var executeScriptCallback = function() {
+      if (chrome.runtime.lastError) {
+        // Do nothing
+      }
+    };
 
     // Insert all scripts
     // TODO Put this in a loop?
     chrome.tabs.executeScript(tab_id, {
       'file': '/js/contentscripts/fingerprinting.js',
-      'allFrames': true,
+      'frameId': frame_id,
       'runAt': 'document_start'
-    });
+    }, executeScriptCallback);
     chrome.tabs.executeScript(tab_id, {
       'file': '/js/contentscripts/clobbercookie.js',
-      'allFrames': true,
+      'frameId': frame_id,
       'runAt': 'document_start'
-    });
+    }, executeScriptCallback);
     chrome.tabs.executeScript(tab_id, {
       'file': '/js/contentscripts/clobberlocalstorage.js',
-      'allFrames': true,
+      'frameId': frame_id,
       'runAt': 'document_start'
-    });
+    }, executeScriptCallback);
     chrome.tabs.executeScript(tab_id, {
       'file': '/js/contentscripts/supercookie.js',
-      'allFrames': true,
+      'frameId': frame_id,
       'runAt': 'document_idle'
-    });
+    }, executeScriptCallback);
 
     if (this.isSocialWidgetReplacementEnabled()) {
       chrome.tabs.executeScript(tab_id, {
-        'file': '/js/contentscripts/fingerprinting.js',
-        'allFrames': true,
+        'file': '/js/contentscripts/socialwidgets.js',
+        'frameId': frame_id,
         'runAt': 'document_start'
-      });
+      }, executeScriptCallback);
     }
   },
 
