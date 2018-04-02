@@ -336,6 +336,7 @@ klarna.com
 klarnacdn.net
 klm.com
 kxcdn.com
+libsyn.com
 licdn.com
 licensebuttons.net
 addon.lidl.de
