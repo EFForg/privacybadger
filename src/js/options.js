@@ -117,9 +117,13 @@ function loadOptions() {
     $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
-    $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
-    $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
+    $("#webRTCToggle").hide();
+    $("#webrtc-warning").hide();
   }
+
+  $("#learn-in-incognito-checkbox")
+    .on("click", updateLearnInIncognito)
+    .prop("checked", badger.isLearnInIncognitoEnabled());
 
   // Show user's filters
   reloadWhitelist();
@@ -303,6 +307,11 @@ function updateCheckingDNTPolicy() {
   var newDNTSetting = $("#check_dnt_policy_checkbox").prop("checked");
   settings.setItem("checkForDNTPolicy", newDNTSetting);
   refreshFilterPage(); // This setting means sites need to be re-evaluated
+}
+
+function updateLearnInIncognito() {
+  var newIncognitoSetting = $("#learn-in-incognito-checkbox").prop("checked");
+  settings.setItem("learnInIncognito", newIncognitoSetting);
 }
 
 function reloadWhitelist() {

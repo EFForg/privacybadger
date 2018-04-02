@@ -487,6 +487,7 @@ Badger.prototype = {
     disabledSites: [],
     hideBlockedElements: true,
     isFirstRun: true,
+    learnInIncognito: false,
     migrationLevel: 0,
     seenComic: false,
     showCounter: true,
@@ -666,6 +667,13 @@ Badger.prototype = {
         (result.value === "disable_non_proxied_udp"));
     });
     return self.getSettings().getItem("webRTCIPProtection");
+  },
+
+  /**
+   * Check if learning about trackers in incognito windows is enabled
+   */
+  isLearnInIncognitoEnabled: function() {
+    return this.getSettings().getItem("learnInIncognito");
   },
 
   /**

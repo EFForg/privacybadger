@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Перевіряти, чи сайти підтримують політику EFF щодо відмови від стеження",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Будь ласка, додайте дійсний домен чи URL-адресу.",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "Не дозволяти WebRTC виявляти локальну IP-адресу *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "Що не так?",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Заміна соціальних віджетів",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Повідомити про помилку",
@@ -143,9 +147,13 @@
         "message": "Пошук доменів:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Learn in Private/Incognito windows **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Показувати лічильник заблокованих елементів",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "Що таке стеження?",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC може виявляти вашу локальну IP-адресу. Типові налаштування Privacy Badger допомагають захистити вас, але ви можете увімкнути це для додаткового захисту. Зауважте, що ця дія може спричинити погіршення швидкодії певних інструментів, таких як Google Hangouts.",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Загальні налаштування",

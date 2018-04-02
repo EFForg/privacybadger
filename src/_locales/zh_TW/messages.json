@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "檢查網頁是否符合 EFF 的不追蹤政策",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "請新增有效的網域或 URL。",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "防止 WebRTC 洩漏本機 IP 地址 *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "有什麼問題？",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "替換社交網路小工具",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "送出錯誤",
@@ -143,9 +147,13 @@
         "message": "搜尋網域:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Learn in Private/Incognito windows **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "顯示封鎖數目",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "什麼是追蹤器？",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC 可能會洩漏您的 IP 地址。Privacy Badger 的預設設定即可保護您了，若您還想要更進一步的保護的話可以開啟此選項，但開啟此選項可能會造成 Google Hangouts 等工具的效能變差。",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "一般設定",

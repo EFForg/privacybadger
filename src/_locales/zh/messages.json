@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Please add a valid domain or URL.",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "避免 WebRTC 泄露本地 IP 地址 *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "问题是什么？",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "更换社交网络工具",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "报告错误",
@@ -143,9 +147,13 @@
         "message": "搜索域名:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Learn in Private/Incognito windows **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "显示屏蔽数目",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "What is a tracker?",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC 会泄露你的本地 IP 地址。隐私獾的默认设置帮助保护你，但是为了额外的保护你可能需要启用这个选项。请注意，这样做可能会降低 Google 环聊等工具的性能。",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "通用设置",
