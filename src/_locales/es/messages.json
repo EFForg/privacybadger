@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Revisar si los sitios cumplen con la política de No Rastrear (DNT) de EFF.",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Favor de agregar un dominio o URL valido.",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "Prevenir que WebRTC filtre números IP locales *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "¿Qué está mal?",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Sustituye widgets sociales",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Enviar error",
@@ -143,9 +147,13 @@
         "message": "Buscar dominios:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Learn in Private/Incognito windows **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Mostrar recuento de elementos bloqueados",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "¿Qué es un rastreador?",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC puede filtrar tu dirección IP local. La configuración predeterminada de Privacy Badger te protege, pero para mayor protección puedes habilitar esta opción. Ten en cuenta que hacerlo puede degradar el rendimiento de algunas herramientas como Google Hangouts.",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Configuración general",

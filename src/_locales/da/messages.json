@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Tjek om netsteder overholder EFF's Spor Ikke-politik",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Tilføj venligst et gyldigt domæne eller URL.",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "Forhindr WebRTC i at lække lokal IP-adresse *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "Hvad er der galt?",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Udskift sociale kontroller",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Indsend fejl",
@@ -143,9 +147,13 @@
         "message": "Søg domæner:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Learn in Private/Incognito windows **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Vis antal blokerede enheder",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "Hvad er en sporing?",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC kan lække din lokale IP-adresse. Privacy Badgers standardopsætning hjælper til at beskytte dig, men for yderligere beskyttelse kan du aktivere dette tilvalg. Bemærk at aktivering kan forværre ydelsen på nogle værktøjer, som Google Hangouts.",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Generelle Indstillinger",

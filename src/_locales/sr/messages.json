@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Провери да ли се овај сајт придржава EFF политике непраћења",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Please add a valid domain or URL.",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "Спречи WebRTC да пропусти локалну IP адресу *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "Шта није у реду?",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Замени виџете друштвених мрежа",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Пријави грешку",
@@ -143,9 +147,13 @@
         "message": "Претражи домене:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Learn in Private/Incognito windows **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Прикажи број блокираних ставки",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "Шта је трагач?",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC може пропустити вашу локалну IP адресу. Подразумевано подешавање Privacy Badger проширења помаже у заштити али за додатно заштиту можете омогућити ову опцију. Напомињемо да то може погоршати перформансе неких алата као што је Google Hangouts.",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Општа подешавања",
