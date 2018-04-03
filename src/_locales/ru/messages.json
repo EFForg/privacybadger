@@ -128,7 +128,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "message": "** Включенное обучение в приватных/инкогнито окнах может оставить следы из приватной истории браузера на вашем компьютере. По умолчанию Privacy Badger блокирует уже известные ему трекеры в приватных/инкогнито окнах, но не обучается поиску новых трекеров. Вы можете захотеть включить эту опцию, если часто используете приватные/инкогнито окна.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -148,7 +148,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Learn in Private/Incognito windows **",
+        "message": "Обучение в приватных/инкогнито окнах **",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
