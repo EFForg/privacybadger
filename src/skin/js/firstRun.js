@@ -8,12 +8,18 @@ $(window).on("load", function () {
     settings.setItem("seenComic", true);
   }
 
-  $(".scroll-it").smoothScroll({
-    afterScroll: function () {
-      setSeenComic();
+  $(".scroll-it").smoothScroll();
+
+  var alreadySet = false;
+  $(window).scroll(function () {
+    if (!alreadySet) {
+      if ($(window).scrollTop() > 400) {
+          alreadySet = true;
+          setSeenComic();
+      }
     }
   });
-
 });
+
 
 })(jQuery);
