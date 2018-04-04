@@ -14,8 +14,8 @@ $(window).on("load", function () {
   $(window).scroll(function () {
     if (!alreadySet) {
       if ($(window).scrollTop() > 400) {
-          alreadySet = true;
-          setSeenComic();
+        alreadySet = true;
+        setSeenComic();
       }
     }
   });
