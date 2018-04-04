@@ -264,7 +264,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
-        "message": "Share on Google Plus",
+        "message": "Share on Google+",
         "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
     },
     "show_tracking_domains_message": {
