@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Sitelerin EFF'nin Do Not Track poliçesi ile uyumluluğunu kontrol et",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Lütfen geçerli bir adres veya URL girin.",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "WebRTC'nin yerel IP adresini açığa çıkarmasını engelle *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "Sorun Nedir?",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Sosyal widgetları değiştir",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Hata Gönder",
@@ -143,9 +147,13 @@
         "message": "Adresleri ara:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Learn in Private/Incognito windows **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Engellenen şeylerin sayısını göster",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "Takipçi nedir?",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC yerel IP adresinizi belli edebilir. Privacy Badger'ın varsayılan ayarları korunmanıza yardımcı olur, ancak ekstra korunma için bu seçeneği aktifleştirebilirsiniz. Bu seçeneğin Google Hangouts gibi araçlarda performansı düşüreceğini göz önünde bulundurun.",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Genel Ayarlar",

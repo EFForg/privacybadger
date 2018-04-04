@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Проверьте, соблюдает ли сайт политику конфиденциальности EFF \"Do Not Track\"",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Пожалуйста, добавьте действительный домен или URL.",
@@ -48,7 +48,7 @@
         "description": ""
     },
     "extension_error_text": {
-        "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
+        "message": "Пожалуйста, <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>сообщите нам</a> о возникшей проблеме:",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
@@ -84,12 +84,12 @@
         "description": "Continuation of the popup message that shows number of trackers"
     },
     "options_domain_filter_block": {
-        "message": "blocked",
+        "message": "заблокированные",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
         "message": "Предотвращать утечку локального IP-адреса через WebRTC *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "Что случилось?",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Заменить виджеты социальных сетей",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Включенное обучение в приватных/инкогнито окнах может оставить следы из приватной истории браузера на вашем компьютере. По умолчанию Privacy Badger блокирует уже известные ему трекеры в приватных/инкогнито окнах, но не обучается поиску новых трекеров. Вы можете захотеть включить эту опцию, если часто используете приватные/инкогнито окна.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Отправить сообщение об ошибке",
@@ -143,9 +147,13 @@
         "message": "Найти домены:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Обучение в приватных/инкогнито окнах **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Отображать счетчик заблокированных элементов",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "Что такое трекер?",
@@ -184,7 +192,7 @@
         "description": ""
     },
     "options_domain_type_filter": {
-        "message": "Filter by type:",
+        "message": "Фильтровать по типу:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC может спровоцировать утечку вашего IP-адреса. Выставленные по умолчанию настройки Privacy Badger помогают защитить вас, но вы также можете включить эту опцию для дополнительной защиты. Важно: это может вызвать проблемы с работой таких сервисов, как Google Hangouts и ему подобные.",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Общие настройки",
@@ -228,7 +236,7 @@
         "description": ""
     },
     "options_domain_filter_cookieblock": {
-        "message": "partially-blocked",
+        "message": "частично заблокированные",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
@@ -284,7 +292,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT-compliant",
+        "message": "DNT-зависимые",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -292,7 +300,7 @@
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "options_domain_filter_allow": {
-        "message": "allowed",
+        "message": "разрешенные",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
@@ -304,7 +312,7 @@
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
     },
     "options_domain_filter_all": {
-        "message": "all",
+        "message": "все",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
@@ -316,7 +324,7 @@
         "description": ""
     },
     "options_domain_filter_user": {
-        "message": "user-controlled",
+        "message": "измененные пользователем",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
@@ -368,7 +376,7 @@
         "description": ""
     },
     "options_domain_status_filter": {
-        "message": "Filter by status:",
+        "message": "Фильтровать по статусу:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {

@@ -87,6 +87,10 @@ button
   left: 50px;
 }
 
+#settingsSuffix div {
+    margin: 12px 0;
+}
+
 a, a:hover, a:active, a:visited{
   color: #00aaaa;
   text-decoration: underline;

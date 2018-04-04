@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Kontroli ĉu retejoj kongruas kun politiko de nespurado de EFF",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Bonvolu aldoni ĝustan nomregnon aŭ URL-n.",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "Preventi WebRTC de malkovri lokan IP-adreson",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "Kio malfunkcias?",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Anstataŭigi butonojn de sociaj retejoj",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Aktivigo de lernado en privataj fenestroj povas resti spurojn de historio de via privata retumado en via komputilo. Implicite Privata Melo blokos jam-konatajn spurilojn en privataj langetoj, tamen ne lernos pri novaj spuriloj. Vi povas aktivigi tiun ĉi agordon, se vi multe retumas en privataj fenestroj.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Raporti eraron",
@@ -143,9 +147,13 @@
         "message": "Serĉi nomregnojn:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Lerni en privataj fenestroj **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Montri nombron da blokitaj aĵoj",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "Kio estas spurilo?",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC povas malkovri vian lokan IP-adreson. Implicita agordo de Privata Melo povas helpi protekti vin, tamen por pli bonan protekton vi povas aktivigi tiun ĉi agordon. Rimarku, ke tio ĉi povas malpliigi rendimenton de kelkaj iloj, ekz. Google Hangouts.",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Ĝeneralaj agordoj",

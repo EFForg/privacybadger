@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Vérifier si les sites se conforment aux règles de non-pistage de l'EFF",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Veuillez ajouter un domaine ou une URL valide.",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "Empêcher la fuite des adresses IP locales via WebRTC *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "Quel est le problème ?",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Remplacer les boutons sociaux",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Dans les fenêtres de navigation privée, Privacy Badger se contente de bloquer les traceurs qu'il connait. En activant cette option, il cherchera aussi à en identifier de nouveaux. Ceci pourrait laisser sur votre ordinateur des traces de sites que vous visitez. Son utilité pourrait se révéler si vous naviguez beaucoup en mode privé.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Soumettre l'erreur",
@@ -143,9 +147,13 @@
         "message": "Rechercher un nom de domaine :",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Activer l'apprentissage dans les fenêtres de navigation privée **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Afficher le nombre d'éléments bloqués",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "Qu'est-ce qu'un traceur ?",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC peut divulguer vos adresses IP locales. Les paramètres par défaut de Privacy Badger aident à vous protéger, mais pour plus de protection, vous pouvez activer cette option. Notez cependant que cela peut dégrader les performances de certains outils comme Google Hangouts.",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Réglages généraux",

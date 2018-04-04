@@ -143,7 +143,6 @@ function onBeforeRequest(details) {
  */
 function onBeforeSendHeaders(details) {
   let frame_id = details.frameId,
-    headers = details.requestHeaders,
     tab_id = details.tabId,
     type = details.type,
     url = details.url;
@@ -153,9 +152,10 @@ function onBeforeSendHeaders(details) {
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
       let newHeaders = [];
-      for (let i = 0, count = headers.length; i < count; i++) {
-        if (headers[i].name.toLowerCase() != "cookie") {
-          newHeaders.push(headers[i]);
+      for (let i = 0, count = details.requestHeaders.length; i < count; i++) {
+        let header = details.requestHeaders[i];
+        if (header.name.toLowerCase() != "cookie") {
+          newHeaders.push(header);
         }
       }
       return {
@@ -170,9 +170,13 @@ function onBeforeSendHeaders(details) {
   var requestDomain = window.extractHostFromURL(url);
 
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
-    // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-    headers.push({name: "DNT", value: "1"});
-    return {requestHeaders: headers};
+    if (badger.isPrivacyBadgerEnabled(tabDomain)) {
+      // Still sending Do Not Track even if HTTP and cookie blocking are disabled
+      details.requestHeaders.push({name: "DNT", value: "1"});
+      return {requestHeaders: details.requestHeaders};
+    } else {
+      return {};
+    }
   }
 
   var requestAction = checkAction(tab_id, requestDomain, frame_id);
@@ -195,8 +199,7 @@ function onBeforeSendHeaders(details) {
   }
 
   if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
-    headers.push({name: "DNT", value: "1"});
-    return {requestHeaders: headers};
+    return {};
   }
 
   // This will only happen if the above code sets the action for the request
@@ -231,7 +234,7 @@ function onBeforeSendHeaders(details) {
 
   // This is the typical codepath
   if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-    var newHeaders = headers.filter(function(header) {
+    let newHeaders = details.requestHeaders.filter(function (header) {
       return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
     });
     newHeaders.push({name: "DNT", value: "1"});
@@ -240,8 +243,8 @@ function onBeforeSendHeaders(details) {
 
   // if we are here, we're looking at a third party
   // that's not yet blocked or cookieblocked
-  headers.push({name: "DNT", value: "1"});
-  return {requestHeaders: headers};
+  details.requestHeaders.push({name: "DNT", value: "1"});
+  return {requestHeaders: details.requestHeaders};
 }
 
 /**
@@ -379,7 +382,7 @@ function getHostForTab(tabId) {
  * @param msg super cookie message dict
  */
 function recordSuperCookie(sender, msg) {
-  if (incognito.tabIsIncognito(sender.tab.id)) {
+  if (!incognito.learningEnabled(sender.tab.id)) {
     return;
   }
 
@@ -408,7 +411,7 @@ function recordFingerprinting(tabId, msg) {
   if (!msg.scriptUrl) {
     return;
   }
-  if (incognito.tabIsIncognito(tabId)) {
+  if (!incognito.learningEnabled(tabId)) {
     return;
   }
 
@@ -604,19 +607,17 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
 }
 
+/**
+ * sender.tab is available for content script (not popup) messages only
+ */
 function dispatcher(request, sender, sendResponse) {
-  var tabHost;
-  if (sender.tab && sender.tab.url) {
-    tabHost = window.extractHostFromURL(sender.tab.url);
-  } else {
-    log("tabhost is  blank!!");
-  }
-
   if (request.checkEnabled) {
-    sendResponse(badger.isPrivacyBadgerEnabled(tabHost));
+    sendResponse(badger.isPrivacyBadgerEnabled(
+      window.extractHostFromURL(sender.tab.url)
+    ));
 
   } else if (request.checkLocation) {
-    if (!badger.isPrivacyBadgerEnabled(tabHost)) {
+    if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
       return sendResponse();
     }
 
@@ -628,7 +629,7 @@ function dispatcher(request, sender, sendResponse) {
     let requestHost = window.extractHostFromURL(request.checkLocation);
 
     // Ignore requests that aren't from a third party.
-    if (!isThirdPartyDomain(requestHost, tabHost)) {
+    if (!isThirdPartyDomain(requestHost, window.extractHostFromURL(sender.tab.url))) {
       return sendResponse();
     }
 
@@ -637,7 +638,7 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse(cookieBlock);
 
   } else if (request.checkReplaceButton) {
-    if (badger.isPrivacyBadgerEnabled(tabHost) && badger.isSocialWidgetReplacementEnabled()) {
+    if (badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) && badger.isSocialWidgetReplacementEnabled()) {
       var socialWidgetBlockList = getSocialWidgetBlockList();
       sendResponse(socialWidgetBlockList);
     }
@@ -677,7 +678,7 @@ function dispatcher(request, sender, sendResponse) {
 
   // Canvas fingerprinting
   } else if (request.fpReport) {
-    if (!badger.isPrivacyBadgerEnabled(tabHost)) { return; }
+    if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) { return; }
     if (Array.isArray(request.fpReport)) {
       request.fpReport.forEach(function (msg) {
         recordFingerprinting(sender.tab.id, msg);
@@ -690,11 +691,59 @@ function dispatcher(request, sender, sendResponse) {
     if (badger.hasSuperCookie(request.superCookieReport)) {
       recordSuperCookie(sender, request.superCookieReport);
     }
+
   } else if (request.checkEnabledAndThirdParty) {
-    var pageHost = window.extractHostFromURL(sender.url);
-    sendResponse(badger.isPrivacyBadgerEnabled(tabHost) && isThirdPartyDomain(pageHost, tabHost));
+    let tab_host = window.extractHostFromURL(sender.tab.url),
+      frame_host = window.extractHostFromURL(sender.url);
+
+    sendResponse(badger.isPrivacyBadgerEnabled(tab_host) && isThirdPartyDomain(frame_host, tab_host));
+
   } else if (request.checkSocialWidgetReplacementEnabled) {
-    sendResponse(badger.isPrivacyBadgerEnabled(tabHost) && badger.isSocialWidgetReplacementEnabled());
+    sendResponse(badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) && badger.isSocialWidgetReplacementEnabled());
+
+  } else if (request.type == "getPopupData") {
+    let tab_id = request.tabId,
+      tab_url = request.tabUrl,
+      tab_host = window.extractHostFromURL(tab_url),
+      has_tab_data = badger.tabData.hasOwnProperty(tab_id);
+
+    sendResponse({
+      criticalError: badger.criticalError,
+      enabled: badger.isPrivacyBadgerEnabled(tab_host),
+      noTabData: !has_tab_data,
+      origins: has_tab_data && badger.tabData[tab_id].origins,
+      seenComic: badger.getSettings().getItem("seenComic"),
+      tabHost: tab_host,
+      tabId: tab_id,
+      isPrivateWindow: incognito.tabIsIncognito(tab_id),
+      tabUrl: tab_url
+    });
+
+  } else if (request.type == "seenComic") {
+    badger.getSettings().setItem("seenComic", true);
+
+  } else if (request.type == "activateOnSite") {
+    badger.enablePrivacyBadgerForOrigin(request.tabHost);
+    badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
+    sendResponse();
+
+  } else if (request.type == "deactivateOnSite") {
+    badger.disablePrivacyBadgerForOrigin(request.tabHost);
+    badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
+    sendResponse();
+
+  } else if (request.type == "revertDomainControl") {
+    badger.storage.revertUserAction(request.origin);
+    sendResponse();
+
+  } else if (request.type == "savePopupToggle") {
+    let domain = request.origin,
+      action = request.action;
+
+    badger.saveAction(action, domain);
+
+    // update cached tab data so that a reopened popup displays correct state
+    badger.tabData[request.tabId].origins[domain] = "user_" + action;
   }
 }
 

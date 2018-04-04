@@ -9,6 +9,12 @@ function setup_chrome {
     wget -q -O /tmp/chromedriver.zip "$url"
     sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
     sudo chmod a+x /usr/local/bin/chromedriver
+
+    # check that chromedriver is now present
+    type chromedriver >/dev/null 2>&1 || {
+      echo "Failed to install chromedriver!"
+      exit 1
+    }
 }
 
 function setup_firefox {
@@ -18,7 +24,7 @@ function setup_firefox {
       version="v0.17.0"
     else
       # Install the latest version of geckodriver
-      version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
+      version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///' | tr -d '\r')
 
       # check that we got something
       if [ -z "$version" ]; then

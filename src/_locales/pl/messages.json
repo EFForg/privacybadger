@@ -25,7 +25,7 @@
     },
     "options_dnt_policy_setting": {
         "message": "Sprawdź, czy strony są zgodne z polityką o nieszpiegowaniu EFF.",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "invalid_domain": {
         "message": "Wprowadź poprawną domenę lub URL.",
@@ -89,7 +89,7 @@
     },
     "options_webrtc_setting": {
         "message": "Zapobiegnij wyciekowi lokalnego IP przez WebRTC *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "error_input": {
         "message": "Co się zepsuło?",
@@ -125,7 +125,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Zastąp widżety sieci społecznościowych",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Włączenie nauki w trybie prywatnym może pozostawić ślady Twojego przeglądania prywatnego na komputerze. Domyślnie Privacy Badger będzie blokował już znane śledziki w oknach prywatnych, ale nie będzie uczył się na temat nowych. Możesz zmienić tę opcję, jeżeli dużo serfujesz w trybie prywatnym.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Zgłoś problem",
@@ -143,9 +147,13 @@
         "message": "Szukaj domen:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Ucz się w trybie prywatnym **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Wyświetl liczbę zablokowanych obiektów",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "Czym jest szpieg/śledzik?",
@@ -201,7 +209,7 @@
     },
     "options_webrtc_warning": {
         "message": "* WebRTC może ujawnić lokalny adres IP. Domyślne ustawienia Privacy Badgera mogą Cię chronić, ale dla dodatkowej ochrony możesz włączyć tę opcję. Zauważ, że może to zmniejszyć wydajność niektórych narzędzi, np. Google Hangouts.",
-        "description": ""
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Ogólne ustawienia",
