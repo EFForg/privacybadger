@@ -27,6 +27,10 @@
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": "Checkbox label on the general settings page"
     },
+    "intro_learns_paragraph": {
+        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
+        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
+    },
     "invalid_domain": {
         "message": "Please add a valid domain or URL.",
         "description": ""
@@ -34,6 +38,14 @@
     "donate_to_eff": {
         "message": "Donate to EFF",
         "description": "Button shown in the popup and on the intro page."
+    },
+    "intro_donate_subheading": {
+        "message": "Help us by donating and sharing your support for our tools",
+        "description": "Shown below the Donate button on the intro page."
+    },
+    "intro_not_an_adblocker": {
+        "message": "Not an ad blocker, I'm different",
+        "description": "Intro page paragraph heading."
     },
     "report_success": {
         "message": "Thanks! We'll get to the bottom of it.",
@@ -46,6 +58,10 @@
     "options_dnt_policy_learn_more": {
         "message": "Learn more",
         "description": ""
+    },
+    "next_section": {
+        "message": "next section",
+        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
         "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
@@ -78,6 +94,10 @@
     "options_webrtc_setting": {
         "message": "Prevent WebRTC from leaking local IP address *",
         "description": "Checkbox label on the general settings page"
+    },
+    "intro_welcome": {
+        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "description": "Intro page welcome paragraph."
     },
     "error_input": {
         "message": "What's Wrong?",
@@ -147,6 +167,10 @@
         "message": "What is a tracker?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
+    "intro_report_button": {
+        "message": "Please don't forget to click on 'Did Privacy Badger break this site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph."
+    },
     "options_title": {
         "message": "Privacy Badger Options",
         "description": ""
@@ -162,6 +186,10 @@
     "report_terms": {
         "message": "This will automatically send the following information to EFF: the site you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site.",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns as you browse",
+        "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
         "message": "Whitelisted Domains",
@@ -195,6 +223,10 @@
         "message": "General Settings",
         "description": "This is an options page tab heading."
     },
+    "intro_next_button": {
+        "message": "Take the tour",
+        "description": "Intro page welcome button."
+    },
     "domain_slider_block_tooltip": {
         "message": "Click here to block this domain entirely",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
@@ -211,6 +243,10 @@
         "message": "Loading...",
         "description": ""
     },
+    "intro_beyond_ads": {
+        "message": "Catches sneaky trackers",
+        "description": "Intro page paragraph heading."
+    },
     "options_domain_filter_cookieblock": {
         "message": "partially-blocked",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -218,6 +254,10 @@
     "show_tracking_domains_acknowledgement": {
         "message": "I understand; please show me the tracking domains list anyway",
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
+    },
+    "intro_donate2": {
+        "message": "Help us by donating and sharing your support!",
+        "description": "Part of the 'donate' section on the intro page."
     },
     "firstRun_title": {
         "message": "Thank you for installing Privacy Badger!",
@@ -238,6 +278,10 @@
     "tooltip_cookieblock": {
         "message": "Center the slider to block cookies",
         "description": ""
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph."
     },
     "report_close": {
         "message": "Close",
@@ -262,6 +306,10 @@
     "share_button_title_google": {
         "message": "Share on Google+",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
+    },
+    "intro_donate_heading": {
+        "message": "Privacy is a team sport!",
+        "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
         "message": "You shouldn't need to modify anything here.",
@@ -319,6 +367,10 @@
         "message": "Click here to allow this domain",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
+    "intro_privacy_note": {
+        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "description": "Intro page paragraph."
+    },
     "options_domain_list_trackers": {
         "message": "potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far. These sliders let you control how Privacy Badger handles each tracker.",
         "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
@@ -326,6 +378,10 @@
     "name": {
         "message": "Privacy Badger",
         "description": ""
+    },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
+        "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
         "message": "Filter by status:",
@@ -338,6 +394,14 @@
     "remove_button": {
         "message": "Remove selected",
         "description": "This is the label for the 'Remove selected' buttons."
+    },
+    "intro_donate1": {
+        "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
+        "description": "Part of the 'donate' section on the intro page."
+    },
+    "intro_disable_button": {
+        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
+        "description": "Intro page paragraph."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",
@@ -370,69 +434,5 @@
     "report_fail": {
         "message": "Oops. Something went wrong.",
         "description": ""
-    },
-    "next_section": {
-        "message": "next section",
-        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
-    },
-    "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
-        "description": "Intro page welcome paragraph."
-    },
-    "intro_next_button": {
-        "message": "Take the tour",
-        "description": "Intro page welcome button."
-    },
-    "intro_learns": {
-        "message": "Learns as you browse",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_learns_paragraph": {
-        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
-    "intro_beyond_ads": {
-        "message": "Catches sneaky trackers",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
-        "description": "Intro page paragraph."
-    },
-    "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
-        "description": "Intro page paragraph."
-    },
-    "intro_report_button": {
-        "message": "Please don't forget to click on 'Did Privacy Badger break this site'. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph."
-    },
-    "intro_privacy_note": {
-        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
-        "description": "Intro page paragraph."
-    },
-    "intro_donate_heading": {
-        "message": "Privacy is a team sport!",
-        "description": "Part of the 'donate' section on the intro page."
-    },
-    "intro_donate1": {
-        "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
-        "description": "Part of the 'donate' section on the intro page."
-    },
-    "intro_donate2": {
-        "message": "Help us by donating and sharing your support!",
-        "description": "Part of the 'donate' section on the intro page."
-    },
-    "intro_donate_subheading": {
-        "message": "Help us by donating and sharing your support for our tools",
-        "description": "Shown below the Donate button on the intro page."
     }
 }
