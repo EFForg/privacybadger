@@ -118,7 +118,7 @@ function onBeforeRequest(details) {
   chrome.tabs.sendMessage(tab_id, msg);
 
   // if this is a heuristically- (not user-) blocked domain
-  if (requestAction == constants.BLOCK) {
+  if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
     // check for DNT policy
     window.setTimeout(function () {
       badger.checkForDNTPolicy(requestDomain);
@@ -218,10 +218,6 @@ function onBeforeSendHeaders(details) {
       trackerDomain: requestDomain
     };
     chrome.tabs.sendMessage(tab_id, msg);
-
-    window.setTimeout(function () {
-      badger.checkForDNTPolicy(requestDomain);
-    }, 10);
 
     if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
       return {
