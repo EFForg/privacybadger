@@ -25,7 +25,7 @@
       "js/bootstrap.js",
       "lib/vendor/punycode.js",
       "lib/publicSuffixList.js",
-      "lib/vendor/basedomain.js",
+      "lib/basedomain.js",
       "lib/vendor/underscore-min.js",
       "data/surrogates.js",
       "js/surrogates.js",
