@@ -144,7 +144,7 @@ Badger.prototype = {
   showFirstRunPage: function() {
     var settings = this.storage.getBadgerStorageObject("settings_map");
     let self = this;
-    if (settings.getItem("isFirstRun") && !chrome.extension.inIncognitoContext) {
+    if (settings.getItem("isFirstRun")) {
       // load seed dataset with pre-trained action and snitch maps
       utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
         if (!err) {
