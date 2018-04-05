@@ -38,8 +38,9 @@ function loadI18nStrings() {
     }
   }
 
-  // also replace title and placeholder attributes
+  // also replace alt, placeholder and title attributes
   const ATTRS = [
+    'alt',
     'placeholder',
     'title',
   ];
