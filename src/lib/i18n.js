@@ -36,8 +36,9 @@ function loadI18nStrings() {
       nodes[i][prop] = i18n.getMessage(stringName);
   }
 
-  // also replace title and placeholder attributes
+  // also replace alt, placeholder and title attributes
   const ATTRS = [
+    'alt',
     'placeholder',
     'title',
   ];

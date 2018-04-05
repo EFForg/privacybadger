@@ -336,6 +336,7 @@ klarna.com
 klarnacdn.net
 klm.com
 kxcdn.com
+libsyn.com
 licdn.com
 licensebuttons.net
 addon.lidl.de
@@ -420,6 +421,7 @@ tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
 openlibrary.org
+openload.co
 nominatim.openstreetmap.org
 tile.openstreetmap.fr
 tile.openstreetmap.org
