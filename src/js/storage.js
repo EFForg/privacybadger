@@ -91,6 +91,17 @@ BadgerPen.prototype = {
   },
 
   /**
+   * Reset the snitch map and action map, forgetting all data the badger has
+   * learned from browsing.
+   **/
+  resetStoredSiteData: function() {
+    var self = this;
+    _.each(['snitch_map', 'action_map'], function(key) {
+      self.getBadgerStorageObject(key).updateObject({});
+    });
+  },
+
+  /**
    * Get the current presumed action for a specific fully qualified domain name (FQDN),
    * ignoring any rules for subdomains below or above it
    *

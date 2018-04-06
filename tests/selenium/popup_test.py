@@ -24,6 +24,11 @@ def get_domain_slider_state(driver, domain):
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
+    def clear_seed_data(self):
+        # record the domain as cookieblocked by Badger
+        self.load_url(self.options_url, wait_on_site=1)
+        self.js("badger.storage.resetStoredSiteData();")
+
     def wait_for_page_to_start_loading(self, url, timeout=20):
         """Wait until the title element is present. Use it to work around
         Firefox not updating self.driver.current_url fast enough."""
@@ -204,6 +209,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_toggling_sliders(self):
         """Ensure toggling sliders is persisted."""
+        self.clear_seed_data()
 
         DOMAIN = "example.com"
         DOMAIN_ID = DOMAIN.replace(".", "-")
@@ -243,6 +249,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_reverting_control(self):
         """Test restoring control of a domain to Privacy Badger."""
+        self.clear_seed_data()
 
         DOMAIN = "example.com"
         DOMAIN_ID = DOMAIN.replace(".", "-")
