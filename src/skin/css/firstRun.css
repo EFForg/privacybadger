@@ -263,6 +263,7 @@ p {
 a {
   line-height:inherit;
   color:#F06A0A;
+  font-weight: bold;
   text-decoration:none;
   cursor:pointer
 }
