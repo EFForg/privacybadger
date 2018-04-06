@@ -359,7 +359,7 @@ button:hover,.button:focus {
   flex-wrap: wrap;
   font-family: "OpenSans-Bold",sans-serif;
   font-size: 0.6rem;
-  justify-content: flex-endspace-between;
+  justify-content: center;
   padding: 0.5rem 0.5rem 1rem;
   -ms-flex-flow: row wrap;
   -ms-flex-wrap: wrap;
