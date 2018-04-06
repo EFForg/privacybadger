@@ -28,7 +28,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
+        "message": "Jo længere du browser med Privacy Badger, jo bedre bliver den til at beskytte dig. Blokerer din Badger ikke noget endnu? Det er ok! I stedet for at have lister over hvad der skal blokeres, opdager Privacy Badger automatisk sporinger mens du browser på nettet. Så begynd at browse lidt for at oplære din Badger.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -40,11 +40,11 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Help us by donating and sharing your support for our tools",
+        "message": "Hjælp os ved at donere og dele din støtte til vores væktøjer",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
+        "message": "Ikke en reklameblokering, jeg er anderledes",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -60,7 +60,7 @@
         "description": ""
     },
     "next_section": {
-        "message": "next section",
+        "message": "næste sektion",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "message": "Privacy Badger lærer automatisk at blokere usynlige sporinger. Brug et minut på at se hvordan.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -168,7 +168,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Did Privacy Badger break this site'. We respect your privacy so we don't send automatic reports.",
+        "message": "Glem ikke at klikke på 'Ødelagde Privacy Badger dette netsted'. Vi respekterer dit privatliv, så vi sender ikke automatiske rapporter.",
         "description": "Intro page paragraph."
     },
     "options_title": {
@@ -188,7 +188,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns as you browse",
+        "message": "Lærer mens du browser",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
@@ -224,7 +224,7 @@
         "description": "This is an options page tab heading."
     },
     "intro_next_button": {
-        "message": "Take the tour",
+        "message": "Tag turen",
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
@@ -244,7 +244,7 @@
         "description": ""
     },
     "intro_beyond_ads": {
-        "message": "Catches sneaky trackers",
+        "message": "Fanger luskede sporinger",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
@@ -256,7 +256,7 @@
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "intro_donate2": {
-        "message": "Help us by donating and sharing your support!",
+        "message": "Hjælp os ved at donere og dele din støtte!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "firstRun_title": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Usynlig sporing sker på alle mulige måder; reklamer er blot isbjergets synlige top. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sender 'Spor Ikke'-signalet</a> til sporinger for at bede dem om ikke at spore dig. Hvis de ignorerer dine ønsker, lærer Privacy Badger at blokere dem—uanset om de er reklamer eller andre typer af sporinger.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -308,7 +308,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "intro_donate_heading": {
-        "message": "Privacy is a team sport!",
+        "message": "Privatliv er en gruppesport!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
@@ -368,7 +368,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Din Badger lærer lokalt på din enhed. Privacy Badger vil ALDRIG dele data om din browsning, med mindre du vælger at dele det.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
+        "message": "Privacy Badger begynder at blokere når den ser den samme sporing på tre forskellige netsteder. Tre sporinger og det er ud! Hvis du bruger andre privatlivsværktøjer eller reklameblokringer, vil Privacy Badger lære mindre, men det er ok, det kan være den fanger ting dine andre værktøjer misser.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -396,11 +396,11 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
+        "message": "Når du bruger Privacy Badger, tilslutter du dig <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> og millioner af andre brugere i kampen for privatliv. Vi er en nonprofit organisation der kæmper for dine rettigheder online. Tak for at slutte dig til os!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
+        "message": "Hvis du tror at Privacy Badger ødelægger en side (f.eks. en video spiller ikke), kan du klikke på \"Deaktiver\"-knappen for at slå Privacy Badger fra på det netsted.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_no_trackers": {

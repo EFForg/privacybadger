@@ -44,7 +44,7 @@
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
+        "message": "Kein Adblocker: Ich bin anders",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -60,7 +60,7 @@
         "description": ""
     },
     "next_section": {
-        "message": "next section",
+        "message": "nächster Abschnitt",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
@@ -188,7 +188,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns as you browse",
+        "message": "Lernt, während Sie surfen",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
@@ -244,7 +244,7 @@
         "description": ""
     },
     "intro_beyond_ads": {
-        "message": "Catches sneaky trackers",
+        "message": "Fängt hinterlistige Tracker",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
@@ -256,7 +256,7 @@
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "intro_donate2": {
-        "message": "Help us by donating and sharing your support!",
+        "message": "Helfen Sie uns durch Spenden und Weitersagen!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "firstRun_title": {
@@ -308,7 +308,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "intro_donate_heading": {
-        "message": "Privacy is a team sport!",
+        "message": "Datenschutz ist ein Teamsport!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {

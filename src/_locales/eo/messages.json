@@ -28,7 +28,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
+        "message": "Ju pli longe vi retumas kun Privata Melo, des pli lerta pri protekti vin ĝi iĝas. Ĉu via Melĉjo ankoraŭ blokas nenion? Ne estas malĝuste! Anstataŭ prizorgi listojn de blokataj aĵoj, Privata Melo aŭtomate malkovras spurilojn dum kiam vi foliumas la Teksaĵon. Do ekretumu por ke via Melĉjo instruiĝu.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -40,11 +40,11 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Help us by donating and sharing your support for our tools",
+        "message": "Helpu nin per donaci kaj oferi helpon al niaj iloj",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
+        "message": "Malsama ol reklam-spuriloj",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -60,7 +60,7 @@
         "description": ""
     },
     "next_section": {
-        "message": "next section",
+        "message": "antaŭen",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "message": "Privata Melo aŭtomate lernas bloki nevideblajn spurilojn. Jen konciza klarigo kiel.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -168,7 +168,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Did Privacy Badger break this site'. We respect your privacy so we don't send automatic reports.",
+        "message": "Bonvolu ne forgesi klaki “Ĉu Privata Melo difektis tiun ĉi retejon?”. Ni estimas vian privatecon, do ni ne sendas aŭtomatajn raportojn.",
         "description": "Intro page paragraph."
     },
     "options_title": {
@@ -188,7 +188,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns as you browse",
+        "message": "Lernas dum kiam vi retumas",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
@@ -224,7 +224,7 @@
         "description": "This is an options page tab heading."
     },
     "intro_next_button": {
-        "message": "Take the tour",
+        "message": "Sciiĝi pli",
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
@@ -244,7 +244,7 @@
         "description": ""
     },
     "intro_beyond_ads": {
-        "message": "Catches sneaky trackers",
+        "message": "Kaptas trompajn spurilojn",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
@@ -256,7 +256,7 @@
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "intro_donate2": {
-        "message": "Help us by donating and sharing your support!",
+        "message": "Helpu nin per donaci kaj oferi vian subtenon!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "firstRun_title": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Nevidebla spurado okazas plurmaniere; reklamoj estas nur videbla parteto de tutaĵo. Privata Melo <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sendas la signalon “Ne Spuri Min” (DNT)</a> por peti spurilojn pri ne spuri. Se ili ignoras vian peton, via Melĉjo lernos pri bloki ilin – ĉu ili estas reklamoj aŭ spuriloj aŭ aliaj aĉaĵoj.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -308,7 +308,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "intro_donate_heading": {
-        "message": "Privacy is a team sport!",
+        "message": "Privateco estas kunlaboro!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
@@ -368,7 +368,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Via Melĉjo lernas loke en via komputilo. Privata Melo NENIAM diskonigos datumojn pri via retumado escepte se vi decidos alie.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
+        "message": "Privata Melo komencas bloki kiam ĝi rimarkas la saman spurilon ĉe tri diversaj retejoj. Tri aperoj kaj ĝi malaperas! Se vi uzas aliajn privatecajn ilojn kaj reklam-blokiloj, Privata Melo lernos malpli, sed tio ne gravas, ĉar ĝi povas bloki aĵojn evititajn de aliaj blokiloj.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -396,11 +396,11 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
+        "message": "Kiam vi uzas Privatan Melon vi aniĝas al la <a href='https://www.eff.org/' target='_blank'>Ret-Lima Fondaĵo (EFF)</a> kune kun milionoj da aliaj retanoj en la batalo por privateco. Ni estas ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la Teksaĵo. Dankon por kuniĝi nin!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
+        "message": "Se viaopinie Privata Melo difektas retpaĝon (ekzemple filmeto ne ludas), vi povas klaki la butonon “malaktivigi” por malaktivigi Privatan Melon por tiu retejo.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_no_trackers": {
