@@ -28,7 +28,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "Je länger Sie mit Privacy Badger surfen, desto besser wird es Sie schützen. Wird momentan noch nichts geblockt? Das ist okay. Anstatt des Führens von Listen zu blockender Inhalte erkennt Privacy Badger Tracker automatisch, während Sie im Web surfen. Am besten beginnen Sie gleich, ein wenig zu Surfen, um Ihren Badger zu trainieren.",
+        "message": "Je länger Sie mit Privacy Badger surfen, desto besser wird er Sie schützen. Wird momentan noch nichts geblockt? Das ist okay. Anstatt des Führens von Listen zu blockender Inhalte erkennt Privacy Badger Tracker automatisch, während Sie im Web surfen. Am besten beginnen Sie gleich, ein wenig zu Surfen, um Ihren Badger zu trainieren.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "message": "** Die Aktivierung des Lernens in privaten bzw. Inkognito-Fenstern hinterlässt eventuell Spuren Ihres privaten Surfverlaufs auf Ihrem Computer. In privaten/Inkognito-Fenstern blockt Privacy Badger standardmäßig bereits bekannte Tracker, erlernt aber keine neuen. Falls Sie oft private/Inkognito-Fenster verwenden, kann die Aktivierung dieser Option Sinn machen.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -156,7 +156,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Learn in Private/Incognito windows **",
+        "message": "Auch in privaten bzw. Inkognito-Fenstern lernen **",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -188,7 +188,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Lernt, während Sie surfen",
+        "message": "Lernt, während Sie im Web surfen",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Unsichtbares Tracking wird auf verschiedenen Wegen realisiert; Werbeanzeigen sind hierbei nur die Spitze des Eisbergs. Privacy Badger teilt Trackern über das <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do-Not-Track-Signal</a> mit, dass Sie nicht verfolgt werden wollen. Falls diese Ihre Wünsche ignorieren, lernt Privacy Badger, sie zu blocken — egal, ob es sich um Werbeanzeigen oder andere Arten von Trackern handelt.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -368,7 +368,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Privacy Badger arbeitet lokal auf Ihrem Gerät und wird NIEMALS Daten zu Ihrem Surfverhaltens weitergeben, es sei denn, Sie entscheiden sich selbst dazu.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -396,7 +396,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
+        "message": "Durch Ihre Benutzung von Privacy Badger werden Sie Teil der <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> und Millionen anderer Nutzer im Kampf für Datenschutz. Wir sind eine gemeinnützige Organisation, die sich für Ihre Rechte im Internet einsetzt. Vielen Dank für Ihre Teilnahme! ",
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_disable_button": {
