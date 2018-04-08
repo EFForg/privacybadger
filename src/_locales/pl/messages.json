@@ -169,7 +169,7 @@
     },
     "intro_report_button": {
         "message": "Nie zapomnij kliknąć „Czy Privacy Badger zepsył tę stronę?”. Szanujemy Twoją prywatność, więc nie wysyłamy raportów automatycznie.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Ustawienia Privacy Badger",
@@ -273,7 +273,7 @@
     },
     "report_broken_site": {
         "message": "Czy Privacy Badger zepsuł tę stronę? Zgłoś to nam!",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Wycentruj suwak, aby zablokować ciasteczka",
@@ -357,7 +357,7 @@
     },
     "popup_disable_for_site": {
         "message": "Wyłącz Privacy Badgera dla tej strony",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger wykrył potencjalnego <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiega</a> na tej stronie. Ten suwak pozwoli Ci kontrolować jak ma z nim postępować Privacy Badger. Nie powinieneś nim kręcić jeżeli wszystko działa. ",
@@ -401,7 +401,7 @@
     },
     "intro_disable_button": {
         "message": "Jeżeli Twoim zdaniem Privacy Badger zepsuł jakąś stronę (np. filmik się nie odtwarza), możesz kliknąć przycisk „wyłącz”, aby wyłączyć dodatek dla tej strony.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger nie wykrył jakichkolwiek <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiegujących domen</a> do tej pory. Serfuj śmiało!",

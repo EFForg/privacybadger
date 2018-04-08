@@ -169,7 +169,7 @@
     },
     "intro_report_button": {
         "message": "Bitte vergessen Sie nicht, auf \"Wurde durch Privacy Badger diese Website falsch dargestellt\" zu klicken. Da wir Ihre Privatsphäre respektieren, senden wir keine automatisierten Berichte.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Optionen von Privacy Badger",
@@ -273,7 +273,7 @@
     },
     "report_broken_site": {
         "message": "Gab es ein Problem beim Laden dieser Website? Bitte lassen Sie es uns wissen!",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Schieben Sie den Schieberegler in die Mitte, um Cookies zu blocken",
@@ -357,7 +357,7 @@
     },
     "popup_disable_for_site": {
         "message": "Privacy Badger für diese Website deaktivieren",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger hat einen potentiellen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracker</a> auf dieser Seite erkannt. Der Schieberegler lässt Sie steuern, wie Privacy Badger ihn handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite aufgetreten sind, sollte es nicht nötig sein, den Schieberegler anzupassen.",
@@ -401,7 +401,7 @@
     },
     "intro_disable_button": {
         "message": "Falls Sie denken, dass durch Privacy Badger eine Seite nicht korrekt dargestellt wird (z. B. eine Video wird nicht wiedergegeben), so können Sie auf die Schaltfläche \"Deaktivieren\" klicken, um Privacy Badger für diese Website auszuschalten.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger hat bisher keine <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking-Domains</a> erkannt. Surfen Sie weiter!",

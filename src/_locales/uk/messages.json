@@ -169,7 +169,7 @@
     },
     "intro_report_button": {
         "message": "Please don't forget to click on 'Did Privacy Badger break this site'. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Налаштування Privacy Badger",
@@ -273,7 +273,7 @@
     },
     "report_broken_site": {
         "message": "Privacy Badger пошкодив цей сайт? Повідомте нас!",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Встановіть перемикач посередині, щоб дозволити куки",
@@ -357,7 +357,7 @@
     },
     "popup_disable_for_site": {
         "message": "Вимкнути Privacy Badger для цього сайту",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger виявив можливий <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>елемент стеження</a> на цій сторінці. Перемикач дозволяє контролювати його обробку. Не варто змінювати його, якщо все працює як слід.",
@@ -401,7 +401,7 @@
     },
     "intro_disable_button": {
         "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger досі не виявив жодного <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домену стеження</a>. Продовжуйте перегляд!",

@@ -169,7 +169,7 @@
     },
     "intro_report_button": {
         "message": "Bonvolu ne forgesi klaki “Ĉu Privata Melo difektis tiun ĉi retejon?”. Ni estimas vian privatecon, do ni ne sendas aŭtomatajn raportojn.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Agordoj de Privata Melo",
@@ -273,7 +273,7 @@
     },
     "report_broken_site": {
         "message": "Ĉu Privata Melo difektis tiun ĉi retejon? Sciigu nin!",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Centrigu la ŝovilon por bloki kuketojn.",
@@ -357,7 +357,7 @@
     },
     "popup_disable_for_site": {
         "message": "Malaktivigi Privatan Melon por tiu ĉi retejo",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privata Melo malkovris eblan <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilon</a> sur tiu ĉi retpaĝo. Tiu ĉi ŝovilo ebligas al vi agordi kiel Privata Melo procedas pri ĝi. Vi ne devus ŝanĝi ĝin escepte se io malfunkcias.",
@@ -401,7 +401,7 @@
     },
     "intro_disable_button": {
         "message": "Se viaopinie Privata Melo difektas retpaĝon (ekzemple filmeto ne ludas), vi povas klaki la butonon “malaktivigi” por malaktivigi Privatan Melon por tiu retejo.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
         "message": "Privata Melo ne malkovris iujn ajn <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurantajn nomregnojn</a> ĝis nun. Pluigu retumi!",

@@ -169,7 +169,7 @@
     },
     "intro_report_button": {
         "message": "N'hésitez pas à cliquer sur « Signaler un site non fonctionnel ». Respectant votre vie privée, les rapports ne sont pas automatiquement envoyés.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Options de Privacy Badger",
@@ -273,7 +273,7 @@
     },
     "report_broken_site": {
         "message": "Signaler un site non fonctionnel",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Centrer le curseur pour bloquer les cookies",
@@ -357,7 +357,7 @@
     },
     "popup_disable_for_site": {
         "message": "Désactiver Privacy Badger pour ce site",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger a détecté un <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>traceur</a> potentiel sur cette page. Ce curseur vous permet de définir la façon dont l'application le gère. Vous ne devriez pas avoir besoin de le modifier à moins d'un site non fonctionnel.",
@@ -401,7 +401,7 @@
     },
     "intro_disable_button": {
         "message": "Si vous pensez que Privacy Badger perturbe l'affichage d'une page (par exemple, une vidéo ne peut être lue), vous pouvez cliquer sur le bouton \"Désactiver\" pour l'empêcher d'opérer sur cette page.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger n'a pas encore détecté de <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domaine traceur</a>. Continuez à naviguer !",

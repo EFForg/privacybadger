@@ -169,7 +169,7 @@
     },
     "intro_report_button": {
         "message": "請不要忘記點按「回報 Privacy Badger 導致顯示異常的網站」。我們尊重您的隱私，所以我們不會自動傳送回報。",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Privacy Badger 設定",
@@ -273,7 +273,7 @@
     },
     "report_broken_site": {
         "message": "回報 Privacy Badger 導致顯示異常的網站",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "將滾動條滑到中間封鎖該網域的 cookie",
@@ -357,7 +357,7 @@
     },
     "popup_disable_for_site": {
         "message": "在目前網頁停用 Privacy Badger",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger 在此頁面上偵測到了潛在的<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤器</a>。滑桿讓您可以控制 Privacy Badger 如何處理它。除非有某些東西壞掉了，否則您應該不需要調整這些滑桿。",
@@ -401,7 +401,7 @@
     },
     "intro_disable_button": {
         "message": "若您覺得 Privacy Badger 破壞了某個頁面（舉例來說，影片無法播放之類的），您可以點按「停用」按鈕來將 Privacy Badger 在該頁面上關閉。",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger 未偵測到任何<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤網域</a>。繼續瀏覽！",

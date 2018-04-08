@@ -169,7 +169,7 @@
     },
     "intro_report_button": {
         "message": "Glem ikke at klikke på 'Ødelagde Privacy Badger dette netsted'. Vi respekterer dit privatliv, så vi sender ikke automatiske rapporter.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Privacy Badger Indstillinger",
@@ -273,7 +273,7 @@
     },
     "report_broken_site": {
         "message": "Ødelagde Privacy Badger dette netsted? Fortæl os om det!",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Centrer skyderen for at blokere cookies",
@@ -357,7 +357,7 @@
     },
     "popup_disable_for_site": {
         "message": "Deaktiver Privacy Badger for dette netsted",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger opdagede en potentiel <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporing</a> på denne side. Skyderen lader dig styre hvordan Privacy Badger håndterer den. Du burde ikke have nødigt at justere skyderen med mindre noget er i stykker.",
@@ -401,7 +401,7 @@
     },
     "intro_disable_button": {
         "message": "Hvis du tror at Privacy Badger ødelægger en side (f.eks. en video spiller ikke), kan du klikke på \"Deaktiver\"-knappen for at slå Privacy Badger fra på det netsted.",
-        "description": "Intro page paragraph."
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger har ikke opdaget nogle <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporingsdomæner</a> endnu. Fortsæt med at browse!",
