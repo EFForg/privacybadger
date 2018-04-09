@@ -16,7 +16,7 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Sin rastreo de  ",
+        "message": "Sin rastreo de ",
         "description": ""
     },
     "non_tracker_tip": {
@@ -60,7 +60,7 @@
         "description": ""
     },
     "next_section": {
-        "message": "siguiente sección ",
+        "message": "siguiente sección",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automáticamente aprende a bloquear rastreadores invisibles. Toma un minuto para aprender como. ",
+        "message": "Privacy Badger automáticamente aprende a bloquear rastreadores invisibles. Toma un minuto para aprender como.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -168,7 +168,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Por favor no olvides hacer click en 'Reportar un sitio roto'. Respetamos tu privacidad por lo que no enviamos reportes de forma automática. ",
+        "message": "Por favor no olvides hacer click en 'Reportar un sitio roto'. Respetamos tu privacidad por lo que no enviamos reportes de forma automática.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "El rastreo invisible ocurre de muchas maneras; los anuncios son solo la punta visible del iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>envía la señal de No rastrear</a> a los rastreadores diciéndoles que no te rastreen. Si ignoran tus deseos, tu Badger aprenderá a bloquearlos, ya sean anunciantes o rastreadores de otros tipos.",
+        "message": "El rastreo invisible ocurre de muchas maneras; los anuncios son solo la punta visible del iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>envía la señal de No Rastrear (DNT)</a> a los rastreadores diciéndoles que no te rastreen. Si ignoran tus deseos, tu Badger aprenderá a bloquearlos, ya sean anunciantes o rastreadores de otros tipos.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -292,7 +292,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "Respeta DNT",
+        "message": "respeta DNT",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -308,7 +308,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "intro_donate_heading": {
-        "message": "¡La privacidad es un deporte de equipo! ",
+        "message": "¡La privacidad es un deporte de equipo!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
@@ -328,7 +328,7 @@
         "description": ""
     },
     "options_domain_filter_user": {
-        "message": "Controlado por usuario",
+        "message": "controlado por usuario",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
@@ -384,7 +384,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
-        "message": "Filtrar por estatus",
+        "message": "Filtrar por estatus:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
