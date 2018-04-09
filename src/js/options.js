@@ -75,7 +75,9 @@ function loadOptions() {
       $('#blockedResourcesContainer').show();
       chrome.runtime.sendMessage({
         type: "updateSettings",
-        data: {"showTrackingDomains": true}
+        data: {
+          showTrackingDomains: true
+        }
       });
     });
   }
@@ -275,7 +277,7 @@ function updateShowCounter() {
 
   chrome.runtime.sendMessage({
     type: "updateSettings",
-    data: {"showCounter": showCounter}
+    data: { showCounter }
   }, () => {
     console.log('Updated counter checkbox');
     // Refresh display for each tab's PB badge.
@@ -294,7 +296,9 @@ function updateSocialWidgetReplacement() {
   var replaceSocialWidgets = $("#replace_social_widgets_checkbox").prop("checked");
   chrome.runtime.sendMessage({
     type: "updateSettings",
-    data: {"socialWidgetReplacementEnabled": replaceSocialWidgets}
+    data: {
+      socialWidgetReplacementEnabled: replaceSocialWidgets
+    }
   });
 }
 
@@ -302,7 +306,9 @@ function updateCheckingDNTPolicy() {
   var newDNTSetting = $("#check_dnt_policy_checkbox").prop("checked");
   chrome.runtime.sendMessage({
     type: "updateSettings",
-    data: {"checkForDNTPolicy": newDNTSetting}
+    data: {
+      checkForDNTPolicy: newDNTSetting
+    }
   }, () => {
     refreshFilterPage(); // This setting means sites need to be re-evaluated
   });
@@ -660,7 +666,9 @@ function toggleWebRTCIPProtection() {
     cpn.webRTCIPHandlingPolicy.set({value: newVal}, function() {
       chrome.runtime.sendMessage({
         type: "updateSettings",
-        data: {"webRTCIPProtection": (newVal === 'disable_non_proxied_udp')}
+        data: {
+          webRTCIPProtection: (newVal === 'disable_non_proxied_udp')
+        }
       });
     });
   });
