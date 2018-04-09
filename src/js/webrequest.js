@@ -764,7 +764,6 @@ function dispatcher(request, sender, sendResponse) {
     var settings = badger.storage.getBadgerStorageObject("settings_map");
     for (let key in request.data) {
       settings.setItem(key, request.data[key]);
-      console.log(settings);
     }
 
     sendResponse();
