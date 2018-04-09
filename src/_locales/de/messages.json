@@ -168,7 +168,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Bitte vergessen Sie nicht, auf \"Wurde durch Privacy Badger diese Website falsch dargestellt\" zu klicken. Da wir Ihre Privatsphäre respektieren, senden wir keine automatisierten Berichte.",
+        "message": "Bitte vergessen Sie nicht, auf \"Gab es ein Problem beim Laden dieser Website?\" zu klicken. Da wir Ihre Privatsphäre respektieren, senden wir keine automatisierten Berichte.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {

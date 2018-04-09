@@ -28,7 +28,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "您裝上 Privacy Badger 後瀏覽愈久，保護您的效果就會愈好。您的 Badger 還沒有阻擋任何東西嗎？沒有問題！除了保留可以阻擋的清單以外，Privacy Badger 也會自動探索您在瀏覽網頁時的追蹤器。所以開始瀏覽以教導您的 Badger 吧。",
+        "message": "您裝上 Privacy Badger 後瀏覽愈久，保護您的效果就會愈好。您的 Badger 還沒有阻擋任何東西嗎？沒有問題！Privacy Badger 會自動探索您在瀏覽網頁時的追蹤器，而非保留追蹤清單。所以開始瀏覽以教導您的 Badger 吧。",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -396,7 +396,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "當您使用 Privacy Badger，您就會加入<a href='https://www.eff.org/' target='_blank'>電子前線基金會</a>與其他數百萬個使用者一同為隱私而戰。我們是一個為您的線上權利而戰的非營利組織。感謝您加入我們！",
+        "message": "當您使用 Privacy Badger，您就會加入<a href='https://www.eff.org/' target='_blank'>電子前線基金會 (EFF)</a>與其他數百萬個使用者一同為隱私而戰。我們是一個為您的線上權利而戰的非營利組織。感謝您加入我們！",
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_disable_button": {
