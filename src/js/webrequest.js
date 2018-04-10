@@ -760,7 +760,7 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse();
 
   } else if (request.type == "updateSettings") {
-    var settings = badger.storage.getBadgerStorageObject("settings_map");
+    const settings = badger.storage.getBadgerStorageObject("settings_map");
     for (let key in request.data) {
       settings.setItem(key, request.data[key]);
     }

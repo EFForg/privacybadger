@@ -277,7 +277,7 @@ function exportUserData() {
  * Update setting for whether or not to show counter on Privacy Badger badge.
  */
 function updateShowCounter() {
-  var showCounter = $("#show_counter_checkbox").prop("checked");
+  const showCounter = $("#show_counter_checkbox").prop("checked");
 
   chrome.runtime.sendMessage({
     type: "updateSettings",
@@ -296,21 +296,23 @@ function updateShowCounter() {
  * Update setting for whether or not to replace social widgets.
  */
 function updateSocialWidgetReplacement() {
-  var replaceSocialWidgets = $("#replace_social_widgets_checkbox").prop("checked");
+  const enabled = $("#replace_social_widgets_checkbox").prop("checked");
+
   chrome.runtime.sendMessage({
     type: "updateSettings",
     data: {
-      socialWidgetReplacementEnabled: replaceSocialWidgets
+      socialWidgetReplacementEnabled: enabled
     }
   });
 }
 
 function updateCheckingDNTPolicy() {
-  var newDNTSetting = $("#check_dnt_policy_checkbox").prop("checked");
+  const enabled = $("#check_dnt_policy_checkbox").prop("checked");
+
   chrome.runtime.sendMessage({
     type: "updateSettings",
     data: {
-      checkForDNTPolicy: newDNTSetting
+      checkForDNTPolicy: enabled
     }
   }, () => {
     refreshFilterPage(); // This setting means sites need to be re-evaluated
