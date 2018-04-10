@@ -24,16 +24,16 @@
 
 /* globals badger:false, log:false */
 
-var constants = require('constants');
-var getSurrogateURI = require('surrogates').getSurrogateURI;
-var mdfp = require('multiDomainFP');
-var incognito = require("incognito");
-var utils = require("utils");
-
 require.scopes.webrequest = (function() {
 
 /*********************** webrequest scope **/
 
+var constants = require("constants");
+var getSurrogateURI = require("surrogates").getSurrogateURI;
+var incognito = require("incognito");
+var mdfp = require("multiDomainFP");
+var migrations = require("migrations").Migrations;
+var utils = require("utils");
 
 /************ Local Variables *****************/
 var temporarySocialWidgetUnblock = {};
@@ -740,6 +740,42 @@ function dispatcher(request, sender, sendResponse) {
 
     // update cached tab data so that a reopened popup displays correct state
     badger.tabData[request.tabId].origins[domain] = "user_" + action;
+
+  } else if (request.type == "saveOptionsToggle") {
+    // called when the user manually sets a slider on the options page
+    badger.saveAction(request.action, request.origin);
+    sendResponse();
+
+  } else if (request.type == "mergeUserData") {
+    for (let map in request.data) {
+      let storageMap = badger.storage.getBadgerStorageObject(map);
+      storageMap.merge(request.data[map]);
+    }
+
+    // fix yellowlist getting out of sync
+    migrations.reapplyYellowlist(badger);
+
+    // remove any non-tracking domains (in exports from older Badger versions)
+    migrations.forgetNontrackingDomains(badger);
+    sendResponse();
+
+  } else if (request.type == "updateSettings") {
+    const settings = badger.storage.getBadgerStorageObject("settings_map");
+    for (let key in request.data) {
+      if (badger.defaultSettings.hasOwnProperty(key)) {
+        settings.setItem(key, request.data[key]);
+      } else {
+        console.error("Unknown Badger setting:", key);
+      }
+    }
+
+    sendResponse();
+
+  } else if (request.type == "removeOrigin") {
+    badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);
+    badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
+
+    sendResponse();
   }
 }
 

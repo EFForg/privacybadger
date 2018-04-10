@@ -51,8 +51,6 @@ var i18n = chrome.i18n;
 var originCache = null;
 var settings = badger.storage.getBadgerStorageObject("settings_map");
 
-let migrations = require("migrations").Migrations;
-
 /*
  * Loads options from pb storage and sets UI elements accordingly.
  */
@@ -75,7 +73,12 @@ function loadOptions() {
     $('#show-tracking-domains-checkbox').on("click", () => {
       $('#tracking-domains-overlay').hide();
       $('#blockedResourcesContainer').show();
-      settings.setItem("showTrackingDomains", true);
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: {
+          showTrackingDomains: true
+        }
+      });
     });
   }
 
@@ -186,25 +189,15 @@ function parseUserDataFile(storageMapsList) {
     return confirm(i18n.getMessage("invalid_json"));
   }
 
-  for (let map in lists) {
-    var storageMap = badger.storage.getBadgerStorageObject(map);
-
-    if (storageMap) {
-      storageMap.merge(lists[map]);
-    }
-  }
-
-  // fix yellowlist getting out of sync
-  migrations.reapplyYellowlist(badger);
-
-  // remove any non-tracking domains (in exports from older Badger versions)
-  migrations.forgetNontrackingDomains(badger);
-
-  // Update list to reflect new status of map
-  reloadWhitelist();
-  refreshFilterPage();
-  var importSuccessful = i18n.getMessage("import_successful");
-  confirm(importSuccessful);
+  chrome.runtime.sendMessage({
+    type: "mergeUserData",
+    data: lists
+  }, () => {
+    // Update list to reflect new status of map
+    reloadWhitelist();
+    refreshFilterPage();
+    confirm(i18n.getMessage("import_successful"));
+  });
 }
 
 /**
@@ -284,13 +277,17 @@ function exportUserData() {
  * Update setting for whether or not to show counter on Privacy Badger badge.
  */
 function updateShowCounter() {
-  var showCounter = $("#show_counter_checkbox").prop("checked");
-  settings.setItem("showCounter", showCounter);
+  const showCounter = $("#show_counter_checkbox").prop("checked");
 
-  // Refresh display for each tab's PB badge.
-  chrome.tabs.query({}, function(tabs) {
-    tabs.forEach(function(tab) {
-      badger.updateBadge(tab.id);
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { showCounter }
+  }, () => {
+    // Refresh display for each tab's PB badge.
+    chrome.tabs.query({}, function(tabs) {
+      tabs.forEach(function(tab) {
+        badger.updateBadge(tab.id);
+      });
     });
   });
 }
@@ -299,19 +296,36 @@ function updateShowCounter() {
  * Update setting for whether or not to replace social widgets.
  */
 function updateSocialWidgetReplacement() {
-  var replaceSocialWidgets = $("#replace_social_widgets_checkbox").prop("checked");
-  settings.setItem("socialWidgetReplacementEnabled", replaceSocialWidgets);
+  const enabled = $("#replace_social_widgets_checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      socialWidgetReplacementEnabled: enabled
+    }
+  });
 }
 
 function updateCheckingDNTPolicy() {
-  var newDNTSetting = $("#check_dnt_policy_checkbox").prop("checked");
-  settings.setItem("checkForDNTPolicy", newDNTSetting);
-  refreshFilterPage(); // This setting means sites need to be re-evaluated
+  const enabled = $("#check_dnt_policy_checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      checkForDNTPolicy: enabled
+    }
+  }, () => {
+    refreshFilterPage(); // This setting means sites need to be re-evaluated
+  });
 }
 
 function updateLearnInIncognito() {
-  var newIncognitoSetting = $("#learn-in-incognito-checkbox").prop("checked");
-  settings.setItem("learnInIncognito", newIncognitoSetting);
+  const learnInIncognito = $("#learn-in-incognito-checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { learnInIncognito }
+  });
 }
 
 function reloadWhitelist() {
@@ -624,7 +638,13 @@ function showTrackingDomains(domains) {
         // Save change for origin.
         var origin = radios.filter('[value=' + ui.value + ']')[0].name;
         var setting = htmlUtils.getCurrentClass($(this).parents('.clicker'));
-        syncSettings(origin, setting);
+        chrome.runtime.sendMessage({
+          type: "saveOptionsToggle",
+          action: setting,
+          origin: origin
+        }, () => {
+          refreshFilterPage();
+        });
       },
     }).appendTo(this);
 
@@ -658,7 +678,12 @@ function toggleWebRTCIPProtection() {
       newVal = 'disable_non_proxied_udp';
     }
     cpn.webRTCIPHandlingPolicy.set({value: newVal}, function() {
-      settings.setItem("webRTCIPProtection", (newVal === 'disable_non_proxied_udp'));
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: {
+          webRTCIPProtection: (newVal === 'disable_non_proxied_udp')
+        }
+      });
     });
   });
 }
@@ -699,26 +724,10 @@ function removeOrigin(event) {
   // Remove traces of origin from storage.
   var $element = $(event.target).parent();
   var origin = $element.data('origin');
-  badger.storage.getBadgerStorageObject("snitch_map").deleteItem(origin);
-  badger.storage.getBadgerStorageObject("action_map").deleteItem(origin);
-  backgroundPage.log('Removed', origin, 'from Privacy Badger');
-
-  refreshFilterPage();
-}
-
-/**
- * Syncs settings for origins changed by user.
- *
- * @param originToCheck {String} Origin to check for changes, optional. If null,
- *                               all origins are checked.
- */
-function syncSettings(origin, userAction) {
-  log("Syncing userset options: ", origin, userAction);
-
-  // Save new action for updated origins.
-  badger.saveAction(userAction, origin);
-  log("Finished syncing.");
-
-  // Options page needs to be refreshed to display current results.
-  refreshFilterPage();
+  chrome.runtime.sendMessage({
+    type: "removeOrigin",
+    origin: origin
+  }, () => {
+    refreshFilterPage();
+  });
 }
