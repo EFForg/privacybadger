@@ -24,16 +24,16 @@
 
 /* globals badger:false, log:false */
 
-var constants = require('constants');
-var getSurrogateURI = require('surrogates').getSurrogateURI;
-var mdfp = require('multiDomainFP');
-var incognito = require("incognito");
-var utils = require("utils");
-
 require.scopes.webrequest = (function() {
 
 /*********************** webrequest scope **/
 
+var constants = require("constants");
+var getSurrogateURI = require("surrogates").getSurrogateURI;
+var incognito = require("incognito");
+var mdfp = require("multiDomainFP");
+var migrations = require("migrations").Migrations;
+var utils = require("utils");
 
 /************ Local Variables *****************/
 var temporarySocialWidgetUnblock = {};
@@ -118,7 +118,7 @@ function onBeforeRequest(details) {
   chrome.tabs.sendMessage(tab_id, msg);
 
   // if this is a heuristically- (not user-) blocked domain
-  if (requestAction == constants.BLOCK) {
+  if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
     // check for DNT policy
     window.setTimeout(function () {
       badger.checkForDNTPolicy(requestDomain);
@@ -143,7 +143,6 @@ function onBeforeRequest(details) {
  */
 function onBeforeSendHeaders(details) {
   let frame_id = details.frameId,
-    headers = details.requestHeaders,
     tab_id = details.tabId,
     type = details.type,
     url = details.url;
@@ -153,9 +152,10 @@ function onBeforeSendHeaders(details) {
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
       let newHeaders = [];
-      for (let i = 0, count = headers.length; i < count; i++) {
-        if (headers[i].name.toLowerCase() != "cookie") {
-          newHeaders.push(headers[i]);
+      for (let i = 0, count = details.requestHeaders.length; i < count; i++) {
+        let header = details.requestHeaders[i];
+        if (header.name.toLowerCase() != "cookie") {
+          newHeaders.push(header);
         }
       }
       return {
@@ -170,9 +170,13 @@ function onBeforeSendHeaders(details) {
   var requestDomain = window.extractHostFromURL(url);
 
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
-    // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-    headers.push({name: "DNT", value: "1"});
-    return {requestHeaders: headers};
+    if (badger.isPrivacyBadgerEnabled(tabDomain)) {
+      // Still sending Do Not Track even if HTTP and cookie blocking are disabled
+      details.requestHeaders.push({name: "DNT", value: "1"});
+      return {requestHeaders: details.requestHeaders};
+    } else {
+      return {};
+    }
   }
 
   var requestAction = checkAction(tab_id, requestDomain, frame_id);
@@ -195,8 +199,7 @@ function onBeforeSendHeaders(details) {
   }
 
   if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
-    headers.push({name: "DNT", value: "1"});
-    return {requestHeaders: headers};
+    return {};
   }
 
   // This will only happen if the above code sets the action for the request
@@ -216,10 +219,6 @@ function onBeforeSendHeaders(details) {
     };
     chrome.tabs.sendMessage(tab_id, msg);
 
-    window.setTimeout(function () {
-      badger.checkForDNTPolicy(requestDomain);
-    }, 10);
-
     if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
       return {
         redirectUrl: 'about:blank'
@@ -231,7 +230,7 @@ function onBeforeSendHeaders(details) {
 
   // This is the typical codepath
   if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-    var newHeaders = headers.filter(function(header) {
+    let newHeaders = details.requestHeaders.filter(function (header) {
       return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
     });
     newHeaders.push({name: "DNT", value: "1"});
@@ -240,8 +239,8 @@ function onBeforeSendHeaders(details) {
 
   // if we are here, we're looking at a third party
   // that's not yet blocked or cookieblocked
-  headers.push({name: "DNT", value: "1"});
-  return {requestHeaders: headers};
+  details.requestHeaders.push({name: "DNT", value: "1"});
+  return {requestHeaders: details.requestHeaders};
 }
 
 /**
@@ -379,7 +378,7 @@ function getHostForTab(tabId) {
  * @param msg super cookie message dict
  */
 function recordSuperCookie(sender, msg) {
-  if (incognito.tabIsIncognito(sender.tab.id)) {
+  if (!incognito.learningEnabled(sender.tab.id)) {
     return;
   }
 
@@ -408,7 +407,7 @@ function recordFingerprinting(tabId, msg) {
   if (!msg.scriptUrl) {
     return;
   }
-  if (incognito.tabIsIncognito(tabId)) {
+  if (!incognito.learningEnabled(tabId)) {
     return;
   }
 
@@ -741,6 +740,42 @@ function dispatcher(request, sender, sendResponse) {
 
     // update cached tab data so that a reopened popup displays correct state
     badger.tabData[request.tabId].origins[domain] = "user_" + action;
+
+  } else if (request.type == "saveOptionsToggle") {
+    // called when the user manually sets a slider on the options page
+    badger.saveAction(request.action, request.origin);
+    sendResponse();
+
+  } else if (request.type == "mergeUserData") {
+    for (let map in request.data) {
+      let storageMap = badger.storage.getBadgerStorageObject(map);
+      storageMap.merge(request.data[map]);
+    }
+
+    // fix yellowlist getting out of sync
+    migrations.reapplyYellowlist(badger);
+
+    // remove any non-tracking domains (in exports from older Badger versions)
+    migrations.forgetNontrackingDomains(badger);
+    sendResponse();
+
+  } else if (request.type == "updateSettings") {
+    const settings = badger.storage.getBadgerStorageObject("settings_map");
+    for (let key in request.data) {
+      if (badger.defaultSettings.hasOwnProperty(key)) {
+        settings.setItem(key, request.data[key]);
+      } else {
+        console.error("Unknown Badger setting:", key);
+      }
+    }
+
+    sendResponse();
+
+  } else if (request.type == "removeOrigin") {
+    badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);
+    badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
+
+    sendResponse();
   }
 }
 

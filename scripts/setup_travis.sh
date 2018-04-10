@@ -24,12 +24,11 @@ function setup_firefox {
       version="v0.17.0"
     else
       # Install the latest version of geckodriver
-      version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
+      version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///' | tr -d '\r')
 
       # check that we got something
       if [ -z "$version" ]; then
         echo "Failed to determine the latest geckodriver version!"
-        sleep 60
         exit 1
       fi
     fi
@@ -59,12 +58,26 @@ function setup_lint {
 
 }
 
+# check that the desired browser is present as it might fail to install
+# for example: https://travis-ci.org/EFForg/privacybadger/jobs/362381214
+function check_browser {
+  type "$BROWSER" >/dev/null 2>&1 || {
+    echo "$BROWSER seems to be missing!"
+    exit 1
+  }
+
+  # print the version
+  echo "Found $("$BROWSER" --version)"
+}
+
 case $INFO in
   *chrome*)
+    check_browser
     setup_chrome
     browser_setup
     ;;
   *firefox*) # Install the latest version of geckodriver
+    check_browser
     setup_firefox
     browser_setup
     ;;

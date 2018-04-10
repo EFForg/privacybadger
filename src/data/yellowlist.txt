@@ -40,6 +40,7 @@ cdn.arstechnica.net
 aspnetcdn.com
 c64.assets-yammer.com
 assetfiles.com
+assets-cdk.com
 authorize.net
 autoforums.com
 azureedge.net
@@ -98,7 +99,9 @@ gr-assets.com
 guardian.co.uk
 media-imdb.com
 mediaworks.co.nz
+cc.cnetcontent.com
 cdn.cnetcontent.com
+ws.cnetcontent.com
 com.com
 complex.com
 convio.net
@@ -316,7 +319,9 @@ jwpcdn.com
 jwpltx.com
 content.jwplatform.com
 cdnapi.kaltura.com
+cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
+cdnsecakmi.kaltura.com
 cfvod.kaltura.com
 www.kaltura.com
 kampyle.com
@@ -331,6 +336,7 @@ klarna.com
 klarnacdn.net
 klm.com
 kxcdn.com
+libsyn.com
 licdn.com
 licensebuttons.net
 addon.lidl.de
@@ -415,12 +421,14 @@ tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
 openlibrary.org
+openload.co
 nominatim.openstreetmap.org
 tile.openstreetmap.fr
 tile.openstreetmap.org
 optimizely.com
 oregonlive.com
 outlook.com
+pandacommerce.net
 passwordbox.com
 paypal.com
 paypalobjects.com
@@ -532,6 +540,7 @@ tmsbuyatoyota.com
 torbit.com
 townnews.com
 cookieblock.trackersimulate.org
+tradingview.com
 trb.com
 trbimg.com
 tripadvisor.com

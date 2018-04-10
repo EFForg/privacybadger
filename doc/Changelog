@@ -1,5 +1,31 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.4.10
+* Updated the new user welcome page. The redesigned page is mobile-friendly,
+accessible and already translated into several languages.
+* Fixed Do Not Track being checked sometimes in Private Browsing/Incognito
+windows. By default, Privacy Badger should not record anything in Incognito.
+* Added setting to allow learning in Private Browsing/Incognito windows
+* Fixed unwanted scrolling when switching tabs on the options page
+* Updated replacement icon for Google+
+* Fixed various site breakages
+* Improved translations (Bulgarian, Simplified Chinese, Traditional Chinese,
+Danish, Esperanto, French, German, Italian, Polish, Russian, Spanish,
+Ukrainian)
+
+## 2018.3.21
+* Fixed Do Not Track not being recognized by sites that test for it by
+checking navigator.doNotTrack with JavaScript
+* Stopped signaling DNT on sites where Privacy Badger is disabled
+* Fixed popup in Private Browsing windows in Firefox
+* Fixed certain kinds of site breakages (such as visual issues with charts)
+not going away even after disabling Privacy Badger on the site
+* Updated to latest dummy Google Tag Manager script from uBlock Origin to
+avoid "failed to redirect a network request" warnings in Chrome
+* Fixed various site breakages
+* Improved translations (Bulgarian, Traditional Chinese, German, Italian,
+Swedish)
+
 ## 2018.2.5
 * Added type/status filters to the tracking domains list on the options page
 * Reworked social widget replacement to avoid WebExtensions fingerprintability
