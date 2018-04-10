@@ -66,6 +66,8 @@ function loadOptions() {
   $('#importTrackerButton').on("click", loadFileChooser);
   $('#importTrackers').on("change", importTrackerList);
   $('#exportTrackers').on("click", exportUserData);
+  $('#resetUserData').on("click", resetUserData);
+  $('#clearAllData').on("click", clearAllData);
 
   if (settings.getItem("showTrackingDomains")) {
     $('#tracking-domains-overlay').hide();
@@ -105,6 +107,8 @@ function loadOptions() {
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".exportButton").button("option", "icons", {primary: "ui-icon-extlink"});
+  $(".resetButton").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
+  $(".clearAllButton").button("option", "icons", {primary: "ui-icon-cancel"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
@@ -205,6 +209,25 @@ function parseUserDataFile(storageMapsList) {
   refreshFilterPage();
   var importSuccessful = i18n.getMessage("import_successful");
   confirm(importSuccessful);
+}
+
+function resetUserData() {
+  var resetWarn = i18n.getMessage("reset_data_confirm");
+  if (confirm(resetWarn)) {
+    chrome.runtime.sendMessage({type: "resetUserData"}, () => {
+      // reload page to refresh tracker list
+      location.reload();
+    });
+  }
+}
+
+function clearAllData() {
+  var clearWarn = i18n.getMessage("clear_data_confirm");
+  if (confirm(clearWarn)) {
+    chrome.runtime.sendMessage({type: "clearAllData"}, () => {
+      location.reload();
+    });
+  }
 }
 
 /**

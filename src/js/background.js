@@ -141,19 +141,23 @@ Badger.prototype = {
 
   // Methods
 
+  loadSeedData: function() {
+    let self = this;
+    utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
+      if (!err) {
+        var seed = JSON.parse(response);
+        self.storage.getBadgerStorageObject("action_map").merge(seed.action_map);
+        self.storage.getBadgerStorageObject("snitch_map").merge(seed.snitch_map);
+        console.log("Loaded seed data successfully");
+      }
+    });
+  },
+
   showFirstRunPage: function() {
     var settings = this.storage.getBadgerStorageObject("settings_map");
-    let self = this;
     if (settings.getItem("isFirstRun")) {
       // load seed dataset with pre-trained action and snitch maps
-      utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
-        if (!err) {
-          var seed = JSON.parse(response);
-          self.storage.getBadgerStorageObject("action_map").merge(seed.action_map);
-          self.storage.getBadgerStorageObject("snitch_map").merge(seed.snitch_map);
-          console.log("Loaded seed data successfully");
-        }
-      });
+      this.loadSeedData();
 
       // launch first-run page
       chrome.tabs.create({

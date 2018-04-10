@@ -38,6 +38,10 @@ button
   width: 350px;
   float: left;
 }
+#reset {
+  width: 350px;
+  float: left;
+}
 
 .importInput{
   visibility: hidden;

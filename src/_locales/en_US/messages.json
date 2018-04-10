@@ -211,6 +211,30 @@
         "message": "Export user data",
         "description": ""
     },
+    "reset": {
+        "message": "Reset",
+        "description": ""
+    },
+    "reset_user_data": {
+        "message": "Reset browsing data",
+        "description": ""
+    },
+    "reset_data_confirm": {
+        "message": "This will delete all browsing data that Privacy Badger has collected and restore the extension to its default state. Some trackers which are currently blocked may be allowed through afterwards.",
+        "description": ""
+    },
+    "clear_all": {
+        "message": "Clear all",
+        "description": ""
+    },
+    "clear_all_data": {
+        "message": "Clear all tracker data",
+        "description": ""
+    },
+    "clear_data_confirm": {
+        "message": "This will delete everything that Privacy Badger knows about third-party trackers, including the pre-installed \"seed\" data. As a result, Privacy Badger will not block many common trackers until it learns about them again.",
+        "description": ""
+    },
     "intro_text": {
         "message": "You're now protected by Privacy Badger. To learn how Privacy Badger works, click below for a quick tutorial.",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
