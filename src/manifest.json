@@ -1,10 +1,10 @@
 {
-  "version": "2018.2.5",
+  "version": "2018.3.21",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
       "id": "jid1-MnnxcxisBPnSXQ@jetpack",
-      "strict_min_version": "50.0.2"
+      "strict_min_version": "50.0"
     }
   },
   "incognito": "spanning",
@@ -58,6 +58,7 @@
       "js": [
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
+        "js/contentscripts/dnt.js",
         "js/contentscripts/fingerprinting.js"
       ],
       "matches": [

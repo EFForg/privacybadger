@@ -99,7 +99,7 @@ function loadOptions() {
     activate: function (event, ui) {
       // update options page URL fragment identifier
       // to preserve selected tab on page reload
-      window.location.hash = ui.newPanel.attr('id');
+      history.replaceState(null, null, "#" + ui.newPanel.attr('id'));
     }
   });
   $("button").button();
@@ -120,9 +120,13 @@ function loadOptions() {
     $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
-    $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
-    $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
+    $("#webRTCToggle").hide();
+    $("#webrtc-warning").hide();
   }
+
+  $("#learn-in-incognito-checkbox")
+    .on("click", updateLearnInIncognito)
+    .prop("checked", badger.isLearnInIncognitoEnabled());
 
   // Show user's filters
   reloadWhitelist();
@@ -312,6 +316,11 @@ function updateCheckingDNTPolicy() {
   }, () => {
     refreshFilterPage(); // This setting means sites need to be re-evaluated
   });
+}
+
+function updateLearnInIncognito() {
+  var newIncognitoSetting = $("#learn-in-incognito-checkbox").prop("checked");
+  settings.setItem("learnInIncognito", newIncognitoSetting);
 }
 
 function reloadWhitelist() {

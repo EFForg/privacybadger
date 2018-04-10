@@ -1,3 +1,5 @@
+/* globals badger:false */
+
 require.scopes.incognito = (function() {
 var tabs = {};
 
@@ -27,11 +29,21 @@ function tabIsIncognito(tabId) {
   return tabs[tabId] || false;
 }
 
-/************************************** exports */
-var exports = {};
-exports.startListeners = startListeners;
-exports.tabIsIncognito = tabIsIncognito;
+function learningEnabled(tabId) {
+  if (badger.isLearnInIncognitoEnabled()) {
+    // Treat all pages as if they're not incognito
+    return true;
+  }
+  // Else, do not learn in incognito tabs
+  return !tabIsIncognito(tabId);
+}
 
+/************************************** exports */
+let exports = {
+  learningEnabled,
+  startListeners,
+  tabIsIncognito,
+};
 return exports;
 /************************************** exports */
 })();
