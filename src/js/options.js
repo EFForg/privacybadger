@@ -283,7 +283,6 @@ function updateShowCounter() {
     type: "updateSettings",
     data: { showCounter }
   }, () => {
-    console.log('Updated counter checkbox');
     // Refresh display for each tab's PB badge.
     chrome.tabs.query({}, function(tabs) {
       tabs.forEach(function(tab) {
