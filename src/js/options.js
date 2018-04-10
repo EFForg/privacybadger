@@ -319,8 +319,12 @@ function updateCheckingDNTPolicy() {
 }
 
 function updateLearnInIncognito() {
-  var newIncognitoSetting = $("#learn-in-incognito-checkbox").prop("checked");
-  settings.setItem("learnInIncognito", newIncognitoSetting);
+  const learnInIncognito = $("#learn-in-incognito-checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { learnInIncognito }
+  });
 }
 
 function reloadWhitelist() {
