@@ -762,7 +762,11 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.type == "updateSettings") {
     const settings = badger.storage.getBadgerStorageObject("settings_map");
     for (let key in request.data) {
-      settings.setItem(key, request.data[key]);
+      if (badger.defaultSettings.hasOwnProperty(key)) {
+        settings.setItem(key, request.data[key]);
+      } else {
+        console.error("Unknown Badger setting:", key);
+      }
     }
 
     sendResponse();
