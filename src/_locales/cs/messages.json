@@ -40,7 +40,7 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Můžete nám přispět finanční obnos, nebo sdílet Vaši podporu na sociálních sítích.",
+        "message": "Můžete nám přispět finanční obnos, nebo sdílet Vaši podporu na sociálních sítích",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
@@ -80,7 +80,7 @@
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Kliknutím zde zakážete doméně nastavovat soubory cookies.",
+        "message": "Kliknutím zde zakážete doméně nastavovat soubory cookies",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "Vrátit výchozí nastavení, které určil Privacy Badger.",
+        "message": "Vrátit výchozí nastavení, které určil Privacy Badger",
         "description": ""
     },
     "import": {
@@ -252,7 +252,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
-        "message": "Rozumím, přesto mi ukažte seznam sledovacích domén.",
+        "message": "Rozumím, přesto mi ukažte seznam sledovacích domén",
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "intro_donate2": {

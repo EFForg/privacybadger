@@ -28,7 +28,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "Чем долше вы пользуетесь Интернетом с Privacy Badger, тем лучше он вас защищает. Ваш Badger ничего не блокирует? Это нормально! Вместо составления списков блокировки Privacy Badger автоматически обнаруживает трекеры по мере вашей работы в Интернете. Так что выйдите в Интернет и поработайте немного для обучения вашего Badger.",
+        "message": "Чем дольше вы пользуетесь Интернетом с Privacy Badger, тем лучше он вас защищает. Ваш Badger ничего не блокирует? Это нормально! Вместо составления списков блокировки Privacy Badger автоматически обнаруживает трекеры по мере вашей работы в Интернете. Поэтому выйдите в Интернет и поработайте немного для обучения вашего Badger.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -168,7 +168,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Пожалуйста, не забывайте нажимать на кнопку 'Испортил ли Privacy Badger этот сайт?'. Мы уважаем вашу приватность, поэтому не отправляем отчеты автоматически.",
+        "message": "Пожалуйста, не забывайте нажимать на кнопку 'Сообщить о неполадках на сайте'. Мы уважаем вашу приватность, поэтому не отправляем отчеты автоматически.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
