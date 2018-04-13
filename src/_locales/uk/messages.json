@@ -44,7 +44,7 @@
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
+        "message": "Дещо інше, ніж звичайні засоби для блокування реклами",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Невидиме стеження відбувається різними способами. Реклама - це лише вершина айсбергу. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>надсилає сигнал \"Не стежити\"</a>, повідомляючи таким чином, що ви не хочете, щоб за вами стежили. Якщо вони ігнорують ваше побажання, Privacy Badger буде їх блокувати.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -368,7 +368,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Privacy Badger навчається локально на вашому пристрої та НІКОЛИ не передає ваші дані будь-кому доки ви самі не захочете зробите це.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -396,7 +396,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
+        "message": "Використовуючи Privacy Badger, ви долучаєтесь до спільноти <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> разом з мільйонами інших користувачів, які відстоюють приватність. Ми є некомерційною організацією, яка відстоює ваші права онлайн. Дякуємо, що приєдналися до нас!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_disable_button": {
