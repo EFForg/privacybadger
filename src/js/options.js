@@ -304,6 +304,7 @@ function updateSocialWidgetReplacement() {
       socialWidgetReplacementEnabled: enabled
     }
   });
+  badger.registerContentScripts();
 }
 
 function updateCheckingDNTPolicy() {

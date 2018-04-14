@@ -50,6 +50,7 @@ function Badger() {
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     self.updateTabList();
     self.initializeDefaultSettings();
+    self.registerContentScripts();
     try {
       self.runMigrations();
     } finally {
@@ -694,6 +695,7 @@ Badger.prototype = {
     if (disabledSites.indexOf(origin) < 0) {
       disabledSites.push(origin);
       settings.setItem("disabledSites", disabledSites);
+      this.registerContentScripts();
     }
   },
 
@@ -768,7 +770,6 @@ Badger.prototype = {
     }
 
     const registerActive = browser.contentScripts.register(activeScripts);
-    // TODO socialwidgets.js should only be loaded if widget replacement is enabled.
     const registerIdle = browser.contentScripts.register(idleScripts);
 
     registerActive.then((res) => {badger.activeContentScripts = res;});
