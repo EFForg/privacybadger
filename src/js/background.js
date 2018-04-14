@@ -745,6 +745,7 @@ Badger.prototype = {
     const activeScripts = {
       'js': [
         {file: '/js/contentscripts/fingerprinting.js'},
+        {file: '/js/contentscripts/dnt.js'},
         {file: '/js/contentscripts/clobbercookie.js'},
         {file: '/js/contentscripts/clobberlocalstorage.js'}],
       'matches': ["http://*/*", "https://*/*"],
@@ -801,6 +802,11 @@ Badger.prototype = {
     // TODO Put this in a loop?
     chrome.tabs.executeScript(tab_id, {
       'file': '/js/contentscripts/fingerprinting.js',
+      'frameId': frame_id,
+      'runAt': 'document_start'
+    }, noop);
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/dnt.js',
       'frameId': frame_id,
       'runAt': 'document_start'
     }, noop);
