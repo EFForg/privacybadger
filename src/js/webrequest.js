@@ -73,14 +73,12 @@ function onBeforeRequest(details) {
       frame_id = 0;
     }
 
-    badger.insertContentScripts(tab_id, url, frame_id, is_internal);
     badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
 
     return {};
   }
 
   if (type == "sub_frame") {
-    badger.insertContentScripts(tab_id, url, frame_id, is_internal);
     badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
   }
 
