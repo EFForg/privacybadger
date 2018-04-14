@@ -801,9 +801,9 @@ Badger.prototype = {
       return;
     }
 
-    var executeScriptCallback = function() {
+    var noop = function() {
       if (chrome.runtime.lastError) {
-        // Do nothing
+      //   // Do nothing
       }
     };
 
@@ -813,29 +813,29 @@ Badger.prototype = {
       'file': '/js/contentscripts/fingerprinting.js',
       'frameId': frame_id,
       'runAt': 'document_start'
-    }, executeScriptCallback);
+    }, noop);
     chrome.tabs.executeScript(tab_id, {
       'file': '/js/contentscripts/clobbercookie.js',
       'frameId': frame_id,
       'runAt': 'document_start'
-    }, executeScriptCallback);
+    }, noop);
     chrome.tabs.executeScript(tab_id, {
       'file': '/js/contentscripts/clobberlocalstorage.js',
       'frameId': frame_id,
       'runAt': 'document_start'
-    }, executeScriptCallback);
+    }, noop);
     chrome.tabs.executeScript(tab_id, {
       'file': '/js/contentscripts/supercookie.js',
       'frameId': frame_id,
       'runAt': 'document_idle'
-    }, executeScriptCallback);
+    }, noop);
 
     if (this.isSocialWidgetReplacementEnabled()) {
       chrome.tabs.executeScript(tab_id, {
         'file': '/js/contentscripts/socialwidgets.js',
         'frameId': frame_id,
         'runAt': 'document_start'
-      }, executeScriptCallback);
+      }, noop);
     }
   },
 

@@ -19,8 +19,6 @@
  */
 
 function getFpPageScript() {
-
-  console.log('inserting fp script');
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string

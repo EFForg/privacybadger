@@ -55,7 +55,6 @@ let i18n = chrome.i18n;
  * Initializes the content script.
  */
 function initialize() {
-  console.info('insert social widget script');
   // Get tracker info and check for initial blocks (that happened
   // before content script was attached)
   getTrackerData(function (trackers, trackerButtonsToReplace) {
