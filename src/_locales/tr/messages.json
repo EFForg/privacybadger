@@ -28,7 +28,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
+        "message": "Privacy Badger ile ne kadar gezinirseniz sizi korumada o kadar iyi olur. Badger'ınız henüz bir şey engellemiyor mu? Sorun değil! Engellenecek şeylerin listesini tutmak yerine, Privacy Badger siz internette gezindikçe takipçileri otomatik olarak keşfeder. Öyleyse Badger'ınıza öğretmek için biraz gezinmeye başlayın.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -40,11 +40,11 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Help us by donating and sharing your support for our tools",
+        "message": "Bağışta bulunarak ve araçlarımıza destğinizi paylaşarak bize yardım edin",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
+        "message": "Ben bir relam önleyici değilim, farklıyım",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -60,7 +60,7 @@
         "description": ""
     },
     "next_section": {
-        "message": "next section",
+        "message": "sonraki bölüm",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "message": "Privacy Badger görünmez takipçileri engellemeyi otomatik olarak öğrenir. Nasıl olduğunu görmek için bir dakika ayırın.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "message": "Özel/gizli pencerelerde öğrenmeyi etkinleştirmek bilgisayarınızdaki özel arama geçmişinize dair izler bırakabilir. Varsayılan olarak, Privacy Badger halihazırda haberdar olduğu takipçileri Özel/Gizli pencerelerde engeller, ancak yeni takipçiler hakkında bilgi edinmez. Eğer gezintinizin büyük bölümü Özel/Gizli pencerelerde oluyorsa bunu etkinleştirmek isteyebilirsiniz.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -156,7 +156,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Learn in Private/Incognito windows **",
+        "message": "Özel/Gizli pencerelerde öğren **",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -168,7 +168,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Did Privacy Badger break this site'. We respect your privacy so we don't send automatic reports.",
+        "message": "Lütfen 'Privacy Badger bu siteyi bozdu mu' butonuna tıklamayı unutmayın. Gizliliğinize önem veriyoruz ve bu yüzden otomatik raporlar göndermiyoruz.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -188,7 +188,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns as you browse",
+        "message": "Siz gezindikçe öğrenir",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
@@ -224,7 +224,7 @@
         "description": "This is an options page tab heading."
     },
     "intro_next_button": {
-        "message": "Take the tour",
+        "message": "Tura çık",
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
@@ -244,7 +244,7 @@
         "description": ""
     },
     "intro_beyond_ads": {
-        "message": "Catches sneaky trackers",
+        "message": "Sinsi takipçileri yakalar",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
@@ -256,7 +256,7 @@
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "intro_donate2": {
-        "message": "Help us by donating and sharing your support!",
+        "message": "Bağışta bulunarak ve desteğinizi paylaşarak bize yardım edin!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "firstRun_title": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Gizli takip pek çok yolla olur; reklamlar buzdağının sadece görünen kısmıdır. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track sinyali gönderir</a> ve takipçilere sizi takip etmemesini söyler. Eğer bu isteğinizi yerine getirmezlerse, Badger'ınız onları engellemeyi öğrenir - ne tür bir reklam ya da takipçi olursa olsun.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -308,7 +308,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "intro_donate_heading": {
-        "message": "Privacy is a team sport!",
+        "message": "Gizlilik bir takım sporudur!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
@@ -368,7 +368,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Badger'ınız cihazınızda yerel olarak öğrenir. Privacy Badger siz istemediğiniz sürece gezintiniz hakkında ASLA veri paylaşmaz.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
+        "message": "Privacy Badger, bir takipçiyi üç farklı websitesinde gördükten sonra engellemeye başlar. Eğer diğer gizlilik araçlarını veya reklam önleyicileri kullanıyorsanız, Privacy Badger daha az öğrenir, ancak sorun değil; diğer araçlarınızın fark etmediği şeyleri durdurabilir.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -396,11 +396,11 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
+        "message": "Privacy Badger kullandığınızda <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a>'a ve gizlilik için savaşan milyonlarca diğer kullanıcıya katılmış olursunuz. Biz çevrimiçi haklarınız için savaşan, kar amacı gütmeyen bir kuruluşuz. Bize katıldığınız için teşekkür ederiz!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
+        "message": "Eğer Privacy Badger'ın bir sayfayı bozduğunu düşünüyorsanız (örneğin başlatılamayan bir video), 'Devre Dışı Bırak' butonuna tıklayarak Privacy Badger'ı o site için kapatabilirsiniz.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {

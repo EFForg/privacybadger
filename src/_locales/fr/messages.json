@@ -28,7 +28,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
+        "message": "Plus vous naviguez avec Privacy Badger, mieux il vous protègera. S'il ne bloque rien, pas de panique ! Au lieu de disposer d'une liste d'éléments à contrer, il apprend au fur et à mesure de votre navigation. Alors surfez un peu pour commencer à lui apprendre.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -40,7 +40,7 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Help us by donating and sharing your support for our tools",
+        "message": "Aidez-nous par un don et en partageant votre appréciation de nos outils",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
@@ -84,7 +84,7 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>traceurs</a> potentiels sur cette page. Ces curseurs vous permettent de définir la façon dont Privacy Badger les gère. Vous ne devriez pas avoir besoin de les modifier à moins d'un site non fonctionnel.",
+        "message": "<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>traceurs</a> potentiels sur cette page. Ces curseurs vous permettent de modifier la façon dont ils sont gérés. Vous ne devriez pas avoir besoin de les modifier à moins d'un site non fonctionnel.",
         "description": "Continuation of the popup message that shows number of trackers"
     },
     "options_domain_filter_block": {
@@ -256,7 +256,7 @@
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "intro_donate2": {
-        "message": "Help us by donating and sharing your support!",
+        "message": "Aidez-nous par un don et en parlant de nous !",
         "description": "Part of the 'donate' section on the intro page."
     },
     "firstRun_title": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Différentes méthodes de traçage invisible existent. Les publicités ne sont que la partie émergée de l'iceberg. Privacy Badger envoi une requête <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Ne pas me pister</a> aux traceurs. S'ils ne coopèrent pas, il apprendra à les bloquer, que ce soient des publicités ou des traceurs d'une autre sorte. ",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
+        "message": "Privacy Badger décide de bloquer un traceur lorsqu'il est détecté sur trois sites internet différents. Si vous utilisez d'autres logiciels pour protéger votre privée ou bloquer des publicités, il apprendra moins, mais ce n'est pas grave, il repérera peut-être ce que les autres ne peuvent pas.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
