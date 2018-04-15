@@ -50,6 +50,7 @@ function Badger() {
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     self.updateTabList();
     self.initializeDefaultSettings();
+    self.registerContentScripts();
     try {
       self.runMigrations();
     } finally {
@@ -694,6 +695,7 @@ Badger.prototype = {
     if (disabledSites.indexOf(origin) < 0) {
       disabledSites.push(origin);
       settings.setItem("disabledSites", disabledSites);
+      this.registerContentScripts();
     }
   },
 
@@ -716,6 +718,121 @@ Badger.prototype = {
     if (idx >= 0) {
       utils.removeElementFromArray(disabledSites, idx);
       settings.setItem("disabledSites", disabledSites);
+    }
+  },
+
+  /**
+   * Registers content scripts using the contentScripts API; currently only
+   * available in FF59+.
+   * TODO Figure out how to pass configuration with these scripts.
+   */
+  registerContentScripts: function() {
+    // If 'browser' is undefined, we are running in Chrome.
+    if (typeof browser === "undefined" || !browser.contentScripts) {
+      return;
+    }
+
+    if (badger.activeContentScripts) {
+      badger.activeContentScripts.unregister();
+    }
+
+    if (badger.idleContentScripts) {
+      badger.idleContentScripts.unregister();
+    }
+
+    // Convert the domains in disabledSites into URLs that can be matched against.
+    const whitelistedURLs = badger.getSettings().getItem('disabledSites')
+      .map((site) => '*://' + site + '/*');
+
+    const activeScripts = {
+      'js': [
+        {file: '/js/contentscripts/fingerprinting.js'},
+        {file: '/js/contentscripts/dnt.js'},
+        {file: '/js/contentscripts/clobbercookie.js'},
+        {file: '/js/contentscripts/clobberlocalstorage.js'}],
+      'matches': ["http://*/*", "https://*/*"],
+      'allFrames': true,
+      'runAt': 'document_start'
+    };
+
+    const idleScripts = {
+      'js': [
+        {file: '/js/contentscripts/socialwidgets.js'},
+        {file: '/js/contentscripts/supercookie.js'}],
+      'matches': ["http://*/*", "https://*/*"],
+      'allFrames': true,
+      'runAt': 'document_idle'
+    };
+
+    if (whitelistedURLs.length > 0) {
+      activeScripts.excludeMatches = whitelistedURLs;
+      idleScripts.excludeMatches = whitelistedURLs;
+    }
+
+    const registerActive = browser.contentScripts.register(activeScripts);
+    const registerIdle = browser.contentScripts.register(idleScripts);
+
+    registerActive.then((res) => {badger.activeContentScripts = res;});
+    registerIdle.then((res) => {badger.idleContentScripts = res;});
+  },
+
+  /**
+   * Insert into the tab the required content scripts based on whitelisting status.
+   *
+   * @param {int} tab_id The ID of the tab
+   * @param {String} url The URL of the specified tab
+   * @param {int} frame_id The ID from the current frame
+   * @param {Boolean} is_internal Whether this tab is an internal browser tab
+   */
+  insertContentScripts(tab_id, url, frame_id, is_internal) {
+    if (!this.isPrivacyBadgerEnabled(url) || is_internal) {
+      return;
+    }
+    // In FF 59+, content scripts are injected with registerContentScripts().
+    if (typeof browser !== "undefined" && browser.contentScripts) {
+      return;
+    }
+
+    var noop = function() {
+      if (chrome.runtime.lastError) {
+      //   // Do nothing
+      }
+    };
+
+    // Insert all scripts
+    // TODO Put this in a loop?
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/fingerprinting.js',
+      'frameId': frame_id,
+      'runAt': 'document_start'
+    }, noop);
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/dnt.js',
+      'frameId': frame_id,
+      'runAt': 'document_start'
+    }, noop);
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/clobbercookie.js',
+      'frameId': frame_id,
+      'runAt': 'document_start'
+    }, noop);
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/clobberlocalstorage.js',
+      'frameId': frame_id,
+      'runAt': 'document_start'
+    }, noop);
+    chrome.tabs.executeScript(tab_id, {
+      'file': '/js/contentscripts/supercookie.js',
+      'frameId': frame_id,
+      'runAt': 'document_idle'
+    }, noop);
+
+    if (this.isSocialWidgetReplacementEnabled()) {
+      chrome.tabs.executeScript(tab_id, {
+        'file': '/js/contentscripts/socialwidgets.js',
+        'frameId': frame_id,
+        'runAt': 'document_start'
+      }, noop);
     }
   },
 
