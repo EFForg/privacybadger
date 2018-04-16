@@ -7,7 +7,7 @@ function setup_chrome {
     echo "Setting up chromedriver version $version ..."
     url="https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
     wget -q -O /tmp/chromedriver.zip "$url"
-    sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+    sudo unzip -o /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
     sudo chmod a+x /usr/local/bin/chromedriver
 
     # check that chromedriver is now present
