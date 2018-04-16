@@ -1,16 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 import unittest
 
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotInteractableException, ElementNotVisibleException
+import pbtest
 
 from random import randint
 
-import pbtest
+from selenium.common.exceptions import (
+    ElementNotInteractableException,
+    ElementNotVisibleException,
+    NoSuchElementException,
+    TimeoutException,
+)
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class OptionsPageTest(pbtest.PBSeleniumTest):
@@ -215,7 +221,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.select_domain_list_tab()
 
         # Check the user preferences for the origins are still displayed
-        self.assertEquals(self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]').get_attribute("class"),
+        self.assertEqual(self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]').get_attribute("class"),
             "clicker userset " + overwrite_action,
             "Origin should be displayed as " + overwrite_action + " after user overwrite of PB's decision to " + original_action)
 
@@ -274,7 +280,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         except TimeoutException:
             self.fail("Timed out waiting for element generated on scroll to have its slider value changed to userset block")
 
-        self.assertEquals(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
+        self.assertEqual(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
             "clicker userset block",
             "Scroll-generated origin should be displayed as blocked after user overwrite of PB's decision to allow")
 
@@ -288,7 +294,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.scroll_to_origin('pbtest50-generated.org')
 
         # Check the user preferences for the origins are still displayed
-        self.assertEquals(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
+        self.assertEqual(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
             "clicker userset block",
             "Scroll-generated origin should be persisted as blocked after user overwrite of PB's decision to allow")
 
