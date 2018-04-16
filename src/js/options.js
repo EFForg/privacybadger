@@ -169,7 +169,7 @@ function importTrackerList() {
  * Parse the tracker lists uploaded by the user, adding to the
  * storage maps anything that isn't currently present.
  *
- * @param {string} storageMapsList Data from JSON file that user provided
+ * @param {String} storageMapsList Data from JSON file that user provided
  */
 function parseUserDataFile(storageMapsList) {
   var lists;
@@ -348,10 +348,10 @@ function refreshOriginCache() {
 /**
  * Gets array of encountered origins.
  *
- * @param filter_text {String} Text to filter origins with.
- * @param type_filter {String} Type (user-controlled, DNT-compliant) to filter
+ * @param {String} filter_text Text to filter origins with.
+ * @param {String} type_filter Type (user-controlled, DNT-compliant) to filter
  *   origins by.
- * @param status_filter {String} Status (blocked, cookieblocked, allowed) to
+ * @param {String} status_filter Status (blocked, cookieblocked, allowed) to
  *   filter origins by.
  *
  * @return {Array}
@@ -441,7 +441,7 @@ function getOrigins() {
 
 /**
  * Gets action for given origin.
- * @param origin Origin to get action for.
+ * @param {String} origin - Origin to get action for.
  */
 function getOriginAction(origin) {
   // Check to see if cached origins need to be set.
@@ -533,9 +533,8 @@ function reloadTrackingDomainsTab() {
 
 /**
  * Displays filtered list of tracking domains based on user input.
- * @param event Input event triggered by user.
  */
-function filterTrackingDomains(/*event*/) {
+function filterTrackingDomains() {
   const $typeFilter = $('#tracking-domains-type-filter');
   const $statusFilter = $('#tracking-domains-status-filter');
 
@@ -569,12 +568,12 @@ function filterTrackingDomains(/*event*/) {
 
 /**
  * Registers handlers for tracking domain toggle controls.
- * @param toggleElement {Object} Tracking domain html element to be registered.
+ * @param {jQuery} $toggleElement jQuery object for the tracking domain element to be registered.
  */
 // TODO unduplicate this code? since a version of it is also in popup
-function registerToggleHandlers(toggleElement) {
-  var radios = toggleElement.children('input');
-  var value = toggleElement.children('input:checked').val();
+function registerToggleHandlers($toggleElement) {
+  var radios = $toggleElement.children('input');
+  var value = $toggleElement.children('input:checked').val();
 
   var slider = $('<div></div>').slider({
     min: 0,
@@ -593,7 +592,7 @@ function registerToggleHandlers(toggleElement) {
 
       // Save change for origin.
       var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-      var setting = htmlUtils.getCurrentClass(toggleElement.parents('.clicker'));
+      var setting = htmlUtils.getCurrentClass($toggleElement.parents('.clicker'));
       chrome.runtime.sendMessage({
         type: "saveOptionsToggle",
         action: setting,
@@ -602,7 +601,7 @@ function registerToggleHandlers(toggleElement) {
         reloadTrackingDomainsTab();
       });
     },
-  }).appendTo(toggleElement);
+  }).appendTo($toggleElement);
 
   radios.on("change", function() {
     slider.slider('value', radios.filter(':checked').val());
@@ -635,7 +634,7 @@ function addOrigins(e) {
 
 /**
  * Displays list of tracking domains along with toggle controls.
- * @param domains {Array} Tracking domains to display.
+ * @param {Array} domains Tracking domains to display.
  */
 function showTrackingDomains(domains) {
   domains.sort(htmlUtils.compareReversedDomains);
@@ -704,7 +703,8 @@ function toggleWebRTCIPProtection() {
 /**
  * Update the user preferences displayed for this origin.
  * These UI changes will later be used to update user preferences data.
- * @param event {Event} Click event triggered by user.
+ *
+ * @param {Event} event Click event triggered by user.
  */
 //TODO unduplicate this code? since it's also in popup
 function updateOrigin(event) {
@@ -734,7 +734,7 @@ function updateOrigin(event) {
 
 /**
  * Remove origin from Privacy Badger.
- * @param event {Event} Click event triggered by user.
+ * @param {Event} event Click event triggered by user.
  */
 function removeOrigin(event) {
   // Confirm removal before proceeding.
