@@ -20,7 +20,7 @@
         "description": ""
     },
     "non_tracker_tip": {
-        "message": "Pour l'instant, Privacy Badger vérifie seulement si un tiers se sert de cookies, du stockage HTML5 local ou de l'empreinte par canvas pour tracer votre navigation. Il se peut que d'autres méthodes non détectées soient utilisées.",
+        "message": "À ce jour, Privacy Badger vérifie seulement si un tiers se sert de cookies, du stockage HTML5 local ou de l'empreinte par canvas pour épier votre navigation. Il se peut que d'autres méthodes non détectées soient utilisées.",
         "description": ""
     },
     "options_dnt_policy_setting": {
@@ -44,7 +44,7 @@
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Pas un bloqueur de publicités, je suis différent.",
+        "message": "Différent d'un bloqueur de publicités",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -400,7 +400,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_disable_button": {
-        "message": "Si vous pensez que Privacy Badger perturbe l'affichage d'une page (par exemple, une vidéo ne peut être lue), vous pouvez cliquer sur le bouton \"Désactiver\" pour l'empêcher d'opérer sur cette page.",
+        "message": "Si vous soupçonner Privacy Badger de perturber le fonctionnement d'une page (par exemple, la lecture d'une vidéo), vous pouvez cliquer sur le bouton « Désactiver » pour l'empêcher d'opérer sur cette page.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
@@ -424,7 +424,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger vous protège des traqueurs lorsque vous surfez sur le web !",
+        "message": "Privacy Badger vous protège des traceurs lorsque vous surfez sur le web !",
         "description": ""
     },
     "popup_noblocked": {

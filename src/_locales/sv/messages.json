@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Kontrollera om webbplatser överensstämmer med EFF:s Spåra inte-policy",
+        "message": "Kontrollera om webbplatser överensstämmer med EFF's Spåra inte (DNT)-policy",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -156,7 +156,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Lär i privata/inkognitofönster **",
+        "message": "Inlärning i privata/inkognitofönster **",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -168,7 +168,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Glöm inte att klicka på 'Bröt Privacy Privacy Badger denna webbplats'. Vi respekterar din integritet så vi skickar inte automatiska rapporter.",
+        "message": "Glöm inte att klicka på 'Bröt Privacy Badger denna webbplats'. Vi respekterar din integritet så vi skickar inte automatiska rapporter.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -188,7 +188,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Lär sig medan du surfar",
+        "message": "Inlärning medan du surfar",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
@@ -280,7 +280,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Osynlig spårning sker på alla sätt; annonser är bara den synliga toppen av isberget. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>skickar signalen Spåra inte</a> till spårare som berätta för dem att inte spåra dig. Om de ignorerar dina önskemål kommer din Badger att lära sig att blockera dem - oavsett om de är annonsörer eller spårare av andra slag.",
+        "message": "Osynlig spårning sker på alla sätt; annonser är bara den synliga toppen av isberget. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>skickar signalen Spåra inte (DNT)</a> till spårare som berätta för dem att inte spåra dig. Om de ignorerar dina önskemål kommer din Badger att lära sig att blockera dem - oavsett om de är annonsörer eller spårare av andra slag.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -368,7 +368,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Din Badger lär dig lokalt på din enhet. Privacy Badger kommer ALDRIG att dela data om din surfning om du inte väljer att dela den.",
+        "message": "Din Badger lär sig lokalt på din enhet. Privacy Badger kommer ALDRIG att dela data om din surfning om du inte väljer att dela den.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {

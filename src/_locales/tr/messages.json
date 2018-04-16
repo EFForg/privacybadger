@@ -40,11 +40,11 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Bağışta bulunarak ve araçlarımıza destğinizi paylaşarak bize yardım edin",
+        "message": "Bağışta bulunarak ve araçlarımıza desteğinizi paylaşarak bize yardım edin",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Ben bir relam önleyici değilim, farklıyım",
+        "message": "Ben bir reklam önleyici değilim, farklıyım",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "Özel/gizli pencerelerde öğrenmeyi etkinleştirmek bilgisayarınızdaki özel arama geçmişinize dair izler bırakabilir. Varsayılan olarak, Privacy Badger halihazırda haberdar olduğu takipçileri Özel/Gizli pencerelerde engeller, ancak yeni takipçiler hakkında bilgi edinmez. Eğer gezintinizin büyük bölümü Özel/Gizli pencerelerde oluyorsa bunu etkinleştirmek isteyebilirsiniz.",
+        "message": "** Özel/gizli pencerelerde öğrenmeyi etkinleştirmek bilgisayarınızdaki özel arama geçmişinize dair izler bırakabilir. Varsayılan olarak, Privacy Badger halihazırda haberdar olduğu takipçileri Özel/Gizli pencerelerde engeller, ancak yeni takipçiler hakkında bilgi edinmez. Eğer gezintinizin büyük bölümü Özel/Gizli pencerelerde oluyorsa bunu etkinleştirmek isteyebilirsiniz.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
