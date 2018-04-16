@@ -324,8 +324,8 @@ function registerToggleHandlers() {
     },
   }).appendTo(this);
 
-  radios.change(function() {
-    slider.slider("value",radios.filter(':checked').val());
+  radios.on("change", function () {
+    slider.slider("value", radios.filter(':checked').val());
   });
 }
 
