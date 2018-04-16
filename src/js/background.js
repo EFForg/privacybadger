@@ -493,6 +493,7 @@ Badger.prototype = {
     showCounter: true,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
+    webRTCIPProtection: false,
   },
 
   /**
