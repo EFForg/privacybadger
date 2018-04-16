@@ -1,5 +1,18 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.4.10
+* Updated the new user welcome page. The redesigned page is mobile-friendly,
+accessible and already translated into several languages.
+* Fixed Do Not Track being checked sometimes in Private Browsing/Incognito
+windows. By default, Privacy Badger should not record anything in Incognito.
+* Added setting to allow learning in Private Browsing/Incognito windows
+* Fixed unwanted scrolling when switching tabs on the options page
+* Updated replacement icon for Google+
+* Fixed various site breakages
+* Improved translations (Bulgarian, Simplified Chinese, Traditional Chinese,
+Danish, Esperanto, French, German, Italian, Polish, Russian, Spanish,
+Ukrainian)
+
 ## 2018.3.21
 * Fixed Do Not Track not being recognized by sites that test for it by
 checking navigator.doNotTrack with JavaScript
