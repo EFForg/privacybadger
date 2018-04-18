@@ -399,6 +399,10 @@
         "message": "當您使用 Privacy Badger，您就會加入<a href='https://www.eff.org/' target='_blank'>電子前鋒基金會 (EFF)</a>與其他數百萬個使用者一同為隱私而戰。我們是一個為您的線上權利而戰的非營利組織。感謝您加入我們！",
         "description": "Part of the 'donate' section on the intro page."
     },
+    "options_domain_search_tooltip": {
+        "message": "To exclude domains, prepend your search term with \"-\". For example, \".co -.com\" will show .co and .co.uk but not .com domains.",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
+    },
     "intro_disable_button": {
         "message": "若您覺得 Privacy Badger 破壞了某個頁面（舉例來說，影片無法播放之類的），您可以點按「停用」按鈕來將 Privacy Badger 在該頁面上關閉。",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."

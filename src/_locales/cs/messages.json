@@ -399,6 +399,10 @@
         "message": "Používáním rozšíření Privacy Badger se připojíte k organizaci <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> a milionům dalších uživatelů k boji za soukromí. Jsme nezisková organizace, která bojuje za Vaše práva na internetu. Děkujeme, že jste s námi!",
         "description": "Part of the 'donate' section on the intro page."
     },
+    "options_domain_search_tooltip": {
+        "message": "To exclude domains, prepend your search term with \"-\". For example, \".co -.com\" will show .co and .co.uk but not .com domains.",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
+    },
     "intro_disable_button": {
         "message": "Pokud si myslíte, že Privacy Badger rozbil nějakou webovou stránku (například se nezobrazí video), můžeme kliknout na tlačítko \"Vypnout Privacy Badger pro tuto stránku\", díky čemuž nebude Privacy Badger na této stránce aktivní.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."

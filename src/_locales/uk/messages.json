@@ -399,6 +399,10 @@
         "message": "Використовуючи Privacy Badger, ви долучаєтесь до спільноти <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> разом з мільйонами інших користувачів, які відстоюють приватність. Ми є некомерційною організацією, яка відстоює ваші права онлайн. Дякуємо, що приєдналися до нас!",
         "description": "Part of the 'donate' section on the intro page."
     },
+    "options_domain_search_tooltip": {
+        "message": "To exclude domains, prepend your search term with \"-\". For example, \".co -.com\" will show .co and .co.uk but not .com domains.",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
+    },
     "intro_disable_button": {
         "message": "Якщо ви вважаєте, що Privacy Badger пошкодив сторінку (наприклад, не відтворюється відео), ви можете вимкнути його на цій сторінці, натиснувши \"Вимкнути Privacy Badger для цього сайту\".",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
