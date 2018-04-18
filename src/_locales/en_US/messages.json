@@ -434,5 +434,9 @@
     "report_fail": {
         "message": "Oops. Something went wrong.",
         "description": ""
+    },
+    "options_domain_search_tooltip": {
+        "message": "To exclude domains, prepend your search term with \"-\". For example, \".co -.com\" will show .co and .co.uk but not .com domains.",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     }
 }

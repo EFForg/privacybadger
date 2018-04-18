@@ -15,6 +15,8 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals getOriginsArray:false */
+
 // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
 
 // TODO hack: disable Tooltipster tooltips on Firefox to avoid unresponsive script warnings
@@ -356,55 +358,6 @@ function refreshOriginCache() {
   originCache = getOrigins();
 }
 
-/**
- * Gets array of encountered origins.
- *
- * @param {String} filter_text Text to filter origins with.
- * @param {String} type_filter Type (user-controlled, DNT-compliant) to filter
- *   origins by.
- * @param {String} status_filter Status (blocked, cookieblocked, allowed) to
- *   filter origins by.
- *
- * @return {Array}
- */
-function getOriginsArray(filter_text, type_filter, status_filter) {
-  // Make sure filter_text is lower case for case-insensitive matching.
-  if (filter_text) {
-    filter_text = filter_text.toLowerCase();
-  } else {
-    filter_text = "";
-  }
-
-  function matchesFormFilters(origin) {
-    const value = originCache[origin];
-
-    if (type_filter) {
-      if (type_filter == "user") {
-        if (!value.startsWith("user")) {
-          return false;
-        }
-      } else {
-        if (value != type_filter) {
-          return false;
-        }
-      }
-    }
-
-    if (status_filter) {
-      if (status_filter != value.replace("user_", "") && !(
-        status_filter == "allow" && value == "dnt"
-      )) {
-        return false;
-      }
-    }
-
-    return origin.toLowerCase().indexOf(filter_text) !== -1;
-  }
-
-  // Include only origins that match given filters.
-  return Object.keys(originCache).filter(matchesFormFilters);
-}
-
 function addWhitelistDomain(event) {
   event.preventDefault();
 
@@ -486,7 +439,7 @@ function reloadTrackingDomainsTab() {
   refreshOriginCache();
 
   // Check to see if any tracking domains have been found before continuing.
-  var allTrackingDomains = getOriginsArray();
+  var allTrackingDomains = getOriginsArray(originCache);
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
     $("#pb_has_detected").hide();
@@ -533,6 +486,7 @@ function reloadTrackingDomainsTab() {
   // Display tracking domains.
   showTrackingDomains(
     getOriginsArray(
+      originCache,
       $("#trackingDomainSearch").val(),
       $('#tracking-domains-type-filter').val(),
       $('#tracking-domains-status-filter').val()
@@ -569,6 +523,7 @@ function filterTrackingDomains() {
 
     // Show filtered origins.
     var filteredOrigins = getOriginsArray(
+      originCache,
       searchText,
       $typeFilter.val(),
       $statusFilter.val()
