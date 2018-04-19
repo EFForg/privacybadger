@@ -327,6 +327,19 @@ function unblockTracker(buttonUrls, callback) {
   chrome.runtime.sendMessage(request, callback);
 }
 
+// END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
+
+(function () {
+
+// don't inject into non-HTML documents (such as XML documents)
+// but do inject into XHTML documents
+if (document instanceof HTMLDocument === false && (
+  document instanceof XMLDocument === false ||
+  document.createElement('div') instanceof HTMLDivElement === false
+)) {
+  return;
+}
+
 chrome.runtime.sendMessage({
   checkSocialWidgetReplacementEnabled: true
 }, function (checkSocialWidgetReplacementEnabled) {
@@ -335,3 +348,5 @@ chrome.runtime.sendMessage({
   }
   initialize();
 });
+
+}());
