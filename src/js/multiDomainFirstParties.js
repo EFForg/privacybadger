@@ -486,6 +486,7 @@ var multiDomainFirstPartiesArray = [
   ["wikipedia.org", "wikimedia.org", "wikimediafoundation.org", "wiktionary.org",
     "wikiquote.org", "wikibooks.org", "wikisource.org", "wikinews.org",
     "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org"],
+  ["wix.com", "wixapps.net", "wixstatic.com", "parastorage.com"],
   ["wordpress.com", "wp.com"],
   ["wpcu.coop", "wpcuonline.com"],
   ["wsj.com", "wsj.net", "barrons.com", "dowjones.com", "marketwatch.com"],
