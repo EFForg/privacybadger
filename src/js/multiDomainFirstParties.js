@@ -385,6 +385,7 @@ var multiDomainFirstPartiesArray = [
   ["pokemon-gl.com", "pokemon.com"],
   ["pornhub.com", "phncdn.com"],
   ["postepay.it", "poste.it"],
+  ["postimees.ee", "city24.ee", "city24.lv", "pmo.ee"],
   [
     "qq.com",
     "dnspod.cn",
