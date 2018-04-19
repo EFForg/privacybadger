@@ -255,10 +255,6 @@
         "message": "Ho capito; mostrami comunque l'elenco dei domini traccianti",
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
-    "intro_donate2": {
-        "message": "Aiutaci donando e offrendo il tuo supporto!",
-        "description": "Part of the 'donate' section on the intro page."
-    },
     "firstRun_title": {
         "message": "Grazie per aver installato Privacy Badger!",
         "description": ""
