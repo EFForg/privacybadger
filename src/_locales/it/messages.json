@@ -272,7 +272,7 @@
         "description": ""
     },
     "report_broken_site": {
-        "message": "Segnala sito malfunzionante",
+        "message": "Privacy Badger ha dato problemi a questo sito? Faccelo sapere!",
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
@@ -400,7 +400,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "To exclude domains, prepend your search term with \"-\". For example, \".co -.com\" will show .co and .co.uk but not .com domains.",
+        "message": "Per escludere domini, apponi al termine di ricerca il segno \"-\". Ad esempio, \".co -.com\" mostrerà i domini .co e .co.uk ma non .com.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {

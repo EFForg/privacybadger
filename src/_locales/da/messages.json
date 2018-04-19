@@ -400,7 +400,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "To exclude domains, prepend your search term with \"-\". For example, \".co -.com\" will show .co and .co.uk but not .com domains.",
+        "message": "Sæt \"-\" foran dine søgeudtryk for at udelukke domæner. For eksempel vil \".co -.com\" vise .co og .co.uk men ikke .com-domæner.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
