@@ -40,7 +40,7 @@ class DNTTest(pbtest.PBSeleniumTest):
             headers = json.loads(text)['headers']
         except ValueError:
             print("\nFailed to parse JSON from {}".format(repr(text)))
-            return False
+            return None
 
         return headers
 
@@ -226,6 +226,7 @@ class DNTTest(pbtest.PBSeleniumTest):
     def test_first_party_dnt_header(self):
         TEST_URL = "https://httpbin.org/get"
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL))
+        self.assertTrue(headers, "It seems we failed to get DNT headers")
         self.assertIn('Dnt', headers, "DNT header should have been present")
         self.assertEqual(headers['Dnt'], "1",
             'DNT header should have been set to "1"')
@@ -234,6 +235,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         TEST_URL = "https://httpbin.org/get"
         self.disable_badger_on_site(TEST_URL)
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL))
+        self.assertTrue(headers, "It seems we failed to get DNT headers")
         self.assertNotIn('Dnt', headers, "DNT header should have been missing")
 
     def test_navigator_object(self):
