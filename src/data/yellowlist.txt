@@ -342,6 +342,7 @@ licensebuttons.net
 addon.lidl.de
 media.lidl.com
 linkwithin.com
+list-manage.com
 i.lithium.com
 messenger.live.com
 livechatinc.com
@@ -353,6 +354,7 @@ loggly.com
 logos.com
 lphbs.com
 mail.ru
+mailchimp.com
 mapbox.com
 mapquestapi.com
 marketo.com
