@@ -265,6 +265,7 @@ googleusercontent.com
 googlevideo.com
 governmentjobs.com
 gravatar.com
+greenhouse.io
 gscdn.nl
 gstatic.com
 hackerone-user-content.com
