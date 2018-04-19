@@ -715,8 +715,9 @@ function dispatcher(request, sender, sendResponse) {
       tabUrl: tab_url
     });
 
-  } else if (request.type == "seenComic") {
+  } else if (request.type == "acknowledgeNag") {
     badger.getSettings().setItem("seenComic", true);
+    delete badger.criticalError;
 
   } else if (request.type == "activateOnSite") {
     badger.enablePrivacyBadgerForOrigin(request.tabHost);

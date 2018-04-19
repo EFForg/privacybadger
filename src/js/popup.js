@@ -43,14 +43,14 @@ function showNagMaybe() {
   var outer = $("#instruction-outer");
   var firstRunUrl = chrome.extension.getURL("/skin/firstRun.html");
 
-  function _setSeenComic() {
+  function _acknowledgeNag() {
     chrome.runtime.sendMessage({
-      type: "seenComic"
+      type: "acknowledgeNag"
     });
   }
 
   function _hideNag() {
-    _setSeenComic();
+    _acknowledgeNag();
     nag.fadeOut();
     outer.fadeOut();
   }
@@ -85,10 +85,21 @@ function showNagMaybe() {
         _showNag();
       }
     });
+
   } else if (POPUP_DATA.criticalError) {
     $('#instruction-text').hide();
-    $('#error-text').show().find('a').attr('id', 'firstRun').css('padding', '5px');
-    $('#error-message').text(POPUP_DATA.criticalError);
+
+    if (POPUP_DATA.criticalError.indexOf("FILE_ERROR_NO_SPACE") != -1) {
+      // disk low on space
+      $('#error-text').show();
+      $('#error-header').text(i18n.getMessage("extension_error_no_space"));
+      $('#error-message').text(POPUP_DATA.criticalError);
+    } else {
+      // some other error
+      $('#error-text').show().find('a').attr('id', 'firstRun').css('padding', '5px');
+      $('#error-message').text(POPUP_DATA.criticalError);
+    }
+
     _showNag();
   }
 }

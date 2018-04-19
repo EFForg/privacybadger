@@ -67,6 +67,10 @@
         "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
+    "extension_error_no_space": {
+        "message": "Your disk seems to be low on space:",
+        "description": "Shown in the popup when the browser produces a FILE_ERROR_NO_SPACE error when Privacy Badger tries to save its state."
+    },
     "data_settings": {
         "message": "Manage Data",
         "description": "This is an options page tab heading."
