@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Перевіряти, чи сайти підтримують політику EFF щодо відмови від стеження",
+        "message": "Перевіряти, чи сайти підтримують політику EFF щодо відмови від стеження (DNT)",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -276,7 +276,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Невидиме стеження відбувається різними способами. Реклама - це лише вершина айсбергу. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>надсилає сигнал \"Не стежити\"</a>, повідомляючи таким чином, що ви не хочете, щоб за вами стежили. Якщо вони ігнорують ваше побажання, Privacy Badger буде їх блокувати.",
+        "message": "Невидиме стеження відбувається різними способами. Реклама - це лише вершина айсбергу. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>надсилає сигнал \"Не стежити\" (DNT)</a>, повідомляючи таким чином, що ви не хочете, щоб за вами стежили. Якщо вони ігнорують ваше побажання, Privacy Badger буде їх блокувати.",
         "description": "Intro page paragraph."
     },
     "report_close": {

@@ -396,7 +396,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "Pour exclure un domaine, ajoutez \"-\" devant celui-ci lors de votre recherche. Par exemple, \".co -.com\" affichera les domaines en .co, mais pas .co.uk.",
+        "message": "Pour exclure un domaine, ajoutez \"-\" devant celui-ci lors de votre recherche. Par exemple, \".co -.com\" affichera les domaines en .co ou .co.uk, mais pas .com.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
