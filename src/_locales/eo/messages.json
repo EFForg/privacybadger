@@ -92,7 +92,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Preventi WebRTC de malkovri lokan IP-adreson",
+        "message": "Preventi WebRTC de malkovri lokan IP-adreson *",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
