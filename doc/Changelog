@@ -1,5 +1,17 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.4.23
+* Fixed changes not being persisted for domains that appear after scrolling
+the tracking domains list on the options page
+* Improved tracking domains search on the options page
+* Fixed "can't access dead object" errors in Firefox
+* Fixed XML document rendering in Firefox
+* Updated WebRTC protection checkbox to become disabled when the setting is
+controlled by other extensions
+* Fixed various site breakages
+* Improved translations (Traditional Chinese, Czech, Danish, Esperanto,
+French, German, Italian, Polish, Russian, Swedish, Turkish, Ukrainian)
+
 ## 2018.4.10
 * Updated the new user welcome page. The redesigned page is mobile-friendly,
 accessible and already translated into several languages.
