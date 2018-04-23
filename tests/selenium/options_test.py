@@ -73,7 +73,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
 
     def scroll_to_origin(self, origin):
-        generated_element = self.driver.find_element_by_css_selector("div[data-origin='" + origin + "']")
+        generated_element = self.find_el_by_css("div[data-origin='" + origin + "']")
         self.driver.execute_script("return arguments[0].scrollIntoView(true);", generated_element)
 
     def test_page_title(self):
