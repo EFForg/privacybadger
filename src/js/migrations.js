@@ -228,8 +228,12 @@ exports.Migrations= {
     }
   },
 
-  resetWebRTCIPHandlingPolicy: function (/*badger*/) {
+  resetWebRTCIPHandlingPolicy: function (badger) {
     console.log("Resetting webRTCIPHandlingPolicy ...");
+
+    if (!badger.webRTCAvailable) {
+      return;
+    }
 
     const cpn = chrome.privacy.network;
 
