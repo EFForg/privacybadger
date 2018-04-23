@@ -55,7 +55,6 @@ function Badger() {
     } finally {
       self.initializeYellowlist();
       self.initializeDNT();
-      self.enableWebRTCProtection();
       if (!self.isIncognito) {self.showFirstRunPage();}
     }
 
@@ -258,33 +257,6 @@ Badger.prototype = {
 
     // set up periodic fetching of the yellowlist from eff.org
     setInterval(self.updateYellowlist.bind(self), utils.oneDay());
-  },
-
-  /**
-   * Change default WebRTC handling browser policy to more
-   * private setting that only shows public facing IP address.
-   *
-   * Only update if user does not have the strictest setting enabled.
-   */
-  enableWebRTCProtection: function () {
-    let self = this;
-
-    // Return early with non-supporting browsers
-    if (!self.webRTCAvailable) {
-      return;
-    }
-
-    var cpn = chrome.privacy.network;
-
-    cpn.webRTCIPHandlingPolicy.get({}, function(result) {
-      if (result.value == 'disable_non_proxied_udp') {
-        return;
-      }
-
-      cpn.webRTCIPHandlingPolicy.set({
-        value: 'default_public_interface_only'
-      });
-    });
   },
 
   /**
@@ -522,6 +494,7 @@ Badger.prototype = {
       Migrations.reapplyYellowlist,
       Migrations.forgetNontrackingDomains,
       Migrations.forgetMistakenlyBlockedDomains,
+      Migrations.resetWebRTCIPHandlingPolicy,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
@@ -641,22 +614,6 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
-  },
-
-  /**
-   * Check if WebRTC IP leak protection is enabled.
-   *
-   * @param {Function} callback
-   */
-  isWebRTCIPProtectionEnabled: function (callback) {
-    // Return early with non-supporting browsers
-    if (!this.webRTCAvailable) {
-      return;
-    }
-
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (result) {
-      callback(result);
-    });
   },
 
   /**
