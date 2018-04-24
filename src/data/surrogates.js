@@ -64,6 +64,7 @@ const hostnames = {
     '/JS/socialize.js',
   ],
   'cdn.krxd.net': 'noopjs',
+  'widgets.outbrain.com': '/outbrain.js',
 };
 
 /**
@@ -477,6 +478,35 @@ const surrogates = {
       }
     } + ')();',
   /* eslint-enable no-empty */
+
+  // https://github.com/uBlockOrigin/uAssets/blob/d7d4836638dcf227938b4cead66ad9d01b6166ba/filters/resources.txt#L843-L868
+  '/outbrain.js': '(' +
+    function() {
+      var noopfn = function() {
+        ;
+      };
+      var obr = {};
+      var methods = [
+        'callClick', 'callLoadMore', 'callRecs', 'callUserZapping',
+        'callWhatIs', 'cancelRecommendation', 'cancelRecs', 'closeCard',
+        'closeModal', 'closeTbx', 'errorInjectionHandler', 'getCountOfRecs',
+        'getStat', 'imageError', 'manualVideoClicked', 'onOdbReturn',
+        'onVideoClick', 'pagerLoad', 'recClicked', 'refreshSpecificWidget',
+        'refreshWidget', 'reloadWidget', 'researchWidget', 'returnedError',
+        'returnedHtmlData', 'returnedIrdData', 'returnedJsonData', 'scrollLoad',
+        'showDescription', 'showRecInIframe', 'userZappingMessage', 'zappingFormAction'
+      ];
+      obr.extern = {
+        video: {
+          getVideoRecs: noopfn,
+          videoClicked: noopfn
+        }
+      };
+      methods.forEach(function(a) {
+        obr.extern[a] = noopfn;
+      });
+      window.OBR = window.OBR || obr;
+    } + ')();',
 
   // https://github.com/uBlockOrigin/uAssets/blob/0efcadb2ecc2a9f0daa5a1df79841d794b83860f/filters/resources.txt#L38-L41
   'noopjs': '(' +
