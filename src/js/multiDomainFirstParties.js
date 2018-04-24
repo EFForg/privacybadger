@@ -307,8 +307,11 @@ var multiDomainFirstPartiesArray = [
   ["gotomeeting.com", "citrixonline.com"],
   ["guardian.co.uk", "guim.co.uk", "guardianapps.co.uk", "theguardian.com", "gu-web.net"],
   [
+    "habr.com",
+    "habr.ru",
     "habrahabr.ru",
     "freelansim.ru",
+    "geektimes.com",
     "geektimes.ru",
     "moikrug.ru",
     "toster.ru",
