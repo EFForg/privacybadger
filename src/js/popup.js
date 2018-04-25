@@ -107,9 +107,9 @@ function init() {
     });
   });
 
-  var overlay = $('#overlay');
   $("#error").on("click", function() {
-    overlay.toggleClass('active');
+    $('#overlay').toggleClass('active');
+    $("#error_input").focus();
   });
   $("#report_cancel").on("click", function() {
     closeOverlay();
