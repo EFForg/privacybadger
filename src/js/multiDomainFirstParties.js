@@ -303,6 +303,8 @@ var multiDomainFirstPartiesArray = [
     "fonts.googleapis.com",
     "storage.googleapis.com",
     "www.googleapis.com",
+
+    "nestpowerproject.withgoogle.com",
   ],
   ["gotomeeting.com", "citrixonline.com"],
   ["guardian.co.uk", "guim.co.uk", "guardianapps.co.uk", "theguardian.com", "gu-web.net"],
