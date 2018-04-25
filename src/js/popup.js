@@ -117,7 +117,7 @@ function init() {
   $("#report_button").on("click", function() {
     $(this).prop("disabled", true);
     $("#report_cancel").prop("disabled", true);
-    send_error($("#error_input").val());
+    send_error();
   });
   $("#report_close").on("click", function() {
     closeOverlay();
@@ -180,11 +180,9 @@ function closeOverlay() {
 }
 
 /**
- * Send errors to PB error reporting server
- *
- * @param {String} message The message to send
+ * Sends errors to PB error reporting server.
  */
-function send_error(message) {
+function send_error() {
   // get the latest domain list from the background page
   chrome.runtime.sendMessage({
     type: "getPopupData",
@@ -200,10 +198,16 @@ function send_error(message) {
     let out = {
       browser: window.navigator.userAgent,
       fqdn: response.tabHost,
-      message: message,
+      message: $("#error_input").val(),
       url: response.tabUrl,
       version: chrome.runtime.getManifest().version
     };
+
+    // send "other extensions" with report if filled in
+    const other_extensions = $("#extensions_input").val().trim();
+    if (other_extensions) {
+      out.extensions = other_extensions;
+    }
 
     for (let origin in origins) {
       let action = origins[origin];

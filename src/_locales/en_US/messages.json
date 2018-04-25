@@ -100,8 +100,12 @@
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
-        "message": "What's Wrong?",
-        "description": ""
+        "message": "What's wrong?",
+        "description": "Placeholder for an error reporting form input in the popup. This input is for briefly describing the problem."
+    },
+    "error_reporting_extensions_input": {
+        "message": "What other extensions do you use?",
+        "description": "Placeholder for an error reporting form input in the popup. This input is for letting us know of any other installed extensions."
     },
     "popup_instructions_no_trackers": {
         "message": "No <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> detected. Hooray for privacy!",

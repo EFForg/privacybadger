@@ -295,23 +295,30 @@ font-size: 16px;
   background: url("/skin/background.png");
   transition: opacity .1s ease;
 }
-  div#overlay.active {
+div#overlay.active {
     z-index: 31;
-    opacity: 1;}
-#error_input {
-  display: block;
-  width: 70%;}
+    opacity: 1;
+}
+#overlay textarea + textarea {
+    margin: 5px 0;
+}
+#error_input, #extensions_input {
+    display: block;
+    width: 95%;
+}
 #report_title {
-  display: inline-block;
-  padding: 0;
-  margin: 0; }
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
 #report_label {
-  display: block;
-  margin: 1% 0;
-  font-weight: bold;}
+    display: block;
+    margin: 1% 0;
+    font-weight: bold;
+}
 #report_button, #report_cancel {
-  cursor: pointer;
-  margin: 2% 2% 0 0;}
+    cursor: pointer;
+}
 #report_success {
   color: green;}
 #report_fail {
