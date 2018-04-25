@@ -407,10 +407,6 @@
         "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
-    "report_input_label": {
-        "message": "Description",
-        "description": ""
-    },
     "non_tracker": {
         "message": "The domains below don't appear to be tracking you",
         "description": ""
