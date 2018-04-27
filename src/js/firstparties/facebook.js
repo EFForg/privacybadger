@@ -32,37 +32,33 @@
 
   // Remove excessive attributes and event listeners from link a and replace
   // its destination with href
-  function cleanLink(a, href) {
+  function cleanLink(a) {
+    let href = new URL(a.href).searchParams.get('u');
     cleanAttrs(a);
     a.href = href;
     a.target = "_blank";
-    a.addEventListener("rlick", function (e) { e.stopPropagation(); }, true);
+    a.addEventListener("click", function (e) { e.stopPropagation(); }, true);
     a.addEventListener("mousedown", function (e) { e.stopPropagation(); }, true);
+    a.addEventListener("mouseup", function (e) { e.stopPropagation(); }, true);
+    a.addEventListener("mouseover", function (e) { e.stopPropagation(); }, true);
+    a.addEventListener("mousewheel", function (e) { e.stopPropagation(); }, true);
   }
 
-  function unwrapRedirects() {
-    console.log("Executing redirect unwrapping..."); 
+  // unwrap wrapped links in the original page
+  findInAllFrames(fb_wrapped_link).forEach((link) => {
+    cleanLink(link);
+  });
 
-    // unwrap wrapped links
-    findInAllFrames(fb_wrapped_link).forEach((link) => {
-      const newHref = new URL(link.href).searchParams.get('u');
-      cleanLink(link, newHref);
-    });
-
-    // clean shim links
-    findInAllFrames(fb_shim_link).forEach((link) => {
-      console.log(link);
-      // extract the real link from the shim link's onmouseover attribute
-      let s = link.getAttribute("onmouseover"),
-        extHref = s.substring(s.indexOf('"') + 1,
-          s.lastIndexOf('"')).replace(/\\(.)/g, '$1');
-      console.log(extHref);
-      // replace the shim link with the real one
-      cleanLink(link, extHref);
-      console.log("Unwrapped shim link to " + extHref); 
-    });
-  }
-
-  unwrapRedirects();
-  setInterval(unwrapRedirects, 2000);
+  // Execute redirect unwrapping each time new content is added to the page
+  new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.addedNodes.length) {
+        for (let node of mutation.addedNodes) {
+          node.querySelectorAll(fb_wrapped_link).forEach((link) => {
+            cleanLink(link);
+          });
+        }
+      }
+    })
+  }).observe(document.body, {childList: true, subtree: true, attributes: false, characterData: false});
 }());
