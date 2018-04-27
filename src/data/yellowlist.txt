@@ -37,6 +37,7 @@ arcgis.com
 archive.org
 secure5.arcot.com
 cdn.arstechnica.net
+art19.com
 aspnetcdn.com
 c64.assets-yammer.com
 assetfiles.com
@@ -225,6 +226,7 @@ developers.google.com
 docs.google.com
 drive.google.com
 feedburner.google.com
+feedproxy.google.com
 fusiontables.google.com
 groups.google.com
 kh.google.com
@@ -613,6 +615,7 @@ gatherer.wizards.com
 s.w.org
 ts.w.org
 ps.w.org
+wnyc.org
 wordpress.com
 worldnow.com
 wp.com
