@@ -422,7 +422,17 @@ var multiDomainFirstPartiesArray = [
   ],
   ["norsk-tipping.no", "buypass.no"],
   ["nymag.com", "vulture.com", "grubstreet.com"],
-  ["nypublicradio.org", "radiolab.org", "wnyc.org", "wqxr.org", "thegreenespace.org"],
+  [
+    "nypublicradio.org",
+
+    "newsounds.org",
+    "radiolab.org",
+    "thegreenespace.org",
+    "wnycstudios.org",
+    "wqxr.org",
+
+    "wnyc.org",
+  ],
   ["nytimes.com", "newyorktimes.com", "nyt.com"],
   ["onlineatnsb.com", "norwaysavingsbank.com"],
   ["paypal.com", "paypal-search.com"],
