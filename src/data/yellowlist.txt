@@ -9,6 +9,7 @@ wwwimages.adobe.com
 xsdownload.adobe.com
 akamai.net
 akamaihd.net
+akamaized.net
 al.com
 alert60.com
 alexa.com
