@@ -228,6 +228,26 @@ exports.Migrations= {
     }
   },
 
+  resetWebRTCIPHandlingPolicy: function (badger) {
+    console.log("Resetting webRTCIPHandlingPolicy ...");
+
+    if (!badger.webRTCAvailable) {
+      return;
+    }
+
+    const cpn = chrome.privacy.network;
+
+    cpn.webRTCIPHandlingPolicy.get({}, function (result) {
+      if (!result.levelOfControl.endsWith('_by_this_extension')) {
+        return;
+      }
+
+      if (result.value == 'default_public_interface_only') {
+        cpn.webRTCIPHandlingPolicy.clear({});
+      }
+    });
+  },
+
 };
 
 
