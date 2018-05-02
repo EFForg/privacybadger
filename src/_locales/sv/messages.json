@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Kontrollera om webbplatser överensstämmer med EFF's Spåra inte (DNT)-policy",
+        "message": "Kontrollera om webbplatser överensstämmer med EFF:s Spåra inte (DNT) policy",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "** Aktivera inlärning i privata/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan vet om i privata/inkognitofönster, men det kommer inte att lära sig om nya spårare. Du kanske vill aktivera det här alternativet om mycket av din webbläsning händer i privata/inkognitofönster.",
+        "message": "** Aktivera inlärning i privata/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan känner till i privata/inkognitofönster, men den kommer inte att lära sig om nya spårare. Du kan vilja aktivera det här alternativet om du ofta använder privata-/inkognitofönster när du surfar.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -216,7 +216,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC kan läcka din lokala IP-adress. Privacy Badgers standardinställning hjälper dig att skydda dig, men för extra skydd kan du aktivera det här alternativet. Observera att det kan minska prestandan på vissa verktyg som Google Hangouts.",
+        "message": "* WebRTC kan läcka din lokala IP-adress. Observera att aktivering av det här alternativet kan försämra prestanda för webbkonferensprogram som Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
