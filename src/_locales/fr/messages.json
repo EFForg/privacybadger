@@ -216,7 +216,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC peut divulguer vos adresses IP locales. Les paramètres par défaut de Privacy Badger aident à vous protéger, mais pour plus de protection, vous pouvez activer cette option. Notez cependant que cela peut dégrader les performances de certains outils comme Google Hangouts.",
+        "message": "* WebRTC peut divulguer vos adresses IP locales. Activer cette option peut dégrader les performances des logiciels de visiophonie comme Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {

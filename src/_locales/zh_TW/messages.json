@@ -216,7 +216,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC 可能會洩漏您的 IP 地址。Privacy Badger 的預設設定即可保護您了，若您還想要更進一步的保護的話可以開啟此選項，但開啟此選項可能會造成 Google Hangouts 等工具的效能變差。",
+        "message": "* WebRTC 可能會洩漏您的 IP 地址。注意：開啟此選項可能會造成 Google Hangouts 等網路會議應用程式的效能變差。",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
