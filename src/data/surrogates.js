@@ -426,7 +426,7 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-undef */
 
-  // https://github.com/uBlockOrigin/uAssets/blob/bf00b6e43a8a33b8d50f23de380eed707e8aa24a/filters/resources.txt#L287-L334
+  // https://github.com/uBlockOrigin/uAssets/blob/0e225402b40db0983faf8b4ce13c73d57fb257d7/filters/resources.txt#L354-L403
   /* eslint-disable no-empty */
   '/analytics.js': '(' +
     function() {
@@ -470,6 +470,8 @@ const surrogates = {
         return [];
       };
       ga.remove = noopfn;
+      // https://github.com/uBlockOrigin/uAssets/issues/2107
+      ga.loaded = true;
       w[gaName] = ga;
       // https://github.com/gorhill/uBlock/issues/3075
       var dl = w.dataLayer;
