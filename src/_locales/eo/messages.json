@@ -216,7 +216,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC povas malkovri vian lokan IP-adreson. Implicita agordo de Privata Melo povas helpi protekti vin, tamen por pli bonan protekton vi povas aktivigi tiun ĉi agordon. Rimarku, ke tio ĉi povas malpliigi rendimenton de kelkaj iloj, ekz. Google Hangouts.",
+        "message": "* WebRTC povas malkovri vian lokan IP-adreson. Rimarku, ke tio ĉi povas malpliigi rendimenton de aplikaĵoj por retaj konferencoj, ekz. Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
