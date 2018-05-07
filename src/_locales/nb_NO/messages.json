@@ -216,7 +216,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC kan lekke din lokale IP-adresse. Personvernsgrevlingens forvalgte innstilling beskytter deg, men for bedret sikkerhet kan du skru på dette valget. Merk deg at å gjøre det kan føre med seg dårligere ytelse i noen fall, som f.eks. med Google Hangouts.",
+        "message": "* WebRTC can leak your local IP address. Note that enabling this option may degrade performance on web conferencing apps like Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {

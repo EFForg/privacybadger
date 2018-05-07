@@ -216,7 +216,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC může prozradit Vaši místní IP adresu. Základní nastavení Privacy Badger Vás pomáhá chránit, ale pro zvýšení ochrany můžete povolit tuto možnost. Takové nastavení může ovšem ovlivnit aplikace jako Google Hangouts.",
+        "message": "* WebRTC can leak your local IP address. Note that enabling this option may degrade performance on web conferencing apps like Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
