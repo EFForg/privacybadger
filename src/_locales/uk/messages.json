@@ -216,7 +216,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC може виявляти вашу локальну IP-адресу. Типові налаштування Privacy Badger допомагають захистити вас, але ви можете увімкнути це для додаткового захисту. Зауважте, що ця дія може спричинити погіршення швидкодії певних інструментів, таких як Google Hangouts.",
+        "message": "* WebRTC може виявляти вашу локальну IP-адресу. Зауважте, що ця опція може спричинити погіршення швидкодії певних інструментів для веб-конференцій, таких як Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {

@@ -216,7 +216,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC può rivelare il tuo inidirizzo IP locale. Nota che attivando questa opzione potrebbe incidere sulle prestazioni con app di conferenze web come Google Hangouts.",
+        "message": "* WebRTC può rivelare il tuo indirizzo IP locale. Nota che attivare questa opzione potrebbe incidere sulle prestazioni con app di conferenze web come Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
