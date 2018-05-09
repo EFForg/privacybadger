@@ -50,6 +50,21 @@ function cleanLink(a) {
   a.addEventListener("mouseover", function (e) { e.stopPropagation(); }, true);
 }
 
+// Check all new nodes added by a mutation for tracking links and unwrap them
+function cleanMutation(mutation) {
+  if (mutation.addedNodes.length) {
+    for (let node of mutation.addedNodes) {
+      node.querySelectorAll(fb_wrapped_link).forEach((link) => {
+        cleanLink(link);
+      });
+      if (node.matches(fb_wrapped_link)) {
+        cleanLink(node);
+      }
+    }
+  }
+}
+
+
 // unwrap wrapped links in the original page
 findInAllFrames(fb_wrapped_link).forEach((link) => {
   cleanLink(link);
@@ -57,17 +72,6 @@ findInAllFrames(fb_wrapped_link).forEach((link) => {
 
 // Execute redirect unwrapping each time new content is added to the page
 new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
-    if (mutation.addedNodes.length) {
-      for (let node of mutation.addedNodes) {
-        node.querySelectorAll(fb_wrapped_link).forEach((link) => {
-          cleanLink(link);
-        });
-        if (node.matches(fb_wrapped_link)) {
-          cleanLink(node);
-        }
-      }
-    }
-  });
+  mutations.forEach(cleanMutation);
 }).observe(document.body, {childList: true, subtree: true, attributes: false, characterData: false});
 }());
