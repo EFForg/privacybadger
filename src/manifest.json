@@ -56,6 +56,16 @@
     },
     {
       "js": [
+        "js/firstparties/facebook.js"
+      ],
+      "matches": [
+        "https://*.facebook.com/*",
+        "http://*.facebook.com/*"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
         "js/contentscripts/dnt.js",
