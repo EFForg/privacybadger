@@ -33,14 +33,21 @@ function cleanAttrs(elem) {
 // its destination with href
 function cleanLink(a) {
   let href = new URL(a.href).searchParams.get('u');
+
+  // from https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
+  let url_regex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
+  if (!href || !href.match(url_regex)) {
+    // If we can't extract a good URL, abort without breaking the links
+    return;
+  }
+
   cleanAttrs(a);
   a.href = href;
-  a.target = "_blank";
+  a.rel = "noopener";
   a.addEventListener("click", function (e) { e.stopPropagation(); }, true);
   a.addEventListener("mousedown", function (e) { e.stopPropagation(); }, true);
   a.addEventListener("mouseup", function (e) { e.stopPropagation(); }, true);
   a.addEventListener("mouseover", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mousewheel", function (e) { e.stopPropagation(); }, true);
 }
 
 // unwrap wrapped links in the original page
@@ -56,6 +63,9 @@ new MutationObserver(function(mutations) {
         node.querySelectorAll(fb_wrapped_link).forEach((link) => {
           cleanLink(link);
         });
+        if (node.matches(fb_wrapped_link)) {
+          cleanLink(node);
+        }
       }
     }
   });
