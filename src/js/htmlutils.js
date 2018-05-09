@@ -235,13 +235,18 @@ var htmlUtils = exports.htmlUtils = {
    */
   makeSortable: (domain) => {
     let base = window.getBaseDomain(domain),
-      base_minus_tld = base.slice(0, base.indexOf('.')),
+      base_minus_tld = base,
+      dot_index = base.indexOf('.'),
       rest_of_it_reversed = '';
 
     if (domain.length > base.length) {
       rest_of_it_reversed = domain
         .slice(0, domain.length - base.length - 1)
         .split('.').reverse().join('.');
+    }
+
+    if (dot_index > -1 && !window.isIPv4(domain) && !window.isIPv6(domain)) {
+      base_minus_tld = base.slice(0, dot_index);
     }
 
     return (base_minus_tld + '.' + rest_of_it_reversed);

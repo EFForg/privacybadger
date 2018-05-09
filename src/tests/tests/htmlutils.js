@@ -143,11 +143,14 @@
       ["s3.amazonaws.com", "s3."],
       ["01234.global.ssl.fastly.net", "01234."],
       ["api.nextgen.guardianapps.co.uk", "guardianapps.nextgen.api"],
+      ["localhost", "localhost."],
+      ["127.0.0.1", "127.0.0.1."],
     ];
     tests.forEach((test) => {
       assert.equal(
         htmlUtils.makeSortable(test[0]),
-        test[1]
+        test[1],
+        test[0]
       );
     });
   });
@@ -229,6 +232,24 @@
           "weather.com",
         ]
       },
+      {
+        msg: "non-TLD addresses",
+        domains: DOMAINS.concat([
+          "localhost",
+          "127.0.0.1",
+        ]),
+        expected: [
+          "127.0.0.1",
+          "betrad.com",
+          "c.betrad.com",
+          "cloudflare.com",
+          "ajax.cloudflare.com",
+          "condenastdigital.com",
+          "localhost",
+          "weather.com",
+        ]
+      },
+
     ];
 
     tests.forEach((test) => {
