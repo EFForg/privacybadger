@@ -9,6 +9,7 @@ wwwimages.adobe.com
 xsdownload.adobe.com
 akamai.net
 akamaihd.net
+akamaized.net
 al.com
 alert60.com
 alexa.com
@@ -37,9 +38,11 @@ arcgis.com
 archive.org
 secure5.arcot.com
 cdn.arstechnica.net
+art19.com
 aspnetcdn.com
 c64.assets-yammer.com
 assetfiles.com
+assets-cdk.com
 authorize.net
 autoforums.com
 azureedge.net
@@ -98,7 +101,9 @@ gr-assets.com
 guardian.co.uk
 media-imdb.com
 mediaworks.co.nz
+cc.cnetcontent.com
 cdn.cnetcontent.com
+ws.cnetcontent.com
 com.com
 complex.com
 convio.net
@@ -222,6 +227,7 @@ developers.google.com
 docs.google.com
 drive.google.com
 feedburner.google.com
+feedproxy.google.com
 fusiontables.google.com
 groups.google.com
 kh.google.com
@@ -262,6 +268,7 @@ googleusercontent.com
 googlevideo.com
 governmentjobs.com
 gravatar.com
+greenhouse.io
 gscdn.nl
 gstatic.com
 hackerone-user-content.com
@@ -269,6 +276,7 @@ helium.com
 hellobar.com
 herokuapp.com
 code.highcharts.com
+homestead.com
 honcode.ch
 hootsuite.com
 howaboutwe.com
@@ -280,6 +288,7 @@ hypothes.is
 ibsys.com
 ibtimes.com
 icbdr.com
+mpsnare.iesnare.com
 imagecorn.com
 imageg.net
 imagehost123.com
@@ -316,7 +325,9 @@ jwpcdn.com
 jwpltx.com
 content.jwplatform.com
 cdnapi.kaltura.com
+cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
+cdnsecakmi.kaltura.com
 cfvod.kaltura.com
 www.kaltura.com
 kampyle.com
@@ -331,11 +342,13 @@ klarna.com
 klarnacdn.net
 klm.com
 kxcdn.com
+libsyn.com
 licdn.com
 licensebuttons.net
 addon.lidl.de
 media.lidl.com
 linkwithin.com
+list-manage.com
 i.lithium.com
 messenger.live.com
 livechatinc.com
@@ -347,8 +360,10 @@ loggly.com
 logos.com
 lphbs.com
 mail.ru
+mailchimp.com
 mapbox.com
 mapquestapi.com
+marketo.com
 masslive.com
 mathjax.org
 maxmind.com
@@ -399,6 +414,7 @@ media.nu.nl
 nyt.com
 nytimes.com
 c.o0bg.com
+ocdn.eu
 ocsn.com
 olark.com
 omroep.nl
@@ -415,12 +431,15 @@ tile.opencyclemap.org
 tile2.opencyclemap.org
 openlayers.org
 openlibrary.org
+openload.co
 nominatim.openstreetmap.org
 tile.openstreetmap.fr
 tile.openstreetmap.org
 optimizely.com
 oregonlive.com
 outlook.com
+pandacommerce.net
+parastorage.com
 passwordbox.com
 paypal.com
 paypalobjects.com
@@ -463,6 +482,7 @@ redditmedia.com
 redditstatic.com
 resellerratings.com
 resultspage.com
+rewardstyle.com
 rpxnow.com
 rssinclude.com
 salesforce.com
@@ -532,6 +552,7 @@ tmsbuyatoyota.com
 torbit.com
 townnews.com
 cookieblock.trackersimulate.org
+tradingview.com
 trb.com
 trbimg.com
 tripadvisor.com
@@ -595,6 +616,7 @@ gatherer.wizards.com
 s.w.org
 ts.w.org
 ps.w.org
+wnyc.org
 wordpress.com
 worldnow.com
 wp.com

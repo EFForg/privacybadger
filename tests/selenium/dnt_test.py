@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import json
 import unittest
 
 import pbtest
@@ -18,6 +19,37 @@ CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
 
 class DNTTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
+
+    # TODO switch to non-delayed version (see below)
+    # once race condition (https://crbug.com/478183) is fixed
+    NAVIGATOR_DNT_TEST_URL = (
+        "https://cdn.rawgit.com/ghostwords/"
+        "1c50869a0469e38d5dabd53f1204d3de/raw/01e06af8d2b3e35228bf8f000bdc12d0b2871b64/"
+        "privacy-badger-navigator-donottrack-delayed-fixture.html"
+        # non-delayed version:
+        #"9fc6900566a2f93edd8e4a1e48bbaa28/raw/741627c60ca53be69bc11bf21d6d1d0b42edb52a/"
+        #"privacy-badger-navigator-donottrack-fixture.html"
+    )
+
+    def get_first_party_headers(self, url):
+        self.load_url(url)
+
+        text = self.driver.find_element_by_tag_name('body').text
+
+        try:
+            headers = json.loads(text)['headers']
+        except ValueError:
+            print("\nFailed to parse JSON from {}".format(repr(text)))
+            return None
+
+        return headers
+
+    def disable_badger_on_site(self, url):
+        self.load_url(self.options_url)
+        self.driver.find_element_by_css_selector(
+            'a[href="#tab-whitelisted-domains"]').click()
+        self.driver.find_element_by_id('newWhitelistDomain').send_keys(url)
+        self.driver.find_element_by_css_selector('button.addButton').click()
 
     def domain_was_recorded(self, domain):
         return self.js("""return (
@@ -85,7 +117,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         # verify that the domain is allowed
         was_blocked = retry_until(
             partial(self.domain_was_blocked, DNT_DOMAIN),
-            cond=False,
+            tester=lambda x: not x,
             msg="Waiting a bit for DNT check to complete and retrying ...")
 
         self.assertFalse(was_blocked, msg="DNT-compliant resource should have gotten unblocked.")
@@ -189,6 +221,42 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertFalse(
             self.domain_was_recorded(NON_TRACKING_DOMAIN),
             "Non-tracking domain should not have gotten recorded"
+        )
+
+    def test_first_party_dnt_header(self):
+        TEST_URL = "https://httpbin.org/get"
+        headers = retry_until(partial(self.get_first_party_headers, TEST_URL))
+        self.assertTrue(headers is not None, "It seems we failed to get DNT headers")
+        self.assertIn('Dnt', headers, "DNT header should have been present")
+        self.assertEqual(headers['Dnt'], "1",
+            'DNT header should have been set to "1"')
+
+    def test_no_dnt_header_when_disabled(self):
+        TEST_URL = "https://httpbin.org/get"
+        self.disable_badger_on_site(TEST_URL)
+        headers = retry_until(partial(self.get_first_party_headers, TEST_URL))
+        self.assertTrue(headers is not None, "It seems we failed to get DNT headers")
+        self.assertNotIn('Dnt', headers, "DNT header should have been missing")
+
+    def test_navigator_object(self):
+        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
+
+        self.assertEqual(
+            self.driver.find_element_by_tag_name('body').text,
+            'no tracking (navigator.doNotTrack="1")',
+            "navigator.DoNotTrack should have been set to \"1\""
+        )
+
+    def test_navigator_left_alone_when_disabled(self):
+        self.disable_badger_on_site(DNTTest.NAVIGATOR_DNT_TEST_URL)
+
+        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
+
+        # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
+        self.assertEqual(
+            self.driver.find_element_by_tag_name('body').text[0:5],
+            'unset',
+            "navigator.DoNotTrack should have been left unset"
         )
 
 

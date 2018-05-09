@@ -25,7 +25,11 @@
     },
     "options_dnt_policy_setting": {
         "message": "檢查網頁是否符合 EFF 的不追蹤政策",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "intro_learns_paragraph": {
+        "message": "您裝上 Privacy Badger 後瀏覽愈久，保護您的效果就會愈好。您的 Badger 還沒有阻擋任何東西嗎？沒有問題！Privacy Badger 會自動探索您在瀏覽網頁時的追蹤器，而非保留追蹤清單。所以開始瀏覽以教導您的 Badger 吧。",
+        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
         "message": "請新增有效的網域或 URL。",
@@ -33,7 +37,15 @@
     },
     "donate_to_eff": {
         "message": "捐款給 EFF 電子前鋒基金會",
-        "description": ""
+        "description": "Button shown in the popup and on the intro page."
+    },
+    "intro_donate_subheading": {
+        "message": "透過捐款與分享對我們的工具的支援來協助我們",
+        "description": "Shown below the Donate button on the intro page."
+    },
+    "intro_not_an_adblocker": {
+        "message": "不是廣告阻擋器，我不一樣",
+        "description": "Intro page paragraph heading."
     },
     "report_success": {
         "message": "謝謝！我們將會調查這個問題。",
@@ -47,6 +59,10 @@
         "message": "取得更多資訊",
         "description": ""
     },
+    "next_section": {
+        "message": "下一區",
+        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
+    },
     "extension_error_text": {
         "message": "請<a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>告訴我們</a>關於下列錯誤的訊息：",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
@@ -55,10 +71,6 @@
         "message": "管理資料",
         "description": "This is an options page tab heading."
     },
-    "slideshow_13": {
-        "message": "如果我造成頁面顯示異常，請讓我的開發者知道，以便他們修正這個問題！可以點擊這個按鈕回報問題。",
-        "description": ""
-    },
     "report_title": {
         "message": "回報錯誤",
         "description": ""
@@ -66,14 +78,6 @@
     "whitelist_form_domain_input_placeholder": {
         "message": "範例：www.domain.com, *.domain.net, domain.org",
         "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
-    },
-    "slideshow_4": {
-        "message": "單擊我的圖示，可以看見目前分頁中有哪些可能的追蹤器。",
-        "description": ""
-    },
-    "slideshow_5": {
-        "message": "如果滾動條是紅色的，代表我完全封鎖了那個追蹤器！那個惡魔不會再打擾您了。",
-        "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "在此點按以從設定 cookies 阻擋此網域",
@@ -89,7 +93,11 @@
     },
     "options_webrtc_setting": {
         "message": "防止 WebRTC 洩漏本機 IP 地址 *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "intro_welcome": {
+        "message": "Privacy Badger 會自動學習並阻擋不可見的追蹤器。花一分鐘來看看它怎麼運作的。",
+        "description": "Intro page welcome paragraph."
     },
     "error_input": {
         "message": "有什麼問題？",
@@ -105,11 +113,11 @@
     },
     "share_button_title_twitter": {
         "message": "在 Twitter 上分享",
-        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
         "message": "瞭解 Privacy Badger 如何保護您的隱私。",
-        "description": ""
+        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
         "message": "下載",
@@ -125,7 +133,11 @@
     },
     "options_social_widgets_checkbox": {
         "message": "替換社交網路小工具",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** 在隱私／無痕視窗中啟用學習可能會導致隱私瀏覽紀錄留在您的電腦上。預設情況下，Privacy Badger 會在隱私／無痕視窗中阻擋任何已知的追蹤器，但是不會學習任何新的追蹤器。您可能會想要在您的瀏覽大部份都在隱私／無痕視窗中度過時啟用此選項。",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "送出錯誤",
@@ -143,17 +155,21 @@
         "message": "搜尋網域:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "在隱私／無痕視窗中學習 **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "顯示封鎖數目",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "什麼是追蹤器？",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
-    "slideshow_1": {
-        "message": "您好，我是 Privacy Badger！感謝您安裝我。以下是一些有用的訣竅，以便我們可以合作愉快。",
-        "description": ""
+    "intro_report_button": {
+        "message": "請不要忘記點按「回報 Privacy Badger 導致顯示異常的網站」。我們尊重您的隱私，所以我們不會自動傳送回報。",
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Privacy Badger 設定",
@@ -167,13 +183,13 @@
         "message": " 按鈕。",
         "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
-    "slideshow_11": {
-        "message": "如果您修改了我的設定，可以隨時點選還原箭頭讓我來控制它的設定。",
-        "description": ""
-    },
     "report_terms": {
         "message": "將會自動回報下列資訊給 EFF 電子前鋒基金會: 您目前造訪的網站、瀏覽器版本、 Privacy Badger 版本，以及此網站所有滾動條的狀態。",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "在您瀏覽時學習",
+        "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
         "message": "網域白名單",
@@ -197,19 +213,19 @@
     },
     "intro_text": {
         "message": "Privacy Badger 正在保護您，若要了解 Privacy Badger 的運作原理，請點擊下方進行快速教學。",
-        "description": ""
+        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC 可能會洩漏您的 IP 地址。Privacy Badger 的預設設定即可保護您了，若您還想要更進一步的保護的話可以開啟此選項，但開啟此選項可能會造成 Google Hangouts 等工具的效能變差。",
-        "description": ""
+        "message": "* WebRTC 可能會洩漏您的 IP 地址。注意：開啟此選項可能會造成 Google Hangouts 等網路會議應用程式的效能變差。",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "一般設定",
         "description": "This is an options page tab heading."
     },
-    "slideshow_7": {
-        "message": "如果滾動條是綠色的，代表我還不清楚這個網域是否在追蹤您。它可能不是，可是我還會關注它的。",
-        "description": ""
+    "intro_next_button": {
+        "message": "看看教學",
+        "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
         "message": "點按此處以完全阻擋此網域",
@@ -226,6 +242,10 @@
     "options_loading": {
         "message": "載入中…",
         "description": ""
+    },
+    "intro_beyond_ads": {
+        "message": "捕捉鬼鬼祟祟的追蹤器",
+        "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
         "message": "部份阻擋",
@@ -249,38 +269,22 @@
     },
     "report_broken_site": {
         "message": "回報 Privacy Badger 導致顯示異常的網站",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "將滾動條滑到中間封鎖該網域的 cookie",
         "description": ""
     },
-    "slideshow_12": {
-        "message": "如果您瀏覽網頁出現問題，並且您覺得是我造成的，您可以點選這裡的停用。我會開始睡覺，不再封鎖該網站上的東西。",
-        "description": ""
-    },
-    "slideshow_3": {
-        "message": "如果我發現像是追蹤器的東西，就會封鎖它。",
-        "description": ""
+    "intro_beyond_ads_paragraph": {
+        "message": "不可見的追蹤會以各種方式發生：廣告只是可見的冰山一角。Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>將「不追蹤」訊號傳送</a>給追蹤器，告訴它們不要追蹤您。如果它們忽視了這個要求，您的 Badger 將會學會阻擋它們，無論它們是廣告商還是其他類型的追蹤器。",
+        "description": "Intro page paragraph."
     },
     "report_close": {
         "message": "關閉",
         "description": ""
     },
-    "slideshow_9": {
-        "message": "我會在瀏覽中學習，因此用我的時間越長您就可以更加躲開鬼鬼祟祟的追蹤器們！",
-        "description": ""
-    },
-    "slideshow_2": {
-        "message": "我會在您的瀏覽器裡面，注意那些記錄您上網紀錄的間諜廣告和追蹤器。",
-        "description": ""
-    },
     "import_user_data": {
         "message": "匯入使用者資料",
-        "description": ""
-    },
-    "slideshow_8": {
-        "message": " 第一次點選我的圖示，可能會發現所有追蹤器都是綠色的，別擔心！我與其他追蹤器封鎖軟體不同。我會在您瀏覽網頁時學習哪些是該封鎖的，而不是一上來就根據已知的清單封鎖。如果我啥都沒開始封鎖，您可以嘗試瀏覽四五個網站。之後就會開始封鎖常見的追蹤器。",
         "description": ""
     },
     "options_domain_filter_dnt": {
@@ -296,12 +300,16 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
-        "message": "在 Google Plus 分享",
-        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+        "message": "在 Google+ 分享",
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
+    },
+    "intro_donate_heading": {
+        "message": "隱私是一場團隊比賽！",
+        "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
         "message": "您應該不需要修改這裡的任何東西。",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "全部",
@@ -345,11 +353,7 @@
     },
     "popup_disable_for_site": {
         "message": "在目前網頁停用 Privacy Badger",
-        "description": ""
-    },
-    "intro_social_share": {
-        "message": "讓世界知道您反對網路追蹤的立場",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger 在此頁面上偵測到了潛在的<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤器</a>。滑桿讓您可以控制 Privacy Badger 如何處理它。除非有某些東西壞掉了，否則您應該不需要調整這些滑桿。",
@@ -359,6 +363,10 @@
         "message": "點按此處以允許此網域",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
+    "intro_privacy_note": {
+        "message": "您的 Badger 將會在您的裝置上本機學習。Privacy Badger 在您選擇分享關於您的瀏覽資料前，將永遠不會分享它們。",
+        "description": "Intro page paragraph."
+    },
     "options_domain_list_trackers": {
         "message": "個潛在<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤網域</a>。滑桿讓您可以控制 Privacy Badger 如何控制處理它。",
         "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
@@ -366,6 +374,10 @@
     "name": {
         "message": "Privacy Badger",
         "description": ""
+    },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger 將會在三個不同的網頁上發現同一個追蹤器時開始阻擋該追蹤器。三振出局！若您使用了其他隱私工具或廣告阻擋器，Privacy Badger 會學到比較少東西，不過還是可以正常運作的，其將會抓到您其他阻擋器的漏網之魚。",
+        "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
         "message": "以狀態過濾：",
@@ -379,13 +391,21 @@
         "message": "刪除所選",
         "description": "This is the label for the 'Remove selected' buttons."
     },
+    "intro_donate1": {
+        "message": "當您使用 Privacy Badger，您就會加入<a href='https://www.eff.org/' target='_blank'>電子前鋒基金會 (EFF)</a>與其他數百萬個使用者一同為隱私而戰。我們是一個為您的線上權利而戰的非營利組織。感謝您加入我們！",
+        "description": "Part of the 'donate' section on the intro page."
+    },
+    "options_domain_search_tooltip": {
+        "message": "要排除網域，請在您的搜尋字詞前加入\"-\"。舉例來說，\".co -.com\"將會顯示 .co 與 .co.uk 但不會有 .com 網域。",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
+    },
+    "intro_disable_button": {
+        "message": "若您覺得 Privacy Badger 破壞了某個頁面（舉例來說，影片無法播放之類的），您可以點按「停用」按鈕來將 Privacy Badger 在該頁面上關閉。",
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
+    },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger 未偵測到任何<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤網域</a>。繼續瀏覽！",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
-    },
-    "slideshow_15": {
-        "message": "當然您也可以不管這些設定，我會繼續安靜地吃掉我發現的追蹤器。",
-        "description": ""
     },
     "report_input_label": {
         "message": "描述",
@@ -395,25 +415,13 @@
         "message": "以下網域看起來都沒有在追蹤您",
         "description": ""
     },
-    "slideshow_14": {
-        "message": "如果您要更改其他設定，可以點選這個齒輪圖示。",
-        "description": ""
-    },
     "popup_options_button": {
         "message": "選項",
         "description": ""
     },
-    "slideshow_6": {
-        "message": "如果滾動條是黃色的，代表我封鎖了部分追蹤器。我會吃掉來自該網域的 cookie 來盡量阻止它追蹤，但是完全阻止它可能會導致頁面顯示異常。",
-        "description": ""
-    },
-    "slideshow_16": {
-        "message": "感謝您邁出了通往保護隱私重要而又簡單的一步！如果您需要幫助，可以點選此處。您也可以點選下面的按鈕，告訴世界您反對網路追蹤的立場。",
-        "description": ""
-    },
     "share_button_title_facebook": {
         "message": "在 Facebook 上分享",
-        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
         "message": "您在網上衝浪的時候，Privacy Badger 會保護您免於被追蹤器追蹤的煩惱！",
@@ -425,10 +433,6 @@
     },
     "report_fail": {
         "message": "哎呀。出錯了。",
-        "description": ""
-    },
-    "slideshow_10": {
-        "message": "如果您覺得我搞錯了該封鎖的追蹤器，您可以把滾動條移到紅色處完全封鎖、黃色處部分封鎖、綠色處則是允許。",
         "description": ""
     }
 }

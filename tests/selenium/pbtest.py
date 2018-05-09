@@ -201,14 +201,17 @@ def if_firefox(wrapper):
     return test_catcher
 
 
-def retry_until(fun, cond=True, times=5, msg="Waiting a bit and retrying ..."):
+def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ..."):
     """
-    Execute function `fun` until either its return equals `cond`,
+    Execute function `fun` until either its return is truthy
+    (or if `tester` is set, until the result of calling `tester` with `fun`'s return is truthy),
     or it gets executed X times, where X = `times` + 1.
     """
     for i in range(times):
         result = fun()
-        if result == cond:
+        if tester is not None and tester(result):
+            break
+        elif result:
             break
         elif i == 0:
             print("")
@@ -294,7 +297,7 @@ class PBSeleniumTest(unittest.TestCase):
         self.js('window.open()')
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    def load_url(self, url, wait_on_site=0, retries=5):
+    def load_url(self, url, wait_on_site=0, wait_for_body_text=False, retries=5):
         """Load a URL and wait before returning."""
         for i in range(retries):
             try:
@@ -305,6 +308,13 @@ class PBSeleniumTest(unittest.TestCase):
                     continue
                 raise e
         self.driver.switch_to.window(self.driver.current_window_handle)
+
+        if wait_for_body_text:
+            retry_until(
+                lambda: self.driver.find_element_by_tag_name('body').text,
+                msg="Waiting for document.body.textContent to get populated ..."
+            )
+
         time.sleep(wait_on_site)
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):

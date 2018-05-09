@@ -302,6 +302,7 @@ function revertDomainControl(e) {
 }
 
 function registerToggleHandlers() {
+  // (this == .switch-toggle)
   var radios = $(this).children('input');
   var value = $(this).children('input:checked').val();
   //var userHandle = $(this).children('a');
@@ -311,6 +312,8 @@ function registerToggleHandlers() {
     max: 2,
     value: value,
     create: function(/*event, ui*/) {
+      // Set the margin for the handle of the slider we're currently creating,
+      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
       $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
     },
     slide: function(event, ui) {
@@ -321,8 +324,8 @@ function registerToggleHandlers() {
     },
   }).appendTo(this);
 
-  radios.change(function() {
-    slider.slider("value",radios.filter(':checked').val());
+  radios.on("change", function () {
+    slider.slider("value", radios.filter(':checked').val());
   });
 }
 
@@ -466,21 +469,25 @@ function refreshPopup() {
 }
 
 /**
- * Event handler for on change (blocked resources container)
+ * Update the user preferences displayed in the domain list for this origin.
+ * These UI changes will later be used to update user preferences data.
  *
- * @param {Event} event
+ * @param {Event} event Click event triggered by user.
  */
 function updateOrigin(event) {
+  // get the origin and new action for it
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  var $switchContainer = $elm.parents('.switch-container').first();
-  var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
+
+  // replace the old action with the new one
+  var $switchContainer = $elm.parents('.switch-container').first();
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
-  htmlUtils.toggleBlockedStatus($($clicker), action);
+  var $clicker = $elm.parents('.clicker').first();
+  htmlUtils.toggleBlockedStatus($clicker, action);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin').tooltipster('destroy');
