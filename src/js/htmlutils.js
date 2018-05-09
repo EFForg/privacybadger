@@ -207,11 +207,14 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {Array} Sorted domains.
    */
   sortDomains: (domains) => {
+    // optimization: cache makeSortable output by walking the array once
+    // to extract the actual values used for sorting into a temporary array
     return domains.map((domain, i) => {
       return {
         index: i,
         value: htmlUtils.makeSortable(domain)
       };
+    // sort the temporary array
     }).sort((a, b) => {
       if (a.value > b.value) {
         return 1;
@@ -220,6 +223,7 @@ var htmlUtils = exports.htmlUtils = {
         return -1;
       }
       return 0;
+    // walk the temporary array to achieve the right order
     }).map(item => domains[item.index]);
   },
 
