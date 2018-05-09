@@ -43,7 +43,7 @@ function cleanLink(a) {
 
   cleanAttrs(a);
   a.href = href;
-  a.rel = "noopener";
+  a.rel = "noreferrer";
   a.target = "_blank";
   a.addEventListener("click", function (e) { e.stopPropagation(); }, true);
   a.addEventListener("mousedown", function (e) { e.stopPropagation(); }, true);
@@ -53,14 +53,15 @@ function cleanLink(a) {
 
 // Check all new nodes added by a mutation for tracking links and unwrap them
 function cleanMutation(mutation) {
-  if (mutation.addedNodes.length) {
-    for (let node of mutation.addedNodes) {
-      node.querySelectorAll(fb_wrapped_link).forEach((link) => {
-        cleanLink(link);
-      });
-      if (node.matches(fb_wrapped_link)) {
-        cleanLink(node);
-      }
+  if (!mutation.addedNodes.length) {
+    return;
+  }
+  for (let node of mutation.addedNodes) {
+    node.querySelectorAll(fb_wrapped_link).forEach((link) => {
+      cleanLink(link);
+    });
+    if (node.matches(fb_wrapped_link)) {
+      cleanLink(node);
     }
   }
 }
