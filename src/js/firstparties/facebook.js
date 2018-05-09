@@ -44,6 +44,7 @@ function cleanLink(a) {
   cleanAttrs(a);
   a.href = href;
   a.rel = "noopener";
+  a.target = "_blank";
   a.addEventListener("click", function (e) { e.stopPropagation(); }, true);
   a.addEventListener("mousedown", function (e) { e.stopPropagation(); }, true);
   a.addEventListener("mouseup", function (e) { e.stopPropagation(); }, true);
