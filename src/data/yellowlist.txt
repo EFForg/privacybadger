@@ -22,10 +22,11 @@ americanhomecomings.com
 ancestry.com
 angularjs.org
 anonymto.me
-tkx2-prod.anvato.net
 up.anv.bz
-mcp-media5.anvato.net
+tkx-acc.apis.anvato.net
 cdn.anvato.net
+tkx2-prod.anvato.net
+mcp-media5.anvato.net
 aol.com
 aolcdn.com
 ap.org
