@@ -18,19 +18,22 @@
  /*csslint ids:ignore*/
 
 body {
-  margin: 0;
-  min-width: 430px; /* Chrome */
-  max-width: 100%;  /* FF android */
-  font-size: 12px;
+  box-sizing: border-box;
+
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
-  padding: 8px 15px 0;
-  box-sizing: border-box;
+  font-size: 12px;
+
+  margin: 0;
+  padding: 7px 15px 0;
+
+  min-width: 430px; /* Chrome */
+  max-width: 100%;  /* FF android */
   min-height: 270px;
 }
 @media screen and (min--moz-device-pixel-ratio:0) {
-    body{
+    body {
         min-width: 200px; /* FF android */
         width: 430px;     /* FF desktop */
     }
