@@ -1,5 +1,14 @@
-let query_param = 'data-expanded-url';
-let tcos_with_destination = "a[" + query_param + "][href^='https://t.co/'], a[" + query_param + "][href^='http://t.co/']";
+let query_params = [
+  'data-expanded-url',
+  'title'
+];
+
+let tcos_with_destination;
+for (const queryParam of query_params) {
+  tcos_with_destination += "a[" + queryParam + "][href^='https://t.co/'], a[" + queryParam + "][href^='http://t.co/'],";
+}
+tcos_with_destination = tcos_with_destination.slice(0, -1); // remove trailing comma
+
 let fixes = {};
 
 function maybeAddNoreferrer(link) {
@@ -38,7 +47,18 @@ function findInAllFrames(query) {
 
 function unwrapTwitterURLs() {
   findInAllFrames(tcos_with_destination).forEach((link) => {
-    let attr = link.getAttribute(query_param);
+    let attr;
+
+    // find real URL
+    for (const queryParam of query_params) {
+      attr = link.getAttribute(queryParam);
+
+      // if value is found, stop further search
+      if (attr) {
+        break;
+      }
+    }
+
     if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
       fixes[link.href] = attr;
       unwrapTco(link, attr);
