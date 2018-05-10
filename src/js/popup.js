@@ -207,9 +207,20 @@ function send_error(message) {
 
     for (let origin in origins) {
       let action = origins[origin];
+
       if (!action) {
         action = constants.NO_TRACKING;
       }
+
+      // adjust action names for error reporting
+      if (action == constants.USER_ALLOW) {
+        action = "usernoaction";
+      } else if (action == constants.USER_BLOCK) {
+        action = "userblock";
+      } else if (action == constants.USER_COOKIE_BLOCK) {
+        action = "usercookieblock";
+      }
+
       if (out[action]) {
         out[action] += ","+origin;
       } else {
