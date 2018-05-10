@@ -1,5 +1,15 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.5.10
+* Added protection against outgoing link click tracking on Facebook
+* Updated WebRTC protection to revert to browser default (off) when disabled
+* Fixed popup in the Italian locale in Chrome
+* Updated to latest dummy Google Analytics script from uBlock Origin
+to avoid "failed to redirect a network request" warnings in Chrome
+* Fixed various site breakages
+* Improved translations (Traditional Chinese, Danish, Dutch, Esperanto,
+French, German, Italian, Polish, Russian, Swedish, Ukrainian)
+
 ## 2018.4.23
 * Fixed changes not being persisted for domains that appear after scrolling
 the tracking domains list on the options page
