@@ -1,6 +1,6 @@
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
 (function() {
-let fb_wrapped_link = "a[href*='facebookcorewwwi.onion/l.php?'";
+let fbtor_wrapped_link = "a[href*='facebookcorewwwi.onion/l.php?'";
 
 function findInAllFrames(query) {
   let out = [];
@@ -57,10 +57,10 @@ function cleanMutation(mutation) {
     return;
   }
   for (let node of mutation.addedNodes) {
-    node.querySelectorAll(fb_wrapped_link).forEach((link) => {
+    node.querySelectorAll(fbtor_wrapped_link).forEach((link) => {
       cleanLink(link);
     });
-    if (node.matches(fb_wrapped_link)) {
+    if (node.matches(fbtor_wrapped_link)) {
       cleanLink(node);
     }
   }
@@ -68,7 +68,7 @@ function cleanMutation(mutation) {
 
 
 // unwrap wrapped links in the original page
-findInAllFrames(fb_wrapped_link).forEach((link) => {
+findInAllFrames(fbtor_wrapped_link).forEach((link) => {
   cleanLink(link);
 });
 
