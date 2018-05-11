@@ -67,6 +67,16 @@
     },
     {
       "js": [
+        "js/firstparties/google.js"
+      ],
+      "matches": [
+        "https://*.google.com/*",
+        "http://*.google.com/*"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
         "js/contentscripts/dnt.js",
