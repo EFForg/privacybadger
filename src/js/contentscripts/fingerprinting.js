@@ -54,7 +54,7 @@ function getFpPageScript() {
       };
 
       return function () {
-        context = this;
+        context = this; // eslint-disable-line consistent-this
         args = arguments;
         timestamp = Date.now();
         var callNow = immediate && !timeout;
@@ -320,19 +320,43 @@ function insertFpScript(text, data) {
   parent.removeChild(script);
 }
 
-/**
- * Communicating to webrequest.js
- */
-var event_id = Math.random();
 
-// listen for messages from the script we are about to insert
-document.addEventListener(event_id, function (e) {
-  // pass these on to the background page
-  chrome.runtime.sendMessage({
-    'fpReport': e.detail
-  });
-});
+// END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
-insertFpScript(getFpPageScript(), {
-  event_id: event_id
-});
+(function () {
+
+// don't inject into non-HTML documents (such as XML documents)
+// but do inject into XHTML documents
+if (document instanceof HTMLDocument === false && (
+  document instanceof XMLDocument === false ||
+  document.createElement('div') instanceof HTMLDivElement === false
+)) {
+  return;
+}
+
+// TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({checkEnabled: true},
+  function (enabled) {
+    if (!enabled) {
+      return;
+    }
+    /**
+     * Communicating to webrequest.js
+     */
+    var event_id = Math.random();
+
+    // listen for messages from the script we are about to insert
+    document.addEventListener(event_id, function (e) {
+      // pass these on to the background page
+      chrome.runtime.sendMessage({
+        'fpReport': e.detail
+      });
+    });
+
+    insertFpScript(getFpPageScript(), {
+      event_id: event_id
+    });
+  }
+);
+
+}());

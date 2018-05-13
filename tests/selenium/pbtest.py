@@ -8,6 +8,7 @@ import time
 from functools import wraps
 
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
@@ -148,7 +149,16 @@ class Shim:
         caps = DesiredCapabilities.CHROME.copy()
         caps['loggingPrefs'] = {'browser': 'ALL'}
 
-        driver = webdriver.Chrome(chrome_options=opts, desired_capabilities=caps)
+        for i in range(5):
+            try:
+                driver = webdriver.Chrome(chrome_options=opts, desired_capabilities=caps)
+            except WebDriverException as e:
+                if i == 0: print("")
+                print("Chrome WebDriver initialization failed:")
+                print(str(e) + "Retrying ...")
+            else:
+                break
+
         try:
             yield driver
         finally:
@@ -189,6 +199,26 @@ def if_firefox(wrapper):
         else:
             return test
     return test_catcher
+
+
+def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ..."):
+    """
+    Execute function `fun` until either its return is truthy
+    (or if `tester` is set, until the result of calling `tester` with `fun`'s return is truthy),
+    or it gets executed X times, where X = `times` + 1.
+    """
+    for i in range(times):
+        result = fun()
+        if tester is not None and tester(result):
+            break
+        elif result:
+            break
+        elif i == 0:
+            print("")
+        print(msg)
+        time.sleep(2 ** i)
+
+    return result
 
 
 attempts = {}  # used to count test retries
@@ -267,10 +297,24 @@ class PBSeleniumTest(unittest.TestCase):
         self.js('window.open()')
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    def load_url(self, url, wait_on_site=0):
+    def load_url(self, url, wait_on_site=0, wait_for_body_text=False, retries=5):
         """Load a URL and wait before returning."""
-        self.driver.get(url)
+        for i in range(retries):
+            try:
+                self.driver.get(url)
+                break
+            except TimeoutException as e:
+                if i < retries - 1:
+                    continue
+                raise e
         self.driver.switch_to.window(self.driver.current_window_handle)
+
+        if wait_for_body_text:
+            retry_until(
+                lambda: self.driver.find_element_by_tag_name('body').text,
+                msg="Waiting for document.body.textContent to get populated ..."
+            )
+
         time.sleep(wait_on_site)
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):

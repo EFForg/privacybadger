@@ -5,8 +5,9 @@ import unittest
 
 import pbtest
 
-from time import sleep
+from functools import partial
 
+from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
@@ -57,15 +58,8 @@ return (
         switch_to_window_with_url(self.driver, self.bg_url)
 
         # check that we detected the fingerprinting domain as a tracker
-        has_tracking = self.detected_tracking(FINGERPRINTING_DOMAIN, PAGE_URL)
-
-        # work around sporadic failures on some versions of Firefox
-        if pbtest.shim.browser_type == 'firefox' and not has_tracking:
-            print("\nRetrying canvas fingerprinting detection check ...")
-            sleep(2)
-            has_tracking = self.detected_tracking(FINGERPRINTING_DOMAIN, PAGE_URL)
-
-        self.assertTrue(has_tracking,
+        self.assertTrue(
+            retry_until(partial(self.detected_tracking, FINGERPRINTING_DOMAIN, PAGE_URL)),
             "Canvas fingerprinting resource was detected as a tracker.")
 
         # check that we detected canvas fingerprinting

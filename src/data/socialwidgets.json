@@ -31,7 +31,7 @@
 		}
 	},
 
-	"FacebookLike": {
+	"Facebook Like": {
 		"domain": "www.facebook.com",
 		"buttonSelectors": [
 			"fb\\:like",
@@ -50,7 +50,7 @@
 		}
 	},
 
-	"FacebookShare": {
+	"Facebook Share": {
 		"domain": "www.facebook.com",
 		"buttonSelectors": [
 			"fb\\:share_button",
@@ -87,7 +87,7 @@
 		}
 	},
 
-        "Soundcloud": {
+        "SoundCloud": {
           "domain": "soundcloud.com",
           "buttonSelectors": [
             "iframe[src*='api.soundcloud.com']"

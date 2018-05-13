@@ -18,18 +18,22 @@
  /*csslint ids:ignore*/
 
 body {
-  margin: 0;
-  min-width: 430px; /* Chrome */
-  max-width: 100%;  /* FF android */
-  font-size: 12px;
+  box-sizing: border-box;
+
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
-  padding: 8px 15px 0;
-  box-sizing: border-box;
+  font-size: 12px;
+
+  margin: 0;
+  padding: 7px 15px 0;
+
+  min-width: 430px; /* Chrome */
+  max-width: 100%;  /* FF android */
+  min-height: 270px;
 }
 @media screen and (min--moz-device-pixel-ratio:0) {
-    body{
+    body {
         min-width: 200px; /* FF android */
         width: 430px;     /* FF desktop */
     }
@@ -37,13 +41,6 @@ body {
 
 a { text-decoration: none }
 a:hover { color: #ec9329 }
-
-#filtersList {
-  border: 1px dotted gray;
-  padding: 1px;
-  display: none;
-  background-color: #BFBFBF;
-}
 
 .checkbox label {
   min-height: 20px;
@@ -55,10 +52,6 @@ a:hover { color: #ec9329 }
   padding-left: 0.5em;
 }
 
-.ui-button {
-    padding: .6em 1em;
-}
-
 .spacer {
   height: 7px;
   width: 5px;
@@ -66,17 +59,6 @@ a:hover { color: #ec9329 }
   clear: both;
 }
 
-.click-nav ul {position:relative;font-weight:900;list-style-type:none;}
-.click-nav ul li {position:relative;list-style:none;cursor:pointer;}
-.click-nav ul li ul {position:relative;}
-.click-nav ul .clicker {position:relative;background:#2284B5;color:#FFF;}
-.click-nav ul .clicker:hover,.click-nav ul .active {background:#196F9A;}
-.click-nav .imglink img {position:absolute;top:9px;left:12px;}
-.click-nav ul li a {transition:background-color 0.2s ease-in-out;-webkit-transition:background-color 0.2s ease-in-out;
--o-transition:background-color 0.2s ease-in-out;
--moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
-.click-nav ul li a:hover {background:#F2F2F2;}
-.click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;}
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
@@ -164,6 +146,10 @@ font-size: 16px;
 }
 #privacyBadgerHeader img{
   float: left;
+}
+
+#blockedResourcesContainer {
+    min-height: 70px;
 }
 
 .ui-slider {

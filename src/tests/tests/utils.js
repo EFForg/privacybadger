@@ -79,6 +79,8 @@
   });
 
   QUnit.test("surrogate script URL lookups", function (assert) {
+    const surrogatedb = require('surrogatedb');
+    const SURROGATE_PREFIX = 'data:application/javascript;base64,';
     const GA_JS_TESTS = [
       {
         url: 'http://www.google-analytics.com/ga.js',
@@ -93,6 +95,9 @@
         msg: "Google Analytics ga.js querystring URL should match"
       },
     ];
+    const NYT_SCRIPT_PATH = '/assets/homepage/20160920-111441/js/foundation/lib/framework.js';
+    const NYT_URL = 'https://a1.nyt.com' + NYT_SCRIPT_PATH;
+
     let ga_js_surrogate;
 
     for (let i = 0; i < GA_JS_TESTS.length; i++) {
@@ -104,17 +109,42 @@
     }
 
     assert.ok(
-      ga_js_surrogate.startsWith('data:application/javascript;base64,'),
+      ga_js_surrogate.startsWith(SURROGATE_PREFIX),
       "The returned ga.js surrogate is a base64-encoded JavaScript data URI"
     );
 
-    assert.ok(
-      !getSurrogateURI(
-        'https://a1.nyt.com/assets/homepage/20160920-111441/js/foundation/lib/framework.js',
-        'a1.nyt.com'
-      ),
+    // test negative match
+    assert.notOk(
+      getSurrogateURI(NYT_URL, window.extractHostFromURL(NYT_URL)),
       "New York Times script URL should not match any surrogates"
     );
+
+    // test surrogate suffix token response contents
+    surrogatedb.hostnames[window.extractHostFromURL(NYT_URL)] = [
+      NYT_SCRIPT_PATH
+    ];
+    surrogatedb.surrogates[NYT_SCRIPT_PATH] = _.noop;
+    assert.equal(
+      getSurrogateURI(NYT_URL, window.extractHostFromURL(NYT_URL)),
+      SURROGATE_PREFIX + btoa(_.noop),
+      "New York Times script URL should now match the _.noop surrogate"
+    );
+
+    // set up test data for wildcard token tests
+    surrogatedb.hostnames['cdn.example.com'] = 'noop';
+    surrogatedb.surrogates.noop = _.noop;
+
+    // test wildcard tokens
+    for (let i = 0; i < 25; i++) {
+      let url = 'http://cdn.example.com/' + _.sample(
+        'abcdefghijklmnopqrstuvwxyz0123456789', _.random(5, 15)).join('');
+
+      assert.equal(
+        getSurrogateURI(url, window.extractHostFromURL(url)),
+        SURROGATE_PREFIX + btoa(_.noop),
+        "A wildcard token should match all URLs for the hostname: " + url
+      );
+    }
   });
 
   QUnit.test("rateLimit", (assert) => {
