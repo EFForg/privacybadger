@@ -25,7 +25,6 @@ var constants = backgroundPage.constants;
 var badger = backgroundPage.badger;
 var FirefoxAndroid = backgroundPage.FirefoxAndroid;
 var htmlUtils = require("htmlutils").htmlUtils;
-
 var i18n = chrome.i18n;
 var reloadTab = chrome.tabs.reload;
 
@@ -86,8 +85,25 @@ function init(tab) {
     });
   });
 
+  //Restore the error message text if any
+  getTab(tab => {
+    let activeTab = badger.tabData[tab.id];
+
+    if (activeTab["errorInput"]) {
+      $("#error_input").val(activeTab["errorInput"]);
+    }
+  });
+
   var overlay = $('#overlay');
+  
   $("#error").click(function() {
+    //Log error message in current tab's tabData
+    $('#error_input').bind('input propertychange', function() {
+      getTab(tab => {
+        let activeTab = badger.tabData[tab.id];
+        activeTab["errorInput"] = $("#error_input").val();
+      });
+    });
     overlay.toggleClass('active');
   });
   $("#report_cancel").click(function() {
@@ -96,7 +112,11 @@ function init(tab) {
   $("#report_button").click(function() {
     $(this).prop("disabled", true);
     $("#report_cancel").prop("disabled", true);
-    send_error($("#error_input").val());
+    getTab(tab => {
+      let activeTab = badger.tabData[tab.id];
+      let errorText = activeTab["errorInput"];    
+      send_error(errorText);
+    });
   });
   $("#report_close").click(function() {
     closeOverlay();
@@ -121,10 +141,14 @@ function init(tab) {
 * Close the error reporting overlay
 */
 function closeOverlay() {
-  $('#overlay').toggleClass('active', false);
-  $("#report_success").toggleClass("hidden", true);
-  $("#report_fail").toggleClass("hidden", true);
-  $("#error_input").val("");
+  getTab(tab => {
+    $('#overlay').toggleClass('active', false);
+    $("#report_success").toggleClass("hidden", true);
+    $("#report_fail").toggleClass("hidden", true);
+    $("#error_input").val("");
+    let activeTab = badger.tabData[tab.id];
+    delete activeTab["errorInput"];  
+  });  
 }
 
 /**
