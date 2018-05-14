@@ -1,9 +1,10 @@
 {
-  "version": "2017.11.20",
+  "version": "2018.5.10",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
-      "id": "jid1-MnnxcxisBPnSXQ@jetpack"
+      "id": "jid1-MnnxcxisBPnSXQ@jetpack",
+      "strict_min_version": "50.0"
     }
   },
   "incognito": "spanning",
@@ -17,16 +18,15 @@
     "webNavigation",
     "storage",
     "cookies",
-    "privacy",
-    "unlimitedStorage"
+    "privacy"
   ],
   "background": {
     "scripts": [
       "js/bootstrap.js",
-      "lib/punycode.js",
+      "lib/vendor/punycode.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
-      "lib/underscore-min.js",
+      "lib/vendor/underscore-min.js",
       "data/surrogates.js",
       "js/surrogates.js",
       "js/multiDomainFirstParties.js",
@@ -35,11 +35,11 @@
       "js/storage.js",
       "js/utils.js",
       "js/htmlutils.js",
-      "js/webrequest.js",
       "js/heuristicblocking.js",
       "js/socialwidgetloader.js",
       "js/migrations.js",
       "js/firefoxandroid.js",
+      "js/webrequest.js",
       "js/background.js"
     ]
   },
@@ -56,8 +56,19 @@
     },
     {
       "js": [
+        "js/firstparties/facebook.js"
+      ],
+      "matches": [
+        "https://*.facebook.com/*",
+        "http://*.facebook.com/*"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
+        "js/contentscripts/dnt.js",
         "js/contentscripts/fingerprinting.js"
       ],
       "matches": [
@@ -103,7 +114,5 @@
     "page": "/skin/options.html",
     "open_in_tab": true
   },
-  "web_accessible_resources": [
-    "skin/socialwidgets/*"
-  ]
+  "update_url": "https://clients2.google.com/service/update2/crx"
 }

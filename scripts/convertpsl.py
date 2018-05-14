@@ -27,7 +27,7 @@ if __name__ == '__main__':
     with open(sys.argv[1], 'r+') as f:
         psl = convert(f)
         f.seek(0)
-        f.write('var publicSuffixes = %s;' % (
-            json.dumps(psl, sort_keys=True, indent=4, separators=(',', ': '))
+        f.write('window.publicSuffixes = %s;' % (
+            json.dumps(psl, sort_keys=True, indent=2, separators=(',', ': '))
         ))
         f.truncate()

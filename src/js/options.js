@@ -15,7 +15,20 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals getOriginsArray:false */
+
 // TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
+
+// TODO hack: disable Tooltipster tooltips on Firefox to avoid unresponsive script warnings
+(function () {
+let [, browser, ] = navigator.userAgent.match(
+  // from https://gist.github.com/ticky/3909462
+  /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
+);
+if (browser == "Firefox") {
+  $.fn.tooltipster = function () {};
+}
+}());
 
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
@@ -40,26 +53,41 @@ var i18n = chrome.i18n;
 var originCache = null;
 var settings = badger.storage.getBadgerStorageObject("settings_map");
 
-let migrations = require("migrations").Migrations;
-
 /*
  * Loads options from pb storage and sets UI elements accordingly.
  */
 function loadOptions() {
-  $('#blockedResources').css('max-height',$(window).height() - 300);
-
   // Set page title to i18n version of "Privacy Badger Options"
   document.title = i18n.getMessage("options_title");
 
   // Add event listeners
-  $("#whitelistForm").submit(addWhitelistDomain);
-  $("#removeWhitelist").click(removeWhitelistDomain);
-  $('#importTrackerButton').click(loadFileChooser);
-  $('#importTrackers').change(importTrackerList);
-  $('#exportTrackers').click(exportUserData);
+  $("#whitelistForm").on("submit", addWhitelistDomain);
+  $("#removeWhitelist").on("click", removeWhitelistDomain);
+  $('#importTrackerButton').on("click", loadFileChooser);
+  $('#importTrackers').on("change", importTrackerList);
+  $('#exportTrackers').on("click", exportUserData);
+
+  if (settings.getItem("showTrackingDomains")) {
+    $('#tracking-domains-overlay').hide();
+  } else {
+    $('#blockedResourcesContainer').hide();
+
+    $('#show-tracking-domains-checkbox').on("click", () => {
+      $('#tracking-domains-overlay').hide();
+      $('#blockedResourcesContainer').show();
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: {
+          showTrackingDomains: true
+        }
+      });
+    });
+  }
 
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").on("input", filterTrackingDomains);
+  $("#tracking-domains-type-filter").on("change", filterTrackingDomains);
+  $("#tracking-domains-status-filter").on("change", filterTrackingDomains);
 
   // Add event listeners for origins container.
   $(function () {
@@ -73,7 +101,7 @@ function loadOptions() {
     activate: function (event, ui) {
       // update options page URL fragment identifier
       // to preserve selected tab on page reload
-      window.location.hash = ui.newPanel.attr('id');
+      history.replaceState(null, null, "#" + ui.newPanel.attr('id'));
     }
   });
   $("button").button();
@@ -82,25 +110,39 @@ function loadOptions() {
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".exportButton").button("option", "icons", {primary: "ui-icon-extlink"});
-  $("#show_counter_checkbox").click(updateShowCounter);
+  $("#show_counter_checkbox").on("click", updateShowCounter);
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
-  $("#replace_social_widgets_checkbox").click(updateSocialWidgetReplacement);
+  $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
-  $("#check_dnt_policy_checkbox").click(updateCheckingDNTPolicy);
+  $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled());
 
   if (badger.webRTCAvailable) {
-    $("#toggle_webrtc_mode").click(toggleWebRTCIPProtection);
-    $("#toggle_webrtc_mode").prop("checked", badger.isWebRTCIPProtectionEnabled());
+    $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
+
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, result => {
+      if (result.levelOfControl.endsWith("_by_this_extension")) {
+        $("#toggle_webrtc_mode").attr("disabled", false);
+      }
+
+      $("#toggle_webrtc_mode").prop(
+        "checked", result.value == "disable_non_proxied_udp");
+    });
+
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
-    $("#webRTCToggle").css({"visibility": "hidden", "height": 0});
-    $("#settingsSuffix").css({"visibility": "hidden", "height": 0});
+    $("#webRTCToggle").hide();
+    $("#webrtc-warning").hide();
   }
 
-  // Show user's filters
+  $("#learn-in-incognito-checkbox")
+    .on("click", updateLearnInIncognito)
+    .prop("checked", badger.isLearnInIncognitoEnabled());
+
   reloadWhitelist();
-  refreshFilterPage();
+  reloadTrackingDomainsTab();
+
+  $('html').css('visibility', 'visible');
 }
 $(loadOptions);
 
@@ -138,7 +180,7 @@ function importTrackerList() {
  * Parse the tracker lists uploaded by the user, adding to the
  * storage maps anything that isn't currently present.
  *
- * @param {string} storageMapsList Data from JSON file that user provided
+ * @param {String} storageMapsList Data from JSON file that user provided
  */
 function parseUserDataFile(storageMapsList) {
   var lists;
@@ -157,22 +199,15 @@ function parseUserDataFile(storageMapsList) {
     return confirm(i18n.getMessage("invalid_json"));
   }
 
-  for (let map in lists) {
-    var storageMap = badger.storage.getBadgerStorageObject(map);
-
-    if (storageMap) {
-      storageMap.merge(lists[map]);
-    }
-  }
-
-  // fix yellowlist getting out of sync
-  migrations.reapplyYellowlist(badger);
-
-  // Update list to reflect new status of map
-  reloadWhitelist();
-  refreshFilterPage();
-  var importSuccessful = i18n.getMessage("import_successful");
-  confirm(importSuccessful);
+  chrome.runtime.sendMessage({
+    type: "mergeUserData",
+    data: lists
+  }, () => {
+    // Update list to reflect new status of map
+    reloadWhitelist();
+    reloadTrackingDomainsTab();
+    confirm(i18n.getMessage("import_successful"));
+  });
 }
 
 /**
@@ -201,25 +236,49 @@ function exportUserData() {
     var a = document.createElement('a');
     a.setAttribute('download', filename || '');
 
-    // TODO remove browser check and simplify code once Firefox 52 goes away
-    // https://github.com/EFForg/privacybadger/pull/1532#issuecomment-318702372
+    var blob = new Blob([mapJSON], { type: 'application/json' }); // pass a useful mime type here
+    a.href = URL.createObjectURL(blob);
+
+    function clickBlobLink() {
+      a.dispatchEvent(new MouseEvent('click'));
+      URL.revokeObjectURL(blob);
+    }
+
+    /**
+     * Firefox workaround to insert the blob link in an iFrame
+     * https://bugzilla.mozilla.org/show_bug.cgi?id=1420419#c18
+     */
+    function addBlobWorkAroundForFirefox() {
+      // Create or use existing iframe for the blob 'a' element
+      var iframe = document.getElementById('exportUserDataIframe');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = "exportUserDataIframe";
+        iframe.setAttribute("style", "visibility: hidden; height: 0; width: 0");
+        document.getElementById('export').appendChild(iframe);
+
+        iframe.contentWindow.document.open();
+        iframe.contentWindow.document.write('<html><head></head><body></body></html>');
+        iframe.contentWindow.document.close();
+      } else {
+        // Remove the old 'a' element from the iframe
+        var oldElement = iframe.contentWindow.document.body.lastChild;
+        iframe.contentWindow.document.body.removeChild(oldElement);
+      }
+      iframe.contentWindow.document.body.appendChild(a);
+    }
+
+    // TODO remove browser check and simplify code once Firefox 58 goes away
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1420419
     if (chrome.runtime.getBrowserInfo) {
       chrome.runtime.getBrowserInfo((info) => {
         if (info.name == "Firefox") {
-          a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(mapJSON);
-          a.dispatchEvent(new MouseEvent('click'));
-        } else {
-          var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
-          a.href = URL.createObjectURL(blob);
-          a.dispatchEvent(new MouseEvent('click'));
-          URL.revokeObjectURL(blob);
+          addBlobWorkAroundForFirefox();
         }
+        clickBlobLink();
       });
     } else {
-      var blob = new Blob([mapJSON], {type: 'application/json'}); // pass a useful mime type here
-      a.href = URL.createObjectURL(blob);
-      a.dispatchEvent(new MouseEvent('click'));
-      URL.revokeObjectURL(blob);
+      clickBlobLink();
     }
   });
 }
@@ -228,13 +287,17 @@ function exportUserData() {
  * Update setting for whether or not to show counter on Privacy Badger badge.
  */
 function updateShowCounter() {
-  var showCounter = $("#show_counter_checkbox").prop("checked");
-  settings.setItem("showCounter", showCounter);
+  const showCounter = $("#show_counter_checkbox").prop("checked");
 
-  // Refresh display for each tab's PB badge.
-  chrome.tabs.query({}, function(tabs) {
-    tabs.forEach(function(tab) {
-      badger.updateBadge(tab.id);
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { showCounter }
+  }, () => {
+    // Refresh display for each tab's PB badge.
+    chrome.tabs.query({}, function(tabs) {
+      tabs.forEach(function(tab) {
+        badger.updateBadge(tab.id);
+      });
     });
   });
 }
@@ -243,14 +306,36 @@ function updateShowCounter() {
  * Update setting for whether or not to replace social widgets.
  */
 function updateSocialWidgetReplacement() {
-  var replaceSocialWidgets = $("#replace_social_widgets_checkbox").prop("checked");
-  settings.setItem("socialWidgetReplacementEnabled", replaceSocialWidgets);
+  const enabled = $("#replace_social_widgets_checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      socialWidgetReplacementEnabled: enabled
+    }
+  });
 }
 
 function updateCheckingDNTPolicy() {
-  var newDNTSetting = $("#check_dnt_policy_checkbox").prop("checked");
-  settings.setItem("checkForDNTPolicy", newDNTSetting);
-  refreshFilterPage(); // This setting means sites need to be re-evaluated
+  const enabled = $("#check_dnt_policy_checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      checkForDNTPolicy: enabled
+    }
+  }, () => {
+    reloadTrackingDomainsTab(); // This setting means sites need to be re-evaluated
+  });
+}
+
+function updateLearnInIncognito() {
+  const learnInIncognito = $("#learn-in-incognito-checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { learnInIncognito }
+  });
 }
 
 function reloadWhitelist() {
@@ -269,26 +354,6 @@ function reloadWhitelist() {
  */
 function refreshOriginCache() {
   originCache = getOrigins();
-}
-
-/**
- * Gets array of encountered origins.
- * @param filterText {String} Text to filter origins with.
- * @return {Array}
- */
-function getOriginsArray(filterText) {
-  // Make sure filterText is lower case for case-insensitive matching.
-  if (filterText) {
-    filterText = filterText.toLowerCase();
-  } else {
-    filterText = "";
-  }
-
-  // Include only origins containing given filter text.
-  function containsFilterText(origin) {
-    return origin.toLowerCase().indexOf(filterText) !== -1;
-  }
-  return Object.keys(originCache).filter(containsFilterText);
 }
 
 function addWhitelistDomain(event) {
@@ -317,7 +382,7 @@ function removeWhitelistDomain(event) {
   reloadWhitelist();
 }
 
-// filter slider functions
+// Tracking Domains slider functions
 
 /**
  * Gets all encountered origins with associated actions.
@@ -338,7 +403,7 @@ function getOrigins() {
 
 /**
  * Gets action for given origin.
- * @param origin Origin to get action for.
+ * @param {String} origin - Origin to get action for.
  */
 function getOriginAction(origin) {
   // Check to see if cached origins need to be set.
@@ -361,21 +426,29 @@ function revertDomainControl(e) {
   log('selector', selector);
   selector.click();
   $elm.removeClass('userset');
-  refreshFilterPage(origin);
+  reloadTrackingDomainsTab(origin);
   return false;
 }
 
 /**
  * Displays list of all tracking domains along with toggle controls.
  */
-function refreshFilterPage() {
+function reloadTrackingDomainsTab() {
   refreshOriginCache();
 
   // Check to see if any tracking domains have been found before continuing.
-  var allTrackingDomains = getOriginsArray();
+  var allTrackingDomains = getOriginsArray(originCache);
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
-    $("#count").text(0);
-    $("#blockedResources").html("Could not detect any tracking cookies.");
+    // leave out number of trackers and slider instructions message if no sliders will be displayed
+    $("#pb_has_detected").hide();
+    $("#count").hide();
+    $("#options_domain_list_trackers").hide();
+    $("#options_domain_list_one_tracker").hide();
+
+    // show "no trackers" message
+    $("#options_domain_list_no_trackers").show();
+    $("#blockedResources").html('');
+    $("#tracking-domains-div").hide();
 
     // activate tooltips
     $('.tooltip').tooltipster();
@@ -383,8 +456,24 @@ function refreshFilterPage() {
     return;
   }
 
-  // Update tracking domain count.
-  $("#count").text(allTrackingDomains.length);
+  // reloadTrackingDomainsTab can be called multiple times, needs to be reversible
+  $("#options_domain_list_no_trackers").hide();
+  $("#tracking-domains-div").show();
+
+  // Update messages according to tracking domain count.
+  if (allTrackingDomains.length === 1) {
+    // leave out messages about multiple trackers
+    $("#pb_has_detected").hide();
+    $("#count").hide();
+    $("#options_domain_list_trackers").hide();
+
+    // show singular "tracker" message
+    $("#options_domain_list_one_tracker").show();
+  } else {
+    $("#pb_has_detected").show();
+    $("#count").text(allTrackingDomains.length).show();
+    $("#options_domain_list_trackers").show();
+  }
 
   // Get containing HTML for domain list along with toggle legend icons.
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
@@ -393,23 +482,31 @@ function refreshFilterPage() {
   $('.tooltip').tooltipster();
 
   // Display tracking domains.
-  var originsToDisplay;
-  var searchText = $("#trackingDomainSearch").val();
-  if (searchText.length > 0) {
-    originsToDisplay = getOriginsArray(searchText);
-  } else {
-    originsToDisplay = allTrackingDomains;
-  }
-  showTrackingDomains(originsToDisplay);
+  showTrackingDomains(
+    getOriginsArray(
+      originCache,
+      $("#trackingDomainSearch").val(),
+      $('#tracking-domains-type-filter').val(),
+      $('#tracking-domains-status-filter').val()
+    )
+  );
 
-  log("Done refreshing options page");
+  log("Done refreshing tracking domains tab");
 }
 
 /**
  * Displays filtered list of tracking domains based on user input.
- * @param event Input event triggered by user.
  */
-function filterTrackingDomains(/*event*/) {
+function filterTrackingDomains() {
+  const $typeFilter = $('#tracking-domains-type-filter');
+  const $statusFilter = $('#tracking-domains-status-filter');
+
+  if ($typeFilter.val() == "dnt") {
+    $statusFilter.prop("disabled", true).val("");
+  } else {
+    $statusFilter.prop("disabled", false);
+  }
+
   var initialSearchText = $('#trackingDomainSearch').val().toLowerCase();
 
   // Wait a short period of time and see if search text has changed.
@@ -423,13 +520,60 @@ function filterTrackingDomains(/*event*/) {
     }
 
     // Show filtered origins.
-    var filteredOrigins = getOriginsArray(searchText);
+    var filteredOrigins = getOriginsArray(
+      originCache,
+      searchText,
+      $typeFilter.val(),
+      $statusFilter.val()
+    );
     showTrackingDomains(filteredOrigins);
   }, timeToWait);
 }
 
 /**
- * Add origins to the blocked resources list on scroll.
+ * Registers handlers for tracking domain toggle controls.
+ * @param {jQuery} $toggleElement jQuery object for the tracking domain element to be registered.
+ */
+// TODO unduplicate this code? since a version of it is also in popup
+function registerToggleHandlers($toggleElement) {
+  var radios = $toggleElement.children('input');
+  var value = $toggleElement.children('input:checked').val();
+
+  var slider = $('<div></div>').slider({
+    min: 0,
+    max: 2,
+    value: value,
+    create: function(/*event, ui*/) {
+      // Set the margin for the handle of the slider we're currently creating,
+      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
+      $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+    },
+    slide: function(event, ui) {
+      radios.filter('[value=' + ui.value + ']').click();
+    },
+    stop: function(event, ui) {
+      $(ui.handle).css('margin-left', -16 * ui.value + 'px');
+
+      // Save change for origin.
+      var origin = radios.filter('[value=' + ui.value + ']')[0].name;
+      var setting = htmlUtils.getCurrentClass($toggleElement.parents('.clicker'));
+      chrome.runtime.sendMessage({
+        type: "saveOptionsToggle",
+        action: setting,
+        origin: origin
+      }, () => {
+        reloadTrackingDomainsTab();
+      });
+    },
+  }).appendTo($toggleElement);
+
+  radios.on("change", function() {
+    slider.slider('value', radios.filter(':checked').val());
+  });
+}
+
+/**
+ * Adds more origins to the blocked resources list on scroll.
  *
 */
 function addOrigins(e) {
@@ -441,6 +585,9 @@ function addOrigins(e) {
     var action = getOriginAction(domain);
     if (action) {
       $(target).append(htmlUtils.getOriginHtml(domain, action, action == constants.DNT));
+
+      // register the newly-created toggle switch so that user changes are saved
+      registerToggleHandlers($(target).find("[data-origin='" + domain + "'] .switch-toggle"));
     }
   }
 
@@ -451,12 +598,12 @@ function addOrigins(e) {
 
 /**
  * Displays list of tracking domains along with toggle controls.
- * @param domains Tracking domains to display.
+ * @param {Array} domains Tracking domains to display.
  */
 function showTrackingDomains(domains) {
   domains.sort(htmlUtils.compareReversedDomains);
 
-  // Create HTML for list of tracking domains.
+  // Create HTML for the initial list of tracking domains.
   var trackingDetails = '';
   for (var i = 0; (i < 50) && (domains.length > 0); i++) {
     var trackingDomain = domains.shift();
@@ -470,8 +617,8 @@ function showTrackingDomains(domains) {
   // Display tracking domains.
   $('#blockedResourcesInner').html(trackingDetails);
 
-  $('#blockedResourcesInner').off('scroll');
-  $('#blockedResourcesInner').scroll(domains, addOrigins);
+  $('#blockedResourcesInner').off("scroll");
+  $('#blockedResourcesInner').on("scroll", domains, addOrigins);
 
   // activate tooltips
   $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
@@ -479,76 +626,59 @@ function showTrackingDomains(domains) {
 
   // Register handlers for tracking domain toggle controls.
   $('.switch-toggle').each(function() {
-    var radios = $(this).children('input');
-    var value = $(this).children('input:checked').val();
-
-    var slider = $('<div></div>').slider({
-      min: 0,
-      max: 2,
-      value: value,
-      create: function(/*event, ui*/) {
-        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-      },
-      slide: function(event, ui) {
-        radios.filter('[value=' + ui.value + ']').click();
-      },
-      stop: function(event, ui) {
-        $(ui.handle).css('margin-left', -16 * ui.value + 'px');
-
-        // Save change for origin.
-        var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-        var setting = htmlUtils.getCurrentClass($(this).parents('.clicker'));
-        syncSettings(origin, setting);
-      },
-    }).appendTo(this);
-
-    radios.change(function() {
-      slider.slider('value', radios.filter(':checked').val());
-    });
+    registerToggleHandlers($(this));
   });
-}
 
+}
 /**
  * https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
- * (Chrome only)
- * Toggle WebRTC IP address leak protection setting. "False" value means
- * policy is set to Mode 3 (default_public_interface_only), whereas "true"
- * value means policy is set to Mode 4 (disable_non_proxied_udp).
+ *
+ * Toggle WebRTC IP address leak protection setting.
+ *
+ * When enabled, policy is set to Mode 4 (disable_non_proxied_udp).
  */
 function toggleWebRTCIPProtection() {
   // Return early with non-supporting browsers
   if (!badger.webRTCAvailable) {
     return;
   }
-  var cpn = chrome.privacy.network;
 
-  cpn.webRTCIPHandlingPolicy.get({}, function(result) {
-    var newVal;
+  let cpn = chrome.privacy.network;
 
+  cpn.webRTCIPHandlingPolicy.get({}, function (result) {
     // Update new value to be opposite of current browser setting
-    if (result.value === 'disable_non_proxied_udp') {
-      newVal = 'default_public_interface_only';
+    if (result.value == 'disable_non_proxied_udp') {
+      cpn.webRTCIPHandlingPolicy.clear({});
     } else {
-      newVal = 'disable_non_proxied_udp';
+      cpn.webRTCIPHandlingPolicy.set({
+        value: 'disable_non_proxied_udp'
+      });
     }
-    cpn.webRTCIPHandlingPolicy.set({value: newVal}, function() {
-      settings.setItem("webRTCIPProtection", (newVal === 'disable_non_proxied_udp'));
-    });
   });
 }
 
+/**
+ * Update the user preferences displayed for this origin.
+ * These UI changes will later be used to update user preferences data.
+ *
+ * @param {Event} event Click event triggered by user.
+ */
+//TODO unduplicate this code? since it's also in popup
 function updateOrigin(event) {
+  // get the origin and new action for it
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
   log('updating origin for', $elm);
-  var $switchContainer = $elm.parents('.switch-container').first();
-  var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
+
+  // replace the old action with the new one
+  var $switchContainer = $elm.parents('.switch-container').first();
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
-  htmlUtils.toggleBlockedStatus($($clicker), action);
+  var $clicker = $elm.parents('.clicker').first();
+  htmlUtils.toggleBlockedStatus($clicker, action);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin').tooltipster('destroy');
@@ -561,7 +691,7 @@ function updateOrigin(event) {
 
 /**
  * Remove origin from Privacy Badger.
- * @param event {Event} Click event triggered by user.
+ * @param {Event} event Click event triggered by user.
  */
 function removeOrigin(event) {
   // Confirm removal before proceeding.
@@ -573,26 +703,10 @@ function removeOrigin(event) {
   // Remove traces of origin from storage.
   var $element = $(event.target).parent();
   var origin = $element.data('origin');
-  badger.storage.getBadgerStorageObject("snitch_map").deleteItem(origin);
-  badger.storage.getBadgerStorageObject("action_map").deleteItem(origin);
-  backgroundPage.log('Removed', origin, 'from Privacy Badger');
-
-  refreshFilterPage();
-}
-
-/**
- * Syncs settings for origins changed by user.
- *
- * @param originToCheck {String} Origin to check for changes, optional. If null,
- *                               all origins are checked.
- */
-function syncSettings(origin, userAction) {
-  log("Syncing userset options: ", origin, userAction);
-
-  // Save new action for updated origins.
-  badger.saveAction(userAction, origin);
-  log("Finished syncing.");
-
-  // Options page needs to be refreshed to display current results.
-  refreshFilterPage();
+  chrome.runtime.sendMessage({
+    type: "removeOrigin",
+    origin: origin
+  }, () => {
+    reloadTrackingDomainsTab();
+  });
 }

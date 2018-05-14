@@ -20,9 +20,8 @@ Unit tests are located in [`/src/tests/tests`](/src/tests/tests). The unit test 
 
 Our functional tests are written in [Python](https://www.python.org/) and driven by
 [Selenium](https://selenium-python.readthedocs.io/) and [pytest](https://docs.pytest.org/en/latest/).
-To run them, you'll need to install `chromedriver` ([link](https://github.com/EFForg/privacybadger/blob/d8fa42766a65687aed90cb0c41c38066bfa91dce/scripts/setup_travis.sh#L5-L10)) for Chrome
-or `geckodriver` ([link](https://github.com/EFForg/privacybadger/blob/bf69e75abae834111cc7faa4807c7e9e6ec90878/scripts/setup_travis.sh#L14-L21)) for Firefox.
-You also need some python packages which can be installed by running:
+To run them in Chrome, you'll need to [install `chromedriver`](https://github.com/EFForg/privacybadger/blob/f780438ca146e932ebc80fa163ddcfdae4e56c25/scripts/setup_travis.sh#L4-L12). In Firefox, you need to [install `geckodriver`](https://github.com/EFForg/privacybadger/blob/f780438ca146e932ebc80fa163ddcfdae4e56c25/scripts/setup_travis.sh#L14-L28).
+You also need some Python packages that can be installed by running:
 ```bash
 $ pip install -r tests/requirements.txt
 ```

@@ -18,12 +18,22 @@
 
 require.scopes.surrogatedb = (function() {
 
-// "hostnames" maps hostnames to arrays of surrogate pattern tokens.
-//
-// A hostname can have one or more surrogate scripts.
-//
-// Surrogate pattern tokens are used to look up the actual
-// surrogate script code (stored in "surrogates" object below).
+/**
+ * A hostname can have one or more surrogate scripts.
+ *
+ * "hostnames" maps hostnames to surrogate pattern tokens.
+ *
+ * Surrogate pattern tokens are used to look up the actual
+ * surrogate script code (stored in "surrogates" object below).
+ *
+ * There are currently two types of surrogate pattern tokens:
+ *
+ * - {Array} one or more suffix tokens:
+ *   Does the script URL (querystring excluded) end with the token?
+ *
+ * - {String} wildcard token:
+ *   Matches any script URL for the hostname.
+ */
 const hostnames = {
   'b.scorecardresearch.com': [
     '/beacon.js',
@@ -53,12 +63,13 @@ const hostnames = {
     '/JS/gigya.js',
     '/JS/socialize.js',
   ],
+  'cdn.krxd.net': 'noopjs',
+  'widgets.outbrain.com': '/outbrain.js',
 };
 
-// "surrogates" maps surrogate pattern tokens to surrogate script code.
-//
-// There is currently one type of surrogate pattern token: suffix.
-// Does the script URL (querystring excluded) end with the token?
+/**
+ * "surrogates" maps surrogate pattern tokens to surrogate script code.
+ */
 const surrogates = {
   /* eslint-disable no-extra-semi, space-in-parens */
 
@@ -196,7 +207,7 @@ const surrogates = {
     } + ')();',
 
   // https://github.com/EFForg/privacybadger/issues/993
-  // https://github.com/uBlockOrigin/uAssets/blob/257f936a0f01ad824dd7cb34dce215f60e34161a/filters/resources.txt#L319-L444
+  // https://github.com/uBlockOrigin/uAssets/blob/862f28ca7909dbc0db590075928152f526966620/filters/resources.txt#L367-L497
   /* eslint-disable no-empty */
   '/gpt.js': '(' +
     function() {
@@ -255,13 +266,18 @@ const surrogates = {
         enableVideoAds: noopfn,
         get: noopnullfn,
         getAttributeKeys: nooparrayfn,
+        getTargeting: noopfn,
+        getTargetingKeys: nooparrayfn,
+        getSlots: nooparrayfn,
         refresh: noopfn,
         set: noopthisfn,
         setCategoryExclusion: noopthisfn,
         setCentering: noopfn,
         setCookieOptions: noopthisfn,
+        setForceSafeFrame: noopthisfn,
         setLocation: noopthisfn,
         setPublisherProvidedId: noopthisfn,
+        setSafeFrameConfig: noopthisfn,
         setTagForChildDirectedTreatment: noopthisfn,
         setTargeting: noopthisfn,
         setVideoContent: noopthisfn,
@@ -410,7 +426,7 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-undef */
 
-  // https://github.com/uBlockOrigin/uAssets/blob/bf00b6e43a8a33b8d50f23de380eed707e8aa24a/filters/resources.txt#L287-L334
+  // https://github.com/uBlockOrigin/uAssets/blob/0e225402b40db0983faf8b4ce13c73d57fb257d7/filters/resources.txt#L354-L403
   /* eslint-disable no-empty */
   '/analytics.js': '(' +
     function() {
@@ -454,6 +470,8 @@ const surrogates = {
         return [];
       };
       ga.remove = noopfn;
+      // https://github.com/uBlockOrigin/uAssets/issues/2107
+      ga.loaded = true;
       w[gaName] = ga;
       // https://github.com/gorhill/uBlock/issues/3075
       var dl = w.dataLayer;
@@ -462,6 +480,41 @@ const surrogates = {
       }
     } + ')();',
   /* eslint-enable no-empty */
+
+  // https://github.com/uBlockOrigin/uAssets/blob/d7d4836638dcf227938b4cead66ad9d01b6166ba/filters/resources.txt#L843-L868
+  '/outbrain.js': '(' +
+    function() {
+      var noopfn = function() {
+        ;
+      };
+      var obr = {};
+      var methods = [
+        'callClick', 'callLoadMore', 'callRecs', 'callUserZapping',
+        'callWhatIs', 'cancelRecommendation', 'cancelRecs', 'closeCard',
+        'closeModal', 'closeTbx', 'errorInjectionHandler', 'getCountOfRecs',
+        'getStat', 'imageError', 'manualVideoClicked', 'onOdbReturn',
+        'onVideoClick', 'pagerLoad', 'recClicked', 'refreshSpecificWidget',
+        'refreshWidget', 'reloadWidget', 'researchWidget', 'returnedError',
+        'returnedHtmlData', 'returnedIrdData', 'returnedJsonData', 'scrollLoad',
+        'showDescription', 'showRecInIframe', 'userZappingMessage', 'zappingFormAction'
+      ];
+      obr.extern = {
+        video: {
+          getVideoRecs: noopfn,
+          videoClicked: noopfn
+        }
+      };
+      methods.forEach(function(a) {
+        obr.extern[a] = noopfn;
+      });
+      window.OBR = window.OBR || obr;
+    } + ')();',
+
+  // https://github.com/uBlockOrigin/uAssets/blob/0efcadb2ecc2a9f0daa5a1df79841d794b83860f/filters/resources.txt#L38-L41
+  'noopjs': '(' +
+    function() {
+      ;
+    } + ')();',
 
   /* eslint-enable no-extra-semi, space-in-parens */
 };

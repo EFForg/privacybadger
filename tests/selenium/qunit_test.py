@@ -18,14 +18,14 @@ class Test(pbtest.PBSeleniumTest):
 
         try:
             # this text appears when tests finish running
-            _ = self.txt_by_css(
+            self.txt_by_css(
                 "#qunit-testresult-display > span.total",
                 timeout=120
             )
         except TimeoutException as exc:
             self.fail("Cannot find the results of QUnit tests %s" % exc)
 
-        print("QUnit summary:")
+        print("\nQUnit summary:")
         print(self.txt_by_css("#qunit-testresult-display"))
 
         failed_test_els = self.driver.find_elements_by_css_selector(

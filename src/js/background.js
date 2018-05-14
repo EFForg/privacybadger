@@ -27,12 +27,7 @@ var pbStorage = require("storage");
 var HeuristicBlocking = require("heuristicblocking");
 var FirefoxAndroid = require("firefoxandroid");
 var webrequest = require("webrequest");
-var SocialWidgetLoader = require("socialwidgetloader");
-
-window.SocialWidgetList = [];
-SocialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json", function(socialWidgets) {
-  window.SocialWidgetList = socialWidgets;
-});
+var socialWidgetLoader = require("socialwidgetloader");
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
@@ -41,34 +36,39 @@ var incognito = require("incognito");
 * privacy badger initializer
 */
 function Badger() {
-  var badger = this;
-  this.userAllow = [];
-  this.webRTCAvailable = checkWebRTCBrowserSupport();
-  this.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (badger.INITIALIZED) { return; }
-    badger.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
-    badger.updateTabList();
-    badger.initializeDefaultSettings();
+  var self = this;
+
+  self.webRTCAvailable = checkWebRTCBrowserSupport();
+
+  self.socialWidgetList = [];
+  socialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json", (response) => {
+    self.socialWidgetList = response;
+  });
+
+  self.storage = new pbStorage.BadgerPen(function(thisStorage) {
+    if (self.INITIALIZED) { return; }
+    self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
+    self.updateTabList();
+    self.initializeDefaultSettings();
     try {
-      badger.runMigrations();
+      self.runMigrations();
     } finally {
-      badger.initializeYellowlist();
-      badger.initializeDNT();
-      badger.initializeUserAllowList();
-      badger.enableWebRTCProtection();
-      if (!badger.isIncognito) {badger.showFirstRunPage();}
+      self.initializeYellowlist();
+      self.initializeDNT();
+      if (!self.isIncognito) {self.showFirstRunPage();}
     }
 
     // Show icon as page action for all tabs that already exist
     chrome.tabs.query({}, function (tabs) {
       for (var i = 0; i < tabs.length; i++) {
-        badger.refreshIconAndContextMenu(tabs[i]);
+        let tab = tabs[i];
+        self.refreshIconAndContextMenu(tab.id, tab.url);
       }
     });
 
     // TODO: register all privacy badger listeners here in the storage callback
 
-    badger.INITIALIZED = true;
+    self.INITIALIZED = true;
   });
 
   /**
@@ -122,12 +122,13 @@ Badger.prototype = {
           frames: {
             <frame_id>: {
               url: string,
+              host: string,
               parent: int
             },
             ...
           },
           origins: {
-            domain.tld: bool
+            domain.tld: {String} action taken for this domain
             ...
           }
         },
@@ -150,11 +151,11 @@ Badger.prototype = {
   },
 
   /**
-  * saves a user preference for an origin, overriding
-  * the default setting.
-  * @param {String} userAction enum of block, cookieblock, noaction
-  * @param {String} origin the third party origin to take action on
-  */
+   * Saves a user preference for an origin, overriding the default setting.
+   *
+   * @param {String} userAction enum of block, cookieblock, noaction
+   * @param {String} origin the third party origin to take action on
+   */
   saveAction: function(userAction, origin) {
     var allUserActions = {
       'block': constants.USER_BLOCK,
@@ -163,9 +164,6 @@ Badger.prototype = {
     };
     this.storage.setupUserAction(origin, allUserActions[userAction]);
     log("Finished saving action " + userAction + " for " + origin);
-
-    // TODO: right now we don't determine whether a reload is needed
-    return true;
   },
 
 
@@ -174,8 +172,8 @@ Badger.prototype = {
   */
   updateTabList: function() {
     // Initialize the tabData/frames object if it is falsey
-    this.tabData = this.tabData || {};
     let self = this;
+    self.tabData = self.tabData || {};
     chrome.tabs.query({}, tabs => {
       tabs.forEach(tab => {
         self.recordFrame(tab.id, 0, -1, tab.url);
@@ -203,8 +201,31 @@ Badger.prototype = {
 
     self.tabData[tabId].frames[frameId] = {
       url: frameUrl,
+      host: window.extractHostFromURL(frameUrl),
       parent: parentFrameId
     };
+  },
+
+  /**
+   * Read the frame data from memory
+   *
+   * @param {Integer} tab_id Tab ID to check for
+   * @param {Integer} [frame_id=0] Frame ID to check for.
+   *  Optional, defaults to frame 0 (the main document frame).
+   *
+   * @returns {?Object} Frame data object or null
+   */
+  getFrameData: function (tab_id, frame_id) {
+    let self = this;
+
+    frame_id = frame_id || 0;
+
+    if (self.tabData.hasOwnProperty(tab_id)) {
+      if (self.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
+        return self.tabData[tab_id].frames[frame_id];
+      }
+    }
+    return null;
   },
 
   /**
@@ -236,37 +257,6 @@ Badger.prototype = {
 
     // set up periodic fetching of the yellowlist from eff.org
     setInterval(self.updateYellowlist.bind(self), utils.oneDay());
-  },
-
-  /**
-   * (Currently Chrome only)
-   * Change default WebRTC handling browser policy to more
-   * private setting that only shows public facing IP address.
-   * Only update if user does not have the strictest setting enabled
-   **/
-  enableWebRTCProtection: function() {
-    // Return early with non-supporting browsers
-    if (!badger.webRTCAvailable) {
-      return;
-    }
-
-    var cpn = chrome.privacy.network;
-    var settings = this.storage.getBadgerStorageObject("settings_map");
-
-    cpn.webRTCIPHandlingPolicy.get({}, function(result) {
-      if (result.value === 'disable_non_proxied_udp') {
-        // TODO is there case where other extension controls this and PB
-        // TODO cannot modify it?
-        // Make sure we display correct setting on options page
-        settings.setItem("webRTCIPProtection", true);
-        return;
-      }
-
-      cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
-        function() {
-          settings.setItem("webRTCIPProtection", false);
-        });
-    });
   },
 
   /**
@@ -362,28 +352,16 @@ Badger.prototype = {
   },
 
   /**
-   * Search through action_map list and update list of domains
-   * that user has manually set to "allow"
-   */
-  initializeUserAllowList: function() {
-    var action_map = this.storage.getBadgerStorageObject('action_map');
-    for (var domain in action_map.getItemClones()) {
-      if (this.storage.getAction(domain) === constants.USER_ALLOW) {
-        this.userAllow.push(domain);
-      }
-    }
-  },
-
-  /**
   * Fetch acceptable DNT policy hashes from the EFF server
   */
   updateDNTPolicyHashes: function() {
-    if (! badger.isCheckingDNTPolicyEnabled()) {
+    var self = this;
+
+    if (!self.isCheckingDNTPolicyEnabled()) {
       // user has disabled this, we can check when they re-enable
       return ;
     }
 
-    var self = this;
     utils.xhrRequest(constants.DNT_POLICIES_URL, function(err, response) {
       if (err) {
         console.error('Problem fetching DNT policy hash list at',
@@ -401,15 +379,15 @@ Badger.prototype = {
   * @param {Function} cb Callback that receives check status boolean (optional)
   */
   checkForDNTPolicy: function (domain, cb) {
-    var badger = this,
-      next_update = badger.storage.getNextUpdateForDomain(domain);
+    var self = this,
+      next_update = self.storage.getNextUpdateForDomain(domain);
 
     if (Date.now() < next_update) {
       // not yet time
       return;
     }
 
-    if (!badger.isCheckingDNTPolicyEnabled()) {
+    if (!self.isCheckingDNTPolicyEnabled()) {
       // user has disabled this check
       return;
     }
@@ -422,15 +400,15 @@ Badger.prototype = {
       utils.oneDayFromNow(),
       utils.nDaysFromNow(7)
     );
-    badger.storage.touchDNTRecheckTime(domain, recheckTime);
+    self.storage.touchDNTRecheckTime(domain, recheckTime);
 
-    this._checkPrivacyBadgerPolicy(domain, function (success) {
+    self._checkPrivacyBadgerPolicy(domain, function (success) {
       if (success) {
         log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
-        badger.storage.setupDNT(domain);
+        self.storage.setupDNT(domain);
       } else {
         log('It looks like', domain, 'has NOT adopted Do Not Track');
-        badger.storage.revertDNT(domain);
+        self.storage.revertDNT(domain);
       }
       if (typeof cb == "function") {
         cb(success);
@@ -473,10 +451,13 @@ Badger.prototype = {
   defaultSettings: {
     checkForDNTPolicy: true,
     disabledSites: [],
+    hideBlockedElements: true,
     isFirstRun: true,
+    learnInIncognito: false,
     migrationLevel: 0,
     seenComic: false,
     showCounter: true,
+    showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
   },
 
@@ -494,8 +475,8 @@ Badger.prototype = {
   },
 
   runMigrations: function() {
-    var badger = this;
-    var settings = badger.storage.getBadgerStorageObject("settings_map");
+    var self = this;
+    var settings = self.storage.getBadgerStorageObject("settings_map");
     var migrationLevel = settings.getItem('migrationLevel');
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently
@@ -511,26 +492,16 @@ Badger.prototype = {
       Migrations.unblockIncorrectlyBlockedDomains,
       Migrations.forgetBlockedDNTDomains,
       Migrations.reapplyYellowlist,
+      Migrations.forgetNontrackingDomains,
+      Migrations.forgetMistakenlyBlockedDomains,
+      Migrations.resetWebRTCIPHandlingPolicy,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations, badger);
+      migrations[i].call(Migrations, self);
       settings.setItem('migrationLevel', i+1);
     }
 
-  },
-
-
-  /**
-   * Helper function returns a list of all third party origins for a tab
-   * @param {Integer} tab_id requested tab id as provided by chrome
-   * @returns {*} A dictionary of third party origins and their actions
-   */
-  getAllOriginsForTab: function (tab_id) {
-    return (
-      this.tabData.hasOwnProperty(tab_id) &&
-      Object.keys(this.tabData[tab_id].origins)
-    );
   },
 
   /**
@@ -539,15 +510,16 @@ Badger.prototype = {
    * @returns {Integer} blocked origin count
    */
   getBlockedOriginCount: function (tab_id) {
-    let self = this;
+    let origins = this.tabData[tab_id].origins,
+      count = 0;
 
-    return self.getAllOriginsForTab(tab_id).reduce((memo, origin) => {
-      let action = self.storage.getBestAction(origin);
-      if (constants.BLOCKED_ACTIONS.has(action)) {
-        memo++;
+    for (let domain in origins) {
+      if (constants.BLOCKED_ACTIONS.has(origins[domain])) {
+        count++;
       }
-      return memo;
-    }, 0);
+    }
+
+    return count;
   },
 
   /**
@@ -572,13 +544,21 @@ Badger.prototype = {
         return;
       }
 
-      let disabled = tab.url && self.isPrivacyBadgerDisabled(window.extractHostFromURL(tab.url));
+      if (self.criticalError) {
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
+        chrome.browserAction.setBadgeText({tabId: tab_id, text: "!"});
+        return;
+      }
 
       // don't show the counter for any of these:
       // - the counter is disabled
-      // - the page is whitelisted
       // - we don't have tabData for whatever reason (special browser pages)
-      if (!self.showCounter() || disabled || !self.tabData.hasOwnProperty(tab_id)) {
+      // - the page is whitelisted
+      if (
+        !self.showCounter() ||
+        !self.tabData.hasOwnProperty(tab_id) ||
+        !self.isPrivacyBadgerEnabled(self.getFrameData(tab_id).host)
+      ) {
         chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
         return;
       }
@@ -588,7 +568,7 @@ Badger.prototype = {
       if (count === 0) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#00cc00"});
       } else {
-        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
+        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#ec9329"});
       }
 
       chrome.browserAction.setBadgeText({tabId: tab_id, text: count + ""});
@@ -626,17 +606,6 @@ Badger.prototype = {
   },
 
   /**
-   * Check if privacy badger is disabled, take an origin and
-   * check against the disabledSites list
-   *
-   * @param {String} origin
-   * @returns {Boolean} true if disabled
-   **/
-  isPrivacyBadgerDisabled: function(origin) {
-    return !this.isPrivacyBadgerEnabled(origin);
-  },
-
-  /**
    * Check if social widget replacement functionality is enabled
    */
   isSocialWidgetReplacementEnabled: function() {
@@ -648,23 +617,10 @@ Badger.prototype = {
   },
 
   /**
-   * Check if WebRTC IP leak protection is enabled; query Chrome's internal
-   * value, update our local setting if it has gone out of sync, then return our
-   * setting's value.
+   * Check if learning about trackers in incognito windows is enabled
    */
-  isWebRTCIPProtectionEnabled: function() {
-    var self = this;
-
-    // Return early with non-supporting browsers
-    if (!badger.webRTCAvailable) {
-      return;
-    }
-
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
-      self.getSettings().setItem("webRTCIPProtection",
-        (result.value === "disable_non_proxied_udp"));
-    });
-    return this.getSettings().getItem("webRTCIPProtection");
+  isLearnInIncognitoEnabled: function() {
+    return this.getSettings().getItem("learnInIncognito");
   },
 
   /**
@@ -754,44 +710,38 @@ Badger.prototype = {
    * Save third party origins to tabData[tab_id] object for
    * use in the popup and, if needed, call updateBadge.
    *
-   * @param tab_id the tab we are on
-   * @param fqdn the third party origin to add
-   * @param action the action we are taking
-   *
-   **/
+   * @param {Integer} tab_id the tab we are on
+   * @param {String} fqdn the third party origin to add
+   * @param {String} action the action we are taking
+   */
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
-    let blocked = constants.BLOCKED_ACTIONS.has(action);
+    let self = this,
+      blocked = constants.BLOCKED_ACTIONS.has(action),
+      origins = self.tabData[tab_id].origins,
+      previously_blocked = constants.BLOCKED_ACTIONS.has(origins[fqdn]);
 
-    if (this.tabData[tab_id].origins.hasOwnProperty(fqdn)) {
-      // we've seen this origin on this tab already
-      // still want to update badge if we haven't yet seen origin as blocked
-      if (blocked && !this.tabData[tab_id].origins[fqdn]) {
-        // record that origin has been seen as blocked
-        this.tabData[tab_id].origins[fqdn] = true;
+    origins[fqdn] = action;
 
-        badger.updateBadge(tab_id);
-      }
-    } else {
-      // haven't seen the origin on this tab yet
-      this.tabData[tab_id].origins[fqdn] = blocked;
-
-      if (blocked) {
-        badger.updateBadge(tab_id);
-      }
+    if (!blocked || previously_blocked) {
+      return;
     }
+
+    self.updateBadge(tab_id);
   },
 
   /**
    * Enables or disables page action icon according to options.
-   * @param {Object} tab The tab to set the badger icon for
+   * @param {Integer} tab_id The tab ID to set the badger icon for
+   * @param {String} tab_url The tab URL to set the badger icon for
    */
-  refreshIconAndContextMenu: function (tab) {
-    if (!tab || !FirefoxAndroid.hasPopupSupport) {
+  refreshIconAndContextMenu: function (tab_id, tab_url) {
+    if (!tab_id || !tab_url || !FirefoxAndroid.hasPopupSupport) {
       return;
     }
 
     let iconFilename;
-    if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab.url))) {
+    // TODO grab hostname from tabData instead
+    if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab_url))) {
       iconFilename = {
         "19": chrome.runtime.getURL("icons/badger-19.png"),
         "38": chrome.runtime.getURL("icons/badger-38.png")
@@ -803,7 +753,7 @@ Badger.prototype = {
       };
     }
 
-    chrome.browserAction.setIcon({tabId: tab.id, path: iconFilename});
+    chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});
   },
 
 };
@@ -813,7 +763,7 @@ Badger.prototype = {
 function startBackgroundListeners() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == "loading" && tab.url) {
-      badger.refreshIconAndContextMenu(tab);
+      badger.refreshIconAndContextMenu(tab.id, tab.url);
       badger.updateBadge(tabId);
     }
   });
@@ -821,7 +771,7 @@ function startBackgroundListeners() {
   // Update icon if a tab is replaced or loaded from cache
   chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/) {
     chrome.tabs.get(addedTabId, function(tab) {
-      badger.refreshIconAndContextMenu(tab);
+      badger.refreshIconAndContextMenu(tab.id, tab.url);
     });
   });
 

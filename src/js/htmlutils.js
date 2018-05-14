@@ -15,11 +15,10 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var i18n = chrome.i18n;
-
 require.scopes.htmlutils = (function() {
 
-var constants = chrome.extension.getBackgroundPage().constants;
+const i18n = chrome.i18n;
+const constants = require("constants");
 
 const UNDO_ARROW_TOOLTIP_TEXT = i18n.getMessage('feed_the_badger_title');
 
@@ -121,15 +120,10 @@ var htmlUtils = exports.htmlUtils = {
   /**
    * Get HTML for tracker container.
    *
-   * @param {Integer} tabId ID of tab trackers are associated with.
    * @returns {String} HTML for empty tracker container.
    */
-  getTrackerContainerHtml: function(tabId) {
-    if (tabId === undefined) {
-      tabId = "000";
-    }
+  getTrackerContainerHtml: function() {
     var trackerHtml = '' +
-      '<div id="associatedTab" data-tab-id="' + tabId + '"></div>' +
       '<div class="keyContainer">' +
       '<div class="key">' +
       '<img src="/icons/UI-icons-red.svg" class="tooltip" title="' + i18n.getMessage("tooltip_block") + '">' +
@@ -177,7 +171,7 @@ var htmlUtils = exports.htmlUtils = {
     // Construct HTML for origin.
     var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
     var originHtml = '' +
-      '<div class="' + classes.join(' ') + '" data-origin="' + origin + '" data-original-action="' + action + '">' +
+      '<div class="' + classes.join(' ') + '" data-origin="' + origin + '">' +
       '<div class="origin tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</div>' +
       '<div class="removeOrigin">&#10006</div>' +
       htmlUtils.getToggleHtml(origin, action) +
@@ -186,35 +180,23 @@ var htmlUtils = exports.htmlUtils = {
 
     return originHtml;
   },
-  /**
-  * Toggle the GUI blocked status of GUI element(s)
-  *
-  * @param {String} elt Identify the object(s) to manipulate
-  * @param {String} status New status to set, optional
-  */
-  toggleBlockedStatus: function (elt,status) {
-    console.log('toggle blocked status', elt, status);
-    if (status) {
-      elt.removeClass([constants.BLOCK, constants.COOKIEBLOCK, constants.ALLOW, constants.NO_TRACKING].join(" ")).addClass(status);
-      elt.addClass("userset");
-      return;
-    }
 
-    var originalAction = elt.getAttribute('data-original-action');
-    if (elt.hasClass(constants.BLOCK)) {
-      elt.toggleClass(constants.BLOCK);
-    } else if (elt.hasClass(constants.COOKIEBLOCK)) {
-      elt.toggleClass(constants.BLOCK);
-      elt.toggleClass(constants.COOKIEBLOCK);
-    } else {
-      elt.toggleClass(constants.COOKIEBLOCK);
-    }
-    if (elt.hasClass(originalAction) || (originalAction == constants.ALLOW && !(elt.hasClass(constants.BLOCK) ||
-                                                                              elt.hasClass(constants.COOKIEBLOCK)))) {
-      elt.removeClass("userset");
-    } else {
-      elt.addClass("userset");
-    }
+  /**
+   * Toggle the GUI blocked status of GUI element(s)
+   *
+   * @param {jQuery} $el Identify the jQuery element object(s) to manipulate
+   * @param {String} status New status to set
+   */
+  toggleBlockedStatus: function ($el, status) {
+    $el
+      .removeClass([
+        constants.BLOCK,
+        constants.COOKIEBLOCK,
+        constants.ALLOW,
+        constants.NO_TRACKING
+      ].join(" "))
+      .addClass(status)
+      .addClass("userset");
   },
 
   /**

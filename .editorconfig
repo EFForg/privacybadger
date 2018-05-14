@@ -15,10 +15,17 @@ indent_size = 4
 
 [*.html]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 [*.js]
 indent_style = space
+indent_size = 2
+
+[*.json]
+indent_style=space
+indent_size = 4
+
+[manifest.json]
 indent_size = 2
 
 [*.py]

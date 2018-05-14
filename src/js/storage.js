@@ -55,20 +55,20 @@ require.scopes.storage = (function() {
  **/
 
 function BadgerPen(callback) {
-  var bp = this;
+  var self = this;
   // Now check localStorage
-  chrome.storage.local.get(bp.KEYS, function (store) {
-    _.each(bp.KEYS, function (key) {
+  chrome.storage.local.get(self.KEYS, function (store) {
+    _.each(self.KEYS, function (key) {
       if (store.hasOwnProperty(key)) {
-        bp[key] = new BadgerStorage(key, store[key]);
+        self[key] = new BadgerStorage(key, store[key]);
       } else {
         var storage_obj = new BadgerStorage(key, {});
-        bp[key] = storage_obj;
+        self[key] = storage_obj;
         _syncStorage(storage_obj);
       }
     });
     if (_.isFunction(callback)) {
-      callback(bp);
+      callback(self);
     }
   });
 }
@@ -94,7 +94,7 @@ BadgerPen.prototype = {
    * Get the current presumed action for a specific fully qualified domain name (FQDN),
    * ignoring any rules for subdomains below or above it
    *
-   * @param {Object|String} domain domain object from action_map
+   * @param {(Object|String)} domain domain object from action_map
    * @returns {String} the presumed action for this FQDN
    **/
   getAction: function (domain, ignoreDNT) {
@@ -244,8 +244,8 @@ BadgerPen.prototype = {
   /**
    * Get the number of domains that the given FQDN has been seen tracking on
    *
-   * @param fqdn domain to check status of
-   * @return int the number of domains fqdn has been tracking on
+   * @param {String} fqdn domain to check status of
+   * @return {Integer} the number of domains fqdn has been tracking on
    */
   getTrackingCount: function(fqdn) {
     var snitch_map = this.getBadgerStorageObject('snitch_map');
@@ -259,9 +259,9 @@ BadgerPen.prototype = {
   /**
    * Set up an action for a domain of the given action type in action_map
    *
-   * @param domain the domain to set the action for
-   * @param action the action to take e.g. BLOCK || COOKIEBLOCK || DNT
-   * @param actionType the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
+   * @param {String} domain the domain to set the action for
+   * @param {String} action the action to take e.g. BLOCK || COOKIEBLOCK || DNT
+   * @param {String} actionType the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
    * @private
    */
   _setupDomainAction: function (domain, action, actionType) {
@@ -305,41 +305,35 @@ BadgerPen.prototype = {
 
   /**
    * Remove DNT setting from a domain*
-   * @param domain FQDN string
+   * @param {String} domain FQDN string
    */
   revertDNT: function(domain) {
     this._setupDomainAction(domain, false, "dnt");
   },
 
   /**
-   * Add a heuristic action for a domain and add/remove domain from
-   * userAllow list if needed
+   * Add a heuristic action for a domain
    *
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
   setupUserAction: function(domain, action) {
-    var index = badger.userAllow.indexOf(domain);
-    if (index > -1 && action !== constants.USER_ALLOW) {
-      badger.userAllow.splice(index, 1);
-    } else if (index <= -1 && action === constants.USER_ALLOW) {
-      badger.userAllow.push(domain);
-    }
-
     this._setupDomainAction(domain, action, "userAction");
   },
 
   /**
-   * Remove user set action from a domain and remove it from userAllow
-   * list in case it was previously allowed by user
-  * @param domain FQDN string
-  **/
+   * Remove user set action from a domain
+   * @param {String} domain FQDN string
+   */
   revertUserAction: function(domain) {
     this._setupDomainAction(domain, "", "userAction");
 
-    var index = badger.userAllow.indexOf(domain);
-    if (index > -1) {
-      badger.userAllow.splice(index, 1);
+    // if Privacy Badger never recorded tracking for this domain,
+    // remove the domain's entry from Privacy Badger's database
+    const actionMap = this.getBadgerStorageObject("action_map");
+    if (actionMap.getItem(domain).heuristicAction == "") {
+      log("Removing %s from action_map", domain);
+      actionMap.deleteItem(domain);
     }
   }
 };
@@ -398,7 +392,7 @@ BadgerStorage.prototype = {
    * Check if this storage object has an item
    *
    * @param {String} key - the key for the item
-   * @return boolean
+   * @return {Boolean}
    **/
   hasItem: function(key) {
     var self = this;
@@ -409,7 +403,7 @@ BadgerStorage.prototype = {
    * Get an item
    *
    * @param {String} key - the key for the item
-   * @return the value for that key or null
+   * @return {?*} the value for that key or null
    **/
   getItem: function(key) {
     var self = this;
@@ -505,7 +499,8 @@ BadgerStorage.prototype = {
         for (let origin in firstPartyOrigins) {
           badger.heuristicBlocking.updateTrackerPrevalence(
             tracker_fqdn,
-            firstPartyOrigins[origin]
+            firstPartyOrigins[origin],
+            true // skip DNT policy checking on data import
           );
         }
       }
@@ -521,10 +516,20 @@ BadgerStorage.prototype = {
 var _syncStorage = (function () {
   var debouncedFuncs = {};
 
+  function cb() {
+    if (chrome.runtime.lastError) {
+      let err = chrome.runtime.lastError.message;
+      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")) {
+        badger.criticalError = err;
+      }
+      console.error("Error writing to chrome.storage.local:", err);
+    }
+  }
+
   function sync(badgerStorage) {
     var obj = {};
     obj[badgerStorage.name] = badgerStorage._store;
-    chrome.storage.local.set(obj);
+    chrome.storage.local.set(obj, cb);
   }
 
   // Creates debounced versions of "sync" function,
