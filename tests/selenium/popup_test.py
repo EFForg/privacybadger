@@ -244,6 +244,25 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.assertEqual(self.driver.current_url, EFF_URL,
             "EFF website should open after clicking donate button on popup")
 
+    def test_error_text(self):
+        """Ensure error text is filled"""
+        self.open_popup()
+
+        # Click error button to open overlay for reporting sites.
+        error_button = self.driver.find_element_by_id("error")
+        error_button.click()
+        time.sleep(1)
+
+        # check error is open
+        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 1,
+                'error reporting should be open')
+        
+        error_area = self.driver.find_element_by_id('error_input')
+        error_area.send_keys("ABC")
+
+        time.sleep(1)
+
+        self.assertEqual(error_area.get_attribute("value"), "ABC")
 
 if __name__ == "__main__":
     unittest.main()
