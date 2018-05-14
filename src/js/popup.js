@@ -86,22 +86,22 @@ function init(tab) {
   });
 
   //Restore the error message text if any
-  getTab(tab => {
-    let activeTab = badger.tabData[tab.id];
+  getTab(myTab => {
+    let activeTab = badger.tabData[myTab.id];
 
-    if (activeTab["errorInput"]) {
-      $("#error_input").val(activeTab["errorInput"]);
+    if (activeTab.errorInput) {
+      $("#error_input").val(activeTab.errorInput);
     }
   });
 
   var overlay = $('#overlay');
-  
+
   $("#error").click(function() {
     //Log error message in current tab's tabData
     $('#error_input').bind('input propertychange', function() {
-      getTab(tab => {
-        let activeTab = badger.tabData[tab.id];
-        activeTab["errorInput"] = $("#error_input").val();
+      getTab(myTab => {
+        let activeTab = badger.tabData[myTab.id];
+        activeTab.errorInput = $("#error_input").val();
       });
     });
     overlay.toggleClass('active');
@@ -112,9 +112,9 @@ function init(tab) {
   $("#report_button").click(function() {
     $(this).prop("disabled", true);
     $("#report_cancel").prop("disabled", true);
-    getTab(tab => {
-      let activeTab = badger.tabData[tab.id];
-      let errorText = activeTab["errorInput"];    
+    getTab(myTab => {
+      let activeTab = badger.tabData[myTab.id];
+      let errorText = activeTab.errorInput;
       send_error(errorText);
     });
   });
@@ -147,8 +147,8 @@ function closeOverlay() {
     $("#report_fail").toggleClass("hidden", true);
     $("#error_input").val("");
     let activeTab = badger.tabData[tab.id];
-    delete activeTab["errorInput"];  
-  });  
+    delete activeTab.errorInput;
+  });
 }
 
 /**
