@@ -115,6 +115,7 @@ HeuristicBlocker.prototype = {
     let tabOrigin = tabOrigins[details.tabId];
 
     // ignore first-party requests
+    // TODO fix to use MDFP
     if (!tabOrigin || origin == tabOrigin) {
       return {};
     }
@@ -155,6 +156,31 @@ HeuristicBlocker.prototype = {
       page_origin,
       skip_dnt_check
     );
+  },
+
+  /**
+   * Record third-party pings as tracking.
+   */
+  pingAccounting: function (details) {
+    const fqdn = (new URI(details.url)).host,
+      origin = window.getBaseDomain(fqdn),
+      tab_origin = tabOrigins[details.tabId];
+
+    // ignore first-party requests
+    // TODO fix to use MDFP
+    if (!tab_origin || origin == tab_origin) {
+      return {};
+    }
+
+    // abort if we already made a decision for this FQDN
+    const action = this.storage.getAction(fqdn);
+    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+      return {};
+    }
+
+    this._recordPrevalence(fqdn, origin, tab_origin);
+
+    return {};
   },
 
   /**
@@ -510,7 +536,20 @@ function hasCookieTracking(details, origin) {
   return false;
 }
 
+function pingListener(details) {
+  if (badger) {
+    return badger.heuristicBlocking.pingAccounting(details);
+  } else {
+    return {};
+  }
+}
+
 function startListeners() {
+  chrome.webRequest.onBeforeRequest.addListener(
+    pingListener,
+    { types: ["ping"], urls: ["<all_urls>"] }
+  );
+
   /**
    * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
    */
