@@ -545,10 +545,14 @@ function pingListener(details) {
 }
 
 function startListeners() {
-  chrome.webRequest.onBeforeRequest.addListener(
-    pingListener,
-    { types: ["ping"], urls: ["<all_urls>"] }
-  );
+  try {
+    chrome.webRequest.onBeforeRequest.addListener(
+      pingListener, { types: ["beacon", "ping"], urls: ["<all_urls>"] });
+  } catch (e) {
+    // must be Chrome where "beacon" is not a valid resource type
+    chrome.webRequest.onBeforeRequest.addListener(
+      pingListener, { types: ["ping"], urls: ["<all_urls>"] });
+  }
 
   /**
    * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
