@@ -20,7 +20,7 @@
         "description": ""
     },
     "non_tracker_tip": {
-        "message": "För närvarande kontrollerar Privacy Badger bara om tredjeparter använder kakor, HTML5-lagring eller canvas fingeravtryck för att speja på din surfning. Vissa av domänerna kan använda spejarmetoder som Privacy Badger inte kan upptäcka.",
+        "message": "För närvarande kontrollerar Privacy Badger endast om tredjeparter använder kakor, HTML5-lagring eller canvas fingeravtryck för att speja på din surfning. Vissa av domänerna kan använda spejarmetoder som Privacy Badger inte kan upptäcka.",
         "description": ""
     },
     "options_dnt_policy_setting": {
@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "** Aktivera inlärning i privata/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spejare som den redan känner till i privata/inkognitofönster, men den kommer inte att lära sig om nya spejare. Du kan vilja aktivera det här alternativet om du ofta använder privata-/inkognitofönster när du surfar.",
+        "message": "** Aktivering av inlärning i privata/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spejare som den redan känner till i privata/inkognitofönster, men den kommer inte att lära sig om nya spejare. Du kan vilja aktivera det här alternativet om du ofta använder privata-/inkognitofönster när du surfar.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -168,7 +168,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Glöm inte att klicka på 'Bröt Privacy Badger denna webbplats'. Vi respekterar din integritet så vi skickar inte automatiska rapporter.",
+        "message": "Glöm inte att klicka på \"Bröt Privacy Badger denna webbplats\". Vi respekterar din integritet så vi skickar inte automatiska rapporter.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -276,7 +276,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Osynlig spaning sker på alla sätt; annonser är bara den synliga toppen av isberget. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>skickar signalen Speja inte (DNT)</a> till spejare som berätta för dem att inte spåra dig. Om de ignorerar dina önskemål kommer din Badger att lära sig att blockera dem - oavsett om de är annonsörer eller spejare av andra slag.",
+        "message": "Osynlig spaning sker på alla sätt; annonser är bara den synliga toppen av isberget. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>skickar signalen Speja inte (DNT)</a> till spejare som berätta för dem att inte speja på dig. Om de ignorerar dina önskemål kommer din Badger att lära sig att blockera dem - oavsett om de är annonsörer eller spejare av andra slag.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -400,7 +400,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Om du tycker att Privacy Badger bryter en sida (en video spelar inte, till exempel) kan du klicka på \"Inaktivera\"-knappen för att stänga av Privacy Badger för den webbplatsen.",
+        "message": "Om du tycker att Privacy Badger bryter en sida (till exempel att en video inte spelar) kan du klicka på \"Inaktivera\"-knappen för att stänga av Privacy Badger för den webbplatsen.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
