@@ -10,8 +10,7 @@
   "incognito": "spanning",
   "permissions": [
     "tabs",
-    "http://*/*",
-    "https://*/*",
+    "*://*/*",
     "contextMenus",
     "webRequest",
     "webRequestBlocking",
@@ -46,32 +45,43 @@
   "content_scripts": [
     {
       "js": [
+        "js/lib/firstparty.js",
         "js/firstparties/twitter.js"
       ],
       "matches": [
-        "https://twitter.com/*",
-        "http://twitter.com/*"
+        "*://twitter.com/*"
       ],
       "run_at": "document_idle"
     },
     {
       "js": [
+        "js/lib/firstparty.js",
         "js/firstparties/facebook.js"
       ],
       "matches": [
-        "https://*.facebook.com/*",
-        "http://*.facebook.com/*",
+        "*://*.facebook.com/*",
         "*://*.facebookcorewwwi.onion/*"
       ],
       "run_at": "document_idle"
     },
     {
       "js": [
+        "js/lib/firstparty.js",
         "js/firstparties/google.js"
       ],
       "matches": [
-        "https://*.google.com/*",
-        "http://*.google.com/*"
+        "*://www.google.com/*"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
+        "js/lib/firstparty.js",
+        "js/firstparties/hangouts.js"
+      ],
+      "matches": [
+        "*://hangouts.google.com/*",
+        "*://mail.google.com/*"
       ],
       "run_at": "document_idle"
     },
