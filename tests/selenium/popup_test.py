@@ -7,7 +7,10 @@ import unittest
 
 import pbtest
 
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    TimeoutException
+)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,8 +19,12 @@ from window_utils import switch_to_window_with_url
 
 
 def get_domain_slider_state(driver, domain):
-    label = driver.find_element_by_css_selector(
-        'input[name="{}"][checked] + label'.format(domain))
+    try:
+        label = driver.find_element_by_css_selector(
+            'input[name="{}"][checked] + label'.format(domain))
+    except NoSuchElementException:
+        return None
+
     return label.get_attribute('data-action')
 
 
