@@ -1,23 +1,6 @@
 (function() {
 let g_wrapped_link = "a[onmousedown^='return rwt(this,']";
 
-function findInAllFrames(query) {
-  let out = [];
-  document.querySelectorAll(query).forEach((node) => {
-    out.push(node);
-  });
-  Array.from(document.getElementsByTagName('iframe')).forEach((iframe) => {
-    try {
-      iframe.contentDocument.querySelectorAll(query).forEach((node) => {
-        out.push(node);
-      });
-    } catch (e) {
-      // pass on cross origin iframe errors
-    }
-  });
-  return out;
-}
-
 // Remove excessive attributes and event listeners from link a
 function cleanLink(a) {
   // remove all attributes from a link except for href
@@ -36,5 +19,4 @@ function cleanLink(a) {
 findInAllFrames(g_wrapped_link).forEach((link) => {
   cleanLink(link);
 });
-
 }());
