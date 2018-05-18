@@ -1,18 +1,6 @@
 (function() {
 let hangouts_wrapped_link = "a[href^='https://www.google.com/url?']";
 
-// Remove excessive attributes and event listeners from link a
-function cleanLink(a) {
-  // remove all attributes from a link except for href
-  for (let i = elem.attributes.length - 1; i >= 0; --i) {
-    const attr = elem.attributes[i];
-    if (attr.name !== 'href' && attr.name !== "target") {
-      elem.removeAttribute(attr.name);
-    }
-  }
-  a.rel = "noreferrer";
-}
-
 // Unwrap a Hangouts tracking link 
 function unwrapLink(a) {
   let href = new URL(a.href).searchParams.get('q');
@@ -20,10 +8,24 @@ function unwrapLink(a) {
     return;
   }
 
-  cleanLink(a);
+  // remove all attributes from a link except for href
+  for (let i = a.attributes.length - 1; i >= 0; --i) {
+    const attr = a.attributes[i];
+    if (attr.name !== "target") {
+      a.removeAttribute(attr.name);
+    }
+  }
+
+  a.rel = "noreferrer";
   a.href = href;
 }
 
-// unwrap links in Hangouts as they are added to the page
-observeMutations(hangouts_wrapped_link, unwrapLink);
+// Scan the page for all wrapped links
+function unwrapAll() {
+  document.querySelectorAll(hangouts_wrapped_link).forEach((a) => {
+    unwrapLink(a);     
+  });
+}
+
+setInterval(unwrapAll, 2000);
 }());

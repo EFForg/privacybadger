@@ -45,7 +45,6 @@
   "content_scripts": [
     {
       "js": [
-        "js/lib/firstparty.js",
         "js/firstparties/twitter.js"
       ],
       "matches": [
@@ -55,7 +54,7 @@
     },
     {
       "js": [
-        "js/lib/firstparty.js",
+        "lib/firstparty.js",
         "js/firstparties/facebook.js"
       ],
       "matches": [
@@ -66,7 +65,7 @@
     },
     {
       "js": [
-        "js/lib/firstparty.js",
+        "lib/firstparty.js",
         "js/firstparties/google.js"
       ],
       "matches": [
@@ -76,13 +75,13 @@
     },
     {
       "js": [
-        "js/lib/firstparty.js",
+        "lib/firstparty.js",
         "js/firstparties/hangouts.js"
       ],
       "matches": [
-        "*://hangouts.google.com/*",
-        "*://mail.google.com/*"
+        "*://hangouts.google.com/*"
       ],
+      "all_frames": true,
       "run_at": "document_idle"
     },
     {

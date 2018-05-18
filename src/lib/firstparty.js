@@ -1,6 +1,6 @@
-const URL_REGEX = new RegExp(/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi);
+window.URL_REGEX = new RegExp(/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi);
 
-function findInAllFrames(query) {
+window.findInAllFrames = function(query) {
   let out = [];
   document.querySelectorAll(query).forEach((node) => {
     out.push(node);
@@ -17,7 +17,7 @@ function findInAllFrames(query) {
   return out;
 }
 
-function observeMutations(selector, callback) {
+window.observeMutations = function(selector, callback) {
   // Check all new nodes added by a mutation for tracking links and unwrap them
   function onMutation(mutation) {
     if (!mutation.addedNodes.length) {
@@ -35,6 +35,6 @@ function observeMutations(selector, callback) {
 
   // unwrap wrapped links in a Hangouts iframe
   new MutationObserver(function(mutations) {
-    mutations.forEach(cleanMutation);
-  }).observe(document.body, {childList: true, subtree: true, attributes: false, characterData: false});
+    mutations.forEach(onMutation);
+  }).observe(document, {childList: true, subtree: true, attributes: false, characterData: false});
 }
