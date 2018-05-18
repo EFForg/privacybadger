@@ -15,7 +15,7 @@ window.findInAllFrames = function(query) {
     }
   });
   return out;
-}
+};
 
 window.observeMutations = function(selector, callback) {
   // Check all new nodes added by a mutation for tracking links and unwrap them
@@ -37,4 +37,4 @@ window.observeMutations = function(selector, callback) {
   new MutationObserver(function(mutations) {
     mutations.forEach(onMutation);
   }).observe(document, {childList: true, subtree: true, attributes: false, characterData: false});
-}
+};

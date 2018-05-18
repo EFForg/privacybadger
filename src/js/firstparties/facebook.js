@@ -1,3 +1,4 @@
+/* globals URL_REGEX:false, findInAllFrames:false, observeMutations:false */
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
 (function() {
 let fb_wrapped_link = `a[href*='${document.domain}/l.php?'`;

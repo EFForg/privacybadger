@@ -1,3 +1,4 @@
+/* globals URL_REGEX:false */
 (function() {
 let hangouts_wrapped_link = "a[href^='https://www.google.com/url?']";
 
@@ -23,7 +24,7 @@ function unwrapLink(a) {
 // Scan the page for all wrapped links
 function unwrapAll() {
   document.querySelectorAll(hangouts_wrapped_link).forEach((a) => {
-    unwrapLink(a);     
+    unwrapLink(a);
   });
 }
 

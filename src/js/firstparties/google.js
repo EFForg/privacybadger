@@ -1,3 +1,4 @@
+/* globals findInAllFrames:false */
 (function() {
 let wrapped_link = "a[onmousedown^='return rwt(this,'], a[ping]";
 
