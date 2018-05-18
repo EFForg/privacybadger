@@ -1,5 +1,5 @@
 (function() {
-let g_wrapped_link = "a[onmousedown^='return rwt(this,']";
+let wrapped_link = "a[onmousedown^='return rwt(this,'], a[ping]";
 
 // Remove excessive attributes and event listeners from link a
 function cleanLink(a) {
@@ -11,12 +11,15 @@ function cleanLink(a) {
     }
   }
   a.rel = "noreferrer";
+
+  // block event listeners on the link
   a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
   a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
 }
 
-// unwrap wrapped links in the original page
-findInAllFrames(g_wrapped_link).forEach((link) => {
+// since the page is rendered all at once, no need to set up a
+// mutationObserver or setInterval
+findInAllFrames(wrapped_link).forEach((link) => {
   cleanLink(link);
 });
 }());
