@@ -597,6 +597,7 @@ var multiDomainFirstPartiesArray = [
   ["taobao.com", "alicdn.net", "tmail.com", "tbcdn.cn", "alibaba.com",
     "aliexpress.com", "tmall.com", "alimama.com", "1688.com", "aliyun.com", "www.net.cn"],
   ["techdata.com", "techdata.ch"],
+  ["telegram.org", "telegram.me", "t.me"],
   ["telekom.com", "t-online.de"],
   ["tesla.com", "teslamotors.com"],
   [
