@@ -248,7 +248,7 @@
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
-        "message": "partiellt blockerad",
+        "message": "delvis blockerad",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
@@ -328,7 +328,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger är inaktiverad för domänerna som anges nedan. Du kan lägga till en domän antingen via ikonen Privacy Badger i webbläsarverktygsfältet eller genom att skriva domänen i rutan nedan och klicka på \"Lägg till domän\"-knappen.",
+        "message": "Privacy Badger är inaktiverad för domänerna som anges nedan. Du kan lägga till en domän antingen via ikonen Privacy Badger i webbläsarverktygsfältet eller genom att skriva domänen i rutan nedan och klicka på knappen \"Lägg till domän\".",
         "description": ""
     },
     "pb_detected": {
