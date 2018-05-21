@@ -438,6 +438,7 @@ var multiDomainFirstPartiesArray = [
     "hdnux.com",
   ],
   ["hvfcu.org", "hvfcuonline.org"],
+  ["iltalehti.fi", "il.fi", "ilcdn.fi"],
   ["logmein.com", "logme.in"],
   ["macys.com", "macysassets.com"],
   ["mandtbank.com", "mtb.com"],
