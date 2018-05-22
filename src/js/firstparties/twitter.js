@@ -1,7 +1,7 @@
-const query_param = 'data-expanded-url';
-const tcos_with_destination = getTCoSelectorWithDestination(query_param);
-const query_param_profile = "title";
-const profile_links_tcos = ".ProfileHeaderCard " + getTCoSelectorWithDestination(query_param_profile);
+const full_url_attribute = 'data-expanded-url';
+const tcos_with_destination = getTCoSelectorWithDestination(full_url_attribute);
+const full_url_attribute_profile = "title";
+const profile_links_tcos = ".ProfileHeaderCard " + getTCoSelectorWithDestination(full_url_attribute_profile);
 const fixes = {};
 
 function getTCoSelectorWithDestination(attribute) {
@@ -54,7 +54,7 @@ function findInAllFrames(query) {
 function unwrapTwitterURLsInTimeline() {
   // first iteration is needed to collect all links
   findInAllFrames(tcos_with_destination).forEach((link) => {
-    const attr = getLinkAttribute(link, query_param);
+    const attr = getLinkAttribute(link, full_url_attribute);
     if (attr !== null) {
       fixes[link.href] = attr;
       // once we are here, we can also unwrap it directly, instead of iterating again later
@@ -73,7 +73,7 @@ function unwrapTwitterURLsInTimeline() {
 function unwrapSpecialTwitterURLs() {
   // unwrap profile links
   document.querySelectorAll(profile_links_tcos).forEach((link) => {
-    const attr = getLinkAttribute(link, query_param_profile);
+    const attr = getLinkAttribute(link, full_url_attribute_profile);
     if (attr !== null) {
       unwrapTco(link, attr);
     }
