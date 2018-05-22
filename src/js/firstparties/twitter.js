@@ -14,7 +14,7 @@ function maybeAddNoreferrer(link) {
   link.rel = rel;
 }
 
-function getLinkAttribute(node, attribute) {
+function getLinkByAttribute(node, attribute) {
   let attr = node.getAttribute(attribute);
   if (attr && (attr.startsWith("https://") || attr.startsWith("http://"))) {
     return attr;
@@ -54,7 +54,7 @@ function findInAllFrames(query) {
 function unwrapTwitterURLsInTimeline() {
   // first iteration is needed to collect all links
   findInAllFrames(tcos_with_destination).forEach((link) => {
-    const attr = getLinkAttribute(link, full_url_attribute);
+    const attr = getLinkByAttribute(link, full_url_attribute);
     if (attr !== null) {
       fixes[link.href] = attr;
       // once we are here, we can also unwrap it directly, instead of iterating again later
@@ -73,7 +73,7 @@ function unwrapTwitterURLsInTimeline() {
 function unwrapSpecialTwitterURLs() {
   // unwrap profile links
   document.querySelectorAll(profile_links_tcos).forEach((link) => {
-    const attr = getLinkAttribute(link, full_url_attribute_profile);
+    const attr = getLinkByAttribute(link, full_url_attribute_profile);
     if (attr !== null) {
       unwrapTco(link, attr);
     }
