@@ -281,6 +281,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def tracking_user_overwrite(self, original_action, overwrite_action):
         """Ensure preferences are persisted when a user overwrites pb's default behaviour for an origin."""
+        self.clear_seed_data()
         self.add_test_origin("pbtest.org", original_action)
 
         self.load_options_page()
@@ -329,6 +330,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             origins[name] = actions[randint(0,2)]
         # Add an origin to be generated on scroll (once there are 50 already)
         origins['pbtest50-generated.org'] = 'allow'
+
+        self.clear_seed_data()
         self.add_test_origins(origins)
 
         self.load_options_page()
