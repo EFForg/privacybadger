@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import time
 import unittest
 
 from selenium.webdriver.support.ui import WebDriverWait
@@ -18,11 +19,15 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
         self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
 
+    def select_manage_data_tab(self):
+        self.driver.find_element_by_css_selector('a[href="#tab-manage-data"]').click()
+
     def load_options_page(self):
         self.load_url(self.bg_url)  # load a dummy page
         self.load_url(self.options_url, wait_on_site=1)
 
     def clear_seed_data(self):
+        """Clear the seed dataset to make test checks easier"""
         self.load_options_page()
         self.js("badger.storage.resetStoredSiteData();")
 
@@ -30,7 +35,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         """Add given origin to backend storage."""
         self.load_options_page()
         self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
-            origin, action))
+                origin, action))
 
     def test_page_title(self):
         self.load_options_page()
@@ -166,6 +171,65 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             origins = None
         error_message = "Origin should not be displayed after removal"
         self.assertIsNone(origins, error_message)
+
+    def test_reset_data(self):
+        self.load_options_page()
+        self.select_domain_list_tab()
+
+        # make sure the default tracker list includes many trackers
+        error_message = "By default, the tracker list should contain many trackers"
+        self.assertTrue(
+            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+
+        # get the number of trackers in the seed data
+        default_count = self.driver.find_element_by_id("count").text
+
+        # Click on the "clear all data" button to empty the tracker lists, and
+        # click "OK" in the popup that ensues
+        self.select_manage_data_tab()
+        self.driver.find_element_by_id('clearAllData').click()
+        self.driver.switch_to.alert.accept()
+        time.sleep(1)  # wait for page to reload
+
+        # now make sure the tracker list is empty
+        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        error_message = "No trackers should be displayed after clearing all data"
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
+        self.assertFalse(
+            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
+        self.assertTrue(
+            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+
+        # add new blocked domains
+        self.add_test_origin("pbtest.org", "block")
+        self.add_test_origin("pbtest1.org", "block")
+
+        # reload the options page
+        self.load_options_page()
+        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+
+        # make sure only two trackers are displayed now
+        error_message = "Origin tracker count should be 2 after clearing and adding origins"
+        self.assertEqual(
+            self.driver.find_element_by_id("count").text, "2", error_message)
+
+        # click the "reset data" button to restore seed data and get rid of the
+        # domains we learned
+        self.select_manage_data_tab()
+        self.driver.find_element_by_id('resetUserData').click()
+        self.driver.switch_to.alert.accept()
+        time.sleep(1)
+
+        # make sure only two trackers are displayed now
+        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        error_message = "After resetting data, tracker count should return to default"
+        self.assertEqual(self.driver.find_element_by_id("count").text,
+                         default_count, error_message)
 
     # early-warning check for the open_in_tab attribute of options_ui
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251
