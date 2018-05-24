@@ -55,7 +55,6 @@ function Badger() {
     } finally {
       self.initializeYellowlist();
       self.initializeDNT();
-      self.enableWebRTCProtection();
       self.showFirstRunPage();
     }
 
@@ -274,39 +273,6 @@ Badger.prototype = {
 
     // set up periodic fetching of the yellowlist from eff.org
     setInterval(self.updateYellowlist.bind(self), utils.oneDay());
-  },
-
-  /**
-   * (Currently Chrome only)
-   * Change default WebRTC handling browser policy to more
-   * private setting that only shows public facing IP address.
-   * Only update if user does not have the strictest setting enabled
-   **/
-  enableWebRTCProtection: function() {
-    let self = this;
-
-    // Return early with non-supporting browsers
-    if (!self.webRTCAvailable) {
-      return;
-    }
-
-    var cpn = chrome.privacy.network;
-    var settings = self.storage.getBadgerStorageObject("settings_map");
-
-    cpn.webRTCIPHandlingPolicy.get({}, function(result) {
-      if (result.value === 'disable_non_proxied_udp') {
-        // TODO is there case where other extension controls this and PB
-        // TODO cannot modify it?
-        // Make sure we display correct setting on options page
-        settings.setItem("webRTCIPProtection", true);
-        return;
-      }
-
-      cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
-        function() {
-          settings.setItem("webRTCIPProtection", false);
-        });
-    });
   },
 
   /**
@@ -544,6 +510,7 @@ Badger.prototype = {
       Migrations.reapplyYellowlist,
       Migrations.forgetNontrackingDomains,
       Migrations.forgetMistakenlyBlockedDomains,
+      Migrations.resetWebRTCIPHandlingPolicy,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
@@ -663,26 +630,6 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
-  },
-
-  /**
-   * Check if WebRTC IP leak protection is enabled; query Chrome's internal
-   * value, update our local setting if it has gone out of sync, then return our
-   * setting's value.
-   */
-  isWebRTCIPProtectionEnabled: function() {
-    var self = this;
-
-    // Return early with non-supporting browsers
-    if (!self.webRTCAvailable) {
-      return;
-    }
-
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
-      self.getSettings().setItem("webRTCIPProtection",
-        (result.value === "disable_non_proxied_udp"));
-    });
-    return self.getSettings().getItem("webRTCIPProtection");
   },
 
   /**

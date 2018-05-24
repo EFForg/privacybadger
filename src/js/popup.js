@@ -28,11 +28,11 @@ let POPUP_DATA = {};
 // TODO hack: disable Tooltipster tooltips on Firefox
 // to avoid hangs on pages with enough domains to produce a scrollbar
 (function () {
-let [, browser, ] = navigator.userAgent.match(
+const matches = navigator.userAgent.match(
   // from https://gist.github.com/ticky/3909462
   /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
 );
-if (browser == "Firefox") {
+if (!matches || matches[1] == "Firefox") {
   $.fn.tooltipster = function () {};
 }
 }());
@@ -207,9 +207,20 @@ function send_error(message) {
 
     for (let origin in origins) {
       let action = origins[origin];
+
       if (!action) {
         action = constants.NO_TRACKING;
       }
+
+      // adjust action names for error reporting
+      if (action == constants.USER_ALLOW) {
+        action = "usernoaction";
+      } else if (action == constants.USER_BLOCK) {
+        action = "userblock";
+      } else if (action == constants.USER_COOKIE_BLOCK) {
+        action = "usercookieblock";
+      }
+
       if (out[action]) {
         out[action] += ","+origin;
       } else {
@@ -302,6 +313,7 @@ function revertDomainControl(e) {
 }
 
 function registerToggleHandlers() {
+  // (this == .switch-toggle)
   var radios = $(this).children('input');
   var value = $(this).children('input:checked').val();
   //var userHandle = $(this).children('a');
@@ -311,6 +323,8 @@ function registerToggleHandlers() {
     max: 2,
     value: value,
     create: function(/*event, ui*/) {
+      // Set the margin for the handle of the slider we're currently creating,
+      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
       $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
     },
     slide: function(event, ui) {
@@ -321,8 +335,8 @@ function registerToggleHandlers() {
     },
   }).appendTo(this);
 
-  radios.change(function() {
-    slider.slider("value",radios.filter(':checked').val());
+  radios.on("change", function () {
+    slider.slider("value", radios.filter(':checked').val());
   });
 }
 
@@ -394,7 +408,7 @@ function refreshPopup() {
 
   var printable = [];
   var nonTracking = [];
-  originsArr.sort(htmlUtils.compareReversedDomains);
+  originsArr = htmlUtils.sortDomains(originsArr);
   var trackerCount = 0;
 
   for (let i=0; i < originsArr.length; i++) {
@@ -466,21 +480,25 @@ function refreshPopup() {
 }
 
 /**
- * Event handler for on change (blocked resources container)
+ * Update the user preferences displayed in the domain list for this origin.
+ * These UI changes will later be used to update user preferences data.
  *
- * @param {Event} event
+ * @param {Event} event Click event triggered by user.
  */
 function updateOrigin(event) {
+  // get the origin and new action for it
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  var $switchContainer = $elm.parents('.switch-container').first();
-  var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
+
+  // replace the old action with the new one
+  var $switchContainer = $elm.parents('.switch-container').first();
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
-  htmlUtils.toggleBlockedStatus($($clicker), action);
+  var $clicker = $elm.parents('.clicker').first();
+  htmlUtils.toggleBlockedStatus($clicker, action);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin').tooltipster('destroy');

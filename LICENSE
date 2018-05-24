@@ -52,6 +52,12 @@ https://github.com/beaugunderson/javascript-ipv6
 Copyright 2011 Beau Gunderson
 Licensed MIT
 
+src/js/firstparties/facebook.js incorporates code from Facebook™ Tracking & Ad
+Removal
+https://github.com/mgziminsky/FacebookTrackingRemoval
+Copyright 2018 Michael Ziminsky
+Licensed GPL v3
+
 Incorporating code from ShareMeNot,
 https://sharemenot.cs.washington.edu
 Copyright © 2006-2014 University of Washington

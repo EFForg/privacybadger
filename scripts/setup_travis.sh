@@ -7,7 +7,7 @@ function setup_chrome {
     echo "Setting up chromedriver version $version ..."
     url="https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
     wget -q -O /tmp/chromedriver.zip "$url"
-    sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+    sudo unzip -o /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
     sudo chmod a+x /usr/local/bin/chromedriver
 
     # check that chromedriver is now present
@@ -58,12 +58,26 @@ function setup_lint {
 
 }
 
+# check that the desired browser is present as it might fail to install
+# for example: https://travis-ci.org/EFForg/privacybadger/jobs/362381214
+function check_browser {
+  type "$BROWSER" >/dev/null 2>&1 || {
+    echo "$BROWSER seems to be missing!"
+    exit 1
+  }
+
+  # print the version
+  echo "Found $("$BROWSER" --version)"
+}
+
 case $INFO in
   *chrome*)
+    check_browser
     setup_chrome
     browser_setup
     ;;
   *firefox*) # Install the latest version of geckodriver
+    check_browser
     setup_firefox
     browser_setup
     ;;

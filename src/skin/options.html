@@ -31,8 +31,9 @@
 <script type="text/javascript" src="/lib/vendor/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/tooltipster-4.2.5/tooltipster.bundle.min.js"></script>
-<script type="text/javascript" src="/lib/underscore-min.js"></script>
+<script type="text/javascript" src="/lib/vendor/underscore-min.js"></script>
 <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
+<script type="text/javascript" src="/lib/options.js"></script>
 <script type="text/javascript" src="/js/options.js" charset="utf-8"></script>
 <title class="i18n_options_title"></title>
 </head>
@@ -78,6 +79,7 @@
               <li>
                   <label for="trackingDomainSearch">
                       <span class="i18n_options_domain_search"></span>
+                      <span class="ui-icon ui-icon-info tooltip" title="i18n_options_domain_search_tooltip"></span>
                   </label>
                   <input id="trackingDomainSearch" type="text" value="">
               </li>
@@ -157,7 +159,7 @@
       </div>
       <div class="checkbox" id="webRTCToggle">
         <label>
-          <input type="checkbox" id="toggle_webrtc_mode">
+          <input type="checkbox" id="toggle_webrtc_mode" disabled>
           <span class="i18n_options_webrtc_setting"></span>
         </label>
       </div>

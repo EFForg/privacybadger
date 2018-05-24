@@ -24,16 +24,18 @@ function loadI18nStrings() {
   // replace span contents by their class names
   let nodes = document.querySelectorAll("[class^='i18n_']");
   for (let i = 0; i < nodes.length; i++) {
-    var arguments = JSON.parse("[" + nodes[i].textContent + "]");
+    var args = JSON.parse("[" + nodes[i].textContent + "]");
     var className = nodes[i].className;
-    if (className instanceof SVGAnimatedString)
+    if (className instanceof SVGAnimatedString) {
       className = className.animVal;
+    }
     var stringName = className.split(/\s/)[0].substring(5);
     var prop = "innerHTML" in nodes[i] ? "innerHTML" : "textContent";
-    if(arguments.length > 0)
-      nodes[i][prop] = i18n.getMessage(stringName, arguments);
-    else
+    if (args.length > 0) {
+      nodes[i][prop] = i18n.getMessage(stringName, args);
+    } else {
       nodes[i][prop] = i18n.getMessage(stringName);
+    }
   }
 
   // also replace alt, placeholder and title attributes

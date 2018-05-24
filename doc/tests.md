@@ -1,4 +1,12 @@
-# Travis CI
+# Working with Privacy Badger's tests
+
+We have a few different types of tests:
+
+* We use [unit tests](/doc/tests.md#unit-tests) for confirming that smaller pieces of code behave as expected.
+* [Functional tests](/doc/tests.md#functional-tests) test the UI and that things integrate together properly.
+* [Travis CI](/doc/tests.md#travis-ci) runs all these automatically for every pull request on both Chrome and Firefox.
+
+## Travis CI
 
 Every pull request runs the full suite of functional and unit tests on [Travis CI](https://travis-ci.org/). We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Firefox Beta and Firefox ESR.
 
@@ -6,7 +14,7 @@ See [`.travis.yml`](/.travis.yml) for Travis configuration, [`scripts/setup_trav
 
 We use [ESLint](https://eslint.org) to flag potential JavaScript errors and style issues. See [`.eslintrc.yml`](/.eslintrc.yml) and [`.eslintignore`](/.eslintignore) for specifics.
 
-# Unit tests
+## Unit tests
 
 We use [QUnit](https://qunitjs.com/) for unit tests. To run them, click on the badger icon next to the URL bar to open the popup.
 Then in the popup, click on the gear icon (⚙) to open the options page.
@@ -16,7 +24,7 @@ This will open the unit tests and run them.
 
 Unit tests are located in [`/src/tests/tests`](/src/tests/tests). The unit test dependencies are in [`/src/tests/lib`](/src/tests/lib). Please add unit tests whenever possible.
 
-# Functional tests
+## Functional tests
 
 Our functional tests are written in [Python](https://www.python.org/) and driven by
 [Selenium](https://selenium-python.readthedocs.io/) and [pytest](https://docs.pytest.org/en/latest/).
@@ -38,7 +46,7 @@ The `BROWSER` environment variable must be set. It must be one of:
 * the name of a browser executable that can be found like `which $BROWSER`
 * or simply `BROWSER=chrome` or `BROWSER=firefox` if you have them installed
 
-## Examples
+### Examples
 
 Note that to use a debugger like `pdb` or `ipdb` you must pass the `-s` (`--capture=no`) flag to pytest.
 ```bash

@@ -28,7 +28,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
+        "message": "Чем дольше вы пользуетесь Интернетом с Privacy Badger, тем лучше он вас защищает. Ваш Badger ничего не блокирует? Это нормально! Вместо составления списков блокировки Privacy Badger автоматически обнаруживает трекеры по мере вашей работы в Интернете. Поэтому выйдите в Интернет и поработайте немного для обучения вашего Badger.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -40,11 +40,11 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Help us by donating and sharing your support for our tools",
+        "message": "Помогите нам пожертвованиями и вашей поддержкой наших инструментов",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
+        "message": "Не блокировщик рекламы, я другой",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -60,7 +60,7 @@
         "description": ""
     },
     "next_section": {
-        "message": "next section",
+        "message": "следующий раздел",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "message": "Privacy Badger автоматически учится блокировать невидимые трекеры. Уделите минуту вашего времени, чтобы увидеть как.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -168,8 +168,8 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Did Privacy Badger break this site'. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph."
+        "message": "Пожалуйста, не забывайте нажимать на кнопку 'Сообщить о неполадках на сайте'. Мы уважаем вашу приватность, поэтому не отправляем отчеты автоматически.",
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Настройки Privacy Badger",
@@ -188,7 +188,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns as you browse",
+        "message": "Обучается по мере вашей работы в Интернете",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
@@ -216,7 +216,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC может спровоцировать утечку вашего IP-адреса. Выставленные по умолчанию настройки Privacy Badger помогают защитить вас, но вы также можете включить эту опцию для дополнительной защиты. Важно: это может вызвать проблемы с работой таких сервисов, как Google Hangouts и ему подобные.",
+        "message": "* WebRTC может раскрыть ваш локальный IP-адрес. Примечание: включение данной опции может снизить производительность в приложениях для конференций, например Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
@@ -224,7 +224,7 @@
         "description": "This is an options page tab heading."
     },
     "intro_next_button": {
-        "message": "Take the tour",
+        "message": "Пройти тур",
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
@@ -244,7 +244,7 @@
         "description": ""
     },
     "intro_beyond_ads": {
-        "message": "Catches sneaky trackers",
+        "message": "Ловит скользкие трекеры",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
@@ -254,10 +254,6 @@
     "show_tracking_domains_acknowledgement": {
         "message": "Понятно; пожалуйста покажите список трекеров",
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
-    },
-    "intro_donate2": {
-        "message": "Help us by donating and sharing your support!",
-        "description": "Part of the 'donate' section on the intro page."
     },
     "firstRun_title": {
         "message": "Спасибо вам за то, что установили Privacy Badger!",
@@ -273,14 +269,14 @@
     },
     "report_broken_site": {
         "message": "Сообщить о неполадках на сайте",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Передвиньте ползунок в центр, чтобы заблокировать файлы cookie",
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Невидимое отслеживание осуществляется многими способами; реклама — лишь видимая вершина айсберга. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>отправляет сигнал Do Not Track</a> трекерам, говоря им не отслеживать вас. Если они игнорируют ваши желания, ваш Badger научится блокировать их вне зависимости от того, рекламные они или нет.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -308,7 +304,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "intro_donate_heading": {
-        "message": "Privacy is a team sport!",
+        "message": "Приватность — это командная работа!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
@@ -357,7 +353,7 @@
     },
     "popup_disable_for_site": {
         "message": "Отключить Privacy Badger для этого сайта",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger обнаружил одного потенциального <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекера</a> на этой странице. С помощью переключателя вы можете выбрать, какое действие Privacy Badger выполнит с ним. Переключатель нужно регулировать только в случае проблем с работой сайта.",
@@ -368,7 +364,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Ваш Badger обучается локально на вашем устройстве. Privacy Badger НИКОГДА не будет делиться данными о вашей активности в Интернете, пока вы сами того не захотите.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -380,7 +376,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
+        "message": "Privacy Badger начинает блокировать трекер после того, как обнаруживает его на 3 разных веб-сайтах. 3 удара — и все! Если вы используете блокировщики рекламы или другие инструменты для улучшения приватности, степень обучаемости Privacy Badger будет ниже. Но все в порядке, он может поймать то, что не видят другие блокировщики.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -396,12 +392,16 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
+        "message": "Когда вы используете Privacy Badger, вы присоединяетесь к <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> и миллионам других пользователей в борьбе за приватность. Мы — некоммерческая организация, борющаяся на ваши права в Интернете. Спасибо, что присоединились к нам!",
         "description": "Part of the 'donate' section on the intro page."
     },
+    "options_domain_search_tooltip": {
+        "message": "Для исключения доменов, добавьте \"-\" перед поисковым запросом. Например, \".co -.com\" выведет .co и .co.uk, но не домены .com.",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
+    },
     "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
-        "description": "Intro page paragraph."
+        "message": "Если вы думаете, что Privacy Badger портит веб-страницу (например, не воспроизводится видео), вы можете нажать кнопку 'Отключить', чтобы выключить Privacy Badger для этого сайта.",
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger не обнаружил пока присутствия <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекеров</a>. Продолжайте просмотр Интернета.",

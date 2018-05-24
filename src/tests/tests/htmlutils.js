@@ -137,4 +137,128 @@
     }
   });
 
+  QUnit.test("makeSortable", (assert) => {
+    const tests = [
+      ["bbc.co.uk", "bbc."],
+      ["s3.amazonaws.com", "s3."],
+      ["01234.global.ssl.fastly.net", "01234."],
+      ["api.nextgen.guardianapps.co.uk", "guardianapps.nextgen.api"],
+      ["localhost", "localhost."],
+      ["127.0.0.1", "127.0.0.1."],
+    ];
+    tests.forEach((test) => {
+      assert.equal(
+        htmlUtils.makeSortable(test[0]),
+        test[1],
+        test[0]
+      );
+    });
+  });
+
+  QUnit.test("sortDomains", (assert) => {
+    const DOMAINS = [
+      "ajax.cloudflare.com",
+      "betrad.com",
+      "c.betrad.com",
+      "cloudflare.com",
+      "condenastdigital.com",
+      "weather.com"
+    ];
+    const tests = [
+      {
+        msg: "disquscdn.com was getting sorted with the Cs",
+        domains: [
+          "a.disquscdn.com",
+          "caradvice.disqus.com",
+          "carscoop.disqus.com",
+          "c.disquscdn.com",
+          "celebstoner.disqus.com",
+          "changemon.disqus.com",
+          "disqusads.com",
+          "disquscdn.com",
+          "disqus.com",
+          "uploads.disquscdn.com",
+          "wired.disqus.com",
+        ],
+        expected: [
+          "disqus.com",
+          "caradvice.disqus.com",
+          "carscoop.disqus.com",
+          "celebstoner.disqus.com",
+          "changemon.disqus.com",
+          "wired.disqus.com",
+          "disqusads.com",
+          "disquscdn.com",
+          "a.disquscdn.com",
+          "c.disquscdn.com",
+          "uploads.disquscdn.com",
+        ]
+      },
+      {
+        msg: "bbc.co.uk was getting sorted with the Cs",
+        domains: DOMAINS.concat([
+          "baidu.com",
+          "bbc.co.uk",
+          "static.bbc.co.uk",
+        ]),
+        expected: [
+          "baidu.com",
+          "bbc.co.uk",
+          "static.bbc.co.uk",
+          "betrad.com",
+          "c.betrad.com",
+          "cloudflare.com",
+          "ajax.cloudflare.com",
+          "condenastdigital.com",
+          "weather.com",
+        ]
+      },
+      {
+        msg: "googleapis.com is a PSL TLD",
+        domains: DOMAINS.concat([
+          "ajax.googleapis.com",
+          "maps.googleapis.com",
+          "google.com",
+        ]),
+        expected: [
+          "ajax.googleapis.com",
+          "betrad.com",
+          "c.betrad.com",
+          "cloudflare.com",
+          "ajax.cloudflare.com",
+          "condenastdigital.com",
+          "google.com",
+          "maps.googleapis.com",
+          "weather.com",
+        ]
+      },
+      {
+        msg: "non-TLD addresses",
+        domains: DOMAINS.concat([
+          "localhost",
+          "127.0.0.1",
+        ]),
+        expected: [
+          "127.0.0.1",
+          "betrad.com",
+          "c.betrad.com",
+          "cloudflare.com",
+          "ajax.cloudflare.com",
+          "condenastdigital.com",
+          "localhost",
+          "weather.com",
+        ]
+      },
+
+    ];
+
+    tests.forEach((test) => {
+      assert.deepEqual(
+        htmlUtils.sortDomains(test.domains),
+        test.expected,
+        test.msg
+      );
+    });
+  });
+
 })();
