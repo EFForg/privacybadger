@@ -6,6 +6,9 @@ travisbuild: zip crx
 updatepsl:
 	scripts/updatepsl.sh
 
+updateseed:
+	scripts/updateseeddata.sh
+
 zip:
 	scripts/makezip.sh 
 
@@ -31,4 +34,4 @@ tx:
 	tx pull -f
 	scripts/fix_placeholders.py
 
-.PHONY: build travisbuild updatepsl zip crx todo logging lint tx
+.PHONY: build travisbuild updatepsl updateseed zip crx todo logging lint tx
