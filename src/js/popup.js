@@ -110,6 +110,17 @@ function init() {
   var overlay = $('#overlay');
   $("#error").on("click", function() {
     overlay.toggleClass('active');
+
+    $('#error_input').bind('input propertychange', function() {
+
+      // No easy way of sending message on popup close, send message for every change
+      chrome.runtime.sendMessage({
+        type: 'saveErrorText',
+        tabId: POPUP_DATA.tabId,
+        errorText: $("#error_input").val()
+      });
+    });
+
   });
   $("#report_cancel").on("click", function() {
     closeOverlay();
@@ -177,6 +188,11 @@ function closeOverlay() {
   $("#report_success").toggleClass("hidden", true);
   $("#report_fail").toggleClass("hidden", true);
   $("#error_input").val("");
+
+  chrome.runtime.sendMessage({
+    type: 'removeErrorText',
+    tabId: POPUP_DATA.tabId
+  });
 }
 
 /**
@@ -346,6 +362,12 @@ function registerToggleHandlers() {
  * @param {Integer} tabId The id of the tab
  */
 function refreshPopup() {
+  
+  //If there is any saved error text, fill the error input with it.
+  if (POPUP_DATA.hasOwnProperty('errorText')) {
+    $("#error_input").val(POPUP_DATA.errorText);
+  }
+
   // must be a special browser page,
   // or a page that loaded everything before our most recent initialization
   if (POPUP_DATA.noTabData) {

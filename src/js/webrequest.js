@@ -701,7 +701,14 @@ function dispatcher(request, sender, sendResponse) {
     let tab_id = request.tabId,
       tab_url = request.tabUrl,
       tab_host = window.extractHostFromURL(tab_url),
-      has_tab_data = badger.tabData.hasOwnProperty(tab_id);
+      has_tab_data = badger.tabData.hasOwnProperty(tab_id),
+      errorText = null;
+
+      if (has_tab_data) {
+        if (badger.tabData[tab_id].hasOwnProperty('errorText')) {
+          errorText = badger.tabData[tab_id].errorText;
+        }
+      }
 
     sendResponse({
       criticalError: badger.criticalError,
@@ -712,7 +719,8 @@ function dispatcher(request, sender, sendResponse) {
       tabHost: tab_host,
       tabId: tab_id,
       isPrivateWindow: incognito.tabIsIncognito(tab_id),
-      tabUrl: tab_url
+      tabUrl: tab_url,
+      errorText: errorText
     });
 
   } else if (request.type == "seenComic") {
@@ -776,6 +784,16 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
 
     sendResponse();
+  } else if (request.type == "saveErrorText") {
+    let activeTab = badger.tabData[request.tabId];
+    activeTab.errorText = request.errorText;
+
+    sendResponse();
+  } else if (request.type == "removeErrorText") {
+    let activeTab = badger.tabData[request.tabId];
+    delete activeTab.errorText;
+
+    // sendResponse();
   }
 }
 
