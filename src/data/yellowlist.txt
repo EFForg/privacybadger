@@ -474,6 +474,7 @@ checkout.razorpay.com
 razorpay.com
 rackcdn.com
 rackspacecloud.com
+radikal.ru
 rambler.ru
 images.rapgenius.com
 readability.com
