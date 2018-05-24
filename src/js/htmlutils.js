@@ -200,34 +200,56 @@ var htmlUtils = exports.htmlUtils = {
   },
 
   /**
-  * Compare 2 domains. Reversing them to start comparing the least significant parts (TLD) first
-  *
-  * @param a First domain
-  * @param b Second domain
-  * @returns {number} standard compare returns
-  */
-  compareReversedDomains: function(a, b) {
-    var fqdn1 = htmlUtils.makeSortable(a);
-    var fqdn2 = htmlUtils.makeSortable(b);
-    if (fqdn1 < fqdn2) {
-      return -1;
-    }
-    if (fqdn1 > fqdn2) {
-      return 1;
-    }
-    return 0;
+   * Compare two domains, reversing them to start comparing the least
+   * significant parts (TLD) first.
+   *
+   * @param {Array} domains The domains to sort.
+   * @returns {Array} Sorted domains.
+   */
+  sortDomains: (domains) => {
+    // optimization: cache makeSortable output by walking the array once
+    // to extract the actual values used for sorting into a temporary array
+    return domains.map((domain, i) => {
+      return {
+        index: i,
+        value: htmlUtils.makeSortable(domain)
+      };
+    // sort the temporary array
+    }).sort((a, b) => {
+      if (a.value > b.value) {
+        return 1;
+      }
+      if (a.value < b.value) {
+        return -1;
+      }
+      return 0;
+    // walk the temporary array to achieve the right order
+    }).map(item => domains[item.index]);
   },
 
   /**
-  * Reverse order of domain items to have the least exact (TLD) first)
-  *
-  * @param {String} domain The domain to shuffle
-  * @returns {String} The 'reversed' domain
-  */
-  makeSortable: function(domain) {
-    var tmp = domain.split('.').reverse();
-    tmp.shift();
-    return tmp.join('');
+   * Reverse order of domain items to have the least exact (TLD) first.
+   *
+   * @param {String} domain The domain to shuffle
+   * @returns {String} The 'reversed' domain
+   */
+  makeSortable: (domain) => {
+    let base = window.getBaseDomain(domain),
+      base_minus_tld = base,
+      dot_index = base.indexOf('.'),
+      rest_of_it_reversed = '';
+
+    if (domain.length > base.length) {
+      rest_of_it_reversed = domain
+        .slice(0, domain.length - base.length - 1)
+        .split('.').reverse().join('.');
+    }
+
+    if (dot_index > -1 && !window.isIPv4(domain) && !window.isIPv6(domain)) {
+      base_minus_tld = base.slice(0, dot_index);
+    }
+
+    return (base_minus_tld + '.' + rest_of_it_reversed);
   },
 
   /**

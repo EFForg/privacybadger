@@ -408,7 +408,7 @@ function refreshPopup() {
 
   var printable = [];
   var nonTracking = [];
-  originsArr.sort(htmlUtils.compareReversedDomains);
+  originsArr = htmlUtils.sortDomains(originsArr);
   var trackerCount = 0;
 
   for (let i=0; i < originsArr.length; i++) {
