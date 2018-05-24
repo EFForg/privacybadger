@@ -23,6 +23,7 @@ ancestry.com
 angularjs.org
 anonymto.me
 up.anv.bz
+anvato.net
 tkx-acc.apis.anvato.net
 cdn.anvato.net
 tkx2-prod.anvato.net
