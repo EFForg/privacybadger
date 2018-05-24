@@ -107,9 +107,26 @@ function init() {
     });
   });
 
+  //Restore the error message text if any
+  getTab(myTab => {
+    let activeTab = badger.tabData[myTab.id];
+
+    if (activeTab.errorInput) {
+      $("#error_input").val(activeTab.errorInput);
+    }
+  });
+
   var overlay = $('#overlay');
   $("#error").on("click", function() {
     overlay.toggleClass('active');
+
+    $('#error_input').bind('input propertychange', function() {
+      getTab(myTab => {
+        let activeTab = badger.tabData[myTab.id];
+        activeTab.errorInput = $("#error_input").val();
+      });
+    });
+
   });
   $("#report_cancel").on("click", function() {
     closeOverlay();
@@ -117,7 +134,11 @@ function init() {
   $("#report_button").on("click", function() {
     $(this).prop("disabled", true);
     $("#report_cancel").prop("disabled", true);
-    send_error($("#error_input").val());
+    getTab(myTab => {
+      let activeTab = badger.tabData[myTab.id];
+      let errorText = activeTab.errorInput;
+      send_error(errorText);
+    });
   });
   $("#report_close").on("click", function() {
     closeOverlay();
@@ -173,10 +194,14 @@ function openOptionsPage() {
  * Close the error reporting overlay
  */
 function closeOverlay() {
-  $('#overlay').toggleClass('active', false);
-  $("#report_success").toggleClass("hidden", true);
-  $("#report_fail").toggleClass("hidden", true);
-  $("#error_input").val("");
+  getTab(tab => {
+    $('#overlay').toggleClass('active', false);
+    $("#report_success").toggleClass("hidden", true);
+    $("#report_fail").toggleClass("hidden", true);
+    $("#error_input").val("");
+    let activeTab = badger.tabData[tab.id];
+    delete activeTab.errorInput;
+  });
 }
 
 /**
