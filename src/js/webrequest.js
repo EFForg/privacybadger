@@ -704,11 +704,11 @@ function dispatcher(request, sender, sendResponse) {
       has_tab_data = badger.tabData.hasOwnProperty(tab_id),
       errorText = null;
 
-      if (has_tab_data) {
-        if (badger.tabData[tab_id].hasOwnProperty('errorText')) {
-          errorText = badger.tabData[tab_id].errorText;
-        }
+    if (has_tab_data) {
+      if (badger.tabData[tab_id].hasOwnProperty('errorText')) {
+        errorText = badger.tabData[tab_id].errorText;
       }
+    }
 
     sendResponse({
       criticalError: badger.criticalError,

@@ -80,7 +80,7 @@ function getFpPageScript() {
           detail: messages
         }));
 
-        // clear the queue 
+        // clear the queue
         messages = [];
       }, 100);
 

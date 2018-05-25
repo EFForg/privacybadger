@@ -362,7 +362,7 @@ function registerToggleHandlers() {
  * @param {Integer} tabId The id of the tab
  */
 function refreshPopup() {
-  
+
   //If there is any saved error text, fill the error input with it.
   if (POPUP_DATA.hasOwnProperty('errorText')) {
     $("#error_input").val(POPUP_DATA.errorText);
