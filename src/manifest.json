@@ -50,7 +50,9 @@
       ],
       "matches": [
         "https://twitter.com/*",
-        "http://twitter.com/*"
+        "http://twitter.com/*",
+        "https://mobile.twitter.com/*",
+        "http://mobile.twitter.com/*"
       ],
       "run_at": "document_idle"
     },

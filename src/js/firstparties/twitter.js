@@ -1,11 +1,24 @@
+const tcos_all = getTCoSelectorWithDestination();
+const timeline_refresh_intervall = 2000;
+
+// twitter.com
 const full_url_attribute = 'data-expanded-url';
 const tcos_with_destination = getTCoSelectorWithDestination(full_url_attribute);
 const full_url_attribute_profile = "title";
 const profile_links_tcos = ".ProfileHeaderCard " + getTCoSelectorWithDestination(full_url_attribute_profile);
+
+// mobile.twitter.com
+const link_reg_ex = /\(link: (https?:\/\/.+)\)/;
+
 const fixes = {};
 
 function getTCoSelectorWithDestination(attribute) {
-  return "a[" + attribute + "][href^='https://t.co/'], a[" + attribute + "][href^='http://t.co/']";
+  let aSelector = "a";
+  if (attribute) {
+    aSelector = "a[" + attribute + "]";
+  }
+
+  return aSelector + "[href^='https://t.co/'], " + aSelector + "[href^='http://t.co/']";
 }
 
 function maybeAddNoreferrer(link) {
@@ -63,9 +76,33 @@ function unwrapTwitterURLsInTimeline() {
   });
 
   // iterate another time to actually replace the link (of Twitter cards, e.g.)
-  findInAllFrames("a[href^='https://t.co/'], a[href^='http://t.co/'").forEach((link) => {
+  findInAllFrames(tcos_all).forEach((link) => {
     if (fixes.hasOwnProperty(link.href)) {
       unwrapTco(link, fixes[link.href]);
+    }
+  });
+}
+
+function unwrapTwitterPwaURLsInTimeline() {
+  // unwrap profile links
+  document.querySelectorAll(tcos_all).forEach((link) => {
+    // use cached value if possible
+    if (fixes.hasOwnProperty(link.href)) {
+      unwrapTco(link, fixes[link.href]);
+      return;
+    }
+
+    // spans seem to be used for usual links, divs for links in Twitter Bio
+    const linkElement = link.getElementsByTagName("span")[0] || link.getElementsByTagName("div")[0];
+    const elements = link_reg_ex.exec(linkElement.textContent);
+    if (elements === null) {
+      return;
+    }
+
+    const url = elements[1];
+    if (url) {
+      fixes[link.href] = url;
+      unwrapTco(link, url);
     }
   });
 }
@@ -80,6 +117,28 @@ function unwrapSpecialTwitterURLs() {
   });
 }
 
-unwrapSpecialTwitterURLs();
-unwrapTwitterURLsInTimeline();
-setInterval(unwrapTwitterURLsInTimeline, 2000);
+function unwrapSpecialTwitterPwaURLs() {
+  // profile URL can be found in JSON of page
+
+  // iterate users object (usually should only be one, with some random ID?)
+  for (const entityKey of Object.keys(window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities)) {
+    const entityValue = window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities[entityKey];
+    // iterate url array (usually only one)
+    for (const url of entityValue.entities.url.urls) {
+      // save for later use (will be unwrapped later)
+      fixes[url.url] = url.expanded_url;
+    }
+  }
+}
+
+if (window.location.hostname == "mobile.twitter.com") {
+  unwrapSpecialTwitterPwaURLs();
+  unwrapTwitterPwaURLsInTimeline();
+
+  setInterval(unwrapTwitterPwaURLsInTimeline, timeline_refresh_intervall);
+} else {
+  unwrapTwitterURLsInTimeline();
+  unwrapSpecialTwitterURLs();
+
+  setInterval(unwrapTwitterURLsInTimeline, timeline_refresh_intervall);
+}
