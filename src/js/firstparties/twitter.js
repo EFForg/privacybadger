@@ -92,8 +92,8 @@ function unwrapTwitterPwaURLsInTimeline() {
       return;
     }
 
-    // spans seem to be used for usual links, divs for links in Twitter Bio
-    const linkElement = link.getElementsByTagName("span")[0] || link.getElementsByTagName("div")[0];
+    // find span element with link text in it
+    const linkElement = link.getElementsByTagName("span")[0];
     const elements = link_reg_ex.exec(linkElement.textContent);
     if (elements === null) {
       return;
