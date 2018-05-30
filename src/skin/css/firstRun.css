@@ -788,6 +788,12 @@ body {
   background-image:linear-gradient(#DFDFE6, #DFDFE6 30%, #fff 30%);
   padding:4rem 0;
 }
+#pb-privacy-policy {
+  color:#F06A0A;
+  font-family:"OpenSans",sans-serif;
+  font-size:0.7rem;
+  text-align:center;
+}
 @media print, screen and (min-width: 40em) {
   #pb-donate {
     background-image:linear-gradient(#DFDFE6, #DFDFE6 45%, #fff 45%);
