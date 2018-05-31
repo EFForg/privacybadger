@@ -791,7 +791,7 @@ body {
 #pb-privacy-policy, #pb-privacy-policy a {
   color:#707070;
   font-family:"OpenSans-Light",sans-serif;
-  font-size:0.7rem;
+  font-size:0.9rem;
   text-align:center;
 }
 @media print, screen and (min-width: 40em) {
