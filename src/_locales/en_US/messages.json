@@ -43,6 +43,10 @@
         "message": "Help us by donating and sharing your support for our tools",
         "description": "Shown below the Donate button on the intro page."
     },
+    "intro_link_policy": {
+        "message": "Privacy Policy",
+        "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
+    },
     "intro_not_an_adblocker": {
         "message": "Not an ad blocker, I'm different",
         "description": "Intro page paragraph heading."
