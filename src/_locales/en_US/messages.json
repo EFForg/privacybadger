@@ -45,7 +45,7 @@
     },
     "intro_link_policy": {
         "message": "Privacy Policy",
-        "description": "Shown at the bottom of the intro page, links to Privacy Policy."
+        "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "intro_not_an_adblocker": {
         "message": "Not an ad blocker, I'm different",
