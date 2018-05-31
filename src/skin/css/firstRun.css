@@ -793,7 +793,6 @@ body {
   font-family:"OpenSans-Light",sans-serif;
   font-size:0.7rem;
   text-align:center;
-  padding-bottom: 0rem;
 }
 @media print, screen and (min-width: 40em) {
   #pb-donate {
