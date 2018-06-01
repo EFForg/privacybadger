@@ -34,6 +34,14 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
     def select_manage_data_tab(self):
         self.driver.find_element_by_css_selector('a[href="#tab-manage-data"]').click()
 
+    def check_tracker_messages(self, error_message, many, one, none):
+        self.assertEqual(many,
+            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
+        self.assertEqual(one,
+            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
+        self.assertEqual(none,
+            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+
     def load_options_page(self):
         self.load_url(self.bg_url)  # load a dummy page
         self.load_url(self.options_url, wait_on_site=1)
@@ -106,16 +114,11 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.select_domain_list_tab()
 
         error_message = "Only the 'one tracker' message should be displayed after adding an origin"
-        self.assertTrue(
-            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+        self.check_tracker_messages(error_message, many=False, one=True, none=False)
         self.assertFalse(
             self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
         self.assertFalse(
             self.driver.find_element_by_id("count").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
 
         # Check that origin is displayed.
         origins = self.driver.find_element_by_id("blockedResourcesInner")
@@ -144,12 +147,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
         self.assertTrue(
             self.driver.find_element_by_id("count").is_displayed(), error_message)
-        self.assertTrue(
-            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+        self.check_tracker_messages(error_message, many=True, one=False, none=False)
 
         # Check tracker count.
         error_message = "Origin tracker count should be 2 after adding origin"
@@ -226,12 +224,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
         # make sure the default tracker list includes many trackers
         error_message = "By default, the tracker list should contain many trackers"
-        self.assertTrue(
-            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+        self.check_tracker_messages(error_message, many=True, one=False, none=False)
 
         # get the number of trackers in the seed data
         default_count = self.driver.find_element_by_id("count").text
@@ -246,12 +239,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         # now make sure the tracker list is empty
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
         error_message = "No trackers should be displayed after clearing all data"
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
-        self.assertTrue(
-            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+        self.check_tracker_messages(error_message, many=False, one=False, none=True)
 
         # add new blocked domains
         self.add_test_origin("pbtest.org", "block")

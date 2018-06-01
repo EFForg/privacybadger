@@ -25,7 +25,6 @@ class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
     def clear_seed_data(self):
-        # record the domain as cookieblocked by Badger
         self.load_url(self.options_url, wait_on_site=1)
         self.js("badger.storage.resetStoredSiteData();")
 
