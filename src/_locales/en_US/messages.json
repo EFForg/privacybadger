@@ -213,27 +213,27 @@
     },
     "reset": {
         "message": "Reset",
-        "description": ""
+        "description": "Options page button, under the Manage Data tab"
     },
-    "reset_user_data": {
-        "message": "Reset browsing data",
-        "description": ""
+    "reset_data": {
+        "message": "Reset tracking domains",
+        "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "This will delete all browsing data that Privacy Badger has collected and restore the extension to its default state. Some trackers which are currently blocked may be allowed through afterwards.",
-        "description": ""
+        "message": "This will delete all data about trackers that Privacy Badger has learned from your browsing and restore the tracking domain list to its default state.",
+        "description": "Pop-up triggered when the reset_data button is clicked"
     },
-    "clear_all": {
-        "message": "Clear all",
-        "description": ""
+    "remove_all": {
+        "message": "Remove all",
+        "description": "Options page button, under the Manage Data tab"
     },
-    "clear_all_data": {
-        "message": "Clear all tracker data",
-        "description": ""
+    "remove_all_data": {
+        "message": "Remove all tracking domains",
+        "description": "Caption above remve_all button"
     },
-    "clear_data_confirm": {
-        "message": "This will delete everything that Privacy Badger knows about third-party trackers, including the pre-installed \"seed\" data. As a result, Privacy Badger will not block many common trackers until it learns about them again.",
-        "description": ""
+    "remove_all_data_confirm": {
+        "message": "This will delete everything Privacy Badger knows about trackers. As a result, Privacy Badger will not block anything until it has had a chance to re-learn from your browsing.",
+        "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
         "message": "You're now protected by Privacy Badger. To learn how Privacy Badger works, click below for a quick tutorial.",

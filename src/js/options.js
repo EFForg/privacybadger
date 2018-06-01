@@ -217,7 +217,7 @@ function parseUserDataFile(storageMapsList) {
 function resetUserData() {
   var resetWarn = i18n.getMessage("reset_data_confirm");
   if (confirm(resetWarn)) {
-    chrome.runtime.sendMessage({type: "resetUserData"}, () => {
+    chrome.runtime.sendMessage({type: "resetData"}, () => {
       // reload page to refresh tracker list
       location.reload();
     });
@@ -225,9 +225,9 @@ function resetUserData() {
 }
 
 function clearAllData() {
-  var clearWarn = i18n.getMessage("clear_data_confirm");
+  var clearWarn = i18n.getMessage("remove_all_data_confirm");
   if (confirm(clearWarn)) {
-    chrome.runtime.sendMessage({type: "clearAllData"}, () => {
+    chrome.runtime.sendMessage({type: "removeAllData"}, () => {
       location.reload();
     });
   }

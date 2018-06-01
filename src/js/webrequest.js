@@ -714,12 +714,12 @@ function dispatcher(request, sender, sendResponse) {
       isPrivateWindow: incognito.tabIsIncognito(tab_id),
       tabUrl: tab_url
     });
-  } else if (request.type == "resetUserData") {
+  } else if (request.type == "resetData") {
     badger.storage.resetStoredSiteData();
     badger.loadSeedData();
     sendResponse();
 
-  } else if (request.type == "clearAllData") {
+  } else if (request.type == "removeAllData") {
     badger.storage.resetStoredSiteData();
     sendResponse();
 
