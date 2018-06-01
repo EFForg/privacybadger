@@ -229,16 +229,16 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         # get the number of trackers in the seed data
         default_count = self.driver.find_element_by_id("count").text
 
-        # Click on the "clear all data" button to empty the tracker lists, and
+        # Click on the "remove all data" button to empty the tracker lists, and
         # click "OK" in the popup that ensues
         self.select_manage_data_tab()
-        self.driver.find_element_by_id('clearAllData').click()
+        self.driver.find_element_by_id('removeAllData').click()
         self.driver.switch_to.alert.accept()
         time.sleep(1)  # wait for page to reload
 
         # now make sure the tracker list is empty
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
-        error_message = "No trackers should be displayed after clearing all data"
+        error_message = "No trackers should be displayed after removing all data"
         self.check_tracker_messages(error_message, many=False, one=False, none=True)
 
         # add new blocked domains
@@ -257,7 +257,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         # click the "reset data" button to restore seed data and get rid of the
         # domains we learned
         self.select_manage_data_tab()
-        self.driver.find_element_by_id('resetUserData').click()
+        self.driver.find_element_by_id('resetData').click()
         self.driver.switch_to.alert.accept()
         time.sleep(1)
 
