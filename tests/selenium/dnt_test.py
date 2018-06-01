@@ -225,6 +225,11 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def test_first_party_dnt_header(self):
         TEST_URL = "https://httpbin.org/get"
+
+        self.load_url(self.bg_url)
+        # wait until DNT-injecting webRequest listeners have been registered
+        self.wait_for_script("return badger.INITIALIZED")
+
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL))
         self.assertTrue(headers is not None, "It seems we failed to get DNT headers")
         self.assertIn('Dnt', headers, "DNT header should have been present")
