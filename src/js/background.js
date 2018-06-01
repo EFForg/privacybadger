@@ -46,13 +46,19 @@ function Badger() {
   });
 
   self.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (self.INITIALIZED) { return; }
+    if (self.INITIALIZED) {
+      return;
+    }
+
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     self.updateTabList();
     self.initializeDefaultSettings();
+
     try {
       self.runMigrations();
     } finally {
+      // TODO "await" to set INITIALIZED until both below async functions resolve?
+      // see TODO in qunit_config.js
       self.initializeYellowlist();
       self.initializeDNT();
       if (!self.isIncognito) {self.showFirstRunPage();}
