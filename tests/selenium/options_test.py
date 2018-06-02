@@ -49,7 +49,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
     def clear_seed_data(self):
         """Clear the seed dataset to make test checks easier"""
         self.load_options_page()
-        self.js("badger.storage.resetStoredSiteData();")
+        self.js("badger.storage.clearTrackerData();")
 
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""

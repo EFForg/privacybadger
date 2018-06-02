@@ -26,7 +26,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def clear_seed_data(self):
         self.load_url(self.options_url, wait_on_site=1)
-        self.js("badger.storage.resetStoredSiteData();")
+        self.js("badger.storage.clearTrackerData();")
 
     def wait_for_page_to_start_loading(self, url, timeout=20):
         """Wait until the title element is present. Use it to work around

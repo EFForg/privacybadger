@@ -93,8 +93,8 @@ BadgerPen.prototype = {
   /**
    * Reset the snitch map and action map, forgetting all data the badger has
    * learned from browsing.
-   **/
-  resetStoredSiteData: function() {
+   */
+  clearTrackerData: function() {
     var self = this;
     _.each(['snitch_map', 'action_map'], function(key) {
       self.getBadgerStorageObject(key).updateObject({});

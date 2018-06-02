@@ -714,13 +714,14 @@ function dispatcher(request, sender, sendResponse) {
       isPrivateWindow: incognito.tabIsIncognito(tab_id),
       tabUrl: tab_url
     });
+
   } else if (request.type == "resetData") {
-    badger.storage.resetStoredSiteData();
+    badger.storage.clearTrackerData();
     badger.loadSeedData();
     sendResponse();
 
   } else if (request.type == "removeAllData") {
-    badger.storage.resetStoredSiteData();
+    badger.storage.clearTrackerData();
     sendResponse();
 
   } else if (request.type == "seenComic") {
