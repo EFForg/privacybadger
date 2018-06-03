@@ -66,6 +66,16 @@
     },
     {
       "js": [
+        "js/firstparties/facebookcorewwwi.onion.js"
+      ],
+      "matches": [
+        "https://*.facebookcorewwwi.onion/*",
+        "http://*.facebookcorewwwi.onion/*"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
         "js/contentscripts/dnt.js",
