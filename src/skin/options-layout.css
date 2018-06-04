@@ -43,6 +43,15 @@ button
   float: left;
 }
 
+.btn-danger {
+  color: #cb2431;
+}
+
+.btn-danger:hover {
+  color: white;
+  background: #cb2431; 
+}
+
 .importInput{
   visibility: hidden;
   height: 0;
