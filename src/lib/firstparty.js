@@ -1,3 +1,4 @@
+// from https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
 window.URL_REGEX = new RegExp(/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi);
 
 window.findInAllFrames = function(query) {
@@ -33,7 +34,7 @@ window.observeMutations = function(selector, callback) {
     }
   }
 
-  // unwrap wrapped links in a Hangouts iframe
+  // Set up a mutation observer with the constructed callback
   new MutationObserver(function(mutations) {
     mutations.forEach(onMutation);
   }).observe(document, {childList: true, subtree: true, attributes: false, characterData: false});
