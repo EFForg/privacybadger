@@ -1,6 +1,5 @@
 /* globals URL_REGEX:false, findInAllFrames:false, observeMutations:false */
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
-(function() {
 let fb_wrapped_link = `a[href*='${document.domain}/l.php?'`;
 
 // remove all attributes from a link except for class and ARIA attributes
@@ -41,4 +40,3 @@ findInAllFrames(fb_wrapped_link).forEach((link) => {
 
 // Execute redirect unwrapping each time new content is added to the page
 observeMutations(fb_wrapped_link, cleanLink);
-}());
