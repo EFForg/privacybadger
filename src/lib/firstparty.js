@@ -25,6 +25,9 @@ window.observeMutations = function(selector, callback) {
       return;
     }
     for (let node of mutation.addedNodes) {
+      if (node.nodeType != Node.ELEMENT_NODE) {
+        continue;
+      }
       node.querySelectorAll(selector).forEach((element) => {
         callback(element);
       });
