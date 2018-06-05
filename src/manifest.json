@@ -10,7 +10,8 @@
   "incognito": "spanning",
   "permissions": [
     "tabs",
-    "*://*/*",
+    "https://*/*",
+    "http://*/*",
     "contextMenus",
     "webRequest",
     "webRequestBlocking",
