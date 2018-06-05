@@ -1,5 +1,4 @@
 /* globals findInAllFrames:false */
-(function() {
 let wrapped_link = "a[onmousedown^='return rwt(this,'], a[ping]";
 
 // Remove excessive attributes and event listeners from link a
@@ -11,7 +10,7 @@ function cleanLink(a) {
       a.removeAttribute(attr.name);
     }
   }
-  a.rel = "noreferrer";
+  a.rel = "noreferrer noopener";
 
   // block event listeners on the link
   a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
@@ -23,4 +22,3 @@ function cleanLink(a) {
 findInAllFrames(wrapped_link).forEach((link) => {
   cleanLink(link);
 });
-}());

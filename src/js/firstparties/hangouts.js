@@ -1,5 +1,4 @@
 /* globals URL_REGEX:false */
-(function() {
 let hangouts_wrapped_link = "a[href^='https://www.google.com/url?']";
 
 // Unwrap a Hangouts tracking link 
@@ -29,4 +28,3 @@ function unwrapAll() {
 }
 
 setInterval(unwrapAll, 2000);
-}());
