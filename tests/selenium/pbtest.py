@@ -307,6 +307,12 @@ class PBSeleniumTest(unittest.TestCase):
                 if i < retries - 1:
                     continue
                 raise e
+            # work around geckodriver/marionette/Firefox timeout handling,
+            # for example: https://travis-ci.org/EFForg/privacybadger/jobs/389429089
+            except WebDriverException as e:
+                if str(e).startswith("Reached error page") and i < retries - 1:
+                    continue
+                raise e
         self.driver.switch_to.window(self.driver.current_window_handle)
 
         if wait_for_body_text:
