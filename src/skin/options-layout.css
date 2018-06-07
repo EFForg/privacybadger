@@ -42,6 +42,15 @@ button
   width: 350px;
   float: left;
 }
+#remove {
+  width: 350px;
+  float: left;
+}
+
+.btn-silo {
+  float: left;
+  clear: right;
+}
 
 .btn-danger {
   color: #cb2431;
