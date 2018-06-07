@@ -49,7 +49,13 @@ button
 
 .btn-silo {
   float: left;
-  clear: right;
+  clear: both;
+}
+
+.btn-silo + .btn-silo {
+  border-top: 1px solid #d3d3d3;
+  margin-top: 30px;
+  padding-top: 10px;
 }
 
 .btn-danger {
