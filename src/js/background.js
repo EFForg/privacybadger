@@ -53,6 +53,7 @@ function Badger() {
     try {
       self.runMigrations();
     } finally {
+      self.loadFirstRunSeedData();
       self.initializeYellowlist();
       self.initializeDNT();
       self.showFirstRunPage();
@@ -140,6 +141,7 @@ Badger.prototype = {
 
   // Methods
 
+  // load seed dataset with pre-trained action and snitch maps
   loadSeedData: function() {
     let self = this;
     utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
@@ -152,13 +154,16 @@ Badger.prototype = {
     });
   },
 
-  showFirstRunPage: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
-    if (settings.getItem("isFirstRun")) {
-      // load seed dataset with pre-trained action and snitch maps
+  loadFirstRunSeedData: function() {
+    if (this.getSettings().getItem("isFirstRun")) {
       this.loadSeedData();
+    }
+  },
 
-      // launch first-run page
+  showFirstRunPage: function() {
+    let settings = this.storage.getBadgerStorageObject("settings_map");
+    if (settings.getItem("isFirstRun")) {
+      // launch first-run page and unset first-run flag
       chrome.tabs.create({
         url: chrome.extension.getURL("/skin/firstRun.html")
       });
