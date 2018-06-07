@@ -1,4 +1,5 @@
 #!/bin/bash
+
 toplevel=$(git rev-parse --show-toplevel)
 
 function setup_chrome {
@@ -51,11 +52,8 @@ function browser_setup {
 }
 
 function setup_lint {
-  pushd "$toplevel"
-    # "--production" to skip installing devDependencies modules
-    npm install --production
-  popd
-
+  # "--production" to skip installing devDependencies modules
+  npm install --production || exit 1
 }
 
 # check that the desired browser is present as it might fail to install
