@@ -190,6 +190,7 @@ fling.com
 flowplayer.org
 flyertown.ca
 adm.fwmrm.net
+fontawesome.com
 fontdeck.com
 fonts.com
 fonts.net
