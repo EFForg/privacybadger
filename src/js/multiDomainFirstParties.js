@@ -572,6 +572,18 @@ var multiDomainFirstPartiesArray = [
   ["rakuten.com", "buy.com"],
   ["reddit.com", "redditmedia.com", "redditstatic.com", "redd.it", "redditenhancementsuite.com", "reddituploads.com", "imgur.com"],
   [
+    "s-kanava.fi",
+
+    "abcasemat.fi",
+    "raflaamo.fi",
+    "s-mobiili.fi",
+    "sokoshotels.fi",
+    "yhteishyva.fi",
+
+    "sok.fi",
+    "s-palvelut.fi",
+  ],
+  [
     "salesforce.com",
 
     "einstein.com",
