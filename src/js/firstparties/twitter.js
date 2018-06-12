@@ -1,5 +1,5 @@
 const tcos_all = getTCoSelectorWithDestination();
-const timeline_refresh_intervall = 2000;
+const timeline_refresh_interval = 2000;
 
 // twitter.com
 const full_url_attribute = 'data-expanded-url';
@@ -93,6 +93,11 @@ function unwrapTwitterPwaURLsInTimeline() {
     }
 
     // find span element with link text in it
+    const allSpans = link.getElementsByTagName("span");
+    if (!allSpans) {
+      return;
+    }
+
     const linkElement = link.getElementsByTagName("span")[0];
     const elements = link_reg_ex.exec(linkElement.textContent);
     if (elements === null) {
@@ -120,14 +125,19 @@ function unwrapSpecialTwitterURLs() {
 function unwrapSpecialTwitterPwaURLs() {
   // profile URL can be found in JSON of page
 
-  // iterate users object (usually should only be one, with some random ID?)
-  for (const entityKey of Object.keys(window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities)) {
-    const entityValue = window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities[entityKey];
-    // iterate url array (usually only one)
-    for (const url of entityValue.entities.url.urls) {
-      // save for later use (will be unwrapped later)
-      fixes[url.url] = url.expanded_url;
+  try {
+    // iterate users object (usually should only be one, with some random ID?)
+    for (const entityKey of Object.keys(window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities)) {
+      const entityValue = window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities[entityKey];
+      // iterate url array (usually only one)
+      for (const url of entityValue.entities.url.urls) {
+        // save for later use (will be unwrapped later)
+        fixes[url.url] = url.expanded_url;
+      }
     }
+  } catch (e) {
+    // ignore errors and only log them when the JSON of Twitter should change
+    console.error(e);
   }
 }
 
@@ -135,10 +145,10 @@ if (window.location.hostname == "mobile.twitter.com") {
   unwrapSpecialTwitterPwaURLs();
   unwrapTwitterPwaURLsInTimeline();
 
-  setInterval(unwrapTwitterPwaURLsInTimeline, timeline_refresh_intervall);
+  setInterval(unwrapTwitterPwaURLsInTimeline, timeline_refresh_interval);
 } else {
   unwrapTwitterURLsInTimeline();
   unwrapSpecialTwitterURLs();
 
-  setInterval(unwrapTwitterURLsInTimeline, timeline_refresh_intervall);
+  setInterval(unwrapTwitterURLsInTimeline, timeline_refresh_interval);
 }
