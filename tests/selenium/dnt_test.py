@@ -46,8 +46,7 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def disable_badger_on_site(self, url):
         self.load_url(self.options_url)
-        self.driver.find_element_by_css_selector(
-            'a[href="#tab-whitelisted-domains"]').click()
+        self.find_el_by_css('a[href="#tab-whitelisted-domains"]').click()
         self.driver.find_element_by_id('newWhitelistDomain').send_keys(url)
         self.driver.find_element_by_css_selector('button.addButton').click()
 
