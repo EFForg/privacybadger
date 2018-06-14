@@ -439,6 +439,7 @@ openload.co
 nominatim.openstreetmap.org
 tile.openstreetmap.fr
 tile.openstreetmap.org
+www.openstreetmap.org
 optimizely.com
 oregonlive.com
 outlook.com
