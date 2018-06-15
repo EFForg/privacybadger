@@ -3,7 +3,7 @@
 import json
 import sys
 
-KEYS = set(['snitch_map', 'action_map'])
+KEYS = set(['snitch_map', 'action_map', 'version'])
 
 with open(sys.argv[1]) as f:
     try:

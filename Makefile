@@ -1,4 +1,4 @@
-build: updatepsl zip crx
+build: updatepsl updateseed zip crx
 
 travisbuild: zip crx
 	ls -1tr *.crx | tail -n 1
