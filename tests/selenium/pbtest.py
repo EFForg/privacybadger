@@ -323,7 +323,7 @@ class PBSeleniumTest(unittest.TestCase):
 
     def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
+            EC.visibility_of_element_located((By.CSS_SELECTOR, css_selector)))
 
     def wait_for_script(
         self,
