@@ -570,6 +570,15 @@ var multiDomainFirstPartiesArray = [
   ],
   ["railnation.ru", "railnation.de", "rail-nation.com", "railnation.gr", "railnation.us", "trucknation.de", "traviangames.com"],
   ["rakuten.com", "buy.com"],
+  [
+    "realestate.com.au",
+
+    "property.com.au",
+    "realcommercial.com.au",
+    "spacely.com.au",
+
+    "reastatic.net",
+  ],
   ["reddit.com", "redditmedia.com", "redditstatic.com", "redd.it", "redditenhancementsuite.com", "reddituploads.com", "imgur.com"],
   [
     "salesforce.com",
