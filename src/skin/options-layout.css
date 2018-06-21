@@ -59,12 +59,14 @@ button
 }
 
 .btn-danger {
-  color: #cb2431;
+  color: #e02431;
+  border-width: 1px;
+  border-color: #e02431;
 }
 
 .btn-danger:hover {
   color: white;
-  background: #cb2431; 
+  background: #e02431; 
 }
 
 .importInput{
