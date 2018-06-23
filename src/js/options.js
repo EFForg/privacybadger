@@ -32,18 +32,7 @@ if (!matches || matches[1] == "Firefox") {
 
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
-/**
- * TODO
- * @cooperq - 2016/12/05
- * This is a workaround for a bug in firefox 50.0.2 (no bugzilla id I could find)
- * This bug is fixed as of firefox 52.0 and the try/catch can be removed at that
- * time
- **/
-try {
-  var backgroundPage = chrome.extension.getBackgroundPage();
-} catch (e) {
-  location.reload();
-}
+var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var badger = backgroundPage.badger;
 var log = backgroundPage.log;
