@@ -8,7 +8,7 @@
     beforeEach: function () {
 
       this.SITE_URL = "http://example.com/";
-      this.tabId = -1;
+      this.tabId = 9999;
 
       badger.recordFrame(this.tabId, 0, -1, this.SITE_URL);
 
