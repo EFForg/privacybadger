@@ -45,7 +45,7 @@ return (
         FINGERPRINTING_DOMAIN = "cdn.jsdelivr.net"
 
         # open Badger's background page
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
 
         # need to keep Badger's background page open for tabData to persist
         # so, open and switch to a new window

@@ -88,7 +88,7 @@ class DNTTest(pbtest.PBSeleniumTest):
 }}());""".format(DNT_DOMAIN)
 
         # mark a DNT-compliant domain for blocking
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
         self.js(BLOCK_DOMAIN_JS)
 
         # need to keep Badger's background page open for our changes to persist
@@ -152,7 +152,7 @@ class DNTTest(pbtest.PBSeleniumTest):
             "No cookies again")
 
         # perform a DNT policy check
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
         self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
         # wait until checkForDNTPolicy completed
         self.wait_for_script("return window.DNT_CHECK_RESULT === false")
@@ -175,7 +175,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         # the DNT policy URL used by this test returns "cookies=X"
         # where X is the number of cookies it got
         # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
         self.js("""badger.storage.updateDNTHashes(
 { "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
 
@@ -197,7 +197,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         NON_TRACKING_DOMAIN = "dnt-test.trackersimulator.org"
 
         # open Badger's background page
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
 
         # need to keep Badger's background page open to record what's happening
         # so, open and switch to a new window

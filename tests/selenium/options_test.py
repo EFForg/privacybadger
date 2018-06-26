@@ -31,8 +31,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             pass
 
     def load_options_page(self):
-        self.load_url(self.bg_url)  # load a dummy page
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
 
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""
