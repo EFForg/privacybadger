@@ -490,7 +490,7 @@ var multiDomainFirstPartiesArray = [
   ["myuv.com", "uvvu.com"],
   ["nefcuonline.com", "nefcu.com"],
   ["netflix.com", "nflxext.com", "nflximg.net", "nflxvideo.net"],
-  ["newegg.com", "neweggbusiness.com", "newegg.ca"],
+  ["newegg.com", "neweggbusiness.com", "neweggimages.com", "newegg.ca"],
   [
     "newscorpaustralia.com",
 
