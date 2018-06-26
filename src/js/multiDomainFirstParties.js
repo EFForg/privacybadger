@@ -592,6 +592,7 @@ var multiDomainFirstPartiesArray = [
     "geforce.co.uk",
   ],
   ["onlineatnsb.com", "norwaysavingsbank.com"],
+  ["openstreetmap.org", "osmfoundation.org"],
   ["paypal.com", "paypal-search.com"],
   ["pcworld.com", "staticworld.net", "idg.com", "idg.net", "infoworld.com", "macworld.com", "techhive.com", "idg.tv"],
   ["pepco.com", "pepcoholdings.com"],
