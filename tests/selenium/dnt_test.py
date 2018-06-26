@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import json
+import time
 import unittest
 
 import pbtest
@@ -176,6 +177,10 @@ class DNTTest(pbtest.PBSeleniumTest):
         # where X is the number of cookies it got
         # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
         self.load_url(self.bg_url)
+        # wait for DNT hash update to complete
+        # so that it doesn't overwrite our change below
+        # TODO wait conditionally
+        time.sleep(1)
         self.js("""badger.storage.updateDNTHashes(
 { "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
 

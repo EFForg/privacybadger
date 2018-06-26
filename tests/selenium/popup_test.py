@@ -52,6 +52,8 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_window()
 
         self.load_url(self.popup_url)
+        # TODO replace with conditional, poll-based wait for popup being fully displayed
+        time.sleep(1)
 
         # hack to get tabData populated for the popup's tab
         # to get the popup shown for regular pages
