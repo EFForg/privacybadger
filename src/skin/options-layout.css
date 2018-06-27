@@ -50,11 +50,15 @@ button
 .btn-silo {
   float: left;
   clear: both;
+  margin-bottom: 20px;
 }
 
 .btn-silo + .btn-silo {
   border-top: 1px solid #d3d3d3;
-  margin-top: 30px;
+  margin-top: 10px;
+}
+
+.btn-silo div {
   padding-top: 10px;
 }
 
