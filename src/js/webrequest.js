@@ -33,6 +33,7 @@ var getSurrogateURI = require("surrogates").getSurrogateURI;
 var incognito = require("incognito");
 var mdfp = require("multiDomainFP");
 var utils = require("utils");
+var TrackerTypes = require("heuristicBlocking").TrackerTypes;
 
 /************ Local Variables *****************/
 var temporarySocialWidgetUnblock = {};
@@ -403,7 +404,7 @@ function recordSuperCookie(tab_id, frame_url) {
   }
 
   badger.heuristicBlocking.updateTrackerPrevalence(
-    frame_host, window.getBaseDomain(page_host));
+    frame_host, window.getBaseDomain(pageHost), TrackerTypes.superCookie);
 }
 
 /**
@@ -472,7 +473,8 @@ function recordFingerprinting(tabId, msg) {
 
           // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, window.getBaseDomain(document_host));
+            script_host, window.getBaseDomain(document_host),
+            TrackerTypes.fingerprint);
         }
       }
       // This is a canvas write
