@@ -585,11 +585,15 @@ BadgerStorage.prototype = {
       for (let tracker_fqdn in mapData) {
         var firstPartyOrigins = mapData[tracker_fqdn];
         for (let origin in firstPartyOrigins) {
-          badger.heuristicBlocking.updateTrackerPrevalence(
-            tracker_fqdn,
-            firstPartyOrigins[origin],
-            true // skip DNT policy checking on data import
-          );
+          let trackingTypes = firstPartyOrigins[origin];
+          for (let type in trackingTypes) {
+            badger.heuristicBlocking.updateTrackerPrevalence(
+              tracker_fqdn,
+              firstPartyOrigins[origin],
+              true, // skip DNT policy checking on data import
+              type
+            );
+          }
         }
       }
     }
