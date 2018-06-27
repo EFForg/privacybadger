@@ -41,8 +41,8 @@ buildtools/jshydra/mozilla/js
 
 node_modules
 
-tests/selenium/.cache
 tests/.cache
+tests/.pytest_cache
 
 *.xpi
 .chrome-profile
