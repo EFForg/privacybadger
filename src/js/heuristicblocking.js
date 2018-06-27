@@ -28,6 +28,12 @@ require.scopes.heuristicblocking = (function() {
 // make heuristic obj with utils and storage properties and put the things on it
 var tabOrigins = { }; // TODO roll into tabData?
 
+var TrackerTypes = Object.freeze({
+  "cookie": 1,
+  "superCookie": 2,
+  "fingerprint": 3,
+})
+
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
 }
@@ -130,7 +136,7 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    this._recordPrevalence(fqdn, origin, tabOrigin);
+    this._recordPrevalence(fqdn, origin, tabOrigin, TrackerTypes.cookie);
   },
 
   /**
@@ -142,7 +148,7 @@ HeuristicBlocker.prototype = {
    * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
    *
    */
-  updateTrackerPrevalence: function(tracker_fqdn, page_origin, skip_dnt_check) {
+  updateTrackerPrevalence: function(tracker_fqdn, page_origin, tracker_type, skip_dnt_check) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
@@ -153,6 +159,7 @@ HeuristicBlocker.prototype = {
       tracker_fqdn,
       window.getBaseDomain(tracker_fqdn),
       page_origin,
+      tracker_type,
       skip_dnt_check
     );
   },
@@ -173,7 +180,7 @@ HeuristicBlocker.prototype = {
    * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
    * @param {String} tracker_type The type of tracking action that was detected.
    */
-  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, skip_dnt_check, tracker_type) {
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker_type, skip_dnt_check) {
     var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = {length: 0};
     if (snitchMap.hasItem(tracker_origin)) {
@@ -555,6 +562,7 @@ var exports = {};
 exports.HeuristicBlocker = HeuristicBlocker;
 exports.startListeners = startListeners;
 exports.hasCookieTracking = hasCookieTracking;
+exports.TrackerTypes = TrackerTypes;
 return exports;
 /************************************** exports */
 })();

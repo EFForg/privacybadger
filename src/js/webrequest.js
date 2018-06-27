@@ -34,6 +34,7 @@ var incognito = require("incognito");
 var mdfp = require("multiDomainFP");
 var migrations = require("migrations").Migrations;
 var utils = require("utils");
+var TrackerTypes = require("heuristicBlocking").TrackerTypes;
 
 /************ Local Variables *****************/
 var temporarySocialWidgetUnblock = {};
@@ -392,7 +393,7 @@ function recordSuperCookie(sender, msg) {
   }
 
   badger.heuristicBlocking.updateTrackerPrevalence(
-    frameHost, window.getBaseDomain(pageHost));
+    frameHost, window.getBaseDomain(pageHost), TrackerTypes.superCookie);
 }
 
 /**
@@ -461,7 +462,8 @@ function recordFingerprinting(tabId, msg) {
 
           // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, window.getBaseDomain(document_host));
+            script_host, window.getBaseDomain(document_host),
+            TrackerTypes.fingerprint);
         }
       }
       // This is a canvas write
