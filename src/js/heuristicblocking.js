@@ -121,7 +121,8 @@ HeuristicBlocker.prototype = {
 
     // abort if we already made a decision for this FQDN
     let action = this.storage.getAction(fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+    if (action != constants.NO_TRACKING && action != constants.ALLOW &&
+        !badger.getSettings().getItem('passiveMode')) {
       return {};
     }
 
@@ -145,7 +146,8 @@ HeuristicBlocker.prototype = {
   updateTrackerPrevalence: function(tracker_fqdn, page_origin, tracker_type, skip_dnt_check) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+    if (action != constants.NO_TRACKING && action != constants.ALLOW &&
+        !badger.getSettings().getItem('passiveMode')) {
       return;
     }
 
@@ -201,6 +203,7 @@ HeuristicBlocker.prototype = {
       firstParties.length += 1;
     }
     firstParties[page_origin].push(tracker_type);
+    console.log(tracker_origin + ": " + firstParties.length);
     snitchMap.setItem(tracker_origin, firstParties);
 
     // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD

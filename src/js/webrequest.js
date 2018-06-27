@@ -203,7 +203,8 @@ function onBeforeSendHeaders(details) {
     }
   }
 
-  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+  if (!badger.isPrivacyBadgerEnabled(tabDomain) || 
+      badger.getSettings().getItem('passiveMode')) {
     return {};
   }
 
