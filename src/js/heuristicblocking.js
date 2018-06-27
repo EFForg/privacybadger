@@ -171,15 +171,17 @@ HeuristicBlocker.prototype = {
    * @param {String} page_origin The origin of the page where the third party
    *   tracker was loaded.
    * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
+   * @param {String} tracker_type The type of tracking action that was detected.
    */
-  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, skip_dnt_check) {
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, skip_dnt_check, tracker_type) {
     var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
-    var firstParties = [];
+    var firstParties = {length: 0};
     if (snitchMap.hasItem(tracker_origin)) {
       firstParties = snitchMap.getItem(tracker_origin);
     }
 
-    if (firstParties.indexOf(page_origin) != -1) {
+    if (firstParties.hasItem(page_origin) &&
+        firstParties[page_origin].indexOf(tracker_type) != -1) {
       return; // We already know about the presence of this tracker on the given domain
     }
 
@@ -193,7 +195,11 @@ HeuristicBlocker.prototype = {
     }
 
     // record that we've seen this tracker on this domain (in snitch map)
-    firstParties.push(page_origin);
+    if (!firstParties.hasItem(page_origin)) {
+      firstParties[page_origin] = [];
+      firstParties.length += 1;
+    }
+    firstParties[page_origin].push(tracker_type);
     snitchMap.setItem(tracker_origin, firstParties);
 
     // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
