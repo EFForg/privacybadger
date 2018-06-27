@@ -51,7 +51,9 @@ class PopupTest(pbtest.PBSeleniumTest):
         # Chrome where popup.js will keep thinking it is on popup.html.
         self.open_window()
 
-        self.load_url(self.popup_url, wait_on_site=1)
+        self.load_url(self.popup_url)
+        # TODO replace with conditional, poll-based wait for popup being fully displayed
+        time.sleep(1)
 
         # hack to get tabData populated for the popup's tab
         # to get the popup shown for regular pages
@@ -215,7 +217,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.js("$('#block-{}').click()".format(DOMAIN_ID))
 
         # retrieve the new action
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
         new_action = get_domain_slider_state(self.driver, DOMAIN)
 
         self.assertEqual(new_action, "block",
@@ -235,7 +237,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.js("$('#block-{}').click()".format(DOMAIN_ID))
 
         # retrieve the new action
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
         new_action = get_domain_slider_state(self.driver, DOMAIN)
 
         self.assertEqual(new_action, "block",
@@ -248,7 +250,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         DOMAIN_ID = DOMAIN.replace(".", "-")
 
         # record the domain as cookieblocked by Badger
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
         self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
             DOMAIN, "cookieblock"))
 
@@ -272,7 +274,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         # verify the domain is no longer user controlled
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
 
         # assert the action is not what we manually clicked
         action = get_domain_slider_state(self.driver, DOMAIN)
