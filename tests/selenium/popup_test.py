@@ -25,7 +25,7 @@ class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
     def clear_seed_data(self):
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
         self.js("badger.storage.clearTrackerData();")
 
     def wait_for_page_to_start_loading(self, url, timeout=20):
