@@ -24,7 +24,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
 
     def select_domain_list_tab(self):
-        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         try:
             self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
         except (ElementNotInteractableException, ElementNotVisibleException):
@@ -32,7 +32,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             pass
 
     def select_manage_data_tab(self):
-        self.driver.find_element_by_css_selector('a[href="#tab-manage-data"]').click()
+        self.find_el_by_css('a[href="#tab-manage-data"]').click()
 
     def check_tracker_messages(self, error_message, many, one, none):
         self.assertEqual(many,
@@ -236,7 +236,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         time.sleep(1)  # wait for page to reload
 
         # now make sure the tracker list is empty
-        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         error_message = "No trackers should be displayed after removing all data"
         self.check_tracker_messages(error_message, many=False, one=False, none=True)
 
@@ -246,7 +246,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
         # reload the options page
         self.load_options_page()
-        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
 
         # make sure only two trackers are displayed now
         error_message = "Origin tracker count should be 2 after clearing and adding origins"
