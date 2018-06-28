@@ -390,13 +390,14 @@ function getHostForTab(tabId) {
  * @param {Integer} tab_id browser tab ID
  * @param {String} frame_url URL of the frame with supercookie
  */
-function recordSuperCookie(tab_id, frame_url) {
+function recordSuperCookie(tab_id, frame_url, cookie) {
   if (!incognito.learningEnabled(tab_id)) {
     return;
   }
 
+  // docUrl: url of the frame with supercookie
   const frame_host = window.extractHostFromURL(frame_url),
-    page_host = badger.getFrameData(tab_id).host;
+    {url: page_url, host: page_host} = badger.getFrameData(tab_id);
 
   if (!isThirdPartyDomain(frame_host, page_host)) {
     // Only happens on the start page for google.com
@@ -404,7 +405,12 @@ function recordSuperCookie(tab_id, frame_url) {
   }
 
   badger.heuristicBlocking.updateTrackerPrevalence(
-    frame_host, window.getBaseDomain(pageHost), constants.TRACKER_TYPES.SUPERCOOKIE);
+    frame_host, window.getBaseDomain(page_host), {
+      type: constants.TRACKER_TYPES.SUPERCOOKIE,
+      trackerUrl: frame_url,
+      pageUrl: page_url,
+      cookie: cookie,
+  });
 }
 
 /**
@@ -425,8 +431,8 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = badger.getFrameData(tabId).host;
-  if (!isThirdPartyDomain(script_host, document_host)) {
+    {url: pageUrl, host: pageHost} = badger.getFrameData(tabId);
+  if (!isThirdPartyDomain(script_host, pageHost)) {
     return;
   }
 
@@ -469,12 +475,15 @@ function recordFingerprinting(tabId, msg) {
         if (msg.extra.width > 16 && msg.extra.height > 16) {
           // ...we will classify it as fingerprinting
           scriptData.canvas.fingerprinting = true;
-          log(script_host, 'caught fingerprinting on', document_host);
+          log(script_host, 'caught fingerprinting on', pageHost);
 
           // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, window.getBaseDomain(document_host),
-            constants.TRACKER_TYPES.FINGERPRINT);
+            script_host, window.getBaseDomain(pageHost), {
+              type: constants.TRACKER_TYPES.FINGERPRINT,
+              trackerUrl: msg.scriptUrl, 
+              pageUrl: pageUrl
+          });
         }
       }
       // This is a canvas write
@@ -696,8 +705,9 @@ function dispatcher(request, sender, sendResponse) {
     }
 
   } else if (request.superCookieReport) {
-    if (badger.hasSuperCookie(request.superCookieReport)) {
-      recordSuperCookie(sender.tab.id, request.frameUrl);
+    tracker = badger.hasSuperCookie(request.superCookieReport);
+    if (tracker) {
+      recordSuperCookie(sender.tab.id, request.frameUrl, tracker);
     }
 
   } else if (request.checkEnabledAndThirdParty) {

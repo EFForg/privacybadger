@@ -126,12 +126,19 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
+    let cookies = hasCookieTracking(details, origin);
+    
     // ignore if there are no tracking cookies
-    if (!hasCookieTracking(details, origin)) {
+    if (!cookies) {
       return {};
     }
-
-    this._recordPrevalence(fqdn, origin, tabOrigin, constants.TRACKER_TYPES.COOKIE);
+    
+    this._recordPrevalence(fqdn, origin, tabOrigin, {
+      type: constants.TRACKER_TYPES.COOKIE,
+      trackerUrl: details.url,
+      pageUrl: badger.getFrameData(details.tabId).url,
+      cookies: cookies
+    });
   },
 
   /**
@@ -143,7 +150,7 @@ HeuristicBlocker.prototype = {
    * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
    *
    */
-  updateTrackerPrevalence: function(tracker_fqdn, page_origin, tracker_type, skip_dnt_check) {
+  updateTrackerPrevalence: function(tracker_fqdn, page_origin, tracker, skip_dnt_check) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW &&
@@ -155,7 +162,7 @@ HeuristicBlocker.prototype = {
       tracker_fqdn,
       window.getBaseDomain(tracker_fqdn),
       page_origin,
-      tracker_type,
+      tracker,
       skip_dnt_check
     );
   },
@@ -174,17 +181,16 @@ HeuristicBlocker.prototype = {
    * @param {String} page_origin The origin of the page where the third party
    *   tracker was loaded.
    * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
-   * @param {String} tracker_type The type of tracking action that was detected.
+   * @param {String} tracker Information about the tracking action that was detected.
    */
-  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker_type, skip_dnt_check) {
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker, skip_dnt_check) {
     var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = {length: 0};
     if (snitchMap.hasItem(tracker_origin)) {
       firstParties = snitchMap.getItem(tracker_origin);
     }
 
-    if (page_origin in firstParties &&
-        firstParties[page_origin].indexOf(tracker_type) != -1) {
+    if (page_origin in firstParties) {
       return; // We already know about the presence of this tracker on the given domain
     }
 
@@ -202,8 +208,7 @@ HeuristicBlocker.prototype = {
       firstParties[page_origin] = [];
       firstParties.length += 1;
     }
-    firstParties[page_origin].push(tracker_type);
-    console.log(tracker_origin + ": " + firstParties.length);
+    firstParties[page_origin].push(tracker);
     snitchMap.setItem(tracker_origin, firstParties);
 
     // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
@@ -481,6 +486,7 @@ function hasCookieTracking(details, origin) {
   }
 
   let estimatedEntropy = 0;
+  let tracking = false;
 
   // loop over every cookie
   for (let i = 0; i < cookies.length; i++) {
@@ -504,7 +510,7 @@ function hasCookieTracking(details, origin) {
       let value = cookie[name].toLowerCase();
 
       if (!(value in lowEntropyCookieValues)) {
-        return true;
+        tracking = true;
       }
 
       estimatedEntropy += lowEntropyCookieValues[value];
@@ -514,7 +520,11 @@ function hasCookieTracking(details, origin) {
   log("All cookies for " + origin + " deemed low entropy...");
   if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
     log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
-    return true;
+    tracking = true;
+  }
+
+  if (tracking) {
+    return cookies
   }
 
   return false;
