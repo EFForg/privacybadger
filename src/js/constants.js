@@ -50,5 +50,11 @@ exports.BLOCKED_ACTIONS = new Set([
   exports.USER_COOKIE_BLOCK,
 ]);
 
+exports.TRACKER_TYPES = Object.freeze({
+  COOKIE: "cookie",
+  SUPERCOOKIE: "supercookie",
+  FINGERPRINT: "fingerprint",
+})
+
 return exports;
 })();

@@ -28,12 +28,6 @@ require.scopes.heuristicblocking = (function() {
 // make heuristic obj with utils and storage properties and put the things on it
 var tabOrigins = { }; // TODO roll into tabData?
 
-var TrackerTypes = Object.freeze({
-  "cookie": 1,
-  "superCookie": 2,
-  "fingerprint": 3,
-})
-
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
 }
@@ -136,7 +130,7 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    this._recordPrevalence(fqdn, origin, tabOrigin, TrackerTypes.cookie);
+    this._recordPrevalence(fqdn, origin, tabOrigin, constants.TRACKER_TYPES.COOKIE);
   },
 
   /**
@@ -187,7 +181,7 @@ HeuristicBlocker.prototype = {
       firstParties = snitchMap.getItem(tracker_origin);
     }
 
-    if (firstParties.hasItem(page_origin) &&
+    if (page_origin in firstParties &&
         firstParties[page_origin].indexOf(tracker_type) != -1) {
       return; // We already know about the presence of this tracker on the given domain
     }
@@ -202,7 +196,7 @@ HeuristicBlocker.prototype = {
     }
 
     // record that we've seen this tracker on this domain (in snitch map)
-    if (!firstParties.hasItem(page_origin)) {
+    if (!(page_origin in firstParties)) {
       firstParties[page_origin] = [];
       firstParties.length += 1;
     }
@@ -562,7 +556,6 @@ var exports = {};
 exports.HeuristicBlocker = HeuristicBlocker;
 exports.startListeners = startListeners;
 exports.hasCookieTracking = hasCookieTracking;
-exports.TrackerTypes = TrackerTypes;
 return exports;
 /************************************** exports */
 })();
