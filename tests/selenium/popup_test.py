@@ -223,6 +223,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # retrieve the new action
         self.load_url(self.options_url)
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = get_domain_slider_state(self.driver, DOMAIN)
 
         self.assertEqual(new_action, "block",
@@ -243,6 +244,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # retrieve the new action
         self.load_url(self.options_url)
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = get_domain_slider_state(self.driver, DOMAIN)
 
         self.assertEqual(new_action, "block",
@@ -281,6 +283,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # verify the domain is no longer user controlled
         self.load_url(self.options_url)
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
 
         # assert the action is not what we manually clicked
         action = get_domain_slider_state(self.driver, DOMAIN)

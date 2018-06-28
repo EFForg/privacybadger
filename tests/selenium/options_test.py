@@ -48,6 +48,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
     def clear_seed_data(self):
         """Clear the seed dataset to make test checks easier"""
         self.load_options_page()
+        time.sleep(1)
         self.js("badger.storage.clearTrackerData();")
 
     def add_test_origin(self, origin, action):
@@ -65,7 +66,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def user_overwrite(self, origin, action):
         # Get the slider that corresponds to this radio button
-        origin_div = self.driver.find_element_by_css_selector('div[data-origin="' + origin + '"]')
+        origin_div = self.find_el_by_css('div[data-origin="' + origin + '"]')
         slider = origin_div.find_element_by_css_selector('.ui-slider')
 
         # Click on the correct place over the slider to block this origin
@@ -177,15 +178,10 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.load_url(self.options_url)
         self.select_domain_list_tab()
 
-        origins = self.driver.find_element_by_id("blockedResourcesInner")
-
         # Remove displayed origin.
-        try:
-            remove_origin_element = origins.find_element_by_xpath(
-                './/div[@data-origin="pbtest.org"]' +
-                '//div[@class="removeOrigin"]')
-        except NoSuchElementException:
-            self.fail("Tracking origin is not displayed")
+        remove_origin_element = self.find_el_by_xpath(
+            './/div[@data-origin="pbtest.org"]'
+            '//div[@class="removeOrigin"]')
         remove_origin_element.click()
 
         # Make sure the alert is present. Otherwise we get intermittent errors.
@@ -236,7 +232,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         time.sleep(1)  # wait for page to reload
 
         # now make sure the tracker list is empty
-        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
+        self.select_domain_list_tab()
         error_message = "No trackers should be displayed after removing all data"
         self.check_tracker_messages(error_message, many=False, one=False, none=True)
 
@@ -246,7 +242,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
         # reload the options page
         self.load_options_page()
-        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
+        self.select_domain_list_tab()
 
         # make sure only two trackers are displayed now
         error_message = "Origin tracker count should be 2 after clearing and adding origins"
@@ -261,7 +257,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         time.sleep(1)
 
         # make sure only two trackers are displayed now
-        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        self.select_domain_list_tab()
         error_message = "After resetting data, tracker count should return to default"
         self.assertEqual(self.driver.find_element_by_id("count").text,
                          default_count, error_message)

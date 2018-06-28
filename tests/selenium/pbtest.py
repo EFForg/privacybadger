@@ -329,6 +329,10 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, css_selector)))
 
+    def find_el_by_xpath(self, xpath, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located((By.XPATH, xpath)))
+
     def wait_for_script(
         self,
         script,
