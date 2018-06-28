@@ -121,7 +121,8 @@ HeuristicBlocker.prototype = {
 
     // abort if we already made a decision for this FQDN
     let action = this.storage.getAction(fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+    if (action != constants.NO_TRACKING && action != constants.ALLOW &&
+        !badger.getSettings().getItem('passiveMode')) {
       return {};
     }
 
@@ -152,7 +153,8 @@ HeuristicBlocker.prototype = {
   updateTrackerPrevalence: function(tracker_fqdn, page_origin, tracker, skip_dnt_check) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+    if (action != constants.NO_TRACKING && action != constants.ALLOW &&
+        !badger.getSettings().getItem('passiveMode')) {
       return;
     }
 
@@ -188,8 +190,10 @@ HeuristicBlocker.prototype = {
       firstParties = snitchMap.getItem(tracker_origin);
     }
 
-    if (page_origin in firstParties) {
-      return; // We already know about the presence of this tracker on the given domain
+    // In passive mode, record many trackers for each page
+    if (page_origin in firstParties &&
+        !badger.getSettings().getItem('passiveMode')) {
+      return; // We have already seen this tracker on the given domain
     }
 
     // Check this just-seen-tracking-on-this-site,
