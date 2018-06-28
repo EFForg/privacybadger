@@ -400,8 +400,12 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Om du tycker att Privacy Badger bryter en sida (till exempel att en video inte spelar) kan du klicka på \"Inaktivera\"-knappen för att stänga av Privacy Badger för den webbplatsen.",
+        "message": "Om du tycker att Privacy Badger bryter en sida (till exempel en video spelar inte) kan du klicka på \"Inaktivera\"-knappen för att stänga av Privacy Badger för den webbplatsen.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
+    },
+    "intro_link_policy": {
+        "message": "Integritetspolicy",
+        "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger har inte detekterat några <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spejardomäner</a> ännu. Fortsätt surfa!",

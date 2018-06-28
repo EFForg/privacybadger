@@ -43,8 +43,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
 
     def load_options_page(self):
-        self.load_url(self.bg_url)  # load a dummy page
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
 
     def clear_seed_data(self):
         """Clear the seed dataset to make test checks easier"""

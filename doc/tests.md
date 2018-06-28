@@ -16,13 +16,15 @@ We use [ESLint](https://eslint.org) to flag potential JavaScript errors and styl
 
 ## Unit tests
 
-We use [QUnit](https://qunitjs.com/) for unit tests. To run them, click on the badger icon next to the URL bar to open the popup.
+We use [QUnit](https://qunitjs.com/) for unit tests.
+Unit tests are defined in [`/src/tests/tests`](/src/tests/tests). Unit test dependencies live in [`/src/tests/lib`](/src/tests/lib).
+
+To run unit tests, first [load Privacy Badger from source code](/doc/develop.md#install-from-source) (as we don't ship unit tests with published versions).
+Once you loaded Badger from source, click on its button in your browser toolbar to open Badger's popup.
 Then in the popup, click on the gear icon (⚙) to open the options page.
 Your browser should navigate to an internal URL that starts with `chrome-extension://` or `moz-extension://` and ends with `/skin/options.html`.
-Replace `/skin/options.html` with `/tests/index.html` and hit enter.
-This will open the unit tests and run them.
-
-Unit tests are located in [`/src/tests/tests`](/src/tests/tests). The unit test dependencies are in [`/src/tests/lib`](/src/tests/lib). Please add unit tests whenever possible.
+Replace `/skin/options.html` with `/tests/index.html` and hit <kbd>Enter</kbd>.
+This will open the unit test suite and run the tests.
 
 ## Functional tests
 

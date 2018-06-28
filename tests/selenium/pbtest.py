@@ -297,7 +297,7 @@ class PBSeleniumTest(unittest.TestCase):
         self.js('window.open()')
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    def load_url(self, url, wait_on_site=0, wait_for_body_text=False, retries=5):
+    def load_url(self, url, wait_for_body_text=False, retries=5):
         """Load a URL and wait before returning."""
         for i in range(retries):
             try:
@@ -307,6 +307,12 @@ class PBSeleniumTest(unittest.TestCase):
                 if i < retries - 1:
                     continue
                 raise e
+            # work around geckodriver/marionette/Firefox timeout handling,
+            # for example: https://travis-ci.org/EFForg/privacybadger/jobs/389429089
+            except WebDriverException as e:
+                if str(e).startswith("Reached error page") and i < retries - 1:
+                    continue
+                raise e
         self.driver.switch_to.window(self.driver.current_window_handle)
 
         if wait_for_body_text:
@@ -314,8 +320,6 @@ class PBSeleniumTest(unittest.TestCase):
                 lambda: self.driver.find_element_by_tag_name('body').text,
                 msg="Waiting for document.body.textContent to get populated ..."
             )
-
-        time.sleep(wait_on_site)
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Find an element by CSS selector and return its text."""
