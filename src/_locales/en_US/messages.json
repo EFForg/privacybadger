@@ -220,7 +220,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "This will delete all data about trackers that Privacy Badger has learned from your browsing and restore the tracking domain list to its default state.",
+        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list\n\nVisit https://github.com/EFForg/badger-sett to learn more about Badger pre-training.",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -229,10 +229,10 @@
     },
     "remove_all_data": {
         "message": "Remove all tracking domains",
-        "description": "Caption above remve_all button"
+        "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "This will delete everything Privacy Badger knows about trackers. As a result, Privacy Badger will not block anything until it has had a chance to re-learn from your browsing.",
+        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
