@@ -42,13 +42,32 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.assertEqual(none,
             self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
 
-    def load_options_page(self):
+    def load_options_page(self, wait_for_badger_to_finish_initializing=False):
         self.load_url(self.options_url)
+
+        # might need to wait for pre-trained database to get loaded
+        # since chromedriver sometimes load the options page
+        # before the async fetch in loadSeedData finished
+        #
+        # this can break tests, for example:
+        # - we expect pre-trained data to be on the options page but it isn't
+        # - we overwrite the database but our overwrite gets overwritten by loadSeedData
+        if wait_for_badger_to_finish_initializing:
+            retries = 3
+            for i in range(retries):
+                try:
+                    self.wait_for_script("""return window.originCache &&
+  Object.keys(window.originCache).length;""", timeout=1)
+                    break
+                except TimeoutException:
+                    if i < retries - 1:
+                        self.driver.refresh()
+                        continue
+                    raise
 
     def clear_seed_data(self):
         """Clear the seed dataset to make test checks easier"""
-        self.load_options_page()
-        time.sleep(1)
+        self.load_options_page(wait_for_badger_to_finish_initializing=True)
         self.js("badger.storage.clearTrackerData();")
 
     def add_test_origin(self, origin, action):
@@ -214,7 +233,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.assertIsNone(origins, error_message)
 
     def test_reset_data(self):
-        self.load_options_page()
+        self.load_options_page(wait_for_badger_to_finish_initializing=True)
         self.select_domain_list_tab()
 
         # make sure the default tracker list includes many trackers
