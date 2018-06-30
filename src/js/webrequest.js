@@ -747,10 +747,12 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse();
 
   } else if (request.type == "mergeUserData") {
-    for (let map in request.data) {
-      let storageMap = badger.storage.getBadgerStorageObject(map);
-      storageMap.merge(request.data[map]);
-    }
+    badger.storage.KEYS.forEach(function(key) {
+      if (key in request.data) {
+        let storageMap = badger.storage.getBadgerStorageObject(key);
+        storageMap.merge(request.data[key]);
+      }
+    });
 
     // fix yellowlist getting out of sync
     migrations.reapplyYellowlist(badger);

@@ -74,6 +74,8 @@ function BadgerPen(callback) {
 }
 
 BadgerPen.prototype = {
+  // The order of these keys is also the order in which they should be imported.
+  // It's important that snitch_map be imported before action_map (#1972)
   KEYS: [
     "snitch_map",
     "action_map",
