@@ -593,10 +593,28 @@ Badger.prototype = {
       for (var i = 0; i < disabledSites.length; i++) {
         var site = disabledSites[i];
         if (site.startsWith("*")) {
-          if (window.getBaseDomain(site) === window.getBaseDomain(origin)) {
+          // Remove * from length count
+          var siteDomains = site.split(".").length - 1;
+          var originDomains = origin.split(".").length;
+          var subdomains = 1;
+
+          site = site.slice(2); // remove "*."
+
+          if (siteDomains > originDomains) {
+            subdomains = siteDomains - originDomains;
+          }
+
+          else if (siteDomains < originDomains) {
+            subdomains = originDomains - siteDomains;
+          }
+
+          cleanOrigin = origin.split('.').slice(subdomains).join(".");
+
+          if (site === cleanOrigin) {
             return false;
           }
         }
+
         if (disabledSites[i] === origin) {
           return false;
         }

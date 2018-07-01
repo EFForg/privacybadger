@@ -65,6 +65,17 @@
     assert.ok(!badger.isPrivacyBadgerEnabled("example.com"), "disabled for site");
     badger.enablePrivacyBadgerForOrigin("example.com");
     assert.ok(badger.isPrivacyBadgerEnabled("example.com"), "enabled for site");
+
+    // whitelist wildcard cases
+    badger.disablePrivacyBadgerForOrigin('*.mail.example.com');
+    assert.ok(badger.isPrivacyBadgerEnabled('www.example.com'), "enabled for site");
+    assert.ok(badger.isPrivacyBadgerEnabled('web.stuff.example.com'), "enabled for site");
+    assert.ok(!badger.isPrivacyBadgerEnabled('web.mail.example.com'), "disabled for site");
+
+    badger.disablePrivacyBadgerForOrigin('*.fakedomain.com');
+    assert.ok(!badger.isPrivacyBadgerEnabled('www.fakedomain.com'), "disabled for site");
+    assert.ok(!badger.isPrivacyBadgerEnabled('web.mail.fakedomain.com'), "disabled for site");
+    assert.ok(badger.isPrivacyBadgerEnabled('fakedomain.hello.example.com'), "enabled for site");
   });
 
   QUnit.test("disable/enable privacy badger for origin", function (assert) {
