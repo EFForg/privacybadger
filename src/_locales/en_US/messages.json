@@ -220,7 +220,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list\n\nVisit https://github.com/EFForg/badger-sett to learn more about Badger pre-training.",
+        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
