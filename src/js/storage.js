@@ -492,8 +492,10 @@ BadgerStorage.prototype = {
       }
     } else if (self.name === "action_map") {
       for (let domain in mapData) {
-        // Overwrite local setting (if exists) for any imported domain
-        self._store[domain] = mapData[domain];
+        // Copy over any user settings from the merged-in data
+        if (mapData[domain].userAction != "") {
+          self._store[domain].userAction = mapData[domain].userAction;
+        }
       }
     } else if (self.name === "snitch_map") {
       for (let tracker_fqdn in mapData) {
