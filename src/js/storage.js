@@ -500,6 +500,13 @@ BadgerStorage.prototype = {
             self._store[domain] = mapData[domain];
           }
         }
+
+        // Merge DNT settings if the imported data has a more recent update
+        if (domain in self._store &&
+            mapData[domain].nextUpdateTime > self._store[domain].nextUpdateTime) {
+          self._store[domain].nextUpdateTime = mapData[domain].nextUpdateTime;
+          self._store[domain].dnt = mapData[domain].dnt;
+        }
       }
     } else if (self.name === "snitch_map") {
       for (let tracker_fqdn in mapData) {

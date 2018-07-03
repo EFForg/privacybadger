@@ -76,18 +76,28 @@
       {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
     assert.ok(action_map.getItem('testsite.com').nextUpdateTime === 100);
 
-    // userAction should be merged
-    let newValue = {dnt: false, heuristicAction: "", nextUpdateTime: 101, userAction: constants.USER_BLOCK};
+    let newValue = {dnt: true, heuristicAction: constants.BLOCK, nextUpdateTime: 99, userAction: constants.USER_BLOCK};
     action_map.merge({'testsite.com': newValue});
+
+    // userAction should be merged
     assert.ok(action_map.getItem('testsite.com').userAction === constants.USER_BLOCK);
 
-    // only userAction should be merged
+    // heuristicAction should not
+    assert.ok(action_map.getItem('testsite.com').heuristicAction === "");
+
+    // DNT should not be merged if nextUpdateTime is earlier
     assert.ok(action_map.getItem('testsite.com').nextUpdateTime === 100);
+    assert.ok(action_map.getItem('testsite.com').dnt === false);
+
+    newValue = {dnt: true, heuristicAction: "", nextUpdateTime: 101, userAction: ""};
+    action_map.merge({'testsite.com': newValue});
 
     // blank userAction should not overwrite anything
-    newValue = {dnt: false, heuristicAction: "", nextUpdateTime: 101, userAction: ""};
-    action_map.merge({'testsite.com': newValue});
     assert.ok(action_map.getItem('testsite.com').userAction === constants.USER_BLOCK);
+
+    // DNT should be merged if it's more up-to-date
+    assert.ok(action_map.getItem('testsite.com').nextUpdateTime === 101);
+    assert.ok(action_map.getItem('testsite.com').dnt === true);
   });
 
 
