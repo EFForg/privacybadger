@@ -142,4 +142,42 @@
     badger.isCheckingDNTPolicyEnabled = old_dnt_check_func;
   });
 
+  QUnit.test("mergeUserData does not destroy information", (assert) => {
+    badger.storage.action_map.setItem('foo.com',
+      {dnt: false, heuristicAction: constants.ALLOW, nextUpdateTime: 100, userAction: ""});
+    badger.storage.action_map.setItem('bar.com',
+      {dnt: false, heuristicAction: constants.BLOCK, nextUpdateTime: 100, userAction: ""});
+    badger.storage.action_map.setItem('sub.bar.com',
+      {dnt: false, heuristicAction: constants.BLOCK, nextUpdateTime: 100, userAction: ""});
+    badger.storage.snitch_map.setItem('foo.com', ['a.co']);
+    badger.storage.snitch_map.setItem('bar.com', ['a.co', 'b.co', 'c.co']);
+
+    // test #1972: unblocking domains badger has already decided to block
+    let user_data = {
+      action_map: {'foo.com': {dnt: false, heuristicAction: constants.BLOCK,
+        nextUpdateTime: 100, userAction: ""}},
+      snitch_map: {'foo.com': ['a.co', 'b.co', 'c.co']},
+    };
+    badger.mergeUserData(user_data);
+    assert.equal(badger.storage.action_map.getItem('foo.com').heuristicAction, constants.BLOCK);
+    assert.equal(badger.storage.snitch_map.getItem('foo.com').length, 3);
+
+    // merging snitch maps which should result in a blocked domain, but don't:
+    // https://github.com/EFForg/privacybadger/pull/2082#issuecomment-401942070
+    user_data = {
+      action_map: {'foo.com': {dnt: false, heuristicAction: constants.ALLOW,
+        nextUpdateTime: 100, userAction: ""}},
+      snitch_map: {'foo.com': ['b.co', 'c.co']},
+    };
+    badger.mergeUserData(user_data);
+    assert.equal(badger.storage.action_map.getItem('foo.com').heuristicAction, constants.BLOCK);
+
+    // subdomain that is not blocked does not override subdomain that is
+    user_data = {
+      action_map: {'sub.bar.com': {dnt: false, heuristicAction: "",
+        nextUpdateTime: 100, userAction: ""}}};
+    badger.mergeUserData(user_data);
+    assert.equal(badger.storage.action_map.getItem('sub.bar.com').heuristicAction, constants.BLOCK);
+  });
+
 }());
