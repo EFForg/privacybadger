@@ -494,7 +494,11 @@ BadgerStorage.prototype = {
       for (let domain in mapData) {
         // Copy over any user settings from the merged-in data
         if (mapData[domain].userAction != "") {
-          self._store[domain].userAction = mapData[domain].userAction;
+          if (domain in self._store) {
+            self._store[domain].userAction = mapData[domain].userAction;
+          } else {
+            self._store[domain] = mapData[domain];
+          }
         }
       }
     } else if (self.name === "snitch_map") {
