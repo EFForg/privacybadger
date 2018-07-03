@@ -32,7 +32,6 @@ var constants = require("constants");
 var getSurrogateURI = require("surrogates").getSurrogateURI;
 var incognito = require("incognito");
 var mdfp = require("multiDomainFP");
-var migrations = require("migrations").Migrations;
 var utils = require("utils");
 
 /************ Local Variables *****************/
@@ -747,18 +746,9 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse();
 
   } else if (request.type == "mergeUserData") {
-    badger.storage.KEYS.forEach(function(key) {
-      if (key in request.data) {
-        let storageMap = badger.storage.getBadgerStorageObject(key);
-        storageMap.merge(request.data[key]);
-      }
-    });
-
-    // fix yellowlist getting out of sync
-    migrations.reapplyYellowlist(badger);
-
-    // remove any non-tracking domains (in exports from older Badger versions)
-    migrations.forgetNontrackingDomains(badger);
+    // called when a user uploads data exported from another privacy badger
+    // instance
+    badger.mergeUserData(request.data);
     sendResponse();
 
   } else if (request.type == "updateSettings") {

@@ -756,6 +756,28 @@ Badger.prototype = {
     chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});
   },
 
+  /**
+   * Merge data exported from a different badger into this badger's storage.
+   *
+   * @param {Object} data the user data to merge in
+   */
+  mergeUserData: function(data) {
+    let self = this;
+    self.storage.KEYS.forEach(function(key) {
+      if (key in data) {
+        let storageMap = self.storage.getBadgerStorageObject(key);
+        storageMap.merge(data[key]);
+      }
+    });
+
+    // for exports from older Privacy Badger versions:
+    // fix yellowlist getting out of sync, remove non-tracking domains, etc.
+    self.runMigrations();
+
+    // remove any non-tracking domains (in exports from older Badger versions)
+    Migrations.forgetNontrackingDomains(self);
+  }
+
 };
 
 /**************************** Listeners ****************************/
