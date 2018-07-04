@@ -746,8 +746,7 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse();
 
   } else if (request.type == "mergeUserData") {
-    // called when a user uploads data exported from another privacy badger
-    // instance
+    // called when a user uploads data exported from another Badger instance
     badger.mergeUserData(request.data);
     sendResponse();
 

@@ -763,8 +763,10 @@ Badger.prototype = {
    */
   mergeUserData: function(data) {
     let self = this;
-    self.storage.KEYS.forEach(function(key) {
-      if (key in data) {
+    // The order of these keys is also the order in which they should be imported.
+    // It's important that snitch_map be imported before action_map (#1972)
+    ["snitch_map", "action_map", "settings_map"].forEach(function(key) {
+      if (data.hasOwnProperty(key)) {
         let storageMap = self.storage.getBadgerStorageObject(key);
         storageMap.merge(data[key]);
       }
@@ -773,9 +775,6 @@ Badger.prototype = {
     // for exports from older Privacy Badger versions:
     // fix yellowlist getting out of sync, remove non-tracking domains, etc.
     self.runMigrations();
-
-    // remove any non-tracking domains (in exports from older Badger versions)
-    Migrations.forgetNontrackingDomains(self);
   }
 
 };

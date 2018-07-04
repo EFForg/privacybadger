@@ -74,8 +74,6 @@ function BadgerPen(callback) {
 }
 
 BadgerPen.prototype = {
-  // The order of these keys is also the order in which they should be imported.
-  // It's important that snitch_map be imported before action_map (#1972)
   KEYS: [
     "snitch_map",
     "action_map",
@@ -492,20 +490,21 @@ BadgerStorage.prototype = {
       }
     } else if (self.name === "action_map") {
       for (let domain in mapData) {
+        let action = mapData[domain];
         // Copy over any user settings from the merged-in data
-        if (mapData[domain].userAction != "") {
-          if (domain in self._store) {
-            self._store[domain].userAction = mapData[domain].userAction;
+        if (action.userAction != "") {
+          if (self._store.hasOwnProperty(domain)) {
+            self._store[domain].userAction = action.userAction;
           } else {
-            self._store[domain] = mapData[domain];
+            self._store[domain] = action;
           }
         }
 
         // Merge DNT settings if the imported data has a more recent update
-        if (domain in self._store &&
-            mapData[domain].nextUpdateTime > self._store[domain].nextUpdateTime) {
-          self._store[domain].nextUpdateTime = mapData[domain].nextUpdateTime;
-          self._store[domain].dnt = mapData[domain].dnt;
+        if (self._store.hasOwnProperty(domain) &&
+            action.nextUpdateTime > self._store[domain].nextUpdateTime) {
+          self._store[domain].nextUpdateTime = action.nextUpdateTime;
+          self._store[domain].dnt = action.dnt;
         }
       }
     } else if (self.name === "snitch_map") {

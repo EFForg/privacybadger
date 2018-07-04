@@ -20,6 +20,17 @@
     xhrSpy,
     dnt_policy_txt;
 
+  function setupBadgerStorage(badger) {
+    badger.storage.action_map.setItem('foo.com',
+      {dnt: false, heuristicAction: constants.ALLOW, nextUpdateTime: 100, userAction: ""});
+    badger.storage.action_map.setItem('bar.com',
+      {dnt: false, heuristicAction: constants.BLOCK, nextUpdateTime: 100, userAction: ""});
+    badger.storage.action_map.setItem('sub.bar.com',
+      {dnt: false, heuristicAction: constants.BLOCK, nextUpdateTime: 100, userAction: ""});
+    badger.storage.snitch_map.setItem('foo.com', ['a.co']);
+    badger.storage.snitch_map.setItem('bar.com', ['a.co', 'b.co', 'c.co']);
+  }
+
   QUnit.module("Background", {
     before: (assert) => {
       let done = assert.async();
@@ -142,17 +153,10 @@
     badger.isCheckingDNTPolicyEnabled = old_dnt_check_func;
   });
 
-  QUnit.test("mergeUserData does not destroy information", (assert) => {
-    badger.storage.action_map.setItem('foo.com',
-      {dnt: false, heuristicAction: constants.ALLOW, nextUpdateTime: 100, userAction: ""});
-    badger.storage.action_map.setItem('bar.com',
-      {dnt: false, heuristicAction: constants.BLOCK, nextUpdateTime: 100, userAction: ""});
-    badger.storage.action_map.setItem('sub.bar.com',
-      {dnt: false, heuristicAction: constants.BLOCK, nextUpdateTime: 100, userAction: ""});
-    badger.storage.snitch_map.setItem('foo.com', ['a.co']);
-    badger.storage.snitch_map.setItem('bar.com', ['a.co', 'b.co', 'c.co']);
+  QUnit.test("mergeUserData does not unblock formerly blocked domains", (assert) => {
+    setupBadgerStorage(badger);
 
-    // test #1972: unblocking domains badger has already decided to block
+    // test #1972
     let user_data = {
       action_map: {'foo.com': {dnt: false, heuristicAction: constants.BLOCK,
         nextUpdateTime: 100, userAction: ""}},
@@ -161,8 +165,11 @@
     badger.mergeUserData(user_data);
     assert.equal(badger.storage.action_map.getItem('foo.com').heuristicAction, constants.BLOCK);
     assert.equal(badger.storage.snitch_map.getItem('foo.com').length, 3);
+  });
 
-    // merging snitch maps which should result in a blocked domain, but don't:
+  QUnit.test("merging snitch maps results in a blocked domain", (assert) => {
+    setupBadgerStorage(badger);
+
     // https://github.com/EFForg/privacybadger/pull/2082#issuecomment-401942070
     user_data = {
       action_map: {'foo.com': {dnt: false, heuristicAction: constants.ALLOW,
@@ -171,8 +178,11 @@
     };
     badger.mergeUserData(user_data);
     assert.equal(badger.storage.action_map.getItem('foo.com').heuristicAction, constants.BLOCK);
+  });
 
-    // subdomain that is not blocked does not override subdomain that is
+  QUnit.test("subdomain that is not blocked does not override subdomain that is", (assert) => {
+    setupBadgerStorage(badger);
+
     user_data = {
       action_map: {'sub.bar.com': {dnt: false, heuristicAction: "",
         nextUpdateTime: 100, userAction: ""}}};
