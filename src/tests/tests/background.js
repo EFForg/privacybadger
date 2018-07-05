@@ -171,7 +171,7 @@
     setupBadgerStorage(badger);
 
     // https://github.com/EFForg/privacybadger/pull/2082#issuecomment-401942070
-    user_data = {
+    let user_data = {
       action_map: {'foo.com': {dnt: false, heuristicAction: constants.ALLOW,
         nextUpdateTime: 100, userAction: ""}},
       snitch_map: {'foo.com': ['b.co', 'c.co']},
@@ -183,7 +183,7 @@
   QUnit.test("subdomain that is not blocked does not override subdomain that is", (assert) => {
     setupBadgerStorage(badger);
 
-    user_data = {
+    let user_data = {
       action_map: {'sub.bar.com': {dnt: false, heuristicAction: "",
         nextUpdateTime: 100, userAction: ""}}};
     badger.mergeUserData(user_data);
