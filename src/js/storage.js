@@ -506,6 +506,11 @@ BadgerStorage.prototype = {
           self._store[domain].nextUpdateTime = action.nextUpdateTime;
           self._store[domain].dnt = action.dnt;
         }
+
+        // Import DNT settings for new domains that do honor DNT
+        if (!self._store.hasOwnProperty(domain) && action.dnt) {
+          self._store[domain] = action;
+        }
       }
     } else if (self.name === "snitch_map") {
       for (let tracker_fqdn in mapData) {
