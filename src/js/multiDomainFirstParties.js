@@ -593,7 +593,7 @@ var multiDomainFirstPartiesArray = [
   ],
   ["onlineatnsb.com", "norwaysavingsbank.com"],
   ["openstreetmap.org", "osmfoundation.org"],
-  ["osf.io", "api.osf.io", "agrixiv.org", "arabixiv.org", "eartharxiv.org", "ecsarxiv.org", "engrxiv.org", "frenxiv.org", "marxiv.org", "mindrxiv.org", "paleorxiv.org", "psyarxiv.com", "thesiscommons.org"],
+  ["osf.io", "agrixiv.org", "arabixiv.org", "eartharxiv.org", "ecsarxiv.org", "engrxiv.org", "frenxiv.org", "marxiv.org", "mindrxiv.org", "paleorxiv.org", "psyarxiv.com", "thesiscommons.org"],
   ["paypal.com", "paypal-search.com"],
   ["pcworld.com", "staticworld.net", "idg.com", "idg.net", "infoworld.com", "macworld.com", "techhive.com", "idg.tv"],
   ["pepco.com", "pepcoholdings.com"],
