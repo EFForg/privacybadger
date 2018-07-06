@@ -73,54 +73,62 @@
     let action_map = storage.getBadgerStorageObject('action_map');
 
     action_map.setItem('testsite.com',
-      {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
+      {dnt: false, heuristicAction: '', nextUpdateTime: 100, userAction: ''});
     assert.ok(action_map.getItem('testsite.com').nextUpdateTime === 100);
 
-    // userAction should be merged if it's set, but heuristicAction should not
-    let newValue = {dnt: true, heuristicAction: constants.BLOCK, nextUpdateTime: 99, userAction: constants.USER_BLOCK};
+    let newValue = {dnt: true, heuristicAction: constants.BLOCK,
+      nextUpdateTime: 99, userAction: constants.USER_BLOCK};
     action_map.merge({'testsite.com': newValue});
-    assert.ok(action_map.getItem('testsite.com').userAction === constants.USER_BLOCK);
-    assert.ok(action_map.getItem('testsite.com').heuristicAction === "");
+    assert.equal(action_map.getItem('testsite.com').userAction,
+      constants.USER_BLOCK,
+      "userAction should be merged if it's set");
+    assert.equal(action_map.getItem('testsite.com').heuristicAction, '',
+      'heuristicAction should never be overwritten');
 
-    // blank userAction should not overwrite anything
-    newValue.userAction = "";
+    newValue.userAction = '';
     action_map.merge({'testsite.com': newValue});
-    assert.ok(action_map.getItem('testsite.com').userAction === constants.USER_BLOCK);
+    assert.equal(action_map.getItem('testsite.com').userAction,
+      constants.USER_BLOCK,
+      'blank userAction should not overwrite anything');
   });
 
   QUnit.test("action map merge updates with latest DNT info", (assert) => {
     let action_map = storage.getBadgerStorageObject('action_map');
     action_map.setItem('testsite.com',
-      {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
+      {dnt: false, heuristicAction: '', nextUpdateTime: 100, userAction: ''});
 
     // DNT should not be merged if nextUpdateTime is earlier
-    let newValue = {dnt: true, heuristicAction: "", nextUpdateTime: 99, userAction: ""};
+    let newValue = {dnt: true, heuristicAction: '', nextUpdateTime: 99, userAction: ''};
     action_map.merge({'testsite.com': newValue});
-    assert.ok(action_map.getItem('testsite.com').nextUpdateTime === 100);
-    assert.ok(action_map.getItem('testsite.com').dnt === false);
+    assert.equal(action_map.getItem('testsite.com').nextUpdateTime, 100,
+      'nextUpdateTime should not be changed to an earlier time');
+    assert.notOk(action_map.getItem('testsite.com').dnt,
+      'DNT value should not be updated by out-of-date information');
 
     // DNT should be merged if it's more up-to-date
     newValue.nextUpdateTime = 101;
     action_map.merge({'testsite.com': newValue});
-    assert.ok(action_map.getItem('testsite.com').nextUpdateTime === 101);
-    assert.ok(action_map.getItem('testsite.com').dnt === true);
+    assert.equal(action_map.getItem('testsite.com').nextUpdateTime, 101,
+      'nextUpdateTime should be updated to later time');
+    assert.ok(action_map.getItem('testsite.com').dnt,
+      'DNT value should be updated with more recent information');
   });
 
   QUnit.test("action map merge handles subdomains correctly", (assert) => {
     let action_map = storage.getBadgerStorageObject('action_map');
     action_map.setItem('testsite.com',
-      {dnt: false, heuristicAction: "", nextUpdateTime: 100, userAction: ""});
+      {dnt: false, heuristicAction: '', nextUpdateTime: 100, userAction: ''});
 
-    let newValue = {dnt: true, heuristicAction: "", nextUpdateTime: 100, userAction: ""};
+    let newValue = {dnt: true, heuristicAction: '', nextUpdateTime: 100, userAction: ''};
 
-    // Subdomains should be merged if they honor DNT
     action_map.merge({'s1.testsite.com': newValue});
-    assert.ok(action_map.hasItem('s1.testsite.com'));
+    assert.ok(action_map.hasItem('s1.testsite.com'),
+      'Subdomains should be merged if they honor DNT');
 
-    // ...but not if they don't
     newValue.dnt = false;
     action_map.merge({'s2.testsite.com': newValue});
-    assert.notOk(action_map.hasItem('s2.testsite.com'));
+    assert.notOk(action_map.hasItem('s2.testsite.com'),
+      "Subdomains should not be merged if they don't honor DNT");
   });
 
   QUnit.test("snitch map merging", (assert) => {
