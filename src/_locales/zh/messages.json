@@ -20,7 +20,7 @@
         "description": ""
     },
     "non_tracker_tip": {
-        "message": "目前隐私獾只检查第三方 cookies，第五代超文本标记语言(HTML5)本地存储，帆布指纹识别(canvas fingerprinting)跟踪你浏览网页的情况。 有些域名可能使用了隐私獾无法检测的跟踪方式。",
+        "message": "目前隐私獾只检查跟踪浏览情况的第三方 Cookies，HTML5 local storage，和画布指纹（canvas fingerprinting）。 有些域名可能使用了隐私獾无法检测的跟踪方式。",
         "description": ""
     },
     "options_dnt_policy_setting": {
@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "message": "隐私獾会自动学习屏蔽不可见的跟踪器。花些时间了解是这是如何做到的吧。",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -132,7 +132,7 @@
         "description": ""
     },
     "options_social_widgets_checkbox": {
-        "message": "更换社交网络工具",
+        "message": "替换社交网站挂件",
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
@@ -224,7 +224,7 @@
         "description": "This is an options page tab heading."
     },
     "intro_next_button": {
-        "message": "Take the tour",
+        "message": "了解一下",
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
@@ -320,7 +320,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "将滑块移至左边来屏蔽一个域名",
+        "message": "将滑块移至左边以屏蔽一个域名",
         "description": ""
     },
     "options_domain_filter_user": {

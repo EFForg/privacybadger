@@ -152,7 +152,7 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Serĉi nomregnojn:",
+        "message": "Serĉi nomregnon:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {

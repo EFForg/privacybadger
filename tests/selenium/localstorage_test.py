@@ -41,20 +41,20 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
             self.assertEqual(PB_POLICY_HASH_LEN, len(policy_hash))
 
     def test_should_init_local_storage_entries(self):
-        self.load_url(self.bg_url, wait_on_site=3)
-        js = self.js
+        self.load_url(self.bg_url)
+
         self.check_policy_download()
-        self.assertEqual(js("return constants.YELLOWLIST_URL"),
+        self.assertEqual(self.js("return constants.YELLOWLIST_URL"),
                          "https://www.eff.org/files/cookieblocklist_new.txt")
 
         get_disabled_sites = "return (badger.storage.getBadgerStorageObject("\
             "'settings_map').getItem('disabledSites'))"
-        disabled_sites = js(get_disabled_sites)
+        disabled_sites = self.js(get_disabled_sites)
 
         self.assertFalse(len(disabled_sites),
                          "Shouldn't have any disabledSites after installation")
         
-        self.assertTrue(js("return (badger.storage.getBadgerStorageObject("\
+        self.assertTrue(self.js("return (badger.storage.getBadgerStorageObject("\
             "'settings_map').getItem('checkForDNTPolicy'))"),
             "Should start with DNT policy enabled")
         # TODO: do we expect currentVersion to be present after the first run?
