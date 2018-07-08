@@ -603,7 +603,7 @@ weather.gov
 weatherbug.com
 weathernationtv.com
 weatherzone.com.au
-uploads-ssl.webflow.com
+webflow.com
 webs.com
 websimages.com
 webtype.com
