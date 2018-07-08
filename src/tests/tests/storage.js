@@ -74,7 +74,7 @@
 
     action_map.setItem('testsite.com',
       {dnt: false, heuristicAction: '', nextUpdateTime: 100, userAction: ''});
-    assert.ok(action_map.getItem('testsite.com').nextUpdateTime === 100);
+    assert.equal(action_map.getItem('testsite.com').nextUpdateTime, 100);
 
     let newValue = {dnt: true, heuristicAction: constants.BLOCK,
       nextUpdateTime: 99, userAction: constants.USER_BLOCK};
@@ -90,6 +90,30 @@
     assert.equal(action_map.getItem('testsite.com').userAction,
       constants.USER_BLOCK,
       'blank userAction should not overwrite anything');
+  });
+
+  QUnit.test("action map merge creates new entry if necessary", (assert) => {
+    let action_map = storage.getBadgerStorageObject('action_map');
+    assert.notOk(action_map.hasItem('newsite.com'));
+
+    let newValue = {dnt: false, heuristicAction: constants.BLOCK,
+      nextUpdateTime: 100, userAction: ''};
+    action_map.merge({'newsite.com': newValue});
+    assert.notOk(action_map.hasItem('newsite.com'),
+      'action map entry should not be created for heuristicAction alone');
+
+    newValue.userAction = constants.USER_BLOCK;
+    action_map.merge({'newsite.com': newValue});
+    assert.ok(action_map.hasItem('newsite.com'),
+      'action map entry should be created if userAction is set');
+
+    action_map.deleteItem('newsite.com');
+
+    newValue.userAction = '';
+    newValue.dnt = true;
+    action_map.merge({'newsite.com': newValue});
+    assert.ok(action_map.hasItem('newsite.com'),
+      'action map entry should be created if DNT is set');
   });
 
   QUnit.test("action map merge updates with latest DNT info", (assert) => {
@@ -144,9 +168,9 @@
     assert.ok(snitch_map.getItem('testsite.com').indexOf('firstparty2.org') > -1);
 
     // Verify 'block' status is triggered once TRACKING_THRESHOLD is hit
-    assert.ok(action_map.getItem('testsite.com').heuristicAction === "allow");
+    assert.equal(action_map.getItem('testsite.com').heuristicAction, "allow");
     snitch_map.merge({'testsite.com': ["firstparty3.org"]});
-    assert.ok(action_map.getItem('testsite.com').heuristicAction === "block");
+    assert.equal(action_map.getItem('testsite.com').heuristicAction, "block");
   });
 
   QUnit.test("blocking cascades", (assert) => {
