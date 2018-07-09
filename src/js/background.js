@@ -459,6 +459,7 @@ Badger.prototype = {
     showCounter: true,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
+    DNTEnabled: true
   },
 
   /**
@@ -610,6 +611,13 @@ Badger.prototype = {
    */
   isSocialWidgetReplacementEnabled: function() {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
+  },
+
+  /**
+   * Check if social widget replacement functionality is enabled
+   */
+  isDNTEnabled: function() {
+    return this.getSettings().getItem("DNTEnabled");
   },
 
   isCheckingDNTPolicyEnabled: function() {

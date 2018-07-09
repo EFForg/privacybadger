@@ -172,7 +172,9 @@ function onBeforeSendHeaders(details) {
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
     if (badger.isPrivacyBadgerEnabled(tabDomain)) {
       // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-      details.requestHeaders.push({name: "DNT", value: "1"});
+      if (badger.isDNTEnabled()) {
+        details.requestHeaders.push({name: "DNT", value: "1"});
+      }
       return {requestHeaders: details.requestHeaders};
     } else {
       return {};
@@ -233,13 +235,17 @@ function onBeforeSendHeaders(details) {
     let newHeaders = details.requestHeaders.filter(function (header) {
       return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
     });
-    newHeaders.push({name: "DNT", value: "1"});
+    if (badger.isDNTEnabled()) {
+      newHeaders.push({name: "DNT", value: "1"});
+    }
     return {requestHeaders: newHeaders};
   }
 
   // if we are here, we're looking at a third party
   // that's not yet blocked or cookieblocked
-  details.requestHeaders.push({name: "DNT", value: "1"});
+  if (badger.isDNTEnabled()) {
+    details.requestHeaders.push({name: "DNT", value: "1"});
+  }
   return {requestHeaders: details.requestHeaders};
 }
 
