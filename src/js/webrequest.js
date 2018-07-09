@@ -782,7 +782,8 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
 
     sendResponse();
-  } else if (request.type == "checkDNT") {
+
+  } else if (request.checkDNT) {
     // called from contentscripts/dnt.js to check if we should enable it
     sendResponse(
       badger.isDNTSignalEnabled()
