@@ -323,7 +323,7 @@ function updateSocialWidgetReplacement() {
  */
 function updateDNTCheckboxClicked() {
   const enabled = $("#enable_dnt_checkbox").prop("checked");
-  
+
   chrome.runtime.sendMessage({
     type: "updateSettings",
     data: {
