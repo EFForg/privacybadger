@@ -21,6 +21,7 @@ rules:
     - self
   curly: error
   dot-notation: warn
+  eol-last: warn
   indent:
     - error
     - 2
