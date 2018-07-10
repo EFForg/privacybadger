@@ -192,7 +192,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Disabled Sites",
+        "message": "Deaktivierte Websites",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -328,7 +328,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here.<br><br>If you think Privacy Badger is breaking a page, you can type that page's domain in the box below and click the \"Add domain\" button.<br><br>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.",
+        "message": "Privacy Badger ist für die nachfolgenden Sites deaktiviert. Privacy Badger wird also nichts blocken, wenn Sie die hier aufgeführten Websites besuchen.<br><br>Falls Sie annehmen, dass aufgrund Privacy Badger eine Seite falsch dargestellt wird, so können Sie die Domain dieser Seite in dem Feld unten eingeben und auf die Schaltfläche »Domain hinzufügen« klicken.<br><br>Falls Sie den Tab der Seite bereits ausgewählt haben, so können Sie aber auch einfach auf Privacy Badgers Schaltfläche in der Browsersymbolleiste und dann dort auf die Schaltfäche »Deaktivieren« klicken.",
         "description": ""
     },
     "pb_detected": {
