@@ -230,7 +230,8 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def test_first_party_dnt_header(self):
         TEST_URL = "https://httpbin.org/get"
-        headers = retry_until(partial(self.get_first_party_headers, TEST_URL))
+        headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
+                              times=8)
         self.assertTrue(headers is not None, "It seems we failed to get DNT headers")
         self.assertIn('Dnt', headers, "DNT header should have been present")
         self.assertEqual(headers['Dnt'], "1",
@@ -239,7 +240,8 @@ class DNTTest(pbtest.PBSeleniumTest):
     def test_no_dnt_header_when_disabled(self):
         TEST_URL = "https://httpbin.org/get"
         self.disable_badger_on_site(TEST_URL)
-        headers = retry_until(partial(self.get_first_party_headers, TEST_URL))
+        headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
+                              times=8)
         self.assertTrue(headers is not None, "It seems we failed to get DNT headers")
         self.assertNotIn('Dnt', headers, "DNT header should have been missing")
 
