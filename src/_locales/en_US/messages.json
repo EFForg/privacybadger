@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a> signal",
+        "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_dnt_policy_setting": {

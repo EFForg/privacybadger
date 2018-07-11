@@ -613,9 +613,6 @@ Badger.prototype = {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
-  /**
-   * Check if social widget replacement functionality is enabled
-   */
   isDNTSignalEnabled: function() {
     return this.getSettings().getItem("sendDNTSignal");
   },
