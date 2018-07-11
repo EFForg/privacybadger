@@ -436,10 +436,8 @@ tile2.opencyclemap.org
 openlayers.org
 openlibrary.org
 openload.co
-nominatim.openstreetmap.org
 tile.openstreetmap.fr
-tile.openstreetmap.org
-www.openstreetmap.org
+openstreetmap.org
 optimizely.com
 oregonlive.com
 outlook.com
