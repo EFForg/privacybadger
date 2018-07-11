@@ -23,6 +23,10 @@
         "message": "Currently Privacy Badger only checks if third parties are using cookies, HTML5 local storage, or canvas fingerprinting to track your browsing. Some of these domains may be using tracking methods that Privacy Badger can't detect.",
         "description": ""
     },
+    "options_enable_dnt_checkbox": {
+        "message": "Send the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a> signal",
+        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
     "options_dnt_policy_setting": {
         "message": "Check if sites comply with EFF's Do Not Track policy",
         "description": "Checkbox label on the general settings page"
