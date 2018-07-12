@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Kontroli ĉu retejoj kongruas kun politiko de nespurado de EFF",
+        "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -53,10 +53,6 @@
     },
     "dnt_tooltip": {
         "message": "Tiu ĉi nomregno promesas al vi ne spuri.",
-        "description": ""
-    },
-    "options_dnt_policy_learn_more": {
-        "message": "Pli da informo",
         "description": ""
     },
     "next_section": {

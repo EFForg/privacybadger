@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "检查网站是否符合 EFF 的 Do Not Track 政策",
+        "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -53,10 +53,6 @@
     },
     "dnt_tooltip": {
         "message": "这个域名承诺不会追踪你",
-        "description": ""
-    },
-    "options_dnt_policy_learn_more": {
-        "message": "了解更多",
         "description": ""
     },
     "next_section": {
