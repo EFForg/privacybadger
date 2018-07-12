@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
+        "message": "Проверять соблюдают ли <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>сторонние домены</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>политику конфиденциальности EFF \"Do Not Track\"</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -104,7 +104,7 @@
         "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
-        "message": "Домены с отслеживающей активностью",
+        "message": "Домены Трекеров",
         "description": "This is an options page tab heading."
     },
     "share_button_title_twitter": {
@@ -188,7 +188,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Disabled Sites",
+        "message": "Отключенные Сайты",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
