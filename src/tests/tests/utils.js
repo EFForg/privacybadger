@@ -68,14 +68,22 @@
 
     // whitelist wildcard cases
     badger.disablePrivacyBadgerForOrigin('*.mail.example.com');
-    assert.ok(badger.isPrivacyBadgerEnabled('www.example.com'), "enabled for site");
-    assert.ok(badger.isPrivacyBadgerEnabled('web.stuff.example.com'), "enabled for site");
-    assert.ok(!badger.isPrivacyBadgerEnabled('web.mail.example.com'), "disabled for site");
-
-    badger.disablePrivacyBadgerForOrigin('*.fakedomain.com');
-    assert.ok(!badger.isPrivacyBadgerEnabled('www.fakedomain.com'), "disabled for site");
-    assert.ok(!badger.isPrivacyBadgerEnabled('web.mail.fakedomain.com'), "disabled for site");
-    assert.ok(badger.isPrivacyBadgerEnabled('fakedomain.hello.example.com'), "enabled for site");
+    assert.ok(
+      badger.isPrivacyBadgerEnabled('www.example.com'),
+      "Ignores cases without as many subdomains as the wildcard."
+    );
+    assert.ok(
+      badger.isPrivacyBadgerEnabled('web.stuff.example.com'),
+      "Ignores cases where subdomains do not match the wildcard."
+    );
+    assert.notOk(
+      badger.isPrivacyBadgerEnabled('web.mail.example.com'),
+      "Website matches wildcard pattern."
+    );
+    assert.notOk(
+      badger.isPrivacyBadgerEnabled('stuff.fakedomain.web.mail.example.com'),
+      "Wildcard catches all prefacing subdomains."
+    );
   });
 
   QUnit.test("disable/enable privacy badger for origin", function (assert) {
