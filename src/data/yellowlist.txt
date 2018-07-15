@@ -190,6 +190,7 @@ fling.com
 flowplayer.org
 flyertown.ca
 adm.fwmrm.net
+fontawesome.com
 fontdeck.com
 fonts.com
 fonts.net
@@ -436,9 +437,8 @@ tile2.opencyclemap.org
 openlayers.org
 openlibrary.org
 openload.co
-nominatim.openstreetmap.org
 tile.openstreetmap.fr
-tile.openstreetmap.org
+openstreetmap.org
 optimizely.com
 oregonlive.com
 outlook.com
@@ -482,6 +482,7 @@ images.rapgenius.com
 readability.com
 readthedocs.org
 recaptcha.net
+recurly.com
 reddit.com
 redditmedia.com
 redditstatic.com
@@ -603,6 +604,7 @@ weather.gov
 weatherbug.com
 weathernationtv.com
 weatherzone.com.au
+webflow.com
 webs.com
 websimages.com
 webtype.com

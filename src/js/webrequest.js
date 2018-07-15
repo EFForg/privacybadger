@@ -172,7 +172,9 @@ function onBeforeSendHeaders(details) {
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
     if (badger.isPrivacyBadgerEnabled(tabDomain)) {
       // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-      details.requestHeaders.push({name: "DNT", value: "1"});
+      if (badger.isDNTSignalEnabled()) {
+        details.requestHeaders.push({name: "DNT", value: "1"});
+      }
       return {requestHeaders: details.requestHeaders};
     } else {
       return {};
@@ -233,13 +235,17 @@ function onBeforeSendHeaders(details) {
     let newHeaders = details.requestHeaders.filter(function (header) {
       return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
     });
-    newHeaders.push({name: "DNT", value: "1"});
+    if (badger.isDNTSignalEnabled()) {
+      newHeaders.push({name: "DNT", value: "1"});
+    }
     return {requestHeaders: newHeaders};
   }
 
   // if we are here, we're looking at a third party
   // that's not yet blocked or cookieblocked
-  details.requestHeaders.push({name: "DNT", value: "1"});
+  if (badger.isDNTSignalEnabled()) {
+    details.requestHeaders.push({name: "DNT", value: "1"});
+  }
   return {requestHeaders: details.requestHeaders};
 }
 
@@ -776,6 +782,15 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
 
     sendResponse();
+
+  } else if (request.checkDNT) {
+    // called from contentscripts/dnt.js to check if we should enable it
+    sendResponse(
+      badger.isDNTSignalEnabled()
+      && badger.isPrivacyBadgerEnabled(
+        window.extractHostFromURL(sender.tab.url)
+      )
+    );
   }
 }
 

@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Kontroli ĉu retejoj kongruas kun politiko de nespurado de EFF",
+        "message": "Kontroli ĉu <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>eksteraj domajnoj</a> kongruas kun <a target='_blank' href='https://www.eff.org/dnt-policy'>politiko pri nespurado de EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -55,10 +55,6 @@
         "message": "Tiu ĉi nomregno promesas al vi ne spuri.",
         "description": ""
     },
-    "options_dnt_policy_learn_more": {
-        "message": "Pli da informo",
-        "description": ""
-    },
     "next_section": {
         "message": "antaŭen",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
@@ -77,7 +73,7 @@
     },
     "whitelist_form_domain_input_placeholder": {
         "message": "ekz. www.nomregno.com, *.nomregno.net, nomregno.org",
-        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Klaku tie ĉi por bloki tiun ĉi nomregnon de agordi kuketojn",
@@ -192,7 +188,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Ekskluzivaj nomregnoj",
+        "message": "Neblokataj nomregnoj",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -323,12 +319,16 @@
         "message": "Movu la ŝovilon maldekstren por bloki nomregnon.",
         "description": ""
     },
+    "options_enable_dnt_checkbox": {
+        "message": "Sendi al retejoj la signalon <a href='https://www.eff.org/issues/do-not-track' target='_blank'>“Ne Spuri Min” (DNT)</a>",
+        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "uzant-kontrolitaj",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privata Melo estas malaktivigita por la subaj nomregnoj. Vi povas aldoni nomregnon aŭ per la piktogramo de Privata Melo sur la retumila ilarstrio aŭ per entajpi nomregnon en la kampon sube kaj klaki la butonon “aldoni nomregnon”.",
+        "message": "Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn.<br><br>Se viaopinie Privata Melo difektas iun retpaĝon, vi povas entajpi ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.<br><br>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la piktogramon de Privata Melo sur la folumila ilarstrio kaj klaku la butonon “malaktivigi”.",
         "description": ""
     },
     "pb_detected": {

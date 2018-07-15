@@ -456,9 +456,10 @@ Badger.prototype = {
     learnInIncognito: false,
     migrationLevel: 0,
     seenComic: false,
+    sendDNTSignal: true,
     showCounter: true,
     showTrackingDomains: false,
-    socialWidgetReplacementEnabled: true,
+    socialWidgetReplacementEnabled: true
   },
 
   /**
@@ -614,6 +615,10 @@ Badger.prototype = {
    */
   isSocialWidgetReplacementEnabled: function() {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
+  },
+
+  isDNTSignalEnabled: function() {
+    return this.getSettings().getItem("sendDNTSignal");
   },
 
   isCheckingDNTPolicyEnabled: function() {

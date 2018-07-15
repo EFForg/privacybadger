@@ -114,8 +114,10 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
+  $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
+  $("#enable_dnt_checkbox").prop("checked", badger.isDNTSignalEnabled());
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
-  $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled());
+  $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled()).prop("disabled", !badger.isDNTSignalEnabled());
 
   if (badger.webRTCAvailable) {
     $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
@@ -314,6 +316,23 @@ function updateSocialWidgetReplacement() {
       socialWidgetReplacementEnabled: enabled
     }
   });
+}
+
+/**
+ * Update DNT checkbox clicked
+ */
+function updateDNTCheckboxClicked() {
+  const enabled = $("#enable_dnt_checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      sendDNTSignal: enabled
+    }
+  });
+
+  $("#check_dnt_policy_checkbox").prop("checked", enabled).prop("disabled", !enabled);
+  updateCheckingDNTPolicy();
 }
 
 function updateCheckingDNTPolicy() {

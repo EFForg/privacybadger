@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Kontrollera om webbplatser överensstämmer med EFF:s Speja inte (DNT) policy",
+        "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -55,10 +55,6 @@
         "message": "Denna domän lovar att inte speja på dig",
         "description": ""
     },
-    "options_dnt_policy_learn_more": {
-        "message": "Lär dig mer",
-        "description": ""
-    },
     "next_section": {
         "message": "nästa avsnitt",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
@@ -77,7 +73,7 @@
     },
     "whitelist_form_domain_input_placeholder": {
         "message": "t.ex. www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Klicka här för att blockera den här domänen från lägga kakor",
@@ -192,7 +188,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Vitlistade domäner",
+        "message": "Disabled Sites",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -323,12 +319,16 @@
         "message": "Flytta skjutreglaget till vänster för att blockera en domän",
         "description": ""
     },
+    "options_enable_dnt_checkbox": {
+        "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
+        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "användarstyrd",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger är inaktiverad för domänerna som anges nedan. Du kan lägga till en domän antingen via ikonen Privacy Badger i webbläsarverktygsfältet eller genom att skriva domänen i rutan nedan och klicka på knappen \"Lägg till domän\".",
+        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here.<br><br>If you think Privacy Badger is breaking a page, you can type that page's domain in the box below and click the \"Add domain\" button.<br><br>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.",
         "description": ""
     },
     "pb_detected": {

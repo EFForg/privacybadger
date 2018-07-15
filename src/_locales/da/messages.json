@@ -24,7 +24,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Tjek om netsteder overholder EFF's Spor Ikke-politik",
+        "message": "Tjek om <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tredjepartsdomæner</a> overholder <a target='_blank' href='https://www.eff.org/dnt-policy'>EFFs \"Spor Ikke\"-politik</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -55,10 +55,6 @@
         "message": "Dette domæne lover ikke at spore dig",
         "description": ""
     },
-    "options_dnt_policy_learn_more": {
-        "message": "Lær mere",
-        "description": ""
-    },
     "next_section": {
         "message": "næste sektion",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
@@ -77,7 +73,7 @@
     },
     "whitelist_form_domain_input_placeholder": {
         "message": "fx www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Klik her for at blokere dette domæne fra at sætte cookies",
@@ -192,7 +188,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Hvidlistede Domæner",
+        "message": "Deaktiverede Steder",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -323,12 +319,16 @@
         "message": "Flyt skyderen til venstre for at blokere et domæne",
         "description": ""
     },
+    "options_enable_dnt_checkbox": {
+        "message": "Send netsteder signalet \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spor Ikke</a>\"",
+        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "brugerstyret",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger er deaktiveret for domænerne listet herunder. Du kan tilføje et domæne enten via Privacy Badger-ikonet i din netlæsers værktøjsbjælke, eller ved at indtaste domænet i indtastningslinjen og klikke på knappen \"Tilføj domæne\".",
+        "message": "Privacy Badger er deaktiveret på de følgende steder. Det betyder at Privacy Badger ikke vil blokere noget når du besøger stederne listet her. <br><br>Hvis du tror Privacy Badger ødelægger en side, kan du skrive sidens domæne i feltet nedenunder og klikke på knappen \"Tilføj domæne\".<br><br>Alternativt, når du allerede har sidens faneblad valgt, kan du blot klikke på Privacy Badgers knap i browserens værktøjslinje, og derefter klikke på knappen \"Deaktiver\".",
         "description": ""
     },
     "pb_detected": {
