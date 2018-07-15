@@ -595,7 +595,7 @@ Badger.prototype = {
         var site = disabledSites[i];
 
         if (site.startsWith("*")) {
-          var wildcard = site.slice(2); // remove "*."
+          var wildcard = site.slice(1); // remove "*"
           
           if (origin.endsWith(wildcard)) {
             return false;

@@ -84,6 +84,10 @@
       badger.isPrivacyBadgerEnabled('stuff.fakedomain.web.mail.example.com'),
       "Wildcard catches all prefacing subdomains."
     );
+    assert.ok(
+      badger.isPrivacyBadgerEnabled('mail.example.com'),
+      "Checks against URLs that lack a starting dot."
+    );
   });
 
   QUnit.test("disable/enable privacy badger for origin", function (assert) {
