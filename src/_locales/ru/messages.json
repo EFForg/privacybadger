@@ -104,7 +104,7 @@
         "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
-        "message": "Домены Трекеров",
+        "message": "Домены трекеров",
         "description": "This is an options page tab heading."
     },
     "share_button_title_twitter": {
@@ -188,7 +188,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Отключенные Сайты",
+        "message": "Отключенные сайты",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
