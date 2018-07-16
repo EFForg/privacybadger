@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Blocked ",
-        "description": ""
+        "message": "Blocked $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Invalid JSON file.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
-        "description": ""
+        "message": "No tracking for $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Currently Privacy Badger only checks if third parties are using cookies, HTML5 local storage, or canvas fingerprinting to track your browsing. Some of these domains may be using tracking methods that Privacy Badger can't detect.",
@@ -142,8 +154,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Allowed ",
-        "description": ""
+        "message": "Allowed $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "What is Privacy Badger?",
@@ -230,8 +248,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Blocked cookies from ",
-        "description": ""
+        "message": "Blocked cookies from $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Loading...",
