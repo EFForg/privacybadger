@@ -459,8 +459,6 @@ function reloadTrackingDomainsTab() {
   var allTrackingDomains = getOriginsArray(originCache);
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
-    $("#pb_has_detected").hide();
-    $("#count").hide();
     $("#options_domain_list_trackers").hide();
     $("#options_domain_list_one_tracker").hide();
 
@@ -480,18 +478,19 @@ function reloadTrackingDomainsTab() {
   $("#tracking-domains-div").show();
 
   // Update messages according to tracking domain count.
-  if (allTrackingDomains.length === 1) {
+  if (allTrackingDomains.length == 1) {
     // leave out messages about multiple trackers
-    $("#pb_has_detected").hide();
-    $("#count").hide();
     $("#options_domain_list_trackers").hide();
 
     // show singular "tracker" message
     $("#options_domain_list_one_tracker").show();
   } else {
-    $("#pb_has_detected").show();
-    $("#count").text(allTrackingDomains.length).show();
-    $("#options_domain_list_trackers").show();
+    $("#options_domain_list_trackers").html(i18n.getMessage(
+      "options_domain_list_trackers", [
+        allTrackingDomains.length,
+        "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+      ]
+    )).show();
   }
 
   // Get containing HTML for domain list along with toggle legend icons.

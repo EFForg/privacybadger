@@ -1,11 +1,23 @@
 {
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger has replaced this ",
-        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+        "message": "Privacy Badger has replaced this $BUTTON$ button.",
+        "description": "Tooltip shown over a replaced social button.",
+        "placeholders": {
+            "button": {
+                "content": "$1",
+                "example": "Facebook Like"
+            }
+        }
     },
     "badger_status_block": {
-        "message": "Blokkert ",
-        "description": ""
+        "message": "Blokkert $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Ugyldig JSON-fil.",
@@ -16,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
-        "description": ""
+        "message": "No tracking for $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Personvernsgrevlingen sjekker for tiden bare om tredjeparter bruker kaker, lokal lagring i HTML5, eller lerret-fingeravtrykk for å spore din nettleserhistorikk. Det kan hende noen av disse domenene gjør bruk av metoder som ikke  oppdages av Personvernsgrevlingen.",
@@ -80,8 +98,21 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
-        "description": "Continuation of the popup message that shows number of trackers"
+        "message": "Privacy Badger detected $COUNT$ potential $TRACKER_LINK_START$trackers$TRACKER_LINK_END$ on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
+        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "options_domain_filter_block": {
         "message": "blocked",
@@ -140,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Tillatt ",
-        "description": ""
+        "message": "Tillatt $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Hva er Personvernsgrevlingen?",
@@ -170,14 +207,6 @@
     "options_title": {
         "message": "Valg for Personvernsgrevlingen",
         "description": ""
-    },
-    "options_pb_has_detected": {
-        "message": "Personvernsgrevlingen har oppdaget",
-        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
-    "social_tooltip_button": {
-        "message": " button.",
-        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "report_terms": {
         "message": "Dette vil automatisk sende følgende informasjon til EFF: Siden du besøker, nettleserversjon, versjonen av Personvernsgrevlingen du bruker, samt alle glidebryterinnstillingene for denne siden.",
@@ -232,8 +261,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Blokkerte kaker fra ",
-        "description": ""
+        "message": "Blokkerte kaker fra $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Laster inn…",
@@ -331,10 +366,6 @@
         "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here.<br><br>If you think Privacy Badger is breaking a page, you can type that page's domain in the box below and click the \"Add domain\" button.<br><br>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.",
         "description": ""
     },
-    "pb_detected": {
-        "message": "Personvernsgrevling oppdaget",
-        "description": "Beginning of popup message that shows the number of trackers."
-    },
     "intro_by_eff": {
         "message": "Et av Electronic Frontier Foundations prosjekter",
         "description": ""
@@ -368,8 +399,21 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far. These sliders let you control how Privacy Badger handles each tracker.",
-        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+        "message": "Privacy Badger has detected $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far. These sliders let you control how Privacy Badger handles each tracker.",
+        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "name": {
         "message": "Personvernsgrevlingen",
