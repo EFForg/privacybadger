@@ -86,8 +86,21 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "在此頁面上的潛在<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤器</a>。這些滑桿讓您可以控制 Privacy Badger 如何處理每個追蹤器。除非有某些東西壞掉了，否則您應該不需要調整這些滑桿。",
-        "description": "Continuation of the popup message that shows number of trackers"
+        "message": "Privacy Badger 偵測到這個網站上有 $COUNT$ 在此頁面上的潛在$TRACKER_LINK_START$追蹤器$TRACKER_LINK_END$。這些滑桿讓您可以控制 Privacy Badger 如何處理每個追蹤器。除非有某些東西壞掉了，否則您應該不需要調整這些滑桿。",
+        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "options_domain_filter_block": {
         "message": "已阻擋",
@@ -332,10 +345,6 @@
     "disabled_for_these_domains": {
         "message": "Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西。<br><br>若您覺得 Privacy Badger 把頁面弄壞了，您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。<br><br>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。",
         "description": ""
-    },
-    "pb_detected": {
-        "message": "Privacy Badger 偵測到這個網站上有",
-        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "EFF 電子前鋒基金會的專案",

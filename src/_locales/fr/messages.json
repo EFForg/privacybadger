@@ -86,8 +86,21 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>traceurs</a> potentiels sur cette page. Ces curseurs vous permettent de modifier la façon dont ils sont gérés. Vous ne devriez pas avoir besoin de les modifier à moins d'un site non fonctionnel.",
-        "description": "Continuation of the popup message that shows number of trackers"
+        "message": "Privacy Badger a détecté $COUNT$ $TRACKER_LINK_START$traceurs$TRACKER_LINK_END$ potentiels sur cette page. Ces curseurs vous permettent de modifier la façon dont ils sont gérés. Vous ne devriez pas avoir besoin de les modifier à moins d'un site non fonctionnel.",
+        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "options_domain_filter_block": {
         "message": "bloqués",
@@ -332,10 +345,6 @@
     "disabled_for_these_domains": {
         "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here.<br><br>If you think Privacy Badger is breaking a page, you can type that page's domain in the box below and click the \"Add domain\" button.<br><br>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.",
         "description": ""
-    },
-    "pb_detected": {
-        "message": "Privacy Badger a détecté",
-        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "Un projet de l'Electronic Frontier Foundation",
