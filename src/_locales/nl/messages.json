@@ -208,10 +208,6 @@
         "message": "Privacy Badger-opties",
         "description": ""
     },
-    "options_pb_has_detected": {
-        "message": "Privacy Badger heeft",
-        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
     "report_terms": {
         "message": "De volgende informatie wordt automatisch naar EFF verzonden: de huidige webpagina, de versie van uw browser, de versie van Privacy Badger en de stand van de schuifbalkjes voor de huidige webpagina.",
         "description": ""
@@ -403,8 +399,21 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "mogelijke <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackingdomeinen</a> gedetecteerd. Met deze schuifbalkjes kunt u bepalen hoe Privacy Badger met elke tracker omgaat.",
-        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+        "message": "Privacy Badger heeft $COUNT$ mogelijke $TRACKER_LINK_START$trackingdomeinen$TRACKER_LINK_END$ gedetecteerd. Met deze schuifbalkjes kunt u bepalen hoe Privacy Badger met elke tracker omgaat.",
+        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "name": {
         "message": "Privacy Badger",

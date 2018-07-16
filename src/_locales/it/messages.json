@@ -208,10 +208,6 @@
         "message": "Opzioni di Privacy Badger",
         "description": ""
     },
-    "options_pb_has_detected": {
-        "message": "Sono stati rilevati",
-        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
     "report_terms": {
         "message": "Verranno inviate automaticamente le seguenti informazioni alla EFF: il sito che stai visitando, la versione del browser, la versione di Privacy Badger e lo stato di tutti i pulsanti per questo sito.",
         "description": ""
@@ -403,8 +399,21 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "potenziali <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domini traccianti</a> finora. Con questi pulsanti puoi controllare come Privacy Badger tratta ogni tracker.",
-        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+        "message": "Sono stati rilevati $COUNT$ potenziali $TRACKER_LINK_START$domini traccianti$TRACKER_LINK_END$ finora. Con questi pulsanti puoi controllare come Privacy Badger tratta ogni tracker.",
+        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "name": {
         "message": "Privacy Badger",

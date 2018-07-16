@@ -208,10 +208,6 @@
         "message": "Opciones de Privacy Badger",
         "description": ""
     },
-    "options_pb_has_detected": {
-        "message": "Privacy Badger ha detectado",
-        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
     "report_terms": {
         "message": "Esto enviará automáticamente la siguiente información a la EFF: el sitio que estás visitando actualmente, tu versión del navegador, la versión de Privacy Badger, y el estado de los controles deslizantes para este sitio.",
         "description": ""
@@ -403,8 +399,21 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": " <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominios rastreadores</a> potenciales al momento. Las barras te permiten controlar lo que Privacy Badger hace con cada uno.",
-        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+        "message": "Privacy Badger ha detectado $COUNT$ $TRACKER_LINK_START$dominios rastreadores$TRACKER_LINK_END$ potenciales al momento. Las barras te permiten controlar lo que Privacy Badger hace con cada uno.",
+        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "name": {
         "message": "Privacy Badger",

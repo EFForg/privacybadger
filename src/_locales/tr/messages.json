@@ -208,10 +208,6 @@
         "message": "Privacy Badger Seçenekleri",
         "description": ""
     },
-    "options_pb_has_detected": {
-        "message": "Privacy Badger şu ana dek ",
-        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
     "report_terms": {
         "message": "Bu EFF'ye otomatik olarak şu bilgileri gönderecek: şu an ziyaret ettiğin site, tarayıcı sürümün, Privacy Badger versiyonun, ve bu site için bütün kaydırıcıların durumu.",
         "description": ""
@@ -403,8 +399,21 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "tane potansiyel <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>takipçi adres</a> buldu. Bu kaydırıcılar Privacy Badger'in her biriyle nasıl başa çıkacağını ayarlamanızı sağlar.",
-        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+        "message": "Privacy Badger şu ana dek $COUNT$ tane potansiyel $TRACKER_LINK_START$takipçi adres$TRACKER_LINK_END$ buldu. Bu kaydırıcılar Privacy Badger'in her biriyle nasıl başa çıkacağını ayarlamanızı sağlar.",
+        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "name": {
         "message": "Privacy Badger",
