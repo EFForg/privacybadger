@@ -99,10 +99,6 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.assertFalse(
             self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
         self.assertFalse(
-            self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("count").is_displayed(), error_message)
-        self.assertFalse(
             self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
 
         # Check that origin is displayed.
@@ -127,20 +123,18 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
         error_message = "Only the 'multiple tracker' messages should be displayed after adding 2 origins"
         self.assertTrue(
-            self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
-        self.assertTrue(
-            self.driver.find_element_by_id("count").is_displayed(), error_message)
-        self.assertTrue(
             self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
         self.assertFalse(
             self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
         self.assertFalse(
             self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
 
-        # Check tracker count.
-        error_message = "Origin tracker count should be 2 after adding origin"
+        # check tracker count
         self.assertEqual(
-            self.driver.find_element_by_id("count").text, "2", error_message)
+            self.driver.find_element_by_id("options_domain_list_trackers").text,
+            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Origin tracker count should be 2 after adding origin"
+        )
 
         # Check those origins are displayed.
         origins = self.driver.find_element_by_id("blockedResourcesInner")
@@ -190,10 +184,6 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         error_message = "Only the 'no trackers' message should be displayed before adding an origin"
         self.assertFalse(
             self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("count").is_displayed(), error_message)
         self.assertFalse(
             self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
 
