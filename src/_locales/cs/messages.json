@@ -1,7 +1,13 @@
 {
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger nahradil toto ",
-        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+        "message": "Privacy Badger nahradil toto $BUTTON$ tlačítko.",
+        "description": "Tooltip shown over a replaced social button.",
+        "placeholders": {
+            "button": {
+                "example": "Facebook Like",
+                "content": "$1"
+            }
+        }
     },
     "badger_status_block": {
         "message": "Blokováno ",
@@ -174,10 +180,6 @@
     "options_pb_has_detected": {
         "message": "Privacy Badger do této doby detekoval",
         "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
-    "social_tooltip_button": {
-        "message": " tlačítko.",
-        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "report_terms": {
         "message": "Následující informace budou automaticky odeslány do EFF: stránka na které se nacházíte, verze vašeho prohlížeče, verze Privacy Badger a nastavení všech posuvníků pro tuto stránku.",

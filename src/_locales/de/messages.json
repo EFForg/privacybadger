@@ -1,7 +1,13 @@
 {
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger hat diese ",
-        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+        "message": "Privacy Badger hat diese $BUTTON$-Schaltfläche ersetzt.",
+        "description": "Tooltip shown over a replaced social button.",
+        "placeholders": {
+            "button": {
+                "example": "Facebook Like",
+                "content": "$1"
+            }
+        }
     },
     "badger_status_block": {
         "message": "Geblockt",
@@ -174,10 +180,6 @@
     "options_pb_has_detected": {
         "message": "Privacy Badger hat bisher",
         "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
-    "social_tooltip_button": {
-        "message": "-Schaltfläche ersetzt.",
-        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
     },
     "report_terms": {
         "message": "Dies wird folgende Informationen automatisch an die EFF senden: Die von Ihnen derzeit besuchte Website, Ihre Browserversion, die Version von Privacy Badger und den Status aller Schieberegler für diese Website.",
