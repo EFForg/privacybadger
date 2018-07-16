@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Блокирах ",
-        "description": ""
+        "message": "Блокирах $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Невалиден JSON файл.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Няма преследвачи в ",
-        "description": ""
+        "message": "Няма преследвачи в $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Засега Privacy Badger проверява само дали трети страни ползват бисквитки, локалната памет на HTML5, или canvas fingerprinting, за да те следят. Някои от тези домейни може би използват други начини за следене, които Privacy Badger не може да засече.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Разреших ",
-        "description": ""
+        "message": "Разреших $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Какво е Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Блокирах бисквитки от ",
-        "description": ""
+        "message": "Блокирах бисквитки от $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Зареждам...",

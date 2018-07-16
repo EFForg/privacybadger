@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Blocage de ",
-        "description": ""
+        "message": "Blocage de $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Fichier JSON invalide.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Pas de traçage de la part de ",
-        "description": ""
+        "message": "Pas de traçage de la part de $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "À ce jour, Privacy Badger vérifie seulement si un tiers se sert de cookies, du stockage HTML5 local ou de l'empreinte par canvas pour épier votre navigation. Il se peut que d'autres méthodes non détectées soient utilisées.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Autorisation de ",
-        "description": ""
+        "message": "Autorisation de $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Qu'est-ce que Privacy Badger ?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Blocage des cookies de ",
-        "description": ""
+        "message": "Blocage des cookies de $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Chargement...",

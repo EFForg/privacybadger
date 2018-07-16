@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Заблокирован ",
-        "description": ""
+        "message": "Заблокирован $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Неверный файл JSON.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Нет отслеживающей активности на",
-        "description": ""
+        "message": "Нет отслеживающей активности на $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "На данный момент Privacy Badger проверяет только использование сторонних файлов cookie, локального хранилища HTML5 или метода canvas fingerprinting для отслеживания вашей сетевой активности. Некоторые домены могут использовать методы отслеживания, которые Privacy Badger не может обнаружить.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Разрешен ",
-        "description": ""
+        "message": "Разрешен $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Что такое Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Заблокированы файлы cookie домена ",
-        "description": ""
+        "message": "Заблокированы файлы cookie от $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Загрузка...",

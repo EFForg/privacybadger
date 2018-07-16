@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Geblokkeerd ",
-        "description": ""
+        "message": "Geblokkeerd $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Ongeldig JSON-bestand.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Geen tracking voor ",
-        "description": ""
+        "message": "Geen tracking voor $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Momenteel controleert Privacy Badger alleen of derde partijen cookies, HTML5 lokale opslag of canvas fingerprinting gebruiken om uw surfgedrag te volgen. Sommige van deze domeinen gebruiken wellicht trackingmethoden die Privacy Badger (nog) niet detecteert.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Toegestaan ",
-        "description": ""
+        "message": "Toegestaan $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Wat is Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Cookies geblokkeerd van ",
-        "description": ""
+        "message": "Cookies geblokkeerd van $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Laden...",

@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Zablokowany",
-        "description": ""
+        "message": "Zablokowany $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Nieprawidłowy plik JSON.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Nie szpieguje",
-        "description": ""
+        "message": "Nie szpieguje $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Obecnie Privacy Badger sprawdza tylko czy strony trzecie używają ciasteczek, pamięci podręcznej HTML5 lub odcisku palca canvas, aby śledzić Twoją historię przeglądania. Niektóre z tych domen mogą śledzić metodami, których Privacy Badger nie potrafi wykryć.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Odblokowany",
-        "description": ""
+        "message": "Odblokowany $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Czym jest Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Zablokowano ciasteczka z",
-        "description": ""
+        "message": "Zablokowano ciasteczka z $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Ładowanie…",

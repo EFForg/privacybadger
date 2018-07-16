@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Blokováno ",
-        "description": ""
+        "message": "Blokováno $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Neplatný soubor JSON.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Žádné sledovací prvky pro ",
-        "description": ""
+        "message": "Žádné sledovací prvky pro $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "V současnosti kontroluje Privacy Badger pouze soubory cookies třetích stran, lokální úložiště HTML5 a canvas fingerprinting, jestli nesledují vaše procházení. Některé domény mohou používat metody, které Privacy Badger prozatím nedokáže detekovat.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Povoleno ",
-        "description": ""
+        "message": "Povoleno $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Co je to Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Blokovány soubory cookies od ",
-        "description": ""
+        "message": "Blokovány soubory cookies od $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Načítání...",

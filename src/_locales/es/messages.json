@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Este rastreador está BLOQUEADO, desliza para desbloquear el rastreador o bloquear las cookies.",
-        "description": ""
+        "message": "Blocked $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Archivo JSON invalido.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Sin rastreo de ",
-        "description": ""
+        "message": "Sin rastreo de $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Actualmente Privacy Badger sólo comprueba si terceras partes utilizan cookies, almacenamiento local HTML5, o huella digital del escritorio para rastrear tu navegador. Algunos de estos dominios pueden estar usando métodos de rastreo que Privacy Badger no puede detectar.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Este dominio está desbloqueado, desliza para bloquearlo completamento o bloquear las cookies.",
-        "description": ""
+        "message": "Allowed $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "¿Qué es Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Las cookies de este rastreador están bloqueadas, desliza para bloquear o desbloquear el rastreador.",
-        "description": ""
+        "message": "Blocked cookies from $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Cargando...",

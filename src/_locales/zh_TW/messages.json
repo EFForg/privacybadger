@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "封鎖 ",
-        "description": ""
+        "message": "封鎖 $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "無效的 JSON 檔案。",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "沒有追蹤 ",
-        "description": ""
+        "message": "沒有追蹤 $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "目前 Privacy Badger 只檢查透過第三方 cookie、HTML5 Local Storage、Canvas 指紋來追蹤您瀏覽網頁的情況。有些網域可能使用了 Privacy Badger 無法偵測的追蹤方式。",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "允許 ",
-        "description": ""
+        "message": "允許 $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Privacy Badger 是什麼？",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "封鎖此網站的 cookie ",
-        "description": ""
+        "message": "封鎖此網站的 cookie $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "載入中…",

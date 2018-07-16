@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Заблоковано ",
-        "description": ""
+        "message": "Заблоковано $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Неправильний файл JSON.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Немає стеження для",
-        "description": ""
+        "message": "Немає стеження для $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "В даний момент Privacy Badger лише перевіряє, чи сторонні елементи не використовують куки, локальне сховище HTML5, або відбиток canvas для стеження за вашим переглядом. Деякі з цих доменів можуть використовувати способи стеження, які Privacy Badger не в змозі виявити.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Дозволено ",
-        "description": ""
+        "message": "Дозволено $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Що таке Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Заблоковано куки з ",
-        "description": ""
+        "message": "Заблоковано куки з $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Завантаження...",

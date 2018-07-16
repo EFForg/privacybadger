@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Blockerade ",
-        "description": ""
+        "message": "Blockerade $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Ogiltig JSON-fil.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Ingen spejare för ",
-        "description": ""
+        "message": "Ingen spejare för $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "För närvarande kontrollerar Privacy Badger endast om tredjeparter använder kakor, HTML5-lagring eller canvas fingeravtryck för att speja på din surfning. Vissa av domänerna kan använda spejarmetoder som Privacy Badger inte kan upptäcka.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Tillät ",
-        "description": ""
+        "message": "Tillät $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Vad är Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Blockerade kakor från ",
-        "description": ""
+        "message": "Blockerade kakor från $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Laddar...",

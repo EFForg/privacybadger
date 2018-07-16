@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Bloccato ",
-        "description": ""
+        "message": "Bloccato $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "File JSON non valido.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Nessun tracciamento da ",
-        "description": ""
+        "message": "Nessun tracciamento da $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Al momento Privacy Badger sta controllando esclusivamente se terze parti stanno usando dei cookie, local storage HTML5 o il canvas fingerprinting per tracciare la navigazione. Alcuni di questi domini potrebbero utilizzare metodi di tracciamento che Privacy Badger non è in grado rilevare.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Permesso ",
-        "description": ""
+        "message": "Permesso $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Cos'è Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Cookie bloccati da ",
-        "description": ""
+        "message": "Cookie bloccati da $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Caricamento...",

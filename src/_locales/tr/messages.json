@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Engellendi ",
-        "description": ""
+        "message": "Engellendi $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Geçersiz JSON dosyası.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Takip yok ",
-        "description": ""
+        "message": "Takip yok $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Şu an Privacy Badger sadece 3. partilerin çerez, yerel HTML5 depolaması, veya tuval parmak izi kullanarak taramanızı takip edip etmediğini kontrol ediyor. Bazı adresler Privacy Badger tarafından algılanmayan yöntemler kullanıyor olabilir.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Şuna izin verildi: ",
-        "description": ""
+        "message": "Şuna izin verildi: $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Privacy Badger nedir?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Şuradan çerezler engellendi: ",
-        "description": ""
+        "message": "Şuradan çerezler engellendi: $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Yükleniyor...",

@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "屏蔽 ",
-        "description": ""
+        "message": "屏蔽 $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "无效的 JSON 文件。",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "没有追踪 ",
-        "description": ""
+        "message": "没有追踪 $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "目前隐私獾只检查跟踪浏览情况的第三方 Cookies，HTML5 local storage，和画布指纹（canvas fingerprinting）。 有些域名可能使用了隐私獾无法检测的跟踪方式。",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "允许 ",
-        "description": ""
+        "message": "允许 $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "什么是隐私獾？",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "屏蔽此网站的 cookies ",
-        "description": ""
+        "message": "屏蔽此网站的 cookies $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "加载中…",

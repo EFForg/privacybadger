@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Geblockt",
-        "description": ""
+        "message": "Geblockt $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Ungültige JSON-Datei.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Kein Tracking für",
-        "description": ""
+        "message": "Kein Tracking für $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Derzeit überprüft Privacy Badger nur, ob Drittparteien zum Verfolgen Ihres Surfverhaltens Cookies, lokalen HTML5-Speicher oder Canvas-Fingerprinting verwenden. Einige dieser Domains könnten allerdings Tracking-Methoden benutzen, die Privacy Badger nicht erkennen kann.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Erlaubt ",
-        "description": ""
+        "message": "Erlaubt $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Was ist Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Geblockte Cookies von ",
-        "description": ""
+        "message": "Geblockte Cookies von $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Lädt …",

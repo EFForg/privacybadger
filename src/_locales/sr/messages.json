@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Блокирано ",
-        "description": ""
+        "message": "Блокирано $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Неважећа JSON датотека.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
-        "description": ""
+        "message": "No tracking for $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Тренутно Privacy Badger проверава само да ли треће стране користе колачиће, HTML5 локално складиште, или метод canvas fingerprinting за праћење вашег прегледања. Неки од ових домена могу користити методе праћења које Privacy Badger не може открити.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Дозвољено ",
-        "description": ""
+        "message": "Дозвољено $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Шта је Privacy Badger?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Блокирани колачићи са ",
-        "description": ""
+        "message": "Блокирани колачићи са $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Учитавање...",

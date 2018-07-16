@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Blokita",
-        "description": ""
+        "message": "Blokita $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Malĝusta dosiero JSON.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Ne spuras por",
-        "description": ""
+        "message": "Ne spuras por $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Nune Privata Melo nur kontrolas ĉu eksteraj liverantoj uzas kuketojn, lokan konservejon HTML5 aŭ kanvasan fingrospuron por spuri vian retumadon. Iuj de tiuj nomregnoj povas uzi aliajn spurajn rimedojn, kiujn Privata Melo ne povas malkovri.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Permesata",
-        "description": ""
+        "message": "Permesata $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Kio la Privata Melo estas?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Blokitaj kuketoj el",
-        "description": ""
+        "message": "Blokitaj kuketoj el $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Ŝargado…",

@@ -10,8 +10,14 @@
         }
     },
     "badger_status_block": {
-        "message": "Blokkert ",
-        "description": ""
+        "message": "Blokkert $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Ugyldig JSON-fil.",
@@ -22,8 +28,14 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
-        "description": ""
+        "message": "No tracking for $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Personvernsgrevlingen sjekker for tiden bare om tredjeparter bruker kaker, lokal lagring i HTML5, eller lerret-fingeravtrykk for å spore din nettleserhistorikk. Det kan hende noen av disse domenene gjør bruk av metoder som ikke  oppdages av Personvernsgrevlingen.",
@@ -159,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Tillatt ",
-        "description": ""
+        "message": "Tillatt $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Hva er Personvernsgrevlingen?",
@@ -247,8 +265,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Blokkerte kaker fra ",
-        "description": ""
+        "message": "Blokkerte kaker fra $DOMAIN$",
+        "description": "",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Laster inn…",
