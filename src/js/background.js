@@ -593,11 +593,15 @@ Badger.prototype = {
     if (disabledSites && disabledSites.length > 0) {
       for (var i = 0; i < disabledSites.length; i++) {
         var site = disabledSites[i];
+
         if (site.startsWith("*")) {
-          if (window.getBaseDomain(site) === window.getBaseDomain(origin)) {
+          var wildcard = site.slice(1); // remove "*"
+
+          if (origin.endsWith(wildcard)) {
             return false;
           }
         }
+
         if (disabledSites[i] === origin) {
           return false;
         }
