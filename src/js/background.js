@@ -596,7 +596,7 @@ Badger.prototype = {
 
         if (site.startsWith("*")) {
           var wildcard = site.slice(1); // remove "*"
-          
+
           if (origin.endsWith(wildcard)) {
             return false;
           }
