@@ -24,7 +24,7 @@ def fix_locale(locale, placeholder_keys):
 
 if __name__ == '__main__':
     with open(SOURCE_LOCALE, 'r') as f:
-        source_data = json.load(f)
+        source_data = json.load(f, object_pairs_hook=OrderedDict)
 
     # get keys of locale messages with placeholders
     placeholder_keys = []

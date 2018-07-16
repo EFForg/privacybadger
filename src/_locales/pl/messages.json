@@ -4,8 +4,8 @@
         "description": "Tooltip shown over a replaced social button.",
         "placeholders": {
             "button": {
-                "example": "Facebook Like",
-                "content": "$1"
+                "content": "$1",
+                "example": "Facebook Like"
             }
         }
     },
