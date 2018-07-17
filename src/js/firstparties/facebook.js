@@ -35,8 +35,7 @@ function cleanLink(a) {
   let href = new URL(a.href).searchParams.get('u');
 
   // ensure the URL starts with HTTP or HTTPS
-  let url_regex = new RegExp(/^https?:\/\//g);
-  if (!href || !href.match(url_regex)) {
+  if (!href || !(href.startsWith("https://") || href.startsWith("http://"))) {
     // If we can't extract a good URL, abort without breaking the links
     return;
   }
