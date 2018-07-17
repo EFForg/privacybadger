@@ -42,7 +42,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Controleer of <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domeinen van derde partijen</a> voldoen aan <a target='_blank' href='https://www.eff.org/dnt-policy'>het Niet Volgen-beleid van het EFF</a>",
+        "message": "Controleer of <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domeinen van derde partijen</a> voldoen aan <a target='_blank' href='https://www.eff.org/dnt-policy'>het Niet Volgen-beleid (Do Not Track) van het EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -307,7 +307,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Onzichtbare tracking gebeurt op allerlei manieren; advertenties zijn slechts het zichtbare topje van de ijsberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>stuurt het Do Not Track-signaal</a> naar trackers om hen te verzoeken u niet te volgen. Als ze het verzoek negeren leert uw Badger ze te blokkeren, of ze nu adverteerders of andere soorten trackers zijn.",
+        "message": "Onzichtbare tracking gebeurt op allerlei manieren; advertenties zijn slechts het zichtbare topje van de ijsberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>stuurt het Niet Volgen-signaal</a> (Do Not Track) naar trackers om hen te verzoeken u niet te volgen. Als ze het verzoek negeren leert uw Badger ze te blokkeren, of ze nu adverteerders of andere soorten trackers zijn.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -355,7 +355,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Stuur websites het \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Niet volgen</a>\"-signaal",
+        "message": "Stuur websites het \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Niet volgen</a>\"-signaal (Do Not Track)",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
