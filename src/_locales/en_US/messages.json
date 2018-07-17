@@ -11,7 +11,7 @@
     },
     "badger_status_block": {
         "message": "Blocked $DOMAIN$",
-        "description": "",
+        "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
                 "content": "$1",
@@ -29,7 +29,7 @@
     },
     "badger_status_noaction": {
         "message": "No tracking for $DOMAIN$",
-        "description": "",
+        "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
                 "content": "$1",
@@ -71,7 +71,7 @@
     },
     "dnt_tooltip": {
         "message": "This domain promises to not track you",
-        "description": ""
+        "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "next_section": {
         "message": "next section",
@@ -155,7 +155,7 @@
     },
     "badger_status_allow": {
         "message": "Allowed $DOMAIN$",
-        "description": "",
+        "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
                 "content": "$1",
@@ -245,7 +245,7 @@
     },
     "badger_status_cookieblock": {
         "message": "Blocked cookies from $DOMAIN$",
-        "description": "",
+        "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
                 "content": "$1",
