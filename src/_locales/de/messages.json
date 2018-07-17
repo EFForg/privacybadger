@@ -10,7 +10,7 @@
         }
     },
     "badger_status_block": {
-        "message": "Geblockt $DOMAIN$",
+        "message": "$DOMAIN$ geblockt",
         "description": "",
         "placeholders": {
             "domain": {
@@ -46,7 +46,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "Je länger Sie mit Privacy Badger surfen, desto besser wird er Sie schützen. Wird momentan noch nichts geblockt? Das ist okay. Anstatt des Führens von Listen zu blockender Inhalte erkennt Privacy Badger Tracker automatisch, während Sie im Web surfen. Am besten beginnen Sie gleich, ein wenig zu Surfen, um Ihren Badger zu trainieren.",
+        "message": "Je länger Sie mit Privacy Badger surfen, desto besser wird er Sie schützen. Wird momentan noch nichts geblockt? Das ist okay. Anstatt des Führens von Listen zu blockender Inhalte erkennt Privacy Badger Tracker automatisch, während Sie im Web surfen. Am besten beginnen Sie gleich, ein wenig zu surfen, um Ihren Badger zu trainieren.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -151,7 +151,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "klicken, um die Kontrolle dieses Trackers an Privacy Badger zurückzugeben",
+        "message": "Klicken, um die Kontrolle dieses Trackers an Privacy Badger zurückzugeben",
         "description": ""
     },
     "import": {
@@ -171,7 +171,7 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Erlaubt $DOMAIN$",
+        "message": "$DOMAIN$ erlaubt",
         "description": "",
         "placeholders": {
             "domain": {
@@ -261,7 +261,7 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Geblockte Cookies von $DOMAIN$",
+        "message": "Cookies von $DOMAIN$ geblockt",
         "description": "",
         "placeholders": {
             "domain": {

@@ -42,7 +42,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
+        "message": "Controleer of <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domeinen van derde partijen</a> voldoen aan <a target='_blank' href='https://www.eff.org/dnt-policy'>het Niet Volgen-beleid van het EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -217,7 +217,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Disabled Sites",
+        "message": "Uitgeschakelde sites",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -241,7 +241,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Note that enabling this option may degrade performance on web conferencing apps like Google Hangouts.",
+        "message": "* WebRTC kan uw lokale IP-adres lekken. De prestaties van sommige programma's, zoals Google Hangouts, kunnen hierdoor verminderen.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
@@ -355,7 +355,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
+        "message": "Stuur websites het \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Niet volgen</a>\"-signaal",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -363,7 +363,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here.<br><br>If you think Privacy Badger is breaking a page, you can type that page's domain in the box below and click the \"Add domain\" button.<br><br>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.",
+        "message": "Privacy Badger is uitgeschakeld op de volgende websites. Dit betekent dat Privacy Badger niets zal blokkeren wanneer u de websites die hier staan bezoekt.<br><br>Als u denkt dat Privacy Badger een pagina verkeerd weergeeft, kunt u het domein van die pagina in het tekstvak hieronder typen en op de 'Voeg domein toe'-knop drukken.<br><br>U kunt ook als u de website open heeft staan op de Privacy Badger-knop klikken in de knoppenbalk en vervolgens klikken op 'Schakel Privacy Badger uit op deze webpagina'.",
         "description": ""
     },
     "intro_by_eff": {
@@ -448,7 +448,7 @@
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
-        "message": "Privacy Policy",
+        "message": "Privacybeleid",
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "options_domain_list_no_trackers": {
