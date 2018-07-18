@@ -34,9 +34,8 @@ function cleanAttrs(elem) {
 function cleanLink(a) {
   let href = new URL(a.href).searchParams.get('u');
 
-  // from https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
-  let url_regex = new RegExp(/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi);
-  if (!href || !href.match(url_regex)) {
+  // ensure the URL starts with HTTP or HTTPS
+  if (!href || !(href.startsWith("https://") || href.startsWith("http://"))) {
     // If we can't extract a good URL, abort without breaking the links
     return;
   }
