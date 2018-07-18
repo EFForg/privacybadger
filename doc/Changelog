@@ -1,5 +1,19 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.7.18
+* Added setting to disable sending Do Not Track to websites
+* Fixed security issue with link unwrapping on Facebook. Thanks to Cure53 for
+discovering and reporting this vulnerability.
+* Improved ordering of domain names in the popup and on the options page
+* Improved handling of disabled sites with wildcards
+* Added t.co link replacement to user profiles on Twitter
+* Linked to EFF software privacy policy from the new user welcome page
+* Updated to latest dummy Google Tag Manager script from uBlock Origin
+to avoid "failed to redirect a network request" warnings in Chrome
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Dutch, Esperanto, German,
+Russian, Swedish, Turkish)
+
 ## 2018.5.10
 * Added protection against outgoing link click tracking on Facebook
 * Updated WebRTC protection to revert to browser default (off) when disabled
