@@ -42,7 +42,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
+        "message": "Kontrollera om <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tredjepartsdomäner</a> rättar sig efter <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:s Spåra inte policy</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -217,7 +217,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Disabled Sites",
+        "message": "Inaktiverade webbplatser",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -307,7 +307,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Osynlig spaning sker på alla sätt; annonser är bara den synliga toppen av isberget. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>skickar signalen Speja inte (DNT)</a> till spejare som berätta för dem att inte speja på dig. Om de ignorerar dina önskemål kommer din Badger att lära sig att blockera dem - oavsett om de är annonsörer eller spejare av andra slag.",
+        "message": "Osynlig spaning sker på alla sätt; annonser är bara den synliga toppen av isberget. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>skickar signalen Speja inte (Do Not Track)</a> till spejare som berätta för dem att inte speja på dig. Om de ignorerar dina önskemål kommer din Badger att lära sig att blockera dem - oavsett om de är annonsörer eller spejare av andra slag.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -355,7 +355,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
+        "message": "Skicka \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte</a>\"-signal till webbplatser",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -363,7 +363,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here.<br><br>If you think Privacy Badger is breaking a page, you can type that page's domain in the box below and click the \"Add domain\" button.<br><br>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.",
+        "message": "Sekretess Badger är inaktiverat på följande webbplatser. Det betyder att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här.<br><br>Om du tycker att Privacy Badger bryter en sida kan du skriva in dennes domän i rutan nedan och klicka på \"Lägg till domän\"-knappen.<br><br>Alternativt kan du, när du redan har sidans flik markerad, klicka på Privacy Badgers ikon i webbläsarens verktygsfält och sedan klicka på \"Inaktivera\"-knappen.",
         "description": ""
     },
     "intro_by_eff": {
