@@ -1,6 +1,6 @@
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
 (function() {
-let fb_wrapped_link = "a[href*='facebook.com/l.php?'";
+let fb_wrapped_link = `a[href*='${document.domain}/l.php?'`;
 
 function findInAllFrames(query) {
   let out = [];
