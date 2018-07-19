@@ -57,6 +57,10 @@ function cleanMutation(mutation) {
     return;
   }
   for (let node of mutation.addedNodes) {
+    // only element nodes have querySelectorAll
+    if (node.nodeType != Node.ELEMENT_NODE) {
+      continue;
+    }
     node.querySelectorAll(fb_wrapped_link).forEach((link) => {
       cleanLink(link);
     });
