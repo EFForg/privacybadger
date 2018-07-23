@@ -95,13 +95,12 @@ function getScPageScript() {
     };
 
     if (event_id) { // inserted script may run before the event_id is available
-      // send to content script. TODO: Any other detail we need to send?
-      send(
-        { docUrl: document.location.href,
-          localStorageItems: getLocalStorageItems(),
-          indexedDBItems: getIndexedDBItems(),
-          fileSystemAPIItems: getFileSystemAPIItems()
-        });
+      // send to content script
+      send({
+        localStorageItems: getLocalStorageItems(),
+        indexedDBItems: getIndexedDBItems(),
+        fileSystemAPIItems: getFileSystemAPIItems()
+      });
     }
 
   } + "());";
@@ -141,7 +140,6 @@ chrome.runtime.sendMessage({
     });
   });
 
-  // console.log("Will search for supercookies at", document.location.href)
   insertScScript(getScPageScript(), {
     event_id_super_cookie: event_id_super_cookie
   });

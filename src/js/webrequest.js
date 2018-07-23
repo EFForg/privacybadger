@@ -380,32 +380,31 @@ function getHostForTab(tabId) {
 /**
  * Record "supercookie" tracking
  *
- * @param sender message sender
- * @param msg super cookie message dict
+ * @param {Integer} tab_id browser tab ID
+ * @param {String} frame_url URL of the frame with supercookie
  */
-function recordSuperCookie(sender, msg) {
-  if (!incognito.learningEnabled(sender.tab.id)) {
+function recordSuperCookie(tab_id, frame_url) {
+  if (!incognito.learningEnabled(tab_id)) {
     return;
   }
 
-  // docUrl: url of the frame with supercookie
-  var frameHost = window.extractHostFromURL(msg.docUrl);
-  var pageHost = badger.getFrameData(sender.tab.id).host;
+  const frame_host = window.extractHostFromURL(frame_url),
+    page_host = badger.getFrameData(tab_id).host;
 
-  if (!isThirdPartyDomain(frameHost, pageHost)) {
+  if (!isThirdPartyDomain(frame_host, page_host)) {
     // Only happens on the start page for google.com
     return;
   }
 
   badger.heuristicBlocking.updateTrackerPrevalence(
-    frameHost, window.getBaseDomain(pageHost));
+    frame_host, window.getBaseDomain(page_host));
 }
 
 /**
  * Record canvas fingerprinting
  *
  * @param {Integer} tabId
- * @param msg specific fingerprinting data
+ * @param {Object} msg specific fingerprinting data
  */
 function recordFingerprinting(tabId, msg) {
   // Abort if we failed to determine the originating script's URL
@@ -691,7 +690,7 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.superCookieReport) {
     if (badger.hasSuperCookie(request.superCookieReport)) {
-      recordSuperCookie(sender, request.superCookieReport);
+      recordSuperCookie(sender.tab.id, sender.url);
     }
 
   } else if (request.checkEnabledAndThirdParty) {
