@@ -84,22 +84,10 @@ function getScPageScript() {
       return lsItems;
     };
 
-    var getIndexedDBItems = function() {
-      return {};
-    };
-
-    var getFileSystemAPIItems = function() {
-      // TODO: See "Reading a directory's contents" on
-      // http://www.html5rocks.com/en/tutorials/file/filesystem/
-      return {};
-    };
-
     if (event_id) { // inserted script may run before the event_id is available
       // send to content script
       send({
-        localStorageItems: getLocalStorageItems(),
-        indexedDBItems: getIndexedDBItems(),
-        fileSystemAPIItems: getFileSystemAPIItems()
+        localStorageItems: getLocalStorageItems()
       });
     }
 
