@@ -60,7 +60,8 @@
       ],
       "matches": [
         "https://*.facebook.com/*",
-        "http://*.facebook.com/*"
+        "http://*.facebook.com/*",
+        "*://*.facebookcorewwwi.onion/*"
       ],
       "run_at": "document_idle"
     },
