@@ -49,9 +49,9 @@ function getScPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function () {
+  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, LOCAL_STORAGE) {
 
-    var event_id = document.currentScript.getAttribute('data-event-id-super-cookie');
+    var event_id = DOCUMENT.currentScript.getAttribute('data-event-id-super-cookie');
 
     /**
      * send message to the content script
@@ -59,7 +59,7 @@ function getScPageScript() {
      * @param message
      */
     var send = function (message) {
-      document.dispatchEvent(new CustomEvent(event_id, {
+      dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(event_id, {
         detail: message
       }));
     };
@@ -72,9 +72,9 @@ function getScPageScript() {
       var lsItems = {};
       var lsKey = "";
       try {
-        for (var i = 0; i < localStorage.length; i++) {
-          lsKey = localStorage.key(i);
-          lsItems[lsKey] = localStorage.getItem(lsKey);
+        for (var i = 0; i < LOCAL_STORAGE.length; i++) {
+          lsKey = LOCAL_STORAGE.key(i);
+          lsItems[lsKey] = LOCAL_STORAGE.getItem(lsKey);
         }
       } catch (err) {
         // We get a SecurityError when our injected script runs in a 3rd party frame and
@@ -91,7 +91,8 @@ function getScPageScript() {
       });
     }
 
-  } + "());";
+  // save locally to keep from getting overwritten by site code
+  } + "(document, document.dispatchEvent, CustomEvent, localStorage));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
@@ -124,7 +125,7 @@ chrome.runtime.sendMessage({
   document.addEventListener(event_id_super_cookie, function (e) {
     // pass these on to the background page (handled by webrequest.js)
     chrome.runtime.sendMessage({
-      'superCookieReport': e.detail
+      superCookieReport: e.detail
     });
   });
 
