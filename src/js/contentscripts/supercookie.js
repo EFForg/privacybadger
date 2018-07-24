@@ -49,14 +49,14 @@ function getScPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, LOCAL_STORAGE) {
+  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, LOCAL_STORAGE, OBJECT, keys) {
 
     var event_id = DOCUMENT.currentScript.getAttribute('data-event-id-super-cookie');
 
     /**
      * send message to the content script
      *
-     * @param message
+     * @param {*} message
      */
     var send = function (message) {
       dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(event_id, {
@@ -65,16 +65,15 @@ function getScPageScript() {
     };
 
     /**
-     * Read the local storage and returns content
-     * @returns {{}}
+     * Read HTML5 local storage and return contents
+     * @returns {Object}
      */
-    var getLocalStorageItems = function() {
-      var lsItems = {};
-      var lsKey = "";
+    let getLocalStorageItems = function () {
+      let lsItems = {};
       try {
-        for (var i = 0; i < LOCAL_STORAGE.length; i++) {
-          lsKey = LOCAL_STORAGE.key(i);
-          lsItems[lsKey] = LOCAL_STORAGE.getItem(lsKey);
+        for (let i = 0; i < LOCAL_STORAGE.length; i++) {
+          let key = LOCAL_STORAGE.key(i);
+          lsItems[key] = LOCAL_STORAGE.getItem(key);
         }
       } catch (err) {
         // We get a SecurityError when our injected script runs in a 3rd party frame and
@@ -85,14 +84,15 @@ function getScPageScript() {
     };
 
     if (event_id) { // inserted script may run before the event_id is available
-      // send to content script
-      send({
-        localStorageItems: getLocalStorageItems()
-      });
+      let localStorageItems = getLocalStorageItems();
+      if (keys.call(OBJECT, localStorageItems).length) {
+        // send to content script
+        send({ localStorageItems });
+      }
     }
 
   // save locally to keep from getting overwritten by site code
-  } + "(document, document.dispatchEvent, CustomEvent, localStorage));";
+  } + "(document, document.dispatchEvent, CustomEvent, localStorage, Object, Object.keys));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
