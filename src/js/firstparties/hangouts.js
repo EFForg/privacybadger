@@ -1,10 +1,10 @@
 /* globals URL_REGEX:false */
 let hangouts_wrapped_link = "a[href^='https://www.google.com/url?']";
 
-// Unwrap a Hangouts tracking link 
+// Unwrap a Hangouts tracking link
 function unwrapLink(a) {
   let href = new URL(a.href).searchParams.get('q');
-  if (!href || !href.match(URL_REGEX)) {
+  if (!window.isURL(href)) {
     return;
   }
 
