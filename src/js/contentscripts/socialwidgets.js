@@ -224,7 +224,8 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
  * with executable scripts.
  */
 function replaceScriptsRecurse(node) {
-  if (node.getAttribute && node.getAttribute("type") == "text/javascript") {
+  if (node.nodeName && node.nodeName.toLowerCase() == 'script' &&
+      node.getAttribute && node.getAttribute("type") == "text/javascript") {
     var script = document.createElement("script");
     script.text = node.innerHTML;
     script.src = node.src;
