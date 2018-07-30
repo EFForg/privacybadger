@@ -275,6 +275,7 @@ gravatar.com
 greenhouse.io
 gscdn.nl
 gstatic.com
+guildwars2.com
 hackerone-user-content.com
 helium.com
 hellobar.com
