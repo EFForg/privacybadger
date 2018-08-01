@@ -55,12 +55,6 @@ function onBeforeRequest(details) {
   if (type == "main_frame") {
     forgetTab(tab_id);
 
-    // Firefox workaround: https://bugzilla.mozilla.org/show_bug.cgi?id=1329299
-    // TODO remove after Firefox 51 is no longer in use
-    if (frame_id != 0) {
-      frame_id = 0;
-    }
-
     badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
 
     return {};
