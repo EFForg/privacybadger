@@ -708,10 +708,10 @@ Badger.prototype = {
   hasSuperCookie: function(storageItems) {
     return (
       this.hasLocalStorageSuperCookie(storageItems.localStorageItems)
-      // || Utils.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
-      // || Utils.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
-      // TODO: Do we need separate functions for other supercookie vectors?
-      // Let's wait until we implement them in the content script
+      //|| this.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
+      // TODO: See "Reading a directory's contents" on
+      // http://www.html5rocks.com/en/tutorials/file/filesystem/
+      //|| this.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
     );
   },
 
