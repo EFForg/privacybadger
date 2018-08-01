@@ -10,7 +10,7 @@
         }
     },
     "badger_status_block": {
-        "message": "Blokkert $DOMAIN$",
+        "message": "Blokkerte $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -143,7 +143,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
-        "message": "Lær hvordan Personvernsgrevlingen beskytter ditt personvern.",
+        "message": "Les hvordan Personvernsgrevlingen beskytter ditt personvern.",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
@@ -167,11 +167,11 @@
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
-        "message": "Innrapporter feil",
+        "message": "Rapporter feil",
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Tillatt $DOMAIN$",
+        "message": "Tillot $DOMAIN$",
         "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -205,7 +205,7 @@
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
-        "message": "Valg for Personvernsgrevlingen",
+        "message": "Alternativer for Personvernsgrevlingen",
         "description": ""
     },
     "report_terms": {
@@ -217,11 +217,11 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Disabled Sites",
+        "message": "Deaktiverte nettsteder",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
-        "message": "Skru på Personvernsgrevlingen for denne siden",
+        "message": "Aktiver Personvernsgrevlingen for denne siden",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -257,7 +257,7 @@
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
-        "message": "version",
+        "message": "versjon",
         "description": ""
     },
     "badger_status_cookieblock": {
@@ -291,7 +291,7 @@
         "description": ""
     },
     "import_select_file": {
-        "message": "Velg ei fil å importere.",
+        "message": "Velg en fil som skal importeres.",
         "description": ""
     },
     "popup_blocked": {
@@ -464,7 +464,7 @@
         "description": ""
     },
     "popup_options_button": {
-        "message": "Valg",
+        "message": "Alternativer",
         "description": ""
     },
     "share_button_title_facebook": {
