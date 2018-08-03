@@ -146,7 +146,7 @@ var multiDomainFirstPartiesArray = [
   ["dictionary.com", "thesaurus.com", "sfdict.com"],
   ["discountbank.co.il", "telebank.co.il"],
   ["discover.com", "discovercard.com"],
-  ["dropbox.com", "dropboxstatic.com", "getdropbox.com"],
+  ["dropbox.com", "dropboxstatic.com", "dropboxusercontent.com", "getdropbox.com"],
   ["d.rip", "kickstarter.com"],
   ["ea.com", "origin.com", "play4free.com", "tiberiumalliance.com"],
   [
