@@ -720,6 +720,7 @@ var multiDomainFirstPartiesArray = [
   ["walmart.com", "wal.co", "walmartimages.com", "walmart.ca"],
   ["weebly.com", "editmysite.com"],
   ["wellsfargo.com", "wf.com"],
+  ["wetter.com", "tiempo.es", "wettercomassets.com"],
   ["wikia.com", "wikia.net", "nocookie.net"],
   ["wikipedia.org", "wikimedia.org", "wikimediafoundation.org", "wiktionary.org",
     "wikiquote.org", "wikibooks.org", "wikisource.org", "wikinews.org",
