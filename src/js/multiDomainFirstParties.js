@@ -108,6 +108,7 @@ var multiDomainFirstPartiesArray = [
   ["applefcu.org", "applefcuonline.org"],
   ["archive.org", "openlibrary.org"],
   ["autodesk.com", "tinkercad.com"],
+  ["avito.ru", "avito.st"],
   ["avon.com", "youravon.com"],
   ["baidu.com", "bdimg.com", "bdstatic.com"],
   ["bananarepublic.com", "gap.com", "oldnavy.com", "piperlime.com"],
