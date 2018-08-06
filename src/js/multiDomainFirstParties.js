@@ -110,7 +110,6 @@ var multiDomainFirstPartiesArray = [
   ["autodesk.com", "tinkercad.com"],
   ["avon.com", "youravon.com"],
   ["baidu.com", "bdimg.com", "bdstatic.com"],
-  ["bananarepublic.com", "gap.com", "oldnavy.com", "piperlime.com"],
   ["bancomer.com", "bancomer.com.mx", "bbvanet.com.mx"],
   ["bankofamerica.com", "bofa.com", "mbna.com", "usecfo.com"],
   ["bank-yahav.co.il", "bankhapoalim.co.il"],
@@ -174,6 +173,28 @@ var multiDomainFirstPartiesArray = [
   ["facebook.com", "fbcdn.com", "fbcdn.net", "fbsbx.com", "facebook.net", "messenger.com"],
   ["firefox.com", "firefoxusercontent.com", "mozilla.org"],
   ["foxnews.com", "foxbusiness.com", "fncstatic.com"],
+  [
+    "gap.com",
+
+    "bananarepublic.com",
+    "gapfactory.com",
+    "gapinc.com",
+    "oldnavy.com",
+    "piperlime.com",
+
+    "bananarepublic.ca",
+    "bananarepublic.co.jp",
+    "bananarepublic.co.uk",
+    "bananarepublic.eu",
+    "gapcanada.ca",
+    "gap.co.jp",
+    "gap.co.uk",
+    "gap.eu",
+    "gap.hk",
+    "oldnavy.ca",
+
+    "assets-gap.com",
+  ],
   [
     "gettyimages.com",
 
