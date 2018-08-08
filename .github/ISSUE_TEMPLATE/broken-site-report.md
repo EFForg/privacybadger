@@ -4,21 +4,19 @@ about: Report a broken site or site service
 
 ---
 
-
 <!--
+Is Privacy Badger breaking a site by blocking too much? We'd like to get it fixed! Let's get some debugging information first.
 
-Is Privacy Badger breaking a site by blocking too much? We'd like to get it fixed; let's get some debugging information first.
+Please follow the instructions on the following wiki page and fill out the form below.
 
-Please follow the instructions at
-https://github.com/EFForg/privacybadger/wiki/Find-out-why-Privacy-Badger-is-blocking-a-domain. Tell us which domains Privacy Badger is blocking to cause the problem, and then paste the output from following the wiki page instructions below.
-
+https://github.com/EFForg/privacybadger/wiki/Find-out-why-Privacy-Badger-is-blocking-a-domain
 -->
 
-Broken site(s):
+What is broken and where?
 
-Culprit blocked domain(s):
+What are the domains that cause the breakage when blocked?
 
-Snitch map output:
+Please paste the output from following the instructions on the wiki page:
 ```
-Output goes here
+Output goes here.
 ```
