@@ -461,6 +461,7 @@ piratebay.org
 pistachio-cdn.graze.com
 pixietrixcomix.com
 plex.tv
+plot.ly
 poll.fm
 polldaddy.com
 postimg.org
