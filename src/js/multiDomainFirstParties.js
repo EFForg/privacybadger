@@ -702,6 +702,31 @@ var multiDomainFirstPartiesArray = [
   ],
   ["reddit.com", "redditmedia.com", "redditstatic.com", "redd.it", "redditenhancementsuite.com", "reddituploads.com", "imgur.com"],
   [
+    "reuters.com",
+    "reuters.tv",
+    "reutersmedia.net",
+    "thomsonreuters.com",
+
+    "reutersagency.cn",
+
+    "thomsonreuters.ca",
+    "thomsonreuters.cn",
+    "thomsonreuters.co.jp",
+    "thomsonreuters.co.kr",
+    "thomsonreuters.com.ar",
+    "thomsonreuters.com.au",
+    "thomsonreuters.com.br",
+    "thomsonreuters.com.hk",
+    "thomsonreuters.com.my",
+    "thomsonreuters.com.pe",
+    "thomsonreuters.com.sg",
+    "thomsonreuters.com.tr",
+    "thomsonreuters.co.uk",
+    "thomsonreuters.es",
+    "thomsonreuters.in",
+    "thomsonreuters.ru",
+  ],
+  [
     "s-kanava.fi",
 
     "abcasemat.fi",
