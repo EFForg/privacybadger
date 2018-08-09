@@ -272,4 +272,59 @@
     );
   });
 
+  QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
+    const DOMAIN = "example.com",
+      SUBDOMAIN = "cdn.example.com",
+      USER_DATA = {
+        action_map: {
+          [DOMAIN]: {
+            dnt: false,
+            heuristicAction: constants.BLOCK,
+            nextUpdateTime: 100,
+            userAction: ''
+          },
+          [SUBDOMAIN]: {
+            dnt: false,
+            heuristicAction: constants.ALLOW,
+            nextUpdateTime: 0,
+            userAction: ''
+          }
+        },
+        snitch_map: {
+          [DOMAIN]: ['a.co', 'b.co', 'c.co'],
+        }
+      };
+
+    const actionMap = badger.storage.getBadgerStorageObject('action_map'),
+      snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
+
+    // merge in a blocked parent domain and a subdomain
+    badger.mergeUserData(USER_DATA);
+
+    assert.notOk(actionMap.getItem(SUBDOMAIN),
+      SUBDOMAIN + " should have been discarded during merge"
+    );
+
+    // clean up
+    actionMap.deleteItem(DOMAIN);
+    actionMap.deleteItem(SUBDOMAIN);
+    snitchMap.deleteItem(DOMAIN);
+
+    // now add subdomain to yellowlist
+    badger.storage.getBadgerStorageObject('cookieblock_list')
+      .setItem(SUBDOMAIN, true);
+
+    // and do the merge again
+    badger.mergeUserData(USER_DATA);
+
+    assert.ok(actionMap.getItem(SUBDOMAIN),
+      SUBDOMAIN + " should be present in action_map"
+    );
+    assert.equal(
+      actionMap.getItem(SUBDOMAIN).heuristicAction,
+      constants.COOKIEBLOCK,
+      SUBDOMAIN + " should be cookieblocked"
+    );
+  });
+
 }());
