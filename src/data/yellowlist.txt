@@ -461,6 +461,7 @@ piratebay.org
 pistachio-cdn.graze.com
 pixietrixcomix.com
 plex.tv
+plot.ly
 poll.fm
 polldaddy.com
 postimg.org
@@ -654,6 +655,7 @@ ytimg.com
 zap2it.com
 zdassets.com
 zencdn.net
+zendesk.com
 zergnet.com
 ziplist.com
 zlcdn.com
