@@ -213,6 +213,36 @@
     );
   });
 
+  QUnit.test("user-blocked domains keep their tracking history", (assert) => {
+    const SITE_DOMAINS = ['a.co', 'b.co'],
+      USER_DATA = {
+        action_map: {
+          'foo.com': {
+            dnt: false,
+            heuristicAction: constants.ALLOW,
+            nextUpdateTime: 100,
+            userAction: constants.USER_BLOCK
+          }
+        },
+        snitch_map: {
+          'foo.com': SITE_DOMAINS
+        }
+      };
+
+    badger.mergeUserData(USER_DATA);
+
+    assert.equal(
+      badger.storage.getAction('foo.com'),
+      constants.USER_BLOCK,
+      "foo.com was blocked"
+    );
+    assert.deepEqual(
+      badger.storage.snitch_map.getItem('foo.com'),
+      SITE_DOMAINS,
+      "snitch map was migrated"
+    );
+  });
+
   QUnit.test("merging snitch maps results in a blocked domain", (assert) => {
     setupBadgerStorage(badger);
 
