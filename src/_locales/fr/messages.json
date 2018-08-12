@@ -42,7 +42,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
+        "message": "Vérifier si les <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domaines tiers</a> se conforment à la charte de <a target='_blank' href='https://www.eff.org/dnt-policy'>non-pistage de l'EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -217,7 +217,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Disabled Sites",
+        "message": "Liste blanche",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -355,7 +355,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
+        "message": "Envoyer l'entête « <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Ne pas me pister</a> » aux sites web",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -363,7 +363,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here.<br><br>If you think Privacy Badger is breaking a page, you can type that page's domain in the box below and click the \"Add domain\" button.<br><br>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.",
+        "message": "Privacy Badger est désactivé pour les sites ci-dessous. En cas de connexion, rien ne sera bloqué.<br><br>Si vous pensez que Privacy Badger perturbe l'affiche d'une page, vous pouvez saisir son domaine dans le champ ci-dessous et cliquer sur « Ajouter un domaine ».<br><br>Vous pouvez obtenir le même résultat en cliquant sur l'icône se trouvant dans la barre d'outils de votre navigateur, puis sur « Désactiver », lorsque vous êtes sur la page posant problème.",
         "description": ""
     },
     "intro_by_eff": {
