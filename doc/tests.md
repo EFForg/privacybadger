@@ -12,7 +12,7 @@ Every pull request runs the full suite of functional and unit tests on [Travis C
 
 See [`.travis.yml`](/.travis.yml) for Travis configuration, [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) for test setup, and [`scripts/run_travis.sh`](/scripts/run_travis.sh) for test execution procedures.
 
-We use [ESLint](https://eslint.org) to flag potential JavaScript errors and style issues. See [`.eslintrc.yml`](/.eslintrc.yml) and [`.eslintignore`](/.eslintignore) for specifics.
+We use [ESLint](https://eslint.org) to flag potential JavaScript errors and style issues. Please see our [developer guide](/doc/develop.md#lint-your-changes) for setup instructions.
 
 ## Unit tests
 

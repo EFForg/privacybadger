@@ -36,17 +36,17 @@
       {
         action: "block",
         origin,
-        expectedResult: getMessage('badger_status_block') + origin,
+        expectedResult: getMessage('badger_status_block', origin)
       },
       {
         action: "cookieblock",
         origin,
-        expectedResult: getMessage('badger_status_cookieblock') + origin,
+        expectedResult: getMessage('badger_status_cookieblock', origin)
       },
       {
         action: "allow",
         origin,
-        expectedResult: getMessage('badger_status_allow') + origin,
+        expectedResult: getMessage('badger_status_allow', origin)
       },
     ];
 

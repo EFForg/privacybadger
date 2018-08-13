@@ -3,6 +3,8 @@
 # script based on
 # https://github.com/adblockplus/buildtools/blob/d090e00610a58cebc78478ae33e896e6b949fc12/publicSuffixListUpdater.py
 
+from __future__ import print_function
+
 import json
 import sys
 
@@ -27,7 +29,8 @@ if __name__ == '__main__':
     with open(sys.argv[1], 'r+') as f:
         psl = convert(f)
         f.seek(0)
-        f.write('window.publicSuffixes = %s;' % (
+        text = 'window.publicSuffixes = %s;' % (
             json.dumps(psl, sort_keys=True, indent=2, separators=(',', ': '))
-        ))
+        )
+        print(text, file=f)
         f.truncate()

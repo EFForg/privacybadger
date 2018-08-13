@@ -70,22 +70,25 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} Localized action description with origin.
    */
   getActionDescription: (function () {
-    var actionDescriptions = {
-      block: i18n.getMessage('badger_status_block'),
-      cookieblock: i18n.getMessage('badger_status_cookieblock'),
-      noaction: i18n.getMessage('badger_status_noaction'),
-      allow: i18n.getMessage('badger_status_allow'),
+    const messages = {
+      block: i18n.getMessage('badger_status_block', "XXX"),
+      cookieblock: i18n.getMessage('badger_status_cookieblock', "XXX"),
+      noaction: i18n.getMessage('badger_status_noaction', "XXX"),
+      allow: i18n.getMessage('badger_status_allow', "XXX"),
       dntTooltip: i18n.getMessage('dnt_tooltip')
     };
-    return function (action, origin, isWhitelisted) {
-      var rv_action = actionDescriptions[action];
-      if (typeof(isWhitelisted) !== 'undefined' && isWhitelisted) {
-        return actionDescriptions.dntTooltip;
-      } else if (typeof(rv_action) == 'undefined') {
-        return origin;
-      } else {
-        return rv_action + origin;
+    return function (action, origin, is_whitelisted) {
+      if (is_whitelisted) {
+        return messages.dntTooltip;
       }
+
+      const rv_action = messages[action];
+
+      if (!rv_action) {
+        return origin;
+      }
+
+      return rv_action.replace("XXX", origin);
     };
   }()),
   /**

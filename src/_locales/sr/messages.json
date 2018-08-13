@@ -1,11 +1,23 @@
 {
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger has replaced this ",
-        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+        "message": "Privacy Badger has replaced this $BUTTON$ button.",
+        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "placeholders": {
+            "button": {
+                "content": "$1",
+                "example": "Facebook Like"
+            }
+        }
     },
     "badger_status_block": {
-        "message": "Блокирано ",
-        "description": ""
+        "message": "Блокирано $DOMAIN$",
+        "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Неважећа JSON датотека.",
@@ -16,15 +28,21 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for ",
-        "description": ""
+        "message": "No tracking for $DOMAIN$",
+        "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Тренутно Privacy Badger проверава само да ли треће стране користе колачиће, HTML5 локално складиште, или метод canvas fingerprinting за праћење вашег прегледања. Неки од ових домена могу користити методе праћења које Privacy Badger не може открити.",
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Провери да ли се овај сајт придржава EFF политике непраћења",
+        "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -53,11 +71,7 @@
     },
     "dnt_tooltip": {
         "message": "Овај домен обећава да вас не прати",
-        "description": ""
-    },
-    "options_dnt_policy_learn_more": {
-        "message": "Сазнајте више",
-        "description": ""
+        "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "next_section": {
         "message": "next section",
@@ -77,15 +91,28 @@
     },
     "whitelist_form_domain_input_placeholder": {
         "message": "нпр. www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Кликните овде да блокирате постављање колачића од овог домена",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "potential <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackers</a> on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
-        "description": "Continuation of the popup message that shows number of trackers"
+        "message": "Privacy Badger detected $COUNT$ potential $TRACKER_LINK_START$trackers$TRACKER_LINK_END$ on this page. These sliders let you control how Privacy Badger handles each one. You shouldn't need to adjust the sliders unless something is broken.",
+        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "options_domain_filter_block": {
         "message": "blocked",
@@ -124,7 +151,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "клик за повратак контроле над овим трагачем у Privacy Badger",
+        "message": "Клик за повратак контроле над овим трагачем у Privacy Badger",
         "description": ""
     },
     "import": {
@@ -144,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Дозвољено ",
-        "description": ""
+        "message": "Дозвољено $DOMAIN$",
+        "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Шта је Privacy Badger?",
@@ -175,14 +208,6 @@
         "message": "Privacy Badger - Опције",
         "description": ""
     },
-    "options_pb_has_detected": {
-        "message": "Privacy Badger је открио",
-        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
-    "social_tooltip_button": {
-        "message": " button.",
-        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
     "report_terms": {
         "message": "Ово ће аутоматски послати следеће информације на EFF: сајт који тренутно прегледате, верзија прегледача, верзија Privacy Badger проширења и стање свих клизача за сајт.",
         "description": ""
@@ -192,7 +217,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Дозвољени домени",
+        "message": "Disabled Sites",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -236,8 +261,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Блокирани колачићи са ",
-        "description": ""
+        "message": "Блокирани колачићи са $DOMAIN$",
+        "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Учитавање...",
@@ -323,17 +354,17 @@
         "message": "Померите клизач улево за блокирање домена",
         "description": ""
     },
+    "options_enable_dnt_checkbox": {
+        "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
+        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "user-controlled",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger is disabled for the domains listed below. You can add a domain either via the Privacy Badger icon in the browser toolbar, or by typing the domain in the box below and clicking the \"Add domain\" button.",
+        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here.<br><br>If you think Privacy Badger is breaking a page, you can type that page's domain in the box below and click the \"Add domain\" button.<br><br>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.",
         "description": ""
-    },
-    "pb_detected": {
-        "message": "Privacy Badger је откривен",
-        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "Пројекат Electronic Frontier Foundation",
@@ -368,8 +399,21 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "potential <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> so far. These sliders let you control how Privacy Badger handles each tracker.",
-        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+        "message": "Privacy Badger has detected $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far. These sliders let you control how Privacy Badger handles each tracker.",
+        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "name": {
         "message": "Privacy Badger",

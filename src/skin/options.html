@@ -70,7 +70,7 @@
     </div>
     <div id="blockedResourcesContainer">
       <p id="pbInstructions">
-        <span id="pb_has_detected" class="i18n_options_pb_has_detected"></span> <span id='count'>0</span> <span id="options_domain_list_trackers" class="i18n_options_domain_list_trackers"></span>
+        <span id="options_domain_list_trackers"></span>
         <span id="options_domain_list_one_tracker" class="i18n_options_domain_list_one_tracker" style="display:none"></span>
         <span id="options_domain_list_no_trackers" class="i18n_options_domain_list_no_trackers" style="display:none"></span>
       </p>
@@ -152,10 +152,15 @@
       </div>
       <div class="checkbox">
         <label>
+          <input type="checkbox" id="enable_dnt_checkbox">
+          <span class="i18n_options_enable_dnt_checkbox"></span>
+        </label>
+      </div>
+      <div class="checkbox" id="check_dnt_policy_row">
+        <label>
           <input type="checkbox" id="check_dnt_policy_checkbox">
           <span class="i18n_options_dnt_policy_setting"></span>
         </label>
-        <a target="_blank" href="https://www.eff.org/dnt-policy"><span class="i18n_options_dnt_policy_learn_more"></span></a>
       </div>
       <div class="checkbox" id="webRTCToggle">
         <label>

@@ -17,10 +17,23 @@
 
 var i18n = chrome.i18n;
 
+function setTextDirection() {
+  // https://www.w3.org/International/questions/qa-scripts#examples
+  // https://developer.chrome.com/webstore/i18n?csw=1#localeTable
+  const RTL_LANGS = ['ar', 'he', 'fa'];
+  let bidi_dir = 'ltr';
+  if (RTL_LANGS.indexOf(i18n.getMessage('@@ui_locale')) != -1) {
+    bidi_dir = 'rtl';
+  }
+  document.body.setAttribute('dir', bidi_dir);
+}
+
 // Loads and inserts i18n strings into matching elements. Any inner HTML already in the
 // element is parsed as JSON and used as parameters to substitute into placeholders in the
 // i18n message.
 function loadI18nStrings() {
+  setTextDirection();
+
   // replace span contents by their class names
   let nodes = document.querySelectorAll("[class^='i18n_']");
   for (let i = 0; i < nodes.length; i++) {

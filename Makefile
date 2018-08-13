@@ -27,4 +27,8 @@ upload:
 lint:
 	./node_modules/.bin/eslint .
 
-.PHONY: build travisbuild updatepsl zip crx todo logging lint
+tx:
+	tx pull -f
+	scripts/fix_placeholders.py
+
+.PHONY: build travisbuild updatepsl zip crx todo logging lint tx

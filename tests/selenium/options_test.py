@@ -134,10 +134,6 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
         error_message = "Only the 'one tracker' message should be displayed after adding an origin"
         self.check_tracker_messages(error_message, many=False, one=True, none=False)
-        self.assertFalse(
-            self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("count").is_displayed(), error_message)
 
         # Check that origin is displayed.
         origins = self.driver.find_element_by_id("blockedResourcesInner")
@@ -162,16 +158,14 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.select_domain_list_tab()
 
         error_message = "Only the 'multiple tracker' messages should be displayed after adding 2 origins"
-        self.assertTrue(
-            self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
-        self.assertTrue(
-            self.driver.find_element_by_id("count").is_displayed(), error_message)
         self.check_tracker_messages(error_message, many=True, one=False, none=False)
 
-        # Check tracker count.
-        error_message = "Origin tracker count should be 2 after adding origin"
+        # check tracker count
         self.assertEqual(
-            self.driver.find_element_by_id("count").text, "2", error_message)
+            self.driver.find_element_by_id("options_domain_list_trackers").text,
+            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Origin tracker count should be 2 after adding origin"
+        )
 
         # Check those origins are displayed.
         origins = self.driver.find_element_by_id("blockedResourcesInner")
@@ -218,10 +212,6 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.assertFalse(
             self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
         self.assertFalse(
-            self.driver.find_element_by_id("pb_has_detected").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("count").is_displayed(), error_message)
-        self.assertFalse(
             self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
 
         # Check that no origins are displayed.
@@ -241,7 +231,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.check_tracker_messages(error_message, many=True, one=False, none=False)
 
         # get the number of trackers in the seed data
-        default_count = self.driver.find_element_by_id("count").text
+        default_summary_text = self.driver.find_element_by_id("options_domain_list_trackers").text
 
         # Click on the "remove all data" button to empty the tracker lists, and
         # click "OK" in the popup that ensues
@@ -264,9 +254,11 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.select_domain_list_tab()
 
         # make sure only two trackers are displayed now
-        error_message = "Origin tracker count should be 2 after clearing and adding origins"
         self.assertEqual(
-            self.driver.find_element_by_id("count").text, "2", error_message)
+            self.driver.find_element_by_id("options_domain_list_trackers").text,
+            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Origin tracker count should be 2 after clearing and adding origins"
+        )
 
         # click the "reset data" button to restore seed data and get rid of the
         # domains we learned
@@ -275,11 +267,11 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.driver.switch_to.alert.accept()
         time.sleep(1)
 
-        # make sure only two trackers are displayed now
+        # make sure the same number of trackers are displayed as by default
         self.select_domain_list_tab()
         error_message = "After resetting data, tracker count should return to default"
-        self.assertEqual(self.driver.find_element_by_id("count").text,
-                         default_count, error_message)
+        self.assertEqual(self.driver.find_element_by_id("options_domain_list_trackers").text,
+                         default_summary_text, error_message)
 
     def tracking_user_overwrite(self, original_action, overwrite_action):
         """Ensure preferences are persisted when a user overwrites pb's default behaviour for an origin."""
