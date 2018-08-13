@@ -765,6 +765,21 @@ var multiDomainFirstPartiesArray = [
   ["onlineatnsb.com", "norwaysavingsbank.com"],
   ["openstreetmap.org", "osmfoundation.org"],
   [
+    "osf.io",
+
+    "agrixiv.org",
+    "arabixiv.org",
+    "eartharxiv.org",
+    "ecsarxiv.org",
+    "engrxiv.org",
+    "frenxiv.org",
+    "marxiv.org",
+    "mindrxiv.org",
+    "paleorxiv.org",
+    "psyarxiv.com",
+    "thesiscommons.org"
+  ],
+  [
     "ovh.com",
 
     "kimsufi.com",
