@@ -1,6 +1,6 @@
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
 (function() {
-let fb_wrapped_link = "a[href*='facebook.com/l.php?'";
+let fb_wrapped_link = `a[href*='${document.domain}/l.php?'`;
 
 function findInAllFrames(query) {
   let out = [];
@@ -34,9 +34,8 @@ function cleanAttrs(elem) {
 function cleanLink(a) {
   let href = new URL(a.href).searchParams.get('u');
 
-  // from https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
-  let url_regex = new RegExp(/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi);
-  if (!href || !href.match(url_regex)) {
+  // ensure the URL starts with HTTP or HTTPS
+  if (!href || !(href.startsWith("https://") || href.startsWith("http://"))) {
     // If we can't extract a good URL, abort without breaking the links
     return;
   }
@@ -45,10 +44,10 @@ function cleanLink(a) {
   a.href = href;
   a.rel = "noreferrer";
   a.target = "_blank";
-  a.addEventListener("click", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mousedown", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mouseup", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mouseover", function (e) { e.stopPropagation(); }, true);
+  a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
+  a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
+  a.addEventListener("mouseup", function (e) { e.stopImmediatePropagation(); }, true);
+  a.addEventListener("mouseover", function (e) { e.stopImmediatePropagation(); }, true);
 }
 
 // Check all new nodes added by a mutation for tracking links and unwrap them
@@ -57,6 +56,10 @@ function cleanMutation(mutation) {
     return;
   }
   for (let node of mutation.addedNodes) {
+    // only element nodes have querySelectorAll
+    if (node.nodeType != Node.ELEMENT_NODE) {
+      continue;
+    }
     node.querySelectorAll(fb_wrapped_link).forEach((link) => {
       cleanLink(link);
     });

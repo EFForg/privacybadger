@@ -91,6 +91,11 @@ button
     margin: 12px 0;
 }
 
+#check_dnt_policy_row {
+  position: relative;
+  left: 25px;
+}
+
 a, a:hover, a:active, a:visited{
   color: #00aaaa;
   text-decoration: underline;

@@ -1,11 +1,23 @@
 {
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger hat diese ",
-        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
+        "message": "Privacy Badger hat diese $BUTTON$-Schaltfläche ersetzt.",
+        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "placeholders": {
+            "button": {
+                "content": "$1",
+                "example": "Facebook Like"
+            }
+        }
     },
     "badger_status_block": {
-        "message": "Geblockt",
-        "description": ""
+        "message": "$DOMAIN$ geblockt",
+        "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Ungültige JSON-Datei.",
@@ -16,19 +28,25 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "Kein Tracking für",
-        "description": ""
+        "message": "Kein Tracking für $DOMAIN$",
+        "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Derzeit überprüft Privacy Badger nur, ob Drittparteien zum Verfolgen Ihres Surfverhaltens Cookies, lokalen HTML5-Speicher oder Canvas-Fingerprinting verwenden. Einige dieser Domains könnten allerdings Tracking-Methoden benutzen, die Privacy Badger nicht erkennen kann.",
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Überprüfen, ob Websites EFFs Do-Not-Track-Richtlinie erfüllen",
+        "message": "Überprüfen, ob <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Drittanbieter-Domains</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFFs Do-Not-Track-Richtlinie</a> befolgen",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "Je länger Sie mit Privacy Badger surfen, desto besser wird er Sie schützen. Wird momentan noch nichts geblockt? Das ist okay. Anstatt des Führens von Listen zu blockender Inhalte erkennt Privacy Badger Tracker automatisch, während Sie im Web surfen. Am besten beginnen Sie gleich, ein wenig zu Surfen, um Ihren Badger zu trainieren.",
+        "message": "Je länger Sie mit Privacy Badger surfen, desto besser wird er Sie schützen. Wird momentan noch nichts geblockt? Das ist okay. Anstatt des Führens von Listen zu blockender Inhalte erkennt Privacy Badger Tracker automatisch, während Sie im Web surfen. Am besten beginnen Sie gleich, ein wenig zu surfen, um Ihren Badger zu trainieren.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -53,11 +71,7 @@
     },
     "dnt_tooltip": {
         "message": "Diese Domain verspricht, Ihr Surfverhalten nicht zu verfolgen",
-        "description": ""
-    },
-    "options_dnt_policy_learn_more": {
-        "message": "Mehr erfahren",
-        "description": ""
+        "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "next_section": {
         "message": "nächster Abschnitt",
@@ -77,15 +91,28 @@
     },
     "whitelist_form_domain_input_placeholder": {
         "message": "z. B. www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
+        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Hier klicken, um zu verhindern, dass diese Domain Cookies setzt",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "popup_instructions": {
-        "message": "potenzielle <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracker</a> auf dieser Seite erkannt. Mittels der Schieberegler können Sie steuern, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen.",
-        "description": "Continuation of the popup message that shows number of trackers"
+        "message": "Privacy Badger hat bisher $COUNT$ potenzielle $TRACKER_LINK_START$Tracker$TRACKER_LINK_END$ auf dieser Seite erkannt. Mittels der Schieberegler können Sie steuern, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen.",
+        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "options_domain_filter_block": {
         "message": "geblockt",
@@ -124,7 +151,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "klicken, um die Kontrolle dieses Trackers an Privacy Badger zurückzugeben",
+        "message": "Klicken, um die Kontrolle dieses Trackers an Privacy Badger zurückzugeben",
         "description": ""
     },
     "import": {
@@ -144,8 +171,14 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Erlaubt ",
-        "description": ""
+        "message": "$DOMAIN$ erlaubt",
+        "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Was ist Privacy Badger?",
@@ -175,14 +208,6 @@
         "message": "Optionen von Privacy Badger",
         "description": ""
     },
-    "options_pb_has_detected": {
-        "message": "Privacy Badger hat bisher",
-        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
-    "social_tooltip_button": {
-        "message": "-Schaltfläche ersetzt.",
-        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
     "report_terms": {
         "message": "Dies wird folgende Informationen automatisch an die EFF senden: Die von Ihnen derzeit besuchte Website, Ihre Browserversion, die Version von Privacy Badger und den Status aller Schieberegler für diese Website.",
         "description": ""
@@ -192,7 +217,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Erlaubte Domains",
+        "message": "Deaktivierte Websites",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -236,8 +261,14 @@
         "description": ""
     },
     "badger_status_cookieblock": {
-        "message": "Geblockte Cookies von ",
-        "description": ""
+        "message": "Cookies von $DOMAIN$ geblockt",
+        "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_loading": {
         "message": "Lädt …",
@@ -323,17 +354,17 @@
         "message": "Schieben Sie den Schieberegler nach links, um eine Domain zu blocken",
         "description": ""
     },
+    "options_enable_dnt_checkbox": {
+        "message": "Websites eine \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\"-Anforderung senden",
+        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "benutzergesteuert",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist für die unten aufgeführten Domains deaktiviert. Sie können eine Domain hinzufügen, indem Sie entweder das Privacy-Badger-Symbol in der Symbolleiste anklicken oder die Domain im Eingabefeld eingeben und auf die Schaltfläche \"Domain hinzufügen\" klicken.",
+        "message": "Privacy Badger ist für die nachfolgenden Sites deaktiviert. Privacy Badger wird also nichts blocken, wenn Sie die hier aufgeführten Websites besuchen.<br><br>Falls Sie annehmen, dass aufgrund Privacy Badger eine Seite falsch dargestellt wird, so können Sie die Domain dieser Seite in dem Feld unten eingeben und auf die Schaltfläche »Domain hinzufügen« klicken.<br><br>Falls Sie den Tab der Seite bereits ausgewählt haben, so können Sie aber auch einfach auf Privacy Badgers Schaltfläche in der Browsersymbolleiste und dann dort auf die Schaltfäche »Deaktivieren« klicken.",
         "description": ""
-    },
-    "pb_detected": {
-        "message": "Privacy Badger hat bisher",
-        "description": "Beginning of popup message that shows the number of trackers."
     },
     "intro_by_eff": {
         "message": "Ein Projekt der Electronic Frontier Foundation",
@@ -368,8 +399,21 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "potentielle <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking-Domains</a> erkannt. Diese Schieberegler lassen Sie steuern, wie Privacy Badger die jeweiligen Tracker handhabt.",
-        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+        "message": "Privacy Badger hat bisher $COUNT$ potentielle $TRACKER_LINK_START$Tracking-Domains$TRACKER_LINK_END$ erkannt. Diese Schieberegler lassen Sie steuern, wie Privacy Badger die jeweiligen Tracker handhabt.",
+        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "name": {
         "message": "Privacy Badger",
