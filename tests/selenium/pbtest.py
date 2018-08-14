@@ -209,13 +209,17 @@ def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ...")
     """
     for i in range(times):
         result = fun()
-        if tester is not None and tester(result):
-            break
+
+        if tester is not None:
+            if tester(result):
+                break
         elif result:
             break
-        elif i == 0:
+
+        if i == 0:
             print("")
         print(msg)
+
         time.sleep(2 ** i)
 
     return result
