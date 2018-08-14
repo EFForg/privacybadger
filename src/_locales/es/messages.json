@@ -1,14 +1,4 @@
 {
-    "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger ha sustituido este botón de $BUTTON$.",
-        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
-        "placeholders": {
-            "button": {
-                "content": "$1",
-                "example": "Facebook Like"
-            }
-        }
-    },
     "badger_status_block": {
         "message": "Bloqueado $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -96,23 +86,6 @@
     "domain_slider_cookieblock_tooltip": {
         "message": "Haz clic aquí para evitar que ese dominio use cookies",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
-    },
-    "popup_instructions": {
-        "message": "Privacy Badger detectado $COUNT$ potenciales $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ en esta página. Estas barras te permiten controlar como Privacy Badger maneja cada uno. No deberías de necesitar modificar estas opciones a menos que Privacy Badger cree problemas con esa página.",
-        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
-        "placeholders": {
-            "count": {
-                "content": "$1",
-                "example": "15"
-            },
-            "tracker_link_start": {
-                "content": "$2",
-                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
-            },
-            "tracker_link_end": {
-                "content": "</a>"
-            }
-        }
     },
     "options_domain_filter_block": {
         "message": "bloqueado",
@@ -235,6 +208,30 @@
     "export_user_data": {
         "message": "Exportar datos de usuario",
         "description": ""
+    },
+    "reset": {
+        "message": "Reset",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "reset_data": {
+        "message": "Reset tracking domains",
+        "description": "Caption above reset button"
+    },
+    "reset_data_confirm": {
+        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "description": "Pop-up triggered when the reset_data button is clicked"
+    },
+    "remove_all": {
+        "message": "Remove all",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "remove_all_data": {
+        "message": "Remove all tracking domains",
+        "description": "Caption above remove_all button"
+    },
+    "remove_all_data_confirm": {
+        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
         "message": "Ahora te encuentras bajo la protección de Privacy Badger. Para saber como funciona Privacy Badger haz clic abajo para un rápido tutorial.",
@@ -366,6 +363,23 @@
         "message": "Privacy Badger está desactivado en los siguientes sitios. Esto significa que Privacy Badger no bloqueará nada cuando usted visite los sitios listados aquí.<br><br>Si cree que Privacy Badger está rompiendo una página, puede escribir el dominio de esa página en el cuadro de abajo y hacer clic en el botón \"Añadir dominio\".<br><br>Alternativamente, cuando ya tenga seleccionada la pestaña de la página, simplemente haga clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haga clic en el botón \"Deshabilitar\".",
         "description": ""
     },
+    "popup_instructions": {
+        "message": "Privacy Badger detectado $COUNT$ potenciales $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ en esta página. Estas barras te permiten controlar como Privacy Badger maneja cada uno. No deberías de necesitar modificar estas opciones a menos que Privacy Badger cree problemas con esa página.",
+        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
+    },
     "intro_by_eff": {
         "message": "Un proyecto de Electronic Frontier Foundation",
         "description": ""
@@ -482,5 +496,15 @@
     "report_fail": {
         "message": "Oops. Algo salió mal.",
         "description": ""
+    },
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger ha sustituido este botón de $BUTTON$.",
+        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "placeholders": {
+            "button": {
+                "content": "$1",
+                "example": "Facebook Like"
+            }
+        }
     }
 }

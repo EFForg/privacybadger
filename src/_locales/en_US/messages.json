@@ -1,14 +1,4 @@
 {
-    "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger has replaced this $BUTTON$ button.",
-        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
-        "placeholders": {
-            "button": {
-                "content": "$1",
-                "example": "Facebook Like"
-            }
-        }
-    },
     "badger_status_block": {
         "message": "Blocked $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -506,5 +496,15 @@
     "report_fail": {
         "message": "Oops. Something went wrong.",
         "description": ""
+    },
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger has replaced this $BUTTON$ button.",
+        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "placeholders": {
+            "button": {
+                "content": "$1",
+                "example": "Facebook Like"
+            }
+        }
     }
 }
