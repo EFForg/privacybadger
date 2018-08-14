@@ -105,18 +105,21 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertTrue(self.domain_was_blocked(DNT_DOMAIN),
             msg="DNT-compliant resource should have been blocked at first.")
 
-        # switch back to the page with the DNT-compliant resource
-        switch_to_window_with_url(self.driver, PAGE_URL)
+        def reload_and_see_if_unblocked():
+            # switch back to the page with the DNT-compliant resource
+            switch_to_window_with_url(self.driver, PAGE_URL)
 
-        # reload it
-        self.load_url(PAGE_URL)
+            # reload it
+            self.load_url(PAGE_URL)
 
-        # switch back to Badger's background page
-        switch_to_window_with_url(self.driver, self.bg_url)
+            # switch back to Badger's background page
+            switch_to_window_with_url(self.driver, self.bg_url)
+
+            return self.domain_was_blocked(DNT_DOMAIN)
 
         # verify that the domain is allowed
         was_blocked = retry_until(
-            partial(self.domain_was_blocked, DNT_DOMAIN),
+            reload_and_see_if_unblocked,
             tester=lambda x: not x,
             msg="Waiting a bit for DNT check to complete and retrying ...")
 
