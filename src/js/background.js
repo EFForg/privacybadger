@@ -53,9 +53,10 @@ function Badger() {
     try {
       self.runMigrations();
     } finally {
+      self.loadFirstRunSeedData();
       self.initializeYellowlist();
       self.initializeDNT();
-      if (!self.isIncognito) {self.showFirstRunPage();}
+      self.showFirstRunPage();
     }
 
     // Show icon as page action for all tabs that already exist
@@ -140,9 +141,29 @@ Badger.prototype = {
 
   // Methods
 
+  // load seed dataset with pre-trained action and snitch maps
+  loadSeedData: function() {
+    let self = this;
+    utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
+      if (!err) {
+        var seed = JSON.parse(response);
+        self.storage.getBadgerStorageObject("action_map").merge(seed.action_map);
+        self.storage.getBadgerStorageObject("snitch_map").merge(seed.snitch_map);
+        console.log("Loaded seed data successfully");
+      }
+    });
+  },
+
+  loadFirstRunSeedData: function() {
+    if (this.getSettings().getItem("isFirstRun")) {
+      this.loadSeedData();
+    }
+  },
+
   showFirstRunPage: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
-    if (settings.getItem("isFirstRun") && !chrome.extension.inIncognitoContext) {
+    let settings = this.storage.getBadgerStorageObject("settings_map");
+    if (settings.getItem("isFirstRun")) {
+      // launch first-run page and unset first-run flag
       chrome.tabs.create({
         url: chrome.extension.getURL("/skin/firstRun.html")
       });

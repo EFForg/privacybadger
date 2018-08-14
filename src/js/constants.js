@@ -34,6 +34,7 @@ var exports = {
   DNT_POLICIES_LOCAL_URL: chrome.extension.getURL('data/dnt-policies.json'),
   YELLOWLIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",
   YELLOWLIST_LOCAL_URL: chrome.extension.getURL('data/yellowlist.txt'),
+  SEED_DATA_LOCAL_URL: chrome.extension.getURL('data/seed.json'),
 
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,

@@ -183,14 +183,26 @@
 
   <div id="tab-manage-data">
 
-    <div id="import">
-      <h3><span class="i18n_import_user_data"></span></h3>
-      <input type="file" class="importInput" id="importTrackers" accept=".json">
-      <button id="importTrackerButton" class="importButton" type="submit"><span class="i18n_import"></span></button>
+    <div class="btn-silo">
+      <div id="import">
+        <h3><span class="i18n_import_user_data"></span></h3>
+        <input type="file" class="importInput" id="importTrackers" accept=".json">
+        <button id="importTrackerButton" class="importButton" type="submit"><span class="i18n_import"></span></button>
+      </div>
+      <div id="export">
+        <h3><span class="i18n_export_user_data"></span></h3>
+        <button id="exportTrackers"><span class="i18n_download"></span></button>
+      </div>
     </div>
-    <div id="export">
-      <h3><span class="i18n_export_user_data"></span></h3>
-      <button id="exportTrackers" class="exportButton"><span class="i18n_download"></span></button>
+    <div class="btn-silo">
+      <div id="reset">
+        <h3><span class="i18n_reset_data"></span></h3>
+        <button id="resetData" class="btn-danger"><span class="i18n_reset"></span></button>
+      </div>
+      <div id="remove">
+        <h3><span class="i18n_remove_all_data"></span></h3>
+        <button id="removeAllData" class="btn-danger"><span class="i18n_remove_all"></span></button>
+      </div>
     </div>
   </div>
 

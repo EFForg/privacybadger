@@ -713,6 +713,15 @@ function dispatcher(request, sender, sendResponse) {
       tabUrl: tab_url
     });
 
+  } else if (request.type == "resetData") {
+    badger.storage.clearTrackerData();
+    badger.loadSeedData();
+    sendResponse();
+
+  } else if (request.type == "removeAllData") {
+    badger.storage.clearTrackerData();
+    sendResponse();
+
   } else if (request.type == "seenComic") {
     badger.getSettings().setItem("seenComic", true);
 

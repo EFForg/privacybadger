@@ -55,6 +55,8 @@ function loadOptions() {
   $('#importTrackerButton').on("click", loadFileChooser);
   $('#importTrackers').on("change", importTrackerList);
   $('#exportTrackers').on("click", exportUserData);
+  $('#resetData').on("click", resetData);
+  $('#removeAllData').on("click", removeAllData);
 
   if (settings.getItem("showTrackingDomains")) {
     $('#tracking-domains-overlay').hide();
@@ -98,7 +100,9 @@ function loadOptions() {
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
-  $(".exportButton").button("option", "icons", {primary: "ui-icon-extlink"});
+  $("#exportTrackers").button("option", "icons", {primary: "ui-icon-extlink"});
+  $("#resetData").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
+  $("#removeAllData").button("option", "icons", {primary: "ui-icon-closethick"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
@@ -199,6 +203,25 @@ function parseUserDataFile(storageMapsList) {
     reloadTrackingDomainsTab();
     confirm(i18n.getMessage("import_successful"));
   });
+}
+
+function resetData() {
+  var resetWarn = i18n.getMessage("reset_data_confirm");
+  if (confirm(resetWarn)) {
+    chrome.runtime.sendMessage({type: "resetData"}, () => {
+      // reload page to refresh tracker list
+      location.reload();
+    });
+  }
+}
+
+function removeAllData() {
+  var removeWarn = i18n.getMessage("remove_all_data_confirm");
+  if (confirm(removeWarn)) {
+    chrome.runtime.sendMessage({type: "removeAllData"}, () => {
+      location.reload();
+    });
+  }
 }
 
 /**
