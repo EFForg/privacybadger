@@ -364,7 +364,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger opdagede $COUNT$ potentielle $TRACKER_LINK_START$sporinger$TRACKER_LINK_END$ på denne side. Disse skydere lader dig styre hvordan Privacy Badger håndterer hver især. Du burde ikke have nødigt at justere dem medmindre noget er i stykker.",
+        "message": "Privacy Badger opdagede $COUNT$ potentielle $TRACKER_LINK_START$sporinger$TRACKER_LINK_END$ på denne side. Disse skydere lader dig styre hvordan Privacy Badger håndterer hver især. Du behøver ikke at justere dem medmindre noget er i stykker.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -401,7 +401,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger opdagede en potentiel <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporing</a> på denne side. Skyderen lader dig styre hvordan Privacy Badger håndterer den. Du burde ikke have nødigt at justere skyderen med mindre noget er i stykker.",
+        "message": "Privacy Badger opdagede en potentiel <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporing</a> på denne side. Skyderen lader dig styre hvordan Privacy Badger håndterer den. Du behøver ikke at justere skyderen med mindre noget er i stykker.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
