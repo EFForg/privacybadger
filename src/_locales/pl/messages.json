@@ -214,23 +214,23 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Reset tracking domains",
+        "message": "Reset szpiegujących domen",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "message": "Reset szpiegujących domen spowoduje:\n\n • wymazanie wszystkich danych o śledzikach, których Privacy Badger nauczył się podczas Twojego serfowania\n • zastąpienie listy szpiegujących domen najnowszą listą początkową (przeczytaj www.eff.org/badger-pretraining aby dowiedzieć się więcej)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Remove all",
+        "message": "Usuń wszystko",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Remove all tracking domains",
+        "message": "Usuń wszystkie szpiegujące domeny",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "message": "Usunięcie wszystkich szpiegujących domen spowoduje:\n\n • usunięcie wszystkiego, co Privacy Badger wie o śledzikach\n • że Privacy Badger nie będzie czegokolwiek zanim ponownie nie wyuczy się na podstawie Twojego przeglądania",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {

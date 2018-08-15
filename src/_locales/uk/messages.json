@@ -210,27 +210,27 @@
         "description": ""
     },
     "reset": {
-        "message": "Reset",
+        "message": "Відновити",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Reset tracking domains",
+        "message": "Відновити домени стеження",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "message": "Відновлення доменів стеження спричинить:\n\n  • Вилучення всіх даних про елементи стеження, які Privacy Badger виявив за час користування браузером\n  • Відновлення списку доменів стеження до останньої стандартної версії (для докладних відомостей відвідайте www.eff.org/badger-pretraining)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Remove all",
+        "message": "Вилучити все",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Remove all tracking domains",
+        "message": "Вилучити всі домени стеження",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "message": "Вилучення всіх доменів стеження спричинить:\n\n  • Вилучення всіх даних, відомих Privacy Badger про стеження\n  • Privacy Badger не буде блокувати нічого, доки не виявить стеження під час роботи браузера",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {

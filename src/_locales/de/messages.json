@@ -210,11 +210,11 @@
         "description": ""
     },
     "reset": {
-        "message": "Reset",
+        "message": "Zurücksetzen",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Reset tracking domains",
+        "message": "Tracking-Domains zurücksetzen",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
@@ -222,11 +222,11 @@
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Remove all",
+        "message": "Alle entfernen",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Remove all tracking domains",
+        "message": "Alle Tracking-Domains entfernen",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
