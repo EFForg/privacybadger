@@ -210,27 +210,27 @@
         "description": ""
     },
     "reset": {
-        "message": "Reset",
+        "message": "重設",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Reset tracking domains",
+        "message": "重設追蹤網域",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "message": "重設追蹤網域將會：\n\n • 刪除所有 Privacy Badger 已從您的瀏覽中學習到的追蹤器\n • 將追蹤網域復原為最新的預訓練清單（請見 www.eff.org/badger-pretraining 以取得更多資訊）",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Remove all",
+        "message": "移除全部",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Remove all tracking domains",
+        "message": "移除所有追蹤網域",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "message": "移除所有追蹤網域將會：\n\n • 刪除 Privacy Badger 知道的所有關於追蹤器的東西\n • 造成 Privacy Badger 在有機會重新自您的瀏覽中學習前無法阻擋任何東西",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
