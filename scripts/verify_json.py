@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import json
 import sys
@@ -11,8 +11,8 @@ with open(sys.argv[1]) as f:
         if set(js.keys()) == KEYS:
             sys.exit(0)
         else:
-            print "json keys %s are not correct" % js.keys()
+            print("json keys %s are not correct" % js.keys())
             sys.exit(1)
     except Exception as e:
-        print "error parsing json:", e
+        print("error parsing json:", e)
         sys.exit(1)
