@@ -174,7 +174,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Bitte vergessen Sie nicht, auf \"Gab es ein Problem beim Laden dieser Website?\" zu klicken. Da wir Ihre Privatsphäre respektieren, senden wir keine automatisierten Berichte.",
+        "message": "Bitte vergessen Sie nicht, auf »Gab es ein Problem beim Laden dieser Website?« zu klicken. Da wir Ihre Privatsphäre respektieren, senden wir keine automatisierten Berichte.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -218,7 +218,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "message": "Zurücksetzen der Tracking-Domains wird:\n\n  • Alle Daten über Tracker löschen, die Privacy Badger während Ihrer Nutzung des Browsers gelernt hat\n  • Die Tracking-Domain-Liste auf die neueste vorgegebene Liste zurücksetzen (besuchen Sie www.eff.org/badger-pretraining für weitere Informationen)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -230,7 +230,7 @@
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "message": "Entfernen aller Tracking-Domains wird:\n\n  • Alles löschen, was Privacy Badger über Tracker weiß\n  • Privacy Badger veranlassen, solange nichts zu blocken, bis er Gelegenheit hatte, von Ihrer Nutzung des Browsers neu zu lernen",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
@@ -352,7 +352,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Websites eine \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\"-Anforderung senden",
+        "message": "Websites eine »<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>«-Anforderung senden",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -364,7 +364,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger hat bisher $COUNT$ potenzielle $TRACKER_LINK_START$Tracker$TRACKER_LINK_END$ auf dieser Seite erkannt. Mittels der Schieberegler können Sie steuern, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen.",
+        "message": "Privacy Badger hat bisher $COUNT$ mögliche $TRACKER_LINK_START$Tracker$TRACKER_LINK_END$ auf dieser Seite erkannt. Mittels der Schieberegler können Sie steuern, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -389,7 +389,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger hat bisher eine potentielle <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking-Domain</a> erkannt. Der Schieberegler lässt Sie steuern, wie Privacy Badger diese handhabt.",
+        "message": "Privacy Badger hat bisher eine mögliche <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracking-Domain</a> erkannt. Der Schieberegler lässt Sie steuern, wie Privacy Badger diese handhabt.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -401,7 +401,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger hat einen potentiellen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracker</a> auf dieser Seite erkannt. Der Schieberegler lässt Sie steuern, wie Privacy Badger ihn handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite aufgetreten sind, sollte es nicht nötig sein, den Schieberegler anzupassen.",
+        "message": "Privacy Badger hat einen möglichen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracker</a> auf dieser Seite erkannt. Der Schieberegler lässt Sie steuern, wie Privacy Badger ihn handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite aufgetreten sind, sollte es nicht nötig sein, den Schieberegler anzupassen.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -413,7 +413,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger hat bisher $COUNT$ potentielle $TRACKER_LINK_START$Tracking-Domains$TRACKER_LINK_END$ erkannt. Diese Schieberegler lassen Sie steuern, wie Privacy Badger die jeweiligen Tracker handhabt.",
+        "message": "Privacy Badger hat bisher $COUNT$ mögliche $TRACKER_LINK_START$Tracking-Domains$TRACKER_LINK_END$ erkannt. Diese Schieberegler lassen Sie steuern, wie Privacy Badger die jeweiligen Tracker handhabt.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -434,7 +434,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger beginnt mit dem Blocken, sobald es denselben Tracker auf drei verschiedenen Websites erkennt. Falls Sie andere Datenschutztools oder Adblocker verwenden, wird Privacy Badger weniger lernen, aber das ist in Ordnung. Vielleicht erkennt es Dinge, die Ihrer anderen Software entgehen.",
+        "message": "Privacy Badger beginnt mit dem Blocken, sobald er denselben Tracker auf drei verschiedenen Websites erkennt. Falls Sie andere Datenschutztools oder Adblocker verwenden, wird Privacy Badger weniger lernen, aber das ist in Ordnung. Vielleicht erkennt er Dinge, die Ihrer anderen Software entgehen.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -454,11 +454,11 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "Stellen Sie zum Ausschließen von Domains Ihrem Suchbegriff ein \"-\" voran. Beispielsweise zeigt \".co -.com\" \".co\"- und \".co.uk\"-, aber keine \".com\"-Domains an.",
+        "message": "Stellen Sie zum Ausschließen von Domains Ihrem Suchbegriff ein »-« voran. Beispielsweise zeigt ».co -.com« ».co«- und ».co.uk«-, aber keine ».com«-Domains an.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Falls Sie denken, dass durch Privacy Badger eine Seite nicht korrekt dargestellt wird (z. B. eine Video wird nicht wiedergegeben), so können Sie auf die Schaltfläche \"Deaktivieren\" klicken, um Privacy Badger für diese Website auszuschalten.",
+        "message": "Falls Sie denken, dass durch Privacy Badger eine Seite nicht korrekt dargestellt wird (z. B. ein Video wird nicht wiedergegeben), so können Sie auf die Schaltfläche »Deaktivieren« klicken, um Privacy Badger für diese Website auszuschalten.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
