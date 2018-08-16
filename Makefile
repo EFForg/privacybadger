@@ -34,4 +34,7 @@ tx:
 	tx pull -f
 	scripts/fix_placeholders.py
 
-.PHONY: build travisbuild updatepsl updateseed zip crx todo logging lint tx
+runff:
+	./node_modules/.bin/web-ext run -s src/
+
+.PHONY: build travisbuild updatepsl updateseed zip crx todo logging lint tx runff
