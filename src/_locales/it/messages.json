@@ -210,27 +210,27 @@
         "description": ""
     },
     "reset": {
-        "message": "Reset",
+        "message": "Ripristina",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Reset tracking domains",
+        "message": "Ripristina domini traccianti",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "message": "Il ripristino dei domini traccianti causa:\n\n  • L'eliminazione di tutti i dati sui tracker che Privacy Badger ha imparato dalla tua navigazione\n  • Il ripristino dell'elenco dei domini traccianti all'ultimo elenco pre-istruzione (visita www.eff.org/badger-pretraining per altre info)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Remove all",
+        "message": "Rimuovi tutto",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Remove all tracking domains",
+        "message": "Rimuovi tutti i domini traccianti",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "message": "La rimozione di tutti i domini traccianti causa:\n\n  • L'eliminazione di tutto ciò che Privacy Badger sa sui tracker\n  • Privacy Badger non bloccherà nulla finchè non ha avuto la possibilità di re-imparare dalla tua navigazione",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
