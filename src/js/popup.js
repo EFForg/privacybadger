@@ -126,12 +126,10 @@ function init() {
   var version = chrome.i18n.getMessage("version") + " " + chrome.runtime.getManifest().version;
   $("#version").text(version);
 
-  if (POPUP_DATA.isPrivateWindow) {
-    $("#options").on("click", function (event) {
-      openOptionsPage();
-      event.preventDefault();
-    });
-  }
+  $("#options").on("click", function (e) {
+    openOptionsPage();
+    e.preventDefault();
+  });
 }
 
 function openOptionsPage() {

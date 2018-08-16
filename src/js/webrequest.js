@@ -709,7 +709,6 @@ function dispatcher(request, sender, sendResponse) {
       seenComic: badger.getSettings().getItem("seenComic"),
       tabHost: tab_host,
       tabId: tab_id,
-      isPrivateWindow: incognito.tabIsIncognito(tab_id),
       tabUrl: tab_url
     });
 
