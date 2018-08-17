@@ -35,6 +35,6 @@ tx:
 	scripts/fix_placeholders.py
 
 runff:
-	./node_modules/.bin/web-ext run -s src/
+	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/
 
 .PHONY: build travisbuild updatepsl updateseed zip crx todo logging lint tx runff
