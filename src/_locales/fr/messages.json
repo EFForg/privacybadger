@@ -210,27 +210,27 @@
         "description": ""
     },
     "reset": {
-        "message": "Reset",
+        "message": "Réinitialiser",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Reset tracking domains",
+        "message": "Réinitialisation des domaines traceurs",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "message": "Réinitialiser les domaines traceurs :\n\n• supprimera toutes les données apprises par Privacy Badger sur les traceurs  ;\n• restaurera la liste des domaines traceurs à la dernière liste préétablie ( www.eff.org/badger-pretraining pour en savoir plus).",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Remove all",
+        "message": "Tout supprimer",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Remove all tracking domains",
+        "message": "Supprimer tous les domaines traceurs",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "message": "Supprimer tous les domaines traceurs :\n\n• supprimera tout ce que Privacy Badger a appris sur les traceurs ;\n• suspendra tout blocage des traceurs jusqu'à ce que Privacy Badger apprenne à les reconnaitre de nouveau.",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
