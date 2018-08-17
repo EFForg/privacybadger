@@ -364,7 +364,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger hat bisher $COUNT$ mögliche $TRACKER_LINK_START$Tracker$TRACKER_LINK_END$ auf dieser Seite erkannt. Mittels der Schieberegler können Sie steuern, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite aufgetreten sind, sollte es nicht nötig sein, die Schieberegler anzupassen.",
+        "message": "Privacy Badger hat bisher $COUNT$ mögliche $TRACKER_LINK_START$Tracker$TRACKER_LINK_END$ auf dieser Seite erkannt. Mit den Schiebereglern können Sie steuern, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite auftreten, sollte es nicht notwendig sein, die Schiebereglereinstellungen zu verändern.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
