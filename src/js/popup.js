@@ -135,32 +135,42 @@ function init() {
 function openOptionsPage() {
   const url = chrome.runtime.getURL("/skin/options.html");
 
-  chrome.windows.getAll({ windowTypes: ["normal"] }, (windows) => {
-    // first see if we can open a tab in an existing non-private window
-    for (let i = 0; i < windows.length; i++) {
-      if (windows[i].incognito) {
-        continue;
-      }
+  function openOptionsInTab(win_id) {
+    // create the new tab
+    chrome.tabs.create({
+      url,
+      windowId: win_id,
+      active: true
+    }, () => {
+      // focus the window it is in
+      chrome.windows.update(win_id, { focused: true });
+    });
+  }
 
-      // create the new tab
-      chrome.tabs.create({
-        url,
-        windowId: windows[i].id,
-        active: true
-      }, () => {
-        // focus the window it is in
-        chrome.windows.update(windows[i].id, { focused: true });
-      });
-
+  chrome.windows.getLastFocused((win) => {
+    // if we have a focused non-incognito window, let's use it
+    if (!win.incognito) {
+      openOptionsInTab(win.id);
       return;
     }
 
-    // if here, there are no already-open non-private windows
-    chrome.windows.create({
-      url,
-      incognito: false
-    }, (win) => {
-      windows.update(win.id, { focused: true });
+    // if there is an already-open non-incognito window, use that
+    chrome.windows.getAll({ windowTypes: ["normal"] }, (windows) => {
+      for (let i = 0; i < windows.length; i++) {
+        if (windows[i].incognito) {
+          continue;
+        }
+        openOptionsInTab(windows[i].id);
+        return;
+      }
+
+      // if here, there are no already-open non-private windows
+      chrome.windows.create({
+        url,
+        incognito: false
+      }, (w) => {
+        windows.update(w.id, { focused: true });
+      });
     });
   });
 }
