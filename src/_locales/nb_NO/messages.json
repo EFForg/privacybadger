@@ -18,7 +18,7 @@
         "description": ""
     },
     "badger_status_noaction": {
-        "message": "No tracking for $DOMAIN$",
+        "message": "Ingen sporing for $DOMAIN$",
         "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -48,7 +48,7 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Help us by donating and sharing your support for our tools",
+        "message": "Hjelp oss ved å donere og dele din støtte til våre verktøy",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
@@ -88,7 +88,7 @@
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
-        "message": "blocked",
+        "message": "blokkert",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
@@ -112,7 +112,7 @@
         "description": "This is an options page tab heading."
     },
     "share_button_title_twitter": {
-        "message": "Share on Twitter",
+        "message": "Del på Twitter",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
@@ -222,7 +222,7 @@
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Remove all",
+        "message": "Fjern alle",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
@@ -246,7 +246,7 @@
         "description": "This is an options page tab heading."
     },
     "intro_next_button": {
-        "message": "Take the tour",
+        "message": "Ta turen",
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
@@ -280,7 +280,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
-        "message": "I understand; please show me the tracking domains list anyway",
+        "message": "Jeg forstår; vennligst vis meg listen sporing domener likevel",
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "firstRun_title": {
@@ -320,15 +320,15 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
-        "message": "Help",
+        "message": "Hjelp",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "options_domain_filter_allow": {
-        "message": "allowed",
+        "message": "tillatt",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
-        "message": "Share on Google+",
+        "message": "Del på Google+",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "intro_donate_heading": {
@@ -340,7 +340,7 @@
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
     },
     "options_domain_filter_all": {
-        "message": "all",
+        "message": "alle",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
@@ -405,7 +405,7 @@
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
-        "message": "Click here to allow this domain",
+        "message": "Klikk her for å tillate dette domenet",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
@@ -462,7 +462,7 @@
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
-        "message": "Privacy Policy",
+        "message": "Personvernregler",
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "options_domain_list_no_trackers": {
@@ -482,7 +482,7 @@
         "description": ""
     },
     "share_button_title_facebook": {
-        "message": "Share on Facebook",
+        "message": "Del på Facebook",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {

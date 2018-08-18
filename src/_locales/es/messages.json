@@ -10,7 +10,7 @@
         }
     },
     "invalid_json": {
-        "message": "Archivo JSON invalido.",
+        "message": "Archivo JSON inválido.",
         "description": ""
     },
     "options_remove_origin_confirm": {
@@ -40,7 +40,7 @@
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
-        "message": "Favor de agregar un dominio o URL valido.",
+        "message": "Por favor añada un dominio o URL válido.",
         "description": ""
     },
     "donate_to_eff": {
@@ -92,7 +92,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Prevenir que WebRTC filtre números IP locales *",
+        "message": "Impedir que WebRTC divulge la dirección IP local *",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "Haz click para devolver el control de este rastreador a Privacy Badger",
+        "message": "Haz clic para devolver el control de este rastreador a Privacy Badger",
         "description": ""
     },
     "import": {
@@ -174,7 +174,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Por favor no olvides hacer click en 'Reportar un sitio roto'. Respetamos tu privacidad por lo que no enviamos reportes de forma automática.",
+        "message": "Por favor no olvides hacer clic en 'Reportar un sitio roto'. Respetamos tu privacidad por lo que no enviamos reportes de forma automática.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -401,7 +401,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger un <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastreador</a> potencial en este sitio. La barra te permite conrolar lo que Privacy Badger hace con el dominio. No deberías de necesitar de ajustar la barra a menos que algo no funcione.",
+        "message": "Privacy Badger detectó un <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastreador</a> potencial en este sitio. El control deslizante le permite controlar cómo lo maneja Privacy Badger. No debería necesitar ajustar el control deslizante a menos que algo no funcione.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
