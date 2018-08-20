@@ -26,12 +26,8 @@
  * @return {Array}
  */
 window.getOriginsArray = (origins, filter_text, type_filter, status_filter) => {
-  // Make sure filter_text is lower case for case-insensitive matching.
-  if (filter_text) {
-    filter_text = filter_text.toLowerCase();
-  } else {
-    filter_text = "";
-  }
+  // Make sure filter_text is lower case for case-insensitive matching. 
+  filter_text = filter_text ? filter_text.toLowerCase() : "";
 
   /**
    * @return {Boolean} Does the origin pass filters?
