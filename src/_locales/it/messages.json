@@ -498,7 +498,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger ha sostituito questo $BUTTON$ pulsante.",
+        "message": "Privacy Badger ha sostituito questo pulsante $BUTTON$.",
         "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
         "placeholders": {
             "button": {

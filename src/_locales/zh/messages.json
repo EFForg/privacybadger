@@ -454,7 +454,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "在搜索关键词前加入“-”来排除域名。例如，“.co -.com\"将会显示 .co 和 .co.uk，但不显示.com域名。",
+        "message": "在搜索关键词前加入“-”来排除域名。例如，“.co -.com”将会显示 .co 和 .co.uk，但不显示.com域名。",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {

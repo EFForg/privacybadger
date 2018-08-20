@@ -92,7 +92,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Impedir que WebRTC divulge la dirección IP local *",
+        "message": "Impedir que WebRTC divulgue la dirección IP local *",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -364,7 +364,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger detectado $COUNT$ potenciales $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ en esta página. Estas barras te permiten controlar como Privacy Badger maneja cada uno. No deberías de necesitar modificar estas opciones a menos que Privacy Badger cree problemas con esa página.",
+        "message": "Privacy Badger detectado $COUNT$ potenciales $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ en esta página. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada uno de ellos. No debería necesitar ajustar los controles deslizantes a menos que algo esté roto.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -413,7 +413,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger ha detectado $COUNT$ $TRACKER_LINK_START$dominios rastreadores$TRACKER_LINK_END$ potenciales al momento. Las barras te permiten controlar lo que Privacy Badger hace con cada uno.",
+        "message": "Privacy Badger ha detectado $COUNT$ potenciales $TRACKER_LINK_START$ dominios de rastreo $TRACKER_LINK_END$ hasta el momento. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada rastreador.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
