@@ -15,16 +15,7 @@ const RE_BAD_CHARACTERS = /([^0-9a-f:])/i;
 const RE_BAD_ADDRESS = /([0-9a-f]{5,}|:{3,}|[^:]:$|^:[^:]$)/i;
 
 function isIPv4(address) {
-  if (RE_V4.test(address)) {
-    return true;
-  }
-  if (RE_V4_HEX.test(address)) {
-    return true;
-  }
-  if (RE_V4_NUMERIC.test(address)) {
-    return true;
-  }
-  return false;
+  return (RE_V4.test(address) || RE_V4_HEX.test(address) || RE_V4_NUMERIC.test(address));
 }
 
 function isIPv6(address) {
@@ -46,11 +37,7 @@ function isIPv6(address) {
     a4addon = 2;
   }
 
-  if (RE_BAD_CHARACTERS.test(address)) {
-    return false;
-  }
-
-  if (RE_BAD_ADDRESS.test(address)) {
+  if (RE_BAD_CHARACTERS.test(address) || RE_BAD_ADDRESS.test(address)) {
     return false;
   }
 
