@@ -32,7 +32,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "检查<a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>第三方域名</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>电子前哨基金会的“请勿跟踪”政策</a>",
+        "message": "检查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方域名</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>电子前哨基金会的“请勿跟踪”政策</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {

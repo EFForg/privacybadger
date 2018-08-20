@@ -32,7 +32,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Tjek om <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tredjepartsdomæner</a> overholder <a target='_blank' href='https://www.eff.org/dnt-policy'>EFFs \"Spor Ikke\"-politik</a>",
+        "message": "Tjek om <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>tredjepartsdomæner</a> overholder <a target='_blank' href='https://www.eff.org/dnt-policy'>EFFs \"Spor Ikke\"-politik</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {

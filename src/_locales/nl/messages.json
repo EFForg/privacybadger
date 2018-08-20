@@ -32,7 +32,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Controleer of <a target='_blank' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domeinen van derde partijen</a> voldoen aan <a target='_blank' href='https://www.eff.org/dnt-policy'>het Niet Volgen-beleid (Do Not Track) van het EFF</a>",
+        "message": "Controleer of <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domeinen van derde partijen</a> voldoen aan <a target='_blank' href='https://www.eff.org/dnt-policy'>het Niet Volgen-beleid (Do Not Track) van het EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
