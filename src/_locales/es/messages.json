@@ -254,8 +254,14 @@
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
-        "message": "versión",
-        "description": ""
+        "message": "versión $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
     },
     "badger_status_cookieblock": {
         "message": "Cookies bloqueadas de $DOMAIN$",
