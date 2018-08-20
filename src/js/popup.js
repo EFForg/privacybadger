@@ -123,8 +123,9 @@ function init() {
   $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
 
-  var version = chrome.i18n.getMessage("version") + " " + chrome.runtime.getManifest().version;
-  $("#version").text(version);
+  $("#version").text(
+    chrome.i18n.getMessage("version", chrome.runtime.getManifest().version)
+  );
 
   $("#options").on("click", function (e) {
     openOptionsPage();
