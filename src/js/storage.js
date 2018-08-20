@@ -418,11 +418,7 @@ BadgerStorage.prototype = {
    **/
   getItem: function(key) {
     var self = this;
-    if (self.hasItem(key)) {
-      return self._store[key];
-    } else {
-      return null;
-    }
+    return self.hasItem(key) ? self._store[key] : null;
   },
 
   /**
