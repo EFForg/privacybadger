@@ -6,7 +6,7 @@ Privacy Badger sends the [Do Not Track signal](https://www.eff.org/issues/do-not
 
 Besides automatic tracker blocking, Privacy Badger removes outgoing link click tracking on [Facebook](https://www.eff.org/deeplinks/2018/05/privacy-badger-rolls-out-new-ways-fight-facebook-tracking) and [Twitter](https://www.eff.org/deeplinks/2017/08/privacy-badger-makes-twitter-little-less-creepy), with more privacy protections on the way.
 
-To learn more, see [the FAQ on Privacy Badger's homepage](https://www.eff.org/privacybadger#badger-faq-header).
+To learn more, see [the FAQ on Privacy Badger's homepage](https://www.eff.org/privacybadger/faq).
 
 
 ## Contributing
