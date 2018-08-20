@@ -379,7 +379,7 @@
             },
             "tracker_link_start": {
                 "content": "$2",
-                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
             },
             "tracker_link_end": {
                 "content": "</a>"
@@ -428,7 +428,7 @@
             },
             "tracker_link_start": {
                 "content": "$2",
-                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>"
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
             },
             "tracker_link_end": {
                 "content": "</a>"
