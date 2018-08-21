@@ -113,21 +113,19 @@ button
     max-height: 400px; /* override popup.css */
 }
 
-#settingsSuffix{
-  color: #555;
-  font-size: 12px;
-  width: 500px;
-  position: relative;
-  left: 50px;
+#settings-suffix {
+    color: #555;
+    font-size: 12px;
+    width: 500px;
+    margin-left: 50px;
 }
 
-#settingsSuffix div {
+#settings-suffix div {
     margin: 12px 0;
 }
 
-#check_dnt_policy_row {
-  position: relative;
-  left: 25px;
+#check-dnt-policy-row {
+    margin-left: 25px;
 }
 
 a, a:hover, a:active, a:visited{

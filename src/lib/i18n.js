@@ -29,9 +29,9 @@ function setTextDirection() {
   // set body text direction
   document.body.setAttribute("dir", "rtl");
 
-  // apply RTL workaround for jQuery UI tabs
-  // https://zoomicon.wordpress.com/2009/10/15/how-to-use-jqueryui-tabs-in-right-to-left-layout/
   if (document.location.pathname == "/skin/options.html") {
+    // apply RTL workaround for jQuery UI tabs
+    // https://zoomicon.wordpress.com/2009/10/15/how-to-use-jqueryui-tabs-in-right-to-left-layout/
     let css = document.createElement("style");
     css.type = "text/css";
     css.textContent = `
@@ -41,6 +41,12 @@ function setTextDirection() {
 .ui-tabs .ui-tabs-nav li a { float: right; }
 `;
     document.body.appendChild(css);
+
+    // fix some margins
+    ['#settings-suffix', '#check-dnt-policy-row'].forEach((selector) => {
+      let $el = $(selector);
+      $el.css('margin-right', $el.css('margin-left')).css('margin-left', "auto");
+    });
   }
 }
 
