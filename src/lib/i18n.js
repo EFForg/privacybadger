@@ -21,11 +21,27 @@ function setTextDirection() {
   // https://www.w3.org/International/questions/qa-scripts#examples
   // https://developer.chrome.com/webstore/i18n?csw=1#localeTable
   const RTL_LANGS = ['ar', 'he', 'fa'];
-  let bidi_dir = 'ltr';
-  if (RTL_LANGS.indexOf(i18n.getMessage('@@ui_locale')) != -1) {
-    bidi_dir = 'rtl';
+
+  if (RTL_LANGS.indexOf(i18n.getMessage('@@ui_locale')) == -1) {
+    return;
   }
-  document.body.setAttribute('dir', bidi_dir);
+
+  // set body text direction
+  document.body.setAttribute("dir", "rtl");
+
+  // apply RTL workaround for jQuery UI tabs
+  // https://zoomicon.wordpress.com/2009/10/15/how-to-use-jqueryui-tabs-in-right-to-left-layout/
+  if (document.location.pathname == "/skin/options.html") {
+    let css = document.createElement("style");
+    css.type = "text/css";
+    css.textContent = `
+.ui-tabs { direction: rtl; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected,
+  .ui-tabs .ui-tabs-nav li.ui-state-default { float: right; }
+.ui-tabs .ui-tabs-nav li a { float: right; }
+`;
+    document.body.appendChild(css);
+  }
 }
 
 // Loads and inserts i18n strings into matching elements. Any inner HTML already in the
