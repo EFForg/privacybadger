@@ -7746,12 +7746,6 @@
       "nextUpdateTime": 0,
       "userAction": ""
     },
-    "springernature.com": {
-      "dnt": false,
-      "heuristicAction": "allow",
-      "nextUpdateTime": 0,
-      "userAction": ""
-    },
     "springserve.com": {
       "dnt": false,
       "heuristicAction": "block",
@@ -8696,7 +8690,7 @@
     },
     "twimg.com": {
       "dnt": false,
-      "heuristicAction": "allow",
+      "heuristicAction": "block",
       "nextUpdateTime": 0,
       "userAction": ""
     },
@@ -9716,7 +9710,7 @@
     },
     "ymetrica1.com": {
       "dnt": false,
-      "heuristicAction": "allow",
+      "heuristicAction": "block",
       "nextUpdateTime": 1534873369486,
       "userAction": ""
     },
@@ -13124,11 +13118,6 @@
     "spoutable.com": [
       "alternet.org",
       "dailydot.com"
-    ],
-    "springernature.com": [
-      "nature.com",
-      "biomedcentral.com",
-      "springer.com"
     ],
     "springserve.com": [
       "tinypic.com",
