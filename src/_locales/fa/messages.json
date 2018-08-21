@@ -32,7 +32,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "چک کن آیا <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'> دامنه های شخص ثالث </a> با <a target='_blank' href='https://www.eff.org/dnt-policy'> خط مشی ردیابی EFF </a> تطابق دارند",
+        "message": "چک کن آیا <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'> دامنه های شخص ثالث </a> با <a target='_blank' href='https://www.eff.org/dnt-policy'> خط مشی ردیابی نکن EFF </a> تطابق دارند",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -174,7 +174,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "فراموش نکنید تا روی 'آیا پرایوسی بجر باعث از کار افتادن این سایت شد' کلیک کنید. ما به حریم خصوصی شما احترام میگذاریم برای همین به صورت خودکار گزارش نمی فرستیم.",
+        "message": "فراموش نکنید تا روی 'آیا پرایوسی بجر باعث شده است تا این سایت به درستی کار نکند' کلیک کنید. ما به حریم خصوصی شما احترام میگذاریم برای همین به صورت خودکار گزارش نمی فرستیم.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -322,7 +322,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "سازگار با DNT",
+        "message": "سازگار با DNT (ردیابی نکن)",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "پرایوسی بجر روی سایت های زیر غیر فعال می باشد. بنابراین زمانی که به سایت هایی که در اینجا لیست شده اند مراجعه کنید، چیزی را بلاک نخواهد کرد. <br><br> اگر فکر میکنید که پرایوسی بجر  باعث از کار افتادن سایتی شده است، میتوانید دامنه آن صفحه را داخل باکس زیر تایپ کنید و روی دکمه \"اضافه کردن دامنه\" کلیک کنید.<br><br> جدای از این، اگر تب آن صفحه باز می باشد، میتوانید روی دکمه پرایوسی بجر کلیک کرده و روی دکمه \"غیرفعال سازی\" کلیک کنید.",
+        "message": "پرایوسی بجر روی سایت های زیر غیر فعال می باشد. بنابراین زمانی که به سایت هایی که در اینجا لیست شده اند مراجعه کنید، چیزی را بلاک نخواهد کرد. <br><br> اگر فکر میکنید که پرایوسی بجر  باعث از کار افتادن سایتی شده است، میتوانید دامنه آن صفحه را داخل باکس زیر تایپ کنید و روی دکمه \"افزودن دامنه\" کلیک کنید.<br><br> جدای از این، اگر تب آن صفحه باز می باشد، میتوانید روی دکمه پرایوسی بجر کلیک کرده و روی دکمه \"غیرفعال سازی\" کلیک کنید.",
         "description": ""
     },
     "popup_instructions": {
