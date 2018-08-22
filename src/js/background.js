@@ -146,9 +146,7 @@ Badger.prototype = {
     let self = this;
     utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
       if (!err) {
-        var seed = JSON.parse(response);
-        self.storage.getBadgerStorageObject("action_map").merge(seed.action_map);
-        self.storage.getBadgerStorageObject("snitch_map").merge(seed.snitch_map);
+        self.mergeUserData(JSON.parse(response));
         console.log("Loaded seed data successfully");
       }
     });
