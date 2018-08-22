@@ -471,6 +471,7 @@ printfriendly.com
 providesupport.com
 psswrdbx.com
 publiekeomroep.nl
+img.purch.com
 qualtrics.com
 quotemedia.com
 api.razorpay.com
