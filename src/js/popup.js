@@ -136,16 +136,26 @@ function init() {
 function openOptionsPage() {
   const url = chrome.runtime.getURL("/skin/options.html");
 
-  function openOptionsInTab(win_id) {
-    // create the new tab
-    chrome.tabs.create({
-      url,
-      windowId: win_id,
-      active: true
-    }, () => {
-      // focus the window it is in
-      chrome.windows.update(win_id, { focused: true });
+  function openOptionsInTab(win_id, cb) {
+    // first get the active tab's ID
+    chrome.tabs.query({ active: true, windowId: win_id }, (tabs) => {
+      // create the new tab
+      chrome.tabs.create({
+        url,
+        windowId: win_id,
+        active: true,
+        index: tabs[0].index + 1,
+        openerTabId: tabs[0].id
+      }, () => {
+        if (cb) {
+          cb();
+        }
+      });
     });
+  }
+
+  function focusWindow(win_id) {
+    chrome.windows.update(win_id, { focused: true });
   }
 
   chrome.windows.getLastFocused((win) => {
@@ -161,7 +171,10 @@ function openOptionsPage() {
         if (windows[i].incognito) {
           continue;
         }
-        openOptionsInTab(windows[i].id);
+        const win_id = windows[i].id;
+        openOptionsInTab(win_id, function () {
+          focusWindow(win_id);
+        });
         return;
       }
 
@@ -170,7 +183,7 @@ function openOptionsPage() {
         url,
         incognito: false
       }, (w) => {
-        windows.update(w.id, { focused: true });
+        focusWindow(w.id);
       });
     });
   });
