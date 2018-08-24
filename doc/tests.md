@@ -47,6 +47,9 @@ The `BROWSER` environment variable must be set. It must be one of:
 * `BROWSER=/path/to/a/browser`
 * the name of a browser executable that can be found like `which $BROWSER`
 * or simply `BROWSER=chrome` or `BROWSER=firefox` if you have them installed
+* For MacOS and Firefox, the full Application folder path to the binary is:
+  `BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin`
+* For MacOS and Chrome (complete with spaces that need to be escaped) use: `BROWSER=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome`
 
 ### Examples
 
