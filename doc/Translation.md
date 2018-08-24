@@ -12,6 +12,7 @@ reference. You can also use existing translations from other languages to help
 you in case of doubt, but you should always consider the English version as the
 correct one.
 
+
 ## A note about adding translation strings in PRs
 
 While working on a Privacy Badger enhancement, you might find yourself needing
@@ -20,6 +21,7 @@ to add a localized string. You only need to add new strings to the source
 messages to all other locales. This will happen when a Privacy Badger
 maintainer syncs translations with Transifex after your pull request passes
 review.
+
 
 ## GitHub
 
@@ -72,6 +74,7 @@ To correct errors in an existing translation:
 Here you can find an example translation pull request:
 [#1270](https://github.com/EFForg/privacybadger/pull/1270).
 
+
 ## Transifex
 
 To contribute to translations through Transifex you should have
@@ -95,6 +98,20 @@ Transifex refer to its [documentation](https://docs.transifex.com/).
 
 In case of questions or concerns with translations, you can leave comments
 for individual strings in the Transifex translations editor.
+
+
+## Testing your translations
+
+To see your (in-progress) translations in the actual Privacy Badger UI, you should first [load Privacy Badger from source code](/doc/develop.md#install-from-source).
+
+A quick/hacky way to change Privacy Badger's locale is to temporarily copy the locale you want to use to your default (OS) locale's folder in `src/_locales/` and reload Privacy Badger.
+
+The proper way would be to launch the browser in your desired locale.
+
+For Chrome, it might be as easy as [launching it from the command line with `LANGUAGE=fr` (for example) in front of the executable](https://stackoverflow.com/questions/24992240/start-google-chrome-with-a-specific-locale-using-a-command-line-argument).
+
+[Firefox seems to require more effort](https://askubuntu.com/questions/63724/how-do-i-start-firefox-in-another-language-than-the-default).
+
 
 ## Other information
 

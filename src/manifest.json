@@ -1,10 +1,10 @@
 {
-  "version": "2018.7.18.1",
+  "version": "2018.8.1",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
       "id": "jid1-MnnxcxisBPnSXQ@jetpack",
-      "strict_min_version": "50.0"
+      "strict_min_version": "52.0"
     }
   },
   "incognito": "spanning",

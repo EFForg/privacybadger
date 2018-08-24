@@ -1,6 +1,13 @@
 Changes for Privacy Badger 
 ====================================
-## 2018.7.18
+## 2018.8.1
+* Fixed security issues with HTML5 local storage tracking detection as well as
+SoundCloud widget replacement. Thanks again to Cure53 for discovering and
+reporting these vulnerabilities.
+* Improved Facebook link unwrapping; now enabled on the Facebook Onion domain
+* Improved translations (Italian, Norwegian Bokmål, Swedish, Ukrainian)
+
+## 2018.7.18.1
 * Added setting to disable sending Do Not Track to websites
 * Fixed security issue with link unwrapping on Facebook. Thanks to Cure53 for
 discovering and reporting this vulnerability.

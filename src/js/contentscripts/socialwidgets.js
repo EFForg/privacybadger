@@ -151,9 +151,11 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
       }, { once: true });
       break;
 
+    // in-place widget type:
+    // reinitialize the widget by reinserting its element's HTML
     case 3:
       button.addEventListener("click", function() {
-        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, trackerElem);
+        reinitializeWidgetAndUnblockTracker(button, buttonData.unblockDomains, trackerElem);
       }, { once: true });
       break;
 
@@ -197,7 +199,7 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
  * @param {Element} button the DOM element of the button to replace
  * @param {Tracker} tracker the Tracker object for the tracker that should be
  *                          unblocked
- * @param {(String|Element)} html an HTML string or DOM Element that should replace the button
+ * @param {String} html the HTML string that should replace the button
  */
 function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
   unblockTracker(tracker, function() {
@@ -206,11 +208,7 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
       var codeContainer = document.createElement("div");
-      if (typeof html == "string") {
-        codeContainer.innerHTML = html;
-      } else {
-        codeContainer.innerHTML = html.outerHTML;
-      }
+      codeContainer.innerHTML = html;
 
       button.parentNode.replaceChild(codeContainer, button);
 
@@ -220,11 +218,34 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
 }
 
 /**
+ * Unblocks the given tracker and replaces the given button with the widget
+ * element's HTML source code.
+ *
+ * @param {Element} button the DOM element of the button to replace
+ * @param {Tracker} tracker the Tracker object for the tracker that should be
+ *                          unblocked
+ * @param {HTMLElement} widgetElement the DOM element for the widget
+ */
+function reinitializeWidgetAndUnblockTracker(button, tracker, widgetElement) {
+  unblockTracker(tracker, function() {
+    // check is needed as for an unknown reason this callback function is
+    // executed for buttons that have already been removed; we are trying
+    // to prevent replacing an already removed button
+    if (button.parentNode !== null) {
+      var codeContainer = document.createElement("div");
+      codeContainer.innerHTML = widgetElement.outerHTML;
+      button.parentNode.replaceChild(codeContainer, button);
+    }
+  });
+}
+
+/**
  * Dumping scripts into innerHTML won't execute them, so replace them
  * with executable scripts.
  */
 function replaceScriptsRecurse(node) {
-  if (node.getAttribute && node.getAttribute("type") == "text/javascript") {
+  if (node.nodeName && node.nodeName.toLowerCase() == 'script' &&
+      node.getAttribute && node.getAttribute("type") == "text/javascript") {
     var script = document.createElement("script");
     script.text = node.innerHTML;
     script.src = node.src;
@@ -302,7 +323,7 @@ function replaceIndividualButton(tracker) {
 *                            replaced
 */
 function getTrackerData(callback) {
-  chrome.runtime.sendMessage({checkReplaceButton:document.location.hostname}, function(response) {
+  chrome.runtime.sendMessage({checkReplaceButton: true}, function(response) {
     if (response) {
       var trackers = response.trackers;
       var trackerButtonsToReplace = response.trackerButtonsToReplace;

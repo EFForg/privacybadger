@@ -1,10 +1,13 @@
-build: updatepsl zip crx
+build: updatepsl updateseed zip crx
 
 travisbuild: zip crx
 	ls -1tr *.crx | tail -n 1
 
 updatepsl:
 	scripts/updatepsl.sh
+
+updateseed:
+	scripts/updateseeddata.sh
 
 zip:
 	scripts/makezip.sh 
@@ -31,4 +34,7 @@ tx:
 	tx pull -f
 	scripts/fix_placeholders.py
 
-.PHONY: build travisbuild updatepsl zip crx todo logging lint tx
+runff:
+	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/
+
+.PHONY: build travisbuild updatepsl updateseed zip crx todo logging lint tx runff

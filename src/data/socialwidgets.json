@@ -90,7 +90,7 @@
         "SoundCloud": {
           "domain": "soundcloud.com",
           "buttonSelectors": [
-            "iframe[src*='api.soundcloud.com']"
+            "iframe[src^='https://w.soundcloud.com/player']"
           ],
           "replacementButton": {
             "details": "",
