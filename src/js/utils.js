@@ -159,6 +159,44 @@ function estimateMaxEntropy(str) {
   return maxBits; // May return Infinity when the content is too long.
 }
 
+// from https://gist.github.com/jaewook77/cd1e3aa9449d7ea4fb4f
+// Find the longest common substring between two strings.
+var longestCommonSubstring = function(S, T) {
+  /*
+   Let D[i,j] be the length of the longest matching string suffix between S[1]..S[i] and a segment of T between T[1]..T[j].
+   If the ith character in S doesn’t match the jth character in T,
+     then D[i,j] is zero to indicate that there is no matching suffix
+   */
+
+  var D = [];
+  var LCS_len = 0;
+  var LCS = [];
+
+  for (var i = 0; i < S.length; i++) {
+    D[i] = [];
+    for (var j = 0; j < T.length; j++) {
+      if (S[i] == T[j]) {
+        if (i == 0 || j == 0) {
+          D[i][j] = 1;
+        } else {
+          D[i][j] = D[i-1][j-1] + 1;
+        }
+
+        if (D[i][j] > LCS_len) {
+          LCS_len = D[i][j];
+          LCS = [S.substring(i-LCS_len+1, i+1)];
+        } else if (D[i][j] == LCS_len) {
+          LCS.push(S.substring(i-LCS_len+1, i+1));
+        }
+      } else {
+        D[i][j] = 0;
+      }
+    }
+  }
+
+  return LCS;
+}
+
 function oneSecond() {
   return 1000;
 }
@@ -350,6 +388,7 @@ var exports = {
   estimateMaxEntropy,
   explodeSubdomains,
   getHostFromDomainInput,
+  longestCommonSubstring,
   nDaysFromNow,
   oneDayFromNow,
   oneDay,

@@ -53,6 +53,7 @@ exports.TRACKER_TYPES = Object.freeze({
   COOKIE: "cookie",
   SUPERCOOKIE: "supercookie",
   FINGERPRINT: "fingerprint",
+  PIXEL: "pixel",
 })
 
 return exports;

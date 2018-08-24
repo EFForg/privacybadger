@@ -126,19 +126,103 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    let cookies = hasCookieTracking(details, origin);
+    let trackingCookies = hasCookieTracking(details, origin);
     
     // ignore if there are no tracking cookies
-    if (!cookies) {
-      return {};
+    if (trackingCookies) {
+      this._recordPrevalence(fqdn, origin, tabOrigin, {
+        type: constants.TRACKER_TYPES.COOKIE,
+        trackerUrl: details.url,
+        pageUrl: badger.getFrameData(details.tabId).url,
+        cookies: trackingCookies
+      });
     }
     
-    this._recordPrevalence(fqdn, origin, tabOrigin, {
-      type: constants.TRACKER_TYPES.COOKIE,
-      trackerUrl: details.url,
-      pageUrl: badger.getFrameData(details.tabId).url,
-      cookies: cookies
+    let self = this;
+
+    // check if this request is a cookie-syncing pixel
+    chrome.cookies.getAll({}, function(cookies) {
+      self.pixelCookieSyncAccounting(details, cookies);
     });
+  },
+
+  /**
+   * Checks for cookie syncing: requests to third-party domains that include
+   * high entropy data from first-party cookies.
+   *
+   * TODO: is it OK to call this from heuristicBlockingAccounting?
+   *
+   * @param details are those from onBeforeSendHeaders
+   * @param cookies are the result of chrome.cookies.getAll()
+   * @returns {*}
+   */
+  pixelCookieSyncAccounting: function (details, cookies) {
+    // only interested in images
+    if (details.type != 'image') {
+      return false;
+    }
+
+    let fqdn = (new URI(details.url)).host,
+      origin = window.getBaseDomain(fqdn),
+      tabOrigin = tabOrigins[details.tabId],
+      args = _extractArgs(details),
+      TRACKER_ENTROPY_THRESHOLD = 33;
+
+    for (let key in args) {
+      if (!args.hasOwnProperty(key)) {
+        continue;
+      }
+
+      let value = args[key];
+
+      // the argument must be sufficiently long
+      if (!value || value.length < constants.MIN_ARG_LEN) {
+        continue;
+      }
+
+      let cookieVal, lcs, entropy;
+      // check if this argument is derived from a high-entropy first-party cookie
+      for (let cookie of cookies) {
+        if (cookie.domain == origin) {
+          continue;
+        }
+
+        // find the longest common substring between this arg and the cookies
+        // associated with the document
+        lcs = utils.longestCommonSubstring(cookie.value, value) || [];
+        let maxEntropy = 0, maxLCS;
+        for (let s of lcs) {
+          // ignore the LCS if it's part of the first-party URL
+          if (details.initiator.indexOf(s) != -1){
+            continue;
+          }
+
+          // compute the entropy of this common substring
+          let entropy = utils.estimateMaxEntropy(s);
+          if (entropy > maxEntropy) {
+            maxEntropy = entropy;
+            maxLCS = s;
+          }
+        }
+
+        // if this request crosses the entropy threshold, mark it as tracking
+        if (maxEntropy > TRACKER_ENTROPY_THRESHOLD) {
+          log("Found high-entropy cookie sync with", fqdn, ":",
+              maxEntropy, "bits, cookie:", cookie.name, '=', cookie.value,
+              ", arg:", key, "=", value, ", lcs: ", maxLCS);
+          this._recordPrevalence(fqdn, origin, tabOrigin, {
+            type: constants.TRACKER_TYPES.PIXEL,
+            trackerUrl: details.url,
+            pageUrl: badger.getFrameData(details.tabId).url,
+            details: {
+              cookie: cookie, 
+              arg: key + "=" + value, 
+              lcs: maxLCS
+            }
+          });
+        }
+      }
+    }
   },
 
   /**
@@ -472,6 +556,23 @@ function _extractCookies(details) {
   }
 
   return cookies;
+}
+
+
+function _extractArgs(details) {
+  if (details.method == "POST" && details.requestBody) {
+    return details.requestBody.formData;
+  }
+
+  let args = {};
+  if (details.method = "GET") {
+    let url = new URL(details.url);
+    for (let p of url.searchParams) {
+      args[p[0]] = p[1];
+    }
+  }
+
+  return args;
 }
 
 /**
