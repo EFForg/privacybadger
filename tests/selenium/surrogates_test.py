@@ -33,7 +33,7 @@ class Test(pbtest.PBSeleniumTest):
 
     def test_ga_js_surrogate(self):
         # open the background page
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
 
         # verify the surrogate is present
         self.assertTrue(self.js(
@@ -48,7 +48,7 @@ class Test(pbtest.PBSeleniumTest):
         )
 
         # block ga.js (known to break the site)
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
         # also back up the surrogate definition before removing it
         ga_backup = self.js(
             "badger.heuristicBlocking.blacklistOrigin('www.google-analytics.com', 'google-analytics.com');"

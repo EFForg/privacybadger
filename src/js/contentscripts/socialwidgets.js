@@ -48,8 +48,6 @@
  */
 let trackerInfo;
 
-let i18n = chrome.i18n;
-
 
 /**
  * Initializes the content script.
@@ -115,8 +113,10 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   var details = buttonData.details;
 
   button.setAttribute("src", buttonUrl);
-  button.setAttribute("title", i18n.getMessage("social_tooltip_pb_has_replaced") +
-                            tracker.name + i18n.getMessage("social_tooltip_button"));
+  button.setAttribute(
+    "title",
+    chrome.i18n.getMessage("social_tooltip_pb_has_replaced", tracker.name)
+  );
   button.setAttribute(
     "style",
     "border: none !important; cursor: pointer !important; height: auto !important; width: auto !important;"
