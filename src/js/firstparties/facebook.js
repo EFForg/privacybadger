@@ -1,4 +1,4 @@
-/* globals URL_REGEX:false, findInAllFrames:false, observeMutations:false */
+/* globals findInAllFrames:false, observeMutations:false */
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
 let fb_wrapped_link = `a[href*='${document.domain}/l.php?'`;
 
@@ -17,8 +17,8 @@ function cleanAttrs(elem) {
 function cleanLink(a) {
   let href = new URL(a.href).searchParams.get('u');
 
+  // If we can't extract a good URL, abort without breaking the links
   if (!window.isURL(href)) {
-    // If we can't extract a good URL, abort without breaking the links
     return;
   }
 

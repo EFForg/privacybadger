@@ -1,6 +1,6 @@
 /* globals findInAllFrames:false */
-// In Firefox, outbound google links have the `rwt(...)` mousedown trigger. In
-// Chrome, they just have a `ping` attribute.
+// In Firefox, outbound google links have the `rwt(...)` mousedown trigger.
+// In Chrome, they just have a `ping` attribute.
 let wrapped_link = "a[onmousedown^='return rwt(this,'], a[ping]";
 
 // Remove excessive attributes and event listeners from link a

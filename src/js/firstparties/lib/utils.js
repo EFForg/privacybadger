@@ -1,8 +1,13 @@
 window.isURL = function(url) {
-  // ensure the URL starts with HTTP or HTTPS
+  // ensure the URL starts with HTTP or HTTPS; otherwise we might be vulnerable
+  // to XSS attacks
   return (url && (url.startsWith("https://") || url.startsWith("http://")));
-}
+};
 
+/**
+ * Search a window and all IFrames within it for a query selector, then return a
+ * list of all the elements in any frame that match.
+ **/
 window.findInAllFrames = function(query) {
   let out = [];
   document.querySelectorAll(query).forEach((node) => {
@@ -20,6 +25,12 @@ window.findInAllFrames = function(query) {
   return out;
 };
 
+/**
+ * Listen for mutations on a page. If any nodes that match `selector` are added
+ * to the page, execute the function `callback` on them.
+ * Used by first-party scripts to listen for new links being added to the page
+ * and strip them of tracking code immediately.
+ **/
 window.observeMutations = function(selector, callback) {
   // Check all new nodes added by a mutation for tracking links and unwrap them
   function onMutation(mutation) {
@@ -27,12 +38,17 @@ window.observeMutations = function(selector, callback) {
       return;
     }
     for (let node of mutation.addedNodes) {
+      // Only act on element nodes, otherwise querySelectorAll won't work
       if (node.nodeType != Node.ELEMENT_NODE) {
         continue;
       }
+
+      // check all child nodes against the selector first
       node.querySelectorAll(selector).forEach((element) => {
         callback(element);
       });
+
+      // then check the node itself
       if (node.matches(selector)) {
         callback(node);
       }

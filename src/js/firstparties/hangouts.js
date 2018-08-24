@@ -1,4 +1,3 @@
-/* globals URL_REGEX:false */
 let hangouts_wrapped_link = "a[href^='https://www.google.com/url?']";
 
 // Unwrap a Hangouts tracking link
