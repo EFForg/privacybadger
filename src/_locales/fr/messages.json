@@ -218,7 +218,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Réinitialiser les domaines traceurs :\n\n• supprimera toutes les données apprises par Privacy Badger sur les traceurs  ;\n• restaurera la liste des domaines traceurs à la dernière liste préétablie ( www.eff.org/badger-pretraining pour en savoir plus).",
+        "message": "Réinitialiser les domaines traceurs :\n\n• supprimera toutes les données apprises par Privacy Badger sur les traceurs  ;\n• restaurera la liste des domaines traceurs à la dernière liste préétablie (www.eff.org/badger-pretraining pour en savoir plus).",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {

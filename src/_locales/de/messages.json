@@ -366,11 +366,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist für die nachfolgenden Sites deaktiviert. Privacy Badger wird also nichts blocken, wenn Sie die hier aufgeführten Websites besuchen.<br><br>Falls Sie annehmen, dass aufgrund Privacy Badger eine Seite falsch dargestellt wird, so können Sie die Domain dieser Seite in dem Feld unten eingeben und auf die Schaltfläche »Domain hinzufügen« klicken.<br><br>Falls Sie den Tab der Seite bereits ausgewählt haben, so können Sie aber auch einfach auf Privacy Badgers Schaltfläche in der Browsersymbolleiste und dann dort auf die Schaltfäche »Deaktivieren« klicken.",
+        "message": "Privacy Badger ist für die nachfolgenden Websites deaktiviert. Privacy Badger wird also nichts blocken, wenn Sie die hier aufgeführten Sites besuchen.<br><br>Falls Sie annehmen, dass aufgrund Privacy Badger eine Webseite falsch dargestellt wird, so können Sie die Domain dieser Seite in dem Feld unten eingeben und auf die Schaltfläche »Domain hinzufügen« klicken.<br><br>Falls Sie den Tab der Seite bereits ausgewählt haben, so können Sie aber auch einfach auf Privacy Badgers Schaltfläche in der Browsersymbolleiste und dann dort auf die Schaltfäche »Deaktivieren« klicken.",
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger hat bisher $COUNT$ mögliche $TRACKER_LINK_START$Tracker$TRACKER_LINK_END$ auf dieser Seite erkannt. Mit den Schiebereglern können Sie steuern, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite auftreten, sollte es nicht notwendig sein, die Schiebereglereinstellungen zu verändern.",
+        "message": "Privacy Badger hat bisher $COUNT$ mögliche $TRACKER_LINK_START$Tracker$TRACKER_LINK_END$ auf dieser Webseite erkannt. Mit den Schiebereglern können Sie steuern, wie Privacy Badger die einzelnen gefundenen Tracker handhabt. Sofern keine Probleme bei der Darstellung dieser Seite auftreten, sollte es nicht notwendig sein, die Schiebereglereinstellungen zu verändern.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger hat einen möglichen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracker</a> auf dieser Seite erkannt. Mit dem Schieberegler können Sie steuern, wie Privacy Badger ihn handhabt. Sofern keine Probleme bei der Darstellung dieser Webseite auftreten, sollte es nicht notwendig sein, die Schiebereglereinstellung zu verändern.",
+        "message": "Privacy Badger hat einen möglichen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>Tracker</a> auf dieser Webseite erkannt. Mit dem Schieberegler können Sie steuern, wie Privacy Badger ihn handhabt. Sofern keine Probleme bei der Darstellung dieser Seite auftreten, sollte es nicht notwendig sein, die Schiebereglereinstellung zu verändern.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -464,7 +464,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Falls Sie denken, dass durch Privacy Badger eine Seite nicht korrekt dargestellt wird (z. B. ein Video wird nicht wiedergegeben), so können Sie auf die Schaltfläche »Deaktivieren« klicken, um Privacy Badger für diese Website auszuschalten.",
+        "message": "Falls Sie denken, dass aufgrund Privacy Badger eine Webseite nicht korrekt dargestellt wird (z. B. ein Video wird nicht wiedergegeben), so können Sie auf die Schaltfläche »Deaktivieren« klicken, um Privacy Badger für diese Website auszuschalten.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
