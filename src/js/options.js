@@ -40,7 +40,7 @@ var constants = backgroundPage.constants;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var originCache = null;
-var settings = badger.storage.getBadgerStorageObject("settings_map");
+var settings = badger.getSettings();
 
 /*
  * Loads options from pb storage and sets UI elements accordingly.
@@ -229,6 +229,9 @@ function removeAllData() {
  * action_map and snitch_map, along with their settings.
  * List will be in JSON format that can be edited and reimported
  * in another instance of Privacy Badger.
+ * 
+ * TODO This assumes that the local data is up to date with the
+ * TODO disabled sites list in synced storage
  */
 function exportUserData() {
   chrome.storage.local.get(USER_DATA_EXPORT_KEYS, function (maps) {

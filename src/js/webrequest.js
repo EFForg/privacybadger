@@ -758,7 +758,7 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse();
 
   } else if (request.type == "updateSettings") {
-    const settings = badger.storage.getBadgerStorageObject("settings_map");
+    const settings = badger.getSettings();
     for (let key in request.data) {
       if (badger.defaultSettings.hasOwnProperty(key)) {
         settings.setItem(key, request.data[key]);

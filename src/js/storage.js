@@ -61,6 +61,14 @@ function BadgerPen(callback) {
     _.each(self.KEYS, function (key) {
       if (store.hasOwnProperty(key)) {
         self[key] = new BadgerStorage(key, store[key]);
+        // Get the disabled sites list from synced storage
+        if (key === "settings_map") {
+          chrome.storage.sync.get("disabledSites", function (syncStore) {
+            if (syncStore.hasOwnProperty("disabledSites")) {
+              self[key].setItem("disabledSites", syncStore["disabledSites"]);
+            }
+          });
+        }
       } else {
         var storage_obj = new BadgerStorage(key, {});
         self[key] = storage_obj;
@@ -565,6 +573,13 @@ var _syncStorage = (function () {
     var obj = {};
     obj[badgerStorage.name] = badgerStorage._store;
     chrome.storage.local.set(obj, cb);
+    // Write disabledSites to cloud (if settings_map)
+    if (badgerStorage.name === "settings_map" && badgerStorage.hasItem("disabledSites")) {
+      obj = {};
+      obj["disabledSites"] = badgerStorage._store["disabledSites"];
+      //TODO Error line is not correct; write separate error callback or make existing one more generic?
+      chrome.storage.sync.set(obj, cb);
+    }
   }
 
   // Creates debounced versions of "sync" function,
