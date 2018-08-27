@@ -31,7 +31,7 @@ This will open the unit test suite and run the tests.
 Our functional tests are written in [Python](https://www.python.org/) and driven by
 [Selenium](https://selenium-python.readthedocs.io/) and [pytest](https://docs.pytest.org/en/latest/).
 
-To run them in Chrome, you need to [install `chromedriver`](http://chromedriver.chromium.org/downloads). In Firefox, you need to [install `geckodriver`](https://github.com/mozilla/geckodriver/releases/latest/).
+To run them in Chrome, you need to [install `chromedriver`](http://chromedriver.chromium.org/getting-started). In Firefox, you need to [install `geckodriver`](https://github.com/EFForg/privacybadger/blob/547b19a8c3eddf60eed03aed3f60f252506490b7/scripts/setup_travis.sh#L21-L56).
 
 You also need some Python packages that can be installed by running:
 ```bash
