@@ -33,8 +33,17 @@ function setup_firefox {
         exit 1
       fi
     fi
+
+    # Geckodriver distribution is MacOS or Linux specific
+    os="$(uname -s)"
+    if [[ $os == "Darwin" ]]; then
+      os_dist="macos.tar.gz"
+    else
+      os_dist="linux64.tar.gz"
+    fi
+
     echo "Setting up geckodriver version $version ..."
-    url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-linux64.tar.gz"
+    url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-${os_dist}"
     wget -q -O /tmp/geckodriver.tar.gz "$url"
     sudo tar -xvf /tmp/geckodriver.tar.gz -C /usr/local/bin/
     sudo chmod a+x /usr/local/bin/geckodriver
