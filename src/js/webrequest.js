@@ -737,7 +737,7 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.type == "revertDomainControl") {
     badger.storage.revertUserAction(request.origin);
     sendResponse();
-  
+
   } else if (request.type == "downloadWhitelist") {
     chrome.storage.sync.get("disabledSites", function (store) {
       if (store.hasOwnProperty("disabledSites")) {
@@ -748,7 +748,7 @@ function dispatcher(request, sender, sendResponse) {
         console.log("No whitelist in sync storage.");
       }
     });
-  
+
   } else if (request.type == "mergeWhitelist") {
     chrome.storage.sync.get("disabledSites", function (store) {
       if (store.hasOwnProperty("disabledSites")) {
@@ -761,9 +761,9 @@ function dispatcher(request, sender, sendResponse) {
         console.log("No whitelist in sync storage.");
       }
     });
-    
+
   } else if (request.type == "uploadWhitelist") {
-    obj = {};
+    var obj = {};
     obj.disabledSites = badger.getSettings().getItem("disabledSites");
     chrome.storage.sync.set(obj, function () {
       if (chrome.runtime.lastError) {
