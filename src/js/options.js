@@ -52,6 +52,9 @@ function loadOptions() {
   // Add event listeners
   $("#whitelistForm").on("submit", addWhitelistDomain);
   $("#removeWhitelist").on("click", removeWhitelistDomain);
+  $("#uploadWhitelist").on("click", uploadWhitelist);
+  $("#downloadWhitelist").on("click", downloadWhitelist);
+  $("#mergeWhitelist").on("click", mergeWhitelist);
   $('#importTrackerButton').on("click", loadFileChooser);
   $('#importTrackers').on("change", importTrackerList);
   $('#exportTrackers').on("click", exportUserData);
@@ -99,6 +102,9 @@ function loadOptions() {
   $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
+  $("#uploadWhitelist").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-n"});
+  $("#downloadWhitelist").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-s"});
+  $("#mergeWhitelist").button("option", "icons", {primary: "ui-icon-arrowthickstop-1-s"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
   $("#exportTrackers").button("option", "icons", {primary: "ui-icon-extlink"});
   $("#resetData").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
@@ -222,6 +228,29 @@ function removeAllData() {
       location.reload();
     });
   }
+}
+
+//TODO Do we want confirmations before or success/failure messages after for these?
+function downloadWhitelist() {
+  chrome.runtime.sendMessage({type: "downloadWhitelist"}, () => {
+    //Set a timeout because this needs to happen just a tiny bit later than it was without.
+    setTimeout(function() {
+      reloadWhitelist();
+    }, 0);
+  });
+}
+
+function mergeWhitelist() {
+  chrome.runtime.sendMessage({type: "mergeWhitelist"}, () => {
+    //Set a timeout because this needs to happen just a tiny bit later than it was without.
+    setTimeout(function() {
+      reloadWhitelist();
+    }, 0);
+  });
+}
+
+function uploadWhitelist() {
+  chrome.runtime.sendMessage({type: "uploadWhitelist"});
 }
 
 /**

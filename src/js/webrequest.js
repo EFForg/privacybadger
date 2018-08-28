@@ -737,6 +737,43 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.type == "revertDomainControl") {
     badger.storage.revertUserAction(request.origin);
     sendResponse();
+  
+  } else if (request.type == "downloadWhitelist") {
+    chrome.storage.sync.get("disabledSites", function (store) {
+      if (store.hasOwnProperty("disabledSites")) {
+        badger.getSettings().setItem("disabledSites", store.disabledSites);
+        sendResponse();
+      } else {
+        //TODO display a message to the user?
+        console.log("No whitelist in sync storage.");
+      }
+    });
+  
+  } else if (request.type == "mergeWhitelist") {
+    chrome.storage.sync.get("disabledSites", function (store) {
+      if (store.hasOwnProperty("disabledSites")) {
+        var settings = badger.getSettings();
+        var whitelist = _.union(settings.getItem("disabledSites"), store.disabledSites);
+        settings.setItem("disabledSites", whitelist);
+        sendResponse();
+      } else {
+        //TODO display a message to the user?
+        console.log("No whitelist in sync storage.");
+      }
+    });
+    
+  } else if (request.type == "uploadWhitelist") {
+    obj = {};
+    obj.disabledSites = badger.getSettings().getItem("disabledSites");
+    chrome.storage.sync.set(obj, function () {
+      if (chrome.runtime.lastError) {
+        let err = chrome.runtime.lastError.message;
+        if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")) {
+          badger.criticalError = err;
+        }
+        console.error("Error writing to chrome.storage.sync:", err);
+      }
+    });
 
   } else if (request.type == "savePopupToggle") {
     let domain = request.origin,

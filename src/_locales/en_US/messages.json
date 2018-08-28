@@ -512,5 +512,25 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "upload": {
+        "message": "Upload",
+        "description": ""
+    },
+    "merge": {
+        "message": "Merge",
+        "description": ""
+    },
+    "upload_whitelist": {
+        "message": "Upload disabled sites",
+        "description": ""
+    },
+    "download_whitelist": {
+        "message": "Download disabled sites",
+        "description": ""
+    },
+    "sync_whitelist": {
+        "message": "Sync disabled sites to cloud",
+        "description": ""
     }
 }

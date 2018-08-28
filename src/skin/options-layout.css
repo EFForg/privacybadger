@@ -30,21 +30,9 @@ button
 #tab-manage-data {
   overflow: auto;
 }
-#import {
-  width: 350px;
-  float: left;
-}
-#export {
-  width: 350px;
-  float: left;
-}
-#reset {
-  width: 350px;
-  float: left;
-}
-#remove {
-  width: 350px;
-  float: left;
+
+#sync-heading {
+  margin-bottom: 0px;
 }
 
 .btn-silo {
@@ -60,6 +48,8 @@ button
 
 .btn-silo div {
   padding-top: 10px;
+  width: 350px;
+  float: left;
 }
 
 .btn-danger {
