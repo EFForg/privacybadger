@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "** Aktivering av inlärning i privata/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan känner till i privata/inkognitofönster, men den kommer inte att lära sig om nya spårare. Du kan vilja aktivera det här alternativet om du ofta använder privata-/inkognitofönster när du surfar.",
+        "message": "** Aktivering av inlärning i privata/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan känner till i privata/inkognitofönster, men den kommer inte att lära sig om nya spårare. Du kan vilja aktivera den här inställningen om du ofta använder privata-/inkognitofönster när du surfar.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -178,7 +178,7 @@
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
-        "message": "Privacy Badger alternativ",
+        "message": "Privacy Badger-inställningar",
         "description": ""
     },
     "report_terms": {
@@ -238,7 +238,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC kan läcka din lokala IP-adress. Observera att aktivering av det här alternativet kan försämra prestanda för webbkonferensprogram som Google Hangouts.",
+        "message": "* WebRTC kan läcka din lokala IP-adress. Observera att aktivering av den här inställningen kan försämra prestanda för webbkonferensprogram som Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
@@ -484,7 +484,7 @@
         "description": ""
     },
     "popup_options_button": {
-        "message": "Alternativ",
+        "message": "Inställningar",
         "description": ""
     },
     "share_button_title_facebook": {
