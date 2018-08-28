@@ -65,7 +65,7 @@ function BadgerPen(callback) {
         if (key === "settings_map") {
           chrome.storage.sync.get("disabledSites", function (syncStore) {
             if (syncStore.hasOwnProperty("disabledSites")) {
-              self[key].setItem("disabledSites", syncStore["disabledSites"]);
+              self[key].setItem("disabledSites", syncStore.disabledSites);
             }
           });
         }
@@ -576,7 +576,7 @@ var _syncStorage = (function () {
     // Write disabledSites to cloud (if settings_map)
     if (badgerStorage.name === "settings_map" && badgerStorage.hasItem("disabledSites")) {
       obj = {};
-      obj["disabledSites"] = badgerStorage._store["disabledSites"];
+      obj.disabledSites = badgerStorage._store.disabledSites;
       //TODO Error line is not correct; write separate error callback or make existing one more generic?
       chrome.storage.sync.set(obj, cb);
     }
