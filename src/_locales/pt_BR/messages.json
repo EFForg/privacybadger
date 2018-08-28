@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "O Privacy Badger detectou $COUNT$ $TRACKER_LINK_START$domínios de rastreamento$TRACKER_LINK_END$ em potencial até o momento. Os controles deslizantes te permite controlar o que Privacy Badger faz com cada rastreador.",
+        "message": "O Privacy Badger detectou $COUNT$ $TRACKER_LINK_START$domínios de rastreamento$TRACKER_LINK_END$ em potencial até o momento. Os controles deslizantes permitem que você controle o que o Privacy Badger faz com cada rastreador.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -504,7 +504,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger substituiu este $BUTTON$ botão.",
+        "message": "O Privacy Badger substituiu este $BUTTON$ botão.",
         "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
         "placeholders": {
             "button": {
