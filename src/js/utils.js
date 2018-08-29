@@ -160,7 +160,7 @@ function estimateMaxEntropy(str) {
 }
 
 // Adapted from https://gist.github.com/jaewook77/cd1e3aa9449d7ea4fb4f
-// Find all common substrings more than 3 characters long
+// Find all common substrings more than 8 characters long
 function findCommonSubstrings(str1, str2) {
   /*
    Let D[i,j] be the length of the longest matching string suffix between
@@ -169,8 +169,8 @@ function findCommonSubstrings(str1, str2) {
    D[i,j] is zero to indicate that there is no matching suffix
    */
 
-  // we only care about strings >= 3 chars
-  let D = [], LCS = [], LCS_MIN = 3;
+  // we only care about strings >= 8 chars
+  let D = [], LCS = [], LCS_MIN = 8;
 
   // runs in O(M x N) time!
   for (let i = 0; i < str1.length; i++) {
