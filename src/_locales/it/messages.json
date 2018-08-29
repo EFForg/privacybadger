@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Caricamento...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Cattura i tracker subdoli",
         "description": "Intro page paragraph heading."

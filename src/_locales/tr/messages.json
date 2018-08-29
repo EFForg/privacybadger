@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Yükleniyor...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Sinsi takipçileri yakalar",
         "description": "Intro page paragraph heading."

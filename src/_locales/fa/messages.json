@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "در حال بارگذاری...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "ردیاب های موذی را میگیرد",
         "description": "Intro page paragraph heading."

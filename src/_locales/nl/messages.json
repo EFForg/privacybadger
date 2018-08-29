@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Laden...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Vangt stiekeme trackers",
         "description": "Intro page paragraph heading."

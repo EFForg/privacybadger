@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "加载中…",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "发现鬼鬼祟祟的跟踪器",
         "description": "Intro page paragraph heading."

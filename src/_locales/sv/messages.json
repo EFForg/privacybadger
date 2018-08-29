@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Laddar...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Fångar lömska spårare",
         "description": "Intro page paragraph heading."

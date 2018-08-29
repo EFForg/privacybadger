@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Ładowanie…",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Wyłapuje sprytne śledziki",
         "description": "Intro page paragraph heading."

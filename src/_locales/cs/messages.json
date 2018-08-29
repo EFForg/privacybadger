@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Načítání...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Chytá zákeřné sledovací prvky",
         "description": "Intro page paragraph heading."

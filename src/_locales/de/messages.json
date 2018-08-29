@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Lädt …",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Fängt hinterlistige Tracker",
         "description": "Intro page paragraph heading."

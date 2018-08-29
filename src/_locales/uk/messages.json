@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Завантаження...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Перехоплює підступне стеження",
         "description": "Intro page paragraph heading."

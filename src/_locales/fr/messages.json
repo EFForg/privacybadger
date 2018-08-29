@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Chargement...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Intercepte les traceurs sournois",
         "description": "Intro page paragraph heading."

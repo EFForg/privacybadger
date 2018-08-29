@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Учитавање...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Catches sneaky trackers",
         "description": "Intro page paragraph heading."

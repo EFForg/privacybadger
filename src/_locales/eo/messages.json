@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Ŝargado…",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Kaptas trompajn spurilojn",
         "description": "Intro page paragraph heading."

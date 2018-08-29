@@ -273,10 +273,6 @@
             }
         }
     },
-    "options_loading": {
-        "message": "Indlæser...",
-        "description": ""
-    },
     "intro_beyond_ads": {
         "message": "Fanger luskede sporinger",
         "description": "Intro page paragraph heading."
