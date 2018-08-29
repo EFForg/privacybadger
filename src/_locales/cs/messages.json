@@ -491,10 +491,6 @@
         "message": "Privacy Badger vás chrání před sledováním při procházení internetu!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Proč není nic blokováno?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Jejda. Něco se pokazilo.",
         "description": ""

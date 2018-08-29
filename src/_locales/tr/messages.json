@@ -491,10 +491,6 @@
         "message": "Privacy Badger siz internette dolaşırken sizi takipçilerden korur!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Neden hiçbir şey engellenmemiş?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Tüh. Birşeyler ters gitti.",
         "description": ""

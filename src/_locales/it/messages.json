@@ -491,10 +491,6 @@
         "message": "Privacy Badger ti protegge dai tracker mentre navighi in rete!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Perchè non è stato bloccato nulla?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Ops. Qualcosa è andato storto.",
         "description": ""

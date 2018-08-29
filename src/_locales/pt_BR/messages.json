@@ -491,10 +491,6 @@
         "message": "O Privacy Badger te protege contra rastreadores enquanto você navega na web!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Porque não há nada bloqueado?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Oops. Algo deu errado.",
         "description": ""

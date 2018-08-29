@@ -491,10 +491,6 @@
         "message": "Privata Melo protektas vin kontraŭ spuriloj dum kiam vi retumas!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Kial nenio estas blokita?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Ho ne! Eraro okazis.",
         "description": ""

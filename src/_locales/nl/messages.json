@@ -491,10 +491,6 @@
         "message": "Privacy Badger beschermt u tegen trackers terwijl u op internet surft!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Waarom wordt er niets geblokkeerd?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Oeps. Er is iets misgegaan.",
         "description": ""

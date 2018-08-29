@@ -491,10 +491,6 @@
         "message": "Privacy Badger skyddar dig mot spårare när du surfar på nätet!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Varför är inget blockerat?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Hoppsan. Något gick snett.",
         "description": ""

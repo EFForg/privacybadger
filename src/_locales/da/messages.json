@@ -491,10 +491,6 @@
         "message": "Privacy Badger beskytter dig fra sporinger mens du surfer på nettet!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Hvorfor er intet blokeret?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Ups. Noget gik galt.",
         "description": ""

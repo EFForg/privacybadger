@@ -491,10 +491,6 @@
         "message": "您在網上衝浪的時候，Privacy Badger 會保護您免於被追蹤器追蹤的煩惱！",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "為什麼沒有封鎖任何東西？",
-        "description": ""
-    },
     "report_fail": {
         "message": "哎呀。出錯了。",
         "description": ""

@@ -491,10 +491,6 @@
         "message": "Privacy Badger защищает вас от трекеров во время работы в Интернете!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Почему ничего не заблокировано?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Ой, что-то пошло не так.",
         "description": ""

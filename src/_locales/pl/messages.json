@@ -491,10 +491,6 @@
         "message": "Privacy Badger chroni Cię przed szpiegami podczas gdy Ty przeglądasz Sieć!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Czemu nic jest zablokowane?",
-        "description": ""
-    },
     "report_fail": {
         "message": "O nie, coś się schrzaniło.",
         "description": ""

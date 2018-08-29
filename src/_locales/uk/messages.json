@@ -491,10 +491,6 @@
         "message": "Privacy Badger захищає вас від стеження поки ви переглядаєте сторінки в Інтернеті!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Чому не блокується будь-що?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Ой. Щось пішло не так.",
         "description": ""

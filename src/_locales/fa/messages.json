@@ -491,10 +491,6 @@
         "message": "پرایوسی بجر در هنگام گردش در وب از شما در برابر ردیاب ها محافظت می کند!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "چرا هیچ چیزی بلاک نشده است؟",
-        "description": ""
-    },
     "report_fail": {
         "message": "اوه. خطایی رخ داد.",
         "description": ""

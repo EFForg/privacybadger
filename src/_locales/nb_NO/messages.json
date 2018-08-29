@@ -491,10 +491,6 @@
         "message": "Personvernsgrevlingen beskytter deg fra sporere når du surfer på nettet!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Hvorfor blokkeres ikke noe?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Oida. Noe gikk galt.",
         "description": ""

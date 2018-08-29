@@ -491,10 +491,6 @@
         "message": "Privacy Badger те защитава от преследвачи, докато сърфираш в интернет!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Защо не е блокирано нищо?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Опа. Нещо се обърка.",
         "description": ""

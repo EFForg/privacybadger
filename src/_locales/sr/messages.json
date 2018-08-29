@@ -491,10 +491,6 @@
         "message": "Privacy Badger вас штити од праћења док прегледате веб!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Зашто ништа није блокирано?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Упс. Нешто је кренуло како не треба.",
         "description": ""
