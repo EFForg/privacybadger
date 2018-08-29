@@ -159,34 +159,37 @@ function estimateMaxEntropy(str) {
   return maxBits; // May return Infinity when the content is too long.
 }
 
-// from https://gist.github.com/jaewook77/cd1e3aa9449d7ea4fb4f
-// Find the longest common substring between two strings.
-function longestCommonSubstring(S, T) {
+// Adapted from https://gist.github.com/jaewook77/cd1e3aa9449d7ea4fb4f
+// Find all common substrings more than 3 characters long
+function findCommonSubstrings(str1, str2) {
   /*
-   Let D[i,j] be the length of the longest matching string suffix between S[1]..S[i] and a segment of T between T[1]..T[j].
-   If the ith character in S doesn’t match the jth character in T,
-     then D[i,j] is zero to indicate that there is no matching suffix
+   Let D[i,j] be the length of the longest matching string suffix between
+   str1[1]..str1[i] and a segment of str2 between str2[1]..str2[j].
+   If the ith character in str1 doesn’t match the jth character in str2, then
+   D[i,j] is zero to indicate that there is no matching suffix
    */
 
-  var D = [];
-  var LCS_len = 0;
-  var LCS = [];
+  // we only care about strings >= 3 chars
+  let D = [], LCS = [], LCS_MIN = 3;
 
-  for (var i = 0; i < S.length; i++) {
+  // runs in O(M x N) time!
+  for (let i = 0; i < str1.length; i++) {
     D[i] = [];
-    for (var j = 0; j < T.length; j++) {
-      if (S[i] == T[j]) {
+    for (let j = 0; j < str2.length; j++) {
+      if (str1[i] == str2[j]) {
         if (i == 0 || j == 0) {
           D[i][j] = 1;
         } else {
           D[i][j] = D[i-1][j-1] + 1;
         }
 
-        if (D[i][j] > LCS_len) {
-          LCS_len = D[i][j];
-          LCS = [S.substring(i-LCS_len+1, i+1)];
-        } else if (D[i][j] == LCS_len) {
-          LCS.push(S.substring(i-LCS_len+1, i+1));
+        // store all common substrings longer than the minimum length
+        if (D[i][j] == LCS_MIN) {
+          LCS.push(str1.substring(i-D[i][j]+1, i+1));
+        } else if (D[i][j] > LCS_MIN) {
+          // remove the shorter substring and add the new, longer one
+          LCS.pop();
+          LCS.push(str1.substring(i-D[i][j]+1, i+1));
         }
       } else {
         D[i][j] = 0;
@@ -388,7 +391,7 @@ var exports = {
   estimateMaxEntropy,
   explodeSubdomains,
   getHostFromDomainInput,
-  longestCommonSubstring,
+  findCommonSubstrings,
   nDaysFromNow,
   oneDayFromNow,
   oneDay,
