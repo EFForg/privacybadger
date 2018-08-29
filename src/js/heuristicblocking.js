@@ -27,6 +27,7 @@ require.scopes.heuristicblocking = (function() {
 
 // make heuristic obj with utils and storage properties and put the things on it
 var tabOrigins = { }; // TODO roll into tabData?
+var tabURLs = { };
 
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
@@ -108,6 +109,7 @@ HeuristicBlocker.prototype = {
     if (details.type == "main_frame") {
       // save the origin associated with the tab
       log("Origin: " + origin + "\tURL: " + details.url);
+      tabURLs[details.tabId] = details.url;
       tabOrigins[details.tabId] = origin;
       return {};
     }
@@ -127,7 +129,7 @@ HeuristicBlocker.prototype = {
     }
 
     let trackingCookies = hasCookieTracking(details, origin);
-    
+
     // ignore if there are no tracking cookies
     if (trackingCookies) {
       this._recordPrevalence(fqdn, origin, tabOrigin, {
@@ -137,7 +139,7 @@ HeuristicBlocker.prototype = {
         cookies: trackingCookies
       });
     }
-    
+
     let self = this;
 
     // check if this request is a cookie-syncing pixel
@@ -165,6 +167,7 @@ HeuristicBlocker.prototype = {
     let fqdn = (new URI(details.url)).host,
       origin = window.getBaseDomain(fqdn),
       tabOrigin = tabOrigins[details.tabId],
+      initiator = tabURLs[details.tabId],
       args = _extractArgs(details),
       TRACKER_ENTROPY_THRESHOLD = 33;
 
@@ -180,7 +183,7 @@ HeuristicBlocker.prototype = {
         continue;
       }
 
-      let cookieVal, lcs, entropy;
+      let substrings, maxString, maxEntropy;
       // check if this argument is derived from a high-entropy first-party cookie
       for (let cookie of cookies) {
         if (cookie.domain == origin) {
@@ -189,35 +192,41 @@ HeuristicBlocker.prototype = {
 
         // find the longest common substring between this arg and the cookies
         // associated with the document
-        lcs = utils.longestCommonSubstring(cookie.value, value) || [];
-        let maxEntropy = 0, maxLCS;
-        for (let s of lcs) {
-          // ignore the LCS if it's part of the first-party URL
-          if (details.initiator.indexOf(s) != -1){
+        substrings = utils.findCommonSubstrings(cookie.value, value) || [];
+        maxEntropy = 0;
+        for (let s of substrings) {
+          // ignore the substring if it's part of the first-party URL
+          if (initiator.indexOf(s) != -1) {
             continue;
+          }
+
+          // if the first-party URL is part of the substring, remove it
+          if (s.indexOf(initiator) != -1) {
+            s = s.replace(initiator, "");
           }
 
           // compute the entropy of this common substring
           let entropy = utils.estimateMaxEntropy(s);
           if (entropy > maxEntropy) {
             maxEntropy = entropy;
-            maxLCS = s;
+            maxString = s;
           }
         }
 
         // if this request crosses the entropy threshold, mark it as tracking
         if (maxEntropy > TRACKER_ENTROPY_THRESHOLD) {
           log("Found high-entropy cookie sync with", fqdn, ":",
-              maxEntropy, "bits, cookie:", cookie.name, '=', cookie.value,
-              ", arg:", key, "=", value, ", lcs: ", maxLCS);
+            maxEntropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
+            "\n  arg:", key, "=", value,
+            "\n  substring:", maxString);
           this._recordPrevalence(fqdn, origin, tabOrigin, {
             type: constants.TRACKER_TYPES.PIXEL,
             trackerUrl: details.url,
-            pageUrl: badger.getFrameData(details.tabId).url,
+            pageUrl: initiator,
             details: {
-              cookie: cookie, 
-              arg: key + "=" + value, 
-              lcs: maxLCS
+              cookie: cookie,
+              arg: key + "=" + value,
+              substring: maxString
             }
           });
         }
