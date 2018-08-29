@@ -741,18 +741,19 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.type == "downloadWhitelist") {
     chrome.storage.sync.get("disabledSites", function (store) {
       if (store.hasOwnProperty("disabledSites")) {
-        var settings = badger.getSettings();
-        var whitelist = _.union(settings.getItem("disabledSites"), store.disabledSites);
+        let settings = badger.getSettings();
+        let whitelist = _.union(settings.getItem("disabledSites"), store.disabledSites);
         settings.setItem("disabledSites", whitelist);
         sendResponse(true);
       } else {
         sendResponse(false);
       }
     });
-    return true; //Let internal asychronus call continue
+    //indicate this is an async response to chrome.runtime.onMessage
+    return true;
 
   } else if (request.type == "uploadWhitelist") {
-    var obj = {};
+    let obj = {};
     obj.disabledSites = badger.getSettings().getItem("disabledSites");
     chrome.storage.sync.set(obj, function () {
       if (chrome.runtime.lastError) {
@@ -761,7 +762,8 @@ function dispatcher(request, sender, sendResponse) {
         sendResponse(true);
       }
     });
-    return true; //Let internal asychronus call continue
+    //indicate this is an async response to chrome.runtime.onMessage
+    return true;
 
   } else if (request.type == "savePopupToggle") {
     let domain = request.origin,

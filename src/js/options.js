@@ -52,8 +52,8 @@ function loadOptions() {
   // Add event listeners
   $("#whitelistForm").on("submit", addWhitelistDomain);
   $("#removeWhitelist").on("click", removeWhitelistDomain);
-  $("#uploadWhitelist").on("click", uploadWhitelist);
-  $("#downloadWhitelist").on("click", downloadWhitelist);
+  $("#cloud-upload").on("click", uploadWhitelist);
+  $("#cloud-download").on("click", downloadWhitelist);
   $('#importTrackerButton').on("click", loadFileChooser);
   $('#importTrackers').on("change", importTrackerList);
   $('#exportTrackers').on("click", exportUserData);
@@ -101,8 +101,8 @@ function loadOptions() {
   $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
-  $("#uploadWhitelist").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-n"});
-  $("#downloadWhitelist").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-s"});
+  $("#cloud-upload").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-n"});
+  $("#cloud-download").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-s"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
   $("#exportTrackers").button("option", "icons", {primary: "ui-icon-extlink"});
   $("#resetData").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
@@ -232,10 +232,10 @@ function downloadWhitelist() {
   chrome.runtime.sendMessage({type: "downloadWhitelist"},
     function (success) {
       if (success) {
-        alert(i18n.getMessage("download_whitelist_success"));
+        alert(i18n.getMessage("download_cloud_success"));
         reloadWhitelist();
       } else {
-        alert(i18n.getMessage("download_whitelist_failure"));
+        alert(i18n.getMessage("download_cloud_failure"));
       }
     }
   );
@@ -245,9 +245,9 @@ function uploadWhitelist() {
   chrome.runtime.sendMessage({type: "uploadWhitelist"},
     function (success) {
       if (success) {
-        alert(i18n.getMessage("upload_whitelist_success"));
+        alert(i18n.getMessage("upload_cloud_success"));
       } else {
-        alert(i18n.getMessage("upload_whitelist_failure"));
+        alert(i18n.getMessage("upload_cloud_failure"));
       }
     }
   );

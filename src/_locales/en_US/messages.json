@@ -514,35 +514,35 @@
         }
     },
     "sync_intro": {
-        "message": "Cloud syncing:<ul><li>Requires Firefox/Chrome Sync</li><li>Download combines the lists of sites where your Badger is disabled</li><li>Upload overwrites the list saved in the cloud</li></ul>",
-        "description": "A brief explanation of how syncing works. Shown above the upload/download disabled sites buttons under the Manage Data options page tab."
+        "message": "Cloud sync:<ul><li>Requires Firefox/Chrome Sync</li><li>Upload overwrites any existing data in the cloud</li><li>Download combines the lists of sites where your Badger is disabled</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
         "message": "Upload",
-        "description": "Button label for Sync Upload on Manage Data options page tab."
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
-    "upload_whitelist": {
+    "upload_cloud": {
         "message": "Upload disabled sites to cloud",
-        "description": "Button title for Sync Upload on Manage Data options page tab."
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
-    "download_whitelist": {
+    "download_cloud": {
         "message": "Download disabled sites from cloud",
-        "description": "Button title for Sync Download on Manage Data options page tab."
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
-    "download_whitelist_success": {
+    "download_cloud_success": {
         "message": "Disabled sites list downloaded from cloud and merged into local list.",
-        "description": "Message displayed to the user after successfully downloading the synced whitelist."
+        "description": "Message displayed to the user after successfully merging cloud data."
     },
-    "download_whitelist_failure": {
+    "download_cloud_failure": {
         "message": "Disabled sites list could not be downloaded from cloud.  (You will get this message if you have not uploaded any list to the cloud.)",
-        "description": "Message displayed to the user after failing to download the synced whitelist."
+        "description": "Message displayed to the user after failing to download cloud data."
     },
-    "upload_whitelist_success": {
+    "upload_cloud_success": {
         "message": "Disabled sites list uploaded to cloud.",
-        "description": "Message displayed to the user after successfully uploading the local whitelist."
+        "description": "Message displayed to the user after successfully uploading local data."
     },
-    "upload_whitelist_failure": {
+    "upload_cloud_failure": {
         "message": "Disabled sites list could not be uploaded to cloud.",
-        "description": "Message displayed to the user after failing to upload the local whitelist."
+        "description": "Message displayed to the user after failing to upload local data."
     }
 }
