@@ -31,10 +31,6 @@ button
   overflow: auto;
 }
 
-#sync-heading {
-  margin-bottom: 0px;
-}
-
 .btn-silo {
   float: left;
   clear: both;

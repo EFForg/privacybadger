@@ -54,7 +54,6 @@ function loadOptions() {
   $("#removeWhitelist").on("click", removeWhitelistDomain);
   $("#uploadWhitelist").on("click", uploadWhitelist);
   $("#downloadWhitelist").on("click", downloadWhitelist);
-  $("#mergeWhitelist").on("click", mergeWhitelist);
   $('#importTrackerButton').on("click", loadFileChooser);
   $('#importTrackers').on("change", importTrackerList);
   $('#exportTrackers').on("click", exportUserData);
@@ -104,7 +103,6 @@ function loadOptions() {
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $("#uploadWhitelist").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-n"});
   $("#downloadWhitelist").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-s"});
-  $("#mergeWhitelist").button("option", "icons", {primary: "ui-icon-arrowthickstop-1-s"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
   $("#exportTrackers").button("option", "icons", {primary: "ui-icon-extlink"});
   $("#resetData").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
@@ -230,27 +228,29 @@ function removeAllData() {
   }
 }
 
-//TODO Do we want confirmations before or success/failure messages after for these?
 function downloadWhitelist() {
-  chrome.runtime.sendMessage({type: "downloadWhitelist"}, () => {
-    //Set a timeout because this needs to happen just a tiny bit later than it was without.
-    setTimeout(function() {
-      reloadWhitelist();
-    }, 0);
-  });
-}
-
-function mergeWhitelist() {
-  chrome.runtime.sendMessage({type: "mergeWhitelist"}, () => {
-    //Set a timeout because this needs to happen just a tiny bit later than it was without.
-    setTimeout(function() {
-      reloadWhitelist();
-    }, 0);
-  });
+  chrome.runtime.sendMessage({type: "downloadWhitelist"},
+    function (success) {
+      if (success) {
+        alert(i18n.getMessage("download_whitelist_success"));
+        reloadWhitelist();
+      } else {
+        alert(i18n.getMessage("download_whitelist_failure"));
+      }
+    }
+  );
 }
 
 function uploadWhitelist() {
-  chrome.runtime.sendMessage({type: "uploadWhitelist"});
+  chrome.runtime.sendMessage({type: "uploadWhitelist"},
+    function (success) {
+      if (success) {
+        alert(i18n.getMessage("upload_whitelist_success"));
+      } else {
+        alert(i18n.getMessage("upload_whitelist_failure"));
+      }
+    }
+  );
 }
 
 /**
@@ -258,9 +258,6 @@ function uploadWhitelist() {
  * action_map and snitch_map, along with their settings.
  * List will be in JSON format that can be edited and reimported
  * in another instance of Privacy Badger.
- * 
- * TODO This assumes that the local data is up to date with the
- * TODO disabled sites list in synced storage
  */
 function exportUserData() {
   chrome.storage.local.get(USER_DATA_EXPORT_KEYS, function (maps) {
