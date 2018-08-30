@@ -52,8 +52,8 @@ function loadOptions() {
   // Add event listeners
   $("#whitelistForm").on("submit", addWhitelistDomain);
   $("#removeWhitelist").on("click", removeWhitelistDomain);
-  $("#cloud-upload").on("click", uploadWhitelist);
-  $("#cloud-download").on("click", downloadWhitelist);
+  $("#cloud-upload").on("click", uploadCloud);
+  $("#cloud-download").on("click", downloadCloud);
   $('#importTrackerButton').on("click", loadFileChooser);
   $('#importTrackers').on("change", importTrackerList);
   $('#exportTrackers').on("click", exportUserData);
@@ -228,26 +228,28 @@ function removeAllData() {
   }
 }
 
-function downloadWhitelist() {
-  chrome.runtime.sendMessage({type: "downloadWhitelist"},
-    function (success) {
-      if (success) {
+function downloadCloud() {
+  chrome.runtime.sendMessage({type: "downloadCloud"},
+    function (status) {
+      if (status.success) {
         alert(i18n.getMessage("download_cloud_success"));
         reloadWhitelist();
       } else {
         alert(i18n.getMessage("download_cloud_failure"));
+        console.error("Cloud sync error:", status.message);
       }
     }
   );
 }
 
-function uploadWhitelist() {
-  chrome.runtime.sendMessage({type: "uploadWhitelist"},
-    function (success) {
-      if (success) {
+function uploadCloud() {
+  chrome.runtime.sendMessage({type: "uploadCloud"},
+    function (status) {
+      if (status.success) {
         alert(i18n.getMessage("upload_cloud_success"));
       } else {
         alert(i18n.getMessage("upload_cloud_failure"));
+        console.error("Cloud sync error:", status.message);
       }
     }
   );

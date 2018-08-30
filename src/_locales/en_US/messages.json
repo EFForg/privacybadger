@@ -530,19 +530,23 @@
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "Disabled sites list downloaded from cloud and merged into local list.",
+        "message": "Cloud data imported successfully.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
-        "message": "Disabled sites list could not be downloaded from cloud.  (You will get this message if you have not uploaded any list to the cloud.)",
+        "message": "Cloud data could not be downloaded.",
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Disabled sites list uploaded to cloud.",
+        "message": "Cloud data uploaded successfully.",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Disabled sites list could not be uploaded to cloud.",
+        "message": "Cloud data could not be uploaded.",
         "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "No cloud data to download.",
+        "description": "'Error' message when there is on cloud data to download."
     }
 }

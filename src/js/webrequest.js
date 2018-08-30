@@ -738,28 +738,30 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.revertUserAction(request.origin);
     sendResponse();
 
-  } else if (request.type == "downloadWhitelist") {
+  } else if (request.type == "downloadCloud") {
     chrome.storage.sync.get("disabledSites", function (store) {
-      if (store.hasOwnProperty("disabledSites")) {
+      if (chrome.runtime.lastError) {
+        sendResponse({success: false, message: chrome.runtime.lastError.message});
+      } else if (store.hasOwnProperty("disabledSites")) {
         let settings = badger.getSettings();
         let whitelist = _.union(settings.getItem("disabledSites"), store.disabledSites);
         settings.setItem("disabledSites", whitelist);
-        sendResponse(true);
+        sendResponse({success: true});
       } else {
-        sendResponse(false);
+        sendResponse({success: false, message: chrome.i18n.getMessage("download_cloud_no_data")});
       }
     });
     //indicate this is an async response to chrome.runtime.onMessage
     return true;
 
-  } else if (request.type == "uploadWhitelist") {
+  } else if (request.type == "uploadCloud") {
     let obj = {};
     obj.disabledSites = badger.getSettings().getItem("disabledSites");
     chrome.storage.sync.set(obj, function () {
       if (chrome.runtime.lastError) {
-        sendResponse(false);
+        sendResponse({success: false, message: chrome.runtime.lastError.message});
       } else {
-        sendResponse(true);
+        sendResponse({success: true});
       }
     });
     //indicate this is an async response to chrome.runtime.onMessage
