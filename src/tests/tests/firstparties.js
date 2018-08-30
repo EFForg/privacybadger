@@ -91,10 +91,14 @@
     let good_link = makeLink(fb_wrap);
     let bad_link = makeLink(fb_xss);
 
+    // load first-party utils
+    let util_script = document.createElement('script');
+    util_script.src = '../js/firstparties/lib/utils.js';
+
     // load the content script
-    let script = document.createElement('script');
-    script.src = '../js/firstparties/facebook.js';
-    script.onload = function() {
+    let fb_script = document.createElement('script');
+    fb_script.src = '../js/firstparties/facebook.js';
+    fb_script.onload = function() {
       assert.equal(good_link.href, destination, 'unwrapped good link');
       assert.ok(good_link.rel.includes('noreferrer'),
         'added noreferrer to good link');
@@ -110,7 +114,8 @@
     stub([good_link, bad_link], '/l.php?');
     fixture.appendChild(good_link);
     fixture.appendChild(bad_link);
-    fixture.appendChild(script);
+    fixture.appendChild(util_script);
+    fixture.appendChild(fb_script);
   });
 
 }());
