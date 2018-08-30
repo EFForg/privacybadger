@@ -209,6 +209,10 @@
         "message": "Exporteer gebruikersdata",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Importing user data:<ul><li>Overwrites general settings</li><li>Combines lists of disabled sites</li><li>Combines information about what trackers Privacy Badger has seen</li><li>Overwrites slider customizations</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Reset",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Laden...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Vangt stiekeme trackers",
@@ -493,10 +493,6 @@
     },
     "description": {
         "message": "Privacy Badger beschermt u tegen trackers terwijl u op internet surft!",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Waarom wordt er niets geblokkeerd?",
         "description": ""
     },
     "report_fail": {

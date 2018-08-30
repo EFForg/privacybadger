@@ -209,6 +209,10 @@
         "message": "Извези корисничке податке",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Importing user data:<ul><li>Overwrites general settings</li><li>Combines lists of disabled sites</li><li>Combines information about what trackers Privacy Badger has seen</li><li>Overwrites slider customizations</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Reset",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Учитавање...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Catches sneaky trackers",
@@ -493,10 +493,6 @@
     },
     "description": {
         "message": "Privacy Badger вас штити од праћења док прегледате веб!",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Зашто ништа није блокирано?",
         "description": ""
     },
     "report_fail": {

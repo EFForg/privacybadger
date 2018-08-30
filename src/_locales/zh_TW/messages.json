@@ -209,6 +209,10 @@
         "message": "匯出使用者資料",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Importing user data:<ul><li>Overwrites general settings</li><li>Combines lists of disabled sites</li><li>Combines information about what trackers Privacy Badger has seen</li><li>Overwrites slider customizations</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "重設",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "載入中…",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "捕捉鬼鬼祟祟的追蹤器",
@@ -493,10 +493,6 @@
     },
     "description": {
         "message": "您在網上衝浪的時候，Privacy Badger 會保護您免於被追蹤器追蹤的煩惱！",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "為什麼沒有封鎖任何東西？",
         "description": ""
     },
     "report_fail": {

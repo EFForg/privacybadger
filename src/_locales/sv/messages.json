@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "** Aktivering av inlärning i privata/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan känner till i privata/inkognitofönster, men den kommer inte att lära sig om nya spårare. Du kan vilja aktivera det här alternativet om du ofta använder privata-/inkognitofönster när du surfar.",
+        "message": "** Aktivering av inlärning i privata-/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan känner till i privata-/inkognitofönster, men den kommer inte att lära sig om nya spårare. Du kan vilja aktivera den här inställningen om du ofta använder privata-/inkognitofönster när du surfar.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -162,7 +162,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Inlärning i privata/inkognitofönster **",
+        "message": "Inlärning i privata-/inkognitofönster **",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -178,7 +178,7 @@
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
-        "message": "Privacy Badger alternativ",
+        "message": "Privacy Badger-inställningar",
         "description": ""
     },
     "report_terms": {
@@ -209,6 +209,10 @@
         "message": "Exportera användardata",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Importing user data:<ul><li>Overwrites general settings</li><li>Combines lists of disabled sites</li><li>Combines information about what trackers Privacy Badger has seen</li><li>Overwrites slider customizations</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Återställ",
         "description": "Options page button, under the Manage Data tab"
@@ -238,7 +242,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC kan läcka din lokala IP-adress. Observera att aktivering av det här alternativet kan försämra prestanda för webbkonferensprogram som Google Hangouts.",
+        "message": "* WebRTC kan läcka din lokala IP-adress. Observera att aktivering av den här inställningen kan försämra prestanda för webbkonferensprogram som Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Laddar...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Fångar lömska spårare",
@@ -484,7 +484,7 @@
         "description": ""
     },
     "popup_options_button": {
-        "message": "Alternativ",
+        "message": "Inställningar",
         "description": ""
     },
     "share_button_title_facebook": {
@@ -493,10 +493,6 @@
     },
     "description": {
         "message": "Privacy Badger skyddar dig mot spårare när du surfar på nätet!",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Varför är inget blockerat?",
         "description": ""
     },
     "report_fail": {
