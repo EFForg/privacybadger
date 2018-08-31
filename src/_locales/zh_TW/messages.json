@@ -210,7 +210,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importing user data:<ul><li>Overwrites general settings</li><li>Combines lists of disabled sites</li><li>Combines information about what trackers Privacy Badger has seen</li><li>Overwrites slider customizations</li></ul>",
+        "message": "正在匯入使用者資料：<ul><li>覆寫一般設定</li><li>結合停用站點清單</li><li>結合 Privacy Badger 已經看過哪些追蹤器的資訊</li><li>覆寫滑桿自訂</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {

@@ -210,7 +210,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importing user data:<ul><li>Overwrites general settings</li><li>Combines lists of disabled sites</li><li>Combines information about what trackers Privacy Badger has seen</li><li>Overwrites slider customizations</li></ul>",
+        "message": "Importieren von Benutzerdaten:<ul><li>Überschreibt allgemeine Einstellungen</li><li>Kombiniert Listen deaktivierter Sites</li><li>Kombiniert Informationen über die bereits erkannten Tracker</li><li>Überschreibt Veränderungen der Schieberegler</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
