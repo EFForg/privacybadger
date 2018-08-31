@@ -19,3 +19,7 @@ Before submitting a pull request (PR), please check your changes using [ESLint](
 First, install the exact expected version of ESLint by running `npm install` in your Privacy Badger source code checkout directory. You should then be able to produce a lint report by running `make lint` in the same directory.
 
 You can review our set of ESLint rules in [`.eslintrc.yml`](/.eslintrc.yml). Files we want ESLint to ignore are specified in [`.eslintignore`](/.eslintignore).
+
+### Writing good commit messages
+
+I highly suggest reviewing the suggestions in this [excellent guide to writing commit messages](https://chris.beams.io/posts/git-commit/).
