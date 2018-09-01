@@ -713,6 +713,19 @@ function dispatcher(request, sender, sendResponse) {
       tabUrl: tab_url
     });
 
+  } else if (request.type == "getOptionsData") {
+    let settings = badger.storage.getBadgerStorageObject("settings");
+    sendResponse({
+      showTrackingDomains: settings.getItem("showTrackingDomains"),
+      showCounter: badger.showCounter(),
+      isSocialWidgetReplacementEnabled: badger.isSocialWidgetReplacementEnabled(),
+      isDNTSignalEnabled: badger.isDNTSignalEnabled(),
+      isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled,
+      isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
+      disabledSites: settings.getItem("disabledSites"),
+      action_map: badger.storage.getBadgerStorageObject('action_map'),
+      webRTCAvailable: badger.webRTCAvailable
+    });
   } else if (request.type == "resetData") {
     badger.storage.clearTrackerData();
     badger.loadSeedData();
@@ -799,6 +812,21 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse();
 
+  } else if (request.type == "updateBadge") {
+    let tab_id = request.tab_id;
+    badger.updateBadge(tab_id);
+    sendResponse();
+  } else if (request.type == "disablePrivacyBadgerForOrigin") {
+    badger.disablePrivacyBadgerForOrigin(request.domain);
+    sendResponse();
+  } else if (request.type == "enablePrivacyBadgerForOrigin") {
+    badger.enablePrivacyBadgerForOrigin(request.origin);
+    sendResponse();
+  } else if (request.type == "getBestAction") {
+    let action = badger.getBestAction(request.domain);
+    sendResponse({
+      "action": action
+    });
   } else if (request.type == "removeOrigin") {
     badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);

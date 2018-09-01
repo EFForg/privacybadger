@@ -32,15 +32,13 @@ if (!matches || matches[1] == "Firefox") {
 
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
-var backgroundPage = chrome.extension.getBackgroundPage();
-var require = backgroundPage.require;
-var badger = backgroundPage.badger;
-var log = backgroundPage.log;
-var constants = backgroundPage.constants;
+var constants = require("constants");
+var utils = require("utils");
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var originCache = null;
-var settings = badger.getSettings();
+
+let OPTIONS_DATA = {};
 
 /*
  * Loads options from pb storage and sets UI elements accordingly.
@@ -60,7 +58,7 @@ function loadOptions() {
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
 
-  if (settings.getItem("showTrackingDomains")) {
+  if (OPTIONS_DATA.showTrackingDomains) {
     $('#tracking-domains-overlay').hide();
   } else {
     $('#blockedResourcesContainer').hide();
@@ -108,15 +106,15 @@ function loadOptions() {
   $("#resetData").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
   $("#removeAllData").button("option", "icons", {primary: "ui-icon-closethick"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
-  $("#show_counter_checkbox").prop("checked", badger.showCounter());
+  $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.showCounter);
   $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
-  $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
+  $("#replace_social_widgets_checkbox").prop("checked", OPTIONS_DATA.isSocialWidgetReplacementEnabled);
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
-  $("#enable_dnt_checkbox").prop("checked", badger.isDNTSignalEnabled());
+  $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.isDNTSignalEnabled);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
-  $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled()).prop("disabled", !badger.isDNTSignalEnabled());
+  $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
 
-  if (badger.webRTCAvailable) {
+  if (OPTIONS_DATA.webRTCAvailable) {
     $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
 
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, result => {
@@ -136,14 +134,13 @@ function loadOptions() {
 
   $("#learn-in-incognito-checkbox")
     .on("click", updateLearnInIncognito)
-    .prop("checked", badger.isLearnInIncognitoEnabled());
+    .prop("checked", OPTIONS_DATA.isLearnInIncognitoEnabled);
 
   reloadWhitelist();
   reloadTrackingDomainsTab();
 
   $('html').css('visibility', 'visible');
 }
-$(loadOptions);
 
 /**
  * Opens the file chooser to allow a user to select
@@ -345,7 +342,10 @@ function updateShowCounter() {
     // Refresh display for each tab's PB badge.
     chrome.tabs.query({}, function(tabs) {
       tabs.forEach(function(tab) {
-        badger.updateBadge(tab.id);
+        chrome.runtime.sendMessage({
+          type: "updateBadge",
+          tab_id: tab.id
+        });
       });
     });
   });
@@ -405,7 +405,7 @@ function updateLearnInIncognito() {
 }
 
 function reloadWhitelist() {
-  var sites = settings.getItem("disabledSites");
+  var sites = OPTIONS_DATA.disabledSites;
   var sitesList = $('#excludedDomainsBox');
   // Sort the white listed sites in the same way the blocked sites are
   sites = htmlUtils.sortDomains(sites);
@@ -419,13 +419,15 @@ function reloadWhitelist() {
  * Refreshes cached origins.
  */
 function refreshOriginCache() {
-  originCache = getOrigins();
+  getOrigins().then(origins => {
+    originCache = origins;
+  });
 }
 
 function addWhitelistDomain(event) {
   event.preventDefault();
 
-  var domain = backgroundPage.utils.getHostFromDomainInput(
+  var domain = utils.getHostFromDomainInput(
     document.getElementById("newWhitelistDomain").value.replace(/\s/g, "")
   );
 
@@ -433,7 +435,10 @@ function addWhitelistDomain(event) {
     return confirm(i18n.getMessage("invalid_domain"));
   }
 
-  badger.disablePrivacyBadgerForOrigin(domain);
+  chrome.runtime.sendMessage({
+    type: "disablePrivacyBadgerForOrigin",
+    domain: domain
+  });
 
   reloadWhitelist();
   document.getElementById("newWhitelistDomain").value = "";
@@ -442,10 +447,16 @@ function addWhitelistDomain(event) {
 function removeWhitelistDomain(event) {
   event.preventDefault();
   var selected = $(document.getElementById("excludedDomainsBox")).find('option:selected');
-  for (var i = 0; i < selected.length; i++) {
-    badger.enablePrivacyBadgerForOrigin(selected[i].text);
+  let messageSends = [];
+  for (let i = 0; i < selected.length; i++) {
+    messageSends.push(chrome.runtime.sendMessage({
+      type: 'enablePrivacyBadgerForOrigin',
+      origin: selected[i].text
+    }));
   }
-  reloadWhitelist();
+  Promise.all(messageSends).then(() => {
+    reloadWhitelist();
+  });
 }
 
 // Tracking Domains slider functions
@@ -456,15 +467,24 @@ function removeWhitelistDomain(event) {
  */
 function getOrigins() {
   var origins = {};
-  var action_map = badger.storage.getBadgerStorageObject('action_map');
+  var action_map = OPTIONS_DATA.action_map;
+  let messageSends = [];
   for (var domain in action_map.getItemClones()) {
-    var action = badger.storage.getBestAction(domain);
-    // Do not show non tracking origins
-    if (action != constants.NO_TRACKING) {
-      origins[domain] = action;
-    }
+    messageSends.push(chrome.runtime.sendMessage({
+      type: "getBestAction",
+      domain: domain
+    }));
   }
-  return origins;
+  return Promise.all(messageSends).then((responses) => {
+    for (let response of responses) {
+      // Do not show non tracking origins
+      if (response.action != constants.NO_TRACKING) {
+        origins[response.domain] = response.action;
+      }
+    }
+
+    return origins;
+  });
 }
 
 /**
@@ -483,17 +503,20 @@ function getOriginAction(origin) {
 //TODO unduplicate this code? since it's also in popup
 function revertDomainControl(e) {
   var $elm = $(e.target).parent();
-  log('revert to privacy badger control for', $elm);
+  console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
-  badger.storage.revertUserAction(origin);
-  var defaultAction = badger.storage.getBestAction(origin);
-  var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
-  var selector = $(selectorId);
-  log('selector', selector);
-  selector.click();
-  $elm.removeClass('userset');
-  reloadTrackingDomainsTab(origin);
-  return false;
+  chrome.runtime.sendMessage({
+    type: "revertDomainControl",
+    origin: origin
+  }, (response) => {
+    var defaultAction = response.action;
+    var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
+    var selector = $(selectorId);
+    console.log('selector', selector);
+    selector.click();
+    $elm.removeClass('userset');
+    reloadTrackingDomainsTab(origin);
+  });
 }
 
 /**
@@ -556,7 +579,7 @@ function reloadTrackingDomainsTab() {
     )
   );
 
-  log("Done refreshing tracking domains tab");
+  console.log("Done refreshing tracking domains tab");
 }
 
 /**
@@ -704,7 +727,7 @@ function showTrackingDomains(domains) {
  */
 function toggleWebRTCIPProtection() {
   // Return early with non-supporting browsers
-  if (!badger.webRTCAvailable) {
+  if (!OPTIONS_DATA.webRTCAvailable) {
     return;
   }
 
@@ -732,7 +755,7 @@ function toggleWebRTCIPProtection() {
 function updateOrigin(event) {
   // get the origin and new action for it
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  log('updating origin for', $elm);
+  console.log('updating origin for', $elm);
   var action = $elm.data('action');
 
   // replace the old action with the new one
@@ -775,3 +798,16 @@ function removeOrigin(event) {
     reloadTrackingDomainsTab();
   });
 }
+
+function setOptionsData(optionsData) {
+  OPTIONS_DATA = optionsData;
+}
+
+$(function() {
+  chrome.runtime.sendMessage({
+    type: "getOptionsData",
+  }, (response) => {
+    setOptionsData(response);
+    loadOptions();
+  });
+});
