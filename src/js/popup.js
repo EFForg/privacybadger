@@ -12,8 +12,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
+  * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -105,20 +104,19 @@ function init() {
     });
   });
 
+  $('#error_input').bind('input propertychange', function() {
+
+    // No easy way of sending message on popup close, send message for every change
+    chrome.runtime.sendMessage({
+      type: 'saveErrorText',
+      tabId: POPUP_DATA.tabId,
+      error_text: $("#error_input").val()
+    });
+  });
+
   var overlay = $('#overlay');
   $("#error").on("click", function() {
     overlay.toggleClass('active');
-
-    $('#error_input').bind('input propertychange', function() {
-
-      // No easy way of sending message on popup close, send message for every change
-      chrome.runtime.sendMessage({
-        type: 'saveErrorText',
-        tabId: POPUP_DATA.tabId,
-        error_text: $("#error_input").val()
-      });
-    });
-
   });
   $("#report_cancel").on("click", function() {
     closeOverlay();
@@ -383,11 +381,6 @@ function registerToggleHandlers() {
  */
 function refreshPopup() {
 
-  //If there is any saved error text, fill the error input with it.
-  if (POPUP_DATA.hasOwnProperty('error_text')) {
-    $("#error_input").val(POPUP_DATA.error_text);
-  }
-
   // must be a special browser page,
   // or a page that loaded everything before our most recent initialization
   if (POPUP_DATA.noTabData) {
@@ -418,6 +411,11 @@ function refreshPopup() {
       $("#activate_site_btn").show();
       $("#deactivate_site_btn").hide();
     }
+  }
+
+  // if there is any saved error text, fill the error input with it
+  if (POPUP_DATA.hasOwnProperty('error_text')) {
+    $("#error_input").val(POPUP_DATA.error_text);
   }
 
   let origins = POPUP_DATA.origins;
