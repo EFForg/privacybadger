@@ -173,9 +173,9 @@ function onBeforeSendHeaders(details) {
       return {};
     }
   } else {
+    // spoof referer header for third party requests
     const refererHeader = details.requestHeaders.find(header => header.name === "Referer");
     if (refererHeader) {
-      // console.log('before: referer', JSON.parse(JSON.stringify(details.requestHeaders)));
       if (details.method === "GET") {
         // spoof referer value
         const requestUrl = new URL(details.url);
@@ -185,7 +185,6 @@ function onBeforeSendHeaders(details) {
         const refererHeaderIndex = details.requestHeaders.indexOf(refererHeader);
         details.requestHeaders.splice(refererHeaderIndex, 1);
       }
-      // console.log('after: referer', details.requestHeaders);
     }
   }
 
