@@ -115,7 +115,7 @@ function init() {
       chrome.runtime.sendMessage({
         type: 'saveErrorText',
         tabId: POPUP_DATA.tabId,
-        errorText: $("#error_input").val()
+        error_text: $("#error_input").val()
       });
     });
 
@@ -384,8 +384,8 @@ function registerToggleHandlers() {
 function refreshPopup() {
 
   //If there is any saved error text, fill the error input with it.
-  if (POPUP_DATA.hasOwnProperty('errorText')) {
-    $("#error_input").val(POPUP_DATA.errorText);
+  if (POPUP_DATA.hasOwnProperty('error_text')) {
+    $("#error_input").val(POPUP_DATA.error_text);
   }
 
   // must be a special browser page,
