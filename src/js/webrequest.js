@@ -172,6 +172,21 @@ function onBeforeSendHeaders(details) {
     } else {
       return {};
     }
+  } else {
+    const refererHeader = details.requestHeaders.find(header => header.name === "Referer");
+    if (refererHeader) {
+      // console.log('before: referer', JSON.parse(JSON.stringify(details.requestHeaders)));
+      if (details.method === "GET") {
+        // spoof referer value
+        const requestUrl = new URL(details.url);
+        refererHeader.value = requestUrl.origin;
+      } else {
+        // remove referer header from non-GET request
+        const refererHeaderIndex = details.requestHeaders.indexOf(refererHeader);
+        details.requestHeaders.splice(refererHeaderIndex, 1);
+      }
+      // console.log('after: referer', details.requestHeaders);
+    }
   }
 
   var requestAction = checkAction(tab_id, requestDomain, frame_id);
