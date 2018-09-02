@@ -116,6 +116,12 @@ function init() {
   });
 
   var overlay = $('#overlay');
+
+  // show error layout if the user was writing an error report
+  if (POPUP_DATA.hasOwnProperty('errorText') && POPUP_DATA.errorText) {
+    overlay.toggleClass('active');
+  }
+
   $("#error").on("click", function() {
     overlay.toggleClass('active');
   });
