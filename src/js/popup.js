@@ -12,7 +12,8 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-  * You should have received a copy of the GNU General Public License
+ *
+ * You should have received a copy of the GNU General Public License
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -110,7 +111,7 @@ function init() {
     chrome.runtime.sendMessage({
       type: 'saveErrorText',
       tabId: POPUP_DATA.tabId,
-      error_text: $("#error_input").val()
+      errorText: $("#error_input").val()
     });
   });
 
@@ -414,8 +415,8 @@ function refreshPopup() {
   }
 
   // if there is any saved error text, fill the error input with it
-  if (POPUP_DATA.hasOwnProperty('error_text')) {
-    $("#error_input").val(POPUP_DATA.error_text);
+  if (POPUP_DATA.hasOwnProperty('errorText')) {
+    $("#error_input").val(POPUP_DATA.errorText);
   }
 
   let origins = POPUP_DATA.origins;

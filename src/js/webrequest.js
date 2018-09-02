@@ -703,8 +703,8 @@ function dispatcher(request, sender, sendResponse) {
       error_text = null;
 
     if (has_tab_data) {
-      if (badger.tabData[tab_id].hasOwnProperty('error_text')) {
-        error_text = badger.tabData[tab_id].error_text;
+      if (badger.tabData[tab_id].hasOwnProperty('errorText')) {
+        error_text = badger.tabData[tab_id].errorText;
       }
     }
 
@@ -717,7 +717,7 @@ function dispatcher(request, sender, sendResponse) {
       tabHost: tab_host,
       tabId: tab_id,
       tabUrl: tab_url,
-      error_text: error_text
+      errorText: error_text
     });
 
   } else if (request.type == "resetData") {
@@ -785,13 +785,13 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.type == "saveErrorText") {
     let activeTab = badger.tabData[request.tabId];
-    activeTab.error_text = request.error_text;
+    activeTab.errorText = request.errorText;
 
     sendResponse();
 
   } else if (request.type == "removeErrorText") {
     let activeTab = badger.tabData[request.tabId];
-    delete activeTab.error_text;
+    delete activeTab.errorText;
 
   } else if (request.checkDNT) {
     // called from contentscripts/dnt.js to check if we should enable it
