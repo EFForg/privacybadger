@@ -17,10 +17,45 @@
 
 var i18n = chrome.i18n;
 
+function setTextDirection() {
+  // https://www.w3.org/International/questions/qa-scripts#examples
+  // https://developer.chrome.com/webstore/i18n?csw=1#localeTable
+  const RTL_LANGS = ['ar', 'he', 'fa'];
+
+  if (RTL_LANGS.indexOf(i18n.getMessage('@@ui_locale')) == -1) {
+    return;
+  }
+
+  // set body text direction
+  document.body.setAttribute("dir", "rtl");
+
+  if (document.location.pathname == "/skin/options.html") {
+    // apply RTL workaround for jQuery UI tabs
+    // https://zoomicon.wordpress.com/2009/10/15/how-to-use-jqueryui-tabs-in-right-to-left-layout/
+    let css = document.createElement("style");
+    css.type = "text/css";
+    css.textContent = `
+.ui-tabs { direction: rtl; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected,
+  .ui-tabs .ui-tabs-nav li.ui-state-default { float: right; }
+.ui-tabs .ui-tabs-nav li a { float: right; }
+`;
+    document.body.appendChild(css);
+
+    // fix some margins
+    ['#settings-suffix', '#check-dnt-policy-row'].forEach((selector) => {
+      let $el = $(selector);
+      $el.css('margin-right', $el.css('margin-left')).css('margin-left', "auto");
+    });
+  }
+}
+
 // Loads and inserts i18n strings into matching elements. Any inner HTML already in the
 // element is parsed as JSON and used as parameters to substitute into placeholders in the
 // i18n message.
 function loadI18nStrings() {
+  setTextDirection();
+
   // replace span contents by their class names
   let nodes = document.querySelectorAll("[class^='i18n_']");
   for (let i = 0; i < nodes.length; i++) {

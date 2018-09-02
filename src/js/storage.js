@@ -91,6 +91,17 @@ BadgerPen.prototype = {
   },
 
   /**
+   * Reset the snitch map and action map, forgetting all data the badger has
+   * learned from browsing.
+   */
+  clearTrackerData: function() {
+    var self = this;
+    _.each(['snitch_map', 'action_map'], function(key) {
+      self.getBadgerStorageObject(key).updateObject({});
+    });
+  },
+
+  /**
    * Get the current presumed action for a specific fully qualified domain name (FQDN),
    * ignoring any rules for subdomains below or above it
    *
@@ -475,8 +486,8 @@ BadgerStorage.prototype = {
    *
    * @param {Object} mapData The object containing storage map data to merge
    */
-  merge: function(mapData) {
-    var self = this;
+  merge: function (mapData) {
+    const self = this;
 
     if (self.name === "settings_map") {
       for (let prop in mapData) {
@@ -488,11 +499,35 @@ BadgerStorage.prototype = {
           self._store[prop] = mapData[prop];
         }
       }
+
     } else if (self.name === "action_map") {
       for (let domain in mapData) {
-        // Overwrite local setting (if exists) for any imported domain
-        self._store[domain] = mapData[domain];
+        let action = mapData[domain];
+
+        // Copy over any user settings from the merged-in data
+        if (action.userAction != "") {
+          if (self._store.hasOwnProperty(domain)) {
+            self._store[domain].userAction = action.userAction;
+          } else {
+            self._store[domain] = action;
+          }
+        }
+
+        // handle Do Not Track
+        if (self._store.hasOwnProperty(domain)) {
+          // Merge DNT settings if the imported data has a more recent update
+          if (action.nextUpdateTime > self._store[domain].nextUpdateTime) {
+            self._store[domain].nextUpdateTime = action.nextUpdateTime;
+            self._store[domain].dnt = action.dnt;
+          }
+        } else {
+          // Import action map entries for new DNT-compliant domains
+          if (action.dnt) {
+            self._store[domain] = action;
+          }
+        }
       }
+
     } else if (self.name === "snitch_map") {
       for (let tracker_fqdn in mapData) {
         var firstPartyOrigins = mapData[tracker_fqdn];
@@ -507,7 +542,7 @@ BadgerStorage.prototype = {
     }
 
     // Async call to syncStorage.
-    setTimeout(function() {
+    setTimeout(function () {
       _syncStorage(self);
     }, 0);
   }

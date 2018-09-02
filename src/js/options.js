@@ -32,18 +32,7 @@ if (!matches || matches[1] == "Firefox") {
 
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
-/**
- * TODO
- * @cooperq - 2016/12/05
- * This is a workaround for a bug in firefox 50.0.2 (no bugzilla id I could find)
- * This bug is fixed as of firefox 52.0 and the try/catch can be removed at that
- * time
- **/
-try {
-  var backgroundPage = chrome.extension.getBackgroundPage();
-} catch (e) {
-  location.reload();
-}
+var backgroundPage = chrome.extension.getBackgroundPage();
 var require = backgroundPage.require;
 var badger = backgroundPage.badger;
 var log = backgroundPage.log;
@@ -66,6 +55,8 @@ function loadOptions() {
   $('#importTrackerButton').on("click", loadFileChooser);
   $('#importTrackers').on("change", importTrackerList);
   $('#exportTrackers').on("click", exportUserData);
+  $('#resetData').on("click", resetData);
+  $('#removeAllData').on("click", removeAllData);
 
   if (settings.getItem("showTrackingDomains")) {
     $('#tracking-domains-overlay').hide();
@@ -109,13 +100,17 @@ function loadOptions() {
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
-  $(".exportButton").button("option", "icons", {primary: "ui-icon-extlink"});
+  $("#exportTrackers").button("option", "icons", {primary: "ui-icon-extlink"});
+  $("#resetData").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
+  $("#removeAllData").button("option", "icons", {primary: "ui-icon-closethick"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
+  $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
+  $("#enable_dnt_checkbox").prop("checked", badger.isDNTSignalEnabled());
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
-  $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled());
+  $("#check_dnt_policy_checkbox").prop("checked", badger.isCheckingDNTPolicyEnabled()).prop("disabled", !badger.isDNTSignalEnabled());
 
   if (badger.webRTCAvailable) {
     $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
@@ -208,6 +203,25 @@ function parseUserDataFile(storageMapsList) {
     reloadTrackingDomainsTab();
     confirm(i18n.getMessage("import_successful"));
   });
+}
+
+function resetData() {
+  var resetWarn = i18n.getMessage("reset_data_confirm");
+  if (confirm(resetWarn)) {
+    chrome.runtime.sendMessage({type: "resetData"}, () => {
+      // reload page to refresh tracker list
+      location.reload();
+    });
+  }
+}
+
+function removeAllData() {
+  var removeWarn = i18n.getMessage("remove_all_data_confirm");
+  if (confirm(removeWarn)) {
+    chrome.runtime.sendMessage({type: "removeAllData"}, () => {
+      location.reload();
+    });
+  }
 }
 
 /**
@@ -314,6 +328,23 @@ function updateSocialWidgetReplacement() {
       socialWidgetReplacementEnabled: enabled
     }
   });
+}
+
+/**
+ * Update DNT checkbox clicked
+ */
+function updateDNTCheckboxClicked() {
+  const enabled = $("#enable_dnt_checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      sendDNTSignal: enabled
+    }
+  });
+
+  $("#check_dnt_policy_checkbox").prop("checked", enabled).prop("disabled", !enabled);
+  updateCheckingDNTPolicy();
 }
 
 function updateCheckingDNTPolicy() {
@@ -440,8 +471,6 @@ function reloadTrackingDomainsTab() {
   var allTrackingDomains = getOriginsArray(originCache);
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
-    $("#pb_has_detected").hide();
-    $("#count").hide();
     $("#options_domain_list_trackers").hide();
     $("#options_domain_list_one_tracker").hide();
 
@@ -461,18 +490,19 @@ function reloadTrackingDomainsTab() {
   $("#tracking-domains-div").show();
 
   // Update messages according to tracking domain count.
-  if (allTrackingDomains.length === 1) {
+  if (allTrackingDomains.length == 1) {
     // leave out messages about multiple trackers
-    $("#pb_has_detected").hide();
-    $("#count").hide();
     $("#options_domain_list_trackers").hide();
 
     // show singular "tracker" message
     $("#options_domain_list_one_tracker").show();
   } else {
-    $("#pb_has_detected").show();
-    $("#count").text(allTrackingDomains.length).show();
-    $("#options_domain_list_trackers").show();
+    $("#options_domain_list_trackers").html(i18n.getMessage(
+      "options_domain_list_trackers", [
+        allTrackingDomains.length,
+        "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+      ]
+    )).show();
   }
 
   // Get containing HTML for domain list along with toggle legend icons.

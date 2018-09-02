@@ -207,7 +207,7 @@ const surrogates = {
     } + ')();',
 
   // https://github.com/EFForg/privacybadger/issues/993
-  // https://github.com/uBlockOrigin/uAssets/blob/862f28ca7909dbc0db590075928152f526966620/filters/resources.txt#L367-L497
+  // https://github.com/uBlockOrigin/uAssets/blob/2bc97541b3b9a9380b3ce8bd2242375925df293c/filters/resources.txt#L436-L567
   /* eslint-disable no-empty */
   '/gpt.js': '(' +
     function() {
@@ -277,6 +277,7 @@ const surrogates = {
         setForceSafeFrame: noopthisfn,
         setLocation: noopthisfn,
         setPublisherProvidedId: noopthisfn,
+        setRequestNonPersonalizedAds: noopthisfn,
         setSafeFrameConfig: noopthisfn,
         setTagForChildDirectedTreatment: noopthisfn,
         setTargeting: noopthisfn,
