@@ -465,6 +465,7 @@ function revertDomainControl(e) {
  * Displays list of all tracking domains along with toggle controls.
  */
 function reloadTrackingDomainsTab() {
+  var blockedResourcesScrollPosition = $("#blockedResourcesInner").scrollTop();
   refreshOriginCache();
 
   // Check to see if any tracking domains have been found before continuing.
@@ -509,7 +510,7 @@ function reloadTrackingDomainsTab() {
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // activate tooltips
-  $('.tooltip').tooltipster();
+  $(".tooltip").tooltipster();
 
   // Display tracking domains.
   showTrackingDomains(
@@ -520,6 +521,8 @@ function reloadTrackingDomainsTab() {
       $('#tracking-domains-status-filter').val()
     )
   );
+
+  $("#blockedResourcesInner").scrollTop(blockedResourcesScrollPosition);
 
   log("Done refreshing tracking domains tab");
 }
