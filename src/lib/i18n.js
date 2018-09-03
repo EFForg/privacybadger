@@ -42,10 +42,15 @@ function setTextDirection() {
 `;
     document.body.appendChild(css);
 
-    // fix some margins
+    // fix margins
     ['#settings-suffix', '#check-dnt-policy-row'].forEach((selector) => {
       let $el = $(selector);
       $el.css('margin-right', $el.css('margin-left')).css('margin-left', "auto");
+    });
+    // fix floats
+    ['.btn-silo'].forEach((selector) => {
+      let $el = $(selector);
+      $(selector).css('float', $el.css('float') == 'left' ? 'right' : 'left');
     });
   }
 }
