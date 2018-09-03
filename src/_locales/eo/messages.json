@@ -210,7 +210,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Enporti datumojn de uzantoj por:\n<ul>\n<li>anstataŭigi ĝeneralajn agordojn</li>\n<li>kombini listojn de ekskluzivataj nomregnoj</ii>\n<li>kombini informojn pri observitaj spuriloj</li>\n<li>anstataŭigi agordojn de ŝovilo</li></ul>",
+        "message": "Enporti datumojn de uzantoj por:\n<ul>\n<li>anstataŭigi ĝeneralajn agordojn</li>\n<li>kombini listojn de ekskluzivataj nomregnoj</li>\n<li>kombini informojn pri observitaj spuriloj</li>\n<li>anstataŭigi agordojn de ŝovilo</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
