@@ -306,7 +306,7 @@
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
-        "message": "Передвиньте перключатель в центр, чтобы заблокировать файлы cookie",
+        "message": "Передвиньте переключатель в центр, чтобы заблокировать файлы cookie",
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
