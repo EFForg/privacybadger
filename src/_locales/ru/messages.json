@@ -32,7 +32,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Проверять соблюдают ли <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>сторонние домены</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>политику конфиденциальности EFF \"Do Not Track\"</a>",
+        "message": "Проверять, соблюдают ли <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>сторонние домены</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>политику конфиденциальности EFF \"Do Not Track\"</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -210,7 +210,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importing user data:<ul><li>Overwrites general settings</li><li>Combines lists of disabled sites</li><li>Combines information about what trackers Privacy Badger has seen</li><li>Overwrites slider customizations</li></ul>",
+        "message": "Импорт пользовательских данных:<ul><li>Перезапишет общие настройки</li><li>Объединит списки отключенных сайтов</li><li>Объединит информацию о том, какие трекеры Privacy Badger встретил</li><li>Перезапишет настройки переключателей</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -306,7 +306,7 @@
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
-        "message": "Передвиньте ползунок в центр, чтобы заблокировать файлы cookie",
+        "message": "Передвиньте переключатель в центр, чтобы заблокировать файлы cookie",
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
@@ -354,7 +354,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Передвиньте ползунок влево, чтобы заблокировать домен",
+        "message": "Передвиньте переключатель влево, чтобы заблокировать домен",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger обнаружил $COUNT$ потенциальных $TRACKER_LINK_START$трекеров$TRACKER_LINK_END$ на этой странице. С помощью этих переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым из них. Переключателей нужно регулировать только в случае проблем с работой сайта.",
+        "message": "Privacy Badger обнаружил $COUNT$ потенциальных $TRACKER_LINK_START$трекеров$TRACKER_LINK_END$ на этой странице. С помощью переключателей вы можете выбрать, какое действие Privacy Badger выполнит с каждым из них. Регулировать их нужно только в случае проблем с работой сайта.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,11 +395,11 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger обнаружил одного потенциального <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекера</a> на данный момент. С помощью переключателя вы можете выбрать, какое действие Privacy Badger выполнит с ним.",
+        "message": "Privacy Badger обнаружил один потенциальный <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекер</a> на данный момент. С помощью переключателя вы можете выбрать, какое действие Privacy Badger выполнит с ним.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
-        "message": "Передвиньте ползунок вправо, чтобы разблокировать домен",
+        "message": "Передвиньте переключатель вправо, чтобы разблокировать домен",
         "description": ""
     },
     "popup_disable_for_site": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger обнаружил одного потенциального <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекера</a> на этой странице. С помощью переключателя вы можете выбрать, какое действие Privacy Badger выполнит с ним. Переключатель нужно регулировать только в случае проблем с работой сайта.",
+        "message": "Privacy Badger обнаружил один потенциальный <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекер</a> на этой странице. С помощью переключателя вы можете выбрать, какое действие Privacy Badger выполнит с ним. Регулировать его нужно только в случае проблем с работой сайта.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
