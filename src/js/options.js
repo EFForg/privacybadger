@@ -107,6 +107,7 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
+  $("#spoof_referrer_checkbox").prop("checked", badger.isSpoofReferrerEnabled());
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
   $("#enable_dnt_checkbox").prop("checked", badger.isDNTSignalEnabled());
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
@@ -326,6 +327,20 @@ function updateSocialWidgetReplacement() {
     type: "updateSettings",
     data: {
       socialWidgetReplacementEnabled: enabled
+    }
+  });
+}
+
+/**
+ * Update setting for spoofing the referrer header of all 3rd party requests.
+ */
+function updateSpoofReferrer() {
+  const enabled = $("#spoof_referrer_checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      spoofReferrerEnabled: enabled
     }
   });
 }

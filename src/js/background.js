@@ -478,7 +478,8 @@ Badger.prototype = {
     sendDNTSignal: true,
     showCounter: true,
     showTrackingDomains: false,
-    socialWidgetReplacementEnabled: true
+    socialWidgetReplacementEnabled: true,
+    spoofReferrerEnabled: true
   },
 
   /**
@@ -634,6 +635,10 @@ Badger.prototype = {
    */
   isSocialWidgetReplacementEnabled: function() {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
+  },
+
+  isSpoofReferrerEnabled: function() {
+    return this.getSettings().getItem("spoofReferrerEnabled");
   },
 
   isDNTSignalEnabled: function() {
