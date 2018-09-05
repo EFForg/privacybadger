@@ -105,7 +105,7 @@ function init() {
     });
   });
 
-  $('#error_input').bind('input propertychange', function() {
+  $('#error_input').on('input propertychange', function() {
 
     // No easy way of sending message on popup close, send message for every change
     chrome.runtime.sendMessage({
@@ -284,6 +284,7 @@ function send_error(message) {
         $("#report_cancel").prop("disabled", false);
         $("#report_success").toggleClass("hidden", true);
         closeOverlay();
+        delete POPUP_DATA.errorText;
       }, 3000);
     });
 
