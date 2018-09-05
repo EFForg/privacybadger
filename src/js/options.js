@@ -107,6 +107,7 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", badger.showCounter());
   $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
   $("#replace_social_widgets_checkbox").prop("checked", badger.isSocialWidgetReplacementEnabled());
+  $("#spoof_referrer_checkbox").on("click", updateSpoofReferrer);
   $("#spoof_referrer_checkbox").prop("checked", badger.isSpoofReferrerEnabled());
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
   $("#enable_dnt_checkbox").prop("checked", badger.isDNTSignalEnabled());
