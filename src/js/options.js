@@ -235,8 +235,12 @@ function downloadCloud() {
         alert(i18n.getMessage("download_cloud_success"));
         reloadWhitelist();
       } else {
-        alert(i18n.getMessage("download_cloud_failure"));
         console.error("Cloud sync error:", status.message);
+        if (status.message === i18n.getMessage("download_cloud_no_data")) {
+          alert(status.message);
+        } else {
+          alert(i18n.getMessage("download_cloud_failure"));
+        }
       }
     }
   );
@@ -248,8 +252,8 @@ function uploadCloud() {
       if (status.success) {
         alert(i18n.getMessage("upload_cloud_success"));
       } else {
-        alert(i18n.getMessage("upload_cloud_failure"));
         console.error("Cloud sync error:", status.message);
+        alert(i18n.getMessage("upload_cloud_failure"));
       }
     }
   );
