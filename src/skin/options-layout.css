@@ -43,11 +43,6 @@ button
   float: left;
 }
 
-.btn-silo p {
-  padding-top: 10px;
-  margin-bottom: 0;
-}
-
 .btn-danger {
   color: #e02431;
   border-width: 1px;
