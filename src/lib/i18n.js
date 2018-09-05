@@ -48,7 +48,7 @@ function setTextDirection() {
       $el.css('margin-right', $el.css('margin-left')).css('margin-left', "auto");
     });
     // fix floats
-    ['.btn-silo'].forEach((selector) => {
+    ['.btn-silo', '.btn-silo div'].forEach((selector) => {
       let $el = $(selector);
       $(selector).css('float', $el.css('float') == 'left' ? 'right' : 'left');
     });
