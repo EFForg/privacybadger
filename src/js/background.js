@@ -59,6 +59,13 @@ function Badger() {
       self.showFirstRunPage();
     }
 
+    // set badge text color to white in Firefox 63+
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1424620
+    if (chrome.browserAction.hasOwnProperty('setBadgeTextColor')) {
+      chrome.browserAction.setBadgeTextColor({ color: "#fff" });
+    }
+
     // Show icon as page action for all tabs that already exist
     chrome.tabs.query({}, function (tabs) {
       for (var i = 0; i < tabs.length; i++) {
@@ -159,7 +166,7 @@ Badger.prototype = {
   },
 
   showFirstRunPage: function() {
-    let settings = this.storage.getBadgerStorageObject("settings_map");
+    let settings = this.getSettings();
     if (settings.getItem("isFirstRun")) {
       // launch first-run page and unset first-run flag
       chrome.tabs.create({
@@ -485,7 +492,7 @@ Badger.prototype = {
    * initialize default settings if nonexistent
    */
   initializeDefaultSettings: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
+    var settings = this.getSettings();
     _.each(this.defaultSettings, function(value, key) {
       if (!settings.hasItem(key)) {
         log("setting", key, ":", value);
@@ -496,7 +503,7 @@ Badger.prototype = {
 
   runMigrations: function() {
     var self = this;
-    var settings = self.storage.getBadgerStorageObject("settings_map");
+    var settings = self.getSettings();
     var migrationLevel = settings.getItem('migrationLevel');
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently

@@ -37,4 +37,7 @@ tx:
 runff:
 	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/
 
-.PHONY: build travisbuild updatepsl updateseed zip crx todo logging lint tx runff
+runfn:
+	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/ -f /opt/firefox/nightly/firefox
+
+.PHONY: build travisbuild updatepsl updateseed zip crx todo logging lint tx runff runfn

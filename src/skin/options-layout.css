@@ -13,11 +13,6 @@ td
   text-align: left;
 }
 
-p
-{
-  margin-top: 0.5em;
-}
-
 button
 {
   white-space: pre;
@@ -30,22 +25,6 @@ button
 #tab-manage-data {
   overflow: auto;
 }
-#import {
-  width: 350px;
-  float: left;
-}
-#export {
-  width: 350px;
-  float: left;
-}
-#reset {
-  width: 350px;
-  float: left;
-}
-#remove {
-  width: 350px;
-  float: left;
-}
 
 .btn-silo {
   float: left;
@@ -56,10 +35,12 @@ button
 .btn-silo + .btn-silo {
   border-top: 1px solid #d3d3d3;
   margin-top: 10px;
+  padding-top: 10px;
 }
 
 .btn-silo div {
-  padding-top: 10px;
+  width: 350px;
+  float: left;
 }
 
 .btn-danger {

@@ -209,6 +209,10 @@
         "message": "Експорт користувацьких даних",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Імпорт даних користувача:<ul><li>Перезаписуються основні налаштування</li><li>Об'єднуються списки вимкнених сайтів</li><li>Об'єднується інформація про виявлені елементи стеження Privacy Badger</li><li>Перезаписуються налаштування перемикачів</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Відновити",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Завантаження...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Перехоплює підступне стеження",
@@ -495,10 +495,6 @@
         "message": "Privacy Badger захищає вас від стеження поки ви переглядаєте сторінки в Інтернеті!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Чому не блокується будь-що?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Ой. Щось пішло не так.",
         "description": ""
@@ -512,5 +508,41 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "sync_intro": {
+        "message": "Cloud sync:<ul><li>Requires Firefox/Chrome Sync</li><li>Upload overwrites any existing Privacy Badger data in the cloud</li><li>Download combines the lists of sites where your Badger is disabled</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Upload",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Export disabled sites to cloud",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Import disabled sites from cloud",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Cloud data imported successfully.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Cloud data could not be downloaded.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Cloud data uploaded successfully.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Cloud data could not be uploaded.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "No cloud data to download.",
+        "description": "'Error' message when there is on cloud data to download."
     }
 }

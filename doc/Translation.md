@@ -85,14 +85,6 @@ To translate Privacy Badger with Transifex, go to the
 [Privacy Badger Transifex project](https://www.transifex.com/eff/privacy-badger/dashboard/),
 log in to your account, and click on the Translate button.
 
-Before starting your work, send a message to [ghostwords](https://www.transifex.com/user/profile/ghostwords/),
-who will check if Transifex and GitHub translations are correctly
-synced. To send him a message, go to [his profile](https://www.transifex.com/user/profile/ghostwords/)
-and click on "Send message". This will help avoid translating
-something that has already been translated or that is currently being
-translated. Also, send ghostwords a message when you have finished your work
-so that he will upload your translation to GitHub.
-
 The Transifex platform is quite intuitive to use. For any questions about
 Transifex refer to its [documentation](https://docs.transifex.com/).
 

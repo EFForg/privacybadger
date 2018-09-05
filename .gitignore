@@ -50,6 +50,10 @@ tests/.pytest_cache
 
 .idea
 
+#Eclipse project stuff
+.settings/
+.project
+
 web-ext-artifacts
 pkg
 release-utils/config.sh
