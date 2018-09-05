@@ -15,7 +15,9 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var i18n = chrome.i18n;
+(function () {
+
+const i18n = chrome.i18n;
 
 function setTextDirection() {
   // https://www.w3.org/International/questions/qa-scripts#examples
@@ -64,13 +66,13 @@ function loadI18nStrings() {
   // replace span contents by their class names
   let nodes = document.querySelectorAll("[class^='i18n_']");
   for (let i = 0; i < nodes.length; i++) {
-    var args = JSON.parse("[" + nodes[i].textContent + "]");
-    var className = nodes[i].className;
+    const args = JSON.parse("[" + nodes[i].textContent + "]");
+    let className = nodes[i].className;
     if (className instanceof SVGAnimatedString) {
       className = className.animVal;
     }
-    var stringName = className.split(/\s/)[0].substring(5);
-    var prop = "innerHTML" in nodes[i] ? "innerHTML" : "textContent";
+    const stringName = className.split(/\s/)[0].substring(5);
+    const prop = "innerHTML" in nodes[i] ? "innerHTML" : "textContent";
     if (args.length > 0) {
       nodes[i][prop] = i18n.getMessage(stringName, args);
     } else {
@@ -121,3 +123,5 @@ function loadI18nStrings() {
 
 // Fill in the strings as soon as possible
 window.addEventListener("DOMContentLoaded", loadI18nStrings, true);
+
+}());
