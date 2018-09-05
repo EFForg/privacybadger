@@ -369,3 +369,28 @@ font-size: 16px;
 .tooltipster-sidetip .tooltipster-arrow-border {
     border: none;
 }
+
+@media screen and (max-width: 325px){
+  .origin {
+    max-width: 150px;
+  }
+
+  .switch-container{
+    width: 100px;
+    display: block;
+    margin-left: 150px;
+  }
+
+  .key {
+    padding-left: 150px;
+  }
+  .key img{
+    margin-left: 12px;
+  }
+
+  .honeybadgerPowered {
+    float: right;
+    left: 0;
+    margin-right: 0;
+  }
+}
