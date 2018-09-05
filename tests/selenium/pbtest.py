@@ -176,9 +176,7 @@ class Shim:
         try:
             yield driver
         finally:
-            time.sleep(2)
             driver.quit()
-            time.sleep(2)
 
 
 shim = Shim()  # create the browser shim
