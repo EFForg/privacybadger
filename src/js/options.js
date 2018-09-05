@@ -40,7 +40,7 @@ var constants = backgroundPage.constants;
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
 var originCache = null;
-var settings = badger.storage.getBadgerStorageObject("settings_map");
+var settings = badger.getSettings();
 
 /*
  * Loads options from pb storage and sets UI elements accordingly.
@@ -52,6 +52,8 @@ function loadOptions() {
   // Add event listeners
   $("#whitelistForm").on("submit", addWhitelistDomain);
   $("#removeWhitelist").on("click", removeWhitelistDomain);
+  $("#cloud-upload").on("click", uploadCloud);
+  $("#cloud-download").on("click", downloadCloud);
   $('#importTrackerButton').on("click", loadFileChooser);
   $('#importTrackers').on("change", importTrackerList);
   $('#exportTrackers').on("click", exportUserData);
@@ -99,6 +101,8 @@ function loadOptions() {
   $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
+  $("#cloud-upload").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-n"});
+  $("#cloud-download").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-s"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
   $("#exportTrackers").button("option", "icons", {primary: "ui-icon-extlink"});
   $("#resetData").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
@@ -222,6 +226,37 @@ function removeAllData() {
       location.reload();
     });
   }
+}
+
+function downloadCloud() {
+  chrome.runtime.sendMessage({type: "downloadCloud"},
+    function (status) {
+      if (status.success) {
+        alert(i18n.getMessage("download_cloud_success"));
+        reloadWhitelist();
+      } else {
+        console.error("Cloud sync error:", status.message);
+        if (status.message === i18n.getMessage("download_cloud_no_data")) {
+          alert(status.message);
+        } else {
+          alert(i18n.getMessage("download_cloud_failure"));
+        }
+      }
+    }
+  );
+}
+
+function uploadCloud() {
+  chrome.runtime.sendMessage({type: "uploadCloud"},
+    function (status) {
+      if (status.success) {
+        alert(i18n.getMessage("upload_cloud_success"));
+      } else {
+        console.error("Cloud sync error:", status.message);
+        alert(i18n.getMessage("upload_cloud_failure"));
+      }
+    }
+  );
 }
 
 /**
