@@ -711,13 +711,13 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse({
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
+      errorText: error_text,
       noTabData: !has_tab_data,
       origins: has_tab_data && badger.tabData[tab_id].origins,
       seenComic: badger.getSettings().getItem("seenComic"),
       tabHost: tab_host,
       tabId: tab_id,
-      tabUrl: tab_url,
-      errorText: error_text
+      tabUrl: tab_url
     });
 
   } else if (request.type == "resetData") {
@@ -786,8 +786,6 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.type == "saveErrorText") {
     let activeTab = badger.tabData[request.tabId];
     activeTab.errorText = request.errorText;
-
-    sendResponse();
 
   } else if (request.type == "removeErrorText") {
     let activeTab = badger.tabData[request.tabId];
