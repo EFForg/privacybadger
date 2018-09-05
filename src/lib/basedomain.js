@@ -244,7 +244,15 @@ function URI(/**String*/ spec) {
   }
 
   if (spec.substr(this._schemeEnd + 1, 2) != "//") {
-    throw new Error("Unexpected URI structure");
+    //Special case for filesystem URIs; scheme becomes 'filesystem:http(s)'
+    if (spec.substring(0, this._schemeEnd) === "filesystem") {
+      this._schemeEnd = spec.indexOf(":", this._schemeEnd + 1);
+      if (spec.substr(this._schemeEnd + 1, 2) != "//") {
+        throw new Error("Unexpected URI structure");
+      }
+    } else {
+      throw new Error("Unexpected URI structure");
+    }
   }
 
   this._hostPortStart = this._schemeEnd + 3;
