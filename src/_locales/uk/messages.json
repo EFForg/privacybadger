@@ -510,39 +510,39 @@
         }
     },
     "sync_intro": {
-        "message": "Cloud sync:<ul><li>Requires Firefox/Chrome Sync</li><li>Upload overwrites any existing Privacy Badger data in the cloud</li><li>Download combines the lists of sites where your Badger is disabled</li></ul>",
+        "message": "Синхронізація:<ul><li>Необхідний обліковий запис Firefox/Chrome</li><li>Вивантаження перезаписує наявні дані в хмарному сховищі</li><li>Завантаження об'єднує списки сайтів, на яких Privacy Badger вимкнений</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
-        "message": "Upload",
+        "message": "Вивантажити",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Export disabled sites to cloud",
+        "message": "Експорт вимкнених сайтів у хмарне сховище",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Import disabled sites from cloud",
+        "message": "Імпорт вимкнених сайтів з хмарного сховища",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "Cloud data imported successfully.",
+        "message": "Дані успішно імпортовано з хмарного сховища.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
-        "message": "Cloud data could not be downloaded.",
+        "message": "Не вдалося завантажити дані з хмарного сховища.",
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Cloud data uploaded successfully.",
+        "message": "Дані успішно вивантажено в хмарне сховище.",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Cloud data could not be uploaded.",
+        "message": "Не вдалося вивантажити дані в хмарне сховище.",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
-        "message": "No cloud data to download.",
+        "message": "Хмарне сховище не містить даних для завантаження.",
         "description": "'Error' message when there is on cloud data to download."
     }
 }

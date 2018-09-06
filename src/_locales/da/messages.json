@@ -510,39 +510,39 @@
         }
     },
     "sync_intro": {
-        "message": "Cloud sync:<ul><li>Requires Firefox/Chrome Sync</li><li>Upload overwrites any existing Privacy Badger data in the cloud</li><li>Download combines the lists of sites where your Badger is disabled</li></ul>",
+        "message": "Skysynkronisering:<ul><li>Kræver Firefox/Chrome-Synkronisering</li><li>Oplægning overskriver eksisterende Privacy Badger-data i skyen</li><li>Hentning kombinerer listerne over steder hvor din Privacy Badger er deaktiveret</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
-        "message": "Upload",
+        "message": "Læg op",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Export disabled sites to cloud",
+        "message": "Eksporter deaktiverede steder til skyen",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Import disabled sites from cloud",
+        "message": "Importer deaktiverede steder fra skyen",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "Cloud data imported successfully.",
+        "message": "Skydata importeret med success.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
-        "message": "Cloud data could not be downloaded.",
+        "message": "Skydata kunne ikke hentes.",
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Cloud data uploaded successfully.",
+        "message": "Skydata lagt op med success.",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Cloud data could not be uploaded.",
+        "message": "Skydata kunne ikke lægges op.",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
-        "message": "No cloud data to download.",
+        "message": "Ingen skydata at hente.",
         "description": "'Error' message when there is on cloud data to download."
     }
 }
