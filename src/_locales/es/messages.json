@@ -526,7 +526,7 @@
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "Datos de nube importados con éxito.",
+        "message": "Datos de la nube importados con éxito.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
