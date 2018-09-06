@@ -346,7 +346,7 @@
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
     },
     "options_domain_filter_all": {
-        "message": "todos",
+        "message": "todo",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
