@@ -51,12 +51,18 @@ function onBeforeRequest(details) {
     type = details.type,
     url = details.url;
 
+  let noUtm = stripUtmParams(url);
+
   if (type == "main_frame") {
     forgetTab(tab_id);
 
     badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
 
-    return {};
+    if (noUtm) {
+      return {redirectUrl: noUtm};
+    } else {
+      return {};
+    }
   }
 
   if (type == "sub_frame") {
@@ -82,6 +88,9 @@ function onBeforeRequest(details) {
   }
 
   var requestAction = checkAction(tab_id, requestDomain, frame_id);
+
+  // if requestAction is false, this is a private domain OR the domain/frame has
+  // been unblocked
   if (!requestAction) {
     return {};
   }
@@ -93,7 +102,11 @@ function onBeforeRequest(details) {
   }
 
   if (requestAction != constants.BLOCK && requestAction != constants.USER_BLOCK) {
-    return {};
+    if (noUtm) {
+      return {redirectUrl: noUtm};
+    } else {
+      return {};
+    }
   }
 
   if (type == 'script') {
@@ -598,6 +611,44 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
     var socialWidgetUrl = socialWidgetUrls[i];
     var socialWidgetHost = window.extractHostFromURL(socialWidgetUrl);
     temporarySocialWidgetUnblock[tabId].push(socialWidgetHost);
+  }
+}
+
+/**
+ * Strip Urchin Tracking Module (UTM) parameters from a url
+ * Adapted from au-revoir-utm (https://github.com/rik/au-revoir-utm), 2018-09-06
+ *
+ * @param {String} url The URL of the outgoing request
+ */
+function stripUtmParams(url) {
+  const UTM_PREFIX = 'utm_';
+
+  // short-circuit if this isn't an HTTPS link,
+  // or if there aren't any utm parameters
+  if (!url.startsWith('https://') || !url.includes(UTM_PREFIX)) {
+    return;
+  }
+
+  // remove utm from normal url parameters
+  let parsedURL = new URL(url)
+  for (let param of [...parsedURL.searchParams.keys()]) {
+    if (param.startsWith(UTM_PREFIX)) {
+      parsedURL.searchParams.delete(param);
+    }
+  }
+
+  // remove utm from parameters after the hash in the url
+  let parsedFragment = new URLSearchParams(parsedURL.hash.substring(1))
+  for (let param of [...parsedFragment.keys()]) {
+    if (param.startsWith(UTM_PREFIX)) {
+      parsedFragment.delete(param);
+    }
+  }
+  parsedURL.hash = parsedFragment.toString();
+
+  // if the url has changed, return it. Otherwise return null.
+  if (parsedUrl != url) {
+    return parsedURL.toString();
   }
 }
 
