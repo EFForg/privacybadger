@@ -46,13 +46,19 @@ function Badger() {
   });
 
   self.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (self.INITIALIZED) { return; }
+    if (self.INITIALIZED) {
+      return;
+    }
+
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     self.updateTabList();
     self.initializeDefaultSettings();
+
     try {
       self.runMigrations();
     } finally {
+      // TODO "await" to set INITIALIZED until both below async functions resolve?
+      // see TODO in qunit_config.js
       self.loadFirstRunSeedData();
       self.initializeYellowlist();
       self.initializeDNT();
@@ -74,7 +80,15 @@ function Badger() {
       }
     });
 
-    // TODO: register all privacy badger listeners here in the storage callback
+    // start all the listeners
+    incognito.startListeners();
+    webrequest.startListeners();
+    HeuristicBlocking.startListeners();
+    FirefoxAndroid.startListeners();
+    startBackgroundListeners();
+
+    console.log("Privacy Badger is ready to rock!");
+    console.log("Set DEBUG=1 to view console messages.");
 
     self.INITIALIZED = true;
   });
@@ -856,21 +870,4 @@ function startBackgroundListeners() {
   }
 }
 
-/**
- * lets get this party started
- */
-console.log('Loading badgers into the pen.');
 var badger = window.badger = new Badger();
-
-/**
-* Start all the listeners
-*/
-incognito.startListeners();
-webrequest.startListeners();
-HeuristicBlocking.startListeners();
-FirefoxAndroid.startListeners();
-startBackgroundListeners();
-
-// TODO move listeners and this message behind INITIALIZED
-console.log('Privacy badger is ready to rock!');
-console.log('Set DEBUG=1 to view console messages.');
