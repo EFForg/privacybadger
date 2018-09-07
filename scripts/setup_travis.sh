@@ -19,19 +19,13 @@ function setup_chrome {
 }
 
 function setup_firefox {
-    # TODO needed until Firefox ESR moves on from Firefox 52
-    # see https://github.com/mozilla/geckodriver/issues/1032#issuecomment-341337402
-    if [[ $INFO == "firefox esr" ]]; then
-      version="v0.17.0"
-    else
-      # Install the latest version of geckodriver
-      version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///' | tr -d '\r')
+    # Install the latest version of geckodriver
+    version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///' | tr -d '\r')
 
-      # check that we got something
-      if [ -z "$version" ]; then
-        echo "Failed to determine the latest geckodriver version!"
-        exit 1
-      fi
+    # check that we got something
+    if [ -z "$version" ]; then
+      echo "Failed to determine the latest geckodriver version!"
+      exit 1
     fi
 
     # Geckodriver distribution is MacOS or Linux specific

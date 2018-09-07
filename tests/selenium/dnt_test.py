@@ -125,10 +125,6 @@ class DNTTest(pbtest.PBSeleniumTest):
 
         self.assertFalse(was_blocked, msg="DNT-compliant resource should have gotten unblocked.")
 
-    # TODO reenable when the oldest Firefox tests run on is 55 or later
-    # (ESR is on 52 until June 2018 or so)
-    # alternatively, figure out how to disable more conditionally
-    @pbtest.if_firefox(unittest.skip("Disabled until Firefox fixes bug: https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773"))
     def test_dnt_check_should_not_set_cookies(self):
         TEST_DOMAIN = "dnt-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
