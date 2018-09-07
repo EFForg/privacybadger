@@ -630,7 +630,7 @@ function stripUtmParams(url) {
   }
 
   // remove utm from normal url parameters
-  let parsedURL = new URL(url)
+  let parsedURL = new URL(url);
   for (let param of [...parsedURL.searchParams.keys()]) {
     if (param.startsWith(UTM_PREFIX)) {
       parsedURL.searchParams.delete(param);
@@ -638,7 +638,7 @@ function stripUtmParams(url) {
   }
 
   // remove utm from parameters after the hash in the url
-  let parsedFragment = new URLSearchParams(parsedURL.hash.substring(1))
+  let parsedFragment = new URLSearchParams(parsedURL.hash.substring(1));
   for (let param of [...parsedFragment.keys()]) {
     if (param.startsWith(UTM_PREFIX)) {
       parsedFragment.delete(param);
@@ -647,7 +647,7 @@ function stripUtmParams(url) {
   parsedURL.hash = parsedFragment.toString();
 
   // if the url has changed, return it. Otherwise return null.
-  if (parsedUrl != url) {
+  if (parsedURL != url) {
     return parsedURL.toString();
   }
 }
