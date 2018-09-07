@@ -6,16 +6,12 @@ Privacy Badger sends the [Do Not Track signal](https://www.eff.org/issues/do-not
 
 Besides automatic tracker blocking, Privacy Badger removes outgoing link click tracking on [Facebook](https://www.eff.org/deeplinks/2018/05/privacy-badger-rolls-out-new-ways-fight-facebook-tracking) and [Twitter](https://www.eff.org/deeplinks/2017/08/privacy-badger-makes-twitter-little-less-creepy), with more privacy protections on the way.
 
-To learn more, see [the FAQ on Privacy Badger's homepage](https://www.eff.org/privacybadger#badger-faq-header).
+To learn more, see [the FAQ on Privacy Badger's homepage](https://www.eff.org/privacybadger/faq).
 
 
 ## Contributing
 
 We're glad you want to help! Please see [our contributor guide](/CONTRIBUTING.md).
-
-To install Privacy Badger from source in Chrome, visit `chrome://extensions`, enable "Developer mode", click "Load unpacked extension..." and select the [`src`](src/) subdirectory inside your copy of the Privacy Badger source code.
-
-In Firefox, visit `about:debugging`, click "Load Temporary Add-on" and select the [`src/manifest.json`](src/manifest.json) file. Note that this only installs the extension temporarily; it will be removed when you close Firefox.
 
 
 ## Getting in touch

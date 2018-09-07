@@ -59,9 +59,17 @@ function Badger() {
     } finally {
       // TODO "await" to set INITIALIZED until both below async functions resolve?
       // see TODO in qunit_config.js
+      self.loadFirstRunSeedData();
       self.initializeYellowlist();
       self.initializeDNT();
-      if (!self.isIncognito) {self.showFirstRunPage();}
+      self.showFirstRunPage();
+    }
+
+    // set badge text color to white in Firefox 63+
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1424620
+    if (chrome.browserAction.hasOwnProperty('setBadgeTextColor')) {
+      chrome.browserAction.setBadgeTextColor({ color: "#fff" });
     }
 
     // Show icon as page action for all tabs that already exist
@@ -154,9 +162,27 @@ Badger.prototype = {
 
   // Methods
 
+  // load seed dataset with pre-trained action and snitch maps
+  loadSeedData: function() {
+    let self = this;
+    utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
+      if (!err) {
+        self.mergeUserData(JSON.parse(response));
+        console.log("Loaded seed data successfully");
+      }
+    });
+  },
+
+  loadFirstRunSeedData: function() {
+    if (this.getSettings().getItem("isFirstRun")) {
+      this.loadSeedData();
+    }
+  },
+
   showFirstRunPage: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
-    if (settings.getItem("isFirstRun") && !chrome.extension.inIncognitoContext) {
+    let settings = this.getSettings();
+    if (settings.getItem("isFirstRun")) {
+      // launch first-run page and unset first-run flag
       chrome.tabs.create({
         url: chrome.extension.getURL("/skin/firstRun.html")
       });
@@ -470,16 +496,17 @@ Badger.prototype = {
     learnInIncognito: false,
     migrationLevel: 0,
     seenComic: false,
+    sendDNTSignal: true,
     showCounter: true,
     showTrackingDomains: false,
-    socialWidgetReplacementEnabled: true,
+    socialWidgetReplacementEnabled: true
   },
 
   /**
    * initialize default settings if nonexistent
    */
   initializeDefaultSettings: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
+    var settings = this.getSettings();
     _.each(this.defaultSettings, function(value, key) {
       if (!settings.hasItem(key)) {
         log("setting", key, ":", value);
@@ -490,7 +517,7 @@ Badger.prototype = {
 
   runMigrations: function() {
     var self = this;
-    var settings = self.storage.getBadgerStorageObject("settings_map");
+    var settings = self.getSettings();
     var migrationLevel = settings.getItem('migrationLevel');
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently
@@ -606,11 +633,15 @@ Badger.prototype = {
     if (disabledSites && disabledSites.length > 0) {
       for (var i = 0; i < disabledSites.length; i++) {
         var site = disabledSites[i];
+
         if (site.startsWith("*")) {
-          if (window.getBaseDomain(site) === window.getBaseDomain(origin)) {
+          var wildcard = site.slice(1); // remove "*"
+
+          if (origin.endsWith(wildcard)) {
             return false;
           }
         }
+
         if (disabledSites[i] === origin) {
           return false;
         }
@@ -624,6 +655,10 @@ Badger.prototype = {
    */
   isSocialWidgetReplacementEnabled: function() {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
+  },
+
+  isDNTSignalEnabled: function() {
+    return this.getSettings().getItem("sendDNTSignal");
   },
 
   isCheckingDNTPolicyEnabled: function() {
@@ -713,10 +748,10 @@ Badger.prototype = {
   hasSuperCookie: function(storageItems) {
     return (
       this.hasLocalStorageSuperCookie(storageItems.localStorageItems)
-      // || Utils.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
-      // || Utils.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
-      // TODO: Do we need separate functions for other supercookie vectors?
-      // Let's wait until we implement them in the content script
+      //|| this.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
+      // TODO: See "Reading a directory's contents" on
+      // http://www.html5rocks.com/en/tutorials/file/filesystem/
+      //|| this.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
     );
   },
 
@@ -769,6 +804,27 @@ Badger.prototype = {
 
     chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});
   },
+
+  /**
+   * Merge data exported from a different badger into this badger's storage.
+   *
+   * @param {Object} data the user data to merge in
+   */
+  mergeUserData: function(data) {
+    let self = this;
+    // The order of these keys is also the order in which they should be imported.
+    // It's important that snitch_map be imported before action_map (#1972)
+    ["snitch_map", "action_map", "settings_map"].forEach(function(key) {
+      if (data.hasOwnProperty(key)) {
+        let storageMap = self.storage.getBadgerStorageObject(key);
+        storageMap.merge(data[key]);
+      }
+    });
+
+    // for exports from older Privacy Badger versions:
+    // fix yellowlist getting out of sync, remove non-tracking domains, etc.
+    self.runMigrations();
+  }
 
 };
 

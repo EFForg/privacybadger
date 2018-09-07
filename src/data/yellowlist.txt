@@ -190,6 +190,7 @@ fling.com
 flowplayer.org
 flyertown.ca
 adm.fwmrm.net
+fontawesome.com
 fontdeck.com
 fonts.com
 fonts.net
@@ -274,6 +275,7 @@ gravatar.com
 greenhouse.io
 gscdn.nl
 gstatic.com
+guildwars2.com
 hackerone-user-content.com
 helium.com
 hellobar.com
@@ -436,9 +438,8 @@ tile2.opencyclemap.org
 openlayers.org
 openlibrary.org
 openload.co
-nominatim.openstreetmap.org
 tile.openstreetmap.fr
-tile.openstreetmap.org
+openstreetmap.org
 optimizely.com
 oregonlive.com
 outlook.com
@@ -460,6 +461,7 @@ piratebay.org
 pistachio-cdn.graze.com
 pixietrixcomix.com
 plex.tv
+plot.ly
 poll.fm
 polldaddy.com
 postimg.org
@@ -469,6 +471,7 @@ printfriendly.com
 providesupport.com
 psswrdbx.com
 publiekeomroep.nl
+img.purch.com
 qualtrics.com
 quotemedia.com
 api.razorpay.com
@@ -482,6 +485,7 @@ images.rapgenius.com
 readability.com
 readthedocs.org
 recaptcha.net
+recurly.com
 reddit.com
 redditmedia.com
 redditstatic.com
@@ -603,6 +607,7 @@ weather.gov
 weatherbug.com
 weathernationtv.com
 weatherzone.com.au
+webflow.com
 webs.com
 websimages.com
 webtype.com
@@ -651,6 +656,7 @@ ytimg.com
 zap2it.com
 zdassets.com
 zencdn.net
+zendesk.com
 zergnet.com
 ziplist.com
 zlcdn.com

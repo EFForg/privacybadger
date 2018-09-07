@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import json
+import time
 import unittest
 
 import pbtest
@@ -46,8 +47,7 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def disable_badger_on_site(self, url):
         self.load_url(self.options_url)
-        self.driver.find_element_by_css_selector(
-            'a[href="#tab-whitelisted-domains"]').click()
+        self.find_el_by_css('a[href="#tab-whitelisted-domains"]').click()
         self.driver.find_element_by_id('newWhitelistDomain').send_keys(url)
         self.driver.find_element_by_css_selector('button.addButton').click()
 
@@ -88,7 +88,7 @@ class DNTTest(pbtest.PBSeleniumTest):
 }}());""".format(DNT_DOMAIN)
 
         # mark a DNT-compliant domain for blocking
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
         self.js(BLOCK_DOMAIN_JS)
 
         # need to keep Badger's background page open for our changes to persist
@@ -105,18 +105,21 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertTrue(self.domain_was_blocked(DNT_DOMAIN),
             msg="DNT-compliant resource should have been blocked at first.")
 
-        # switch back to the page with the DNT-compliant resource
-        switch_to_window_with_url(self.driver, PAGE_URL)
+        def reload_and_see_if_unblocked():
+            # switch back to the page with the DNT-compliant resource
+            switch_to_window_with_url(self.driver, PAGE_URL)
 
-        # reload it
-        self.load_url(PAGE_URL)
+            # reload it
+            self.load_url(PAGE_URL)
 
-        # switch back to Badger's background page
-        switch_to_window_with_url(self.driver, self.bg_url)
+            # switch back to Badger's background page
+            switch_to_window_with_url(self.driver, self.bg_url)
+
+            return self.domain_was_blocked(DNT_DOMAIN)
 
         # verify that the domain is allowed
         was_blocked = retry_until(
-            partial(self.domain_was_blocked, DNT_DOMAIN),
+            reload_and_see_if_unblocked,
             tester=lambda x: not x,
             msg="Waiting a bit for DNT check to complete and retrying ...")
 
@@ -152,7 +155,7 @@ class DNTTest(pbtest.PBSeleniumTest):
             "No cookies again")
 
         # perform a DNT policy check
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
         self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
         # wait until checkForDNTPolicy completed
         self.wait_for_script("return window.DNT_CHECK_RESULT === false")
@@ -175,7 +178,11 @@ class DNTTest(pbtest.PBSeleniumTest):
         # the DNT policy URL used by this test returns "cookies=X"
         # where X is the number of cookies it got
         # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
+        # wait for DNT hash update to complete
+        # so that it doesn't overwrite our change below
+        # TODO wait conditionally
+        time.sleep(1)
         self.js("""badger.storage.updateDNTHashes(
 { "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
 
@@ -197,7 +204,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         NON_TRACKING_DOMAIN = "dnt-test.trackersimulator.org"
 
         # open Badger's background page
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
 
         # need to keep Badger's background page open to record what's happening
         # so, open and switch to a new window
@@ -230,7 +237,8 @@ class DNTTest(pbtest.PBSeleniumTest):
         # wait until DNT-injecting webRequest listeners have been registered
         self.wait_for_script("return badger.INITIALIZED")
 
-        headers = retry_until(partial(self.get_first_party_headers, TEST_URL))
+        headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
+                              times=8)
         self.assertTrue(headers is not None, "It seems we failed to get DNT headers")
         self.assertIn('Dnt', headers, "DNT header should have been present")
         self.assertEqual(headers['Dnt'], "1",
@@ -239,7 +247,8 @@ class DNTTest(pbtest.PBSeleniumTest):
     def test_no_dnt_header_when_disabled(self):
         TEST_URL = "https://httpbin.org/get"
         self.disable_badger_on_site(TEST_URL)
-        headers = retry_until(partial(self.get_first_party_headers, TEST_URL))
+        headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
+                              times=8)
         self.assertTrue(headers is not None, "It seems we failed to get DNT headers")
         self.assertNotIn('Dnt', headers, "DNT header should have been missing")
 

@@ -58,13 +58,48 @@
     });
   });
 
-  QUnit.test("isPrivacyBadgerEnabled", function (assert) {
-    assert.ok(badger.isPrivacyBadgerEnabled("eff.org"), "enabled for site");
+  QUnit.test("isPrivacyBadgerEnabled basic tests", function (assert) {
+    assert.ok(badger.isPrivacyBadgerEnabled("example.com"),
+      "Domain starts out as enabled.");
 
     badger.disablePrivacyBadgerForOrigin("example.com");
-    assert.ok(!badger.isPrivacyBadgerEnabled("example.com"), "disabled for site");
+    assert.notOk(badger.isPrivacyBadgerEnabled("example.com"),
+      "Disabling the domain works.");
+
     badger.enablePrivacyBadgerForOrigin("example.com");
-    assert.ok(badger.isPrivacyBadgerEnabled("example.com"), "enabled for site");
+    assert.ok(badger.isPrivacyBadgerEnabled("example.com"),
+      "Re-enabling the domain works.");
+  });
+
+  QUnit.test("isPrivacyBadgerEnabled wildcard tests", function (assert) {
+    badger.disablePrivacyBadgerForOrigin('*.mail.example.com');
+    assert.ok(
+      badger.isPrivacyBadgerEnabled('www.example.com'),
+      "Ignores cases without as many subdomains as the wildcard."
+    );
+    assert.ok(
+      badger.isPrivacyBadgerEnabled('web.stuff.example.com'),
+      "Ignores cases where subdomains do not match the wildcard."
+    );
+    assert.notOk(
+      badger.isPrivacyBadgerEnabled('web.mail.example.com'),
+      "Website matches wildcard pattern."
+    );
+    assert.notOk(
+      badger.isPrivacyBadgerEnabled('stuff.fakedomain.web.mail.example.com'),
+      "Wildcard catches all prefacing subdomains."
+    );
+    assert.ok(
+      badger.isPrivacyBadgerEnabled('mail.example.com'),
+      "Checks against URLs that lack a starting dot."
+    );
+
+    const PSL_TLD = "example.googlecode.com";
+    assert.equal(window.getBaseDomain(PSL_TLD), PSL_TLD,
+      PSL_TLD + " is a PSL TLD");
+    badger.disablePrivacyBadgerForOrigin('*.googlecode.com');
+    assert.notOk(badger.isPrivacyBadgerEnabled(PSL_TLD),
+      "PSL TLDs work with wildcards as expected.");
   });
 
   QUnit.test("disable/enable privacy badger for origin", function (assert) {

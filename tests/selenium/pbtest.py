@@ -176,9 +176,7 @@ class Shim:
         try:
             yield driver
         finally:
-            time.sleep(2)
             driver.quit()
-            time.sleep(2)
 
 
 shim = Shim()  # create the browser shim
@@ -209,13 +207,17 @@ def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ...")
     """
     for i in range(times):
         result = fun()
-        if tester is not None and tester(result):
-            break
+
+        if tester is not None:
+            if tester(result):
+                break
         elif result:
             break
-        elif i == 0:
+
+        if i == 0:
             print("")
         print(msg)
+
         time.sleep(2 ** i)
 
     return result
@@ -297,7 +299,7 @@ class PBSeleniumTest(unittest.TestCase):
         self.js('window.open()')
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    def load_url(self, url, wait_on_site=0, wait_for_body_text=False, retries=5):
+    def load_url(self, url, wait_for_body_text=False, retries=5):
         """Load a URL and wait before returning."""
         for i in range(retries):
             try:
@@ -305,6 +307,14 @@ class PBSeleniumTest(unittest.TestCase):
                 break
             except TimeoutException as e:
                 if i < retries - 1:
+                    time.sleep(2 ** i)
+                    continue
+                raise e
+            # work around geckodriver/marionette/Firefox timeout handling,
+            # for example: https://travis-ci.org/EFForg/privacybadger/jobs/389429089
+            except WebDriverException as e:
+                if str(e).startswith("Reached error page") and i < retries - 1:
+                    time.sleep(2 ** i)
                     continue
                 raise e
         self.driver.switch_to.window(self.driver.current_window_handle)
@@ -315,15 +325,17 @@ class PBSeleniumTest(unittest.TestCase):
                 msg="Waiting for document.body.textContent to get populated ..."
             )
 
-        time.sleep(wait_on_site)
-
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Find an element by CSS selector and return its text."""
         return self.find_el_by_css(css_selector, timeout).text
 
     def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
+            EC.visibility_of_element_located((By.CSS_SELECTOR, css_selector)))
+
+    def find_el_by_xpath(self, xpath, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located((By.XPATH, xpath)))
 
     def wait_for_script(
         self,

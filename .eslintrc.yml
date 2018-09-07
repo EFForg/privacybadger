@@ -13,44 +13,45 @@ parserOptions:
   sourceType: module
 rules:
   brace-style:
-    - warn
+    - error
     - 1tbs
     - allowSingleLine: true
   consistent-this:
     - error
     - self
   curly: error
-  dot-notation: warn
+  dot-notation: error
+  eol-last: error
   indent:
     - error
     - 2
     - outerIIFEBody: 0
       SwitchCase: 1
-  keyword-spacing: warn
+  keyword-spacing: error
   linebreak-style:
     - error
     - unix
   new-cap: error
   no-array-constructor: error
-  no-bitwise: warn
+  no-bitwise: error
   no-caller: error
   no-console: off
-  no-eval: warn
-  no-implied-eval: warn
+  no-eval: error
+  no-implied-eval: error
   no-iterator: error
   no-loop-func: error
-  no-multi-spaces: warn
-  no-multi-str: warn
+  no-multi-spaces: error
+  no-multi-str: error
   no-new: error
-  no-new-func: warn
+  no-new-func: error
   no-new-object: error
   no-new-wrappers: error
   no-proto: error
-  no-script-url: warn
-  no-shadow: warn
+  no-script-url: error
+  no-shadow: error
   no-shadow-restricted-names: error
-  no-trailing-spaces: warn
-  no-unused-expressions: warn
+  no-trailing-spaces: error
+  no-unused-expressions: error
   semi: error
-  space-before-blocks: warn
-  space-in-parens: warn
+  space-before-blocks: error
+  space-in-parens: error

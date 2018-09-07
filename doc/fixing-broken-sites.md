@@ -35,9 +35,11 @@ Let's look at some common kinds of breakages and see how they relate to the appr
 
 ### Domains that are part of the site but don't look like it
 
-Does the blocked domain actually belong to the site, but Privacy Badger doesn't know that and so treats the domain as an external tracker? Sounds like a job for [multi-domain first parties](https://github.com/EFForg/privacybadger/issues/781).
+Does the blocked domain actually belong to the site, but Privacy Badger doesn't know that and so treats the domain as an external tracker? Sounds like a job for [multi-domain first parties](https://github.com/EFForg/privacybadger/issues/781) (MDFP).
 
-For example, see [this "Disney–ABC Television Group" pull request](https://github.com/EFForg/privacybadger/pull/1526).
+When adding domains to the MDFP list, please add base ([eTLD](https://en.wikipedia.org/wiki/Public_Suffix_List)+1) domains only. For example, there is no need to add `api.example.net` when adding `example.com` and `example.net`.
+
+For past examples, you could browse [the list of merged pull requests with the "MDFP" label](https://github.com/EFForg/privacybadger/issues?q=label%3AMDFP+is%3Amerged).
 
 
 ### JavaScript errors
