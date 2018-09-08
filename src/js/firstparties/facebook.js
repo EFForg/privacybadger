@@ -79,7 +79,7 @@ chrome.runtime.sendMessage({checkEnabled: true},
     findInAllFrames(fb_wrapped_link).forEach((link) => {
       cleanLink(link);
     });
-    
+
     // Execute redirect unwrapping each time new content is added to the page
     new MutationObserver(function(mutations) {
       mutations.forEach(cleanMutation);
