@@ -5,10 +5,9 @@ import unittest
 import pbtest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import re
 
 
-class Test(pbtest.PBSeleniumTest):
+class BreakageTest(pbtest.PBSeleniumTest):
     """Make sure the extension doesn't break common sites and use cases.
     e.g. we should be able to load a website, search on Google.
     TODO: Add tests to simulate most common web use cases:
