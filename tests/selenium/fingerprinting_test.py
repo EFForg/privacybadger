@@ -50,8 +50,9 @@ return (
         self.load_url(self.bg_url)
 
         # need to keep Badger's background page open for tabData to persist
-        # so, open and switch to a new window
-        self.open_window()
+        # so, either open and switch to a new window,
+        # or just reuse the already-open new user welcome window
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
         # visit the page
         self.load_url(PAGE_URL)
