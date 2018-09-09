@@ -13,13 +13,13 @@ from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
-CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
-'{}', r => window.DNT_CHECK_RESULT = r
-);"""
-
-
 class DNTTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
+
+    CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
+  arguments[0],
+  r => window.DNT_CHECK_RESULT = r
+);"""
 
     # TODO switch to non-delayed version (see below)
     # once race condition (https://crbug.com/478183) is fixed
@@ -153,7 +153,7 @@ class DNTTest(pbtest.PBSeleniumTest):
 
         # perform a DNT policy check
         self.load_url(self.bg_url)
-        self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
+        self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
         self.wait_for_script("return window.DNT_CHECK_RESULT === false")
 
@@ -184,7 +184,7 @@ class DNTTest(pbtest.PBSeleniumTest):
 { "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
 
         # perform a DNT policy check
-        self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
+        self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
         self.wait_for_script("return typeof window.DNT_CHECK_RESULT != 'undefined';")
         # get the result
