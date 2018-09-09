@@ -58,7 +58,7 @@ function Badger() {
       self.runMigrations();
     } finally {
       // TODO "await" to set INITIALIZED until both below async functions resolve?
-      // see TODO in qunit_config.js
+      // see TODO in qunit_config.js and in dnt_test.py
       self.loadFirstRunSeedData();
       self.initializeYellowlist();
       self.initializeDNT();

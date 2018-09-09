@@ -151,8 +151,10 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertEqual(len(self.driver.get_cookies()), 0,
             "No cookies again")
 
-        # perform a DNT policy check
         self.load_url(self.bg_url)
+        # wait until Badger's storage is ready
+        self.wait_for_script("return badger.INITIALIZED")
+        # perform a DNT policy check
         self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
         self.wait_for_script("return window.DNT_CHECK_RESULT === false")
@@ -178,7 +180,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.load_url(self.bg_url)
         # wait for DNT hash update to complete
         # so that it doesn't overwrite our change below
-        # TODO wait conditionally
+        # TODO wait conditionally: have badger.INITIALIZED account for things getting initialized async
         time.sleep(1)
         self.js("""badger.storage.updateDNTHashes(
 { "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
