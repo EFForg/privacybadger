@@ -16,11 +16,11 @@ from window_utils import switch_to_window_with_url
 class SurrogatesTest(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
+    # TODO update to pbtest.org URL
+    # TODO and remove the HTML pages from eff.org then
     TEST_URL = "https://www.eff.org/files/pbtest/ga_js_surrogate_test.html"
 
     def load_ga_js_test_page(self, timeout=12):
-        # TODO update to pbtest.org URL
-        # TODO and remove the HTML pages from eff.org then
         self.load_url(SurrogatesTest.TEST_URL)
         wait = WebDriverWait(self.driver, timeout)
         try:

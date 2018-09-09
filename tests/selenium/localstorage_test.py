@@ -21,21 +21,21 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
     """
     def check_policy_download(self):
         timeout = POLICY_DOWNLOAD_TIMEOUT
-        dnt_hashes_not_empty =\
+        dnt_hashes_not_empty = (
             "return (badger.storage.getBadgerStorageObject('dnt_hashes') != {})"
+        )
         # give updatePrivacyPolicyHashes() sometime to download the policy hash
         while (timeout > 0 and not self.js(dnt_hashes_not_empty)):
             sleep(1)
             timeout -= 1
 
         # make sure we didn't time-out
-        self.assertGreater(timeout, 0,
-                           "Timed out while waiting for the "
-                           "localStorage.badgerHashes")
+        self.assertGreater(timeout, 0, "Timed out waiting for DNT hashes")
         # now check the downloaded policy hash
-        get_dnt_hashes =\
-            "return (badger.storage.getBadgerStorageObject('dnt_hashes')."\
+        get_dnt_hashes = (
+            "return (badger.storage.getBadgerStorageObject('dnt_hashes')."
             "getItemClones())"
+        )
         policy_hashes = self.js(get_dnt_hashes)
         for policy_hash in policy_hashes.keys():
             self.assertEqual(PB_POLICY_HASH_LEN, len(policy_hash))
@@ -44,19 +44,27 @@ class LocalStorageTest(pbtest.PBSeleniumTest):
         self.load_url(self.bg_url)
 
         self.check_policy_download()
-        self.assertEqual(self.js("return constants.YELLOWLIST_URL"),
-                         "https://www.eff.org/files/cookieblocklist_new.txt")
+        self.assertEqual(
+            self.js("return constants.YELLOWLIST_URL"),
+            "https://www.eff.org/files/cookieblocklist_new.txt"
+        )
 
-        get_disabled_sites = "return (badger.storage.getBadgerStorageObject("\
+        get_disabled_sites = (
+            "return (badger.storage.getBadgerStorageObject("
             "'settings_map').getItem('disabledSites'))"
+        )
         disabled_sites = self.js(get_disabled_sites)
 
-        self.assertFalse(len(disabled_sites),
-                         "Shouldn't have any disabledSites after installation")
-        
-        self.assertTrue(self.js("return (badger.storage.getBadgerStorageObject("\
-            "'settings_map').getItem('checkForDNTPolicy'))"),
-            "Should start with DNT policy enabled")
+        self.assertFalse(
+            len(disabled_sites),
+            "Shouldn't have any disabledSites after installation"
+        )
+
+        self.assertTrue(self.js(
+            "return (badger.storage.getBadgerStorageObject("
+            "'settings_map').getItem('checkForDNTPolicy'))"
+        ), "Should start with DNT policy enabled")
+
         # TODO: do we expect currentVersion to be present after the first run?
 
 

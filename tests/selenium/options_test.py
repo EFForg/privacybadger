@@ -116,8 +116,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         localized_title = self.js('return i18n.getMessage("options_title")')
         try:
-            WebDriverWait(self.driver, 3).\
-                until(EC.title_contains(localized_title))
+            WebDriverWait(self.driver, 3).until(
+                EC.title_contains(localized_title))
         except TimeoutException:
             self.fail("Unexpected title for the Options page. Got (%s),"
                       " expected (%s)"

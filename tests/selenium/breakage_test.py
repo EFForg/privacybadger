@@ -16,8 +16,8 @@ class BreakageTest(pbtest.PBSeleniumTest):
 
     def test_should_load_eff_org(self):
         self.load_url("https://www.eff.org")
-        WebDriverWait(self.driver, 10).\
-            until(EC.title_contains("Electronic Frontier Foundation"))
+        WebDriverWait(self.driver, 10).until(
+            EC.title_contains("Electronic Frontier Foundation"))
 
     def test_should_search_google(self):
         self.load_url("https://www.google.com/")
