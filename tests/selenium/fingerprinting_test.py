@@ -11,7 +11,7 @@ from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
-class FingerprintingDetectionTest(pbtest.PBSeleniumTest):
+class FingerprintingTest(pbtest.PBSeleniumTest):
     """Tests to make sure fingerprinting detection works as expected."""
 
     def detected_fingerprinting(self, domain):

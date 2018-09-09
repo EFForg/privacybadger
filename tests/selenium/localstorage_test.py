@@ -10,8 +10,8 @@ POLICY_DOWNLOAD_TIMEOUT = 20
 PB_POLICY_HASH_LEN = 40  # https://www.eff.org/files/dnt-policies.json
 
 
-class LocalStorageTest(pbtest.PBSeleniumTest):
-    """Make sure the following localStorage items are initialized correctly.
+class StorageTest(pbtest.PBSeleniumTest):
+    """Make sure the following storage items are initialized correctly.
 
     - whitelistUrl
     - badgerHashes

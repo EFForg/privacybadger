@@ -20,7 +20,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-class OptionsPageTest(pbtest.PBSeleniumTest):
+class OptionsTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
 
     def select_domain_list_tab(self):
