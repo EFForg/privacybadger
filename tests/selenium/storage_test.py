@@ -40,7 +40,7 @@ class StorageTest(pbtest.PBSeleniumTest):
         for policy_hash in policy_hashes.keys():
             self.assertEqual(PB_POLICY_HASH_LEN, len(policy_hash))
 
-    def test_should_init_local_storage_entries(self):
+    def test_should_init_storage_entries(self):
         self.load_url(self.bg_url)
 
         self.check_policy_download()
