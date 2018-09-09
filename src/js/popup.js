@@ -276,6 +276,8 @@ function send_error(message) {
       contentType: "application/json"
     });
 
+    delete POPUP_DATA.errorText;
+
     sendReport.done(function() {
       $("#error_input").val("");
       $("#report_success").toggleClass("hidden", false);
@@ -284,7 +286,6 @@ function send_error(message) {
         $("#report_cancel").prop("disabled", false);
         $("#report_success").toggleClass("hidden", true);
         closeOverlay();
-        delete POPUP_DATA.errorText;
       }, 3000);
     });
 
