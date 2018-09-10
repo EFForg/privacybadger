@@ -126,6 +126,7 @@ function init() {
     overlay.toggleClass('active');
   });
   $("#report_cancel").on("click", function() {
+    clearSavedErrorText();
     closeOverlay();
   });
   $("#report_button").on("click", function() {
@@ -134,6 +135,7 @@ function init() {
     send_error($("#error_input").val());
   });
   $("#report_close").on("click", function() {
+    clearSavedErrorText();
     closeOverlay();
   });
   $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
@@ -205,6 +207,13 @@ function openOptionsPage() {
   });
 }
 
+function clearSavedErrorText() {
+  chrome.runtime.sendMessage({
+    type: 'removeErrorText',
+    tabId: POPUP_DATA.tabId
+  });
+}
+
 /**
  * Close the error reporting overlay
  */
@@ -213,11 +222,6 @@ function closeOverlay() {
   $("#report_success").toggleClass("hidden", true);
   $("#report_fail").toggleClass("hidden", true);
   $("#error_input").val("");
-
-  chrome.runtime.sendMessage({
-    type: 'removeErrorText',
-    tabId: POPUP_DATA.tabId
-  });
 }
 
 /**
@@ -276,11 +280,12 @@ function send_error(message) {
       contentType: "application/json"
     });
 
-    delete POPUP_DATA.errorText;
-
     sendReport.done(function() {
       $("#error_input").val("");
       $("#report_success").toggleClass("hidden", false);
+
+      clearSavedErrorText();
+
       setTimeout(function() {
         $("#report_button").prop("disabled", false);
         $("#report_cancel").prop("disabled", false);
@@ -291,6 +296,7 @@ function send_error(message) {
 
     sendReport.fail(function() {
       $("#report_fail").toggleClass("hidden");
+
       setTimeout(function() {
         $("#report_button").prop("disabled", false);
         $("#report_cancel").prop("disabled", false);
