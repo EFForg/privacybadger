@@ -105,7 +105,23 @@ function init() {
     });
   });
 
+  $('#error_input').on('input propertychange', function() {
+
+    // No easy way of sending message on popup close, send message for every change
+    chrome.runtime.sendMessage({
+      type: 'saveErrorText',
+      tabId: POPUP_DATA.tabId,
+      errorText: $("#error_input").val()
+    });
+  });
+
   var overlay = $('#overlay');
+
+  // show error layout if the user was writing an error report
+  if (POPUP_DATA.hasOwnProperty('errorText') && POPUP_DATA.errorText) {
+    overlay.toggleClass('active');
+  }
+
   $("#error").on("click", function() {
     overlay.toggleClass('active');
   });
@@ -197,6 +213,11 @@ function closeOverlay() {
   $("#report_success").toggleClass("hidden", true);
   $("#report_fail").toggleClass("hidden", true);
   $("#error_input").val("");
+
+  chrome.runtime.sendMessage({
+    type: 'removeErrorText',
+    tabId: POPUP_DATA.tabId
+  });
 }
 
 /**
@@ -254,6 +275,8 @@ function send_error(message) {
       data: JSON.stringify(out),
       contentType: "application/json"
     });
+
+    delete POPUP_DATA.errorText;
 
     sendReport.done(function() {
       $("#error_input").val("");
@@ -366,6 +389,7 @@ function registerToggleHandlers() {
  * @param {Integer} tabId The id of the tab
  */
 function refreshPopup() {
+
   // must be a special browser page,
   // or a page that loaded everything before our most recent initialization
   if (POPUP_DATA.noTabData) {
@@ -396,6 +420,11 @@ function refreshPopup() {
       $("#activate_site_btn").show();
       $("#deactivate_site_btn").hide();
     }
+  }
+
+  // if there is any saved error text, fill the error input with it
+  if (POPUP_DATA.hasOwnProperty('errorText')) {
+    $("#error_input").val(POPUP_DATA.errorText);
   }
 
   let origins = POPUP_DATA.origins;

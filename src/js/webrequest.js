@@ -699,11 +699,19 @@ function dispatcher(request, sender, sendResponse) {
     let tab_id = request.tabId,
       tab_url = request.tabUrl,
       tab_host = window.extractHostFromURL(tab_url),
-      has_tab_data = badger.tabData.hasOwnProperty(tab_id);
+      has_tab_data = badger.tabData.hasOwnProperty(tab_id),
+      error_text = null;
+
+    if (has_tab_data) {
+      if (badger.tabData[tab_id].hasOwnProperty('errorText')) {
+        error_text = badger.tabData[tab_id].errorText;
+      }
+    }
 
     sendResponse({
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
+      errorText: error_text,
       noTabData: !has_tab_data,
       origins: has_tab_data && badger.tabData[tab_id].origins,
       seenComic: badger.getSettings().getItem("seenComic"),
@@ -803,6 +811,14 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
 
     sendResponse();
+
+  } else if (request.type == "saveErrorText") {
+    let activeTab = badger.tabData[request.tabId];
+    activeTab.errorText = request.errorText;
+
+  } else if (request.type == "removeErrorText") {
+    let activeTab = badger.tabData[request.tabId];
+    delete activeTab.errorText;
 
   } else if (request.checkDNT) {
     // called from contentscripts/dnt.js to check if we should enable it
