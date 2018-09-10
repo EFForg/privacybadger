@@ -699,19 +699,12 @@ function dispatcher(request, sender, sendResponse) {
     let tab_id = request.tabId,
       tab_url = request.tabUrl,
       tab_host = window.extractHostFromURL(tab_url),
-      has_tab_data = badger.tabData.hasOwnProperty(tab_id),
-      error_text = null;
-
-    if (has_tab_data) {
-      if (badger.tabData[tab_id].hasOwnProperty('errorText')) {
-        error_text = badger.tabData[tab_id].errorText;
-      }
-    }
+      has_tab_data = badger.tabData.hasOwnProperty(tab_id);
 
     sendResponse({
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
-      errorText: error_text,
+      errorText: has_tab_data && badger.tabData[tab_id].errorText,
       noTabData: !has_tab_data,
       origins: has_tab_data && badger.tabData[tab_id].origins,
       seenComic: badger.getSettings().getItem("seenComic"),
