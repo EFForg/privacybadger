@@ -234,7 +234,7 @@
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Удаление всех доменов с трекерами:\n\n  • удалит все трекеры, известные Privacy Badger\n  • приведет к тому, что Privacy Badger не будет ничего блокировать до следующего включения режима обучения в процессе вашего пользования Интернетом",
+        "message": "Удаление всех доменов с трекерами:\n\n  • удалит все трекеры, известные Privacy Badger\n  • приведет к тому, что Privacy Badger не будет ничего блокировать до включения режима обучения во время пользования Интернетом",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
