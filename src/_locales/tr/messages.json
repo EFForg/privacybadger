@@ -190,7 +190,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Devre Dışı Bırakılmış Siteler",
+        "message": "Engellenmiş Siteler",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
