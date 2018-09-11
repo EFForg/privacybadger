@@ -190,7 +190,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "已停用的頁面",
+        "message": "停用的網站",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -210,7 +210,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "正在匯入使用者資料：<ul><li>覆寫一般設定</li><li>結合停用站點清單</li><li>結合 Privacy Badger 已經看過哪些追蹤器的資訊</li><li>覆寫滑桿自訂</li></ul>",
+        "message": "正在匯入使用者資料：<ul><li>覆寫一般設定</li><li>結合停用的網站清單</li><li>結合 Privacy Badger 已經看過哪些追蹤器的資訊</li><li>覆寫滑桿自訂</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -518,7 +518,7 @@
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "匯出停用網站到雲端",
+        "message": "匯出停用的網站到雲端",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
