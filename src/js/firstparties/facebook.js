@@ -69,14 +69,21 @@ function cleanMutation(mutation) {
   }
 }
 
+//TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({checkEnabled: true},
+  function (enabled) {
+    if (!enabled) {
+      return;
+    }
+    // unwrap wrapped links in the original page
+    findInAllFrames(fb_wrapped_link).forEach((link) => {
+      cleanLink(link);
+    });
 
-// unwrap wrapped links in the original page
-findInAllFrames(fb_wrapped_link).forEach((link) => {
-  cleanLink(link);
-});
-
-// Execute redirect unwrapping each time new content is added to the page
-new MutationObserver(function(mutations) {
-  mutations.forEach(cleanMutation);
-}).observe(document.body, {childList: true, subtree: true, attributes: false, characterData: false});
+    // Execute redirect unwrapping each time new content is added to the page
+    new MutationObserver(function(mutations) {
+      mutations.forEach(cleanMutation);
+    }).observe(document.body, {childList: true, subtree: true, attributes: false, characterData: false});
+  }
+);
 }());

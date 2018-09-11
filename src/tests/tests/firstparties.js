@@ -30,12 +30,20 @@
   function stub(elts, selector) {
     document.querySelectorAllBefore = document.querySelectorAll;
     window.setIntervalBefore = window.setInterval;
+    chrome.runtime.sendMessageBefore = chrome.runtime.sendMessage;
 
     document.querySelectorAll = function (query) {
       if (query.includes(selector)) {
         return elts;
       } else {
         return document.querySelectorAllBefore(query);
+      }
+    };
+    chrome.runtime.sendMessage = function (message, callback) {
+      if (message.checkEnabled) {
+        callback(true);
+      } else {
+        chrome.runtime.sendMessageBefore(message, callback);
       }
     };
     window.setInterval = function () {};
@@ -45,6 +53,7 @@
   function unstub() {
     document.querySelectorAll = document.querySelectorAllBefore;
     window.setInterval = window.setIntervalBefore;
+    chrome.runtime.sendMessage = chrome.runtime.sendMessageBefore;
   }
 
   QUnit.module('First parties');
