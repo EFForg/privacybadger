@@ -210,7 +210,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Імпорт даних користувача:<ul><li>Перезаписуються основні налаштування</li><li>Об'єднуються списки вимкнених сайтів</li><li>Об'єднується інформація про виявлені елементи стеження Privacy Badger</li><li>Перезаписуються налаштування перемикачів</li></ul>",
+        "message": "Імпорт даних користувача:<ul><li>Перезаписуються загальні налаштування</li><li>Об'єднуються списки вимкнених сайтів</li><li>Об'єднується інформація про виявлені елементи стеження Privacy Badger</li><li>Перезаписуються налаштування перемикачів</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
