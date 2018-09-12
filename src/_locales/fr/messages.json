@@ -210,7 +210,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importer des données utilisateur :<ul><li>Remplace les réglages généraux</li><li>Combine les listes de sites désactivés</li><li>Combine les informations sur les sites que Privacy Badger a vus</li><li>Remplace les personnalisations des curseurs</li></ul>",
+        "message": "Importer des données utilisateur :<ul><li>Remplace les réglages généraux</li><li>Combine les listes blanches</li><li>Combine les informations sur les sites que Privacy Badger a vus</li><li>Remplace les personnalisations des curseurs</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
