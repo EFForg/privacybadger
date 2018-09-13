@@ -518,11 +518,11 @@
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Engellenmiş siteleri buluta yükle",
+        "message": "Engellenmiş siteleri buluta aktar",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Engellenmiş siteleri buluttan geri yükle",
+        "message": "Engellenmiş siteleri buluttan içe aktar",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
