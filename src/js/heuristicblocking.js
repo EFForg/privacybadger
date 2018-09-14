@@ -193,6 +193,20 @@ HeuristicBlocker.prototype = {
             continue;
           }
 
+          // or the user agent string
+          if (userAgent.indexOf(s) != -1) {
+            continue;
+          }
+
+          // remove common query string values (case insensitive)
+          let lower = s.toLower;
+          for (let qv in lowEntropyQueryValues) {
+            let start = lower.indexOf(qv));
+            if (start > -1) {
+              s = s.replace(s.substring(start, start + qv.length), "");
+            }
+          }
+
           // if the first-party URL is part of the substring, remove it
           if (s.indexOf(initiator) != -1) {
             s = s.replace(initiator, "");
@@ -200,7 +214,7 @@ HeuristicBlocker.prototype = {
 
           // compute the entropy of this common substring
           let entropy = utils.estimateMaxEntropy(s);
-          if (entropy > maxEntropy) {
+          if (entropy > TRACKER_ENTROPY_THRESHOLD && entropy > maxEntropy) {
             maxEntropy = entropy;
             maxString = s;
           }
@@ -515,6 +529,51 @@ var lowEntropyCookieValues = {
   "zh":8,
   "zu":8
 };
+
+const lowEntropyQueryValues = [
+  "https
+  "http",
+  "://",
+  "%3A%2F%2F",
+  "www",
+  "url",
+  "undefined",
+  "impression",
+  "session",
+  "homepage",
+  "client",
+  "version",
+  "business",
+  "title",
+  "get",
+  "site",
+  "name",
+  "category",
+  "account_id",
+  "smartadserver",
+  "front",
+  "page",
+  "view",
+  "first",
+  "visit",
+  "platform",
+  "language",
+  "automatic",
+  "disabled",
+  "landing",
+  "entertainment",
+  "amazon",
+  "official",
+  "webvisor",
+  "anonymous",
+  "across",
+  "narrative",
+  "\":null",
+  "\":false",
+  "\":\"",
+  "\",\"",
+  "\",\"",
+];
 
 /**
  * Extract cookies from onBeforeSendHeaders
