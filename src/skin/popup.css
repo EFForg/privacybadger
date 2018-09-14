@@ -26,7 +26,7 @@ body {
   font-size: 12px;
 
   margin: 0;
-  padding: 7px 15px 0;
+  padding: 7px 15px;
 
   min-width: 430px; /* Chrome */
   max-width: 100%;  /* FF android */
@@ -160,7 +160,7 @@ font-size: 16px;
   cursor: move;
 }
 #siteControls {
-  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 #firstRun {
@@ -261,7 +261,7 @@ font-size: 16px;
   padding: 5px;
   cursor: pointer;
   text-align: center;
-  margin: 8px 0;
+  margin-top: 8px;
   border: 2px solid #707070;
   width: 100%;
   color: #707070;
@@ -348,7 +348,6 @@ font-size: 16px;
 }
 #siteControls button {
   font-size: 12px;
-  display: block;
 }
 
 #version{
