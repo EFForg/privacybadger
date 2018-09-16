@@ -120,7 +120,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
-        "message": "Exporter",
+        "message": "Télécharger",
         "description": ""
     },
     "feed_the_badger_title": {
