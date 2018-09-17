@@ -21,18 +21,16 @@ var constants = require("constants");
 var FirefoxAndroid = require("firefoxandroid");
 var htmlUtils = require("htmlutils").htmlUtils;
 
-var i18n = chrome.i18n;
-
 let POPUP_DATA = {};
 
 // TODO hack: disable Tooltipster tooltips on Firefox
 // to avoid hangs on pages with enough domains to produce a scrollbar
 (function () {
-let [, browser, ] = navigator.userAgent.match(
+const matches = navigator.userAgent.match(
   // from https://gist.github.com/ticky/3909462
   /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
 );
-if (browser == "Firefox") {
+if (!matches || matches[1] == "Firefox") {
   $.fn.tooltipster = function () {};
 }
 }());
@@ -107,11 +105,28 @@ function init() {
     });
   });
 
+  $('#error_input').on('input propertychange', function() {
+
+    // No easy way of sending message on popup close, send message for every change
+    chrome.runtime.sendMessage({
+      type: 'saveErrorText',
+      tabId: POPUP_DATA.tabId,
+      errorText: $("#error_input").val()
+    });
+  });
+
   var overlay = $('#overlay');
+
+  // show error layout if the user was writing an error report
+  if (POPUP_DATA.hasOwnProperty('errorText') && POPUP_DATA.errorText) {
+    overlay.toggleClass('active');
+  }
+
   $("#error").on("click", function() {
     overlay.toggleClass('active');
   });
   $("#report_cancel").on("click", function() {
+    clearSavedErrorText();
     closeOverlay();
   });
   $("#report_button").on("click", function() {
@@ -120,52 +135,82 @@ function init() {
     send_error($("#error_input").val());
   });
   $("#report_close").on("click", function() {
+    clearSavedErrorText();
     closeOverlay();
   });
   $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
 
-  var version = i18n.getMessage("version") + " " + chrome.runtime.getManifest().version;
-  $("#version").text(version);
+  $("#version").text(
+    chrome.i18n.getMessage("version", chrome.runtime.getManifest().version)
+  );
 
-  if (POPUP_DATA.isPrivateWindow) {
-    $("#options").on("click", function (event) {
-      openOptionsPage();
-      event.preventDefault();
-    });
-  }
+  $("#options").on("click", function (e) {
+    openOptionsPage();
+    e.preventDefault();
+  });
 }
 
 function openOptionsPage() {
   const url = chrome.runtime.getURL("/skin/options.html");
 
-  chrome.windows.getAll({ windowTypes: ["normal"] }, (windows) => {
-    // first see if we can open a tab in an existing non-private window
-    for (let i = 0; i < windows.length; i++) {
-      if (windows[i].incognito) {
-        continue;
-      }
-
+  function openOptionsInTab(win_id, cb) {
+    // first get the active tab's ID
+    chrome.tabs.query({ active: true, windowId: win_id }, (tabs) => {
       // create the new tab
       chrome.tabs.create({
         url,
-        windowId: windows[i].id,
-        active: true
+        windowId: win_id,
+        active: true,
+        index: tabs[0].index + 1,
+        openerTabId: tabs[0].id
       }, () => {
-        // focus the window it is in
-        chrome.windows.update(windows[i].id, { focused: true });
+        if (cb) {
+          cb();
+        }
       });
+    });
+  }
 
+  function focusWindow(win_id) {
+    chrome.windows.update(win_id, { focused: true });
+  }
+
+  chrome.windows.getLastFocused((win) => {
+    // if we have a focused non-incognito window, let's use it
+    if (!win.incognito) {
+      openOptionsInTab(win.id);
       return;
     }
 
-    // if here, there are no already-open non-private windows
-    chrome.windows.create({
-      url,
-      incognito: false
-    }, (win) => {
-      windows.update(win.id, { focused: true });
+    // if there is an already-open non-incognito window, use that
+    chrome.windows.getAll({ windowTypes: ["normal"] }, (windows) => {
+      for (let i = 0; i < windows.length; i++) {
+        if (windows[i].incognito) {
+          continue;
+        }
+        const win_id = windows[i].id;
+        openOptionsInTab(win_id, function () {
+          focusWindow(win_id);
+        });
+        return;
+      }
+
+      // if here, there are no already-open non-private windows
+      chrome.windows.create({
+        url,
+        incognito: false
+      }, (w) => {
+        focusWindow(w.id);
+      });
     });
+  });
+}
+
+function clearSavedErrorText() {
+  chrome.runtime.sendMessage({
+    type: 'removeErrorText',
+    tabId: POPUP_DATA.tabId
   });
 }
 
@@ -238,6 +283,9 @@ function send_error(message) {
     sendReport.done(function() {
       $("#error_input").val("");
       $("#report_success").toggleClass("hidden", false);
+
+      clearSavedErrorText();
+
       setTimeout(function() {
         $("#report_button").prop("disabled", false);
         $("#report_cancel").prop("disabled", false);
@@ -248,6 +296,7 @@ function send_error(message) {
 
     sendReport.fail(function() {
       $("#report_fail").toggleClass("hidden");
+
       setTimeout(function() {
         $("#report_button").prop("disabled", false);
         $("#report_cancel").prop("disabled", false);
@@ -346,6 +395,7 @@ function registerToggleHandlers() {
  * @param {Integer} tabId The id of the tab
  */
 function refreshPopup() {
+
   // must be a special browser page,
   // or a page that loaded everything before our most recent initialization
   if (POPUP_DATA.noTabData) {
@@ -378,6 +428,11 @@ function refreshPopup() {
     }
   }
 
+  // if there is any saved error text, fill the error input with it
+  if (POPUP_DATA.hasOwnProperty('errorText')) {
+    $("#error_input").val(POPUP_DATA.errorText);
+  }
+
   let origins = POPUP_DATA.origins;
   let originsArr = [];
   if (origins) {
@@ -386,13 +441,11 @@ function refreshPopup() {
 
   if (!originsArr.length) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
-    $("#pb_detected").hide();
-    $("#number_trackers").hide();
-    $("#sliders_explanation").hide();
+    $("#instructions-many-trackers").hide();
 
     // show "no trackers" message
     $("#instructions_no_trackers").show();
-    $("#blockedResources").html(i18n.getMessage("popup_blocked"));
+    $("#blockedResources").html(chrome.i18n.getMessage("popup_blocked"));
 
     // activate tooltips
     $('.tooltip').tooltipster();
@@ -408,8 +461,8 @@ function refreshPopup() {
 
   var printable = [];
   var nonTracking = [];
-  originsArr.sort(htmlUtils.compareReversedDomains);
-  var trackerCount = 0;
+  originsArr = htmlUtils.sortDomains(originsArr);
+  var num_trackers = 0;
 
   for (let i=0; i < originsArr.length; i++) {
     var origin = originsArr[i];
@@ -421,15 +474,15 @@ function refreshPopup() {
     }
 
     if (action != constants.DNT) {
-      trackerCount++;
+      num_trackers++;
     }
     printable.push(
       htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
     );
   }
 
-  var nonTrackerText = i18n.getMessage("non_tracker");
-  var nonTrackerTooltip = i18n.getMessage("non_tracker_tip");
+  var nonTrackerText = chrome.i18n.getMessage("non_tracker");
+  var nonTrackerTooltip = chrome.i18n.getMessage("non_tracker_tip");
 
   if (nonTracking.length > 0) {
     printable.push(
@@ -442,17 +495,20 @@ function refreshPopup() {
     }
   }
 
-  if (trackerCount === 1) {
+  if (num_trackers == 1) {
     // leave out messages about multiple trackers
-    $("#pb_detected").hide();
-    $("#number_trackers").hide();
-    $("#sliders_explanation").hide();
+    $("#instructions-many-trackers").hide();
 
     // show singular "tracker" message
     $("#instructions_one_tracker").show();
   }
 
-  $('#number_trackers').text(trackerCount);
+  $('#instructions-many-trackers').html(chrome.i18n.getMessage(
+    "popup_instructions", [
+      num_trackers,
+      "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+    ]
+  ));
 
   function renderDomains() {
     const CHUNK = 1;

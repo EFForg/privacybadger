@@ -1,4 +1,5 @@
 #!/bin/bash
+
 toplevel=$(git rev-parse --show-toplevel)
 
 function setup_chrome {
@@ -18,22 +19,25 @@ function setup_chrome {
 }
 
 function setup_firefox {
-    # TODO needed until Firefox ESR moves on from Firefox 52
-    # see https://github.com/mozilla/geckodriver/issues/1032#issuecomment-341337402
-    if [[ $INFO == "firefox esr" ]]; then
-      version="v0.17.0"
-    else
-      # Install the latest version of geckodriver
-      version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///' | tr -d '\r')
+    # Install the latest version of geckodriver
+    version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///' | tr -d '\r')
 
-      # check that we got something
-      if [ -z "$version" ]; then
-        echo "Failed to determine the latest geckodriver version!"
-        exit 1
-      fi
+    # check that we got something
+    if [ -z "$version" ]; then
+      echo "Failed to determine the latest geckodriver version!"
+      exit 1
     fi
+
+    # Geckodriver distribution is MacOS or Linux specific
+    os="$(uname -s)"
+    if [[ $os == "Darwin" ]]; then
+      os_dist="macos.tar.gz"
+    else
+      os_dist="linux64.tar.gz"
+    fi
+
     echo "Setting up geckodriver version $version ..."
-    url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-linux64.tar.gz"
+    url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-${os_dist}"
     wget -q -O /tmp/geckodriver.tar.gz "$url"
     sudo tar -xvf /tmp/geckodriver.tar.gz -C /usr/local/bin/
     sudo chmod a+x /usr/local/bin/geckodriver
@@ -51,11 +55,8 @@ function browser_setup {
 }
 
 function setup_lint {
-  pushd "$toplevel"
-    # "--production" to skip installing devDependencies modules
-    npm install --production
-  popd
-
+  # "--production" to skip installing devDependencies modules
+  npm install --production || exit 1
 }
 
 # check that the desired browser is present as it might fail to install

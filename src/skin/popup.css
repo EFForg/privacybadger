@@ -59,13 +59,13 @@ a:hover { color: #ec9329 }
   clear: both;
 }
 
-.clicker{
-  border-top: 1px solid #aaaaaa;
-  padding: 5px;
-  height: 40px;
-  overflow: hidden;
+.clicker {
+    border-top: 1px solid #aaaaaa;
+    padding: 5px;
+    height: 40px;
+    overflow: hidden;
+    direction: ltr;
 }
-.clicker.greyed { background: #aaa; }
 .origin{
   max-width: 210px;
   color: #555555;
@@ -184,12 +184,14 @@ font-size: 16px;
   color: #333;
 }
 .clickerContainer {
-  max-height: 290px;
-  overflow-y: auto;
-  background-color: #E8E9EA;
-  position: relative;
+    max-height: 290px;
+    overflow-y: auto;
+    background-color: #E8E9EA;
+    position: relative;
+    margin-top: 25px;
 }
 .keyContainer{
+    direction: ltr;
     position: relative;
 }
 .key {
@@ -246,9 +248,6 @@ font-size: 16px;
   float: right;
   padding-right: 5px;
   padding-top: 7px;
-}
-.clickerContainer{
-  margin-top: 25px;
 }
 #pbInstructions{
   color: #505050;

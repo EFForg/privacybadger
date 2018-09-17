@@ -32,7 +32,6 @@ var constants = require("constants");
 var getSurrogateURI = require("surrogates").getSurrogateURI;
 var incognito = require("incognito");
 var mdfp = require("multiDomainFP");
-var migrations = require("migrations").Migrations;
 var utils = require("utils");
 
 /************ Local Variables *****************/
@@ -54,12 +53,6 @@ function onBeforeRequest(details) {
 
   if (type == "main_frame") {
     forgetTab(tab_id);
-
-    // Firefox workaround: https://bugzilla.mozilla.org/show_bug.cgi?id=1329299
-    // TODO remove after Firefox 51 is no longer in use
-    if (frame_id != 0) {
-      frame_id = 0;
-    }
 
     badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
 
@@ -172,7 +165,9 @@ function onBeforeSendHeaders(details) {
   if (!isThirdPartyDomain(requestDomain, tabDomain)) {
     if (badger.isPrivacyBadgerEnabled(tabDomain)) {
       // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-      details.requestHeaders.push({name: "DNT", value: "1"});
+      if (badger.isDNTSignalEnabled()) {
+        details.requestHeaders.push({name: "DNT", value: "1"});
+      }
       return {requestHeaders: details.requestHeaders};
     } else {
       return {};
@@ -233,13 +228,17 @@ function onBeforeSendHeaders(details) {
     let newHeaders = details.requestHeaders.filter(function (header) {
       return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
     });
-    newHeaders.push({name: "DNT", value: "1"});
+    if (badger.isDNTSignalEnabled()) {
+      newHeaders.push({name: "DNT", value: "1"});
+    }
     return {requestHeaders: newHeaders};
   }
 
   // if we are here, we're looking at a third party
   // that's not yet blocked or cookieblocked
-  details.requestHeaders.push({name: "DNT", value: "1"});
+  if (badger.isDNTSignalEnabled()) {
+    details.requestHeaders.push({name: "DNT", value: "1"});
+  }
   return {requestHeaders: details.requestHeaders};
 }
 
@@ -374,32 +373,31 @@ function getHostForTab(tabId) {
 /**
  * Record "supercookie" tracking
  *
- * @param sender message sender
- * @param msg super cookie message dict
+ * @param {Integer} tab_id browser tab ID
+ * @param {String} frame_url URL of the frame with supercookie
  */
-function recordSuperCookie(sender, msg) {
-  if (!incognito.learningEnabled(sender.tab.id)) {
+function recordSuperCookie(tab_id, frame_url) {
+  if (!incognito.learningEnabled(tab_id)) {
     return;
   }
 
-  // docUrl: url of the frame with supercookie
-  var frameHost = window.extractHostFromURL(msg.docUrl);
-  var pageHost = badger.getFrameData(sender.tab.id).host;
+  const frame_host = window.extractHostFromURL(frame_url),
+    page_host = badger.getFrameData(tab_id).host;
 
-  if (!isThirdPartyDomain(frameHost, pageHost)) {
+  if (!isThirdPartyDomain(frame_host, page_host)) {
     // Only happens on the start page for google.com
     return;
   }
 
   badger.heuristicBlocking.updateTrackerPrevalence(
-    frameHost, window.getBaseDomain(pageHost));
+    frame_host, window.getBaseDomain(page_host));
 }
 
 /**
  * Record canvas fingerprinting
  *
  * @param {Integer} tabId
- * @param msg specific fingerprinting data
+ * @param {Object} msg specific fingerprinting data
  */
 function recordFingerprinting(tabId, msg) {
   // Abort if we failed to determine the originating script's URL
@@ -685,7 +683,7 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.superCookieReport) {
     if (badger.hasSuperCookie(request.superCookieReport)) {
-      recordSuperCookie(sender, request.superCookieReport);
+      recordSuperCookie(sender.tab.id, sender.url);
     }
 
   } else if (request.checkEnabledAndThirdParty) {
@@ -706,14 +704,23 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse({
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
+      errorText: has_tab_data && badger.tabData[tab_id].errorText,
       noTabData: !has_tab_data,
       origins: has_tab_data && badger.tabData[tab_id].origins,
       seenComic: badger.getSettings().getItem("seenComic"),
       tabHost: tab_host,
       tabId: tab_id,
-      isPrivateWindow: incognito.tabIsIncognito(tab_id),
       tabUrl: tab_url
     });
+
+  } else if (request.type == "resetData") {
+    badger.storage.clearTrackerData();
+    badger.loadSeedData();
+    sendResponse();
+
+  } else if (request.type == "removeAllData") {
+    badger.storage.clearTrackerData();
+    sendResponse();
 
   } else if (request.type == "seenComic") {
     badger.getSettings().setItem("seenComic", true);
@@ -732,6 +739,35 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.revertUserAction(request.origin);
     sendResponse();
 
+  } else if (request.type == "downloadCloud") {
+    chrome.storage.sync.get("disabledSites", function (store) {
+      if (chrome.runtime.lastError) {
+        sendResponse({success: false, message: chrome.runtime.lastError.message});
+      } else if (store.hasOwnProperty("disabledSites")) {
+        let settings = badger.getSettings();
+        let whitelist = _.union(settings.getItem("disabledSites"), store.disabledSites);
+        settings.setItem("disabledSites", whitelist);
+        sendResponse({success: true});
+      } else {
+        sendResponse({success: false, message: chrome.i18n.getMessage("download_cloud_no_data")});
+      }
+    });
+    //indicate this is an async response to chrome.runtime.onMessage
+    return true;
+
+  } else if (request.type == "uploadCloud") {
+    let obj = {};
+    obj.disabledSites = badger.getSettings().getItem("disabledSites");
+    chrome.storage.sync.set(obj, function () {
+      if (chrome.runtime.lastError) {
+        sendResponse({success: false, message: chrome.runtime.lastError.message});
+      } else {
+        sendResponse({success: true});
+      }
+    });
+    //indicate this is an async response to chrome.runtime.onMessage
+    return true;
+
   } else if (request.type == "savePopupToggle") {
     let domain = request.origin,
       action = request.action;
@@ -747,20 +783,12 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse();
 
   } else if (request.type == "mergeUserData") {
-    for (let map in request.data) {
-      let storageMap = badger.storage.getBadgerStorageObject(map);
-      storageMap.merge(request.data[map]);
-    }
-
-    // fix yellowlist getting out of sync
-    migrations.reapplyYellowlist(badger);
-
-    // remove any non-tracking domains (in exports from older Badger versions)
-    migrations.forgetNontrackingDomains(badger);
+    // called when a user uploads data exported from another Badger instance
+    badger.mergeUserData(request.data);
     sendResponse();
 
   } else if (request.type == "updateSettings") {
-    const settings = badger.storage.getBadgerStorageObject("settings_map");
+    const settings = badger.getSettings();
     for (let key in request.data) {
       if (badger.defaultSettings.hasOwnProperty(key)) {
         settings.setItem(key, request.data[key]);
@@ -776,6 +804,23 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
 
     sendResponse();
+
+  } else if (request.type == "saveErrorText") {
+    let activeTab = badger.tabData[request.tabId];
+    activeTab.errorText = request.errorText;
+
+  } else if (request.type == "removeErrorText") {
+    let activeTab = badger.tabData[request.tabId];
+    delete activeTab.errorText;
+
+  } else if (request.checkDNT) {
+    // called from contentscripts/dnt.js to check if we should enable it
+    sendResponse(
+      badger.isDNTSignalEnabled()
+      && badger.isPrivacyBadgerEnabled(
+        window.extractHostFromURL(sender.tab.url)
+      )
+    );
   }
 }
 

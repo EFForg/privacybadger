@@ -1,10 +1,10 @@
 {
-  "version": "2018.5.10",
+  "version": "2018.8.22",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
       "id": "jid1-MnnxcxisBPnSXQ@jetpack",
-      "strict_min_version": "50.0"
+      "strict_min_version": "52.0"
     }
   },
   "incognito": "spanning",
@@ -60,7 +60,8 @@
       ],
       "matches": [
         "https://*.facebook.com/*",
-        "http://*.facebook.com/*"
+        "http://*.facebook.com/*",
+        "*://*.facebookcorewwwi.onion/*"
       ],
       "run_at": "document_idle"
     },

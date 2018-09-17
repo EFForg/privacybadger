@@ -31,6 +31,10 @@ def get_domain_slider_state(driver, domain):
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
+    def clear_seed_data(self):
+        self.load_url(self.options_url)
+        self.js("badger.storage.clearTrackerData();")
+
     def wait_for_page_to_start_loading(self, url, timeout=20):
         """Wait until the title element is present. Use it to work around
         Firefox not updating self.driver.current_url fast enough."""
@@ -58,7 +62,9 @@ class PopupTest(pbtest.PBSeleniumTest):
         # Chrome where popup.js will keep thinking it is on popup.html.
         self.open_window()
 
-        self.load_url(self.popup_url, wait_on_site=1)
+        self.load_url(self.popup_url)
+        # TODO replace with conditional, poll-based wait for popup being fully displayed
+        time.sleep(1)
 
         # hack to get tabData populated for the popup's tab
         # to get the popup shown for regular pages
@@ -172,7 +178,7 @@ class PopupTest(pbtest.PBSeleniumTest):
     def test_trackers_link(self):
         """Ensure trackers link opens EFF website."""
 
-        EFF_URL = "https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?"
+        EFF_URL = "https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker"
 
         self.open_popup()
 
@@ -211,6 +217,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_toggling_sliders(self):
         """Ensure toggling sliders is persisted."""
+        self.clear_seed_data()
 
         DOMAIN = "example.com"
         DOMAIN_ID = DOMAIN.replace(".", "-")
@@ -222,7 +229,8 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.js("$('#block-{}').click()".format(DOMAIN_ID))
 
         # retrieve the new action
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = get_domain_slider_state(self.driver, DOMAIN)
 
         self.assertEqual(new_action, "block",
@@ -242,7 +250,8 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.js("$('#block-{}').click()".format(DOMAIN_ID))
 
         # retrieve the new action
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = get_domain_slider_state(self.driver, DOMAIN)
 
         self.assertEqual(new_action, "block",
@@ -250,12 +259,13 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_reverting_control(self):
         """Test restoring control of a domain to Privacy Badger."""
+        self.clear_seed_data()
 
         DOMAIN = "example.com"
         DOMAIN_ID = DOMAIN.replace(".", "-")
 
         # record the domain as cookieblocked by Badger
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
         self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
             DOMAIN, "cookieblock"))
 
@@ -279,7 +289,8 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         # verify the domain is no longer user controlled
-        self.load_url(self.options_url, wait_on_site=1)
+        self.load_url(self.options_url)
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
 
         # assert the action is not what we manually clicked
         action = get_domain_slider_state(self.driver, DOMAIN)

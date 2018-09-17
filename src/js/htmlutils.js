@@ -70,22 +70,25 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} Localized action description with origin.
    */
   getActionDescription: (function () {
-    var actionDescriptions = {
-      block: i18n.getMessage('badger_status_block'),
-      cookieblock: i18n.getMessage('badger_status_cookieblock'),
-      noaction: i18n.getMessage('badger_status_noaction'),
-      allow: i18n.getMessage('badger_status_allow'),
+    const messages = {
+      block: i18n.getMessage('badger_status_block', "XXX"),
+      cookieblock: i18n.getMessage('badger_status_cookieblock', "XXX"),
+      noaction: i18n.getMessage('badger_status_noaction', "XXX"),
+      allow: i18n.getMessage('badger_status_allow', "XXX"),
       dntTooltip: i18n.getMessage('dnt_tooltip')
     };
-    return function (action, origin, isWhitelisted) {
-      var rv_action = actionDescriptions[action];
-      if (typeof(isWhitelisted) !== 'undefined' && isWhitelisted) {
-        return actionDescriptions.dntTooltip;
-      } else if (typeof(rv_action) == 'undefined') {
-        return origin;
-      } else {
-        return rv_action + origin;
+    return function (action, origin, is_whitelisted) {
+      if (is_whitelisted) {
+        return messages.dntTooltip;
       }
+
+      const rv_action = messages[action];
+
+      if (!rv_action) {
+        return origin;
+      }
+
+      return rv_action.replace("XXX", origin);
     };
   }()),
   /**
@@ -162,7 +165,7 @@ var htmlUtils = exports.htmlUtils = {
     if (isWhitelisted) {
       whitelistedText = '' +
         '<div id="dnt-compliant">' +
-        '<a target=_blank href="https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?">' +
+        '<a target=_blank href="https://www.eff.org/privacybadger/faq#-I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me">' +
         '<img src="' +
         chrome.extension.getURL('/icons/dnt-16.png') +
         '"></a></div>';
@@ -200,34 +203,56 @@ var htmlUtils = exports.htmlUtils = {
   },
 
   /**
-  * Compare 2 domains. Reversing them to start comparing the least significant parts (TLD) first
-  *
-  * @param a First domain
-  * @param b Second domain
-  * @returns {number} standard compare returns
-  */
-  compareReversedDomains: function(a, b) {
-    var fqdn1 = htmlUtils.makeSortable(a);
-    var fqdn2 = htmlUtils.makeSortable(b);
-    if (fqdn1 < fqdn2) {
-      return -1;
-    }
-    if (fqdn1 > fqdn2) {
-      return 1;
-    }
-    return 0;
+   * Compare two domains, reversing them to start comparing the least
+   * significant parts (TLD) first.
+   *
+   * @param {Array} domains The domains to sort.
+   * @returns {Array} Sorted domains.
+   */
+  sortDomains: (domains) => {
+    // optimization: cache makeSortable output by walking the array once
+    // to extract the actual values used for sorting into a temporary array
+    return domains.map((domain, i) => {
+      return {
+        index: i,
+        value: htmlUtils.makeSortable(domain)
+      };
+    // sort the temporary array
+    }).sort((a, b) => {
+      if (a.value > b.value) {
+        return 1;
+      }
+      if (a.value < b.value) {
+        return -1;
+      }
+      return 0;
+    // walk the temporary array to achieve the right order
+    }).map(item => domains[item.index]);
   },
 
   /**
-  * Reverse order of domain items to have the least exact (TLD) first)
-  *
-  * @param {String} domain The domain to shuffle
-  * @returns {String} The 'reversed' domain
-  */
-  makeSortable: function(domain) {
-    var tmp = domain.split('.').reverse();
-    tmp.shift();
-    return tmp.join('');
+   * Reverse order of domain items to have the least exact (TLD) first.
+   *
+   * @param {String} domain The domain to shuffle
+   * @returns {String} The 'reversed' domain
+   */
+  makeSortable: (domain) => {
+    let base = window.getBaseDomain(domain),
+      base_minus_tld = base,
+      dot_index = base.indexOf('.'),
+      rest_of_it_reversed = '';
+
+    if (domain.length > base.length) {
+      rest_of_it_reversed = domain
+        .slice(0, domain.length - base.length - 1)
+        .split('.').reverse().join('.');
+    }
+
+    if (dot_index > -1 && !window.isIPv4(domain) && !window.isIPv6(domain)) {
+      base_minus_tld = base.slice(0, dot_index);
+    }
+
+    return (base_minus_tld + '.' + rest_of_it_reversed);
   },
 
   /**
