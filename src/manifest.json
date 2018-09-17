@@ -10,8 +10,8 @@
   "incognito": "spanning",
   "permissions": [
     "tabs",
-    "https://*/*",
     "http://*/*",
+    "https://*/*",
     "contextMenus",
     "webRequest",
     "webRequestBlocking",
@@ -49,7 +49,8 @@
         "js/firstparties/twitter.js"
       ],
       "matches": [
-        "*://twitter.com/*"
+        "https://twitter.com/*",
+        "http://twitter.com/*"
       ],
       "run_at": "document_idle"
     },
@@ -59,7 +60,8 @@
         "js/firstparties/facebook.js"
       ],
       "matches": [
-        "*://*.facebook.com/*",
+        "https://*.facebook.com/*",
+        "http://*.facebook.com/*",
         "*://*.facebookcorewwwi.onion/*"
       ],
       "run_at": "document_idle"
@@ -70,7 +72,8 @@
         "js/firstparties/google.js"
       ],
       "matches": [
-        "*://www.google.com/*"
+        "https://www.google.com/*",
+        "http://www.google.com/*"
       ],
       "run_at": "document_idle"
     },
@@ -80,7 +83,8 @@
         "js/firstparties/hangouts.js"
       ],
       "matches": [
-        "*://hangouts.google.com/*"
+        "https://hangouts.google.com/*",
+        "http://hangouts.google.com/*"
       ],
       "all_frames": true,
       "run_at": "document_idle"
