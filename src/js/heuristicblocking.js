@@ -537,11 +537,7 @@ function hasCookieTracking(details, origin) {
 }
 
 function pingListener(details) {
-  if (badger) {
-    return badger.heuristicBlocking.pingAccounting(details);
-  } else {
-    return {};
-  }
+  return badger.heuristicBlocking.pingAccounting(details);
 }
 
 function startListeners() {
