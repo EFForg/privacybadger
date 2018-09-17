@@ -8,7 +8,11 @@ import time
 from functools import wraps
 
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException, WebDriverException
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    TimeoutException,
+    WebDriverException,
+)
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
@@ -349,6 +353,15 @@ class PBSeleniumTest(unittest.TestCase):
             lambda driver: driver.execute_script(script),
             message
         )
+
+    def get_domain_slider_state(self, domain):
+        try:
+            label = self.find_el_by_css(
+                'input[name="{}"][checked] + label'.format(domain))
+        except NoSuchElementException:
+            return None
+
+        return label.get_attribute('data-action')
 
     @property
     def logs(self):

@@ -5,10 +5,8 @@ import unittest
 
 import pbtest
 
-from popup_test import get_domain_slider_state
 
-
-class BeaconDetectionTest(pbtest.PBSeleniumTest):
+class BeaconTest(pbtest.PBSeleniumTest):
     """Tests to make sure beacon detection works as expected."""
 
     def test_beacon_detection(self):
@@ -23,8 +21,12 @@ class BeaconDetectionTest(pbtest.PBSeleniumTest):
         self.load_url(PAGE_URL)
 
         # check that we detected the beacon domain as a tracker
-        self.load_url(self.options_url, wait_on_site=1)
-        action = get_domain_slider_state(self.driver, BEACON_DOMAIN)
+        self.load_url(self.options_url)
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
+        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
+        # filter the list because otherwise our slider may not be in view
+        self.driver.find_element_by_id('trackingDomainSearch').send_keys(BEACON_DOMAIN)
+        action = self.get_domain_slider_state(BEACON_DOMAIN)
         self.assertEqual(action, "allow",
             "Beacon domain should have been detected as a tracker")
 

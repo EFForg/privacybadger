@@ -7,25 +7,12 @@ import unittest
 
 import pbtest
 
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    TimeoutException
-)
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
 from window_utils import switch_to_window_with_url
-
-
-def get_domain_slider_state(driver, domain):
-    try:
-        label = driver.find_element_by_css_selector(
-            'input[name="{}"][checked] + label'.format(domain))
-    except NoSuchElementException:
-        return None
-
-    return label.get_attribute('data-action')
 
 
 class PopupTest(pbtest.PBSeleniumTest):
@@ -231,7 +218,8 @@ class PopupTest(pbtest.PBSeleniumTest):
         # retrieve the new action
         self.load_url(self.options_url)
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
-        new_action = get_domain_slider_state(self.driver, DOMAIN)
+        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
+        new_action = self.get_domain_slider_state(DOMAIN)
 
         self.assertEqual(new_action, "block",
             "The domain should be blocked on options page.")
@@ -252,7 +240,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         # retrieve the new action
         self.load_url(self.options_url)
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
-        new_action = get_domain_slider_state(self.driver, DOMAIN)
+        new_action = self.get_domain_slider_state(DOMAIN)
 
         self.assertEqual(new_action, "block",
             "The domain should still be blocked on options page.")
@@ -289,17 +277,17 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         # verify the domain is no longer user controlled
+
         self.load_url(self.options_url)
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
+        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
 
         # assert the action is not what we manually clicked
-        action = get_domain_slider_state(self.driver, DOMAIN)
+        action = self.get_domain_slider_state(DOMAIN)
         self.assertEqual(action, "cookieblock",
             "Domain's action should have been restored.")
 
         # assert the undo arrow is not displayed
-        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
-        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
         self.assertFalse(
             self.driver.find_element_by_css_selector(
                 'div[data-origin="{}"] div.honeybadgerPowered'.format(DOMAIN)
