@@ -543,6 +543,7 @@ function pingListener(details) {
 }
 
 function startListeners() {
+  // listen to pings
   try {
     chrome.webRequest.onBeforeRequest.addListener(
       pingListener, { types: ["beacon", "ping"], urls: ["<all_urls>"] });
@@ -552,16 +553,12 @@ function startListeners() {
       pingListener, { types: ["ping"], urls: ["<all_urls>"] });
   }
 
-  /**
-   * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
-   */
+  // inspect cookies in outgoing headers
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
     return badger.heuristicBlocking.heuristicBlockingAccounting(details);
   }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
 
-  /**
-   * Adds onResponseStarted listener. Monitor for cookies
-   */
+  // inspect cookies in incoming headers
   chrome.webRequest.onResponseStarted.addListener(function(details) {
     var hasSetCookie = false;
     for (var i = 0; i < details.responseHeaders.length; i++) {
