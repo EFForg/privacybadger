@@ -110,7 +110,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         # popup blocker turned on, it won't work. Workaround: embed a button on the target page
         # that opens a new window when clicked.
         window_utils.switch_to_window_with_url(self.driver, target_scheme_and_host)
-        button = self.driver.find_element_by_id("newwindowbutton")
+        button = self.find_el_by_css("#newwindowbutton")
         button.click()
         window_utils.switch_to_window_with_url(self.driver, "about:blank")
         self.load_url(self.popup_url)

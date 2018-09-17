@@ -1,5 +1,14 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.8.22
+* Added pre-trained tracker data for new Privacy Badger installations.
+Visit www.eff.org/badger-pretraining to learn more.
+* Added reset/clear tracker data buttons to the Manage Data options page tab
+* Fixed various site breakages
+* Added Persian and Brazilian Portuguese translations
+* Improved translations (Simplified Chinese, Danish, Esperanto, French,
+German, Italian, Norwegian Bokmål, Spanish, Swedish)
+
 ## 2018.8.1
 * Fixed security issues with HTML5 local storage tracking detection as well as
 SoundCloud widget replacement. Thanks again to Cure53 for discovering and

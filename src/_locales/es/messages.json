@@ -209,6 +209,10 @@
         "message": "Exportar datos de usuario",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Importación de datos de usuario: <ul><li>Sobrescribe la configuración general</li><li>Combina listas de sitios deshabilitados</li><li>Combina información sobre los rastreadores que Privacy Badger ha visto</li><li>Sobrescribe las personalizaciones de los controles deslizantes</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Restablecer",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Cargando...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Atrapa rastreadores ocultos",
@@ -346,7 +346,7 @@
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
     },
     "options_domain_filter_all": {
-        "message": "todos",
+        "message": "todo",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
@@ -495,10 +495,6 @@
         "message": "¡Privacy Badger te protege de rastreadores mientras surfeas por la web!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "¿Por qué no hay nada bloqueado?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Oops. Algo salió mal.",
         "description": ""
@@ -512,5 +508,41 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "sync_intro": {
+        "message": "Sincronización en la nube:<ul><li>Requiere Firefox/Chrome Sync</li><li>La subida de datos sobrescribe cualquier dato existente de Privacy Badger en la nube</li><li>La descarga combina las listas de sitios en los que su Badger está desactivado</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Subir",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Exportar sitios deshabilitados a la nube",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Importar sitios deshabilitados de la nube",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Datos de la nube importados con éxito.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Los datos de la nube no se pudieron descargar.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Datos para nube subidos con éxito.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Los datos para la nube no se pudieron subir.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "No hay datos en la nube para descargar.",
+        "description": "'Error' message when there is on cloud data to download."
     }
 }

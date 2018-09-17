@@ -46,17 +46,30 @@ function Badger() {
   });
 
   self.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (self.INITIALIZED) { return; }
+    if (self.INITIALIZED) {
+      return;
+    }
+
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     self.updateTabList();
     self.initializeDefaultSettings();
+
     try {
       self.runMigrations();
     } finally {
+      // TODO "await" to set INITIALIZED until both below async functions resolve?
+      // see TODO in qunit_config.js and in dnt_test.py
       self.loadFirstRunSeedData();
       self.initializeYellowlist();
       self.initializeDNT();
       self.showFirstRunPage();
+    }
+
+    // set badge text color to white in Firefox 63+
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1424620
+    if (chrome.browserAction.hasOwnProperty('setBadgeTextColor')) {
+      chrome.browserAction.setBadgeTextColor({ color: "#fff" });
     }
 
     // Show icon as page action for all tabs that already exist
@@ -67,7 +80,15 @@ function Badger() {
       }
     });
 
-    // TODO: register all privacy badger listeners here in the storage callback
+    // start all the listeners
+    incognito.startListeners();
+    webrequest.startListeners();
+    HeuristicBlocking.startListeners();
+    FirefoxAndroid.startListeners();
+    startBackgroundListeners();
+
+    console.log("Privacy Badger is ready to rock!");
+    console.log("Set DEBUG=1 to view console messages.");
 
     self.INITIALIZED = true;
   });
@@ -146,9 +167,7 @@ Badger.prototype = {
     let self = this;
     utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
       if (!err) {
-        var seed = JSON.parse(response);
-        self.storage.getBadgerStorageObject("action_map").merge(seed.action_map);
-        self.storage.getBadgerStorageObject("snitch_map").merge(seed.snitch_map);
+        self.mergeUserData(JSON.parse(response));
         console.log("Loaded seed data successfully");
       }
     });
@@ -161,7 +180,7 @@ Badger.prototype = {
   },
 
   showFirstRunPage: function() {
-    let settings = this.storage.getBadgerStorageObject("settings_map");
+    let settings = this.getSettings();
     if (settings.getItem("isFirstRun")) {
       // launch first-run page and unset first-run flag
       chrome.tabs.create({
@@ -487,7 +506,7 @@ Badger.prototype = {
    * initialize default settings if nonexistent
    */
   initializeDefaultSettings: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
+    var settings = this.getSettings();
     _.each(this.defaultSettings, function(value, key) {
       if (!settings.hasItem(key)) {
         log("setting", key, ":", value);
@@ -498,7 +517,7 @@ Badger.prototype = {
 
   runMigrations: function() {
     var self = this;
-    var settings = self.storage.getBadgerStorageObject("settings_map");
+    var settings = self.getSettings();
     var migrationLevel = settings.getItem('migrationLevel');
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently
@@ -851,21 +870,4 @@ function startBackgroundListeners() {
   }
 }
 
-/**
- * lets get this party started
- */
-console.log('Loading badgers into the pen.');
 var badger = window.badger = new Badger();
-
-/**
-* Start all the listeners
-*/
-incognito.startListeners();
-webrequest.startListeners();
-HeuristicBlocking.startListeners();
-FirefoxAndroid.startListeners();
-startBackgroundListeners();
-
-// TODO move listeners and this message behind INITIALIZED
-console.log('Privacy badger is ready to rock!');
-console.log('Set DEBUG=1 to view console messages.');

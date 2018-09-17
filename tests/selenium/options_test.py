@@ -20,7 +20,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-class OptionsPageTest(pbtest.PBSeleniumTest):
+class OptionsTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
 
     def select_domain_list_tab(self):
@@ -116,8 +116,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         localized_title = self.js('return i18n.getMessage("options_title")')
         try:
-            WebDriverWait(self.driver, 3).\
-                until(EC.title_contains(localized_title))
+            WebDriverWait(self.driver, 3).until(
+                EC.title_contains(localized_title))
         except TimeoutException:
             self.fail("Unexpected title for the Options page. Got (%s),"
                       " expected (%s)"

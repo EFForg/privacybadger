@@ -209,6 +209,10 @@
         "message": "Експорт користувацьких даних",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Імпорт даних користувача:<ul><li>Перезаписуються загальні налаштування</li><li>Об'єднуються списки вимкнених сайтів</li><li>Об'єднується інформація про виявлені елементи стеження Privacy Badger</li><li>Перезаписуються налаштування перемикачів</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Відновити",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Завантаження...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Перехоплює підступне стеження",
@@ -495,10 +495,6 @@
         "message": "Privacy Badger захищає вас від стеження поки ви переглядаєте сторінки в Інтернеті!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Чому не блокується будь-що?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Ой. Щось пішло не так.",
         "description": ""
@@ -512,5 +508,41 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "sync_intro": {
+        "message": "Синхронізація:<ul><li>Необхідний обліковий запис Firefox/Chrome</li><li>Вивантаження перезаписує наявні дані в хмарному сховищі</li><li>Завантаження об'єднує списки сайтів, на яких Privacy Badger вимкнений</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Вивантажити",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Експорт вимкнених сайтів у хмарне сховище",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Імпорт вимкнених сайтів з хмарного сховища",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Дані успішно імпортовано з хмарного сховища.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Не вдалося завантажити дані з хмарного сховища.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Дані успішно вивантажено в хмарне сховище.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Не вдалося вивантажити дані в хмарне сховище.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Хмарне сховище не містить даних для завантаження.",
+        "description": "'Error' message when there is on cloud data to download."
     }
 }

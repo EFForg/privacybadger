@@ -704,6 +704,7 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse({
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
+      errorText: has_tab_data && badger.tabData[tab_id].errorText,
       noTabData: !has_tab_data,
       origins: has_tab_data && badger.tabData[tab_id].origins,
       seenComic: badger.getSettings().getItem("seenComic"),
@@ -738,6 +739,35 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.revertUserAction(request.origin);
     sendResponse();
 
+  } else if (request.type == "downloadCloud") {
+    chrome.storage.sync.get("disabledSites", function (store) {
+      if (chrome.runtime.lastError) {
+        sendResponse({success: false, message: chrome.runtime.lastError.message});
+      } else if (store.hasOwnProperty("disabledSites")) {
+        let settings = badger.getSettings();
+        let whitelist = _.union(settings.getItem("disabledSites"), store.disabledSites);
+        settings.setItem("disabledSites", whitelist);
+        sendResponse({success: true});
+      } else {
+        sendResponse({success: false, message: chrome.i18n.getMessage("download_cloud_no_data")});
+      }
+    });
+    //indicate this is an async response to chrome.runtime.onMessage
+    return true;
+
+  } else if (request.type == "uploadCloud") {
+    let obj = {};
+    obj.disabledSites = badger.getSettings().getItem("disabledSites");
+    chrome.storage.sync.set(obj, function () {
+      if (chrome.runtime.lastError) {
+        sendResponse({success: false, message: chrome.runtime.lastError.message});
+      } else {
+        sendResponse({success: true});
+      }
+    });
+    //indicate this is an async response to chrome.runtime.onMessage
+    return true;
+
   } else if (request.type == "savePopupToggle") {
     let domain = request.origin,
       action = request.action;
@@ -758,7 +788,7 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse();
 
   } else if (request.type == "updateSettings") {
-    const settings = badger.storage.getBadgerStorageObject("settings_map");
+    const settings = badger.getSettings();
     for (let key in request.data) {
       if (badger.defaultSettings.hasOwnProperty(key)) {
         settings.setItem(key, request.data[key]);
@@ -774,6 +804,14 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
 
     sendResponse();
+
+  } else if (request.type == "saveErrorText") {
+    let activeTab = badger.tabData[request.tabId];
+    activeTab.errorText = request.errorText;
+
+  } else if (request.type == "removeErrorText") {
+    let activeTab = badger.tabData[request.tabId];
+    delete activeTab.errorText;
 
   } else if (request.checkDNT) {
     // called from contentscripts/dnt.js to check if we should enable it

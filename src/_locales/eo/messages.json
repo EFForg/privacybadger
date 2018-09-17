@@ -190,7 +190,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Neblokataj nomregnoj",
+        "message": "Neblokataj retejoj",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -208,6 +208,10 @@
     "export_user_data": {
         "message": "Elporti datumojn de uzanto",
         "description": ""
+    },
+    "manage_data_intro": {
+        "message": "Enporti datumojn de uzantoj por:\n<ul>\n<li>anstataŭigi ĝeneralajn agordojn</li>\n<li>kombini listojn de neblokataj retejoj</li>\n<li>kombini informojn pri observitaj spuriloj</li>\n<li>anstataŭigi agordojn de ŝovilo</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
         "message": "Rekomencigi",
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Ŝargado…",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Kaptas trompajn spurilojn",
@@ -495,10 +495,6 @@
         "message": "Privata Melo protektas vin kontraŭ spuriloj dum kiam vi retumas!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Kial nenio estas blokita?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Ho ne! Eraro okazis.",
         "description": ""
@@ -512,5 +508,41 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "sync_intro": {
+        "message": "Samtempigo en servilo:\n<ul>\n<li>postulas Firefox Spegulado/Chrome Sync</li>\n<li>alŝuto anstataŭigas ĉiujn ekzistajn datumojn de Privata Melo en la servilo</li>\n<li>elŝuto kunigas listojn de retejoj kun malaktiva Privata Melo</li>\n</ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Alŝuti",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Elporti neblokatajn retejojn al servilo",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Enporti neblokatajn retejojn el servilo",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Sukcese enportis datumojn.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Ne povas elŝuti datumojn el servilo.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Sukcese alŝutis datumojn.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Ne povas alŝuti datumojn al servilo.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Neniuj datumoj en la servilo por elŝuti.",
+        "description": "'Error' message when there is on cloud data to download."
     }
 }

@@ -19,8 +19,18 @@ function cleanLink(a) {
   a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
 }
 
-// since the page is rendered all at once, no need to set up a
-// mutationObserver or setInterval
-findInAllFrames(wrapped_link).forEach((link) => {
-  cleanLink(link);
-});
+//TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({checkEnabled: true},
+  function (enabled) {
+    if (!enabled) {
+      return;
+    }
+
+    // since the page is rendered all at once, no need to set up a
+    // mutationObserver or setInterval
+    findInAllFrames(wrapped_link).forEach((link) => {
+      cleanLink(link);
+    });
+
+  }
+);

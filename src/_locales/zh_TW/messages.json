@@ -190,7 +190,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "已停用的頁面",
+        "message": "停用的網站",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -208,6 +208,10 @@
     "export_user_data": {
         "message": "匯出使用者資料",
         "description": ""
+    },
+    "manage_data_intro": {
+        "message": "正在匯入使用者資料：<ul><li>覆寫一般設定</li><li>結合停用的網站清單</li><li>結合 Privacy Badger 已經看過哪些追蹤器的資訊</li><li>覆寫滑桿自訂</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
         "message": "重設",
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "載入中…",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "捕捉鬼鬼祟祟的追蹤器",
@@ -495,10 +495,6 @@
         "message": "您在網上衝浪的時候，Privacy Badger 會保護您免於被追蹤器追蹤的煩惱！",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "為什麼沒有封鎖任何東西？",
-        "description": ""
-    },
     "report_fail": {
         "message": "哎呀。出錯了。",
         "description": ""
@@ -512,5 +508,41 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "sync_intro": {
+        "message": "雲端同步：<ul><li>需要 Firefox/Chrome 同步</li><li>上傳會覆寫任何在雲端中既有的 Privacy Badger 資料</li><li>下載會結合您的 Privacy Badger 停用的網站清單</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "上傳",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "匯出停用的網站到雲端",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "從雲端匯入停用的網站",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "雲端資料匯入成功。",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "雲端資料無法下載。",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "雲端資料上傳成功。",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "雲端資料無法上傳。",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "沒有雲端資料可供下載。",
+        "description": "'Error' message when there is on cloud data to download."
     }
 }

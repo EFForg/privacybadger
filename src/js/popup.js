@@ -105,11 +105,28 @@ function init() {
     });
   });
 
+  $('#error_input').on('input propertychange', function() {
+
+    // No easy way of sending message on popup close, send message for every change
+    chrome.runtime.sendMessage({
+      type: 'saveErrorText',
+      tabId: POPUP_DATA.tabId,
+      errorText: $("#error_input").val()
+    });
+  });
+
   var overlay = $('#overlay');
+
+  // show error layout if the user was writing an error report
+  if (POPUP_DATA.hasOwnProperty('errorText') && POPUP_DATA.errorText) {
+    overlay.toggleClass('active');
+  }
+
   $("#error").on("click", function() {
     overlay.toggleClass('active');
   });
   $("#report_cancel").on("click", function() {
+    clearSavedErrorText();
     closeOverlay();
   });
   $("#report_button").on("click", function() {
@@ -118,6 +135,7 @@ function init() {
     send_error($("#error_input").val());
   });
   $("#report_close").on("click", function() {
+    clearSavedErrorText();
     closeOverlay();
   });
   $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
@@ -136,16 +154,26 @@ function init() {
 function openOptionsPage() {
   const url = chrome.runtime.getURL("/skin/options.html");
 
-  function openOptionsInTab(win_id) {
-    // create the new tab
-    chrome.tabs.create({
-      url,
-      windowId: win_id,
-      active: true
-    }, () => {
-      // focus the window it is in
-      chrome.windows.update(win_id, { focused: true });
+  function openOptionsInTab(win_id, cb) {
+    // first get the active tab's ID
+    chrome.tabs.query({ active: true, windowId: win_id }, (tabs) => {
+      // create the new tab
+      chrome.tabs.create({
+        url,
+        windowId: win_id,
+        active: true,
+        index: tabs[0].index + 1,
+        openerTabId: tabs[0].id
+      }, () => {
+        if (cb) {
+          cb();
+        }
+      });
     });
+  }
+
+  function focusWindow(win_id) {
+    chrome.windows.update(win_id, { focused: true });
   }
 
   chrome.windows.getLastFocused((win) => {
@@ -161,7 +189,10 @@ function openOptionsPage() {
         if (windows[i].incognito) {
           continue;
         }
-        openOptionsInTab(windows[i].id);
+        const win_id = windows[i].id;
+        openOptionsInTab(win_id, function () {
+          focusWindow(win_id);
+        });
         return;
       }
 
@@ -170,9 +201,16 @@ function openOptionsPage() {
         url,
         incognito: false
       }, (w) => {
-        windows.update(w.id, { focused: true });
+        focusWindow(w.id);
       });
     });
+  });
+}
+
+function clearSavedErrorText() {
+  chrome.runtime.sendMessage({
+    type: 'removeErrorText',
+    tabId: POPUP_DATA.tabId
   });
 }
 
@@ -245,6 +283,9 @@ function send_error(message) {
     sendReport.done(function() {
       $("#error_input").val("");
       $("#report_success").toggleClass("hidden", false);
+
+      clearSavedErrorText();
+
       setTimeout(function() {
         $("#report_button").prop("disabled", false);
         $("#report_cancel").prop("disabled", false);
@@ -255,6 +296,7 @@ function send_error(message) {
 
     sendReport.fail(function() {
       $("#report_fail").toggleClass("hidden");
+
       setTimeout(function() {
         $("#report_button").prop("disabled", false);
         $("#report_cancel").prop("disabled", false);
@@ -353,6 +395,7 @@ function registerToggleHandlers() {
  * @param {Integer} tabId The id of the tab
  */
 function refreshPopup() {
+
   // must be a special browser page,
   // or a page that loaded everything before our most recent initialization
   if (POPUP_DATA.noTabData) {
@@ -383,6 +426,11 @@ function refreshPopup() {
       $("#activate_site_btn").show();
       $("#deactivate_site_btn").hide();
     }
+  }
+
+  // if there is any saved error text, fill the error input with it
+  if (POPUP_DATA.hasOwnProperty('errorText')) {
+    $("#error_input").val(POPUP_DATA.errorText);
   }
 
   let origins = POPUP_DATA.origins;

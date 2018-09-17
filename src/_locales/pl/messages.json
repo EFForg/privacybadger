@@ -209,6 +209,10 @@
         "message": "Eksport danych użytkownika",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Import danych użytkownika:\n<ul>\n<li>nadpisze ogólne ustawienia</li>\n<li>połączy listy wykluczanych domen</li>\n<li>połączy informacje o znalezionych śledzikach</li>\n<li>nadpisze ustawienia suwaka</li>\n</ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Reset",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Ładowanie…",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Wyłapuje sprytne śledziki",
@@ -495,10 +495,6 @@
         "message": "Privacy Badger chroni Cię przed szpiegami podczas gdy Ty przeglądasz Sieć!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Czemu nic jest zablokowane?",
-        "description": ""
-    },
     "report_fail": {
         "message": "O nie, coś się schrzaniło.",
         "description": ""
@@ -512,5 +508,41 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "sync_intro": {
+        "message": "Synchronizacja w chmurze:\n<ul>\n<li>wymaga usługi Firefox/Chrome Sync</li>\n<li>wysyłanie nadpisuje istniejące dane na serwerze</li>\n<li>pobranie łączy listy stron nieblokowanych przez Privacy Badgera</li>\n</ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Wyślij",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Eksport nieblokowanych stron na serwer",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Import nieblokowanych stron z serwera",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Pomyślnie zaimportowano dane z serwera.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Nie udało się pobrać danych z serwera.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Pomyślnie wysłano dane na serwer.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Nie udało się wysłać danych na serwer.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Brak danych na serwerze do pobrania.",
+        "description": "'Error' message when there is on cloud data to download."
     }
 }

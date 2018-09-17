@@ -13,11 +13,6 @@ td
   text-align: left;
 }
 
-p
-{
-  margin-top: 0.5em;
-}
-
 button
 {
   white-space: pre;
@@ -30,22 +25,6 @@ button
 #tab-manage-data {
   overflow: auto;
 }
-#import {
-  width: 350px;
-  float: left;
-}
-#export {
-  width: 350px;
-  float: left;
-}
-#reset {
-  width: 350px;
-  float: left;
-}
-#remove {
-  width: 350px;
-  float: left;
-}
 
 .btn-silo {
   float: left;
@@ -56,10 +35,12 @@ button
 .btn-silo + .btn-silo {
   border-top: 1px solid #d3d3d3;
   margin-top: 10px;
+  padding-top: 10px;
 }
 
 .btn-silo div {
-  padding-top: 10px;
+  width: 350px;
+  float: left;
 }
 
 .btn-danger {
@@ -113,21 +94,19 @@ button
     max-height: 400px; /* override popup.css */
 }
 
-#settingsSuffix{
-  color: #555;
-  font-size: 12px;
-  width: 500px;
-  position: relative;
-  left: 50px;
+#settings-suffix {
+    color: #555;
+    font-size: 12px;
+    width: 500px;
+    margin-left: 50px;
 }
 
-#settingsSuffix div {
+#settings-suffix div {
     margin: 12px 0;
 }
 
-#check_dnt_policy_row {
-  position: relative;
-  left: 25px;
+#check-dnt-policy-row {
+    margin-left: 25px;
 }
 
 a, a:hover, a:active, a:visited{

@@ -13,13 +13,13 @@ from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
-CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
-'{}', r => window.DNT_CHECK_RESULT = r
-);"""
-
-
 class DNTTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
+
+    CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
+  arguments[0],
+  r => window.DNT_CHECK_RESULT = r
+);"""
 
     # TODO switch to non-delayed version (see below)
     # once race condition (https://crbug.com/478183) is fixed
@@ -92,8 +92,9 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.js(BLOCK_DOMAIN_JS)
 
         # need to keep Badger's background page open for our changes to persist
-        # so, open and switch to a new window
-        self.open_window()
+        # so, either open and switch to a new window,
+        # or just reuse the already-open new user welcome window
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
         # visit a page that loads a resource from that DNT-compliant domain
         self.load_url(PAGE_URL)
@@ -125,10 +126,6 @@ class DNTTest(pbtest.PBSeleniumTest):
 
         self.assertFalse(was_blocked, msg="DNT-compliant resource should have gotten unblocked.")
 
-    # TODO reenable when the oldest Firefox tests run on is 55 or later
-    # (ESR is on 52 until June 2018 or so)
-    # alternatively, figure out how to disable more conditionally
-    @pbtest.if_firefox(unittest.skip("Disabled until Firefox fixes bug: https://github.com/EFForg/privacybadger/pull/1347#issuecomment-297573773"))
     def test_dnt_check_should_not_set_cookies(self):
         TEST_DOMAIN = "dnt-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
@@ -154,9 +151,11 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertEqual(len(self.driver.get_cookies()), 0,
             "No cookies again")
 
-        # perform a DNT policy check
         self.load_url(self.bg_url)
-        self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
+        # wait until Badger's storage is ready
+        self.wait_for_script("return badger.INITIALIZED")
+        # perform a DNT policy check
+        self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
         self.wait_for_script("return window.DNT_CHECK_RESULT === false")
 
@@ -181,13 +180,13 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.load_url(self.bg_url)
         # wait for DNT hash update to complete
         # so that it doesn't overwrite our change below
-        # TODO wait conditionally
+        # TODO wait conditionally: have badger.INITIALIZED account for things getting initialized async
         time.sleep(1)
         self.js("""badger.storage.updateDNTHashes(
 { "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
 
         # perform a DNT policy check
-        self.js(CHECK_FOR_DNT_POLICY_JS.format(TEST_DOMAIN))
+        self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
         self.wait_for_script("return typeof window.DNT_CHECK_RESULT != 'undefined';")
         # get the result
@@ -207,8 +206,9 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.load_url(self.bg_url)
 
         # need to keep Badger's background page open to record what's happening
-        # so, open and switch to a new window
-        self.open_window()
+        # so, either open and switch to a new window,
+        # or just reuse the already-open new user welcome window
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
         # visit a page containing two third-party resources,
         # one from a cookie-tracking domain
@@ -232,6 +232,11 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def test_first_party_dnt_header(self):
         TEST_URL = "https://httpbin.org/get"
+
+        self.load_url(self.bg_url)
+        # wait until DNT-injecting webRequest listeners have been registered
+        self.wait_for_script("return badger.INITIALIZED")
+
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
         self.assertTrue(headers is not None, "It seems we failed to get DNT headers")

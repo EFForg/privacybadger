@@ -515,11 +515,7 @@ function startListeners() {
    * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
    */
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    if (badger) {
-      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-    } else {
-      return {};
-    }
+    return badger.heuristicBlocking.heuristicBlockingAccounting(details);
   }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
 
   /**
@@ -534,11 +530,7 @@ function startListeners() {
       }
     }
     if (hasSetCookie) {
-      if (badger) {
-        return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      } else {
-        return {};
-      }
+      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
     }
   },
   {urls: ["<all_urls>"]}, ["responseHeaders"]);

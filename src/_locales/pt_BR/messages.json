@@ -124,7 +124,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "Clique para devolver o controle deste rastreador ao Privacy Badger",
+        "message": "Clique aqui para devolver o controle deste rastreador ao Privacy Badger",
         "description": ""
     },
     "import": {
@@ -209,6 +209,10 @@
         "message": "Exportar dados de usuário",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Importar dados do usuário:<ul><li>Substitui as configurações gerais</li><li>Combina listas de sites desativados</li><li>Combina informações sobre os rastreadores que o Privacy Badger detectou</li><li> Substitui personalizações do controle deslizante</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Resetar",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Carregando...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Detecta rastreadores ocultos",
@@ -354,7 +354,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Mova o controle deslizante para a esquerda para bloquear um domínio.",
+        "message": "Mova o controle deslizante para a esquerda para bloquear um domínio",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "O Privacy Badger detectou $COUNT$ $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ em potencial neste site. Os controles deslizantes te permite controlar o que Privacy Badger faz com cada rastreador. Você não precisa ajustar os controles a menos que algo esteja quebrado.",
+        "message": "O Privacy Badger detectou $COUNT$ $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ em potencial neste site. Os controles deslizantes permitem que você controle o que o Privacy Badger faz com cada rastreador. Você não precisa ajustar os controles a menos que algo esteja quebrado.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "O Privacy Badger detectou um potencial <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domínio de rastreamento</a> até o momento. O controle deslizante te permite controlar como o Privacy Badger lida com ele.",
+        "message": "O Privacy Badger detectou um potencial <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domínio de rastreamento</a> até o momento. O controle deslizante permite que você controle como o Privacy Badger lida com ele.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "O Privacy Badger detectou um potencial <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastreador</a> neste site. O controle deslizante te permite controlar como o Privacy Badger lida com ele. Você não precisa ajustar o controle a menos que algo esteja quebrado.",
+        "message": "O Privacy Badger detectou um potencial <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastreador</a> neste site. O controle deslizante permite que você controle como o Privacy Badger lida com ele. Você não precisa ajustar o controle a menos que algo esteja quebrado.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "O Privacy Badger detectou $COUNT$ $TRACKER_LINK_START$domínios de rastreamento$TRACKER_LINK_END$ em potencial até o momento. Os controles deslizantes te permite controlar o que Privacy Badger faz com cada rastreador.",
+        "message": "O Privacy Badger detectou $COUNT$ $TRACKER_LINK_START$domínios de rastreamento$TRACKER_LINK_END$ em potencial até o momento. Os controles deslizantes permitem que você controle o que o Privacy Badger faz com cada rastreador.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -495,16 +495,12 @@
         "message": "O Privacy Badger te protege contra rastreadores enquanto você navega na web!",
         "description": ""
     },
-    "popup_noblocked": {
-        "message": "Porque não há nada bloqueado?",
-        "description": ""
-    },
     "report_fail": {
         "message": "Oops. Algo deu errado.",
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger substituiu este $BUTTON$ botão.",
+        "message": "O Privacy Badger substituiu este botão $BUTTON$.",
         "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
         "placeholders": {
             "button": {
@@ -512,5 +508,41 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "sync_intro": {
+        "message": "Sincronização em nuvem:<ul><li>Requer Firefox/Chrome Sync</li><li>O upload sobrescreve quaisquer dados existentes do Privacy Badger na nuvem</li><li>O download combina as listas de sites onde o Privacy Badger está desativado</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Upload",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Exportar sites desativados para a nuvem",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Importar sites desativados da nuvem",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Os dados em nuvem foram importados com sucesso.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Não foi possível baixar os dados da nuvem.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Os dados foram enviados com sucesso para a nuvem.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Não foi possível enviar os dados para a nuvem.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Não há dados em nuvem para download.",
+        "description": "'Error' message when there is on cloud data to download."
     }
 }

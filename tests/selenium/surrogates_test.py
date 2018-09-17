@@ -13,13 +13,15 @@ from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
-class Test(pbtest.PBSeleniumTest):
+class SurrogatesTest(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
+    # TODO update to pbtest.org URL
+    # TODO and remove the HTML pages from eff.org then
+    TEST_URL = "https://www.eff.org/files/pbtest/ga_js_surrogate_test.html"
+
     def load_ga_js_test_page(self, timeout=12):
-        # TODO update to pbtest.org URL
-        # TODO and remove the HTML pages from eff.org then
-        self.load_url("https://www.eff.org/files/pbtest/ga_js_surrogate_test.html")
+        self.load_url(SurrogatesTest.TEST_URL)
         wait = WebDriverWait(self.driver, timeout)
         try:
             wait.until(
@@ -70,8 +72,9 @@ class Test(pbtest.PBSeleniumTest):
         )
 
         # need to keep PB's background page open for our changes to persist ...
-        # so, open and switch to a new window
-        self.open_window()
+        # so, either open and switch to a new window,
+        # or just reuse the already-open new user welcome window
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
         # verify site breaks
         self.assertFalse(
@@ -97,7 +100,7 @@ class Test(pbtest.PBSeleniumTest):
         )
 
         # still need to keep PB's bg page open ...
-        self.open_window()
+        switch_to_window_with_url(self.driver, SurrogatesTest.TEST_URL)
 
         # verify site loads again
         self.assertTrue(

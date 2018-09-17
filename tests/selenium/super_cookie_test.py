@@ -9,7 +9,7 @@ import pbtest
 from functools import partial
 
 
-class SuperCookieTest(pbtest.PBSeleniumTest):
+class SupercookieTest(pbtest.PBSeleniumTest):
     """Make sure we detect potential supercookies. """
 
     def detected_tracking_by(self, origin):
