@@ -164,6 +164,8 @@ HeuristicBlocker.prototype = {
   pingAccounting: function (details) {
     const fqdn = (new URI(details.url)).host,
       origin = window.getBaseDomain(fqdn),
+      // TODO fix attribution bug:
+      // https://github.com/EFForg/privacybadger/pull/2024/files/1ef8380d0ae4d42219d3b9bbe20b3fc424981338#r188461700
       tab_origin = tabOrigins[details.tabId];
 
     // ignore first-party requests
