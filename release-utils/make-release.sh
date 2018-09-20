@@ -18,7 +18,7 @@ source ./release-utils/config.sh
 
 if echo $TARGET | grep -q release- ; then
   GITTAG=$TARGET
-  TARGET=`echo $TARGET | sed s/release-//`
+  TARGET=$(echo $TARGET | sed s/release-//)
 else
   GITTAG=release-$TARGET
 fi
@@ -34,18 +34,12 @@ type festival >/dev/null 2>&1 || {
 
 export PREPKG=pkg/privacy_badger-$TARGET.zip
 export PREPKGCWS=pkg/privacy_badger-$TARGET.zip
-export POSTPKG=pkg/privacy_badger-$TARGET.crx
-export POSTPKGCWS=pkg/privacy_badger-$TARGET.crx
-export DEVEL=0
-export ALT=pkg/privacy_badger-chrome.crx
 export UPDATEFILE=updates.xml  # lives in chromium/ but we can't access it in the build subdir
 export UPDATEFILE2=privacy_badger-chrome-updates.xml
-export SIGFILE=pkg/$TARGET.sig
-export SIGFILECWS=pkg/$TARGET.sig
 
 
-echo "Making chrome/opera release"
-if ! release-utils/chromium-release.sh $TARGET; then
+echo "Making chrome/opera zip (used by the firefox release below)"
+if ! release-utils/make-release-zip.sh $TARGET; then
   echo "Failed to build target $TARGET for chrome"
   exit 1
 fi

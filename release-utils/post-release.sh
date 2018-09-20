@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "`dirname $0`"
 source ./config.sh
-RDFDIR=../pkg/
+PKGDIR=../pkg/
 if [ $# -ne 1 ] ; then
   echo "Usage: $0 <version to release>"
   exit 1
@@ -11,25 +11,23 @@ if ! git show release-$TARGET > /dev/null 2> /dev/null ; then
   echo "$TARGET is not a valid git target"
   exit 1
 fi
-PREPKG=$RDFDIR/privacy_badger-$TARGET.zip
-PKG=$RDFDIR/privacy-badger-eff-$TARGET.xpi
-ALT=$RDFDIR/privacy-badger-eff-latest.xpi
-RDFFILE=$RDFDIR/privacy-badger-eff-update-2048.rdf
-CHROME_PKG=$RDFDIR/privacy_badger-$TARGET.crx
-CHROME_ALT=$RDFDIR/privacy_badger-chrome.crx
+PREPKG=$PKGDIR/privacy_badger-$TARGET.zip
+PKG=$PKGDIR/privacy-badger-eff-$TARGET.xpi
+ALT=$PKGDIR/privacy-badger-eff-latest.xpi
+CHROME_PKG=$PKGDIR/privacy_badger-$TARGET.crx
+CHROME_ALT=$PKGDIR/privacy_badger-chrome.crx
 
 echo Copying .xpi files...
 scp $PKG $USER@$SERVER:/www/eff.org/docs/files/ || exit 1
 scp $ALT $USER@$SERVER:/www/eff.org/docs/files/ || exit 1
-echo Copying .rdf file...
-scp $RDFFILE $USER@$SERVER:/www/eff.org/docs/files/ || exit 1
 echo Copying detached signature
 scp $PKG.sig $USER@$SERVER:/www/eff.org/docs/files/ || exit 1
-echo "Uploading chrome package"
-cp $CHROME_PKG $CHROME_ALT
-echo Copying .crx files...
-scp $CHROME_PKG $USER@$SERVER:/www/eff.org/files/ || exit 1
-scp $CHROME_ALT $USER@$SERVER:/www/eff.org/files/ || exit 1
+# TODO get these uploaded in chromium-release.sh (?)
+#echo "Uploading chrome package"
+#cp $CHROME_PKG $CHROME_ALT
+#echo Copying .crx files...
+#scp $CHROME_PKG $USER@$SERVER:/www/eff.org/files/ || exit 1
+#scp $CHROME_ALT $USER@$SERVER:/www/eff.org/files/ || exit 1
 echo Copying Changelog.txt
 git show release-$TARGET:doc/Changelog > /tmp/pbchangelog$$ || exit 1
 scp /tmp/pbchangelog$$ $USER@$SERVER:/www/eff.org/docs/files/pbChangelog.txt || exit 1
@@ -58,8 +56,3 @@ echo "  \"update_hash\": \"sha256:`sha256sum $PKG | cut -c 1-64`\","
 echo "  \"applications\": {"
 echo "    \"gecko\": { \"strict_min_version\": \"52.0\" }"
 echo "  }"
-echo "}"
-echo ""
-echo "Now please upload $POSTPKGCWS to the Chrome Developer Dashboard"
-echo "AND CLEAR THE VARNISH CACHE on the server"
-echo "And check to confirm that the previous release is auto-updating to this one."
