@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # We use the immutable filesystem attribute as a workaround for the fact that
 # the build scripts are not currently idempotent.
 
@@ -40,16 +41,4 @@ if ! lsattr $PREPKG | cut -f 1 -d" " | grep -q i ; then
   chmod a-w $PREPKG
 else
   echo "$PREPKG is immutable; good, not rebuilding it..."
-fi
-
-UPDATETMP=pkg/$UPDATEFILE
-sed -e "s/VERSION/$TARGET/g" release-utils/updates-master.xml > $UPDATETMP
-
-MENTIONS=`grep $TARGET $UPDATETMP | wc -l`
-if [ $MENTIONS -eq 0 ] ; then
-  echo $UPDATEFILE inside $PREPKG does not appear to specify an upgrade to $TARGET
-  exit 1
-elif [ $MENTIONS -ne 1 ] ; then
-  echo $UPDATEFILE inside $PREPKG contains $TARGET a strange number of times "($MENTIONS)"
-  exit 1
 fi

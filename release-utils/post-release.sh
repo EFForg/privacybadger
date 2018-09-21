@@ -11,11 +11,10 @@ if ! git show release-$TARGET > /dev/null 2> /dev/null ; then
   echo "$TARGET is not a valid git target"
   exit 1
 fi
-PREPKG=$PKGDIR/privacy_badger-$TARGET.zip
 PKG=$PKGDIR/privacy-badger-eff-$TARGET.xpi
 ALT=$PKGDIR/privacy-badger-eff-latest.xpi
-CHROME_PKG=$PKGDIR/privacy_badger-$TARGET.crx
-CHROME_ALT=$PKGDIR/privacy_badger-chrome.crx
+#CHROME_PKG=$PKGDIR/privacy_badger-$TARGET.crx
+#CHROME_ALT=$PKGDIR/privacy_badger-chrome.crx
 
 echo Copying .xpi files...
 scp $PKG $USER@$SERVER:/www/eff.org/docs/files/ || exit 1

@@ -34,11 +34,9 @@ type festival >/dev/null 2>&1 || {
 
 export PREPKG=pkg/privacy_badger-$TARGET.zip
 export PREPKGCWS=pkg/privacy_badger-$TARGET.zip
-export UPDATEFILE=updates.xml  # lives in chromium/ but we can't access it in the build subdir
-export UPDATEFILE2=privacy_badger-chrome-updates.xml
 
 
-echo "Making chrome/opera zip (used by the firefox release below)"
+echo "Making opera zip (also used by the firefox release below)"
 if ! release-utils/make-release-zip.sh $TARGET; then
   echo "Failed to build target $TARGET for chrome"
   exit 1

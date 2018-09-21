@@ -24,7 +24,7 @@ else
 fi
 
 
-echo "Building chrome version" "$1"
+echo "Building zip version" "$1"
 
 (cd src && zip -q -r ../privacy_badger-"$TARGET".zip .)
 mv privacy_badger*.zip ../pkg/
