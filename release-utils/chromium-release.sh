@@ -13,6 +13,7 @@ cd $SUBDIR
 git reset --hard "$1"
 
 # clean up
+# TODO duplicated in make-eff-zip.sh
 rm -rf src/tests # remove unit tests
 rm src/data/dnt-policy.txt # only used by unit tests
 cp LICENSE src/ # include LICENSE in build
