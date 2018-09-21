@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# Half-build a .crx of HTTPS Everywhere for Chrome
+# make a release zip of Privacy Badger for opera and firefox
+# chrome releases happen in chromium-release.sh
 
-# This version stops at a .zip file, so that it can be signed
-# it takes a mandatory argument which is the git tag to build
+# this script takes a mandatory argument which is the git tag to build
 
 if [ -n "$1" ]; then
   SUBDIR=checkout

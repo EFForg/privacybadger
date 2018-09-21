@@ -28,10 +28,6 @@ if ! git show "$GITTAG" > /dev/null 2> /dev/null ; then
   exit 1
 fi
 
-type festival >/dev/null 2>&1 || {
-  echo >&2 "festival is not installed, cannot speak hashes aloud..."
-}
-
 export PREPKG=pkg/privacy_badger-$TARGET.zip
 export PREPKGCWS=pkg/privacy_badger-$TARGET.zip
 
