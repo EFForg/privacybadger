@@ -13,20 +13,12 @@ if ! git show release-"$TARGET" > /dev/null 2> /dev/null ; then
 fi
 PKG="$PKGDIR"/privacy-badger-eff-$TARGET.xpi
 ALT="$PKGDIR"/privacy-badger-eff-latest.xpi
-#CHROME_PKG=$PKGDIR/privacy_badger-$TARGET.crx
-#CHROME_ALT=$PKGDIR/privacy_badger-chrome.crx
 
 echo Copying .xpi files...
 scp "$PKG" "$USER@$SERVER:/www/eff.org/docs/files/" || exit 1
 scp "$ALT" "$USER@$SERVER:/www/eff.org/docs/files/" || exit 1
 echo Copying detached signature
 scp "$PKG".sig "$USER@$SERVER:/www/eff.org/docs/files/" || exit 1
-# TODO get these uploaded in chromium-release.sh (?)
-#echo "Uploading chrome package"
-#cp $CHROME_PKG $CHROME_ALT
-#echo Copying .crx files...
-#scp $CHROME_PKG $USER@$SERVER:/www/eff.org/files/ || exit 1
-#scp $CHROME_ALT $USER@$SERVER:/www/eff.org/files/ || exit 1
 echo Copying Changelog.txt
 git show release-"$TARGET":doc/Changelog > /tmp/pbchangelog$$ || exit 1
 scp /tmp/pbchangelog$$ "$USER@$SERVER:/www/eff.org/docs/files/pbChangelog.txt" || exit 1
