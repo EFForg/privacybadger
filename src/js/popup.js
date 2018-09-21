@@ -508,7 +508,7 @@ function refreshPopup() {
       num_trackers,
       "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
     ]
-  ));
+  )).find(".tooltip").tooltipster();
 
   function renderDomains() {
     const CHUNK = 1;
