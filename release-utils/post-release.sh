@@ -40,7 +40,7 @@ echo "or from your browser's add-on gallery." >> $MSG
 echo "" >> $MSG
 echo "Notable updates:" >> $MSG
 echo "" >> $MSG
-tail -n+3 ../doc/Changelog | sed '/^$/q' >> $MSG
+tail -n+4 ../doc/Changelog | sed '/^$/q' >> $MSG
 echo "For further details, consult our release notes on GitHub:" >> $MSG
 echo "https://github.com/EFForg/privacybadger/releases/tag/release-$TARGET" >> $MSG
 
@@ -55,3 +55,4 @@ echo "  \"update_hash\": \"sha256:`sha256sum $PKG | cut -c 1-64`\","
 echo "  \"applications\": {"
 echo "    \"gecko\": { \"strict_min_version\": \"52.0\" }"
 echo "  }"
+echo "}"
