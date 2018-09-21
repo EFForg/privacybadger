@@ -21,5 +21,5 @@ echo "Building chrome version" "$1"
 
 chromium --pack-extension="src/" --pack-extension-key="$2"
 cd -
-mv checkout/src.crx $3
+mv checkout/src.crx "$3"
 rm -rf checkout

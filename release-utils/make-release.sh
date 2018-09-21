@@ -16,14 +16,14 @@ fi
 source ./release-utils/config.sh
 
 
-if echo $TARGET | grep -q release- ; then
+if echo "$TARGET" | grep -q release- ; then
   GITTAG=$TARGET
-  TARGET=$(echo $TARGET | sed s/release-//)
+  TARGET=$(echo "$TARGET" | sed s/release-//)
 else
   GITTAG=release-$TARGET
 fi
 
-if ! git show $GITTAG > /dev/null 2> /dev/null ; then
+if ! git show "$GITTAG" > /dev/null 2> /dev/null ; then
   echo "$GITTAG is not a valid git target"
   exit 1
 fi
@@ -37,18 +37,18 @@ export PREPKGCWS=pkg/privacy_badger-$TARGET.zip
 
 
 echo "Making opera zip (also used by the firefox release below)"
-if ! release-utils/make-release-zip.sh $TARGET; then
+if ! release-utils/make-release-zip.sh "$TARGET"; then
   echo "Failed to build target $TARGET for chrome"
   exit 1
 fi
 
 echo "Making firefox release"
-if ! release-utils/firefox-release.sh $TARGET; then
+if ! release-utils/firefox-release.sh "$TARGET"; then
   echo "Failed to build target $TARGET for firefox"
   exit 1
 fi
 
 
-./release-utils/post-release.sh $TARGET
+./release-utils/post-release.sh "$TARGET"
 
 rm -rf checkout

@@ -6,15 +6,15 @@
 # The fact that the package is marked immutable means that it has been built
 # for release.
 
-if ! lsattr $PREPKG | cut -f 1 -d" " | grep -q i ; then
+if ! lsattr "$PREPKG" | cut -f 1 -d" " | grep -q i ; then
 
-  if [ -f $PREPKG ] ; then
-    echo $PREPKG is not immutable, rebuilding it for release!
+  if [ -f "$PREPKG" ] ; then
+    echo "$PREPKG" is not immutable, rebuilding it for release!
   else
-    echo building $PREPKG for the first time...
+    echo building "$PREPKG" for the first time...
   fi
 
-  if ! release-utils/make-eff-zip.sh $GITTAG ; then
+  if ! release-utils/make-eff-zip.sh "$GITTAG" ; then
     echo "Failed to build target $GITTAG"
     exit 1
   fi
@@ -26,19 +26,19 @@ if ! lsattr $PREPKG | cut -f 1 -d" " | grep -q i ; then
 
   # Verification and testing of build goes here!
 
-  echo Marking $PREPKG immutable...
+  echo Marking "$PREPKG" immutable...
   if ! sudo true ; then
     echo "Failed to sudo :("
     exit 1
   fi
-  if ! sudo chattr +i $PREPKG $PREPKGCWS; then
+  if ! sudo chattr +i "$PREPKG" "$PREPKGCWS"; then
     echo ""
     echo "WARNING: FAILED TO MARK $PREPKG or $PREPKGCWS IMMUTABLE."
     echo "DO NOT RERUN THIS SCRIPT AFTER SIGNING"
     echo ""
     read -p "(Press Enter to acknowledge)"
   fi
-  chmod a-w $PREPKG
+  chmod a-w "$PREPKG"
 else
   echo "$PREPKG is immutable; good, not rebuilding it..."
 fi
