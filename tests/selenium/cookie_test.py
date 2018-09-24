@@ -24,15 +24,15 @@ class CookieTest(pbtest.PBSeleniumTest):
 
     def assert_pass_opera_cookie_test(self, url, test_name):
         self.load_url(url)
-        self.assertEqual(
-            "PASS",
-            self.js("return document.getElementById('result').innerHTML"),
+        self.assertEqual("PASS", self.txt_by_css("#result"),
             "Cookie test failed: %s" % test_name)
 
     def test_should_pass_std_cookie_test(self):
-        self.assert_pass_opera_cookie_test(
-"""https://gistcdn.githack.com/gunesacar/79aa14bac95694d38425d458843dacd6/raw/3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html""",
-            "Set 1st party cookie")
+        self.assert_pass_opera_cookie_test((
+            "https://gistcdn.githack.com/gunesacar/"
+            "79aa14bac95694d38425d458843dacd6/raw/"
+            "3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html"
+        ), "Set 1st party cookie")
 
     def test_cookie_tracker_detection(self):
         """Tests basic cookie tracking. The tracking site has no DNT file,
