@@ -714,7 +714,7 @@ function dispatcher(request, sender, sendResponse) {
     });
 
   } else if (request.type == "getOptionsData") {
-    let settings = badger.storage.getBadgerStorageObject("settings");
+    let settings = badger.storage.getBadgerStorageObject("settings_map");
     sendResponse({
       showTrackingDomains: settings.getItem("showTrackingDomains"),
       showCounter: badger.showCounter(),
@@ -826,6 +826,19 @@ function dispatcher(request, sender, sendResponse) {
     let action = badger.getBestAction(request.domain);
     sendResponse({
       "action": action
+    });
+
+  } else if (request.type == "getOrigins") {
+    var action_map = badger.storage.getBadgerStorageObject('action_map');
+    var origins = {};
+    for (var domain in action_map.getItemClones()) {
+      var action = badger.storage.getBestAction(domain);
+      if (action != constants.NO_TRACKING) {
+        origins[domain] = action;
+      }
+    }
+    sendResponse({
+      origins: origins
     });
   } else if (request.type == "removeOrigin") {
     badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);

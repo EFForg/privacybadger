@@ -466,24 +466,10 @@ function removeWhitelistDomain(event) {
  * @return {Object}
  */
 function getOrigins() {
-  var origins = {};
-  var action_map = OPTIONS_DATA.action_map;
-  let messageSends = [];
-  for (var domain in action_map.getItemClones()) {
-    messageSends.push(chrome.runtime.sendMessage({
-      type: "getBestAction",
-      domain: domain
-    }));
-  }
-  return Promise.all(messageSends).then((responses) => {
-    for (let response of responses) {
-      // Do not show non tracking origins
-      if (response.action != constants.NO_TRACKING) {
-        origins[response.domain] = response.action;
-      }
-    }
-
-    return origins;
+  chrome.runtime.sendMessage({
+    type: "getOrigins"
+  }).then((response) => {
+    return response.origins;
   });
 }
 
