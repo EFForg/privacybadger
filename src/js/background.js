@@ -239,9 +239,15 @@ Badger.prototype = {
       };
     }
 
+    let host = window.extractHostFromURL(frameUrl);
+    //if frame URL is 'about:blank', inherit parent host
+    if (frameUrl === "about:blank") {
+      host = self.tabData[tabId].frames[parentFrameId].host;
+    }
+
     self.tabData[tabId].frames[frameId] = {
       url: frameUrl,
-      host: window.extractHostFromURL(frameUrl),
+      host: host,
       parent: parentFrameId
     };
   },

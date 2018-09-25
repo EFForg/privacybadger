@@ -374,14 +374,14 @@ function getHostForTab(tabId) {
  * Record "supercookie" tracking
  *
  * @param {Integer} tab_id browser tab ID
- * @param {String} frame_url URL of the frame with supercookie
+ * @param {Integer} frame_id id of the frame with supercookie
  */
-function recordSuperCookie(tab_id, frame_url) {
+function recordSuperCookie(tab_id, frame_id) {
   if (!incognito.learningEnabled(tab_id)) {
     return;
   }
 
-  const frame_host = window.extractHostFromURL(frame_url),
+  const frame_host = badger.getFrameData(tab_id, frame_id).host,
     page_host = badger.getFrameData(tab_id).host;
 
   if (!isThirdPartyDomain(frame_host, page_host)) {
@@ -683,12 +683,12 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.superCookieReport) {
     if (badger.hasSuperCookie(request.superCookieReport)) {
-      recordSuperCookie(sender.tab.id, sender.url);
+      recordSuperCookie(sender.tab.id, sender.frameId);
     }
 
   } else if (request.checkEnabledAndThirdParty) {
     let tab_host = window.extractHostFromURL(sender.tab.url),
-      frame_host = window.extractHostFromURL(sender.url);
+      frame_host = badger.getFrameData(sender.tab.id, sender.frameId).host;
 
     sendResponse(badger.isPrivacyBadgerEnabled(tab_host) && isThirdPartyDomain(frame_host, tab_host));
 
