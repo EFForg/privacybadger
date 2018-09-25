@@ -1,10 +1,12 @@
 # -*- coding: UTF-8 -*-
 import os
 import unittest
-from contextlib import contextmanager
-from collections import namedtuple
+import signal
 import subprocess
 import time
+
+from contextlib import contextmanager
+from collections import namedtuple
 from functools import wraps
 
 from selenium import webdriver
@@ -14,6 +16,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+
+MAX_TEST_EXECUTION_TIME = 60
+NUM_TEST_TIMEOUT_RETRIES = 2
 
 SEL_DEFAULT_WAIT_TIMEOUT = 30
 
@@ -282,8 +287,19 @@ class PBSeleniumTest(unittest.TestCase):
         self.test_url = self.base_url + "tests/index.html"
 
     def run(self, result=None):
-        nretries = attempts.get(result.name, 1)
-        for i in range(nretries):
+        def _handle_timeout(signum, frame): # pylint:disable=unused-argument
+            raise TimeoutException("Reached maximum test execution time.")
+        try:
+            signal.signal(signal.SIGALRM, _handle_timeout)
+        except ValueError:
+            print("\nSIGALRM not supported, ignoring ...")
+
+        i = -1
+        while True:
+            i += 1
+
+            signal.alarm(MAX_TEST_EXECUTION_TIME)
+
             try:
                 with self.manager() as driver:
                     self.init(driver)
@@ -300,15 +316,30 @@ class PBSeleniumTest(unittest.TestCase):
                     else:
                         break
 
+            except TimeoutException:
+                if i == 0: print("")
+                if i < NUM_TEST_TIMEOUT_RETRIES:
+                    print("Test timed out, retrying ...")
+                    continue
+                else:
+                    raise
+
             except Exception:
-                if i == nretries - 1:
+                if i == attempts.get(result.name, 1) - 1:
                     raise
                 else:
                     wait_secs = 2 ** i
-                    print('\nRetrying {} after {} seconds ...'.format(
+                    if i == 0: print("")
+                    print('Retrying {} after {} seconds ...'.format(
                         result, wait_secs))
                     time.sleep(wait_secs)
                     continue
+
+            finally:
+                signal.alarm(0)
+
+            # if we got here, the test (pass or fail) finished running successfully
+            break
 
     def open_window(self):
         self.js('window.open()')
