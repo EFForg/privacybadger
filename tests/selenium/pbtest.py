@@ -277,6 +277,11 @@ class PBSeleniumTest(unittest.TestCase):
             try:
                 with self.manager() as driver:
                     self.init(driver)
+
+                    # wait for Badger's storage, listeners, ...
+                    self.load_url(self.bg_url)
+                    self.wait_for_script("return badger.INITIALIZED")
+
                     super(PBSeleniumTest, self).run(result)
 
                     # retry test magic
