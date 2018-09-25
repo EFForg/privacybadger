@@ -82,8 +82,8 @@ class CookieTest(pbtest.PBSeleniumTest):
                 # Popup UI has been updated. Yay!
                 break
             window_utils.close_windows_with_url(self.driver, self.popup_url)
-            print("popup UI has not been updated yet. try again in 10 seconds")
-            time.sleep(10)
+            print("popup UI has not been updated yet. retrying ...")
+            time.sleep(3)
 
         self.assertTrue(THIRD_PARTY_TRACKER in self.cookieBlocked)
 
@@ -104,15 +104,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         with the associated tabid. Then the correct status information will be displayed
         in the popup."""
 
-        # open new tab with the PB UI
-        # note: there's a selenium + chromedriver + mac bug where you can't use the command key to
-        # open a new tab. And if you inject javascript to open a window and you have the
-        # popup blocker turned on, it won't work. Workaround: embed a button on the target page
-        # that opens a new window when clicked.
-        window_utils.switch_to_window_with_url(self.driver, target_scheme_and_host)
-        button = self.find_el_by_css("#newwindowbutton")
-        button.click()
-        window_utils.switch_to_window_with_url(self.driver, "about:blank")
+        self.open_window()
         self.load_url(self.popup_url)
 
         # get the popup populated with status information for the correct url
