@@ -69,7 +69,7 @@
     {
       "js": [
         "js/firstparties/lib/utils.js",
-        "js/firstparties/google.js"
+        "js/firstparties/google-search.js"
       ],
       "matches": [
         "https://www.google.com/*",
@@ -80,11 +80,13 @@
     {
       "js": [
         "js/firstparties/lib/utils.js",
-        "js/firstparties/hangouts.js"
+        "js/firstparties/google-static.js"
       ],
       "matches": [
         "https://hangouts.google.com/*",
-        "http://hangouts.google.com/*"
+        "http://hangouts.google.com/*",
+        "https://docs.google.com/*",
+        "http://docs.google.com/*"
       ],
       "all_frames": true,
       "run_at": "document_idle"

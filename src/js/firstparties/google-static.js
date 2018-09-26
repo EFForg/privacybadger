@@ -1,4 +1,4 @@
-let hangouts_wrapped_link = "a[href^='https://www.google.com/url?']";
+let wrapped_link = "a[href^='https://www.google.com/url?']";
 
 // Unwrap a Hangouts tracking link
 function unwrapLink(a) {
@@ -21,7 +21,7 @@ function unwrapLink(a) {
 
 // Scan the page for all wrapped links
 function unwrapAll() {
-  document.querySelectorAll(hangouts_wrapped_link).forEach((a) => {
+  document.querySelectorAll(wrapped_link).forEach((a) => {
     unwrapLink(a);
   });
 }
