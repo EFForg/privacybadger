@@ -76,7 +76,10 @@ def install_ext_on_ff(driver, extension_path):
     included in Selenium. See https://github.com/SeleniumHQ/selenium/issues/4215
     '''
     command = 'addonInstall'
-    driver.command_executor._commands[command] = ('POST', '/session/$sessionId/moz/addon/install')
+    driver.command_executor._commands[command] = ( # pylint:disable=protected-access
+        'POST',
+        '/session/$sessionId/moz/addon/install'
+    )
     driver.execute(command, params={'path': extension_path, 'temporary': True})
     time.sleep(2)
 
@@ -209,8 +212,8 @@ def if_firefox(wrapper):
     def test_catcher(test):
         if shim.browser_type == 'firefox':
             return wraps(test)(wrapper)(test)
-        else:
-            return test
+        return test
+
     return test_catcher
 
 
