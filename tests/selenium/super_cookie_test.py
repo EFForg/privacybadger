@@ -23,8 +23,6 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         return self.js(CHECK_SNITCH_MAP_JS)
 
     # test for https://github.com/EFForg/privacybadger/pull/1403
-    # TODO remove retrying entire test after we revert 879a74f807999a2135e4d48bb5efbd8a1beff4f8
-    @pbtest.repeat_if_failed(5)
     def test_async_tracking_misattribution_bug(self):
         self.load_url(
             "https://cdn.rawgit.com/ghostwords"

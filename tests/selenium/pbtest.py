@@ -238,23 +238,6 @@ def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ...")
     return result
 
 
-attempts = {}  # used to count test retries
-def repeat_if_failed(ntimes): # noqa
-    '''
-    A decorator that retries the test if it fails `ntimes`. The TestCase must
-    be used on a subclass of unittest.TestCase. NB: this just registers function
-    to be retried. The try/except logic is in PBSeleniumTest.run.
-    '''
-    def test_catcher(test):
-        attempts[test.__name__] = ntimes
-
-        @wraps(test)
-        def caught(*args, **kwargs):
-            return test(*args, **kwargs)
-        return caught
-    return test_catcher
-
-
 class PBSeleniumTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -310,12 +293,6 @@ class PBSeleniumTest(unittest.TestCase):
 
                     super(PBSeleniumTest, self).run(result)
 
-                    # retry test magic
-                    if result.name in attempts and result._excinfo:
-                        raise Exception(result._excinfo.pop())
-                    else:
-                        break
-
             except TimeoutException:
                 if i == 0: print("")
                 if i < NUM_TEST_TIMEOUT_RETRIES:
@@ -323,17 +300,6 @@ class PBSeleniumTest(unittest.TestCase):
                     continue
                 else:
                     raise
-
-            except Exception:
-                if i == attempts.get(result.name, 1) - 1:
-                    raise
-                else:
-                    wait_secs = 2 ** i
-                    if i == 0: print("")
-                    print('Retrying {} after {} seconds ...'.format(
-                        result, wait_secs))
-                    time.sleep(wait_secs)
-                    continue
 
             finally:
                 signal.alarm(0)

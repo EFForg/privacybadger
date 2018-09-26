@@ -75,7 +75,6 @@ class DNTTest(pbtest.PBSeleniumTest):
   }})
 );""".format(domain, domain))
 
-    @pbtest.repeat_if_failed(3)
     def test_dnt_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
             "https://cdn.rawgit.com/ghostwords/"
