@@ -273,8 +273,10 @@ class PBSeleniumTest(unittest.TestCase):
         self.test_url = self.base_url + "tests/index.html"
 
     def run(self, result=None):
+        class TestTimeoutException(Exception):
+            pass
         def _handle_timeout(signum, frame): # pylint:disable=unused-argument
-            raise TimeoutException("Reached maximum test execution time.")
+            raise TestTimeoutException("Reached maximum test execution time.")
         try:
             signal.signal(signal.SIGALRM, _handle_timeout)
         except ValueError:
@@ -284,7 +286,8 @@ class PBSeleniumTest(unittest.TestCase):
         while True:
             i += 1
 
-            signal.alarm(MAX_TEST_EXECUTION_TIME)
+            #signal.alarm(MAX_TEST_EXECUTION_TIME)
+            signal.alarm(5)
 
             try:
                 with self.manager() as driver:
@@ -296,7 +299,7 @@ class PBSeleniumTest(unittest.TestCase):
 
                     super(PBSeleniumTest, self).run(result)
 
-            except TimeoutException:
+            except TestTimeoutException:
                 if i == 0: print("")
                 if i < NUM_TEST_TIMEOUT_RETRIES:
                     print("Test timed out, retrying ...")
