@@ -1,10 +1,12 @@
 # -*- coding: UTF-8 -*-
 import os
 import unittest
-from contextlib import contextmanager
-from collections import namedtuple
+import signal
 import subprocess
 import time
+
+from contextlib import contextmanager
+from collections import namedtuple
 from functools import wraps
 
 from selenium import webdriver
@@ -14,6 +16,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+
+MAX_TEST_EXECUTION_TIME = 60
+NUM_TEST_TIMEOUT_RETRIES = 2
 
 SEL_DEFAULT_WAIT_TIMEOUT = 30
 
@@ -71,7 +76,10 @@ def install_ext_on_ff(driver, extension_path):
     included in Selenium. See https://github.com/SeleniumHQ/selenium/issues/4215
     '''
     command = 'addonInstall'
-    driver.command_executor._commands[command] = ('POST', '/session/$sessionId/moz/addon/install')
+    driver.command_executor._commands[command] = ( # pylint:disable=protected-access
+        'POST',
+        '/session/$sessionId/moz/addon/install'
+    )
     driver.execute(command, params={'path': extension_path, 'temporary': True})
     time.sleep(2)
 
@@ -204,8 +212,8 @@ def if_firefox(wrapper):
     def test_catcher(test):
         if shim.browser_type == 'firefox':
             return wraps(test)(wrapper)(test)
-        else:
-            return test
+        return test
+
     return test_catcher
 
 
@@ -231,23 +239,6 @@ def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ...")
         time.sleep(2 ** i)
 
     return result
-
-
-attempts = {}  # used to count test retries
-def repeat_if_failed(ntimes): # noqa
-    '''
-    A decorator that retries the test if it fails `ntimes`. The TestCase must
-    be used on a subclass of unittest.TestCase. NB: this just registers function
-    to be retried. The try/except logic is in PBSeleniumTest.run.
-    '''
-    def test_catcher(test):
-        attempts[test.__name__] = ntimes
-
-        @wraps(test)
-        def caught(*args, **kwargs):
-            return test(*args, **kwargs)
-        return caught
-    return test_catcher
 
 
 class PBSeleniumTest(unittest.TestCase):
@@ -282,8 +273,22 @@ class PBSeleniumTest(unittest.TestCase):
         self.test_url = self.base_url + "tests/index.html"
 
     def run(self, result=None):
-        nretries = attempts.get(result.name, 1)
-        for i in range(nretries):
+        class TestTimeoutException(Exception):
+            pass
+        def _handle_timeout(signum, frame): # pylint:disable=unused-argument
+            raise TestTimeoutException("Reached maximum test execution time.")
+        try:
+            signal.signal(signal.SIGALRM, _handle_timeout)
+        except ValueError:
+            print("\nSIGALRM not supported, ignoring ...")
+
+        i = -1
+        while True:
+            i += 1
+
+            #signal.alarm(MAX_TEST_EXECUTION_TIME)
+            signal.alarm(5)
+
             try:
                 with self.manager() as driver:
                     self.init(driver)
@@ -294,21 +299,19 @@ class PBSeleniumTest(unittest.TestCase):
 
                     super(PBSeleniumTest, self).run(result)
 
-                    # retry test magic
-                    if result.name in attempts and result._excinfo:
-                        raise Exception(result._excinfo.pop())
-                    else:
-                        break
-
-            except Exception:
-                if i == nretries - 1:
-                    raise
-                else:
-                    wait_secs = 2 ** i
-                    print('\nRetrying {} after {} seconds ...'.format(
-                        result, wait_secs))
-                    time.sleep(wait_secs)
+            except TestTimeoutException:
+                if i == 0: print("")
+                if i < NUM_TEST_TIMEOUT_RETRIES:
+                    print("Test timed out, retrying ...")
                     continue
+                else:
+                    raise
+
+            finally:
+                signal.alarm(0)
+
+            # if we got here, the test (pass or fail) finished running successfully
+            break
 
     def open_window(self):
         self.js('window.open()')
