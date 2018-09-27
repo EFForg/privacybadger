@@ -193,10 +193,10 @@
     g_script.onload = function() {
       // wait a bit before testing so sendMessage can complete
       setTimeout(function () {
-        assert.notOk(ff_link.onmousedown, 'removed mouseDown event from ff link'),
+        assert.notOk(ff_link.onmousedown, 'removed mouseDown event from ff link');
         assert.ok(ff_link.rel.includes('noreferrer'), 'added noreferrer to link');
 
-        assert.notOk(chrome_link.ping, 'removed ping attr from chrome link'),
+        assert.notOk(chrome_link.ping, 'removed ping attr from chrome link');
 
         unstub();
         done();
