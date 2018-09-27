@@ -1,4 +1,4 @@
-let wrapped_link = "a[href^='https://www.google.com/url?']";
+let g_wrapped_link = "a[href^='https://www.google.com/url?']";
 
 // Unwrap a Hangouts tracking link
 function unwrapLink(a) {
@@ -21,7 +21,7 @@ function unwrapLink(a) {
 
 // Scan the page for all wrapped links
 function unwrapAll() {
-  document.querySelectorAll(wrapped_link).forEach((a) => {
+  document.querySelectorAll(g_wrapped_link).forEach((a) => {
     unwrapLink(a);
   });
 }
@@ -32,6 +32,7 @@ chrome.runtime.sendMessage({checkEnabled: true},
     if (!enabled) {
       return;
     }
+    unwrapAll();
     setInterval(unwrapAll, 2000);
   }
 );

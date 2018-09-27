@@ -1,7 +1,7 @@
 /* globals findInAllFrames:false */
 // In Firefox, outbound google links have the `rwt(...)` mousedown trigger.
 // In Chrome, they just have a `ping` attribute.
-let wrapped_link = "a[onmousedown^='return rwt(this,'], a[ping]";
+let trap_link = "a[onmousedown^='return rwt(this,'], a[ping]";
 
 // Remove excessive attributes and event listeners from link a
 function cleanLink(a) {
@@ -28,7 +28,7 @@ chrome.runtime.sendMessage({checkEnabled: true},
 
     // since the page is rendered all at once, no need to set up a
     // mutationObserver or setInterval
-    findInAllFrames(wrapped_link).forEach((link) => {
+    findInAllFrames(trap_link).forEach((link) => {
       cleanLink(link);
     });
 
