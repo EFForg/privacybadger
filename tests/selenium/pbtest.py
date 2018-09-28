@@ -10,7 +10,8 @@ from functools import wraps
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver import DesiredCapabilities
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -139,7 +140,7 @@ class Shim:
 
     @contextmanager
     def chrome_manager(self):
-        opts = Options()
+        opts = ChromeOptions()
         if self.on_travis:  # github.com/travis-ci/travis-ci/issues/938
             opts.add_argument("--no-sandbox")
         opts.add_extension(self.extension_path)
@@ -173,7 +174,13 @@ class Shim:
 
         for i in range(5):
             try:
-                driver = webdriver.Firefox(firefox_profile=ffp, firefox_binary=self.browser_path)
+                opts = FirefoxOptions()
+                #opts.log.level = "trace"
+                driver = webdriver.Firefox(
+                    firefox_profile=ffp,
+                    firefox_binary=self.browser_path,
+                    firefox_options=opts
+                )
             except WebDriverException as e:
                 if i == 0: print("")
                 print("Firefox WebDriver initialization failed:")
@@ -311,7 +318,29 @@ class PBSeleniumTest(unittest.TestCase):
                     continue
 
     def open_window(self):
-        self.js('window.open()')
+        if self.driver.current_url.startswith("moz-extension://"):
+            # work around https://bugzilla.mozilla.org/show_bug.cgi?id=1491443
+            self.js(
+                "(function () {"
+                "let link = document.createElement('a');"
+                "link.rel = 'noopener';"
+                "link.target = '_blank';"
+                "link.href = 'about:blank';"
+                "link.id = 'newwindowlink';"
+                "link.appendChild(document.createTextNode('clickme'));"
+                "document.body.appendChild(link);"
+                "}());"
+            )
+            self.driver.find_element_by_id("newwindowlink").click()
+            self.js(
+                "(function () {"
+                "let link = document.getElementById('newwindowlink');"
+                "link.parentNode.removeChild(link);"
+                "}());"
+            )
+        else:
+            self.js('window.open()')
+
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
     def load_url(self, url, wait_for_body_text=False, retries=5):
