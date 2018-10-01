@@ -115,19 +115,16 @@
     let fb_script = document.createElement('script');
     fb_script.src = '../js/firstparties/facebook.js';
     fb_script.onload = function() {
-      // wait a bit before testing so sendMessage can complete
-      setTimeout(function () {
-        assert.equal(good_link.href, destination, 'unwrapped good link');
-        assert.ok(good_link.rel.includes('noreferrer'),
-          'added noreferrer to good link');
+      assert.equal(good_link.href, destination, 'unwrapped good link');
+      assert.ok(good_link.rel.includes('noreferrer'),
+        'added noreferrer to good link');
 
-        assert.equal(bad_link.href, fb_xss, 'did not unwrap the XSS link');
-        assert.notOk(bad_link.rel.includes('noreferrer'),
-          'did not change rel of XSS link');
+      assert.equal(bad_link.href, fb_xss, 'did not unwrap the XSS link');
+      assert.notOk(bad_link.rel.includes('noreferrer'),
+        'did not change rel of XSS link');
 
-        unstub();
-        done();
-      }, 200);
+      unstub();
+      done();
     };
 
     stub([good_link, bad_link], '/l.php?');
@@ -154,15 +151,12 @@
     let g_script = document.createElement('script');
     g_script.src = '../js/firstparties/google-static.js';
     g_script.onload = function() {
-      // wait a bit before testing so sendMessage can complete
-      setTimeout(function () {
-        assert.equal(shim_link.href, destination, 'unwrapped shim link');
-        assert.ok(shim_link.rel.includes('noreferrer'),
-          'added noreferrer to shim link');
+      assert.equal(shim_link.href, destination, 'unwrapped shim link');
+      assert.ok(shim_link.rel.includes('noreferrer'),
+        'added noreferrer to shim link');
 
-        unstub();
-        done();
-      }, 200);
+      unstub();
+      done();
     };
 
     stub([shim_link], '/url?');
@@ -191,16 +185,13 @@
     let g_script = document.createElement('script');
     g_script.src = '../js/firstparties/google-search.js';
     g_script.onload = function() {
-      // wait a bit before testing so sendMessage can complete
-      setTimeout(function () {
-        assert.notOk(ff_link.onmousedown, 'removed mouseDown event from ff link');
-        assert.ok(ff_link.rel.includes('noreferrer'), 'added noreferrer to link');
+      assert.notOk(ff_link.onmousedown, 'removed mouseDown event from ff link');
+      assert.ok(ff_link.rel.includes('noreferrer'), 'added noreferrer to link');
 
-        assert.notOk(chrome_link.ping, 'removed ping attr from chrome link');
+      assert.notOk(chrome_link.ping, 'removed ping attr from chrome link');
 
-        unstub();
-        done();
-      }, 200);
+      unstub();
+      done();
     };
 
     stub([ff_link, chrome_link], 'onmousedown^=');
