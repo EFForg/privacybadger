@@ -475,7 +475,6 @@ Badger.prototype = {
         callback(successStatus);
         return;
       }
-      // TODO Use sha256
       utils.sha1(response, function(hash) {
         if (dnt_hashes.hasItem(hash)) {
           successStatus = true;
