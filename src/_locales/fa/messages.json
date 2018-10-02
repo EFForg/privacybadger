@@ -15,7 +15,7 @@
     },
     "options_remove_origin_confirm": {
         "message": "آیا مطمئن هستید که میخواهید این را از پرایوسی بجر حذف کنید؟",
-        "description": ""
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "هیچ ردیابی برای $DOMAIN$ وجود ندارد",

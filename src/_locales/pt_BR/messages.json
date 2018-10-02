@@ -15,7 +15,7 @@
     },
     "options_remove_origin_confirm": {
         "message": "Tem certeza de que deseja remover esse domínio do Privacy Badger?",
-        "description": ""
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "Nenhum rastreamento para $DOMAIN$",

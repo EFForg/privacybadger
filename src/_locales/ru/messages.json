@@ -14,8 +14,8 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Вы уверены, что хотите удалить этот источник из Privacy Badger?",
-        "description": ""
+        "message": "Вы уверены, что хотите удалить этот домен из Privacy Badger?",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "Нет отслеживающей активности на $DOMAIN$",
