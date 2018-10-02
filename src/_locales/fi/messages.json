@@ -18,7 +18,7 @@
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
-        "message": "Ei jäljitystä verkkotunnuksesta$DOMAIN$",
+        "message": "Ei jäljitystä verkkotunnuksesta $DOMAIN$",
         "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -120,7 +120,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
-        "message": "Lataa pilvestä",
+        "message": "Lataa",
         "description": ""
     },
     "feed_the_badger_title": {
@@ -166,7 +166,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Näytä estettyjen määrä.",
+        "message": "Näytä estettyjen määrä",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -194,7 +194,7 @@
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
-        "message": "Salli Privacy Badger tälle sivulle",
+        "message": "Ota Privacy Badger käyttöön tällä sivustolla",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -354,7 +354,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Liu'uta valitsin vasemmalle estääksesi verkkotunnus",
+        "message": "Liu'uta valitsin vasemmalle estääksesi verkkotunnuksen",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger on tähän asti havainnut yhden mahdollisen <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävän verkkotunnuksen</a>.  Liukuvalitsimella voit hallita, miten Privacy Badger käsittelee sitä. ",
+        "message": "Privacy Badger on tähän asti havainnut yhden mahdollisen <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävän verkkotunnuksen</a>.  Liukuvalitsimella voit hallita, miten Privacy Badger käsittelee sitä.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
