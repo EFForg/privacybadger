@@ -107,11 +107,11 @@
     let good_link = makeLink(fb_wrap);
     let bad_link = makeLink(fb_xss);
 
-    // load first-party utils
+    // create first-party utility script
     let util_script = document.createElement('script');
     util_script.src = '../js/firstparties/lib/utils.js';
 
-    // load the content script
+    // create the content script
     let fb_script = document.createElement('script');
     fb_script.src = '../js/firstparties/facebook.js';
     fb_script.onload = function() {
@@ -127,11 +127,15 @@
       done();
     };
 
+    // after the utility script has finished loading, add the content script
+    util_script.onload = function() {
+      fixture.append(fb_script);
+    };
+
     stub([good_link, bad_link], '/l.php?');
     fixture.appendChild(good_link);
     fixture.appendChild(bad_link);
     fixture.appendChild(util_script);
-    fixture.appendChild(fb_script);
   });
 
 
@@ -143,11 +147,11 @@
     let fixture = document.getElementById('qunit-fixture');
     let shim_link = makeLink(g_wrap);
 
-    // load first-party utils
+    // create first-party utility script
     let util_script = document.createElement('script');
     util_script.src = '../js/firstparties/lib/utils.js';
 
-    // load the content script
+    // create the content script
     let g_script = document.createElement('script');
     g_script.src = '../js/firstparties/google-static.js';
     g_script.onload = function() {
@@ -159,10 +163,14 @@
       done();
     };
 
+    // after the utility script has finished loading, add the content script
+    util_script.onload = function() {
+      fixture.append(g_script);
+    };
+
     stub([shim_link], '/url?');
     fixture.appendChild(shim_link);
     fixture.appendChild(util_script);
-    fixture.appendChild(g_script);
   });
 
 
@@ -177,11 +185,11 @@
     let chrome_link = makeLink(destination);
     chrome_link.ping = g_ping;
 
-    // load first-party utils
+    // create first-party utility script
     let util_script = document.createElement('script');
     util_script.src = '../js/firstparties/lib/utils.js';
 
-    // load the content script
+    // create the content script
     let g_script = document.createElement('script');
     g_script.src = '../js/firstparties/google-search.js';
     g_script.onload = function() {
@@ -194,11 +202,15 @@
       done();
     };
 
+    // after the utility script has finished loading, add the content script
+    util_script.onload = function() {
+      fixture.append(g_script);
+    };
+
     stub([ff_link, chrome_link], 'onmousedown^=');
     fixture.appendChild(ff_link);
     fixture.appendChild(chrome_link);
     fixture.appendChild(util_script);
-    fixture.appendChild(g_script);
   });
 
 }());
