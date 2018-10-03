@@ -14,7 +14,7 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Are you sure you want to remove this domain from Privacy Badger?",
+        "message": "Er du sikker på at du vil fjerne dette domæne fra Privacy Badger?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
