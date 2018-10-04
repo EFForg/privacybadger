@@ -7,10 +7,13 @@ function unwrapLink(a) {
     return;
   }
 
-  // remove all attributes from a link except for target
+  // remove all attributes from a link except for target, class, and aria-*
+  // attributes. This should prevent the script from breaking styles and
+  // features for people with disabilities.
   for (let i = a.attributes.length - 1; i >= 0; --i) {
     const attr = a.attributes[i];
-    if (attr.name !== "target") {
+    if (attr.name !== 'target' && attr.name !== 'class' &&
+      !attr.name.startsWith('aria-')) {
       a.removeAttribute(attr.name);
     }
   }
