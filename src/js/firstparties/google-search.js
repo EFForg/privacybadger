@@ -8,7 +8,8 @@ function cleanLink(a) {
   // remove all attributes from a link except for href
   for (let i = a.attributes.length - 1; i >= 0; --i) {
     const attr = a.attributes[i];
-    if (attr.name !== 'href') {
+    if (attr.name !== 'href' && attr.name !== 'target' &&
+      attr.name !== 'class' && !attr.name.startsWith('aria-')) {
       a.removeAttribute(attr.name);
     }
   }
