@@ -38,7 +38,6 @@ if ! lsattr "$PREPKG" | cut -f 1 -d" " | grep -q i ; then
     echo ""
     read -p "(Press Enter to acknowledge)"
   fi
-  chmod a-w "$PREPKG"
 else
   echo "$PREPKG is immutable; good, not rebuilding it..."
 fi
