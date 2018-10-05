@@ -261,10 +261,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
             DOMAIN, "cookieblock"))
 
-        # need to preserve original window
-        # restoring control auto-closes popup
-        self.open_window()
-
         self.open_popup(origins={DOMAIN:"cookieblock"})
 
         # set the domain to user control
@@ -305,16 +301,12 @@ class PopupTest(pbtest.PBSeleniumTest):
         DISPLAYED_ERROR = " should not be displayed on popup"
         NOT_DISPLAYED_ERROR = " should be displayed on popup"
 
-        # need to preserve original window
-        # since enabling/disabling auto-closes popup
-        self.open_window()
         self.open_popup()
 
         self.get_disable_button().click()
 
         # get back to a valid window handle as the window just got closed
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.open_window()
         self.open_popup(close_overlay=False)
 
         # Check that popup state changed after disabling.
@@ -328,7 +320,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         enable_button.click()
 
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.open_window()
         self.open_popup(close_overlay=False)
 
         # Check that popup state changed after re-enabling.
