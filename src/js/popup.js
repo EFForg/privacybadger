@@ -17,6 +17,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+window.POPUP_INITIALIZED = false;
+
 var constants = require("constants");
 var FirefoxAndroid = require("firefoxandroid");
 var htmlUtils = require("htmlutils").htmlUtils;
@@ -106,7 +108,6 @@ function init() {
   });
 
   $('#error_input').on('input propertychange', function() {
-
     // No easy way of sending message on popup close, send message for every change
     chrome.runtime.sendMessage({
       type: 'saveErrorText',
@@ -149,6 +150,8 @@ function init() {
     openOptionsPage();
     e.preventDefault();
   });
+
+  window.POPUP_INITIALIZED = true;
 }
 
 function openOptionsPage() {
