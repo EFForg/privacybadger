@@ -33,7 +33,7 @@ parse_stdout = lambda res: res.strip().decode('utf-8')
 
 run_shell_command = lambda command: parse_stdout(subprocess.check_output(command))
 
-get_git_root = lambda: run_shell_command(['git', 'rev-parse', '--show-toplevel'])
+GIT_ROOT = run_shell_command(['git', 'rev-parse', '--show-toplevel'])
 
 
 def unix_which(command, silent=False):
@@ -64,8 +64,8 @@ def get_browser_name(string):
 
 def build_crx():
     '''Builds the .crx file for Chrome and returns the path to it'''
-    cmd = ['make', '-sC', get_git_root(), 'travisbuild']
-    return os.path.join(get_git_root(), run_shell_command(cmd).split()[-1])
+    cmd = ['make', '-sC', GIT_ROOT, 'travisbuild']
+    return os.path.join(GIT_ROOT, run_shell_command(cmd).split()[-1])
 
 
 def install_ext_on_ff(driver, extension_path):
@@ -128,7 +128,7 @@ class Shim:
         if self.browser_type == 'chrome':
             return build_crx()
         elif self.browser_type == 'firefox':
-            return os.path.join(get_git_root(), 'src')
+            return os.path.join(GIT_ROOT, 'src')
         else:
             raise ValueError("bad browser getting extension path")
 
@@ -277,7 +277,7 @@ class PBSeleniumTest(unittest.TestCase):
         # setting DBUS_SESSION_BUS_ADDRESS to nonsense prevents frequent
         # hangs of chromedriver (possibly due to crbug.com/309093)
         os.environ["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
-        cls.proj_root = get_git_root()
+        cls.proj_root = GIT_ROOT
 
     @classmethod
     def tearDownClass(cls):
