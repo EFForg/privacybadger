@@ -122,7 +122,7 @@ class Shim:
         self._specifics = self._specifics or {
             'chrome': Specifics(self.chrome_manager, 'chrome-extension://%s/' % chrome_info['extension_id'], chrome_info),
             'firefox': Specifics(self.firefox_manager, 'moz-extension://%s/' % firefox_info['uuid'], firefox_info)}
-        self.manager, self.bg_url, self.info = self._specifics[self.browser_type]
+        self.manager, self.base_url, self.info = self._specifics[self.browser_type]
 
     def get_ext_path(self):
         if self.browser_type == 'chrome':
@@ -267,7 +267,7 @@ class PBSeleniumTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.manager = shim.manager
-        cls.base_url = shim.bg_url
+        cls.base_url = shim.base_url
         cls.wants_xvfb = shim.wants_xvfb
         if cls.wants_xvfb:
             from xvfbwrapper import Xvfb
