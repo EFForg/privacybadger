@@ -18,25 +18,16 @@ develop-eggs
 lib64
 __pycache__
 
-# Chrome extensions
-*.crx
-
-# Firefox Extensions
-*.xpi
-
 # Dynamic libraries
 *.dylib
 
 # JSHydra
 buildtools/jshydra/mozilla/js
 
-#vim swap files
+# Vim swap files
 *.sw*
 
-#zip files
-*.zip
-
-#Mac DS_Store
+# Mac DS_Store
 *.DS_Store
 
 node_modules
