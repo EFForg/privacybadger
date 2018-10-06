@@ -5,7 +5,6 @@ import subprocess
 import time
 import unittest
 
-from collections import namedtuple
 from contextlib import contextmanager
 from functools import wraps
 
@@ -23,11 +22,6 @@ SEL_DEFAULT_WAIT_TIMEOUT = 30
 
 BROWSER_TYPES = ['chrome', 'firefox']
 BROWSER_NAMES = ['google-chrome', 'google-chrome-stable', 'google-chrome-beta', 'firefox']
-
-Specifics = namedtuple('Specifics', ['manager', 'background_url', 'info'])
-
-firefox_info = {'extension_id': 'jid1-MnnxcxisBPnSXQ@jetpack', 'uuid': 'd56a5b99-51b6-4e83-ab23-796216679614'}
-chrome_info = {'extension_id': 'mcgekeccgjgcmhnhbabplanchdogjcnh'}
 
 parse_stdout = lambda res: res.strip().decode('utf-8')
 
@@ -91,7 +85,6 @@ class Shim:
 
     def __init__(self):
         print("\n\nConfiguring the test run ...")
-        self._specifics = None
 
         browser = os.environ.get('BROWSER')
 
@@ -114,15 +107,25 @@ class Shim:
             raise ValueError("could not infer BROWSER from %s" % browser)
 
         self.extension_path = self.get_ext_path()
-        self._set_specifics()
+
+        if self.browser_type == 'chrome':
+            self.info = {
+                'extension_id': 'mcgekeccgjgcmhnhbabplanchdogjcnh'
+            }
+            self.manager = self.chrome_manager
+            self.base_url = 'chrome-extension://%s/' % self.info['extension_id']
+
+        elif self.browser_type == 'firefox':
+            self.info = {
+                'extension_id': 'jid1-MnnxcxisBPnSXQ@jetpack',
+                'uuid': 'd56a5b99-51b6-4e83-ab23-796216679614'
+            }
+            self.manager = self.firefox_manager
+            self.base_url = 'moz-extension://%s/' % self.info['uuid']
+
         print('\nUsing browser path: %s\nwith browser type: %s\nand extension path: %s\n' % (
             self.browser_path, self.browser_type, self.extension_path))
 
-    def _set_specifics(self):
-        self._specifics = self._specifics or {
-            'chrome': Specifics(self.chrome_manager, 'chrome-extension://%s/' % chrome_info['extension_id'], chrome_info),
-            'firefox': Specifics(self.firefox_manager, 'moz-extension://%s/' % firefox_info['uuid'], firefox_info)}
-        self.manager, self.base_url, self.info = self._specifics[self.browser_type]
 
     def get_ext_path(self):
         if self.browser_type == 'chrome':
