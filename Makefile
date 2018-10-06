@@ -1,3 +1,6 @@
+lint:
+	./node_modules/.bin/eslint .
+
 updatepsl:
 	scripts/updatepsl.sh
 
@@ -13,9 +16,6 @@ upload:
 	scripts/generate-legacy-yellowlist.sh > $(TMPFILE) && scp $(TMPFILE) $$YELLOWLIST_LEGACY_UPLOAD_PATH && rm $(TMPFILE)
 	#scp data/dnt-policies.json $$DNT_POLICIES_UPLOAD_PATH
 
-lint:
-	./node_modules/.bin/eslint .
-
 tx:
 	tx pull -f
 	scripts/fix_placeholders.py
@@ -26,4 +26,4 @@ runff:
 runfn:
 	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/ -f /opt/firefox/nightly/firefox
 
-.PHONY: updatepsl updateseed todo lint tx runff runfn
+.PHONY: lint updatepsl updateseed todo tx runff runfn
