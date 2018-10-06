@@ -1,10 +1,12 @@
 # -*- coding: UTF-8 -*-
+
 import os
-import unittest
-from contextlib import contextmanager
-from collections import namedtuple
 import subprocess
 import time
+import unittest
+
+from collections import namedtuple
+from contextlib import contextmanager
 from functools import wraps
 
 from selenium import webdriver
@@ -15,6 +17,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+
 
 SEL_DEFAULT_WAIT_TIMEOUT = 30
 
@@ -50,9 +53,9 @@ def get_browser_type(string):
 
 
 def get_browser_name(string):
-    if ('/' in string) or ('\\' in string):  # its a path
+    if ('/' in string) or ('\\' in string): # it's a path
         return os.path.basename(string)
-    else:  # its a browser type
+    else: # it's a browser type
         for bn in BROWSER_NAMES:
             if string in bn and unix_which(bn, silent=True):
                 return os.path.basename(unix_which(bn))
@@ -72,7 +75,8 @@ def install_ext_on_ff(driver, extension_path):
     included in Selenium. See https://github.com/SeleniumHQ/selenium/issues/4215
     '''
     command = 'addonInstall'
-    driver.command_executor._commands[command] = ('POST', '/session/$sessionId/moz/addon/install')
+    driver.command_executor._commands[command] = ( # pylint:disable=protected-access
+        'POST', '/session/$sessionId/moz/addon/install')
     driver.execute(command, params={'path': extension_path, 'temporary': True})
     time.sleep(2)
 
@@ -86,21 +90,23 @@ class Shim:
     __doc__ = 'Chooses the correct driver and extension_url based on the BROWSER environment\nvariable. ' + _browser_msg
 
     def __init__(self):
-        print('Configuring the test run')
+        print("\n\nConfiguring the test run ...")
         self._specifics = None
+
         browser = os.environ.get('BROWSER')
-        # get browser_path and broser_type first
+
+        # get browser_path and browser_type first
         if browser is None:
             raise ValueError("The BROWSER environment variable is not set. " + self._browser_msg)
-        elif ("/" in browser) or ("\\" in browser):  # path to a browser binary
+        elif ("/" in browser) or ("\\" in browser): # path to a browser binary
             self.browser_path = browser
             self.browser_type = get_browser_type(self.browser_path)
 
-        elif unix_which(browser, silent=True):  # executable browser name like 'google-chrome-stable'
+        elif unix_which(browser, silent=True): # executable browser name like 'google-chrome-stable'
             self.browser_path = unix_which(browser)
             self.browser_type = get_browser_type(browser)
 
-        elif get_browser_type(browser):  # browser type like 'firefox' or 'chrome'
+        elif get_browser_type(browser): # browser type like 'firefox' or 'chrome'
             bname = get_browser_name(browser)
             self.browser_path = unix_which(bname)
             self.browser_type = browser
@@ -109,8 +115,8 @@ class Shim:
 
         self.extension_path = self.get_ext_path()
         self._set_specifics()
-        print('\nUsing browser path: %s \nwith browser type: %s \nand extension path: %s' %
-              (self.browser_path, self.browser_type, self.extension_path))
+        print('\nUsing browser path: %s\nwith browser type: %s\nand extension path: %s\n' % (
+            self.browser_path, self.browser_type, self.extension_path))
 
     def _set_specifics(self):
         self._specifics = self._specifics or {
@@ -141,7 +147,7 @@ class Shim:
     @contextmanager
     def chrome_manager(self):
         opts = ChromeOptions()
-        if self.on_travis:  # github.com/travis-ci/travis-ci/issues/938
+        if self.on_travis: # github.com/travis-ci/travis-ci/issues/938
             opts.add_argument("--no-sandbox")
         opts.add_extension(self.extension_path)
         opts.binary_location = self.browser_path
@@ -168,7 +174,7 @@ class Shim:
     @contextmanager
     def firefox_manager(self):
         ffp = webdriver.FirefoxProfile()
-        # make extension id constant across runs
+        # make extension ID constant across runs
         ffp.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' %
                            (self.info['extension_id'], self.info['uuid']))
 
@@ -196,7 +202,7 @@ class Shim:
             driver.quit()
 
 
-shim = Shim()  # create the browser shim
+shim = Shim() # create the browser shim
 
 
 def if_firefox(wrapper):
@@ -211,8 +217,8 @@ def if_firefox(wrapper):
     def test_catcher(test):
         if shim.browser_type == 'firefox':
             return wraps(test)(wrapper)(test)
-        else:
-            return test
+        return test
+
     return test_catcher
 
 
@@ -240,7 +246,7 @@ def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ...")
     return result
 
 
-attempts = {}  # used to count test retries
+attempts = {} # used to count test retries
 def repeat_if_failed(ntimes): # noqa
     '''
     A decorator that retries the test if it fails `ntimes`. The TestCase must
@@ -269,7 +275,7 @@ class PBSeleniumTest(unittest.TestCase):
             cls.vdisplay.start()
 
         # setting DBUS_SESSION_BUS_ADDRESS to nonsense prevents frequent
-        # hangs of chromedriver (possibly due to crbug.com/309093).
+        # hangs of chromedriver (possibly due to crbug.com/309093)
         os.environ["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
         cls.proj_root = get_git_root()
 
@@ -302,8 +308,8 @@ class PBSeleniumTest(unittest.TestCase):
                     super(PBSeleniumTest, self).run(result)
 
                     # retry test magic
-                    if result.name in attempts and result._excinfo:
-                        raise Exception(result._excinfo.pop())
+                    if result.name in attempts and result._excinfo: # pylint:disable=protected-access
+                        raise Exception(result._excinfo.pop()) # pylint:disable=protected-access
                     else:
                         break
 
