@@ -1,12 +1,15 @@
 # -*- coding: UTF-8 -*-
 
+import json
 import os
 import subprocess
+import tempfile
 import time
 import unittest
 
 from contextlib import contextmanager
 from functools import wraps
+from shutil import copytree
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, WebDriverException
@@ -56,12 +59,6 @@ def get_browser_name(string):
         raise ValueError('Could not get browser name from %s' % string)
 
 
-def build_crx():
-    '''Builds the .crx file for Chrome and returns the path to it'''
-    cmd = ['make', '-sC', GIT_ROOT, 'travisbuild']
-    return os.path.join(GIT_ROOT, run_shell_command(cmd).split()[-1])
-
-
 def install_ext_on_ff(driver, extension_path):
     '''
     Use Selenium's internal API's to manually send a message to geckodriver
@@ -106,14 +103,19 @@ class Shim:
         else:
             raise ValueError("could not infer BROWSER from %s" % browser)
 
-        self.extension_path = self.get_ext_path()
+        self.extension_path = os.path.join(GIT_ROOT, 'src')
 
         if self.browser_type == 'chrome':
+            # this extension ID and the "key" property in manifest.json
+            # must both be derived from the same private key
             self.info = {
                 'extension_id': 'mcgekeccgjgcmhnhbabplanchdogjcnh'
             }
             self.manager = self.chrome_manager
             self.base_url = 'chrome-extension://%s/' % self.info['extension_id']
+
+            # make extension ID constant across runs
+            self.fix_chrome_extension_id()
 
         elif self.browser_type == 'firefox':
             self.info = {
@@ -126,14 +128,25 @@ class Shim:
         print('\nUsing browser path: %s\nwith browser type: %s\nand extension path: %s\n' % (
             self.browser_path, self.browser_type, self.extension_path))
 
+    def fix_chrome_extension_id(self):
+        # create temp directory
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        new_extension_path = os.path.join(self.tmp_dir.name, "src")
 
-    def get_ext_path(self):
-        if self.browser_type == 'chrome':
-            return build_crx()
-        elif self.browser_type == 'firefox':
-            return os.path.join(GIT_ROOT, 'src')
-        else:
-            raise ValueError("bad browser getting extension path")
+        # copy extension sources there
+        copytree(self.extension_path, new_extension_path)
+
+        # update manifest.json
+        manifest_path = os.path.join(new_extension_path, "manifest.json")
+        with open(manifest_path, "r") as f:
+            manifest = json.load(f)
+        # this key and the extension ID must both be derived from the same private key
+        manifest['key'] = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArMdgFkGsm7nOBr/9qkx8XEcmYSu1VkIXXK94oXLz1VKGB0o2MN+mXL/Dsllgkh61LZgK/gVuFFk89e/d6Vlsp9IpKLANuHgyS98FKx1+3sUoMujue+hyxulEGxXXJKXhk0kGxWdE0IDOamFYpF7Yk0K8Myd/JW1U2XOoOqJRZ7HR6is1W6iO/4IIL2/j3MUioVqu5ClT78+fE/Fn9b/DfzdX7RxMNza9UTiY+JCtkRTmm4ci4wtU1lxHuVmWiaS45xLbHphQr3fpemDlyTmaVoE59qG5SZZzvl6rwDah06dH01YGSzUF1ezM2IvY9ee1nMSHEadQRQ2sNduNZWC9gwIDAQAB" # noqa:E501 pylint:disable=line-too-long
+        with open(manifest_path, "w") as f:
+            json.dump(manifest, f)
+
+        # update self.extension_path
+        self.extension_path = new_extension_path
 
     @property
     def wants_xvfb(self):
@@ -152,7 +165,7 @@ class Shim:
         opts = ChromeOptions()
         if self.on_travis: # github.com/travis-ci/travis-ci/issues/938
             opts.add_argument("--no-sandbox")
-        opts.add_extension(self.extension_path)
+        opts.add_argument("--load-extension=" + self.extension_path)
         opts.binary_location = self.browser_path
         opts.add_experimental_option("prefs", {"profile.block_third_party_cookies": False})
 
