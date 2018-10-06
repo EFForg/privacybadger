@@ -24,15 +24,15 @@ class CookieTest(pbtest.PBSeleniumTest):
 
     def assert_pass_opera_cookie_test(self, url, test_name):
         self.load_url(url)
-        self.assertEqual(
-            "PASS",
-            self.js("return document.getElementById('result').innerHTML"),
+        self.assertEqual("PASS", self.txt_by_css("#result"),
             "Cookie test failed: %s" % test_name)
 
     def test_should_pass_std_cookie_test(self):
-        self.assert_pass_opera_cookie_test(
-"""https://gistcdn.githack.com/gunesacar/79aa14bac95694d38425d458843dacd6/raw/3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html""",
-            "Set 1st party cookie")
+        self.assert_pass_opera_cookie_test((
+            "https://gistcdn.githack.com/gunesacar/"
+            "79aa14bac95694d38425d458843dacd6/raw/"
+            "3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html"
+        ), "Set 1st party cookie")
 
     def test_cookie_tracker_detection(self):
         """Tests basic cookie tracking. The tracking site has no DNT file,
@@ -82,8 +82,8 @@ class CookieTest(pbtest.PBSeleniumTest):
                 # Popup UI has been updated. Yay!
                 break
             window_utils.close_windows_with_url(self.driver, self.popup_url)
-            print("popup UI has not been updated yet. try again in 10 seconds")
-            time.sleep(10)
+            print("popup UI has not been updated yet. retrying ...")
+            time.sleep(3)
 
         self.assertTrue(THIRD_PARTY_TRACKER in self.cookieBlocked)
 
@@ -104,15 +104,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         with the associated tabid. Then the correct status information will be displayed
         in the popup."""
 
-        # open new tab with the PB UI
-        # note: there's a selenium + chromedriver + mac bug where you can't use the command key to
-        # open a new tab. And if you inject javascript to open a window and you have the
-        # popup blocker turned on, it won't work. Workaround: embed a button on the target page
-        # that opens a new window when clicked.
-        window_utils.switch_to_window_with_url(self.driver, target_scheme_and_host)
-        button = self.driver.find_element_by_id("newwindowbutton")
-        button.click()
-        window_utils.switch_to_window_with_url(self.driver, "about:blank")
+        self.open_window()
         self.load_url(self.popup_url)
 
         # get the popup populated with status information for the correct url

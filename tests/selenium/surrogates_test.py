@@ -13,13 +13,15 @@ from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
-class Test(pbtest.PBSeleniumTest):
+class SurrogatesTest(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
+    # TODO update to pbtest.org URL
+    # TODO and remove the HTML pages from eff.org then
+    TEST_URL = "https://www.eff.org/files/pbtest/ga_js_surrogate_test.html"
+
     def load_ga_js_test_page(self, timeout=12):
-        # TODO update to pbtest.org URL
-        # TODO and remove the HTML pages from eff.org then
-        self.load_url("https://www.eff.org/files/pbtest/ga_js_surrogate_test.html")
+        self.load_url(SurrogatesTest.TEST_URL)
         wait = WebDriverWait(self.driver, timeout)
         try:
             wait.until(
@@ -33,7 +35,7 @@ class Test(pbtest.PBSeleniumTest):
 
     def test_ga_js_surrogate(self):
         # open the background page
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
 
         # verify the surrogate is present
         self.assertTrue(self.js(
@@ -48,7 +50,7 @@ class Test(pbtest.PBSeleniumTest):
         )
 
         # block ga.js (known to break the site)
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
         # also back up the surrogate definition before removing it
         ga_backup = self.js(
             "badger.heuristicBlocking.blacklistOrigin('www.google-analytics.com', 'google-analytics.com');"

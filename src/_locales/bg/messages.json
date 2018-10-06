@@ -1,31 +1,43 @@
 {
-    "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger замени този ",
-        "description": "Beginning of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
     "badger_status_block": {
-        "message": "Блокирах ",
-        "description": ""
+        "message": "Блокирах $DOMAIN$",
+        "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "invalid_json": {
         "message": "Невалиден JSON файл.",
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Сигурен ли си, че искаш да премахнеш този източник от Privacy Badger?",
-        "description": ""
+        "message": "Сигурен ли си, че искаш да премахнеш този домейн от Privacy Badger?",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
-        "message": "Няма преследвачи в ",
-        "description": ""
+        "message": "Няма преследвачи в $DOMAIN$",
+        "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "non_tracker_tip": {
         "message": "Засега Privacy Badger проверява само дали трети страни ползват бисквитки, локалната памет на HTML5, или canvas fingerprinting, за да те следят. Някои от тези домейни може би използват други начини за следене, които Privacy Badger не може да засече.",
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Проверявай дали сайтовете се съобразяват с Do Not Track (Не Ме Следи) политиката на EFF",
-        "description": ""
+        "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
+        "description": "Checkbox label on the general settings page"
+    },
+    "intro_learns_paragraph": {
+        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
+        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
         "message": "Моля добави валиден домейн или URL.",
@@ -33,7 +45,15 @@
     },
     "donate_to_eff": {
         "message": "Подкрепи EFF",
-        "description": ""
+        "description": "Button shown in the popup and on the intro page."
+    },
+    "intro_donate_subheading": {
+        "message": "Help us by donating and sharing your support for our tools",
+        "description": "Shown below the Donate button on the intro page."
+    },
+    "intro_not_an_adblocker": {
+        "message": "Not an ad blocker, I'm different",
+        "description": "Intro page paragraph heading."
     },
     "report_success": {
         "message": "Мерси! Ще разнищим проблема.",
@@ -41,11 +61,11 @@
     },
     "dnt_tooltip": {
         "message": "Този домейн обещава да не те следи",
-        "description": ""
+        "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
-    "options_dnt_policy_learn_more": {
-        "message": "Научи повече",
-        "description": ""
+    "next_section": {
+        "message": "next section",
+        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
         "message": "Моля те <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>кажи ни</a> за следната грешка:",
@@ -55,33 +75,17 @@
         "message": "Управление на данни",
         "description": "This is an options page tab heading."
     },
-    "slideshow_13": {
-        "message": " Ако съм развалил някоя страница, моля те съобщи го на програмистите ми, за да могат да оправят проблема! За целта щракни на този бутон.",
-        "description": ""
-    },
     "report_title": {
         "message": "Докладвай за грешка",
         "description": ""
     },
     "whitelist_form_domain_input_placeholder": {
         "message": "например www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Whitelisted Domains tab on the options page."
-    },
-    "slideshow_4": {
-        "message": " Ако щракнеш на иконката ми, ще видиш списъка с потенциални преследвачи в таба, в който си в момента.",
-        "description": ""
-    },
-    "slideshow_5": {
-        "message": " Ако плъзгачът е червен, значи съм блокирал този преследвач напълно!  Този негодник няма да те притеснява повече.",
-        "description": ""
+        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Щракни тук, за да забраниш на този домейн да оставя бисквитки",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
-    },
-    "popup_instructions": {
-        "message": "потенциални <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>преследвачи</a> на тази страница. С тези плъзгачи можеш да контролираш как Privacy Badger се държи с всеки от тях. Не е необходимо да ги местиш, освен ако нещо не се е развалило.",
-        "description": "Continuation of the popup message that shows number of trackers"
     },
     "options_domain_filter_block": {
         "message": "блокирани",
@@ -89,7 +93,11 @@
     },
     "options_webrtc_setting": {
         "message": "Спри изтичането на локалния ти IP адрес през WebRTC *",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "intro_welcome": {
+        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "description": "Intro page welcome paragraph."
     },
     "error_input": {
         "message": "Какво не е наред?",
@@ -105,18 +113,18 @@
     },
     "share_button_title_twitter": {
         "message": "Сподели в Twitter",
-        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
         "message": "Научи как Privacy Badger защитава личното ти пространство и поверителност.",
-        "description": ""
+        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
         "message": "Дръпни",
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "щракни тук, за да върнеш контрола над този преследвач на Privacy Badger",
+        "message": "Щракни тук, за да върнеш контрола над този преследвач на Privacy Badger",
         "description": ""
     },
     "import": {
@@ -125,15 +133,25 @@
     },
     "options_social_widgets_checkbox": {
         "message": "Замествай социални бутони",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** Ако позволиш ученето в Поверителни/Инкогнито прозорци, това може да остави на компютъра ти следи от историята, докато си сърфирал поверително. По подразбиране Privacy Badger ще блокира в Поверителните/Инкогнито прозорци преследвачите, за които вече знае, но няма да се учи за нови преследвачи. Би било полезно да включиш тази настройка, ако сърфираш редовно в Поверителни/Инкогнито прозорци.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
         "message": "Изпрати грешката",
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Разреших ",
-        "description": ""
+        "message": "Разреших $DOMAIN$",
+        "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "privacy_badger_what_is": {
         "message": "Какво е Privacy Badger?",
@@ -143,40 +161,36 @@
         "message": "Търси в домейните:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_incognito_setting": {
+        "message": "Учи се в Поверителни/Инкогнито прозорци **",
+        "description": "Checkbox label on the general settings page"
+    },
     "show_counter_checkbox": {
         "message": "Показвай броя блокирани елементи",
-        "description": ""
+        "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
         "message": "Какво е преследвач?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
-    "slideshow_1": {
-        "message": " Здрасти, аз съм Privacy Badger! Мерси че ме инсталира. Тук съм, за да ти дам няколко полезни съвета, за да можем да работим заедно.",
-        "description": ""
+    "intro_report_button": {
+        "message": "Please don't forget to click on 'Did Privacy Badger break this site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Настройки на Privacy Badger",
-        "description": ""
-    },
-    "options_pb_has_detected": {
-        "message": "Privacy Badger е открил",
-        "description": "Beginning of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
-    },
-    "social_tooltip_button": {
-        "message": " бутон.",
-        "description": "Continuation of tooltip shown over a replaced social button, e.g [Privacy Badger has replaced this ]Facebook[ button]."
-    },
-    "slideshow_11": {
-        "message": " Ако промениш някоя настройка, която съм направил, винаги можеш да ми я върнеш, за да я контролирам аз, като щракнеш на стрелката за отмяна.",
         "description": ""
     },
     "report_terms": {
         "message": "Това ще изпрати следната информация автоматично на EFF: сайтът, който в момента посещаваш, версията на браузера ти, версията на Privacy Badger, и състоянието на всички плъзгачи за този сайт.",
         "description": ""
     },
+    "intro_learns": {
+        "message": "Learns as you browse",
+        "description": "Intro page paragraph heading."
+    },
     "whitelisted_domains": {
-        "message": "Винаги позволени домейни",
+        "message": "Disabled Sites",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -195,37 +209,77 @@
         "message": "Експортирай потребителските данни",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Importing user data:<ul><li>Overwrites general settings</li><li>Combines lists of disabled sites</li><li>Combines information about what trackers Privacy Badger has seen</li><li>Overwrites slider customizations</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
+    "reset": {
+        "message": "Reset",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "reset_data": {
+        "message": "Reset tracking domains",
+        "description": "Caption above reset button"
+    },
+    "reset_data_confirm": {
+        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "description": "Pop-up triggered when the reset_data button is clicked"
+    },
+    "remove_all": {
+        "message": "Remove all",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "remove_all_data": {
+        "message": "Remove all tracking domains",
+        "description": "Caption above remove_all button"
+    },
+    "remove_all_data_confirm": {
+        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "description": "Pop-up triggered when the remove_all_data button is clicked"
+    },
     "intro_text": {
         "message": "Privacy Badger вече те защитава. За да разбереш как работи Privacy Badger, щракни долу, за да ти обясни набързо.",
-        "description": ""
+        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* През WebRTC може да изтече локалния ти IP адрес. Настройката по подразбиране на Privacy Badger помага да си защитен, но за допълнителна защита можеш да включиш тази настройка. Имай предвид, че това може да забави някои инструменти, като Google Hangouts.",
-        "description": ""
+        "message": "* WebRTC can leak your local IP address. Note that enabling this option may degrade performance on web conferencing apps like Google Hangouts.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Общи настройки",
         "description": "This is an options page tab heading."
     },
-    "slideshow_7": {
-        "message": " Ако плъзгачът е зелен, значи още не мога да преценя дали този домейн те следи. Може и да не те, но ще го наблюдавам.",
-        "description": ""
+    "intro_next_button": {
+        "message": "Take the tour",
+        "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
         "message": "Щракни тук, за да блокираш този домейн напълно",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
-        "message": "версия",
-        "description": ""
+        "message": "версия $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
     },
     "badger_status_cookieblock": {
-        "message": "Блокирах бисквитки от ",
-        "description": ""
+        "message": "Блокирах бисквитки от $DOMAIN$",
+        "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
-    "options_loading": {
-        "message": "Зареждам...",
-        "description": ""
+    "intro_beyond_ads": {
+        "message": "Catches sneaky trackers",
+        "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
         "message": "частично блокирани",
@@ -249,38 +303,22 @@
     },
     "report_broken_site": {
         "message": "Развали ли Privacy Badger този сайт? Уведоми ни!",
-        "description": ""
+        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Премести плъзгача в средата, за да блокираш бисквитките",
         "description": ""
     },
-    "slideshow_12": {
-        "message": " Ако имаш проблеми с някоя страница и мислиш, че аз съм виновен, можеш да щракнеш на бутона Изключи. Ще си легна да спя и няма да блокирам нищо на този сайт.",
-        "description": ""
-    },
-    "slideshow_3": {
-        "message": " Ако намеря нещо, което се държи като преследвач, ще го спра, като го блокирам.  ",
-        "description": ""
+    "intro_beyond_ads_paragraph": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph."
     },
     "report_close": {
         "message": "Затвори",
         "description": ""
     },
-    "slideshow_9": {
-        "message": " Уча се в движение, така че колкото по-дълго ме използваш, толкова по-добре ще мога да те защитавам от потайните преследвачи!",
-        "description": ""
-    },
-    "slideshow_2": {
-        "message": " Ще си седя тук горе в браузера ти и ще наблюдавам за шпиониращи реклами и преследвачи, които записват какво правиш онлайн.",
-        "description": ""
-    },
     "import_user_data": {
         "message": "Импортирай потребителски данни",
-        "description": ""
-    },
-    "slideshow_8": {
-        "message": " Когато щракнеш на иконката ми за пръв път, може всички преследвачи да са зелени — не се притеснявай! Аз съм различен от други програми за блокиране на преследвачи — нямам предварителен списък с неща за блокиране. Вместо това се уча какво да блокирам, докато сърфираш. Ако още не блокирам нищо, опитай да отидеш в 4-5 различни сайта. След това би трябвало да започна да блокирам често срещаните преследвачи.",
         "description": ""
     },
     "options_domain_filter_dnt": {
@@ -296,12 +334,16 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "share_button_title_google": {
-        "message": "Сподели в Google Plus",
-        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+        "message": "Сподели в Google+",
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
+    },
+    "intro_donate_heading": {
+        "message": "Privacy is a team sport!",
+        "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
         "message": "Не би трябвало да се налага да променяш каквото и да е тук.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"slideshow_8\" key."
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "всички",
@@ -315,17 +357,34 @@
         "message": "Премести плъзгача наляво, за да блокираш домейн",
         "description": ""
     },
+    "options_enable_dnt_checkbox": {
+        "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
+        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "контролирани от теб",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger е изключен за домейните по́ долу. Можеш да добавиш домейн или чрез иконката на Privacy Badger в лентата на браузера, или като въведеш домейн в кутийката и щракнеш на бутона \"Добави домейн\".",
+        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here.<br><br>If you think Privacy Badger is breaking a page, you can type that page's domain in the box below and click the \"Add domain\" button.<br><br>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.",
         "description": ""
     },
-    "pb_detected": {
-        "message": "Privacy Badger откри",
-        "description": "Beginning of popup message that shows the number of trackers."
+    "popup_instructions": {
+        "message": "Privacy Badger откри $COUNT$ потенциални $TRACKER_LINK_START$преследвачи$TRACKER_LINK_END$ на тази страница. С тези плъзгачи можеш да контролираш как Privacy Badger се държи с всеки от тях. Не е необходимо да ги местиш, освен ако нещо не се е развалило.",
+        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "intro_by_eff": {
         "message": "Един проект на Electronic Frontier Foundation",
@@ -345,11 +404,7 @@
     },
     "popup_disable_for_site": {
         "message": "Изключи Privacy Badger за този сайт",
-        "description": ""
-    },
-    "intro_social_share": {
-        "message": "Сподели със света, че заемаш страна срещу онлайн следенето",
-        "description": ""
+        "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
         "message": "Privacy Badger откри потенциален <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>преследвач</a> на тази страница. С този плъзгач можеш да контролираш как Privacy Badger се държи с него. Не е необходимо да го местиш, освен ако нещо не се е развалило.",
@@ -359,13 +414,34 @@
         "message": "Щракни тук, за да разрешиш този домейн",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
+    "intro_privacy_note": {
+        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "description": "Intro page paragraph."
+    },
     "options_domain_list_trackers": {
-        "message": "потенциални <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домейни-преследвачи</a> засега. С тези плъзгачи можеш да контролираш как Privacy Badger се държи с всеки от тях.",
-        "description": "Continuation of message on the Tracking Domains options page tab that shows the total number of trackers detected so far."
+        "message": "Privacy Badger е открил $COUNT$ потенциални $TRACKER_LINK_START$домейни-преследвачи$TRACKER_LINK_END$ засега. С тези плъзгачи можеш да контролираш как Privacy Badger се държи с всеки от тях.",
+        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "name": {
         "message": "Privacy Badger",
         "description": ""
+    },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
+        "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
         "message": "Филтрирай според настройка:",
@@ -379,13 +455,25 @@
         "message": "Премахни избраните",
         "description": "This is the label for the 'Remove selected' buttons."
     },
+    "intro_donate1": {
+        "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
+        "description": "Part of the 'donate' section on the intro page."
+    },
+    "options_domain_search_tooltip": {
+        "message": "To exclude domains, prepend your search term with \"-\". For example, \".co -.com\" will show .co and .co.uk but not .com domains.",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
+    },
+    "intro_disable_button": {
+        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
+    },
+    "intro_link_policy": {
+        "message": "Privacy Policy",
+        "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
+    },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger не е открил <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домейни-преследвачи</a> засега. Продължавай да си сърфираш!",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
-    },
-    "slideshow_15": {
-        "message": " Разбира се, можеш и да оставиш настройките както са си, а аз ще продължа тихичко да си похапвам всичките преследвачи, които открия.",
-        "description": ""
     },
     "report_input_label": {
         "message": "Описание",
@@ -395,40 +483,66 @@
         "message": "Домейните по́ долу не изглеждат сякаш те следят",
         "description": ""
     },
-    "slideshow_14": {
-        "message": " Ако искаш да промениш други настройки, можеш да кликнеш на тази иконка със зъбното колелце.",
-        "description": ""
-    },
     "popup_options_button": {
         "message": "Настройки",
         "description": ""
     },
-    "slideshow_6": {
-        "message": " Ако плъзгачът е жълт, значи съм блокирал наполовина този преследвач. Ще направя каквото мога за да му попреча да те следи — ще му изяждам бисквитките, но ако го блокирам напълно, може да разваля страницата.",
-        "description": ""
-    },
-    "slideshow_16": {
-        "message": " Благодаря, че направи важна и лесна стъпка към това да защитиш личното си пространство и поверителност! Можеш да проверяваш тук, ако имаш нужда от помощ, или да щракнеш долу за да споделиш със света, че заемаш страна срещу следенето онлайн.",
-        "description": ""
-    },
     "share_button_title_facebook": {
         "message": "Сподели във Facebook",
-        "description": "Tooltips that come up when you hover over the social sharing buttons on the introductory slideshow page."
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
         "message": "Privacy Badger те защитава от преследвачи, докато сърфираш в интернет!",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Защо не е блокирано нищо?",
         "description": ""
     },
     "report_fail": {
         "message": "Опа. Нещо се обърка.",
         "description": ""
     },
-    "slideshow_10": {
-        "message": " Ако мислиш, че съм взел грешното решение за някой преследвач, можеш да мръднеш плъзгача към червено за да го блокираш, жълто за да го блокираш наполовина, или зелено за да го позволиш.",
-        "description": ""
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger замени този $BUTTON$ бутон.",
+        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "placeholders": {
+            "button": {
+                "content": "$1",
+                "example": "Facebook Like"
+            }
+        }
+    },
+    "sync_intro": {
+        "message": "Cloud sync:<ul><li>Requires Firefox/Chrome Sync</li><li>Upload overwrites any existing Privacy Badger data in the cloud</li><li>Download combines the lists of sites where your Badger is disabled</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Upload",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Export disabled sites to cloud",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Import disabled sites from cloud",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Cloud data imported successfully.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Cloud data could not be downloaded.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Cloud data uploaded successfully.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Cloud data could not be uploaded.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "No cloud data to download.",
+        "description": "'Error' message when there is on cloud data to download."
     }
 }

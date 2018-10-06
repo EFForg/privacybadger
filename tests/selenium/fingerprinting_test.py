@@ -5,12 +5,13 @@ import unittest
 
 import pbtest
 
-from time import sleep
+from functools import partial
 
+from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
-class FingerprintingDetectionTest(pbtest.PBSeleniumTest):
+class FingerprintingTest(pbtest.PBSeleniumTest):
     """Tests to make sure fingerprinting detection works as expected."""
 
     def detected_fingerprinting(self, domain):
@@ -35,6 +36,8 @@ return (
     map[tracker_origin].indexOf(site_origin) != -1
 );""".format(domain, page_url))
 
+    # TODO can fail because our content script runs too late: https://crbug.com/478183
+    @pbtest.repeat_if_failed(3)
     def test_canvas_fingerprinting_detection(self):
         PAGE_URL = (
             "https://cdn.rawgit.com/ghostwords"
@@ -44,7 +47,7 @@ return (
         FINGERPRINTING_DOMAIN = "cdn.jsdelivr.net"
 
         # open Badger's background page
-        self.load_url(self.bg_url, wait_on_site=1)
+        self.load_url(self.bg_url)
 
         # need to keep Badger's background page open for tabData to persist
         # so, open and switch to a new window
@@ -57,15 +60,8 @@ return (
         switch_to_window_with_url(self.driver, self.bg_url)
 
         # check that we detected the fingerprinting domain as a tracker
-        has_tracking = self.detected_tracking(FINGERPRINTING_DOMAIN, PAGE_URL)
-
-        # work around sporadic failures on some versions of Firefox
-        if pbtest.shim.browser_type == 'firefox' and not has_tracking:
-            print("\nRetrying canvas fingerprinting detection check ...")
-            sleep(2)
-            has_tracking = self.detected_tracking(FINGERPRINTING_DOMAIN, PAGE_URL)
-
-        self.assertTrue(has_tracking,
+        self.assertTrue(
+            retry_until(partial(self.detected_tracking, FINGERPRINTING_DOMAIN, PAGE_URL)),
             "Canvas fingerprinting resource was detected as a tracker.")
 
         # check that we detected canvas fingerprinting

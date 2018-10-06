@@ -31,8 +31,9 @@
 <script type="text/javascript" src="/lib/vendor/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/tooltipster-4.2.5/tooltipster.bundle.min.js"></script>
-<script type="text/javascript" src="/lib/underscore-min.js"></script>
+<script type="text/javascript" src="/lib/vendor/underscore-min.js"></script>
 <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
+<script type="text/javascript" src="/lib/options.js"></script>
 <script type="text/javascript" src="/js/options.js" charset="utf-8"></script>
 <title class="i18n_options_title"></title>
 </head>
@@ -40,7 +41,7 @@
 <table>
   <tr>
     <td style="padding-right: 8px; vertical-align: middle">
-      <img src="/icons/badger-48.png">
+      <img src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
     </td>
     <td>
       <h1><span class="i18n_options_title"></span></h1>
@@ -58,7 +59,7 @@
 
   <div id="tab-tracking-domains">
     <div id="tracking-domains-overlay">
-        <p class="i18n_slideshow_8"></p>
+        <p class="i18n_intro_learns_paragraph"></p>
         <p class="i18n_show_tracking_domains_message"></p>
         <p>
             <label>
@@ -69,7 +70,7 @@
     </div>
     <div id="blockedResourcesContainer">
       <p id="pbInstructions">
-        <span id="pb_has_detected" class="i18n_options_pb_has_detected"></span> <span id='count'>0</span> <span id="options_domain_list_trackers" class="i18n_options_domain_list_trackers"></span>
+        <span id="options_domain_list_trackers"></span>
         <span id="options_domain_list_one_tracker" class="i18n_options_domain_list_one_tracker" style="display:none"></span>
         <span id="options_domain_list_no_trackers" class="i18n_options_domain_list_no_trackers" style="display:none"></span>
       </p>
@@ -78,6 +79,7 @@
               <li>
                   <label for="trackingDomainSearch">
                       <span class="i18n_options_domain_search"></span>
+                      <span class="ui-icon ui-icon-info tooltip" title="i18n_options_domain_search_tooltip"></span>
                   </label>
                   <input id="trackingDomainSearch" type="text" value="">
               </li>
@@ -103,7 +105,7 @@
                   </select>
               </li>
           </ul>
-          <div id="blockedResources"><span class="i18n_options_loading"></span></div>
+          <div id="blockedResources"></div>
       </div>
     </div>
   </div>
@@ -150,34 +152,68 @@
       </div>
       <div class="checkbox">
         <label>
+          <input type="checkbox" id="enable_dnt_checkbox">
+          <span class="i18n_options_enable_dnt_checkbox"></span>
+        </label>
+      </div>
+      <div class="checkbox" id="check-dnt-policy-row">
+        <label>
           <input type="checkbox" id="check_dnt_policy_checkbox">
           <span class="i18n_options_dnt_policy_setting"></span>
         </label>
-        <a target="_blank" href="https://www.eff.org/dnt-policy"><span class="i18n_options_dnt_policy_learn_more"></span></a>
       </div>
       <div class="checkbox" id="webRTCToggle">
         <label>
-          <input type="checkbox" id="toggle_webrtc_mode">
+          <input type="checkbox" id="toggle_webrtc_mode" disabled>
           <span class="i18n_options_webrtc_setting"></span>
         </label>
       </div>
-      <div id="settingsSuffix">
-        <br>
-        <span class="i18n_options_webrtc_warning"></span>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="learn-in-incognito-checkbox">
+          <span class="i18n_options_incognito_setting"></span>
+        </label>
+      </div>
+      <div id="settings-suffix">
+        <div id="webrtc-warning" class="i18n_options_webrtc_warning"></div>
+        <div id="incognito-warning" class="i18n_options_incognito_warning"></div>
       </div>
     </form>
   </div>
 
   <div id="tab-manage-data">
-
-    <div id="import">
-      <h3><span class="i18n_import_user_data"></span></h3>
-      <input type="file" class="importInput" id="importTrackers" accept=".json">
-      <button id="importTrackerButton" class="importButton" type="submit"><span class="i18n_import"></span></button>
+    <div class="btn-silo">
+      <p class="i18n_manage_data_intro"></p>
+      <div id="export">
+        <h3><span class="i18n_export_user_data"></span></h3>
+        <button id="exportTrackers"><span class="i18n_download"></span></button>
+      </div>
+      <div id="import">
+        <h3><span class="i18n_import_user_data"></span></h3>
+        <input type="file" class="importInput" id="importTrackers" accept=".json">
+        <button id="importTrackerButton" class="importButton" type="submit"><span class="i18n_import"></span></button>
+      </div>
     </div>
-    <div id="export">
-      <h3><span class="i18n_export_user_data"></span></h3>
-      <button id="exportTrackers" class="exportButton"><span class="i18n_download"></span></button>
+    <div class="btn-silo">
+      <p class="i18n_sync_intro"></p>
+      <div id="upload">
+        <h3><span class="i18n_upload_cloud"></span></h3>
+        <button id="cloud-upload"><span class="i18n_upload"></span></button>
+      </div>
+      <div id="download">
+        <h3><span class="i18n_download_cloud"></span></h3>
+        <button id="cloud-download"><span class="i18n_download"></span></button>
+      </div>
+    </div>
+    <div class="btn-silo">
+      <div id="reset">
+        <h3><span class="i18n_reset_data"></span></h3>
+        <button id="resetData" class="btn-danger"><span class="i18n_reset"></span></button>
+      </div>
+      <div id="remove">
+        <h3><span class="i18n_remove_all_data"></span></h3>
+        <button id="removeAllData" class="btn-danger"><span class="i18n_remove_all"></span></button>
+      </div>
     </div>
   </div>
 

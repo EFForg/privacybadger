@@ -64,6 +64,7 @@ const hostnames = {
     '/JS/socialize.js',
   ],
   'cdn.krxd.net': 'noopjs',
+  'widgets.outbrain.com': '/outbrain.js',
 };
 
 /**
@@ -206,7 +207,7 @@ const surrogates = {
     } + ')();',
 
   // https://github.com/EFForg/privacybadger/issues/993
-  // https://github.com/uBlockOrigin/uAssets/blob/862f28ca7909dbc0db590075928152f526966620/filters/resources.txt#L367-L497
+  // https://github.com/uBlockOrigin/uAssets/blob/2bc97541b3b9a9380b3ce8bd2242375925df293c/filters/resources.txt#L436-L567
   /* eslint-disable no-empty */
   '/gpt.js': '(' +
     function() {
@@ -276,6 +277,7 @@ const surrogates = {
         setForceSafeFrame: noopthisfn,
         setLocation: noopthisfn,
         setPublisherProvidedId: noopthisfn,
+        setRequestNonPersonalizedAds: noopthisfn,
         setSafeFrameConfig: noopthisfn,
         setTagForChildDirectedTreatment: noopthisfn,
         setTargeting: noopthisfn,
@@ -425,7 +427,7 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-undef */
 
-  // https://github.com/uBlockOrigin/uAssets/blob/bf00b6e43a8a33b8d50f23de380eed707e8aa24a/filters/resources.txt#L287-L334
+  // https://github.com/uBlockOrigin/uAssets/blob/0e225402b40db0983faf8b4ce13c73d57fb257d7/filters/resources.txt#L354-L403
   /* eslint-disable no-empty */
   '/analytics.js': '(' +
     function() {
@@ -469,6 +471,8 @@ const surrogates = {
         return [];
       };
       ga.remove = noopfn;
+      // https://github.com/uBlockOrigin/uAssets/issues/2107
+      ga.loaded = true;
       w[gaName] = ga;
       // https://github.com/gorhill/uBlock/issues/3075
       var dl = w.dataLayer;
@@ -477,6 +481,35 @@ const surrogates = {
       }
     } + ')();',
   /* eslint-enable no-empty */
+
+  // https://github.com/uBlockOrigin/uAssets/blob/d7d4836638dcf227938b4cead66ad9d01b6166ba/filters/resources.txt#L843-L868
+  '/outbrain.js': '(' +
+    function() {
+      var noopfn = function() {
+        ;
+      };
+      var obr = {};
+      var methods = [
+        'callClick', 'callLoadMore', 'callRecs', 'callUserZapping',
+        'callWhatIs', 'cancelRecommendation', 'cancelRecs', 'closeCard',
+        'closeModal', 'closeTbx', 'errorInjectionHandler', 'getCountOfRecs',
+        'getStat', 'imageError', 'manualVideoClicked', 'onOdbReturn',
+        'onVideoClick', 'pagerLoad', 'recClicked', 'refreshSpecificWidget',
+        'refreshWidget', 'reloadWidget', 'researchWidget', 'returnedError',
+        'returnedHtmlData', 'returnedIrdData', 'returnedJsonData', 'scrollLoad',
+        'showDescription', 'showRecInIframe', 'userZappingMessage', 'zappingFormAction'
+      ];
+      obr.extern = {
+        video: {
+          getVideoRecs: noopfn,
+          videoClicked: noopfn
+        }
+      };
+      methods.forEach(function(a) {
+        obr.extern[a] = noopfn;
+      });
+      window.OBR = window.OBR || obr;
+    } + ')();',
 
   // https://github.com/uBlockOrigin/uAssets/blob/0efcadb2ecc2a9f0daa5a1df79841d794b83860f/filters/resources.txt#L38-L41
   'noopjs': '(' +

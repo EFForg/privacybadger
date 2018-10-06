@@ -1,4 +1,5 @@
 #!/bin/bash
+
 toplevel=$(git rev-parse --show-toplevel)
 
 function setup_chrome {
@@ -7,7 +8,7 @@ function setup_chrome {
     echo "Setting up chromedriver version $version ..."
     url="https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
     wget -q -O /tmp/chromedriver.zip "$url"
-    sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+    sudo unzip -o /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
     sudo chmod a+x /usr/local/bin/chromedriver
 
     # check that chromedriver is now present
@@ -18,23 +19,25 @@ function setup_chrome {
 }
 
 function setup_firefox {
-    # TODO needed until Firefox ESR moves on from Firefox 52
-    # see https://github.com/mozilla/geckodriver/issues/1032#issuecomment-341337402
-    if [[ $INFO == "firefox esr" ]]; then
-      version="v0.17.0"
-    else
-      # Install the latest version of geckodriver
-      version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
+    # Install the latest version of geckodriver
+    version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///' | tr -d '\r')
 
-      # check that we got something
-      if [ -z "$version" ]; then
-        echo "Failed to determine the latest geckodriver version!"
-        sleep 180 # wait three minutes
-        exit 1
-      fi
+    # check that we got something
+    if [ -z "$version" ]; then
+      echo "Failed to determine the latest geckodriver version!"
+      exit 1
     fi
+
+    # Geckodriver distribution is MacOS or Linux specific
+    os="$(uname -s)"
+    if [[ $os == "Darwin" ]]; then
+      os_dist="macos.tar.gz"
+    else
+      os_dist="linux64.tar.gz"
+    fi
+
     echo "Setting up geckodriver version $version ..."
-    url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-linux64.tar.gz"
+    url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-${os_dist}"
     wget -q -O /tmp/geckodriver.tar.gz "$url"
     sudo tar -xvf /tmp/geckodriver.tar.gz -C /usr/local/bin/
     sudo chmod a+x /usr/local/bin/geckodriver
@@ -52,19 +55,30 @@ function browser_setup {
 }
 
 function setup_lint {
-  pushd "$toplevel"
-    # "--production" to skip installing devDependencies modules
-    npm install --production
-  popd
+  # "--production" to skip installing devDependencies modules
+  npm install --production || exit 1
+}
 
+# check that the desired browser is present as it might fail to install
+# for example: https://travis-ci.org/EFForg/privacybadger/jobs/362381214
+function check_browser {
+  type "$BROWSER" >/dev/null 2>&1 || {
+    echo "$BROWSER seems to be missing!"
+    exit 1
+  }
+
+  # print the version
+  echo "Found $("$BROWSER" --version)"
 }
 
 case $INFO in
   *chrome*)
+    check_browser
     setup_chrome
     browser_setup
     ;;
   *firefox*) # Install the latest version of geckodriver
+    check_browser
     setup_firefox
     browser_setup
     ;;

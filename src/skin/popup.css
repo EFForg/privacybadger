@@ -18,19 +18,22 @@
  /*csslint ids:ignore*/
 
 body {
-  margin: 0;
-  min-width: 430px; /* Chrome */
-  max-width: 100%;  /* FF android */
-  font-size: 12px;
+  box-sizing: border-box;
+
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
-  padding: 8px 15px 0;
-  box-sizing: border-box;
+  font-size: 12px;
+
+  margin: 0;
+  padding: 7px 15px;
+
+  min-width: 430px; /* Chrome */
+  max-width: 100%;  /* FF android */
   min-height: 270px;
 }
 @media screen and (min--moz-device-pixel-ratio:0) {
-    body{
+    body {
         min-width: 200px; /* FF android */
         width: 430px;     /* FF desktop */
     }
@@ -38,13 +41,6 @@ body {
 
 a { text-decoration: none }
 a:hover { color: #ec9329 }
-
-#filtersList {
-  border: 1px dotted gray;
-  padding: 1px;
-  display: none;
-  background-color: #BFBFBF;
-}
 
 .checkbox label {
   min-height: 20px;
@@ -56,10 +52,6 @@ a:hover { color: #ec9329 }
   padding-left: 0.5em;
 }
 
-.ui-button {
-    padding: .6em 1em;
-}
-
 .spacer {
   height: 7px;
   width: 5px;
@@ -67,24 +59,13 @@ a:hover { color: #ec9329 }
   clear: both;
 }
 
-.click-nav ul {position:relative;font-weight:900;list-style-type:none;}
-.click-nav ul li {position:relative;list-style:none;cursor:pointer;}
-.click-nav ul li ul {position:relative;}
-.click-nav ul .clicker {position:relative;background:#2284B5;color:#FFF;}
-.click-nav ul .clicker:hover,.click-nav ul .active {background:#196F9A;}
-.click-nav .imglink img {position:absolute;top:9px;left:12px;}
-.click-nav ul li a {transition:background-color 0.2s ease-in-out;-webkit-transition:background-color 0.2s ease-in-out;
--o-transition:background-color 0.2s ease-in-out;
--moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
-.click-nav ul li a:hover {background:#F2F2F2;}
-.click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;}
-.clicker{
-  border-top: 1px solid #aaaaaa;
-  padding: 5px;
-  height: 40px;
-  overflow: hidden;
+.clicker {
+    border-top: 1px solid #aaaaaa;
+    padding: 5px;
+    height: 40px;
+    overflow: hidden;
+    direction: ltr;
 }
-.clicker.greyed { background: #aaa; }
 .origin{
   max-width: 210px;
   color: #555555;
@@ -179,7 +160,7 @@ font-size: 16px;
   cursor: move;
 }
 #siteControls {
-  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 #firstRun {
@@ -203,12 +184,14 @@ font-size: 16px;
   color: #333;
 }
 .clickerContainer {
-  max-height: 290px;
-  overflow-y: auto;
-  background-color: #E8E9EA;
-  position: relative;
+    max-height: 290px;
+    overflow-y: auto;
+    background-color: #E8E9EA;
+    position: relative;
+    margin-top: 25px;
 }
 .keyContainer{
+    direction: ltr;
     position: relative;
 }
 .key {
@@ -266,9 +249,6 @@ font-size: 16px;
   padding-right: 5px;
   padding-top: 7px;
 }
-.clickerContainer{
-  margin-top: 25px;
-}
 #pbInstructions{
   color: #505050;
   font-size: 16px;
@@ -281,7 +261,7 @@ font-size: 16px;
   padding: 5px;
   cursor: pointer;
   text-align: center;
-  margin: 8px 0;
+  margin-top: 8px;
   border: 2px solid #707070;
   width: 100%;
   color: #707070;
@@ -368,7 +348,6 @@ font-size: 16px;
 }
 #siteControls button {
   font-size: 12px;
-  display: block;
 }
 
 #version{
@@ -388,4 +367,29 @@ font-size: 16px;
 }
 .tooltipster-sidetip .tooltipster-arrow-border {
     border: none;
+}
+
+@media screen and (max-width: 350px){
+  .origin {
+    max-width: 150px;
+  }
+
+  .switch-container{
+    width: 100px;
+    display: block;
+    margin-left: 150px;
+  }
+
+  .key {
+    padding-left: 150px;
+  }
+  .key img{
+    margin-left: 12px;
+  }
+
+  .honeybadgerPowered {
+    float: right;
+    left: 0;
+    margin-right: 0;
+  }
 }

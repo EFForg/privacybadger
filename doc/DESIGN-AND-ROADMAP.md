@@ -174,7 +174,7 @@ combinations of them so long as their total estimated entropy is under 12 bits.
 #### Widget Substitution
 
 Many social media widgets are inherently designed to combine tracking
-and occassionally-useful functionality in a single resource load.
+and occasionally-useful functionality in a single resource load.
 Privacy Badger aims to give the user access to the functionality when they want
 it, but protection against the tracking at all other times.
 
@@ -266,4 +266,3 @@ These get added to their own lists, which are also stored on disk, and get check
 before Privacy Badger does its default action for a given origin. These are managed
 from the popup window for Privacy Badger on the page as well as the options menu
 for the whole extension.
-

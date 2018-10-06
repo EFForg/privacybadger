@@ -10,7 +10,8 @@ from functools import wraps
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver import DesiredCapabilities
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -139,7 +140,7 @@ class Shim:
 
     @contextmanager
     def chrome_manager(self):
-        opts = Options()
+        opts = ChromeOptions()
         if self.on_travis:  # github.com/travis-ci/travis-ci/issues/938
             opts.add_argument("--no-sandbox")
         opts.add_extension(self.extension_path)
@@ -171,14 +172,28 @@ class Shim:
         ffp.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' %
                            (self.info['extension_id'], self.info['uuid']))
 
-        driver = webdriver.Firefox(firefox_profile=ffp, firefox_binary=self.browser_path)
+        for i in range(5):
+            try:
+                opts = FirefoxOptions()
+                #opts.log.level = "trace"
+                driver = webdriver.Firefox(
+                    firefox_profile=ffp,
+                    firefox_binary=self.browser_path,
+                    firefox_options=opts
+                )
+            except WebDriverException as e:
+                if i == 0: print("")
+                print("Firefox WebDriver initialization failed:")
+                print(str(e) + "Retrying ...")
+            else:
+                break
+
         install_ext_on_ff(driver, self.extension_path)
+
         try:
             yield driver
         finally:
-            time.sleep(2)
             driver.quit()
-            time.sleep(2)
 
 
 shim = Shim()  # create the browser shim
@@ -201,18 +216,25 @@ def if_firefox(wrapper):
     return test_catcher
 
 
-def retry_until(fun, cond=True, times=5, msg="Waiting a bit and retrying ..."):
+def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ..."):
     """
-    Execute function `fun` until either its return equals `cond`,
+    Execute function `fun` until either its return is truthy
+    (or if `tester` is set, until the result of calling `tester` with `fun`'s return is truthy),
     or it gets executed X times, where X = `times` + 1.
     """
     for i in range(times):
         result = fun()
-        if result == cond:
+
+        if tester is not None:
+            if tester(result):
+                break
+        elif result:
             break
-        elif i == 0:
+
+        if i == 0:
             print("")
         print(msg)
+
         time.sleep(2 ** i)
 
     return result
@@ -272,6 +294,11 @@ class PBSeleniumTest(unittest.TestCase):
             try:
                 with self.manager() as driver:
                     self.init(driver)
+
+                    # wait for Badger's storage, listeners, ...
+                    self.load_url(self.bg_url)
+                    self.wait_for_script("return badger.INITIALIZED")
+
                     super(PBSeleniumTest, self).run(result)
 
                     # retry test magic
@@ -291,10 +318,32 @@ class PBSeleniumTest(unittest.TestCase):
                     continue
 
     def open_window(self):
-        self.js('window.open()')
+        if self.driver.current_url.startswith("moz-extension://"):
+            # work around https://bugzilla.mozilla.org/show_bug.cgi?id=1491443
+            self.js(
+                "(function () {"
+                "let link = document.createElement('a');"
+                "link.rel = 'noopener';"
+                "link.target = '_blank';"
+                "link.href = 'about:blank';"
+                "link.id = 'newwindowlink';"
+                "link.appendChild(document.createTextNode('clickme'));"
+                "document.body.appendChild(link);"
+                "}());"
+            )
+            self.driver.find_element_by_id("newwindowlink").click()
+            self.js(
+                "(function () {"
+                "let link = document.getElementById('newwindowlink');"
+                "link.parentNode.removeChild(link);"
+                "}());"
+            )
+        else:
+            self.js('window.open()')
+
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
-    def load_url(self, url, wait_on_site=0, wait_for_body_text=False, retries=5):
+    def load_url(self, url, wait_for_body_text=False, retries=5):
         """Load a URL and wait before returning."""
         for i in range(retries):
             try:
@@ -302,17 +351,23 @@ class PBSeleniumTest(unittest.TestCase):
                 break
             except TimeoutException as e:
                 if i < retries - 1:
+                    time.sleep(2 ** i)
+                    continue
+                raise e
+            # work around geckodriver/marionette/Firefox timeout handling,
+            # for example: https://travis-ci.org/EFForg/privacybadger/jobs/389429089
+            except WebDriverException as e:
+                if str(e).startswith("Reached error page") and i < retries - 1:
+                    time.sleep(2 ** i)
                     continue
                 raise e
         self.driver.switch_to.window(self.driver.current_window_handle)
 
         if wait_for_body_text:
             retry_until(
-                lambda: bool(self.driver.find_element_by_tag_name('body').text),
+                lambda: self.driver.find_element_by_tag_name('body').text,
                 msg="Waiting for document.body.textContent to get populated ..."
             )
-
-        time.sleep(wait_on_site)
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Find an element by CSS selector and return its text."""
@@ -320,7 +375,11 @@ class PBSeleniumTest(unittest.TestCase):
 
     def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
+            EC.visibility_of_element_located((By.CSS_SELECTOR, css_selector)))
+
+    def find_el_by_xpath(self, xpath, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located((By.XPATH, xpath)))
 
     def wait_for_script(
         self,

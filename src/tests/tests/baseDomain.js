@@ -122,6 +122,15 @@ URI:false,
         path: "/test@foo.example.com/bar",
         prePath: "http://[2001::7334]:8000"
       }],
+      ["filesystem:http://example.com/temporary/myfile.png", {
+        scheme: "filesystem:http",
+        host: "example.com",
+        asciiHost: "example.com",
+        hostPort: "example.com",
+        port: -1,
+        path: "/temporary/myfile.png",
+        prePath: "filesystem:http://example.com"
+      }],
     ];
 
     for (var i = 0; i < tests.length; i++) {

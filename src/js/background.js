@@ -46,17 +46,30 @@ function Badger() {
   });
 
   self.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (self.INITIALIZED) { return; }
+    if (self.INITIALIZED) {
+      return;
+    }
+
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     self.updateTabList();
     self.initializeDefaultSettings();
+
     try {
       self.runMigrations();
     } finally {
+      // TODO "await" to set INITIALIZED until both below async functions resolve?
+      // see TODO in qunit_config.js and in dnt_test.py
+      self.loadFirstRunSeedData();
       self.initializeYellowlist();
       self.initializeDNT();
-      self.enableWebRTCProtection();
-      if (!self.isIncognito) {self.showFirstRunPage();}
+      self.showFirstRunPage();
+    }
+
+    // set badge text color to white in Firefox 63+
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1424620
+    if (chrome.browserAction.hasOwnProperty('setBadgeTextColor')) {
+      chrome.browserAction.setBadgeTextColor({ color: "#fff" });
     }
 
     // Show icon as page action for all tabs that already exist
@@ -67,7 +80,15 @@ function Badger() {
       }
     });
 
-    // TODO: register all privacy badger listeners here in the storage callback
+    // start all the listeners
+    incognito.startListeners();
+    webrequest.startListeners();
+    HeuristicBlocking.startListeners();
+    FirefoxAndroid.startListeners();
+    startBackgroundListeners();
+
+    console.log("Privacy Badger is ready to rock!");
+    console.log("Set DEBUG=1 to view console messages.");
 
     self.INITIALIZED = true;
   });
@@ -141,9 +162,27 @@ Badger.prototype = {
 
   // Methods
 
+  // load seed dataset with pre-trained action and snitch maps
+  loadSeedData: function() {
+    let self = this;
+    utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
+      if (!err) {
+        self.mergeUserData(JSON.parse(response));
+        console.log("Loaded seed data successfully");
+      }
+    });
+  },
+
+  loadFirstRunSeedData: function() {
+    if (this.getSettings().getItem("isFirstRun")) {
+      this.loadSeedData();
+    }
+  },
+
   showFirstRunPage: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
-    if (settings.getItem("isFirstRun") && !chrome.extension.inIncognitoContext) {
+    let settings = this.getSettings();
+    if (settings.getItem("isFirstRun")) {
+      // launch first-run page and unset first-run flag
       chrome.tabs.create({
         url: chrome.extension.getURL("/skin/firstRun.html")
       });
@@ -258,39 +297,6 @@ Badger.prototype = {
 
     // set up periodic fetching of the yellowlist from eff.org
     setInterval(self.updateYellowlist.bind(self), utils.oneDay());
-  },
-
-  /**
-   * (Currently Chrome only)
-   * Change default WebRTC handling browser policy to more
-   * private setting that only shows public facing IP address.
-   * Only update if user does not have the strictest setting enabled
-   **/
-  enableWebRTCProtection: function() {
-    let self = this;
-
-    // Return early with non-supporting browsers
-    if (!self.webRTCAvailable) {
-      return;
-    }
-
-    var cpn = chrome.privacy.network;
-    var settings = self.storage.getBadgerStorageObject("settings_map");
-
-    cpn.webRTCIPHandlingPolicy.get({}, function(result) {
-      if (result.value === 'disable_non_proxied_udp') {
-        // TODO is there case where other extension controls this and PB
-        // TODO cannot modify it?
-        // Make sure we display correct setting on options page
-        settings.setItem("webRTCIPProtection", true);
-        return;
-      }
-
-      cpn.webRTCIPHandlingPolicy.set({ value: 'default_public_interface_only'},
-        function() {
-          settings.setItem("webRTCIPProtection", false);
-        });
-    });
   },
 
   /**
@@ -469,7 +475,6 @@ Badger.prototype = {
         callback(successStatus);
         return;
       }
-      // TODO Use sha256
       utils.sha1(response, function(hash) {
         if (dnt_hashes.hasItem(hash)) {
           successStatus = true;
@@ -487,18 +492,20 @@ Badger.prototype = {
     disabledSites: [],
     hideBlockedElements: true,
     isFirstRun: true,
+    learnInIncognito: false,
     migrationLevel: 0,
     seenComic: false,
+    sendDNTSignal: true,
     showCounter: true,
     showTrackingDomains: false,
-    socialWidgetReplacementEnabled: true,
+    socialWidgetReplacementEnabled: true
   },
 
   /**
    * initialize default settings if nonexistent
    */
   initializeDefaultSettings: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
+    var settings = this.getSettings();
     _.each(this.defaultSettings, function(value, key) {
       if (!settings.hasItem(key)) {
         log("setting", key, ":", value);
@@ -509,7 +516,7 @@ Badger.prototype = {
 
   runMigrations: function() {
     var self = this;
-    var settings = self.storage.getBadgerStorageObject("settings_map");
+    var settings = self.getSettings();
     var migrationLevel = settings.getItem('migrationLevel');
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently
@@ -527,6 +534,7 @@ Badger.prototype = {
       Migrations.reapplyYellowlist,
       Migrations.forgetNontrackingDomains,
       Migrations.forgetMistakenlyBlockedDomains,
+      Migrations.resetWebRTCIPHandlingPolicy,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
@@ -624,11 +632,15 @@ Badger.prototype = {
     if (disabledSites && disabledSites.length > 0) {
       for (var i = 0; i < disabledSites.length; i++) {
         var site = disabledSites[i];
+
         if (site.startsWith("*")) {
-          if (window.getBaseDomain(site) === window.getBaseDomain(origin)) {
+          var wildcard = site.slice(1); // remove "*"
+
+          if (origin.endsWith(wildcard)) {
             return false;
           }
         }
+
         if (disabledSites[i] === origin) {
           return false;
         }
@@ -644,28 +656,19 @@ Badger.prototype = {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
+  isDNTSignalEnabled: function() {
+    return this.getSettings().getItem("sendDNTSignal");
+  },
+
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
   },
 
   /**
-   * Check if WebRTC IP leak protection is enabled; query Chrome's internal
-   * value, update our local setting if it has gone out of sync, then return our
-   * setting's value.
+   * Check if learning about trackers in incognito windows is enabled
    */
-  isWebRTCIPProtectionEnabled: function() {
-    var self = this;
-
-    // Return early with non-supporting browsers
-    if (!self.webRTCAvailable) {
-      return;
-    }
-
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function(result) {
-      self.getSettings().setItem("webRTCIPProtection",
-        (result.value === "disable_non_proxied_udp"));
-    });
-    return self.getSettings().getItem("webRTCIPProtection");
+  isLearnInIncognitoEnabled: function() {
+    return this.getSettings().getItem("learnInIncognito");
   },
 
   /**
@@ -744,10 +747,10 @@ Badger.prototype = {
   hasSuperCookie: function(storageItems) {
     return (
       this.hasLocalStorageSuperCookie(storageItems.localStorageItems)
-      // || Utils.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
-      // || Utils.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
-      // TODO: Do we need separate functions for other supercookie vectors?
-      // Let's wait until we implement them in the content script
+      //|| this.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
+      // TODO: See "Reading a directory's contents" on
+      // http://www.html5rocks.com/en/tutorials/file/filesystem/
+      //|| this.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
     );
   },
 
@@ -801,6 +804,27 @@ Badger.prototype = {
     chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});
   },
 
+  /**
+   * Merge data exported from a different badger into this badger's storage.
+   *
+   * @param {Object} data the user data to merge in
+   */
+  mergeUserData: function(data) {
+    let self = this;
+    // The order of these keys is also the order in which they should be imported.
+    // It's important that snitch_map be imported before action_map (#1972)
+    ["snitch_map", "action_map", "settings_map"].forEach(function(key) {
+      if (data.hasOwnProperty(key)) {
+        let storageMap = self.storage.getBadgerStorageObject(key);
+        storageMap.merge(data[key]);
+      }
+    });
+
+    // for exports from older Privacy Badger versions:
+    // fix yellowlist getting out of sync, remove non-tracking domains, etc.
+    self.runMigrations();
+  }
+
 };
 
 /**************************** Listeners ****************************/
@@ -845,21 +869,4 @@ function startBackgroundListeners() {
   }
 }
 
-/**
- * lets get this party started
- */
-console.log('Loading badgers into the pen.');
 var badger = window.badger = new Badger();
-
-/**
-* Start all the listeners
-*/
-incognito.startListeners();
-webrequest.startListeners();
-HeuristicBlocking.startListeners();
-FirefoxAndroid.startListeners();
-startBackgroundListeners();
-
-// TODO move listeners and this message behind INITIALIZED
-console.log('Privacy badger is ready to rock!');
-console.log('Set DEBUG=1 to view console messages.');
