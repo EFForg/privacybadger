@@ -28,7 +28,7 @@ if [ $# -ne 1 ]; then
 fi
 
 echo "change author value"
-sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "privacybadger-owner@eff.org",/' ../checkout/src/manifest.json
+sed -i -e '/eff.software.projects@gmail.com/,+1d' -e 's/"author": {/"author": "privacybadger-owner@eff.org",/' ../checkout/src/manifest.json
 
 echo "making zip file for AMO"
 
