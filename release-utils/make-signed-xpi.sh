@@ -32,7 +32,7 @@ sed -i -e '/eff.software.projects@gmail.com/,+1d' -e 's/"author": {/"author": "p
 
 echo "making zip file for AMO"
 
-(cd ../checkout/src && zip -r ../../pkg/"$AMO_ZIP_NAME" ./*)
+(cd ../checkout/src && zip -q -r ../../pkg/"$AMO_ZIP_NAME" ./*)
 
 echo "insert self hosting package id"
 # Insert self hosted package id

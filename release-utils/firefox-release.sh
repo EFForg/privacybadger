@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 
-PKGDIR=../pkg/
+PKGDIR=../pkg
 
 # To make an Privacy Badger firefox release, signed with an offline key
 
@@ -29,7 +29,7 @@ PKG=$PKGDIR/privacy-badger-eff-$TARGET.xpi
 ALT=$PKGDIR/privacy-badger-eff-latest.xpi
 
 if ! ./make-signed-xpi.sh "$TARGET" ; then
-  echo "Failed to build target $TARGET"
+  echo "Failed to build target $TARGET XPI"
   exit 1
 fi
 
