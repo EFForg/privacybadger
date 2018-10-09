@@ -38,6 +38,8 @@ echo "insert self hosting package id"
 # Insert self hosted package id
 sed -i 's,"id": "jid1-MnnxcxisBPnSXQ@jetpack","id": "jid1-MnnxcxisBPnSXQ-eff@jetpack"\,\n      "update_url": "https://www.eff.org/files/privacy-badger-updates.json",' ../checkout/src/manifest.json
 
+$WEB_EXT lint -s ../checkout/src --self-hosted
+
 #"update_url": "https://www.eff.org/files/privacy-badger-updates.json"
 # Build and sign the XPI 
 echo "Running web-ext sign"
