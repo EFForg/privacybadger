@@ -224,9 +224,9 @@ Badger.prototype = {
   /**
    * Generate representation in internal data structure for frame
    *
-   * @param tabId ID of the tab
-   * @param frameId ID of the frame
-   * @param frameUrl The url of the frame
+   * @param {Integer} tabId ID of the tab
+   * @param {Integer} frameId ID of the frame
+   * @param {String} frameUrl The url of the frame
    */
   recordFrame: function(tabId, frameId, frameUrl) {
     let self = this;
