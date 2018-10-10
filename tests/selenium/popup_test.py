@@ -88,6 +88,9 @@ class PopupTest(pbtest.PBSeleniumTest):
             message="Timed out waiting for getTab() to complete."
         )
 
+        # wait for any sliders to finish rendering
+        self.wait_for_script("return window.SLIDERS_DONE")
+
         if close_overlay:
             # Click 'X' element to close overlay.
             close_element = self.driver.find_element_by_id("fittslaw")

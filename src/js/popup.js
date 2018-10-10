@@ -18,6 +18,7 @@
  */
 
 window.POPUP_INITIALIZED = false;
+window.SLIDERS_DONE = false;
 
 var constants = require("constants");
 var FirefoxAndroid = require("firefoxandroid");
@@ -398,6 +399,7 @@ function registerToggleHandlers() {
  * @param {Integer} tabId The id of the tab
  */
 function refreshPopup() {
+  window.SLIDERS_DONE = false;
 
   // must be a special browser page,
   // or a page that loaded everything before our most recent initialization
@@ -413,22 +415,23 @@ function refreshPopup() {
     // activate tooltips
     $('.tooltip').tooltipster();
 
+    window.SLIDERS_DONE = true;
+
     return;
+  }
 
-  } else {
-    // revert any hiding/showing above for cases when refreshPopup gets called
-    // more than once for the same popup, such as during functional testing
-    $('#blockedResourcesContainer').show();
-    $('#big-badger-logo').hide();
-    $('#deactivate_site_btn').show();
-    $('#error').show();
+  // revert any hiding/showing above for cases when refreshPopup gets called
+  // more than once for the same popup, such as during functional testing
+  $('#blockedResourcesContainer').show();
+  $('#big-badger-logo').hide();
+  $('#deactivate_site_btn').show();
+  $('#error').show();
 
-    // toggle activation buttons if privacy badger is not enabled for current url
-    if (!POPUP_DATA.enabled) {
-      $("#blockedResourcesContainer").hide();
-      $("#activate_site_btn").show();
-      $("#deactivate_site_btn").hide();
-    }
+  // toggle activation buttons if privacy badger is not enabled for current url
+  if (!POPUP_DATA.enabled) {
+    $("#blockedResourcesContainer").hide();
+    $("#activate_site_btn").show();
+    $("#deactivate_site_btn").hide();
   }
 
   // if there is any saved error text, fill the error input with it
@@ -452,6 +455,8 @@ function refreshPopup() {
 
     // activate tooltips
     $('.tooltip').tooltipster();
+
+    window.SLIDERS_DONE = true;
 
     return;
   }
@@ -533,6 +538,8 @@ function refreshPopup() {
 
     if (printable.length) {
       requestAnimationFrame(renderDomains);
+    } else {
+      window.SLIDERS_DONE = true;
     }
   }
   requestAnimationFrame(renderDomains);
