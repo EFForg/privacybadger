@@ -128,7 +128,7 @@
         "description": ""
     },
     "import": {
-        "message": "Tuonti",
+        "message": "Tuo",
         "description": ""
     },
     "options_social_widgets_checkbox": {
@@ -500,7 +500,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger on korvannut tämän$BUTTON$-painikkeen.",
+        "message": "Privacy Badger on korvannut tämän $BUTTON$-painikkeen.",
         "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
         "placeholders": {
             "button": {
