@@ -5,7 +5,6 @@
   let chromeDetails = {
     frameId: 35,
     method: "GET",
-    parentFrameId: 0,
     requestHeaders: [
       {
         name: "User-Agent",
@@ -45,7 +44,6 @@
     type: "script",
     timeStamp: 1490118778473,
     frameId: 4294967303,
-    parentFrameId: 0,
     tabId: 2,
     requestHeaders: [
       {
