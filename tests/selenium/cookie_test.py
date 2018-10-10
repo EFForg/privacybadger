@@ -3,10 +3,6 @@
 import time
 import unittest
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 import pbtest
 import window_utils
 
@@ -125,23 +121,29 @@ function setTabToUrl(query_url) {
     }, (response) => {
       setPopupData(response);
       refreshPopup();
+      window.DONE_REFRESHING = true;
     });
   });
 }"""
         self.js(javascript_src + "setTabToUrl('{}');".format(target_url))
+
+        # wait for popup to be ready
+        self.wait_for_script(
+            "return typeof window.DONE_REFRESHING != 'undefined' &&"
+            "window.POPUP_INITIALIZED &&"
+            "window.SLIDERS_DONE"
+        )
 
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
         self.nonTrackers = {}
         self.cookieBlocked = {}
         self.blocked = {}
+
         self.driver.switch_to.window(self.driver.current_window_handle)
 
-        # wait for asynchronously-rendered tracker list to load
-        WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR,
-             "#blockedResourcesInner > div.clicker[data-origin]")))
-        domain_divs = self.driver.find_elements_by_css_selector("#blockedResourcesInner > div.clicker[data-origin]")
+        domain_divs = self.driver.find_elements_by_css_selector(
+            "#blockedResourcesInner > div.clicker[data-origin]")
         for div in domain_divs:
             origin = div.get_attribute('data-origin')
 
