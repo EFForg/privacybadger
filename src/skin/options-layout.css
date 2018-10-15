@@ -18,6 +18,11 @@ button
   white-space: pre;
 }
 
+label
+{
+  display: inline-flex;
+}
+
 #pbInstructions {
   margin-bottom: 20px;
 }
@@ -30,6 +35,8 @@ button
   float: left;
   clear: both;
   margin-bottom: 20px;
+  max-width: 700px;
+  width: 100%;
 }
 
 .btn-silo + .btn-silo {
@@ -39,7 +46,8 @@ button
 }
 
 .btn-silo div {
-  width: 350px;
+  max-width: 350px;
+  width: 100%;
   float: left;
 }
 
@@ -51,7 +59,7 @@ button
 
 .btn-danger:hover {
   color: white;
-  background: #e02431; 
+  background: #e02431;
 }
 
 .importInput{
@@ -97,7 +105,7 @@ button
 #settings-suffix {
     color: #555;
     font-size: 12px;
-    width: 500px;
+    max-width: 500px;
     margin-left: 50px;
 }
 
