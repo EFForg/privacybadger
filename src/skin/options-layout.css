@@ -35,6 +35,8 @@ label
   float: left;
   clear: both;
   margin-bottom: 20px;
+  max-width: 700px;
+  width: 100%;
 }
 
 .btn-silo + .btn-silo {
@@ -45,6 +47,7 @@ label
 
 .btn-silo div {
   max-width: 350px;
+  width: 100%;
   float: left;
 }
 
