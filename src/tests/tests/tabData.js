@@ -10,7 +10,7 @@
       this.SITE_URL = "http://example.com/";
       this.tabId = 9999;
 
-      badger.recordFrame(this.tabId, 0, -1, this.SITE_URL);
+      badger.recordFrame(this.tabId, 0, this.SITE_URL);
 
       // stub chrome.tabs.get manually as we have some sort of issue stubbing with Sinon in Firefox
       this.chromeTabsGet = chrome.tabs.get;

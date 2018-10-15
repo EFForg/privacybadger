@@ -343,23 +343,12 @@ class PBSeleniumTest(unittest.TestCase):
         if self.driver.current_url.startswith("moz-extension://"):
             # work around https://bugzilla.mozilla.org/show_bug.cgi?id=1491443
             self.js(
-                "(function () {"
-                "let link = document.createElement('a');"
-                "link.rel = 'noopener';"
-                "link.target = '_blank';"
-                "link.href = 'about:blank';"
-                "link.id = 'newwindowlink';"
-                "link.appendChild(document.createTextNode('clickme'));"
-                "document.body.appendChild(link);"
-                "}());"
+                "delete window.__new_window_created;"
+                "chrome.windows.create({}, function () {"
+                "window.__new_window_created = true;"
+                "});"
             )
-            self.driver.find_element_by_id("newwindowlink").click()
-            self.js(
-                "(function () {"
-                "let link = document.getElementById('newwindowlink');"
-                "link.parentNode.removeChild(link);"
-                "}());"
-            )
+            self.wait_for_script("return window.__new_window_created")
         else:
             self.js('window.open()')
 
