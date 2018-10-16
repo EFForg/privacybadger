@@ -92,9 +92,8 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.js(BLOCK_DOMAIN_JS)
 
         # need to keep Badger's background page open for our changes to persist
-        # so, either open and switch to a new window,
-        # or just reuse the already-open new user welcome window
-        switch_to_window_with_url(self.driver, self.first_run_url)
+        # so, open and switch to a new window
+        self.open_window()
 
         # visit a page that loads a resource from that DNT-compliant domain
         self.load_url(PAGE_URL)
@@ -152,8 +151,6 @@ class DNTTest(pbtest.PBSeleniumTest):
             "No cookies again")
 
         self.load_url(self.bg_url)
-        # wait until Badger's storage is ready
-        self.wait_for_script("return badger.INITIALIZED")
         # perform a DNT policy check
         self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
@@ -180,7 +177,8 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.load_url(self.bg_url)
         # wait for DNT hash update to complete
         # so that it doesn't overwrite our change below
-        # TODO wait conditionally: have badger.INITIALIZED account for things getting initialized async
+        # TODO wait conditionally; will be able to remove waiting here once
+        # badger.INITIALIZED accounts for things that initialize async
         time.sleep(1)
         self.js("""badger.storage.updateDNTHashes(
 { "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
@@ -206,9 +204,8 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.load_url(self.bg_url)
 
         # need to keep Badger's background page open to record what's happening
-        # so, either open and switch to a new window,
-        # or just reuse the already-open new user welcome window
-        switch_to_window_with_url(self.driver, self.first_run_url)
+        # so, open and switch to a new window
+        self.open_window()
 
         # visit a page containing two third-party resources,
         # one from a cookie-tracking domain

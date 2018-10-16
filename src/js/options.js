@@ -17,8 +17,6 @@
 
 /* globals getOriginsArray:false */
 
-// TODO: This code is a hideous mess and desperately needs to be refactored and cleaned up.
-
 // TODO hack: disable Tooltipster tooltips on Firefox to avoid unresponsive script warnings
 (function () {
 const matches = navigator.userAgent.match(

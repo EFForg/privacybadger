@@ -120,6 +120,7 @@ cursecdn.com
 custhelp.com
 d3js.org
 dailymotion.com
+danid.dk
 dealer.com
 dealerinspire.com
 delicious.com
@@ -315,6 +316,7 @@ instantservice.com
 instapaper.com
 intellicast.com
 intensedebate.com
+intercom.io
 members.internetdefenseleague.org
 investingchannel.com
 script.ioam.de
@@ -468,6 +470,7 @@ postimg.org
 powerreviews.com
 pricegrabber.com
 printfriendly.com
+prismic.io
 providesupport.com
 psswrdbx.com
 publiekeomroep.nl
@@ -489,6 +492,7 @@ recurly.com
 reddit.com
 redditmedia.com
 redditstatic.com
+cdngeneral.rentcafe.com
 resellerratings.com
 resultspage.com
 rewardstyle.com

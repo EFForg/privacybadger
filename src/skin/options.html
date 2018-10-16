@@ -114,25 +114,24 @@
     <p class="i18n_disabled_for_these_domains"></p>
 
     <form id="whitelistForm" action="#">
-      <table>
-        <tr>
-          <td style="max-width:100%">
+      <div>
+        <div>
+          <div style="float: left; max-width: 400px; width: 100%; margin-right: 30px">
             <input type="text" value="" id="newWhitelistDomain" style="width:100%" placeholder="i18n_whitelist_form_domain_input_placeholder">
-          </td>
-          <td>
+          </div>
+          <div style="float: left">
             <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <select id="excludedDomainsBox" size="10" multiple style="width:500px; background: white;"></select>
-          </td>
-          <td>
+          </div>
+        </div>
+        <div style="clear: both; overflow: hidden">
+          <div style="float: left; max-width: 420px; width: 100%; margin-right: 10px">
+            <select id="excludedDomainsBox" size="10" multiple style="width: 100%; background: white;"></select>
+          </div>
+          <div style="float: left">
             <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
-          </td>
-        </tr>
-      </table>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 

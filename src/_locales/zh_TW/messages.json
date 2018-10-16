@@ -14,8 +14,8 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "您確定要從 Privacy Badger 移除此來源嗎？",
-        "description": ""
+        "message": "您確定要從 Privacy Badger 移除此網域？",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "沒有追蹤 $DOMAIN$",

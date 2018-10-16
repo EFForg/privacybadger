@@ -54,13 +54,13 @@ function onBeforeRequest(details) {
   if (type == "main_frame") {
     forgetTab(tab_id);
 
-    badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
+    badger.recordFrame(tab_id, frame_id, url);
 
     return {};
   }
 
   if (type == "sub_frame") {
-    badger.recordFrame(tab_id, frame_id, details.parentFrameId, url);
+    badger.recordFrame(tab_id, frame_id, url);
   }
 
   // Block ping requests sent by navigator.sendBeacon (see, #587)

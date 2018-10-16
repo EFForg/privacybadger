@@ -15,7 +15,7 @@
     },
     "options_remove_origin_confirm": {
         "message": "آیا مطمئن هستید که میخواهید این را از پرایوسی بجر حذف کنید؟",
-        "description": ""
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "هیچ ردیابی برای $DOMAIN$ وجود ندارد",
@@ -128,7 +128,7 @@
         "description": ""
     },
     "import": {
-        "message": "انتقال",
+        "message": "ایمپورت",
         "description": ""
     },
     "options_social_widgets_checkbox": {
@@ -206,11 +206,11 @@
         "description": ""
     },
     "export_user_data": {
-        "message": "انتقال داده های کاربر",
+        "message": "انتقال داده کاربری",
         "description": ""
     },
     "manage_data_intro": {
-        "message": "انتقال داده کاربر:<ul><li> اوورایت تنظیمات کلی</li><li>ترکیب لیست سایت های غیرفعال شده</li><li>ترکیب اطلاعات درباره ردیاب هایی که پرایوسی بجر با آن ها برخورد داشته است</li><li>اوورایت کاستومایزیشن اسلایدر</li></ul> ",
+        "message": "ایمپورت داده کاربری:<ul><li> اوورایت تنظیمات کلی</li><li>ترکیب لیست سایت های غیرفعال شده</li><li>ترکیب اطلاعات درباره ردیاب هایی که پرایوسی بجر با آن ها برخورد داشته است</li><li>اوورایت کاستومایزیشن اسلایدر</li></ul> ",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -294,7 +294,7 @@
         "description": ""
     },
     "import_select_file": {
-        "message": "لطفا یک فایل را برای انتقال انتخاب کنید.",
+        "message": "لطفا یک فایل را برای ایمپورت کردن انتخاب کنید.",
         "description": ""
     },
     "popup_blocked": {
@@ -318,7 +318,7 @@
         "description": ""
     },
     "import_user_data": {
-        "message": "انتقال داده های کاربر",
+        "message": "ایمپورت داده کاربری",
         "description": ""
     },
     "options_domain_filter_dnt": {
@@ -510,39 +510,39 @@
         }
     },
     "sync_intro": {
-        "message": "Cloud sync:<ul><li>Requires Firefox/Chrome Sync</li><li>Upload overwrites any existing Privacy Badger data in the cloud</li><li>Download combines the lists of sites where your Badger is disabled</li></ul>",
+        "message": "سینک ابری: <ul><li>به سینک فایرفاکس/کروم نیاز دارد</li><li>آپلود باعث اوورایت شدن داده پرایوسی بجر در کلود می شود</li><li>دانلود لیست سایت هایی که پرایوسی بجر برای آن ها غیرفعال است را ترکیب میکند</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
-        "message": "Upload",
+        "message": "آپلود",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Export disabled sites to cloud",
+        "message": "انتقال سایت های غیرفعال شده به کلود",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Import disabled sites from cloud",
+        "message": "ایمپورت سایت های غیرفعال شده از کلود",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "Cloud data imported successfully.",
+        "message": "داده ابری با موفقیت ایمپورت شد.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
-        "message": "Cloud data could not be downloaded.",
+        "message": "داده ابری دانلود نشد.",
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Cloud data uploaded successfully.",
+        "message": "داده ابری با موفقیت آپلود شد.",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Cloud data could not be uploaded.",
+        "message": "داده ابری آپلود نشد.",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
-        "message": "No cloud data to download.",
+        "message": "هیچ داده ابری برای دانلود وجود ندارد.",
         "description": "'Error' message when there is on cloud data to download."
     }
 }

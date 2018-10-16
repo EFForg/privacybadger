@@ -72,9 +72,8 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         )
 
         # need to keep PB's background page open for our changes to persist ...
-        # so, either open and switch to a new window,
-        # or just reuse the already-open new user welcome window
-        switch_to_window_with_url(self.driver, self.first_run_url)
+        # so, open and switch to a new window
+        self.open_window()
 
         # verify site breaks
         self.assertFalse(
@@ -100,7 +99,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         )
 
         # still need to keep PB's bg page open ...
-        switch_to_window_with_url(self.driver, SurrogatesTest.TEST_URL)
+        self.open_window()
 
         # verify site loads again
         self.assertTrue(

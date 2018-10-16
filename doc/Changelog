@@ -1,5 +1,29 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.10.3.1
+* Fixed style problems with Google Search results
+* Fixed the setting to open results in new browser windows on Google Search
+
+## 2018.10.3
+* Added protection against outgoing link click tracking on Google Search,
+Google Docs and Google Hangouts
+* Fixed various site breakages
+* Added Finnish translations
+* Improved translations (Simplified Chinese)
+
+## 2018.9.20
+* Added buttons to back up and restore the disabled sites list using
+Firefox/Google Sync. The new buttons live under the Manage Data tab
+on the options page.
+* Added saving of in-progress error reports so that you no longer lose
+your typing when you close the popup for whatever reason
+* Fixed popup layout problems when opened in the overflow menu in Firefox
+* Updated popup and options to use a higher resolution Badger logo on higher
+pixel density displays
+* Fixed problems with broken fonts and images on Google Docs
+* Improved translations (Traditional Chinese, French, German,
+Brazilian Portuguese, Russian, Spanish, Swedish, Turkish)
+
 ## 2018.8.22
 * Added pre-trained tracker data for new Privacy Badger installations.
 Visit www.eff.org/badger-pretraining to learn more.
