@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger chroni Cię przed szpiegami podczas gdy Ty przeglądasz Sieć!",
+        "message": "Privacy Badger automatycznie uczy się blokować niewidoczne śledziki.",
         "description": ""
     },
     "report_fail": {

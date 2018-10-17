@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Personvernsgrevlingen beskytter deg fra sporere når du surfer på nettet!",
+        "message": "Privacy Badger automatically learns to block invisible trackers.",
         "description": ""
     },
     "report_fail": {

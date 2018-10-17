@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger защищает вас от трекеров во время работы в Интернете!",
+        "message": "Privacy Badger автоматически учится блокировать невидимые трекеры.",
         "description": ""
     },
     "report_fail": {

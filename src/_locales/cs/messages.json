@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger vás chrání před sledováním při procházení internetu!",
+        "message": "Privacy Badger se automaticky učí blokovat neviditelné sledovací prvky na webových stránkách.",
         "description": ""
     },
     "report_fail": {

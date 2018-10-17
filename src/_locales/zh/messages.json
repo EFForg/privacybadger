@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "你在网上冲浪的时候，隐私獾会保护你免受跟踪器的烦恼！",
+        "message": "隐私獾会自动发现并屏蔽隐身的跟踪器。",
         "description": ""
     },
     "report_fail": {

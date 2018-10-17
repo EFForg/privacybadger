@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "O Privacy Badger te protege contra rastreadores enquanto você navega na web!",
+        "message": "O Privacy Badger aprende automaticamente a bloquear rastreadores invisíveis.",
         "description": ""
     },
     "report_fail": {

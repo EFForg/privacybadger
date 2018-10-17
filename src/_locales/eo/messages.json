@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privata Melo protektas vin kontraŭ spuriloj dum kiam vi retumas!",
+        "message": "Privata Melo aŭtomate lernas bloki nevideblajn spurilojn.",
         "description": ""
     },
     "report_fail": {

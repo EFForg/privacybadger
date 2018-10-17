@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger suojelee sinua jäljittimiltä netissä surffatessasi!",
+        "message": "Privacy Badger oppii automaattisesti estämään näkymättömät jäljittimet.",
         "description": ""
     },
     "report_fail": {

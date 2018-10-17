@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "پرایوسی بجر در هنگام گردش در وب از شما در برابر ردیاب ها محافظت می کند!",
+        "message": "پرایوسی بجر به صورت اتوماتیک یاد می گیرد تا ردیاب های مخفی را بلاک کند.",
         "description": ""
     },
     "report_fail": {
