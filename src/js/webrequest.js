@@ -75,7 +75,16 @@ function onBeforeRequest(details) {
   }
 
   let tab_host = getHostForTab(tab_id);
-  let request_host = window.extractHostFromURL(url);
+  const request_host = window.extractHostFromURL(url);
+
+  // if we are no longer on the page the request is coming for,
+  // don't log in popup or attempt to replace social widgets
+  // but do block request/modify headers
+  const request_doc_host = getDocumentHostForRequest(details),
+    misattribution = request_doc_host && request_doc_host != tab_host;
+  if (misattribution) {
+    tab_host = request_doc_host;
+  }
 
   if (!isThirdPartyDomain(request_host, tab_host)) {
     return {};
@@ -86,7 +95,9 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+  if (!misattribution) {
+    badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+  }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
@@ -103,12 +114,14 @@ function onBeforeRequest(details) {
     }
   }
 
-  // Notify the content script...
-  var msg = {
-    replaceSocialWidget: true,
-    trackerDomain: request_host
-  };
-  chrome.tabs.sendMessage(tab_id, msg);
+  if (!misattribution) {
+    // Notify the content script...
+    var msg = {
+      replaceSocialWidget: true,
+      trackerDomain: request_host
+    };
+    chrome.tabs.sendMessage(tab_id, msg);
+  }
 
   // if this is a heuristically- (not user-) blocked domain
   if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
@@ -160,7 +173,16 @@ function onBeforeSendHeaders(details) {
   }
 
   let tab_host = getHostForTab(tab_id);
-  let request_host = window.extractHostFromURL(url);
+  const request_host = window.extractHostFromURL(url);
+
+  // if we are no longer on the page the request is coming for,
+  // don't log in popup or attempt to replace social widgets
+  // but do block request/modify headers
+  const request_doc_host = getDocumentHostForRequest(details),
+    misattribution = request_doc_host && request_doc_host != tab_host;
+  if (misattribution) {
+    tab_host = request_doc_host;
+  }
 
   if (!isThirdPartyDomain(request_host, tab_host)) {
     if (badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -176,7 +198,7 @@ function onBeforeSendHeaders(details) {
 
   var requestAction = checkAction(tab_id, request_host, frame_id);
 
-  if (requestAction) {
+  if (requestAction && !misattribution) {
     badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
   }
 
@@ -188,7 +210,7 @@ function onBeforeSendHeaders(details) {
     badger.heuristicBlocking.heuristicBlockingAccounting(details);
     requestAction = checkAction(tab_id, request_host, frame_id);
 
-    if (requestAction) {
+    if (requestAction && !misattribution) {
       badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
     }
   }
@@ -207,12 +229,14 @@ function onBeforeSendHeaders(details) {
       }
     }
 
-    // Notify the content script...
-    var msg = {
-      replaceSocialWidget: true,
-      trackerDomain: request_host
-    };
-    chrome.tabs.sendMessage(tab_id, msg);
+    if (!misattribution) {
+      // Notify the content script...
+      var msg = {
+        replaceSocialWidget: true,
+        trackerDomain: request_host
+      };
+      chrome.tabs.sendMessage(tab_id, msg);
+    }
 
     if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
       return {
@@ -279,7 +303,16 @@ function onHeadersReceived(details) {
   }
 
   let tab_host = getHostForTab(tab_id);
-  let request_host = window.extractHostFromURL(url);
+  const request_host = window.extractHostFromURL(url);
+
+  // if we are no longer on the page the request is coming for,
+  // don't log in popup or attempt to replace social widgets
+  // but do block request/modify headers
+  const request_doc_host = getDocumentHostForRequest(details),
+    misattribution = request_doc_host && request_doc_host != tab_host;
+  if (misattribution) {
+    tab_host = request_doc_host;
+  }
 
   if (!isThirdPartyDomain(request_host, tab_host)) {
     return {};
@@ -290,7 +323,9 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+  if (!misattribution) {
+    badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+  }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
@@ -344,6 +379,65 @@ function isThirdPartyDomain(domain1, domain2) {
     );
   }
   return false;
+}
+
+/**
+ * Gets the hostname for a given request's top-level document.
+ *
+ * The request's document may be different from the current top-level document
+ * loaded in tab as requests can come out of order:
+ *
+ * - "main_frame" requests usually but not always mark a boundary
+ *   (navigating to another site while the current page is still loading)
+ * - sometimes there is no "main_frame" request
+ *   (service worker pages in Firefox)
+ *
+ * @param {Object} details chrome.webRequest request details object
+ *
+ * @return {String} the hostname for the request's top-level document
+ */
+function getDocumentHostForRequest(details) {
+  let host, url;
+
+  // Firefox 54+
+  if (details.hasOwnProperty("documentUrl")) {
+    if (details.type == "main_frame") {
+      // the top-level document itself
+      url = details.url;
+    } else if (details.hasOwnProperty("frameAncestors")) {
+      // Firefox 58+
+      if (details.frameAncestors.length) {
+        // inside a frame
+        url = details.frameAncestors[details.frameAncestors.length - 1].url;
+      } else {
+        // inside the top-level document
+        url = details.documentUrl;
+      }
+    } else {
+      // TODO Firefox 54-57 or a service worker request
+      if (details.documentUrl.endsWith("/sw.js")) {
+        url = details.documentUrl;
+      }
+    }
+
+  // Chrome 63+
+  } else if (details.hasOwnProperty("initiator")) {
+    if (details.initiator && details.initiator != "null") {
+      if (details.type == "main_frame") {
+        url = details.url;
+      } else if (details.parentFrameId == -1 || details.type == "sub_frame" && details.parentFrameId === 0) {
+        // TODO can only rely on initiator for main frame resources:
+        // https://crbug.com/838242#c17
+        url = details.initiator + '/';
+      }
+    }
+  }
+
+  if (url) {
+    host = window.extractHostFromURL(url);
+  }
+
+  return host;
 }
 
 /**
