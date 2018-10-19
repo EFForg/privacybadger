@@ -101,36 +101,36 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    let fqdn = (new URI(details.url)).host,
-      origin = window.getBaseDomain(fqdn);
+    let request_host = (new URI(details.url)).host,
+      request_origin = window.getBaseDomain(request_host);
 
     // if this is a main window request
     if (details.type == "main_frame") {
       // save the origin associated with the tab
-      log("Origin: " + origin + "\tURL: " + details.url);
-      tabOrigins[details.tabId] = origin;
+      log("Origin: %s\tURL: %s", request_origin, details.url);
+      tabOrigins[details.tabId] = request_origin;
       return {};
     }
 
-    let tabOrigin = tabOrigins[details.tabId];
+    let tab_origin = tabOrigins[details.tabId];
 
     // ignore first-party requests
-    if (!tabOrigin || origin == tabOrigin) {
+    if (!tab_origin || request_origin == tab_origin) {
       return {};
     }
 
     // abort if we already made a decision for this FQDN
-    let action = this.storage.getAction(fqdn);
+    let action = this.storage.getAction(request_host);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return {};
     }
 
     // ignore if there are no tracking cookies
-    if (!hasCookieTracking(details, origin)) {
+    if (!hasCookieTracking(details, request_origin)) {
       return {};
     }
 
-    this._recordPrevalence(fqdn, origin, tabOrigin);
+    this._recordPrevalence(request_host, request_origin, tab_origin);
   },
 
   /**
