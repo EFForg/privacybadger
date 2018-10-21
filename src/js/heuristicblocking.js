@@ -114,6 +114,14 @@ HeuristicBlocker.prototype = {
 
     let tab_origin = tabOrigins[details.tabId];
 
+    // we may no longer be on the page the request is coming from
+    const request_doc_host = utils.getDocumentHostForRequest(details),
+      request_doc_origin = request_doc_host && window.getBaseDomain(request_doc_host),
+      misattribution = request_doc_origin && request_doc_origin != tab_origin;
+    if (misattribution) {
+      tab_origin = request_doc_origin;
+    }
+
     // ignore first-party requests
     if (!tab_origin || request_origin == tab_origin) {
       return {};
