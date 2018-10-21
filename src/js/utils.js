@@ -378,7 +378,7 @@ function getDocumentHostForRequest(details) {
       }
     } else {
       // TODO Firefox 54-57 or a service worker request
-      if (details.documentUrl.endsWith("/sw.js")) {
+      if (new URL(details.documentUrl).pathname.endsWith(".js")) {
         url = details.documentUrl;
       }
     }
