@@ -1,3 +1,4 @@
+HI
 IGNORE ME
 Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadger.svg?branch=master)](https://travis-ci.org/EFForg/privacybadger)
 ===================
