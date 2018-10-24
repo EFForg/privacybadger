@@ -68,16 +68,16 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
         self.load_url(
-            "https://gistcdn.githack.com/gunesacar"
-            "/6f0c39fb728a218ccd91215bfefbd4e0/raw/f438eb4e5ce10dc8623a8834b1298fd4a846c6fa"
-            "/low_entropy_localstorage_from_third_party_script.html"
+            "https://gitcdn.link/cdn/gunesacar/"
+            "6f0c39fb728a218ccd91215bfefbd4e0/raw/f438eb4e5ce10dc8623a8834b1298fd4a846c6fa/"
+            "low_entropy_localstorage_from_third_party_script.html"
         )
-        time.sleep(4)
+        time.sleep(3)
         self.assertFalse(self.detected_tracking_by("githack.com"))
 
     def test_should_not_detect_first_party_ls(self):
         self.load_url("https://gistcdn.githack.com/gunesacar/43e2ad2b76fa5a7f7c57/raw/44e7303338386514f1f5bb4166c8fd24a92e97fe/set_ls.html")
-        time.sleep(4)
+        time.sleep(3)
         self.assertFalse(self.detected_tracking_by("githack.com"))
 
     def test_should_not_detect_ls_of_third_party_script(self):
@@ -87,7 +87,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             "b366e3b03231dbee9709fe0a614faf10/raw/48e02456aa257e272092b398772a712391cf8b11/"
             "localstorage_from_third_party_script.html"
         )
-        time.sleep(4)
+        time.sleep(3)
         self.assertFalse(self.detected_tracking_by("githack.com"))
 
 
