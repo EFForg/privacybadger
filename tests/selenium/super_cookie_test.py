@@ -27,9 +27,9 @@ class SupercookieTest(pbtest.PBSeleniumTest):
     @pbtest.repeat_if_failed(5)
     def test_async_tracking_misattribution_bug(self):
         self.load_url(
-            "https://cdn.rawgit.com/ghostwords"
-            "/d3685dc39f7e67dddf1edf2614beb6fc/raw/a78cfd6c86d51a8d8ab1e214e4e49e2c025d4715"
-            "/privacy_badger_async_bug_test_fixture.html"
+            "https://gitcdn.link/cdn/ghostwords/"
+            "d3685dc39f7e67dddf1edf2614beb6fc/raw/f52060b329dfeb4e264fcd21c48206cff98786f6/"
+            "privacy_badger_async_bug_test_fixture.html"
         )
 
         # the above HTML page reloads itself furiously to trigger our bug
@@ -56,7 +56,11 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         # perhaps because the script runs before we start intercepting the calls.
 
         # Perhaps related to: https://github.com/ghostwords/chameleon/issues/5
-        self.load_url("https://rawgit.com/gunesacar/24d81a5c964cb563614162c264be32f0/raw/8fa10f97b87343dfb62ae9b98b753c73a995157e/frame_ls.html")
+        self.load_url(
+            "https://gitcdn.link/cdn/gunesacar/"
+            "24d81a5c964cb563614162c264be32f0/raw/8fa10f97b87343dfb62ae9b98b753c73a995157e/"
+            "frame_ls.html"
+        )
         # TODO might also be related to https://github.com/EFForg/privacybadger/pull/1522
         time.sleep(1)
         self.assertTrue(pbtest.retry_until(
@@ -79,9 +83,9 @@ class SupercookieTest(pbtest.PBSeleniumTest):
     def test_should_not_detect_ls_of_third_party_script(self):
         # a third-party script included by the top page (not a 3rd party frame)
         self.load_url(
-            "https://rawgit.com/gunesacar"
-            "/b366e3b03231dbee9709fe0a614faf10/raw/48e02456aa257e272092b398772a712391cf8b11"
-            "/localstorage_from_third_party_script.html"
+            "https://gitcdn.link/cdn/gunesacar/"
+            "b366e3b03231dbee9709fe0a614faf10/raw/48e02456aa257e272092b398772a712391cf8b11/"
+            "localstorage_from_third_party_script.html"
         )
         time.sleep(4)
         self.assertFalse(self.detected_tracking_by("githack.com"))
