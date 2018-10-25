@@ -386,7 +386,8 @@ class PBSeleniumTest(unittest.TestCase):
 
     def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, css_selector)))
+            EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, css_selector)))
 
     def find_el_by_xpath(self, xpath, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
@@ -404,6 +405,16 @@ class PBSeleniumTest(unittest.TestCase):
             lambda driver: driver.execute_script(script),
             message
         )
+
+    def wait_for_text(self, selector, text, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
+            EC.text_to_be_present_in_element(
+                (By.CSS_SELECTOR, selector), text))
+
+    def wait_for_and_switch_to_frame(self, selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
+            EC.frame_to_be_available_and_switch_to_it(
+                (By.CSS_SELECTOR, selector)))
 
     @property
     def logs(self):

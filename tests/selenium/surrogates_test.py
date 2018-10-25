@@ -5,9 +5,6 @@ import unittest
 import pbtest
 
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 from pbtest import retry_until
 from window_utils import switch_to_window_with_url
@@ -22,14 +19,10 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
 
     def load_ga_js_test_page(self, timeout=12):
         self.load_url(SurrogatesTest.TEST_URL)
-        wait = WebDriverWait(self.driver, timeout)
         try:
-            wait.until(
-                EC.frame_to_be_available_and_switch_to_it((By.TAG_NAME, 'iframe'))
-            )
-            return wait.until(EC.text_to_be_present_in_element(
-                (By.CSS_SELECTOR, 'h1'), "It worked!"
-            ))
+            self.wait_for_and_switch_to_frame('iframe', timeout=timeout)
+            self.wait_for_text('h1', "It worked!", timeout=timeout)
+            return True
         except TimeoutException:
             return False
 
