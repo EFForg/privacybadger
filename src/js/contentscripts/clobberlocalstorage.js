@@ -53,15 +53,36 @@ if (document instanceof HTMLDocument === false && (
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({checkLocation:document.location.href}, function(blocked) {
   if (blocked) {
+    // https://stackoverflow.com/questions/49092423/how-to-break-on-localstorage-changes
     var code =
       '('+ function() {
+        let lsProxy = new Proxy(window.localStorage, {
+          set: function (/*ls, prop, value*/) {
+            return true;
+          },
+          get: function (ls, prop) {
+            if (typeof ls[prop] == 'function') {
+              let fn = function () {};
+              if (prop == 'getItem' || prop == 'key') {
+                fn = function () { return null; };
+              }
+              return fn.bind(ls);
+            } else {
+              if (prop == 'length') {
+                return 0;
+              } else if (prop == '__proto__') {
+                return lsProxy;
+              }
+              return;
+            }
+          }
+        });
         try {
-          window.localStorage.getItem = function() {
-            return null;
-          };
-          window.localStorage.setItem = function(/*newValue*/) {
-            //doNothing
-          };
+          Object.defineProperty(window, 'localStorage', {
+            configurable: true,
+            enumerable: true,
+            value: lsProxy
+          });
         } catch (ex) {
           // ignore exceptions thrown when "Block third-party cookies" is enabled in Chrome
         }

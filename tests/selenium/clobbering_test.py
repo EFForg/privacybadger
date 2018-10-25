@@ -10,12 +10,14 @@ class ClobberingTest(pbtest.PBSeleniumTest):
     def test_localstorage_clobbering(self):
         FIXTURE_TEST_RESULT_IDS = [
             'get-item',
+            'get-property',
+            'get-item-proto',
         ]
         # page loads a frame that writes to and reads from localStorage
         # TODO remove delays from fixture once race condition (https://crbug.com/478183) is fixed
         FIXTURE_URL = (
             "https://gitcdn.link/cdn/ghostwords/"
-            "95d3795b3e2d59b0a729825050c252d2/raw/df849c9ec692fb047f4a3b2c7218f8354fe2ce60/"
+            "95d3795b3e2d59b0a729825050c252d2/raw/f357323dba57eaae2fadd89ae8ad7644f47f621d/"
             "privacy-badger-clobbering-fixture.html"
         )
         FRAME_DOMAIN = "githack.com"
@@ -30,7 +32,13 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             # wait for each test to run
             self.wait_for_script(
                 "return document.getElementById('%s')"
-                ".textContent != '...';" % selector
+                ".textContent != '...';" % selector,
+                timeout=2,
+                message=(
+                    "Timed out waiting for localStorage (%s) to finish ... "
+                    "This probably means the fixture "
+                    "errored out somewhere." % selector
+                )
             )
             self.assertNotEqual(
                 self.txt_by_css("#" + selector), "",
@@ -49,7 +57,13 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             # wait for each test to run
             self.wait_for_script(
                 "return document.getElementById('%s')"
-                ".textContent != '...';" % selector
+                ".textContent != '...';" % selector,
+                timeout=2,
+                message=(
+                    "Timed out waiting for localStorage (%s) to finish ... "
+                    "This probably means the fixture "
+                    "errored out somewhere." % selector
+                )
             )
             self.assertEqual(
                 self.txt_by_css("#" + selector), "",
