@@ -382,12 +382,16 @@ class PBSeleniumTest(unittest.TestCase):
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Find an element by CSS selector and return its text."""
-        return self.find_el_by_css(css_selector, timeout).text
+        return self.find_el_by_css(
+            css_selector, visible_only=False, timeout=timeout).text
 
-    def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+    def find_el_by_css(self, css_selector, visible_only=True, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        condition = (
+            EC.visibility_of_element_located if visible_only
+            else EC.presence_of_element_located
+        )
         return WebDriverWait(self.driver, timeout).until(
-            EC.visibility_of_element_located(
-                (By.CSS_SELECTOR, css_selector)))
+            condition((By.CSS_SELECTOR, css_selector)))
 
     def find_el_by_xpath(self, xpath, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
