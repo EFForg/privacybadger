@@ -51,7 +51,7 @@ if (document instanceof HTMLDocument === false && (
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({checkLocation:document.location.href}, function(blocked) {
+chrome.runtime.sendMessage({ checkLocation: window.FRAME_URL }, function (blocked) {
   if (blocked) {
     // https://stackoverflow.com/questions/49092423/how-to-break-on-localstorage-changes
     var code =

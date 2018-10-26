@@ -45,7 +45,7 @@ if (document instanceof HTMLDocument === false && (
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({checkLocation:document.location.href}, function(blocked) {
+chrome.runtime.sendMessage({ checkLocation: window.FRAME_URL }, function (blocked) {
   if (blocked) {
     var code = '('+ function() {
       document.__defineSetter__("cookie", function(/*value*/) { });

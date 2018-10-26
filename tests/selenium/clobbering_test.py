@@ -13,6 +13,10 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             ('get-item', "qwerty", "null"),
             ('get-property', "asdf", "undefined"),
             ('get-item-proto', "qwerty", "null"),
+            ('get-item-srcdoc', "qwerty", "null"),
+            ('get-property-srcdoc', "asdf", "undefined"),
+            ('get-item-frames', "qwerty", "null"),
+            ('get-property-frames', "asdf", "undefined"),
         ]
         # page loads a frame that writes to and reads from localStorage
         # TODO remove delays from fixture once race condition (https://crbug.com/478183) is fixed

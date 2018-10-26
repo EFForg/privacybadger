@@ -113,7 +113,7 @@ if (document instanceof HTMLDocument === false && (
 
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
-  checkEnabledAndThirdParty: true
+  checkEnabledAndThirdParty: window.FRAME_URL
 }, function (enabledAndThirdParty) {
   if (!enabledAndThirdParty) {
     return;
@@ -125,7 +125,8 @@ chrome.runtime.sendMessage({
   document.addEventListener(event_id_super_cookie, function (e) {
     // pass these on to the background page (handled by webrequest.js)
     chrome.runtime.sendMessage({
-      superCookieReport: e.detail
+      superCookieReport: e.detail,
+      frameUrl: window.FRAME_URL
     });
   });
 
