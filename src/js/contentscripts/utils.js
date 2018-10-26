@@ -15,6 +15,27 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Executes a script in the page's JavaScript context.
+ *
+ * @param {String} text The content of the script to insert.
+ * @param {Object} data Data attributes to set on the inserted script tag.
+ */
+window.injectScript = function (text, data) {
+  var parent = document.documentElement,
+    script = document.createElement('script');
+
+  script.text = text;
+  script.async = false;
+
+  for (var key in data) {
+    script.setAttribute('data-' + key.replace(/_/g, '-'), data[key]);
+  }
+
+  parent.insertBefore(script, parent.firstChild);
+  parent.removeChild(script);
+};
+
 function getFrameUrl() {
   let url = document.location.href,
     parentFrame = (document != window.top) && window.parent;

@@ -19,28 +19,6 @@
  */
 
 /**
- * Insert script into page
- *
- * @param {String} text The script to insert into the page
- * @param {Object} data a dictionary containing attribut-value pairs
- */
-function insertScScript(text, data) {
-  var parent = document.documentElement,
-    script = document.createElement('script');
-
-  script.text = text;
-  script.async = false;
-
-  for (var key in data) {
-    script.setAttribute('data-' + key.replace(/_/g, "-"), data[key]);
-  }
-
-  parent.insertBefore(script, parent.firstChild);
-  parent.removeChild(script);
-}
-
-
-/**
  * Generate script to inject into the page
  *
  * @returns {string}
@@ -130,7 +108,7 @@ chrome.runtime.sendMessage({
     });
   });
 
-  insertScScript(getScPageScript(), {
+  window.injectScript(getScPageScript(), {
     event_id_super_cookie: event_id_super_cookie
   });
 

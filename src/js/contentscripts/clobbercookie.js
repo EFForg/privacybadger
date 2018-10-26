@@ -15,24 +15,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Runs in page content context. Injects a script that deletes cookies.
- * Communicates to webrequest.js to get orders if to delete cookies.
- */
-
-function insertCcScript(text) {
-  var parent = document.documentElement,
-    script = document.createElement('script');
-
-  script.text = text;
-  script.async = false;
-
-  parent.insertBefore(script, parent.firstChild);
-  parent.removeChild(script);
-}
-
-// END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
-
 (function () {
 
 // don't inject into non-HTML documents (such as XML documents)
@@ -52,7 +34,7 @@ chrome.runtime.sendMessage({ checkLocation: window.FRAME_URL }, function (blocke
       document.__defineGetter__("cookie", function() { return ""; });
     } +')();';
 
-    insertCcScript(code);
+    window.injectScript(code);
   }
   return true;
 });

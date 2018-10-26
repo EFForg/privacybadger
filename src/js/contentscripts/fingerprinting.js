@@ -299,28 +299,6 @@ function getFpPageScript() {
 
 }
 
-/**
- * Executes a script in the page DOM context
- *
- * @param text The content of the script to insert
- * @param data attributes to set in the inserted script tag
- */
-function insertFpScript(text, data) {
-  var parent = document.documentElement,
-    script = document.createElement('script');
-
-  script.text = text;
-  script.async = false;
-
-  for (var key in data) {
-    script.setAttribute('data-' + key.replace('_', '-'), data[key]);
-  }
-
-  parent.insertBefore(script, parent.firstChild);
-  parent.removeChild(script);
-}
-
-
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
 (function () {
@@ -353,7 +331,7 @@ chrome.runtime.sendMessage({checkEnabled: true},
       });
     });
 
-    insertFpScript(getFpPageScript(), {
+    window.injectScript(getFpPageScript(), {
       event_id: event_id
     });
   }
