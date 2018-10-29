@@ -22,9 +22,9 @@ function cleanLink(a) {
     return;
   }
 
-  let href_url = new URL(href)
-  href_url.searchParams.delete('fbclid')
-  href = href_url.toString()
+  let href_url = new URL(href);
+  href_url.searchParams.delete('fbclid');
+  href = href_url.toString();
 
   cleanAttrs(a);
   a.href = href;
