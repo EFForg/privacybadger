@@ -37,7 +37,16 @@ chrome.runtime.sendMessage({ checkLocation: window.FRAME_URL }, function (blocke
     // https://stackoverflow.com/questions/49092423/how-to-break-on-localstorage-changes
     var code =
       '('+ function() {
-        let lsProxy = new Proxy(window.localStorage, {
+
+        try {
+          localStorage; // eslint-disable-line no-unused-expressions
+        } catch (ex) {
+          // abort when we can't access localStorage
+          // such as when "Block third-party cookies" is enabled in Chrome
+          return;
+        }
+
+        let lsProxy = new Proxy(localStorage, {
           set: function (/*ls, prop, value*/) {
             return true;
           },
@@ -58,15 +67,13 @@ chrome.runtime.sendMessage({ checkLocation: window.FRAME_URL }, function (blocke
             }
           }
         });
-        try {
-          Object.defineProperty(window, 'localStorage', {
-            configurable: true,
-            enumerable: true,
-            value: lsProxy
-          });
-        } catch (ex) {
-          // ignore exceptions thrown when "Block third-party cookies" is enabled in Chrome
-        }
+
+        Object.defineProperty(window, 'localStorage', {
+          configurable: true,
+          enumerable: true,
+          value: lsProxy
+        });
+
       } +')()';
 
     window.injectScript(code);
