@@ -89,6 +89,11 @@ if (document instanceof HTMLDocument === false && (
   return;
 }
 
+// don't bother asking to run when trivially in first-party context
+if (window.top == window) {
+  return;
+}
+
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
   checkEnabledAndThirdParty: window.FRAME_URL
