@@ -249,6 +249,12 @@ font-size: 16px;
   padding-right: 5px;
   padding-top: 7px;
 }
+#share{
+  float: right;
+  padding-right: 5px;
+  padding-top: 7px;
+  cursor: pointer;
+}
 #pbInstructions{
   color: #505050;
   font-size: 16px;
@@ -331,6 +337,43 @@ font-size: 16px;
   content: '[X]';
   margin: 5px;}
 #report_close:hover {
+  text-decoration: underline;}
+#share_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  font-size: 0.8em;
+  z-index: -1;
+  opacity: 0;
+  padding: 3%;
+  box-sizing: border-box;
+  color: #ccc;
+  background: url("/skin/background.png");
+  transition: opacity .1s ease;
+}
+  div#share_overlay.active {
+    z-index: 31;
+    opacity: 1;}
+#share_title {
+  display: inline-block;
+  padding: 0;
+  margin: 0; }
+#share_close {
+  display: inline-block;
+  float: right;
+  background: none;
+  border: 0;
+  font-size: 1.2em;
+  margin: 0 25;
+  cursor: pointer;
+  color: #ccc;}
+#share_close:before {
+  content: '[X]';
+  margin: 5px;}
+#share_close:hover {
   text-decoration: underline;}
 #dnt-compliant {
   float: left;

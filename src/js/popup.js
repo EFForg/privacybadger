@@ -152,6 +152,13 @@ function init() {
     e.preventDefault();
   });
 
+  var shareOverlay = $("#share_overlay");
+
+  $("#share").on("click", share);
+  $("#share_close").on("click", function() {
+    shareOverlay.toggleClass('active', false);
+  });
+
   window.POPUP_INITIALIZED = true;
 }
 
@@ -346,6 +353,14 @@ function deactivateOnSite() {
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
   });
+}
+
+/**
+ * Open the share overlay (TODO currently an alert)
+ */
+function share() {
+  $("#share_overlay").toggleClass('active');
+  $("#share_output").val("This is a test.");
 }
 
 /**
