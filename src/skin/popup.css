@@ -354,13 +354,20 @@ font-size: 16px;
   background: url("/skin/background.png");
   transition: opacity .1s ease;
 }
-  div#share_overlay.active {
-    z-index: 31;
-    opacity: 1;}
+div#share_overlay.active {
+  z-index: 31;
+  opacity: 1;
+}
+#share_output {
+  display: block;
+  width: 98%;
+  height: 60%;
+}
 #share_title {
   display: inline-block;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+}
 #share_close {
   display: inline-block;
   float: right;
@@ -369,12 +376,15 @@ font-size: 16px;
   font-size: 1.2em;
   margin: 0 25;
   cursor: pointer;
-  color: #ccc;}
+  color: #ccc;
+}
 #share_close:before {
   content: '[X]';
-  margin: 5px;}
+  margin: 5px;
+}
 #share_close:hover {
-  text-decoration: underline;}
+  text-decoration: underline;
+}
 #dnt-compliant {
   float: left;
   display: inline;

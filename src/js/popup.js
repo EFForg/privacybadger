@@ -360,7 +360,39 @@ function deactivateOnSite() {
  */
 function share() {
   $("#share_overlay").toggleClass('active');
-  $("#share_output").val("This is a test.");
+  var shareOutput = $("#share_output");
+  var shareMessage = chrome.i18n.getMessage("share_base_message");
+
+  //Only add language about found trackers if we actually found trackers (but regardless of whether we are actually blocking them).
+  if (!POPUP_DATA.noTabData) {
+    let origins = POPUP_DATA.origins;
+    let originsArr = [];
+    if (origins) {
+      originsArr = Object.keys(origins);
+    }
+
+    if (originsArr.length) {
+      shareMessage += chrome.i18n.getMessage("share_tracker_header");
+      shareMessage += POPUP_DATA.tabUrl + ":\n\n";
+
+      originsArr = htmlUtils.sortDomains(originsArr);
+      tracking = [];
+
+      for (let i=0; i < originsArr.length; i++) {
+        var origin = originsArr[i];
+        var action = origins[origin];
+
+        if (action != constants.NO_TRACKING) {
+          tracking.push(origin);
+        }
+      }
+
+      for (let i=0; i < tracking.length; i++) {
+        shareMessage += tracking[i] + "\n";
+      }
+    }
+  }
+  shareOutput.val(shareMessage);
 }
 
 /**

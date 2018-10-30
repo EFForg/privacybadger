@@ -552,5 +552,13 @@
     "popup_share_button": {
         "message": "Share",
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "\n\nHere are the trackers Privacy Badger found on ",
+        "description": "Header above the list of tracking domains in the share message."
+    },
+    "share_base_message": {
+        "message": "Privacy Badger blocks invisible trackers on the websites you visit.  It can be downloaded from https://eff.org/privacybadger",
+        "description": "The base message that is always included in the share message."
     }
 }
