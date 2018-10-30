@@ -162,7 +162,7 @@ function init() {
     $("#share_output").select();
     document.execCommand('copy');
     $(this).text(chrome.i18n.getMessage("copy_button_copied"));
-  })
+  });
 
   window.POPUP_INITIALIZED = true;
 }
