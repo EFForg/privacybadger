@@ -158,6 +158,11 @@ function init() {
   $("#share_close").on("click", function() {
     shareOverlay.toggleClass('active', false);
   });
+  $("#copy_button").on("click", function() {
+    $("#share_output").select();
+    document.execCommand('copy');
+    $(this).text(chrome.i18n.getMessage("copy_button_copied"));
+  })
 
   window.POPUP_INITIALIZED = true;
 }
@@ -360,7 +365,6 @@ function deactivateOnSite() {
  */
 function share() {
   $("#share_overlay").toggleClass('active');
-  var shareOutput = $("#share_output");
   var shareMessage = chrome.i18n.getMessage("share_base_message");
 
   //Only add language about found trackers if we actually found trackers (but regardless of whether we are actually blocking them).
@@ -372,11 +376,9 @@ function share() {
     }
 
     if (originsArr.length) {
-      shareMessage += chrome.i18n.getMessage("share_tracker_header");
-      shareMessage += POPUP_DATA.tabUrl + ":\n\n";
 
       originsArr = htmlUtils.sortDomains(originsArr);
-      tracking = [];
+      var tracking = [];
 
       for (let i=0; i < originsArr.length; i++) {
         var origin = originsArr[i];
@@ -387,12 +389,17 @@ function share() {
         }
       }
 
-      for (let i=0; i < tracking.length; i++) {
-        shareMessage += tracking[i] + "\n";
+      if (tracking.length) {
+        shareMessage += chrome.i18n.getMessage("share_tracker_header");
+        shareMessage += POPUP_DATA.tabUrl + ":\n\n";
+
+        for (let i=0; i < tracking.length; i++) {
+          shareMessage += tracking[i] + "\n";
+        }
       }
     }
   }
-  shareOutput.val(shareMessage);
+  $("#share_output").val(shareMessage);
 }
 
 /**
