@@ -166,7 +166,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Anzahl der geblockten Elemente anzeigen",
+        "message": "Anzahl geblockter Elemente anzeigen",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
