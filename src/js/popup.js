@@ -117,7 +117,7 @@ function init() {
     });
   });
 
-  var overlay = $('#overlay');
+  let overlay = $('#overlay');
 
   // show error layout if the user was writing an error report
   if (POPUP_DATA.hasOwnProperty('errorText') && POPUP_DATA.errorText) {
@@ -152,7 +152,7 @@ function init() {
     e.preventDefault();
   });
 
-  var shareOverlay = $("#share_overlay");
+  let shareOverlay = $("#share_overlay");
 
   $("#share").on("click", share);
   $("#share_close").on("click", function() {
@@ -361,42 +361,46 @@ function deactivateOnSite() {
 }
 
 /**
- * Open the share overlay (TODO currently an alert)
+ * Open the share overlay
  */
 function share() {
   $("#share_overlay").toggleClass('active');
-  var shareMessage = chrome.i18n.getMessage("share_base_message");
+  let shareMessage = chrome.i18n.getMessage("share_base_message");
 
   //Only add language about found trackers if we actually found trackers (but regardless of whether we are actually blocking them).
-  if (!POPUP_DATA.noTabData) {
-    let origins = POPUP_DATA.origins;
-    let originsArr = [];
-    if (origins) {
-      originsArr = Object.keys(origins);
+  if (POPUP_DATA.noTabData) {
+    $("#share_output").val(shareMessage);
+    return;
+  }
+
+  let origins = POPUP_DATA.origins;
+  let originsArr = [];
+  if (origins) {
+    originsArr = Object.keys(origins);
+  }
+
+  if (!originsArr.length) {
+    $("#share_output").val(shareMessage);
+    return;
+  }
+
+  originsArr = htmlUtils.sortDomains(originsArr);
+  let tracking = [];
+
+  for (let i=0; i < originsArr.length; i++) {
+    let origin = originsArr[i];
+    let action = origins[origin];
+
+    if (action != constants.NO_TRACKING) {
+      tracking.push(origin);
     }
+  }
 
-    if (originsArr.length) {
+  if (tracking.length) {
+    shareMessage += "\n\n" + chrome.i18n.getMessage("share_tracker_header", [tracking.length, POPUP_DATA.tabUrl]) + ":\n\n";
 
-      originsArr = htmlUtils.sortDomains(originsArr);
-      var tracking = [];
-
-      for (let i=0; i < originsArr.length; i++) {
-        var origin = originsArr[i];
-        var action = origins[origin];
-
-        if (action != constants.NO_TRACKING) {
-          tracking.push(origin);
-        }
-      }
-
-      if (tracking.length) {
-        shareMessage += chrome.i18n.getMessage("share_tracker_header");
-        shareMessage += POPUP_DATA.tabUrl + ":\n\n";
-
-        for (let i=0; i < tracking.length; i++) {
-          shareMessage += tracking[i] + "\n";
-        }
-      }
+    for (let i=0; i < tracking.length; i++) {
+      shareMessage += tracking[i] + "\n";
     }
   }
   $("#share_output").val(shareMessage);

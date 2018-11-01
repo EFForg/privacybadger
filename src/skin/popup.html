@@ -49,7 +49,7 @@
 <body id="main">
   <div id="instruction-outer">
   </div>
-  <div id="instruction" class="overlay">
+  <div id="instruction">
     <img id="instruction-logo" src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
     <svg id="fittslaw" width="30" height="30" fill="white">
       <line x1="5" y1="5" x2="20" y2="20" style="stroke:rgb(22,22,22);stroke-width:3;fill:transparent"/>
@@ -68,8 +68,8 @@
     </div>
   </div>
   <div id="overlay" class="overlay">
-    <h1 id="report_title" class="i18n_report_title"></h1>
-    <span id="report_close" class="i18n_report_close"></span>
+    <h1 id="report_title" class="i18n_report_title overlay_title"></h1>
+    <span id="report_close" class="i18n_report_close overlay_close"></span>
     <p id="report_text" class="i18n_report_text"></p>
     <label id="report_label" for="error_input" class="i18n_report_input_label"></label>
     <textarea id="error_input" name="error_input" maxlength="300" placeholder="i18n_error_input"></textarea>
@@ -81,23 +81,10 @@
     <p id="report_terms" class="i18n_report_terms"></p>
   </div>
   <div id="share_overlay" class="overlay">
-    <h1 id="share_title" class="i18n_share_title"></h1>
-    <span id="share_close" class="i18n_report_close"></span>
+    <h1 id="share_title" class="i18n_share_title overlay_title"></h1>
+    <span id="share_close" class="i18n_report_close overlay_close"></span>
     <textarea id="share_output" name="share_output" readonly></textarea>
     <button id="copy_button" class="i18n_copy_button_initial"></button>
-<!--
-    <div class="share-links">
-      <a class="share-facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/">
-        <i></i>
-      </a>
-      <a class="share-google" target="_blank" rel="noopener noreferrer" href="https://plus.google.com/">
-        <i></i>
-      </a>
-      <a class="share-twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/home?status=Paste%20here&related=eff">
-        <i></i>
-      </a>
-    </div>
--->
   </div>
 
 <div id='privacyBadgerHeader'>

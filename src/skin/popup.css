@@ -287,7 +287,7 @@ font-size: 16px;
   font-size: 14px;
   font-weight: bold;
 }
-#overlay {
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -304,69 +304,35 @@ font-size: 16px;
   transition: opacity .1s ease;
   overflow-y: auto;
 }
-  div#overlay.active {
-    z-index: 31;
-    opacity: 1;}
+div.overlay.active {
+  z-index: 31;
+  opacity: 1;
+}
 #error_input {
   display: block;
-  width: 70%;}
-#report_title {
+  width: 70%;
+}
+.overlay_title {
   display: inline-block;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+}
 #report_label {
   display: block;
   margin: 1% 0;
-  font-weight: bold;}
+  font-weight: bold;
+}
 #report_button, #report_cancel {
   cursor: pointer;
   margin: 2% 2% 0 0;
 }
 #report_success {
-  color: green;}
+  color: green;
+}
 #report_fail {
-  color: red;}
-#report_close {
-  display: inline-block;
-  float: right;
-  background: none;
-  border: 0;
-  font-size: 1.2em;
-  margin: 0 25;
-  cursor: pointer;
-  color: #ccc;}
-#report_close:before {
-  content: '[X]';
-  margin: 5px;}
-#report_close:hover {
-  text-decoration: underline;}
-#share_overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  font-size: 0.8em;
-  z-index: -1;
-  opacity: 0;
-  padding: 3%;
-  box-sizing: border-box;
-  color: #ccc;
-  background: url("/skin/background.png");
-  transition: opacity .1s ease;
-  overflow-y: auto;
+  color: red;
 }
-div#share_overlay.active {
-  z-index: 31;
-  opacity: 1;
-}
-#share_title {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-}
-#share_close {
+.overlay_close {
   display: inline-block;
   float: right;
   background: none;
@@ -376,11 +342,11 @@ div#share_overlay.active {
   cursor: pointer;
   color: #ccc;
 }
-#share_close:before {
+.overlay_close:before {
   content: '[X]';
   margin: 5px;
 }
-#share_close:hover {
+.overlay_close:hover {
   text-decoration: underline;
 }
 #share_output {
@@ -393,56 +359,6 @@ div#share_overlay.active {
   margin: 2% 2% 0 0;
   width: 9em;
 }
-/*
-.share-links {
-  padding-bottom:0;
-  padding-top: .45614rem;
-}
-.share-links>a {
-  position:relative;
-  width:3.5625rem;
-  height:3.5625rem;
-  overflow:hidden;
-}
-.share-links>a:hover {
-  background-color:transparent !important;
-}
-.share-links>a i {
-  position:relative;
-  display:inline-block;
-  height:3.5625rem;
-  width:3.5625rem;
-  z-index:2;
-}
-.share-links>a:first-child {
-  margin-top:0;
-  margin-left:0;
-}
-.share-links>a.share-twitter i {
-  background:url("images/twitter.svg");
-}
-.share-links>a.share-twitter i:hover {
-  opacity:0.7;
-}
-.share-links>a.share-facebook i {
-  background:url("images/facebook.svg");
-}
-.share-links>a.share-facebook i:hover {
-  opacity:0.7;
-}
-.share-links>a.share-google i {
-  background:url("images/google.svg");
-}
-.share-links>a.share-google i:hover {
-  opacity:0.7;
-}
-.share-links>a {
-  display:block;
-  float: left;
-  margin-left:.45614rem;
-  margin-top:0;
-}
-*/
 #dnt-compliant {
   float: left;
   display: inline;

@@ -554,11 +554,21 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "\n\nHere are the trackers Privacy Badger found on ",
-        "description": "Header above the list of tracking domains in the share message."
+        "message": "Privacy Badger found $COUNT$ potential trackers on $DOMAIN$",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
     },
     "share_base_message": {
-        "message": "Privacy Badger blocks invisible trackers on the websites you visit.  It can be downloaded from https://eff.org/privacybadger",
+        "message": "Privacy Badger (https://www.eff.org/privacybadger) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
