@@ -397,7 +397,7 @@ function share() {
   }
 
   if (tracking.length) {
-    shareMessage += "\n\n" + chrome.i18n.getMessage("share_tracker_header", [tracking.length, window.extractHostFromURL(POPUP_DATA.tabUrl)]) + ":\n\n";
+    shareMessage += "\n\n" + chrome.i18n.getMessage("share_tracker_header", [tracking.length, POPUP_DATA.tabHost]) + "\n\n";
 
     for (let i=0; i < tracking.length; i++) {
       shareMessage += tracking[i] + "\n";
