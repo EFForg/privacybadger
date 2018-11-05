@@ -546,7 +546,7 @@
         "description": "'Error' message when there is on cloud data to download."
     },
     "share_title": {
-        "message": "Tell friends about Privacy Badger",
+        "message": "Tell your friends",
         "description": "Title of the share overlay."
     },
     "popup_share_button": {
@@ -568,7 +568,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (https://www.eff.org/privacybadger) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
