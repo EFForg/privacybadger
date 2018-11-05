@@ -117,7 +117,7 @@ function init() {
     });
   });
 
-  var overlay = $('#overlay');
+  let overlay = $('#overlay');
 
   // show error layout if the user was writing an error report
   if (POPUP_DATA.hasOwnProperty('errorText') && POPUP_DATA.errorText) {
@@ -150,6 +150,18 @@ function init() {
   $("#options").on("click", function (e) {
     openOptionsPage();
     e.preventDefault();
+  });
+
+  let shareOverlay = $("#share_overlay");
+
+  $("#share").on("click", share);
+  $("#share_close").on("click", function() {
+    shareOverlay.toggleClass('active', false);
+  });
+  $("#copy_button").on("click", function() {
+    $("#share_output").select();
+    document.execCommand('copy');
+    $(this).text(chrome.i18n.getMessage("copy_button_copied"));
   });
 
   window.POPUP_INITIALIZED = true;
@@ -346,6 +358,52 @@ function deactivateOnSite() {
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
   });
+}
+
+/**
+ * Open the share overlay
+ */
+function share() {
+  $("#share_overlay").toggleClass('active');
+  let shareMessage = chrome.i18n.getMessage("share_base_message");
+
+  //Only add language about found trackers if we actually found trackers (but regardless of whether we are actually blocking them).
+  if (POPUP_DATA.noTabData) {
+    $("#share_output").val(shareMessage);
+    return;
+  }
+
+  let origins = POPUP_DATA.origins;
+  let originsArr = [];
+  if (origins) {
+    originsArr = Object.keys(origins);
+  }
+
+  if (!originsArr.length) {
+    $("#share_output").val(shareMessage);
+    return;
+  }
+
+  originsArr = htmlUtils.sortDomains(originsArr);
+  let tracking = [];
+
+  for (let i=0; i < originsArr.length; i++) {
+    let origin = originsArr[i];
+    let action = origins[origin];
+
+    if (action != constants.NO_TRACKING) {
+      tracking.push(origin);
+    }
+  }
+
+  if (tracking.length) {
+    shareMessage += "\n\n" + chrome.i18n.getMessage("share_tracker_header", [tracking.length, POPUP_DATA.tabHost]) + "\n\n";
+
+    for (let i=0; i < tracking.length; i++) {
+      shareMessage += tracking[i] + "\n";
+    }
+  }
+  $("#share_output").val(shareMessage);
 }
 
 /**
