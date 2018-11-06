@@ -67,7 +67,8 @@ function showNagMaybe() {
       chrome.tabs.query({url: firstRunUrl}, function (tabs) {
         if (tabs.length == 0) {
           chrome.tabs.create({
-            url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+            url: chrome.extension.getURL("/skin/firstRun.html#slideshow"),
+            active: false
           });
         } else {
           chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {
