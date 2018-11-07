@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Podczas korzystania z Privacy Badgera stajesz się członkiem <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> wraz z milionami użytkowników walczącymi o prywatność. Jesteśmy organizacją non-profit walczącą o Twoje praw w Sieci. Dziękujemy za dołączenie do nas!",
+        "message": "Podczas korzystania z Privacy Badgera stajesz się członkiem <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> wraz z milionami użytkowników walczącymi o prywatność. Jesteśmy organizacją non-profit walczącą o Twoje prawa w Sieci. Dziękujemy za dołączenie do nas!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
