@@ -17,6 +17,8 @@
 
 /* globals getOriginsArray:false */
 
+window.OPTIONS_INITIALIZED = false;
+
 // TODO hack: disable Tooltipster tooltips on Firefox to avoid unresponsive script warnings
 (function () {
 const matches = navigator.userAgent.match(
@@ -137,6 +139,8 @@ function loadOptions() {
   reloadTrackingDomainsTab();
 
   $('html').css('visibility', 'visible');
+
+  window.OPTIONS_INITIALIZED = true;
 }
 
 /**
