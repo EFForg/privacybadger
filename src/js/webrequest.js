@@ -723,9 +723,9 @@ function dispatcher(request, sender, sendResponse) {
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled,
       isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
       disabledSites: settings.getItem("disabledSites"),
-      action_map: badger.storage.getBadgerStorageObject('action_map'),
       webRTCAvailable: badger.webRTCAvailable
     });
+
   } else if (request.type == "resetData") {
     badger.storage.clearTrackerData();
     badger.loadSeedData();
