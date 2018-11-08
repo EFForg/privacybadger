@@ -56,8 +56,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_window()
 
         self.load_url(self.popup_url)
-        # TODO replace with conditional, poll-based wait for popup being fully displayed
-        time.sleep(1)
+        self.wait_for_script("return window.POPUP_INITIALIZED")
 
         # hack to get tabData populated for the popup's tab
         # to get the popup shown for regular pages
@@ -88,6 +87,9 @@ class PopupTest(pbtest.PBSeleniumTest):
             timeout=5,
             message="Timed out waiting for getTab() to complete."
         )
+
+        # wait for any sliders to finish rendering
+        self.wait_for_script("return window.SLIDERS_DONE")
 
         if close_overlay:
             # Click 'X' element to close overlay.
@@ -262,10 +264,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
             DOMAIN, "cookieblock"))
 
-        # need to preserve original window
-        # restoring control auto-closes popup
-        self.open_window()
-
         self.open_popup(origins={DOMAIN:"cookieblock"})
 
         # set the domain to user control
@@ -306,16 +304,12 @@ class PopupTest(pbtest.PBSeleniumTest):
         DISPLAYED_ERROR = " should not be displayed on popup"
         NOT_DISPLAYED_ERROR = " should be displayed on popup"
 
-        # need to preserve original window
-        # since enabling/disabling auto-closes popup
-        self.open_window()
         self.open_popup()
 
         self.get_disable_button().click()
 
         # get back to a valid window handle as the window just got closed
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.open_window()
         self.open_popup(close_overlay=False)
 
         # Check that popup state changed after disabling.
@@ -329,7 +323,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         enable_button.click()
 
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.open_window()
         self.open_popup(close_overlay=False)
 
         # Check that popup state changed after re-enabling.

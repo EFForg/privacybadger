@@ -1,5 +1,16 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.10.3.1
+* Fixed style problems with Google Search results
+* Fixed the setting to open results in new browser windows on Google Search
+
+## 2018.10.3
+* Added protection against outgoing link click tracking on Google Search,
+Google Docs and Google Hangouts
+* Fixed various site breakages
+* Added Finnish translations
+* Improved translations (Simplified Chinese)
+
 ## 2018.9.20
 * Added buttons to back up and restore the disabled sites list using
 Firefox/Google Sync. The new buttons live under the Manage Data tab

@@ -1,5 +1,5 @@
 {
-  "version": "2018.9.20",
+  "version": "2018.10.3.1",
   "author": { "email": "eff.software.projects@gmail.com" },
   "applications": {
     "gecko": {
@@ -56,6 +56,7 @@
     },
     {
       "js": [
+        "js/firstparties/lib/utils.js",
         "js/firstparties/facebook.js"
       ],
       "matches": [
@@ -63,6 +64,31 @@
         "http://*.facebook.com/*",
         "*://*.facebookcorewwwi.onion/*"
       ],
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
+        "js/firstparties/lib/utils.js",
+        "js/firstparties/google-search.js"
+      ],
+      "matches": [
+        "https://www.google.com/*",
+        "http://www.google.com/*"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
+        "js/firstparties/lib/utils.js",
+        "js/firstparties/google-static.js"
+      ],
+      "matches": [
+        "https://hangouts.google.com/*",
+        "http://hangouts.google.com/*",
+        "https://docs.google.com/*",
+        "http://docs.google.com/*"
+      ],
+      "all_frames": true,
       "run_at": "document_idle"
     },
     {

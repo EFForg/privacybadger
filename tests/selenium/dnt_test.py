@@ -24,11 +24,11 @@ class DNTTest(pbtest.PBSeleniumTest):
     # TODO switch to non-delayed version (see below)
     # once race condition (https://crbug.com/478183) is fixed
     NAVIGATOR_DNT_TEST_URL = (
-        "https://cdn.rawgit.com/ghostwords/"
-        "1c50869a0469e38d5dabd53f1204d3de/raw/01e06af8d2b3e35228bf8f000bdc12d0b2871b64/"
+        "https://gitcdn.link/cdn/ghostwords/"
+        "1c50869a0469e38d5dabd53f1204d3de/raw/64e98fc95256978e119adae9c769f8a8da24f4d8/"
         "privacy-badger-navigator-donottrack-delayed-fixture.html"
         # non-delayed version:
-        #"9fc6900566a2f93edd8e4a1e48bbaa28/raw/741627c60ca53be69bc11bf21d6d1d0b42edb52a/"
+        #"9fc6900566a2f93edd8e4a1e48bbaa28/raw/b7a6d9e70ce103da49e74ba239da4443fb514c2f/"
         #"privacy-badger-navigator-donottrack-fixture.html"
     )
 
@@ -78,8 +78,8 @@ class DNTTest(pbtest.PBSeleniumTest):
     @pbtest.repeat_if_failed(3)
     def test_dnt_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
-            "https://cdn.rawgit.com/ghostwords/"
-            "74585c942a918509b20bf2db5659646e/raw/f42d25717e5b4f735c7affa527a2e0b62286c005/"
+            "https://gitcdn.link/cdn/ghostwords/"
+            "74585c942a918509b20bf2db5659646e/raw/2401659e678442de6309339882f19fbb21dbc959/"
             "privacy_badger_dnt_test_fixture.html"
         )
         DNT_DOMAIN = "www.eff.org"
@@ -92,9 +92,8 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.js(BLOCK_DOMAIN_JS)
 
         # need to keep Badger's background page open for our changes to persist
-        # so, either open and switch to a new window,
-        # or just reuse the already-open new user welcome window
-        switch_to_window_with_url(self.driver, self.first_run_url)
+        # so, open and switch to a new window
+        self.open_window()
 
         # visit a page that loads a resource from that DNT-compliant domain
         self.load_url(PAGE_URL)
@@ -152,8 +151,6 @@ class DNTTest(pbtest.PBSeleniumTest):
             "No cookies again")
 
         self.load_url(self.bg_url)
-        # wait until Badger's storage is ready
-        self.wait_for_script("return badger.INITIALIZED")
         # perform a DNT policy check
         self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
@@ -180,7 +177,8 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.load_url(self.bg_url)
         # wait for DNT hash update to complete
         # so that it doesn't overwrite our change below
-        # TODO wait conditionally: have badger.INITIALIZED account for things getting initialized async
+        # TODO wait conditionally; will be able to remove waiting here once
+        # badger.INITIALIZED accounts for things that initialize async
         time.sleep(1)
         self.js("""badger.storage.updateDNTHashes(
 { "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
@@ -195,8 +193,8 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def test_should_not_record_nontracking_domains(self):
         TEST_URL = (
-            "https://cdn.rawgit.com/ghostwords/"
-            "eef2c982fc3151e60a78136ca263294d/raw/13ed3d1e701994640b8d8065b835f8a9684ece92/"
+            "https://gitcdn.link/cdn/ghostwords/"
+            "eef2c982fc3151e60a78136ca263294d/raw/9f83f7ad9b7aa04484a9682b937dec7bcbfb7a6e/"
             "privacy_badger_recording_nontracking_domains_fixture.html"
         )
         TRACKING_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
@@ -206,9 +204,8 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.load_url(self.bg_url)
 
         # need to keep Badger's background page open to record what's happening
-        # so, either open and switch to a new window,
-        # or just reuse the already-open new user welcome window
-        switch_to_window_with_url(self.driver, self.first_run_url)
+        # so, open and switch to a new window
+        self.open_window()
 
         # visit a page containing two third-party resources,
         # one from a cookie-tracking domain

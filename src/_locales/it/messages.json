@@ -14,8 +14,8 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Sei sicuro di voler rimuovere questa origine da Privacy Badger?",
-        "description": ""
+        "message": "Sei sicuro di voler rimuovere questo dominio da Privacy Badger?",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "Nessun tracciamento da $DOMAIN$",
@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger ti protegge dai tracker mentre navighi in rete!",
+        "message": "Privacy Badger impara automaticamente a bloccare i tracker invisibili.",
         "description": ""
     },
     "report_fail": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "Nessun dato cloud da scaricare.",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Dillo ai tuoi amici",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Condividi",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger ha trovato $COUNT$ potenziali tracker su $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) è un'estensione del browser che impara automaticamente a bloccare i tracker invisibili. Privacy Badger è creato da Electronic Frontier Foundation, un'organizzazione senza scopo di lucro che combatte per i tuoi diritti online.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Copia negli appunti",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Copiato",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

@@ -262,6 +262,7 @@ window.publicSuffixes = {
   "ap.it": 1,
   "ap.leg.br": 1,
   "aparecida.br": 1,
+  "apigee.io": 1,
   "app.lmpm.com": 1,
   "app.os.fedoraproject.org": 1,
   "app.os.stg.fedoraproject.org": 1,

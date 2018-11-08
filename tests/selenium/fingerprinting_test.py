@@ -40,9 +40,9 @@ return (
     @pbtest.repeat_if_failed(3)
     def test_canvas_fingerprinting_detection(self):
         PAGE_URL = (
-            "https://cdn.rawgit.com/ghostwords"
-            "/ff6347b93ec126d4f73a9ddfd8b09919/raw/2332f82d3982bd4a84cd2380aed90228955d1f2a"
-            "/privacy_badger_fingerprint_test_fixture.html"
+            "https://gitcdn.link/cdn/ghostwords/"
+            "ff6347b93ec126d4f73a9ddfd8b09919/raw/6b215b3f052115d36831ecfca758081ca7da7e37/"
+            "privacy_badger_fingerprint_test_fixture.html"
         )
         FINGERPRINTING_DOMAIN = "cdn.jsdelivr.net"
 
@@ -50,9 +50,8 @@ return (
         self.load_url(self.bg_url)
 
         # need to keep Badger's background page open for tabData to persist
-        # so, either open and switch to a new window,
-        # or just reuse the already-open new user welcome window
-        switch_to_window_with_url(self.driver, self.first_run_url)
+        # so, open and switch to a new window
+        self.open_window()
 
         # visit the page
         self.load_url(PAGE_URL)
