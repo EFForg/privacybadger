@@ -34,7 +34,6 @@ var constants = require("constants");
 var utils = require("utils");
 var htmlUtils = require("htmlutils").htmlUtils;
 var i18n = chrome.i18n;
-var originCache = null;
 
 let OPTIONS_DATA = {};
 
@@ -413,15 +412,6 @@ function reloadWhitelist() {
   }
 }
 
-/**
- * Refreshes cached origins.
- */
-function refreshOriginCache() {
-  getOrigins().then(origins => {
-    originCache = origins;
-  });
-}
-
 function addWhitelistDomain(event) {
   event.preventDefault();
 
@@ -460,28 +450,11 @@ function removeWhitelistDomain(event) {
 // Tracking Domains slider functions
 
 /**
- * Gets all encountered origins with associated actions.
- * @return {Object}
- */
-function getOrigins() {
-  chrome.runtime.sendMessage({
-    type: "getOrigins"
-  }).then((response) => {
-    return response.origins;
-  });
-}
-
-/**
  * Gets action for given origin.
  * @param {String} origin - Origin to get action for.
  */
 function getOriginAction(origin) {
-  // Check to see if cached origins need to be set.
-  if (! originCache) {
-    refreshOriginCache();
-  }
-
-  return originCache[origin];
+  return OPTIONS_DATA.origins[origin];
 }
 
 //TODO unduplicate this code? since it's also in popup
@@ -507,10 +480,8 @@ function revertDomainControl(e) {
  * Displays list of all tracking domains along with toggle controls.
  */
 function reloadTrackingDomainsTab() {
-  refreshOriginCache();
-
   // Check to see if any tracking domains have been found before continuing.
-  var allTrackingDomains = getOriginsArray(originCache);
+  var allTrackingDomains = getOriginsArray(OPTIONS_DATA.origins);
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
     $("#options_domain_list_trackers").hide();
@@ -556,7 +527,7 @@ function reloadTrackingDomainsTab() {
   // Display tracking domains.
   showTrackingDomains(
     getOriginsArray(
-      originCache,
+      OPTIONS_DATA.origins,
       $("#trackingDomainSearch").val(),
       $('#tracking-domains-type-filter').val(),
       $('#tracking-domains-status-filter').val()
@@ -593,7 +564,7 @@ function filterTrackingDomains() {
 
     // Show filtered origins.
     var filteredOrigins = getOriginsArray(
-      originCache,
+      OPTIONS_DATA.origins,
       searchText,
       $typeFilter.val(),
       $statusFilter.val()
@@ -783,15 +754,11 @@ function removeOrigin(event) {
   });
 }
 
-function setOptionsData(optionsData) {
-  OPTIONS_DATA = optionsData;
-}
-
-$(function() {
+$(function () {
   chrome.runtime.sendMessage({
     type: "getOptionsData",
   }, (response) => {
-    setOptionsData(response);
+    OPTIONS_DATA = response;
     loadOptions();
   });
 });

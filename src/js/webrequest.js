@@ -723,7 +723,8 @@ function dispatcher(request, sender, sendResponse) {
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled,
       isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
       disabledSites: settings.getItem("disabledSites"),
-      webRTCAvailable: badger.webRTCAvailable
+      webRTCAvailable: badger.webRTCAvailable,
+      origins: badger.storage.getTrackingDomains(),
     });
 
   } else if (request.type == "resetData") {
@@ -828,18 +829,6 @@ function dispatcher(request, sender, sendResponse) {
       "action": action
     });
 
-  } else if (request.type == "getOrigins") {
-    var action_map = badger.storage.getBadgerStorageObject('action_map');
-    var origins = {};
-    for (var domain in action_map.getItemClones()) {
-      var action = badger.storage.getBestAction(domain);
-      if (action != constants.NO_TRACKING) {
-        origins[domain] = action;
-      }
-    }
-    sendResponse({
-      origins: origins
-    });
   } else if (request.type == "removeOrigin") {
     badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
