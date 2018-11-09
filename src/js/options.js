@@ -469,7 +469,6 @@ function getOriginAction(origin) {
 
 function revertDomainControl(e) {
   var $elm = $(e.target).parent();
-  console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
@@ -537,8 +536,6 @@ function reloadTrackingDomainsTab() {
       $('#tracking-domains-status-filter').val()
     )
   );
-
-  console.log("Done refreshing tracking domains tab");
 }
 
 /**
@@ -714,7 +711,6 @@ function toggleWebRTCIPProtection() {
 function updateOrigin(event) {
   // get the origin and new action for it
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  console.log('updating origin for', $elm);
   var action = $elm.data('action');
 
   // replace the old action with the new one
