@@ -28,6 +28,11 @@ label
   display: inline-flex;
 }
 
+header, #tabs {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 #pbInstructions {
   margin-bottom: 20px;
 }
