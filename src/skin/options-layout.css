@@ -1,9 +1,14 @@
-body
-{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  padding: 20px;
-  width: 100%;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    width: 100%;
+}
+
+h1 {
+    color: #707070;
+    font-size: 24px;
+    font-weight: normal;
+    font-family: helvetica, arial, 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', sans-serif;;
 }
 
 td
