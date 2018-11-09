@@ -34,7 +34,6 @@
       "js/constants.js",
       "js/storage.js",
       "js/utils.js",
-      "js/htmlutils.js",
       "js/heuristicblocking.js",
       "js/socialwidgetloader.js",
       "js/migrations.js",
