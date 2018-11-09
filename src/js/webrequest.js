@@ -715,15 +715,15 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.type == "getOptionsData") {
     sendResponse({
-      showTrackingDomains: badger.getSettings().getItem("showTrackingDomains"),
-      showCounter: badger.showCounter(),
-      isSocialWidgetReplacementEnabled: badger.isSocialWidgetReplacementEnabled(),
-      isDNTSignalEnabled: badger.isDNTSignalEnabled(),
-      isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled,
-      isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
       disabledSites: badger.getDisabledSites(),
-      webRTCAvailable: badger.webRTCAvailable,
+      isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled,
+      isDNTSignalEnabled: badger.isDNTSignalEnabled(),
+      isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
+      isSocialWidgetReplacementEnabled: badger.isSocialWidgetReplacementEnabled(),
       origins: badger.storage.getTrackingDomains(),
+      showCounter: badger.showCounter(),
+      showTrackingDomains: badger.getSettings().getItem("showTrackingDomains"),
+      webRTCAvailable: badger.webRTCAvailable,
     });
 
   } else if (request.type == "resetData") {
