@@ -15,6 +15,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require.scopes.optionslib = (function () {
+
 /**
  * Gets array of encountered origins.
  *
@@ -25,7 +27,7 @@
  *
  * @return {Array}
  */
-window.getOriginsArray = (origins, filter_text, type_filter, status_filter) => {
+function getOriginsArray(origins, filter_text, type_filter, status_filter) {
   // Make sure filter_text is lower case for case-insensitive matching.
   if (filter_text) {
     filter_text = filter_text.toLowerCase();
@@ -99,4 +101,10 @@ window.getOriginsArray = (origins, filter_text, type_filter, status_filter) => {
 
   // Include only origins that match given filters.
   return Object.keys(origins).filter(matchesFormFilters);
+}
+
+return {
+  getOriginsArray,
 };
+
+}()); // end of require.scopes

@@ -99,7 +99,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def test_page_title(self):
         self.load_options_page()
-        localized_title = self.js('return i18n.getMessage("options_title")')
+        localized_title = self.js('return chrome.i18n.getMessage("options_title")')
         try:
             WebDriverWait(self.driver, 3).until(
                 EC.title_contains(localized_title))

@@ -15,8 +15,6 @@
  * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals getOriginsArray:false */
-
 window.OPTIONS_INITIALIZED = false;
 
 // TODO hack: disable Tooltipster tooltips on Firefox to avoid unresponsive script warnings
@@ -32,10 +30,12 @@ if (!matches || matches[1] == "Firefox") {
 
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
-var constants = require("constants");
-var utils = require("utils");
-var htmlUtils = require("htmlutils").htmlUtils;
-var i18n = chrome.i18n;
+let i18n = chrome.i18n;
+
+let constants = require("constants");
+let { getOriginsArray } = require("optionslib");
+let htmlUtils = require("htmlutils").htmlUtils;
+let utils = require("utils");
 
 let OPTIONS_DATA = {};
 
