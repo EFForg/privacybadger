@@ -195,10 +195,13 @@ function parseUserDataFile(storageMapsList) {
   chrome.runtime.sendMessage({
     type: "mergeUserData",
     data: lists
-  }, () => {
-    // Update list to reflect new status of map
+  }, (response) => {
+    OPTIONS_DATA.disabledSites = response.disabledSites;
+    OPTIONS_DATA.origins = response.origins;
+
     reloadWhitelist();
     reloadTrackingDomainsTab();
+
     confirm(i18n.getMessage("import_successful"));
   });
 }
@@ -224,14 +227,15 @@ function removeAllData() {
 
 function downloadCloud() {
   chrome.runtime.sendMessage({type: "downloadCloud"},
-    function (status) {
-      if (status.success) {
+    function (response) {
+      if (response.success) {
         alert(i18n.getMessage("download_cloud_success"));
+        OPTIONS_DATA.disabledSites = response.disabledSites;
         reloadWhitelist();
       } else {
-        console.error("Cloud sync error:", status.message);
-        if (status.message === i18n.getMessage("download_cloud_no_data")) {
-          alert(status.message);
+        console.error("Cloud sync error:", response.message);
+        if (response.message === i18n.getMessage("download_cloud_no_data")) {
+          alert(response.message);
         } else {
           alert(i18n.getMessage("download_cloud_failure"));
         }
@@ -387,8 +391,6 @@ function updateCheckingDNTPolicy() {
     data: {
       checkForDNTPolicy: enabled
     }
-  }, () => {
-    reloadTrackingDomainsTab(); // This setting means sites need to be re-evaluated
   });
 }
 
@@ -425,24 +427,28 @@ function addWhitelistDomain(event) {
 
   chrome.runtime.sendMessage({
     type: "disablePrivacyBadgerForOrigin",
-    domain: domain
+    domain
+  }, (response) => {
+    OPTIONS_DATA.disabledSites = response.disabledSites;
+    reloadWhitelist();
+    document.getElementById("newWhitelistDomain").value = "";
   });
-
-  reloadWhitelist();
-  document.getElementById("newWhitelistDomain").value = "";
 }
 
 function removeWhitelistDomain(event) {
   event.preventDefault();
-  var selected = $(document.getElementById("excludedDomainsBox")).find('option:selected');
-  let messageSends = [];
-  for (let i = 0; i < selected.length; i++) {
-    messageSends.push(chrome.runtime.sendMessage({
-      type: 'enablePrivacyBadgerForOrigin',
-      origin: selected[i].text
-    }));
+
+  let domains = [];
+  let $selected = $("#excludedDomainsBox option:selected");
+  for (let i = 0; i < $selected.length; i++) {
+    domains.push($selected[i].text);
   }
-  Promise.all(messageSends).then(() => {
+
+  chrome.runtime.sendMessage({
+    type: "enablePrivacyBadgerForOriginList",
+    domains
+  }, (response) => {
+    OPTIONS_DATA.disabledSites = response.disabledSites;
     reloadWhitelist();
   });
 }
@@ -457,21 +463,15 @@ function getOriginAction(origin) {
   return OPTIONS_DATA.origins[origin];
 }
 
-//TODO unduplicate this code? since it's also in popup
 function revertDomainControl(e) {
   var $elm = $(e.target).parent();
   console.log('revert to privacy badger control for', $elm);
   var origin = $elm.data('origin');
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
-    origin: origin
+    origin
   }, (response) => {
-    var defaultAction = response.action;
-    var selectorId = "#"+ defaultAction +"-" + origin.replace(/\./g,'-');
-    var selector = $(selectorId);
-    console.log('selector', selector);
-    selector.click();
-    $elm.removeClass('userset');
+    OPTIONS_DATA.origins = response.origins;
     reloadTrackingDomainsTab(origin);
   });
 }
@@ -604,7 +604,8 @@ function registerToggleHandlers($toggleElement) {
         type: "saveOptionsToggle",
         action: setting,
         origin: origin
-      }, () => {
+      }, (response) => {
+        OPTIONS_DATA.origins = response.origins;
         reloadTrackingDomainsTab();
       });
     },
@@ -650,7 +651,6 @@ function showTrackingDomains(domains) {
   var trackingDetails = '';
   for (var i = 0; (i < 50) && (domains.length > 0); i++) {
     var trackingDomain = domains.shift();
-    // todo: gross hack, use templating framework
     var action = getOriginAction(trackingDomain);
     if (action) {
       trackingDetails += htmlUtils.getOriginHtml(trackingDomain, action, action == constants.DNT);
@@ -749,7 +749,8 @@ function removeOrigin(event) {
   chrome.runtime.sendMessage({
     type: "removeOrigin",
     origin: origin
-  }, () => {
+  }, (response) => {
+    OPTIONS_DATA.origins = response.origins;
     reloadTrackingDomainsTab();
   });
 }
