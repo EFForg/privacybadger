@@ -692,8 +692,10 @@ Badger.prototype = {
 
   /**
    * Interface to get the current whitelisted domains
+   *
+   * @returns {Array} List of site domains where Privacy Badger is disabled
    */
-  listOriginsWherePrivacyBadgerIsDisabled: function() {
+  getDisabledSites: function () {
     return this.getSettings().getItem("disabledSites");
   },
 
@@ -855,7 +857,7 @@ function startBackgroundListeners() {
         // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
         if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
           if (request.command == "getDisabledSites") {
-            sendResponse({origins: badger.listOriginsWherePrivacyBadgerIsDisabled()});
+            sendResponse({origins: badger.getDisabledSites()});
           } else if (request.command == "enable") {
             badger.enablePrivacyBadgerForOrigin(request.origin);
           } else if (request.command == "disable") {

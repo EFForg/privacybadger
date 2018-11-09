@@ -721,7 +721,7 @@ function dispatcher(request, sender, sendResponse) {
       isDNTSignalEnabled: badger.isDNTSignalEnabled(),
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled,
       isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
-      disabledSites: badger.listOriginsWherePrivacyBadgerIsDisabled(),
+      disabledSites: badger.getDisabledSites(),
       webRTCAvailable: badger.webRTCAvailable,
       origins: badger.storage.getTrackingDomains(),
     });
@@ -760,7 +760,7 @@ function dispatcher(request, sender, sendResponse) {
         sendResponse({success: false, message: chrome.runtime.lastError.message});
       } else if (store.hasOwnProperty("disabledSites")) {
         let whitelist = _.union(
-          badger.listOriginsWherePrivacyBadgerIsDisabled(),
+          badger.getDisabledSites(),
           store.disabledSites
         );
         badger.getSettings().setItem("disabledSites", whitelist);
@@ -780,7 +780,7 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.type == "uploadCloud") {
     let obj = {};
-    obj.disabledSites = badger.listOriginsWherePrivacyBadgerIsDisabled();
+    obj.disabledSites = badger.getDisabledSites();
     chrome.storage.sync.set(obj, function () {
       if (chrome.runtime.lastError) {
         sendResponse({success: false, message: chrome.runtime.lastError.message});
@@ -811,7 +811,7 @@ function dispatcher(request, sender, sendResponse) {
     // called when a user uploads data exported from another Badger instance
     badger.mergeUserData(request.data);
     sendResponse({
-      disabledSites: badger.listOriginsWherePrivacyBadgerIsDisabled(),
+      disabledSites: badger.getDisabledSites(),
       origins: badger.storage.getTrackingDomains(),
     });
 
@@ -834,7 +834,7 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.type == "disablePrivacyBadgerForOrigin") {
     badger.disablePrivacyBadgerForOrigin(request.domain);
     sendResponse({
-      disabledSites: badger.listOriginsWherePrivacyBadgerIsDisabled()
+      disabledSites: badger.getDisabledSites()
     });
 
   } else if (request.type == "enablePrivacyBadgerForOriginList") {
@@ -842,7 +842,7 @@ function dispatcher(request, sender, sendResponse) {
       badger.enablePrivacyBadgerForOrigin(domain);
     });
     sendResponse({
-      disabledSites: badger.listOriginsWherePrivacyBadgerIsDisabled()
+      disabledSites: badger.getDisabledSites()
     });
 
   } else if (request.type == "removeOrigin") {
