@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "nagMeNot": {
+      "description": "if set to true, do not show first run page",
+      "type": "boolean"
+    }
+  }
+}
