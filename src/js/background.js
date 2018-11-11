@@ -184,7 +184,7 @@ Badger.prototype = {
     if (settings.getItem("isFirstRun")) {
       // launch first-run page and unset first-run flag
       chrome.storage.managed.get(null, result => {
-        if ( ! "nagMeNot" in result || result.nagMeNot === false ) {
+        if (!("nagMeNot" in result) || result.nagMeNot === false) {
           chrome.tabs.create({
             url: chrome.extension.getURL("/skin/firstRun.html")
           });
