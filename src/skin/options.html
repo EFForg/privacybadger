@@ -28,13 +28,25 @@
 <link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/options-layout.css" rel="stylesheet" />
+
 <script type="text/javascript" src="/lib/vendor/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/tooltipster-4.2.5/tooltipster.bundle.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/underscore-min.js"></script>
+
+<!-- required because of window.getBaseDomain() in htmlutils.js -->
+<script type="text/javascript" src="/lib/vendor/punycode.js"></script>
+<script type="text/javascript" src="/lib/publicSuffixList.js"></script>
+<script type="text/javascript" src="/lib/basedomain.js"></script>
+
 <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/constants.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/htmlutils.js"></script>
 <script type="text/javascript" src="/lib/options.js"></script>
 <script type="text/javascript" src="/js/options.js" charset="utf-8"></script>
+
 <title class="i18n_options_title"></title>
 </head>
 <body class="options">

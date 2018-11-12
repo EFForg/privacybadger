@@ -1,8 +1,8 @@
-/* globals getOriginsArray:false */
-
 (function () {
 
   QUnit.module("Options page utils");
+
+  let { getOriginsArray } = require("optionslib");
 
   QUnit.test("getOriginsArray", (assert) => {
     const origins = {

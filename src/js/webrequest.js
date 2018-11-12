@@ -713,6 +713,19 @@ function dispatcher(request, sender, sendResponse) {
       tabUrl: tab_url
     });
 
+  } else if (request.type == "getOptionsData") {
+    sendResponse({
+      disabledSites: badger.getDisabledSites(),
+      isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
+      isDNTSignalEnabled: badger.isDNTSignalEnabled(),
+      isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
+      isSocialWidgetReplacementEnabled: badger.isSocialWidgetReplacementEnabled(),
+      origins: badger.storage.getTrackingDomains(),
+      showCounter: badger.showCounter(),
+      showTrackingDomains: badger.getSettings().getItem("showTrackingDomains"),
+      webRTCAvailable: badger.webRTCAvailable,
+    });
+
   } else if (request.type == "resetData") {
     badger.storage.clearTrackerData();
     badger.loadSeedData();
@@ -737,19 +750,29 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.type == "revertDomainControl") {
     badger.storage.revertUserAction(request.origin);
-    sendResponse();
+    sendResponse({
+      origins: badger.storage.getTrackingDomains()
+    });
 
   } else if (request.type == "downloadCloud") {
     chrome.storage.sync.get("disabledSites", function (store) {
       if (chrome.runtime.lastError) {
         sendResponse({success: false, message: chrome.runtime.lastError.message});
       } else if (store.hasOwnProperty("disabledSites")) {
-        let settings = badger.getSettings();
-        let whitelist = _.union(settings.getItem("disabledSites"), store.disabledSites);
-        settings.setItem("disabledSites", whitelist);
-        sendResponse({success: true});
+        let whitelist = _.union(
+          badger.getDisabledSites(),
+          store.disabledSites
+        );
+        badger.getSettings().setItem("disabledSites", whitelist);
+        sendResponse({
+          success: true,
+          disabledSites: whitelist
+        });
       } else {
-        sendResponse({success: false, message: chrome.i18n.getMessage("download_cloud_no_data")});
+        sendResponse({
+          success: false,
+          message: chrome.i18n.getMessage("download_cloud_no_data")
+        });
       }
     });
     //indicate this is an async response to chrome.runtime.onMessage
@@ -757,7 +780,7 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.type == "uploadCloud") {
     let obj = {};
-    obj.disabledSites = badger.getSettings().getItem("disabledSites");
+    obj.disabledSites = badger.getDisabledSites();
     chrome.storage.sync.set(obj, function () {
       if (chrome.runtime.lastError) {
         sendResponse({success: false, message: chrome.runtime.lastError.message});
@@ -780,12 +803,17 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.type == "saveOptionsToggle") {
     // called when the user manually sets a slider on the options page
     badger.saveAction(request.action, request.origin);
-    sendResponse();
+    sendResponse({
+      origins: badger.storage.getTrackingDomains()
+    });
 
   } else if (request.type == "mergeUserData") {
     // called when a user uploads data exported from another Badger instance
     badger.mergeUserData(request.data);
-    sendResponse();
+    sendResponse({
+      disabledSites: badger.getDisabledSites(),
+      origins: badger.storage.getTrackingDomains(),
+    });
 
   } else if (request.type == "updateSettings") {
     const settings = badger.getSettings();
@@ -796,14 +824,33 @@ function dispatcher(request, sender, sendResponse) {
         console.error("Unknown Badger setting:", key);
       }
     }
-
     sendResponse();
+
+  } else if (request.type == "updateBadge") {
+    let tab_id = request.tab_id;
+    badger.updateBadge(tab_id);
+    sendResponse();
+
+  } else if (request.type == "disablePrivacyBadgerForOrigin") {
+    badger.disablePrivacyBadgerForOrigin(request.domain);
+    sendResponse({
+      disabledSites: badger.getDisabledSites()
+    });
+
+  } else if (request.type == "enablePrivacyBadgerForOriginList") {
+    request.domains.forEach(function (domain) {
+      badger.enablePrivacyBadgerForOrigin(domain);
+    });
+    sendResponse({
+      disabledSites: badger.getDisabledSites()
+    });
 
   } else if (request.type == "removeOrigin") {
     badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
-
-    sendResponse();
+    sendResponse({
+      origins: badger.storage.getTrackingDomains()
+    });
 
   } else if (request.type == "saveErrorText") {
     let activeTab = badger.tabData[request.tabId];

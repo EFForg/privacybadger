@@ -240,8 +240,8 @@ BadgerPen.prototype = {
    *
    * @param {String} selector the action to select by
    * @return {Array} an array of FQDN strings
-   **/
-  getAllDomainsByPresumedAction: function(selector) {
+   */
+  getAllDomainsByPresumedAction: function (selector) {
     var action_map = this.getBadgerStorageObject('action_map');
     var relevantDomains = [];
     for (var domain in action_map.getItemClones()) {
@@ -250,6 +250,25 @@ BadgerPen.prototype = {
       }
     }
     return relevantDomains;
+  },
+
+  /**
+   * Get all tracking domains from action_map.
+   *
+   * @return {Object} An object with domains as keys and actions as values.
+   */
+  getTrackingDomains: function () {
+    let action_map = this.getBadgerStorageObject('action_map');
+    let origins = {};
+
+    for (let domain in action_map.getItemClones()) {
+      let action = badger.storage.getBestAction(domain);
+      if (action != constants.NO_TRACKING) {
+        origins[domain] = action;
+      }
+    }
+
+    return origins;
   },
 
   /**

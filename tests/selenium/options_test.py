@@ -42,46 +42,31 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.assertEqual(none,
             self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
 
-    def load_options_page(self, wait_for_badger_to_finish_initializing=False):
+    def load_options_page(self):
         self.load_url(self.options_url)
-
-        # might need to wait for pre-trained database to get loaded
-        # since chromedriver sometimes load the options page
-        # before the async fetch in loadSeedData finished
-        #
-        # this can break tests, for example:
-        # - we expect pre-trained data to be on the options page but it isn't
-        # - we overwrite the database but our overwrite gets overwritten by loadSeedData
-        if wait_for_badger_to_finish_initializing:
-            retries = 3
-            for i in range(retries):
-                try:
-                    self.wait_for_script("""return window.originCache &&
-  Object.keys(window.originCache).length;""", timeout=1)
-                    break
-                except TimeoutException:
-                    if i < retries - 1:
-                        self.driver.refresh()
-                        continue
-                    raise
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
 
     def clear_seed_data(self):
         """Clear the seed dataset to make test checks easier"""
-        self.load_options_page(wait_for_badger_to_finish_initializing=True)
-        self.js("badger.storage.clearTrackerData();")
+        self.load_options_page()
+        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
 
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""
         self.load_options_page()
-        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
-                origin, action))
+        self.js((
+            "chrome.extension.getBackgroundPage()"
+            ".badger.storage.setupHeuristicAction('{}', '{}');"
+        ).format(origin, action))
 
     def add_test_origins(self, origins_with_actions):
         """Add a dictionary of origins with their actions to backend storage."""
         self.load_options_page()
         for origin in origins_with_actions:
-            self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
-                origin, origins_with_actions[origin]))
+            self.js((
+                "chrome.extension.getBackgroundPage()"
+                ".badger.storage.setupHeuristicAction('{}', '{}');"
+            ).format(origin, origins_with_actions[origin]))
 
     def user_overwrite(self, origin, action):
         # Get the slider that corresponds to this radio button
@@ -114,7 +99,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def test_page_title(self):
         self.load_options_page()
-        localized_title = self.js('return i18n.getMessage("options_title")')
+        localized_title = self.js('return chrome.i18n.getMessage("options_title")')
         try:
             WebDriverWait(self.driver, 3).until(
                 EC.title_contains(localized_title))
@@ -188,7 +173,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.clear_seed_data()
         self.add_test_origin("pbtest.org", "block")
 
-        self.load_url(self.options_url)
+        self.load_options_page()
         self.select_domain_list_tab()
 
         # Remove displayed origin.
@@ -223,7 +208,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.assertIsNone(origins, error_message)
 
     def test_reset_data(self):
-        self.load_options_page(wait_for_badger_to_finish_initializing=True)
+        self.load_options_page()
         self.select_domain_list_tab()
 
         # make sure the default tracker list includes many trackers
@@ -372,7 +357,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251
     def test_options_ui_open_in_tab(self):
         # open options page manually
-        self.load_url(self.options_url)
+        self.load_options_page()
 
         # open background page in a new window
         self.open_window()
