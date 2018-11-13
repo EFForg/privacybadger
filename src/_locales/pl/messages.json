@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger jest wyłączony dla następujących domen. Oznacza to, że nic będzie blokowane podczas wizyty na stronach wpisanych poniżej.<br><br>Jeżeli uważasz, że Privacy Badger psuje jakąś stronę, wpisz domenę tej strony w pole poniżej i kliknij w przycisk „dodaj domenę”.<br><br>Inny sposób: mając otwartą kartę ze stroną, kliknij w ikonę Privacy Badgera na pasku narzędzi przeglądarki, a następnie kliknij „wyłącz.”",
+        "message": "<p>Privacy Badger jest wyłączony dla następujących domen. Oznacza to, że nic będzie blokowane podczas wizyty na stronach wpisanych poniżej.</p><p>Jeżeli uważasz, że Privacy Badger psuje jakąś stronę, wpisz domenę tej strony w pole poniżej i kliknij w przycisk „dodaj domenę”.</p><p>Inny sposób: mając otwartą kartę ze stroną, kliknij w ikonę Privacy Badgera na pasku narzędzi przeglądarki, a następnie kliknij „wyłącz.”</p>",
         "description": ""
     },
     "popup_instructions": {

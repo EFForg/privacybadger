@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西。<br><br>若您覺得 Privacy Badger 把頁面弄壞了，您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。<br><br>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。",
+        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西。</p><p>若您覺得 Privacy Badger 把頁面弄壞了，您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。</p><p>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。</p>",
         "description": ""
     },
     "popup_instructions": {

@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger aşağıdaki sitelerde devre dışıdır. Bunun anlamı, Privacy Badger bu sitelerdeki hiçbir şeyi engellemez.<br><br>Eğer Privacy Badger'ın bir sayfayı bozduğunu düşünüyorsanız, sayfanın adresini aşağıdaki kutucuğa yazıp \"Adres Ekle\" butonuna tıklayabilirsiniz.<br><br>Alternatif olarak, sayfanın sekmesi seçiliyken tarayıcı araç çubuğundan Privacy Badger'a tıklayıp \"Devre Dışı Bırak\" butonuna tıklayabilirsiniz.",
+        "message": "<p>Privacy Badger aşağıdaki sitelerde devre dışıdır. Bunun anlamı, Privacy Badger bu sitelerdeki hiçbir şeyi engellemez.</p><p>Eğer Privacy Badger'ın bir sayfayı bozduğunu düşünüyorsanız, sayfanın adresini aşağıdaki kutucuğa yazıp \"Adres Ekle\" butonuna tıklayabilirsiniz.</p><p>Alternatif olarak, sayfanın sekmesi seçiliyken tarayıcı araç çubuğundan Privacy Badger'a tıklayıp \"Devre Dışı Bırak\" butonuna tıklayabilirsiniz.</p>",
         "description": ""
     },
     "popup_instructions": {

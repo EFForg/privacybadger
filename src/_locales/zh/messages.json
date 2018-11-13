@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "隐私獾已在以下网站上禁用。你浏览这些网站时，隐私獾不会屏蔽任何东西。<br><br>如果你认为隐私獾破坏了某个页面，请在下面的文本框中输入页面的域名，然后点击“添加域名”按钮。<br><br>或者你可以在浏览页面时点击浏览器工具栏上的隐私獾按钮，然后点击“禁用”按钮。",
+        "message": "<p>隐私獾已在以下网站上禁用。你浏览这些网站时，隐私獾不会屏蔽任何东西。</p><p>如果你认为隐私獾破坏了某个页面，请在下面的文本框中输入页面的域名，然后点击“添加域名”按钮。</p><p>或者你可以在浏览页面时点击浏览器工具栏上的隐私獾按钮，然后点击“禁用”按钮。</p>",
         "description": ""
     },
     "popup_instructions": {

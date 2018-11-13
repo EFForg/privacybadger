@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn.<br><br>Se viaopinie Privata Melo difektas iun retpaĝon, vi povas entajpi ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.<br><br>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la piktogramon de Privata Melo sur la folumila ilarstrio kaj klaku la butonon “malaktivigi”.",
+        "message": "<p>Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn.</p><p>Se viaopinie Privata Melo difektas iun retpaĝon, vi povas entajpi ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.</p><p>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la piktogramon de Privata Melo sur la folumila ilarstrio kaj klaku la butonon “malaktivigi”.</p>",
         "description": ""
     },
     "popup_instructions": {

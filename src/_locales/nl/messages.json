@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger is uitgeschakeld op de volgende websites. Dit betekent dat Privacy Badger niets zal blokkeren wanneer u de websites die hier staan bezoekt.<br><br>Als u denkt dat Privacy Badger een pagina verkeerd weergeeft, kunt u het domein van die pagina in het tekstvak hieronder typen en op de 'Voeg domein toe'-knop drukken.<br><br>U kunt ook als u de website open heeft staan op de Privacy Badger-knop klikken in de knoppenbalk en vervolgens klikken op 'Schakel Privacy Badger uit op deze webpagina'.",
+        "message": "<p>Privacy Badger is uitgeschakeld op de volgende websites. Dit betekent dat Privacy Badger niets zal blokkeren wanneer u de websites die hier staan bezoekt.</p><p>Als u denkt dat Privacy Badger een pagina verkeerd weergeeft, kunt u het domein van die pagina in het tekstvak hieronder typen en op de 'Voeg domein toe'-knop drukken.</p><p>U kunt ook als u de website open heeft staan op de Privacy Badger-knop klikken in de knoppenbalk en vervolgens klikken op 'Schakel Privacy Badger uit op deze webpagina'.</p>",
         "description": ""
     },
     "popup_instructions": {

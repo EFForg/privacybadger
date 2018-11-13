@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger on poistettu käytöstä seuraavilla sivustoilla. Tämä tarkoittaa, että Privacy Badger ei estä mitään, kun käytät tässä listattuja sivustoja.<br><br>Jos arvelet Privacy Badgerin rikkovan jonkin sivun, voit kirjoittaa kyseisen sivun verkkotunnuksen alla olevaan kenttään ja klikata \"Lisää verkkotunnus\" -painiketta.<br><br>Jos sinulla on jo sivun välilehti valittuna, voit vaihtoehtoisesti vain klikata Privacy Badgerin painiketta selaimen työkalupalkissa ja sen jälkeen klikata \"Poista käytöstä\" -painiketta.",
+        "message": "<p>Privacy Badger on poistettu käytöstä seuraavilla sivustoilla. Tämä tarkoittaa, että Privacy Badger ei estä mitään, kun käytät tässä listattuja sivustoja.</p><p>Jos arvelet Privacy Badgerin rikkovan jonkin sivun, voit kirjoittaa kyseisen sivun verkkotunnuksen alla olevaan kenttään ja klikata \"Lisää verkkotunnus\" -painiketta.</p><p>Jos sinulla on jo sivun välilehti valittuna, voit vaihtoehtoisesti vain klikata Privacy Badgerin painiketta selaimen työkalupalkissa ja sen jälkeen klikata \"Poista käytöstä\" -painiketta.</p>",
         "description": ""
     },
     "popup_instructions": {

@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger er deaktiveret på de følgende steder. Det betyder at Privacy Badger ikke vil blokere noget når du besøger stederne listet her. <br><br>Hvis du tror Privacy Badger ødelægger en side, kan du skrive sidens domæne i feltet nedenunder og klikke på knappen \"Tilføj domæne\".<br><br>Alternativt, når du allerede har sidens faneblad valgt, kan du blot klikke på Privacy Badgers knap i browserens værktøjslinje, og derefter klikke på knappen \"Deaktiver\".",
+        "message": "<p>Privacy Badger er deaktiveret på de følgende steder. Det betyder at Privacy Badger ikke vil blokere noget når du besøger stederne listet her.</p><p>Hvis du tror Privacy Badger ødelægger en side, kan du skrive sidens domæne i feltet nedenunder og klikke på knappen \"Tilføj domæne\".</p><p>Alternativt, når du allerede har sidens faneblad valgt, kan du blot klikke på Privacy Badgers knap i browserens værktøjslinje, og derefter klikke på knappen \"Deaktiver\".</p>",
         "description": ""
     },
     "popup_instructions": {
