@@ -28,9 +28,12 @@ button
   white-space: pre;
 }
 
-label
-{
+label {
   display: inline-flex;
+}
+
+#tracking-domains-filters label {
+    display: inline;
 }
 
 p, #settingsForm {
