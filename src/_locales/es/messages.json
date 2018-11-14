@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automáticamente aprende a bloquear rastreadores invisibles. Toma un minuto para aprender como.",
+        "message": "Privacy Badger aprende automáticamente a bloquear rastreadores invisibles. Tómate un minuto para ver cómo.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger automáticamente aprende a bloquear rastreadores invisibles.",
+        "message": "Privacy Badger aprende automáticamente a bloquear rastreadores invisibles.",
         "description": ""
     },
     "report_fail": {
