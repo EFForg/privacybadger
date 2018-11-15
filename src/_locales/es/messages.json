@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger aprende automáticamente a bloquear rastreadores invisibles. Tómate un minuto para ver cómo.",
+        "message": "Privacy Badger aprende automáticamente a bloquear rastreadores invisibles. Tómate un minuto para aprender cómo.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger detectado $COUNT$ potenciales $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ en esta página. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada uno de ellos. No debería necesitar ajustar los controles deslizantes a menos que algo esté roto.",
+        "message": "Privacy Badger detectó $COUNT$ potenciales $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ en esta página. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada uno de ellos. No debería necesitar ajustar los controles deslizantes a menos que algo esté roto.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger ha detectado un <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio rastreador</a> potencial hasta el momento. La barra te permite controlar lo que Privacy Badger hace con este.",
+        "message": "Privacy Badger ha detectado un <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio rastreador</a> potencial hasta el momento. El control deslizante te permite controlar cómo lo maneja Privacy Badger.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger detectó un <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastreador</a> potencial en este sitio. El control deslizante le permite controlar cómo lo maneja Privacy Badger. No debería necesitar ajustar el control deslizante a menos que algo no funcione.",
+        "message": "Privacy Badger detectó un <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastreador</a> potencial en esta página. El control deslizante le permite controlar cómo lo maneja Privacy Badger. No debería necesitar ajustar el control deslizante a menos que algo no funcione.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger ha detectado $COUNT$ potenciales $TRACKER_LINK_START$ dominios de rastreo $TRACKER_LINK_END$ hasta el momento. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada rastreador.",
+        "message": "Privacy Badger detectó $COUNT$ potenciales $TRACKER_LINK_START$ dominios de rastreo $TRACKER_LINK_END$ hasta el momento. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada rastreador.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -464,7 +464,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Si crees que Privacy Badger está rompiendo una página (un video no se reproduce, por ejemplo), puedes hacer clic en el botón \"Deshabilitar\" para desactivar Privacy Badger para ese sitio.",
+        "message": "Si crees que Privacy Badger está rompiendo una página (un vídeo no se reproduce, por ejemplo), puedes hacer clic en el botón \"Deshabilitar\" para desactivar Privacy Badger para ese sitio.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
@@ -568,7 +568,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) es una extensión de navegador que aprende automáticamente a bloquear rastreadores invisibles. Privacy Badger está hecho por Electronic Frontier Foundation, una organización sin fines de lucro que lucha por sus derechos en línea.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) es una extensión de navegador que aprende automáticamente a bloquear rastreadores invisibles. Privacy Badger está hecho por Electronic Frontier Foundation, una organización sin fines de lucro que lucha por tus derechos en línea.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
