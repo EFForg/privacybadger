@@ -72,6 +72,7 @@ break.com
 breakingburner.com
 brightcove.com
 players.brightcove.net
+bungie.net
 buzzfed.com
 buzzfeed.com
 cachefly.net
