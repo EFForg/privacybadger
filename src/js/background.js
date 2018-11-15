@@ -182,16 +182,12 @@ Badger.prototype = {
   showFirstRunPage: function() {
     let settings = this.getSettings();
     if (settings.getItem("isFirstRun")) {
-      // launch first-run page and unset first-run flag
-      chrome.storage.managed.get(null, result => {
-        if (typeof(result) === "undefined"
-            || !("nagMeNot" in result)
-            || result.nagMeNot === false) {
-          chrome.tabs.create({
-            url: chrome.extension.getURL("/skin/firstRun.html")
-          });
-        }
-      });
+      // launch the new user intro page and unset first-run flag
+      if (settings.getItem("showIntroPage")) {
+        chrome.tabs.create({
+          url: chrome.extension.getURL("/skin/firstRun.html")
+        });
+      }
       settings.setItem("isFirstRun", false);
     }
   },
@@ -501,6 +497,7 @@ Badger.prototype = {
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
+    showIntroPage: true,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true
   },
