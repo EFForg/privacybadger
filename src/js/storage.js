@@ -69,8 +69,19 @@ function BadgerPen(callback) {
       }
     });
 
+    if (!chrome.storage.managed) {
+      if (_.isFunction(callback)) {
+        callback(self);
+      }
+      return;
+    }
+
     // see if we have any enterprise/admin/group policy overrides
     chrome.storage.managed.get(null, result => {
+      if (chrome.runtime.lastError) {
+        // ignore "Managed storage manifest not found" errors in Firefox
+      }
+
       if (typeof(result) != "undefined" && result.hasOwnProperty("nagMeNot")) {
         self.settings_map.setItem("showIntroPage", !result.nagMeNot);
       }
