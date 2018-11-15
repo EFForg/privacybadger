@@ -514,7 +514,7 @@
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
-        "message": "Ladda upp",
+        "message": "Skicka",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
@@ -534,11 +534,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Molndata laddades upp.",
+        "message": "Molndata skickades.",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Molndata kunde inte laddas upp.",
+        "message": "Molndata kunde inte skickas.",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
