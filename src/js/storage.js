@@ -57,6 +57,10 @@ require.scopes.storage = (function() {
 function BadgerPen(callback) {
   var self = this;
 
+  if (!callback) {
+    callback = _.noop;
+  }
+
   // initialize from extension local storage
   chrome.storage.local.get(self.KEYS, function (store) {
     _.each(self.KEYS, function (key) {
@@ -70,9 +74,7 @@ function BadgerPen(callback) {
     });
 
     if (!chrome.storage.managed) {
-      if (_.isFunction(callback)) {
-        callback(self);
-      }
+      callback(self);
       return;
     }
 
@@ -92,9 +94,7 @@ function BadgerPen(callback) {
         self.settings_map.merge(settings);
       }
 
-      if (_.isFunction(callback)) {
-        callback(self);
-      }
+      callback(self);
     });
   });
 }
