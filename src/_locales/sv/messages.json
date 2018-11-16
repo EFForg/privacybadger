@@ -202,7 +202,7 @@
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
-        "message": "Lista över spårare och inställningar uppdaterades!",
+        "message": "Listan över spårare och inställningarna uppdaterades!",
         "description": ""
     },
     "export_user_data": {
