@@ -2,7 +2,10 @@
     "3rdparty": {
         "extensions": {
             "pkehgijcmpdhfbdbbnkijodmdjhbjlgp": {
-                "nagMeNot" : true
+                "showIntroPage": false,
+                "disabledSites": [
+                    "example.com"
+                ]
             }
         }
     }

@@ -77,13 +77,19 @@ function BadgerPen(callback) {
     }
 
     // see if we have any enterprise/admin/group policy overrides
-    chrome.storage.managed.get(null, result => {
+    chrome.storage.managed.get(null, function (managedStore) {
       if (chrome.runtime.lastError) {
         // ignore "Managed storage manifest not found" errors in Firefox
       }
 
-      if (typeof(result) != "undefined" && result.hasOwnProperty("nagMeNot")) {
-        self.settings_map.setItem("showIntroPage", !result.nagMeNot);
+      if (_.isObject(managedStore)) {
+        let settings = {};
+        for (let key in badger.defaultSettings) {
+          if (managedStore.hasOwnProperty(key)) {
+            settings[key] = managedStore[key];
+          }
+        }
+        self.settings_map.merge(settings);
       }
 
       if (_.isFunction(callback)) {
