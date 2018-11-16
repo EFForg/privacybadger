@@ -187,6 +187,9 @@ Badger.prototype = {
         chrome.tabs.create({
           url: chrome.extension.getURL("/skin/firstRun.html")
         });
+      } else {
+        // don't remind users to look at the intro page either
+        settings.setItem("seenComic", true);
       }
       settings.setItem("isFirstRun", false);
     }
