@@ -45,18 +45,23 @@ require.scopes.storage = (function() {
  * }
  *
  * cookieblock_list is where we store the current yellowlist as
- * downloaded from eff.org. The keys are the domains which should be blocked.
- * The values are simply 'true'
- *
+ * downloaded from eff.org. The keys are the domains which should be "cookieblocked".
+ * The values are simply 'true'. For example:
  * {
  *   "maps.google.com": true,
  *   "creativecommons.org": true,
  * }
- **/
+ *
+ */
 
 function BadgerPen(callback) {
   var self = this;
-  // Now check localStorage
+
+  if (!callback) {
+    callback = _.noop;
+  }
+
+  // initialize from extension local storage
   chrome.storage.local.get(self.KEYS, function (store) {
     _.each(self.KEYS, function (key) {
       if (store.hasOwnProperty(key)) {
@@ -67,9 +72,30 @@ function BadgerPen(callback) {
         _syncStorage(storage_obj);
       }
     });
-    if (_.isFunction(callback)) {
+
+    if (!chrome.storage.managed) {
       callback(self);
+      return;
     }
+
+    // see if we have any enterprise/admin/group policy overrides
+    chrome.storage.managed.get(null, function (managedStore) {
+      if (chrome.runtime.lastError) {
+        // ignore "Managed storage manifest not found" errors in Firefox
+      }
+
+      if (_.isObject(managedStore)) {
+        let settings = {};
+        for (let key in badger.defaultSettings) {
+          if (managedStore.hasOwnProperty(key)) {
+            settings[key] = managedStore[key];
+          }
+        }
+        self.settings_map.merge(settings);
+      }
+
+      callback(self);
+    });
   });
 }
 

@@ -182,10 +182,15 @@ Badger.prototype = {
   showFirstRunPage: function() {
     let settings = this.getSettings();
     if (settings.getItem("isFirstRun")) {
-      // launch first-run page and unset first-run flag
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html")
-      });
+      // launch the new user intro page and unset first-run flag
+      if (settings.getItem("showIntroPage")) {
+        chrome.tabs.create({
+          url: chrome.extension.getURL("/skin/firstRun.html")
+        });
+      } else {
+        // don't remind users to look at the intro page either
+        settings.setItem("seenComic", true);
+      }
       settings.setItem("isFirstRun", false);
     }
   },
@@ -495,6 +500,7 @@ Badger.prototype = {
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
+    showIntroPage: true,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true
   },
