@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Wanneer u Privacy Badger gebruikt vecht u met de <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> en miljoenen andere gebruikers in de strijd voor privacy. Wij zijn een non-profit die voor uw online rechten vecht. Bedankt voor het deelnemen!",
+        "message": "Wanneer u Privacy Badger gebruikt vecht u met de <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> en miljoenen andere gebruikers in de strijd voor privacy. Wij zijn een organisatie zonder winstoogmerk die vecht voor uw online rechten. Bedankt voor het deelnemen!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -554,7 +554,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger heeft $COUNT$ potentiele trackers gevonden op $DOMAIN$:",
+        "message": "Privacy Badger heeft $COUNT$ mogelijke trackers gevonden op $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -568,7 +568,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) is een browserextensie die automatisch leert om onzichtbare trackers te blokkeren. Privacy Badger is gemaakt door de Electronic Frontier Foundation, een organisatie zonder winstoogmerk die vecht voor je online rechten.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) is een browserextensie die automatisch leert om onzichtbare trackers te blokkeren. Privacy Badger is gemaakt door de Electronic Frontier Foundation, een organisatie zonder winstoogmerk die vecht voor uw online rechten.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
