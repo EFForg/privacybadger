@@ -306,7 +306,7 @@
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
-        "message": "Centrar la barra para bloquear las cookies",
+        "message": "Centrar el control deslizante para bloquear las cookies",
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
@@ -354,7 +354,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Mueve la barra a la izquierda para bloquear un dominio",
+        "message": "Mover el control deslizante a la izquierda para bloquear un dominio",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
@@ -399,7 +399,7 @@
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
-        "message": "Mueve la barra a la derecha para permitir el dominio",
+        "message": "Mover el control deslizante hacia la derecha para permitir un dominio",
         "description": ""
     },
     "popup_disable_for_site": {
