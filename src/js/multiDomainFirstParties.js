@@ -1185,7 +1185,7 @@ var multiDomainFirstPartiesArray = [
   ["xfinity.com", "comcast.net", "comcast.com"],
   ["xiami.com", "alipay.com"],
   ["yahoo.com", "yahooapis.com", "yimg.com", "yahoo.co.jp", "overture.com", "flickr.com"],
-  ["yandex.ru", "yastatic.net", "yandex.net"],
+  ["yandex.ru", "yandex.com", "yastatic.net", "yandex.net"],
   ["zendesk.com", "zopim.com"],
   ["zillow.com", "zillowstatic.com", "zillowcloud.com"],
   ["zoho.com", "zoho.eu", "zohocorp.com", "zohocreator.com", "zohopublic.com", "zohostatic.com"],
