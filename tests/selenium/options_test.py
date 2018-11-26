@@ -19,6 +19,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from window_utils import switch_to_window_with_url
+
 
 class OptionsTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
@@ -359,9 +361,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # open options page manually
         self.load_options_page()
 
-        # open background page in a new window
-        self.open_window()
-        self.load_url(self.bg_url)
+        # switch to new user intro page
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
         # save open windows
         handles_before = set(self.driver.window_handles)
