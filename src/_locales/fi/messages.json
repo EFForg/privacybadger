@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Käyttämällä Privacy Badgeria liityt <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationin</a> ja miljoonien muiden käyttäjien joukkoon taistelussa yksityisyyden puolesta. Olemme voittoa tavoittelematon järjestö, joka taistelee oikeuksiesi puolesta netissä. Kiitos, että liityt mukaan!",
+        "message": "Käyttämällä Privacy Badgeria liityt <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationin</a> ja miljoonien muiden käyttäjien joukkoon taistelussa yksityisyyden puolesta. Olemme voittoa tavoittelematon järjestö, joka taistelee oikeuksiesi puolesta verkossa. Kiitos, että liityt mukaan!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {

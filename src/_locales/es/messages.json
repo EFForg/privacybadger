@@ -28,7 +28,7 @@
         }
     },
     "non_tracker_tip": {
-        "message": "Actualmente Privacy Badger sólo comprueba si terceras partes utilizan cookies, almacenamiento local HTML5, o huella digital del escritorio para rastrear tu navegador. Algunos de estos dominios pueden estar usando métodos de rastreo que Privacy Badger no puede detectar.",
+        "message": "Actualmente Privacy Badger solo comprueba si terceras partes utilizan cookies, almacenamiento local HTML5, o huella digital del escritorio para rastrear tu navegador. Algunos de estos dominios pueden estar usando métodos de rastreo que Privacy Badger no puede detectar.",
         "description": ""
     },
     "options_dnt_policy_setting": {
@@ -84,7 +84,7 @@
         "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Haz clic aquí para evitar que ese dominio use cookies",
+        "message": "Haz clic aquí para bloquear este dominio de la configuración de cookies",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
@@ -182,7 +182,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Esto enviará automáticamente la siguiente información a la EFF: el sitio que estás visitando actualmente, tu versión del navegador, la versión de Privacy Badger, y el estado de los controles deslizantes para este sitio.",
+        "message": "Esto enviará automáticamente la siguiente información a la EFF: el sitio que estás visitando actualmente, tu versión del navegador, la versión de Privacy Badger y el estado de los controles deslizantes para este sitio.",
         "description": ""
     },
     "intro_learns": {
@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger detectó $COUNT$ potenciales $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ en esta página. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada uno de ellos. No debería necesitar ajustar los controles deslizantes a menos que algo esté roto.",
+        "message": "Privacy Badger detectó $COUNT$ potenciales $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ en esta página. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada uno de ellos. No debería necesitar ajustar los controles deslizantes a menos que algo no funcione.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -399,7 +399,7 @@
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
-        "message": "Mover el control deslizante hacia la derecha para permitir un dominio",
+        "message": "Mover el control deslizante a la derecha para permitir un dominio",
         "description": ""
     },
     "popup_disable_for_site": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger detectó $COUNT$ potenciales $TRACKER_LINK_START$ dominios de rastreo $TRACKER_LINK_END$ hasta el momento. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada rastreador.",
+        "message": "Privacy Badger detectó $COUNT$ potenciales $TRACKER_LINK_START$dominios de rastreo$TRACKER_LINK_END$ hasta el momento. Estos controles deslizantes le permiten controlar la forma en que Privacy Badger maneja cada rastreador.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
