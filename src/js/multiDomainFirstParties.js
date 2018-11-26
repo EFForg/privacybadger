@@ -796,6 +796,17 @@ var multiDomainFirstPartiesArray = [
   ["mobilism.org.in", "mobilism.org"],
   ["morganstanley.com", "morganstanleyclientserv.com", "stockplanconnect.com", "ms.com"],
   ["msnbc.com", "nbcnews.com", "newsvine.com"],
+  [
+    "mtv.fi",
+
+    "cmore.fi",
+    "lumijapyry.fi",
+    "luukku.com",
+    "mtvuutiset.fi",
+    "salatutelamat.fi",
+    "studio55.fi",
+    "suomiareena.fi",
+  ],
   ["my-bookings.org", "my-bookings.cc"],
   ["mycanal.fr", "canal-plus.com"],
   ["mymerrill.com", "ml.com", "merrilledge.com"],
