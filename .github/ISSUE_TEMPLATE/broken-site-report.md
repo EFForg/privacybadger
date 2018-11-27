@@ -8,13 +8,15 @@ about: Report a broken site or site service
 Is Privacy Badger breaking something somewhere? We'd like to get it fixed! Let's get some debugging information first.
 -->
 
-### What is your browser and browser version?
+#### What is your browser and browser version?
 
-### What is broken and where?
+#### What is broken and where?
 
-### What is the domain that causes breakage when blocked? What is your debug output for this domain?
+#### What is the "culprit" domain?
+Please follow the [debug instructions](https://github.com/EFForg/privacybadger/wiki/Find-out-why-Privacy-Badger-is-blocking-a-domain) to identify which domain breaks stuff when blocked.
+
+#### What is your debug output for this domain?
+Please follow the [debug instructions](https://github.com/EFForg/privacybadger/wiki/Find-out-why-Privacy-Badger-is-blocking-a-domain) to get the debug output.
 ```
-Please follow the instructions on
-https://github.com/EFForg/privacybadger/wiki/Find-out-why-Privacy-Badger-is-blocking-a-domain
-and paste the output here.
+Paste debug output here.
 ```
