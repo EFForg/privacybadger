@@ -155,6 +155,7 @@ var multiDomainFirstPartiesArray = [
   ["bancomer.com", "bancomer.com.mx", "bbvanet.com.mx"],
   ["bankofamerica.com", "bofa.com", "mbna.com", "usecfo.com"],
   ["bank-yahav.co.il", "bankhapoalim.co.il"],
+  ["bbc.co.uk", "bbc.com", "bbci.co.uk"],
   ["belkin.com", "seedonk.com"],
   [
     "bitbucket.org",
