@@ -222,7 +222,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "重置追踪域名将会：\n\n• 删除所有隐私獾从您浏览中学习到的数据\n• 将最追踪域名列表重置为一个预学习列表（访问 www.eff.org/badger-pretraining 以了解更多）",
+        "message": "重置追踪域名将会：\n\n• 删除所有隐私獾从您浏览中学习到的数据\n• 将追踪域名列表重置为一个预学习列表（访问 www.eff.org/badger-pretraining 以了解更多）",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器<a href='https://www.eff.org/issues/do-not-track' target='_blank'>发送“请勿跟踪”信号</a>，告诉它们停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止他们——无论它们是广告、追踪器或是其他的任何东西。",
+        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器<a href='https://www.eff.org/issues/do-not-track' target='_blank'>发送“请勿跟踪”信号</a>，告诉它们停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止他们——无论它们是广告、追踪器或是其他的东西。",
         "description": "Intro page paragraph."
     },
     "report_close": {
