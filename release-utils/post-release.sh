@@ -2,7 +2,7 @@
 
 cd "$(dirname "$0")"
 source ./config.sh
-PKGDIR=../pkg/
+PKGDIR=../pkg
 if [ $# -ne 1 ] ; then
   echo "Usage: $0 <version to release>"
   exit 1
