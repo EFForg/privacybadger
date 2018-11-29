@@ -546,15 +546,15 @@
         "description": "'Error' message when there is on cloud data to download."
     },
     "share_title": {
-        "message": "Tell your friends",
+        "message": "告诉您的朋友",
         "description": "Title of the share overlay."
     },
     "popup_share_button": {
-        "message": "Share",
+        "message": "分享",
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger found $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "隐私獾在 $DOMAIN$ 找到 $COUNT$ 个可能的追踪器：",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -568,15 +568,15 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "隐私獾（www.eff.org/privacybadger)）是一个浏览器插件，它可以自动学习去阻止不可见的追踪器。隐私獾由电子前哨基金会，一个为您在线权利奋斗的非营利性组织制作。",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
-        "message": "Copy to clipboard",
+        "message": "复制到剪贴板",
         "description": "Initial text of the copy button on the share overlay."
     },
     "copy_button_copied": {
-        "message": "Copied",
+        "message": "已复制",
         "description": "On-click text of the copy button on the share overlay."
     }
 }
