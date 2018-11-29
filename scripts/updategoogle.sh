@@ -11,7 +11,7 @@ trap 'rm $TEMPFILE' EXIT
 
 echo "fetching Google Search domains ..."
 if wget -q -T 30 -O "$TEMPFILE" -- $GOOGLE_DOMAINS_URL && [ -s "$TEMPFILE" ]; then
-	python scripts/updategoogle.py "$TEMPFILE" "$MANIFEST_PATH"
+	./scripts/updategoogle.py "$TEMPFILE" "$MANIFEST_PATH"
 	if cmp -s "$TEMPFILE" $MANIFEST_PATH; then
 		echo "    no Google Search domain updates"
 	else
