@@ -797,7 +797,6 @@ var multiDomainFirstPartiesArray = [
   ],
   ["mobilism.org.in", "mobilism.org"],
   ["morganstanley.com", "morganstanleyclientserv.com", "stockplanconnect.com", "ms.com"],
-  ["msnbc.com", "nbcnews.com", "newsvine.com"],
   ["my-bookings.org", "my-bookings.cc"],
   ["mycanal.fr", "canal-plus.com"],
   ["mymerrill.com", "ml.com", "merrilledge.com"],
@@ -805,6 +804,15 @@ var multiDomainFirstPartiesArray = [
   ["mysmartedu.com", "mysmartabc.com"],
   ["mysql.com", "oracle.com"],
   ["myuv.com", "uvvu.com"],
+  [
+    "nbcnews.com",
+
+    "msnbc.com",
+    "today.com",
+
+    "newsvine.com",
+    "s-nbcnews.com",
+  ],
   ["nefcuonline.com", "nefcu.com"],
   ["netflix.com", "nflxext.com", "nflximg.net", "nflxvideo.net"],
   [
