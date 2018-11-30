@@ -528,6 +528,7 @@ cdn-a.sonyentertainmentnetwork.com
 soundcloud.com
 springboardplatform.com
 squarespace.com
+squareup.com
 squirt.io
 ssl-images-amazon.com
 cdn.sstatic.net
