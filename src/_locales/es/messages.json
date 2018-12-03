@@ -480,7 +480,7 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "No parece que los siguientes dominos le estén rastreando",
+        "message": "No parece que los siguientes dominios le estén rastreando",
         "description": ""
     },
     "popup_options_button": {
