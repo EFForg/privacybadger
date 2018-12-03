@@ -174,7 +174,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Por favor, no olvide hacer clic en 'Reportar un sitio roto'. Respetamos su privacidad, por lo que no enviamos reportes de forma automática.",
+        "message": "Por favor, no olvide hacer clic en «Reportar un sitio roto». Respetamos su privacidad, por lo que no enviamos reportes de forma automática.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -358,7 +358,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Enviar a los sitios web la señal \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>No rastrear</a>\"",
+        "message": "Enviar a los sitios web la señal «<a href='https://www.eff.org/issues/do-not-track' target='_blank'>No rastrear</a>»",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger está desactivado en los siguientes sitios. Esto significa que Privacy Badger no bloquea nada cuando usted visita los sitios listados aquí.</p><p>Si cree que Privacy Badger está rompiendo una página, puede escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón \"Añadir el dominio\".</p><p>Alternativamente, cuando ya tenga seleccionada la pestaña de la página, simplemente haga clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haga clic en el botón \"Deshabilitar\".</p>",
+        "message": "<p>Privacy Badger está desactivado en los siguientes sitios. Esto significa que Privacy Badger no bloquea nada cuando usted visita los sitios listados aquí.</p><p>Si cree que Privacy Badger está rompiendo una página, puede escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón «Añadir el dominio».</p><p>Alternativamente, cuando ya tenga seleccionada la pestaña de la página, simplemente haga clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haga clic en el botón «Deshabilitar».</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -460,11 +460,11 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "Para excluir dominios, preceda el término de búsqueda con \"-\". Por ejemplo, \".co -.com\" muestra dominios .co y .co.uk, pero no .com.",
+        "message": "Para excluir dominios, preceda el término de búsqueda con «-». Por ejemplo, «.co -.com» muestra dominios .co y .co.uk, pero no .com.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Si cree que Privacy Badger está rompiendo una página (un vídeo no se reproduce, por ejemplo), puede hacer clic en el botón \"Deshabilitar\" para desactivar Privacy Badger en ese sitio.",
+        "message": "Si cree que Privacy Badger está rompiendo una página (un vídeo no se reproduce, por ejemplo), puede hacer clic en el botón «Deshabilitar» para desactivar Privacy Badger en ese sitio.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
