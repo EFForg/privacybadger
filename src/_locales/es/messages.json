@@ -268,7 +268,7 @@
         }
     },
     "badger_status_cookieblock": {
-        "message": "Las cookies bloqueadas en $DOMAIN$",
+        "message": "Cookies bloqueadas de $DOMAIN",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -278,7 +278,7 @@
         }
     },
     "intro_beyond_ads": {
-        "message": "Descubre rastreadores ocultos",
+        "message": "Neutraliza rastreadores ocultos",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
