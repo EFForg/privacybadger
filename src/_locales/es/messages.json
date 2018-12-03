@@ -36,7 +36,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "Cuanto más tiempo navegue con Privacy Badger, mejor le protege. ¿Badger aún no está bloqueando nada? ¡Está bien! En lugar de mantener listas de qué bloquear, Privacy Badger descubre automáticamente los rastreadores mientras navega por la Web. Así que comience a navegar un poco para aprenda Badger.",
+        "message": "Cuanto más tiempo navegue con Privacy Badger, mejor le protege. ¿Badger aún no está bloqueando nada? ¡Está bien! En lugar de mantener listas de qué bloquear, Privacy Badger descubre automáticamente los rastreadores mientras navega por la Web. Así que comience a navegar un poco para Badger aprenda.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -186,7 +186,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Aprende conforme navega",
+        "message": "Aprende conforme navegas",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
