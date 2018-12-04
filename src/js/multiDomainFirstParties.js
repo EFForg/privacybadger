@@ -381,6 +381,7 @@ var multiDomainFirstPartiesArray = [
   ],
   ["express-scripts.com", "medcohealth.com"],
   ["facebook.com", "fbcdn.com", "fbcdn.net", "fbsbx.com", "facebook.net", "messenger.com"],
+  ["fastmail.com", "fastmailusercontent.com"],
   ["firefox.com", "firefoxusercontent.com", "mozilla.org"],
   ["foxnews.com", "foxbusiness.com", "fncstatic.com"],
   [
