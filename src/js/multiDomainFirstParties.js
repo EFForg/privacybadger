@@ -1328,6 +1328,18 @@ var multiDomainFirstPartiesArray = [
   ["volkskrant.nl", "persgroep.net", "persgroep.nl", "parool.nl"],
   ["volvooceanrace.com", "virtualregatta.com"],
   ["walmart.com", "wal.co", "walmartimages.com", "walmart.ca"],
+  [
+    "webmd.com",
+
+    "emedicinehealth.com",
+    "medicinenet.com",
+    "medscape.com",
+    "medscape.org",
+    "onhealth.com",
+    "rxlist.com",
+
+    "medscapestatic.com",
+  ],
   ["weebly.com", "editmysite.com"],
   ["wellsfargo.com", "wf.com"],
   ["wetter.com", "tiempo.es", "wettercomassets.com"],
