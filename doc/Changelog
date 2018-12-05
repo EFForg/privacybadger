@@ -1,5 +1,22 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.12.5
+* Added a Share button to the popup. This lets you easily copy and paste
+Badger's findings on any page.
+* Updated link protection to work on all Google Search country domains
+* Updated link protection on Facebook to remove the new "fbclid" tracking
+parameter
+* Added support for enterprise/admin/group policy settings overrides. This
+lets administrators preconfigure Privacy Badger installations. For more
+information, please visit
+https://github.com/EFForg/privacybadger/blob/master/doc/admin-deployment.md
+* Fixed various bugs with local storage protection for "cookieblocked" (slider
+set to "yellow") domains
+* Made the options page work better on small and on large displays
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Dutch, Esperanto, Finnish,
+German, Italian, Persian, Polish, Spanish, Swedish)
+
 ## 2018.10.3.1
 * Fixed style problems with Google Search results
 * Fixed the setting to open results in new browser windows on Google Search
