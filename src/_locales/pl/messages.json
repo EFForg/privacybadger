@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger jest wyłączony dla następujących domen. Oznacza to, że nic będzie blokowane podczas wizyty na stronach wpisanych poniżej.<br><br>Jeżeli uważasz, że Privacy Badger psuje jakąś stronę, wpisz domenę tej strony w pole poniżej i kliknij w przycisk „dodaj domenę”.<br><br>Inny sposób: mając otwartą kartę ze stroną, kliknij w ikonę Privacy Badgera na pasku narzędzi przeglądarki, a następnie kliknij „wyłącz.”",
+        "message": "<p>Privacy Badger jest wyłączony dla następujących domen. Oznacza to, że nic będzie blokowane podczas wizyty na stronach wpisanych poniżej.</p><p>Jeżeli uważasz, że Privacy Badger psuje jakąś stronę, wpisz domenę tej strony w pole poniżej i kliknij w przycisk „dodaj domenę”.</p><p>Inny sposób: mając otwartą kartę ze stroną, kliknij w ikonę Privacy Badgera na pasku narzędzi przeglądarki, a następnie kliknij „wyłącz.”</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Podczas korzystania z Privacy Badgera stajesz się członkiem <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> wraz z milionami użytkowników walczącymi o prywatność. Jesteśmy organizacją non-profit walczącą o Twoje praw w Sieci. Dziękujemy za dołączenie do nas!",
+        "message": "Podczas korzystania z Privacy Badgera stajesz się członkiem <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> wraz z milionami użytkowników walczącymi o prywatność. Jesteśmy organizacją non-profit walczącą o Twoje prawa w Sieci. Dziękujemy za dołączenie do nas!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "Brak danych na serwerze do pobrania.",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Poinformuj znajomych",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Podziel się",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger odkrył $COUNT$ potencjalnych śledzików na $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) jest rozszerzeniem przeglądarkowym, które automatycznie uczy się blokować niewidzialne elementy śledzące. Privacy Badger jest dziełem Electronic Frontier Foundation – organizacji non-profit walczącej o Twoje prawa w Sieci.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Skopiuj do schowka",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Skopiowano",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

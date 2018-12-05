@@ -14,7 +14,7 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Are you sure you want to remove this domain from Privacy Badger?",
+        "message": "Weet u zeker dat u dit domein van Privacy Badger wilt verwijderen?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
@@ -210,31 +210,31 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importing user data:<ul><li>Overwrites general settings</li><li>Combines lists of disabled sites</li><li>Combines information about what trackers Privacy Badger has seen</li><li>Overwrites slider customizations</li></ul>",
+        "message": "Gebruikersgegevens importeren:<ul><li>Vervangt algemene instellingen</li><li>Combineert lijsten van uitgeschakelde sites</li><li>Combineert informatie over welke trackers Privacy Badger heeft gevonden</li><li>Vervangt aanpassingen aan schuifbalkjes</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
-        "message": "Reset",
+        "message": "Herstellen",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Reset tracking domains",
+        "message": "Trackingdomeinen herstellen",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "message": "Het herstellen van trackingdomeinen zal:\n\n • De gegevens van alle trackers verwijderen die Privacy Badger op basis van uw surfgedrag kent.\n • De lijst met trackingdomeinen terugzetten naar de laatste standaardlijst (bezoek www.eff.org/badger-pretraining voor meer informatie).",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Remove all",
+        "message": "Alles verwijderen",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Remove all tracking domains",
+        "message": "Alle trackingdomeinen verwijderen",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "message": "Het verwijderen van alle trackingdomeinen zal:\n\n • Alles verwijderen wat Privacy Badger heeft geleerd over trackers.\n • Er voor zorgen dat Privacy Badger niets meer blokkeert totdat het de kans heeft gehad om opnieuw te leren uit uw surfgedrag.",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger is uitgeschakeld op de volgende websites. Dit betekent dat Privacy Badger niets zal blokkeren wanneer u de websites die hier staan bezoekt.<br><br>Als u denkt dat Privacy Badger een pagina verkeerd weergeeft, kunt u het domein van die pagina in het tekstvak hieronder typen en op de 'Voeg domein toe'-knop drukken.<br><br>U kunt ook als u de website open heeft staan op de Privacy Badger-knop klikken in de knoppenbalk en vervolgens klikken op 'Schakel Privacy Badger uit op deze webpagina'.",
+        "message": "<p>Privacy Badger is uitgeschakeld op de volgende websites. Dit betekent dat Privacy Badger niets zal blokkeren wanneer u de websites die hier staan bezoekt.</p><p>Als u denkt dat Privacy Badger een pagina verkeerd weergeeft, kunt u het domein van die pagina in het tekstvak hieronder typen en op de 'Voeg domein toe'-knop drukken.</p><p>U kunt ook als u de website open heeft staan op de Privacy Badger-knop klikken in de knoppenbalk en vervolgens klikken op 'Schakel Privacy Badger uit op deze webpagina'.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Wanneer u Privacy Badger gebruikt vecht u met de <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> en miljoenen andere gebruikers in de strijd voor privacy. Wij zijn een non-profit die voor uw online rechten vecht. Bedankt voor het deelnemen!",
+        "message": "Wanneer u Privacy Badger gebruikt vecht u met de <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> en miljoenen andere gebruikers in de strijd voor privacy. Wij zijn een organisatie zonder winstoogmerk die vecht voor uw online rechten. Bedankt voor het deelnemen!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -510,39 +510,73 @@
         }
     },
     "sync_intro": {
-        "message": "Cloud sync:<ul><li>Requires Firefox/Chrome Sync</li><li>Upload overwrites any existing Privacy Badger data in the cloud</li><li>Download combines the lists of sites where your Badger is disabled</li></ul>",
+        "message": "Synchroniseren met de cloud:<ul><li>Vereist Firefox/Chrome Sync</li><li>Uploaden vervangt bestaande gegevens van Privacy Badger in de cloud.</li><li>Downloaden combineert de lijsten van websites waar Privacy Badger is uitgeschakeld.</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
-        "message": "Upload",
+        "message": "Uploaden",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Export disabled sites to cloud",
+        "message": "Uitgeschakelde websites exporteren naar de cloud",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Import disabled sites from cloud",
+        "message": "Uitgeschakelde websites importeren uit de cloud",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "Cloud data imported successfully.",
+        "message": "Cloudgegevens succesvol geïmporteerd.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
-        "message": "Cloud data could not be downloaded.",
+        "message": "Cloudgegevens konden niet worden gedownload.",
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Cloud data uploaded successfully.",
+        "message": "Cloudgegevens succesvol geüpload.",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Cloud data could not be uploaded.",
+        "message": "Cloudgegevens konden niet worden geüpload.",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
-        "message": "No cloud data to download.",
+        "message": "Geen cloudgegevens om te downloaden",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Vertel je vrienden",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Delen",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger heeft $COUNT$ mogelijke trackers gevonden op $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) is een browserextensie die automatisch leert om onzichtbare trackers te blokkeren. Privacy Badger is gemaakt door de Electronic Frontier Foundation, een organisatie zonder winstoogmerk die vecht voor uw online rechten.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Kopiëren naar klembord",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Gekopieerd",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger вимкнено для зазначених нижче сайтів. Це означає, що при відвідуванні перелічених тут сайтів, Privacy Badger не буде нічого блокувати.<br><br>Якщо на вашу думку Privacy Badger пошкоджує сторінку, ви можете ввести домен цієї сторінки в поле внизу і натиснути кнопку \"Додати домен\".<br><br>Або якщо у вас вже відкрита ця сторінка, ви можете просто натиснути на Privacy Badger й обрати \"Вимкнути Privacy Badger для цього сайту\".",
+        "message": "<p>Privacy Badger вимкнено для зазначених нижче сайтів. Це означає, що при відвідуванні перелічених тут сайтів, Privacy Badger не буде нічого блокувати.</p><p>Якщо на вашу думку Privacy Badger пошкоджує сторінку, ви можете ввести домен цієї сторінки в поле внизу і натиснути кнопку \"Додати домен\".</p><p>Або якщо у вас вже відкрита ця сторінка, ви можете просто натиснути на Privacy Badger й обрати \"Вимкнути Privacy Badger для цього сайту\".</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "Хмарне сховище не містить даних для завантаження.",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Розповісти друзям",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Поширити",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger виявив $COUNT$ можливих доменів стеження на $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) - це розширення для браузера, що автоматично навчається блокувати невидимі елементи стеження. Privacy Badger розроблено некомерційною організацією Electronic Frontier Foundation, яка відстоює ваші права онлайн.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Копіювати в буфер обміну",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Скопійовано",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

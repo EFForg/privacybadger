@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn.<br><br>Se viaopinie Privata Melo difektas iun retpaĝon, vi povas entajpi ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.<br><br>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la piktogramon de Privata Melo sur la folumila ilarstrio kaj klaku la butonon “malaktivigi”.",
+        "message": "<p>Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn.</p><p>Se viaopinie Privata Melo difektas iun retpaĝon, vi povas entajpi ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.</p><p>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la piktogramon de Privata Melo sur la folumila ilarstrio kaj klaku la butonon “malaktivigi”.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Kiam vi uzas Privatan Melon vi aniĝas al la <a href='https://www.eff.org/' target='_blank'>Ret-Lima Fondaĵo (EFF)</a> kune kun milionoj da aliaj retanoj en la batalo por privateco. Ni estas ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la Teksaĵo. Dankon por kuniĝi al ni!",
+        "message": "Kiam vi uzas Privatan Melon vi aniĝas al la <a href='https://www.eff.org/' target='_blank'>Ret-Lima Fondaĵo (EFF)</a> kune kun milionoj da aliaj retanoj en la batalo por privateco. Ni estas ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la interreto. Dankon por kuniĝi al ni!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "Neniuj datumoj en la servilo por elŝuti.",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Sciigu amikojn",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Diskonigi",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privata Melo trovis $COUNT$ eblajn spurilojn ĉe $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privata Melo (www.eff.org/privacybadger) estas retumila etendaĵo, kiu aŭtomate lernas kiel bloki nevideblajn spurilojn. Privata Melo estas farita de Electronic Frontier Foundation, ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la interreto.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Kopii al tondejo",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Kopiita",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

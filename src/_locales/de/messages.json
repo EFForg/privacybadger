@@ -166,7 +166,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Anzahl der geblockten Elemente anzeigen",
+        "message": "Anzahl geblockter Elemente anzeigen",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist für die nachfolgenden Websites deaktiviert. Privacy Badger wird also nichts blocken, wenn Sie die hier aufgeführten Sites besuchen.<br><br>Falls Sie annehmen, dass aufgrund Privacy Badger eine Webseite falsch dargestellt wird, so können Sie die Domain dieser Seite in dem Feld unten eingeben und auf die Schaltfläche »Domain hinzufügen« klicken.<br><br>Falls Sie den Tab der Seite bereits ausgewählt haben, so können Sie aber auch einfach auf Privacy Badgers Schaltfläche in der Browsersymbolleiste und dann dort auf die Schaltfäche »Deaktivieren« klicken.",
+        "message": "<p>Privacy Badger ist für die nachfolgenden Websites deaktiviert. Privacy Badger wird also nichts blocken, wenn Sie die hier aufgeführten Sites besuchen.</p><p>Falls Sie annehmen, dass aufgrund Privacy Badger eine Webseite falsch dargestellt wird, so können Sie die Domain dieser Seite in dem Feld unten eingeben und auf die Schaltfläche »Domain hinzufügen« klicken.</p><p>Falls Sie den Tab der Seite bereits ausgewählt haben, so können Sie aber auch einfach auf Privacy Badgers Schaltfläche in der Browsersymbolleiste und dann dort auf die Schaltfäche »Deaktivieren« klicken.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "Keine herunterzuladenden Cloud-Daten.",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Ihren Freunden mitteilen",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Teilen",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger hat $COUNT$ mögliche Tracker auf $DOMAIN$ gefunden:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) ist eine Browser-Erweiterung, die automatisch lernt, unsichtbare Tracker zu blocken. Privacy Badger wird von der Electronic Frontier Foundation entwickelt, einer gemeinnützigen Organisation, die sich für Ihre Rechte im Internet einsetzt.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "In Zwischenablage kopieren",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Kopiert",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

@@ -366,11 +366,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西。<br><br>若您覺得 Privacy Badger 把頁面弄壞了，您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。<br><br>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。",
+        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西。</p><p>若您覺得 Privacy Badger 把頁面弄壞了，您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。</p><p>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。</p>",
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger 偵測到這個網站上有 $COUNT$ 在此頁面上的潛在$TRACKER_LINK_START$追蹤器$TRACKER_LINK_END$。這些滑桿讓您可以控制 Privacy Badger 如何處理每個追蹤器。除非有某些東西壞掉了，否則您應該不需要調整這些滑桿。",
+        "message": "Privacy Badger 偵測到這個網站上有 $COUNT$ 個在此頁面上的潛在$TRACKER_LINK_START$追蹤器$TRACKER_LINK_END$。這些滑桿讓您可以控制 Privacy Badger 如何處理每個追蹤器。除非有某些東西壞掉了，否則您應該不需要調整這些滑桿。",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "沒有雲端資料可供下載。",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "告訴你的朋友",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "分享",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger 找到 $COUNT$ 個在 $DOMAIN$ 上的潛在的追蹤器：",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) 是一個會自動學習阻擋不可見追蹤器的瀏覽器附加元件。Privacy Badger 由電子前鋒基金會製作，它是一個為您的線上權利戰鬥的非營利組織。",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "複製到剪貼簿",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "已複製",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

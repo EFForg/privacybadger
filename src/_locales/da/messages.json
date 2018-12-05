@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger er deaktiveret på de følgende steder. Det betyder at Privacy Badger ikke vil blokere noget når du besøger stederne listet her. <br><br>Hvis du tror Privacy Badger ødelægger en side, kan du skrive sidens domæne i feltet nedenunder og klikke på knappen \"Tilføj domæne\".<br><br>Alternativt, når du allerede har sidens faneblad valgt, kan du blot klikke på Privacy Badgers knap i browserens værktøjslinje, og derefter klikke på knappen \"Deaktiver\".",
+        "message": "<p>Privacy Badger er deaktiveret på de følgende steder. Det betyder at Privacy Badger ikke vil blokere noget når du besøger stederne listet her.</p><p>Hvis du tror Privacy Badger ødelægger en side, kan du skrive sidens domæne i feltet nedenunder og klikke på knappen \"Tilføj domæne\".</p><p>Alternativt, når du allerede har sidens faneblad valgt, kan du blot klikke på Privacy Badgers knap i browserens værktøjslinje, og derefter klikke på knappen \"Deaktiver\".</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "Ingen skydata at hente.",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Del med dine venner",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Del",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger fandt $COUNT$ potentielle sporinger på $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) er en browserudvidelse som automatisk lærer at blokere usynlige sporinger. Privacy Badger laves af Electronic Frontier Foundation, en nonprofit-orginsation der kæmper for dine rettigheder online.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Kopiér til klippebord",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Kopieret",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

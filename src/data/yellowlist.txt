@@ -72,6 +72,7 @@ break.com
 breakingburner.com
 brightcove.com
 players.brightcove.net
+bungie.net
 buzzfed.com
 buzzfeed.com
 cachefly.net
@@ -527,6 +528,7 @@ cdn-a.sonyentertainmentnetwork.com
 soundcloud.com
 springboardplatform.com
 squarespace.com
+squareup.com
 squirt.io
 ssl-images-amazon.com
 cdn.sstatic.net
@@ -577,6 +579,9 @@ ttvnw.net
 tumblr.com
 turner.com
 twimg.com
+api.twisto.cz
+static.twisto.cz
+api.twisto.pl
 twitch.tv
 twitter.com
 platform.twitter.com

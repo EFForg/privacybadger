@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger on poistettu käytöstä seuraavilla sivustoilla. Tämä tarkoittaa, että Privacy Badger ei estä mitään, kun käytät tässä listattuja sivustoja.<br><br>Jos arvelet Privacy Badgerin rikkovan jonkin sivun, voit kirjoittaa kyseisen sivun verkkotunnuksen alla olevaan kenttään ja klikata \"Lisää verkkotunnus\" -painiketta.<br><br>Jos sinulla on jo sivun välilehti valittuna, voit vaihtoehtoisesti vain klikata Privacy Badgerin painiketta selaimen työkalupalkissa ja sen jälkeen klikata \"Poista käytöstä\" -painiketta.",
+        "message": "<p>Privacy Badger on poistettu käytöstä seuraavilla sivustoilla. Tämä tarkoittaa, että Privacy Badger ei estä mitään, kun käytät tässä listattuja sivustoja.</p><p>Jos arvelet Privacy Badgerin rikkovan jonkin sivun, voit kirjoittaa kyseisen sivun verkkotunnuksen alla olevaan kenttään ja klikata \"Lisää verkkotunnus\" -painiketta.</p><p>Jos sinulla on jo sivun välilehti valittuna, voit vaihtoehtoisesti vain klikata Privacy Badgerin painiketta selaimen työkalupalkissa ja sen jälkeen klikata \"Poista käytöstä\" -painiketta.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Käyttämällä Privacy Badgeria liityt <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationin</a> ja miljoonien muiden käyttäjien joukkoon taistelussa yksityisyyden puolesta. Olemme voittoa tavoittelematon järjestö, joka taistelee oikeuksiesi puolesta netissä. Kiitos, että liityt mukaan!",
+        "message": "Käyttämällä Privacy Badgeria liityt <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationin</a> ja miljoonien muiden käyttäjien joukkoon taistelussa yksityisyyden puolesta. Olemme voittoa tavoittelematon järjestö, joka taistelee oikeuksiesi puolesta verkossa. Kiitos, että liityt mukaan!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "Pilvessä ei ole dataa ladattavaksi.",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Kerro kavereillesi",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Jaa",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger löysi $COUNT$ mahdollista jäljitintä verkkotunnuksesta $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) on selainlaajennus joka oppii automaattisesti estämään näkymättömät jäljittimet. Privacy Badgerin on tehnyt Electronic Frontier Foundation, voittoa tavoittelematon järjestö joka taistelee oikeuksiesi puolesta verkossa.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Kopioi leikepöydälle",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Kopioitu",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

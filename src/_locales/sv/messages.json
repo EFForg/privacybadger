@@ -14,7 +14,7 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Are you sure you want to remove this domain from Privacy Badger?",
+        "message": "Är du säker på att du vill ta bort den här domänen från Privacy Badger?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
@@ -202,7 +202,7 @@
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
-        "message": "Lista över spårare och inställningar uppdaterades!",
+        "message": "Listan över spårare och inställningarna uppdaterades!",
         "description": ""
     },
     "export_user_data": {
@@ -210,7 +210,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importera användardata:<ul><li>Överskriver allmänna inställningar</li><li>Kombinerar listor över inaktiva webbplatser</li><li>Kombinerar information om vilka spårare Privacy Badger har sett</li><li>Överskriver skjutreglage anpassningar</li></ul>",
+        "message": "Importera användardata:<ul><li>Överskriver allmänna inställningar</li><li>Kombinerar listor över inaktiva webbplatser</li><li>Kombinerar information om vilka spårare Privacy Badger har sett</li><li>Överskriver skjutreglage-anpassningar</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger är inaktiverad på följande webbplatser. Det betyder att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här.<br><br>Om du tycker att Privacy Badger bryter en sida kan du skriva in dennes domän i rutan nedan och klicka på \"Lägg till domän\"-knappen.<br><br>Alternativt kan du, när du redan har sidans flik markerad, klicka på Privacy Badgers ikon i webbläsarens verktygsfält och sedan klicka på \"Inaktivera\"-knappen.",
+        "message": "<p>Privacy Badger är inaktiverad på följande webbplatser. Det betyder att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här.</p><p>Om du tycker att Privacy Badger bryter en sida kan du skriva in dennes domän i rutan nedan och klicka på \"Lägg till domän\"-knappen.</p><p>Alternativt kan du, när du redan har sidans flik markerad, klicka på Privacy Badgers ikon i webbläsarens verktygsfält och sedan klicka på \"Inaktivera\"-knappen.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -500,7 +500,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger har ersatt den här $BUTTON$ knappen.",
+        "message": "Privacy Badger har ersatt den här $BUTTON$-knappen.",
         "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
         "placeholders": {
             "button": {
@@ -510,11 +510,11 @@
         }
     },
     "sync_intro": {
-        "message": "Molnsynkronisering:<ul><li>Kräver Firefox/Chrome Sync</li><li>Uppladdning skriver över alla befintliga Privacy Badger-data i molnet</li><li>Hämta kombinerar listorna över webbplatser där din Badger är inaktiverad</li></ul>",
+        "message": "Molnsynkronisering:<ul><li>Kräver Firefox/Chrome Sync</li><li>Uppladdning skriver över alla befintliga Privacy Badger-data i molnet</li><li>Hämtning kombinerar listorna över webbplatser där din Badger är inaktiverad</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
-        "message": "Ladda upp",
+        "message": "Skicka",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
@@ -534,15 +534,49 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Molndata laddades upp.",
+        "message": "Molndata skickades.",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Molndata kunde inte laddas upp.",
+        "message": "Molndata kunde inte skickas.",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
         "message": "Inga molndata att hämta.",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Berätta för dina vänner",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Dela",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger hittade $COUNT$ potentiella spårare på $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) är ett webbläsartillägg som automatiskt lär sig att blockera osynliga spårare. Privacy Badger är gjord av Electronic Frontier Foundation, en ideell organisation som kämpar för dina rättigheter på nätet.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Kopiera till urklipp",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Kopierad",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

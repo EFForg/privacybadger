@@ -182,10 +182,15 @@ Badger.prototype = {
   showFirstRunPage: function() {
     let settings = this.getSettings();
     if (settings.getItem("isFirstRun")) {
-      // launch first-run page and unset first-run flag
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html")
-      });
+      // launch the new user intro page and unset first-run flag
+      if (settings.getItem("showIntroPage")) {
+        chrome.tabs.create({
+          url: chrome.extension.getURL("/skin/firstRun.html")
+        });
+      } else {
+        // don't remind users to look at the intro page either
+        settings.setItem("seenComic", true);
+      }
       settings.setItem("isFirstRun", false);
     }
   },
@@ -495,6 +500,7 @@ Badger.prototype = {
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
+    showIntroPage: true,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true
   },
@@ -692,8 +698,10 @@ Badger.prototype = {
 
   /**
    * Interface to get the current whitelisted domains
+   *
+   * @returns {Array} List of site domains where Privacy Badger is disabled
    */
-  listOriginsWherePrivacyBadgerIsDisabled: function() {
+  getDisabledSites: function () {
     return this.getSettings().getItem("disabledSites");
   },
 
@@ -855,7 +863,7 @@ function startBackgroundListeners() {
         // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
         if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
           if (request.command == "getDisabledSites") {
-            sendResponse({origins: badger.listOriginsWherePrivacyBadgerIsDisabled()});
+            sendResponse({origins: badger.getDisabledSites()});
           } else if (request.command == "enable") {
             badger.enablePrivacyBadgerForOrigin(request.origin);
           } else if (request.command == "disable") {

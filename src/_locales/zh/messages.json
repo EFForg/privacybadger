@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "隐私獾会自动发现并屏蔽隐身的跟踪器。看看这是如何做到的吧。",
+        "message": "隐私獾会自动学习去阻止不可见的跟踪器。看看这是如何做到的吧。",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -222,7 +222,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "重置追踪域名将会：\n\n• 删除所有隐私獾从您浏览中学习到的数据\n• 将最追踪域名列表重置为一个预学习列表（访问 www.eff.org/badger-pretraining 以了解更多）",
+        "message": "重置追踪域名将会：\n\n• 删除所有隐私獾从您浏览中学习到的数据\n• 将追踪域名列表重置为一个预学习列表（访问 www.eff.org/badger-pretraining 以了解更多）",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器<a href='https://www.eff.org/issues/do-not-track' target='_blank'>发送“请勿跟踪”信号</a>，告诉它们停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止他们——无论它们是广告、追踪器或是其他的任何东西。",
+        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器<a href='https://www.eff.org/issues/do-not-track' target='_blank'>发送“请勿跟踪”信号</a>，告诉它们停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止他们——无论它们是广告、追踪器或是其他的东西。",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "隐私獾已在以下网站上禁用。你浏览这些网站时，隐私獾不会屏蔽任何东西。<br><br>如果你认为隐私獾破坏了某个页面，请在下面的文本框中输入页面的域名，然后点击“添加域名”按钮。<br><br>或者你可以在浏览页面时点击浏览器工具栏上的隐私獾按钮，然后点击“禁用”按钮。",
+        "message": "<p>隐私獾已在以下网站上禁用。你浏览这些网站时，隐私獾不会屏蔽任何东西。</p><p>如果你认为隐私獾破坏了某个页面，请在下面的文本框中输入页面的域名，然后点击“添加域名”按钮。</p><p>或者你可以在浏览页面时点击浏览器工具栏上的隐私獾按钮，然后点击“禁用”按钮。</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "当您使用隐私獾，您就和<a href='https://www.eff.org/' target='_blank'>电子前哨基金会</a>和成千上万的其它用户一道共同保卫隐私。我们是为您在线权利奋斗的非盈利性组织。感谢您加入我们！",
+        "message": "当您使用隐私獾，您就和<a href='https://www.eff.org/' target='_blank'>电子前哨基金会</a>和成千上万的其它用户一道共同保卫隐私。我们是为您在线权利奋斗的非营利性组织。感谢您加入我们！",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "隐私獾会自动发现并屏蔽隐身的跟踪器。",
+        "message": "隐私獾会自动学习去阻止不可见的跟踪器。",
         "description": ""
     },
     "report_fail": {
@@ -510,7 +510,7 @@
         }
     },
     "sync_intro": {
-        "message": "Cloud sync:<ul><li>Requires Firefox/Chrome Sync</li><li>Upload overwrites any existing Privacy Badger data in the cloud</li><li>Download combines the lists of sites where your Badger is disabled</li></ul>",
+        "message": "云端同步：<ul><li>需要火狐或 Chrome 同步</li><li>上传将覆盖任何云端已有的隐私獾数据</li><li>下载内容将与您将隐私獾禁用的站点结合</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "无云端数据可供下载。",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "告诉您的朋友",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "分享",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "隐私獾在 $DOMAIN$ 找到 $COUNT$ 个潜在的追踪器：",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "隐私獾（www.eff.org/privacybadger）是一个浏览器插件，它可以自动学习去阻止不可见的追踪器。隐私獾由电子前哨基金会，一个为您在线权利奋斗的非营利性组织制作。",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "复制到剪贴板",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "已复制",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

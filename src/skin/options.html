@@ -28,26 +28,40 @@
 <link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/options-layout.css" rel="stylesheet" />
+
 <script type="text/javascript" src="/lib/vendor/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/tooltipster-4.2.5/tooltipster.bundle.min.js"></script>
 <script type="text/javascript" src="/lib/vendor/underscore-min.js"></script>
+
+<!-- required because of window.getBaseDomain() in htmlutils.js -->
+<script type="text/javascript" src="/lib/vendor/punycode.js"></script>
+<script type="text/javascript" src="/lib/publicSuffixList.js"></script>
+<script type="text/javascript" src="/lib/basedomain.js"></script>
+
 <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/constants.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/htmlutils.js"></script>
 <script type="text/javascript" src="/lib/options.js"></script>
 <script type="text/javascript" src="/js/options.js" charset="utf-8"></script>
+
 <title class="i18n_options_title"></title>
 </head>
 <body class="options">
-<table>
-  <tr>
-    <td style="padding-right: 8px; vertical-align: middle">
-      <img src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
-    </td>
-    <td>
-      <h1><span class="i18n_options_title"></span></h1>
-    </td>
-  </tr>
-</table>
+<header>
+  <table>
+    <tr>
+      <td style="padding-right: 8px; vertical-align: middle">
+        <img src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
+      </td>
+      <td>
+        <h1><span class="i18n_options_title"></span></h1>
+      </td>
+    </tr>
+  </table>
+</header>
 
 <div id="tabs">
   <ul>
@@ -64,6 +78,7 @@
         <p>
             <label>
                 <input type="checkbox" id="show-tracking-domains-checkbox">
+                &nbsp;
                 <span class="i18n_show_tracking_domains_acknowledgement"></span>
             </label>
         </p>
@@ -111,23 +126,23 @@
   </div>
 
   <div id="tab-whitelisted-domains">
-    <p class="i18n_disabled_for_these_domains"></p>
+    <div class="i18n_disabled_for_these_domains"></div>
 
     <form id="whitelistForm" action="#">
       <div>
         <div>
-          <div style="float: left; max-width: 400px; width: 100%; margin-right: 30px">
+          <div style="float: left; max-width: 400px; width: 100%; margin-right: 30px; padding-top: 5px">
             <input type="text" value="" id="newWhitelistDomain" style="width:100%" placeholder="i18n_whitelist_form_domain_input_placeholder">
           </div>
-          <div style="float: left">
+          <div style="float: left; padding: 5px 0 10px">
             <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
           </div>
         </div>
         <div style="clear: both; overflow: hidden">
-          <div style="float: left; max-width: 420px; width: 100%; margin-right: 10px">
+          <div style="float: left; max-width: 420px; width: 100%; margin-right: 10px; padding-top: 5px">
             <select id="excludedDomainsBox" size="10" multiple style="width: 100%; background: white;"></select>
           </div>
-          <div style="float: left">
+          <div style="float:left; padding-top: 5px">
             <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
           </div>
         </div>

@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger est désactivé pour les sites ci-dessous. En cas de connexion, rien ne sera bloqué.<br><br>Si vous pensez que Privacy Badger perturbe l'affiche d'une page, vous pouvez saisir son domaine dans le champ ci-dessous et cliquer sur « Ajouter un domaine ».<br><br>Vous pouvez obtenir le même résultat en cliquant sur l'icône se trouvant dans la barre d'outils de votre navigateur, puis sur « Désactiver », lorsque vous êtes sur la page posant problème.",
+        "message": "<p>Privacy Badger est désactivé pour les sites ci-dessous. En cas de connexion, rien ne sera bloqué.</p><p>Si vous pensez que Privacy Badger perturbe l'affiche d'une page, vous pouvez saisir son domaine dans le champ ci-dessous et cliquer sur « Ajouter un domaine ».</p><p>Vous pouvez obtenir le même résultat en cliquant sur l'icône se trouvant dans la barre d'outils de votre navigateur, puis sur « Désactiver », lorsque vous êtes sur la page posant problème.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -544,5 +544,39 @@
     "download_cloud_no_data": {
         "message": "Pas de données dans le nuage à télécharger.",
         "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Parlez-en à vos amis",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Partager",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger a trouvé $COUNT$ traceurs potentiels sur $DOMAIN$ :",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) est une extension de navigateur qui apprend automatiquement à bloquer les traceurs invisibles. Il est conçu par l'Electronic Frontier Foundation, une organisation à but non lucratif qui se bat pour vos droits en ligne.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Copier dans le presse-papiers",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Copié",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }
