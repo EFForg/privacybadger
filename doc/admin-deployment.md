@@ -1,4 +1,5 @@
-# Configuring Privacy Badger by administrators
+# Admin deployment
+###### Configuring Privacy Badger by administrators
 
 Administrators can preconfigure Privacy Badger installations by setting up a "managed policy" configuration with their preferred defaults. Privacy Badgers process [managed storage](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/managed) directives on startup. Any on/off settings get overwritten, while the disabled sites list is merged with the local list.
 
