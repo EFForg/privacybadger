@@ -174,7 +174,7 @@ class Shim:
 
         for i in range(5):
             try:
-                driver = webdriver.Chrome(chrome_options=opts, desired_capabilities=caps)
+                driver = webdriver.Chrome(options=opts, desired_capabilities=caps)
             except WebDriverException as e:
                 if i == 0: print("")
                 print("Chrome WebDriver initialization failed:")
@@ -201,7 +201,7 @@ class Shim:
                 driver = webdriver.Firefox(
                     firefox_profile=ffp,
                     firefox_binary=self.browser_path,
-                    firefox_options=opts
+                    options=opts
                 )
             except WebDriverException as e:
                 if i == 0: print("")
