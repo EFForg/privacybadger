@@ -683,12 +683,12 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.superCookieReport) {
     if (badger.hasSuperCookie(request.superCookieReport)) {
-      recordSuperCookie(sender.tab.id, sender.url);
+      recordSuperCookie(sender.tab.id, request.frameUrl);
     }
 
   } else if (request.checkEnabledAndThirdParty) {
     let tab_host = window.extractHostFromURL(sender.tab.url),
-      frame_host = window.extractHostFromURL(sender.url);
+      frame_host = window.extractHostFromURL(request.checkEnabledAndThirdParty);
 
     sendResponse(badger.isPrivacyBadgerEnabled(tab_host) && isThirdPartyDomain(frame_host, tab_host));
 

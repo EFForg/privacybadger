@@ -19,28 +19,6 @@
  */
 
 /**
- * Insert script into page
- *
- * @param {String} text The script to insert into the page
- * @param {Object} data a dictionary containing attribut-value pairs
- */
-function insertScScript(text, data) {
-  var parent = document.documentElement,
-    script = document.createElement('script');
-
-  script.text = text;
-  script.async = false;
-
-  for (var key in data) {
-    script.setAttribute('data-' + key.replace(/_/g, "-"), data[key]);
-  }
-
-  parent.insertBefore(script, parent.firstChild);
-  parent.removeChild(script);
-}
-
-
-/**
  * Generate script to inject into the page
  *
  * @returns {string}
@@ -49,50 +27,56 @@ function getScPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, LOCAL_STORAGE, OBJECT, keys) {
+  return "(" + function () {
 
-    var event_id = DOCUMENT.currentScript.getAttribute('data-event-id-super-cookie');
+    try {
+      localStorage; // eslint-disable-line no-unused-expressions
+    } catch (ex) {
+      // abort when we can't access localStorage
+      // such as when "Block third-party cookies" is enabled in Chrome
+      return;
+    }
 
-    /**
-     * send message to the content script
-     *
-     * @param {*} message
-     */
-    var send = function (message) {
-      dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(event_id, {
-        detail: message
-      }));
-    };
+    (function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, LOCAL_STORAGE, OBJECT, keys) {
 
-    /**
-     * Read HTML5 local storage and return contents
-     * @returns {Object}
-     */
-    let getLocalStorageItems = function () {
-      let lsItems = {};
-      try {
+      var event_id = DOCUMENT.currentScript.getAttribute('data-event-id-super-cookie');
+
+      /**
+       * send message to the content script
+       *
+       * @param {*} message
+       */
+      var send = function (message) {
+        dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(event_id, {
+          detail: message
+        }));
+      };
+
+      /**
+       * Read HTML5 local storage and return contents
+       * @returns {Object}
+       */
+      let getLocalStorageItems = function () {
+        let lsItems = {};
         for (let i = 0; i < LOCAL_STORAGE.length; i++) {
           let key = LOCAL_STORAGE.key(i);
           lsItems[key] = LOCAL_STORAGE.getItem(key);
         }
-      } catch (err) {
-        // We get a SecurityError when our injected script runs in a 3rd party frame and
-        // the user has disabled 3rd party cookies and site data. See, http://git.io/vLwff
-        return {};
-      }
-      return lsItems;
-    };
+        return lsItems;
+      };
 
-    if (event_id) { // inserted script may run before the event_id is available
-      let localStorageItems = getLocalStorageItems();
-      if (keys.call(OBJECT, localStorageItems).length) {
-        // send to content script
-        send({ localStorageItems });
+      if (event_id) { // inserted script may run before the event_id is available
+        let localStorageItems = getLocalStorageItems();
+        if (keys.call(OBJECT, localStorageItems).length) {
+          // send to content script
+          send({ localStorageItems });
+        }
       }
-    }
 
-  // save locally to keep from getting overwritten by site code
-  } + "(document, document.dispatchEvent, CustomEvent, localStorage, Object, Object.keys));";
+    // save locally to keep from getting overwritten by site code
+    } (document, document.dispatchEvent, CustomEvent, localStorage, Object, Object.keys));
+
+  } + "());";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
@@ -111,9 +95,14 @@ if (document instanceof HTMLDocument === false && (
   return;
 }
 
+// don't bother asking to run when trivially in first-party context
+if (window.top == window) {
+  return;
+}
+
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
-  checkEnabledAndThirdParty: true
+  checkEnabledAndThirdParty: window.FRAME_URL
 }, function (enabledAndThirdParty) {
   if (!enabledAndThirdParty) {
     return;
@@ -125,11 +114,12 @@ chrome.runtime.sendMessage({
   document.addEventListener(event_id_super_cookie, function (e) {
     // pass these on to the background page (handled by webrequest.js)
     chrome.runtime.sendMessage({
-      superCookieReport: e.detail
+      superCookieReport: e.detail,
+      frameUrl: window.FRAME_URL
     });
   });
 
-  insertScScript(getScPageScript(), {
+  window.injectScript(getScPageScript(), {
     event_id_super_cookie: event_id_super_cookie
   });
 
