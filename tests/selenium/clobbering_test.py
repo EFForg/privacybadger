@@ -27,7 +27,10 @@ class ClobberingTest(pbtest.PBSeleniumTest):
         )
         FRAME_DOMAIN = "githack.com"
         COOKIEBLOCK_JS = (
-            "badger.storage.setupHeuristicAction('%s', constants.COOKIEBLOCK);"
+            "(function () {"
+            "let bg = chrome.extension.getBackgroundPage();"
+            "bg.badger.storage.setupHeuristicAction('%s', bg.constants.COOKIEBLOCK);"
+            "}());"
         ) % FRAME_DOMAIN
 
         # first allow localStorage to be set
