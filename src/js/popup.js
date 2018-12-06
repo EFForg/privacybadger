@@ -179,16 +179,23 @@ function openOptionsPage() {
 
   // first get the active tab
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-    let activeTab = tabs[0];
+    let activeTab = tabs[0],
+      tabProps = {
+        url,
+        windowId: activeTab.windowId,
+        active: true,
+        index: activeTab.index + 1,
+        openerTabId: activeTab.id
+      };
 
     // create the new tab
-    chrome.tabs.create({
-      url,
-      windowId: activeTab.windowId,
-      active: true,
-      index: activeTab.index + 1,
-      openerTabId: activeTab.id
-    });
+    try {
+      chrome.tabs.create(tabProps);
+    } catch (e) {
+      // TODO workaround for pre-57 Firefox
+      delete tabProps.openerTabId;
+      chrome.tabs.create(tabProps);
+    }
   });
 }
 
