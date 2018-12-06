@@ -1323,7 +1323,7 @@ var multiDomainFirstPartiesArray = [
   ["twitch.tv", "ttvnw.net", "jtvnw.net"],
   ["twitter.com", "twimg.com", "t.co"],
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
-  ["verizon.com", "verizon.net"],
+  ["verizon.com", "verizon.net", "verizonwireless.com", "vzw.com"],
   ["vk.com", "vk.me", "vkontakte.ru"],
   ["volkskrant.nl", "persgroep.net", "persgroep.nl", "parool.nl"],
   ["volvooceanrace.com", "virtualregatta.com"],
