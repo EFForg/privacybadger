@@ -53,9 +53,13 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.driver.find_element_by_css_selector('button.addButton').click()
 
     def domain_was_recorded(self, domain):
-        return self.js("""return (
-  Object.keys(badger.storage.action_map.getItemClones()).indexOf('{}') != -1
-);""".format(domain))
+        return self.js(
+            "return (Object.keys("
+            "  chrome.extension.getBackgroundPage()."
+            "  badger.storage.action_map.getItemClones()"
+            ").indexOf(arguments[0]) != -1);",
+            domain
+        )
 
     def domain_was_detected(self, domain):
         return self.js("""return (
@@ -201,20 +205,12 @@ class DNTTest(pbtest.PBSeleniumTest):
         TRACKING_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
         NON_TRACKING_DOMAIN = "dnt-test.trackersimulator.org"
 
-        # open Badger's background page
-        self.load_url(self.bg_url)
-
-        # need to keep Badger's background page open to record what's happening
-        # so, open and switch to a new window
-        self.open_window()
-
         # visit a page containing two third-party resources,
         # one from a cookie-tracking domain
         # and one from a non-tracking domain
         self.load_url(TEST_URL)
 
-        # switch back to Badger's background page
-        switch_to_window_with_url(self.driver, self.bg_url)
+        self.load_url(self.options_url)
 
         # verify that the cookie-tracking domain was recorded
         self.assertTrue(
