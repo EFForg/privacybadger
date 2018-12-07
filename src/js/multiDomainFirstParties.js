@@ -1183,6 +1183,7 @@ var multiDomainFirstPartiesArray = [
     "scdn.co",
     "spotifyforbrands.com",
     "spotifyforartists.com",
+    "spotifywrapped.com",
   ],
   [
     "springernature.com",
