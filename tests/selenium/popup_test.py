@@ -164,7 +164,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         # Look for options page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
-            if self.driver.current_url == self.popup_url:
+            if self.driver.current_url == self.options_url:
                 return
 
         self.fail("Options page not opened after clicking options button on popup")

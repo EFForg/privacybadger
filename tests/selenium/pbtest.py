@@ -327,6 +327,9 @@ class PBSeleniumTest(unittest.TestCase):
                         ".badger.storage.getBadgerStorageObject('action_map').getItemClones()"
                         ").length > 1",
                     )
+                    driver.close()
+                    if driver.window_handles:
+                        driver.switch_to.window(driver.window_handles[0])
 
                     super(PBSeleniumTest, self).run(result)
 
