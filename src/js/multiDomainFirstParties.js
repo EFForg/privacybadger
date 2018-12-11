@@ -73,6 +73,7 @@ var multiDomainFirstPartiesArray = [
     "twitch.tv",
     "zappos.com",
 
+    "amazonpay.com",
     "media-amazon.com",
     "ssl-images-amazon.com",
   ],
