@@ -187,9 +187,9 @@ HeuristicBlocker.prototype = {
     // not-yet-blocked domain for DNT policy.
     // We check heuristically-blocked domains in webrequest.js.
     if (!skip_dnt_check) {
-      window.setTimeout(function () {
+      setTimeout(function () {
         badger.checkForDNTPolicy(tracker_fqdn);
-      }, 10);
+      }, 0);
     }
 
     // record that we've seen this tracker on this domain (in snitch map)
