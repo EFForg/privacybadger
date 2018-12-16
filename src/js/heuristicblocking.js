@@ -187,9 +187,9 @@ HeuristicBlocker.prototype = {
     // not-yet-blocked domain for DNT policy.
     // We check heuristically-blocked domains in webrequest.js.
     if (!skip_dnt_check) {
-      window.setTimeout(function () {
+      setTimeout(function () {
         badger.checkForDNTPolicy(tracker_fqdn);
-      }, 10);
+      }, 0);
     }
 
     // record that we've seen this tracker on this domain (in snitch map)
@@ -514,13 +514,21 @@ function startListeners() {
   /**
    * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
    */
+  let extraInfoSpec = ['requestHeaders'];
+  if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
     return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-  }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
+  }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   /**
    * Adds onResponseStarted listener. Monitor for cookies
    */
+  extraInfoSpec = ['responseHeaders'];
+  if (chrome.webRequest.OnResponseStartedOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
   chrome.webRequest.onResponseStarted.addListener(function(details) {
     var hasSetCookie = false;
     for (var i = 0; i < details.responseHeaders.length; i++) {
@@ -533,7 +541,7 @@ function startListeners() {
       return badger.heuristicBlocking.heuristicBlockingAccounting(details);
     }
   },
-  {urls: ["<all_urls>"]}, ["responseHeaders"]);
+  {urls: ["<all_urls>"]}, extraInfoSpec);
 }
 
 /************************************** exports */

@@ -86,7 +86,11 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+  // log the third-party domain asynchronously
+  // (don't block a critical code path on updating the badge)
+  setTimeout(function () {
+    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+  }, 0);
 
   if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
     return {};
@@ -112,10 +116,10 @@ function onBeforeRequest(details) {
 
   // if this is a heuristically- (not user-) blocked domain
   if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
-    // check for DNT policy
-    window.setTimeout(function () {
+    // check for DNT policy asynchronously
+    setTimeout(function () {
       badger.checkForDNTPolicy(requestDomain);
-    }, 10);
+    }, 0);
   }
 
   if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
@@ -177,7 +181,10 @@ function onBeforeSendHeaders(details) {
   var requestAction = checkAction(tab_id, requestDomain, frame_id);
 
   if (requestAction) {
-    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+    // log the third-party domain asynchronously
+    setTimeout(function () {
+      badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+    }, 0);
   }
 
   // If this might be the third strike against the potential tracker which
@@ -189,7 +196,10 @@ function onBeforeSendHeaders(details) {
     requestAction = checkAction(tab_id, requestDomain, frame_id);
 
     if (requestAction) {
-      badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+      // log the third-party domain asynchronously
+      setTimeout(function () {
+        badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+      }, 0);
     }
   }
 
@@ -290,7 +300,10 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+  // log the third-party domain asynchronously
+  setTimeout(function () {
+    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+  }, 0);
 
   if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
     return {};
@@ -874,8 +887,19 @@ function dispatcher(request, sender, sendResponse) {
 /*************** Event Listeners *********************/
 function startListeners() {
   chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
-  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
-  chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
+
+  let extraInfoSpec = ['requestHeaders', 'blocking'];
+  if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
+  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
+
+  extraInfoSpec = ['responseHeaders', 'blocking'];
+  if (chrome.webRequest.OnHeadersReceivedOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
+  chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, extraInfoSpec);
+
   chrome.tabs.onRemoved.addListener(onTabRemoved);
   chrome.tabs.onReplaced.addListener(onTabReplaced);
   chrome.runtime.onMessage.addListener(dispatcher);
