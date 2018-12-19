@@ -322,7 +322,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT 兼容",
+        "message": "DNT（请勿追踪） 兼容",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
