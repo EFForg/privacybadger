@@ -172,7 +172,9 @@
     // test wildcard tokens
     for (let i = 0; i < 25; i++) {
       let url = 'http://cdn.example.com/' + _.sample(
-        'abcdefghijklmnopqrstuvwxyz0123456789', _.random(5, 15)).join('');
+        'abcdefghijklmnopqrstuvwxyz0123456789'.split(''),
+        _.random(5, 15)
+      ).join('');
 
       assert.equal(
         getSurrogateURI(url, window.extractHostFromURL(url)),

@@ -28,7 +28,7 @@
       "lib/vendor/punycode.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
-      "lib/vendor/underscore-1.8.3.js",
+      "lib/vendor/underscore-1.9.1.js",
       "data/surrogates.js",
       "js/surrogates.js",
       "js/multiDomainFirstParties.js",
