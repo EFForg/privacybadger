@@ -20,7 +20,7 @@
         value: "gzip, deflate, sdch"
       }, {
         name: "Accept-Language",
-        "value": "en-US,en;q=0.8"
+        value: "en-US,en;q=0.8"
       }, {
         name: "Cookie",
         value: "thirdpartytest=1234567890"

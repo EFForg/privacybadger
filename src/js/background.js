@@ -203,9 +203,9 @@ Badger.prototype = {
    */
   saveAction: function(userAction, origin) {
     var allUserActions = {
-      'block': constants.USER_BLOCK,
-      'cookieblock': constants.USER_COOKIE_BLOCK,
-      'allow': constants.USER_ALLOW
+      block: constants.USER_BLOCK,
+      cookieblock: constants.USER_COOKIE_BLOCK,
+      allow: constants.USER_ALLOW
     };
     this.storage.setupUserAction(origin, allUserActions[userAction]);
     log("Finished saving action " + userAction + " for " + origin);
@@ -797,13 +797,13 @@ Badger.prototype = {
     // TODO grab hostname from tabData instead
     if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab_url))) {
       iconFilename = {
-        "19": chrome.runtime.getURL("icons/badger-19.png"),
-        "38": chrome.runtime.getURL("icons/badger-38.png")
+        19: chrome.runtime.getURL("icons/badger-19.png"),
+        38: chrome.runtime.getURL("icons/badger-38.png")
       };
     } else {
       iconFilename = {
-        "19": chrome.runtime.getURL("icons/badger-19-disabled.png"),
-        "38": chrome.runtime.getURL("icons/badger-38-disabled.png")
+        19: chrome.runtime.getURL("icons/badger-19-disabled.png"),
+        38: chrome.runtime.getURL("icons/badger-38-disabled.png")
       };
     }
 

@@ -136,7 +136,7 @@ BadgerPen.prototype = {
    * @returns {String} the presumed action for this FQDN
    */
   getAction: function (domain, ignoreDNT) {
-    if (! badger.isCheckingDNTPolicyEnabled()) {
+    if (!badger.isCheckingDNTPolicyEnabled()) {
       ignoreDNT = true;
     }
 
@@ -632,4 +632,4 @@ exports.BadgerPen = BadgerPen;
 
 return exports;
 /************************************** exports */
-})();
+}());
