@@ -132,8 +132,9 @@ BadgerPen.prototype = {
    * ignoring any rules for subdomains below or above it
    *
    * @param {(Object|String)} domain domain object from action_map
+   * @param {Boolean} [ignoreDNT] whether to ignore DNT status
    * @returns {String} the presumed action for this FQDN
-   **/
+   */
   getAction: function (domain, ignoreDNT) {
     if (! badger.isCheckingDNTPolicyEnabled()) {
       ignoreDNT = true;
@@ -216,7 +217,7 @@ BadgerPen.prototype = {
    *
    * @param {String} fqdn the FQDN we want to determine the action for
    * @returns {String} the best action for the FQDN
-   **/
+   */
   getBestAction: function (fqdn) {
     let best_action = constants.NO_TRACKING;
     let subdomains = utils.explodeSubdomains(fqdn);
@@ -429,15 +430,14 @@ var _newActionMapObject = function() {
  * example_map.hasItem('foo');
  * # false
  *
- **/
+ */
 
 /**
  * BadgerStorage constructor
  * *DO NOT USE DIRECTLY* Instead call `getBadgerStorageObject(name)`
  * @param {String} name - the name of the storage object
  * @param {Object} seed - the base object which we are instantiating from
- * @return {BadgerStorage} an existing BadgerStorage object or an empty new object
- **/
+ */
 var BadgerStorage = function(name, seed) {
   this.name = name;
   this._store = seed;
@@ -449,7 +449,7 @@ BadgerStorage.prototype = {
    *
    * @param {String} key - the key for the item
    * @return {Boolean}
-   **/
+   */
   hasItem: function(key) {
     var self = this;
     return self._store.hasOwnProperty(key);
@@ -460,7 +460,7 @@ BadgerStorage.prototype = {
    *
    * @param {String} key - the key for the item
    * @return {?*} the value for that key or null
-   **/
+   */
   getItem: function(key) {
     var self = this;
     if (self.hasItem(key)) {
@@ -473,7 +473,7 @@ BadgerStorage.prototype = {
   /**
    * Get all items in the object as a copy
    *
-   * #return {*} the items in badgerObject
+   * @return {*} the items in badgerObject
    */
   getItemClones: function() {
     var self = this;
@@ -485,7 +485,7 @@ BadgerStorage.prototype = {
    *
    * @param {String} key - the key for the item
    * @param {*} value - the new value
-   **/
+   */
   setItem: function(key,value) {
     var self = this;
     self._store[key] = value;
@@ -499,7 +499,7 @@ BadgerStorage.prototype = {
    * Delete an item
    *
    * @param {String} key - the key for the item
-   **/
+   */
   deleteItem: function(key) {
     var self = this;
     delete self._store[key];

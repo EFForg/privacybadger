@@ -627,9 +627,9 @@ Badger.prototype = {
    * Check if privacy badger is enabled, take an origin and
    * check against the disabledSites list
    *
-   * @param {String} origin
+   * @param {String} origin the origin to check
    * @returns {Boolean} true if enabled
-   **/
+   */
   isPrivacyBadgerEnabled: function(origin) {
     var settings = this.getSettings();
     var disabledSites = settings.getItem("disabledSites");
@@ -686,7 +686,7 @@ Badger.prototype = {
    * Add an origin to the disabled sites list
    *
    * @param {String} origin The origin to disable the PB for
-   **/
+   */
   disablePrivacyBadgerForOrigin: function(origin) {
     var settings = this.getSettings();
     var disabledSites = settings.getItem('disabledSites');
@@ -709,7 +709,7 @@ Badger.prototype = {
    * Remove an origin from the disabledSites list
    *
    * @param {String} origin The origin to disable the PB for
-   **/
+   */
   enablePrivacyBadgerForOrigin: function(origin) {
     var settings = this.getSettings();
     var disabledSites = settings.getItem("disabledSites");
@@ -723,7 +723,7 @@ Badger.prototype = {
   /**
    * Checks if local storage ( in dict) has any high-entropy keys
    *
-   * @param lsItems Local storage dict
+   * @param {Object} lsItems Local storage dict
    * @returns {boolean} true if it seems there are supercookies
    */
   hasLocalStorageSuperCookie: function(lsItems) {
@@ -747,8 +747,8 @@ Badger.prototype = {
   /**
    * check if there seems to be any type of Super Cookie
    *
-   * @param storageItems Dict with storage items
-   * @returns {*} true if there seems to be any Super cookie
+   * @param {Object} storageItems Dict with storage items
+   * @returns {Boolean} true if there seems to be any Super cookie
    */
   hasSuperCookie: function(storageItems) {
     return (

@@ -1519,7 +1519,7 @@ let _domainLookup = makeDomainLookup(multiDomainFirstPartiesArray);
  * @param {String} domain2 a second base doamin
  *
  * @return boolean true if the domains are the same first party
- **/
+ */
 let isMultiDomainFirstParty = makeIsMultiDomainFirstParty(_domainLookup);
 /************************************** exports */
 return {
