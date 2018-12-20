@@ -715,7 +715,7 @@ Badger.prototype = {
     var disabledSites = settings.getItem("disabledSites");
     var idx = disabledSites.indexOf(origin);
     if (idx >= 0) {
-      utils.removeElementFromArray(disabledSites, idx);
+      disabledSites.splice(idx, 1);
       settings.setItem("disabledSites", disabledSites);
     }
   },

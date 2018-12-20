@@ -7,30 +7,12 @@
   var utils = require('utils');
   var getSurrogateURI = require('surrogates').getSurrogateURI;
 
-  QUnit.test("removeElementFromArray", function (assert) {
-    var testAry = [1,2,3,4,5,6];
-    utils.removeElementFromArray(testAry,2);
-    assert.ok(testAry.length === 5, "Array length is 5");
-    assert.ok(testAry.indexOf(3) === -1, "second element has been deleted");
-    assert.ok(testAry[2] === 4);
-  });
-
-  QUnit.test("removeElementsFromArray", function (assert) {
-    var testAry = [1,2,3,4,5,6];
-    utils.removeElementFromArray(testAry,2, 4);
-    assert.ok(testAry.length === 3, "Array length is 3");
-    assert.ok(testAry.indexOf(3) === -1, "second element deleted");
-    assert.ok(testAry.indexOf(4) === -1, "third element deleted");
-    assert.ok(testAry.indexOf(5) === -1, "fourth element deleted");
-    assert.ok(testAry[2] === 6, "correct value at idx 2");
-  });
-
   QUnit.test("explodeSubdomains", function (assert) {
     var fqdn = "test.what.yea.eff.org";
     var subs = utils.explodeSubdomains(fqdn);
-    assert.ok(subs.length == 4);
-    assert.ok(subs[0] == fqdn);
-    assert.ok(subs[3] == 'eff.org');
+    assert.equal(subs.length, 4);
+    assert.equal(subs[0], fqdn);
+    assert.equal(subs[3], "eff.org");
   });
 
   QUnit.test("xhrRequest", function (assert) {

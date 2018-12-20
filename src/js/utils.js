@@ -105,20 +105,6 @@ function explodeSubdomains(fqdn, all) {
   return subdomains;
 }
 
-/**
- * removes an element or range of elements from an array and reindexes the
- * array. Directly modifies the array in question.
- *
- * @param {Array} ary The array to modify
- * @param {Integer} from Start item of the hole
- * @param {Integer} to End item of the hole
- */
-function removeElementFromArray(ary, from, to) {
-  var rest = ary.slice((to || from) + 1 || ary.length);
-  ary.length = from < 0 ? ary.length + from : from;
-  ary.push.apply(ary, rest);
-}
-
 /*
  * Estimate the max possible entropy of str using min and max
  * char codes observed in the string.
@@ -357,7 +343,6 @@ var exports = {
   oneSecond,
   parseCookie,
   rateLimit,
-  removeElementFromArray,
   sha1,
   xhrRequest,
 };
