@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Developer tools for Privacy Badger.",
   "dependencies": {
-    "eslint": "~4.9.0"
+    "eslint": "~5.10.0"
   },
   "devDependencies": {
     "web-ext": "~2.9.3"
