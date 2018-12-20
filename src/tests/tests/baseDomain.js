@@ -182,7 +182,7 @@ URI:false,
 
     for (var ip in testResults) {
       // Ignore object properties.
-      if (! testResults.hasOwnProperty(ip)) {
+      if (!testResults.hasOwnProperty(ip)) {
         continue;
       }
 
@@ -192,7 +192,7 @@ URI:false,
 
   QUnit.test("Private domain checks", function (assert) {
     var testResults = {
-      "localhost": true,
+      localhost: true,
       "126.0.0.13": false,
       "127.0.0.1": true,
       "128.0.2.27": false,
@@ -215,7 +215,7 @@ URI:false,
 
     for (var domain in testResults) {
       // Ignore object properties.
-      if (! testResults.hasOwnProperty(domain)) {
+      if (!testResults.hasOwnProperty(domain)) {
         continue;
       }
 
@@ -241,4 +241,4 @@ URI:false,
       assert.equal(isThirdParty(tests[i][0], tests[i][1]), tests[i][2], tests[i][0] + " and " + tests[i][1]);
     }
   });
-})();
+}());

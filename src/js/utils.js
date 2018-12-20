@@ -23,13 +23,13 @@
 require.scopes.utils = (function() {
 
 /**
-* Generic interface to make an XHR request
-*
-* @param {String} url The url to get
-* @param {Function} callback The callback to call after request has finished
-* @param {String} method GET/POST
-* @param {Object} opts XMLHttpRequest options
-*/
+ * Generic interface to make an XHR request
+ *
+ * @param {String} url The url to get
+ * @param {Function} callback The callback to call after request has finished
+ * @param {String} method GET/POST
+ * @param {Object} opts XMLHttpRequest options
+ */
 function xhrRequest(url, callback, method, opts) {
   if (!method) {
     method = "GET";
@@ -80,14 +80,14 @@ function arrayBufferToBase64(buffer) {
 }
 
 /**
-* Return an array of all subdomains in an FQDN, ordered from the FQDN to the
-* eTLD+1. e.g. [a.b.eff.org, b.eff.org, eff.org]
-* if 'all' is passed in then the array will include all domain levels, not
-* just down to the base domain
-* @param {String} fqdn the domain to split
-* @param {boolean} all whether to include all domain levels
-*
-**/
+ * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
+ * eTLD+1. e.g. [a.b.eff.org, b.eff.org, eff.org]
+ * if 'all' is passed in then the array will include all domain levels, not
+ * just down to the base domain
+ * @param {String} fqdn the domain to split
+ * @param {boolean} all whether to include all domain levels
+ * @returns {Array} the subdomains
+ */
 function explodeSubdomains(fqdn, all) {
   var baseDomain;
   if (all) {
@@ -103,21 +103,6 @@ function explodeSubdomains(fqdn, all) {
     subdomains.push(parts.slice(i).join('.'));
   }
   return subdomains;
-}
-
-/**
-* removes an element or range of elements from an array and reindexes the
-* array. Directly modifies the array in question.
-*
-* @param ary The array to modify
-* @param {Integer} Start item of the hole
-* @param {Integer} End item of the hole
-* @returns {*}
-*/
-function removeElementFromArray(/*array*/ ary, /*int*/ from, /*int*/ to) {
-  var rest = ary.slice((to || from) + 1 || ary.length);
-  ary.length = from < 0 ? ary.length + from : from;
-  return ary.push.apply(ary, rest);
 }
 
 /*
@@ -197,7 +182,7 @@ function oneDayFromNow() {
  * @param {number} interval The number of milliseconds to rate-limit invocations to.
  * @param {Object} context The context object (optional).
  * @returns {Function} Returns the new rate-limited function.
- **/
+ */
 function rateLimit(fn, interval, context) {
   let canInvoke = true,
     queue = [],
@@ -358,7 +343,6 @@ var exports = {
   oneSecond,
   parseCookie,
   rateLimit,
-  removeElementFromArray,
   sha1,
   xhrRequest,
 };

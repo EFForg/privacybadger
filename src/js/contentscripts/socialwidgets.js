@@ -41,7 +41,7 @@
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ */
 
 /**
  * Social widget tracker data, read from file.
@@ -172,12 +172,11 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
  * pointing to the given URL.
  *
  * @param {Element} button the DOM element of the button to replace
- * @param {Tracker} tracker the Tracker object for the tracker that should be
- *                          unblocked
+ * @param {Array} urls the associated URLs
  * @param {String} iframeUrl the URL of the iframe to replace the button
  */
-function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
-  unblockTracker(tracker, function() {
+function replaceButtonWithIframeAndUnblockTracker(button, urls, iframeUrl) {
+  unblockTracker(urls, function() {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
@@ -197,12 +196,11 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
  * HTML code defined in the provided Tracker object.
  *
  * @param {Element} button the DOM element of the button to replace
- * @param {Tracker} tracker the Tracker object for the tracker that should be
- *                          unblocked
+ * @param {Array} urls the associated URLs
  * @param {String} html the HTML string that should replace the button
  */
-function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
-  unblockTracker(tracker, function() {
+function replaceButtonWithHtmlCodeAndUnblockTracker(button, urls, html) {
+  unblockTracker(urls, function() {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
@@ -222,12 +220,11 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
  * element's HTML source code.
  *
  * @param {Element} button the DOM element of the button to replace
- * @param {Tracker} tracker the Tracker object for the tracker that should be
- *                          unblocked
+ * @param {Array} urls the associated URLs
  * @param {HTMLElement} widgetElement the DOM element for the widget
  */
-function reinitializeWidgetAndUnblockTracker(button, tracker, widgetElement) {
-  unblockTracker(tracker, function() {
+function reinitializeWidgetAndUnblockTracker(button, urls, widgetElement) {
+  unblockTracker(urls, function() {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
@@ -266,8 +263,8 @@ function replaceScriptsRecurse(node) {
  * Replaces all tracker buttons on the current web page with the internal
  * replacement buttons, respecting the user's blocking settings.
  *
- * @param {Object} a map of Tracker names to Boolean values saying whether
- *                 those trackers' buttons should be replaced
+ * @param {Object} trackerButtonsToReplace a map of tracker names to boolean
+ * values saying whether those trackers' buttons should be replaced
  */
 function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
   trackerInfo.forEach(function(tracker) {
@@ -312,16 +309,16 @@ function replaceIndividualButton(tracker) {
 }
 
 /**
-* Gets data about which tracker buttons need to be replaced from the main
-* extension and passes it to the provided callback function.
-*
-* @param {Function} callback the function to call when the tracker data is
-*                            received; the arguments passed are the folder
-*                            containing the content script, the tracker
-*                            data, and a mapping of tracker names to
-*                            whether those tracker buttons need to be
-*                            replaced
-*/
+ * Gets data about which tracker buttons need to be replaced from the main
+ * extension and passes it to the provided callback function.
+ *
+ * @param {Function} callback the function to call when the tracker data is
+ *                            received; the arguments passed are the folder
+ *                            containing the content script, the tracker
+ *                            data, and a mapping of tracker names to
+ *                            whether those tracker buttons need to be
+ *                            replaced
+ */
 function getTrackerData(callback) {
   chrome.runtime.sendMessage({checkReplaceButton: true}, function(response) {
     if (response) {
@@ -333,17 +330,16 @@ function getTrackerData(callback) {
 }
 
 /**
-* Unblocks the tracker with the given name from the page. Calls the
-* provided callback function after the tracker has been unblocked.
-*
-* @param {String} trackerName the name of the tracker to unblock
-* @param {Function} callback the function to call after the tracker has
-*                            been unblocked
-*/
+ * Messages the background page to temporarily allow an array of URLs.
+ * Calls the provided callback function upon response.
+ *
+ * @param {Array} buttonUrls the URLs to be temporarily allowed
+ * @param {Function} callback the callback function
+ */
 function unblockTracker(buttonUrls, callback) {
-  var request = {
-    "unblockSocialWidget" : true,
-    "buttonUrls": buttonUrls
+  let request = {
+    unblockSocialWidget: true,
+    buttonUrls: buttonUrls
   };
   chrome.runtime.sendMessage(request, callback);
 }

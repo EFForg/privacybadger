@@ -42,8 +42,8 @@ var temporarySocialWidgetUnblock = {};
 /**
  * Event handling of http requests, main logic to collect data what to block
  *
- * @param details The event details
- * @returns {*} Can cancel requests
+ * @param {Object} details The event details
+ * @returns {Object} Can cancel requests
  */
 function onBeforeRequest(details) {
   var frame_id = details.frameId,
@@ -135,8 +135,8 @@ function onBeforeRequest(details) {
  * Filters outgoing cookies and referer
  * Injects DNT
  *
- * @param details Event details
- * @returns {*} modified headers
+ * @param {Object} details Event details
+ * @returns {Object} modified headers
  */
 function onBeforeSendHeaders(details) {
   let frame_id = details.frameId,
@@ -255,8 +255,8 @@ function onBeforeSendHeaders(details) {
 /**
  * Filters incoming cookies out of the response header
  *
- * @param details The event details
- * @returns {*} The new response header
+ * @param {Object} details The event details
+ * @returns {Object} The new response headers
  */
 function onHeadersReceived(details) {
   var tab_id = details.tabId,
@@ -347,7 +347,7 @@ function onTabReplaced(addedTabId, removedTabId) {
  * @param {String} domain1 an fqdn
  * @param {String} domain2 a second fqdn
  *
- * @return boolean true if the domains are third party
+ * @return {Boolean} true if the domains are third party
  */
 function isThirdPartyDomain(domain1, domain2) {
   if (window.isThirdParty(domain1, domain2)) {
@@ -409,7 +409,7 @@ function recordSuperCookie(tab_id, frame_url) {
 /**
  * Record canvas fingerprinting
  *
- * @param {Integer} tabId
+ * @param {Integer} tabId the tab ID
  * @param {Object} msg specific fingerprinting data
  */
 function recordFingerprinting(tabId, msg) {
@@ -553,7 +553,8 @@ function _isTabAnExtension(tabId) {
 /**
  * Provides the social widget blocking content script with list of social widgets to block
  *
- * @returns a specific dict
+ * @returns {Object} dict containing the complete list of widgets
+ * as well as a mapping to indicate which ones should be replaced
  */
 function getSocialWidgetBlockList() {
 
@@ -577,10 +578,10 @@ function getSocialWidgetBlockList() {
 /**
  * Check if tab is temporarily unblocked for tracker
  *
- * @param tabId id of the tab to check
- * @param requestHost FQDN to check
- * @param frameId frame id to check
- * @returns {boolean} true if in exception list
+ * @param {Integer} tabId id of the tab to check
+ * @param {String} requestHost FQDN to check
+ * @param {Integer} frameId frame id to check
+ * @returns {Boolean} true if in exception list
  */
 function isSocialWidgetTemporaryUnblock(tabId, requestHost, frameId) {
   var exceptions = temporarySocialWidgetUnblock[tabId];
@@ -614,9 +615,7 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
 }
 
-/**
- * sender.tab is available for content script (not popup) messages only
- */
+// NOTE: sender.tab is available for content script (not popup) messages only
 function dispatcher(request, sender, sendResponse) {
   if (request.checkEnabled) {
     sendResponse(badger.isPrivacyBadgerEnabled(
