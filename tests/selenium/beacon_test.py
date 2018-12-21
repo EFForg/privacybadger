@@ -11,9 +11,9 @@ class BeaconTest(pbtest.PBSeleniumTest):
 
     def test_beacon_detection(self):
         PAGE_URL = (
-            "https://cdn.rawgit.com/ghostwords"
-            "/be9de3acae16aa832a271ba97fce0073/raw/f2554fbf93faca1bfa397ae610e01bab47bd19b5"
-            "/privacy_badger_beacon_test_fixture.html"
+            "https://gitcdn.link/cdn/ghostwords/"
+            "be9de3acae16aa832a271ba97fce0073/raw/f2554fbf93faca1bfa397ae610e01bab47bd19b5/"
+            "privacy_badger_beacon_test_fixture.html"
         )
         BEACON_DOMAIN = "dnt-test.trackersimulator.org"
 

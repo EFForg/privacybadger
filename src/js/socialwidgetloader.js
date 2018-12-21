@@ -127,4 +127,4 @@ function SocialWidget(name, properties) {
 }
 
 return exports;
-})(); //require scopes
+}()); //require scopes

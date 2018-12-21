@@ -24,11 +24,11 @@ class DNTTest(pbtest.PBSeleniumTest):
     # TODO switch to non-delayed version (see below)
     # once race condition (https://crbug.com/478183) is fixed
     NAVIGATOR_DNT_TEST_URL = (
-        "https://cdn.rawgit.com/ghostwords/"
-        "1c50869a0469e38d5dabd53f1204d3de/raw/01e06af8d2b3e35228bf8f000bdc12d0b2871b64/"
+        "https://gitcdn.link/cdn/ghostwords/"
+        "1c50869a0469e38d5dabd53f1204d3de/raw/c0ecc85bf452d5f1a410db700bc908306a9506fe/"
         "privacy-badger-navigator-donottrack-delayed-fixture.html"
         # non-delayed version:
-        #"9fc6900566a2f93edd8e4a1e48bbaa28/raw/741627c60ca53be69bc11bf21d6d1d0b42edb52a/"
+        #"9fc6900566a2f93edd8e4a1e48bbaa28/raw/b7a6d9e70ce103da49e74ba239da4443fb514c2f/"
         #"privacy-badger-navigator-donottrack-fixture.html"
     )
 
@@ -47,61 +47,73 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def disable_badger_on_site(self, url):
         self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-whitelisted-domains"]').click()
         self.driver.find_element_by_id('newWhitelistDomain').send_keys(url)
         self.driver.find_element_by_css_selector('button.addButton').click()
 
     def domain_was_recorded(self, domain):
-        return self.js("""return (
-  Object.keys(badger.storage.action_map.getItemClones()).indexOf('{}') != -1
-);""".format(domain))
+        return self.js(
+            "return (Object.keys("
+            "  chrome.extension.getBackgroundPage()."
+            "  badger.storage.action_map.getItemClones()"
+            ").indexOf(arguments[0]) != -1);",
+            domain
+        )
 
     def domain_was_detected(self, domain):
-        return self.js("""return (
-  Object.keys(badger.tabData).some(tab_id => {{
-    let origins = badger.tabData[tab_id].origins;
-    return origins.hasOwnProperty('{}');
-  }})
-);""".format(domain))
+        return self.js(
+            "return (Object.keys(chrome.extension.getBackgroundPage().badger.tabData).some(tab_id => {"
+            "  let origins = chrome.extension.getBackgroundPage().badger.tabData[tab_id].origins;"
+            "  return origins.hasOwnProperty(arguments[0]);"
+            "}));",
+            domain
+        )
 
     def domain_was_blocked(self, domain):
-        self.assertTrue(self.domain_was_detected(domain),
-            msg="Domain should have been detected.")
-
-        return self.js("""return (
-  Object.keys(badger.tabData).some(tab_id => {{
-    let origins = badger.tabData[tab_id].origins;
-    return origins.hasOwnProperty('{}') && constants.BLOCKED_ACTIONS.has(origins['{}']);
-  }})
-);""".format(domain, domain))
+        return self.js(
+            "return (Object.keys(chrome.extension.getBackgroundPage().badger.tabData).some(tab_id => {"
+            "  let origins = chrome.extension.getBackgroundPage().badger.tabData[tab_id].origins;"
+            "  return ("
+            "    origins.hasOwnProperty(arguments[0]) &&"
+            "    chrome.extension.getBackgroundPage().constants.BLOCKED_ACTIONS.has(origins[arguments[0]])"
+            "  );"
+            "}));",
+            domain
+        )
 
     @pbtest.repeat_if_failed(3)
     def test_dnt_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
-            "https://cdn.rawgit.com/ghostwords/"
-            "74585c942a918509b20bf2db5659646e/raw/f42d25717e5b4f735c7affa527a2e0b62286c005/"
+            "https://gitcdn.link/cdn/ghostwords/"
+            "74585c942a918509b20bf2db5659646e/raw/2401659e678442de6309339882f19fbb21dbc959/"
             "privacy_badger_dnt_test_fixture.html"
         )
         DNT_DOMAIN = "www.eff.org"
-        BLOCK_DOMAIN_JS = """(function () {{
-  badger.storage.setupHeuristicAction('{}', constants.BLOCK);
-}}());""".format(DNT_DOMAIN)
+        BLOCK_DOMAIN_JS = (
+            "(function () {"
+            "chrome.extension.getBackgroundPage()."
+            "badger.storage.setupHeuristicAction("
+            "  arguments[0],"
+            "  chrome.extension.getBackgroundPage().constants.BLOCK"
+            ");"
+            "}());"
+        )
 
         # mark a DNT-compliant domain for blocking
-        self.load_url(self.bg_url)
-        self.js(BLOCK_DOMAIN_JS)
-
-        # need to keep Badger's background page open for our changes to persist
-        # so, open and switch to a new window
-        self.open_window()
+        self.load_url(self.options_url)
+        self.js(BLOCK_DOMAIN_JS, DNT_DOMAIN)
 
         # visit a page that loads a resource from that DNT-compliant domain
+        self.open_window()
         self.load_url(PAGE_URL)
 
-        # switch back to Badger's background page
-        switch_to_window_with_url(self.driver, self.bg_url)
+        # switch back to Badger's options page
+        switch_to_window_with_url(self.driver, self.options_url)
 
         # verify that the domain is blocked
+        self.assertTrue(self.domain_was_detected(DNT_DOMAIN),
+            msg="Domain should have been detected.")
         self.assertTrue(self.domain_was_blocked(DNT_DOMAIN),
             msg="DNT-compliant resource should have been blocked at first.")
 
@@ -112,10 +124,13 @@ class DNTTest(pbtest.PBSeleniumTest):
             # reload it
             self.load_url(PAGE_URL)
 
-            # switch back to Badger's background page
-            switch_to_window_with_url(self.driver, self.bg_url)
+            # switch back to Badger's options page
+            switch_to_window_with_url(self.driver, self.options_url)
 
-            return self.domain_was_blocked(DNT_DOMAIN)
+            return (
+                self.domain_was_detected(DNT_DOMAIN) and
+                self.domain_was_blocked(DNT_DOMAIN)
+            )
 
         # verify that the domain is allowed
         was_blocked = retry_until(
@@ -123,7 +138,8 @@ class DNTTest(pbtest.PBSeleniumTest):
             tester=lambda x: not x,
             msg="Waiting a bit for DNT check to complete and retrying ...")
 
-        self.assertFalse(was_blocked, msg="DNT-compliant resource should have gotten unblocked.")
+        self.assertFalse(was_blocked,
+            msg="DNT-compliant resource should have gotten unblocked.")
 
     def test_dnt_check_should_not_set_cookies(self):
         TEST_DOMAIN = "dnt-test.trackersimulator.org"
@@ -193,27 +209,19 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def test_should_not_record_nontracking_domains(self):
         TEST_URL = (
-            "https://cdn.rawgit.com/ghostwords/"
-            "eef2c982fc3151e60a78136ca263294d/raw/13ed3d1e701994640b8d8065b835f8a9684ece92/"
+            "https://gitcdn.link/cdn/ghostwords/"
+            "eef2c982fc3151e60a78136ca263294d/raw/9f83f7ad9b7aa04484a9682b937dec7bcbfb7a6e/"
             "privacy_badger_recording_nontracking_domains_fixture.html"
         )
         TRACKING_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
         NON_TRACKING_DOMAIN = "dnt-test.trackersimulator.org"
-
-        # open Badger's background page
-        self.load_url(self.bg_url)
-
-        # need to keep Badger's background page open to record what's happening
-        # so, open and switch to a new window
-        self.open_window()
 
         # visit a page containing two third-party resources,
         # one from a cookie-tracking domain
         # and one from a non-tracking domain
         self.load_url(TEST_URL)
 
-        # switch back to Badger's background page
-        switch_to_window_with_url(self.driver, self.bg_url)
+        self.load_url(self.options_url)
 
         # verify that the cookie-tracking domain was recorded
         self.assertTrue(

@@ -1,9 +1,19 @@
-body
-{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  padding: 20px;
-  width: 100%;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    width: 100%;
+}
+
+h1 {
+    color: #707070;
+    font-size: 24px;
+    font-weight: normal;
+    font-family: helvetica, arial, 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', sans-serif;;
+}
+
+h3 {
+    margin: 10px 0;
 }
 
 td
@@ -18,9 +28,25 @@ button
   white-space: pre;
 }
 
-label
-{
+label {
   display: inline-flex;
+}
+
+#tracking-domains-filters label {
+    display: inline;
+}
+
+p, #settingsForm {
+    margin: 10px 0;
+}
+
+#whitelistForm {
+    margin: 20px 0 0;
+}
+
+header, #tabs {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 #pbInstructions {

@@ -20,7 +20,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def clear_seed_data(self):
         self.load_url(self.options_url)
-        self.js("badger.storage.clearTrackerData();")
+        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
 
     def wait_for_page_to_start_loading(self, url, timeout=20):
         """Wait until the title element is present. Use it to work around
@@ -158,7 +158,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         # Look for options page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
-            if self.driver.current_url == self.popup_url:
+            if self.driver.current_url == self.options_url:
                 return
 
         self.fail("Options page not opened after clicking options button on popup")
@@ -219,6 +219,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # retrieve the new action
         self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
         new_action = self.get_domain_slider_state(DOMAIN)
@@ -241,6 +242,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # retrieve the new action
         self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = self.get_domain_slider_state(DOMAIN)
 
@@ -256,8 +258,10 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # record the domain as cookieblocked by Badger
         self.load_url(self.options_url)
-        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
-            DOMAIN, "cookieblock"))
+        self.js((
+            "chrome.extension.getBackgroundPage()"
+            ".badger.storage.setupHeuristicAction('{}', '{}');"
+        ).format(DOMAIN, "cookieblock"))
 
         self.open_popup(origins={DOMAIN:"cookieblock"})
 
@@ -277,6 +281,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         # verify the domain is no longer user controlled
 
         self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
 

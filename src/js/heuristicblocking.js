@@ -215,9 +215,9 @@ HeuristicBlocker.prototype = {
     // not-yet-blocked domain for DNT policy.
     // We check heuristically-blocked domains in webrequest.js.
     if (!skip_dnt_check) {
-      window.setTimeout(function () {
+      setTimeout(function () {
         badger.checkForDNTPolicy(tracker_fqdn);
-      }, 10);
+      }, 0);
     }
 
     // record that we've seen this tracker on this domain (in snitch map)
@@ -554,11 +554,19 @@ function startListeners() {
   }
 
   // inspect cookies in outgoing headers
+  let extraInfoSpec = ['requestHeaders'];
+  if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
     return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-  }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
+  }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   // inspect cookies in incoming headers
+  extraInfoSpec = ['responseHeaders'];
+  if (chrome.webRequest.OnResponseStartedOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
   chrome.webRequest.onResponseStarted.addListener(function(details) {
     var hasSetCookie = false;
     for (var i = 0; i < details.responseHeaders.length; i++) {
@@ -571,7 +579,7 @@ function startListeners() {
       return badger.heuristicBlocking.heuristicBlockingAccounting(details);
     }
   },
-  {urls: ["<all_urls>"]}, ["responseHeaders"]);
+  {urls: ["<all_urls>"]}, extraInfoSpec);
 }
 
 /************************************** exports */

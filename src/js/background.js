@@ -182,10 +182,15 @@ Badger.prototype = {
   showFirstRunPage: function() {
     let settings = this.getSettings();
     if (settings.getItem("isFirstRun")) {
-      // launch first-run page and unset first-run flag
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html")
-      });
+      // launch the new user intro page and unset first-run flag
+      if (settings.getItem("showIntroPage")) {
+        chrome.tabs.create({
+          url: chrome.extension.getURL("/skin/firstRun.html")
+        });
+      } else {
+        // don't remind users to look at the intro page either
+        settings.setItem("seenComic", true);
+      }
       settings.setItem("isFirstRun", false);
     }
   },
@@ -198,9 +203,9 @@ Badger.prototype = {
    */
   saveAction: function(userAction, origin) {
     var allUserActions = {
-      'block': constants.USER_BLOCK,
-      'cookieblock': constants.USER_COOKIE_BLOCK,
-      'allow': constants.USER_ALLOW
+      block: constants.USER_BLOCK,
+      cookieblock: constants.USER_COOKIE_BLOCK,
+      allow: constants.USER_ALLOW
     };
     this.storage.setupUserAction(origin, allUserActions[userAction]);
     log("Finished saving action " + userAction + " for " + origin);
@@ -495,6 +500,7 @@ Badger.prototype = {
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
+    showIntroPage: true,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true
   },
@@ -621,9 +627,9 @@ Badger.prototype = {
    * Check if privacy badger is enabled, take an origin and
    * check against the disabledSites list
    *
-   * @param {String} origin
+   * @param {String} origin the origin to check
    * @returns {Boolean} true if enabled
-   **/
+   */
   isPrivacyBadgerEnabled: function(origin) {
     var settings = this.getSettings();
     var disabledSites = settings.getItem("disabledSites");
@@ -680,7 +686,7 @@ Badger.prototype = {
    * Add an origin to the disabled sites list
    *
    * @param {String} origin The origin to disable the PB for
-   **/
+   */
   disablePrivacyBadgerForOrigin: function(origin) {
     var settings = this.getSettings();
     var disabledSites = settings.getItem('disabledSites');
@@ -692,8 +698,10 @@ Badger.prototype = {
 
   /**
    * Interface to get the current whitelisted domains
+   *
+   * @returns {Array} List of site domains where Privacy Badger is disabled
    */
-  listOriginsWherePrivacyBadgerIsDisabled: function() {
+  getDisabledSites: function () {
     return this.getSettings().getItem("disabledSites");
   },
 
@@ -701,13 +709,13 @@ Badger.prototype = {
    * Remove an origin from the disabledSites list
    *
    * @param {String} origin The origin to disable the PB for
-   **/
+   */
   enablePrivacyBadgerForOrigin: function(origin) {
     var settings = this.getSettings();
     var disabledSites = settings.getItem("disabledSites");
     var idx = disabledSites.indexOf(origin);
     if (idx >= 0) {
-      utils.removeElementFromArray(disabledSites, idx);
+      disabledSites.splice(idx, 1);
       settings.setItem("disabledSites", disabledSites);
     }
   },
@@ -715,7 +723,7 @@ Badger.prototype = {
   /**
    * Checks if local storage ( in dict) has any high-entropy keys
    *
-   * @param lsItems Local storage dict
+   * @param {Object} lsItems Local storage dict
    * @returns {boolean} true if it seems there are supercookies
    */
   hasLocalStorageSuperCookie: function(lsItems) {
@@ -739,8 +747,8 @@ Badger.prototype = {
   /**
    * check if there seems to be any type of Super Cookie
    *
-   * @param storageItems Dict with storage items
-   * @returns {*} true if there seems to be any Super cookie
+   * @param {Object} storageItems Dict with storage items
+   * @returns {Boolean} true if there seems to be any Super cookie
    */
   hasSuperCookie: function(storageItems) {
     return (
@@ -789,13 +797,13 @@ Badger.prototype = {
     // TODO grab hostname from tabData instead
     if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab_url))) {
       iconFilename = {
-        "19": chrome.runtime.getURL("icons/badger-19.png"),
-        "38": chrome.runtime.getURL("icons/badger-38.png")
+        19: chrome.runtime.getURL("icons/badger-19.png"),
+        38: chrome.runtime.getURL("icons/badger-38.png")
       };
     } else {
       iconFilename = {
-        "19": chrome.runtime.getURL("icons/badger-19-disabled.png"),
-        "38": chrome.runtime.getURL("icons/badger-38-disabled.png")
+        19: chrome.runtime.getURL("icons/badger-19-disabled.png"),
+        38: chrome.runtime.getURL("icons/badger-38-disabled.png")
       };
     }
 
@@ -855,7 +863,7 @@ function startBackgroundListeners() {
         // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
         if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
           if (request.command == "getDisabledSites") {
-            sendResponse({origins: badger.listOriginsWherePrivacyBadgerIsDisabled()});
+            sendResponse({origins: badger.getDisabledSites()});
           } else if (request.command == "enable") {
             badger.enablePrivacyBadgerForOrigin(request.origin);
           } else if (request.command == "disable") {

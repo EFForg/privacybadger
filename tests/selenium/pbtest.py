@@ -178,7 +178,7 @@ class Shim:
 
         for i in range(5):
             try:
-                driver = webdriver.Chrome(chrome_options=opts, desired_capabilities=caps)
+                driver = webdriver.Chrome(options=opts, desired_capabilities=caps)
             except WebDriverException as e:
                 if i == 0: print("")
                 print("Chrome WebDriver initialization failed:")
@@ -205,7 +205,7 @@ class Shim:
                 driver = webdriver.Firefox(
                     firefox_profile=ffp,
                     firefox_binary=self.browser_path,
-                    firefox_options=opts
+                    options=opts
                 )
             except WebDriverException as e:
                 if i == 0: print("")
@@ -322,8 +322,18 @@ class PBSeleniumTest(unittest.TestCase):
                     self.init(driver)
 
                     # wait for Badger's storage, listeners, ...
-                    self.load_url(self.bg_url)
-                    self.wait_for_script("return badger.INITIALIZED")
+                    self.load_url(self.options_url)
+                    self.wait_for_script(
+                        "return chrome.extension.getBackgroundPage().badger.INITIALIZED"
+                        # TODO wait for loadSeedData's completion (not yet covered by INITIALIZED)
+                        " && Object.keys("
+                        "chrome.extension.getBackgroundPage()"
+                        ".badger.storage.getBadgerStorageObject('action_map').getItemClones()"
+                        ").length > 1",
+                    )
+                    driver.close()
+                    if driver.window_handles:
+                        driver.switch_to.window(driver.window_handles[0])
 
                     super(PBSeleniumTest, self).run(result)
 
@@ -386,11 +396,16 @@ class PBSeleniumTest(unittest.TestCase):
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Find an element by CSS selector and return its text."""
-        return self.find_el_by_css(css_selector, timeout).text
+        return self.find_el_by_css(
+            css_selector, visible_only=False, timeout=timeout).text
 
-    def find_el_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+    def find_el_by_css(self, css_selector, visible_only=True, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        condition = (
+            EC.visibility_of_element_located if visible_only
+            else EC.presence_of_element_located
+        )
         return WebDriverWait(self.driver, timeout).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, css_selector)))
+            condition((By.CSS_SELECTOR, css_selector)))
 
     def find_el_by_xpath(self, xpath, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
@@ -408,6 +423,16 @@ class PBSeleniumTest(unittest.TestCase):
             lambda driver: driver.execute_script(script),
             message
         )
+
+    def wait_for_text(self, selector, text, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
+            EC.text_to_be_present_in_element(
+                (By.CSS_SELECTOR, selector), text))
+
+    def wait_for_and_switch_to_frame(self, selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
+            EC.frame_to_be_available_and_switch_to_it(
+                (By.CSS_SELECTOR, selector)))
 
     def get_domain_slider_state(self, domain):
         try:

@@ -7,6 +7,9 @@ updatepsl:
 updateseed:
 	scripts/updateseeddata.sh
 
+updategoogle:
+	scripts/updategoogle.sh
+
 todo:
 	grep -rn 'TODO' src
 
@@ -26,4 +29,4 @@ runff:
 runfn:
 	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/ -f /opt/firefox/nightly/firefox
 
-.PHONY: lint updatepsl updateseed todo tx runff runfn
+.PHONY: lint updatepsl updateseed updategoogle todo tx runff runfn

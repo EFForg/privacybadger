@@ -117,7 +117,7 @@ function init() {
     });
   });
 
-  var overlay = $('#overlay');
+  let overlay = $('#overlay');
 
   // show error layout if the user was writing an error report
   if (POPUP_DATA.hasOwnProperty('errorText') && POPUP_DATA.errorText) {
@@ -147,9 +147,28 @@ function init() {
     chrome.i18n.getMessage("version", chrome.runtime.getManifest().version)
   );
 
-  $("#options").on("click", function (e) {
-    openOptionsPage();
-    e.preventDefault();
+  // improve on Firefox's built-in options opening logic
+  if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function") {
+    browser.runtime.getBrowserInfo().then(function (info) {
+      if (info.name == "Firefox") {
+        $("#options").on("click", function (e) {
+          openOptionsPage();
+          e.preventDefault();
+        });
+      }
+    });
+  }
+
+  let shareOverlay = $("#share_overlay");
+
+  $("#share").on("click", share);
+  $("#share_close").on("click", function() {
+    shareOverlay.toggleClass('active', false);
+  });
+  $("#copy_button").on("click", function() {
+    $("#share_output").select();
+    document.execCommand('copy');
+    $(this).text(chrome.i18n.getMessage("copy_button_copied"));
   });
 
   window.POPUP_INITIALIZED = true;
@@ -158,56 +177,25 @@ function init() {
 function openOptionsPage() {
   const url = chrome.runtime.getURL("/skin/options.html");
 
-  function openOptionsInTab(win_id, cb) {
-    // first get the active tab's ID
-    chrome.tabs.query({ active: true, windowId: win_id }, (tabs) => {
-      // create the new tab
-      chrome.tabs.create({
+  // first get the active tab
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+    let activeTab = tabs[0],
+      tabProps = {
         url,
-        windowId: win_id,
+        windowId: activeTab.windowId,
         active: true,
-        index: tabs[0].index + 1,
-        openerTabId: tabs[0].id
-      }, () => {
-        if (cb) {
-          cb();
-        }
-      });
-    });
-  }
+        index: activeTab.index + 1,
+        openerTabId: activeTab.id
+      };
 
-  function focusWindow(win_id) {
-    chrome.windows.update(win_id, { focused: true });
-  }
-
-  chrome.windows.getLastFocused((win) => {
-    // if we have a focused non-incognito window, let's use it
-    if (!win.incognito) {
-      openOptionsInTab(win.id);
-      return;
+    // create the new tab
+    try {
+      chrome.tabs.create(tabProps);
+    } catch (e) {
+      // TODO workaround for pre-57 Firefox
+      delete tabProps.openerTabId;
+      chrome.tabs.create(tabProps);
     }
-
-    // if there is an already-open non-incognito window, use that
-    chrome.windows.getAll({ windowTypes: ["normal"] }, (windows) => {
-      for (let i = 0; i < windows.length; i++) {
-        if (windows[i].incognito) {
-          continue;
-        }
-        const win_id = windows[i].id;
-        openOptionsInTab(win_id, function () {
-          focusWindow(win_id);
-        });
-        return;
-      }
-
-      // if here, there are no already-open non-private windows
-      chrome.windows.create({
-        url,
-        incognito: false
-      }, (w) => {
-        focusWindow(w.id);
-      });
-    });
   });
 }
 
@@ -346,6 +334,52 @@ function deactivateOnSite() {
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
   });
+}
+
+/**
+ * Open the share overlay
+ */
+function share() {
+  $("#share_overlay").toggleClass('active');
+  let shareMessage = chrome.i18n.getMessage("share_base_message");
+
+  //Only add language about found trackers if we actually found trackers (but regardless of whether we are actually blocking them).
+  if (POPUP_DATA.noTabData) {
+    $("#share_output").val(shareMessage);
+    return;
+  }
+
+  let origins = POPUP_DATA.origins;
+  let originsArr = [];
+  if (origins) {
+    originsArr = Object.keys(origins);
+  }
+
+  if (!originsArr.length) {
+    $("#share_output").val(shareMessage);
+    return;
+  }
+
+  originsArr = htmlUtils.sortDomains(originsArr);
+  let tracking = [];
+
+  for (let i=0; i < originsArr.length; i++) {
+    let origin = originsArr[i];
+    let action = origins[origin];
+
+    if (action != constants.NO_TRACKING) {
+      tracking.push(origin);
+    }
+  }
+
+  if (tracking.length) {
+    shareMessage += "\n\n" + chrome.i18n.getMessage("share_tracker_header", [tracking.length, POPUP_DATA.tabHost]) + "\n\n";
+
+    for (let i=0; i < tracking.length; i++) {
+      shareMessage += tracking[i] + "\n";
+    }
+  }
+  $("#share_output").val(shareMessage);
 }
 
 /**

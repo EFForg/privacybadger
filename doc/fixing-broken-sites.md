@@ -9,7 +9,7 @@ This document is about the process of classifying and resolving these breakages.
 
 The first thing to do is to confirm that Privacy Badger blocks (or will eventually learn to block) the domain, and that blocking the domain does indeed break the site.
 
-Browser caching can get in our way here, as cached resources bypass request filtering by extensions. Disable your browser cache when debugging, for example by reloading using `Ctrl+Shift+R` every time.
+Browser caching can get in our way here, as cached resources bypass request filtering by extensions. Disable your browser cache when debugging, for example by reloading using <kbd>Ctrl+Shift+R</kbd> every time.
 
 Try disabling Privacy Badger for the site, and then reloading the page. Does that fix the issue? If it doesn't, does disabling the entire Privacy Badger add-on and reloading the page fix the issue? If it still doesn't, Privacy Badger is not at fault.
 

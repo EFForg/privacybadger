@@ -17,7 +17,7 @@
     // callback has to be async
     setTimeout(function () {
       callback({
-        // don't open the firstrun page
+        // don't open the new user intro page or load seed data
         settings_map: {
           isFirstRun: false,
         }
