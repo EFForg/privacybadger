@@ -90,8 +90,8 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, request_host, frame_id);
-  if (!requestAction) {
+  let action = checkAction(tab_id, request_host, frame_id);
+  if (!action) {
     return {};
   }
 
@@ -99,7 +99,7 @@ function onBeforeRequest(details) {
     // log the third-party domain asynchronously
     // (don't block a critical code path on updating the badge)
     setTimeout(function () {
-      badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+      badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
     }, 0);
   }
 
@@ -107,7 +107,7 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  if (requestAction != constants.BLOCK && requestAction != constants.USER_BLOCK) {
+  if (action != constants.BLOCK && action != constants.USER_BLOCK) {
     return {};
   }
 
@@ -128,7 +128,7 @@ function onBeforeRequest(details) {
   }
 
   // if this is a heuristically- (not user-) blocked domain
-  if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
+  if (action == constants.BLOCK && incognito.learningEnabled(tab_id)) {
     // check for DNT policy asynchronously
     window.setTimeout(function () {
       badger.checkForDNTPolicy(request_host);
@@ -200,27 +200,27 @@ function onBeforeSendHeaders(details) {
     }
   }
 
-  var requestAction = checkAction(tab_id, request_host, frame_id);
+  let action = checkAction(tab_id, request_host, frame_id);
 
-  if (requestAction && !misattribution) {
+  if (action && !misattribution) {
     // log the third-party domain asynchronously
     setTimeout(function () {
-      badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+      badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
     }, 0);
   }
 
   // If this might be the third strike against the potential tracker which
   // would cause it to be blocked we should check immediately if it will be blocked.
-  if (requestAction == constants.ALLOW &&
+  if (action == constants.ALLOW &&
       badger.storage.getTrackingCount(request_host) == constants.TRACKING_THRESHOLD - 1) {
 
     badger.heuristicBlocking.heuristicBlockingAccounting(details);
-    requestAction = checkAction(tab_id, request_host, frame_id);
+    action = checkAction(tab_id, request_host, frame_id);
 
-    if (requestAction && !misattribution) {
+    if (action && !misattribution) {
       // log the third-party domain asynchronously
       setTimeout(function () {
-        badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+        badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
       }, 0);
     }
   }
@@ -231,7 +231,7 @@ function onBeforeSendHeaders(details) {
 
   // This will only happen if the above code sets the action for the request
   // to block
-  if (requestAction == constants.BLOCK) {
+  if (action == constants.BLOCK) {
     if (type == 'script') {
       var surrogate = getSurrogateURI(url, request_host);
       if (surrogate) {
@@ -258,7 +258,7 @@ function onBeforeSendHeaders(details) {
   }
 
   // This is the typical codepath
-  if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
+  if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK) {
     let newHeaders = details.requestHeaders.filter(function (header) {
       return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
     });
@@ -328,15 +328,15 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, request_host, details.frameId);
-  if (!requestAction) {
+  let action = checkAction(tab_id, request_host, details.frameId);
+  if (!action) {
     return {};
   }
 
   if (!misattribution) {
     // log the third-party domain asynchronously
     setTimeout(function () {
-      badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+      badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
     }, 0);
   }
 
@@ -344,7 +344,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
+  if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK) {
     var newHeaders = details.responseHeaders.filter(function(header) {
       return (header.name.toLowerCase() != "set-cookie");
     });
