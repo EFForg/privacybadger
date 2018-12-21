@@ -524,7 +524,7 @@ const surrogates = {
 surrogates['/JS/socialize.js'] = surrogates['/JS/gigya.js'] = surrogates['/js/gigya.js'];
 
 // reformat surrogate strings to exactly match formatting in uAssets
-Object.keys(surrogates).map(key => {
+Object.keys(surrogates).forEach(key => {
   surrogates[key] = surrogates[key]
     // remove space from anon function if present
     .replace(/^\(function \(/, '(function(')

@@ -1,5 +1,5 @@
 {
-  "version": "2018.12.5",
+  "version": "2018.12.17",
   "author": {
     "email": "eff.software.projects@gmail.com"
   },
@@ -28,7 +28,7 @@
       "lib/vendor/punycode.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
-      "lib/vendor/underscore-min.js",
+      "lib/vendor/underscore-1.9.1.js",
       "data/surrogates.js",
       "js/surrogates.js",
       "js/multiDomainFirstParties.js",

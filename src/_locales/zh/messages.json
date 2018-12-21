@@ -18,7 +18,7 @@
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
-        "message": "$DOMAIN$没有跟踪",
+        "message": "$DOMAIN$ 没有追踪",
         "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -28,11 +28,11 @@
         }
     },
     "non_tracker_tip": {
-        "message": "隐私獾目前只检查第三方域名是否在使用 Cookies、HTML5 local storage 和 canvas 指纹来跟踪你的浏览记录。 有些域名可能使用了隐私獾无法检测的跟踪方式。",
+        "message": "隐私獾只检查第三方域名是否在使用 Cookies、HTML5 本地存储和 canvas 指纹来追踪你的浏览记录。 有些域名可能使用了隐私獾无法检测的追踪方式。",
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "检查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方域名</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>电子前哨基金会的“请勿跟踪”政策</a>",
+        "message": "检查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方域名</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>电子前哨基金会的“请勿追踪”政策</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -48,7 +48,7 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "捐款支持我们",
+        "message": "捐款并分享对我们工具的支持来帮助我们",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "隐私獾会自动学习去阻止不可见的跟踪器。看看这是如何做到的吧。",
+        "message": "隐私獾会自动学习去阻止不可见的追踪器。看看这是如何做到的吧。",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "点击以让隐私獾接管这个跟踪器",
+        "message": "点击以让隐私獾接管这个追踪器",
         "description": ""
     },
     "import": {
@@ -218,11 +218,11 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "重置跟踪器域名列表",
+        "message": "重置追踪域名列表",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "重置追踪域名将会：\n\n• 删除所有隐私獾从您浏览中学习到的数据\n• 将追踪域名列表重置为一个预学习列表（访问 www.eff.org/badger-pretraining 以了解更多）",
+        "message": "重置追踪域名将会：\n\n• 删除所有隐私獾从您浏览中学习到的数据\n• 将追踪域名列表重置为最新的预训练列表（访问 www.eff.org/badger-pretraining 以了解更多）",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -278,11 +278,11 @@
         }
     },
     "intro_beyond_ads": {
-        "message": "发现鬼鬼祟祟的跟踪器",
+        "message": "发现鬼鬼祟祟的追踪器",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
-        "message": "半屏蔽",
+        "message": "部分被屏蔽",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器<a href='https://www.eff.org/issues/do-not-track' target='_blank'>发送“请勿跟踪”信号</a>，告诉它们停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止他们——无论它们是广告、追踪器或是其他的东西。",
+        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器<a href='https://www.eff.org/issues/do-not-track' target='_blank'>发送“请勿追踪”信号</a>，告诉它们停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止他们——无论它们是广告、追踪器或是其他的东西。",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -322,7 +322,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT 兼容",
+        "message": "DNT（请勿追踪） 兼容",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -342,7 +342,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
-        "message": "你不应该更改这里的任何东西。",
+        "message": "你应该无需更改这里的任何东西。",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
     },
     "options_domain_filter_all": {
@@ -358,7 +358,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "向网站发送<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿跟踪”</a>信号",
+        "message": "向网站发送<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿追踪”</a>信号",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -387,7 +387,7 @@
         }
     },
     "intro_by_eff": {
-        "message": "属于电子前哨基金会的项目",
+        "message": "一个电子前哨基金会的项目",
         "description": ""
     },
     "add_domain_button": {
@@ -480,7 +480,7 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "以下域名看起来不在跟踪你",
+        "message": "以下域名看起来不在追踪你",
         "description": ""
     },
     "popup_options_button": {
@@ -492,7 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "隐私獾会自动学习去阻止不可见的跟踪器。",
+        "message": "隐私獾会自动学习去阻止不可见的追踪器。",
         "description": ""
     },
     "report_fail": {

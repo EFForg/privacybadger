@@ -210,7 +210,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Kullanıcı verisini içe aktarmak: <ul><li>Genel ayarları değiştirir</li><li>Engelenmiş sitelerin listesini birleştirir</li><li>Privacy Badger'ın takipçiler hakkındaki bilgilerini birleştirir</li><li>Kaydırıcı ayarlarını değiştirir</li></ul>",
+        "message": "Kullanıcı verisini içe aktarmak: <ul><li>Genel ayarları değiştirir</li><li>Engellenmiş sitelerin listesini birleştirir</li><li>Privacy Badger'ın takipçiler hakkındaki bilgilerini birleştirir</li><li>Kaydırıcı ayarlarını değiştirir</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "\"Privacy Badger $COUNT$ tane potansiyel $TRACKER_LINK_START$takipçi$TRACKER_LINK_END$ buldu. Bu kaydırıcılar Privacy Badger'in her biriyle nasıl başa çıkacağını ayarlamanızı sağlar. Ters giden birşey yoksa kaydırıcıları ayarlamanız gerekmez.",
+        "message": "Privacy Badger $COUNT$ tane potansiyel $TRACKER_LINK_START$takipçi$TRACKER_LINK_END$ buldu. Bu kaydırıcılar Privacy Badger'in her biriyle nasıl başa çıkacağını ayarlamanızı sağlar. Ters giden birşey yoksa kaydırıcıları ayarlamanız gerekmez.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -546,15 +546,15 @@
         "description": "'Error' message when there is on cloud data to download."
     },
     "share_title": {
-        "message": "Tell your friends",
+        "message": "Arkadaşlarınızla paylaşın",
         "description": "Title of the share overlay."
     },
     "popup_share_button": {
-        "message": "Share",
+        "message": "Paylaş",
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger found $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "Privacy Badger $DOMAIN$ içinde $COUNT$ potansiyel takipçi buldu:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -568,15 +568,15 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (www.eff.org/privacybadger), görünmez takipçileri otomatik olarak engellemeyi öğrenen bir tarayıcı eklentisidir. Privacy Badger, çevrimiçi haklarınız için savaşan, kar amacı gütmeyen bir kuruluş olan Electronic Frontier Foundation tarafından yapılmıştır.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
-        "message": "Copy to clipboard",
+        "message": "Panoya kopyala",
         "description": "Initial text of the copy button on the share overlay."
     },
     "copy_button_copied": {
-        "message": "Copied",
+        "message": "Kopyalandı",
         "description": "On-click text of the copy button on the share overlay."
     }
 }

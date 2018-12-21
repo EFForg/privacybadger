@@ -1,5 +1,10 @@
 Changes for Privacy Badger 
 ====================================
+## 2018.12.17
+* Fixed major Privacy Badger breakages in Chrome 72+
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Spanish, Turkish)
+
 ## 2018.12.5
 * Added a Share button to the popup. This lets you easily copy and paste
 Badger's findings on any page.

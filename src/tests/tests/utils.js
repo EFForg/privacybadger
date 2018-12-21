@@ -7,30 +7,12 @@
   var utils = require('utils');
   var getSurrogateURI = require('surrogates').getSurrogateURI;
 
-  QUnit.test("removeElementFromArray", function (assert) {
-    var testAry = [1,2,3,4,5,6];
-    utils.removeElementFromArray(testAry,2);
-    assert.ok(testAry.length === 5, "Array length is 5");
-    assert.ok(testAry.indexOf(3) === -1, "second element has been deleted");
-    assert.ok(testAry[2] === 4);
-  });
-
-  QUnit.test("removeElementsFromArray", function (assert) {
-    var testAry = [1,2,3,4,5,6];
-    utils.removeElementFromArray(testAry,2, 4);
-    assert.ok(testAry.length === 3, "Array length is 3");
-    assert.ok(testAry.indexOf(3) === -1, "second element deleted");
-    assert.ok(testAry.indexOf(4) === -1, "third element deleted");
-    assert.ok(testAry.indexOf(5) === -1, "fourth element deleted");
-    assert.ok(testAry[2] === 6, "correct value at idx 2");
-  });
-
   QUnit.test("explodeSubdomains", function (assert) {
     var fqdn = "test.what.yea.eff.org";
     var subs = utils.explodeSubdomains(fqdn);
-    assert.ok(subs.length == 4);
-    assert.ok(subs[0] == fqdn);
-    assert.ok(subs[3] == 'eff.org');
+    assert.equal(subs.length, 4);
+    assert.equal(subs[0], fqdn);
+    assert.equal(subs[3], "eff.org");
   });
 
   QUnit.test("xhrRequest", function (assert) {
@@ -103,8 +85,11 @@
   });
 
   QUnit.test("disable/enable privacy badger for origin", function (assert) {
-    var parsed = function() { return badger.storage.getBadgerStorageObject('settings_map').getItem('disabledSites'); };
-    var origLength = parsed() && parsed().length || 0;
+    function parsed() {
+      return badger.storage.getBadgerStorageObject('settings_map').getItem('disabledSites');
+    }
+
+    let origLength = parsed() && parsed().length || 0;
 
     badger.disablePrivacyBadgerForOrigin('foo.com');
     assert.ok(parsed().length == (origLength + 1), "one more disabled site");
@@ -172,7 +157,9 @@
     // test wildcard tokens
     for (let i = 0; i < 25; i++) {
       let url = 'http://cdn.example.com/' + _.sample(
-        'abcdefghijklmnopqrstuvwxyz0123456789', _.random(5, 15)).join('');
+        'abcdefghijklmnopqrstuvwxyz0123456789'.split(''),
+        _.random(5, 15)
+      ).join('');
 
       assert.equal(
         getSurrogateURI(url, window.extractHostFromURL(url)),
@@ -335,25 +322,25 @@
     // parsed cookies (expected output)
     let COOKIES = {};
     COOKIES[optimizelyCookie] = {
-      'optimizelyEndUserId': 'oeu1394241144653r0.5381617322055392',
-      'optimizelySegments': '%7B%22237061344%22%3A%22none%22%2C%22237321400%2' +
+      optimizelyEndUserId: 'oeu1394241144653r0.5381617322055392',
+      optimizelySegments: '%7B%22237061344%22%3A%22none%22%2C%22237321400%2' +
         '2%3A%22ff%22%2C%22237335298%22%3A%22search%22%2C%22237485170%22%3A%2' +
         '2false%22%7D',
-      'optimizelyBuckets': '%7B%7D'
+      optimizelyBuckets: '%7B%7D'
     };
     COOKIES[emptyCookie] = {};
-    COOKIES[testCookie] = {'abc': '123'};
+    COOKIES[testCookie] = {abc: '123'};
     COOKIES[googleCookie] = {
-      'PREF': 'ID=d93d4e842d10e12a:U=3838eaea5cd40d37:FF=0:TM=1394232126:LM=1'+
+      PREF: 'ID=d93d4e842d10e12a:U=3838eaea5cd40d37:FF=0:TM=1394232126:LM=1'+
         '394235924:S=rKP367ac3aAdDzAS',
-      'NID': '67=VwhHOGQunRmNsm9WwJyK571OGqb3RtvUmH987K5DXFgKFAxFwafA_5VPF5_b'+
+      NID: '67=VwhHOGQunRmNsm9WwJyK571OGqb3RtvUmH987K5DXFgKFAxFwafA_5VPF5_b'+
         'sjhrCoM0BjyQdxyL2b-qs9b-fmYCQ_1UqjtqTeidAJBnc2ecjewJia6saHrcJ6yOVVgv'
     };
     COOKIES[hackpadCookie] = {
-      'acctIds': '%5B%22mIqZhIPMu7j%22%2C%221394477194%22%2C%22uT/ayZECO0g/+h'+
+      acctIds: '%5B%22mIqZhIPMu7j%22%2C%221394477194%22%2C%22uT/ayZECO0g/+h'+
         'HtQnjrdEZivWA%3D%22%5D',
-      'PUAS3': '3186efa7f8bca99c',
-      "1ASIE": "T"
+      PUAS3: '3186efa7f8bca99c',
+      '1ASIE': 'T'
     };
 
     // compare actual to expected

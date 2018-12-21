@@ -496,7 +496,7 @@
         "description": ""
     },
     "report_fail": {
-        "message": "Huy. Algo ha salido mal.",
+        "message": "Huy. Algo salió mal.",
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
@@ -568,7 +568,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) es una extensión del navegador que aprende automáticamente a bloquear rastreadores invisibles. Privacy Badger está hecho por la Electronic Frontier Foundation, una organización sin ánimo de lucro que lucha por sus derechos en línea.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) es una extensión de navegador que aprende automáticamente a bloquear rastreadores invisibles. Privacy Badger está hecho por la Electronic Frontier Foundation, una organización sin ánimo de lucro que lucha por sus derechos en línea.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

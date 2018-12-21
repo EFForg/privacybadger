@@ -42,8 +42,8 @@ var temporarySocialWidgetUnblock = {};
 /**
  * Event handling of http requests, main logic to collect data what to block
  *
- * @param details The event details
- * @returns {*} Can cancel requests
+ * @param {Object} details The event details
+ * @returns {Object} Can cancel requests
  */
 function onBeforeRequest(details) {
   var frame_id = details.frameId,
@@ -96,7 +96,11 @@ function onBeforeRequest(details) {
   }
 
   if (!misattribution) {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+    // log the third-party domain asynchronously
+    // (don't block a critical code path on updating the badge)
+    setTimeout(function () {
+      badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+    }, 0);
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -125,10 +129,10 @@ function onBeforeRequest(details) {
 
   // if this is a heuristically- (not user-) blocked domain
   if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
-    // check for DNT policy
+    // check for DNT policy asynchronously
     window.setTimeout(function () {
       badger.checkForDNTPolicy(request_host);
-    }, 10);
+    }, 0);
   }
 
   if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
@@ -144,8 +148,8 @@ function onBeforeRequest(details) {
  * Filters outgoing cookies and referer
  * Injects DNT
  *
- * @param details Event details
- * @returns {*} modified headers
+ * @param {Object} details Event details
+ * @returns {Object} modified headers
  */
 function onBeforeSendHeaders(details) {
   let frame_id = details.frameId,
@@ -199,7 +203,10 @@ function onBeforeSendHeaders(details) {
   var requestAction = checkAction(tab_id, request_host, frame_id);
 
   if (requestAction && !misattribution) {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+    // log the third-party domain asynchronously
+    setTimeout(function () {
+      badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+    }, 0);
   }
 
   // If this might be the third strike against the potential tracker which
@@ -211,7 +218,10 @@ function onBeforeSendHeaders(details) {
     requestAction = checkAction(tab_id, request_host, frame_id);
 
     if (requestAction && !misattribution) {
-      badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+      // log the third-party domain asynchronously
+      setTimeout(function () {
+        badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+      }, 0);
     }
   }
 
@@ -269,8 +279,8 @@ function onBeforeSendHeaders(details) {
 /**
  * Filters incoming cookies out of the response header
  *
- * @param details The event details
- * @returns {*} The new response header
+ * @param {Object} details The event details
+ * @returns {Object} The new response headers
  */
 function onHeadersReceived(details) {
   var tab_id = details.tabId,
@@ -324,7 +334,10 @@ function onHeadersReceived(details) {
   }
 
   if (!misattribution) {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+    // log the third-party domain asynchronously
+    setTimeout(function () {
+      badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+    }, 0);
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -369,7 +382,7 @@ function onTabReplaced(addedTabId, removedTabId) {
  * @param {String} domain1 an fqdn
  * @param {String} domain2 a second fqdn
  *
- * @return boolean true if the domains are third party
+ * @return {Boolean} true if the domains are third party
  */
 function isThirdPartyDomain(domain1, domain2) {
   if (window.isThirdParty(domain1, domain2)) {
@@ -431,7 +444,7 @@ function recordSuperCookie(tab_id, frame_url) {
 /**
  * Record canvas fingerprinting
  *
- * @param {Integer} tabId
+ * @param {Integer} tabId the tab ID
  * @param {Object} msg specific fingerprinting data
  */
 function recordFingerprinting(tabId, msg) {
@@ -575,7 +588,8 @@ function _isTabAnExtension(tabId) {
 /**
  * Provides the social widget blocking content script with list of social widgets to block
  *
- * @returns a specific dict
+ * @returns {Object} dict containing the complete list of widgets
+ * as well as a mapping to indicate which ones should be replaced
  */
 function getSocialWidgetBlockList() {
 
@@ -599,10 +613,10 @@ function getSocialWidgetBlockList() {
 /**
  * Check if tab is temporarily unblocked for tracker
  *
- * @param tabId id of the tab to check
- * @param requestHost FQDN to check
- * @param frameId frame id to check
- * @returns {boolean} true if in exception list
+ * @param {Integer} tabId id of the tab to check
+ * @param {String} requestHost FQDN to check
+ * @param {Integer} frameId frame id to check
+ * @returns {Boolean} true if in exception list
  */
 function isSocialWidgetTemporaryUnblock(tabId, requestHost, frameId) {
   var exceptions = temporarySocialWidgetUnblock[tabId];
@@ -636,9 +650,7 @@ function unblockSocialWidgetOnTab(tabId, socialWidgetUrls) {
   }
 }
 
-/**
- * sender.tab is available for content script (not popup) messages only
- */
+// NOTE: sender.tab is available for content script (not popup) messages only
 function dispatcher(request, sender, sendResponse) {
   if (request.checkEnabled) {
     sendResponse(badger.isPrivacyBadgerEnabled(
@@ -909,8 +921,19 @@ function dispatcher(request, sender, sendResponse) {
 /*************** Event Listeners *********************/
 function startListeners() {
   chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
-  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, ["requestHeaders", "blocking"]);
-  chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, ["responseHeaders", "blocking"]);
+
+  let extraInfoSpec = ['requestHeaders', 'blocking'];
+  if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
+  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
+
+  extraInfoSpec = ['responseHeaders', 'blocking'];
+  if (chrome.webRequest.OnHeadersReceivedOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
+  chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, extraInfoSpec);
+
   chrome.tabs.onRemoved.addListener(onTabRemoved);
   chrome.tabs.onReplaced.addListener(onTabReplaced);
   chrome.runtime.onMessage.addListener(dispatcher);

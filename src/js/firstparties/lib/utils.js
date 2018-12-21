@@ -7,7 +7,7 @@ window.isURL = function(url) {
 /**
  * Search a window and all IFrames within it for a query selector, then return a
  * list of all the elements in any frame that match.
- **/
+ */
 window.findInAllFrames = function(query) {
   let out = [];
   document.querySelectorAll(query).forEach((node) => {
@@ -30,7 +30,7 @@ window.findInAllFrames = function(query) {
  * to the page, execute the function `callback` on them.
  * Used by first-party scripts to listen for new links being added to the page
  * and strip them of tracking code immediately.
- **/
+ */
 window.observeMutations = function(selector, callback) {
   // Check all new nodes added by a mutation for tracking links and unwrap them
   function onMutation(mutation) {

@@ -358,7 +358,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
     # early-warning check for the open_in_tab attribute of options_ui
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251
     def test_options_ui_open_in_tab(self):
-        # open options page manually
+        # open options page manually, keeping the new user intro page
+        self.open_window()
         self.load_options_page()
 
         # switch to new user intro page

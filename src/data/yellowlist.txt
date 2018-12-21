@@ -18,6 +18,8 @@ ally.com
 amazon.com
 s3.amazonaws.com
 amazonaws.com
+coin.amazonpay.com
+coin-eu.amazonpay.com
 americanhomecomings.com
 ancestry.com
 angularjs.org

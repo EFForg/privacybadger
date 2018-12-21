@@ -94,7 +94,7 @@ function getBaseDomain(/**String*/ hostname) /**String*/ {
 
   for (;;) {
     var suffix = window.publicSuffixes[curDomain];
-    if (typeof(suffix) != 'undefined') {
+    if (typeof suffix != 'undefined') {
       tld = suffix;
       break;
     }
@@ -171,7 +171,7 @@ function isPrivateDomain(domain) { // eslint-disable-line no-unused-vars
   };
   for (var ip in privateIpMasks) {
     // Ignore object properties.
-    if (! privateIpMasks.hasOwnProperty(ip)) {
+    if (!privateIpMasks.hasOwnProperty(ip)) {
       continue;
     }
 
