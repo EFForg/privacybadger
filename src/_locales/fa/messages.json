@@ -546,15 +546,15 @@
         "description": "'Error' message when there is on cloud data to download."
     },
     "share_title": {
-        "message": "Tell your friends",
+        "message": "به دوستانتان اطلاع دهید",
         "description": "Title of the share overlay."
     },
     "popup_share_button": {
-        "message": "Share",
+        "message": "به اشتراک بگذارید",
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger found $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "پرایوسی بجر $COUNT$ ردیاب بالقوه در $DOMAIN$ یافت:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -568,15 +568,15 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "پرایوسی بجر (www.eff.org/privacybadger) یک افزونه‌ی مرورگر است که به صورت خودکار می‌آموزد تا ردیاب‌های مخفی را مسدود کند. پرایوسی بجر توسط Electronic Frontier Foundation ساخته شده که به  صورت غیر انتفاعی و آنلاین برای حقوق شما به می‌جنگد.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
-        "message": "Copy to clipboard",
+        "message": "کپی به کلیپ‌بورد",
         "description": "Initial text of the copy button on the share overlay."
     },
     "copy_button_copied": {
-        "message": "Copied",
+        "message": "کپی شد",
         "description": "On-click text of the copy button on the share overlay."
     }
 }
