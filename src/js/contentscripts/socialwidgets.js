@@ -80,7 +80,7 @@ function initialize() {
 function createReplacementButtonImage(tracker, trackerElem, callback) {
   var buttonData = tracker.replacementButton;
 
-  // already have replace button image URI cached
+  // already have replacement button image URI cached
   if (buttonData.buttonUrl) {
     return setTimeout(function () {
       _createReplacementButtonImageCallback(tracker, trackerElem, callback);
@@ -113,14 +113,19 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   var details = buttonData.details;
 
   button.setAttribute("src", buttonUrl);
+
   button.setAttribute(
     "title",
     chrome.i18n.getMessage("social_tooltip_pb_has_replaced", tracker.name)
   );
-  button.setAttribute(
-    "style",
-    "border: none !important; cursor: pointer !important; height: auto !important; width: auto !important;"
-  );
+
+  let styleAttrs = [
+    "border: none",
+    "cursor: pointer",
+    "height: auto",
+    "width: auto",
+  ];
+  button.setAttribute("style", styleAttrs.join(" !important;") + " !important");
 
   switch (buttonType) {
     case 0: // normal button type; just open a new window when clicked
@@ -288,6 +293,45 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
   });
 }
 
+function createReplacementWidget(button, buttonToReplace) {
+  let widgetDiv = document.createElement('div'),
+    // main widget replacement div styles
+    styleAttrs = [
+      "display: flex",
+      "flex-direction: column",
+      "align-items: center",
+      "justify-content: center",
+      "border: 1px solid #ec9329",
+      "padding: 10px",
+      "width:" + buttonToReplace.clientWidth + "px",
+      "height:" + buttonToReplace.clientHeight + "px",
+    ];
+
+  widgetDiv.style = styleAttrs.join(" !important;") + " !important";
+
+  // child div styles
+  styleAttrs = [
+    "display: flex",
+    "align-items: center",
+    "justify-content: center",
+    "text-align: center",
+    "margin: 10px",
+    "width: 100%",
+  ];
+
+  let textDiv = document.createElement('div');
+  textDiv.style = styleAttrs.join(" !important;") + " !important";
+  textDiv.appendChild(document.createTextNode(button.title));
+  widgetDiv.appendChild(textDiv);
+
+  let buttonDiv = document.createElement('div');
+  buttonDiv.style = styleAttrs.join(" !important;") + " !important";
+  buttonDiv.appendChild(button);
+  widgetDiv.appendChild(buttonDiv);
+
+  return widgetDiv;
+}
+
 /**
  * Actually do the work of replacing the button.
  */
@@ -300,10 +344,13 @@ function replaceIndividualButton(tracker) {
     document.querySelectorAll(buttonSelectorsString);
 
   buttonsToReplace.forEach(function (buttonToReplace) {
-    console.log("Replacing social widget for " + tracker.name);
-
     createReplacementButtonImage(tracker, buttonToReplace, function (button) {
-      buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
+      if (tracker.replacementButton.type == 3) {
+        let widgetDiv = createReplacementWidget(button, buttonToReplace);
+        buttonToReplace.parentNode.replaceChild(widgetDiv, buttonToReplace);
+      } else {
+        buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
+      }
     });
   });
 }

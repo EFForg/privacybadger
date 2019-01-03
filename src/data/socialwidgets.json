@@ -97,7 +97,7 @@
             "unblockDomains": [
               "https://w.soundcloud.com/"
             ],
-            "imagePath": "soundcloud.png",
+            "imagePath": "badger-play.png",
             "type": 3
           }
         },
