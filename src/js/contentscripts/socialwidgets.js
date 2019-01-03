@@ -234,9 +234,7 @@ function reinitializeWidgetAndUnblockTracker(button, urls, widgetElement) {
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
-      var codeContainer = document.createElement("div");
-      codeContainer.innerHTML = widgetElement.outerHTML;
-      button.parentNode.replaceChild(codeContainer, button);
+      button.parentNode.parentNode.parentNode.innerHTML = widgetElement.outerHTML;
     }
   });
 }
