@@ -132,6 +132,22 @@
 		}
 	},
 
+
+    "Spotify Player": {
+        "domain": "open.spotify.com",
+        "buttonSelectors": [
+            "iframe[src^='https://open.spotify.com/embed']"
+        ],
+        "replacementButton": {
+            "details": "",
+            "unblockDomains": [
+                "https://open.spotify.com/"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
+    },
+
 	"StumbleUpon": {
 		"domain": "www.stumbleupon.com",
 		"buttonSelectors": [
