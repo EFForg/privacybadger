@@ -148,6 +148,21 @@
         }
     },
 
+    "Streamable Player": {
+        "domain": "streamable.com",
+        "buttonSelectors": [
+            "iframe[src^='https://streamable.com/']"
+        ],
+        "replacementButton": {
+            "details": "",
+            "unblockDomains": [
+                "https://streamable.com/"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
+    },
+
     "StumbleUpon": {
         "domain": "www.stumbleupon.com",
         "buttonSelectors": [
