@@ -221,21 +221,20 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, urls, html) {
 }
 
 /**
- * Unblocks the given tracker and replaces the given button with the widget
- * element's HTML source code.
+ * Unblocks the given tracker and replaces our replacement widget
+ * with the original third-party widget element.
  *
- * @param {Element} button the DOM element of the button to replace
- * @param {Array} urls the associated URLs
- * @param {HTMLElement} widgetElement the DOM element for the widget
+ * @param {Element} button the DOM element of clicked "play button" button
+ * @param {Array} urls tracker URLs
+ * @param {HTMLElement} widget the DOM element for the third-party widget
  */
-function reinitializeWidgetAndUnblockTracker(button, urls, widgetElement) {
+function reinitializeWidgetAndUnblockTracker(button, urls, widget) {
   unblockTracker(urls, function() {
-    // check is needed as for an unknown reason this callback function is
-    // executed for buttons that have already been removed; we are trying
-    // to prevent replacing an already removed button
-    if (button.parentNode !== null) {
-      button.parentNode.parentNode.parentNode.innerHTML = widgetElement.outerHTML;
-    }
+    // The teardown to the initialization defined in createReplacementWidget().
+    // Go two levels up from the "play button" image element
+    // to get the outermost replacement widget div.
+    let replacementWidget = button.parentNode.parentNode;
+    replacementWidget.parentNode.replaceChild(widget, replacementWidget);
   });
 }
 
