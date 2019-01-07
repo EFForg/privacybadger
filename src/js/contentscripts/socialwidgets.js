@@ -127,45 +127,35 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   ];
   button.setAttribute("style", styleAttrs.join(" !important;") + " !important");
 
-  switch (buttonType) {
-    case 0: // normal button type; just open a new window when clicked
-      var popupUrl = details + encodeURIComponent(window.location.href);
+  // normal button type; just open a new window when clicked
+  if (buttonType === 0) {
+    var popupUrl = details + encodeURIComponent(window.location.href);
 
-      button.addEventListener("click", function() {
-        window.open(popupUrl);
-      });
+    button.addEventListener("click", function() {
+      window.open(popupUrl);
+    });
 
-      break;
+  // in place button type; replace the existing button
+  // with an iframe when clicked
+  } else if (buttonType == 1) {
+    var iframeUrl = details + encodeURIComponent(window.location.href);
 
-    // in place button type; replace the existing button
-    // with an iframe when clicked
-    case 1:
-      var iframeUrl = details + encodeURIComponent(window.location.href);
+    button.addEventListener("click", function() {
+      replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, iframeUrl);
+    }, { once: true });
 
-      button.addEventListener("click", function() {
-        replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, iframeUrl);
-      }, { once: true });
+  // in place button type; replace the existing button with code
+  // specified in the Trackers file
+  } else if (buttonType == 2) {
+    button.addEventListener("click", function() {
+      replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
+    }, { once: true });
 
-      break;
-
-    // in place button type; replace the existing button with code
-    // specified in the Trackers file
-    case 2:
-      button.addEventListener("click", function() {
-        replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
-      }, { once: true });
-      break;
-
-    // in-place widget type:
-    // reinitialize the widget by reinserting its element's HTML
-    case 3:
-      button.addEventListener("click", function() {
-        reinitializeWidgetAndUnblockTracker(button, buttonData.unblockDomains, trackerElem);
-      }, { once: true });
-      break;
-
-    default:
-      throw "Invalid button type specified: " + buttonType;
+  // in-place widget type:
+  // reinitialize the widget by reinserting its element's HTML
+  } else if (buttonType == 3) {
+    let widget = createReplacementWidget(button, trackerElem, buttonData.unblockDomains);
+    return callback(widget);
   }
 
   callback(button);
@@ -224,17 +214,16 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, urls, html) {
  * Unblocks the given tracker and replaces our replacement widget
  * with the original third-party widget element.
  *
- * @param {Element} button the DOM element of clicked "play button" button
+ * The teardown to the initialization defined in createReplacementWidget().
+ *
+ * @param {HTMLElement} replacementWidget the DOM element of replacement widget
  * @param {Array} urls tracker URLs
  * @param {HTMLElement} widget the DOM element for the third-party widget
+ * @param {HTMLElement} parentEl the parent DOM element
  */
-function reinitializeWidgetAndUnblockTracker(button, urls, widget) {
+function reinitializeWidgetAndUnblockTracker(replacementWidget, urls, widget, parentEl) {
   unblockTracker(urls, function() {
-    // The teardown to the initialization defined in createReplacementWidget().
-    // Go two levels up from the "play button" image element
-    // to get the outermost replacement widget div.
-    let replacementWidget = button.parentNode.parentNode;
-    replacementWidget.parentNode.replaceChild(widget, replacementWidget);
+    parentEl.replaceChild(widget, replacementWidget);
   });
 }
 
@@ -290,20 +279,29 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
   });
 }
 
-function createReplacementWidget(button, buttonToReplace) {
-  let widgetDiv = document.createElement('div'),
-    // main widget replacement div styles
-    styleAttrs = [
-      "display: flex",
-      "flex-direction: column",
-      "align-items: center",
-      "justify-content: center",
-      "border: 1px solid #ec9329",
-      "padding: 10px",
-      "width:" + buttonToReplace.clientWidth + "px",
-      "height:" + buttonToReplace.clientHeight + "px",
-    ];
+function createReplacementWidget(button, buttonToReplace, trackerUrls) {
+  let widgetFrame = document.createElement('iframe');
 
+  // widget replacement frame styles
+  let styleAttrs = [
+    "border: 1px solid #ec9329",
+    "padding: 10px",
+    "width:" + buttonToReplace.clientWidth + "px",
+    "height:" + buttonToReplace.clientHeight + "px",
+  ];
+  widgetFrame.style = styleAttrs.join(" !important;") + " !important";
+
+  let widgetDiv = document.createElement('div');
+
+  // parent div styles
+  styleAttrs = [
+    "display: flex",
+    "flex-direction: column",
+    "align-items: center",
+    "justify-content: center",
+    "width: 100%",
+    "height: 100%",
+  ];
   widgetDiv.style = styleAttrs.join(" !important;") + " !important";
 
   // child div styles
@@ -326,7 +324,17 @@ function createReplacementWidget(button, buttonToReplace) {
   buttonDiv.appendChild(button);
   widgetDiv.appendChild(buttonDiv);
 
-  return widgetDiv;
+  let parentEl = buttonToReplace.parentNode;
+  widgetFrame.addEventListener('load', function () {
+    // click handler
+    widgetFrame.contentDocument.querySelector('img').addEventListener("click", function () {
+      reinitializeWidgetAndUnblockTracker(widgetFrame, trackerUrls, buttonToReplace, parentEl);
+    }, { once: true });
+  }, false);
+
+  widgetFrame.srcdoc = '<html><head><style>html, body { height: 100%; overflow: hidden; }</style></head><body>' + widgetDiv.outerHTML + '</body></html>';
+
+  return widgetFrame;
 }
 
 /**
@@ -342,12 +350,7 @@ function replaceIndividualButton(tracker) {
 
   buttonsToReplace.forEach(function (buttonToReplace) {
     createReplacementButtonImage(tracker, buttonToReplace, function (button) {
-      if (tracker.replacementButton.type == 3) {
-        let widgetDiv = createReplacementWidget(button, buttonToReplace);
-        buttonToReplace.parentNode.replaceChild(widgetDiv, buttonToReplace);
-      } else {
-        buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
-      }
+      buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
     });
   });
 }
