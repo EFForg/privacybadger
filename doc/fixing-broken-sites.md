@@ -24,7 +24,7 @@ Once the issue is confirmed (and the responsible domains have been identified), 
 | --- | :---: | :---: | :---: | --- |
 | Multi-domain first parties | [MDFP](https://github.com/EFForg/privacybadger/labels/MDFP) | [#781](https://github.com/EFForg/privacybadger/issues/781) | Easy | Narrowly applicable |
 | Script surrogates | [surrogates](https://github.com/EFForg/privacybadger/labels/surrogates) | [#400](https://github.com/EFForg/privacybadger/issues/400) | Hard | Should use uBlock Origin's surrogates ("neutered scripts") as much as possible |
-| Widget replacement | [widgets](https://github.com/EFForg/privacybadger/labels/widgets) | [#196](https://github.com/EFForg/privacybadger/issues/196), [#1467](https://github.com/EFForg/privacybadger/issues/1467) | Hard | Needs review |
+| Widget replacement | [widgets](https://github.com/EFForg/privacybadger/labels/widgets) | [#196](https://github.com/EFForg/privacybadger/issues/196), [#1467](https://github.com/EFForg/privacybadger/issues/1467) | Medium | Still needs review/improvements, although some progress being made ([#2262](https://github.com/EFForg/privacybadger/pull/2262)) |
 | EFF's Do Not Track policy | [DNT Policy](https://github.com/EFForg/privacybadger/labels/DNT%20policy)| - | n/a | Narrowly applicable |
 | Yellowlisting | [yellowlist](https://github.com/EFForg/privacybadger/labels/yellowlist)| - | Easy | Only protects against some types of tracking |
 
