@@ -284,6 +284,7 @@ function createReplacementWidget(button, buttonToReplace, trackerDomains) {
 
   // widget replacement frame styles
   let styleAttrs = [
+    "background-color: #fff",
     "border: 1px solid #ec9329",
     "width:" + buttonToReplace.clientWidth + "px",
     "height:" + buttonToReplace.clientHeight + "px",
