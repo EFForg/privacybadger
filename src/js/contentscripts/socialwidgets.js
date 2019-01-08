@@ -285,7 +285,6 @@ function createReplacementWidget(button, buttonToReplace, trackerUrls) {
   // widget replacement frame styles
   let styleAttrs = [
     "border: 1px solid #ec9329",
-    "padding: 10px",
     "width:" + buttonToReplace.clientWidth + "px",
     "height:" + buttonToReplace.clientHeight + "px",
   ];
