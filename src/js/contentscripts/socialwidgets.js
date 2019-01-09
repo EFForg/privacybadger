@@ -288,6 +288,7 @@ function createReplacementWidget(button, buttonToReplace, trackerDomains) {
     "border: 1px solid #ec9329",
     "width:" + buttonToReplace.clientWidth + "px",
     "height:" + buttonToReplace.clientHeight + "px",
+    "z-index: 2147483647",
   ];
   widgetFrame.style = styleAttrs.join(" !important;") + " !important";
 
