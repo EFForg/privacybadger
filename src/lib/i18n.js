@@ -46,13 +46,27 @@ function setTextDirection() {
 
     // fix margins
     ['#settings-suffix', '#check-dnt-policy-row'].forEach((selector) => {
-      let $el = $(selector);
-      $el.css('margin-right', $el.css('margin-left')).css('margin-left', "auto");
+      let $els = $(selector);
+      $els.each(i => {
+        let $el = $($els[i]);
+        $el.css('margin-right', $el.css('margin-left')).css('margin-left', "auto");
+      });
     });
+    ['#whitelistForm > div > div > div'].forEach((selector) => {
+      let $els = $(selector);
+      $els.each(i => {
+        let $el = $($els[i]);
+        $el.css('margin-left', $el.css('margin-right')).css('margin-right', "auto");
+      });
+    });
+
     // fix floats
-    ['.btn-silo', '.btn-silo div'].forEach((selector) => {
-      let $el = $(selector);
-      $(selector).css('float', $el.css('float') == 'left' ? 'right' : 'left');
+    ['.btn-silo', '.btn-silo div', '#whitelistForm > div > div > div'].forEach((selector) => {
+      let $els = $(selector);
+      $els.each(i => {
+        let $el = $($els[i]);
+        $el.css('float', $el.css('float') == 'left' ? 'right' : 'left');
+      });
     });
   }
 }
