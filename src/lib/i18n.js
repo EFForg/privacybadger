@@ -20,6 +20,22 @@
 const i18n = chrome.i18n;
 
 function setTextDirection() {
+  function swap_css_property(selector, from, to) {
+    let $els = $(selector);
+    $els.each(i => {
+      let $el = $($els[i]);
+      $el.css(to, $el.css(from)).css(from, "unset");
+    });
+  }
+
+  function toggle_css_value(selector, property, from, to) {
+    let $els = $(selector);
+    $els.each(i => {
+      let $el = $($els[i]);
+      $el.css(property, $el.css(property) === from ? to : from);
+    });
+  }
+
   // https://www.w3.org/International/questions/qa-scripts#examples
   // https://developer.chrome.com/webstore/i18n?csw=1#localeTable
   const RTL_LANGS = ['ar', 'he', 'fa'];
@@ -35,34 +51,18 @@ function setTextDirection() {
   if (document.location.pathname == "/skin/popup.html") {
     // fix floats
     ['#privacyBadgerHeader h2', '#privacyBadgerHeader img', '#instruction img', '#version'].forEach((selector) => {
-      let $els = $(selector);
-      $els.each(i => {
-        let $el = $($els[i]);
-        $el.css('float', $el.css('float') == 'left' ? 'right' : 'left');
-      });
+      toggle_css_value(selector, "float", "left", "right");
     });
     ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
-      let $els = $(selector);
-      $els.each(i => {
-        let $el = $($els[i]);
-        $el.css('float', $el.css('float') == 'right' ? 'left' : 'right');
-      });
+      toggle_css_value(selector, "float", "right", "left");
     });
 
     // fix padding
     ['#version'].forEach((selector) => {
-      let $els = $(selector);
-      $els.each(i => {
-        let $el = $($els[i]);
-        $el.css('padding-right', $el.css('padding-left')).css('padding-left', "unset");
-      });
+      swap_css_property(selector, "padding-left", "padding-right");
     });
     ['#privacyBadgerHeader h2', '#instruction img', '#help', '#share'].forEach((selector) => {
-      let $els = $(selector);
-      $els.each(i => {
-        let $el = $($els[i]);
-        $el.css('padding-left', $el.css('padding-right')).css('padding-right', "unset");
-      });
+      swap_css_property(selector, "padding-right", "padding-left");
     });
 
   // options page
@@ -81,27 +81,15 @@ function setTextDirection() {
 
     // fix margins
     ['#settings-suffix', '#check-dnt-policy-row'].forEach((selector) => {
-      let $els = $(selector);
-      $els.each(i => {
-        let $el = $($els[i]);
-        $el.css('margin-right', $el.css('margin-left')).css('margin-left', "auto");
-      });
+      swap_css_property(selector, "margin-left", "margin-right");
     });
     ['#whitelistForm > div > div > div'].forEach((selector) => {
-      let $els = $(selector);
-      $els.each(i => {
-        let $el = $($els[i]);
-        $el.css('margin-left', $el.css('margin-right')).css('margin-right', "auto");
-      });
+      swap_css_property(selector, "margin-right", "margin-left");
     });
 
     // fix floats
     ['.btn-silo', '.btn-silo div', '#whitelistForm > div > div > div'].forEach((selector) => {
-      let $els = $(selector);
-      $els.each(i => {
-        let $el = $($els[i]);
-        $el.css('float', $el.css('float') == 'left' ? 'right' : 'left');
-      });
+      toggle_css_value(selector, "float", "left", "right");
     });
   }
 }
