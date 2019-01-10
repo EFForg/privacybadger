@@ -27,22 +27,22 @@ var pbStorage = require("storage");
 var HeuristicBlocking = require("heuristicblocking");
 var FirefoxAndroid = require("firefoxandroid");
 var webrequest = require("webrequest");
-var socialWidgetLoader = require("socialwidgetloader");
+var widgetLoader = require("widgetloader");
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
 
 /**
-* privacy badger initializer
-*/
+ * Privacy Badger initializer.
+ */
 function Badger() {
   var self = this;
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
 
-  self.socialWidgetList = [];
-  socialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json", (response) => {
-    self.socialWidgetList = response;
+  self.widgetList = [];
+  widgetLoader.loadWidgetsFromFile("data/socialwidgets.json", (response) => {
+    self.widgetList = response;
   });
 
   self.storage = new pbStorage.BadgerPen(function(thisStorage) {
@@ -488,7 +488,7 @@ Badger.prototype = {
   }, constants.DNT_POLICY_CHECK_INTERVAL),
 
   /**
-   * Default privacy badger settings
+   * Default Privacy Badger settings
    */
   defaultSettings: {
     checkForDNTPolicy: true,
@@ -654,9 +654,9 @@ Badger.prototype = {
   },
 
   /**
-   * Check if social widget replacement functionality is enabled
+   * Check if widget replacement functionality is enabled.
    */
-  isSocialWidgetReplacementEnabled: function() {
+  isWidgetReplacementEnabled: function () {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
