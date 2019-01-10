@@ -615,17 +615,14 @@ function isWidgetTemporaryUnblock(tabId, requestHost, frameId) {
  * corresponding replacement widget.
  *
  * @param {Integer} tabId The id of the tab
- * @param {Array} widgetUrls an array of widget urls
+ * @param {Array} domains widget domains
  */
-function unblockWidgetOnTab(tabId, widgetUrls) {
+function unblockWidgetOnTab(tabId, domains) {
   if (temporaryWidgetUnblock[tabId] === undefined) {
     temporaryWidgetUnblock[tabId] = [];
   }
-  for (let i in widgetUrls) {
-    let url = widgetUrls[i];
-    // TODO just store actual domains in the JSON in the first place
-    let host = window.extractHostFromURL(url);
-    temporaryWidgetUnblock[tabId].push(host);
+  for (let i = 0; i < domains.length; i++) {
+    temporaryWidgetUnblock[tabId].push(domains[i]);
   }
 }
 
