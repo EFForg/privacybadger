@@ -117,7 +117,7 @@
     },
 
     "SoundCloud": {
-        "domain": "soundcloud.com",
+        "domain": "w.soundcloud.com",
         "buttonSelectors": [
             "iframe[src^='https://w.soundcloud.com/player']"
         ],
