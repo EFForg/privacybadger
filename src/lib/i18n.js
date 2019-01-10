@@ -31,7 +31,42 @@ function setTextDirection() {
   // set body text direction
   document.body.setAttribute("dir", "rtl");
 
-  if (document.location.pathname == "/skin/options.html") {
+  // popup page
+  if (document.location.pathname == "/skin/popup.html") {
+    // fix floats
+    ['#privacyBadgerHeader h2', '#privacyBadgerHeader img', '#instruction img', '#version'].forEach((selector) => {
+      let $els = $(selector);
+      $els.each(i => {
+        let $el = $($els[i]);
+        $el.css('float', $el.css('float') == 'left' ? 'right' : 'left');
+      });
+    });
+    ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
+      let $els = $(selector);
+      $els.each(i => {
+        let $el = $($els[i]);
+        $el.css('float', $el.css('float') == 'right' ? 'left' : 'right');
+      });
+    });
+
+    // fix padding
+    ['#version'].forEach((selector) => {
+      let $els = $(selector);
+      $els.each(i => {
+        let $el = $($els[i]);
+        $el.css('padding-right', $el.css('padding-left')).css('padding-left', "unset");
+      });
+    });
+    ['#privacyBadgerHeader h2', '#instruction img', '#help', '#share'].forEach((selector) => {
+      let $els = $(selector);
+      $els.each(i => {
+        let $el = $($els[i]);
+        $el.css('padding-left', $el.css('padding-right')).css('padding-right', "unset");
+      });
+    });
+
+  // options page
+  } else if (document.location.pathname == "/skin/options.html") {
     // apply RTL workaround for jQuery UI tabs
     // https://zoomicon.wordpress.com/2009/10/15/how-to-use-jqueryui-tabs-in-right-to-left-layout/
     let css = document.createElement("style");
