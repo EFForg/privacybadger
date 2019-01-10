@@ -559,11 +559,14 @@ let getWidgetBlockList = (function () {
     }
 
     badger.widgetList.forEach(function (widget) {
-      // Only replace blocked and yellowlisted widgets and only if the widget is not on the 'do not replace' list
+      // replace blocked widgets only
+      // and only if the widget is not on the 'do not replace' list
       const replace = !badger.getSettings().getItem('widgetReplacementExceptions').includes(widget.name);
+      const action = badger.storage.getBestAction(widget.domain);
 
-      widgetsToReplace[widget.name] = replace && constants.BLOCKED_ACTIONS.has(
-        badger.storage.getBestAction(widget.domain)
+      widgetsToReplace[widget.name] = replace && (
+        action == constants.BLOCK ||
+        action == constants.USER_BLOCK
       );
     });
 
