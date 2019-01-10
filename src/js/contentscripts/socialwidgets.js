@@ -167,11 +167,11 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
  * pointing to the given URL.
  *
  * @param {Element} button the DOM element of the button to replace
- * @param {Array} urls the associated URLs
+ * @param {Array} domains the button's domains
  * @param {String} iframeUrl the URL of the iframe to replace the button
  */
-function replaceButtonWithIframeAndUnblockTracker(button, urls, iframeUrl) {
-  unblockTracker(urls, function() {
+function replaceButtonWithIframeAndUnblockTracker(button, domains, iframeUrl) {
+  unblockTracker(domains, function () {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
@@ -191,11 +191,11 @@ function replaceButtonWithIframeAndUnblockTracker(button, urls, iframeUrl) {
  * HTML code defined in the provided Tracker object.
  *
  * @param {Element} button the DOM element of the button to replace
- * @param {Array} urls the associated URLs
+ * @param {Array} domains the button's domains
  * @param {String} html the HTML string that should replace the button
  */
-function replaceButtonWithHtmlCodeAndUnblockTracker(button, urls, html) {
-  unblockTracker(urls, function() {
+function replaceButtonWithHtmlCodeAndUnblockTracker(button, domains, html) {
+  unblockTracker(domains, function () {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
@@ -217,12 +217,12 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, urls, html) {
  * The teardown to the initialization defined in createReplacementWidget().
  *
  * @param {HTMLElement} replacementWidget the DOM element of replacement widget
- * @param {Array} urls tracker URLs
+ * @param {Array} domains the widget's domains
  * @param {HTMLElement} widget the DOM element for the third-party widget
  * @param {HTMLElement} parentEl the parent DOM element
  */
-function reinitializeWidgetAndUnblockTracker(replacementWidget, urls, widget, parentEl) {
-  unblockTracker(urls, function() {
+function reinitializeWidgetAndUnblockTracker(replacementWidget, domains, widget, parentEl) {
+  unblockTracker(domains, function () {
     parentEl.replaceChild(widget, replacementWidget);
   });
 }
@@ -279,7 +279,7 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
   });
 }
 
-function createReplacementWidget(button, buttonToReplace, trackerUrls) {
+function createReplacementWidget(button, buttonToReplace, trackerDomains) {
   let widgetFrame = document.createElement('iframe');
 
   // widget replacement frame styles
@@ -327,7 +327,7 @@ function createReplacementWidget(button, buttonToReplace, trackerUrls) {
   widgetFrame.addEventListener('load', function () {
     // click handler
     widgetFrame.contentDocument.querySelector('img').addEventListener("click", function () {
-      reinitializeWidgetAndUnblockTracker(widgetFrame, trackerUrls, buttonToReplace, parentEl);
+      reinitializeWidgetAndUnblockTracker(widgetFrame, trackerDomains, buttonToReplace, parentEl);
     }, { once: true });
   }, false);
 
@@ -376,16 +376,16 @@ function getTrackerData(callback) {
 }
 
 /**
- * Messages the background page to temporarily allow an array of URLs.
+ * Messages the background page to temporarily allow an array of domains.
  * Calls the provided callback function upon response.
  *
- * @param {Array} buttonUrls the URLs to be temporarily allowed
+ * @param {Array} domains the domains to be temporarily allowed
  * @param {Function} callback the callback function
  */
-function unblockTracker(buttonUrls, callback) {
+function unblockTracker(domains, callback) {
   let request = {
     unblockWidget: true,
-    buttonUrls: buttonUrls
+    domains: domains
   };
   chrome.runtime.sendMessage(request, callback);
 }

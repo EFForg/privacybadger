@@ -600,20 +600,18 @@ function isWidgetTemporaryUnblock(tabId, requestHost, frameId) {
 }
 
 /**
- * Unblocks a tracker just temporarily on this tab, because the user has clicked the
- * corresponding replacement widget.
+ * Unblocks a tracker just temporarily on this tab, because the user has
+ * clicked the corresponding replacement widget.
  *
- * @param {Integer} tabId The id of the tab
- * @param {Array} widgetUrls an array of widget urls
+ * @param {Integer} tabId tab ID
+ * @param {Array} domains widget domains
  */
-function unblockWidgetOnTab(tabId, widgetUrls) {
+function unblockWidgetOnTab(tabId, domains) {
   if (temporaryWidgetUnblock[tabId] === undefined) {
     temporaryWidgetUnblock[tabId] = [];
   }
-  for (let i in widgetUrls) {
-    let url = widgetUrls[i];
-    let host = window.extractHostFromURL(url);
-    temporaryWidgetUnblock[tabId].push(host);
+  for (let i = 0; i < domains.length; i++) {
+    temporaryWidgetUnblock[tabId].push(domains[i]);
   }
 }
 
@@ -652,7 +650,7 @@ function dispatcher(request, sender, sendResponse) {
     }
 
   } else if (request.unblockWidget) {
-    unblockWidgetOnTab(sender.tab.id, request.buttonUrls);
+    unblockWidgetOnTab(sender.tab.id, request.domains);
     sendResponse();
 
   } else if (request.getReplacementButton) {
