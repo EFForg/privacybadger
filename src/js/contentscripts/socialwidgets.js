@@ -44,7 +44,7 @@
  */
 
 /**
- * Social widget tracker data, read from file.
+ * Widget data, read from file.
  */
 let trackerInfo;
 
@@ -62,7 +62,7 @@ function initialize() {
 
   // Set up listener for blocks that happen after initial check
   chrome.runtime.onMessage.addListener(function(request/*, sender, sendResponse*/) {
-    if (request.replaceSocialWidget) {
+    if (request.replaceWidget) {
       replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
     }
   });
@@ -416,7 +416,7 @@ function getTrackerData(callback) {
  */
 function unblockTracker(buttonUrls, callback) {
   let request = {
-    unblockSocialWidget: true,
+    unblockWidget: true,
     buttonUrls: buttonUrls
   };
   chrome.runtime.sendMessage(request, callback);
@@ -436,9 +436,9 @@ if (document instanceof HTMLDocument === false && (
 }
 
 chrome.runtime.sendMessage({
-  checkSocialWidgetReplacementEnabled: true
-}, function (checkSocialWidgetReplacementEnabled) {
-  if (!checkSocialWidgetReplacementEnabled) {
+  checkWidgetReplacementEnabled: true
+}, function (checkWidgetReplacementEnabled) {
+  if (!checkWidgetReplacementEnabled) {
     return;
   }
   initialize();
