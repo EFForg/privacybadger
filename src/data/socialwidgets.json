@@ -192,5 +192,21 @@
             "imagePath": "Twitter.svg",
             "type": 0
         }
+    },
+
+    "Vimeo": {
+        "domain": "player.vimeo.com",
+        "buttonSelectors": [
+            "iframe[src^='https://player.vimeo.com/video/']",
+            "iframe[src^='//player.vimeo.com/video/']"
+        ],
+        "replacementButton": {
+            "details": "",
+            "unblockDomains": [
+                "https://player.vimeo.com/"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
     }
 }
