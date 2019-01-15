@@ -29,7 +29,7 @@ QUnit.test("Updating to a valid list", (assert) => {
   assert.expect(3);
 
   let ylist = get_ylist();
-  assert.ok(!!Object.keys(ylist).length, "Yellowlist is not empty");
+  assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
 
   // remove a domain
   let removed_domain = Object.keys(ylist)[0];
@@ -44,8 +44,8 @@ QUnit.test("Updating to a valid list", (assert) => {
     [200, {}, Object.keys(ylist).join("\n")]);
 
   badger.updateYellowlist(function (success) {
-    assert.ok(success, "Callback status indicates success");
-    assert.deepEqual(get_ylist(), ylist, "List got updated");
+    assert.ok(success, "callback status indicates success");
+    assert.deepEqual(get_ylist(), ylist, "list got updated");
     done();
   });
 });
@@ -55,15 +55,15 @@ QUnit.test("Updating receives a blank response", (assert) => {
   assert.expect(3);
 
   let ylist = get_ylist();
-  assert.ok(!!Object.keys(ylist).length, "Yellowlist is not empty");
+  assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
 
   // respond with no content
   server.respondWith("GET", constants.YELLOWLIST_URL,
     [200, {}, ""]);
 
   badger.updateYellowlist(function (success) {
-    assert.notOk(success, "Callback status indicates failure");
-    assert.deepEqual(get_ylist(), ylist, "List did not get updated");
+    assert.notOk(success, "callback status indicates failure");
+    assert.deepEqual(get_ylist(), ylist, "list did not get updated");
     done();
   });
 });
@@ -82,7 +82,7 @@ QUnit.test("Updating receives an invalid response", (assert) => {
   assert.expect(1 + (2 * BAD_RESPONSES.length));
 
   let ylist = get_ylist();
-  assert.ok(!!Object.keys(ylist).length, "Yellowlist is not empty");
+  assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
 
   BAD_RESPONSES.forEach(response => {
     // respond with stuff that may look like the yellowlist but is not
@@ -91,9 +91,9 @@ QUnit.test("Updating receives an invalid response", (assert) => {
 
     badger.updateYellowlist(function (success) {
       assert.notOk(success,
-        "Callback status indicates failure for " + JSON.stringify(response));
+        "callback status indicates failure for " + JSON.stringify(response));
       assert.deepEqual(get_ylist(), ylist,
-        "List did not get updated for " + JSON.stringify(response));
+        "list did not get updated for " + JSON.stringify(response));
       done();
     });
   });
@@ -108,12 +108,12 @@ QUnit.test("Updating gets a server error", (assert) => {
     [404, {}, "page not found"]);
 
   badger.updateYellowlist(function (success) {
-    assert.notOk(success, "Callback status indicates failure");
+    assert.notOk(success, "callback status indicates failure");
     done();
   });
 });
 
-QUnit.test("Added domains get cookieblocked", (assert) => {
+QUnit.test("added domains get cookieblocked", (assert) => {
   const DOMAIN = "example.com";
 
   let done = assert.async();
@@ -130,13 +130,13 @@ QUnit.test("Added domains get cookieblocked", (assert) => {
 
   // update yellowlist
   badger.updateYellowlist(function (success) {
-    assert.ok(success, "Callback status indicates success");
+    assert.ok(success, "callback status indicates success");
 
     // check that the domain got cookieblocked
     assert.equal(
       badger.storage.getAction(DOMAIN),
       constants.COOKIEBLOCK,
-      "domain is marked for blocking"
+      "domain is marked for cookieblocking"
     );
 
     done();
