@@ -49,22 +49,22 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         self.assertFalse(self.get_snitch_map_for("raw.githubusercontent.com"),
             msg="Image is not a tracker but was flagged as one.")
 
+
     def test_should_detect_ls_of_third_party_frame(self):
-        # TODO We get some intermittent failures for this test.
-
-        # It seems we sometimes miss the setting of localStorage items,
-        # perhaps because the script runs before we start intercepting the calls.
-
-        # Perhaps related to https://github.com/ghostwords/chameleon/issues/5
-        # Might also be related to https://github.com/EFForg/privacybadger/pull/1522
-
         self.load_url(
             "https://gitcdn.link/cdn/gunesacar/"
             "24d81a5c964cb563614162c264be32f0/raw/8fa10f97b87343dfb62ae9b98b753c73a995157e/"
             "frame_ls.html"
         )
+
+        # TODO We get some intermittent failures for this test.
+        # It seems we sometimes miss the setting of localStorage items
+        # because the script runs after we already checked what's in localStorage.
+        # We can work around this race condition by reloading the page.
+        self.driver.refresh()
+
         self.assertEqual(
-            pbtest.retry_until(partial(self.get_snitch_map_for, "githack.com")),
+            pbtest.retry_until(partial(self.get_snitch_map_for, "githack.com"), times=3),
             ["gitcdn.link"]
         )
 
