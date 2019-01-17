@@ -1,6 +1,6 @@
 {
     "badger_status_block": {
-        "message": "Doména $DOMAIN$ je blokována.",
+        "message": "Doména $DOMAIN$ je blokována",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -144,7 +144,7 @@
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Doména $DOMAIN je povolena.",
+        "message": "Doména $DOMAIN je povolena",
         "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -322,7 +322,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "v souladu s DNT (žádost o nesledování)",
+        "message": "v souladu s Do Not Track",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -510,7 +510,7 @@
         }
     },
     "sync_intro": {
-        "message": "Synchronizace s cloudovou službou:<ul><li>Vyžaduje účet pro synchronizaci dat prohlížeče Firefox nebo Google Chrome.</li><li>Nahráním údajů přepíšete veškerá předchozí data rozšíření Privacy Badger na cloudu.</li><li> Stáhnutím dat z cloudu se sjednotí seznamy domén, na kterých je Privacy Badger vypnutý.</li></ul>",
+        "message": "Synchronizace s cloudovou službou:<ul><li>Vyžaduje účet pro synchronizaci dat prohlížeče Firefox nebo Google Chrome.</li><li>Nahráním údajů přepíšete veškerá předchozí data rozšíření Privacy Badger na cloudu.</li><li>Stáhnutím dat z cloudu se sjednotí seznamy domén, na kterých je Privacy Badger vypnutý.</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
