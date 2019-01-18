@@ -156,6 +156,12 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   } else if (buttonType == 3) {
     let widget = createReplacementWidget(button, trackerElem, buttonData.unblockDomains);
     return callback(widget);
+
+  // lazy-loading widget type:
+  // reinitialize the widget by reinserting its element's HTML
+  } else if (buttonType == 4) {
+    let widget = createReplacementLazyLoader(button, trackerElem, buttonData.unblockDomains, tracker.scriptSelectors);
+    return callback(widget);
   }
 
   callback(button);
@@ -228,6 +234,24 @@ function reinitializeWidgetAndUnblockTracker(replacementWidget, domains, widget,
 }
 
 /**
+ * Unblocks the given tracker and replaces our replacement widget
+ * with the original third-party widget element.
+ *
+ * The teardown to the initialization defined in createReplacementWidget().
+ *
+ * @param {HTMLElement} replacementWidget the DOM element of replacement widget
+ * @param {Array} urls tracker URLs
+ * @param {HTMLElement} widget the DOM element for the third-party widget
+ * @param {HTMLElement} parentEl the parent DOM element
+ */
+function replaceWidgetAndReloadScripts(replacementWidget, urls, widget, parentEl, scriptSelectors) {
+  unblockTracker(urls, function() {
+    parentEl.replaceChild(widget, replacementWidget);
+    reloadScripts(scriptSelectors);
+  });
+}
+
+/**
  * Dumping scripts into innerHTML won't execute them, so replace them
  * with executable scripts.
  */
@@ -277,6 +301,68 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
       replaceIndividualButton(tracker);
     }
   });
+}
+
+function createReplacementLazyLoader(button, divToReplace, trackerUrls, scriptSelectors) {
+  let widgetFrame = document.createElement('iframe');
+
+  let divWidth = divToReplace.clientWidth || 300;
+  let divHeight = divToReplace.clientHeight || 150;
+
+  // widget replacement frame styles
+  let styleAttrs = [
+    "background-color: #fff",
+    "border: 1px solid #ec9329",
+    "width:" + divWidth + "px",
+    "height:" + divHeight + "px",
+    "z-index: 2147483647",
+  ];
+  widgetFrame.style = styleAttrs.join(" !important;") + " !important";
+
+  let innerDiv = document.createElement('div');
+
+  // parent div styles
+  styleAttrs = [
+    "display: flex",
+    "flex-direction: column",
+    "align-items: center",
+    "justify-content: center",
+    "width: 100%",
+    "height: 100%",
+  ];
+  innerDiv.style = styleAttrs.join(" !important;") + " !important";
+
+  // child div styles
+  styleAttrs = [
+    "display: flex",
+    "align-items: center",
+    "justify-content: center",
+    "text-align: center",
+    "margin: 10px",
+    "width: 100%",
+  ];
+
+  let textDiv = document.createElement('div');
+  textDiv.style = styleAttrs.join(" !important;") + " !important";
+  textDiv.appendChild(document.createTextNode(button.title));
+  innerDiv.appendChild(textDiv);
+
+  let buttonDiv = document.createElement('div');
+  buttonDiv.style = styleAttrs.join(" !important;") + " !important";
+  buttonDiv.appendChild(button);
+  innerDiv.appendChild(buttonDiv);
+
+  let parentEl = divToReplace.parentNode;
+  widgetFrame.addEventListener('load', function () {
+    // click handler
+    widgetFrame.contentDocument.querySelector('img').addEventListener("click", function () {
+      replaceWidgetAndReloadScripts(widgetFrame, trackerUrls, divToReplace, parentEl, scriptSelectors);
+    }, { once: true });
+  }, false);
+
+  widgetFrame.srcdoc = '<html><head><style>html, body { height: 100%; overflow: hidden; }</style></head><body>' + innerDiv.outerHTML + '</body></html>';
+
+  return widgetFrame;
 }
 
 function createReplacementWidget(button, buttonToReplace, trackerDomains) {
@@ -353,6 +439,18 @@ function replaceIndividualButton(tracker) {
     createReplacementButtonImage(tracker, buttonToReplace, function (button) {
       buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
     });
+  });
+}
+
+
+/**
+ * Replace an included script with a copy of itself to trigger a re-run.
+ */
+function reloadScripts(selectors) {
+  let scriptsToReload = document.querySelectorAll(selectors.toString());
+
+  scriptsToReload.forEach(function (scriptToReplace) {
+    scriptToReplace.parentNode.replaceChild(scriptToReplace, scriptToReplace);
   });
 }
 
