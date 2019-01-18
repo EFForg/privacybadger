@@ -450,7 +450,14 @@ function reloadScripts(selectors) {
   let scriptsToReload = document.querySelectorAll(selectors.toString());
 
   scriptsToReload.forEach(function (scriptToReplace) {
-    scriptToReplace.parentNode.replaceChild(scriptToReplace, scriptToReplace);
+    let script = document.createElement("script");
+    script.text = scriptToReplace.innerHTML;
+    script.src = scriptToReplace.src;
+    script.src = scriptToReplace.src;
+    for (var i = 0, atts = scriptToReplace.attributes, n = atts.length, arr = []; i < n; i++){
+          script.setAttribute(atts[i].nodeName, atts[i].nodeValue);
+    }
+    scriptToReplace.parentNode.replaceChild(script, scriptToReplace);
   });
 }
 

@@ -37,13 +37,14 @@
             "div#disqus_thread"
         ],
         "scriptSelectors": [
-            "script[src^='.disqus.com/embed.js']"
+            "script[src*='.disqus.com/embed.js']"
         ],
         "replacementButton": {
             "details": "",
             "unblockDomains": [
-                "disqus.com",
-                "disquscdn.com"
+                "https://cyphers-test.disqus.com/embed.js",
+                "https://disqus.com/",
+                "https://referrer.disqus.com/"
             ],
             "imagePath": "badger-play.png",
             "type": 4
