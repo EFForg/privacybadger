@@ -240,12 +240,12 @@ function reinitializeWidgetAndUnblockTracker(replacementWidget, domains, widget,
  * The teardown to the initialization defined in createReplacementWidget().
  *
  * @param {HTMLElement} replacementWidget the DOM element of replacement widget
- * @param {Array} urls tracker URLs
+ * @param {Array} domains tracker domains
  * @param {HTMLElement} widget the DOM element for the third-party widget
  * @param {HTMLElement} parentEl the parent DOM element
  */
-function replaceWidgetAndReloadScripts(replacementWidget, urls, widget, parentEl, scriptSelectors) {
-  unblockTracker(urls, function() {
+function replaceWidgetAndReloadScripts(replacementWidget, domains, widget, parentEl, scriptSelectors) {
+  unblockTracker(domains, function() {
     parentEl.replaceChild(widget, replacementWidget);
     reloadScripts(scriptSelectors);
   });
@@ -303,7 +303,7 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
   });
 }
 
-function createReplacementLazyLoader(button, divToReplace, trackerUrls, scriptSelectors) {
+function createReplacementLazyLoader(button, divToReplace, trackerDomains, scriptSelectors) {
   let widgetFrame = document.createElement('iframe');
 
   let divWidth = divToReplace.clientWidth || 300;
@@ -356,7 +356,7 @@ function createReplacementLazyLoader(button, divToReplace, trackerUrls, scriptSe
   widgetFrame.addEventListener('load', function () {
     // click handler
     widgetFrame.contentDocument.querySelector('img').addEventListener("click", function () {
-      replaceWidgetAndReloadScripts(widgetFrame, trackerUrls, divToReplace, parentEl, scriptSelectors);
+      replaceWidgetAndReloadScripts(widgetFrame, trackerDomains, divToReplace, parentEl, scriptSelectors);
     }, { once: true });
   }, false);
 
