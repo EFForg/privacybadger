@@ -591,12 +591,28 @@ function isWidgetTemporaryUnblock(tabId, requestHost, frameId) {
     return false;
   }
 
-  var requestExcept = (exceptions.indexOf(requestHost) != -1);
+  if (exceptions.indexOf(requestHost) != -1) {
+    return true;
+  }
 
-  var frameHost = badger.getFrameData(tabId, frameId).host;
-  var frameExcept = (exceptions.indexOf(frameHost) != -1);
+  let frameData = badger.getFrameData(tabId, frameId);
+  let frameHost = frameData && frameData.host;
+  if (exceptions.indexOf(frameHost) != -1) {
+    return true;
+  }
 
-  return (requestExcept || frameExcept);
+  for (let i = 0; i < exceptions.length; i++) {
+    if (exceptions[i].match(/[\/].*[\/]/)) {
+      let regex = exceptions.slice(1, -1);
+
+      if (requestHost.match(regex) ||
+          frameHost.match(regex)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 /**

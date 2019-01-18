@@ -42,9 +42,8 @@
         "replacementButton": {
             "details": "",
             "unblockDomains": [
-                "https://cyphers-test.disqus.com/embed.js",
-                "https://disqus.com/",
-                "https://referrer.disqus.com/"
+                "/.*\\.disqus\\.com/",
+                "disqus.com"
             ],
             "imagePath": "badger-play.png",
             "type": 4
