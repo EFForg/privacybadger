@@ -480,7 +480,7 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "Die unten aufgeführten Domains scheinen Ihre Internetaktivitäten nicht zu verfolgen",
+        "message": "Die nachfolgenden Domains scheinen Ihre Internetaktivitäten nicht zu verfolgen",
         "description": ""
     },
     "popup_options_button": {
