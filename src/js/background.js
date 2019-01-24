@@ -185,7 +185,7 @@ Badger.prototype = {
       // launch the new user intro page and unset first-run flag
       if (settings.getItem("showIntroPage")) {
         chrome.tabs.create({
-          url: chrome.extension.getURL("/skin/firstRun.html")
+          url: chrome.runtime.getURL("/skin/firstRun.html")
         });
       } else {
         // don't remind users to look at the intro page either
