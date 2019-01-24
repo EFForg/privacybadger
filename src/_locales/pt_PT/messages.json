@@ -186,7 +186,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Aprende enquanto você navega",
+        "message": "Aprende enquanto navega",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
@@ -354,7 +354,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Mova o controle deslizante para a esquerda para bloquear um domínio",
+        "message": "Mova o controlo deslizante para a esquerda para bloquear um domínio",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "O Privacy Badger detetou $COUNT$ $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ em potencial neste site. Os controles deslizantes permitem que controle o que o Privacy Badger faz com cada rastreador. Não necessita de ajustar os controles a não ser que algo esteja errado.",
+        "message": "O Privacy Badger detetou $COUNT$ $TRACKER_LINK_START$potenciais rastreadores$TRACKER_LINK_END$ neste site. Os controlos deslizantes permitem-lhe controlar o que o Privacy Badger faz com cada rastreador. Não necessita de ajustar os controlos a não ser que algo esteja errado.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "O Privacy Badger detetou $COUNT$ $TRACKER_LINK_START$domínios de rastreamento$TRACKER_LINK_END$ em potencial até agora. Os controles deslizantes permitem que controle o que o Privacy Badger faz com cada rastreador.",
+        "message": "O Privacy Badger detetou $COUNT$ $TRACKER_LINK_START$domínios potenciais de rastreamento$TRACKER_LINK_END$ até agora. Os controlos deslizantes permitem-lhe controlar o que o Privacy Badger faz com cada rastreador.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Quando usa o Privacy Badger, você junta-se à <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> e a outros milhões de utilizadores na luta pela privacidade. Somos uma organização sem fins lucrativos que luta pelos seus direitos on-line. Obrigado por se juntar a nós.",
+        "message": "Quando usa o Privacy Badger, está a junta-se à <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> e a outros milhões de utilizadores na luta pela privacidade. Somos uma organização sem fins lucrativos que luta pelos seus direitos na Internet. Obrigado por se juntar a nós.",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
