@@ -10,7 +10,7 @@ const DNT_COMPLIANT_DOMAIN = 'eff.org',
     'dnt4.example',
     'dnt5.example',
   ],
-  POLICY_URL = chrome.extension.getURL('data/dnt-policy.txt');
+  POLICY_URL = chrome.runtime.getURL('data/dnt-policy.txt');
 
 let utils = require('utils'),
   constants = require('constants');

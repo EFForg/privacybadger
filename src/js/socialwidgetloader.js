@@ -73,7 +73,7 @@ function loadJSONFromFile(filePath, callback) {
  * @param {Function} callback callback(responseText)
  */
 function getFileContents(filePath, callback) {
-  var url = chrome.extension.getURL(filePath);
+  var url = chrome.runtime.getURL(filePath);
 
   utils.xhrRequest(url, function(err, responseText) {
     if (err) {
