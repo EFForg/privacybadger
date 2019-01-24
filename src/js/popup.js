@@ -42,7 +42,7 @@ if (!matches || matches[1] == "Firefox") {
 function showNagMaybe() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
-  var firstRunUrl = chrome.extension.getURL("/skin/firstRun.html");
+  var firstRunUrl = chrome.runtime.getURL("/skin/firstRun.html");
 
   function _setSeenComic() {
     chrome.runtime.sendMessage({
@@ -67,7 +67,7 @@ function showNagMaybe() {
       chrome.tabs.query({url: firstRunUrl}, function (tabs) {
         if (tabs.length == 0) {
           chrome.tabs.create({
-            url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+            url: chrome.runtime.getURL("/skin/firstRun.html#slideshow")
           });
         } else {
           chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {

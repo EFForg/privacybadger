@@ -655,7 +655,7 @@ function dispatcher(request, sender, sendResponse) {
 
   } else if (request.getReplacementButton) {
 
-    let button_path = chrome.extension.getURL(
+    let button_path = chrome.runtime.getURL(
       "skin/socialwidgets/" + request.getReplacementButton);
 
     let image_type = button_path.slice(button_path.lastIndexOf('.') + 1);
