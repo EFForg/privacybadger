@@ -556,24 +556,45 @@ function _isTabAnExtension(tabId) {
  * @returns {Object} dict containing the complete list of widgets
  * as well as a mapping to indicate which ones should be replaced
  */
-function getWidgetBlockList() {
+let getWidgetBlockList = (function () {
+  // cached translations
+  let translations = [];
+  // inputs to chrome.i18n.getMessage()
+  const widgetTranslations = [
+    {
+      key: "social_tooltip_pb_has_replaced",
+      placeholders: ["XXX"]
+    },
+  ];
 
-  // A mapping of individual SocialWidget objects to boolean values that determine
-  // whether the content script should replace that tracker's button/widget
-  var widgetsToReplace = {};
+  return function () {
+    // A mapping of individual SocialWidget objects to boolean values that determine
+    // whether the content script should replace that tracker's button/widget
+    var widgetsToReplace = {};
 
-  badger.widgetList.forEach(function (widget) {
-    // Only replace blocked and yellowlisted widgets
-    widgetsToReplace[widget.name] = constants.BLOCKED_ACTIONS.has(
-      badger.storage.getBestAction(widget.domain)
-    );
-  });
+    // optimize translation lookups by doing them just once
+    // the first time they are needed
+    if (!translations.length) {
+      translations = widgetTranslations.reduce((memo, data) => {
+        memo[data.key] = chrome.i18n.getMessage(data.key, data.placeholders);
+        return memo;
+      }, {});
+    }
 
-  return {
-    trackers: badger.widgetList,
-    trackerButtonsToReplace: widgetsToReplace
+    badger.widgetList.forEach(function (widget) {
+      // Only replace blocked and yellowlisted widgets
+      widgetsToReplace[widget.name] = constants.BLOCKED_ACTIONS.has(
+        badger.storage.getBestAction(widget.domain)
+      );
+    });
+
+    return {
+      translations,
+      trackers: badger.widgetList,
+      trackerButtonsToReplace: widgetsToReplace
+    };
   };
-}
+}());
 
 /**
  * Check if tab is temporarily unblocked for tracker
