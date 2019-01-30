@@ -1,5 +1,15 @@
 Changes for Privacy Badger 
 ====================================
+## 2019.1.30
+* Added replacement widgets for embedded Spotify, Streamable and Vimeo
+players. Privacy Badger can replace potentially useful third-party widgets
+with placeholders. This avoids on-by-default tracking while providing a clear
+way to restore the original widget on demand.
+* Fixed various site breakages
+* Added Arabic and European Portuguese translations
+* Improved translations (Traditional Chinese, Czech, German, Persian, Swedish,
+Turkish)
+
 ## 2018.12.17
 * Fixed major Privacy Badger breakages in Chrome 72+
 * Fixed various site breakages
