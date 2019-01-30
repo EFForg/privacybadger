@@ -16,13 +16,13 @@ PKG="$PKGDIR"/privacy-badger-eff-$TARGET.xpi
 ALT="$PKGDIR"/privacy-badger-eff-latest.xpi
 
 echo Copying .xpi files...
-scp "$PKG" "$USER@$SERVER:/www/eff.org/docs/files/" || exit 1
-scp "$ALT" "$USER@$SERVER:/www/eff.org/docs/files/" || exit 1
+scp "$PKG" "$USER@$SERVER:/www/eff.org/files" || exit 1
+scp "$ALT" "$USER@$SERVER:/www/eff.org/files" || exit 1
 echo Copying detached signature
-scp "$PKG".sig "$USER@$SERVER:/www/eff.org/docs/files/" || exit 1
+scp "$PKG".sig "$USER@$SERVER:/www/eff.org/files" || exit 1
 echo Copying Changelog.txt
 git show release-"$TARGET":doc/Changelog > /tmp/pbchangelog$$ || exit 1
-scp /tmp/pbchangelog$$ "$USER@$SERVER:/www/eff.org/docs/files/pbChangelog.txt" || exit 1
+scp /tmp/pbchangelog$$ "$USER@$SERVER:/www/eff.org/files/pbChangelog.txt" || exit 1
 rm -f /tmp/changelog$$
 
 MSG=/tmp/email$$
