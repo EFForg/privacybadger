@@ -510,7 +510,7 @@
         }
     },
     "sync_intro": {
-        "message": "Molnsynkronisering:<ul><li>Kräver Firefox/Chrome Sync</li><li>Uppladdning skriver över alla befintliga Privacy Badger-data i molnet</li><li>Hämtning kombinerar listorna över webbplatser där din Badger är inaktiverad</li></ul>",
+        "message": "Molnsynkronisering:<ul><li>Kräver Firefox/Chrome Sync</li><li>Sändningen skriver över alla befintliga Privacy Badger-data i molnet</li><li>Hämtning kombinerar listorna över webbplatser där din Badger är inaktiverad</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
