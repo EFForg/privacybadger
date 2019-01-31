@@ -1318,6 +1318,7 @@ var multiDomainFirstPartiesArray = [
     "springerprofessional.de",
   ],
   ["sprint.com", "sprintpcs.com", "nextel.com"],
+  ["squareup.com", "cash.app", "mkt.com", "squarecdn.com"],
   ["steampowered.com", "steamstatic.com", "steamcommunity.com"],
   ["taobao.com", "alicdn.net", "tmail.com", "tbcdn.cn", "alibaba.com",
     "aliexpress.com", "tmall.com", "alimama.com", "1688.com", "aliyun.com", "www.net.cn"],
