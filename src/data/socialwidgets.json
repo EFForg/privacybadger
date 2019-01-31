@@ -60,6 +60,19 @@
             "type": 1
         }
     },
+    "Facebook Video": {
+        "domain": "www.facebook.com",
+        "buttonSelectors": [
+            "iframe[src^='https://www.facebook.com/plugins/video.php?']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.facebook.com"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
+    },
     "Google reCAPTCHA": {
         "domains": [
             "google.com",
