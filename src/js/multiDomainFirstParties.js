@@ -1558,7 +1558,6 @@ var multiDomainFirstPartiesArray = [
     "yandex.by",
     "yandex.co.il",
     "yandex.com",
-    "yandex.com.am",
     "yandex.com.ge",
     "yandex.com.tr",
     "yandex.ee",
