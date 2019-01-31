@@ -1550,6 +1550,11 @@ var multiDomainFirstPartiesArray = [
   [
     "yandex.com",
 
+    "auto.ru",
+    "beru.ru",
+    "kinopoisk.ru",
+    "mykp.ru",
+
     "yandex.net",
     "ya.ru",
     "yastatic.net",
