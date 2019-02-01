@@ -11,7 +11,7 @@
                 "http://ct1.addthis.com/",
                 "http://api-public.addthis.com/"
             ],
-            "imagePath": "AddThis.svg",
+            "imagePath": "AddThis.png",
             "type": 2
         }
     },
@@ -26,7 +26,7 @@
             "unblockDomains": [
                 "http://www.digg.com/submit?url="
             ],
-            "imagePath": "Digg.svg",
+            "imagePath": "Digg.png",
             "type": 0
         }
     },
@@ -45,7 +45,7 @@
                 "https://www.facebook.com/plugins/like.php?href=",
                 "https://www.facebook.com/v2.0/plugins/like.php?href="
             ],
-            "imagePath": "FacebookLike.svg",
+            "imagePath": "FacebookLike.png",
             "type": 1
         }
     },
@@ -64,7 +64,7 @@
                 "https://www.facebook.com/plugins/share_button.php?href=",
                 "https://www.facebook.com/v2.0/plugins/share_button.php?href="
             ],
-            "imagePath": "FacebookShare.svg",
+            "imagePath": "FacebookShare.png",
             "type": 1
         }
     },
@@ -82,7 +82,7 @@
                 "http://clients6.google.com/",
                 "http://apis.google.com/"
             ],
-            "imagePath": "GooglePlus.svg",
+            "imagePath": "GooglePlus.png",
             "type": 1
         }
     },
@@ -97,7 +97,7 @@
             "unblockDomains": [
                 "http://www.linkedin.com/shareArticle?mini=true&url="
             ],
-            "imagePath": "LinkedIn.svg",
+            "imagePath": "LinkedIn.png",
             "type": 0
         }
     },
@@ -113,7 +113,7 @@
             "unblockDomains": [
                 "http://pinterest.com/pin/create/button/?url="
             ],
-            "imagePath": "Pinterest.svg",
+            "imagePath": "Pinterest.png",
             "type": 0
         }
     },
@@ -174,7 +174,7 @@
             "unblockDomains": [
                 "http://www.stumbleupon.com/badge/?url="
             ],
-            "imagePath": "StumbleUpon.svg",
+            "imagePath": "StumbleUpon.png",
             "type": 0
         }
     },
@@ -189,7 +189,7 @@
             "unblockDomains": [
                 "https://twitter.com/intent/tweet?url="
             ],
-            "imagePath": "Twitter.svg",
+            "imagePath": "Twitter.png",
             "type": 0
         }
     },
