@@ -16,10 +16,13 @@ from window_utils import switch_to_window_with_url
 class DNTTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
 
-    CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
-  arguments[0],
-  r => window.DNT_CHECK_RESULT = r
-);"""
+    CHECK_FOR_DNT_POLICY_JS = (
+        "chrome.extension.getBackgroundPage()."
+        "badger.checkForDNTPolicy("
+        "  arguments[0],"
+        "  r => window.DNT_CHECK_RESULT = r"
+        ");"
+    )
 
     # TODO switch to non-delayed version (see below)
     # once race condition (https://crbug.com/478183) is fixed
@@ -166,7 +169,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertEqual(len(self.driver.get_cookies()), 0,
             "No cookies again")
 
-        self.load_url(self.bg_url)
+        self.load_url(self.options_url)
         # perform a DNT policy check
         self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
