@@ -350,7 +350,7 @@ function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
   icon.setAttribute("alt", "");
   button.appendChild(icon);
 
-  button.appendChild(document.createTextNode("Allow once"));
+  button.appendChild(document.createTextNode(TRANSLATIONS.allow_once));
 
   buttonDiv.appendChild(button);
 

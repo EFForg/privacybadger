@@ -565,6 +565,7 @@ let getWidgetBlockList = (function () {
       key: "social_tooltip_pb_has_replaced",
       placeholders: ["XXX"]
     },
+    { key: "allow_once" },
   ];
 
   return function () {
