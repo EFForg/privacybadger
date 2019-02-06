@@ -154,7 +154,7 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   // in-place widget type:
   // reinitialize the widget by reinserting its element's HTML
   } else if (buttonType == 3) {
-    let widget = createReplacementWidget(button, trackerElem, buttonData.unblockDomains);
+    let widget = createReplacementWidget(tracker.name, button, trackerElem, buttonData.unblockDomains);
     return callback(widget);
   }
 
@@ -279,7 +279,7 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
   });
 }
 
-function createReplacementWidget(button, buttonToReplace, trackerUrls) {
+function createReplacementWidget(name, button, buttonToReplace, trackerUrls) {
   let widgetFrame = document.createElement('iframe');
 
   // widget replacement frame styles
@@ -317,19 +317,49 @@ function createReplacementWidget(button, buttonToReplace, trackerUrls) {
 
   let textDiv = document.createElement('div');
   textDiv.style = styleAttrs.join(" !important;") + " !important";
-  textDiv.appendChild(document.createTextNode(button.title));
+  textDiv.appendChild(document.createTextNode(
+    chrome.i18n.getMessage("social_tooltip_pb_has_replaced", name)));
   widgetDiv.appendChild(textDiv);
 
   let buttonDiv = document.createElement('div');
   buttonDiv.style = styleAttrs.join(" !important;") + " !important";
-  buttonDiv.appendChild(button);
+
+  // "activate once" button
+  let anchor = document.createElement('a');
+  let button_id = Math.random();
+  anchor.id = button_id;
+  anchor.href = "#";
+  styleAttrs = [
+    "border: 2px solid #ec9329",
+    "border-radius: 3px",
+    "color: #ec9329",
+    "cursor: pointer",
+    "font-weight: bold",
+    "line-height: 30px",
+    "padding: 8px",
+    "text-decoration: none",
+  ];
+  anchor.style = styleAttrs.join(" !important;") + " !important";
+
+  button.style.setProperty("margin", "0 5px", "important");
+  button.style.setProperty("height", "30px", "important");
+  button.style.setProperty("vertical-align", "middle", "important");
+  button.setAttribute("alt", "");
+  anchor.appendChild(button);
+
+  anchor.appendChild(document.createTextNode("Allow once"));
+
+  buttonDiv.appendChild(anchor);
+
   widgetDiv.appendChild(buttonDiv);
 
+  // set up click handler
   let parentEl = buttonToReplace.parentNode;
   widgetFrame.addEventListener('load', function () {
-    // click handler
-    widgetFrame.contentDocument.querySelector('img').addEventListener("click", function () {
+    let el = widgetFrame.contentDocument.getElementById(button_id);
+    el.addEventListener("click", function (e) {
       reinitializeWidgetAndUnblockTracker(widgetFrame, trackerUrls, buttonToReplace, parentEl);
+      e.preventDefault();
     }, { once: true });
   }, false);
 
