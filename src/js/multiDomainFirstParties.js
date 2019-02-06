@@ -785,6 +785,7 @@ var multiDomainFirstPartiesArray = [
     "hdnux.com",
   ],
   ["hvfcu.org", "hvfcuonline.org"],
+  ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
   ["logmein.com", "logme.in"],
   ["macys.com", "macysassets.com"],
   ["mandtbank.com", "mtb.com"],
