@@ -51,6 +51,9 @@ let trackerInfo;
 // cached chrome.i18n.getMessage() results
 const TRANSLATIONS = [];
 
+// references to widget page elements
+const WIDGET_ELS = {};
+
 
 /**
  * Initializes the content script.
@@ -219,14 +222,16 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, urls, html) {
  *
  * The teardown to the initialization defined in createReplacementWidget().
  *
- * @param {HTMLElement} replacementWidget the DOM element of replacement widget
+ * @param {String} name the name/type of this widget (Vimeo, Disqus, etc.)
  * @param {Array} urls tracker URLs
- * @param {HTMLElement} widget the DOM element for the third-party widget
- * @param {HTMLElement} parentEl the parent DOM element
  */
-function reinitializeWidgetAndUnblockTracker(replacementWidget, urls, widget, parentEl) {
-  unblockTracker(urls, function() {
-    parentEl.replaceChild(widget, replacementWidget);
+function reinitializeWidgetAndUnblockTracker(name, urls) {
+  unblockTracker(urls, function () {
+    // restore all widgets of this type
+    WIDGET_ELS[name].forEach(data => {
+      data.parent.replaceChild(data.widget, data.replacement);
+    });
+    WIDGET_ELS[name] = [];
   });
 }
 
@@ -329,7 +334,7 @@ function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
   let buttonDiv = document.createElement('div');
   buttonDiv.style = styleAttrs.join(" !important;") + " !important";
 
-  // "activate once" button
+  // "allow once" button
   let button = document.createElement('a');
   let button_id = Math.random();
   button.id = button_id;
@@ -358,12 +363,21 @@ function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
 
   widgetDiv.appendChild(buttonDiv);
 
+  // save refs. to elements for use in teardown
+  if (!WIDGET_ELS.hasOwnProperty(name)) {
+    WIDGET_ELS[name] = [];
+  }
+  WIDGET_ELS[name].push({
+    parent: elToReplace.parentNode,
+    widget: elToReplace,
+    replacement: widgetFrame
+  });
+
   // set up click handler
-  let parentEl = elToReplace.parentNode;
   widgetFrame.addEventListener('load', function () {
     let el = widgetFrame.contentDocument.getElementById(button_id);
     el.addEventListener("click", function (e) {
-      reinitializeWidgetAndUnblockTracker(widgetFrame, trackerUrls, elToReplace, parentEl);
+      reinitializeWidgetAndUnblockTracker(name, trackerUrls);
       e.preventDefault();
     }, { once: true });
   }, false);
