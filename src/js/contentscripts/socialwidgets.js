@@ -291,6 +291,8 @@ function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
     "border: 1px solid #ec9329",
     "width:" + elToReplace.clientWidth + "px",
     "height:" + elToReplace.clientHeight + "px",
+    "min-width: 220px",
+    "min-height: 165px",
     "z-index: 2147483647",
   ];
   widgetFrame.style = styleAttrs.join(" !important;") + " !important";
