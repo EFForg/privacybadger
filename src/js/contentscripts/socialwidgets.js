@@ -279,15 +279,15 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
   });
 }
 
-function createReplacementWidget(name, button, buttonToReplace, trackerUrls) {
+function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
   let widgetFrame = document.createElement('iframe');
 
   // widget replacement frame styles
   let styleAttrs = [
     "background-color: #fff",
     "border: 1px solid #ec9329",
-    "width:" + buttonToReplace.clientWidth + "px",
-    "height:" + buttonToReplace.clientHeight + "px",
+    "width:" + elToReplace.clientWidth + "px",
+    "height:" + elToReplace.clientHeight + "px",
     "z-index: 2147483647",
   ];
   widgetFrame.style = styleAttrs.join(" !important;") + " !important";
@@ -325,10 +325,10 @@ function createReplacementWidget(name, button, buttonToReplace, trackerUrls) {
   buttonDiv.style = styleAttrs.join(" !important;") + " !important";
 
   // "activate once" button
-  let anchor = document.createElement('a');
+  let button = document.createElement('a');
   let button_id = Math.random();
-  anchor.id = button_id;
-  anchor.href = "#";
+  button.id = button_id;
+  button.href = "#";
   styleAttrs = [
     "border: 2px solid #ec9329",
     "border-radius: 3px",
@@ -339,26 +339,26 @@ function createReplacementWidget(name, button, buttonToReplace, trackerUrls) {
     "padding: 8px",
     "text-decoration: none",
   ];
-  anchor.style = styleAttrs.join(" !important;") + " !important";
+  button.style = styleAttrs.join(" !important;") + " !important";
 
-  button.style.setProperty("margin", "0 5px", "important");
-  button.style.setProperty("height", "30px", "important");
-  button.style.setProperty("vertical-align", "middle", "important");
-  button.setAttribute("alt", "");
-  anchor.appendChild(button);
+  icon.style.setProperty("margin", "0 5px", "important");
+  icon.style.setProperty("height", "30px", "important");
+  icon.style.setProperty("vertical-align", "middle", "important");
+  icon.setAttribute("alt", "");
+  button.appendChild(icon);
 
-  anchor.appendChild(document.createTextNode("Allow once"));
+  button.appendChild(document.createTextNode("Allow once"));
 
-  buttonDiv.appendChild(anchor);
+  buttonDiv.appendChild(button);
 
   widgetDiv.appendChild(buttonDiv);
 
   // set up click handler
-  let parentEl = buttonToReplace.parentNode;
+  let parentEl = elToReplace.parentNode;
   widgetFrame.addEventListener('load', function () {
     let el = widgetFrame.contentDocument.getElementById(button_id);
     el.addEventListener("click", function (e) {
-      reinitializeWidgetAndUnblockTracker(widgetFrame, trackerUrls, buttonToReplace, parentEl);
+      reinitializeWidgetAndUnblockTracker(widgetFrame, trackerUrls, elToReplace, parentEl);
       e.preventDefault();
     }, { once: true });
   }, false);
