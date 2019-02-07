@@ -197,8 +197,8 @@
     "Vimeo": {
         "domain": "player.vimeo.com",
         "buttonSelectors": [
-            "iframe[src^='https://player.vimeo.com/video/']",
-            "iframe[src^='//player.vimeo.com/video/']"
+            "iframe[src^='https://player.vimeo.com/video/']:not([src*='background=1'])",
+            "iframe[src^='//player.vimeo.com/video/']:not([src*='background=1'])"
         ],
         "replacementButton": {
             "details": "",
