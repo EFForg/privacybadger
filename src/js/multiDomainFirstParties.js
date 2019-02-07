@@ -1161,6 +1161,16 @@ var multiDomainFirstPartiesArray = [
   ["postepay.it", "poste.it"],
   ["postimees.ee", "city24.ee", "city24.lv", "pmo.ee"],
   [
+    "pricerunner.com",
+
+    "pricerunner.co.uk",
+    "pricerunner.de",
+    "pricerunner.dk",
+    "pricerunner.net",
+    "pricerunner.se",
+    "pricerunner.uk",
+  ],
+  [
     "qantas.com",
 
     "jetstar.com",
