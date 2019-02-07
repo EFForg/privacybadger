@@ -335,11 +335,11 @@ function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
   buttonDiv.style = styleAttrs.join(" !important;") + " !important";
 
   // "allow once" button
-  let button = document.createElement('a');
+  let button = document.createElement('button');
   let button_id = Math.random();
   button.id = button_id;
-  button.href = "#";
   styleAttrs = [
+    "background-color: #fff",
     "border: 2px solid #ec9329",
     "border-radius: 3px",
     "color: #ec9329",
@@ -347,7 +347,6 @@ function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
     "font-weight: bold",
     "line-height: 30px",
     "padding: 8px",
-    "text-decoration: none",
   ];
   button.style = styleAttrs.join(" !important;") + " !important";
 
