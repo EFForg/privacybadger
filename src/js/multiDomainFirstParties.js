@@ -1497,6 +1497,20 @@ var multiDomainFirstPartiesArray = [
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
   ["ubisoft.com", "ubi.com", "anno-union.com", "thesettlers-alliance.com"],
   ["verizon.com", "verizon.net", "verizonwireless.com", "vzw.com"],
+  [
+    "vinted.com",
+
+    "kleiderkreisel.de",
+    "mamikreisel.de",
+
+    "vinted.co.uk",
+    "vinted.cz",
+    "vinted.es",
+    "vinted.fr",
+    "vinted.lt",
+    "vinted.nl",
+    "vinted.pl",
+  ],
   ["vk.com", "vk.me", "vkontakte.ru"],
   ["volkskrant.nl", "persgroep.net", "persgroep.nl", "parool.nl"],
   ["volvooceanrace.com", "virtualregatta.com"],
