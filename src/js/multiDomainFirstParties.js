@@ -1111,6 +1111,7 @@ var multiDomainFirstPartiesArray = [
   ],
   ["onlineatnsb.com", "norwaysavingsbank.com"],
   ["openstreetmap.org", "osmfoundation.org"],
+  ["orange.fr", "sosh.fr", "woopic.com"],
   [
     "osf.io",
 
