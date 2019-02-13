@@ -102,8 +102,8 @@ function onBeforeRequest(details) {
   }
 
   // don't block if we're in passive mode
-  if (requestAction != constants.BLOCK && 
-      requestAction != constants.USER_BLOCK || 
+  if (requestAction != constants.BLOCK &&
+      requestAction != constants.USER_BLOCK ||
       badger.getSettings().getItem('passiveMode')) {
     return {};
   }
@@ -211,7 +211,7 @@ function onBeforeSendHeaders(details) {
     }
   }
 
-  if (!badger.isPrivacyBadgerEnabled(tabDomain) || 
+  if (!badger.isPrivacyBadgerEnabled(tabDomain) ||
       badger.getSettings().getItem('passiveMode')) {
     return {};
   }
@@ -489,7 +489,7 @@ function recordFingerprinting(tabId, msg) {
           badger.heuristicBlocking.updateTrackerPrevalence(
             script_host, window.getBaseDomain(pageHost), {
               type: constants.TRACKER_TYPES.FINGERPRINT,
-              trackerUrl: msg.scriptUrl, 
+              trackerUrl: msg.scriptUrl,
               pageUrl: pageUrl
           });
         }

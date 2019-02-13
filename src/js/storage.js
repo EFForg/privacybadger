@@ -406,11 +406,17 @@ BadgerPen.prototype = {
   logRequest: function(tab_host, url, action, time) {
     let request_log = this.getBadgerStorageObject('request_log');
     if (request_log.hasItem(tab_host)) {
-      request_log.getItem(tab_host).append({
+      request_log._store[tab_host].push({
         url: url,
         time: time,
         action: action
       });
+    } else {
+      request_log.setItem(tab_host, [{
+        url: url,
+        time: time,
+        action: action
+      }]);
     }
   }
 };
@@ -552,7 +558,7 @@ BadgerStorage.prototype = {
       url: url,
       filename: path
     });
-  }
+  },
 
   /**
    * When a user imports a tracker and settings list via the Import function,

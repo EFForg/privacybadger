@@ -778,9 +778,9 @@ Badger.prototype = {
     let self = this,
       tab_host = self.getFrameData(tab_id).host,
       time = (new Date()).getTime();
-    
+
     // store the basic details of the request in the request log
-    self.storage.
+    self.storage.logRequest(tab_host, url, action, time);
   },
 
   /**
