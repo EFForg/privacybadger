@@ -94,7 +94,7 @@ function onBeforeRequest(details) {
 
   // log the third-party request for debugging purposes
   setTimeout(function () {
-    badger.logThirdPartyRequest(tab_id, requestDomain, requestAction);
+    badger.logThirdPartyRequest(tab_id, url, requestAction);
   }, 0);
 
   if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
