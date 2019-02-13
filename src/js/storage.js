@@ -551,11 +551,10 @@ BadgerStorage.prototype = {
    * Download the object as a json file
    */
   downloadObject: function(object, path) {
-    let self = this;
-    let result = json.stringify(object);
-    let url = 'data:application/json;base64,' + btoa(result);
+    let result = JSON.stringify(this._store);
+    let blob = URL.createObjectURL(new Blob([result]));
     chrome.downloads.download({
-      url: url,
+      url: blob,
       filename: path
     });
   },
