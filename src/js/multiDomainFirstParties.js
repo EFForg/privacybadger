@@ -1608,6 +1608,7 @@ var multiDomainFirstPartiesArray = [
   ["vk.com", "vk.me", "vkontakte.ru"],
   ["volkskrant.nl", "persgroep.net", "persgroep.nl", "parool.nl"],
   ["volvooceanrace.com", "virtualregatta.com"],
+  ["vonage.com", "vonagebusiness.com"],
   ["walmart.com", "wal.co", "walmartimages.com", "walmart.ca"],
   [
     "webmd.com",
