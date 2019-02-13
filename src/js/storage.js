@@ -106,6 +106,7 @@ BadgerPen.prototype = {
     "cookieblock_list",
     "dnt_hashes",
     "settings_map",
+    "request_log",
   ],
 
   getBadgerStorageObject: function(key) {
@@ -315,7 +316,7 @@ BadgerPen.prototype = {
   getTrackingCount: function(fqdn) {
     var snitch_map = this.getBadgerStorageObject('snitch_map');
     if (snitch_map.hasItem(fqdn)) {
-      return snitch_map.getItem(fqdn).length;
+      return Object.keys(snitch_map.getItem(fqdn)).length;
     } else {
       return 0;
     }
@@ -399,6 +400,17 @@ BadgerPen.prototype = {
     if (actionMap.getItem(domain).heuristicAction == "") {
       log("Removing %s from action_map", domain);
       actionMap.deleteItem(domain);
+    }
+  },
+
+  logRequest: function(tab_host, url, action, time) {
+    let request_log = this.getBadgerStorageObject('request_log');
+    if (request_log.hasItem(tab_host)) {
+      request_log.getItem(tab_host).append({
+        url: url,
+        time: time,
+        action: action
+      });
     }
   }
 };
@@ -530,6 +542,19 @@ BadgerStorage.prototype = {
   },
 
   /**
+   * Download the object as a json file
+   */
+  downloadObject: function(object, path) {
+    let self = this;
+    let result = json.stringify(object);
+    let url = 'data:application/json;base64,' + btoa(result);
+    chrome.downloads.download({
+      url: url,
+      filename: path
+    });
+  }
+
+  /**
    * When a user imports a tracker and settings list via the Import function,
    * we want to overwrite any existing settings, while simultaneously merging
    * in any new information (i.e. the set of whitelisted domains). In order
@@ -589,10 +614,6 @@ BadgerStorage.prototype = {
           // this is the list of tracking actions on a first-party domain
           let trackers = snitches[fp_origin];
           for (let tracker in trackers) {
-            if (tracker == "length") {
-              continue;
-            }
-
             let tracker_fqdn = (new URI(tracker.trackerUrl)).host;
             badger.heuristicBlocking.updateTrackerPrevalence(
               tracker_fqdn,

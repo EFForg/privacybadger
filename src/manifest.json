@@ -19,6 +19,7 @@
     "webRequestBlocking",
     "webNavigation",
     "storage",
+    "downloads",
     "cookies",
     "privacy"
   ],

@@ -768,6 +768,22 @@ Badger.prototype = {
   },
 
   /**
+   * Save data about a third party request -- any request.
+   *
+   * @param {Integer} tab_id the tab we are on
+   * @param {String} url the third party origin to add
+   * @param {String} action the action we are taking
+   */
+  logThirdPartyRequest: function (tab_id, url, action) {
+    let self = this,
+      tab_host = self.getFrameData(tab_id).host,
+      time = (new Date()).getTime();
+    
+    // store the basic details of the request in the request log
+    self.storage.
+  },
+
+  /**
    * Save third party origins to tabData[tab_id] object for
    * use in the popup and, if needed, call updateBadge.
    *

@@ -121,7 +121,8 @@ HeuristicBlocker.prototype = {
 
     // abort if we already made a decision for this FQDN
     let action = this.storage.getAction(fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW &&
+    if (action != constants.NO_TRACKING && 
+        action != constants.ALLOW &&
         !badger.getSettings().getItem('passiveMode')) {
       return {};
     }
@@ -153,7 +154,8 @@ HeuristicBlocker.prototype = {
   updateTrackerPrevalence: function(tracker_fqdn, page_origin, tracker, skip_dnt_check) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW &&
+    if (action != constants.NO_TRACKING && 
+        action != constants.ALLOW &&
         !badger.getSettings().getItem('passiveMode')) {
       return;
     }
@@ -185,7 +187,7 @@ HeuristicBlocker.prototype = {
    */
   _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker, skip_dnt_check) {
     var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
-    var firstParties = {length: 0};
+    var firstParties = {};
     if (snitchMap.hasItem(tracker_origin)) {
       firstParties = snitchMap.getItem(tracker_origin);
     }
@@ -206,7 +208,6 @@ HeuristicBlocker.prototype = {
     // record that we've seen this tracker on this domain (in snitch map)
     if (!(page_origin in firstParties)) {
       firstParties[page_origin] = [];
-      firstParties.length += 1;
     }
     firstParties[page_origin].push(tracker);
     snitchMap.setItem(tracker_origin, firstParties);
@@ -220,7 +221,7 @@ HeuristicBlocker.prototype = {
     this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
 
     // Blocking based on outbound cookies
-    var httpRequestPrevalence = firstParties.length;
+    var httpRequestPrevalence = Object.keys(firstParties).length;
 
     // block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {

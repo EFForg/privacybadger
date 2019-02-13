@@ -92,11 +92,19 @@ function onBeforeRequest(details) {
     badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
   }, 0);
 
+  // log the third-party request for debugging purposes
+  setTimeout(function () {
+    badger.logThirdPartyRequest(tab_id, requestDomain, requestAction);
+  }, 0);
+
   if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
     return {};
   }
 
-  if (requestAction != constants.BLOCK && requestAction != constants.USER_BLOCK) {
+  // don't block if we're in passive mode
+  if (requestAction != constants.BLOCK && 
+      requestAction != constants.USER_BLOCK || 
+      badger.getSettings().getItem('passiveMode')) {
     return {};
   }
 
