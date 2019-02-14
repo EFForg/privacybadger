@@ -500,9 +500,11 @@ readability.com
 readthedocs.org
 recaptcha.net
 recurly.com
+redcdn.pl
 reddit.com
 redditmedia.com
 redditstatic.com
+redefine.pl
 cdngeneral.rentcafe.com
 resellerratings.com
 resultspage.com
