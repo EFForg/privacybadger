@@ -509,6 +509,10 @@
             }
         }
     },
+    "allow_once": {
+        "message": "Autoriser une fois",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
     "sync_intro": {
         "message": "Synchronisation avec le nuage : <ul><li>Nécessite Firefox ou Chrome Sync</li><li>Le téléversement écrase toutes données de Privacy Badger dans le nuage</li><li>Télécharger combinera la liste blanche avec celle présente</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

@@ -509,6 +509,10 @@
             }
         }
     },
+    "allow_once": {
+        "message": "Allow once",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
     "sync_intro": {
         "message": "Synchronizace s cloudovou službou:<ul><li>Vyžaduje účet pro synchronizaci dat prohlížeče Firefox nebo Google Chrome.</li><li>Nahráním údajů přepíšete veškerá předchozí data rozšíření Privacy Badger na cloudu.</li><li>Stáhnutím dat z cloudu se sjednotí seznamy domén, na kterých je Privacy Badger vypnutý.</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

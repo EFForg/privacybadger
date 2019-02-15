@@ -509,6 +509,10 @@
             }
         }
     },
+    "allow_once": {
+        "message": "Tillad en gang",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
     "sync_intro": {
         "message": "Skysynkronisering:<ul><li>Kræver Firefox/Chrome-Synkronisering</li><li>Oplægning overskriver eksisterende Privacy Badger-data i skyen</li><li>Hentning kombinerer listerne over steder hvor din Privacy Badger er deaktiveret</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

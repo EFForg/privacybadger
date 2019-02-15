@@ -509,6 +509,10 @@
             }
         }
     },
+    "allow_once": {
+        "message": "Permesi unufoje",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
     "sync_intro": {
         "message": "Samtempigo en servilo:\n<ul>\n<li>postulas Firefox Spegulado/Chrome Sync</li>\n<li>alŝuto anstataŭigas ĉiujn ekzistajn datumojn de Privata Melo en la servilo</li>\n<li>elŝuto kunigas listojn de retejoj kun malaktiva Privata Melo</li>\n</ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

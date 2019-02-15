@@ -509,6 +509,10 @@
             }
         }
     },
+    "allow_once": {
+        "message": "Einmalig erlauben",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
     "sync_intro": {
         "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Site-Listen, auf denen Privacy Badger deaktiviert ist</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

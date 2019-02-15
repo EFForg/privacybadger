@@ -509,6 +509,10 @@
             }
         }
     },
+    "allow_once": {
+        "message": "Allow once",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
     "sync_intro": {
         "message": "Синхронізація:<ul><li>Необхідний обліковий запис Firefox/Chrome</li><li>Вивантаження перезаписує наявні дані в хмарному сховищі</li><li>Завантаження об'єднує списки сайтів, на яких Privacy Badger вимкнений</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

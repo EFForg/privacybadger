@@ -509,6 +509,10 @@
             }
         }
     },
+    "allow_once": {
+        "message": "Allow once",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
     "sync_intro": {
         "message": "云端同步：<ul><li>需要火狐或 Chrome 同步</li><li>上传将覆盖任何云端已有的隐私獾数据</li><li>下载内容将与您将隐私獾禁用的站点结合</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
