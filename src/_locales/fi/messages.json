@@ -509,6 +509,10 @@
             }
         }
     },
+    "allow_once": {
+        "message": "Allow once",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
     "sync_intro": {
         "message": "Pilvisynkronointi:<ul><li>Vaatii Firefox/Chrome Syncin</li><li>Pilveen lataaminen ylikirjoittaa pilvessä mahdollisesti jo olevan Privacy Badgerin datan</li><li>Pilvestä lataaminen yhdistää listat sivustoista, joilla Badgerisi on poistettu käytöstä</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

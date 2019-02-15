@@ -57,6 +57,7 @@ bankrate.com
 bazaarvoice.com
 bcbits.com
 betterttv.net
+bigcommerce.com
 www.bing.com
 bit.ly
 bizrate.com
@@ -111,6 +112,7 @@ cdn.cnetcontent.com
 ws.cnetcontent.com
 com.com
 complex.com
+consensu.org
 convio.net
 copyscape.com
 corporate-ir.net
@@ -146,6 +148,7 @@ dotsub.com
 dl.dropboxusercontent.com
 dudamobile.com
 dumpert.nl
+duosecurity.com
 ebay.com
 ebayimg.com
 ebayrtm.com
@@ -154,6 +157,7 @@ ecwid.com
 edgecastcdn.net
 edgefcs.net
 edgekey.net
+editmysite.com
 files.edx.org
 elasticbeanstalk.com
 eltrafiko.com
@@ -164,7 +168,9 @@ cdn.embedly.com
 i-cdn.embed.ly
 i.embed.ly
 epoch.com
+epoq.de
 estara.com
+et4.de
 ethn.io
 evcdn.com
 ebmedia.eventbrite.com
@@ -208,6 +214,7 @@ gannett-tv.com
 gasbuddy.com
 gawkerassets.com
 geenstijl.nl
+geetest.com
 geoplugin.net
 geotrust.com
 getpocket.com
@@ -396,6 +403,7 @@ mtv.com
 mtvnservices.com
 mycapture.com
 myportfolio.com
+myshopify.com
 mzstatic.com
 nationbuilder.com
 nationalgeographic.com
@@ -492,9 +500,11 @@ readability.com
 readthedocs.org
 recaptcha.net
 recurly.com
+redcdn.pl
 reddit.com
 redditmedia.com
 redditstatic.com
+redefine.pl
 cdngeneral.rentcafe.com
 resellerratings.com
 resultspage.com
@@ -506,6 +516,10 @@ salsalabs.com
 sbnation.com
 schd.ws
 sched.org
+schibsted.com
+schibsted.io
+schibsted.no
+schibsted.tech
 scribd.com
 scribdassets.com
 securesuite.co.uk

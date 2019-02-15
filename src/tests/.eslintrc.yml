@@ -2,9 +2,3 @@ globals:
   # false to disallow overwriting
   QUnit: false
   sinon: false
-rules:
-  indent:
-    - error
-    - 2
-    - VariableDeclarator:
-        var: 2

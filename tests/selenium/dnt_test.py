@@ -16,10 +16,13 @@ from window_utils import switch_to_window_with_url
 class DNTTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
 
-    CHECK_FOR_DNT_POLICY_JS = """badger.checkForDNTPolicy(
-  arguments[0],
-  r => window.DNT_CHECK_RESULT = r
-);"""
+    CHECK_FOR_DNT_POLICY_JS = (
+        "chrome.extension.getBackgroundPage()."
+        "badger.checkForDNTPolicy("
+        "  arguments[0],"
+        "  r => window.DNT_CHECK_RESULT = r"
+        ");"
+    )
 
     # TODO switch to non-delayed version (see below)
     # once race condition (https://crbug.com/478183) is fixed
@@ -166,7 +169,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertEqual(len(self.driver.get_cookies()), 0,
             "No cookies again")
 
-        self.load_url(self.bg_url)
+        self.load_url(self.options_url)
         # perform a DNT policy check
         self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
@@ -190,14 +193,18 @@ class DNTTest(pbtest.PBSeleniumTest):
         # the DNT policy URL used by this test returns "cookies=X"
         # where X is the number of cookies it got
         # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
-        self.load_url(self.bg_url)
+        self.load_url(self.options_url)
         # wait for DNT hash update to complete
         # so that it doesn't overwrite our change below
         # TODO wait conditionally; will be able to remove waiting here once
         # badger.INITIALIZED accounts for things that initialize async
         time.sleep(1)
-        self.js("""badger.storage.updateDNTHashes(
-{ "cookies=0 test policy": "f63ee614ebd77f8634b92633c6bb809a64b9a3d7" });""")
+        self.js(
+            "chrome.extension.getBackgroundPage()."
+            "badger.storage.updateDNTHashes({"
+            "  'cookies=0 test policy': 'f63ee614ebd77f8634b92633c6bb809a64b9a3d7'"
+            "});"
+        )
 
         # perform a DNT policy check
         self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
@@ -238,9 +245,10 @@ class DNTTest(pbtest.PBSeleniumTest):
     def test_first_party_dnt_header(self):
         TEST_URL = "https://httpbin.org/get"
 
-        self.load_url(self.bg_url)
         # wait until DNT-injecting webRequest listeners have been registered
-        self.wait_for_script("return badger.INITIALIZED")
+        self.wait_for_script(
+            "return chrome.extension.getBackgroundPage().badger.INITIALIZED"
+        )
 
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)

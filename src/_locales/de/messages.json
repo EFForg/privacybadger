@@ -480,7 +480,7 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "Die unten aufgeführten Domains scheinen Ihre Internetaktivitäten nicht zu verfolgen",
+        "message": "Die nachfolgenden Domains scheinen Ihre Internetaktivitäten nicht zu verfolgen",
         "description": ""
     },
     "popup_options_button": {
@@ -508,6 +508,10 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "allow_once": {
+        "message": "Einmalig erlauben",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {
         "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Site-Listen, auf denen Privacy Badger deaktiviert ist</li></ul>",

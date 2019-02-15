@@ -182,17 +182,25 @@ BadgerPen.prototype = {
     log('removing from cookie blocklist:', removedDomains);
     removedDomains.forEach(function (domain) {
       yellowlistStorage.deleteItem(domain);
-      // TODO restore domain removal logic:
-      // https://github.com/EFForg/privacybadger/issues/1474
+
+      const base = window.getBaseDomain(domain);
+      // "subdomains" include the domain itself
+      for (const subdomain of Object.keys(actionMap.getItemClones())) {
+        if (window.getBaseDomain(subdomain) == base) {
+          if (self.getAction(subdomain) != constants.NO_TRACKING) {
+            badger.heuristicBlocking.blacklistOrigin(base, subdomain);
+          }
+        }
+      }
     });
 
     log('adding to cookie blocklist:', addedDomains);
     addedDomains.forEach(function (domain) {
       yellowlistStorage.setItem(domain, true);
 
-      let base_domain = window.getBaseDomain(domain);
-      if (actionMap.hasItem(base_domain)) {
-        let action = actionMap.getItem(base_domain).heuristicAction;
+      const base = window.getBaseDomain(domain);
+      if (actionMap.hasItem(base)) {
+        const action = actionMap.getItem(base).heuristicAction;
         // if the domain's base domain is marked for blocking
         if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
           // cookieblock the domain
