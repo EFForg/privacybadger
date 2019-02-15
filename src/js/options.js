@@ -106,8 +106,9 @@ function loadOptions() {
   $("#removeAllData").button("option", "icons", {primary: "ui-icon-closethick"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
   $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.showCounter);
-  $("#replace_social_widgets_checkbox").on("click", updateSocialWidgetReplacement);
-  $("#replace_social_widgets_checkbox").prop("checked", OPTIONS_DATA.isSocialWidgetReplacementEnabled);
+  $("#replace-widgets-checkbox")
+    .on("click", updateWidgetReplacement)
+    .prop("checked", OPTIONS_DATA.isWidgetReplacementEnabled);
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
   $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.isDNTSignalEnabled);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
@@ -357,16 +358,15 @@ function updateShowCounter() {
 }
 
 /**
- * Update setting for whether or not to replace social widgets.
+ * Update setting for whether or not to replace
+ * social buttons/video players/commenting widgets.
  */
-function updateSocialWidgetReplacement() {
-  const enabled = $("#replace_social_widgets_checkbox").prop("checked");
+function updateWidgetReplacement() {
+  const socialWidgetReplacementEnabled = $("#replace-widgets-checkbox").prop("checked");
 
   chrome.runtime.sendMessage({
     type: "updateSettings",
-    data: {
-      socialWidgetReplacementEnabled: enabled
-    }
+    data: { socialWidgetReplacementEnabled }
   });
 }
 

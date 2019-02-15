@@ -44,9 +44,15 @@
  */
 
 /**
- * Social widget tracker data, read from file.
+ * Widget data, read from file.
  */
 let trackerInfo;
+
+// cached chrome.i18n.getMessage() results
+const TRANSLATIONS = [];
+
+// references to widget page elements
+const WIDGET_ELS = {};
 
 
 /**
@@ -62,7 +68,7 @@ function initialize() {
 
   // Set up listener for blocks that happen after initial check
   chrome.runtime.onMessage.addListener(function(request/*, sender, sendResponse*/) {
-    if (request.replaceSocialWidget) {
+    if (request.replaceWidget) {
       replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
     }
   });
@@ -116,7 +122,7 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
 
   button.setAttribute(
     "title",
-    chrome.i18n.getMessage("social_tooltip_pb_has_replaced", tracker.name)
+    TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", tracker.name)
   );
 
   let styleAttrs = [
@@ -154,7 +160,7 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   // in-place widget type:
   // reinitialize the widget by reinserting its element's HTML
   } else if (buttonType == 3) {
-    let widget = createReplacementWidget(button, trackerElem, buttonData.unblockDomains);
+    let widget = createReplacementWidget(tracker.name, button, trackerElem, buttonData.unblockDomains);
     return callback(widget);
   }
 
@@ -216,14 +222,16 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, urls, html) {
  *
  * The teardown to the initialization defined in createReplacementWidget().
  *
- * @param {HTMLElement} replacementWidget the DOM element of replacement widget
+ * @param {String} name the name/type of this widget (Vimeo, Disqus, etc.)
  * @param {Array} urls tracker URLs
- * @param {HTMLElement} widget the DOM element for the third-party widget
- * @param {HTMLElement} parentEl the parent DOM element
  */
-function reinitializeWidgetAndUnblockTracker(replacementWidget, urls, widget, parentEl) {
-  unblockTracker(urls, function() {
-    parentEl.replaceChild(widget, replacementWidget);
+function reinitializeWidgetAndUnblockTracker(name, urls) {
+  unblockTracker(urls, function () {
+    // restore all widgets of this type
+    WIDGET_ELS[name].forEach(data => {
+      data.parent.replaceChild(data.widget, data.replacement);
+    });
+    WIDGET_ELS[name] = [];
   });
 }
 
@@ -279,15 +287,17 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
   });
 }
 
-function createReplacementWidget(button, buttonToReplace, trackerUrls) {
+function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
   let widgetFrame = document.createElement('iframe');
 
   // widget replacement frame styles
   let styleAttrs = [
     "background-color: #fff",
     "border: 1px solid #ec9329",
-    "width:" + buttonToReplace.clientWidth + "px",
-    "height:" + buttonToReplace.clientHeight + "px",
+    "width:" + elToReplace.clientWidth + "px",
+    "height:" + elToReplace.clientHeight + "px",
+    "min-width: 220px",
+    "min-height: 165px",
     "z-index: 2147483647",
   ];
   widgetFrame.style = styleAttrs.join(" !important;") + " !important";
@@ -317,19 +327,57 @@ function createReplacementWidget(button, buttonToReplace, trackerUrls) {
 
   let textDiv = document.createElement('div');
   textDiv.style = styleAttrs.join(" !important;") + " !important";
-  textDiv.appendChild(document.createTextNode(button.title));
+  textDiv.appendChild(document.createTextNode(
+    TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", name)));
   widgetDiv.appendChild(textDiv);
 
   let buttonDiv = document.createElement('div');
   buttonDiv.style = styleAttrs.join(" !important;") + " !important";
+
+  // "allow once" button
+  let button = document.createElement('button');
+  let button_id = Math.random();
+  button.id = button_id;
+  styleAttrs = [
+    "background-color: #fff",
+    "border: 2px solid #ec9329",
+    "border-radius: 3px",
+    "color: #ec9329",
+    "cursor: pointer",
+    "font-weight: bold",
+    "line-height: 30px",
+    "padding: 8px",
+  ];
+  button.style = styleAttrs.join(" !important;") + " !important";
+
+  icon.style.setProperty("margin", "0 5px", "important");
+  icon.style.setProperty("height", "30px", "important");
+  icon.style.setProperty("vertical-align", "middle", "important");
+  icon.setAttribute("alt", "");
+  button.appendChild(icon);
+
+  button.appendChild(document.createTextNode(TRANSLATIONS.allow_once));
+
   buttonDiv.appendChild(button);
+
   widgetDiv.appendChild(buttonDiv);
 
-  let parentEl = buttonToReplace.parentNode;
+  // save refs. to elements for use in teardown
+  if (!WIDGET_ELS.hasOwnProperty(name)) {
+    WIDGET_ELS[name] = [];
+  }
+  WIDGET_ELS[name].push({
+    parent: elToReplace.parentNode,
+    widget: elToReplace,
+    replacement: widgetFrame
+  });
+
+  // set up click handler
   widgetFrame.addEventListener('load', function () {
-    // click handler
-    widgetFrame.contentDocument.querySelector('img').addEventListener("click", function () {
-      reinitializeWidgetAndUnblockTracker(widgetFrame, trackerUrls, buttonToReplace, parentEl);
+    let el = widgetFrame.contentDocument.getElementById(button_id);
+    el.addEventListener("click", function (e) {
+      reinitializeWidgetAndUnblockTracker(name, trackerUrls);
+      e.preventDefault();
     }, { once: true });
   }, false);
 
@@ -370,9 +418,10 @@ function replaceIndividualButton(tracker) {
 function getTrackerData(callback) {
   chrome.runtime.sendMessage({checkReplaceButton: true}, function(response) {
     if (response) {
-      var trackers = response.trackers;
-      var trackerButtonsToReplace = response.trackerButtonsToReplace;
-      callback(trackers, trackerButtonsToReplace);
+      for (const key in response.translations) {
+        TRANSLATIONS[key] = response.translations[key];
+      }
+      callback(response.trackers, response.trackerButtonsToReplace);
     }
   });
 }
@@ -386,7 +435,7 @@ function getTrackerData(callback) {
  */
 function unblockTracker(buttonUrls, callback) {
   let request = {
-    unblockSocialWidget: true,
+    unblockWidget: true,
     buttonUrls: buttonUrls
   };
   chrome.runtime.sendMessage(request, callback);
@@ -406,9 +455,9 @@ if (document instanceof HTMLDocument === false && (
 }
 
 chrome.runtime.sendMessage({
-  checkSocialWidgetReplacementEnabled: true
-}, function (checkSocialWidgetReplacementEnabled) {
-  if (!checkSocialWidgetReplacementEnabled) {
+  checkWidgetReplacementEnabled: true
+}, function (checkWidgetReplacementEnabled) {
+  if (!checkWidgetReplacementEnabled) {
     return;
   }
   initialize();
