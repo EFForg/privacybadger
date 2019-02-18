@@ -510,7 +510,7 @@
         }
     },
     "allow_once": {
-        "message": "Zezwól jednorazowo",
+        "message": "Odblokuj jednorazowo",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {
