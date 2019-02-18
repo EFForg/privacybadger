@@ -637,6 +637,7 @@ webflow.com
 webs.com
 websimages.com
 webtype.com
+weebly.com
 where.com
 widgetserver.com
 wikidata.org
