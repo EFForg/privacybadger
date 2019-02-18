@@ -460,6 +460,7 @@ outlook.com
 pandacommerce.net
 parastorage.com
 passwordbox.com
+payments-amazon.com
 paypal.com
 paypalobjects.com
 pdf.yt
