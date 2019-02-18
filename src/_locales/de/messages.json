@@ -56,7 +56,7 @@
         "description": "Intro page paragraph heading."
     },
     "report_success": {
-        "message": "Vielen Dank! Wir werden den Fehler umgehend analysieren.",
+        "message": "Vielen Dank! Wir werden den Fehler umgehend untersuchen.",
         "description": ""
     },
     "dnt_tooltip": {
@@ -100,7 +100,7 @@
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
-        "message": "Was ist defekt?",
+        "message": "Was läuft falsch?",
         "description": ""
     },
     "popup_instructions_no_trackers": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "Klicken, um die Kontrolle dieses Trackers an Privacy Badger zurückzugeben",
+        "message": "Anklicken, um die Kontrolle dieses Trackers an Privacy Badger zurückzugeben",
         "description": ""
     },
     "import": {
@@ -514,7 +514,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {
-        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Site-Listen, auf denen Privacy Badger deaktiviert ist</li></ul>",
+        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Listen der Sites, auf denen Privacy Badger deaktiviert ist</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
