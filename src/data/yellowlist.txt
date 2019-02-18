@@ -265,6 +265,7 @@ picasaweb.google.com
 play.google.com
 plus.google.com
 sites.google.com
+smartlock.google.com
 spreadsheets.google.com
 storage.googleapis.com
 talkgadget.google.com
