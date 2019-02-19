@@ -883,6 +883,7 @@ var multiDomainFirstPartiesArray = [
     "thathomesite.com",
   ],
   ["hvfcu.org", "hvfcuonline.org"],
+  ["ign.fr", "geoportail.gouv.fr"],
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
   ["logmein.com", "logme.in"],
   ["macys.com", "macysassets.com"],
