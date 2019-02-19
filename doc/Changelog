@@ -1,5 +1,14 @@
 Changes for Privacy Badger 
 ====================================
+## 2019.2.19
+* Improved replacement widgets:
+  + Replaced the "play" icon with an "allow once" button to improve
+	accessibility and to make it more clear our widgets are interactive
+  + Made activation also activate any other widgets of the same type
+  + Updated the replacement for Vimeo to ignore background videos
+  + Set minimum dimensions to avoid becoming too small or hidden
+* Fixed various site breakages
+
 ## 2019.1.30
 * Added replacement widgets for embedded Spotify, Streamable and Vimeo
 players. Privacy Badger can replace potentially useful third-party widgets
