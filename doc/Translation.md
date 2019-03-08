@@ -82,7 +82,7 @@ The proper way would be to launch the browser in your desired locale.
 
 For Chrome, it might be as easy as [launching it from the command line with `LANGUAGE=fr` (for example) in front of the executable](https://stackoverflow.com/questions/24992240/start-google-chrome-with-a-specific-locale-using-a-command-line-argument).
 
-[Firefox seems to require more effort](https://askubuntu.com/questions/63724/how-do-i-start-firefox-in-another-language-than-the-default).
+Firefox requires [downloading a language pack](https://addons.mozilla.org/en-US/firefox/language-tools/) and [setting it as your locale from about:config](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization#Testing_out_your_extension).
 
 
 ## Other information
