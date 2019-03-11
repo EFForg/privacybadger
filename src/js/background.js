@@ -503,7 +503,7 @@ Badger.prototype = {
     showIntroPage: true,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
-    passiveMode: false,
+    passiveMode: true,
   },
 
   /**
