@@ -293,6 +293,19 @@ var multiDomainFirstPartiesArray = [
     "alamo.ca",
     "alamo.com",
 
+    "autoshare.com",
+    "autoshare.biz",
+    "autoshare.ca",
+    "autoshare.net",
+    "autoshare.org",
+
+    "cars.info",
+    "carsharing.ca",
+    "carsharingtoronto.com",
+    "citer.fr",
+
+    "ehi.com",
+
     "enterprise.ca",
     "enterprise.ch",
     "enterprise.com.jm",
@@ -313,6 +326,7 @@ var multiDomainFirstPartiesArray = [
     "enterprise.se",
 
     "enterprisecarclub.co.uk",
+    "enterprisecarclub.ie",
 
     "enterprisecarshare.ca",
     "enterprisecarshare.com",
@@ -340,6 +354,9 @@ var multiDomainFirstPartiesArray = [
     "nationalcar.fr",
     "nationalcar.ie",
     "nationalcar.it",
+    "nationalcar.mobi",
+
+    "onewaygo.de",
   ],
   [
     "expedia.com",
