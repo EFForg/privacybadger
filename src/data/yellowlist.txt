@@ -47,6 +47,7 @@ aspnetcdn.com
 c64.assets-yammer.com
 assetfiles.com
 assets-cdk.com
+auth0.com
 authorize.net
 autoforums.com
 azureedge.net
