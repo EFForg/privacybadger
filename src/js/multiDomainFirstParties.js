@@ -1152,7 +1152,8 @@ var multiDomainFirstPartiesArray = [
     "wnyc.org",
   ],
   ["nytimes.com", "newyorktimes.com", "nyt.com"],
-  ["nyu.edu", 
+  [
+    "nyu.edu", 
    
    "mediacommons.org",
    "nyupress.org",
