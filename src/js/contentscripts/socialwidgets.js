@@ -290,16 +290,27 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
 function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
   let widgetFrame = document.createElement('iframe');
 
+  let frameBorderWidthPx = 1;
+  let frameWidth = elToReplace.offsetWidth - frameBorderWidthPx; 
+  let frameHeight = elToReplace.offsetHeight - frameBorderWidthPx;
+
+  // if we didn't get a value that makes sense from .offsetHeight/.offsetWidth, 
+  // then don't set a rule at all
+  let widthRule = frameWidth > 0 ? "width:" + frameWidth + "px" : false; 
+  let heightRule = frameHeight > 0 ? "height:" + frameHeight + "px" : false;
+  
   // widget replacement frame styles
   let styleAttrs = [
     "background-color: #fff",
-    "border: 1px solid #ec9329",
-    "width:" + elToReplace.clientWidth + "px",
-    "height:" + elToReplace.clientHeight + "px",
+    "border: " + frameBorderWidthPx + "px solid #ec9329",
+    widthRule,
+    heightRule,
     "min-width: 220px",
     "min-height: 165px",
     "z-index: 2147483647",
   ];
+  
+  styleAttrs = styleAttrs.filter(rule => rule); // Remove 'false' style rules
   widgetFrame.style = styleAttrs.join(" !important;") + " !important";
 
   let widgetDiv = document.createElement('div');
