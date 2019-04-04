@@ -129,6 +129,8 @@
     .switch-toggle input {
       position: absolute;
       opacity: 0; }
+    .switch-toggle .ui-slider-horizontal {
+      display: none; }
     .switch-toggle input + label {
       position: relative;
       z-index: 2;
@@ -147,6 +149,8 @@
       height: 100%; }
     .switch-toggle input:last-of-type:checked ~ a {
       left: 50%; }
+    .switch-toggle label {
+      cursor: pointer; }
     .switch-toggle.switch-3 label, .switch-toggle.switch-3 a {
       width: 33.33333%; }
     .switch-toggle.switch-3 input:checked:nth-of-type(2) ~ a {
