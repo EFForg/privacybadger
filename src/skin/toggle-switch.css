@@ -130,7 +130,7 @@
       position: absolute;
       opacity: 0; }
     .switch-toggle .ui-slider-horizontal {
-      display: none; }
+      z-index: -1; }
     .switch-toggle input + label {
       position: relative;
       z-index: 2;
