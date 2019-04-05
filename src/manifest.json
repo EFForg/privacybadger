@@ -63,6 +63,8 @@
       "matches": [
         "https://*.facebook.com/*",
         "http://*.facebook.com/*",
+        "https://*.messenger.com/*",
+        "http://*.messenger.com/*",
         "*://*.facebookcorewwwi.onion/*"
       ],
       "run_at": "document_idle"
