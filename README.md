@@ -13,6 +13,8 @@ To learn more, see [the FAQ on Privacy Badger's homepage](https://www.eff.org/pr
 
 We're glad you want to help! Please see [our contributor guide](/CONTRIBUTING.md).
 
+This project is governed by [EFF's Public Projects Code of Conduct](https://www.eff.org/pages/eppcode).
+
 
 ## Getting in touch
 
