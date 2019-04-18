@@ -1717,7 +1717,8 @@ var multiDomainFirstPartiesArray = [
   ["wetter.com", "tiempo.es", "wettercomassets.com"],
   ["wikipedia.org", "wikimedia.org", "wikimediafoundation.org", "wiktionary.org",
     "wikiquote.org", "wikibooks.org", "wikisource.org", "wikinews.org",
-    "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org"],
+    "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org",
+    "wmfusercontent.org"],
   ["wix.com", "wixapps.net", "wixstatic.com", "parastorage.com"],
   ["wordpress.com", "wp.com"],
   [
