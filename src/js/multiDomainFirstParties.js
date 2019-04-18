@@ -961,6 +961,8 @@ var multiDomainFirstPartiesArray = [
     "skype.com",
     "s-microsoft.com",
     "visualstudio.com",
+    "vsallin.net",
+    "vsassets.io",
     "windowsazure.com",
     "windows.com",
     "xbox.com",
