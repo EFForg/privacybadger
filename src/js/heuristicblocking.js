@@ -20,6 +20,7 @@
 var constants = require("constants");
 var utils = require("utils");
 var incognito = require("incognito");
+var mdfp = require("MultiDomainFP");
 
 require.scopes.heuristicblocking = (function() {
 
@@ -181,6 +182,13 @@ HeuristicBlocker.prototype = {
 
     if (firstParties.indexOf(page_origin) != -1) {
       return; // We already know about the presence of this tracker on the given domain
+    }
+
+    if (window.isThirdParty(domain1, domain2)) {
+      return !mdfp.isMultiDomainFirstParty(
+        window.getBaseDomain(domain1),
+        window.getBaseDomain(domain2)
+      );
     }
 
     // Check this just-seen-tracking-on-this-site,
