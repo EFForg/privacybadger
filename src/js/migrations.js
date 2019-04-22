@@ -17,6 +17,7 @@
 
 var utils = require("utils");
 var constants = require("constants");
+var mdfp = require("multiDomainFP");
 
 require.scopes.migrations = (function() {
 
@@ -246,6 +247,33 @@ exports.Migrations= {
         cpn.webRTCIPHandlingPolicy.clear({});
       }
     });
+  },
+
+  forgetFirstPartySnitches: function (badger) {
+    // this needs to happen before unblockIncorrectlyBlockedDomains
+    console.log("Removing first parties from snitch map...");
+
+    let snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
+      items = snitchMap.getItemClones();
+
+    for (let domain in items) {
+      let snitches = snitchMap.getItem(domain);
+      console.log(domain + ': ' + snitches);
+      let newSnitches = [];
+      snitches.forEach(function (snitch) {
+        if (!mdfp.isMultiDomainFirstParty(snitch, domain)) {
+          newSnitches.push(snitch);
+        }
+      });
+
+      if (newSnitches.length == 0) {
+        console.log("Removing %s ...", domain);
+        snitchMap.deleteItem(domain);
+      } else if (newSnitches.length < snitches.length) {
+        console.log("Reassigning %s ...", domain);
+        snitchMap.setItem(domain, newSnitches);
+      }
+    }
   },
 
 };
