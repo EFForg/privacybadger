@@ -258,14 +258,21 @@ exports.Migrations= {
 
     for (let domain in items) {
       let snitches = snitchMap.getItem(domain);
-      console.log(domain + ': ' + snitches);
       let newSnitches = [];
+
       snitches.forEach(function (snitch) {
         if (!mdfp.isMultiDomainFirstParty(snitch, domain)) {
           newSnitches.push(snitch);
         }
       });
 
+      // if nothing changed, we're done
+      if (newSnitches.length == snitches.length) {
+        continue;
+      }
+
+      // otherwise, we dropped one or more domains. Update the snitch map and
+      // reevaluate the action map.
       if (newSnitches.length == 0) {
         console.log("Removing %s ...", domain);
         snitchMap.deleteItem(domain);
