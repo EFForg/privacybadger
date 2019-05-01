@@ -1,6 +1,6 @@
 {
     "badger_status_block": {
-        "message": "$DOMAIN$ bloqueados",
+        "message": "$DOMAIN$ bloqueado",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -18,7 +18,7 @@
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
-        "message": "Nenhum rastreamento para $DOMAIN$",
+        "message": "Nenhum rastreamento em $DOMAIN$",
         "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -48,7 +48,7 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Ajude-nos fazendo um donativo e partilhando o seu apoio às nossas ferramentas",
+        "message": "Ajude-nos com um donativo e partilhando o seu apoio às nossas ferramentas",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
@@ -174,7 +174,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Por favor, não esqueça de clicar em \"O Privacy Badger estragou este site\". Nós respeitamos a sua privacidade por isso não são enviados relatórios de problemas de forma automática.",
+        "message": "Por favor não esqueça de clicar em \"O Privacy Badger estragou este site? Diga-nos!\" se quiser ajudar-nos. Nós respeitamos a sua privacidade por isso os relatórios de problemas não são enviados automaticamente.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -250,7 +250,7 @@
         "description": "This is an options page tab heading."
     },
     "intro_next_button": {
-        "message": "Fazer um passeio",
+        "message": "Saber como funciona",
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
@@ -440,7 +440,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "O Privacy Badger começa a bloquear após detetar o mesmo rastreador em três sites diferentes. Três golpes e está fora! Se usar outras ferramentas de privacidade ou bloqueadores de anúncios, o Privacy Badger aprenderá menos, mas tudo bem, ele detetará coisas que outros bloqueadores não detetaram.",
+        "message": "O Privacy Badger começa a bloquear após detetar o mesmo rastreador em três sites diferentes. Três golpes e está fora! Se usar outras ferramentas de privacidade ou bloqueadores de anúncios, o Privacy Badger aprenderá menos, mas tudo bem, ele vai detetar coisas que outros bloqueadores não detetam.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -464,7 +464,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Se acha que o Privacy Badger está a estragar/quebrar uma página (por exemplo, não consigo ver um vídeo), pode clicar no botão \"Desativar\" para desativar o Privacy Badger para esse site.",
+        "message": "Se acha que o Privacy Badger está a estragar uma página (por exemplo, não consegue ver um vídeo), pode clicar no botão \"Desativar\" para desativar o Privacy Badger para esse site.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
@@ -518,7 +518,7 @@
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
-        "message": "Envio",
+        "message": "Enviar",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
