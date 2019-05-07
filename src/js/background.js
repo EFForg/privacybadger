@@ -501,6 +501,7 @@ Badger.prototype = {
     sendDNTSignal: true,
     showCounter: true,
     showIntroPage: true,
+    showNonTrackingDomains: false,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true
   },

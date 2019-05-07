@@ -745,6 +745,7 @@ function dispatcher(request, sender, sendResponse) {
       noTabData: !has_tab_data,
       origins: has_tab_data && badger.tabData[tab_id].origins,
       seenComic: badger.getSettings().getItem("seenComic"),
+      showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       tabHost: tab_host,
       tabId: tab_id,
       tabUrl: tab_url
@@ -759,6 +760,7 @@ function dispatcher(request, sender, sendResponse) {
       isWidgetReplacementEnabled: badger.isWidgetReplacementEnabled(),
       origins: badger.storage.getTrackingDomains(),
       showCounter: badger.showCounter(),
+      showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       showTrackingDomains: badger.getSettings().getItem("showTrackingDomains"),
       webRTCAvailable: badger.webRTCAvailable,
     });
