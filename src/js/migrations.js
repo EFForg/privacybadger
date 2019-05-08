@@ -248,6 +248,19 @@ exports.Migrations= {
     });
   },
 
+  enableShowNonTrackingDomains: function (badger) {
+    console.log("Enabling showNonTrackingDomains for some users");
+
+    let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+      actions = actionMap.getItemClones();
+
+    // if we have any customized sliders
+    if (Object.keys(actions).some(domain => actions[domain].userAction != "")) {
+      // keep showing non-tracking domains in the popup
+      badger.getSettings().setItem("showNonTrackingDomains", true);
+    }
+  },
+
 };
 
 
