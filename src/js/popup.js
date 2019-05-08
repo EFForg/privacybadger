@@ -503,7 +503,6 @@ function refreshPopup() {
   var printable = [];
   var nonTracking = [];
   originsArr = htmlUtils.sortDomains(originsArr);
-  var num_trackers = 0;
 
   for (let i=0; i < originsArr.length; i++) {
     var origin = originsArr[i];
@@ -514,9 +513,6 @@ function refreshPopup() {
       continue;
     }
 
-    if (action != constants.DNT) {
-      num_trackers++;
-    }
     printable.push(
       htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
     );
@@ -545,14 +541,14 @@ function refreshPopup() {
   // activate tooltips
   $('.tooltip').tooltipster();
 
-  if (num_trackers === 0) {
+  if (POPUP_DATA.trackerCount === 0) {
     // hide multiple trackers message
     $("#instructions-many-trackers").hide();
 
     // show "no trackers" message
     $("#instructions_no_trackers").show();
 
-  } else if (num_trackers == 1) {
+  } else if (POPUP_DATA.trackerCount == 1) {
     // hide multiple trackers message
     $("#instructions-many-trackers").hide();
 
@@ -562,7 +558,7 @@ function refreshPopup() {
   } else {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
       "popup_instructions", [
-        num_trackers,
+        POPUP_DATA.trackerCount,
         "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
       ]
     )).find(".tooltip").tooltipster();

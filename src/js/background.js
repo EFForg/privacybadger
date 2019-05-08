@@ -550,16 +550,17 @@ Badger.prototype = {
   },
 
   /**
-   * Returns the count of blocked/cookieblocked origins for a tab.
+   * Returns the count of tracking domains for a tab.
    * @param {Integer} tab_id browser tab ID
-   * @returns {Integer} blocked origin count
+   * @returns {Integer} tracking domains count
    */
-  getBlockedOriginCount: function (tab_id) {
+  getTrackerCount: function (tab_id) {
     let origins = this.tabData[tab_id].origins,
       count = 0;
 
     for (let domain in origins) {
-      if (constants.BLOCKED_ACTIONS.has(origins[domain])) {
+      let action = origins[domain];
+      if (action != constants.NO_TRACKING && action != constants.DNT) {
         count++;
       }
     }
@@ -608,7 +609,7 @@ Badger.prototype = {
         return;
       }
 
-      let count = self.getBlockedOriginCount(tab_id);
+      let count = self.getTrackerCount(tab_id);
 
       if (count === 0) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#00cc00"});
@@ -771,13 +772,19 @@ Badger.prototype = {
    */
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
     let self = this,
-      blocked = constants.BLOCKED_ACTIONS.has(action),
+      is_tracking = (
+        action != constants.NO_TRACKING && action != constants.DNT
+      ),
       origins = self.tabData[tab_id].origins,
-      previously_blocked = constants.BLOCKED_ACTIONS.has(origins[fqdn]);
+      previously_tracking = origins.hasOwnProperty(fqdn) && (
+        origins[fqdn] != constants.NO_TRACKING && origins[fqdn] != constants.DNT
+      );
 
     origins[fqdn] = action;
 
-    if (!blocked || previously_blocked) {
+    // no need to update badge if not a tracking domain,
+    // or if we have already seen it as a tracking domain
+    if (!is_tracking || previously_tracking) {
       return;
     }
 

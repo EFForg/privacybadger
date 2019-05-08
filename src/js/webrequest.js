@@ -748,7 +748,8 @@ function dispatcher(request, sender, sendResponse) {
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       tabHost: tab_host,
       tabId: tab_id,
-      tabUrl: tab_url
+      tabUrl: tab_url,
+      trackerCount: has_tab_data && badger.getTrackerCount(tab_id)
     });
 
   } else if (request.type == "getOptionsData") {
