@@ -1,22 +1,17 @@
-build: updatepsl zip crx
-
-travisbuild: zip crx
-	ls -1tr *.crx | tail -n 1
+lint:
+	./node_modules/.bin/eslint .
 
 updatepsl:
 	scripts/updatepsl.sh
 
-zip:
-	scripts/makezip.sh 
+updateseed:
+	scripts/updateseeddata.sh
 
-crx:
-	scripts/makecrx.sh 
+updategoogle:
+	scripts/updategoogle.sh
 
 todo:
 	grep -rn 'TODO' src
-
-logging:
-	grep -rn 'console.log' src lib
 
 upload:
 	$(eval TMPFILE := $(shell mktemp))
@@ -24,11 +19,14 @@ upload:
 	scripts/generate-legacy-yellowlist.sh > $(TMPFILE) && scp $(TMPFILE) $$YELLOWLIST_LEGACY_UPLOAD_PATH && rm $(TMPFILE)
 	#scp data/dnt-policies.json $$DNT_POLICIES_UPLOAD_PATH
 
-lint:
-	./node_modules/.bin/eslint .
-
 tx:
 	tx pull -f
 	scripts/fix_placeholders.py
 
-.PHONY: build travisbuild updatepsl zip crx todo logging lint tx
+runff:
+	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/
+
+runfn:
+	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/ -f /opt/firefox/nightly/firefox
+
+.PHONY: lint updatepsl updateseed updategoogle todo tx runff runfn

@@ -18,6 +18,8 @@ ally.com
 amazon.com
 s3.amazonaws.com
 amazonaws.com
+coin.amazonpay.com
+coin-eu.amazonpay.com
 americanhomecomings.com
 ancestry.com
 angularjs.org
@@ -72,6 +74,7 @@ break.com
 breakingburner.com
 brightcove.com
 players.brightcove.net
+bungie.net
 buzzfed.com
 buzzfeed.com
 cachefly.net
@@ -108,6 +111,7 @@ cdn.cnetcontent.com
 ws.cnetcontent.com
 com.com
 complex.com
+consensu.org
 convio.net
 copyscape.com
 corporate-ir.net
@@ -120,6 +124,7 @@ cursecdn.com
 custhelp.com
 d3js.org
 dailymotion.com
+danid.dk
 dealer.com
 dealerinspire.com
 delicious.com
@@ -142,6 +147,7 @@ dotsub.com
 dl.dropboxusercontent.com
 dudamobile.com
 dumpert.nl
+duosecurity.com
 ebay.com
 ebayimg.com
 ebayrtm.com
@@ -275,6 +281,7 @@ gravatar.com
 greenhouse.io
 gscdn.nl
 gstatic.com
+guildwars2.com
 hackerone-user-content.com
 helium.com
 hellobar.com
@@ -314,6 +321,7 @@ instantservice.com
 instapaper.com
 intellicast.com
 intensedebate.com
+intercom.io
 members.internetdefenseleague.org
 investingchannel.com
 script.ioam.de
@@ -390,6 +398,7 @@ mtv.com
 mtvnservices.com
 mycapture.com
 myportfolio.com
+myshopify.com
 mzstatic.com
 nationbuilder.com
 nationalgeographic.com
@@ -460,15 +469,18 @@ piratebay.org
 pistachio-cdn.graze.com
 pixietrixcomix.com
 plex.tv
+plot.ly
 poll.fm
 polldaddy.com
 postimg.org
 powerreviews.com
 pricegrabber.com
 printfriendly.com
+prismic.io
 providesupport.com
 psswrdbx.com
 publiekeomroep.nl
+img.purch.com
 qualtrics.com
 quotemedia.com
 api.razorpay.com
@@ -486,6 +498,7 @@ recurly.com
 reddit.com
 redditmedia.com
 redditstatic.com
+cdngeneral.rentcafe.com
 resellerratings.com
 resultspage.com
 rewardstyle.com
@@ -520,6 +533,7 @@ cdn-a.sonyentertainmentnetwork.com
 soundcloud.com
 springboardplatform.com
 squarespace.com
+squareup.com
 squirt.io
 ssl-images-amazon.com
 cdn.sstatic.net
@@ -570,6 +584,9 @@ ttvnw.net
 tumblr.com
 turner.com
 twimg.com
+api.twisto.cz
+static.twisto.cz
+api.twisto.pl
 twitch.tv
 twitter.com
 platform.twitter.com
@@ -653,6 +670,7 @@ ytimg.com
 zap2it.com
 zdassets.com
 zencdn.net
+zendesk.com
 zergnet.com
 ziplist.com
 zlcdn.com

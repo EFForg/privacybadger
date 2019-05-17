@@ -26,7 +26,7 @@ body {
   font-size: 12px;
 
   margin: 0;
-  padding: 7px 15px 0;
+  padding: 7px 15px;
 
   min-width: 430px; /* Chrome */
   max-width: 100%;  /* FF android */
@@ -59,13 +59,13 @@ a:hover { color: #ec9329 }
   clear: both;
 }
 
-.clicker{
-  border-top: 1px solid #aaaaaa;
-  padding: 5px;
-  height: 40px;
-  overflow: hidden;
+.clicker {
+    border-top: 1px solid #aaaaaa;
+    padding: 5px;
+    height: 40px;
+    overflow: hidden;
+    direction: ltr;
 }
-.clicker.greyed { background: #aaa; }
 .origin{
   max-width: 210px;
   color: #555555;
@@ -160,7 +160,7 @@ font-size: 16px;
   cursor: move;
 }
 #siteControls {
-  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 #firstRun {
@@ -184,12 +184,14 @@ font-size: 16px;
   color: #333;
 }
 .clickerContainer {
-  max-height: 290px;
-  overflow-y: auto;
-  background-color: #E8E9EA;
-  position: relative;
+    max-height: 290px;
+    overflow-y: auto;
+    background-color: #E8E9EA;
+    position: relative;
+    margin-top: 25px;
 }
 .keyContainer{
+    direction: ltr;
     position: relative;
 }
 .key {
@@ -247,8 +249,11 @@ font-size: 16px;
   padding-right: 5px;
   padding-top: 7px;
 }
-.clickerContainer{
-  margin-top: 25px;
+#share{
+  float: right;
+  padding-right: 5px;
+  padding-top: 7px;
+  cursor: pointer;
 }
 #pbInstructions{
   color: #505050;
@@ -262,7 +267,7 @@ font-size: 16px;
   padding: 5px;
   cursor: pointer;
   text-align: center;
-  margin: 8px 0;
+  margin-top: 8px;
   border: 2px solid #707070;
   width: 100%;
   color: #707070;
@@ -282,7 +287,7 @@ font-size: 16px;
   font-size: 14px;
   font-weight: bold;
 }
-#overlay {
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -297,29 +302,37 @@ font-size: 16px;
   color: #ccc;
   background: url("/skin/background.png");
   transition: opacity .1s ease;
+  overflow-y: auto;
 }
-  div#overlay.active {
-    z-index: 31;
-    opacity: 1;}
+div.overlay.active {
+  z-index: 31;
+  opacity: 1;
+}
 #error_input {
   display: block;
-  width: 70%;}
-#report_title {
+  width: 70%;
+}
+.overlay_title {
   display: inline-block;
   padding: 0;
-  margin: 0; }
+  margin: 0 0 10px;
+}
 #report_label {
   display: block;
   margin: 1% 0;
-  font-weight: bold;}
+  font-weight: bold;
+}
 #report_button, #report_cancel {
   cursor: pointer;
-  margin: 2% 2% 0 0;}
+  margin: 2% 2% 0 0;
+}
 #report_success {
-  color: green;}
+  color: green;
+}
 #report_fail {
-  color: red;}
-#report_close {
+  color: red;
+}
+.overlay_close {
   display: inline-block;
   float: right;
   background: none;
@@ -327,12 +340,25 @@ font-size: 16px;
   font-size: 1.2em;
   margin: 0 25;
   cursor: pointer;
-  color: #ccc;}
-#report_close:before {
+  color: #ccc;
+}
+.overlay_close:before {
   content: '[X]';
-  margin: 5px;}
-#report_close:hover {
-  text-decoration: underline;}
+  margin: 5px;
+}
+.overlay_close:hover {
+  text-decoration: underline;
+}
+#share_output {
+  display: block;
+  width: 98%;
+  height: 60%;
+}
+#copy_button {
+  cursor: pointer;
+  margin: 2% 2% 0 0;
+  width: 9em;
+}
 #dnt-compliant {
   float: left;
   display: inline;
@@ -343,13 +369,13 @@ font-size: 16px;
 }
 #overlay p {
   font-size: 12px;
+  margin: 0 0 10px;
 }
 #overlay label {
   font-size: 13px;
 }
 #siteControls button {
   font-size: 12px;
-  display: block;
 }
 
 #version{
@@ -369,4 +395,29 @@ font-size: 16px;
 }
 .tooltipster-sidetip .tooltipster-arrow-border {
     border: none;
+}
+
+@media screen and (max-width: 350px){
+  .origin {
+    max-width: 150px;
+  }
+
+  .switch-container{
+    width: 100px;
+    display: block;
+    margin-left: 150px;
+  }
+
+  .key {
+    padding-left: 150px;
+  }
+  .key img{
+    margin-left: 12px;
+  }
+
+  .honeybadgerPowered {
+    float: right;
+    left: 0;
+    margin-right: 0;
+  }
 }

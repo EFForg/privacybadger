@@ -29,12 +29,18 @@ requests, or commit any material to this repository.
 LICENSES FOR INCORPORATED CODEBASES
 ===================================
 
-Incorporating code from jQuery UI,
-http://jqueryui.com
-Copyright jQuery Foundation and other contributors, https://jquery.org/
-This software consists of voluntary contributions made by many
-individuals. For exact contribution history, see the revision history
-available at https://github.com/jquery/jquery-ui
+jQuery JavaScript Library
+Copyright JS Foundation and other contributors
+Released under the MIT license
+https://jquery.org/license
+
+Underscore.js
+http://underscorejs.org
+(c) 2009-2018 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+Underscore may be freely distributed under the MIT license.
+
+jQuery UI
+Copyright jQuery Foundation and other contributors
 Licensed MIT
 
 Incorporating code from CSS Toggle Switch,
@@ -52,8 +58,7 @@ https://github.com/beaugunderson/javascript-ipv6
 Copyright 2011 Beau Gunderson
 Licensed MIT
 
-src/js/firstparties/facebook.js incorporates code from Facebook™ Tracking & Ad
-Removal
+src/js/firstparties/facebook.js incorporates code from Facebook™ Tracking & Ad Removal
 https://github.com/mgziminsky/FacebookTrackingRemoval
 Copyright 2018 Michael Ziminsky
 Licensed GPL v3

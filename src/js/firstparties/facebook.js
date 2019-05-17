@@ -1,23 +1,6 @@
+/* globals findInAllFrames:false, observeMutations:false */
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
-(function() {
-let fb_wrapped_link = "a[href*='facebook.com/l.php?'";
-
-function findInAllFrames(query) {
-  let out = [];
-  document.querySelectorAll(query).forEach((node) => {
-    out.push(node);
-  });
-  Array.from(document.getElementsByTagName('iframe')).forEach((iframe) => {
-    try {
-      iframe.contentDocument.querySelectorAll(query).forEach((node) => {
-        out.push(node);
-      });
-    } catch (e) {
-      // pass on cross origin iframe errors
-    }
-  });
-  return out;
-}
+let fb_wrapped_link = `a[href*='${document.domain}/l.php?'`;
 
 // remove all attributes from a link except for class and ARIA attributes
 function cleanAttrs(elem) {
@@ -34,46 +17,39 @@ function cleanAttrs(elem) {
 function cleanLink(a) {
   let href = new URL(a.href).searchParams.get('u');
 
-  // from https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
-  let url_regex = new RegExp(/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi);
-  if (!href || !href.match(url_regex)) {
-    // If we can't extract a good URL, abort without breaking the links
+  // If we can't extract a good URL, abort without breaking the links
+  if (!window.isURL(href)) {
     return;
   }
+
+  let href_url = new URL(href);
+  href_url.searchParams.delete('fbclid');
+  href = href_url.toString();
 
   cleanAttrs(a);
   a.href = href;
   a.rel = "noreferrer";
   a.target = "_blank";
-  a.addEventListener("click", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mousedown", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mouseup", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mouseover", function (e) { e.stopPropagation(); }, true);
+  a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
+  a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
+  a.addEventListener("mouseup", function (e) { e.stopImmediatePropagation(); }, true);
+  a.addEventListener("mouseover", function (e) { e.stopImmediatePropagation(); }, true);
 }
 
-// Check all new nodes added by a mutation for tracking links and unwrap them
-function cleanMutation(mutation) {
-  if (!mutation.addedNodes.length) {
-    return;
-  }
-  for (let node of mutation.addedNodes) {
-    node.querySelectorAll(fb_wrapped_link).forEach((link) => {
+//TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({checkEnabled: true},
+  function (enabled) {
+    if (!enabled) {
+      return;
+    }
+
+    // unwrap wrapped links in the original page
+    findInAllFrames(fb_wrapped_link).forEach((link) => {
       cleanLink(link);
     });
-    if (node.matches(fb_wrapped_link)) {
-      cleanLink(node);
-    }
+
+    // Execute redirect unwrapping each time new content is added to the page
+    observeMutations(fb_wrapped_link, cleanLink);
+
   }
-}
-
-
-// unwrap wrapped links in the original page
-findInAllFrames(fb_wrapped_link).forEach((link) => {
-  cleanLink(link);
-});
-
-// Execute redirect unwrapping each time new content is added to the page
-new MutationObserver(function(mutations) {
-  mutations.forEach(cleanMutation);
-}).observe(document.body, {childList: true, subtree: true, attributes: false, characterData: false});
-}());
+);

@@ -23,7 +23,7 @@ function getFpPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (ERROR) {
+  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout) {
 
     const V8_STACK_TRACE_API = !!(ERROR && ERROR.captureStackTrace);
 
@@ -34,14 +34,14 @@ function getFpPageScript() {
       var geckoCallSiteRe = /^\s*(.*?)(?:\((.*?)\))?@?((?:file|https?|chrome):.*?):(\d+)(?::(\d+))?\s*$/i;
     }
 
-    var event_id = document.currentScript.getAttribute('data-event-id');
+    var event_id = DOCUMENT.currentScript.getAttribute('data-event-id');
 
     // from Underscore v1.6.0
     function debounce(func, wait, immediate) {
       var timeout, args, context, timestamp, result;
 
       var later = function () {
-        var last = Date.now() - timestamp;
+        var last = DATE.now() - timestamp;
         if (last < wait) {
           timeout = setTimeout(later, wait - last);
         } else {
@@ -56,7 +56,7 @@ function getFpPageScript() {
       return function () {
         context = this; // eslint-disable-line consistent-this
         args = arguments;
-        timestamp = Date.now();
+        timestamp = DATE.now();
         var callNow = immediate && !timeout;
         if (!timeout) {
           timeout = setTimeout(later, wait);
@@ -76,11 +76,11 @@ function getFpPageScript() {
 
       // debounce sending queued messages
       var _send = debounce(function () {
-        document.dispatchEvent(new CustomEvent(event_id, {
+        dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(event_id, {
           detail: messages
         }));
 
-        // clear the queue 
+        // clear the queue
         messages = [];
       }, 100);
 
@@ -100,7 +100,7 @@ function getFpPageScript() {
       let stack;
 
       try {
-        throw new Error();
+        throw new ERROR();
       } catch (err) {
         stack = err.stack;
       }
@@ -293,33 +293,11 @@ function getFpPageScript() {
     methods.forEach(trapInstanceMethod);
 
   // save locally to keep from getting overwritten by site code
-  } + "(Error));";
+  } + "(document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
 }
-
-/**
- * Executes a script in the page DOM context
- *
- * @param text The content of the script to insert
- * @param data attributes to set in the inserted script tag
- */
-function insertFpScript(text, data) {
-  var parent = document.documentElement,
-    script = document.createElement('script');
-
-  script.text = text;
-  script.async = false;
-
-  for (var key in data) {
-    script.setAttribute('data-' + key.replace('_', '-'), data[key]);
-  }
-
-  parent.insertBefore(script, parent.firstChild);
-  parent.removeChild(script);
-}
-
 
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
@@ -349,11 +327,11 @@ chrome.runtime.sendMessage({checkEnabled: true},
     document.addEventListener(event_id, function (e) {
       // pass these on to the background page
       chrome.runtime.sendMessage({
-        'fpReport': e.detail
+        fpReport: e.detail
       });
     });
 
-    insertFpScript(getFpPageScript(), {
+    window.injectScript(getFpPageScript(), {
       event_id: event_id
     });
   }

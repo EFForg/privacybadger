@@ -123,7 +123,8 @@ HeuristicBlocker.prototype = {
 
     // abort if we already made a decision for this FQDN
     let action = this.storage.getAction(fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW &&
+    if (action != constants.NO_TRACKING &&
+        action != constants.ALLOW &&
         !badger.getSettings().getItem('passiveMode')) {
       return {};
     }
@@ -246,7 +247,8 @@ HeuristicBlocker.prototype = {
   updateTrackerPrevalence: function(tracker_fqdn, page_origin, tracker, skip_dnt_check) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW &&
+    if (action != constants.NO_TRACKING &&
+        action != constants.ALLOW &&
         !badger.getSettings().getItem('passiveMode')) {
       return;
     }
@@ -278,30 +280,27 @@ HeuristicBlocker.prototype = {
    */
   _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker, skip_dnt_check) {
     var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
-    var firstParties = {length: 0};
+    var firstParties = {};
     if (snitchMap.hasItem(tracker_origin)) {
       firstParties = snitchMap.getItem(tracker_origin);
     }
 
-    // In passive mode, record many trackers for each page
-    if (page_origin in firstParties &&
-        !badger.getSettings().getItem('passiveMode')) {
-      return; // We have already seen this tracker on the given domain
+    if (page_origin in firstParties) {
+      return; // We already know about the presence of this tracker on the given domain
     }
 
     // Check this just-seen-tracking-on-this-site,
     // not-yet-blocked domain for DNT policy.
     // We check heuristically-blocked domains in webrequest.js.
     if (!skip_dnt_check) {
-      window.setTimeout(function () {
+      setTimeout(function () {
         badger.checkForDNTPolicy(tracker_fqdn);
-      }, 10);
+      }, 0);
     }
 
     // record that we've seen this tracker on this domain (in snitch map)
     if (!(page_origin in firstParties)) {
       firstParties[page_origin] = [];
-      firstParties.length += 1;
     }
     firstParties[page_origin].push(tracker);
     snitchMap.setItem(tracker_origin, firstParties);
@@ -315,7 +314,7 @@ HeuristicBlocker.prototype = {
     this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
 
     // Blocking based on outbound cookies
-    var httpRequestPrevalence = firstParties.length;
+    var httpRequestPrevalence = Object.keys(firstParties).length;
 
     // block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
@@ -646,17 +645,21 @@ function startListeners() {
   /**
    * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
    */
+  let extraInfoSpec = ['requestHeaders'];
+  if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    if (badger) {
-      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-    } else {
-      return {};
-    }
-  }, {urls: ["<all_urls>"]}, ["requestHeaders"]);
+    return badger.heuristicBlocking.heuristicBlockingAccounting(details);
+  }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   /**
    * Adds onResponseStarted listener. Monitor for cookies
    */
+  extraInfoSpec = ['responseHeaders'];
+  if (chrome.webRequest.OnResponseStartedOptions.hasOwnProperty('EXTRA_HEADERS')) {
+    extraInfoSpec.push('extraHeaders');
+  }
   chrome.webRequest.onResponseStarted.addListener(function(details) {
     var hasSetCookie = false;
     for (var i = 0; i < details.responseHeaders.length; i++) {
@@ -666,14 +669,10 @@ function startListeners() {
       }
     }
     if (hasSetCookie) {
-      if (badger) {
-        return badger.heuristicBlocking.heuristicBlockingAccounting(details);
-      } else {
-        return {};
-      }
+      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
     }
   },
-  {urls: ["<all_urls>"]}, ["responseHeaders"]);
+  {urls: ["<all_urls>"]}, extraInfoSpec);
 }
 
 /************************************** exports */

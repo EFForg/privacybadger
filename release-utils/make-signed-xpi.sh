@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-LATEST_SDK_VERSION=2.6.0
+LATEST_SDK_VERSION=2.9.3
 WEB_EXT=../node_modules/.bin/web-ext
 
 # Auto-generated XPI name from 'web-ext sign'
@@ -28,15 +28,17 @@ if [ $# -ne 1 ]; then
 fi
 
 echo "change author value"
-sed -i 's/"author": { "email": "eff.software.projects@gmail.com" },/"author": "privacybadger-owner@eff.org",/' ../checkout/src/manifest.json
+sed -i -e '/eff.software.projects@gmail.com/,+1d' -e 's/"author": {/"author": "privacybadger-owner@eff.org",/' ../checkout/src/manifest.json
 
 echo "making zip file for AMO"
 
-(cd ../checkout/src && zip -r ../../pkg/"$AMO_ZIP_NAME" ./*)
+(cd ../checkout/src && zip -q -r ../../pkg/"$AMO_ZIP_NAME" ./*)
 
 echo "insert self hosting package id"
 # Insert self hosted package id
 sed -i 's,"id": "jid1-MnnxcxisBPnSXQ@jetpack","id": "jid1-MnnxcxisBPnSXQ-eff@jetpack"\,\n      "update_url": "https://www.eff.org/files/privacy-badger-updates.json",' ../checkout/src/manifest.json
+
+$WEB_EXT lint -s ../checkout/src --self-hosted
 
 #"update_url": "https://www.eff.org/files/privacy-badger-updates.json"
 # Build and sign the XPI 

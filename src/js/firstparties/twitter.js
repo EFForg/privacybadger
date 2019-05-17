@@ -80,6 +80,14 @@ function unwrapSpecialTwitterURLs() {
   });
 }
 
-unwrapSpecialTwitterURLs();
-unwrapTwitterURLsInTimeline();
-setInterval(unwrapTwitterURLsInTimeline, 2000);
+//TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({checkEnabled: true},
+  function (enabled) {
+    if (!enabled) {
+      return;
+    }
+    unwrapSpecialTwitterURLs();
+    unwrapTwitterURLsInTimeline();
+    setInterval(unwrapTwitterURLsInTimeline, 2000);
+  }
+);

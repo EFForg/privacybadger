@@ -9,7 +9,7 @@ This document is about the process of classifying and resolving these breakages.
 
 The first thing to do is to confirm that Privacy Badger blocks (or will eventually learn to block) the domain, and that blocking the domain does indeed break the site.
 
-Browser caching can get in our way here, as cached resources bypass request filtering by extensions. Disable your browser cache when debugging, for example by reloading using `Ctrl+Shift+R` every time.
+Browser caching can get in our way here, as cached resources bypass request filtering by extensions. Disable your browser cache when debugging, for example by reloading using <kbd>Ctrl+Shift+R</kbd> every time.
 
 Try disabling Privacy Badger for the site, and then reloading the page. Does that fix the issue? If it doesn't, does disabling the entire Privacy Badger add-on and reloading the page fix the issue? If it still doesn't, Privacy Badger is not at fault.
 
@@ -24,7 +24,7 @@ Once the issue is confirmed (and the responsible domains have been identified), 
 | --- | :---: | :---: | :---: | --- |
 | Multi-domain first parties | [MDFP](https://github.com/EFForg/privacybadger/labels/MDFP) | [#781](https://github.com/EFForg/privacybadger/issues/781) | Easy | Narrowly applicable |
 | Script surrogates | [surrogates](https://github.com/EFForg/privacybadger/labels/surrogates) | [#400](https://github.com/EFForg/privacybadger/issues/400) | Hard | Should use uBlock Origin's surrogates ("neutered scripts") as much as possible |
-| Widget replacement | [widgets](https://github.com/EFForg/privacybadger/labels/widgets) | [#196](https://github.com/EFForg/privacybadger/issues/196), [#1467](https://github.com/EFForg/privacybadger/issues/1467) | Hard | Needs review |
+| Widget replacement | [widgets](https://github.com/EFForg/privacybadger/labels/widgets) | [#196](https://github.com/EFForg/privacybadger/issues/196), [#1467](https://github.com/EFForg/privacybadger/issues/1467) | Medium | Still needs review/improvements, although some progress being made ([#2262](https://github.com/EFForg/privacybadger/pull/2262)) |
 | EFF's Do Not Track policy | [DNT Policy](https://github.com/EFForg/privacybadger/labels/DNT%20policy)| - | n/a | Narrowly applicable |
 | Yellowlisting | [yellowlist](https://github.com/EFForg/privacybadger/labels/yellowlist)| - | Easy | Only protects against some types of tracking |
 

@@ -5,10 +5,9 @@ import unittest
 import pbtest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import re
 
 
-class Test(pbtest.PBSeleniumTest):
+class BreakageTest(pbtest.PBSeleniumTest):
     """Make sure the extension doesn't break common sites and use cases.
     e.g. we should be able to load a website, search on Google.
     TODO: Add tests to simulate most common web use cases:
@@ -17,8 +16,8 @@ class Test(pbtest.PBSeleniumTest):
 
     def test_should_load_eff_org(self):
         self.load_url("https://www.eff.org")
-        WebDriverWait(self.driver, 10).\
-            until(EC.title_contains("Electronic Frontier Foundation"))
+        WebDriverWait(self.driver, 10).until(
+            EC.title_contains("Electronic Frontier Foundation"))
 
     def test_should_search_google(self):
         self.load_url("https://www.google.com/")

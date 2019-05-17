@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import time
 import unittest
 
 import pbtest
@@ -18,37 +19,60 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from window_utils import switch_to_window_with_url
 
-class OptionsPageTest(pbtest.PBSeleniumTest):
+
+class OptionsTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
 
     def select_domain_list_tab(self):
-        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
+        self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         try:
             self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
         except (ElementNotInteractableException, ElementNotVisibleException):
             # The list will be loaded directly if we're opening the tab for the second time in this test
             pass
 
+    def select_manage_data_tab(self):
+        self.find_el_by_css('a[href="#tab-manage-data"]').click()
+
+    def check_tracker_messages(self, error_message, many, one, none):
+        self.assertEqual(many,
+            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
+        self.assertEqual(one,
+            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
+        self.assertEqual(none,
+            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+
     def load_options_page(self):
         self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+
+    def clear_seed_data(self):
+        """Clear the seed dataset to make test checks easier"""
+        self.load_options_page()
+        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
 
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""
         self.load_options_page()
-        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
-            origin, action))
+        self.js((
+            "chrome.extension.getBackgroundPage()"
+            ".badger.storage.setupHeuristicAction('{}', '{}');"
+        ).format(origin, action))
 
     def add_test_origins(self, origins_with_actions):
         """Add a dictionary of origins with their actions to backend storage."""
         self.load_options_page()
         for origin in origins_with_actions:
-            self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
-                origin, origins_with_actions[origin]))
+            self.js((
+                "chrome.extension.getBackgroundPage()"
+                ".badger.storage.setupHeuristicAction('{}', '{}');"
+            ).format(origin, origins_with_actions[origin]))
 
     def user_overwrite(self, origin, action):
         # Get the slider that corresponds to this radio button
-        origin_div = self.driver.find_element_by_css_selector('div[data-origin="' + origin + '"]')
+        origin_div = self.find_el_by_css('div[data-origin="' + origin + '"]')
         slider = origin_div.find_element_by_css_selector('.ui-slider')
 
         # Click on the correct place over the slider to block this origin
@@ -77,10 +101,10 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def test_page_title(self):
         self.load_options_page()
-        localized_title = self.js('return i18n.getMessage("options_title")')
+        localized_title = self.js('return chrome.i18n.getMessage("options_title")')
         try:
-            WebDriverWait(self.driver, 3).\
-                until(EC.title_contains(localized_title))
+            WebDriverWait(self.driver, 3).until(
+                EC.title_contains(localized_title))
         except TimeoutException:
             self.fail("Unexpected title for the Options page. Got (%s),"
                       " expected (%s)"
@@ -88,18 +112,15 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def test_added_origin_display(self):
         """Ensure origin and tracker message is displayed when there is 1 origin."""
+        self.clear_seed_data()
+
         self.add_test_origin("pbtest.org", "block")
 
         self.load_options_page()
         self.select_domain_list_tab()
 
         error_message = "Only the 'one tracker' message should be displayed after adding an origin"
-        self.assertTrue(
-            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
+        self.check_tracker_messages(error_message, many=False, one=True, none=False)
 
         # Check that origin is displayed.
         origins = self.driver.find_element_by_id("blockedResourcesInner")
@@ -115,6 +136,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def test_added_multiple_origins_display(self):
         """Ensure origin and tracker count is displayed when there are multiple origins."""
+        self.clear_seed_data()
+
         self.add_test_origin("pbtest.org", "block")
         self.add_test_origin("pbtest1.org", "block")
 
@@ -122,12 +145,7 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         self.select_domain_list_tab()
 
         error_message = "Only the 'multiple tracker' messages should be displayed after adding 2 origins"
-        self.assertTrue(
-            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
+        self.check_tracker_messages(error_message, many=True, one=False, none=False)
 
         # check tracker count
         self.assertEqual(
@@ -154,20 +172,16 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
 
     def test_removed_origin_display(self):
         """Ensure origin is removed properly."""
+        self.clear_seed_data()
         self.add_test_origin("pbtest.org", "block")
 
-        self.load_url(self.options_url)
+        self.load_options_page()
         self.select_domain_list_tab()
 
-        origins = self.driver.find_element_by_id("blockedResourcesInner")
-
         # Remove displayed origin.
-        try:
-            remove_origin_element = origins.find_element_by_xpath(
-                './/div[@data-origin="pbtest.org"]' +
-                '//div[@class="removeOrigin"]')
-        except NoSuchElementException:
-            self.fail("Tracking origin is not displayed")
+        remove_origin_element = self.find_el_by_xpath(
+            './/div[@data-origin="pbtest.org"]'
+            '//div[@class="removeOrigin"]')
         remove_origin_element.click()
 
         # Make sure the alert is present. Otherwise we get intermittent errors.
@@ -195,8 +209,60 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
         error_message = "Origin should not be displayed after removal"
         self.assertIsNone(origins, error_message)
 
+    def test_reset_data(self):
+        self.load_options_page()
+        self.select_domain_list_tab()
+
+        # make sure the default tracker list includes many trackers
+        error_message = "By default, the tracker list should contain many trackers"
+        self.check_tracker_messages(error_message, many=True, one=False, none=False)
+
+        # get the number of trackers in the seed data
+        default_summary_text = self.driver.find_element_by_id("options_domain_list_trackers").text
+
+        # Click on the "remove all data" button to empty the tracker lists, and
+        # click "OK" in the popup that ensues
+        self.select_manage_data_tab()
+        self.driver.find_element_by_id('removeAllData').click()
+        self.driver.switch_to.alert.accept()
+        time.sleep(1)  # wait for page to reload
+
+        # now make sure the tracker list is empty
+        self.select_domain_list_tab()
+        error_message = "No trackers should be displayed after removing all data"
+        self.check_tracker_messages(error_message, many=False, one=False, none=True)
+
+        # add new blocked domains
+        self.add_test_origin("pbtest.org", "block")
+        self.add_test_origin("pbtest1.org", "block")
+
+        # reload the options page
+        self.load_options_page()
+        self.select_domain_list_tab()
+
+        # make sure only two trackers are displayed now
+        self.assertEqual(
+            self.driver.find_element_by_id("options_domain_list_trackers").text,
+            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Origin tracker count should be 2 after clearing and adding origins"
+        )
+
+        # click the "reset data" button to restore seed data and get rid of the
+        # domains we learned
+        self.select_manage_data_tab()
+        self.driver.find_element_by_id('resetData').click()
+        self.driver.switch_to.alert.accept()
+        time.sleep(1)
+
+        # make sure the same number of trackers are displayed as by default
+        self.select_domain_list_tab()
+        error_message = "After resetting data, tracker count should return to default"
+        self.assertEqual(self.driver.find_element_by_id("options_domain_list_trackers").text,
+                         default_summary_text, error_message)
+
     def tracking_user_overwrite(self, original_action, overwrite_action):
         """Ensure preferences are persisted when a user overwrites pb's default behaviour for an origin."""
+        self.clear_seed_data()
         self.add_test_origin("pbtest.org", original_action)
 
         self.load_options_page()
@@ -245,6 +311,8 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             origins[name] = actions[randint(0,2)]
         # Add an origin to be generated on scroll (once there are 50 already)
         origins['pbtest50-generated.org'] = 'allow'
+
+        self.clear_seed_data()
         self.add_test_origins(origins)
 
         self.load_options_page()
@@ -287,16 +355,15 @@ class OptionsPageTest(pbtest.PBSeleniumTest):
             "clicker userset block",
             "Scroll-generated origin should be persisted as blocked after user overwrite of PB's decision to allow")
 
-
     # early-warning check for the open_in_tab attribute of options_ui
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251
     def test_options_ui_open_in_tab(self):
-        # open options page manually
-        self.load_url(self.options_url)
-
-        # open background page in a new window
+        # open options page manually, keeping the new user intro page
         self.open_window()
-        self.load_url(self.bg_url)
+        self.load_options_page()
+
+        # switch to new user intro page
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
         # save open windows
         handles_before = set(self.driver.window_handles)

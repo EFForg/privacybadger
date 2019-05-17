@@ -46,16 +46,30 @@ function Badger() {
   });
 
   self.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (self.INITIALIZED) { return; }
+    if (self.INITIALIZED) {
+      return;
+    }
+
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
     self.updateTabList();
     self.initializeDefaultSettings();
+
     try {
       self.runMigrations();
     } finally {
+      // TODO "await" to set INITIALIZED until both below async functions resolve?
+      // see TODO in qunit_config.js and in dnt_test.py
+      self.loadFirstRunSeedData();
       self.initializeYellowlist();
       self.initializeDNT();
-      if (!self.isIncognito) {self.showFirstRunPage();}
+      self.showFirstRunPage();
+    }
+
+    // set badge text color to white in Firefox 63+
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1424620
+    if (chrome.browserAction.hasOwnProperty('setBadgeTextColor')) {
+      chrome.browserAction.setBadgeTextColor({ color: "#fff" });
     }
 
     // Show icon as page action for all tabs that already exist
@@ -66,7 +80,15 @@ function Badger() {
       }
     });
 
-    // TODO: register all privacy badger listeners here in the storage callback
+    // start all the listeners
+    incognito.startListeners();
+    webrequest.startListeners();
+    HeuristicBlocking.startListeners();
+    FirefoxAndroid.startListeners();
+    startBackgroundListeners();
+
+    console.log("Privacy Badger is ready to rock!");
+    console.log("Set DEBUG=1 to view console messages.");
 
     self.INITIALIZED = true;
   });
@@ -140,12 +162,35 @@ Badger.prototype = {
 
   // Methods
 
+  // load seed dataset with pre-trained action and snitch maps
+  loadSeedData: function() {
+    let self = this;
+    utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
+      if (!err) {
+        self.mergeUserData(JSON.parse(response));
+        console.log("Loaded seed data successfully");
+      }
+    });
+  },
+
+  loadFirstRunSeedData: function() {
+    if (this.getSettings().getItem("isFirstRun")) {
+      this.loadSeedData();
+    }
+  },
+
   showFirstRunPage: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
-    if (settings.getItem("isFirstRun") && !chrome.extension.inIncognitoContext) {
-      chrome.tabs.create({
-        url: chrome.extension.getURL("/skin/firstRun.html")
-      });
+    let settings = this.getSettings();
+    if (settings.getItem("isFirstRun")) {
+      // launch the new user intro page and unset first-run flag
+      if (settings.getItem("showIntroPage")) {
+        chrome.tabs.create({
+          url: chrome.runtime.getURL("/skin/firstRun.html")
+        });
+      } else {
+        // don't remind users to look at the intro page either
+        settings.setItem("seenComic", true);
+      }
       settings.setItem("isFirstRun", false);
     }
   },
@@ -158,9 +203,9 @@ Badger.prototype = {
    */
   saveAction: function(userAction, origin) {
     var allUserActions = {
-      'block': constants.USER_BLOCK,
-      'cookieblock': constants.USER_COOKIE_BLOCK,
-      'allow': constants.USER_ALLOW
+      block: constants.USER_BLOCK,
+      cookieblock: constants.USER_COOKIE_BLOCK,
+      allow: constants.USER_ALLOW
     };
     this.storage.setupUserAction(origin, allUserActions[userAction]);
     log("Finished saving action " + userAction + " for " + origin);
@@ -176,7 +221,7 @@ Badger.prototype = {
     self.tabData = self.tabData || {};
     chrome.tabs.query({}, tabs => {
       tabs.forEach(tab => {
-        self.recordFrame(tab.id, 0, -1, tab.url);
+        self.recordFrame(tab.id, 0, tab.url);
       });
     });
   },
@@ -184,12 +229,11 @@ Badger.prototype = {
   /**
    * Generate representation in internal data structure for frame
    *
-   * @param tabId ID of the tab
-   * @param frameId ID of the frame
-   * @param parentFrameId ID of the parent frame
-   * @param frameUrl The url of the frame
+   * @param {Integer} tabId ID of the tab
+   * @param {Integer} frameId ID of the frame
+   * @param {String} frameUrl The url of the frame
    */
-  recordFrame: function(tabId, frameId, parentFrameId, frameUrl) {
+  recordFrame: function(tabId, frameId, frameUrl) {
     let self = this;
 
     if (!self.tabData.hasOwnProperty(tabId)) {
@@ -201,8 +245,7 @@ Badger.prototype = {
 
     self.tabData[tabId].frames[frameId] = {
       url: frameUrl,
-      host: window.extractHostFromURL(frameUrl),
-      parent: parentFrameId
+      host: window.extractHostFromURL(frameUrl)
     };
   },
 
@@ -435,7 +478,6 @@ Badger.prototype = {
         callback(successStatus);
         return;
       }
-      // TODO Use sha256
       utils.sha1(response, function(hash) {
         if (dnt_hashes.hasItem(hash)) {
           successStatus = true;
@@ -458,6 +500,7 @@ Badger.prototype = {
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
+    showIntroPage: true,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
     passiveMode: false,
@@ -467,7 +510,7 @@ Badger.prototype = {
    * initialize default settings if nonexistent
    */
   initializeDefaultSettings: function() {
-    var settings = this.storage.getBadgerStorageObject("settings_map");
+    var settings = this.getSettings();
     _.each(this.defaultSettings, function(value, key) {
       if (!settings.hasItem(key)) {
         log("setting", key, ":", value);
@@ -478,7 +521,7 @@ Badger.prototype = {
 
   runMigrations: function() {
     var self = this;
-    var settings = self.storage.getBadgerStorageObject("settings_map");
+    var settings = self.getSettings();
     var migrationLevel = settings.getItem('migrationLevel');
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently
@@ -585,20 +628,24 @@ Badger.prototype = {
    * Check if privacy badger is enabled, take an origin and
    * check against the disabledSites list
    *
-   * @param {String} origin
+   * @param {String} origin the origin to check
    * @returns {Boolean} true if enabled
-   **/
+   */
   isPrivacyBadgerEnabled: function(origin) {
     var settings = this.getSettings();
     var disabledSites = settings.getItem("disabledSites");
     if (disabledSites && disabledSites.length > 0) {
       for (var i = 0; i < disabledSites.length; i++) {
         var site = disabledSites[i];
+
         if (site.startsWith("*")) {
-          if (window.getBaseDomain(site) === window.getBaseDomain(origin)) {
+          var wildcard = site.slice(1); // remove "*"
+
+          if (origin.endsWith(wildcard)) {
             return false;
           }
         }
+
         if (disabledSites[i] === origin) {
           return false;
         }
@@ -640,7 +687,7 @@ Badger.prototype = {
    * Add an origin to the disabled sites list
    *
    * @param {String} origin The origin to disable the PB for
-   **/
+   */
   disablePrivacyBadgerForOrigin: function(origin) {
     var settings = this.getSettings();
     var disabledSites = settings.getItem('disabledSites');
@@ -652,8 +699,10 @@ Badger.prototype = {
 
   /**
    * Interface to get the current whitelisted domains
+   *
+   * @returns {Array} List of site domains where Privacy Badger is disabled
    */
-  listOriginsWherePrivacyBadgerIsDisabled: function() {
+  getDisabledSites: function () {
     return this.getSettings().getItem("disabledSites");
   },
 
@@ -661,13 +710,13 @@ Badger.prototype = {
    * Remove an origin from the disabledSites list
    *
    * @param {String} origin The origin to disable the PB for
-   **/
+   */
   enablePrivacyBadgerForOrigin: function(origin) {
     var settings = this.getSettings();
     var disabledSites = settings.getItem("disabledSites");
     var idx = disabledSites.indexOf(origin);
     if (idx >= 0) {
-      utils.removeElementFromArray(disabledSites, idx);
+      disabledSites.splice(idx, 1);
       settings.setItem("disabledSites", disabledSites);
     }
   },
@@ -675,7 +724,7 @@ Badger.prototype = {
   /**
    * Checks if local storage (in dict) has any high-entropy keys
    *
-   * @param lsItems Local storage dict
+   * @param {Object} lsItems Local storage dict
    * @returns {boolean} true if it seems there are supercookies
    */
   hasLocalStorageSuperCookie: function(lsItems) {
@@ -706,17 +755,33 @@ Badger.prototype = {
   /**
    * check if there seems to be any type of Super Cookie
    *
-   * @param storageItems Dict with storage items
-   * @returns {*} true if there seems to be any Super cookie
+   * @param {Object} storageItems Dict with storage items
+   * @returns {Boolean} true if there seems to be any Super cookie
    */
   hasSuperCookie: function(storageItems) {
     return (
       this.hasLocalStorageSuperCookie(storageItems.localStorageItems)
-      // || Utils.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
-      // || Utils.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
-      // TODO: Do we need separate functions for other supercookie vectors?
-      // Let's wait until we implement them in the content script
+      //|| this.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
+      // TODO: See "Reading a directory's contents" on
+      // http://www.html5rocks.com/en/tutorials/file/filesystem/
+      //|| this.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
     );
+  },
+
+  /**
+   * Save data about a third party request -- any request.
+   *
+   * @param {Integer} tab_id the tab we are on
+   * @param {String} url the third party origin to add
+   * @param {String} action the action we are taking
+   */
+  logThirdPartyRequest: function (tab_id, url, action) {
+    let self = this,
+      tab_host = self.getFrameData(tab_id).host,
+      time = (new Date()).getTime();
+
+    // store the basic details of the request in the request log
+    self.storage.logRequest(tab_host, url, action, time);
   },
 
   /**
@@ -756,18 +821,39 @@ Badger.prototype = {
     // TODO grab hostname from tabData instead
     if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab_url))) {
       iconFilename = {
-        "19": chrome.runtime.getURL("icons/badger-19.png"),
-        "38": chrome.runtime.getURL("icons/badger-38.png")
+        19: chrome.runtime.getURL("icons/badger-19.png"),
+        38: chrome.runtime.getURL("icons/badger-38.png")
       };
     } else {
       iconFilename = {
-        "19": chrome.runtime.getURL("icons/badger-19-disabled.png"),
-        "38": chrome.runtime.getURL("icons/badger-38-disabled.png")
+        19: chrome.runtime.getURL("icons/badger-19-disabled.png"),
+        38: chrome.runtime.getURL("icons/badger-38-disabled.png")
       };
     }
 
     chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});
   },
+
+  /**
+   * Merge data exported from a different badger into this badger's storage.
+   *
+   * @param {Object} data the user data to merge in
+   */
+  mergeUserData: function(data) {
+    let self = this;
+    // The order of these keys is also the order in which they should be imported.
+    // It's important that snitch_map be imported before action_map (#1972)
+    ["snitch_map", "action_map", "settings_map"].forEach(function(key) {
+      if (data.hasOwnProperty(key)) {
+        let storageMap = self.storage.getBadgerStorageObject(key);
+        storageMap.merge(data[key]);
+      }
+    });
+
+    // for exports from older Privacy Badger versions:
+    // fix yellowlist getting out of sync, remove non-tracking domains, etc.
+    self.runMigrations();
+  }
 
 };
 
@@ -801,7 +887,7 @@ function startBackgroundListeners() {
         // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
         if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
           if (request.command == "getDisabledSites") {
-            sendResponse({origins: badger.listOriginsWherePrivacyBadgerIsDisabled()});
+            sendResponse({origins: badger.getDisabledSites()});
           } else if (request.command == "enable") {
             badger.enablePrivacyBadgerForOrigin(request.origin);
           } else if (request.command == "disable") {
@@ -813,21 +899,4 @@ function startBackgroundListeners() {
   }
 }
 
-/**
- * lets get this party started
- */
-console.log('Loading badgers into the pen.');
 var badger = window.badger = new Badger();
-
-/**
-* Start all the listeners
-*/
-incognito.startListeners();
-webrequest.startListeners();
-HeuristicBlocking.startListeners();
-FirefoxAndroid.startListeners();
-startBackgroundListeners();
-
-// TODO move listeners and this message behind INITIALIZED
-console.log('Privacy badger is ready to rock!');
-console.log('Set DEBUG=1 to view console messages.');
