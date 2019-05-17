@@ -34,6 +34,7 @@ mcp-media5.anvato.net
 aol.com
 aolcdn.com
 ap.org
+api.openshift.com
 apnewsregistry.com
 apple.com
 hiroservers.appspot.com
