@@ -42,6 +42,7 @@ appspot.com
 arcgis.com
 archive.org
 secure5.arcot.com
+arcot.com
 cdn.arstechnica.net
 art19.com
 aspnetcdn.com
