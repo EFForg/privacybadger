@@ -54,6 +54,7 @@ authorize.net
 autoforums.com
 azureedge.net
 bac-assets.com
+api.map.baidu.com
 bandcamp.com
 bankid.no
 bankrate.com
