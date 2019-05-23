@@ -274,6 +274,7 @@ var multiDomainFirstPartiesArray = [
   ["concur.com", "concursolutions.com"],
   ["cox.com", "cox.net"],
   ["cricketwireless.com", "aiowireless.com"],
+  ["ctrip.com", "c-ctrip.com", "trip.com"],
   ["dcu.org", "dcu-online.org"],
   ["diapers.com", "soap.com", "wag.com", "yoyo.com", "beautybar.com", "casa.com", "afterschool.com", "vine.com", "bookworm.com", "look.com", "vinemarket.com"],
   ["dictionary.com", "thesaurus.com", "sfdict.com"],
