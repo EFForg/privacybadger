@@ -135,6 +135,10 @@
         "message": "替换社交网站挂件",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Show domains that don't appear to be tracking you",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** 启用“在隐私/无痕模式学习”后，你的隐私浏览历史可能会在电脑中留下痕迹。默认设置下，隐私獾会在隐私/无痕模式时屏蔽已知的追踪器，但不会学习新的追踪器。如果你平时经常使用隐私/无痕模式的话，你可能想要启用这个选项。",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "显示屏蔽数目",
+        "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "以下域名看起来不在追踪你",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "选项",

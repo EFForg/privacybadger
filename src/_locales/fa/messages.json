@@ -135,6 +135,10 @@
         "message": "جایگزینی ویجت های اجتماعی",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Show domains that don't appear to be tracking you",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** اجازه یادگیری در پنجره های خصوصی/ناشناس ممکن است ردی از تاریخچه گشت خصوصی شما در وب روی کامپیوترتان به جا بگذارد. به صورت پیش فرض، پرایوسی بجر ردیاب هایی که در پنجره های خصوصی/ناشناس می شناسد را بلاک خواهد کرد، اما درباره ردیاب های جدید اطلاعی کسب نخواهد کرد. اگر بیشتر وقت خود را در پنجره های خصوصی/ناشناس می گذرانید شاید بهتر باشد که این گزینه را فعال کنید.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "نمایش تعداد آیتم های بلاک شده",
+        "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "دامنه های زیر به نظر شما را ردیابی نمی کنند",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "گزینه ها",

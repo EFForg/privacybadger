@@ -135,6 +135,10 @@
         "message": "Substitueix els ginys socials",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Show domains that don't appear to be tracking you",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "**Habilitant l'aprenentatge en finestres Privades/Incògnit, podeu deixar traces a l'historial privat de navegació del vostre ordinador. Per defecte, Privacy Badger blocarà els rastrejadors coneguts a les finestres Privades/Incògnit, però no aprendrà sobre nous rastrejadors. Cal que habiliteu aquesta opció si la majoria de la vostra navegació la feu en finestres Privades/Incògnit",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Mostra la quantitat d'elements blocats",
+        "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "Els dominis de sota no sembla que us estiguin fent un seguiment.",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Opcions",

@@ -135,6 +135,10 @@
         "message": "Sustituir los widgets sociales",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Show domains that don't appear to be tracking you",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** Permitir el aprendizaje en ventanas privadas o de incógnito puede dejar rastros de su historial de navegación privada en su computadora. Privacy Badger bloquea de forma predeterminada los rastreadores que ya conoce en las ventanas privadas o de incógnito, pero no reconoce rastreadores nuevos. Es posible que desee habilitar esta opción si gran parte de su navegación ocurre en ventanas privadas o de incógnito.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Mostrar el número de elementos bloqueados",
+        "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "No parece que los siguientes dominios le estén rastreando",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Opciones",

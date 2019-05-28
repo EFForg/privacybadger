@@ -135,6 +135,10 @@
         "message": "Замествай социални бутони",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Show domains that don't appear to be tracking you",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** Ако позволиш ученето в Поверителни/Инкогнито прозорци, това може да остави на компютъра ти следи от историята, докато си сърфирал поверително. По подразбиране Privacy Badger ще блокира в Поверителните/Инкогнито прозорци преследвачите, за които вече знае, но няма да се учи за нови преследвачи. Би било полезно да включиш тази настройка, ако сърфираш редовно в Поверителни/Инкогнито прозорци.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Показвай броя блокирани елементи",
+        "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "Домейните по́ долу не изглеждат сякаш те следят",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Настройки",

@@ -135,6 +135,10 @@
         "message": "استبدل ودجات التواصل الاجتماعي",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Show domains that don't appear to be tracking you",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** تفعيل التعلم في نوافذ التصفح الخاص قد يترك آثارا لتأريخ تصفحك الخاص على حاسوبك. مبدئيا سيحجب «غرير الخصوصية» المتعقبات التي يعرفها من قبل في نوافذ التصفح الخاص، لكنه لن يتعلم أي متعقبات جديدة. قد تريد تفعيل هذا الخيار إن كان الكثير من تصفحك في نوافذ خاصة.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "اعرض عدد العناصر المحجوبة",
+        "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "لا يظهر أن النطاقات التالية تتعقبك",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "الخيارات",

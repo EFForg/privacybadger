@@ -135,6 +135,10 @@
         "message": "Remplacer les boutons sociaux",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Show domains that don't appear to be tracking you",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** Dans les fenêtres de navigation privée, Privacy Badger se contente de bloquer les traceurs qu'il connait. En activant cette option, il cherchera aussi à en identifier de nouveaux. Ceci pourrait laisser sur votre ordinateur des traces de sites que vous visitez. Son utilité pourrait se révéler si vous naviguez beaucoup en mode privé.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Afficher le nombre d'éléments bloqués",
+        "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "Les domaines ci-dessous ne semblent pas vous tracer.",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Options",
