@@ -136,6 +136,16 @@ function loadOptions() {
     .on("click", updateLearnInIncognito)
     .prop("checked", OPTIONS_DATA.isLearnInIncognitoEnabled);
 
+  $('#show-nontracking-domains-checkbox')
+    .on("click", (event) => {
+      let showNonTrackingDomains = $(event.currentTarget).prop("checked");
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: { showNonTrackingDomains }
+      });
+    })
+    .prop("checked", OPTIONS_DATA.showNonTrackingDomains);
+
   reloadWhitelist();
   reloadTrackingDomainsTab();
 
