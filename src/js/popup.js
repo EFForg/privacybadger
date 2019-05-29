@@ -245,10 +245,6 @@ function send_error(message) {
     for (let origin in origins) {
       let action = origins[origin];
 
-      if (!action) {
-        action = constants.NO_TRACKING;
-      }
-
       // adjust action names for error reporting
       if (action == constants.USER_ALLOW) {
         action = "usernoaction";
@@ -256,6 +252,12 @@ function send_error(message) {
         action = "userblock";
       } else if (action == constants.USER_COOKIE_BLOCK) {
         action = "usercookieblock";
+      } else if (action == constants.ALLOW) {
+        action = "noaction";
+      } else if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
+        // no need to adjust action
+      } else if (action == constants.DNT || action == constants.NO_TRACKING) {
+        action = "notracking";
       }
 
       if (out[action]) {
