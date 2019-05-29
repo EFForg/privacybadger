@@ -460,6 +460,7 @@ openstreetmap.org
 optimizely.com
 oregonlive.com
 outlook.com
+paddle.com
 pandacommerce.net
 parastorage.com
 passwordbox.com
