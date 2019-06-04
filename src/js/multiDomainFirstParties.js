@@ -1439,6 +1439,7 @@ var multiDomainFirstPartiesArray = [
     "reastatic.net",
   ],
   ["reddit.com", "redditmedia.com", "redditstatic.com", "redd.it", "redditenhancementsuite.com", "reddituploads.com", "imgur.com"],
+  ["redhat.com", "openshift.com", "openshift.org", "okd.io"],
   [
     "reuters.com",
     "reuters.tv",
