@@ -19,7 +19,7 @@ PASS = u'Pass'
 FAIL = u'Fail'
 
 
-class PBTest_Org_test(pbtest.PBSeleniumTest):
+class PBTestDotOrgTest(pbtest.PBSeleniumTest):
     """Run the pbtest.org website acceptance tests. Loads the pbtest.org test
        suite and assert that none of the tests failed or are 'undefined'."""
 

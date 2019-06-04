@@ -15,10 +15,10 @@
     },
     "options_remove_origin_confirm": {
         "message": "确定要从隐私獾中移除这个域名吗？",
-        "description": ""
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
-        "message": "$DOMAIN$没有跟踪",
+        "message": "$DOMAIN$ 没有追踪",
         "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -28,11 +28,11 @@
         }
     },
     "non_tracker_tip": {
-        "message": "隐私獾目前只检查第三方域名是否在使用 Cookies、HTML5 local storage 和 canvas 指纹来跟踪你的浏览记录。 有些域名可能使用了隐私獾无法检测的跟踪方式。",
+        "message": "隐私獾只检查第三方域名是否在使用 Cookies、HTML5 本地存储和 canvas 指纹来追踪你的浏览记录。 有些域名可能使用了隐私獾无法检测的追踪方式。",
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "检查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方域名</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>电子前哨基金会的“请勿跟踪”政策</a>",
+        "message": "检查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方域名</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>电子前哨基金会的“请勿追踪”政策</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -48,7 +48,7 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "捐款支持我们",
+        "message": "捐款并分享对我们工具的支持来帮助我们",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
@@ -96,7 +96,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "隐私獾会自动发现并屏蔽隐身的跟踪器。看看这是如何做到的吧。",
+        "message": "隐私獾会自动学习去阻止不可见的追踪器。看看这是如何做到的吧。",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "点击以让隐私獾接管这个跟踪器",
+        "message": "点击以让隐私獾接管这个追踪器",
         "description": ""
     },
     "import": {
@@ -209,16 +209,20 @@
         "message": "导出用户数据",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "导入用户数据：<ul><li>覆盖通用设置</li><li>结合已禁用站点列表</li><li>结合隐私獾探测到的追踪器信息</li><li>覆盖自定义滑块设置</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "重置",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "重置跟踪器域名列表",
+        "message": "重置追踪域名列表",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "重置追踪域名将会：\n\n• 删除所有隐私獾从您浏览中学习到的数据\n• 将最追踪域名列表重置为一个预学习列表（访问 www.eff.org/badger-pretraining 以了解更多）",
+        "message": "重置追踪域名将会：\n\n• 删除所有隐私獾从您浏览中学习到的数据\n• 将追踪域名列表重置为最新的预训练列表（访问 www.eff.org/badger-pretraining 以了解更多）",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -273,16 +277,12 @@
             }
         }
     },
-    "options_loading": {
-        "message": "加载中…",
-        "description": ""
-    },
     "intro_beyond_ads": {
-        "message": "发现鬼鬼祟祟的跟踪器",
+        "message": "发现鬼鬼祟祟的追踪器",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
-        "message": "半屏蔽",
+        "message": "部分被屏蔽",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器<a href='https://www.eff.org/issues/do-not-track' target='_blank'>发送“请勿跟踪”信号</a>，告诉它们停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止他们——无论它们是广告、追踪器或是其他的任何东西。",
+        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器<a href='https://www.eff.org/issues/do-not-track' target='_blank'>发送“请勿追踪”信号</a>，告诉它们停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止他们——无论它们是广告、追踪器或是其他的东西。",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -322,7 +322,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT 兼容",
+        "message": "DNT（请勿追踪） 兼容",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -342,7 +342,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
-        "message": "你不应该更改这里的任何东西。",
+        "message": "你应该无需更改这里的任何东西。",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
     },
     "options_domain_filter_all": {
@@ -358,7 +358,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "向网站发送<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿跟踪”</a>信号",
+        "message": "向网站发送<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿追踪”</a>信号",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "隐私獾已在以下网站上禁用。你浏览这些网站时，隐私獾不会屏蔽任何东西。<br><br>如果你认为隐私獾破坏了某个页面，请在下面的文本框中输入页面的域名，然后点击“添加域名”按钮。<br><br>或者你可以在浏览页面时点击浏览器工具栏上的隐私獾按钮，然后点击“禁用”按钮。",
+        "message": "<p>隐私獾已在以下网站上禁用。你浏览这些网站时，隐私獾不会屏蔽任何东西。</p><p>如果你认为隐私獾破坏了某个页面，请在下面的文本框中输入页面的域名，然后点击“添加域名”按钮。</p><p>或者你可以在浏览页面时点击浏览器工具栏上的隐私獾按钮，然后点击“禁用”按钮。</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -387,7 +387,7 @@
         }
     },
     "intro_by_eff": {
-        "message": "属于电子前哨基金会的项目",
+        "message": "一个电子前哨基金会的项目",
         "description": ""
     },
     "add_domain_button": {
@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "当您使用隐私獾，您就和<a href='https://www.eff.org/' target='_blank'>电子前哨基金会</a>和成千上万的其它用户一道共同保卫隐私。我们是为您在线权利奋斗的非盈利性组织。感谢您加入我们！",
+        "message": "当您使用隐私獾，您就和<a href='https://www.eff.org/' target='_blank'>电子前哨基金会</a>和成千上万的其它用户一道共同保卫隐私。我们是为您在线权利奋斗的非营利性组织。感谢您加入我们！",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -480,7 +480,7 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "以下域名看起来不在跟踪你",
+        "message": "以下域名看起来不在追踪你",
         "description": ""
     },
     "popup_options_button": {
@@ -492,11 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "你在网上冲浪的时候，隐私獾会保护你免受跟踪器的烦恼！",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "为什么没有屏蔽任何东西？",
+        "message": "隐私獾会自动学习去阻止不可见的追踪器。",
         "description": ""
     },
     "report_fail": {
@@ -512,5 +508,79 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "allow_once": {
+        "message": "允许一次",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "sync_intro": {
+        "message": "云端同步：<ul><li>需要火狐或 Chrome 同步</li><li>上传将覆盖任何云端已有的隐私獾数据</li><li>下载内容将与您将隐私獾禁用的站点结合</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "上传",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "导出已禁用的域名到云端",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "从云端导入禁用域名",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "成功导入云端数据。",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "无法下载云端数据。",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "成功上传数据到云端。",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "无法上传数据到云端。",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "无云端数据可供下载。",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "告诉您的朋友",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "分享",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "隐私獾在 $DOMAIN$ 找到 $COUNT$ 个潜在的追踪器：",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "隐私獾（www.eff.org/privacybadger）是一个浏览器插件，它可以自动学习去阻止不可见的追踪器。隐私獾由电子前哨基金会，一个为您在线权利奋斗的非营利性组织制作。",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "复制到剪贴板",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "已复制",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

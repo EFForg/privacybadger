@@ -45,10 +45,10 @@
 
 var utils = require('utils');
 
-require.scopes.socialwidgetloader = (function() {
+require.scopes.widgetloader = (function() {
 
 var exports = {};
-exports.loadSocialWidgetsFromFile = loadSocialWidgetsFromFile;
+exports.loadWidgetsFromFile = loadWidgetsFromFile;
 
 /**
  * Loads a JSON file at filePath and returns the parsed object.
@@ -73,7 +73,7 @@ function loadJSONFromFile(filePath, callback) {
  * @param {Function} callback callback(responseText)
  */
 function getFileContents(filePath, callback) {
-  var url = chrome.extension.getURL(filePath);
+  var url = chrome.runtime.getURL(filePath);
 
   utils.xhrRequest(url, function(err, responseText) {
     if (err) {
@@ -97,18 +97,18 @@ function getFileContents(filePath, callback) {
  *                          extension's data folder
  * @param {Function} callback callback(socialwidgets)
  */
-function loadSocialWidgetsFromFile(filePath, callback) {
-  loadJSONFromFile(filePath, function(socialwidgetsJson) {
-    var socialwidgets = [];
+function loadWidgetsFromFile(filePath, callback) {
+  loadJSONFromFile(filePath, function(widgetsJson) {
+    let widgets = [];
 
-    // loop over each socialwidget, making a SocialWidget object
-    for (var socialwidgetName in socialwidgetsJson) {
-      var socialwidgetProperties = socialwidgetsJson[socialwidgetName];
-      var socialwidgetObject = new SocialWidget(socialwidgetName, socialwidgetProperties);
-      socialwidgets.push(socialwidgetObject);
+    // loop over each widget, making a SocialWidget object
+    for (let widget_name in widgetsJson) {
+      let widgetProperties = widgetsJson[widget_name];
+      let widget = new SocialWidget(widget_name, widgetProperties);
+      widgets.push(widget);
     }
 
-    callback(socialwidgets);
+    callback(widgets);
   });
 }
 
@@ -127,4 +127,4 @@ function SocialWidget(name, properties) {
 }
 
 return exports;
-})(); //require scopes
+}()); //require scopes

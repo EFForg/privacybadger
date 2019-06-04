@@ -39,6 +39,10 @@ const hostnames = {
     '/beacon.js',
     '/c2/plugins/streamsense_plugin_html5.js',
   ],
+  'sb.scorecardresearch.com': [
+    '/beacon.js',
+    '/c2/plugins/streamsense_plugin_html5.js',
+  ],
   'ssl.google-analytics.com': [
     '/ga.js',
     '/analytics.js',
@@ -524,7 +528,7 @@ const surrogates = {
 surrogates['/JS/socialize.js'] = surrogates['/JS/gigya.js'] = surrogates['/js/gigya.js'];
 
 // reformat surrogate strings to exactly match formatting in uAssets
-Object.keys(surrogates).map(key => {
+Object.keys(surrogates).forEach(key => {
   surrogates[key] = surrogates[key]
     // remove space from anon function if present
     .replace(/^\(function \(/, '(function(')

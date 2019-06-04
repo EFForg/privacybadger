@@ -14,8 +14,8 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Bu kaynağı Privacy Badger'dan kaldırmak istediğinize emin misiniz?",
-        "description": ""
+        "message": "Bu adresi Privacy Badger'dan kaldırmak istediğinize emin misiniz?",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "Takip yok $DOMAIN$",
@@ -190,7 +190,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Devre Dışı Bırakılmış Siteler",
+        "message": "Engellenmiş Siteler",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -209,28 +209,32 @@
         "message": "Kullanıcı verisini dışa aktar",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Kullanıcı verisini içe aktarmak: <ul><li>Genel ayarları değiştirir</li><li>Engellenmiş sitelerin listesini birleştirir</li><li>Privacy Badger'ın takipçiler hakkındaki bilgilerini birleştirir</li><li>Kaydırıcı ayarlarını değiştirir</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
-        "message": "Reset",
+        "message": "Sıfırla",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Reset tracking domains",
+        "message": "Takip eden adresleri sıfırla",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Resetting tracking domains will:\n\n  • Delete all data about trackers that Privacy Badger has learned from your browsing\n  • Restore the tracking domain list to the latest pre-trained list (visit www.eff.org/badger-pretraining to learn more)",
+        "message": "Takip eden adresleri sıfırlamak:\n\n • Privacy Badger'ın gezinmeniz sırasında elde ettiği verileri silecek\n • Takip eden adres listesini en son önceden-eğitimli listeye geri döndürecek (daha fazlasını öğrenmek için www.eff.org/badger-pretraining adresini ziyaret edin)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Remove all",
+        "message": "Hepsini kaldır",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Remove all tracking domains",
+        "message": "Takip eden adreslerin hepsini kaldır",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Removing all tracking domains will:\n\n  • Delete everything Privacy Badger knows about trackers\n  • Cause Privacy Badger to not block anything until it has had a chance to re-learn from your browsing",
+        "message": "Takip eden adreslerin hepsini kaldırmak:\n\n • Privacy Badger'ın takipçilerle ilgili bildiği her şeyi silecek\n • Privacy Badger gezinmeniz sırasında tekrar birşeyler öğrenene dek hiçbir şeyi engellemeyecek",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Yükleniyor...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Sinsi takipçileri yakalar",
@@ -366,11 +366,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger aşağıdaki sitelerde devre dışıdır. Bunun anlamı, Privacy Badger bu sitelerdeki hiçbir şeyi engellemez.<br><br>Eğer Privacy Badger'ın bir sayfayı bozduğunu düşünüyorsanız, sayfanın adresini aşağıdaki kutucuğa yazıp \"Adres Ekle\" butonuna tıklayabilirsiniz.<br><br>Alternatif olarak, sayfanın sekmesi seçiliyken tarayıcı araç çubuğundan Privacy Badger'a tıklayıp \"Devre Dışı Bırak\" butonuna tıklayabilirsiniz.",
+        "message": "<p>Privacy Badger aşağıdaki sitelerde devre dışıdır. Bunun anlamı, Privacy Badger bu sitelerdeki hiçbir şeyi engellemez.</p><p>Eğer Privacy Badger'ın bir sayfayı bozduğunu düşünüyorsanız, sayfanın adresini aşağıdaki kutucuğa yazıp \"Adres Ekle\" butonuna tıklayabilirsiniz.</p><p>Alternatif olarak, sayfanın sekmesi seçiliyken tarayıcı araç çubuğundan Privacy Badger'a tıklayıp \"Devre Dışı Bırak\" butonuna tıklayabilirsiniz.</p>",
         "description": ""
     },
     "popup_instructions": {
-        "message": "\"Privacy Badger $COUNT$ tane potansiyel $TRACKER_LINK_START$takipçi$TRACKER_LINK_END$ buldu. Bu kaydırıcılar Privacy Badger'in her biriyle nasıl başa çıkacağını ayarlamanızı sağlar. Ters giden birşey yoksa kaydırıcıları ayarlamanız gerekmez.",
+        "message": "Privacy Badger $COUNT$ tane potansiyel $TRACKER_LINK_START$takipçi$TRACKER_LINK_END$ buldu. Bu kaydırıcılar Privacy Badger'in her biriyle nasıl başa çıkacağını ayarlamanızı sağlar. Ters giden birşey yoksa kaydırıcıları ayarlamanız gerekmez.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -492,11 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger siz internette dolaşırken sizi takipçilerden korur!",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Neden hiçbir şey engellenmemiş?",
+        "message": "Privacy Badger görünmez takipçileri engellemeyi otomatik olarak öğrenir.",
         "description": ""
     },
     "report_fail": {
@@ -512,5 +508,79 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "allow_once": {
+        "message": "Allow once",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "sync_intro": {
+        "message": "Bulut senkronizasyonu:<ul><li>Firefox/Chrome Sync gerekir</li><li>Buluta yapılan yükleme, buluttaki Privacy Badger verisinin üstüne yazılır</li><li>İndirme işlemi Badger'ınızın engellediği sitelerin listelerini birleştirir</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Buluta yükle",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Engellenmiş siteleri buluta aktar",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Engellenmiş siteleri buluttan içe aktar",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Buluttaki veri başarıyla yüklendi.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Buluttaki veri indirilemedi.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Veri başarıyla buluta yüklendi.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Veri, buluta yüklenemedi.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "İndirilecek bulut verisi yok.",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Arkadaşlarınızla paylaşın",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Paylaş",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger $DOMAIN$ içinde $COUNT$ potansiyel takipçi buldu:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger), görünmez takipçileri otomatik olarak engellemeyi öğrenen bir tarayıcı eklentisidir. Privacy Badger, çevrimiçi haklarınız için savaşan, kar amacı gütmeyen bir kuruluş olan Electronic Frontier Foundation tarafından yapılmıştır.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Panoya kopyala",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Kopyalandı",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

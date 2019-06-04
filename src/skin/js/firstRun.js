@@ -4,7 +4,7 @@ $(window).on("load", function () {
 
   function setSeenComic() {
     var badger = chrome.extension.getBackgroundPage().badger;
-    var settings = badger.storage.getBadgerStorageObject("settings_map");
+    var settings = badger.getSettings();
     settings.setItem("seenComic", true);
   }
 
@@ -22,4 +22,4 @@ $(window).on("load", function () {
 });
 
 
-})(jQuery);
+}(jQuery));

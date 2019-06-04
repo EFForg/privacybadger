@@ -14,8 +14,8 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Sei sicuro di voler rimuovere questa origine da Privacy Badger?",
-        "description": ""
+        "message": "Sei sicuro di voler rimuovere questo dominio da Privacy Badger?",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "Nessun tracciamento da $DOMAIN$",
@@ -209,6 +209,10 @@
         "message": "Esporta dati utente",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Importazione dati utente:<ul><li>Sovrascrive impostazioni generali</li><li>Combina liste di siti disattivati</li><li>Combina informazioni su quali tracker ha visto Privacy Badger</li><li>Sovrascrive le scelte dei pulsanti</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Ripristina",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Caricamento...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Cattura i tracker subdoli",
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger è disattivato nei seguenti siti. Ciò significa che Privacy Badger non bloccherà nulla mentre visiti i siti elencati qui.<br><br>Se pensi che con Privacy Badger non funzioni bene una pagina, puoi digitare il dominio di quella pagina nella casella sotto e cliccare il pulsante \"Aggiungi dominio\".<br><br>Altrimenti, quando la scheda della pagina è selezionata, puoi cliccare il pulsante di Privacy Badger nella barra degli strumenti e poi cliccare il pulsante \"Disattiva\".",
+        "message": "<p>Privacy Badger è disattivato nei seguenti siti. Ciò significa che Privacy Badger non bloccherà nulla mentre visiti i siti elencati qui.</p><p>Se pensi che con Privacy Badger non funzioni bene una pagina, puoi digitare il dominio di quella pagina nella casella sotto e cliccare il pulsante \"Aggiungi dominio\".</p><p>Altrimenti, quando la scheda della pagina è selezionata, puoi cliccare il pulsante di Privacy Badger nella barra degli strumenti e poi cliccare il pulsante \"Disattiva\".</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -492,11 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger ti protegge dai tracker mentre navighi in rete!",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Perchè non è stato bloccato nulla?",
+        "message": "Privacy Badger impara automaticamente a bloccare i tracker invisibili.",
         "description": ""
     },
     "report_fail": {
@@ -512,5 +508,79 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "allow_once": {
+        "message": "Permetti una volta",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "sync_intro": {
+        "message": "Sincronizzazione cloud:<ul><li>Richiede Firefox/Chrome Sync</li><li>L'invio sovrascrive qualsiasi dato di Privacy Badger nel cloud</li><li>Lo scaricamento combina gli elenchi di siti dove il tuo Badger è disattivato</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Invia",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Esporta nel cloud i siti disattivati",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Importa dal cloud i siti disattivati",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Dati cloud importati con successo.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Impossibile scaricare i dati cloud.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Dati cloud inviati con successo.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Impossibile inviare i dati cloud.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Nessun dato cloud da scaricare.",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Dillo ai tuoi amici",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Condividi",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger ha trovato $COUNT$ potenziali tracker su $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) è un'estensione del browser che impara automaticamente a bloccare i tracker invisibili. Privacy Badger è creato da Electronic Frontier Foundation, un'organizzazione senza scopo di lucro che combatte per i tuoi diritti nella rete.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Copia negli appunti",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Copiato",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

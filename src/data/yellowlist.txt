@@ -4,6 +4,7 @@
 5min.com
 accuweather.com
 actionnetwork.org
+imagesrv.adition.com
 auth.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
@@ -18,6 +19,8 @@ ally.com
 amazon.com
 s3.amazonaws.com
 amazonaws.com
+coin.amazonpay.com
+coin-eu.amazonpay.com
 americanhomecomings.com
 ancestry.com
 angularjs.org
@@ -39,12 +42,14 @@ appspot.com
 arcgis.com
 archive.org
 secure5.arcot.com
+arcot.com
 cdn.arstechnica.net
 art19.com
 aspnetcdn.com
 c64.assets-yammer.com
 assetfiles.com
 assets-cdk.com
+auth0.com
 authorize.net
 autoforums.com
 azureedge.net
@@ -55,6 +60,7 @@ bankrate.com
 bazaarvoice.com
 bcbits.com
 betterttv.net
+bigcommerce.com
 www.bing.com
 bit.ly
 bizrate.com
@@ -72,6 +78,7 @@ break.com
 breakingburner.com
 brightcove.com
 players.brightcove.net
+bungie.net
 buzzfed.com
 buzzfeed.com
 cachefly.net
@@ -108,6 +115,7 @@ cdn.cnetcontent.com
 ws.cnetcontent.com
 com.com
 complex.com
+consensu.org
 convio.net
 copyscape.com
 corporate-ir.net
@@ -120,6 +128,7 @@ cursecdn.com
 custhelp.com
 d3js.org
 dailymotion.com
+danid.dk
 dealer.com
 dealerinspire.com
 delicious.com
@@ -142,6 +151,7 @@ dotsub.com
 dl.dropboxusercontent.com
 dudamobile.com
 dumpert.nl
+duosecurity.com
 ebay.com
 ebayimg.com
 ebayrtm.com
@@ -150,6 +160,7 @@ ecwid.com
 edgecastcdn.net
 edgefcs.net
 edgekey.net
+editmysite.com
 files.edx.org
 elasticbeanstalk.com
 eltrafiko.com
@@ -160,7 +171,9 @@ cdn.embedly.com
 i-cdn.embed.ly
 i.embed.ly
 epoch.com
+epoq.de
 estara.com
+et4.de
 ethn.io
 evcdn.com
 ebmedia.eventbrite.com
@@ -204,6 +217,7 @@ gannett-tv.com
 gasbuddy.com
 gawkerassets.com
 geenstijl.nl
+geetest.com
 geoplugin.net
 geotrust.com
 getpocket.com
@@ -254,6 +268,7 @@ picasaweb.google.com
 play.google.com
 plus.google.com
 sites.google.com
+smartlock.google.com
 spreadsheets.google.com
 storage.googleapis.com
 talkgadget.google.com
@@ -315,6 +330,7 @@ instantservice.com
 instapaper.com
 intellicast.com
 intensedebate.com
+intercom.io
 members.internetdefenseleague.org
 investingchannel.com
 script.ioam.de
@@ -391,6 +407,7 @@ mtv.com
 mtvnservices.com
 mycapture.com
 myportfolio.com
+myshopify.com
 mzstatic.com
 nationbuilder.com
 nationalgeographic.com
@@ -446,6 +463,7 @@ outlook.com
 pandacommerce.net
 parastorage.com
 passwordbox.com
+payments-amazon.com
 paypal.com
 paypalobjects.com
 pdf.yt
@@ -468,9 +486,11 @@ postimg.org
 powerreviews.com
 pricegrabber.com
 printfriendly.com
+prismic.io
 providesupport.com
 psswrdbx.com
 publiekeomroep.nl
+img.purch.com
 qualtrics.com
 quotemedia.com
 api.razorpay.com
@@ -485,9 +505,12 @@ readability.com
 readthedocs.org
 recaptcha.net
 recurly.com
+redcdn.pl
 reddit.com
 redditmedia.com
 redditstatic.com
+redefine.pl
+cdngeneral.rentcafe.com
 resellerratings.com
 resultspage.com
 rewardstyle.com
@@ -498,6 +521,10 @@ salsalabs.com
 sbnation.com
 schd.ws
 sched.org
+schibsted.com
+schibsted.io
+schibsted.no
+schibsted.tech
 scribd.com
 scribdassets.com
 securesuite.co.uk
@@ -507,6 +534,7 @@ sgizmo.com
 shopify.com
 shopping.com
 shoprunner.com
+sidearmsports.com
 siteimprove.com
 shield.sitelock.com
 sketchfab.com
@@ -522,6 +550,7 @@ cdn-a.sonyentertainmentnetwork.com
 soundcloud.com
 springboardplatform.com
 squarespace.com
+squareup.com
 squirt.io
 ssl-images-amazon.com
 cdn.sstatic.net
@@ -572,6 +601,9 @@ ttvnw.net
 tumblr.com
 turner.com
 twimg.com
+api.twisto.cz
+static.twisto.cz
+api.twisto.pl
 twitch.tv
 twitter.com
 platform.twitter.com
@@ -610,6 +642,7 @@ webflow.com
 webs.com
 websimages.com
 webtype.com
+weebly.com
 where.com
 widgetserver.com
 wikidata.org

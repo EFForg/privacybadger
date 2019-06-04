@@ -22,32 +22,46 @@
 <meta name="google" content="notranslate">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css" rel="stylesheet" />
-<link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="/lib/vendor/tooltipster-4.2.5/tooltipster.bundle.min.css" />
+<link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.structure.css" rel="stylesheet" />
+<link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.css" />
 <link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/options-layout.css" rel="stylesheet" />
-<script type="text/javascript" src="/lib/vendor/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<script type="text/javascript" src="/lib/vendor/tooltipster-4.2.5/tooltipster.bundle.min.js"></script>
-<script type="text/javascript" src="/lib/vendor/underscore-min.js"></script>
+
+<script type="text/javascript" src="/lib/vendor/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<script type="text/javascript" src="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.js"></script>
+<script type="text/javascript" src="/lib/vendor/underscore-1.9.1.js"></script>
+
+<!-- required because of window.getBaseDomain() in htmlutils.js -->
+<script type="text/javascript" src="/lib/vendor/punycode.js"></script>
+<script type="text/javascript" src="/lib/publicSuffixList.js"></script>
+<script type="text/javascript" src="/lib/basedomain.js"></script>
+
 <script type="text/javascript" src="/lib/i18n.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/constants.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/htmlutils.js"></script>
 <script type="text/javascript" src="/lib/options.js"></script>
 <script type="text/javascript" src="/js/options.js" charset="utf-8"></script>
+
 <title class="i18n_options_title"></title>
 </head>
 <body class="options">
-<table>
-  <tr>
-    <td style="padding-right: 8px; vertical-align: middle">
-      <img src="/icons/badger-48.png" alt="">
-    </td>
-    <td>
-      <h1><span class="i18n_options_title"></span></h1>
-    </td>
-  </tr>
-</table>
+<header>
+  <table>
+    <tr>
+      <td style="vertical-align:middle;">
+        <img src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
+      </td>
+      <td>
+        <h1><span class="i18n_options_title"></span></h1>
+      </td>
+    </tr>
+  </table>
+</header>
 
 <div id="tabs">
   <ul>
@@ -64,6 +78,7 @@
         <p>
             <label>
                 <input type="checkbox" id="show-tracking-domains-checkbox">
+                &nbsp;
                 <span class="i18n_show_tracking_domains_acknowledgement"></span>
             </label>
         </p>
@@ -105,34 +120,33 @@
                   </select>
               </li>
           </ul>
-          <div id="blockedResources"><span class="i18n_options_loading"></span></div>
+          <div id="blockedResources"></div>
       </div>
     </div>
   </div>
 
   <div id="tab-whitelisted-domains">
-    <p class="i18n_disabled_for_these_domains"></p>
+    <div class="i18n_disabled_for_these_domains"></div>
 
     <form id="whitelistForm" action="#">
-      <table>
-        <tr>
-          <td style="max-width:100%">
+      <div>
+        <div>
+          <div style="float: left; max-width: 400px; width: 100%; margin-right: 30px; padding-top: 5px">
             <input type="text" value="" id="newWhitelistDomain" style="width:100%" placeholder="i18n_whitelist_form_domain_input_placeholder">
-          </td>
-          <td>
+          </div>
+          <div style="float: left; padding: 5px 0 10px">
             <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <select id="excludedDomainsBox" size="10" multiple style="width:500px; background: white;"></select>
-          </td>
-          <td>
+          </div>
+        </div>
+        <div style="clear: both; overflow: hidden">
+          <div style="float: left; max-width: 420px; width: 100%; margin-right: 10px; padding-top: 5px">
+            <select id="excludedDomainsBox" size="10" multiple style="width: 100%; background: white;"></select>
+          </div>
+          <div style="float:left; padding-top: 5px">
             <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
-          </td>
-        </tr>
-      </table>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 
@@ -146,7 +160,7 @@
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="replace_social_widgets_checkbox">
+          <input type="checkbox" id="replace-widgets-checkbox">
           <span class="i18n_options_social_widgets_checkbox"></span>
         </label>
       </div>
@@ -156,7 +170,7 @@
           <span class="i18n_options_enable_dnt_checkbox"></span>
         </label>
       </div>
-      <div class="checkbox" id="check_dnt_policy_row">
+      <div class="checkbox" id="check-dnt-policy-row">
         <label>
           <input type="checkbox" id="check_dnt_policy_checkbox">
           <span class="i18n_options_dnt_policy_setting"></span>
@@ -174,7 +188,7 @@
           <span class="i18n_options_incognito_setting"></span>
         </label>
       </div>
-      <div id="settingsSuffix">
+      <div id="settings-suffix">
         <div id="webrtc-warning" class="i18n_options_webrtc_warning"></div>
         <div id="incognito-warning" class="i18n_options_incognito_warning"></div>
       </div>
@@ -182,16 +196,27 @@
   </div>
 
   <div id="tab-manage-data">
-
     <div class="btn-silo">
+      <p class="i18n_manage_data_intro"></p>
+      <div id="export">
+        <h3><span class="i18n_export_user_data"></span></h3>
+        <button id="exportTrackers"><span class="i18n_download"></span></button>
+      </div>
       <div id="import">
         <h3><span class="i18n_import_user_data"></span></h3>
         <input type="file" class="importInput" id="importTrackers" accept=".json">
         <button id="importTrackerButton" class="importButton" type="submit"><span class="i18n_import"></span></button>
       </div>
-      <div id="export">
-        <h3><span class="i18n_export_user_data"></span></h3>
-        <button id="exportTrackers"><span class="i18n_download"></span></button>
+    </div>
+    <div class="btn-silo">
+      <p class="i18n_sync_intro"></p>
+      <div id="upload">
+        <h3><span class="i18n_upload_cloud"></span></h3>
+        <button id="cloud-upload"><span class="i18n_upload"></span></button>
+      </div>
+      <div id="download">
+        <h3><span class="i18n_download_cloud"></span></h3>
+        <button id="cloud-download"><span class="i18n_download"></span></button>
       </div>
     </div>
     <div class="btn-silo">

@@ -1,0 +1,586 @@
+{
+    "badger_status_block": {
+        "message": "$DOMAIN$ محجوب",
+        "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "invalid_json": {
+        "message": "ملف JSON غير سليم.",
+        "description": ""
+    },
+    "options_remove_origin_confirm": {
+        "message": "أمتأكد أنك تريد إزالة النطاق من «غرير الخصوصية»",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
+    },
+    "badger_status_noaction": {
+        "message": "لا تَعقب للنطاق $DOMAIN$",
+        "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "non_tracker_tip": {
+        "message": "حاليا «غرير الخصوصية» لا يتحقق إلا من كون الأطراف الخارجية تستخدم الكعكات، أو تخزين HTML5 المحلي، أو بصمات مساحة الرسم لتعقب تصفحك. ربما تستخدم بعض هذه النطاقات طرقًا أخرى لا يستطيع «غرير الخصوصية» اكتشافها.",
+        "description": ""
+    },
+    "options_dnt_policy_setting": {
+        "message": "تحقق من كون <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>نطاقات الأطراف الخارحية</a> تلتزم <a target='_blank' href='https://www.eff.org/dnt-policy'>سياسة EFF لعدم التعقب</a>",
+        "description": "Checkbox label on the general settings page"
+    },
+    "intro_learns_paragraph": {
+        "message": "كلما تصفحت أكثر مع استخدام «غرير الخصوصية» كلما تحسنت حمايته لك. هل لا يحجب «غريرك» أي شيء بعد؟ لا تقلق، لا يحتفظ «غرير الخصوصية» بقائمة المواقع التي ينبغي حجبها، و لكن يكتشف تلقائيا المواقع التي تتعقبك أثناء تصفحك. لذا فابدأ التصفح ليتعلم «غريرك» كيف يحميك!",
+        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
+    },
+    "invalid_domain": {
+        "message": "رجاء أضف مسارا أو نطاقا صحيحا.",
+        "description": ""
+    },
+    "donate_to_eff": {
+        "message": "تبرع إلى EFF",
+        "description": "Button shown in the popup and on the intro page."
+    },
+    "intro_donate_subheading": {
+        "message": "ساعدنا بالتبرع ونشر دعمك لأدواتنا",
+        "description": "Shown below the Donate button on the intro page."
+    },
+    "intro_not_an_adblocker": {
+        "message": "لست حاجبًا للإعلانات، أنا مختلف",
+        "description": "Intro page paragraph heading."
+    },
+    "report_success": {
+        "message": "شكرا، سنفحص الأمر.",
+        "description": ""
+    },
+    "dnt_tooltip": {
+        "message": "يعِد هذا النطاق بألا يتعقبك",
+        "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
+    },
+    "next_section": {
+        "message": "القسم التالي",
+        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
+    },
+    "extension_error_text": {
+        "message": "رجاء <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>أخبرنا</a> بتفاصيل العطل التالي:",
+        "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
+    },
+    "data_settings": {
+        "message": "أدِر البيانات",
+        "description": "This is an options page tab heading."
+    },
+    "report_title": {
+        "message": "أبلغ عن عطل",
+        "description": ""
+    },
+    "whitelist_form_domain_input_placeholder": {
+        "message": "مثلا: www.domain.com، أو ‪*.domain.net‬، أو domain.org",
+        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "انقر هنا لحجب هذا النطاق من إضافة كعكات",
+        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
+    },
+    "options_domain_filter_block": {
+        "message": "المحجوب",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_webrtc_setting": {
+        "message": "امنع WebRTC من تسريب عناوين الإنترنت المحلية *",
+        "description": "Checkbox label on the general settings page"
+    },
+    "intro_welcome": {
+        "message": "يتعلم «غرير الخصوصية» تلقائيا كيف يحجب المتعقبات الخفية. خذ دقيقة من وقتك لتعرف كيف يحدث هذا.",
+        "description": "Intro page welcome paragraph."
+    },
+    "error_input": {
+        "message": "ما المشكلة؟",
+        "description": ""
+    },
+    "popup_instructions_no_trackers": {
+        "message": "لم تكتشف أي <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>متعقبات</a>. تمتع بالخصوصية!",
+        "description": "Text shown in the popup when there are no trackers on the page."
+    },
+    "options_domain_list_tab": {
+        "message": "النطاقات المتعقِّبة",
+        "description": "This is an options page tab heading."
+    },
+    "share_button_title_twitter": {
+        "message": "شارك على تويتر",
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
+    },
+    "first_run_text": {
+        "message": "تعرف كيف يحمي «غرير الخصوصية» خصوصيتك.",
+        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "download": {
+        "message": "نزّل",
+        "description": ""
+    },
+    "feed_the_badger_title": {
+        "message": "انقر هنا لإعادة التحكم في هذا المتعقب إلى «غرير الخصوصية»",
+        "description": ""
+    },
+    "import": {
+        "message": "استورد",
+        "description": ""
+    },
+    "options_social_widgets_checkbox": {
+        "message": "استبدل ودجات التواصل الاجتماعي",
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "** تفعيل التعلم في نوافذ التصفح الخاص قد يترك آثارا لتأريخ تصفحك الخاص على حاسوبك. مبدئيا سيحجب «غرير الخصوصية» المتعقبات التي يعرفها من قبل في نوافذ التصفح الخاص، لكنه لن يتعلم أي متعقبات جديدة. قد تريد تفعيل هذا الخيار إن كان الكثير من تصفحك في نوافذ خاصة.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
+    },
+    "report_button": {
+        "message": "أرسل العطل",
+        "description": ""
+    },
+    "badger_status_allow": {
+        "message": "$DOMAIN$ غير محجوب",
+        "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "privacy_badger_what_is": {
+        "message": "ما «غرير الخصوصية»؟",
+        "description": ""
+    },
+    "options_domain_search": {
+        "message": "ابحث في النطاقات:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
+    },
+    "options_incognito_setting": {
+        "message": "تعلم في نوافذ التصفح الخاص **",
+        "description": "Checkbox label on the general settings page"
+    },
+    "show_counter_checkbox": {
+        "message": "اعرض عدد العناصر المحجوبة",
+        "description": "Checkbox label on the general settings page"
+    },
+    "what_is_a_tracker": {
+        "message": "ما المتعقب؟",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
+    },
+    "intro_report_button": {
+        "message": "رجاء لا تنس النقر على ”هل أفسد «غرير الخصوصية» هذا الموقع“. لأننا نحترم خصوصيتك لا نرسل أي بلاغات تلقائية.",
+        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
+    },
+    "options_title": {
+        "message": "خيارات «غرير الخصوصية»",
+        "description": ""
+    },
+    "report_terms": {
+        "message": "سيرسل هذا تلقائيا المعلومات التالية إلى EFF: الموقع الذي تزوره حاليا، و إصدارة المتصفح، و إصدارة «غرير الخصوصية»، و حالة كل الخيارات لهذا الموقع.",
+        "description": ""
+    },
+    "intro_learns": {
+        "message": "يتعلم بينما تتصفح",
+        "description": "Intro page paragraph heading."
+    },
+    "whitelisted_domains": {
+        "message": "المواقع غير المفعلة",
+        "description": "This is an options page tab heading."
+    },
+    "popup_enable_for_site": {
+        "message": "فعّل «غرير الخصوصية» على هذا الموقع",
+        "description": ""
+    },
+    "options_domain_type_filter": {
+        "message": "رشّح بالنوع:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
+    "import_successful": {
+        "message": "حُدثت قائمة المتعقبات و إعداداتها بنجاح.",
+        "description": ""
+    },
+    "export_user_data": {
+        "message": "صدّر بيانات المستخدم",
+        "description": ""
+    },
+    "manage_data_intro": {
+        "message": "استيراد بيانات المستخدم: <ul><li>يكتب فوق قيم الإعدادات العامة</li><li>يدمج قوائم المواقع غير المفعلة</li><li>يدمج معلومات المتعقبات التي رآها «غرير الخصوصية»</li><li>يكتب فوق إعدادات المواقع</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
+    "reset": {
+        "message": "أعِد إلى الأصل",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "reset_data": {
+        "message": "أعِد النطاقات المتعقِّبة إلى أصلها",
+        "description": "Caption above reset button"
+    },
+    "reset_data_confirm": {
+        "message": "إعادة النطاقات المتعقِّبة إلى أصلها:\n\n • سيحذف كل البيانات التي تعلمها «غرير الخصوصية» عن هذه النطاقات أثناء تصفحك\n • سيعيد قائمة النطاقات المتعقِّبة إلى آخر قائمة قبل التعلم (زر www.eff.org/badger-pretraining لمزيد من المعلومات)",
+        "description": "Pop-up triggered when the reset_data button is clicked"
+    },
+    "remove_all": {
+        "message": "أزل الكل",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "remove_all_data": {
+        "message": "أزل كل النطاقات المتعقِّبة",
+        "description": "Caption above remove_all button"
+    },
+    "remove_all_data_confirm": {
+        "message": "إزالة كل النطاقات المتعقِّبة:\n\n • سيحذف كل ما يعرفه «غرير الخصوصية» عن المتعقبات\n • سيمنع «غرير الخصوصية» من حجب أي شيء إلى أن يعيد التعلم من تصفحك",
+        "description": "Pop-up triggered when the remove_all_data button is clicked"
+    },
+    "intro_text": {
+        "message": "يحميك «غرير الخصوصية» الآن. انقر أدناه لتطلع أكثر على كيف يعمل.",
+        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "options_webrtc_warning": {
+        "message": "* يمكن أن يسرب WebRTC عنواوين الإنترنت (IP) المحلية. لاحظ أن تفعيل هذا الخيار قد يقلل من أداء برمجيات الاجتماعات على الوب مثل Google Hangouts.",
+        "description": "Detailed explanation shown under checkboxes on the general settings page"
+    },
+    "options_general_settings": {
+        "message": "الإعدادات العامة",
+        "description": "This is an options page tab heading."
+    },
+    "intro_next_button": {
+        "message": "خذ جولة",
+        "description": "Intro page welcome button."
+    },
+    "domain_slider_block_tooltip": {
+        "message": "انقر هنا لحجب هذا النطاق تماما",
+        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
+    },
+    "version": {
+        "message": "إصدارة $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
+    "badger_status_cookieblock": {
+        "message": "الكعكات محجوبة من النطاق $DOMAIN$",
+        "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "intro_beyond_ads": {
+        "message": "يمسك بالمتعقبات المتخفية",
+        "description": "Intro page paragraph heading."
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "المحجوب جزئيا",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "show_tracking_domains_acknowledgement": {
+        "message": "أفهم هذا؛ أرني رجاء قائمة المتعقبات",
+        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
+    },
+    "firstRun_title": {
+        "message": "شكرا على تنصيب «غرير الخصوصية»",
+        "description": ""
+    },
+    "import_select_file": {
+        "message": "رجاء اختر ملفا لاستيراده",
+        "description": ""
+    },
+    "popup_blocked": {
+        "message": "لا موارد من أطراف خارجية على هذا الموقع",
+        "description": ""
+    },
+    "report_broken_site": {
+        "message": "هل أفسد «غرير الخصوصية» هذا الموقع؟ أعلمنا بهذا.",
+        "description": "Button in the popup."
+    },
+    "tooltip_cookieblock": {
+        "message": "وسط المؤشر لحجب الكعكات",
+        "description": ""
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "مصادر المتعقبات الخفية كثيرة؛ الإعلانات ليست إلا القمة الظاهرة من جبل الجليد. يرسل «غرير الخصوصية» <a href='https://www.eff.org/issues/do-not-track' target='_blank'>إشارة ”لا تتعقبني“</a> إلى المتعقبات ليخبرهم ألا يتعقبوك. لكن إذا تجاهلوا رغبتك تلك فيسعرف «غريرك» أن عليه حجبهم؛ سواء كانوا معلِنين أو متعقبين من أي نوع آخر.",
+        "description": "Intro page paragraph."
+    },
+    "report_close": {
+        "message": "أغلق",
+        "description": ""
+    },
+    "import_user_data": {
+        "message": "استورد بيانات المستخدم",
+        "description": ""
+    },
+    "options_domain_filter_dnt": {
+        "message": "متوافق مع ”لا تتعقبني“",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "popup_help_button": {
+        "message": "مساعدة",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "المسموح به",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "share_button_title_google": {
+        "message": "شارك على جوجل+",
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
+    },
+    "intro_donate_heading": {
+        "message": "الخصوصية رياضة جماعية",
+        "description": "Part of the 'donate' section on the intro page."
+    },
+    "show_tracking_domains_message": {
+        "message": "يفترض ألا تحتاج لتغيير أي شيء هنا.",
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
+    },
+    "options_domain_filter_all": {
+        "message": "الكل",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "report_cancel": {
+        "message": "ألغ",
+        "description": ""
+    },
+    "tooltip_block": {
+        "message": "حرك المؤشر شمالا لحجب النطاق",
+        "description": ""
+    },
+    "options_enable_dnt_checkbox": {
+        "message": "أرسل إلى المواقع إشارة ”<a href='https://www.eff.org/issues/do-not-track' target='_blank'>لا تتعقبني</a>“",
+        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
+    "options_domain_filter_user": {
+        "message": "تحت تحكم المستخدم",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>«غرير الخصوصية» غير مفعل على المواقع التالية. يعني هذا أن «غرير الخصوصية» لن يحجب أي شيء عندما تزور أحد هذه المواقع.</p><p>إذا كنت تظن أن «غرير الخصوصية» يفسد إحدي الصفحات، فيمكنك أن تكتب نطاق الصفحة في الصندوق أدناه ثم انقر على زر ”أضف النطاق“.</p><p>أو يمكنك النقر على زر «غرير الخصوصية» في شريط أدوات المتصفح إن كانت الصفحة المعنية مفتوحة، ثم النقر على زر ”عطّل“.</p>",
+        "description": ""
+    },
+    "popup_instructions": {
+        "message": "اكتشف «غرير الخصوصية» عدد $COUNT$ من $TRACKER_LINK_START$المتعقبات$TRACKER_LINK_END$ المحتملة في هذه الصفحة. تتيح لك هذه المؤشرات التحكم في كيف يتعامل «غرير الخصوصية» مع كل واحد منها. يفترض ألا تحتاج لضبط هذه المؤشرات إلا إن كان هناك أمر لا يعمل كما ينبغي.",
+        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "intro_by_eff": {
+        "message": "مشروع من مؤسسة الجبهة الإلكترونية (Electronic Frontier Foundation)",
+        "description": ""
+    },
+    "add_domain_button": {
+        "message": "أضف النطاق",
+        "description": ""
+    },
+    "options_domain_list_one_tracker": {
+        "message": "اكتشف «غرير الخصوصية» <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>متعقبا</a>  محتملًا واحدًا حتى الآن. يتيح لك هذا المؤشر التحكم في كيف يتعامل «غرير الخصوصية» معه.",
+        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
+    },
+    "tooltip_allow": {
+        "message": "حرك المؤشر يمينا للسماح بالنطاق",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "عطّل «غرير الخصوصية» على هذا الموقع",
+        "description": "Button in the popup."
+    },
+    "popup_instructions_one_tracker": {
+        "message": "اكتشف «غرير الخصوصية» <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>متعقبا</a> محتملًا واحدًا حتى الآن. يتيح لك هذا المؤشر التحكم في كيف يتعامل «غرير الخصوصية» معه. يفترض ألا تحتاج لضبط هذا المؤشر إلا إن كان هناك أمر لا يعمل كما ينبغي.",
+        "description": "Text shown in the popup when there is exactly one tracker on the page."
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "انقر هنا للسماح بهذا النطاق",
+        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
+    },
+    "intro_privacy_note": {
+        "message": "يتعلم «غريرك» محليا على جهازك. لن يشارك «غرير الخصوصية» أبدا أي معلومات عن تصفحك إلا إن اخترت أن تشاركها.",
+        "description": "Intro page paragraph."
+    },
+    "options_domain_list_trackers": {
+        "message": "اكتشف «غرير الخصوصية» عدد $COUNT$ من $TRACKER_LINK_START$النطاقات المتعقِّبة$TRACKER_LINK_END$ المحتملة حتى الآن. تتيح لك هذه المؤشرات التحكم في كيف يتعامل «غرير الخصوصية» مع كل واحد منها.",
+        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "name": {
+        "message": "«غرير الخصوصية»",
+        "description": ""
+    },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "يبدأ «غرير الخصوصية» في الحجب ما إن يرى نفس المتعقب على ثلاثة مواقع مختلفة. ثلاث فرص ثم يخرج! إذا كنت تستخدم أدوات خصوصية أخرى لحجب الإعلانات مثلا فسيتعلم «غرير الخصوصية» أقل، لكن لا بأس بهذا، قد يمسك بما يفلت من الأدوات الأخرى.",
+        "description": "Intro page paragraph."
+    },
+    "options_domain_status_filter": {
+        "message": "رشّح بالحالة:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
+    "report_text": {
+        "message": "صف العطل باختصار أدناه.",
+        "description": ""
+    },
+    "remove_button": {
+        "message": "أزل المحدد",
+        "description": "This is the label for the 'Remove selected' buttons."
+    },
+    "intro_donate1": {
+        "message": "باستخدامك «غرير الخصوصية» تنضم إلى <a href='https://www.eff.org/' target='_blank'>مؤسسة الجبهة الإلكترونية</a> و ملايين المستخدمين في قتالهم من أجل الخصوصية. نحن مؤسسة غير ربحية نقاتل لحقوقك على الإنترنت. شكرًا لانضمامك إلينا. ",
+        "description": "Part of the 'donate' section on the intro page."
+    },
+    "options_domain_search_tooltip": {
+        "message": "لاستبعاد النطاقات، ضع ”-“ قبل عبارة البحث. فمثلا، ”‪.co -.com‬“ ستظهر نطاقات ‪.co‬ و ‪.co.uk‬ لكن لن تظهر نطاقات ‪.com‬ في نتائج البحث.",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
+    },
+    "intro_disable_button": {
+        "message": "إذا كنت تظن أن «غرير الخصوصية» يفسد إحدى الصفحات (الفديو لا يعمل مثلا)، فيمكنك النقر على زر ’عطّل‘ لتعطيل «غرير الخصوصية» على هذا الموقع.",
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
+    },
+    "intro_link_policy": {
+        "message": "سياسة الخصوصية",
+        "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
+    },
+    "options_domain_list_no_trackers": {
+        "message": "لم يكتشف «غرير الخصوصية» أي <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>نطاقات متعقِّبة</a> حتى الآن. واصل تصفحك.",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+    },
+    "report_input_label": {
+        "message": "الوصف",
+        "description": ""
+    },
+    "non_tracker": {
+        "message": "لا يظهر أن النطاقات التالية تتعقبك",
+        "description": ""
+    },
+    "popup_options_button": {
+        "message": "الخيارات",
+        "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "شارك على فيسبوك",
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
+    },
+    "description": {
+        "message": "يتعلم «غرير الخصوصية» تلقائيا أن يحجب المتعقبات الخفية.",
+        "description": ""
+    },
+    "report_fail": {
+        "message": "حدث عطل ما.",
+        "description": ""
+    },
+    "social_tooltip_pb_has_replaced": {
+        "message": "استبدل «غرير الخصوصية» زر $BUTTON$ هذا.",
+        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "placeholders": {
+            "button": {
+                "content": "$1",
+                "example": "Facebook Like"
+            }
+        }
+    },
+    "allow_once": {
+        "message": "Allow once",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "sync_intro": {
+        "message": "مزامنة السحاب:<ul><li>تحتاج إلى مزامنة فيرفكس\\كروم</li><li>الرفع يكتب فوق أي بيانات ل‍«‍غرير الخصوصية» موجودة على السحاب.</li><li>التنزيل يدمج قائمة المواقع التي عطلت عليها «غرير الخصوصية»</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "ارفع",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "صدّر المواقع غير المفعلة إلى السحاب",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "استورد المواقع غير المفعلة من السحاب",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "تم استيراد البيانات من السحاب.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "تعذّر تنزيل البيانات.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "تم رفع البيانات.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "تعذّر رفع البيانات.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "لم تنزّل أي بيانات من السحاب.",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "أخبر أصدقائك",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "شارك",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "وجد «غرير الخصوصية» عدد $COUNT$ من المتعقبات المحتملة على $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "«غرير الخصوصية» (www.eff.org/privacybadger) هو امتداد للمتصفح يتعلم تلقائيا أن يحجب المتعقبات الخفية. «غرير الخصوصية» من مؤسسة الجبهة الإلكترونية، و هي منظمة غير ربحية تقاتل لحقوقك على الإنترنت.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "انسخ إلى الحافظة",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "نُسِخ",
+        "description": "On-click text of the copy button on the share overlay."
+    }
+}

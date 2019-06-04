@@ -15,7 +15,7 @@
     },
     "options_remove_origin_confirm": {
         "message": "Ĉu vi certas pri forigi tiun ĉi nomregnon el Privata Melo?",
-        "description": ""
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "Ne spuras por $DOMAIN$",
@@ -190,7 +190,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Neblokataj nomregnoj",
+        "message": "Neblokataj retejoj",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -208,6 +208,10 @@
     "export_user_data": {
         "message": "Elporti datumojn de uzanto",
         "description": ""
+    },
+    "manage_data_intro": {
+        "message": "Enporti datumojn de uzantoj por:\n<ul>\n<li>anstataŭigi ĝeneralajn agordojn</li>\n<li>kombini listojn de neblokataj retejoj</li>\n<li>kombini informojn pri observitaj spuriloj</li>\n<li>anstataŭigi agordojn de ŝovilo</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
         "message": "Rekomencigi",
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Ŝargado…",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Kaptas trompajn spurilojn",
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn.<br><br>Se viaopinie Privata Melo difektas iun retpaĝon, vi povas entajpi ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.<br><br>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la piktogramon de Privata Melo sur la folumila ilarstrio kaj klaku la butonon “malaktivigi”.",
+        "message": "<p>Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn.</p><p>Se viaopinie Privata Melo difektas iun retpaĝon, vi povas entajpi ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.</p><p>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la piktogramon de Privata Melo sur la folumila ilarstrio kaj klaku la butonon “malaktivigi”.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Kiam vi uzas Privatan Melon vi aniĝas al la <a href='https://www.eff.org/' target='_blank'>Ret-Lima Fondaĵo (EFF)</a> kune kun milionoj da aliaj retanoj en la batalo por privateco. Ni estas ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la Teksaĵo. Dankon por kuniĝi al ni!",
+        "message": "Kiam vi uzas Privatan Melon vi aniĝas al la <a href='https://www.eff.org/' target='_blank'>Ret-Lima Fondaĵo (EFF)</a> kune kun milionoj da aliaj retanoj en la batalo por privateco. Ni estas ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la interreto. Dankon por kuniĝi al ni!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -492,11 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privata Melo protektas vin kontraŭ spuriloj dum kiam vi retumas!",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Kial nenio estas blokita?",
+        "message": "Privata Melo aŭtomate lernas bloki nevideblajn spurilojn.",
         "description": ""
     },
     "report_fail": {
@@ -512,5 +508,79 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "allow_once": {
+        "message": "Permesi unufoje",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "sync_intro": {
+        "message": "Samtempigo en servilo:\n<ul>\n<li>postulas Firefox Spegulado/Chrome Sync</li>\n<li>alŝuto anstataŭigas ĉiujn ekzistajn datumojn de Privata Melo en la servilo</li>\n<li>elŝuto kunigas listojn de retejoj kun malaktiva Privata Melo</li>\n</ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Alŝuti",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Elporti neblokatajn retejojn al servilo",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Enporti neblokatajn retejojn el servilo",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Sukcese enportis datumojn.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Ne povas elŝuti datumojn el servilo.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Sukcese alŝutis datumojn.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Ne povas alŝuti datumojn al servilo.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Neniuj datumoj en la servilo por elŝuti.",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Sciigu amikojn",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Diskonigi",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privata Melo trovis $COUNT$ eblajn spurilojn ĉe $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privata Melo (www.eff.org/privacybadger) estas retumila etendaĵo, kiu aŭtomate lernas kiel bloki nevideblajn spurilojn. Privata Melo estas farita de Electronic Frontier Foundation, ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la interreto.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Kopii al tondejo",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Kopiita",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

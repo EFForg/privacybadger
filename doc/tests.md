@@ -30,23 +30,28 @@ This will open the unit test suite and run the tests.
 
 Our functional tests are written in [Python](https://www.python.org/) and driven by
 [Selenium](https://selenium-python.readthedocs.io/) and [pytest](https://docs.pytest.org/en/latest/).
-To run them in Chrome, you'll need to [install `chromedriver`](https://github.com/EFForg/privacybadger/blob/f780438ca146e932ebc80fa163ddcfdae4e56c25/scripts/setup_travis.sh#L4-L12). In Firefox, you need to [install `geckodriver`](https://github.com/EFForg/privacybadger/blob/f780438ca146e932ebc80fa163ddcfdae4e56c25/scripts/setup_travis.sh#L14-L28).
+
+To run them in Chrome, you need to [install `chromedriver`](http://chromedriver.chromium.org/getting-started). In Firefox, you need to [install `geckodriver`](https://github.com/EFForg/privacybadger/blob/547b19a8c3eddf60eed03aed3f60f252506490b7/scripts/setup_travis.sh#L21-L56).
+
 You also need some Python packages that can be installed by running:
 ```bash
 $ pip install -r tests/requirements.txt
 ```
 
-Now you should be able to run the Selenium tests!
-Try them out by running the code below.
-This should take several minutes.
+You should now be able to run the Selenium tests. Try them out by running
+the code below. This should take several minutes.
 ```bash
 $ BROWSER=chrome pytest -v
 ```
 
-The `BROWSER` environment variable must be set. It must be one of:
-* `BROWSER=/path/to/a/browser`
-* the name of a browser executable that can be found like `which $BROWSER`
-* or simply `BROWSER=chrome` or `BROWSER=firefox` if you have them installed
+macOS users may need to provide the full path to the browser application folder. For example, to run tests on macOS in Firefox:
+```bash
+$ BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin pytest -v
+```
+
+For more information, see our Travis CI [setup](/scripts/setup_travis.sh) and
+[run](/scripts/run_travis.sh) scripts.
+
 
 ### Examples
 
@@ -72,8 +77,3 @@ Like this:
 ```bash
 $ BROWSER=~/Downloads/firefox/firefox ENABLE_XVFB=1 pytest -s -v -k pbtest_org
 ```
-
-Refer to the our Travis CI scripts for more information:
-[`scripts/setup_travis.sh`](/scripts/setup_travis.sh) and
-[`scripts/run_travis.sh`](/scripts/run_travis.sh).
-

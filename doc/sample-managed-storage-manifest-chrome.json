@@ -1,0 +1,12 @@
+{
+    "3rdparty": {
+        "extensions": {
+            "pkehgijcmpdhfbdbbnkijodmdjhbjlgp": {
+                "showIntroPage": false,
+                "disabledSites": [
+                    "example.com"
+                ]
+            }
+        }
+    }
+}

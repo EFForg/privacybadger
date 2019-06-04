@@ -14,8 +14,8 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "您確定要從 Privacy Badger 移除此來源嗎？",
-        "description": ""
+        "message": "您確定要從 Privacy Badger 移除此網域？",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "沒有追蹤 $DOMAIN$",
@@ -190,7 +190,7 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "已停用的頁面",
+        "message": "停用的網站",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
@@ -208,6 +208,10 @@
     "export_user_data": {
         "message": "匯出使用者資料",
         "description": ""
+    },
+    "manage_data_intro": {
+        "message": "正在匯入使用者資料：<ul><li>覆寫一般設定</li><li>結合停用的網站清單</li><li>結合 Privacy Badger 已經看過哪些追蹤器的資訊</li><li>覆寫滑桿自訂</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
         "message": "重設",
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "載入中…",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "捕捉鬼鬼祟祟的追蹤器",
@@ -366,11 +366,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西。<br><br>若您覺得 Privacy Badger 把頁面弄壞了，您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。<br><br>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。",
+        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西。</p><p>若您覺得 Privacy Badger 把頁面弄壞了，您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。</p><p>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。</p>",
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger 偵測到這個網站上有 $COUNT$ 在此頁面上的潛在$TRACKER_LINK_START$追蹤器$TRACKER_LINK_END$。這些滑桿讓您可以控制 Privacy Badger 如何處理每個追蹤器。除非有某些東西壞掉了，否則您應該不需要調整這些滑桿。",
+        "message": "Privacy Badger 偵測到這個網站上有 $COUNT$ 個在此頁面上的潛在$TRACKER_LINK_START$追蹤器$TRACKER_LINK_END$。這些滑桿讓您可以控制 Privacy Badger 如何處理每個追蹤器。除非有某些東西壞掉了，否則您應該不需要調整這些滑桿。",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -492,11 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "您在網上衝浪的時候，Privacy Badger 會保護您免於被追蹤器追蹤的煩惱！",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "為什麼沒有封鎖任何東西？",
+        "message": "Privacy Badger 會自動學習並阻擋不可見的追蹤器。",
         "description": ""
     },
     "report_fail": {
@@ -512,5 +508,79 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "allow_once": {
+        "message": "允許一次",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "sync_intro": {
+        "message": "雲端同步：<ul><li>需要 Firefox/Chrome 同步</li><li>上傳會覆寫任何在雲端中既有的 Privacy Badger 資料</li><li>下載會結合您的 Privacy Badger 停用的網站清單</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "上傳",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "匯出停用的網站到雲端",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "從雲端匯入停用的網站",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "雲端資料匯入成功。",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "雲端資料無法下載。",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "雲端資料上傳成功。",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "雲端資料無法上傳。",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "沒有雲端資料可供下載。",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "告訴你的朋友",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "分享",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger 找到 $COUNT$ 個在 $DOMAIN$ 上的潛在的追蹤器：",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) 是一個會自動學習阻擋不可見追蹤器的瀏覽器附加元件。Privacy Badger 由電子前鋒基金會製作，它是一個為您的線上權利戰鬥的非營利組織。",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "複製到剪貼簿",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "已複製",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

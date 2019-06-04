@@ -1,0 +1,11 @@
+{
+  "name": "jid1-MnnxcxisBPnSXQ@jetpack",
+  "description": "This is a sample Firefox managed storage manifest.",
+  "type": "storage",
+  "data": {
+    "showIntroPage": false,
+    "disabledSites": [
+        "example.com"
+    ]
+  }
+}

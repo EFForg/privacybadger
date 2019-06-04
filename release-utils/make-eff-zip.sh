@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# Half-build a .crx of HTTPS Everywhere for Chrome
+# make a release zip of Privacy Badger for opera and firefox
+# chrome releases happen in chromium-release.sh
 
-# This version stops at a .zip file, so that it can be signed
-# it takes a mandatory argument which is the git tag to build
+# this script takes a mandatory argument which is the git tag to build
 
 if [ -n "$1" ]; then
   SUBDIR=checkout
@@ -14,6 +14,7 @@ if [ -n "$1" ]; then
   git reset --hard "$1"
 
   # clean up
+  # TODO duplicated in chromium-release.sh
   rm -rf src/tests # remove unit tests
   rm src/data/dnt-policy.txt # only used by unit tests
   cp LICENSE src/ # include LICENSE in build
@@ -24,9 +25,8 @@ else
 fi
 
 
-echo "Building chrome version" "$1"
+echo "Building zip version" "$1"
 
 (cd src && zip -q -r ../privacy_badger-"$TARGET".zip .)
 mv privacy_badger*.zip ../pkg/
 cd -
-

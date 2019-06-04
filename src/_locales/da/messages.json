@@ -14,8 +14,8 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Er du sikker på at du vil fjerne denne kilde fra Privacy Badger?",
-        "description": ""
+        "message": "Er du sikker på at du vil fjerne dette domæne fra Privacy Badger?",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "Ingen sporing fra $DOMAIN$",
@@ -209,6 +209,10 @@
         "message": "Eksporter brugerdata",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Import af brugerdata:<ul><li>Overskriver generelle indstillinger</li><li>Kombinerer lister over deaktiverede steder</li><li>Kombinerer informationer om hvilke sporinger Privacy Badger har set</li><li>Overskriver skyderes brugerindstillinger</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Nulstil",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Indlæser...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Fanger luskede sporinger",
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger er deaktiveret på de følgende steder. Det betyder at Privacy Badger ikke vil blokere noget når du besøger stederne listet her. <br><br>Hvis du tror Privacy Badger ødelægger en side, kan du skrive sidens domæne i feltet nedenunder og klikke på knappen \"Tilføj domæne\".<br><br>Alternativt, når du allerede har sidens faneblad valgt, kan du blot klikke på Privacy Badgers knap i browserens værktøjslinje, og derefter klikke på knappen \"Deaktiver\".",
+        "message": "<p>Privacy Badger er deaktiveret på de følgende steder. Det betyder at Privacy Badger ikke vil blokere noget når du besøger stederne listet her.</p><p>Hvis du tror Privacy Badger ødelægger en side, kan du skrive sidens domæne i feltet nedenunder og klikke på knappen \"Tilføj domæne\".</p><p>Alternativt, når du allerede har sidens faneblad valgt, kan du blot klikke på Privacy Badgers knap i browserens værktøjslinje, og derefter klikke på knappen \"Deaktiver\".</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -492,11 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger beskytter dig fra sporinger mens du surfer på nettet!",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Hvorfor er intet blokeret?",
+        "message": "Privacy Badger lærer automatisk at blokere usynlige sporinger.",
         "description": ""
     },
     "report_fail": {
@@ -512,5 +508,79 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "allow_once": {
+        "message": "Tillad en gang",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "sync_intro": {
+        "message": "Skysynkronisering:<ul><li>Kræver Firefox/Chrome-Synkronisering</li><li>Oplægning overskriver eksisterende Privacy Badger-data i skyen</li><li>Hentning kombinerer listerne over steder hvor din Privacy Badger er deaktiveret</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Læg op",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Eksporter deaktiverede steder til skyen",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Importer deaktiverede steder fra skyen",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Skydata importeret med success.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Skydata kunne ikke hentes.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Skydata lagt op med success.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Skydata kunne ikke lægges op.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Ingen skydata at hente.",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Del med dine venner",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Del",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger fandt $COUNT$ potentielle sporinger på $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) er en browserudvidelse som automatisk lærer at blokere usynlige sporinger. Privacy Badger laves af Electronic Frontier Foundation, en nonprofit-orginsation der kæmper for dine rettigheder online.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Kopiér til klippebord",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Kopieret",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

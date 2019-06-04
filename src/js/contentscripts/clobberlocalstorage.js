@@ -15,30 +15,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Runs in page content context. Injects a script that deletes cookies.
- * Communicates to webrequest.js to get orders if to delete cookies.
- */
-
-/**
- * Insert script into page
- *
- * @param {String} text The script to insert into the page
- */
-
-function insertClsScript(text) {
-  var parent = document.documentElement,
-    script = document.createElement('script');
-
-  script.text = text;
-  script.async = false;
-
-  parent.insertBefore(script, parent.firstChild);
-  parent.removeChild(script);
-}
-
-// END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
-
 (function () {
 
 // don't inject into non-HTML documents (such as XML documents)
@@ -50,24 +26,57 @@ if (document instanceof HTMLDocument === false && (
   return;
 }
 
+// don't bother asking to run when trivially in first-party context
+if (window.top == window) {
+  return;
+}
+
 // TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({checkLocation:document.location.href}, function(blocked) {
+chrome.runtime.sendMessage({ checkLocation: window.FRAME_URL }, function (blocked) {
   if (blocked) {
+    // https://stackoverflow.com/questions/49092423/how-to-break-on-localstorage-changes
     var code =
       '('+ function() {
+
         try {
-          window.localStorage.getItem = function() {
-            return null;
-          };
-          window.localStorage.setItem = function(/*newValue*/) {
-            //doNothing
-          };
+          localStorage; // eslint-disable-line no-unused-expressions
         } catch (ex) {
-          // ignore exceptions thrown when "Block third-party cookies" is enabled in Chrome
+          // abort when we can't access localStorage
+          // such as when "Block third-party cookies" is enabled in Chrome
+          return;
         }
+
+        let lsProxy = new Proxy(localStorage, {
+          set: function (/*ls, prop, value*/) {
+            return true;
+          },
+          get: function (ls, prop) {
+            if (typeof ls[prop] == 'function') {
+              let fn = function () {};
+              if (prop == 'getItem' || prop == 'key') {
+                fn = function () { return null; };
+              }
+              return fn.bind(ls);
+            } else {
+              if (prop == 'length') {
+                return 0;
+              } else if (prop == '__proto__') {
+                return lsProxy;
+              }
+              return;
+            }
+          }
+        });
+
+        Object.defineProperty(window, 'localStorage', {
+          configurable: true,
+          enumerable: true,
+          value: lsProxy
+        });
+
       } +')()';
 
-    insertClsScript(code);
+    window.injectScript(code);
   }
   return true;
 });

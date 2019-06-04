@@ -1,9 +1,20 @@
-body
-{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  padding: 20px;
-  width: 100%;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    width: 100%;
+}
+
+h1 {
+    color: #707070;
+    font-size: 24px;
+    font-weight: normal;
+    font-family: helvetica, arial, 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', sans-serif;;
+    margin: 10px 8px;
+}
+
+h3 {
+    margin: 10px 0;
 }
 
 td
@@ -13,14 +24,30 @@ td
   text-align: left;
 }
 
-p
-{
-  margin-top: 0.5em;
-}
-
 button
 {
   white-space: pre;
+}
+
+label {
+  display: inline-flex;
+}
+
+#tracking-domains-filters label {
+    display: inline;
+}
+
+p, #settingsForm {
+    margin: 10px 0;
+}
+
+#whitelistForm {
+    margin: 20px 0 0;
+}
+
+header, #tabs {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 #pbInstructions {
@@ -30,36 +57,25 @@ button
 #tab-manage-data {
   overflow: auto;
 }
-#import {
-  width: 350px;
-  float: left;
-}
-#export {
-  width: 350px;
-  float: left;
-}
-#reset {
-  width: 350px;
-  float: left;
-}
-#remove {
-  width: 350px;
-  float: left;
-}
 
 .btn-silo {
   float: left;
   clear: both;
   margin-bottom: 20px;
+  max-width: 700px;
+  width: 100%;
 }
 
 .btn-silo + .btn-silo {
   border-top: 1px solid #d3d3d3;
   margin-top: 10px;
+  padding-top: 10px;
 }
 
 .btn-silo div {
-  padding-top: 10px;
+  max-width: 350px;
+  width: 100%;
+  float: left;
 }
 
 .btn-danger {
@@ -70,7 +86,7 @@ button
 
 .btn-danger:hover {
   color: white;
-  background: #e02431; 
+  background: #e02431;
 }
 
 .importInput{
@@ -113,21 +129,19 @@ button
     max-height: 400px; /* override popup.css */
 }
 
-#settingsSuffix{
-  color: #555;
-  font-size: 12px;
-  width: 500px;
-  position: relative;
-  left: 50px;
+#settings-suffix {
+    color: #555;
+    font-size: 12px;
+    max-width: 500px;
+    margin-left: 50px;
 }
 
-#settingsSuffix div {
+#settings-suffix div {
     margin: 12px 0;
 }
 
-#check_dnt_policy_row {
-  position: relative;
-  left: 25px;
+#check-dnt-policy-row {
+    margin-left: 25px;
 }
 
 a, a:hover, a:active, a:visited{

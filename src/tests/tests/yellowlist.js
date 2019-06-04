@@ -1,27 +1,26 @@
 /* globals badger:false */
 
-(function() {
+(function () {
 
-  function get_ylist() {
-    return badger.storage.getBadgerStorageObject(
-      'cookieblock_list').getItemClones();
-  }
+function get_ylist() {
+  return badger.storage.getBadgerStorageObject(
+    'cookieblock_list').getItemClones();
+}
 
-  let constants = require('constants');
+let constants = require('constants');
 
-  // fake server to simulate XMLHttpRequests
-  let server;
+// fake server to simulate XMLHttpRequests
+let server;
 
-  QUnit.module("Yellowlist", {
-    before: (/*assert*/) => {
-      server = sinon.fakeServer.create({
-        respondImmediately: true
-      });
-    },
+QUnit.module("Yellowlist", (hooks) => {
+  hooks.before((/*assert*/) => {
+    server = sinon.fakeServer.create({
+      respondImmediately: true
+    });
+  });
 
-    after: (/*assert*/) => {
-      server.restore();
-    }
+  hooks.after((/*assert*/) => {
+    server.restore();
   });
 
   QUnit.test("Updating to a valid list", (assert) => {
@@ -29,7 +28,7 @@
     assert.expect(3);
 
     let ylist = get_ylist();
-    assert.ok(!!Object.keys(ylist).length, "Yellowlist is not empty");
+    assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
 
     // remove a domain
     let removed_domain = Object.keys(ylist)[0];
@@ -44,8 +43,8 @@
       [200, {}, Object.keys(ylist).join("\n")]);
 
     badger.updateYellowlist(function (success) {
-      assert.ok(success, "Callback status indicates success");
-      assert.deepEqual(get_ylist(), ylist, "List got updated");
+      assert.ok(success, "callback status indicates success");
+      assert.deepEqual(get_ylist(), ylist, "list got updated");
       done();
     });
   });
@@ -55,15 +54,15 @@
     assert.expect(3);
 
     let ylist = get_ylist();
-    assert.ok(!!Object.keys(ylist).length, "Yellowlist is not empty");
+    assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
 
     // respond with no content
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, ""]);
 
     badger.updateYellowlist(function (success) {
-      assert.notOk(success, "Callback status indicates failure");
-      assert.deepEqual(get_ylist(), ylist, "List did not get updated");
+      assert.notOk(success, "callback status indicates failure");
+      assert.deepEqual(get_ylist(), ylist, "list did not get updated");
       done();
     });
   });
@@ -82,7 +81,7 @@
     assert.expect(1 + (2 * BAD_RESPONSES.length));
 
     let ylist = get_ylist();
-    assert.ok(!!Object.keys(ylist).length, "Yellowlist is not empty");
+    assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
 
     BAD_RESPONSES.forEach(response => {
       // respond with stuff that may look like the yellowlist but is not
@@ -91,9 +90,9 @@
 
       badger.updateYellowlist(function (success) {
         assert.notOk(success,
-          "Callback status indicates failure for " + JSON.stringify(response));
+          "callback status indicates failure for " + JSON.stringify(response));
         assert.deepEqual(get_ylist(), ylist,
-          "List did not get updated for " + JSON.stringify(response));
+          "list did not get updated for " + JSON.stringify(response));
         done();
       });
     });
@@ -108,12 +107,12 @@
       [404, {}, "page not found"]);
 
     badger.updateYellowlist(function (success) {
-      assert.notOk(success, "Callback status indicates failure");
+      assert.notOk(success, "callback status indicates failure");
       done();
     });
   });
 
-  QUnit.test("Added domains get cookieblocked", (assert) => {
+  QUnit.test("added domains get cookieblocked", (assert) => {
     const DOMAIN = "example.com";
 
     let done = assert.async();
@@ -130,13 +129,13 @@
 
     // update yellowlist
     badger.updateYellowlist(function (success) {
-      assert.ok(success, "Callback status indicates success");
+      assert.ok(success, "callback status indicates success");
 
       // check that the domain got cookieblocked
       assert.equal(
         badger.storage.getAction(DOMAIN),
         constants.COOKIEBLOCK,
-        "domain is marked for blocking"
+        "domain is marked for cookieblocking"
       );
 
       done();
@@ -178,5 +177,249 @@
       );
     }
   });
+
+  QUnit.module("Removing domains", () => {
+    let TESTS = [
+      {
+        name: "Basic scenario",
+        domains: {
+          'example.com': {
+            yellowlist: true,
+            remove: true,
+            initial: constants.COOKIEBLOCK,
+            expected: constants.BLOCK,
+            expectedBest: constants.BLOCK
+          },
+        }
+      },
+
+      {
+        name: "Parent is on yellowlist",
+        domains: {
+          'widgets.example.com': {
+            yellowlist: true,
+            initial: constants.COOKIEBLOCK
+          },
+          'cdn.widgets.example.com': {
+            yellowlist: true,
+            remove: true,
+            initial: constants.COOKIEBLOCK,
+            expected: constants.COOKIEBLOCK,
+            expectedBest: constants.COOKIEBLOCK
+          },
+        }
+      },
+
+      // scenario from https://github.com/EFForg/privacybadger/issues/1474
+      {
+        name: "Parent is on yellowlist and is a PSL TLD (not in action map)",
+        domains: {
+          'googleapis.com': {
+            yellowlist: true,
+            expected: constants.NO_TRACKING,
+            expectedBest: constants.NO_TRACKING,
+          },
+          'ajax.googleapis.com': {
+            yellowlist: true,
+            remove: true,
+            initial: constants.COOKIEBLOCK,
+            expected: constants.COOKIEBLOCK,
+            expectedBest: constants.COOKIEBLOCK
+          },
+        }
+      },
+
+      {
+        name: "Child is on yellowlist",
+        domains: {
+          'widgets.example.com': {
+            yellowlist: true,
+            remove: true,
+            initial: constants.COOKIEBLOCK,
+            expected: constants.BLOCK,
+            expectedBest: constants.BLOCK
+          },
+          'cdn.widgets.example.com': {
+            yellowlist: true,
+            expected: constants.COOKIEBLOCK,
+            expectedBest: constants.COOKIEBLOCK
+          },
+        }
+      },
+
+      {
+        name: "Removing parent blocks subdomains",
+        domains: {
+          // parent domain is yellowlisted and cookieblocked
+          'example.com': {
+            yellowlist: true,
+            remove: true,
+            initial: constants.COOKIEBLOCK,
+            expected: constants.BLOCK,
+            expectedBest: constants.BLOCK
+          },
+          // non-yellowlisted subdomain
+          'cdn1.example.com': {
+            initial: constants.COOKIEBLOCK,
+            expected: constants.BLOCK,
+            expectedBest: constants.BLOCK
+          },
+          // another non-yellowlisted subdomain
+          'cdn2.example.com': {
+            initial: constants.COOKIEBLOCK,
+            expected: constants.BLOCK,
+            expectedBest: constants.BLOCK
+          },
+        }
+      },
+
+      {
+        name: "Parent is blocked",
+        domains: {
+          'example.com': {
+            initial: constants.BLOCK,
+          },
+          // removing from yellowlist will get this blocked
+          'www.example.com': {
+            yellowlist: true,
+            remove: true,
+            initial: constants.COOKIEBLOCK,
+            expected: constants.BLOCK,
+            expectedBest: constants.BLOCK
+          },
+          // removing from yellowlist will get this blocked
+          's-static.ak.example.com': {
+            yellowlist: true,
+            remove: true,
+            initial: constants.COOKIEBLOCK,
+            expected: constants.BLOCK,
+            expectedBest: constants.BLOCK
+          },
+          // yellowlisted and cookieblocked, should stay the same
+          'video.example.com': {
+            yellowlist: true,
+            initial: constants.COOKIEBLOCK,
+            expected: constants.COOKIEBLOCK,
+            expectedBest: constants.COOKIEBLOCK
+          },
+          // non-tracking, should stay the same
+          'ampcid.example.com': {
+            initial: "",
+            expected: constants.NO_TRACKING,
+            expectedBest: constants.BLOCK
+          },
+        }
+      },
+
+      // scenario from https://github.com/EFForg/privacybadger/issues/1474:
+      // using endsWith() and removing "" blocked all domains in action map
+      // that were also on the yellowlist, regardless of their status
+      {
+        name: "Removing blank domain does not block entire yellowlist",
+        domains: {
+          '': {
+            yellowlist: true,
+            remove: true
+          },
+          // on yellowlist and in action map as non-tracking
+          'avatars0.example.com': {
+            yellowlist: true,
+            initial: "",
+            expected: constants.NO_TRACKING,
+            expectedBest: constants.NO_TRACKING
+          },
+          // on yellowlist and in action map but not yet blocked
+          'api.example.net': {
+            yellowlist: true,
+            initial: constants.ALLOW,
+            expected: constants.ALLOW,
+            expectedBest: constants.ALLOW
+          }
+        }
+      }
+    ];
+
+    QUnit.test("googleapis.com is still a PSL TLD", (assert) => {
+      assert.notEqual(
+        window.getBaseDomain("ajax.googleapis.com"),
+        "googleapis.com",
+        "PSL yellowlist test depends on googleapis.com remaining a PSL TLD"
+      );
+    });
+
+    TESTS.forEach(test => {
+      QUnit.test(test.name, (assert) => {
+
+        let done = assert.async();
+
+        // to get num. of assertions, tally the expected/expectedBest props,
+        // and add one for the yellowlist update assertion
+        assert.expect(1 + Object.keys(test.domains).reduce((memo, domain) => {
+          let data = test.domains[domain];
+          if (data.hasOwnProperty('expected')) {
+            memo++;
+          }
+          if (data.hasOwnProperty('expectedBest')) {
+            memo++;
+          }
+          return memo;
+        }, 0));
+
+        let ylistStorage = badger.storage.getBadgerStorageObject('cookieblock_list');
+
+        // set up cookieblocking
+        for (let domain in test.domains) {
+          let conf = test.domains[domain];
+          if (conf.yellowlist) {
+            ylistStorage.setItem(domain, true);
+          }
+          if (conf.hasOwnProperty("initial")) {
+            badger.storage.setupHeuristicAction(domain, conf.initial);
+          }
+        }
+
+        // update the yellowlist making sure removed domains aren't on it
+        const ylist = ylistStorage.getItemClones();
+        for (let domain in test.domains) {
+          if (test.domains[domain].remove) {
+            delete ylist[domain];
+          }
+        }
+        server.respondWith("GET", constants.YELLOWLIST_URL,
+          [200, {}, Object.keys(ylist).join("\n")]);
+
+        badger.updateYellowlist(success => {
+          assert.ok(success, "callback status indicates success");
+
+          for (let domain in test.domains) {
+            let expected, data = test.domains[domain];
+
+            if (data.hasOwnProperty('expected')) {
+              expected = data.expected;
+              assert.equal(
+                badger.storage.getAction(domain),
+                expected,
+                `action on ${domain} should be "${expected}"`
+              );
+            }
+
+            if (data.hasOwnProperty('expectedBest')) {
+              expected = data.expectedBest;
+              assert.equal(
+                badger.storage.getBestAction(domain),
+                expected,
+                `best action for ${domain} should be "${expected}"`
+              );
+            }
+          }
+
+          done();
+        });
+
+      });
+    });
+  });
+
+});
 
 }());

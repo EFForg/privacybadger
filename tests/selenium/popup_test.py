@@ -26,7 +26,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def clear_seed_data(self):
         self.load_url(self.options_url)
-        self.js("badger.storage.clearTrackerData();")
+        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
 
     def wait_for_page_to_start_loading(self, url, timeout=20):
         """Wait until the title element is present. Use it to work around
@@ -56,8 +56,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_window()
 
         self.load_url(self.popup_url)
-        # TODO replace with conditional, poll-based wait for popup being fully displayed
-        time.sleep(1)
+        self.wait_for_script("return window.POPUP_INITIALIZED")
 
         # hack to get tabData populated for the popup's tab
         # to get the popup shown for regular pages
@@ -88,6 +87,9 @@ class PopupTest(pbtest.PBSeleniumTest):
             timeout=5,
             message="Timed out waiting for getTab() to complete."
         )
+
+        # wait for any sliders to finish rendering
+        self.wait_for_script("return window.SLIDERS_DONE")
 
         if close_overlay:
             # Click 'X' element to close overlay.
@@ -162,7 +164,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         # Look for options page and return if found.
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
-            if self.driver.current_url == self.popup_url:
+            if self.driver.current_url == self.options_url:
                 return
 
         self.fail("Options page not opened after clicking options button on popup")
@@ -223,6 +225,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # retrieve the new action
         self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = get_domain_slider_state(self.driver, DOMAIN)
 
@@ -244,6 +247,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # retrieve the new action
         self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = get_domain_slider_state(self.driver, DOMAIN)
 
@@ -259,12 +263,10 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # record the domain as cookieblocked by Badger
         self.load_url(self.options_url)
-        self.js("badger.storage.setupHeuristicAction('{}', '{}');".format(
-            DOMAIN, "cookieblock"))
-
-        # need to preserve original window
-        # restoring control auto-closes popup
-        self.open_window()
+        self.js((
+            "chrome.extension.getBackgroundPage()"
+            ".badger.storage.setupHeuristicAction('{}', '{}');"
+        ).format(DOMAIN, "cookieblock"))
 
         self.open_popup(origins={DOMAIN:"cookieblock"})
 
@@ -283,6 +285,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # verify the domain is no longer user controlled
         self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
 
         # assert the action is not what we manually clicked
@@ -306,16 +309,12 @@ class PopupTest(pbtest.PBSeleniumTest):
         DISPLAYED_ERROR = " should not be displayed on popup"
         NOT_DISPLAYED_ERROR = " should be displayed on popup"
 
-        # need to preserve original window
-        # since enabling/disabling auto-closes popup
-        self.open_window()
         self.open_popup()
 
         self.get_disable_button().click()
 
         # get back to a valid window handle as the window just got closed
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.open_window()
         self.open_popup(close_overlay=False)
 
         # Check that popup state changed after disabling.
@@ -329,7 +328,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         enable_button.click()
 
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.open_window()
         self.open_popup(close_overlay=False)
 
         # Check that popup state changed after re-enabling.

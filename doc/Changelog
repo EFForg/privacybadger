@@ -1,5 +1,79 @@
 Changes for Privacy Badger 
 ====================================
+## 2019.2.19
+* Improved replacement widgets:
+  + Replaced the "play" icon with an "allow once" button to improve
+	accessibility and to make it more clear our widgets are interactive
+  + Made activation also activate any other widgets of the same type
+  + Updated the replacement for Vimeo to ignore background videos
+  + Set minimum dimensions to avoid becoming too small or hidden
+* Fixed various site breakages
+
+## 2019.1.30
+* Added replacement widgets for embedded Spotify, Streamable and Vimeo
+players. Privacy Badger can replace potentially useful third-party widgets
+with placeholders. This avoids on-by-default tracking while providing a clear
+way to restore the original widget on demand.
+* Fixed various site breakages
+* Added Arabic and European Portuguese translations
+* Improved translations (Traditional Chinese, Czech, German, Persian, Swedish,
+Turkish)
+
+## 2018.12.17
+* Fixed major Privacy Badger breakages in Chrome 72+
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Spanish, Turkish)
+
+## 2018.12.5
+* Added a Share button to the popup. This lets you easily copy and paste
+Badger's findings on any page.
+* Updated link protection to work on all Google Search country domains
+* Updated link protection on Facebook to remove the new "fbclid" tracking
+parameter
+* Added support for enterprise/admin/group policy settings overrides. This
+lets administrators preconfigure Privacy Badger installations. For more
+information, please visit
+https://github.com/EFForg/privacybadger/blob/master/doc/admin-deployment.md
+* Fixed various bugs with local storage protection for "cookieblocked" (slider
+set to "yellow") domains
+* Made the options page work better on small and on large displays
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Dutch, Esperanto, Finnish,
+German, Italian, Persian, Polish, Spanish, Swedish)
+
+## 2018.10.3.1
+* Fixed style problems with Google Search results
+* Fixed the setting to open results in new browser windows on Google Search
+
+## 2018.10.3
+* Added protection against outgoing link click tracking on Google Search,
+Google Docs and Google Hangouts
+* Fixed various site breakages
+* Added Finnish translations
+* Improved translations (Simplified Chinese)
+
+## 2018.9.20
+* Added buttons to back up and restore the disabled sites list using
+Firefox/Google Sync. The new buttons live under the Manage Data tab
+on the options page.
+* Added saving of in-progress error reports so that you no longer lose
+your typing when you close the popup for whatever reason
+* Fixed popup layout problems when opened in the overflow menu in Firefox
+* Updated popup and options to use a higher resolution Badger logo on higher
+pixel density displays
+* Fixed problems with broken fonts and images on Google Docs
+* Improved translations (Traditional Chinese, French, German,
+Brazilian Portuguese, Russian, Spanish, Swedish, Turkish)
+
+## 2018.8.22
+* Added pre-trained tracker data for new Privacy Badger installations.
+Visit www.eff.org/badger-pretraining to learn more.
+* Added reset/clear tracker data buttons to the Manage Data options page tab
+* Fixed various site breakages
+* Added Persian and Brazilian Portuguese translations
+* Improved translations (Simplified Chinese, Danish, Esperanto, French,
+German, Italian, Norwegian Bokmål, Spanish, Swedish)
+
 ## 2018.8.1
 * Fixed security issues with HTML5 local storage tracking detection as well as
 SoundCloud widget replacement. Thanks again to Cure53 for discovering and

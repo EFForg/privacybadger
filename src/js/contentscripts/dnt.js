@@ -35,20 +35,6 @@ function getPageScript() {
 
 }
 
-/**
- * Executes a script in the page DOM context
- */
-function insertPageScript(text) {
-  var parent = document.documentElement,
-    script = document.createElement('script');
-
-  script.text = text;
-  script.async = false;
-
-  parent.insertBefore(script, parent.firstChild);
-  parent.removeChild(script);
-}
-
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
 (function () {
@@ -67,7 +53,7 @@ chrome.runtime.sendMessage({
   checkDNT: true
 }, function (enabled) {
   if (enabled) {
-    insertPageScript(getPageScript());
+    window.injectScript(getPageScript());
   }
 });
 

@@ -14,8 +14,8 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Ви справді хочете вилучити це джерело з Privacy Badger?",
-        "description": ""
+        "message": "Ви справді хочете вилучити цей домен з Privacy Badger?",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "Немає стеження для $DOMAIN$",
@@ -209,6 +209,10 @@
         "message": "Експорт користувацьких даних",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Імпорт даних користувача:<ul><li>Перезаписуються загальні налаштування</li><li>Об'єднуються списки вимкнених сайтів</li><li>Об'єднується інформація про виявлені елементи стеження Privacy Badger</li><li>Перезаписуються налаштування перемикачів</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Відновити",
         "description": "Options page button, under the Manage Data tab"
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Завантаження...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Перехоплює підступне стеження",
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger вимкнено для зазначених нижче сайтів. Це означає, що при відвідуванні перелічених тут сайтів, Privacy Badger не буде нічого блокувати.<br><br>Якщо на вашу думку Privacy Badger пошкоджує сторінку, ви можете ввести домен цієї сторінки в поле внизу і натиснути кнопку \"Додати домен\".<br><br>Або якщо у вас вже відкрита ця сторінка, ви можете просто натиснути на Privacy Badger й обрати \"Вимкнути Privacy Badger для цього сайту\".",
+        "message": "<p>Privacy Badger вимкнено для зазначених нижче сайтів. Це означає, що при відвідуванні перелічених тут сайтів, Privacy Badger не буде нічого блокувати.</p><p>Якщо на вашу думку Privacy Badger пошкоджує сторінку, ви можете ввести домен цієї сторінки в поле внизу і натиснути кнопку \"Додати домен\".</p><p>Або якщо у вас вже відкрита ця сторінка, ви можете просто натиснути на Privacy Badger й обрати \"Вимкнути Privacy Badger для цього сайту\".</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -492,11 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger захищає вас від стеження поки ви переглядаєте сторінки в Інтернеті!",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Чому не блокується будь-що?",
+        "message": "Privacy Badger автоматично навчається блокувати невидимі елементи стеження.",
         "description": ""
     },
     "report_fail": {
@@ -512,5 +508,79 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "allow_once": {
+        "message": "Дозволити один раз",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "sync_intro": {
+        "message": "Синхронізація:<ul><li>Необхідний обліковий запис Firefox/Chrome</li><li>Вивантаження перезаписує наявні дані в хмарному сховищі</li><li>Завантаження об'єднує списки сайтів, на яких Privacy Badger вимкнений</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Вивантажити",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Експорт вимкнених сайтів у хмарне сховище",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Імпорт вимкнених сайтів з хмарного сховища",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Дані успішно імпортовано з хмарного сховища.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Не вдалося завантажити дані з хмарного сховища.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Дані успішно вивантажено в хмарне сховище.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Не вдалося вивантажити дані в хмарне сховище.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Хмарне сховище не містить даних для завантаження.",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Розповісти друзям",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Поширити",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger виявив $COUNT$ можливих доменів стеження на $DOMAIN$:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) - це розширення для браузера, що автоматично навчається блокувати невидимі елементи стеження. Privacy Badger розроблено некомерційною організацією Electronic Frontier Foundation, яка відстоює ваші права онлайн.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Копіювати в буфер обміну",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Скопійовано",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

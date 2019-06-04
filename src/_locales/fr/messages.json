@@ -15,7 +15,7 @@
     },
     "options_remove_origin_confirm": {
         "message": "Voulez-vous vraiment supprimer ce domaine de Privacy Badger ?",
-        "description": ""
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
         "message": "Pas de traçage de la part de $DOMAIN$",
@@ -120,7 +120,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
-        "message": "Exporter",
+        "message": "Télécharger",
         "description": ""
     },
     "feed_the_badger_title": {
@@ -209,6 +209,10 @@
         "message": "Exporter les données utilisateur",
         "description": ""
     },
+    "manage_data_intro": {
+        "message": "Importer des données utilisateur :<ul><li>Remplace les réglages généraux</li><li>Combine les listes blanches</li><li>Combine les informations sur les sites que Privacy Badger a vus</li><li>Remplace les personnalisations des curseurs</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
     "reset": {
         "message": "Réinitialiser",
         "description": "Options page button, under the Manage Data tab"
@@ -218,7 +222,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Réinitialiser les domaines traceurs :\n\n• supprimera toutes les données apprises par Privacy Badger sur les traceurs  ;\n• restaurera la liste des domaines traceurs à la dernière liste préétablie ( www.eff.org/badger-pretraining pour en savoir plus).",
+        "message": "Réinitialiser les domaines traceurs :\n\n• supprimera toutes les données apprises par Privacy Badger sur les traceurs  ;\n• restaurera la liste des domaines traceurs à la dernière liste préétablie (www.eff.org/badger-pretraining pour en savoir plus).",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -272,10 +276,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "options_loading": {
-        "message": "Chargement...",
-        "description": ""
     },
     "intro_beyond_ads": {
         "message": "Intercepte les traceurs sournois",
@@ -366,7 +366,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger est désactivé pour les sites ci-dessous. En cas de connexion, rien ne sera bloqué.<br><br>Si vous pensez que Privacy Badger perturbe l'affiche d'une page, vous pouvez saisir son domaine dans le champ ci-dessous et cliquer sur « Ajouter un domaine ».<br><br>Vous pouvez obtenir le même résultat en cliquant sur l'icône se trouvant dans la barre d'outils de votre navigateur, puis sur « Désactiver », lorsque vous êtes sur la page posant problème.",
+        "message": "<p>Privacy Badger est désactivé pour les sites ci-dessous. En cas de connexion, rien ne sera bloqué.</p><p>Si vous pensez que Privacy Badger perturbe l'affiche d'une page, vous pouvez saisir son domaine dans le champ ci-dessous et cliquer sur « Ajouter un domaine ».</p><p>Vous pouvez obtenir le même résultat en cliquant sur l'icône se trouvant dans la barre d'outils de votre navigateur, puis sur « Désactiver », lorsque vous êtes sur la page posant problème.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -492,11 +492,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger vous protège des traceurs lorsque vous surfez sur le web !",
-        "description": ""
-    },
-    "popup_noblocked": {
-        "message": "Pourquoi rien n'est-il bloqué ?",
+        "message": "Privacy Badger apprend automatiquement à bloquer les traceurs invisibles.",
         "description": ""
     },
     "report_fail": {
@@ -512,5 +508,79 @@
                 "example": "Facebook Like"
             }
         }
+    },
+    "allow_once": {
+        "message": "Autoriser une fois",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "sync_intro": {
+        "message": "Synchronisation avec le nuage : <ul><li>Nécessite Firefox ou Chrome Sync</li><li>Le téléversement écrase toutes données de Privacy Badger dans le nuage</li><li>Télécharger combinera la liste blanche avec celle présente</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Téléverser",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Exporter la liste blanche dans le nuage",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Importer la liste blanche du nuage",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Données du nuage correctement importées.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Les données du nuage n'ont pas pu être téléchargées.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Données correctement téléversées dans le nuage.",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Les données du nuage n'ont pas pu être téléversées.",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Pas de données dans le nuage à télécharger.",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "Parlez-en à vos amis",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "Partager",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger a trouvé $COUNT$ traceurs potentiels sur $DOMAIN$ :",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (www.eff.org/privacybadger) est une extension de navigateur qui apprend automatiquement à bloquer les traceurs invisibles. Il est conçu par l'Electronic Frontier Foundation, une organisation à but non lucratif qui se bat pour vos droits en ligne.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Copier dans le presse-papiers",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Copié",
+        "description": "On-click text of the copy button on the share overlay."
     }
 }

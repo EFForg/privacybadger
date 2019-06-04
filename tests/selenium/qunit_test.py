@@ -8,7 +8,7 @@ import pbtest
 from selenium.common.exceptions import TimeoutException
 
 
-class Test(pbtest.PBSeleniumTest):
+class QUnitTest(pbtest.PBSeleniumTest):
 
     def test_run_qunit_tests(self):
         self.load_url(self.test_url)

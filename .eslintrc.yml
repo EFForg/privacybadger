@@ -12,6 +12,7 @@ parserOptions:
   # strict mode
   sourceType: module
 rules:
+  array-callback-return: error
   brace-style:
     - error
     - 1tbs
@@ -50,8 +51,13 @@ rules:
   no-script-url: error
   no-shadow: error
   no-shadow-restricted-names: error
+  no-tabs: error
   no-trailing-spaces: error
   no-unused-expressions: error
   semi: error
   space-before-blocks: error
   space-in-parens: error
+  space-unary-ops:
+    - error
+    - words: true
+      nonwords: false
