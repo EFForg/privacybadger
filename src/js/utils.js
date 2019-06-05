@@ -131,8 +131,8 @@ function estimateMaxEntropy(str) {
   let ALPHANUM = ALPHA + DEC;
 
   // these classes are case-sensitive
-  let B64 = ALPHANUM + ALPHA.toUpper() + "/+";
-  let URL = ALPHANUM + ALPHA.toUpper() + "~%";
+  let B64 = ALPHANUM + ALPHA.toUpperCase() + "/+";
+  let URL = ALPHANUM + ALPHA.toUpperCase() + "~%";
 
   if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST) {
     /*
@@ -147,9 +147,9 @@ function estimateMaxEntropy(str) {
 
   // If all characters are upper or lower case, don't consider case when
   // computing entropy.
-  let sameCase = (str.toLower() == str) || (str.toUpper() == str);
+  let sameCase = (str.toLowerCase() == str) || (str.toUpperCase() == str);
   if (sameCase) {
-    str = str.toLower();
+    str = str.toLowerCase();
   }
 
   // If all the characters come from one of these common character groups,
@@ -158,7 +158,7 @@ function estimateMaxEntropy(str) {
     let group = chr_class + SEPS;
     // Ignore separator characters when computing entropy. For example, Google
     // Analytics IDs look like "14103492.1964907".
-    if (str.every(val => ext_group.includes(val))) {
+    if (str.split().every(val => group.includes(val))) {
       maxSymbols = chr_class.length;
     }
   }

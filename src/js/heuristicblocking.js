@@ -162,7 +162,8 @@ HeuristicBlocker.prototype = {
       tabOrigin = tabOrigins[details.tabId],
       initiator = tabURLs[details.tabId],
       args = _extractArgs(details),
-      TRACKER_ENTROPY_THRESHOLD = 33;
+      TRACKER_ENTROPY_THRESHOLD = 33,
+      MIN_STR_LEN = 8;
 
     for (let key in args) {
       if (!args.hasOwnProperty(key)) {
@@ -194,22 +195,27 @@ HeuristicBlocker.prototype = {
           }
 
           // or the user agent string
-          if (userAgent.indexOf(s) != -1) {
+          if (navigator.userAgent.indexOf(s) != -1) {
             continue;
-          }
-
-          // remove common query string values (case insensitive)
-          let lower = s.toLower;
-          for (let qv in lowEntropyQueryValues) {
-            let start = lower.indexOf(qv));
-            if (start > -1) {
-              s = s.replace(s.substring(start, start + qv.length), "");
-            }
           }
 
           // if the first-party URL is part of the substring, remove it
           if (s.indexOf(initiator) != -1) {
             s = s.replace(initiator, "");
+          }
+
+          // remove common query string values (case insensitive)
+          let lower = s.toLowerCase();
+          lowEntropyQueryValues.forEach(function (qv) {
+            let start = lower.indexOf(qv);
+            if (start != -1) {
+              s = s.replace(s.substring(start, start + qv.length), "");
+            }
+          });
+
+          // make sure the string is still long enough to bother with
+          if (s.length < MIN_STR_LEN) {
+            continue;
           }
 
           // compute the entropy of this common substring
@@ -531,7 +537,7 @@ var lowEntropyCookieValues = {
 };
 
 const lowEntropyQueryValues = [
-  "https
+  "https",
   "http",
   "://",
   "%3A%2F%2F",
