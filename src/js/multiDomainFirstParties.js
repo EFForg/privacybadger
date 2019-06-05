@@ -269,6 +269,7 @@ var multiDomainFirstPartiesArray = [
     "upload.com",
     "zdnet.com",
   ],
+  ["cb2.com", "crateandbarrel.com"],
   ["century21.com", "21online.com"],
   ["chart.io", "chartio.com"],
   ["concur.com", "concursolutions.com"],
