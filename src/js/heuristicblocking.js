@@ -121,46 +121,45 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
+    let self = this;
+
     // abort if we already made a decision for this FQDN
-    let action = this.storage.getAction(fqdn);
+    let action = self.storage.getAction(fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return {};
     }
 
     // check if there are tracking cookies
     if (hasCookieTracking(details, origin)) {
-      this._recordPrevalence(fqdn, origin, tabOrigin);
+      self._recordPrevalence(fqdn, origin, tabOrigin);
       return {};
     }
 
-    let self = this;
-
     // check if this request is a cookie-syncing pixel
-    chrome.cookies.getAll({}, function(cookies) {
-      self.pixelCookieSyncAccounting(details, cookies);
-    });
+    if (details.type == 'image') {
+      let frameHost = badger.tabData[details.tabId].frames[details.frameId].host;
+      chrome.cookies.getAll({
+        domain: window.getBaseDomain(frameHost)
+      }, function(cookies) {
+        self.pixelCookieShareAccounting(fqdn, origin, tabOrigin, details, cookies);
+      });
+    }
   },
 
   /**
-   * Checks for cookie syncing: requests to third-party domains that include
-   * high entropy data from first-party cookies.
-   *
-   * TODO: is it OK to call this from heuristicBlockingAccounting?
+   * Checks for cookie sharing: requests to third-party domains that include
+   * high entropy data from first-party cookies. Only catches plain-text
+   * verbatim sharing (b64 encoding + the like defeat it). Assumes any long
+   * string that doesn't contain URL fragments or stopwords is an identifier.
+   * Doesn't catch cookie syncing (3rd party -> 3rd party), but most of those
+   * tracking cookies should be blocked anyway.
    *
    * @param details are those from onBeforeSendHeaders
    * @param cookies are the result of chrome.cookies.getAll()
    * @returns {*}
    */
-  pixelCookieSyncAccounting: function (details, cookies) {
-    // only interested in images
-    if (details.type != 'image') {
-      return false;
-    }
-
-    let fqdn = (new URI(details.url)).host,
-      origin = window.getBaseDomain(fqdn),
-      tabOrigin = tabOrigins[details.tabId],
-      initiator = tabURLs[details.tabId],
+  pixelCookieShareAccounting: function (fqdn, origin, tabOrigin, details, cookies) {
+    let initiator = tabURLs[details.tabId],
       args = _extractArgs(details),
       TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
@@ -173,11 +172,10 @@ HeuristicBlocker.prototype = {
       let value = args[key];
 
       // the argument must be sufficiently long
-      if (!value || value.length < constants.MIN_ARG_LEN) {
+      if (!value || value.length < MIN_STR_LEN) {
         continue;
       }
 
-      let substrings, maxString, maxEntropy;
       // check if this argument is derived from a high-entropy first-party cookie
       for (let cookie of cookies) {
         if (cookie.domain == origin) {
@@ -186,25 +184,35 @@ HeuristicBlocker.prototype = {
 
         // find the longest common substring between this arg and the cookies
         // associated with the document
-        substrings = utils.findCommonSubstrings(cookie.value, value) || [];
+        let substrings = utils.findCommonSubstrings(cookie.value, value) || [];
         maxEntropy = 0;
         for (let s of substrings) {
-          // ignore the substring if it's part of the first-party URL
+          // ignore the substring if it's part of the first-party URL. sometimes
+          // content servers take the url of the page they're hosting content
+          // for as an argument. e.g.
+          // https://example-cdn.com/content?u=http://example.com/index.html
           if (initiator.indexOf(s) != -1) {
             continue;
           }
 
-          // or the user agent string
+          // elements of the user agent string are also commonly included in
+          // both cookies and arguments; e.g. "Mozilla/5.0" might be in both.
+          // This is not a special tracking risk since third parties can see
+          // this info anyway.
           if (navigator.userAgent.indexOf(s) != -1) {
             continue;
           }
 
-          // if the first-party URL is part of the substring, remove it
+          // Sometimes the entire url and then some is included in the
+          // substring -- the common string might be "https://example.com/:true"
+          // In that case, we only care about the information around the URL.
           if (s.indexOf(initiator) != -1) {
             s = s.replace(initiator, "");
           }
 
-          // remove common query string values (case insensitive)
+          // During testing we found lots of common values like "homepage",
+          // "referrer", etc. were being flagged as high entropy. This searches
+          // for a few of those and removes them before we go further.
           let lower = s.toLowerCase();
           lowEntropyQueryValues.forEach(function (qv) {
             let start = lower.indexOf(qv);
@@ -213,26 +221,22 @@ HeuristicBlocker.prototype = {
             }
           });
 
-          // make sure the string is still long enough to bother with
+          // at this point, since we might have removed things, make sure the
+          // string is still long enough to bother with
           if (s.length < MIN_STR_LEN) {
             continue;
           }
 
-          // compute the entropy of this common substring
-          let entropy = utils.estimateMaxEntropy(s);
-          if (entropy > TRACKER_ENTROPY_THRESHOLD && entropy > maxEntropy) {
-            maxEntropy = entropy;
-            maxString = s;
+          // compute the entropy of this common substring. if it's greater than
+          // our threshold, record the tracking action and exit the function.
+          entropy = utils.estimateMaxEntropy(s);
+          if (entropy > TRACKER_ENTROPY_THRESHOLD) {
+            log("Found high-entropy cookie share from", tabHost, "to", fqdn,
+              ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
+              "\n  arg:", key, "=", value, "\n  substring:", s);
+            this._recordPrevalence(fqdn, origin, tabOrigin);
+            return;
           }
-        }
-
-        // if this request crosses the entropy threshold, mark it as tracking
-        if (maxEntropy > TRACKER_ENTROPY_THRESHOLD) {
-          log("Found high-entropy cookie sync with", fqdn, ":",
-            maxEntropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
-            "\n  arg:", key, "=", value,
-            "\n  substring:", maxString);
-          this._recordPrevalence(fqdn, origin, tabOrigin);
         }
       }
     }
