@@ -26,9 +26,6 @@ require.scopes.heuristicblocking = (function() {
 /*********************** heuristicblocking scope **/
 
 // make heuristic obj with utils and storage properties and put the things on it
-var tabOrigins = { }; // TODO roll into tabData?
-var tabURLs = { };
-
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
 }
@@ -105,16 +102,13 @@ HeuristicBlocker.prototype = {
     let fqdn = (new URI(details.url)).host,
       origin = window.getBaseDomain(fqdn);
 
-    // if this is a main window request
+    // if this is a main window request, the webrequest listener will handle it
     if (details.type == "main_frame") {
-      // save the origin associated with the tab
-      log("Origin: " + origin + "\tURL: " + details.url);
-      tabURLs[details.tabId] = details.url;
-      tabOrigins[details.tabId] = origin;
       return {};
     }
 
-    let tabOrigin = tabOrigins[details.tabId];
+    let mainFrame = badger.tabData[details.tabId].frames[0];
+    let tabOrigin = window.getBaseDomain(mainFrame.host);
 
     // ignore first-party requests
     if (!tabOrigin || origin == tabOrigin) {
@@ -141,7 +135,8 @@ HeuristicBlocker.prototype = {
       chrome.cookies.getAll({
         domain: window.getBaseDomain(frameHost)
       }, function(cookies) {
-        self.pixelCookieShareAccounting(fqdn, origin, tabOrigin, details, cookies);
+        self.pixelCookieShareAccounting(fqdn, origin, mainFrame.url, tabOrigin,
+                                        details, cookies);
       });
     }
   },
@@ -158,9 +153,8 @@ HeuristicBlocker.prototype = {
    * @param cookies are the result of chrome.cookies.getAll()
    * @returns {*}
    */
-  pixelCookieShareAccounting: function (fqdn, origin, tabOrigin, details, cookies) {
-    let initiator = tabURLs[details.tabId],
-      args = _extractArgs(details),
+  pixelCookieShareAccounting: function (fqdn, origin, tabUrl, tabOrigin, details, cookies) {
+    let args = _extractArgs(details),
       TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
 
@@ -191,7 +185,7 @@ HeuristicBlocker.prototype = {
           // content servers take the url of the page they're hosting content
           // for as an argument. e.g.
           // https://example-cdn.com/content?u=http://example.com/index.html
-          if (initiator.indexOf(s) != -1) {
+          if (tabUrl.indexOf(s) != -1) {
             continue;
           }
 
@@ -206,8 +200,8 @@ HeuristicBlocker.prototype = {
           // Sometimes the entire url and then some is included in the
           // substring -- the common string might be "https://example.com/:true"
           // In that case, we only care about the information around the URL.
-          if (s.indexOf(initiator) != -1) {
-            s = s.replace(initiator, "");
+          if (s.indexOf(tabUrl) != -1) {
+            s = s.replace(tabUrl, "");
           }
 
           // During testing we found lots of common values like "homepage",
@@ -231,7 +225,7 @@ HeuristicBlocker.prototype = {
           // our threshold, record the tracking action and exit the function.
           entropy = utils.estimateMaxEntropy(s);
           if (entropy > TRACKER_ENTROPY_THRESHOLD) {
-            log("Found high-entropy cookie share from", tabHost, "to", fqdn,
+            log("Found high-entropy cookie share from", tabOrigin, "to", fqdn,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
               "\n  arg:", key, "=", value, "\n  substring:", s);
             this._recordPrevalence(fqdn, origin, tabOrigin);
