@@ -1210,7 +1210,7 @@ var multiDomainFirstPartiesArray = [
     "zappelin.nl",
     "zapp.nl",
   ],
-  ["nymag.com", "vulture.com", "grubstreet.com"],
+  ["nymag.com", "vulture.com", "grubstreet.com", "thecut.com"],
   [
     "nypublicradio.org",
 
