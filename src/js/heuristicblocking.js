@@ -99,44 +99,45 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    let fqdn = (new URI(details.url)).host,
-      origin = window.getBaseDomain(fqdn);
-
     // if this is a main window request, the webrequest listener will handle it
     if (details.type == "main_frame") {
       return {};
     }
 
-    let mainFrame = badger.tabData[details.tabId].frames[0];
-    let tabOrigin = window.getBaseDomain(mainFrame.host);
+    let fqdn = (new URI(details.url)).host,
+      origin = window.getBaseDomain(fqdn),
+      mainFrame = badger.tabData[details.tabId].frames[0],
+      tabOrigin = window.getBaseDomain(mainFrame.host);
 
     // ignore first-party requests
     if (!tabOrigin || origin == tabOrigin) {
       return {};
     }
 
-    let self = this;
-
     // abort if we already made a decision for this FQDN
-    let action = self.storage.getAction(fqdn);
+    let action = this.storage.getAction(fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return {};
     }
 
     // check if there are tracking cookies
     if (hasCookieTracking(details, origin)) {
-      self._recordPrevalence(fqdn, origin, tabOrigin);
-      return {};
+      this._recordPrevalence(fqdn, origin, tabOrigin);
     }
+  },
 
+  pixelCookieShareListener: function (details) {
     // check if this request is a cookie-syncing pixel
     if (details.type == 'image') {
-      let frameHost = badger.tabData[details.tabId].frames[details.frameId].host;
+      let self = this,
+        frameHost = badger.tabData[details.tabId].frames[details.frameId].host;
+
+      // get all cookies for the frame the request comes from and pass those to
+      // the cookie-share accounting function
       chrome.cookies.getAll({
         domain: window.getBaseDomain(frameHost)
       }, function(cookies) {
-        self.pixelCookieShareAccounting(fqdn, origin, mainFrame.url, tabOrigin,
-                                        details, cookies);
+        self.pixelCookieShareAccounting(details, cookies);
       });
     }
   },
@@ -153,8 +154,13 @@ HeuristicBlocker.prototype = {
    * @param cookies are the result of chrome.cookies.getAll()
    * @returns {*}
    */
-  pixelCookieShareAccounting: function (fqdn, origin, tabUrl, tabOrigin, details, cookies) {
-    let args = _extractArgs(details),
+  pixelCookieShareAccounting: function (details, cookies) {
+    let fqdn = (new URI(details.url)).host,
+      origin = window.getBaseDomain(fqdn),
+      mainFrame = badger.tabData[details.tabId].frames[0],
+      tabUrl = mainFrame.url,
+      tabOrigin = window.getBaseDomain(mainFrame.host),
+      args = _extractArgs(details),
       TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
 
@@ -179,7 +185,6 @@ HeuristicBlocker.prototype = {
         // find the longest common substring between this arg and the cookies
         // associated with the document
         let substrings = utils.findCommonSubstrings(cookie.value, value) || [];
-        maxEntropy = 0;
         for (let s of substrings) {
           // ignore the substring if it's part of the first-party URL. sometimes
           // content servers take the url of the page they're hosting content
@@ -223,7 +228,7 @@ HeuristicBlocker.prototype = {
 
           // compute the entropy of this common substring. if it's greater than
           // our threshold, record the tracking action and exit the function.
-          entropy = utils.estimateMaxEntropy(s);
+          let entropy = utils.estimateMaxEntropy(s);
           if (entropy > TRACKER_ENTROPY_THRESHOLD) {
             log("Found high-entropy cookie share from", tabOrigin, "to", fqdn,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
@@ -684,7 +689,9 @@ function startListeners() {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    return badger.heuristicBlocking.heuristicBlockingAccounting(details);
+    badger.heuristicBlocking.heuristicBlockingAccounting(details);
+    badger.heuristicBlocking.pixelCookieShareListener(details);
+    return {};
   }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   /**
