@@ -329,12 +329,30 @@ function getHostFromDomainInput(input) {
   return uri.host;
 }
 
+/**
+ * check if a domain is third party
+ * @param {String} domain1 an fqdn
+ * @param {String} domain2 a second fqdn
+ *
+ * @return {Boolean} true if the domains are third party
+ */
+function isThirdPartyDomain(domain1, domain2) {
+  if (window.isThirdParty(domain1, domain2)) {
+    return !mdfp.isMultiDomainFirstParty(
+      window.getBaseDomain(domain1),
+      window.getBaseDomain(domain2)
+    );
+  }
+  return false;
+}
+
 /************************************** exports */
 var exports = {
   arrayBufferToBase64,
   estimateMaxEntropy,
   explodeSubdomains,
   getHostFromDomainInput,
+  isThirdPartyDomain,
   nDaysFromNow,
   oneDayFromNow,
   oneDay,
