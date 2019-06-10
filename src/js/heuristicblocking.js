@@ -20,6 +20,7 @@
 var constants = require("constants");
 var utils = require("utils");
 var incognito = require("incognito");
+var mdfp = require("multiDomainFP")
 
 require.scopes.heuristicblocking = (function() {
 
@@ -115,7 +116,7 @@ HeuristicBlocker.prototype = {
     let tab_origin = tabOrigins[details.tabId];
 
     // ignore first-party requests
-    if (!tab_origin || request_origin == tab_origin) {
+    if(!utils.isThirdPartyDomain(request_origin, tab_origin)) {
       return {};
     }
 
