@@ -23,12 +23,22 @@ var incognito = require("incognito");
 
 require.scopes.heuristicblocking = (function() {
 
-/*********************** heuristicblocking scope **/
 
+
+/*********************** heuristicblocking scope **/
 // make heuristic obj with utils and storage properties and put the things on it
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
 }
+
+// TODO roll into tabData? -- 6/10/2019 not for now, since tabData is populated
+// by the synchronous listeners in webrequests.js and tabOrigins is used by the
+// async listeners here; there's no way to enforce ordering of requests among
+// those two. Also, tabData is cleaned up every time a tab is closed, so
+// dangling requests that don't trigger listeners until after the tab closes are
+// impossible to attribute to a tab.
+var tabOrigins = { };
+var tabURLs = { };
 
 HeuristicBlocker.prototype = {
   /**
@@ -93,21 +103,24 @@ HeuristicBlocker.prototype = {
    * @param details are those from onBeforeSendHeaders
    * @returns {*}
    */
-  heuristicBlockingAccounting: function (details) {
+  heuristicBlockingAccounting: function (details, checkForCookieShare) {
     // ignore requests that are outside a tabbed window
     if (details.tabId < 0 || !incognito.learningEnabled(details.tabId)) {
       return {};
     }
 
-    // if this is a main window request, the webrequest listener will handle it
+    let fqdn = (new URI(details.url)).host,
+      origin = window.getBaseDomain(fqdn);
+
+    // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
+      tabOrigins[details.tabId] = origin;
+      tabURLs[details.tabId] = details.url;
       return {};
     }
 
-    let fqdn = (new URI(details.url)).host,
-      origin = window.getBaseDomain(fqdn),
-      mainFrame = badger.tabData[details.tabId].frames[0],
-      tabOrigin = window.getBaseDomain(mainFrame.host);
+    let tabOrigin = tabOrigins[details.tabId],
+      self = this;
 
     // ignore first-party requests
     if (!tabOrigin || origin == tabOrigin) {
@@ -115,27 +128,22 @@ HeuristicBlocker.prototype = {
     }
 
     // abort if we already made a decision for this FQDN
-    let action = this.storage.getAction(fqdn);
+    let action = self.storage.getAction(fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return {};
     }
 
     // check if there are tracking cookies
     if (hasCookieTracking(details, origin)) {
-      this._recordPrevalence(fqdn, origin, tabOrigin);
+      self._recordPrevalence(fqdn, origin, tabOrigin);
+      return {};
     }
-  },
 
-  pixelCookieShareListener: function (details) {
-    // check if this request is a cookie-syncing pixel
-    if (details.type == 'image') {
-      let self = this,
-        frameHost = badger.tabData[details.tabId].frames[details.frameId].host;
-
+    if (checkForCookieShare && details.type == 'image') {
       // get all cookies for the frame the request comes from and pass those to
       // the cookie-share accounting function
       chrome.cookies.getAll({
-        domain: window.getBaseDomain(frameHost)
+        url: tabURLs[details.tabId]
       }, function(cookies) {
         self.pixelCookieShareAccounting(details, cookies);
       });
@@ -157,9 +165,8 @@ HeuristicBlocker.prototype = {
   pixelCookieShareAccounting: function (details, cookies) {
     let fqdn = (new URI(details.url)).host,
       origin = window.getBaseDomain(fqdn),
-      mainFrame = badger.tabData[details.tabId].frames[0],
-      tabUrl = mainFrame.url,
-      tabOrigin = window.getBaseDomain(mainFrame.host),
+      tabUrl = tabURLs[details.tabId],
+      tabOrigin = tabOrigins[details.tabId],
       args = _extractArgs(details),
       TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
@@ -689,8 +696,7 @@ function startListeners() {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    badger.heuristicBlocking.heuristicBlockingAccounting(details);
-    badger.heuristicBlocking.pixelCookieShareListener(details);
+    badger.heuristicBlocking.heuristicBlockingAccounting(details, true);
     return {};
   }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
@@ -710,7 +716,7 @@ function startListeners() {
       }
     }
     if (hasSetCookie) {
-      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
+      return badger.heuristicBlocking.heuristicBlockingAccounting(details, false);
     }
   },
   {urls: ["<all_urls>"]}, extraInfoSpec);
