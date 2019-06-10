@@ -31,7 +31,6 @@ require.scopes.webrequest = (function() {
 var constants = require("constants");
 var getSurrogateURI = require("surrogates").getSurrogateURI;
 var incognito = require("incognito");
-var mdfp = require("multiDomainFP");
 var utils = require("utils");
 
 /************ Local Variables *****************/
