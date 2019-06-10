@@ -77,7 +77,7 @@ function onBeforeRequest(details) {
   let tab_host = getHostForTab(tab_id);
   let request_host = window.extractHostFromURL(url);
 
-  if (!isThirdPartyDomain(request_host, tab_host)) {
+  if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     return {};
   }
 
@@ -166,7 +166,7 @@ function onBeforeSendHeaders(details) {
   let tab_host = getHostForTab(tab_id);
   let request_host = window.extractHostFromURL(url);
 
-  if (!isThirdPartyDomain(request_host, tab_host)) {
+  if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     if (badger.isPrivacyBadgerEnabled(tab_host)) {
       // Still sending Do Not Track even if HTTP and cookie blocking are disabled
       if (badger.isDNTSignalEnabled()) {
@@ -291,7 +291,7 @@ function onHeadersReceived(details) {
   let tab_host = getHostForTab(tab_id);
   let request_host = window.extractHostFromURL(url);
 
-  if (!isThirdPartyDomain(request_host, tab_host)) {
+  if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     return {};
   }
 
@@ -343,23 +343,6 @@ function onTabReplaced(addedTabId, removedTabId) {
 /******** Utility Functions **********/
 
 /**
- * check if a domain is third party
- * @param {String} domain1 an fqdn
- * @param {String} domain2 a second fqdn
- *
- * @return {Boolean} true if the domains are third party
- */
-function isThirdPartyDomain(domain1, domain2) {
-  if (window.isThirdParty(domain1, domain2)) {
-    return !mdfp.isMultiDomainFirstParty(
-      window.getBaseDomain(domain1),
-      window.getBaseDomain(domain2)
-    );
-  }
-  return false;
-}
-
-/**
  * Gets the host name for a given tab id
  * @param {Integer} tabId chrome tab id
  * @return {String} the host name for the tab
@@ -397,7 +380,7 @@ function recordSuperCookie(tab_id, frame_url) {
   const frame_host = window.extractHostFromURL(frame_url),
     page_host = badger.getFrameData(tab_id).host;
 
-  if (!isThirdPartyDomain(frame_host, page_host)) {
+  if (!utils.isThirdPartyDomain(frame_host, page_host)) {
     // Only happens on the start page for google.com
     return;
   }
@@ -425,7 +408,7 @@ function recordFingerprinting(tabId, msg) {
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
     document_host = badger.getFrameData(tabId).host;
-  if (!isThirdPartyDomain(script_host, document_host)) {
+  if (!utils.isThirdPartyDomain(script_host, document_host)) {
     return;
   }
 
@@ -657,7 +640,7 @@ function dispatcher(request, sender, sendResponse) {
     let requestHost = window.extractHostFromURL(request.checkLocation);
 
     // Ignore requests that aren't from a third party.
-    if (!isThirdPartyDomain(requestHost, window.extractHostFromURL(sender.tab.url))) {
+    if (!utils.isThirdPartyDomain(requestHost, window.extractHostFromURL(sender.tab.url))) {
       return sendResponse();
     }
 
@@ -724,7 +707,7 @@ function dispatcher(request, sender, sendResponse) {
     let tab_host = window.extractHostFromURL(sender.tab.url),
       frame_host = window.extractHostFromURL(request.checkEnabledAndThirdParty);
 
-    sendResponse(badger.isPrivacyBadgerEnabled(tab_host) && isThirdPartyDomain(frame_host, tab_host));
+    sendResponse(badger.isPrivacyBadgerEnabled(tab_host) && utils.isThirdPartyDomain(frame_host, tab_host));
 
   } else if (request.checkWidgetReplacementEnabled) {
     sendResponse(
