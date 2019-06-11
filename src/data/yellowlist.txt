@@ -605,6 +605,7 @@ trustwave.com
 ttvnw.net
 tumblr.com
 turner.com
+turnto.com
 twimg.com
 api.twisto.cz
 static.twisto.cz
