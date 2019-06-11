@@ -101,6 +101,7 @@ HeuristicBlocker.prototype = {
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
    * @param details are those from onBeforeSendHeaders
+   * @param checkForCookieShare bool, whether to check for cookie sharing
    * @returns {*}
    */
   heuristicBlockingAccounting: function (details, checkForCookieShare) {
@@ -140,23 +141,25 @@ HeuristicBlocker.prototype = {
     }
 
     if (checkForCookieShare && details.type == 'image') {
-      // get all cookies for the frame the request comes from and pass those to
-      // the cookie-share accounting function
+      // get all cookies for the top-level frame and pass those to the
+      // cookie-share accounting function
       chrome.cookies.getAll({
         url: tabURLs[details.tabId]
       }, function(cookies) {
-        self.pixelCookieShareAccounting(details, cookies);
+        if (cookies.length >= 1) {
+          self.pixelCookieShareAccounting(details, cookies);
+        }
       });
     }
   },
 
   /**
    * Checks for cookie sharing: requests to third-party domains that include
-   * high entropy data from first-party cookies. Only catches plain-text
-   * verbatim sharing (b64 encoding + the like defeat it). Assumes any long
-   * string that doesn't contain URL fragments or stopwords is an identifier.
-   * Doesn't catch cookie syncing (3rd party -> 3rd party), but most of those
-   * tracking cookies should be blocked anyway.
+   * high entropy data from first-party cookies (associated with the top-level
+   * frame). Only catches plain-text verbatim sharing (b64 encoding + the like
+   * defeat it). Assumes any long string that doesn't contain URL fragments or
+   * stopwords is an identifier.  Doesn't catch cookie syncing (3rd party -> 3rd
+   * party), but most of those tracking cookies should be blocked anyway.
    *
    * @param details are those from onBeforeSendHeaders
    * @param cookies are the result of chrome.cookies.getAll()
@@ -185,7 +188,8 @@ HeuristicBlocker.prototype = {
 
       // check if this argument is derived from a high-entropy first-party cookie
       for (let cookie of cookies) {
-        if (cookie.domain == origin) {
+        // the cookie value must be sufficiently long
+        if (!cookie.value || cookie.value.length < MIN_STR_LEN) {
           continue;
         }
 
@@ -696,8 +700,7 @@ function startListeners() {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    badger.heuristicBlocking.heuristicBlockingAccounting(details, true);
-    return {};
+    return badger.heuristicBlocking.heuristicBlockingAccounting(details, true);
   }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   /**

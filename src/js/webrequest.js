@@ -192,7 +192,7 @@ function onBeforeSendHeaders(details) {
   if (requestAction == constants.ALLOW &&
       badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1) {
 
-    badger.heuristicBlocking.heuristicBlockingAccounting(details, true);
+    badger.heuristicBlocking.heuristicBlockingAccounting(details, false);
     requestAction = checkAction(tab_id, requestDomain, frame_id);
 
     if (requestAction) {
