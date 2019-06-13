@@ -261,6 +261,18 @@ exports.Migrations= {
     }
   },
 
+  migrateMDFPAwareStorageObjects: function () {
+    console.log("Migrating snitch and action maps that take MDFP into account when recording trackers ...")
+
+    // declare action and snitch maps from getBadgerStorageObject method
+
+    // loop through snitch map to locate bad entries
+      // remove them
+
+    // run merge function over new snitch map with current action map (want to keep user preferences)
+
+  },
+
 };
 
 

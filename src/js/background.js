@@ -533,6 +533,7 @@ Badger.prototype = {
       Migrations.migrateDntRecheckTimes,
       // Need to run this migration again for everyone to #1181
       Migrations.migrateDntRecheckTimes2,
+      Migrations.migrateMDFPAwareStorageObjects,
       Migrations.forgetMistakenlyBlockedDomains,
       Migrations.unblockIncorrectlyBlockedDomains,
       Migrations.forgetBlockedDNTDomains,
