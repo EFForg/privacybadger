@@ -401,6 +401,7 @@ microsoftonline.com
 microsofttranslator.com
 mlive.com
 mobify.com
+verify.monzo.com
 loop.services.mozilla.com
 mozilla.net
 mozilla.org
