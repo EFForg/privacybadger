@@ -17,6 +17,7 @@
 
 var utils = require("utils");
 var constants = require("constants");
+var mdfp = require("multiDomainFP");
 
 require.scopes.migrations = (function() {
 
@@ -261,16 +262,38 @@ exports.Migrations= {
     }
   },
 
-  migrateMDFPAwareStorageObjects: function () {
-    console.log("Migrating snitch and action maps that take MDFP into account when recording trackers ...")
+  forgetFirstPartySnitches: function (badger) {
+    // this needs to happen before unblockIncorrectlyBlockedDomains
+    console.log("Removing first parties from snitch map...");
 
-    // declare action and snitch maps from getBadgerStorageObject method
+    let snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
+      items = snitchMap.getItemClones();
 
-    // loop through snitch map to locate bad entries
-      // remove them
+    for (let domain in items) {
+      let snitches = snitchMap.getItem(domain);
+      let newSnitches = [];
 
-    // run merge function over new snitch map with current action map (want to keep user preferences)
+      snitches.forEach(function (snitch) {
+        if (!mdfp.isMultiDomainFirstParty(snitch, domain)) {
+          newSnitches.push(snitch);
+        }
+      });
 
+      // if nothing changed, we're done
+      if (newSnitches.length == snitches.length) {
+        continue;
+      }
+
+      // otherwise, we dropped one or more domains. Update the snitch map and
+      // reevaluate the action map.
+      if (newSnitches.length == 0) {
+        console.log("Removing %s ...", domain);
+        snitchMap.deleteItem(domain);
+      } else if (newSnitches.length < snitches.length) {
+        console.log("Reassigning %s ...", domain);
+        snitchMap.setItem(domain, newSnitches);
+      }
+    }
   },
 
 };
