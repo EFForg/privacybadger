@@ -17,7 +17,6 @@
 
 var utils = require("utils");
 var constants = require("constants");
-var mdfp = require("multiDomainFP");
 
 require.scopes.migrations = (function() {
 
