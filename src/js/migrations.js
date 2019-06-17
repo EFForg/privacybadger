@@ -274,7 +274,7 @@ exports.Migrations= {
       let newSnitches = [];
 
       snitches.forEach(function (snitch) {
-        if (!mdfp.isMultiDomainFirstParty(snitch, domain)) {
+        if (!utils.isThirdPartyDomain(snitch, domain)) {
           newSnitches.push(snitch);
         }
       });
