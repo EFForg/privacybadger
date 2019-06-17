@@ -313,6 +313,10 @@ Badger.prototype = {
       callback = _.noop;
     }
 
+    if (!self.getSettings().getItem("fetchRemoteResources")) {
+      return callback(false);
+    }
+
     utils.xhrRequest(constants.YELLOWLIST_URL, function (err, response) {
       if (err) {
         console.error(
@@ -397,12 +401,16 @@ Badger.prototype = {
   /**
   * Fetch acceptable DNT policy hashes from the EFF server
   */
-  updateDNTPolicyHashes: function() {
+  updateDNTPolicyHashes: function () {
     var self = this;
 
     if (!self.isCheckingDNTPolicyEnabled()) {
       // user has disabled this, we can check when they re-enable
-      return ;
+      return;
+    }
+
+    if (!self.getSettings().getItem("fetchRemoteResources")) {
+      return;
     }
 
     utils.xhrRequest(constants.DNT_POLICIES_URL, function(err, response) {
@@ -493,6 +501,7 @@ Badger.prototype = {
   defaultSettings: {
     checkForDNTPolicy: true,
     disabledSites: [],
+    fetchRemoteResources: true,
     hideBlockedElements: true,
     isFirstRun: true,
     learnInIncognito: false,
