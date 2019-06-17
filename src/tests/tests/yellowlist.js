@@ -178,6 +178,33 @@ QUnit.module("Yellowlist", (hooks) => {
     }
   });
 
+  QUnit.test("Disabling remote updates", (assert) => {
+    let done = assert.async();
+    assert.expect(3);
+
+    server.respondWith("GET", constants.YELLOWLIST_URL,
+      [200, {}, Object.keys(get_ylist()).join("\n")]);
+
+    badger.updateYellowlist(function (success) {
+      assert.ok(success, "updating works by default");
+
+      // disable remote updates
+      badger.getSettings().setItem("fetchRemoteResources", false);
+
+      badger.updateYellowlist(function (success2) {
+        assert.notOk(success2, "updating fails when remote updates are disabled");
+
+        // re-enable remote updates
+        badger.getSettings().setItem("fetchRemoteResources", true);
+
+        badger.updateYellowlist(function (success3) {
+          assert.ok(success3, "updating works again");
+          done();
+        });
+      });
+    });
+  });
+
   QUnit.module("Removing domains", () => {
     let TESTS = [
       {
