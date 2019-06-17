@@ -101,10 +101,10 @@ HeuristicBlocker.prototype = {
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
    * @param details are those from onBeforeSendHeaders
-   * @param checkForCookieShare bool, whether to check for cookie sharing
+   * @param {Boolean} check_for_cookie_share whether to check for cookie sharing
    * @returns {*}
    */
-  heuristicBlockingAccounting: function (details, checkForCookieShare) {
+  heuristicBlockingAccounting: function (details, check_for_cookie_share) {
     // ignore requests that are outside a tabbed window
     if (details.tabId < 0 || !incognito.learningEnabled(details.tabId)) {
       return {};
@@ -120,11 +120,11 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    let tabOrigin = tabOrigins[details.tabId],
+    let tab_origin = tabOrigins[details.tabId],
       self = this;
 
     // ignore first-party requests
-    if (!tabOrigin || origin == tabOrigin) {
+    if (!tab_origin || origin == tab_origin) {
       return {};
     }
 
@@ -136,18 +136,20 @@ HeuristicBlocker.prototype = {
 
     // check if there are tracking cookies
     if (hasCookieTracking(details, origin)) {
-      self._recordPrevalence(fqdn, origin, tabOrigin);
+      self._recordPrevalence(fqdn, origin, tab_origin);
       return {};
     }
 
-    if (checkForCookieShare && details.type == 'image') {
+    // check for cookie sharing iff this is an image and the request URL has parameters
+    if (check_for_cookie_share && details.type == 'image' && details.url.indexOf('?') > -1) {
       // get all cookies for the top-level frame and pass those to the
       // cookie-share accounting function
+      let tab_url = tabURLs[details.tabId];
       chrome.cookies.getAll({
-        url: tabURLs[details.tabId]
+        url: tab_url
       }, function(cookies) {
         if (cookies.length >= 1) {
-          self.pixelCookieShareAccounting(details, cookies);
+          self.pixelCookieShareAccounting(tab_url, tab_origin, details.url, fqdn, origin, cookies);
         }
       });
     }
@@ -165,21 +167,14 @@ HeuristicBlocker.prototype = {
    * @param cookies are the result of chrome.cookies.getAll()
    * @returns {*}
    */
-  pixelCookieShareAccounting: function (details, cookies) {
-    let fqdn = (new URI(details.url)).host,
-      origin = window.getBaseDomain(fqdn),
-      tabUrl = tabURLs[details.tabId],
-      tabOrigin = tabOrigins[details.tabId],
-      args = _extractArgs(details),
+  pixelCookieShareAccounting: function (tab_url, tab_origin, request_url, request_fqdn, request_origin, cookies) {
+    let params = (new URL(request_url)).searchParams,
       TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
 
-    for (let key in args) {
-      if (!args.hasOwnProperty(key)) {
-        continue;
-      }
-
-      let value = args[key];
+    for (let p of params) {
+      let key = p[0],
+        value = p[1];
 
       // the argument must be sufficiently long
       if (!value || value.length < MIN_STR_LEN) {
@@ -201,7 +196,7 @@ HeuristicBlocker.prototype = {
           // content servers take the url of the page they're hosting content
           // for as an argument. e.g.
           // https://example-cdn.com/content?u=http://example.com/index.html
-          if (tabUrl.indexOf(s) != -1) {
+          if (tab_url.indexOf(s) != -1) {
             continue;
           }
 
@@ -216,8 +211,8 @@ HeuristicBlocker.prototype = {
           // Sometimes the entire url and then some is included in the
           // substring -- the common string might be "https://example.com/:true"
           // In that case, we only care about the information around the URL.
-          if (s.indexOf(tabUrl) != -1) {
-            s = s.replace(tabUrl, "");
+          if (s.indexOf(tab_url) != -1) {
+            s = s.replace(tab_url, "");
           }
 
           // During testing we found lots of common values like "homepage",
@@ -241,10 +236,10 @@ HeuristicBlocker.prototype = {
           // our threshold, record the tracking action and exit the function.
           let entropy = utils.estimateMaxEntropy(s);
           if (entropy > TRACKER_ENTROPY_THRESHOLD) {
-            log("Found high-entropy cookie share from", tabOrigin, "to", fqdn,
+            log("Found high-entropy cookie share from", tab_origin, "to", request_fqdn,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
               "\n  arg:", key, "=", value, "\n  substring:", s);
-            this._recordPrevalence(fqdn, origin, tabOrigin);
+            this._recordPrevalence(request_fqdn, request_origin, tab_origin);
             return;
           }
         }
@@ -619,23 +614,6 @@ function _extractCookies(details) {
   }
 
   return cookies;
-}
-
-
-function _extractArgs(details) {
-  if (details.method == "POST" && details.requestBody) {
-    return details.requestBody.formData;
-  }
-
-  let args = {};
-  if (details.method == "GET") {
-    let url = new URL(details.url);
-    for (let p of url.searchParams) {
-      args[p[0]] = p[1];
-    }
-  }
-
-  return args;
 }
 
 /**
