@@ -541,7 +541,7 @@ Badger.prototype = {
       Migrations.forgetMistakenlyBlockedDomains,
       Migrations.resetWebRTCIPHandlingPolicy,
       Migrations.enableShowNonTrackingDomains,
-      Migrations.migrateMDFPAwareStorageObjects,
+      Migrations.forgetFirstPartySnitches,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
