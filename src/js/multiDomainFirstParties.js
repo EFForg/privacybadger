@@ -1055,7 +1055,7 @@ var multiDomainFirstPartiesArray = [
     "huffpostmaghreb.com",
   ],
   ["hvfcu.org", "hvfcuonline.org"],
-  ["ign.fr", "geoportail.gouv.fr"],
+  ["ign.fr", "geoportail.gouv.fr", "geoportail-urbanisme.gouv.fr", "cartoradio.fr", "ignrando.fr"],
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
   ["logmein.com", "logme.in"],
   ["macys.com", "macysassets.com"],
