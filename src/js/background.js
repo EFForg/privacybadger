@@ -740,7 +740,8 @@ Badger.prototype = {
       log("Checking localstorage item", lsKey, lsItem);
       estimatedEntropy += utils.estimateMaxEntropy(lsKey + lsItem);
       if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD) {
-        log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
+        log("Found high-entropy localStorage: ", estimatedEntropy,
+          " bits, key: ", lsKey);
         return true;
       }
     }
