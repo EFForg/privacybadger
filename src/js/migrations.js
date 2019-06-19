@@ -262,18 +262,21 @@ exports.Migrations= {
   },
 
   forgetFirstPartySnitches: function (badger) {
-    // this needs to happen before unblockIncorrectlyBlockedDomains
     console.log("Removing first parties from snitch map...");
 
-    let snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
-      items = snitchMap.getItemClones();
+    let snitchMap = badger.storage.getBadgerStorageObject("snitch_map");
+    let actionMap = badger.storage.getBadgerStorageObject("action_map");
+    // temporary holding object to filter out items that are not third party
+    let tempSnitchMap = Object.assign({}, snitchMap);
+    let items = tempSnitchMap.getItemClones();
 
+    // filter out items that are not third party
     for (let domain in items) {
-      let snitches = snitchMap.getItem(domain);
+      let snitches = tempSnitchMap.getItem(domain);
       let newSnitches = [];
 
       snitches.forEach(function (snitch) {
-        if (!utils.isThirdPartyDomain(snitch, domain)) {
+        if (utils.isThirdPartyDomain(snitch, domain)) {
           newSnitches.push(snitch);
         }
       });
@@ -287,12 +290,22 @@ exports.Migrations= {
       // reevaluate the action map.
       if (newSnitches.length == 0) {
         console.log("Removing %s ...", domain);
-        snitchMap.deleteItem(domain);
+        tempSnitchMap.deleteItem(domain);
       } else if (newSnitches.length < snitches.length) {
         console.log("Reassigning %s ...", domain);
-        snitchMap.setItem(domain, newSnitches);
+        tempSnitchMap.setItem(domain, newSnitches);
       }
     }
+
+    // data object that the mergeUserData function expects as input
+    let data = {
+      snitch_map: tempSnitchMap,
+      action_map: actionMap
+    };
+
+    snitchMap.updateObject({});
+    actionMap.updateObject({});
+    badger.mergeUserData(data);
   },
 
 };
