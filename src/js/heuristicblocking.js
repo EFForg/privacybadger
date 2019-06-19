@@ -128,6 +128,12 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
+    // short-circuit if we already observed this origin tracking on this site
+    let firstParties = self.storage.getBadgerStorageObject('snitch_map').getItem(origin);
+    if (firstParties && firstParties.indexOf(tab_origin) > -1) {
+      return {};
+    }
+
     // abort if we already made a decision for this FQDN
     let action = self.storage.getAction(fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
