@@ -421,6 +421,7 @@ var multiDomainFirstPartiesArray = [
     "ebayrtm.com",
     "ebaystatic.com",
   ],
+  ["elsevier.com", "sciencedirect.com", "sciencedirectassets.com"],
   [
     "enterprise.com",
 
