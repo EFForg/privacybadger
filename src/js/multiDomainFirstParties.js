@@ -1610,6 +1610,18 @@ var multiDomainFirstPartiesArray = [
   ["skysports.com", "skybet.com", "skyvegas.com"],
   ["slashdot.org", "sourceforge.net", "fsdn.com"],
   ["slickdeals.net", "slickdealscdn.com"],
+  [
+    "smh.com.au",
+
+    "afr.com",
+    "brisbanetimes.com.au",
+    "canberratimes.com.au",
+    "fairfaxmedia.com.au",
+    "theage.com.au",
+    "watoday.com.au",
+
+    "ffx.io",
+  ],
   ["snapfish.com", "snapfish.ca"],
   ["sony.com", "sonyrewards.com"],
   ["soundcu.com", "netteller.com"],
