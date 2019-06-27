@@ -288,7 +288,7 @@ function exportUserData() {
     var escapedDate = currDate
       // illegal filename charset regex from
       // https://github.com/parshap/node-sanitize-filename/blob/ef1e8ad58e95eb90f8a01f209edf55cd4176e9c8/index.js
-      .replace(/[\/\?<>\\:\*\|":]/g, '_') /* eslint no-useless-escape:off */
+      .replace(/[\/\?<>\\:\*\|"]/g, '_') /* eslint no-useless-escape:off */
       // also collapse-replace commas and spaces
       .replace(/[, ]+/g, '_');
     var filename = 'PrivacyBadger_user_data-' + escapedDate + '.json';
