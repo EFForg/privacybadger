@@ -263,49 +263,36 @@ exports.Migrations= {
 
   forgetFirstPartySnitches: function (badger) {
     console.log("Removing first parties from snitch map...");
-
     let snitchMap = badger.storage.getBadgerStorageObject("snitch_map");
+    let storeClone = snitchMap.getItemClones();
     let actionMap = badger.storage.getBadgerStorageObject("action_map");
-    // temporary holding object to filter out items that are not third party
-    let tempSnitchMap = Object.assign({}, snitchMap);
-    let items = tempSnitchMap.getItemClones();
 
-    // filter out items that are not third party
-    for (let domain in items) {
-      let snitches = tempSnitchMap.getItem(domain);
-      let newSnitches = [];
+    for (let domain in storeClone) {
+      if (domain === 'name' || domain === '_store') {continue;}
+      // creates new array of domains checking against the isThirdParty utility
+      let newSnitches = storeClone[domain].filter(item => utils.isThirdPartyDomain(item, domain));
 
-      snitches.forEach(function (snitch) {
-        if (utils.isThirdPartyDomain(snitch, domain)) {
-          newSnitches.push(snitch);
-        }
-      });
-
-      // if nothing changed, we're done
-      if (newSnitches.length == snitches.length) {
-        continue;
+      // if that list has changed, reassign or delete the entry as necessary
+      if (newSnitches.length === 0) {
+        console.log('removing : ', domain);
+        snitchMap.deleteItem(domain);
       }
-
-      // otherwise, we dropped one or more domains. Update the snitch map and
-      // reevaluate the action map.
-      if (newSnitches.length == 0) {
-        console.log("Removing %s ...", domain);
-        tempSnitchMap.deleteItem(domain);
-      } else if (newSnitches.length < snitches.length) {
-        console.log("Reassigning %s ...", domain);
-        tempSnitchMap.setItem(domain, newSnitches);
+      if (newSnitches.length !== storeClone[domain].length) {
+        console.log('reassigning : ', domain);
+        snitchMap.setItem(domain, newSnitches);
       }
     }
 
-    // data object that the mergeUserData function expects as input
-    let data = {
-      snitch_map: tempSnitchMap,
-      action_map: actionMap
-    };
-
     snitchMap.updateObject({});
     actionMap.updateObject({});
-    badger.mergeUserData(data);
+
+    // TODO: running the mergeUserData function here creates an infinite loop
+    // find other way to merge old action map data with new snitch map data
+    // const data = {
+    //   snitch_map: snitchMap,
+    //   action_map: actionMap
+    // }
+    // badger.mergeUserData(data);
   },
 
 };
