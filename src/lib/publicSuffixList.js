@@ -6899,6 +6899,7 @@ window.publicSuffixes = {
   "waw.pl": 1,
   "wazuka.kyoto.jp": 1,
   "we.bs": 1,
+  "web.app": 1,
   "web.bo": 1,
   "web.co": 1,
   "web.do": 1,
