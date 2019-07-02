@@ -485,7 +485,7 @@ function revertDomainControl(e) {
     origin
   }, (response) => {
     OPTIONS_DATA.origins = response.origins;
-    reloadTrackingDomainsTab(origin);
+    reloadTrackingDomainsTab();
   });
 }
 
