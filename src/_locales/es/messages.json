@@ -484,7 +484,7 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "No parece que los siguientes dominios le estén rastreando",
+        "message": "Los siguientes dominios no parecen estar rastreándote",
         "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {

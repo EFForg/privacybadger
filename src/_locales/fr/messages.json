@@ -18,7 +18,7 @@
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
-        "message": "Pas de traçage de la part de $DOMAIN$",
+        "message": "Pas de traçage de $DOMAIN$",
         "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
