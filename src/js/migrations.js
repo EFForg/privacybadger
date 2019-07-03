@@ -264,7 +264,7 @@ exports.Migrations= {
   forgetFirstPartySnitches: function (badger) {
     console.log("Removing first parties from snitch map...");
     const snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
-    actionMap = badger.storage.getBadgerStorageObject("action_map");
+      actionMap = badger.storage.getBadgerStorageObject("action_map");
 
     const snitchStore = snitchMap.getItemClones();
 
