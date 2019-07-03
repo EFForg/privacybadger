@@ -209,66 +209,26 @@ function onBeforeSendHeaders(details) {
     }, 0);
   }
 
-  // If this might be the third strike against the potential tracker which
-  // would cause it to be blocked we should check immediately if it will be blocked.
-  if (action == constants.ALLOW &&
-      badger.storage.getTrackingCount(request_host) == constants.TRACKING_THRESHOLD - 1) {
-
-    badger.heuristicBlocking.heuristicBlockingAccounting(details, false);
-    action = checkAction(tab_id, request_host, frame_id);
-
-    if (action && !misattribution) {
-      // log the third-party domain asynchronously
-      setTimeout(function () {
-        badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
-      }, 0);
-    }
-  }
-
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
   }
 
-  // This will only happen if the above code sets the action for the request
-  // to block
-  if (action == constants.BLOCK) {
-    if (type == 'script') {
-      var surrogate = getSurrogateURI(url, request_host);
-      if (surrogate) {
-        return {redirectUrl: surrogate};
-      }
-    }
-
-    if (!misattribution) {
-      // Notify the content script...
-      var msg = {
-        replaceWidget: true,
-        trackerDomain: request_host
-      };
-      chrome.tabs.sendMessage(tab_id, msg);
-    }
-
-    if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
-      return {
-        redirectUrl: 'about:blank'
-      };
-    }
-
-    return {cancel: true};
-  }
-
-  // This is the typical codepath
+  // handle cookieblocked requests
   if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK) {
+    // remove cookie and referrer headers
     let newHeaders = details.requestHeaders.filter(function (header) {
       return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
     });
+
+    // add DNT header
     if (badger.isDNTSignalEnabled()) {
       newHeaders.push({name: "DNT", value: "1"});
     }
+
     return {requestHeaders: newHeaders};
   }
 
-  // if we are here, we're looking at a third party
+  // if we are here, we're looking at a third-party request
   // that's not yet blocked or cookieblocked
   if (badger.isDNTSignalEnabled()) {
     details.requestHeaders.push({name: "DNT", value: "1"});
