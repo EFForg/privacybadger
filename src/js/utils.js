@@ -108,8 +108,7 @@ function explodeSubdomains(fqdn, all) {
 /*
  * Estimate the max possible entropy of str using min and max
  * char codes observed in the string.
- * Tends to overestimate in many cases, e.g. hexadecimals.
- * Also, sensitive to case, e.g. bad1dea is different than BAD1DEA
+ * Sensitive to case, e.g. bad1dea is different than BAD1DEA
  */
 function estimateMaxEntropy(str) {
   /*
@@ -119,7 +118,21 @@ function estimateMaxEntropy(str) {
    * performance is not uncommon. We wouldn't want to estimate entropy
    * for 5M chars.
    */
-  var MAX_LS_LEN_FOR_ENTROPY_EST = 256;
+  let MAX_LS_LEN_FOR_ENTROPY_EST = 256;
+
+  // common classes of characters that a string might belong to
+  let SEPS = "._-";
+  let BIN = "01";
+  let DEC = "0123456789";
+
+  // these classes are case-insensitive
+  let HEX = "abcdef" + DEC;
+  let ALPHA = "abcdefghijklmnopqrstuvwxyz";
+  let ALPHANUM = ALPHA + DEC;
+
+  // these classes are case-sensitive
+  let B64 = ALPHANUM + ALPHA.toUpperCase() + "/+";
+  let URL = ALPHANUM + ALPHA.toUpperCase() + "~%";
 
   if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST) {
     /*
@@ -130,18 +143,84 @@ function estimateMaxEntropy(str) {
     return str.length;
   }
 
-  var charCodes = Array.prototype.map.call(str, function (ch) {
-    return String.prototype.charCodeAt.apply(ch);
-  });
-  var minCharCode = Math.min.apply(Math, charCodes);
-  var maxCharCode = Math.max.apply(Math, charCodes);
-  // Guess the # of possible symbols, e.g. for 0101 it'd be 2.
-  var maxSymbolsGuess = maxCharCode - minCharCode + 1;
-  var maxCombinations = Math.pow(maxSymbolsGuess, str.length);
-  var maxBits = Math.log(maxCombinations)/Math.LN2;
-  /* console.log("Local storage item length:", str.length, "# symbols guess:", maxSymbolsGuess,
-    "Max # Combinations:", maxCombinations, "Max bits:", maxBits) */
-  return maxBits; // May return Infinity when the content is too long.
+  let maxSymbols;
+
+  // If all characters are upper or lower case, don't consider case when
+  // computing entropy.
+  let sameCase = (str.toLowerCase() == str) || (str.toUpperCase() == str);
+  if (sameCase) {
+    str = str.toLowerCase();
+  }
+
+  // If all the characters come from one of these common character groups,
+  // assume that the group is the domain of possible characters.
+  for (let chr_class in [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
+    let group = chr_class + SEPS;
+    // Ignore separator characters when computing entropy. For example, Google
+    // Analytics IDs look like "14103492.1964907".
+    if (str.split().every(val => group.includes(val))) {
+      maxSymbols = chr_class.length;
+    }
+  }
+
+  // If there's not an obvious class of characters, use the heuristic
+  // "max char code - min char code"
+  if (maxSymbols == undefined) {
+    let charCodes = Array.prototype.map.call(str, function (ch) {
+      return String.prototype.charCodeAt.apply(ch);
+    });
+    let minCharCode = Math.min.apply(Math, charCodes);
+    let maxCharCode = Math.max.apply(Math, charCodes);
+    maxSymbols = maxCharCode - minCharCode + 1;
+  }
+
+  // the entropy is (entropy per character) * (number of characters)
+  let maxBits = (Math.log(maxSymbols)/Math.LN2) * str.length;
+  /* console.log("Local storage item length:", str.length, "# symbols guess:", maxSymbols,
+    "Max bits:", maxBits) */
+  return maxBits;
+}
+
+// Adapted from https://gist.github.com/jaewook77/cd1e3aa9449d7ea4fb4f
+// Find all common substrings more than 8 characters long, using DYNAMIC
+// PROGRAMMING
+function findCommonSubstrings(str1, str2) {
+  /*
+   Let D[i,j] be the length of the longest matching string suffix between
+   str1[1]..str1[i] and a segment of str2 between str2[1]..str2[j].
+   If the ith character in str1 doesn’t match the jth character in str2, then
+   D[i,j] is zero to indicate that there is no matching suffix
+   */
+
+  // we only care about strings >= 8 chars
+  let D = [], LCS = [], LCS_MIN = 8;
+
+  // runs in O(M x N) time!
+  for (let i = 0; i < str1.length; i++) {
+    D[i] = [];
+    for (let j = 0; j < str2.length; j++) {
+      if (str1[i] == str2[j]) {
+        if (i == 0 || j == 0) {
+          D[i][j] = 1;
+        } else {
+          D[i][j] = D[i-1][j-1] + 1;
+        }
+
+        // store all common substrings longer than the minimum length
+        if (D[i][j] == LCS_MIN) {
+          LCS.push(str1.substring(i-D[i][j]+1, i+1));
+        } else if (D[i][j] > LCS_MIN) {
+          // remove the shorter substring and add the new, longer one
+          LCS.pop();
+          LCS.push(str1.substring(i-D[i][j]+1, i+1));
+        }
+      } else {
+        D[i][j] = 0;
+      }
+    }
+  }
+
+  return LCS;
 }
 
 function oneSecond() {
@@ -335,6 +414,7 @@ var exports = {
   estimateMaxEntropy,
   explodeSubdomains,
   getHostFromDomainInput,
+  findCommonSubstrings,
   nDaysFromNow,
   oneDayFromNow,
   oneDay,

@@ -25,5 +25,5 @@ CHROME_ALT=$PKGDIR/privacy_badger-chrome.crx
 echo "Uploading chrome package"
 cp "$CHROME_PKG" "$CHROME_ALT"
 echo Copying .crx files...
-scp "$CHROME_PKG" "$USER@$SERVER:/www/eff.org/files/" || exit 1
-scp "$CHROME_ALT" "$USER@$SERVER:/www/eff.org/files/" || exit 1
+scp "$CHROME_PKG" "$USER@$SERVER:/www/eff.org/files" || exit 1
+scp "$CHROME_ALT" "$USER@$SERVER:/www/eff.org/files" || exit 1

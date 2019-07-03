@@ -42,7 +42,7 @@ if (!matches || matches[1] == "Firefox") {
 function showNagMaybe() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
-  var firstRunUrl = chrome.extension.getURL("/skin/firstRun.html");
+  var firstRunUrl = chrome.runtime.getURL("/skin/firstRun.html");
 
   function _setSeenComic() {
     chrome.runtime.sendMessage({
@@ -67,7 +67,7 @@ function showNagMaybe() {
       chrome.tabs.query({url: firstRunUrl}, function (tabs) {
         if (tabs.length == 0) {
           chrome.tabs.create({
-            url: chrome.extension.getURL("/skin/firstRun.html#slideshow")
+            url: chrome.runtime.getURL("/skin/firstRun.html#slideshow")
           });
         } else {
           chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {
@@ -245,10 +245,6 @@ function send_error(message) {
     for (let origin in origins) {
       let action = origins[origin];
 
-      if (!action) {
-        action = constants.NO_TRACKING;
-      }
-
       // adjust action names for error reporting
       if (action == constants.USER_ALLOW) {
         action = "usernoaction";
@@ -256,6 +252,12 @@ function send_error(message) {
         action = "userblock";
       } else if (action == constants.USER_COOKIE_BLOCK) {
         action = "usercookieblock";
+      } else if (action == constants.ALLOW) {
+        action = "noaction";
+      } else if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
+        // no need to adjust action
+      } else if (action == constants.DNT || action == constants.NO_TRACKING) {
+        action = "notracking";
       }
 
       if (out[action]) {
@@ -480,12 +482,17 @@ function refreshPopup() {
   }
 
   if (!originsArr.length) {
-    // leave out number of trackers and slider instructions message if no sliders will be displayed
+    // hide the number of trackers and slider instructions message
+    // if no sliders will be displayed
     $("#instructions-many-trackers").hide();
 
     // show "no trackers" message
     $("#instructions_no_trackers").show();
-    $("#blockedResources").html(chrome.i18n.getMessage("popup_blocked"));
+
+    if (POPUP_DATA.showNonTrackingDomains) {
+      // show the "no third party resources on this site" message
+      $("#blockedResources").html(chrome.i18n.getMessage("popup_blocked"));
+    }
 
     // activate tooltips
     $('.tooltip').tooltipster();
@@ -495,16 +502,9 @@ function refreshPopup() {
     return;
   }
 
-  // Get containing HTML for domain list along with toggle legend icons.
-  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
-
-  // activate tooltips
-  $('.tooltip').tooltipster();
-
   var printable = [];
   var nonTracking = [];
   originsArr = htmlUtils.sortDomains(originsArr);
-  var num_trackers = 0;
 
   for (let i=0; i < originsArr.length; i++) {
     var origin = originsArr[i];
@@ -515,20 +515,18 @@ function refreshPopup() {
       continue;
     }
 
-    if (action != constants.DNT) {
-      num_trackers++;
-    }
     printable.push(
       htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
     );
   }
 
-  var nonTrackerText = chrome.i18n.getMessage("non_tracker");
-  var nonTrackerTooltip = chrome.i18n.getMessage("non_tracker_tip");
-
-  if (nonTracking.length > 0) {
+  if (POPUP_DATA.showNonTrackingDomains && nonTracking.length > 0) {
     printable.push(
-      '<div class="clicker tooltip" id="nonTrackers" title="'+nonTrackerTooltip+'" data-tooltipster=\'{"side":"top"}\'>'+nonTrackerText+'</div>'
+      '<div class="clicker tooltip" id="nonTrackers" title="' +
+      chrome.i18n.getMessage("non_tracker_tip") +
+      '" data-tooltipster=\'{"side":"top"}\'>' +
+      chrome.i18n.getMessage("non_tracker") +
+      '</div>'
     );
     for (let i = 0; i < nonTracking.length; i++) {
       printable.push(
@@ -537,20 +535,36 @@ function refreshPopup() {
     }
   }
 
-  if (num_trackers == 1) {
-    // leave out messages about multiple trackers
+  if (printable.length) {
+    // get containing HTML for domain list along with toggle legend icons
+    $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
+  }
+
+  // activate tooltips
+  $('.tooltip').tooltipster();
+
+  if (POPUP_DATA.trackerCount === 0) {
+    // hide multiple trackers message
+    $("#instructions-many-trackers").hide();
+
+    // show "no trackers" message
+    $("#instructions_no_trackers").show();
+
+  } else if (POPUP_DATA.trackerCount == 1) {
+    // hide multiple trackers message
     $("#instructions-many-trackers").hide();
 
     // show singular "tracker" message
     $("#instructions_one_tracker").show();
-  }
 
-  $('#instructions-many-trackers').html(chrome.i18n.getMessage(
-    "popup_instructions", [
-      num_trackers,
-      "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
-    ]
-  )).find(".tooltip").tooltipster();
+  } else {
+    $('#instructions-many-trackers').html(chrome.i18n.getMessage(
+      "popup_instructions", [
+        POPUP_DATA.trackerCount,
+        "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+      ]
+    )).find(".tooltip").tooltipster();
+  }
 
   function renderDomains() {
     const CHUNK = 1;
@@ -576,7 +590,12 @@ function refreshPopup() {
       window.SLIDERS_DONE = true;
     }
   }
-  requestAnimationFrame(renderDomains);
+
+  if (printable.length) {
+    requestAnimationFrame(renderDomains);
+  } else {
+    window.SLIDERS_DONE = true;
+  }
 }
 
 /**

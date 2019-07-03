@@ -49,22 +49,22 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         self.assertFalse(self.get_snitch_map_for("raw.githubusercontent.com"),
             msg="Image is not a tracker but was flagged as one.")
 
+
     def test_should_detect_ls_of_third_party_frame(self):
-        # TODO We get some intermittent failures for this test.
-
-        # It seems we sometimes miss the setting of localStorage items,
-        # perhaps because the script runs before we start intercepting the calls.
-
-        # Perhaps related to https://github.com/ghostwords/chameleon/issues/5
-        # Might also be related to https://github.com/EFForg/privacybadger/pull/1522
-
         self.load_url(
             "https://gitcdn.link/cdn/gunesacar/"
             "24d81a5c964cb563614162c264be32f0/raw/8fa10f97b87343dfb62ae9b98b753c73a995157e/"
             "frame_ls.html"
         )
+
+        # TODO We get some intermittent failures for this test.
+        # It seems we sometimes miss the setting of localStorage items
+        # because the script runs after we already checked what's in localStorage.
+        # We can work around this race condition by reloading the page.
+        self.driver.refresh()
+
         self.assertEqual(
-            pbtest.retry_until(partial(self.get_snitch_map_for, "githack.com")),
+            pbtest.retry_until(partial(self.get_snitch_map_for, "githack.com"), times=3),
             ["gitcdn.link"]
         )
 
@@ -74,6 +74,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             "6f0c39fb728a218ccd91215bfefbd4e0/raw/f438eb4e5ce10dc8623a8834b1298fd4a846c6fa/"
             "low_entropy_localstorage_from_third_party_script.html"
         )
+        self.driver.refresh()
         self.assertFalse(self.get_snitch_map_for("githack.com"))
 
     def test_should_not_detect_first_party_ls(self):
@@ -82,6 +83,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             "43e2ad2b76fa5a7f7c57/raw/44e7303338386514f1f5bb4166c8fd24a92e97fe/"
             "set_ls.html"
         )
+        self.driver.refresh()
         self.assertFalse(self.get_snitch_map_for("githack.com"))
 
     def test_should_not_detect_ls_of_third_party_script(self):
@@ -91,6 +93,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             "b366e3b03231dbee9709fe0a614faf10/raw/48e02456aa257e272092b398772a712391cf8b11/"
             "localstorage_from_third_party_script.html"
         )
+        self.driver.refresh()
         self.assertFalse(self.get_snitch_map_for("gitcdn.link")) # page URL
         self.assertFalse(self.get_snitch_map_for("githack.com")) # script URL
 

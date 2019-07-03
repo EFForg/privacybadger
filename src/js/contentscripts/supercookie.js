@@ -101,6 +101,17 @@ if (window.top == window) {
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
+
+// TODO here we could also be injected too quickly
+// and miss localStorage setting upon initial page load
+//
+// we should eventually switch injection back to document_start
+// (reverting https://github.com/EFForg/privacybadger/pull/1522),
+// and fix localstorage detection
+// (such as by delaying it or peforming it periodically)
+//
+// could then remove test workarounds like
+// https://github.com/EFForg/privacybadger/commit/39d5d0899e22d1c451d429e44553c5f9cad7fc46
 chrome.runtime.sendMessage({
   checkEnabledAndThirdParty: window.FRAME_URL
 }, function (enabledAndThirdParty) {

@@ -27,22 +27,22 @@ var pbStorage = require("storage");
 var HeuristicBlocking = require("heuristicblocking");
 var FirefoxAndroid = require("firefoxandroid");
 var webrequest = require("webrequest");
-var socialWidgetLoader = require("socialwidgetloader");
+var widgetLoader = require("widgetloader");
 
 var Migrations = require("migrations").Migrations;
 var incognito = require("incognito");
 
 /**
-* privacy badger initializer
-*/
+ * Privacy Badger initializer.
+ */
 function Badger() {
   var self = this;
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
 
-  self.socialWidgetList = [];
-  socialWidgetLoader.loadSocialWidgetsFromFile("data/socialwidgets.json", (response) => {
-    self.socialWidgetList = response;
+  self.widgetList = [];
+  widgetLoader.loadWidgetsFromFile("data/socialwidgets.json", (response) => {
+    self.widgetList = response;
   });
 
   self.storage = new pbStorage.BadgerPen(function(thisStorage) {
@@ -185,7 +185,7 @@ Badger.prototype = {
       // launch the new user intro page and unset first-run flag
       if (settings.getItem("showIntroPage")) {
         chrome.tabs.create({
-          url: chrome.extension.getURL("/skin/firstRun.html")
+          url: chrome.runtime.getURL("/skin/firstRun.html")
         });
       } else {
         // don't remind users to look at the intro page either
@@ -488,7 +488,7 @@ Badger.prototype = {
   }, constants.DNT_POLICY_CHECK_INTERVAL),
 
   /**
-   * Default privacy badger settings
+   * Default Privacy Badger settings
    */
   defaultSettings: {
     checkForDNTPolicy: true,
@@ -501,6 +501,7 @@ Badger.prototype = {
     sendDNTSignal: true,
     showCounter: true,
     showIntroPage: true,
+    showNonTrackingDomains: false,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true
   },
@@ -539,6 +540,7 @@ Badger.prototype = {
       Migrations.forgetNontrackingDomains,
       Migrations.forgetMistakenlyBlockedDomains,
       Migrations.resetWebRTCIPHandlingPolicy,
+      Migrations.enableShowNonTrackingDomains,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
@@ -549,16 +551,17 @@ Badger.prototype = {
   },
 
   /**
-   * Returns the count of blocked/cookieblocked origins for a tab.
+   * Returns the count of tracking domains for a tab.
    * @param {Integer} tab_id browser tab ID
-   * @returns {Integer} blocked origin count
+   * @returns {Integer} tracking domains count
    */
-  getBlockedOriginCount: function (tab_id) {
+  getTrackerCount: function (tab_id) {
     let origins = this.tabData[tab_id].origins,
       count = 0;
 
     for (let domain in origins) {
-      if (constants.BLOCKED_ACTIONS.has(origins[domain])) {
+      let action = origins[domain];
+      if (action != constants.NO_TRACKING && action != constants.DNT) {
         count++;
       }
     }
@@ -607,7 +610,7 @@ Badger.prototype = {
         return;
       }
 
-      let count = self.getBlockedOriginCount(tab_id);
+      let count = self.getTrackerCount(tab_id);
 
       if (count === 0) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#00cc00"});
@@ -654,9 +657,9 @@ Badger.prototype = {
   },
 
   /**
-   * Check if social widget replacement functionality is enabled
+   * Check if widget replacement functionality is enabled.
    */
-  isSocialWidgetReplacementEnabled: function() {
+  isWidgetReplacementEnabled: function () {
     return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
@@ -737,7 +740,8 @@ Badger.prototype = {
       log("Checking localstorage item", lsKey, lsItem);
       estimatedEntropy += utils.estimateMaxEntropy(lsKey + lsItem);
       if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD) {
-        log("Found hi-entropy localStorage: ", estimatedEntropy, " bits, key: ", lsKey);
+        log("Found high-entropy localStorage: ", estimatedEntropy,
+          " bits, key: ", lsKey);
         return true;
       }
     }
@@ -770,13 +774,19 @@ Badger.prototype = {
    */
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
     let self = this,
-      blocked = constants.BLOCKED_ACTIONS.has(action),
+      is_tracking = (
+        action != constants.NO_TRACKING && action != constants.DNT
+      ),
       origins = self.tabData[tab_id].origins,
-      previously_blocked = constants.BLOCKED_ACTIONS.has(origins[fqdn]);
+      previously_tracking = origins.hasOwnProperty(fqdn) && (
+        origins[fqdn] != constants.NO_TRACKING && origins[fqdn] != constants.DNT
+      );
 
     origins[fqdn] = action;
 
-    if (!blocked || previously_blocked) {
+    // no need to update badge if not a tracking domain,
+    // or if we have already seen it as a tracking domain
+    if (!is_tracking || previously_tracking) {
       return;
     }
 

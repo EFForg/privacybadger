@@ -10,7 +10,7 @@
         }
     },
     "invalid_json": {
-        "message": "فایل JSON ناموجود.",
+        "message": "فایل JSON نامعتبر.",
         "description": ""
     },
     "options_remove_origin_confirm": {
@@ -28,7 +28,7 @@
         }
     },
     "non_tracker_tip": {
-        "message": "هم اکنون پرایوسی بجر فقط چک میکند آیا شخص های ثالث از کوکی ها، مخزن محلی HTML5، اثرانگشت کانواس برای ردیابی شما استفاده میکنند یا نه. بعضی از این دامنه ها ممکن است از متد های ردیابی استفاده کنند که پرایوسی بجر قابلیت شناسایی آن ها را ندارد.",
+        "message": "هم اکنون پرایوسی بجر فقط چک میکند آیا اشخاص ثالث از کوکی ها، مخزن محلی HTML5، اثرانگشت کانواس برای ردیابی شما استفاده میکنند یا نه. بعضی از این دامنه ها ممکن است از متد های ردیابی استفاده کنند که پرایوسی بجر قابلیت شناسایی آن ها را ندارد.",
         "description": ""
     },
     "options_dnt_policy_setting": {
@@ -36,11 +36,11 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "هرچه زمان بیشتری در وب با پرایوسی بجر گردش کنید، از شما بهتر محافظت خواهد کرد. آیا هنوز چیزی را بلاک نکرده است؟ اشکالی ندارد! به جای نگه داشتن یک لیست از چیزهایی که باید بلاک کند، پرایوسی بجر به صورت اتوماتیک ردیاب ها را کشف می کند. پس برای آموزش آن کمی در وب گردش کنید.",
+        "message": "هرچه زمان بیشتری در وب با پرایوسی بجر گردش کنید، از شما بهتر محافظت خواهد کرد. آیا هنوز چیزی را بلاک نکرده است؟ اشکالی ندارد! به جای نگه داشتن یک لیست از چیزهایی که باید بلاک کند، پرایوسی بجر هنگام گردش شما در وب، به صورت اتوماتیک ردیاب ها را کشف می کند. پس برای آموزش آن کمی در وب گردش کنید.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
-        "message": "لطفا یک دامنه یا URL موجود را اضافه کنید.",
+        "message": "لطفا یک دامنه یا URL معتبر اضافه کنید.",
         "description": ""
     },
     "donate_to_eff": {
@@ -84,7 +84,7 @@
         "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "برای بلاک کردن این دامنه از تنظیم کردن کوکی ها اینجا کلیک کنید",
+        "message": "برای منع این دامنه از تنظیم کردن کوکی ها اینجا کلیک کنید",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
@@ -116,7 +116,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
-        "message": "درباره اینکه پرایوسی بجر چگونه از حریم خصوصی شما محافظت میکنید مطالعه کنید.",
+        "message": "درباره اینکه پرایوسی بجر چگونه از حریم خصوصی شما محافظت میکند مطالعه کنید.",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
@@ -134,6 +134,10 @@
     "options_social_widgets_checkbox": {
         "message": "جایگزینی ویجت های اجتماعی",
         "description": "Checkbox label on the general settings page"
+    },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "دامنه‌هایی که شما را ردیابی نمی‌کنند را نمایش بده",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
         "message": "** اجازه یادگیری در پنجره های خصوصی/ناشناس ممکن است ردی از تاریخچه گشت خصوصی شما در وب روی کامپیوترتان به جا بگذارد. به صورت پیش فرض، پرایوسی بجر ردیاب هایی که در پنجره های خصوصی/ناشناس می شناسد را بلاک خواهد کرد، اما درباره ردیاب های جدید اطلاعی کسب نخواهد کرد. اگر بیشتر وقت خود را در پنجره های خصوصی/ناشناس می گذرانید شاید بهتر باشد که این گزینه را فعال کنید.",
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "نمایش تعداد آیتم های بلاک شده",
+        "message": "نمایش تعداد ردیاب‌ها",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "دامنه های زیر به نظر شما را ردیابی نمی کنند",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "گزینه ها",
@@ -509,8 +513,12 @@
             }
         }
     },
+    "allow_once": {
+        "message": "یکبار اجازه دادن",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
     "sync_intro": {
-        "message": "سینک ابری: <ul><li>به سینک فایرفاکس/کروم نیاز دارد</li><li>آپلود باعث اوورایت شدن داده پرایوسی بجر در کلود می شود</li><li>دانلود لیست سایت هایی که پرایوسی بجر برای آن ها غیرفعال است را ترکیب میکند</li></ul>",
+        "message": "همگام سازی ابری: <ul><li>به همگام سازی فایرفاکس/کروم نیاز دارد</li><li>آپلود باعث دوباره نویسی داده پرایوسی بجر در کلود می شود</li><li>دانلود، لیست سایت هایی که پرایوسی بجر برای آن ها غیرفعال است را ترکیب میکند</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
@@ -546,15 +554,15 @@
         "description": "'Error' message when there is on cloud data to download."
     },
     "share_title": {
-        "message": "Tell your friends",
+        "message": "به دوستانتان اطلاع دهید",
         "description": "Title of the share overlay."
     },
     "popup_share_button": {
-        "message": "Share",
+        "message": "به اشتراک بگذارید",
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger found $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "پرایوسی بجر $COUNT$ ردیاب بالقوه در $DOMAIN$ یافت:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -568,15 +576,15 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "پرایوسی بجر (www.eff.org/privacybadger) یک افزونه‌ی مرورگر است که به صورت خودکار می‌آموزد تا ردیاب‌های مخفی را مسدود کند. پرایوسی بجر توسط Electronic Frontier Foundation ساخته شده که به  صورت غیر انتفاعی و آنلاین برای حقوق شما به می‌جنگد.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
-        "message": "Copy to clipboard",
+        "message": "کپی به کلیپ‌بورد",
         "description": "Initial text of the copy button on the share overlay."
     },
     "copy_button_copied": {
-        "message": "Copied",
+        "message": "کپی شد",
         "description": "On-click text of the copy button on the share overlay."
     }
 }

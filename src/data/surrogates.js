@@ -39,6 +39,10 @@ const hostnames = {
     '/beacon.js',
     '/c2/plugins/streamsense_plugin_html5.js',
   ],
+  'sb.scorecardresearch.com': [
+    '/beacon.js',
+    '/c2/plugins/streamsense_plugin_html5.js',
+  ],
   'ssl.google-analytics.com': [
     '/ga.js',
     '/analytics.js',

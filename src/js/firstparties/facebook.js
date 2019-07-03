@@ -1,6 +1,8 @@
 /* globals findInAllFrames:false, observeMutations:false */
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
-let fb_wrapped_link = `a[href*='${document.domain}/l.php?'`;
+// this should only run on facebook.com, messenger.com, and
+// facebookcorewwwi.onion
+let fb_wrapped_link = `a[href*='${document.domain}/l.php?']:not([aria-label='photo'])`;
 
 // remove all attributes from a link except for class and ARIA attributes
 function cleanAttrs(elem) {
@@ -50,6 +52,5 @@ chrome.runtime.sendMessage({checkEnabled: true},
 
     // Execute redirect unwrapping each time new content is added to the page
     observeMutations(fb_wrapped_link, cleanLink);
-
   }
 );

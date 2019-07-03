@@ -10,10 +10,20 @@ h1 {
     font-size: 24px;
     font-weight: normal;
     font-family: helvetica, arial, 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', sans-serif;;
+    margin: 10px 8px;
 }
 
 h3 {
     margin: 10px 0;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #d3d3d3;
+    margin: 20px 0;
+    max-width: 700px;
+    width: 100%;
 }
 
 td
