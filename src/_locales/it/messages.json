@@ -135,6 +135,10 @@
         "message": "Sostituzione dei pulsanti social",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Mostra i domini che non sembra ti stiano tracciando",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** L'attivazione dell'apprendimento nelle finestre Private/Incognito potrebbe lasciare tracce nel computer della tua cronologia privata. Normalmente, nelle finestre Private/Incognito Privacy Badger blocca i tracker che conosce già, ma non ricorderà quelli nuovi. Potresti volere attivare questa opzione se navighi spesso utilizzando le finestre Private/Incognito.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Mostra numero di elementi bloccati",
+        "message": "Mostra numero di tracker",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "I domini sottostanti sembrano non tracciarti",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Opzioni",
@@ -510,7 +514,7 @@
         }
     },
     "allow_once": {
-        "message": "Allow once",
+        "message": "Permetti una volta",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {

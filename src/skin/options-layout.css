@@ -17,6 +17,15 @@ h3 {
     margin: 10px 0;
 }
 
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #d3d3d3;
+    margin: 20px 0;
+    max-width: 700px;
+    width: 100%;
+}
+
 td
 {
   font-size: 13px;

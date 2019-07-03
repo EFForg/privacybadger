@@ -1,5 +1,5 @@
 {
-  "version": "2019.1.30",
+  "version": "2019.7.1.1",
   "author": {
     "email": "eff.software.projects@gmail.com"
   },
@@ -63,6 +63,8 @@
       "matches": [
         "https://*.facebook.com/*",
         "http://*.facebook.com/*",
+        "https://*.messenger.com/*",
+        "http://*.messenger.com/*",
         "*://*.facebookcorewwwi.onion/*"
       ],
       "run_at": "document_idle"

@@ -80,7 +80,7 @@
         "description": ""
     },
     "whitelist_form_domain_input_placeholder": {
-        "message": "p. ej., www.domain.com, *.domain.net, domain.org",
+        "message": "p. ej., www.dominio.com, *.dominio.net, dominio.org",
         "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
@@ -135,6 +135,10 @@
         "message": "Sustituir los widgets sociales",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Mostrar los dominios que no parecen estar rastreándote",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** Permitir el aprendizaje en ventanas privadas o de incógnito puede dejar rastros de su historial de navegación privada en su computadora. Privacy Badger bloquea de forma predeterminada los rastreadores que ya conoce en las ventanas privadas o de incógnito, pero no reconoce rastreadores nuevos. Es posible que desee habilitar esta opción si gran parte de su navegación ocurre en ventanas privadas o de incógnito.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Mostrar el número de elementos bloqueados",
+        "message": "Mostrar número de rastreadores",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -366,7 +370,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger está desactivado en los siguientes sitios. Esto significa que Privacy Badger no bloquea nada cuando usted visita los sitios listados aquí.</p><p>Si cree que Privacy Badger está rompiendo una página, puede escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón «Añadir el dominio».</p><p>Alternativamente, cuando ya tenga seleccionada la pestaña de la página, simplemente haga clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haga clic en el botón «Deshabilitar».</p>",
+        "message": "<p>Privacy Badger está desactivado en los siguientes sitios. Esto significa que Privacy Badger no bloquea nada cuando usted visita los sitios listados aquí.</p><p>Si cree que Privacy Badger está rompiendo una página, puede escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón «Añadir dominio».</p><p>Alternativamente, cuando ya tenga seleccionada la pestaña de la página, simplemente haga clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haga clic en el botón «Deshabilitar».</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -391,11 +395,11 @@
         "description": ""
     },
     "add_domain_button": {
-        "message": "Añadir el dominio",
+        "message": "Añadir dominio",
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger ha detectado un <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio rastreador</a> potencial hasta el momento. El control deslizante le permite controlar cómo lo maneja Privacy Badger.",
+        "message": "Privacy Badger ha detectado un <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio de rastreo</a> potencial hasta el momento. El control deslizante le permite controlar cómo lo maneja Privacy Badger.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -472,7 +476,7 @@
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger no ha detectado ningún <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio rastrador</a> por el momento. ¡Siga navegando!",
+        "message": "Privacy Badger no ha detectado ningún <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio de rastreo</a> por el momento. ¡Siga navegando!",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "report_input_label": {
@@ -480,8 +484,8 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "No parece que los siguientes dominios le estén rastreando",
-        "description": ""
+        "message": "Los siguientes dominios no parecen estar rastreándote",
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Opciones",
@@ -510,7 +514,7 @@
         }
     },
     "allow_once": {
-        "message": "Allow once",
+        "message": "Permitir una vez",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {

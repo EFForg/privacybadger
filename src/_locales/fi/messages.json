@@ -135,6 +135,10 @@
         "message": "Korvaa sosiaalisen median painikkeet",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Näytä verkkotunnukset, jotka eivät vaikuta jäljittävän sinua",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** Jos valitset oppimisen yksityinen selaus / incognito-ikkunoissa, tietokoneellesi voi jäädä jälkiä selaushistoriastasi. Oletusarvoisesti Privacy Badger estää tuntemansa jäljittimet yksityinen selaus / incognito-ikkunoissa, muttei opi uusia jäljittimiä. Tämä valinta voi olla paikallaan, jos selaat nettiä paljon yksityinen selaus / incognito-ikkunoissa.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Näytä estettyjen määrä",
+        "message": "Näytä jäljitinten määrä",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "Alla olevat verkkotunnukset eivät vaikuta jäljittävän sinua",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Asetukset",
@@ -510,7 +514,7 @@
         }
     },
     "allow_once": {
-        "message": "Allow once",
+        "message": "Salli tämän kerran",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {

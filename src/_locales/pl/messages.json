@@ -135,6 +135,10 @@
         "message": "Zastąp widżety sieci społecznościowych",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Wyświetla domeny, które chyba Cię nie szpiegują",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** Włączenie nauki w trybie prywatnym może pozostawić ślady Twojego przeglądania prywatnego na komputerze. Domyślnie Privacy Badger będzie blokował już znane śledziki w oknach prywatnych, ale nie będzie uczył się na temat nowych. Możesz zmienić tę opcję, jeżeli dużo serfujesz w trybie prywatnym.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Wyświetl liczbę zablokowanych obiektów",
+        "message": "Wyświetl liczbę śledzików",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "Poniższe domeny chyba Cię nie szpiegują",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Ustawienia",
@@ -510,7 +514,7 @@
         }
     },
     "allow_once": {
-        "message": "Zezwól jednorazowo",
+        "message": "Odblokuj jednorazowo",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {

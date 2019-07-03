@@ -135,6 +135,10 @@
         "message": "Anstataŭigi butonojn de sociaj retejoj",
         "description": "Checkbox label on the general settings page"
     },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Montri nomregnojn, kiuj verŝajne ne spuras vin",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
     "options_incognito_warning": {
         "message": "** Aktivigo de lernado en privataj fenestroj povas resti spurojn de historio de via privata retumado en via komputilo. Implicite Privata Melo blokos jam-konatajn spurilojn en privataj langetoj, tamen ne lernos pri novaj spuriloj. Vi povas aktivigi tiun ĉi agordon, se vi multe retumas en privataj fenestroj.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Montri nombron da blokitaj aĵoj",
+        "message": "Montri nombron da spuriloj",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "La subaj nomregnoj verŝajne ne spuras vin",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Agordoj",

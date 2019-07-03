@@ -56,7 +56,7 @@
         "description": "Intro page paragraph heading."
     },
     "report_success": {
-        "message": "Vielen Dank! Wir werden den Fehler umgehend analysieren.",
+        "message": "Vielen Dank! Wir werden den Fehler umgehend untersuchen.",
         "description": ""
     },
     "dnt_tooltip": {
@@ -100,7 +100,7 @@
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
-        "message": "Was ist defekt?",
+        "message": "Was läuft falsch?",
         "description": ""
     },
     "popup_instructions_no_trackers": {
@@ -124,7 +124,7 @@
         "description": ""
     },
     "feed_the_badger_title": {
-        "message": "Klicken, um die Kontrolle dieses Trackers an Privacy Badger zurückzugeben",
+        "message": "Anklicken, um die Kontrolle dieses Trackers an Privacy Badger zurückzugeben",
         "description": ""
     },
     "import": {
@@ -134,6 +134,10 @@
     "options_social_widgets_checkbox": {
         "message": "Social Widgets ersetzen",
         "description": "Checkbox label on the general settings page"
+    },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Domains anzeigen, die Ihre Internetaktivitäten nicht zu verfolgen scheinen",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
         "message": "** Die Aktivierung des Lernens in privaten bzw. Inkognito-Fenstern hinterlässt eventuell Spuren Ihres privaten Surfverlaufs auf Ihrem Computer. In privaten/Inkognito-Fenstern blockt Privacy Badger standardmäßig bereits bekannte Tracker, erlernt aber keine neuen. Falls Sie oft private/Inkognito-Fenster verwenden, kann die Aktivierung dieser Option Sinn machen.",
@@ -166,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Anzahl geblockter Elemente anzeigen",
+        "message": "Trackeranzahl anzeigen",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -481,7 +485,7 @@
     },
     "non_tracker": {
         "message": "Die nachfolgenden Domains scheinen Ihre Internetaktivitäten nicht zu verfolgen",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Optionen",
@@ -514,7 +518,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {
-        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Site-Listen, auf denen Privacy Badger deaktiviert ist</li></ul>",
+        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Listen der Sites, auf denen Privacy Badger deaktiviert ist</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
