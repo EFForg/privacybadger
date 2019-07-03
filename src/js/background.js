@@ -824,8 +824,9 @@ Badger.prototype = {
    * Merge data exported from a different badger into this badger's storage.
    *
    * @param {Object} data the user data to merge in
+   * @param {Undefined} runInMigration undefined in all cases except when this function is run in a migration, then prevents infinite loop
    */
-  mergeUserData: function(data) {
+  mergeUserData: function(data, runInMigration) {
     let self = this;
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
@@ -838,7 +839,9 @@ Badger.prototype = {
 
     // for exports from older Privacy Badger versions:
     // fix yellowlist getting out of sync, remove non-tracking domains, etc.
-    self.runMigrations();
+    if (!runInMigration) {
+      self.runMigrations();
+    }
   }
 
 };
