@@ -267,6 +267,22 @@ var multiDomainFirstPartiesArray = [
   ["applefcu.org", "applefcuonline.org"],
   ["archive.org", "openlibrary.org"],
   [
+    "atlassian.com",
+
+    "atlassian.io",
+    "atlassian.net",
+    "bitbucket.org",
+    "customercase.com",
+    "enso.me",
+    "hipchat.com",
+    "jira.com",
+    "statuspage.io",
+    "stride.com",
+    "trello.com",
+
+    "atl-paas.net",
+  ],
+  [
     "autodesk.com",
     "autodesk.net",
     "circuits.io",
@@ -316,23 +332,6 @@ var multiDomainFirstPartiesArray = [
   ["bank-yahav.co.il", "bankhapoalim.co.il"],
   ["bbc.co.uk", "bbc.com", "bbci.co.uk"],
   ["belkin.com", "seedonk.com"],
-  [
-    "bitbucket.org",
-
-    "atlassian.com",
-    "atlassian.io",
-    "atlassian.net",
-
-    "customercase.com",
-    "enso.me",
-    "hipchat.com",
-    "jira.com",
-    "statuspage.io",
-    "stride.com",
-    "trello.com",
-
-    "atl-paas.net",
-  ],
   ["bhphotovideo.com", "bandh.com", "bhphoto.com", "bnh.com"],
   ["blizzard.com", "battle.net", "worldofwarcraft.com"],
   ["bloomberg.com", "bbthat.com", "bwbx.io"],
