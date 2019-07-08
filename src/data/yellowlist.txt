@@ -451,6 +451,7 @@ olark.com
 omroep.nl
 amazoncustomerservice.d2.sc.omtrdc.net
 attservicesinc.tt.omtrdc.net
+dsw.tt.omtrdc.net
 onswipe.com
 api.ooyala.com
 c.ooyala.com
