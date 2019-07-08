@@ -333,6 +333,7 @@ var multiDomainFirstPartiesArray = [
 
     "atl-paas.net",
   ],
+  ["bhphotovideo.com", "bandh.com", "bhphoto.com", "bnh.com"],
   ["blizzard.com", "battle.net", "worldofwarcraft.com"],
   ["bloomberg.com", "bbthat.com", "bwbx.io"],
   ["booking.com", "bstatic.com"],
