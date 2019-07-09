@@ -263,7 +263,7 @@ var multiDomainFirstPartiesArray = [
     "tt.com",
     "diepresse.com",
   ],
-  ["apple.com", "icloud.com"],
+  ["apple.com", "icloud.com", "icloud.com.cn", "cdn-apple.com"],
   ["applefcu.org", "applefcuonline.org"],
   ["archive.org", "openlibrary.org"],
   [
