@@ -1081,13 +1081,13 @@ function dispatcher(request, sender, sendResponse) {
 function startListeners() {
   chrome.webNavigation.onBeforeNavigate.addListener(onNavigate);
 
-  chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
+  chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["<all_urls>"]}, ["blocking"]);
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
   if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
-  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
+  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   extraInfoSpec = ['responseHeaders', 'blocking'];
   if (chrome.webRequest.OnHeadersReceivedOptions.hasOwnProperty('EXTRA_HEADERS')) {
