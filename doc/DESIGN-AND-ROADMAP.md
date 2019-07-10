@@ -121,7 +121,7 @@ domain](https://wiki.mozilla.org/Public_Suffix_List) plus one level of
 subdomain (eTLD+1), computed using
 [getBaseDomain](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIEffectiveTLDService)
 (which is built-in to Firefox; in Chrome we [ship a
-copy](https://github.com/EFForg/privacybadgerchrome/blob/master/lib/basedomain.js#L69).
+copy](https://github.com/EFForg/privacybadger/blob/8e8ad9838b74b6d13354163f78d362ca60dd44f9/src/lib/basedomain.js#L75).
 The accounting for which origins are trackers or not is performed by looking
 up how many first party fully qualified domain names (FQDNs) have been tracked by each
 of these eTLD + 1 origins.  This is a conservative choice, which avoids the
@@ -164,7 +164,7 @@ The user can manually unblock specific subdomains as necessary via the popup men
 
 ##### What is a "low entropy" cookie?
 
-Our [current heuristic](https://github.com/EFForg/privacyBadgerchrome/blob/master/src/heuristicblocking.js#L563) is to assign "number of identifying bits" estimates to
+Our [current cookie heuristic](https://github.com/EFForg/privacybadger/blob/8e8ad9838b74b6d13354163f78d362ca60dd44f9/src/js/heuristicblocking.js#L632) is to assign "number of identifying bits" estimates to
 some known common cookie values, and to bound the sum of these to 12.
 Predetermined low-entropy cookies will not be identified as tracking, nor will
 combinations of them so long as their total estimated entropy is under 12 bits.
@@ -184,7 +184,7 @@ by third party origins with local, static equivalents that either replace the
 original widget faithfully, or create a click-through step before the widget
 is loaded and tracks the user.
 
-The widget replacement table lives in the [socialwidgets.json file](https://github.com/EFForg/privacyBadgerchrome/blob/master/data/socialwidgets.json).
+The widget replacement table lives in the [socialwidgets.json file](https://github.com/EFForg/privacybadger/blob/8e8ad9838b74b6d13354163f78d362ca60dd44f9/src/data/socialwidgets.json).
 Widgets are replaced unless the user has chosen to specifically allow that third party
 domain (by moving the slider to 'green' in the UI), so users can selectively
 disable this functionality if they wish. The code for social media widgets is
@@ -192,7 +192,7 @@ quite diverse, so not all variants (especially custom variants that sites build
 for themselves) are necessarily replaced.
 
 The widget method may be used in the future to implement ["script
-surrogates"](https://github.com/EFForg/privacyBadgerchrome/issues/400),
+surrogates"](https://github.com/EFForg/privacybadger/issues/400),
 which are a more privacy-protective alternative to yellowlisting certain
 third party JavaScript domains. If that occurs, <tt>socialwidgets.json</tt>
 should also be periodically fetched from a live EFF URL.
