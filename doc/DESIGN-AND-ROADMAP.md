@@ -229,6 +229,10 @@ fingerprinting and other third party canvas uses.
 This may be augmented by hooks to detect extensive enumeration of properties
 in the <tt>navigator</tt> object in the near future.
 
+#### Pixel cookie sharing detection
+
+First to third party cookie sharing via image pixels was added in [#2088](https://github.com/EFForg/privacybadger/issues/2088).
+
 ### ROADMAP
 
 #### Click-to-play for extensions
