@@ -235,12 +235,9 @@ First to third party cookie sharing via image pixels was added in [#2088](https:
 
 ### ROADMAP
 
-#### Click-to-play for extensions
+#### High priority issues
 
-Certain browser add-ons, like Flash, expose an enormous amount of identifying
-information about a user's system. Privacy Badger in the future should disable
-these by default and allow users to have the option to agree to their use on a
-site by site basis.
+Please see our ["high priority"-labeled issues](https://github.com/EFForg/privacybadger/issues?q=is%3Aissue+is%3Aopen+label%3A%22high+priority%22).
 
 ## Technical Implementation
 
