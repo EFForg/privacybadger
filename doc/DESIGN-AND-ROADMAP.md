@@ -191,13 +191,6 @@ disable this functionality if they wish. The code for social media widgets is
 quite diverse, so not all variants (especially custom variants that sites build
 for themselves) are necessarily replaced.
 
-The widget method may be used in the future to implement ["script
-surrogates"](https://github.com/EFForg/privacybadger/issues/400),
-which are a more privacy-protective alternative to yellowlisting certain
-third party JavaScript domains. If that occurs, <tt>socialwidgets.json</tt>
-should also be periodically fetched from a live EFF URL.
-
-
 #### What are the states for domain responses?
 
 Currently domains have three states: no action, cookie block, and block.
