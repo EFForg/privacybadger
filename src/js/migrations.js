@@ -290,12 +290,9 @@ exports.Migrations= {
       action_map: actionMap
     };
 
-    snitchMap.updateObject({});
-    actionMap.updateObject({});
-
     // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
-    // data object must be stringified here to prevent errors thrown in Firefox's "structured clone algorithm"
-    badger.mergeUserData(JSON.stringify(data), true);
+    // pass along deep copy of data object to avoid Firefox DataCloneError
+    badger.mergeUserData(JSON.parse(JSON.stringify(data)), true);
   },
 
 };
