@@ -487,4 +487,30 @@ QUnit.test("findCommonSubstrings", assert => {
   );
 });
 
+QUnit.test("estimateMaxEntropy", assert => {
+  assert.equal(
+    utils.estimateMaxEntropy("google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/anal") === 257,
+    true,
+    "returns length of string if it's above 256 (MAX_LS_LEN_FOR_ENTROPY_EST)"
+  );
+
+  assert.equal(
+    utils.estimateMaxEntropy("google.com/analytics") === utils.estimateMaxEntropy("GOOGLE.COM/ANALYTICS"),
+    true,
+    "if the same string is all lower case or all upper case, the returned extimated entropy value is the same"
+  );
+
+  assert.equal(
+    utils.estimateMaxEntropy('analytics.GOOGLE1234_') !== utils.estimateMaxEntropy('ANALYTICS.google1234'),
+    true,
+    "two nearly identical strings of mixed character classes and different cases will return different values"
+  );
+
+  assert.equal(
+    utils.estimateMaxEntropy('google.com/analytics') !== utils.estimateMaxEntropy('0191/_-google9fjkelo'),
+    true,
+    "strings of the same length but from different character classes will estimate different entropy values"
+  );
+});
+
 })();
