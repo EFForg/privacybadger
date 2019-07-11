@@ -467,7 +467,11 @@ QUnit.test("getHostFromDomainInput", assert => {
   );
 });
 
+// Tests algorithm used in the pixel tracking heuristic
+// It should return a common substring between two given values
 QUnit.test("findCommonSubstrings", assert => {
+  const testData = ['google.com/analytics', 'google.analytics.com', 'G00G134n4ly71C5', 'goo']
+
   assert.equal(
     utils.findCommonSubstrings('www.google.com', 'www.google.com/analytics/')[0].length >= 8,
     true,
@@ -487,6 +491,9 @@ QUnit.test("findCommonSubstrings", assert => {
   );
 });
 
+// used in pixel tracking heuristic, given a string the estimateMaxEntropy function
+// will return the estimated entropy value from it, based on logic parsing the string's length,
+// and classes of character complication included in the string
 QUnit.test("estimateMaxEntropy", assert => {
   assert.equal(
     utils.estimateMaxEntropy("google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/anal") === 257,
