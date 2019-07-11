@@ -469,8 +469,7 @@ QUnit.test("getHostFromDomainInput", assert => {
 
 // Tests algorithm used in the pixel tracking heuristic
 // It should return a common substring between two given values
-QUnit.test("findCommonSubstrings", assert => {
-  const testData = ['google.com/analytics', 'google.analytics.com', 'G00G134n4ly71C5', 'goo']
+QUnit.test("findCommonSubstrings", assert => {']
 
   assert.equal(
     utils.findCommonSubstrings('www.google.com', 'www.google.com/analytics/')[0].length >= 8,
