@@ -266,33 +266,38 @@ exports.Migrations= {
     const snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
       actionMap = badger.storage.getBadgerStorageObject("action_map");
 
-    const snitchStore = snitchMap.getItemClones();
-
-    for (let domain in snitchStore) {
+    for (let domain in snitchMap._store) {
       // deep clone of snitchMapClone will attempt to enumerate over name and _store keys
       if (domain === 'name' || domain === '_store') {continue;}
       // creates new array of domains checking against the isThirdParty utility
-      let newSnitches = snitchStore[domain].filter(item => utils.isThirdPartyDomain(item, domain));
+      let newSnitches = snitchMap._store[domain].filter(item => utils.isThirdPartyDomain(item, domain));
 
       // if that list has changed, reassign or delete the entry as necessary
       if (newSnitches.length === 0) {
         console.log('removing : ', domain);
         snitchMap.deleteItem(domain);
+        continue;
       }
-      if (newSnitches.length !== snitchStore[domain].length) {
+      if (newSnitches.length !== snitchMap._store[domain].length) {
         console.log('reassigning : ', domain);
         snitchMap.setItem(domain, newSnitches);
       }
     }
 
+    const snitchStore = snitchMap.getItemClones(),
+      actionClones = actionMap.getItemClones();
+
+    actionMap.updateObject({});
+    snitchMap.updateObject({});
+
     const data = {
-      snitch_map: snitchMap,
-      action_map: actionMap
+      snitch_map: snitchStore,
+      action_map: actionClones
     };
 
     // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
     // pass along deep copy of data object to avoid Firefox DataCloneError
-    badger.mergeUserData(JSON.parse(JSON.stringify(data)), true);
+    badger.mergeUserData(data, true);
   },
 
 };
