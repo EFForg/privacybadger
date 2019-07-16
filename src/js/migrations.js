@@ -263,14 +263,14 @@ exports.Migrations= {
 
   forgetFirstPartySnitches: function (badger) {
     console.log("Removing first parties from snitch map...");
-    const snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
-      actionMap = badger.storage.getBadgerStorageObject("action_map");
+    let snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
+      actionMap = badger.storage.getBadgerStorageObject("action_map"),
+      snitchClones = snitchMap.getItemClones(),
+      actionClones = actionMap.getItemClones();
 
-    for (let domain in snitchMap._store) {
-      // deep clone of snitchMapClone will attempt to enumerate over name and _store keys
-      if (domain === 'name' || domain === '_store') {continue;}
+    for (let domain in snitchClones) {
       // creates new array of domains checking against the isThirdParty utility
-      let newSnitches = snitchMap._store[domain].filter(item => utils.isThirdPartyDomain(item, domain));
+      let newSnitches = snitchClones[domain].filter(item => utils.isThirdPartyDomain(item, domain));
 
       // if that list has changed, reassign or delete the entry as necessary
       if (newSnitches.length === 0) {
@@ -278,25 +278,24 @@ exports.Migrations= {
         snitchMap.deleteItem(domain);
         continue;
       }
-      if (newSnitches.length !== snitchMap._store[domain].length) {
+      if (newSnitches.length !== snitchClones[domain].length) {
         console.log('reassigning : ', domain);
         snitchMap.setItem(domain, newSnitches);
       }
     }
 
-    const snitchStore = snitchMap.getItemClones(),
-      actionClones = actionMap.getItemClones();
+    // reset the snitch map clones object to the updated snitch map
+    snitchClones = snitchMap.getItemClones();
 
     actionMap.updateObject({});
     snitchMap.updateObject({});
 
     const data = {
-      snitch_map: snitchStore,
+      snitch_map: snitchClones,
       action_map: actionClones
     };
 
     // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
-    // pass along deep copy of data object to avoid Firefox DataCloneError
     badger.mergeUserData(data, true);
   },
 
