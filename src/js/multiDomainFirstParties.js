@@ -1697,6 +1697,20 @@ var multiDomainFirstPartiesArray = [
     "thomsonreuters.ru",
   ],
   [
+    "rtl.nl",
+
+    "bright.nl",
+    "buienradar.nl",
+    "healthyfest.nl",
+    "rtlboulevard.nl",
+    "rtllatenight.nl",
+    "rtlnieuws.nl",
+    "rtlxl.nl",
+    "rtlz.nl",
+    "videoland.com",
+    "vtbl.nl",
+  ],
+  [
     "s-kanava.fi",
 
     "abcasemat.fi",
