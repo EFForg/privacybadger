@@ -357,4 +357,18 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
   );
 });
 
+QUnit.test("migrates misattributed MDFP domains from snitch map", (assert) => {
+  // in every test the action map should be preserved in all cases
+
+  // tests for a snitch map with no MDFP entries -- no change should be made to it
+
+
+  // tests for a snitch map with some MDFP entries (the most likely scenario)
+  // only MDFP entries should be removed from snitch map
+
+
+  // tests for a snitch map with all MDFP entries (the least likely scenario)
+  // all entries should be removed from the snitch map
+});
+
 }());
