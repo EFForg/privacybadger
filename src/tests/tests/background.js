@@ -13,7 +13,8 @@ const DNT_COMPLIANT_DOMAIN = 'eff.org',
   POLICY_URL = chrome.runtime.getURL('data/dnt-policy.txt');
 
 let utils = require('utils'),
-  constants = require('constants');
+  constants = require('constants'),
+  migrations = require('migrations').Migrations;
 
 let clock,
   server,
@@ -358,17 +359,52 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
 });
 
 QUnit.test("migrates misattributed MDFP domains from snitch map", (assert) => {
-  // in every test the action map should be preserved in all cases
+  setupBadgerStorage(badger);
 
-  // tests for a snitch map with no MDFP entries -- no change should be made to it
+  // store one action map for all tests (should always be preserved)
+  const actionMap = badger.storage.getBadgerStorageObject('action_map'),
+    snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
+
+  // reset snitchMap's storage to blank object
+  snitchMap.updateObject({});
+
+  // snitch map with no MDFP entries
+  let snitchNoMDFP = {
+    ['amazon.com']: ['amazonads.com', 'amazing.com', 'amazonrainforest.com']
+  };
+
+  // snitch map with some MDFP entries
+  let snitchSomeMDFP = {
+    ['amazon.com']: ['amazon.ca', 'amazon.co.jp', 'amazing.com']
+  };
+
+  // snitch map with all MDFP entries
+  let snitchAllMDFP = {
+    ['amazon.com']: ['amazon.ca', 'amazon.co.jp', 'amazon.es']
+  };
+
+  // tests that a snitchMap entry with no MDFP domains stays the same after the migration
+  snitchMap.updateObject(snitchNoMDFP);
+  migrations.forgetFirstPartySnitches(badger);
+  assert.ok(badger.storage.getBadgerStorageObject('snitch_map').getItem('amazon.com'),
+    'forget first party migration does not affect a snitchmap with no misattributed MDFP items'
+  );
+
+  // tests that a snitchMap entry with some MDFP domains has those items removed but remains in the snitch Map
+  snitchMap.updateObject(snitchSomeMDFP);
+  migrations.forgetFirstPartySnitches(badger);
+  assert.equal(snitchMap.getItem('amazon.com')[0] === 'amazing.com' && snitchMap.getItem('amazon.com').length === 1, true,
+    'forget first party migration properly removes MDFP domains and leaves regular domains');
+
+  // tests that a snitchMap entry with all MDFP domains will have all domains removed then removed entirely from snitchMap
+  snitchMap.updateObject(snitchAllMDFP);
+  migrations.forgetFirstPartySnitches(badger);
+  assert.notOk(snitchMap.getItem('amazon.com'),
+    'forget first party migration properly removes a snitch map entry with all MDFP domains attributed to it');
 
 
-  // tests for a snitch map with some MDFP entries (the most likely scenario)
-  // only MDFP entries should be removed from snitch map
-
-
-  // tests for a snitch map with all MDFP entries (the least likely scenario)
-  // all entries should be removed from the snitch map
+  // action map stays the same throughout all tests
+  assert.equal(actionMap, badger.storage.getBadgerStorageObject('action_map'), 'action map stays the same after running migration');
 });
 
 }());
