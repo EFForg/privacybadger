@@ -607,7 +607,9 @@ var _syncStorage = (function () {
   function cb() {
     if (chrome.runtime.lastError) {
       let err = chrome.runtime.lastError.message;
-      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")) {
+      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")
+      && !err.startsWith("InvalidStateError:") && !err.startsWith("AbortError:")
+      ) {
         badger.criticalError = err;
       }
       console.error("Error writing to chrome.storage.local:", err);

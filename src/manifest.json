@@ -1,5 +1,5 @@
 {
-  "version": "2019.2.19",
+  "version": "2019.7.1.1",
   "author": {
     "email": "eff.software.projects@gmail.com"
   },
@@ -14,10 +14,8 @@
     "tabs",
     "http://*/*",
     "https://*/*",
-    "contextMenus",
     "webRequest",
     "webRequestBlocking",
-    "webNavigation",
     "storage",
     "cookies",
     "privacy"

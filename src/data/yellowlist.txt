@@ -8,6 +8,7 @@ imagesrv.adition.com
 auth.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
+assets.adobedtm.com
 akamai.net
 akamaihd.net
 akamaized.net
@@ -93,6 +94,7 @@ cdninstagram.com
 cdnpk.com
 cern.ch
 charter.com
+pwc.chase.com
 civicscience.com
 cleanprint.net
 cleveland.com
@@ -266,19 +268,20 @@ mts0.google.com
 mts1.google.com
 mw1.google.com
 mw2.google.com
+pay.google.com
 picasaweb.google.com
 play.google.com
 plus.google.com
 sites.google.com
 smartlock.google.com
 spreadsheets.google.com
-storage.googleapis.com
 talkgadget.google.com
 translate.google.com
 trends.google.com
 video.google.com
 www.google.com
 ajax.googleapis.com
+storage.googleapis.com
 googleapis.com
 googlecode.com
 googlecommerce.com
@@ -374,6 +377,8 @@ linkwithin.com
 list-manage.com
 i.lithium.com
 messenger.live.com
+officeapps.live.com
+onedrive.live.com
 livechatinc.com
 livefyre.com
 livehelpnow.net
@@ -398,6 +403,7 @@ microsoftonline.com
 microsofttranslator.com
 mlive.com
 mobify.com
+verify.monzo.com
 loop.services.mozilla.com
 mozilla.net
 mozilla.org
@@ -445,6 +451,7 @@ olark.com
 omroep.nl
 amazoncustomerservice.d2.sc.omtrdc.net
 attservicesinc.tt.omtrdc.net
+dsw.tt.omtrdc.net
 onswipe.com
 api.ooyala.com
 c.ooyala.com
@@ -520,6 +527,7 @@ rewardstyle.com
 rpxnow.com
 rssinclude.com
 salesforce.com
+salesforceliveagent.com
 salsalabs.com
 sbnation.com
 schd.ws
@@ -585,6 +593,7 @@ textalk.se
 theplatform.com
 tile.thunderforest.com
 timeinc.net
+tinypass.com
 tinypic.com
 tinyurl.com
 tiqcdn.com
@@ -603,6 +612,7 @@ trustwave.com
 ttvnw.net
 tumblr.com
 turner.com
+turnto.com
 twimg.com
 api.twisto.cz
 static.twisto.cz
