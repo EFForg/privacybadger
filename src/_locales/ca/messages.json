@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_show_nontracking_domains_checkbox": {
-        "message": "Show domains that don't appear to be tracking you",
+        "message": "Mostra els dominis que, aparentment, no us segueixen",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
@@ -170,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Show count of trackers",
+        "message": "Mostra el comptador de rastrejadors",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -370,7 +370,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger s'ha deshabilitat als següents llocs. Això significa que Privacy Badger no blocarà res quan visiteu els llocs web llistats aquí.</p><p>Si creieu que Privacy Badger ha espatllat una pàgina, podeu entrar el domini d'aquesta pàgina al camp de sota i clicar el botó \"Afegeix domini\"</p><p>Alternativament, quan tingueu la pestanya de la pàgina seleccionada, només cal que cliqueu la icona del Privacy Badger a la barra d'eines del navegador i cliqueu el botó \"Desabilita\".</p>",
+        "message": "<p>Privacy Badger s'ha deshabilitat als següents llocs. Això significa que Privacy Badger no blocarà res quan visiteu els llocs web llistats aquí.</p><p>Si creieu que Privacy Badger ha espatllat una pàgina, podeu entrar el domini d'aquesta pàgina al camp de sota i clicar el botó \"Afegeix domini\"</p><p>Alternativament, quan tingueu la pestanya de la pàgina seleccionada, només cal que cliqueu la icona del Privacy Badger a la barra d'eines del navegador i cliqueu el botó \"Deshabilita\".</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -460,7 +460,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Quan utilitzeu el Privacy Badger, us uniu a l'<a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> i milions de persones en la lluita per la privacitat. Estem lluitant pels vostres drets en línia. Gràcies per unir-vos a nosaltres!",
+        "message": "Quan utilitzeu el Privacy Badger, us uniu a l'<a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> i milions de persones en la lluita per la privacitat. Som una entitat sense ànim de lucre lluitant pels vostres drets en línia. Gràcies per unir-vos a nosaltres!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -484,7 +484,7 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "Els dominis de sota no sembla que us estiguin fent un seguiment.",
+        "message": "Els dominis de sota, aparentment, no us segueixen.",
         "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
@@ -576,7 +576,7 @@
         }
     },
     "share_base_message": {
-        "message": "El Privacy Badger (www.eff.org/privacybadger) és una extensió del navegador que aprèn automàticament a blocar rastrejadors invisibles. El Privacy Badger l'ha creat l'Electronic Frontier Foundation, una associació sense ànim de lucre que lluita pels vostres drets en línia.",
+        "message": "El Privacy Badger (www.eff.org/privacybadger) és una extensió del navegador que aprèn automàticament a blocar rastrejadors invisibles. El Privacy Badger l'ha creat l'Electronic Frontier Foundation, una entitat sense ànim de lucre que lluita pels vostres drets en línia.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
