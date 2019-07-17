@@ -22,7 +22,7 @@
 
 require.scopes.utils = (function() {
 
-var mdfp = require("multiDomainFP");
+let mdfp = require("multiDomainFP");
 
 /**
  * Generic interface to make an XHR request

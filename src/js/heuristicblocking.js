@@ -115,7 +115,7 @@ HeuristicBlocker.prototype = {
     let tab_origin = tabOrigins[details.tabId];
 
     // ignore first-party requests
-    if (!utils.isThirdPartyDomain(request_origin, tab_origin)) {
+    if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
       return {};
     }
 

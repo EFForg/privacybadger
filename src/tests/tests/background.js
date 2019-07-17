@@ -359,14 +359,10 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
 });
 
 QUnit.test("migrates misattributed MDFP domains from snitch map", (assert) => {
-  setupBadgerStorage(badger);
 
   // store one action map for all tests (should always be preserved)
   const actionMap = badger.storage.getBadgerStorageObject('action_map'),
     snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
-
-  // reset snitchMap's storage to blank object
-  snitchMap.updateObject({});
 
   // snitch map with no MDFP entries
   let snitchNoMDFP = {
@@ -393,7 +389,7 @@ QUnit.test("migrates misattributed MDFP domains from snitch map", (assert) => {
   // tests that a snitchMap entry with some MDFP domains has those items removed but remains in the snitch Map
   snitchMap.updateObject(snitchSomeMDFP);
   migrations.forgetFirstPartySnitches(badger);
-  assert.equal(snitchMap.getItem('amazon.com')[0] === 'amazing.com' && snitchMap.getItem('amazon.com').length === 1, true,
+  assert.deepEqual(snitchMap.getItem('amazon.com')[0] === 'amazing.com' && snitchMap.getItem('amazon.com').length === 1, true,
     'forget first party migration properly removes MDFP domains and leaves regular domains');
 
   // tests that a snitchMap entry with all MDFP domains will have all domains removed then removed entirely from snitchMap
