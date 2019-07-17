@@ -266,32 +266,25 @@ exports.Migrations= {
     let snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
       actionMap = badger.storage.getBadgerStorageObject("action_map"),
       snitchClones = snitchMap.getItemClones(),
-      actionClones = actionMap.getItemClones();
+      actionClones = actionMap.getItemClones(),
+      correctedSites = {};
 
     for (let domain in snitchClones) {
       // creates new array of domains checking against the isThirdParty utility
-      let newSnitches = snitchClones[domain].filter(item => utils.isThirdPartyDomain(item, domain));
+      let newSnitches = snitchClones[domain].filter(
+        item => utils.isThirdPartyDomain(item, domain));
 
-      // if that list has changed, reassign or delete the entry as necessary
-      if (newSnitches.length === 0) {
-        console.log('removing : ', domain);
-        snitchMap.deleteItem(domain);
-        continue;
-      }
-      if (newSnitches.length !== snitchClones[domain].length) {
-        console.log('reassigning : ', domain);
-        snitchMap.setItem(domain, newSnitches);
+      if (newSnitches.length) {
+        correctedSites[domain] = newSnitches;
       }
     }
 
-    // reset the snitch map clones object to the updated snitch map
-    snitchClones = snitchMap.getItemClones();
-
+    // clear existing maps and then use mergeUserData to rebuild them
     actionMap.updateObject({});
     snitchMap.updateObject({});
 
     const data = {
-      snitch_map: snitchClones,
+      snitch_map: correctedSites,
       action_map: actionClones
     };
 
