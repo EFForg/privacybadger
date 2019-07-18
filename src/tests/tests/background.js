@@ -13,7 +13,9 @@ const DNT_COMPLIANT_DOMAIN = 'eff.org',
   POLICY_URL = chrome.runtime.getURL('data/dnt-policy.txt');
 
 let utils = require('utils'),
-  constants = require('constants');
+  constants = require('constants'),
+  migrations = require('migrations').Migrations,
+  mdfp = require('multiDomainFP');
 
 let clock,
   server,
@@ -354,6 +356,111 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
     actionMap.getItem(SUBDOMAIN).heuristicAction,
     constants.COOKIEBLOCK,
     SUBDOMAIN + " should be cookieblocked"
+  );
+});
+
+QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries with no MDFP entries", (assert) => {
+  const actionMap = badger.storage.getBadgerStorageObject('action_map'),
+    snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
+
+  let snitchNoMDFP = {
+    'amazon.com': ['amazonads.com', 'amazing.com', 'amazonrainforest.com']
+  };
+
+  let actionNoMDFP = {
+    'amazon.com': {
+      heuristicAction: "cookieblock",
+      userAction: "",
+      dnt: false,
+      nextUpdateTime: 0,
+    }
+  };
+
+  snitchMap.updateObject(snitchNoMDFP);
+  actionMap.updateObject(actionNoMDFP);
+  migrations.forgetFirstPartySnitches(badger);
+
+  assert.deepEqual(
+    actionMap.getItem('amazon.com'),
+    actionNoMDFP['amazon.com'],
+    "action map preserved for domain with no MDFP snitch entries"
+  );
+
+  assert.deepEqual(
+    snitchMap.getItem('amazon.com'),
+    snitchNoMDFP['amazon.com'],
+    "snitch map entry with no MDFP domains remains the same after migration runs"
+  );
+});
+
+QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries with some MDFP entries", (assert) => {
+  const actionMap = badger.storage.getBadgerStorageObject('action_map'),
+    snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
+
+  let snitchSomeMDFP = {
+    'amazon.com': ['amazon.ca', 'amazon.co.jp', 'amazing.com']
+  };
+
+  let actionSomeMDFP = {
+    'amazon.com': {
+      heuristicAction: "cookieblock",
+      userAction: "",
+      dnt: false,
+      nextUpdateTime: 0,
+    }
+  };
+
+  snitchMap.updateObject(snitchSomeMDFP);
+  actionMap.updateObject(actionSomeMDFP);
+  migrations.forgetFirstPartySnitches(badger);
+
+  assert.equal(
+    badger.storage.getAction('amazon.com'),
+    constants.ALLOW,
+    "Action downgraded for partial MDFP domain"
+  );
+
+  assert.deepEqual(snitchMap.getItem('amazon.com'),
+    ["amazing.com"],
+    'forget first party migration properly removes MDFP domains and leaves regular domains');
+});
+
+QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries with all MDFP entries", (assert) => {
+  const actionMap = badger.storage.getBadgerStorageObject('action_map'),
+    snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
+
+  let snitchAllMDFP = {
+    'amazon.com': ['amazon.ca', 'amazon.co.jp', 'amazon.es']
+  };
+
+  let actionAllMDFP = {
+    'amazon.com': {
+      heuristicAction: "cookieblock",
+      userAction: "",
+      dnt: false,
+      nextUpdateTime: 0,
+    }
+  };
+
+  // confirm all entries are MDFP
+  snitchAllMDFP["amazon.com"].forEach((domain) => {
+    assert.ok(
+      mdfp.isMultiDomainFirstParty('amazon.com', domain),
+      domain + " is indeed MDFP to amazon.com"
+    );
+  });
+
+  snitchMap.updateObject(snitchAllMDFP);
+  actionMap.updateObject(actionAllMDFP);
+  migrations.forgetFirstPartySnitches(badger);
+
+  assert.notOk(snitchMap.getItem('amazon.com'),
+    'forget first party migration properly removes a snitch map entry with all MDFP domains attributed to it');
+
+  assert.equal(
+    badger.storage.getAction('amazon.com'),
+    constants.NO_TRACKING,
+    "Action downgraded for all MDFP domain"
   );
 });
 
