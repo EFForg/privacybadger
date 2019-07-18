@@ -385,6 +385,10 @@ QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries w
     actionNoMDFP['amazon.com'],
     "action map preserved for domain with no MDFP snitch entries"
   );
+
+  assert.ok(badger.storage.getBadgerStorageObject('snitch_map').getItem('amazon.com'),
+    'forget first party migration does not affect a snitchmap with no misattributed MDFP items'
+  );
 });
 
 QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries with some MDFP entries", (assert) => {
@@ -413,6 +417,10 @@ QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries w
     constants.ALLOW,
     "Action downgraded for partial MDFP domain"
   );
+
+  assert.deepEqual(snitchMap.getItem('amazon.com')[0] === 'amazing.com' && snitchMap.getItem('amazon.com').length === 1,
+    true,
+    'forget first party migration properly removes MDFP domains and leaves regular domains');
 });
 
 QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries with all MDFP entries", (assert) => {
@@ -439,6 +447,9 @@ QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries w
       domain + " is indeed MDFP to amazon.com"
     );
   });
+
+  assert.notOk(snitchMap.getItem('amazon.com'),
+    'forget first party migration properly removes a snitch map entry with all MDFP domains attributed to it');
 
   snitchMap.updateObject(snitchAllMDFP);
   actionMap.updateObject(actionAllMDFP);

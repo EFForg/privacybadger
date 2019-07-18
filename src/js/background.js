@@ -825,7 +825,7 @@ Badger.prototype = {
    * Merge data exported from a different badger into this badger's storage.
    *
    * @param {Object} data the user data to merge in
-   * @param {Boolean} [from_migration=false] set when running froma migration to avoid infinite loop
+   * @param {Boolean} [from_migration=false] set when running from a migration to avoid infinite loop
    */
   mergeUserData: function(data, from_migration) {
     let self = this;
