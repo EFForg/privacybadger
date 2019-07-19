@@ -484,7 +484,7 @@
         "description": ""
     },
     "non_tracker": {
-        "message": "Aşağıdaki adresler sizi takip etmiyor",
+        "message": "Aşağıdaki adresler sizi takip etmiyor gibi görünüyor",
         "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
