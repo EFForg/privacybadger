@@ -541,6 +541,7 @@ Badger.prototype = {
       Migrations.forgetMistakenlyBlockedDomains,
       Migrations.resetWebRTCIPHandlingPolicy,
       Migrations.enableShowNonTrackingDomains,
+      Migrations.forgetFirstPartySnitches,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
@@ -824,8 +825,9 @@ Badger.prototype = {
    * Merge data exported from a different badger into this badger's storage.
    *
    * @param {Object} data the user data to merge in
+   * @param {Boolean} [from_migration=false] set when running from a migration to avoid infinite loop
    */
-  mergeUserData: function(data) {
+  mergeUserData: function(data, from_migration) {
     let self = this;
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
@@ -838,7 +840,9 @@ Badger.prototype = {
 
     // for exports from older Privacy Badger versions:
     // fix yellowlist getting out of sync, remove non-tracking domains, etc.
-    self.runMigrations();
+    if (!from_migration) {
+      self.runMigrations();
+    }
   }
 
 };

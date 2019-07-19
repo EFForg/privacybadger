@@ -14,10 +14,8 @@
     "tabs",
     "http://*/*",
     "https://*/*",
-    "contextMenus",
     "webRequest",
     "webRequestBlocking",
-    "webNavigation",
     "storage",
     "cookies",
     "privacy"

@@ -451,6 +451,7 @@ olark.com
 omroep.nl
 amazoncustomerservice.d2.sc.omtrdc.net
 attservicesinc.tt.omtrdc.net
+dsw.tt.omtrdc.net
 onswipe.com
 api.ooyala.com
 c.ooyala.com
@@ -592,6 +593,7 @@ textalk.se
 theplatform.com
 tile.thunderforest.com
 timeinc.net
+tinypass.com
 tinypic.com
 tinyurl.com
 tiqcdn.com

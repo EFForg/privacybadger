@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_show_nontracking_domains_checkbox": {
-        "message": "Show domains that don't appear to be tracking you",
+        "message": "Sizi izlemiyor gibi görünen adresleri göster",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
@@ -170,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Show count of trackers",
+        "message": "Takipçi sayısını göster",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -514,7 +514,7 @@
         }
     },
     "allow_once": {
-        "message": "Allow once",
+        "message": "Bir kerelik izin ver",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {

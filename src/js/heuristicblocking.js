@@ -134,7 +134,7 @@ HeuristicBlocker.prototype = {
     }
 
     // ignore first-party requests
-    if (!tab_origin || request_origin == tab_origin) {
+    if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
       return {};
     }
 
@@ -183,7 +183,7 @@ HeuristicBlocker.prototype = {
    * @param cookies are the result of chrome.cookies.getAll()
    * @returns {*}
    */
-  pixelCookieShareAccounting: function (tab_url, tab_origin, request_url, request_fqdn, request_origin, cookies) {
+  pixelCookieShareAccounting: function (tab_url, tab_origin, request_url, request_host, request_origin, cookies) {
     let params = (new URL(request_url)).searchParams,
       TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
@@ -252,10 +252,10 @@ HeuristicBlocker.prototype = {
           // our threshold, record the tracking action and exit the function.
           let entropy = utils.estimateMaxEntropy(s);
           if (entropy > TRACKER_ENTROPY_THRESHOLD) {
-            log("Found high-entropy cookie share from", tab_origin, "to", request_fqdn,
+            log("Found high-entropy cookie share from", tab_origin, "to", request_host,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
               "\n  arg:", key, "=", value, "\n  substring:", s);
-            this._recordPrevalence(request_fqdn, request_origin, tab_origin);
+            this._recordPrevalence(request_host, request_origin, tab_origin);
             return;
           }
         }
