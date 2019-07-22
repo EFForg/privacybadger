@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_show_nontracking_domains_checkbox": {
-        "message": "Show domains that don't appear to be tracking you",
+        "message": "显示看起来没有追踪你的域名",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
@@ -170,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Show count of trackers",
+        "message": "显示追踪器数量",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
