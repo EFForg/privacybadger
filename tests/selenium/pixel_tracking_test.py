@@ -4,8 +4,7 @@ import pbtest
 class pixelTrackingTesting(pbtest.PBSeleniumTest):
 	"""Tests for the cookie pixel tracking heuristic included in heuristicblocking.js"""
 	
-	TESTING_URL = ("TODO:changethistowhateverthelinkendsupbeing")
-	TRACKER_URL = ("TODO:whateverthisendsupbeing")
+	TESTING_URL = ("https://gitcdn.link/repo/ablanathtanalba/pixelTrackingTestingResource/master/main.js")
 
 	def check_to_make_sure_tracker_is_caught():
 		url = TESTING_URL
@@ -14,7 +13,7 @@ class pixelTrackingTesting(pbtest.PBSeleniumTest):
 
 		self.assertEqual(
 			self.js(
-				"return (badger.storage.snitch_map.getItem("TODO:whateverthisisexpectedtobe"))"
+				"return (badger.storage.snitch_map.getItem(url))"
 			)
 		)
 
