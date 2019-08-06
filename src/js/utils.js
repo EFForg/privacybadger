@@ -428,7 +428,7 @@ function isThirdPartyDomain(domain1, domain2) {
 }
 
 /**
- * Gets the hostname for a given request's top-level document.
+ * Gets the URL for a given request's top-level document.
  *
  * The request's document may be different from the current top-level document
  * loaded in tab as requests can come out of order:
@@ -438,12 +438,12 @@ function isThirdPartyDomain(domain1, domain2) {
  * - sometimes there is no "main_frame" request
  *   (service worker pages in Firefox)
  *
- * @param {Object} details chrome.webRequest request details object
+ * @param {Object} details chrome.webRequest request/response details object
  *
- * @return {String} the hostname for the request's top-level document
+ * @return {?String} the URL for the request's top-level document
  */
-function getDocumentHostForRequest(details) {
-  let host, url;
+function getDocumentUrlForRequest(details) {
+  let url = null;
 
   // Firefox 54+
   if (details.hasOwnProperty("documentUrl")) {
@@ -479,11 +479,7 @@ function getDocumentHostForRequest(details) {
     }
   }
 
-  if (url) {
-    host = window.extractHostFromURL(url);
-  }
-
-  return host;
+  return url;
 }
 
 /************************************** exports */
@@ -492,7 +488,7 @@ var exports = {
   estimateMaxEntropy,
   explodeSubdomains,
   findCommonSubstrings,
-  getDocumentHostForRequest,
+  getDocumentUrlForRequest,
   getHostFromDomainInput,
   isThirdPartyDomain,
   nDaysFromNow,

@@ -79,7 +79,8 @@ function onBeforeRequest(details) {
   // if we are no longer on the page the request is coming for,
   // don't log in popup or attempt to replace social widgets
   // but do block request/modify headers
-  const request_doc_host = utils.getDocumentHostForRequest(details),
+  const request_doc_url = utils.getDocumentUrlForRequest(details),
+    request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
     misattribution = request_doc_host && request_doc_host != tab_host;
   if (misattribution) {
     tab_host = request_doc_host;
@@ -181,7 +182,8 @@ function onBeforeSendHeaders(details) {
   // if we are no longer on the page the request is coming for,
   // don't log in popup or attempt to replace social widgets
   // but do block request/modify headers
-  const request_doc_host = utils.getDocumentHostForRequest(details),
+  const request_doc_url = utils.getDocumentUrlForRequest(details),
+    request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
     misattribution = request_doc_host && request_doc_host != tab_host;
   if (misattribution) {
     tab_host = request_doc_host;
@@ -277,7 +279,8 @@ function onHeadersReceived(details) {
   // if we are no longer on the page the request is coming for,
   // don't log in popup or attempt to replace social widgets
   // but do block request/modify headers
-  const request_doc_host = utils.getDocumentHostForRequest(details),
+  const request_doc_url = utils.getDocumentUrlForRequest(details),
+    request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
     misattribution = request_doc_host && request_doc_host != tab_host;
   if (misattribution) {
     tab_host = request_doc_host;

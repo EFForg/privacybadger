@@ -38,7 +38,7 @@ function HeuristicBlocker(pbStorage) {
 // dangling requests that don't trigger listeners until after the tab closes are
 // impossible to attribute to a tab.
 var tabOrigins = { };
-var tabURLs = { };
+var tabUrls = { };
 
 HeuristicBlocker.prototype = {
   /**
@@ -117,20 +117,22 @@ HeuristicBlocker.prototype = {
     if (details.type == "main_frame") {
       log("Origin: %s\tURL: %s", request_origin, details.url);
       tabOrigins[details.tabId] = request_origin;
-      tabURLs[details.tabId] = details.url;
+      tabUrls[details.tabId] = details.url;
       return {};
     }
 
-    let tab_origin = tabOrigins[details.tabId],
-      self = this;
+    let self = this,
+      tab_origin = tabOrigins[tab_id],
+      tab_url = tabUrls[tab_id];
 
     // we may no longer be on the page the request is coming from
-    const request_doc_host = utils.getDocumentHostForRequest(details),
+    const request_doc_url = utils.getDocumentUrlForRequest(details),
+      request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
       request_doc_origin = request_doc_host && window.getBaseDomain(request_doc_host),
       misattribution = request_doc_origin && request_doc_origin != tab_origin;
     if (misattribution) {
-      tab_origin = request_doc_origin;
-      // TODO tabURLs[details.tabId] is incorrect too?
+      tabOrigins[tab_id] = tab_origin = request_doc_origin;
+      tabUrls[tab_id] = tab_url = request_doc_url;
     }
 
     // ignore first-party requests
@@ -160,7 +162,6 @@ HeuristicBlocker.prototype = {
     if (check_for_cookie_share && details.type == 'image' && details.url.indexOf('?') > -1) {
       // get all cookies for the top-level frame and pass those to the
       // cookie-share accounting function
-      let tab_url = tabURLs[details.tabId];
       chrome.cookies.getAll({
         url: tab_url
       }, function(cookies) {
