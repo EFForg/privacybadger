@@ -45,7 +45,7 @@ var temporaryWidgetUnblock = {};
  * @returns {Object} Can cancel requests
  */
 function onBeforeRequest(details) {
-  var frame_id = details.frameId,
+  let frame_id = details.frameId,
     tab_id = details.tabId,
     type = details.type,
     url = details.url;
@@ -114,7 +114,7 @@ function onBeforeRequest(details) {
   }
 
   if (type == 'script') {
-    var surrogate = getSurrogateURI(url, request_host);
+    let surrogate = getSurrogateURI(url, request_host);
     if (surrogate) {
       return {redirectUrl: surrogate};
     }
@@ -122,7 +122,7 @@ function onBeforeRequest(details) {
 
   if (!misattribution) {
     // Notify the content script...
-    var msg = {
+    let msg = {
       replaceWidget: true,
       trackerDomain: request_host
     };
@@ -248,7 +248,7 @@ function onBeforeSendHeaders(details) {
  * @returns {Object} The new response headers
  */
 function onHeadersReceived(details) {
-  var tab_id = details.tabId,
+  let tab_id = details.tabId,
     url = details.url;
 
   if (_isTabChromeInternal(tab_id)) {
@@ -313,7 +313,7 @@ function onHeadersReceived(details) {
   }
 
   if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK) {
-    var newHeaders = details.responseHeaders.filter(function(header) {
+    let newHeaders = details.responseHeaders.filter(function(header) {
       return (header.name.toLowerCase() != "set-cookie");
     });
     return {responseHeaders: newHeaders};

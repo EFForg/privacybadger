@@ -17,12 +17,11 @@
 
 /* globals badger:false, log:false, URI:false */
 
-var constants = require("constants");
-var utils = require("utils");
-var incognito = require("incognito");
-
 require.scopes.heuristicblocking = (function() {
 
+const constants = require("constants");
+const utils = require("utils");
+const incognito = require("incognito");
 
 
 /*********************** heuristicblocking scope **/
@@ -37,8 +36,8 @@ function HeuristicBlocker(pbStorage) {
 // those two. Also, tabData is cleaned up every time a tab is closed, so
 // dangling requests that don't trigger listeners until after the tab closes are
 // impossible to attribute to a tab.
-var tabOrigins = { };
-var tabUrls = { };
+let tabOrigins = {};
+let tabUrls = {};
 
 HeuristicBlocker.prototype = {
   /**
@@ -105,19 +104,23 @@ HeuristicBlocker.prototype = {
    * @returns {*}
    */
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
+    let tab_id = details.tabId,
+      type = details.type,
+      request_url = details.url;
+
     // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || !incognito.learningEnabled(details.tabId)) {
+    if (tab_id < 0 || !incognito.learningEnabled(tab_id)) {
       return {};
     }
 
-    let request_host = (new URI(details.url)).host,
+    let request_host = (new URI(request_url)).host,
       request_origin = window.getBaseDomain(request_host);
 
     // if this is a main window request, update tab data and quit
-    if (details.type == "main_frame") {
-      log("Origin: %s\tURL: %s", request_origin, details.url);
-      tabOrigins[details.tabId] = request_origin;
-      tabUrls[details.tabId] = details.url;
+    if (type == "main_frame") {
+      log("Origin: %s\tURL: %s", request_origin, request_url);
+      tabOrigins[tab_id] = request_origin;
+      tabUrls[tab_id] = request_url;
       return {};
     }
 
@@ -160,14 +163,14 @@ HeuristicBlocker.prototype = {
     }
 
     // check for cookie sharing iff this is an image and the request URL has parameters
-    if (check_for_cookie_share && details.type == 'image' && details.url.indexOf('?') > -1) {
+    if (check_for_cookie_share && type == 'image' && request_url.indexOf('?') > -1) {
       // get all cookies for the top-level frame and pass those to the
       // cookie-share accounting function
       chrome.cookies.getAll({
         url: tab_url
       }, function(cookies) {
         if (cookies.length >= 1) {
-          self.pixelCookieShareAccounting(tab_url, tab_origin, details.url, request_host, request_origin, cookies);
+          self.pixelCookieShareAccounting(tab_url, tab_origin, request_url, request_host, request_origin, cookies);
         }
       });
     }
