@@ -461,7 +461,8 @@ function getDocumentUrlForRequest(details) {
       }
     } else {
       // TODO Firefox 54-57 or a service worker request
-      if (new URL(details.documentUrl).pathname.endsWith(".js")) {
+      // service workers: https://bugzilla.mozilla.org/show_bug.cgi?id=1470537#c13
+      if (details.type == "script" && details.parentFrameId == -1 && details.tabId == -1) {
         url = details.documentUrl;
       }
     }
