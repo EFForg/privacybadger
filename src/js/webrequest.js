@@ -73,18 +73,20 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  let tab_host = getHostForTab(tab_id);
-  const request_host = window.extractHostFromURL(url);
+  let frameData = getFrameDataForTab(tab_id),
+    tab_host = frameData && frameData.host;
 
   // if we are no longer on the page the request is coming for,
   // don't log in popup or attempt to replace social widgets
   // but do block request/modify headers
-  const request_doc_url = utils.getDocumentUrlForRequest(details),
-    request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
-    misattribution = request_doc_host && request_doc_host != tab_host;
+  let request_doc_url = utils.getDocumentUrlForRequest(details),
+    misattribution = request_doc_url && request_doc_url != frameData.url;
   if (misattribution) {
+    let request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url);
     tab_host = request_doc_host;
   }
+
+  let request_host = window.extractHostFromURL(url);
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     return {};
@@ -176,18 +178,20 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  let tab_host = getHostForTab(tab_id);
-  const request_host = window.extractHostFromURL(url);
+  let frameData = getFrameDataForTab(tab_id),
+    tab_host = frameData && frameData.host;
 
   // if we are no longer on the page the request is coming for,
   // don't log in popup or attempt to replace social widgets
   // but do block request/modify headers
-  const request_doc_url = utils.getDocumentUrlForRequest(details),
-    request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
-    misattribution = request_doc_host && request_doc_host != tab_host;
+  let request_doc_url = utils.getDocumentUrlForRequest(details),
+    misattribution = request_doc_url && request_doc_url != frameData.url;
   if (misattribution) {
+    let request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url);
     tab_host = request_doc_host;
   }
+
+  let request_host = window.extractHostFromURL(url);
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     if (badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -273,18 +277,20 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  let tab_host = getHostForTab(tab_id);
-  const request_host = window.extractHostFromURL(url);
+  let frameData = getFrameDataForTab(tab_id),
+    tab_host = frameData && frameData.host;
 
   // if we are no longer on the page the request is coming for,
   // don't log in popup or attempt to replace social widgets
   // but do block request/modify headers
-  const request_doc_url = utils.getDocumentUrlForRequest(details),
-    request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
-    misattribution = request_doc_host && request_doc_host != tab_host;
+  let request_doc_url = utils.getDocumentUrlForRequest(details),
+    misattribution = request_doc_url && request_doc_url != frameData.url;
   if (misattribution) {
+    let request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url);
     tab_host = request_doc_host;
   }
+
+  let request_host = window.extractHostFromURL(url);
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     return {};
@@ -340,27 +346,26 @@ function onTabReplaced(addedTabId, removedTabId) {
 /******** Utility Functions **********/
 
 /**
- * Gets the host name for a given tab id
- * @param {Integer} tabId chrome tab id
- * @return {String} the host name for the tab
+ * Gets the top-level document frame data for a given tab.
+ *
+ * @param {Integer} tab_id chrome tab ID
+ * @return {?Object} the top-level document frame data for the tab
  */
-function getHostForTab(tabId) {
-  var mainFrameIdx = 0;
-  if (!badger.tabData[tabId]) {
-    return '';
+function getFrameDataForTab(tab_id) {
+  if (!badger.tabData[tab_id]) {
+    return null;
   }
+
+  let main_frame_idx = 0;
   // TODO what does this actually do?
   // meant to address https://github.com/EFForg/privacybadger/issues/136
-  if (_isTabAnExtension(tabId)) {
+  if (_isTabAnExtension(tab_id)) {
     // If the tab is an extension get the url of the first frame for its implied URL
     // since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(badger.tabData[tabId].frames)[1] || 0;
+    main_frame_idx = Object.keys(badger.tabData[tab_id].frames)[1] || 0;
   }
-  let frameData = badger.getFrameData(tabId, mainFrameIdx);
-  if (!frameData) {
-    return '';
-  }
-  return frameData.host;
+
+  return badger.getFrameData(tab_id, main_frame_idx);
 }
 
 /**

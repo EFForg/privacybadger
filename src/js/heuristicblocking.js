@@ -126,11 +126,12 @@ HeuristicBlocker.prototype = {
       tab_url = tabUrls[tab_id];
 
     // we may no longer be on the page the request is coming from
-    const request_doc_url = utils.getDocumentUrlForRequest(details),
-      request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
-      request_doc_origin = request_doc_host && window.getBaseDomain(request_doc_host),
-      misattribution = request_doc_origin && request_doc_origin != tab_origin;
+    let request_doc_url = utils.getDocumentUrlForRequest(details),
+      misattribution = request_doc_url && request_doc_url != tab_url;
     if (misattribution) {
+      let request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
+        request_doc_origin = request_doc_host && window.getBaseDomain(request_doc_host);
+
       tabOrigins[tab_id] = tab_origin = request_doc_origin;
       tabUrls[tab_id] = tab_url = request_doc_url;
     }
