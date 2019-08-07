@@ -135,8 +135,8 @@ HeuristicBlocker.prototype = {
       let request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
         request_doc_origin = request_doc_host && window.getBaseDomain(request_doc_host);
 
-      tabOrigins[tab_id] = tab_origin = request_doc_origin;
-      tabUrls[tab_id] = tab_url = request_doc_url;
+      tab_origin = request_doc_origin;
+      tab_url = request_doc_url;
     }
 
     // ignore first-party requests
