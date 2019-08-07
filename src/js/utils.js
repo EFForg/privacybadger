@@ -473,8 +473,9 @@ function getDocumentUrlForRequest(details) {
       if (details.type == "main_frame") {
         url = details.url;
       } else if (details.parentFrameId == -1 || details.type == "sub_frame" && details.parentFrameId === 0) {
-        // TODO can only rely on initiator for main frame resources:
+        // can only rely on initiator for main frame resources:
         // https://crbug.com/838242#c17
+        // also note that "initiator" does not give us the complete URL
         url = details.initiator + '/';
       }
     }

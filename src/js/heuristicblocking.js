@@ -130,10 +130,24 @@ HeuristicBlocker.prototype = {
 
     // we may no longer be on the page the request is coming from
     let request_doc_url = utils.getDocumentUrlForRequest(details),
-      misattribution = request_doc_url && request_doc_url != tab_url;
+      request_doc_host,
+      misattribution;
+
+    if (request_doc_url) {
+      if (details.hasOwnProperty("initiator")) {
+        // Chrome's details.initiator doesn't give us the complete URL
+        request_doc_host = window.extractHostFromURL(request_doc_url);
+        misattribution = request_doc_host != window.extractHostFromURL(tab_url);
+      } else {
+        misattribution = request_doc_url != tab_url;
+      }
+    }
+
     if (misattribution) {
-      let request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url),
-        request_doc_origin = request_doc_host && window.getBaseDomain(request_doc_host);
+      if (!request_doc_host) {
+        request_doc_host = window.extractHostFromURL(request_doc_url);
+      }
+      let request_doc_origin = window.getBaseDomain(request_doc_host);
 
       tab_origin = request_doc_origin;
       tab_url = request_doc_url;

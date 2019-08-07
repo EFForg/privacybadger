@@ -80,9 +80,23 @@ function onBeforeRequest(details) {
   // don't log in popup or attempt to replace social widgets
   // but do block request/modify headers
   let request_doc_url = utils.getDocumentUrlForRequest(details),
-    misattribution = request_doc_url && request_doc_url != frameData.url;
+    request_doc_host,
+    misattribution;
+
+  if (request_doc_url) {
+    if (details.hasOwnProperty("initiator")) {
+      // Chrome's details.initiator doesn't give us the complete URL
+      request_doc_host = window.extractHostFromURL(request_doc_url);
+      misattribution = request_doc_host != tab_host;
+    } else {
+      misattribution = request_doc_url != frameData.url;
+    }
+  }
+
   if (misattribution) {
-    let request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url);
+    if (!request_doc_host) {
+      request_doc_host = window.extractHostFromURL(request_doc_url);
+    }
     tab_host = request_doc_host;
   }
 
@@ -185,9 +199,23 @@ function onBeforeSendHeaders(details) {
   // don't log in popup or attempt to replace social widgets
   // but do block request/modify headers
   let request_doc_url = utils.getDocumentUrlForRequest(details),
-    misattribution = request_doc_url && request_doc_url != frameData.url;
+    request_doc_host,
+    misattribution;
+
+  if (request_doc_url) {
+    if (details.hasOwnProperty("initiator")) {
+      // Chrome's details.initiator doesn't give us the complete URL
+      request_doc_host = window.extractHostFromURL(request_doc_url);
+      misattribution = request_doc_host != tab_host;
+    } else {
+      misattribution = request_doc_url != frameData.url;
+    }
+  }
+
   if (misattribution) {
-    let request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url);
+    if (!request_doc_host) {
+      request_doc_host = window.extractHostFromURL(request_doc_url);
+    }
     tab_host = request_doc_host;
   }
 
@@ -284,9 +312,23 @@ function onHeadersReceived(details) {
   // don't log in popup or attempt to replace social widgets
   // but do block request/modify headers
   let request_doc_url = utils.getDocumentUrlForRequest(details),
-    misattribution = request_doc_url && request_doc_url != frameData.url;
+    request_doc_host,
+    misattribution;
+
+  if (request_doc_url) {
+    if (details.hasOwnProperty("initiator")) {
+      // Chrome's details.initiator doesn't give us the complete URL
+      request_doc_host = window.extractHostFromURL(request_doc_url);
+      misattribution = request_doc_host != tab_host;
+    } else {
+      misattribution = request_doc_url != frameData.url;
+    }
+  }
+
   if (misattribution) {
-    let request_doc_host = request_doc_url && window.extractHostFromURL(request_doc_url);
+    if (!request_doc_host) {
+      request_doc_host = window.extractHostFromURL(request_doc_url);
+    }
     tab_host = request_doc_host;
   }
 
