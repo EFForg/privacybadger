@@ -36,7 +36,7 @@ var incognito = require("incognito");
  * Privacy Badger initializer.
  */
 function Badger() {
-  var self = this;
+  let self = this;
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
@@ -46,25 +46,17 @@ function Badger() {
     self.widgetList = response;
   });
 
-  self.storage = new pbStorage.BadgerPen(function(thisStorage) {
-    if (self.INITIALIZED) {
-      return;
-    }
-
-    self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
-    self.updateTabList();
+  self.storage = new pbStorage.BadgerPen(async function (thisStorage) {
     self.initializeDefaultSettings();
+    self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
-    try {
-      self.runMigrations();
-    } finally {
-      // TODO "await" to set INITIALIZED until both below async functions resolve?
-      // see TODO in qunit_config.js and in dnt_test.py
-      self.loadFirstRunSeedData();
-      self.initializeYellowlist();
-      self.initializeDNT();
-      self.showFirstRunPage();
-    }
+    self.runMigrations();
+
+    // kick off async initialization steps
+    let seedDataPromise = self.loadFirstRunSeedData().catch(console.error),
+      ylistPromise = self.initializeYellowlist().catch(console.error),
+      dntHashesPromise = self.initializeDnt().catch(console.error),
+      tabDataPromise = self.updateTabList().catch(console.error);
 
     // set badge text color to white in Firefox 63+
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
@@ -75,13 +67,19 @@ function Badger() {
 
     // Show icon as page action for all tabs that already exist
     chrome.tabs.query({}, function (tabs) {
-      for (var i = 0; i < tabs.length; i++) {
+      for (let i = 0; i < tabs.length; i++) {
         let tab = tabs[i];
         self.refreshIconAndContextMenu(tab.id, tab.url);
       }
     });
 
-    // start all the listeners
+    // wait for async functions (seed data, yellowlist, ...) to resolve
+    await seedDataPromise;
+    await ylistPromise;
+    await dntHashesPromise;
+    await tabDataPromise;
+
+    // start the listeners
     incognito.startListeners();
     webrequest.startListeners();
     HeuristicBlocking.startListeners();
@@ -90,8 +88,9 @@ function Badger() {
 
     console.log("Privacy Badger is ready to rock!");
     console.log("Set DEBUG=1 to view console messages.");
-
     self.INITIALIZED = true;
+
+    self.showFirstRunPage();
   });
 
   /**
@@ -155,8 +154,7 @@ Badger.prototype = {
   INITIALIZED: false,
 
   /**
-  * Per-tab data that gets cleaned up on tab closing
-    looks like:
+   * Per-tab data that gets cleaned up on tab closing looks like:
       tabData = {
         <tab_id>: {
           fpData: {
@@ -183,27 +181,55 @@ Badger.prototype = {
         },
         ...
       }
-  */
+   */
   tabData: {},
 
 
   // Methods
 
-  // load seed dataset with pre-trained action and snitch maps
-  loadSeedData: function() {
+  /**
+   * Loads seed dataset with pre-trained action and snitch maps.
+   * @param {Function} cb callback
+   */
+  loadSeedData: function (cb) {
     let self = this;
-    utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function(err, response) {
-      if (!err) {
-        self.mergeUserData(JSON.parse(response));
-        console.log("Loaded seed data successfully");
+
+    utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function (err, response) {
+      if (err) {
+        return cb(new Error("Failed to fetch seed data"));
       }
+
+      let data;
+      try {
+        data = JSON.parse(response);
+      } catch (e) {
+        console.error(e);
+        return cb(new Error("Failed to parse seed data JSON"));
+      }
+
+      self.mergeUserData(data, true);
+      console.log("Loaded seed data successfully");
+      return cb(null);
     });
   },
 
-  loadFirstRunSeedData: function() {
-    if (this.getSettings().getItem("isFirstRun")) {
-      this.loadSeedData();
-    }
+  /**
+   * Loads seed data upon first run.
+   *
+   * @returns {Promise}
+   */
+  loadFirstRunSeedData: function () {
+    let self = this;
+
+    return new Promise(function (resolve, reject) {
+      if (!self.getSettings().getItem("isFirstRun")) {
+        return resolve();
+      }
+
+      self.loadSeedData(err => {
+        return (err ? reject(err) : resolve());
+      });
+    });
   },
 
   showFirstRunPage: function() {
@@ -240,15 +266,19 @@ Badger.prototype = {
 
 
   /**
-  * Populate tabs object with currently open tabs when extension is updated or installed.
-  */
-  updateTabList: function() {
-    // Initialize the tabData/frames object if it is falsey
+   * Populate tabs object with currently open tabs when extension is updated or installed.
+   *
+   * @returns {Promise}
+   */
+  updateTabList: function () {
     let self = this;
-    self.tabData = self.tabData || {};
-    chrome.tabs.query({}, tabs => {
-      tabs.forEach(tab => {
-        self.recordFrame(tab.id, 0, tab.url);
+
+    return new Promise(function (resolve) {
+      chrome.tabs.query({}, tabs => {
+        tabs.forEach(tab => {
+          self.recordFrame(tab.id, 0, tab.url);
+        });
+        resolve();
       });
     });
   },
@@ -302,36 +332,48 @@ Badger.prototype = {
    * Initializes the yellowlist from disk, if first time initializing.
    * Then updates to the latest yellowlist from eff.org.
    * Sets up periodic yellowlist updating from eff.org.
+   *
+   * @returns {Promise}
    */
   initializeYellowlist: function () {
     let self = this,
       yellowlistStorage = self.storage.getBadgerStorageObject('cookieblock_list');
 
-    if (!_.size(yellowlistStorage.getItemClones())) {
-      // we don't have the yellowlist initialized yet
-      // first initialize from disk
-      utils.xhrRequest(constants.YELLOWLIST_LOCAL_URL, (error, response) => {
-        if (!error) {
-          self.storage.updateYellowlist(response.trim().split("\n"));
-        }
+    return new Promise(function (resolve, reject) {
 
+      if (!_.size(yellowlistStorage.getItemClones())) {
+        // we don't have the yellowlist initialized yet
+        // first initialize from disk
+        utils.xhrRequest(constants.YELLOWLIST_LOCAL_URL, (error, response) => {
+          if (error) {
+            console.error("Failed to fetch local yellowlist");
+          } else {
+            self.storage.updateYellowlist(response.trim().split("\n"));
+          }
+
+          // get the latest yellowlist from eff.org
+          self.updateYellowlist(err => {
+            return (err ? reject(err) : resolve());
+          });
+        });
+
+      } else {
+        // already got the yellowlist initialized
         // get the latest yellowlist from eff.org
-        self.updateYellowlist();
-      });
+        self.updateYellowlist(err => {
+          return (err ? reject(err) : resolve());
+        });
+      }
 
-    } else {
-      // already got the yellowlist initialized
-      // get the latest yellowlist from eff.org
-      self.updateYellowlist();
-    }
+      // set up periodic fetching of the yellowlist from eff.org
+      setInterval(self.updateYellowlist.bind(self), utils.oneDay());
 
-    // set up periodic fetching of the yellowlist from eff.org
-    setInterval(self.updateYellowlist.bind(self), utils.oneDay());
+    });
   },
 
   /**
    * Updates to the latest yellowlist from eff.org.
-   * @param {Function} [callback] optional callback, gets success status boolean
+   * @param {Function} [callback] optional callback
    */
   updateYellowlist: function (callback) {
     var self = this;
@@ -349,12 +391,12 @@ Badger.prototype = {
           err.message
         );
 
-        return callback(false);
+        return callback(new Error("Failed to fetch remote yellowlist"));
       }
 
       // handle empty response
       if (!response.trim()) {
-        return callback(false);
+        return callback(new Error("Empty yellowlist response"));
       }
 
       var domains = response.trim().split("\n").map(domain => domain.trim());
@@ -382,12 +424,12 @@ Badger.prototype = {
 
         return true;
       })) {
-        return callback(false);
+        return callback(new Error("Invalid yellowlist response"));
       }
 
       self.storage.updateYellowlist(domains);
 
-      return callback(true);
+      return callback(null);
     });
   },
 
@@ -395,59 +437,97 @@ Badger.prototype = {
    * Initializes DNT policy hashes from disk, if first time initializing.
    * Then updates to the latest hashes from eff.org.
    * Sets up periodic updating of hashes from eff.org.
+   *
+   * @returns {Promise}
    */
-  initializeDNT: function () {
+  initializeDnt: function () {
     let self = this;
 
-    if (!_.size(self.storage.getBadgerStorageObject('dnt_hashes').getItemClones())) {
-      // we don't have DNT hashes initialized yet
-      // first initialize from disk
-      utils.xhrRequest(constants.DNT_POLICIES_LOCAL_URL, (error, response) => {
-        if (!error) {
-          self.storage.updateDNTHashes(JSON.parse(response));
-        }
+    return new Promise(function (resolve, reject) {
 
+      if (!_.size(self.storage.getBadgerStorageObject('dnt_hashes').getItemClones())) {
+        // we don't have DNT hashes initialized yet
+        // first initialize from disk
+        utils.xhrRequest(constants.DNT_POLICIES_LOCAL_URL, (error, response) => {
+          if (error) {
+            console.error("Failed to fetch local DNT hashes");
+          } else {
+            let hashes;
+            try {
+              hashes = JSON.parse(response);
+            } catch (e) {
+              console.error("Failed to parse DNT hashes JSON:");
+              console.error(e);
+            }
+            if (hashes) {
+              self.storage.updateDntHashes(hashes);
+            }
+          }
+
+          // now get the latest hashes from eff.org
+          self.updateDntPolicyHashes(err => {
+            return (err ? reject(err) : resolve());
+          });
+        });
+
+      } else {
+        // already got DNT hashes initialized
         // get the latest hashes from eff.org
-        self.updateDNTPolicyHashes();
-      });
-
-    } else {
-      // already got DNT hashes initialized
-      // get the latest hashes from eff.org
-      self.updateDNTPolicyHashes();
-    }
-
-    // set up periodic fetching of hashes from eff.org
-    setInterval(self.updateDNTPolicyHashes.bind(self), utils.oneDay() * 4);
-  },
-
-  /**
-  * Fetch acceptable DNT policy hashes from the EFF server
-  */
-  updateDNTPolicyHashes: function() {
-    var self = this;
-
-    if (!self.isCheckingDNTPolicyEnabled()) {
-      // user has disabled this, we can check when they re-enable
-      return ;
-    }
-
-    utils.xhrRequest(constants.DNT_POLICIES_URL, function(err, response) {
-      if (err) {
-        console.error('Problem fetching DNT policy hash list at',
-          constants.DNT_POLICIES_URL, err.status, err.message);
-        return;
+        self.updateDntPolicyHashes(err => {
+          return (err ? reject(err) : resolve());
+        });
       }
-      self.storage.updateDNTHashes(JSON.parse(response));
+
+      // set up periodic fetching of hashes from eff.org
+      setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
+
     });
   },
 
   /**
-  * Checks a domain for the EFF DNT policy.
-  *
-  * @param {String} domain The domain to check
-  * @param {Function} cb Callback that receives check status boolean (optional)
-  */
+   * Fetch acceptable DNT policy hashes from the EFF server
+   * @param {Function} [cb] optional callback
+   */
+  updateDntPolicyHashes: function (cb) {
+    let self = this;
+
+    if (!cb) {
+      cb = _.noop;
+    }
+
+    if (!self.isCheckingDNTPolicyEnabled()) {
+      // user has disabled this, we can check when they re-enable
+      setTimeout(function () {
+        return cb(null);
+      }, 0);
+    }
+
+    utils.xhrRequest(constants.DNT_POLICIES_URL, function (err, response) {
+      if (err) {
+        console.error("Problem fetching DNT policy hash list at",
+          constants.DNT_POLICIES_URL, err.status, err.message);
+        return cb(new Error("Failed to fetch remote DNT hashes"));
+      }
+
+      let hashes;
+      try {
+        hashes = JSON.parse(response);
+      } catch (e) {
+        console.error(e);
+        return cb(new Error("Failed to parse DNT hashes JSON"));
+      }
+
+      self.storage.updateDntHashes(hashes);
+      return cb(null);
+    });
+  },
+
+  /**
+   * Checks a domain for the EFF DNT policy.
+   *
+   * @param {String} domain The domain to check
+   * @param {Function} [cb] Callback that receives check status boolean (optional)
+   */
   checkForDNTPolicy: function (domain, cb) {
     var self = this,
       next_update = self.storage.getNextUpdateForDomain(domain);
@@ -488,13 +568,13 @@ Badger.prototype = {
 
 
   /**
-  * Asyncronously checks if the domain has /.well-known/dnt-policy.txt.
-  *
-  * Rate-limited to at least one second apart.
-  *
-  * @param {String} origin The host to check
-  * @param {Function} callback callback(successStatus)
-  */
+   * Asyncronously checks if the domain has /.well-known/dnt-policy.txt.
+   *
+   * Rate-limited to at least one second apart.
+   *
+   * @param {String} origin The host to check
+   * @param {Function} callback callback(successStatus)
+   */
   _checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
     var successStatus = false;
     var url = "https://" + origin + "/.well-known/dnt-policy.txt";

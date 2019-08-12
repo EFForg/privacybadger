@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 
 import json
-import time
 import unittest
 
 import pbtest
@@ -191,14 +190,9 @@ class DNTTest(pbtest.PBSeleniumTest):
         # where X is the number of cookies it got
         # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
         self.load_url(self.options_url)
-        # wait for DNT hash update to complete
-        # so that it doesn't overwrite our change below
-        # TODO wait conditionally; will be able to remove waiting here once
-        # badger.INITIALIZED accounts for things that initialize async
-        time.sleep(1)
         self.js(
             "chrome.extension.getBackgroundPage()."
-            "badger.storage.updateDNTHashes({"
+            "badger.storage.updateDntHashes({"
             "  'cookies=0 test policy': 'f63ee614ebd77f8634b92633c6bb809a64b9a3d7'"
             "});"
         )
@@ -240,12 +234,6 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def test_first_party_dnt_header(self):
         TEST_URL = "https://httpbin.org/get"
-
-        # wait until DNT-injecting webRequest listeners have been registered
-        self.wait_for_script(
-            "return chrome.extension.getBackgroundPage().badger.INITIALIZED"
-        )
-
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
         self.assertTrue(headers is not None, "It seems we failed to get DNT headers")

@@ -47,12 +47,6 @@ QUnit.testDone(() => {
 // kick off tests when we have what we need from Badger
 (function () {
 
-  function get_storage_length(store) {
-    return Object.keys(
-      badger.storage.getBadgerStorageObject(store).getItemClones()
-    ).length;
-  }
-
   const WAIT_INTERVAL = 10,
     MAX_WAIT = 1000;
 
@@ -66,12 +60,7 @@ QUnit.testDone(() => {
       QUnit.start();
     }
 
-    if (typeof badger == "object" && badger.INITIALIZED &&
-      // TODO have badger.INITIALIZED account
-      // for things getting initialized async
-      !!get_storage_length('dnt_hashes') &&
-      !!get_storage_length('cookieblock_list')
-    ) {
+    if (typeof badger == "object" && badger.INITIALIZED) {
       QUnit.start();
     } else {
       setTimeout(wait_for_badger, WAIT_INTERVAL);

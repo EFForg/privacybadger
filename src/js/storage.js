@@ -213,7 +213,7 @@ BadgerPen.prototype = {
   /**
    * Update DNT policy hashes
    */
-  updateDNTHashes: function(hashes) {
+  updateDntHashes: function (hashes) {
     var dnt_hashes = this.getBadgerStorageObject('dnt_hashes');
     dnt_hashes.updateObject(_.invert(hashes));
   },
