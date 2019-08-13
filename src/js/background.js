@@ -90,6 +90,24 @@ function Badger() {
     console.log("Set DEBUG=1 to view console messages.");
     self.INITIALIZED = true;
 
+    // get the latest yellowlist from eff.org
+    self.updateYellowlist(err => {
+      if (err) {
+        console.error(err);
+      }
+    });
+    // set up periodic fetching of the yellowlist from eff.org
+    setInterval(self.updateYellowlist.bind(self), utils.oneDay());
+
+    // get the latest DNT policy hashes from eff.org
+    self.updateDntPolicyHashes(err => {
+      if (err) {
+        console.error(err);
+      }
+    });
+    // set up periodic fetching of hashes from eff.org
+    setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
+
     self.showFirstRunPage();
   });
 
@@ -329,9 +347,7 @@ Badger.prototype = {
   },
 
   /**
-   * Initializes the yellowlist from disk, if first time initializing.
-   * Then updates to the latest yellowlist from eff.org.
-   * Sets up periodic yellowlist updating from eff.org.
+   * Initializes the yellowlist from disk.
    *
    * @returns {Promise}
    */
@@ -341,32 +357,21 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
 
-      if (!_.size(yellowlistStorage.getItemClones())) {
-        // we don't have the yellowlist initialized yet
-        // first initialize from disk
-        utils.xhrRequest(constants.YELLOWLIST_LOCAL_URL, (error, response) => {
-          if (error) {
-            console.error("Failed to fetch local yellowlist");
-          } else {
-            self.storage.updateYellowlist(response.trim().split("\n"));
-          }
-
-          // get the latest yellowlist from eff.org
-          self.updateYellowlist(err => {
-            return (err ? reject(err) : resolve());
-          });
-        });
-
-      } else {
-        // already got the yellowlist initialized
-        // get the latest yellowlist from eff.org
-        self.updateYellowlist(err => {
-          return (err ? reject(err) : resolve());
-        });
+      if (_.size(yellowlistStorage.getItemClones())) {
+        return resolve();
       }
 
-      // set up periodic fetching of the yellowlist from eff.org
-      setInterval(self.updateYellowlist.bind(self), utils.oneDay());
+      // we don't have the yellowlist initialized yet
+      // initialize from disk
+      utils.xhrRequest(constants.YELLOWLIST_LOCAL_URL, (error, response) => {
+        if (error) {
+          console.error(error);
+          return reject(new Error("Failed to fetch local yellowlist"));
+        }
+
+        self.storage.updateYellowlist(response.trim().split("\n"));
+        return resolve();
+      });
 
     });
   },
@@ -434,9 +439,7 @@ Badger.prototype = {
   },
 
   /**
-   * Initializes DNT policy hashes from disk, if first time initializing.
-   * Then updates to the latest hashes from eff.org.
-   * Sets up periodic updating of hashes from eff.org.
+   * Initializes DNT policy hashes from disk.
    *
    * @returns {Promise}
    */
@@ -445,41 +448,31 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
 
-      if (!_.size(self.storage.getBadgerStorageObject('dnt_hashes').getItemClones())) {
-        // we don't have DNT hashes initialized yet
-        // first initialize from disk
-        utils.xhrRequest(constants.DNT_POLICIES_LOCAL_URL, (error, response) => {
-          if (error) {
-            console.error("Failed to fetch local DNT hashes");
-          } else {
-            let hashes;
-            try {
-              hashes = JSON.parse(response);
-            } catch (e) {
-              console.error("Failed to parse DNT hashes JSON:");
-              console.error(e);
-            }
-            if (hashes) {
-              self.storage.updateDntHashes(hashes);
-            }
-          }
-
-          // now get the latest hashes from eff.org
-          self.updateDntPolicyHashes(err => {
-            return (err ? reject(err) : resolve());
-          });
-        });
-
-      } else {
-        // already got DNT hashes initialized
-        // get the latest hashes from eff.org
-        self.updateDntPolicyHashes(err => {
-          return (err ? reject(err) : resolve());
-        });
+      if (_.size(self.storage.getBadgerStorageObject('dnt_hashes').getItemClones())) {
+        return resolve();
       }
 
-      // set up periodic fetching of hashes from eff.org
-      setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
+      // we don't have DNT hashes initialized yet
+      // initialize from disk
+      utils.xhrRequest(constants.DNT_POLICIES_LOCAL_URL, (error, response) => {
+        let hashes;
+
+        if (error) {
+          console.error(error);
+          return reject(new Error("Failed to fetch local DNT hashes"));
+        }
+
+        try {
+          hashes = JSON.parse(response);
+        } catch (e) {
+          console.error(e);
+          return reject(new Error("Failed to parse DNT hashes JSON"));
+        }
+
+        self.storage.updateDntHashes(hashes);
+        return resolve();
+
+      });
 
     });
   },
