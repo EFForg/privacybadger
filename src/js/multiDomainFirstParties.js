@@ -554,6 +554,7 @@ var multiDomainFirstPartiesArray = [
     "citer.fr",
 
     "ehi.com",
+    "ehiaws.com",
 
     "enterprise.ca",
     "enterprise.ch",
@@ -606,6 +607,14 @@ var multiDomainFirstPartiesArray = [
     "nationalcar.mobi",
 
     "onewaygo.de",
+
+    "alamo-np.ca",
+    "alamo-np.com",
+    "alamo-np.co.uk",
+    "alamo-np.de",
+    "alamo-np.es",
+    "alamo-np.fr",
+    "alamo-np.ie",
   ],
   [
     "expedia.com",
