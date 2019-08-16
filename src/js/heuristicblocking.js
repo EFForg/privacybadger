@@ -151,9 +151,15 @@ HeuristicBlocker.prototype = {
       // get all cookies for the top-level frame and pass those to the
       // cookie-share accounting function
       let tab_url = tabURLs[details.tabId];
-      chrome.cookies.getAll({
+
+      let config = {
         url: tab_url
-      }, function(cookies) {
+      };
+      if (badger.firstPartyDomainPotentiallyRequired) {
+        config.firstPartyDomain = null;
+      }
+
+      chrome.cookies.getAll(config, function (cookies) {
         if (cookies.length >= 1) {
           self.pixelCookieShareAccounting(tab_url, tab_origin, details.url, request_host, request_origin, cookies);
         }
