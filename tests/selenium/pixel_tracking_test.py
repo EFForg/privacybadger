@@ -20,6 +20,7 @@ class pixelTrackingTesting(pbtest.PBSeleniumTest):
 		)
 
 		self.load_url(TESTING_URL)
+		self.load_url(self.options_url)
 
 		# github will already appear in a pretrained badger instance for appearing on fontawesome.com
 		# instead check for it's specific appearance on gitcdn.link -- the testing resource for this
