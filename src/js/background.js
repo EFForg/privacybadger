@@ -131,7 +131,12 @@ function Badger() {
    * firstPartyDomain is required when privacy.websites.firstPartyIsolate is enabled,
    * and is in Firefox since Firefox 59. (firstPartyIsolate is in Firefox since 58).
    *
-   * Not in Chrome.
+   * We don't care whether firstPartyIsolate is enabled, but rather whether
+   * firstPartyDomain is supported. Assuming firstPartyDomain is supported,
+   * setting it to null in chrome.cookies.getAll() produces the same result
+   * regardless of the state of firstPartyIsolate.
+   *
+   * firstPartyDomain is not currently supported in Chrome.
    */
   function testCookiesFirstPartyDomain() {
     try {
