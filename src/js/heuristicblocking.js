@@ -263,25 +263,29 @@ HeuristicBlocker.prototype = {
    * Record third-party pings as tracking.
    */
   pingAccounting: function (details) {
-    const fqdn = (new URI(details.url)).host,
-      origin = window.getBaseDomain(fqdn),
+    const request_host = (new URI(details.url)).host,
+      request_origin = window.getBaseDomain(request_host),
       // TODO fix attribution bug:
       // https://github.com/EFForg/privacybadger/pull/2024/files/1ef8380d0ae4d42219d3b9bbe20b3fc424981338#r188461700
       tab_origin = tabOrigins[details.tabId];
 
+    // ignore requests that are outside a tabbed window
+    if (details.tabId < 0 || !incognito.learningEnabled(details.tabId)) {
+      return {};
+    }
+
     // ignore first-party requests
-    // TODO fix to use MDFP
-    if (!tab_origin || origin == tab_origin) {
+    if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
       return {};
     }
 
     // abort if we already made a decision for this FQDN
-    const action = this.storage.getAction(fqdn);
+    const action = this.storage.getAction(request_host);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return {};
     }
 
-    this._recordPrevalence(fqdn, origin, tab_origin);
+    this._recordPrevalence(request_host, request_origin, tab_origin);
 
     return {};
   },
