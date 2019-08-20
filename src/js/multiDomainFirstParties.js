@@ -1377,7 +1377,6 @@ var multiDomainFirstPartiesArray = [
     "127.net",
     "163.com",
 
-    "blizzard.cn",
     "icourse163.org",
     "kada.com",
     "kaola.com",
