@@ -4,7 +4,7 @@
 import unittest
 import pbtest
 
-class pixelTrackingTesting(pbtest.PBSeleniumTest):
+class PixelTrackingTesting(pbtest.PBSeleniumTest):
 	"""Tests for the cookie pixel tracking heuristic included in heuristicblocking.js
 		- loads gitcdn resource which places a tracking cookie on page then creates an img tag
 		- img tag makes a src request carrying a substring of that tracking cookie
