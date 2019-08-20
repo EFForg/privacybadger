@@ -39,6 +39,7 @@ function Badger() {
   var self = this;
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
+  self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
 
   self.widgetList = [];
   widgetLoader.loadWidgetsFromFile("data/socialwidgets.json", (response) => {
@@ -94,8 +95,8 @@ function Badger() {
   });
 
   /**
-  * WebRTC availability check
-  */
+   * WebRTC availability check
+   */
   function checkWebRTCBrowserSupport() {
     if (!(chrome.privacy && chrome.privacy.network &&
       chrome.privacy.network.webRTCIPHandlingPolicy)) {
@@ -122,6 +123,32 @@ function Badger() {
 
     return available;
   }
+
+  /**
+   * Checks for availability of firstPartyDomain chrome.cookies API parameter.
+   * https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/cookies/getAll#Parameters
+   *
+   * firstPartyDomain is required when privacy.websites.firstPartyIsolate is enabled,
+   * and is in Firefox since Firefox 59. (firstPartyIsolate is in Firefox since 58).
+   *
+   * We don't care whether firstPartyIsolate is enabled, but rather whether
+   * firstPartyDomain is supported. Assuming firstPartyDomain is supported,
+   * setting it to null in chrome.cookies.getAll() produces the same result
+   * regardless of the state of firstPartyIsolate.
+   *
+   * firstPartyDomain is not currently supported in Chrome.
+   */
+  function testCookiesFirstPartyDomain() {
+    try {
+      chrome.cookies.getAll({
+        firstPartyDomain: null
+      }, function () {});
+    } catch (ex) {
+      return false;
+    }
+    return true;
+  }
+
 }
 
 Badger.prototype = {
@@ -541,6 +568,7 @@ Badger.prototype = {
       Migrations.forgetMistakenlyBlockedDomains,
       Migrations.resetWebRTCIPHandlingPolicy,
       Migrations.enableShowNonTrackingDomains,
+      Migrations.forgetFirstPartySnitches,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
@@ -824,8 +852,9 @@ Badger.prototype = {
    * Merge data exported from a different badger into this badger's storage.
    *
    * @param {Object} data the user data to merge in
+   * @param {Boolean} [from_migration=false] set when running from a migration to avoid infinite loop
    */
-  mergeUserData: function(data) {
+  mergeUserData: function(data, from_migration) {
     let self = this;
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
@@ -838,7 +867,9 @@ Badger.prototype = {
 
     // for exports from older Privacy Badger versions:
     // fix yellowlist getting out of sync, remove non-tracking domains, etc.
-    self.runMigrations();
+    if (!from_migration) {
+      self.runMigrations();
+    }
   }
 
 };

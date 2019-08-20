@@ -31,7 +31,6 @@ require.scopes.webrequest = (function() {
 var constants = require("constants");
 var getSurrogateURI = require("surrogates").getSurrogateURI;
 var incognito = require("incognito");
-var mdfp = require("multiDomainFP");
 var utils = require("utils");
 
 /************ Local Variables *****************/
@@ -74,14 +73,14 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
-  var requestDomain = window.extractHostFromURL(url);
+  let tab_host = getHostForTab(tab_id);
+  let request_host = window.extractHostFromURL(url);
 
-  if (!isThirdPartyDomain(requestDomain, tabDomain)) {
+  if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, requestDomain, frame_id);
+  var requestAction = checkAction(tab_id, request_host, frame_id);
   if (!requestAction) {
     return {};
   }
@@ -89,10 +88,10 @@ function onBeforeRequest(details) {
   // log the third-party domain asynchronously
   // (don't block a critical code path on updating the badge)
   setTimeout(function () {
-    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+    badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
   }, 0);
 
-  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
   }
 
@@ -101,7 +100,7 @@ function onBeforeRequest(details) {
   }
 
   if (type == 'script') {
-    var surrogate = getSurrogateURI(url, requestDomain);
+    var surrogate = getSurrogateURI(url, request_host);
     if (surrogate) {
       return {redirectUrl: surrogate};
     }
@@ -110,7 +109,7 @@ function onBeforeRequest(details) {
   // Notify the content script...
   var msg = {
     replaceWidget: true,
-    trackerDomain: requestDomain
+    trackerDomain: request_host
   };
   chrome.tabs.sendMessage(tab_id, msg);
 
@@ -118,7 +117,7 @@ function onBeforeRequest(details) {
   if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
     // check for DNT policy asynchronously
     setTimeout(function () {
-      badger.checkForDNTPolicy(requestDomain);
+      badger.checkForDNTPolicy(request_host);
     }, 0);
   }
 
@@ -163,11 +162,11 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
-  var requestDomain = window.extractHostFromURL(url);
+  let tab_host = getHostForTab(tab_id);
+  let request_host = window.extractHostFromURL(url);
 
-  if (!isThirdPartyDomain(requestDomain, tabDomain)) {
-    if (badger.isPrivacyBadgerEnabled(tabDomain)) {
+  if (!utils.isThirdPartyDomain(request_host, tab_host)) {
+    if (badger.isPrivacyBadgerEnabled(tab_host)) {
       // Still sending Do Not Track even if HTTP and cookie blocking are disabled
       if (badger.isDNTSignalEnabled()) {
         details.requestHeaders.push({name: "DNT", value: "1"});
@@ -178,73 +177,35 @@ function onBeforeSendHeaders(details) {
     }
   }
 
-  var requestAction = checkAction(tab_id, requestDomain, frame_id);
+  var requestAction = checkAction(tab_id, request_host, frame_id);
 
   if (requestAction) {
     // log the third-party domain asynchronously
     setTimeout(function () {
-      badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+      badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
     }, 0);
   }
 
-  // If this might be the third strike against the potential tracker which
-  // would cause it to be blocked we should check immediately if it will be blocked.
-  if (requestAction == constants.ALLOW &&
-      badger.storage.getTrackingCount(requestDomain) == constants.TRACKING_THRESHOLD - 1) {
-
-    badger.heuristicBlocking.heuristicBlockingAccounting(details, false);
-    requestAction = checkAction(tab_id, requestDomain, frame_id);
-
-    if (requestAction) {
-      // log the third-party domain asynchronously
-      setTimeout(function () {
-        badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
-      }, 0);
-    }
-  }
-
-  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
   }
 
-  // This will only happen if the above code sets the action for the request
-  // to block
-  if (requestAction == constants.BLOCK) {
-    if (type == 'script') {
-      var surrogate = getSurrogateURI(url, requestDomain);
-      if (surrogate) {
-        return {redirectUrl: surrogate};
-      }
-    }
-
-    // Notify the content script...
-    var msg = {
-      replaceWidget: true,
-      trackerDomain: requestDomain
-    };
-    chrome.tabs.sendMessage(tab_id, msg);
-
-    if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
-      return {
-        redirectUrl: 'about:blank'
-      };
-    }
-
-    return {cancel: true};
-  }
-
-  // This is the typical codepath
+  // handle cookieblocked requests
   if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
+    // remove cookie and referrer headers
     let newHeaders = details.requestHeaders.filter(function (header) {
       return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
     });
+
+    // add DNT header
     if (badger.isDNTSignalEnabled()) {
       newHeaders.push({name: "DNT", value: "1"});
     }
+
     return {requestHeaders: newHeaders};
   }
 
-  // if we are here, we're looking at a third party
+  // if we are here, we're looking at a third-party request
   // that's not yet blocked or cookieblocked
   if (badger.isDNTSignalEnabled()) {
     details.requestHeaders.push({name: "DNT", value: "1"});
@@ -288,24 +249,24 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  var tabDomain = getHostForTab(tab_id);
-  var requestDomain = window.extractHostFromURL(url);
+  let tab_host = getHostForTab(tab_id);
+  let request_host = window.extractHostFromURL(url);
 
-  if (!isThirdPartyDomain(requestDomain, tabDomain)) {
+  if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, requestDomain, details.frameId);
+  var requestAction = checkAction(tab_id, request_host, details.frameId);
   if (!requestAction) {
     return {};
   }
 
   // log the third-party domain asynchronously
   setTimeout(function () {
-    badger.logThirdPartyOriginOnTab(tab_id, requestDomain, requestAction);
+    badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
   }, 0);
 
-  if (!badger.isPrivacyBadgerEnabled(tabDomain)) {
+  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
   }
 
@@ -341,23 +302,6 @@ function onTabReplaced(addedTabId, removedTabId) {
 }
 
 /******** Utility Functions **********/
-
-/**
- * check if a domain is third party
- * @param {String} domain1 an fqdn
- * @param {String} domain2 a second fqdn
- *
- * @return {Boolean} true if the domains are third party
- */
-function isThirdPartyDomain(domain1, domain2) {
-  if (window.isThirdParty(domain1, domain2)) {
-    return !mdfp.isMultiDomainFirstParty(
-      window.getBaseDomain(domain1),
-      window.getBaseDomain(domain2)
-    );
-  }
-  return false;
-}
 
 /**
  * Gets the host name for a given tab id
@@ -397,7 +341,7 @@ function recordSuperCookie(tab_id, frame_url) {
   const frame_host = window.extractHostFromURL(frame_url),
     page_host = badger.getFrameData(tab_id).host;
 
-  if (!isThirdPartyDomain(frame_host, page_host)) {
+  if (!utils.isThirdPartyDomain(frame_host, page_host)) {
     // Only happens on the start page for google.com
     return;
   }
@@ -425,7 +369,7 @@ function recordFingerprinting(tabId, msg) {
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
     document_host = badger.getFrameData(tabId).host;
-  if (!isThirdPartyDomain(script_host, document_host)) {
+  if (!utils.isThirdPartyDomain(script_host, document_host)) {
     return;
   }
 
@@ -657,7 +601,7 @@ function dispatcher(request, sender, sendResponse) {
     let requestHost = window.extractHostFromURL(request.checkLocation);
 
     // Ignore requests that aren't from a third party.
-    if (!isThirdPartyDomain(requestHost, window.extractHostFromURL(sender.tab.url))) {
+    if (!utils.isThirdPartyDomain(requestHost, window.extractHostFromURL(sender.tab.url))) {
       return sendResponse();
     }
 
@@ -724,7 +668,7 @@ function dispatcher(request, sender, sendResponse) {
     let tab_host = window.extractHostFromURL(sender.tab.url),
       frame_host = window.extractHostFromURL(request.checkEnabledAndThirdParty);
 
-    sendResponse(badger.isPrivacyBadgerEnabled(tab_host) && isThirdPartyDomain(frame_host, tab_host));
+    sendResponse(badger.isPrivacyBadgerEnabled(tab_host) && utils.isThirdPartyDomain(frame_host, tab_host));
 
   } else if (request.checkWidgetReplacementEnabled) {
     sendResponse(

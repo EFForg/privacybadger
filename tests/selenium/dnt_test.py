@@ -24,15 +24,12 @@ class DNTTest(pbtest.PBSeleniumTest):
         ");"
     )
 
-    # TODO switch to non-delayed version (see below)
+    # TODO switch to non-delayed version
+    # https://gist.github.com/ghostwords/9fc6900566a2f93edd8e4a1e48bbaa28
     # once race condition (https://crbug.com/478183) is fixed
     NAVIGATOR_DNT_TEST_URL = (
-        "https://gitcdn.link/cdn/ghostwords/"
-        "1c50869a0469e38d5dabd53f1204d3de/raw/c0ecc85bf452d5f1a410db700bc908306a9506fe/"
-        "privacy-badger-navigator-donottrack-delayed-fixture.html"
-        # non-delayed version:
-        #"9fc6900566a2f93edd8e4a1e48bbaa28/raw/b7a6d9e70ce103da49e74ba239da4443fb514c2f/"
-        #"privacy-badger-navigator-donottrack-fixture.html"
+        "https://www.eff.org/files/badger_test_fixtures/"
+        "navigator_donottrack_delayed.html"
     )
 
     def get_first_party_headers(self, url):
@@ -88,7 +85,7 @@ class DNTTest(pbtest.PBSeleniumTest):
     @pbtest.repeat_if_failed(3)
     def test_dnt_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
-            "https://gitcdn.link/cdn/ghostwords/"
+            "https://gistcdn.githack.com/ghostwords/"
             "74585c942a918509b20bf2db5659646e/raw/2401659e678442de6309339882f19fbb21dbc959/"
             "privacy_badger_dnt_test_fixture.html"
         )
@@ -216,9 +213,8 @@ class DNTTest(pbtest.PBSeleniumTest):
 
     def test_should_not_record_nontracking_domains(self):
         TEST_URL = (
-            "https://gitcdn.link/cdn/ghostwords/"
-            "eef2c982fc3151e60a78136ca263294d/raw/9f83f7ad9b7aa04484a9682b937dec7bcbfb7a6e/"
-            "privacy_badger_recording_nontracking_domains_fixture.html"
+            "https://www.eff.org/files/badger_test_fixtures/"
+            "recording_nontracking_domains.html"
         )
         TRACKING_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
         NON_TRACKING_DOMAIN = "dnt-test.trackersimulator.org"

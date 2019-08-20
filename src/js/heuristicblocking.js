@@ -110,12 +110,12 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    let fqdn = (new URI(details.url)).host,
-      origin = window.getBaseDomain(fqdn);
+    let request_host = (new URI(details.url)).host,
+      request_origin = window.getBaseDomain(request_host);
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
-      tabOrigins[details.tabId] = origin;
+      tabOrigins[details.tabId] = request_origin;
       tabURLs[details.tabId] = details.url;
       return {};
     }
@@ -124,25 +124,25 @@ HeuristicBlocker.prototype = {
       self = this;
 
     // ignore first-party requests
-    if (!tab_origin || origin == tab_origin) {
+    if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
       return {};
     }
 
     // short-circuit if we already observed this origin tracking on this site
-    let firstParties = self.storage.getBadgerStorageObject('snitch_map').getItem(origin);
+    let firstParties = self.storage.getBadgerStorageObject('snitch_map').getItem(request_origin);
     if (firstParties && firstParties.indexOf(tab_origin) > -1) {
       return {};
     }
 
     // abort if we already made a decision for this FQDN
-    let action = self.storage.getAction(fqdn);
+    let action = self.storage.getAction(request_host);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return {};
     }
 
     // check if there are tracking cookies
-    if (hasCookieTracking(details, origin)) {
-      self._recordPrevalence(fqdn, origin, tab_origin);
+    if (hasCookieTracking(details, request_origin)) {
+      self._recordPrevalence(request_host, request_origin, tab_origin);
       return {};
     }
 
@@ -151,11 +151,17 @@ HeuristicBlocker.prototype = {
       // get all cookies for the top-level frame and pass those to the
       // cookie-share accounting function
       let tab_url = tabURLs[details.tabId];
-      chrome.cookies.getAll({
+
+      let config = {
         url: tab_url
-      }, function(cookies) {
+      };
+      if (badger.firstPartyDomainPotentiallyRequired) {
+        config.firstPartyDomain = null;
+      }
+
+      chrome.cookies.getAll(config, function (cookies) {
         if (cookies.length >= 1) {
-          self.pixelCookieShareAccounting(tab_url, tab_origin, details.url, fqdn, origin, cookies);
+          self.pixelCookieShareAccounting(tab_url, tab_origin, details.url, request_host, request_origin, cookies);
         }
       });
     }
@@ -173,7 +179,7 @@ HeuristicBlocker.prototype = {
    * @param cookies are the result of chrome.cookies.getAll()
    * @returns {*}
    */
-  pixelCookieShareAccounting: function (tab_url, tab_origin, request_url, request_fqdn, request_origin, cookies) {
+  pixelCookieShareAccounting: function (tab_url, tab_origin, request_url, request_host, request_origin, cookies) {
     let params = (new URL(request_url)).searchParams,
       TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
@@ -242,10 +248,10 @@ HeuristicBlocker.prototype = {
           // our threshold, record the tracking action and exit the function.
           let entropy = utils.estimateMaxEntropy(s);
           if (entropy > TRACKER_ENTROPY_THRESHOLD) {
-            log("Found high-entropy cookie share from", tab_origin, "to", request_fqdn,
+            log("Found high-entropy cookie share from", tab_origin, "to", request_host,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
               "\n  arg:", key, "=", value, "\n  substring:", s);
-            this._recordPrevalence(request_fqdn, request_origin, tab_origin);
+            this._recordPrevalence(request_host, request_origin, tab_origin);
             return;
           }
         }

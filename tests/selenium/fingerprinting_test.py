@@ -39,11 +39,7 @@ return (
     # TODO can fail because our content script runs too late: https://crbug.com/478183
     @pbtest.repeat_if_failed(3)
     def test_canvas_fingerprinting_detection(self):
-        PAGE_URL = (
-            "https://gitcdn.link/cdn/ghostwords/"
-            "ff6347b93ec126d4f73a9ddfd8b09919/raw/6b215b3f052115d36831ecfca758081ca7da7e37/"
-            "privacy_badger_fingerprint_test_fixture.html"
-        )
+        PAGE_URL = "https://www.eff.org/files/badger_test_fixtures/fingerprinting.html"
         FINGERPRINTING_DOMAIN = "cdn.jsdelivr.net"
 
         # open Badger's background page

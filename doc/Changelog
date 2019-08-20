@@ -1,12 +1,12 @@
 Changes for Privacy Badger 
 ====================================
 ## 2019.7.1
-* Added cookie pixel sharing detection. Privacy Badger now records
+* Added pixel cookie sharing detection. Privacy Badger now records
 tracking by images with querystrings that contain first-party cookie data.
 This catches Google Analytics.
-* Removed display of non-tracking domains from the popup by default. Hiding
-domains that Privacy Badger does not consider to be tracking should reduce
-self-inflicted Web breakage.
+* Removed display of non-tracking domains from the popup by default.
+Hiding domains that Privacy Badger does not consider to be tracking
+should reduce self-inflicted Web breakage.
 * Enabled Facebook link unwrapping on messenger.com
 * Fixed various site breakages
 * Added Catalan translations
