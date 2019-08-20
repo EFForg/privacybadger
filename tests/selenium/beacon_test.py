@@ -10,11 +10,7 @@ class BeaconTest(pbtest.PBSeleniumTest):
     """Tests to make sure beacon detection works as expected."""
 
     def test_beacon_detection(self):
-        PAGE_URL = (
-            "https://gitcdn.link/cdn/ghostwords/"
-            "be9de3acae16aa832a271ba97fce0073/raw/f2554fbf93faca1bfa397ae610e01bab47bd19b5/"
-            "privacy_badger_beacon_test_fixture.html"
-        )
+        PAGE_URL = "https://www.eff.org/files/badger_test_fixtures/beacon.html"
         BEACON_DOMAIN = "dnt-test.trackersimulator.org"
 
         # visit the page
