@@ -477,20 +477,21 @@ QUnit.test("findCommonSubstrings", assert => {
     "returned matches have length greater than or equal to 8"
   );
 
-  assert.notEqual(
-    utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar')[0] === 'www.foo',
+  assert.equal(
+    utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar')[0],
+    undefined,
     "substrings under the length threshold of 8 are ignored"
   );
 
-  assert.equal(
+  assert.deepEqual(
     utils.findCommonSubstrings('foobar.com/foo/fizz/buzz/bar', 'foobar.com/foo/bizz/fuzz/bar')[0],
     'foobar.com/foo/',
     "returns longest matching value from the pair of URLs"
   );
 
   assert.equal(
-    utils.findCommonSubstrings('www.google.com', '.w..wgoogle.analytics.com')[0] === undefined,
-    true,
+    utils.findCommonSubstrings('www.google.com', '.w..wgoogle.analytics.com')[0],
+    undefined,
     "returns empty array if there is no common substring even in very similar string values"
   );
 

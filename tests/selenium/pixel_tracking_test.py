@@ -14,10 +14,16 @@ class PixelTrackingTesting(pbtest.PBSeleniumTest):
 	def test_that_tracker_is_caught(self):
 		TESTING_URL = ("https://gitcdn.link/repo/ablanathtanalba/pixelTrackingTestingResource/master/rsrc.html")
 
+		CLEAR_TRAINED_DATA = (
+		    "chrome.extension.getBackgroundPage().badger.storage.snitch_map.updateObject({})"
+		)
+
 		CHECK_SNITCH_MAP_FOR_ENTRY = (
 				"return chrome.extension.getBackgroundPage()."
 				"badger.storage.snitch_map.getItem('github.com').includes('gitcdn.link');"
 		)
+
+		self.js(CLEAR_TRAINED_DATA)
 
 		self.load_url(TESTING_URL)
 		self.load_url(self.options_url)
