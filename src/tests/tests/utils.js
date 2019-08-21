@@ -477,6 +477,11 @@ QUnit.test("findCommonSubstrings", assert => {
     "returned matches have length greater than or equal to 8"
   );
 
+  assert.notEqual(
+    utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar')[0] === 'www.foo',
+    "substrings under the length threshold of 8 are ignored"
+  );
+
   assert.equal(
     utils.findCommonSubstrings('foobar.com/foo/fizz/buzz/bar', 'foobar.com/foo/bizz/fuzz/bar')[0],
     'foobar.com/foo/',
@@ -488,6 +493,7 @@ QUnit.test("findCommonSubstrings", assert => {
     true,
     "returns empty array if there is no common substring even in very similar string values"
   );
+
 });
 
 // used in pixel tracking heuristic, given a string the estimateMaxEntropy function
@@ -517,6 +523,7 @@ QUnit.test("estimateMaxEntropy", assert => {
     utils.estimateMaxEntropy('0191/_-google9fjkelo'),
     "strings of the same length but from different character classes will estimate different entropy values"
   );
+
 });
 
 })();
