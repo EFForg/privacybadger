@@ -472,12 +472,6 @@ QUnit.test("getHostFromDomainInput", assert => {
 QUnit.test("findCommonSubstrings", assert => {
 
   assert.equal(
-    utils.findCommonSubstrings('www.google.com', 'www.google.com/analytics/')[0].length >= 8,
-    true,
-    "returned matches have length greater than or equal to 8"
-  );
-
-  assert.equal(
     utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar')[0],
     undefined,
     "substrings under the length threshold of 8 are ignored"
