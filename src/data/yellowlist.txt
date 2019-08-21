@@ -1,3 +1,5 @@
+nosdn.127.net
+bnet.163.com
 123greetings.com
 122.2o7.net
 112.2o7.net
@@ -424,6 +426,7 @@ nbcuni.com
 neighborsink.com
 netdna-cdn.com
 netdna-ssl.com
+nos.netease.com
 netflix.com
 networksolutions.com
 newsinc.com
