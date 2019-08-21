@@ -69,7 +69,7 @@ function Badger() {
     chrome.tabs.query({}, function (tabs) {
       for (let i = 0; i < tabs.length; i++) {
         let tab = tabs[i];
-        self.refreshIconAndContextMenu(tab.id, tab.url);
+        self.updateIcon(tab.id, tab.url);
       }
     });
 
@@ -904,7 +904,7 @@ Badger.prototype = {
    * @param {Integer} tab_id The tab ID to set the badger icon for
    * @param {String} tab_url The tab URL to set the badger icon for
    */
-  refreshIconAndContextMenu: function (tab_id, tab_url) {
+  updateIcon: function (tab_id, tab_url) {
     if (!tab_id || !tab_url || !FirefoxAndroid.hasPopupSupport) {
       return;
     }
@@ -959,7 +959,7 @@ Badger.prototype = {
 function startBackgroundListeners() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == "loading" && tab.url) {
-      badger.refreshIconAndContextMenu(tab.id, tab.url);
+      badger.updateIcon(tab.id, tab.url);
       badger.updateBadge(tabId);
     }
   });
@@ -967,7 +967,7 @@ function startBackgroundListeners() {
   // Update icon if a tab is replaced or loaded from cache
   chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/) {
     chrome.tabs.get(addedTabId, function(tab) {
-      badger.refreshIconAndContextMenu(tab.id, tab.url);
+      badger.updateIcon(tab.id, tab.url);
     });
   });
 

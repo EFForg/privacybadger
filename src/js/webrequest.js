@@ -866,14 +866,14 @@ function dispatcher(request, sender, sendResponse) {
 
   case "activateOnSite": {
     badger.enablePrivacyBadgerForOrigin(request.tabHost);
-    badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
+    badger.updateIcon(request.tabId, request.tabUrl);
     sendResponse();
     break;
   }
 
   case "deactivateOnSite": {
     badger.disablePrivacyBadgerForOrigin(request.tabHost);
-    badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
+    badger.updateIcon(request.tabId, request.tabUrl);
     sendResponse();
     break;
   }
