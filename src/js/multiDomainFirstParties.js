@@ -1848,6 +1848,7 @@ var multiDomainFirstPartiesArray = [
   ["sprint.com", "sprintpcs.com", "nextel.com"],
   ["squareup.com", "cash.app", "mkt.com", "squarecdn.com"],
   ["steampowered.com", "steamstatic.com", "steamcommunity.com"],
+  ["suning.com", "suning.cn", "hksuning.com"],
   ["techdata.com", "techdata.ch"],
   ["telegram.org", "telegram.me", "t.me"],
   ["telekom.com", "t-online.de"],
