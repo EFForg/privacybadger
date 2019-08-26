@@ -12,15 +12,20 @@ class PixelTrackingTesting(pbtest.PBSeleniumTest):
     """
 
     def test_that_tracker_is_caught(self):
-        TESTING_URL = ("https://eff.org/files/badger_test_fixtures/pixel_tracking_testing_resource.html")
+        TESTING_URL = ("https://eff.org/files/badger_test_fixtures/pixel_cookie_sharing.html")
 
         CLEAR_TRAINED_DATA = (
             "chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();"
         )
 
-        CHECK_SNITCH_MAP_FOR_ENTRY = (
+        CHECK_SNITCH_MAP_FOR_NO_ENTRY = (
         		"return chrome.extension.getBackgroundPage()."
-        		"badger.storage.snitch_map.getItem('cloudinary.com').includes('eff.org');"
+        		"badger.storage.snitch_map.getItem('cloudinary.com')"
+        )
+
+        CHECK_SNITCH_MAP_FOR_ENTRY = (
+                "return chrome.extension.getBackgroundPage()."
+        		"badger.storage.snitch_map.getItem('cloudinary.com').includes('eff.org')"
         )
 
         self.load_url(self.options_url)
@@ -28,13 +33,16 @@ class PixelTrackingTesting(pbtest.PBSeleniumTest):
         self.load_url(TESTING_URL)
 
         # should resolve to false without the query parameter explicitly passed to track
+        self.load_url(self.options_url)
         self.assertFalse(
-        	self.js(CHECK_SNITCH_MAP_FOR_ENTRY)
+        	self.js(CHECK_SNITCH_MAP_FOR_NO_ENTRY)
         )
 
+        self.load_url(self.options_url)
         self.load_url(TESTING_URL + "?trackMe=true")
 
         # now that the query param has been passed in, check for presence of domain
+        self.load_url(self.options_url)
         self.assertTrue(
         	self.js(CHECK_SNITCH_MAP_FOR_ENTRY)
 )
