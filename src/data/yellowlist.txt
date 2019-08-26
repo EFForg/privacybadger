@@ -169,6 +169,7 @@ edgefcs.net
 edgekey.net
 editmysite.com
 files.edx.org
+ehc.com
 elasticbeanstalk.com
 eltrafiko.com
 api-cdn.embed.ly
