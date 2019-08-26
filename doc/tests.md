@@ -26,6 +26,9 @@ Your browser should navigate to an internal URL that starts with `chrome-extensi
 Replace `/skin/options.html` with `/tests/index.html` and hit <kbd>Enter</kbd>.
 This will open the unit test suite and run the tests.
 
+### writing Unit Tests
+TODO
+
 ## Functional tests
 
 Our functional tests are written in [Python](https://www.python.org/) and driven by
@@ -77,3 +80,5 @@ Like this:
 ```bash
 $ BROWSER=~/Downloads/firefox/firefox ENABLE_XVFB=1 pytest -s -v -k pbtest_org
 ```
+
+### Writing Functional Tests
