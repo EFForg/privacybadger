@@ -12,7 +12,7 @@ class PixelTrackingTesting(pbtest.PBSeleniumTest):
     """
 
     def test_that_tracker_is_caught(self):
-        TESTING_URL = ("https://eff.org/files/badger_test_fixtures/pixel_tracking/resource.html")
+        TESTING_URL = ("https://eff.org/files/badger_test_fixtures/pixel_tracking_testing_resource.html")
 
         CLEAR_TRAINED_DATA = (
             "chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();"
