@@ -484,8 +484,8 @@ QUnit.test("findCommonSubstrings", assert => {
   );
 
   assert.equal(
-    utils.findCommonSubstrings('www.google.com', '.w..wgoogle.analytics.com')[0],
-    undefined,
+    utils.findCommonSubstrings('www.google.com', '.w..wgoogle.analytics.com').length,
+    0,
     "returns empty array if there is no common substring even in very similar string values"
   );
 
