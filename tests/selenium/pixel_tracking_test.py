@@ -4,15 +4,15 @@
 import unittest
 import pbtest
 
-class PixelTrackingTesting(pbtest.PBSeleniumTest):
-    """Tests for the cookie pixel tracking heuristic included in heuristicblocking.js
-        - loads gitcdn resource which places a tracking cookie on page then creates an img tag
+class PixelTrackingTest(pbtest.PBSeleniumTest):
+    """Tests for the pixel cookie sharing heuristic included in heuristicblocking.js
+        - loads HTML fixture that sets a first-party cookie on page then creates an img tag
         - img tag makes a src request carrying a substring of that tracking cookie
         - tracking domain is caught by pixel tracking heuristic, snitch map entry is updated
     """
 
     def test_that_tracker_is_caught(self):
-        TESTING_URL = ("https://eff.org/files/badger_test_fixtures/pixel_cookie_sharing.html")
+        FIXTURE_URL = "https://www.eff.org/files/badger_test_fixtures/pixel_cookie_sharing.html"
 
         CLEAR_TRAINED_DATA = (
             "chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();"
@@ -28,24 +28,23 @@ class PixelTrackingTesting(pbtest.PBSeleniumTest):
         		"badger.storage.snitch_map.getItem('cloudinary.com').includes('eff.org')"
         )
 
-        self.load_url(self.options_url)
+        # clear seed data to prevent any potential false positives
+        # load the test fixture without the URL parameter to set tracking cookie
+        # check to make sure the domain wasn't logged in snitch map
         self.js(CLEAR_TRAINED_DATA)
-        self.load_url(TESTING_URL)
-
-        # should resolve to false without the query parameter explicitly passed to track
+        self.load_url(FIXTURE_URL)
         self.load_url(self.options_url)
         self.assertFalse(
         	self.js(CHECK_SNITCH_MAP_FOR_NO_ENTRY)
         )
 
-        self.load_url(self.options_url)
-        self.load_url(TESTING_URL + "?trackMe=true")
-
-        # now that the query param has been passed in, check for presence of domain
+        # load the same test fixture, but pass the URL parameter for it to place the tracking cookie
+        # check to make sure this domain is caught and correctly recorded in snitch map
+        self.load_url(FIXTURE_URL + "?trackMe=true")
         self.load_url(self.options_url)
         self.assertTrue(
-        	self.js(CHECK_SNITCH_MAP_FOR_ENTRY)
-)
+            self.js(CHECK_SNITCH_MAP_FOR_ENTRY)
+        )
 
 if __name__ == "__main__":
     unittest.main()

@@ -471,22 +471,22 @@ QUnit.test("getHostFromDomainInput", assert => {
 // It should return a common substring between two given values
 QUnit.test("findCommonSubstrings", assert => {
 
-  assert.equal(
-    utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar')[0],
-    undefined,
+  assert.deepEqual(
+    utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar').length,
+    0,
     "substrings under the length threshold of 8 are ignored"
   );
 
-  assert.deepEqual(
+  assert.equal(
     utils.findCommonSubstrings('foobar.com/foo/fizz/buzz/bar', 'foobar.com/foo/bizz/fuzz/bar')[0],
     'foobar.com/foo/',
     "returns longest matching value from the pair of URLs"
   );
 
-  assert.equal(
-    utils.findCommonSubstrings('www.google.com', '.w..wgoogle.analytics.com').length,
-    0,
-    "returns empty array if there is no common substring even in very similar string values"
+  assert.deepEqual(
+    utils.findCommonSubstrings('foobar.com/fizz/buzz/bar/foo', 'foobar.com/fizzbuzz/buzz/bar/foo'),
+    ['foobar.com/fizz', "zz/buzz/bar/foo"],
+    "returns multiple substrings if multiple are present in comparison"
   );
 
 });
@@ -518,6 +518,12 @@ QUnit.test("estimateMaxEntropy", assert => {
     utils.estimateMaxEntropy('0191/_-google9fjkelo'),
     "strings of the same length but from different character classes will estimate different entropy values"
   );
+
+  assert.equal(
+    utils.estimateMaxEntropy("google.com/0191/_-google/analytics.fizz?buzz=foobar"),
+    320.55551316197466,
+    "entropy for complex string of varying character classes estimates entropy correctly"
+  )
 
 });
 
