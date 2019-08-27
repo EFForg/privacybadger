@@ -523,7 +523,7 @@ QUnit.test("estimateMaxEntropy", assert => {
     utils.estimateMaxEntropy("google.com/0191/_-google/analytics.fizz?buzz=foobar"),
     320.55551316197466,
     "entropy for complex string of varying character classes estimates entropy correctly"
-  )
+  );
 
 });
 
