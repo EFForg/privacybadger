@@ -27,7 +27,8 @@ Replace `/skin/options.html` with `/tests/index.html` and hit <kbd>Enter</kbd>.
 This will open the unit test suite and run the tests.
 
 ### writing Unit Tests
-TODO
+
+When writing unit tests, try to scope each test to the function or method in question, then each individual assertion within that as a particular aspect of said method or function. For example, if you had a very basic function that took a string input and then converted into some numerical value and returned that number. You'd write one `Qunit.test("convertStringToNumber", assert => { ... })` and where the elipses are you'd write each individual assertion. Consider testing expected input, potential breaking points, and expected outputs. You might want to test that the input is indeed a string, that the returned value is a number, that no other types are accepted, etc. It's easy to get caught going down rabbit holes testing unlikely scenarios, so consider which edge cases are most important to consider, and which are more likely to occur. Again, look at [QUnit](https://qunitjs.com) for much more thorough documentation.
 
 ## Functional tests
 
@@ -82,3 +83,5 @@ $ BROWSER=~/Downloads/firefox/firefox ENABLE_XVFB=1 pytest -s -v -k pbtest_org
 ```
 
 ### Writing Functional Tests
+
+There are a few things you want to be mindful of when writing functional tests. Helper methods used by the actual tests don't need to follow any strict naming convention except snake_case. Primary testing methods that you want to be run by the headless browser must be prefixed with the keyword `test`, so an example primary functional test you want to be run could be called `test_my_example_test`.
