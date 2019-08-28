@@ -19,13 +19,13 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         )
 
         CHECK_SNITCH_MAP_FOR_NO_ENTRY = (
-        		"return chrome.extension.getBackgroundPage()."
-        		"badger.storage.snitch_map.getItem('cloudinary.com')"
+                "return chrome.extension.getBackgroundPage()."
+                "badger.storage.snitch_map.getItem('cloudinary.com')"
         )
 
         CHECK_SNITCH_MAP_FOR_ENTRY = (
                 "return chrome.extension.getBackgroundPage()."
-        		"badger.storage.snitch_map.getItem('cloudinary.com').includes('eff.org')"
+                "badger.storage.snitch_map.getItem('cloudinary.com').includes('eff.org')"
         )
 
         # clear seed data to prevent any potential false positives
@@ -35,7 +35,7 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         self.load_url(FIXTURE_URL)
         self.load_url(self.options_url)
         self.assertFalse(
-        	self.js(CHECK_SNITCH_MAP_FOR_NO_ENTRY)
+            self.js(CHECK_SNITCH_MAP_FOR_NO_ENTRY)
         )
 
         # load the same test fixture, but pass the URL parameter for it to place the tracking cookie
