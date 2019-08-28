@@ -15,17 +15,15 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         FIXTURE_URL = "https://www.eff.org/files/badger_test_fixtures/pixel_cookie_sharing2.html"
 
         CLEAR_TRAINED_DATA = (
-            "chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();"
+            "chrome.extension.getBackgroundPage()."
+            "badger.storage.clearTrackerData();"
         )
 
-        CHECK_SNITCH_MAP_FOR_NO_ENTRY = (
-                "return chrome.extension.getBackgroundPage()."
-                "badger.storage.snitch_map.getItem('cloudinary.com')"
-        )
-
-        CHECK_SNITCH_MAP_FOR_ENTRY = (
-                "return chrome.extension.getBackgroundPage()."
-                "badger.storage.snitch_map.getItem('cloudinary.com').includes('eff.org')"
+        CHECK_SNITCH_MAP = (
+            "return ("
+            "  chrome.extension.getBackgroundPage().badger.storage.snitch_map.getItem('cloudinary.com') &&"
+            "  chrome.extension.getBackgroundPage().badger.storage.snitch_map.getItem('cloudinary.com').includes('eff.org')"
+            ");"
         )
 
         # clear seed data to prevent any potential false positives
@@ -35,7 +33,7 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         self.load_url(FIXTURE_URL)
         self.load_url(self.options_url)
         self.assertFalse(
-            self.js(CHECK_SNITCH_MAP_FOR_NO_ENTRY)
+            self.js(CHECK_SNITCH_MAP)
         )
 
         # load the same test fixture, but pass the URL parameter for it to perform pixel cookie sharing
@@ -43,7 +41,7 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         self.load_url(FIXTURE_URL + "?trackMe=true")
         self.load_url(self.options_url)
         self.assertTrue(
-            self.js(CHECK_SNITCH_MAP_FOR_ENTRY)
+            self.js(CHECK_SNITCH_MAP)
         )
 
 if __name__ == "__main__":
