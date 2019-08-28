@@ -472,8 +472,8 @@ QUnit.test("getHostFromDomainInput", assert => {
 QUnit.test("findCommonSubstrings", assert => {
 
   assert.deepEqual(
-    utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar').length,
-    0,
+    utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar'),
+    [],
     "substrings under the length threshold of 8 are ignored"
   );
 
