@@ -7,7 +7,7 @@ import pbtest
 class PixelTrackingTest(pbtest.PBSeleniumTest):
     """Tests for the pixel cookie sharing heuristic included in heuristicblocking.js
         - loads HTML fixture that sets a first-party cookie on page then creates an img tag
-        - if 'trackMe=true' is present in the query string, img tag makes a src request carrying a substring of that tracking cookie
+        - if `trackMe=true` is present in the query string, img tag makes a src request carrying a substring of that tracking cookie
         - tracking domain is caught by pixel tracking heuristic, snitch map entry is updated
     """
 
