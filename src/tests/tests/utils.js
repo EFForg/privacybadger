@@ -467,4 +467,64 @@ QUnit.test("getHostFromDomainInput", assert => {
   );
 });
 
+// Tests algorithm used in the pixel tracking heuristic
+// It should return a common substring between two given values
+QUnit.test("findCommonSubstrings", assert => {
+
+  assert.deepEqual(
+    utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar'),
+    [],
+    "substrings under the length threshold of 8 are ignored"
+  );
+
+  assert.equal(
+    utils.findCommonSubstrings('foobar.com/foo/fizz/buzz/bar', 'foobar.com/foo/bizz/fuzz/bar')[0],
+    'foobar.com/foo/',
+    "returns longest matching value from the pair of URLs"
+  );
+
+  assert.deepEqual(
+    utils.findCommonSubstrings('foobar.com/fizz/buzz/bar/foo', 'foobar.com/fizzbuzz/buzz/bar/foo'),
+    ['foobar.com/fizz', "zz/buzz/bar/foo"],
+    "returns multiple substrings if multiple are present in comparison"
+  );
+
+});
+
+// used in pixel tracking heuristic, given a string the estimateMaxEntropy function
+// will return the estimated entropy value from it, based on logic parsing the string's length,
+// and classes of character complication included in the string
+QUnit.test("estimateMaxEntropy", assert => {
+  assert.equal(
+    utils.estimateMaxEntropy("google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/analytics.google/google.com/analytics.google/anal"),
+    257,
+    "returns length of string if it's above 256 (MAX_LS_LEN_FOR_ENTROPY_EST)"
+  );
+
+  assert.equal(
+    utils.estimateMaxEntropy("google.com/analytics"),
+    utils.estimateMaxEntropy("GOOGLE.COM/ANALYTICS"),
+    "if the same string is all lower case or all upper case, the returned extimated entropy value is the same"
+  );
+
+  assert.notEqual(
+    utils.estimateMaxEntropy('analytics.GOOGLE1234_'),
+    utils.estimateMaxEntropy('ANALYTICS.google1234'),
+    "two nearly identical strings of mixed character classes and different cases will return different values"
+  );
+
+  assert.notEqual(
+    utils.estimateMaxEntropy('google.com/analytics'),
+    utils.estimateMaxEntropy('0191/_-google9fjkelo'),
+    "strings of the same length but from different character classes will estimate different entropy values"
+  );
+
+  assert.equal(
+    utils.estimateMaxEntropy("google.com/0191/_-google/analytics.fizz?buzz=foobar"),
+    320.55551316197466,
+    "entropy for complex string of varying character classes estimates entropy correctly"
+  );
+
+});
+
 })();
