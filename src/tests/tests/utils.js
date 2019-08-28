@@ -467,4 +467,12 @@ QUnit.test("getHostFromDomainInput", assert => {
   );
 });
 
+QUnit.test("estimateMaxEntropy", assert => {
+  assert.equal(
+    utils.estimateMaxEntropy('google.com/123_123-123/an.alytics'),
+    utils.estimateMaxEntropy('go.ogle.com/123123.123/an.aly.tics'),
+    "method properly removes separator characters"
+  );
+});
+
 })();
