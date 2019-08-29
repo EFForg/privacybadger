@@ -19,21 +19,6 @@
  */
 
 /**
- * Detect whether localStorage is accessible
- *
- * @returns {Boolean}
- */
-function hasLocalStorage() {
-  try {
-    // In Chrome and Safari, trying to access `window.localStorage` when it's
-    // disabled raises an Exception. In Firefox, `null` is returned.
-    return 'localStorage' in window && window.localStorage !== null;
-  } catch (ex) {
-    return false;
-  }
-}
-
-/**
  * Generate script to inject into the page
  *
  * @returns {string}
@@ -43,9 +28,18 @@ function getScPageScript() {
 
   // return a string
   return "(" + function () {
-    if (!hasLocalStorage()) {
-      // abort when we can't access localStorage
-      // such as when "Block third-party cookies" is enabled in Chrome
+    /*
+     * If localStorage is inaccessible, such as when "Block third-party cookies"
+     * in enabled in Chrome or when `dom.storage.enabled` is set to `false` in
+     * Firefox, do not go any further.
+     */
+    try {
+      // No localStorage raises an Exception in Chromium-based browsers, while
+      // it's equal to `null` in Firefox.
+      if (null === localStorage) {
+        throw false;
+      }
+    } catch (ex) {
       return;
     }
 
