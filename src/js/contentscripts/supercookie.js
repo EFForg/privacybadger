@@ -19,6 +19,21 @@
  */
 
 /**
+ * Detect whether localStorage is accessible
+ *
+ * @returns {Boolean}
+ */
+function hasLocalStorage() {
+  try {
+    // In Chrome and Safari, trying to access `window.localStorage` when it's
+    // disabled raises an Exception. In Firefox, `null` is returned.
+    return 'localStorage' in window && window.localStorage !== null;
+  } catch (ex) {
+    return false;
+  }
+}
+
+/**
  * Generate script to inject into the page
  *
  * @returns {string}
@@ -28,10 +43,7 @@ function getScPageScript() {
 
   // return a string
   return "(" + function () {
-
-    try {
-      localStorage; // eslint-disable-line no-unused-expressions
-    } catch (ex) {
+    if (!hasLocalStorage()) {
       // abort when we can't access localStorage
       // such as when "Block third-party cookies" is enabled in Chrome
       return;
