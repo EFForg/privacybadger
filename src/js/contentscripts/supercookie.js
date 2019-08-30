@@ -28,6 +28,7 @@ function getScPageScript() {
 
   // return a string
   return "(" + function () {
+
     /*
      * If localStorage is inaccessible, such as when "Block third-party cookies"
      * in enabled in Chrome or when `dom.storage.enabled` is set to `false` in
