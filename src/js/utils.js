@@ -427,6 +427,24 @@ function isThirdPartyDomain(domain1, domain2) {
   return false;
 }
 
+
+/**
+ * Checks whether a given URL is a special browser page.
+ * TODO account for browser-specific pages:
+ * https://github.com/hackademix/noscript/blob/a8b35486571933043bb62e90076436dff2a34cd2/src/lib/restricted.js
+ *
+ * @param {String} url
+ *
+ * @return {Boolean} whether the URL is restricted
+ */
+function isRestrictedUrl(url) {
+  // permitted schemes from
+  // https://developer.chrome.com/extensions/match_patterns
+  return !(
+    url.startsWith('http') || url.startsWith('file') || url.startsWith('ftp')
+  );
+}
+
 /************************************** exports */
 var exports = {
   arrayBufferToBase64,
@@ -434,6 +452,7 @@ var exports = {
   explodeSubdomains,
   findCommonSubstrings,
   getHostFromDomainInput,
+  isRestrictedUrl,
   isThirdPartyDomain,
   nDaysFromNow,
   oneDay,
