@@ -136,14 +136,6 @@ function estimateMaxEntropy(str) {
   let B64 = ALPHANUM + ALPHA.toUpperCase() + "/+";
   let URL = ALPHANUM + ALPHA.toUpperCase() + "~%";
 
-  // separator character should be removed before the main calculations
-  const sepsArray = SEPS.split('');
-  sepsArray.forEach((char) => {
-    while (str.includes(char)) {
-      str = str.replace(char, "");
-    }
-  });
-
   if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST) {
     /*
      * Just return a higher-than-threshold entropy estimate.
