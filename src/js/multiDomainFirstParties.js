@@ -2131,6 +2131,7 @@ var multiDomainFirstPartiesArray = [
 
     "auto.ru",
     "beru.ru",
+    "bringly.ru",
     "kinopoisk.ru",
     "mykp.ru",
     "yadi.sk",
