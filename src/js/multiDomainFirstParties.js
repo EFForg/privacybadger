@@ -151,6 +151,15 @@ var multiDomainFirstPartiesArray = [
     "zamcs.com",
     "zhisheng.com",
     "zmxy.com.cn",
+
+    "lazada.com",
+
+    "lazada.co.id",
+    "lazada.com.my",
+    "lazada.com.ph",
+    "lazada.co.th",
+    "lazada.sg",
+    "lazada.vn",
   ],
   ["allstate.com", "myallstate.com"],
   ["altra.org", "altraonline.org"],
