@@ -156,12 +156,26 @@ function estimateMaxEntropy(str) {
 
   // If all the characters come from one of these common character groups,
   // assume that the group is the domain of possible characters.
-  for (let chr_class in [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
+  for (let chr_class of [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
     let group = chr_class + SEPS;
     // Ignore separator characters when computing entropy. For example, Google
     // Analytics IDs look like "14103492.1964907".
-    if (str.split().every(val => group.includes(val))) {
+
+    // flag to toggle if each character of input string belongs to the group in question
+    let each_char_in_group;
+
+    [...str].forEach(char => {
+      if (group.includes(char)) {
+        each_char_in_group = true;
+      } else {
+        each_char_in_group = false;
+      }
+    });
+
+    // if the flag resolves to true, we've found our culprit and can break out of the loop
+    if (each_char_in_group) {
       maxSymbols = chr_class.length;
+      break;
     }
   }
 
