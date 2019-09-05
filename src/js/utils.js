@@ -166,10 +166,8 @@ function estimateMaxEntropy(str) {
 
     [...str].forEach(char => {
       if (group.includes(char)) {
-        each_char_in_group = true;
-      } else {
-        each_char_in_group = false;
-      }
+        if (!each_char_in_group) { each_char_in_group = true; }
+      } else { each_char_in_group = false; }
     });
 
     // if the flag resolves to true, we've found our culprit and can break out of the loop
