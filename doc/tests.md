@@ -6,8 +6,6 @@ We have a few different types of tests:
 * [Functional tests](/doc/tests.md#functional-tests) test the UI and that things integrate together properly.
 * [Travis CI](/doc/tests.md#travis-ci) runs all these automatically for every pull request on both Chrome and Firefox.
 
----
-
 ## Travis CI
 
 Every pull request runs the full suite of functional and unit tests on [Travis CI](https://travis-ci.org/). We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Firefox Beta and Firefox ESR.
@@ -15,8 +13,6 @@ Every pull request runs the full suite of functional and unit tests on [Travis C
 See [`.travis.yml`](/.travis.yml) for Travis configuration, [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) for test setup, and [`scripts/run_travis.sh`](/scripts/run_travis.sh) for test execution procedures.
 
 We use [ESLint](https://eslint.org) to flag potential JavaScript errors and style issues. Please see our [developer guide](/doc/develop.md#lint-your-changes) for setup instructions.
-
----
 
 ## Unit tests
 
@@ -30,11 +26,11 @@ Your browser should navigate to an internal URL that starts with `chrome-extensi
 Replace `/skin/options.html` with `/tests/index.html` and hit <kbd>Enter</kbd>.
 This will open the unit test suite and run the tests.
 
-### writing Unit Tests
+### Writing unit tests
 
-When writing unit tests, try to scope each test to the function or method in question, then each individual assertion within that test addressing a core piece of functionality or expectation of that test. Consider testing expected input, potential breaking points, and expected outputs. It's easy to get caught going down rabbit holes testing unlikely scenarios, so consider which edge cases are most important to consider, and which are more likely to occur. Again, look at [QUnit](https://qunitjs.com) for much more thorough documentation.
+When writing unit tests, try to scope each test to the function or method in question, then each individual assertion within that test addressing a core piece of functionality or expectation of that test. Consider testing expected input, potential breaking points, and expected outputs. It's easy to get caught going down rabbit holes testing unlikely scenarios, so consider which edge cases are most important to consider, and which are more likely to occur.
 
----
+Do verify that removing or mutating the code being tested produces failed assertions.
 
 ## Functional tests
 
@@ -63,15 +59,15 @@ For more information, see our Travis CI [setup](/scripts/setup_travis.sh) and
 [run](/scripts/run_travis.sh) scripts.
 
 
-### Examples
+### Invocation examples
 
 Note that to use a debugger like `pdb` or `ipdb` you must pass the `-s` (`--capture=no`) flag to pytest.
 ```bash
 # run qunit_test.py, with firefox, with verbose output (-v)
 $ BROWSER=/usr/bin/firefox pytest -v tests/selenium/qunit_test.py
 
-# run a specific test on a specific class in a specific module, on google-chrome-stable
-$ BROWSER=google-chrome-stable pytest super_cookie_test.py::SuperCookieTest::test_should_detect_ls_of_third_party_frame
+# run a specific test on a specific class in a specific module with Chrome Beta
+$ BROWSER=google-chrome-beta pytest super_cookie_test.py::SupercookieTest::test_should_detect_ls_of_third_party_frame
 
 # run any tests whose name (including the module and class) matches the string cookie_test
 # this is often useful as a less verbose way to run a single test
@@ -88,8 +84,12 @@ Like this:
 $ BROWSER=~/Downloads/firefox/firefox ENABLE_XVFB=1 pytest -s -v -k pbtest_org
 ```
 
-### Writing Functional Tests
+### Writing functional tests
 
-There are a few things you want to be mindful of when writing functional tests. Helper methods used by the actual tests don't need to follow any strict naming convention except snake_case. Primary methods that you want to be tested by the headless browser must be prefixed with the keyword `test`, so an example primary functional test you want to be run could be called `test_my_example`. This rule also applies to naming any new files that you want to be detected by the testing suite, though the `test` keyword must be appended to the end of the title. An example filename would then be `my_example_test.py`.
+Test methods that you want to be discovered and run by `pytest` must be prefixed with the keyword `test`. For example: `test_pixel_tracking_detection`. A similar rule applies to naming any new test class files that you want to be detected by the testing suite: the `test` keyword must be appended to the end of the title. For example: `pixel_test.py`.
 
-If you're covering some of the functionality of the badger storage object, you may or may not want to consider clearing the pretrained seed data on the initial badger object. This could be done with something like `self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")`.
+When testing Badger's tracker detection/learning, you should first clear the pre-trained/seed tracker data. For example (run on Badger's options page): `self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")`. Clearing seed data ensures that the tracking domain was discovered just now and not from seed data.
+
+You should also set up your tracking detection test in a way where your test fixture has a "no tracking" mode that you visit first and assert that no tracking was detected. This is to ensure that when we detect the tracking being tested we didn't actually detect some other kind of tracking instead.
+
+Just as with unit tests, please verify that removing or mutating the code being tested produces failed assertions.
