@@ -263,6 +263,7 @@ var multiDomainFirstPartiesArray = [
     "kleinezeitung.at",
     "vn.at",
     "kurier.at",
+    "schautv.at",
     "nachrichten.at",
     "derstandard.at",
     "sn.at",
