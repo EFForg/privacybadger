@@ -1270,6 +1270,7 @@ var multiDomainFirstPartiesArray = [
     "onenote.com",
     "onestore.ms",
     "passport.net",
+    "powerapps.com",
     "sharepoint.com",
     "sharepoint-df.com",
     "sharept.ms",
