@@ -70,6 +70,7 @@ bigcommerce.com
 www.bing.com
 bit.ly
 bizrate.com
+blockstack.org
 blogblog.com
 blogger.com
 blogher.org
