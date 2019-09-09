@@ -254,6 +254,7 @@ docs.google.com
 drive.google.com
 feedburner.google.com
 feedproxy.google.com
+fonts.google.com
 fusiontables.google.com
 groups.google.com
 kh.google.com
