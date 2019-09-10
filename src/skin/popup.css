@@ -255,11 +255,16 @@ font-size: 16px;
   padding-top: 7px;
   cursor: pointer;
 }
-#pbInstructions{
-  color: #505050;
-  font-size: 16px;
-  padding-top: 10px;
-  margin: 0;
+#pbInstructions, #special-browser-page {
+    color: #505050;
+    font-size: 16px;
+    margin: 0;
+    padding-top: 10px;
+}
+#special-browser-page {
+    text-align: center;
+    margin: 45px 0;
+    padding: 0;
 }
 
 .pbButton{
