@@ -122,20 +122,6 @@ function estimateMaxEntropy(str) {
    */
   let MAX_LS_LEN_FOR_ENTROPY_EST = 256;
 
-  // common classes of characters that a string might belong to
-  let SEPS = "._-";
-  let BIN = "01";
-  let DEC = "0123456789";
-
-  // these classes are case-insensitive
-  let HEX = "abcdef" + DEC;
-  let ALPHA = "abcdefghijklmnopqrstuvwxyz";
-  let ALPHANUM = ALPHA + DEC;
-
-  // these classes are case-sensitive
-  let B64 = ALPHANUM + ALPHA.toUpperCase() + "/+";
-  let URL = ALPHANUM + ALPHA.toUpperCase() + "~%";
-
   if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST) {
     /*
      * Just return a higher-than-threshold entropy estimate.
@@ -152,29 +138,6 @@ function estimateMaxEntropy(str) {
   let sameCase = (str.toLowerCase() == str) || (str.toUpperCase() == str);
   if (sameCase) {
     str = str.toLowerCase();
-  }
-
-  // If all the characters come from one of these common character groups,
-  // assume that the group is the domain of possible characters.
-  for (let chr_class of [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
-    let group = chr_class + SEPS;
-    // Ignore separator characters when computing entropy. For example, Google
-    // Analytics IDs look like "14103492.1964907".
-
-    // flag to toggle if each character of input string belongs to the group in question
-    let each_char_in_group;
-
-    [...str].forEach(char => {
-      if (group.includes(char)) {
-        if (!each_char_in_group) { each_char_in_group = true; }
-      } else { each_char_in_group = false; }
-    });
-
-    // if the flag resolves to true, we've found our culprit and can break out of the loop
-    if (each_char_in_group) {
-      maxSymbols = chr_class.length;
-      break;
-    }
   }
 
   // If there's not an obvious class of characters, use the heuristic
