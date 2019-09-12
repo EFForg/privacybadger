@@ -1803,10 +1803,12 @@ var multiDomainFirstPartiesArray = [
   [
     "salesforce.com",
 
+    "documentforce.com",
     "einstein.com",
     "force.com",
     "pardot.com",
     "salesforceliveagent.com",
+    "visualforce.com",
   ],
   ["sanguosha.com", "bianfeng.com"],
   ["schwab.com", "schwabplan.com"],
