@@ -29,16 +29,16 @@ require.scopes.heuristicblocking = (function() {
 // make heuristic obj with utils and storage properties and put the things on it
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
-}
 
-// TODO roll into tabData? -- 6/10/2019 not for now, since tabData is populated
-// by the synchronous listeners in webrequests.js and tabOrigins is used by the
-// async listeners here; there's no way to enforce ordering of requests among
-// those two. Also, tabData is cleaned up every time a tab is closed, so
-// dangling requests that don't trigger listeners until after the tab closes are
-// impossible to attribute to a tab.
-var tabOrigins = { };
-var tabURLs = { };
+  // TODO roll into tabData? -- 6/10/2019 not for now, since tabData is populated
+  // by the synchronous listeners in webrequests.js and tabOrigins is used by the
+  // async listeners here; there's no way to enforce ordering of requests among
+  // those two. Also, tabData is cleaned up every time a tab is closed, so
+  // dangling requests that don't trigger listeners until after the tab closes are
+  // impossible to attribute to a tab.
+  this.tabOrigins = {};
+  this.tabUrls = {};
+}
 
 HeuristicBlocker.prototype = {
   /**
@@ -95,14 +95,10 @@ HeuristicBlocker.prototype = {
 
   /**
    * Wraps _recordPrevalence for use from webRequest listeners.
-   * Also saves tab (page) origins. TODO Should be handled by tabData instead.
-   *
-   * Called from performance-critical webRequest listeners!
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
-   * @param details are those from onBeforeSendHeaders
+   * @param {Object} details request/response details
    * @param {Boolean} check_for_cookie_share whether to check for cookie sharing
-   * @returns {*}
    */
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
     // ignore requests that are outside a tabbed window
@@ -110,18 +106,18 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    let request_host = (new URI(details.url)).host,
+    let self = this,
+      request_host = (new URI(details.url)).host,
       request_origin = window.getBaseDomain(request_host);
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
-      tabOrigins[details.tabId] = request_origin;
-      tabURLs[details.tabId] = details.url;
+      self.tabOrigins[details.tabId] = request_origin;
+      self.tabUrls[details.tabId] = details.url;
       return {};
     }
 
-    let tab_origin = tabOrigins[details.tabId],
-      self = this;
+    let tab_origin = self.tabOrigins[details.tabId];
 
     // ignore first-party requests
     if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
@@ -150,7 +146,7 @@ HeuristicBlocker.prototype = {
     if (check_for_cookie_share && details.type == 'image' && details.url.indexOf('?') > -1) {
       // get all cookies for the top-level frame and pass those to the
       // cookie-share accounting function
-      let tab_url = tabURLs[details.tabId];
+      let tab_url = self.tabUrls[details.tabId];
 
       let config = {
         url: tab_url

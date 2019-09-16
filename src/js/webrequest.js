@@ -320,6 +320,17 @@ function onNavigate(details) {
 
   forgetTab(tab_id);
   badger.recordFrame(tab_id, 0, url);
+
+  // initialize tab data bookkeeping used by heuristicBlockingAccounting()
+  // to avoid missing or misattributing learning
+  // when there is no "main_frame" webRequest callback
+  // (such as on Service Worker pages)
+  //
+  // see the tabOrigins TODO in heuristicblocking.js
+  // as to why we don't just use tabData
+  let base = window.getBaseDomain(badger.tabData[tab_id].frames[0].host);
+  badger.heuristicBlocking.tabOrigins[tab_id] = base;
+  badger.heuristicBlocking.tabUrls[tab_id] = url;
 }
 
 /******** Utility Functions **********/
