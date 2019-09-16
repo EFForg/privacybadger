@@ -515,7 +515,7 @@ QUnit.test("estimateMaxEntropy", assert => {
 
   assert.notEqual(
     utils.estimateMaxEntropy('google.com/analytics'),
-    utils.estimateMaxEntropy('0191/_-google9fjkelo'),
+    utils.estimateMaxEntropy('0191/_-goo~le9x+xzxo'),
     "strings of the same length but from different character classes will estimate different entropy values"
   );
 
@@ -527,13 +527,13 @@ QUnit.test("estimateMaxEntropy", assert => {
 
   assert.equal(
     utils.estimateMaxEntropy("03899029.01_293"),
-    84.65784284662087,
+    49.82892142331044,
     "entropy for string from the common classes of characters is correctly estimated"
   );
 
   assert.equal(
     utils.estimateMaxEntropy("fizzBUZZ012345"),
-    87.20346166694233,
+    84,
     "entropy for string from the case-insensitive class of characters is correctly estimated"
   );
 

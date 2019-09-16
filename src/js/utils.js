@@ -114,20 +114,34 @@ function explodeSubdomains(fqdn, all) {
  */
 function estimateMaxEntropy(str) {
   /*
-   * Don't process item + key's longer than LOCALSTORAGE_MAX_LEN_FOR_ENTROPY_EST.
-   * Note that default quota for local storage is 5MB and
-   * storing fonts, scripts or images in for local storage for
-   * performance is not uncommon. We wouldn't want to estimate entropy
-   * for 5M chars.
-   */
+  * Don't process item + key's longer than LOCALSTORAGE_MAX_LEN_FOR_ENTROPY_EST.
+  * Note that default quota for local storage is 5MB and
+  * storing fonts, scripts or images in for local storage for
+  * performance is not uncommon. We wouldn't want to estimate entropy
+  * for 5M chars.
+  */
   let MAX_LS_LEN_FOR_ENTROPY_EST = 256;
+
+  // common classes of characters that a string might belong to
+  let SEPS = "._-x";
+  let BIN = "01";
+  let DEC = "0123456789";
+
+  // these classes are case-insensitive
+  let HEX = "abcdef" + DEC;
+  let ALPHA = "abcdefghijklmnopqrstuvwxyz";
+  let ALPHANUM = ALPHA + DEC;
+
+  // these classes are case-sensitive
+  let B64 = ALPHANUM + ALPHA.toUpperCase() + "/+";
+  let URL = ALPHANUM + ALPHA.toUpperCase() + "~%";
 
   if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST) {
     /*
-     * Just return a higher-than-threshold entropy estimate.
-     * We assume 1 bit per char, which will be well over the
-     * threshold (33 bits).
-     */
+    * Just return a higher-than-threshold entropy estimate.
+    * We assume 1 bit per char, which will be well over the
+    * threshold (33 bits).
+    */
     return str.length;
   }
 
@@ -138,6 +152,29 @@ function estimateMaxEntropy(str) {
   let sameCase = (str.toLowerCase() == str) || (str.toUpperCase() == str);
   if (sameCase) {
     str = str.toLowerCase();
+  }
+
+  // If all the characters come from one of these common character groups,
+  // assume that the group is the domain of possible characters.
+  for (let chr_class of [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
+    let group = chr_class + SEPS;
+    // Ignore separator characters when computing entropy. For example, Google
+    // Analytics IDs look like "14103492.1964907".
+
+    // flag to check if each character of input string belongs to the group in question
+    let each_char_in_group = true;
+
+    [...str].forEach(char => {
+      if (!group.includes(char)) {
+        each_char_in_group = false;
+      }
+    });
+
+    // if the flag resolves to true, we've found our culprit and can break out of the loop
+    if (each_char_in_group) {
+      maxSymbols = chr_class.length;
+      break;
+    }
   }
 
   // If there's not an obvious class of characters, use the heuristic
@@ -154,7 +191,7 @@ function estimateMaxEntropy(str) {
   // the entropy is (entropy per character) * (number of characters)
   let maxBits = (Math.log(maxSymbols)/Math.LN2) * str.length;
   /* console.log("Local storage item length:", str.length, "# symbols guess:", maxSymbols,
-    "Max bits:", maxBits) */
+   "Max bits:", maxBits) */
   return maxBits;
 }
 
