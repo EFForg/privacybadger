@@ -588,11 +588,11 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "Nothing to do on this page",
+        "message": "Estas nenio por fari ĉe tiu ĉi paĝo",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger doesn't work on special pages like this one. Try browsing somewhere else.",
+        "message": "Privata Melo ne funkcias ĉe specialaj paĝoj kiel tiu ĉi. Provu malfermi alian paĝon.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     }
 }
