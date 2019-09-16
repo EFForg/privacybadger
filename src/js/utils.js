@@ -164,11 +164,14 @@ function estimateMaxEntropy(str) {
     // flag to check if each character of input string belongs to the group in question
     let each_char_in_group = true;
 
-    [...str].forEach(char => {
+    let split_str = str.split('');
+
+    for (let char of split_str) {
       if (!group.includes(char)) {
         each_char_in_group = false;
+        break;
       }
-    });
+    }
 
     // if the flag resolves to true, we've found our culprit and can break out of the loop
     if (each_char_in_group) {

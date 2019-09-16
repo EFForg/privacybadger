@@ -543,6 +543,12 @@ QUnit.test("estimateMaxEntropy", assert => {
     "entropy for string from the case-sensitive class of characters is correctly estimated"
   );
 
+  assert.equal(
+    utils.estimateMaxEntropy("1280x720") < 32,
+    true,
+    "resolution strings with 'x' char from SEPS class are correctly estimated as low entropy"
+  );
+
 });
 
 })();
