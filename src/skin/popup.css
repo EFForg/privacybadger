@@ -181,8 +181,6 @@ font-size: 16px;
 }
 
 #firstRun:hover {
-  /*color: #6ECD00;
-  border: 2px solid #6ECD00;*/
   cursor: pointer;
   text-decoration: underline;
   background-color: #EC9329;
@@ -278,15 +276,13 @@ font-size: 16px;
   cursor: pointer;
   text-align: center;
   margin-top: 8px;
-  border: 2px solid #707070;
+  border: 2px solid;
   width: 100%;
-  color: #707070;
   background-color: #fefefe;
 }
 
 .pbButton:hover {
-  color: #000;
-  border: 2px solid #000;
+  border: 2px solid #F06A0A;
 }
 
 #nonTrackers {
@@ -389,9 +385,6 @@ div.overlay.active {
 }
 
 #version{
-  float: right;
-  margin-top: 5px;
-  padding-left: 60px;
   color: #707070;
   font-size: 10px;
 }
