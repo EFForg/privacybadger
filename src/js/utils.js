@@ -114,11 +114,11 @@ function explodeSubdomains(fqdn, all) {
  */
 function estimateMaxEntropy(str) {
   /*
-  * Don't process item + key's longer than LOCALSTORAGE_MAX_LEN_FOR_ENTROPY_EST.
-  * Note that default quota for local storage is 5MB and
-  * storing fonts, scripts or images in for local storage for
-  * performance is not uncommon. We wouldn't want to estimate entropy
-  * for 5M chars.
+   * Don't process item + key's longer than LOCALSTORAGE_MAX_LEN_FOR_ENTROPY_EST.
+   * Note that default quota for local storage is 5MB and
+   * storing fonts, scripts or images in for local storage for
+   * performance is not uncommon. We wouldn't want to estimate entropy
+   * for 5M chars.
   */
   let MAX_LS_LEN_FOR_ENTROPY_EST = 256;
 
@@ -138,9 +138,9 @@ function estimateMaxEntropy(str) {
 
   if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST) {
     /*
-    * Just return a higher-than-threshold entropy estimate.
-    * We assume 1 bit per char, which will be well over the
-    * threshold (33 bits).
+     * Just return a higher-than-threshold entropy estimate.
+     * We assume 1 bit per char, which will be well over the
+     * threshold (33 bits).
     */
     return str.length;
   }
@@ -154,6 +154,8 @@ function estimateMaxEntropy(str) {
     str = str.toLowerCase();
   }
 
+  let splitStr = str.split('');
+
   // If all the characters come from one of these common character groups,
   // assume that the group is the domain of possible characters.
   for (let chr_class of [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
@@ -164,9 +166,7 @@ function estimateMaxEntropy(str) {
     // flag to check if each character of input string belongs to the group in question
     let each_char_in_group = true;
 
-    let split_str = str.split('');
-
-    for (let char of split_str) {
+    for (let char of splitStr) {
       if (!group.includes(char)) {
         each_char_in_group = false;
         break;
