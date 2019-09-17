@@ -108,44 +108,41 @@ function explodeSubdomains(fqdn, all) {
 }
 
 /*
- * Estimate the max possible entropy of str using min and max
- * char codes observed in the string.
- * Sensitive to case, e.g. bad1dea is different than BAD1DEA
+ * Estimates the max possible entropy of string.
+ *
+ * @param {String} str the string to compute entropy for
+ * @returns {Integer} bits of entropy
  */
 function estimateMaxEntropy(str) {
-  /*
-   * Don't process item + key's longer than LOCALSTORAGE_MAX_LEN_FOR_ENTROPY_EST.
-   * Note that default quota for local storage is 5MB and
-   * storing fonts, scripts or images in for local storage for
-   * performance is not uncommon. We wouldn't want to estimate entropy
-   * for 5M chars.
-   */
-  let MAX_LS_LEN_FOR_ENTROPY_EST = 256;
+  // Don't process strings longer than MAX_LS_LEN_FOR_ENTROPY_EST.
+  // Note that default quota for local storage is 5MB and
+  // storing fonts, scripts or images in for local storage for
+  // performance is not uncommon. We wouldn't want to estimate entropy
+  // for 5M chars.
+  const MAX_LS_LEN_FOR_ENTROPY_EST = 256;
 
   // common classes of characters that a string might belong to
-  let SEPS = "._-";
-  let BIN = "01";
-  let DEC = "0123456789";
+  const SEPS = "._-x";
+  const BIN = "01";
+  const DEC = "0123456789";
 
   // these classes are case-insensitive
-  let HEX = "abcdef" + DEC;
-  let ALPHA = "abcdefghijklmnopqrstuvwxyz";
-  let ALPHANUM = ALPHA + DEC;
+  const HEX = "abcdef" + DEC;
+  const ALPHA = "abcdefghijklmnopqrstuvwxyz";
+  const ALPHANUM = ALPHA + DEC;
 
   // these classes are case-sensitive
-  let B64 = ALPHANUM + ALPHA.toUpperCase() + "/+";
-  let URL = ALPHANUM + ALPHA.toUpperCase() + "~%";
+  const B64 = ALPHANUM + ALPHA.toUpperCase() + "/+";
+  const URL = ALPHANUM + ALPHA.toUpperCase() + "~%";
 
   if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST) {
-    /*
-     * Just return a higher-than-threshold entropy estimate.
-     * We assume 1 bit per char, which will be well over the
-     * threshold (33 bits).
-     */
+    // Just return a higher-than-threshold entropy estimate.
+    // We assume 1 bit per char, which will be well over the
+    // threshold (33 bits).
     return str.length;
   }
 
-  let maxSymbols;
+  let max_symbols;
 
   // If all characters are upper or lower case, don't consider case when
   // computing entropy.
@@ -154,33 +151,47 @@ function estimateMaxEntropy(str) {
     str = str.toLowerCase();
   }
 
+  let splitStr = str.split('');
+
   // If all the characters come from one of these common character groups,
   // assume that the group is the domain of possible characters.
-  for (let chr_class in [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
+  for (let chr_class of [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
     let group = chr_class + SEPS;
     // Ignore separator characters when computing entropy. For example, Google
     // Analytics IDs look like "14103492.1964907".
-    if (str.split().every(val => group.includes(val))) {
-      maxSymbols = chr_class.length;
+
+    // flag to check if each character of input string belongs to the group in question
+    let each_char_in_group = true;
+
+    for (let ch of splitStr) {
+      if (!group.includes(ch)) {
+        each_char_in_group = false;
+        break;
+      }
+    }
+
+    // if the flag resolves to true, we've found our culprit and can break out of the loop
+    if (each_char_in_group) {
+      max_symbols = chr_class.length;
+      break;
     }
   }
 
   // If there's not an obvious class of characters, use the heuristic
   // "max char code - min char code"
-  if (maxSymbols == undefined) {
+  if (max_symbols == undefined) {
     let charCodes = Array.prototype.map.call(str, function (ch) {
       return String.prototype.charCodeAt.apply(ch);
     });
-    let minCharCode = Math.min.apply(Math, charCodes);
-    let maxCharCode = Math.max.apply(Math, charCodes);
-    maxSymbols = maxCharCode - minCharCode + 1;
+    let min_char_code = Math.min.apply(Math, charCodes);
+    let max_char_code = Math.max.apply(Math, charCodes);
+    max_symbols = max_char_code - min_char_code + 1;
   }
 
   // the entropy is (entropy per character) * (number of characters)
-  let maxBits = (Math.log(maxSymbols)/Math.LN2) * str.length;
-  /* console.log("Local storage item length:", str.length, "# symbols guess:", maxSymbols,
-    "Max bits:", maxBits) */
-  return maxBits;
+  let max_bits = (Math.log(max_symbols) / Math.LN2) * str.length;
+
+  return max_bits;
 }
 
 // Adapted from https://gist.github.com/jaewook77/cd1e3aa9449d7ea4fb4f

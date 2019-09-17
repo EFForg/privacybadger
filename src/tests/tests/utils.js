@@ -502,9 +502,9 @@ QUnit.test("estimateMaxEntropy", assert => {
   );
 
   assert.equal(
-    utils.estimateMaxEntropy("google.com/analytics"),
-    utils.estimateMaxEntropy("GOOGLE.COM/ANALYTICS"),
-    "if the same string is all lower case or all upper case, the returned extimated entropy value is the same"
+    utils.estimateMaxEntropy("googlecomanalytics"),
+    utils.estimateMaxEntropy("GOOGLECOMANALYTICS"),
+    "if the same string is all lower case or all upper case, the returned estimated entropy value is the same"
   );
 
   assert.notEqual(
@@ -515,14 +515,38 @@ QUnit.test("estimateMaxEntropy", assert => {
 
   assert.notEqual(
     utils.estimateMaxEntropy('google.com/analytics'),
-    utils.estimateMaxEntropy('0191/_-google9fjkelo'),
+    utils.estimateMaxEntropy('0191/_-goo~le9x+xzxo'),
     "strings of the same length but from different character classes will estimate different entropy values"
   );
 
   assert.equal(
     utils.estimateMaxEntropy("google.com/0191/_-google/analytics.fizz?buzz=foobar"),
     320.55551316197466,
-    "entropy for complex string of varying character classes estimates entropy correctly"
+    "entropy for complex string of varying character classes is correctly estimated"
+  );
+
+  assert.equal(
+    utils.estimateMaxEntropy("03899029.01_293"),
+    49.82892142331044,
+    "entropy for string from the common classes of characters is correctly estimated"
+  );
+
+  assert.equal(
+    utils.estimateMaxEntropy("fizzBUZZ012345"),
+    84,
+    "entropy for string from the case-insensitive class of characters is correctly estimated"
+  );
+
+  assert.equal(
+    utils.estimateMaxEntropy("fizz/buzz+fizzy~buzzy%"),
+    142.82076811925285,
+    "entropy for string from the case-sensitive class of characters is correctly estimated"
+  );
+
+  assert.equal(
+    utils.estimateMaxEntropy("1280x720") < 32,
+    true,
+    "resolution strings with 'x' char from SEPS class are correctly estimated as low entropy"
   );
 
 });
