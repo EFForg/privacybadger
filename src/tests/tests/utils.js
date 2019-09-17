@@ -504,7 +504,7 @@ QUnit.test("estimateMaxEntropy", assert => {
   assert.equal(
     utils.estimateMaxEntropy("googlecomanalytics"),
     utils.estimateMaxEntropy("GOOGLECOMANALYTICS"),
-    "if the same string is all lower case or all upper case, the returned extimated entropy value is the same"
+    "if the same string is all lower case or all upper case, the returned estimated entropy value is the same"
   );
 
   assert.notEqual(
