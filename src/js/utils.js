@@ -151,8 +151,6 @@ function estimateMaxEntropy(str) {
     str = str.toLowerCase();
   }
 
-  let splitStr = str.split('');
-
   // If all the characters come from one of these common character groups,
   // assume that the group is the domain of possible characters.
   for (let chr_class of [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
@@ -163,7 +161,7 @@ function estimateMaxEntropy(str) {
     // flag to check if each character of input string belongs to the group in question
     let each_char_in_group = true;
 
-    for (let ch of splitStr) {
+    for (let ch of str) {
       if (!group.includes(ch)) {
         each_char_in_group = false;
         break;
@@ -179,7 +177,7 @@ function estimateMaxEntropy(str) {
 
   // If there's not an obvious class of characters, use the heuristic
   // "max char code - min char code"
-  if (max_symbols == undefined) {
+  if (!max_symbols) {
     let charCodes = Array.prototype.map.call(str, function (ch) {
       return String.prototype.charCodeAt.apply(ch);
     });
