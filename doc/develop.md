@@ -35,4 +35,5 @@ Constants should be ALL CAPS UPPERCASE.
 Examples:
 
 `TRACKER_ENTROPY_THRESHOLD = 33`
+
 `let tab_id = details.tabId`
