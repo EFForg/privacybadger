@@ -52,9 +52,7 @@ function onBeforeRequest(details) {
 
   if (type == "main_frame") {
     forgetTab(tab_id);
-
     badger.recordFrame(tab_id, frame_id, url);
-
     return {};
   }
 
@@ -383,6 +381,40 @@ function onTabReplaced(addedTabId, removedTabId) {
   forgetTab(removedTabId);
   // Update the badge of the added tab, which was probably used for prerendering.
   badger.updateBadge(addedTabId);
+}
+
+/**
+ * We don't always get a "main_frame" details object in onBeforeRequest,
+ * so we need a fallback for (re)initializing tabData.
+ */
+function onNavigate(details) {
+  const tab_id = details.tabId,
+    url = details.url;
+
+  // main (top-level) frames only
+  if (details.frameId !== 0) {
+    return;
+  }
+
+  // forget but don't initialize on special browser/extension pages
+  if (utils.isRestrictedUrl(url)) {
+    forgetTab(tab_id);
+    return;
+  }
+
+  forgetTab(tab_id);
+  badger.recordFrame(tab_id, 0, url);
+
+  // initialize tab data bookkeeping used by heuristicBlockingAccounting()
+  // to avoid missing or misattributing learning
+  // when there is no "main_frame" webRequest callback
+  // (such as on Service Worker pages)
+  //
+  // see the tabOrigins TODO in heuristicblocking.js
+  // as to why we don't just use tabData
+  let base = window.getBaseDomain(badger.tabData[tab_id].frames[0].host);
+  badger.heuristicBlocking.tabOrigins[tab_id] = base;
+  badger.heuristicBlocking.tabUrls[tab_id] = url;
 }
 
 /******** Utility Functions **********/
@@ -940,6 +972,8 @@ function dispatcher(request, sender, sendResponse) {
 
 /*************** Event Listeners *********************/
 function startListeners() {
+  chrome.webNavigation.onBeforeNavigate.addListener(onNavigate);
+
   chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];

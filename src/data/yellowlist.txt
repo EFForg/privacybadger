@@ -1,3 +1,5 @@
+nosdn.127.net
+bnet.163.com
 123greetings.com
 122.2o7.net
 112.2o7.net
@@ -9,6 +11,7 @@ auth.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
 assets.adobedtm.com
+affirm.com
 akamai.net
 akamaihd.net
 akamaized.net
@@ -41,6 +44,7 @@ hiroservers.appspot.com
 snapabug.appspot.com
 appspot.com
 arcgis.com
+arcgisonline.com
 archive.org
 secure5.arcot.com
 arcot.com
@@ -67,6 +71,7 @@ bigcommerce.com
 www.bing.com
 bit.ly
 bizrate.com
+blockstack.org
 blogblog.com
 blogger.com
 blogher.org
@@ -150,7 +155,9 @@ uploads.disquscdn.com
 dmcdn.net
 dmcdn.com
 screendoor.dobt.co
+documentcloud.org
 domainnamesales.com
+donorbox.org
 dotsub.com
 dl.dropboxusercontent.com
 dudamobile.com
@@ -166,6 +173,7 @@ edgefcs.net
 edgekey.net
 editmysite.com
 files.edx.org
+ehc.com
 elasticbeanstalk.com
 eltrafiko.com
 api-cdn.embed.ly
@@ -228,6 +236,7 @@ getpocket.com
 giant.gfycat.com
 gfycat.com
 ggpht.com
+gigya.com
 giphy.com
 github.com
 githubusercontent.com
@@ -250,6 +259,7 @@ docs.google.com
 drive.google.com
 feedburner.google.com
 feedproxy.google.com
+fonts.google.com
 fusiontables.google.com
 groups.google.com
 kh.google.com
@@ -302,6 +312,7 @@ hellobar.com
 herokuapp.com
 code.highcharts.com
 homestead.com
+cdn.hometogo.net
 honcode.ch
 hootsuite.com
 howaboutwe.com
@@ -423,6 +434,7 @@ nbcuni.com
 neighborsink.com
 netdna-cdn.com
 netdna-ssl.com
+nos.netease.com
 netflix.com
 networksolutions.com
 newsinc.com
@@ -663,6 +675,7 @@ wikimedia.org
 wikipedia.org
 wildapricot.org
 windows.net
+windy.com
 wishabi.com
 wistia.net
 wistia.com

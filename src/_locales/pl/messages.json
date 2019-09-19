@@ -586,5 +586,13 @@
     "copy_button_copied": {
         "message": "Skopiowano",
         "description": "On-click text of the copy button on the share overlay."
+    },
+    "popup_special_page_header": {
+        "message": "Nic do roboty na tej stronie",
+        "description": "Heading for popup_special_page_paragraph"
+    },
+    "popup_special_page_paragraph": {
+        "message": "Privacy Badger nie działa na specjalnych stronach jak ta. Spróbuj otworzyć inną stronę.",
+        "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     }
 }

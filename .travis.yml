@@ -1,7 +1,7 @@
 sudo: required
 language: python
 os: linux
-dist: trusty
+dist: xenial
 python: 3.4
 matrix:
   fast_finish: true
@@ -23,8 +23,7 @@ matrix:
     - addons:
         firefox: latest-beta
       env: INFO="firefox beta" BROWSER=firefox
-before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
 before_script: travis_retry ./scripts/setup_travis.sh
 script: . ./scripts/run_travis.sh
+services:
+  - xvfb

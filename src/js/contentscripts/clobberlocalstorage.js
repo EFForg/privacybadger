@@ -38,11 +38,18 @@ chrome.runtime.sendMessage({ checkLocation: window.FRAME_URL }, function (blocke
     var code =
       '('+ function() {
 
+        /*
+         * If localStorage is inaccessible, such as when "Block third-party cookies"
+         * in enabled in Chrome or when `dom.storage.enabled` is set to `false` in
+         * Firefox, do not go any further.
+         */
         try {
-          localStorage; // eslint-disable-line no-unused-expressions
+          // No localStorage raises an Exception in Chromium-based browsers, while
+          // it's equal to `null` in Firefox.
+          if (null === localStorage) {
+            throw false;
+          }
         } catch (ex) {
-          // abort when we can't access localStorage
-          // such as when "Block third-party cookies" is enabled in Chrome
           return;
         }
 

@@ -438,11 +438,10 @@ function refreshPopup() {
   window.SLIDERS_DONE = false;
 
   // must be a special browser page,
-  // or a page that loaded everything before our most recent initialization
   if (POPUP_DATA.noTabData) {
     // replace inapplicable summary text with a Badger logo
     $('#blockedResourcesContainer').hide();
-    $('#big-badger-logo').show();
+    $('#special-browser-page').show();
 
     // hide inapplicable buttons
     $('#deactivate_site_btn').hide();
@@ -459,7 +458,7 @@ function refreshPopup() {
   // revert any hiding/showing above for cases when refreshPopup gets called
   // more than once for the same popup, such as during functional testing
   $('#blockedResourcesContainer').show();
-  $('#big-badger-logo').hide();
+  $('#special-browser-page').hide();
   $('#deactivate_site_btn').show();
   $('#error').show();
 
