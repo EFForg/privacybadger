@@ -23,3 +23,17 @@ You can review our set of ESLint rules in [`.eslintrc.yml`](/.eslintrc.yml). Fil
 ### Writing good commit messages
 
 I highly suggest reviewing the suggestions in this [excellent guide to writing commit messages](https://chris.beams.io/posts/git-commit/).
+
+### Naming conventions
+
+There hasn't been strict naming conventions in the past for this project, though as we move forward we've decided to stick to something like this:
+
+Objects and their properties should be named in camelCase.
+All primitive types should be Python style, snake_case.
+Constants should be ALL CAPS UPPERCASE.
+
+Examples:
+
+`TRACKER_ENTROPY_THRESHOLD = 33`
+
+`let tab_id = details.tabId`
