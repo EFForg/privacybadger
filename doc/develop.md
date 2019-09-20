@@ -12,28 +12,32 @@ In Firefox, visit `about:debugging`, click "Load Temporary Add-on" and select th
 
 ## Send a pull request
 
-Before submitting a pull request (PR), please check your changes using [ESLint](https://eslint.org), our preferred automated static analysis ("lint") tool.
+Before submitting a pull request (PR), please review the sections below.
 
-### Lint your changes
+### Style guide
 
-First, install the exact expected version of ESLint by running `npm install` in your Privacy Badger source code checkout directory. You should then be able to produce a lint report by running `make lint` in the same directory.
+All JavaScript code going forward should use the following naming conventions:
 
-You can review our set of ESLint rules in [`.eslintrc.yml`](/.eslintrc.yml). Files we want ESLint to ignore are specified in [`.eslintignore`](/.eslintignore).
-
-### Writing good commit messages
-
-I highly suggest reviewing the suggestions in this [excellent guide to writing commit messages](https://chris.beams.io/posts/git-commit/).
-
-### Naming conventions
-
-There hasn't been strict naming conventions in the past for this project, though as we move forward we've decided to stick to something like this:
-
-Objects and their properties should be named in camelCase.
-All primitive types should be Python style, snake_case.
-Constants should be ALL CAPS UPPERCASE.
+- Objects and their properties should be Java or camelCase style.
+- Primitive types should be Python or snake_case style.
+- Constants should be ALL_CAPS.
 
 Examples:
 
-`TRACKER_ENTROPY_THRESHOLD = 33`
+```javascript
+const TRACKER_ENTROPY_THRESHOLD = 33;
 
-`let tab_id = details.tabId`
+let tab_id = details.tabId;
+
+window.badger.getTrackerCount(tab_id);
+```
+
+### Catch errors early with static code analysis
+
+First, install the exact expected version of [ESLint](https://eslint.org) by running `npm install` in your Privacy Badger source code checkout directory. You should then be able to produce a lint report by running `make lint` in the same directory.
+
+You can review our set of ESLint rules in [`.eslintrc.yml`](/.eslintrc.yml). Files we want ESLint to ignore are specified in [`.eslintignore`](/.eslintignore).
+
+### Commit messages
+
+Please review the suggestions in this excellent [guide to writing commit messages](https://chris.beams.io/posts/git-commit/).
