@@ -1,10 +1,19 @@
-/*!
- * Punycode.js <http://mths.be/punycode>
- * Copyright 2011 Mathias Bynens <http://mathiasbynens.be/>
- * Available under MIT license <http://mths.be/mit>
- */
-
+/*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
+
+	/** Detect free variables */
+	var freeExports = typeof exports == 'object' && exports &&
+		!exports.nodeType && exports;
+	var freeModule = typeof module == 'object' && module &&
+		!module.nodeType && module;
+	var freeGlobal = typeof global == 'object' && global;
+	if (
+		freeGlobal.global === freeGlobal ||
+		freeGlobal.window === freeGlobal ||
+		freeGlobal.self === freeGlobal
+	) {
+		root = freeGlobal;
+	}
 
 	/**
 	 * The `punycode` object.
@@ -12,13 +21,6 @@
 	 * @type Object
 	 */
 	var punycode,
-
-	/** Detect free variables `define`, `exports`, `module` and `require` */
-	freeDefine = typeof define == 'function' && typeof define.amd == 'object' &&
-		define.amd && define,
-	freeExports = typeof exports == 'object' && exports,
-	freeModule = typeof module == 'object' && module,
-	freeRequire = typeof require == 'function' && require,
 
 	/** Highest positive signed 32-bit float value */
 	maxInt = 2147483647, // aka. 0x7FFFFFFF or 2^31-1
@@ -34,14 +36,13 @@
 	delimiter = '-', // '\x2D'
 
 	/** Regular expressions */
-	regexASCII = /[^\x20-\x7e]/,
 	regexPunycode = /^xn--/,
+	regexNonASCII = /[^\x20-\x7E]/, // unprintable ASCII chars + non-ASCII chars
+	regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g, // RFC 3490 separators
 
 	/** Error messages */
 	errors = {
-		'overflow': 'Overflow: input needs wider integers to process.',
-		'utf16decode': 'UTF-16(decode): illegal UTF-16 sequence',
-		'utf16encode': 'UTF-16(encode): illegal UTF-16 value',
+		'overflow': 'Overflow: input needs wider integers to process',
 		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
 		'invalid-input': 'Invalid input'
 	},
@@ -63,7 +64,7 @@
 	 * @returns {Error} Throws a `RangeError` with the applicable error message.
 	 */
 	function error(type) {
-		throw RangeError(errors[type]);
+		throw new RangeError(errors[type]);
 	}
 
 	/**
@@ -76,37 +77,53 @@
 	 */
 	function map(array, fn) {
 		var length = array.length;
+		var result = [];
 		while (length--) {
-			array[length] = fn(array[length]);
+			result[length] = fn(array[length]);
 		}
-		return array;
+		return result;
 	}
 
 	/**
-	 * A simple `Array#map`-like wrapper to work with domain name strings.
+	 * A simple `Array#map`-like wrapper to work with domain name strings or email
+	 * addresses.
 	 * @private
-	 * @param {String} domain The domain name.
+	 * @param {String} domain The domain name or email address.
 	 * @param {Function} callback The function that gets called for every
 	 * character.
 	 * @returns {Array} A new string of characters returned by the callback
 	 * function.
 	 */
 	function mapDomain(string, fn) {
-		var glue = '.';
-		return map(string.split(glue), fn).join(glue);
+		var parts = string.split('@');
+		var result = '';
+		if (parts.length > 1) {
+			// In email addresses, only the domain name should be punycoded. Leave
+			// the local part (i.e. everything up to `@`) intact.
+			result = parts[0] + '@';
+			string = parts[1];
+		}
+		// Avoid `split(regex)` for IE8 compatibility. See #17.
+		string = string.replace(regexSeparators, '\x2E');
+		var labels = string.split('.');
+		var encoded = map(labels, fn).join('.');
+		return result + encoded;
 	}
 
 	/**
-	 * Creates an array containing the decimal code points of each character in
-	 * the string.
-	 * @see `punycode.utf16.encode`
-	 * @see <http://tools.ietf.org/html/rfc2781>
-	 * @memberOf punycode.utf16
+	 * Creates an array containing the numeric code points of each Unicode
+	 * character in the string. While JavaScript uses UCS-2 internally,
+	 * this function will convert a pair of surrogate halves (each of which
+	 * UCS-2 exposes as separate characters) into a single code point,
+	 * matching UTF-16.
+	 * @see `punycode.ucs2.encode`
+	 * @see <https://mathiasbynens.be/notes/javascript-encoding>
+	 * @memberOf punycode.ucs2
 	 * @name decode
-	 * @param {String} string The Unicode input string.
-	 * @returns {Array} The new array.
+	 * @param {String} string The Unicode input string (UCS-2).
+	 * @returns {Array} The new array of code points.
 	 */
-	function utf16decode(string) {
+	function ucs2decode(string) {
 		var output = [],
 		    counter = 0,
 		    length = string.length,
@@ -114,33 +131,35 @@
 		    extra;
 		while (counter < length) {
 			value = string.charCodeAt(counter++);
-			if ((value & 0xF800) == 0xD800) {
+			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				// high surrogate, and there is a next character
 				extra = string.charCodeAt(counter++);
-				if ((value & 0xFC00) != 0xD800 || (extra & 0xFC00) != 0xDC00) {
-					error('utf16decode');
+				if ((extra & 0xFC00) == 0xDC00) { // low surrogate
+					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+				} else {
+					// unmatched surrogate; only append this code unit, in case the next
+					// code unit is the high surrogate of a surrogate pair
+					output.push(value);
+					counter--;
 				}
-				value = ((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000;
+			} else {
+				output.push(value);
 			}
-			output.push(value);
 		}
 		return output;
 	}
 
 	/**
-	 * Creates a string based on an array of decimal code points.
-	 * @see `punycode.utf16.decode`
-	 * @see <http://tools.ietf.org/html/rfc2781>
-	 * @memberOf punycode.utf16
+	 * Creates a string based on an array of numeric code points.
+	 * @see `punycode.ucs2.decode`
+	 * @memberOf punycode.ucs2
 	 * @name encode
-	 * @param {Array} codePoints The array of decimal code points.
-	 * @returns {String} The new string.
+	 * @param {Array} codePoints The array of numeric code points.
+	 * @returns {String} The new Unicode string (UCS-2).
 	 */
-	function utf16encode(array) {
+	function ucs2encode(array) {
 		return map(array, function(value) {
 			var output = '';
-			if ((value & 0xF800) == 0xD800) {
-				error('utf16encode');
-			}
 			if (value > 0xFFFF) {
 				value -= 0x10000;
 				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
@@ -155,19 +174,22 @@
 	 * Converts a basic code point into a digit/integer.
 	 * @see `digitToBasic()`
 	 * @private
-	 * @param {Number} codePoint The basic (decimal) code point.
+	 * @param {Number} codePoint The basic numeric code point value.
 	 * @returns {Number} The numeric value of a basic code point (for use in
 	 * representing integers) in the range `0` to `base - 1`, or `base` if
 	 * the code point does not represent a value.
 	 */
 	function basicToDigit(codePoint) {
-		return codePoint - 48 < 10
-			? codePoint - 22
-			: codePoint - 65 < 26
-				? codePoint - 65
-				: codePoint - 97 < 26
-					? codePoint - 97
-					: base;
+		if (codePoint - 48 < 10) {
+			return codePoint - 22;
+		}
+		if (codePoint - 65 < 26) {
+			return codePoint - 65;
+		}
+		if (codePoint - 97 < 26) {
+			return codePoint - 97;
+		}
+		return base;
 	}
 
 	/**
@@ -179,7 +201,7 @@
 	 * representing integers) is `digit`, which needs to be in the range
 	 * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
 	 * used; else, the lowercase form is used. The behavior is undefined
-	 * if flag is non-zero and `digit` has no uppercase form.
+	 * if `flag` is non-zero and `digit` has no uppercase form.
 	 */
 	function digitToBasic(digit, flag) {
 		//  0..25 map to ASCII a..z or A..Z
@@ -189,7 +211,7 @@
 
 	/**
 	 * Bias adaptation function as per section 3.4 of RFC 3492.
-	 * http://tools.ietf.org/html/rfc3492#section-3.4
+	 * https://tools.ietf.org/html/rfc3492#section-3.4
 	 * @private
 	 */
 	function adapt(delta, numPoints, firstTime) {
@@ -203,28 +225,14 @@
 	}
 
 	/**
-	 * Converts a basic code point to lowercase is `flag` is falsy, or to
-	 * uppercase if `flag` is truthy. The code point is unchanged if it's
-	 * caseless. The behavior is undefined if `codePoint` is not a basic code
-	 * point.
-	 * @private
-	 * @param {Number} codePoint The numeric value of a basic code point.
-	 * @returns {Number} The resulting basic code point.
-	 */
-	function encodeBasic(codePoint, flag) {
-		codePoint -= (codePoint - 97 < 26) << 5;
-		return codePoint + (!flag && codePoint - 65 < 26) << 5;
-	}
-
-	/**
-	 * Converts a Punycode string of ASCII code points to a string of Unicode
-	 * code points.
+	 * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+	 * symbols.
 	 * @memberOf punycode
-	 * @param {String} input The Punycode string of ASCII code points.
-	 * @returns {String} The resulting string of Unicode code points.
+	 * @param {String} input The Punycode string of ASCII-only symbols.
+	 * @returns {String} The resulting string of Unicode symbols.
 	 */
 	function decode(input) {
-		// Don't use UTF-16
+		// Don't use UCS-2
 		var output = [],
 		    inputLength = input.length,
 		    out,
@@ -239,7 +247,6 @@
 		    k,
 		    digit,
 		    t,
-		    length,
 		    /** Cached calculation results */
 		    baseMinusT;
 
@@ -283,7 +290,7 @@
 				}
 
 				i += digit * w;
-				t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+				t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
 
 				if (digit < t) {
 					break;
@@ -315,15 +322,15 @@
 
 		}
 
-		return utf16encode(output);
+		return ucs2encode(output);
 	}
 
 	/**
-	 * Converts a string of Unicode code points to a Punycode string of ASCII
-	 * code points.
+	 * Converts a string of Unicode symbols (e.g. a domain name label) to a
+	 * Punycode string of ASCII-only symbols.
 	 * @memberOf punycode
-	 * @param {String} input The string of Unicode code points.
-	 * @returns {String} The resulting Punycode string of ASCII code points.
+	 * @param {String} input The string of Unicode symbols.
+	 * @returns {String} The resulting Punycode string of ASCII-only symbols.
 	 */
 	function encode(input) {
 		var n,
@@ -345,8 +352,8 @@
 		    baseMinusT,
 		    qMinusT;
 
-		// Convert the input in UTF-16 to Unicode
-		input = utf16decode(input);
+		// Convert the input in UCS-2 to Unicode
+		input = ucs2decode(input);
 
 		// Cache the length
 		inputLength = input.length;
@@ -406,7 +413,7 @@
 				if (currentValue == n) {
 					// Represent delta as a generalized variable-length integer
 					for (q = delta, k = base; /* no condition */; k += base) {
-						t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+						t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
 						if (q < t) {
 							break;
 						}
@@ -433,17 +440,18 @@
 	}
 
 	/**
-	 * Converts a Punycode string representing a domain name to Unicode. Only the
-	 * Punycoded parts of the domain name will be converted, i.e. it doesn't
-	 * matter if you call it on a string that has already been converted to
-	 * Unicode.
+	 * Converts a Punycode string representing a domain name or an email address
+	 * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
+	 * it doesn't matter if you call it on a string that has already been
+	 * converted to Unicode.
 	 * @memberOf punycode
-	 * @param {String} domain The Punycode domain name to convert to Unicode.
+	 * @param {String} input The Punycoded domain name or email address to
+	 * convert to Unicode.
 	 * @returns {String} The Unicode representation of the given Punycode
 	 * string.
 	 */
-	function toUnicode(domain) {
-		return mapDomain(domain, function(string) {
+	function toUnicode(input) {
+		return mapDomain(input, function(string) {
 			return regexPunycode.test(string)
 				? decode(string.slice(4).toLowerCase())
 				: string;
@@ -451,16 +459,19 @@
 	}
 
 	/**
-	 * Converts a Unicode string representing a domain name to Punycode. Only the
-	 * non-ASCII parts of the domain name will be converted, i.e. it doesn't
-	 * matter if you call it with a domain that's already in ASCII.
+	 * Converts a Unicode string representing a domain name or an email address to
+	 * Punycode. Only the non-ASCII parts of the domain name will be converted,
+	 * i.e. it doesn't matter if you call it with a domain that's already in
+	 * ASCII.
 	 * @memberOf punycode
-	 * @param {String} domain The domain name to convert, as a Unicode string.
-	 * @returns {String} The Punycode representation of the given domain name.
+	 * @param {String} input The domain name or email address to convert, as a
+	 * Unicode string.
+	 * @returns {String} The Punycode representation of the given domain name or
+	 * email address.
 	 */
-	function toASCII(domain) {
-		return mapDomain(domain, function(string) {
-			return regexASCII.test(string)
+	function toASCII(input) {
+		return mapDomain(input, function(string) {
+			return regexNonASCII.test(string)
 				? 'xn--' + encode(string)
 				: string;
 		});
@@ -475,16 +486,17 @@
 		 * @memberOf punycode
 		 * @type String
 		 */
-		'version': '0.2.0',
+		'version': '1.4.1',
 		/**
 		 * An object of methods to convert from JavaScript's internal character
-		 * representation to Unicode and back.
+		 * representation (UCS-2) to Unicode code points, and back.
+		 * @see <https://mathiasbynens.be/notes/javascript-encoding>
 		 * @memberOf punycode
 		 * @type Object
 		 */
-		'utf16': {
-			'decode': utf16decode,
-			'encode': utf16encode
+		'ucs2': {
+			'decode': ucs2decode,
+			'encode': ucs2encode
 		},
 		'decode': decode,
 		'encode': encode,
@@ -493,21 +505,28 @@
 	};
 
 	/** Expose `punycode` */
-	if (freeExports) {
-		if (freeModule && freeModule.exports == freeExports) {
-			// in Node.js or Ringo 0.8+
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (
+		typeof define == 'function' &&
+		typeof define.amd == 'object' &&
+		define.amd
+	) {
+		define('punycode', function() {
+			return punycode;
+		});
+	} else if (freeExports && freeModule) {
+		if (module.exports == freeExports) {
+			// in Node.js, io.js, or RingoJS v0.8.0+
 			freeModule.exports = punycode;
 		} else {
-			// in Narwhal or Ringo 0.7-
+			// in Narwhal or RingoJS v0.7.0-
 			for (key in punycode) {
 				punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
 			}
 		}
-	} else if (freeDefine) {
-		// via curl.js or RequireJS
-		define('punycode', punycode);
 	} else {
-		// in a browser or Rhino
+		// in Rhino or a web browser
 		root.punycode = punycode;
 	}
 

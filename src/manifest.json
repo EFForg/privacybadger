@@ -24,7 +24,7 @@
   "background": {
     "scripts": [
       "js/bootstrap.js",
-      "lib/vendor/punycode.js",
+      "lib/vendor/punycode-1.4.1.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
       "lib/vendor/underscore-1.9.1.js",
