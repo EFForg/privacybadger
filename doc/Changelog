@@ -1,5 +1,14 @@
 Changes for Privacy Badger 
 ====================================
+## 2019.9.23
+* Added helpful text to popup on special browser pages like the New Tab page
+* Fixed pixel cookie sharing detection being broken by First-Party Isolation
+in Firefox
+* Fixed major issues with Service Workers-powered sites like Gmail and Twitter
+* Fixed various other site breakages
+* Improved translations (Simplified Chinese, French, Spanish, Swedish,
+Turkish, Ukrainian)
+
 ## 2019.7.1
 * Added pixel cookie sharing detection. Privacy Badger now records
 tracking by images with querystrings that contain first-party cookie data.
