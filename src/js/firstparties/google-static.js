@@ -29,13 +29,13 @@ function unwrapAll() {
   });
 }
 
-//TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({checkEnabled: true},
-  function (enabled) {
-    if (!enabled) {
-      return;
-    }
-    unwrapAll();
-    setInterval(unwrapAll, 2000);
+// TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({
+  type: "checkEnabled"
+}, function (enabled) {
+  if (!enabled) {
+    return;
   }
-);
+  unwrapAll();
+  setInterval(unwrapAll, 2000);
+});

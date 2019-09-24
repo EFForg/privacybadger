@@ -48,7 +48,7 @@ function stub(elts, selector) {
   // Stub runtime.sendMessage so that it returns `true` in response to the
   // `checkEnabled` query.
   chrome.runtime.sendMessage = function (message, callback) {
-    if (message.checkEnabled) {
+    if (message.type == "checkEnabled") {
       callback(true);
     } else {
       chrome.runtime.sendMessageBefore(message, callback);

@@ -38,19 +38,19 @@ function cleanLink(a) {
   a.addEventListener("mouseover", function (e) { e.stopImmediatePropagation(); }, true);
 }
 
-//TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({checkEnabled: true},
-  function (enabled) {
-    if (!enabled) {
-      return;
-    }
-
-    // unwrap wrapped links in the original page
-    findInAllFrames(fb_wrapped_link).forEach((link) => {
-      cleanLink(link);
-    });
-
-    // Execute redirect unwrapping each time new content is added to the page
-    observeMutations(fb_wrapped_link, cleanLink);
+// TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({
+  type: "checkEnabled"
+}, function (enabled) {
+  if (!enabled) {
+    return;
   }
-);
+
+  // unwrap wrapped links in the original page
+  findInAllFrames(fb_wrapped_link).forEach((link) => {
+    cleanLink(link);
+  });
+
+  // Execute redirect unwrapping each time new content is added to the page
+  observeMutations(fb_wrapped_link, cleanLink);
+});

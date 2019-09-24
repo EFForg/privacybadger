@@ -313,28 +313,29 @@ if (document instanceof HTMLDocument === false && (
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({checkEnabled: true},
-  function (enabled) {
-    if (!enabled) {
-      return;
-    }
-    /**
-     * Communicating to webrequest.js
-     */
-    var event_id = Math.random();
-
-    // listen for messages from the script we are about to insert
-    document.addEventListener(event_id, function (e) {
-      // pass these on to the background page
-      chrome.runtime.sendMessage({
-        fpReport: e.detail
-      });
-    });
-
-    window.injectScript(getFpPageScript(), {
-      event_id: event_id
-    });
+chrome.runtime.sendMessage({
+  type: "checkEnabled"
+}, function (enabled) {
+  if (!enabled) {
+    return;
   }
-);
+  /**
+   * Communicating to webrequest.js
+   */
+  var event_id = Math.random();
+
+  // listen for messages from the script we are about to insert
+  document.addEventListener(event_id, function (e) {
+    // pass these on to the background page
+    chrome.runtime.sendMessage({
+      type: "fpReport",
+      data: e.detail
+    });
+  });
+
+  window.injectScript(getFpPageScript(), {
+    event_id: event_id
+  });
+});
 
 }());

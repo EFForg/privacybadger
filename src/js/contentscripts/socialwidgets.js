@@ -102,7 +102,8 @@ function createReplacementButtonImage(tracker, trackerElem, callback) {
   // don't have image data cached yet, get it from the background page
   buttonData.loading = true;
   chrome.runtime.sendMessage({
-    getReplacementButton: buttonData.imagePath
+    type: "getReplacementButton",
+    imagePath: buttonData.imagePath
   }, function (response) {
     buttonData.buttonUrl = response; // cache image data
     _createReplacementButtonImageCallback(tracker, trackerElem, callback);
@@ -416,7 +417,9 @@ function replaceIndividualButton(tracker) {
  *                            replaced
  */
 function getTrackerData(callback) {
-  chrome.runtime.sendMessage({checkReplaceButton: true}, function(response) {
+  chrome.runtime.sendMessage({
+    type: "checkReplaceButton"
+  }, function (response) {
     if (response) {
       for (const key in response.translations) {
         TRANSLATIONS[key] = response.translations[key];
@@ -435,7 +438,7 @@ function getTrackerData(callback) {
  */
 function unblockTracker(buttonUrls, callback) {
   let request = {
-    unblockWidget: true,
+    type: "unblockWidget",
     buttonUrls: buttonUrls
   };
   chrome.runtime.sendMessage(request, callback);
@@ -455,9 +458,9 @@ if (document instanceof HTMLDocument === false && (
 }
 
 chrome.runtime.sendMessage({
-  checkWidgetReplacementEnabled: true
-}, function (checkWidgetReplacementEnabled) {
-  if (!checkWidgetReplacementEnabled) {
+  type: "checkWidgetReplacementEnabled"
+}, function (enabled) {
+  if (!enabled) {
     return;
   }
   initialize();
