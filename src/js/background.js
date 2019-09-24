@@ -899,26 +899,6 @@ function startBackgroundListeners() {
   chrome.tabs.onActivated.addListener(function (activeInfo) {
     badger.updateBadge(activeInfo.tabId);
   });
-
-  // Listening for Avira Autopilot remote control UI
-  // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
-  // The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
-  if (chrome.runtime.onMessageExternal) {
-    chrome.runtime.onMessageExternal.addListener(
-      function(request, sender, sendResponse) {
-        // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
-        if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
-          if (request.command == "getDisabledSites") {
-            sendResponse({origins: badger.getDisabledSites()});
-          } else if (request.command == "enable") {
-            badger.enablePrivacyBadgerForOrigin(request.origin);
-          } else if (request.command == "disable") {
-            badger.disablePrivacyBadgerForOrigin(request.origin);
-          }
-        }
-      }
-    );
-  }
 }
 
 var badger = window.badger = new Badger();
