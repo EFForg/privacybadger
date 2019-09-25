@@ -1243,6 +1243,31 @@ var multiDomainFirstPartiesArray = [
   ["mandtbank.com", "mtb.com"],
   ["mathletics.com", "mathletics.com.au", "mathletics.co.uk"],
   ["mdsol.com", "imedidata.com"],
+  [
+    "mediamarktsaturn.com",
+
+    "mediamarkt.at",
+    "mediamarkt.be",
+    "mediamarkt.ch",
+    "mediamarkt.com.tr",
+    "mediamarkt.de",
+    "mediamarkt.es",
+    "mediamarkt.gr",
+    "mediamarkt.hu",
+    "mediamarkt.nl",
+    "mediamarkt.se",
+
+    "saturn.at",
+    "saturn.de",
+    "saturn.lu",
+
+    "redblue.de",
+
+    "mediamarkt.pl",
+    "redcoon.pl",
+    "saturn.pl",
+    "ms-online.pl",
+  ],
   ["meetup.com", "meetupstatic.com"],
   [
     "mercadolibre.com",
