@@ -1298,6 +1298,7 @@ var multiDomainFirstPartiesArray = [
     "healthvault.com",
     "hotmail.com",
     "live.com",
+    "lync.com",
     "microsoftonline.com",
     "microsoftstore.com",
     "microsoftstream.com",
