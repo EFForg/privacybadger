@@ -294,6 +294,8 @@ var multiDomainFirstPartiesArray = [
   ],
   [
     "autodesk.com",
+
+    "autodesk.io",
     "autodesk.net",
     "circuits.io",
     "tinkercad.com",
