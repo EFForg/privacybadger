@@ -608,6 +608,7 @@ function unblockWidgetOnTab(tabId, widgetUrls) {
   }
   for (let i in widgetUrls) {
     let url = widgetUrls[i];
+    // TODO just store actual domains in the JSON in the first place
     let host = window.extractHostFromURL(url);
     temporaryWidgetUnblock[tabId].push(host);
   }
@@ -681,14 +682,29 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "unblockWidget": {
-    unblockWidgetOnTab(sender.tab.id, request.buttonUrls);
+    let widgetData = badger.widgetList.find(
+      widget => widget.name == request.widgetName);
+    if (!widgetData ||
+        !widgetData.hasOwnProperty("replacementButton") ||
+        !widgetData.replacementButton.unblockDomains) {
+      return sendResponse();
+    }
+    unblockWidgetOnTab(sender.tab.id, widgetData.replacementButton.unblockDomains);
     sendResponse();
     break;
   }
 
   case "getReplacementButton": {
+    let widgetData = badger.widgetList.find(
+      widget => widget.name == request.widgetName);
+    if (!widgetData ||
+        !widgetData.hasOwnProperty("replacementButton") ||
+        !widgetData.replacementButton.imagePath) {
+      return sendResponse();
+    }
+
     let button_path = chrome.runtime.getURL(
-      "skin/socialwidgets/" + request.imagePath);
+      "skin/socialwidgets/" + widgetData.replacementButton.imagePath);
 
     let image_type = button_path.slice(button_path.lastIndexOf('.') + 1);
 
