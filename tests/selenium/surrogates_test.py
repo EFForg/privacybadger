@@ -12,8 +12,7 @@ from pbtest import retry_until
 class SurrogatesTest(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
-    # TODO update to pbtest.org URL
-    # TODO and remove the HTML pages from eff.org then
+    # TODO belongs with badger_test_fixtures
     TEST_URL = "https://www.eff.org/files/pbtest/ga_js_surrogate_test.html"
 
     def load_ga_js_test_page(self, timeout=12):
