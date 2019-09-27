@@ -23,6 +23,12 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
 
         # visit the Service Worker page to activate the worker
         self.load_url(FIXTURE_URL)
+
+        # Service Workers are off by default in Firefox 60 ESR
+        if not self.js("return 'serviceWorker' in navigator;"):
+            self.skipTest("Service Workers are disabled")
+
+        # wait for the worker to initialize its cache
         self.wait_for_script("return window.WORKER_READY;")
 
         # visit a different site (doesn't matter what it is,
