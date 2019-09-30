@@ -149,12 +149,8 @@ font-size: 16px;
   float: left;
 }
 
-#badger-header-logo {
-    
-}
-
 #header-image-stack img{
-    margin-left: 5px;
+    margin-left: 15px;
 }
 
 #blockedResourcesContainer {
