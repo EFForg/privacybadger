@@ -153,6 +153,16 @@ header, #tabs {
     margin-left: 25px;
 }
 
+#hide-widgets-row {
+    width: 100%;
+    margin-left: 25px;
+    margin-top: 5px;
+}
+
+#hide-widgets-select {
+  width: 300px;
+}
+
 a, a:hover, a:active, a:visited{
   color: #00aaaa;
   text-decoration: underline;
