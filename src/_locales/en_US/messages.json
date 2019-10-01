@@ -173,6 +173,10 @@
         "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
     },
+    "options_hide_zero_count_checkbox": {
+        "message": "Hide if the tracker count is zero",
+        "description": "Checkbox label on the general settings page"
+    },
     "what_is_a_tracker": {
         "message": "What is a tracker?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."

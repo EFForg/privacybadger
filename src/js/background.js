@@ -524,6 +524,7 @@ Badger.prototype = {
     checkForDNTPolicy: true,
     disabledSites: [],
     hideBlockedElements: true,
+    hideZeroCount: false,
     isFirstRun: true,
     learnInIncognito: false,
     migrationLevel: 0,
@@ -643,6 +644,11 @@ Badger.prototype = {
 
       let count = self.getTrackerCount(tab_id);
 
+      if (count === 0 && self.hideZeroCount()) {
+        chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
+        return;
+      }
+
       if (count === 0) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#00cc00"});
       } else {
@@ -714,6 +720,13 @@ Badger.prototype = {
    */
   showCounter: function() {
     return this.getSettings().getItem("showCounter");
+  },
+
+  /**
+   * Check if we should hide the counter on the icon when the count is zero
+   */
+  hideZeroCount: function() {
+    return this.getSettings().getItem("hideZeroCount");
   },
 
   /**

@@ -80,7 +80,7 @@ function setTextDirection() {
     document.body.appendChild(css);
 
     // fix margins
-    ['#settings-suffix', '#check-dnt-policy-row'].forEach((selector) => {
+    ['#settings-suffix', '#hide-zero-count-row', '#check-dnt-policy-row'].forEach((selector) => {
       swap_css_property(selector, "margin-left", "margin-right");
     });
     ['#whitelistForm > div > div > div'].forEach((selector) => {

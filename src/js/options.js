@@ -106,6 +106,9 @@ function loadOptions() {
   $("#removeAllData").button("option", "icons", {primary: "ui-icon-closethick"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
   $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.showCounter);
+  $("#hide_zero_count_checkbox")
+    .on("click", updateHideZeroCount)
+    .prop("checked", OPTIONS_DATA.hideZeroCount);
   $("#replace-widgets-checkbox")
     .on("click", updateWidgetReplacement)
     .prop("checked", OPTIONS_DATA.isWidgetReplacementEnabled);
@@ -354,6 +357,28 @@ function updateShowCounter() {
   chrome.runtime.sendMessage({
     type: "updateSettings",
     data: { showCounter }
+  }, () => {
+    // Refresh display for each tab's PB badge.
+    chrome.tabs.query({}, function(tabs) {
+      tabs.forEach(function(tab) {
+        chrome.runtime.sendMessage({
+          type: "updateBadge",
+          tab_id: tab.id
+        });
+      });
+    });
+  });
+}
+
+/**
+ * Update setting for whether or not to hide counter on Privacy Badger badge when the count is zero.
+ */
+function updateHideZeroCount() {
+  const hideZeroCount = $("#hide_zero_count_checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { hideZeroCount }
   }, () => {
     // Refresh display for each tab's PB badge.
     chrome.tabs.query({}, function(tabs) {

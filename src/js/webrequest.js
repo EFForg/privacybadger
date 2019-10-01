@@ -731,6 +731,7 @@ function dispatcher(request, sender, sendResponse) {
   } else if (request.type == "getOptionsData") {
     sendResponse({
       disabledSites: badger.getDisabledSites(),
+      hideZeroCount: badger.hideZeroCount(),
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
       isDNTSignalEnabled: badger.isDNTSignalEnabled(),
       isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),

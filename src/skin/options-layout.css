@@ -149,7 +149,7 @@ header, #tabs {
     margin: 12px 0;
 }
 
-#check-dnt-policy-row {
+#hide-zero-count-row, #check-dnt-policy-row {
     margin-left: 25px;
 }
 
