@@ -102,7 +102,6 @@ var multiDomainFirstPartiesArray = [
     "mei.com",
     "mmstat.com",
     "mobmore.com",
-    "net.cn",
     "paike.com",
     "phpwind.com",
     "phpwind.net",
