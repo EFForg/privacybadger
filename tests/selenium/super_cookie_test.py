@@ -28,7 +28,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
     @pbtest.repeat_if_failed(5)
     def test_async_tracking_misattribution_bug(self):
         self.load_url(
-            "https://www.eff.org/files/badger_test_fixtures/"
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
             "async_localstorage_attribution_bug.html"
         )
 
@@ -41,7 +41,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         # an iframe from gistcdn.githack.com that writes to localStorage
         self.assertEqual(
             pbtest.retry_until(partial(self.get_snitch_map_for, "githack.com")),
-            ["eff.org"],
+            ["efforg.github.io"],
             msg="IFrame sets localStorage but was not flagged as a tracker.")
 
         # and an image from raw.githubusercontent.com that doesn't do any tracking
@@ -51,7 +51,8 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
     def test_should_detect_ls_of_third_party_frame(self):
         self.load_url(
-            "https://www.eff.org/files/badger_test_fixtures/localstorage.html"
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            "localstorage.html"
         )
 
         # TODO We get some intermittent failures for this test.
@@ -62,12 +63,12 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
         self.assertEqual(
             pbtest.retry_until(partial(self.get_snitch_map_for, "githack.com"), times=3),
-            ["eff.org"]
+            ["efforg.github.io"]
         )
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
         self.load_url(
-            "https://www.eff.org/files/badger_test_fixtures/"
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
             "localstorage_low_entropy.html"
         )
         self.driver.refresh()
@@ -85,11 +86,11 @@ class SupercookieTest(pbtest.PBSeleniumTest):
     def test_should_not_detect_ls_of_third_party_script(self):
         # a third-party script included by the top page (not a 3rd party frame)
         self.load_url(
-            "https://www.eff.org/files/badger_test_fixtures/"
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
             "localstorage_from_third_party_script.html"
         )
         self.driver.refresh()
-        self.assertFalse(self.get_snitch_map_for("eff.org")) # page URL
+        self.assertFalse(self.get_snitch_map_for("efforg.github.io")) # page URL
         self.assertFalse(self.get_snitch_map_for("githack.com")) # script URL
 
 

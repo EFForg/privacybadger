@@ -11,39 +11,35 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         - tracking domain is caught by pixel tracking heuristic, snitch map entry is updated
     """
 
-    def test_pixel_cookie_sharing(self):
-        FIXTURE_URL = "https://www.eff.org/files/badger_test_fixtures/pixel_cookie_sharing2.html"
-
-        CLEAR_TRAINED_DATA = (
-            "chrome.extension.getBackgroundPage()."
-            "badger.storage.clearTrackerData();"
+    def get_snitch_map(self):
+        return self.js(
+            "return chrome.extension.getBackgroundPage().badger.storage.snitch_map.getItem('cloudinary.com');"
         )
 
-        CHECK_SNITCH_MAP = (
-            "return ("
-            "  chrome.extension.getBackgroundPage().badger.storage.snitch_map.getItem('cloudinary.com') &&"
-            "  chrome.extension.getBackgroundPage().badger.storage.snitch_map.getItem('cloudinary.com').includes('eff.org')"
-            ");"
+    def test_pixel_cookie_sharing(self):
+        FIXTURE_URL = (
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            "pixel_cookie_sharing.html"
         )
 
         # clear seed data to prevent any potential false positives
-        self.js(CLEAR_TRAINED_DATA)
+        self.load_url(self.options_url)
+        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
 
         # load the test fixture without the URL parameter to to verify there is no tracking on the page by default
-        # check to make sure the domain wasn't logged in snitch map
         self.load_url(FIXTURE_URL)
+        # check to make sure the domain wasn't logged in snitch map
         self.load_url(self.options_url)
-        self.assertFalse(
-            self.js(CHECK_SNITCH_MAP),
-            "Tracking detected but page expected to have no tracking at this point"
-        )
+        self.assertFalse(self.get_snitch_map(),
+            "Tracking detected but page expected to have no tracking at this point")
 
         # load the same test fixture, but pass the URL parameter for it to perform pixel cookie sharing
-        # check to make sure this domain is caught and correctly recorded in snitch map
         self.load_url(FIXTURE_URL + "?trackMe=true")
+        # check to make sure this domain is caught and correctly recorded in snitch map
         self.load_url(self.options_url)
-        self.assertTrue(
-            self.js(CHECK_SNITCH_MAP),
+        self.assertEqual(
+            self.get_snitch_map(),
+            ["efforg.github.io"],
             "Pixel cookie sharing tracking failed to be detected"
         )
 

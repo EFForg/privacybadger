@@ -19,7 +19,10 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         return domains
 
     def test_returning_to_sw_cached_page(self):
-        FIXTURE_URL = "https://www.eff.org/files/badger_test_fixtures/service_workers.html"
+        FIXTURE_URL = (
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            "service_workers.html"
+        )
 
         # visit the Service Worker page to activate the worker
         self.load_url(FIXTURE_URL)
@@ -43,7 +46,7 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         self.open_window()
         self.load_url(self.options_url)
         domains = self.get_tab_data_domains()
-        self.assertIn("www.eff.org", domains,
+        self.assertIn("efforg.github.io", domains,
             "SW page URL was not correctly attributed")
         self.assertEqual(len(domains), 1,
             "tabData contains an unexpected number of entries")

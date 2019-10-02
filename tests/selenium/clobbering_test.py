@@ -20,7 +20,10 @@ class ClobberingTest(pbtest.PBSeleniumTest):
         ]
         # page loads a frame that writes to and reads from localStorage
         # TODO remove delays from fixture once race condition (https://crbug.com/478183) is fixed
-        FIXTURE_URL = "https://www.eff.org/files/badger_test_fixtures/clobbering2.html"
+        FIXTURE_URL = (
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            "clobbering.html"
+        )
         FRAME_DOMAIN = "githack.com"
         COOKIEBLOCK_JS = (
             "(function () {"
