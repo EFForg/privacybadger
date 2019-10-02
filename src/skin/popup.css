@@ -39,6 +39,11 @@ body {
     }
 }
 
+@font-face {
+    font-family: "Chunk-Five";
+    src: url("./fonts/Chunk.ttf");
+}
+
 a { text-decoration: none }
 a:hover { color: #ec9329 }
 
@@ -137,20 +142,20 @@ color: #505050;
 font-size: 16px;
 }
 #privacyBadgerHeader h2{
-  margin: 5px;
+  margin: 0 5px;
+  color: #000;
   padding-left: 5px;
   float: left;
-  color: #707070;
   font-size: 24px;
   font-weight: normal;
-  font-family: helvetica, arial, 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', sans-serif;;
+  font-family: "Chunk-Five", serif;
 }
 #privacyBadgerHeader img{
   float: left;
 }
 
-#header-image-stack img{
-    margin-left: 15px;
+#header-image-stack img {
+    margin-left: 10px;
 }
 
 #blockedResourcesContainer {
