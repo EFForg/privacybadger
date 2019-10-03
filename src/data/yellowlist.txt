@@ -163,6 +163,13 @@ dl.dropboxusercontent.com
 dudamobile.com
 dumpert.nl
 duosecurity.com
+cdn.dynamicyield.com
+cdn-eu.dynamicyield.com
+rcom.dynamicyield.com
+rcom-eu.dynamicyield.com
+static.dynamicyield.com
+st.dynamicyield.com
+st-eu.dynamicyield.com
 ebay.com
 ebayimg.com
 ebayrtm.com
