@@ -6,7 +6,7 @@
     "eslint": "~5.10.0"
   },
   "devDependencies": {
-    "web-ext": "~3.1.1"
+    "web-ext": "~3.2.0"
   },
   "private": true
 }
