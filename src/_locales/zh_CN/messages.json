@@ -588,11 +588,11 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "Nothing to do on this page",
+        "message": "这个页面无事可做",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger doesn't work on special pages like this one. Try browsing somewhere else.",
+        "message": "隐私獾不在特殊页面工作——比如这一个。试着浏览一下别的地方。",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     }
 }
