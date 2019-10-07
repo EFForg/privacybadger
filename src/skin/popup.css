@@ -141,22 +141,24 @@ a:hover { color: #ec9329 }
 color: #505050;
 font-size: 16px;
 }
-#privacyBadgerHeader h2{
-  margin: 0 5px;
-  color: #000;
-  padding-left: 5px;
-  float: left;
-  font-size: 24px;
-  font-weight: normal;
-  font-family: "Chunk-Five", serif;
-}
-#privacyBadgerHeader img{
-  float: left;
+
+#header-image-stack {
+    display: table;
+    margin-left: 65px;
 }
 
-#header-image-stack img {
-    margin-left: 10px;
+#privacyBadgerHeader h2{
+  display: table-row;
+  color: #000;
+  font-size: 24px;
+  clear: initial;
+  font-family: "Chunk-Five", serif;
 }
+
+#privacyBadgerHeader img {
+    float: left
+}
+
 
 #blockedResourcesContainer {
     min-height: 70px;
@@ -169,9 +171,9 @@ font-size: 16px;
 .ui-slider .ui-slider-handle {
   cursor: move;
 }
-#siteControls {
+/* #siteControls {
   margin-top: 5px;
-}
+} */
 
 #firstRun {
   color: #EC9329;
