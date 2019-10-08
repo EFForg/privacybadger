@@ -129,14 +129,9 @@ function unwrapSpecialTwitterURLs() {
 }
 
 function unwrapSpecialTwitterPwaURLs() {
-  // profile URL can be found in JSON of page
-  if (!window.wrappedJSObject) {
-    return;
-  }
-
   try {
     // iterate users object (usually should only be one, with some random ID?)
-    for (const entityKey of Object.keys(window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities)) {
+    for (const entityKey of Object.keys(window.__INITIAL_STATE__.entities.users.entities)) {
       const entityValue = window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities[entityKey];
       // iterate url array (usually only one)
       for (const url of entityValue.entities.url.urls) {
@@ -151,8 +146,9 @@ function unwrapSpecialTwitterPwaURLs() {
 }
 
 unwrapTwitterURLsInTimeline();
-unwrapSpecialTwitterPwaURLs();
 unwrapTwitterPwaURLsInTimeline();
 
+// only works at initial load if you directly load a profile
+unwrapSpecialTwitterPwaURLs();
+
 setInterval(unwrapTwitterURLsInTimeline, timeline_refresh_interval);
-setInterval(unwrapTwitterPwaURLsInTimeline, timeline_refresh_interval);
