@@ -83,41 +83,6 @@ function unwrapTwitterURLsInTimeline() {
   });
 }
 
-function unwrapTwitterPwaURLsInTimeline() {
-  // unwrap profile links
-  document.querySelectorAll(tcos_all).forEach((link) => {
-    // use cached value if possible
-    if (fixes.hasOwnProperty(link.href)) {
-      unwrapTco(link, fixes[link.href]);
-      return;
-    }
-    
-    // use title, if possible
-    if (fixes.hasOwnProperty(link.href)) {
-      unwrapTco(link, fixes[link.href]);
-      return;
-    }
-
-    // find span element with link text in it
-    const allSpans = link.getElementsByTagName("span");
-    if (!allSpans.length) {
-      return;
-    }
-
-    const linkElement = allSpans[0];
-    const elements = link_reg_ex.exec(linkElement.textContent);
-    if (elements === null) {
-      return;
-    }
-
-    const url = elements[1];
-    if (url) {
-      fixes[link.href] = url;
-      unwrapTco(link, url);
-    }
-  });
-}
-
 function unwrapSpecialTwitterURLs() {
   // unwrap profile links
   document.querySelectorAll(profile_links_tcos).forEach((link) => {
@@ -146,7 +111,6 @@ function unwrapSpecialTwitterPwaURLs() {
 }
 
 unwrapTwitterURLsInTimeline();
-unwrapTwitterPwaURLsInTimeline();
 
 // only works at initial load if you directly load a profile
 unwrapSpecialTwitterPwaURLs();
