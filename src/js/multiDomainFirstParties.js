@@ -1242,6 +1242,15 @@ var multiDomainFirstPartiesArray = [
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
   ["logmein.com", "logme.in"],
   ["macys.com", "macysassets.com"],
+  [
+    "mafra.cz",
+
+    "idnes.cz",
+    "lidovky.cz",
+    "expres.cz",
+
+    "1gr.cz",
+  ],
   ["mandtbank.com", "mtb.com"],
   ["mathletics.com", "mathletics.com.au", "mathletics.co.uk"],
   ["mdsol.com", "imedidata.com"],
