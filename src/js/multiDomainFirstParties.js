@@ -126,7 +126,6 @@ var multiDomainFirstPartiesArray = [
     "aliloan.com",
     "alipay-cloud.com",
     "alipay.cn",
-    "alipay.com",
     "alipay-eco.com",
     "alipay.hk",
     "alipayplus.com",
@@ -187,8 +186,11 @@ var multiDomainFirstPartiesArray = [
     "imdb.com",
     "primevideo.com",
     "shopbop.com",
-    "twitch.tv",
     "zappos.com",
+
+    "twitch.tv",
+    "ttvnw.net",
+    "jtvnw.net",
 
     "amazonpay.com",
     "media-amazon.com",
@@ -2128,7 +2130,6 @@ var multiDomainFirstPartiesArray = [
   ],
   ["trsretire.com", "divinvest.com"],
   ["turbotax.com", "intuit.com"],
-  ["twitch.tv", "ttvnw.net", "jtvnw.net"],
   ["twitter.com", "twimg.com", "t.co"],
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
   ["ubisoft.com", "ubi.com", "anno-union.com", "thesettlers-alliance.com"],
