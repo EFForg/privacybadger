@@ -1,5 +1,12 @@
 Changes for Privacy Badger 
 ====================================
+## 2019.10.8
+* Fixed image/video thumbnails in Google search results
+* Fixed various other site breakages
+* Removed the green "0" tracker count badge.
+No need to draw attention when there is nothing to show.
+* Improved translations (Simplified Chinese, Ukrainian)
+
 ## 2019.9.23
 * Added helpful text to popup on special browser pages like the New Tab page
 * Fixed pixel cookie sharing detection being broken by First-Party Isolation
