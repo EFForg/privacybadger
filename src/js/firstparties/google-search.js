@@ -5,13 +5,14 @@ let trap_link = "a[onmousedown^='return rwt(this,'], a[ping]";
 
 // Remove excessive attributes and event listeners from link a
 function cleanLink(a) {
-  // remove all attributes from a link except for href,
+  // remove all attributes except for href,
   // target (to support "Open each selected result in a new browser window"),
-  // class and ARIA attributes
+  // class, style and ARIA attributes
   for (let i = a.attributes.length - 1; i >= 0; --i) {
     const attr = a.attributes[i];
     if (attr.name !== 'href' && attr.name !== 'target' &&
-      attr.name !== 'class' && !attr.name.startsWith('aria-')) {
+        attr.name !== 'class' && attr.name !== 'style' &&
+        !attr.name.startsWith('aria-')) {
       a.removeAttribute(attr.name);
     }
   }
