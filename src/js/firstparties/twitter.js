@@ -94,11 +94,11 @@ function unwrapTwitterPwaURLsInTimeline() {
 
     // find span element with link text in it
     const allSpans = link.getElementsByTagName("span");
-    if (!allSpans) {
+    if (!allSpans.length) {
       return;
     }
 
-    const linkElement = link.getElementsByTagName("span")[0];
+    const linkElement = allSpans[0];
     const elements = link_reg_ex.exec(linkElement.textContent);
     if (elements === null) {
       return;
@@ -124,6 +124,9 @@ function unwrapSpecialTwitterURLs() {
 
 function unwrapSpecialTwitterPwaURLs() {
   // profile URL can be found in JSON of page
+  if (!window.wrappedJSObject) {
+    return;
+  }
 
   try {
     // iterate users object (usually should only be one, with some random ID?)
