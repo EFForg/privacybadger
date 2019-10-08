@@ -2,7 +2,7 @@ const tcos_all = getTCoSelectorWithDestination();
 const timeline_refresh_interval = 2000;
 
 // twitter.com
-const full_url_attribute = 'data-expanded-url';
+const full_url_attribute = 'title';
 const tcos_with_destination = getTCoSelectorWithDestination(full_url_attribute);
 const full_url_attribute_profile = "title";
 const profile_links_tcos = ".ProfileHeaderCard " + getTCoSelectorWithDestination(full_url_attribute_profile);
@@ -91,6 +91,12 @@ function unwrapTwitterPwaURLsInTimeline() {
       unwrapTco(link, fixes[link.href]);
       return;
     }
+    
+    // use title, if possible
+    if (fixes.hasOwnProperty(link.href)) {
+      unwrapTco(link, fixes[link.href]);
+      return;
+    }
 
     // find span element with link text in it
     const allSpans = link.getElementsByTagName("span");
@@ -144,14 +150,9 @@ function unwrapSpecialTwitterPwaURLs() {
   }
 }
 
-if (window.location.hostname == "mobile.twitter.com") {
-  unwrapSpecialTwitterPwaURLs();
-  unwrapTwitterPwaURLsInTimeline();
+unwrapTwitterURLsInTimeline();
+unwrapSpecialTwitterPwaURLs();
+unwrapTwitterPwaURLsInTimeline();
 
-  setInterval(unwrapTwitterPwaURLsInTimeline, timeline_refresh_interval);
-} else {
-  unwrapTwitterURLsInTimeline();
-  unwrapSpecialTwitterURLs();
-
-  setInterval(unwrapTwitterURLsInTimeline, timeline_refresh_interval);
-}
+setInterval(unwrapTwitterURLsInTimeline, timeline_refresh_interval);
+setInterval(unwrapTwitterPwaURLsInTimeline, timeline_refresh_interval);
