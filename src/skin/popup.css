@@ -65,6 +65,7 @@ a:hover { color: #ec9329 }
     height: 40px;
     overflow: hidden;
     direction: ltr;
+    line-height: normal;
 }
 .origin{
   max-width: 210px;
