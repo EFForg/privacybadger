@@ -1951,6 +1951,7 @@ var multiDomainFirstPartiesArray = [
   ["soundcu.com", "netteller.com"],
   ["southerncompany.com", "southernco.com"],
   ["southparkstudios.com", "cc.com", "comedycentral.com"],
+  ["spiceworks.com", "spiceworksstatic.com"],
   [
     "spotify.com",
 
