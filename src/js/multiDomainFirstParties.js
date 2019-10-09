@@ -1038,7 +1038,6 @@ var multiDomainFirstPartiesArray = [
 
     "nestpowerproject.withgoogle.com",
   ],
-  ["gotomeeting.com", "citrixonline.com"],
   [
     "gray.tv",
 
@@ -1281,6 +1280,7 @@ var multiDomainFirstPartiesArray = [
   [
     "logmeininc.com",
 
+    "citrixonline.com",
     "gotomeeting.com",
     "gotomeet.me",
     "gotomypc.com",
