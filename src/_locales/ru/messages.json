@@ -337,10 +337,6 @@
         "message": "разрешенные",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "share_button_title_google": {
-        "message": "Поделиться в Google+",
-        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
     "intro_donate_heading": {
         "message": "Приватность — это командная работа!",
         "description": "Part of the 'donate' section on the intro page."
