@@ -337,10 +337,6 @@
         "message": "allowed",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "share_button_title_google": {
-        "message": "Share on Google+",
-        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
     "intro_donate_heading": {
         "message": "Privacy is a team sport!",
         "description": "Part of the 'donate' section on the intro page."
