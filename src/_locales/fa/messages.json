@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی  روی این صفحه شناسایی شده است. این اسلایدر ها به شما اجازه کنترل هر کدام از آن ها را می دهند. تا زمانی که چیزی از کار نیافتده باشد نیازی به تغییر اسلایدرها نیست. ",
+        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی  روی این صفحه شناسایی شده است. تا زمانی که چیزی از کار نیافتده باشد نیازی به تغییر اسلایدرها نیست. ",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "پرایوسی بجر یک <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>دامنه ردیاب</a> احتمالی را تا به الان شناسایی کرده است. اسلایدر اجازه نحوه کنترل آن  را به شما می دهد.",
+        "message": "پرایوسی بجر یک <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>دامنه ردیاب</a> احتمالی را تا به الان شناسایی کرده است.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "پرایوسی بجر  یک <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>ردیاب </a> احتمالی را روی این صفحه شناسایی کرده است. اسلایدر به شما اجازه کنترل آن را می دهد. لازم به هیچ تغییری از جانب شما نیست مگر اینکه چیزی از کار افتاده باشد.",
+        "message": "پرایوسی بجر  یک <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>ردیاب </a> احتمالی را روی این صفحه شناسایی کرده است. لازم به هیچ تغییری از جانب شما نیست مگر اینکه چیزی از کار افتاده باشد.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی تا به اینجا شناسایی شده است. این اسلایدر ها به شما اجازه می دهند تا هر کدام از آن ها را کنترل کنید.",
+        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی تا به اینجا شناسایی شده است.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {

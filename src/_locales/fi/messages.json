@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger havaitsi $COUNT$ mahdollista $TRACKER_LINK_START$jäljitintä$TRACKER_LINK_END$ tällä sivulla. Näillä liukuvalitsimilla voit hallita, miten Privacy Badger käsittelee kutakin. Säätäminen ei ole tarpeen, ellei jotain ole mennyt rikki.",
+        "message": "Privacy Badger havaitsi $COUNT$ mahdollista $TRACKER_LINK_START$jäljitintä$TRACKER_LINK_END$ tällä sivulla. Säätäminen ei ole tarpeen, ellei jotain ole mennyt rikki.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger on tähän asti havainnut yhden mahdollisen <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävän verkkotunnuksen</a>.  Liukuvalitsimella voit hallita, miten Privacy Badger käsittelee sitä.",
+        "message": "Privacy Badger on tähän asti havainnut yhden mahdollisen <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävän verkkotunnuksen</a>.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger havaitsi mahdollisen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittimen</a> tällä sivulla. Liukuvalitsimella voit hallita, miten Privacy Badger käsittelee sitä. Säätäminen ei ole tarpeen, ellei jotain ole mennyt rikki.",
+        "message": "Privacy Badger havaitsi mahdollisen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittimen</a> tällä sivulla. Säätäminen ei ole tarpeen, ellei jotain ole mennyt rikki.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger on tähän mennessä havainnut $COUNT$ mahdollista $TRACKER_LINK_START$jäljittävää verkkotunnusta$TRACKER_LINK_END$. Näillä liukuvalitsimilla voit hallita miten Privacy Badger käsittelee kutakin jäljitintä.",
+        "message": "Privacy Badger on tähän mennessä havainnut $COUNT$ mahdollista $TRACKER_LINK_START$jäljittävää verkkotunnusta$TRACKER_LINK_END$.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {

@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger откри $COUNT$ потенциални $TRACKER_LINK_START$преследвачи$TRACKER_LINK_END$ на тази страница. С тези плъзгачи можеш да контролираш как Privacy Badger се държи с всеки от тях. Не е необходимо да ги местиш, освен ако нещо не се е развалило.",
+        "message": "Privacy Badger откри $COUNT$ потенциални $TRACKER_LINK_START$преследвачи$TRACKER_LINK_END$ на тази страница. Не е необходимо да ги местиш, освен ако нещо не се е развалило.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger досега е открил един потенциален <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домейн-преследвач</a>. С този плъзгач можеш да контролираш как Privacy Badger се държи с него.",
+        "message": "Privacy Badger досега е открил един потенциален <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домейн-преследвач</a>.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger откри потенциален <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>преследвач</a> на тази страница. С този плъзгач можеш да контролираш как Privacy Badger се държи с него. Не е необходимо да го местиш, освен ако нещо не се е развалило.",
+        "message": "Privacy Badger откри потенциален <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>преследвач</a> на тази страница. Не е необходимо да го местиш, освен ако нещо не се е развалило.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger досега е открил $COUNT$ потенциални $TRACKER_LINK_START$домейни-преследвачи$TRACKER_LINK_END$. С тези плъзгачи можеш да контролираш как Privacy Badger се държи с всеки от тях.",
+        "message": "Privacy Badger досега е открил $COUNT$ потенциални $TRACKER_LINK_START$домейни-преследвачи$TRACKER_LINK_END$.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {

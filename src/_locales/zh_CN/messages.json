@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "隐私獾检测到这个页面上 $COUNT$ 个潜在的$TRACKER_LINK_START$追踪器$TRACKER_LINK_END$。这些滑块使你控制隐私獾如何控制每个追踪器。除非一些东西出现问题，你应该不需要调节它。",
+        "message": "隐私獾检测到这个页面上 $COUNT$ 个潜在的$TRACKER_LINK_START$追踪器$TRACKER_LINK_END$。除非一些东西出现问题，你应该不需要调节它。",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "至今为止隐私獾已经检测到了一个潜在的<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪域名</a>。这个滑块使你控制隐私獾如何处理它。",
+        "message": "至今为止隐私獾已经检测到了一个潜在的<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪域名</a>。",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "隐私獾在这个页面上检测到了一个潜在的<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪器</a>。这个滑块使你控制隐私獾如何处理它。除非一些东西出现问题，你应该不需要调节它。",
+        "message": "隐私獾在这个页面上检测到了一个潜在的<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪器</a>。除非一些东西出现问题，你应该不需要调节它。",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "隐私獾发现了 $COUNT$ 至今为止潜在的$TRACKER_LINK_START$追踪域名$TRACKER_LINK_END$。这些滑块使你控制隐私獾如何处理这些追踪器。",
+        "message": "隐私獾发现了 $COUNT$ 至今为止潜在的$TRACKER_LINK_START$追踪域名$TRACKER_LINK_END$。",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {

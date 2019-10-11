@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger wykrył $COUNT$ potencjalnych $TRACKER_LINK_START$szpiegów$TRACKER_LINK_END$ na tej stronie. Te suwaki pozwolą Ci kontrolować jak ma z nimi postępować Privacy Badger. Nie powinieneś nimi kręcić, jeżeli wszystko działa.",
+        "message": "Privacy Badger wykrył $COUNT$ potencjalnych $TRACKER_LINK_START$szpiegów$TRACKER_LINK_END$ na tej stronie. Nie powinieneś nimi kręcić, jeżeli wszystko działa.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger wykrył jedną potencjalną <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiegującą domenę</a> do tej pory. Ten suwak pozwoli Ci kontrolować jak Privacy Badger ma z nim postępować.",
+        "message": "Privacy Badger wykrył jedną potencjalną <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiegującą domenę</a> do tej pory.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger wykrył potencjalnego <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiega</a> na tej stronie. Ten suwak pozwoli Ci kontrolować jak ma z nim postępować Privacy Badger. Nie powinieneś nim kręcić jeżeli wszystko działa. ",
+        "message": "Privacy Badger wykrył potencjalnego <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiega</a> na tej stronie. Nie powinieneś nim kręcić jeżeli wszystko działa.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger wykrył $COUNT$ potencjalnych $TRACKER_LINK_START$szpiegujących domen$TRACKER_LINK_END$. Te suwaki pozwolą Ci kontrolować jak Privacy Badger ma postępować z każdym śledzikiem.",
+        "message": "Privacy Badger wykrył $COUNT$ potencjalnych $TRACKER_LINK_START$szpiegujących domen$TRACKER_LINK_END$.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {

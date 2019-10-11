@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger heeft $COUNT$ mogelijke $TRACKER_LINK_START$trackers$TRACKER_LINK_END$ gedetecteerd op deze webpagina. Met deze schuifbalkjes kunt u bepalen hoe Privacy Badger met elke tracker omgaat. U hoeft de schuifbalkjes alleen aan te passen als er iets niet meer werkt.",
+        "message": "Privacy Badger heeft $COUNT$ mogelijke $TRACKER_LINK_START$trackers$TRACKER_LINK_END$ gedetecteerd op deze webpagina. U hoeft de schuifbalkjes alleen aan te passen als er iets niet meer werkt.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger heeft mogelijk een <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackingdomein</a> gedetecteerd. Met het schuifbalkje kunt u bepalen hoe Privacy Badger met de tracker omgaat.",
+        "message": "Privacy Badger heeft mogelijk een <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>trackingdomein</a> gedetecteerd.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger heeft mogelijk een <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> gedetecteerd op deze webpagina. Met het schuifbalkje kunt u bepalen hoe Privacy Badger met de tracker omgaat. U hoeft de schuifbalkjes alleen aan te passen als er iets niet meer werkt.",
+        "message": "Privacy Badger heeft mogelijk een <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> gedetecteerd op deze webpagina. U hoeft de schuifbalkjes alleen aan te passen als er iets niet meer werkt.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger heeft $COUNT$ mogelijke $TRACKER_LINK_START$trackingdomeinen$TRACKER_LINK_END$ gedetecteerd. Met deze schuifbalkjes kunt u bepalen hoe Privacy Badger met elke tracker omgaat.",
+        "message": "Privacy Badger heeft $COUNT$ mogelijke $TRACKER_LINK_START$trackingdomeinen$TRACKER_LINK_END$ gedetecteerd.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {

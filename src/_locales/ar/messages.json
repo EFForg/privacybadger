@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "اكتشف «غرير الخصوصية» عدد $COUNT$ من $TRACKER_LINK_START$المتعقبات$TRACKER_LINK_END$ المحتملة في هذه الصفحة. تتيح لك هذه المؤشرات التحكم في كيف يتعامل «غرير الخصوصية» مع كل واحد منها. يفترض ألا تحتاج لضبط هذه المؤشرات إلا إن كان هناك أمر لا يعمل كما ينبغي.",
+        "message": "اكتشف «غرير الخصوصية» عدد $COUNT$ من $TRACKER_LINK_START$المتعقبات$TRACKER_LINK_END$ المحتملة في هذه الصفحة. يفترض ألا تحتاج لضبط هذه المؤشرات إلا إن كان هناك أمر لا يعمل كما ينبغي.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "اكتشف «غرير الخصوصية» <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>متعقبا</a>  محتملًا واحدًا حتى الآن. يتيح لك هذا المؤشر التحكم في كيف يتعامل «غرير الخصوصية» معه.",
+        "message": "اكتشف «غرير الخصوصية» <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>متعقبا</a>  محتملًا واحدًا حتى الآن.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "اكتشف «غرير الخصوصية» <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>متعقبا</a> محتملًا واحدًا حتى الآن. يتيح لك هذا المؤشر التحكم في كيف يتعامل «غرير الخصوصية» معه. يفترض ألا تحتاج لضبط هذا المؤشر إلا إن كان هناك أمر لا يعمل كما ينبغي.",
+        "message": "اكتشف «غرير الخصوصية» <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>متعقبا</a> محتملًا واحدًا حتى الآن. يفترض ألا تحتاج لضبط هذا المؤشر إلا إن كان هناك أمر لا يعمل كما ينبغي.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "اكتشف «غرير الخصوصية» عدد $COUNT$ من $TRACKER_LINK_START$النطاقات المتعقِّبة$TRACKER_LINK_END$ المحتملة حتى الآن. تتيح لك هذه المؤشرات التحكم في كيف يتعامل «غرير الخصوصية» مع كل واحد منها.",
+        "message": "اكتشف «غرير الخصوصية» عدد $COUNT$ من $TRACKER_LINK_START$النطاقات المتعقِّبة$TRACKER_LINK_END$ المحتملة حتى الآن.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {

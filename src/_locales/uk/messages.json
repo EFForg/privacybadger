@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger виявив $COUNT$ можливих $TRACKER_LINK_START$елементів стеження$TRACKER_LINK_END$ на цій сторінці. Перемикачі дозволяють контролювати обробку кожного з них. Не варто їх регулювати, якщо все працює як слід.",
+        "message": "Privacy Badger виявив $COUNT$ можливих $TRACKER_LINK_START$елементів стеження$TRACKER_LINK_END$ на цій сторінці. Не варто їх регулювати, якщо все працює як слід.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger наразі виявив один можливий <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домен стеження</a>. Перемикач дозволяє контролювати його обробку.",
+        "message": "Privacy Badger наразі виявив один можливий <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домен стеження</a>.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger виявив можливий <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>елемент стеження</a> на цій сторінці. Перемикач дозволяє контролювати його обробку. Не варто змінювати його, якщо все працює як слід.",
+        "message": "Privacy Badger виявив можливий <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>елемент стеження</a> на цій сторінці. Не варто змінювати його, якщо все працює як слід.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger виявив $COUNT$ можливих $TRACKER_LINK_START$доменів стеження$TRACKER_LINK_END$ на цей час. Ці перемикачі дозволяють вам контролювати обробку кожного з них.",
+        "message": "Privacy Badger виявив $COUNT$ можливих $TRACKER_LINK_START$доменів стеження$TRACKER_LINK_END$ на цей час.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {

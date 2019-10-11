@@ -370,7 +370,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "El Privacy Badger ha detectat $COUNT$ $TRACKER_LINK_START$rastrejadors$TRACKER_LINK_END$ potencials en aquesta pàgina. Aquests lliscadors us deixen controlar com el Privacy Badger actua sobre cadascun d'ells. No cal modificar-los excepte si detecteu que alguna cosa no funciona correctament.",
+        "message": "El Privacy Badger ha detectat $COUNT$ $TRACKER_LINK_START$rastrejadors$TRACKER_LINK_END$ potencials en aquesta pàgina. No cal modificar-los excepte si detecteu que alguna cosa no funciona correctament.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "El Privacy Badger ha detectat, fins ara, un potencial <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domini de seguiment</a>. El lliscador us permet controlar com actua sobre ell el Privacy Badger.",
+        "message": "El Privacy Badger ha detectat, fins ara, un potencial <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domini de seguiment</a>.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "El Privacy Badger ha detectat un potencial <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastrejador</a> en aquesta pàgina. El lliscador us permet controlar com actua sobre ell el Privacy Badger. No cal modificar-lo excepte si detecteu que alguna cosa no funciona correctament.",
+        "message": "El Privacy Badger ha detectat un potencial <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>rastrejador</a> en aquesta pàgina. No cal modificar-lo excepte si detecteu que alguna cosa no funciona correctament.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "El Privacy Badger ha detectat, fins ara, $COUNT$ potencials $TRACKER_LINK_START$dominis de seguiment$TRACKER_LINK_END$. Aquests lliscadors us deixen controlar com el Privacy Badger actua sobre cadascun d'ells.",
+        "message": "El Privacy Badger ha detectat, fins ara, $COUNT$ potencials $TRACKER_LINK_START$dominis de seguiment$TRACKER_LINK_END$.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
