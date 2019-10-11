@@ -150,7 +150,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # check tracker count
         self.assertEqual(
             self.driver.find_element_by_id("options_domain_list_trackers").text,
-            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Privacy Badger has detected 2 potential tracking domains so far.",
             "Origin tracker count should be 2 after adding origin"
         )
 
@@ -243,7 +243,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # make sure only two trackers are displayed now
         self.assertEqual(
             self.driver.find_element_by_id("options_domain_list_trackers").text,
-            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Privacy Badger has detected 2 potential tracking domains so far.",
             "Origin tracker count should be 2 after clearing and adding origins"
         )
 
