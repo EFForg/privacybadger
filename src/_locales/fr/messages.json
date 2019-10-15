@@ -314,7 +314,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Différentes méthodes de traçage invisible existent. Les publicités ne sont que la partie émergée de l'iceberg. Privacy Badger envoi une requête <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Ne pas me pister</a> aux traceurs. S'ils ne coopèrent pas, il apprendra à les bloquer, que ce soient des publicités ou des traceurs d'une autre sorte. ",
+        "message": "Différentes méthodes de traçage invisible existent. Les publicités ne sont que la partie émergée de l'iceberg. Privacy Badger envoi une requête <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Ne pas me pister</a> aux traceurs. S'ils ne coopèrent pas, il apprendra à les bloquer, que ce soient des publicités ou des traceurs d'une autre sorte.",
         "description": "Intro page paragraph."
     },
     "report_close": {

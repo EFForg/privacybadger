@@ -366,11 +366,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>پرایوسی بجر روی سایت های زیر غیر فعال می باشد. بنابراین زمانی که به سایت هایی که در اینجا لیست شده اند مراجعه کنید، چیزی را بلاک نخواهد کرد.</p><p> اگر فکر میکنید که پرایوسی بجر  باعث از کار افتادن سایتی شده است، میتوانید دامنه آن صفحه را داخل باکس زیر تایپ کنید و روی دکمه \"افزودن دامنه\" کلیک کنید.</p><p> جدای از این، اگر تب آن صفحه باز می باشد، میتوانید روی دکمه پرایوسی بجر کلیک کرده و روی دکمه \"غیرفعال سازی\" کلیک کنید.</p>",
+        "message": "<p>پرایوسی بجر روی سایت های زیر غیر فعال می باشد. بنابراین زمانی که به سایت هایی که در اینجا لیست شده اند مراجعه کنید، چیزی را بلاک نخواهد کرد.</p><p> اگر فکر میکنید که پرایوسی بجر باعث از کار افتادن سایتی شده است، میتوانید دامنه آن صفحه را داخل باکس زیر تایپ کنید و روی دکمه \"افزودن دامنه\" کلیک کنید.</p><p> جدای از این، اگر تب آن صفحه باز می باشد، میتوانید روی دکمه پرایوسی بجر کلیک کرده و روی دکمه \"غیرفعال سازی\" کلیک کنید.</p>",
         "description": ""
     },
     "popup_instructions": {
-        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی  روی این صفحه شناسایی شده است. تا زمانی که چیزی از کار نیافتده باشد نیازی به تغییر اسلایدرها نیست. ",
+        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی روی این صفحه شناسایی شده است. تا زمانی که چیزی از کار نیافتده باشد نیازی به تغییر اسلایدرها نیست.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "پرایوسی بجر  یک <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>ردیاب </a> احتمالی را روی این صفحه شناسایی کرده است. لازم به هیچ تغییری از جانب شما نیست مگر اینکه چیزی از کار افتاده باشد.",
+        "message": "پرایوسی بجر یک <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>ردیاب </a> احتمالی را روی این صفحه شناسایی کرده است. لازم به هیچ تغییری از جانب شما نیست مگر اینکه چیزی از کار افتاده باشد.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -572,7 +572,7 @@
         }
     },
     "share_base_message": {
-        "message": "پرایوسی بجر (www.eff.org/privacybadger) یک افزونه‌ی مرورگر است که به صورت خودکار می‌آموزد تا ردیاب‌های مخفی را مسدود کند. پرایوسی بجر توسط Electronic Frontier Foundation ساخته شده که به  صورت غیر انتفاعی و آنلاین برای حقوق شما به می‌جنگد.",
+        "message": "پرایوسی بجر (www.eff.org/privacybadger) یک افزونه‌ی مرورگر است که به صورت خودکار می‌آموزد تا ردیاب‌های مخفی را مسدود کند. پرایوسی بجر توسط Electronic Frontier Foundation ساخته شده که به صورت غیر انتفاعی و آنلاین برای حقوق شما به می‌جنگد.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

@@ -246,7 +246,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC yerel IP adresinizi açığa çıkarabilir. Bu seçeneğin etkinleştirilmesinin Google Hangouts gibi web konferans araçlarında performansı düşürebileceğini göz önünde bulundurun. ",
+        "message": "* WebRTC yerel IP adresinizi açığa çıkarabilir. Bu seçeneğin etkinleştirilmesinin Google Hangouts gibi web konferans araçlarında performansı düşürebileceğini göz önünde bulundurun.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {

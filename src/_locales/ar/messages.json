@@ -395,7 +395,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "اكتشف «غرير الخصوصية» <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>متعقبا</a>  محتملًا واحدًا حتى الآن.",
+        "message": "اكتشف «غرير الخصوصية» <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>متعقبا</a> محتملًا واحدًا حتى الآن.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -456,7 +456,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "باستخدامك «غرير الخصوصية» تنضم إلى <a href='https://www.eff.org/' target='_blank'>مؤسسة الجبهة الإلكترونية</a> و ملايين المستخدمين في قتالهم من أجل الخصوصية. نحن مؤسسة غير ربحية نقاتل لحقوقك على الإنترنت. شكرًا لانضمامك إلينا. ",
+        "message": "باستخدامك «غرير الخصوصية» تنضم إلى <a href='https://www.eff.org/' target='_blank'>مؤسسة الجبهة الإلكترونية</a> و ملايين المستخدمين في قتالهم من أجل الخصوصية. نحن مؤسسة غير ربحية نقاتل لحقوقك على الإنترنت. شكرًا لانضمامك إلينا.",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
