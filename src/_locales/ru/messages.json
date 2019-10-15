@@ -136,7 +136,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_show_nontracking_domains_checkbox": {
-        "message": "Show domains that don't appear to be tracking you",
+        "message": "Отображать домены у которых отслеживающая активность не обнаружена",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
@@ -170,7 +170,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Show count of trackers",
+        "message": "Отображать счетчик трекеров",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -407,7 +407,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger обнаружил один потенциальный <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекер</a> на этой странице. Регулировать его нужно только в случае проблем с работой сайта.",
+        "message": "Privacy Badger обнаружил один потенциальный <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>трекер</a> на этой странице. Регулировать переключатель нужно только в случае проблем с работой сайта.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -510,7 +510,7 @@
         }
     },
     "allow_once": {
-        "message": "Allow once",
+        "message": "Разрешить один раз",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {
@@ -550,15 +550,15 @@
         "description": "'Error' message when there is on cloud data to download."
     },
     "share_title": {
-        "message": "Tell your friends",
+        "message": "Расскажите своим друзьям",
         "description": "Title of the share overlay."
     },
     "popup_share_button": {
-        "message": "Share",
+        "message": "Поделиться",
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger found $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "Privacy Badger нашел $COUNT$ потенциальных трекеров на $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -572,23 +572,23 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) — это расширение для браузера которое автоматически учится блокировать невидимые трекеры. Privacy Badger состоит проектом Electronic Frontier Foundation, некоммерческой организации которая борется на ваши права в Интернете.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
-        "message": "Copy to clipboard",
+        "message": "Скопировать в буфер обмена",
         "description": "Initial text of the copy button on the share overlay."
     },
     "copy_button_copied": {
-        "message": "Copied",
+        "message": "Скопировано",
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "Nothing to do on this page",
+        "message": "Нечего делать на этой странице",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger doesn't work on special pages like this one. Try browsing somewhere else.",
+        "message": "Privacy Badger не работает на специальных страницах, как эта. Попробуйте где-нибудь еще.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     }
 }
