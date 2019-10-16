@@ -171,9 +171,9 @@ font-size: 16px;
 .ui-slider .ui-slider-handle {
   cursor: move;
 }
-/* #siteControls {
+#siteControls {
   margin-top: 5px;
-} */
+}
 
 #firstRun {
   color: #EC9329;
