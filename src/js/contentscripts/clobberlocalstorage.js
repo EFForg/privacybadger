@@ -32,7 +32,10 @@ if (window.top == window) {
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({ checkLocation: window.FRAME_URL }, function (blocked) {
+chrome.runtime.sendMessage({
+  type: "checkLocation",
+  frameUrl: window.FRAME_URL
+}, function (blocked) {
   if (blocked) {
     // https://stackoverflow.com/questions/49092423/how-to-break-on-localstorage-changes
     var code =

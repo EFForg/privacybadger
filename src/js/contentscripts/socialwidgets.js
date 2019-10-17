@@ -102,10 +102,13 @@ function createReplacementButtonImage(tracker, trackerElem, callback) {
   // don't have image data cached yet, get it from the background page
   buttonData.loading = true;
   chrome.runtime.sendMessage({
-    getReplacementButton: buttonData.imagePath
+    type: "getReplacementButton",
+    widgetName: tracker.name
   }, function (response) {
-    buttonData.buttonUrl = response; // cache image data
-    _createReplacementButtonImageCallback(tracker, trackerElem, callback);
+    if (response) {
+      buttonData.buttonUrl = response; // cache image data
+      _createReplacementButtonImageCallback(tracker, trackerElem, callback);
+    }
   });
 }
 
@@ -147,20 +150,20 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
     var iframeUrl = details + encodeURIComponent(window.location.href);
 
     button.addEventListener("click", function() {
-      replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, iframeUrl);
+      replaceButtonWithIframeAndUnblockTracker(button, tracker.name, iframeUrl);
     }, { once: true });
 
   // in place button type; replace the existing button with code
   // specified in the Trackers file
   } else if (buttonType == 2) {
     button.addEventListener("click", function() {
-      replaceButtonWithHtmlCodeAndUnblockTracker(button, buttonData.unblockDomains, details);
+      replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker.name, details);
     }, { once: true });
 
   // in-place widget type:
   // reinitialize the widget by reinserting its element's HTML
   } else if (buttonType == 3) {
-    let widget = createReplacementWidget(tracker.name, button, trackerElem, buttonData.unblockDomains);
+    let widget = createReplacementWidget(tracker.name, button, trackerElem);
     return callback(widget);
   }
 
@@ -173,11 +176,11 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
  * pointing to the given URL.
  *
  * @param {Element} button the DOM element of the button to replace
- * @param {Array} urls the associated URLs
+ * @param {String} widget_name the name of the replacement widget
  * @param {String} iframeUrl the URL of the iframe to replace the button
  */
-function replaceButtonWithIframeAndUnblockTracker(button, urls, iframeUrl) {
-  unblockTracker(urls, function() {
+function replaceButtonWithIframeAndUnblockTracker(button, widget_name, iframeUrl) {
+  unblockTracker(widget_name, function() {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
@@ -197,11 +200,11 @@ function replaceButtonWithIframeAndUnblockTracker(button, urls, iframeUrl) {
  * HTML code defined in the provided Tracker object.
  *
  * @param {Element} button the DOM element of the button to replace
- * @param {Array} urls the associated URLs
+ * @param {String} widget_name the name of the replacement widget
  * @param {String} html the HTML string that should replace the button
  */
-function replaceButtonWithHtmlCodeAndUnblockTracker(button, urls, html) {
-  unblockTracker(urls, function() {
+function replaceButtonWithHtmlCodeAndUnblockTracker(button, widget_name, html) {
+  unblockTracker(widget_name, function() {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
@@ -223,10 +226,9 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, urls, html) {
  * The teardown to the initialization defined in createReplacementWidget().
  *
  * @param {String} name the name/type of this widget (Vimeo, Disqus, etc.)
- * @param {Array} urls tracker URLs
  */
-function reinitializeWidgetAndUnblockTracker(name, urls) {
-  unblockTracker(urls, function () {
+function reinitializeWidgetAndUnblockTracker(name) {
+  unblockTracker(name, function () {
     // restore all widgets of this type
     WIDGET_ELS[name].forEach(data => {
       data.parent.replaceChild(data.widget, data.replacement);
@@ -287,7 +289,7 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
   });
 }
 
-function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
+function createReplacementWidget(name, icon, elToReplace) {
   let widgetFrame = document.createElement('iframe');
 
   // widget replacement frame styles
@@ -376,7 +378,7 @@ function createReplacementWidget(name, icon, elToReplace, trackerUrls) {
   widgetFrame.addEventListener('load', function () {
     let el = widgetFrame.contentDocument.getElementById(button_id);
     el.addEventListener("click", function (e) {
-      reinitializeWidgetAndUnblockTracker(name, trackerUrls);
+      reinitializeWidgetAndUnblockTracker(name);
       e.preventDefault();
     }, { once: true });
   }, false);
@@ -416,7 +418,9 @@ function replaceIndividualButton(tracker) {
  *                            replaced
  */
 function getTrackerData(callback) {
-  chrome.runtime.sendMessage({checkReplaceButton: true}, function(response) {
+  chrome.runtime.sendMessage({
+    type: "checkReplaceButton"
+  }, function (response) {
     if (response) {
       for (const key in response.translations) {
         TRANSLATIONS[key] = response.translations[key];
@@ -427,16 +431,17 @@ function getTrackerData(callback) {
 }
 
 /**
- * Messages the background page to temporarily allow an array of URLs.
+ * Messages the background page to temporarily allow domains associated with a
+ * given replacement widget.
  * Calls the provided callback function upon response.
  *
- * @param {Array} buttonUrls the URLs to be temporarily allowed
+ * @param {String} name the name of the replacement widget
  * @param {Function} callback the callback function
  */
-function unblockTracker(buttonUrls, callback) {
+function unblockTracker(name, callback) {
   let request = {
-    unblockWidget: true,
-    buttonUrls: buttonUrls
+    type: "unblockWidget",
+    widgetName: name
   };
   chrome.runtime.sendMessage(request, callback);
 }
@@ -455,9 +460,9 @@ if (document instanceof HTMLDocument === false && (
 }
 
 chrome.runtime.sendMessage({
-  checkWidgetReplacementEnabled: true
-}, function (checkWidgetReplacementEnabled) {
-  if (!checkWidgetReplacementEnabled) {
+  type: "checkWidgetReplacementEnabled"
+}, function (enabled) {
+  if (!enabled) {
     return;
   }
   initialize();

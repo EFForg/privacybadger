@@ -608,6 +608,7 @@ function unblockWidgetOnTab(tabId, widgetUrls) {
   }
   for (let i in widgetUrls) {
     let url = widgetUrls[i];
+    // TODO just store actual domains in the JSON in the first place
     let host = window.extractHostFromURL(url);
     temporaryWidgetUnblock[tabId].push(host);
   }
@@ -615,12 +616,40 @@ function unblockWidgetOnTab(tabId, widgetUrls) {
 
 // NOTE: sender.tab is available for content script (not popup) messages only
 function dispatcher(request, sender, sendResponse) {
-  if (request.checkEnabled) {
+
+  // messages from content scripts are to be treated with greater caution:
+  // https://groups.google.com/a/chromium.org/d/msg/chromium-extensions/0ei-UCHNm34/lDaXwQhzBAAJ
+  if (!sender.url.startsWith(chrome.runtime.getURL(""))) {
+    // reject unless it's a known content script message
+    const KNOWN_CONTENT_SCRIPT_MESSAGES = [
+      "checkDNT",
+      "checkEnabled",
+      "checkEnabledAndThirdParty",
+      "checkLocation",
+      "checkReplaceButton",
+      "checkWidgetReplacementEnabled",
+      "fpReport",
+      "getReplacementButton",
+      "supercookieReport",
+      "unblockWidget",
+    ];
+    if (!KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
+      console.error("Rejected unknown message %o from %s", request, sender.url);
+      return sendResponse();
+    }
+  }
+
+  switch (request.type) {
+
+  case "checkEnabled": {
     sendResponse(badger.isPrivacyBadgerEnabled(
       window.extractHostFromURL(sender.tab.url)
     ));
 
-  } else if (request.checkLocation) {
+    break;
+  }
+
+  case "checkLocation": {
     if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
       return sendResponse();
     }
@@ -630,31 +659,52 @@ function dispatcher(request, sender, sendResponse) {
       return sendResponse();
     }
 
-    let requestHost = window.extractHostFromURL(request.checkLocation);
+    let requestHost = window.extractHostFromURL(request.frameUrl);
 
     // Ignore requests that aren't from a third party.
     if (!utils.isThirdPartyDomain(requestHost, window.extractHostFromURL(sender.tab.url))) {
       return sendResponse();
     }
 
-    var reqAction = checkAction(sender.tab.id, requestHost);
-    var cookieBlock = reqAction == constants.COOKIEBLOCK || reqAction == constants.USER_COOKIE_BLOCK;
-    sendResponse(cookieBlock);
+    let action = checkAction(sender.tab.id, requestHost);
+    sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK);
 
-  } else if (request.checkReplaceButton) {
+    break;
+  }
+
+  case "checkReplaceButton": {
     if (badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) && badger.isWidgetReplacementEnabled()) {
       let widgetBlockList = getWidgetBlockList();
       sendResponse(widgetBlockList);
     }
 
-  } else if (request.unblockWidget) {
-    unblockWidgetOnTab(sender.tab.id, request.buttonUrls);
-    sendResponse();
+    break;
+  }
 
-  } else if (request.getReplacementButton) {
+  case "unblockWidget": {
+    let widgetData = badger.widgetList.find(
+      widget => widget.name == request.widgetName);
+    if (!widgetData ||
+        !widgetData.hasOwnProperty("replacementButton") ||
+        !widgetData.replacementButton.unblockDomains) {
+      return sendResponse();
+    }
+    unblockWidgetOnTab(sender.tab.id, widgetData.replacementButton.unblockDomains);
+    sendResponse();
+    break;
+  }
+
+  case "getReplacementButton": {
+    let widgetData = badger.widgetList.find(
+      widget => widget.name == request.widgetName);
+    if (!widgetData ||
+        !widgetData.hasOwnProperty("replacementButton") ||
+        !widgetData.replacementButton.imagePath) {
+      return sendResponse();
+    }
 
     let button_path = chrome.runtime.getURL(
-      "skin/socialwidgets/" + request.getReplacementButton);
+      "skin/socialwidgets/" + widgetData.replacementButton.imagePath);
 
     let image_type = button_path.slice(button_path.lastIndexOf('.') + 1);
 
@@ -679,36 +729,48 @@ function dispatcher(request, sender, sendResponse) {
 
     // indicate this is an async response to chrome.runtime.onMessage
     return true;
+  }
 
-  // Canvas fingerprinting
-  } else if (request.fpReport) {
-    if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) { return; }
-    if (Array.isArray(request.fpReport)) {
-      request.fpReport.forEach(function (msg) {
+  case "fpReport": {
+    if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
+      return sendResponse();
+    }
+    if (Array.isArray(request.data)) {
+      request.data.forEach(function (msg) {
         recordFingerprinting(sender.tab.id, msg);
       });
     } else {
-      recordFingerprinting(sender.tab.id, request.fpReport);
+      recordFingerprinting(sender.tab.id, request.data);
     }
 
-  } else if (request.superCookieReport) {
-    if (badger.hasSuperCookie(request.superCookieReport)) {
+    break;
+  }
+
+  case "supercookieReport": {
+    if (badger.hasSuperCookie(request.data)) {
       recordSuperCookie(sender.tab.id, request.frameUrl);
     }
+    break;
+  }
 
-  } else if (request.checkEnabledAndThirdParty) {
+  case "checkEnabledAndThirdParty": {
     let tab_host = window.extractHostFromURL(sender.tab.url),
-      frame_host = window.extractHostFromURL(request.checkEnabledAndThirdParty);
+      frame_host = window.extractHostFromURL(request.frameUrl);
 
     sendResponse(badger.isPrivacyBadgerEnabled(tab_host) && utils.isThirdPartyDomain(frame_host, tab_host));
 
-  } else if (request.checkWidgetReplacementEnabled) {
+    break;
+  }
+
+  case "checkWidgetReplacementEnabled": {
     sendResponse(
       badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) &&
       badger.isWidgetReplacementEnabled()
     );
+    break;
+  }
 
-  } else if (request.type == "getPopupData") {
+  case "getPopupData": {
     let tab_id = request.tabId,
       tab_url = request.tabUrl,
       tab_host = window.extractHostFromURL(tab_url),
@@ -728,7 +790,10 @@ function dispatcher(request, sender, sendResponse) {
       trackerCount: has_tab_data && badger.getTrackerCount(tab_id)
     });
 
-  } else if (request.type == "getOptionsData") {
+    break;
+  }
+
+  case "getOptionsData": {
     sendResponse({
       disabledSites: badger.getDisabledSites(),
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
@@ -742,35 +807,50 @@ function dispatcher(request, sender, sendResponse) {
       webRTCAvailable: badger.webRTCAvailable,
     });
 
-  } else if (request.type == "resetData") {
+    break;
+  }
+
+  case "resetData": {
     badger.storage.clearTrackerData();
     badger.loadSeedData();
     sendResponse();
+    break;
+  }
 
-  } else if (request.type == "removeAllData") {
+  case "removeAllData": {
     badger.storage.clearTrackerData();
     sendResponse();
+    break;
+  }
 
-  } else if (request.type == "seenComic") {
+  case "seenComic": {
     badger.getSettings().setItem("seenComic", true);
+    break;
+  }
 
-  } else if (request.type == "activateOnSite") {
+  case "activateOnSite": {
     badger.enablePrivacyBadgerForOrigin(request.tabHost);
     badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
     sendResponse();
+    break;
+  }
 
-  } else if (request.type == "deactivateOnSite") {
+  case "deactivateOnSite": {
     badger.disablePrivacyBadgerForOrigin(request.tabHost);
     badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
     sendResponse();
+    break;
+  }
 
-  } else if (request.type == "revertDomainControl") {
+  case "revertDomainControl": {
     badger.storage.revertUserAction(request.origin);
     sendResponse({
       origins: badger.storage.getTrackingDomains()
     });
+    break;
+  }
 
-  } else if (request.type == "downloadCloud") {
+  case "downloadCloud": {
     chrome.storage.sync.get("disabledSites", function (store) {
       if (chrome.runtime.lastError) {
         sendResponse({success: false, message: chrome.runtime.lastError.message});
@@ -791,10 +871,12 @@ function dispatcher(request, sender, sendResponse) {
         });
       }
     });
-    //indicate this is an async response to chrome.runtime.onMessage
-    return true;
 
-  } else if (request.type == "uploadCloud") {
+    // indicate this is an async response to chrome.runtime.onMessage
+    return true;
+  }
+
+  case "uploadCloud": {
     let obj = {};
     obj.disabledSites = badger.getDisabledSites();
     chrome.storage.sync.set(obj, function () {
@@ -804,10 +886,11 @@ function dispatcher(request, sender, sendResponse) {
         sendResponse({success: true});
       }
     });
-    //indicate this is an async response to chrome.runtime.onMessage
+    // indicate this is an async response to chrome.runtime.onMessage
     return true;
+  }
 
-  } else if (request.type == "savePopupToggle") {
+  case "savePopupToggle": {
     let domain = request.origin,
       action = request.action;
 
@@ -816,22 +899,29 @@ function dispatcher(request, sender, sendResponse) {
     // update cached tab data so that a reopened popup displays correct state
     badger.tabData[request.tabId].origins[domain] = "user_" + action;
 
-  } else if (request.type == "saveOptionsToggle") {
+    break;
+  }
+
+  case "saveOptionsToggle": {
     // called when the user manually sets a slider on the options page
     badger.saveAction(request.action, request.origin);
     sendResponse({
       origins: badger.storage.getTrackingDomains()
     });
+    break;
+  }
 
-  } else if (request.type == "mergeUserData") {
+  case "mergeUserData": {
     // called when a user uploads data exported from another Badger instance
     badger.mergeUserData(request.data);
     sendResponse({
       disabledSites: badger.getDisabledSites(),
       origins: badger.storage.getTrackingDomains(),
     });
+    break;
+  }
 
-  } else if (request.type == "updateSettings") {
+  case "updateSettings": {
     const settings = badger.getSettings();
     for (let key in request.data) {
       if (badger.defaultSettings.hasOwnProperty(key)) {
@@ -841,42 +931,56 @@ function dispatcher(request, sender, sendResponse) {
       }
     }
     sendResponse();
+    break;
+  }
 
-  } else if (request.type == "updateBadge") {
+  case "updateBadge": {
     let tab_id = request.tab_id;
     badger.updateBadge(tab_id);
     sendResponse();
+    break;
+  }
 
-  } else if (request.type == "disablePrivacyBadgerForOrigin") {
+  case "disablePrivacyBadgerForOrigin": {
     badger.disablePrivacyBadgerForOrigin(request.domain);
     sendResponse({
       disabledSites: badger.getDisabledSites()
     });
+    break;
+  }
 
-  } else if (request.type == "enablePrivacyBadgerForOriginList") {
+  case "enablePrivacyBadgerForOriginList": {
     request.domains.forEach(function (domain) {
       badger.enablePrivacyBadgerForOrigin(domain);
     });
     sendResponse({
       disabledSites: badger.getDisabledSites()
     });
+    break;
+  }
 
-  } else if (request.type == "removeOrigin") {
+  case "removeOrigin": {
     badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);
     badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
     sendResponse({
       origins: badger.storage.getTrackingDomains()
     });
+    break;
+  }
 
-  } else if (request.type == "saveErrorText") {
+  case "saveErrorText": {
     let activeTab = badger.tabData[request.tabId];
     activeTab.errorText = request.errorText;
+    break;
+  }
 
-  } else if (request.type == "removeErrorText") {
+  case "removeErrorText": {
     let activeTab = badger.tabData[request.tabId];
     delete activeTab.errorText;
+    break;
+  }
 
-  } else if (request.checkDNT) {
+  case "checkDNT": {
     // called from contentscripts/dnt.js to check if we should enable it
     sendResponse(
       badger.isDNTSignalEnabled()
@@ -884,6 +988,9 @@ function dispatcher(request, sender, sendResponse) {
         window.extractHostFromURL(sender.tab.url)
       )
     );
+    break;
+  }
+
   }
 }
 
