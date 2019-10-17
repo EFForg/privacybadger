@@ -419,7 +419,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger виявив $COUNT$ можливих $TRACKER_LINK_START$доменів стеження$TRACKER_LINK_END$ на цей час.",
+        "message": "Privacy Badger наразі виявив $COUNT$ можливих $TRACKER_LINK_START$доменів стеження$TRACKER_LINK_END$.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
