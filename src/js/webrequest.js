@@ -559,8 +559,10 @@ let getWidgetBlockList = (function () {
     }
 
     badger.widgetList.forEach(function (widget) {
-      // Only replace blocked and yellowlisted widgets
-      widgetsToReplace[widget.name] = constants.BLOCKED_ACTIONS.has(
+      // Only replace blocked and yellowlisted widgets and only if the widget is not on the 'do not replace' list
+      const replace = !badger.getSettings().getItem('widgetReplacementExceptions').includes(widget.name);
+
+      widgetsToReplace[widget.name] = replace && constants.BLOCKED_ACTIONS.has(
         badger.storage.getBestAction(widget.domain)
       );
     });
@@ -805,6 +807,8 @@ function dispatcher(request, sender, sendResponse) {
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       showTrackingDomains: badger.getSettings().getItem("showTrackingDomains"),
       webRTCAvailable: badger.webRTCAvailable,
+      widgetReplacementExceptions: badger.getSettings().getItem("widgetReplacementExceptions"),
+      widgets: badger.widgetList.map(widget => widget.name),
     });
 
     break;

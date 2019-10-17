@@ -24,7 +24,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.structure.css" rel="stylesheet" />
 <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.css" />
+<link type="text/css" href="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.css" rel="stylesheet" />
+<link type="text/css" href="/lib/vendor/select2-4.0.11/select2-4.0.11.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/options-layout.css" rel="stylesheet" />
@@ -33,6 +34,7 @@
 <script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 <script type="text/javascript" src="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.js"></script>
 <script type="text/javascript" src="/lib/vendor/underscore-1.9.1.js"></script>
+<script type="text/javascript" src="/lib/vendor/select2-4.0.11/select2-4.0.11.js"></script>
 
 <!-- required because of window.getBaseDomain() in htmlutils.js -->
 <script type="text/javascript" src="/lib/vendor/punycode-1.4.1.js"></script>
@@ -67,6 +69,7 @@
   <ul>
     <li><a href="#tab-general-settings"><span class="i18n_options_general_settings"></span></a></li>
     <li><a href="#tab-whitelisted-domains"><span class="i18n_whitelisted_domains"></span></a></li>
+    <li><a href="#tab-manage-widgets"><span class="i18n_options_widget_replacement_tab"></span></a></li>
     <li><a href="#tab-tracking-domains"><span class="i18n_options_domain_list_tab"></span></a></li>
     <li><a href="#tab-manage-data"><span class="i18n_data_settings"></span></a></li>
   </ul>
@@ -160,12 +163,6 @@
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="replace-widgets-checkbox">
-          <span class="i18n_options_social_widgets_checkbox"></span>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label>
           <input type="checkbox" id="enable_dnt_checkbox">
           <span class="i18n_options_enable_dnt_checkbox"></span>
         </label>
@@ -203,6 +200,20 @@
         <div id="incognito-warning" class="i18n_options_incognito_warning"></div>
       </div>
     </form>
+  </div>
+
+  <div id="tab-manage-widgets">
+    <p><span class="i18n_options_widget_replacement_desc"></span></p>
+    <label>
+      <input type="checkbox" id="replace-widgets-checkbox">
+      <span class="i18n_options_social_widgets_checkbox"></span>
+    </label>
+    <div id="hide-widgets-row">
+      <label for="hide-widgets-select">
+        <span class="i18n_options_hide_social_widgets"></span>
+      </label>
+      <select name="states[]" multiple="multiple" id="hide-widgets-select"></select>
+    </div>
   </div>
 
   <div id="tab-manage-data">

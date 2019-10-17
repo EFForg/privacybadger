@@ -146,6 +146,30 @@ function loadOptions() {
     })
     .prop("checked", OPTIONS_DATA.showNonTrackingDomains);
 
+  const widgetSelector = $("#hide-widgets-select");
+  widgetSelector.prop("disabled",
+    OPTIONS_DATA.isWidgetReplacementEnabled ? false : "disabled");
+
+  $("#replace-widgets-checkbox").change(function () {
+    if ($(this).is(":checked")) {
+      widgetSelector.prop("disabled", false);
+    } else {
+      widgetSelector.prop("disabled", "disabled");
+    }
+  });
+
+  // Initialize Select2 and populate options
+  widgetSelector.select2();
+  OPTIONS_DATA.widgets.forEach(function (key) {
+    const isSelected = OPTIONS_DATA.widgetReplacementExceptions.includes(key);
+    const option = new Option(key, key, false, isSelected);
+    widgetSelector.append(option).trigger("change");
+  });
+
+  widgetSelector.on('select2:select', updateWidgetReplacementExceptions);
+  widgetSelector.on('select2:unselect', updateWidgetReplacementExceptions);
+  widgetSelector.on('select2:clear', updateWidgetReplacementExceptions);
+
   reloadWhitelist();
   reloadTrackingDomainsTab();
 
@@ -762,6 +786,18 @@ function removeOrigin(event) {
   }, (response) => {
     OPTIONS_DATA.origins = response.origins;
     reloadTrackingDomainsTab();
+  });
+}
+
+/**
+ * Update which widgets should be blocked instead of replaced
+ * @param {Event} event The DOM event triggered by selecting an option
+ */
+function updateWidgetReplacementExceptions() {
+  const widgetReplacementExceptions = $('#hide-widgets-select').select2('data').map(({ id }) => id);
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { widgetReplacementExceptions }
   });
 }
 

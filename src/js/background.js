@@ -533,7 +533,8 @@ Badger.prototype = {
     showIntroPage: true,
     showNonTrackingDomains: false,
     showTrackingDomains: false,
-    socialWidgetReplacementEnabled: true
+    socialWidgetReplacementEnabled: true,
+    widgetReplacementExceptions: [],
   },
 
   /**
