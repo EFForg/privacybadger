@@ -131,9 +131,13 @@
         "message": "导入",
         "description": ""
     },
+    "options_hide_social_widgets": {
+        "message": "Don't replace the following widgets:",
+        "description": "Multiple selection box on the widget replacement tab"
+    },
     "options_social_widgets_checkbox": {
-        "message": "替换社交网站挂件",
-        "description": "Checkbox label on the general settings page"
+        "message": "Enable widget replacement",
+        "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "显示看起来没有追踪你的域名",
@@ -590,5 +594,13 @@
     "popup_special_page_paragraph": {
         "message": "隐私獾不在特殊页面工作——比如这一个。试着浏览一下别的地方。",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
+    },
+    "options_widget_replacement_tab": {
+        "message": "Widget Replacement",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "When blocking social buttons and other potentially useful (video, audio, comments) widgets, Privacy Badger can replace them with click-to-activate placeholders.",
+        "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }
