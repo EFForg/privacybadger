@@ -290,7 +290,7 @@
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
-        "message": "partially-blocked",
+        "message": "חסום-חלקית",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
@@ -330,7 +330,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT-compliant",
+        "message": "תואם-DNT",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -366,7 +366,7 @@
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
-        "message": "user-controlled",
+        "message": "נשלט-משתמש",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
