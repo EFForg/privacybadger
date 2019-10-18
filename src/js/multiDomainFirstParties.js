@@ -1925,6 +1925,19 @@ var multiDomainFirstPartiesArray = [
     "thomsonreuters.ru",
   ],
   [
+    "riotgames.com",
+
+    "leagueoflegends.com",
+    "lolesports.com",
+    "lolstatic.com",
+    "lolusercontent.com",
+
+    "playruneterra.com",
+
+    "riotcdn.net",
+    "rdatasrv.net",
+  ],
+  [
     "rtl.nl",
 
     "bright.nl",
