@@ -145,7 +145,6 @@ delvenetworks.com
 denverpost.com
 deviantart.com
 deviantart.net
-digg.com
 cdn.discourse.org
 discovery.com
 disqus.com
@@ -574,10 +573,8 @@ s-msft.com
 s-msn.com
 smugmug.com
 snapengage.com
-sndcdn.com
 auth.api.sonyentertainmentnetwork.com
 cdn-a.sonyentertainmentnetwork.com
-soundcloud.com
 springboardplatform.com
 squarespace.com
 squareup.com
