@@ -2021,6 +2021,7 @@ var multiDomainFirstPartiesArray = [
   ],
   ["snapfish.com", "snapfish.ca"],
   ["sony.com", "sonyrewards.com"],
+  ["soundcloud.com", "sndcdn.com"],
   ["soundcu.com", "netteller.com"],
   ["southerncompany.com", "southernco.com"],
   ["southparkstudios.com", "cc.com", "comedycentral.com"],
