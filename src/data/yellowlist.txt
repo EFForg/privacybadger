@@ -573,6 +573,7 @@ s-msft.com
 s-msn.com
 smugmug.com
 snapengage.com
+sndcdn.com
 auth.api.sonyentertainmentnetwork.com
 cdn-a.sonyentertainmentnetwork.com
 springboardplatform.com
