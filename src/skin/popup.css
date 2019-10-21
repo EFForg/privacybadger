@@ -145,22 +145,32 @@ font-size: 16px;
 #header-image-stack {
     display: table;
     margin-left: 65px;
+    margin-top: 5px;
+    position: absolute;
 }
 
 #privacyBadgerHeader h2{
   display: table-row;
   color: #000;
   font-size: 24px;
+  font-weight: normal;
   clear: initial;
   font-family: "Chunk-Five", serif;
+  margin-top: 5px;
 }
 
 #privacyBadgerHeader img {
     float: left
 }
 
+#badger-header-logo {
+    position: absolute;
+    margin-top: 5px;
+}
+
 
 #blockedResourcesContainer {
+    margin-top: 5px;
     min-height: 70px;
 }
 
