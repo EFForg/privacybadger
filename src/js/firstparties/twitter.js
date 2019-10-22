@@ -4,11 +4,6 @@ const timeline_refresh_interval = 2000;
 // twitter.com
 const full_url_attribute = 'title';
 const tcos_with_destination = getTCoSelectorWithDestination(full_url_attribute);
-const full_url_attribute_profile = "title";
-const profile_links_tcos = ".ProfileHeaderCard " + getTCoSelectorWithDestination(full_url_attribute_profile);
-
-// mobile.twitter.com
-const link_reg_ex = /\(link: (https?:\/\/.+)\)/;
 
 const fixes = {};
 
@@ -83,20 +78,10 @@ function unwrapTwitterURLsInTimeline() {
   });
 }
 
-function unwrapSpecialTwitterURLs() {
-  // unwrap profile links
-  document.querySelectorAll(profile_links_tcos).forEach((link) => {
-    const attr = getLinkByAttribute(link, full_url_attribute_profile);
-    if (attr !== null) {
-      unwrapTco(link, attr);
-    }
-  });
-}
-
 function unwrapSpecialTwitterPwaURLs() {
   try {
     // iterate users object (usually should only be one, with some random ID?)
-    for (const entityKey of Object.keys(window.__INITIAL_STATE__.entities.users.entities)) {
+    for (const entityKey of Object.keys(window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities)) {
       const entityValue = window.wrappedJSObject.__INITIAL_STATE__.entities.users.entities[entityKey];
       // iterate url array (usually only one)
       for (const url of entityValue.entities.url.urls) {
