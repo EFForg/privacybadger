@@ -2248,6 +2248,7 @@ var multiDomainFirstPartiesArray = [
   ["twitter.com", "twimg.com", "t.co"],
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
   ["ubisoft.com", "ubi.com", "anno-union.com", "thesettlers-alliance.com"],
+  ["vanguard.com", "investornews.vanguard", "vanguardblog.com", "vgcontent.info"],
   ["verizon.com", "verizon.net", "verizonwireless.com", "vzw.com"],
   [
     "vinted.com",
