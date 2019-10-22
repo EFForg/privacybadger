@@ -194,6 +194,7 @@ et4.de
 ethn.io
 evcdn.com
 ebmedia.eventbrite.com
+everyaction.com
 s-static.ak.facebook.com
 staticxx.facebook.com
 www.facebook.com
@@ -452,6 +453,7 @@ assets.nflxext.com
 cdn3.nflxext.com
 nflxext.com
 ngfiles.com
+ngpvan.com
 nj.com
 nmcdn.us
 nola.com
