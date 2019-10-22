@@ -50,7 +50,7 @@ function setTextDirection() {
   // popup page
   if (document.location.pathname == "/skin/popup.html") {
     // fix floats
-    ['#privacyBadgerHeader h2', '#privacyBadgerHeader img', '#instruction img', '#version'].forEach((selector) => {
+    ['#privacyBadgerHeader img', '#header-image-stack', '#instruction img', '#version'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
     ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
