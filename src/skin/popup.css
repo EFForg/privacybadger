@@ -396,6 +396,7 @@ div.overlay.active {
 #version{
   color: #707070;
   font-size: 10px;
+  float: left;
 }
 
 .tooltipster-sidetip .tooltipster-box {
