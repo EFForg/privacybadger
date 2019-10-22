@@ -702,9 +702,6 @@ pipes.yahoo.com
 search.yahoo.com
 yahoo.net
 yahooapis.com
-yandex.net
-yandex.ru
-yandex.ua
 yardbarker.com
 yellowpages.com
 seatme.yelp.com
@@ -720,7 +717,6 @@ zap2it.com
 zdassets.com
 zencdn.net
 zendesk.com
-zergnet.com
 ziplist.com
 zlcdn.com
 zombaio.com
