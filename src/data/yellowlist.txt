@@ -18,7 +18,6 @@ akamaized.net
 al.com
 alert60.com
 alexa.com
-alicdn.com
 ally.com
 amazon.com
 s3.amazonaws.com
