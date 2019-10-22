@@ -576,6 +576,7 @@ snapengage.com
 sndcdn.com
 auth.api.sonyentertainmentnetwork.com
 cdn-a.sonyentertainmentnetwork.com
+api.soundcloud.com
 springboardplatform.com
 squarespace.com
 squareup.com
