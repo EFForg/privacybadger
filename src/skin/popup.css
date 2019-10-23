@@ -145,7 +145,7 @@ font-size: 16px;
 #header-image-stack {
     display: table;
     float: left;
-    padding: 0 10px 0 10px;
+    margin: 2px 10px 0 10px;
 }
 
 #privacyBadgerHeader h2{
