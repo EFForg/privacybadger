@@ -2245,6 +2245,15 @@ var multiDomainFirstPartiesArray = [
   ],
   ["trsretire.com", "divinvest.com"],
   ["turbotax.com", "intuit.com"],
+  [
+    "tvn.pl",
+
+    "player.pl",
+    "tvn24bis.pl",
+    "tvn24.pl",
+
+    "cdntvn.pl",
+  ],
   ["twitter.com", "twimg.com", "t.co"],
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
   ["ubisoft.com", "ubi.com", "anno-union.com", "thesettlers-alliance.com"],
