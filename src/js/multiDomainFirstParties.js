@@ -2249,6 +2249,7 @@ var multiDomainFirstPartiesArray = [
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
   ["ubisoft.com", "ubi.com", "anno-union.com", "thesettlers-alliance.com"],
   ["verizon.com", "verizon.net", "verizonwireless.com", "vzw.com"],
+  ["vimeo.com", "vimeocdn.com"],
   [
     "vinted.com",
 
