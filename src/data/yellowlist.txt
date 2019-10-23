@@ -704,6 +704,7 @@ pipes.yahoo.com
 search.yahoo.com
 yahoo.net
 yahooapis.com
+api-maps.yandex.ru
 yardbarker.com
 yellowpages.com
 seatme.yelp.com
