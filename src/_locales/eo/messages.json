@@ -132,11 +132,11 @@
         "description": ""
     },
     "options_hide_social_widgets": {
-        "message": "Ne anstataŭigi la jenajn butonojn:",
+        "message": "Ne anstataŭigi la jenajn ret‑aplikaĵetojn:",
         "description": "Multiple selection box on the widget replacement tab"
     },
     "options_social_widgets_checkbox": {
-        "message": "Anstataŭigi ret‑aplikaĵetojn",
+        "message": "Aktivigi anstataŭigon de ret‑aplikaĵetoj",
         "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -596,7 +596,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "options_widget_replacement_tab": {
-        "message": "Anstataŭigi ret‑aplikaĵetojn",
+        "message": "Ret‑aplikaĵetoj",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
