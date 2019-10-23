@@ -1289,6 +1289,7 @@ var multiDomainFirstPartiesArray = [
     "tribunaexpresso.pt",
     "volantesic.pt",
   ],
+  ["independent.co.uk", "indy100.com"],
   [
     "jd.com",
     "3.cn",
