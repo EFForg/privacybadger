@@ -637,6 +637,7 @@ api.twisto.cz
 static.twisto.cz
 api.twisto.pl
 twitch.tv
+platform.twitter.com
 typekit.net
 typekit.com
 typepad.com
