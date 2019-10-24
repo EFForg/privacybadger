@@ -164,5 +164,20 @@
             "imagePath": "badger-play.png",
             "type": 3
         }
+    },
+    "YouTube": {
+        "domain": "www.youtube.com",
+        "buttonSelectors": [
+            "iframe[src^='http://www.youtube.com/embed/']",
+            "iframe[src^='https://www.youtube.com/embed/']"
+        ],
+        "replacementButton": {
+            "details": "",
+            "unblockDomains": [
+                "https://www.youtube.com/"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
     }
 }
