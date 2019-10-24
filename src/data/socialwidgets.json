@@ -136,21 +136,6 @@
             "type": 3
         }
     },
-    "StumbleUpon": {
-        "domain": "www.stumbleupon.com",
-        "buttonSelectors": [
-            "su\\:badge",
-            "script[src^='http://www.stumbleupon.com/hostedbadge.php']"
-        ],
-        "replacementButton": {
-            "details": "http://www.stumbleupon.com/badge/?url=",
-            "unblockDomains": [
-                "http://www.stumbleupon.com/badge/?url="
-            ],
-            "imagePath": "StumbleUpon.svg",
-            "type": 0
-        }
-    },
     "Twitter": {
         "domain": "platform.twitter.com",
         "buttonSelectors": [
