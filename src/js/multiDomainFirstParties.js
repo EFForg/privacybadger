@@ -769,7 +769,7 @@ var multiDomainFirstPartiesArray = [
     "mrjet.dk",
   ],
   ["express-scripts.com", "medcohealth.com"],
-  ["facebook.com", "fbcdn.com", "fbcdn.net", "fbsbx.com", "facebook.net", "messenger.com"],
+  ["facebook.com", "fbcdn.com", "fbcdn.net", "fbsbx.com", "facebook.net", "messenger.com", "workplace.com"],
   [
     "fandom.com",
     "fandom-dev.pl",
