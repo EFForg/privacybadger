@@ -150,6 +150,7 @@ font-size: 16px;
     display: table;
     float: left;
     margin: 2px 10px 0 10px;
+    line-height: 1.0;
 }
 
 #privacyBadgerHeader h2{
