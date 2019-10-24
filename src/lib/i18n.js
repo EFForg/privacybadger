@@ -58,10 +58,7 @@ function setTextDirection() {
     });
 
     // fix padding
-    ['#version'].forEach((selector) => {
-      swap_css_property(selector, "padding-left", "padding-right");
-    });
-    ['#privacyBadgerHeader h2', '#instruction img', '#help', '#share'].forEach((selector) => {
+    ['#instruction img', '#help', '#share'].forEach((selector) => {
       swap_css_property(selector, "padding-right", "padding-left");
     });
 
