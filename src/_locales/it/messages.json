@@ -374,7 +374,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger ha rilevato $COUNT$ potenziali $TRACKER_LINK_START$tracker$TRACKER_LINK_END$ in questa pagina. Non dovresti averne bisogno a meno che qualcosa non funzioni correttamente.",
+        "message": "Privacy Badger ha rilevato $COUNT$ potenziali $TRACKER_LINK_START$tracker$TRACKER_LINK_END$ in questa pagina. Non dovresti avere bisogno di regolare i pulsanti a meno che qualcosa non funzioni correttamente.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -411,7 +411,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger ha rilevato un potenziale <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> in questa pagina. Non dovresti averne bisogno a meno che qualcosa non funzioni correttamente.",
+        "message": "Privacy Badger ha rilevato un potenziale <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracker</a> in questa pagina. Non dovresti avere bisogno di regolare il pulsante a meno che qualcosa non funzioni correttamente.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
