@@ -142,6 +142,10 @@ color: #505050;
 font-size: 16px;
 }
 
+#title {
+    padding-top: 4px;
+}
+
 #header-image-stack {
     display: table;
     float: left;
