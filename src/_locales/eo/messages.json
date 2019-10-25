@@ -596,7 +596,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "options_widget_replacement_tab": {
-        "message": "Ret‑aplikaĵetoj",
+        "message": "Anstataŭigi ret‑aplikaĵetojn",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
