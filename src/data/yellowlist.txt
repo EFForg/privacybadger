@@ -366,6 +366,7 @@ justin.tv
 jwpcdn.com
 jwpltx.com
 content.jwplatform.com
+jwpsrv.com
 cdnapi.kaltura.com
 cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
