@@ -1,5 +1,22 @@
 Changes for Privacy Badger 
 ====================================
+## 2019.10.28
+* Updated the popup with a new, higher-contrast look
+* Widget placeholders will no longer be applied for domains on the yellowlist.
+The value of widget placeholders is full blocking (best privacy) combined with
+a clear way to restore potentially useful blocked content (convenience).
+Mixing cookie blocking and placeholders doesn't actually improve privacy or
+convenience but does introduce various bugs.
+* Added a replacement placeholder for YouTube (disabled by default as youtube.com
+is still on the yellowlist for now)
+* Added the Widget Replacement tab to the options page to manage widgets that
+do get blocked and replaced with Privacy Badger placeholders. Visit Widget
+Replacement to selectively disable placeholders. For example, you want social
+buttons out of your life completely.
+* Fixed various site breakages
+* Added Hebrew translations
+* Improved translations (Italian, Russian, Ukrainian)
+
 ## 2019.10.8
 * Fixed image/video thumbnails in Google search results
 * Fixed various other site breakages
