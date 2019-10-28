@@ -315,6 +315,7 @@ var multiDomainFirstPartiesArray = [
 
     "atl-paas.net",
   ],
+  ["att.com", "att.tv"],
   [
     "autodesk.com",
 
