@@ -539,8 +539,10 @@ function reloadTrackingDomainsTab() {
   $("#options_domain_list_no_trackers").hide();
   $("#tracking-domains-div").show();
 
+  let baseDomains = new Set(allTrackingDomains.map(d => window.getBaseDomain(d)));
+
   // Update messages according to tracking domain count.
-  if (allTrackingDomains.length == 1) {
+  if (baseDomains.size == 1) {
     // leave out messages about multiple trackers
     $("#options_domain_list_trackers").hide();
 
@@ -549,7 +551,7 @@ function reloadTrackingDomainsTab() {
   } else {
     $("#options_domain_list_trackers").html(i18n.getMessage(
       "options_domain_list_trackers", [
-        allTrackingDomains.length,
+        baseDomains.size,
         "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
       ]
     )).show();
