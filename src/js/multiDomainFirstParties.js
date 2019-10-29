@@ -1995,7 +1995,7 @@ var multiDomainFirstPartiesArray = [
     "pinimg.com",
     "pin.it",
   ],
-  ["playstation.com", "sonyentertainmentnetwork.com"],
+  ["playstation.com", "playstation.net", "sonyentertainmentnetwork.com"],
   ["pokemon-gl.com", "pokemon.com"],
   ["pornhub.com", "phncdn.com"],
   ["postepay.it", "poste.it"],
