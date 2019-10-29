@@ -649,6 +649,7 @@ typography.com
 assets.ubuntu.com
 uicdn.com
 ui-portal.de
+ultimedia.com
 ultraimg.com
 unicornmedia.com
 uplynk.com
