@@ -2017,6 +2017,7 @@ var multiDomainFirstPartiesArray = [
     "pin.it",
   ],
   ["playstation.com", "playstation.net", "sonyentertainmentnetwork.com"],
+  ["plex.tv", "plex.direct"],
   ["pokemon-gl.com", "pokemon.com"],
   ["pornhub.com", "phncdn.com"],
   ["postepay.it", "poste.it"],
