@@ -419,6 +419,7 @@ microsoft.com
 microsoftonline.com
 microsofttranslator.com
 mlive.com
+mncdn.com
 mobify.com
 verify.monzo.com
 loop.services.mozilla.com
