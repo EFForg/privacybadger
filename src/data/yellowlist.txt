@@ -66,6 +66,8 @@ bankrate.com
 bazaarvoice.com
 bcbits.com
 betterttv.net
+static.beyondmenu.com
+www.beyondmenu.com
 bigcommerce.com
 www.bing.com
 bit.ly
