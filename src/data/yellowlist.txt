@@ -731,6 +731,10 @@ zencdn.net
 zendesk.com
 ziplist.com
 zlcdn.com
+zoho.com
+zoho.eu
+zohopublic.com
+zohostatic.com
 zombaio.com
 zope.net
 zopim.com
