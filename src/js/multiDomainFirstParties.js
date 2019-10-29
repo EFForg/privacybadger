@@ -266,8 +266,9 @@ var multiDomainFirstPartiesArray = [
     "zappos.com",
 
     "twitch.tv",
-    "ttvnw.net",
+    "ext-twitch.tv",
     "jtvnw.net",
+    "ttvnw.net",
 
     "amazonpay.com",
     "media-amazon.com",
