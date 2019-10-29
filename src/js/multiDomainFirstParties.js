@@ -1564,6 +1564,7 @@ var multiDomainFirstPartiesArray = [
     "office.com",
     "officelive.com",
     "office.net",
+    "olsvc.com",
     "onedrive.com",
     "onenote.com",
     "onenote.net",
