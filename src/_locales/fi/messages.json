@@ -132,11 +132,11 @@
         "description": ""
     },
     "options_hide_social_widgets": {
-        "message": "Don't replace the following widgets:",
+        "message": "Älä korvaa seuraavia sovelmia:",
         "description": "Multiple selection box on the widget replacement tab"
     },
     "options_social_widgets_checkbox": {
-        "message": "Enable widget replacement",
+        "message": "Ota sovelmien korvaaminen käyttöön",
         "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -596,11 +596,11 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "options_widget_replacement_tab": {
-        "message": "Widget Replacement",
+        "message": "Sovelmien korvaaminen",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "When blocking social buttons and other potentially useful (video, audio, comments) widgets, Privacy Badger can replace them with click-to-activate placeholders.",
+        "message": "Estäessään sosiaalisen median painikkeita ja muita mahdollisesti hyödyllisiä (video-, ääni-, kommentti-) sovelmia, Privacy Badger voi korvata ne klikkaamalla aktivoitavilla korvikkeilla.",
         "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }
