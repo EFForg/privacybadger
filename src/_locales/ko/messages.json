@@ -10,7 +10,7 @@
         }
     },
     "invalid_json": {
-        "message": "유효하지 않은 JSON 파일.",
+        "message": "유효하지 않은 JSON 파일",
         "description": ""
     },
     "options_remove_origin_confirm": {
