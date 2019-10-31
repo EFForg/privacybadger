@@ -104,7 +104,7 @@
         "description": ""
     },
     "popup_instructions_no_trackers": {
-        "message": "<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적기</a>가 발견되지 않았습니다. 프라이버시를 위해서!",
+        "message": "<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적기</a>가 발견되지 않았습니다. 프라이버시를 위하여!",
         "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
@@ -370,7 +370,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger는 다음 사이트에서 비활성화됩니다. 즉, 여기에 나열된 사이트를 방문할 때 Privacy Badger는 아무 것도 차단하지 않습니다.</p><p>Privacy Badger가 페이지를 파손하고 있다고 생각되면 아래 상자에 해당 페이지의 도메인을 입력하고 \"도메인 추가\" 버튼을 클릭할 수 있습니다.</p><p>또한, 페이지 탭이 이미 선택되어 있을 때는 브라우저 툴바에서 Privacy Badger버튼을 클릭한 다음 \"이 사이트에 대해 Privacy Badger를 사용하지 않도록 설정합니다.\" 버튼을 클릭하기만 하면 됩니다.</p>",
+        "message": "<p>Privacy Badger는 다음 사이트에서 비활성화됩니다. 즉, 여기에 나열된 사이트를 방문할 때 Privacy Badger는 아무 것도 차단하지 않습니다.</p><p>Privacy Badger가 페이지를 파손하고 있다고 생각되면 아래 상자에 해당 페이지의 도메인을 입력하고 \"도메인 추가\" 버튼을 클릭할 수 있습니다.</p><p>또한, 페이지 탭이 이미 선택되어 있을 때는 브라우저 툴바에서 Privacy Badger버튼을 클릭한 다음 \"이 사이트에 대해 Privacy Badger를 사용하지 않도록 설정\" 버튼을 클릭하기만 하면 됩니다.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -468,7 +468,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Privacy Badger가 페이지를 파손하고 있다고 생각되면 (예를 들어 비디오가 재생되지 않는 등) ‘이 사이트에 대해 Privacy Badger를 사용하지 않도록 설정합니다.’ 버튼을 클릭하여 해당 사이트에 대한 Privacy Badger를 해제할 수 있습니다.",
+        "message": "Privacy Badger가 페이지를 파손하고 있다고 생각되면 (예를 들어 비디오가 재생되지 않는 등) ‘이 사이트에 대해 Privacy Badger를 사용하지 않도록 설정’ 버튼을 클릭하여 해당 사이트에 대한 Privacy Badger를 해제할 수 있습니다.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
