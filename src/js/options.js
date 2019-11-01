@@ -84,11 +84,9 @@ function loadOptions() {
   $("#tracking-domains-show-not-yet-blocked").on("change", filterTrackingDomains);
 
   // Add event listeners for origins container.
-  $(function () {
-    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
-    $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
-  });
+  $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
+  $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
+  $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
 
   // Display jQuery UI elements
   $("#tabs").tabs({
