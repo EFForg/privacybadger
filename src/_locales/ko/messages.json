@@ -1,4 +1,4 @@
-﻿{
+{
     "badger_status_block": {
         "message": "차단된 $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -604,4 +604,3 @@
         "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }
-
