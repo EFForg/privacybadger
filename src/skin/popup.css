@@ -181,6 +181,9 @@ font-size: 16px;
 .ui-slider .ui-slider-handle {
   cursor: move;
 }
+.ui-slider-horizontal {
+    height: 1.1em;
+}
 
 #firstRun {
   color: #EC9329;
