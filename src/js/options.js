@@ -656,22 +656,10 @@ function registerToggleHandlers($toggleElement) {
     },
     stop: function(event, ui) {
       $(ui.handle).css('margin-left', -16 * ui.value + 'px');
-
-      // Save change for origin.
-      var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-      var setting = htmlUtils.getCurrentClass($toggleElement.parents('.clicker'));
-      chrome.runtime.sendMessage({
-        type: "saveOptionsToggle",
-        action: setting,
-        origin: origin
-      }, (response) => {
-        OPTIONS_DATA.origins = response.origins;
-        reloadTrackingDomainsTab();
-      });
     },
   }).appendTo($toggleElement);
 
-  radios.on("change", function() {
+  radios.on("change", function () {
     slider.slider('value', radios.filter(':checked').val());
   });
 }
@@ -810,6 +798,36 @@ function updateOrigin(event) {
   $clicker.find('.origin-inner').attr(
     'title', htmlUtils.getActionDescription(action, origin));
   $clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
+
+  // persist the change
+  saveToggle($clicker);
+}
+
+/**
+ * Save the user setting for a domain by messaging the background page.
+ */
+function saveToggle($clicker) {
+  let origin = $clicker.data("origin"),
+    action;
+
+  if ($clicker.hasClass(constants.BLOCK)) {
+    action = constants.BLOCK;
+  } else if ($clicker.hasClass(constants.COOKIEBLOCK)) {
+    action = constants.COOKIEBLOCK;
+  } else if ($clicker.hasClass(constants.ALLOW)) {
+    action = constants.ALLOW;
+  }
+
+  if (action) {
+    chrome.runtime.sendMessage({
+      type: "saveOptionsToggle",
+      origin: origin,
+      action: action
+    }, (response) => {
+      OPTIONS_DATA.origins = response.origins;
+      reloadTrackingDomainsTab();
+    });
+  }
 }
 
 /**

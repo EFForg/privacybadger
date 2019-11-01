@@ -273,24 +273,6 @@ var htmlUtils = exports.htmlUtils = {
     return (base_minus_tld + '.' + rest_of_it_reversed);
   },
 
-  /**
-  * Get the action class from the element
-  *
-  * @param elt Element
-  * @returns {String} block/cookieblock/noaction
-  */
-  getCurrentClass: function(elt) {
-    if (elt.hasClass(constants.BLOCK)) {
-      return constants.BLOCK;
-    } else if (elt.hasClass(constants.COOKIEBLOCK)) {
-      return constants.COOKIEBLOCK;
-    } else if (elt.hasClass(constants.ALLOW)) {
-      return constants.ALLOW;
-    } else {
-      return constants.NO_TRACKING;
-    }
-  },
-
 };
 
 return exports;
