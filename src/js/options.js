@@ -735,6 +735,13 @@ function toggleWebRTCIPProtection() {
       });
     }
   });
+
+  // toggles preventWebRTICIPLeak setting in settings_map when checkbox clicked
+  let preventWebRTCIPLeak = $("#toggle_webrtc_mode").prop("checked");
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { "preventWebRTCIPLeak": preventWebRTCIPLeak }
+  });
 }
 
 /**

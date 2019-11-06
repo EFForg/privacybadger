@@ -824,6 +824,7 @@ function dispatcher(request, sender, sendResponse) {
       isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
       isWidgetReplacementEnabled: badger.isWidgetReplacementEnabled(),
       origins: badger.storage.getTrackingDomains(),
+      preventWebRTCIPLeak: badger.getSettings().getItem("preventWebRTCIPLeak"),
       showCounter: badger.showCounter(),
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       showTrackingDomains: badger.getSettings().getItem("showTrackingDomains"),
