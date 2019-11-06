@@ -527,6 +527,7 @@ Badger.prototype = {
     isFirstRun: true,
     learnInIncognito: false,
     migrationLevel: 0,
+    preventWebRTCIPLeak: false,
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
