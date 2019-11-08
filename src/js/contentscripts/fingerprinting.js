@@ -23,7 +23,7 @@ function getFpPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout) {
+  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout, OBJECT) {
 
     const V8_STACK_TRACE_API = !!(ERROR && ERROR.captureStackTrace);
 
@@ -166,6 +166,15 @@ function getFpPageScript() {
     function getOriginatingScriptUrl() {
       let trace = getStackTrace();
 
+      if (OBJECT.prototype.toString.call(trace) == '[object String]') {
+        // we failed to get a structured stack trace
+        trace = trace.split('\n');
+        // this script is at 0, 1, 2 and 3
+        let script_url_matches = trace[4].match(/\((http.*:\d+:\d+)/);
+        // TODO do we need stripLineAndColumnNumbers (in both places) here?
+        return script_url_matches && stripLineAndColumnNumbers(script_url_matches[1]) || stripLineAndColumnNumbers(trace[4]);
+      }
+
       if (trace.length < 2) {
         return '';
       }
@@ -293,7 +302,7 @@ function getFpPageScript() {
     methods.forEach(trapInstanceMethod);
 
   // save locally to keep from getting overwritten by site code
-  } + "(document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout));";
+  } + "(document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout, Object));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
