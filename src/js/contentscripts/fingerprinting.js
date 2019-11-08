@@ -23,7 +23,7 @@ function getFpPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout) {
+  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout, OBJECT) {
 
     const V8_STACK_TRACE_API = !!(ERROR && ERROR.captureStackTrace);
 
@@ -196,7 +196,7 @@ function getFpPageScript() {
 
       item.obj[item.propName] = (function (orig) {
 
-        return function () {
+        function wrapped() {
           var args = arguments;
 
           if (is_canvas_write) {
@@ -232,7 +232,13 @@ function getFpPageScript() {
           }
 
           return orig.apply(this, args);
-        };
+        }
+
+        OBJECT.defineProperty(wrapped, "name", { value: orig.name });
+        OBJECT.defineProperty(wrapped, "length", { value: orig.length });
+        OBJECT.defineProperty(wrapped, "toString", { value: orig.toString.bind(orig) });
+
+        return wrapped;
 
       }(item.obj[item.propName]));
     }
@@ -293,7 +299,7 @@ function getFpPageScript() {
     methods.forEach(trapInstanceMethod);
 
   // save locally to keep from getting overwritten by site code
-  } + "(document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout));";
+  } + "(document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout, Object));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
