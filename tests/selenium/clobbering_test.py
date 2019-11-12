@@ -7,6 +7,13 @@ import pbtest
 
 
 class ClobberingTest(pbtest.PBSeleniumTest):
+    COOKIEBLOCK_JS = (
+        "(function (domain) {"
+        "  let bg = chrome.extension.getBackgroundPage();"
+        "  bg.badger.storage.setupHeuristicAction(domain, bg.constants.COOKIEBLOCK);"
+        "}(arguments[0]));"
+    )
+
     def test_localstorage_clobbering(self):
         LOCALSTORAGE_TESTS = [
             # (test result element ID, expected stored, expected empty)
@@ -25,12 +32,6 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             "clobbering.html"
         )
         FRAME_DOMAIN = "githack.com"
-        COOKIEBLOCK_JS = (
-            "(function () {"
-            "let bg = chrome.extension.getBackgroundPage();"
-            "bg.badger.storage.setupHeuristicAction('%s', bg.constants.COOKIEBLOCK);"
-            "}());"
-        ) % FRAME_DOMAIN
 
         # first allow localStorage to be set
         self.load_url(FIXTURE_URL)
@@ -55,7 +56,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
 
         # mark the frame domain for cookieblocking
         self.load_url(self.options_url)
-        self.js(COOKIEBLOCK_JS)
+        self.js(self.COOKIEBLOCK_JS, FRAME_DOMAIN)
 
         # now rerun and check results for various localStorage access tests
         self.load_url(FIXTURE_URL)
@@ -76,6 +77,29 @@ class ClobberingTest(pbtest.PBSeleniumTest):
                 self.txt_by_css("#" + selector), expected,
                 "localStorage (%s) was read despite cookieblocking" % selector
             )
+
+    def test_referrer_header(self):
+        FIXTURE_URL = (
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            "referrer.html"
+        )
+        THIRD_PARTY_DOMAIN = "httpbin.org"
+
+        # cookieblock the domain fetched by the fixture
+        self.load_url(self.options_url)
+        self.js(self.COOKIEBLOCK_JS, THIRD_PARTY_DOMAIN)
+
+        # check the referrer header according to that domain
+        self.load_url(FIXTURE_URL)
+        self.wait_for_script(
+            "return document.getElementById('referrer').textContent != '';")
+        referrer = self.txt_by_css("#referrer")
+        self.assertEqual(referrer[0:8], "Referer=", "Unexpected page output")
+        self.assertEqual(
+            referrer[8:],
+            "https://efforg.github.io/",
+            "Referrer header does not appear to be origin-only"
+        )
 
 if __name__ == "__main__":
     unittest.main()
