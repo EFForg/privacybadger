@@ -41,12 +41,14 @@ Privacy Badger:
    containing first party cookie data, or makes JavaScript fingerprinting API
    calls on 3 or more first party origins, this is deemed to be "cross site
    tracking".
-4. Typically, cross site trackers are blocked completely; Privacy Badger prevents the
-   browser from communicating with them. The exception is if the site is on
-   Privacy Badger's "yellow list" (aka the "cookie block list"), in which case
-   resources from the site are loaded, but with their (third party) cookies, as
-   well as referer header, blocked. The yellow list is routinely fetched
-   from [an EFF URL](https://www.eff.org/files/cookieblocklist_new.txt) to allow prompt fixes for breakage.
+4. Typically, cross site trackers are blocked completely; Privacy Badger
+   prevents the browser from communicating with them. The exception is if the
+   site is on Privacy Badger's "yellow list" (aka the "cookie block list"), in
+   which case resources from the site are loaded, but without access to their
+   (third party) cookies or local storage, and with the referer header either
+   trimmed down to the origin (for GET requests) or removed outright (all other
+   requests). The yellow list is routinely fetched from [an EFF URL](https://www.eff.org/files/cookieblocklist_new.txt)
+   to allow prompt fixes for breakage.
 
    Until methods for blocking them have been implemented, domains that perform
    fingerprinting or use third party supercookies should not be added to the
@@ -204,14 +206,14 @@ for themselves) are necessarily replaced.
 
 #### What are the states for domain responses?
 
-Currently domains have three states: no action, cookie block, and block.
-No action allows all requests to resolve as normal without intervention from
+Currently domains have three states: no action, cookie block, and block. No
+action allows all requests to resolve as normal without intervention from
 Privacy Badger. Cookie block allows for requests to resolve normally but will
-block cookies from being read or created, it will also block the referer header.
-Block will cause any requests from that origin to be blocked entireley; before
-even a TCP connection can be established. The user can toggle these options
-manually, which will supersede any determinations made automatically by Privacy
-Badger.
+block cookies from being read or created. Cookie block also trims or removes
+the referer header. Block will cause any requests from that origin to be
+blocked entirely; before even a TCP connection can be established. The user can
+toggle these options manually, which will supersede any determinations made
+automatically by Privacy Badger.
 
 #### What does EFFs Do Not Track policy stipulate?
 
@@ -255,16 +257,17 @@ Please see our ["high priority"-labeled issues](https://github.com/EFForg/privac
 ### How are origins and the rules for them stored?
 
 When a browser with Privacy Badger enabled makes a request to a third party, if
-the request contains a cookie or the response tries to set a cookie it gets flagged as 'tracking'.
-Origins that make tracking requests get stored in a key→value store where the keys
-are the origins making the request, and the values are the first party origins these
-requests were made on. If that list of third parties contains three or more first party
-origins the third party origin gets added to another list of known trackers.
-When Privacy Badger gets a request from an origin on the known trackers list, if it
-is not on the yellow list then Privacy Badger blocks that request. If it
-is on the yellow list then the request is allowed to resolve, but all cookie
-setting and getting parts of it are blocked, as well as referer headers. Both of
-these lists are stored on disk, and persist between browser sessions.
+the request contains a cookie or the response tries to set a cookie it gets
+flagged as 'tracking'. Origins that make tracking requests get stored in a
+key→value store where the keys are the origins making the request, and the
+values are the first party origins these requests were made on. If that list of
+third parties contains three or more first party origins the third party origin
+gets added to another list of known trackers. When Privacy Badger gets a
+request from an origin on the known trackers list, if it is not on the yellow
+list then Privacy Badger blocks that request. If it is on the yellow list then
+the request is allowed to resolve, but all cookie setting and getting parts of
+it are blocked, while the referer header is trimmed or removed. Both of these
+lists are stored on disk, and persist between browser sessions.
 
 Additionally users can manually set the desired action for any FQDN.
 These get added to their own lists, which are also stored on disk, and get checked
