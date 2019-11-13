@@ -85,18 +85,26 @@ class ClobberingTest(pbtest.PBSeleniumTest):
         )
         THIRD_PARTY_DOMAIN = "httpbin.org"
 
+        def verify_referrer_header(expected, failure_message):
+            self.load_url(FIXTURE_URL)
+            self.wait_for_script(
+                "return document.getElementById('referrer').textContent != '';")
+            referrer = self.txt_by_css("#referrer")
+            self.assertEqual(referrer[0:8], "Referer=", "Unexpected page output")
+            self.assertEqual(referrer[8:], expected, failure_message)
+
+        # verify base case
+        verify_referrer_header(
+            FIXTURE_URL,
+            "Unexpected default referrer header"
+        )
+
         # cookieblock the domain fetched by the fixture
         self.load_url(self.options_url)
         self.js(self.COOKIEBLOCK_JS, THIRD_PARTY_DOMAIN)
 
-        # check the referrer header according to that domain
-        self.load_url(FIXTURE_URL)
-        self.wait_for_script(
-            "return document.getElementById('referrer').textContent != '';")
-        referrer = self.txt_by_css("#referrer")
-        self.assertEqual(referrer[0:8], "Referer=", "Unexpected page output")
-        self.assertEqual(
-            referrer[8:],
+        # recheck what the referrer header looks like now after cookieblocking
+        verify_referrer_header(
             "https://efforg.github.io/",
             "Referrer header does not appear to be origin-only"
         )
