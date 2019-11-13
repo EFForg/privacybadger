@@ -10,11 +10,11 @@
         }
     },
     "invalid_json": {
-        "message": "Epäkelpo JSON-tiedosto.",
+        "message": "JSON-tiedosto ei kelpaa.",
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Oletko varma, että haluat poistaa tämän verkkotunnuksen Privacy Badgerista?",
+        "message": "Haluatko varmasti poistaa tämän verkkotunnuksen Privacy Badgerista?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
@@ -28,11 +28,11 @@
         }
     },
     "non_tracker_tip": {
-        "message": "Tällä hetkellä Privacy Badger tarkistaa ainoastaan käyttävätkö kolmannet osapuolet evästeitä, HTML5:n paikallista tallennusta tai canvas-elementtiin perustuvaa sormenjälkeä seuratakseen internet-selaamistasi. Jotkin näistä verkkotunnuksista saattavat käyttää seurantamenetelmiä, joita Privacy Badger ei tunnista.",
+        "message": "Tällä hetkellä Privacy Badger tarkistaa ainoastaan, käyttävätkö kolmannet osapuolet evästeitä, HTML5:n paikallista tallennusta tai canvas-elementtiin perustuvaa sormenjälkeä seuratakseen verkkoselaamistasi. Jotkin näistä verkkotunnuksista saattavat käyttää seurantamenetelmiä, joita Privacy Badger ei tunnista.",
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Tarkista noudattavatko <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>kolmansien osapuolten verkkotunnukset</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:n Do Not Track -käytäntöä</a>",
+        "message": "Tarkista, noudattavatko <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>kolmansien osapuolten verkkotunnukset</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:n Do Not Track -käytäntöä</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -56,7 +56,7 @@
         "description": "Intro page paragraph heading."
     },
     "report_success": {
-        "message": "Kiitos! Me selvitämme asian perusteellisesti.",
+        "message": "Kiitos! Selvitämme asian perin pohjin.",
         "description": ""
     },
     "dnt_tooltip": {
@@ -144,7 +144,7 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** Jos valitset oppimisen yksityinen selaus / incognito-ikkunoissa, tietokoneellesi voi jäädä jälkiä selaushistoriastasi. Oletusarvoisesti Privacy Badger estää tuntemansa jäljittimet yksityinen selaus / incognito-ikkunoissa, muttei opi uusia jäljittimiä. Tämä valinta voi olla paikallaan, jos selaat nettiä paljon yksityinen selaus / incognito-ikkunoissa.",
+        "message": "** Jos otat oppimisen käyttöön yksityisessä selauksissakin, tietokoneellesi voi jäädä jälkiä selaushistoriastasi. Oletusarvoisesti Privacy Badger estää tuntemansa jäljittimet selattaessa yksityisesti, muttei opettele uusia jäljittimiä. Tämä valinta voi olla paikallaan, jos selaat nettiä paljon yksityisesti.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -170,7 +170,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Opi yksityinen selaus / incognito-ikkunoissa **",
+        "message": "Opi yksityisessä selauksessa **",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -222,15 +222,15 @@
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
-        "message": "Palauta alkutilaan",
+        "message": "Nollaa",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Palauta jäljittävät verkkotunnukset alkutilaan",
+        "message": "Nollaa jäljittävät verkkotunnukset",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Jäljittävien verkkotunnusten palauttaminen alkutilaan:\n\n  • Poistaa kaiken jäljittäjiä koskevan datan, jonka Privacy Badger on oppinut selaamisestasi\n  • Palauttaa jäljittävien verkkotunnusten listaksi uusimman esikoulutetun listan (katso lisätietoja osoitteesta www.eff.org/badger-pretraining )",
+        "message": "Jäljittävien verkkotunnusten nollaaminen:\n\n  • Poistaa kaiken jäljittäjiä koskevan datan, jonka Privacy Badger on oppinut selaamisestasi\n  • Palauttaa jäljittävien verkkotunnusten listaksi uusimman esikoulutetun listan (katso lisätietoja osoitteesta www.eff.org/badger-pretraining )",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -246,7 +246,7 @@
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
-        "message": "Privacy Badger suojelee nyt sinua. Oppiaksesi miten Privacy Badger toimii, klikkaa alapuolelta nopeaa opastusta varten.",
+        "message": "Privacy Badger suojelee nyt sinua. Voit klikata alta avataksesi nopean oppaan, joka kertoo, miten Privacy Badger toimii.",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
@@ -314,11 +314,11 @@
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
-        "message": "Keskitä liukuvalitsin estääksesi evästeet.",
+        "message": "Evästeet estetään, kun liukuvalitsin on keskellä",
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Näkymätöntä seurantaa on monenlaista; mainokset ovat vain jäävuoren huippu. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>lähettää Do Not Track -signaalin</a> jäljittimille, ilmoittaen niille olla seuraamatta sinua. Jos ne eivät noudata pyyntöäsi, Badgerisi oppii estämään ne – olivat ne sitten mainostajia tai muunlaisia jäljittäjiä.",
+        "message": "Näkymätöntä seurantaa on monenlaista; mainokset ovat vain jäävuoren huippu. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>lähettää Do Not Track -signaalin</a> jäljittimille, ilmoittaen niille olemaan seuraamatta sinua. Jos ne eivät noudata pyyntöäsi, Badgerisi oppii estämään ne – olivat ne sitten mainostajia tai muunlaisia jäljittäjiä.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -358,7 +358,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Liu'uta valitsin vasemmalle estääksesi verkkotunnuksen",
+        "message": "Verkkotunnus estetään, kun liukuvalitsin on vasemmalla",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
@@ -374,7 +374,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger havaitsi $COUNT$ mahdollista $TRACKER_LINK_START$jäljitintä$TRACKER_LINK_END$ tällä sivulla. Säätäminen ei ole tarpeen, ellei jotain ole mennyt rikki.",
+        "message": "Privacy Badger havaitsi $COUNT$ mahdollista $TRACKER_LINK_START$jäljitintä$TRACKER_LINK_END$ tällä sivulla. Säätäminen ei ole tarpeen, ellei jokin ole mennyt rikki.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -403,7 +403,7 @@
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
-        "message": "Liu'uta valitsin oikealle salliaksesi verkkotunnuksen.",
+        "message": "Verkkotunnus sallitaan, kun liukuvalitsin on oikealla",
         "description": ""
     },
     "popup_disable_for_site": {
@@ -411,7 +411,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger havaitsi mahdollisen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittimen</a> tällä sivulla. Säätäminen ei ole tarpeen, ellei jotain ole mennyt rikki.",
+        "message": "Privacy Badger havaitsi mahdollisen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittimen</a> tällä sivulla. Säätäminen ei ole tarpeen, ellei jokin ole mennyt rikki.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -444,7 +444,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger aloittaa estämisen, kun se näkee saman jäljittimen kolmella eri sivustolla. Kolmesta poikki! Jos käytät muita yksityisyystyökaluja tai mainosten estäjiä, Privacy Badger oppii vähemmän, mutta ei hätää: se voi napata jotain mitä muut estäjät eivät huomaa.",
+        "message": "Privacy Badger aloittaa estämisen, kun se näkee saman jäljittimen kolmella eri sivustolla. Kolmesta poikki! Jos käytät muita yksityisyystyökaluja tai mainosten estäjiä, Privacy Badger oppii vähemmän, mutta ei hätää: se voi napata jotain, mitä muut estäjät eivät huomaa.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -476,7 +476,7 @@
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger ei ole vielä havainnyt yhtään <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävää verkkotunnusta</a>. Jatka selaamista!",
+        "message": "Privacy Badger ei ole vielä havainnut yhtään <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävää verkkotunnusta</a>. Jatka selaamista!",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "report_input_label": {
@@ -500,7 +500,7 @@
         "description": ""
     },
     "report_fail": {
-        "message": "Ups. Jotakin meni pieleen.",
+        "message": "Hups. Jotakin meni pieleen.",
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
@@ -576,7 +576,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) on selainlaajennus joka oppii automaattisesti estämään näkymättömät jäljittimet. Privacy Badgerin on tehnyt Electronic Frontier Foundation, voittoa tavoittelematon järjestö joka taistelee oikeuksiesi puolesta verkossa.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) on selainlaajennus, joka oppii automaattisesti estämään näkymättömät jäljittimet. Privacy Badgerin on tehnyt Electronic Frontier Foundation, voittoa tavoittelematon järjestö joka taistelee oikeuksiesi puolesta verkossa.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -592,7 +592,7 @@
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger ei toimi tämän kaltaisilla erikoissivuilla. Kokeile selata muualla.",
+        "message": "Privacy Badger ei toimi tämänkaltaisilla erikoissivuilla. Kokeile selata muualla.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "options_widget_replacement_tab": {
