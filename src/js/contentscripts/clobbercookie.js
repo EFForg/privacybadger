@@ -40,6 +40,16 @@ chrome.runtime.sendMessage({
     var code = '('+ function() {
       document.__defineSetter__("cookie", function(/*value*/) { });
       document.__defineGetter__("cookie", function() { return ""; });
+
+      // trim referrer down to origin
+      let referrer = document.referrer;
+      if (referrer) {
+        referrer = referrer.slice(
+          0,
+          referrer.indexOf('/', referrer.indexOf('://') + 3)
+        ) + '/';
+      }
+      document.__defineGetter__("referrer", function () { return referrer; });
     } +')();';
 
     window.injectScript(code);

@@ -190,10 +190,28 @@ function onBeforeSendHeaders(details) {
 
   // handle cookieblocked requests
   if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-    // remove cookie and referrer headers
-    let newHeaders = details.requestHeaders.filter(function (header) {
-      return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
-    });
+    let newHeaders;
+
+    // GET requests: remove cookie headers, reduce referrer header to origin
+    if (details.method == "GET") {
+      newHeaders = details.requestHeaders.filter(header => {
+        return (header.name.toLowerCase() != "cookie");
+      }).map(header => {
+        if (header.name.toLowerCase() == "referer") {
+          header.value = header.value.slice(
+            0,
+            header.value.indexOf('/', header.value.indexOf('://') + 3)
+          ) + '/';
+        }
+        return header;
+      });
+
+    // remove cookie and referrer headers otherwise
+    } else {
+      newHeaders = details.requestHeaders.filter(header => {
+        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
+      });
+    }
 
     // add DNT header
     if (badger.isDNTSignalEnabled()) {
