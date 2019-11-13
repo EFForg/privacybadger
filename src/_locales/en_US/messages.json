@@ -483,6 +483,10 @@
         "message": "Description",
         "description": ""
     },
+    "not_yet_blocked_header": {
+        "message": "Your Badger hasn't yet learned to block these domains",
+        "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
+    },
     "non_tracker": {
         "message": "The domains below don't appear to be tracking you",
         "description": "Header text; separates tracking from non-tracking domains in the popup."
