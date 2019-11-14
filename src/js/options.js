@@ -28,6 +28,9 @@ if (!matches || matches[1] == "Firefox") {
 }
 }());
 
+const TOOLTIP_CONF = {
+  maxWidth: 200
+};
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
 let i18n = chrome.i18n;
@@ -78,6 +81,7 @@ function loadOptions() {
   $("#trackingDomainSearch").on("input", filterTrackingDomains);
   $("#tracking-domains-type-filter").on("change", filterTrackingDomains);
   $("#tracking-domains-status-filter").on("change", filterTrackingDomains);
+  $("#tracking-domains-show-not-yet-blocked").on("change", filterTrackingDomains);
 
   // Add event listeners for origins container.
   $(function () {
@@ -518,7 +522,7 @@ function revertDomainControl(e) {
  */
 function reloadTrackingDomainsTab() {
   // Check to see if any tracking domains have been found before continuing.
-  var allTrackingDomains = getOriginsArray(OPTIONS_DATA.origins);
+  var allTrackingDomains = getOriginsArray(OPTIONS_DATA.origins, null, null, null, true);
   if (!allTrackingDomains || allTrackingDomains.length === 0) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
     $("#options_domain_list_trackers").hide();
@@ -530,7 +534,7 @@ function reloadTrackingDomainsTab() {
     $("#tracking-domains-div").hide();
 
     // activate tooltips
-    $('.tooltip').tooltipster();
+    $('.tooltip').tooltipster(TOOLTIP_CONF);
 
     return;
   }
@@ -561,7 +565,7 @@ function reloadTrackingDomainsTab() {
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // activate tooltips
-  $('.tooltip').tooltipster();
+  $('.tooltip').tooltipster(TOOLTIP_CONF);
 
   // Display tracking domains.
   showTrackingDomains(
@@ -569,7 +573,8 @@ function reloadTrackingDomainsTab() {
       OPTIONS_DATA.origins,
       $("#trackingDomainSearch").val(),
       $('#tracking-domains-type-filter').val(),
-      $('#tracking-domains-status-filter').val()
+      $('#tracking-domains-status-filter').val(),
+      $('#tracking-domains-show-not-yet-blocked').prop('checked')
     )
   );
 }
@@ -604,7 +609,8 @@ function filterTrackingDomains() {
       OPTIONS_DATA.origins,
       searchText,
       $typeFilter.val(),
-      $statusFilter.val()
+      $statusFilter.val(),
+      $('#tracking-domains-show-not-yet-blocked').prop('checked')
     );
     showTrackingDomains(filteredOrigins);
   }, timeToWait);
