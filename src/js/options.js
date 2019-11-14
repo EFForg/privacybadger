@@ -312,12 +312,12 @@ function uploadCloud() {
 function exportUserData() {
   chrome.storage.local.get(USER_DATA_EXPORT_KEYS, function (maps) {
 
-    var mapJSON = JSON.stringify(maps);
-
     // exports the user's prevent webrtc leak setting if it's checked
     if ($("#toggle_webrtc_mode").prop("checked")) {
-      mapJSON.settings.preventWebRTCIPLeak = true;
+      maps.settings_map.preventWebRTCIPLeak = true;
     }
+
+    var mapJSON = JSON.stringify(maps);
 
     // Append the formatted date to the exported file name
     var currDate = new Date().toLocaleString();
