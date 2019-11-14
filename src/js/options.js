@@ -115,6 +115,7 @@ function loadOptions() {
   $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
 
   if (OPTIONS_DATA.webRTCAvailable) {
+
     $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
 
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, result => {
@@ -126,6 +127,9 @@ function loadOptions() {
         "checked", result.value == "disable_non_proxied_udp");
     });
 
+    if (OPTIONS_DATA.preventWebRTCIPLeak) {
+      $("#toggle_webrtc_mode").prop("checked", true);
+    };
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
     $("#webRTCToggle").hide();
