@@ -115,7 +115,6 @@ function loadOptions() {
   $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
 
   if (OPTIONS_DATA.webRTCAvailable) {
-
     $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
 
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, result => {
@@ -126,10 +125,6 @@ function loadOptions() {
       $("#toggle_webrtc_mode").prop(
         "checked", result.value == "disable_non_proxied_udp");
     });
-
-    if (OPTIONS_DATA.preventWebRTCIPLeak) {
-      $("#toggle_webrtc_mode").prop("checked", true);
-    };
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
     $("#webRTCToggle").hide();
@@ -227,6 +222,14 @@ function parseUserDataFile(storageMapsList) {
     return confirm(i18n.getMessage("invalid_json"));
   }
 
+  // check for webrtc setting in the imported settings map
+  if (lists.settings_map.preventWebRTCIPLeak) {
+    // verify that the user hasn't already toggled this option
+    if ($("#toggle_webrtc_mode").prop("checked") == false) {
+      toggleWebRTCIPProtection();
+    }
+  }
+
   // validate by checking we have the same keys in the import as in the export
   if (!_.isEqual(
     Object.keys(lists).sort(),
@@ -310,6 +313,11 @@ function exportUserData() {
   chrome.storage.local.get(USER_DATA_EXPORT_KEYS, function (maps) {
 
     var mapJSON = JSON.stringify(maps);
+
+    // exports the user's prevent webrtc leak setting if it's checked
+    if($("#toggle_webrtc_mode").prop("checked")) {
+      mapJSON.settings.preventWebRTCIPLeak = true;
+    }
 
     // Append the formatted date to the exported file name
     var currDate = new Date().toLocaleString();
@@ -738,13 +746,6 @@ function toggleWebRTCIPProtection() {
         value: 'disable_non_proxied_udp'
       });
     }
-  });
-
-  // toggles preventWebRTICIPLeak setting in settings_map when checkbox clicked
-  let preventWebRTCIPLeak = $("#toggle_webrtc_mode").prop("checked");
-  chrome.runtime.sendMessage({
-    type: "updateSettings",
-    data: { "preventWebRTCIPLeak": preventWebRTCIPLeak }
   });
 }
 
