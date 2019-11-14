@@ -315,7 +315,7 @@ function exportUserData() {
     var mapJSON = JSON.stringify(maps);
 
     // exports the user's prevent webrtc leak setting if it's checked
-    if($("#toggle_webrtc_mode").prop("checked")) {
+    if ($("#toggle_webrtc_mode").prop("checked")) {
       mapJSON.settings.preventWebRTCIPLeak = true;
     }
 
