@@ -228,6 +228,8 @@ function parseUserDataFile(storageMapsList) {
     if (!$("#toggle_webrtc_mode").prop("checked")) {
       toggleWebRTCIPProtection();
     }
+    // this browser-controlled setting doesn't belong in Badger's settings object
+    delete lists.settings_map.preventWebRTCIPLeak;
   }
 
   // validate by checking we have the same keys in the import as in the export
