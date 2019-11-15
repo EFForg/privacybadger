@@ -501,27 +501,44 @@ function refreshPopup() {
     return;
   }
 
-  var printable = [];
-  var nonTracking = [];
+  let printable = [];
+  let unblockedTrackers = [];
+  let nonTracking = [];
   originsArr = htmlUtils.sortDomains(originsArr);
 
   for (let i=0; i < originsArr.length; i++) {
-    var origin = originsArr[i];
-    var action = origins[origin];
+    let origin = originsArr[i];
+    let action = origins[origin];
 
     if (action == constants.NO_TRACKING) {
       nonTracking.push(origin);
-      continue;
+    } else if (action == constants.ALLOW) {
+      unblockedTrackers.push(origin);
+    } else {
+      printable.push(
+        htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
+      );
     }
-
-    printable.push(
-      htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
-    );
   }
 
-  if (POPUP_DATA.showNonTrackingDomains && nonTracking.length > 0) {
+  if (unblockedTrackers.length) {
     printable.push(
-      '<div class="clicker tooltip" id="nonTrackers" title="' +
+      '<div class="clicker tooltip" id="not-yet-blocked-header" title="' +
+      chrome.i18n.getMessage("intro_not_an_adblocker_paragraph") +
+      '" data-tooltipster=\'{"side":"top"}\'>' +
+      chrome.i18n.getMessage("not_yet_blocked_header") +
+      '</div>'
+    );
+    unblockedTrackers.forEach(domain => {
+      printable.push(
+        htmlUtils.getOriginHtml(domain, constants.ALLOW, false)
+      );
+    });
+  }
+
+  if (POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
+    printable.push(
+      '<div class="clicker tooltip" id="non-trackers-header" title="' +
       chrome.i18n.getMessage("non_tracker_tip") +
       '" data-tooltipster=\'{"side":"top"}\'>' +
       chrome.i18n.getMessage("non_tracker") +

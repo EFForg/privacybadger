@@ -267,6 +267,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         self.load_options_page()
         self.select_domain_list_tab()
+        if original_action == "allow":
+            self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
 
         # Change user preferences
         self.user_overwrite("pbtest.org", overwrite_action)
@@ -317,6 +319,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         self.load_options_page()
         self.select_domain_list_tab()
+        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
+        time.sleep(1) # wait for domains to rerender
 
         # Scroll until the first generated origin is added to the html
         self.scroll_to_bottom()
@@ -346,6 +350,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # Re-open the tab
         self.load_options_page()
         self.select_domain_list_tab()
+        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
+        time.sleep(1) # wait for domains to rerender
         self.scroll_to_bottom()
         self.scroll_to_bottom()
         self.scroll_to_origin('pbtest50-generated.org')
