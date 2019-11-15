@@ -483,6 +483,14 @@
         "message": "Descrição",
         "description": ""
     },
+    "not_yet_blocked_header": {
+        "message": "Your Badger hasn't yet learned to block these domains",
+        "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
+    },
+    "options_show_not_yet_blocked": {
+        "message": "Show domains your Badger hasn't yet learned to block:",
+        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
+    },
     "non_tracker": {
         "message": "Os domínios abaixo não parecem estar a rastreá-lo",
         "description": "Header text; separates tracking from non-tracking domains in the popup."
