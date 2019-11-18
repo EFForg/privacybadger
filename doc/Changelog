@@ -1,5 +1,15 @@
 Changes for Privacy Badger 
 ====================================
+## 2019.11.18
+* Improved display of domains Privacy Badger hasn't yet learned to block
+* Fixed export/import of the WebRTC protection setting
+* Fixed certain YouTube ("video unavailable"), Vimeo ("Because of its privacy
+settings, this video cannot be played here"), and other video players
+by revising referrer protection for "cookieblocked" domains
+* Fixed various other site breakages
+* Added Korean translations
+* Improved translations (Finnish, French, Hebrew, Swedish)
+
 ## 2019.10.28
 * Updated the popup with a new, higher-contrast look
 * Widget placeholders will no longer be applied for domains on the yellowlist.
