@@ -26,6 +26,16 @@ hr {
     width: 100%;
 }
 
+.checkbox label {
+  min-height: 20px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+label input[type=checkbox] + span {
+  padding-left: 0.5em;
+}
+
 td
 {
   font-size: 13px;
