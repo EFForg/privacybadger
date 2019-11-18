@@ -347,7 +347,7 @@
     },
     "show_tracking_domains_message": {
         "message": "Non dovresti aver bisogno di modificare nulla qui.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "tutti",
