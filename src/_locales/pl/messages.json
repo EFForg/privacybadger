@@ -484,11 +484,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't yet learned to block these domains",
+        "message": "Twój Badger jeszcze nie nauczył się, czy blokować te domeny",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't yet learned to block:",
+        "message": "Wyświetl domeny, których jeszcze Privacy Badger nie nauczył się blokować:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
