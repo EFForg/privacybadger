@@ -1143,6 +1143,7 @@ var multiDomainFirstPartiesArray = [
     "storage.googleapis.com",
     "www.googleapis.com",
 
+    "nest.com",
     "nestpowerproject.withgoogle.com",
   ],
   [
