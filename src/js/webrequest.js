@@ -682,14 +682,15 @@ function dispatcher(request, sender, sendResponse) {
       return sendResponse();
     }
 
-    let requestHost = window.extractHostFromURL(request.frameUrl);
+    let frame_host = window.extractHostFromURL(request.frameUrl),
+      tab_host = window.extractHostFromURL(sender.tab.url);
 
     // Ignore requests that aren't from a third party.
-    if (!utils.isThirdPartyDomain(requestHost, window.extractHostFromURL(sender.tab.url))) {
+    if (!frame_host || !utils.isThirdPartyDomain(frame_host, tab_host)) {
       return sendResponse();
     }
 
-    let action = checkAction(sender.tab.id, requestHost);
+    let action = checkAction(sender.tab.id, frame_host);
     sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK);
 
     break;
@@ -770,7 +771,7 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "supercookieReport": {
-    if (badger.hasSuperCookie(request.data)) {
+    if (request.frameUrl && badger.hasSuperCookie(request.data)) {
       recordSuperCookie(sender.tab.id, request.frameUrl);
     }
     break;
@@ -780,7 +781,9 @@ function dispatcher(request, sender, sendResponse) {
     let tab_host = window.extractHostFromURL(sender.tab.url),
       frame_host = window.extractHostFromURL(request.frameUrl);
 
-    sendResponse(badger.isPrivacyBadgerEnabled(tab_host) && utils.isThirdPartyDomain(frame_host, tab_host));
+    sendResponse(frame_host &&
+      badger.isPrivacyBadgerEnabled(tab_host) &&
+      utils.isThirdPartyDomain(frame_host, tab_host));
 
     break;
   }
