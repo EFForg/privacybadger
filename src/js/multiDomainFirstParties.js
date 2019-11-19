@@ -2637,6 +2637,22 @@ var multiDomainFirstPartiesArray = [
     "disney.io",
   ],
   [
+    "wargaming.com",
+    "wargaming.net",
+    "worldoftanks.asia",
+    "worldoftanks.com",
+    "worldoftanks.eu",
+    "worldoftanks.kr",
+    "worldoftanks.ru",
+    "worldofwarplanes.com",
+    "worldofwarplanes.eu",
+    "worldofwarplanes.ru",
+    "worldofwarships.com",
+    "worldofwarships.eu",
+    "worldofwarships.ru",
+    "wotblitz.com",
+  ],
+  [
     "warnermediagroup.com",
 
     "adultswim.com",
