@@ -97,12 +97,9 @@ class PopupTest(pbtest.PBSeleniumTest):
             close_element.click()
 
             # Element will fade out so wait for it to disappear.
-            try:
-                WebDriverWait(self.driver, 5).until(
-                    expected_conditions.invisibility_of_element_located(
-                        (By.ID, "fittslaw")))
-            except TimeoutException:
-                self.fail("Unable to close popup overlay")
+            WebDriverWait(self.driver, 5).until(
+                expected_conditions.invisibility_of_element_located(
+                    (By.ID, "firstRun")))
 
     def get_enable_button(self):
         """Get enable button on popup."""
