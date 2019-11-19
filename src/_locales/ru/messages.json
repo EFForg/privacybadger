@@ -488,7 +488,7 @@
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Отображать домены которые ваш Badger еще не научился блокировать:",
+        "message": "Отображать домены, которые ваш Badger еще не научился блокировать:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -584,7 +584,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) — это расширение для браузера которое автоматически учится блокировать невидимые трекеры. Privacy Badger разработан некоммерческой организацией Electronic Frontier Foundation, которая борется на ваши права в Интернете.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) — это расширение для браузера, которое автоматически учится блокировать невидимые трекеры. Privacy Badger разработан некоммерческой организацией Electronic Frontier Foundation, которая борется на ваши права в Интернете.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
