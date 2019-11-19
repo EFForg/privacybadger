@@ -1486,6 +1486,16 @@ var multiDomainFirstPartiesArray = [
     "r9cdn.net",
   ],
   ["kiwi.com", "skypicker.com"],
+  [
+    "kogan.com",
+
+    "dicksmith.com.au",
+    "dicksmith.co.nz",
+    "koganinternet.com.au",
+    "koganmobile.co.nz",
+    "kogansuper.com.au",
+    "kogantravel.com",
+  ],
   ["livejournal.com", "livejournal.net", "lj-toys.com"],
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
   [
