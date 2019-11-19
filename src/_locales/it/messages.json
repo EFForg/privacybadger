@@ -36,7 +36,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "Più navighi con Privacy Badger, più ti proteggerà. Il tuo Badger non sta bloccando ancora nulla? Tutto a posto! Invece di tenere liste di cose da bloccare, Privacy Badger scopre automaticamente i tracker mentre navighi in rete. Quindi inizia a navigare un po' per istruire il tuo Badger.",
+        "message": "Più navighi con Privacy Badger, più ti proteggerà. Il tuo tasso non sta bloccando ancora nulla? Tutto a posto! Invece di tenere liste di cose da bloccare, Privacy Badger scopre automaticamente i tracker mentre navighi in rete. Quindi inizia a navigare un po' per istruire il tuo tasso.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -318,7 +318,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Il tracciamento invisibile ha molte forme; le pubblicità sono solo la punta visibile dell'iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>invia il segnale Do Not Track</a> ai tracker dicendo loro di non tracciarti. Se ignorano la tua scelta, il tuo Badger imparerà a bloccarli—che siano inserzionisti o tracker di altro tipo.",
+        "message": "Il tracciamento invisibile ha molte forme; le pubblicità sono solo la punta visibile dell'iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>invia il segnale Do Not Track</a> ai tracker dicendo loro di non tracciarti. Se ignorano la tua scelta, il tuo tasso imparerà a bloccarli—che siano inserzionisti o tracker di altro tipo.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -419,7 +419,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Il tuo Badger impara localmente sul tuo dispositivo. Privacy Badger non condivide MAI i tuoi dati di navigazione a meno che non lo scegli.",
+        "message": "Il tuo tasso impara localmente sul tuo dispositivo. Privacy Badger non condivide MAI i tuoi dati di navigazione a meno che non lo scegli.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -484,11 +484,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't yet learned to block these domains",
+        "message": "Il tuo tasso non ha ancora imparato a bloccare questi domini",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't yet learned to block:",
+        "message": "Mostra i domini che il tuo tasso non ha ancora imparato a bloccare:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -526,7 +526,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {
-        "message": "Sincronizzazione cloud:<ul><li>Richiede Firefox/Chrome Sync</li><li>L'invio sovrascrive qualsiasi dato di Privacy Badger nel cloud</li><li>Lo scaricamento combina gli elenchi di siti dove il tuo Badger è disattivato</li></ul>",
+        "message": "Sincronizzazione cloud:<ul><li>Richiede Firefox/Chrome Sync</li><li>L'invio sovrascrive qualsiasi dato di Privacy Badger nel cloud</li><li>Lo scaricamento combina gli elenchi di siti dove il tuo tasso è disattivato</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
