@@ -561,6 +561,15 @@ var multiDomainFirstPartiesArray = [
     "digikey.vn",
   ],
   [
+    "digitec.ch",
+
+    "galaxus.ch",
+    "galaxus.de",
+    "galaxus.fr",
+
+    "digitecgalaxus.ch",
+  ],
+  [
     "directferries.com",
 
     "directferries.at",
