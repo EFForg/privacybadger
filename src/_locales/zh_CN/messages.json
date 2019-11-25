@@ -132,11 +132,11 @@
         "description": ""
     },
     "options_hide_social_widgets": {
-        "message": "Don't replace the following widgets:",
+        "message": "不要替换以下小部件：",
         "description": "Multiple selection box on the widget replacement tab"
     },
     "options_social_widgets_checkbox": {
-        "message": "Enable widget replacement",
+        "message": "开启小部件替换",
         "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -484,11 +484,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't yet learned to block these domains",
+        "message": "您的獾还没有学习屏蔽这些域名",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't yet learned to block:",
+        "message": "显示您的獾没有学习屏蔽的域名：",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -584,7 +584,7 @@
         }
     },
     "share_base_message": {
-        "message": "隐私獾（www.eff.org/privacybadger）是一个浏览器插件，它可以自动学习去阻止不可见的追踪器。隐私獾由电子前哨基金会，一个为您在线权利奋斗的非营利性组织制作。",
+        "message": "隐私獾（www.eff.org/privacybadger）是一个浏览器插件，它可以自动学习去阻止不可见的追踪器。隐私獾由电子前哨基金会制作：这是一个为您在线权利奋斗的非营利性组织。",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -604,11 +604,11 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "options_widget_replacement_tab": {
-        "message": "Widget Replacement",
+        "message": "小部件替换",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "When blocking social buttons and other potentially useful (video, audio, comments) widgets, Privacy Badger can replace them with click-to-activate placeholders.",
+        "message": "当屏蔽社交媒体按钮和其他可能有用的小部件（如音视频和评论区）时，隐私獾可以将他们替换成“点击以启用”的占位部件。",
         "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }
