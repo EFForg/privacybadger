@@ -467,6 +467,7 @@ function refreshPopup() {
     $("#blockedResourcesContainer").hide();
     $("#activate_site_btn").show();
     $("#deactivate_site_btn").hide();
+    $("#disabled-site-message").show();
   }
 
   // if there is any saved error text, fill the error input with it
