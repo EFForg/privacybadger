@@ -202,7 +202,7 @@
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
-        "message": "Enable Privacy Badger for This Site",
+        "message": "Enable Privacy Badger for this site",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -407,7 +407,7 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Disable Privacy Badger for This Site",
+        "message": "Disable Privacy Badger for this site",
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
