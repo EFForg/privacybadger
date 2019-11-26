@@ -262,13 +262,13 @@ font-size: 16px;
   padding-top: 7px;
   cursor: pointer;
 }
-#pbInstructions, #special-browser-page {
+#pbInstructions, #special-browser-page, #disabled-site-message {
     color: #505050;
     font-size: 16px;
     margin: 0;
     padding-top: 10px;
 }
-#special-browser-page {
+#special-browser-page, #disabled-site-message {
     text-align: center;
     margin: 45px 0;
     padding: 0;
