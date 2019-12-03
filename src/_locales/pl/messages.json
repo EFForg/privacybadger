@@ -603,6 +603,10 @@
         "message": "Privacy Badger nie działa na specjalnych stronach jak ta. Spróbuj otworzyć inną stronę.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_disabled_site_header": {
+        "message": "Privacy Badger is disabled on this site",
+        "description": "Shown in the popup on disabled sites."
+    },
     "options_widget_replacement_tab": {
         "message": "Zastępowanie widżetów",
         "description": "Options page tab heading"

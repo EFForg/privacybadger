@@ -603,6 +603,10 @@
         "message": "隐私獾不在特殊页面工作——比如这一个。试着浏览一下别的地方。",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_disabled_site_header": {
+        "message": "Privacy Badger is disabled on this site",
+        "description": "Shown in the popup on disabled sites."
+    },
     "options_widget_replacement_tab": {
         "message": "小部件替换",
         "description": "Options page tab heading"

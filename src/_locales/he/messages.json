@@ -603,6 +603,10 @@
         "message": "Privacy Badger אינו עובד על עמודים מיוחדים כמו זה. נסה לגלוש במקום כלשהו אחר.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_disabled_site_header": {
+        "message": "Privacy Badger is disabled on this site",
+        "description": "Shown in the popup on disabled sites."
+    },
     "options_widget_replacement_tab": {
         "message": "החלפת יישומונים",
         "description": "Options page tab heading"
