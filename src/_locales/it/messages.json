@@ -604,7 +604,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger is disabled on this site",
+        "message": "Privacy Badger è disattivato in questo sito",
         "description": "Shown in the popup on disabled sites."
     },
     "options_widget_replacement_tab": {
