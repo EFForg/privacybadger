@@ -268,10 +268,16 @@ font-size: 16px;
     margin: 0;
     padding-top: 10px;
 }
-#special-browser-page, #disabled-site-message {
+#instructions_no_trackers, #special-browser-page, #disabled-site-message {
     text-align: center;
     margin: 45px 0;
     padding: 0;
+}
+#instructions_no_trackers, #no-third-parties {
+    display: block;
+}
+#no-third-parties {
+    font-size: 12px;
 }
 
 .pbButton{
