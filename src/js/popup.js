@@ -491,7 +491,7 @@ function refreshPopup() {
 
     if (POPUP_DATA.showNonTrackingDomains) {
       // show the "no third party resources on this site" message
-      $("#blockedResources").html(chrome.i18n.getMessage("popup_blocked"));
+      $("#no-third-parties").show();
     }
 
     // activate tooltips
@@ -550,6 +550,9 @@ function refreshPopup() {
         htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
       );
     }
+
+    // reduce margin if we have non-tracking domains to show
+    $("#instructions_no_trackers").css("margin", "10px 0");
   }
 
   if (printable.length) {
