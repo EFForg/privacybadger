@@ -98,8 +98,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             # Element will fade out so wait for it to disappear.
             WebDriverWait(self.driver, 5).until(
-                expected_conditions.invisibility_of_element_located(
-                    (By.ID, "firstRun")))
+                lambda x: x.find_element_by_id("instruction").value_of_css_property("display") == "none")
 
     def get_enable_button(self):
         """Get enable button on popup."""
