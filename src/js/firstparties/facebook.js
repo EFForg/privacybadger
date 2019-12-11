@@ -2,7 +2,7 @@
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
 // this should only run on facebook.com, messenger.com, and
 // facebookcorewwwi.onion
-let fb_wrapped_link = `a[href*='${document.domain}/l.php?']:not([aria-label])`;
+let fb_wrapped_link = `a[href*='${document.domain.split(".").slice(-2).join(".")}/l.php?']:not([aria-label])`;
 
 // remove all attributes from a link except for class and ARIA attributes
 function cleanAttrs(elem) {
