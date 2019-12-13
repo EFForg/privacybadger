@@ -808,20 +808,19 @@ function dispatcher(request, sender, sendResponse) {
       break;
     }
 
-    let tabData = badger.tabData[tab_id],
-      tab_host = tabData.frames[0].host;
+    let tab_host = window.extractHostFromURL(request.tabUrl);
 
     sendResponse({
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
-      errorText: tabData.errorText,
+      errorText: badger.tabData[tab_id].errorText,
       noTabData: false,
-      origins: tabData.origins,
+      origins: badger.tabData[tab_id].origins,
       seenComic: badger.getSettings().getItem("seenComic"),
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       tabHost: tab_host,
       tabId: tab_id,
-      tabUrl: tabData.frames[0].url,
+      tabUrl: request.tabUrl,
       trackerCount: badger.getTrackerCount(tab_id)
     });
 

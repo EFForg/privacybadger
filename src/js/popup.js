@@ -225,7 +225,8 @@ function send_error(message) {
   // get the latest domain list from the background page
   chrome.runtime.sendMessage({
     type: "getPopupData",
-    tabId: POPUP_DATA.tabId
+    tabId: POPUP_DATA.tabId,
+    tabUrl: POPUP_DATA.tabUrl
   }, (response) => {
     const origins = response.origins;
 
@@ -696,7 +697,8 @@ $(function () {
   getTab(function (tab) {
     chrome.runtime.sendMessage({
       type: "getPopupData",
-      tabId: tab.id
+      tabId: tab.id,
+      tabUrl: tab.url
     }, (response) => {
       setPopupData(response);
       refreshPopup();
