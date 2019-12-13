@@ -797,23 +797,28 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "getPopupData": {
-    let tab_id = request.tabId,
-      tab_url = request.tabUrl,
-      tab_host = window.extractHostFromURL(tab_url),
-      has_tab_data = badger.tabData.hasOwnProperty(tab_id);
+    let tab_id = request.tabId;
+
+    if (!badger.tabData.hasOwnProperty(tab_id)) {
+      sendResponse({ noTabData: true });
+      break;
+    }
+
+    let tabData = badger.tabData[tab_id],
+      tab_host = tabData.frames[0].host;
 
     sendResponse({
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
-      errorText: has_tab_data && badger.tabData[tab_id].errorText,
-      noTabData: !has_tab_data,
-      origins: has_tab_data && badger.tabData[tab_id].origins,
+      errorText: tabData.errorText,
+      noTabData: false,
+      origins: tabData.origins,
       seenComic: badger.getSettings().getItem("seenComic"),
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       tabHost: tab_host,
       tabId: tab_id,
-      tabUrl: tab_url,
-      trackerCount: has_tab_data && badger.getTrackerCount(tab_id)
+      tabUrl: tabData.frames[0].url,
+      trackerCount: badger.getTrackerCount(tab_id)
     });
 
     break;

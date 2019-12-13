@@ -225,8 +225,7 @@ function send_error(message) {
   // get the latest domain list from the background page
   chrome.runtime.sendMessage({
     type: "getPopupData",
-    tabId: POPUP_DATA.tabId,
-    tabUrl: POPUP_DATA.tabUrl
+    tabId: POPUP_DATA.tabId
   }, (response) => {
     const origins = response.origins;
 
@@ -439,7 +438,7 @@ function refreshPopup() {
 
   // must be a special browser page,
   if (POPUP_DATA.noTabData) {
-    // replace inapplicable summary text with a Badger logo
+    // show the "nothing to do here" message
     $('#blockedResourcesContainer').hide();
     $('#special-browser-page').show();
 
@@ -697,8 +696,7 @@ $(function () {
   getTab(function (tab) {
     chrome.runtime.sendMessage({
       type: "getPopupData",
-      tabId: tab.id,
-      tabUrl: tab.url
+      tabId: tab.id
     }, (response) => {
       setPopupData(response);
       refreshPopup();

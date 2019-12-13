@@ -67,8 +67,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         js = """getTab(function (tab) {
   chrome.runtime.sendMessage({
     type: "getPopupData",
-    tabId: tab.id,
-    tabUrl: tab.url
+    tabId: tab.id
   }, (response) => {
     response.noTabData = false;
     response.origins = %s;
