@@ -44,7 +44,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             self.fail("Timed out waiting for %s to start loading" % url)
 
-    def open_popup(self, close_overlay=True, origins=None):
+    def open_popup(self, show_nag=False, origins=None):
         """Open popup and optionally close overlay."""
 
         DUMMY_PAGE_URL = "https://efforg.github.io/privacybadger-test-fixtures/"
@@ -60,23 +60,27 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.wait_for_script("return window.POPUP_INITIALIZED")
 
         # override tab ID (to get regular page popup instead of
-        # special browser page popup), domain list
+        # special browser page popup),
+        # optionally set the domains the popup should report,
+        # optionally ask for the new user welcome page reminder
         popup_js = (
-            "(function (origins, dummy_page_url) {"
-            "chrome.tabs.query({ url: dummy_page_url }, (tabs) => {"
+            "(function (origins, show_nag, DUMMY_PAGE_URL) {"
+            "chrome.tabs.query({ url: DUMMY_PAGE_URL }, (tabs) => {"
             "  chrome.runtime.sendMessage({"
             "    type: 'getPopupData',"
             "    tabId: tabs[0].id"
             "  }, (response) => {"
+            "    response.seenComic = !show_nag;"
             "    response.origins = origins;"
             "    setPopupData(response);"
             "    refreshPopup();"
+            "    showNagMaybe();"
             "    window.DONE_REFRESHING = true;"
             "  });"
             "});"
-            "}(arguments[0], arguments[1]));"
+            "}(arguments[0], arguments[1], arguments[2]));"
         )
-        self.js(popup_js, origins if origins else {}, DUMMY_PAGE_URL)
+        self.js(popup_js, origins if origins else {}, show_nag, DUMMY_PAGE_URL)
         # wait until the async getTab function is done
         self.wait_for_script(
             "return typeof window.DONE_REFRESHING != 'undefined'",
@@ -86,15 +90,6 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # wait for any sliders to finish rendering
         self.wait_for_script("return window.SLIDERS_DONE")
-
-        if close_overlay:
-            # Click 'X' element to close overlay.
-            close_element = self.driver.find_element_by_id("fittslaw")
-            close_element.click()
-
-            # Element will fade out so wait for it to disappear.
-            WebDriverWait(self.driver, 5).until(
-                lambda x: x.find_element_by_id("instruction").value_of_css_property("display") == "none")
 
     def get_enable_button(self):
         """Get enable button on popup."""
@@ -106,7 +101,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_overlay(self):
         """Ensure overlay links to first run comic."""
-        self.open_popup(close_overlay=False)
+        self.open_popup(show_nag=True)
 
         self.driver.find_element_by_id("firstRun").click()
 
@@ -225,7 +220,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             "The domain should be blocked on options page.")
 
         # test toggling some more
-        self.open_popup(close_overlay=False, origins={DOMAIN:"user_block"})
+        self.open_popup(origins={DOMAIN:"user_block"})
 
         self.assertTrue(
             self.driver.find_element_by_id("block-" + DOMAIN_ID).is_selected(),

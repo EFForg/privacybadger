@@ -800,7 +800,11 @@ function dispatcher(request, sender, sendResponse) {
     let tab_id = request.tabId;
 
     if (!badger.tabData.hasOwnProperty(tab_id)) {
-      sendResponse({ noTabData: true });
+      sendResponse({
+        criticalError: badger.criticalError,
+        noTabData: true,
+        seenComic: true,
+      });
       break;
     }
 
