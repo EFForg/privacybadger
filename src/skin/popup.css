@@ -112,17 +112,17 @@ a:hover { color: #ec9329 }
 .noaction .switch-candy a{
   background-color: #339900;
 }
-.honeybadgerPowered{
+.honeybadgerPowered {
   display: none;
   margin-right: 10px;
   width: 20px;
   height: 20px;
   position: relative;
-  left: 337px;
+  left: 340px;
   bottom: 15px;
   cursor: pointer;
 }
-.userset .honeybadgerPowered{
+.userset .honeybadgerPowered {
   display: block;
   background: url('/icons/badger-pin.png') no-repeat;
 }
@@ -154,7 +154,7 @@ font-size: 16px;
 }
 
 #privacyBadgerHeader img {
-    float: left
+    float: left;
 }
 
 #blockedResourcesContainer {
@@ -430,8 +430,6 @@ div.overlay.active {
   }
 
   .honeybadgerPowered {
-    float: right;
-    left: 0;
-    margin-right: 0;
+    left: 255px;
   }
 }
