@@ -202,17 +202,17 @@ font-size: 16px;
     position: relative;
 }
 .key {
-  position: absolute;
-  height: 25px;
-  left: 0;
-  right: 0;
-  z-index: 30;
-  background: #fefefe;
-  padding-top: 4px;
-  padding-left: 215px;
+    position: absolute;
+    height: 25px;
+    left: 215px;
+    right: 0;
+    z-index: 30;
+    background: #fefefe;
+    padding-top: 4px;
+    width: 117px;
 }
-.key img{
-  margin-left: 19px;
+.key img {
+    margin-left: 19px;
 }
 #instruction-outer {
   display: none;
@@ -423,9 +423,9 @@ div.overlay.active {
   }
 
   .key {
-    padding-left: 150px;
+    left: 150px;
   }
-  .key img{
+  .key img {
     margin-left: 12px;
   }
 
