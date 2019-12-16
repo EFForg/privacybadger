@@ -390,6 +390,7 @@ klarna.com
 klarnacdn.net
 klm.com
 kxcdn.com
+ddragon.leagueoflegends.com
 libsyn.com
 licdn.com
 licensebuttons.net
