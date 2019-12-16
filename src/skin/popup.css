@@ -407,7 +407,7 @@ div.overlay.active {
     border: none;
 }
 
-@media screen and (max-width: 350px){
+@media screen and (max-width: 400px){
   .origin {
     max-width: 150px;
   }
