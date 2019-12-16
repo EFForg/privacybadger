@@ -247,20 +247,16 @@ font-size: 16px;
   padding: 0 0 10px 0;
   cursor: pointer;
 }
-#options{
-  float: right;
-  padding-top: 7px;
+#options, #share, #help {
+    float: right;
+    padding-top: 7px;
 }
-#help{
-  float: right;
-  padding-right: 5px;
-  padding-top: 7px;
+#help {
+    padding-right: 6px;
 }
-#share{
-  float: right;
-  padding-right: 5px;
-  padding-top: 7px;
-  cursor: pointer;
+#share {
+    padding-right: 6px;
+    cursor: pointer;
 }
 #pbInstructions, #special-browser-page, #disabled-site-message {
     color: #505050;
