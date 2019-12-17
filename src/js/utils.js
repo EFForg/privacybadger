@@ -335,6 +335,7 @@ function parseCookie(str, opts) {
     "httponly",
     "max-age",
     "path",
+    "samesite",
     "secure",
   ];
 

@@ -296,6 +296,25 @@ QUnit.test("cookie parsing", function (assert) {
     "duplicate names #3"
   );
 
+  // SameSite attribute
+  let SAMESITE_COOKIE = 'abc=123; path=/; domain=.githack.com; HttpOnly; SameSite=Lax';
+  assert.deepEqual(
+    utils.parseCookie(SAMESITE_COOKIE),
+    {
+      abc: '123',
+      SameSite: 'Lax',
+      path: '/',
+      domain: '.githack.com',
+      HttpOnly: '',
+    },
+    "SameSite is parsed"
+  );
+  assert.deepEqual(
+    utils.parseCookie(SAMESITE_COOKIE, { skipAttributes: true }),
+    { abc: '123' },
+    "SameSite is ignored when ignoring attributes"
+  );
+
 });
 
 QUnit.test("cookie parsing (legacy Firefox add-on)", function (assert) {
