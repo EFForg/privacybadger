@@ -848,6 +848,26 @@ var multiDomainFirstPartiesArray = [
     "fbsbx.com",
   ],
   [
+    "faithlife.com",
+
+    "biblescreen.com",
+    "biblestudymagazine.com",
+    "biblia.com",
+    "didaktikosjournal.com",
+    "faithlifetv.com",
+    "kirkdalepress.com",
+    "lexhampress.com",
+    "logos.com",
+    "ministrytracker.com",
+    "proclaimonline.com",
+    "verbum.com",
+
+    "bibliacdn.com",
+    "faithlifecdn.com",
+    "faithlifesitescdn.com",
+    "logoscdn.com",
+  ],
+  [
     "fandom.com",
     "fandom-dev.pl",
     "fandom-dev.us",
