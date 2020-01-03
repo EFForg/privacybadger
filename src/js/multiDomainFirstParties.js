@@ -2339,7 +2339,15 @@ var multiDomainFirstPartiesArray = [
 
     "szn.cz",
   ],
-  ["shopify.com", "myshopify.com"],
+  [
+    "shopify.com",
+    "myshopify.com",
+    "shopifycdn.com",
+    "shopifyapps.com",
+    "shopifycloud.com",
+    "shopifyadmin.com",
+    "shopifypreview.com",
+  ],
   ["siriusxm.com", "sirius.com"],
   ["skygo.co.nz", "skytv.co.nz"],
   ["skysports.com", "skybet.com", "skyvegas.com"],
