@@ -2357,7 +2357,7 @@ var multiDomainFirstPartiesArray = [
 
     "ffx.io",
   ],
-  ["snapfish.com", "snapfish.ca"],
+  ["snapfish.com", "snapfish.ca", "sf-cdn.com"],
   ["sony.com", "sonyrewards.com"],
   ["soundcloud.com", "sndcdn.com"],
   ["soundcu.com", "netteller.com"],
