@@ -92,11 +92,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "避免 WebRTC 泄露本地 IP 地址 *",
+        "message": "阻止 WebRTC 泄露本地 IP 地址 *",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "隐私獾会自动学习去阻止不可见的追踪器。看看这是如何做到的吧。",
+        "message": "隐私獾会自动学习去屏蔽不可见的追踪器。看看这是如何做到的吧。",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -362,7 +362,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "向网站发送<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿追踪”</a>信号",
+        "message": "向网站发送<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿追踪”</a>请求头",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -374,7 +374,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "隐私獾检测到这个页面上 $COUNT$ 个潜在的$TRACKER_LINK_START$追踪器$TRACKER_LINK_END$。除非一些东西出现问题，你应该不需要调节它。",
+        "message": "隐私獾检测到这个页面上 $COUNT$ 个潜在的$TRACKER_LINK_START$追踪器$TRACKER_LINK_END$。除非网页出现问题，你不必调整滑块。",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -411,7 +411,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "隐私獾在这个页面上检测到了一个潜在的<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪器</a>。除非一些东西出现问题，你应该不需要调节它。",
+        "message": "隐私獾在这个页面上检测到了一个潜在的<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪器</a>。除非网页出现问题，你不必调整它。",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -584,7 +584,7 @@
         }
     },
     "share_base_message": {
-        "message": "隐私獾（www.eff.org/privacybadger）是一个浏览器插件，它可以自动学习去阻止不可见的追踪器。隐私獾由电子前哨基金会制作：这是一个为您在线权利奋斗的非营利性组织。",
+        "message": "隐私獾（www.eff.org/privacybadger）是一个浏览器扩展，它可以自动学习去阻止不可见的追踪器。隐私獾由电子前哨基金会创作：一个为您在线权利奋斗的非营利性组织。",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -596,15 +596,15 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "这个页面无事可做",
+        "message": "对这个页面无事可做",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "隐私獾不在特殊页面工作——比如这一个。试着浏览一下别的地方。",
+        "message": "隐私獾不在特殊页面工作——比如这一个。试着浏览一下别的网页。",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger is disabled on this site",
+        "message": "隐私獾在此站点被禁用",
         "description": "Shown in the popup on disabled sites."
     },
     "options_widget_replacement_tab": {

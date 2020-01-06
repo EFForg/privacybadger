@@ -318,7 +318,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Différentes méthodes de traçage invisible existent. Les publicités ne sont que la partie émergée de l'iceberg. Privacy Badger envoi une requête <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Ne pas me pister</a> aux traceurs. S'ils ne coopèrent pas, il apprendra à les bloquer, que ce soient des publicités ou des traceurs d'une autre sorte.",
+        "message": "Différentes méthodes de traçage invisible existent. Les publicités ne sont que la partie émergée de l'iceberg. Privacy Badger envoie une requête <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Ne pas me pister</a> aux traceurs. S'ils ne coopèrent pas, il apprendra à les bloquer, que ce soient des publicités ou des traceurs d'autres sortes.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -484,7 +484,7 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Privacy Badger ne sait pas encore bloquer ces domaines",
+        "message": "Ces domaines ne sont pas bloqués pour le moment",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
