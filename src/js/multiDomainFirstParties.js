@@ -85,6 +85,7 @@ var multiDomainFirstPartiesArray = [
     "alicdn.com",
     "alicdn.net",
     "aliexpress.com",
+    "aliexpress.ru",
     "aligames.com",
     "alihealth.cn",
     "alihive.com",
