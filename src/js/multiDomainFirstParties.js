@@ -2866,7 +2866,7 @@ var multiDomainFirstPartiesArray = [
     "ya.ru",
   ],
   ["zendesk.com", "zopim.com"],
-  ["zillow.com", "zillowstatic.com", "zillowcloud.com"],
+  ["zillow.com", "zillowstatic.com", "zillowcloud.com", "zg-api.com"],
   ["zoho.com", "zoho.eu", "zohocorp.com", "zohocreator.com", "zohopublic.com", "zohostatic.com"],
   ["zonealarm.com", "zonelabs.com"],
 ];
