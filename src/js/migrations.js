@@ -313,8 +313,8 @@ exports.Migrations= {
       let cfduidFirstParties = new Set();
 
       cookies.forEach(function (cookie) {
-        // remove the leading dot
-        cfduidFirstParties.add(cookie.domain.slice(1));
+        // get the base domain (also removes the leading dot)
+        cfduidFirstParties.add(window.getBaseDomain(cookie.domain));
       });
 
       for (let domain in snitchClones) {
