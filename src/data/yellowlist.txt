@@ -24,6 +24,7 @@ s3.amazonaws.com
 amazonaws.com
 coin.amazonpay.com
 coin-eu.amazonpay.com
+americanexpress.com
 americanhomecomings.com
 ancestry.com
 angularjs.org
