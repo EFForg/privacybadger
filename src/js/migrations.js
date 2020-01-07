@@ -292,6 +292,54 @@ exports.Migrations= {
     badger.mergeUserData(data, true);
   },
 
+  forgetCloudflare: function (badger) {
+    console.log("Forgetting Cloudflare domains ...");
+
+    let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+      actionClones = actionMap.getItemClones(),
+      snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
+      snitchClones = snitchMap.getItemClones(),
+      correctedSites = {};
+
+    let config = {
+      name: '__cfduid'
+    };
+    if (badger.firstPartyDomainPotentiallyRequired) {
+      config.firstPartyDomain = null;
+    }
+
+    chrome.cookies.getAll(config, function (cookies) {
+      // assume there is no other tracking for these domains
+      let cfduidFirstParties = new Set();
+
+      cookies.forEach(function (cookie) {
+        // get the base domain (also removes the leading dot)
+        cfduidFirstParties.add(window.getBaseDomain(cookie.domain));
+      });
+
+      for (let domain in snitchClones) {
+        let newSnitches = snitchClones[domain].filter(
+          item => !cfduidFirstParties.has(item));
+
+        if (newSnitches.length) {
+          correctedSites[domain] = newSnitches;
+        }
+      }
+
+      // clear existing maps and then use mergeUserData to rebuild them
+      actionMap.updateObject({});
+      snitchMap.updateObject({});
+
+      const data = {
+        snitch_map: correctedSites,
+        action_map: actionClones
+      };
+
+      // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
+      badger.mergeUserData(data, true);
+    });
+  },
+
 };
 
 

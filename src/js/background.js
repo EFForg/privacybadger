@@ -573,6 +573,7 @@ Badger.prototype = {
       Migrations.resetWebRTCIPHandlingPolicy,
       Migrations.enableShowNonTrackingDomains,
       Migrations.forgetFirstPartySnitches,
+      Migrations.forgetCloudflare,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
