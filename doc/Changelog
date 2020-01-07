@@ -1,5 +1,14 @@
 Changes for Privacy Badger 
 ====================================
+## 2020.1.7
+* Added helpful text to popup on disabled sites
+* Fixed display issues in popup on smaller displays
+* Fixed Facebook link unwrapping on messenger.com
+* Fixed some cookies getting incorrectly flagged as high entropy
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Traditional Chinese, French,
+Hebrew, Italian, Korean, Russian, Spanish, Swedish, Ukrainian)
+
 ## 2019.11.18
 * Improved display of domains Privacy Badger hasn't yet learned to block
 * Fixed export/import of the WebRTC protection setting
