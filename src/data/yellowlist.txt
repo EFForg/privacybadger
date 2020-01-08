@@ -519,6 +519,7 @@ pistachio-cdn.graze.com
 pixietrixcomix.com
 plex.tv
 plot.ly
+web.poecdn.com
 poll.fm
 polldaddy.com
 postimg.org
