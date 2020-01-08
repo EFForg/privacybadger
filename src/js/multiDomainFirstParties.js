@@ -2707,6 +2707,19 @@ var multiDomainFirstPartiesArray = [
   ["vk.com", "vk.me", "vkontakte.ru"],
   ["volvooceanrace.com", "virtualregatta.com"],
   ["vonage.com", "vonagebusiness.com"],
+  [
+    "vrt.be",
+
+    "canvas.be",
+    "een.be",
+    "ketnet.be",
+    "klara.be",
+    "mnm.be",
+    "radio1.be",
+    "radio2.be",
+    "sporza.be",
+    "stubru.be",
+  ],
   ["walmart.com", "wal.co", "walmartimages.com", "walmart.ca"],
   [
     "thewaltdisneycompany.com",
