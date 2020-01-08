@@ -2074,6 +2074,28 @@ var multiDomainFirstPartiesArray = [
   ],
   ["paypal.com", "paypal-search.com"],
   ["pcworld.com", "staticworld.net", "idg.com", "idg.net", "infoworld.com", "macworld.com", "techhive.com", "idg.tv"],
+  [
+    "pearson.com",
+
+    "connexus.com",
+    "ecollege.com",
+    "english.com",
+    "masteringchemistry.com",
+    "masteringengineering.com",
+    "masteringgeography.com",
+    "masteringhealthandnutrition.com",
+    "masteringphysics.com",
+    "mathxl.com",
+    "mathxlforschool.com",
+    "mypearson.com",
+    "pearsonassessments.com",
+    "pearsoned.com",
+    "pearsonelt.com",
+    "pearsonhighered.com",
+    "pearsonmylabandmastering.com",
+
+    "pearsoncmg.com",
+  ],
   ["pepco.com", "pepcoholdings.com"],
   ["philips.com", "philips.nl"],
   [
