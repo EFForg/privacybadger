@@ -725,6 +725,7 @@ yahooapis.com
 api-maps.yandex.ru
 img-fotki.yandex.ru
 yardbarker.com
+yastatic.net
 yellowpages.com
 seatme.yelp.com
 yelpcdn.com
