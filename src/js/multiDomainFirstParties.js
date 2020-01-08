@@ -628,6 +628,7 @@ var multiDomainFirstPartiesArray = [
     "ed.nl",
     "gelderlander.nl",
     "hln.be",
+    "humo.be",
     "parool.nl",
     "persgroepinternational.be",
     "persgroepinternational.com",
