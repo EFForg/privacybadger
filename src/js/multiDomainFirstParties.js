@@ -225,6 +225,7 @@ var multiDomainFirstPartiesArray = [
     "6pm.com",
     "acx.com",
     "amazoninspire.com",
+    "aws.training",
     "brilliancepublishing.com",
     "comixology.com",
     "createspace.com",
