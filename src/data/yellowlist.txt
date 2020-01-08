@@ -653,8 +653,9 @@ twitch.tv
 twitter.com
 platform.twitter.com
 syndication.twitter.com
-typekit.net
+typeform.com
 typekit.com
+typekit.net
 typepad.com
 typography.com
 assets.ubuntu.com
