@@ -2933,6 +2933,7 @@ var multiDomainFirstPartiesArray = [
   ["wsj.com", "wsj.net", "barrons.com", "dowjones.com", "marketwatch.com"],
   ["xda-developers.com", "xda-cdn.com"],
   ["xfinity.com", "comcast.net", "comcast.com"],
+  ["xhamster.com", "xhcdn.com"],
   ["yahoo.com", "yahooapis.com", "yimg.com", "yahoo.co.jp", "overture.com", "flickr.com"],
   [
     "yandex.com",
