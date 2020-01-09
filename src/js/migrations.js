@@ -293,14 +293,6 @@ exports.Migrations= {
   },
 
   forgetCloudflare: function (badger) {
-    console.log("Forgetting Cloudflare domains ...");
-
-    let actionMap = badger.storage.getBadgerStorageObject("action_map"),
-      actionClones = actionMap.getItemClones(),
-      snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
-      snitchClones = snitchMap.getItemClones(),
-      correctedSites = {};
-
     let config = {
       name: '__cfduid'
     };
@@ -309,8 +301,15 @@ exports.Migrations= {
     }
 
     chrome.cookies.getAll(config, function (cookies) {
-      // assume there is no other tracking for these domains
-      let cfduidFirstParties = new Set();
+      console.log("Forgetting Cloudflare domains ...");
+
+      let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+        actionClones = actionMap.getItemClones(),
+        snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
+        snitchClones = snitchMap.getItemClones(),
+        correctedSites = {},
+        // assume the tracking domains seen on these sites are all Cloudflare
+        cfduidFirstParties = new Set();
 
       cookies.forEach(function (cookie) {
         // get the base domain (also removes the leading dot)
