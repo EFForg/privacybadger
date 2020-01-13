@@ -600,11 +600,11 @@
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger no funciona en pàgines especals com aquesta. Proveu de navegar per altres llocs.",
+        "message": "Privacy Badger no funciona en pàgines especials com aquesta. Proveu de navegar per altres llocs.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "En aquesta pàgina, el Privacy Badger està deshabilitat",
+        "message": "En aquest lloc, el Privacy Badger està deshabilitat",
         "description": "Shown in the popup on disabled sites."
     },
     "options_widget_replacement_tab": {
