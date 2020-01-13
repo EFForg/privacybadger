@@ -1,6 +1,10 @@
 Changes for Privacy Badger 
 ====================================
-## 2020.1.7
+## 2020.1.13
+* Fixed bug that sometimes loses pre-trained data for new users
+* Fixed various site breakages
+
+## 2020.1.7.1
 * Added helpful text to popup on disabled sites
 * Fixed display issues in popup on smaller displays
 * Fixed Facebook link unwrapping on messenger.com
