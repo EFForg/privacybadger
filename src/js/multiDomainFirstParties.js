@@ -7,6 +7,7 @@ require.scopes.multiDomainFP = (function() {
 var multiDomainFirstPartiesArray = [
   ["1800contacts.com", "800contacts.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
+  ["9gag.com", "9cache.com"],
   ["accountonline.com", "citi.com", "citibank.com", "citicards.com", "citibankonline.com"],
   [
     "adidas-group.com",
