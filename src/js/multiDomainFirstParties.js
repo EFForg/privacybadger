@@ -2412,6 +2412,7 @@ var multiDomainFirstPartiesArray = [
   ],
   ["sanguosha.com", "bianfeng.com"],
   ["schwab.com", "schwabplan.com"],
+  ["scmp.com", "i-scmp.com"],
   ["sears.com", "shld.net"],
   [
     "seznam.cz",
