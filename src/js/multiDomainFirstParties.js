@@ -647,6 +647,7 @@ var multiDomainFirstPartiesArray = [
   ["ea.com", "origin.com", "play4free.com", "tiberiumalliance.com"],
   [
     "ebay.com",
+    "ebayinc.com",
 
     "ebay.at",
     "ebay.be",
@@ -666,11 +667,13 @@ var multiDomainFirstPartiesArray = [
     "ebay.nl",
     "ebay.ph",
     "ebay.pl",
+    "vivanuncios.com.mx",
 
     "ebaydesc.com",
     "ebayimg.com",
     "ebayrtm.com",
     "ebaystatic.com",
+    "ebay-us.com",
   ],
   ["elsevier.com", "sciencedirect.com", "sciencedirectassets.com"],
   [
