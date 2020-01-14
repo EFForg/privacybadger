@@ -132,11 +132,11 @@
         "description": ""
     },
     "options_hide_social_widgets": {
-        "message": "Don't replace the following widgets:",
+        "message": "No reemplaçar els ginys següents:",
         "description": "Multiple selection box on the widget replacement tab"
     },
     "options_social_widgets_checkbox": {
-        "message": "Enable widget replacement",
+        "message": "Habilita el reemplaçament de ginys",
         "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -484,11 +484,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't yet learned to block these domains",
+        "message": "El vostre teixó encara no ha après a bloquejar aquests dominis",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't yet learned to block:",
+        "message": "Mostra els dominis que el vostre teixó encara no ha après a bloquejar:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -608,7 +608,7 @@
         "description": "Shown in the popup on disabled sites."
     },
     "options_widget_replacement_tab": {
-        "message": "Reemplaçament de Ginys",
+        "message": "Reemplaçament de ginys",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
