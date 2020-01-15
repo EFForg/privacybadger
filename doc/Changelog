@@ -1,5 +1,61 @@
 Changes for Privacy Badger 
 ====================================
+## 2020.1.13
+* Fixed bug that sometimes loses pre-trained data for new users
+* Fixed various site breakages
+
+## 2020.1.7.1
+* Added helpful text to popup on disabled sites
+* Fixed display issues in popup on smaller displays
+* Fixed Facebook link unwrapping on messenger.com
+* Fixed some cookies getting incorrectly flagged as high entropy
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Traditional Chinese, French,
+Hebrew, Italian, Korean, Russian, Spanish, Swedish, Ukrainian)
+
+## 2019.11.18
+* Improved display of domains Privacy Badger hasn't yet learned to block
+* Fixed export/import of the WebRTC protection setting
+* Fixed certain YouTube ("video unavailable"), Vimeo ("Because of its privacy
+settings, this video cannot be played here"), and other video players
+by revising referrer protection for "cookieblocked" domains
+* Fixed various other site breakages
+* Added Korean translations
+* Improved translations (Finnish, French, Hebrew, Swedish)
+
+## 2019.10.28
+* Updated the popup with a new, higher-contrast look
+* Widget placeholders will no longer be applied for domains on the yellowlist.
+The value of widget placeholders is full blocking (best privacy) combined with
+a clear way to restore potentially useful blocked content (convenience).
+Mixing cookie blocking and placeholders doesn't actually improve privacy or
+convenience but does introduce various bugs.
+* Added a replacement placeholder for YouTube (disabled by default as youtube.com
+is still on the yellowlist for now)
+* Added the Widget Replacement tab to the options page to manage widgets that
+do get blocked and replaced with Privacy Badger placeholders. Visit Widget
+Replacement to selectively disable placeholders. For example, you want social
+buttons out of your life completely.
+* Fixed various site breakages
+* Added Hebrew translations
+* Improved translations (Italian, Russian, Ukrainian)
+
+## 2019.10.8
+* Fixed image/video thumbnails in Google search results
+* Fixed various other site breakages
+* Removed the green "0" tracker count badge.
+No need to draw attention when there is nothing to show.
+* Improved translations (Simplified Chinese, Ukrainian)
+
+## 2019.9.23
+* Added helpful text to popup on special browser pages like the New Tab page
+* Fixed pixel cookie sharing detection being broken by First-Party Isolation
+in Firefox
+* Fixed major issues with Service Workers-powered sites like Gmail and Twitter
+* Fixed various other site breakages
+* Improved translations (Simplified Chinese, French, Spanish, Swedish,
+Turkish, Ukrainian)
+
 ## 2019.7.1
 * Added pixel cookie sharing detection. Privacy Badger now records
 tracking by images with querystrings that contain first-party cookie data.

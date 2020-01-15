@@ -15,7 +15,6 @@
             "type": 2
         }
     },
-
     "Digg": {
         "domain": "widgets.digg.com",
         "buttonSelectors": [
@@ -30,7 +29,6 @@
             "type": 0
         }
     },
-
     "Facebook Like": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
@@ -49,7 +47,6 @@
             "type": 1
         }
     },
-
     "Facebook Share": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
@@ -68,25 +65,6 @@
             "type": 1
         }
     },
-
-    "Google+": {
-        "domain": "apis.google.com",
-        "buttonSelectors": [
-            "g\\:plusone",
-            ".g-plusone"
-        ],
-        "replacementButton": {
-            "details": "https://plusone.google.com/se/0/_/+1/fastbutton?url=",
-            "unblockDomains": [
-                "https://plusone.google.com/se/0/_/+1/fastbutton?url=",
-                "http://clients6.google.com/",
-                "http://apis.google.com/"
-            ],
-            "imagePath": "GooglePlus.svg",
-            "type": 1
-        }
-    },
-
     "LinkedIn": {
         "domain": "platform.linkedin.com",
         "buttonSelectors": [
@@ -101,7 +79,6 @@
             "type": 0
         }
     },
-
     "Pinterest": {
         "domain": "assets.pinterest.com",
         "buttonSelectors": [
@@ -117,9 +94,8 @@
             "type": 0
         }
     },
-
     "SoundCloud": {
-        "domain": "soundcloud.com",
+        "domain": "w.soundcloud.com",
         "buttonSelectors": [
             "iframe[src^='https://w.soundcloud.com/player']"
         ],
@@ -132,7 +108,6 @@
             "type": 3
         }
     },
-
     "Spotify Player": {
         "domain": "open.spotify.com",
         "buttonSelectors": [
@@ -147,7 +122,6 @@
             "type": 3
         }
     },
-
     "Streamable Player": {
         "domain": "streamable.com",
         "buttonSelectors": [
@@ -162,23 +136,6 @@
             "type": 3
         }
     },
-
-    "StumbleUpon": {
-        "domain": "www.stumbleupon.com",
-        "buttonSelectors": [
-            "su\\:badge",
-            "script[src^='http://www.stumbleupon.com/hostedbadge.php']"
-        ],
-        "replacementButton": {
-            "details": "http://www.stumbleupon.com/badge/?url=",
-            "unblockDomains": [
-                "http://www.stumbleupon.com/badge/?url="
-            ],
-            "imagePath": "StumbleUpon.svg",
-            "type": 0
-        }
-    },
-
     "Twitter": {
         "domain": "platform.twitter.com",
         "buttonSelectors": [
@@ -193,7 +150,6 @@
             "type": 0
         }
     },
-
     "Vimeo": {
         "domain": "player.vimeo.com",
         "buttonSelectors": [
@@ -204,6 +160,21 @@
             "details": "",
             "unblockDomains": [
                 "https://player.vimeo.com/"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
+    },
+    "YouTube": {
+        "domain": "www.youtube.com",
+        "buttonSelectors": [
+            "iframe[src^='http://www.youtube.com/embed/']",
+            "iframe[src^='https://www.youtube.com/embed/']"
+        ],
+        "replacementButton": {
+            "details": "",
+            "unblockDomains": [
+                "https://www.youtube.com/"
             ],
             "imagePath": "badger-play.png",
             "type": 3

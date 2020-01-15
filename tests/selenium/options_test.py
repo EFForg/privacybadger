@@ -150,7 +150,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # check tracker count
         self.assertEqual(
             self.driver.find_element_by_id("options_domain_list_trackers").text,
-            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Privacy Badger has detected 2 potential tracking domains so far.",
             "Origin tracker count should be 2 after adding origin"
         )
 
@@ -243,7 +243,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # make sure only two trackers are displayed now
         self.assertEqual(
             self.driver.find_element_by_id("options_domain_list_trackers").text,
-            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Privacy Badger has detected 2 potential tracking domains so far.",
             "Origin tracker count should be 2 after clearing and adding origins"
         )
 
@@ -267,6 +267,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         self.load_options_page()
         self.select_domain_list_tab()
+        if original_action == "allow":
+            self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
 
         # Change user preferences
         self.user_overwrite("pbtest.org", overwrite_action)
@@ -317,6 +319,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         self.load_options_page()
         self.select_domain_list_tab()
+        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
+        time.sleep(1) # wait for domains to rerender
 
         # Scroll until the first generated origin is added to the html
         self.scroll_to_bottom()
@@ -346,6 +350,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # Re-open the tab
         self.load_options_page()
         self.select_domain_list_tab()
+        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
+        time.sleep(1) # wait for domains to rerender
         self.scroll_to_bottom()
         self.scroll_to_bottom()
         self.scroll_to_origin('pbtest50-generated.org')

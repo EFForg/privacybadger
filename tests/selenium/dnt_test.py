@@ -8,6 +8,8 @@ import pbtest
 
 from functools import partial
 
+from selenium.common.exceptions import NoSuchElementException
+
 from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
@@ -27,7 +29,7 @@ class DNTTest(pbtest.PBSeleniumTest):
     # https://gist.github.com/ghostwords/9fc6900566a2f93edd8e4a1e48bbaa28
     # once race condition (https://crbug.com/478183) is fixed
     NAVIGATOR_DNT_TEST_URL = (
-        "https://www.eff.org/files/badger_test_fixtures/"
+        "https://efforg.github.io/privacybadger-test-fixtures/html/"
         "navigator_donottrack_delayed.html"
     )
 
@@ -206,17 +208,33 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertTrue(result, "No cookies were sent")
 
     def test_should_not_record_nontracking_domains(self):
-        TEST_URL = (
-            "https://www.eff.org/files/badger_test_fixtures/"
+        FIXTURE_URL = (
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
             "recording_nontracking_domains.html"
         )
         TRACKING_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
-        NON_TRACKING_DOMAIN = "dnt-test.trackersimulator.org"
+        NON_TRACKING_DOMAIN = "www.eff.org"
+
+        # clear pre-trained/seed tracker data
+        self.load_url(self.options_url)
+        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
 
         # visit a page containing two third-party resources,
         # one from a cookie-tracking domain
         # and one from a non-tracking domain
-        self.load_url(TEST_URL)
+        self.load_url(FIXTURE_URL)
+
+        # verify both domains are present on the page
+        try:
+            selector = "iframe[src*='%s']" % TRACKING_DOMAIN
+            self.driver.find_element_by_css_selector(selector)
+        except NoSuchElementException:
+            self.fail("Unable to find the tracking domain on the page")
+        try:
+            selector = "img[src*='%s']" % NON_TRACKING_DOMAIN
+            self.driver.find_element_by_css_selector(selector)
+        except NoSuchElementException:
+            self.fail("Unable to find the non-tracking domain on the page")
 
         self.load_url(self.options_url)
 

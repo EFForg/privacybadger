@@ -131,9 +131,13 @@
         "message": "ایمپورت",
         "description": ""
     },
+    "options_hide_social_widgets": {
+        "message": "Don't replace the following widgets:",
+        "description": "Multiple selection box on the widget replacement tab"
+    },
     "options_social_widgets_checkbox": {
-        "message": "جایگزینی ویجت های اجتماعی",
-        "description": "Checkbox label on the general settings page"
+        "message": "Enable widget replacement",
+        "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "دامنه‌هایی که شما را ردیابی نمی‌کنند را نمایش بده",
@@ -337,17 +341,13 @@
         "message": "اجازه داده شده",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "share_button_title_google": {
-        "message": "اشتراک گذاری بر روی +Google",
-        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
     "intro_donate_heading": {
         "message": "حریم خصوصی یک ورزش تیمی می باشد.",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
         "message": "در اینجا نیاز نیست چیزی را تغییر دهید.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "همه",
@@ -370,11 +370,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>پرایوسی بجر روی سایت های زیر غیر فعال می باشد. بنابراین زمانی که به سایت هایی که در اینجا لیست شده اند مراجعه کنید، چیزی را بلاک نخواهد کرد.</p><p> اگر فکر میکنید که پرایوسی بجر  باعث از کار افتادن سایتی شده است، میتوانید دامنه آن صفحه را داخل باکس زیر تایپ کنید و روی دکمه \"افزودن دامنه\" کلیک کنید.</p><p> جدای از این، اگر تب آن صفحه باز می باشد، میتوانید روی دکمه پرایوسی بجر کلیک کرده و روی دکمه \"غیرفعال سازی\" کلیک کنید.</p>",
+        "message": "<p>پرایوسی بجر روی سایت های زیر غیر فعال می باشد. بنابراین زمانی که به سایت هایی که در اینجا لیست شده اند مراجعه کنید، چیزی را بلاک نخواهد کرد.</p><p> اگر فکر میکنید که پرایوسی بجر باعث از کار افتادن سایتی شده است، میتوانید دامنه آن صفحه را داخل باکس زیر تایپ کنید و روی دکمه \"افزودن دامنه\" کلیک کنید.</p><p> جدای از این، اگر تب آن صفحه باز می باشد، میتوانید روی دکمه پرایوسی بجر کلیک کرده و روی دکمه \"غیرفعال سازی\" کلیک کنید.</p>",
         "description": ""
     },
     "popup_instructions": {
-        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی  روی این صفحه شناسایی شده است. این اسلایدر ها به شما اجازه کنترل هر کدام از آن ها را می دهند. تا زمانی که چیزی از کار نیافتده باشد نیازی به تغییر اسلایدرها نیست. ",
+        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی روی این صفحه شناسایی شده است. تا زمانی که چیزی از کار نیافتده باشد نیازی به تغییر اسلایدرها نیست.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -399,7 +399,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "پرایوسی بجر یک <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>دامنه ردیاب</a> احتمالی را تا به الان شناسایی کرده است. اسلایدر اجازه نحوه کنترل آن  را به شما می دهد.",
+        "message": "پرایوسی بجر یک <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>دامنه ردیاب</a> احتمالی را تا به الان شناسایی کرده است.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -411,7 +411,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "پرایوسی بجر  یک <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>ردیاب </a> احتمالی را روی این صفحه شناسایی کرده است. اسلایدر به شما اجازه کنترل آن را می دهد. لازم به هیچ تغییری از جانب شما نیست مگر اینکه چیزی از کار افتاده باشد.",
+        "message": "پرایوسی بجر یک <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>ردیاب </a> احتمالی را روی این صفحه شناسایی کرده است. لازم به هیچ تغییری از جانب شما نیست مگر اینکه چیزی از کار افتاده باشد.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -423,7 +423,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی تا به اینجا شناسایی شده است. این اسلایدر ها به شما اجازه می دهند تا هر کدام از آن ها را کنترل کنید.",
+        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی تا به اینجا شناسایی شده است.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -482,6 +482,14 @@
     "report_input_label": {
         "message": "توضیحات",
         "description": ""
+    },
+    "not_yet_blocked_header": {
+        "message": "Your Badger hasn't yet learned to block these domains",
+        "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
+    },
+    "options_show_not_yet_blocked": {
+        "message": "Show domains your Badger hasn't yet learned to block:",
+        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
         "message": "دامنه های زیر به نظر شما را ردیابی نمی کنند",
@@ -576,7 +584,7 @@
         }
     },
     "share_base_message": {
-        "message": "پرایوسی بجر (www.eff.org/privacybadger) یک افزونه‌ی مرورگر است که به صورت خودکار می‌آموزد تا ردیاب‌های مخفی را مسدود کند. پرایوسی بجر توسط Electronic Frontier Foundation ساخته شده که به  صورت غیر انتفاعی و آنلاین برای حقوق شما به می‌جنگد.",
+        "message": "پرایوسی بجر (www.eff.org/privacybadger) یک افزونه‌ی مرورگر است که به صورت خودکار می‌آموزد تا ردیاب‌های مخفی را مسدود کند. پرایوسی بجر توسط Electronic Frontier Foundation ساخته شده که به صورت غیر انتفاعی و آنلاین برای حقوق شما به می‌جنگد.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -586,5 +594,25 @@
     "copy_button_copied": {
         "message": "کپی شد",
         "description": "On-click text of the copy button on the share overlay."
+    },
+    "popup_special_page_header": {
+        "message": "Nothing to do on this page",
+        "description": "Heading for popup_special_page_paragraph"
+    },
+    "popup_special_page_paragraph": {
+        "message": "Privacy Badger doesn't work on special pages like this one. Try browsing somewhere else.",
+        "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
+    },
+    "popup_disabled_site_header": {
+        "message": "Privacy Badger is disabled on this site",
+        "description": "Shown in the popup on disabled sites."
+    },
+    "options_widget_replacement_tab": {
+        "message": "Widget Replacement",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "When blocking social buttons and other potentially useful (video, audio, comments) widgets, Privacy Badger can replace them with click-to-activate placeholders.",
+        "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }

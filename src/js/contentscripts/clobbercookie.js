@@ -32,11 +32,24 @@ if (window.top == window) {
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({ checkLocation: window.FRAME_URL }, function (blocked) {
+chrome.runtime.sendMessage({
+  type: "checkLocation",
+  frameUrl: window.FRAME_URL
+}, function (blocked) {
   if (blocked) {
     var code = '('+ function() {
       document.__defineSetter__("cookie", function(/*value*/) { });
       document.__defineGetter__("cookie", function() { return ""; });
+
+      // trim referrer down to origin
+      let referrer = document.referrer;
+      if (referrer) {
+        referrer = referrer.slice(
+          0,
+          referrer.indexOf('/', referrer.indexOf('://') + 3)
+        ) + '/';
+      }
+      document.__defineGetter__("referrer", function () { return referrer; });
     } +')();';
 
     window.injectScript(code);

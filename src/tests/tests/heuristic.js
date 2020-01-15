@@ -151,6 +151,7 @@ QUnit.test("CloudFlare cookies should get ignored", (assert) => {
     '__cfduid=d3c728f97e01b1ab6969828f24b42ab111493693758',
     '__cfduid=d9758e8613dd4acbba3248dde15e74f8d1493774432; expires=Thu, 03-May-18 01:20:32 GMT; path=/; domain=.medium.com; HttpOnly',
     '__cfduid=de8a1734f91060dba20e2833705018b911493771353; expires=Thu, 03-May-18 02:25:53 GMT; path=/; domain=.fightforthefuture.org; HttpOnly',
+    '__cfduid=d712bcfe8e20469cc4b9129a4ab89b7501576598707; expires=Thu, 16-Jan-20 16:05:07 GMT; path=/; domain=.githack.com; HttpOnly; SameSite=Lax',
   ];
 
   let details = JSON.parse(JSON.stringify(chromeDetails));

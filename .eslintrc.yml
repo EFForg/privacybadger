@@ -28,7 +28,6 @@ rules:
     - error
     - 2
     - outerIIFEBody: 0
-      SwitchCase: 1
   keyword-spacing: error
   linebreak-style:
     - error

@@ -294,7 +294,10 @@ Badger.prototype = {
     return new Promise(function (resolve) {
       chrome.tabs.query({}, tabs => {
         tabs.forEach(tab => {
-          self.recordFrame(tab.id, 0, tab.url);
+          // don't record on special browser pages
+          if (!utils.isRestrictedUrl(tab.url)) {
+            self.recordFrame(tab.id, 0, tab.url);
+          }
         });
         resolve();
       });
@@ -603,7 +606,8 @@ Badger.prototype = {
     showIntroPage: true,
     showNonTrackingDomains: false,
     showTrackingDomains: false,
-    socialWidgetReplacementEnabled: true
+    socialWidgetReplacementEnabled: true,
+    widgetReplacementExceptions: [],
   },
 
   /**
@@ -642,6 +646,7 @@ Badger.prototype = {
       Migrations.resetWebRTCIPHandlingPolicy,
       Migrations.enableShowNonTrackingDomains,
       Migrations.forgetFirstPartySnitches,
+      Migrations.forgetCloudflare,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
@@ -714,11 +719,11 @@ Badger.prototype = {
       let count = self.getTrackerCount(tab_id);
 
       if (count === 0) {
-        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#00cc00"});
-      } else {
-        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#ec9329"});
+        chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
+        return;
       }
 
+      chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#ec9329"});
       chrome.browserAction.setBadgeText({tabId: tab_id, text: count + ""});
     });
   },
@@ -904,9 +909,11 @@ Badger.prototype = {
       return;
     }
 
-    let iconFilename;
+    let self = this, iconFilename;
+
     // TODO grab hostname from tabData instead
-    if (this.isPrivacyBadgerEnabled(window.extractHostFromURL(tab_url))) {
+    if (!utils.isRestrictedUrl(tab_url) &&
+        self.isPrivacyBadgerEnabled(window.extractHostFromURL(tab_url))) {
       iconFilename = {
         19: chrome.runtime.getURL("icons/badger-19.png"),
         38: chrome.runtime.getURL("icons/badger-38.png")
@@ -967,26 +974,6 @@ function startBackgroundListeners() {
   chrome.tabs.onActivated.addListener(function (activeInfo) {
     badger.updateBadge(activeInfo.tabId);
   });
-
-  // Listening for Avira Autopilot remote control UI
-  // The Scout browser needs a "emergency off" switch in case Privacy Badger breaks a page.
-  // The Privacy Badger UI will removed from the URL bar into the menu to achieve a cleaner UI in the future.
-  if (chrome.runtime.onMessageExternal) {
-    chrome.runtime.onMessageExternal.addListener(
-      function(request, sender, sendResponse) {
-        // This is the ID of the Avira Autopilot extension, which is the central menu for the scout browser
-        if (sender.id === "ljjneligifenjndbcopdndmddfcjpcng") {
-          if (request.command == "getDisabledSites") {
-            sendResponse({origins: badger.getDisabledSites()});
-          } else if (request.command == "enable") {
-            badger.enablePrivacyBadgerForOrigin(request.origin);
-          } else if (request.command == "disable") {
-            badger.disablePrivacyBadgerForOrigin(request.origin);
-          }
-        }
-      }
-    );
-  }
 }
 
 var badger = window.badger = new Badger();

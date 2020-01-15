@@ -50,7 +50,7 @@ function setTextDirection() {
   // popup page
   if (document.location.pathname == "/skin/popup.html") {
     // fix floats
-    ['#privacyBadgerHeader h2', '#privacyBadgerHeader img', '#instruction img', '#version'].forEach((selector) => {
+    ['#privacyBadgerHeader img', '#header-image-stack', '#instruction img', '#version'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
     ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
@@ -58,10 +58,7 @@ function setTextDirection() {
     });
 
     // fix padding
-    ['#version'].forEach((selector) => {
-      swap_css_property(selector, "padding-left", "padding-right");
-    });
-    ['#privacyBadgerHeader h2', '#instruction img', '#help', '#share'].forEach((selector) => {
+    ['#instruction img', '#help', '#share'].forEach((selector) => {
       swap_css_property(selector, "padding-right", "padding-left");
     });
 
@@ -80,7 +77,7 @@ function setTextDirection() {
     document.body.appendChild(css);
 
     // fix margins
-    ['#settings-suffix', '#check-dnt-policy-row'].forEach((selector) => {
+    ['#settings-suffix', '#check-dnt-policy-row', '#hide-widgets-row'].forEach((selector) => {
       swap_css_property(selector, "margin-left", "margin-right");
     });
     ['#whitelistForm > div > div > div'].forEach((selector) => {

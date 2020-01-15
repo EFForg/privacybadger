@@ -233,20 +233,20 @@ BadgerPen.prototype = {
 
     function getScore(action) {
       switch (action) {
-        case constants.NO_TRACKING:
-          return 0;
-        case constants.ALLOW:
-          return 1;
-        case constants.BLOCK:
-          return 2;
-        case constants.COOKIEBLOCK:
-          return 3;
-        case constants.DNT:
-          return 4;
-        case constants.USER_ALLOW:
-        case constants.USER_BLOCK:
-        case constants.USER_COOKIE_BLOCK:
-          return 5;
+      case constants.NO_TRACKING:
+        return 0;
+      case constants.ALLOW:
+        return 1;
+      case constants.BLOCK:
+        return 2;
+      case constants.COOKIEBLOCK:
+        return 3;
+      case constants.DNT:
+        return 4;
+      case constants.USER_ALLOW:
+      case constants.USER_BLOCK:
+      case constants.USER_COOKIE_BLOCK:
+        return 5;
       }
     }
 
@@ -609,6 +609,7 @@ var _syncStorage = (function () {
       let err = chrome.runtime.lastError.message;
       if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")
       && !err.startsWith("InvalidStateError:") && !err.startsWith("AbortError:")
+      && !err.startsWith("QuotaExceededError:")
       ) {
         badger.criticalError = err;
       }

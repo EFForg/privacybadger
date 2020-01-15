@@ -23,10 +23,13 @@ tx:
 	tx pull -f
 	scripts/fix_placeholders.py
 
+runch:
+	./node_modules/.bin/web-ext run --target chromium --start-url "chrome://extensions" -s src/
+
 runff:
 	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/
 
 runfn:
 	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/ -f /opt/firefox/nightly/firefox
 
-.PHONY: lint updatepsl updateseed updategoogle todo tx runff runfn
+.PHONY: lint updatepsl updateseed updategoogle todo tx runch runff runfn
