@@ -226,6 +226,14 @@ function parseUserDataFile(storageMapsList) {
     return confirm(i18n.getMessage("invalid_json"));
   }
 
+  // validate by checking we have the same keys in the import as in the export
+  if (!_.isEqual(
+    Object.keys(lists).sort(),
+    USER_DATA_EXPORT_KEYS.sort()
+  )) {
+    return confirm(i18n.getMessage("invalid_json"));
+  }
+
   // check for webrtc setting in the imported settings map
   if (lists.settings_map.preventWebRTCIPLeak) {
     // verify that the user hasn't already enabled this option
@@ -234,14 +242,6 @@ function parseUserDataFile(storageMapsList) {
     }
     // this browser-controlled setting doesn't belong in Badger's settings object
     delete lists.settings_map.preventWebRTCIPLeak;
-  }
-
-  // validate by checking we have the same keys in the import as in the export
-  if (!_.isEqual(
-    Object.keys(lists).sort(),
-    USER_DATA_EXPORT_KEYS.sort()
-  )) {
-    return confirm(i18n.getMessage("invalid_json"));
   }
 
   chrome.runtime.sendMessage({
