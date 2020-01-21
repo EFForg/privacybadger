@@ -582,12 +582,13 @@ BadgerStorage.prototype = {
       }
 
     } else if (self.name === "snitch_map") {
-      for (let tracker_fqdn in mapData) {
-        var firstPartyOrigins = mapData[tracker_fqdn];
-        for (let origin in firstPartyOrigins) {
+      for (let tracker_origin in mapData) {
+        let firstPartyOrigins = mapData[tracker_origin];
+        for (let i = 0; i < firstPartyOrigins.length; i++) {
           badger.heuristicBlocking.updateTrackerPrevalence(
-            tracker_fqdn,
-            firstPartyOrigins[origin],
+            tracker_origin,
+            tracker_origin,
+            firstPartyOrigins[i],
             true // skip DNT policy checking on data import
           );
         }
