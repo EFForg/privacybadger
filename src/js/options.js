@@ -377,7 +377,7 @@ function exportUserData() {
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1420419
     if (chrome.runtime.getBrowserInfo) {
       chrome.runtime.getBrowserInfo((info) => {
-        if (info.name == "Firefox") {
+        if (info.name == "Firefox" || info.name == "Waterfox") {
           addBlobWorkAroundForFirefox();
         }
         clickBlobLink();
