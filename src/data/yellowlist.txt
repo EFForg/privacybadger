@@ -124,6 +124,7 @@ mediaworks.co.nz
 cc.cnetcontent.com
 cdn.cnetcontent.com
 ws.cnetcontent.com
+codepen.io
 com.com
 complex.com
 convio.net
