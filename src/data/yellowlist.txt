@@ -1,9 +1,7 @@
 nosdn.127.net
 bnet.163.com
-123greetings.com
 122.2o7.net
 112.2o7.net
-5min.com
 accuweather.com
 actionnetwork.org
 imagesrv.adition.com
@@ -15,8 +13,6 @@ affirm.com
 akamai.net
 akamaihd.net
 akamaized.net
-al.com
-alert60.com
 alexa.com
 ally.com
 amazon.com
@@ -25,10 +21,8 @@ amazonaws.com
 coin.amazonpay.com
 coin-eu.amazonpay.com
 americanexpress.com
-americanhomecomings.com
 ancestry.com
 angularjs.org
-anonymto.me
 up.anv.bz
 anvato.net
 tkx-acc.apis.anvato.net
@@ -56,7 +50,6 @@ assetfiles.com
 assets-cdk.com
 auth0.com
 authorize.net
-autoforums.com
 azureedge.net
 bac-assets.com
 api.map.baidu.com
@@ -76,7 +69,6 @@ bizrate.com
 blockstack.org
 blogblog.com
 blogger.com
-blogher.org
 blogspot.com
 bp.blogspot.com
 bloxcms.com
@@ -84,7 +76,6 @@ boldchat.com
 bootstrapcdn.com
 braintreegateway.com
 brcdn.com
-break.com
 breakingburner.com
 brightcove.com
 players.brightcove.net
@@ -93,7 +84,6 @@ buzzfed.com
 buzzfeed.com
 cachefly.net
 cardinalcommerce.com
-cars.com
 cbsi.com
 cbsimg.net
 cbsistatic.com
@@ -111,7 +101,6 @@ cloudinary.com
 bbb.org
 bbc.co.uk
 bbci.co.uk
-grapeshot.co.uk
 w.graphiq.com
 s.graphiq.com
 s2.graphiq.com
@@ -125,15 +114,7 @@ cc.cnetcontent.com
 cdn.cnetcontent.com
 ws.cnetcontent.com
 codepen.io
-com.com
-complex.com
-convio.net
-copyscape.com
-corporate-ir.net
-coupons.com
-craveonline.com
 creativecommons.org
-crowdynews.com
 cstv.com
 cursecdn.com
 custhelp.com
@@ -144,7 +125,6 @@ dealer.com
 dealerinspire.com
 delicious.com
 delvenetworks.com
-denverpost.com
 deviantart.com
 deviantart.net
 digitalriver.com
@@ -159,11 +139,9 @@ dmcdn.net
 dmcdn.com
 screendoor.dobt.co
 documentcloud.org
-domainnamesales.com
 donorbox.org
 dotsub.com
 dl.dropboxusercontent.com
-dudamobile.com
 dumpert.nl
 duosecurity.com
 cdn.dynamicyield.com
@@ -194,7 +172,6 @@ i-cdn.embed.ly
 i.embed.ly
 epoch.com
 epoq.de
-estara.com
 et4.de
 ethn.io
 evcdn.com
@@ -252,8 +229,6 @@ giphy.com
 github.com
 githubusercontent.com
 gmodules.com
-go.com
-godaddy.com
 godatafeed.com
 gogousenet.com
 accounts.google.com
@@ -319,21 +294,15 @@ gstatic.com
 guildwars2.com
 hackerone-user-content.com
 helium.com
-hellobar.com
 herokuapp.com
 code.highcharts.com
 homestead.com
 cdn.hometogo.net
-honcode.ch
 hootsuite.com
-howaboutwe.com
-howstuffworks.com
-huffpost.com
 humblebundle.com
 hwcdn.net
 hypothes.is
 ibsys.com
-ibtimes.com
 icbdr.com
 mpsnare.iesnare.com
 imagecorn.com
@@ -350,7 +319,6 @@ imgspice.com
 imgur.com
 imgix.net
 imshopping.com
-indeed.com
 inergizedigital.com
 inq.com
 instagram.com
@@ -552,7 +520,6 @@ redditmedia.com
 redditstatic.com
 redefine.pl
 cdngeneral.rentcafe.com
-resellerratings.com
 resultspage.com
 rewardstyle.com
 rpxnow.com
@@ -608,13 +575,11 @@ staticflickr.com
 steampowered.com
 store.akamai.steamstatic.com
 steamusercontent.com
-stellaservice.com
 stripe.com
 stripecdn.com
 surveygizmo.com
 surveymonkey.com
 swiftype.com
-syracuse.com
 public.tableausoftware.com
 c.tadst.com
 taleo.net
@@ -631,14 +596,11 @@ tinypass.com
 tinypic.com
 tinyurl.com
 tiqcdn.com
-tmsbuyatoyota.com
 torbit.com
-townnews.com
 cookieblock.trackersimulate.org
 tradingview.com
 trb.com
 trbimg.com
-tripadvisor.com
 trumba.com
 privacy-policy.truste.com
 trustkeeper.net
@@ -716,7 +678,6 @@ worldnow.com
 wp.com
 wpengine.com
 wufoo.com
-wunderground.com
 wxc.com
 wxug.com
 y3.analytics.yahoo.com
@@ -738,7 +699,6 @@ youtube.com
 youtube-nocookie.com
 youwatch.org
 ytimg.com
-zap2it.com
 zdassets.com
 zencdn.net
 zendesk.com
