@@ -2773,6 +2773,8 @@ var multiDomainFirstPartiesArray = [
     "tripadvisor.se",
     "tripadvisor.sk",
 
+    "seatguru.com",
+
     "tacdn.com",
     "tamgrt.com",
   ],
