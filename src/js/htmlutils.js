@@ -20,10 +20,6 @@ require.scopes.htmlutils = (function() {
 const i18n = chrome.i18n;
 const constants = require("constants");
 
-const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
-  undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title'),
-  dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
-
 var exports = {};
 var htmlUtils = exports.htmlUtils = {
 
@@ -148,46 +144,54 @@ var htmlUtils = exports.htmlUtils = {
    * @param {Boolean} show_breakage_warning
    * @returns {String} Origin HTML.
    */
-  getOriginHtml: function (origin, action, show_breakage_warning) {
-    action = _.escape(action);
-    origin = _.escape(origin);
+  getOriginHtml: (function () {
 
-    // Get classes for main div.
-    var classes = ['clicker'];
-    if (action.indexOf('user') === 0) {
-      classes.push('userset');
-      action = action.substr(5);
-    }
-    if (action === constants.BLOCK || action === constants.COOKIEBLOCK || action === constants.ALLOW || action === constants.NO_TRACKING) {
-      classes.push(action);
-    }
-    // show warning when manually blocking a domain
-    // that would have been cookieblocked otherwise
-    if (show_breakage_warning) {
-      classes.push('userblocked');
-    }
+    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
+      undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title'),
+      dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
 
-    // If origin has been whitelisted set text for DNT.
-    var whitelistedText = '';
-    if (action == constants.DNT) {
-      whitelistedText = '' +
-        '<div id="dnt-compliant">' +
-        '<a target=_blank href="https://www.eff.org/privacybadger/faq#-I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me">' +
-        '<img src="' + dnt_icon_url + '"></a></div>';
-    }
+    return function (origin, action, show_breakage_warning) {
+      action = _.escape(action);
+      origin = _.escape(origin);
 
-    // Construct HTML for origin.
-    var actionDescription = htmlUtils.getActionDescription(action, origin);
-    var originHtml = '' +
-      '<div class="' + classes.join(' ') + '" data-origin="' + origin + '">' +
-      '<div class="origin"><span class="ui-icon ui-icon-notice tooltip breakage-warning" title="' + breakage_warning_tooltip + '"></span><span class="origin-inner tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</span></div>' +
-      '<div class="removeOrigin">&#10006</div>' +
-      htmlUtils.getToggleHtml(origin, action) +
-      '<div class="honeybadgerPowered tooltip" title="'+ undo_arrow_tooltip + '"></div>' +
-      '</div>';
+      // Get classes for main div.
+      var classes = ['clicker'];
+      if (action.indexOf('user') === 0) {
+        classes.push('userset');
+        action = action.substr(5);
+      }
+      if (action === constants.BLOCK || action === constants.COOKIEBLOCK || action === constants.ALLOW || action === constants.NO_TRACKING) {
+        classes.push(action);
+      }
+      // show warning when manually blocking a domain
+      // that would have been cookieblocked otherwise
+      if (show_breakage_warning) {
+        classes.push('userblocked');
+      }
 
-    return originHtml;
-  },
+      // If origin has been whitelisted set text for DNT.
+      var whitelistedText = '';
+      if (action == constants.DNT) {
+        whitelistedText = '' +
+          '<div id="dnt-compliant">' +
+          '<a target=_blank href="https://www.eff.org/privacybadger/faq#-I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me">' +
+          '<img src="' + dnt_icon_url + '"></a></div>';
+      }
+
+      // Construct HTML for origin.
+      var actionDescription = htmlUtils.getActionDescription(action, origin);
+      var originHtml = '' +
+        '<div class="' + classes.join(' ') + '" data-origin="' + origin + '">' +
+        '<div class="origin"><span class="ui-icon ui-icon-notice tooltip breakage-warning" title="' + breakage_warning_tooltip + '"></span><span class="origin-inner tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</span></div>' +
+        '<div class="removeOrigin">&#10006</div>' +
+        htmlUtils.getToggleHtml(origin, action) +
+        '<div class="honeybadgerPowered tooltip" title="'+ undo_arrow_tooltip + '"></div>' +
+        '</div>';
+
+      return originHtml;
+    };
+
+  }()),
 
   /**
    * Toggle the GUI blocked status of GUI element(s)
