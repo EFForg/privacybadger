@@ -808,14 +808,24 @@ function dispatcher(request, sender, sendResponse) {
       break;
     }
 
-    let tab_host = window.extractHostFromURL(request.tabUrl);
+    let tab_host = window.extractHostFromURL(request.tabUrl),
+      origins = badger.tabData[tab_id].origins,
+      cookieblocked = {};
+
+    for (let origin in origins) {
+      // see if origin would be cookieblocked if not for user override
+      if (badger.storage.getCookieblockStatus(origin)) {
+        cookieblocked[origin] = true;
+      }
+    }
 
     sendResponse({
+      cookieblocked,
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
       errorText: badger.tabData[tab_id].errorText,
       noTabData: false,
-      origins: badger.tabData[tab_id].origins,
+      origins,
       seenComic: badger.getSettings().getItem("seenComic"),
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       tabHost: tab_host,
@@ -828,13 +838,24 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "getOptionsData": {
+    let origins = badger.storage.getTrackingDomains();
+
+    let cookieblocked = {};
+    for (let origin in origins) {
+      // see if origin would be cookieblocked if not for user override
+      if (badger.storage.getCookieblockStatus(origin)) {
+        cookieblocked[origin] = true;
+      }
+    }
+
     sendResponse({
+      cookieblocked,
       disabledSites: badger.getDisabledSites(),
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
       isDNTSignalEnabled: badger.isDNTSignalEnabled(),
       isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
       isWidgetReplacementEnabled: badger.isWidgetReplacementEnabled(),
-      origins: badger.storage.getTrackingDomains(),
+      origins,
       showCounter: badger.showCounter(),
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       showTrackingDomains: badger.getSettings().getItem("showTrackingDomains"),

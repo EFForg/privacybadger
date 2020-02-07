@@ -219,6 +219,27 @@ BadgerPen.prototype = {
   },
 
   /**
+   * Looks up whether an FQDN would get cookieblocked, ignoring user overrides.
+   *
+   * @param {String} fqdn the FQDN we want to look up
+   *
+   * @return {Boolean}
+   */
+  getCookieblockStatus: function (fqdn) {
+    let actionMap = this.getBadgerStorageObject('action_map'),
+      subdomains = utils.explodeSubdomains(fqdn);
+
+    for (let i = 0; i < subdomains.length; i++) {
+      let action = actionMap.getItem(subdomains[i]);
+      if (action && action.heuristicAction == constants.COOKIEBLOCK) {
+        return true;
+      }
+    }
+
+    return false;
+  },
+
+  /**
    * Find the best action to take for an FQDN, assuming it is third party and
    * Privacy Badger is enabled. Traverse the action list for the FQDN and each
    * of its subdomains and then takes the most appropriate action

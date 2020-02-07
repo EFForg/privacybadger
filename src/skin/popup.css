@@ -127,6 +127,16 @@ a:hover { color: #ec9329 }
   background: url('/icons/badger-pin.png') no-repeat;
 }
 
+.breakage-warning {
+    display: none;
+    margin: 0 4px 0 2px;
+}
+.userblocked .breakage-warning {
+    display: inline-block;
+    background-color: red;
+    border-radius: 50%;
+}
+
 #privacyBadgerHeader{
 color: #505050;
 font-size: 16px;

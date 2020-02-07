@@ -516,8 +516,12 @@ function refreshPopup() {
     } else if (action == constants.ALLOW) {
       unblockedTrackers.push(origin);
     } else {
+      let show_breakage_warning = (
+        action == constants.USER_BLOCK &&
+        POPUP_DATA.cookieblocked.hasOwnProperty(origin)
+      );
       printable.push(
-        htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
+        htmlUtils.getOriginHtml(origin, action, show_breakage_warning)
       );
     }
   }
@@ -532,7 +536,7 @@ function refreshPopup() {
     );
     unblockedTrackers.forEach(domain => {
       printable.push(
-        htmlUtils.getOriginHtml(domain, constants.ALLOW, false)
+        htmlUtils.getOriginHtml(domain, constants.ALLOW)
       );
     });
   }
@@ -547,7 +551,7 @@ function refreshPopup() {
     );
     for (let i = 0; i < nonTracking.length; i++) {
       printable.push(
-        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
+        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING)
       );
     }
 
@@ -636,16 +640,21 @@ function updateOrigin(event) {
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
-  var $clicker = $elm.parents('.clicker').first();
-  htmlUtils.toggleBlockedStatus($clicker, action);
+
+  let $clicker = $elm.parents('.clicker').first(),
+    origin = $clicker.data('origin'),
+    show_breakage_warning = (
+      action == constants.BLOCK &&
+      POPUP_DATA.cookieblocked.hasOwnProperty(origin)
+    );
+
+  htmlUtils.toggleBlockedStatus($clicker, action, show_breakage_warning);
 
   // reinitialize the domain tooltip
-  $clicker.find('.origin').tooltipster('destroy');
-  $clicker.find('.origin').attr(
-    'title',
-    htmlUtils.getActionDescription(action, $clicker.data('origin'))
-  );
-  $clicker.find('.origin').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
+  $clicker.find('.origin-inner').tooltipster('destroy');
+  $clicker.find('.origin-inner').attr(
+    'title', htmlUtils.getActionDescription(action, origin));
+  $clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 
   // persist the change
   saveToggle($clicker);
