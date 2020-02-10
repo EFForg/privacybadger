@@ -99,7 +99,6 @@ function loadOptions() {
     }
   });
   $("button").button();
-  $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $("#cloud-upload").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-n"});
@@ -549,7 +548,7 @@ function reloadTrackingDomainsTab() {
     $("#tracking-domains-div").hide();
 
     // activate tooltips
-    $('.tooltip').tooltipster(TOOLTIP_CONF);
+    $('.tooltip:not(.tooltipstered)').tooltipster(TOOLTIP_CONF);
 
     return;
   }
@@ -580,7 +579,7 @@ function reloadTrackingDomainsTab() {
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // activate tooltips
-  $('.tooltip').tooltipster(TOOLTIP_CONF);
+  $('.tooltip:not(.tooltipstered)').tooltipster(TOOLTIP_CONF);
 
   // Display tracking domains.
   showTrackingDomains(
@@ -686,7 +685,11 @@ function addOrigins(e) {
     var domain = domains.shift();
     var action = getOriginAction(domain);
     if (action) {
-      $(target).append(htmlUtils.getOriginHtml(domain, action, action == constants.DNT));
+      let show_breakage_warning = (
+        action == constants.USER_BLOCK &&
+        OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
+      );
+      $(target).append(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
 
       // register the newly-created toggle switch so that user changes are saved
       registerToggleHandlers($(target).find("[data-origin='" + domain + "'] .switch-toggle"));
@@ -708,10 +711,14 @@ function showTrackingDomains(domains) {
   // Create HTML for the initial list of tracking domains.
   var trackingDetails = '';
   for (var i = 0; (i < 50) && (domains.length > 0); i++) {
-    var trackingDomain = domains.shift();
-    var action = getOriginAction(trackingDomain);
+    var domain = domains.shift();
+    var action = getOriginAction(domain);
     if (action) {
-      trackingDetails += htmlUtils.getOriginHtml(trackingDomain, action, action == constants.DNT);
+      let show_breakage_warning = (
+        action == constants.USER_BLOCK &&
+        OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
+      );
+      trackingDetails += htmlUtils.getOriginHtml(domain, action, show_breakage_warning);
     }
   }
 
@@ -777,16 +784,21 @@ function updateOrigin(event) {
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
-  var $clicker = $elm.parents('.clicker').first();
-  htmlUtils.toggleBlockedStatus($clicker, action);
+
+  let $clicker = $elm.parents('.clicker').first(),
+    origin = $clicker.data('origin'),
+    show_breakage_warning = (
+      action == constants.BLOCK &&
+      OPTIONS_DATA.cookieblocked.hasOwnProperty(origin)
+    );
+
+  htmlUtils.toggleBlockedStatus($clicker, action, show_breakage_warning);
 
   // reinitialize the domain tooltip
-  $clicker.find('.origin').tooltipster('destroy');
-  $clicker.find('.origin').attr(
-    'title',
-    htmlUtils.getActionDescription(action, $clicker.data('origin'))
-  );
-  $clicker.find('.origin').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
+  $clicker.find('.origin-inner').tooltipster('destroy');
+  $clicker.find('.origin-inner').attr(
+    'title', htmlUtils.getActionDescription(action, origin));
+  $clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 }
 
 /**

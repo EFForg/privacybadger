@@ -20,8 +20,6 @@ require.scopes.htmlutils = (function() {
 const i18n = chrome.i18n;
 const constants = require("constants");
 
-const UNDO_ARROW_TOOLTIP_TEXT = i18n.getMessage('feed_the_badger_title');
-
 var exports = {};
 var htmlUtils = exports.htmlUtils = {
 
@@ -77,8 +75,8 @@ var htmlUtils = exports.htmlUtils = {
       allow: i18n.getMessage('badger_status_allow', "XXX"),
       dntTooltip: i18n.getMessage('dnt_tooltip')
     };
-    return function (action, origin, is_whitelisted) {
-      if (is_whitelisted) {
+    return function (action, origin) {
+      if (action == constants.DNT) {
         return messages.dntTooltip;
       }
 
@@ -143,63 +141,83 @@ var htmlUtils = exports.htmlUtils = {
    *
    * @param {String} origin Origin to get HTML for.
    * @param {String} action Action for given origin.
-   * @param {Boolean} isWhitelisted Whether origin is whitelisted or not.
+   * @param {Boolean} show_breakage_warning
    * @returns {String} Origin HTML.
    */
-  getOriginHtml: function(origin, action, isWhitelisted) {
-    action = _.escape(action);
-    origin = _.escape(origin);
+  getOriginHtml: (function () {
 
-    // Get classes for main div.
-    var classes = ['clicker'];
-    if (action.indexOf('user') === 0) {
-      classes.push('userset');
-      action = action.substr(5);
-    }
-    if (action === constants.BLOCK || action === constants.COOKIEBLOCK || action === constants.ALLOW || action === constants.NO_TRACKING) {
-      classes.push(action);
-    }
+    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
+      undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title'),
+      dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
 
-    // If origin has been whitelisted set text for DNT.
-    var whitelistedText = '';
-    if (isWhitelisted) {
-      whitelistedText = '' +
-        '<div id="dnt-compliant">' +
-        '<a target=_blank href="https://www.eff.org/privacybadger/faq#-I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me">' +
-        '<img src="' +
-        chrome.runtime.getURL('/icons/dnt-16.png') +
-        '"></a></div>';
-    }
+    return function (origin, action, show_breakage_warning) {
+      action = _.escape(action);
+      origin = _.escape(origin);
 
-    // Construct HTML for origin.
-    var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
-    var originHtml = '' +
-      '<div class="' + classes.join(' ') + '" data-origin="' + origin + '">' +
-      '<div class="origin tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</div>' +
-      '<div class="removeOrigin">&#10006</div>' +
-      htmlUtils.getToggleHtml(origin, action) +
-      '<div class="honeybadgerPowered tooltip" title="'+ UNDO_ARROW_TOOLTIP_TEXT + '"></div>' +
-      '</div>';
+      // Get classes for main div.
+      var classes = ['clicker'];
+      if (action.indexOf('user') === 0) {
+        classes.push('userset');
+        action = action.substr(5);
+      }
+      if (action === constants.BLOCK || action === constants.COOKIEBLOCK || action === constants.ALLOW || action === constants.NO_TRACKING) {
+        classes.push(action);
+      }
+      // show warning when manually blocking a domain
+      // that would have been cookieblocked otherwise
+      if (show_breakage_warning) {
+        classes.push('show-breakage-warning');
+      }
 
-    return originHtml;
-  },
+      // If origin has been whitelisted set text for DNT.
+      var whitelistedText = '';
+      if (action == constants.DNT) {
+        whitelistedText = '' +
+          '<div id="dnt-compliant">' +
+          '<a target=_blank href="https://www.eff.org/privacybadger/faq#-I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me">' +
+          '<img src="' + dnt_icon_url + '"></a></div>';
+      }
+
+      // Construct HTML for origin.
+      var actionDescription = htmlUtils.getActionDescription(action, origin);
+      var originHtml = '<div class="' + classes.join(' ') + '" data-origin="' + origin + '">' +
+        '<div class="origin">' +
+        '<span class="ui-icon ui-icon-alert tooltip breakage-warning" title="' + breakage_warning_tooltip + '"></span>' +
+        '<span class="origin-inner tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</span>' +
+        '</div>' +
+        '<div class="removeOrigin">&#10006</div>' +
+        htmlUtils.getToggleHtml(origin, action) +
+        '<div class="honeybadgerPowered tooltip" title="'+ undo_arrow_tooltip + '"></div>' +
+        '</div>';
+
+      return originHtml;
+    };
+
+  }()),
 
   /**
    * Toggle the GUI blocked status of GUI element(s)
    *
    * @param {jQuery} $el Identify the jQuery element object(s) to manipulate
    * @param {String} status New status to set
+   * @param {Boolean} show_breakage_warning
    */
-  toggleBlockedStatus: function ($el, status) {
-    $el
-      .removeClass([
-        constants.BLOCK,
-        constants.COOKIEBLOCK,
-        constants.ALLOW,
-        constants.NO_TRACKING
-      ].join(" "))
-      .addClass(status)
-      .addClass("userset");
+  toggleBlockedStatus: function ($el, status, show_breakage_warning) {
+    $el.removeClass([
+      constants.BLOCK,
+      constants.COOKIEBLOCK,
+      constants.ALLOW,
+      constants.NO_TRACKING,
+      "show-breakage-warning",
+    ].join(" "));
+
+    $el.addClass(status).addClass("userset");
+
+    // show warning when manually blocking a domain
+    // that would have been cookieblocked otherwise
+    if (show_breakage_warning) {
+      $el.addClass("show-breakage-warning");
+    }
   },
 
   /**
