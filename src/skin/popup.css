@@ -127,14 +127,14 @@ a:hover { color: #ec9329 }
   background: url('/icons/badger-pin.png') no-repeat;
 }
 
-.breakage-warning {
+#blockedResources .breakage-warning {
+    color: red;
     display: none;
-    margin: 0 4px 0 2px;
+    font-size: 1.3em;
+    margin: 0 2px 2px 0;
 }
-.show-breakage-warning .breakage-warning {
+#blockedResources .show-breakage-warning .breakage-warning {
     display: inline-block;
-    background-color: red;
-    border-radius: 50%;
 }
 
 #privacyBadgerHeader{

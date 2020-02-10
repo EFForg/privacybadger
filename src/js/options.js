@@ -99,7 +99,6 @@ function loadOptions() {
     }
   });
   $("button").button();
-  $(".refreshButton").button("option", "icons", {primary: "ui-icon-refresh"});
   $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
   $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
   $("#cloud-upload").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-n"});
