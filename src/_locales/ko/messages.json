@@ -63,6 +63,14 @@
         "message": "이 도메인은 당신을 추적하지 않습니다.",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
+    "breakage_warning_tooltip": {
+        "message": "Blocking this domain is known to break websites",
+        "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "feed_the_badger_title": {
+        "message": "Click to return control of this domain to Privacy Badger",
+        "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
+    },
     "next_section": {
         "message": "다음 섹션",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
@@ -121,10 +129,6 @@
     },
     "download": {
         "message": "다운로드",
-        "description": ""
-    },
-    "feed_the_badger_title": {
-        "message": "이 추적기의 제어를 Privacy Badger로 되돌리려면 클릭하세요.",
         "description": ""
     },
     "import": {

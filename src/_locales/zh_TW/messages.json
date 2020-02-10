@@ -63,6 +63,14 @@
         "message": "此網域承諾不會追蹤您",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
+    "breakage_warning_tooltip": {
+        "message": "Blocking this domain is known to break websites",
+        "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "feed_the_badger_title": {
+        "message": "Click to return control of this domain to Privacy Badger",
+        "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
+    },
     "next_section": {
         "message": "下一區",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
@@ -121,10 +129,6 @@
     },
     "download": {
         "message": "下載",
-        "description": ""
-    },
-    "feed_the_badger_title": {
-        "message": "點選以讓 Privacy Badger 控制這個追蹤器",
         "description": ""
     },
     "import": {
