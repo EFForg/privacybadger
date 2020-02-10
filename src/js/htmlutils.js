@@ -180,9 +180,11 @@ var htmlUtils = exports.htmlUtils = {
 
       // Construct HTML for origin.
       var actionDescription = htmlUtils.getActionDescription(action, origin);
-      var originHtml = '' +
-        '<div class="' + classes.join(' ') + '" data-origin="' + origin + '">' +
-        '<div class="origin"><span class="ui-icon ui-icon-notice tooltip breakage-warning" title="' + breakage_warning_tooltip + '"></span><span class="origin-inner tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</span></div>' +
+      var originHtml = '<div class="' + classes.join(' ') + '" data-origin="' + origin + '">' +
+        '<div class="origin">' +
+        '<span class="ui-icon ui-icon-notice tooltip breakage-warning" title="' + breakage_warning_tooltip + '"></span>' +
+        '<span class="origin-inner tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</span>' +
+        '</div>' +
         '<div class="removeOrigin">&#10006</div>' +
         htmlUtils.getToggleHtml(origin, action) +
         '<div class="honeybadgerPowered tooltip" title="'+ undo_arrow_tooltip + '"></div>' +
