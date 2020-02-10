@@ -25,6 +25,16 @@ from window_utils import switch_to_window_with_url
 class OptionsTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
 
+    def find_origin_by_xpath(self, origin):
+        origins = self.driver.find_element_by_id("blockedResourcesInner")
+        return origins.find_element_by_xpath((
+            './/div[@data-origin="{origin}"]'
+            # test that "origin" is one of the classes on the element:
+            # https://stackoverflow.com/a/1390680
+            '//div[contains(concat(" ", normalize-space(@class), " "), " origin ")]'
+            '//span[text()="{origin}"]'
+        ).format(origin=origin))
+
     def select_domain_list_tab(self):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         try:
@@ -122,15 +132,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         error_message = "Only the 'one tracker' message should be displayed after adding an origin"
         self.check_tracker_messages(error_message, many=False, one=True, none=False)
 
-        # Check that origin is displayed.
-        origins = self.driver.find_element_by_id("blockedResourcesInner")
         try:
-            origins.find_element_by_xpath(
-                './/div[@data-origin="pbtest.org"]'
-                # test that "origin" is one of the classes on the element:
-                # https://stackoverflow.com/a/1390680
-                '//div[contains(concat(" ", normalize-space(@class), " "), " origin ") and text()="pbtest.org"]'
-            )
+            self.find_origin_by_xpath("pbtest.org")
         except NoSuchElementException:
             self.fail("Tracking origin is not displayed")
 
@@ -155,18 +158,9 @@ class OptionsTest(pbtest.PBSeleniumTest):
         )
 
         # Check those origins are displayed.
-        origins = self.driver.find_element_by_id("blockedResourcesInner")
         try:
-            origins.find_element_by_xpath(
-                './/div[@data-origin="pbtest.org"]'
-                # test that "origin" is one of the classes on the element:
-                # https://stackoverflow.com/a/1390680
-                '//div[contains(concat(" ", normalize-space(@class), " "), " origin ") and text()="pbtest.org"]'
-            )
-            origins.find_element_by_xpath(
-                './/div[@data-origin="pbtest1.org"]'
-                '//div[contains(concat(" ", normalize-space(@class), " "), " origin ") and text()="pbtest1.org"]'
-            )
+            self.find_origin_by_xpath("pbtest.org")
+            self.find_origin_by_xpath("pbtest1.org")
         except NoSuchElementException:
             self.fail("Tracking origin is not displayed")
 
@@ -278,9 +272,14 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.select_domain_list_tab()
 
         # Check the user preferences for the origins are still displayed
-        self.assertEqual(self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]').get_attribute("class"),
-            "clicker userset " + overwrite_action,
-            "Origin should be displayed as " + overwrite_action + " after user overwrite of PB's decision to " + original_action)
+        expected_row_classes = ['clicker', 'userset', overwrite_action]
+        if original_action == 'cookieblock' and overwrite_action == 'block':
+            expected_row_classes.append('show-breakage-warning')
+        self.assertEqual(
+            self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]').get_attribute("class"),
+            " ".join(expected_row_classes),
+            "Origin should be displayed as " + overwrite_action + " after user overwrite of PB's decision to " + original_action
+        )
 
     def test_tracking_user_overwrite_allowed_block(self):
         self.tracking_user_overwrite('allow', 'block')

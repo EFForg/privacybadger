@@ -131,7 +131,7 @@ a:hover { color: #ec9329 }
     display: none;
     margin: 0 4px 0 2px;
 }
-.userblocked .breakage-warning {
+.show-breakage-warning .breakage-warning {
     display: inline-block;
     background-color: red;
     border-radius: 50%;

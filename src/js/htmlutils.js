@@ -166,7 +166,7 @@ var htmlUtils = exports.htmlUtils = {
       // show warning when manually blocking a domain
       // that would have been cookieblocked otherwise
       if (show_breakage_warning) {
-        classes.push('userblocked');
+        classes.push('show-breakage-warning');
       }
 
       // If origin has been whitelisted set text for DNT.
@@ -206,7 +206,7 @@ var htmlUtils = exports.htmlUtils = {
       constants.COOKIEBLOCK,
       constants.ALLOW,
       constants.NO_TRACKING,
-      "userblocked",
+      "show-breakage-warning",
     ].join(" "));
 
     $el.addClass(status).addClass("userset");
@@ -214,7 +214,7 @@ var htmlUtils = exports.htmlUtils = {
     // show warning when manually blocking a domain
     // that would have been cookieblocked otherwise
     if (show_breakage_warning) {
-      $el.addClass("userblocked");
+      $el.addClass("show-breakage-warning");
     }
   },
 
