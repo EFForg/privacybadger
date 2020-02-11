@@ -8,13 +8,23 @@ from __future__ import print_function
 import json
 import sys
 
-def convert(psl_text):
+def convert(psl_text, skip_private_domains=True):
+    private_domain = False
     suffixes = {}
 
     for line in psl_text:
         line = line.rstrip()
+
         if line.startswith('//') or '.' not in line:
+            if line == "// ===BEGIN PRIVATE DOMAINS===":
+                private_domain = True
+            elif line == "// ===END PRIVATE DOMAINS===":
+                private_domain = False
             continue
+
+        if private_domain and skip_private_domains:
+            continue
+
         if line.startswith('*.'):
             suffixes[line[2:]] = 2
         elif line.startswith('!'):
