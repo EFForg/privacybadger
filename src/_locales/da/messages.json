@@ -136,11 +136,11 @@
         "description": ""
     },
     "options_hide_social_widgets": {
-        "message": "Don't replace the following widgets:",
+        "message": "Udkift ikke følgende ting:",
         "description": "Multiple selection box on the widget replacement tab"
     },
     "options_social_widgets_checkbox": {
-        "message": "Enable widget replacement",
+        "message": "Aktiver udskiftning",
         "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -488,11 +488,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't yet learned to block these domains",
+        "message": "Din Badger har endnu ikke lært at blokere disse domæner",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't yet learned to block:",
+        "message": "Vis domæner din Badger endnu ikke har lært at blokere:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -600,23 +600,23 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "Nothing to do on this page",
+        "message": "Der er intet at gøre på denne side",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger doesn't work on special pages like this one. Try browsing somewhere else.",
+        "message": "Privacy Badger virker ikke på specielle sider som denne. Prøv at browse et andet sted.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger is disabled on this site",
+        "message": "Privacy Badger er deaktiveret på dette netsted.",
         "description": "Shown in the popup on disabled sites."
     },
     "options_widget_replacement_tab": {
-        "message": "Widget Replacement",
+        "message": "Kontroludskiftning",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "When blocking social buttons and other potentially useful (video, audio, comments) widgets, Privacy Badger can replace them with click-to-activate placeholders.",
+        "message": "Ved blokering af sociale knapper og andre potentielt brugbare (video, lyd, kommentarer) kontroller, kan Privacy Badger udskifte dem med klik-for-at-aktivere pladsholdere.",
         "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }
