@@ -1625,6 +1625,10 @@ var multiDomainFirstPartiesArray = [
 
     "getgo.com",
   ],
+  [
+    "loveholidays.com",
+    "lovevacations.com",
+  ],
   ["macys.com", "macysassets.com"],
   [
     "mafra.cz",
