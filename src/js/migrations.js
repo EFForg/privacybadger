@@ -339,6 +339,12 @@ exports.Migrations= {
     });
   },
 
+  // https://github.com/EFForg/privacybadger/pull/2245#issuecomment-545545717
+  forgetConsensu: (badger) => {
+    console.log("Forgetting consensu.org domains (GDPR consent provider) ...");
+    badger.storage.forget("consensu.org");
+  },
+
 };
 
 

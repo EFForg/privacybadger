@@ -574,6 +574,7 @@ Badger.prototype = {
       Migrations.enableShowNonTrackingDomains,
       Migrations.forgetFirstPartySnitches,
       Migrations.forgetCloudflare,
+      Migrations.forgetConsensu,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
