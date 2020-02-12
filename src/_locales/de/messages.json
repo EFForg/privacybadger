@@ -314,7 +314,7 @@
         "description": ""
     },
     "report_broken_site": {
-        "message": "Verursacht Privacy Badger bei dieser Website Probleme? Lassen Sie es uns wissen!",
+        "message": "Verursacht Privacy Badger bei dieser Website Probleme?",
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {

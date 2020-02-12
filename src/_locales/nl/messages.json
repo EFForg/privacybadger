@@ -294,7 +294,7 @@
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
-        "message": "cookies geblokkeerd",
+        "message": "gedeeltelijk geblokkeerd",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
@@ -350,7 +350,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
-        "message": "U zou hier niets aan te hoeven passen.",
+        "message": "Het zou voor u niet nodig moeten zijn om hier iets aan te passen.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
