@@ -992,6 +992,7 @@ var multiDomainFirstPartiesArray = [
   ["fastmail.com", "fastmailusercontent.com"],
   ["firefox.com", "firefoxusercontent.com", "mozilla.org"],
   ["foxnews.com", "foxbusiness.com", "fncstatic.com"],
+  ["frontapp.com", "frontapplication.com"]
   [
     "gap.com",
 
