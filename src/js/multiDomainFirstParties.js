@@ -1625,6 +1625,21 @@ var multiDomainFirstPartiesArray = [
 
     "getgo.com",
   ],
+  [
+    "loveholidays.com",
+    "loveholidays.be",
+    "loveholidays.dk",
+    "loveholidays.es",
+    "loveholidays.fi",
+    "loveholidays.fr",
+    "loveholidays.ie",
+    "loveholidays.nl",
+    "loveholidays.no",
+    "loveholidays.co.nz",
+    "loveholidays.pt",
+    "loveholidays.se",
+    "lovevacations.com",
+  ],
   ["macys.com", "macysassets.com"],
   [
     "mafra.cz",
