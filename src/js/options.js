@@ -121,12 +121,15 @@ function loadOptions() {
     $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
 
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, result => {
+      // only enable the checkbox if pb can control webrtc ip leak protection
       if (result.levelOfControl.endsWith("_by_this_extension")) {
         $("#toggle_webrtc_mode").attr("disabled", false);
       }
 
-      $("#toggle_webrtc_mode").prop(
-        "checked", result.value == "disable_non_proxied_udp");
+      // auto check the option box if ip leak is already protected at diff levels, via pb or another extension
+      if (result.value == "default_public_interface_only" || result.value == "disable_non_proxied_udp") {
+        $("#toggle_webrtc_mode").prop("checked", true);
+      }
     });
 
   } else {
