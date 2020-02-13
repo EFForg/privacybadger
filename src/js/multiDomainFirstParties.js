@@ -3070,6 +3070,16 @@ var multiDomainFirstPartiesArray = [
     "ugdturner.com",
   ],
   [
+    "weather.com",
+    "wunderground.com",
+
+    "imwx.com",
+    "wfxtriggers.com",
+    "wsi.com",
+    "w-x.co",
+    "wxug.com",
+  ],
+  [
     "webmd.com",
 
     "emedicinehealth.com",
