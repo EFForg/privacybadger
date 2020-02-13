@@ -64,11 +64,11 @@
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
-        "message": "Blocking this domain is known to break websites",
+        "message": "חסימת תחום זה ידועה בתור שוברת אתרים",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
-        "message": "Click to return control of this domain to Privacy Badger",
+        "message": "לחץ כדי להחזיר שליטה בתחום זה אל Privacy Badger",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "next_section": {
