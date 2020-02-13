@@ -14,7 +14,7 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Sind Sie sicher, dass Sie diese Domain aus Privacy Badger entfernen möchten?",
+        "message": "Möchten Sie diese Domain wirklich aus Privacy Badger entfernen?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
@@ -48,7 +48,7 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Helfen Sie uns durch Spenden und Weiterempfehlung unserer Software",
+        "message": "Helfen Sie uns durch Spenden und Weiterempfehlen unserer Software",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
@@ -84,7 +84,7 @@
         "description": "This is an options page tab heading."
     },
     "report_title": {
-        "message": "Fehler mit dieser Webseite melden",
+        "message": "Melden eines Fehlers",
         "description": ""
     },
     "whitelist_form_domain_input_placeholder": {
@@ -144,7 +144,7 @@
         "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
-        "message": "Domains anzeigen, die Ihre Internetaktivitäten nicht zu verfolgen scheinen",
+        "message": "Domains anzeigen, die Ihre Internetaktivitäten anscheinend nicht verfolgen",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
@@ -152,7 +152,7 @@
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
-        "message": "Fehler melden",
+        "message": "Fehler übermitteln",
         "description": ""
     },
     "badger_status_allow": {
@@ -206,7 +206,7 @@
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
-        "message": "Privacy Badger für diese Website aktivieren",
+        "message": "Für diese Website Privacy Badger aktivieren",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -411,7 +411,7 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Privacy Badger für diese Website deaktivieren",
+        "message": "Für diese Website Privacy Badger deaktivieren",
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
