@@ -64,7 +64,7 @@
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
-        "message": "已知屏蔽此域名会破坏网页",
+        "message": "已知屏蔽此域名会破坏网站",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
