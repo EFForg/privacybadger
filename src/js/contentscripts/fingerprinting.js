@@ -166,6 +166,15 @@ function getFpPageScript() {
     function getOriginatingScriptUrl() {
       let trace = getStackTrace();
 
+      if (OBJECT.prototype.toString.call(trace) == '[object String]') {
+        // we failed to get a structured stack trace
+        trace = trace.split('\n');
+        // this script is at 0, 1, 2 and 3
+        let script_url_matches = trace[4].match(/\((http.*:\d+:\d+)/);
+        // TODO do we need stripLineAndColumnNumbers (in both places) here?
+        return script_url_matches && stripLineAndColumnNumbers(script_url_matches[1]) || stripLineAndColumnNumbers(trace[4]);
+      }
+
       if (trace.length < 2) {
         return '';
       }
