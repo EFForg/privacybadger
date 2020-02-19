@@ -20,7 +20,7 @@ function setup_chrome {
 
 function setup_firefox {
     # Install the latest version of geckodriver
-    version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///' | tr -d '\r')
+    version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep -i "^Location: " | sed 's/.*\///' | tr -d '\r')
 
     # check that we got something
     if [ -z "$version" ]; then
