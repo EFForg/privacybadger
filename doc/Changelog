@@ -1,5 +1,13 @@
 Changes for Privacy Badger 
 ====================================
+## 2020.2.19
+* Added website breakage warnings, shown in the popup when you block a domain
+known to break websites
+* Removed pixel cookie sharing detection pending security fixes
+* Fixed various site breakages
+* Improved translations (Catalan, Simplified Chinese, Danish, Dutch, German,
+Russian)
+
 ## 2020.1.13
 * Fixed bug that sometimes loses pre-trained data for new users
 * Fixed various site breakages
