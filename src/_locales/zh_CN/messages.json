@@ -68,7 +68,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
-        "message": "点击以让隐私獾接管这个追踪器",
+        "message": "点击让隐私獾重新控制此域名",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "next_section": {
