@@ -301,6 +301,12 @@ HeuristicBlocker.prototype = {
       firstParties = snitchMap.getItem(tracker_origin);
     }
 
+    // GDPR Consent Management Provider
+    // https://github.com/EFForg/privacybadger/pull/2245#issuecomment-545545717
+    if (tracker_origin == "consensu.org") {
+      return;
+    }
+
     if (firstParties.indexOf(page_origin) != -1) {
       return; // We already know about the presence of this tracker on the given domain
     }

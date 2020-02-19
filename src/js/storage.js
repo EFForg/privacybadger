@@ -421,6 +421,34 @@ BadgerPen.prototype = {
       log("Removing %s from action_map", domain);
       actionMap.deleteItem(domain);
     }
+  },
+
+  /**
+   * Removes a base domain and its subdomains from snitch and action maps.
+   * Preserves action map entries with user overrides.
+   *
+   * @param {String} base_domain
+   */
+  forget: function (base_domain) {
+    let self = this,
+      dot_base = '.' + base_domain,
+      actionMap = self.getBadgerStorageObject('action_map'),
+      actions = actionMap.getItemClones(),
+      snitchMap = self.getBadgerStorageObject('snitch_map');
+
+    if (snitchMap.getItem(base_domain)) {
+      log("Removing %s from snitch_map", base_domain);
+      badger.storage.getBadgerStorageObject("snitch_map").deleteItem(base_domain);
+    }
+
+    for (let domain in actions) {
+      if (domain == base_domain || domain.endsWith(dot_base)) {
+        if (actions[domain].userAction == "") {
+          log("Removing %s from action_map", domain);
+          actionMap.deleteItem(domain);
+        }
+      }
+    }
   }
 };
 
