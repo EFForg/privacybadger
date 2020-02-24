@@ -273,8 +273,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         # Check the user preferences for the origins are still displayed
         expected_row_classes = ['clicker', 'userset', overwrite_action]
-        if original_action == 'cookieblock' and overwrite_action == 'block':
-            expected_row_classes.append('show-breakage-warning')
         self.assertEqual(
             self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]').get_attribute("class"),
             " ".join(expected_row_classes),
