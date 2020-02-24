@@ -507,4 +507,53 @@ QUnit.test("unexpected heuristic actions are ignored", (assert) => {
   );
 });
 
+function checkCookieblocking(assert) {
+  assert.equal(
+    storage.getBestAction(SUBDOMAIN),
+    constants.NO_TRACKING,
+    "subdomain is not yet (cookie)blocked"
+  );
+  assert.ok(
+    storage.wouldGetCookieblocked(SUBDOMAIN),
+    "subdomain would get cookieblocked if blocked"
+  );
+
+  // block the subdomain
+  badger.heuristicBlocking.blacklistOrigin(DOMAIN, SUBDOMAIN);
+
+  assert.equal(
+    storage.getBestAction(SUBDOMAIN),
+    constants.COOKIEBLOCK,
+    "subdomain is cookieblocked"
+  );
+  assert.ok(
+    storage.wouldGetCookieblocked(SUBDOMAIN),
+    "subdomain would get/is cookieblocked"
+  );
+}
+
+QUnit.test("checking cookieblock potential for yellowlisted subdomain", (assert) => {
+  assert.notOk(
+    storage.wouldGetCookieblocked(SUBDOMAIN),
+    "subdomain wouldn't get cookieblocked if blocked"
+  );
+
+  // add subdomain to yellowlist
+  storage.getBadgerStorageObject('cookieblock_list').setItem(SUBDOMAIN, true);
+
+  checkCookieblocking(assert);
+});
+
+QUnit.test("checking cookieblock potential for subdomain with yellowlisted base domain", (assert) => {
+  assert.notOk(
+    storage.wouldGetCookieblocked(SUBDOMAIN),
+    "subdomain wouldn't get cookieblocked if blocked"
+  );
+
+  // add base domain to yellowlist
+  storage.getBadgerStorageObject('cookieblock_list').setItem(DOMAIN, true);
+
+  checkCookieblocking(assert);
+});
+
 }());

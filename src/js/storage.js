@@ -219,24 +219,30 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Looks up whether an FQDN would get cookieblocked, ignoring user overrides.
+   * Looks up whether an FQDN would get cookieblocked,
+   * ignoring user overrides and the FQDN's current status.
    *
    * @param {String} fqdn the FQDN we want to look up
    *
    * @return {Boolean}
    */
-  getCookieblockStatus: function (fqdn) {
-    let actionMap = this.getBadgerStorageObject('action_map'),
-      subdomains = utils.explodeSubdomains(fqdn);
+  wouldGetCookieblocked: function (fqdn) {
+    // cookieblock if a "parent" domain of the fqdn is on the yellowlist
+    let set = false,
+      ylistStorage = this.getBadgerStorageObject('cookieblock_list'),
+      // ignore base domains when exploding to work around PSL TLDs:
+      // still want to cookieblock somedomain.googleapis.com with only
+      // googleapis.com (and not somedomain.googleapis.com itself) on the ylist
+      subdomains = utils.explodeSubdomains(fqdn, true);
 
     for (let i = 0; i < subdomains.length; i++) {
-      let action = actionMap.getItem(subdomains[i]);
-      if (action && action.heuristicAction == constants.COOKIEBLOCK) {
-        return true;
+      if (ylistStorage.hasItem(subdomains[i])) {
+        set = true;
+        break;
       }
     }
 
-    return false;
+    return set;
   },
 
   /**

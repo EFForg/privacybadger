@@ -814,7 +814,7 @@ function dispatcher(request, sender, sendResponse) {
 
     for (let origin in origins) {
       // see if origin would be cookieblocked if not for user override
-      if (badger.storage.getCookieblockStatus(origin)) {
+      if (badger.storage.wouldGetCookieblocked(origin)) {
         cookieblocked[origin] = true;
       }
     }
@@ -843,7 +843,7 @@ function dispatcher(request, sender, sendResponse) {
     let cookieblocked = {};
     for (let origin in origins) {
       // see if origin would be cookieblocked if not for user override
-      if (badger.storage.getCookieblockStatus(origin)) {
+      if (badger.storage.wouldGetCookieblocked(origin)) {
         cookieblocked[origin] = true;
       }
     }
