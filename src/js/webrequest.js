@@ -397,7 +397,10 @@ function recordSuperCookie(tab_id, frame_url) {
   }
 
   badger.heuristicBlocking.updateTrackerPrevalence(
-    frame_host, window.getBaseDomain(page_host));
+    frame_host,
+    window.getBaseDomain(frame_host),
+    window.getBaseDomain(page_host)
+  );
 }
 
 /**
@@ -466,7 +469,7 @@ function recordFingerprinting(tabId, msg) {
 
           // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, window.getBaseDomain(document_host));
+            script_host, script_origin, window.getBaseDomain(document_host));
         }
       }
       // This is a canvas write
@@ -887,14 +890,14 @@ function dispatcher(request, sender, sendResponse) {
 
   case "activateOnSite": {
     badger.enablePrivacyBadgerForOrigin(request.tabHost);
-    badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
+    badger.updateIcon(request.tabId, request.tabUrl);
     sendResponse();
     break;
   }
 
   case "deactivateOnSite": {
     badger.disablePrivacyBadgerForOrigin(request.tabHost);
-    badger.refreshIconAndContextMenu(request.tabId, request.tabUrl);
+    badger.updateIcon(request.tabId, request.tabUrl);
     sendResponse();
     break;
   }

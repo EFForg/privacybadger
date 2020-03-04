@@ -41,56 +41,59 @@ function HeuristicBlocker(pbStorage) {
 }
 
 HeuristicBlocker.prototype = {
-  /**
-   * Adds Cookie blocking for all more specific domains than the blocked origin
-   * - if they're on the cb list
-   *
-   * @param {String} origin Origin to check
-   */
-  setupSubdomainsForCookieblock: function(origin) {
-    var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
-    for (var domain in cbl.getItemClones()) {
-      if (origin == window.getBaseDomain(domain)) {
-        this.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
-      }
-    }
-    // iterate through all elements of cookie block list
-    // if element has basedomain add it to action_map
-    // or update it's action with cookieblock
-    origin = null;
-    return false;
-  },
 
   /**
-   * Decide if to blacklist and add blacklist filters
-   * @param {String} baseDomain The base domain (etld+1) to blacklist
+   * Blocks or cookieblocks an FQDN.
+   * Blocks or cookieblocks its base domain.
+   * Cookieblocks any yellowlisted subdomains that share the base domain with the FQDN.
+   *
+   * @param {String} base The base domain (etld+1) to blacklist
    * @param {String} fqdn The FQDN
    */
-  blacklistOrigin: function(baseDomain, fqdn) {
-    var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
+  blacklistOrigin: function (base, fqdn) {
+    let self = this,
+      ylistStorage = self.storage.getBadgerStorageObject("cookieblock_list"),
+      ylist = ylistStorage.getItemClones();
 
-    // Setup Cookieblock or block for base domain and fqdn
-    if (cbl.hasItem(baseDomain)) {
-      this.storage.setupHeuristicAction(baseDomain, constants.COOKIEBLOCK);
+    // cookieblock or block the base domain
+    if (ylistStorage.hasItem(base)) {
+      self.storage.setupHeuristicAction(base, constants.COOKIEBLOCK);
     } else {
-      this.storage.setupHeuristicAction(baseDomain, constants.BLOCK);
+      self.storage.setupHeuristicAction(base, constants.BLOCK);
     }
 
-    // Check if a parent domain of the fqdn is on the cookie block list
-    var set = false;
-    var thisStorage = this.storage;
-    _.each(utils.explodeSubdomains(fqdn, true), function(domain) {
-      if (cbl.hasItem(domain)) {
-        thisStorage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
+    // cookieblock or block the fqdn
+    //
+    // cookieblock if a "parent" domain of the fqdn is on the yellowlist
+    //
+    // ignore base domains when exploding to work around PSL TLDs:
+    // still want to cookieblock somedomain.googleapis.com with only
+    // googleapis.com (and not somedomain.googleapis.com itself) on the ylist
+    let set = false,
+      subdomains = utils.explodeSubdomains(fqdn, true);
+    for (let i = 0; i < subdomains.length; i++) {
+      if (ylistStorage.hasItem(subdomains[i])) {
         set = true;
+        break;
       }
-    });
-    // if no parent domains are on the cookie block list then block fqdn
-    if (!set) {
-      this.storage.setupHeuristicAction(fqdn, constants.BLOCK);
+    }
+    if (set) {
+      self.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
+    } else {
+      self.storage.setupHeuristicAction(fqdn, constants.BLOCK);
     }
 
-    this.setupSubdomainsForCookieblock(baseDomain);
+    // cookieblock any yellowlisted subdomains with the same base domain
+    //
+    // for example, when google.com is blocked,
+    // books.google.com should be cookieblocked
+    let base_with_dot = '.' + base;
+    for (let domain in ylist) {
+      if (base != domain && domain.endsWith(base_with_dot)) {
+        self.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
+      }
+    }
+
   },
 
   /**
@@ -260,12 +263,13 @@ HeuristicBlocker.prototype = {
    * Wraps _recordPrevalence for use outside of webRequest listeners.
    *
    * @param {String} tracker_fqdn The fully qualified domain name of the tracker
+   * @param {String} tracker_origin Base domain of the third party tracker
    * @param {String} page_origin The base domain of the page
    *   where the tracker was detected.
    * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
    *
    */
-  updateTrackerPrevalence: function(tracker_fqdn, page_origin, skip_dnt_check) {
+  updateTrackerPrevalence: function(tracker_fqdn, tracker_origin, page_origin, skip_dnt_check) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
@@ -274,7 +278,7 @@ HeuristicBlocker.prototype = {
 
     this._recordPrevalence(
       tracker_fqdn,
-      window.getBaseDomain(tracker_fqdn),
+      tracker_origin,
       page_origin,
       skip_dnt_check
     );
@@ -328,8 +332,6 @@ HeuristicBlocker.prototype = {
     // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
     // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
     // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
-    // TODO missing tests: removing below lines/messing up parameters
-    // should break integration tests, but currently does not
     this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
     this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
 

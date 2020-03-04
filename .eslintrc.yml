@@ -9,6 +9,7 @@ globals:
   require: false
   _: false
 parserOptions:
+  ecmaVersion: 2017
   # strict mode
   sourceType: module
 rules:

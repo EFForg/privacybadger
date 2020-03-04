@@ -320,12 +320,8 @@ class PBSeleniumTest(unittest.TestCase):
                     # wait for Badger's storage, listeners, ...
                     self.load_url(self.options_url)
                     self.wait_for_script(
-                        "return chrome.extension.getBackgroundPage().badger.INITIALIZED"
-                        # TODO wait for loadSeedData's completion (not yet covered by INITIALIZED)
-                        " && Object.keys("
-                        "chrome.extension.getBackgroundPage()"
-                        ".badger.storage.getBadgerStorageObject('action_map').getItemClones()"
-                        ").length > 1",
+                        "return chrome.extension.getBackgroundPage()."
+                        "badger.INITIALIZED"
                     )
                     driver.close()
                     if driver.window_handles:
