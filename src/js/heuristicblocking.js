@@ -142,10 +142,10 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    // check for cookie sharing iff this is an image and the request URL has parameters
-    if (check_for_cookie_share && details.type == 'image' && details.url.indexOf('?') > -1) {
-      // get all cookies for the top-level frame and pass those to the
-      // cookie-share accounting function
+    // check for cookie sharing iff this is an image in the top-level frame, and the request URL has parameters
+    if (check_for_cookie_share && details.type == 'image' && details.frameId === 0 && details.url.indexOf('?') > -1) {
+      // get all non-HttpOnly cookies for the top-level frame
+      // and pass those to the cookie-share accounting function
       let tab_url = self.tabUrls[details.tabId];
 
       let config = {
@@ -156,6 +156,7 @@ HeuristicBlocker.prototype = {
       }
 
       chrome.cookies.getAll(config, function (cookies) {
+        cookies = cookies.filter(cookie => !cookie.httpOnly);
         if (cookies.length >= 1) {
           self.pixelCookieShareAccounting(tab_url, tab_origin, details.url, request_host, request_origin, cookies);
         }
