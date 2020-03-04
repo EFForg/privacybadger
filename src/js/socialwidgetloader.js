@@ -43,6 +43,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/* globals log:false */
+
 var utils = require('utils');
 
 require.scopes.widgetloader = (function() {
@@ -108,6 +110,7 @@ function loadWidgetsFromFile(filePath, callback) {
       widgets.push(widget);
     }
 
+    log("Initialized widgets from disk");
     callback(widgets);
   });
 }

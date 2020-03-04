@@ -50,6 +50,8 @@ function Badger() {
     self.initializeDefaultSettings();
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
+    // TODO there are async migrations
+    // TODO is this the right place for migrations?
     self.runMigrations();
 
     // kick off async initialization steps
@@ -226,7 +228,7 @@ Badger.prototype = {
       }
 
       self.mergeUserData(data, true);
-      console.log("Loaded seed data successfully");
+      log("Loaded seed data successfully");
       return cb(null);
     });
   },
@@ -241,10 +243,12 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
       if (!self.getSettings().getItem("isFirstRun")) {
+        log("No need to load seed data");
         return resolve();
       }
 
       self.loadSeedData(err => {
+        log("Seed data loaded! (err=%o)", err);
         return (err ? reject(err) : resolve());
       });
     });
@@ -361,6 +365,7 @@ Badger.prototype = {
     return new Promise(function (resolve, reject) {
 
       if (_.size(yellowlistStorage.getItemClones())) {
+        log("Yellowlist already initialized from disk");
         return resolve();
       }
 
@@ -373,6 +378,7 @@ Badger.prototype = {
         }
 
         self.storage.updateYellowlist(response.trim().split("\n"));
+        log("Initialized ylist from disk");
         return resolve();
       });
 
@@ -436,6 +442,7 @@ Badger.prototype = {
       }
 
       self.storage.updateYellowlist(domains);
+      log("Updated yellowlist from remote");
 
       return callback(null);
     });
@@ -452,6 +459,7 @@ Badger.prototype = {
     return new Promise(function (resolve, reject) {
 
       if (_.size(self.storage.getBadgerStorageObject('dnt_hashes').getItemClones())) {
+        log("DNT hashes already initialized from disk");
         return resolve();
       }
 
@@ -473,6 +481,7 @@ Badger.prototype = {
         }
 
         self.storage.updateDntHashes(hashes);
+        log("Initialized hashes from disk");
         return resolve();
 
       });
@@ -514,6 +523,7 @@ Badger.prototype = {
       }
 
       self.storage.updateDntHashes(hashes);
+      log("Updated hashes from remote");
       return cb(null);
     });
   },
