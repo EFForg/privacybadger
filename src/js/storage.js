@@ -643,8 +643,7 @@ BadgerStorage.prototype = {
           badger.heuristicBlocking.updateTrackerPrevalence(
             tracker_origin,
             tracker_origin,
-            firstPartyOrigins[i],
-            true // skip DNT policy checking on data import
+            firstPartyOrigins[i]
           );
         }
       }

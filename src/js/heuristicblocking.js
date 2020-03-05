@@ -264,12 +264,9 @@ HeuristicBlocker.prototype = {
    *
    * @param {String} tracker_fqdn The fully qualified domain name of the tracker
    * @param {String} tracker_origin Base domain of the third party tracker
-   * @param {String} page_origin The base domain of the page
-   *   where the tracker was detected.
-   * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
-   *
+   * @param {String} page_origin Base domain of page where tracking occurred
    */
-  updateTrackerPrevalence: function(tracker_fqdn, tracker_origin, page_origin, skip_dnt_check) {
+  updateTrackerPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
@@ -279,8 +276,7 @@ HeuristicBlocker.prototype = {
     this._recordPrevalence(
       tracker_fqdn,
       tracker_origin,
-      page_origin,
-      skip_dnt_check
+      page_origin
     );
   },
 
@@ -295,11 +291,9 @@ HeuristicBlocker.prototype = {
    *
    * @param {String} tracker_fqdn The FQDN of the third party tracker
    * @param {String} tracker_origin Base domain of the third party tracker
-   * @param {String} page_origin The origin of the page where the third party
-   *   tracker was loaded.
-   * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
+   * @param {String} page_origin Base domain of page where tracking occurred
    */
-  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, skip_dnt_check) {
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
     var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = [];
     if (snitchMap.hasItem(tracker_origin)) {
@@ -314,15 +308,6 @@ HeuristicBlocker.prototype = {
 
     if (firstParties.indexOf(page_origin) != -1) {
       return; // We already know about the presence of this tracker on the given domain
-    }
-
-    // Check this just-seen-tracking-on-this-site,
-    // not-yet-blocked domain for DNT policy.
-    // We check heuristically-blocked domains in webrequest.js.
-    if (!skip_dnt_check) {
-      setTimeout(function () {
-        badger.checkForDNTPolicy(tracker_fqdn);
-      }, 0);
     }
 
     // record that we've seen this tracker on this domain (in snitch map)
