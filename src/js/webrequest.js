@@ -872,9 +872,14 @@ function dispatcher(request, sender, sendResponse) {
 
   case "resetData": {
     badger.storage.clearTrackerData();
-    badger.loadSeedData();
-    sendResponse();
-    break;
+    badger.loadSeedData(err => {
+      if (err) {
+        console.error(err);
+      }
+      sendResponse();
+    });
+    // indicate this is an async response to chrome.runtime.onMessage
+    return true;
   }
 
   case "removeAllData": {
