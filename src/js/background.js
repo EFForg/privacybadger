@@ -34,9 +34,18 @@ var incognito = require("incognito");
 
 /**
  * Privacy Badger initializer.
+ *
+ * @param {Boolean} from_qunit don't intercept requests when run by unit tests
  */
-function Badger() {
+function Badger(from_qunit) {
   let self = this;
+
+  // important: must be executed synchronously
+  // to register a "persistent" onBeforeRequest listener in Firefox
+  // https://github.com/mdn/sprints/issues/1015
+  if (!from_qunit) {
+    webrequest.startBeforeReadyListener();
+  }
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
@@ -81,12 +90,19 @@ function Badger() {
     await dntHashesPromise;
     await tabDataPromise;
 
+    if (from_qunit) {
+      self.INITIALIZED = true;
+      return;
+    }
+
     // start the listeners
     incognito.startListeners();
     webrequest.startListeners();
     HeuristicBlocking.startListeners();
     FirefoxAndroid.startListeners();
     startBackgroundListeners();
+
+    webrequest.stopBeforeReadyListener();
 
     console.log("Privacy Badger is ready to rock!");
     console.log("Set DEBUG=1 to view console messages.");
@@ -987,4 +1003,4 @@ function startBackgroundListeners() {
   });
 }
 
-var badger = window.badger = new Badger();
+let badger = window.badger = new Badger(document.location.pathname == "/tests/index.html");
