@@ -50,6 +50,10 @@ function onBeforeRequest(details) {
     type = details.type,
     url = details.url;
 
+  if (utils.isRestrictedUrl(url)) {
+    return {};
+  }
+
   if (type == "main_frame") {
     forgetTab(tab_id);
     badger.recordFrame(tab_id, frame_id, url);
@@ -67,7 +71,7 @@ function onBeforeRequest(details) {
     return {cancel: true};
   }
 
-  if (_isTabChromeInternal(tab_id)) {
+  if (tab_id < 0) {
     return {};
   }
 
@@ -140,8 +144,8 @@ function onBeforeSendHeaders(details) {
     type = details.type,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
-    // DNT policy requests: strip cookies
+  if (tab_id < 0 || utils.isRestrictedUrl(url)) {
+    // strip cookies from DNT policy requests
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
       let newHeaders = [];
@@ -156,6 +160,7 @@ function onBeforeSendHeaders(details) {
       };
     }
 
+    // ignore otherwise
     return {};
   }
 
@@ -238,8 +243,8 @@ function onHeadersReceived(details) {
   var tab_id = details.tabId,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
-    // DNT policy responses: strip cookies, reject redirects
+  if (tab_id < 0 || utils.isRestrictedUrl(url)) {
+    // strip cookies, reject redirects from DNT policy responses
     if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // if it's a redirect, cancel it
       if (details.statusCode >= 300 && details.statusCode < 400) {
@@ -261,6 +266,7 @@ function onHeadersReceived(details) {
       };
     }
 
+    // ignore otherwise
     return {};
   }
 
@@ -512,26 +518,6 @@ function checkAction(tabId, requestHost, frameId) {
 }
 
 /**
- * Checks if the tab is chrome internal
- *
- * @param {Integer} tabId Id of the tab to test
- * @returns {boolean} Returns true if the tab is chrome internal
- * @private
- */
-function _isTabChromeInternal(tabId) {
-  if (tabId < 0) {
-    return true;
-  }
-
-  let frameData = badger.getFrameData(tabId);
-  if (!frameData || !frameData.url.startsWith("http")) {
-    return true;
-  }
-
-  return false;
-}
-
-/**
  * Checks if the tab is a chrome-extension tab
  *
  * @param {Integer} tabId Id of the tab to test
@@ -698,11 +684,6 @@ function dispatcher(request, sender, sendResponse) {
 
   case "checkLocation": {
     if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
-      return sendResponse();
-    }
-
-    // Ignore requests from internal Chrome tabs.
-    if (_isTabChromeInternal(sender.tab.id)) {
       return sendResponse();
     }
 
