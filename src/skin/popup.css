@@ -178,9 +178,6 @@ font-size: 16px;
 .ui-slider .ui-slider-handle {
   cursor: move;
 }
-#siteControls {
-  margin-top: 5px;
-}
 
 #firstRun {
   color: #EC9329;
@@ -286,19 +283,35 @@ font-size: 16px;
     font-size: 12px;
 }
 
-.pbButton{
-  border-radius: 3px;
-  padding: 5px;
-  cursor: pointer;
-  text-align: center;
-  margin-top: 8px;
-  border: 2px solid;
-  width: 100%;
-  background-color: #fefefe;
+#siteControls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 5px;
+    text-align: center;
 }
-
+button {
+    color: #333;
+}
+.pbButton {
+    background-color: #fefefe;
+    border: 2px solid;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+    margin-top: 2%;
+    padding: 10px;
+    text-align: center;
+    width: 49%;
+}
 .pbButton:hover {
-  border: 2px solid #F06A0A;
+    border: 2px solid #F06A0A;
+}
+#donate {
+    width: 100%;
 }
 
 #not-yet-blocked-header, #non-trackers-header {
@@ -395,9 +408,6 @@ div.overlay.active {
 }
 #overlay label {
   font-size: 13px;
-}
-#siteControls button {
-  font-size: 12px;
 }
 
 #version{
