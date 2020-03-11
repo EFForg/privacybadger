@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "隐私獾检测到这个页面上 $COUNT$ 个潜在的$TRACKER_LINK_START$追踪器$TRACKER_LINK_END$。除非网页出现问题，你不必调整滑块。",
+        "message": "隐私獾检测到这个页面上 $COUNT$ 个潜在的$TRACKER_LINK_START$追踪器$TRACKER_LINK_END$",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

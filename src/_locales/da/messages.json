@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger opdagede $COUNT$ potentielle $TRACKER_LINK_START$sporinger$TRACKER_LINK_END$ på denne side. Du behøver ikke at justere dem medmindre noget er i stykker.",
+        "message": "Privacy Badger opdagede $COUNT$ potentielle $TRACKER_LINK_START$sporinger$TRACKER_LINK_END$ på denne side",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

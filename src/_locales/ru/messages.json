@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger обнаружил $COUNT$ потенциальных $TRACKER_LINK_START$трекеров$TRACKER_LINK_END$ на этой странице. Регулировать их нужно только в случае проблем с работой сайта.",
+        "message": "Privacy Badger обнаружил $COUNT$ потенциальных $TRACKER_LINK_START$трекеров$TRACKER_LINK_END$ на этой странице",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

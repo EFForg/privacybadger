@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger откри $COUNT$ потенциални $TRACKER_LINK_START$преследвачи$TRACKER_LINK_END$ на тази страница. Не е необходимо да ги местиш, освен ако нещо не се е развалило.",
+        "message": "Privacy Badger откри $COUNT$ потенциални $TRACKER_LINK_START$преследвачи$TRACKER_LINK_END$ на тази страница",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

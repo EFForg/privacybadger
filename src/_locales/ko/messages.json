@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger 가 이 페이지에서 $COUNT$ 잠재적인 $TRACKER_LINK_START$추적기$TRACKER_LINK_END$를 감지했습니다. 어떤 파손이 없는 한 슬라이더를 조정할 필요가 없습니다.",
+        "message": "Privacy Badger 가 이 페이지에서 $COUNT$ 잠재적인 $TRACKER_LINK_START$추적기$TRACKER_LINK_END$를 감지했습니다.",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

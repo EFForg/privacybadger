@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "اكتشف «غرير الخصوصية» عدد $COUNT$ من $TRACKER_LINK_START$المتعقبات$TRACKER_LINK_END$ المحتملة في هذه الصفحة. يفترض ألا تحتاج لضبط هذه المؤشرات إلا إن كان هناك أمر لا يعمل كما ينبغي.",
+        "message": "اكتشف «غرير الخصوصية» عدد $COUNT$ من $TRACKER_LINK_START$المتعقبات$TRACKER_LINK_END$ المحتملة في هذه الصفحة",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

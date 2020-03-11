@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger wykrył $COUNT$ potencjalnych $TRACKER_LINK_START$szpiegów$TRACKER_LINK_END$ na tej stronie. Nie powinieneś nimi kręcić, jeżeli wszystko działa.",
+        "message": "Privacy Badger wykrył $COUNT$ potencjalnych $TRACKER_LINK_START$szpiegów$TRACKER_LINK_END$ na tej stronie",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

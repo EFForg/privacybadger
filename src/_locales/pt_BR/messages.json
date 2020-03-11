@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "O Privacy Badger detectou $COUNT$ $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ em potencial neste site. Você não precisa ajustar os controles a menos que algo esteja quebrado.",
+        "message": "O Privacy Badger detectou $COUNT$ $TRACKER_LINK_START$rastreadores$TRACKER_LINK_END$ em potencial neste site",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger objevil $COUNT$ možných $TRACKER_LINK_START$sledovacích prvků$TRACKER_LINK_END$ na této webové stránce. Není nutné cokoliv měnit, jestliže je vše v pořádku.",
+        "message": "Privacy Badger objevil $COUNT$ možných $TRACKER_LINK_START$sledovacích prvků$TRACKER_LINK_END$ na této webové stránce",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

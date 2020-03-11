@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger גילה $COUNT$ $TRACKER_LINK_START$גששים$TRACKER_LINK_END$ פוטנציאליים בעמוד זה. אינך צריך לכוונן את המחוונים אלא אם משהו שבור.",
+        "message": "Privacy Badger גילה $COUNT$ $TRACKER_LINK_START$גששים$TRACKER_LINK_END$ פוטנציאליים בעמוד זה",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی روی این صفحه شناسایی شده است. تا زمانی که چیزی از کار نیافتده باشد نیازی به تغییر اسلایدرها نیست.",
+        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی روی این صفحه شناسایی شده است",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

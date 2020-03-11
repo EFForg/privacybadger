@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privata Melo malkovris $COUNT$ eblajn $TRACKER_LINK_START$spurilojn$TRACKER_LINK_END$ sur tiu ĉi retpaĝo. Vi ne devus ŝanĝi ilin escepte se io malfunkcias.",
+        "message": "Privata Melo malkovris $COUNT$ eblajn $TRACKER_LINK_START$spurilojn$TRACKER_LINK_END$ sur tiu ĉi retpaĝo",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

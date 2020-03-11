@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger heeft $COUNT$ mogelijke $TRACKER_LINK_START$trackers$TRACKER_LINK_END$ gedetecteerd op deze webpagina. U hoeft de schuifbalkjes alleen aan te passen als er iets niet meer werkt.",
+        "message": "Privacy Badger heeft $COUNT$ mogelijke $TRACKER_LINK_START$trackers$TRACKER_LINK_END$ gedetecteerd op deze webpagina",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

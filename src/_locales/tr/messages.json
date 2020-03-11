@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger $COUNT$ tane potansiyel $TRACKER_LINK_START$takipçi$TRACKER_LINK_END$ buldu. Ters giden birşey yoksa kaydırıcıları ayarlamanız gerekmez.",
+        "message": "Privacy Badger $COUNT$ tane potansiyel $TRACKER_LINK_START$takipçi$TRACKER_LINK_END$ buldu",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

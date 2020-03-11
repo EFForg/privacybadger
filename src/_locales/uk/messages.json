@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger виявив $COUNT$ можливих $TRACKER_LINK_START$елементів стеження$TRACKER_LINK_END$ на цій сторінці. Не варто їх регулювати, якщо все працює як слід.",
+        "message": "Privacy Badger виявив $COUNT$ можливих $TRACKER_LINK_START$елементів стеження$TRACKER_LINK_END$ на цій сторінці",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

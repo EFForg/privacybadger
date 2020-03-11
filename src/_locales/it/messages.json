@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger ha rilevato $COUNT$ potenziali $TRACKER_LINK_START$tracker$TRACKER_LINK_END$ in questa pagina. Non dovresti avere bisogno di regolare i pulsanti a meno che qualcosa non funzioni correttamente.",
+        "message": "Privacy Badger ha rilevato $COUNT$ potenziali $TRACKER_LINK_START$tracker$TRACKER_LINK_END$ in questa pagina",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

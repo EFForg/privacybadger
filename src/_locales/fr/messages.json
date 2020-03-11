@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger a détecté $COUNT$ $TRACKER_LINK_START$traceurs$TRACKER_LINK_END$ potentiels sur cette page. Vous ne devriez pas avoir besoin de modifier les curseurs à moins d'un site non fonctionnel.",
+        "message": "Privacy Badger a détecté $COUNT$ $TRACKER_LINK_START$traceurs$TRACKER_LINK_END$ potentiels sur cette page",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {

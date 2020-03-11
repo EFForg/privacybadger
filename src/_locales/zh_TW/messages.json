@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger 偵測到這個網站上有 $COUNT$ 個在此頁面上的潛在$TRACKER_LINK_START$追蹤器$TRACKER_LINK_END$。除非有某些東西壞掉了，否則您應該不需要調整這些滑桿。",
+        "message": "Privacy Badger 偵測到這個網站上有 $COUNT$ 個在此頁面上的潛在$TRACKER_LINK_START$追蹤器$TRACKER_LINK_END$",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
