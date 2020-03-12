@@ -415,7 +415,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger가 이 사이트에서 잠재적인 <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적기</a>를 감지했습니다. 어떤 파손이 없는 한 슬라이더를 조정할 필요가 없습니다.",
+        "message": "Privacy Badger가 이 사이트에서 잠재적인 <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적기</a>를 감지했습니다.",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {

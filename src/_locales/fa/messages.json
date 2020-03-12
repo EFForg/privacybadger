@@ -415,7 +415,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "پرایوسی بجر یک <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>ردیاب </a> احتمالی را روی این صفحه شناسایی کرده است. لازم به هیچ تغییری از جانب شما نیست مگر اینکه چیزی از کار افتاده باشد.",
+        "message": "پرایوسی بجر یک <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>ردیاب </a> احتمالی را روی این صفحه شناسایی کرده است",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
