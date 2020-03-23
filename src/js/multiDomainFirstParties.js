@@ -1030,6 +1030,7 @@ var multiDomainFirstPartiesArray = [
     "thinkstockphotos.ca",
   ],
   ["github.com", "githubapp.com"],
+  ["gitlab.com", "gitlab-static.net"],
   ["gizmodo.com", "kinja-img.com", "kinja-static.com", "deadspin.com", "lifehacker.com",
     "technoratimedia.com", "kinja.com", "jalopnik.com", "jezebel.com"],
   [
