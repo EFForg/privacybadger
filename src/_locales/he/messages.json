@@ -80,7 +80,7 @@
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
-        "message": "נהל נתונים",
+        "message": "ניהול נתונים",
         "description": "This is an options page tab heading."
     },
     "report_title": {
