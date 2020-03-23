@@ -19,6 +19,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from xvfbwrapper import Xvfb
 
 
 SEL_DEFAULT_WAIT_TIMEOUT = 30
@@ -52,11 +53,12 @@ def get_browser_type(string):
 def get_browser_name(string):
     if ('/' in string) or ('\\' in string): # it's a path
         return os.path.basename(string)
-    else: # it's a browser type
-        for bn in BROWSER_NAMES:
-            if string in bn and unix_which(bn, silent=True):
-                return os.path.basename(unix_which(bn))
-        raise ValueError('Could not get browser name from %s' % string)
+
+    # it's a browser type
+    for bn in BROWSER_NAMES:
+        if string in bn and unix_which(bn, silent=True):
+            return os.path.basename(unix_which(bn))
+    raise ValueError('Could not get browser name from %s' % string)
 
 
 def install_ext_on_ff(driver, extension_path):
@@ -88,14 +90,13 @@ class Shim:
         # get browser_path and browser_type first
         if browser is None:
             raise ValueError("The BROWSER environment variable is not set. " + self._browser_msg)
-        elif ("/" in browser) or ("\\" in browser): # path to a browser binary
+
+        if ("/" in browser) or ("\\" in browser): # path to a browser binary
             self.browser_path = browser
             self.browser_type = get_browser_type(self.browser_path)
-
         elif unix_which(browser, silent=True): # executable browser name like 'google-chrome-stable'
             self.browser_path = unix_which(browser)
             self.browser_type = get_browser_type(browser)
-
         elif get_browser_type(browser): # browser type like 'firefox' or 'chrome'
             bname = get_browser_name(browser)
             self.browser_path = unix_which(bname)
@@ -286,7 +287,6 @@ class PBSeleniumTest(unittest.TestCase):
         cls.base_url = shim.base_url
         cls.wants_xvfb = shim.wants_xvfb
         if cls.wants_xvfb:
-            from xvfbwrapper import Xvfb
             cls.vdisplay = Xvfb(width=1280, height=720)
             cls.vdisplay.start()
 
@@ -332,18 +332,18 @@ class PBSeleniumTest(unittest.TestCase):
                     # retry test magic
                     if result.name in attempts and result._excinfo: # pylint:disable=protected-access
                         raise Exception(result._excinfo.pop()) # pylint:disable=protected-access
-                    else:
-                        break
+
+                    break
 
             except Exception:
                 if i == nretries - 1:
                     raise
-                else:
-                    wait_secs = 2 ** i
-                    print('\nRetrying {} after {} seconds ...'.format(
-                        result, wait_secs))
-                    time.sleep(wait_secs)
-                    continue
+
+                wait_secs = 2 ** i
+                print('\nRetrying {} after {} seconds ...'.format(
+                    result, wait_secs))
+                time.sleep(wait_secs)
+                continue
 
     def open_window(self):
         if self.driver.current_url.startswith("moz-extension://"):
