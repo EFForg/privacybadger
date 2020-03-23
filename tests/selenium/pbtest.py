@@ -201,8 +201,8 @@ class Shim:
                 driver = webdriver.Firefox(
                     firefox_profile=ffp,
                     firefox_binary=self.browser_path,
-                    options=opts
-                )
+                    options=opts,
+                    service_log_path=os.path.devnull)
             except WebDriverException as e:
                 if i == 0: print("")
                 print("Firefox WebDriver initialization failed:")
