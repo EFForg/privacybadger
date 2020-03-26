@@ -17,7 +17,7 @@ upload:
 	$(eval TMPFILE := $(shell mktemp))
 	scp src/data/yellowlist.txt $$YELLOWLIST_UPLOAD_PATH
 	scripts/generate-legacy-yellowlist.sh > $(TMPFILE) && scp $(TMPFILE) $$YELLOWLIST_LEGACY_UPLOAD_PATH && rm $(TMPFILE)
-	#scp data/dnt-policies.json $$DNT_POLICIES_UPLOAD_PATH
+	scp src/data/dnt-policies.json $$DNT_POLICIES_UPLOAD_PATH
 
 tx:
 	tx pull -f
