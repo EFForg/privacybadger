@@ -160,7 +160,7 @@ class PopupTest(pbtest.PBSeleniumTest):
     def test_trackers_link(self):
         """Ensure trackers link opens EFF website."""
 
-        EFF_URL = "https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker"
+        EFF_URL = "https://privacybadger.org/#What-is-a-third-party-tracker"
 
         self.open_popup()
 

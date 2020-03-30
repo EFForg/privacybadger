@@ -573,7 +573,7 @@ function reloadTrackingDomainsTab() {
     $("#options_domain_list_trackers").html(i18n.getMessage(
       "options_domain_list_trackers", [
         baseDomains.size,
-        "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+        "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
       ]
     )).show();
   }

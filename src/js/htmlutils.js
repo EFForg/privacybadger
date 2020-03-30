@@ -174,7 +174,7 @@ var htmlUtils = exports.htmlUtils = {
       if (action == constants.DNT) {
         whitelistedText = '' +
           '<div id="dnt-compliant">' +
-          '<a target=_blank href="https://www.eff.org/privacybadger/faq#-I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me">' +
+          '<a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me">' +
           '<img src="' + dnt_icon_url + '"></a></div>';
       }
 
