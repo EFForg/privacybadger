@@ -663,7 +663,8 @@ function hasCookieTracking(details, origin) {
       }
 
       // ignore CloudFlare
-      if (name == "__cfduid") {
+      // https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies
+      if (name == "__cfduid" || name == "__cf_bm") {
         continue;
       }
 
