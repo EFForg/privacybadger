@@ -2355,6 +2355,7 @@ var multiDomainFirstPartiesArray = [
     "prosieben.at",
     "prosieben.ch",
     "prosieben.de",
+    "prosiebenmaxx.at",
     "prosiebenmaxx.ch",
     "prosiebenmaxx.de",
     "puls8.ch",
