@@ -61,19 +61,6 @@ def get_browser_name(string):
     raise ValueError('Could not get browser name from %s' % string)
 
 
-def install_ext_on_ff(driver, extension_path):
-    '''
-    Use Selenium's internal API's to manually send a message to geckodriver
-    to install the extension. We should remove this once the functionality is
-    included in Selenium. See https://github.com/SeleniumHQ/selenium/issues/4215
-    '''
-    command = 'addonInstall'
-    driver.command_executor._commands[command] = ( # pylint:disable=protected-access
-        'POST', '/session/$sessionId/moz/addon/install')
-    driver.execute(command, params={'path': extension_path, 'temporary': True})
-    time.sleep(2)
-
-
 class Shim:
     _browser_msg = '''BROWSER should be one of:
 * /path/to/a/browser
@@ -211,7 +198,7 @@ class Shim:
             else:
                 break
 
-        install_ext_on_ff(driver, self.extension_path)
+        driver.install_addon(self.extension_path, temporary=True)
 
         try:
             yield driver
