@@ -1,7 +1,7 @@
 sudo: required
 language: python
 os: linux
-dist: xenial
+dist: bionic
 python: 3.6
 matrix:
   fast_finish: true
