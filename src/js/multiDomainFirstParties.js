@@ -1453,7 +1453,33 @@ var multiDomainFirstPartiesArray = [
     "huffpostmaghreb.com",
   ],
   ["hvfcu.org", "hvfcuonline.org"],
-  ["ign.fr", "geoportail.gouv.fr", "geoportail-urbanisme.gouv.fr", "cartoradio.fr", "ignrando.fr"],
+  [
+    "ign.fr",
+
+    "cartoradio.fr",
+    "culture.fr",
+    "duministeredelaculture.fr",
+    "gouvernement.fr",
+    "ignrando.fr",
+
+    "ants.gouv.fr",
+    "culture.gouv.fr",
+    "data.gouv.fr",
+    "education.gouv.fr",
+    "etalab.gouv.fr",
+    "geoportail.gouv.fr",
+    "geoportail-urbanisme.gouv.fr",
+    "impots.gouv.fr",
+    "premier-ministre.gouv.fr",
+    "service-civique.gouv.fr",
+    "yvelines.gouv.fr",
+
+    "ac-grenoble.fr",
+    "ac-versailles.fr",
+    "ac-bordeaux.fr",
+    "ac-montpellier.fr",
+    "ac-lille.fr",
+  ],
   [
     "impresa.pt",
 
