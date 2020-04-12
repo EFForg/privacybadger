@@ -52,8 +52,6 @@ auth0.com
 authorize.net
 azureedge.net
 bac-assets.com
-hiphotos.baidu.com
-imgsa.baidu.com
 imgsrc.baidu.com
 api.map.baidu.com
 sapi.map.baidu.com
