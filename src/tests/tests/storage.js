@@ -69,6 +69,32 @@ QUnit.test("settings map merging", (assert) => {
   assert.ok(!settings_map.getItem('showCounter'), "other settings are overwritten");
 });
 
+// previously:
+// https://github.com/EFForg/privacybadger/pull/1911#issuecomment-379896911
+QUnit.test("action map merge copies/breaks references", (assert) => {
+  let data = {
+    dnt: false,
+    heuristicAction: '',
+    nextUpdateTime: 100,
+    userAction: 'user_block'
+  };
+
+  actionMap.merge({[DOMAIN]: data});
+  assert.deepEqual(
+    actionMap.getItem(DOMAIN),
+    data,
+    "test domain was imported");
+
+  // set a property on the original object
+  data.userAction = "user_allow";
+
+  // this should not affect data in storage
+  assert.equal(actionMap.getItem(DOMAIN).userAction,
+    "user_block",
+    "already imported data should be left alone " +
+    "when modifying object used for import");
+});
+
 QUnit.test("action map merge only updates user action", (assert) => {
   actionMap.setItem(DOMAIN,
     {dnt: false, heuristicAction: '', nextUpdateTime: 100, userAction: ''});
@@ -132,6 +158,67 @@ QUnit.test("action map merge updates with latest DNT info", (assert) => {
     'nextUpdateTime should be updated to later time');
   assert.ok(actionMap.getItem(DOMAIN).dnt,
     'DNT value should be updated with more recent information');
+});
+
+QUnit.test("action map merge handles missing nextUpdateTime", (assert) => {
+  let newValue = {
+    dnt: true,
+    heuristicAction: '',
+    userAction: ''
+  };
+
+  assert.notOk(newValue.hasOwnProperty('nextUpdateTime'),
+    "nextUpdateTime is indeed missing from the import");
+
+  // new DNT domain should be imported
+  actionMap.merge({[DOMAIN]: newValue});
+  assert.deepEqual(
+    actionMap.getItem(DOMAIN),
+    Object.assign({ nextUpdateTime: 0 }, newValue),
+    "test domain was imported and nextUpdateTime got initialized");
+
+  // existing DNT domain should be left alone
+  // as we don't know how fresh the import is
+  newValue.dnt = false;
+  actionMap.merge({[DOMAIN]: newValue});
+  assert.ok(actionMap.getItem(DOMAIN).dnt,
+    "existing data should be left alone " +
+    "when unable to determine recency of new data");
+
+  // now set the timestamp and try again
+  newValue.nextUpdateTime = 200;
+  actionMap.merge({[DOMAIN]: newValue});
+  assert.notOk(actionMap.getItem(DOMAIN).dnt,
+    "DNT got overriden now that new data seems fresher");
+});
+
+QUnit.test("action map merge handles missing userAction", (assert) => {
+  let newValue = {
+    heuristicAction: 'allow',
+    dnt: true,
+    nextUpdateTime: 100
+  };
+
+  // import and check that userAction got initialized
+  actionMap.merge({[DOMAIN]: newValue});
+  assert.deepEqual(
+    actionMap.getItem(DOMAIN),
+    Object.assign({ userAction: '' }, newValue),
+    "test domain was imported and userAction got initialized");
+});
+
+QUnit.test("action map merge handles missing dnt", (assert) => {
+  let newValue = {
+    heuristicAction: 'block',
+    userAction: 'user_allow'
+  };
+
+  // import and check that userAction got initialized
+  actionMap.merge({[DOMAIN]: newValue});
+  assert.deepEqual(
+    actionMap.getItem(DOMAIN),
+    Object.assign({ dnt: false, nextUpdateTime: 0 }, newValue),
+    "test domain was imported and DNT got initialized");
 });
 
 QUnit.test("action map merge handles subdomains correctly", (assert) => {
