@@ -475,7 +475,16 @@ var multiDomainFirstPartiesArray = [
   ],
   ["avito.ru", "avito.st"],
   ["avon.com", "youravon.com"],
-  ["baidu.com", "bdimg.com", "bdstatic.com"],
+  [
+    "baidu.com",
+
+    "hao123.com",
+    "tieba.com",
+
+    "baidustatic.com",
+    "bdimg.com",
+    "bdstatic.com",
+  ],
   ["balsamiq.com", "balsamiq.cloud"],
   ["bancomer.com", "bancomer.com.mx", "bbvanet.com.mx"],
   ["bankofamerica.com", "bofa.com", "mbna.com", "usecfo.com"],
