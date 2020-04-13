@@ -52,6 +52,9 @@ auth0.com
 authorize.net
 azureedge.net
 bac-assets.com
+hiphotos.baidu.com
+imgsa.baidu.com
+imgsrc.baidu.com
 api.map.baidu.com
 sapi.map.baidu.com
 bandcamp.com
@@ -506,6 +509,7 @@ providesupport.com
 psswrdbx.com
 publiekeomroep.nl
 img.purch.com
+photo.store.qq.com
 qualtrics.com
 quotemedia.com
 api.razorpay.com
