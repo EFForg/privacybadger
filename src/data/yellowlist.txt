@@ -557,6 +557,8 @@ shopping.com
 shop-pro.jp
 shoprunner.com
 sidearmsports.com
+auto.sina.com.cn
+s.auto.sina.com.cn
 d0.sina.com.cn
 d1.sina.com.cn
 d2.sina.com.cn
