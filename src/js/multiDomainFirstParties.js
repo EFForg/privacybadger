@@ -1686,6 +1686,22 @@ var multiDomainFirstPartiesArray = [
 
     "1gr.cz",
   ],
+  [
+    "mail.ru",
+    "imgsmail.ru",
+
+    "ok.ru",
+    "mycdn.me",
+    "odnoklassniki.ru",
+    "oklive.app",
+    "ok.me",
+    "tamtam.chat",
+    "tt.me",
+
+    "vk.com",
+    "vk.me",
+    "vkontakte.ru",
+  ],
   ["mandtbank.com", "mtb.com"],
   ["mathletics.com", "mathletics.com.au", "mathletics.co.uk"],
   ["mdsol.com", "imedidata.com"],
@@ -2952,7 +2968,6 @@ var multiDomainFirstPartiesArray = [
     "vinted.nl",
     "vinted.pl",
   ],
-  ["vk.com", "vk.me", "vkontakte.ru"],
   ["volvooceanrace.com", "virtualregatta.com"],
   ["vonage.com", "vonagebusiness.com"],
   [
