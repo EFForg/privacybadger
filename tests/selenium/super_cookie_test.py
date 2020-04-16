@@ -68,6 +68,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             ["efforg.github.io"]
         )
 
+    @unittest.skip("Until we replace gistcdn.githack.com with a dedicated domain for 'third-party' fixtures")
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
         self.assertFalse(self.get_snitch_map_for("githack.com"))
         self.load_url(
