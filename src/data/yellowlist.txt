@@ -347,8 +347,10 @@ jsonip.com
 jtvnw.net
 justin.tv
 jwpcdn.com
-jwpltx.com
 content.jwplatform.com
+cdn.jwplayer.com
+entitlements.jwplayer.com
+jwpltx.com
 jwpsrv.com
 cdnapi.kaltura.com
 cdnapisec.kaltura.com
