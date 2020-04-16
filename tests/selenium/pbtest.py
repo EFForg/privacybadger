@@ -335,6 +335,7 @@ class PBSeleniumTest(unittest.TestCase):
     def open_window(self):
         if self.driver.current_url.startswith("moz-extension://"):
             # work around https://bugzilla.mozilla.org/show_bug.cgi?id=1491443
+            self.wait_for_script("return chrome.extension")
             self.js(
                 "delete window.__new_window_created;"
                 "chrome.windows.create({}, function () {"
