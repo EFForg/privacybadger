@@ -506,6 +506,23 @@ var multiDomainFirstPartiesArray = [
   ["bloomberg.com", "bbthat.com", "bwbx.io"],
   ["booking.com", "bstatic.com"],
   ["box.com", "boxcdn.net"],
+  [
+    "canalplus.com",
+
+    "canal.fr",
+    "canalplay.com",
+    "canalplus-bo.net",
+    "canal-plus.com",
+    "canalplus.fr",
+    "canalplusinternational.com",
+    "canal-plus.net",
+    "canal-plus.pro",
+    "canalplus.pro",
+    "canalpro.fr",
+    "clique.tv",
+    "cstar.fr",
+    "mycanal.fr",
+  ],
   ["capitalone.com", "capitalone360.com"],
   [
     "cbs.com",
@@ -1986,7 +2003,6 @@ var multiDomainFirstPartiesArray = [
     "suomiareena.fi",
   ],
   ["my-bookings.org", "my-bookings.cc"],
-  ["mycanal.fr", "canal-plus.com"],
   [
     "myheritage.com",
 
