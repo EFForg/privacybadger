@@ -613,11 +613,11 @@ BadgerStorage.prototype = {
         let action = mapData[domain];
 
         // Copy over any user settings from the merged-in data
-        if (action.userAction != "") {
+        if (action.userAction) {
           if (self._store.hasOwnProperty(domain)) {
             self._store[domain].userAction = action.userAction;
           } else {
-            self._store[domain] = action;
+            self._store[domain] = Object.assign(_newActionMapObject(), action);
           }
         }
 
@@ -631,7 +631,7 @@ BadgerStorage.prototype = {
         } else {
           // Import action map entries for new DNT-compliant domains
           if (action.dnt) {
-            self._store[domain] = action;
+            self._store[domain] = Object.assign(_newActionMapObject(), action);
           }
         }
       }
