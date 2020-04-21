@@ -48,7 +48,7 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "עזור לנו ע\"י תרומה ושיתוף של תמיכתך בכלים שלנו",
+        "message": "עזור לנו ע״י תרומה ושיתוף של תמיכתך בכלים שלנו",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
@@ -294,7 +294,7 @@
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
-        "message": "חסום-חלקית",
+        "message": "חסום חלקית",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
@@ -334,7 +334,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "תואם-DNT",
+        "message": "תואם־DNT",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -370,7 +370,7 @@
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
-        "message": "נשלט-משתמש",
+        "message": "נשלט־משתמש",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
@@ -395,7 +395,7 @@
         }
     },
     "intro_by_eff": {
-        "message": "מיזם של Electronic Frontier Foundation",
+        "message": "מיזם של הקרן של החזית האלקטרונית",
         "description": ""
     },
     "add_domain_button": {
@@ -464,7 +464,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "כאשר אתה משתמש ב־Privacy Badger אתה מצטרף אל <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> ואל מיליוני משתמשים אחרים בלחימה למען פרטיות. אנחנו ארגון ללא מטרות רווח הנלחם על זכויותיך באופן מקוון. תודה שהצטרפת אלינו!",
+        "message": "כאשר אתה משתמש ב־Privacy Badger אתה מצטרף אל <a href='https://www.eff.org/' target='_blank'>הקרן של החזית האלקטרונית</a> ואל מיליוני משתמשים אחרים בלחימה למען פרטיות. אנחנו ארגון ללא מטרות רווח הנלחם על זכויותיך באופן מקוון. תודה שהצטרפת אלינו!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -488,7 +488,7 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Badger שלך לא למד עדין לחסום תחומים אלו",
+        "message": "Privacy Badger לא למד עדין לחסום תחומים אלו",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
@@ -516,7 +516,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger החליף כפתור $BUTTON$ זה.",
+        "message": ".זה $BUTTON$ החליף כפתור Privacy Badger",
         "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
         "placeholders": {
             "button": {
@@ -588,7 +588,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) הוא הרחבת דפדפן אשר לומדת באופן אוטומטי לחסום גששים בלתי נראים. Privacy Badger נוצר על ידי Electronic Frontier Foundation, ארגון ללא מטרות רווח שנלחם על זכויותיך באופן מקוון.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) הוא הרחבת דפדפן אשר לומדת באופן אוטומטי לחסום גששים בלתי נראים. Privacy Badger נוצר על ידי הקרן של החזית האלקטרונית, ארגון ללא מטרות רווח שנלחם על זכויותיך באופן מקוון.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
