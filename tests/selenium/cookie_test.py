@@ -42,6 +42,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         self.driver.delete_all_cookies()
         # fixme: check for chrome settings for third party cookies?
 
+        self.wait_for_script("return typeof chrome != 'undefined' && chrome && chrome.extension")
         self.js(
             "chrome.extension.getBackgroundPage()."
             "badger.getSettings().setItem('showNonTrackingDomains', true);"
