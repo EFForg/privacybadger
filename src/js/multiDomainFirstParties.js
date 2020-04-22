@@ -161,6 +161,8 @@ var multiDomainFirstPartiesArray = [
     "1688.com",
     "95095.com",
     "9game.cn",
+    "aliapp.org",
+    "alibabacloud.com",
     "alibabagroup.com",
     "alibaba-inc.com",
     "alicdn.com",
