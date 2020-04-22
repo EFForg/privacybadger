@@ -492,7 +492,7 @@
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "הראה תחומים אשר Badger שלך לא למד עדין לחסום:",
+        "message": "הראה תחומים אשר Privacy Badger שלך לא למד עדין לחסום:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -516,7 +516,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": ".זה $BUTTON$ החליף כפתור Privacy Badger",
+        "message": "Privacy Badger החליף כפתור $BUTTON$ זה.",
         "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
         "placeholders": {
             "button": {

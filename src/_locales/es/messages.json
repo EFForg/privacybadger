@@ -60,7 +60,7 @@
         "description": ""
     },
     "dnt_tooltip": {
-        "message": "Este dominio promete no rastrearle",
+        "message": "Este dominio promete no rastrearte",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
@@ -350,7 +350,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
-        "message": "No debería tener que modificar nada aquí.",
+        "message": "No deberías necesitar modificar nada aquí.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
@@ -374,7 +374,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger está desactivado en los siguientes sitios. Esto significa que Privacy Badger no bloquea nada cuando usted visita los sitios listados aquí.</p><p>Si cree que Privacy Badger está rompiendo una página, puede escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón «Añadir dominio».</p><p>Alternativamente, cuando ya tenga seleccionada la pestaña de la página, simplemente haga clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haga clic en el botón «Deshabilitar».</p>",
+        "message": "<p>Privacy Badger está desactivado en los siguientes sitios. Esto significa que Privacy Badger no bloqueará nada cuando visites los sitios listados aquí.</p><p>Si crees que Privacy Badger está rompiendo una página, puede escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón «Añadir dominio».</p><p>Alternativamente, cuando ya tengas seleccionada la pestaña de la página, simplemente haz clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haga clic en el botón «Deshabilitar».</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -464,7 +464,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Cuando utiliza Privacy Badger se une a la <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> y a millones de otros usuarios en la lucha por la privacidad. Somos una organización sin ánimo de lucro que lucha por tus derechos en línea. ¡Gracias por unirte a nosotros!",
+        "message": "Cuando utilizas Privacy Badger te unes a la <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> y a millones de otros usuarios en la lucha por la privacidad. Somos una organización sin ánimo de lucro que lucha por tus derechos en línea. ¡Gracias por unirte a nosotros!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
@@ -472,7 +472,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Si cree que Privacy Badger está rompiendo una página (un vídeo no se reproduce, por ejemplo), puede hacer clic en el botón «Deshabilitar» para desactivar Privacy Badger en ese sitio.",
+        "message": "Si crees que Privacy Badger está rompiendo una página (un vídeo no se reproduce, por ejemplo), puede hacer clic en el botón «Deshabilitar» para desactivar Privacy Badger en ese sitio.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
