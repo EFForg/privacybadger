@@ -49,7 +49,7 @@
 let trackerInfo;
 
 // cached chrome.i18n.getMessage() results
-const TRANSLATIONS = [];
+const TRANSLATIONS = {};
 
 // references to widget page elements
 const WIDGET_ELS = {};
@@ -123,6 +123,7 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
 
   button.setAttribute("src", buttonUrl);
 
+  // TODO use custom tooltip to support RTL locales?
   button.setAttribute(
     "title",
     TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", tracker.name)
@@ -315,6 +316,9 @@ function createReplacementWidget(name, icon, elToReplace) {
     "width: 100%",
     "height: 100%",
   ];
+  if (TRANSLATIONS.rtl) {
+    styleAttrs.push("direction: rtl");
+  }
   widgetDiv.style = styleAttrs.join(" !important;") + " !important";
 
   // child div styles
