@@ -516,7 +516,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger החליף כפתור $BUTTON$ זה.",
+        "message": ".זה $BUTTON$ החליף כפתור Privacy Badger",
         "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
         "placeholders": {
             "button": {
