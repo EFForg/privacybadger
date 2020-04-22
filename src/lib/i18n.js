@@ -38,9 +38,9 @@ function setTextDirection() {
 
   // https://www.w3.org/International/questions/qa-scripts#examples
   // https://developer.chrome.com/webstore/i18n?csw=1#localeTable
-  const RTL_LANGS = ['ar', 'he', 'fa'];
-
-  if (RTL_LANGS.indexOf(i18n.getMessage('@@ui_locale')) == -1) {
+  // TODO duplicated in src/js/webrequest.js
+  const RTL_LOCALES = ['ar', 'he', 'fa'];
+  if (RTL_LOCALES.indexOf(i18n.getMessage('@@ui_locale')) == -1) {
     return;
   }
 

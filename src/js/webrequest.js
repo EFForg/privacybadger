@@ -555,7 +555,8 @@ function _isTabAnExtension(tabId) {
  */
 let getWidgetBlockList = (function () {
   // cached translations
-  let translations = [];
+  let translations;
+
   // inputs to chrome.i18n.getMessage()
   const widgetTranslations = [
     {
@@ -572,11 +573,16 @@ let getWidgetBlockList = (function () {
 
     // optimize translation lookups by doing them just once
     // the first time they are needed
-    if (!translations.length) {
+    if (!translations) {
       translations = widgetTranslations.reduce((memo, data) => {
         memo[data.key] = chrome.i18n.getMessage(data.key, data.placeholders);
         return memo;
       }, {});
+
+      // TODO duplicated in src/lib/i18n.js
+      const RTL_LOCALES = ['ar', 'he', 'fa'],
+        UI_LOCALE = chrome.i18n.getMessage('@@ui_locale');
+      translations.rtl = RTL_LOCALES.indexOf(UI_LOCALE) > -1;
     }
 
     badger.widgetList.forEach(function (widget) {
