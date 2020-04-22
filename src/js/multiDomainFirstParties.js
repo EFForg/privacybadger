@@ -3296,7 +3296,24 @@ var multiDomainFirstPartiesArray = [
   ],
   ["zendesk.com", "zopim.com"],
   ["zillow.com", "zillowstatic.com", "zillowcloud.com", "zg-api.com"],
-  ["zoho.com", "zoho.eu", "zohocorp.com", "zohocreator.com", "zohopublic.com", "zohostatic.com"],
+  [
+    "zoho.com",
+
+    "zoho.com.au",
+    "zoho.eu",
+
+    "zohositescontent.com",
+    "zohositescontent.com.au",
+    "zohositescontent.eu",
+
+    "manageengine.com",
+
+    "zohocdn.com",
+    "zohocorp.com",
+    "zohocreator.com",
+    "zohopublic.com",
+    "zohostatic.com",
+  ],
   ["zonealarm.com", "zonelabs.com"],
 ];
 
