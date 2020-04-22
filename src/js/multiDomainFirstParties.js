@@ -415,6 +415,7 @@ var multiDomainFirstPartiesArray = [
   ["apple.com", "icloud.com", "icloud.com.cn", "cdn-apple.com"],
   ["applefcu.org", "applefcuonline.org"],
   ["archive.org", "openlibrary.org"],
+  ["asos.com", "asosservices.com"],
   [
     "atlassian.com",
 
