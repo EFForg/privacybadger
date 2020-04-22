@@ -582,6 +582,7 @@ var multiDomainFirstPartiesArray = [
   ["century21.com", "21online.com"],
   ["chart.io", "chartio.com"],
   ["cms.gov", "medicare.gov", "mymedicare.gov"],
+  ["codepen.io", "cdpn.io"],
   ["concur.com", "concursolutions.com"],
   ["cox.com", "cox.net"],
   ["cricketwireless.com", "aiowireless.com"],
