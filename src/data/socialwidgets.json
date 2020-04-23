@@ -172,7 +172,7 @@
         "replacementButton": {
             "details": "",
             "unblockDomains": [
-                "https://www.youtube.com/"
+                "www.youtube.com"
             ],
             "imagePath": "badger-play.png",
             "type": 3
