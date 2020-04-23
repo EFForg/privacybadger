@@ -550,6 +550,8 @@ function _isTabAnExtension(tabId) {
 /**
  * Provides the widget replacing content script with list of widgets to replace.
  *
+ * @param {Integer} tab_id the ID of the tab we're replacing widgets in
+ *
  * @returns {Object} dict containing the complete list of widgets
  * as well as a mapping to indicate which ones should be replaced
  */
@@ -566,7 +568,7 @@ let getWidgetBlockList = (function () {
     { key: "allow_once" },
   ];
 
-  return function () {
+  return function (tab_id) {
     // A mapping of individual SocialWidget objects to boolean values that determine
     // whether the content script should replace that tracker's button/widget
     var widgetsToReplace = {};
@@ -586,15 +588,23 @@ let getWidgetBlockList = (function () {
     }
 
     badger.widgetList.forEach(function (widget) {
-      // replace blocked widgets only
-      // and only if the widget is not on the 'do not replace' list
-      const replace = !badger.getSettings().getItem('widgetReplacementExceptions').includes(widget.name);
-      const action = badger.storage.getBestAction(widget.domain);
+      let replace = false;
 
-      widgetsToReplace[widget.name] = replace && (
-        action == constants.BLOCK ||
-        action == constants.USER_BLOCK
-      );
+      // replace only if the widget is not on the 'do not replace' list
+      if (!badger.getSettings().getItem('widgetReplacementExceptions').includes(widget.name) &&
+          badger.tabData.hasOwnProperty(tab_id) &&
+          badger.tabData[tab_id].origins.hasOwnProperty(widget.domain)) {
+
+        const action = badger.tabData[tab_id].origins[widget.domain];
+
+        // and only if it was blocked
+        replace = (
+          action == constants.BLOCK ||
+          action == constants.USER_BLOCK
+        );
+      }
+
+      widgetsToReplace[widget.name] = replace;
     });
 
     return {
@@ -632,17 +642,14 @@ function isWidgetTemporaryUnblock(tabId, requestHost, frameId) {
  * corresponding replacement widget.
  *
  * @param {Integer} tabId The id of the tab
- * @param {Array} widgetUrls an array of widget urls
+ * @param {Array} domains widget domains
  */
-function unblockWidgetOnTab(tabId, widgetUrls) {
+function unblockWidgetOnTab(tabId, domains) {
   if (temporaryWidgetUnblock[tabId] === undefined) {
     temporaryWidgetUnblock[tabId] = [];
   }
-  for (let i in widgetUrls) {
-    let url = widgetUrls[i];
-    // TODO just store actual domains in the JSON in the first place
-    let host = window.extractHostFromURL(url);
-    temporaryWidgetUnblock[tabId].push(host);
+  for (let i = 0; i < domains.length; i++) {
+    temporaryWidgetUnblock[tabId].push(domains[i]);
   }
 }
 
@@ -707,7 +714,7 @@ function dispatcher(request, sender, sendResponse) {
 
   case "checkReplaceButton": {
     if (badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) && badger.isWidgetReplacementEnabled()) {
-      let widgetBlockList = getWidgetBlockList();
+      let widgetBlockList = getWidgetBlockList(sender.tab.id);
       sendResponse(widgetBlockList);
     }
 
