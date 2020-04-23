@@ -63,6 +63,26 @@
             "type": 1
         }
     },
+    "Google reCAPTCHA": {
+        "domain": "www.google.com",
+        "buttonSelectors": [
+            "div.g-recaptcha"
+        ],
+        "scriptSelectors": [
+            "script[src^='//google.com/recaptcha/api.js']",
+            "script[src^='https://google.com/recaptcha/api.js']",
+            "script[src^='https://www.google.com/recaptcha/api.js']"
+        ],
+        "replacementButton": {
+            "details": "",
+            "unblockDomains": [
+                "google.com",
+                "www.google.com"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 4
+        }
+    },
     "LinkedIn": {
         "domain": "platform.linkedin.com",
         "buttonSelectors": [

@@ -164,7 +164,14 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   // in-place widget type:
   // reinitialize the widget by reinserting its element's HTML
   } else if (buttonType == 3) {
-    let widget = createReplacementWidget(tracker.name, button, trackerElem);
+    let widget = createReplacementWidget(tracker, button, trackerElem, reinitializeWidgetAndUnblockTracker);
+    return callback(widget);
+
+  // in-place widget type:
+  // reinitialize the widget by reinserting its element's HTML
+  // and activating associated scripts
+  } else if (buttonType == 4) {
+    let widget = createReplacementWidget(tracker, button, trackerElem, replaceWidgetAndReloadScripts);
     return callback(widget);
   }
 
@@ -226,7 +233,7 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, widget_name, html) {
  *
  * The teardown to the initialization defined in createReplacementWidget().
  *
- * @param {String} name the name/type of this widget (Vimeo, Disqus, etc.)
+ * @param {String} name the name/type of this widget (SoundCloud, Vimeo etc.)
  */
 function reinitializeWidgetAndUnblockTracker(name) {
   unblockTracker(name, function () {
@@ -235,6 +242,38 @@ function reinitializeWidgetAndUnblockTracker(name) {
       data.parent.replaceChild(data.widget, data.replacement);
     });
     WIDGET_ELS[name] = [];
+  });
+}
+
+/**
+ * Similar to reinitializeWidgetAndUnblockTracker() above,
+ * but also reruns scripts defined in scriptSelectors.
+ *
+ * @param {String} name the name/type of this widget (Disqus, Google reCAPTCHA)
+ */
+function replaceWidgetAndReloadScripts(name) {
+  unblockTracker(name, function () {
+    // restore all widgets of this type
+    WIDGET_ELS[name].forEach(data => {
+      data.parent.replaceChild(data.widget, data.replacement);
+      reloadScripts(data.scriptSelectors);
+    });
+    WIDGET_ELS[name] = [];
+  });
+}
+
+/**
+ * Replace an included script with a copy of itself to trigger a re-run.
+ */
+function reloadScripts(selectors) {
+  let scripts = document.querySelectorAll(selectors.toString());
+
+  scripts.forEach(function (scriptEl) {
+    let script = document.createElement("script");
+    for (let i = 0, atts = scriptEl.attributes, n = atts.length; i < n; i++) {
+      script.setAttribute(atts[i].nodeName, atts[i].nodeValue);
+    }
+    scriptEl.parentNode.replaceChild(script, scriptEl);
   });
 }
 
@@ -290,7 +329,9 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
   });
 }
 
-function createReplacementWidget(name, icon, elToReplace) {
+function createReplacementWidget(tracker, icon, elToReplace, activationFn) {
+  let name = tracker.name;
+
   let widgetFrame = document.createElement('iframe');
 
   // widget replacement frame styles
@@ -372,17 +413,21 @@ function createReplacementWidget(name, icon, elToReplace) {
   if (!WIDGET_ELS.hasOwnProperty(name)) {
     WIDGET_ELS[name] = [];
   }
-  WIDGET_ELS[name].push({
+  let data = {
     parent: elToReplace.parentNode,
     widget: elToReplace,
     replacement: widgetFrame
-  });
+  };
+  if (tracker.scriptSelectors) {
+    data.scriptSelectors = tracker.scriptSelectors;
+  }
+  WIDGET_ELS[name].push(data);
 
   // set up click handler
   widgetFrame.addEventListener('load', function () {
     let el = widgetFrame.contentDocument.getElementById(button_id);
     el.addEventListener("click", function (e) {
-      reinitializeWidgetAndUnblockTracker(name);
+      activationFn(name);
       e.preventDefault();
     }, { once: true });
   }, false);
