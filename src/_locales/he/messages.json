@@ -178,7 +178,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "הראה ספירה של גששים",
+        "message": "הראה ספירת גששים",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
