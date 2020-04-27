@@ -265,7 +265,7 @@ function replaceWidgetAndReloadScripts(name) {
  * Replace an included script with a copy of itself to trigger a re-run.
  */
 function reloadScripts(selectors) {
-  let scripts = document.querySelectorAll(selectors.toString());
+  let scripts = document.querySelectorAll(selectors.join(','));
 
   scripts.forEach(function (scriptEl) {
     let script = document.createElement("script");
@@ -444,7 +444,7 @@ function replaceIndividualButton(tracker) {
 
   // makes a comma separated list of CSS selectors that specify
   // buttons for the current tracker; used for document.querySelectorAll
-  var buttonSelectorsString = tracker.buttonSelectors.toString();
+  var buttonSelectorsString = tracker.buttonSelectors.join(',');
   var buttonsToReplace =
     document.querySelectorAll(buttonSelectorsString);
 
