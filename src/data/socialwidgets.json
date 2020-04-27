@@ -61,7 +61,10 @@
         }
     },
     "Google reCAPTCHA": {
-        "domain": "www.google.com",
+        "domains": [
+            "google.com",
+            "www.google.com"
+        ],
         "buttonSelectors": [
             "div.g-recaptcha"
         ],

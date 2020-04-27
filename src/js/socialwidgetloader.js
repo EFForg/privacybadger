@@ -122,10 +122,17 @@ function loadWidgetsFromFile(filePath, callback) {
  * @param {Object} properties the properties of the socialwidget
  */
 function SocialWidget(name, properties) {
-  this.name = name;
+  let self = this;
 
-  for (var property in properties) {
-    this[property] = properties[property];
+  self.name = name;
+
+  for (let property in properties) {
+    self[property] = properties[property];
+  }
+
+  // standardize on "domains"
+  if (self.domain) {
+    self.domains = [self.domain];
   }
 }
 

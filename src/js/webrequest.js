@@ -571,7 +571,9 @@ let getWidgetBlockList = (function () {
   return function (tab_id) {
     // A mapping of individual SocialWidget objects to boolean values that determine
     // whether the content script should replace that tracker's button/widget
-    var widgetsToReplace = {};
+    let widgetsToReplace = {},
+      tabData = badger.tabData[tab_id],
+      exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
 
     // optimize translation lookups by doing them just once
     // the first time they are needed
@@ -587,25 +589,32 @@ let getWidgetBlockList = (function () {
       translations.rtl = RTL_LOCALES.indexOf(UI_LOCALE) > -1;
     }
 
-    badger.widgetList.forEach(function (widget) {
-      let replace = false;
+    for (let i = 0; i < badger.widgetList.length; i++) {
+      let widget = badger.widgetList[i],
+        replace = false;
+
+      if (!tabData) {
+        widgetsToReplace[widget.name] = replace;
+        continue;
+      }
 
       // replace only if the widget is not on the 'do not replace' list
-      if (!badger.getSettings().getItem('widgetReplacementExceptions').includes(widget.name) &&
-          badger.tabData.hasOwnProperty(tab_id) &&
-          badger.tabData[tab_id].origins.hasOwnProperty(widget.domain)) {
-
-        const action = badger.tabData[tab_id].origins[widget.domain];
-
-        // and only if it was blocked
-        replace = (
-          action == constants.BLOCK ||
-          action == constants.USER_BLOCK
-        );
+      if (!exceptions.includes(widget.name)) {
+        // and only if at least one of the associated domains was blocked
+        replace = widget.domains.some(domain => {
+          if (!tabData.origins.hasOwnProperty(domain)) {
+            return false;
+          }
+          const action = tabData.origins[domain];
+          return (
+            action == constants.BLOCK ||
+            action == constants.USER_BLOCK
+          );
+        });
       }
 
       widgetsToReplace[widget.name] = replace;
-    });
+    }
 
     return {
       translations,
