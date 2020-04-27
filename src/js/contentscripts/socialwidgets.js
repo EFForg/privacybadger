@@ -262,17 +262,19 @@ function replaceWidgetAndReloadScripts(name) {
 }
 
 /**
- * Replace an included script with a copy of itself to trigger a re-run.
+ * Find and replace script elements with their copies to trigger re-running.
  */
 function reloadScripts(selectors) {
   let scripts = document.querySelectorAll(selectors.join(','));
 
   scripts.forEach(function (scriptEl) {
-    let script = document.createElement("script");
-    for (let i = 0, atts = scriptEl.attributes, n = atts.length; i < n; i++) {
-      script.setAttribute(atts[i].nodeName, atts[i].nodeValue);
+    if (scriptEl.nodeName && scriptEl.nodeName.toLowerCase() == 'script') {
+      let replacement = document.createElement("script");
+      for (let i = 0, atts = scriptEl.attributes, n = atts.length; i < n; i++) {
+        replacement.setAttribute(atts[i].nodeName, atts[i].nodeValue);
+      }
+      scriptEl.parentNode.replaceChild(replacement, scriptEl);
     }
-    scriptEl.parentNode.replaceChild(script, scriptEl);
   });
 }
 
