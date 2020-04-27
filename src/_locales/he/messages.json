@@ -36,7 +36,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "ככל שתגלוש בפרק זמן ארוך יותר עם Privacy Badger, כך הוא ישתפר בהגנה עליך. האם Badger שלך לא חוסם עדין שום דבר? זה בסדר! במקום לשמור רשימות של מה לחסום, Privacy Badger מגלה באופן אוטומטי גששים בזמן שאתה גולש ברשת. אז התחל לגלוש קצת כדי ללמד את Badger שלך.",
+        "message": "ככל שתגלוש בפרק זמן ארוך יותר עם Privacy Badger, כך הוא ישתפר בהגנה עליך. האם Privacy Badger לא חוסם עדין שום דבר? זה בסדר! במקום לשמור רשימות של מה לחסום, Privacy Badger מגלה באופן אוטומטי גששים בזמן שאתה גולש ברשת. אז התחל לגלוש קצת כדי ללמד את Privacy Badger.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -186,7 +186,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "אנא אל תשכח ללחוץ על 'האם Privacy Badger שבר אתר זה'. אנו מכבדים את פרטיותך כך שלא נשלח דוחות אוטומטיים.",
+        "message": "אנא אל תשכח ללחוץ על 'Privacy Badger שבר את האתר הזה'. אנו מכבדים את פרטיותך כך שלא נשלח דוחות אוטומטיים.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -314,7 +314,7 @@
         "description": ""
     },
     "report_broken_site": {
-        "message": "האם Privacy Badger שבר את האתר הזה? יידע אותנו!",
+        "message": "Privacy Badger שבר את האתר הזה? יידע אותנו!",
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
@@ -346,7 +346,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "intro_donate_heading": {
-        "message": "פרטיות היא קבוצת ספורט!",
+        "message": "פרטיות היא ספורט קבוצתי!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
@@ -423,7 +423,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Badger שלך לומד באופן מקומי על המכשיר שלך. Privacy Badger לעולם לא ישתף נתונים על גלישתך אלא אם תבחר לשתף אותם.",
+        "message": "Privacy Badger לומד באופן מקומי על המכשיר שלך. Privacy Badger לעולם לא ישתף נתונים על גלישתך אלא אם תבחר לשתף אותם.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
