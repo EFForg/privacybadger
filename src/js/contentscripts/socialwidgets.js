@@ -119,7 +119,6 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
 
   var buttonUrl = buttonData.buttonUrl;
   var buttonType = buttonData.type;
-  var details = buttonData.details;
 
   button.setAttribute("src", buttonUrl);
 
@@ -139,7 +138,7 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
 
   // normal button type; just open a new window when clicked
   if (buttonType === 0) {
-    var popupUrl = details + encodeURIComponent(window.location.href);
+    var popupUrl = buttonData.details + encodeURIComponent(window.location.href);
 
     button.addEventListener("click", function() {
       window.open(popupUrl);
@@ -148,17 +147,17 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   // in place button type; replace the existing button
   // with an iframe when clicked
   } else if (buttonType == 1) {
-    var iframeUrl = details + encodeURIComponent(window.location.href);
+    var iframeUrl = buttonData.details + encodeURIComponent(window.location.href);
 
     button.addEventListener("click", function() {
       replaceButtonWithIframeAndUnblockTracker(button, tracker.name, iframeUrl);
     }, { once: true });
 
   // in place button type; replace the existing button with code
-  // specified in the Trackers file
+  // specified in the widgets JSON
   } else if (buttonType == 2) {
     button.addEventListener("click", function() {
-      replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker.name, details);
+      replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker.name, buttonData.details);
     }, { once: true });
 
   // in-place widget type:
