@@ -112,7 +112,7 @@
         "description": ""
     },
     "popup_instructions_no_trackers": {
-        "message": "Er zijn geen <a target=\"_blank\" title=\"Wat is een volger?\" class=\"tooltip\" href=\"https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?\">volgers</a> gedetecteerd. Hoera voor privacy!",
+        "message": "Er zijn geen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>volgers</a> gedetecteerd. Hoera voor privacy!",
         "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
@@ -403,7 +403,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger heeft mogelijk een <a target=\"_blank\" tabindex=\"-1\" title=\"Wat is een volger?\" class=\"tooltip\" href=\"https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?\">volgerdomein</a> gedetecteerd.",
+        "message": "Privacy Badger heeft mogelijk een <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>volgerdomein</a> gedetecteerd.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -415,7 +415,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger heeft mogelijk een <a target=\"_blank\" title=\"Wat is een volger?\" class=\"tooltip\" href=\"https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?\">volger</a> gedetecteerd op deze webpagina",
+        "message": "Privacy Badger heeft mogelijk een <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>volger</a> gedetecteerd op deze webpagina",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
