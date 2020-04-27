@@ -18,7 +18,7 @@
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
-        "message": "Uw surfgedrag wordt niet gevolgd op $DOMAIN$",
+        "message": "Uw surfgedrag wordt niet gevolgd door $DOMAIN$",
         "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -334,7 +334,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "voldoet aan DNT",
+        "message": "voldoet aan Niet-volgen-beleid",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -366,7 +366,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Stuur websites het \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Niet-volgen</a>\"-signaal (Do Not Track)",
+        "message": "Stuur websites het '<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Niet-volgen</a>'-signaal (Do Not Track)",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
