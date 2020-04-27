@@ -22,9 +22,6 @@
         ],
         "replacementButton": {
             "details": "http://www.digg.com/submit?url=",
-            "unblockDomains": [
-                "www.digg.com"
-            ],
             "imagePath": "Digg.svg",
             "type": 0
         }
@@ -89,9 +86,6 @@
         ],
         "replacementButton": {
             "details": "http://www.linkedin.com/shareArticle?mini=true&url=",
-            "unblockDomains": [
-                "www.linkedin.com"
-            ],
             "imagePath": "LinkedIn.svg",
             "type": 0
         }
@@ -104,9 +98,6 @@
         ],
         "replacementButton": {
             "details": "http://pinterest.com/pin/create/button/?url=",
-            "unblockDomains": [
-                "pinterest.com"
-            ],
             "imagePath": "Pinterest.svg",
             "type": 0
         }
@@ -157,9 +148,6 @@
         ],
         "replacementButton": {
             "details": "https://twitter.com/intent/tweet?url=",
-            "unblockDomains": [
-                "twitter.com"
-            ],
             "imagePath": "Twitter.svg",
             "type": 0
         }
