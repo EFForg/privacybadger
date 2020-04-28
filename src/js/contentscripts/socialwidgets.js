@@ -122,11 +122,15 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
 
   button.setAttribute("src", buttonUrl);
 
-  // TODO use custom tooltip to support RTL locales?
-  button.setAttribute(
-    "title",
-    TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", tracker.name)
-  );
+  // apply tooltip to social button replacements only;
+  // no need to do this for replacement widgets
+  if (buttonType < 3) {
+    // TODO use custom tooltip to support RTL locales?
+    button.setAttribute(
+      "title",
+      TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", tracker.name)
+    );
+  }
 
   let styleAttrs = [
     "border: none",
