@@ -259,7 +259,7 @@ function replaceWidgetAndReloadScripts(name) {
     // restore all widgets of this type
     WIDGET_ELS[name].forEach(data => {
       data.parent.replaceChild(data.widget, data.replacement);
-      reloadScripts(data.scriptSelectors);
+      reloadScripts(data.scriptSelectors, data.fallbackScriptUrl);
     });
     WIDGET_ELS[name] = [];
   });
@@ -268,18 +268,34 @@ function replaceWidgetAndReloadScripts(name) {
 /**
  * Find and replace script elements with their copies to trigger re-running.
  */
-function reloadScripts(selectors) {
+function reloadScripts(selectors, fallback_script_url) {
   let scripts = document.querySelectorAll(selectors.join(','));
 
-  scripts.forEach(function (scriptEl) {
-    if (scriptEl.nodeName && scriptEl.nodeName.toLowerCase() == 'script') {
-      let replacement = document.createElement("script");
-      for (let i = 0, atts = scriptEl.attributes, n = atts.length; i < n; i++) {
-        replacement.setAttribute(atts[i].nodeName, atts[i].nodeValue);
-      }
-      scriptEl.parentNode.replaceChild(replacement, scriptEl);
+  // if there are no matches, try a known script URL
+  if (!scripts.length && fallback_script_url) {
+    let parent = document.documentElement,
+      replacement = document.createElement("script");
+    replacement.src = fallback_script_url;
+    parent.insertBefore(replacement, parent.firstChild);
+    return;
+  }
+
+  for (let i = 0; i < scripts.length; i++) {
+    let scriptEl = scripts[i];
+
+    // reinsert script elements only
+    if (!scriptEl.nodeName || scriptEl.nodeName.toLowerCase() != 'script') {
+      continue;
     }
-  });
+
+    let replacement = document.createElement("script");
+    for (let j = 0, atts = scriptEl.attributes, n = atts.length; j < n; j++) {
+      replacement.setAttribute(atts[j].nodeName, atts[j].nodeValue);
+    }
+    scriptEl.parentNode.replaceChild(replacement, scriptEl);
+    // reinsert one script and quit
+    break;
+  }
 }
 
 /**
@@ -426,6 +442,9 @@ function createReplacementWidget(tracker, icon, elToReplace, activationFn) {
   };
   if (tracker.scriptSelectors) {
     data.scriptSelectors = tracker.scriptSelectors;
+    if (tracker.fallbackScriptUrl) {
+      data.fallbackScriptUrl = tracker.fallbackScriptUrl;
+    }
   }
   WIDGET_ELS[name].push(data);
 
