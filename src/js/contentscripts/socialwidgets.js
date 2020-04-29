@@ -43,10 +43,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * Widget data, read from file.
- */
-let trackerInfo;
+// widget data
+let widgetList;
 
 // cached chrome.i18n.getMessage() results
 const TRANSLATIONS = {};
@@ -59,11 +57,11 @@ const WIDGET_ELS = {};
  * Initializes the content script.
  */
 function initialize() {
-  // Get tracker info and check for initial blocks (that happened
+  // Get widget data and check for initial blocks (that happened
   // before content script was attached)
-  getTrackerData(function (trackers, trackerButtonsToReplace) {
-    trackerInfo = trackers;
-    replaceInitialTrackerButtonsHelper(trackerButtonsToReplace);
+  getTrackerData(function (widgets, widgetsToReplace) {
+    widgetList = widgets;
+    replaceInitialTrackerButtonsHelper(widgetsToReplace);
   });
 
   // Set up listener for blocks that happen after initial check
@@ -325,13 +323,11 @@ function replaceScriptsRecurse(node) {
  * Replaces all tracker buttons on the current web page with the internal
  * replacement buttons, respecting the user's blocking settings.
  *
- * @param {Object} trackerButtonsToReplace a map of tracker names to boolean
- * values saying whether those trackers' buttons should be replaced
+ * @param {Array} widgetsToReplace a list of widget names to replace
  */
-function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
-  trackerInfo.forEach(function(tracker) {
-    var replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
-    if (replaceTrackerButtons) {
+function replaceInitialTrackerButtonsHelper(widgetsToReplace) {
+  widgetList.forEach(function (tracker) {
+    if (widgetsToReplace.includes(tracker.name)) {
       replaceIndividualButton(tracker);
     }
   });
@@ -341,10 +337,10 @@ function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
  * Individually replaces tracker buttons blocked after initial check.
  */
 function replaceSubsequentTrackerButtonsHelper(tracker_domain) {
-  if (!trackerInfo) {
+  if (!widgetList) {
     return;
   }
-  trackerInfo.forEach(function (tracker) {
+  widgetList.forEach(function (tracker) {
     if (tracker.domains.includes(tracker_domain)) {
       replaceIndividualButton(tracker);
     }
@@ -484,12 +480,8 @@ function replaceIndividualButton(tracker) {
  * Gets data about which tracker buttons need to be replaced from the main
  * extension and passes it to the provided callback function.
  *
- * @param {Function} callback the function to call when the tracker data is
- *                            received; the arguments passed are the folder
- *                            containing the content script, the tracker
- *                            data, and a mapping of tracker names to
- *                            whether those tracker buttons need to be
- *                            replaced
+ * @param {Function} callback the callback for when tracker data is received;
+ * takes two arguments: widget data, and a list of widget names to replace now
  */
 function getTrackerData(callback) {
   chrome.runtime.sendMessage({
@@ -499,7 +491,7 @@ function getTrackerData(callback) {
       for (const key in response.translations) {
         TRANSLATIONS[key] = response.translations[key];
       }
-      callback(response.trackers, response.trackerButtonsToReplace);
+      callback(response.widgetList, response.widgetsToReplace);
     }
   });
 }

@@ -555,7 +555,7 @@ function _isTabAnExtension(tabId) {
  * @returns {Object} dict containing the complete list of widgets
  * as well as a mapping to indicate which ones should be replaced
  */
-let getWidgetBlockList = (function () {
+let getWidgetList = (function () {
   // cached translations
   let translations;
 
@@ -569,13 +569,12 @@ let getWidgetBlockList = (function () {
   ];
 
   return function (tab_id) {
-    // A mapping of individual SocialWidget objects to boolean values that determine
-    // whether the content script should replace that tracker's button/widget
-    let widgetsToReplace = {},
+    // a list of widget names that should be replaced
+    let widgetsToReplace = [],
       tabData = badger.tabData[tab_id],
       exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
 
-    // optimize translation lookups by doing them just once
+    // optimize translation lookups by doing them just once,
     // the first time they are needed
     if (!translations) {
       translations = widgetTranslations.reduce((memo, data) => {
@@ -590,36 +589,38 @@ let getWidgetBlockList = (function () {
     }
 
     for (let i = 0; i < badger.widgetList.length; i++) {
-      let widget = badger.widgetList[i],
-        replace = false;
+      let widget = badger.widgetList[i];
 
       if (!tabData) {
-        widgetsToReplace[widget.name] = replace;
         continue;
       }
 
       // replace only if the widget is not on the 'do not replace' list
-      if (!exceptions.includes(widget.name)) {
-        // and only if at least one of the associated domains was blocked
-        replace = widget.domains.some(domain => {
-          if (!tabData.origins.hasOwnProperty(domain)) {
-            return false;
-          }
-          const action = tabData.origins[domain];
-          return (
-            action == constants.BLOCK ||
-            action == constants.USER_BLOCK
-          );
-        });
+      if (exceptions.includes(widget.name)) {
+        continue;
       }
 
-      widgetsToReplace[widget.name] = replace;
+      // and only if at least one of the associated domains was blocked
+      let replace = widget.domains.some(domain => {
+        if (!tabData.origins.hasOwnProperty(domain)) {
+          return false;
+        }
+        const action = tabData.origins[domain];
+        return (
+          action == constants.BLOCK ||
+          action == constants.USER_BLOCK
+        );
+      });
+
+      if (replace) {
+        widgetsToReplace.push(widget.name);
+      }
     }
 
     return {
       translations,
-      trackers: badger.widgetList,
-      trackerButtonsToReplace: widgetsToReplace
+      widgetList: badger.widgetList,
+      widgetsToReplace
     };
   };
 }());
@@ -722,9 +723,9 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkReplaceButton": {
-    if (badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) && badger.isWidgetReplacementEnabled()) {
-      let widgetBlockList = getWidgetBlockList(sender.tab.id);
-      sendResponse(widgetBlockList);
+    if (badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) &&
+        badger.isWidgetReplacementEnabled()) {
+      sendResponse(getWidgetList(sender.tab.id));
     }
 
     break;
