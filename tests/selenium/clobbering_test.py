@@ -27,11 +27,8 @@ class ClobberingTest(pbtest.PBSeleniumTest):
         ]
         # page loads a frame that writes to and reads from localStorage
         # TODO remove delays from fixture once race condition (https://crbug.com/478183) is fixed
-        FIXTURE_URL = (
-            "https://efforg.github.io/privacybadger-test-fixtures/html/"
-            "clobbering.html"
-        )
-        FRAME_DOMAIN = "githack.com"
+        FIXTURE_URL = "https://privacybadger-tests.eff.org/html/clobbering.html"
+        FRAME_DOMAIN = "efforg.github.io"
 
         # first allow localStorage to be set
         self.load_url(FIXTURE_URL)
@@ -108,6 +105,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             "https://efforg.github.io/",
             "Referrer header does not appear to be origin-only"
         )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -14,7 +14,7 @@ from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
-class DNTTest(pbtest.PBSeleniumTest):
+class DntTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
 
     CHECK_FOR_DNT_POLICY_JS = (
@@ -86,9 +86,8 @@ class DNTTest(pbtest.PBSeleniumTest):
     @pbtest.repeat_if_failed(3)
     def test_dnt_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
-            "https://gistcdn.githack.com/ghostwords/"
-            "74585c942a918509b20bf2db5659646e/raw/2401659e678442de6309339882f19fbb21dbc959/"
-            "privacy_badger_dnt_test_fixture.html"
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            "dnt.html"
         )
         DNT_DOMAIN = "www.eff.org"
         BLOCK_DOMAIN_JS = (
@@ -169,7 +168,7 @@ class DNTTest(pbtest.PBSeleniumTest):
 
         self.load_url(self.options_url)
         # perform a DNT policy check
-        self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
+        self.js(DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
         self.wait_for_script("return window.DNT_CHECK_RESULT === false")
 
@@ -200,7 +199,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         )
 
         # perform a DNT policy check
-        self.js(DNTTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
+        self.js(DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         # wait until checkForDNTPolicy completed
         self.wait_for_script("return typeof window.DNT_CHECK_RESULT != 'undefined';")
         # get the result
@@ -268,7 +267,7 @@ class DNTTest(pbtest.PBSeleniumTest):
         self.assertNotIn('Dnt', headers, "DNT header should have been missing")
 
     def test_navigator_object(self):
-        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
+        self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
 
         self.assertEqual(
             self.driver.find_element_by_tag_name('body').text,
@@ -277,9 +276,9 @@ class DNTTest(pbtest.PBSeleniumTest):
         )
 
     def test_navigator_left_alone_when_disabled(self):
-        self.disable_badger_on_site(DNTTest.NAVIGATOR_DNT_TEST_URL)
+        self.disable_badger_on_site(DntTest.NAVIGATOR_DNT_TEST_URL)
 
-        self.load_url(DNTTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
+        self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         self.assertEqual(

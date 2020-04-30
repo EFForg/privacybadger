@@ -25,9 +25,8 @@ class CookieTest(pbtest.PBSeleniumTest):
 
     def test_should_pass_std_cookie_test(self):
         self.assert_pass_opera_cookie_test((
-            "https://gistcdn.githack.com/gunesacar/"
-            "79aa14bac95694d38425d458843dacd6/raw/"
-            "3d17cc07e071a45c0bf536b907b6848786090c8a/cookie.html"
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            "first_party_cookie.html"
         ), "Set 1st party cookie")
 
     def test_cookie_tracker_detection(self):
