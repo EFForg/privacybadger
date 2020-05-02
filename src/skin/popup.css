@@ -44,7 +44,12 @@ body {
     src: url("./fonts/Chunk.ttf");
 }
 
-a { text-decoration: none }
+a {
+    text-decoration: underline;
+    color: black;
+    font-size: 18px;
+    font-family: "Chunk-Five", serif;
+}
 a:hover { color: #ec9329 }
 
 .spacer {
