@@ -54,18 +54,20 @@ const WIDGET_ELS = {};
 
 
 /**
- * Initializes the content script.
+ * @param {Object} response response to checkWidgetReplacementEnabled
  */
-function initialize() {
-  // Get widget data and check for initial blocks (that happened
-  // before content script was attached)
-  getTrackerData(function (widgets, widgetsToReplace) {
-    widgetList = widgets;
-    replaceInitialTrackerButtonsHelper(widgetsToReplace);
-  });
+function initialize(response) {
+  for (const key in response.translations) {
+    TRANSLATIONS[key] = response.translations[key];
+  }
 
-  // Set up listener for blocks that happen after initial check
-  chrome.runtime.onMessage.addListener(function(request/*, sender, sendResponse*/) {
+  widgetList = response.widgetList;
+
+  // check for widgets blocked before we got here
+  replaceInitialTrackerButtonsHelper(response.widgetsToReplace);
+
+  // set up listener for dynamically created widgets
+  chrome.runtime.onMessage.addListener(function (request) {
     if (request.replaceWidget) {
       replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
     }
@@ -473,26 +475,6 @@ function replaceIndividualButton(tracker) {
 }
 
 /**
- * Gets data about which tracker buttons need to be replaced from the main
- * extension and passes it to the provided callback function.
- *
- * @param {Function} callback the callback for when tracker data is received;
- * takes two arguments: widget data, and a list of widget names to replace now
- */
-function getTrackerData(callback) {
-  chrome.runtime.sendMessage({
-    type: "checkReplaceButton"
-  }, function (response) {
-    if (response) {
-      for (const key in response.translations) {
-        TRANSLATIONS[key] = response.translations[key];
-      }
-      callback(response.widgetList, response.widgetsToReplace);
-    }
-  });
-}
-
-/**
  * Messages the background page to temporarily allow domains associated with a
  * given replacement widget.
  * Calls the provided callback function upon response.
@@ -523,11 +505,11 @@ if (document instanceof HTMLDocument === false && (
 
 chrome.runtime.sendMessage({
   type: "checkWidgetReplacementEnabled"
-}, function (enabled) {
-  if (!enabled) {
+}, function (response) {
+  if (!response) {
     return;
   }
-  initialize();
+  initialize(response);
 });
 
 }());

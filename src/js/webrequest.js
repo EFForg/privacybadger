@@ -676,7 +676,6 @@ function dispatcher(request, sender, sendResponse) {
       "checkEnabled",
       "checkEnabledAndThirdParty",
       "checkLocation",
-      "checkReplaceButton",
       "checkWidgetReplacementEnabled",
       "fpReport",
       "getReplacementButton",
@@ -719,15 +718,6 @@ function dispatcher(request, sender, sendResponse) {
 
     let action = checkAction(sender.tab.id, frame_host);
     sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK);
-
-    break;
-  }
-
-  case "checkReplaceButton": {
-    if (badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) &&
-        badger.isWidgetReplacementEnabled()) {
-      sendResponse(getWidgetList(sender.tab.id));
-    }
 
     break;
   }
@@ -816,10 +806,16 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkWidgetReplacementEnabled": {
-    sendResponse(
-      badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) &&
-      badger.isWidgetReplacementEnabled()
-    );
+    let response = false,
+      tab_host = window.extractHostFromURL(sender.tab.url);
+
+    if (badger.isPrivacyBadgerEnabled(tab_host) &&
+        badger.isWidgetReplacementEnabled()) {
+      response = getWidgetList(sender.tab.id);
+    }
+
+    sendResponse(response);
+
     break;
   }
 
