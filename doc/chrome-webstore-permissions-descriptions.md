@@ -13,13 +13,13 @@ Privacy Badger needs access to the cookies API so that it can view cookies store
 Privacy Badger needs access to the storage API so that the extension's storage and user's settings will persist beyond a browser session.
 
 * `WebRequest` -
-Privacy Badger needs access to the WebRequest API so that it can view and intercept network requests being made in the browser. If user tracking is taking place via network request headers, Privacy Badger needs to be able to intercept and modify those headers.
+Privacy Badger needs access to the WebRequest API so that it can view and intercept network requests being made in the browser. If user tracking is taking place via network request headers, Privacy Badger needs to be able to intercept and modify those headers. It views and then asynchronously logs the destination for outgoing requests that's flagged as tracking the user.
 
 * `WebRequestBlocking` -
-Privacy Badger needs access to the WebRequestBlocking API so that it can synchronously view and intercept network requests being made in the browser. If user tracking is taking place via network request headers, Privacy Badger needs to be able to intercept and modify those headers.
+Privacy Badger needs access to the WebRequestBlocking API so that it can synchronously view and intercept network requests being made in the browser. For example, it will check headers on outgoing requests to strip referer and cookie values, as well as to add the Do Not Track header.
 
 * `webNavigation` -
-Privacy Badger needs access to the webNavigation API so that it can attach event listeners to the user's browser so that it knows when requests are being made to navigate to/from a page, then fire off it's actions to detect if/when tracking is taking place
+Privacy Badger needs access to the webNavigation API in order to establish a listener for when the user navigates from their current page. This is both as a safety precaution for keeping track of the active tab, as well as avoiding misattributing trackers to the wrong page, such as on Service Worker pages.
 
 * `http://*/*`
 * `https://*/*`  -
