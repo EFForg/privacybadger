@@ -32,7 +32,9 @@ function setTextDirection() {
     let $els = $(selector);
     $els.each(i => {
       let $el = $($els[i]);
-      $el.css(property, $el.css(property) === from ? to : from);
+      if ($el.css(property) === from) {
+        $el.css(property, to);
+      }
     });
   }
 
@@ -87,6 +89,15 @@ function setTextDirection() {
     // fix floats
     ['.btn-silo', '.btn-silo div', '#whitelistForm > div > div > div'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
+    });
+
+  // new user welcome page
+  } else if (document.location.pathname == "/skin/firstRun.html") {
+    [
+      '[id*="pb-features-"] h3,#pb-settings h3',
+      '[id*="pb-features-"] .text,[id*="pb-features-"] p,#pb-settings .text,#pb-settings p'
+    ].forEach((selector) => {
+      toggle_css_value(selector, "text-align", "left", "right");
     });
   }
 }
