@@ -4,10 +4,10 @@ Privacy tab in chrome web store:
 Permissions:
 
 * `Privacy` -
-Privacy Badger needs access to the privacy API so that it can view the user's current privacy settings such as their webRTCIPHandlingPolicy, then modify or make heuristic decisions on how to bolster their privacy
+Privacy Badger needs access to the privacy API so that it can restrict the webRTCIPHandlingPolicy so that none of the user's local address information is exposed, as well as if they're in an incognito window, it will override and disable the alternateErrorPagesEnabled and hyperlinkAuditingEnabled settings.
 
 * `Cookies` -
-Privacy Badger needs access to the cookies API so that it can detect and then prevent if any cookies are being placed on the user's browser to identify and track them.
+Privacy Badger needs access to the cookies API so that it can view cookies stored on the user's browser and detect if they're sent in requests to third party domains from the sites that a user visits for the purpose of tracking.
 
 * `Storage` -
 Privacy Badger needs access to the storage API so that the extension's storage and user's settings will persist beyond a browser session.
@@ -26,4 +26,4 @@ Privacy Badger needs access to the webNavigation API so that it can attach event
 Privacy Badger needs broad permissions across all url patterns so that it can perform its tracking detection on all websites the user may visit.
 
 * `tabs` -
-Privacy Badger needs access to the tabs API so that it can detect which tabs are active, which web trackers are attributed to which domain, and which triggered event listeners belong to which tab on a user's browser.
+Privacy Badger needs access to the tabs API so that the extension can detect which tab is active and which are simply present. The extension popup and badge update to reflect state of Privacy Badger on the active tab.
