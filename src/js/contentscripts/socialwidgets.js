@@ -327,7 +327,7 @@ function replaceScriptsRecurse(node) {
  */
 function replaceInitialTrackerButtonsHelper(widgetsToReplace) {
   widgetList.forEach(function (tracker) {
-    if (widgetsToReplace.includes(tracker.name)) {
+    if (widgetsToReplace.hasOwnProperty(tracker.name)) {
       replaceIndividualButton(tracker);
     }
   });

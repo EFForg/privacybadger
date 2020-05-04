@@ -104,12 +104,11 @@ function onBeforeRequest(details) {
     }
   }
 
-  // Notify the content script...
-  var msg = {
+  // notify the widget replacement content script
+  chrome.tabs.sendMessage(tab_id, {
     replaceWidget: true,
     trackerDomain: request_host
-  };
-  chrome.tabs.sendMessage(tab_id, msg);
+  });
 
   // if this is a heuristically- (not user-) blocked domain
   if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
@@ -569,8 +568,9 @@ let getWidgetList = (function () {
   ];
 
   return function (tab_id) {
-    // a list of widget names that should be replaced
-    let widgetsToReplace = [],
+    // an object with keys set to widget names that should be replaced
+    let widgetsToReplace = {},
+      widgetList = [],
       tabData = badger.tabData[tab_id],
       exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
 
@@ -591,16 +591,18 @@ let getWidgetList = (function () {
     for (let i = 0; i < badger.widgetList.length; i++) {
       let widget = badger.widgetList[i];
 
-      if (!tabData) {
-        continue;
-      }
-
       // replace only if the widget is not on the 'do not replace' list
+      // also don't send widget data used later for dynamic replacement
       if (exceptions.includes(widget.name)) {
         continue;
       }
 
-      // and only if at least one of the associated domains was blocked
+      widgetList.push(widget);
+
+      // replace only if at least one of the associated domains was blocked
+      if (!tabData) {
+        continue;
+      }
       let replace = widget.domains.some(domain => {
         if (!tabData.origins.hasOwnProperty(domain)) {
           return false;
@@ -611,15 +613,14 @@ let getWidgetList = (function () {
           action == constants.USER_BLOCK
         );
       });
-
       if (replace) {
-        widgetsToReplace.push(widget.name);
+        widgetsToReplace[widget.name] = true;
       }
     }
 
     return {
       translations,
-      widgetList: badger.widgetList,
+      widgetList,
       widgetsToReplace
     };
   };
