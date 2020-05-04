@@ -46,13 +46,6 @@ class DNTTest(pbtest.PBSeleniumTest):
 
         return headers
 
-    def disable_badger_on_site(self, url):
-        self.load_url(self.options_url)
-        self.wait_for_script("return window.OPTIONS_INITIALIZED")
-        self.find_el_by_css('a[href="#tab-whitelisted-domains"]').click()
-        self.driver.find_element_by_id('newWhitelistDomain').send_keys(url)
-        self.driver.find_element_by_css_selector('button.addButton').click()
-
     def domain_was_recorded(self, domain):
         return self.js(
             "return (Object.keys("
@@ -91,19 +84,9 @@ class DNTTest(pbtest.PBSeleniumTest):
             "privacy_badger_dnt_test_fixture.html"
         )
         DNT_DOMAIN = "www.eff.org"
-        BLOCK_DOMAIN_JS = (
-            "(function () {"
-            "chrome.extension.getBackgroundPage()."
-            "badger.storage.setupHeuristicAction("
-            "  arguments[0],"
-            "  chrome.extension.getBackgroundPage().constants.BLOCK"
-            ");"
-            "}());"
-        )
 
         # mark a DNT-compliant domain for blocking
-        self.load_url(self.options_url)
-        self.js(BLOCK_DOMAIN_JS, DNT_DOMAIN)
+        self.block_domain(DNT_DOMAIN)
 
         # visit a page that loads a resource from that DNT-compliant domain
         self.open_window()

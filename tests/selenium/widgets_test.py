@@ -54,32 +54,6 @@ class WidgetsTest(pbtest.PBSeleniumTest):
     def switch_to_frame(self, selector):
         self.wait_for_and_switch_to_frame(selector, timeout=3)
 
-    def block_domain(self, domain):
-        self.load_url(self.options_url)
-        self.js((
-            "(function (domain) {"
-            "  let bg = chrome.extension.getBackgroundPage();"
-            "  let base_domain = window.getBaseDomain(domain);"
-            "  bg.badger.heuristicBlocking.blacklistOrigin(domain, base_domain);"
-            "}(arguments[0]));"
-        ), domain)
-
-    def cookieblock_domain(self, domain):
-        self.load_url(self.options_url)
-        self.js((
-            "(function (domain) {"
-            "  let bg = chrome.extension.getBackgroundPage();"
-            "  bg.badger.storage.setupHeuristicAction(domain, bg.constants.COOKIEBLOCK);"
-            "}(arguments[0]));"
-        ), domain)
-
-    def disable_badger_on_site(self, url):
-        self.load_url(self.options_url)
-        self.wait_for_script("return window.OPTIONS_INITIALIZED")
-        self.find_el_by_css('a[href="#tab-whitelisted-domains"]').click()
-        self.driver.find_element_by_id('newWhitelistDomain').send_keys(url)
-        self.driver.find_element_by_css_selector('button.addButton').click()
-
     def assert_widget(self):
         try:
             self.switch_to_frame('iframe[src]')
