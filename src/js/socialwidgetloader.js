@@ -49,8 +49,10 @@ var utils = require('utils');
 
 require.scopes.widgetloader = (function() {
 
-var exports = {};
-exports.loadWidgetsFromFile = loadWidgetsFromFile;
+var exports = {
+  initializeWidgets,
+  loadWidgetsFromFile,
+};
 
 /**
  * Loads a JSON file at filePath and returns the parsed object.
@@ -92,27 +94,34 @@ function getFileContents(filePath, callback) {
 }
 
 /**
- * Returns an array of SocialWidget objects that are loaded from the file at
- * filePath.
- *
  * @param {String} filePath the path to the JSON file, relative to the
  *                          extension's data folder
  * @param {Function} callback callback(socialwidgets)
+ * @returns {Array} array of SocialWidget objects
  */
 function loadWidgetsFromFile(filePath, callback) {
   loadJSONFromFile(filePath, function(widgetsJson) {
-    let widgets = [];
-
-    // loop over each widget, making a SocialWidget object
-    for (let widget_name in widgetsJson) {
-      let widgetProperties = widgetsJson[widget_name];
-      let widget = new SocialWidget(widget_name, widgetProperties);
-      widgets.push(widget);
-    }
-
+    let widgets = initializeWidgets(widgetsJson);
     log("Initialized widgets from disk");
     callback(widgets);
   });
+}
+
+/**
+ * @param {Object} widgetsJson widget data
+ * @returns {Array} array of SocialWidget objects
+ */
+function initializeWidgets(widgetsJson) {
+  let widgets = [];
+
+  // loop over each widget, making a SocialWidget object
+  for (let widget_name in widgetsJson) {
+    let widgetProperties = widgetsJson[widget_name];
+    let widget = new SocialWidget(widget_name, widgetProperties);
+    widgets.push(widget);
+  }
+
+  return widgets;
 }
 
 /**
