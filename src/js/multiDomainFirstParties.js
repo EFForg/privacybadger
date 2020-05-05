@@ -721,6 +721,7 @@ var multiDomainFirstPartiesArray = [
     "directferries.xyz",
   ],
   ["discountbank.co.il", "telebank.co.il"],
+  ["discord.com", "discordapp.com", "discordapp.net"],
   ["discover.com", "discovercard.com"],
   [
     "dpgmediagroup.com",
