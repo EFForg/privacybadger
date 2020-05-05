@@ -52,8 +52,7 @@ HeuristicBlocker.prototype = {
    */
   blacklistOrigin: function (base, fqdn) {
     let self = this,
-      ylistStorage = self.storage.getBadgerStorageObject("cookieblock_list"),
-      ylist = ylistStorage.getItemClones();
+      ylistStorage = self.storage.getBadgerStorageObject("cookieblock_list");
 
     // cookieblock or block the base domain
     if (ylistStorage.hasItem(base)) {
@@ -88,11 +87,11 @@ HeuristicBlocker.prototype = {
     // for example, when google.com is blocked,
     // books.google.com should be cookieblocked
     let base_with_dot = '.' + base;
-    for (let domain in ylist) {
+    ylistStorage.keys().forEach(domain => {
       if (base != domain && domain.endsWith(base_with_dot)) {
         self.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
       }
-    }
+    });
 
   },
 

@@ -173,19 +173,19 @@ BadgerPen.prototype = {
   updateYellowlist: function (newDomains) {
     let self = this,
       actionMap = self.getBadgerStorageObject('action_map'),
-      yellowlistStorage = self.getBadgerStorageObject('cookieblock_list'),
-      oldDomains = Object.keys(yellowlistStorage.getItemClones());
+      ylistStorage = self.getBadgerStorageObject('cookieblock_list'),
+      oldDomains = ylistStorage.keys();
 
     let addedDomains = _.difference(newDomains, oldDomains),
       removedDomains = _.difference(oldDomains, newDomains);
 
     log('removing from cookie blocklist:', removedDomains);
     removedDomains.forEach(function (domain) {
-      yellowlistStorage.deleteItem(domain);
+      ylistStorage.deleteItem(domain);
 
       const base = window.getBaseDomain(domain);
       // "subdomains" include the domain itself
-      for (const subdomain of Object.keys(actionMap.getItemClones())) {
+      for (const subdomain of actionMap.keys()) {
         if (window.getBaseDomain(subdomain) == base) {
           if (self.getAction(subdomain) != constants.NO_TRACKING) {
             badger.heuristicBlocking.blacklistOrigin(base, subdomain);
@@ -196,7 +196,7 @@ BadgerPen.prototype = {
 
     log('adding to cookie blocklist:', addedDomains);
     addedDomains.forEach(function (domain) {
-      yellowlistStorage.setItem(domain, true);
+      ylistStorage.setItem(domain, true);
 
       const base = window.getBaseDomain(domain);
       if (actionMap.hasItem(base)) {
