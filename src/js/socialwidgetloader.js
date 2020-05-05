@@ -45,30 +45,14 @@
 
 /* globals log:false */
 
-var utils = require('utils');
+require.scopes.widgetloader = (function () {
 
-require.scopes.widgetloader = (function() {
+let utils = require('utils');
 
-var exports = {
+let exports = {
   initializeWidgets,
   loadWidgetsFromFile,
 };
-
-/**
- * Loads a JSON file at filePath and returns the parsed object.
- *
- * @param {String} filePath the path to the JSON file, relative to the
- *                          extension's data folder
- * @param {Function} callback callback(jsonParsed)
- */
-function loadJSONFromFile(filePath, callback) {
-  getFileContents(filePath, function(jsonString) {
-    var jsonParsed = JSON.parse(jsonString);
-    Object.freeze(jsonParsed); // prevent modifications to jsonParsed
-
-    callback(jsonParsed);
-  });
-}
 
 /**
  * Returns the contents of the file at filePath.
@@ -77,9 +61,8 @@ function loadJSONFromFile(filePath, callback) {
  * @param {Function} callback callback(responseText)
  */
 function getFileContents(filePath, callback) {
-  var url = chrome.runtime.getURL(filePath);
-
-  utils.xhrRequest(url, function(err, responseText) {
+  let url = chrome.runtime.getURL(filePath);
+  utils.xhrRequest(url, function (err, responseText) {
     if (err) {
       console.error(
         "Problem fetching contents of file at",
@@ -94,14 +77,13 @@ function getFileContents(filePath, callback) {
 }
 
 /**
- * @param {String} filePath the path to the JSON file, relative to the
- *                          extension's data folder
+ * @param {String} filePath the path to the JSON file
  * @param {Function} callback callback(socialwidgets)
  * @returns {Array} array of SocialWidget objects
  */
 function loadWidgetsFromFile(filePath, callback) {
-  loadJSONFromFile(filePath, function(widgetsJson) {
-    let widgets = initializeWidgets(widgetsJson);
+  getFileContents(filePath, function (contents) {
+    let widgets = initializeWidgets(JSON.parse(contents));
     log("Initialized widgets from disk");
     callback(widgets);
   });
@@ -146,4 +128,5 @@ function SocialWidget(name, properties) {
 }
 
 return exports;
+
 }()); //require scopes
