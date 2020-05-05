@@ -277,17 +277,15 @@ function reloadScripts(selectors, fallback_script_url) {
     return;
   }
 
-  for (let i = 0; i < scripts.length; i++) {
-    let scriptEl = scripts[i];
-
+  for (let scriptEl of scripts) {
     // reinsert script elements only
     if (!scriptEl.nodeName || scriptEl.nodeName.toLowerCase() != 'script') {
       continue;
     }
 
     let replacement = document.createElement("script");
-    for (let j = 0, atts = scriptEl.attributes, n = atts.length; j < n; j++) {
-      replacement.setAttribute(atts[j].nodeName, atts[j].nodeValue);
+    for (let attr of scriptEl.attributes) {
+      replacement.setAttribute(attr.nodeName, attr.nodeValue);
     }
     scriptEl.parentNode.replaceChild(replacement, scriptEl);
     // reinsert one script and quit

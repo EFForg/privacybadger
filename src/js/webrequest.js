@@ -588,9 +588,7 @@ let getWidgetList = (function () {
       translations.rtl = RTL_LOCALES.indexOf(UI_LOCALE) > -1;
     }
 
-    for (let i = 0; i < badger.widgetList.length; i++) {
-      let widget = badger.widgetList[i];
-
+    for (let widget of badger.widgetList) {
       // replace only if the widget is not on the 'do not replace' list
       // also don't send widget data used later for dynamic replacement
       if (exceptions.includes(widget.name)) {
