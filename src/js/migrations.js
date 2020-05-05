@@ -39,10 +39,10 @@ exports.Migrations= {
   migrateBlockedSubdomainsToCookieblock: function(badger) {
     setTimeout(function() {
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
-      var cbl = badger.storage.getBadgerStorageObject('cookieblock_list');
-      _.each(badger.storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn) {
-        _.each(utils.explodeSubdomains(fqdn, true), function(domain) {
-          if (cbl.hasItem(domain)) {
+      let ylist = badger.storage.getBadgerStorageObject('cookieblock_list');
+      badger.storage.getAllDomainsByPresumedAction(constants.BLOCK).forEach(fqdn => {
+        utils.explodeSubdomains(fqdn, true).forEach(domain => {
+          if (ylist.hasItem(domain)) {
             console.log('moving', fqdn, 'from block to cookie block');
             badger.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           }

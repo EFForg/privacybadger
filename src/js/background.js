@@ -359,12 +359,11 @@ Badger.prototype = {
    * @returns {Promise}
    */
   initializeYellowlist: function () {
-    let self = this,
-      yellowlistStorage = self.storage.getBadgerStorageObject('cookieblock_list');
+    let self = this;
 
     return new Promise(function (resolve, reject) {
 
-      if (_.size(yellowlistStorage.getItemClones())) {
+      if (self.storage.getBadgerStorageObject('cookieblock_list').keys().length) {
         log("Yellowlist already initialized from disk");
         return resolve();
       }
@@ -390,10 +389,10 @@ Badger.prototype = {
    * @param {Function} [callback] optional callback
    */
   updateYellowlist: function (callback) {
-    var self = this;
+    let self = this;
 
     if (!callback) {
-      callback = _.noop;
+      callback = function () {};
     }
 
     utils.xhrRequest(constants.YELLOWLIST_URL, function (err, response) {
@@ -413,10 +412,10 @@ Badger.prototype = {
         return callback(new Error("Empty yellowlist response"));
       }
 
-      var domains = response.trim().split("\n").map(domain => domain.trim());
+      let domains = response.trim().split("\n").map(domain => domain.trim());
 
       // validate the response
-      if (!_.every(domains, (domain) => {
+      if (!domains.every(domain => {
         // all domains must contain at least one dot
         if (domain.indexOf('.') == -1) {
           return false;
@@ -458,7 +457,7 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
 
-      if (_.size(self.storage.getBadgerStorageObject('dnt_hashes').getItemClones())) {
+      if (self.storage.getBadgerStorageObject('dnt_hashes').keys().length) {
         log("DNT hashes already initialized from disk");
         return resolve();
       }
@@ -497,7 +496,7 @@ Badger.prototype = {
     let self = this;
 
     if (!cb) {
-      cb = _.noop;
+      cb = function () {};
     }
 
     if (!self.isCheckingDNTPolicyEnabled()) {
@@ -623,14 +622,20 @@ Badger.prototype = {
   /**
    * initialize default settings if nonexistent
    */
-  initializeDefaultSettings: function() {
-    var settings = this.getSettings();
-    _.each(this.defaultSettings, function(value, key) {
+  initializeDefaultSettings: function () {
+    let self = this,
+      settings = self.getSettings();
+
+    for (let key in self.defaultSettings) {
+      if (!self.defaultSettings.hasOwnProperty(key)) {
+        continue;
+      }
       if (!settings.hasItem(key)) {
-        log("setting", key, ":", value);
+        let value = self.defaultSettings[key];
+        log("setting", key, "=", value);
         settings.setItem(key, value);
       }
-    });
+    }
   },
 
   runMigrations: function() {

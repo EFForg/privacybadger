@@ -36,17 +36,23 @@ function xhrRequest(url, callback, method, opts) {
   if (!method) {
     method = "GET";
   }
-  var xhr = new XMLHttpRequest();
-  if (opts) {
-    _.each(opts, function (value, key) {
-      xhr[key] = value;
-    });
+  if (!opts) {
+    opts = {};
   }
+
+  let xhr = new XMLHttpRequest();
+
+  for (let key in opts) {
+    if (opts.hasOwnProperty(key)) {
+      xhr[key] = opts[key];
+    }
+  }
+
   xhr.onload = function () {
     if (xhr.status == 200) {
       callback(null, xhr.response);
     } else {
-      var error = {
+      let error = {
         status: xhr.status,
         message: xhr.response,
         object: xhr
@@ -54,10 +60,12 @@ function xhrRequest(url, callback, method, opts) {
       callback(error, error.message);
     }
   };
+
   // triggered by network problems
   xhr.onerror = function () {
     callback({ status: 0, message: "", object: xhr }, "");
   };
+
   xhr.open(method, url, true);
   xhr.send();
 }
@@ -456,7 +464,7 @@ function isRestrictedUrl(url) {
 }
 
 /************************************** exports */
-var exports = {
+let exports = {
   arrayBufferToBase64,
   estimateMaxEntropy,
   explodeSubdomains,

@@ -55,21 +55,21 @@ require.scopes.storage = (function() {
  */
 
 function BadgerPen(callback) {
-  var self = this;
+  let self = this;
 
   if (!callback) {
-    callback = _.noop;
+    callback = function () {};
   }
 
   // initialize from extension local storage
   chrome.storage.local.get(self.KEYS, function (store) {
-    _.each(self.KEYS, function (key) {
+    self.KEYS.forEach(key => {
       if (store.hasOwnProperty(key)) {
         self[key] = new BadgerStorage(key, store[key]);
       } else {
-        var storage_obj = new BadgerStorage(key, {});
-        self[key] = storage_obj;
-        _syncStorage(storage_obj);
+        let storageObj = new BadgerStorage(key, {});
+        self[key] = storageObj;
+        _syncStorage(storageObj);
       }
     });
 
@@ -120,9 +120,9 @@ BadgerPen.prototype = {
    * Reset the snitch map and action map, forgetting all data the badger has
    * learned from browsing.
    */
-  clearTrackerData: function() {
-    var self = this;
-    _.each(['snitch_map', 'action_map'], function(key) {
+  clearTrackerData: function () {
+    let self = this;
+    ['snitch_map', 'action_map'].forEach(key => {
       self.getBadgerStorageObject(key).updateObject({});
     });
   },
@@ -582,6 +582,13 @@ BadgerStorage.prototype = {
     setTimeout(function() {
       _syncStorage(self);
     }, 0);
+  },
+
+  /**
+   * @returns {Array} this storage object's store keys
+   */
+  keys: function () {
+    return Object.keys(this._store);
   },
 
   /**

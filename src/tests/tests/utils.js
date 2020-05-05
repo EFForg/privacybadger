@@ -99,6 +99,7 @@ QUnit.test("disable/enable privacy badger for origin", function (assert) {
 });
 
 QUnit.test("surrogate script URL lookups", function (assert) {
+  const NOOP = function () {};
   const surrogatedb = require('surrogatedb');
   const SURROGATE_PREFIX = 'data:application/javascript;base64,';
   const GA_JS_TESTS = [
@@ -143,16 +144,16 @@ QUnit.test("surrogate script URL lookups", function (assert) {
   surrogatedb.hostnames[window.extractHostFromURL(NYT_URL)] = [
     NYT_SCRIPT_PATH
   ];
-  surrogatedb.surrogates[NYT_SCRIPT_PATH] = _.noop;
+  surrogatedb.surrogates[NYT_SCRIPT_PATH] = NOOP;
   assert.equal(
     getSurrogateURI(NYT_URL, window.extractHostFromURL(NYT_URL)),
-    SURROGATE_PREFIX + btoa(_.noop),
-    "New York Times script URL should now match the _.noop surrogate"
+    SURROGATE_PREFIX + btoa(NOOP),
+    "New York Times script URL should now match the noop surrogate"
   );
 
   // set up test data for wildcard token tests
   surrogatedb.hostnames['cdn.example.com'] = 'noop';
-  surrogatedb.surrogates.noop = _.noop;
+  surrogatedb.surrogates.noop = NOOP;
 
   // test wildcard tokens
   for (let i = 0; i < 25; i++) {
@@ -163,7 +164,7 @@ QUnit.test("surrogate script URL lookups", function (assert) {
 
     assert.equal(
       getSurrogateURI(url, window.extractHostFromURL(url)),
-      SURROGATE_PREFIX + btoa(_.noop),
+      SURROGATE_PREFIX + btoa(NOOP),
       "A wildcard token should match all URLs for the hostname: " + url
     );
   }
