@@ -5,6 +5,8 @@ import unittest
 
 import pbtest
 
+from time import sleep
+
 from selenium.common.exceptions import (
     NoSuchElementException,
     StaleElementReferenceException,
@@ -21,6 +23,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
     THIRD_PARTY_DOMAIN = "privacybadger-tests.eff.org"
     TYPE3_WIDGET_NAME = "Type 3 Widget"
     TYPE4_WIDGET_NAME = "Type 4 Widget"
+    TYPE4_WIDGET_CLASS = "pb-type4-test-widget"
 
     def setUp(self):
         self.set_up_widgets()
@@ -47,10 +50,10 @@ class WidgetsTest(pbtest.PBSeleniumTest):
                     self.THIRD_PARTY_DOMAIN
                 ],
                 "buttonSelectors": [
-                    "div.pb-type4-test-widget"
+                    "div." + self.TYPE4_WIDGET_CLASS
                 ],
                 "scriptSelectors": [
-                    "script.pb-type4-test-widget"
+                    "script." + self.TYPE4_WIDGET_CLASS
                 ],
                 "replacementButton": {
                     "unblockDomains": [
@@ -74,7 +77,15 @@ class WidgetsTest(pbtest.PBSeleniumTest):
     def switch_to_frame(self, selector):
         self.wait_for_and_switch_to_frame(selector, timeout=3)
 
-    def assert_widget(self):
+    def assert_widget(self, kind="type3"):
+        if kind == "type3":
+            self._assert_type3_widget()
+        elif kind == "type4":
+            self._assert_type4_widget()
+        else:
+            self.fail("Unknown widget type")
+
+    def _assert_type3_widget(self):
         try:
             self.switch_to_frame('iframe[src]')
         except (StaleElementReferenceException, TimeoutException):
@@ -87,19 +98,12 @@ class WidgetsTest(pbtest.PBSeleniumTest):
 
         self.driver.switch_to.default_content()
 
-    def get_type4_widget_div(self):
-        return self.driver.find_element_by_css_selector(
-            'div.pb-type4-test-widget')
-
-    def get_type4_widget_script(self):
-        return self.driver.find_element_by_css_selector(
-            'script.pb-type4-test-widget')
-
-    def assert_type4_widget(self):
-        self.assertEqual(
-            self.get_type4_widget_div().text,
-            "A third-party widget script was here",
-            "Widget output should be present")
+    def _assert_type4_widget(self):
+        try:
+            self.wait_for_text('div.' + self.TYPE4_WIDGET_CLASS,
+                "A third-party widget script was here")
+        except TimeoutException:
+            self.fail("Unable to find expected widget output")
 
     def assert_replacement(self, widget_name=None):
         if not widget_name:
@@ -202,7 +206,8 @@ class WidgetsTest(pbtest.PBSeleniumTest):
 
         # verify the type 4 widget is still replaced
         try:
-            self.get_type4_widget_div()
+            self.driver.find_element_by_css_selector(
+                'div.' + self.TYPE4_WIDGET_CLASS)
             self.fail("Widget output container div should be missing")
         except NoSuchElementException:
             pass
@@ -211,11 +216,12 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.activate_widget(self.TYPE4_WIDGET_NAME)
 
         # assert all script attributes were copied
-        script_el = self.get_type4_widget_script()
+        script_el = self.driver.find_element_by_css_selector(
+            'script.' + self.TYPE4_WIDGET_CLASS)
         self.assertEqual(script_el.get_attribute('async'), "true")
         self.assertEqual(script_el.get_attribute('data-foo'), "bar")
 
-        self.assert_type4_widget()
+        self.assert_widget("type4")
 
     def test_disabling_site(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
@@ -229,7 +235,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         # type 4 replacement should also be missing
         self.assert_no_replacement(self.TYPE4_WIDGET_NAME)
         # while the type 4 widget script should have executed
-        self.assert_type4_widget()
+        self.assert_widget("type4")
 
         # verify dynamic widget is neither replaced nor blocked
         self.load_url(self.DYNAMIC_FIXTURE_URL)
@@ -253,8 +259,16 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         # type 4 replacement should also be missing
         self.assert_no_replacement(self.TYPE4_WIDGET_NAME)
         # type 4 widget should also have gotten blocked
-        self.assertFalse(self.get_type4_widget_div().text,
-            "Widget output container div should be present but empty")
+        try:
+            widget_div = self.driver.find_element_by_css_selector(
+                'div.pb-type4-test-widget')
+        except NoSuchElementException:
+            self.fail("Widget div should still be here")
+        # check the div's text a few times to make sure it stays empty
+        for _ in range(3):
+            self.assertFalse(widget_div.text,
+                "Widget output container should remain empty")
+            sleep(1)
 
         # verify dynamic widget is no longer replaced
         self.load_url(self.DYNAMIC_FIXTURE_URL)
@@ -293,7 +307,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.assert_no_replacement(self.TYPE4_WIDGET_NAME)
 
         self.assert_widget()
-        self.assert_type4_widget()
+        self.assert_widget("type4")
 
 
 if __name__ == "__main__":
