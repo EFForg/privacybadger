@@ -35,7 +35,7 @@ var incognito = require("incognito");
 /**
  * Privacy Badger initializer.
  */
-function Badger() {
+function Badger(from_qunit) {
   let self = this;
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
@@ -80,6 +80,11 @@ function Badger() {
     await ylistPromise;
     await dntHashesPromise;
     await tabDataPromise;
+
+    if (from_qunit) {
+      self.INITIALIZED = true;
+      return;
+    }
 
     // start the listeners
     incognito.startListeners();
@@ -992,4 +997,5 @@ function startBackgroundListeners() {
   });
 }
 
-var badger = window.badger = new Badger();
+let badger = window.badger = new Badger(
+  document.location.href == chrome.runtime.getURL("/tests/index.html"));
