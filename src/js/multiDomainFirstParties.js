@@ -1528,6 +1528,10 @@ var multiDomainFirstPartiesArray = [
     "tribunaexpresso.pt",
     "volantesic.pt",
   ],
+  [
+    "immobilienscout24.de",
+    "static-immobilienscout24.de",
+  ],
   ["independent.co.uk", "indy100.com"],
   [
     "jd.com",
