@@ -67,7 +67,8 @@
         ],
         "buttonSelectors": [
             "div.g-recaptcha",
-            "div#g-recaptcha"
+            "div#g-recaptcha",
+            "fieldset#g-recaptcha"
         ],
         "scriptSelectors": [
             "script[src^='//google.com/recaptcha/api.js']",
