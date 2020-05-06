@@ -119,8 +119,12 @@ if (window.top == window) {
 //
 // could then remove test workarounds like
 // https://github.com/EFForg/privacybadger/commit/39d5d0899e22d1c451d429e44553c5f9cad7fc46
+
+// TODO sometimes contentscripts/utils.js isn't here?!
+// TODO window.FRAME_URL / window.injectScript are undefined ...
 chrome.runtime.sendMessage({
-  checkEnabledAndThirdParty: window.FRAME_URL
+  type: "checkEnabledAndThirdParty",
+  frameUrl: window.FRAME_URL
 }, function (enabledAndThirdParty) {
   if (!enabledAndThirdParty) {
     return;
@@ -132,7 +136,8 @@ chrome.runtime.sendMessage({
   document.addEventListener(event_id_super_cookie, function (e) {
     // pass these on to the background page (handled by webrequest.js)
     chrome.runtime.sendMessage({
-      superCookieReport: e.detail,
+      type: "supercookieReport",
+      data: e.detail,
       frameUrl: window.FRAME_URL
     });
   });

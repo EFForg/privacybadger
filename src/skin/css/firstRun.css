@@ -497,7 +497,7 @@ header .title-bar h1 {
   display:block;
   margin:2.5rem auto 2rem;
   padding-bottom:3rem;
-  width:146px;
+  width:94px;
   z-index:3;
 }
 .share-links>a {
@@ -549,12 +549,6 @@ header .title-bar h1 {
   background:url("../images/facebook.svg");
 }
 .share-links>a.share-facebook i:hover {
-  opacity:0.7;
-}
-.share-links>a.share-google i {
-  background:url("../images/google.svg");
-}
-.share-links>a.share-google i:hover {
   opacity:0.7;
 }
 .share-links>a {
@@ -621,12 +615,6 @@ header .title-bar h1 {
     background:url("../images/facebook.svg");
   }
   .share-links>a.share-facebook i:hover {
-    opacity:0.7;
-  }
-  .share-links>a.share-google i {
-    background:url("../images/google.svg");
-  }
-  .share-links>a.share-google i:hover {
     opacity:0.7;
   }
   .share-links>a {

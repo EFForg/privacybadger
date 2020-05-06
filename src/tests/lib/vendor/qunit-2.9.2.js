@@ -1,36 +1,55 @@
 /*!
- * QUnit 2.2.0
+ * QUnit 2.9.2
  * https://qunitjs.com/
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2017-03-11T16:19Z
+ * Date: 2019-02-21T22:49Z
  */
 (function (global$1) {
   'use strict';
 
-  global$1 = 'default' in global$1 ? global$1['default'] : global$1;
+  global$1 = global$1 && global$1.hasOwnProperty('default') ? global$1['default'] : global$1;
 
-  var window = global$1.window;
+  var window$1 = global$1.window;
+  var self$1 = global$1.self;
   var console = global$1.console;
-  var setTimeout = global$1.setTimeout;
+  var setTimeout$1 = global$1.setTimeout;
   var clearTimeout = global$1.clearTimeout;
 
-  var document = window && window.document;
-  var navigator = window && window.navigator;
+  var document$1 = window$1 && window$1.document;
+  var navigator = window$1 && window$1.navigator;
 
-  var sessionStorage = function () {
+  var localSessionStorage = function () {
   	var x = "qunit-test-string";
   	try {
-  		sessionStorage.setItem(x, x);
-  		sessionStorage.removeItem(x);
-  		return sessionStorage;
+  		global$1.sessionStorage.setItem(x, x);
+  		global$1.sessionStorage.removeItem(x);
+  		return global$1.sessionStorage;
   	} catch (e) {
   		return undefined;
   	}
   }();
+
+  /**
+   * Returns a function that proxies to the given method name on the globals
+   * console object. The proxy will also detect if the console doesn't exist and
+   * will appropriately no-op. This allows support for IE9, which doesn't have a
+   * console if the developer tools are not open.
+   */
+  function consoleProxy(method) {
+  	return function () {
+  		if (console) {
+  			console[method].apply(console, arguments);
+  		}
+  	};
+  }
+
+  var Logger = {
+  	warn: consoleProxy("warn")
+  };
 
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
@@ -128,9 +147,28 @@
   	return new Date().getTime();
   };
 
+  var hasPerformanceApi = detectPerformanceApi();
+  var performance = hasPerformanceApi ? window$1.performance : undefined;
+  var performanceNow = hasPerformanceApi ? performance.now.bind(performance) : now;
+
+  function detectPerformanceApi() {
+  	return window$1 && typeof window$1.performance !== "undefined" && typeof window$1.performance.mark === "function" && typeof window$1.performance.measure === "function";
+  }
+
+  function measure(comment, startMark, endMark) {
+
+  	// `performance.measure` may fail if the mark could not be found.
+  	// reasons a specific mark could not be found include: outside code invoking `performance.clearMarks()`
+  	try {
+  		performance.measure(comment, startMark, endMark);
+  	} catch (ex) {
+  		Logger.warn("performance.measure could not be executed because of ", ex.message);
+  	}
+  }
+
   var defined = {
-  	document: window && window.document !== undefined,
-  	setTimeout: setTimeout !== undefined
+  	document: window$1 && window$1.document !== undefined,
+  	setTimeout: setTimeout$1 !== undefined
   };
 
   // Returns a new Array with the elements that are in a but not in b
@@ -226,16 +264,35 @@
   		case "Function":
   		case "Symbol":
   			return type.toLowerCase();
-  	}
-
-  	if ((typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object") {
-  		return "object";
+  		default:
+  			return typeof obj === "undefined" ? "undefined" : _typeof(obj);
   	}
   }
 
   // Safe object type checking
   function is(type, obj) {
   	return objectType(obj) === type;
+  }
+
+  // Based on Java's String.hashCode, a simple but not
+  // rigorously collision resistant hashing function
+  function generateHash(module, testName) {
+  	var str = module + "\x1C" + testName;
+  	var hash = 0;
+
+  	for (var i = 0; i < str.length; i++) {
+  		hash = (hash << 5) - hash + str.charCodeAt(i);
+  		hash |= 0;
+  	}
+
+  	// Convert the possibly negative integer hash code into an 8 character hex string, which isn't
+  	// strictly necessary but increases user understanding that the id is a SHA-like hash
+  	var hex = (0x100000000 + hash).toString(16);
+  	if (hex.length < 8) {
+  		hex = "0000000" + hex;
+  	}
+
+  	return hex.slice(-8);
   }
 
   // Test for equality any JavaScript type.
@@ -566,7 +623,13 @@
   		return arguments.length === 2 || innerEquiv.apply(this, [].slice.call(arguments, 1));
   	}
 
-  	return innerEquiv;
+  	return function () {
+  		var result = innerEquiv.apply(undefined, arguments);
+
+  		// Release any retained objects
+  		pairs.length = 0;
+  		return result;
+  	};
   })();
 
   /**
@@ -608,28 +671,32 @@
   	// Set of all modules.
   	modules: [],
 
-  	// Stack of nested modules
-  	moduleStack: [],
-
   	// The first unnamed module
   	currentModule: {
   		name: "",
   		tests: [],
   		childModules: [],
-  		testsRun: 0
+  		testsRun: 0,
+  		unskippedTestsRun: 0,
+  		hooks: {
+  			before: [],
+  			beforeEach: [],
+  			afterEach: [],
+  			after: []
+  		}
   	},
 
   	callbacks: {},
 
   	// The storage module to use for reordering tests
-  	storage: sessionStorage
+  	storage: localSessionStorage
   };
 
   // take a predefined QUnit.config and extend the defaults
-  var globalConfig = window && window.QUnit && window.QUnit.config;
+  var globalConfig = window$1 && window$1.QUnit && window$1.QUnit.config;
 
   // only extend the global config if there is no QUnit overload
-  if (window && window.QUnit && !window.QUnit.version) {
+  if (window$1 && window$1.QUnit && !window$1.QUnit.version) {
   	extend(config, globalConfig);
   }
 
@@ -920,6 +987,264 @@
   	return dump;
   })();
 
+  var SuiteReport = function () {
+  	function SuiteReport(name, parentSuite) {
+  		classCallCheck(this, SuiteReport);
+
+  		this.name = name;
+  		this.fullName = parentSuite ? parentSuite.fullName.concat(name) : [];
+
+  		this.tests = [];
+  		this.childSuites = [];
+
+  		if (parentSuite) {
+  			parentSuite.pushChildSuite(this);
+  		}
+  	}
+
+  	createClass(SuiteReport, [{
+  		key: "start",
+  		value: function start(recordTime) {
+  			if (recordTime) {
+  				this._startTime = performanceNow();
+
+  				if (performance) {
+  					var suiteLevel = this.fullName.length;
+  					performance.mark("qunit_suite_" + suiteLevel + "_start");
+  				}
+  			}
+
+  			return {
+  				name: this.name,
+  				fullName: this.fullName.slice(),
+  				tests: this.tests.map(function (test) {
+  					return test.start();
+  				}),
+  				childSuites: this.childSuites.map(function (suite) {
+  					return suite.start();
+  				}),
+  				testCounts: {
+  					total: this.getTestCounts().total
+  				}
+  			};
+  		}
+  	}, {
+  		key: "end",
+  		value: function end(recordTime) {
+  			if (recordTime) {
+  				this._endTime = performanceNow();
+
+  				if (performance) {
+  					var suiteLevel = this.fullName.length;
+  					performance.mark("qunit_suite_" + suiteLevel + "_end");
+
+  					var suiteName = this.fullName.join(" – ");
+
+  					measure(suiteLevel === 0 ? "QUnit Test Run" : "QUnit Test Suite: " + suiteName, "qunit_suite_" + suiteLevel + "_start", "qunit_suite_" + suiteLevel + "_end");
+  				}
+  			}
+
+  			return {
+  				name: this.name,
+  				fullName: this.fullName.slice(),
+  				tests: this.tests.map(function (test) {
+  					return test.end();
+  				}),
+  				childSuites: this.childSuites.map(function (suite) {
+  					return suite.end();
+  				}),
+  				testCounts: this.getTestCounts(),
+  				runtime: this.getRuntime(),
+  				status: this.getStatus()
+  			};
+  		}
+  	}, {
+  		key: "pushChildSuite",
+  		value: function pushChildSuite(suite) {
+  			this.childSuites.push(suite);
+  		}
+  	}, {
+  		key: "pushTest",
+  		value: function pushTest(test) {
+  			this.tests.push(test);
+  		}
+  	}, {
+  		key: "getRuntime",
+  		value: function getRuntime() {
+  			return this._endTime - this._startTime;
+  		}
+  	}, {
+  		key: "getTestCounts",
+  		value: function getTestCounts() {
+  			var counts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { passed: 0, failed: 0, skipped: 0, todo: 0, total: 0 };
+
+  			counts = this.tests.reduce(function (counts, test) {
+  				if (test.valid) {
+  					counts[test.getStatus()]++;
+  					counts.total++;
+  				}
+
+  				return counts;
+  			}, counts);
+
+  			return this.childSuites.reduce(function (counts, suite) {
+  				return suite.getTestCounts(counts);
+  			}, counts);
+  		}
+  	}, {
+  		key: "getStatus",
+  		value: function getStatus() {
+  			var _getTestCounts = this.getTestCounts(),
+  			    total = _getTestCounts.total,
+  			    failed = _getTestCounts.failed,
+  			    skipped = _getTestCounts.skipped,
+  			    todo = _getTestCounts.todo;
+
+  			if (failed) {
+  				return "failed";
+  			} else {
+  				if (skipped === total) {
+  					return "skipped";
+  				} else if (todo === total) {
+  					return "todo";
+  				} else {
+  					return "passed";
+  				}
+  			}
+  		}
+  	}]);
+  	return SuiteReport;
+  }();
+
+  var focused = false;
+
+  var moduleStack = [];
+
+  function createModule(name, testEnvironment, modifiers) {
+  	var parentModule = moduleStack.length ? moduleStack.slice(-1)[0] : null;
+  	var moduleName = parentModule !== null ? [parentModule.name, name].join(" > ") : name;
+  	var parentSuite = parentModule ? parentModule.suiteReport : globalSuite;
+
+  	var skip = parentModule !== null && parentModule.skip || modifiers.skip;
+  	var todo = parentModule !== null && parentModule.todo || modifiers.todo;
+
+  	var module = {
+  		name: moduleName,
+  		parentModule: parentModule,
+  		tests: [],
+  		moduleId: generateHash(moduleName),
+  		testsRun: 0,
+  		unskippedTestsRun: 0,
+  		childModules: [],
+  		suiteReport: new SuiteReport(name, parentSuite),
+
+  		// Pass along `skip` and `todo` properties from parent module, in case
+  		// there is one, to childs. And use own otherwise.
+  		// This property will be used to mark own tests and tests of child suites
+  		// as either `skipped` or `todo`.
+  		skip: skip,
+  		todo: skip ? false : todo
+  	};
+
+  	var env = {};
+  	if (parentModule) {
+  		parentModule.childModules.push(module);
+  		extend(env, parentModule.testEnvironment);
+  	}
+  	extend(env, testEnvironment);
+  	module.testEnvironment = env;
+
+  	config.modules.push(module);
+  	return module;
+  }
+
+  function processModule(name, options, executeNow) {
+  	var modifiers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+  	if (objectType(options) === "function") {
+  		executeNow = options;
+  		options = undefined;
+  	}
+
+  	var module = createModule(name, options, modifiers);
+
+  	// Move any hooks to a 'hooks' object
+  	var testEnvironment = module.testEnvironment;
+  	var hooks = module.hooks = {};
+
+  	setHookFromEnvironment(hooks, testEnvironment, "before");
+  	setHookFromEnvironment(hooks, testEnvironment, "beforeEach");
+  	setHookFromEnvironment(hooks, testEnvironment, "afterEach");
+  	setHookFromEnvironment(hooks, testEnvironment, "after");
+
+  	var moduleFns = {
+  		before: setHookFunction(module, "before"),
+  		beforeEach: setHookFunction(module, "beforeEach"),
+  		afterEach: setHookFunction(module, "afterEach"),
+  		after: setHookFunction(module, "after")
+  	};
+
+  	var currentModule = config.currentModule;
+  	if (objectType(executeNow) === "function") {
+  		moduleStack.push(module);
+  		config.currentModule = module;
+  		executeNow.call(module.testEnvironment, moduleFns);
+  		moduleStack.pop();
+  		module = module.parentModule || currentModule;
+  	}
+
+  	config.currentModule = module;
+
+  	function setHookFromEnvironment(hooks, environment, name) {
+  		var potentialHook = environment[name];
+  		hooks[name] = typeof potentialHook === "function" ? [potentialHook] : [];
+  		delete environment[name];
+  	}
+
+  	function setHookFunction(module, hookName) {
+  		return function setHook(callback) {
+  			module.hooks[hookName].push(callback);
+  		};
+  	}
+  }
+
+  function module$1(name, options, executeNow) {
+  	if (focused) {
+  		return;
+  	}
+
+  	processModule(name, options, executeNow);
+  }
+
+  module$1.only = function () {
+  	if (focused) {
+  		return;
+  	}
+
+  	config.modules.length = 0;
+  	config.queue.length = 0;
+
+  	module$1.apply(undefined, arguments);
+
+  	focused = true;
+  };
+
+  module$1.skip = function (name, options, executeNow) {
+  	if (focused) {
+  		return;
+  	}
+
+  	processModule(name, options, executeNow, { skip: true });
+  };
+
+  module$1.todo = function (name, options, executeNow) {
+  	if (focused) {
+  		return;
+  	}
+
+  	processModule(name, options, executeNow, { todo: true });
+  };
+
   var LISTENERS = Object.create(null);
   var SUPPORTED_EVENTS = ["runStart", "suiteStart", "testStart", "assertion", "testEnd", "suiteEnd", "runEnd"];
 
@@ -978,6 +1303,1182 @@
   	}
   }
 
+  function objectOrFunction(x) {
+    var type = typeof x === 'undefined' ? 'undefined' : _typeof(x);
+    return x !== null && (type === 'object' || type === 'function');
+  }
+
+  function isFunction(x) {
+    return typeof x === 'function';
+  }
+
+
+
+  var _isArray = void 0;
+  if (Array.isArray) {
+    _isArray = Array.isArray;
+  } else {
+    _isArray = function _isArray(x) {
+      return Object.prototype.toString.call(x) === '[object Array]';
+    };
+  }
+
+  var isArray = _isArray;
+
+  var len = 0;
+  var vertxNext = void 0;
+  var customSchedulerFn = void 0;
+
+  var asap = function asap(callback, arg) {
+    queue[len] = callback;
+    queue[len + 1] = arg;
+    len += 2;
+    if (len === 2) {
+      // If len is 2, that means that we need to schedule an async flush.
+      // If additional callbacks are queued before the queue is flushed, they
+      // will be processed by this flush that we are scheduling.
+      if (customSchedulerFn) {
+        customSchedulerFn(flush);
+      } else {
+        scheduleFlush();
+      }
+    }
+  };
+
+  function setScheduler(scheduleFn) {
+    customSchedulerFn = scheduleFn;
+  }
+
+  function setAsap(asapFn) {
+    asap = asapFn;
+  }
+
+  var browserWindow = typeof window !== 'undefined' ? window : undefined;
+  var browserGlobal = browserWindow || {};
+  var BrowserMutationObserver = browserGlobal.MutationObserver || browserGlobal.WebKitMutationObserver;
+  var isNode = typeof self === 'undefined' && typeof process !== 'undefined' && {}.toString.call(process) === '[object process]';
+
+  // test for web worker but not in IE10
+  var isWorker = typeof Uint8ClampedArray !== 'undefined' && typeof importScripts !== 'undefined' && typeof MessageChannel !== 'undefined';
+
+  // node
+  function useNextTick() {
+    // node version 0.10.x displays a deprecation warning when nextTick is used recursively
+    // see https://github.com/cujojs/when/issues/410 for details
+    return function () {
+      return process.nextTick(flush);
+    };
+  }
+
+  // vertx
+  function useVertxTimer() {
+    if (typeof vertxNext !== 'undefined') {
+      return function () {
+        vertxNext(flush);
+      };
+    }
+
+    return useSetTimeout();
+  }
+
+  function useMutationObserver() {
+    var iterations = 0;
+    var observer = new BrowserMutationObserver(flush);
+    var node = document.createTextNode('');
+    observer.observe(node, { characterData: true });
+
+    return function () {
+      node.data = iterations = ++iterations % 2;
+    };
+  }
+
+  // web worker
+  function useMessageChannel() {
+    var channel = new MessageChannel();
+    channel.port1.onmessage = flush;
+    return function () {
+      return channel.port2.postMessage(0);
+    };
+  }
+
+  function useSetTimeout() {
+    // Store setTimeout reference so es6-promise will be unaffected by
+    // other code modifying setTimeout (like sinon.useFakeTimers())
+    var globalSetTimeout = setTimeout;
+    return function () {
+      return globalSetTimeout(flush, 1);
+    };
+  }
+
+  var queue = new Array(1000);
+  function flush() {
+    for (var i = 0; i < len; i += 2) {
+      var callback = queue[i];
+      var arg = queue[i + 1];
+
+      callback(arg);
+
+      queue[i] = undefined;
+      queue[i + 1] = undefined;
+    }
+
+    len = 0;
+  }
+
+  function attemptVertx() {
+    try {
+      var vertx = Function('return this')().require('vertx');
+      vertxNext = vertx.runOnLoop || vertx.runOnContext;
+      return useVertxTimer();
+    } catch (e) {
+      return useSetTimeout();
+    }
+  }
+
+  var scheduleFlush = void 0;
+  // Decide what async method to use to triggering processing of queued callbacks:
+  if (isNode) {
+    scheduleFlush = useNextTick();
+  } else if (BrowserMutationObserver) {
+    scheduleFlush = useMutationObserver();
+  } else if (isWorker) {
+    scheduleFlush = useMessageChannel();
+  } else if (browserWindow === undefined && typeof require === 'function') {
+    scheduleFlush = attemptVertx();
+  } else {
+    scheduleFlush = useSetTimeout();
+  }
+
+  function then(onFulfillment, onRejection) {
+    var parent = this;
+
+    var child = new this.constructor(noop);
+
+    if (child[PROMISE_ID] === undefined) {
+      makePromise(child);
+    }
+
+    var _state = parent._state;
+
+
+    if (_state) {
+      var callback = arguments[_state - 1];
+      asap(function () {
+        return invokeCallback(_state, child, callback, parent._result);
+      });
+    } else {
+      subscribe(parent, child, onFulfillment, onRejection);
+    }
+
+    return child;
+  }
+
+  /**
+    `Promise.resolve` returns a promise that will become resolved with the
+    passed `value`. It is shorthand for the following:
+
+    ```javascript
+    let promise = new Promise(function(resolve, reject){
+      resolve(1);
+    });
+
+    promise.then(function(value){
+      // value === 1
+    });
+    ```
+
+    Instead of writing the above, your code now simply becomes the following:
+
+    ```javascript
+    let promise = Promise.resolve(1);
+
+    promise.then(function(value){
+      // value === 1
+    });
+    ```
+
+    @method resolve
+    @static
+    @param {Any} value value that the returned promise will be resolved with
+    Useful for tooling.
+    @return {Promise} a promise that will become fulfilled with the given
+    `value`
+  */
+  function resolve$1(object) {
+    /*jshint validthis:true */
+    var Constructor = this;
+
+    if (object && (typeof object === 'undefined' ? 'undefined' : _typeof(object)) === 'object' && object.constructor === Constructor) {
+      return object;
+    }
+
+    var promise = new Constructor(noop);
+    resolve(promise, object);
+    return promise;
+  }
+
+  var PROMISE_ID = Math.random().toString(36).substring(2);
+
+  function noop() {}
+
+  var PENDING = void 0;
+  var FULFILLED = 1;
+  var REJECTED = 2;
+
+  var TRY_CATCH_ERROR = { error: null };
+
+  function selfFulfillment() {
+    return new TypeError("You cannot resolve a promise with itself");
+  }
+
+  function cannotReturnOwn() {
+    return new TypeError('A promises callback cannot return that same promise.');
+  }
+
+  function getThen(promise) {
+    try {
+      return promise.then;
+    } catch (error) {
+      TRY_CATCH_ERROR.error = error;
+      return TRY_CATCH_ERROR;
+    }
+  }
+
+  function tryThen(then$$1, value, fulfillmentHandler, rejectionHandler) {
+    try {
+      then$$1.call(value, fulfillmentHandler, rejectionHandler);
+    } catch (e) {
+      return e;
+    }
+  }
+
+  function handleForeignThenable(promise, thenable, then$$1) {
+    asap(function (promise) {
+      var sealed = false;
+      var error = tryThen(then$$1, thenable, function (value) {
+        if (sealed) {
+          return;
+        }
+        sealed = true;
+        if (thenable !== value) {
+          resolve(promise, value);
+        } else {
+          fulfill(promise, value);
+        }
+      }, function (reason) {
+        if (sealed) {
+          return;
+        }
+        sealed = true;
+
+        reject(promise, reason);
+      }, 'Settle: ' + (promise._label || ' unknown promise'));
+
+      if (!sealed && error) {
+        sealed = true;
+        reject(promise, error);
+      }
+    }, promise);
+  }
+
+  function handleOwnThenable(promise, thenable) {
+    if (thenable._state === FULFILLED) {
+      fulfill(promise, thenable._result);
+    } else if (thenable._state === REJECTED) {
+      reject(promise, thenable._result);
+    } else {
+      subscribe(thenable, undefined, function (value) {
+        return resolve(promise, value);
+      }, function (reason) {
+        return reject(promise, reason);
+      });
+    }
+  }
+
+  function handleMaybeThenable(promise, maybeThenable, then$$1) {
+    if (maybeThenable.constructor === promise.constructor && then$$1 === then && maybeThenable.constructor.resolve === resolve$1) {
+      handleOwnThenable(promise, maybeThenable);
+    } else {
+      if (then$$1 === TRY_CATCH_ERROR) {
+        reject(promise, TRY_CATCH_ERROR.error);
+        TRY_CATCH_ERROR.error = null;
+      } else if (then$$1 === undefined) {
+        fulfill(promise, maybeThenable);
+      } else if (isFunction(then$$1)) {
+        handleForeignThenable(promise, maybeThenable, then$$1);
+      } else {
+        fulfill(promise, maybeThenable);
+      }
+    }
+  }
+
+  function resolve(promise, value) {
+    if (promise === value) {
+      reject(promise, selfFulfillment());
+    } else if (objectOrFunction(value)) {
+      handleMaybeThenable(promise, value, getThen(value));
+    } else {
+      fulfill(promise, value);
+    }
+  }
+
+  function publishRejection(promise) {
+    if (promise._onerror) {
+      promise._onerror(promise._result);
+    }
+
+    publish(promise);
+  }
+
+  function fulfill(promise, value) {
+    if (promise._state !== PENDING) {
+      return;
+    }
+
+    promise._result = value;
+    promise._state = FULFILLED;
+
+    if (promise._subscribers.length !== 0) {
+      asap(publish, promise);
+    }
+  }
+
+  function reject(promise, reason) {
+    if (promise._state !== PENDING) {
+      return;
+    }
+    promise._state = REJECTED;
+    promise._result = reason;
+
+    asap(publishRejection, promise);
+  }
+
+  function subscribe(parent, child, onFulfillment, onRejection) {
+    var _subscribers = parent._subscribers;
+    var length = _subscribers.length;
+
+
+    parent._onerror = null;
+
+    _subscribers[length] = child;
+    _subscribers[length + FULFILLED] = onFulfillment;
+    _subscribers[length + REJECTED] = onRejection;
+
+    if (length === 0 && parent._state) {
+      asap(publish, parent);
+    }
+  }
+
+  function publish(promise) {
+    var subscribers = promise._subscribers;
+    var settled = promise._state;
+
+    if (subscribers.length === 0) {
+      return;
+    }
+
+    var child = void 0,
+        callback = void 0,
+        detail = promise._result;
+
+    for (var i = 0; i < subscribers.length; i += 3) {
+      child = subscribers[i];
+      callback = subscribers[i + settled];
+
+      if (child) {
+        invokeCallback(settled, child, callback, detail);
+      } else {
+        callback(detail);
+      }
+    }
+
+    promise._subscribers.length = 0;
+  }
+
+  function tryCatch(callback, detail) {
+    try {
+      return callback(detail);
+    } catch (e) {
+      TRY_CATCH_ERROR.error = e;
+      return TRY_CATCH_ERROR;
+    }
+  }
+
+  function invokeCallback(settled, promise, callback, detail) {
+    var hasCallback = isFunction(callback),
+        value = void 0,
+        error = void 0,
+        succeeded = void 0,
+        failed = void 0;
+
+    if (hasCallback) {
+      value = tryCatch(callback, detail);
+
+      if (value === TRY_CATCH_ERROR) {
+        failed = true;
+        error = value.error;
+        value.error = null;
+      } else {
+        succeeded = true;
+      }
+
+      if (promise === value) {
+        reject(promise, cannotReturnOwn());
+        return;
+      }
+    } else {
+      value = detail;
+      succeeded = true;
+    }
+
+    if (promise._state !== PENDING) {
+      // noop
+    } else if (hasCallback && succeeded) {
+      resolve(promise, value);
+    } else if (failed) {
+      reject(promise, error);
+    } else if (settled === FULFILLED) {
+      fulfill(promise, value);
+    } else if (settled === REJECTED) {
+      reject(promise, value);
+    }
+  }
+
+  function initializePromise(promise, resolver) {
+    try {
+      resolver(function resolvePromise(value) {
+        resolve(promise, value);
+      }, function rejectPromise(reason) {
+        reject(promise, reason);
+      });
+    } catch (e) {
+      reject(promise, e);
+    }
+  }
+
+  var id = 0;
+  function nextId() {
+    return id++;
+  }
+
+  function makePromise(promise) {
+    promise[PROMISE_ID] = id++;
+    promise._state = undefined;
+    promise._result = undefined;
+    promise._subscribers = [];
+  }
+
+  function validationError() {
+    return new Error('Array Methods must be provided an Array');
+  }
+
+  var Enumerator = function () {
+    function Enumerator(Constructor, input) {
+      classCallCheck(this, Enumerator);
+
+      this._instanceConstructor = Constructor;
+      this.promise = new Constructor(noop);
+
+      if (!this.promise[PROMISE_ID]) {
+        makePromise(this.promise);
+      }
+
+      if (isArray(input)) {
+        this.length = input.length;
+        this._remaining = input.length;
+
+        this._result = new Array(this.length);
+
+        if (this.length === 0) {
+          fulfill(this.promise, this._result);
+        } else {
+          this.length = this.length || 0;
+          this._enumerate(input);
+          if (this._remaining === 0) {
+            fulfill(this.promise, this._result);
+          }
+        }
+      } else {
+        reject(this.promise, validationError());
+      }
+    }
+
+    createClass(Enumerator, [{
+      key: '_enumerate',
+      value: function _enumerate(input) {
+        for (var i = 0; this._state === PENDING && i < input.length; i++) {
+          this._eachEntry(input[i], i);
+        }
+      }
+    }, {
+      key: '_eachEntry',
+      value: function _eachEntry(entry, i) {
+        var c = this._instanceConstructor;
+        var resolve$$1 = c.resolve;
+
+
+        if (resolve$$1 === resolve$1) {
+          var _then = getThen(entry);
+
+          if (_then === then && entry._state !== PENDING) {
+            this._settledAt(entry._state, i, entry._result);
+          } else if (typeof _then !== 'function') {
+            this._remaining--;
+            this._result[i] = entry;
+          } else if (c === Promise$2) {
+            var promise = new c(noop);
+            handleMaybeThenable(promise, entry, _then);
+            this._willSettleAt(promise, i);
+          } else {
+            this._willSettleAt(new c(function (resolve$$1) {
+              return resolve$$1(entry);
+            }), i);
+          }
+        } else {
+          this._willSettleAt(resolve$$1(entry), i);
+        }
+      }
+    }, {
+      key: '_settledAt',
+      value: function _settledAt(state, i, value) {
+        var promise = this.promise;
+
+
+        if (promise._state === PENDING) {
+          this._remaining--;
+
+          if (state === REJECTED) {
+            reject(promise, value);
+          } else {
+            this._result[i] = value;
+          }
+        }
+
+        if (this._remaining === 0) {
+          fulfill(promise, this._result);
+        }
+      }
+    }, {
+      key: '_willSettleAt',
+      value: function _willSettleAt(promise, i) {
+        var enumerator = this;
+
+        subscribe(promise, undefined, function (value) {
+          return enumerator._settledAt(FULFILLED, i, value);
+        }, function (reason) {
+          return enumerator._settledAt(REJECTED, i, reason);
+        });
+      }
+    }]);
+    return Enumerator;
+  }();
+
+  /**
+    `Promise.all` accepts an array of promises, and returns a new promise which
+    is fulfilled with an array of fulfillment values for the passed promises, or
+    rejected with the reason of the first passed promise to be rejected. It casts all
+    elements of the passed iterable to promises as it runs this algorithm.
+
+    Example:
+
+    ```javascript
+    let promise1 = resolve(1);
+    let promise2 = resolve(2);
+    let promise3 = resolve(3);
+    let promises = [ promise1, promise2, promise3 ];
+
+    Promise.all(promises).then(function(array){
+      // The array here would be [ 1, 2, 3 ];
+    });
+    ```
+
+    If any of the `promises` given to `all` are rejected, the first promise
+    that is rejected will be given as an argument to the returned promises's
+    rejection handler. For example:
+
+    Example:
+
+    ```javascript
+    let promise1 = resolve(1);
+    let promise2 = reject(new Error("2"));
+    let promise3 = reject(new Error("3"));
+    let promises = [ promise1, promise2, promise3 ];
+
+    Promise.all(promises).then(function(array){
+      // Code here never runs because there are rejected promises!
+    }, function(error) {
+      // error.message === "2"
+    });
+    ```
+
+    @method all
+    @static
+    @param {Array} entries array of promises
+    @param {String} label optional string for labeling the promise.
+    Useful for tooling.
+    @return {Promise} promise that is fulfilled when all `promises` have been
+    fulfilled, or rejected if any of them become rejected.
+    @static
+  */
+  function all(entries) {
+    return new Enumerator(this, entries).promise;
+  }
+
+  /**
+    `Promise.race` returns a new promise which is settled in the same way as the
+    first passed promise to settle.
+
+    Example:
+
+    ```javascript
+    let promise1 = new Promise(function(resolve, reject){
+      setTimeout(function(){
+        resolve('promise 1');
+      }, 200);
+    });
+
+    let promise2 = new Promise(function(resolve, reject){
+      setTimeout(function(){
+        resolve('promise 2');
+      }, 100);
+    });
+
+    Promise.race([promise1, promise2]).then(function(result){
+      // result === 'promise 2' because it was resolved before promise1
+      // was resolved.
+    });
+    ```
+
+    `Promise.race` is deterministic in that only the state of the first
+    settled promise matters. For example, even if other promises given to the
+    `promises` array argument are resolved, but the first settled promise has
+    become rejected before the other promises became fulfilled, the returned
+    promise will become rejected:
+
+    ```javascript
+    let promise1 = new Promise(function(resolve, reject){
+      setTimeout(function(){
+        resolve('promise 1');
+      }, 200);
+    });
+
+    let promise2 = new Promise(function(resolve, reject){
+      setTimeout(function(){
+        reject(new Error('promise 2'));
+      }, 100);
+    });
+
+    Promise.race([promise1, promise2]).then(function(result){
+      // Code here never runs
+    }, function(reason){
+      // reason.message === 'promise 2' because promise 2 became rejected before
+      // promise 1 became fulfilled
+    });
+    ```
+
+    An example real-world use case is implementing timeouts:
+
+    ```javascript
+    Promise.race([ajax('foo.json'), timeout(5000)])
+    ```
+
+    @method race
+    @static
+    @param {Array} promises array of promises to observe
+    Useful for tooling.
+    @return {Promise} a promise which settles in the same way as the first passed
+    promise to settle.
+  */
+  function race(entries) {
+    /*jshint validthis:true */
+    var Constructor = this;
+
+    if (!isArray(entries)) {
+      return new Constructor(function (_, reject) {
+        return reject(new TypeError('You must pass an array to race.'));
+      });
+    } else {
+      return new Constructor(function (resolve, reject) {
+        var length = entries.length;
+        for (var i = 0; i < length; i++) {
+          Constructor.resolve(entries[i]).then(resolve, reject);
+        }
+      });
+    }
+  }
+
+  /**
+    `Promise.reject` returns a promise rejected with the passed `reason`.
+    It is shorthand for the following:
+
+    ```javascript
+    let promise = new Promise(function(resolve, reject){
+      reject(new Error('WHOOPS'));
+    });
+
+    promise.then(function(value){
+      // Code here doesn't run because the promise is rejected!
+    }, function(reason){
+      // reason.message === 'WHOOPS'
+    });
+    ```
+
+    Instead of writing the above, your code now simply becomes the following:
+
+    ```javascript
+    let promise = Promise.reject(new Error('WHOOPS'));
+
+    promise.then(function(value){
+      // Code here doesn't run because the promise is rejected!
+    }, function(reason){
+      // reason.message === 'WHOOPS'
+    });
+    ```
+
+    @method reject
+    @static
+    @param {Any} reason value that the returned promise will be rejected with.
+    Useful for tooling.
+    @return {Promise} a promise rejected with the given `reason`.
+  */
+  function reject$1(reason) {
+    /*jshint validthis:true */
+    var Constructor = this;
+    var promise = new Constructor(noop);
+    reject(promise, reason);
+    return promise;
+  }
+
+  function needsResolver() {
+    throw new TypeError('You must pass a resolver function as the first argument to the promise constructor');
+  }
+
+  function needsNew() {
+    throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");
+  }
+
+  /**
+    Promise objects represent the eventual result of an asynchronous operation. The
+    primary way of interacting with a promise is through its `then` method, which
+    registers callbacks to receive either a promise's eventual value or the reason
+    why the promise cannot be fulfilled.
+
+    Terminology
+    -----------
+
+    - `promise` is an object or function with a `then` method whose behavior conforms to this specification.
+    - `thenable` is an object or function that defines a `then` method.
+    - `value` is any legal JavaScript value (including undefined, a thenable, or a promise).
+    - `exception` is a value that is thrown using the throw statement.
+    - `reason` is a value that indicates why a promise was rejected.
+    - `settled` the final resting state of a promise, fulfilled or rejected.
+
+    A promise can be in one of three states: pending, fulfilled, or rejected.
+
+    Promises that are fulfilled have a fulfillment value and are in the fulfilled
+    state.  Promises that are rejected have a rejection reason and are in the
+    rejected state.  A fulfillment value is never a thenable.
+
+    Promises can also be said to *resolve* a value.  If this value is also a
+    promise, then the original promise's settled state will match the value's
+    settled state.  So a promise that *resolves* a promise that rejects will
+    itself reject, and a promise that *resolves* a promise that fulfills will
+    itself fulfill.
+
+
+    Basic Usage:
+    ------------
+
+    ```js
+    let promise = new Promise(function(resolve, reject) {
+      // on success
+      resolve(value);
+
+      // on failure
+      reject(reason);
+    });
+
+    promise.then(function(value) {
+      // on fulfillment
+    }, function(reason) {
+      // on rejection
+    });
+    ```
+
+    Advanced Usage:
+    ---------------
+
+    Promises shine when abstracting away asynchronous interactions such as
+    `XMLHttpRequest`s.
+
+    ```js
+    function getJSON(url) {
+      return new Promise(function(resolve, reject){
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url);
+        xhr.onreadystatechange = handler;
+        xhr.responseType = 'json';
+        xhr.setRequestHeader('Accept', 'application/json');
+        xhr.send();
+
+        function handler() {
+          if (this.readyState === this.DONE) {
+            if (this.status === 200) {
+              resolve(this.response);
+            } else {
+              reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
+            }
+          }
+        };
+      });
+    }
+
+    getJSON('/posts.json').then(function(json) {
+      // on fulfillment
+    }, function(reason) {
+      // on rejection
+    });
+    ```
+
+    Unlike callbacks, promises are great composable primitives.
+
+    ```js
+    Promise.all([
+      getJSON('/posts'),
+      getJSON('/comments')
+    ]).then(function(values){
+      values[0] // => postsJSON
+      values[1] // => commentsJSON
+
+      return values;
+    });
+    ```
+
+    @class Promise
+    @param {Function} resolver
+    Useful for tooling.
+    @constructor
+  */
+
+  var Promise$2 = function () {
+    function Promise(resolver) {
+      classCallCheck(this, Promise);
+
+      this[PROMISE_ID] = nextId();
+      this._result = this._state = undefined;
+      this._subscribers = [];
+
+      if (noop !== resolver) {
+        typeof resolver !== 'function' && needsResolver();
+        this instanceof Promise ? initializePromise(this, resolver) : needsNew();
+      }
+    }
+
+    /**
+    The primary way of interacting with a promise is through its `then` method,
+    which registers callbacks to receive either a promise's eventual value or the
+    reason why the promise cannot be fulfilled.
+     ```js
+    findUser().then(function(user){
+      // user is available
+    }, function(reason){
+      // user is unavailable, and you are given the reason why
+    });
+    ```
+     Chaining
+    --------
+     The return value of `then` is itself a promise.  This second, 'downstream'
+    promise is resolved with the return value of the first promise's fulfillment
+    or rejection handler, or rejected if the handler throws an exception.
+     ```js
+    findUser().then(function (user) {
+      return user.name;
+    }, function (reason) {
+      return 'default name';
+    }).then(function (userName) {
+      // If `findUser` fulfilled, `userName` will be the user's name, otherwise it
+      // will be `'default name'`
+    });
+     findUser().then(function (user) {
+      throw new Error('Found user, but still unhappy');
+    }, function (reason) {
+      throw new Error('`findUser` rejected and we're unhappy');
+    }).then(function (value) {
+      // never reached
+    }, function (reason) {
+      // if `findUser` fulfilled, `reason` will be 'Found user, but still unhappy'.
+      // If `findUser` rejected, `reason` will be '`findUser` rejected and we're unhappy'.
+    });
+    ```
+    If the downstream promise does not specify a rejection handler, rejection reasons will be propagated further downstream.
+     ```js
+    findUser().then(function (user) {
+      throw new PedagogicalException('Upstream error');
+    }).then(function (value) {
+      // never reached
+    }).then(function (value) {
+      // never reached
+    }, function (reason) {
+      // The `PedgagocialException` is propagated all the way down to here
+    });
+    ```
+     Assimilation
+    ------------
+     Sometimes the value you want to propagate to a downstream promise can only be
+    retrieved asynchronously. This can be achieved by returning a promise in the
+    fulfillment or rejection handler. The downstream promise will then be pending
+    until the returned promise is settled. This is called *assimilation*.
+     ```js
+    findUser().then(function (user) {
+      return findCommentsByAuthor(user);
+    }).then(function (comments) {
+      // The user's comments are now available
+    });
+    ```
+     If the assimliated promise rejects, then the downstream promise will also reject.
+     ```js
+    findUser().then(function (user) {
+      return findCommentsByAuthor(user);
+    }).then(function (comments) {
+      // If `findCommentsByAuthor` fulfills, we'll have the value here
+    }, function (reason) {
+      // If `findCommentsByAuthor` rejects, we'll have the reason here
+    });
+    ```
+     Simple Example
+    --------------
+     Synchronous Example
+     ```javascript
+    let result;
+     try {
+      result = findResult();
+      // success
+    } catch(reason) {
+      // failure
+    }
+    ```
+     Errback Example
+     ```js
+    findResult(function(result, err){
+      if (err) {
+        // failure
+      } else {
+        // success
+      }
+    });
+    ```
+     Promise Example;
+     ```javascript
+    findResult().then(function(result){
+      // success
+    }, function(reason){
+      // failure
+    });
+    ```
+     Advanced Example
+    --------------
+     Synchronous Example
+     ```javascript
+    let author, books;
+     try {
+      author = findAuthor();
+      books  = findBooksByAuthor(author);
+      // success
+    } catch(reason) {
+      // failure
+    }
+    ```
+     Errback Example
+     ```js
+     function foundBooks(books) {
+     }
+     function failure(reason) {
+     }
+     findAuthor(function(author, err){
+      if (err) {
+        failure(err);
+        // failure
+      } else {
+        try {
+          findBoooksByAuthor(author, function(books, err) {
+            if (err) {
+              failure(err);
+            } else {
+              try {
+                foundBooks(books);
+              } catch(reason) {
+                failure(reason);
+              }
+            }
+          });
+        } catch(error) {
+          failure(err);
+        }
+        // success
+      }
+    });
+    ```
+     Promise Example;
+     ```javascript
+    findAuthor().
+      then(findBooksByAuthor).
+      then(function(books){
+        // found books
+    }).catch(function(reason){
+      // something went wrong
+    });
+    ```
+     @method then
+    @param {Function} onFulfilled
+    @param {Function} onRejected
+    Useful for tooling.
+    @return {Promise}
+    */
+
+    /**
+    `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
+    as the catch block of a try/catch statement.
+    ```js
+    function findAuthor(){
+    throw new Error('couldn't find that author');
+    }
+    // synchronous
+    try {
+    findAuthor();
+    } catch(reason) {
+    // something went wrong
+    }
+    // async with promises
+    findAuthor().catch(function(reason){
+    // something went wrong
+    });
+    ```
+    @method catch
+    @param {Function} onRejection
+    Useful for tooling.
+    @return {Promise}
+    */
+
+
+    createClass(Promise, [{
+      key: 'catch',
+      value: function _catch(onRejection) {
+        return this.then(null, onRejection);
+      }
+
+      /**
+        `finally` will be invoked regardless of the promise's fate just as native
+        try/catch/finally behaves
+      
+        Synchronous example:
+      
+        ```js
+        findAuthor() {
+          if (Math.random() > 0.5) {
+            throw new Error();
+          }
+          return new Author();
+        }
+      
+        try {
+          return findAuthor(); // succeed or fail
+        } catch(error) {
+          return findOtherAuther();
+        } finally {
+          // always runs
+          // doesn't affect the return value
+        }
+        ```
+      
+        Asynchronous example:
+      
+        ```js
+        findAuthor().catch(function(reason){
+          return findOtherAuther();
+        }).finally(function(){
+          // author was either found, or not
+        });
+        ```
+      
+        @method finally
+        @param {Function} callback
+        @return {Promise}
+      */
+
+    }, {
+      key: 'finally',
+      value: function _finally(callback) {
+        var promise = this;
+        var constructor = promise.constructor;
+
+        if (isFunction(callback)) {
+          return promise.then(function (value) {
+            return constructor.resolve(callback()).then(function () {
+              return value;
+            });
+          }, function (reason) {
+            return constructor.resolve(callback()).then(function () {
+              throw reason;
+            });
+          });
+        }
+
+        return promise.then(callback, callback);
+      }
+    }]);
+    return Promise;
+  }();
+
+  Promise$2.prototype.then = then;
+  Promise$2.all = all;
+  Promise$2.race = race;
+  Promise$2.resolve = resolve$1;
+  Promise$2.reject = reject$1;
+  Promise$2._setScheduler = setScheduler;
+  Promise$2._setAsap = setAsap;
+  Promise$2._asap = asap;
+
+  /*global self*/
+  function polyfill() {
+    var local = void 0;
+
+    if (typeof global !== 'undefined') {
+      local = global;
+    } else if (typeof self !== 'undefined') {
+      local = self;
+    } else {
+      try {
+        local = Function('return this')();
+      } catch (e) {
+        throw new Error('polyfill failed because global object is unavailable in this environment');
+      }
+    }
+
+    var P = local.Promise;
+
+    if (P) {
+      var promiseToString = null;
+      try {
+        promiseToString = Object.prototype.toString.call(P.resolve());
+      } catch (e) {
+        // silently ignored
+      }
+
+      if (promiseToString === '[object Promise]' && !P.cast) {
+        return;
+      }
+    }
+
+    local.Promise = Promise$2;
+  }
+
+  // Strange compat..
+  Promise$2.polyfill = polyfill;
+  Promise$2.Promise = Promise$2;
+
+  var Promise$1 = typeof Promise !== "undefined" ? Promise : Promise$2;
+
   // Register logging callbacks
   function registerLoggingCallbacks(obj) {
   	var i,
@@ -1010,12 +2511,25 @@
   }
 
   function runLoggingCallbacks(key, args) {
-  	var i, l, callbacks;
+  	var callbacks = config.callbacks[key];
 
-  	callbacks = config.callbacks[key];
-  	for (i = 0, l = callbacks.length; i < l; i++) {
-  		callbacks[i](args);
+  	// Handling 'log' callbacks separately. Unlike the other callbacks,
+  	// the log callback is not controlled by the processing queue,
+  	// but rather used by asserts. Hence to promisfy the 'log' callback
+  	// would mean promisfying each step of a test
+  	if (key === "log") {
+  		callbacks.map(function (callback) {
+  			return callback(args);
+  		});
+  		return;
   	}
+
+  	// ensure that each callback is executed serially
+  	return callbacks.reduce(function (promiseChain, callback) {
+  		return promiseChain.then(function () {
+  			return Promise$1.resolve(callback(args));
+  		});
+  	}, Promise$1.resolve([]));
   }
 
   // Doesn't support IE9, it will return undefined on these browsers
@@ -1064,6 +2578,201 @@
   	return extractStacktrace(error, offset);
   }
 
+  var priorityCount = 0;
+  var unitSampler = void 0;
+
+  // This is a queue of functions that are tasks within a single test.
+  // After tests are dequeued from config.queue they are expanded into
+  // a set of tasks in this queue.
+  var taskQueue = [];
+
+  /**
+   * Advances the taskQueue to the next task. If the taskQueue is empty,
+   * process the testQueue
+   */
+  function advance() {
+  	advanceTaskQueue();
+
+  	if (!taskQueue.length && !config.blocking && !config.current) {
+  		advanceTestQueue();
+  	}
+  }
+
+  /**
+   * Advances the taskQueue with an increased depth
+   */
+  function advanceTaskQueue() {
+  	var start = now();
+  	config.depth = (config.depth || 0) + 1;
+
+  	processTaskQueue(start);
+
+  	config.depth--;
+  }
+
+  /**
+   * Process the first task on the taskQueue as a promise.
+   * Each task is a function returned by https://github.com/qunitjs/qunit/blob/master/src/test.js#L381
+   */
+  function processTaskQueue(start) {
+  	if (taskQueue.length && !config.blocking) {
+  		var elapsedTime = now() - start;
+
+  		if (!defined.setTimeout || config.updateRate <= 0 || elapsedTime < config.updateRate) {
+  			var task = taskQueue.shift();
+  			Promise$1.resolve(task()).then(function () {
+  				if (!taskQueue.length) {
+  					advance();
+  				} else {
+  					processTaskQueue(start);
+  				}
+  			});
+  		} else {
+  			setTimeout$1(advance);
+  		}
+  	}
+  }
+
+  /**
+   * Advance the testQueue to the next test to process. Call done() if testQueue completes.
+   */
+  function advanceTestQueue() {
+  	if (!config.blocking && !config.queue.length && config.depth === 0) {
+  		done();
+  		return;
+  	}
+
+  	var testTasks = config.queue.shift();
+  	addToTaskQueue(testTasks());
+
+  	if (priorityCount > 0) {
+  		priorityCount--;
+  	}
+
+  	advance();
+  }
+
+  /**
+   * Enqueue the tasks for a test into the task queue.
+   * @param {Array} tasksArray
+   */
+  function addToTaskQueue(tasksArray) {
+  	taskQueue.push.apply(taskQueue, toConsumableArray(tasksArray));
+  }
+
+  /**
+   * Return the number of tasks remaining in the task queue to be processed.
+   * @return {Number}
+   */
+  function taskQueueLength() {
+  	return taskQueue.length;
+  }
+
+  /**
+   * Adds a test to the TestQueue for execution.
+   * @param {Function} testTasksFunc
+   * @param {Boolean} prioritize
+   * @param {String} seed
+   */
+  function addToTestQueue(testTasksFunc, prioritize, seed) {
+  	if (prioritize) {
+  		config.queue.splice(priorityCount++, 0, testTasksFunc);
+  	} else if (seed) {
+  		if (!unitSampler) {
+  			unitSampler = unitSamplerGenerator(seed);
+  		}
+
+  		// Insert into a random position after all prioritized items
+  		var index = Math.floor(unitSampler() * (config.queue.length - priorityCount + 1));
+  		config.queue.splice(priorityCount + index, 0, testTasksFunc);
+  	} else {
+  		config.queue.push(testTasksFunc);
+  	}
+  }
+
+  /**
+   * Creates a seeded "sample" generator which is used for randomizing tests.
+   */
+  function unitSamplerGenerator(seed) {
+
+  	// 32-bit xorshift, requires only a nonzero seed
+  	// http://excamera.com/sphinx/article-xorshift.html
+  	var sample = parseInt(generateHash(seed), 16) || -1;
+  	return function () {
+  		sample ^= sample << 13;
+  		sample ^= sample >>> 17;
+  		sample ^= sample << 5;
+
+  		// ECMAScript has no unsigned number type
+  		if (sample < 0) {
+  			sample += 0x100000000;
+  		}
+
+  		return sample / 0x100000000;
+  	};
+  }
+
+  /**
+   * This function is called when the ProcessingQueue is done processing all
+   * items. It handles emitting the final run events.
+   */
+  function done() {
+  	var storage = config.storage;
+
+  	ProcessingQueue.finished = true;
+
+  	var runtime = now() - config.started;
+  	var passed = config.stats.all - config.stats.bad;
+
+  	if (config.stats.all === 0) {
+
+  		if (config.filter && config.filter.length) {
+  			throw new Error("No tests matched the filter \"" + config.filter + "\".");
+  		}
+
+  		if (config.module && config.module.length) {
+  			throw new Error("No tests matched the module \"" + config.module + "\".");
+  		}
+
+  		if (config.moduleId && config.moduleId.length) {
+  			throw new Error("No tests matched the moduleId \"" + config.moduleId + "\".");
+  		}
+
+  		if (config.testId && config.testId.length) {
+  			throw new Error("No tests matched the testId \"" + config.testId + "\".");
+  		}
+
+  		throw new Error("No tests were run.");
+  	}
+
+  	emit("runEnd", globalSuite.end(true));
+  	runLoggingCallbacks("done", {
+  		passed: passed,
+  		failed: config.stats.bad,
+  		total: config.stats.all,
+  		runtime: runtime
+  	}).then(function () {
+
+  		// Clear own storage items if all tests passed
+  		if (storage && config.stats.bad === 0) {
+  			for (var i = storage.length - 1; i >= 0; i--) {
+  				var key = storage.key(i);
+
+  				if (key.indexOf("qunit-test-") === 0) {
+  					storage.removeItem(key);
+  				}
+  			}
+  		}
+  	});
+  }
+
+  var ProcessingQueue = {
+  	finished: false,
+  	add: addToTestQueue,
+  	advance: advance,
+  	taskCount: taskQueueLength
+  };
+
   var TestReport = function () {
   	function TestReport(name, suite, options) {
   		classCallCheck(this, TestReport);
@@ -1077,6 +2786,8 @@
   		this.skipped = !!options.skip;
   		this.todo = !!options.todo;
 
+  		this.valid = options.valid;
+
   		this._startTime = 0;
   		this._endTime = 0;
 
@@ -1087,7 +2798,10 @@
   		key: "start",
   		value: function start(recordTime) {
   			if (recordTime) {
-  				this._startTime = Date.now();
+  				this._startTime = performanceNow();
+  				if (performance) {
+  					performance.mark("qunit_test_start");
+  				}
   			}
 
   			return {
@@ -1100,7 +2814,14 @@
   		key: "end",
   		value: function end(recordTime) {
   			if (recordTime) {
-  				this._endTime = Date.now();
+  				this._endTime = performanceNow();
+  				if (performance) {
+  					performance.mark("qunit_test_end");
+
+  					var testName = this.fullName.join(" – ");
+
+  					measure("QUnit Test: " + testName, "qunit_test_start", "qunit_test_end");
+  				}
   			}
 
   			return extend(this.start(), {
@@ -1149,13 +2870,24 @@
   		value: function getAssertions() {
   			return this.assertions.slice();
   		}
+
+  		// Remove actual and expected values from assertions. This is to prevent
+  		// leaking memory throughout a test suite.
+
+  	}, {
+  		key: "slimAssertions",
+  		value: function slimAssertions() {
+  			this.assertions = this.assertions.map(function (assertion) {
+  				delete assertion.actual;
+  				delete assertion.expected;
+  				return assertion;
+  			});
+  		}
   	}]);
   	return TestReport;
   }();
 
-  var unitSampler;
-  var focused = false;
-  var priorityCount = 0;
+  var focused$1 = false;
 
   function Test(settings) {
   	var i, l;
@@ -1163,17 +2895,35 @@
   	++Test.count;
 
   	this.expected = null;
-  	extend(this, settings);
   	this.assertions = [];
   	this.semaphore = 0;
-  	this.usedAsync = false;
   	this.module = config.currentModule;
   	this.stack = sourceFromStacktrace(3);
   	this.steps = [];
+  	this.timeout = undefined;
+
+  	// If a module is skipped, all its tests and the tests of the child suites
+  	// should be treated as skipped even if they are defined as `only` or `todo`.
+  	// As for `todo` module, all its tests will be treated as `todo` except for
+  	// tests defined as `skip` which will be left intact.
+  	//
+  	// So, if a test is defined as `todo` and is inside a skipped module, we should
+  	// then treat that test as if was defined as `skip`.
+  	if (this.module.skip) {
+  		settings.skip = true;
+  		settings.todo = false;
+
+  		// Skipped tests should be left intact
+  	} else if (this.module.todo && !settings.skip) {
+  		settings.todo = true;
+  	}
+
+  	extend(this, settings);
 
   	this.testReport = new TestReport(settings.testName, this.module.suiteReport, {
   		todo: settings.todo,
-  		skip: settings.skip
+  		skip: settings.skip,
+  		valid: this.valid()
   	});
 
   	// Register unique strings
@@ -1187,7 +2937,8 @@
 
   	this.module.tests.push({
   		name: this.testName,
-  		testId: this.testId
+  		testId: this.testId,
+  		skip: !!settings.skip
   	});
 
   	if (settings.skip) {
@@ -1197,6 +2948,13 @@
   		this.async = false;
   		this.expected = 0;
   	} else {
+  		if (typeof this.callback !== "function") {
+  			var method = this.todo ? "todo" : "test";
+
+  			// eslint-disable-next-line max-len
+  			throw new TypeError("You must provide a function as a test callback to QUnit." + method + "(\"" + settings.testName + "\")");
+  		}
+
   		this.assert = new Assert(this);
   	}
   }
@@ -1212,48 +2970,48 @@
   		module = module.parentModule;
   	}
 
-  	return modules;
+  	// The above push modules from the child to the parent
+  	// return a reversed order with the top being the top most parent module
+  	return modules.reverse();
   }
 
   Test.prototype = {
   	before: function before() {
-  		var i,
-  		    startModule,
-  		    module = this.module,
+  		var _this = this;
+
+  		var module = this.module,
   		    notStartedModules = getNotStartedModules(module);
 
-  		for (i = notStartedModules.length - 1; i >= 0; i--) {
-  			startModule = notStartedModules[i];
-  			startModule.stats = { all: 0, bad: 0, started: now() };
-  			emit("suiteStart", startModule.suiteReport.start(true));
-  			runLoggingCallbacks("moduleStart", {
-  				name: startModule.name,
-  				tests: startModule.tests
+  		// ensure the callbacks are executed serially for each module
+  		var callbackPromises = notStartedModules.reduce(function (promiseChain, startModule) {
+  			return promiseChain.then(function () {
+  				startModule.stats = { all: 0, bad: 0, started: now() };
+  				emit("suiteStart", startModule.suiteReport.start(true));
+  				return runLoggingCallbacks("moduleStart", {
+  					name: startModule.name,
+  					tests: startModule.tests
+  				});
   			});
-  		}
+  		}, Promise$1.resolve([]));
 
-  		config.current = this;
+  		return callbackPromises.then(function () {
+  			config.current = _this;
 
-  		if (module.testEnvironment) {
-  			delete module.testEnvironment.before;
-  			delete module.testEnvironment.beforeEach;
-  			delete module.testEnvironment.afterEach;
-  			delete module.testEnvironment.after;
-  		}
-  		this.testEnvironment = extend({}, module.testEnvironment);
+  			_this.testEnvironment = extend({}, module.testEnvironment);
 
-  		this.started = now();
-  		emit("testStart", this.testReport.start(true));
-  		runLoggingCallbacks("testStart", {
-  			name: this.testName,
-  			module: module.name,
-  			testId: this.testId,
-  			previousFailure: this.previousFailure
+  			_this.started = now();
+  			emit("testStart", _this.testReport.start(true));
+  			return runLoggingCallbacks("testStart", {
+  				name: _this.testName,
+  				module: module.name,
+  				testId: _this.testId,
+  				previousFailure: _this.previousFailure
+  			}).then(function () {
+  				if (!config.pollution) {
+  					saveGlobal();
+  				}
+  			});
   		});
-
-  		if (!config.pollution) {
-  			saveGlobal();
-  		}
   	},
 
   	run: function run() {
@@ -1285,6 +3043,12 @@
   		function runTest(test) {
   			promise = test.callback.call(test.testEnvironment, test.assert);
   			test.resolvePromise(promise);
+
+  			// If the test has a "lock" on it, but the timeout is 0, then we push a
+  			// failure as the test should be synchronous.
+  			if (test.timeout === 0 && test.semaphore !== 0) {
+  				pushFailure("Test did not finish synchronously even though assert.timeout( 0 ) was used.", sourceFromStacktrace(2));
+  			}
   		}
   	},
 
@@ -1293,22 +3057,29 @@
   	},
 
   	queueHook: function queueHook(hook, hookName, hookOwner) {
-  		var promise,
-  		    test = this;
-  		return function runHook() {
+  		var _this2 = this;
+
+  		var callHook = function callHook() {
+  			var promise = hook.call(_this2.testEnvironment, _this2.assert);
+  			_this2.resolvePromise(promise, hookName);
+  		};
+
+  		var runHook = function runHook() {
   			if (hookName === "before") {
-  				if (hookOwner.testsRun !== 0) {
+  				if (hookOwner.unskippedTestsRun !== 0) {
   					return;
   				}
 
-  				test.preserveEnvironment = true;
+  				_this2.preserveEnvironment = true;
   			}
 
-  			if (hookName === "after" && hookOwner.testsRun !== numberOfTests(hookOwner) - 1) {
+  			// The 'after' hook should only execute when there are not tests left and
+  			// when the 'after' and 'finish' tasks are the only tasks left to process
+  			if (hookName === "after" && hookOwner.unskippedTestsRun !== numberOfUnskippedTests(hookOwner) - 1 && (config.queue.length > 0 || ProcessingQueue.taskCount() > 2)) {
   				return;
   			}
 
-  			config.current = test;
+  			config.current = _this2;
   			if (config.notrycatch) {
   				callHook();
   				return;
@@ -1316,15 +3087,13 @@
   			try {
   				callHook();
   			} catch (error) {
-  				test.pushFailure(hookName + " failed on " + test.testName + ": " + (error.message || error), extractStacktrace(error, 0));
-  			}
-
-  			function callHook() {
-  				promise = hook.call(test.testEnvironment, test.assert);
-  				test.resolvePromise(promise, hookName);
+  				_this2.pushFailure(hookName + " failed on " + _this2.testName + ": " + (error.message || error), extractStacktrace(error, 0));
   			}
   		};
+
+  		return runHook;
   	},
+
 
   	// Currently only used for module level hooks, can be used to add global level ones
   	hooks: function hooks(handler) {
@@ -1334,8 +3103,11 @@
   			if (module.parentModule) {
   				processHooks(test, module.parentModule);
   			}
-  			if (module.testEnvironment && objectType(module.testEnvironment[handler]) === "function") {
-  				hooks.push(test.queueHook(module.testEnvironment[handler], handler, module));
+
+  			if (module.hooks[handler].length) {
+  				for (var i = 0; i < module.hooks[handler].length; i++) {
+  					hooks.push(test.queueHook(module.hooks[handler][i], handler, module));
+  				}
   			}
   		}
 
@@ -1343,11 +3115,23 @@
   		if (!this.skip) {
   			processHooks(this, this.module);
   		}
+
   		return hooks;
   	},
 
+
   	finish: function finish() {
   		config.current = this;
+
+  		// Release the test callback to ensure that anything referenced has been
+  		// released to be garbage collected.
+  		this.callback = undefined;
+
+  		if (this.steps.length) {
+  			var stepsList = this.steps.join(", ");
+  			this.pushFailure("Expected assert.verifySteps() to be called before end of test " + ("after using assert.step(). Unverified steps: " + stepsList), this.stack);
+  		}
+
   		if (config.requireExpects && this.expected === null) {
   			this.pushFailure("Expected number of assertions to be defined, but expect() was " + "not called.", this.stack);
   		} else if (this.expected !== null && this.expected !== this.assertions.length) {
@@ -1378,7 +3162,7 @@
   			}
   		}
 
-  		notifyTestsRan(module);
+  		notifyTestsRan(module, skipped);
 
   		// Store result when possible
   		if (storage) {
@@ -1389,8 +3173,12 @@
   			}
   		}
 
+  		// After emitting the js-reporters event we cleanup the assertion data to
+  		// avoid leaking it. It is not used by the legacy testDone callbacks.
   		emit("testEnd", this.testReport.end(true));
-  		runLoggingCallbacks("testDone", {
+  		this.testReport.slimAssertions();
+
+  		return runLoggingCallbacks("testDone", {
   			name: testName,
   			module: moduleName,
   			skipped: skipped,
@@ -1406,11 +3194,36 @@
 
   			// Source of Test
   			source: this.stack
+  		}).then(function () {
+  			if (module.testsRun === numberOfTests(module)) {
+  				var completedModules = [module];
+
+  				// Check if the parent modules, iteratively, are done. If that the case,
+  				// we emit the `suiteEnd` event and trigger `moduleDone` callback.
+  				var parent = module.parentModule;
+  				while (parent && parent.testsRun === numberOfTests(parent)) {
+  					completedModules.push(parent);
+  					parent = parent.parentModule;
+  				}
+
+  				return completedModules.reduce(function (promiseChain, completedModule) {
+  					return promiseChain.then(function () {
+  						return logSuiteEnd(completedModule);
+  					});
+  				}, Promise$1.resolve([]));
+  			}
+  		}).then(function () {
+  			config.current = undefined;
   		});
 
-  		if (module.testsRun === numberOfTests(module)) {
+  		function logSuiteEnd(module) {
+
+  			// Reset `module.hooks` to ensure that anything referenced in these hooks
+  			// has been released to be garbage collected.
+  			module.hooks = {};
+
   			emit("suiteEnd", module.suiteReport.end(true));
-  			runLoggingCallbacks("moduleDone", {
+  			return runLoggingCallbacks("moduleDone", {
   				name: module.name,
   				tests: module.tests,
   				failed: module.stats.bad,
@@ -1419,8 +3232,6 @@
   				runtime: now() - module.stats.started
   			});
   		}
-
-  		config.current = undefined;
   	},
 
   	preserveTestEnvironment: function preserveTestEnvironment() {
@@ -1431,41 +3242,46 @@
   	},
 
   	queue: function queue() {
-  		var priority,
-  		    previousFailCount,
-  		    test = this;
+  		var test = this;
 
   		if (!this.valid()) {
   			return;
   		}
 
-  		function run() {
-
-  			// Each of these can by async
-  			synchronize([function () {
-  				test.before();
-  			}, test.hooks("before"), function () {
+  		function runTest() {
+  			return [function () {
+  				return test.before();
+  			}].concat(toConsumableArray(test.hooks("before")), [function () {
   				test.preserveTestEnvironment();
-  			}, test.hooks("beforeEach"), function () {
+  			}], toConsumableArray(test.hooks("beforeEach")), [function () {
   				test.run();
-  			}, test.hooks("afterEach").reverse(), test.hooks("after").reverse(), function () {
+  			}], toConsumableArray(test.hooks("afterEach").reverse()), toConsumableArray(test.hooks("after").reverse()), [function () {
   				test.after();
   			}, function () {
-  				test.finish();
+  				return test.finish();
   			}]);
   		}
 
-  		previousFailCount = config.storage && +config.storage.getItem("qunit-test-" + this.module.name + "-" + this.testName);
+  		var previousFailCount = config.storage && +config.storage.getItem("qunit-test-" + this.module.name + "-" + this.testName);
 
   		// Prioritize previously failed tests, detected from storage
-  		priority = config.reorder && previousFailCount;
+  		var prioritize = config.reorder && !!previousFailCount;
 
   		this.previousFailure = !!previousFailCount;
 
-  		return synchronize(run, priority, config.seed);
+  		ProcessingQueue.add(runTest, prioritize, config.seed);
+
+  		// If the queue has already finished, we manually process the new test
+  		if (ProcessingQueue.finished) {
+  			ProcessingQueue.advance();
+  		}
   	},
 
+
   	pushResult: function pushResult(resultInfo) {
+  		if (this !== config.current) {
+  			throw new Error("Assertion occurred after test had finished.");
+  		}
 
   		// Destructure of resultInfo = { result, actual, expected, message, negative }
   		var source,
@@ -1475,12 +3291,15 @@
   			result: resultInfo.result,
   			message: resultInfo.message,
   			actual: resultInfo.actual,
-  			expected: resultInfo.expected,
   			testId: this.testId,
   			negative: resultInfo.negative || false,
   			runtime: now() - this.started,
   			todo: !!this.todo
   		};
+
+  		if (hasOwn.call(resultInfo, "expected")) {
+  			details.expected = resultInfo.expected;
+  		}
 
   		if (!resultInfo.result) {
   			source = resultInfo.source || sourceFromStacktrace();
@@ -1503,11 +3322,10 @@
   			throw new Error("pushFailure() assertion outside test context, was " + sourceFromStacktrace(2));
   		}
 
-  		this.assert.pushResult({
+  		this.pushResult({
   			result: false,
   			message: message || "error",
   			actual: actual || null,
-  			expected: null,
   			source: source
   		});
   	},
@@ -1543,18 +3361,24 @@
   			then = promise.then;
   			if (objectType(then) === "function") {
   				resume = internalStop(test);
-  				then.call(promise, function () {
-  					resume();
-  				}, function (error) {
-  					message = "Promise rejected " + (!phase ? "during" : phase.replace(/Each$/, "")) + " \"" + test.testName + "\": " + (error && error.message || error);
-  					test.pushFailure(message, extractStacktrace(error, 0));
+  				if (config.notrycatch) {
+  					then.call(promise, function () {
+  						resume();
+  					});
+  				} else {
+  					then.call(promise, function () {
+  						resume();
+  					}, function (error) {
+  						message = "Promise rejected " + (!phase ? "during" : phase.replace(/Each$/, "")) + " \"" + test.testName + "\": " + (error && error.message || error);
+  						test.pushFailure(message, extractStacktrace(error, 0));
 
-  					// Else next test will carry the responsibility
-  					saveGlobal();
+  						// Else next test will carry the responsibility
+  						saveGlobal();
 
-  					// Unblock
-  					resume();
-  				});
+  						// Unblock
+  						internalRecover(test);
+  					});
+  				}
   			}
   		}
   	},
@@ -1643,79 +3467,6 @@
   	return currentTest.pushFailure.apply(currentTest, arguments);
   }
 
-  // Based on Java's String.hashCode, a simple but not
-  // rigorously collision resistant hashing function
-  function generateHash(module, testName) {
-  	var hex,
-  	    i = 0,
-  	    hash = 0,
-  	    str = module + "\x1C" + testName,
-  	    len = str.length;
-
-  	for (; i < len; i++) {
-  		hash = (hash << 5) - hash + str.charCodeAt(i);
-  		hash |= 0;
-  	}
-
-  	// Convert the possibly negative integer hash code into an 8 character hex string, which isn't
-  	// strictly necessary but increases user understanding that the id is a SHA-like hash
-  	hex = (0x100000000 + hash).toString(16);
-  	if (hex.length < 8) {
-  		hex = "0000000" + hex;
-  	}
-
-  	return hex.slice(-8);
-  }
-
-  function synchronize(callback, priority, seed) {
-  	var last = !priority,
-  	    index;
-
-  	if (objectType(callback) === "array") {
-  		while (callback.length) {
-  			synchronize(callback.shift());
-  		}
-  		return;
-  	}
-
-  	if (priority) {
-  		config.queue.splice(priorityCount++, 0, callback);
-  	} else if (seed) {
-  		if (!unitSampler) {
-  			unitSampler = unitSamplerGenerator(seed);
-  		}
-
-  		// Insert into a random position after all priority items
-  		index = Math.floor(unitSampler() * (config.queue.length - priorityCount + 1));
-  		config.queue.splice(priorityCount + index, 0, callback);
-  	} else {
-  		config.queue.push(callback);
-  	}
-
-  	if (internalState.autorun && !config.blocking) {
-  		process(last);
-  	}
-  }
-
-  function unitSamplerGenerator(seed) {
-
-  	// 32-bit xorshift, requires only a nonzero seed
-  	// http://excamera.com/sphinx/article-xorshift.html
-  	var sample = parseInt(generateHash(seed), 16) || -1;
-  	return function () {
-  		sample ^= sample << 13;
-  		sample ^= sample >>> 17;
-  		sample ^= sample << 5;
-
-  		// ECMAScript has no unsigned number type
-  		if (sample < 0) {
-  			sample += 0x100000000;
-  		}
-
-  		return sample / 0x100000000;
-  	};
-  }
-
   function saveGlobal() {
   	config.pollution = [];
 
@@ -1753,7 +3504,7 @@
 
   // Will be exposed as QUnit.test
   function test(testName, callback) {
-  	if (focused) {
+  	if (focused$1) {
   		return;
   	}
 
@@ -1766,7 +3517,7 @@
   }
 
   function todo(testName, callback) {
-  	if (focused) {
+  	if (focused$1) {
   		return;
   	}
 
@@ -1781,7 +3532,7 @@
 
   // Will be exposed as QUnit.skip
   function skip(testName) {
-  	if (focused) {
+  	if (focused$1) {
   		return;
   	}
 
@@ -1795,12 +3546,12 @@
 
   // Will be exposed as QUnit.only
   function only(testName, callback) {
-  	if (focused) {
+  	if (focused$1) {
   		return;
   	}
 
   	config.queue.length = 0;
-  	focused = true;
+  	focused$1 = true;
 
   	var newTest = new Test({
   		testName: testName,
@@ -1813,17 +3564,27 @@
   // Put a hold on processing and return a function that will release it.
   function internalStop(test) {
   	var released = false;
-
   	test.semaphore += 1;
   	config.blocking = true;
 
   	// Set a recovery timeout, if so configured.
-  	if (config.testTimeout && defined.setTimeout) {
-  		clearTimeout(config.timeout);
-  		config.timeout = setTimeout(function () {
-  			pushFailure("Test timed out", sourceFromStacktrace(2));
-  			internalRecover(test);
-  		}, config.testTimeout);
+  	if (defined.setTimeout) {
+  		var timeoutDuration = void 0;
+
+  		if (typeof test.timeout === "number") {
+  			timeoutDuration = test.timeout;
+  		} else if (typeof config.testTimeout === "number") {
+  			timeoutDuration = config.testTimeout;
+  		}
+
+  		if (typeof timeoutDuration === "number" && timeoutDuration > 0) {
+  			clearTimeout(config.timeout);
+  			config.timeout = setTimeout$1(function () {
+  				pushFailure("Test took longer than " + timeoutDuration + "ms; test timed out.", sourceFromStacktrace(2));
+  				released = true;
+  				internalRecover(test);
+  			}, timeoutDuration);
+  		}
   	}
 
   	return function resume() {
@@ -1872,7 +3633,7 @@
   		if (config.timeout) {
   			clearTimeout(config.timeout);
   		}
-  		config.timeout = setTimeout(function () {
+  		config.timeout = setTimeout$1(function () {
   			if (test.semaphore > 0) {
   				return;
   			}
@@ -1882,50 +3643,48 @@
   			}
 
   			begin();
-  		}, 13);
+  		});
   	} else {
   		begin();
   	}
   }
 
-  function numberOfTests(module) {
-  	var count = module.tests.length,
-  	    modules = [].concat(toConsumableArray(module.childModules));
+  function collectTests(module) {
+  	var tests = [].concat(module.tests);
+  	var modules = [].concat(toConsumableArray(module.childModules));
 
   	// Do a breadth-first traversal of the child modules
   	while (modules.length) {
   		var nextModule = modules.shift();
-  		count += nextModule.tests.length;
+  		tests.push.apply(tests, nextModule.tests);
   		modules.push.apply(modules, toConsumableArray(nextModule.childModules));
   	}
 
-  	return count;
+  	return tests;
   }
 
-  function notifyTestsRan(module) {
+  function numberOfTests(module) {
+  	return collectTests(module).length;
+  }
+
+  function numberOfUnskippedTests(module) {
+  	return collectTests(module).filter(function (test) {
+  		return !test.skip;
+  	}).length;
+  }
+
+  function notifyTestsRan(module, skipped) {
   	module.testsRun++;
+  	if (!skipped) {
+  		module.unskippedTestsRun++;
+  	}
   	while (module = module.parentModule) {
   		module.testsRun++;
+  		if (!skipped) {
+  			module.unskippedTestsRun++;
+  		}
   	}
   }
-
-  /**
-   * Returns a function that proxies to the given method name on the globals
-   * console object. The proxy will also detect if the console doesn't exist and
-   * will appropriately no-op. This allows support for IE9, which doesn't have a
-   * console if the developer tools are not open.
-   */
-  function consoleProxy(method) {
-  	return function () {
-  		if (console) {
-  			console[method].apply(console, arguments);
-  		}
-  	};
-  }
-
-  var Logger = {
-  	warn: consoleProxy("warn")
-  };
 
   var Assert = function () {
   	function Assert(testContext) {
@@ -1936,19 +3695,36 @@
 
   	// Assert helpers
 
-  	// Documents a "step", which is a string value, in a test as a passing assertion
-
-
   	createClass(Assert, [{
+  		key: "timeout",
+  		value: function timeout(duration) {
+  			if (typeof duration !== "number") {
+  				throw new Error("You must pass a number as the duration to assert.timeout");
+  			}
+
+  			this.test.timeout = duration;
+  		}
+
+  		// Documents a "step", which is a string value, in a test as a passing assertion
+
+  	}, {
   		key: "step",
   		value: function step(message) {
+  			var assertionMessage = message;
   			var result = !!message;
 
   			this.test.steps.push(message);
 
-  			return this.pushResult({
+  			if (objectType(message) === "undefined" || message === "") {
+  				assertionMessage = "You must provide a message to assert.step";
+  			} else if (objectType(message) !== "string") {
+  				assertionMessage = "You must provide a string value to assert.step";
+  				result = false;
+  			}
+
+  			this.pushResult({
   				result: result,
-  				message: message || "You must provide a message to assert.step"
+  				message: assertionMessage
   			});
   		}
 
@@ -1957,7 +3733,11 @@
   	}, {
   		key: "verifySteps",
   		value: function verifySteps(steps, message) {
-  			this.deepEqual(this.test.steps, steps, message);
+
+  			// Since the steps array is just string values, we can clone with slice
+  			var actualStepsClone = this.test.steps.slice();
+  			this.deepEqual(actualStepsClone, steps, message);
+  			this.test.steps.length = 0;
   		}
 
   		// Specify the number of expected assertions to guarantee that failed test
@@ -1978,18 +3758,22 @@
   	}, {
   		key: "async",
   		value: function async(count) {
-  			var test$$1 = this.test,
-  			    popped = false,
+  			var test$$1 = this.test;
+
+  			var popped = false,
   			    acceptCallCount = count;
 
   			if (typeof acceptCallCount === "undefined") {
   				acceptCallCount = 1;
   			}
 
-  			test$$1.usedAsync = true;
   			var resume = internalStop(test$$1);
 
   			return function done() {
+  				if (config.current !== test$$1) {
+  					throw Error("assert.async callback called after test finished.");
+  				}
+
   				if (popped) {
   					test$$1.pushFailure("Too many calls to the `assert.async` callback", sourceFromStacktrace(2));
   					return;
@@ -2011,7 +3795,7 @@
   	}, {
   		key: "push",
   		value: function push(result, actual, expected, message, negative) {
-  			Logger.warn("assert.push is deprecated and will be removed in QUnit 3.0." + " Please use assert.pushResult instead (http://api.qunitjs.com/pushResult/).");
+  			Logger.warn("assert.push is deprecated and will be removed in QUnit 3.0." + " Please use assert.pushResult instead (https://api.qunitjs.com/assert/pushResult).");
 
   			var currentAssert = this instanceof Assert ? this : config.current.assert;
   			return currentAssert.pushResult({
@@ -2027,8 +3811,8 @@
   		value: function pushResult(resultInfo) {
 
   			// Destructure of resultInfo = { result, actual, expected, message, negative }
-  			var assert = this,
-  			    currentTest = assert instanceof Assert && assert.test || config.current;
+  			var assert = this;
+  			var currentTest = assert instanceof Assert && assert.test || config.current;
 
   			// Backwards compatibility fix.
   			// Allows the direct use of global exported assertions and QUnit.assert.*
@@ -2037,12 +3821,6 @@
   			// not exactly the test where assertion were intended to be called.
   			if (!currentTest) {
   				throw new Error("assertion outside test context, in " + sourceFromStacktrace(2));
-  			}
-
-  			if (currentTest.usedAsync === true && currentTest.semaphore === 0) {
-  				currentTest.pushFailure("Assertion after the final `assert.async` was resolved", sourceFromStacktrace(2));
-
-  				// Allow this assertion to continue running anyway...
   			}
 
   			if (!(assert instanceof Assert)) {
@@ -2181,8 +3959,9 @@
   		key: "throws",
   		value: function throws(block, expected, message) {
   			var actual = void 0,
-  			    result = false,
-  			    currentTest = this instanceof Assert && this.test || config.current;
+  			    result = false;
+
+  			var currentTest = this instanceof Assert && this.test || config.current;
 
   			// 'expected' is optional unless doing string comparison
   			if (objectType(expected) === "string") {
@@ -2208,11 +3987,13 @@
   				// We don't want to validate thrown error
   				if (!expected) {
   					result = true;
-  					expected = null;
 
   					// Expected is a regexp
   				} else if (expectedType === "regexp") {
   					result = expected.test(errorString(actual));
+
+  					// Log the string form of the regexp
+  					expected = String(expected);
 
   					// Expected is a constructor, maybe an Error constructor
   				} else if (expectedType === "function" && actual instanceof expected) {
@@ -2221,6 +4002,9 @@
   					// Expected is an Error object
   				} else if (expectedType === "object") {
   					result = actual instanceof expected.constructor && actual.name === expected.name && actual.message === expected.message;
+
+  					// Log the string form of the Error object
+  					expected = errorString(expected);
 
   					// Expected is a validation function which returns true if validation passed
   				} else if (expectedType === "function" && expected.call({}, actual) === true) {
@@ -2231,9 +4015,110 @@
 
   			currentTest.assert.pushResult({
   				result: result,
-  				actual: actual,
+
+  				// undefined if it didn't throw
+  				actual: actual && errorString(actual),
   				expected: expected,
   				message: message
+  			});
+  		}
+  	}, {
+  		key: "rejects",
+  		value: function rejects(promise, expected, message) {
+  			var result = false;
+
+  			var currentTest = this instanceof Assert && this.test || config.current;
+
+  			// 'expected' is optional unless doing string comparison
+  			if (objectType(expected) === "string") {
+  				if (message === undefined) {
+  					message = expected;
+  					expected = undefined;
+  				} else {
+  					message = "assert.rejects does not accept a string value for the expected " + "argument.\nUse a non-string object value (e.g. validator function) instead " + "if necessary.";
+
+  					currentTest.assert.pushResult({
+  						result: false,
+  						message: message
+  					});
+
+  					return;
+  				}
+  			}
+
+  			var then = promise && promise.then;
+  			if (objectType(then) !== "function") {
+  				var _message = "The value provided to `assert.rejects` in " + "\"" + currentTest.testName + "\" was not a promise.";
+
+  				currentTest.assert.pushResult({
+  					result: false,
+  					message: _message,
+  					actual: promise
+  				});
+
+  				return;
+  			}
+
+  			var done = this.async();
+
+  			return then.call(promise, function handleFulfillment() {
+  				var message = "The promise returned by the `assert.rejects` callback in " + "\"" + currentTest.testName + "\" did not reject.";
+
+  				currentTest.assert.pushResult({
+  					result: false,
+  					message: message,
+  					actual: promise
+  				});
+
+  				done();
+  			}, function handleRejection(actual) {
+  				var expectedType = objectType(expected);
+
+  				// We don't want to validate
+  				if (expected === undefined) {
+  					result = true;
+
+  					// Expected is a regexp
+  				} else if (expectedType === "regexp") {
+  					result = expected.test(errorString(actual));
+
+  					// Log the string form of the regexp
+  					expected = String(expected);
+
+  					// Expected is a constructor, maybe an Error constructor
+  				} else if (expectedType === "function" && actual instanceof expected) {
+  					result = true;
+
+  					// Expected is an Error object
+  				} else if (expectedType === "object") {
+  					result = actual instanceof expected.constructor && actual.name === expected.name && actual.message === expected.message;
+
+  					// Log the string form of the Error object
+  					expected = errorString(expected);
+
+  					// Expected is a validation function which returns true if validation passed
+  				} else {
+  					if (expectedType === "function") {
+  						result = expected.call({}, actual) === true;
+  						expected = null;
+
+  						// Expected is some other invalid type
+  					} else {
+  						result = false;
+  						message = "invalid expected value provided to `assert.rejects` " + "callback in \"" + currentTest.testName + "\": " + expectedType + ".";
+  					}
+  				}
+
+  				currentTest.assert.pushResult({
+  					result: result,
+
+  					// leave rejection value of undefined as-is
+  					actual: actual && errorString(actual),
+  					expected: expected,
+  					message: message
+  				});
+
+  				done();
   			});
   		}
   	}]);
@@ -2250,12 +4135,14 @@
   /**
    * Converts an error into a simple string for comparisons.
    *
-   * @param {Error} error
+   * @param {Error|Object} error
    * @return {String}
    */
   function errorString(error) {
   	var resultErrorString = error.toString();
 
+  	// If the error wasn't a subclass of Error but something like
+  	// an object literal with name and message properties...
   	if (resultErrorString.substring(0, 7) === "[object") {
   		var name = error.name ? error.name.toString() : "Error";
   		var message = error.message ? error.message.toString() : "";
@@ -2280,11 +4167,11 @@
   	if (defined.document) {
 
   		// QUnit may be defined when it is preconfigured but then only QUnit and QUnit.config may be defined.
-  		if (window.QUnit && window.QUnit.version) {
+  		if (window$1.QUnit && window$1.QUnit.version) {
   			throw new Error("QUnit has already been defined.");
   		}
 
-  		window.QUnit = QUnit;
+  		window$1.QUnit = QUnit;
   	}
 
   	// For nodejs
@@ -2306,119 +4193,12 @@
   		});
   		QUnit.config.autostart = false;
   	}
-  }
 
-  var SuiteReport = function () {
-  	function SuiteReport(name, parentSuite) {
-  		classCallCheck(this, SuiteReport);
-
-  		this.name = name;
-  		this.fullName = parentSuite ? parentSuite.fullName.concat(name) : [];
-
-  		this.tests = [];
-  		this.childSuites = [];
-
-  		if (parentSuite) {
-  			parentSuite.pushChildSuite(this);
-  		}
+  	// For Web/Service Workers
+  	if (self$1 && self$1.WorkerGlobalScope && self$1 instanceof self$1.WorkerGlobalScope) {
+  		self$1.QUnit = QUnit;
   	}
-
-  	createClass(SuiteReport, [{
-  		key: "start",
-  		value: function start(recordTime) {
-  			if (recordTime) {
-  				this._startTime = Date.now();
-  			}
-
-  			return {
-  				name: this.name,
-  				fullName: this.fullName.slice(),
-  				tests: this.tests.map(function (test) {
-  					return test.start();
-  				}),
-  				childSuites: this.childSuites.map(function (suite) {
-  					return suite.start();
-  				}),
-  				testCounts: {
-  					total: this.getTestCounts().total
-  				}
-  			};
-  		}
-  	}, {
-  		key: "end",
-  		value: function end(recordTime) {
-  			if (recordTime) {
-  				this._endTime = Date.now();
-  			}
-
-  			return {
-  				name: this.name,
-  				fullName: this.fullName.slice(),
-  				tests: this.tests.map(function (test) {
-  					return test.end();
-  				}),
-  				childSuites: this.childSuites.map(function (suite) {
-  					return suite.end();
-  				}),
-  				testCounts: this.getTestCounts(),
-  				runtime: this.getRuntime(),
-  				status: this.getStatus()
-  			};
-  		}
-  	}, {
-  		key: "pushChildSuite",
-  		value: function pushChildSuite(suite) {
-  			this.childSuites.push(suite);
-  		}
-  	}, {
-  		key: "pushTest",
-  		value: function pushTest(test) {
-  			this.tests.push(test);
-  		}
-  	}, {
-  		key: "getRuntime",
-  		value: function getRuntime() {
-  			return this._endTime - this._startTime;
-  		}
-  	}, {
-  		key: "getTestCounts",
-  		value: function getTestCounts() {
-  			var counts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { passed: 0, failed: 0, skipped: 0, todo: 0, total: 0 };
-
-  			counts = this.tests.reduce(function (counts, test) {
-  				counts[test.getStatus()]++;
-  				counts.total++;
-  				return counts;
-  			}, counts);
-
-  			return this.childSuites.reduce(function (counts, suite) {
-  				return suite.getTestCounts(counts);
-  			}, counts);
-  		}
-  	}, {
-  		key: "getStatus",
-  		value: function getStatus() {
-  			var _getTestCounts = this.getTestCounts(),
-  			    total = _getTestCounts.total,
-  			    failed = _getTestCounts.failed,
-  			    skipped = _getTestCounts.skipped,
-  			    todo = _getTestCounts.todo;
-
-  			if (failed) {
-  				return "failed";
-  			} else {
-  				if (skipped === total) {
-  					return "skipped";
-  				} else if (todo === total) {
-  					return "todo";
-  				} else {
-  					return "passed";
-  				}
-  			}
-  		}
-  	}]);
-  	return SuiteReport;
-  }();
+  }
 
   // Handle an unhandled exception. By convention, returns true if further
   // error handling should be suppressed and false otherwise.
@@ -2433,14 +4213,33 @@
   		if (config.current.ignoreGlobalErrors) {
   			return true;
   		}
-  		pushFailure.apply(undefined, [error.message, error.fileName + ":" + error.lineNumber].concat(args));
+  		pushFailure.apply(undefined, [error.message, error.stacktrace || error.fileName + ":" + error.lineNumber].concat(args));
   	} else {
   		test("global failure", extend(function () {
-  			pushFailure.apply(undefined, [error.message, error.fileName + ":" + error.lineNumber].concat(args));
+  			pushFailure.apply(undefined, [error.message, error.stacktrace || error.fileName + ":" + error.lineNumber].concat(args));
   		}, { validTest: true }));
   	}
 
   	return false;
+  }
+
+  // Handle an unhandled rejection
+  function onUnhandledRejection(reason) {
+  	var resultInfo = {
+  		result: false,
+  		message: reason.message || "error",
+  		actual: reason,
+  		source: reason.stack || sourceFromStacktrace(3)
+  	};
+
+  	var currentTest = config.current;
+  	if (currentTest) {
+  		currentTest.assert.pushResult(resultInfo);
+  	} else {
+  		test("global failure", extend(function (assert) {
+  			assert.pushResult(resultInfo);
+  		}, { validTest: true }));
+  	}
   }
 
   var QUnit = {};
@@ -2454,83 +4253,16 @@
   var globalStartCalled = false;
   var runStarted = false;
 
-  var internalState = {
-  	autorun: false
-  };
-
   // Figure out if we're running the tests from a server or not
-  QUnit.isLocal = !(defined.document && window.location.protocol !== "file:");
+  QUnit.isLocal = !(defined.document && window$1.location.protocol !== "file:");
 
   // Expose the current QUnit version
-  QUnit.version = "2.2.0";
+  QUnit.version = "2.9.2";
 
   extend(QUnit, {
   	on: on,
 
-  	// Call on start of module test to prepend name to all tests
-  	module: function module(name, testEnvironment, executeNow) {
-  		var module, moduleFns;
-  		var currentModule = config.currentModule;
-
-  		if (arguments.length === 2) {
-  			if (objectType(testEnvironment) === "function") {
-  				executeNow = testEnvironment;
-  				testEnvironment = undefined;
-  			}
-  		}
-
-  		module = createModule();
-
-  		moduleFns = {
-  			before: setHook(module, "before"),
-  			beforeEach: setHook(module, "beforeEach"),
-  			afterEach: setHook(module, "afterEach"),
-  			after: setHook(module, "after")
-  		};
-
-  		if (objectType(executeNow) === "function") {
-  			config.moduleStack.push(module);
-  			setCurrentModule(module);
-  			executeNow.call(module.testEnvironment, moduleFns);
-  			config.moduleStack.pop();
-  			module = module.parentModule || currentModule;
-  		}
-
-  		setCurrentModule(module);
-
-  		function createModule() {
-  			var parentModule = config.moduleStack.length ? config.moduleStack.slice(-1)[0] : null;
-  			var moduleName = parentModule !== null ? [parentModule.name, name].join(" > ") : name;
-  			var parentSuite = parentModule ? parentModule.suiteReport : globalSuite;
-
-  			var module = {
-  				name: moduleName,
-  				parentModule: parentModule,
-  				tests: [],
-  				moduleId: generateHash(moduleName),
-  				testsRun: 0,
-  				childModules: [],
-  				suiteReport: new SuiteReport(name, parentSuite)
-  			};
-
-  			var env = {};
-  			if (parentModule) {
-  				parentModule.childModules.push(module);
-  				extend(env, parentModule.testEnvironment);
-  				delete env.beforeEach;
-  				delete env.afterEach;
-  			}
-  			extend(env, testEnvironment);
-  			module.testEnvironment = env;
-
-  			config.modules.push(module);
-  			return module;
-  		}
-
-  		function setCurrentModule(module) {
-  			config.currentModule = module;
-  		}
-  	},
+  	module: module$1,
 
   	test: test,
 
@@ -2607,7 +4339,9 @@
   		return sourceFromStacktrace(offset);
   	},
 
-  	onError: onError
+  	onError: onError,
+
+  	onUnhandledRejection: onUnhandledRejection
   });
 
   QUnit.pushFailure = pushFailure;
@@ -2623,12 +4357,17 @@
 
   	// Add a slight delay to allow definition of more modules and tests.
   	if (defined.setTimeout) {
-  		setTimeout(function () {
+  		setTimeout$1(function () {
   			begin();
-  		}, 13);
+  		});
   	} else {
   		begin();
   	}
+  }
+
+  function unblockAndAdvanceQueue() {
+  	config.blocking = false;
+  	ProcessingQueue.advance();
   }
 
   function begin() {
@@ -2660,85 +4399,17 @@
   		runLoggingCallbacks("begin", {
   			totalTests: Test.count,
   			modules: modulesLog
-  		});
+  		}).then(unblockAndAdvanceQueue);
+  	} else {
+  		unblockAndAdvanceQueue();
   	}
-
-  	config.blocking = false;
-  	process(true);
-  }
-
-  function process(last) {
-  	function next() {
-  		process(last);
-  	}
-  	var start = now();
-  	config.depth = (config.depth || 0) + 1;
-
-  	while (config.queue.length && !config.blocking) {
-  		if (!defined.setTimeout || config.updateRate <= 0 || now() - start < config.updateRate) {
-  			if (config.current) {
-
-  				// Reset async tracking for each phase of the Test lifecycle
-  				config.current.usedAsync = false;
-  			}
-  			config.queue.shift()();
-  		} else {
-  			setTimeout(next, 13);
-  			break;
-  		}
-  	}
-  	config.depth--;
-  	if (last && !config.blocking && !config.queue.length && config.depth === 0) {
-  		done();
-  	}
-  }
-
-  function done() {
-  	var runtime,
-  	    passed,
-  	    i,
-  	    key,
-  	    storage = config.storage;
-
-  	internalState.autorun = true;
-
-  	runtime = now() - config.started;
-  	passed = config.stats.all - config.stats.bad;
-
-  	emit("runEnd", globalSuite.end(true));
-  	runLoggingCallbacks("done", {
-  		failed: config.stats.bad,
-  		passed: passed,
-  		total: config.stats.all,
-  		runtime: runtime
-  	});
-
-  	// Clear own storage items if all tests passed
-  	if (storage && config.stats.bad === 0) {
-  		for (i = storage.length - 1; i >= 0; i--) {
-  			key = storage.key(i);
-  			if (key.indexOf("qunit-test-") === 0) {
-  				storage.removeItem(key);
-  			}
-  		}
-  	}
-  }
-
-  function setHook(module, hookName) {
-  	if (module.testEnvironment === undefined) {
-  		module.testEnvironment = {};
-  	}
-
-  	return function (callback) {
-  		module.testEnvironment[hookName] = callback;
-  	};
   }
 
   exportQUnit(QUnit);
 
   (function () {
 
-  	if (typeof window === "undefined" || typeof document === "undefined") {
+  	if (typeof window$1 === "undefined" || typeof document$1 === "undefined") {
   		return;
   	}
 
@@ -2753,9 +4424,9 @@
   			return;
   		}
 
-  		var fixture = document.getElementById("qunit-fixture");
+  		var fixture = document$1.getElementById("qunit-fixture");
   		if (fixture) {
-  			config.fixture = fixture.innerHTML;
+  			config.fixture = fixture.cloneNode(true);
   		}
   	}
 
@@ -2767,9 +4438,18 @@
   			return;
   		}
 
-  		var fixture = document.getElementById("qunit-fixture");
-  		if (fixture) {
-  			fixture.innerHTML = config.fixture;
+  		var fixture = document$1.getElementById("qunit-fixture");
+  		var resetFixtureType = _typeof(config.fixture);
+  		if (resetFixtureType === "string") {
+
+  			// support user defined values for `config.fixture`
+  			var newFixture = document$1.createElement("div");
+  			newFixture.setAttribute("id", "qunit-fixture");
+  			newFixture.innerHTML = config.fixture;
+  			fixture.parentNode.replaceChild(newFixture, fixture);
+  		} else {
+  			var clonedFixture = config.fixture.cloneNode(true);
+  			fixture.parentNode.replaceChild(clonedFixture, fixture);
   		}
   	}
 
@@ -2779,7 +4459,7 @@
   (function () {
 
   	// Only interact with URLs via window.location
-  	var location = typeof window !== "undefined" && window.location;
+  	var location = typeof window$1 !== "undefined" && window$1.location;
   	if (!location) {
   		return;
   	}
@@ -2904,12 +4584,13 @@
   (function () {
 
   	// Don't load the HTML Reporter on non-browser environments
-  	if (typeof window === "undefined" || !window.document) {
+  	if (typeof window$1 === "undefined" || !window$1.document) {
   		return;
   	}
 
   	var config = QUnit.config,
-  	    document$$1 = window.document,
+  	    hiddenTests = [],
+  	    document = window$1.document,
   	    collapseNext = false,
   	    hasOwn = Object.prototype.hasOwnProperty,
   	    unfilteredUrl = setUrl({ filter: undefined, module: undefined,
@@ -2962,7 +4643,7 @@
   	}
 
   	function id(name) {
-  		return document$$1.getElementById && document$$1.getElementById(name);
+  		return document.getElementById && document.getElementById(name);
   	}
 
   	function abortTests() {
@@ -3057,16 +4738,56 @@
   		updatedUrl = setUrl(params);
 
   		// Check if we can apply the change without a page refresh
-  		if ("hidepassed" === field.name && "replaceState" in window.history) {
+  		if ("hidepassed" === field.name && "replaceState" in window$1.history) {
   			QUnit.urlParams[field.name] = value;
   			config[field.name] = value || false;
   			tests = id("qunit-tests");
   			if (tests) {
-  				toggleClass(tests, "hidepass", value || false);
+  				var length = tests.children.length;
+  				var children = tests.children;
+
+  				if (field.checked) {
+  					for (var i = 0; i < length; i++) {
+  						var test = children[i];
+
+  						if (test && test.className.indexOf("pass") > -1) {
+  							hiddenTests.push(test);
+  						}
+  					}
+
+  					var _iteratorNormalCompletion = true;
+  					var _didIteratorError = false;
+  					var _iteratorError = undefined;
+
+  					try {
+  						for (var _iterator = hiddenTests[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+  							var hiddenTest = _step.value;
+
+  							tests.removeChild(hiddenTest);
+  						}
+  					} catch (err) {
+  						_didIteratorError = true;
+  						_iteratorError = err;
+  					} finally {
+  						try {
+  							if (!_iteratorNormalCompletion && _iterator.return) {
+  								_iterator.return();
+  							}
+  						} finally {
+  							if (_didIteratorError) {
+  								throw _iteratorError;
+  							}
+  						}
+  					}
+  				} else {
+  					while ((test = hiddenTests.pop()) != null) {
+  						tests.appendChild(test);
+  					}
+  				}
   			}
-  			window.history.replaceState(null, "", updatedUrl);
+  			window$1.history.replaceState(null, "", updatedUrl);
   		} else {
-  			window.location = updatedUrl;
+  			window$1.location = updatedUrl;
   		}
   	}
 
@@ -3075,7 +4796,7 @@
   		    arrValue,
   		    i,
   		    querystring = "?",
-  		    location = window.location;
+  		    location = window$1.location;
 
   		params = QUnit.extend(QUnit.extend({}, QUnit.urlParams), params);
 
@@ -3084,7 +4805,8 @@
   			// Skip inherited or undefined properties
   			if (hasOwn.call(params, key) && params[key] !== undefined) {
 
-  				// Output a parameter for each value of this key (but usually just one)
+  				// Output a parameter for each value of this key
+  				// (but usually just one)
   				arrValue = [].concat(params[key]);
   				for (i = 0; i < arrValue.length; i++) {
   					querystring += encodeURIComponent(key);
@@ -3110,7 +4832,7 @@
   			}
   		}
 
-  		window.location = setUrl({
+  		window$1.location = setUrl({
   			filter: filter === "" ? undefined : filter,
   			moduleId: selectedModules.length === 0 ? undefined : selectedModules,
 
@@ -3121,7 +4843,7 @@
   	}
 
   	function toolbarUrlConfigContainer() {
-  		var urlConfigContainer = document$$1.createElement("span");
+  		var urlConfigContainer = document.createElement("span");
 
   		urlConfigContainer.innerHTML = getUrlConfigHtml();
   		addClass(urlConfigContainer, "qunit-url-config");
@@ -3133,7 +4855,7 @@
   	}
 
   	function abortTestsButton() {
-  		var button = document$$1.createElement("button");
+  		var button = document.createElement("button");
   		button.id = "qunit-abort-tests-button";
   		button.innerHTML = "Abort";
   		addEvent(button, "click", abortTests);
@@ -3141,10 +4863,10 @@
   	}
 
   	function toolbarLooseFilter() {
-  		var filter = document$$1.createElement("form"),
-  		    label = document$$1.createElement("label"),
-  		    input = document$$1.createElement("input"),
-  		    button = document$$1.createElement("button");
+  		var filter = document.createElement("form"),
+  		    label = document.createElement("label"),
+  		    input = document.createElement("input"),
+  		    button = document.createElement("button");
 
   		addClass(filter, "qunit-filter");
 
@@ -3160,7 +4882,7 @@
   		label.appendChild(input);
 
   		filter.appendChild(label);
-  		filter.appendChild(document$$1.createTextNode(" "));
+  		filter.appendChild(document.createTextNode(" "));
   		filter.appendChild(button);
   		addEvent(filter, "submit", interceptNavigation);
 
@@ -3183,18 +4905,22 @@
   	}
 
   	function toolbarModuleFilter() {
-  		var allCheckbox,
-  		    commit,
+  		var commit,
   		    reset,
-  		    moduleFilter = document$$1.createElement("form"),
-  		    label = document$$1.createElement("label"),
-  		    moduleSearch = document$$1.createElement("input"),
-  		    dropDown = document$$1.createElement("div"),
-  		    actions = document$$1.createElement("span"),
-  		    dropDownList = document$$1.createElement("ul"),
+  		    moduleFilter = document.createElement("form"),
+  		    label = document.createElement("label"),
+  		    moduleSearch = document.createElement("input"),
+  		    dropDown = document.createElement("div"),
+  		    actions = document.createElement("span"),
+  		    applyButton = document.createElement("button"),
+  		    resetButton = document.createElement("button"),
+  		    allModulesLabel = document.createElement("label"),
+  		    allCheckbox = document.createElement("input"),
+  		    dropDownList = document.createElement("ul"),
   		    dirty = false;
 
   		moduleSearch.id = "qunit-modulefilter-search";
+  		moduleSearch.autocomplete = "off";
   		addEvent(moduleSearch, "input", searchInput);
   		addEvent(moduleSearch, "input", searchFocus);
   		addEvent(moduleSearch, "focus", searchFocus);
@@ -3204,9 +4930,27 @@
   		label.innerHTML = "Module: ";
   		label.appendChild(moduleSearch);
 
+  		applyButton.textContent = "Apply";
+  		applyButton.style.display = "none";
+
+  		resetButton.textContent = "Reset";
+  		resetButton.type = "reset";
+  		resetButton.style.display = "none";
+
+  		allCheckbox.type = "checkbox";
+  		allCheckbox.checked = config.moduleId.length === 0;
+
+  		allModulesLabel.className = "clickable";
+  		if (config.moduleId.length) {
+  			allModulesLabel.className = "checked";
+  		}
+  		allModulesLabel.appendChild(allCheckbox);
+  		allModulesLabel.appendChild(document.createTextNode("All modules"));
+
   		actions.id = "qunit-modulefilter-actions";
-  		actions.innerHTML = "<button style='display:none'>Apply</button>" + "<button type='reset' style='display:none'>Reset</button>" + "<label class='clickable" + (config.moduleId.length ? "" : " checked") + "'><input type='checkbox'" + (config.moduleId.length ? "" : " checked='checked'") + ">All modules</label>";
-  		allCheckbox = actions.lastChild.firstChild;
+  		actions.appendChild(applyButton);
+  		actions.appendChild(resetButton);
+  		actions.appendChild(allModulesLabel);
   		commit = actions.firstChild;
   		reset = commit.nextSibling;
   		addEvent(commit, "click", applyUrlParams);
@@ -3228,7 +4972,7 @@
   		addEvent(moduleFilter, "reset", function () {
 
   			// Let the reset happen, then update styles
-  			window.setTimeout(selectionChange);
+  			window$1.setTimeout(selectionChange);
   		});
 
   		// Enables show/hide for the dropdown
@@ -3238,8 +4982,8 @@
   			}
 
   			dropDown.style.display = "block";
-  			addEvent(document$$1, "click", hideHandler);
-  			addEvent(document$$1, "keydown", hideHandler);
+  			addEvent(document, "click", hideHandler);
+  			addEvent(document, "keydown", hideHandler);
 
   			// Hide on Escape keydown or outside-container click
   			function hideHandler(e) {
@@ -3250,8 +4994,8 @@
   						moduleSearch.focus();
   					}
   					dropDown.style.display = "none";
-  					removeEvent(document$$1, "click", hideHandler);
-  					removeEvent(document$$1, "keydown", hideHandler);
+  					removeEvent(document, "click", hideHandler);
+  					removeEvent(document, "keydown", hideHandler);
   					moduleSearch.value = "";
   					searchInput();
   				}
@@ -3319,7 +5063,7 @@
   			toolbar.appendChild(toolbarUrlConfigContainer());
   			toolbar.appendChild(toolbarModuleFilter());
   			toolbar.appendChild(toolbarLooseFilter());
-  			toolbar.appendChild(document$$1.createElement("div")).className = "clearfix";
+  			toolbar.appendChild(document.createElement("div")).className = "clearfix";
   		}
   	}
 
@@ -3350,7 +5094,7 @@
 
   		if (tests) {
   			tests.innerHTML = "";
-  			result = document$$1.createElement("p");
+  			result = document.createElement("p");
   			result.id = "qunit-testresult";
   			result.className = "result";
   			tests.parentNode.insertBefore(result, tests);
@@ -3376,7 +5120,7 @@
 
   		if (userAgent) {
   			userAgent.innerHTML = "";
-  			userAgent.appendChild(document$$1.createTextNode("QUnit " + QUnit.version + "; " + navigator.userAgent));
+  			userAgent.appendChild(document.createTextNode("QUnit " + QUnit.version + "; " + navigator.userAgent));
   		}
   	}
 
@@ -3384,7 +5128,7 @@
   		var qunit = id("qunit");
 
   		if (qunit) {
-  			qunit.innerHTML = "<h1 id='qunit-header'>" + escapeText(document$$1.title) + "</h1>" + "<h2 id='qunit-banner'></h2>" + "<div id='qunit-testrunner-toolbar'></div>" + appendFilteredTest() + "<h2 id='qunit-userAgent'></h2>" + "<ol id='qunit-tests'></ol>";
+  			qunit.innerHTML = "<h1 id='qunit-header'>" + escapeText(document.title) + "</h1>" + "<h2 id='qunit-banner'></h2>" + "<div id='qunit-testrunner-toolbar'></div>" + appendFilteredTest() + "<h2 id='qunit-userAgent'></h2>" + "<ol id='qunit-tests'></ol>";
   		}
 
   		appendHeader();
@@ -3392,20 +5136,6 @@
   		appendTestResults();
   		appendUserAgent();
   		appendToolbar();
-  	}
-
-  	function appendTestsList(modules) {
-  		var i, l, x, z, test, moduleObj;
-
-  		for (i = 0, l = modules.length; i < l; i++) {
-  			moduleObj = modules[i];
-
-  			for (x = 0, z = moduleObj.tests.length; x < z; x++) {
-  				test = moduleObj.tests[x];
-
-  				appendTest(test.name, test.testId, moduleObj.name);
-  			}
-  		}
   	}
 
   	function appendTest(name, testId, moduleName) {
@@ -3419,19 +5149,19 @@
   			return;
   		}
 
-  		title = document$$1.createElement("strong");
+  		title = document.createElement("strong");
   		title.innerHTML = getNameHtml(name, moduleName);
 
-  		rerunTrigger = document$$1.createElement("a");
+  		rerunTrigger = document.createElement("a");
   		rerunTrigger.innerHTML = "Rerun";
   		rerunTrigger.href = setUrl({ testId: testId });
 
-  		testBlock = document$$1.createElement("li");
+  		testBlock = document.createElement("li");
   		testBlock.appendChild(title);
   		testBlock.appendChild(rerunTrigger);
   		testBlock.id = "qunit-test-output-" + testId;
 
-  		assertList = document$$1.createElement("ol");
+  		assertList = document.createElement("ol");
   		assertList.className = "qunit-assert-list";
 
   		testBlock.appendChild(assertList);
@@ -3441,7 +5171,7 @@
 
   	// HTML Reporter initialization and load
   	QUnit.begin(function (details) {
-  		var i, moduleObj, tests;
+  		var i, moduleObj;
 
   		// Sort modules by name for the picker
   		for (i = 0; i < details.modules.length; i++) {
@@ -3456,11 +5186,6 @@
 
   		// Initialize QUnit elements
   		appendInterface();
-  		appendTestsList(details.modules);
-  		tests = id("qunit-tests");
-  		if (tests && config.hidepassed) {
-  			addClass(tests, "hidepass");
-  		}
   	});
 
   	QUnit.done(function (details) {
@@ -3482,7 +5207,7 @@
   				if (test.className === "" || test.className === "running") {
   					test.className = "aborted";
   					assertList = test.getElementsByTagName("ol")[0];
-  					assertLi = document$$1.createElement("li");
+  					assertLi = document.createElement("li");
   					assertLi.className = "fail";
   					assertLi.innerHTML = "Test aborted.";
   					assertList.appendChild(assertLi);
@@ -3502,16 +5227,17 @@
   			id("qunit-testresult-display").innerHTML = html;
   		}
 
-  		if (config.altertitle && document$$1.title) {
+  		if (config.altertitle && document.title) {
 
   			// Show ✖ for good, ✔ for bad suite result in title
-  			// use escape sequences in case file gets loaded with non-utf-8-charset
-  			document$$1.title = [stats.failedTests ? "\u2716" : "\u2714", document$$1.title.replace(/^[\u2714\u2716] /i, "")].join(" ");
+  			// use escape sequences in case file gets loaded with non-utf-8
+  			// charset
+  			document.title = [stats.failedTests ? "\u2716" : "\u2714", document.title.replace(/^[\u2714\u2716] /i, "")].join(" ");
   		}
 
   		// Scroll back to top to show results
-  		if (config.scrolltop && window.scrollTo) {
-  			window.scrollTo(0, 0);
+  		if (config.scrolltop && window$1.scrollTo) {
+  			window$1.scrollTo(0, 0);
   		}
   	});
 
@@ -3528,29 +5254,25 @@
   	}
 
   	QUnit.testStart(function (details) {
-  		var running, testBlock, bad;
+  		var running, bad;
 
-  		testBlock = id("qunit-test-output-" + details.testId);
-  		if (testBlock) {
-  			testBlock.className = "running";
-  		} else {
-
-  			// Report later registered tests
-  			appendTest(details.name, details.testId, details.module);
-  		}
+  		appendTest(details.name, details.testId, details.module);
 
   		running = id("qunit-testresult-display");
+
   		if (running) {
+  			addClass(running, "running");
+
   			bad = QUnit.config.reorder && details.previousFailure;
 
-  			running.innerHTML = (bad ? "Rerunning previously failed test: <br />" : "Running: <br />") + getNameHtml(details.name, details.module);
+  			running.innerHTML = [bad ? "Rerunning previously failed test: <br />" : "Running: <br />", getNameHtml(details.name, details.module)].join("");
   		}
   	});
 
   	function stripHtml(string) {
 
   		// Strip tags, html entity and whitespaces
-  		return string.replace(/<\/?[^>]+(>|$)/g, "").replace(/\&quot;/g, "").replace(/\s+/g, "");
+  		return string.replace(/<\/?[^>]+(>|$)/g, "").replace(/&quot;/g, "").replace(/\s+/g, "");
   	}
 
   	QUnit.log(function (details) {
@@ -3588,13 +5310,19 @@
 
   				message += "<tr class='test-actual'><th>Result: </th><td><pre>" + escapeText(actual) + "</pre></td></tr>";
 
-  				// Don't show diff if actual or expected are booleans
-  				if (!/^(true|false)$/.test(actual) && !/^(true|false)$/.test(expected)) {
+  				if (typeof details.actual === "number" && typeof details.expected === "number") {
+  					if (!isNaN(details.actual) && !isNaN(details.expected)) {
+  						showDiff = true;
+  						diff = details.actual - details.expected;
+  						diff = (diff > 0 ? "+" : "") + diff;
+  					}
+  				} else if (typeof details.actual !== "boolean" && typeof details.expected !== "boolean") {
   					diff = QUnit.diff(expected, actual);
+
+  					// don't show diff if there is zero overlap
   					showDiff = stripHtml(diff).length !== stripHtml(expected).length + stripHtml(actual).length;
   				}
 
-  				// Don't show diff if expected and actual are totally different
   				if (showDiff) {
   					message += "<tr class='test-diff'><th>Diff: </th><td><pre>" + diff + "</pre></td></tr>";
   				}
@@ -3617,7 +5345,7 @@
 
   		assertList = testItem.getElementsByTagName("ol")[0];
 
-  		assertLi = document$$1.createElement("li");
+  		assertLi = document.createElement("li");
   		assertLi.className = details.result ? "pass" : "fail";
   		assertLi.innerHTML = message;
   		assertList.appendChild(assertLi);
@@ -3628,6 +5356,7 @@
   		    time,
   		    testItem,
   		    assertList,
+  		    status,
   		    good,
   		    bad,
   		    testCounts,
@@ -3640,6 +5369,16 @@
   		}
 
   		testItem = id("qunit-test-output-" + details.testId);
+
+  		removeClass(testItem, "running");
+
+  		if (details.failed > 0) {
+  			status = "failed";
+  		} else if (details.todo) {
+  			status = "todo";
+  		} else {
+  			status = details.skipped ? "skipped" : "passed";
+  		}
 
   		assertList = testItem.getElementsByTagName("ol")[0];
 
@@ -3676,7 +5415,7 @@
   			stats.skippedTests++;
 
   			testItem.className = "skipped";
-  			skipped = document$$1.createElement("em");
+  			skipped = document.createElement("em");
   			skipped.className = "qunit-skipped-label";
   			skipped.innerHTML = "skipped";
   			testItem.insertBefore(skipped, testTitle);
@@ -3688,13 +5427,14 @@
   			testItem.className = testPassed ? "pass" : "fail";
 
   			if (details.todo) {
-  				var todoLabel = document$$1.createElement("em");
+  				var todoLabel = document.createElement("em");
   				todoLabel.className = "qunit-todo-label";
   				todoLabel.innerHTML = "todo";
+  				testItem.className += " todo";
   				testItem.insertBefore(todoLabel, testTitle);
   			}
 
-  			time = document$$1.createElement("span");
+  			time = document.createElement("span");
   			time.className = "runtime";
   			time.innerHTML = details.runtime + " ms";
   			testItem.insertBefore(time, assertList);
@@ -3710,8 +5450,8 @@
 
   		// Show the source of the test when showing assertions
   		if (details.source) {
-  			sourceName = document$$1.createElement("p");
-  			sourceName.innerHTML = "<strong>Source: </strong>" + details.source;
+  			sourceName = document.createElement("p");
+  			sourceName.innerHTML = "<strong>Source: </strong>" + escapeText(details.source);
   			addClass(sourceName, "qunit-source");
   			if (testPassed) {
   				addClass(sourceName, "qunit-collapsed");
@@ -3721,36 +5461,44 @@
   			});
   			testItem.appendChild(sourceName);
   		}
+
+  		if (config.hidepassed && status === "passed") {
+
+  			// use removeChild instead of remove because of support
+  			hiddenTests.push(testItem);
+
+  			tests.removeChild(testItem);
+  		}
   	});
 
   	// Avoid readyState issue with phantomjs
   	// Ref: #818
   	var notPhantom = function (p) {
   		return !(p && p.version && p.version.major > 0);
-  	}(window.phantom);
+  	}(window$1.phantom);
 
-  	if (notPhantom && document$$1.readyState === "complete") {
+  	if (notPhantom && document.readyState === "complete") {
   		QUnit.load();
   	} else {
-  		addEvent(window, "load", QUnit.load);
+  		addEvent(window$1, "load", QUnit.load);
   	}
 
   	// Wrap window.onerror. We will call the original window.onerror to see if
   	// the existing handler fully handles the error; if not, we will call the
   	// QUnit.onError function.
-  	var originalWindowOnError = window.onerror;
+  	var originalWindowOnError = window$1.onerror;
 
   	// Cover uncaught exceptions
   	// Returning true will suppress the default browser handler,
   	// returning false will let it run.
-  	window.onerror = function (message, fileName, lineNumber) {
+  	window$1.onerror = function (message, fileName, lineNumber, columnNumber, errorObj) {
   		var ret = false;
   		if (originalWindowOnError) {
-  			for (var _len = arguments.length, args = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
-  				args[_key - 3] = arguments[_key];
+  			for (var _len = arguments.length, args = Array(_len > 5 ? _len - 5 : 0), _key = 5; _key < _len; _key++) {
+  				args[_key - 5] = arguments[_key];
   			}
 
-  			ret = originalWindowOnError.call.apply(originalWindowOnError, [this, message, fileName, lineNumber].concat(args));
+  			ret = originalWindowOnError.call.apply(originalWindowOnError, [this, message, fileName, lineNumber, columnNumber, errorObj].concat(args));
   		}
 
   		// Treat return value as window.onerror itself does,
@@ -3762,11 +5510,24 @@
   				lineNumber: lineNumber
   			};
 
+  			// According to
+  			// https://blog.sentry.io/2016/01/04/client-javascript-reporting-window-onerror,
+  			// most modern browsers support an errorObj argument; use that to
+  			// get a full stack trace if it's available.
+  			if (errorObj && errorObj.stack) {
+  				error.stacktrace = extractStacktrace(errorObj, 0);
+  			}
+
   			ret = QUnit.onError(error);
   		}
 
   		return ret;
   	};
+
+  	// Listen for unhandled rejections, and call QUnit.onUnhandledRejection
+  	window$1.addEventListener("unhandledrejection", function (event) {
+  		QUnit.onUnhandledRejection(event.reason);
+  	});
   })();
 
   /*
@@ -4667,7 +6428,9 @@
   				line = text.substring(lineStart, lineEnd + 1);
   				lineStart = lineEnd + 1;
 
-  				if (lineHash.hasOwnProperty ? lineHash.hasOwnProperty(line) : lineHash[line] !== undefined) {
+  				var lineHashExists = lineHash.hasOwnProperty ? lineHash.hasOwnProperty(line) : lineHash[line] !== undefined;
+
+  				if (lineHashExists) {
   					chars += String.fromCharCode(lineHash[line]);
   				} else {
   					chars += String.fromCharCode(lineArrayLength);

@@ -29,80 +29,78 @@ require.scopes.heuristicblocking = (function() {
 // make heuristic obj with utils and storage properties and put the things on it
 function HeuristicBlocker(pbStorage) {
   this.storage = pbStorage;
+
+  // TODO roll into tabData? -- 6/10/2019 not for now, since tabData is populated
+  // by the synchronous listeners in webrequests.js and tabOrigins is used by the
+  // async listeners here; there's no way to enforce ordering of requests among
+  // those two. Also, tabData is cleaned up every time a tab is closed, so
+  // dangling requests that don't trigger listeners until after the tab closes are
+  // impossible to attribute to a tab.
+  this.tabOrigins = {};
+  this.tabUrls = {};
 }
 
-// TODO roll into tabData? -- 6/10/2019 not for now, since tabData is populated
-// by the synchronous listeners in webrequests.js and tabOrigins is used by the
-// async listeners here; there's no way to enforce ordering of requests among
-// those two. Also, tabData is cleaned up every time a tab is closed, so
-// dangling requests that don't trigger listeners until after the tab closes are
-// impossible to attribute to a tab.
-var tabOrigins = { };
-var tabURLs = { };
-
 HeuristicBlocker.prototype = {
-  /**
-   * Adds Cookie blocking for all more specific domains than the blocked origin
-   * - if they're on the cb list
-   *
-   * @param {String} origin Origin to check
-   */
-  setupSubdomainsForCookieblock: function(origin) {
-    var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
-    for (var domain in cbl.getItemClones()) {
-      if (origin == window.getBaseDomain(domain)) {
-        this.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
-      }
-    }
-    // iterate through all elements of cookie block list
-    // if element has basedomain add it to action_map
-    // or update it's action with cookieblock
-    origin = null;
-    return false;
-  },
 
   /**
-   * Decide if to blacklist and add blacklist filters
-   * @param {String} baseDomain The base domain (etld+1) to blacklist
+   * Blocks or cookieblocks an FQDN.
+   * Blocks or cookieblocks its base domain.
+   * Cookieblocks any yellowlisted subdomains that share the base domain with the FQDN.
+   *
+   * @param {String} base The base domain (etld+1) to blacklist
    * @param {String} fqdn The FQDN
    */
-  blacklistOrigin: function(baseDomain, fqdn) {
-    var cbl = this.storage.getBadgerStorageObject("cookieblock_list");
+  blacklistOrigin: function (base, fqdn) {
+    let self = this,
+      ylistStorage = self.storage.getBadgerStorageObject("cookieblock_list");
 
-    // Setup Cookieblock or block for base domain and fqdn
-    if (cbl.hasItem(baseDomain)) {
-      this.storage.setupHeuristicAction(baseDomain, constants.COOKIEBLOCK);
+    // cookieblock or block the base domain
+    if (ylistStorage.hasItem(base)) {
+      self.storage.setupHeuristicAction(base, constants.COOKIEBLOCK);
     } else {
-      this.storage.setupHeuristicAction(baseDomain, constants.BLOCK);
+      self.storage.setupHeuristicAction(base, constants.BLOCK);
     }
 
-    // Check if a parent domain of the fqdn is on the cookie block list
-    var set = false;
-    var thisStorage = this.storage;
-    _.each(utils.explodeSubdomains(fqdn, true), function(domain) {
-      if (cbl.hasItem(domain)) {
-        thisStorage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
+    // cookieblock or block the fqdn
+    //
+    // cookieblock if a "parent" domain of the fqdn is on the yellowlist
+    //
+    // ignore base domains when exploding to work around PSL TLDs:
+    // still want to cookieblock somedomain.googleapis.com with only
+    // googleapis.com (and not somedomain.googleapis.com itself) on the ylist
+    let set = false,
+      subdomains = utils.explodeSubdomains(fqdn, true);
+    for (let i = 0; i < subdomains.length; i++) {
+      if (ylistStorage.hasItem(subdomains[i])) {
         set = true;
+        break;
+      }
+    }
+    if (set) {
+      self.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
+    } else {
+      self.storage.setupHeuristicAction(fqdn, constants.BLOCK);
+    }
+
+    // cookieblock any yellowlisted subdomains with the same base domain
+    //
+    // for example, when google.com is blocked,
+    // books.google.com should be cookieblocked
+    let base_with_dot = '.' + base;
+    ylistStorage.keys().forEach(domain => {
+      if (base != domain && domain.endsWith(base_with_dot)) {
+        self.storage.setupHeuristicAction(domain, constants.COOKIEBLOCK);
       }
     });
-    // if no parent domains are on the cookie block list then block fqdn
-    if (!set) {
-      this.storage.setupHeuristicAction(fqdn, constants.BLOCK);
-    }
 
-    this.setupSubdomainsForCookieblock(baseDomain);
   },
 
   /**
    * Wraps _recordPrevalence for use from webRequest listeners.
-   * Also saves tab (page) origins. TODO Should be handled by tabData instead.
-   *
-   * Called from performance-critical webRequest listeners!
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
-   * @param details are those from onBeforeSendHeaders
+   * @param {Object} details request/response details
    * @param {Boolean} check_for_cookie_share whether to check for cookie sharing
-   * @returns {*}
    */
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
     // ignore requests that are outside a tabbed window
@@ -110,18 +108,18 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    let request_host = (new URI(details.url)).host,
+    let self = this,
+      request_host = (new URI(details.url)).host,
       request_origin = window.getBaseDomain(request_host);
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
-      tabOrigins[details.tabId] = request_origin;
-      tabURLs[details.tabId] = details.url;
+      self.tabOrigins[details.tabId] = request_origin;
+      self.tabUrls[details.tabId] = details.url;
       return {};
     }
 
-    let tab_origin = tabOrigins[details.tabId],
-      self = this;
+    let tab_origin = self.tabOrigins[details.tabId];
 
     // ignore first-party requests
     if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
@@ -146,11 +144,11 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    // check for cookie sharing iff this is an image and the request URL has parameters
-    if (check_for_cookie_share && details.type == 'image' && details.url.indexOf('?') > -1) {
-      // get all cookies for the top-level frame and pass those to the
-      // cookie-share accounting function
-      let tab_url = tabURLs[details.tabId];
+    // check for cookie sharing iff this is an image in the top-level frame, and the request URL has parameters
+    if (check_for_cookie_share && details.type == 'image' && details.frameId === 0 && details.url.indexOf('?') > -1) {
+      // get all non-HttpOnly cookies for the top-level frame
+      // and pass those to the cookie-share accounting function
+      let tab_url = self.tabUrls[details.tabId];
 
       let config = {
         url: tab_url
@@ -160,6 +158,7 @@ HeuristicBlocker.prototype = {
       }
 
       chrome.cookies.getAll(config, function (cookies) {
+        cookies = cookies.filter(cookie => !cookie.httpOnly);
         if (cookies.length >= 1) {
           self.pixelCookieShareAccounting(tab_url, tab_origin, details.url, request_host, request_origin, cookies);
         }
@@ -263,12 +262,10 @@ HeuristicBlocker.prototype = {
    * Wraps _recordPrevalence for use outside of webRequest listeners.
    *
    * @param {String} tracker_fqdn The fully qualified domain name of the tracker
-   * @param {String} page_origin The base domain of the page
-   *   where the tracker was detected.
-   * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
-   *
+   * @param {String} tracker_origin Base domain of the third party tracker
+   * @param {String} page_origin Base domain of page where tracking occurred
    */
-  updateTrackerPrevalence: function(tracker_fqdn, page_origin, skip_dnt_check) {
+  updateTrackerPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
@@ -277,9 +274,8 @@ HeuristicBlocker.prototype = {
 
     this._recordPrevalence(
       tracker_fqdn,
-      window.getBaseDomain(tracker_fqdn),
-      page_origin,
-      skip_dnt_check
+      tracker_origin,
+      page_origin
     );
   },
 
@@ -294,28 +290,23 @@ HeuristicBlocker.prototype = {
    *
    * @param {String} tracker_fqdn The FQDN of the third party tracker
    * @param {String} tracker_origin Base domain of the third party tracker
-   * @param {String} page_origin The origin of the page where the third party
-   *   tracker was loaded.
-   * @param {Boolean} skip_dnt_check Skip DNT policy checking if flag is true.
+   * @param {String} page_origin Base domain of page where tracking occurred
    */
-  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, skip_dnt_check) {
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
     var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
     var firstParties = [];
     if (snitchMap.hasItem(tracker_origin)) {
       firstParties = snitchMap.getItem(tracker_origin);
     }
 
-    if (firstParties.indexOf(page_origin) != -1) {
-      return; // We already know about the presence of this tracker on the given domain
+    // GDPR Consent Management Provider
+    // https://github.com/EFForg/privacybadger/pull/2245#issuecomment-545545717
+    if (tracker_origin == "consensu.org") {
+      return;
     }
 
-    // Check this just-seen-tracking-on-this-site,
-    // not-yet-blocked domain for DNT policy.
-    // We check heuristically-blocked domains in webrequest.js.
-    if (!skip_dnt_check) {
-      setTimeout(function () {
-        badger.checkForDNTPolicy(tracker_fqdn);
-      }, 0);
+    if (firstParties.indexOf(page_origin) != -1) {
+      return; // We already know about the presence of this tracker on the given domain
     }
 
     // record that we've seen this tracker on this domain (in snitch map)
@@ -325,8 +316,6 @@ HeuristicBlocker.prototype = {
     // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
     // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
     // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
-    // TODO missing tests: removing below lines/messing up parameters
-    // should break integration tests, but currently does not
     this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
     this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
 
@@ -658,7 +647,8 @@ function hasCookieTracking(details, origin) {
       }
 
       // ignore CloudFlare
-      if (name == "__cfduid") {
+      // https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies
+      if (name == "__cfduid" || name == "__cf_bm") {
         continue;
       }
 

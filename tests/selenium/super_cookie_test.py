@@ -26,11 +26,14 @@ class SupercookieTest(pbtest.PBSeleniumTest):
     # test for https://github.com/EFForg/privacybadger/pull/1403
     # TODO remove retrying entire test after we revert 879a74f807999a2135e4d48bb5efbd8a1beff4f8
     @pbtest.repeat_if_failed(5)
-    def test_async_tracking_misattribution_bug(self):
-        self.load_url(
-            "https://www.eff.org/files/badger_test_fixtures/"
+    def test_async_tracking_attribution_bug(self):
+        FIRST_PARTY_BASE = "eff.org"
+        THIRD_PARTY_BASE = "efforg.github.io"
+
+        self.load_url((
+            "https://privacybadger-tests.{}/html/"
             "async_localstorage_attribution_bug.html"
-        )
+        ).format(FIRST_PARTY_BASE))
 
         # the above HTML page reloads itself furiously to trigger our bug
         # we need to wait for it to finish reloading
@@ -38,11 +41,11 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
         # the HTML page contains:
 
-        # an iframe from gistcdn.githack.com that writes to localStorage
+        # an iframe from THIRD_PARTY_BASE that writes to localStorage
         self.assertEqual(
-            pbtest.retry_until(partial(self.get_snitch_map_for, "githack.com")),
-            ["eff.org"],
-            msg="IFrame sets localStorage but was not flagged as a tracker.")
+            pbtest.retry_until(partial(self.get_snitch_map_for, THIRD_PARTY_BASE)),
+            [FIRST_PARTY_BASE],
+            msg="Frame sets localStorage but was not flagged as a tracker.")
 
         # and an image from raw.githubusercontent.com that doesn't do any tracking
         self.assertFalse(self.get_snitch_map_for("raw.githubusercontent.com"),
@@ -50,9 +53,15 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
 
     def test_should_detect_ls_of_third_party_frame(self):
-        self.load_url(
-            "https://www.eff.org/files/badger_test_fixtures/localstorage.html"
-        )
+        FIRST_PARTY_BASE = "eff.org"
+        THIRD_PARTY_BASE = "efforg.github.io"
+
+        self.assertFalse(self.get_snitch_map_for(THIRD_PARTY_BASE))
+
+        self.load_url((
+            "https://privacybadger-tests.{}/html/"
+            "localstorage.html"
+        ).format(FIRST_PARTY_BASE))
 
         # TODO We get some intermittent failures for this test.
         # It seems we sometimes miss the setting of localStorage items
@@ -61,36 +70,44 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         self.driver.refresh()
 
         self.assertEqual(
-            pbtest.retry_until(partial(self.get_snitch_map_for, "githack.com"), times=3),
-            ["eff.org"]
+            pbtest.retry_until(partial(self.get_snitch_map_for, THIRD_PARTY_BASE), times=3),
+            [FIRST_PARTY_BASE]
         )
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
-        self.load_url(
-            "https://www.eff.org/files/badger_test_fixtures/"
+        FIRST_PARTY_BASE = "eff.org"
+        THIRD_PARTY_BASE = "efforg.github.io"
+        self.assertFalse(self.get_snitch_map_for(THIRD_PARTY_BASE))
+        self.load_url((
+            "https://privacybadger-tests.{}/html/"
             "localstorage_low_entropy.html"
-        )
+        ).format(FIRST_PARTY_BASE))
         self.driver.refresh()
-        self.assertFalse(self.get_snitch_map_for("githack.com"))
+        self.assertFalse(self.get_snitch_map_for(THIRD_PARTY_BASE))
 
     def test_should_not_detect_first_party_ls(self):
-        self.load_url(
-            "https://gistcdn.githack.com/gunesacar/"
-            "43e2ad2b76fa5a7f7c57/raw/44e7303338386514f1f5bb4166c8fd24a92e97fe/"
-            "set_ls.html"
-        )
+        BASE_DOMAIN = "efforg.github.io"
+        self.load_url((
+            "https://{}/privacybadger-test-fixtures/html/"
+            "localstorage/set_ls.html"
+        ).format(BASE_DOMAIN))
         self.driver.refresh()
-        self.assertFalse(self.get_snitch_map_for("githack.com"))
+        self.assertFalse(self.get_snitch_map_for(BASE_DOMAIN))
 
     def test_should_not_detect_ls_of_third_party_script(self):
+        FIRST_PARTY_BASE = "eff.org"
+        THIRD_PARTY_BASE = "efforg.github.io"
+
         # a third-party script included by the top page (not a 3rd party frame)
-        self.load_url(
-            "https://www.eff.org/files/badger_test_fixtures/"
+        self.load_url((
+            "https://privacybadger-tests.{}/html/"
             "localstorage_from_third_party_script.html"
-        )
+        ).format(FIRST_PARTY_BASE))
+
         self.driver.refresh()
-        self.assertFalse(self.get_snitch_map_for("eff.org")) # page URL
-        self.assertFalse(self.get_snitch_map_for("githack.com")) # script URL
+
+        self.assertFalse(self.get_snitch_map_for(FIRST_PARTY_BASE))
+        self.assertFalse(self.get_snitch_map_for(THIRD_PARTY_BASE))
 
 
 if __name__ == "__main__":

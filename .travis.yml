@@ -1,8 +1,8 @@
 sudo: required
 language: python
 os: linux
-dist: xenial
-python: 3.4
+dist: bionic
+python: 3.6
 matrix:
   fast_finish: true
   include:

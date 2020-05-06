@@ -27,17 +27,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.structure.css" rel="stylesheet" />
 <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" rel="stylesheet" />
+<link type="text/css" href="/lib/vendor/jquery-ui-iconfont-2.3.2/jquery-ui-1.12.icon-font.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.css" />
 <link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" />
 
-<script type="text/javascript" src="/lib/vendor/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/lib/vendor/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 <script type="text/javascript" src="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.js"></script>
 <script type="text/javascript" src="/lib/vendor/underscore-1.9.1.js"></script>
 
 <!-- required because of window.getBaseDomain() in htmlutils.js -->
-<script type="text/javascript" src="/lib/vendor/punycode.js"></script>
+<script type="text/javascript" src="/lib/vendor/punycode-1.4.1.js"></script>
 <script type="text/javascript" src="/lib/publicSuffixList.js"></script>
 <script type="text/javascript" src="/lib/basedomain.js"></script>
 
@@ -90,36 +91,56 @@
   </div>
 
 <div id='privacyBadgerHeader'>
-  <a id="options" title="i18n_popup_options_button" href='/skin/options.html' class="control-button grey-button tooltip" style="display:block" target="_blank"><img src="/icons/options.svg" alt="i18n_popup_options_button"></a>
-  <a id="share" title="i18n_popup_share_button" class="control-button grey-button tooltip" style="display:block" target="_blank"><img width="25" height="auto" src="/icons/share.svg" alt="i18n_popup_share_button"></a>
-  <a id="help" title="i18n_popup_help_button" href='/skin/firstRun.html' class="control-button grey-button tooltip" style="display:block" target="_blank"><img src="/icons/help.svg" alt="i18n_popup_help_button"></a>
+  <a id="options" title="i18n_popup_options_button" href='/skin/options.html' class="control-button tooltip" style="display:block" target="_blank"><img width="25" src="/icons/options.svg" alt="i18n_popup_options_button"></a>
+  <a id="share" title="i18n_popup_share_button" class="control-button tooltip" style="display:block" target="_blank"><img width="23" height="auto" src="/icons/share.svg" alt="i18n_popup_share_button"></a>
+  <a id="help" title="i18n_popup_help_button" href='/skin/firstRun.html' class="control-button tooltip" style="display:block" target="_blank"><img width="25" src="/icons/help.svg" alt="i18n_popup_help_button"></a>
   <div id='title'>
-    <img src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt=""> <h2><span class="i18n_name"></span></h2>
+    <img src="../icons/badger-bw-noborder.svg" width="48" alt="" id="badger-header-logo">
+    <div id='header-image-stack'>
+      <a href="https://www.eff.org/" target="_blank"><img id='header-red-eff-logo' src="./images/EFF-red.svg" width="48" alt=""></a>
+      <h2 id="title-name"><span class="i18n_name"></span></h2>
+    </div>
   </div>
   <div class='clear'></div>
-  <div id="subtitle"><span id="version" class="i18n_version"></span></div>
 </div>
 
 <div id="blockedResourcesContainer">
   <p id="pbInstructions">
     <span id="instructions-many-trackers"></span>
     <span id="instructions_one_tracker" class="i18n_popup_instructions_one_tracker" style="display:none"></span>
-    <span id="instructions_no_trackers" class="i18n_popup_instructions_no_trackers" style="display:none"></span>
+    <span id="instructions_no_trackers" style="display:none">
+      <span class="i18n_popup_instructions_no_trackers"></span>
+      <span id="no-third-parties" class="i18n_popup_blocked" style="display:none"></span>
+    </span>
   </p>
   <div class="spacer"></div>
   <div id="blockedResources"></div>
 </div>
 
-<div id="big-badger-logo" style="display:none; text-align:center; margin:25px 0;">
-    <img src="/icons/badger-128.png" alt="">
+<div id="special-browser-page" style="display:none">
+    <p><b><span class="i18n_popup_special_page_header"></span></b></p>
+    <p><span class="i18n_popup_special_page_paragraph"></span></p>
+</div>
+
+<div id="disabled-site-message" style="display:none">
+    <p><b><span class="i18n_popup_disabled_site_header"></span></b></p>
 </div>
 
 <div id="siteControls">
-    <button id="deactivate_site_btn" class="pbButton"><span class="i18n_popup_disable_for_site"></span></button>
-    <button id="activate_site_btn" class="pbButton" style="display:none"> <span class="i18n_popup_enable_for_site"></span></button>
-    <button id="error" class="pbButton" target="blank"><span class="i18n_report_broken_site"></span></button>
-    <button id="donate" class="pbButton" target="blank"><span class="i18n_donate_to_eff"></span></button>
+    <button id="deactivate_site_btn" class="pbButton">
+      <span class="i18n_popup_disable_for_site"></span>
+    </button>
+    <button id="activate_site_btn" class="pbButton" style="display:none">
+      <span class="i18n_popup_enable_for_site"></span>
+    </button>
+    <button id="error" class="pbButton" target="blank">
+      <span class="i18n_report_broken_site"></span>
+    </button>
+    <button id="donate" class="pbButton" target="blank">
+      <span class="ui-icon ui-icon-heart" style="color:#ec1e1e"></span> <span class="i18n_donate_to_eff"></span>
+    </button>
 </div>
+<span id="version" class="i18n_version"></span>
 <div class='clear'></div>
 </body>
 </html>

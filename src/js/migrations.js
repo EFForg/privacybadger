@@ -39,10 +39,10 @@ exports.Migrations= {
   migrateBlockedSubdomainsToCookieblock: function(badger) {
     setTimeout(function() {
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
-      var cbl = badger.storage.getBadgerStorageObject('cookieblock_list');
-      _.each(badger.storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn) {
-        _.each(utils.explodeSubdomains(fqdn, true), function(domain) {
-          if (cbl.hasItem(domain)) {
+      let ylist = badger.storage.getBadgerStorageObject('cookieblock_list');
+      badger.storage.getAllDomainsByPresumedAction(constants.BLOCK).forEach(fqdn => {
+        utils.explodeSubdomains(fqdn, true).forEach(domain => {
+          if (ylist.hasItem(domain)) {
             console.log('moving', fqdn, 'from block to cookie block');
             badger.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           }
@@ -290,6 +290,59 @@ exports.Migrations= {
 
     // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
     badger.mergeUserData(data, true);
+  },
+
+  forgetCloudflare: function (badger) {
+    let config = {
+      name: '__cfduid'
+    };
+    if (badger.firstPartyDomainPotentiallyRequired) {
+      config.firstPartyDomain = null;
+    }
+
+    chrome.cookies.getAll(config, function (cookies) {
+      console.log("Forgetting Cloudflare domains ...");
+
+      let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+        actionClones = actionMap.getItemClones(),
+        snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
+        snitchClones = snitchMap.getItemClones(),
+        correctedSites = {},
+        // assume the tracking domains seen on these sites are all Cloudflare
+        cfduidFirstParties = new Set();
+
+      cookies.forEach(function (cookie) {
+        // get the base domain (also removes the leading dot)
+        cfduidFirstParties.add(window.getBaseDomain(cookie.domain));
+      });
+
+      for (let domain in snitchClones) {
+        let newSnitches = snitchClones[domain].filter(
+          item => !cfduidFirstParties.has(item));
+
+        if (newSnitches.length) {
+          correctedSites[domain] = newSnitches;
+        }
+      }
+
+      // clear existing maps and then use mergeUserData to rebuild them
+      actionMap.updateObject({});
+      snitchMap.updateObject({});
+
+      const data = {
+        snitch_map: correctedSites,
+        action_map: actionClones
+      };
+
+      // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
+      badger.mergeUserData(data, true);
+    });
+  },
+
+  // https://github.com/EFForg/privacybadger/pull/2245#issuecomment-545545717
+  forgetConsensu: (badger) => {
+    console.log("Forgetting consensu.org domains (GDPR consent provider) ...");
+    badger.storage.forget("consensu.org");
   },
 
 };

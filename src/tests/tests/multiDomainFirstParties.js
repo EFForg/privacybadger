@@ -56,4 +56,18 @@ QUnit.test('MDFP domains are all base domains', (assert) => {
   }
 });
 
+// lint for duplicates
+QUnit.test('MDFP domains do not contain duplicates', (assert) => {
+  let domains = new Set();
+  for (let group of mdfp.multiDomainFirstPartiesArray) {
+    for (let domain of group) {
+      assert.notOk(
+        domains.has(domain),
+        domain + ' does not appear more than once'
+      );
+      domains.add(domain);
+    }
+  }
+});
+
 }());

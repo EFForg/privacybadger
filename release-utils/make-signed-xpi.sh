@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-LATEST_SDK_VERSION=3.1.1
+LATEST_SDK_VERSION=4.2.0
 WEB_EXT=../node_modules/.bin/web-ext
 
 # Auto-generated XPI name from 'web-ext sign'
@@ -43,14 +43,19 @@ sed -i -e '/"storage": {/{
   s/},/}/
 }' ../checkout/src/manifest.json
 
+# lint the checkout folder
+$WEB_EXT lint -s ../checkout/src
+
 echo "making zip file for AMO"
 
-(cd ../checkout/src && zip -q -r ../../pkg/"$AMO_ZIP_NAME" ./*)
+(cd ../checkout/src && rm -f ../../pkg/"$AMO_ZIP_NAME" && zip -q -r ../../pkg/"$AMO_ZIP_NAME" ./*)
 
 echo "insert self hosting package id"
 # Insert self hosted package id
 sed -i 's,"id": "jid1-MnnxcxisBPnSXQ@jetpack","id": "jid1-MnnxcxisBPnSXQ-eff@jetpack"\,\n      "update_url": "https://www.eff.org/files/privacy-badger-updates.json",' ../checkout/src/manifest.json
 
+# lint checkout again as our modification above could have broken something
+# disable AMO-specific checks to allow applications.gecko.update_url
 $WEB_EXT lint -s ../checkout/src --self-hosted
 
 #"update_url": "https://www.eff.org/files/privacy-badger-updates.json"

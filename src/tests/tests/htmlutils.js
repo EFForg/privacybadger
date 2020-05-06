@@ -2,7 +2,8 @@
 
 QUnit.module("HTML Utils");
 
-var htmlUtils = require("htmlutils").htmlUtils;
+let constants = require('constants'),
+  htmlUtils = require("htmlutils").htmlUtils;
 
 QUnit.test("isChecked", function (assert) {
   // Test parameters
@@ -48,6 +49,11 @@ QUnit.test("getActionDescription", (assert) => {
       action: "allow",
       origin,
       expectedResult: getMessage('badger_status_allow', origin)
+    },
+    {
+      action: "dnt",
+      origin,
+      expectedResult: getMessage('dnt_tooltip')
     },
   ];
 
@@ -102,14 +108,12 @@ QUnit.test("getOriginHtml", function (assert) {
     {
       existingHtml: '<div id="existinghtml"></div>',
       origin: "pbtest.org",
-      action: "allow",
-      isWhitelisted: false,
+      action: constants.ALLOW,
     },
     {
       existingHtml: '<div id="existinghtml"></div>',
       origin: "pbtest.org",
-      action: "block",
-      isWhitelisted: true,
+      action: constants.DNT,
     },
   ];
 
@@ -118,10 +122,8 @@ QUnit.test("getOriginHtml", function (assert) {
     var existingHtml = tests[i].existingHtml;
     var origin = tests[i].origin;
     var action = tests[i].action;
-    var isWhitelisted = tests[i].isWhitelisted;
 
-    var htmlResult = existingHtml + htmlUtils.getOriginHtml(
-      origin, action, isWhitelisted);
+    var htmlResult = existingHtml + htmlUtils.getOriginHtml(origin, action);
 
     // Make sure existing HTML is present.
     var existingHtmlExists = htmlResult.indexOf(existingHtml) > -1;
@@ -133,8 +135,8 @@ QUnit.test("getOriginHtml", function (assert) {
 
     // Check for presence of DNT content.
     var dntExists = htmlResult.indexOf('id="dnt-compliant"') > -1;
-    assert.equal(dntExists, isWhitelisted,
-      "DNT div should " + ((dntExists) ? "" : "not ") + "be present");
+    assert.equal(dntExists, action == constants.DNT,
+      "DNT div should " + (dntExists ? "" : "not ") + "be present");
   }
 });
 

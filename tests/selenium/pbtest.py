@@ -19,6 +19,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from xvfbwrapper import Xvfb
 
 
 SEL_DEFAULT_WAIT_TIMEOUT = 30
@@ -52,24 +53,12 @@ def get_browser_type(string):
 def get_browser_name(string):
     if ('/' in string) or ('\\' in string): # it's a path
         return os.path.basename(string)
-    else: # it's a browser type
-        for bn in BROWSER_NAMES:
-            if string in bn and unix_which(bn, silent=True):
-                return os.path.basename(unix_which(bn))
-        raise ValueError('Could not get browser name from %s' % string)
 
-
-def install_ext_on_ff(driver, extension_path):
-    '''
-    Use Selenium's internal API's to manually send a message to geckodriver
-    to install the extension. We should remove this once the functionality is
-    included in Selenium. See https://github.com/SeleniumHQ/selenium/issues/4215
-    '''
-    command = 'addonInstall'
-    driver.command_executor._commands[command] = ( # pylint:disable=protected-access
-        'POST', '/session/$sessionId/moz/addon/install')
-    driver.execute(command, params={'path': extension_path, 'temporary': True})
-    time.sleep(2)
+    # it's a browser type
+    for bn in BROWSER_NAMES:
+        if string in bn and unix_which(bn, silent=True):
+            return os.path.basename(unix_which(bn))
+    raise ValueError('Could not get browser name from %s' % string)
 
 
 class Shim:
@@ -88,14 +77,13 @@ class Shim:
         # get browser_path and browser_type first
         if browser is None:
             raise ValueError("The BROWSER environment variable is not set. " + self._browser_msg)
-        elif ("/" in browser) or ("\\" in browser): # path to a browser binary
+
+        if ("/" in browser) or ("\\" in browser): # path to a browser binary
             self.browser_path = browser
             self.browser_type = get_browser_type(self.browser_path)
-
         elif unix_which(browser, silent=True): # executable browser name like 'google-chrome-stable'
             self.browser_path = unix_which(browser)
             self.browser_type = get_browser_type(browser)
-
         elif get_browser_type(browser): # browser type like 'firefox' or 'chrome'
             bname = get_browser_name(browser)
             self.browser_path = unix_which(bname)
@@ -201,8 +189,8 @@ class Shim:
                 driver = webdriver.Firefox(
                     firefox_profile=ffp,
                     firefox_binary=self.browser_path,
-                    options=opts
-                )
+                    options=opts,
+                    service_log_path=os.path.devnull)
             except WebDriverException as e:
                 if i == 0: print("")
                 print("Firefox WebDriver initialization failed:")
@@ -210,7 +198,7 @@ class Shim:
             else:
                 break
 
-        install_ext_on_ff(driver, self.extension_path)
+        driver.install_addon(self.extension_path, temporary=True)
 
         try:
             yield driver
@@ -286,7 +274,6 @@ class PBSeleniumTest(unittest.TestCase):
         cls.base_url = shim.base_url
         cls.wants_xvfb = shim.wants_xvfb
         if cls.wants_xvfb:
-            from xvfbwrapper import Xvfb
             cls.vdisplay = Xvfb(width=1280, height=720)
             cls.vdisplay.start()
 
@@ -320,12 +307,8 @@ class PBSeleniumTest(unittest.TestCase):
                     # wait for Badger's storage, listeners, ...
                     self.load_url(self.options_url)
                     self.wait_for_script(
-                        "return chrome.extension.getBackgroundPage().badger.INITIALIZED"
-                        # TODO wait for loadSeedData's completion (not yet covered by INITIALIZED)
-                        " && Object.keys("
-                        "chrome.extension.getBackgroundPage()"
-                        ".badger.storage.getBadgerStorageObject('action_map').getItemClones()"
-                        ").length > 1",
+                        "return chrome.extension.getBackgroundPage()."
+                        "badger.INITIALIZED"
                     )
                     driver.close()
                     if driver.window_handles:
@@ -336,22 +319,23 @@ class PBSeleniumTest(unittest.TestCase):
                     # retry test magic
                     if result.name in attempts and result._excinfo: # pylint:disable=protected-access
                         raise Exception(result._excinfo.pop()) # pylint:disable=protected-access
-                    else:
-                        break
+
+                    break
 
             except Exception:
                 if i == nretries - 1:
                     raise
-                else:
-                    wait_secs = 2 ** i
-                    print('\nRetrying {} after {} seconds ...'.format(
-                        result, wait_secs))
-                    time.sleep(wait_secs)
-                    continue
+
+                wait_secs = 2 ** i
+                print('\nRetrying {} after {} seconds ...'.format(
+                    result, wait_secs))
+                time.sleep(wait_secs)
+                continue
 
     def open_window(self):
         if self.driver.current_url.startswith("moz-extension://"):
             # work around https://bugzilla.mozilla.org/show_bug.cgi?id=1491443
+            self.wait_for_script("return typeof chrome != 'undefined' && chrome && chrome.extension")
             self.js(
                 "delete window.__new_window_created;"
                 "chrome.windows.create({}, function () {"

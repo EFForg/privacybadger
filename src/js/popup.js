@@ -438,11 +438,10 @@ function refreshPopup() {
   window.SLIDERS_DONE = false;
 
   // must be a special browser page,
-  // or a page that loaded everything before our most recent initialization
   if (POPUP_DATA.noTabData) {
-    // replace inapplicable summary text with a Badger logo
+    // show the "nothing to do here" message
     $('#blockedResourcesContainer').hide();
-    $('#big-badger-logo').show();
+    $('#special-browser-page').show();
 
     // hide inapplicable buttons
     $('#deactivate_site_btn').hide();
@@ -459,7 +458,7 @@ function refreshPopup() {
   // revert any hiding/showing above for cases when refreshPopup gets called
   // more than once for the same popup, such as during functional testing
   $('#blockedResourcesContainer').show();
-  $('#big-badger-logo').hide();
+  $('#special-browser-page').hide();
   $('#deactivate_site_btn').show();
   $('#error').show();
 
@@ -468,6 +467,7 @@ function refreshPopup() {
     $("#blockedResourcesContainer").hide();
     $("#activate_site_btn").show();
     $("#deactivate_site_btn").hide();
+    $("#disabled-site-message").show();
   }
 
   // if there is any saved error text, fill the error input with it
@@ -491,7 +491,7 @@ function refreshPopup() {
 
     if (POPUP_DATA.showNonTrackingDomains) {
       // show the "no third party resources on this site" message
-      $("#blockedResources").html(chrome.i18n.getMessage("popup_blocked"));
+      $("#no-third-parties").show();
     }
 
     // activate tooltips
@@ -502,27 +502,48 @@ function refreshPopup() {
     return;
   }
 
-  var printable = [];
-  var nonTracking = [];
+  let printable = [];
+  let unblockedTrackers = [];
+  let nonTracking = [];
   originsArr = htmlUtils.sortDomains(originsArr);
 
   for (let i=0; i < originsArr.length; i++) {
-    var origin = originsArr[i];
-    var action = origins[origin];
+    let origin = originsArr[i];
+    let action = origins[origin];
 
     if (action == constants.NO_TRACKING) {
       nonTracking.push(origin);
-      continue;
+    } else if (action == constants.ALLOW) {
+      unblockedTrackers.push(origin);
+    } else {
+      let show_breakage_warning = (
+        action == constants.USER_BLOCK &&
+        POPUP_DATA.cookieblocked.hasOwnProperty(origin)
+      );
+      printable.push(
+        htmlUtils.getOriginHtml(origin, action, show_breakage_warning)
+      );
     }
-
-    printable.push(
-      htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
-    );
   }
 
-  if (POPUP_DATA.showNonTrackingDomains && nonTracking.length > 0) {
+  if (unblockedTrackers.length) {
     printable.push(
-      '<div class="clicker tooltip" id="nonTrackers" title="' +
+      '<div class="clicker tooltip" id="not-yet-blocked-header" title="' +
+      chrome.i18n.getMessage("intro_not_an_adblocker_paragraph") +
+      '" data-tooltipster=\'{"side":"top"}\'>' +
+      chrome.i18n.getMessage("not_yet_blocked_header") +
+      '</div>'
+    );
+    unblockedTrackers.forEach(domain => {
+      printable.push(
+        htmlUtils.getOriginHtml(domain, constants.ALLOW)
+      );
+    });
+  }
+
+  if (POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
+    printable.push(
+      '<div class="clicker tooltip" id="non-trackers-header" title="' +
       chrome.i18n.getMessage("non_tracker_tip") +
       '" data-tooltipster=\'{"side":"top"}\'>' +
       chrome.i18n.getMessage("non_tracker") +
@@ -530,9 +551,12 @@ function refreshPopup() {
     );
     for (let i = 0; i < nonTracking.length; i++) {
       printable.push(
-        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
+        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING)
       );
     }
+
+    // reduce margin if we have non-tracking domains to show
+    $("#instructions_no_trackers").css("margin", "10px 0");
   }
 
   if (printable.length) {
@@ -561,7 +585,7 @@ function refreshPopup() {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
       "popup_instructions", [
         POPUP_DATA.trackerCount,
-        "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+        "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
       ]
     )).find(".tooltip").tooltipster();
   }
@@ -616,16 +640,21 @@ function updateOrigin(event) {
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
-  var $clicker = $elm.parents('.clicker').first();
-  htmlUtils.toggleBlockedStatus($clicker, action);
+
+  let $clicker = $elm.parents('.clicker').first(),
+    origin = $clicker.data('origin'),
+    show_breakage_warning = (
+      action == constants.BLOCK &&
+      POPUP_DATA.cookieblocked.hasOwnProperty(origin)
+    );
+
+  htmlUtils.toggleBlockedStatus($clicker, action, show_breakage_warning);
 
   // reinitialize the domain tooltip
-  $clicker.find('.origin').tooltipster('destroy');
-  $clicker.find('.origin').attr(
-    'title',
-    htmlUtils.getActionDescription(action, $clicker.data('origin'))
-  );
-  $clicker.find('.origin').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
+  $clicker.find('.origin-inner').tooltipster('destroy');
+  $clicker.find('.origin-inner').attr(
+    'title', htmlUtils.getActionDescription(action, origin));
+  $clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 
   // persist the change
   saveToggle($clicker);

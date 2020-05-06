@@ -55,21 +55,21 @@ require.scopes.storage = (function() {
  */
 
 function BadgerPen(callback) {
-  var self = this;
+  let self = this;
 
   if (!callback) {
-    callback = _.noop;
+    callback = function () {};
   }
 
   // initialize from extension local storage
   chrome.storage.local.get(self.KEYS, function (store) {
-    _.each(self.KEYS, function (key) {
+    self.KEYS.forEach(key => {
       if (store.hasOwnProperty(key)) {
         self[key] = new BadgerStorage(key, store[key]);
       } else {
-        var storage_obj = new BadgerStorage(key, {});
-        self[key] = storage_obj;
-        _syncStorage(storage_obj);
+        let storageObj = new BadgerStorage(key, {});
+        self[key] = storageObj;
+        _syncStorage(storageObj);
       }
     });
 
@@ -120,9 +120,9 @@ BadgerPen.prototype = {
    * Reset the snitch map and action map, forgetting all data the badger has
    * learned from browsing.
    */
-  clearTrackerData: function() {
-    var self = this;
-    _.each(['snitch_map', 'action_map'], function(key) {
+  clearTrackerData: function () {
+    let self = this;
+    ['snitch_map', 'action_map'].forEach(key => {
       self.getBadgerStorageObject(key).updateObject({});
     });
   },
@@ -173,19 +173,19 @@ BadgerPen.prototype = {
   updateYellowlist: function (newDomains) {
     let self = this,
       actionMap = self.getBadgerStorageObject('action_map'),
-      yellowlistStorage = self.getBadgerStorageObject('cookieblock_list'),
-      oldDomains = Object.keys(yellowlistStorage.getItemClones());
+      ylistStorage = self.getBadgerStorageObject('cookieblock_list'),
+      oldDomains = ylistStorage.keys();
 
     let addedDomains = _.difference(newDomains, oldDomains),
       removedDomains = _.difference(oldDomains, newDomains);
 
     log('removing from cookie blocklist:', removedDomains);
     removedDomains.forEach(function (domain) {
-      yellowlistStorage.deleteItem(domain);
+      ylistStorage.deleteItem(domain);
 
       const base = window.getBaseDomain(domain);
       // "subdomains" include the domain itself
-      for (const subdomain of Object.keys(actionMap.getItemClones())) {
+      for (const subdomain of actionMap.keys()) {
         if (window.getBaseDomain(subdomain) == base) {
           if (self.getAction(subdomain) != constants.NO_TRACKING) {
             badger.heuristicBlocking.blacklistOrigin(base, subdomain);
@@ -196,7 +196,7 @@ BadgerPen.prototype = {
 
     log('adding to cookie blocklist:', addedDomains);
     addedDomains.forEach(function (domain) {
-      yellowlistStorage.setItem(domain, true);
+      ylistStorage.setItem(domain, true);
 
       const base = window.getBaseDomain(domain);
       if (actionMap.hasItem(base)) {
@@ -213,9 +213,36 @@ BadgerPen.prototype = {
   /**
    * Update DNT policy hashes
    */
-  updateDNTHashes: function(hashes) {
+  updateDntHashes: function (hashes) {
     var dnt_hashes = this.getBadgerStorageObject('dnt_hashes');
     dnt_hashes.updateObject(_.invert(hashes));
+  },
+
+  /**
+   * Looks up whether an FQDN would get cookieblocked,
+   * ignoring user overrides and the FQDN's current status.
+   *
+   * @param {String} fqdn the FQDN we want to look up
+   *
+   * @return {Boolean}
+   */
+  wouldGetCookieblocked: function (fqdn) {
+    // cookieblock if a "parent" domain of the fqdn is on the yellowlist
+    let set = false,
+      ylistStorage = this.getBadgerStorageObject('cookieblock_list'),
+      // ignore base domains when exploding to work around PSL TLDs:
+      // still want to cookieblock somedomain.googleapis.com with only
+      // googleapis.com (and not somedomain.googleapis.com itself) on the ylist
+      subdomains = utils.explodeSubdomains(fqdn, true);
+
+    for (let i = 0; i < subdomains.length; i++) {
+      if (ylistStorage.hasItem(subdomains[i])) {
+        set = true;
+        break;
+      }
+    }
+
+    return set;
   },
 
   /**
@@ -233,20 +260,20 @@ BadgerPen.prototype = {
 
     function getScore(action) {
       switch (action) {
-        case constants.NO_TRACKING:
-          return 0;
-        case constants.ALLOW:
-          return 1;
-        case constants.BLOCK:
-          return 2;
-        case constants.COOKIEBLOCK:
-          return 3;
-        case constants.DNT:
-          return 4;
-        case constants.USER_ALLOW:
-        case constants.USER_BLOCK:
-        case constants.USER_COOKIE_BLOCK:
-          return 5;
+      case constants.NO_TRACKING:
+        return 0;
+      case constants.ALLOW:
+        return 1;
+      case constants.BLOCK:
+        return 2;
+      case constants.COOKIEBLOCK:
+        return 3;
+      case constants.DNT:
+        return 4;
+      case constants.USER_ALLOW:
+      case constants.USER_BLOCK:
+      case constants.USER_COOKIE_BLOCK:
+        return 5;
       }
     }
 
@@ -400,6 +427,34 @@ BadgerPen.prototype = {
       log("Removing %s from action_map", domain);
       actionMap.deleteItem(domain);
     }
+  },
+
+  /**
+   * Removes a base domain and its subdomains from snitch and action maps.
+   * Preserves action map entries with user overrides.
+   *
+   * @param {String} base_domain
+   */
+  forget: function (base_domain) {
+    let self = this,
+      dot_base = '.' + base_domain,
+      actionMap = self.getBadgerStorageObject('action_map'),
+      actions = actionMap.getItemClones(),
+      snitchMap = self.getBadgerStorageObject('snitch_map');
+
+    if (snitchMap.getItem(base_domain)) {
+      log("Removing %s from snitch_map", base_domain);
+      badger.storage.getBadgerStorageObject("snitch_map").deleteItem(base_domain);
+    }
+
+    for (let domain in actions) {
+      if (domain == base_domain || domain.endsWith(dot_base)) {
+        if (actions[domain].userAction == "") {
+          log("Removing %s from action_map", domain);
+          actionMap.deleteItem(domain);
+        }
+      }
+    }
   }
 };
 
@@ -530,6 +585,13 @@ BadgerStorage.prototype = {
   },
 
   /**
+   * @returns {Array} this storage object's store keys
+   */
+  keys: function () {
+    return Object.keys(this._store);
+  },
+
+  /**
    * When a user imports a tracker and settings list via the Import function,
    * we want to overwrite any existing settings, while simultaneously merging
    * in any new information (i.e. the set of whitelisted domains). In order
@@ -558,11 +620,11 @@ BadgerStorage.prototype = {
         let action = mapData[domain];
 
         // Copy over any user settings from the merged-in data
-        if (action.userAction != "") {
+        if (action.userAction) {
           if (self._store.hasOwnProperty(domain)) {
             self._store[domain].userAction = action.userAction;
           } else {
-            self._store[domain] = action;
+            self._store[domain] = Object.assign(_newActionMapObject(), action);
           }
         }
 
@@ -576,19 +638,19 @@ BadgerStorage.prototype = {
         } else {
           // Import action map entries for new DNT-compliant domains
           if (action.dnt) {
-            self._store[domain] = action;
+            self._store[domain] = Object.assign(_newActionMapObject(), action);
           }
         }
       }
 
     } else if (self.name === "snitch_map") {
-      for (let tracker_fqdn in mapData) {
-        var firstPartyOrigins = mapData[tracker_fqdn];
-        for (let origin in firstPartyOrigins) {
+      for (let tracker_origin in mapData) {
+        let firstPartyOrigins = mapData[tracker_origin];
+        for (let i = 0; i < firstPartyOrigins.length; i++) {
           badger.heuristicBlocking.updateTrackerPrevalence(
-            tracker_fqdn,
-            firstPartyOrigins[origin],
-            true // skip DNT policy checking on data import
+            tracker_origin,
+            tracker_origin,
+            firstPartyOrigins[i]
           );
         }
       }
@@ -609,6 +671,7 @@ var _syncStorage = (function () {
       let err = chrome.runtime.lastError.message;
       if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")
       && !err.startsWith("InvalidStateError:") && !err.startsWith("AbortError:")
+      && !err.startsWith("QuotaExceededError:")
       ) {
         badger.criticalError = err;
       }

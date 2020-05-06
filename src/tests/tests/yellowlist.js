@@ -42,8 +42,8 @@ QUnit.module("Yellowlist", (hooks) => {
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, Object.keys(ylist).join("\n")]);
 
-    badger.updateYellowlist(function (success) {
-      assert.ok(success, "callback status indicates success");
+    badger.updateYellowlist(function (err) {
+      assert.notOk(err, "callback status indicates success");
       assert.deepEqual(get_ylist(), ylist, "list got updated");
       done();
     });
@@ -60,8 +60,8 @@ QUnit.module("Yellowlist", (hooks) => {
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [200, {}, ""]);
 
-    badger.updateYellowlist(function (success) {
-      assert.notOk(success, "callback status indicates failure");
+    badger.updateYellowlist(function (err) {
+      assert.ok(err, "callback status indicates failure");
       assert.deepEqual(get_ylist(), ylist, "list did not get updated");
       done();
     });
@@ -88,8 +88,8 @@ QUnit.module("Yellowlist", (hooks) => {
       server.respondWith("GET", constants.YELLOWLIST_URL,
         [200, {}, response]);
 
-      badger.updateYellowlist(function (success) {
-        assert.notOk(success,
+      badger.updateYellowlist(function (err) {
+        assert.ok(err,
           "callback status indicates failure for " + JSON.stringify(response));
         assert.deepEqual(get_ylist(), ylist,
           "list did not get updated for " + JSON.stringify(response));
@@ -106,8 +106,8 @@ QUnit.module("Yellowlist", (hooks) => {
     server.respondWith("GET", constants.YELLOWLIST_URL,
       [404, {}, "page not found"]);
 
-    badger.updateYellowlist(function (success) {
-      assert.notOk(success, "callback status indicates failure");
+    badger.updateYellowlist(function (err) {
+      assert.ok(err, "callback status indicates failure");
       done();
     });
   });
@@ -128,8 +128,8 @@ QUnit.module("Yellowlist", (hooks) => {
       [200, {}, Object.keys(ylist).join("\n")]);
 
     // update yellowlist
-    badger.updateYellowlist(function (success) {
-      assert.ok(success, "callback status indicates success");
+    badger.updateYellowlist(function (err) {
+      assert.notOk(err, "callback status indicates success");
 
       // check that the domain got cookieblocked
       assert.equal(
@@ -388,8 +388,8 @@ QUnit.module("Yellowlist", (hooks) => {
         server.respondWith("GET", constants.YELLOWLIST_URL,
           [200, {}, Object.keys(ylist).join("\n")]);
 
-        badger.updateYellowlist(success => {
-          assert.ok(success, "callback status indicates success");
+        badger.updateYellowlist(err => {
+          assert.notOk(err, "callback status indicates success");
 
           for (let domain in test.domains) {
             let expected, data = test.domains[domain];

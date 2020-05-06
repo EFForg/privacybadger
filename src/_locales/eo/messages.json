@@ -63,6 +63,14 @@
         "message": "Tiu ĉi nomregno promesas al vi ne spuri.",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
+    "breakage_warning_tooltip": {
+        "message": "Per bloki tiun ĉi nomregnon, retejoj povus misfunkcii",
+        "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "feed_the_badger_title": {
+        "message": "Klaku por permesi al Privata Melo decidi kiel trakti tiun ĉi nomregnon",
+        "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
+    },
     "next_section": {
         "message": "antaŭen",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
@@ -123,17 +131,17 @@
         "message": "Elŝuti",
         "description": ""
     },
-    "feed_the_badger_title": {
-        "message": "Klaku por permesi al Privata Melo decidi kiel trakti tiun ĉi spurilon",
-        "description": ""
-    },
     "import": {
         "message": "Enporti",
         "description": ""
     },
+    "options_hide_social_widgets": {
+        "message": "Ne anstataŭigi la jenajn ret‑aplikaĵetojn:",
+        "description": "Multiple selection box on the widget replacement tab"
+    },
     "options_social_widgets_checkbox": {
-        "message": "Anstataŭigi butonojn de sociaj retejoj",
-        "description": "Checkbox label on the general settings page"
+        "message": "Aktivigi anstataŭigon de ret‑aplikaĵetoj",
+        "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Montri nomregnojn, kiuj verŝajne ne spuras vin",
@@ -337,17 +345,13 @@
         "message": "permesitaj",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "share_button_title_google": {
-        "message": "Kunhavigi per Google+",
-        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
     "intro_donate_heading": {
         "message": "Privateco estas kunlaboro!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
         "message": "Vi ne devus bezoni modifi ion ajn tie ĉi.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "ĉiuj",
@@ -374,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privata Melo malkovris $COUNT$ eblajn $TRACKER_LINK_START$spurilojn$TRACKER_LINK_END$ sur tiu ĉi retpaĝo. Tiuj ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ili. Vi ne devus ŝanĝi ilin escepte se io malfunkcias.",
+        "message": "Privata Melo malkovris $COUNT$ eblajn $TRACKER_LINK_START$spurilojn$TRACKER_LINK_END$ sur tiu ĉi retpaĝo",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -399,7 +403,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privata Melo malkovris unu eblan <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurantan nomregnon</a> ĝis nun. Tiu ĉi ŝovilo ebligas al vi agordi kiel Privata Melo procedas pri ĝi.",
+        "message": "Privata Melo malkovris unu eblan <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurantan nomregnon</a> ĝis nun.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -411,7 +415,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privata Melo malkovris eblan <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilon</a> sur tiu ĉi retpaĝo. Tiu ĉi ŝovilo ebligas al vi agordi kiel Privata Melo procedas pri ĝi. Vi ne devus ŝanĝi ĝin escepte se io malfunkcias.",
+        "message": "Privata Melo malkovris eblan <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilon</a> sur tiu ĉi retpaĝo",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -423,7 +427,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privata Melo malkovris $COUNT$ eblajn $TRACKER_LINK_START$spurantajn nomregnojn$TRACKER_LINK_END$ ĝis nun. Tiuj ĉi ŝoviloj ebligas al vi agordi kiel Privata Melo procedas pri ĉiu spurilo.",
+        "message": "Privata Melo malkovris $COUNT$ eblajn $TRACKER_LINK_START$spurantajn nomregnojn$TRACKER_LINK_END$ ĝis nun.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -482,6 +486,14 @@
     "report_input_label": {
         "message": "Priskribo",
         "description": ""
+    },
+    "not_yet_blocked_header": {
+        "message": "Via Melĉjo ankoraŭ ne lernis ĉu bloki tiujn ĉi nomregnojn",
+        "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
+    },
+    "options_show_not_yet_blocked": {
+        "message": "Montri nomregnojn, pri kiuj Privata Melo ne lernis ĉu bloki ilin:",
+        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
         "message": "La subaj nomregnoj verŝajne ne spuras vin",
@@ -586,5 +598,25 @@
     "copy_button_copied": {
         "message": "Kopiita",
         "description": "On-click text of the copy button on the share overlay."
+    },
+    "popup_special_page_header": {
+        "message": "Estas nenio por fari ĉe tiu ĉi paĝo",
+        "description": "Heading for popup_special_page_paragraph"
+    },
+    "popup_special_page_paragraph": {
+        "message": "Privata Melo ne funkcias ĉe specialaj paĝoj kiel tiu ĉi. Provu malfermi alian paĝon.",
+        "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
+    },
+    "popup_disabled_site_header": {
+        "message": "Privata Melo estas malaktivigita por tiu ĉi retejo",
+        "description": "Shown in the popup on disabled sites."
+    },
+    "options_widget_replacement_tab": {
+        "message": "Anstataŭigi ret‑aplikaĵetojn",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "Privata Melo povas bloki butonojn de sociaj retejoj kaj aliajn virtuale uzeblajn aplikaĵetojn (filmetojn, aŭdaĵojn, komentojn), tiu ĉi eblaĵo anstataŭigas ilin per klakeblaj (ne aŭtomate montriĝantaj) butonoj.",
+        "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }

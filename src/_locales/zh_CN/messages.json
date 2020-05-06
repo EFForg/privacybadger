@@ -63,6 +63,14 @@
         "message": "这个域名承诺不会追踪你",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
+    "breakage_warning_tooltip": {
+        "message": "已知屏蔽此域名会破坏网站",
+        "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "feed_the_badger_title": {
+        "message": "点击让隐私獾重新控制此域名",
+        "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
+    },
     "next_section": {
         "message": "下一节",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
@@ -92,11 +100,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "避免 WebRTC 泄露本地 IP 地址 *",
+        "message": "阻止 WebRTC 泄露本地 IP 地址 *",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "隐私獾会自动学习去阻止不可见的追踪器。看看这是如何做到的吧。",
+        "message": "隐私獾会自动学习去屏蔽不可见的追踪器。看看这是如何做到的吧。",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -123,17 +131,17 @@
         "message": "下载",
         "description": ""
     },
-    "feed_the_badger_title": {
-        "message": "点击以让隐私獾接管这个追踪器",
-        "description": ""
-    },
     "import": {
         "message": "导入",
         "description": ""
     },
+    "options_hide_social_widgets": {
+        "message": "不要替换以下小部件：",
+        "description": "Multiple selection box on the widget replacement tab"
+    },
     "options_social_widgets_checkbox": {
-        "message": "替换社交网站挂件",
-        "description": "Checkbox label on the general settings page"
+        "message": "开启小部件替换",
+        "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "显示看起来没有追踪你的域名",
@@ -178,7 +186,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "请不要忘记点击”报告隐私獾导致的显示异常的网站“。我们尊重您的隐私，因此我们不自动发送报告。",
+        "message": "请不要忘记点击“报告隐私獾导致的显示异常的网站”。我们尊重您的隐私，因此我们不自动发送报告。",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -198,7 +206,7 @@
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
-        "message": "在当前的网页上启用隐私獾",
+        "message": "在当前的网站上启用隐私獾",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -337,17 +345,13 @@
         "message": "已允许",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "share_button_title_google": {
-        "message": "分享到 Google+",
-        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
     "intro_donate_heading": {
         "message": "保护隐私人人有责！",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
         "message": "你应该无需更改这里的任何东西。",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "全部",
@@ -374,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "隐私獾检测到这个页面上 $COUNT$ 个潜在的$TRACKER_LINK_START$追踪器$TRACKER_LINK_END$。这些滑块使你控制隐私獾如何控制每个追踪器。除非一些东西出现问题，你应该不需要调节它。",
+        "message": "隐私獾检测到这个页面上 $COUNT$ 个潜在的$TRACKER_LINK_START$追踪器$TRACKER_LINK_END$",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -399,7 +403,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "至今为止隐私獾已经检测到了一个潜在的<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪域名</a>。这个滑块使你控制隐私獾如何处理它。",
+        "message": "至今为止隐私獾已经检测到了一个潜在的<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪域名</a>。",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,11 +411,11 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "在当前的网页上禁用隐私獾",
+        "message": "在当前的网站上禁用隐私獾",
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "隐私獾在这个页面上检测到了一个潜在的<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪器</a>。这个滑块使你控制隐私獾如何处理它。除非一些东西出现问题，你应该不需要调节它。",
+        "message": "隐私獾在这个页面上检测到了一个潜在的<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪器</a>",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -423,7 +427,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "隐私獾发现了 $COUNT$ 至今为止潜在的$TRACKER_LINK_START$追踪域名$TRACKER_LINK_END$。这些滑块使你控制隐私獾如何处理这些追踪器。",
+        "message": "隐私獾发现了 $COUNT$ 至今为止潜在的$TRACKER_LINK_START$追踪域名$TRACKER_LINK_END$。",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -482,6 +486,14 @@
     "report_input_label": {
         "message": "描述",
         "description": ""
+    },
+    "not_yet_blocked_header": {
+        "message": "您的獾还没有学习屏蔽这些域名",
+        "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
+    },
+    "options_show_not_yet_blocked": {
+        "message": "显示您的獾没有学习屏蔽的域名：",
+        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
         "message": "以下域名看起来不在追踪你",
@@ -576,7 +588,7 @@
         }
     },
     "share_base_message": {
-        "message": "隐私獾（www.eff.org/privacybadger）是一个浏览器插件，它可以自动学习去阻止不可见的追踪器。隐私獾由电子前哨基金会，一个为您在线权利奋斗的非营利性组织制作。",
+        "message": "隐私獾（www.eff.org/privacybadger）是一款浏览器扩展，它能够自动学习去屏蔽不可见的追踪器。隐私獾由一家为您在线权利而战的非营利组织——电子前哨基金会创造。",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -586,5 +598,25 @@
     "copy_button_copied": {
         "message": "已复制",
         "description": "On-click text of the copy button on the share overlay."
+    },
+    "popup_special_page_header": {
+        "message": "对这个页面无事可做",
+        "description": "Heading for popup_special_page_paragraph"
+    },
+    "popup_special_page_paragraph": {
+        "message": "隐私獾不在特殊页面工作——比如这一个。试着浏览一下别的网页。",
+        "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
+    },
+    "popup_disabled_site_header": {
+        "message": "隐私獾在此站点被禁用",
+        "description": "Shown in the popup on disabled sites."
+    },
+    "options_widget_replacement_tab": {
+        "message": "小部件替换",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "当屏蔽社交媒体按钮和其他可能有用的小部件（如音视频和评论区）时，隐私獾可以将他们替换成“点击以启用”的占位部件。",
+        "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }

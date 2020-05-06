@@ -2,7 +2,7 @@
 // Adapted from https://github.com/mgziminsky/FacebookTrackingRemoval
 // this should only run on facebook.com, messenger.com, and
 // facebookcorewwwi.onion
-let fb_wrapped_link = `a[href*='${document.domain}/l.php?']:not([aria-label='photo'])`;
+let fb_wrapped_link = `a[href*='${document.domain.split(".").slice(-2).join(".")}/l.php?']:not([aria-label])`;
 
 // remove all attributes from a link except for class and ARIA attributes
 function cleanAttrs(elem) {
@@ -38,19 +38,19 @@ function cleanLink(a) {
   a.addEventListener("mouseover", function (e) { e.stopImmediatePropagation(); }, true);
 }
 
-//TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({checkEnabled: true},
-  function (enabled) {
-    if (!enabled) {
-      return;
-    }
-
-    // unwrap wrapped links in the original page
-    findInAllFrames(fb_wrapped_link).forEach((link) => {
-      cleanLink(link);
-    });
-
-    // Execute redirect unwrapping each time new content is added to the page
-    observeMutations(fb_wrapped_link, cleanLink);
+// TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({
+  type: "checkEnabled"
+}, function (enabled) {
+  if (!enabled) {
+    return;
   }
-);
+
+  // unwrap wrapped links in the original page
+  findInAllFrames(fb_wrapped_link).forEach((link) => {
+    cleanLink(link);
+  });
+
+  // Execute redirect unwrapping each time new content is added to the page
+  observeMutations(fb_wrapped_link, cleanLink);
+});

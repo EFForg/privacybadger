@@ -272,26 +272,24 @@ function() {
   });
 
   QUnit.test("numblocked zero", function(assert) {
-    let done = assert.async(2);
+    let done = assert.async(2),
+      called = false;
 
     this.setBadgeText.callsFake((obj) => {
       assert.deepEqual(
         obj,
-        {tabId: this.tabId, text: "0"},
+        {tabId: this.tabId, text: ""},
         "setBadgeText called with expected args"
       );
       done();
     });
-    chrome.browserAction.setBadgeBackgroundColor = (obj) => {
-      assert.deepEqual(
-        obj,
-        {tabId: this.tabId, color: "#00cc00"},
-        "setBadgeBackgroundColor called with expected args"
-      );
-      done();
-    };
+    chrome.browserAction.setBadgeBackgroundColor = () => {called = true;};
 
     badger.updateBadge(this.tabId);
+
+    assert.notOk(called, "setBadgeBackgroundColor does not get called");
+
+    done();
   });
 
 });

@@ -1,5 +1,5 @@
 {
-  "version": "2019.7.1.1",
+  "version": "2020.2.19",
   "author": {
     "email": "eff.software.projects@gmail.com"
   },
@@ -14,6 +14,7 @@
     "tabs",
     "http://*/*",
     "https://*/*",
+    "webNavigation",
     "webRequest",
     "webRequestBlocking",
     "storage",
@@ -23,7 +24,7 @@
   "background": {
     "scripts": [
       "js/bootstrap.js",
-      "lib/vendor/punycode.js",
+      "lib/vendor/punycode-1.4.1.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
       "lib/vendor/underscore-1.9.1.js",
@@ -209,8 +210,6 @@
         "http://www.google.gl/*",
         "https://www.google.gm/*",
         "http://www.google.gm/*",
-        "https://www.google.gp/*",
-        "http://www.google.gp/*",
         "https://www.google.gr/*",
         "http://www.google.gr/*",
         "https://www.google.com.gt/*",
@@ -317,8 +316,6 @@
         "http://www.google.co.mz/*",
         "https://www.google.com.na/*",
         "http://www.google.com.na/*",
-        "https://www.google.com.nf/*",
-        "http://www.google.com.nf/*",
         "https://www.google.com.ng/*",
         "http://www.google.com.ng/*",
         "https://www.google.com.ni/*",
@@ -407,8 +404,6 @@
         "http://www.google.co.th/*",
         "https://www.google.com.tj/*",
         "http://www.google.com.tj/*",
-        "https://www.google.tk/*",
-        "http://www.google.tk/*",
         "https://www.google.tl/*",
         "http://www.google.tl/*",
         "https://www.google.tm/*",
@@ -519,8 +514,8 @@
   "name": "__MSG_name__",
   "browser_action": {
     "default_icon": {
-      "19": "icons/badger-19.png",
-      "38": "icons/badger-38.png"
+      "19": "icons/badger-19-disabled.png",
+      "38": "icons/badger-38-disabled.png"
     },
     "default_popup": "skin/popup.html",
     "default_title": "__MSG_name__"

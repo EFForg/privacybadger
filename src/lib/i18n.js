@@ -32,15 +32,17 @@ function setTextDirection() {
     let $els = $(selector);
     $els.each(i => {
       let $el = $($els[i]);
-      $el.css(property, $el.css(property) === from ? to : from);
+      if ($el.css(property) === from) {
+        $el.css(property, to);
+      }
     });
   }
 
   // https://www.w3.org/International/questions/qa-scripts#examples
   // https://developer.chrome.com/webstore/i18n?csw=1#localeTable
-  const RTL_LANGS = ['ar', 'he', 'fa'];
-
-  if (RTL_LANGS.indexOf(i18n.getMessage('@@ui_locale')) == -1) {
+  // TODO duplicated in src/js/webrequest.js
+  const RTL_LOCALES = ['ar', 'he', 'fa'];
+  if (RTL_LOCALES.indexOf(i18n.getMessage('@@ui_locale')) == -1) {
     return;
   }
 
@@ -50,7 +52,7 @@ function setTextDirection() {
   // popup page
   if (document.location.pathname == "/skin/popup.html") {
     // fix floats
-    ['#privacyBadgerHeader h2', '#privacyBadgerHeader img', '#instruction img', '#version'].forEach((selector) => {
+    ['#privacyBadgerHeader img', '#header-image-stack', '#instruction img', '#version'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
     ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
@@ -58,10 +60,7 @@ function setTextDirection() {
     });
 
     // fix padding
-    ['#version'].forEach((selector) => {
-      swap_css_property(selector, "padding-left", "padding-right");
-    });
-    ['#privacyBadgerHeader h2', '#instruction img', '#help', '#share'].forEach((selector) => {
+    ['#instruction img', '#help', '#share'].forEach((selector) => {
       swap_css_property(selector, "padding-right", "padding-left");
     });
 
@@ -80,7 +79,7 @@ function setTextDirection() {
     document.body.appendChild(css);
 
     // fix margins
-    ['#settings-suffix', '#check-dnt-policy-row'].forEach((selector) => {
+    ['#settings-suffix', '#check-dnt-policy-row', '#hide-widgets-row'].forEach((selector) => {
       swap_css_property(selector, "margin-left", "margin-right");
     });
     ['#whitelistForm > div > div > div'].forEach((selector) => {
@@ -90,6 +89,15 @@ function setTextDirection() {
     // fix floats
     ['.btn-silo', '.btn-silo div', '#whitelistForm > div > div > div'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
+    });
+
+  // new user welcome page
+  } else if (document.location.pathname == "/skin/firstRun.html") {
+    [
+      '[id*="pb-features-"] h3,#pb-settings h3',
+      '[id*="pb-features-"] .text,[id*="pb-features-"] p,#pb-settings .text,#pb-settings p'
+    ].forEach((selector) => {
+      toggle_css_value(selector, "text-align", "left", "right");
     });
   }
 }
