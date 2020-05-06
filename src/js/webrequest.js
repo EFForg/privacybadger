@@ -104,12 +104,11 @@ function onBeforeRequest(details) {
     }
   }
 
-  // Notify the content script...
-  var msg = {
+  // notify the widget replacement content script
+  chrome.tabs.sendMessage(tab_id, {
     replaceWidget: true,
     trackerDomain: request_host
-  };
-  chrome.tabs.sendMessage(tab_id, msg);
+  });
 
   // if this is a heuristically- (not user-) blocked domain
   if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
@@ -555,7 +554,7 @@ function _isTabAnExtension(tabId) {
  * @returns {Object} dict containing the complete list of widgets
  * as well as a mapping to indicate which ones should be replaced
  */
-let getWidgetBlockList = (function () {
+let getWidgetList = (function () {
   // cached translations
   let translations;
 
@@ -569,11 +568,13 @@ let getWidgetBlockList = (function () {
   ];
 
   return function (tab_id) {
-    // A mapping of individual SocialWidget objects to boolean values that determine
-    // whether the content script should replace that tracker's button/widget
-    var widgetsToReplace = {};
+    // an object with keys set to widget names that should be replaced
+    let widgetsToReplace = {},
+      widgetList = [],
+      tabData = badger.tabData[tab_id],
+      exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
 
-    // optimize translation lookups by doing them just once
+    // optimize translation lookups by doing them just once,
     // the first time they are needed
     if (!translations) {
       translations = widgetTranslations.reduce((memo, data) => {
@@ -587,30 +588,38 @@ let getWidgetBlockList = (function () {
       translations.rtl = RTL_LOCALES.indexOf(UI_LOCALE) > -1;
     }
 
-    badger.widgetList.forEach(function (widget) {
-      let replace = false;
-
+    for (let widget of badger.widgetList) {
       // replace only if the widget is not on the 'do not replace' list
-      if (!badger.getSettings().getItem('widgetReplacementExceptions').includes(widget.name) &&
-          badger.tabData.hasOwnProperty(tab_id) &&
-          badger.tabData[tab_id].origins.hasOwnProperty(widget.domain)) {
+      // also don't send widget data used later for dynamic replacement
+      if (exceptions.includes(widget.name)) {
+        continue;
+      }
 
-        const action = badger.tabData[tab_id].origins[widget.domain];
+      widgetList.push(widget);
 
-        // and only if it was blocked
-        replace = (
+      // replace only if at least one of the associated domains was blocked
+      if (!tabData) {
+        continue;
+      }
+      let replace = widget.domains.some(domain => {
+        if (!tabData.origins.hasOwnProperty(domain)) {
+          return false;
+        }
+        const action = tabData.origins[domain];
+        return (
           action == constants.BLOCK ||
           action == constants.USER_BLOCK
         );
+      });
+      if (replace) {
+        widgetsToReplace[widget.name] = true;
       }
-
-      widgetsToReplace[widget.name] = replace;
-    });
+    }
 
     return {
       translations,
-      trackers: badger.widgetList,
-      trackerButtonsToReplace: widgetsToReplace
+      widgetList,
+      widgetsToReplace
     };
   };
 }());
@@ -665,7 +674,6 @@ function dispatcher(request, sender, sendResponse) {
       "checkEnabled",
       "checkEnabledAndThirdParty",
       "checkLocation",
-      "checkReplaceButton",
       "checkWidgetReplacementEnabled",
       "fpReport",
       "getReplacementButton",
@@ -708,15 +716,6 @@ function dispatcher(request, sender, sendResponse) {
 
     let action = checkAction(sender.tab.id, frame_host);
     sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK);
-
-    break;
-  }
-
-  case "checkReplaceButton": {
-    if (badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) && badger.isWidgetReplacementEnabled()) {
-      let widgetBlockList = getWidgetBlockList(sender.tab.id);
-      sendResponse(widgetBlockList);
-    }
 
     break;
   }
@@ -805,10 +804,16 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkWidgetReplacementEnabled": {
-    sendResponse(
-      badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url)) &&
-      badger.isWidgetReplacementEnabled()
-    );
+    let response = false,
+      tab_host = window.extractHostFromURL(sender.tab.url);
+
+    if (badger.isPrivacyBadgerEnabled(tab_host) &&
+        badger.isWidgetReplacementEnabled()) {
+      response = getWidgetList(sender.tab.id);
+    }
+
+    sendResponse(response);
+
     break;
   }
 

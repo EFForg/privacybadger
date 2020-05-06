@@ -7,13 +7,6 @@ import pbtest
 
 
 class ClobberingTest(pbtest.PBSeleniumTest):
-    COOKIEBLOCK_JS = (
-        "(function (domain) {"
-        "  let bg = chrome.extension.getBackgroundPage();"
-        "  bg.badger.storage.setupHeuristicAction(domain, bg.constants.COOKIEBLOCK);"
-        "}(arguments[0]));"
-    )
-
     def test_localstorage_clobbering(self):
         LOCALSTORAGE_TESTS = [
             # (test result element ID, expected stored, expected empty)
@@ -52,8 +45,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             )
 
         # mark the frame domain for cookieblocking
-        self.load_url(self.options_url)
-        self.js(self.COOKIEBLOCK_JS, FRAME_DOMAIN)
+        self.cookieblock_domain(FRAME_DOMAIN)
 
         # now rerun and check results for various localStorage access tests
         self.load_url(FIXTURE_URL)
@@ -97,8 +89,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
         )
 
         # cookieblock the domain fetched by the fixture
-        self.load_url(self.options_url)
-        self.js(self.COOKIEBLOCK_JS, THIRD_PARTY_DOMAIN)
+        self.cookieblock_domain(THIRD_PARTY_DOMAIN)
 
         # recheck what the referrer header looks like now after cookieblocking
         verify_referrer_header(

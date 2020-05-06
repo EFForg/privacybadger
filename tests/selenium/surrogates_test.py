@@ -46,11 +46,10 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         )
 
         # block ga.js (known to break the site)
-        self.load_url(self.options_url)
-        # also back up the surrogate definition before removing it
+        self.block_domain("www.google-analytics.com")
+        # back up the surrogate definition before removing it
         ga_backup = self.js(
             "let bg = chrome.extension.getBackgroundPage();"
-            "bg.badger.heuristicBlocking.blacklistOrigin('www.google-analytics.com', 'google-analytics.com');"
             "const sdb = bg.require('surrogatedb');"
             "return JSON.stringify(sdb.hostnames['www.google-analytics.com']);"
         )

@@ -249,11 +249,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         DOMAIN_ID = DOMAIN.replace(".", "-")
 
         # record the domain as cookieblocked by Badger
-        self.load_url(self.options_url)
-        self.js((
-            "chrome.extension.getBackgroundPage()"
-            ".badger.storage.setupHeuristicAction('{}', '{}');"
-        ).format(DOMAIN, "cookieblock"))
+        self.cookieblock_domain(DOMAIN)
 
         self.open_popup(origins={DOMAIN:"cookieblock"})
 

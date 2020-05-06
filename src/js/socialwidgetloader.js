@@ -45,28 +45,14 @@
 
 /* globals log:false */
 
-var utils = require('utils');
+require.scopes.widgetloader = (function () {
 
-require.scopes.widgetloader = (function() {
+let utils = require('utils');
 
-var exports = {};
-exports.loadWidgetsFromFile = loadWidgetsFromFile;
-
-/**
- * Loads a JSON file at filePath and returns the parsed object.
- *
- * @param {String} filePath the path to the JSON file, relative to the
- *                          extension's data folder
- * @param {Function} callback callback(jsonParsed)
- */
-function loadJSONFromFile(filePath, callback) {
-  getFileContents(filePath, function(jsonString) {
-    var jsonParsed = JSON.parse(jsonString);
-    Object.freeze(jsonParsed); // prevent modifications to jsonParsed
-
-    callback(jsonParsed);
-  });
-}
+let exports = {
+  initializeWidgets,
+  loadWidgetsFromFile,
+};
 
 /**
  * Returns the contents of the file at filePath.
@@ -75,9 +61,8 @@ function loadJSONFromFile(filePath, callback) {
  * @param {Function} callback callback(responseText)
  */
 function getFileContents(filePath, callback) {
-  var url = chrome.runtime.getURL(filePath);
-
-  utils.xhrRequest(url, function(err, responseText) {
+  let url = chrome.runtime.getURL(filePath);
+  utils.xhrRequest(url, function (err, responseText) {
     if (err) {
       console.error(
         "Problem fetching contents of file at",
@@ -92,27 +77,33 @@ function getFileContents(filePath, callback) {
 }
 
 /**
- * Returns an array of SocialWidget objects that are loaded from the file at
- * filePath.
- *
- * @param {String} filePath the path to the JSON file, relative to the
- *                          extension's data folder
+ * @param {String} filePath the path to the JSON file
  * @param {Function} callback callback(socialwidgets)
+ * @returns {Array} array of SocialWidget objects
  */
 function loadWidgetsFromFile(filePath, callback) {
-  loadJSONFromFile(filePath, function(widgetsJson) {
-    let widgets = [];
-
-    // loop over each widget, making a SocialWidget object
-    for (let widget_name in widgetsJson) {
-      let widgetProperties = widgetsJson[widget_name];
-      let widget = new SocialWidget(widget_name, widgetProperties);
-      widgets.push(widget);
-    }
-
+  getFileContents(filePath, function (contents) {
+    let widgets = initializeWidgets(JSON.parse(contents));
     log("Initialized widgets from disk");
     callback(widgets);
   });
+}
+
+/**
+ * @param {Object} widgetsJson widget data
+ * @returns {Array} array of SocialWidget objects
+ */
+function initializeWidgets(widgetsJson) {
+  let widgets = [];
+
+  // loop over each widget, making a SocialWidget object
+  for (let widget_name in widgetsJson) {
+    let widgetProperties = widgetsJson[widget_name];
+    let widget = new SocialWidget(widget_name, widgetProperties);
+    widgets.push(widget);
+  }
+
+  return widgets;
 }
 
 /**
@@ -122,12 +113,20 @@ function loadWidgetsFromFile(filePath, callback) {
  * @param {Object} properties the properties of the socialwidget
  */
 function SocialWidget(name, properties) {
-  this.name = name;
+  let self = this;
 
-  for (var property in properties) {
-    this[property] = properties[property];
+  self.name = name;
+
+  for (let property in properties) {
+    self[property] = properties[property];
+  }
+
+  // standardize on "domains"
+  if (self.domain) {
+    self.domains = [self.domain];
   }
 }
 
 return exports;
+
 }()); //require scopes

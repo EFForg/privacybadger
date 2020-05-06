@@ -414,6 +414,32 @@ class PBSeleniumTest(unittest.TestCase):
             EC.frame_to_be_available_and_switch_to_it(
                 (By.CSS_SELECTOR, selector)))
 
+    def block_domain(self, domain):
+        self.load_url(self.options_url)
+        self.js((
+            "(function (domain) {"
+            "  let bg = chrome.extension.getBackgroundPage();"
+            "  let base_domain = window.getBaseDomain(domain);"
+            "  bg.badger.heuristicBlocking.blacklistOrigin(domain, base_domain);"
+            "}(arguments[0]));"
+        ), domain)
+
+    def cookieblock_domain(self, domain):
+        self.load_url(self.options_url)
+        self.js((
+            "(function (domain) {"
+            "  let bg = chrome.extension.getBackgroundPage();"
+            "  bg.badger.storage.setupHeuristicAction(domain, bg.constants.COOKIEBLOCK);"
+            "}(arguments[0]));"
+        ), domain)
+
+    def disable_badger_on_site(self, url):
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-whitelisted-domains"]').click()
+        self.driver.find_element_by_id('newWhitelistDomain').send_keys(url)
+        self.driver.find_element_by_css_selector('button.addButton').click()
+
     @property
     def logs(self):
         def strip(l):

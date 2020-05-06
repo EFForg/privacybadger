@@ -43,10 +43,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * Widget data, read from file.
- */
-let trackerInfo;
+// widget data
+let widgetList;
 
 // cached chrome.i18n.getMessage() results
 const TRANSLATIONS = {};
@@ -56,18 +54,20 @@ const WIDGET_ELS = {};
 
 
 /**
- * Initializes the content script.
+ * @param {Object} response response to checkWidgetReplacementEnabled
  */
-function initialize() {
-  // Get tracker info and check for initial blocks (that happened
-  // before content script was attached)
-  getTrackerData(function (trackers, trackerButtonsToReplace) {
-    trackerInfo = trackers;
-    replaceInitialTrackerButtonsHelper(trackerButtonsToReplace);
-  });
+function initialize(response) {
+  for (const key in response.translations) {
+    TRANSLATIONS[key] = response.translations[key];
+  }
 
-  // Set up listener for blocks that happen after initial check
-  chrome.runtime.onMessage.addListener(function(request/*, sender, sendResponse*/) {
+  widgetList = response.widgetList;
+
+  // check for widgets blocked before we got here
+  replaceInitialTrackerButtonsHelper(response.widgetsToReplace);
+
+  // set up listener for dynamically created widgets
+  chrome.runtime.onMessage.addListener(function (request) {
     if (request.replaceWidget) {
       replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
     }
@@ -84,7 +84,7 @@ function initialize() {
  * @param {Function} callback called with the replacement button element for the tracker
  */
 function createReplacementButtonImage(tracker, trackerElem, callback) {
-  var buttonData = tracker.replacementButton;
+  let buttonData = tracker.replacementButton;
 
   // already have replacement button image URI cached
   if (buttonData.buttonUrl) {
@@ -113,21 +113,21 @@ function createReplacementButtonImage(tracker, trackerElem, callback) {
 }
 
 function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
-  var buttonData = tracker.replacementButton;
+  let buttonData = tracker.replacementButton,
+    button_type = buttonData.type;
 
-  var button = document.createElement("img");
+  let button = document.createElement("img");
+  button.setAttribute("src", buttonData.buttonUrl);
 
-  var buttonUrl = buttonData.buttonUrl;
-  var buttonType = buttonData.type;
-  var details = buttonData.details;
-
-  button.setAttribute("src", buttonUrl);
-
-  // TODO use custom tooltip to support RTL locales?
-  button.setAttribute(
-    "title",
-    TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", tracker.name)
-  );
+  // apply tooltip to social button replacements only;
+  // no need to do this for replacement widgets
+  if (button_type < 3) {
+    // TODO use custom tooltip to support RTL locales?
+    button.setAttribute(
+      "title",
+      TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", tracker.name)
+    );
+  }
 
   let styleAttrs = [
     "border: none",
@@ -138,33 +138,40 @@ function _createReplacementButtonImageCallback(tracker, trackerElem, callback) {
   button.setAttribute("style", styleAttrs.join(" !important;") + " !important");
 
   // normal button type; just open a new window when clicked
-  if (buttonType === 0) {
-    var popupUrl = details + encodeURIComponent(window.location.href);
+  if (button_type === 0) {
+    let popup_url = buttonData.details + encodeURIComponent(window.location.href);
 
     button.addEventListener("click", function() {
-      window.open(popupUrl);
+      window.open(popup_url);
     });
 
   // in place button type; replace the existing button
   // with an iframe when clicked
-  } else if (buttonType == 1) {
-    var iframeUrl = details + encodeURIComponent(window.location.href);
+  } else if (button_type == 1) {
+    let iframe_url = buttonData.details + encodeURIComponent(window.location.href);
 
     button.addEventListener("click", function() {
-      replaceButtonWithIframeAndUnblockTracker(button, tracker.name, iframeUrl);
+      replaceButtonWithIframeAndUnblockTracker(button, tracker.name, iframe_url);
     }, { once: true });
 
   // in place button type; replace the existing button with code
-  // specified in the Trackers file
-  } else if (buttonType == 2) {
+  // specified in the widgets JSON
+  } else if (button_type == 2) {
     button.addEventListener("click", function() {
-      replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker.name, details);
+      replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker.name, buttonData.details);
     }, { once: true });
 
   // in-place widget type:
   // reinitialize the widget by reinserting its element's HTML
-  } else if (buttonType == 3) {
-    let widget = createReplacementWidget(tracker.name, button, trackerElem);
+  } else if (button_type == 3) {
+    let widget = createReplacementWidget(tracker, button, trackerElem, reinitializeWidgetAndUnblockTracker);
+    return callback(widget);
+
+  // in-place widget type:
+  // reinitialize the widget by reinserting its element's HTML
+  // and activating associated scripts
+  } else if (button_type == 4) {
+    let widget = createReplacementWidget(tracker, button, trackerElem, replaceWidgetAndReloadScripts);
     return callback(widget);
   }
 
@@ -186,7 +193,7 @@ function replaceButtonWithIframeAndUnblockTracker(button, widget_name, iframeUrl
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
-      var iframe = document.createElement("iframe");
+      let iframe = document.createElement("iframe");
 
       iframe.setAttribute("src", iframeUrl);
       iframe.setAttribute("style", "border: none !important; height: 1.5em !important;");
@@ -210,7 +217,7 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, widget_name, html) {
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
-      var codeContainer = document.createElement("div");
+      let codeContainer = document.createElement("div");
       codeContainer.innerHTML = html;
 
       button.parentNode.replaceChild(codeContainer, button);
@@ -226,7 +233,7 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, widget_name, html) {
  *
  * The teardown to the initialization defined in createReplacementWidget().
  *
- * @param {String} name the name/type of this widget (Vimeo, Disqus, etc.)
+ * @param {String} name the name/type of this widget (SoundCloud, Vimeo etc.)
  */
 function reinitializeWidgetAndUnblockTracker(name) {
   unblockTracker(name, function () {
@@ -239,19 +246,67 @@ function reinitializeWidgetAndUnblockTracker(name) {
 }
 
 /**
+ * Similar to reinitializeWidgetAndUnblockTracker() above,
+ * but also reruns scripts defined in scriptSelectors.
+ *
+ * @param {String} name the name/type of this widget (Disqus, Google reCAPTCHA)
+ */
+function replaceWidgetAndReloadScripts(name) {
+  unblockTracker(name, function () {
+    // restore all widgets of this type
+    WIDGET_ELS[name].forEach(data => {
+      data.parent.replaceChild(data.widget, data.replacement);
+      reloadScripts(data.scriptSelectors, data.fallbackScriptUrl);
+    });
+    WIDGET_ELS[name] = [];
+  });
+}
+
+/**
+ * Find and replace script elements with their copies to trigger re-running.
+ */
+function reloadScripts(selectors, fallback_script_url) {
+  let scripts = document.querySelectorAll(selectors.join(','));
+
+  // if there are no matches, try a known script URL
+  if (!scripts.length && fallback_script_url) {
+    let parent = document.documentElement,
+      replacement = document.createElement("script");
+    replacement.src = fallback_script_url;
+    parent.insertBefore(replacement, parent.firstChild);
+    return;
+  }
+
+  for (let scriptEl of scripts) {
+    // reinsert script elements only
+    if (!scriptEl.nodeName || scriptEl.nodeName.toLowerCase() != 'script') {
+      continue;
+    }
+
+    let replacement = document.createElement("script");
+    for (let attr of scriptEl.attributes) {
+      replacement.setAttribute(attr.nodeName, attr.nodeValue);
+    }
+    scriptEl.parentNode.replaceChild(replacement, scriptEl);
+    // reinsert one script and quit
+    break;
+  }
+}
+
+/**
  * Dumping scripts into innerHTML won't execute them, so replace them
  * with executable scripts.
  */
 function replaceScriptsRecurse(node) {
   if (node.nodeName && node.nodeName.toLowerCase() == 'script' &&
       node.getAttribute && node.getAttribute("type") == "text/javascript") {
-    var script = document.createElement("script");
+    let script = document.createElement("script");
     script.text = node.innerHTML;
     script.src = node.src;
     node.parentNode.replaceChild(script, node);
   } else {
-    var i = 0;
-    var children = node.childNodes;
+    let i = 0,
+      children = node.childNodes;
     while (i < children.length) {
       replaceScriptsRecurse(children[i]);
       i++;
@@ -265,13 +320,11 @@ function replaceScriptsRecurse(node) {
  * Replaces all tracker buttons on the current web page with the internal
  * replacement buttons, respecting the user's blocking settings.
  *
- * @param {Object} trackerButtonsToReplace a map of tracker names to boolean
- * values saying whether those trackers' buttons should be replaced
+ * @param {Array} widgetsToReplace a list of widget names to replace
  */
-function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
-  trackerInfo.forEach(function(tracker) {
-    var replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
-    if (replaceTrackerButtons) {
+function replaceInitialTrackerButtonsHelper(widgetsToReplace) {
+  widgetList.forEach(function (tracker) {
+    if (widgetsToReplace.hasOwnProperty(tracker.name)) {
       replaceIndividualButton(tracker);
     }
   });
@@ -280,17 +333,20 @@ function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
 /**
  * Individually replaces tracker buttons blocked after initial check.
  */
-function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
-  if (!trackerInfo) { return; }
-  trackerInfo.forEach(function(tracker) {
-    var replaceTrackerButtons = (tracker.domain == trackerDomain);
-    if (replaceTrackerButtons) {
+function replaceSubsequentTrackerButtonsHelper(tracker_domain) {
+  if (!widgetList) {
+    return;
+  }
+  widgetList.forEach(function (tracker) {
+    if (tracker.domains.includes(tracker_domain)) {
       replaceIndividualButton(tracker);
     }
   });
 }
 
-function createReplacementWidget(name, icon, elToReplace) {
+function createReplacementWidget(tracker, icon, elToReplace, activationFn) {
+  let name = tracker.name;
+
   let widgetFrame = document.createElement('iframe');
 
   // widget replacement frame styles
@@ -372,17 +428,24 @@ function createReplacementWidget(name, icon, elToReplace) {
   if (!WIDGET_ELS.hasOwnProperty(name)) {
     WIDGET_ELS[name] = [];
   }
-  WIDGET_ELS[name].push({
+  let data = {
     parent: elToReplace.parentNode,
     widget: elToReplace,
     replacement: widgetFrame
-  });
+  };
+  if (tracker.scriptSelectors) {
+    data.scriptSelectors = tracker.scriptSelectors;
+    if (tracker.fallbackScriptUrl) {
+      data.fallbackScriptUrl = tracker.fallbackScriptUrl;
+    }
+  }
+  WIDGET_ELS[name].push(data);
 
   // set up click handler
   widgetFrame.addEventListener('load', function () {
     let el = widgetFrame.contentDocument.getElementById(button_id);
     el.addEventListener("click", function (e) {
-      reinitializeWidgetAndUnblockTracker(name);
+      activationFn(name);
       e.preventDefault();
     }, { once: true });
   }, false);
@@ -399,38 +462,13 @@ function replaceIndividualButton(tracker) {
 
   // makes a comma separated list of CSS selectors that specify
   // buttons for the current tracker; used for document.querySelectorAll
-  var buttonSelectorsString = tracker.buttonSelectors.toString();
-  var buttonsToReplace =
-    document.querySelectorAll(buttonSelectorsString);
+  let selector = tracker.buttonSelectors.join(','),
+    buttonsToReplace = document.querySelectorAll(selector);
 
   buttonsToReplace.forEach(function (buttonToReplace) {
     createReplacementButtonImage(tracker, buttonToReplace, function (button) {
       buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
     });
-  });
-}
-
-/**
- * Gets data about which tracker buttons need to be replaced from the main
- * extension and passes it to the provided callback function.
- *
- * @param {Function} callback the function to call when the tracker data is
- *                            received; the arguments passed are the folder
- *                            containing the content script, the tracker
- *                            data, and a mapping of tracker names to
- *                            whether those tracker buttons need to be
- *                            replaced
- */
-function getTrackerData(callback) {
-  chrome.runtime.sendMessage({
-    type: "checkReplaceButton"
-  }, function (response) {
-    if (response) {
-      for (const key in response.translations) {
-        TRANSLATIONS[key] = response.translations[key];
-      }
-      callback(response.trackers, response.trackerButtonsToReplace);
-    }
   });
 }
 
@@ -465,11 +503,11 @@ if (document instanceof HTMLDocument === false && (
 
 chrome.runtime.sendMessage({
   type: "checkWidgetReplacementEnabled"
-}, function (enabled) {
-  if (!enabled) {
+}, function (response) {
+  if (!response) {
     return;
   }
-  initialize();
+  initialize(response);
 });
 
 }());

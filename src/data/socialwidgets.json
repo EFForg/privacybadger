@@ -22,9 +22,6 @@
         ],
         "replacementButton": {
             "details": "http://www.digg.com/submit?url=",
-            "unblockDomains": [
-                "www.digg.com"
-            ],
             "imagePath": "Digg.svg",
             "type": 0
         }
@@ -63,6 +60,30 @@
             "type": 1
         }
     },
+    "Google reCAPTCHA": {
+        "domains": [
+            "google.com",
+            "www.google.com"
+        ],
+        "buttonSelectors": [
+            "div.g-recaptcha",
+            "div#g-recaptcha"
+        ],
+        "scriptSelectors": [
+            "script[src^='//google.com/recaptcha/api.js']",
+            "script[src^='https://google.com/recaptcha/api.js']",
+            "script[src^='https://www.google.com/recaptcha/api.js']"
+        ],
+        "fallbackScriptUrl": "//google.com/recaptcha/api.js",
+        "replacementButton": {
+            "unblockDomains": [
+                "google.com",
+                "www.google.com"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 4
+        }
+    },
     "LinkedIn": {
         "domain": "platform.linkedin.com",
         "buttonSelectors": [
@@ -70,9 +91,6 @@
         ],
         "replacementButton": {
             "details": "http://www.linkedin.com/shareArticle?mini=true&url=",
-            "unblockDomains": [
-                "www.linkedin.com"
-            ],
             "imagePath": "LinkedIn.svg",
             "type": 0
         }
@@ -85,9 +103,6 @@
         ],
         "replacementButton": {
             "details": "http://pinterest.com/pin/create/button/?url=",
-            "unblockDomains": [
-                "pinterest.com"
-            ],
             "imagePath": "Pinterest.svg",
             "type": 0
         }
@@ -98,7 +113,6 @@
             "iframe[src^='https://w.soundcloud.com/player']"
         ],
         "replacementButton": {
-            "details": "",
             "unblockDomains": [
                 "w.soundcloud.com"
             ],
@@ -112,7 +126,6 @@
             "iframe[src^='https://open.spotify.com/embed']"
         ],
         "replacementButton": {
-            "details": "",
             "unblockDomains": [
                 "open.spotify.com"
             ],
@@ -126,7 +139,6 @@
             "iframe[src^='https://streamable.com/']"
         ],
         "replacementButton": {
-            "details": "",
             "unblockDomains": [
                 "streamable.com"
             ],
@@ -141,9 +153,6 @@
         ],
         "replacementButton": {
             "details": "https://twitter.com/intent/tweet?url=",
-            "unblockDomains": [
-                "twitter.com"
-            ],
             "imagePath": "Twitter.svg",
             "type": 0
         }
@@ -155,7 +164,6 @@
             "iframe[src^='//player.vimeo.com/video/']:not([src*='background=1'])"
         ],
         "replacementButton": {
-            "details": "",
             "unblockDomains": [
                 "player.vimeo.com"
             ],
@@ -170,7 +178,6 @@
             "iframe[src^='https://www.youtube.com/embed/']"
         ],
         "replacementButton": {
-            "details": "",
             "unblockDomains": [
                 "www.youtube.com"
             ],
