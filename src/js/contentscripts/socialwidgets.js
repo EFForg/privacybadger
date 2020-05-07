@@ -285,7 +285,7 @@ function reloadScripts(selectors, fallback_script_url) {
 
     let replacement = document.createElement("script");
     for (let attr of scriptEl.attributes) {
-      replacement.setAttribute(attr.nodeName, attr.nodeValue);
+      replacement.setAttribute(attr.nodeName, attr.value);
     }
     scriptEl.parentNode.replaceChild(replacement, scriptEl);
     // reinsert one script and quit
