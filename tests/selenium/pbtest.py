@@ -394,13 +394,14 @@ class PBSeleniumTest(unittest.TestCase):
     def wait_for_script(
         self,
         script,
+        *script_args,
         timeout=SEL_DEFAULT_WAIT_TIMEOUT,
         message="Timed out waiting for execute_script to eval to True"
     ):
         """Variant of self.js that executes script continuously until it
         returns True."""
         return WebDriverWait(self.driver, timeout).until(
-            lambda driver: driver.execute_script(script),
+            lambda driver: driver.execute_script(script, *script_args),
             message
         )
 
