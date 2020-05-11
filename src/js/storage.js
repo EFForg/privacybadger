@@ -334,21 +334,6 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Get the number of domains that the given FQDN has been seen tracking on
-   *
-   * @param {String} fqdn domain to check status of
-   * @return {Integer} the number of domains fqdn has been tracking on
-   */
-  getTrackingCount: function(fqdn) {
-    var snitch_map = this.getBadgerStorageObject('snitch_map');
-    if (snitch_map.hasItem(fqdn)) {
-      return snitch_map.getItem(fqdn).length;
-    } else {
-      return 0;
-    }
-  },
-
-  /**
    * Set up an action for a domain of the given action type in action_map
    *
    * @param {String} domain the domain to set the action for
