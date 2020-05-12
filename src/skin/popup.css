@@ -45,6 +45,7 @@ body {
 }
 
 a { text-decoration: none }
+
 a:hover { color: #ec9329 }
 
 .spacer {
@@ -272,6 +273,12 @@ font-size: 16px;
     font-size: 16px;
     margin: 0;
     padding-top: 10px;
+}
+#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_one_tracker):not(#options_domain_list_no_trackers) a {
+    text-decoration: underline;
+    color: black;
+    font-size: 18px;
+    font-family: "Chunk-Five", serif;
 }
 #instructions_no_trackers, #special-browser-page, #disabled-site-message {
     text-align: center;
