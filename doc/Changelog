@@ -1,5 +1,13 @@
 Changes for Privacy Badger 
 ====================================
+## 2020.5.12
+* Made buttons in the popup easier to see and click (or tap, on Firefox for
+Android)
+* Added a replacement placeholder widget for Google reCAPTCHA
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Dutch, Finnish, French, German,
+Hebrew, Italian, Brazilian Portuguese, Spanish, Swedish, Turkish)
+
 ## 2020.2.19
 * Added website breakage warnings, shown in the popup when you block a domain
 known to break websites
