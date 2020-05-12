@@ -4,10 +4,10 @@
 ## Permissions:
 
 #### Privacy -
-Privacy Badger needs access to the privacy API so that it can restrict the webRTCIPHandlingPolicy so that none of the user's local address information is exposed, as well as if they're in an incognito window, it will override and disable the alternateErrorPagesEnabled and hyperlinkAuditingEnabled settings.
+Privacy Badger needs access to the privacy API so that it can restrict the webRTCIPHandlingPolicy so that none of the user's local address information is exposed. If the user is in an incognito window, it will override and disable the alternateErrorPagesEnabled and hyperlinkAuditingEnabled settings.
 
 #### Cookies -
-Privacy Badger needs access to the cookies API in order to correct when Cloudflare domains are incorrectly identified as trackers, as well as to check for availability of the `firstPartyDomain` parameter in Firefox profiles.
+Privacy Badger needs access to the cookies API in order to correct when Cloudflare domains are incorrectly identified as trackers.
 
 #### Storage -
 Privacy Badger needs access to the storage API so that the extension's storage and user's settings will persist beyond a browser session.
@@ -19,7 +19,7 @@ Privacy Badger needs access to the WebRequest API so that it can view and interc
 Privacy Badger needs access to the WebRequestBlocking API so that it can synchronously view and intercept network requests being made in the browser. For example, it will check headers on outgoing requests to strip referer and cookie values, as well as to add the Do Not Track header.
 
 #### webNavigation -
-Privacy Badger needs access to the webNavigation API in order to establish a listener for when the user navigates from their current page. This is to avoid misattributing trackers on special pages such as Service Worker pages.
+Privacy Badger needs access to the webNavigation API in order to establish a listener for when the user navigates from their current page. This is to avoid misattributing trackers on special pages such as Service Worker pages that do not go through WebRequest listeners.
 
 #### http://\*/\*
 #### https://\*/\*  -
