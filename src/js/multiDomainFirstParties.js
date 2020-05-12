@@ -533,6 +533,18 @@ var multiDomainFirstPartiesArray = [
   ["booking.com", "bstatic.com"],
   ["box.com", "boxcdn.net"],
   [
+    "bustle.company",
+
+    "bustle.com",
+    "elitedaily.com",
+    "inputmag.com",
+    "inverse.com",
+    "mic.com",
+    "nylon.com",
+    "romper.com",
+    "thezoereport.com",
+  ],
+  [
     "canalplus.com",
 
     "canal.fr",
