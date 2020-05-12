@@ -1506,6 +1506,15 @@ var multiDomainFirstPartiesArray = [
     "huffpostbrasil.com",
     "huffpostmaghreb.com",
   ],
+  [
+    "huobi.com",
+
+    "hbfile.net",
+    "hbg.com",
+    "huobiasia.vip",
+    "huobi.br.com",
+    "huobi.me",
+  ],
   ["hvfcu.org", "hvfcuonline.org"],
   [
     "ign.fr",
