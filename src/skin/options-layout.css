@@ -5,6 +5,14 @@ body {
     width: 100%;
 }
 
+body.options a:not(.ui-tabs-anchor) {
+    text-decoration: underline;
+    cursor: pointer;
+}
+body.options a:hover:not(.ui-tabs-anchor), body.options a:focus:not(.ui-tabs-anchor) {
+    color: #f06a0a;
+}
+
 h1 {
     color: #707070;
     font-size: 24px;
@@ -175,9 +183,4 @@ header, #tabs {
 
 #hide-widgets-select {
   width: 300px;
-}
-
-a, a:hover, a:active, a:visited{
-  color: #00aaaa;
-  text-decoration: underline;
 }
