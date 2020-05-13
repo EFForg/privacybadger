@@ -33,9 +33,8 @@ hr {
     width: 100%;
 }
 
-.checkbox label {
+div.checkbox label {
   min-height: 20px;
-  padding-left: 20px;
   cursor: pointer;
 }
 
