@@ -14,10 +14,9 @@ body.options a:hover:not(.ui-tabs-anchor), body.options a:focus:not(.ui-tabs-anc
 }
 
 h1 {
-    color: #707070;
     font-size: 24px;
     font-weight: normal;
-    font-family: helvetica, arial, 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', sans-serif;;
+    font-family: "Chunk-Five", serif;
     margin: 10px 8px;
 }
 
