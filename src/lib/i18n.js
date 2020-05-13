@@ -91,6 +91,11 @@ function setTextDirection() {
       toggle_css_value(selector, "float", "left", "right");
     });
 
+    // fix padding
+    ['label input[type=checkbox] + span'].forEach((selector) => {
+      swap_css_property(selector, "padding-left", "padding-right");
+    });
+
   // new user welcome page
   } else if (document.location.pathname == "/skin/firstRun.html") {
     [
