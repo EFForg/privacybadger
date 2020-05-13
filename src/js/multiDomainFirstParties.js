@@ -3085,6 +3085,7 @@ var multiDomainFirstPartiesArray = [
     "disneyinteractive.com",
     "disneyinternationalhd.com",
     "disneymoviesanywhere.com",
+    "disneyplus.com",
     "ilm.com",
     "marvel.com",
     "readriordan.com",
