@@ -4,26 +4,26 @@
 ## Permissions:
 
 #### Privacy -
-Privacy Badger needs access to the privacy API so that it can restrict the webRTCIPHandlingPolicy so that none of the user's local address information is exposed. If the user is in an incognito window, it will override and disable the alternateErrorPagesEnabled and hyperlinkAuditingEnabled settings.
+The Privacy API lets extensions modify browser-wide privacy settings. Privacy Badger uses it to disable a setting that lets Chrome send third-party requests to resolve errors, and to turns off link tracking via the HTML ping attribute. We also give users the option to change their WebRTC privacy level in order to prevent leaking local network address information.
 
 #### Cookies -
-Privacy Badger needs access to the cookies API in order to correct when Cloudflare domains are incorrectly identified as trackers.
+Privacy Badger needs access to the cookies API in order to detect and correct a common error where Cloudflare domains are identified as trackers and blocked.
 
 #### Storage -
-Privacy Badger needs access to the storage API so that the extension's storage and user's settings will persist beyond a browser session.
+The storage API lets extensions store information that persists after the browser is closed. Privacy Badger uses it to save user settings and information it has learned about trackers.
 
 #### WebRequest -
-Privacy Badger needs access to the WebRequest API so that it can view and intercept network requests being made in the browser. If user tracking is taking place via network request headers, Privacy Badger needs to be able to intercept and modify those headers. It views and then asynchronously logs the destination for outgoing requests that's flagged as tracking the user.
+The WebRequest API allows extensions to observe all incoming and outgoing network requests made by the browser. Privacy Badger inspects request for tracking behavior, and logs the destinations of outgoing requests that are flagged as tracking. No information is ever shared outside of the browser.
 
 #### WebRequestBlocking -
-Privacy Badger needs access to the WebRequestBlocking API so that it can synchronously view and intercept network requests being made in the browser. For example, it will check headers on outgoing requests to strip referer and cookie values, as well as to add the Do Not Track header.
+The blocking version of the WebRequest API allows extensions to modify or block network requests before they leave the browser. Privacy Badger uses this API to synchronously view, modify, and block requests to trackers. For example, Privacy Badger modifies requests made to domains on the yellowlist to remove the referer header and cookies.
 
 #### webNavigation -
-Privacy Badger needs access to the webNavigation API in order to establish a listener for when the user navigates from their current page. This is to avoid misattributing trackers on special pages such as Service Worker pages that do not go through WebRequest listeners.
+This API allows extensions to detect when the user navigates from one web page to another. Privacy Badger needs this in order to correctly determine whether each request is a first-party request (to the same domain as the web page) or a third-party request (to somewhere else). This permission allows it to avoid misattributing trackers on special pages such as Service Worker pages.
 
 #### http://\*/\*
 #### https://\*/\*  -
-Privacy Badger needs broad permissions across all url patterns so that it can perform its tracking detection on all websites the user may visit.
+These permissions allow Privacy Badger to use the WebRequest and WebRequestBlocking permissions on requests to all websites. As described above, Privacy Badger uses these APIs to analyze requests and detect tracking, then modify or block requests to known trackers. No information is ever shared outside of the browser.
 
-#### tabs -
-Privacy Badger needs access to the tabs API so that the extension can detect which tab is active and which are simply present. The extension popup and badge update to reflect state of Privacy Badger on the active tab.
+#### tabs - 
+Privacy Badger needs access to the tabs API so that the extension can detect which tab is active and which are simply present in the background. The extension pop-up and badge update to reflect state of Privacy Badger on the active tab.
