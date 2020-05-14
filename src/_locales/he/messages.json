@@ -530,7 +530,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {
-        "message": "סינכרון ענן:<ul><li>דורש סינכרון Firefox/Chrome</li><li>העלאה דורסת נתונים קיימים כלשהם של Privacy Badger בענן</li><li>הורדה משלבת את רשימות האתרים בהם Badger שלך מושבת</li></ul>",
+        "message": "סינכרון ענן:<ul><li>דורש סינכרון Firefox/Chrome</li><li>העלאה דורסת נתונים קיימים כלשהם של Privacy Badger בענן</li><li>הורדה משלבת את רשימות האתרים בהם Privacy Badger מושבת</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
