@@ -34,7 +34,8 @@ var incognito = require("incognito");
 var utils = require("utils");
 
 /************ Local Variables *****************/
-var temporaryWidgetUnblock = {};
+let temporaryWidgetUnblock = {};
+let pendingTabs = new Set();
 
 /***************** Blocking Listener Functions **************/
 
@@ -49,6 +50,10 @@ function onBeforeRequest(details) {
     tab_id = details.tabId,
     type = details.type,
     url = details.url;
+
+  if (utils.isRestrictedUrl(url)) {
+    return {};
+  }
 
   if (type == "main_frame") {
     forgetTab(tab_id);
@@ -67,7 +72,7 @@ function onBeforeRequest(details) {
     return {cancel: true};
   }
 
-  if (_isTabChromeInternal(tab_id)) {
+  if (tab_id < 0) {
     return {};
   }
 
@@ -140,8 +145,8 @@ function onBeforeSendHeaders(details) {
     type = details.type,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
-    // DNT policy requests: strip cookies
+  if (tab_id < 0 || utils.isRestrictedUrl(url)) {
+    // strip cookies from DNT policy requests
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
       let newHeaders = [];
@@ -156,6 +161,7 @@ function onBeforeSendHeaders(details) {
       };
     }
 
+    // ignore otherwise
     return {};
   }
 
@@ -238,8 +244,8 @@ function onHeadersReceived(details) {
   var tab_id = details.tabId,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
-    // DNT policy responses: strip cookies, reject redirects
+  if (tab_id < 0 || utils.isRestrictedUrl(url)) {
+    // strip cookies, reject redirects from DNT policy responses
     if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // if it's a redirect, cancel it
       if (details.statusCode >= 300 && details.statusCode < 400) {
@@ -261,6 +267,7 @@ function onHeadersReceived(details) {
       };
     }
 
+    // ignore otherwise
     return {};
   }
 
@@ -512,26 +519,6 @@ function checkAction(tabId, requestHost, frameId) {
 }
 
 /**
- * Checks if the tab is chrome internal
- *
- * @param {Integer} tabId Id of the tab to test
- * @returns {boolean} Returns true if the tab is chrome internal
- * @private
- */
-function _isTabChromeInternal(tabId) {
-  if (tabId < 0) {
-    return true;
-  }
-
-  let frameData = badger.getFrameData(tabId);
-  if (!frameData || !frameData.url.startsWith("http")) {
-    return true;
-  }
-
-  return false;
-}
-
-/**
  * Checks if the tab is a chrome-extension tab
  *
  * @param {Integer} tabId Id of the tab to test
@@ -698,11 +685,6 @@ function dispatcher(request, sender, sendResponse) {
 
   case "checkLocation": {
     if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
-      return sendResponse();
-    }
-
-    // Ignore requests from internal Chrome tabs.
-    if (_isTabChromeInternal(sender.tab.id)) {
       return sendResponse();
     }
 
@@ -1077,17 +1059,57 @@ function dispatcher(request, sender, sendResponse) {
   }
 }
 
+
+/**
+ * Cancels all requests, populates list of pending tabs to be reloaded later,
+ * when Privacy Badger is ready.
+ *
+ * @param {Object} details chrome.webRequest request details
+ * @returns {Object}
+ */
+function onBeforeReady(details) {
+  if (!pendingTabs || details.tabId < 0) {
+    return;
+  }
+
+  pendingTabs.add(details.tabId);
+
+  return {
+    cancel: true
+  };
+}
+
+/**
+ * Reloads all tabs that loaded before Privacy Badger was ready.
+ */
+function reloadPendingTabs() {
+  for (let tab_id of pendingTabs) {
+    chrome.tabs.reload(tab_id);
+  }
+  pendingTabs = null;
+}
+
+
 /*************** Event Listeners *********************/
+function startBeforeReadyListener() {
+  chrome.webRequest.onBeforeRequest.addListener(onBeforeReady, {urls: ["<all_urls>"]}, ["blocking"]);
+}
+
+function stopBeforeReadyListener() {
+  chrome.webRequest.onBeforeRequest.removeListener(onBeforeReady);
+  reloadPendingTabs();
+}
+
 function startListeners() {
   chrome.webNavigation.onBeforeNavigate.addListener(onNavigate);
 
-  chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
+  chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["<all_urls>"]}, ["blocking"]);
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
   if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
-  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
+  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   extraInfoSpec = ['responseHeaders', 'blocking'];
   if (chrome.webRequest.OnHeadersReceivedOptions.hasOwnProperty('EXTRA_HEADERS')) {
@@ -1101,8 +1123,11 @@ function startListeners() {
 }
 
 /************************************** exports */
-var exports = {};
-exports.startListeners = startListeners;
+let exports = {
+  startBeforeReadyListener,
+  startListeners,
+  stopBeforeReadyListener,
+};
 return exports;
 /************************************** exports */
 })();
