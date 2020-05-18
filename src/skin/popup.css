@@ -280,6 +280,9 @@ font-size: 16px;
     font-size: 18px;
     font-family: "Chunk-Five", serif;
 }
+#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_one_tracker):not(#options_domain_list_no_trackers) a:hover {
+    color: #ec9329
+}
 #instructions_no_trackers, #special-browser-page, #disabled-site-message {
     text-align: center;
     margin: 45px 0;
