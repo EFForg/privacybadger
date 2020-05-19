@@ -13,7 +13,6 @@ from shutil import copytree
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, WebDriverException
-from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
@@ -157,12 +156,13 @@ class Shim:
         opts.binary_location = self.browser_path
         opts.add_experimental_option("prefs", {"profile.block_third_party_cookies": False})
 
-        caps = DesiredCapabilities.CHROME.copy()
-        caps['loggingPrefs'] = {'browser': 'ALL'}
+        # TODO not yet in Firefox (w/o hacks anyway):
+        # https://github.com/mozilla/geckodriver/issues/284#issuecomment-456073771
+        opts.set_capability("loggingPrefs", {'browser': 'ALL'})
 
         for i in range(5):
             try:
-                driver = webdriver.Chrome(options=opts, desired_capabilities=caps)
+                driver = webdriver.Chrome(options=opts)
             except WebDriverException as e:
                 if i == 0: print("")
                 print("Chrome WebDriver initialization failed:")
