@@ -516,12 +516,22 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "استبدل «غرير الخصوصية» زر $BUTTON$ هذا.",
-        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "message": "استبدل «غرير الخصوصية» زر $BUTTON$ هذا",
+        "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
                 "content": "$1",
                 "example": "Facebook Like"
+            }
+        }
+    },
+    "widget_placeholder_pb_has_replaced": {
+        "message": "Privacy Badger has replaced this $WIDGET$ widget",
+        "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
+        "placeholders": {
+            "widget": {
+                "content": "$1",
+                "example": "Google reCAPTCHA"
             }
         }
     },
