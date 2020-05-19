@@ -792,7 +792,15 @@ var multiDomainFirstPartiesArray = [
   ],
   ["dropbox.com", "dropboxstatic.com", "dropboxusercontent.com", "getdropbox.com"],
   ["d.rip", "kickstarter.com"],
-  ["ea.com", "origin.com", "play4free.com", "tiberiumalliance.com"],
+  [
+    "ea.com",
+
+    "bioware.com",
+    "masseffect.com",
+    "origin.com",
+    "play4free.com",
+    "tiberiumalliance.com",
+  ],
   [
     "ebay.com",
     "ebayinc.com",
