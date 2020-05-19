@@ -564,6 +564,10 @@ let getWidgetList = (function () {
       key: "social_tooltip_pb_has_replaced",
       placeholders: ["XXX"]
     },
+    {
+      key: "widget_placeholder_pb_has_replaced",
+      placeholders: ["XXX"]
+    },
     { key: "allow_once" },
   ];
 

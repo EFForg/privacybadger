@@ -390,7 +390,7 @@ function createReplacementWidget(tracker, icon, elToReplace, activationFn) {
   let textDiv = document.createElement('div');
   textDiv.style = styleAttrs.join(" !important;") + " !important";
   textDiv.appendChild(document.createTextNode(
-    TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", name)));
+    TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
   widgetDiv.appendChild(textDiv);
 
   let buttonDiv = document.createElement('div');

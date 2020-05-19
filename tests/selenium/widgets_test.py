@@ -116,7 +116,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
 
         try:
             self.wait_for_text('body', (
-                "Privacy Badger has replaced this {} button"
+                "Privacy Badger has replaced this {} widget"
             ).format(widget_name))
         except TimeoutException:
             self.fail("Unable to find expected replacement widget text")
