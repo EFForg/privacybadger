@@ -34,7 +34,7 @@ var incognito = require("incognito");
 var utils = require("utils");
 
 /************ Local Variables *****************/
-let temporaryWidgetUnblock = {};
+let tempAllowList = {};
 
 /***************** Blocking Listener Functions **************/
 
@@ -486,7 +486,7 @@ function recordFingerprinting(tabId, msg) {
  */
 function forgetTab(tab_id) {
   delete badger.tabData[tab_id];
-  delete temporaryWidgetUnblock[tab_id];
+  delete tempAllowList[tab_id];
 }
 
 /**
@@ -500,7 +500,7 @@ function forgetTab(tab_id) {
 function checkAction(tabId, requestHost, frameId) {
   // Ignore requests from temporarily unblocked widgets.
   // Someone clicked the widget, so let it load.
-  if (isWidgetTemporaryUnblock(tabId, requestHost, frameId)) {
+  if (allowedOnTab(tabId, requestHost, frameId)) {
     return false;
   }
 
@@ -638,12 +638,12 @@ let getWidgetList = (function () {
  *
  * @returns {Boolean} true if FQDN is on the temporary allow list
  */
-function isWidgetTemporaryUnblock(tab_id, request_host, frame_id) {
-  if (!temporaryWidgetUnblock.hasOwnProperty(tab_id)) {
+function allowedOnTab(tab_id, request_host, frame_id) {
+  if (!tempAllowList.hasOwnProperty(tab_id)) {
     return false;
   }
 
-  let exceptions = temporaryWidgetUnblock[tab_id];
+  let exceptions = tempAllowList[tab_id];
 
   if (exceptions.includes(request_host)) {
     return true;
@@ -660,12 +660,12 @@ function isWidgetTemporaryUnblock(tab_id, request_host, frame_id) {
  * @param {Integer} tab_id the ID of the tab
  * @param {Array} domains the domains
  */
-function unblockWidgetOnTab(tab_id, domains) {
-  if (!temporaryWidgetUnblock.hasOwnProperty(tab_id)) {
-    temporaryWidgetUnblock[tab_id] = [];
+function allowOnTab(tab_id, domains) {
+  if (!tempAllowList.hasOwnProperty(tab_id)) {
+    tempAllowList[tab_id] = [];
   }
   for (let domain of domains) {
-    temporaryWidgetUnblock[tab_id].push(domain);
+    tempAllowList[tab_id].push(domain);
   }
 }
 
@@ -735,7 +735,7 @@ function dispatcher(request, sender, sendResponse) {
         !widgetData.replacementButton.unblockDomains) {
       return sendResponse();
     }
-    unblockWidgetOnTab(sender.tab.id, widgetData.replacementButton.unblockDomains);
+    allowOnTab(sender.tab.id, widgetData.replacementButton.unblockDomains);
     sendResponse();
     break;
   }
