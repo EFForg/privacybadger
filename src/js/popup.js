@@ -365,8 +365,7 @@ function share() {
   originsArr = htmlUtils.sortDomains(originsArr);
   let tracking = [];
 
-  for (let i=0; i < originsArr.length; i++) {
-    let origin = originsArr[i];
+  for (let origin of originsArr) {
     let action = origins[origin];
 
     if (action != constants.NO_TRACKING) {
@@ -507,8 +506,7 @@ function refreshPopup() {
   let nonTracking = [];
   originsArr = htmlUtils.sortDomains(originsArr);
 
-  for (let i=0; i < originsArr.length; i++) {
-    let origin = originsArr[i];
+  for (let origin of originsArr) {
     let action = origins[origin];
 
     if (action == constants.NO_TRACKING) {

@@ -24,7 +24,7 @@
 
 /* globals badger:false, log:false */
 
-require.scopes.webrequest = (function() {
+require.scopes.webrequest = (function () {
 
 /*********************** webrequest scope **/
 
@@ -34,7 +34,7 @@ var incognito = require("incognito");
 var utils = require("utils");
 
 /************ Local Variables *****************/
-var temporaryWidgetUnblock = {};
+let temporaryWidgetUnblock = {};
 
 /***************** Blocking Listener Functions **************/
 
@@ -306,6 +306,7 @@ function onTabRemoved(tabId) {
 
 /**
  * Update internal db on tabs when a tab gets replaced
+ * due to prerendering or instant search.
  *
  * @param {Integer} addedTabId The new tab id that replaces
  * @param {Integer} removedTabId The tab id that gets removed
@@ -479,13 +480,13 @@ function recordFingerprinting(tabId, msg) {
 }
 
 /**
- * Delete tab data, de-register tab
+ * Cleans up tab-specific data.
  *
- * @param {Integer} tabId The id of the tab
+ * @param {Integer} tab_id the ID of the tab
  */
-function forgetTab(tabId) {
-  delete badger.tabData[tabId];
-  delete temporaryWidgetUnblock[tabId];
+function forgetTab(tab_id) {
+  delete badger.tabData[tab_id];
+  delete temporaryWidgetUnblock[tab_id];
 }
 
 /**
@@ -629,40 +630,42 @@ let getWidgetList = (function () {
 }());
 
 /**
- * Check if tab is temporarily unblocked for tracker
+ * Checks if given FQDN is temporarily unblocked on a tab.
  *
- * @param {Integer} tabId id of the tab to check
- * @param {String} requestHost FQDN to check
- * @param {Integer} frameId frame id to check
- * @returns {Boolean} true if in exception list
+ * @param {Integer} tab_id the ID of the tab to check
+ * @param {String} request_host the request FQDN to check
+ * @param {Integer} frame_id the frame ID to check
+ *
+ * @returns {Boolean} true if FQDN is on the temporary allow list
  */
-function isWidgetTemporaryUnblock(tabId, requestHost, frameId) {
-  var exceptions = temporaryWidgetUnblock[tabId];
-  if (exceptions === undefined) {
+function isWidgetTemporaryUnblock(tab_id, request_host, frame_id) {
+  if (!temporaryWidgetUnblock.hasOwnProperty(tab_id)) {
     return false;
   }
 
-  var requestExcept = (exceptions.indexOf(requestHost) != -1);
+  let exceptions = temporaryWidgetUnblock[tab_id];
 
-  var frameHost = badger.getFrameData(tabId, frameId).host;
-  var frameExcept = (exceptions.indexOf(frameHost) != -1);
+  if (exceptions.includes(request_host)) {
+    return true;
+  }
 
-  return (requestExcept || frameExcept);
+  let frameData = badger.getFrameData(tab_id, frame_id);
+  return frameData && frameData.host &&
+    exceptions.includes(frameData.host);
 }
 
 /**
- * Unblocks a tracker just temporarily on this tab, because the user has clicked the
- * corresponding replacement widget.
+ * Marks a set of (widget) domains to be (temporarily) allowed on a tab.
  *
- * @param {Integer} tabId The id of the tab
- * @param {Array} domains widget domains
+ * @param {Integer} tab_id the ID of the tab
+ * @param {Array} domains the domains
  */
-function unblockWidgetOnTab(tabId, domains) {
-  if (temporaryWidgetUnblock[tabId] === undefined) {
-    temporaryWidgetUnblock[tabId] = [];
+function unblockWidgetOnTab(tab_id, domains) {
+  if (!temporaryWidgetUnblock.hasOwnProperty(tab_id)) {
+    temporaryWidgetUnblock[tab_id] = [];
   }
-  for (let i = 0; i < domains.length; i++) {
-    temporaryWidgetUnblock[tabId].push(domains[i]);
+  for (let domain of domains) {
+    temporaryWidgetUnblock[tab_id].push(domain);
   }
 }
 
