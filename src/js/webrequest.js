@@ -28,10 +28,10 @@ require.scopes.webrequest = (function () {
 
 /*********************** webrequest scope **/
 
-var constants = require("constants");
-var getSurrogateURI = require("surrogates").getSurrogateURI;
-var incognito = require("incognito");
-var utils = require("utils");
+let constants = require("constants"),
+  getSurrogateURI = require("surrogates").getSurrogateURI,
+  incognito = require("incognito"),
+  utils = require("utils");
 
 /************ Local Variables *****************/
 let tempAllowList = {};
@@ -45,7 +45,7 @@ let tempAllowList = {};
  * @returns {Object} Can cancel requests
  */
 function onBeforeRequest(details) {
-  var frame_id = details.frameId,
+  let frame_id = details.frameId,
     tab_id = details.tabId,
     type = details.type,
     url = details.url;
@@ -78,27 +78,27 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, request_host, frame_id);
-  if (!requestAction) {
+  let action = checkAction(tab_id, request_host, frame_id);
+  if (!action) {
     return {};
   }
 
   // log the third-party domain asynchronously
   // (don't block a critical code path on updating the badge)
   setTimeout(function () {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+    badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
   }, 0);
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
   }
 
-  if (requestAction != constants.BLOCK && requestAction != constants.USER_BLOCK) {
+  if (action != constants.BLOCK && action != constants.USER_BLOCK) {
     return {};
   }
 
   if (type == 'script') {
-    var surrogate = getSurrogateURI(url, request_host);
+    let surrogate = getSurrogateURI(url, request_host);
     if (surrogate) {
       return {redirectUrl: surrogate};
     }
@@ -111,7 +111,7 @@ function onBeforeRequest(details) {
   });
 
   // if this is a heuristically- (not user-) blocked domain
-  if (requestAction == constants.BLOCK && incognito.learningEnabled(tab_id)) {
+  if (action == constants.BLOCK && incognito.learningEnabled(tab_id)) {
     // check for DNT policy asynchronously
     setTimeout(function () {
       badger.checkForDNTPolicy(request_host);
@@ -174,12 +174,12 @@ function onBeforeSendHeaders(details) {
     }
   }
 
-  var requestAction = checkAction(tab_id, request_host, frame_id);
+  let action = checkAction(tab_id, request_host, frame_id);
 
-  if (requestAction) {
+  if (action) {
     // log the third-party domain asynchronously
     setTimeout(function () {
-      badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+      badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
     }, 0);
   }
 
@@ -188,7 +188,7 @@ function onBeforeSendHeaders(details) {
   }
 
   // handle cookieblocked requests
-  if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
+  if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK) {
     let newHeaders;
 
     // GET requests: remove cookie headers, reduce referrer header to origin
@@ -235,7 +235,7 @@ function onBeforeSendHeaders(details) {
  * @returns {Object} The new response headers
  */
 function onHeadersReceived(details) {
-  var tab_id = details.tabId,
+  let tab_id = details.tabId,
     url = details.url;
 
   if (_isTabChromeInternal(tab_id)) {
@@ -265,28 +265,28 @@ function onHeadersReceived(details) {
   }
 
   let tab_host = getHostForTab(tab_id);
-  let request_host = window.extractHostFromURL(url);
+  let response_host = window.extractHostFromURL(url);
 
-  if (!utils.isThirdPartyDomain(request_host, tab_host)) {
+  if (!utils.isThirdPartyDomain(response_host, tab_host)) {
     return {};
   }
 
-  var requestAction = checkAction(tab_id, request_host, details.frameId);
-  if (!requestAction) {
+  let action = checkAction(tab_id, response_host, details.frameId);
+  if (!action) {
     return {};
   }
 
   // log the third-party domain asynchronously
   setTimeout(function () {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, requestAction);
+    badger.logThirdPartyOriginOnTab(tab_id, response_host, action);
   }, 0);
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
   }
 
-  if (requestAction == constants.COOKIEBLOCK || requestAction == constants.USER_COOKIE_BLOCK) {
-    var newHeaders = details.responseHeaders.filter(function(header) {
+  if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK) {
+    let newHeaders = details.responseHeaders.filter(function(header) {
       return (header.name.toLowerCase() != "set-cookie");
     });
     return {responseHeaders: newHeaders};
@@ -359,7 +359,7 @@ function onNavigate(details) {
  * @return {String} the host name for the tab
  */
 function getHostForTab(tabId) {
-  var mainFrameIdx = 0;
+  let mainFrameIdx = 0;
   if (!badger.tabData[tabId]) {
     return '';
   }
@@ -420,17 +420,17 @@ function recordFingerprinting(tabId, msg) {
   }
 
   // Ignore first-party scripts
-  var script_host = window.extractHostFromURL(msg.scriptUrl),
+  let script_host = window.extractHostFromURL(msg.scriptUrl),
     document_host = badger.getFrameData(tabId).host;
   if (!utils.isThirdPartyDomain(script_host, document_host)) {
     return;
   }
 
-  var CANVAS_WRITE = {
+  let CANVAS_WRITE = {
     fillText: true,
     strokeText: true
   };
-  var CANVAS_READ = {
+  let CANVAS_READ = {
     getImageData: true,
     toDataURL: true
   };
@@ -439,7 +439,7 @@ function recordFingerprinting(tabId, msg) {
     badger.tabData[tabId].fpData = {};
   }
 
-  var script_origin = window.getBaseDomain(script_host);
+  let script_origin = window.getBaseDomain(script_host);
 
   // Initialize script TLD-level data
   if (!badger.tabData[tabId].fpData.hasOwnProperty(script_origin)) {
@@ -450,7 +450,7 @@ function recordFingerprinting(tabId, msg) {
       }
     };
   }
-  var scriptData = badger.tabData[tabId].fpData[script_origin];
+  let scriptData = badger.tabData[tabId].fpData[script_origin];
 
   if (msg.extra.hasOwnProperty('canvas')) {
     if (scriptData.canvas.fingerprinting) {
@@ -1108,8 +1108,9 @@ function startListeners() {
 }
 
 /************************************** exports */
-var exports = {};
-exports.startListeners = startListeners;
+let exports = {
+  startListeners
+};
 return exports;
 /************************************** exports */
 })();
