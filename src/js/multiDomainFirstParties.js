@@ -2474,6 +2474,8 @@ var multiDomainFirstPartiesArray = [
     "prosiebensat1.de",
     "prosiebensat1.com",
 
+    "atv.at",
+    "atv2.at",
     "galileo.tv",
     "kabeleins.at",
     "kabeleins.ch",
@@ -2487,6 +2489,8 @@ var multiDomainFirstPartiesArray = [
     "prosiebenmaxx.at",
     "prosiebenmaxx.ch",
     "prosiebenmaxx.de",
+    "puls24.at",
+    "puls4.com",
     "puls8.ch",
     "ran.de",
     "sat1.at",
