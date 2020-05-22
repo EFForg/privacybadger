@@ -696,33 +696,55 @@ function dispatcher(request, sender, sendResponse) {
   switch (request.type) {
 
   case "checkEnabled": {
-    sendResponse(badger.isPrivacyBadgerEnabled(
-      window.extractHostFromURL(sender.tab.url)
-    ));
+    let tab_url = sender.tab.url;
+
+    sendResponse(
+      !utils.isRestrictedUrl(tab_url) &&
+      badger.isPrivacyBadgerEnabled(
+        window.extractHostFromURL(tab_url)
+      ));
+
+    break;
+  }
+
+  case "checkDNT": {
+    let tab_url = sender.tab.url;
+
+    sendResponse(
+      !utils.isRestrictedUrl(tab_url) &&
+      badger.isDNTSignalEnabled() &&
+      badger.isPrivacyBadgerEnabled(
+        window.extractHostFromURL(tab_url)
+      )
+    );
 
     break;
   }
 
   case "checkLocation": {
-    if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
+    let tab_url = sender.tab.url;
+
+    if (utils.isRestrictedUrl(tab_url)) {
       return sendResponse();
     }
 
-    // Ignore requests from internal Chrome tabs.
-    if (_isTabChromeInternal(sender.tab.id)) {
+    let tab_host = window.extractHostFromURL(tab_url);
+
+    if (!badger.isPrivacyBadgerEnabled(tab_host)) {
       return sendResponse();
     }
 
-    let frame_host = window.extractHostFromURL(request.frameUrl),
-      tab_host = window.extractHostFromURL(sender.tab.url);
-
-    // Ignore requests that aren't from a third party.
+    // ignore requests that are not from a third party
+    let frame_host = window.extractHostFromURL(request.frameUrl);
     if (!frame_host || !utils.isThirdPartyDomain(frame_host, tab_host)) {
       return sendResponse();
     }
 
     let action = checkAction(sender.tab.id, frame_host);
-    sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK);
+    sendResponse(
+      action == constants.COOKIEBLOCK ||
+      action == constants.USER_COOKIE_BLOCK
+    );
 
     break;
   }
@@ -800,6 +822,10 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkEnabledAndThirdParty": {
+    if (utils.isRestrictedUrl(sender.tab.url)) {
+      return sendResponse(false);
+    }
+
     let tab_host = window.extractHostFromURL(sender.tab.url),
       frame_host = window.extractHostFromURL(request.frameUrl);
 
@@ -811,16 +837,19 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkWidgetReplacementEnabled": {
-    let response = false,
-      tab_host = window.extractHostFromURL(sender.tab.url);
+    let tab_url = sender.tab.url;
 
-    if (badger.isPrivacyBadgerEnabled(tab_host) &&
-        badger.isWidgetReplacementEnabled()) {
-      response = getWidgetList(sender.tab.id);
+    if (utils.isRestrictedUrl(tab_url)) {
+      return sendResponse(false);
     }
 
-    sendResponse(response);
+    let tab_host = window.extractHostFromURL(tab_url);
+    if (!badger.isPrivacyBadgerEnabled(tab_host) ||
+        !badger.isWidgetReplacementEnabled()) {
+      return sendResponse(false);
+    }
 
+    sendResponse(getWidgetList(sender.tab.id));
     break;
   }
 
@@ -1067,17 +1096,6 @@ function dispatcher(request, sender, sendResponse) {
   case "removeErrorText": {
     let activeTab = badger.tabData[request.tabId];
     delete activeTab.errorText;
-    break;
-  }
-
-  case "checkDNT": {
-    // called from contentscripts/dnt.js to check if we should enable it
-    sendResponse(
-      badger.isDNTSignalEnabled()
-      && badger.isPrivacyBadgerEnabled(
-        window.extractHostFromURL(sender.tab.url)
-      )
-    );
     break;
   }
 
