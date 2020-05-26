@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Detta skickar automatiskt följande information till EFF: den webbplats du besöker för tillfället, din webbläsareversion, versionen av Privacy Badger och läget för alla skjutreglaget för den här webbplatsen.",
+        "message": "Detta skickar automatiskt följande information till EFF: den webbplats du besöker för tillfället, din webbläsareversion, versionen av Privacy Badger och läget för alla skjutreglage för den här webbplatsen.",
         "description": ""
     },
     "intro_learns": {
