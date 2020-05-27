@@ -18,7 +18,7 @@ This project is governed by [EFF's Public Projects Code of Conduct](https://www.
 
 ## Getting in touch
 
-Besides using [our issue tracker](https://github.com/EFForg/privacybadger/issues) here, you could join the [Privacy Badger mailing list](https://lists.eff.org/mailman/listinfo/privacybadger).
+Besides using [our GitHub issue tracker](https://github.com/EFForg/privacybadger/issues), you could [send us an email](mailto:extension-devs@eff.org), or join the [Privacy Badger mailing list](https://lists.eff.org/mailman/listinfo/privacybadger).
 
 We also hold public meetings using [Jitsi audio conferencing](https://meet.jit.si/PoliteBadgersSingEuphoricly):
 - Mondays at 10:30 AM PST
