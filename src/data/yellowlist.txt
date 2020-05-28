@@ -275,7 +275,6 @@ mw2.google.com
 pay.google.com
 picasaweb.google.com
 play.google.com
-plus.google.com
 sites.google.com
 smartlock.google.com
 spreadsheets.google.com
