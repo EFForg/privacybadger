@@ -1,12 +1,12 @@
 {
-  "name": "privacy-badger-chrome-dev-tools",
-  "version": "1.1.0",
+  "name": "privacy-badger-dev-tools",
+  "version": "0.0.1",
   "description": "Developer tools for Privacy Badger.",
   "dependencies": {
     "eslint": "~5.10.0"
   },
   "devDependencies": {
-    "jquery": "3.4.1",
+    "jquery": "3.5.1",
     "jquery-ui": "1.12.1",
     "punycode": "1.4.1",
     "select2": "4.0.11",
