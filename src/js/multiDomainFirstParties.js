@@ -1090,6 +1090,23 @@ var multiDomainFirstPartiesArray = [
     "assets-gap.com",
   ],
   [
+    "gedispa.it",
+
+    "capital.it",
+    "deejay.it",
+    "gelocal.it",
+    "ilsecoloxix.it",
+    "kataweb.it",
+    "lastampa.it",
+    "lescienze.it",
+    "limesonline.com",
+    "m2o.it",
+    "mymovies.it",
+    "repubblica.it",
+
+    "gedidigital.it",
+  ],
+  [
     "gettyimages.com",
 
     "gettyimages.ca",
