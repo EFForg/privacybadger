@@ -6,6 +6,12 @@
     "eslint": "~5.10.0"
   },
   "devDependencies": {
+    "jquery": "3.4.1",
+    "jquery-ui": "1.12.1",
+    "punycode": "1.4.1",
+    "select2": "4.0.11",
+    "tooltipster": "4.2.6",
+    "underscore": "1.9.1",
     "web-ext": "~4.2.0"
   },
   "private": true
