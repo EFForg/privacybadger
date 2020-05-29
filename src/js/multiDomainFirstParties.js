@@ -1,10 +1,10 @@
-require.scopes.multiDomainFP = (function() {
+require.scopes.multiDomainFP = (function () {
 
 /**
  * 2d array of related domains (etld+1), all domains owned by the same entity go into
  * an array, this is later transformed for efficient lookups.
  */
-var multiDomainFirstPartiesArray = [
+let multiDomainFirstPartiesArray = [
   ["1800contacts.com", "800contacts.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
   ["9gag.com", "9cache.com"],
@@ -1106,6 +1106,7 @@ var multiDomainFirstPartiesArray = [
     "repubblica.it",
 
     "gedidigital.it",
+    "repstatic.it",
   ],
   [
     "gettyimages.com",
