@@ -277,8 +277,7 @@ font-size: 16px;
 #pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_one_tracker):not(#options_domain_list_no_trackers) a {
     text-decoration: underline;
     color: black;
-    font-size: 18px;
-    font-family: "Chunk-Five", serif;
+    font-weight: bold;
 }
 #pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_one_tracker):not(#options_domain_list_no_trackers) a:hover {
     color: #ec9329
