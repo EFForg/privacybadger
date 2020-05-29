@@ -104,7 +104,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatycznie uczy się blokować niewidoczne śledziki. Poświęć minutę, aby dowiedzieć się jak.",
+        "message": "Privacy Badger automatycznie uczy się blokować niewidoczne elementy śledzące. Poświęć minutę, aby dowiedzieć się jak.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -112,7 +112,7 @@
         "description": ""
     },
     "popup_instructions_no_trackers": {
-        "message": "Nie wykryto jakichkolwiek <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiegów</a>. Niech żyje prywatność!",
+        "message": "Nie wykryto jakichkolwiek <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>elementów śledzących</a>. Niech żyje prywatność!",
         "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
@@ -148,7 +148,7 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** Włączenie nauki w trybie prywatnym może pozostawić ślady Twojego przeglądania prywatnego na komputerze. Domyślnie Privacy Badger będzie blokował już znane śledziki w oknach prywatnych, ale nie będzie uczył się na temat nowych. Możesz zmienić tę opcję, jeżeli dużo serfujesz w trybie prywatnym.",
+        "message": "** Włączenie nauki w trybie prywatnym może pozostawić ślady Twojego przeglądania prywatnego na komputerze. Domyślnie Privacy Badger będzie blokował już znane elementy śledzące w oknach prywatnych, ale nie będzie uczył się na temat nowych. Możesz zmienić tę opcję, jeżeli dużo serfujesz w trybie prywatnym.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -178,11 +178,11 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Wyświetl liczbę śledzików",
+        "message": "Wyświetl liczbę elementów śledzących",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
-        "message": "Czym jest szpieg/śledzik?",
+        "message": "Czym jest element śledzący?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
@@ -214,7 +214,7 @@
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
-        "message": "Pomyślnie zaimportowano ustawienia i listę szpiegów!",
+        "message": "Pomyślnie zaimportowano ustawienia i listę elementów śledzących!",
         "description": ""
     },
     "export_user_data": {
@@ -222,7 +222,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Import danych użytkownika:\n<ul>\n<li>nadpisze ogólne ustawienia</li>\n<li>połączy listy wykluczanych domen</li>\n<li>połączy informacje o znalezionych śledzikach</li>\n<li>nadpisze ustawienia suwaka</li>\n</ul>",
+        "message": "Import danych użytkownika:\n<ul>\n<li>nadpisze ogólne ustawienia</li>\n<li>połączy listy wykluczanych domen</li>\n<li>połączy informacje o znalezionych elementach śledzących</li>\n<li>nadpisze ustawienia suwaka</li>\n</ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -234,7 +234,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Reset szpiegujących domen spowoduje:\n\n • wymazanie wszystkich danych o śledzikach, których Privacy Badger nauczył się podczas Twojego serfowania\n • zastąpienie listy szpiegujących domen najnowszą listą początkową (przeczytaj www.eff.org/badger-pretraining aby dowiedzieć się więcej)",
+        "message": "Reset szpiegujących domen spowoduje:\n\n • wymazanie wszystkich danych o elementach śledzących, o których Privacy Badger nauczył się podczas Twojego serfowania\n • zastąpienie listy szpiegujących domen najnowszą listą początkową (przeczytaj www.eff.org/badger-pretraining aby dowiedzieć się więcej)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -246,7 +246,7 @@
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Usunięcie wszystkich szpiegujących domen spowoduje:\n\n • usunięcie wszystkiego, co Privacy Badger wie o śledzikach\n • że Privacy Badger nie będzie czegokolwiek zanim ponownie nie wyuczy się na podstawie Twojego przeglądania",
+        "message": "Usunięcie wszystkich szpiegujących domen spowoduje:\n\n • usunięcie wszystkiego, co Privacy Badger wie o elementach śledzących\n • że Privacy Badger nie będzie blokował czegokolwiek zanim ponownie nie wyuczy się na podstawie Twojego przeglądania",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
@@ -290,7 +290,7 @@
         }
     },
     "intro_beyond_ads": {
-        "message": "Wyłapuje sprytne śledziki",
+        "message": "Wyłapuje sprytne elementy śledzące",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
@@ -322,7 +322,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Niewidoczne śledziki działają na różne sposoby, reklamy to tylko czubek góry lodowej. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>przesyła żądanie DNT (nie śledź mnie)</a> do elementów śledzących. Jeżeli zignorują one Twoją prośbę, Twój Badger nauczy się go blokować – bez względu na to czy jest to reklama, śledzik, czy inne badziewie.",
+        "message": "Niewidoczne elementy śledzące działają na różne sposoby, reklamy to tylko czubek góry lodowej. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>przesyła żądanie DNT (nie śledź mnie)</a> do elementów śledzących. Jeżeli zignoruje on Twoją prośbę, Twój Badger nauczy się go blokować – bez względu na to czy jest to reklama, element śledzący, czy inne badziewie.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -378,7 +378,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger wykrył $COUNT$ potencjalnych $TRACKER_LINK_START$szpiegów$TRACKER_LINK_END$ na tej stronie",
+        "message": "Wykrytych możliwych $TRACKER_LINK_START$elementów śledzących$TRACKER_LINK_END$ na tej stronie: $COUNT$",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -415,7 +415,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger wykrył potencjalnego <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>szpiega</a> na tej stronie",
+        "message": "Privacy Badger wykrył potencjalny <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>element śledzący</a> na tej stronie",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -448,7 +448,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger blokuje element śledzący po zauważeniu go na trzech różnych witrynach. Trzy uderzenia i koniec! Jeżeli korzystasz z innych narzędzi wspomagających prywatność lub z blokerów reklam, Privacy Badger nauczy się mniej, ale bez obaw, może złapać śledziki niewyłapywane przez inne narzędzia, których używasz.",
+        "message": "Privacy Badger blokuje element śledzący po zauważeniu go na trzech różnych witrynach. Trzy uderzenia i koniec! Jeżeli korzystasz z innych narzędzi wspomagających prywatność lub z blokerów reklam, Privacy Badger nauczy się mniej, ale bez obaw, może złapać elementy śledzące niewyłapywane przez inne narzędzia, których używasz.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -508,7 +508,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger automatycznie uczy się blokować niewidoczne śledziki.",
+        "message": "Privacy Badger automatycznie uczy się blokować niewidoczne elementy śledzące.",
         "description": ""
     },
     "report_fail": {
@@ -584,7 +584,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger odkrył $COUNT$ potencjalnych śledzików na $DOMAIN$:",
+        "message": "Privacy Badger odkrył $COUNT$ potencjalnych elementów śledzących na $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
