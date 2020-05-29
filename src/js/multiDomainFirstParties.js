@@ -528,6 +528,7 @@ var multiDomainFirstPartiesArray = [
   ["belkin.com", "seedonk.com"],
   ["bhphotovideo.com", "bandh.com", "bhphoto.com", "bnh.com"],
   ["bilibili.com", "acgvideo.com", "biliapi.net", "biliapi.com", "biligame.com", "hdslb.com"],
+  ["binance.com", "binance.cloud", "binance.vision", "bnbstatic.com"],
   ["blizzard.com", "battle.net", "worldofwarcraft.com"],
   ["bloomberg.com", "bbthat.com", "bwbx.io"],
   ["booking.com", "bstatic.com"],
