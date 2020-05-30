@@ -199,14 +199,19 @@
         }
     },
     "YouTube": {
-        "domain": "www.youtube.com",
+        "domains": [
+            "www.youtube.com",
+            "www.youtube-nocookie.com"
+        ],
         "buttonSelectors": [
             "iframe[src^='http://www.youtube.com/embed/']",
-            "iframe[src^='https://www.youtube.com/embed/']"
+            "iframe[src^='https://www.youtube.com/embed/']",
+            "iframe[src^='https://www.youtube-nocookie.com/embed/']"
         ],
         "replacementButton": {
             "unblockDomains": [
-                "www.youtube.com"
+                "www.youtube.com",
+                "www.youtube-nocookie.com"
             ],
             "imagePath": "badger-play.png",
             "type": 3
