@@ -26,6 +26,19 @@
             "type": 0
         }
     },
+    "Facebook Comments": {
+        "domain": "www.facebook.com",
+        "buttonSelectors": [
+            "div.fb-comments.fb_iframe_widget"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.facebook.com"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
+    },
     "Facebook Like": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
