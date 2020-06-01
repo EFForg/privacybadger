@@ -571,6 +571,7 @@ let multiDomainFirstPartiesArray = [
     "cbsimg.net",
     "cbsinteractive.com",
     "cbsistatic.com",
+    "cbslocal.com",
     "cbsnews.com",
     "cbssports.com",
     "cbsstatic.com",
