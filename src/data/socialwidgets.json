@@ -26,6 +26,19 @@
             "type": 0
         }
     },
+    "Facebook Comments": {
+        "domain": "www.facebook.com",
+        "buttonSelectors": [
+            "div.fb-comments.fb_iframe_widget"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.facebook.com"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
+    },
     "Facebook Like": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
@@ -58,6 +71,19 @@
             ],
             "imagePath": "FacebookShare.svg",
             "type": 1
+        }
+    },
+    "Facebook Video": {
+        "domain": "www.facebook.com",
+        "buttonSelectors": [
+            "iframe[src^='https://www.facebook.com/plugins/video.php?']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.facebook.com"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
         }
     },
     "Google reCAPTCHA": {
@@ -147,6 +173,20 @@
             "type": 3
         }
     },
+    "Twitch Player": {
+        "domain": "player.twitch.tv",
+        "buttonSelectors": [
+            "iframe[src^='https://player.twitch.tv/']",
+            "iframe[src^='//player.twitch.tv/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "player.twitch.tv"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
+    },
     "Twitter": {
         "domain": "platform.twitter.com",
         "buttonSelectors": [
@@ -173,14 +213,24 @@
         }
     },
     "YouTube": {
-        "domain": "www.youtube.com",
+        "domains": [
+            "youtube.com",
+            "www.youtube.com",
+            "www.youtube-nocookie.com"
+        ],
         "buttonSelectors": [
+            "iframe[src^='//www.youtube.com/embed/']",
             "iframe[src^='http://www.youtube.com/embed/']",
-            "iframe[src^='https://www.youtube.com/embed/']"
+            "iframe[src^='https://www.youtube.com/embed/']",
+            "iframe[src^='https://youtube.com/embed/']",
+            "iframe[src^='//www.youtube-nocookie.com/embed/']",
+            "iframe[src^='https://www.youtube-nocookie.com/embed/']"
         ],
         "replacementButton": {
             "unblockDomains": [
-                "www.youtube.com"
+                "youtube.com",
+                "www.youtube.com",
+                "www.youtube-nocookie.com"
             ],
             "imagePath": "badger-play.png",
             "type": 3
