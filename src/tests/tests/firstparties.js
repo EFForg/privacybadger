@@ -1,7 +1,6 @@
 (function () {
 
 let destination = 'https://the.beach/';
-let tco = 'http://t.co/beach-detour/';
 let fb_wrap = 'https://facebook.com/l.php?u=' + destination;
 let fb_xss = 'https://facebook.com/l.php?u=javascript://bad.site/%250Aalert(1)';
 let g_wrap = 'https://www.google.com/url?q=' + destination;
@@ -11,22 +10,6 @@ function makeLink(href) {
   let element = document.createElement('a');
   element.href = href;
   element.rel = '';
-  return element;
-}
-
-function makeTweet(destURL) {
-  let element = document.createElement('div');
-  element.href = tco;
-  element.rel = '';
-  element.setAttribute(destURL, destination);
-  return element;
-}
-
-function addClickListener(element) {
-  element.setAttribute('heardClick', 'no');
-  element.addEventListener('click', function () {
-    element.setAttribute('heardClick', 'yes');
-  });
   return element;
 }
 
@@ -65,39 +48,6 @@ function unstub() {
 }
 
 QUnit.module('First parties');
-
-QUnit.test('twitter', (assert) => {
-  let attribute = 'data-expanded-url';
-  const NUM_CHECKS = 1,
-    done = assert.async();
-  assert.expect(NUM_CHECKS);
-
-  let fixture = document.getElementById('qunit-fixture');
-  addClickListener(fixture);
-  let tweet = makeTweet(attribute);
-
-  // load the content script
-  let script = document.createElement('script');
-  script.src = '../js/firstparties/twitter.js';
-  script.onload = function() {
-    tweet.click();
-
-    assert.ok(
-      (tweet.href == destination) && // replaced the link
-      (fixture.getAttribute('heardClick') == 'no') && // twitter didn't hear the click
-      (tweet.rel.includes('noreferrer') == true) // added noreferrer
-    );
-
-    unstub();
-    done();
-  };
-
-  stub([tweet], attribute);
-  fixture.appendChild(tweet);
-  fixture.appendChild(script);
-
-});
-
 
 QUnit.test('facebook script unwraps valid links', (assert) => {
   const NUM_CHECKS = 4,

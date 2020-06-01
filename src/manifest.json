@@ -46,16 +46,6 @@
   "content_scripts": [
     {
       "js": [
-        "js/firstparties/twitter.js"
-      ],
-      "matches": [
-        "https://twitter.com/*",
-        "http://twitter.com/*"
-      ],
-      "run_at": "document_idle"
-    },
-    {
-      "js": [
         "js/firstparties/lib/utils.js",
         "js/firstparties/facebook.js"
       ],
