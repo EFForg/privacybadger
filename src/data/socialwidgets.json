@@ -173,6 +173,20 @@
             "type": 3
         }
     },
+    "Twitch Player": {
+        "domain": "player.twitch.tv",
+        "buttonSelectors": [
+            "iframe[src^='https://player.twitch.tv/']",
+            "iframe[src^='//player.twitch.tv/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "player.twitch.tv"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 3
+        }
+    },
     "Twitter": {
         "domain": "platform.twitter.com",
         "buttonSelectors": [
