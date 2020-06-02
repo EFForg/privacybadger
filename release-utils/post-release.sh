@@ -28,12 +28,11 @@ rm -f /tmp/changelog$$
 MSG=/tmp/email$$
 
 echo "Privacy Badger $TARGET has been released for all supported browsers." > $MSG
-echo "As always, you can get it from https://www.eff.org/privacybadger" >> $MSG
-echo "or from your browser's add-on gallery." >> $MSG
+echo "As always, you can get it from https://privacybadger.org/ or from your browser's add-on gallery." >> $MSG
 echo "" >> $MSG
 echo "Notable updates:" >> $MSG
 echo "" >> $MSG
-tail -n+4 ../doc/Changelog | sed '/^$/q' >> $MSG
+tail -n+5 ../doc/Changelog | sed '/^$/q' >> $MSG
 echo "For further details, consult our release notes on GitHub:" >> $MSG
 echo "https://github.com/EFForg/privacybadger/releases/tag/release-$TARGET" >> $MSG
 
