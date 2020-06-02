@@ -1,5 +1,14 @@
-Changes for Privacy Badger 
-====================================
+Privacy Badger Release Notes
+============================
+
+## 2020.6.2
+* Added replacement placeholders for Facebook Comments/Video and Twitch Player
+* Removed Twitter link unwrapping. We are unable to unwrap t.co links
+on Twitter at this time, as the original URL is no longer present
+in the Twitter website's document structure.
+* Fixed various site breakages
+* Improved translations (Hebrew, Polish, Swedish)
+
 ## 2020.5.12
 * Made buttons in the popup easier to see and click (or tap, on Firefox for
 Android)
