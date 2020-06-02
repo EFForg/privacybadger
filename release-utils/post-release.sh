@@ -48,3 +48,30 @@ echo "  \"applications\": {"
 echo "    \"gecko\": { \"strict_min_version\": \"52.0\" }"
 echo "  }"
 echo "}"
+
+echo ""
+echo "AMO release notes:"
+echo ""
+echo "<ul>"
+tail -n+5 doc/Changelog | sed '/^$/q' | {
+  out=""
+  while IFS= read -r line; do
+    # changelog entries start with "*"
+    if [ "${line:0:1}" = "*" ]; then
+      # this is the first entry
+      if [ -z "$out" ]; then
+        out="<li>${line:2}"
+      else
+        out="$out</li>\n<li>${line:2}"
+      fi
+    # changelog entry continues
+    else
+      if [ -n "$line" ]; then
+        out="$out $line"
+      fi
+    fi
+  done
+  echo -e "$out</li>"
+}
+echo "</ul>"
+echo ""
