@@ -488,11 +488,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "您的 Badger 尚未學會阻擋這些網域",
+        "message": "Your Badger hasn't decided yet if these domains should get blocked",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "顯示您的 Badger 尚未學會阻擋的網域：",
+        "message": "Show domains your Badger hasn't decided yet to block:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
