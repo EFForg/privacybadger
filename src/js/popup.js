@@ -161,7 +161,10 @@ function init() {
 
   let shareOverlay = $("#share_overlay");
 
-  $("#share").on("click", share);
+  $("#share").on("click", function (e) {
+    share();
+    e.preventDefault();
+  });
   $("#share_close").on("click", function() {
     shareOverlay.toggleClass('active', false);
   });

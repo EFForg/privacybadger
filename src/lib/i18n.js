@@ -59,8 +59,13 @@ function setTextDirection() {
       toggle_css_value(selector, "float", "right", "left");
     });
 
+    // fix margin
+    ['#options', '#share', '#help'].forEach(selector => {
+      swap_css_property(selector, "margin-right", "margin-left");
+    });
+
     // fix padding
-    ['#instruction img', '#help', '#share'].forEach((selector) => {
+    ['#instruction img'].forEach((selector) => {
       swap_css_property(selector, "padding-right", "padding-left");
     });
 

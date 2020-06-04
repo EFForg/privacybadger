@@ -259,14 +259,13 @@ font-size: 16px;
 }
 #options, #share, #help {
     float: right;
-    padding-top: 7px;
+    margin-top: 7px;
 }
-#help {
-    padding-right: 6px;
+#help, #share {
+    margin-right: 10px;
 }
-#share {
-    padding-right: 6px;
-    cursor: pointer;
+#options {
+    margin-right: 3px;
 }
 #pbInstructions, #special-browser-page, #disabled-site-message {
     color: #505050;
@@ -439,24 +438,31 @@ div.overlay.active {
 }
 
 @media screen and (max-width: 400px){
-  .origin {
-    max-width: 150px;
-  }
+    .origin {
+        max-width: 150px;
+    }
 
-  .switch-container{
-    width: 100px;
-    display: block;
-    margin-left: 150px;
-  }
+    .switch-container{
+        width: 100px;
+        display: block;
+        margin-left: 150px;
+    }
 
-  .key {
-    left: 150px;
-  }
-  .key img {
-    margin-left: 12px;
-  }
+    .key {
+        left: 150px;
+    }
+    .key img {
+        margin-left: 12px;
+    }
 
-  .honeybadgerPowered {
-    left: 255px;
-  }
+    .honeybadgerPowered {
+        left: 255px;
+    }
+
+    #help, #share {
+        margin-right: 6px;
+    }
+    #options {
+        margin-right: 0px;
+    }
 }
