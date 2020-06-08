@@ -166,7 +166,7 @@
         }
     },
     "privacy_badger_what_is": {
-        "message": "מה הוא Privacy Badger?",
+        "message": "מהו Privacy Badger?",
         "description": ""
     },
     "options_domain_search": {
@@ -182,7 +182,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
-        "message": "מה הוא גשש?",
+        "message": "מהו גשש?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
@@ -322,7 +322,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "מעקב בלתי נראה קורה בכל מיני דרכים; פרסומות הן הקצה הנראה של הקרחון. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>שולח את האות אל תעקוב (DNT)</a> אל גששים כדי לומר להם לא לעקוב אחריך. אם הם מתעלמים מבקשותיך, Privacy Badger שלך ילמד לחסום אותם—בין אם הם מפרסמים או גששים מסוגים אחרים.",
+        "message": "מעקב בלתי נראה קורה בכל מיני דרכים; פרסומות הן הקצה הנראה של הקרחון. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>שולח את האות אל תעקוב (DNT)</a> אל גששים כדי לומר להם לא לעקוב אחריך. אם הם מתעלמים מבקשותיך, Privacy Badger ילמד לחסום אותם—בין אם הם מפרסמים או גששים מסוגים אחרים.",
         "description": "Intro page paragraph."
     },
     "report_close": {

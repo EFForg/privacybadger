@@ -112,7 +112,7 @@
         "description": ""
     },
     "popup_instructions_no_trackers": {
-        "message": "Neniuj malkovritaj <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spuriloj</a>. Vivu la privateco!",
+        "message": "Neniu malkovrita <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurilo</a>. Vivu la privateco!",
         "description": "Text shown in the popup when there are no trackers on the page."
     },
     "options_domain_list_tab": {
@@ -178,7 +178,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Montri nombron da spuriloj",
+        "message": "Montri nombron de spuriloj",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "Estas neniuj eksteraj rimedoj sur tiu ĉi retpaĝo.",
+        "message": "Estas neniu ekstera rimedo sur tiu ĉi retpaĝo.",
         "description": ""
     },
     "report_broken_site": {
@@ -480,7 +480,7 @@
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "options_domain_list_no_trackers": {
-        "message": "Privata Melo ne malkovris iujn ajn <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurantajn nomregnojn</a> ĝis nun. Pluigu retumi!",
+        "message": "Privata Melo ne malkovris iun ajn <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurantan nomregnon</a> ĝis nun. Pluigu retumi!",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "report_input_label": {
