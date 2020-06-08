@@ -492,7 +492,7 @@
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Wyświetl domeny, co do których Privacy Badger nie zdecydował, czy powinny być blokowane",
+        "message": "Wyświetl domeny, co do których Privacy Badger nie zdecydował, czy powinny być blokowane:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
