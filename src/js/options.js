@@ -681,22 +681,28 @@ function registerToggleHandlers($toggleElement) {
  *
 */
 function addOrigins(e) {
-  var domains = e.data;
-  var target = e.target;
-  var totalHeight = target.scrollHeight - target.clientHeight;
-  if ((totalHeight - target.scrollTop) < 400) {
-    var domain = domains.shift();
-    var action = getOriginAction(domain);
-    if (action) {
-      let show_breakage_warning = (
-        action == constants.USER_BLOCK &&
-        OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
-      );
-      $(target).append(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
+  let domains = e.data;
+  if (!domains.length) {
+    return;
+  }
 
-      // register the newly-created toggle switch so that user changes are saved
-      registerToggleHandlers($(target).find("[data-origin='" + domain + "'] .switch-toggle"));
-    }
+  let el = e.target;
+  let total_height = el.scrollHeight - el.clientHeight;
+  if ((total_height - el.scrollTop) >= 400) {
+    return;
+  }
+
+  let domain = domains.shift();
+  let action = getOriginAction(domain);
+  if (action) {
+    let show_breakage_warning = (
+      action == constants.USER_BLOCK &&
+      OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
+    );
+    $(el).append(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
+
+    // register the newly-created toggle switch so that user changes are saved
+    registerToggleHandlers($(el).find("[data-origin='" + domain + "'] .switch-toggle"));
   }
 
   // activate tooltips
@@ -712,21 +718,21 @@ function showTrackingDomains(domains) {
   domains = htmlUtils.sortDomains(domains);
 
   // Create HTML for the initial list of tracking domains.
-  var trackingDetails = '';
-  for (var i = 0; (i < 50) && (domains.length > 0); i++) {
-    var domain = domains.shift();
-    var action = getOriginAction(domain);
+  let out = '';
+  for (let i = 0; (i < 50) && (domains.length > 0); i++) {
+    let domain = domains.shift();
+    let action = getOriginAction(domain);
     if (action) {
       let show_breakage_warning = (
         action == constants.USER_BLOCK &&
         OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
       );
-      trackingDetails += htmlUtils.getOriginHtml(domain, action, show_breakage_warning);
+      out += htmlUtils.getOriginHtml(domain, action, show_breakage_warning);
     }
   }
 
   // Display tracking domains.
-  $('#blockedResourcesInner').html(trackingDetails);
+  $('#blockedResourcesInner').html(out);
 
   $('#blockedResourcesInner').off("scroll");
   $('#blockedResourcesInner').on("scroll", domains, addOrigins);
