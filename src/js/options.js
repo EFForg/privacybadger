@@ -692,17 +692,19 @@ function addOrigins(e) {
     return;
   }
 
-  let domain = domains.shift();
-  let action = getOriginAction(domain);
-  if (action) {
-    let show_breakage_warning = (
-      action == constants.USER_BLOCK &&
-      OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
-    );
-    $(el).append(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
+  for (let i = 0; (i < 50) && (domains.length > 0); i++) {
+    let domain = domains.shift();
+    let action = getOriginAction(domain);
+    if (action) {
+      let show_breakage_warning = (
+        action == constants.USER_BLOCK &&
+        OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
+      );
+      $(el).append(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
 
-    // register the newly-created toggle switch so that user changes are saved
-    registerToggleHandlers($(el).find("[data-origin='" + domain + "'] .switch-toggle"));
+      // register the newly-created toggle switch so that user changes are saved
+      registerToggleHandlers($(el).find("[data-origin='" + domain + "'] .switch-toggle"));
+    }
   }
 
   // activate tooltips
