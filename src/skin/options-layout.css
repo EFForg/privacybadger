@@ -128,9 +128,8 @@ header, #tabs {
     color: #505050;
     font-size: 14px;
     list-style-type: none;
-    margin: 10px 0;
-    padding: 0;
-    max-width: 390px;
+    padding: 10px;
+    border: 1px solid #d3d3d3;
 }
 
 #tracking-domains-filters li {
@@ -143,11 +142,12 @@ header, #tabs {
 
 #tracking-domains-filters > li > label {
     flex: 1 0 150px; /* at least this wide */
-    max-width: 150px; /* at most this wide */
+    max-width: 300px; /* at most this wide */
 }
 
 #tracking-domains-filters > li > label + * {
-    flex: 1 0 200px; /* at least this wide or wrap */
+    flex: 1 0 300px; /* at least this wide or wrap */
+    max-width: 300px;
 }
 
 #tracking-domains-filters > li > label + input[type=checkbox] {
