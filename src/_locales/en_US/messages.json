@@ -107,6 +107,10 @@
         "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
         "description": "Intro page welcome paragraph."
     },
+    "take_tour_title": {
+        "message": "Downloading Privacy Badger for the first time?",
+        "description": "Intro page prompt to take Privacy Badger tour"
+    },
     "error_input": {
         "message": "What's Wrong?",
         "description": ""
@@ -264,6 +268,14 @@
     "intro_next_button": {
         "message": "Take the tour",
         "description": "Intro page welcome button."
+    },
+    "faq_title": {
+        "message": "Want to learn more about how Privacy Badger works?",
+        "description": "prompt to direct user to FAQ page"
+    },
+    "faq": {
+        "message": "FAQ",
+        "description": "Frequently Asked Questions acronym"
     },
     "domain_slider_block_tooltip": {
         "message": "Click here to block this domain entirely",
