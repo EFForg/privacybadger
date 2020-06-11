@@ -607,14 +607,28 @@ let getWidgetList = (function () {
         continue;
       }
       let replace = widget.domains.some(domain => {
-        if (!tabData.origins.hasOwnProperty(domain)) {
-          return false;
+        // checks for wildcard in domain
+        if (domain[0] == "*") {
+          // reduce wildcard domain from "*.domain" to "domain"
+          domain = domain.slice(2);
+          if (!tabData.origins.hasOwnProperty(domain)) {
+            return false;
+          }
+          const action = tabData.origins[domain];
+          return (
+            action == constants.BLOCK ||
+            action == constants.USER_BLOCK
+          );
+        } else {
+          if (!tabData.origins.hasOwnProperty(domain)) {
+            return false;
+          }
+          const action = tabData.origins[domain];
+          return (
+            action == constants.BLOCK ||
+            action == constants.USER_BLOCK
+          );
         }
-        const action = tabData.origins[domain];
-        return (
-          action == constants.BLOCK ||
-          action == constants.USER_BLOCK
-        );
       });
       if (replace) {
         widgetsToReplace[widget.name] = true;
@@ -652,7 +666,7 @@ function allowedOnTab(tab_id, request_host, frame_id) {
   let frameData = badger.getFrameData(tab_id, frame_id);
 
   for (let exception of exceptions) {
-    if (exception.match(/[\/].*[\/]/)) {
+    if (exception.match(/[/].*[/]/)) {
       let regex = exception.slice(1, -1);
 
       if (request_host.match(regex) || frameData.host.match(regex)) {
