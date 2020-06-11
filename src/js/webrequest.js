@@ -435,14 +435,14 @@ function recordFingerprinting(tabId, msg) {
     toDataURL: true
   };
 
-  if (!badger.tabData[tabId].hasOwnProperty('fpData')) {
+  if (!('fpData' in badger.tabData[tabId])) {
     badger.tabData[tabId].fpData = {};
   }
 
   let script_origin = window.getBaseDomain(script_host);
 
   // Initialize script TLD-level data
-  if (!badger.tabData[tabId].fpData.hasOwnProperty(script_origin)) {
+  if (!(script_origin in badger.tabData[tabId].fpData)) {
     badger.tabData[tabId].fpData[script_origin] = {
       canvas: {
         fingerprinting: false,
@@ -452,7 +452,7 @@ function recordFingerprinting(tabId, msg) {
   }
   let scriptData = badger.tabData[tabId].fpData[script_origin];
 
-  if (msg.extra.hasOwnProperty('canvas')) {
+  if ('canvas' in msg.extra) {
     if (scriptData.canvas.fingerprinting) {
       return;
     }
@@ -460,7 +460,7 @@ function recordFingerprinting(tabId, msg) {
     // If this script already had a canvas write...
     if (scriptData.canvas.write) {
       // ...and if this is a canvas read...
-      if (CANVAS_READ.hasOwnProperty(msg.prop)) {
+      if (msg.prop in CANVAS_READ) {
         // ...and it got enough data...
         if (msg.extra.width > 16 && msg.extra.height > 16) {
           // ...we will classify it as fingerprinting
@@ -473,7 +473,7 @@ function recordFingerprinting(tabId, msg) {
         }
       }
       // This is a canvas write
-    } else if (CANVAS_WRITE.hasOwnProperty(msg.prop)) {
+    } else if (msg.prop in CANVAS_WRITE) {
       scriptData.canvas.write = true;
     }
   }
@@ -607,7 +607,7 @@ let getWidgetList = (function () {
         continue;
       }
       let replace = widget.domains.some(domain => {
-        if (!tabData.origins.hasOwnProperty(domain)) {
+        if (!(domain in tabData.origins)) {
           return false;
         }
         const action = tabData.origins[domain];
@@ -639,7 +639,7 @@ let getWidgetList = (function () {
  * @returns {Boolean} true if FQDN is on the temporary allow list
  */
 function allowedOnTab(tab_id, request_host, frame_id) {
-  if (!tempAllowList.hasOwnProperty(tab_id)) {
+  if (!(tab_id in tempAllowList)) {
     return false;
   }
 
@@ -661,7 +661,7 @@ function allowedOnTab(tab_id, request_host, frame_id) {
  * @param {Array} domains the domains
  */
 function allowOnTab(tab_id, domains) {
-  if (!tempAllowList.hasOwnProperty(tab_id)) {
+  if (!(tab_id in tempAllowList)) {
     tempAllowList[tab_id] = [];
   }
   for (let domain of domains) {
@@ -731,7 +731,7 @@ function dispatcher(request, sender, sendResponse) {
     let widgetData = badger.widgetList.find(
       widget => widget.name == request.widgetName);
     if (!widgetData ||
-        !widgetData.hasOwnProperty("replacementButton") ||
+        !("replacementButton" in widgetData) ||
         !widgetData.replacementButton.unblockDomains) {
       return sendResponse();
     }
@@ -744,7 +744,7 @@ function dispatcher(request, sender, sendResponse) {
     let widgetData = badger.widgetList.find(
       widget => widget.name == request.widgetName);
     if (!widgetData ||
-        !widgetData.hasOwnProperty("replacementButton") ||
+        !("replacementButton" in widgetData) ||
         !widgetData.replacementButton.imagePath) {
       return sendResponse();
     }
@@ -827,7 +827,7 @@ function dispatcher(request, sender, sendResponse) {
   case "getPopupData": {
     let tab_id = request.tabId;
 
-    if (!badger.tabData.hasOwnProperty(tab_id)) {
+    if (!(tab_id in badger.tabData)) {
       sendResponse({
         criticalError: badger.criticalError,
         noTabData: true,
@@ -944,7 +944,7 @@ function dispatcher(request, sender, sendResponse) {
     chrome.storage.sync.get("disabledSites", function (store) {
       if (chrome.runtime.lastError) {
         sendResponse({success: false, message: chrome.runtime.lastError.message});
-      } else if (store.hasOwnProperty("disabledSites")) {
+      } else if ("disabledSites" in store) {
         let whitelist = _.union(
           badger.getDisabledSites(),
           store.disabledSites
@@ -1014,7 +1014,7 @@ function dispatcher(request, sender, sendResponse) {
   case "updateSettings": {
     const settings = badger.getSettings();
     for (let key in request.data) {
-      if (badger.defaultSettings.hasOwnProperty(key)) {
+      if (key in badger.defaultSettings) {
         settings.setItem(key, request.data[key]);
       } else {
         console.error("Unknown Badger setting:", key);
@@ -1091,13 +1091,13 @@ function startListeners() {
   chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
-  if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
+  if ('EXTRA_HEADERS' in chrome.webRequest.OnBeforeSendHeadersOptions) {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
 
   extraInfoSpec = ['responseHeaders', 'blocking'];
-  if (chrome.webRequest.OnHeadersReceivedOptions.hasOwnProperty('EXTRA_HEADERS')) {
+  if ('EXTRA_HEADERS' in chrome.webRequest.OnHeadersReceivedOptions) {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, extraInfoSpec);
