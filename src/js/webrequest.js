@@ -666,10 +666,11 @@ function allowedOnTab(tab_id, request_host, frame_id) {
   let frameData = badger.getFrameData(tab_id, frame_id);
 
   for (let exception of exceptions) {
-    if (exception.match(/[/].*[/]/)) {
-      let regex = exception.slice(1, -1);
+    if (exception.startsWith('/') && exception.endsWith('/')) {
+      // remove the `/` character from head and tail of the domain string
+      exception = exception.slice(1, -1);
 
-      if (request_host.match(regex) || frameData.host.match(regex)) {
+      if (request_host.match(exception) || frameData.host.match(exception)) {
         return true;
       }
     }
