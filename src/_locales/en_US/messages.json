@@ -281,6 +281,9 @@
         "message": "FAQ",
         "description": "Frequently Asked Questions acronym"
     },
+    "contact_us_link_text": {
+        "message": "Any other questions? <a href='https://privacybadger.org/#I-found-a-bug%21-What-do-I-do-now' target='_blank'>Keep in touch with us.</a>"
+    },
     "domain_slider_block_tooltip": {
         "message": "Click here to block this domain entirely",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
