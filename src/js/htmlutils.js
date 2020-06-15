@@ -202,16 +202,21 @@ var htmlUtils = exports.htmlUtils = {
    * @param {String} status New status to set
    * @param {Boolean} show_breakage_warning
    */
-  toggleBlockedStatus: function ($el, status, show_breakage_warning) {
+  toggleBlockedStatus: function ($el, status, userset, show_breakage_warning) {
     $el.removeClass([
       constants.BLOCK,
       constants.COOKIEBLOCK,
       constants.ALLOW,
       constants.NO_TRACKING,
+      "userset",
       "show-breakage-warning",
     ].join(" "));
 
-    $el.addClass(status).addClass("userset");
+    $el.addClass(status);
+
+    if (userset) {
+      $el.addClass("userset");
+    }
 
     // show warning when manually blocking a domain
     // that would have been cookieblocked otherwise

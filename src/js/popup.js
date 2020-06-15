@@ -619,7 +619,7 @@ function updateOrigin(event) {
       POPUP_DATA.cookieblocked.hasOwnProperty(origin)
     );
 
-  htmlUtils.toggleBlockedStatus($clicker, action, show_breakage_warning);
+  htmlUtils.toggleBlockedStatus($clicker, action, true, show_breakage_warning);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin-inner').tooltipster('destroy');
