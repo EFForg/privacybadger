@@ -273,6 +273,10 @@
         "message": "Want to learn more about how Privacy Badger works?",
         "description": "prompt to direct user to FAQ page"
     },
+    "faq_link_text": {
+        "message": "<a href='https://privacybadger.org#faq' target='_blank'>Visit our FAQ</a>",
+        "description": "Link to our FAQ pages"
+    },
     "faq": {
         "message": "FAQ",
         "description": "Frequently Asked Questions acronym"
