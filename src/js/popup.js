@@ -403,34 +403,6 @@ function revertDomainControl(e) {
   });
 }
 
-function registerToggleHandlers() {
-  // (this == .switch-toggle)
-  var radios = $(this).children('input');
-  var value = $(this).children('input:checked').val();
-  //var userHandle = $(this).children('a');
-
-  var slider = $("<div></div>").slider({
-    min: 0,
-    max: 2,
-    value: value,
-    create: function(/*event, ui*/) {
-      // Set the margin for the handle of the slider we're currently creating,
-      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
-      $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-    },
-    slide: function(event, ui) {
-      radios.filter("[value=" + ui.value + "]").click();
-    },
-    stop: function(event, ui) {
-      $(ui.handle).css('margin-left', -16 * ui.value + "px");
-    },
-  }).appendTo(this);
-
-  radios.on("change", function () {
-    slider.slider("value", radios.filter(':checked').val());
-  });
-}
-
 /**
  * Refresh the content of the popup window
  *
@@ -595,8 +567,6 @@ function refreshPopup() {
     const CHUNK = 1;
 
     let $printable = $(printable.splice(0, CHUNK).join(""));
-
-    $printable.find('.switch-toggle').each(registerToggleHandlers);
 
     // Hide elements for removing origins (controlled from the options page).
     // Popup shows what's loaded for the current page so it doesn't make sense

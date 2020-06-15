@@ -83,7 +83,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
     def user_overwrite(self, origin, action):
         # Get the slider that corresponds to this radio button
         origin_div = self.find_el_by_css('div[data-origin="' + origin + '"]')
-        slider = origin_div.find_element_by_css_selector('.ui-slider')
+        slider = origin_div.find_element_by_css_selector('.switch-toggle')
 
         # Click on the correct place over the slider to block this origin
         click_action = ActionChains(self.driver)
@@ -334,13 +334,18 @@ class OptionsTest(pbtest.PBSeleniumTest):
         try:
             WebDriverWait(self.driver, 3).until(
                 EC.presence_of_element_located(
-                    (By.XPATH, '//div[@class="clicker userset block"][@data-origin="pbtest50-generated.org"]')))
+                    (By.XPATH, '//div[@data-origin="pbtest50-generated.org"]')))
         except TimeoutException:
-            self.fail("Timed out waiting for element generated on scroll to have its slider value changed to userset block")
+            self.fail("Timed out waiting for element generated on scroll")
 
-        self.assertEqual(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
-            "clicker userset block",
-            "Scroll-generated origin should be displayed as blocked after user overwrite of PB's decision to allow")
+        self.assertCountEqual(
+            self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class").split(" "),
+            ["clicker", "userset", "block"],
+            (
+                "Scroll-generated origin should be displayed as blocked "
+                "after user overwrite of PB's decision to allow"
+            )
+        )
 
         ## Check that changes have been persisted
 

@@ -60,7 +60,6 @@ a:hover { color: #ec9329 }
     padding: 5px;
     height: 40px;
     overflow: hidden;
-    line-height: normal;
 }
 .clicker:not(#not-yet-blocked-header):not(#non-trackers-header) {
     direction: ltr;
@@ -90,23 +89,20 @@ a:hover { color: #ec9329 }
   display: block;
   margin-left: 220px;
 }
+.switch-toggle > label {
+    cursor: pointer;
+}
 .options .switch-container{
   max-width: 114px;
 }
 .clear{
   clear: both;
 }
-.switch-candy a img{
-  width: 16px;
-  margin-left: auto;
-  margin-right: auto;
-}
 .block .switch-candy a {
   background-color: #c61223;
 }
 .switch-candy:hover {
   background: #868686;
-  cursor: pointer;
 }
 .cookieblock .switch-candy a{
   background-color: #ffcc00;
@@ -172,17 +168,6 @@ font-size: 16px;
 
 #blockedResourcesContainer {
     min-height: 70px;
-}
-
-.ui-slider {
-  opacity: 0;
-  z-index: 20;
-}
-.ui-slider .ui-slider-handle {
-  cursor: move;
-}
-.ui-slider-horizontal {
-    height: 1.1em;
 }
 
 #firstRun {

@@ -632,37 +632,6 @@ function filterTrackingDomains() {
 }
 
 /**
- * Registers handlers for tracking domain toggle controls.
- * @param {jQuery} $toggleElement jQuery object for the tracking domain element to be registered.
- */
-// TODO unduplicate this code? since a version of it is also in popup
-function registerToggleHandlers($toggleElement) {
-  var radios = $toggleElement.children('input');
-  var value = $toggleElement.children('input:checked').val();
-
-  var slider = $('<div></div>').slider({
-    min: 0,
-    max: 2,
-    value: value,
-    create: function(/*event, ui*/) {
-      // Set the margin for the handle of the slider we're currently creating,
-      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
-      $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-    },
-    slide: function(event, ui) {
-      radios.filter('[value=' + ui.value + ']').click();
-    },
-    stop: function(event, ui) {
-      $(ui.handle).css('margin-left', -16 * ui.value + 'px');
-    },
-  }).appendTo($toggleElement);
-
-  radios.on("change", function () {
-    slider.slider('value', radios.filter(':checked').val());
-  });
-}
-
-/**
  * Adds more origins to the blocked resources list on scroll.
  *
 */
@@ -687,9 +656,6 @@ function addOrigins(e) {
         OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
       );
       $(el).append(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
-
-      // register the newly-created toggle switch so that user changes are saved
-      registerToggleHandlers($(el).find("[data-origin='" + domain + "'] .switch-toggle"));
     }
   }
 
@@ -728,13 +694,8 @@ function showTrackingDomains(domains) {
   // activate tooltips
   $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
     htmlUtils.DOMAIN_TOOLTIP_CONF);
-
-  // Register handlers for tracking domain toggle controls.
-  $('.switch-toggle').each(function() {
-    registerToggleHandlers($(this));
-  });
-
 }
+
 /**
  * https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
  *
