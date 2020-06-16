@@ -156,12 +156,9 @@ var htmlUtils = exports.htmlUtils = {
 
       // Get classes for main div.
       var classes = ['clicker'];
-      if (action.indexOf('user') === 0) {
+      if (action.startsWith('user')) {
         classes.push('userset');
-        action = action.substr(5);
-      }
-      if (action === constants.BLOCK || action === constants.COOKIEBLOCK || action === constants.ALLOW || action === constants.NO_TRACKING) {
-        classes.push(action);
+        action = action.slice(5);
       }
       // show warning when manually blocking a domain
       // that would have been cookieblocked otherwise
@@ -198,30 +195,25 @@ var htmlUtils = exports.htmlUtils = {
   /**
    * Toggle the GUI blocked status of GUI element(s)
    *
-   * @param {jQuery} $el Identify the jQuery element object(s) to manipulate
-   * @param {String} status New status to set
-   * @param {Boolean} show_breakage_warning
+   * @param {jQuery} $clicker
+   * @param {Boolean} userset whether to show a revert control arrow
+   * @param {Boolean} show_breakage_warning whether to show a breakage warning
    */
-  toggleBlockedStatus: function ($el, status, userset, show_breakage_warning) {
-    $el.removeClass([
-      constants.BLOCK,
-      constants.COOKIEBLOCK,
-      constants.ALLOW,
-      constants.NO_TRACKING,
+  toggleBlockedStatus: function ($clicker, userset, show_breakage_warning) {
+    $clicker.removeClass([
       "userset",
       "show-breakage-warning",
     ].join(" "));
 
-    $el.addClass(status);
-
+    // toggles revert control arrow via CSS
     if (userset) {
-      $el.addClass("userset");
+      $clicker.addClass("userset");
     }
 
     // show warning when manually blocking a domain
     // that would have been cookieblocked otherwise
     if (show_breakage_warning) {
-      $el.addClass("show-breakage-warning");
+      $clicker.addClass("show-breakage-warning");
     }
   },
 

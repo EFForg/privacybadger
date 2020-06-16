@@ -601,25 +601,25 @@ function refreshPopup() {
  */
 function updateOrigin(event) {
   // get the origin and new action for it
-  var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  var action = $elm.data('action');
+  let $label = $('label[for="' + event.currentTarget.id + '"]'),
+    action = $label.data('action'),
+    $switchContainer = $label.parents('.switch-container').first();
 
-  // replace the old action with the new one
-  var $switchContainer = $elm.parents('.switch-container').first();
+  // update slider color via CSS
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
 
-  let $clicker = $elm.parents('.clicker').first(),
+  let $clicker = $label.parents('.clicker').first(),
     origin = $clicker.data('origin'),
     show_breakage_warning = (
       action == constants.BLOCK &&
       POPUP_DATA.cookieblocked.hasOwnProperty(origin)
     );
 
-  htmlUtils.toggleBlockedStatus($clicker, action, true, show_breakage_warning);
+  htmlUtils.toggleBlockedStatus($clicker, true, show_breakage_warning);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin-inner').tooltipster('destroy');
@@ -628,32 +628,19 @@ function updateOrigin(event) {
   $clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 
   // persist the change
-  saveToggle($clicker);
+  saveToggle(origin, action);
 }
 
 /**
  * Save the user setting for a domain by messaging the background page.
  */
-function saveToggle($clicker) {
-  let origin = $clicker.attr("data-origin"),
-    action;
-
-  if ($clicker.hasClass(constants.BLOCK)) {
-    action = constants.BLOCK;
-  } else if ($clicker.hasClass(constants.COOKIEBLOCK)) {
-    action = constants.COOKIEBLOCK;
-  } else if ($clicker.hasClass(constants.ALLOW)) {
-    action = constants.ALLOW;
-  }
-
-  if (action) {
-    chrome.runtime.sendMessage({
-      type: "savePopupToggle",
-      origin: origin,
-      action: action,
-      tabId: POPUP_DATA.tabId
-    });
-  }
+function saveToggle(origin, action) {
+  chrome.runtime.sendMessage({
+    type: "savePopupToggle",
+    origin,
+    action,
+    tabId: POPUP_DATA.tabId
+  });
 }
 
 function getTab(callback) {

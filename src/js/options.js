@@ -85,15 +85,16 @@ function loadOptions() {
 
   // Add event listeners for origins container.
   $('#blockedResourcesContainer').on('change', 'input:radio', function (event) {
-    let $el = $('label[for="' + event.currentTarget.id + '"]'),
-      action = $el.data('action'),
-      $clicker = $el.parents('.clicker').first(),
+    let $label = $('label[for="' + event.currentTarget.id + '"]'),
+      action = $label.data('action'),
+      $clicker = $label.parents('.clicker').first(),
       origin = $clicker.data('origin');
 
+    // update slider color
     updateOrigin(origin, action, true);
 
     // persist the change
-    saveToggle(origin, $clicker);
+    saveToggle(origin, action);
   });
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
@@ -530,9 +531,9 @@ function getOriginAction(origin) {
   return OPTIONS_DATA.origins[origin];
 }
 
-function revertDomainControl(e) {
-  var $elm = $(e.target).parent();
-  var origin = $elm.data('origin');
+function revertDomainControl(event) {
+  let origin = $(event.target).parent().data('origin');
+
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
     origin
@@ -744,14 +745,13 @@ function toggleWebRTCIPProtection() {
 }
 
 /**
- * Update the user preferences displayed for this origin.
- * These UI changes will later be used to update user preferences data.
+ * Updates slider color; toggles breakage warning, revert control arrow.
  */
 function updateOrigin(origin, action, userset) {
-  // replace the old action with the new one
   let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + origin + '"]'),
     $switchContainer = $clicker.find('.switch-container').first();
 
+  // update slider color via CSS
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
@@ -763,7 +763,7 @@ function updateOrigin(origin, action, userset) {
     OPTIONS_DATA.cookieblocked.hasOwnProperty(origin)
   );
 
-  htmlUtils.toggleBlockedStatus($clicker, action, userset, show_breakage_warning);
+  htmlUtils.toggleBlockedStatus($clicker, userset, show_breakage_warning);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin-inner').tooltipster('destroy');
@@ -789,12 +789,12 @@ function updateSliders(updatedOriginData) {
     }
 
     let userset = false;
-    if (action.indexOf('user') === 0) {
-      action = action.substr(5);
+    if (action.startsWith('user')) {
       userset = true;
+      action = action.slice(5);
     }
 
-    // move the slider by setting the radios
+    // update slider position
     let value = 2;
     if (action == constants.BLOCK) {
       value = 0;
@@ -822,33 +822,21 @@ function updateSliders(updatedOriginData) {
 /**
  * Save the user setting for a domain by messaging the background page.
  */
-function saveToggle(origin, $clicker) {
-  let action;
-
-  if ($clicker.hasClass(constants.BLOCK)) {
-    action = constants.BLOCK;
-  } else if ($clicker.hasClass(constants.COOKIEBLOCK)) {
-    action = constants.COOKIEBLOCK;
-  } else if ($clicker.hasClass(constants.ALLOW)) {
-    action = constants.ALLOW;
-  }
-
-  if (action) {
-    chrome.runtime.sendMessage({
-      type: "saveOptionsToggle",
-      origin,
-      action
-    }, (response) => {
-      // first update the cache for the slider
-      // that was just changed by the user
-      // to avoid redundantly updating it below
-      OPTIONS_DATA.origins[origin] = response.origins[origin];
-      // update any sliders that changed as a result
-      updateSliders(response.origins);
-      // update cached domain data
-      OPTIONS_DATA.origins = response.origins;
-    });
-  }
+function saveToggle(origin, action) {
+  chrome.runtime.sendMessage({
+    type: "saveOptionsToggle",
+    origin,
+    action
+  }, (response) => {
+    // first update the cache for the slider
+    // that was just changed by the user
+    // to avoid redundantly updating it below
+    OPTIONS_DATA.origins[origin] = response.origins[origin];
+    // update any sliders that changed as a result
+    updateSliders(response.origins);
+    // update cached domain data
+    OPTIONS_DATA.origins = response.origins;
+  });
 }
 
 /**
@@ -856,18 +844,16 @@ function saveToggle(origin, $clicker) {
  * @param {Event} event Click event triggered by user.
  */
 function removeOrigin(event) {
-  // Confirm removal before proceeding.
-  var removalConfirmed = confirm(i18n.getMessage("options_remove_origin_confirm"));
-  if (!removalConfirmed) {
+  // confirm removal before proceeding
+  if (!confirm(i18n.getMessage("options_remove_origin_confirm"))) {
     return;
   }
 
-  // Remove traces of origin from storage.
-  var $element = $(event.target).parent();
-  var origin = $element.data('origin');
+  let origin = $(event.target).parent().data('origin');
+
   chrome.runtime.sendMessage({
     type: "removeOrigin",
-    origin: origin
+    origin
   }, (response) => {
     // remove rows that are no longer here
     updateSliders(response.origins);
