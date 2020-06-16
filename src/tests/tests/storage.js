@@ -505,7 +505,7 @@ QUnit.test("user actions overrule everything else", (assert) => {
 QUnit.test("specificity of rules of equal priority", (assert) => {
   storage.setupUserAction(DOMAIN, constants.USER_BLOCK);
   storage.setupUserAction(SUBDOMAIN, constants.USER_ALLOW);
-  storage.setupUserAction(SUBSUBDOMAIN, constants.USER_COOKIE_BLOCK);
+  storage.setupUserAction(SUBSUBDOMAIN, constants.USER_COOKIEBLOCK);
 
   // check domain itself
   assert.equal(
@@ -534,12 +534,12 @@ QUnit.test("specificity of rules of equal priority", (assert) => {
   // check subsubdomain
   assert.equal(
     storage.getAction(SUBSUBDOMAIN),
-    constants.USER_COOKIE_BLOCK,
+    constants.USER_COOKIEBLOCK,
     "subsubdomain is marked as usercookieblock directly"
   );
   assert.equal(
     storage.getBestAction(SUBSUBDOMAIN),
-    constants.USER_COOKIE_BLOCK,
+    constants.USER_COOKIEBLOCK,
     "subsubdomain is marked as usercookieblock"
   );
 });

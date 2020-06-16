@@ -253,7 +253,7 @@ function send_error(message) {
         action = "usernoaction";
       } else if (action == constants.USER_BLOCK) {
         action = "userblock";
-      } else if (action == constants.USER_COOKIE_BLOCK) {
+      } else if (action == constants.USER_COOKIEBLOCK) {
         action = "usercookieblock";
       } else if (action == constants.ALLOW) {
         action = "noaction";

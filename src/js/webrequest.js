@@ -188,7 +188,7 @@ function onBeforeSendHeaders(details) {
   }
 
   // handle cookieblocked requests
-  if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK) {
+  if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
     let newHeaders;
 
     // GET requests: remove cookie headers, reduce referrer header to origin
@@ -285,7 +285,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK) {
+  if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
     let newHeaders = details.responseHeaders.filter(function(header) {
       return (header.name.toLowerCase() != "set-cookie");
     });
@@ -722,7 +722,7 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     let action = checkAction(sender.tab.id, frame_host);
-    sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIE_BLOCK);
+    sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK);
 
     break;
   }

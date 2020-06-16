@@ -272,7 +272,7 @@ BadgerPen.prototype = {
         return 4;
       case constants.USER_ALLOW:
       case constants.USER_BLOCK:
-      case constants.USER_COOKIE_BLOCK:
+      case constants.USER_COOKIEBLOCK:
         return 5;
       }
     }

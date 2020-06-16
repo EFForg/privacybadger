@@ -27,7 +27,7 @@ var exports = {
   DNT: "dnt",
   USER_ALLOW: "user_allow",
   USER_BLOCK: "user_block",
-  USER_COOKIE_BLOCK: "user_cookieblock",
+  USER_COOKIEBLOCK: "user_cookieblock",
 
   // URLS
   DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
@@ -47,7 +47,7 @@ exports.BLOCKED_ACTIONS = new Set([
   exports.BLOCK,
   exports.USER_BLOCK,
   exports.COOKIEBLOCK,
-  exports.USER_COOKIE_BLOCK,
+  exports.USER_COOKIEBLOCK,
 ]);
 
 return exports;

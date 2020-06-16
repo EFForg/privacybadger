@@ -279,13 +279,12 @@ Badger.prototype = {
   saveAction: function(userAction, origin) {
     var allUserActions = {
       block: constants.USER_BLOCK,
-      cookieblock: constants.USER_COOKIE_BLOCK,
+      cookieblock: constants.USER_COOKIEBLOCK,
       allow: constants.USER_ALLOW
     };
     this.storage.setupUserAction(origin, allUserActions[userAction]);
     log("Finished saving action " + userAction + " for " + origin);
   },
-
 
   /**
    * Populate tabs object with currently open tabs when extension is updated or installed.
