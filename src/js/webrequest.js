@@ -607,28 +607,30 @@ let getWidgetList = (function () {
         continue;
       }
       let replace = widget.domains.some(domain => {
-        // checks for wildcard in domain
+        // handles wildcard placeholders for subdomains like *.disqus.com
         if (domain[0] == "*") {
-          // reduce wildcard domain from "*.domain" to "domain"
-          domain = domain.slice(2);
-          if (!tabData.origins.hasOwnProperty(domain)) {
-            return false;
+          // reduce wildcard domain from "*.domain" to "domain" to easily compare in tabData
+          domain = domain.slice(1);
+
+          // returns the actions for any tabData origins that match the wildcard subdomain
+          for (let origin in tabData.origins) {
+            if (origin.endsWith(domain)) {
+              let action = tabData.origins[origin];
+              return (
+                action == constants.BLOCK ||
+                action == constants.USER_BLOCK
+              );
+            }
           }
-          const action = tabData.origins[domain];
-          return (
-            action == constants.BLOCK ||
-            action == constants.USER_BLOCK
-          );
-        } else {
-          if (!tabData.origins.hasOwnProperty(domain)) {
-            return false;
-          }
-          const action = tabData.origins[domain];
-          return (
-            action == constants.BLOCK ||
-            action == constants.USER_BLOCK
-          );
         }
+        if (!tabData.origins.hasOwnProperty(domain)) {
+          return false;
+        }
+        const action = tabData.origins[domain];
+        return (
+          action == constants.BLOCK ||
+          action == constants.USER_BLOCK
+        );
       });
       if (replace) {
         widgetsToReplace[widget.name] = true;
