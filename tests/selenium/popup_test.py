@@ -260,7 +260,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # restore control to Badger
         self.driver.find_element_by_css_selector(
-            'div[data-origin="{}"] div.honeybadgerPowered'.format(DOMAIN)
+            'div[data-origin="{}"] a.honeybadgerPowered'.format(DOMAIN)
         ).click()
 
         # get back to a valid window handle as the window just got closed
@@ -281,7 +281,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
         self.assertFalse(
             self.driver.find_element_by_css_selector(
-                'div[data-origin="{}"] div.honeybadgerPowered'.format(DOMAIN)
+                'div[data-origin="{}"] a.honeybadgerPowered'.format(DOMAIN)
             ).is_displayed(),
             "Undo arrow should not be displayed."
         )

@@ -182,9 +182,9 @@ let htmlUtils = {
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
     <span class="origin-inner tooltip" title="${origin_tooltip}">${dnt_html}${origin}</span>
   </div>
-  <div class="removeOrigin">&#10006</div>
+  <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(origin, action)}
-  <div class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></div>
+  <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></a>
 </div>
       `.trim();
     };

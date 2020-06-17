@@ -191,7 +191,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # Remove displayed origin.
         remove_origin_element = self.find_el_by_xpath(
             './/div[@data-origin="pbtest.org"]'
-            '//div[@class="removeOrigin"]')
+            '//a[@class="removeOrigin"]')
         remove_origin_element.click()
 
         # Make sure the alert is present. Otherwise we get intermittent errors.

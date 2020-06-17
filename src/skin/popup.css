@@ -77,17 +77,6 @@ a:hover { color: #ec9329 }
   white-space: nowrap;
 }
 
-.removeOrigin {
-  cursor: pointer;
-  float: right;
-  margin-right: 0px;
-  width: 10px;
-}
-
-.removeOrigin:hover {
-  color: red;
-}
-
 .switch-container {
     width: 115px;
     display: block;
@@ -118,18 +107,26 @@ a:hover { color: #ec9329 }
 }
 
 .honeybadgerPowered {
-  display: none;
-  margin-right: 10px;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  left: 340px;
-  bottom: 15px;
-  cursor: pointer;
+    display: none;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: 340px;
+    bottom: 15px;
 }
 .userset .honeybadgerPowered {
-  display: block;
-  background: url('/icons/badger-pin.png') no-repeat;
+    display: block;
+    background: url('/icons/badger-pin.png') no-repeat;
+}
+
+.removeOrigin {
+    float: right;
+    margin-right: 0;
+    width: 10px;
+}
+.removeOrigin:hover {
+    color: red;
 }
 
 #blockedResources .breakage-warning {

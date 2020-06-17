@@ -532,6 +532,8 @@ function getOriginAction(origin) {
 }
 
 function revertDomainControl(event) {
+  event.preventDefault();
+
   let origin = $(event.target).parent().data('origin');
 
   chrome.runtime.sendMessage({
@@ -838,6 +840,8 @@ function saveToggle(origin, action) {
  * @param {Event} event Click event triggered by user.
  */
 function removeOrigin(event) {
+  event.preventDefault();
+
   // confirm removal before proceeding
   if (!confirm(i18n.getMessage("options_remove_origin_confirm"))) {
     return;

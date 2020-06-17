@@ -388,12 +388,12 @@ function share() {
 
 /**
  * Handler to undo user selection for a tracker
- *
- * @param {Event} e The object the event triggered on
  */
-function revertDomainControl(e) {
-  var $elm = $(e.target).parent();
-  var origin = $elm.data('origin');
+function revertDomainControl(event) {
+  event.preventDefault();
+
+  let origin = $(event.target).parent().data('origin');
+
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
     origin: origin
