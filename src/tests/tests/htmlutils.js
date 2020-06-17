@@ -75,18 +75,18 @@ QUnit.test("getToggleHtml", function (assert) {
   var tests = [
     {
       origin: "pbtest.org",
-      action: "block",
-      expectedResult: "0",
+      action: constants.BLOCK,
+      expectedResult: constants.BLOCK,
     },
     {
       origin: "pbtest.org",
-      action: "cookieblock",
-      expectedResult: "1",
+      action: constants.COOKIEBLOCK,
+      expectedResult: constants.COOKIEBLOCK,
     },
     {
       origin: "pbtest.org",
-      action: "allow",
-      expectedResult: "2",
+      action: constants.ALLOW,
+      expectedResult: constants.ALLOW,
     },
   ];
 

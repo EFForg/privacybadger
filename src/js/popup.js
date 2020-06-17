@@ -599,11 +599,11 @@ function refreshPopup() {
  *
  * @param {Event} event Click event triggered by user.
  */
-function updateOrigin(event) {
+function updateOrigin() {
   // get the origin and new action for it
-  let $label = $('label[for="' + event.currentTarget.id + '"]'),
-    action = $label.data('action'),
-    $switchContainer = $label.parents('.switch-container').first();
+  let $radio = $(this),
+    action = $radio.val(),
+    $switchContainer = $radio.parents('.switch-container').first();
 
   // update slider color via CSS
   $switchContainer.removeClass([
@@ -612,7 +612,7 @@ function updateOrigin(event) {
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
 
-  let $clicker = $label.parents('.clicker').first(),
+  let $clicker = $radio.parents('.clicker').first(),
     origin = $clicker.data('origin'),
     show_breakage_warning = (
       action == constants.BLOCK &&

@@ -84,11 +84,11 @@ function loadOptions() {
   $("#tracking-domains-show-not-yet-blocked").on("change", filterTrackingDomains);
 
   // Add event listeners for origins container.
-  $('#blockedResourcesContainer').on('change', 'input:radio', function (event) {
-    let $label = $('label[for="' + event.currentTarget.id + '"]'),
-      action = $label.data('action'),
-      $clicker = $label.parents('.clicker').first(),
-      origin = $clicker.data('origin');
+  $('#blockedResourcesContainer').on('change', 'input:radio', function () {
+    let $radio = $(this),
+      $clicker = $radio.parents('.clicker').first(),
+      origin = $clicker.data('origin'),
+      action = $radio.val();
 
     // update slider color
     updateOrigin(origin, action, true);
@@ -795,16 +795,10 @@ function updateSliders(updatedOriginData) {
     }
 
     // update slider position
-    let value = 2;
-    if (action == constants.BLOCK) {
-      value = 0;
-    } else if (action == constants.COOKIEBLOCK) {
-      value = 1;
-    }
     let $radios = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"] input');
     // update the radio group without triggering a change event
     // https://stackoverflow.com/a/22635728
-    $radios.val([value]);
+    $radios.val([action]);
 
     // update slider color
     updateOrigin(domain, action, userset);

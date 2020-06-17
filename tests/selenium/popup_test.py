@@ -16,8 +16,8 @@ from window_utils import switch_to_window_with_url
 
 def get_domain_slider_state(driver, domain):
     label = driver.find_element_by_css_selector(
-        'input[name="{}"][checked] + label'.format(domain))
-    return label.get_attribute('data-action')
+        'input[name="{}"][checked]'.format(domain))
+    return label.get_attribute('value')
 
 
 class PopupTest(pbtest.PBSeleniumTest):

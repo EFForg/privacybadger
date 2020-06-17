@@ -109,9 +109,9 @@ var htmlUtils = exports.htmlUtils = {
       var toggleHtml = '' +
         '<div class="switch-container ' + action + '">' +
         '<div class="switch-toggle switch-3 switch-candy">' +
-        '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label title="' + tooltips.block + '" class="actionToggle tooltip" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
-        '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label title="' + tooltips.cookieblock + '" class="actionToggle tooltip" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
-        '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label title="' + tooltips.allow + '" class="actionToggle tooltip" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
+        '<input id="block-' + originId + '" name="' + origin + '" value="' + constants.BLOCK + '" type="radio" ' + htmlUtils.isChecked(constants.BLOCK, action) + '><label title="' + tooltips.block + '" class="tooltip" for="block-' + originId + '"></label>' +
+        '<input id="cookieblock-' + originId + '" name="' + origin + '" value="' + constants.COOKIEBLOCK + '" type="radio" ' + htmlUtils.isChecked(constants.COOKIEBLOCK, action) + '><label title="' + tooltips.cookieblock + '" class="tooltip" for="cookieblock-' + originId + '"></label>' +
+        '<input id="allow-' + originId + '" name="' + origin + '" value="' + constants.ALLOW + '" type="radio" ' + htmlUtils.isChecked(constants.ALLOW, action) + '><label title="' + tooltips.allow + '" class="tooltip" for="allow-' + originId + '"></label>' +
         '<a></a></div></div>';
 
       return toggleHtml;
