@@ -5,31 +5,6 @@ QUnit.module("HTML Utils");
 let constants = require('constants'),
   htmlUtils = require("htmlutils").htmlUtils;
 
-QUnit.test("isChecked", function (assert) {
-  // Test parameters
-  var tests = [
-    {
-      inputAction: "allow",
-      originAction: "allow",
-      expectedResult: "checked",
-    },
-    {
-      inputAction: "allow",
-      originAction: "block",
-      expectedResult: "",
-    },
-  ];
-
-  // Run each test.
-  for (var i = 0; i < tests.length; i++) {
-    var inputAction = tests[i].inputAction;
-    var originAction = tests[i].originAction;
-    var expected = tests[i].expectedResult;
-    var message = "Inputs: '" + inputAction + "' and '" + originAction + "'";
-    assert.equal(htmlUtils.isChecked(inputAction, originAction), expected, message);
-  }
-});
-
 QUnit.test("getActionDescription", (assert) => {
   // Test parameters
   const getMessage = chrome.i18n.getMessage,
@@ -72,32 +47,33 @@ QUnit.test("getActionDescription", (assert) => {
 
 QUnit.test("getToggleHtml", function (assert) {
   // Test parameters
-  var tests = [
+  const origin = "pbtest.org";
+  const tests = [
     {
-      origin: "pbtest.org",
       action: constants.BLOCK,
       expectedResult: constants.BLOCK,
     },
     {
-      origin: "pbtest.org",
       action: constants.COOKIEBLOCK,
       expectedResult: constants.COOKIEBLOCK,
     },
     {
-      origin: "pbtest.org",
       action: constants.ALLOW,
+      expectedResult: constants.ALLOW,
+    },
+    {
+      action: constants.DNT,
       expectedResult: constants.ALLOW,
     },
   ];
 
   // Run each test.
-  for (var i = 0; i < tests.length; i++) {
-    var origin = tests[i].origin;
-    var action = tests[i].action;
-    var expected = tests[i].expectedResult;
-    var message = "Inputs: '" + origin + "' and '" + action + "'";
-    var html = htmlUtils.getToggleHtml(origin, action);
-    var inputValue = $('input[name="' + origin + '"]:checked', html).val();
+  for (let i = 0; i < tests.length; i++) {
+    let action = tests[i].action,
+      expected = tests[i].expectedResult;
+    let message = "Inputs: '" + origin + "' and '" + action + "'";
+    let html = htmlUtils.getToggleHtml(origin, action);
+    let inputValue = $('input[name="' + origin + '"]:checked', html).val();
     assert.equal(inputValue, expected, message);
   }
 });
