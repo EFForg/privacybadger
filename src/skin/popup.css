@@ -63,6 +63,7 @@ a:hover { color: #ec9329 }
     padding: 5px;
     height: 40px;
     overflow: hidden;
+    line-height: normal;
 }
 .clicker:not(#not-yet-blocked-header):not(#non-trackers-header) {
     direction: ltr;
