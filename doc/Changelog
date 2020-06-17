@@ -272,7 +272,7 @@ Italian, Polish, Russian, Spanish, Swedish, Ukrainian)
 
 ## 2017.11.20
 * Disabled custom tooltips in Firefox to work around browser freezing issues
-* Added validation to whitelisted domains form
+* Added validation to the disabled sites form
 * Improved translations (Dutch, Esperanto and German)
 * Added Bulgarian and Polish translations
 
@@ -472,7 +472,7 @@ store". This is a known side effect of a workaround for a different bug.
 * Update Swedish locale
 * Typo fixes
 * Numerous bug fixes
-* Whitelist Domains now supports wildcard strings
+* Added support for disabled sites with wildcards
 * Red badge now reflects the number of domains blocked or cookieblocked
 instead of all third parties.
 * Tooltips show full domain name

@@ -171,7 +171,7 @@ exports.Migrations= {
       if (sites && sites.length) {
         if (sites.length >= constants.TRACKING_THRESHOLD) {
           // tracking domain over threshold, set it to cookieblock or block
-          badger.heuristicBlocking.blacklistOrigin(base_domain, domain);
+          badger.heuristicBlocking.blocklistOrigin(base_domain, domain);
           continue;
 
         } else {
@@ -209,7 +209,7 @@ exports.Migrations= {
     // reblock all blocked domains to trigger yellowlist logic
     for (let i = 0; i < blocked.length; i++) {
       let domain = blocked[i];
-      badger.heuristicBlocking.blacklistOrigin(
+      badger.heuristicBlocking.blocklistOrigin(
         window.getBaseDomain(domain), domain);
     }
   },

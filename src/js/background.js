@@ -721,7 +721,7 @@ Badger.prototype = {
       // don't show the counter for any of these:
       // - the counter is disabled
       // - we don't have tabData for whatever reason (special browser pages)
-      // - the page is whitelisted
+      // - Privacy Badger is disabled on the page
       if (
         !self.showCounter() ||
         !self.tabData.hasOwnProperty(tab_id) ||
@@ -821,9 +821,9 @@ Badger.prototype = {
   },
 
   /**
-   * Interface to get the current whitelisted domains
+   * Returns the current list of disabled sites.
    *
-   * @returns {Array} List of site domains where Privacy Badger is disabled
+   * @returns {Array} site domains where Privacy Badger is disabled
    */
   getDisabledSites: function () {
     return this.getSettings().getItem("disabledSites");

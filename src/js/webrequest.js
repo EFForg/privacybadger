@@ -945,14 +945,14 @@ function dispatcher(request, sender, sendResponse) {
       if (chrome.runtime.lastError) {
         sendResponse({success: false, message: chrome.runtime.lastError.message});
       } else if (store.hasOwnProperty("disabledSites")) {
-        let whitelist = _.union(
+        let disabledSites = _.union(
           badger.getDisabledSites(),
           store.disabledSites
         );
-        badger.getSettings().setItem("disabledSites", whitelist);
+        badger.getSettings().setItem("disabledSites", disabledSites);
         sendResponse({
           success: true,
-          disabledSites: whitelist
+          disabledSites
         });
       } else {
         sendResponse({

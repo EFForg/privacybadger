@@ -11,14 +11,8 @@ PB_POLICY_HASH_LEN = 40  # https://www.eff.org/files/dnt-policies.json
 
 
 class StorageTest(pbtest.PBSeleniumTest):
-    """Make sure the following storage items are initialized correctly.
+    """Privacy Badger storage initialization tests."""
 
-    - whitelistUrl
-    - badgerHashes
-    - showCounter
-
-    Also make sure that "disabledSites" is not initialized.
-    """
     def check_policy_download(self):
         timeout = POLICY_DOWNLOAD_TIMEOUT
         dnt_hashes_not_empty = (

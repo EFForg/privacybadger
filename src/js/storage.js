@@ -188,7 +188,7 @@ BadgerPen.prototype = {
       for (const subdomain of actionMap.keys()) {
         if (window.getBaseDomain(subdomain) == base) {
           if (self.getAction(subdomain) != constants.NO_TRACKING) {
-            badger.heuristicBlocking.blacklistOrigin(base, subdomain);
+            badger.heuristicBlocking.blocklistOrigin(base, subdomain);
           }
         }
       }
@@ -579,7 +579,7 @@ BadgerStorage.prototype = {
   /**
    * When a user imports a tracker and settings list via the Import function,
    * we want to overwrite any existing settings, while simultaneously merging
-   * in any new information (i.e. the set of whitelisted domains). In order
+   * in any new information (i.e. the list of disabled site domains). In order
    * to do this, we need different logic for each of the storage maps based on
    * their internal structure. The three cases in this function handle each of
    * the three storage maps that can be exported.

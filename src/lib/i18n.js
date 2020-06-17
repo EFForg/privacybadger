@@ -87,12 +87,12 @@ function setTextDirection() {
     ['#settings-suffix', '#check-dnt-policy-row', '#hide-widgets-row'].forEach((selector) => {
       swap_css_property(selector, "margin-left", "margin-right");
     });
-    ['#whitelistForm > div > div > div'].forEach((selector) => {
+    ['#allowlist-form > div > div > div'].forEach((selector) => {
       swap_css_property(selector, "margin-right", "margin-left");
     });
 
     // fix floats
-    ['.btn-silo', '.btn-silo div', '#whitelistForm > div > div > div'].forEach((selector) => {
+    ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
 

@@ -69,7 +69,7 @@
 <div id="tabs">
   <ul>
     <li><a href="#tab-general-settings"><span class="i18n_options_general_settings"></span></a></li>
-    <li><a href="#tab-whitelisted-domains"><span class="i18n_whitelisted_domains"></span></a></li>
+    <li><a href="#tab-allowlist"><span class="i18n_whitelisted_domains"></span></a></li>
     <li><a href="#tab-manage-widgets"><span class="i18n_options_widget_replacement_tab"></span></a></li>
     <li><a href="#tab-tracking-domains"><span class="i18n_options_domain_list_tab"></span></a></li>
     <li><a href="#tab-manage-data"><span class="i18n_data_settings"></span></a></li>
@@ -135,25 +135,25 @@
     </div>
   </div>
 
-  <div id="tab-whitelisted-domains">
+  <div id="tab-allowlist">
     <div class="i18n_disabled_for_these_domains"></div>
 
-    <form id="whitelistForm" action="#">
+    <form id="allowlist-form" action="#">
       <div>
         <div>
           <div style="float: left; max-width: 400px; width: 100%; margin-right: 30px; padding-top: 5px">
-            <input type="text" value="" id="newWhitelistDomain" style="width:100%" placeholder="i18n_whitelist_form_domain_input_placeholder">
+            <input type="text" value="" id="new-disabled-site-input" style="width:100%" placeholder="i18n_whitelist_form_domain_input_placeholder">
           </div>
           <div style="float: left; padding: 5px 0 10px">
-            <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
+            <button id="add-disabled-site" type="submit"><span class="i18n_add_domain_button"></span></button>
           </div>
         </div>
         <div style="clear: both; overflow: hidden">
           <div style="float: left; max-width: 420px; width: 100%; margin-right: 10px; padding-top: 5px">
-            <select id="excludedDomainsBox" size="10" multiple style="width: 100%; background: white;"></select>
+            <select id="allowlist-select" size="10" multiple style="width: 100%; background: white;"></select>
           </div>
           <div style="float:left; padding-top: 5px">
-            <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
+            <button id="remove-disabled-site"><span class="i18n_remove_button"></span></button>
           </div>
         </div>
       </div>

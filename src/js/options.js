@@ -50,8 +50,8 @@ function loadOptions() {
   document.title = i18n.getMessage("options_title");
 
   // Add event listeners
-  $("#whitelistForm").on("submit", addWhitelistDomain);
-  $("#removeWhitelist").on("click", removeWhitelistDomain);
+  $("#allowlist-form").on("submit", addDisabledSite);
+  $("#remove-disabled-site").on("click", removeDisabledSite);
   $("#cloud-upload").on("click", uploadCloud);
   $("#cloud-download").on("click", downloadCloud);
   $('#importTrackerButton').on("click", loadFileChooser);
@@ -99,8 +99,8 @@ function loadOptions() {
     }
   });
   $("button").button();
-  $(".addButton").button("option", "icons", {primary: "ui-icon-plus"});
-  $(".removeButton").button("option", "icons", {primary: "ui-icon-minus"});
+  $("#add-disabled-site").button("option", "icons", {primary: "ui-icon-plus"});
+  $("#remove-disabled-site").button("option", "icons", {primary: "ui-icon-minus"});
   $("#cloud-upload").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-n"});
   $("#cloud-download").button("option", "icons", {primary: "ui-icon-arrowreturnthick-1-s"});
   $(".importButton").button("option", "icons", {primary: "ui-icon-plus"});
@@ -176,7 +176,7 @@ function loadOptions() {
   widgetSelector.on('select2:unselect', updateWidgetReplacementExceptions);
   widgetSelector.on('select2:clear', updateWidgetReplacementExceptions);
 
-  reloadWhitelist();
+  reloadDisabledSites();
   reloadTrackingDomainsTab();
 
   $('html').css('visibility', 'visible');
@@ -253,7 +253,7 @@ function parseUserDataFile(storageMapsList) {
     OPTIONS_DATA.disabledSites = response.disabledSites;
     OPTIONS_DATA.origins = response.origins;
 
-    reloadWhitelist();
+    reloadDisabledSites();
     reloadTrackingDomainsTab();
     // TODO general settings are not updated
 
@@ -286,7 +286,7 @@ function downloadCloud() {
       if (response.success) {
         alert(i18n.getMessage("download_cloud_success"));
         OPTIONS_DATA.disabledSites = response.disabledSites;
-        reloadWhitelist();
+        reloadDisabledSites();
       } else {
         console.error("Cloud sync error:", response.message);
         if (response.message === i18n.getMessage("download_cloud_no_data")) {
@@ -462,22 +462,24 @@ function updateLearnInIncognito() {
   });
 }
 
-function reloadWhitelist() {
-  var sites = OPTIONS_DATA.disabledSites;
-  var sitesList = $('#excludedDomainsBox');
-  // Sort the white listed sites in the same way the blocked sites are
+function reloadDisabledSites() {
+  let sites = OPTIONS_DATA.disabledSites,
+    $select = $('#allowlist-select');
+
+  // sort disabled sites the same way blocked sites are sorted
   sites = htmlUtils.sortDomains(sites);
-  sitesList.html("");
-  for (var i = 0; i < sites.length; i++) {
-    $('<option>').text(sites[i]).appendTo(sitesList);
+
+  $select.empty();
+  for (let i = 0; i < sites.length; i++) {
+    $('<option>').text(sites[i]).appendTo($select);
   }
 }
 
-function addWhitelistDomain(event) {
+function addDisabledSite(event) {
   event.preventDefault();
 
-  var domain = utils.getHostFromDomainInput(
-    document.getElementById("newWhitelistDomain").value.replace(/\s/g, "")
+  let domain = utils.getHostFromDomainInput(
+    document.getElementById("new-disabled-site-input").value.replace(/\s/g, "")
   );
 
   if (!domain) {
@@ -489,16 +491,16 @@ function addWhitelistDomain(event) {
     domain
   }, (response) => {
     OPTIONS_DATA.disabledSites = response.disabledSites;
-    reloadWhitelist();
-    document.getElementById("newWhitelistDomain").value = "";
+    reloadDisabledSites();
+    document.getElementById("new-disabled-site-input").value = "";
   });
 }
 
-function removeWhitelistDomain(event) {
+function removeDisabledSite(event) {
   event.preventDefault();
 
   let domains = [];
-  let $selected = $("#excludedDomainsBox option:selected");
+  let $selected = $("#allowlist-select option:selected");
   for (let i = 0; i < $selected.length; i++) {
     domains.push($selected[i].text);
   }
@@ -508,7 +510,7 @@ function removeWhitelistDomain(event) {
     domains
   }, (response) => {
     OPTIONS_DATA.disabledSites = response.disabledSites;
-    reloadWhitelist();
+    reloadDisabledSites();
   });
 }
 

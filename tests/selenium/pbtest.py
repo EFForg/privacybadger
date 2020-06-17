@@ -421,7 +421,7 @@ class PBSeleniumTest(unittest.TestCase):
             "(function (domain) {"
             "  let bg = chrome.extension.getBackgroundPage();"
             "  let base_domain = window.getBaseDomain(domain);"
-            "  bg.badger.heuristicBlocking.blacklistOrigin(domain, base_domain);"
+            "  bg.badger.heuristicBlocking.blocklistOrigin(domain, base_domain);"
             "}(arguments[0]));"
         ), domain)
 
@@ -437,9 +437,9 @@ class PBSeleniumTest(unittest.TestCase):
     def disable_badger_on_site(self, url):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
-        self.find_el_by_css('a[href="#tab-whitelisted-domains"]').click()
-        self.driver.find_element_by_id('newWhitelistDomain').send_keys(url)
-        self.driver.find_element_by_css_selector('button.addButton').click()
+        self.find_el_by_css('a[href="#tab-allowlist"]').click()
+        self.driver.find_element_by_id('new-disabled-site-input').send_keys(url)
+        self.driver.find_element_by_css_selector('#add-disabled-site').click()
 
     @property
     def logs(self):

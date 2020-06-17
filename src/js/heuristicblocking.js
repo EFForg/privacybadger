@@ -43,14 +43,16 @@ function HeuristicBlocker(pbStorage) {
 HeuristicBlocker.prototype = {
 
   /**
-   * Blocks or cookieblocks an FQDN.
-   * Blocks or cookieblocks its base domain.
-   * Cookieblocks any yellowlisted subdomains that share the base domain with the FQDN.
+   * Blocklists an FQDN/origin:
    *
-   * @param {String} base The base domain (etld+1) to blacklist
+   * - Blocks or cookieblocks an FQDN.
+   * - Blocks or cookieblocks its base domain.
+   * - Cookieblocks any yellowlisted subdomains that share the base domain with the FQDN.
+   *
+   * @param {String} base The base domain (etld+1) to blocklist
    * @param {String} fqdn The FQDN
    */
-  blacklistOrigin: function (base, fqdn) {
+  blocklistOrigin: function (base, fqdn) {
     let self = this,
       ylistStorage = self.storage.getBadgerStorageObject("cookieblock_list");
 
@@ -324,8 +326,8 @@ HeuristicBlocker.prototype = {
 
     // block the origin if it has been seen on multiple first party domains
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
-      log('blacklisting origin', tracker_fqdn);
-      this.blacklistOrigin(tracker_origin, tracker_fqdn);
+      log('blocklisting origin', tracker_fqdn);
+      this.blocklistOrigin(tracker_origin, tracker_fqdn);
     }
   }
 };
