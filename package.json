@@ -9,6 +9,7 @@
     "jquery": "3.5.1",
     "jquery-ui": "1.12.1",
     "punycode": "1.4.1",
+    "qunit": "2.9.2",
     "select2": "4.0.11",
     "tooltipster": "4.2.6",
     "underscore": "1.9.1",
