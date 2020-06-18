@@ -7,7 +7,9 @@
   },
   "devDependencies": {
     "jquery": "3.5.1",
+    "jquery-smooth-scroll": "2.2.0",
     "jquery-ui": "1.12.1",
+    "jquery-ui-iconfont": "2.3.2",
     "punycode": "1.4.1",
     "qunit": "2.9.2",
     "select2": "4.0.11",
