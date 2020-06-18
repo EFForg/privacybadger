@@ -182,3 +182,7 @@ header, #tabs {
 #hide-widgets-select {
   width: 300px;
 }
+
+.ui-tabs-nav li a:focus {
+    outline: none;
+}
