@@ -265,6 +265,7 @@ let multiDomainFirstPartiesArray = [
     "alipay.cn",
     "alipay-eco.com",
     "alipay.hk",
+    "alipayobjects.com",
     "alipayplus.com",
     "ant-biz.com",
     "ant-financial.com",
