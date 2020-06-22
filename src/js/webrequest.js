@@ -577,6 +577,7 @@ let getWidgetList = (function () {
     let widgetsToReplace = {},
       widgetList = [],
       tabData = badger.tabData[tab_id],
+      tabOrigins = tabData && tabData.origins && Object.keys(tabData.origins),
       exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
 
     // optimize translation lookups by doing them just once,
@@ -603,26 +604,28 @@ let getWidgetList = (function () {
       widgetList.push(widget);
 
       // replace only if at least one of the associated domains was blocked
-      if (!tabData) {
+      if (!tabOrigins || !tabOrigins.length) {
         continue;
       }
       let replace = widget.domains.some(domain => {
-        // handles wildcard placeholders for subdomains like *.disqus.com
+        // leading wildcard domain
         if (domain[0] == "*") {
-          // reduce wildcard domain from "*.domain" to "domain" to easily compare in tabData
           domain = domain.slice(1);
-
-          // returns the actions for any tabData origins that match the wildcard subdomain
-          for (let origin in tabData.origins) {
-            if (origin.endsWith(domain)) {
-              let action = tabData.origins[origin];
-              return (
-                action == constants.BLOCK ||
-                action == constants.USER_BLOCK
-              );
-            }
-          }
+          // get all domains in tabData.origins that end with this domain
+          let matches = tabOrigins.filter(origin => {
+            return origin.endsWith(domain);
+          });
+          // do we have any matches and are they all blocked?
+          return matches.length && matches.every(origin => {
+            const action = tabData.origins[origin];
+            return (
+              action == constants.BLOCK ||
+              action == constants.USER_BLOCK
+            );
+          });
         }
+
+        // regular, non-leading wildcard domain
         if (!tabData.origins.hasOwnProperty(domain)) {
           return false;
         }
@@ -631,6 +634,7 @@ let getWidgetList = (function () {
           action == constants.BLOCK ||
           action == constants.USER_BLOCK
         );
+
       });
       if (replace) {
         widgetsToReplace[widget.name] = true;
