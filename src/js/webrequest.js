@@ -661,25 +661,35 @@ function allowedOnTab(tab_id, request_host, frame_id) {
 
   let exceptions = tempAllowList[tab_id];
 
-  if (exceptions.includes(request_host)) {
-    return true;
-  }
-
-  let frameData = badger.getFrameData(tab_id, frame_id);
-
   for (let exception of exceptions) {
-    if (exception.startsWith('/') && exception.endsWith('/')) {
-      // remove the `/` character from head and tail of the domain string
-      exception = exception.slice(1, -1);
-
-      if (request_host.match(exception) || frameData.host.match(exception)) {
+    if (exception == request_host) {
+      return true;
+    // leading wildcard
+    } else if (exception[0] == "*") {
+      if (request_host.endsWith(exception.slice(1))) {
         return true;
       }
     }
   }
 
-  return frameData && frameData.host &&
-    exceptions.includes(frameData.host);
+  let frameData = badger.getFrameData(tab_id, frame_id);
+  if (!frameData || !frameData.host) {
+    return false;
+  }
+
+  let frame_host = frameData.host;
+  for (let exception of exceptions) {
+    if (exception == frame_host) {
+      return true;
+    // leading wildcard
+    } else if (exception[0] == "*") {
+      if (frame_host.endsWith(exception.slice(1))) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 /**
