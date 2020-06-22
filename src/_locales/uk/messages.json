@@ -36,7 +36,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "Чим довше ви використовуєте Privacy Badger, тим краще він захищає вас. Ви бачите, що він поки що не блокує нічого? Це нормально! Це тому, що Privacy Badger працює інакше, ніж звичні засоби і замість списків блокування він автоматично виявляє елементи стеження поки ви користуєтесь веб-сайтами. Тож продовжуйте і незабаром ви побачите результат.",
+        "message": "Чим довше ви використовуєте Privacy Badger, тим краще він захищає вас. Ви бачите, що він поки що не блокує нічого? Це нормально! Це тому, що Privacy Badger працює інакше, ніж звичні засоби та замість списків блокування він автоматично виявляє елементи стеження поки ви користуєтесь вебсайтами. Тож продовжуйте і незабаром ви побачите результат.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -64,7 +64,7 @@
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
-        "message": "Блокування цього домену пошкоджує веб-сайти",
+        "message": "Блокування цього домену пошкоджує вебсайти",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
@@ -366,7 +366,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Передавати веб-сайтам сигнал <a href='https://www.eff.org/issues/do-not-track' target='_blank'>\"Не стежити\" (Do Not Track)</a>",
+        "message": "Передавати вебсайтам сигнал <a href='https://www.eff.org/issues/do-not-track' target='_blank'>\"Не стежити\" (Do Not Track)</a>",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -448,7 +448,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger починає блокування, як тільки він бачить, що один і той самий елемент з'являється на трьох різних веб-сайтах. Три попадання і він заблокований! Якщо ви використовуєте інші засоби для захисту приватності чи блокування реклами, Privacy Badger буде навчатися менше, але це нічого, він все одно зможе знаходити й блокувати те, що пропускають інші.",
+        "message": "Privacy Badger починає блокування, як тільки він бачить, що один і той самий елемент стеження з'являється на трьох різних вебсайтах. Три попадання і він заблокований! Якщо ви використовуєте інші засоби для захисту приватності чи блокування реклами, Privacy Badger навчатиметься менше, але це нічого, він все одно зможе знаходити й блокувати те, що пропускають інші.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -488,11 +488,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't decided yet if these domains should get blocked",
+        "message": "Badger ще не вирішив, чи слід блокувати ці домени",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't decided yet to block:",
+        "message": "Показати домени, які Badger ще не вирішив блокувати:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -516,7 +516,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger змінив цю $BUTTON$ кнопку",
+        "message": "Privacy Badger змінив цю кнопку $BUTTON$",
         "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
@@ -526,7 +526,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger has replaced this $WIDGET$ widget",
+        "message": "Privacy Badger замінив цей віджет $WIDGET$",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
