@@ -2291,7 +2291,7 @@ let multiDomainFirstPartiesArray = [
 
     "wnyc.org",
   ],
-  ["nytimes.com", "newyorktimes.com", "nyt.com"],
+  ["nytimes.com", "newyorktimes.com", "thewirecutter.com", "nyt.com"],
   [
     "nyu.edu",
 
