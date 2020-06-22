@@ -27,11 +27,7 @@
         }
     },
     "Disqus": {
-        "domains": [
-            "disqus.com",
-            "*.disqus.com",
-            "www.disqus.com"
-        ],
+        "domain": "*.disqus.com",
         "buttonSelectors": [
             "div#disqus_thread"
         ],
