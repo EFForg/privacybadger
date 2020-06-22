@@ -68,13 +68,11 @@ QUnit.test("getToggleHtml", function (assert) {
   ];
 
   // Run each test.
-  for (let i = 0; i < tests.length; i++) {
-    let action = tests[i].action,
-      expected = tests[i].expectedResult;
-    let message = "Inputs: '" + origin + "' and '" + action + "'";
-    let html = htmlUtils.getToggleHtml(origin, action);
-    let inputValue = $('input[name="' + origin + '"]:checked', html).val();
-    assert.equal(inputValue, expected, message);
+  for (let test of tests) {
+    let message = `Inputs: '${origin}' and '${test.action}'`;
+    let html = htmlUtils.getToggleHtml(origin, test.action);
+    let input_val = $('input[name="' + origin + '"]:checked', html).val();
+    assert.equal(input_val, test.expectedResult, message);
   }
 });
 
