@@ -915,6 +915,7 @@ let multiDomainFirstPartiesArray = [
     "alamo-np.fr",
     "alamo-np.ie",
   ],
+  ["epicgames.com", "unrealengine.com"],
   [
     "expedia.com",
 
