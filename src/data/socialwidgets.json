@@ -39,6 +39,23 @@
             "type": 0
         }
     },
+    "Disqus": {
+        "domain": "*.disqus.com",
+        "buttonSelectors": [
+            "div#disqus_thread"
+        ],
+        "scriptSelectors": [
+            "script[src*='.disqus.com/embed.js']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "*.disqus.com",
+                "disqus.com"
+            ],
+            "imagePath": "badger-play.png",
+            "type": 4
+        }
+    },
     "Facebook Comments": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
