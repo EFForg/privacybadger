@@ -338,7 +338,18 @@ function replaceSubsequentTrackerButtonsHelper(tracker_domain) {
     return;
   }
   widgetList.forEach(function (widget) {
-    if (widget.domains.includes(tracker_domain)) {
+    let replace = widget.domains.some(domain => {
+      if (domain == tracker_domain) {
+        return true;
+      // leading wildcard
+      } else if (domain[0] == "*") {
+        if (tracker_domain.endsWith(domain.slice(1))) {
+          return true;
+        }
+      }
+      return false;
+    });
+    if (replace) {
       replaceIndividualButton(widget);
     }
   });
