@@ -23,11 +23,8 @@ const constants = require("constants");
 var exports = {};
 var htmlUtils = exports.htmlUtils = {
 
-  // Tooltipster config for domain list tooltips
-  DOMAIN_TOOLTIP_CONF: {
-    delay: 100,
-    side: 'bottom',
-
+  // default Tooltipster config
+  TOOLTIPSTER_DEFAULTS: {
     // allow per-instance option overriding
     functionInit: function (instance, helper) {
       let dataOptions = helper.origin.dataset.tooltipster;
@@ -44,6 +41,12 @@ var htmlUtils = exports.htmlUtils = {
         }
       }
     },
+  },
+
+  // Tooltipster config for domain list tooltips
+  DOMAIN_TOOLTIP_CONF: {
+    delay: 100,
+    side: 'bottom',
   },
 
   /**

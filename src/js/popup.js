@@ -704,6 +704,8 @@ function setPopupData(data) {
 }
 
 $(function () {
+  $.tooltipster.setDefaults(htmlUtils.TOOLTIPSTER_DEFAULTS);
+
   getTab(function (tab) {
     chrome.runtime.sendMessage({
       type: "getPopupData",

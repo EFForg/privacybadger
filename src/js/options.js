@@ -850,6 +850,8 @@ function updateWidgetReplacementExceptions() {
 }
 
 $(function () {
+  $.tooltipster.setDefaults(htmlUtils.TOOLTIPSTER_DEFAULTS);
+
   chrome.runtime.sendMessage({
     type: "getOptionsData",
   }, (response) => {
