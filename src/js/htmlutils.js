@@ -192,7 +192,8 @@ let htmlUtils = {
   }()),
 
   /**
-   * Toggle the GUI blocked status of GUI element(s)
+   * Toggles undo arrows and breakage warnings in domain slider rows.
+   * TODO rename/refactor with updateOrigin()
    *
    * @param {jQuery} $clicker
    * @param {Boolean} userset whether to show a revert control arrow

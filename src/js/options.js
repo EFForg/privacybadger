@@ -90,7 +90,7 @@ function loadOptions() {
       origin = $clicker.data('origin'),
       action = $radio.val();
 
-    // update slider color
+    // update domain slider row tooltip/status indicators
     updateOrigin(origin, action, true);
 
     // persist the change
@@ -747,7 +747,8 @@ function toggleWebRTCIPProtection() {
 }
 
 /**
- * Updates slider color; toggles breakage warning, revert control arrow.
+ * Updates domain tooltip, slider color.
+ * Also toggles status indicators like breakage warnings.
  */
 function updateOrigin(origin, action, userset) {
   let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + origin + '"]'),
@@ -797,12 +798,13 @@ function updateSliders(updatedOriginData) {
     }
 
     // update slider position
-    let $radios = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"] input');
+    let $radios = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"] input'),
+      selected_val = (action == constants.DNT ? constants.ALLOW : action);
     // update the radio group without triggering a change event
     // https://stackoverflow.com/a/22635728
-    $radios.val([action]);
+    $radios.val([selected_val]);
 
-    // update slider color
+    // update domain slider row tooltip/status indicators
     updateOrigin(domain, action, userset);
   }
 
