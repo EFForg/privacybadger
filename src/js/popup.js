@@ -388,46 +388,18 @@ function share() {
 
 /**
  * Handler to undo user selection for a tracker
- *
- * @param {Event} e The object the event triggered on
  */
-function revertDomainControl(e) {
-  var $elm = $(e.target).parent();
-  var origin = $elm.data('origin');
+function revertDomainControl(event) {
+  event.preventDefault();
+
+  let origin = $(event.target).parent().data('origin');
+
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
     origin: origin
   }, () => {
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
-  });
-}
-
-function registerToggleHandlers() {
-  // (this == .switch-toggle)
-  var radios = $(this).children('input');
-  var value = $(this).children('input:checked').val();
-  //var userHandle = $(this).children('a');
-
-  var slider = $("<div></div>").slider({
-    min: 0,
-    max: 2,
-    value: value,
-    create: function(/*event, ui*/) {
-      // Set the margin for the handle of the slider we're currently creating,
-      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
-      $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-    },
-    slide: function(event, ui) {
-      radios.filter("[value=" + ui.value + "]").click();
-    },
-    stop: function(event, ui) {
-      $(ui.handle).css('margin-left', -16 * ui.value + "px");
-    },
-  }).appendTo(this);
-
-  radios.on("change", function () {
-    slider.slider("value", radios.filter(':checked').val());
   });
 }
 
@@ -596,8 +568,6 @@ function refreshPopup() {
 
     let $printable = $(printable.splice(0, CHUNK).join(""));
 
-    $printable.find('.switch-toggle').each(registerToggleHandlers);
-
     // Hide elements for removing origins (controlled from the options page).
     // Popup shows what's loaded for the current page so it doesn't make sense
     // to have removal ability here.
@@ -629,27 +599,27 @@ function refreshPopup() {
  *
  * @param {Event} event Click event triggered by user.
  */
-function updateOrigin(event) {
+function updateOrigin() {
   // get the origin and new action for it
-  var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  var action = $elm.data('action');
+  let $radio = $(this),
+    action = $radio.val(),
+    $switchContainer = $radio.parents('.switch-container').first();
 
-  // replace the old action with the new one
-  var $switchContainer = $elm.parents('.switch-container').first();
+  // update slider color via CSS
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
 
-  let $clicker = $elm.parents('.clicker').first(),
+  let $clicker = $radio.parents('.clicker').first(),
     origin = $clicker.data('origin'),
     show_breakage_warning = (
       action == constants.BLOCK &&
       POPUP_DATA.cookieblocked.hasOwnProperty(origin)
     );
 
-  htmlUtils.toggleBlockedStatus($clicker, action, show_breakage_warning);
+  htmlUtils.toggleBlockedStatus($clicker, true, show_breakage_warning);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin-inner').tooltipster('destroy');
@@ -658,32 +628,19 @@ function updateOrigin(event) {
   $clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 
   // persist the change
-  saveToggle($clicker);
+  saveToggle(origin, action);
 }
 
 /**
  * Save the user setting for a domain by messaging the background page.
  */
-function saveToggle($clicker) {
-  let origin = $clicker.attr("data-origin"),
-    action;
-
-  if ($clicker.hasClass(constants.BLOCK)) {
-    action = constants.BLOCK;
-  } else if ($clicker.hasClass(constants.COOKIEBLOCK)) {
-    action = constants.COOKIEBLOCK;
-  } else if ($clicker.hasClass(constants.ALLOW)) {
-    action = constants.ALLOW;
-  }
-
-  if (action) {
-    chrome.runtime.sendMessage({
-      type: "savePopupToggle",
-      origin: origin,
-      action: action,
-      tabId: POPUP_DATA.tabId
-    });
-  }
+function saveToggle(origin, action) {
+  chrome.runtime.sendMessage({
+    type: "savePopupToggle",
+    origin,
+    action,
+    tabId: POPUP_DATA.tabId
+  });
 }
 
 function getTab(callback) {

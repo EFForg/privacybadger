@@ -54,6 +54,9 @@ a:hover { color: #ec9329 }
   display: block;
   clear: both;
 }
+.clear {
+    clear: both;
+}
 
 .clicker {
     border-top: 1px solid #aaaaaa;
@@ -74,60 +77,56 @@ a:hover { color: #ec9329 }
   white-space: nowrap;
 }
 
-.removeOrigin {
-  cursor: pointer;
-  float: right;
-  margin-right: 0px;
-  width: 10px;
+.switch-container {
+    width: 115px;
+    display: block;
+    margin-left: 220px;
+}
+.switch-toggle {
+    background-color: #515050;
+    height: 16px;
+}
+.switch-toggle > label {
+    cursor: pointer;
+}
+.options .switch-container {
+    max-width: 114px;
 }
 
-.removeOrigin:hover {
-  color: red;
-}
-
-.switch-container{
-  width: 115px;
-  display: block;
-  margin-left: 220px;
-}
-.options .switch-container{
-  max-width: 114px;
-}
-.clear{
-  clear: both;
-}
-.switch-candy a img{
-  width: 16px;
-  margin-left: auto;
-  margin-right: auto;
+.switch-candy:hover {
+    background-color: #868686;
 }
 .block .switch-candy a {
-  background-color: #c61223;
+    background-color: #c61223;
 }
-.switch-candy:hover {
-  background: #868686;
-  cursor: pointer;
+.cookieblock .switch-candy a {
+    background-color: #ffcc00;
 }
-.cookieblock .switch-candy a{
-  background-color: #ffcc00;
+.allow .switch-candy a, .noaction .switch-candy a {
+    background-color: #339900;
 }
-.allow .switch-candy a,
-.noaction .switch-candy a{
-  background-color: #339900;
-}
+
 .honeybadgerPowered {
-  display: none;
-  margin-right: 10px;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  left: 340px;
-  bottom: 15px;
-  cursor: pointer;
+    display: none;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: 340px;
+    bottom: 15px;
 }
 .userset .honeybadgerPowered {
-  display: block;
-  background: url('/icons/badger-pin.png') no-repeat;
+    display: block;
+    background: url('/icons/badger-pin.png') no-repeat;
+}
+
+.removeOrigin {
+    float: right;
+    margin-right: 0;
+    width: 10px;
+}
+.removeOrigin:hover {
+    color: red;
 }
 
 #blockedResources .breakage-warning {
@@ -172,14 +171,6 @@ font-size: 16px;
 
 #blockedResourcesContainer {
     min-height: 70px;
-}
-
-.ui-slider {
-  opacity: 0;
-  z-index: 20;
-}
-.ui-slider .ui-slider-handle {
-  cursor: move;
 }
 
 #firstRun {

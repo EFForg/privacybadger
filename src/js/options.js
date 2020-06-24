@@ -84,11 +84,20 @@ function loadOptions() {
   $("#tracking-domains-show-not-yet-blocked").on("change", filterTrackingDomains);
 
   // Add event listeners for origins container.
-  $(function () {
-    $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
-    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
-    $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
+  $('#blockedResourcesContainer').on('change', 'input:radio', function () {
+    let $radio = $(this),
+      $clicker = $radio.parents('.clicker').first(),
+      origin = $clicker.data('origin'),
+      action = $radio.val();
+
+    // update domain slider row tooltip/status indicators
+    updateOrigin(origin, action, true);
+
+    // persist the change
+    saveToggle(origin, action);
   });
+  $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
+  $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
 
   // Display jQuery UI elements
   $("#tabs").tabs({
@@ -524,25 +533,30 @@ function getOriginAction(origin) {
   return OPTIONS_DATA.origins[origin];
 }
 
-function revertDomainControl(e) {
-  var $elm = $(e.target).parent();
-  var origin = $elm.data('origin');
+function revertDomainControl(event) {
+  event.preventDefault();
+
+  let origin = $(event.target).parent().data('origin');
+
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
     origin
   }, (response) => {
+    // update any sliders that changed as a result
+    updateSliders(response.origins);
+    // update cached domain data
     OPTIONS_DATA.origins = response.origins;
-    reloadTrackingDomainsTab();
   });
 }
 
 /**
  * Displays list of all tracking domains along with toggle controls.
  */
-function reloadTrackingDomainsTab() {
+function updateSummary() {
   // Check to see if any tracking domains have been found before continuing.
-  var allTrackingDomains = getOriginsArray(OPTIONS_DATA.origins, null, null, null, true);
-  if (!allTrackingDomains || allTrackingDomains.length === 0) {
+  let allTrackingDomains = getOriginsArray(OPTIONS_DATA.origins, null, null, null, true);
+
+  if (!allTrackingDomains || !allTrackingDomains.length) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
     $("#options_domain_list_trackers").hide();
     $("#options_domain_list_one_tracker").hide();
@@ -579,6 +593,13 @@ function reloadTrackingDomainsTab() {
       ]
     )).show();
   }
+}
+
+/**
+ * Displays list of all tracking domains along with toggle controls.
+ */
+function reloadTrackingDomainsTab() {
+  updateSummary();
 
   // Get containing HTML for domain list along with toggle legend icons.
   $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
@@ -636,49 +657,6 @@ function filterTrackingDomains() {
 }
 
 /**
- * Registers handlers for tracking domain toggle controls.
- * @param {jQuery} $toggleElement jQuery object for the tracking domain element to be registered.
- */
-// TODO unduplicate this code? since a version of it is also in popup
-function registerToggleHandlers($toggleElement) {
-  var radios = $toggleElement.children('input');
-  var value = $toggleElement.children('input:checked').val();
-
-  var slider = $('<div></div>').slider({
-    min: 0,
-    max: 2,
-    value: value,
-    create: function(/*event, ui*/) {
-      // Set the margin for the handle of the slider we're currently creating,
-      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
-      $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-    },
-    slide: function(event, ui) {
-      radios.filter('[value=' + ui.value + ']').click();
-    },
-    stop: function(event, ui) {
-      $(ui.handle).css('margin-left', -16 * ui.value + 'px');
-
-      // Save change for origin.
-      var origin = radios.filter('[value=' + ui.value + ']')[0].name;
-      var setting = htmlUtils.getCurrentClass($toggleElement.parents('.clicker'));
-      chrome.runtime.sendMessage({
-        type: "saveOptionsToggle",
-        action: setting,
-        origin: origin
-      }, (response) => {
-        OPTIONS_DATA.origins = response.origins;
-        reloadTrackingDomainsTab();
-      });
-    },
-  }).appendTo($toggleElement);
-
-  radios.on("change", function() {
-    slider.slider('value', radios.filter(':checked').val());
-  });
-}
-
-/**
  * Adds more origins to the blocked resources list on scroll.
  *
 */
@@ -703,9 +681,6 @@ function addOrigins(e) {
         OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
       );
       $(el).append(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
-
-      // register the newly-created toggle switch so that user changes are saved
-      registerToggleHandlers($(el).find("[data-origin='" + domain + "'] .switch-toggle"));
     }
   }
 
@@ -744,13 +719,8 @@ function showTrackingDomains(domains) {
   // activate tooltips
   $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
     htmlUtils.DOMAIN_TOOLTIP_CONF);
-
-  // Register handlers for tracking domain toggle controls.
-  $('.switch-toggle').each(function() {
-    registerToggleHandlers($(this));
-  });
-
 }
+
 /**
  * https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
  *
@@ -779,33 +749,26 @@ function toggleWebRTCIPProtection() {
 }
 
 /**
- * Update the user preferences displayed for this origin.
- * These UI changes will later be used to update user preferences data.
- *
- * @param {Event} event Click event triggered by user.
+ * Updates domain tooltip, slider color.
+ * Also toggles status indicators like breakage warnings.
  */
-//TODO unduplicate this code? since it's also in popup
-function updateOrigin(event) {
-  // get the origin and new action for it
-  var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  var action = $elm.data('action');
+function updateOrigin(origin, action, userset) {
+  let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + origin + '"]'),
+    $switchContainer = $clicker.find('.switch-container').first();
 
-  // replace the old action with the new one
-  var $switchContainer = $elm.parents('.switch-container').first();
+  // update slider color via CSS
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
 
-  let $clicker = $elm.parents('.clicker').first(),
-    origin = $clicker.data('origin'),
-    show_breakage_warning = (
-      action == constants.BLOCK &&
-      OPTIONS_DATA.cookieblocked.hasOwnProperty(origin)
-    );
+  let show_breakage_warning = (
+    action == constants.BLOCK &&
+    OPTIONS_DATA.cookieblocked.hasOwnProperty(origin)
+  );
 
-  htmlUtils.toggleBlockedStatus($clicker, action, show_breakage_warning);
+  htmlUtils.toggleBlockedStatus($clicker, userset, show_breakage_warning);
 
   // reinitialize the domain tooltip
   $clicker.find('.origin-inner').tooltipster('destroy');
@@ -815,25 +778,91 @@ function updateOrigin(event) {
 }
 
 /**
+ * Updates the list of tracking domains in response to user actions.
+ *
+ * For example, moving the slider for example.com should move the sliders
+ * for www.example.com and cdn.example.com
+ */
+function updateSliders(updatedOriginData) {
+  let updated_domains = Object.keys(updatedOriginData);
+
+  // update any sliders that changed
+  for (let domain of updated_domains) {
+    let action = updatedOriginData[domain];
+    if (action == OPTIONS_DATA.origins[domain]) {
+      continue;
+    }
+
+    let userset = false;
+    if (action.startsWith('user')) {
+      userset = true;
+      action = action.slice(5);
+    }
+
+    // update slider position
+    let $radios = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"] input'),
+      selected_val = (action == constants.DNT ? constants.ALLOW : action);
+    // update the radio group without triggering a change event
+    // https://stackoverflow.com/a/22635728
+    $radios.val([selected_val]);
+
+    // update domain slider row tooltip/status indicators
+    updateOrigin(domain, action, userset);
+  }
+
+  // remove sliders that are no longer present
+  let removed = Object.keys(OPTIONS_DATA.origins).filter(
+    x => !updated_domains.includes(x));
+  for (let domain of removed) {
+    let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"]');
+    $clicker.remove();
+  }
+}
+
+/**
+ * Save the user setting for a domain by messaging the background page.
+ */
+function saveToggle(origin, action) {
+  chrome.runtime.sendMessage({
+    type: "saveOptionsToggle",
+    origin,
+    action
+  }, (response) => {
+    // first update the cache for the slider
+    // that was just changed by the user
+    // to avoid redundantly updating it below
+    OPTIONS_DATA.origins[origin] = response.origins[origin];
+    // update any sliders that changed as a result
+    updateSliders(response.origins);
+    // update cached domain data
+    OPTIONS_DATA.origins = response.origins;
+  });
+}
+
+/**
  * Remove origin from Privacy Badger.
  * @param {Event} event Click event triggered by user.
  */
 function removeOrigin(event) {
-  // Confirm removal before proceeding.
-  var removalConfirmed = confirm(i18n.getMessage("options_remove_origin_confirm"));
-  if (!removalConfirmed) {
+  event.preventDefault();
+
+  // confirm removal before proceeding
+  if (!confirm(i18n.getMessage("options_remove_origin_confirm"))) {
     return;
   }
 
-  // Remove traces of origin from storage.
-  var $element = $(event.target).parent();
-  var origin = $element.data('origin');
+  let origin = $(event.target).parent().data('origin');
+
   chrome.runtime.sendMessage({
     type: "removeOrigin",
-    origin: origin
+    origin
   }, (response) => {
+    // remove rows that are no longer here
+    updateSliders(response.origins);
+    // update cached domain data
     OPTIONS_DATA.origins = response.origins;
-    reloadTrackingDomainsTab();
+    // if we removed domains, the summary text may have changed
+    updateSummary();
   });
 }
 

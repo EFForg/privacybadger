@@ -5,11 +5,11 @@ body {
     width: 100%;
 }
 
-body.options a:not(.ui-tabs-anchor) {
+body.options a:not(.ui-tabs-anchor):not(.honeybadgerPowered):not(.removeOrigin) {
     text-decoration: underline;
-    cursor: pointer;
 }
-body.options a:hover:not(.ui-tabs-anchor), body.options a:focus:not(.ui-tabs-anchor) {
+body.options a:hover:not(.ui-tabs-anchor):not(.honeybadgerPowered):not(.removeOrigin),
+body.options a:focus:not(.ui-tabs-anchor):not(.honeybadgerPowered):not(.removeOrigin) {
     color: #f06a0a;
 }
 

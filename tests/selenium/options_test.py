@@ -25,6 +25,22 @@ from window_utils import switch_to_window_with_url
 class OptionsTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
 
+    def assert_slider_state(self, origin, action, failure_msg):
+        clicker = self.driver.find_element_by_css_selector(
+            'div[data-origin="{}"]'.format(origin))
+        self.assertEqual(
+            clicker.get_attribute("class"),
+            "clicker userset",
+            failure_msg
+        )
+
+        switches_div = clicker.find_element_by_css_selector(".switch-container")
+        self.assertEqual(
+            switches_div.get_attribute("class"),
+            "switch-container " + action,
+            failure_msg
+        )
+
     def find_origin_by_xpath(self, origin):
         origins = self.driver.find_element_by_id("blockedResourcesInner")
         return origins.find_element_by_xpath((
@@ -83,7 +99,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
     def user_overwrite(self, origin, action):
         # Get the slider that corresponds to this radio button
         origin_div = self.find_el_by_css('div[data-origin="' + origin + '"]')
-        slider = origin_div.find_element_by_css_selector('.ui-slider')
+        slider = origin_div.find_element_by_css_selector('.switch-toggle')
 
         # Click on the correct place over the slider to block this origin
         click_action = ActionChains(self.driver)
@@ -175,7 +191,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # Remove displayed origin.
         remove_origin_element = self.find_el_by_xpath(
             './/div[@data-origin="pbtest.org"]'
-            '//div[@class="removeOrigin"]')
+            '//a[@class="removeOrigin"]')
         remove_origin_element.click()
 
         # Make sure the alert is present. Otherwise we get intermittent errors.
@@ -272,12 +288,11 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.select_domain_list_tab()
 
         # Check the user preferences for the origins are still displayed
-        expected_row_classes = ['clicker', 'userset', overwrite_action]
-        self.assertEqual(
-            self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]').get_attribute("class"),
-            " ".join(expected_row_classes),
-            "Origin should be displayed as " + overwrite_action + " after user overwrite of PB's decision to " + original_action
+        failure_msg = (
+            "Origin should be displayed as {} after user overwrite of "
+            "PB's decision to {}".format(overwrite_action, original_action)
         )
+        self.assert_slider_state("pbtest.org", overwrite_action, failure_msg)
 
     def test_tracking_user_overwrite_allowed_block(self):
         self.tracking_user_overwrite('allow', 'block')
@@ -334,13 +349,15 @@ class OptionsTest(pbtest.PBSeleniumTest):
         try:
             WebDriverWait(self.driver, 3).until(
                 EC.presence_of_element_located(
-                    (By.XPATH, '//div[@class="clicker userset block"][@data-origin="pbtest50-generated.org"]')))
+                    (By.XPATH, '//div[@data-origin="pbtest50-generated.org"]')))
         except TimeoutException:
-            self.fail("Timed out waiting for element generated on scroll to have its slider value changed to userset block")
+            self.fail("Timed out waiting for element generated on scroll")
 
-        self.assertEqual(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
-            "clicker userset block",
-            "Scroll-generated origin should be displayed as blocked after user overwrite of PB's decision to allow")
+        failure_msg = (
+            "Scroll-generated origin should be displayed as blocked "
+            "after user overwrite of PB's decision to allow"
+        )
+        self.assert_slider_state("pbtest50-generated.org", "block", failure_msg)
 
         ## Check that changes have been persisted
 
@@ -354,9 +371,11 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.scroll_to_origin('pbtest50-generated.org')
 
         # Check the user preferences for the origins are still displayed
-        self.assertEqual(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
-            "clicker userset block",
-            "Scroll-generated origin should be persisted as blocked after user overwrite of PB's decision to allow")
+        failure_msg = (
+            "Scroll-generated origin should be persisted as blocked "
+            "after user overwrite of PB's decision to allow"
+        )
+        self.assert_slider_state("pbtest50-generated.org", "block", failure_msg)
 
     # early-warning check for the open_in_tab attribute of options_ui
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251
