@@ -15,8 +15,7 @@ body.options a:focus:not(.ui-tabs-anchor):not(.honeybadgerPowered):not(.removeOr
 
 h1 {
     font-size: 24px;
-    font-weight: normal;
-    font-family: "Chunk-Five", serif;
+    font-weight: bold;
     margin: 10px 8px;
 }
 
