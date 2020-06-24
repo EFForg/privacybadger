@@ -17,17 +17,6 @@
 
 window.OPTIONS_INITIALIZED = false;
 
-// TODO hack: disable Tooltipster tooltips on Firefox to avoid unresponsive script warnings
-(function () {
-const matches = navigator.userAgent.match(
-  // from https://gist.github.com/ticky/3909462
-  /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
-);
-if (!matches || matches[1] == "Firefox") {
-  $.fn.tooltipster = function () {};
-}
-}());
-
 const TOOLTIP_CONF = {
   maxWidth: 200
 };
