@@ -488,7 +488,7 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Ваш Badger еще не решил, должны ли эти домены быть заблокированы",
+        "message": "Ваш Badger еще не решил, нужно ли заблокировать этих домен",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
