@@ -1,6 +1,16 @@
 Privacy Badger Release Notes
 ============================
 
+## 2020.6.25
+* Added replacement placeholder for Disqus comments widgets
+* Fixed domain sliders on the options page not saving in some cases
+* Fixed slider changes on the options page resetting the list of domains,
+causing you to lose your place if you were scrolled down
+* Fixed domain slider tooltip display
+* Re-enabled custom tooltips in Firefox
+* Fixed various site breakages
+* Improved translations (Esperanto, Hebrew, Ukrainian)
+
 ## 2020.6.2
 * Added replacement placeholders for Facebook Comments/Video and Twitch Player
 * Removed Twitter link unwrapping. We are unable to unwrap t.co links
