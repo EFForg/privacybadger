@@ -53,7 +53,7 @@ echo ""
 echo "AMO release notes:"
 echo ""
 echo "<ul>"
-tail -n+5 doc/Changelog | sed '/^$/q' | {
+tail -n+5 ../doc/Changelog | sed '/^$/q' | {
   out=""
   while IFS= read -r line; do
     # changelog entries start with "*"
