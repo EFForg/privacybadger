@@ -26,18 +26,6 @@ var htmlUtils = require("htmlutils").htmlUtils;
 
 let POPUP_DATA = {};
 
-// TODO hack: disable Tooltipster tooltips on Firefox
-// to avoid hangs on pages with enough domains to produce a scrollbar
-(function () {
-const matches = navigator.userAgent.match(
-  // from https://gist.github.com/ticky/3909462
-  /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
-);
-if (!matches || matches[1] == "Firefox") {
-  $.fn.tooltipster = function () {};
-}
-}());
-
 /* if they aint seen the comic*/
 function showNagMaybe() {
   var nag = $("#instruction");
