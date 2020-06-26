@@ -59,7 +59,7 @@ by revising referrer protection for "cookieblocked" domains
 * Improved translations (Finnish, French, Hebrew, Swedish)
 
 ## 2019.10.28
-* Updated the popup with a new, higher-contrast look
+* Refreshed the popup with a higher-contrast look
 * Widget placeholders will no longer be applied for domains on the yellowlist.
 The value of widget placeholders is full blocking (best privacy) combined with
 a clear way to restore potentially useful blocked content (convenience).
@@ -106,11 +106,13 @@ Brazilian Portuguese, European Portuguese, Swedish, Ukrainian)
 
 ## 2019.2.19
 * Improved replacement widgets:
-  + Replaced the "play" icon with an "allow once" button to improve
-	accessibility and to make it more clear our widgets are interactive
-  + Made activation also activate any other widgets of the same type
-  + Updated the replacement for Vimeo to ignore background videos
-  + Set minimum dimensions to avoid becoming too small or hidden
+
+    - Replaced the "play" icon with an "allow once" button to improve
+    accessibility and to make it more clear our widgets are interactive
+    - Made activation also activate any other widgets of the same type
+    - Updated the replacement for Vimeo to ignore background videos
+    - Set minimum dimensions to avoid becoming too small or hidden
+
 * Fixed various site breakages
 
 ## 2019.1.30
