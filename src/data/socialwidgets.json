@@ -178,12 +178,17 @@
         }
     },
     "Spotify Player": {
-        "domain": "open.spotify.com",
+        "domains": [
+            "embed.spotify.com",
+            "open.spotify.com"
+        ],
         "buttonSelectors": [
+            "iframe[src^='https://embed.spotify.com/']",
             "iframe[src^='https://open.spotify.com/embed']"
         ],
         "replacementButton": {
             "unblockDomains": [
+                "embed.spotify.com",
                 "open.spotify.com"
             ],
             "imagePath": "badger-play.png",
