@@ -1726,7 +1726,6 @@ window.publicSuffixes = {
   "edu.za": 1,
   "edu.zm": 1,
   "education.museum": 1,
-  "education.tas.edu.au": 1,
   "educational.museum": 1,
   "educator.aero": 1,
   "edugit.org": 1,
