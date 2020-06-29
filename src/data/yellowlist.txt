@@ -301,6 +301,7 @@ gscdn.nl
 gstatic.com
 guildwars2.com
 hackerone-user-content.com
+hcaptcha.com
 helium.com
 herokuapp.com
 code.highcharts.com
