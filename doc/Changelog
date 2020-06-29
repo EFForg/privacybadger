@@ -1,7 +1,7 @@
 Privacy Badger Release Notes
 ============================
 
-## 2020.6.25
+## 2020.6.29
 * Added replacement placeholder for Disqus comments widgets
 * Fixed domain sliders on the options page not saving in some cases
 * Fixed slider changes on the options page resetting the list of domains,
