@@ -1568,6 +1568,16 @@ let multiDomainFirstPartiesArray = [
   ],
   ["hvfcu.org", "hvfcuonline.org"],
   [
+    "idealo.de",
+
+    "idealo.at",
+    "idealo.co.uk",
+    "idealo.es",
+    "idealo.fr",
+    "idealo.it",
+    "idealo.com",
+  ],
+  [
     "ign.fr",
 
     "cartoradio.fr",
