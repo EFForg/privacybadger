@@ -2,6 +2,7 @@ nosdn.127.net
 bnet.163.com
 122.2o7.net
 112.2o7.net
+acast.com
 accuweather.com
 actionnetwork.org
 imagesrv.adition.com
