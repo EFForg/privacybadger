@@ -596,6 +596,7 @@ steampowered.com
 store.akamai.steamstatic.com
 steamusercontent.com
 stripe.com
+m.stripe.network
 stripecdn.com
 surveygizmo.com
 surveymonkey.com
