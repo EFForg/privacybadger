@@ -1118,6 +1118,7 @@ let multiDomainFirstPartiesArray = [
     "future-fie.co.uk",
     "future.net.uk",
   ],
+  ["gamestar.de", "gamepro.de", "cgames.de"],
   [
     "gap.com",
 
