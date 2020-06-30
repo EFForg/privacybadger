@@ -456,7 +456,15 @@ let multiDomainFirstPartiesArray = [
 
     "atl-paas.net",
   ],
-  ["att.com", "att.tv"],
+  [
+    "att.com",
+
+    "att.tv",
+    "atttvnow.com",
+    "attwatchtv.com",
+    "directv.com",
+    "directvnow.com",
+  ],
   [
     "autodesk.com",
 
