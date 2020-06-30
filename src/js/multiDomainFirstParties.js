@@ -540,6 +540,7 @@ let multiDomainFirstPartiesArray = [
   ["binance.com", "binance.cloud", "binance.vision", "bnbstatic.com"],
   ["blizzard.com", "battle.net", "worldofwarcraft.com"],
   ["bloomberg.com", "bbthat.com", "bwbx.io"],
+  ["boardgamearena.com", "boardgamearena.net"],
   ["booking.com", "bstatic.com"],
   ["box.com", "boxcdn.net"],
   [
