@@ -3471,6 +3471,7 @@ let multiDomainFirstPartiesArray = [
     "wikiquote.org", "wikibooks.org", "wikisource.org", "wikinews.org",
     "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org",
     "wmfusercontent.org", "tools.wmflabs.org"],
+  ["wisconsin.gov", "wi.gov"],
   ["wix.com", "wixapps.net", "wixstatic.com", "parastorage.com"],
   ["wordpress.com", "wp.com"],
   [
