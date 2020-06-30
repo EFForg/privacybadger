@@ -1628,6 +1628,20 @@ let multiDomainFirstPartiesArray = [
   ],
   ["independent.co.uk", "indy100.com"],
   [
+    "iu.edu",
+
+    "indiana.edu",
+    "iue.edu",
+    "iufw.edu",
+    "iuk.edu",
+    "iun.edu",
+    "iupuc.edu",
+    "iupui.edu",
+    "iusb.edu",
+    "ius.edu",
+    "myiu.org",
+  ],
+  [
     "jd.com",
     "3.cn",
     "360buy.com",
@@ -2331,11 +2345,7 @@ let multiDomainFirstPartiesArray = [
     "wnyc.org",
   ],
   ["nytimes.com", "newyorktimes.com", "thewirecutter.com", "nyt.com"],
-  [
-    "nyu.edu",
-
-    "nyupress.org",
-  ],
+  ["nyu.edu", "nyupress.org"],
   [
     "nvidia.com",
 
