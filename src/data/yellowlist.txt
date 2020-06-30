@@ -601,6 +601,7 @@ stripecdn.com
 surveygizmo.com
 surveymonkey.com
 swiftype.com
+public.tableau.com
 public.tableausoftware.com
 c.tadst.com
 taleo.net
