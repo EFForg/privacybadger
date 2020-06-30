@@ -3245,6 +3245,7 @@ let multiDomainFirstPartiesArray = [
     "sporza.be",
     "stubru.be",
   ],
+  ["wa.gov", "wsdot.com", "wsdot.gov"],
   ["walmart.com", "wal.co", "walmartimages.com", "walmart.ca"],
   [
     "thewaltdisneycompany.com",
