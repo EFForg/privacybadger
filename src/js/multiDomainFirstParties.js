@@ -2418,6 +2418,7 @@ let multiDomainFirstPartiesArray = [
     "psyarxiv.com",
     "thesiscommons.org"
   ],
+  ["osu.edu", "osumc.edu", "ohio-state.edu"],
   [
     "ovh.com",
 
