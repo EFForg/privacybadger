@@ -76,6 +76,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         )
 
         # re-enable surrogate
+        self.open_window()
         self.load_url(self.options_url)
         self.js(
             "let bg = chrome.extension.getBackgroundPage();"
