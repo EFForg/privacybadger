@@ -48,7 +48,10 @@ function showNagMaybe() {
     nag.show();
     outer.show();
     // Attach event listeners
-    $('#fittslaw').on("click", _hideNag);
+    $('#fittslaw').on("click", function (e) {
+      e.preventDefault();
+      _hideNag();
+    });
     $("#firstRun").on("click", function() {
       // If there is a firstRun.html tab, switch to the tab.
       // Otherwise, create a new tab
@@ -124,7 +127,8 @@ function init() {
     $("#report_cancel").prop("disabled", true);
     send_error($("#error_input").val());
   });
-  $("#report_close").on("click", function() {
+  $("#report_close").on("click", function (e) {
+    e.preventDefault();
     clearSavedErrorText();
     closeOverlay();
   });
@@ -140,8 +144,8 @@ function init() {
     browser.runtime.getBrowserInfo().then(function (info) {
       if (info.name == "Firefox") {
         $("#options").on("click", function (e) {
-          openOptionsPage();
           e.preventDefault();
+          openOptionsPage();
         });
       }
     });
@@ -150,10 +154,11 @@ function init() {
   let shareOverlay = $("#share_overlay");
 
   $("#share").on("click", function (e) {
-    share();
     e.preventDefault();
+    share();
   });
-  $("#share_close").on("click", function() {
+  $("#share_close").on("click", function (e) {
+    e.preventDefault();
     shareOverlay.toggleClass('active', false);
   });
   $("#copy_button").on("click", function() {
