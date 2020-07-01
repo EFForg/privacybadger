@@ -334,11 +334,12 @@ function deactivateOnSite() {
  */
 function share() {
   $("#share_overlay").toggleClass('active');
-  let shareMessage = chrome.i18n.getMessage("share_base_message");
+  let share_msg = chrome.i18n.getMessage("share_base_message");
 
-  //Only add language about found trackers if we actually found trackers (but regardless of whether we are actually blocking them).
+  // only add language about found trackers if we actually found trackers
+  // (but regardless of whether we are actually blocking them)
   if (POPUP_DATA.noTabData) {
-    $("#share_output").val(shareMessage);
+    $("#share_output").val(share_msg);
     return;
   }
 
@@ -349,7 +350,7 @@ function share() {
   }
 
   if (!originsArr.length) {
-    $("#share_output").val(shareMessage);
+    $("#share_output").val(share_msg);
     return;
   }
 
@@ -365,13 +366,13 @@ function share() {
   }
 
   if (tracking.length) {
-    shareMessage += "\n\n" + chrome.i18n.getMessage("share_tracker_header", [tracking.length, POPUP_DATA.tabHost]) + "\n\n";
-
-    for (let i=0; i < tracking.length; i++) {
-      shareMessage += tracking[i] + "\n";
-    }
+    share_msg += "\n\n";
+    share_msg += chrome.i18n.getMessage(
+      "share_tracker_header", [tracking.length, POPUP_DATA.tabHost]);
+    share_msg += "\n\n";
+    share_msg += tracking.join("\n");
   }
-  $("#share_output").val(shareMessage);
+  $("#share_output").val(share_msg);
 }
 
 /**
