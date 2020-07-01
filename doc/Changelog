@@ -1,7 +1,7 @@
 Privacy Badger Release Notes
 ============================
 
-## 2020.6.29
+2020.6.29
 * Added replacement placeholder for Disqus comments widgets
 * Fixed domain sliders on the options page not saving in some cases
 * Fixed slider changes on the options page resetting the list of domains,
@@ -11,7 +11,7 @@ causing you to lose your place if you were scrolled down
 * Fixed various site breakages
 * Improved translations (Esperanto, Hebrew, Ukrainian)
 
-## 2020.6.2
+2020.6.2
 * Added replacement placeholders for Facebook Comments/Video and Twitch Player
 * Removed Twitter link unwrapping. We are unable to unwrap t.co links
 on Twitter at this time, as the original URL is no longer present
@@ -19,7 +19,7 @@ in the Twitter website's document structure.
 * Fixed various site breakages
 * Improved translations (Hebrew, Polish, Swedish)
 
-## 2020.5.12
+2020.5.12
 * Made buttons in the popup easier to see and click (or tap, on Firefox for
 Android)
 * Added a replacement placeholder widget for Google reCAPTCHA
@@ -27,7 +27,7 @@ Android)
 * Improved translations (Simplified Chinese, Dutch, Finnish, French, German,
 Hebrew, Italian, Brazilian Portuguese, Spanish, Swedish, Turkish)
 
-## 2020.2.19
+2020.2.19
 * Added website breakage warnings, shown in the popup when you block a domain
 known to break websites
 * Removed pixel cookie sharing detection pending security fixes
@@ -35,11 +35,11 @@ known to break websites
 * Improved translations (Catalan, Simplified Chinese, Danish, Dutch, German,
 Russian)
 
-## 2020.1.13
+2020.1.13
 * Fixed bug that sometimes loses pre-trained data for new users
 * Fixed various site breakages
 
-## 2020.1.7.1
+2020.1.7.1
 * Added helpful text to popup on disabled sites
 * Fixed display issues in popup on smaller displays
 * Fixed Facebook link unwrapping on messenger.com
@@ -48,7 +48,7 @@ Russian)
 * Improved translations (Simplified Chinese, Traditional Chinese, French,
 Hebrew, Italian, Korean, Russian, Spanish, Swedish, Ukrainian)
 
-## 2019.11.18
+2019.11.18
 * Improved display of domains Privacy Badger hasn't yet learned to block
 * Fixed export/import of the WebRTC protection setting
 * Fixed certain YouTube ("video unavailable"), Vimeo ("Because of its privacy
@@ -58,7 +58,7 @@ by revising referrer protection for "cookieblocked" domains
 * Added Korean translations
 * Improved translations (Finnish, French, Hebrew, Swedish)
 
-## 2019.10.28
+2019.10.28
 * Refreshed the popup with a higher-contrast look
 * Widget placeholders will no longer be applied for domains on the yellowlist.
 The value of widget placeholders is full blocking (best privacy) combined with
@@ -75,14 +75,14 @@ buttons out of your life completely.
 * Added Hebrew translations
 * Improved translations (Italian, Russian, Ukrainian)
 
-## 2019.10.8
+2019.10.8
 * Fixed image/video thumbnails in Google search results
 * Fixed various other site breakages
 * Removed the green "0" tracker count badge.
 No need to draw attention when there is nothing to show.
 * Improved translations (Simplified Chinese, Ukrainian)
 
-## 2019.9.23
+2019.9.23
 * Added helpful text to popup on special browser pages like the New Tab page
 * Fixed pixel cookie sharing detection being broken by First-Party Isolation
 in Firefox
@@ -91,7 +91,7 @@ in Firefox
 * Improved translations (Simplified Chinese, French, Spanish, Swedish,
 Turkish, Ukrainian)
 
-## 2019.7.1
+2019.7.1
 * Added pixel cookie sharing detection. Privacy Badger now records
 tracking by images with querystrings that contain first-party cookie data.
 This catches Google Analytics.
@@ -104,7 +104,7 @@ should reduce self-inflicted Web breakage.
 * Improved translations (Bulgarian, Traditional Chinese, Persian,
 Brazilian Portuguese, European Portuguese, Swedish, Ukrainian)
 
-## 2019.2.19
+2019.2.19
 * Improved replacement widgets:
 
     - Replaced the "play" icon with an "allow once" button to improve
@@ -115,7 +115,7 @@ Brazilian Portuguese, European Portuguese, Swedish, Ukrainian)
 
 * Fixed various site breakages
 
-## 2019.1.30
+2019.1.30
 * Added replacement widgets for embedded Spotify, Streamable and Vimeo
 players. Privacy Badger can replace potentially useful third-party widgets
 with placeholders. This avoids on-by-default tracking while providing a clear
@@ -125,12 +125,12 @@ way to restore the original widget on demand.
 * Improved translations (Traditional Chinese, Czech, German, Persian, Swedish,
 Turkish)
 
-## 2018.12.17
+2018.12.17
 * Fixed major Privacy Badger breakages in Chrome 72+
 * Fixed various site breakages
 * Improved translations (Simplified Chinese, Spanish, Turkish)
 
-## 2018.12.5
+2018.12.5
 * Added a Share button to the popup. This lets you easily copy and paste
 Badger's findings on any page.
 * Updated link protection to work on all Google Search country domains
@@ -147,18 +147,18 @@ set to "yellow") domains
 * Improved translations (Simplified Chinese, Dutch, Esperanto, Finnish,
 German, Italian, Persian, Polish, Spanish, Swedish)
 
-## 2018.10.3.1
+2018.10.3.1
 * Fixed style problems with Google Search results
 * Fixed the setting to open results in new browser windows on Google Search
 
-## 2018.10.3
+2018.10.3
 * Added protection against outgoing link click tracking on Google Search,
 Google Docs and Google Hangouts
 * Fixed various site breakages
 * Added Finnish translations
 * Improved translations (Simplified Chinese)
 
-## 2018.9.20
+2018.9.20
 * Added buttons to back up and restore the disabled sites list using
 Firefox/Google Sync. The new buttons live under the Manage Data tab
 on the options page.
@@ -171,7 +171,7 @@ pixel density displays
 * Improved translations (Traditional Chinese, French, German,
 Brazilian Portuguese, Russian, Spanish, Swedish, Turkish)
 
-## 2018.8.22
+2018.8.22
 * Added pre-trained tracker data for new Privacy Badger installations.
 Visit www.eff.org/badger-pretraining to learn more.
 * Added reset/clear tracker data buttons to the Manage Data options page tab
@@ -180,14 +180,14 @@ Visit www.eff.org/badger-pretraining to learn more.
 * Improved translations (Simplified Chinese, Danish, Esperanto, French,
 German, Italian, Norwegian Bokmål, Spanish, Swedish)
 
-## 2018.8.1
+2018.8.1
 * Fixed security issues with HTML5 local storage tracking detection as well as
 SoundCloud widget replacement. Thanks again to Cure53 for discovering and
 reporting these vulnerabilities.
 * Improved Facebook link unwrapping; now enabled on the Facebook Onion domain
 * Improved translations (Italian, Norwegian Bokmål, Swedish, Ukrainian)
 
-## 2018.7.18.1
+2018.7.18.1
 * Added setting to disable sending Do Not Track to websites
 * Fixed security issue with link unwrapping on Facebook. Thanks to Cure53 for
 discovering and reporting this vulnerability.
@@ -201,7 +201,7 @@ to avoid "failed to redirect a network request" warnings in Chrome
 * Improved translations (Simplified Chinese, Dutch, Esperanto, German,
 Russian, Swedish, Turkish)
 
-## 2018.5.10
+2018.5.10
 * Added protection against outgoing link click tracking on Facebook
 * Updated WebRTC protection to revert to browser default (off) when disabled
 * Fixed popup in the Italian locale in Chrome
@@ -211,7 +211,7 @@ to avoid "failed to redirect a network request" warnings in Chrome
 * Improved translations (Traditional Chinese, Danish, Dutch, Esperanto,
 French, German, Italian, Polish, Russian, Swedish, Ukrainian)
 
-## 2018.4.23
+2018.4.23
 * Fixed changes not being persisted for domains that appear after scrolling
 the tracking domains list on the options page
 * Improved tracking domains search on the options page
@@ -223,7 +223,7 @@ controlled by other extensions
 * Improved translations (Traditional Chinese, Czech, Danish, Esperanto,
 French, German, Italian, Polish, Russian, Swedish, Turkish, Ukrainian)
 
-## 2018.4.10
+2018.4.10
 * Updated the new user welcome page. The redesigned page is mobile-friendly,
 accessible and already translated into several languages.
 * Fixed Do Not Track being checked sometimes in Private Browsing/Incognito
@@ -236,7 +236,7 @@ windows. By default, Privacy Badger should not record anything in Incognito.
 Danish, Esperanto, French, German, Italian, Polish, Russian, Spanish,
 Ukrainian)
 
-## 2018.3.21
+2018.3.21
 * Fixed Do Not Track not being recognized by sites that test for it by
 checking navigator.doNotTrack with JavaScript
 * Stopped signaling DNT on sites where Privacy Badger is disabled
@@ -249,7 +249,7 @@ avoid "failed to redirect a network request" warnings in Chrome
 * Improved translations (Bulgarian, Traditional Chinese, German, Italian,
 Swedish)
 
-## 2018.2.5
+2018.2.5
 * Added type/status filters to the tracking domains list on the options page
 * Reworked social widget replacement to avoid WebExtensions fingerprintability
 issue in Firefox
@@ -257,15 +257,15 @@ issue in Firefox
 * Improved translations (Danish, Esperanto, French, German, Polish, Swedish,
 Ukrainian)
 
-## 2018.1.30
+2018.1.30
 * Removed the "unlimitedStorage" permission from the manifest
 * Changed the tracker count badge color from red to "Privacy Badger orange"
 
-## 2018.1.25
+2018.1.25
 * Added workaround to avoid Privacy Badger getting disabled as "Not from
 Chrome Web Store" in Chrome
 
-## 2018.1.22
+2018.1.22
 * Reduced amount of data stored as part of normal operation. Privacy Badger
 will no longer record (or check Do Not Track policies for) non-tracking
 domains. This should enable us to remove the "unlimitedStorage" permission
@@ -282,21 +282,21 @@ in Chrome and Opera
 * Improved translations (Bulgarian, Danish, Esperanto, French, German,
 Italian, Polish, Russian, Spanish, Swedish, Ukrainian)
 
-## 2017.11.20
+2017.11.20
 * Disabled custom tooltips in Firefox to work around browser freezing issues
 * Added validation to the disabled sites form
 * Improved translations (Dutch, Esperanto and German)
 * Added Bulgarian and Polish translations
 
-## 2017.11.9
+2017.11.9
 * Fixed various site breakages
 * Improved translations (French, Serbian and Ukrainian)
 * Added Esperanto translation
 
-## 2017.10.25.1
+2017.10.25.1
 * Reverted manifest file change preventing upload to Chrome Web Store
 
-## 2017.10.25
+2017.10.25
 * Added Beta support for Firefox for Android
 * Updated popup to close after doing anything that reloads the page
 * Improved handling of long domain names
@@ -308,10 +308,10 @@ to avoid "failed to redirect a network request" warnings in Chrome
 * Fixed various site breakages
 * Improved translations (Danish, French, German, Italian, Swedish)
 
-## 2017.9.12.1
+2017.9.12.1
 * Fixed build script issue that reintroduced major site breakages on Firefox
 
-## 2017.9.12
+2017.9.12
 * Fixed DNT policy checking for blocked domains
 * Fixed exporting large Badger datasets
 * Made progress on Firefox for Android compatibility
@@ -320,7 +320,7 @@ to avoid "failed to redirect a network request" warnings in Chrome
 * Improved translations (Czech, Italian, Swedish, Ukrainian)
 * Added Danish translation
 
-## 2017.7.24
+2017.7.24
 * Added validation to yellowlist (f.k.a. "cookieblock list") updating
 * Removed faulty yellowlist domain removal logic, which, together with missing
 validation and eff.org serving a maintenance page instead of the actual
@@ -329,11 +329,11 @@ update should prevent from happening ever again
 * Fixed various site breakages
 * Improved translations (Swedish)
 
-## 2017.6.13.1
+2017.6.13.1
 * Added workaround for validation issue preventing upload to Chrome Web Store
 * Fixed chrome.privacy-related exceptions in Firefox 54
 
-## 2017.6.13
+2017.6.13
 * Added automatic replacement of t.co shortened tracking URLs with original
 unobfuscated URLs on twitter.com
 * Added option to disable Do Not Track policy checking
@@ -342,7 +342,7 @@ unobfuscated URLs on twitter.com
 * Fixed localStorage tracking sometimes being attributed to unrelated domains
 * Improved translations (Swedish, Ukrainian)
 
-## 2017.5.9
+2017.5.9
 * Improved popup rendering
 * Added version number to popup
 * Restricted Do Not Track policy checking from being able to set cookies
@@ -350,7 +350,7 @@ unobfuscated URLs on twitter.com
 * Added workaround for Cloudflare security cookies
 * Improved translations (Simplified Chinese, Swedish, Ukrainian)
 
-## 2017.4.19.1
+2017.4.19.1
 * Rework DNT policy rechecking to only happen during browsing. Eliminates
 needless rechecking of unlikely-to-be-visited-again domains. Should further
 mitigate CPU issues.
@@ -360,7 +360,7 @@ mitigate CPU issues.
 * Fix "trackers" link on popup and options pages
 * Fix broken site (sharepoint.com)
 
-## 2017.3.28
+2017.3.28
 * New Translations (Czech)
 * Translation Updates
 * Fix bug in DNT policy re-checking code
@@ -373,15 +373,15 @@ mitigate CPU issues.
 * Automated tests now also run on Firefox
 * Other minor bugfixes and broken site fixes
 
-## 2017.3.22
+2017.3.22
 * AMO (Firefox) only release.
 * Fix cookie tracking detection in Firefox.
 
-## 2017.1.26.1
+2017.1.26.1
 * AMO only release
 * Fixes an error in the build scripts which reintroduced a firefox bug for AMO users
 
-## 2017.1.26
+2017.1.26
 * Huge speed improvements for settings import and on startup
 * Fixes no content blocking bug (firefox) 
 * Several fixes for broken websites
@@ -397,7 +397,7 @@ sets
 * Enhancement: Script surrogate for google analytics, gigya, and more...
 * KNOWN ISSUE: Chrome will now display a message "Not downloaded from chrome
 
-## 2016.12.15.1 (2.0.2)
+2016.12.15.1 (2.0.2)
 * BUGFIX: Chrome browsers no longer display privacy badger as (corrupted)
 * BUGFIX: Fixes lockup issue on some versions of firefox
 * BUGFIX: Fixes issue where privacy badger panel gets cut off 
@@ -406,14 +406,14 @@ sites to break.
 * KNOWN ISSUE: Chrome will now display a message "Not downloaded from chrome
 store". This is a known side effect of a workaround for a different bug. 
 
-## 2016.12.8.1 (2.0.1)
+2016.12.8.1 (2.0.1)
 * BUGFIX: Sanitize origin and action in popup
 
-## 2016.12.8 (2.0)
+2016.12.8 (2.0)
 * BUGFIX: Fix ublock origin warnings 
 * BUGFIX: Remove need for download permission
 
-## 2016.12.7.2 (2.0RC1)
+2016.12.7.2 (2.0RC1)
 * Huge speed improvements
 * Multiprocess Compatible (E10S) for firefox
 * Breaks many fewer websites
@@ -425,7 +425,7 @@ store". This is a known side effect of a workaround for a different bug.
 * Translation fixes 
 * (Developers) Firefox and Chrome versions now share one code base!
 
-## 2016.9.7 (1.13)
+2016.9.7 (1.13)
 * Add exceptions for multi domain first parties
 * Fix google drive download issue
 * Fix wikipedia login issue
@@ -433,21 +433,21 @@ store". This is a known side effect of a workaround for a different bug.
 * Several other broken site fixes
 * Hopefully a fix for the "corrupted extension" issue
 
-## 2016.8.29 (1.12)
+2016.8.29 (1.12)
 * UI Tweaks
 * Remove last adblock plus code
 * Feature: remove domains from list
 * Refactor incognito mode handling
 * Compatibile with firefox web extensions
 
-## 2016.5.24 (1.11)
+2016.5.24 (1.11)
 * Fix build error
 
-## 2016.5.23 (1.10)
+2016.5.23 (1.10)
 * Fix cookie block list adding bug
 * New migration to fix bug retroactively
 
-## 2016.5.16 (1.9)
+2016.5.16 (1.9)
 * Remove Adblock Plus Engine
 * Switch to using storage.js and chrome storage API
 * Massive refactoring of code
@@ -461,21 +461,21 @@ store". This is a known side effect of a workaround for a different bug.
 * Fixes weird subdomain handling edge case
 * Fixes bug where pages stop loading sometimes
 
-## 2015.4.6 (1.8)
+2015.4.6 (1.8)
 * Fix "waiting for privacy badger bug"
 * Huge speed improvement
 
-## 2015.4.6 (1.7)
+2015.4.6 (1.7)
 * Fix crash when closing options page
 * Add EFF Donate Button
 * New popup to nag user to go through tutorial
 
-## 2015.3.2 (1.0.6)
+2015.3.2 (1.0.6)
 * New feature: Search within blocked domain list
 * Replace soundcloud widget with a click to play button
 * Misc. bug fixes and translation improvements
 
-## 2015.12.3 (1.0.4)
+2015.12.3 (1.0.4)
 * Lots of site bug fixes
 * Chinese Translation
 * Spanish Translation
@@ -489,11 +489,11 @@ store". This is a known side effect of a workaround for a different bug.
 instead of all third parties.
 * Tooltips show full domain name
 
-## 2015.8.14 (1.0.1)
+2015.8.14 (1.0.1)
 * Fixes a bug where slider settings for a base domain wouldn't take effect
 * Fixes 'this extension is slowing down chrome' errors
 
-## 2015.8.5 (1.0)
+2015.8.5 (1.0)
 * 1.0 release
 * Bugfixes from 2015.7.24 (0.99)
 * Detects Canvas Fingerprinting
@@ -504,20 +504,20 @@ instead of all third parties.
 * Many Bugfixes (see github)
 * Translations into swedish, french and german
 
-## 2015.7.24 (0.99)
+2015.7.24 (0.99)
 * Release candidate for version 1.0!
 
-## 2015.4.1
+2015.4.1
 * Miscellanious bugfixes 
 * Improvements to heuristic
 
-## 2014.9.16
+2014.9.16
 * Adds lots of tests including selenium tests.
 * Adds lots of domains to the cookie block list.
 * Fixes bug with downloading cookie block list.
 * Fixes other minor stylistic bugs.
 
-## 2014.7.17
+2014.7.17
 * Created dialog to allow users to unblock certain third parties on certain
 * sites for addedd functionality.  E.g. disqus comments, facebook comments, etc.
 * Added lots of domains to cookie block list.
