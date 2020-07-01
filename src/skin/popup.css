@@ -244,7 +244,7 @@ font-size: 16px;
 #fittslaw {
   position: relative;
   float: right;
-  padding: 0 0 10px 0;
+  margin-bottom: 10px;
 }
 #options, #share, #help {
     float: right;
