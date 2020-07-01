@@ -79,7 +79,7 @@ function showNagMaybe() {
     });
   } else if (POPUP_DATA.criticalError) {
     $('#instruction-text').hide();
-    $('#error-text').show().find('a').attr('id', 'firstRun').css('padding', '5px');
+    $('#error-text').show().find('a').attr('id', 'critical-error-link').css('padding', '5px');
     $('#error-message').text(POPUP_DATA.criticalError);
     _showNag();
   }
