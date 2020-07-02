@@ -52,7 +52,7 @@ function showNagMaybe() {
       e.preventDefault();
       _hideNag();
     });
-    $("#firstRun").on("click", function() {
+    $("#firstRun").on("click", function () {
       // If there is a firstRun.html tab, switch to the tab.
       // Otherwise, create a new tab
       chrome.tabs.query({url: firstRunUrl}, function (tabs) {
@@ -66,6 +66,7 @@ function showNagMaybe() {
           });
         }
         _hideNag();
+        window.close();
       });
     });
   }
@@ -192,6 +193,8 @@ function openOptionsPage() {
       delete tabProps.openerTabId;
       chrome.tabs.create(tabProps);
     }
+
+    window.close();
   });
 }
 
