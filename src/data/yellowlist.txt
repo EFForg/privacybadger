@@ -718,6 +718,7 @@ yellowpages.com
 seatme.yelp.com
 yelpcdn.com
 yimg.com
+yimg.jp
 yottaa.net
 youku.com
 youtube.com
