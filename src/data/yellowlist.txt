@@ -308,6 +308,7 @@ herokuapp.com
 code.highcharts.com
 homestead.com
 cdn.hometogo.net
+cdn2.hometogo.net
 hootsuite.com
 humblebundle.com
 hwcdn.net
