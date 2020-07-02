@@ -11,7 +11,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
-from pbtest import retry_until
 from window_utils import switch_to_window_with_url
 
 
@@ -107,12 +106,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.find_element_by_id("firstRun").click()
 
         # Look for first run page and return if found.
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == self.first_run_url:
-                return
-
-        self.fail("First run comic not opened after clicking link in popup overlay")
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
     def test_help_button(self):
         """Ensure first run page is opened when help button is clicked."""
@@ -126,28 +120,13 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("First run comic not opened in new window")
 
         # Look for first run page and return if found.
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == self.first_run_url:
-                return
-
-        self.fail("First run comic not opened after clicking help button on popup")
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
     def test_options_button(self):
         """Ensure options page is opened when button is clicked."""
         self.open_popup()
-
         self.driver.find_element_by_id("options").click()
-
-        # Look for options page and return if found.
-        def options_page_was_opened():
-            for window in self.driver.window_handles:
-                self.driver.switch_to.window(window)
-                if self.driver.current_url == self.options_url:
-                    return True
-        # options page is opened asynchronously in Firefox
-        if not retry_until(options_page_was_opened, msg="Retrying options page lookup ..."):
-            self.fail("Options page not opened after clicking options button on popup")
+        switch_to_window_with_url(self.driver, self.options_url)
 
     @pbtest.repeat_if_failed(5)
     def test_trackers_link(self):
