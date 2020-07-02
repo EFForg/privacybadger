@@ -3519,6 +3519,7 @@ let multiDomainFirstPartiesArray = [
   ["xda-developers.com", "xda-cdn.com"],
   ["xfinity.com", "comcast.net", "comcast.com"],
   ["xhamster.com", "xhcdn.com"],
+  ["yahoo.co.jp", "yimg.jp"],
   [
     "yandex.com",
 
