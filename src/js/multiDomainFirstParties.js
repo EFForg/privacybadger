@@ -1676,6 +1676,7 @@ let multiDomainFirstPartiesArray = [
     "jd.id",
     "jd.ru",
     "jdpay.com",
+    "jdwl.com",
     "jdx.com",
     "joybuy.com",
     "joybuy.es",
