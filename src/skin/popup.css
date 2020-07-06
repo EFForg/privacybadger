@@ -282,7 +282,7 @@ font-size: 16px;
     font-size: 12px;
 }
 
-#siteControls {
+#siteControls, #report-controls {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -356,8 +356,6 @@ div.overlay.active {
   margin: 1% 0;
   font-weight: bold;
 }
-#report_button, #report_cancel {
-}
 #report_success {
   color: green;
 }
@@ -381,11 +379,6 @@ div.overlay.active {
   display: block;
   width: 98%;
   height: 60%;
-}
-#copy_button {
-  cursor: pointer;
-  margin: 2% 2% 0 0;
-  width: 9em;
 }
 #dnt-compliant {
   float: left;

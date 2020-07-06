@@ -119,13 +119,13 @@ function init() {
   $("#error").on("click", function() {
     overlay.toggleClass('active');
   });
-  $("#report_cancel").on("click", function() {
+  $("#report-cancel").on("click", function() {
     clearSavedErrorText();
     closeOverlay();
   });
-  $("#report_button").on("click", function() {
+  $("#report-button").on("click", function() {
     $(this).prop("disabled", true);
-    $("#report_cancel").prop("disabled", true);
+    $("#report-cancel").prop("disabled", true);
     send_error($("#error_input").val());
   });
   $("#report_close").on("click", function (e) {
@@ -162,7 +162,7 @@ function init() {
     e.preventDefault();
     shareOverlay.toggleClass('active', false);
   });
-  $("#copy_button").on("click", function() {
+  $("#copy-button").on("click", function() {
     $("#share_output").select();
     document.execCommand('copy');
     $(this).text(chrome.i18n.getMessage("copy_button_copied"));
@@ -280,8 +280,8 @@ function send_error(message) {
       clearSavedErrorText();
 
       setTimeout(function() {
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
+        $("#report-button").prop("disabled", false);
+        $("#report-cancel").prop("disabled", false);
         $("#report_success").toggleClass("hidden", true);
         closeOverlay();
       }, 3000);
@@ -291,8 +291,8 @@ function send_error(message) {
       $("#report_fail").toggleClass("hidden");
 
       setTimeout(function() {
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
+        $("#report-button").prop("disabled", false);
+        $("#report-cancel").prop("disabled", false);
         $("#report_fail").toggleClass("hidden", true);
       }, 3000);
     });
