@@ -252,8 +252,11 @@ font-size: 16px;
     float: right;
     margin-top: 7px;
 }
-#help, #share {
+#help {
     margin-right: 10px;
+}
+#share {
+    margin-right: 12px;
 }
 #options {
     margin-right: 3px;
@@ -450,8 +453,11 @@ div.overlay.active {
         left: 255px;
     }
 
-    #help, #share {
+    #help {
         margin-right: 6px;
+    }
+    #share {
+        margin-right: 8px;
     }
     #options {
         margin-right: 0px;
