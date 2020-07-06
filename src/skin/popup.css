@@ -343,8 +343,8 @@ div.overlay.active {
   opacity: 1;
 }
 #error_input {
-  display: block;
-  width: 70%;
+    display: block;
+    width: 98%;
 }
 .overlay_title {
   display: inline-block;
