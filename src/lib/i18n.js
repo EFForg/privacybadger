@@ -60,7 +60,7 @@ function setTextDirection() {
     });
 
     // fix margin
-    ['#options', '#share', '#help'].forEach(selector => {
+    ['#options'].forEach(selector => {
       swap_css_property(selector, "margin-right", "margin-left");
     });
 
