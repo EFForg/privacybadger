@@ -69,6 +69,11 @@ function setTextDirection() {
       swap_css_property(selector, "padding-right", "padding-left");
     });
 
+    // fix text alignment
+    ['#instruction'].forEach((selector) => {
+      toggle_css_value(selector, "text-align", "left", "right");
+    });
+
   // options page
   } else if (document.location.pathname == "/skin/options.html") {
     // apply RTL workaround for jQuery UI tabs
