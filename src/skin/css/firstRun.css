@@ -728,6 +728,9 @@ body {
 #pb-settings {
   background-image:linear-gradient(#EC9329, #EC9329 30%, #fff 30%);
 }
+#student-badger-img {
+  margin-top: -100px;
+}
 [id*="pb-donate"] {
   display:-ms-flexbox;
   display:flex;
