@@ -146,13 +146,15 @@ function init() {
       if (info.name == "Firefox") {
         $("#options").on("click", function (e) {
           e.preventDefault();
-          openOptionsPage();
+          openPage(chrome.runtime.getURL("/skin/options.html"));
+        });
+        $("#help").on("click", function (e) {
+          e.preventDefault();
+          openPage(this.getAttribute('href'));
         });
       }
     });
   }
-
-  let shareOverlay = $("#share_overlay");
 
   $("#share").on("click", function (e) {
     e.preventDefault();
@@ -160,7 +162,7 @@ function init() {
   });
   $("#share_close").on("click", function (e) {
     e.preventDefault();
-    shareOverlay.toggleClass('active', false);
+    $("#share_overlay").toggleClass('active', false);
   });
   $("#copy-button").on("click", function() {
     $("#share_output").select();
@@ -171,9 +173,7 @@ function init() {
   window.POPUP_INITIALIZED = true;
 }
 
-function openOptionsPage() {
-  const url = chrome.runtime.getURL("/skin/options.html");
-
+function openPage(url) {
   // first get the active tab
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
     let activeTab = tabs[0],
