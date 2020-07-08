@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
-from window_utils import switch_to_window_with_url
+from window_utils import switch_to_window_with_url, WindowNotFoundException
 
 
 def get_domain_slider_state(driver, domain):
@@ -109,18 +109,21 @@ class PopupTest(pbtest.PBSeleniumTest):
         switch_to_window_with_url(self.driver, self.first_run_url)
 
     def test_help_button(self):
-        """Ensure first run page is opened when help button is clicked."""
-        self.open_popup()
+        """Ensure FAQ website is opened when help button is clicked."""
 
+        FAQ_URL = "https://privacybadger.org/#faq"
+
+        try:
+            switch_to_window_with_url(self.driver, FAQ_URL, max_tries=1)
+        except WindowNotFoundException:
+            pass
+        else:
+            self.fail("FAQ should not already be open")
+
+        self.open_popup()
         self.driver.find_element_by_id("help").click()
 
-        # Make sure first run page not opened in same window.
-        time.sleep(1)
-        if self.driver.current_url != self.popup_url:
-            self.fail("First run comic not opened in new window")
-
-        # Look for first run page and return if found.
-        switch_to_window_with_url(self.driver, self.first_run_url)
+        switch_to_window_with_url(self.driver, FAQ_URL)
 
     def test_options_button(self):
         """Ensure options page is opened when button is clicked."""
