@@ -14,7 +14,7 @@ body.options a:focus:not(.ui-tabs-anchor):not(.honeybadgerPowered):not(.removeOr
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     margin: 10px 8px;
 }
@@ -67,11 +67,6 @@ p, #settingsForm {
 
 #allowlist-form {
     margin: 20px 0 0;
-}
-
-header, #tabs {
-    max-width: 800px;
-    margin: 0 auto;
 }
 
 #pbInstructions {
@@ -182,6 +177,40 @@ header, #tabs {
   width: 300px;
 }
 
-.ui-tabs-nav li a:focus {
+#tabs, header {
+    background: transparent;
+    border: none;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+}
+#tabs .ui-widget-header {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #d3d3d3;
+    border-radius: 0px;
+    padding: 0;
+}
+#tabs .ui-tabs-nav .ui-state-default {
+    background: transparent;
+    border: none;
+    border-radius: 0px;
+    margin: 0;
+    padding: 0;
+}
+#tabs .ui-tabs-nav .ui-state-hover {
+    box-shadow: inset 0 -3px 0 0 #ccc;
+}
+#tabs .ui-tabs-nav .ui-state-active {
+    box-shadow: inset 0 -3px 0 0 #f06a0a;
+}
+#tabs .ui-tabs-nav li a.ui-tabs-anchor {
+    padding: 1em;
+}
+#tabs .ui-tabs-nav .ui-state-hover a,
+#tabs .ui-tabs-nav .ui-state-active a {
+    color: #000;
+}
+#tabs .ui-tabs-nav li a:focus {
     outline: none;
 }
