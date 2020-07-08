@@ -368,13 +368,12 @@ div.overlay.active {
   float: right;
   background: none;
   border: 0;
-  font-size: 1.2em;
-  margin: 0 25;
+  font-size: 1.4em;
   color: #ccc;
 }
 .overlay_close:before {
-  content: '[X]';
-  margin: 5px;
+  content: '\2716';
+  margin: 4px;
 }
 #share_output {
   display: block;
