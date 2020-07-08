@@ -173,20 +173,19 @@ font-size: 16px;
     min-height: 70px;
 }
 
-#firstRun {
+#firstRun, #critical-error-link {
   color: #EC9329;
-  text-align: center;
-  border-radius: 3px;
-  margin: 5px 0;
   border: 2px solid #EC9329;
-  height: 68px;
-  padding-top: 24px;
   font-weight: bold;
   font-size: 14px;
+  width: 100%;
 }
 
-#firstRun:hover {
-  cursor: pointer;
+#critical-error-link {
+    border-radius: 3px;
+}
+
+#firstRun:hover, #critical-error-link:hover {
   text-decoration: underline;
   background-color: #EC9329;
   color: #333;
@@ -245,8 +244,7 @@ font-size: 16px;
 #fittslaw {
   position: relative;
   float: right;
-  padding: 0 0 10px 0;
-  cursor: pointer;
+  margin-bottom: 10px;
 }
 #options, #share, #help {
     float: right;
@@ -285,7 +283,7 @@ font-size: 16px;
     font-size: 12px;
 }
 
-#siteControls {
+#siteControls, #report-controls {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -346,8 +344,8 @@ div.overlay.active {
   opacity: 1;
 }
 #error_input {
-  display: block;
-  width: 70%;
+    display: block;
+    width: 98%;
 }
 .overlay_title {
   display: inline-block;
@@ -358,10 +356,6 @@ div.overlay.active {
   display: block;
   margin: 1% 0;
   font-weight: bold;
-}
-#report_button, #report_cancel {
-  cursor: pointer;
-  margin: 2% 2% 0 0;
 }
 #report_success {
   color: green;
@@ -376,25 +370,16 @@ div.overlay.active {
   border: 0;
   font-size: 1.2em;
   margin: 0 25;
-  cursor: pointer;
   color: #ccc;
 }
 .overlay_close:before {
   content: '[X]';
   margin: 5px;
 }
-.overlay_close:hover {
-  text-decoration: underline;
-}
 #share_output {
   display: block;
   width: 98%;
   height: 60%;
-}
-#copy_button {
-  cursor: pointer;
-  margin: 2% 2% 0 0;
-  width: 9em;
 }
 #dnt-compliant {
   float: left;

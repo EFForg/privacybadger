@@ -48,8 +48,11 @@ function showNagMaybe() {
     nag.show();
     outer.show();
     // Attach event listeners
-    $('#fittslaw').on("click", _hideNag);
-    $("#firstRun").on("click", function() {
+    $('#fittslaw').on("click", function (e) {
+      e.preventDefault();
+      _hideNag();
+    });
+    $("#firstRun").on("click", function () {
       // If there is a firstRun.html tab, switch to the tab.
       // Otherwise, create a new tab
       chrome.tabs.query({url: firstRunUrl}, function (tabs) {
@@ -63,6 +66,7 @@ function showNagMaybe() {
           });
         }
         _hideNag();
+        window.close();
       });
     });
   }
@@ -76,7 +80,7 @@ function showNagMaybe() {
     });
   } else if (POPUP_DATA.criticalError) {
     $('#instruction-text').hide();
-    $('#error-text').show().find('a').attr('id', 'firstRun').css('padding', '5px');
+    $('#error-text').show().find('a').attr('id', 'critical-error-link').css('padding', '5px');
     $('#error-message').text(POPUP_DATA.criticalError);
     _showNag();
   }
@@ -115,16 +119,17 @@ function init() {
   $("#error").on("click", function() {
     overlay.toggleClass('active');
   });
-  $("#report_cancel").on("click", function() {
+  $("#report-cancel").on("click", function() {
     clearSavedErrorText();
     closeOverlay();
   });
-  $("#report_button").on("click", function() {
+  $("#report-button").on("click", function() {
     $(this).prop("disabled", true);
-    $("#report_cancel").prop("disabled", true);
+    $("#report-cancel").prop("disabled", true);
     send_error($("#error_input").val());
   });
-  $("#report_close").on("click", function() {
+  $("#report_close").on("click", function (e) {
+    e.preventDefault();
     clearSavedErrorText();
     closeOverlay();
   });
@@ -140,8 +145,8 @@ function init() {
     browser.runtime.getBrowserInfo().then(function (info) {
       if (info.name == "Firefox") {
         $("#options").on("click", function (e) {
-          openOptionsPage();
           e.preventDefault();
+          openOptionsPage();
         });
       }
     });
@@ -150,13 +155,14 @@ function init() {
   let shareOverlay = $("#share_overlay");
 
   $("#share").on("click", function (e) {
-    share();
     e.preventDefault();
+    share();
   });
-  $("#share_close").on("click", function() {
+  $("#share_close").on("click", function (e) {
+    e.preventDefault();
     shareOverlay.toggleClass('active', false);
   });
-  $("#copy_button").on("click", function() {
+  $("#copy-button").on("click", function() {
     $("#share_output").select();
     document.execCommand('copy');
     $(this).text(chrome.i18n.getMessage("copy_button_copied"));
@@ -187,6 +193,8 @@ function openOptionsPage() {
       delete tabProps.openerTabId;
       chrome.tabs.create(tabProps);
     }
+
+    window.close();
   });
 }
 
@@ -272,8 +280,8 @@ function send_error(message) {
       clearSavedErrorText();
 
       setTimeout(function() {
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
+        $("#report-button").prop("disabled", false);
+        $("#report-cancel").prop("disabled", false);
         $("#report_success").toggleClass("hidden", true);
         closeOverlay();
       }, 3000);
@@ -283,8 +291,8 @@ function send_error(message) {
       $("#report_fail").toggleClass("hidden");
 
       setTimeout(function() {
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
+        $("#report-button").prop("disabled", false);
+        $("#report-cancel").prop("disabled", false);
         $("#report_fail").toggleClass("hidden", true);
       }, 3000);
     });
@@ -334,11 +342,12 @@ function deactivateOnSite() {
  */
 function share() {
   $("#share_overlay").toggleClass('active');
-  let shareMessage = chrome.i18n.getMessage("share_base_message");
+  let share_msg = chrome.i18n.getMessage("share_base_message");
 
-  //Only add language about found trackers if we actually found trackers (but regardless of whether we are actually blocking them).
+  // only add language about found trackers if we actually found trackers
+  // (but regardless of whether we are actually blocking them)
   if (POPUP_DATA.noTabData) {
-    $("#share_output").val(shareMessage);
+    $("#share_output").val(share_msg);
     return;
   }
 
@@ -349,7 +358,7 @@ function share() {
   }
 
   if (!originsArr.length) {
-    $("#share_output").val(shareMessage);
+    $("#share_output").val(share_msg);
     return;
   }
 
@@ -365,13 +374,13 @@ function share() {
   }
 
   if (tracking.length) {
-    shareMessage += "\n\n" + chrome.i18n.getMessage("share_tracker_header", [tracking.length, POPUP_DATA.tabHost]) + "\n\n";
-
-    for (let i=0; i < tracking.length; i++) {
-      shareMessage += tracking[i] + "\n";
-    }
+    share_msg += "\n\n";
+    share_msg += chrome.i18n.getMessage(
+      "share_tracker_header", [tracking.length, POPUP_DATA.tabHost]);
+    share_msg += "\n\n";
+    share_msg += tracking.join("\n");
   }
-  $("#share_output").val(shareMessage);
+  $("#share_output").val(share_msg);
 }
 
 /**

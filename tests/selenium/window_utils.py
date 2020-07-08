@@ -13,16 +13,15 @@ import time
 from selenium.common.exceptions import NoSuchWindowException
 
 
-def switch_to_window_with_url(driver, url, max_tries=20):
+def switch_to_window_with_url(driver, url, max_tries=5):
     """Point the driver to the first window that matches this url."""
 
     for _ in range(max_tries):
-        windows = get_windows_with_url(driver, url)
-
-        if windows:
-            # if multiple tabs point at this url, switch to the first one
+        for w in driver.window_handles:
             try:
-                driver.switch_to.window(windows[0])
+                driver.switch_to.window(w)
+                if driver.current_url != url:
+                    continue
             except NoSuchWindowException:
                 pass
             else:
@@ -30,7 +29,7 @@ def switch_to_window_with_url(driver, url, max_tries=20):
 
         time.sleep(1)
 
-    raise Exception("was not able to find window for url " + url)
+    raise Exception("Failed to find window for " + url)
 
 
 def refresh_window_with_url(driver, url, max_tries=20):

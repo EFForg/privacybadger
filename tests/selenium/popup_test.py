@@ -99,24 +99,14 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Get disable button on popup."""
         return self.driver.find_element_by_id("deactivate_site_btn")
 
-    def test_overlay(self):
+    def test_welcome_page_reminder_overlay(self):
         """Ensure overlay links to first run comic."""
         self.open_popup(show_nag=True)
 
         self.driver.find_element_by_id("firstRun").click()
 
-        # Make sure first run comic not opened in same window.
-        time.sleep(1)
-        if self.driver.current_url != self.popup_url:
-            self.fail("First run comic not opened in new window")
-
         # Look for first run page and return if found.
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url.startswith(self.first_run_url):
-                return
-
-        self.fail("First run comic not opened after clicking link in popup overlay")
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
     def test_help_button(self):
         """Ensure first run page is opened when help button is clicked."""
@@ -127,34 +117,16 @@ class PopupTest(pbtest.PBSeleniumTest):
         # Make sure first run page not opened in same window.
         time.sleep(1)
         if self.driver.current_url != self.popup_url:
-            self.fail("Options page not opened in new window")
+            self.fail("First run comic not opened in new window")
 
         # Look for first run page and return if found.
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == self.first_run_url:
-                return
-
-        self.fail("Options page not opened after clicking help button on popup")
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
     def test_options_button(self):
         """Ensure options page is opened when button is clicked."""
         self.open_popup()
-
         self.driver.find_element_by_id("options").click()
-
-        # Make sure options page not opened in same window.
-        time.sleep(1)
-        if self.driver.current_url != self.popup_url:
-            self.fail("Options page not opened in new window")
-
-        # Look for options page and return if found.
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == self.options_url:
-                return
-
-        self.fail("Options page not opened after clicking options button on popup")
+        switch_to_window_with_url(self.driver, self.options_url)
 
     @pbtest.repeat_if_failed(5)
     def test_trackers_link(self):
