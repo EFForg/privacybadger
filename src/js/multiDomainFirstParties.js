@@ -2651,7 +2651,7 @@ let multiDomainFirstPartiesArray = [
     "url.cn",
     "wechat.com",
     "wegame.com",
-    "weiyun.com"
+    "weiyun.com",
   ],
   [
     "rai.it",
