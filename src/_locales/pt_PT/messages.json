@@ -64,11 +64,11 @@
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
-        "message": "Blocking this domain is known to break websites",
+        "message": "Bloqueando este domínio é conhecido por quebrar os sítios da Internet",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
-        "message": "Click to return control of this domain to Privacy Badger",
+        "message": "Clicar para devolver o controlo deste domínio ao Privacy Badger",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "next_section": {
@@ -136,11 +136,11 @@
         "description": ""
     },
     "options_hide_social_widgets": {
-        "message": "Don't replace the following widgets:",
+        "message": "Não substituir os seguintes widgets:",
         "description": "Multiple selection box on the widget replacement tab"
     },
     "options_social_widgets_checkbox": {
-        "message": "Enable widget replacement",
+        "message": "Permitir a substituição do widget",
         "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -488,11 +488,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't decided yet if these domains should get blocked",
+        "message": "O seu Badger ainda não decidiu se estes domínios devem ser bloqueados",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't decided yet to block:",
+        "message": "Mostrar domínios que o seu Badger ainda não se decidiu bloquear:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -526,7 +526,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger has replaced this $WIDGET$ widget",
+        "message": "O Privacy Badger substituiu este widget $WIDGET$",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
@@ -610,23 +610,23 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "Nothing to do on this page",
+        "message": "Nada a fazer nesta página",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger doesn't work on special pages like this one. Try browsing somewhere else.",
+        "message": "O Privacy Badger não funciona em páginas especiais como esta. Tente navegar noutro lugar.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger is disabled on this site",
+        "message": "O Privacy Badger está desactivado neste site",
         "description": "Shown in the popup on disabled sites."
     },
     "options_widget_replacement_tab": {
-        "message": "Widget Replacement",
+        "message": "Substituição de Widgets",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "When blocking social buttons and other potentially useful (video, audio, comments) widgets, Privacy Badger can replace them with click-to-activate placeholders.",
+        "message": "Ao bloquear botões sociais e outros widgets possivelmente úteis (para vídeo, áudio, comentários, etc.), o Privacy Badger pode substituí-los por marcadores de lugar que clicam para ativar.",
         "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }
