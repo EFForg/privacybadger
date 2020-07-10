@@ -2638,7 +2638,6 @@ let multiDomainFirstPartiesArray = [
     "gtimg.com",
     "idqqimg.com",
     "imqq.com",
-    "molo.cn",
     "myapp.com",
     "myqcloud.com",
     "qcloud.com",
