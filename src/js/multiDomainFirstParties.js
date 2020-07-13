@@ -2423,7 +2423,6 @@ let multiDomainFirstPartiesArray = [
     'apps.plasma-bigscreen.org',
     'box-look.org',
     'cccliparts.org',
-    'share.krita.org',
     'electron-apps.com',
     'enlightenment-themes.org',
     'free-artwork.org',
