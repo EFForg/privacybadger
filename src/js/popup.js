@@ -210,8 +210,8 @@ function clearSavedErrorText() {
  */
 function closeOverlay() {
   $('#overlay').toggleClass('active', false);
-  $("#report_success").toggleClass("hidden", true);
-  $("#report_fail").toggleClass("hidden", true);
+  $("#report-success").hide();
+  $("#report-fail").hide();
   $("#error_input").val("");
 }
 
@@ -275,25 +275,24 @@ function send_error(message) {
 
     sendReport.done(function() {
       $("#error_input").val("");
-      $("#report_success").toggleClass("hidden", false);
+      $("#report-success").show();
 
       clearSavedErrorText();
 
       setTimeout(function() {
         $("#report-button").prop("disabled", false);
         $("#report-cancel").prop("disabled", false);
-        $("#report_success").toggleClass("hidden", true);
         closeOverlay();
       }, 3000);
     });
 
     sendReport.fail(function() {
-      $("#report_fail").toggleClass("hidden");
+      $("#report-fail").show();
 
       setTimeout(function() {
         $("#report-button").prop("disabled", false);
         $("#report-cancel").prop("disabled", false);
-        $("#report_fail").toggleClass("hidden", true);
+        $("#report-fail").hide();
       }, 3000);
     });
   });

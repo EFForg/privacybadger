@@ -357,10 +357,10 @@ div.overlay.active {
   margin: 1% 0;
   font-weight: bold;
 }
-#report_success {
+#report-success {
   color: green;
 }
-#report_fail {
+#report-fail {
   color: red;
 }
 .overlay_close {
@@ -384,9 +384,6 @@ div.overlay.active {
   float: left;
   display: inline;
   padding-right: 5px;
-}
-.hidden {
-  display: none;
 }
 #overlay p {
   font-size: 12px;
