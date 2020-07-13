@@ -362,11 +362,19 @@ div.overlay.active {
   margin: 1% 0;
   font-weight: bold;
 }
+#report-success, #report-fail {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px 0;
+}
 #report-success {
-  color: green;
+    color: green;
 }
 #report-fail {
-  color: red;
+    color: red;
+}
+#report-terms {
+    margin: 10px 0 !important;
 }
 .overlay_close {
   display: inline-block;

@@ -275,7 +275,7 @@ function send_error(message) {
 
     sendReport.done(function() {
       $("#error_input").val("");
-      $("#report-success").show();
+      $("#report-success").slideDown();
 
       clearSavedErrorText();
 
@@ -287,12 +287,12 @@ function send_error(message) {
     });
 
     sendReport.fail(function() {
-      $("#report-fail").show();
+      $("#report-fail").slideDown();
 
       setTimeout(function() {
         $("#report-button").prop("disabled", false);
         $("#report-cancel").prop("disabled", false);
-        $("#report-fail").hide();
+        $("#report-fail").slideUp();
       }, 3000);
     });
   });
