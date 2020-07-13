@@ -307,8 +307,13 @@ button {
     text-align: center;
     width: 49%;
 }
-.pbButton:hover {
+.pbButton:hover:enabled {
     border: 2px solid #F06A0A;
+}
+.pbButton:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: auto;
 }
 #donate {
     width: 100%;
