@@ -453,3 +453,39 @@ div.overlay.active {
         margin-right: 0px;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    body, .pbButton, .key, #privacyBadgerHeader h2, #instruction, #pbInstructions, #special-browser-page, #disabled-site-message {
+        background-color: #333;
+        color: #ddd;
+    }
+
+    #pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_one_tracker):not(#options_domain_list_no_trackers) a {
+        color: #ddd;
+    }
+
+    #fittslaw svg line {
+        stroke: #fff !important;
+    }
+    #fittslaw svg:hover line {
+        stroke: #ec9329 !important;
+    }
+    #instruction-outer {
+        background-color: #fff;
+    }
+
+    .clickerContainer {
+        background-color: #666;
+    }
+    .clicker {
+        border-top: 1px solid #aaa;
+    }
+    .origin {
+        color: #ddd;
+    }
+
+    textarea {
+        background-color: #333;
+        color: #ddd;
+    }
+}

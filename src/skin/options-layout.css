@@ -68,6 +68,9 @@ p, #settingsForm {
 #allowlist-form {
     margin: 20px 0 0;
 }
+#allowlist-select {
+    width: 100%;
+}
 
 #pbInstructions {
   margin-bottom: 20px;
@@ -213,4 +216,31 @@ p, #settingsForm {
 }
 #tabs .ui-tabs-nav li a:focus {
     outline: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    hr {
+        background-color: #aaa;
+    }
+
+    #tabs .ui-widget-header {
+        border-bottom: 1px solid #aaa;
+    }
+    #tabs .ui-tabs-nav .ui-state-hover a,
+    #tabs .ui-tabs-nav .ui-state-active a {
+        color: #ddd;
+    }
+
+    .ui-widget-content, .ui-widget-content a, #tracking-domains-filters {
+        color: #ddd;
+    }
+
+    #settings-suffix {
+        color: #aaa;
+    }
+
+    input[type=text], select {
+        background-color: #333;
+        color: #ddd;
+    }
 }
