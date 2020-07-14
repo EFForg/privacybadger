@@ -1285,14 +1285,20 @@ let multiDomainFirstPartiesArray = [
   [
     "gizmodo.com",
 
+    "avclub.com",
     "deadspin.com",
     "jalopnik.com",
     "jezebel.com",
     "kinja.com",
     "kinja-img.com",
     "kinja-static.com",
+    "kotaku.com",
     "lifehacker.com",
     "technoratimedia.com",
+    "theinventory.com",
+    "theonion.com",
+    "theroot.com",
+    "thetakeout.com",
   ],
   [
     "glassdoor.com",
