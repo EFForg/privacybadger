@@ -886,6 +886,7 @@ let multiDomainFirstPartiesArray = [
   ["discountbank.co.il", "telebank.co.il"],
   ["discord.com", "discordapp.com", "discordapp.net"],
   ["discover.com", "discovercard.com"],
+  ["disqus.com", "disquscdn.com"],
   [
     "dpgmediagroup.com",
 
