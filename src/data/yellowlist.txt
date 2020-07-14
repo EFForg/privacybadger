@@ -138,10 +138,6 @@ digitalrivercontent.net
 discordapp.com
 cdn.discourse.org
 discovery.com
-disqus.com
-disquscdn.com
-a.disquscdn.com
-uploads.disquscdn.com
 dmcdn.net
 dmcdn.com
 screendoor.dobt.co
