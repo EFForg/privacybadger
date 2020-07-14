@@ -136,7 +136,6 @@ deviantart.com
 deviantart.net
 digitalriver.com
 digitalrivercontent.net
-discordapp.com
 cdn.discourse.org
 discovery.com
 dmcdn.net
