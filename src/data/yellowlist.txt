@@ -577,6 +577,7 @@ auth.api.sonyentertainmentnetwork.com
 cdn-a.sonyentertainmentnetwork.com
 api.soundcloud.com
 feeds.soundcloud.com
+spot.im
 springboardplatform.com
 squarespace.com
 squareup.com
