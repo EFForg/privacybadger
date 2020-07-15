@@ -15,26 +15,18 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var utils = require("utils");
-var constants = require("constants");
+require.scopes.migrations = (function () {
 
-require.scopes.migrations = (function() {
+let utils = require("utils");
+let constants = require("constants");
 
-var exports = {};
+let noop = function () {};
+
+let exports = {};
+
 exports.Migrations= {
-  changePrivacySettings: function() {
-    if (!chrome.extension.inIncognitoContext && chrome.privacy) {
-      console.log('changing privacy settings');
-      if (chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
-        chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
-      }
-      if (chrome.privacy.websites && chrome.privacy.websites.hyperlinkAuditingEnabled) {
-        chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
-      }
-    }
-  },
-
-  migrateAbpToStorage: function () {},
+  changePrivacySettings: noop,
+  migrateAbpToStorage: noop,
 
   migrateBlockedSubdomainsToCookieblock: function(badger) {
     setTimeout(function() {
@@ -51,7 +43,7 @@ exports.Migrations= {
     }, 1000 * 30);
   },
 
-  migrateLegacyFirefoxData: function() { },
+  migrateLegacyFirefoxData: noop,
 
   migrateDntRecheckTimes: function(badger) {
     var action_map = badger.storage.getBadgerStorageObject('action_map');

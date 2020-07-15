@@ -40,6 +40,7 @@ function Badger() {
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
+  self.setPrivacyOverrides();
 
   self.widgetList = [];
   widgetLoader.loadWidgetsFromFile("data/socialwidgets.json", (response) => {
@@ -206,6 +207,55 @@ Badger.prototype = {
 
 
   // Methods
+
+  /**
+   * Sets various browser privacy overrides.
+   */
+  setPrivacyOverrides: function () {
+    if (!chrome.privacy) {
+      return;
+    }
+
+    /**
+     * Sets a browser setting if Privacy Badger is allowed to set it.
+     */
+    function _set_override(name, api, value) {
+      if (!api) {
+        return;
+      }
+      api.get({}, result => {
+        if (result.levelOfControl != "controllable_by_this_extension") {
+          return;
+        }
+        api.set({
+          value,
+          scope: 'regular'
+        }, () => {
+          if (chrome.runtime.lastError) {
+            console.error("Privacy setting failed:", chrome.runtime.lastError);
+          } else {
+            console.log("Set", name, "to", value);
+          }
+        });
+      });
+    }
+
+    if (chrome.privacy.services) {
+      _set_override(
+        "alternateErrorPagesEnabled",
+        chrome.privacy.services.alternateErrorPagesEnabled,
+        false
+      );
+    }
+
+    if (chrome.privacy.websites) {
+      _set_override(
+        "hyperlinkAuditingEnabled",
+        chrome.privacy.websites.hyperlinkAuditingEnabled,
+        false
+      );
+    }
+  },
 
   /**
    * Loads seed dataset with pre-trained action and snitch maps.
