@@ -102,6 +102,7 @@ pwc.chase.com
 civicscience.com
 cleanprint.net
 cleveland.com
+cloud.visura.co
 cloudflare.com
 cloudfront.net
 cloudinary.com
@@ -565,6 +566,7 @@ shop-pro.jp
 shoprunner.com
 sidearmsports.com
 siteimprove.com
+sites.visura.co
 shield.sitelock.com
 sketchfab.com
 slidedeck.com
@@ -663,6 +665,7 @@ vimeo.com
 vimeocdn.com
 virtualearth.net
 visa.com
+visura.co
 vmixcore.com
 voxmedia.com
 vox-cdn.com
