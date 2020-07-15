@@ -18,9 +18,18 @@ function cleanLink(a) {
   }
   a.rel = "noreferrer noopener";
 
-  // block event listeners on the link
-  a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
-  a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
+  // hacky way to see if LinkBlanker extension is installed, and if so, let that take priority in bubbling process
+  let linkBlankerUrl = 'chrome-extension://lkafdfakakndhpcpccjnclopfncckhfn/img/icon-enabled.svg';
+
+  // must use old school action here bc native fetch requires the http or https prefix
+  let xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("GET", linkBlankerUrl, false);
+  xmlHttp.send(null);
+  if (!xmlHttp.status || xmlHttp.status !== 200) {
+    // block event listeners on the link
+    a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
+    a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
+  }
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
