@@ -220,25 +220,7 @@ exports.Migrations= {
     }
   },
 
-  resetWebRTCIPHandlingPolicy: function (badger) {
-    console.log("Resetting webRTCIPHandlingPolicy ...");
-
-    if (!badger.webRTCAvailable) {
-      return;
-    }
-
-    const cpn = chrome.privacy.network;
-
-    cpn.webRTCIPHandlingPolicy.get({}, function (result) {
-      if (!result.levelOfControl.endsWith('_by_this_extension')) {
-        return;
-      }
-
-      if (result.value == 'default_public_interface_only') {
-        cpn.webRTCIPHandlingPolicy.clear({});
-      }
-    });
-  },
+  resetWebRTCIPHandlingPolicy: noop,
 
   enableShowNonTrackingDomains: function (badger) {
     console.log("Enabling showNonTrackingDomains for some users");
@@ -336,6 +318,27 @@ exports.Migrations= {
     console.log("Forgetting consensu.org domains (GDPR consent provider) ...");
     badger.storage.forget("consensu.org");
   },
+
+  resetWebRTCIPHandlingPolicy2: function (badger) {
+    if (!badger.webRTCAvailable) {
+      return;
+    }
+
+    const cpn = chrome.privacy.network;
+
+    cpn.webRTCIPHandlingPolicy.get({}, function (result) {
+      if (!result.levelOfControl.endsWith('_by_this_extension')) {
+        return;
+      }
+
+      if (result.value == 'disable_non_proxied_udp') {
+        console.log("Resetting webRTCIPHandlingPolicy ...");
+        cpn.webRTCIPHandlingPolicy.set({
+          value: 'default_public_interface_only'
+        });
+      }
+    });
+  }
 
 };
 
