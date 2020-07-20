@@ -331,8 +331,16 @@ exports.Migrations= {
         return;
       }
 
-      if (result.value == 'disable_non_proxied_udp') {
+      // migrate default (disabled) setting for old Badger versions
+      // from Mode 3 to Mode 1
+      if (result.value == 'default_public_interface_only') {
         console.log("Resetting webRTCIPHandlingPolicy ...");
+        cpn.webRTCIPHandlingPolicy.clear({});
+
+      // migrate enabled setting for more recent Badger versions
+      // from Mode 4 to Mode 3
+      } else if (result.value == 'disable_non_proxied_udp') {
+        console.log("Updating WebRTC IP leak protection setting ...");
         cpn.webRTCIPHandlingPolicy.set({
           value: 'default_public_interface_only'
         });
