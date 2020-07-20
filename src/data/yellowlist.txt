@@ -474,6 +474,7 @@ player.ooyala.com
 secure-cf-c.ooyala.com
 tile.opencyclemap.org
 tile2.opencyclemap.org
+opendesktop.org
 openlayers.org
 openlibrary.org
 openload.co
@@ -502,6 +503,7 @@ piratebay.org
 pistachio-cdn.graze.com
 pixietrixcomix.com
 plex.tv
+pling.com
 plot.ly
 web.poecdn.com
 poll.fm
