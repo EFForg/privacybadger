@@ -124,7 +124,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
-        "message": "了解隐私獾如何保护你的隐私。",
+        "message": "了解隐私獾如何保护你的隐私",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
