@@ -15,26 +15,18 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var utils = require("utils");
-var constants = require("constants");
+require.scopes.migrations = (function () {
 
-require.scopes.migrations = (function() {
+let utils = require("utils");
+let constants = require("constants");
 
-var exports = {};
+let noop = function () {};
+
+let exports = {};
+
 exports.Migrations= {
-  changePrivacySettings: function() {
-    if (!chrome.extension.inIncognitoContext && chrome.privacy) {
-      console.log('changing privacy settings');
-      if (chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
-        chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
-      }
-      if (chrome.privacy.websites && chrome.privacy.websites.hyperlinkAuditingEnabled) {
-        chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
-      }
-    }
-  },
-
-  migrateAbpToStorage: function () {},
+  changePrivacySettings: noop,
+  migrateAbpToStorage: noop,
 
   migrateBlockedSubdomainsToCookieblock: function(badger) {
     setTimeout(function() {
@@ -51,7 +43,7 @@ exports.Migrations= {
     }, 1000 * 30);
   },
 
-  migrateLegacyFirefoxData: function() { },
+  migrateLegacyFirefoxData: noop,
 
   migrateDntRecheckTimes: function(badger) {
     var action_map = badger.storage.getBadgerStorageObject('action_map');
@@ -228,25 +220,7 @@ exports.Migrations= {
     }
   },
 
-  resetWebRTCIPHandlingPolicy: function (badger) {
-    console.log("Resetting webRTCIPHandlingPolicy ...");
-
-    if (!badger.webRTCAvailable) {
-      return;
-    }
-
-    const cpn = chrome.privacy.network;
-
-    cpn.webRTCIPHandlingPolicy.get({}, function (result) {
-      if (!result.levelOfControl.endsWith('_by_this_extension')) {
-        return;
-      }
-
-      if (result.value == 'default_public_interface_only') {
-        cpn.webRTCIPHandlingPolicy.clear({});
-      }
-    });
-  },
+  resetWebRTCIPHandlingPolicy: noop,
 
   enableShowNonTrackingDomains: function (badger) {
     console.log("Enabling showNonTrackingDomains for some users");
@@ -344,6 +318,35 @@ exports.Migrations= {
     console.log("Forgetting consensu.org domains (GDPR consent provider) ...");
     badger.storage.forget("consensu.org");
   },
+
+  resetWebRTCIPHandlingPolicy2: function (badger) {
+    if (!badger.webRTCAvailable) {
+      return;
+    }
+
+    const cpn = chrome.privacy.network;
+
+    cpn.webRTCIPHandlingPolicy.get({}, function (result) {
+      if (!result.levelOfControl.endsWith('_by_this_extension')) {
+        return;
+      }
+
+      // migrate default (disabled) setting for old Badger versions
+      // from Mode 3 to Mode 1
+      if (result.value == 'default_public_interface_only') {
+        console.log("Resetting webRTCIPHandlingPolicy ...");
+        cpn.webRTCIPHandlingPolicy.clear({});
+
+      // migrate enabled setting for more recent Badger versions
+      // from Mode 4 to Mode 3
+      } else if (result.value == 'disable_non_proxied_udp') {
+        console.log("Updating WebRTC IP leak protection setting ...");
+        cpn.webRTCIPHandlingPolicy.set({
+          value: 'default_public_interface_only'
+        });
+      }
+    });
+  }
 
 };
 

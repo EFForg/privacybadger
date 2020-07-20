@@ -715,7 +715,7 @@ function showTrackingDomains(domains) {
  *
  * Toggle WebRTC IP address leak protection setting.
  *
- * When enabled, policy is set to Mode 4 (disable_non_proxied_udp).
+ * When enabled, policy is set to Mode 3 (default_public_interface_only).
  */
 function toggleWebRTCIPProtection() {
   // Return early with non-supporting browsers
@@ -727,11 +727,11 @@ function toggleWebRTCIPProtection() {
 
   cpn.webRTCIPHandlingPolicy.get({}, function (result) {
     // Update new value to be opposite of current browser setting
-    if (result.value == 'disable_non_proxied_udp') {
+    if (result.value == 'default_public_interface_only') {
       cpn.webRTCIPHandlingPolicy.clear({});
     } else {
       cpn.webRTCIPHandlingPolicy.set({
-        value: 'disable_non_proxied_udp'
+        value: 'default_public_interface_only'
       });
     }
   });
