@@ -1867,6 +1867,7 @@ let multiDomainFirstPartiesArray = [
     "yiyaojd.com",
     "yizhitou.com",
   ],
+  ["jpmorganchase.com", "jpmorgan.com", "chase.com"],
   ["jobware.de", "jobware.com", "jobware.net"],
   [
     "kayak.com",
