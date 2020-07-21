@@ -438,7 +438,8 @@ function refreshPopup() {
     $("#activate_site_btn").show();
     $("#deactivate_site_btn").hide();
     $("#disabled-site-message").show();
-    $("#privacyBadgerHeader").toggleClass("disabled-site-popup");
+    $("#privacyBadgerHeader").toggleClass("disabled_site_popup");
+    $(".ui-icon-heart").attr("style", "color:#808080");
   }
 
   // if there is any saved error text, fill the error input with it

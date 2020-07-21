@@ -411,7 +411,7 @@ div.overlay.active {
   font-size: 10px;
   float: left;
 }
-.disabled_site_popup, img {
+.disabled_site_popup {
     filter: grayscale(100%);
 }
 
