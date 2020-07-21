@@ -411,6 +411,9 @@ div.overlay.active {
   font-size: 10px;
   float: left;
 }
+.disabled_site_popup, img {
+    filter: grayscale(100%);
+}
 
 .tooltipster-sidetip .tooltipster-box {
     color: #fcfcfc;
