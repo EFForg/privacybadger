@@ -2424,6 +2424,35 @@ let multiDomainFirstPartiesArray = [
   ["mysql.com", "oracle.com"],
   ["myuv.com", "uvvu.com"],
   [
+    "naver.com",
+
+    "grafolio.com",
+    "plug.game",
+    "vlive.tv",
+    "webtoons.com",
+
+    "naver.net",
+    "pstatic.net",
+
+    "blog.jp",
+    "blogos.com",
+    "doorblog.jp",
+    "ldblog.jp",
+    "linecorp.com",
+    "line.me",
+    "livedoor.com",
+    "livedoor.jp",
+
+    "blogcms.jp",
+    "blogimg.jp",
+    "blogsys.jp",
+    "line-apps.com",
+    "line.biz",
+    "line-scdn.net",
+    "livedoor.net",
+    "naver.jp",
+  ],
+  [
     "nbcnews.com",
 
     "msnbc.com",
