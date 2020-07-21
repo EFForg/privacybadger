@@ -1,6 +1,13 @@
 Privacy Badger Release Notes
 ============================
 
+2020.7.21
+* Improved broken site reporting screen in the popup
+* Refreshed the look of options page tabs
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Danish, European Portuguese,
+Spanish, Turkish)
+
 2020.6.29
 * Added replacement placeholder for Disqus comments widgets
 * Fixed domain sliders on the options page not saving in some cases
