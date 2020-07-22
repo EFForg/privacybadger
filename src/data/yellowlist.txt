@@ -23,6 +23,7 @@ amazonaws.com
 coin.amazonpay.com
 coin-eu.amazonpay.com
 americanexpress.com
+amuniversal.com
 ancestry.com
 angularjs.org
 up.anv.bz
