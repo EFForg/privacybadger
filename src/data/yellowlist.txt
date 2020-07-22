@@ -123,6 +123,7 @@ cc.cnetcontent.com
 cdn.cnetcontent.com
 ws.cnetcontent.com
 codepen.io
+codesandbox.io
 creativecommons.org
 cstv.com
 cursecdn.com
