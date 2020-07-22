@@ -208,6 +208,7 @@ hello.firefox.com
 flattr.com
 flickr.com
 fling.com
+flo.uri.sh
 flowplayer.org
 flyertown.ca
 adm.fwmrm.net
@@ -248,6 +249,7 @@ clients1.google.com
 clients6.google.com
 consent.google.com
 cse.google.com
+datastudio.google.com
 developers.google.com
 docs.google.com
 drive.google.com
