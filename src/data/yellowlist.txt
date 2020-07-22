@@ -520,6 +520,7 @@ providesupport.com
 psswrdbx.com
 publiekeomroep.nl
 img.purch.com
+captcha.qq.com
 photo.store.qq.com
 qualtrics.com
 quotemedia.com
