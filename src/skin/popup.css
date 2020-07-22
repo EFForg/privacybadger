@@ -412,7 +412,7 @@ div.overlay.active {
   float: left;
 }
 .disabled_site_popup {
-    filter: grayscale(100%);
+    filter: grayscale(1) opacity(0.6);
 }
 
 .tooltipster-sidetip .tooltipster-box {
