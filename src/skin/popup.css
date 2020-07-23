@@ -411,7 +411,7 @@ div.overlay.active {
   font-size: 10px;
   float: left;
 }
-.disabled_site_popup {
+.faded-bw-color-scheme {
     filter: grayscale(1) opacity(0.6);
 }
 
