@@ -361,15 +361,20 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
   let widgetFrame = document.createElement('iframe');
 
   // widget replacement frame styles
+  let border_width = 1;
   let styleAttrs = [
     "background-color: #fff",
-    "border: 1px solid #ec9329",
-    "width:" + elToReplace.clientWidth + "px",
-    "height:" + elToReplace.clientHeight + "px",
+    "border: " + border_width + "px solid #ec9329",
     "min-width: 220px",
     "min-height: 165px",
     "z-index: 2147483647",
   ];
+  if (elToReplace.offsetWidth > 0) {
+    styleAttrs.push(`width: ${elToReplace.offsetWidth - 2*border_width}px`);
+  }
+  if (elToReplace.offsetHeight > 0) {
+    styleAttrs.push(`height: ${elToReplace.offsetHeight - 2*border_width}px`);
+  }
   widgetFrame.style = styleAttrs.join(" !important;") + " !important";
 
   let widgetDiv = document.createElement('div');
