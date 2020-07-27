@@ -53,6 +53,19 @@ function onBeforeRequest(details) {
   if (type == "main_frame") {
     forgetTab(tab_id);
     badger.recordFrame(tab_id, frame_id, url);
+
+    // initialize widgets allowed on the site
+    let allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist'),
+      tab_host = badger.tabData[tab_id].frames[0].host;
+    if (allowedWidgets.hasOwnProperty(tab_host)) {
+      for (let widget_name of allowedWidgets[tab_host]) {
+        let widgetDomains = getWidgetDomains(widget_name);
+        if (widgetDomains) {
+          allowOnTab(tab_id, widgetDomains);
+        }
+      }
+    }
+
     return {};
   }
 
@@ -330,13 +343,13 @@ function onNavigate(details) {
     return;
   }
 
+  forgetTab(tab_id);
+
   // forget but don't initialize on special browser/extension pages
   if (utils.isRestrictedUrl(url)) {
-    forgetTab(tab_id);
     return;
   }
 
-  forgetTab(tab_id);
   badger.recordFrame(tab_id, 0, url);
 
   // initialize tab data bookkeeping used by heuristicBlockingAccounting()
@@ -346,7 +359,8 @@ function onNavigate(details) {
   //
   // see the tabOrigins TODO in heuristicblocking.js
   // as to why we don't just use tabData
-  let base = window.getBaseDomain(badger.tabData[tab_id].frames[0].host);
+  let tab_host = badger.tabData[tab_id].frames[0].host,
+    base = window.getBaseDomain(tab_host);
   badger.heuristicBlocking.tabOrigins[tab_id] = base;
   badger.heuristicBlocking.tabUrls[tab_id] = url;
 }
@@ -570,6 +584,7 @@ let getWidgetList = (function () {
       placeholders: ["XXX"]
     },
     { key: "allow_once" },
+    { key: "allow_on_site" },
   ];
 
   return function (tab_id) {
@@ -697,6 +712,22 @@ function allowedOnTab(tab_id, request_host, frame_id) {
 }
 
 /**
+ * @returns {Array|Boolean} the list of associated domains or false
+ */
+function getWidgetDomains(widget_name) {
+  let widgetData = badger.widgetList.find(
+    widget => widget.name == widget_name);
+
+  if (!widgetData ||
+      !widgetData.hasOwnProperty("replacementButton") ||
+      !widgetData.replacementButton.unblockDomains) {
+    return false;
+  }
+
+  return widgetData.replacementButton.unblockDomains;
+}
+
+/**
  * Marks a set of (widget) domains to be (temporarily) allowed on a tab.
  *
  * @param {Integer} tab_id the ID of the tab
@@ -719,6 +750,7 @@ function dispatcher(request, sender, sendResponse) {
   if (!sender.url.startsWith(chrome.runtime.getURL(""))) {
     // reject unless it's a known content script message
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
+      "allowWidgetOnSite",
       "checkDNT",
       "checkEnabled",
       "checkEnabledAndThirdParty",
@@ -770,14 +802,24 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "unblockWidget": {
-    let widgetData = badger.widgetList.find(
-      widget => widget.name == request.widgetName);
-    if (!widgetData ||
-        !widgetData.hasOwnProperty("replacementButton") ||
-        !widgetData.replacementButton.unblockDomains) {
+    let widgetDomains = getWidgetDomains(request.widgetName);
+    if (!widgetDomains) {
       return sendResponse();
     }
-    allowOnTab(sender.tab.id, widgetData.replacementButton.unblockDomains);
+    allowOnTab(sender.tab.id, widgetDomains);
+    sendResponse();
+    break;
+  }
+
+  case "allowWidgetOnSite": {
+    // record that we always want to activate this widget on this site
+    let tab_host = window.extractHostFromURL(sender.tab.url),
+      allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist');
+    if (!allowedWidgets.hasOwnProperty(tab_host)) {
+      allowedWidgets[tab_host] = [];
+    }
+    allowedWidgets[tab_host].push(request.widgetName);
+    badger.getSettings().setItem('widgetSiteAllowlist', allowedWidgets);
     sendResponse();
     break;
   }

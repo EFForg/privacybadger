@@ -400,6 +400,7 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
     "font-family: helvetica, arial, sans-serif",
     "font-size: 16px",
     "display: flex",
+    "flex-wrap: wrap",
     "align-items: center",
     "justify-content: center",
     "text-align: center",
@@ -432,18 +433,29 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
     "padding: 10px",
     "margin: 4px",
     "text-align: center",
+    "width: 85%",
+    "max-width: 300px",
   ];
   button.style = styleAttrs.join(" !important;") + " !important";
+
+  // allow on this site button
+  let site_button = document.createElement('button'),
+    site_button_id = Math.random();
+  site_button.id = site_button_id;
+  site_button.style = styleAttrs.join(" !important;") + " !important";
 
   icon.style.setProperty("margin", "0 5px", "important");
   icon.style.setProperty("height", "20px", "important");
   icon.style.setProperty("vertical-align", "middle", "important");
   icon.setAttribute("alt", "");
   button.appendChild(icon);
+  site_button.appendChild(icon.cloneNode());
 
   button.appendChild(document.createTextNode(TRANSLATIONS.allow_once));
+  site_button.appendChild(document.createTextNode(TRANSLATIONS.allow_on_site));
 
   buttonDiv.appendChild(button);
+  buttonDiv.appendChild(site_button);
 
   widgetDiv.appendChild(buttonDiv);
 
@@ -466,10 +478,23 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
 
   // set up click handler
   widgetFrame.addEventListener('load', function () {
-    let el = widgetFrame.contentDocument.getElementById(button_id);
-    el.addEventListener("click", function (e) {
-      activationFn(name);
+    let onceButton = widgetFrame.contentDocument.getElementById(button_id),
+      siteButton = widgetFrame.contentDocument.getElementById(site_button_id);
+
+    onceButton.addEventListener("click", function (e) {
       e.preventDefault();
+      activationFn(name);
+    }, { once: true });
+
+    siteButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      activationFn(name);
+      // also message the bg page to record that
+      // we always want to activate this widget on this site
+      chrome.runtime.sendMessage({
+        type: "allowWidgetOnSite",
+        widgetName: name
+      });
     }, { once: true });
   }, false);
 
