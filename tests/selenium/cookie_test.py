@@ -8,9 +8,9 @@ import window_utils
 
 from popup_test import get_domain_slider_state
 
-SITE1_URL = "http://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
-SITE2_URL = "http://eff-tracker-site2-test.s3-website-us-west-2.amazonaws.com"
-SITE3_URL = "http://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
+SITE1_URL = "https://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
+SITE2_URL = "https://eff-tracker-site2-test.s3-website-us-west-2.amazonaws.com"
+SITE3_URL = "https://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
 
 THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 

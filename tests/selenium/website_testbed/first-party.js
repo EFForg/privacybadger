@@ -11,11 +11,15 @@ function setPath() {
   return ";path=/";
 }
 
+function setSameSite() {
+  return ";SameSite=None;Secure";
+}
+
 function updateCookie() {
   var oldcookie = document.cookie;
   var val = "1234567890";
   console.log("read cookie: " + oldcookie);
-  document.cookie = "localtest=" + encodeURIComponent(val) + setExpire() + setPath();
+  document.cookie = "localtest=" + encodeURIComponent(val) + setExpire() + setPath() + setSameSite();
   console.log("updating cookie to:" + document.cookie);
 }
 

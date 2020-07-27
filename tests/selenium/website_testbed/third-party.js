@@ -15,12 +15,16 @@ function setPath() {
   return ";path=/";
 }
 
+function setSameSite() {
+  return ";SameSite=None;Secure";
+}
+
 function updateCookie() {
   var oldcookie = document.cookie;
   var val = "1234567890";
   console.log("read cookie: " + oldcookie);
   //document.cookie = "thirdpartytest=" + encodeURIComponent( val ) + setDomain() + setExpire() + setPath();
-  document.cookie = "thirdpartytest=" + encodeURIComponent(val) + setExpire() + setPath();
+  document.cookie = "thirdpartytest=" + encodeURIComponent(val) + setExpire() + setPath() + setSameSite();
   //document.cookie = "a=b; domain=eff-tracker-test.s3-website-us-west-2.amazonaws.com";
   console.log("updating cookie to:" + document.cookie);
 }
