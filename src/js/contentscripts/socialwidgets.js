@@ -366,7 +366,8 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
     "background-color: #fff",
     "border: " + border_width + "px solid #ec9329",
     "min-width: 220px",
-    "min-height: 165px",
+    "min-height: 210px",
+    "max-height: 400px",
     "z-index: 2147483647",
   ];
   if (elToReplace.offsetWidth > 0) {
