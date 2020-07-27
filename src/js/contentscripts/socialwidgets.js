@@ -486,7 +486,7 @@ button:hover {
 }
   `.trim();
 
-  widgetFrame.srcdoc = '<html><head><style>' + head_styles + '</style></head><body>' + widgetDiv.outerHTML + '</body></html>';
+  widgetFrame.srcdoc = '<html><head><style>' + head_styles + '</style></head><body style="margin:0">' + widgetDiv.outerHTML + '</body></html>';
 
   return widgetFrame;
 }
