@@ -413,24 +413,27 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
   let buttonDiv = document.createElement('div');
   buttonDiv.style = styleAttrs.join(" !important;") + " !important";
 
-  // "allow once" button
-  let button = document.createElement('button');
-  let button_id = Math.random();
+  // allow once button
+  let button = document.createElement('button'),
+    button_id = Math.random();
   button.id = button_id;
   styleAttrs = [
-    "background-color: #fff",
-    "border: 2px solid #ec9329",
+    "color: #333",
+    "background-color: #fefefe",
     "border-radius: 3px",
-    "color: #ec9329",
     "cursor: pointer",
+    "font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif",
+    "font-size: 12px",
     "font-weight: bold",
-    "line-height: 30px",
-    "padding: 8px",
+    "line-height: 16px",
+    "padding: 10px",
+    "margin: 4px",
+    "text-align: center",
   ];
   button.style = styleAttrs.join(" !important;") + " !important";
 
   icon.style.setProperty("margin", "0 5px", "important");
-  icon.style.setProperty("height", "30px", "important");
+  icon.style.setProperty("height", "20px", "important");
   icon.style.setProperty("vertical-align", "middle", "important");
   icon.setAttribute("alt", "");
   button.appendChild(icon);
@@ -467,7 +470,20 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
     }, { once: true });
   }, false);
 
-  widgetFrame.srcdoc = '<html><head><style>html, body { height: 100%; overflow: hidden; }</style></head><body>' + widgetDiv.outerHTML + '</body></html>';
+  let head_styles = `
+html, body {
+  height: 100% !important;
+  overflow: hidden !important;
+}
+button {
+  border: 2px solid !important;
+}
+button:hover {
+  border: 2px solid #F06A0A !important;
+}
+  `.trim();
+
+  widgetFrame.srcdoc = '<html><head><style>' + head_styles + '</style></head><body>' + widgetDiv.outerHTML + '</body></html>';
 
   return widgetFrame;
 }
