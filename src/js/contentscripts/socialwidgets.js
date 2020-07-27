@@ -396,6 +396,9 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
 
   // child div styles
   styleAttrs = [
+    "color: #303030",
+    "font-family: helvetica, arial, sans-serif",
+    "font-size: 16px",
     "display: flex",
     "align-items: center",
     "justify-content: center",
