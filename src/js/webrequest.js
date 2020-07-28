@@ -53,19 +53,7 @@ function onBeforeRequest(details) {
   if (type == "main_frame") {
     forgetTab(tab_id);
     badger.recordFrame(tab_id, frame_id, url);
-
-    // initialize widgets allowed on the site
-    let allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist'),
-      tab_host = badger.tabData[tab_id].frames[0].host;
-    if (allowedWidgets.hasOwnProperty(tab_host)) {
-      for (let widget_name of allowedWidgets[tab_host]) {
-        let widgetDomains = getWidgetDomains(widget_name);
-        if (widgetDomains) {
-          allowOnTab(tab_id, widgetDomains);
-        }
-      }
-    }
-
+    initializeAllowedWidgets(tab_id, badger.getFrameData(tab_id).host);
     return {};
   }
 
@@ -352,6 +340,10 @@ function onNavigate(details) {
 
   badger.recordFrame(tab_id, 0, url);
 
+  let tab_host = badger.getFrameData(tab_id).host;
+
+  initializeAllowedWidgets(tab_id, tab_host);
+
   // initialize tab data bookkeeping used by heuristicBlockingAccounting()
   // to avoid missing or misattributing learning
   // when there is no "main_frame" webRequest callback
@@ -359,8 +351,7 @@ function onNavigate(details) {
   //
   // see the tabOrigins TODO in heuristicblocking.js
   // as to why we don't just use tabData
-  let tab_host = badger.tabData[tab_id].frames[0].host,
-    base = window.getBaseDomain(tab_host);
+  let base = window.getBaseDomain(tab_host);
   badger.heuristicBlocking.tabOrigins[tab_id] = base;
   badger.heuristicBlocking.tabUrls[tab_id] = url;
 }
@@ -738,7 +729,25 @@ function allowOnTab(tab_id, domains) {
     tempAllowList[tab_id] = [];
   }
   for (let domain of domains) {
-    tempAllowList[tab_id].push(domain);
+    if (!tempAllowList[tab_id].includes(domain)) {
+      tempAllowList[tab_id].push(domain);
+    }
+  }
+}
+
+/**
+ * Called upon navigation to prepopulate the temporary allowlist
+ * with domains for widgets marked as always allowed on a given site.
+ */
+function initializeAllowedWidgets(tab_id, tab_host) {
+  let allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist');
+  if (allowedWidgets.hasOwnProperty(tab_host)) {
+    for (let widget_name of allowedWidgets[tab_host]) {
+      let widgetDomains = getWidgetDomains(widget_name);
+      if (widgetDomains) {
+        allowOnTab(tab_id, widgetDomains);
+      }
+    }
   }
 }
 
