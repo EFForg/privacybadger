@@ -34,7 +34,7 @@ let constants = require("constants"),
   utils = require("utils");
 
 /************ Local Variables *****************/
-let tempAllowList = {};
+let tempAllowlist = {};
 
 /***************** Blocking Listener Functions **************/
 
@@ -498,7 +498,7 @@ function recordFingerprinting(tabId, msg) {
 function forgetTab(tab_id, is_reload) {
   delete badger.tabData[tab_id];
   if (!is_reload) {
-    delete tempAllowList[tab_id];
+    delete tempAllowlist[tab_id];
   }
 }
 
@@ -673,11 +673,11 @@ let getWidgetList = (function () {
  * @returns {Boolean} true if FQDN is on the temporary allow list
  */
 function allowedOnTab(tab_id, request_host, frame_id) {
-  if (!tempAllowList.hasOwnProperty(tab_id)) {
+  if (!tempAllowlist.hasOwnProperty(tab_id)) {
     return false;
   }
 
-  let exceptions = tempAllowList[tab_id];
+  let exceptions = tempAllowlist[tab_id];
 
   for (let exception of exceptions) {
     if (exception == request_host) {
@@ -733,12 +733,12 @@ function getWidgetDomains(widget_name) {
  * @param {Array} domains the domains
  */
 function allowOnTab(tab_id, domains) {
-  if (!tempAllowList.hasOwnProperty(tab_id)) {
-    tempAllowList[tab_id] = [];
+  if (!tempAllowlist.hasOwnProperty(tab_id)) {
+    tempAllowlist[tab_id] = [];
   }
   for (let domain of domains) {
-    if (!tempAllowList[tab_id].includes(domain)) {
-      tempAllowList[tab_id].push(domain);
+    if (!tempAllowlist[tab_id].includes(domain)) {
+      tempAllowlist[tab_id].push(domain);
     }
   }
 }
