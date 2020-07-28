@@ -382,7 +382,7 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
     "border: " + border_width + "px solid #ec9329",
     "min-width: 220px",
     "min-height: 210px",
-    "max-height: 400px",
+    "max-height: 600px",
     "z-index: 2147483647",
   ];
   if (elToReplace.offsetWidth > 0) {
