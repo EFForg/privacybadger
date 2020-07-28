@@ -427,6 +427,13 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
   textDiv.style = styleAttrs.join(" !important;") + " !important";
   textDiv.appendChild(document.createTextNode(
     TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
+  let infoIcon = document.createElement('a'),
+    info_icon_id = "help-" + Math.random().toString().replace(".", "");
+  infoIcon.id = info_icon_id;
+  infoIcon.href = "https://privacybadger.org/#How-does-Privacy-Badger-handle-social-media-widgets";
+  infoIcon.rel = "noreferrer";
+  infoIcon.target = "_blank";
+  textDiv.appendChild(infoIcon);
   widgetDiv.appendChild(textDiv);
 
   let buttonDiv = document.createElement('div');
@@ -526,6 +533,20 @@ button {
 }
 button:hover {
   border: 2px solid #F06A0A !important;
+}
+#${info_icon_id} {
+  position: absolute;
+  ${TRANSLATIONS.rtl ? "left" : "right"}: 0;
+  top: 5px;
+  text-decoration: none;
+}
+#${info_icon_id}:before {
+  color: #333;
+  content: '\u2753';
+  margin: 8px;
+}
+#${info_icon_id}:hover:before {
+  color: #ec9329;
 }
   `.trim();
 
