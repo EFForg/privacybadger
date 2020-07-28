@@ -51,7 +51,9 @@ function onBeforeRequest(details) {
     url = details.url;
 
   if (type == "main_frame") {
-    forgetTab(tab_id);
+    let oldTabData = badger.getFrameData(tab_id),
+      is_reload = oldTabData && oldTabData.url == url;
+    forgetTab(tab_id, is_reload);
     badger.recordFrame(tab_id, frame_id, url);
     initializeAllowedWidgets(tab_id, badger.getFrameData(tab_id).host);
     return {};
@@ -331,7 +333,10 @@ function onNavigate(details) {
     return;
   }
 
-  forgetTab(tab_id);
+  let oldTabData = badger.getFrameData(tab_id),
+    is_reload = oldTabData && oldTabData.url == url;
+
+  forgetTab(tab_id, is_reload);
 
   // forget but don't initialize on special browser/extension pages
   if (utils.isRestrictedUrl(url)) {
@@ -488,10 +493,13 @@ function recordFingerprinting(tabId, msg) {
  * Cleans up tab-specific data.
  *
  * @param {Integer} tab_id the ID of the tab
+ * @param {Boolean} is_reload whether the page is simply being reloaded
  */
-function forgetTab(tab_id) {
+function forgetTab(tab_id, is_reload) {
   delete badger.tabData[tab_id];
-  delete tempAllowList[tab_id];
+  if (!is_reload) {
+    delete tempAllowList[tab_id];
+  }
 }
 
 /**

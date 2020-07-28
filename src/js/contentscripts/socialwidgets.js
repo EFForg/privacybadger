@@ -170,9 +170,24 @@ function _createReplacementElementCallback(widget, trackerElem, callback) {
   // reinitialize the widget by reinserting its element's HTML
   // and activating associated scripts
   } else if (button_type == 4) {
-    let replacementEl = createReplacementWidget(
-      widget, button, trackerElem, replaceWidgetAndReloadScripts);
-    return callback(replacementEl);
+    let activationFn = replaceWidgetAndReloadScripts;
+
+    // if there are no matching script elements
+    if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
+      // and we don't have a fallback script URL
+      if (!widget.fallbackScriptUrl) {
+        // we can't do "in-place" activation; reload the page instead
+        activationFn = function () {
+          unblockTracker(widget.name, function () {
+            location.reload();
+          });
+        };
+      }
+    }
+
+    return callback(
+      createReplacementWidget(widget, button, trackerElem, activationFn)
+    );
   }
 
   callback(button);
@@ -488,15 +503,18 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
 
     siteButton.addEventListener("click", function (e) {
       e.preventDefault();
-      activationFn(name);
-      // also message the bg page to record that
-      // we always want to activate this widget on this site
+
+      // first message the background page to record that
+      // this widget should always be allowed on this site
       chrome.runtime.sendMessage({
         type: "allowWidgetOnSite",
         widgetName: name
+      }, function () {
+        activationFn(name);
       });
     }, { once: true });
-  }, false);
+
+  }, false); // end of click handler
 
   let head_styles = `
 html, body {
