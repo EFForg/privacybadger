@@ -827,8 +827,10 @@ function dispatcher(request, sender, sendResponse) {
     if (!allowedWidgets.hasOwnProperty(tab_host)) {
       allowedWidgets[tab_host] = [];
     }
-    allowedWidgets[tab_host].push(request.widgetName);
-    badger.getSettings().setItem('widgetSiteAllowlist', allowedWidgets);
+    if (!allowedWidgets[tab_host].includes(request.widgetName)) {
+      allowedWidgets[tab_host].push(request.widgetName);
+      badger.getSettings().setItem('widgetSiteAllowlist', allowedWidgets);
+    }
     sendResponse();
     break;
   }
