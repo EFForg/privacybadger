@@ -40,7 +40,10 @@
         }
     },
     "Disqus": {
-        "domain": "*.disqus.com",
+        "domains": [
+            "disqus.com",
+            "*.disqus.com"
+        ],
         "buttonSelectors": [
             "div#disqus_thread"
         ],
