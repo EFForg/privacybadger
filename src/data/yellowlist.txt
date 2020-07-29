@@ -141,6 +141,7 @@ digitalriver.com
 digitalrivercontent.net
 cdn.discourse.org
 discovery.com
+disqus.com
 disquscdn.com
 dmcdn.net
 dmcdn.com
