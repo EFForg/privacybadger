@@ -455,8 +455,8 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
     "padding: 10px",
     "margin: 4px",
     "text-align: center",
-    "width: 85%",
-    "max-width: 300px",
+    "width: 70%",
+    "max-width: 280px",
   ];
   button.style = styleAttrs.join(" !important;") + " !important";
 
@@ -536,14 +536,22 @@ button:hover {
 }
 #${info_icon_id} {
   position: absolute;
-  ${TRANSLATIONS.rtl ? "left" : "right"}: 0;
-  top: 5px;
+  ${TRANSLATIONS.rtl ? "left" : "right"}: 4px;
+  top: 4px;
+  line-height: 12px;
   text-decoration: none;
 }
 #${info_icon_id}:before {
-  color: #333;
-  content: '\u2753';
-  margin: 8px;
+  border: 2px solid;
+  border-radius: 50%;
+  display: inline-block;
+  color: #555;
+  content: '?';
+  font-size: 12px;
+  font-weight: bold;
+  padding: 1px;
+  height: 1em;
+  width: 1em;
 }
 #${info_icon_id}:hover:before {
   color: #ec9329;
