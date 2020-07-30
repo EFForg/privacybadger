@@ -416,7 +416,6 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
     "font-size: 16px",
     "display: flex",
     "flex-wrap: wrap",
-    "align-items: center",
     "justify-content: center",
     "text-align: center",
     "margin: 10px",
