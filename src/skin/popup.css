@@ -174,11 +174,14 @@ font-size: 16px;
 }
 
 #firstRun, #critical-error-link {
-  color: #EC9329;
-  border: 2px solid #EC9329;
-  font-weight: bold;
-  font-size: 14px;
-  width: 100%;
+    background-color: #ff641c;
+    border: 2px solid #ff641c;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: background-color 0.3s ease;
+    width: 100%;
 }
 
 #critical-error-link {
@@ -186,9 +189,7 @@ font-size: 16px;
 }
 
 #firstRun:hover, #critical-error-link:hover {
-  text-decoration: underline;
-  background-color: #EC9329;
-  color: #333;
+    background-color: #f58728;
 }
 .clickerContainer {
     max-height: 290px;
