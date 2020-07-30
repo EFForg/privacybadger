@@ -957,6 +957,7 @@ function dispatcher(request, sender, sendResponse) {
 
   case "seenComic": {
     badger.getSettings().setItem("seenComic", true);
+    sendResponse();
     break;
   }
 

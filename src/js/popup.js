@@ -32,14 +32,13 @@ function showNagMaybe() {
   var outer = $("#instruction-outer");
   var firstRunUrl = chrome.runtime.getURL("/skin/firstRun.html");
 
-  function _setSeenComic() {
+  function _setSeenComic(cb) {
     chrome.runtime.sendMessage({
       type: "seenComic"
-    });
+    }, cb);
   }
 
   function _hideNag() {
-    _setSeenComic();
     nag.fadeOut();
     outer.fadeOut();
   }
@@ -50,7 +49,9 @@ function showNagMaybe() {
     // Attach event listeners
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
-      _hideNag();
+      _setSeenComic(() => {
+        _hideNag();
+      });
     });
     $("#firstRun").on("click", function () {
       // If there is a firstRun.html tab, switch to the tab.
@@ -65,10 +66,26 @@ function showNagMaybe() {
             chrome.windows.update(tab.windowId, {focused: true});
           });
         }
-        _hideNag();
-        window.close();
+        _setSeenComic(() => {
+          window.close();
+        });
       });
     });
+  }
+
+  function _showError(error_text) {
+    $('#instruction-text').hide();
+    $('#error-text').show().find('a')
+      .attr('id', 'critical-error-link')
+      .css('padding', '5px');
+    $('#error-message').text(error_text);
+
+    $('#fittslaw').on("click", function (e) {
+      e.preventDefault();
+      _hideNag();
+    });
+
+    nag.show();
   }
 
   if (!POPUP_DATA.seenComic) {
@@ -79,10 +96,7 @@ function showNagMaybe() {
       }
     });
   } else if (POPUP_DATA.criticalError) {
-    $('#instruction-text').hide();
-    $('#error-text').show().find('a').attr('id', 'critical-error-link').css('padding', '5px');
-    $('#error-message').text(POPUP_DATA.criticalError);
-    _showNag();
+    _showError(POPUP_DATA.criticalError);
   }
 }
 
