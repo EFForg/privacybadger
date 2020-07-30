@@ -254,6 +254,16 @@ Badger.prototype = {
         chrome.privacy.websites.hyperlinkAuditingEnabled,
         false
       );
+      _set_override(
+        "thirdPartyCookiesAllowed",
+        chrome.privacy.websites.thirdPartyCookiesAllowed,
+        false
+      );
+      _set_override(
+        "referrersEnabled",
+        chrome.privacy.websites.referrersEnabled,
+        false
+      );
     }
   },
 
