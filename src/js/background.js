@@ -248,6 +248,7 @@ Badger.prototype = {
       );
     }
 
+    // set relevant settings on privacy.websites api to false
     if (chrome.privacy.websites) {
       let privacy_settings = ["hyperlinkAuditingEnabled", "thirdPartyCookiesAllowed", "referrersEnabled"];
       privacy_settings.forEach((setting) => {
@@ -257,6 +258,12 @@ Badger.prototype = {
           false
         );
       });
+      // firefox only
+      _set_override(
+        "resistFingerprinting",
+        chrome.privacy.websites.resistFingerprinting,
+        true
+      );
     }
   },
 
