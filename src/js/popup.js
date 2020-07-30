@@ -90,6 +90,7 @@ function showNagMaybe() {
     });
 
     nag.show();
+    outer.show();
   }
 
   if (!POPUP_DATA.seenComic) {
