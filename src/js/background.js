@@ -249,21 +249,14 @@ Badger.prototype = {
     }
 
     if (chrome.privacy.websites) {
-      _set_override(
-        "hyperlinkAuditingEnabled",
-        chrome.privacy.websites.hyperlinkAuditingEnabled,
-        false
-      );
-      _set_override(
-        "thirdPartyCookiesAllowed",
-        chrome.privacy.websites.thirdPartyCookiesAllowed,
-        false
-      );
-      _set_override(
-        "referrersEnabled",
-        chrome.privacy.websites.referrersEnabled,
-        false
-      );
+      let privacy_settings = ["hyperlinkAuditingEnabled", "thirdPartyCookiesAllowed", "referrersEnabled"];
+      privacy_settings.forEach((setting) => {
+        _set_override(
+          setting,
+          chrome.privacy.websites[setting],
+          false
+        );
+      });
     }
   },
 
