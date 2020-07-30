@@ -77,7 +77,11 @@ function showNagMaybe() {
     $('#instruction-text').hide();
     $('#error-text').show().find('a')
       .attr('id', 'critical-error-link')
-      .css('padding', '5px');
+      .css({
+        padding: '5px',
+        display: 'inline-block',
+        width: 'auto',
+      });
     $('#error-message').text(error_text);
 
     $('#fittslaw').on("click", function (e) {

@@ -228,16 +228,16 @@ font-size: 16px;
   position: fixed;
   z-index: 100;
   background-color: #fff;
-  width: calc(100% - 60px);
   color: #333;
   text-align: left;
   padding: 15px;
-  font-size: 14px;
+  font-size: 15px;
   border: 1px solid #555;
   box-shadow: 5px 5px 5px #333;
   border-radius: 4px;
+  width: calc(100% - 60px);
 }
-#instruction img{
+#instruction-logo {
   float: left;
   display: inline;
   padding: 10px 10px 0 0;
