@@ -50,9 +50,11 @@ the code below. This should take several minutes.
 $ BROWSER=chrome pytest -v
 ```
 
-macOS users may need to provide the full path to the browser application folder. For example, to run tests on macOS in Firefox:
+macOS users may need to provide the full path to the browser application folder. For example, to run tests on macOS:
 ```bash
 $ BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin pytest -v
+# or
+$ BROWSER=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome pytest -v
 ```
 
 For more information, see our Travis CI [setup](/scripts/setup_travis.sh) and
