@@ -36,6 +36,13 @@ return (
     map[tracker_origin].indexOf(site_origin) != -1
 );""".format(domain, page_url))
 
+    def get_fillText_source(self):
+        return self.js("""
+            const canvas = document.getElementById("writetome");
+            const ctx = canvas.getContext("2d");
+            return ctx.fillText.toString();
+        """)
+
     # TODO can fail because our content script runs too late: https://crbug.com/478183
     @pbtest.repeat_if_failed(3)
     def test_canvas_fingerprinting_detection(self):
@@ -67,6 +74,24 @@ return (
         self.assertTrue(
             self.detected_fingerprinting(FINGERPRINTING_DOMAIN),
             "Canvas fingerprinting resource was detected as a fingerprinter."
+        )
+
+    # Privacy Badger overrides a few functions on canvas contexts to check for fingerprinting.
+    # In previous versions, it would restore the native function after a single call. Unfortunately,
+    # this would wipe out polyfills that had also overridden the same functions, such as the very
+    # popular "hidpi-canvas-polyfill".
+    def test_canvas_polyfill_clobbering(self):
+        FIXTURE_URL = (
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            "fingerprinting_canvas_hidpi.html"
+        )
+
+        # visit the page
+        self.load_url(FIXTURE_URL)
+
+        # check that we did not restore the native function (should be hipdi polyfill)
+        self.assertNotIn("[native code]", self.get_fillText_source(),
+            "Canvas context fillText is not native version (polyfill has been retained)."
         )
 
 

@@ -207,7 +207,7 @@ function getFpPageScript() {
         // set to true after the first write, if the method is not
         // restorable. Happens if another library also overwrites
         // this method.
-        var skipMonitoring = false;
+        var skip_monitoring = false;
 
         function wrapped() {
           var args = arguments;
@@ -216,7 +216,7 @@ function getFpPageScript() {
             // to avoid false positives,
             // bail if the text being written is too short,
             // of if we've already sent a monitoring payload
-            if (skipMonitoring || !args[0] || args[0].length < 5) {
+            if (skip_monitoring || !args[0] || args[0].length < 5) {
               return orig.apply(this, args);
             }
           }
@@ -247,7 +247,7 @@ function getFpPageScript() {
             if (this[item.propName] === wrapped) {
               this[item.propName] = orig;
             } else {
-              skipMonitoring = true;
+              skip_monitoring = true;
             }
           }
 
