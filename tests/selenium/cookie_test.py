@@ -1,18 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-import time
 import unittest
 
 import pbtest
 import window_utils
 
 from popup_test import get_domain_slider_state
-
-SITE1_URL = "https://eff-tracker-site1-test.s3-website-us-west-2.amazonaws.com"
-SITE2_URL = "https://eff-tracker-site2-test.s3-website-us-west-2.amazonaws.com"
-SITE3_URL = "https://eff-tracker-site3-test.s3-website-us-west-2.amazonaws.com"
-
-THIRD_PARTY_TRACKER = "eff-tracker-test.s3-website-us-west-2.amazonaws.com"
 
 
 class CookieTest(pbtest.PBSeleniumTest):
@@ -29,7 +22,6 @@ class CookieTest(pbtest.PBSeleniumTest):
             "first_party_cookie.html"
         ), "Set 1st party cookie")
 
-    @unittest.skip("Until we update fixtures to set SameSite=None cookies")
     def test_cookie_tracker_detection(self):
         """Tests basic cookie tracking. The tracking site has no DNT file,
         and gets blocked by PB.
@@ -37,59 +29,48 @@ class CookieTest(pbtest.PBSeleniumTest):
         Visits three sites, all of which have an iframe that points to a fourth site
         that reads and writes a cookie. The third party cookie will be picked up by
         PB after each of the site loads, but no action will be taken. Then the first
-        site will be reloaded, and the UI will show the third party cookie as blocked."""
+        site will be reloaded, and the UI will show the third party domain as blocked."""
 
-        self.driver.delete_all_cookies()
-        # fixme: check for chrome settings for third party cookies?
+        SITE1_URL = "https://ddrybktjfxh4.cloudfront.net/"
+        SITE2_URL = "https://d3syxqe9po5ji0.cloudfront.net/"
+        SITE3_URL = "https://d3b37ucnz1m2l2.cloudfront.net/"
+
+        THIRD_PARTY_DOMAIN = "efforg.github.io"
 
         self.wait_for_script("return typeof chrome != 'undefined' && chrome && chrome.extension")
+        # remove pre-trained domains
         self.js(
             "chrome.extension.getBackgroundPage()."
-            "badger.getSettings().setItem('showNonTrackingDomains', true);"
+            "badger.storage.clearTrackerData();"
         )
 
         # load the first site with the third party code that reads and writes a cookie
         self.load_url(SITE1_URL)
         self.load_pb_ui(SITE1_URL)
-        self.get_tracker_state()
-        self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
+        # TODO it takes another visit (or a page reload)
+        # TODO to show the domain as not-yet-blocked-but-tracking?
+        #self.assertIn(THIRD_PARTY_DOMAIN, self.notYetBlocked)
+        window_utils.close_window_with_url(self.driver, SITE1_URL)
 
         # go to second site
         self.load_url(SITE2_URL)
-        window_utils.close_windows_with_url(self.driver, SITE1_URL)
         self.load_pb_ui(SITE2_URL)
-        self.get_tracker_state()
-        self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
+        self.assertIn(THIRD_PARTY_DOMAIN, self.notYetBlocked)
+        window_utils.close_window_with_url(self.driver, SITE2_URL)
 
         # go to third site
         self.load_url(SITE3_URL)
-        window_utils.close_windows_with_url(self.driver, SITE2_URL)
         self.load_pb_ui(SITE3_URL)
-        self.get_tracker_state()
-        self.assertTrue(THIRD_PARTY_TRACKER in self.nonTrackers)
+        self.assertIn(THIRD_PARTY_DOMAIN, self.notYetBlocked)
+        window_utils.close_window_with_url(self.driver, SITE3_URL)
 
-        # reloading the first site should now cause the cookie to be blocked
-        # it can take a long time for the UI to be updated, so retry a number of
-        # times before giving up. See bug #702.
-        #
-        # this is checking for a dnt file at a site without https, so we'll
-        # just have to wait for the connection to time out before we proceed
+        # revisiting the first site should cause
+        # the third-party domain to be blocked
         self.load_url(SITE1_URL)
-        window_utils.close_windows_with_url(self.driver, SITE3_URL)
-        for _ in range(5):
-            self.load_pb_ui(SITE1_URL)
-            self.get_tracker_state()
+        self.load_pb_ui(SITE1_URL)
+        self.assertIn(THIRD_PARTY_DOMAIN, self.blocked)
 
-            if THIRD_PARTY_TRACKER in self.cookieBlocked:
-                # Popup UI has been updated. Yay!
-                break
-            window_utils.close_windows_with_url(self.driver, self.popup_url)
-            print("popup UI has not been updated yet. retrying ...")
-            time.sleep(3)
-
-        self.assertTrue(THIRD_PARTY_TRACKER in self.cookieBlocked)
-
-    def load_pb_ui(self, target_scheme_and_host):
+    def load_pb_ui(self, target_url):
         """Show the PB popup as a new tab.
 
         If Selenium would let us just programmatically launch an extension from its icon,
@@ -111,12 +92,12 @@ class CookieTest(pbtest.PBSeleniumTest):
 
         # get the popup populated with status information for the correct url
         window_utils.switch_to_window_with_url(self.driver, self.popup_url)
-        target_url = target_scheme_and_host + "/*"
-        javascript_src = """/**
+        self.js("""
+/**
  * if the query url pattern matches a tab, switch the module's tab object to that tab
  */
-function setTabToUrl(query_url) {
-  chrome.tabs.query({url: query_url}, function (tabs) {
+(function (url) {
+  chrome.tabs.query({url}, function (tabs) {
     if (!tabs || !tabs.length) {
       return;
     }
@@ -130,8 +111,7 @@ function setTabToUrl(query_url) {
       window.DONE_REFRESHING = true;
     });
   });
-}"""
-        self.js(javascript_src + "setTabToUrl('{}');".format(target_url))
+}(arguments[0]));""", target_url)
 
         # wait for popup to be ready
         self.wait_for_script(
@@ -140,9 +120,11 @@ function setTabToUrl(query_url) {
             "window.SLIDERS_DONE"
         )
 
+        self.get_tracker_state()
+
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
-        self.nonTrackers = {}
+        self.notYetBlocked = {}
         self.cookieBlocked = {}
         self.blocked = {}
 
@@ -154,24 +136,24 @@ function setTabToUrl(query_url) {
             origin = div.get_attribute('data-origin')
 
             # assert that this origin is never duplicated in the UI
-            self.assertTrue(origin not in self.nonTrackers)
-            self.assertTrue(origin not in self.cookieBlocked)
-            self.assertTrue(origin not in self.blocked)
+            self.assertNotIn(origin, self.notYetBlocked)
+            self.assertNotIn(origin, self.cookieBlocked)
+            self.assertNotIn(origin, self.blocked)
 
             # get slider state for given origin
             action_type = get_domain_slider_state(self.driver, origin)
 
+            # non-tracking domains are hidden by default
+            # so if we see a slider set to "allow",
+            # it must be in the tracking-but-not-yet-blocked section
             if action_type == 'allow':
-                self.nonTrackers[origin] = True
-            elif action_type == 'noaction':
-                self.nonTrackers[origin] = True
+                self.notYetBlocked[origin] = True
             elif action_type == 'cookieblock':
                 self.cookieBlocked[origin] = True
             elif action_type == 'block':
                 self.blocked[origin] = True
             else:
-                print("what is this?!? " + str(action_type))
-                self.assertTrue(False) # pylint: disable=redundant-unittest-assert
+                self.fail("what is this?!? %s" % action_type)
 
 
 if __name__ == "__main__":
