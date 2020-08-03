@@ -10,11 +10,11 @@
         }
     },
     "invalid_json": {
-        "message": "Archivo JSON inválido.",
+        "message": "Archivo JSON no válido.",
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "¿Seguro de que desea eliminar este dominio de Privacy Badger?",
+        "message": "¿Seguro de que deseas eliminar este dominio de Privacy Badger?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
@@ -32,7 +32,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Compruebe si los <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>dominios de terceros</a> cumplen con la <a target='_blank' href='https://www.eff.org/dnt-policy'>política de No rastrear de la EFF</a>",
+        "message": "Comprueba si los <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>dominios de terceros</a> cumplen con la <a target='_blank' href='https://www.eff.org/dnt-policy'>política de No rastrear de la EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -40,7 +40,7 @@
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
-        "message": "Por favor, añada un dominio o URL válido.",
+        "message": "Por favor, añade un dominio o URL válido.",
         "description": ""
     },
     "donate_to_eff": {
@@ -68,7 +68,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
-        "message": "Haga clic para devolver el control de este dominio a Privacy Badger",
+        "message": "Haz clic para devolver el control de este dominio a Privacy Badger",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "next_section": {
@@ -76,7 +76,7 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
-        "message": "Por favor, <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>infórmenos</a> del siguiente error:",
+        "message": "Por favor, <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>infórmanos</a> del siguiente error:",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
@@ -92,7 +92,7 @@
         "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Haga clic aquí para impedir que este dominio cree cookies",
+        "message": "Haz clic aquí para impedir que este dominio cree cookies",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
@@ -104,7 +104,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger aprende automáticamente a bloquear rastreadores invisibles. Tómese un minuto para ver cómo lo hace.",
+        "message": "Privacy Badger aprende automáticamente a bloquear rastreadores invisibles. Tómate un minuto para ver cómo lo hace.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Esto envía automáticamente la siguiente información a la EFF: el sitio que está visitando actualmente, la versión del navegador, la versión de Privacy Badger y el estado de los controles deslizantes para este sitio.",
+        "message": "Esto envía automáticamente la siguiente información a la EFF: el sitio que estás visitando actualmente, la versión del navegador, la versión de Privacy Badger y el estado de los controles deslizantes para este sitio.",
         "description": ""
     },
     "intro_learns": {
@@ -214,7 +214,7 @@
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
-        "message": " ¡La lista de rastreadores y las configuraciones se han actualizado con éxito!",
+        "message": " ¡La lista de rastreadores y la configuración se han actualizado correctamente!",
         "description": ""
     },
     "export_user_data": {
@@ -222,7 +222,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "La importación de datos de usuario: <ul><li>Sobrescribe la configuración general</li><li>Combina listas de sitios deshabilitados</li><li>Combina información sobre los rastreadores que Privacy Badger ha visto</li><li>Sobrescribe las personalizaciones de los controles deslizantes</li></ul>",
+        "message": "La importación de datos de usuario: <ul><li>Sobrescribe la configuración general</li><li>Combina listas de sitios deshabilitados</li><li>Combina información sobre los rastreadores que Privacy Badger has visto</li><li>Sobrescribe las personalizaciones de los controles deslizantes</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -250,7 +250,7 @@
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
-        "message": "Ahora se encuentra bajo la protección de Privacy Badger. Para saber cómo funciona Privacy Badger, haga clic abajo para un tutorial rápido.",
+        "message": "Ahora te encuentras bajo la protección de Privacy Badger. Para saber cómo funciona Privacy Badger, haz clic abajo para un tutorial rápido.",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
@@ -266,7 +266,7 @@
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
-        "message": "Haga clic aquí para bloquear por completo este dominio",
+        "message": "Haz clic aquí para bloquear por completo este dominio",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
@@ -306,7 +306,7 @@
         "description": ""
     },
     "import_select_file": {
-        "message": "Por favor, seleccione un archivo para importar.",
+        "message": "Por favor, selecciona un archivo para importar.",
         "description": ""
     },
     "popup_blocked": {
@@ -318,7 +318,7 @@
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
-        "message": "Centre el control deslizante para bloquear las cookies",
+        "message": "Centra el control deslizante para bloquear las cookies",
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
@@ -362,7 +362,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Mueva el control deslizante a la izquierda para bloquear un dominio",
+        "message": "Mueve el control deslizante a la izquierda para bloquear un dominio",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
@@ -374,7 +374,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger está desactivado en los siguientes sitios. Esto significa que Privacy Badger no bloqueará nada cuando visites los sitios listados aquí.</p><p>Si crees que Privacy Badger está rompiendo una página, puede escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón «Añadir dominio».</p><p>Alternativamente, cuando ya tengas seleccionada la pestaña de la página, simplemente haz clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haga clic en el botón «Deshabilitar».</p>",
+        "message": "<p>Privacy Badger está deshabilitado en los siguientes sitios. Esto significa que Privacy Badger no bloqueará nada cuando visites los sitios listados aquí.</p><p>Si crees que Privacy Badger está rompiendo una página, puedes escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón «Añadir dominio».</p><p>Alternativamente, cuando ya tengas seleccionada la pestaña de la página, simplemente haz clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haz clic en el botón «Deshabilitar».</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -407,7 +407,7 @@
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
-        "message": "Mueva el control deslizante a la derecha para permitir un dominio",
+        "message": "Mueve el control deslizante a la derecha para permitir un dominio",
         "description": ""
     },
     "popup_disable_for_site": {
@@ -419,7 +419,7 @@
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
-        "message": "Haga clic aquí para permitir este dominio",
+        "message": "Haz clic aquí para permitir este dominio",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
@@ -456,11 +456,11 @@
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
-        "message": "Describa brevemente el error aquí abajo.",
+        "message": "Describe brevemente el error aquí abajo.",
         "description": ""
     },
     "remove_button": {
-        "message": "Borrar los seleccionados",
+        "message": "Eliminar seleccionado",
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
@@ -472,7 +472,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Si crees que Privacy Badger está rompiendo una página (un vídeo no se reproduce, por ejemplo), puede hacer clic en el botón «Deshabilitar» para desactivar Privacy Badger en ese sitio.",
+        "message": "Si crees que Privacy Badger está rompiendo una página (un vídeo no se reproduce, por ejemplo), puede hacer clic en el botón «Deshabilitar» para deshabilitar Privacy Badger en ese sitio.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
@@ -480,7 +480,7 @@
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger no ha detectado ningún <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio de rastreo</a> por el momento. ¡Siga navegando!",
+        "message": "Privacy Badger no ha detectado ningún <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio de rastreo</a> por el momento. ¡Sigue navegando!",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "report_input_label": {
@@ -512,7 +512,7 @@
         "description": ""
     },
     "report_fail": {
-        "message": "Huy. Algo salió mal.",
+        "message": "Ups. Algo salió mal.",
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
@@ -540,7 +540,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "sync_intro": {
-        "message": "Sincronización en la nube:<ul><li>Requiere Firefox/Chrome Sync</li><li>La subida de datos sobrescribe cualquier dato existente de Privacy Badger en la nube</li><li>La descarga combina las listas de sitios en los que Badger está desactivado</li></ul>",
+        "message": "Sincronización en la nube:<ul><li>Requiere Firefox/Chrome Sync</li><li>La subida de datos sobrescribe cualquier dato existente de Privacy Badger en la nube</li><li>La descarga combina las listas de sitios en los que Badger está deshabilitado</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
@@ -556,7 +556,7 @@
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "Los datos de la nube se han importado con éxito.",
+        "message": "Los datos de la nube se han importado correctamente.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
@@ -564,7 +564,7 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Los datos para nube se han subido con éxito.",
+        "message": "Los datos para nube se han subido correctamente.",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
