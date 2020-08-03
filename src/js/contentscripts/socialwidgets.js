@@ -84,6 +84,13 @@ function initialize(response) {
 function createReplacementElement(widget, trackerElem, callback) {
   let buttonData = widget.replacementButton;
 
+  // no image data to fetch
+  if (!buttonData.hasOwnProperty('imagePath')) {
+    return setTimeout(function () {
+      _createReplacementElementCallback(widget, trackerElem, callback);
+    }, 0);
+  }
+
   // already have replacement button image URI cached
   if (buttonData.buttonUrl) {
     return setTimeout(function () {
@@ -91,7 +98,9 @@ function createReplacementElement(widget, trackerElem, callback) {
     }, 0);
   }
 
+  // already messaged for but haven't yet received the image data
   if (buttonData.loading) {
+    // check back in 10 ms
     return setTimeout(function () {
       createReplacementElement(widget, trackerElem, callback);
     }, 10);
@@ -111,21 +120,25 @@ function createReplacementElement(widget, trackerElem, callback) {
 }
 
 function _createReplacementElementCallback(widget, trackerElem, callback) {
+  if (widget.replacementButton.buttonUrl) {
+    _createButtonReplacement(widget, trackerElem, callback);
+  } else {
+    _createWidgetReplacement(widget, trackerElem, callback);
+  }
+}
+
+function _createButtonReplacement(widget, trackerElem, callback) {
   let buttonData = widget.replacementButton,
     button_type = buttonData.type;
 
   let button = document.createElement("img");
   button.setAttribute("src", buttonData.buttonUrl);
 
-  // apply tooltip to social button replacements only;
-  // no need to do this for replacement widgets
-  if (button_type < 3) {
-    // TODO use custom tooltip to support RTL locales?
-    button.setAttribute(
-      "title",
-      TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", widget.name)
-    );
-  }
+  // TODO use custom tooltip to support RTL locales?
+  button.setAttribute(
+    "title",
+    TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", widget.name)
+  );
 
   let styleAttrs = [
     "border: none",
@@ -158,18 +171,24 @@ function _createReplacementElementCallback(widget, trackerElem, callback) {
     button.addEventListener("click", function () {
       replaceButtonWithHtmlCodeAndUnblockTracker(button, widget.name, buttonData.details);
     }, { once: true });
+  }
+
+  callback(button);
+}
+
+function _createWidgetReplacement(widget, trackerElem, callback) {
+  let replacementEl;
 
   // in-place widget type:
   // reinitialize the widget by reinserting its element's HTML
-  } else if (button_type == 3) {
-    let replacementEl = createReplacementWidget(
-      widget, button, trackerElem, reinitializeWidgetAndUnblockTracker);
-    return callback(replacementEl);
+  if (widget.replacementButton.type == 3) {
+    replacementEl = createReplacementWidget(
+      widget, trackerElem, reinitializeWidgetAndUnblockTracker);
 
   // in-place widget type:
   // reinitialize the widget by reinserting its element's HTML
   // and activating associated scripts
-  } else if (button_type == 4) {
+  } else if (widget.replacementButton.type == 4) {
     let activationFn = replaceWidgetAndReloadScripts;
 
     // if there are no matching script elements
@@ -185,14 +204,11 @@ function _createReplacementElementCallback(widget, trackerElem, callback) {
       }
     }
 
-    return callback(
-      createReplacementWidget(widget, button, trackerElem, activationFn)
-    );
+    replacementEl = createReplacementWidget(widget, trackerElem, activationFn);
   }
 
-  callback(button);
+  callback(replacementEl);
 }
-
 
 /**
  * Unblocks the given widget and replaces the given button with an iframe
@@ -370,7 +386,11 @@ function replaceSubsequentTrackerButtonsHelper(tracker_domain) {
   });
 }
 
-function createReplacementWidget(widget, icon, elToReplace, activationFn) {
+function _make_id(prefix) {
+  return prefix + "-" + Math.random().toString().replace(".", "");
+}
+
+function createReplacementWidget(widget, elToReplace, activationFn) {
   let name = widget.name;
 
   let widgetFrame = document.createElement('iframe');
@@ -427,7 +447,7 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
   textDiv.appendChild(document.createTextNode(
     TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
   let infoIcon = document.createElement('a'),
-    info_icon_id = "help-" + Math.random().toString().replace(".", "");
+    info_icon_id = _make_id("ico-help");
   infoIcon.id = info_icon_id;
   infoIcon.href = "https://privacybadger.org/#How-does-Privacy-Badger-handle-social-media-widgets";
   infoIcon.rel = "noreferrer";
@@ -440,11 +460,10 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
 
   // allow once button
   let button = document.createElement('button'),
-    button_id = Math.random();
+    button_id = _make_id("btn-once");
   button.id = button_id;
   styleAttrs = [
-    "color: #333",
-    "background-color: #fefefe",
+    "transition: background-color 0.25s ease-out, border-color 0.25s ease-out, color 0.25s ease-out",
     "border-radius: 3px",
     "cursor: pointer",
     "font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif",
@@ -461,16 +480,9 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
 
   // allow on this site button
   let site_button = document.createElement('button'),
-    site_button_id = Math.random();
+    site_button_id = _make_id("btn-site");
   site_button.id = site_button_id;
   site_button.style = styleAttrs.join(" !important;") + " !important";
-
-  icon.style.setProperty("margin", "0 5px", "important");
-  icon.style.setProperty("height", "20px", "important");
-  icon.style.setProperty("vertical-align", "middle", "important");
-  icon.setAttribute("alt", "");
-  button.appendChild(icon);
-  site_button.appendChild(icon.cloneNode());
 
   button.appendChild(document.createTextNode(TRANSLATIONS.allow_once));
   site_button.appendChild(document.createTextNode(TRANSLATIONS.allow_on_site));
@@ -527,11 +539,23 @@ html, body {
   height: 100% !important;
   overflow: hidden !important;
 }
-button {
-  border: 2px solid !important;
+#${button_id} {
+  border: 2px solid #f06a0a !important;
+  background-color: #f06a0a !important;
+  color: #fefefe !important;
 }
-button:hover {
-  border: 2px solid #F06A0A !important;
+#${site_button_id} {
+  border: 2px solid #333 !important;
+  background-color: #fefefe !important;
+  color: #333 !important;
+}
+#${button_id}:hover {
+  background-color: #fefefe !important;
+  color: #333 !important;
+}
+#${site_button_id}:hover {
+  background-color: #fefefe !important;
+  border: 2px solid #f06a0a !important;
 }
 #${info_icon_id} {
   position: absolute;

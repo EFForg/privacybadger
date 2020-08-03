@@ -41,7 +41,6 @@ class WidgetsTest(pbtest.PBSeleniumTest):
                     "unblockDomains": [
                         self.THIRD_PARTY_DOMAIN
                     ],
-                    "imagePath": "badger-play.png",
                     "type": 3
                 }
             },
@@ -59,7 +58,6 @@ class WidgetsTest(pbtest.PBSeleniumTest):
                     "unblockDomains": [
                         self.THIRD_PARTY_DOMAIN
                     ],
-                    "imagePath": "badger-play.png",
                     "type": 4
                 }
             }

@@ -24,7 +24,6 @@
             "unblockDomains": [
                 "coub.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 3
         }
     },
@@ -55,7 +54,6 @@
                 "*.disqus.com",
                 "disqus.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 4
         }
     },
@@ -68,7 +66,6 @@
             "unblockDomains": [
                 "www.facebook.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 3
         }
     },
@@ -115,7 +112,6 @@
             "unblockDomains": [
                 "www.facebook.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 3
         }
     },
@@ -140,7 +136,6 @@
                 "google.com",
                 "www.google.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 4
         }
     },
@@ -176,7 +171,6 @@
             "unblockDomains": [
                 "w.soundcloud.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 3
         }
     },
@@ -194,7 +188,6 @@
                 "embed.spotify.com",
                 "open.spotify.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 3
         }
     },
@@ -207,7 +200,6 @@
             "unblockDomains": [
                 "streamable.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 3
         }
     },
@@ -221,7 +213,6 @@
             "unblockDomains": [
                 "player.twitch.tv"
             ],
-            "imagePath": "badger-play.png",
             "type": 3
         }
     },
@@ -246,7 +237,6 @@
             "unblockDomains": [
                 "player.vimeo.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 3
         }
     },
@@ -270,7 +260,6 @@
                 "www.youtube.com",
                 "www.youtube-nocookie.com"
             ],
-            "imagePath": "badger-play.png",
             "type": 3
         }
     }
