@@ -858,6 +858,13 @@ Badger.prototype = {
   },
 
   /**
+  * Check if Re-enable alternateErrorPagesEnabled option is selected
+  */
+  isAlternateErrorPagesEnabled: function() {
+    return this.getSettings().getItem("alternateErrorPagesEnabled")
+  },
+
+  /**
    * Add an origin to the disabled sites list
    *
    * @param {String} origin The origin to disable the PB for
