@@ -369,6 +369,10 @@
         "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
+    "options_alternateErrorPagesEnabled_checkbox": {
+        "message": "Re-enable the alternateErrorPagesEnabled Chrome Browser setting",
+        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "user-controlled",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
