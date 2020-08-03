@@ -488,11 +488,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't decided yet if these domains should get blocked",
+        "message": "Seu Badger ainda não decidiu se esses domínios devem ser bloqueados",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't decided yet to block:",
+        "message": "Mostrar domínios que seu Badger ainda não decidiu se deve bloquear:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -526,7 +526,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger has replaced this $WIDGET$ widget",
+        "message": "O Privacy Badger substituiu esse $WIDGET$ widget",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
