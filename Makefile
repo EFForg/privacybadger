@@ -27,9 +27,9 @@ runch:
 	./node_modules/.bin/web-ext run --target chromium --start-url "chrome://extensions" -s src/
 
 runff:
-	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/
+	./node_modules/.bin/web-ext run --start-url "about:debugging#/runtime/this-firefox" -s src/
 
 runfn:
-	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/ -f /opt/firefox/nightly/firefox
+	./node_modules/.bin/web-ext run --start-url "about:debugging#/runtime/this-firefox" -s src/ -f nightly
 
 .PHONY: lint updatepsl updateseed updategoogle todo tx runch runff runfn
