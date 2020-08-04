@@ -173,22 +173,24 @@ font-size: 16px;
     min-height: 70px;
 }
 
-#firstRun, #critical-error-link {
-  color: #EC9329;
-  border: 2px solid #EC9329;
-  font-weight: bold;
-  font-size: 14px;
-  width: 100%;
+#intro-reminder-btn, #critical-error-link {
+    background-color: #ff641c;
+    border: 2px solid #ff641c;
+    color: #fff;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 1.5;
+    padding: 1.2em 1em;
+    transition: background-color 0.3s ease;
+    width: 100%;
 }
 
 #critical-error-link {
     border-radius: 3px;
 }
 
-#firstRun:hover, #critical-error-link:hover {
-  text-decoration: underline;
-  background-color: #EC9329;
-  color: #333;
+#intro-reminder-btn:hover, #critical-error-link:hover {
+    background-color: #f58728;
 }
 .clickerContainer {
     max-height: 290px;
@@ -217,26 +219,37 @@ font-size: 16px;
 #instruction-outer {
   display: none;
   position: fixed;
-  height: calc(100% - 15px);
+  top: 0;
+  left: 0;
   z-index: 99;
-  background-color:#000;
+  background-color: #000;
   opacity: 0.1;
+  width: 100%;
+  height: 100%;
 }
 #instruction {
   display: none;
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 100;
   background-color: #fff;
-  width: calc(100% - 60px);
   color: #333;
   text-align: left;
+  margin: 8px;
   padding: 15px;
-  font-size: 14px;
-  border: 1px solid #555;
-  box-shadow: 5px 5px 5px #333;
+  font-size: 15px;
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
+  width: calc(100% - 46px);
 }
-#instruction img{
+#instruction-logo {
   float: left;
   display: inline;
   padding: 10px 10px 0 0;

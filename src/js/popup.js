@@ -30,16 +30,15 @@ let POPUP_DATA = {};
 function showNagMaybe() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
-  var firstRunUrl = chrome.runtime.getURL("/skin/firstRun.html");
+  let intro_page_url = chrome.runtime.getURL("/skin/firstRun.html");
 
-  function _setSeenComic() {
+  function _setSeenComic(cb) {
     chrome.runtime.sendMessage({
       type: "seenComic"
-    });
+    }, cb);
   }
 
   function _hideNag() {
-    _setSeenComic();
     nag.fadeOut();
     outer.fadeOut();
   }
@@ -50,39 +49,59 @@ function showNagMaybe() {
     // Attach event listeners
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
-      _hideNag();
+      _setSeenComic(() => {
+        _hideNag();
+      });
     });
-    $("#firstRun").on("click", function () {
+    $("#intro-reminder-btn").on("click", function () {
       // If there is a firstRun.html tab, switch to the tab.
       // Otherwise, create a new tab
-      chrome.tabs.query({url: firstRunUrl}, function (tabs) {
+      chrome.tabs.query({url: intro_page_url}, function (tabs) {
         if (tabs.length == 0) {
           chrome.tabs.create({
-            url: chrome.runtime.getURL("/skin/firstRun.html#slideshow")
+            url: intro_page_url
           });
         } else {
           chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {
             chrome.windows.update(tab.windowId, {focused: true});
           });
         }
-        _hideNag();
-        window.close();
+        _setSeenComic(() => {
+          window.close();
+        });
       });
     });
+  }
+
+  function _showError(error_text) {
+    $('#instruction-text').hide();
+    $('#error-text').show().find('a')
+      .attr('id', 'critical-error-link')
+      .css({
+        padding: '5px',
+        display: 'inline-block',
+        width: 'auto',
+      });
+    $('#error-message').text(error_text);
+
+    $('#fittslaw').on("click", function (e) {
+      e.preventDefault();
+      _hideNag();
+    });
+
+    nag.show();
+    outer.show();
   }
 
   if (!POPUP_DATA.seenComic) {
     chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
       // Show the popup instruction if the active tab is not firstRun.html page
-      if (!focusedTab[0].url.startsWith(firstRunUrl)) {
+      if (!focusedTab[0].url.startsWith(intro_page_url)) {
         _showNag();
       }
     });
   } else if (POPUP_DATA.criticalError) {
-    $('#instruction-text').hide();
-    $('#error-text').show().find('a').attr('id', 'critical-error-link').css('padding', '5px');
-    $('#error-message').text(POPUP_DATA.criticalError);
-    _showNag();
+    _showError(POPUP_DATA.criticalError);
   }
 }
 
