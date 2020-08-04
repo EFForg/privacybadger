@@ -303,13 +303,11 @@ font-size: 16px;
     margin-top: 5px;
     text-align: center;
 }
-button {
-    color: #333;
-}
 .pbButton {
     background-color: #fefefe;
-    border: 2px solid;
+    border: 2px solid #333;
     border-radius: 3px;
+    color: #333;
     cursor: pointer;
     font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif;
     font-size: 12px;
@@ -321,12 +319,23 @@ button {
     width: 49%;
 }
 .pbButton:hover:enabled {
-    border: 2px solid #F06A0A;
+    border: 2px solid #f06a0a;
 }
 .pbButton:disabled {
     background-color: #ccc;
     color: #666;
     cursor: auto;
+}
+#deactivate_site_btn, #activate_site_btn {
+    background-color: #ec9329;
+    border-color: #ec9329;
+    color: #fefefe;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+#deactivate_site_btn:hover:enabled, #activate_site_btn:hover:enabled {
+    background-color: #fefefe;
+    border-color: #f06a0a;
+    color: #333;
 }
 #donate {
     width: 100%;
