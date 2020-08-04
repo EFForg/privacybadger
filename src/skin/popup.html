@@ -57,9 +57,7 @@
     </svg></a>
     <div id="instruction-text">
         <p class="i18n_intro_text"></p>
-        <button id="firstRun" class="pbButton">
-          <p class="i18n_first_run_text"></p>
-        </button>
+        <button id="intro-reminder-btn" class="i18n_first_run_text pbButton"></button>
     </div>
     <div id="error-text" style="display:none">
         <p><span class="i18n_extension_error_text"></span></p>
@@ -124,18 +122,10 @@
 </div>
 
 <div id="siteControls">
-    <button id="deactivate_site_btn" class="pbButton">
-      <span class="i18n_popup_disable_for_site"></span>
-    </button>
-    <button id="activate_site_btn" class="pbButton" style="display:none">
-      <span class="i18n_popup_enable_for_site"></span>
-    </button>
-    <button id="error" class="pbButton" target="blank">
-      <span class="i18n_report_broken_site"></span>
-    </button>
-    <button id="donate" class="pbButton" target="blank">
-      <span class="ui-icon ui-icon-heart" style="color:#ec1e1e"></span> <span class="i18n_donate_to_eff"></span>
-    </button>
+    <button id="deactivate_site_btn" class="i18n_popup_disable_for_site pbButton"></button>
+    <button id="activate_site_btn" class="i18n_popup_enable_for_site pbButton" style="display:none"></button>
+    <button id="error" class="i18n_report_broken_site pbButton"></button>
+    <button id="donate" class="pbButton" target="_blank"><span class="ui-icon ui-icon-heart" style="color:#ec1e1e"></span> <span class="i18n_donate_to_eff"></span></button>
 </div>
 <span id="version" class="i18n_version"></span>
 <div class='clear'></div>

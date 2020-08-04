@@ -30,7 +30,7 @@ let POPUP_DATA = {};
 function showNagMaybe() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
-  var firstRunUrl = chrome.runtime.getURL("/skin/firstRun.html");
+  let intro_page_url = chrome.runtime.getURL("/skin/firstRun.html");
 
   function _setSeenComic(cb) {
     chrome.runtime.sendMessage({
@@ -53,13 +53,13 @@ function showNagMaybe() {
         _hideNag();
       });
     });
-    $("#firstRun").on("click", function () {
+    $("#intro-reminder-btn").on("click", function () {
       // If there is a firstRun.html tab, switch to the tab.
       // Otherwise, create a new tab
-      chrome.tabs.query({url: firstRunUrl}, function (tabs) {
+      chrome.tabs.query({url: intro_page_url}, function (tabs) {
         if (tabs.length == 0) {
           chrome.tabs.create({
-            url: chrome.runtime.getURL("/skin/firstRun.html")
+            url: intro_page_url
           });
         } else {
           chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {
@@ -96,7 +96,7 @@ function showNagMaybe() {
   if (!POPUP_DATA.seenComic) {
     chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
       // Show the popup instruction if the active tab is not firstRun.html page
-      if (!focusedTab[0].url.startsWith(firstRunUrl)) {
+      if (!focusedTab[0].url.startsWith(intro_page_url)) {
         _showNag();
       }
     });

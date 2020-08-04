@@ -103,7 +103,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Ensure overlay links to first run comic."""
         self.open_popup(show_nag=True)
 
-        self.driver.find_element_by_id("firstRun").click()
+        self.driver.find_element_by_id("intro-reminder-btn").click()
 
         # Look for first run page and return if found.
         switch_to_window_with_url(self.driver, self.first_run_url)

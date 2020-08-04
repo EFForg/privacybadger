@@ -173,13 +173,14 @@ font-size: 16px;
     min-height: 70px;
 }
 
-#firstRun, #critical-error-link {
+#intro-reminder-btn, #critical-error-link {
     background-color: #ff641c;
     border: 2px solid #ff641c;
     color: #fff;
     font-weight: bold;
     font-size: 16px;
     line-height: 1.5;
+    padding: 26px 10px 26px 10px;
     transition: background-color 0.3s ease;
     width: 100%;
 }
@@ -188,7 +189,7 @@ font-size: 16px;
     border-radius: 3px;
 }
 
-#firstRun:hover, #critical-error-link:hover {
+#intro-reminder-btn:hover, #critical-error-link:hover {
     background-color: #f58728;
 }
 .clickerContainer {
