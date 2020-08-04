@@ -180,7 +180,7 @@ font-size: 16px;
     font-weight: bold;
     font-size: 16px;
     line-height: 1.5;
-    padding: 26px 10px 26px 10px;
+    padding: 1.2em 1em;
     transition: background-color 0.3s ease;
     width: 100%;
 }
