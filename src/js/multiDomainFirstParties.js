@@ -2821,6 +2821,7 @@ let multiDomainFirstPartiesArray = [
     "the-voice-of-germany.at",
     "the-voice-of-germany.ch",
     "the-voice-of-germany.de",
+    "zappn.tv",
 
     "p7s1.io",
   ],
