@@ -846,11 +846,11 @@ Badger.prototype = {
   },
 
   isAlternateErrorPagesEnabled: function() {
-    return this.getSettings().getItem("alternateErrorPagesEnabled")
+    return this.getSettings().getItem("alternateErrorPagesEnabled");
   },
 
   isHyperlinkAuditingEnabled: function() {
-    return this.getSettings().getItem("hyperlinkAuditingEnabled")
+    return this.getSettings().getItem("hyperlinkAuditingEnabled");
   },
 
   /**
