@@ -439,7 +439,6 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     "justify-content: center",
     "text-align: center",
     "margin: 10px",
-    "width: 100%",
   ];
 
   let textDiv = document.createElement('div');
