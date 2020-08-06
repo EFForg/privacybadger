@@ -664,7 +664,14 @@ let getWidgetList = (function () {
 }());
 
 /**
- * Checks if given FQDN is temporarily unblocked on a tab.
+ * Checks if given request FQDN is temporarily unblocked on a tab.
+ *
+ * The request is allowed if any of the following is true:
+ *
+ *   - 1a) Request FQDN matches an entry on the exception list for the tab
+ *   - 1b) Request FQDN ends with a wildcard entry from the exception list
+ *   - 2a) Request is from a subframe whose FQDN matches an entry on the list
+ *   - 2b) Same but subframe's FQDN ends with a wildcard entry
  *
  * @param {Integer} tab_id the ID of the tab to check
  * @param {String} request_host the request FQDN to check
@@ -681,15 +688,18 @@ function allowedOnTab(tab_id, request_host, frame_id) {
 
   for (let exception of exceptions) {
     if (exception == request_host) {
-      return true;
+      return true; // 1a
     // leading wildcard
     } else if (exception[0] == "*") {
       if (request_host.endsWith(exception.slice(1))) {
-        return true;
+        return true; // 1b
       }
     }
   }
 
+  if (!frame_id) {
+    return false;
+  }
   let frameData = badger.getFrameData(tab_id, frame_id);
   if (!frameData || !frameData.host) {
     return false;
@@ -698,11 +708,11 @@ function allowedOnTab(tab_id, request_host, frame_id) {
   let frame_host = frameData.host;
   for (let exception of exceptions) {
     if (exception == frame_host) {
-      return true;
+      return true; // 2a
     // leading wildcard
     } else if (exception[0] == "*") {
       if (frame_host.endsWith(exception.slice(1))) {
-        return true;
+        return true; // 2b
       }
     }
   }
