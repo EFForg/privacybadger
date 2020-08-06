@@ -539,6 +539,10 @@
         "message": "Permetre-ho un cop",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
+    "allow_on_site": {
+        "message": "Always allow on this site",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
     "sync_intro": {
         "message": "Sincronització al núvol: <ul><li>Requereix Firefox/Chrome Sync</li><li>La càrrega sobreescriu qualsevol dada del Privacy Badger existent al núvol</li><li>La descàrrega fusiona les llistes dels llocs que heu deshabilitat al teixó (Badger)</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

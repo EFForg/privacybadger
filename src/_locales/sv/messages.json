@@ -539,6 +539,10 @@
         "message": "Tillåt en gång",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
+    "allow_on_site": {
+        "message": "Always allow on this site",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
     "sync_intro": {
         "message": "Molnsynkronisering:<ul><li>Kräver Firefox/Chrome Sync</li><li>Sändningen skriver över alla befintliga Privacy Badger-data i molnet</li><li>Hämtning kombinerar listorna över webbplatser där din Badger är inaktiverad</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

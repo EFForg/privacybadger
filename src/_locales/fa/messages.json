@@ -539,6 +539,10 @@
         "message": "یکبار اجازه دادن",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
+    "allow_on_site": {
+        "message": "Always allow on this site",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
     "sync_intro": {
         "message": "همگام سازی ابری: <ul><li>به همگام سازی فایرفاکس/کروم نیاز دارد</li><li>آپلود باعث دوباره نویسی داده پرایوسی بجر در کلود می شود</li><li>دانلود، لیست سایت هایی که پرایوسی بجر برای آن ها غیرفعال است را ترکیب میکند</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

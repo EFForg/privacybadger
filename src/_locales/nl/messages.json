@@ -539,6 +539,10 @@
         "message": "Eenmalig toestaan",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
+    "allow_on_site": {
+        "message": "Always allow on this site",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
     "sync_intro": {
         "message": "Synchroniseren met de cloud:<ul><li>Vereist Firefox/Chrome Sync</li><li>Uploaden overschrijft bestaande gegevens van Privacy Badger in de cloud.</li><li>Downloaden combineert de lijsten van websites waar Privacy Badger is uitgeschakeld.</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

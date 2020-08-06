@@ -539,6 +539,10 @@
         "message": "Bir kerelik izin ver",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
+    "allow_on_site": {
+        "message": "Always allow on this site",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
     "sync_intro": {
         "message": "Bulut senkronizasyonu:<ul><li>Firefox/Chrome Sync gerekir</li><li>Buluta yapılan yükleme, buluttaki Privacy Badger verisinin üstüne yazılır</li><li>İndirme işlemi Badger'ınızın engellediği sitelerin listelerini birleştirir</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

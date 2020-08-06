@@ -539,6 +539,10 @@
         "message": "한 번 허용",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
+    "allow_on_site": {
+        "message": "Always allow on this site",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
     "sync_intro": {
         "message": "클라우드 동기화:<ul><li>Firefox/Chrome 동기화가 필요합니다.</li><li>업로드는 클라우드에 있는 기존의 모든 Privacy Badger 데이터를 덮어씁니다.</li><li>다운로드는 Privacy Badger를 사용할 수 없는 사이트 목록을 결합합니다.</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

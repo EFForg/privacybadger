@@ -539,6 +539,10 @@
         "message": "Odblokuj jednorazowo",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
+    "allow_on_site": {
+        "message": "Always allow on this site",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
     "sync_intro": {
         "message": "Synchronizacja w chmurze:\n<ul>\n<li>wymaga usługi Firefox/Chrome Sync</li>\n<li>wysyłanie nadpisuje istniejące dane na serwerze</li>\n<li>pobranie łączy listy stron nieblokowanych przez Privacy Badgera</li>\n</ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."

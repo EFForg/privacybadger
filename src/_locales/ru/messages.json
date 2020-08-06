@@ -539,6 +539,10 @@
         "message": "Разрешить один раз",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
+    "allow_on_site": {
+        "message": "Always allow on this site",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
     "sync_intro": {
         "message": "Облачная синхронизация:<ul><li>Требуется Firefox/Chrome Sync</li><li>При загрузке все находящиеся в облаке данные Privacy Badger перезаписываются</li><li>При скачивании списки сайтов с отключенным Privacy Badger объединяются</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
