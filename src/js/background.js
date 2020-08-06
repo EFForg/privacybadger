@@ -652,9 +652,11 @@ Badger.prototype = {
    * Default Privacy Badger settings
    */
   defaultSettings: {
+    alternateErrorPagesEnabled: false,
     checkForDNTPolicy: true,
     disabledSites: [],
     hideBlockedElements: true,
+    hyperlinkAuditingEnabled: false,
     isFirstRun: true,
     learnInIncognito: false,
     migrationLevel: 0,
@@ -841,6 +843,14 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
+  },
+
+  isAlternateErrorPagesEnabled: function() {
+    return this.getSettings().getItem("alternateErrorPagesEnabled")
+  },
+
+  isHyperlinkAuditingEnabled: function() {
+    return this.getSettings().getItem("hyperlinkAuditingEnabled")
   },
 
   /**

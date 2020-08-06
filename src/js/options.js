@@ -114,8 +114,10 @@ function loadOptions() {
   $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.isDNTSignalEnabled);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
-  $("#alternateErrorPagesEnabled_checkbox").on("click", updateAlternateErrorPagesEnabledOption);
+  $("#alternateErrorPagesEnabled_checkbox").on("click", updateAlternateErrorPagesEnabled);
   $("#alternateErrorPagesEnabled_checkbox").prop("checked", OPTIONS_DATA.isAlternateErrorPagesEnabled);
+  $("#hyperlinkAuditingEnabled_checkbox").on("click", updateHyperlinkAuditingEnabled);
+  $("#hyperlinkAuditingEnabled_checkbox").prop("checked", OPTIONS_DATA.isHyperlinkAuditingEnabled);
 
   // only show the alternateErrorPagesEnabled checkbox if browser supports it
   if (!(chrome.privacy.services.alternateErrorPagesEnabled)) {
@@ -463,8 +465,8 @@ function updateCheckingDNTPolicy() {
   });
 }
 
-function updateAlternateErrorPagesEnabledOption() {
-  const alternateErrorPagesEnabled = $("#alternateErrorPagesEnabled_checkbox").prop("checked");
+function updateAlternateErrorPagesEnabled() {
+  const enabled = $("#alternateErrorPagesEnabled_checkbox").prop("checked");
 
   chrome.runtime.sendMessage({
     type: "updateSettings",
