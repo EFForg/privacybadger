@@ -589,18 +589,30 @@ BadgerStorage.prototype = {
   merge: function (mapData) {
     const self = this;
 
-    if (self.name === "settings_map") {
+    if (self.name == "settings_map") {
       for (let prop in mapData) {
-        if (prop === "disabledSites") {
-          // Add new sites to list of existing disabled sites
+        // combine array settings via intersection/union
+        if (prop == "disabledSites" || prop == "widgetReplacementExceptions") {
           self._store[prop] = _.union(self._store[prop], mapData[prop]);
+
+        // string/array map
+        } else if (prop == "widgetSiteAllowlist") {
+          // for every site host in the import
+          for (let site in mapData[prop]) {
+            // combine exception arrays
+            self._store[prop][site] = _.union(
+              self._store[prop][site],
+              mapData[prop][site]
+            );
+          }
+
+        // default: overwrite existing setting with setting from import
         } else {
-          // Overwrite existing setting with setting from import.
           self._store[prop] = mapData[prop];
         }
       }
 
-    } else if (self.name === "action_map") {
+    } else if (self.name == "action_map") {
       for (let domain in mapData) {
         let action = mapData[domain];
 
@@ -628,7 +640,7 @@ BadgerStorage.prototype = {
         }
       }
 
-    } else if (self.name === "snitch_map") {
+    } else if (self.name == "snitch_map") {
       for (let tracker_origin in mapData) {
         let firstPartyOrigins = mapData[tracker_origin];
         for (let i = 0; i < firstPartyOrigins.length; i++) {
