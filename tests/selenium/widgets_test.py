@@ -29,7 +29,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.set_up_widgets()
 
     def set_up_widgets(self):
-        """Reinitializes Privacy Badger's replacement widget definitions."""
+        """Reinitializes Privacy Badger's widget replacement definitions."""
 
         widgetsJson = {
             self.TYPE3_WIDGET_NAME: {
@@ -110,14 +110,13 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         try:
             self.switch_to_frame('iframe[srcdoc*="{}"]'.format(widget_name))
         except (StaleElementReferenceException, TimeoutException):
-            self.fail("Unable to find replacement frame")
+            self.fail("Unable to find widget placeholder frame")
 
         try:
-            self.wait_for_text('body', (
-                "Privacy Badger has replaced this {} widget"
-            ).format(widget_name))
+            self.find_el_by_css("button[id^='btn-once-']")
+            self.find_el_by_css("button[id^='btn-site-']")
         except TimeoutException:
-            self.fail("Unable to find expected replacement widget text")
+            self.fail("Unable to find expected widget placeholder buttons")
 
         self.driver.switch_to.default_content()
 
@@ -145,7 +144,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
             widget_name = self.TYPE3_WIDGET_NAME
         try:
             self.switch_to_frame('iframe[srcdoc*="{}"]'.format(widget_name))
-            self.fail("Replacement widget frame should be missing")
+            self.fail("Widget placeholder frame should be missing")
         except TimeoutException:
             pass
         self.driver.switch_to.default_content()
@@ -154,7 +153,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         if not widget_name:
             widget_name = self.TYPE3_WIDGET_NAME
         self.switch_to_frame('iframe[srcdoc*="{}"]'.format(widget_name))
-        self.find_el_by_css('button').click()
+        self.find_el_by_css("button[id^='btn-once-']").click()
         self.driver.switch_to.default_content()
 
     def test_replacement_basic(self):
