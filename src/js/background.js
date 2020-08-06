@@ -666,6 +666,7 @@ Badger.prototype = {
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
     widgetReplacementExceptions: [],
+    widgetSiteAllowlist: {},
   },
 
   /**

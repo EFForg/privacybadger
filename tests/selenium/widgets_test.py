@@ -26,10 +26,13 @@ class WidgetsTest(pbtest.PBSeleniumTest):
     TYPE4_WIDGET_CLASS = "pb-type4-test-widget"
 
     def setUp(self):
+        # TODO remove waiting after
+        # https://github.com/EFForg/privacybadger/pull/2604
+        sleep(1)
         self.set_up_widgets()
 
     def set_up_widgets(self):
-        """Reinitializes Privacy Badger's replacement widget definitions."""
+        """Reinitializes Privacy Badger's widget replacement definitions."""
 
         widgetsJson = {
             self.TYPE3_WIDGET_NAME: {
@@ -41,7 +44,6 @@ class WidgetsTest(pbtest.PBSeleniumTest):
                     "unblockDomains": [
                         self.THIRD_PARTY_DOMAIN
                     ],
-                    "imagePath": "badger-play.png",
                     "type": 3
                 }
             },
@@ -59,7 +61,6 @@ class WidgetsTest(pbtest.PBSeleniumTest):
                     "unblockDomains": [
                         self.THIRD_PARTY_DOMAIN
                     ],
-                    "imagePath": "badger-play.png",
                     "type": 4
                 }
             }
@@ -112,14 +113,13 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         try:
             self.switch_to_frame('iframe[srcdoc*="{}"]'.format(widget_name))
         except (StaleElementReferenceException, TimeoutException):
-            self.fail("Unable to find replacement frame")
+            self.fail("Unable to find widget placeholder frame")
 
         try:
-            self.wait_for_text('body', (
-                "Privacy Badger has replaced this {} widget"
-            ).format(widget_name))
+            self.find_el_by_css("button[id^='btn-once-']")
+            self.find_el_by_css("button[id^='btn-site-']")
         except TimeoutException:
-            self.fail("Unable to find expected replacement widget text")
+            self.fail("Unable to find expected widget placeholder buttons")
 
         self.driver.switch_to.default_content()
 
@@ -147,16 +147,17 @@ class WidgetsTest(pbtest.PBSeleniumTest):
             widget_name = self.TYPE3_WIDGET_NAME
         try:
             self.switch_to_frame('iframe[srcdoc*="{}"]'.format(widget_name))
-            self.fail("Replacement widget frame should be missing")
+            self.fail("Widget placeholder frame should be missing")
         except TimeoutException:
             pass
         self.driver.switch_to.default_content()
 
-    def activate_widget(self, widget_name=None):
+    def activate_widget(self, widget_name=None, once=True):
         if not widget_name:
             widget_name = self.TYPE3_WIDGET_NAME
+        id_prefix = 'btn-once' if once else 'btn-site'
         self.switch_to_frame('iframe[srcdoc*="{}"]'.format(widget_name))
-        self.find_el_by_css('button').click()
+        self.find_el_by_css("button[id^='%s']" % id_prefix).click()
         self.driver.switch_to.default_content()
 
     def test_replacement_basic(self):
@@ -193,9 +194,6 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         # verify the widget got replaced
         self.assert_replacement()
 
-    # TODO remove retrying after
-    # https://github.com/EFForg/privacybadger/pull/2604
-    @pbtest.repeat_if_failed(7)
     def test_activation(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
         self.load_url(self.BASIC_FIXTURE_URL)
@@ -225,6 +223,38 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.assertEqual(script_el.get_attribute('data-foo'), "bar")
 
         self.assert_widget("type4")
+
+    def test_activation_site(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.load_url(self.BASIC_FIXTURE_URL)
+        self.assert_replacement()
+
+        # click the "allow once" button
+        self.activate_widget()
+
+        # verify the original widget is restored
+        self.assert_widget()
+
+        # open a new window (to get around widget activation caching)
+        self.open_window()
+        self.load_url(self.BASIC_FIXTURE_URL)
+
+        # verify the widget got replaced
+        self.assert_replacement()
+
+        # click the "allow on site" button
+        self.activate_widget(once=False)
+
+        # verify the original widget is restored
+        self.assert_widget()
+
+        # open a new window (to get around widget activation caching)
+        self.open_window()
+        self.load_url(self.BASIC_FIXTURE_URL)
+
+        # verify basic widget is neither replaced nor blocked
+        self.assert_no_replacement()
+        self.assert_widget()
 
     def test_disabling_site(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)

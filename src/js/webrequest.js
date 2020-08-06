@@ -34,7 +34,7 @@ let constants = require("constants"),
   utils = require("utils");
 
 /************ Local Variables *****************/
-let tempAllowList = {};
+let tempAllowlist = {};
 
 /***************** Blocking Listener Functions **************/
 
@@ -51,8 +51,11 @@ function onBeforeRequest(details) {
     url = details.url;
 
   if (type == "main_frame") {
-    forgetTab(tab_id);
+    let oldTabData = badger.getFrameData(tab_id),
+      is_reload = oldTabData && oldTabData.url == url;
+    forgetTab(tab_id, is_reload);
     badger.recordFrame(tab_id, frame_id, url);
+    initializeAllowedWidgets(tab_id, badger.getFrameData(tab_id).host);
     return {};
   }
 
@@ -330,14 +333,21 @@ function onNavigate(details) {
     return;
   }
 
+  let oldTabData = badger.getFrameData(tab_id),
+    is_reload = oldTabData && oldTabData.url == url;
+
+  forgetTab(tab_id, is_reload);
+
   // forget but don't initialize on special browser/extension pages
   if (utils.isRestrictedUrl(url)) {
-    forgetTab(tab_id);
     return;
   }
 
-  forgetTab(tab_id);
   badger.recordFrame(tab_id, 0, url);
+
+  let tab_host = badger.getFrameData(tab_id).host;
+
+  initializeAllowedWidgets(tab_id, tab_host);
 
   // initialize tab data bookkeeping used by heuristicBlockingAccounting()
   // to avoid missing or misattributing learning
@@ -346,7 +356,7 @@ function onNavigate(details) {
   //
   // see the tabOrigins TODO in heuristicblocking.js
   // as to why we don't just use tabData
-  let base = window.getBaseDomain(badger.tabData[tab_id].frames[0].host);
+  let base = window.getBaseDomain(tab_host);
   badger.heuristicBlocking.tabOrigins[tab_id] = base;
   badger.heuristicBlocking.tabUrls[tab_id] = url;
 }
@@ -483,10 +493,13 @@ function recordFingerprinting(tabId, msg) {
  * Cleans up tab-specific data.
  *
  * @param {Integer} tab_id the ID of the tab
+ * @param {Boolean} is_reload whether the page is simply being reloaded
  */
-function forgetTab(tab_id) {
+function forgetTab(tab_id, is_reload) {
   delete badger.tabData[tab_id];
-  delete tempAllowList[tab_id];
+  if (!is_reload) {
+    delete tempAllowlist[tab_id];
+  }
 }
 
 /**
@@ -570,6 +583,7 @@ let getWidgetList = (function () {
       placeholders: ["XXX"]
     },
     { key: "allow_once" },
+    { key: "allow_on_site" },
   ];
 
   return function (tab_id) {
@@ -650,7 +664,14 @@ let getWidgetList = (function () {
 }());
 
 /**
- * Checks if given FQDN is temporarily unblocked on a tab.
+ * Checks if given request FQDN is temporarily unblocked on a tab.
+ *
+ * The request is allowed if any of the following is true:
+ *
+ *   - 1a) Request FQDN matches an entry on the exception list for the tab
+ *   - 1b) Request FQDN ends with a wildcard entry from the exception list
+ *   - 2a) Request is from a subframe whose FQDN matches an entry on the list
+ *   - 2b) Same but subframe's FQDN ends with a wildcard entry
  *
  * @param {Integer} tab_id the ID of the tab to check
  * @param {String} request_host the request FQDN to check
@@ -659,23 +680,26 @@ let getWidgetList = (function () {
  * @returns {Boolean} true if FQDN is on the temporary allow list
  */
 function allowedOnTab(tab_id, request_host, frame_id) {
-  if (!tempAllowList.hasOwnProperty(tab_id)) {
+  if (!tempAllowlist.hasOwnProperty(tab_id)) {
     return false;
   }
 
-  let exceptions = tempAllowList[tab_id];
+  let exceptions = tempAllowlist[tab_id];
 
   for (let exception of exceptions) {
     if (exception == request_host) {
-      return true;
+      return true; // 1a
     // leading wildcard
     } else if (exception[0] == "*") {
       if (request_host.endsWith(exception.slice(1))) {
-        return true;
+        return true; // 1b
       }
     }
   }
 
+  if (!frame_id) {
+    return false;
+  }
   let frameData = badger.getFrameData(tab_id, frame_id);
   if (!frameData || !frameData.host) {
     return false;
@@ -684,16 +708,32 @@ function allowedOnTab(tab_id, request_host, frame_id) {
   let frame_host = frameData.host;
   for (let exception of exceptions) {
     if (exception == frame_host) {
-      return true;
+      return true; // 2a
     // leading wildcard
     } else if (exception[0] == "*") {
       if (frame_host.endsWith(exception.slice(1))) {
-        return true;
+        return true; // 2b
       }
     }
   }
 
   return false;
+}
+
+/**
+ * @returns {Array|Boolean} the list of associated domains or false
+ */
+function getWidgetDomains(widget_name) {
+  let widgetData = badger.widgetList.find(
+    widget => widget.name == widget_name);
+
+  if (!widgetData ||
+      !widgetData.hasOwnProperty("replacementButton") ||
+      !widgetData.replacementButton.unblockDomains) {
+    return false;
+  }
+
+  return widgetData.replacementButton.unblockDomains;
 }
 
 /**
@@ -703,11 +743,29 @@ function allowedOnTab(tab_id, request_host, frame_id) {
  * @param {Array} domains the domains
  */
 function allowOnTab(tab_id, domains) {
-  if (!tempAllowList.hasOwnProperty(tab_id)) {
-    tempAllowList[tab_id] = [];
+  if (!tempAllowlist.hasOwnProperty(tab_id)) {
+    tempAllowlist[tab_id] = [];
   }
   for (let domain of domains) {
-    tempAllowList[tab_id].push(domain);
+    if (!tempAllowlist[tab_id].includes(domain)) {
+      tempAllowlist[tab_id].push(domain);
+    }
+  }
+}
+
+/**
+ * Called upon navigation to prepopulate the temporary allowlist
+ * with domains for widgets marked as always allowed on a given site.
+ */
+function initializeAllowedWidgets(tab_id, tab_host) {
+  let allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist');
+  if (allowedWidgets.hasOwnProperty(tab_host)) {
+    for (let widget_name of allowedWidgets[tab_host]) {
+      let widgetDomains = getWidgetDomains(widget_name);
+      if (widgetDomains) {
+        allowOnTab(tab_id, widgetDomains);
+      }
+    }
   }
 }
 
@@ -719,6 +777,7 @@ function dispatcher(request, sender, sendResponse) {
   if (!sender.url.startsWith(chrome.runtime.getURL(""))) {
     // reject unless it's a known content script message
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
+      "allowWidgetOnSite",
       "checkDNT",
       "checkEnabled",
       "checkEnabledAndThirdParty",
@@ -770,14 +829,26 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "unblockWidget": {
-    let widgetData = badger.widgetList.find(
-      widget => widget.name == request.widgetName);
-    if (!widgetData ||
-        !widgetData.hasOwnProperty("replacementButton") ||
-        !widgetData.replacementButton.unblockDomains) {
+    let widgetDomains = getWidgetDomains(request.widgetName);
+    if (!widgetDomains) {
       return sendResponse();
     }
-    allowOnTab(sender.tab.id, widgetData.replacementButton.unblockDomains);
+    allowOnTab(sender.tab.id, widgetDomains);
+    sendResponse();
+    break;
+  }
+
+  case "allowWidgetOnSite": {
+    // record that we always want to activate this widget on this site
+    let tab_host = window.extractHostFromURL(sender.tab.url),
+      allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist');
+    if (!allowedWidgets.hasOwnProperty(tab_host)) {
+      allowedWidgets[tab_host] = [];
+    }
+    if (!allowedWidgets[tab_host].includes(request.widgetName)) {
+      allowedWidgets[tab_host].push(request.widgetName);
+      badger.getSettings().setItem('widgetSiteAllowlist', allowedWidgets);
+    }
     sendResponse();
     break;
   }

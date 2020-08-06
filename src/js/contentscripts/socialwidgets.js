@@ -84,6 +84,13 @@ function initialize(response) {
 function createReplacementElement(widget, trackerElem, callback) {
   let buttonData = widget.replacementButton;
 
+  // no image data to fetch
+  if (!buttonData.hasOwnProperty('imagePath')) {
+    return setTimeout(function () {
+      _createReplacementElementCallback(widget, trackerElem, callback);
+    }, 0);
+  }
+
   // already have replacement button image URI cached
   if (buttonData.buttonUrl) {
     return setTimeout(function () {
@@ -91,7 +98,9 @@ function createReplacementElement(widget, trackerElem, callback) {
     }, 0);
   }
 
+  // already messaged for but haven't yet received the image data
   if (buttonData.loading) {
+    // check back in 10 ms
     return setTimeout(function () {
       createReplacementElement(widget, trackerElem, callback);
     }, 10);
@@ -111,21 +120,25 @@ function createReplacementElement(widget, trackerElem, callback) {
 }
 
 function _createReplacementElementCallback(widget, trackerElem, callback) {
+  if (widget.replacementButton.buttonUrl) {
+    _createButtonReplacement(widget, trackerElem, callback);
+  } else {
+    _createWidgetReplacement(widget, trackerElem, callback);
+  }
+}
+
+function _createButtonReplacement(widget, trackerElem, callback) {
   let buttonData = widget.replacementButton,
     button_type = buttonData.type;
 
   let button = document.createElement("img");
   button.setAttribute("src", buttonData.buttonUrl);
 
-  // apply tooltip to social button replacements only;
-  // no need to do this for replacement widgets
-  if (button_type < 3) {
-    // TODO use custom tooltip to support RTL locales?
-    button.setAttribute(
-      "title",
-      TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", widget.name)
-    );
-  }
+  // TODO use custom tooltip to support RTL locales?
+  button.setAttribute(
+    "title",
+    TRANSLATIONS.social_tooltip_pb_has_replaced.replace("XXX", widget.name)
+  );
 
   let styleAttrs = [
     "border: none",
@@ -158,26 +171,44 @@ function _createReplacementElementCallback(widget, trackerElem, callback) {
     button.addEventListener("click", function () {
       replaceButtonWithHtmlCodeAndUnblockTracker(button, widget.name, buttonData.details);
     }, { once: true });
-
-  // in-place widget type:
-  // reinitialize the widget by reinserting its element's HTML
-  } else if (button_type == 3) {
-    let replacementEl = createReplacementWidget(
-      widget, button, trackerElem, reinitializeWidgetAndUnblockTracker);
-    return callback(replacementEl);
-
-  // in-place widget type:
-  // reinitialize the widget by reinserting its element's HTML
-  // and activating associated scripts
-  } else if (button_type == 4) {
-    let replacementEl = createReplacementWidget(
-      widget, button, trackerElem, replaceWidgetAndReloadScripts);
-    return callback(replacementEl);
   }
 
   callback(button);
 }
 
+function _createWidgetReplacement(widget, trackerElem, callback) {
+  let replacementEl;
+
+  // in-place widget type:
+  // reinitialize the widget by reinserting its element's HTML
+  if (widget.replacementButton.type == 3) {
+    replacementEl = createReplacementWidget(
+      widget, trackerElem, reinitializeWidgetAndUnblockTracker);
+
+  // in-place widget type:
+  // reinitialize the widget by reinserting its element's HTML
+  // and activating associated scripts
+  } else if (widget.replacementButton.type == 4) {
+    let activationFn = replaceWidgetAndReloadScripts;
+
+    // if there are no matching script elements
+    if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
+      // and we don't have a fallback script URL
+      if (!widget.fallbackScriptUrl) {
+        // we can't do "in-place" activation; reload the page instead
+        activationFn = function () {
+          unblockTracker(widget.name, function () {
+            location.reload();
+          });
+        };
+      }
+    }
+
+    replacementEl = createReplacementWidget(widget, trackerElem, activationFn);
+  }
+
+  callback(replacementEl);
+}
 
 /**
  * Unblocks the given widget and replaces the given button with an iframe
@@ -355,21 +386,31 @@ function replaceSubsequentTrackerButtonsHelper(tracker_domain) {
   });
 }
 
-function createReplacementWidget(widget, icon, elToReplace, activationFn) {
+function _make_id(prefix) {
+  return prefix + "-" + Math.random().toString().replace(".", "");
+}
+
+function createReplacementWidget(widget, elToReplace, activationFn) {
   let name = widget.name;
 
   let widgetFrame = document.createElement('iframe');
 
   // widget replacement frame styles
+  let border_width = 1;
   let styleAttrs = [
     "background-color: #fff",
-    "border: 1px solid #ec9329",
-    "width:" + elToReplace.clientWidth + "px",
-    "height:" + elToReplace.clientHeight + "px",
+    "border: " + border_width + "px solid #ec9329",
     "min-width: 220px",
-    "min-height: 165px",
+    "min-height: 210px",
+    "max-height: 600px",
     "z-index: 2147483647",
   ];
+  if (elToReplace.offsetWidth > 0) {
+    styleAttrs.push(`width: ${elToReplace.offsetWidth - 2*border_width}px`);
+  }
+  if (elToReplace.offsetHeight > 0) {
+    styleAttrs.push(`height: ${elToReplace.offsetHeight - 2*border_width}px`);
+  }
   widgetFrame.style = styleAttrs.join(" !important;") + " !important";
 
   let widgetDiv = document.createElement('div');
@@ -390,48 +431,63 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
 
   // child div styles
   styleAttrs = [
+    "color: #303030",
+    "font-family: helvetica, arial, sans-serif",
+    "font-size: 16px",
     "display: flex",
-    "align-items: center",
+    "flex-wrap: wrap",
     "justify-content: center",
     "text-align: center",
     "margin: 10px",
-    "width: 100%",
   ];
 
   let textDiv = document.createElement('div');
   textDiv.style = styleAttrs.join(" !important;") + " !important";
   textDiv.appendChild(document.createTextNode(
     TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
+  let infoIcon = document.createElement('a'),
+    info_icon_id = _make_id("ico-help");
+  infoIcon.id = info_icon_id;
+  infoIcon.href = "https://privacybadger.org/#How-does-Privacy-Badger-handle-social-media-widgets";
+  infoIcon.rel = "noreferrer";
+  infoIcon.target = "_blank";
+  textDiv.appendChild(infoIcon);
   widgetDiv.appendChild(textDiv);
 
   let buttonDiv = document.createElement('div');
   buttonDiv.style = styleAttrs.join(" !important;") + " !important";
 
-  // "allow once" button
-  let button = document.createElement('button');
-  let button_id = Math.random();
+  // allow once button
+  let button = document.createElement('button'),
+    button_id = _make_id("btn-once");
   button.id = button_id;
   styleAttrs = [
-    "background-color: #fff",
-    "border: 2px solid #ec9329",
+    "transition: background-color 0.25s ease-out, border-color 0.25s ease-out, color 0.25s ease-out",
     "border-radius: 3px",
-    "color: #ec9329",
     "cursor: pointer",
+    "font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif",
+    "font-size: 12px",
     "font-weight: bold",
-    "line-height: 30px",
-    "padding: 8px",
+    "line-height: 16px",
+    "padding: 10px",
+    "margin: 4px",
+    "text-align: center",
+    "width: 70%",
+    "max-width: 280px",
   ];
   button.style = styleAttrs.join(" !important;") + " !important";
 
-  icon.style.setProperty("margin", "0 5px", "important");
-  icon.style.setProperty("height", "30px", "important");
-  icon.style.setProperty("vertical-align", "middle", "important");
-  icon.setAttribute("alt", "");
-  button.appendChild(icon);
+  // allow on this site button
+  let site_button = document.createElement('button'),
+    site_button_id = _make_id("btn-site");
+  site_button.id = site_button_id;
+  site_button.style = styleAttrs.join(" !important;") + " !important";
 
   button.appendChild(document.createTextNode(TRANSLATIONS.allow_once));
+  site_button.appendChild(document.createTextNode(TRANSLATIONS.allow_on_site));
 
   buttonDiv.appendChild(button);
+  buttonDiv.appendChild(site_button);
 
   widgetDiv.appendChild(buttonDiv);
 
@@ -454,14 +510,77 @@ function createReplacementWidget(widget, icon, elToReplace, activationFn) {
 
   // set up click handler
   widgetFrame.addEventListener('load', function () {
-    let el = widgetFrame.contentDocument.getElementById(button_id);
-    el.addEventListener("click", function (e) {
-      activationFn(name);
-      e.preventDefault();
-    }, { once: true });
-  }, false);
+    let onceButton = widgetFrame.contentDocument.getElementById(button_id),
+      siteButton = widgetFrame.contentDocument.getElementById(site_button_id);
 
-  widgetFrame.srcdoc = '<html><head><style>html, body { height: 100%; overflow: hidden; }</style></head><body>' + widgetDiv.outerHTML + '</body></html>';
+    onceButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      activationFn(name);
+    }, { once: true });
+
+    siteButton.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // first message the background page to record that
+      // this widget should always be allowed on this site
+      chrome.runtime.sendMessage({
+        type: "allowWidgetOnSite",
+        widgetName: name
+      }, function () {
+        activationFn(name);
+      });
+    }, { once: true });
+
+  }, false); // end of click handler
+
+  let head_styles = `
+html, body {
+  height: 100% !important;
+  overflow: hidden !important;
+}
+#${button_id} {
+  border: 2px solid #f06a0a !important;
+  background-color: #f06a0a !important;
+  color: #fefefe !important;
+}
+#${site_button_id} {
+  border: 2px solid #333 !important;
+  background-color: #fefefe !important;
+  color: #333 !important;
+}
+#${button_id}:hover {
+  background-color: #fefefe !important;
+  color: #333 !important;
+}
+#${site_button_id}:hover {
+  background-color: #fefefe !important;
+  border: 2px solid #f06a0a !important;
+}
+#${info_icon_id} {
+  position: absolute;
+  ${TRANSLATIONS.rtl ? "left" : "right"}: 4px;
+  top: 4px;
+  line-height: 12px;
+  text-decoration: none;
+}
+#${info_icon_id}:before {
+  border: 2px solid;
+  border-radius: 50%;
+  display: inline-block;
+  color: #555;
+  content: '?';
+  font-size: 12px;
+  font-weight: bold;
+  padding: 1px;
+  height: 1em;
+  width: 1em;
+}
+#${info_icon_id}:hover:before {
+  color: #ec9329;
+}
+  `.trim();
+
+  widgetFrame.srcdoc = '<html><head><style>' + head_styles + '</style></head><body style="margin:0">' + widgetDiv.outerHTML + '</body></html>';
 
   return widgetFrame;
 }
