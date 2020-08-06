@@ -22,7 +22,6 @@ class CookieTest(pbtest.PBSeleniumTest):
             "first_party_cookie.html"
         ), "Set 1st party cookie")
 
-    @unittest.skip("Until we update fixtures to set SameSite=None cookies")
     def test_cookie_tracker_detection(self):
         """Tests basic cookie tracking. The tracking site has no DNT file,
         and gets blocked by PB.
