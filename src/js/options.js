@@ -122,6 +122,11 @@ function loadOptions() {
     $("#alternateErrorPagesEnabled").hide();
   }
 
+  // only show the hyperlinkAuditingEnabled checkbox if browser supports it
+  if (!(chrome.privacy.websites.hyperlinkAuditingEnabled)) {
+    $("#hyperlinkAuditingEnabled").hide();
+  }
+
   if (OPTIONS_DATA.webRTCAvailable) {
     $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
 
@@ -463,7 +468,20 @@ function updateAlternateErrorPagesEnabledOption() {
 
   chrome.runtime.sendMessage({
     type: "updateSettings",
-    data: { alternateErrorPagesEnabled }
+    data: {
+      alternateErrorPagesEnabled: enabled
+    }
+  });
+}
+
+function updateHyperlinkAuditingEnabled() {
+  const enabled = $("#hyperlinkAuditingEnabled_checkbox").prop("checked");
+
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      hyperlinkAuditingEnabled: enabled
+    }
   });
 }
 
