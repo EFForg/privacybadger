@@ -277,8 +277,9 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         self.load_options_page()
         self.select_domain_list_tab()
-        if original_action == "allow":
-            self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
+        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
+        # wait for sliders to finish rendering
+        self.wait_for_script("return window.SLIDERS_DONE")
 
         # Change user preferences
         self.user_overwrite("pbtest.org", overwrite_action)
@@ -286,6 +287,9 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # Re-open the tab
         self.load_options_page()
         self.select_domain_list_tab()
+        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
+        # wait for sliders to finish rendering
+        self.wait_for_script("return window.SLIDERS_DONE")
 
         # Check the user preferences for the origins are still displayed
         failure_msg = (
@@ -312,6 +316,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
     def test_tracking_user_overwrite_blocked_cookieblock(self):
         self.tracking_user_overwrite('block', 'cookieblock')
 
+    # TODO do we still want this test?
     def test_tracking_user_overwrite_on_scroll(self):
         # Create a bunch of origins with random actions
         origins = {}
@@ -332,7 +337,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         self.select_domain_list_tab()
         self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
-        time.sleep(1) # wait for domains to rerender
+        # wait for sliders to finish rendering
+        self.wait_for_script("return window.SLIDERS_DONE")
 
         # Scroll until the first generated origin is added to the html
         self.scroll_to_bottom()
@@ -365,7 +371,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         self.select_domain_list_tab()
         self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
-        time.sleep(1) # wait for domains to rerender
+        # wait for sliders to finish rendering
+        self.wait_for_script("return window.SLIDERS_DONE")
         self.scroll_to_bottom()
         self.scroll_to_bottom()
         self.scroll_to_origin('pbtest50-generated.org')

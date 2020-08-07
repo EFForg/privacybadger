@@ -16,6 +16,7 @@
  */
 
 window.OPTIONS_INITIALIZED = false;
+window.SLIDERS_DONE = false;
 
 const TOOLTIP_CONF = {
   maxWidth: 200
@@ -646,68 +647,52 @@ function filterTrackingDomains() {
 }
 
 /**
- * Adds more origins to the blocked resources list on scroll.
+ * Renders the list of tracking domains.
  *
-*/
-function addOrigins(e) {
-  let domains = e.data;
-  if (!domains.length) {
-    return;
-  }
-
-  let el = e.target;
-  let total_height = el.scrollHeight - el.clientHeight;
-  if ((total_height - el.scrollTop) >= 400) {
-    return;
-  }
-
-  for (let i = 0; (i < 50) && (domains.length > 0); i++) {
-    let domain = domains.shift();
-    let action = getOriginAction(domain);
-    if (action) {
-      let show_breakage_warning = (
-        action == constants.USER_BLOCK &&
-        OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
-      );
-      $(el).append(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
-    }
-  }
-
-  // activate tooltips
-  $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
-    htmlUtils.DOMAIN_TOOLTIP_CONF);
-}
-
-/**
- * Displays list of tracking domains along with toggle controls.
- * @param {Array} domains Tracking domains to display.
+ * @param {Array} domains
  */
 function showTrackingDomains(domains) {
+  window.SLIDERS_DONE = false;
   domains = htmlUtils.sortDomains(domains);
 
-  // Create HTML for the initial list of tracking domains.
-  let out = '';
-  for (let i = 0; (i < 50) && (domains.length > 0); i++) {
-    let domain = domains.shift();
+  let out = [];
+  for (let domain of domains) {
     let action = getOriginAction(domain);
     if (action) {
       let show_breakage_warning = (
         action == constants.USER_BLOCK &&
         OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
       );
-      out += htmlUtils.getOriginHtml(domain, action, show_breakage_warning);
+      out.push(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
     }
   }
 
-  // Display tracking domains.
-  $('#blockedResourcesInner').html(out);
+  function renderDomains() {
+    const CHUNK = 100;
 
-  $('#blockedResourcesInner').off("scroll");
-  $('#blockedResourcesInner').on("scroll", domains, addOrigins);
+    let $printable = $(out.splice(0, CHUNK).join(""));
 
-  // activate tooltips
-  $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
-    htmlUtils.DOMAIN_TOOLTIP_CONF);
+    $printable.appendTo('#blockedResourcesInner');
+
+    // activate tooltips
+    // TODO disabled for performance reasons
+    //$('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
+    //  htmlUtils.DOMAIN_TOOLTIP_CONF);
+
+    if (out.length) {
+      requestAnimationFrame(renderDomains);
+    } else {
+      window.SLIDERS_DONE = true;
+    }
+  }
+
+  $('#blockedResourcesInner').empty();
+
+  if (out.length) {
+    requestAnimationFrame(renderDomains);
+  } else {
+    window.SLIDERS_DONE = true;
+  }
 }
 
 /**
@@ -760,10 +745,11 @@ function updateOrigin(origin, action, userset) {
   htmlUtils.toggleBlockedStatus($clicker, userset, show_breakage_warning);
 
   // reinitialize the domain tooltip
-  $clicker.find('.origin-inner').tooltipster('destroy');
-  $clicker.find('.origin-inner').attr(
-    'title', htmlUtils.getActionDescription(action, origin));
-  $clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
+  // TODO disabled for performance reasons
+  //$clicker.find('.origin-inner').tooltipster('destroy');
+  //$clicker.find('.origin-inner').attr(
+  //  'title', htmlUtils.getActionDescription(action, origin));
+  //$clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 }
 
 /**
