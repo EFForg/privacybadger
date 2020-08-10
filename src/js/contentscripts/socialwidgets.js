@@ -455,6 +455,7 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   widgetDiv.appendChild(textDiv);
 
   let buttonDiv = document.createElement('div');
+  styleAttrs.push("width: 100%");
   buttonDiv.style = styleAttrs.join(" !important;") + " !important";
 
   // allow once button
