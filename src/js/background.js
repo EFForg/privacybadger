@@ -39,6 +39,8 @@ function Badger() {
   let self = this;
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
+  self.alternateErrorPagesAvailable = checkAlternateErrorPagesSupport();
+  self.hyperlinkAuditingAvailable = checkHyperlinkAuditingSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
   self.setPrivacyOverrides();
 
@@ -142,6 +144,24 @@ function Badger() {
     }
 
     return available;
+  }
+
+  // checks for availability of alternateErrorPagesEnabled option on browser
+  function checkAlternateErrorPagesSupport() {
+    if (!chrome.privacy.services.alternateErrorPagesEnabled) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  // checks for availability of hyperlinkAuditingEnabled option on browser
+  function checkHyperlinkAuditingSupport() {
+    if (!chrome.privacy.websites.hyperlinkAuditingEnabled) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /**
