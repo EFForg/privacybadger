@@ -374,7 +374,7 @@
         "description": "Checkbox label for enabling/disabling the alternateErrorPagesEnabled option, found on the general settings page"
     },
     "options_hyperlinkAuditingEnabled_checkbox": {
-        "message": "Disable \"<a href'https://www.wilderssecurity.com/threads/major-browsers-to-prevent-disabling-of-click-tracking-privacy-risk.415381/#post-2822723' target='_blank'>hyperlink auditing</a>\" in Chrome Browser",
+        "message": "Disable \"<a href='https://www.wilderssecurity.com/threads/major-browsers-to-prevent-disabling-of-click-tracking-privacy-risk.415381/#post-2822723' target='_blank'>hyperlink auditing</a>\" in Chrome Browser",
         "description": "Checkbox label for enabling/disabling the hyperlinkAuditingEnabled option, found on the general settings page"
     },
     "options_domain_filter_user": {

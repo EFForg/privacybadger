@@ -128,7 +128,7 @@ function loadOptions() {
       if (result.value == false) {
         $('#alternateErrorPagesEnabled_checkbox').prop("checked", true);
       }
-    })
+    });
   }
 
   // only show the hyperlinkAuditingEnabled checkbox if browser supports it
@@ -140,7 +140,7 @@ function loadOptions() {
       if (result.value == false) {
         $('#hyperlinkAuditingEnabled_checkbox').prop("checked", true);
       }
-    })
+    });
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {
