@@ -3208,6 +3208,7 @@ let multiDomainFirstPartiesArray = [
   ["squareup.com", "cash.app", "mkt.com", "squarecdn.com"],
   ["steampowered.com", "steamstatic.com", "steamcommunity.com"],
   ["suning.com", "suning.cn", "hksuning.com"],
+  ["target.com", "targetimg1.com"],
   ["techdata.com", "techdata.ch"],
   ["telegram.org", "telegram.me", "t.me"],
   ["telekom.com", "t-online.de"],
