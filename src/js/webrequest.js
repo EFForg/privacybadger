@@ -86,11 +86,7 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  // log the third-party domain asynchronously
-  // (don't block a critical code path on updating the badge)
-  setTimeout(function () {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
-  }, 0);
+  badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
@@ -180,10 +176,7 @@ function onBeforeSendHeaders(details) {
   let action = checkAction(tab_id, request_host, frame_id);
 
   if (action) {
-    // log the third-party domain asynchronously
-    setTimeout(function () {
-      badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
-    }, 0);
+    badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -279,10 +272,7 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  // log the third-party domain asynchronously
-  setTimeout(function () {
-    badger.logThirdPartyOriginOnTab(tab_id, response_host, action);
-  }, 0);
+  badger.logThirdPartyOriginOnTab(tab_id, response_host, action);
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};

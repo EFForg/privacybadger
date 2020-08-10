@@ -29,10 +29,12 @@ QUnit.module("tabData", {
 function() {
   QUnit.module("logThirdPartyOriginOnTab", {
     beforeEach: function () {
+      this.clock = sinon.useFakeTimers();
       sinon.stub(chrome.browserAction, "setBadgeText");
     },
     afterEach: function () {
       chrome.browserAction.setBadgeText.restore();
+      this.clock.restore();
     },
   });
 
@@ -48,6 +50,7 @@ function() {
 
     // log blocked domain
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
@@ -63,6 +66,7 @@ function() {
 
   QUnit.test("logging unblocked domain", function (assert) {
     badger.logThirdPartyOriginOnTab(this.tabId, "example.com", constants.ALLOW);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
@@ -78,6 +82,7 @@ function() {
 
   QUnit.test("logging DNT-compliant domain", function (assert) {
     badger.logThirdPartyOriginOnTab(this.tabId, "example.com", constants.DNT);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId), 0, "count stays at zero"
     );
@@ -92,12 +97,14 @@ function() {
 
     // log unblocked domain
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.ALLOW);
+    this.clock.tick(1);
 
     // set up domain blocking (used by getTrackerCount)
     badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
 
     // log the same domain, this time as blocked
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
@@ -119,6 +126,7 @@ function() {
 
     // log blocked domain
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
@@ -133,6 +141,7 @@ function() {
 
     // log the same blocked domain again
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId),
       1,
@@ -149,13 +158,16 @@ function() {
 
     // log unblocked domain twice
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.ALLOW);
+    this.clock.tick(1);
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.ALLOW);
+    this.clock.tick(1);
 
     // set up domain blocking (used by getTrackerCount)
     badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
 
     // log blocked domain
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
@@ -170,6 +182,7 @@ function() {
 
     // log the same blocked domain again
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.BLOCK);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId),
       1,
@@ -189,6 +202,7 @@ function() {
 
     // log cookieblocked domain
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN, constants.COOKIEBLOCK);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
@@ -212,6 +226,7 @@ function() {
 
     // log blocked domain
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN1, constants.BLOCK);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
@@ -226,6 +241,7 @@ function() {
 
     // log cookieblocked domain
     badger.logThirdPartyOriginOnTab(this.tabId, DOMAIN2, constants.COOKIEBLOCK);
+    this.clock.tick(1);
     assert.equal(
       badger.getTrackerCount(this.tabId), 2, "count gets incremented again"
     );

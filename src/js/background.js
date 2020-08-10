@@ -963,7 +963,10 @@ Badger.prototype = {
       return;
     }
 
-    self.updateBadge(tab_id);
+    // don't block critical code paths on updating the badge
+    setTimeout(function () {
+      self.updateBadge(tab_id);
+    }, 0);
   },
 
   /**
