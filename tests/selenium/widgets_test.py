@@ -81,7 +81,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         ), widgetsJson)
 
     def switch_to_frame(self, selector):
-        self.wait_for_and_switch_to_frame(selector, timeout=3)
+        self.wait_for_and_switch_to_frame(selector, timeout=1)
 
     def assert_widget(self, kind="type3"):
         if kind == "type3":
