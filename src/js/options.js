@@ -120,13 +120,27 @@ function loadOptions() {
   $("#hyperlinkAuditingEnabled_checkbox").prop("checked", OPTIONS_DATA.isHyperlinkAuditingEnabled);
 
   // only show the alternateErrorPagesEnabled checkbox if browser supports it
-  if (!(chrome.privacy.services.alternateErrorPagesEnabled)) {
+  if (!OPTIONS_DATA.alternateErrorPagesAvailable) {
     $("#alternateErrorPagesEnabled").hide();
+  } else {
+    // check the select box if it is already disabled in the browser
+    chrome.privacy.services.alternateErrorPagesEnabled.get({}, result => {
+      if (result.value == false) {
+        $('#alternateErrorPagesEnabled_checkbox').prop("checked", true);
+      }
+    })
   }
 
   // only show the hyperlinkAuditingEnabled checkbox if browser supports it
-  if (!(chrome.privacy.websites.hyperlinkAuditingEnabled)) {
+  if (!OPTIONS_DATA.hyperlinkAuditingAvailable) {
     $("#hyperlinkAuditingEnabled").hide();
+  } else {
+    // check the select box if it is already disabled in the browser
+    chrome.privacy.websites.hyperlinkAuditingEnabled.get({}, result => {
+      if (result.value == false) {
+        $('#hyperlinkAuditingEnabled_checkbox').prop("checked", true);
+      }
+    })
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {
