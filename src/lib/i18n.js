@@ -52,7 +52,7 @@ function setTextDirection() {
   // popup page
   if (document.location.pathname == "/skin/popup.html") {
     // fix floats
-    ['#privacyBadgerHeader img', '#header-image-stack', '#instruction img', '#version'].forEach((selector) => {
+    ['#privacyBadgerHeader img', '#header-image-stack', '#instruction-logo', '#version'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
     ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
@@ -60,12 +60,12 @@ function setTextDirection() {
     });
 
     // fix margin
-    ['#options'].forEach(selector => {
+    ['#options', '#fittslaw'].forEach(selector => {
       swap_css_property(selector, "margin-right", "margin-left");
     });
 
     // fix padding
-    ['#instruction img'].forEach((selector) => {
+    ['#instruction-logo'].forEach((selector) => {
       swap_css_property(selector, "padding-right", "padding-left");
     });
 
