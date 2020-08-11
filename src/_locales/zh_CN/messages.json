@@ -222,7 +222,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "导入用户数据：<ul><li>覆盖通用设置</li><li>结合已禁用站点列表</li><li>结合隐私獾探测到的追踪器信息</li><li>覆盖自定义滑块设置</li></ul>",
+        "message": "导入用户数据将会：<ul><li>覆盖通用设置</li><li>与已禁用站点列表合并</li><li>与隐私獾探测到的追踪器信息合并</li><li>覆盖自定义滑块设置</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
