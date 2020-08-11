@@ -119,6 +119,25 @@ function onBeforeRequest(details) {
 
   if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
     setTimeout(function () {
+      // don't hide widget frames
+      if (badger.isWidgetReplacementEnabled()) {
+        let exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
+        for (let widget of badger.widgetList) {
+          if (exceptions.includes(widget.name)) {
+            continue;
+          }
+          for (let domain of widget.domains) {
+            if (domain == request_host) {
+              return;
+            } else if (domain[0] == "*") {
+              if (request_host.endsWith(domain.slice(1))) {
+                return;
+              }
+            }
+          }
+        }
+      }
+
       let parent_id = details.parentFrameId;
       chrome.tabs.sendMessage(tab_id, {
         hideFrame: true,
