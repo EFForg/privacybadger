@@ -117,6 +117,31 @@ function onBeforeRequest(details) {
     }, 0);
   }
 
+  if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
+    setTimeout(function () {
+      let parent_id = details.parentFrameId;
+      chrome.tabs.sendMessage(tab_id, {
+        hideFrame: true,
+        url
+      }, {
+        frameId: parent_id
+      }, function (response) {
+        if (response) {
+          // content script was ready and received our message
+          return;
+        }
+        // content script was not ready
+        if (chrome.runtime.lastError) {
+          // ignore
+        }
+        if (!badger.tabData[tab_id].blockedFrameUrls.hasOwnProperty(parent_id)) {
+          badger.tabData[tab_id].blockedFrameUrls[parent_id] = [];
+        }
+        badger.tabData[tab_id].blockedFrameUrls[parent_id].push(url);
+      });
+    }, 0);
+  }
+
   return {cancel: true};
 }
 
@@ -768,6 +793,7 @@ function dispatcher(request, sender, sendResponse) {
       "checkLocation",
       "checkWidgetReplacementEnabled",
       "fpReport",
+      "getBlockedFrameUrls",
       "getReplacementButton",
       "supercookieReport",
       "unblockWidget",
@@ -809,6 +835,20 @@ function dispatcher(request, sender, sendResponse) {
     let action = checkAction(sender.tab.id, frame_host);
     sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK);
 
+    break;
+  }
+
+  case "getBlockedFrameUrls": {
+    if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
+      return sendResponse();
+    }
+    let tab_id = sender.tab.id,
+      frame_id = sender.frameId,
+      tabData = badger.tabData.hasOwnProperty(tab_id) && badger.tabData[tab_id],
+      blockedFrameUrls = tabData &&
+        tabData.blockedFrameUrls.hasOwnProperty(frame_id) &&
+        tabData.blockedFrameUrls[frame_id];
+    sendResponse(blockedFrameUrls);
     break;
   }
 
