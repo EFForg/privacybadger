@@ -117,12 +117,6 @@ function onBeforeRequest(details) {
     }, 0);
   }
 
-  if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
-    return {
-      redirectUrl: 'about:blank'
-    };
-  }
-
   return {cancel: true};
 }
 
