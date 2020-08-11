@@ -121,13 +121,13 @@ function createReplacementElement(widget, trackerElem, callback) {
 
 function _createReplacementElementCallback(widget, trackerElem, callback) {
   if (widget.replacementButton.buttonUrl) {
-    _createButtonReplacement(widget, trackerElem, callback);
+    _createButtonReplacement(widget, callback);
   } else {
     _createWidgetReplacement(widget, trackerElem, callback);
   }
 }
 
-function _createButtonReplacement(widget, trackerElem, callback) {
+function _createButtonReplacement(widget, callback) {
   let buttonData = widget.replacementButton,
     button_type = buttonData.type;
 
