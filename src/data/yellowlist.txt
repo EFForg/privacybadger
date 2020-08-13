@@ -467,6 +467,7 @@ nytimes.com
 c.o0bg.com
 ocdn.eu
 ocsn.com
+okta.com
 olark.com
 omroep.nl
 amazoncustomerservice.d2.sc.omtrdc.net
