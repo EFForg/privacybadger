@@ -152,17 +152,6 @@ p, #settingsForm {
     max-height: 400px; /* override popup.css */
 }
 
-#settings-suffix {
-    color: #555;
-    font-size: 12px;
-    max-width: 500px;
-    margin-left: 30px;
-}
-
-#settings-suffix div {
-    margin: 12px 0;
-}
-
 #check-dnt-policy-row {
     margin-left: 25px;
 }

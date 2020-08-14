@@ -180,16 +180,28 @@
           <span class="i18n_options_dnt_policy_setting"></span>
         </label>
       </div>
+
+      <hr>
+
       <div class="checkbox" id="alternateErrorPagesEnabled">
         <label>
           <input type="checkbox" id="alternateErrorPagesEnabled_checkbox">
           <span class="i18n_options_alternateErrorPagesEnabled_checkbox"></span>
+          <a class="ui-icon ui-icon-info tooltip" href="https://www.google.com/chrome/privacy/whitepaper.html#navtips" target="_blank"></a>
         </label>
       </div>
       <div class="checkbox" id="hyperlinkAuditingEnabled">
         <label>
           <input type="checkbox" id="hyperlinkAuditingEnabled_checkbox">
           <span class="i18n_options_hyperlinkAuditingEnabled_checkbox"></span>
+          <a class="ui-icon ui-icon-info tooltip" href="https://html.spec.whatwg.org/multipage/links.html#hyperlink-auditing" target="_blank"></a>
+        </label>
+      </div>
+      <div class="checkbox" id="webRTCToggle">
+        <label>
+          <input type="checkbox" id="toggle_webrtc_mode" disabled>
+          <span class="i18n_options_webrtc_setting"></span>
+          <span class="ui-icon ui-icon-info tooltip" title="i18n_options_webrtc_warning"></span>
         </label>
       </div>
 
@@ -201,23 +213,14 @@
           <span class="i18n_options_show_nontracking_domains_checkbox"></span>
         </label>
       </div>
-      <div class="checkbox" id="webRTCToggle">
-        <label>
-          <input type="checkbox" id="toggle_webrtc_mode" disabled>
-          <span class="i18n_options_webrtc_setting"></span>
-        </label>
-      </div>
       <div class="checkbox">
         <label>
           <input type="checkbox" id="learn-in-incognito-checkbox">
           <span class="i18n_options_incognito_setting"></span>
+          <span class="ui-icon ui-icon-info tooltip" title="i18n_options_incognito_warning"></span>
         </label>
       </div>
 
-      <div id="settings-suffix">
-        <div id="webrtc-warning" class="i18n_options_webrtc_warning"></div>
-        <div id="incognito-warning" class="i18n_options_incognito_warning"></div>
-      </div>
     </form>
   </div>
 
