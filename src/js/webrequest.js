@@ -919,6 +919,7 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     sendResponse({
+      cookieblocked,
       disabledSites: badger.getDisabledSites(),
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
       isDNTSignalEnabled: badger.isDNTSignalEnabled(),
