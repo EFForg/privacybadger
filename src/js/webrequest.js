@@ -919,10 +919,7 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     sendResponse({
-      alternateErrorPagesAvailable: badger.alternateErrorPagesAvailable,
-      cookieblocked,
       disabledSites: badger.getDisabledSites(),
-      hyperlinkAuditingAvailable: badger.hyperlinkAuditingAvailable,
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
       isDNTSignalEnabled: badger.isDNTSignalEnabled(),
       isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),

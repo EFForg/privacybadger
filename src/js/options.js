@@ -115,14 +115,12 @@ function loadOptions() {
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
   $("#alternateErrorPagesEnabled_checkbox").on("click", toggleAlternateErrorPagesSetting);
-  $("#alternateErrorPagesEnabled_checkbox").prop("checked", OPTIONS_DATA.isAlternateErrorPagesEnabled);
   $("#hyperlinkAuditingEnabled_checkbox").on("click", toggleHyperlinkAuditingSetting);
-  $("#hyperlinkAuditingEnabled_checkbox").prop("checked", OPTIONS_DATA.isHyperlinkAuditingEnabled);
 
-  // only show the alternateErrorPagesEnabled checkbox if browser supports it
-  if (!OPTIONS_DATA.alternateErrorPagesAvailable) {
-    $("#alternateErrorPagesEnabled").hide();
-  } else {
+  // hide the alternateErrorPagesEnabled checkbox by default, only show if browser supports it
+  $("#alternateErrorPagesEnabled").hide();
+  if (chrome.privacy.services.alternateErrorPagesEnabled) {
+    $("#alternateErrorPagesEnabled").show();
     // check the select box if it is already disabled in the browser
     chrome.privacy.services.alternateErrorPagesEnabled.get({}, result => {
       if (result.value == false) {
@@ -131,10 +129,10 @@ function loadOptions() {
     });
   }
 
-  // only show the hyperlinkAuditingEnabled checkbox if browser supports it
-  if (!OPTIONS_DATA.hyperlinkAuditingAvailable) {
-    $("#hyperlinkAuditingEnabled").hide();
-  } else {
+  // hide the hyperlinkAuditingEnabled checkbox by default, only show if browser supports it
+  $("#hyperlinkAuditingEnabled").hide();
+  if (chrome.privacy.websites.hyperlinkAuditingEnabled) {
+    $("#hyperlinkAuditingEnabled").show();
     // check the select box if it is already disabled in the browser
     chrome.privacy.websites.hyperlinkAuditingEnabled.get({}, result => {
       if (result.value == false) {
@@ -767,36 +765,38 @@ function toggleWebRTCIPProtection() {
 
 // handles toggling the alternateErrorPagesEnabled setting
 function toggleAlternateErrorPagesSetting() {
-  // ensure this is only attempting to be set on supportive browsers
-  if (!OPTIONS_DATA.alternateErrorPagesAvailable) {
-    return;
-  }
-
   let cps = chrome.privacy.services;
 
-  // whatever the current setting is at, reverse it
-  cps.alternateErrorPagesEnabled.get({}, result => {
-    cps.alternateErrorPagesEnabled.set({
-      value: !result.value
+  if ($("#alternateErrorPagesEnabled_checkbox").prop("checked")) {
+    cps.alternateErrorPagesEnabled.clear({});
+    chrome.runtime.sendMessage({
+      type: "updateSettings",
+      data: { alternateErrorPagesEnabled: true }
     });
-  });
+  } else {
+    chrome.runtime.sendMessage({
+      type: "updateSettings",
+      data: { alternateErrorPagesEnabled: false }
+    });
+  }
 }
 
 // handles toggling the hyperlinkAuditingEnabled setting
 function toggleHyperlinkAuditingSetting() {
-  // ensure this is only attempting to be set on supportive browsers
-  if (!OPTIONS_DATA.hyperlinkAuditingAvailable) {
-    return;
-  }
-
   let cpw = chrome.privacy.websites;
 
-  //whatever the current setting is at, reverse it
-  cpw.hyperlinkAuditingEnabled.get({}, result => {
-    cpw.hyperlinkAuditingEnabled.set({
-      value: !result.value
+  if ($("#hyperlinkAuditingEnabled_checkbox").prop("checked")) {
+    cpw.hyperlinkAuditingEnabled.clear({});
+    chrome.runtime.sendMessage({
+      type: "updateSettings",
+      data: { hyperlinkAuditingEnabled: true }
     });
-  });
+  } else {
+    chrome.runtime.sendMessage({
+      type: "updateSettings",
+      data: { hyperlinkAuditingEnabled: false }
+    });
+  }
 }
 
 /**
