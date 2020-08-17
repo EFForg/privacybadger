@@ -44,7 +44,7 @@ def unix_which(command, silent=False):
 
 def get_browser_type(string):
     for t in BROWSER_TYPES:
-        if t in string:
+        if t in string.lower():
             return t
     raise ValueError("couldn't get browser type from %s" % string)
 

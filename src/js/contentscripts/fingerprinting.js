@@ -204,14 +204,19 @@ function getFpPageScript() {
       );
 
       item.obj[item.propName] = (function (orig) {
+        // set to true after the first write, if the method is not
+        // restorable. Happens if another library also overwrites
+        // this method.
+        var skip_monitoring = false;
 
         function wrapped() {
           var args = arguments;
 
           if (is_canvas_write) {
             // to avoid false positives,
-            // bail if the text being written is too short
-            if (!args[0] || args[0].length < 5) {
+            // bail if the text being written is too short,
+            // of if we've already sent a monitoring payload
+            if (skip_monitoring || !args[0] || args[0].length < 5) {
               return orig.apply(this, args);
             }
           }
@@ -237,7 +242,13 @@ function getFpPageScript() {
             // optimization: one canvas write is enough,
             // restore original write method
             // to this CanvasRenderingContext2D object instance
-            this[item.propName] = orig;
+            // Careful! Only restorable if we haven't already been replaced
+            // by another lib, such as the hidpi polyfill
+            if (this[item.propName] === wrapped) {
+              this[item.propName] = orig;
+            } else {
+              skip_monitoring = true;
+            }
           }
 
           return orig.apply(this, args);
