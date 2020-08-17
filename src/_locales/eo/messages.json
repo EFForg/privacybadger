@@ -32,7 +32,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Kontroli ĉu <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>eksteraj domajnoj</a> kongruas kun <a target='_blank' href='https://www.eff.org/dnt-policy'>politiko pri nespurado de EFF</a>",
+        "message": "Kontroli ĉu <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>eksteraj domajnoj</a> kongruas kun la <a target='_blank' href='https://www.eff.org/dnt-policy'>politiko pri nespurado de EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -190,7 +190,7 @@
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
-        "message": "Agordoj de Privata Melo",
+        "message": "Agordoj pri Privata Melo",
         "description": ""
     },
     "report_terms": {
@@ -374,7 +374,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn.</p><p>Se viaopinie Privata Melo difektas iun retpaĝon, vi povas entajpi ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.</p><p>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la piktogramon de Privata Melo sur la folumila ilarstrio kaj klaku la butonon “malaktivigi”.</p>",
+        "message": "<p>Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn.</p><p>Se viaopinie Privata Melo difektas iun retpaĝon, vi povas enigu ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.</p><p>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la emblemon de Privata Melo sur la folumila ilarstrio kaj sekve klaku la butonon “malaktivigi”.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -448,7 +448,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privata Melo komencas bloki kiam ĝi rimarkas la saman spurilon ĉe tri diversaj retejoj. Tri aperoj kaj ĝi malaperas! Se vi uzas aliajn privatecajn ilojn kaj reklam-blokiloj, Privata Melo lernos malpli, sed tio ne gravas, ĉar ĝi povas bloki aĵojn evititajn de aliaj blokiloj.",
+        "message": "Privata Melo komencas bloki kiam ĝi rimarkas la saman spurilon ĉe tri diversaj retejoj. Tri aperoj kaj ĝi malaperas! Se vi uzas aliajn privatecajn ilojn kaj reklam‑blokilojn, Privata Melo lernos malpli, sed tio ne gravas, ĉar ĝi povas bloki aĵojn evititajn de aliaj blokiloj.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -468,7 +468,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "Por escepti nomregnojn, antaŭtajpu via serĉon per “-”. Ekzemplo: “co -.com” montros domajnojn .co kaj .co.uk sed ne .com.",
+        "message": "Por escepti nomregnojn, antaŭskribu vian serĉon per “-”. Ekzemplo: “co -.com” montros domajnojn .co kaj .co.uk sed ne .com.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {

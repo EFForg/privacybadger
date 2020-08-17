@@ -206,7 +206,7 @@
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
-        "message": "Включить Privacy Badger для этого сайта",
+        "message": "Включить Privacy Badger на этом сайте",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -250,7 +250,7 @@
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
-        "message": "Теперь вы под защитой Privacy Badger. Чтобы узнать, как работает Privacy Badger, щелкните ниже и пройдите обучение.",
+        "message": "Теперь вы под защитой Privacy Badger. Щелкните ниже, чтобы узнать, как работает Privacy Badger.",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "На данном сайте нет сторонних трекеров.",
+        "message": "На данном сайте нет сторонних веб-ресурсов.",
         "description": ""
     },
     "report_broken_site": {
@@ -411,7 +411,7 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Отключить Privacy Badger для этого сайта",
+        "message": "Отключить Privacy Badger на этом сайте",
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
@@ -536,7 +536,7 @@
         }
     },
     "allow_once": {
-        "message": "Разрешить один раз",
+        "message": "Разрешить однократно",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "allow_on_site": {
@@ -622,7 +622,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger отключен на данном сайте",
+        "message": "Privacy Badger отключен на этом сайте",
         "description": "Shown in the popup on disabled sites."
     },
     "options_widget_replacement_tab": {
