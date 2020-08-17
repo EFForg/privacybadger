@@ -17,7 +17,8 @@
 
 (function () {
 
-const i18n = chrome.i18n;
+const LOCALE = chrome.i18n.getMessage('@@ui_locale'),
+  ON_POPUP = (document.location.pathname == "/skin/popup.html");
 
 function setTextDirection() {
   function swap_css_property(selector, from, to) {
@@ -38,11 +39,17 @@ function setTextDirection() {
     });
   }
 
+  const LOCALIZED_HOMEPAGE_LOCALES = ['es'];
+  if (ON_POPUP && LOCALIZED_HOMEPAGE_LOCALES.includes(LOCALE)) {
+    // update FAQ link to point to localized version
+    $('#help').prop('href', `https://privacybadger.org/${LOCALE}/#faq`);
+  }
+
   // https://www.w3.org/International/questions/qa-scripts#examples
   // https://developer.chrome.com/webstore/i18n?csw=1#localeTable
   // TODO duplicated in src/js/webrequest.js
   const RTL_LOCALES = ['ar', 'he', 'fa'];
-  if (RTL_LOCALES.indexOf(i18n.getMessage('@@ui_locale')) == -1) {
+  if (!RTL_LOCALES.includes(LOCALE)) {
     return;
   }
 
@@ -50,7 +57,7 @@ function setTextDirection() {
   document.body.setAttribute("dir", "rtl");
 
   // popup page
-  if (document.location.pathname == "/skin/popup.html") {
+  if (ON_POPUP) {
     // fix floats
     ['#privacyBadgerHeader img', '#header-image-stack', '#instruction-logo', '#version'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
@@ -134,9 +141,9 @@ function loadI18nStrings() {
     const stringName = className.split(/\s/)[0].substring(5);
     const prop = "innerHTML" in nodes[i] ? "innerHTML" : "textContent";
     if (args.length > 0) {
-      nodes[i][prop] = i18n.getMessage(stringName, args);
+      nodes[i][prop] = chrome.i18n.getMessage(stringName, args);
     } else {
-      nodes[i][prop] = i18n.getMessage(stringName);
+      nodes[i][prop] = chrome.i18n.getMessage(stringName);
     }
   }
 
@@ -175,7 +182,7 @@ function loadI18nStrings() {
         }
 
         // update the attribute with the result of a translation lookup by KEY
-        nodes[i].setAttribute(attr_type, i18n.getMessage(key, placeholders));
+        nodes[i].setAttribute(attr_type, chrome.i18n.getMessage(key, placeholders));
       }
     });
   }
