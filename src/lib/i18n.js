@@ -20,6 +20,14 @@
 const LOCALE = chrome.i18n.getMessage('@@ui_locale'),
   ON_POPUP = (document.location.pathname == "/skin/popup.html");
 
+function localizeFaqLink() {
+  const LOCALIZED_HOMEPAGE_LOCALES = ['es'];
+  if (ON_POPUP && LOCALIZED_HOMEPAGE_LOCALES.includes(LOCALE)) {
+    // update FAQ link to point to localized version
+    $('#help').prop('href', `https://privacybadger.org/${LOCALE}/#faq`);
+  }
+}
+
 function setTextDirection() {
   function swap_css_property(selector, from, to) {
     let $els = $(selector);
@@ -37,12 +45,6 @@ function setTextDirection() {
         $el.css(property, to);
       }
     });
-  }
-
-  const LOCALIZED_HOMEPAGE_LOCALES = ['es'];
-  if (ON_POPUP && LOCALIZED_HOMEPAGE_LOCALES.includes(LOCALE)) {
-    // update FAQ link to point to localized version
-    $('#help').prop('href', `https://privacybadger.org/${LOCALE}/#faq`);
   }
 
   // https://www.w3.org/International/questions/qa-scripts#examples
@@ -128,8 +130,6 @@ function setTextDirection() {
 // element is parsed as JSON and used as parameters to substitute into placeholders in the
 // i18n message.
 function loadI18nStrings() {
-  setTextDirection();
-
   // replace span contents by their class names
   let nodes = document.querySelectorAll("[class^='i18n_']");
   for (let i = 0; i < nodes.length; i++) {
@@ -189,6 +189,10 @@ function loadI18nStrings() {
 }
 
 // Fill in the strings as soon as possible
-window.addEventListener("DOMContentLoaded", loadI18nStrings, true);
+window.addEventListener("DOMContentLoaded", function () {
+  localizeFaqLink();
+  setTextDirection();
+  loadI18nStrings();
+}, true);
 
 }());
