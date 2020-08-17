@@ -540,7 +540,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "allow_on_site": {
-        "message": "Always allow on this site",
+        "message": "Povolit vždy na tomto webu",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
