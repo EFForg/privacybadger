@@ -1311,7 +1311,6 @@ let multiDomainFirstPartiesArray = [
     "thinkstockphotos.com",
     "thinkstockphotos.ca",
   ],
-  ["github.com", "githubapp.com"],
   ["gitlab.com", "gitlab-static.net"],
   [
     "gizmodo.com",
@@ -2315,6 +2314,12 @@ let multiDomainFirstPartiesArray = [
     "xboxlive.com",
     "yammer.com",
     "yammerusercontent.com",
+
+    "github.com",
+    "githubapp.com",
+    "githubassets.com",
+    "github.dev",
+    "githubusercontent.com",
   ],
   ["mobilism.org.in", "mobilism.org"],
   ["morganstanley.com", "morganstanleyclientserv.com", "stockplanconnect.com", "ms.com"],
