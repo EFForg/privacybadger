@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Това ще изпрати следната информация автоматично на EFF: сайтът, който в момента посещаваш, версията на браузера ти, версията на Privacy Badger, и състоянието на всички плъзгачи за този сайт.",
+        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site.",
         "description": ""
     },
     "intro_learns": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "На този сайт няма ресурси от трети страни.",
+        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {

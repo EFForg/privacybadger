@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "將會自動回報下列資訊給 EFF 電子前鋒基金會: 您目前造訪的網站、瀏覽器版本、 Privacy Badger 版本，以及此網站所有滾動條的狀態。",
+        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site.",
         "description": ""
     },
     "intro_learns": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "此網站當中沒有第三方資源。",
+        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {

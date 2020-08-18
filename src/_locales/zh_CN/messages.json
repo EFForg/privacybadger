@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "这会自动把以下的信息报告给电子前哨基金会：你现在访问的网站，浏览器版本，隐私獾版本和这个网站所有滑块的状态。",
+        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site.",
         "description": ""
     },
     "intro_learns": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "该站点没有第三方资源。",
+        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {

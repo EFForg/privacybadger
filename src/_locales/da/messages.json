@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Dette vil automatisk sende følgende informationer til EFF: netstedet du besøger nu, din netlæsers version, Privacy Badgers version, og indstillingerne for alle skyderne for dette netsted.",
+        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site.",
         "description": ""
     },
     "intro_learns": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "Der er ingen tredjepartsresurse på dette netsted.",
+        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {

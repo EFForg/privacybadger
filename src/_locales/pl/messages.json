@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Następujące informacje zostaną automatycznie wysłane do EFF: odwiedzana strona, wersja przeglądarki, wersja Privacy Badgera i stan wszystkich suwaków na tej stronie.",
+        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site.",
         "description": ""
     },
     "intro_learns": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "Brak zasobów stron trzecich na tej stronie.",
+        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {

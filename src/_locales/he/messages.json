@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "זה ישלח באופן אוטומטי את המידע הבא אל EFF: האתר שאתה כרגע מבקר בו, גרסת הדפדפן שלך, הגרסה של Privacy Badger והמצב של כל המחוונים עבור אתר זה.",
+        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site.",
         "description": ""
     },
     "intro_learns": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "אין משאבי צד שלישי באתר זה.",
+        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {

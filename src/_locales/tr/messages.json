@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Bu EFF'ye otomatik olarak şu bilgileri gönderecek: şu an ziyaret ettiğin site, tarayıcı sürümün, Privacy Badger versiyonun, ve bu site için bütün kaydırıcıların durumu.",
+        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site.",
         "description": ""
     },
     "intro_learns": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "Bu sitede hiç üçüncü parti bir araç yok.",
+        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {

@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "현재 방문 중인 사이트, 브라우저 버전, Privacy Badger 버전 및 이 사이트의 모든 슬라이더 상태가 자동으로 EFF로 전송됩니다.",
+        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders for this site.",
         "description": ""
     },
     "intro_learns": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "이 사이트에 제 3자 리소스가 없습니다.",
+        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {
