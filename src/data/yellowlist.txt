@@ -712,6 +712,7 @@ s.w.org
 ts.w.org
 ps.w.org
 wnyc.org
+woosmap.com
 wordpress.com
 worldnow.com
 wp.com
