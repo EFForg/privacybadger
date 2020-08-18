@@ -202,11 +202,11 @@
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
-        "message": "Wyłączone strony",
+        "message": "Nieblokowane witryny",
         "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
-        "message": "Włącz Privacy Badger na tej stronie",
+        "message": "Włącz Privacy Badger na tej witrynie",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -411,7 +411,7 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Wyłącz Privacy Badgera dla tej strony",
+        "message": "Wyłącz Privacy Badgera na tej witrynie",
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
@@ -472,7 +472,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Jeżeli Twoim zdaniem Privacy Badger zepsuł jakąś stronę (np. filmik się nie odtwarza), możesz kliknąć przycisk „wyłącz”, aby wyłączyć dodatek dla tej strony.",
+        "message": "Jeżeli Twoim zdaniem Privacy Badger zepsuł jakąś stronę (np. filmik się nie odtwarza), możesz kliknąć przycisk „wyłącz”, aby wyłączyć dodatek na tej witrynie.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
@@ -540,7 +540,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "allow_on_site": {
-        "message": "Zawsze odblokuj na tej stronie",
+        "message": "Zawsze odblokuj na tej witrynie",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
@@ -622,7 +622,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger jest wyłączony na tej stronie",
+        "message": "Privacy Badger jest wyłączony na tej witrynie",
         "description": "Shown in the popup on disabled sites."
     },
     "options_widget_replacement_tab": {

@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Tio ĉi aŭtomate sendos la jenajn datumojn al EFF: la nune vizitatan retpaĝon, version de via retumilo, version de Privata Melo kaj staton de ĉiuj ŝovilojn ĉe tiu ĉi retejo.",
+        "message": "Tio ĉi aŭtomate sendos la jenajn datumojn al EFF: la nune vizitatan retejon, version de via retumilo, version de Privata Melo kaj staton de ĉiuj ŝovilojn ĉe tiu ĉi retejo.",
         "description": ""
     },
     "intro_learns": {
@@ -614,11 +614,11 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "Estas nenio por fari ĉe tiu ĉi paĝo",
+        "message": "Estas nenio por fari sur tiu ĉi paĝo",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privata Melo ne funkcias ĉe specialaj paĝoj kiel tiu ĉi. Provu malfermi alian paĝon.",
+        "message": "Privata Melo ne funkcias sur specialaj paĝoj kiel tiu ĉi. Provu malfermi alian paĝon.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
