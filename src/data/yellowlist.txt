@@ -10,6 +10,7 @@ auth.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
 assets.adobedtm.com
+adyen.com
 affirm.com
 akamai.net
 akamaihd.net
