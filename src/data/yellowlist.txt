@@ -185,7 +185,7 @@ epoq.de
 et4.de
 ethn.io
 evcdn.com
-ebmedia.eventbrite.com
+eventbrite.com
 everyaction.com
 s-static.ak.facebook.com
 staticxx.facebook.com
