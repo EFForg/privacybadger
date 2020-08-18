@@ -733,6 +733,7 @@ seatme.yelp.com
 yelpcdn.com
 yimg.com
 yimg.jp
+yotpo.com
 yottaa.net
 youku.com
 youtube.com
