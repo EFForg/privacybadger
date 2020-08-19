@@ -6,8 +6,6 @@ import unittest
 
 import pbtest
 
-from random import randint
-
 from selenium.common.exceptions import (
     ElementNotInteractableException,
     ElementNotVisibleException,
@@ -87,15 +85,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
             ".badger.storage.setupHeuristicAction('{}', '{}');"
         ).format(origin, action))
 
-    def add_test_origins(self, origins_with_actions):
-        """Add a dictionary of origins with their actions to backend storage."""
-        self.load_options_page()
-        for origin in origins_with_actions:
-            self.js((
-                "chrome.extension.getBackgroundPage()"
-                ".badger.storage.setupHeuristicAction('{}', '{}');"
-            ).format(origin, origins_with_actions[origin]))
-
     def user_overwrite(self, origin, action):
         # Get the slider that corresponds to this radio button
         origin_div = self.find_el_by_css('div[data-origin="' + origin + '"]')
@@ -114,16 +103,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
             click_action.move_to_element_with_offset(slider, slider.size['width']-2, 2)
         click_action.click()
         click_action.perform()
-
-    def scroll_to_bottom(self):
-        # Scroll far enough to generate one new element in the tracking domains box
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        scrollable_div = self.driver.find_element_by_id('blockedResourcesInner')
-        self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
-
-    def scroll_to_origin(self, origin):
-        generated_element = self.find_el_by_css("div[data-origin='" + origin + "']")
-        self.driver.execute_script("return arguments[0].scrollIntoView(true);", generated_element)
 
     def test_page_title(self):
         self.load_options_page()
@@ -315,74 +294,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def test_tracking_user_overwrite_blocked_cookieblock(self):
         self.tracking_user_overwrite('block', 'cookieblock')
-
-    # TODO do we still want this test?
-    def test_tracking_user_overwrite_on_scroll(self):
-        # Create a bunch of origins with random actions
-        origins = {}
-        actions = ['allow', 'cookieblock', 'block']
-        for i in range (0, 50):
-            name = ""
-            if i<10: name = 'pbtest0' + str(i) + '.org'
-            else:
-                name = 'pbtest' + str(i) + '.org'
-
-            origins[name] = actions[randint(0,2)]
-        # Add an origin to be generated on scroll (once there are 50 already)
-        origins['pbtest50-generated.org'] = 'allow'
-
-        self.clear_seed_data()
-        self.add_test_origins(origins)
-
-        self.load_options_page()
-        self.select_domain_list_tab()
-        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
-        # wait for sliders to finish rendering
-        self.wait_for_script("return window.SLIDERS_DONE")
-
-        # Scroll until the first generated origin is added to the html
-        self.scroll_to_bottom()
-        self.scroll_to_bottom()
-
-        # Set a different action for it. First ensure it's been scrolled into view
-        self.scroll_to_origin('pbtest50-generated.org')
-        self.user_overwrite("pbtest50-generated.org", 'block')
-
-        # The page should have refreshed, scroll once to generate the element and again to the very bottom
-        self.scroll_to_bottom()
-        self.scroll_to_bottom()
-
-        try:
-            WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located(
-                    (By.XPATH, '//div[@data-origin="pbtest50-generated.org"]')))
-        except TimeoutException:
-            self.fail("Timed out waiting for element generated on scroll")
-
-        failure_msg = (
-            "Scroll-generated origin should be displayed as blocked "
-            "after user overwrite of PB's decision to allow"
-        )
-        self.assert_slider_state("pbtest50-generated.org", "block", failure_msg)
-
-        ## Check that changes have been persisted
-
-        # Re-open the tab
-        self.load_options_page()
-        self.select_domain_list_tab()
-        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
-        # wait for sliders to finish rendering
-        self.wait_for_script("return window.SLIDERS_DONE")
-        self.scroll_to_bottom()
-        self.scroll_to_bottom()
-        self.scroll_to_origin('pbtest50-generated.org')
-
-        # Check the user preferences for the origins are still displayed
-        failure_msg = (
-            "Scroll-generated origin should be persisted as blocked "
-            "after user overwrite of PB's decision to allow"
-        )
-        self.assert_slider_state("pbtest50-generated.org", "block", failure_msg)
 
     # early-warning check for the open_in_tab attribute of options_ui
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251
