@@ -117,10 +117,10 @@ function onBeforeRequest(details) {
     }, 0);
   }
 
-  if (type == 'sub_frame' && badger.getSettings().getItem('hideBlockedElements')) {
-    return {
-      redirectUrl: 'about:blank'
-    };
+  if (type == 'sub_frame') {
+    setTimeout(function () {
+      hideBlockedFrame(tab_id, details.parentFrameId, url, request_host);
+    }, 0);
   }
 
   return {cancel: true};
@@ -352,6 +352,59 @@ function onNavigate(details) {
 }
 
 /******** Utility Functions **********/
+
+/**
+ * Messages collapser.js content script to hide blocked frames.
+ */
+function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
+  // don't hide if hiding is disabled
+  if (!badger.getSettings().getItem('hideBlockedElements')) {
+    return;
+  }
+
+  // don't hide widget frames
+  if (badger.isWidgetReplacementEnabled()) {
+    let exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
+    for (let widget of badger.widgetList) {
+      if (exceptions.includes(widget.name)) {
+        continue;
+      }
+      for (let domain of widget.domains) {
+        if (domain == frame_host) {
+          return;
+        } else if (domain[0] == "*") { // leading wildcard domain
+          if (frame_host.endsWith(domain.slice(1))) {
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  // message content script
+  chrome.tabs.sendMessage(tab_id, {
+    hideFrame: true,
+    url: frame_url
+  }, {
+    frameId: parent_frame_id
+  }, function (response) {
+    if (response) {
+      // content script was ready and received our message
+      return;
+    }
+    // content script was not ready
+    if (chrome.runtime.lastError) {
+      // ignore
+    }
+    // record frame_url and parent_frame_id
+    // for when content script becomes ready
+    let tabData = badger.tabData[tab_id];
+    if (!tabData.blockedFrameUrls.hasOwnProperty(parent_frame_id)) {
+      tabData.blockedFrameUrls[parent_frame_id] = [];
+    }
+    tabData.blockedFrameUrls[parent_frame_id].push(frame_url);
+  });
+}
 
 /**
  * Gets the host name for a given tab id
@@ -774,6 +827,7 @@ function dispatcher(request, sender, sendResponse) {
       "checkLocation",
       "checkWidgetReplacementEnabled",
       "fpReport",
+      "getBlockedFrameUrls",
       "getReplacementButton",
       "supercookieReport",
       "unblockWidget",
@@ -815,6 +869,20 @@ function dispatcher(request, sender, sendResponse) {
     let action = checkAction(sender.tab.id, frame_host);
     sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK);
 
+    break;
+  }
+
+  case "getBlockedFrameUrls": {
+    if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
+      return sendResponse();
+    }
+    let tab_id = sender.tab.id,
+      frame_id = sender.frameId,
+      tabData = badger.tabData.hasOwnProperty(tab_id) && badger.tabData[tab_id],
+      blockedFrameUrls = tabData &&
+        tabData.blockedFrameUrls.hasOwnProperty(frame_id) &&
+        tabData.blockedFrameUrls[frame_id];
+    sendResponse(blockedFrameUrls);
     break;
   }
 

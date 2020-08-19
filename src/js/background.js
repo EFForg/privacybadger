@@ -178,6 +178,13 @@ Badger.prototype = {
    * Per-tab data that gets cleaned up on tab closing looks like:
       tabData = {
         <tab_id>: {
+          blockedFrameUrls: {
+            <parent_frame_id>: [
+              {String} blocked frame URL,
+              ...
+            ],
+            ...
+          },
           fpData: {
             <script_origin>: {
               canvas: {
@@ -369,6 +376,7 @@ Badger.prototype = {
 
     if (!self.tabData.hasOwnProperty(tabId)) {
       self.tabData[tabId] = {
+        blockedFrameUrls: {},
         frames: {},
         origins: {}
       };
