@@ -114,6 +114,19 @@ p, #settingsForm {
   width: 0;
 }
 
+#tracking-domains-loader {
+    position: absolute;
+    width: 95%;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#tracking-domains-loader .ui-icon {
+    font-size: 500%;
+}
+
 #blockedResources {
   width: 390px;
 }
