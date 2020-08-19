@@ -613,8 +613,9 @@ function reloadTrackingDomainsTab() {
  * Displays filtered list of tracking domains based on user input.
  */
 function filterTrackingDomains() {
-  const $typeFilter = $('#tracking-domains-type-filter');
-  const $statusFilter = $('#tracking-domains-status-filter');
+  const $searchFilter = $('#trackingDomainSearch'),
+    $typeFilter = $('#tracking-domains-type-filter'),
+    $statusFilter = $('#tracking-domains-status-filter');
 
   if ($typeFilter.val() == "dnt") {
     $statusFilter.prop("disabled", true).val("");
@@ -622,28 +623,35 @@ function filterTrackingDomains() {
     $statusFilter.prop("disabled", false);
   }
 
-  var initialSearchText = $('#trackingDomainSearch').val().toLowerCase();
+  let search_update = (this == $searchFilter[0]),
+    initial_search_text = $searchFilter.val().toLowerCase(),
+    time_to_wait = 0;
 
-  // Wait a short period of time and see if search text has changed.
+  // If we are here because the search filter got updated,
+  // wait a short period of time and see if search text has changed.
   // If so it means user is still typing so hold off on filtering.
-  var timeToWait = 500;
-  setTimeout(function() {
-    // Check search text.
-    var searchText = $('#trackingDomainSearch').val().toLowerCase();
-    if (searchText !== initialSearchText) {
+  if (search_update) {
+    time_to_wait = 500;
+  }
+
+  setTimeout(function () {
+    // check search text
+    let search_text = $searchFilter.val().toLowerCase();
+    if (search_text != initial_search_text) {
       return;
     }
 
-    // Show filtered origins.
-    var filteredOrigins = getOriginsArray(
+    // show filtered origins
+    let filteredOrigins = getOriginsArray(
       OPTIONS_DATA.origins,
-      searchText,
+      search_text,
       $typeFilter.val(),
       $statusFilter.val(),
       $('#tracking-domains-show-not-yet-blocked').prop('checked')
     );
     showTrackingDomains(filteredOrigins);
-  }, timeToWait);
+
+  }, time_to_wait);
 }
 
 /**
