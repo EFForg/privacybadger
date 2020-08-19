@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
+        "message": "Dies wird folgende Informationen automatisch an die EFF senden: Die von Ihnen derzeit besuchte Webseite, Ihre Browserversion, die Version von Privacy Badger und den Status aller Schieberegler auf dieser Webseite.",
         "description": ""
     },
     "intro_learns": {
