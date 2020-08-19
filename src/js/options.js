@@ -178,7 +178,10 @@ function loadOptions() {
   reloadDisabledSites();
   reloadTrackingDomainsTab();
 
-  $('html').css('visibility', 'visible');
+  $('html').css({
+    overflow: 'visible',
+    visibility: 'visible'
+  });
 
   window.OPTIONS_INITIALIZED = true;
 }
