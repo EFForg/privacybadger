@@ -628,13 +628,17 @@ function filterTrackingDomains() {
 
   let search_update = (this == $searchFilter[0]),
     initial_search_text = $searchFilter.val().toLowerCase(),
-    time_to_wait = 0;
+    time_to_wait = 0,
+    callback = function () {};
 
   // If we are here because the search filter got updated,
   // wait a short period of time and see if search text has changed.
   // If so it means user is still typing so hold off on filtering.
   if (search_update) {
     time_to_wait = 500;
+    callback = function () {
+      $searchFilter.focus();
+    };
   }
 
   setTimeout(function () {
@@ -652,7 +656,7 @@ function filterTrackingDomains() {
       $statusFilter.val(),
       $('#tracking-domains-show-not-yet-blocked').prop('checked')
     );
-    showTrackingDomains(filteredOrigins);
+    showTrackingDomains(filteredOrigins, callback);
 
   }, time_to_wait);
 }
@@ -661,11 +665,17 @@ function filterTrackingDomains() {
  * Renders the list of tracking domains.
  *
  * @param {Array} domains
+ * @param {Function} cb callback
  */
-function showTrackingDomains(domains) {
+function showTrackingDomains(domains, cb) {
+  if (!cb) {
+    cb = function () {};
+  }
+
+  window.SLIDERS_DONE = false;
   $('#tracking-domains-div').css('visibility', 'hidden');
   $('#tracking-domains-loader').show();
-  window.SLIDERS_DONE = false;
+
   domains = htmlUtils.sortDomains(domains);
 
   let out = [];
@@ -695,9 +705,10 @@ function showTrackingDomains(domains) {
     if (out.length) {
       requestAnimationFrame(renderDomains);
     } else {
-      window.SLIDERS_DONE = true;
       $('#tracking-domains-loader').hide();
       $('#tracking-domains-div').css('visibility', 'visible');
+      window.SLIDERS_DONE = true;
+      cb();
     }
   }
 
@@ -706,9 +717,10 @@ function showTrackingDomains(domains) {
   if (out.length) {
     requestAnimationFrame(renderDomains);
   } else {
-    window.SLIDERS_DONE = true;
     $('#tracking-domains-loader').hide();
     $('#tracking-domains-div').css('visibility', 'visible');
+    window.SLIDERS_DONE = true;
+    cb();
   }
 }
 
