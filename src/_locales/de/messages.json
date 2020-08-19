@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page.",
+        "message": "Auf dieser Webseite sind keine Elemente von Drittparteien vorhanden.",
         "description": ""
     },
     "report_broken_site": {

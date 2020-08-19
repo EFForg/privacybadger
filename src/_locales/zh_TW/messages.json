@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page.",
+        "message": "此頁面中沒有第三方資源。",
         "description": ""
     },
     "report_broken_site": {
