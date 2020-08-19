@@ -660,6 +660,8 @@ function filterTrackingDomains() {
  * @param {Array} domains
  */
 function showTrackingDomains(domains) {
+  $('#tracking-domains-div').css('visibility', 'hidden');
+  $('#tracking-domains-loader').show();
   window.SLIDERS_DONE = false;
   domains = htmlUtils.sortDomains(domains);
 
@@ -691,6 +693,8 @@ function showTrackingDomains(domains) {
       requestAnimationFrame(renderDomains);
     } else {
       window.SLIDERS_DONE = true;
+      $('#tracking-domains-loader').hide();
+      $('#tracking-domains-div').css('visibility', 'visible');
     }
   }
 
@@ -700,6 +704,8 @@ function showTrackingDomains(domains) {
     requestAnimationFrame(renderDomains);
   } else {
     window.SLIDERS_DONE = true;
+    $('#tracking-domains-loader').hide();
+    $('#tracking-domains-div').css('visibility', 'visible');
   }
 }
 
