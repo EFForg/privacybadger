@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
+        "message": "將會自動回報下列資訊給 EFF 電子前鋒基金會：您目前造訪的頁面、瀏覽器版本、Privacy Badger 版本，以及此頁面所有滾動條的狀態。",
         "description": ""
     },
     "intro_learns": {
