@@ -1593,6 +1593,7 @@ let multiDomainFirstPartiesArray = [
     "www.googleapis.com",
 
     "nest.com",
+    "codingcompetitions.withgoogle.com",
     "nestpowerproject.withgoogle.com",
   ],
   ["www.gov.uk", "cabinet-office.gov.uk", "publishing.service.gov.uk"],
