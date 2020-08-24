@@ -374,11 +374,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger är inaktiverad på följande webbplatser. Det betyder att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här.</p><p>Om du tycker att Privacy Badger bryter en sida kan du skriva in dennes domän i rutan nedan och klicka på \"Lägg till domän\"-knappen.</p><p>Alternativt kan du, när du redan har sidans flik markerad, klicka på Privacy Badgers ikon i webbläsarens verktygsfält och sedan klicka på knappen \"Inaktivera\".</p>",
+        "message": "<p>Privacy Badger är inaktiverad på följande webbplatser. Det betyder att Privacy Badger inte blockerar någonting när du besöker webbplatserna som listas här.</p><p>Om du tycker att Privacy Badger bryter en sida kan du skriva in den sidans domän i rutan nedan och klicka på knappen \"Lägg till domän\".</p><p>Alternativt kan du, när du redan har sidans flik vald, klicka på Privacy Badgers ikon i webbläsarens verktygsfält och sedan klicka på knappen \"Inaktivera\".</p>",
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger upptäckte $COUNT$ potentiella $TRACKER_LINK_START$spårare$TRACKER_LINK_END$ på denna sida",
+        "message": "Privacy Badger upptäckte $COUNT$ potentiella $TRACKER_LINK_START$spårare$TRACKER_LINK_END$ på den här sidan",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -415,7 +415,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger har detekterat en potentiell <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på denna sida",
+        "message": "Privacy Badger har detekterat en potentiell <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -472,7 +472,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Om du tycker att Privacy Badger bryter en sida (till exempel en video spelar inte) kan du klicka på \"Inaktivera\"-knappen för att stänga av Privacy Badger för den webbplatsen.",
+        "message": "Om du tror att Privacy Badger bryter en sida (till exempel en video spelar inte) kan du klicka på knappen \"Inaktivera\" för att stänga av Privacy Badger för den webbplatsen.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
@@ -614,11 +614,11 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "Inget att göra på denna sida",
+        "message": "Inget att göra på den här sidan",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger fungerar inte på särskilda sidor som denna. Prova att surfa någon annanstans.",
+        "message": "Privacy Badger fungerar inte på särskilda sidor som den här. Prova att surfa någon annanstans.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {

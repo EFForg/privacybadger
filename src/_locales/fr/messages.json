@@ -472,7 +472,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Si vous soupçonner Privacy Badger de perturber le fonctionnement d'une page (par exemple, la lecture d'une vidéo), vous pouvez cliquer sur le bouton « Désactiver » pour l'empêcher d'opérer sur cette page.",
+        "message": "Si vous soupçonner Privacy Badger de perturber le fonctionnement d'une page (par exemple, la lecture d'une vidéo), vous pouvez cliquer sur le bouton « Désactiver » pour l'empêcher d'opérer sur ce site.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {

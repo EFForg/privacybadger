@@ -472,7 +472,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "若您覺得 Privacy Badger 破壞了某個頁面（舉例來說，影片無法播放之類的），您可以點按「停用」按鈕來將 Privacy Badger 在該頁面上關閉。",
+        "message": "若您覺得 Privacy Badger 破壞了某個頁面（舉例來說，影片無法播放之類的），您可以點按「停用」按鈕來將 Privacy Badger 在該網站上關閉。",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
