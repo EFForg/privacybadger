@@ -316,6 +316,15 @@ homestead.com
 cdn.hometogo.net
 cdn2.hometogo.net
 hootsuite.com
+api.hubspot.com
+app.hubspot.com
+cta-service-cms2.hubspot.com
+forms.hubspot.com
+js.hubspot.com
+meetings.hubspot.com
+no-cache.hubspot.com
+static.hubspot.com
+cdn2.hubspot.net
 humblebundle.com
 hwcdn.net
 hypothes.is
