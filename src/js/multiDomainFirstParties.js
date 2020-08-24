@@ -2663,6 +2663,7 @@ let multiDomainFirstPartiesArray = [
     "nvidia.at",
     "nvidia.be",
     "nvidia.ch",
+    "nvidia.cn",
     "nvidia.co.at",
     "nvidia.co.in",
     "nvidia.co.jp",
@@ -2697,8 +2698,15 @@ let multiDomainFirstPartiesArray = [
     "nvidia.se",
     "nvidia.tw",
 
+    "nvidiagrid.net",
+    "nvidia.partners",
+
     "geforce.com",
+    "geforcenow.com",
+    "gputechconf.com",
+
     "geforce.cn",
+    "geforce.com.tw",
     "geforce.co.uk",
   ],
   ["onlineatnsb.com", "norwaysavingsbank.com"],
