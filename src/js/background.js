@@ -40,7 +40,6 @@ function Badger() {
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
-  self.setPrivacyOverrides();
 
   self.widgetList = [];
   widgetLoader.loadWidgetsFromFile("data/socialwidgets.json", (response) => {
@@ -110,6 +109,8 @@ function Badger() {
     });
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
+
+    self.setPrivacyOverrides();
 
     self.showFirstRunPage();
   });
@@ -240,7 +241,10 @@ Badger.prototype = {
       });
     }
 
-    if (chrome.privacy.services) {
+    // check against the settings storage values for browser privacy settings
+    let settings = this.getSettings();
+
+    if (chrome.privacy.services && !settings.getItem("alternateErrorPagesEnabled")) {
       _set_override(
         "alternateErrorPagesEnabled",
         chrome.privacy.services.alternateErrorPagesEnabled,
@@ -248,7 +252,7 @@ Badger.prototype = {
       );
     }
 
-    if (chrome.privacy.websites) {
+    if (chrome.privacy.websites && !settings.getItem("hyperlinkAuditingEnabled")) {
       _set_override(
         "hyperlinkAuditingEnabled",
         chrome.privacy.websites.hyperlinkAuditingEnabled,
