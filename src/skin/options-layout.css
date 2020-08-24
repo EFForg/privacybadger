@@ -123,8 +123,21 @@ p, #settingsForm {
     justify-content: center;
 }
 
-#tracking-domains-loader .ui-icon {
-    font-size: 500%;
+#tracking-domains-loader .spinner {
+    border: 0.5em solid #222;
+    border-bottom-color: #fff;
+    height: 5em;
+    width: 5em;
+    border-radius: 5em;
+    animation: spin 1s infinite linear;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(359deg);
+    }
 }
 
 #blockedResources {
