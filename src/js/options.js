@@ -768,15 +768,23 @@ function toggleAlternateErrorPagesSetting() {
   let cps = chrome.privacy.services;
 
   if ($("#alternateErrorPagesEnabled_checkbox").prop("checked")) {
-    cps.alternateErrorPagesEnabled.clear({});
+    chrome.runtime.sendMessage({
+      type: "updateSettings",
+      data: { alternateErrorPagesEnabled: false }
+    });
+
+    cps.alternateErrorPagesEnabled.set({
+      value: false
+    });
+  } else if (!$("#alternateErrorPagesEnabled_checkbox").prop("checked")) {
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { alternateErrorPagesEnabled: true }
     });
-  } else {
-    chrome.runtime.sendMessage({
-      type: "updateSettings",
-      data: { alternateErrorPagesEnabled: false }
+
+    // if they are resetting the value to false after the badger initialization phase
+    cps.alternateErrorPagesEnabled.set({
+      value: true
     });
   }
 }
@@ -786,15 +794,23 @@ function toggleHyperlinkAuditingSetting() {
   let cpw = chrome.privacy.websites;
 
   if ($("#hyperlinkAuditingEnabled_checkbox").prop("checked")) {
-    cpw.hyperlinkAuditingEnabled.clear({});
+    chrome.runtime.sendMessage({
+      type: "updateSettings",
+      data: { hyperlinkAuditingEnabled: false }
+    });
+
+    cpw.hyperlinkAuditingEnabled.set({
+      value: false
+    });
+  } else if (!$("#hyperlinkAuditingEnabled_checkbox").prop("checked")) {
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { hyperlinkAuditingEnabled: true }
     });
-  } else {
-    chrome.runtime.sendMessage({
-      type: "updateSettings",
-      data: { hyperlinkAuditingEnabled: false }
+
+    // if they are resetting the value to false after the badger initialization phase
+    cpw.hyperlinkAuditingEnabled.set({
+      value: true
     });
   }
 }
