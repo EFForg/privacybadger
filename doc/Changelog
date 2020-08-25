@@ -1,6 +1,13 @@
 Privacy Badger Release Notes
 ============================
 
+2020.8.25
+* Added a button to widget replacements to always allow a widget on a site
+* Improved scrolling of tracking domains on the options page
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Traditional Chinese, Esperanto,
+Finnish, French, Polish, Brazilian Portuguese, Russian, Spanish, Swedish)
+
 2020.7.21
 * Improved broken site reporting screen in the popup
 * Refreshed the look of options page tabs
