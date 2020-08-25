@@ -121,24 +121,16 @@ function loadOptions() {
   $("#alternateErrorPagesEnabled").hide();
   if (chrome.privacy.services.alternateErrorPagesEnabled) {
     $("#alternateErrorPagesEnabled").show();
-    // check the select box if it is already disabled in the browser
-    chrome.privacy.services.alternateErrorPagesEnabled.get({}, result => {
-      if (result.value == false) {
-        $('#alternateErrorPagesEnabled_checkbox').prop("checked", true);
-      }
-    });
+    // check the select box if the user preference is already set for pb to disable alternateErrorPages
+    $('#alternateErrorPagesEnabled_checkbox').prop("checked", !OPTIONS_DATA.alternateErrorPagesEnabled);
   }
 
   // hide the hyperlinkAuditingEnabled checkbox by default, only show if browser supports it
   $("#hyperlinkAuditingEnabled").hide();
   if (chrome.privacy.websites.hyperlinkAuditingEnabled) {
     $("#hyperlinkAuditingEnabled").show();
-    // check the select box if it is already disabled in the browser
-    chrome.privacy.websites.hyperlinkAuditingEnabled.get({}, result => {
-      if (result.value == false) {
-        $('#hyperlinkAuditingEnabled_checkbox').prop("checked", true);
-      }
-    });
+    // check the select box if the user preference is already set for privacy badger to disable hyperlinkAuditing
+    $("#hyperlinkAuditingEnabled_checkbox").prop("checked", !OPTIONS_DATA.hyperlinkAuditingEnabled);
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {
@@ -782,10 +774,8 @@ function toggleAlternateErrorPagesSetting() {
       data: { alternateErrorPagesEnabled: true }
     });
 
-    // if they are resetting the value to false after the badger initialization phase
-    cps.alternateErrorPagesEnabled.set({
-      value: true
-    });
+    // badger relinquishes control of this setting
+    cps.alternateErrorPagesEnabled.clear({});
   }
 }
 
@@ -808,10 +798,8 @@ function toggleHyperlinkAuditingSetting() {
       data: { hyperlinkAuditingEnabled: true }
     });
 
-    // if they are resetting the value to false after the badger initialization phase
-    cpw.hyperlinkAuditingEnabled.set({
-      value: true
-    });
+    // badger relinquishes control of this setting
+    cpw.hyperlinkAuditingEnabled.clear({});
   }
 }
 

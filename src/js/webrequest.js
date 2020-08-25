@@ -919,8 +919,10 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     sendResponse({
+      alternateErrorPagesEnabled: badger.getSettings().getItem("alternateErrorPagesEnabled"),
       cookieblocked,
       disabledSites: badger.getDisabledSites(),
+      hyperlinkAuditingEnabled: badger.getSettings().getItem("hyperlinkAuditingEnabled"),
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
       isDNTSignalEnabled: badger.isDNTSignalEnabled(),
       isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
