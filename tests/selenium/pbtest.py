@@ -288,7 +288,6 @@ class PBSeleniumTest(unittest.TestCase):
             cls.vdisplay.stop()
 
     def init(self, driver):
-        self._logs = []
         self.driver = driver
         self.js = self.driver.execute_script
         self.bg_url = self.base_url + "_generated_background_page.html"
@@ -443,7 +442,5 @@ class PBSeleniumTest(unittest.TestCase):
 
     @property
     def logs(self):
-        def strip(l):
-            return l.split('/')[-1]
-        self._logs.extend([strip(l.get('message')) for l in self.driver.get_log('browser')])
-        return self._logs
+        # TODO not yet in Firefox
+        return [log.get('message') for log in self.driver.get_log('browser')]
