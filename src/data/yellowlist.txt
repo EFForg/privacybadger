@@ -126,6 +126,9 @@ cdn.cnetcontent.com
 ws.cnetcontent.com
 codepen.io
 codesandbox.io
+cloudplatform.coveo.com
+platform.cloud.coveo.com
+static.cloud.coveo.com
 creativecommons.org
 cstv.com
 cursecdn.com
