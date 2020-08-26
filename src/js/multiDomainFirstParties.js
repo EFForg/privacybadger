@@ -737,6 +737,9 @@ let multiDomainFirstPartiesArray = [
     "weather.gc.ca",
 
     "archives.ca",
+    "canlearn.ca",
+    "gcsurplus.ca",
+    "letstalktransportation.ca",
   ],
   [
     "canalplus.com",
