@@ -656,6 +656,7 @@ let multiDomainFirstPartiesArray = [
     "cmdy.ca",
     "cookieless.ca",
     "cp24.com",
+    "crave.ca",
     "crave.com",
     "cravetv.ca",
     "ctv.ca",
