@@ -2018,6 +2018,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["jpmorganchase.com", "jpmorgan.com", "chase.com"],
   ["jobware.de", "jobware.com", "jobware.net"],
+  ["jotform.com", "jotfor.ms"],
   [
     "kayak.com",
 
