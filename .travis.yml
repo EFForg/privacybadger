@@ -20,9 +20,6 @@ matrix:
     - addons:
         firefox: latest-esr
       env: INFO="firefox esr" BROWSER=firefox
-    - addons:
-        firefox: latest-beta
-      env: INFO="firefox beta" BROWSER=firefox
 before_script: travis_retry ./scripts/setup_travis.sh
 script: . ./scripts/run_travis.sh
 services:
