@@ -713,6 +713,32 @@ let multiDomainFirstPartiesArray = [
     "thezoereport.com",
   ],
   [
+    "canada.ca",
+
+    "ceaa-acee.gc.ca",
+    "collectionscanada.gc.ca",
+    "cra-arc.gc.ca",
+    "dfo-mpo.gc.ca",
+    "ec.gc.ca",
+    "esdc.gc.ca",
+    "fcac-acfc.gc.ca",
+    "hrdc-drhc.gc.ca",
+    "ic.gc.ca",
+    "jobbank.gc.ca",
+    "labour.gc.ca",
+    "nrcan.gc.ca",
+    "sac-isc.gc.ca",
+    "servicecanada.gc.ca",
+    "services.gc.ca",
+    "statcan.gc.ca",
+    "tbs-sct.gc.ca",
+    "tc.gc.ca",
+    "tpsgc-pwgsc.gc.ca",
+    "weather.gc.ca",
+
+    "archives.ca",
+  ],
+  [
     "canalplus.com",
 
     "canal.fr",
