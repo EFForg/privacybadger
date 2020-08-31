@@ -194,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
+        "message": "Seuraavat tiedot lähetetään automaattisesti EFF:lle: sivu, jolla olet nyt, selaimesi versio, Privacy Badgerin versio sekä kaikkien liukuvalitsimien tila tämän sivuston osalta.",
         "description": ""
     },
     "intro_learns": {
@@ -310,7 +310,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page.",
+        "message": "Tällä sivulla ei ole kolmansien osapuolten resursseja.",
         "description": ""
     },
     "report_broken_site": {
