@@ -151,7 +151,6 @@ function loadOptions() {
   } else {
     // Hide WebRTC-related settings for non-supporting browsers
     $("#webRTCToggle").hide();
-    $("#webrtc-warning").hide();
   }
 
   $("#learn-in-incognito-checkbox")
