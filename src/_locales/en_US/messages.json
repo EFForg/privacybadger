@@ -261,6 +261,14 @@
         "message": "General Settings",
         "description": "This is an options page tab heading."
     },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
+    },
     "intro_next_button": {
         "message": "Take the tour",
         "description": "Intro page welcome button."
