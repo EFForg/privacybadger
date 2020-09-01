@@ -36,13 +36,17 @@ h4:after {
     margin-inline-start: 10px;
 }
 
-div.checkbox label {
-  min-height: 20px;
-  cursor: pointer;
+div.checkbox {
+    max-width: 550px;
 }
 
-label input[type=checkbox] + span {
-  padding-left: 0.5em;
+div.checkbox + div.checkbox {
+    margin-top: 5px;
+}
+
+input[type=checkbox] {
+    flex: none;
+    margin-inline-end: 0.6em;
 }
 
 td
@@ -58,9 +62,10 @@ button
 }
 
 label {
-  display: inline-flex;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: start;
 }
-
 #tracking-domains-filters label {
     display: inline;
 }
