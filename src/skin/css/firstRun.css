@@ -374,13 +374,13 @@ button:hover,.button:focus {
   }
 }
 .top-bar img {
-  max-width:3rem;
-  margin-right:0.2rem;
+    max-width: 3rem;
+    margin-inline-end: 0.2rem;
 }
 @media print, screen and (min-width: 40em) {
-  .top-bar img {
-    margin-right:1rem;
-  }
+    .top-bar img {
+        margin-inline-end: 1rem;
+    }
 }
 
 @media print, screen and (min-width: 40em) {
@@ -717,13 +717,13 @@ body {
   margin-top:1rem;
 }
 @media print, screen and (min-width: 40em) {
-  [id*="pb-features-"] h3,#pb-settings h3 {
-    text-align:left;
-    font-size:1.9375rem;
-  }
+    [id*="pb-features-"] h3, #pb-settings h3 {
+        text-align: start;
+        font-size: 1.9375rem;
+    }
 }
-[id*="pb-features-"] .text,[id*="pb-features-"] p,#pb-settings .text,#pb-settings p {
-  text-align:left;
+[id*="pb-features-"] .text, [id*="pb-features-"] p, #pb-settings .text, #pb-settings p {
+    text-align: start;
 }
 #pb-settings {
   background-image:linear-gradient(#EC9329, #EC9329 30%, #fff 30%);

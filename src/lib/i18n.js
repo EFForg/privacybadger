@@ -115,14 +115,6 @@ function setTextDirection() {
       swap_css_property(selector, "padding-left", "padding-right");
     });
 
-  // new user welcome page
-  } else if (document.location.pathname == "/skin/firstRun.html") {
-    [
-      '[id*="pb-features-"] h3,#pb-settings h3',
-      '[id*="pb-features-"] .text,[id*="pb-features-"] p,#pb-settings .text,#pb-settings p'
-    ].forEach((selector) => {
-      toggle_css_value(selector, "text-align", "left", "right");
-    });
   }
 }
 
