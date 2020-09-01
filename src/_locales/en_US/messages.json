@@ -370,11 +370,11 @@
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_alternateErrorPagesEnabled_checkbox": {
-        "message": "Disable sending web addresses to Google to show suggestions when a page can't be found",
+        "message": "Disable sending web addresses you visit to Google to show suggestions when a page can't be found",
         "description": "Checkbox label for enabling/disabling the alternateErrorPagesEnabled option, found on the general settings page"
     },
     "options_hyperlinkAuditingEnabled_checkbox": {
-        "message": "Disable hyperlink auditing ",
+        "message": "Disable hyperlink auditing",
         "description": "Checkbox label for enabling/disabling the hyperlinkAuditingEnabled option, found on the general settings page"
     },
     "options_domain_filter_user": {
