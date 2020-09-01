@@ -49,6 +49,11 @@ input[type=checkbox] {
     margin-inline-end: 0.6em;
 }
 
+div.checkbox .ui-icon-alert {
+    color: #cc0000;
+    margin-bottom: 3px;
+}
+
 td
 {
   font-size: 13px;
