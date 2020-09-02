@@ -244,7 +244,7 @@ Badger.prototype = {
     // check against the settings storage values for browser privacy settings
     let settings = this.getSettings();
 
-    if (chrome.privacy.services && !settings.getItem("alternateErrorPagesEnabled")) {
+    if (chrome.privacy.services && settings.getItem("disableGoogleNavErrorService")) {
       _set_override(
         "alternateErrorPagesEnabled",
         chrome.privacy.services.alternateErrorPagesEnabled,
@@ -252,7 +252,7 @@ Badger.prototype = {
       );
     }
 
-    if (chrome.privacy.websites && !settings.getItem("hyperlinkAuditingEnabled")) {
+    if (chrome.privacy.websites && settings.getItem("disableHyperlinkAuditing")) {
       _set_override(
         "hyperlinkAuditingEnabled",
         chrome.privacy.websites.hyperlinkAuditingEnabled,
@@ -656,11 +656,11 @@ Badger.prototype = {
    * Default Privacy Badger settings
    */
   defaultSettings: {
-    alternateErrorPagesEnabled: false,
     checkForDNTPolicy: true,
     disabledSites: [],
+    disableGoogleNavErrorService: true,
+    disableHyperlinkAuditing: true,
     hideBlockedElements: true,
-    hyperlinkAuditingEnabled: false,
     isFirstRun: true,
     learnInIncognito: false,
     migrationLevel: 0,

@@ -121,14 +121,14 @@ function loadOptions() {
   if (chrome.privacy.services.alternateErrorPagesEnabled) {
     $("#alternateErrorPagesEnabled").show();
     // check the select box if the user preference is already set for pb to disable alternateErrorPages
-    $('#alternateErrorPagesEnabled_checkbox').prop("checked", !OPTIONS_DATA.alternateErrorPagesEnabled);
+    $('#alternateErrorPagesEnabled_checkbox').prop("checked", OPTIONS_DATA.disableGoogleNavErrorService);
   }
 
   // only show the hyperlinkAuditingEnabled checkbox if browser supports it
   if (chrome.privacy.websites.hyperlinkAuditingEnabled) {
     $("#hyperlinkAuditingEnabled").show();
     // check the select box if the user preference is already set for privacy badger to disable hyperlinkAuditing
-    $("#hyperlinkAuditingEnabled_checkbox").prop("checked", !OPTIONS_DATA.hyperlinkAuditingEnabled);
+    $("#hyperlinkAuditingEnabled_checkbox").prop("checked", OPTIONS_DATA.disableHyperlinkAuditing);
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {
@@ -751,7 +751,7 @@ function toggleAlternateErrorPagesSetting() {
   if ($("#alternateErrorPagesEnabled_checkbox").prop("checked")) {
     chrome.runtime.sendMessage({
       type: "updateSettings",
-      data: { alternateErrorPagesEnabled: false }
+      data: { disableGoogleNavErrorService: true }
     });
 
     cps.alternateErrorPagesEnabled.set({
@@ -760,7 +760,7 @@ function toggleAlternateErrorPagesSetting() {
   } else if (!$("#alternateErrorPagesEnabled_checkbox").prop("checked")) {
     chrome.runtime.sendMessage({
       type: "updateSettings",
-      data: { alternateErrorPagesEnabled: true }
+      data: { disableGoogleNavErrorService: false }
     });
 
     // badger relinquishes control of this setting
@@ -775,7 +775,7 @@ function toggleHyperlinkAuditingSetting() {
   if ($("#hyperlinkAuditingEnabled_checkbox").prop("checked")) {
     chrome.runtime.sendMessage({
       type: "updateSettings",
-      data: { hyperlinkAuditingEnabled: false }
+      data: { disableHyperlinkAuditing: true }
     });
 
     cpw.hyperlinkAuditingEnabled.set({
@@ -784,7 +784,7 @@ function toggleHyperlinkAuditingSetting() {
   } else if (!$("#hyperlinkAuditingEnabled_checkbox").prop("checked")) {
     chrome.runtime.sendMessage({
       type: "updateSettings",
-      data: { hyperlinkAuditingEnabled: true }
+      data: { disableHyperlinkAuditing: false }
     });
 
     // badger relinquishes control of this setting
