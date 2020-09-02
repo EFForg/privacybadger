@@ -48,6 +48,10 @@ function Badger() {
 
   self.storage = new pbStorage.BadgerPen(async function (thisStorage) {
     self.initializeDefaultSettings();
+    // Privacy Badger settings are now fully ready
+
+    self.setPrivacyOverrides();
+
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
     // TODO there are async migrations
@@ -109,8 +113,6 @@ function Badger() {
     });
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
-
-    self.setPrivacyOverrides();
 
     self.showFirstRunPage();
   });
@@ -217,6 +219,8 @@ Badger.prototype = {
       return;
     }
 
+    let self = this;
+
     /**
      * Sets a browser setting if Privacy Badger is allowed to set it.
      */
@@ -241,23 +245,24 @@ Badger.prototype = {
       });
     }
 
-    // check against the settings storage values for browser privacy settings
-    let settings = this.getSettings();
-
-    if (chrome.privacy.services && settings.getItem("disableGoogleNavErrorService")) {
-      _set_override(
-        "alternateErrorPagesEnabled",
-        chrome.privacy.services.alternateErrorPagesEnabled,
-        false
-      );
+    if (self.getSettings().getItem("disableGoogleNavErrorService")) {
+      if (chrome.privacy.services) {
+        _set_override(
+          "alternateErrorPagesEnabled",
+          chrome.privacy.services.alternateErrorPagesEnabled,
+          false
+        );
+      }
     }
 
-    if (chrome.privacy.websites && settings.getItem("disableHyperlinkAuditing")) {
-      _set_override(
-        "hyperlinkAuditingEnabled",
-        chrome.privacy.websites.hyperlinkAuditingEnabled,
-        false
-      );
+    if (self.getSettings().getItem("disableHyperlinkAuditing")) {
+      if (chrome.privacy.websites) {
+        _set_override(
+          "hyperlinkAuditingEnabled",
+          chrome.privacy.websites.hyperlinkAuditingEnabled,
+          false
+        );
+      }
     }
   },
 
