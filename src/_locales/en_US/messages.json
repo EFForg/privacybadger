@@ -377,13 +377,13 @@
         "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
-    "options_alternateErrorPagesEnabled_checkbox": {
+    "options_disable_google_nav_error_service": {
         "message": "Disable sending web addresses you visit to Google to show suggestions when a page can't be found",
-        "description": "Checkbox label for enabling/disabling the alternateErrorPagesEnabled option, found on the general settings page"
+        "description": "Checkbox label found on the general settings page"
     },
-    "options_hyperlinkAuditingEnabled_checkbox": {
+    "options_disable_hyperlink_auditing": {
         "message": "Disable hyperlink auditing",
-        "description": "Checkbox label for enabling/disabling the hyperlinkAuditingEnabled option, found on the general settings page"
+        "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
         "message": "user-controlled",
