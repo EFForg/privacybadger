@@ -117,16 +117,14 @@ function loadOptions() {
   $("#alternateErrorPagesEnabled_checkbox").on("click", toggleAlternateErrorPagesSetting);
   $("#hyperlinkAuditingEnabled_checkbox").on("click", toggleHyperlinkAuditingSetting);
 
-  // hide the alternateErrorPagesEnabled checkbox by default, only show if browser supports it
-  $("#alternateErrorPagesEnabled").hide();
+  // only show the alternateErrorPagesEnabled checkbox if browser supports it
   if (chrome.privacy.services.alternateErrorPagesEnabled) {
     $("#alternateErrorPagesEnabled").show();
     // check the select box if the user preference is already set for pb to disable alternateErrorPages
     $('#alternateErrorPagesEnabled_checkbox').prop("checked", !OPTIONS_DATA.alternateErrorPagesEnabled);
   }
 
-  // hide the hyperlinkAuditingEnabled checkbox by default, only show if browser supports it
-  $("#hyperlinkAuditingEnabled").hide();
+  // only show the hyperlinkAuditingEnabled checkbox if browser supports it
   if (chrome.privacy.websites.hyperlinkAuditingEnabled) {
     $("#hyperlinkAuditingEnabled").show();
     // check the select box if the user preference is already set for privacy badger to disable hyperlinkAuditing
@@ -134,6 +132,7 @@ function loadOptions() {
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {
+    $("#webRTCToggle").show();
     $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
 
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, result => {
@@ -147,10 +146,6 @@ function loadOptions() {
         $("#toggle_webrtc_mode").prop("checked", true);
       }
     });
-
-  } else {
-    // Hide WebRTC-related settings for non-supporting browsers
-    $("#webRTCToggle").hide();
   }
 
   $("#learn-in-incognito-checkbox")
