@@ -114,8 +114,8 @@ function loadOptions() {
   $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.isDNTSignalEnabled);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
-  $("#alternateErrorPagesEnabled_checkbox").on("click", toggleAlternateErrorPagesSetting);
-  $("#hyperlinkAuditingEnabled_checkbox").on("click", toggleHyperlinkAuditingSetting);
+  $("#alternateErrorPagesEnabled_checkbox").on("click", overrideAlternateErrorPagesSetting);
+  $("#hyperlinkAuditingEnabled_checkbox").on("click", overrideHyperlinkAuditingSetting);
 
   // only show the alternateErrorPagesEnabled checkbox if browser supports it
   if (chrome.privacy.services.alternateErrorPagesEnabled) {
@@ -744,51 +744,43 @@ function toggleWebRTCIPProtection() {
   });
 }
 
-// handles toggling the alternateErrorPagesEnabled setting
-function toggleAlternateErrorPagesSetting() {
-  let cps = chrome.privacy.services;
+// handles overriding the alternateErrorPagesEnabled setting
+function overrideAlternateErrorPagesSetting() {
+  const disableGoogleNavErrorService = $("#alternateErrorPagesEnabled_checkbox").prop("checked");
 
-  if ($("#alternateErrorPagesEnabled_checkbox").prop("checked")) {
-    chrome.runtime.sendMessage({
-      type: "updateSettings",
-      data: { disableGoogleNavErrorService: true }
-    });
+  // update Badger settings so that we know to reapply the browser setting on startup
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { disableGoogleNavErrorService }
+  });
 
-    cps.alternateErrorPagesEnabled.set({
+  // update the browser setting
+  if (disableGoogleNavErrorService) {
+    chrome.privacy.services.alternateErrorPagesEnabled.set({
       value: false
     });
-  } else if (!$("#alternateErrorPagesEnabled_checkbox").prop("checked")) {
-    chrome.runtime.sendMessage({
-      type: "updateSettings",
-      data: { disableGoogleNavErrorService: false }
-    });
-
-    // badger relinquishes control of this setting
-    cps.alternateErrorPagesEnabled.clear({});
+  } else {
+    chrome.privacy.services.alternateErrorPagesEnabled.clear({});
   }
 }
 
-// handles toggling the hyperlinkAuditingEnabled setting
-function toggleHyperlinkAuditingSetting() {
-  let cpw = chrome.privacy.websites;
+// handles overriding the hyperlinkAuditingEnabled setting
+function overrideHyperlinkAuditingSetting() {
+  const disableHyperlinkAuditing = $("#hyperlinkAuditingEnabled_checkbox").prop("checked");
 
-  if ($("#hyperlinkAuditingEnabled_checkbox").prop("checked")) {
-    chrome.runtime.sendMessage({
-      type: "updateSettings",
-      data: { disableHyperlinkAuditing: true }
-    });
+  // update Badger settings so that we know to reapply the browser setting on startup
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: { disableHyperlinkAuditing }
+  });
 
-    cpw.hyperlinkAuditingEnabled.set({
+  // update the browser setting
+  if (disableHyperlinkAuditing) {
+    chrome.privacy.websites.hyperlinkAuditingEnabled.set({
       value: false
     });
-  } else if (!$("#hyperlinkAuditingEnabled_checkbox").prop("checked")) {
-    chrome.runtime.sendMessage({
-      type: "updateSettings",
-      data: { disableHyperlinkAuditing: false }
-    });
-
-    // badger relinquishes control of this setting
-    cpw.hyperlinkAuditingEnabled.clear({});
+  } else {
+    chrome.privacy.websites.hyperlinkAuditingEnabled.clear({});
   }
 }
 
