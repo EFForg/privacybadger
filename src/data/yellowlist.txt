@@ -603,6 +603,7 @@ s-msn.com
 smugmug.com
 snapengage.com
 sndcdn.com
+snipcart.com
 auth.api.sonyentertainmentnetwork.com
 cdn-a.sonyentertainmentnetwork.com
 api.soundcloud.com
