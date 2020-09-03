@@ -46,7 +46,7 @@ div.checkbox + div.checkbox {
 
 input[type=checkbox] {
     flex: none;
-    margin-inline-end: 0.6em;
+    margin-inline-end: 0.8em;
 }
 
 div.checkbox .ui-icon-alert {
@@ -69,7 +69,7 @@ button
 label {
     cursor: pointer;
     display: inline-flex;
-    align-items: start;
+    align-items: center;
 }
 #tracking-domains-filters label {
     display: inline;
