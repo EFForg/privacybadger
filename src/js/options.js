@@ -114,21 +114,21 @@ function loadOptions() {
   $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.isDNTSignalEnabled);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
-  $("#disable-google-nav-error-service-checkbox").on("click", overrideAlternateErrorPagesSetting);
-  $("#disable-hyperlink-auditing-checkbox").on("click", overrideHyperlinkAuditingSetting);
 
   // only show the alternateErrorPagesEnabled override if browser supports it
   if (chrome.privacy && chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
     $("#disable-google-nav-error-service").show();
-    // check the select box if the user preference is already set for pb to disable alternateErrorPages
-    $('#disable-google-nav-error-service-checkbox').prop("checked", OPTIONS_DATA.disableGoogleNavErrorService);
+    $('#disable-google-nav-error-service-checkbox')
+      .prop("checked", OPTIONS_DATA.disableGoogleNavErrorService)
+      .on("click", overrideAlternateErrorPagesSetting);
   }
 
   // only show the hyperlinkAuditingEnabled override if browser supports it
   if (chrome.privacy && chrome.privacy.websites && chrome.privacy.websites.hyperlinkAuditingEnabled) {
     $("#disable-hyperlink-auditing").show();
-    // check the select box if the user preference is already set for privacy badger to disable hyperlinkAuditing
-    $("#disable-hyperlink-auditing-checkbox").prop("checked", OPTIONS_DATA.disableHyperlinkAuditing);
+    $("#disable-hyperlink-auditing-checkbox")
+      .prop("checked", OPTIONS_DATA.disableHyperlinkAuditing)
+      .on("click", overrideHyperlinkAuditingSetting);
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {
@@ -746,16 +746,18 @@ function toggleWebRTCIPProtection() {
 
 // handles overriding the alternateErrorPagesEnabled setting
 function overrideAlternateErrorPagesSetting() {
-  const disableGoogleNavErrorService = $("#disable-google-nav-error-service-checkbox").prop("checked");
+  const checked = $("#disable-google-nav-error-service-checkbox").prop("checked");
 
   // update Badger settings so that we know to reapply the browser setting on startup
   chrome.runtime.sendMessage({
     type: "updateSettings",
-    data: { disableGoogleNavErrorService }
+    data: {
+      disableGoogleNavErrorService: checked
+    }
   });
 
   // update the browser setting
-  if (disableGoogleNavErrorService) {
+  if (checked) {
     chrome.privacy.services.alternateErrorPagesEnabled.set({
       value: false
     });
@@ -766,16 +768,18 @@ function overrideAlternateErrorPagesSetting() {
 
 // handles overriding the hyperlinkAuditingEnabled setting
 function overrideHyperlinkAuditingSetting() {
-  const disableHyperlinkAuditing = $("#disable-hyperlink-auditing-checkbox").prop("checked");
+  const checked = $("#disable-hyperlink-auditing-checkbox").prop("checked");
 
   // update Badger settings so that we know to reapply the browser setting on startup
   chrome.runtime.sendMessage({
     type: "updateSettings",
-    data: { disableHyperlinkAuditing }
+    data: {
+      disableHyperlinkAuditing: checked
+    }
   });
 
   // update the browser setting
-  if (disableHyperlinkAuditing) {
+  if (checked) {
     chrome.privacy.websites.hyperlinkAuditingEnabled.set({
       value: false
     });
