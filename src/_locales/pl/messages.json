@@ -100,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Zapobiegnij wyciekowi lokalnego IP przez WebRTC *",
+        "message": "Zapobiegnij wyciekowi lokalnego IP przez WebRTC",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -148,7 +148,7 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** Włączenie nauki w trybie prywatnym może pozostawić ślady Twojego przeglądania prywatnego na komputerze. Domyślnie Privacy Badger będzie blokował już znane elementy śledzące w oknach prywatnych, ale nie będzie uczył się na temat nowych. Możesz zmienić tę opcję, jeżeli dużo serfujesz w trybie prywatnym.",
+        "message": "Włączenie nauki w trybie prywatnym może pozostawić ślady Twojego przeglądania prywatnego na komputerze. Domyślnie Privacy Badger będzie blokował już znane elementy śledzące w oknach prywatnych, ale nie będzie uczył się na temat nowych. Możesz zmienić tę opcję, jeżeli dużo serfujesz w trybie prywatnym.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -174,7 +174,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Ucz się w trybie prywatnym **",
+        "message": "Ucz się w trybie prywatnym",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -254,12 +254,20 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC może ujawnić Twój lokalny adres IP. Zauważ, że może to zmniejszyć wydajność aplikacji do konferencji sieciowych, np. Google Hangouts.",
+        "message": "WebRTC może ujawnić Twój lokalny adres IP. Zauważ, że może to zmniejszyć wydajność aplikacji do konferencji sieciowych, np. Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Ogólne ustawienia",
         "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "Wprowadzenie",
@@ -368,6 +376,14 @@
     "options_enable_dnt_checkbox": {
         "message": "Wysyłaj do stron sygnał <a href='https://www.eff.org/issues/do-not-track' target='_blank'>„Nie Śledź Mnie” (DNT)</a>",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
+    "options_disable_google_nav_error_service": {
+        "message": "Disable sending web addresses you visit to Google to show suggestions when a page can't be found",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "Disable hyperlink auditing",
+        "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
         "message": "ustawione przez użytkownika",

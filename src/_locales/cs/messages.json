@@ -100,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Bránit uniku lokální IP adresy skrze WebRTC *",
+        "message": "Bránit uniku lokální IP adresy skrze WebRTC",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -148,7 +148,7 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** Jestliže povolíte učení v Anonymním okně, může zůstat na počítači Vaše historie procházení. Ve výchozím nastavení Privacy Badger blokuje v Anonymním okně pouze sledovací prvky, které již zná, ale nebude se snažit objevovat nové a učit se z nich. Zvažte zapnutí této možnosti v případě, že často používáte Anonymní okno.",
+        "message": "Jestliže povolíte učení v Anonymním okně, může zůstat na počítači Vaše historie procházení. Ve výchozím nastavení Privacy Badger blokuje v Anonymním okně pouze sledovací prvky, které již zná, ale nebude se snažit objevovat nové a učit se z nich. Zvažte zapnutí této možnosti v případě, že často používáte Anonymní okno.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -174,7 +174,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Učit se v Anonymním okně prohlížeče **",
+        "message": "Učit se v Anonymním okně prohlížeče",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -254,12 +254,20 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* Skrze WebRTC může unikat Vaše lokání IP adresa. Jestliže povolíte toto nastavení, kvalita Vašich hovorů na službách jako jsou Google Hangouts se může zhoršit.",
+        "message": "Skrze WebRTC může unikat Vaše lokání IP adresa. Jestliže povolíte toto nastavení, kvalita Vašich hovorů na službách jako jsou Google Hangouts se může zhoršit.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Obecná nastavení",
         "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "Spustit prohlídku",
@@ -368,6 +376,14 @@
     "options_enable_dnt_checkbox": {
         "message": "Odesílat webovým stránkám \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Žádost o nesledování (Do Not Track)</a>\"",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
+    "options_disable_google_nav_error_service": {
+        "message": "Disable sending web addresses you visit to Google to show suggestions when a page can't be found",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "Disable hyperlink auditing",
+        "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
         "message": "nastavené uživatelem",

@@ -100,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "امنع WebRTC من تسريب عناوين الإنترنت المحلية *",
+        "message": "امنع WebRTC من تسريب عناوين الإنترنت المحلية",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -148,7 +148,7 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** تفعيل التعلم في نوافذ التصفح الخاص قد يترك آثارا لتأريخ تصفحك الخاص على حاسوبك. مبدئيا سيحجب «غرير الخصوصية» المتعقبات التي يعرفها من قبل في نوافذ التصفح الخاص، لكنه لن يتعلم أي متعقبات جديدة. قد تريد تفعيل هذا الخيار إن كان الكثير من تصفحك في نوافذ خاصة.",
+        "message": "تفعيل التعلم في نوافذ التصفح الخاص قد يترك آثارا لتأريخ تصفحك الخاص على حاسوبك. مبدئيا سيحجب «غرير الخصوصية» المتعقبات التي يعرفها من قبل في نوافذ التصفح الخاص، لكنه لن يتعلم أي متعقبات جديدة. قد تريد تفعيل هذا الخيار إن كان الكثير من تصفحك في نوافذ خاصة.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -174,7 +174,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "تعلم في نوافذ التصفح الخاص **",
+        "message": "تعلم في نوافذ التصفح الخاص",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -254,12 +254,20 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* يمكن أن يسرب WebRTC عنواوين الإنترنت (IP) المحلية. لاحظ أن تفعيل هذا الخيار قد يقلل من أداء برمجيات الاجتماعات على الوب مثل Google Hangouts.",
+        "message": "يمكن أن يسرب WebRTC عنواوين الإنترنت (IP) المحلية. لاحظ أن تفعيل هذا الخيار قد يقلل من أداء برمجيات الاجتماعات على الوب مثل Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "الإعدادات العامة",
         "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "خذ جولة",
@@ -368,6 +376,14 @@
     "options_enable_dnt_checkbox": {
         "message": "أرسل إلى المواقع إشارة ”<a href='https://www.eff.org/issues/do-not-track' target='_blank'>لا تتعقبني</a>“",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
+    "options_disable_google_nav_error_service": {
+        "message": "Disable sending web addresses you visit to Google to show suggestions when a page can't be found",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "Disable hyperlink auditing",
+        "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
         "message": "تحت تحكم المستخدم",

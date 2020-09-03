@@ -100,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "WebRTC가 로컬 IP 주소를 유출하지 못하도록 합니다. *",
+        "message": "WebRTC가 로컬 IP 주소를 유출하지 못하도록 합니다.",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -148,7 +148,7 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** Private/Incognito 창에서 학습을 활성화하면 컴퓨터에 개인 검색 기록을 남길 수 있습니다. 기본적으로 Privacy Badger는 Private/Incognito 창에서 이미 알고 있는 추적기를 차단하지만 새로운 추적기에 대해서는 학습하지 않습니다. Private/Incognito 창에서 많은 검색이 발생하는 경우 이 옵션을 사용하도록 설정할 수 있습니다.",
+        "message": "Private/Incognito 창에서 학습을 활성화하면 컴퓨터에 개인 검색 기록을 남길 수 있습니다. 기본적으로 Privacy Badger는 Private/Incognito 창에서 이미 알고 있는 추적기를 차단하지만 새로운 추적기에 대해서는 학습하지 않습니다. Private/Incognito 창에서 많은 검색이 발생하는 경우 이 옵션을 사용하도록 설정할 수 있습니다.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -174,7 +174,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Private/Incognito 창에서 학습합니다. **",
+        "message": "Private/Incognito 창에서 학습합니다.",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -254,12 +254,20 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC에서 로컬 IP 주소가 유출될 수 있습니다. 이 옵션을 활성화하면 Google Hangouts와 같은 웹 회의 앱의 성능이 저하될 수 있습니다.",
+        "message": "WebRTC에서 로컬 IP 주소가 유출될 수 있습니다. 이 옵션을 활성화하면 Google Hangouts와 같은 웹 회의 앱의 성능이 저하될 수 있습니다.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "일반 설정",
         "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "알아보기",
@@ -368,6 +376,14 @@
     "options_enable_dnt_checkbox": {
         "message": "웹사이트에 \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>추적 금지 신호</a>\"를 보냅니다.",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
+    "options_disable_google_nav_error_service": {
+        "message": "Disable sending web addresses you visit to Google to show suggestions when a page can't be found",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "Disable hyperlink auditing",
+        "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
         "message": "사용자 정의",

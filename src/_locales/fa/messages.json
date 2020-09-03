@@ -100,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "نگذار WebRTC آدرس IP را لو بدهد *",
+        "message": "نگذار WebRTC آدرس IP را لو بدهد",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -148,7 +148,7 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** اجازه یادگیری در پنجره های خصوصی/ناشناس ممکن است ردی از تاریخچه گشت خصوصی شما در وب روی کامپیوترتان به جا بگذارد. به صورت پیش فرض، پرایوسی بجر ردیاب هایی که در پنجره های خصوصی/ناشناس می شناسد را بلاک خواهد کرد، اما درباره ردیاب های جدید اطلاعی کسب نخواهد کرد. اگر بیشتر وقت خود را در پنجره های خصوصی/ناشناس می گذرانید شاید بهتر باشد که این گزینه را فعال کنید.",
+        "message": "اجازه یادگیری در پنجره های خصوصی/ناشناس ممکن است ردی از تاریخچه گشت خصوصی شما در وب روی کامپیوترتان به جا بگذارد. به صورت پیش فرض، پرایوسی بجر ردیاب هایی که در پنجره های خصوصی/ناشناس می شناسد را بلاک خواهد کرد، اما درباره ردیاب های جدید اطلاعی کسب نخواهد کرد. اگر بیشتر وقت خود را در پنجره های خصوصی/ناشناس می گذرانید شاید بهتر باشد که این گزینه را فعال کنید.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -174,7 +174,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "یادگیری در پنجره های خصوصی/ناشناس **",
+        "message": "یادگیری در پنجره های خصوصی/ناشناس",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -254,12 +254,20 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC میتواند منجر به لو رفتن آدرس IP شما شود. توجه داشته باشید که این گزینه میتواند باعث کندی عملکرد در برنامه های کنفرانسی وب مثل Google Hangouts شود.",
+        "message": "WebRTC میتواند منجر به لو رفتن آدرس IP شما شود. توجه داشته باشید که این گزینه میتواند باعث کندی عملکرد در برنامه های کنفرانسی وب مثل Google Hangouts شود.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "تنظیمات کلی",
         "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "انجام تور",
@@ -368,6 +376,14 @@
     "options_enable_dnt_checkbox": {
         "message": "به وبسایت ها سیگنال \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'> ردیابی نکن </a>\" بفرست",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
+    "options_disable_google_nav_error_service": {
+        "message": "Disable sending web addresses you visit to Google to show suggestions when a page can't be found",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "Disable hyperlink auditing",
+        "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
         "message": "کنترل شده توسط کاربر",
