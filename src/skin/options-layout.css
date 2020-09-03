@@ -23,22 +23,39 @@ h3 {
     margin: 10px 0;
 }
 
-hr {
-    border: 0;
-    height: 1px;
-    background-color: #d3d3d3;
-    margin: 20px 0;
-    max-width: 700px;
-    width: 100%;
+h4 {
+    display: flex;
+    flex-direction: row;
+    margin: 30px 0 15px 0;
+}
+h4:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid #d3d3d3;
+    margin: auto;
+    margin-inline-start: 10px;
 }
 
-div.checkbox label {
-  min-height: 20px;
-  cursor: pointer;
+div.checkbox {
+    max-width: 550px;
 }
 
-label input[type=checkbox] + span {
-  padding-left: 0.5em;
+div.checkbox + div.checkbox {
+    margin-top: 5px;
+}
+
+input[type=checkbox] {
+    flex: none;
+    margin-inline-end: 0.8em;
+}
+
+div.checkbox .ui-icon {
+    margin-inline-start: 0.2em;
+}
+
+div.checkbox .ui-icon-alert {
+    color: #cc0000;
+    margin-bottom: 3px;
 }
 
 td
@@ -54,9 +71,10 @@ button
 }
 
 label {
-  display: inline-flex;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
 }
-
 #tracking-domains-filters label {
     display: inline;
 }
@@ -176,17 +194,6 @@ p, #settingsForm {
 
 .clickerContainer {
     max-height: 400px; /* override popup.css */
-}
-
-#settings-suffix {
-    color: #555;
-    font-size: 12px;
-    max-width: 500px;
-    margin-left: 30px;
-}
-
-#settings-suffix div {
-    margin: 12px 0;
 }
 
 #check-dnt-policy-row {

@@ -1050,6 +1050,8 @@ function dispatcher(request, sender, sendResponse) {
     sendResponse({
       cookieblocked,
       disabledSites: badger.getDisabledSites(),
+      disableGoogleNavErrorService: badger.getSettings().getItem("disableGoogleNavErrorService"),
+      disableHyperlinkAuditing: badger.getSettings().getItem("disableHyperlinkAuditing"),
       isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
       isDNTSignalEnabled: badger.isDNTSignalEnabled(),
       isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),

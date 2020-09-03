@@ -98,7 +98,7 @@ function setTextDirection() {
     document.body.appendChild(css);
 
     // fix margins
-    ['#settings-suffix', '#check-dnt-policy-row', '#hide-widgets-row'].forEach((selector) => {
+    ['#check-dnt-policy-row', '#hide-widgets-row'].forEach((selector) => {
       swap_css_property(selector, "margin-left", "margin-right");
     });
     ['#allowlist-form > div > div > div'].forEach((selector) => {
@@ -109,12 +109,6 @@ function setTextDirection() {
     ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
-
-    // fix padding
-    ['label input[type=checkbox] + span'].forEach((selector) => {
-      swap_css_property(selector, "padding-left", "padding-right");
-    });
-
   }
 }
 

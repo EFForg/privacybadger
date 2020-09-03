@@ -40,7 +40,6 @@ function Badger() {
 
   self.webRTCAvailable = checkWebRTCBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
-  self.setPrivacyOverrides();
 
   self.widgetList = [];
   widgetLoader.loadWidgetsFromFile("data/socialwidgets.json", (response) => {
@@ -49,6 +48,10 @@ function Badger() {
 
   self.storage = new pbStorage.BadgerPen(async function (thisStorage) {
     self.initializeDefaultSettings();
+    // Privacy Badger settings are now fully ready
+
+    self.setPrivacyOverrides();
+
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
     // TODO there are async migrations
@@ -223,6 +226,8 @@ Badger.prototype = {
       return;
     }
 
+    let self = this;
+
     /**
      * Sets a browser setting if Privacy Badger is allowed to set it.
      */
@@ -247,20 +252,24 @@ Badger.prototype = {
       });
     }
 
-    if (chrome.privacy.services) {
-      _set_override(
-        "alternateErrorPagesEnabled",
-        chrome.privacy.services.alternateErrorPagesEnabled,
-        false
-      );
+    if (self.getSettings().getItem("disableGoogleNavErrorService")) {
+      if (chrome.privacy.services) {
+        _set_override(
+          "alternateErrorPagesEnabled",
+          chrome.privacy.services.alternateErrorPagesEnabled,
+          false
+        );
+      }
     }
 
-    if (chrome.privacy.websites) {
-      _set_override(
-        "hyperlinkAuditingEnabled",
-        chrome.privacy.websites.hyperlinkAuditingEnabled,
-        false
-      );
+    if (self.getSettings().getItem("disableHyperlinkAuditing")) {
+      if (chrome.privacy.websites) {
+        _set_override(
+          "hyperlinkAuditingEnabled",
+          chrome.privacy.websites.hyperlinkAuditingEnabled,
+          false
+        );
+      }
     }
   },
 
@@ -662,6 +671,8 @@ Badger.prototype = {
   defaultSettings: {
     checkForDNTPolicy: true,
     disabledSites: [],
+    disableGoogleNavErrorService: true,
+    disableHyperlinkAuditing: true,
     hideBlockedElements: true,
     isFirstRun: true,
     learnInIncognito: false,

@@ -116,25 +116,34 @@ function loadOptions() {
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
 
+  // only show the alternateErrorPagesEnabled override if browser supports it
+  if (chrome.privacy && chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
+    $("#privacy-settings-header").show();
+    $("#disable-google-nav-error-service").show();
+    $('#disable-google-nav-error-service-checkbox')
+      .prop("checked", OPTIONS_DATA.disableGoogleNavErrorService)
+      .on("click", overrideAlternateErrorPagesSetting);
+  }
+
+  // only show the hyperlinkAuditingEnabled override if browser supports it
+  if (chrome.privacy && chrome.privacy.websites && chrome.privacy.websites.hyperlinkAuditingEnabled) {
+    $("#privacy-settings-header").show();
+    $("#disable-hyperlink-auditing").show();
+    $("#disable-hyperlink-auditing-checkbox")
+      .prop("checked", OPTIONS_DATA.disableHyperlinkAuditing)
+      .on("click", overrideHyperlinkAuditingSetting);
+  }
+
   if (OPTIONS_DATA.webRTCAvailable) {
+    $("#webRTCToggle").show();
     $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
 
     chrome.privacy.network.webRTCIPHandlingPolicy.get({}, result => {
-      // only enable the checkbox if pb can control webrtc ip leak protection
-      if (result.levelOfControl.endsWith("_by_this_extension")) {
-        $("#toggle_webrtc_mode").attr("disabled", false);
-      }
-
       // auto check the option box if ip leak is already protected at diff levels, via pb or another extension
       if (result.value == "default_public_interface_only" || result.value == "disable_non_proxied_udp") {
         $("#toggle_webrtc_mode").prop("checked", true);
       }
     });
-
-  } else {
-    // Hide WebRTC-related settings for non-supporting browsers
-    $("#webRTCToggle").hide();
-    $("#webrtc-warning").hide();
   }
 
   $("#learn-in-incognito-checkbox")
@@ -749,6 +758,50 @@ function toggleWebRTCIPProtection() {
       });
     }
   });
+}
+
+// handles overriding the alternateErrorPagesEnabled setting
+function overrideAlternateErrorPagesSetting() {
+  const checked = $("#disable-google-nav-error-service-checkbox").prop("checked");
+
+  // update Badger settings so that we know to reapply the browser setting on startup
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      disableGoogleNavErrorService: checked
+    }
+  });
+
+  // update the browser setting
+  if (checked) {
+    chrome.privacy.services.alternateErrorPagesEnabled.set({
+      value: false
+    });
+  } else {
+    chrome.privacy.services.alternateErrorPagesEnabled.clear({});
+  }
+}
+
+// handles overriding the hyperlinkAuditingEnabled setting
+function overrideHyperlinkAuditingSetting() {
+  const checked = $("#disable-hyperlink-auditing-checkbox").prop("checked");
+
+  // update Badger settings so that we know to reapply the browser setting on startup
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      disableHyperlinkAuditing: checked
+    }
+  });
+
+  // update the browser setting
+  if (checked) {
+    chrome.privacy.websites.hyperlinkAuditingEnabled.set({
+      value: false
+    });
+  } else {
+    chrome.privacy.websites.hyperlinkAuditingEnabled.clear({});
+  }
 }
 
 /**

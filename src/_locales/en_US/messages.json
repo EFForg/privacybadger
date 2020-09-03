@@ -100,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address *",
+        "message": "Prevent WebRTC from leaking local IP address",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -148,7 +148,7 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "message": "Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -174,7 +174,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Learn in Private/Incognito windows **",
+        "message": "Learn in Private/Incognito windows",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
@@ -254,12 +254,20 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC can leak your local IP address. Note that enabling this option may degrade performance on web conferencing apps like Google Hangouts.",
+        "message": "WebRTC can leak your local IP address. Note that enabling this option may degrade performance on web conferencing apps like Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "General Settings",
         "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "Take the tour",
@@ -368,6 +376,14 @@
     "options_enable_dnt_checkbox": {
         "message": "Send websites the \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signal",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
+    "options_disable_google_nav_error_service": {
+        "message": "Disable sending web addresses you visit to Google to show suggestions when a page can't be found",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "Disable hyperlink auditing",
+        "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
         "message": "user-controlled",
