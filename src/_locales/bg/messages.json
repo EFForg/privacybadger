@@ -100,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Prevent WebRTC from leaking local IP address",
+        "message": "Спри изтичането на локалния ти IP адрес през WebRTC",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
