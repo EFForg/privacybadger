@@ -117,15 +117,15 @@ function loadOptions() {
   $("#disable-google-nav-error-service-checkbox").on("click", overrideAlternateErrorPagesSetting);
   $("#disable-hyperlink-auditing-checkbox").on("click", overrideHyperlinkAuditingSetting);
 
-  // only show the alternateErrorPagesEnabled checkbox if browser supports it
-  if (chrome.privacy.services.alternateErrorPagesEnabled) {
+  // only show the alternateErrorPagesEnabled override if browser supports it
+  if (chrome.privacy && chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
     $("#disable-google-nav-error-service").show();
     // check the select box if the user preference is already set for pb to disable alternateErrorPages
     $('#disable-google-nav-error-service-checkbox').prop("checked", OPTIONS_DATA.disableGoogleNavErrorService);
   }
 
-  // only show the hyperlinkAuditingEnabled checkbox if browser supports it
-  if (chrome.privacy.websites.hyperlinkAuditingEnabled) {
+  // only show the hyperlinkAuditingEnabled override if browser supports it
+  if (chrome.privacy && chrome.privacy.websites && chrome.privacy.websites.hyperlinkAuditingEnabled) {
     $("#disable-hyperlink-auditing").show();
     // check the select box if the user preference is already set for privacy badger to disable hyperlinkAuditing
     $("#disable-hyperlink-auditing-checkbox").prop("checked", OPTIONS_DATA.disableHyperlinkAuditing);
