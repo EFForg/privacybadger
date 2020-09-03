@@ -117,6 +117,7 @@ function loadOptions() {
 
   // only show the alternateErrorPagesEnabled override if browser supports it
   if (chrome.privacy && chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
+    $("#privacy-settings-header").show();
     $("#disable-google-nav-error-service").show();
     $('#disable-google-nav-error-service-checkbox')
       .prop("checked", OPTIONS_DATA.disableGoogleNavErrorService)
@@ -125,6 +126,7 @@ function loadOptions() {
 
   // only show the hyperlinkAuditingEnabled override if browser supports it
   if (chrome.privacy && chrome.privacy.websites && chrome.privacy.websites.hyperlinkAuditingEnabled) {
+    $("#privacy-settings-header").show();
     $("#disable-hyperlink-auditing").show();
     $("#disable-hyperlink-auditing-checkbox")
       .prop("checked", OPTIONS_DATA.disableHyperlinkAuditing)
