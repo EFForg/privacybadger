@@ -1,6 +1,6 @@
 {
     "badger_status_block": {
-        "message": " $DOMAIN$ geblokkeerd",
+        "message": "$DOMAIN$ geblokkeerd",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {

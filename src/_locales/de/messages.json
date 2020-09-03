@@ -480,7 +480,7 @@
         "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
-        "message": "Durch das Verwenden von Privacy Badger werden Sie Teil der <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> und Millionen anderer Nutzer im Kampf für Datenschutz. Wir sind eine gemeinnützige Organisation, die sich für Ihre Rechte im Internet einsetzt. Vielen Dank für Ihre Teilnahme! ",
+        "message": "Durch das Verwenden von Privacy Badger werden Sie Teil der <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> und Millionen anderer Nutzer im Kampf für Datenschutz. Wir sind eine gemeinnützige Organisation, die sich für Ihre Rechte im Internet einsetzt. Vielen Dank für Ihre Teilnahme!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {

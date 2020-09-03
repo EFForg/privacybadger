@@ -222,7 +222,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "ایمپورت داده کاربری:<ul><li> اوورایت تنظیمات کلی</li><li>ترکیب لیست سایت های غیرفعال شده</li><li>ترکیب اطلاعات درباره ردیاب هایی که پرایوسی بجر با آن ها برخورد داشته است</li><li>اوورایت کاستومایزیشن اسلایدر</li></ul> ",
+        "message": "ایمپورت داده کاربری:<ul><li> اوورایت تنظیمات کلی</li><li>ترکیب لیست سایت های غیرفعال شده</li><li>ترکیب اطلاعات درباره ردیاب هایی که پرایوسی بجر با آن ها برخورد داشته است</li><li>اوورایت کاستومایزیشن اسلایدر</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {

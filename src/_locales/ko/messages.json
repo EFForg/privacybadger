@@ -14,7 +14,7 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": " Privacy Badger로부터 이 도메인을 제거합니까?",
+        "message": "Privacy Badger로부터 이 도메인을 제거합니까?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
