@@ -262,11 +262,11 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "Datenschutz",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
-        "message": "Advanced",
+        "message": "Erweitert",
         "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
@@ -378,11 +378,11 @@
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Disable sending web addresses you visit to Google to show suggestions when a page can't be found",
+        "message": "Senden besuchter Web-Adressen an Google deaktivieren. Bei nicht gefundenen Seiten werden keine Vorschläge mehr angezeigt.",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disable hyperlink auditing",
+        "message": "Hyperlink-Auditing deaktivieren",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
