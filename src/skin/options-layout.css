@@ -37,7 +37,7 @@ h4:after {
 }
 
 div.checkbox {
-    max-width: 550px;
+    max-width: 600px;
 }
 
 div.checkbox + div.checkbox {
@@ -52,11 +52,11 @@ input[type=checkbox] {
 div.checkbox .ui-icon {
     margin-inline-start: 0.2em;
     font-size: 1.2em;
-    margin-bottom: 3px;
 }
 
 div.checkbox .ui-icon-alert {
     color: #cc0000;
+    margin-bottom: 3px;
 }
 
 td
