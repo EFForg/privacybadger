@@ -27,9 +27,6 @@ jobs:
       addons:
         firefox: latest-nightly
   allow_failures:
-    - env: INFO="firefox beta" BROWSER=firefox
-      addons:
-        firefox: latest-beta
     - env: INFO="firefox nightly" BROWSER=firefox
       addons:
         firefox: latest-nightly
