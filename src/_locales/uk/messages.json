@@ -318,7 +318,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page.",
+        "message": "На цій сторінці немає сторонніх ресурсів.",
         "description": ""
     },
     "report_broken_site": {
