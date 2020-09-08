@@ -262,11 +262,11 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "Приватність",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
-        "message": "Advanced",
+        "message": "Розширені",
         "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
@@ -382,7 +382,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disable hyperlink auditing",
+        "message": "Вимкнути аудит гіперпосилань",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
