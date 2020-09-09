@@ -795,7 +795,7 @@ Badger.prototype = {
       // - we don't have tabData for whatever reason (special browser pages)
       // - Privacy Badger is disabled on the page
       if (
-        !self.showCounter() ||
+        !self.getSettings().getItem("showCounter") ||
         !self.tabData.hasOwnProperty(tab_id) ||
         !self.isPrivacyBadgerEnabled(self.getFrameData(tab_id).host)
       ) {
@@ -874,13 +874,6 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
-  },
-
-  /**
-   * Check if we should show the counter on the icon
-   */
-  showCounter: function() {
-    return this.getSettings().getItem("showCounter");
   },
 
   /**
