@@ -50,7 +50,7 @@ function loadOptions() {
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
 
-  if (OPTIONS_DATA.showTrackingDomains) {
+  if (OPTIONS_DATA.settings.showTrackingDomains) {
     $('#tracking-domains-overlay').hide();
   } else {
     $('#blockedResourcesContainer').hide();
@@ -107,21 +107,21 @@ function loadOptions() {
   $("#resetData").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
   $("#removeAllData").button("option", "icons", {primary: "ui-icon-closethick"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
-  $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.showCounter);
+  $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.settings.showCounter);
   $("#replace-widgets-checkbox")
     .on("click", updateWidgetReplacement)
     .prop("checked", OPTIONS_DATA.isWidgetReplacementEnabled);
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
-  $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.isDNTSignalEnabled);
+  $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.settings.sendDNTSignal);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
-  $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
+  $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.settings.checkForDNTPolicy).prop("disabled", !OPTIONS_DATA.settings.sendDNTSignal);
 
   // only show the alternateErrorPagesEnabled override if browser supports it
   if (chrome.privacy && chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
     $("#privacy-settings-header").show();
     $("#disable-google-nav-error-service").show();
     $('#disable-google-nav-error-service-checkbox')
-      .prop("checked", OPTIONS_DATA.disableGoogleNavErrorService)
+      .prop("checked", OPTIONS_DATA.settings.disableGoogleNavErrorService)
       .on("click", overrideAlternateErrorPagesSetting);
   }
 
@@ -130,7 +130,7 @@ function loadOptions() {
     $("#privacy-settings-header").show();
     $("#disable-hyperlink-auditing").show();
     $("#disable-hyperlink-auditing-checkbox")
-      .prop("checked", OPTIONS_DATA.disableHyperlinkAuditing)
+      .prop("checked", OPTIONS_DATA.settings.disableHyperlinkAuditing)
       .on("click", overrideHyperlinkAuditingSetting);
   }
 
@@ -148,7 +148,7 @@ function loadOptions() {
 
   $("#learn-in-incognito-checkbox")
     .on("click", updateLearnInIncognito)
-    .prop("checked", OPTIONS_DATA.isLearnInIncognitoEnabled);
+    .prop("checked", OPTIONS_DATA.settings.learnInIncognito);
 
   $('#show-nontracking-domains-checkbox')
     .on("click", (event) => {
@@ -158,7 +158,7 @@ function loadOptions() {
         data: { showNonTrackingDomains }
       });
     })
-    .prop("checked", OPTIONS_DATA.showNonTrackingDomains);
+    .prop("checked", OPTIONS_DATA.settings.showNonTrackingDomains);
 
   const widgetSelector = $("#hide-widgets-select");
   widgetSelector.prop("disabled",
@@ -175,7 +175,7 @@ function loadOptions() {
   // Initialize Select2 and populate options
   widgetSelector.select2();
   OPTIONS_DATA.widgets.forEach(function (key) {
-    const isSelected = OPTIONS_DATA.widgetReplacementExceptions.includes(key);
+    const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
     const option = new Option(key, key, false, isSelected);
     widgetSelector.append(option).trigger("change");
   });
@@ -261,7 +261,7 @@ function parseUserDataFile(storageMapsList) {
     type: "mergeUserData",
     data: lists
   }, (response) => {
-    OPTIONS_DATA.disabledSites = response.disabledSites;
+    OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     OPTIONS_DATA.origins = response.origins;
 
     reloadDisabledSites();
@@ -296,7 +296,7 @@ function downloadCloud() {
     function (response) {
       if (response.success) {
         alert(i18n.getMessage("download_cloud_success"));
-        OPTIONS_DATA.disabledSites = response.disabledSites;
+        OPTIONS_DATA.settings.disabledSites = response.disabledSites;
         reloadDisabledSites();
       } else {
         console.error("Cloud sync error:", response.message);
@@ -474,7 +474,7 @@ function updateLearnInIncognito() {
 }
 
 function reloadDisabledSites() {
-  let sites = OPTIONS_DATA.disabledSites,
+  let sites = OPTIONS_DATA.settings.disabledSites,
     $select = $('#allowlist-select');
 
   // sort disabled sites the same way blocked sites are sorted
@@ -501,7 +501,7 @@ function addDisabledSite(event) {
     type: "disablePrivacyBadgerForOrigin",
     domain
   }, (response) => {
-    OPTIONS_DATA.disabledSites = response.disabledSites;
+    OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     reloadDisabledSites();
     document.getElementById("new-disabled-site-input").value = "";
   });
@@ -520,7 +520,7 @@ function removeDisabledSite(event) {
     type: "enablePrivacyBadgerForOriginList",
     domains
   }, (response) => {
-    OPTIONS_DATA.disabledSites = response.disabledSites;
+    OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     reloadDisabledSites();
   });
 }

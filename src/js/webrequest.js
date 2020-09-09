@@ -1049,19 +1049,10 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse({
       cookieblocked,
-      disabledSites: badger.getDisabledSites(),
-      disableGoogleNavErrorService: badger.getSettings().getItem("disableGoogleNavErrorService"),
-      disableHyperlinkAuditing: badger.getSettings().getItem("disableHyperlinkAuditing"),
-      isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
-      isDNTSignalEnabled: badger.isDNTSignalEnabled(),
-      isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
       isWidgetReplacementEnabled: badger.isWidgetReplacementEnabled(),
       origins,
-      showCounter: badger.showCounter(),
-      showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
-      showTrackingDomains: badger.getSettings().getItem("showTrackingDomains"),
+      settings: badger.getSettings().getItemClones(),
       webRTCAvailable: badger.webRTCAvailable,
-      widgetReplacementExceptions: badger.getSettings().getItem("widgetReplacementExceptions"),
       widgets: badger.widgetList.map(widget => widget.name),
     });
 
