@@ -30,7 +30,7 @@ function tabIsIncognito(tabId) {
 }
 
 function learningEnabled(tabId) {
-  if (badger.isLearnInIncognitoEnabled()) {
+  if (badger.getSettings().getItem("learnInIncognito")) {
     // Treat all pages as if they're not incognito
     return true;
   }

@@ -202,13 +202,8 @@ p, #settingsForm {
     max-height: 400px; /* override popup.css */
 }
 
-#check-dnt-policy-row {
-    margin-inline-start: 25px;
-}
-
 #hide-widgets-row {
     width: 100%;
-    margin-inline-start: 25px;
     margin-top: 5px;
 }
 
@@ -252,4 +247,8 @@ p, #settingsForm {
 }
 #tabs .ui-tabs-nav li a:focus {
     outline: none;
+}
+
+.indent1 {
+    margin-inline-start: 25px;
 }

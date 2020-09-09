@@ -178,7 +178,7 @@
           <span class="i18n_options_enable_dnt_checkbox"></span>
         </label>
       </div>
-      <div class="checkbox" id="check-dnt-policy-row">
+      <div class="checkbox indent1">
         <label>
           <input type="checkbox" id="check_dnt_policy_checkbox">
           <span class="i18n_options_dnt_policy_setting"></span>
@@ -210,6 +210,24 @@
 
       <div class="checkbox">
         <label>
+          <input type="checkbox" id="local-learning-checkbox">
+          <span>
+            <span class="i18n_options_learn_setting"></span>
+            <span class="ui-icon ui-icon-alert tooltip" title="i18n_local_learning_warning"></span>
+          </span>
+        </label>
+      </div>
+      <div class="checkbox indent1">
+        <label>
+          <input type="checkbox" id="learn-in-incognito-checkbox" disabled>
+          <span>
+            <span class="i18n_options_incognito_setting"></span>
+            <span class="ui-icon ui-icon-alert tooltip" title="i18n_options_incognito_warning"></span>
+          </span>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
           <input type="checkbox" id="show-nontracking-domains-checkbox">
           <span class="i18n_options_show_nontracking_domains_checkbox"></span>
         </label>
@@ -220,15 +238,6 @@
           <span>
             <span class="i18n_options_webrtc_setting"></span>
             <span class="ui-icon ui-icon-alert tooltip" title="i18n_options_webrtc_warning"></span>
-          </span>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" id="learn-in-incognito-checkbox">
-          <span>
-            <span class="i18n_options_incognito_setting"></span>
-            <span class="ui-icon ui-icon-alert tooltip" title="i18n_options_incognito_warning"></span>
           </span>
         </label>
       </div>
@@ -244,7 +253,7 @@
       <span class="i18n_options_social_widgets_checkbox"></span>
     </label>
     </p>
-    <div id="hide-widgets-row">
+    <div id="hide-widgets-row" class="indent1">
       <label for="hide-widgets-select">
         <span class="i18n_options_hide_social_widgets"></span>
       </label>

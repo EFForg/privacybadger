@@ -146,9 +146,36 @@ function loadOptions() {
     });
   }
 
+  $('#local-learning-checkbox')
+    .prop("checked", OPTIONS_DATA.settings.learnLocally)
+    .on("click", (event) => {
+      const enabled = $(event.currentTarget).prop("checked");
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: {
+          learnLocally: enabled
+        }
+      }, function () {
+        $("#learn-in-incognito-checkbox")
+          .prop("disabled", (enabled ? false : "disabled"))
+          .prop("checked", (enabled ? OPTIONS_DATA.settings.learnInIncognito : false));
+      });
+    });
+
   $("#learn-in-incognito-checkbox")
-    .on("click", updateLearnInIncognito)
-    .prop("checked", OPTIONS_DATA.settings.learnInIncognito);
+    .prop("disabled", OPTIONS_DATA.settings.learnLocally ? false : "disabled")
+    .prop("checked", OPTIONS_DATA.settings.learnLocally ? OPTIONS_DATA.settings.learnInIncognito : false)
+    .on("click", (event) => {
+      const enabled = $(event.currentTarget).prop("checked");
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: {
+          learnInIncognito: enabled
+        }
+      }, function () {
+        OPTIONS_DATA.settings.learnInIncognito = enabled;
+      });
+    });
 
   $('#show-nontracking-domains-checkbox')
     .on("click", (event) => {
@@ -461,15 +488,6 @@ function updateCheckingDNTPolicy() {
     data: {
       checkForDNTPolicy: enabled
     }
-  });
-}
-
-function updateLearnInIncognito() {
-  const learnInIncognito = $("#learn-in-incognito-checkbox").prop("checked");
-
-  chrome.runtime.sendMessage({
-    type: "updateSettings",
-    data: { learnInIncognito }
   });
 }
 

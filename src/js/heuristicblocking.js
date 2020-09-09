@@ -19,7 +19,6 @@
 
 var constants = require("constants");
 var utils = require("utils");
-var incognito = require("incognito");
 
 require.scopes.heuristicblocking = (function() {
 
@@ -106,7 +105,7 @@ HeuristicBlocker.prototype = {
    */
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
     // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || !incognito.learningEnabled(details.tabId)) {
+    if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
       return {};
     }
 

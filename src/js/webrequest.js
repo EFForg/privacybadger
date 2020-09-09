@@ -30,7 +30,6 @@ require.scopes.webrequest = (function () {
 
 let constants = require("constants"),
   getSurrogateURI = require("surrogates").getSurrogateURI,
-  incognito = require("incognito"),
   utils = require("utils");
 
 /************ Local Variables *****************/
@@ -110,7 +109,7 @@ function onBeforeRequest(details) {
   });
 
   // if this is a heuristically- (not user-) blocked domain
-  if (action == constants.BLOCK && incognito.learningEnabled(tab_id)) {
+  if (action == constants.BLOCK && badger.isLearningEnabled(tab_id)) {
     // check for DNT policy asynchronously
     setTimeout(function () {
       badger.checkForDNTPolicy(request_host);
@@ -437,7 +436,7 @@ function getHostForTab(tabId) {
  * @param {String} frame_url URL of the frame with supercookie
  */
 function recordSuperCookie(tab_id, frame_url) {
-  if (!incognito.learningEnabled(tab_id)) {
+  if (!badger.isLearningEnabled(tab_id)) {
     return;
   }
 
@@ -468,7 +467,7 @@ function recordFingerprinting(tabId, msg) {
   if (!msg.scriptUrl) {
     return;
   }
-  if (!incognito.learningEnabled(tabId)) {
+  if (!badger.isLearningEnabled(tabId)) {
     return;
   }
 

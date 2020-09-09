@@ -676,6 +676,7 @@ Badger.prototype = {
     hideBlockedElements: true,
     isFirstRun: true,
     learnInIncognito: false,
+    learnLocally: false,
     migrationLevel: 0,
     seenComic: false,
     sendDNTSignal: true,
@@ -849,6 +850,18 @@ Badger.prototype = {
   },
 
   /**
+   * Is local learning generally enabled,
+   * and if tab_id is for an incognito window,
+   * is learning in incognito windows enabled?
+   */
+  isLearningEnabled(tab_id) {
+    return (
+      this.getSettings().getItem("learnLocally") &&
+      incognito.learningEnabled(tab_id)
+    );
+  },
+
+  /**
    * Check if widget replacement functionality is enabled.
    */
   isWidgetReplacementEnabled: function () {
@@ -861,13 +874,6 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
-  },
-
-  /**
-   * Check if learning about trackers in incognito windows is enabled
-   */
-  isLearnInIncognitoEnabled: function() {
-    return this.getSettings().getItem("learnInIncognito");
   },
 
   /**

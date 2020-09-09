@@ -43,5 +43,6 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
             "Pixel cookie sharing tracking failed to be detected"
         )
 
+
 if __name__ == "__main__":
     unittest.main()

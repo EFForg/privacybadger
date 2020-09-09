@@ -147,10 +147,6 @@
         "message": "Show domains that don't appear to be tracking you",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
-    "options_incognito_warning": {
-        "message": "Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
-        "description": "Detailed explanation shown under checkboxes on the general settings page"
-    },
     "report_button": {
         "message": "Submit Error",
         "description": ""
@@ -173,9 +169,21 @@
         "message": "Search domains:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_learn_setting": {
+        "message": "Learn to block new trackers from your browsing",
+        "description": "Checkbox label on the general settings page"
+    },
+    "local_learning_warning": {
+        "message": "Enabling learning may make you more identifiable to websites",
+        "description": "Tooltip on the general settings page"
+    },
     "options_incognito_setting": {
         "message": "Learn in Private/Incognito windows",
         "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+        "description": "Tooltip on the general settings page"
     },
     "show_counter_checkbox": {
         "message": "Show count of trackers",
@@ -255,7 +263,7 @@
     },
     "options_webrtc_warning": {
         "message": "WebRTC can leak your local IP address. Note that enabling this option may degrade performance on web conferencing apps like Google Hangouts.",
-        "description": "Detailed explanation shown under checkboxes on the general settings page"
+        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "General Settings",
