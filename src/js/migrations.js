@@ -15,34 +15,26 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var utils = require("utils");
-var constants = require("constants");
+require.scopes.migrations = (function () {
 
-require.scopes.migrations = (function() {
+let utils = require("utils");
+let constants = require("constants");
 
-var exports = {};
+let noop = function () {};
+
+let exports = {};
+
 exports.Migrations= {
-  changePrivacySettings: function() {
-    if (!chrome.extension.inIncognitoContext && chrome.privacy) {
-      console.log('changing privacy settings');
-      if (chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
-        chrome.privacy.services.alternateErrorPagesEnabled.set({'value': false, 'scope': 'regular'});
-      }
-      if (chrome.privacy.websites && chrome.privacy.websites.hyperlinkAuditingEnabled) {
-        chrome.privacy.websites.hyperlinkAuditingEnabled.set({'value': false, 'scope': 'regular'});
-      }
-    }
-  },
-
-  migrateAbpToStorage: function () {},
+  changePrivacySettings: noop,
+  migrateAbpToStorage: noop,
 
   migrateBlockedSubdomainsToCookieblock: function(badger) {
     setTimeout(function() {
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
-      var cbl = badger.storage.getBadgerStorageObject('cookieblock_list');
-      _.each(badger.storage.getAllDomainsByPresumedAction(constants.BLOCK), function(fqdn) {
-        _.each(utils.explodeSubdomains(fqdn, true), function(domain) {
-          if (cbl.hasItem(domain)) {
+      let ylist = badger.storage.getBadgerStorageObject('cookieblock_list');
+      badger.storage.getAllDomainsByPresumedAction(constants.BLOCK).forEach(fqdn => {
+        utils.explodeSubdomains(fqdn, true).forEach(domain => {
+          if (ylist.hasItem(domain)) {
             console.log('moving', fqdn, 'from block to cookie block');
             badger.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
           }
@@ -51,7 +43,7 @@ exports.Migrations= {
     }, 1000 * 30);
   },
 
-  migrateLegacyFirefoxData: function() { },
+  migrateLegacyFirefoxData: noop,
 
   migrateDntRecheckTimes: function(badger) {
     var action_map = badger.storage.getBadgerStorageObject('action_map');
@@ -171,7 +163,7 @@ exports.Migrations= {
       if (sites && sites.length) {
         if (sites.length >= constants.TRACKING_THRESHOLD) {
           // tracking domain over threshold, set it to cookieblock or block
-          badger.heuristicBlocking.blacklistOrigin(base_domain, domain);
+          badger.heuristicBlocking.blocklistOrigin(base_domain, domain);
           continue;
 
         } else {
@@ -209,7 +201,7 @@ exports.Migrations= {
     // reblock all blocked domains to trigger yellowlist logic
     for (let i = 0; i < blocked.length; i++) {
       let domain = blocked[i];
-      badger.heuristicBlocking.blacklistOrigin(
+      badger.heuristicBlocking.blocklistOrigin(
         window.getBaseDomain(domain), domain);
     }
   },
@@ -228,9 +220,106 @@ exports.Migrations= {
     }
   },
 
-  resetWebRTCIPHandlingPolicy: function (badger) {
-    console.log("Resetting webRTCIPHandlingPolicy ...");
+  resetWebRTCIPHandlingPolicy: noop,
 
+  enableShowNonTrackingDomains: function (badger) {
+    console.log("Enabling showNonTrackingDomains for some users");
+
+    let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+      actions = actionMap.getItemClones();
+
+    // if we have any customized sliders
+    if (Object.keys(actions).some(domain => actions[domain].userAction != "")) {
+      // keep showing non-tracking domains in the popup
+      badger.getSettings().setItem("showNonTrackingDomains", true);
+    }
+  },
+
+  forgetFirstPartySnitches: function (badger) {
+    console.log("Removing first parties from snitch map...");
+    let snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
+      actionMap = badger.storage.getBadgerStorageObject("action_map"),
+      snitchClones = snitchMap.getItemClones(),
+      actionClones = actionMap.getItemClones(),
+      correctedSites = {};
+
+    for (let domain in snitchClones) {
+      // creates new array of domains checking against the isThirdParty utility
+      let newSnitches = snitchClones[domain].filter(
+        item => utils.isThirdPartyDomain(item, domain));
+
+      if (newSnitches.length) {
+        correctedSites[domain] = newSnitches;
+      }
+    }
+
+    // clear existing maps and then use mergeUserData to rebuild them
+    actionMap.updateObject({});
+    snitchMap.updateObject({});
+
+    const data = {
+      snitch_map: correctedSites,
+      action_map: actionClones
+    };
+
+    // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
+    badger.mergeUserData(data, true);
+  },
+
+  forgetCloudflare: function (badger) {
+    let config = {
+      name: '__cfduid'
+    };
+    if (badger.firstPartyDomainPotentiallyRequired) {
+      config.firstPartyDomain = null;
+    }
+
+    chrome.cookies.getAll(config, function (cookies) {
+      console.log("Forgetting Cloudflare domains ...");
+
+      let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+        actionClones = actionMap.getItemClones(),
+        snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
+        snitchClones = snitchMap.getItemClones(),
+        correctedSites = {},
+        // assume the tracking domains seen on these sites are all Cloudflare
+        cfduidFirstParties = new Set();
+
+      cookies.forEach(function (cookie) {
+        // get the base domain (also removes the leading dot)
+        cfduidFirstParties.add(window.getBaseDomain(cookie.domain));
+      });
+
+      for (let domain in snitchClones) {
+        let newSnitches = snitchClones[domain].filter(
+          item => !cfduidFirstParties.has(item));
+
+        if (newSnitches.length) {
+          correctedSites[domain] = newSnitches;
+        }
+      }
+
+      // clear existing maps and then use mergeUserData to rebuild them
+      actionMap.updateObject({});
+      snitchMap.updateObject({});
+
+      const data = {
+        snitch_map: correctedSites,
+        action_map: actionClones
+      };
+
+      // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
+      badger.mergeUserData(data, true);
+    });
+  },
+
+  // https://github.com/EFForg/privacybadger/pull/2245#issuecomment-545545717
+  forgetConsensu: (badger) => {
+    console.log("Forgetting consensu.org domains (GDPR consent provider) ...");
+    badger.storage.forget("consensu.org");
+  },
+
+  resetWebRTCIPHandlingPolicy2: function (badger) {
     if (!badger.webRTCAvailable) {
       return;
     }
@@ -242,11 +331,22 @@ exports.Migrations= {
         return;
       }
 
+      // migrate default (disabled) setting for old Badger versions
+      // from Mode 3 to Mode 1
       if (result.value == 'default_public_interface_only') {
+        console.log("Resetting webRTCIPHandlingPolicy ...");
         cpn.webRTCIPHandlingPolicy.clear({});
+
+      // migrate enabled setting for more recent Badger versions
+      // from Mode 4 to Mode 3
+      } else if (result.value == 'disable_non_proxied_udp') {
+        console.log("Updating WebRTC IP leak protection setting ...");
+        cpn.webRTCIPHandlingPolicy.set({
+          value: 'default_public_interface_only'
+        });
       }
     });
-  },
+  }
 
 };
 

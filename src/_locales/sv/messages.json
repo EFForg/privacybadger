@@ -63,6 +63,14 @@
         "message": "Denna domän lovar att inte spåra dig",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
+    "breakage_warning_tooltip": {
+        "message": "Blockering av denna domän är känt att bryta webbplatser",
+        "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "feed_the_badger_title": {
+        "message": "Klicka för att återställa kontrollen över denna domän till Privacy Badger",
+        "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
+    },
     "next_section": {
         "message": "nästa avsnitt",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
@@ -92,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Förhindra WebRTC från att läcka din lokala IP-adress *",
+        "message": "Förhindra WebRTC från att läcka din lokala IP-adress",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -116,27 +124,31 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
-        "message": "Lär dig hur Privacy Badger skyddar din integritet.",
+        "message": "Lär dig hur Privacy Badger skyddar din integritet",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
         "message": "Hämta",
         "description": ""
     },
-    "feed_the_badger_title": {
-        "message": "Klicka för att återge kontrollen över denna spårare till Privacy Badger",
-        "description": ""
-    },
     "import": {
         "message": "Importera",
         "description": ""
     },
+    "options_hide_social_widgets": {
+        "message": "Ersätt inte följande gränssnittskomponenter:",
+        "description": "Multiple selection box on the widget replacement tab"
+    },
     "options_social_widgets_checkbox": {
-        "message": "Ersätt sociala gränssnittskomponenter",
-        "description": "Checkbox label on the general settings page"
+        "message": "Aktivera gränssnittskomponentsersättning",
+        "description": "Checkbox label on the widget replacement tab"
+    },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Visa domäner som inte verkar spåra dig",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** Aktivering av inlärning i privata-/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan känner till i privata-/inkognitofönster, men den kommer inte att lära sig om nya spårare. Du kan vilja aktivera den här inställningen om du ofta använder privata-/inkognitofönster när du surfar.",
+        "message": "Aktivering av inlärning i privata-/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan känner till i privata-/inkognitofönster, men den kommer inte att lära sig om nya spårare. Du kan vilja aktivera den här inställningen om du ofta använder privata-/inkognitofönster när du surfar.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -162,11 +174,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Inlärning i privata-/inkognitofönster **",
+        "message": "Inlärning i privata-/inkognitofönster",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Visa antalet blockerade objekt",
+        "message": "Visa räkningen av spårare",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -182,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Detta skickar automatiskt följande information till EFF: den webbplats du besöker för tillfället, din webbläsareversion, versionen av Privacy Badger och läget för alla skjutreglaget för den här webbplatsen.",
+        "message": "Detta skickar automatiskt följande information till EFF: sidan du för närvarande besöker, din webbläsarversion, versionen av Privacy Badger och lägen för alla skjutreglagen för den här sidan.",
         "description": ""
     },
     "intro_learns": {
@@ -210,7 +222,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importera användardata:<ul><li>Överskriver allmänna inställningar</li><li>Kombinerar listor över inaktiva webbplatser</li><li>Kombinerar information om vilka spårare Privacy Badger har sett</li><li>Överskriver skjutreglage-anpassningar</li></ul>",
+        "message": "Importera användardata:<ul><li>Skriver över allmänna inställningar</li><li>Kombinerar listor över inaktiva webbplatser</li><li>Kombinerar information om vilka spårare Privacy Badger har sett</li><li>Skriver över skjutreglage-anpassningar</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -242,12 +254,20 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC kan läcka din lokala IP-adress. Observera att aktivering av den här inställningen kan försämra prestanda för webbkonferensprogram som Google Hangouts.",
+        "message": "WebRTC kan läcka din lokala IP-adress. Observera att aktivering av den här inställningen kan försämra prestanda för webbkonferensprogram som Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Allmänna inställningar",
         "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "Ta turen",
@@ -298,7 +318,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "Det finns inga tredjeparts resurser på den här webbplatsen.",
+        "message": "Det finns inga resurser från tredje part på den här sidan.",
         "description": ""
     },
     "report_broken_site": {
@@ -333,17 +353,13 @@
         "message": "tillåten",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "share_button_title_google": {
-        "message": "Dela på Google+",
-        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
     "intro_donate_heading": {
         "message": "Integritet är en lagsport!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
         "message": "Du ska inte behöva ändra någonting här.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "alla",
@@ -361,16 +377,24 @@
         "message": "Skicka \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte</a>\"-signal till webbplatser",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
+    "options_disable_google_nav_error_service": {
+        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "Disable hyperlink auditing",
+        "description": "Checkbox label found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "användarstyrd",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger är inaktiverad på följande webbplatser. Det betyder att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här.</p><p>Om du tycker att Privacy Badger bryter en sida kan du skriva in dennes domän i rutan nedan och klicka på \"Lägg till domän\"-knappen.</p><p>Alternativt kan du, när du redan har sidans flik markerad, klicka på Privacy Badgers ikon i webbläsarens verktygsfält och sedan klicka på \"Inaktivera\"-knappen.</p>",
+        "message": "<p>Privacy Badger är inaktiverad på följande webbplatser. Det betyder att Privacy Badger inte blockerar någonting när du besöker webbplatserna som listas här.</p><p>Om du tycker att Privacy Badger bryter en sida kan du skriva in den sidans domän i rutan nedan och klicka på knappen \"Lägg till domän\".</p><p>Alternativt kan du, när du redan har sidans flik vald, klicka på Privacy Badgers ikon i webbläsarens verktygsfält och sedan klicka på knappen \"Inaktivera\".</p>",
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger upptäckte $COUNT$ potentiella $TRACKER_LINK_START$spårare$TRACKER_LINK_END$ på denna sida. Dessa reglage låter dig styra hur Privacy Badger hanterar var och en. Du behöver inte justera reglagen om inte något är trasigt.",
+        "message": "Privacy Badger upptäckte $COUNT$ potentiella $TRACKER_LINK_START$spårare$TRACKER_LINK_END$ på den här sidan",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +419,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger har detekterat en potentiell <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårningsdomän</a> hittills. Med reglaget kan du styra hur Privacy Badger hanterar den.",
+        "message": "Privacy Badger har detekterat en potentiell <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårningsdomän</a> hittills.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +431,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger har detekterat en potentiell <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på denna sida. Reglagen låter dig styra hur Privacy Badger hanterar den. Du behöver inte justera reglaget om inget är trasigt.",
+        "message": "Privacy Badger har detekterat en potentiell <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spårare</a> på den här sidan",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +443,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger har upptäckt $COUNT$ potentiella $TRACKER_LINK_START$spårningsdomäner$TRACKER_LINK_END$ hittills. Med dessa reglage kan du styra hur Privacy Badger hanterar varje spårare.",
+        "message": "Privacy Badger har upptäckt $COUNT$ potentiella $TRACKER_LINK_START$spårningsdomäner$TRACKER_LINK_END$ hittills.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -440,7 +464,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger börjar blockera när den ser samma spårare på tre olika webbplatser. Tre strike och det är ute! Om du använder andra integritetsverktyg eller annonsblockerare, kommer Privacy Badger att lära sig mindre, men det är okej, den kan fånga saker som dina andra blockerare missar.",
+        "message": "Privacy Badger börjar blockera när den ser samma spårare på tre olika webbplatser. Tre strike och den är ute! Om du använder andra integritetsverktyg eller annonsblockerare, kommer Privacy Badger att lära sig mindre, men det är okej, den kan fånga saker som dina andra blockerare missar.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -460,15 +484,15 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "För att utesluta domäner, börja ditt sökord med \"-\". Till exempel kommer \".co -.com\" att visa .co och .co.uk men inte .com domäner.",
+        "message": "För att utesluta domäner, börja ditt sökord med \"-\". Till exempel kommer \".co -.com\" för att visa .co och .co.uk men inte .com domäner.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Om du tycker att Privacy Badger bryter en sida (till exempel en video spelar inte) kan du klicka på \"Inaktivera\"-knappen för att stänga av Privacy Badger för den webbplatsen.",
+        "message": "Om du tror att Privacy Badger bryter en sida (till exempel en video spelar inte) kan du klicka på knappen \"Inaktivera\" för att stänga av Privacy Badger för den webbplatsen.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
-        "message": "Integritetspolicy",
+        "message": "Sekretesspolicy",
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "options_domain_list_no_trackers": {
@@ -479,9 +503,17 @@
         "message": "Beskrivning",
         "description": ""
     },
+    "not_yet_blocked_header": {
+        "message": "Din Badger har ännu inte beslutat om dessa domäner ska blockeras",
+        "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
+    },
+    "options_show_not_yet_blocked": {
+        "message": "Visa domäner som din Badger inte har beslutat att blockera ännu:",
+        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
+    },
     "non_tracker": {
         "message": "Domänerna nedan verkar inte spåra dig",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Inställningar",
@@ -500,14 +532,32 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger har ersatt den här $BUTTON$-knappen.",
-        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "message": "Privacy Badger har ersatt den här $BUTTON$-knappen",
+        "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
                 "content": "$1",
                 "example": "Facebook Like"
             }
         }
+    },
+    "widget_placeholder_pb_has_replaced": {
+        "message": "Privacy Badger har ersatt den här $WIDGET$-gränssnittskomponenten",
+        "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
+        "placeholders": {
+            "widget": {
+                "content": "$1",
+                "example": "Google reCAPTCHA"
+            }
+        }
+    },
+    "allow_once": {
+        "message": "Tillåt en gång",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "allow_on_site": {
+        "message": "Tillåt alltid på den här webbplatsen",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
         "message": "Molnsynkronisering:<ul><li>Kräver Firefox/Chrome Sync</li><li>Sändningen skriver över alla befintliga Privacy Badger-data i molnet</li><li>Hämtning kombinerar listorna över webbplatser där din Badger är inaktiverad</li></ul>",
@@ -578,5 +628,25 @@
     "copy_button_copied": {
         "message": "Kopierad",
         "description": "On-click text of the copy button on the share overlay."
+    },
+    "popup_special_page_header": {
+        "message": "Inget att göra på den här sidan",
+        "description": "Heading for popup_special_page_paragraph"
+    },
+    "popup_special_page_paragraph": {
+        "message": "Privacy Badger fungerar inte på särskilda sidor som den här. Prova att surfa någon annanstans.",
+        "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
+    },
+    "popup_disabled_site_header": {
+        "message": "Privacy Badger är inaktiverad på denna webbplats",
+        "description": "Shown in the popup on disabled sites."
+    },
+    "options_widget_replacement_tab": {
+        "message": "Gränssnittskomponentsersättning",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "Vid blockering av sociala knappar och andra potentiellt användbara gränssnittskomponenter (video, ljud, kommentarer) kan Privacy Badger ersätta med klick-för-att-aktivera platshållare.",
+        "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }

@@ -22,6 +22,8 @@
 
 require.scopes.utils = (function() {
 
+let mdfp = require("multiDomainFP");
+
 /**
  * Generic interface to make an XHR request
  *
@@ -34,17 +36,23 @@ function xhrRequest(url, callback, method, opts) {
   if (!method) {
     method = "GET";
   }
-  var xhr = new XMLHttpRequest();
-  if (opts) {
-    _.each(opts, function (value, key) {
-      xhr[key] = value;
-    });
+  if (!opts) {
+    opts = {};
   }
+
+  let xhr = new XMLHttpRequest();
+
+  for (let key in opts) {
+    if (opts.hasOwnProperty(key)) {
+      xhr[key] = opts[key];
+    }
+  }
+
   xhr.onload = function () {
     if (xhr.status == 200) {
       callback(null, xhr.response);
     } else {
-      var error = {
+      let error = {
         status: xhr.status,
         message: xhr.response,
         object: xhr
@@ -52,10 +60,12 @@ function xhrRequest(url, callback, method, opts) {
       callback(error, error.message);
     }
   };
+
   // triggered by network problems
   xhr.onerror = function () {
     callback({ status: 0, message: "", object: xhr }, "");
   };
+
   xhr.open(method, url, true);
   xhr.send();
 }
@@ -106,42 +116,130 @@ function explodeSubdomains(fqdn, all) {
 }
 
 /*
- * Estimate the max possible entropy of str using min and max
- * char codes observed in the string.
- * Tends to overestimate in many cases, e.g. hexadecimals.
- * Also, sensitive to case, e.g. bad1dea is different than BAD1DEA
+ * Estimates the max possible entropy of string.
+ *
+ * @param {String} str the string to compute entropy for
+ * @returns {Integer} bits of entropy
  */
 function estimateMaxEntropy(str) {
-  /*
-   * Don't process item + key's longer than LOCALSTORAGE_MAX_LEN_FOR_ENTROPY_EST.
-   * Note that default quota for local storage is 5MB and
-   * storing fonts, scripts or images in for local storage for
-   * performance is not uncommon. We wouldn't want to estimate entropy
-   * for 5M chars.
-   */
-  var MAX_LS_LEN_FOR_ENTROPY_EST = 256;
+  // Don't process strings longer than MAX_LS_LEN_FOR_ENTROPY_EST.
+  // Note that default quota for local storage is 5MB and
+  // storing fonts, scripts or images in for local storage for
+  // performance is not uncommon. We wouldn't want to estimate entropy
+  // for 5M chars.
+  const MAX_LS_LEN_FOR_ENTROPY_EST = 256;
+
+  // common classes of characters that a string might belong to
+  const SEPS = "._-x";
+  const BIN = "01";
+  const DEC = "0123456789";
+
+  // these classes are case-insensitive
+  const HEX = "abcdef" + DEC;
+  const ALPHA = "abcdefghijklmnopqrstuvwxyz";
+  const ALPHANUM = ALPHA + DEC;
+
+  // these classes are case-sensitive
+  const B64 = ALPHANUM + ALPHA.toUpperCase() + "/+";
+  const URL = ALPHANUM + ALPHA.toUpperCase() + "~%";
 
   if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST) {
-    /*
-     * Just return a higher-than-threshold entropy estimate.
-     * We assume 1 bit per char, which will be well over the
-     * threshold (33 bits).
-     */
+    // Just return a higher-than-threshold entropy estimate.
+    // We assume 1 bit per char, which will be well over the
+    // threshold (33 bits).
     return str.length;
   }
 
-  var charCodes = Array.prototype.map.call(str, function (ch) {
-    return String.prototype.charCodeAt.apply(ch);
-  });
-  var minCharCode = Math.min.apply(Math, charCodes);
-  var maxCharCode = Math.max.apply(Math, charCodes);
-  // Guess the # of possible symbols, e.g. for 0101 it'd be 2.
-  var maxSymbolsGuess = maxCharCode - minCharCode + 1;
-  var maxCombinations = Math.pow(maxSymbolsGuess, str.length);
-  var maxBits = Math.log(maxCombinations)/Math.LN2;
-  /* console.log("Local storage item length:", str.length, "# symbols guess:", maxSymbolsGuess,
-    "Max # Combinations:", maxCombinations, "Max bits:", maxBits) */
-  return maxBits; // May return Infinity when the content is too long.
+  let max_symbols;
+
+  // If all characters are upper or lower case, don't consider case when
+  // computing entropy.
+  let sameCase = (str.toLowerCase() == str) || (str.toUpperCase() == str);
+  if (sameCase) {
+    str = str.toLowerCase();
+  }
+
+  // If all the characters come from one of these common character groups,
+  // assume that the group is the domain of possible characters.
+  for (let chr_class of [BIN, DEC, HEX, ALPHA, ALPHANUM, B64, URL]) {
+    let group = chr_class + SEPS;
+    // Ignore separator characters when computing entropy. For example, Google
+    // Analytics IDs look like "14103492.1964907".
+
+    // flag to check if each character of input string belongs to the group in question
+    let each_char_in_group = true;
+
+    for (let ch of str) {
+      if (!group.includes(ch)) {
+        each_char_in_group = false;
+        break;
+      }
+    }
+
+    // if the flag resolves to true, we've found our culprit and can break out of the loop
+    if (each_char_in_group) {
+      max_symbols = chr_class.length;
+      break;
+    }
+  }
+
+  // If there's not an obvious class of characters, use the heuristic
+  // "max char code - min char code"
+  if (!max_symbols) {
+    let charCodes = Array.prototype.map.call(str, function (ch) {
+      return String.prototype.charCodeAt.apply(ch);
+    });
+    let min_char_code = Math.min.apply(Math, charCodes);
+    let max_char_code = Math.max.apply(Math, charCodes);
+    max_symbols = max_char_code - min_char_code + 1;
+  }
+
+  // the entropy is (entropy per character) * (number of characters)
+  let max_bits = (Math.log(max_symbols) / Math.LN2) * str.length;
+
+  return max_bits;
+}
+
+// Adapted from https://gist.github.com/jaewook77/cd1e3aa9449d7ea4fb4f
+// Find all common substrings more than 8 characters long, using DYNAMIC
+// PROGRAMMING
+function findCommonSubstrings(str1, str2) {
+  /*
+   Let D[i,j] be the length of the longest matching string suffix between
+   str1[1]..str1[i] and a segment of str2 between str2[1]..str2[j].
+   If the ith character in str1 doesn’t match the jth character in str2, then
+   D[i,j] is zero to indicate that there is no matching suffix
+   */
+
+  // we only care about strings >= 8 chars
+  let D = [], LCS = [], LCS_MIN = 8;
+
+  // runs in O(M x N) time!
+  for (let i = 0; i < str1.length; i++) {
+    D[i] = [];
+    for (let j = 0; j < str2.length; j++) {
+      if (str1[i] == str2[j]) {
+        if (i == 0 || j == 0) {
+          D[i][j] = 1;
+        } else {
+          D[i][j] = D[i-1][j-1] + 1;
+        }
+
+        // store all common substrings longer than the minimum length
+        if (D[i][j] == LCS_MIN) {
+          LCS.push(str1.substring(i-D[i][j]+1, i+1));
+        } else if (D[i][j] > LCS_MIN) {
+          // remove the shorter substring and add the new, longer one
+          LCS.pop();
+          LCS.push(str1.substring(i-D[i][j]+1, i+1));
+        }
+      } else {
+        D[i][j] = 0;
+      }
+    }
+  }
+
+  return LCS;
 }
 
 function oneSecond() {
@@ -245,6 +343,7 @@ function parseCookie(str, opts) {
     "httponly",
     "max-age",
     "path",
+    "samesite",
     "secure",
   ];
 
@@ -329,15 +428,53 @@ function getHostFromDomainInput(input) {
   return uri.host;
 }
 
+/**
+ * check if a domain is third party
+ * @param {String} domain1 an fqdn
+ * @param {String} domain2 a second fqdn
+ *
+ * @return {Boolean} true if the domains are third party
+ */
+function isThirdPartyDomain(domain1, domain2) {
+  if (window.isThirdParty(domain1, domain2)) {
+    return !mdfp.isMultiDomainFirstParty(
+      window.getBaseDomain(domain1),
+      window.getBaseDomain(domain2)
+    );
+  }
+  return false;
+}
+
+
+/**
+ * Checks whether a given URL is a special browser page.
+ * TODO account for browser-specific pages:
+ * https://github.com/hackademix/noscript/blob/a8b35486571933043bb62e90076436dff2a34cd2/src/lib/restricted.js
+ *
+ * @param {String} url
+ *
+ * @return {Boolean} whether the URL is restricted
+ */
+function isRestrictedUrl(url) {
+  // permitted schemes from
+  // https://developer.chrome.com/extensions/match_patterns
+  return !(
+    url.startsWith('http') || url.startsWith('file') || url.startsWith('ftp')
+  );
+}
+
 /************************************** exports */
-var exports = {
+let exports = {
   arrayBufferToBase64,
   estimateMaxEntropy,
   explodeSubdomains,
+  findCommonSubstrings,
   getHostFromDomainInput,
+  isRestrictedUrl,
+  isThirdPartyDomain,
   nDaysFromNow,
-  oneDayFromNow,
   oneDay,
+  oneDayFromNow,
   oneHour,
   oneMinute,
   oneSecond,

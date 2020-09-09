@@ -55,21 +55,21 @@ require.scopes.storage = (function() {
  */
 
 function BadgerPen(callback) {
-  var self = this;
+  let self = this;
 
   if (!callback) {
-    callback = _.noop;
+    callback = function () {};
   }
 
   // initialize from extension local storage
   chrome.storage.local.get(self.KEYS, function (store) {
-    _.each(self.KEYS, function (key) {
+    self.KEYS.forEach(key => {
       if (store.hasOwnProperty(key)) {
         self[key] = new BadgerStorage(key, store[key]);
       } else {
-        var storage_obj = new BadgerStorage(key, {});
-        self[key] = storage_obj;
-        _syncStorage(storage_obj);
+        let storageObj = new BadgerStorage(key, {});
+        self[key] = storageObj;
+        _syncStorage(storageObj);
       }
     });
 
@@ -121,9 +121,9 @@ BadgerPen.prototype = {
    * Reset the snitch map and action map, forgetting all data the badger has
    * learned from browsing.
    */
-  clearTrackerData: function() {
-    var self = this;
-    _.each(['snitch_map', 'action_map'], function(key) {
+  clearTrackerData: function () {
+    let self = this;
+    ['snitch_map', 'action_map'].forEach(key => {
       self.getBadgerStorageObject(key).updateObject({});
     });
   },
@@ -174,22 +174,22 @@ BadgerPen.prototype = {
   updateYellowlist: function (newDomains) {
     let self = this,
       actionMap = self.getBadgerStorageObject('action_map'),
-      yellowlistStorage = self.getBadgerStorageObject('cookieblock_list'),
-      oldDomains = Object.keys(yellowlistStorage.getItemClones());
+      ylistStorage = self.getBadgerStorageObject('cookieblock_list'),
+      oldDomains = ylistStorage.keys();
 
     let addedDomains = _.difference(newDomains, oldDomains),
       removedDomains = _.difference(oldDomains, newDomains);
 
     log('removing from cookie blocklist:', removedDomains);
     removedDomains.forEach(function (domain) {
-      yellowlistStorage.deleteItem(domain);
+      ylistStorage.deleteItem(domain);
 
       const base = window.getBaseDomain(domain);
       // "subdomains" include the domain itself
-      for (const subdomain of Object.keys(actionMap.getItemClones())) {
+      for (const subdomain of actionMap.keys()) {
         if (window.getBaseDomain(subdomain) == base) {
           if (self.getAction(subdomain) != constants.NO_TRACKING) {
-            badger.heuristicBlocking.blacklistOrigin(base, subdomain);
+            badger.heuristicBlocking.blocklistOrigin(base, subdomain);
           }
         }
       }
@@ -197,7 +197,7 @@ BadgerPen.prototype = {
 
     log('adding to cookie blocklist:', addedDomains);
     addedDomains.forEach(function (domain) {
-      yellowlistStorage.setItem(domain, true);
+      ylistStorage.setItem(domain, true);
 
       const base = window.getBaseDomain(domain);
       if (actionMap.hasItem(base)) {
@@ -214,9 +214,36 @@ BadgerPen.prototype = {
   /**
    * Update DNT policy hashes
    */
-  updateDNTHashes: function(hashes) {
+  updateDntHashes: function (hashes) {
     var dnt_hashes = this.getBadgerStorageObject('dnt_hashes');
     dnt_hashes.updateObject(_.invert(hashes));
+  },
+
+  /**
+   * Looks up whether an FQDN would get cookieblocked,
+   * ignoring user overrides and the FQDN's current status.
+   *
+   * @param {String} fqdn the FQDN we want to look up
+   *
+   * @return {Boolean}
+   */
+  wouldGetCookieblocked: function (fqdn) {
+    // cookieblock if a "parent" domain of the fqdn is on the yellowlist
+    let set = false,
+      ylistStorage = this.getBadgerStorageObject('cookieblock_list'),
+      // ignore base domains when exploding to work around PSL TLDs:
+      // still want to cookieblock somedomain.googleapis.com with only
+      // googleapis.com (and not somedomain.googleapis.com itself) on the ylist
+      subdomains = utils.explodeSubdomains(fqdn, true);
+
+    for (let i = 0; i < subdomains.length; i++) {
+      if (ylistStorage.hasItem(subdomains[i])) {
+        set = true;
+        break;
+      }
+    }
+
+    return set;
   },
 
   /**
@@ -234,20 +261,20 @@ BadgerPen.prototype = {
 
     function getScore(action) {
       switch (action) {
-        case constants.NO_TRACKING:
-          return 0;
-        case constants.ALLOW:
-          return 1;
-        case constants.BLOCK:
-          return 2;
-        case constants.COOKIEBLOCK:
-          return 3;
-        case constants.DNT:
-          return 4;
-        case constants.USER_ALLOW:
-        case constants.USER_BLOCK:
-        case constants.USER_COOKIE_BLOCK:
-          return 5;
+      case constants.NO_TRACKING:
+        return 0;
+      case constants.ALLOW:
+        return 1;
+      case constants.BLOCK:
+        return 2;
+      case constants.COOKIEBLOCK:
+        return 3;
+      case constants.DNT:
+        return 4;
+      case constants.USER_ALLOW:
+      case constants.USER_BLOCK:
+      case constants.USER_COOKIEBLOCK:
+        return 5;
       }
     }
 
@@ -305,21 +332,6 @@ BadgerPen.prototype = {
     }
 
     return origins;
-  },
-
-  /**
-   * Get the number of domains that the given FQDN has been seen tracking on
-   *
-   * @param {String} fqdn domain to check status of
-   * @return {Integer} the number of domains fqdn has been tracking on
-   */
-  getTrackingCount: function(fqdn) {
-    var snitch_map = this.getBadgerStorageObject('snitch_map');
-    if (snitch_map.hasItem(fqdn)) {
-      return Object.keys(snitch_map.getItem(fqdn)).length;
-    } else {
-      return 0;
-    }
   },
 
   /**
@@ -403,6 +415,11 @@ BadgerPen.prototype = {
     }
   },
 
+  /**
+   * Log the details of a third-party request (not necessarily a tracking
+   * request). This is for verbose badger sett scans only, not for regular
+   * operation.
+   */
   logRequest: function(tab_host, url, action, time) {
     let request_log = this.getBadgerStorageObject('request_log');
     if (request_log.hasItem(tab_host)) {
@@ -417,6 +434,34 @@ BadgerPen.prototype = {
         time: time,
         action: action
       }]);
+    }
+  }
+
+  /**
+   * Removes a base domain and its subdomains from snitch and action maps.
+   * Preserves action map entries with user overrides.
+   *
+   * @param {String} base_domain
+   */
+  forget: function (base_domain) {
+    let self = this,
+      dot_base = '.' + base_domain,
+      actionMap = self.getBadgerStorageObject('action_map'),
+      actions = actionMap.getItemClones(),
+      snitchMap = self.getBadgerStorageObject('snitch_map');
+
+    if (snitchMap.getItem(base_domain)) {
+      log("Removing %s from snitch_map", base_domain);
+      badger.storage.getBadgerStorageObject("snitch_map").deleteItem(base_domain);
+    }
+
+    for (let domain in actions) {
+      if (domain == base_domain || domain.endsWith(dot_base)) {
+        if (actions[domain].userAction == "") {
+          log("Removing %s from action_map", domain);
+          actionMap.deleteItem(domain);
+        }
+      }
     }
   }
 };
@@ -560,9 +605,16 @@ BadgerStorage.prototype = {
   },
 
   /**
+   * @returns {Array} this storage object's store keys
+   */
+  keys: function () {
+    return Object.keys(this._store);
+  },
+
+  /**
    * When a user imports a tracker and settings list via the Import function,
    * we want to overwrite any existing settings, while simultaneously merging
-   * in any new information (i.e. the set of whitelisted domains). In order
+   * in any new information (i.e. the list of disabled site domains). In order
    * to do this, we need different logic for each of the storage maps based on
    * their internal structure. The three cases in this function handle each of
    * the three storage maps that can be exported.
@@ -572,27 +624,39 @@ BadgerStorage.prototype = {
   merge: function (mapData) {
     const self = this;
 
-    if (self.name === "settings_map") {
+    if (self.name == "settings_map") {
       for (let prop in mapData) {
-        if (prop === "disabledSites") {
-          // Add new sites to list of existing disabled sites
+        // combine array settings via intersection/union
+        if (prop == "disabledSites" || prop == "widgetReplacementExceptions") {
           self._store[prop] = _.union(self._store[prop], mapData[prop]);
+
+        // string/array map
+        } else if (prop == "widgetSiteAllowlist") {
+          // for every site host in the import
+          for (let site in mapData[prop]) {
+            // combine exception arrays
+            self._store[prop][site] = _.union(
+              self._store[prop][site],
+              mapData[prop][site]
+            );
+          }
+
+        // default: overwrite existing setting with setting from import
         } else {
-          // Overwrite existing setting with setting from import.
           self._store[prop] = mapData[prop];
         }
       }
 
-    } else if (self.name === "action_map") {
+    } else if (self.name == "action_map") {
       for (let domain in mapData) {
         let action = mapData[domain];
 
         // Copy over any user settings from the merged-in data
-        if (action.userAction != "") {
+        if (action.userAction) {
           if (self._store.hasOwnProperty(domain)) {
             self._store[domain].userAction = action.userAction;
           } else {
-            self._store[domain] = action;
+            self._store[domain] = Object.assign(_newActionMapObject(), action);
           }
         }
 
@@ -606,7 +670,7 @@ BadgerStorage.prototype = {
         } else {
           // Import action map entries for new DNT-compliant domains
           if (action.dnt) {
-            self._store[domain] = action;
+            self._store[domain] = Object.assign(_newActionMapObject(), action);
           }
         }
       }
@@ -616,15 +680,16 @@ BadgerStorage.prototype = {
         // this is the map of first party domains to lists of trackers
         let snitches = mapData[tracker_origin];
         for (let fp_origin in snitches) {
-          // this is the list of tracking actions on a first-party domain
+          // this is the list of tracking actions a specific tracking domain
+          // took on a first-party domain
           let trackers = snitches[fp_origin];
           for (let tracker in trackers) {
             let tracker_fqdn = (new URI(tracker.trackerUrl)).host;
             badger.heuristicBlocking.updateTrackerPrevalence(
-              tracker_fqdn,
+              tracker_origin,
+              tracker_origin,
               fp_origin,
               tracker,
-              true // skip DNT policy checking on data import
             );
           }
         }
@@ -644,7 +709,10 @@ var _syncStorage = (function () {
   function cb() {
     if (chrome.runtime.lastError) {
       let err = chrome.runtime.lastError.message;
-      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")) {
+      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")
+      && !err.startsWith("InvalidStateError:") && !err.startsWith("AbortError:")
+      && !err.startsWith("QuotaExceededError:")
+      ) {
         badger.criticalError = err;
       }
       console.error("Error writing to chrome.storage.local:", err);

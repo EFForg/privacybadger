@@ -2,32 +2,8 @@
 
 QUnit.module("HTML Utils");
 
-var htmlUtils = require("htmlutils").htmlUtils;
-
-QUnit.test("isChecked", function (assert) {
-  // Test parameters
-  var tests = [
-    {
-      inputAction: "allow",
-      originAction: "allow",
-      expectedResult: "checked",
-    },
-    {
-      inputAction: "allow",
-      originAction: "block",
-      expectedResult: "",
-    },
-  ];
-
-  // Run each test.
-  for (var i = 0; i < tests.length; i++) {
-    var inputAction = tests[i].inputAction;
-    var originAction = tests[i].originAction;
-    var expected = tests[i].expectedResult;
-    var message = "Inputs: '" + inputAction + "' and '" + originAction + "'";
-    assert.equal(htmlUtils.isChecked(inputAction, originAction), expected, message);
-  }
-});
+let constants = require('constants'),
+  htmlUtils = require("htmlutils").htmlUtils;
 
 QUnit.test("getActionDescription", (assert) => {
   // Test parameters
@@ -49,6 +25,11 @@ QUnit.test("getActionDescription", (assert) => {
       origin,
       expectedResult: getMessage('badger_status_allow', origin)
     },
+    {
+      action: "dnt",
+      origin,
+      expectedResult: getMessage('dnt_tooltip')
+    },
   ];
 
   // Run each test.
@@ -66,33 +47,32 @@ QUnit.test("getActionDescription", (assert) => {
 
 QUnit.test("getToggleHtml", function (assert) {
   // Test parameters
-  var tests = [
+  const origin = "pbtest.org";
+  const tests = [
     {
-      origin: "pbtest.org",
-      action: "block",
-      expectedResult: "0",
+      action: constants.BLOCK,
+      expectedResult: constants.BLOCK,
     },
     {
-      origin: "pbtest.org",
-      action: "cookieblock",
-      expectedResult: "1",
+      action: constants.COOKIEBLOCK,
+      expectedResult: constants.COOKIEBLOCK,
     },
     {
-      origin: "pbtest.org",
-      action: "allow",
-      expectedResult: "2",
+      action: constants.ALLOW,
+      expectedResult: constants.ALLOW,
+    },
+    {
+      action: constants.DNT,
+      expectedResult: constants.ALLOW,
     },
   ];
 
   // Run each test.
-  for (var i = 0; i < tests.length; i++) {
-    var origin = tests[i].origin;
-    var action = tests[i].action;
-    var expected = tests[i].expectedResult;
-    var message = "Inputs: '" + origin + "' and '" + action + "'";
-    var html = htmlUtils.getToggleHtml(origin, action);
-    var inputValue = $('input[name="' + origin + '"]:checked', html).val();
-    assert.equal(inputValue, expected, message);
+  for (let test of tests) {
+    let message = `Inputs: '${origin}' and '${test.action}'`;
+    let html = htmlUtils.getToggleHtml(origin, test.action);
+    let input_val = $('input[name="' + origin + '"]:checked', html).val();
+    assert.equal(input_val, test.expectedResult, message);
   }
 });
 
@@ -102,14 +82,12 @@ QUnit.test("getOriginHtml", function (assert) {
     {
       existingHtml: '<div id="existinghtml"></div>',
       origin: "pbtest.org",
-      action: "allow",
-      isWhitelisted: false,
+      action: constants.ALLOW,
     },
     {
       existingHtml: '<div id="existinghtml"></div>',
       origin: "pbtest.org",
-      action: "block",
-      isWhitelisted: true,
+      action: constants.DNT,
     },
   ];
 
@@ -118,10 +96,8 @@ QUnit.test("getOriginHtml", function (assert) {
     var existingHtml = tests[i].existingHtml;
     var origin = tests[i].origin;
     var action = tests[i].action;
-    var isWhitelisted = tests[i].isWhitelisted;
 
-    var htmlResult = existingHtml + htmlUtils.getOriginHtml(
-      origin, action, isWhitelisted);
+    var htmlResult = existingHtml + htmlUtils.getOriginHtml(origin, action);
 
     // Make sure existing HTML is present.
     var existingHtmlExists = htmlResult.indexOf(existingHtml) > -1;
@@ -133,8 +109,8 @@ QUnit.test("getOriginHtml", function (assert) {
 
     // Check for presence of DNT content.
     var dntExists = htmlResult.indexOf('id="dnt-compliant"') > -1;
-    assert.equal(dntExists, isWhitelisted,
-      "DNT div should " + ((dntExists) ? "" : "not ") + "be present");
+    assert.equal(dntExists, action == constants.DNT,
+      "DNT div should " + (dntExists ? "" : "not ") + "be present");
   }
 });
 

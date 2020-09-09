@@ -7,13 +7,13 @@ function unwrapLink(a) {
     return;
   }
 
-  // remove all attributes from a link except for target, class, and aria-*
+  // remove all attributes except for target, class, style and aria-*
   // attributes. This should prevent the script from breaking styles and
   // features for people with disabilities.
   for (let i = a.attributes.length - 1; i >= 0; --i) {
     const attr = a.attributes[i];
     if (attr.name !== 'target' && attr.name !== 'class' &&
-      !attr.name.startsWith('aria-')) {
+        attr.name !== 'style' && !attr.name.startsWith('aria-')) {
       a.removeAttribute(attr.name);
     }
   }
@@ -29,13 +29,13 @@ function unwrapAll() {
   });
 }
 
-//TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({checkEnabled: true},
-  function (enabled) {
-    if (!enabled) {
-      return;
-    }
-    unwrapAll();
-    setInterval(unwrapAll, 2000);
+// TODO race condition; fix waiting on https://crbug.com/478183
+chrome.runtime.sendMessage({
+  type: "checkEnabled"
+}, function (enabled) {
+  if (!enabled) {
+    return;
   }
-);
+  unwrapAll();
+  setInterval(unwrapAll, 2000);
+});

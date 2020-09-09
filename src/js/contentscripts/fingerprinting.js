@@ -23,7 +23,7 @@ function getFpPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout) {
+  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout, OBJECT) {
 
     const V8_STACK_TRACE_API = !!(ERROR && ERROR.captureStackTrace);
 
@@ -166,6 +166,15 @@ function getFpPageScript() {
     function getOriginatingScriptUrl() {
       let trace = getStackTrace();
 
+      if (OBJECT.prototype.toString.call(trace) == '[object String]') {
+        // we failed to get a structured stack trace
+        trace = trace.split('\n');
+        // this script is at 0, 1, 2 and 3
+        let script_url_matches = trace[4].match(/\((http.*:\d+:\d+)/);
+        // TODO do we need stripLineAndColumnNumbers (in both places) here?
+        return script_url_matches && stripLineAndColumnNumbers(script_url_matches[1]) || stripLineAndColumnNumbers(trace[4]);
+      }
+
       if (trace.length < 2) {
         return '';
       }
@@ -195,14 +204,19 @@ function getFpPageScript() {
       );
 
       item.obj[item.propName] = (function (orig) {
+        // set to true after the first write, if the method is not
+        // restorable. Happens if another library also overwrites
+        // this method.
+        var skip_monitoring = false;
 
-        return function () {
+        function wrapped() {
           var args = arguments;
 
           if (is_canvas_write) {
             // to avoid false positives,
-            // bail if the text being written is too short
-            if (!args[0] || args[0].length < 5) {
+            // bail if the text being written is too short,
+            // of if we've already sent a monitoring payload
+            if (skip_monitoring || !args[0] || args[0].length < 5) {
               return orig.apply(this, args);
             }
           }
@@ -228,11 +242,23 @@ function getFpPageScript() {
             // optimization: one canvas write is enough,
             // restore original write method
             // to this CanvasRenderingContext2D object instance
-            this[item.propName] = orig;
+            // Careful! Only restorable if we haven't already been replaced
+            // by another lib, such as the hidpi polyfill
+            if (this[item.propName] === wrapped) {
+              this[item.propName] = orig;
+            } else {
+              skip_monitoring = true;
+            }
           }
 
           return orig.apply(this, args);
-        };
+        }
+
+        OBJECT.defineProperty(wrapped, "name", { value: orig.name });
+        OBJECT.defineProperty(wrapped, "length", { value: orig.length });
+        OBJECT.defineProperty(wrapped, "toString", { value: orig.toString.bind(orig) });
+
+        return wrapped;
 
       }(item.obj[item.propName]));
     }
@@ -293,7 +319,7 @@ function getFpPageScript() {
     methods.forEach(trapInstanceMethod);
 
   // save locally to keep from getting overwritten by site code
-  } + "(document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout));";
+  } + "(document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout, Object));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
@@ -313,28 +339,29 @@ if (document instanceof HTMLDocument === false && (
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({checkEnabled: true},
-  function (enabled) {
-    if (!enabled) {
-      return;
-    }
-    /**
-     * Communicating to webrequest.js
-     */
-    var event_id = Math.random();
-
-    // listen for messages from the script we are about to insert
-    document.addEventListener(event_id, function (e) {
-      // pass these on to the background page
-      chrome.runtime.sendMessage({
-        fpReport: e.detail
-      });
-    });
-
-    window.injectScript(getFpPageScript(), {
-      event_id: event_id
-    });
+chrome.runtime.sendMessage({
+  type: "checkEnabled"
+}, function (enabled) {
+  if (!enabled) {
+    return;
   }
-);
+  /**
+   * Communicating to webrequest.js
+   */
+  var event_id = Math.random();
+
+  // listen for messages from the script we are about to insert
+  document.addEventListener(event_id, function (e) {
+    // pass these on to the background page
+    chrome.runtime.sendMessage({
+      type: "fpReport",
+      data: e.detail
+    });
+  });
+
+  window.injectScript(getFpPageScript(), {
+    event_id: event_id
+  });
+});
 
 }());

@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-LATEST_SDK_VERSION=2.9.3
+LATEST_SDK_VERSION=5.0.0
 WEB_EXT=../node_modules/.bin/web-ext
 
 # Auto-generated XPI name from 'web-ext sign'
@@ -27,17 +27,35 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-echo "change author value"
+echo "changing author value"
 sed -i -e '/eff.software.projects@gmail.com/,+1d' -e 's/"author": {/"author": "privacybadger-owner@eff.org",/' ../checkout/src/manifest.json
+
+echo "removing Chrome's update_url"
+# remove update_url
+sed -i -e '/"update_url": "https:\/\/clients2.google.com\/service\/update2\/crx"/,+0d' ../checkout/src/manifest.json
+# fix the trailing comma
+# TODO fragile! at least we validate the JSON below
+# https://unix.stackexchange.com/a/26288
+# https://unix.stackexchange.com/a/26290
+sed -i -e '/"storage": {/{
+  n
+  n
+  s/},/}/
+}' ../checkout/src/manifest.json
+
+# lint the checkout folder
+$WEB_EXT lint -s ../checkout/src
 
 echo "making zip file for AMO"
 
-(cd ../checkout/src && zip -q -r ../../pkg/"$AMO_ZIP_NAME" ./*)
+(cd ../checkout/src && rm -f ../../pkg/"$AMO_ZIP_NAME" && zip -q -r ../../pkg/"$AMO_ZIP_NAME" ./*)
 
 echo "insert self hosting package id"
 # Insert self hosted package id
 sed -i 's,"id": "jid1-MnnxcxisBPnSXQ@jetpack","id": "jid1-MnnxcxisBPnSXQ-eff@jetpack"\,\n      "update_url": "https://www.eff.org/files/privacy-badger-updates.json",' ../checkout/src/manifest.json
 
+# lint checkout again as our modification above could have broken something
+# disable AMO-specific checks to allow applications.gecko.update_url
 $WEB_EXT lint -s ../checkout/src --self-hosted
 
 #"update_url": "https://www.eff.org/files/privacy-badger-updates.json"

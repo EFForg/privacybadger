@@ -63,6 +63,14 @@
         "message": "Dette domæne lover ikke at spore dig",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
+    "breakage_warning_tooltip": {
+        "message": "Nogle netsteder virker ikke når dette domæne blokeres",
+        "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "feed_the_badger_title": {
+        "message": "Klik for at give Privacy Badger kontrol over dette domæne",
+        "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
+    },
     "next_section": {
         "message": "næste sektion",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
@@ -92,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Forhindr WebRTC i at lække lokal IP-adresse *",
+        "message": "Forhindr WebRTC i at lække lokal IP-adresse",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -116,27 +124,31 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
-        "message": "Lær hvordan Privacy Badger beskytter dit privatliv.",
+        "message": "Lær hvordan Privacy Badger beskytter dit privatliv",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
         "message": "Hent",
         "description": ""
     },
-    "feed_the_badger_title": {
-        "message": "Klik for at give kontrollen med denne sporing tilbage til Privacy Badger",
-        "description": ""
-    },
     "import": {
         "message": "Importer",
         "description": ""
     },
+    "options_hide_social_widgets": {
+        "message": "Udskift ikke følgende ting:",
+        "description": "Multiple selection box on the widget replacement tab"
+    },
     "options_social_widgets_checkbox": {
-        "message": "Udskift sociale kontroller",
-        "description": "Checkbox label on the general settings page"
+        "message": "Aktiver udskiftning",
+        "description": "Checkbox label on the widget replacement tab"
+    },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Vis domæner der ser ud til ikke at spore dig",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** At aktivere læring i Private/Inkognito-vinduer kan efterlade spor af din private browsinghistorik på din computer. Som standard vil Privacy Badger blokere sporinger den allerede kender til i Private/Inkognito-vinduer, men den vil ikke lære om nye sporinger. Du vil muligvis slå denne indsilling til hvis du browser meget med Private/Inkognito-vinduer.",
+        "message": "At aktivere læring i Private/Inkognito-vinduer kan efterlade spor af din private browsinghistorik på din computer. Som standard vil Privacy Badger blokere sporinger den allerede kender til i Private/Inkognito-vinduer, men den vil ikke lære om nye sporinger. Du vil muligvis slå denne indsilling til hvis du browser meget med Private/Inkognito-vinduer.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -162,11 +174,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Lær i Private/Inkognito-vinduer **",
+        "message": "Lær i Private/Inkognito-vinduer",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Vis antal blokerede enheder",
+        "message": "Vis antal sporinger",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -182,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Dette vil automatisk sende følgende informationer til EFF: netstedet du besøger nu, din netlæsers version, Privacy Badgers version, og indstillingerne for alle skyderne for dette netsted.",
+        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
         "description": ""
     },
     "intro_learns": {
@@ -242,12 +254,20 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC kan lække din lokale IP-addresse. Bemærk at aktivering af denne funktion kan have en negativ effekt på ydeevnen af webkonferenceprogrammer som Google Hangouts.",
+        "message": "WebRTC kan lække din lokale IP-addresse. Bemærk at aktivering af denne funktion kan have en negativ effekt på ydeevnen af webkonferenceprogrammer som Google Hangouts.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Generelle Indstillinger",
         "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "Tag turen",
@@ -298,7 +318,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "Der er ingen tredjepartsresurse på dette netsted.",
+        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {
@@ -333,17 +353,13 @@
         "message": "tilladt",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "share_button_title_google": {
-        "message": "Del på Google+",
-        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
     "intro_donate_heading": {
         "message": "Privatliv er en gruppesport!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
         "message": "Du burde ikke have nødigt at ændre noget her.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "alle",
@@ -361,6 +377,14 @@
         "message": "Send netsteder signalet \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spor Ikke</a>\"",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
     },
+    "options_disable_google_nav_error_service": {
+        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "Disable hyperlink auditing",
+        "description": "Checkbox label found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "brugerstyret",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -370,7 +394,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger opdagede $COUNT$ potentielle $TRACKER_LINK_START$sporinger$TRACKER_LINK_END$ på denne side. Disse skydere lader dig styre hvordan Privacy Badger håndterer hver især. Du behøver ikke at justere dem medmindre noget er i stykker.",
+        "message": "Privacy Badger opdagede $COUNT$ potentielle $TRACKER_LINK_START$sporinger$TRACKER_LINK_END$ på denne side",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,7 +419,7 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger har opdaget et potentielt <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporingsdomæne</a> indtil nu. Skyderen lader dig styre hvordan Privacy Badger håndterer det.",
+        "message": "Privacy Badger har opdaget et potentielt <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporingsdomæne</a> indtil nu.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
@@ -407,7 +431,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger opdagede en potentiel <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporing</a> på denne side. Skyderen lader dig styre hvordan Privacy Badger håndterer den. Du behøver ikke at justere skyderen med mindre noget er i stykker.",
+        "message": "Privacy Badger opdagede en potentiel <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>sporing</a> på denne side",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +443,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger har opdaget $COUNT$ potentielle $TRACKER_LINK_START$sporingsdomæner$TRACKER_LINK_END$ indtil nu. Disse skydere lader dig styre hvordan Privacy Badger håndterer hver sporing.",
+        "message": "Privacy Badger har opdaget $COUNT$ potentielle $TRACKER_LINK_START$sporingsdomæner$TRACKER_LINK_END$ indtil nu.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -479,9 +503,17 @@
         "message": "Beskrivelse",
         "description": ""
     },
+    "not_yet_blocked_header": {
+        "message": "Din Badger har endnu ikke besluttet om disse domæner skal blokeres",
+        "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
+    },
+    "options_show_not_yet_blocked": {
+        "message": "Vis domæner din Badger endnu ikke har besluttet at blokere:",
+        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
+    },
     "non_tracker": {
         "message": "Domænerne herunder ser ikke ud til at spore dig",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Opsætning",
@@ -500,14 +532,32 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger har erstattet denne $BUTTON$ knap.",
-        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "message": "Privacy Badger har erstattet denne $BUTTON$ knap",
+        "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
                 "content": "$1",
                 "example": "Facebook Like"
             }
         }
+    },
+    "widget_placeholder_pb_has_replaced": {
+        "message": "Privacy Badger har erstattet denne $WIDGET$-kontrol",
+        "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
+        "placeholders": {
+            "widget": {
+                "content": "$1",
+                "example": "Google reCAPTCHA"
+            }
+        }
+    },
+    "allow_once": {
+        "message": "Tillad en gang",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "allow_on_site": {
+        "message": "Tillad altid på dette netsted",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
         "message": "Skysynkronisering:<ul><li>Kræver Firefox/Chrome-Synkronisering</li><li>Oplægning overskriver eksisterende Privacy Badger-data i skyen</li><li>Hentning kombinerer listerne over steder hvor din Privacy Badger er deaktiveret</li></ul>",
@@ -578,5 +628,25 @@
     "copy_button_copied": {
         "message": "Kopieret",
         "description": "On-click text of the copy button on the share overlay."
+    },
+    "popup_special_page_header": {
+        "message": "Der er intet at gøre på denne side",
+        "description": "Heading for popup_special_page_paragraph"
+    },
+    "popup_special_page_paragraph": {
+        "message": "Privacy Badger virker ikke på specielle sider som denne. Prøv at browse et andet sted.",
+        "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
+    },
+    "popup_disabled_site_header": {
+        "message": "Privacy Badger er deaktiveret på dette netsted",
+        "description": "Shown in the popup on disabled sites."
+    },
+    "options_widget_replacement_tab": {
+        "message": "Kontroludskiftning",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "Ved blokering af sociale knapper og andre potentielt brugbare (video, lyd, kommentarer) kontroller, kan Privacy Badger udskifte dem med klik-for-at-aktivere pladsholdere.",
+        "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }

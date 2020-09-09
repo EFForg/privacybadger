@@ -17,16 +17,19 @@ upload:
 	$(eval TMPFILE := $(shell mktemp))
 	scp src/data/yellowlist.txt $$YELLOWLIST_UPLOAD_PATH
 	scripts/generate-legacy-yellowlist.sh > $(TMPFILE) && scp $(TMPFILE) $$YELLOWLIST_LEGACY_UPLOAD_PATH && rm $(TMPFILE)
-	#scp data/dnt-policies.json $$DNT_POLICIES_UPLOAD_PATH
+	scp src/data/dnt-policies.json $$DNT_POLICIES_UPLOAD_PATH
 
 tx:
 	tx pull -f
 	scripts/fix_placeholders.py
 
+runch:
+	./node_modules/.bin/web-ext run --target chromium --start-url "chrome://extensions" -s src/
+
 runff:
-	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/
+	./node_modules/.bin/web-ext run --start-url "about:debugging#/runtime/this-firefox" -s src/
 
 runfn:
-	./node_modules/.bin/web-ext run --start-url "about:debugging" -s src/ -f /opt/firefox/nightly/firefox
+	./node_modules/.bin/web-ext run --start-url "about:debugging#/runtime/this-firefox" -s src/ -f nightly
 
-.PHONY: lint updatepsl updateseed updategoogle todo tx runff runfn
+.PHONY: lint updatepsl updateseed updategoogle todo tx runch runff runfn

@@ -23,7 +23,7 @@ function getPageScript() {
   return "(" + function (NAVIGATOR, OBJECT) {
 
     OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
-      get: () => {
+      get: function doNotTrack() {
         return "1";
       }
     });
@@ -50,7 +50,7 @@ if (document instanceof HTMLDocument === false && (
 
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
-  checkDNT: true
+  type: "checkDNT"
 }, function (enabled) {
   if (enabled) {
     window.injectScript(getPageScript());

@@ -1,5 +1,5 @@
 {
-  "version": "2019.1.30",
+  "version": "2020.8.25",
   "author": {
     "email": "eff.software.projects@gmail.com"
   },
@@ -14,10 +14,9 @@
     "tabs",
     "http://*/*",
     "https://*/*",
-    "contextMenus",
+    "webNavigation",
     "webRequest",
     "webRequestBlocking",
-    "webNavigation",
     "storage",
     "downloads",
     "cookies",
@@ -26,7 +25,7 @@
   "background": {
     "scripts": [
       "js/bootstrap.js",
-      "lib/vendor/punycode.js",
+      "lib/vendor/punycode-1.4.1.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
       "lib/vendor/underscore-1.9.1.js",
@@ -48,22 +47,14 @@
   "content_scripts": [
     {
       "js": [
-        "js/firstparties/twitter.js"
-      ],
-      "matches": [
-        "https://twitter.com/*",
-        "http://twitter.com/*"
-      ],
-      "run_at": "document_idle"
-    },
-    {
-      "js": [
         "js/firstparties/lib/utils.js",
         "js/firstparties/facebook.js"
       ],
       "matches": [
         "https://*.facebook.com/*",
         "http://*.facebook.com/*",
+        "https://*.messenger.com/*",
+        "http://*.messenger.com/*",
         "*://*.facebookcorewwwi.onion/*"
       ],
       "run_at": "document_idle"
@@ -210,8 +201,6 @@
         "http://www.google.gl/*",
         "https://www.google.gm/*",
         "http://www.google.gm/*",
-        "https://www.google.gp/*",
-        "http://www.google.gp/*",
         "https://www.google.gr/*",
         "http://www.google.gr/*",
         "https://www.google.com.gt/*",
@@ -318,8 +307,6 @@
         "http://www.google.co.mz/*",
         "https://www.google.com.na/*",
         "http://www.google.com.na/*",
-        "https://www.google.com.nf/*",
-        "http://www.google.com.nf/*",
         "https://www.google.com.ng/*",
         "http://www.google.com.ng/*",
         "https://www.google.com.ni/*",
@@ -408,8 +395,6 @@
         "http://www.google.co.th/*",
         "https://www.google.com.tj/*",
         "http://www.google.com.tj/*",
-        "https://www.google.tk/*",
-        "http://www.google.tk/*",
         "https://www.google.tl/*",
         "http://www.google.tl/*",
         "https://www.google.tm/*",
@@ -494,6 +479,7 @@
     },
     {
       "js": [
+        "js/contentscripts/collapser.js",
         "js/contentscripts/socialwidgets.js",
         "js/contentscripts/supercookie.js"
       ],
@@ -520,8 +506,8 @@
   "name": "__MSG_name__",
   "browser_action": {
     "default_icon": {
-      "19": "icons/badger-19.png",
-      "38": "icons/badger-38.png"
+      "19": "icons/badger-19-disabled.png",
+      "38": "icons/badger-38-disabled.png"
     },
     "default_popup": "skin/popup.html",
     "default_title": "__MSG_name__"

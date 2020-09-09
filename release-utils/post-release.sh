@@ -28,12 +28,11 @@ rm -f /tmp/changelog$$
 MSG=/tmp/email$$
 
 echo "Privacy Badger $TARGET has been released for all supported browsers." > $MSG
-echo "As always, you can get it from https://www.eff.org/privacybadger" >> $MSG
-echo "or from your browser's add-on gallery." >> $MSG
+echo "As always, you can get it from https://privacybadger.org/ or from your browser's add-on gallery." >> $MSG
 echo "" >> $MSG
 echo "Notable updates:" >> $MSG
 echo "" >> $MSG
-tail -n+4 ../doc/Changelog | sed '/^$/q' >> $MSG
+tail -n+5 ../doc/Changelog | sed '/^$/q' >> $MSG
 echo "For further details, consult our release notes on GitHub:" >> $MSG
 echo "https://github.com/EFForg/privacybadger/releases/tag/release-$TARGET" >> $MSG
 
@@ -49,3 +48,30 @@ echo "  \"applications\": {"
 echo "    \"gecko\": { \"strict_min_version\": \"52.0\" }"
 echo "  }"
 echo "}"
+
+echo ""
+echo "AMO release notes:"
+echo ""
+echo "<ul>"
+tail -n+5 ../doc/Changelog | sed '/^$/q' | {
+  out=""
+  while IFS= read -r line; do
+    # changelog entries start with "*"
+    if [ "${line:0:1}" = "*" ]; then
+      # this is the first entry
+      if [ -z "$out" ]; then
+        out="<li>${line:2}"
+      else
+        out="$out</li>\n<li>${line:2}"
+      fi
+    # changelog entry continues
+    else
+      if [ -n "$line" ]; then
+        out="$out $line"
+      fi
+    fi
+  done
+  echo -e "$out</li>"
+}
+echo "</ul>"
+echo ""

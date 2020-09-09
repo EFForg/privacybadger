@@ -6,8 +6,6 @@ import unittest
 
 import pbtest
 
-from random import randint
-
 from selenium.common.exceptions import (
     ElementNotInteractableException,
     ElementNotVisibleException,
@@ -24,6 +22,32 @@ from window_utils import switch_to_window_with_url
 
 class OptionsTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
+
+    def assert_slider_state(self, origin, action, failure_msg):
+        clicker = self.driver.find_element_by_css_selector(
+            'div[data-origin="{}"]'.format(origin))
+        self.assertEqual(
+            clicker.get_attribute("class"),
+            "clicker userset",
+            failure_msg
+        )
+
+        switches_div = clicker.find_element_by_css_selector(".switch-container")
+        self.assertEqual(
+            switches_div.get_attribute("class"),
+            "switch-container " + action,
+            failure_msg
+        )
+
+    def find_origin_by_xpath(self, origin):
+        origins = self.driver.find_element_by_id("blockedResourcesInner")
+        return origins.find_element_by_xpath((
+            './/div[@data-origin="{origin}"]'
+            # test that "origin" is one of the classes on the element:
+            # https://stackoverflow.com/a/1390680
+            '//div[contains(concat(" ", normalize-space(@class), " "), " origin ")]'
+            '//span[text()="{origin}"]'
+        ).format(origin=origin))
 
     def select_domain_list_tab(self):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
@@ -61,19 +85,10 @@ class OptionsTest(pbtest.PBSeleniumTest):
             ".badger.storage.setupHeuristicAction('{}', '{}');"
         ).format(origin, action))
 
-    def add_test_origins(self, origins_with_actions):
-        """Add a dictionary of origins with their actions to backend storage."""
-        self.load_options_page()
-        for origin in origins_with_actions:
-            self.js((
-                "chrome.extension.getBackgroundPage()"
-                ".badger.storage.setupHeuristicAction('{}', '{}');"
-            ).format(origin, origins_with_actions[origin]))
-
     def user_overwrite(self, origin, action):
         # Get the slider that corresponds to this radio button
         origin_div = self.find_el_by_css('div[data-origin="' + origin + '"]')
-        slider = origin_div.find_element_by_css_selector('.ui-slider')
+        slider = origin_div.find_element_by_css_selector('.switch-toggle')
 
         # Click on the correct place over the slider to block this origin
         click_action = ActionChains(self.driver)
@@ -88,16 +103,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
             click_action.move_to_element_with_offset(slider, slider.size['width']-2, 2)
         click_action.click()
         click_action.perform()
-
-    def scroll_to_bottom(self):
-        # Scroll far enough to generate one new element in the tracking domains box
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        scrollable_div = self.driver.find_element_by_id('blockedResourcesInner')
-        self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
-
-    def scroll_to_origin(self, origin):
-        generated_element = self.find_el_by_css("div[data-origin='" + origin + "']")
-        self.driver.execute_script("return arguments[0].scrollIntoView(true);", generated_element)
 
     def test_page_title(self):
         self.load_options_page()
@@ -122,15 +127,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         error_message = "Only the 'one tracker' message should be displayed after adding an origin"
         self.check_tracker_messages(error_message, many=False, one=True, none=False)
 
-        # Check that origin is displayed.
-        origins = self.driver.find_element_by_id("blockedResourcesInner")
         try:
-            origins.find_element_by_xpath(
-                './/div[@data-origin="pbtest.org"]'
-                # test that "origin" is one of the classes on the element:
-                # https://stackoverflow.com/a/1390680
-                '//div[contains(concat(" ", normalize-space(@class), " "), " origin ") and text()="pbtest.org"]'
-            )
+            self.find_origin_by_xpath("pbtest.org")
         except NoSuchElementException:
             self.fail("Tracking origin is not displayed")
 
@@ -150,23 +148,14 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # check tracker count
         self.assertEqual(
             self.driver.find_element_by_id("options_domain_list_trackers").text,
-            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Privacy Badger has detected 2 potential tracking domains so far.",
             "Origin tracker count should be 2 after adding origin"
         )
 
         # Check those origins are displayed.
-        origins = self.driver.find_element_by_id("blockedResourcesInner")
         try:
-            origins.find_element_by_xpath(
-                './/div[@data-origin="pbtest.org"]'
-                # test that "origin" is one of the classes on the element:
-                # https://stackoverflow.com/a/1390680
-                '//div[contains(concat(" ", normalize-space(@class), " "), " origin ") and text()="pbtest.org"]'
-            )
-            origins.find_element_by_xpath(
-                './/div[@data-origin="pbtest1.org"]'
-                '//div[contains(concat(" ", normalize-space(@class), " "), " origin ") and text()="pbtest1.org"]'
-            )
+            self.find_origin_by_xpath("pbtest.org")
+            self.find_origin_by_xpath("pbtest1.org")
         except NoSuchElementException:
             self.fail("Tracking origin is not displayed")
 
@@ -181,7 +170,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # Remove displayed origin.
         remove_origin_element = self.find_el_by_xpath(
             './/div[@data-origin="pbtest.org"]'
-            '//div[@class="removeOrigin"]')
+            '//a[@class="removeOrigin"]')
         remove_origin_element.click()
 
         # Make sure the alert is present. Otherwise we get intermittent errors.
@@ -243,7 +232,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # make sure only two trackers are displayed now
         self.assertEqual(
             self.driver.find_element_by_id("options_domain_list_trackers").text,
-            "Privacy Badger has detected 2 potential tracking domains so far. These sliders let you control how Privacy Badger handles each tracker.",
+            "Privacy Badger has detected 2 potential tracking domains so far.",
             "Origin tracker count should be 2 after clearing and adding origins"
         )
 
@@ -267,6 +256,9 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         self.load_options_page()
         self.select_domain_list_tab()
+        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
+        # wait for sliders to finish rendering
+        self.wait_for_script("return window.SLIDERS_DONE")
 
         # Change user preferences
         self.user_overwrite("pbtest.org", overwrite_action)
@@ -274,11 +266,16 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # Re-open the tab
         self.load_options_page()
         self.select_domain_list_tab()
+        self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
+        # wait for sliders to finish rendering
+        self.wait_for_script("return window.SLIDERS_DONE")
 
         # Check the user preferences for the origins are still displayed
-        self.assertEqual(self.driver.find_element_by_css_selector('div[data-origin="pbtest.org"]').get_attribute("class"),
-            "clicker userset " + overwrite_action,
-            "Origin should be displayed as " + overwrite_action + " after user overwrite of PB's decision to " + original_action)
+        failure_msg = (
+            "Origin should be displayed as {} after user overwrite of "
+            "PB's decision to {}".format(overwrite_action, original_action)
+        )
+        self.assert_slider_state("pbtest.org", overwrite_action, failure_msg)
 
     def test_tracking_user_overwrite_allowed_block(self):
         self.tracking_user_overwrite('allow', 'block')
@@ -297,63 +294,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def test_tracking_user_overwrite_blocked_cookieblock(self):
         self.tracking_user_overwrite('block', 'cookieblock')
-
-    def test_tracking_user_overwrite_on_scroll(self):
-        # Create a bunch of origins with random actions
-        origins = {}
-        actions = ['allow', 'cookieblock', 'block']
-        for i in range (0, 50):
-            name = ""
-            if i<10: name = 'pbtest0' + str(i) + '.org'
-            else:
-                name = 'pbtest' + str(i) + '.org'
-
-            origins[name] = actions[randint(0,2)]
-        # Add an origin to be generated on scroll (once there are 50 already)
-        origins['pbtest50-generated.org'] = 'allow'
-
-        self.clear_seed_data()
-        self.add_test_origins(origins)
-
-        self.load_options_page()
-        self.select_domain_list_tab()
-
-        # Scroll until the first generated origin is added to the html
-        self.scroll_to_bottom()
-        self.scroll_to_bottom()
-
-        # Set a different action for it. First ensure it's been scrolled into view
-        self.scroll_to_origin('pbtest50-generated.org')
-        self.user_overwrite("pbtest50-generated.org", 'block')
-
-        # The page should have refreshed, scroll once to generate the element and again to the very bottom
-        self.scroll_to_bottom()
-        self.scroll_to_bottom()
-
-        try:
-            WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located(
-                    (By.XPATH, '//div[@class="clicker userset block"][@data-origin="pbtest50-generated.org"]')))
-        except TimeoutException:
-            self.fail("Timed out waiting for element generated on scroll to have its slider value changed to userset block")
-
-        self.assertEqual(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
-            "clicker userset block",
-            "Scroll-generated origin should be displayed as blocked after user overwrite of PB's decision to allow")
-
-        ## Check that changes have been persisted
-
-        # Re-open the tab
-        self.load_options_page()
-        self.select_domain_list_tab()
-        self.scroll_to_bottom()
-        self.scroll_to_bottom()
-        self.scroll_to_origin('pbtest50-generated.org')
-
-        # Check the user preferences for the origins are still displayed
-        self.assertEqual(self.driver.find_element_by_css_selector("div[data-origin='pbtest50-generated.org']").get_attribute("class"),
-            "clicker userset block",
-            "Scroll-generated origin should be persisted as blocked after user overwrite of PB's decision to allow")
 
     # early-warning check for the open_in_tab attribute of options_ui
     # https://github.com/EFForg/privacybadger/pull/1775#pullrequestreview-76940251

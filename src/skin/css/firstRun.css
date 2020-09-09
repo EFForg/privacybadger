@@ -374,13 +374,13 @@ button:hover,.button:focus {
   }
 }
 .top-bar img {
-  max-width:3rem;
-  margin-right:0.2rem;
+    max-width: 3rem;
+    margin-inline-end: 0.2rem;
 }
 @media print, screen and (min-width: 40em) {
-  .top-bar img {
-    margin-right:1rem;
-  }
+    .top-bar img {
+        margin-inline-end: 1rem;
+    }
 }
 
 @media print, screen and (min-width: 40em) {
@@ -497,7 +497,7 @@ header .title-bar h1 {
   display:block;
   margin:2.5rem auto 2rem;
   padding-bottom:3rem;
-  width:146px;
+  width:94px;
   z-index:3;
 }
 .share-links>a {
@@ -549,12 +549,6 @@ header .title-bar h1 {
   background:url("../images/facebook.svg");
 }
 .share-links>a.share-facebook i:hover {
-  opacity:0.7;
-}
-.share-links>a.share-google i {
-  background:url("../images/google.svg");
-}
-.share-links>a.share-google i:hover {
   opacity:0.7;
 }
 .share-links>a {
@@ -621,12 +615,6 @@ header .title-bar h1 {
     background:url("../images/facebook.svg");
   }
   .share-links>a.share-facebook i:hover {
-    opacity:0.7;
-  }
-  .share-links>a.share-google i {
-    background:url("../images/google.svg");
-  }
-  .share-links>a.share-google i:hover {
     opacity:0.7;
   }
   .share-links>a {
@@ -729,13 +717,13 @@ body {
   margin-top:1rem;
 }
 @media print, screen and (min-width: 40em) {
-  [id*="pb-features-"] h3,#pb-settings h3 {
-    text-align:left;
-    font-size:1.9375rem;
-  }
+    [id*="pb-features-"] h3, #pb-settings h3 {
+        text-align: start;
+        font-size: 1.9375rem;
+    }
 }
-[id*="pb-features-"] .text,[id*="pb-features-"] p,#pb-settings .text,#pb-settings p {
-  text-align:left;
+[id*="pb-features-"] .text, [id*="pb-features-"] p, #pb-settings .text, #pb-settings p {
+    text-align: start;
 }
 #pb-settings {
   background-image:linear-gradient(#EC9329, #EC9329 30%, #fff 30%);

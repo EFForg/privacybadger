@@ -1,12 +1,22 @@
 {
-  "name": "privacy-badger-chrome-dev-tools",
-  "version": "1.0.0",
+  "name": "privacy-badger-dev-tools",
+  "version": "0.0.1",
   "description": "Developer tools for Privacy Badger.",
   "dependencies": {
     "eslint": "~5.10.0"
   },
   "devDependencies": {
-    "web-ext": "~2.9.3"
+    "jquery": "3.5.1",
+    "jquery-smooth-scroll": "2.2.0",
+    "jquery-ui": "1.12.1",
+    "jquery-ui-iconfont": "2.3.2",
+    "punycode": "1.4.1",
+    "qunit": "2.9.2",
+    "select2": "4.0.11",
+    "sinon": "2.0.0",
+    "tooltipster": "4.2.6",
+    "underscore": "1.9.1",
+    "web-ext": "~5.0.0"
   },
   "private": true
 }

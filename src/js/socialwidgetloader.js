@@ -43,28 +43,16 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-var utils = require('utils');
+/* globals log:false */
 
-require.scopes.socialwidgetloader = (function() {
+require.scopes.widgetloader = (function () {
 
-var exports = {};
-exports.loadSocialWidgetsFromFile = loadSocialWidgetsFromFile;
+let utils = require('utils');
 
-/**
- * Loads a JSON file at filePath and returns the parsed object.
- *
- * @param {String} filePath the path to the JSON file, relative to the
- *                          extension's data folder
- * @param {Function} callback callback(jsonParsed)
- */
-function loadJSONFromFile(filePath, callback) {
-  getFileContents(filePath, function(jsonString) {
-    var jsonParsed = JSON.parse(jsonString);
-    Object.freeze(jsonParsed); // prevent modifications to jsonParsed
-
-    callback(jsonParsed);
-  });
-}
+let exports = {
+  initializeWidgets,
+  loadWidgetsFromFile,
+};
 
 /**
  * Returns the contents of the file at filePath.
@@ -73,9 +61,8 @@ function loadJSONFromFile(filePath, callback) {
  * @param {Function} callback callback(responseText)
  */
 function getFileContents(filePath, callback) {
-  var url = chrome.runtime.getURL(filePath);
-
-  utils.xhrRequest(url, function(err, responseText) {
+  let url = chrome.runtime.getURL(filePath);
+  utils.xhrRequest(url, function (err, responseText) {
     if (err) {
       console.error(
         "Problem fetching contents of file at",
@@ -90,26 +77,33 @@ function getFileContents(filePath, callback) {
 }
 
 /**
- * Returns an array of SocialWidget objects that are loaded from the file at
- * filePath.
- *
- * @param {String} filePath the path to the JSON file, relative to the
- *                          extension's data folder
+ * @param {String} filePath the path to the JSON file
  * @param {Function} callback callback(socialwidgets)
+ * @returns {Array} array of SocialWidget objects
  */
-function loadSocialWidgetsFromFile(filePath, callback) {
-  loadJSONFromFile(filePath, function(socialwidgetsJson) {
-    var socialwidgets = [];
-
-    // loop over each socialwidget, making a SocialWidget object
-    for (var socialwidgetName in socialwidgetsJson) {
-      var socialwidgetProperties = socialwidgetsJson[socialwidgetName];
-      var socialwidgetObject = new SocialWidget(socialwidgetName, socialwidgetProperties);
-      socialwidgets.push(socialwidgetObject);
-    }
-
-    callback(socialwidgets);
+function loadWidgetsFromFile(filePath, callback) {
+  getFileContents(filePath, function (contents) {
+    let widgets = initializeWidgets(JSON.parse(contents));
+    log("Initialized widgets from disk");
+    callback(widgets);
   });
+}
+
+/**
+ * @param {Object} widgetsJson widget data
+ * @returns {Array} array of SocialWidget objects
+ */
+function initializeWidgets(widgetsJson) {
+  let widgets = [];
+
+  // loop over each widget, making a SocialWidget object
+  for (let widget_name in widgetsJson) {
+    let widgetProperties = widgetsJson[widget_name];
+    let widget = new SocialWidget(widget_name, widgetProperties);
+    widgets.push(widget);
+  }
+
+  return widgets;
 }
 
 /**
@@ -119,12 +113,20 @@ function loadSocialWidgetsFromFile(filePath, callback) {
  * @param {Object} properties the properties of the socialwidget
  */
 function SocialWidget(name, properties) {
-  this.name = name;
+  let self = this;
 
-  for (var property in properties) {
-    this[property] = properties[property];
+  self.name = name;
+
+  for (let property in properties) {
+    self[property] = properties[property];
+  }
+
+  // standardize on "domains"
+  if (self.domain) {
+    self.domains = [self.domain];
   }
 }
 
 return exports;
+
 }()); //require scopes

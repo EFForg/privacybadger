@@ -17,7 +17,16 @@
 
 (function () {
 
-const i18n = chrome.i18n;
+const LOCALE = chrome.i18n.getMessage('@@ui_locale'),
+  ON_POPUP = (document.location.pathname == "/skin/popup.html");
+
+function localizeFaqLink() {
+  const LOCALIZED_HOMEPAGE_LOCALES = ['es'];
+  if (ON_POPUP && LOCALIZED_HOMEPAGE_LOCALES.includes(LOCALE)) {
+    // update FAQ link to point to localized version
+    $('#help').prop('href', `https://privacybadger.org/${LOCALE}/#faq`);
+  }
+}
 
 function setTextDirection() {
   function swap_css_property(selector, from, to) {
@@ -32,15 +41,17 @@ function setTextDirection() {
     let $els = $(selector);
     $els.each(i => {
       let $el = $($els[i]);
-      $el.css(property, $el.css(property) === from ? to : from);
+      if ($el.css(property) === from) {
+        $el.css(property, to);
+      }
     });
   }
 
   // https://www.w3.org/International/questions/qa-scripts#examples
   // https://developer.chrome.com/webstore/i18n?csw=1#localeTable
-  const RTL_LANGS = ['ar', 'he', 'fa'];
-
-  if (RTL_LANGS.indexOf(i18n.getMessage('@@ui_locale')) == -1) {
+  // TODO duplicated in src/js/webrequest.js
+  const RTL_LOCALES = ['ar', 'he', 'fa'];
+  if (!RTL_LOCALES.includes(LOCALE)) {
     return;
   }
 
@@ -48,21 +59,28 @@ function setTextDirection() {
   document.body.setAttribute("dir", "rtl");
 
   // popup page
-  if (document.location.pathname == "/skin/popup.html") {
+  if (ON_POPUP) {
     // fix floats
-    ['#privacyBadgerHeader h2', '#privacyBadgerHeader img', '#instruction img', '#version'].forEach((selector) => {
+    ['#privacyBadgerHeader img', '#header-image-stack', '#instruction-logo', '#version'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
     ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
       toggle_css_value(selector, "float", "right", "left");
     });
 
-    // fix padding
-    ['#version'].forEach((selector) => {
-      swap_css_property(selector, "padding-left", "padding-right");
+    // fix margin
+    ['#options', '#fittslaw'].forEach(selector => {
+      swap_css_property(selector, "margin-right", "margin-left");
     });
-    ['#privacyBadgerHeader h2', '#instruction img', '#help', '#share'].forEach((selector) => {
+
+    // fix padding
+    ['#instruction-logo'].forEach((selector) => {
       swap_css_property(selector, "padding-right", "padding-left");
+    });
+
+    // fix text alignment
+    ['#instruction'].forEach((selector) => {
+      toggle_css_value(selector, "text-align", "left", "right");
     });
 
   // options page
@@ -80,15 +98,15 @@ function setTextDirection() {
     document.body.appendChild(css);
 
     // fix margins
-    ['#settings-suffix', '#check-dnt-policy-row'].forEach((selector) => {
+    ['#check-dnt-policy-row', '#hide-widgets-row'].forEach((selector) => {
       swap_css_property(selector, "margin-left", "margin-right");
     });
-    ['#whitelistForm > div > div > div'].forEach((selector) => {
+    ['#allowlist-form > div > div > div'].forEach((selector) => {
       swap_css_property(selector, "margin-right", "margin-left");
     });
 
     // fix floats
-    ['.btn-silo', '.btn-silo div', '#whitelistForm > div > div > div'].forEach((selector) => {
+    ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
   }
@@ -98,8 +116,6 @@ function setTextDirection() {
 // element is parsed as JSON and used as parameters to substitute into placeholders in the
 // i18n message.
 function loadI18nStrings() {
-  setTextDirection();
-
   // replace span contents by their class names
   let nodes = document.querySelectorAll("[class^='i18n_']");
   for (let i = 0; i < nodes.length; i++) {
@@ -111,9 +127,9 @@ function loadI18nStrings() {
     const stringName = className.split(/\s/)[0].substring(5);
     const prop = "innerHTML" in nodes[i] ? "innerHTML" : "textContent";
     if (args.length > 0) {
-      nodes[i][prop] = i18n.getMessage(stringName, args);
+      nodes[i][prop] = chrome.i18n.getMessage(stringName, args);
     } else {
-      nodes[i][prop] = i18n.getMessage(stringName);
+      nodes[i][prop] = chrome.i18n.getMessage(stringName);
     }
   }
 
@@ -152,13 +168,17 @@ function loadI18nStrings() {
         }
 
         // update the attribute with the result of a translation lookup by KEY
-        nodes[i].setAttribute(attr_type, i18n.getMessage(key, placeholders));
+        nodes[i].setAttribute(attr_type, chrome.i18n.getMessage(key, placeholders));
       }
     });
   }
 }
 
 // Fill in the strings as soon as possible
-window.addEventListener("DOMContentLoaded", loadI18nStrings, true);
+window.addEventListener("DOMContentLoaded", function () {
+  localizeFaqLink();
+  setTextDirection();
+  loadI18nStrings();
+}, true);
 
 }());

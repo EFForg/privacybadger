@@ -12,12 +12,13 @@ from pbtest import retry_until
 class SurrogatesTest(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
-    # TODO update to pbtest.org URL
-    # TODO and remove the HTML pages from eff.org then
-    TEST_URL = "https://www.eff.org/files/pbtest/ga_js_surrogate_test.html"
+    FIXTURE_URL = (
+        "https://efforg.github.io/privacybadger-test-fixtures/html/"
+        "ga_surrogate.html"
+    )
 
     def load_ga_js_test_page(self, timeout=12):
-        self.load_url(SurrogatesTest.TEST_URL)
+        self.load_url(SurrogatesTest.FIXTURE_URL)
         try:
             self.wait_for_and_switch_to_frame('iframe', timeout=timeout)
             self.wait_for_text('h1', "It worked!", timeout=timeout)
@@ -26,6 +27,10 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             return False
 
     def test_ga_js_surrogate(self):
+        # clear pre-trained/seed tracker data
+        self.load_url(self.options_url)
+        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
+
         # verify the surrogate is present
         self.load_url(self.options_url)
         self.assertTrue(self.js(
@@ -41,11 +46,10 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         )
 
         # block ga.js (known to break the site)
-        self.load_url(self.options_url)
-        # also back up the surrogate definition before removing it
+        self.block_domain("www.google-analytics.com")
+        # back up the surrogate definition before removing it
         ga_backup = self.js(
             "let bg = chrome.extension.getBackgroundPage();"
-            "bg.badger.heuristicBlocking.blacklistOrigin('www.google-analytics.com', 'google-analytics.com');"
             "const sdb = bg.require('surrogatedb');"
             "return JSON.stringify(sdb.hostnames['www.google-analytics.com']);"
         )
@@ -72,6 +76,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         )
 
         # re-enable surrogate
+        self.open_window()
         self.load_url(self.options_url)
         self.js(
             "let bg = chrome.extension.getBackgroundPage();"

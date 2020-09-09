@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import json
 import time
 import unittest
 
@@ -12,13 +11,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
-from window_utils import switch_to_window_with_url
+from window_utils import switch_to_window_with_url, WindowNotFoundException
 
 
 def get_domain_slider_state(driver, domain):
     label = driver.find_element_by_css_selector(
-        'input[name="{}"][checked] + label'.format(domain))
-    return label.get_attribute('data-action')
+        'input[name="{}"][checked]'.format(domain))
+    return label.get_attribute('value')
 
 
 class PopupTest(pbtest.PBSeleniumTest):
@@ -45,42 +44,43 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             self.fail("Timed out waiting for %s to start loading" % url)
 
-    def open_popup(self, close_overlay=True, origins=None):
+    def open_popup(self, show_nag=False, origins=None):
         """Open popup and optionally close overlay."""
 
-        # TODO Hack: Open a new window to work around popup.js thinking the
-        # active page is firstRun.html when popup.js checks whether the overlay
-        # should be shown. Opening a new window should make the popup think
-        # it's on popup.html instead. This doesn't change what happens in
-        # Chrome where popup.js will keep thinking it is on popup.html.
-        self.open_window()
-
-        self.load_url(self.popup_url)
-        self.wait_for_script("return window.POPUP_INITIALIZED")
+        DUMMY_PAGE_URL = "https://efforg.github.io/privacybadger-test-fixtures/"
 
         # hack to get tabData populated for the popup's tab
         # to get the popup shown for regular pages
         # as opposed to special (no-tabData) browser pages
-        # TODO instead use a proper popup-opening function to open the popup
-        # for some test page like https://www.eff.org/files/badgertest.txt;
-        # for example, see https://github.com/EFForg/privacybadger/issues/1634
-        js = """getTab(function (tab) {
-  chrome.runtime.sendMessage({
-    type: "getPopupData",
-    tabId: tab.id,
-    tabUrl: tab.url
-  }, (response) => {
-    response.noTabData = false;
-    response.origins = %s;
-    setPopupData(response);
-    refreshPopup();
-    window.DONE_REFRESHING = true;
-  });
-});"""
-        js = js % (
-            json.dumps(origins) if origins else "{}",
+        self.open_window()
+        self.load_url(DUMMY_PAGE_URL)
+
+        self.open_window()
+        self.load_url(self.popup_url)
+        self.wait_for_script("return window.POPUP_INITIALIZED")
+
+        # override tab ID (to get regular page popup instead of
+        # special browser page popup),
+        # optionally set the domains the popup should report,
+        # optionally ask for the new user welcome page reminder
+        popup_js = (
+            "(function (origins, show_nag, DUMMY_PAGE_URL) {"
+            "chrome.tabs.query({ url: DUMMY_PAGE_URL }, (tabs) => {"
+            "  chrome.runtime.sendMessage({"
+            "    type: 'getPopupData',"
+            "    tabId: tabs[0].id"
+            "  }, (response) => {"
+            "    response.seenComic = !show_nag;"
+            "    response.origins = origins;"
+            "    setPopupData(response);"
+            "    refreshPopup();"
+            "    showNagMaybe();"
+            "    window.DONE_REFRESHING = true;"
+            "  });"
+            "});"
+            "}(arguments[0], arguments[1], arguments[2]));"
         )
-        self.js(js)
+        self.js(popup_js, origins if origins else {}, show_nag, DUMMY_PAGE_URL)
         # wait until the async getTab function is done
         self.wait_for_script(
             "return typeof window.DONE_REFRESHING != 'undefined'",
@@ -91,19 +91,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         # wait for any sliders to finish rendering
         self.wait_for_script("return window.SLIDERS_DONE")
 
-        if close_overlay:
-            # Click 'X' element to close overlay.
-            close_element = self.driver.find_element_by_id("fittslaw")
-            close_element.click()
-
-            # Element will fade out so wait for it to disappear.
-            try:
-                WebDriverWait(self.driver, 5).until(
-                    expected_conditions.invisibility_of_element_located(
-                        (By.ID, "fittslaw")))
-            except TimeoutException:
-                self.fail("Unable to close popup overlay")
-
     def get_enable_button(self):
         """Get enable button on popup."""
         return self.driver.find_element_by_id("activate_site_btn")
@@ -112,68 +99,43 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Get disable button on popup."""
         return self.driver.find_element_by_id("deactivate_site_btn")
 
-    def test_overlay(self):
+    def test_welcome_page_reminder_overlay(self):
         """Ensure overlay links to first run comic."""
-        self.open_popup(close_overlay=False)
+        self.open_popup(show_nag=True)
 
-        self.driver.find_element_by_id("firstRun").click()
-
-        # Make sure first run comic not opened in same window.
-        time.sleep(1)
-        if self.driver.current_url != self.popup_url:
-            self.fail("First run comic not opened in new window")
+        self.driver.find_element_by_id("intro-reminder-btn").click()
 
         # Look for first run page and return if found.
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url.startswith(self.first_run_url):
-                return
-
-        self.fail("First run comic not opened after clicking link in popup overlay")
+        switch_to_window_with_url(self.driver, self.first_run_url)
 
     def test_help_button(self):
-        """Ensure first run page is opened when help button is clicked."""
-        self.open_popup()
+        """Ensure FAQ website is opened when help button is clicked."""
 
+        FAQ_URL = "https://privacybadger.org/#faq"
+
+        try:
+            switch_to_window_with_url(self.driver, FAQ_URL, max_tries=1)
+        except WindowNotFoundException:
+            pass
+        else:
+            self.fail("FAQ should not already be open")
+
+        self.open_popup()
         self.driver.find_element_by_id("help").click()
 
-        # Make sure first run page not opened in same window.
-        time.sleep(1)
-        if self.driver.current_url != self.popup_url:
-            self.fail("Options page not opened in new window")
-
-        # Look for first run page and return if found.
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == self.first_run_url:
-                return
-
-        self.fail("Options page not opened after clicking help button on popup")
+        switch_to_window_with_url(self.driver, FAQ_URL)
 
     def test_options_button(self):
         """Ensure options page is opened when button is clicked."""
         self.open_popup()
-
         self.driver.find_element_by_id("options").click()
-
-        # Make sure options page not opened in same window.
-        time.sleep(1)
-        if self.driver.current_url != self.popup_url:
-            self.fail("Options page not opened in new window")
-
-        # Look for options page and return if found.
-        for window in self.driver.window_handles:
-            self.driver.switch_to.window(window)
-            if self.driver.current_url == self.options_url:
-                return
-
-        self.fail("Options page not opened after clicking options button on popup")
+        switch_to_window_with_url(self.driver, self.options_url)
 
     @pbtest.repeat_if_failed(5)
     def test_trackers_link(self):
         """Ensure trackers link opens EFF website."""
 
-        EFF_URL = "https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker"
+        EFF_URL = "https://privacybadger.org/#What-is-a-third-party-tracker"
 
         self.open_popup()
 
@@ -233,7 +195,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             "The domain should be blocked on options page.")
 
         # test toggling some more
-        self.open_popup(close_overlay=False, origins={DOMAIN:"user_block"})
+        self.open_popup(origins={DOMAIN:"user_block"})
 
         self.assertTrue(
             self.driver.find_element_by_id("block-" + DOMAIN_ID).is_selected(),
@@ -262,11 +224,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         DOMAIN_ID = DOMAIN.replace(".", "-")
 
         # record the domain as cookieblocked by Badger
-        self.load_url(self.options_url)
-        self.js((
-            "chrome.extension.getBackgroundPage()"
-            ".badger.storage.setupHeuristicAction('{}', '{}');"
-        ).format(DOMAIN, "cookieblock"))
+        self.cookieblock_domain(DOMAIN)
 
         self.open_popup(origins={DOMAIN:"cookieblock"})
 
@@ -277,7 +235,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # restore control to Badger
         self.driver.find_element_by_css_selector(
-            'div[data-origin="{}"] div.honeybadgerPowered'.format(DOMAIN)
+            'div[data-origin="{}"] a.honeybadgerPowered'.format(DOMAIN)
         ).click()
 
         # get back to a valid window handle as the window just got closed
@@ -298,7 +256,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
         self.assertFalse(
             self.driver.find_element_by_css_selector(
-                'div[data-origin="{}"] div.honeybadgerPowered'.format(DOMAIN)
+                'div[data-origin="{}"] a.honeybadgerPowered'.format(DOMAIN)
             ).is_displayed(),
             "Undo arrow should not be displayed."
         )
@@ -315,7 +273,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # get back to a valid window handle as the window just got closed
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.open_popup(close_overlay=False)
+        self.open_popup()
 
         # Check that popup state changed after disabling.
         disable_button = self.get_disable_button()
@@ -328,7 +286,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         enable_button.click()
 
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.open_popup(close_overlay=False)
+        self.open_popup()
 
         # Check that popup state changed after re-enabling.
         disable_button = self.get_disable_button()

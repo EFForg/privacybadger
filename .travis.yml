@@ -1,30 +1,36 @@
 sudo: required
 language: python
 os: linux
-dist: trusty
-python: 3.4
-matrix:
+dist: bionic
+python: 3.6
+jobs:
   fast_finish: true
   include:
     - env: INFO="lint"
       node_js: node
-    - addons:
+    - env: INFO="chrome beta" BROWSER=google-chrome-beta
+      addons:
         chrome: beta
-      env: INFO="chrome beta" BROWSER=google-chrome-beta
-    - addons:
+    - env: INFO="chrome stable" BROWSER=google-chrome-stable
+      addons:
         chrome: stable
-      env: INFO="chrome stable" BROWSER=google-chrome-stable
-    - addons:
+    - env: INFO="firefox" BROWSER=firefox
+      addons:
         firefox: latest
-      env: INFO="firefox" BROWSER=firefox
-    - addons:
+    - env: INFO="firefox esr" BROWSER=firefox
+      addons:
         firefox: latest-esr
-      env: INFO="firefox esr" BROWSER=firefox
-    - addons:
+    - env: INFO="firefox beta" BROWSER=firefox
+      addons:
         firefox: latest-beta
-      env: INFO="firefox beta" BROWSER=firefox
-before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+    - env: INFO="firefox nightly" BROWSER=firefox
+      addons:
+        firefox: latest-nightly
+  allow_failures:
+    - env: INFO="firefox nightly" BROWSER=firefox
+      addons:
+        firefox: latest-nightly
 before_script: travis_retry ./scripts/setup_travis.sh
 script: . ./scripts/run_travis.sh
+services:
+  - xvfb

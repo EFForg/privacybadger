@@ -10,11 +10,11 @@
         }
     },
     "invalid_json": {
-        "message": "Epäkelpo JSON-tiedosto.",
+        "message": "JSON-tiedosto ei kelpaa.",
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Oletko varma, että haluat poistaa tämän verkkotunnuksen Privacy Badgerista?",
+        "message": "Haluatko varmasti poistaa tämän verkkotunnuksen Privacy Badgerista?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
@@ -28,11 +28,11 @@
         }
     },
     "non_tracker_tip": {
-        "message": "Tällä hetkellä Privacy Badger tarkistaa ainoastaan käyttävätkö kolmannet osapuolet evästeitä, HTML5:n paikallista tallennusta tai canvas-elementtiin perustuvaa sormenjälkeä seuratakseen internet-selaamistasi. Jotkin näistä verkkotunnuksista saattavat käyttää seurantamenetelmiä, joita Privacy Badger ei tunnista.",
+        "message": "Tällä hetkellä Privacy Badger tarkistaa ainoastaan, käyttävätkö kolmannet osapuolet evästeitä, HTML5:n paikallista tallennusta tai canvas-elementtiin perustuvaa sormenjälkeä seuratakseen verkkoselaamistasi. Jotkin näistä verkkotunnuksista saattavat käyttää seurantamenetelmiä, joita Privacy Badger ei tunnista.",
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Tarkista noudattavatko <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>kolmansien osapuolten verkkotunnukset</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:n Do Not Track -käytäntöä</a>",
+        "message": "Tarkista, noudattavatko <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>kolmansien osapuolten verkkotunnukset</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:n Do Not Track -käytäntöä</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -56,12 +56,20 @@
         "description": "Intro page paragraph heading."
     },
     "report_success": {
-        "message": "Kiitos! Me selvitämme asian perusteellisesti.",
+        "message": "Kiitos! Selvitämme asian perin pohjin.",
         "description": ""
     },
     "dnt_tooltip": {
         "message": "Tämä verkkotunnus lupaa, ettei se jäljitä sinua",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
+    },
+    "breakage_warning_tooltip": {
+        "message": "Tämän verkkotunnuksen estämisen tiedetään rikkovan sivustoja",
+        "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "feed_the_badger_title": {
+        "message": "Klikkaa palauttaaksesi tämän verkkotunnuksen hallinnan Privacy Badgerille",
+        "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "next_section": {
         "message": "seuraava osio",
@@ -92,7 +100,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Estä WebRTC:tä vuotamasta paikallista IP-osoitetta *",
+        "message": "Estä WebRTC:tä vuotamasta paikallista IP-osoitetta",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -116,27 +124,31 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
-        "message": "Lue, miten Privacy Badger suojelee yksityisyyttäsi.",
+        "message": "Lue, miten Privacy Badger suojelee yksityisyyttäsi",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
         "message": "Lataa",
         "description": ""
     },
-    "feed_the_badger_title": {
-        "message": "Klikkaa palauttaaksesi tämän jäljittimen hallinnan Privacy Badgerille",
-        "description": ""
-    },
     "import": {
         "message": "Tuo",
         "description": ""
     },
+    "options_hide_social_widgets": {
+        "message": "Älä korvaa seuraavia sovelmia:",
+        "description": "Multiple selection box on the widget replacement tab"
+    },
     "options_social_widgets_checkbox": {
-        "message": "Korvaa sosiaalisen median painikkeet",
-        "description": "Checkbox label on the general settings page"
+        "message": "Ota sovelmien korvaaminen käyttöön",
+        "description": "Checkbox label on the widget replacement tab"
+    },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Näytä verkkotunnukset, jotka eivät vaikuta jäljittävän sinua",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_warning": {
-        "message": "** Jos valitset oppimisen yksityinen selaus / incognito-ikkunoissa, tietokoneellesi voi jäädä jälkiä selaushistoriastasi. Oletusarvoisesti Privacy Badger estää tuntemansa jäljittimet yksityinen selaus / incognito-ikkunoissa, muttei opi uusia jäljittimiä. Tämä valinta voi olla paikallaan, jos selaat nettiä paljon yksityinen selaus / incognito-ikkunoissa.",
+        "message": "Jos otat oppimisen käyttöön yksityisessä selauksissakin, tietokoneellesi voi jäädä jälkiä selaushistoriastasi. Oletusarvoisesti Privacy Badger estää tuntemansa jäljittimet selattaessa yksityisesti, muttei opettele uusia jäljittimiä. Tämä valinta voi olla paikallaan, jos selaat nettiä paljon yksityisesti.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "report_button": {
@@ -162,11 +174,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_incognito_setting": {
-        "message": "Opi yksityinen selaus / incognito-ikkunoissa **",
+        "message": "Opi yksityisessä selauksessa",
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Näytä estettyjen määrä",
+        "message": "Näytä jäljitinten määrä",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -182,7 +194,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Seuraavat tiedot lähetetään automaattisesti EFF:lle: sivusto, jolla olet nyt, selaimesi versio, Privacy Badgerin versio sekä kaikkien liukuvalitsimien tila tämän sivuston osalta.",
+        "message": "Seuraavat tiedot lähetetään automaattisesti EFF:lle: sivu, jolla olet nyt, selaimesi versio, Privacy Badgerin versio sekä kaikkien liukuvalitsimien tila tämän sivuston osalta.",
         "description": ""
     },
     "intro_learns": {
@@ -214,15 +226,15 @@
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
-        "message": "Palauta alkutilaan",
+        "message": "Nollaa",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Palauta jäljittävät verkkotunnukset alkutilaan",
+        "message": "Nollaa jäljittävät verkkotunnukset",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Jäljittävien verkkotunnusten palauttaminen alkutilaan:\n\n  • Poistaa kaiken jäljittäjiä koskevan datan, jonka Privacy Badger on oppinut selaamisestasi\n  • Palauttaa jäljittävien verkkotunnusten listaksi uusimman esikoulutetun listan (katso lisätietoja osoitteesta www.eff.org/badger-pretraining )",
+        "message": "Jäljittävien verkkotunnusten nollaaminen:\n\n  • Poistaa kaiken jäljittäjiä koskevan datan, jonka Privacy Badger on oppinut selaamisestasi\n  • Palauttaa jäljittävien verkkotunnusten listaksi uusimman esikoulutetun listan (katso lisätietoja osoitteesta www.eff.org/badger-pretraining )",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -238,16 +250,24 @@
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text": {
-        "message": "Privacy Badger suojelee nyt sinua. Oppiaksesi miten Privacy Badger toimii, klikkaa alapuolelta nopeaa opastusta varten.",
+        "message": "Privacy Badger suojelee nyt sinua. Voit klikata alta avataksesi nopean oppaan, joka kertoo, miten Privacy Badger toimii.",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "options_webrtc_warning": {
-        "message": "* WebRTC voi vuotaa paikallisen IP-osoitteesi. Huomaa, että tämä valinta voi haitata Google Hangoutsin tapaisten konferenssisovellusten toimintaa.",
+        "message": "WebRTC voi vuotaa paikallisen IP-osoitteesi. Huomaa, että tämä valinta voi haitata Google Hangoutsin tapaisten konferenssisovellusten toimintaa.",
         "description": "Detailed explanation shown under checkboxes on the general settings page"
     },
     "options_general_settings": {
         "message": "Yleiset asetukset",
         "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "Privacy",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "Advanced",
+        "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "Esittelykierros",
@@ -298,7 +318,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "Tällä sivustolla ei ole kolmansien osapuolten resursseja.",
+        "message": "Tällä sivulla ei ole kolmansien osapuolten resursseja.",
         "description": ""
     },
     "report_broken_site": {
@@ -306,11 +326,11 @@
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
-        "message": "Keskitä liukuvalitsin estääksesi evästeet.",
+        "message": "Evästeet estetään, kun liukuvalitsin on keskellä",
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Näkymätöntä seurantaa on monenlaista; mainokset ovat vain jäävuoren huippu. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>lähettää Do Not Track -signaalin</a> jäljittimille, ilmoittaen niille olla seuraamatta sinua. Jos ne eivät noudata pyyntöäsi, Badgerisi oppii estämään ne – olivat ne sitten mainostajia tai muunlaisia jäljittäjiä.",
+        "message": "Näkymätöntä seurantaa on monenlaista; mainokset ovat vain jäävuoren huippu. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>lähettää Do Not Track -signaalin</a> jäljittimille, ilmoittaen niille olemaan seuraamatta sinua. Jos ne eivät noudata pyyntöäsi, Badgerisi oppii estämään ne – olivat ne sitten mainostajia tai muunlaisia jäljittäjiä.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -333,17 +353,13 @@
         "message": "sallittu",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "share_button_title_google": {
-        "message": "Jaa Google+-palvelussa",
-        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
     "intro_donate_heading": {
         "message": "Yksityisyys on tiimipeliä!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
         "message": "Näitä ei pitäisi olla tarpeen muuttaa.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_learns_paragraph\" key."
+        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "kaikki",
@@ -354,12 +370,20 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Liu'uta valitsin vasemmalle estääksesi verkkotunnuksen",
+        "message": "Verkkotunnus estetään, kun liukuvalitsin on vasemmalla",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
         "message": "Lähetä sivustoille \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\"-signaali",
         "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+    },
+    "options_disable_google_nav_error_service": {
+        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "Disable hyperlink auditing",
+        "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
         "message": "käyttäjän hallitsema",
@@ -370,7 +394,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger havaitsi $COUNT$ mahdollista $TRACKER_LINK_START$jäljitintä$TRACKER_LINK_END$ tällä sivulla. Näillä liukuvalitsimilla voit hallita, miten Privacy Badger käsittelee kutakin. Säätäminen ei ole tarpeen, ellei jotain ole mennyt rikki.",
+        "message": "Privacy Badger havaitsi $COUNT$ mahdollista $TRACKER_LINK_START$jäljitintä$TRACKER_LINK_END$ tällä sivulla",
         "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
         "placeholders": {
             "count": {
@@ -395,11 +419,11 @@
         "description": ""
     },
     "options_domain_list_one_tracker": {
-        "message": "Privacy Badger on tähän asti havainnut yhden mahdollisen <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävän verkkotunnuksen</a>.  Liukuvalitsimella voit hallita, miten Privacy Badger käsittelee sitä.",
+        "message": "Privacy Badger on tähän asti havainnut yhden mahdollisen <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävän verkkotunnuksen</a>.",
         "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
     },
     "tooltip_allow": {
-        "message": "Liu'uta valitsin oikealle salliaksesi verkkotunnuksen.",
+        "message": "Verkkotunnus sallitaan, kun liukuvalitsin on oikealla",
         "description": ""
     },
     "popup_disable_for_site": {
@@ -407,7 +431,7 @@
         "description": "Button in the popup."
     },
     "popup_instructions_one_tracker": {
-        "message": "Privacy Badger havaitsi mahdollisen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittimen</a> tällä sivulla. Liukuvalitsimella voit hallita, miten Privacy Badger käsittelee sitä. Säätäminen ei ole tarpeen, ellei jotain ole mennyt rikki.",
+        "message": "Privacy Badger havaitsi mahdollisen <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittimen</a> tällä sivulla",
         "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
@@ -419,7 +443,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger on tähän mennessä havainnut $COUNT$ mahdollista $TRACKER_LINK_START$jäljittävää verkkotunnusta$TRACKER_LINK_END$. Näillä liukuvalitsimilla voit hallita miten Privacy Badger käsittelee kutakin jäljitintä.",
+        "message": "Privacy Badger on tähän mennessä havainnut $COUNT$ mahdollista $TRACKER_LINK_START$jäljittävää verkkotunnusta$TRACKER_LINK_END$.",
         "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
         "placeholders": {
             "count": {
@@ -440,7 +464,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger aloittaa estämisen, kun se näkee saman jäljittimen kolmella eri sivustolla. Kolmesta poikki! Jos käytät muita yksityisyystyökaluja tai mainosten estäjiä, Privacy Badger oppii vähemmän, mutta ei hätää: se voi napata jotain mitä muut estäjät eivät huomaa.",
+        "message": "Privacy Badger aloittaa estämisen, kun se näkee saman jäljittimen kolmella eri sivustolla. Kolmesta poikki! Jos käytät muita yksityisyystyökaluja tai mainosten estäjiä, Privacy Badger oppii vähemmän, mutta ei hätää: se voi napata jotain, mitä muut estäjät eivät huomaa.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -472,16 +496,24 @@
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger ei ole vielä havainnyt yhtään <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävää verkkotunnusta</a>. Jatka selaamista!",
+        "message": "Privacy Badger ei ole vielä havainnut yhtään <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävää verkkotunnusta</a>. Jatka selaamista!",
         "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "report_input_label": {
         "message": "Kuvaus",
         "description": ""
     },
+    "not_yet_blocked_header": {
+        "message": "Badgerisi ei ole vielä päättänyt, estetäänkö nämä verkkotunnukset",
+        "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
+    },
+    "options_show_not_yet_blocked": {
+        "message": "Näytä verkkotunnukset, joita Badgerisi ei ole vielä päättänyt estää:",
+        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
+    },
     "non_tracker": {
         "message": "Alla olevat verkkotunnukset eivät vaikuta jäljittävän sinua",
-        "description": ""
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
         "message": "Asetukset",
@@ -496,18 +528,36 @@
         "description": ""
     },
     "report_fail": {
-        "message": "Ups. Jotakin meni pieleen.",
+        "message": "Hups. Jotakin meni pieleen.",
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger on korvannut tämän $BUTTON$-painikkeen.",
-        "description": "Tooltip shown over a replaced social button. For example, \"... replaced this Facebook Like button.\"",
+        "message": "Privacy Badger on korvannut tämän $BUTTON$-painikkeen",
+        "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
                 "content": "$1",
                 "example": "Facebook Like"
             }
         }
+    },
+    "widget_placeholder_pb_has_replaced": {
+        "message": "Privacy Badger on korvannut tämän $WIDGET$-sovelman",
+        "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
+        "placeholders": {
+            "widget": {
+                "content": "$1",
+                "example": "Google reCAPTCHA"
+            }
+        }
+    },
+    "allow_once": {
+        "message": "Salli tämän kerran",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "allow_on_site": {
+        "message": "Salli aina tällä sivustolla",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
         "message": "Pilvisynkronointi:<ul><li>Vaatii Firefox/Chrome Syncin</li><li>Pilveen lataaminen ylikirjoittaa pilvessä mahdollisesti jo olevan Privacy Badgerin datan</li><li>Pilvestä lataaminen yhdistää listat sivustoista, joilla Badgerisi on poistettu käytöstä</li></ul>",
@@ -568,7 +618,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) on selainlaajennus joka oppii automaattisesti estämään näkymättömät jäljittimet. Privacy Badgerin on tehnyt Electronic Frontier Foundation, voittoa tavoittelematon järjestö joka taistelee oikeuksiesi puolesta verkossa.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) on selainlaajennus, joka oppii automaattisesti estämään näkymättömät jäljittimet. Privacy Badgerin on tehnyt Electronic Frontier Foundation, voittoa tavoittelematon järjestö joka taistelee oikeuksiesi puolesta verkossa.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -578,5 +628,25 @@
     "copy_button_copied": {
         "message": "Kopioitu",
         "description": "On-click text of the copy button on the share overlay."
+    },
+    "popup_special_page_header": {
+        "message": "Ei mitään tehtävää tällä sivulla",
+        "description": "Heading for popup_special_page_paragraph"
+    },
+    "popup_special_page_paragraph": {
+        "message": "Privacy Badger ei toimi tämänkaltaisilla erikoissivuilla. Kokeile selata muualla.",
+        "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
+    },
+    "popup_disabled_site_header": {
+        "message": "Privacy Badger on poistettu käytöstä tällä sivustolla",
+        "description": "Shown in the popup on disabled sites."
+    },
+    "options_widget_replacement_tab": {
+        "message": "Sovelmien korvaaminen",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "Estäessään sosiaalisen median painikkeita ja muita mahdollisesti hyödyllisiä (video-, ääni-, kommentti-) sovelmia, Privacy Badger voi korvata ne klikkaamalla aktivoitavilla korvikkeilla.",
+        "description": "Introduction to the Widget Replacement tab on the options page."
     }
 }

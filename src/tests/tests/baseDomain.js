@@ -132,6 +132,15 @@ QUnit.test("URI parsing", function (assert) {
       path: "/temporary/myfile.png",
       prePath: "filesystem:http://example.com"
     }],
+    ["blob:https://www.daringgourmet.com/69587cd0-01e1-417b-819d-8e2ecbefc1f9", {
+      scheme: "blob:https",
+      host: "www.daringgourmet.com",
+      asciiHost: "www.daringgourmet.com",
+      hostPort: "www.daringgourmet.com",
+      port: -1,
+      path: "/69587cd0-01e1-417b-819d-8e2ecbefc1f9",
+      prePath: "blob:https://www.daringgourmet.com"
+    }],
   ];
 
   for (var i = 0; i < tests.length; i++) {

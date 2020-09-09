@@ -17,25 +17,28 @@
   - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<html style="visibility:hidden">
+<html style="visibility:hidden; overflow:hidden">
 <head>
 <meta name="google" content="notranslate">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.structure.css" rel="stylesheet" />
 <link type="text/css" href="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.theme.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.css" />
+<link type="text/css" href="/lib/vendor/jquery-ui-iconfont-2.3.2/jquery-ui-1.12.icon-font.css" rel="stylesheet" />
+<link type="text/css" href="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.css" rel="stylesheet" />
+<link type="text/css" href="/lib/vendor/select2-4.0.11/select2-4.0.11.css" rel="stylesheet" />
+<link type="text/css" media="screen" href="/lib/vendor/toggle-switch.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
-<link type="text/css" media="screen" href="/skin/toggle-switch.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="/skin/options-layout.css" rel="stylesheet" />
 
-<script type="text/javascript" src="/lib/vendor/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/lib/vendor/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="/lib/vendor/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 <script type="text/javascript" src="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.js"></script>
 <script type="text/javascript" src="/lib/vendor/underscore-1.9.1.js"></script>
+<script type="text/javascript" src="/lib/vendor/select2-4.0.11/select2-4.0.11.js"></script>
 
 <!-- required because of window.getBaseDomain() in htmlutils.js -->
-<script type="text/javascript" src="/lib/vendor/punycode.js"></script>
+<script type="text/javascript" src="/lib/vendor/punycode-1.4.1.js"></script>
 <script type="text/javascript" src="/lib/publicSuffixList.js"></script>
 <script type="text/javascript" src="/lib/basedomain.js"></script>
 
@@ -66,21 +69,21 @@
 <div id="tabs">
   <ul>
     <li><a href="#tab-general-settings"><span class="i18n_options_general_settings"></span></a></li>
-    <li><a href="#tab-whitelisted-domains"><span class="i18n_whitelisted_domains"></span></a></li>
+    <li><a href="#tab-allowlist"><span class="i18n_whitelisted_domains"></span></a></li>
+    <li><a href="#tab-manage-widgets"><span class="i18n_options_widget_replacement_tab"></span></a></li>
     <li><a href="#tab-tracking-domains"><span class="i18n_options_domain_list_tab"></span></a></li>
     <li><a href="#tab-manage-data"><span class="i18n_data_settings"></span></a></li>
   </ul>
 
   <div id="tab-tracking-domains">
     <div id="tracking-domains-overlay">
-        <p class="i18n_intro_learns_paragraph"></p>
+        <p class="i18n_intro_not_an_adblocker_paragraph"></p>
         <p class="i18n_show_tracking_domains_message"></p>
         <p>
-            <label>
-                <input type="checkbox" id="show-tracking-domains-checkbox">
-                &nbsp;
-                <span class="i18n_show_tracking_domains_acknowledgement"></span>
-            </label>
+        <label>
+          <input type="checkbox" id="show-tracking-domains-checkbox">
+          <span class="i18n_show_tracking_domains_acknowledgement"></span>
+        </label>
         </p>
     </div>
     <div id="blockedResourcesContainer">
@@ -89,6 +92,9 @@
         <span id="options_domain_list_one_tracker" class="i18n_options_domain_list_one_tracker" style="display:none"></span>
         <span id="options_domain_list_no_trackers" class="i18n_options_domain_list_no_trackers" style="display:none"></span>
       </p>
+      <div id="tracking-domains-loader" style="display:none">
+        <div class="spinner"></div>
+      </div>
       <div id="tracking-domains-div">
           <ul id="tracking-domains-filters">
               <li>
@@ -119,31 +125,38 @@
                       <option value="allow" class="i18n_options_domain_filter_allow"></option>
                   </select>
               </li>
+              <li>
+                <label for="tracking-domains-show-not-yet-blocked">
+                  <span class="i18n_options_show_not_yet_blocked"></span>
+                  <span class="ui-icon ui-icon-info tooltip" title="i18n_intro_not_an_adblocker_paragraph"></span>
+                </label>
+                <input type="checkbox" id="tracking-domains-show-not-yet-blocked">
+              </li>
           </ul>
           <div id="blockedResources"></div>
       </div>
     </div>
   </div>
 
-  <div id="tab-whitelisted-domains">
+  <div id="tab-allowlist">
     <div class="i18n_disabled_for_these_domains"></div>
 
-    <form id="whitelistForm" action="#">
+    <form id="allowlist-form" action="#">
       <div>
         <div>
           <div style="float: left; max-width: 400px; width: 100%; margin-right: 30px; padding-top: 5px">
-            <input type="text" value="" id="newWhitelistDomain" style="width:100%" placeholder="i18n_whitelist_form_domain_input_placeholder">
+            <input type="text" value="" id="new-disabled-site-input" style="width:100%" placeholder="i18n_whitelist_form_domain_input_placeholder">
           </div>
           <div style="float: left; padding: 5px 0 10px">
-            <button class="addButton" type="submit"><span class="i18n_add_domain_button"></span></button>
+            <button id="add-disabled-site" type="submit"><span class="i18n_add_domain_button"></span></button>
           </div>
         </div>
         <div style="clear: both; overflow: hidden">
           <div style="float: left; max-width: 420px; width: 100%; margin-right: 10px; padding-top: 5px">
-            <select id="excludedDomainsBox" size="10" multiple style="width: 100%; background: white;"></select>
+            <select id="allowlist-select" size="10" multiple style="width: 100%; background: white;"></select>
           </div>
           <div style="float:left; padding-top: 5px">
-            <button id="removeWhitelist" class="removeButton"><span class="i18n_remove_button"></span></button>
+            <button id="remove-disabled-site"><span class="i18n_remove_button"></span></button>
           </div>
         </div>
       </div>
@@ -152,16 +165,11 @@
 
   <div id="tab-general-settings">
     <form id="settingsForm" action="#">
+
       <div class="checkbox">
         <label>
           <input type="checkbox" id="show_counter_checkbox">
           <span class="i18n_show_counter_checkbox"></span>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" id="replace_social_widgets_checkbox">
-          <span class="i18n_options_social_widgets_checkbox"></span>
         </label>
       </div>
       <div class="checkbox">
@@ -176,23 +184,72 @@
           <span class="i18n_options_dnt_policy_setting"></span>
         </label>
       </div>
-      <div class="checkbox" id="webRTCToggle">
+
+      <h4 id="privacy-settings-header" class="i18n_options_privacy_settings" style="display:none"></h4>
+
+      <div class="checkbox" id="disable-hyperlink-auditing" style="display:none">
         <label>
-          <input type="checkbox" id="toggle_webrtc_mode" disabled>
-          <span class="i18n_options_webrtc_setting"></span>
+          <input type="checkbox" id="disable-hyperlink-auditing-checkbox">
+          <span>
+            <span class="i18n_options_disable_hyperlink_auditing"></span>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-ping" target="_blank"><span class="ui-icon ui-icon-circle-b-help"></span></a>
+          </span>
+        </label>
+      </div>
+      <div class="checkbox" id="disable-google-nav-error-service" style="display:none">
+        <label>
+          <input type="checkbox" id="disable-google-nav-error-service-checkbox">
+          <span>
+            <span class="i18n_options_disable_google_nav_error_service"></span>
+            <a href="https://www.google.com/chrome/privacy/whitepaper.html#navtips" target="_blank"><span class="ui-icon ui-icon-circle-b-help"></span></a>
+          </span>
+        </label>
+      </div>
+
+      <h4 class="i18n_options_advanced_settings"></h4>
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="show-nontracking-domains-checkbox">
+          <span class="i18n_options_show_nontracking_domains_checkbox"></span>
+        </label>
+      </div>
+      <div class="checkbox" id="webRTCToggle" style="display:none">
+        <label>
+          <input type="checkbox" id="toggle_webrtc_mode">
+          <span>
+            <span class="i18n_options_webrtc_setting"></span>
+            <span class="ui-icon ui-icon-alert tooltip" title="i18n_options_webrtc_warning"></span>
+          </span>
         </label>
       </div>
       <div class="checkbox">
         <label>
           <input type="checkbox" id="learn-in-incognito-checkbox">
-          <span class="i18n_options_incognito_setting"></span>
+          <span>
+            <span class="i18n_options_incognito_setting"></span>
+            <span class="ui-icon ui-icon-alert tooltip" title="i18n_options_incognito_warning"></span>
+          </span>
         </label>
       </div>
-      <div id="settings-suffix">
-        <div id="webrtc-warning" class="i18n_options_webrtc_warning"></div>
-        <div id="incognito-warning" class="i18n_options_incognito_warning"></div>
-      </div>
+
     </form>
+  </div>
+
+  <div id="tab-manage-widgets">
+    <p><span class="i18n_options_widget_replacement_desc"></span></p>
+    <p>
+    <label>
+      <input type="checkbox" id="replace-widgets-checkbox">
+      <span class="i18n_options_social_widgets_checkbox"></span>
+    </label>
+    </p>
+    <div id="hide-widgets-row">
+      <label for="hide-widgets-select">
+        <span class="i18n_options_hide_social_widgets"></span>
+      </label>
+      <select name="states[]" multiple="multiple" id="hide-widgets-select"></select>
+    </div>
   </div>
 
   <div id="tab-manage-data">

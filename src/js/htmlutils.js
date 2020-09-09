@@ -20,16 +20,10 @@ require.scopes.htmlutils = (function() {
 const i18n = chrome.i18n;
 const constants = require("constants");
 
-const UNDO_ARROW_TOOLTIP_TEXT = i18n.getMessage('feed_the_badger_title');
+let htmlUtils = {
 
-var exports = {};
-var htmlUtils = exports.htmlUtils = {
-
-  // Tooltipster config for domain list tooltips
-  DOMAIN_TOOLTIP_CONF: {
-    delay: 100,
-    side: 'bottom',
-
+  // default Tooltipster config
+  TOOLTIPSTER_DEFAULTS: {
     // allow per-instance option overriding
     functionInit: function (instance, helper) {
       let dataOptions = helper.origin.dataset.tooltipster;
@@ -48,18 +42,10 @@ var htmlUtils = exports.htmlUtils = {
     },
   },
 
-  /**
-   * Determines if radio input is checked based on origin's action.
-   *
-   * @param {String} inputAction Action of current radio input.
-   * @param {String} originAction Action of current origin.
-   * @returns {String} 'checked' if both actions match otherwise empty string.
-   */
-  isChecked: function(inputAction, originAction) {
-    if ((originAction == constants.NO_TRACKING) || (originAction == constants.DNT)) {
-      originAction = constants.ALLOW;
-    }
-    return (inputAction === originAction) ? 'checked' : '';
+  // Tooltipster config for domain list tooltips
+  DOMAIN_TOOLTIP_CONF: {
+    delay: 100,
+    side: 'bottom',
   },
 
   /**
@@ -77,8 +63,8 @@ var htmlUtils = exports.htmlUtils = {
       allow: i18n.getMessage('badger_status_allow', "XXX"),
       dntTooltip: i18n.getMessage('dnt_tooltip')
     };
-    return function (action, origin, is_whitelisted) {
-      if (is_whitelisted) {
+    return function (action, origin) {
+      if (action == constants.DNT) {
         return messages.dntTooltip;
       }
 
@@ -91,6 +77,7 @@ var htmlUtils = exports.htmlUtils = {
       return rv_action.replace("XXX", origin);
     };
   }()),
+
   /**
    * Gets HTML for origin action toggle switch (block, block cookies, allow).
    *
@@ -99,6 +86,14 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} HTML for toggle switch.
    */
   getToggleHtml: (function () {
+
+    function is_checked(input_action, origin_action) {
+      if ((origin_action == constants.NO_TRACKING) || (origin_action == constants.DNT)) {
+        origin_action = constants.ALLOW;
+      }
+      return (input_action === origin_action ? 'checked' : '');
+    }
+
     let tooltips = {
       block: i18n.getMessage('domain_slider_block_tooltip'),
       cookieblock: i18n.getMessage('domain_slider_cookieblock_tooltip'),
@@ -106,18 +101,23 @@ var htmlUtils = exports.htmlUtils = {
     };
 
     return function (origin, action) {
-      var originId = origin.replace(/\./g, '-');
+      let origin_id = origin.replace(/\./g, '-');
 
-      var toggleHtml = '' +
-        '<div class="switch-container ' + action + '">' +
-        '<div class="switch-toggle switch-3 switch-candy">' +
-        '<input id="block-' + originId + '" name="' + origin + '" value="0" type="radio" ' + htmlUtils.isChecked('block', action) + '><label title="' + tooltips.block + '" class="actionToggle tooltip" for="block-' + originId + '" data-origin="' + origin + '" data-action="block"></label>' +
-        '<input id="cookieblock-' + originId + '" name="' + origin + '" value="1" type="radio" ' + htmlUtils.isChecked('cookieblock', action) + '><label title="' + tooltips.cookieblock + '" class="actionToggle tooltip" for="cookieblock-' + originId + '" data-origin="' + origin + '" data-action="cookieblock"></label>' +
-        '<input id="allow-' + originId + '" name="' + origin + '" value="2" type="radio" ' + htmlUtils.isChecked('allow', action) + '><label title="' + tooltips.allow + '" class="actionToggle tooltip" for="allow-' + originId + '" data-origin="' + origin + '" data-action="allow"></label>' +
-        '<a><img src="/icons/badger-slider-handle.png"></a></div></div>';
-
-      return toggleHtml;
+      return `
+<div class="switch-container ${action}">
+  <div class="switch-toggle switch-3 switch-candy">
+    <input id="block-${origin_id}" name="${origin}" value="${constants.BLOCK}" type="radio" ${is_checked(constants.BLOCK, action)}>
+    <label title="${tooltips.block}" class="tooltip" for="block-${origin_id}"></label>
+    <input id="cookieblock-${origin_id}" name="${origin}" value="${constants.COOKIEBLOCK}" type="radio" ${is_checked(constants.COOKIEBLOCK, action)}>
+    <label title="${tooltips.cookieblock}" class="tooltip" for="cookieblock-${origin_id}"></label>
+    <input id="allow-${origin_id}" name="${origin}" value="${constants.ALLOW}" type="radio" ${is_checked(constants.ALLOW, action)}>
+    <label title="${tooltips.allow}" class="tooltip" for="allow-${origin_id}"></label>
+    <a></a>
+  </div>
+</div>
+      `.trim();
     };
+
   }()),
 
   /**
@@ -126,16 +126,15 @@ var htmlUtils = exports.htmlUtils = {
    * @returns {String} HTML for empty tracker container.
    */
   getTrackerContainerHtml: function() {
-    var trackerHtml = '' +
-      '<div class="keyContainer">' +
-      '<div class="key">' +
-      '<img src="/icons/UI-icons-red.svg" class="tooltip" title="' + i18n.getMessage("tooltip_block") + '">' +
-      '<img src="/icons/UI-icons-yellow.svg" class="tooltip" title="' + i18n.getMessage("tooltip_cookieblock") + '">' +
-      '<img src="/icons/UI-icons-green.svg" class="tooltip" title="' + i18n.getMessage("tooltip_allow") + '">' +
-      '</div></div>' +
-      '<div class="spacer"></div>' +
-      '<div id="blockedResourcesInner" class="clickerContainer"></div>';
-    return trackerHtml;
+    return `
+<div class="keyContainer">
+  <div class="key">
+    <img src="/icons/UI-icons-red.svg" class="tooltip" title="${i18n.getMessage("tooltip_block")}"><img src="/icons/UI-icons-yellow.svg" class="tooltip" title="${i18n.getMessage("tooltip_cookieblock")}"><img src="/icons/UI-icons-green.svg" class="tooltip" title="${i18n.getMessage("tooltip_allow")}">
+  </div>
+</div>
+<div class="spacer"></div>
+<div id="blockedResourcesInner" class="clickerContainer"></div>
+    `.trim();
   },
 
   /**
@@ -143,63 +142,82 @@ var htmlUtils = exports.htmlUtils = {
    *
    * @param {String} origin Origin to get HTML for.
    * @param {String} action Action for given origin.
-   * @param {Boolean} isWhitelisted Whether origin is whitelisted or not.
+   * @param {Boolean} show_breakage_warning
    * @returns {String} Origin HTML.
    */
-  getOriginHtml: function(origin, action, isWhitelisted) {
-    action = _.escape(action);
-    origin = _.escape(origin);
+  getOriginHtml: (function () {
 
-    // Get classes for main div.
-    var classes = ['clicker'];
-    if (action.indexOf('user') === 0) {
-      classes.push('userset');
-      action = action.substr(5);
-    }
-    if (action === constants.BLOCK || action === constants.COOKIEBLOCK || action === constants.ALLOW || action === constants.NO_TRACKING) {
-      classes.push(action);
-    }
+    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
+      undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title'),
+      dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
 
-    // If origin has been whitelisted set text for DNT.
-    var whitelistedText = '';
-    if (isWhitelisted) {
-      whitelistedText = '' +
-        '<div id="dnt-compliant">' +
-        '<a target=_blank href="https://www.eff.org/privacybadger/faq#-I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me">' +
-        '<img src="' +
-        chrome.runtime.getURL('/icons/dnt-16.png') +
-        '"></a></div>';
-    }
+    return function (origin, action, show_breakage_warning) {
+      action = _.escape(action);
+      origin = _.escape(origin);
 
-    // Construct HTML for origin.
-    var actionDescription = htmlUtils.getActionDescription(action, origin, isWhitelisted);
-    var originHtml = '' +
-      '<div class="' + classes.join(' ') + '" data-origin="' + origin + '">' +
-      '<div class="origin tooltip" title="' + actionDescription + '">' + whitelistedText + origin + '</div>' +
-      '<div class="removeOrigin">&#10006</div>' +
-      htmlUtils.getToggleHtml(origin, action) +
-      '<div class="honeybadgerPowered tooltip" title="'+ UNDO_ARROW_TOOLTIP_TEXT + '"></div>' +
-      '</div>';
+      // Get classes for main div.
+      let classes = ['clicker'];
+      if (action.startsWith('user')) {
+        classes.push('userset');
+        action = action.slice(5);
+      }
+      // show warning when manually blocking a domain
+      // that would have been cookieblocked otherwise
+      if (show_breakage_warning) {
+        classes.push('show-breakage-warning');
+      }
 
-    return originHtml;
-  },
+      // If origin has been whitelisted set text for DNT.
+      let dnt_html = '';
+      if (action == constants.DNT) {
+        dnt_html = `
+<div id="dnt-compliant">
+  <a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me"><img src="${dnt_icon_url}"></a>
+</div>
+        `.trim();
+      }
+
+      // Construct HTML for origin.
+      let origin_tooltip = htmlUtils.getActionDescription(action, origin);
+      return `
+<div class="${classes.join(' ')}" data-origin="${origin}">
+  <div class="origin">
+    <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
+    <span class="origin-inner tooltip" title="${origin_tooltip}">${dnt_html}${origin}</span>
+  </div>
+  <a href="" class="removeOrigin">&#10006</a>
+  ${htmlUtils.getToggleHtml(origin, action)}
+  <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></a>
+</div>
+      `.trim();
+    };
+
+  }()),
 
   /**
-   * Toggle the GUI blocked status of GUI element(s)
+   * Toggles undo arrows and breakage warnings in domain slider rows.
+   * TODO rename/refactor with updateOrigin()
    *
-   * @param {jQuery} $el Identify the jQuery element object(s) to manipulate
-   * @param {String} status New status to set
+   * @param {jQuery} $clicker
+   * @param {Boolean} userset whether to show a revert control arrow
+   * @param {Boolean} show_breakage_warning whether to show a breakage warning
    */
-  toggleBlockedStatus: function ($el, status) {
-    $el
-      .removeClass([
-        constants.BLOCK,
-        constants.COOKIEBLOCK,
-        constants.ALLOW,
-        constants.NO_TRACKING
-      ].join(" "))
-      .addClass(status)
-      .addClass("userset");
+  toggleBlockedStatus: function ($clicker, userset, show_breakage_warning) {
+    $clicker.removeClass([
+      "userset",
+      "show-breakage-warning",
+    ].join(" "));
+
+    // toggles revert control arrow via CSS
+    if (userset) {
+      $clicker.addClass("userset");
+    }
+
+    // show warning when manually blocking a domain
+    // that would have been cookieblocked otherwise
+    if (show_breakage_warning) {
+      $clicker.addClass("show-breakage-warning");
+    }
   },
 
   /**
@@ -255,26 +273,11 @@ var htmlUtils = exports.htmlUtils = {
     return (base_minus_tld + '.' + rest_of_it_reversed);
   },
 
-  /**
-  * Get the action class from the element
-  *
-  * @param elt Element
-  * @returns {String} block/cookieblock/noaction
-  */
-  getCurrentClass: function(elt) {
-    if (elt.hasClass(constants.BLOCK)) {
-      return constants.BLOCK;
-    } else if (elt.hasClass(constants.COOKIEBLOCK)) {
-      return constants.COOKIEBLOCK;
-    } else if (elt.hasClass(constants.ALLOW)) {
-      return constants.ALLOW;
-    } else {
-      return constants.NO_TRACKING;
-    }
-  },
-
 };
 
+let exports = {
+  htmlUtils,
+};
 return exports;
 
 })();

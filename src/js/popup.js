@@ -26,32 +26,19 @@ var htmlUtils = require("htmlutils").htmlUtils;
 
 let POPUP_DATA = {};
 
-// TODO hack: disable Tooltipster tooltips on Firefox
-// to avoid hangs on pages with enough domains to produce a scrollbar
-(function () {
-const matches = navigator.userAgent.match(
-  // from https://gist.github.com/ticky/3909462
-  /(MSIE|(?!Gecko.+)Firefox|(?!AppleWebKit.+Chrome.+)Safari|(?!AppleWebKit.+)Chrome|AppleWebKit(?!.+Chrome|.+Safari)|Gecko(?!.+Firefox))(?: |\/)([\d.apre]+)/
-);
-if (!matches || matches[1] == "Firefox") {
-  $.fn.tooltipster = function () {};
-}
-}());
-
 /* if they aint seen the comic*/
 function showNagMaybe() {
   var nag = $("#instruction");
   var outer = $("#instruction-outer");
-  var firstRunUrl = chrome.runtime.getURL("/skin/firstRun.html");
+  let intro_page_url = chrome.runtime.getURL("/skin/firstRun.html");
 
-  function _setSeenComic() {
+  function _setSeenComic(cb) {
     chrome.runtime.sendMessage({
       type: "seenComic"
-    });
+    }, cb);
   }
 
   function _hideNag() {
-    _setSeenComic();
     nag.fadeOut();
     outer.fadeOut();
   }
@@ -60,37 +47,61 @@ function showNagMaybe() {
     nag.show();
     outer.show();
     // Attach event listeners
-    $('#fittslaw').on("click", _hideNag);
-    $("#firstRun").on("click", function() {
+    $('#fittslaw').on("click", function (e) {
+      e.preventDefault();
+      _setSeenComic(() => {
+        _hideNag();
+      });
+    });
+    $("#intro-reminder-btn").on("click", function () {
       // If there is a firstRun.html tab, switch to the tab.
       // Otherwise, create a new tab
-      chrome.tabs.query({url: firstRunUrl}, function (tabs) {
+      chrome.tabs.query({url: intro_page_url}, function (tabs) {
         if (tabs.length == 0) {
           chrome.tabs.create({
-            url: chrome.runtime.getURL("/skin/firstRun.html#slideshow")
+            url: intro_page_url
           });
         } else {
           chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {
             chrome.windows.update(tab.windowId, {focused: true});
           });
         }
-        _hideNag();
+        _setSeenComic(() => {
+          window.close();
+        });
       });
     });
+  }
+
+  function _showError(error_text) {
+    $('#instruction-text').hide();
+    $('#error-text').show().find('a')
+      .attr('id', 'critical-error-link')
+      .css({
+        padding: '5px',
+        display: 'inline-block',
+        width: 'auto',
+      });
+    $('#error-message').text(error_text);
+
+    $('#fittslaw').on("click", function (e) {
+      e.preventDefault();
+      _hideNag();
+    });
+
+    nag.show();
+    outer.show();
   }
 
   if (!POPUP_DATA.seenComic) {
     chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
       // Show the popup instruction if the active tab is not firstRun.html page
-      if (!focusedTab[0].url.startsWith(firstRunUrl)) {
+      if (!focusedTab[0].url.startsWith(intro_page_url)) {
         _showNag();
       }
     });
   } else if (POPUP_DATA.criticalError) {
-    $('#instruction-text').hide();
-    $('#error-text').show().find('a').attr('id', 'firstRun').css('padding', '5px');
-    $('#error-message').text(POPUP_DATA.criticalError);
-    _showNag();
+    _showError(POPUP_DATA.criticalError);
   }
 }
 
@@ -127,16 +138,17 @@ function init() {
   $("#error").on("click", function() {
     overlay.toggleClass('active');
   });
-  $("#report_cancel").on("click", function() {
+  $("#report-cancel").on("click", function() {
     clearSavedErrorText();
     closeOverlay();
   });
-  $("#report_button").on("click", function() {
+  $("#report-button").on("click", function() {
     $(this).prop("disabled", true);
-    $("#report_cancel").prop("disabled", true);
+    $("#report-cancel").prop("disabled", true);
     send_error($("#error_input").val());
   });
-  $("#report_close").on("click", function() {
+  $("#report_close").on("click", function (e) {
+    e.preventDefault();
     clearSavedErrorText();
     closeOverlay();
   });
@@ -152,20 +164,26 @@ function init() {
     browser.runtime.getBrowserInfo().then(function (info) {
       if (info.name == "Firefox") {
         $("#options").on("click", function (e) {
-          openOptionsPage();
           e.preventDefault();
+          openPage(chrome.runtime.getURL("/skin/options.html"));
+        });
+        $("#help").on("click", function (e) {
+          e.preventDefault();
+          openPage(this.getAttribute('href'));
         });
       }
     });
   }
 
-  let shareOverlay = $("#share_overlay");
-
-  $("#share").on("click", share);
-  $("#share_close").on("click", function() {
-    shareOverlay.toggleClass('active', false);
+  $("#share").on("click", function (e) {
+    e.preventDefault();
+    share();
   });
-  $("#copy_button").on("click", function() {
+  $("#share_close").on("click", function (e) {
+    e.preventDefault();
+    $("#share_overlay").toggleClass('active', false);
+  });
+  $("#copy-button").on("click", function() {
     $("#share_output").select();
     document.execCommand('copy');
     $(this).text(chrome.i18n.getMessage("copy_button_copied"));
@@ -174,9 +192,7 @@ function init() {
   window.POPUP_INITIALIZED = true;
 }
 
-function openOptionsPage() {
-  const url = chrome.runtime.getURL("/skin/options.html");
-
+function openPage(url) {
   // first get the active tab
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
     let activeTab = tabs[0],
@@ -196,6 +212,8 @@ function openOptionsPage() {
       delete tabProps.openerTabId;
       chrome.tabs.create(tabProps);
     }
+
+    window.close();
   });
 }
 
@@ -211,8 +229,8 @@ function clearSavedErrorText() {
  */
 function closeOverlay() {
   $('#overlay').toggleClass('active', false);
-  $("#report_success").toggleClass("hidden", true);
-  $("#report_fail").toggleClass("hidden", true);
+  $("#report-success").hide();
+  $("#report-fail").hide();
   $("#error_input").val("");
 }
 
@@ -245,17 +263,19 @@ function send_error(message) {
     for (let origin in origins) {
       let action = origins[origin];
 
-      if (!action) {
-        action = constants.NO_TRACKING;
-      }
-
       // adjust action names for error reporting
       if (action == constants.USER_ALLOW) {
         action = "usernoaction";
       } else if (action == constants.USER_BLOCK) {
         action = "userblock";
-      } else if (action == constants.USER_COOKIE_BLOCK) {
+      } else if (action == constants.USER_COOKIEBLOCK) {
         action = "usercookieblock";
+      } else if (action == constants.ALLOW) {
+        action = "noaction";
+      } else if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
+        // no need to adjust action
+      } else if (action == constants.DNT || action == constants.NO_TRACKING) {
+        action = "notracking";
       }
 
       if (out[action]) {
@@ -274,25 +294,24 @@ function send_error(message) {
 
     sendReport.done(function() {
       $("#error_input").val("");
-      $("#report_success").toggleClass("hidden", false);
+      $("#report-success").slideDown();
 
       clearSavedErrorText();
 
       setTimeout(function() {
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
-        $("#report_success").toggleClass("hidden", true);
+        $("#report-button").prop("disabled", false);
+        $("#report-cancel").prop("disabled", false);
         closeOverlay();
       }, 3000);
     });
 
     sendReport.fail(function() {
-      $("#report_fail").toggleClass("hidden");
+      $("#report-fail").slideDown();
 
       setTimeout(function() {
-        $("#report_button").prop("disabled", false);
-        $("#report_cancel").prop("disabled", false);
-        $("#report_fail").toggleClass("hidden", true);
+        $("#report-button").prop("disabled", false);
+        $("#report-cancel").prop("disabled", false);
+        $("#report-fail").slideUp();
       }, 3000);
     });
   });
@@ -341,11 +360,12 @@ function deactivateOnSite() {
  */
 function share() {
   $("#share_overlay").toggleClass('active');
-  let shareMessage = chrome.i18n.getMessage("share_base_message");
+  let share_msg = chrome.i18n.getMessage("share_base_message");
 
-  //Only add language about found trackers if we actually found trackers (but regardless of whether we are actually blocking them).
+  // only add language about found trackers if we actually found trackers
+  // (but regardless of whether we are actually blocking them)
   if (POPUP_DATA.noTabData) {
-    $("#share_output").val(shareMessage);
+    $("#share_output").val(share_msg);
     return;
   }
 
@@ -356,15 +376,14 @@ function share() {
   }
 
   if (!originsArr.length) {
-    $("#share_output").val(shareMessage);
+    $("#share_output").val(share_msg);
     return;
   }
 
   originsArr = htmlUtils.sortDomains(originsArr);
   let tracking = [];
 
-  for (let i=0; i < originsArr.length; i++) {
-    let origin = originsArr[i];
+  for (let origin of originsArr) {
     let action = origins[origin];
 
     if (action != constants.NO_TRACKING) {
@@ -373,57 +392,29 @@ function share() {
   }
 
   if (tracking.length) {
-    shareMessage += "\n\n" + chrome.i18n.getMessage("share_tracker_header", [tracking.length, POPUP_DATA.tabHost]) + "\n\n";
-
-    for (let i=0; i < tracking.length; i++) {
-      shareMessage += tracking[i] + "\n";
-    }
+    share_msg += "\n\n";
+    share_msg += chrome.i18n.getMessage(
+      "share_tracker_header", [tracking.length, POPUP_DATA.tabHost]);
+    share_msg += "\n\n";
+    share_msg += tracking.join("\n");
   }
-  $("#share_output").val(shareMessage);
+  $("#share_output").val(share_msg);
 }
 
 /**
  * Handler to undo user selection for a tracker
- *
- * @param {Event} e The object the event triggered on
  */
-function revertDomainControl(e) {
-  var $elm = $(e.target).parent();
-  var origin = $elm.data('origin');
+function revertDomainControl(event) {
+  event.preventDefault();
+
+  let origin = $(event.target).parent().data('origin');
+
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
     origin: origin
   }, () => {
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
-  });
-}
-
-function registerToggleHandlers() {
-  // (this == .switch-toggle)
-  var radios = $(this).children('input');
-  var value = $(this).children('input:checked').val();
-  //var userHandle = $(this).children('a');
-
-  var slider = $("<div></div>").slider({
-    min: 0,
-    max: 2,
-    value: value,
-    create: function(/*event, ui*/) {
-      // Set the margin for the handle of the slider we're currently creating,
-      // depending on its blocked/cookieblocked/allowed value (this == .ui-slider)
-      $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-    },
-    slide: function(event, ui) {
-      radios.filter("[value=" + ui.value + "]").click();
-    },
-    stop: function(event, ui) {
-      $(ui.handle).css('margin-left', -16 * ui.value + "px");
-    },
-  }).appendTo(this);
-
-  radios.on("change", function () {
-    slider.slider("value", radios.filter(':checked').val());
   });
 }
 
@@ -436,11 +427,10 @@ function refreshPopup() {
   window.SLIDERS_DONE = false;
 
   // must be a special browser page,
-  // or a page that loaded everything before our most recent initialization
   if (POPUP_DATA.noTabData) {
-    // replace inapplicable summary text with a Badger logo
+    // show the "nothing to do here" message
     $('#blockedResourcesContainer').hide();
-    $('#big-badger-logo').show();
+    $('#special-browser-page').show();
 
     // hide inapplicable buttons
     $('#deactivate_site_btn').hide();
@@ -457,7 +447,7 @@ function refreshPopup() {
   // revert any hiding/showing above for cases when refreshPopup gets called
   // more than once for the same popup, such as during functional testing
   $('#blockedResourcesContainer').show();
-  $('#big-badger-logo').hide();
+  $('#special-browser-page').hide();
   $('#deactivate_site_btn').show();
   $('#error').show();
 
@@ -466,6 +456,8 @@ function refreshPopup() {
     $("#blockedResourcesContainer").hide();
     $("#activate_site_btn").show();
     $("#deactivate_site_btn").hide();
+    $("#disabled-site-message").show();
+    $("#title").addClass("faded-bw-color-scheme");
   }
 
   // if there is any saved error text, fill the error input with it
@@ -487,8 +479,10 @@ function refreshPopup() {
     // show "no trackers" message
     $("#instructions_no_trackers").show();
 
-    // show the "no third party resources on this site" message
-    $("#blockedResources").html(chrome.i18n.getMessage("popup_blocked"));
+    if (POPUP_DATA.showNonTrackingDomains) {
+      // show the "no third party resources on this site" message
+      $("#no-third-parties").show();
+    }
 
     // activate tooltips
     $('.tooltip').tooltipster();
@@ -498,56 +492,78 @@ function refreshPopup() {
     return;
   }
 
-  // Get containing HTML for domain list along with toggle legend icons.
-  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
-
-  // activate tooltips
-  $('.tooltip').tooltipster();
-
-  var printable = [];
-  var nonTracking = [];
+  let printable = [];
+  let unblockedTrackers = [];
+  let nonTracking = [];
   originsArr = htmlUtils.sortDomains(originsArr);
-  var num_trackers = 0;
 
-  for (let i=0; i < originsArr.length; i++) {
-    var origin = originsArr[i];
-    var action = origins[origin];
+  for (let origin of originsArr) {
+    let action = origins[origin];
 
     if (action == constants.NO_TRACKING) {
       nonTracking.push(origin);
-      continue;
-    }
-
-    if (action != constants.DNT) {
-      num_trackers++;
-    }
-    printable.push(
-      htmlUtils.getOriginHtml(origin, action, action == constants.DNT)
-    );
-  }
-
-  var nonTrackerText = chrome.i18n.getMessage("non_tracker");
-  var nonTrackerTooltip = chrome.i18n.getMessage("non_tracker_tip");
-
-  if (nonTracking.length > 0) {
-    printable.push(
-      '<div class="clicker tooltip" id="nonTrackers" title="'+nonTrackerTooltip+'" data-tooltipster=\'{"side":"top"}\'>'+nonTrackerText+'</div>'
-    );
-    for (let i = 0; i < nonTracking.length; i++) {
+    } else if (action == constants.ALLOW) {
+      unblockedTrackers.push(origin);
+    } else {
+      let show_breakage_warning = (
+        action == constants.USER_BLOCK &&
+        POPUP_DATA.cookieblocked.hasOwnProperty(origin)
+      );
       printable.push(
-        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING, false)
+        htmlUtils.getOriginHtml(origin, action, show_breakage_warning)
       );
     }
   }
 
-  if (num_trackers === 0) {
+  if (unblockedTrackers.length) {
+    printable.push(
+      '<div class="clicker tooltip" id="not-yet-blocked-header" title="' +
+      chrome.i18n.getMessage("intro_not_an_adblocker_paragraph") +
+      '" data-tooltipster=\'{"side":"top"}\'>' +
+      chrome.i18n.getMessage("not_yet_blocked_header") +
+      '</div>'
+    );
+    unblockedTrackers.forEach(domain => {
+      printable.push(
+        htmlUtils.getOriginHtml(domain, constants.ALLOW)
+      );
+    });
+  }
+
+  if (POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
+    printable.push(
+      '<div class="clicker tooltip" id="non-trackers-header" title="' +
+      chrome.i18n.getMessage("non_tracker_tip") +
+      '" data-tooltipster=\'{"side":"top"}\'>' +
+      chrome.i18n.getMessage("non_tracker") +
+      '</div>'
+    );
+    for (let i = 0; i < nonTracking.length; i++) {
+      printable.push(
+        htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING)
+      );
+    }
+
+    // reduce margin if we have non-tracking domains to show
+    $("#instructions_no_trackers").css("margin", "10px 0");
+  }
+
+  if (printable.length) {
+    // get containing HTML for domain list along with toggle legend icons
+    $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
+  }
+
+  // activate tooltips
+  $('.tooltip').tooltipster();
+
+  if (POPUP_DATA.trackerCount === 0) {
     // hide multiple trackers message
     $("#instructions-many-trackers").hide();
 
     // show "no trackers" message
     $("#instructions_no_trackers").show();
 
-  } else if (num_trackers == 1) {
+  } else if (POPUP_DATA.trackerCount == 1) {
     // hide multiple trackers message
     $("#instructions-many-trackers").hide();
 
@@ -557,8 +573,8 @@ function refreshPopup() {
   } else {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
       "popup_instructions", [
-        num_trackers,
-        "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+        POPUP_DATA.trackerCount,
+        "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
       ]
     )).find(".tooltip").tooltipster();
   }
@@ -567,8 +583,6 @@ function refreshPopup() {
     const CHUNK = 1;
 
     let $printable = $(printable.splice(0, CHUNK).join(""));
-
-    $printable.find('.switch-toggle').each(registerToggleHandlers);
 
     // Hide elements for removing origins (controlled from the options page).
     // Popup shows what's loaded for the current page so it doesn't make sense
@@ -587,7 +601,12 @@ function refreshPopup() {
       window.SLIDERS_DONE = true;
     }
   }
-  requestAnimationFrame(renderDomains);
+
+  if (printable.length) {
+    requestAnimationFrame(renderDomains);
+  } else {
+    window.SLIDERS_DONE = true;
+  }
 }
 
 /**
@@ -596,56 +615,48 @@ function refreshPopup() {
  *
  * @param {Event} event Click event triggered by user.
  */
-function updateOrigin(event) {
+function updateOrigin() {
   // get the origin and new action for it
-  var $elm = $('label[for="' + event.currentTarget.id + '"]');
-  var action = $elm.data('action');
+  let $radio = $(this),
+    action = $radio.val(),
+    $switchContainer = $radio.parents('.switch-container').first();
 
-  // replace the old action with the new one
-  var $switchContainer = $elm.parents('.switch-container').first();
+  // update slider color via CSS
   $switchContainer.removeClass([
     constants.BLOCK,
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
-  var $clicker = $elm.parents('.clicker').first();
-  htmlUtils.toggleBlockedStatus($clicker, action);
+
+  let $clicker = $radio.parents('.clicker').first(),
+    origin = $clicker.data('origin'),
+    show_breakage_warning = (
+      action == constants.BLOCK &&
+      POPUP_DATA.cookieblocked.hasOwnProperty(origin)
+    );
+
+  htmlUtils.toggleBlockedStatus($clicker, true, show_breakage_warning);
 
   // reinitialize the domain tooltip
-  $clicker.find('.origin').tooltipster('destroy');
-  $clicker.find('.origin').attr(
-    'title',
-    htmlUtils.getActionDescription(action, $clicker.data('origin'))
-  );
-  $clicker.find('.origin').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
+  $clicker.find('.origin-inner').tooltipster('destroy');
+  $clicker.find('.origin-inner').attr(
+    'title', htmlUtils.getActionDescription(action, origin));
+  $clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 
   // persist the change
-  saveToggle($clicker);
+  saveToggle(origin, action);
 }
 
 /**
  * Save the user setting for a domain by messaging the background page.
  */
-function saveToggle($clicker) {
-  let origin = $clicker.attr("data-origin"),
-    action;
-
-  if ($clicker.hasClass(constants.BLOCK)) {
-    action = constants.BLOCK;
-  } else if ($clicker.hasClass(constants.COOKIEBLOCK)) {
-    action = constants.COOKIEBLOCK;
-  } else if ($clicker.hasClass(constants.ALLOW)) {
-    action = constants.ALLOW;
-  }
-
-  if (action) {
-    chrome.runtime.sendMessage({
-      type: "savePopupToggle",
-      origin: origin,
-      action: action,
-      tabId: POPUP_DATA.tabId
-    });
-  }
+function saveToggle(origin, action) {
+  chrome.runtime.sendMessage({
+    type: "savePopupToggle",
+    origin,
+    action,
+    tabId: POPUP_DATA.tabId
+  });
 }
 
 function getTab(callback) {
@@ -666,6 +677,8 @@ function setPopupData(data) {
 }
 
 $(function () {
+  $.tooltipster.setDefaults(htmlUtils.TOOLTIPSTER_DEFAULTS);
+
   getTab(function (tab) {
     chrome.runtime.sendMessage({
       type: "getPopupData",

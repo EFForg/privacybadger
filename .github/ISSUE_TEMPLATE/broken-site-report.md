@@ -1,10 +1,8 @@
 ---
-name: Broken Site Report
-about: Report a broken site or site service
+name: Report a broken site
+about: Is Privacy Badger breaking something somewhere? We'd like to get it fixed!
 
 ---
-
-<!-- Is Privacy Badger breaking something somewhere? We'd like to get it fixed! Let's get some debugging information first. -->
 
 #### What is your browser and browser version?
 

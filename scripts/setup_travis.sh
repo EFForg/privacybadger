@@ -1,26 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# stop on errors (nonzero exit codes), uninitialized vars
+set -eu
 
 toplevel=$(git rev-parse --show-toplevel)
 
-function setup_chrome {
-    # Install the latest version of the chromedriver
-    version=$(wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE -q -O -)
-    echo "Setting up chromedriver version $version ..."
-    url="https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
-    wget -q -O /tmp/chromedriver.zip "$url"
-    sudo unzip -o /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
-    sudo chmod a+x /usr/local/bin/chromedriver
-
-    # check that chromedriver is now present
-    type chromedriver >/dev/null 2>&1 || {
-      echo "Failed to install chromedriver!"
-      exit 1
-    }
-}
-
 function setup_firefox {
     # Install the latest version of geckodriver
-    version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep "^Location: " | sed 's/.*\///' | tr -d '\r')
+    version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep -i "^Location: " | sed 's/.*\///' | tr -d '\r')
 
     # check that we got something
     if [ -z "$version" ]; then
@@ -74,7 +61,7 @@ function check_browser {
 case $INFO in
   *chrome*)
     check_browser
-    setup_chrome
+    "$toplevel"/scripts/chromedriver.sh "$BROWSER"
     browser_setup
     ;;
   *firefox*) # Install the latest version of geckodriver
