@@ -38,6 +38,12 @@ h4:after {
 
 div.checkbox {
     max-width: 600px;
+    white-space: nowrap;
+}
+
+div.checkbox span[class^=i18n_] {
+    white-space: normal;
+    white-space: break-spaces;
 }
 
 div.checkbox + div.checkbox {
@@ -56,7 +62,6 @@ div.checkbox .ui-icon {
 
 div.checkbox .ui-icon-alert {
     color: #cc0000;
-    margin-bottom: 3px;
 }
 
 td
