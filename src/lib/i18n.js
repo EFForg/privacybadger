@@ -29,14 +29,6 @@ function localizeFaqLink() {
 }
 
 function setTextDirection() {
-  function swap_css_property(selector, from, to) {
-    let $els = $(selector);
-    $els.each(i => {
-      let $el = $($els[i]);
-      $el.css(to, $el.css(from)).css(from, "unset");
-    });
-  }
-
   function toggle_css_value(selector, property, from, to) {
     let $els = $(selector);
     $els.each(i => {
@@ -68,21 +60,6 @@ function setTextDirection() {
       toggle_css_value(selector, "float", "right", "left");
     });
 
-    // fix margin
-    ['#options', '#fittslaw'].forEach(selector => {
-      swap_css_property(selector, "margin-right", "margin-left");
-    });
-
-    // fix padding
-    ['#instruction-logo'].forEach((selector) => {
-      swap_css_property(selector, "padding-right", "padding-left");
-    });
-
-    // fix text alignment
-    ['#instruction'].forEach((selector) => {
-      toggle_css_value(selector, "text-align", "left", "right");
-    });
-
   // options page
   } else if (document.location.pathname == "/skin/options.html") {
     // apply RTL workaround for jQuery UI tabs
@@ -96,14 +73,6 @@ function setTextDirection() {
 .ui-tabs .ui-tabs-nav li a { float: right; }
 `;
     document.body.appendChild(css);
-
-    // fix margins
-    ['#check-dnt-policy-row', '#hide-widgets-row'].forEach((selector) => {
-      swap_css_property(selector, "margin-left", "margin-right");
-    });
-    ['#allowlist-form > div > div > div'].forEach((selector) => {
-      swap_css_property(selector, "margin-right", "margin-left");
-    });
 
     // fix floats
     ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div'].forEach((selector) => {

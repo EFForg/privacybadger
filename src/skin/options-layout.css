@@ -203,12 +203,12 @@ p, #settingsForm {
 }
 
 #check-dnt-policy-row {
-    margin-left: 25px;
+    margin-inline-start: 25px;
 }
 
 #hide-widgets-row {
     width: 100%;
-    margin-left: 25px;
+    margin-inline-start: 25px;
     margin-top: 5px;
 }
 

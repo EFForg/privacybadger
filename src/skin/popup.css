@@ -235,7 +235,7 @@ font-size: 16px;
   z-index: 100;
   background-color: #fff;
   color: #333;
-  text-align: left;
+  text-align: start;
   margin: 8px;
   padding: 15px;
   font-size: 15px;
@@ -251,7 +251,8 @@ font-size: 16px;
 }
 #instruction-logo {
     float: left;
-    padding: 0 15px 0 0;
+    padding: 0;
+    padding-inline-end: 15px;
 }
 #intro-reminder-btn, #error-message {
     margin-top: 1em;
@@ -261,7 +262,9 @@ font-size: 16px;
 }
 #fittslaw {
     float: right;
-    margin: 0 0 10px 10px;
+    margin: 0;
+    margin-inline-end: 10px;
+    margin-bottom: 10px;
 }
 #options, #share, #help {
     float: right;
@@ -272,7 +275,7 @@ font-size: 16px;
     margin-right: 12px;
 }
 #options {
-    margin-right: 3px;
+    margin-inline-end: 3px;
 }
 #pbInstructions, #special-browser-page, #disabled-site-message {
     color: #505050;
