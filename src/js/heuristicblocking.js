@@ -130,7 +130,7 @@ HeuristicBlocker.prototype = {
 
     // short-circuit if we already observed this origin tracking on this site
     let firstParties = self.storage.getBadgerStorageObject('snitch_map').getItem(request_origin);
-    if (firstParties && firstParties.indexOf(tab_origin) > -1) {
+    if (firstParties && (tab_origin in firstParties)) {
       return {};
     }
 
@@ -272,7 +272,7 @@ HeuristicBlocker.prototype = {
 
             this._recordPrevalence(request_host, request_origin, tab_origin, {
               type: constants.TRACKER_TYPES.PIXEL,
-              trackerUrl: details.url,
+              trackerUrl: request_url,
               pageUrl: tab_url,
               details: {
                 cookie: cookie,

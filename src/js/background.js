@@ -306,6 +306,7 @@ Badger.prototype = {
    */
   loadFirstRunSeedData: function () {
     let self = this;
+    return new Promise(function (resolve, reject) {return resolve();});
 
     return new Promise(function (resolve, reject) {
       if (!self.getSettings().getItem("isFirstRun")) {
@@ -684,7 +685,7 @@ Badger.prototype = {
     showNonTrackingDomains: false,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
-    passiveMode: false,
+    passiveMode: true,
     widgetReplacementExceptions: [],
     widgetSiteAllowlist: {},
   },

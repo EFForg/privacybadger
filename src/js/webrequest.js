@@ -488,7 +488,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   let script_host = window.extractHostFromURL(msg.scriptUrl),
-    {url: page_url, host: document_host} = badger.getFrameData(tabId).host;
+    {url: page_url, host: document_host} = badger.getFrameData(tabId);
   if (!utils.isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -977,6 +977,8 @@ function dispatcher(request, sender, sendResponse) {
     } else {
       recordFingerprinting(sender.tab.id, request.data);
     }
+    break;
+  }
 
   case "supercookieReport": {
     tracker = badger.hasSuperCookie(request.data);

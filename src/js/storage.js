@@ -435,7 +435,7 @@ BadgerPen.prototype = {
         action: action
       }]);
     }
-  }
+  },
 
   /**
    * Removes a base domain and its subdomains from snitch and action maps.
