@@ -19,7 +19,7 @@ window.OPTIONS_INITIALIZED = false;
 window.SLIDERS_DONE = false;
 
 const TOOLTIP_CONF = {
-  maxWidth: 200
+  maxWidth: 400
 };
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
