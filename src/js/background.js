@@ -720,6 +720,7 @@ Badger.prototype = {
     showNonTrackingDomains: false,
     showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
+    passiveMode: true,
     widgetReplacementExceptions: [],
     widgetSiteAllowlist: {},
   },
@@ -991,7 +992,7 @@ Badger.prototype = {
   },
 
   /**
-   * Checks if local storage ( in dict) has any high-entropy keys
+   * Checks if local storage (in dict) has any high-entropy keys
    *
    * @param {Object} lsItems Local storage dict
    * @returns {boolean} true if it seems there are supercookies
@@ -1000,7 +1001,8 @@ Badger.prototype = {
     var LOCALSTORAGE_ENTROPY_THRESHOLD = 33, // in bits
       estimatedEntropy = 0,
       lsKey = "",
-      lsItem = "";
+      lsItem = "",
+      tracking = false;
     for (lsKey in lsItems) {
       // send both key and value to entropy estimation
       lsItem = lsItems[lsKey];
@@ -1009,8 +1011,13 @@ Badger.prototype = {
       if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD) {
         log("Found high-entropy localStorage: ", estimatedEntropy,
           " bits, key: ", lsKey);
-        return true;
+        tracking = true;
+        break;
       }
+    }
+
+    if (tracking) {
+      return lsItems;
     }
     return false;
   },
@@ -1029,6 +1036,45 @@ Badger.prototype = {
       // http://www.html5rocks.com/en/tutorials/file/filesystem/
       //|| this.hasLocalStorageSupercookie(storageItems.fileSystemAPIItems)
     );
+  },
+
+  /**
+   * Save data about a third party request -- any request.
+   *
+   * @param {Integer} tab_id the tab we are on
+   * @param {String} url the third party origin to add
+   * @param {String} action the action we are taking
+   */
+  logThirdPartyRequest: function (tab_id, url) {
+    let self = this,
+      {url: tab_url, host: tab_host} = self.getFrameData(tab_id),
+      tab_origin = window.getBaseDomain(tab_host),
+      req_host = (new URI(url)).host,
+      req_origin = window.getBaseDomain(req_host),
+      time = (new Date()).getTime(),
+      action = self.storage.getBestAction(req_host);
+
+    // log this request in the database
+    fetch("http://localhost:8080", {
+      method: "POST",
+      body: JSON.stringify({
+        table: "requests",
+        data: {
+          page_url: tab_url,
+          page_host: tab_host,
+          page_origin: tab_origin,
+          req_url: url,
+          req_host: req_host,
+          req_origin: req_origin,
+          time: time,
+          action: action
+        }
+      })
+    }).then(res => {
+      if (!res.ok) {
+        console.log("third party request logging failed:", res);
+      }
+    });
   },
 
   /**

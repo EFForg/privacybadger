@@ -92,6 +92,11 @@ function onBeforeRequest(details) {
     return {};
   }
 
+  // don't block if we're in passive mode
+  if (badger.getSettings().getItem('passiveMode')) {
+    return {};
+  }
+
   if (action != constants.BLOCK && action != constants.USER_BLOCK) {
     return {};
   }
@@ -179,7 +184,9 @@ function onBeforeSendHeaders(details) {
     badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
   }
 
-  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
+  // don't modify requests in passive mode
+  if (!badger.isPrivacyBadgerEnabled(tab_host) ||
+      badger.getSettings().getItem('passiveMode')) {
     return {};
   }
 
@@ -435,10 +442,16 @@ function getHostForTab(tabId) {
  *
  * @param {Integer} tab_id browser tab ID
  * @param {String} frame_url URL of the frame with supercookie
+ * @param {String} cookie the key/value pair that may be tracking
  */
-function recordSupercookie(tab_id, frame_url) {
+function recordSuperCookie(tab_id, frame_url, cookie) {
+  if (!incognito.learningEnabled(tab_id)) {
+    return;
+  }
+
+  // docUrl: url of the frame with supercookie
   const frame_host = window.extractHostFromURL(frame_url),
-    page_host = badger.getFrameData(tab_id).host;
+    {url: page_url, host: page_host} = badger.getFrameData(tab_id);
 
   if (!utils.isThirdPartyDomain(frame_host, page_host)) {
     // Only happens on the start page for google.com
@@ -448,8 +461,13 @@ function recordSupercookie(tab_id, frame_url) {
   badger.heuristicBlocking.updateTrackerPrevalence(
     frame_host,
     window.getBaseDomain(frame_host),
-    window.getBaseDomain(page_host)
-  );
+    window.getBaseDomain(page_host), {
+      type: constants.TRACKER_TYPES.SUPERCOOKIE,
+      tracker_url: frame_url,
+      page_url: page_url,
+      page_host: (new URI(page_url)).host,
+      details: cookie,
+  });
 }
 
 /**
@@ -467,7 +485,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   let script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = badger.getFrameData(tabId).host;
+    {url: page_url, host: document_host} = badger.getFrameData(tabId);
   if (!utils.isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -515,7 +533,13 @@ function recordFingerprinting(tabId, msg) {
 
           // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, script_origin, window.getBaseDomain(document_host));
+            script_host, script_origin, window.getBaseDomain(document_host), {
+              type: constants.TRACKER_TYPES.FINGERPRINT,
+              tracker_url: msg.scriptUrl,
+              page_url: page_url,
+              page_host: document_host,
+              details: msg
+          });
         }
       }
       // This is a canvas write
@@ -955,9 +979,11 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "supercookieReport": {
-    if (request.frameUrl && badger.hasSupercookie(request.data)) {
-      recordSupercookie(sender.tab.id, request.frameUrl);
+    tracker = badger.hasSuperCookie(request.data);
+    if (request.frameUrl && tracker) {
+      recordSuperCookie(sender.tab.id, request.frameUrl, tracker);
     }
+
     break;
   }
 

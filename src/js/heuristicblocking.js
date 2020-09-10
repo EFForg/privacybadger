@@ -127,22 +127,171 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    // short-circuit if we already observed this origin tracking on this site
-    let firstParties = self.storage.getStore('snitch_map').getItem(request_origin);
-    if (firstParties && firstParties.indexOf(tab_origin) > -1) {
+    // log the third-party request before tracking assessment
+    badger.logThirdPartyRequest(details.tabId, details.url);
+
+    // if we're in passive mode, check for tracking actions even if we've seen
+    // this tracker/page combination before
+    if (!badger.getSettings().getItem('passiveMode')) {
+      // short-circuit if we already observed this origin tracking on this site
+      let firstParties = self.storage.getStore('snitch_map').getItem(request_origin);
+      if (firstParties && firstParties.indexOf(tab_origin) > -1) {
+        return {};
+      }
+
+      // abort if we already made a decision for this host
+      let action = self.storage.getAction(request_host);
+      if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+        return {};
+      }
+    }
+
+    let cookies = hasCookieTracking(details, request_origin);
+
+    // if there are tracking cookies, log the tracking action and quit
+    if (cookies) {
+      let {url: page_url, host: page_host} = badger.getFrameData(details.tabId);
+
+      self._recordPrevalence(request_host, request_origin, tab_origin, {
+        type: constants.TRACKER_TYPES.COOKIE,
+        tracker_url: details.url,
+        page_url: page_url,
+        page_host: page_host,
+        details: cookies
+      });
       return {};
     }
 
-    // abort if we already made a decision for this FQDN
-    let action = self.storage.getAction(request_host);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
-      return {};
-    }
+    // check for cookie sharing iff this is an image in the top-level frame, and
+    // the request URL has parameters
+    if (false && details.type == 'image' &&
+        details.frameId === 0 && details.url.indexOf('?') > -1) {
 
-    // check if there are tracking cookies
-    if (hasCookieTracking(details, request_origin)) {
-      self._recordPrevalence(request_host, request_origin, tab_origin);
-      return {};
+      let tab_url = self.tabUrls[details.tabId];
+
+      let config = {
+        url: tab_url
+      };
+
+      if (badger.firstPartyDomainPotentiallyRequired) {
+        config.firstPartyDomain = null;
+      }
+
+      // get all non-HttpOnly cookies for the top-level frame
+      // and pass those to the cookie-share accounting function
+      chrome.cookies.getAll(config, function (cookies) {
+        cookies = cookies.filter(cookie => !cookie.httpOnly);
+        if (cookies.length >= 1) {
+          self.pixelCookieShareAccounting(
+            tab_url, tab_origin, details.url,
+            request_host, request_origin, cookies);
+        }
+      });
+    }
+  },
+
+  /**
+   * Checks for cookie sharing: requests to third-party domains that include
+   * high entropy data from first-party cookies (associated with the top-level
+   * frame). Only catches plain-text verbatim sharing (b64 encoding + the like
+   * defeat it). Assumes any long string that doesn't contain URL fragments or
+   * stopwords is an identifier.  Doesn't catch cookie syncing (3rd party -> 3rd
+   * party), but most of those tracking cookies should be blocked anyway.
+   *
+   * @param tab_url, tab_origin, request_url, request_host, request_origin are
+   *   the details from onBeforeSendHeaders
+   * @param cookies are the result of chrome.cookies.getAll()
+   * @returns {*}
+   */
+  pixelCookieShareAccounting: function (tab_url, tab_origin, request_url,
+      request_host, request_origin, cookies) {
+    let params = (new URL(request_url)).searchParams,
+      TRACKER_ENTROPY_THRESHOLD = 33,
+      MIN_STR_LEN = 8;
+
+    for (let p of params) {
+      let key = p[0],
+        value = p[1];
+
+      // the argument must be sufficiently long
+      if (!value || value.length < MIN_STR_LEN) {
+        continue;
+      }
+
+      // check if this argument is derived from a high-entropy first-party cookie
+      for (let cookie of cookies) {
+        // the cookie value must be sufficiently long
+        if (!cookie.value || cookie.value.length < MIN_STR_LEN) {
+          continue;
+        }
+
+        // find the longest common substring between this arg and the cookies
+        // associated with the document
+        let substrings = utils.findCommonSubstrings(cookie.value, value) || [];
+        for (let s of substrings) {
+          // ignore the substring if it's part of the first-party URL. sometimes
+          // content servers take the url of the page they're hosting content
+          // for as an argument. e.g.
+          // https://example-cdn.com/content?u=http://example.com/index.html
+          if (tab_url.indexOf(s) != -1) {
+            continue;
+          }
+
+          // elements of the user agent string are also commonly included in
+          // both cookies and arguments; e.g. "Mozilla/5.0" might be in both.
+          // This is not a special tracking risk since third parties can see
+          // this info anyway.
+          if (navigator.userAgent.indexOf(s) != -1) {
+            continue;
+          }
+
+          // Sometimes the entire url and then some is included in the
+          // substring -- the common string might be "https://example.com/:true"
+          // In that case, we only care about the information around the URL.
+          if (s.indexOf(tab_url) != -1) {
+            s = s.replace(tab_url, "");
+          }
+
+          // During testing we found lots of common values like "homepage",
+          // "referrer", etc. were being flagged as high entropy. This searches
+          // for a few of those and removes them before we go further.
+          let lower = s.toLowerCase();
+          lowEntropyQueryValues.forEach(function (qv) {
+            let start = lower.indexOf(qv);
+            if (start != -1) {
+              s = s.replace(s.substring(start, start + qv.length), "");
+            }
+          });
+
+          // at this point, since we might have removed things, make sure the
+          // string is still long enough to bother with
+          if (s.length < MIN_STR_LEN) {
+            continue;
+          }
+
+          // compute the entropy of this common substring. if it's greater than
+          // our threshold, record the tracking action and exit the function.
+          let entropy = utils.estimateMaxEntropy(s);
+          if (entropy > TRACKER_ENTROPY_THRESHOLD) {
+            log("Found high-entropy cookie share from", tab_origin, "to", request_host,
+              ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
+              "\n  arg:", key, "=", value, "\n  substring:", s);
+
+            this._recordPrevalence(request_host, request_origin, tab_origin, {
+              type: constants.TRACKER_TYPES.COOKIE_SHARE,
+              tracker_url: request_url,
+              page_url: tab_url,
+              page_host: (new URI(tab_url)).host,
+              details: {
+                cookie: cookie,
+                arg: key + "=" + value,
+                substring: s
+              }
+            });
+            return;
+          }
+        }
+      }
     }
 
     // check for cookie sharing iff this is an image in the top-level frame, and the request URL has parameters
@@ -266,17 +415,20 @@ HeuristicBlocker.prototype = {
    * @param {String} tracker_origin Base domain of the third party tracker
    * @param {String} page_origin Base domain of page where tracking occurred
    */
-  updateTrackerPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
+  updateTrackerPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
-    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+    if (action != constants.NO_TRACKING &&
+        action != constants.ALLOW &&
+        !badger.getSettings().getItem('passiveMode')) {
       return;
     }
 
     this._recordPrevalence(
       tracker_fqdn,
       tracker_origin,
-      page_origin
+      page_origin,
+      tracker
     );
   },
 
@@ -292,8 +444,11 @@ HeuristicBlocker.prototype = {
    * @param {String} tracker_fqdn The FQDN of the third party tracker
    * @param {String} tracker_origin Base domain of the third party tracker
    * @param {String} page_origin Base domain of page where tracking occurred
+   * @param {String} tracker Information about the tracking action that was detected.
    */
   _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
+    var snitchMap = this.storage.getStore('snitch_map');
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker) {
     var snitchMap = this.storage.getStore('snitch_map');
     var firstParties = [];
     if (snitchMap.hasItem(tracker_origin)) {
@@ -306,9 +461,24 @@ HeuristicBlocker.prototype = {
       return;
     }
 
-    if (firstParties.indexOf(page_origin) != -1) {
-      return; // We already know about the presence of this tracker on the given domain
-    }
+    // log this tracking action in the database
+    fetch("http://localhost:8080", {
+      method: "POST",
+      body: JSON.stringify({
+        table: "tracking_actions",
+        data: {
+          page_origin: page_origin,
+          tracker_host: tracker_fqdn,
+          tracker_origin: tracker_origin,
+          tracker: tracker,
+          time: (new Date()).getTime()
+        }
+      })
+    }).then(res => {
+      if (!res.ok) {
+        console.log("tracking action logging failed:", res);
+      }
+    });
 
     // record that we've seen this tracker on this domain (in snitch map)
     firstParties.push(page_origin);
@@ -632,6 +802,7 @@ function hasCookieTracking(details, origin) {
   }
 
   let estimatedEntropy = 0;
+  let tracking = false;
 
   // loop over every cookie
   for (let i = 0; i < cookies.length; i++) {
@@ -656,7 +827,7 @@ function hasCookieTracking(details, origin) {
       let value = cookie[name].toLowerCase();
 
       if (!(value in lowEntropyCookieValues)) {
-        return true;
+        tracking = true;
       }
 
       estimatedEntropy += lowEntropyCookieValues[value];
@@ -666,7 +837,11 @@ function hasCookieTracking(details, origin) {
   log("All cookies for " + origin + " deemed low entropy...");
   if (estimatedEntropy > constants.MAX_COOKIE_ENTROPY) {
     log("But total estimated entropy is " + estimatedEntropy + " bits, so blocking");
-    return true;
+    tracking = true;
+  }
+
+  if (tracking) {
+    return cookies
   }
 
   return false;
