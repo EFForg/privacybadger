@@ -920,7 +920,7 @@ Badger.prototype = {
    * @param {Object} lsItems Local storage dict
    * @returns {boolean} true if it seems there are supercookies
    */
-  hasLocalStorageSuperCookie: function(lsItems) {
+  hasLocalStorageSupercookie: function (lsItems) {
     var LOCALSTORAGE_ENTROPY_THRESHOLD = 33, // in bits
       estimatedEntropy = 0,
       lsKey = "",
@@ -945,13 +945,13 @@ Badger.prototype = {
    * @param {Object} storageItems Dict with storage items
    * @returns {Boolean} true if there seems to be any Super cookie
    */
-  hasSuperCookie: function(storageItems) {
+  hasSupercookie: function (storageItems) {
     return (
-      this.hasLocalStorageSuperCookie(storageItems.localStorageItems)
-      //|| this.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
+      this.hasLocalStorageSupercookie(storageItems.localStorageItems)
+      //|| this.hasLocalStorageSupercookie(storageItems.indexedDBItems)
       // TODO: See "Reading a directory's contents" on
       // http://www.html5rocks.com/en/tutorials/file/filesystem/
-      //|| this.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
+      //|| this.hasLocalStorageSupercookie(storageItems.fileSystemAPIItems)
     );
   },
 

@@ -435,11 +435,7 @@ function getHostForTab(tabId) {
  * @param {Integer} tab_id browser tab ID
  * @param {String} frame_url URL of the frame with supercookie
  */
-function recordSuperCookie(tab_id, frame_url) {
-  if (!badger.isLearningEnabled(tab_id)) {
-    return;
-  }
-
+function recordSupercookie(tab_id, frame_url) {
   const frame_host = window.extractHostFromURL(frame_url),
     page_host = badger.getFrameData(tab_id).host;
 
@@ -465,9 +461,6 @@ function recordFingerprinting(tabId, msg) {
   // Abort if we failed to determine the originating script's URL
   // TODO find and fix where this happens
   if (!msg.scriptUrl) {
-    return;
-  }
-  if (!badger.isLearningEnabled(tabId)) {
     return;
   }
 
@@ -822,12 +815,13 @@ function dispatcher(request, sender, sendResponse) {
       "allowWidgetOnSite",
       "checkDNT",
       "checkEnabled",
-      "checkEnabledAndThirdParty",
       "checkLocation",
       "checkWidgetReplacementEnabled",
+      "detectFingerprinting",
       "fpReport",
       "getBlockedFrameUrls",
       "getReplacementButton",
+      "inspectLocalStorage",
       "supercookieReport",
       "unblockWidget",
     ];
@@ -948,9 +942,6 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "fpReport": {
-    if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
-      return sendResponse();
-    }
     if (Array.isArray(request.data)) {
       request.data.forEach(function (msg) {
         recordFingerprinting(sender.tab.id, msg);
@@ -963,19 +954,30 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "supercookieReport": {
-    if (request.frameUrl && badger.hasSuperCookie(request.data)) {
-      recordSuperCookie(sender.tab.id, request.frameUrl);
+    if (request.frameUrl && badger.hasSupercookie(request.data)) {
+      recordSupercookie(sender.tab.id, request.frameUrl);
     }
     break;
   }
 
-  case "checkEnabledAndThirdParty": {
+  case "inspectLocalStorage": {
     let tab_host = window.extractHostFromURL(sender.tab.url),
       frame_host = window.extractHostFromURL(request.frameUrl);
 
     sendResponse(frame_host &&
+      badger.isLearningEnabled(sender.tab.id) &&
       badger.isPrivacyBadgerEnabled(tab_host) &&
       utils.isThirdPartyDomain(frame_host, tab_host));
+
+    break;
+  }
+
+  case "detectFingerprinting": {
+    let tab_host = window.extractHostFromURL(sender.tab.url);
+
+    sendResponse(
+      badger.isLearningEnabled(sender.tab.id) &&
+      badger.isPrivacyBadgerEnabled(tab_host));
 
     break;
   }

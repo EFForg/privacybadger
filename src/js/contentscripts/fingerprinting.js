@@ -340,7 +340,7 @@ if (document instanceof HTMLDocument === false && (
 
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
-  type: "checkEnabled"
+  type: "detectFingerprinting"
 }, function (enabled) {
   if (!enabled) {
     return;
