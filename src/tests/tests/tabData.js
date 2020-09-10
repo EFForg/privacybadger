@@ -68,16 +68,12 @@ function() {
     badger.logThirdPartyOriginOnTab(this.tabId, "example.com", constants.ALLOW);
     this.clock.tick(1);
     assert.equal(
-      badger.getTrackerCount(this.tabId), 1, "count gets incremented"
+      badger.getTrackerCount(this.tabId), 0, "count stays at zero"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
-      "updateBadge gets called when we see an unblocked domain"
+      chrome.browserAction.setBadgeText.notCalled,
+      "updateBadge does not get called when we see a hasn't-decided-yet-to-block domain"
     );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
-      tabId: this.tabId,
-      text: "1"
-    }), "setBadgeText was called with expected args");
   });
 
   QUnit.test("logging DNT-compliant domain", function (assert) {
@@ -108,8 +104,9 @@ function() {
     assert.equal(
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
-    assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
+    assert.equal(
+      chrome.browserAction.setBadgeText.callCount,
+      "1",
       "updateBadge gets called when we see a blocked domain"
     );
     assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({

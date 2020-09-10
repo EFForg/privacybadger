@@ -754,7 +754,12 @@ Badger.prototype = {
 
     for (let domain in origins) {
       let action = origins[domain];
-      if (action != constants.NO_TRACKING && action != constants.DNT) {
+      if (
+        action == constants.BLOCK ||
+        action == constants.COOKIEBLOCK ||
+        action == constants.USER_BLOCK ||
+        action == constants.USER_COOKIEBLOCK
+      ) {
         count++;
       }
     }
@@ -965,19 +970,25 @@ Badger.prototype = {
    */
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
     let self = this,
-      is_tracking = (
-        action != constants.NO_TRACKING && action != constants.DNT
+      is_blocked = (
+        action == constants.BLOCK ||
+        action == constants.COOKIEBLOCK ||
+        action == constants.USER_BLOCK ||
+        action == constants.USER_COOKIEBLOCK
       ),
       origins = self.tabData[tab_id].origins,
-      previously_tracking = origins.hasOwnProperty(fqdn) && (
-        origins[fqdn] != constants.NO_TRACKING && origins[fqdn] != constants.DNT
+      previously_blocked = origins.hasOwnProperty(fqdn) && (
+        origins[fqdn] == constants.BLOCK ||
+        origins[fqdn] == constants.COOKIEBLOCK ||
+        origins[fqdn] == constants.USER_BLOCK ||
+        origins[fqdn] == constants.USER_COOKIEBLOCK
       );
 
     origins[fqdn] = action;
 
-    // no need to update badge if not a tracking domain,
-    // or if we have already seen it as a tracking domain
-    if (!is_tracking || previously_tracking) {
+    // no need to update badge if not a (cookie)blocked domain,
+    // or if we have already seen it as a (cookie)blocked domain
+    if (!is_blocked || previously_blocked) {
       return;
     }
 

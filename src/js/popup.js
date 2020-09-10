@@ -528,6 +528,9 @@ function refreshPopup() {
         htmlUtils.getOriginHtml(domain, constants.ALLOW)
       );
     });
+
+    // reduce margin if we have hasn't-decided-yet-to-block domains to show
+    $("#instructions_no_trackers").css("margin", "10px 0");
   }
 
   if (POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
