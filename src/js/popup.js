@@ -515,7 +515,7 @@ function refreshPopup() {
     }
   }
 
-  if (unblockedTrackers.length) {
+  if (POPUP_DATA.learnLocally && unblockedTrackers.length) {
     printable.push(
       '<div class="clicker tooltip" id="not-yet-blocked-header" title="' +
       chrome.i18n.getMessage("intro_not_an_adblocker_paragraph") +
@@ -533,7 +533,7 @@ function refreshPopup() {
     $("#instructions_no_trackers").css("margin", "10px 0");
   }
 
-  if (POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
+  if (POPUP_DATA.learnLocally && POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
     printable.push(
       '<div class="clicker tooltip" id="non-trackers-header" title="' +
       chrome.i18n.getMessage("non_tracker_tip") +

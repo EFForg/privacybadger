@@ -1024,6 +1024,7 @@ function dispatcher(request, sender, sendResponse) {
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
       errorText: badger.tabData[tab_id].errorText,
+      learnLocally: badger.getSettings().getItem("learnLocally"),
       noTabData: false,
       origins,
       seenComic: badger.getSettings().getItem("seenComic"),

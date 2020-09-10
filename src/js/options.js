@@ -159,12 +159,18 @@ function loadOptions() {
         $("#learn-in-incognito-checkbox")
           .prop("disabled", (enabled ? false : "disabled"))
           .prop("checked", (enabled ? OPTIONS_DATA.settings.learnInIncognito : false));
+        $("#show-nontracking-domains-checkbox")
+          .prop("disabled", (enabled ? false : "disabled"))
+          .prop("checked", (enabled ? OPTIONS_DATA.settings.showNonTrackingDomains : false));
       });
     });
 
   $("#learn-in-incognito-checkbox")
     .prop("disabled", OPTIONS_DATA.settings.learnLocally ? false : "disabled")
-    .prop("checked", OPTIONS_DATA.settings.learnLocally ? OPTIONS_DATA.settings.learnInIncognito : false)
+    .prop("checked", (
+      OPTIONS_DATA.settings.learnLocally ?
+        OPTIONS_DATA.settings.learnInIncognito : false
+    ))
     .on("click", (event) => {
       const enabled = $(event.currentTarget).prop("checked");
       chrome.runtime.sendMessage({
@@ -178,14 +184,22 @@ function loadOptions() {
     });
 
   $('#show-nontracking-domains-checkbox')
+    .prop("disabled", OPTIONS_DATA.settings.learnLocally ? false : "disabled")
+    .prop("checked", (
+      OPTIONS_DATA.settings.learnLocally ?
+        OPTIONS_DATA.settings.showNonTrackingDomains : false
+    ))
     .on("click", (event) => {
-      let showNonTrackingDomains = $(event.currentTarget).prop("checked");
+      const enabled = $(event.currentTarget).prop("checked");
       chrome.runtime.sendMessage({
         type: "updateSettings",
-        data: { showNonTrackingDomains }
+        data: {
+          showNonTrackingDomains: enabled
+        }
+      }, function () {
+        OPTIONS_DATA.settings.showNonTrackingDomains = enabled;
       });
-    })
-    .prop("checked", OPTIONS_DATA.settings.showNonTrackingDomains);
+    });
 
   const widgetSelector = $("#hide-widgets-select");
   widgetSelector.prop("disabled",
