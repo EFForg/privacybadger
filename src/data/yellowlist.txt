@@ -546,6 +546,7 @@ img.purch.com
 captcha.qq.com
 photo.store.qq.com
 qualtrics.com
+queue-it.net
 quotemedia.com
 api.razorpay.com
 checkout.razorpay.com
