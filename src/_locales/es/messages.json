@@ -32,7 +32,7 @@
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Comprueba si los <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>dominios de terceros</a> cumplen con la <a target='_blank' href='https://www.eff.org/dnt-policy'>política de No rastrear de la EFF</a>",
+        "message": "Comprobar si los <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>dominios de terceros</a> cumplen con la <a target='_blank' href='https://www.eff.org/dnt-policy'>política de No rastrear de la EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
@@ -178,7 +178,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "show_counter_checkbox": {
-        "message": "Mostrar número de rastreadores",
+        "message": "Mostrar el número de rastreadores",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
