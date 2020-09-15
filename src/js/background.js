@@ -42,8 +42,10 @@ function Badger() {
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
 
   self.widgetList = [];
-  widgetLoader.loadWidgetsFromFile("data/socialwidgets.json", (response) => {
-    self.widgetList = response;
+  let widgetListPromise = widgetLoader.loadWidgetsFromFile(
+    "data/socialwidgets.json").catch(console.error);
+  widgetListPromise.then(widgets => {
+    self.widgetList = widgets;
   });
 
   self.storage = new pbStorage.BadgerPen(async function (thisStorage) {
@@ -80,6 +82,7 @@ function Badger() {
     });
 
     // wait for async functions (seed data, yellowlist, ...) to resolve
+    await widgetListPromise;
     await seedDataPromise;
     await ylistPromise;
     await dntHashesPromise;
