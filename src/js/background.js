@@ -38,6 +38,9 @@ var incognito = require("incognito");
 function Badger() {
   let self = this;
 
+  self.isFirstRun = false;
+  self.isUpdate = false;
+
   self.webRTCAvailable = checkWebRTCBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
 
@@ -49,7 +52,7 @@ function Badger() {
   });
 
   self.storage = new pbStorage.BadgerPen(async function (thisStorage) {
-    self.initializeDefaultSettings();
+    self.initializeSettings();
     // Privacy Badger settings are now fully ready
 
     self.setPrivacyOverrides();
@@ -117,7 +120,9 @@ function Badger() {
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
 
-    self.showFirstRunPage();
+    if (self.isFirstRun) {
+      self.showFirstRunPage();
+    }
   });
 
   /**
@@ -311,7 +316,7 @@ Badger.prototype = {
     let self = this;
 
     return new Promise(function (resolve, reject) {
-      if (!self.getSettings().getItem("isFirstRun")) {
+      if (!self.isFirstRun) {
         log("No need to load seed data");
         return resolve();
       }
@@ -325,17 +330,13 @@ Badger.prototype = {
 
   showFirstRunPage: function() {
     let settings = this.getSettings();
-    if (settings.getItem("isFirstRun")) {
-      // launch the new user intro page and unset first-run flag
-      if (settings.getItem("showIntroPage")) {
-        chrome.tabs.create({
-          url: chrome.runtime.getURL("/skin/firstRun.html")
-        });
-      } else {
-        // don't remind users to look at the intro page either
-        settings.setItem("seenComic", true);
-      }
-      settings.setItem("isFirstRun", false);
+    if (settings.getItem("showIntroPage")) {
+      chrome.tabs.create({
+        url: chrome.runtime.getURL("/skin/firstRun.html")
+      });
+    } else {
+      // don't remind users to look at the intro page either
+      settings.setItem("seenComic", true);
     }
   },
 
@@ -677,7 +678,6 @@ Badger.prototype = {
     disableGoogleNavErrorService: true,
     disableHyperlinkAuditing: true,
     hideBlockedElements: true,
-    isFirstRun: true,
     learnInIncognito: false,
     learnLocally: false,
     migrationLevel: 0,
@@ -693,21 +693,42 @@ Badger.prototype = {
   },
 
   /**
-   * initialize default settings if nonexistent
+   * Initializes settings with defaults if needed,
+   * detects whether Badger just got installed or upgraded
    */
-  initializeDefaultSettings: function () {
+  initializeSettings: function () {
     let self = this,
       settings = self.getSettings();
 
-    for (let key in self.defaultSettings) {
-      if (!self.defaultSettings.hasOwnProperty(key)) {
-        continue;
-      }
+    for (let key of Object.keys(self.defaultSettings)) {
+      // if this setting is not yet in storage,
       if (!settings.hasItem(key)) {
+        // set with default value
         let value = self.defaultSettings[key];
         log("setting", key, "=", value);
         settings.setItem(key, value);
       }
+    }
+
+    let version = chrome.runtime.getManifest().version,
+      versionStore = self.storage.getBadgerStorageObject("private_storage"),
+      prev_version = versionStore.getItem("badgerVersion");
+
+    // special case for older badgers that kept isFirstRun in storage
+    if (settings.hasItem("isFirstRun")) {
+      self.isUpdate = true;
+      versionStore.setItem("badgerVersion", version);
+      settings.deleteItem("isFirstRun");
+
+    // new install
+    } else if (!prev_version) {
+      self.isFirstRun = true;
+      versionStore.setItem("badgerVersion", version);
+
+    // upgrade
+    } else if (version != prev_version) {
+      self.isUpdate = true;
+      versionStore.setItem("badgerVersion", version);
     }
   },
 

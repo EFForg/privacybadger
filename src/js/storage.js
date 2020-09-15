@@ -106,6 +106,7 @@ BadgerPen.prototype = {
     "cookieblock_list",
     "dnt_hashes",
     "settings_map",
+    "private_storage", // misc. utility settings, not for export
   ],
 
   getBadgerStorageObject: function(key) {
@@ -608,7 +609,9 @@ BadgerStorage.prototype = {
 
         // default: overwrite existing setting with setting from import
         } else {
-          self._store[prop] = mapData[prop];
+          if (prop != "isFirstRun") {
+            self._store[prop] = mapData[prop];
+          }
         }
       }
 

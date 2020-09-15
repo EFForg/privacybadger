@@ -18,8 +18,8 @@ chrome.storage.local.get = (keys, callback) => {
   setTimeout(function () {
     callback({
       // don't open the new user intro page or load seed data
-      settings_map: {
-        isFirstRun: false,
+      private_storage: {
+        badgerVersion: chrome.runtime.getManifest().version,
       }
     });
   }, 0);
