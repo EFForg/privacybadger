@@ -2016,6 +2016,14 @@ let multiDomainFirstPartiesArray = [
     "yiyaojd.com",
     "yizhitou.com",
   ],
+  [
+    "jetbrains.com",
+
+    "intellij.net",
+    "kotlinconf.com",
+    "kotlinlang.org",
+    "ktor.io",
+  ],
   ["jpmorganchase.com", "jpmorgan.com", "chase.com"],
   ["jobware.de", "jobware.com", "jobware.net"],
   ["jotform.com", "jotfor.ms"],
