@@ -14,6 +14,11 @@
                 "type": "string"
             }
         },
+        "learnLocally": {
+            "title": "Learn to block new trackers from your browsing",
+            "description": "Enabling learning may make you more identifiable to websites. Please see https://www.eff.org/badger-evolution for more information.",
+            "type": "boolean"
+        },
         "learnInIncognito": {
             "title": "Learn in Private/Incognito windows",
             "description": "Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
