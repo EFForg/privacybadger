@@ -2019,13 +2019,13 @@ let multiDomainFirstPartiesArray = [
   [
     "jetbrains.com",
 
+    "datalore.io",
     "intellij.net",
+    "jetbrains.dev",
     "kotlinconf.com",
     "kotlinlang.org",
-    "talkingkotlin.com",
     "ktor.io",
-    "datalore.io",
-    "jetbrains.dev",
+    "talkingkotlin.com",
   ],
   ["jpmorganchase.com", "jpmorgan.com", "chase.com"],
   ["jobware.de", "jobware.com", "jobware.net"],
