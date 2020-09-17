@@ -386,7 +386,7 @@ function share() {
   for (let origin of originsArr) {
     let action = origins[origin];
 
-    if (action != constants.NO_TRACKING) {
+    if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
       tracking.push(origin);
     }
   }
