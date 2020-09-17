@@ -479,7 +479,7 @@ function refreshPopup() {
     // show "no trackers" message
     $("#instructions-no-trackers").show();
 
-    if (POPUP_DATA.showNonTrackingDomains) {
+    if (POPUP_DATA.learnLocally && POPUP_DATA.showNonTrackingDomains) {
       // show the "no third party resources on this site" message
       $("#no-third-parties").show();
     }
