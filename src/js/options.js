@@ -593,7 +593,6 @@ function updateSummary() {
   if (!allTrackingDomains || !allTrackingDomains.length) {
     // leave out number of trackers and slider instructions message if no sliders will be displayed
     $("#options_domain_list_trackers").hide();
-    $("#options_domain_list_one_tracker").hide();
 
     // show "no trackers" message
     $("#options_domain_list_no_trackers").show();
@@ -610,23 +609,14 @@ function updateSummary() {
   $("#options_domain_list_no_trackers").hide();
   $("#tracking-domains-div").show();
 
+  // count unique (blocked and not-yet-blocked) tracking base domains
   let baseDomains = new Set(allTrackingDomains.map(d => window.getBaseDomain(d)));
-
-  // Update messages according to tracking domain count.
-  if (baseDomains.size == 1) {
-    // leave out messages about multiple trackers
-    $("#options_domain_list_trackers").hide();
-
-    // show singular "tracker" message
-    $("#options_domain_list_one_tracker").show();
-  } else {
-    $("#options_domain_list_trackers").html(i18n.getMessage(
-      "options_domain_list_trackers", [
-        baseDomains.size,
-        "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
-      ]
-    )).show();
-  }
+  $("#options_domain_list_trackers").html(i18n.getMessage(
+    "options_domain_list_trackers", [
+      baseDomains.size,
+      "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+    ]
+  )).show();
 }
 
 /**

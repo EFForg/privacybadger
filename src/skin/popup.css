@@ -283,12 +283,12 @@ font-size: 16px;
     margin: 0;
     padding-top: 10px;
 }
-#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_one_tracker):not(#options_domain_list_no_trackers) a {
+#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a {
     text-decoration: underline;
     color: black;
     font-weight: bold;
 }
-#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_one_tracker):not(#options_domain_list_no_trackers) a:hover {
+#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a:hover {
     color: #ec9329
 }
 #instructions-no-trackers, #special-browser-page, #disabled-site-message {
