@@ -291,12 +291,16 @@ font-size: 16px;
 #pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_one_tracker):not(#options_domain_list_no_trackers) a:hover {
     color: #ec9329
 }
-#instructions_no_trackers, #special-browser-page, #disabled-site-message {
+#instructions-no-trackers, #special-browser-page, #disabled-site-message {
     text-align: center;
     margin: 45px 0;
     padding: 0;
 }
-#instructions_no_trackers, #no-third-parties {
+#instructions-many-trackers {
+    text-align: center;
+    margin: 10px 0;
+}
+#instructions-many-trackers, #instructions-no-trackers, #no-third-parties {
     display: block;
 }
 #no-third-parties {

@@ -477,7 +477,7 @@ function refreshPopup() {
     $("#instructions-many-trackers").hide();
 
     // show "no trackers" message
-    $("#instructions_no_trackers").show();
+    $("#instructions-no-trackers").show();
 
     if (POPUP_DATA.showNonTrackingDomains) {
       // show the "no third party resources on this site" message
@@ -530,7 +530,7 @@ function refreshPopup() {
     });
 
     // reduce margin if we have hasn't-decided-yet-to-block domains to show
-    $("#instructions_no_trackers").css("margin", "10px 0");
+    $("#instructions-no-trackers").css("margin", "10px 0");
   }
 
   if (POPUP_DATA.learnLocally && POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
@@ -548,7 +548,7 @@ function refreshPopup() {
     }
 
     // reduce margin if we have non-tracking domains to show
-    $("#instructions_no_trackers").css("margin", "10px 0");
+    $("#instructions-no-trackers").css("margin", "10px 0");
   }
 
   if (printable.length) {
@@ -564,14 +564,7 @@ function refreshPopup() {
     $("#instructions-many-trackers").hide();
 
     // show "no trackers" message
-    $("#instructions_no_trackers").show();
-
-  } else if (POPUP_DATA.trackerCount == 1) {
-    // hide multiple trackers message
-    $("#instructions-many-trackers").hide();
-
-    // show singular "tracker" message
-    $("#instructions_one_tracker").show();
+    $("#instructions-no-trackers").show();
 
   } else {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
