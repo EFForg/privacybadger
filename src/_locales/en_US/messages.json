@@ -335,7 +335,7 @@
         "description": ""
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page.",
+        "message": "There are no third party resources on this page. Hooray for privacy!",
         "description": ""
     },
     "report_broken_site": {
