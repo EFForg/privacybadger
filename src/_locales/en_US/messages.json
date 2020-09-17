@@ -111,19 +111,6 @@
         "message": "What's Wrong?",
         "description": ""
     },
-    "popup_instructions_no_trackers": {
-        "message": "No $LINK_START$trackers$LINK_END$ blocked",
-        "description": "Text shown in the popup when there are no trackers on the page.",
-        "placeholders": {
-            "link_start": {
-                "content": "$1",
-                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
-            },
-            "link_end": {
-                "content": "</a>"
-            }
-        }
-    },
     "options_domain_list_tab": {
         "message": "Tracking Domains",
         "description": "This is an options page tab heading."
@@ -334,10 +321,6 @@
         "message": "Please select a file to import.",
         "description": ""
     },
-    "popup_blocked": {
-        "message": "There are no third party resources on this page. Hooray for privacy!",
-        "description": ""
-    },
     "report_broken_site": {
         "message": "Did Privacy Badger break this site? Let us know!",
         "description": "Button in the popup."
@@ -427,6 +410,23 @@
             }
         }
     },
+    "popup_instructions_no_trackers": {
+        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "description": "Text shown in the popup when there are no trackers on the page.",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "popup_blocked": {
+        "message": "There are no third party resources on this page. Hooray for privacy!",
+        "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
+    },
     "intro_by_eff": {
         "message": "A project of the Electronic Frontier Foundation",
         "description": ""
@@ -468,6 +468,10 @@
             }
         }
     },
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+    },
     "name": {
         "message": "Privacy Badger",
         "description": ""
@@ -503,10 +507,6 @@
     "intro_link_policy": {
         "message": "Privacy Policy",
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
-    },
-    "options_domain_list_no_trackers": {
-        "message": "Privacy Badger hasn't detected any <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tracking domains</a> yet. Keep browsing!",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "report_input_label": {
         "message": "Description",
