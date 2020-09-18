@@ -3962,6 +3962,7 @@ let multiDomainFirstPartiesArray = [
     "yandex.uz",
     "ya.ru",
   ],
+  ["zaobao.com", "zaobao.sg", "zaobao.com.sg"],
   ["zendesk.com", "zopim.com"],
   ["zhaopin.com", "zhaopin.cn"],
   ["zillow.com", "zillowstatic.com", "zillowcloud.com", "zg-api.com"],
