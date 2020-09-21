@@ -36,7 +36,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger knows to block them—whether they are advertisers or trackers of other kinds.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -104,7 +104,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "message": "Privacy Badger is an “install-and-forget” browser extension that stops web trackers from invading your privacy. Take a minute to see how.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -198,7 +198,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns as you browse",
+        "message": "Catches Sneaky Trackers",
         "description": "Intro page paragraph heading."
     },
     "whitelisted_domains": {
@@ -298,7 +298,7 @@
         }
     },
     "intro_beyond_ads": {
-        "message": "Catches sneaky trackers",
+        "message": "Trained on Real Sites",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
@@ -330,7 +330,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Privacy Badger knows about the different trackers online thanks to an automated web crawling tool, <a href='https://www.eff.org/deeplinks/2018/08/giving-privacy-badger-jump-start' target='_blank'>Badger-Sett</a>. This automated version of Privacy Badger scours the web looking for suspicious privacy-invading behavior, saving information about the trackers it finds for your Privacy Badger to block. This means that every Badger comes equipped with the most up-to-date knowledge about which trackers are active on the web today.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -439,7 +439,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -464,7 +464,11 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
+        "message": "Most other blockers use a human-edited list of sites to block. Privacy Badger is trained to identify trackers by browsing thousands of the top sites on the web -- every day. Our tracking heuristics identify which companies are performing the most common (and insidious) types of third-party tracking, like cookies, supercookies, and <a href='https://panopticlick.eff.org/' target='_blank'>browser fingerprinting.</a>",
+        "description": "Intro page paragraph."
+    },
+    "intro_not_an_adblocker_second_paragraph": {
+        "message": "Sometimes these trackers are within visible advertisements. Sometimes they’re invisible to you but still hidden on the page to grab as much of your private information as it can. Either way, Privacy Badger knows to block them.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
