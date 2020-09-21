@@ -68,6 +68,10 @@ bankid.no
 bankrate.com
 bazaarvoice.com
 bcbits.com
+maponline0.bdimg.com
+maponline1.bdimg.com
+maponline2.bdimg.com
+maponline3.bdimg.com
 betterttv.net
 static.beyondmenu.com
 www.beyondmenu.com
