@@ -30,6 +30,7 @@ require.scopes.webrequest = (function () {
 
 let constants = require("constants"),
   getSurrogateURI = require("surrogates").getSurrogateURI,
+  incognito = require("incognito"),
   utils = require("utils");
 
 /************ Local Variables *****************/
@@ -109,7 +110,7 @@ function onBeforeRequest(details) {
   });
 
   // if this is a heuristically- (not user-) blocked domain
-  if (action == constants.BLOCK && badger.isLearningEnabled(tab_id)) {
+  if (action == constants.BLOCK && incognito.learningEnabled(tab_id)) {
     // check for DNT policy asynchronously
     setTimeout(function () {
       badger.checkForDNTPolicy(request_host);
