@@ -433,7 +433,7 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
 
-      if (self.storage.getBadgerStorageObject('cookieblock_list').keys().length) {
+      if (self.storage.getStore('cookieblock_list').keys().length) {
         log("Yellowlist already initialized from disk");
         return resolve();
       }
@@ -527,7 +527,7 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
 
-      if (self.storage.getBadgerStorageObject('dnt_hashes').keys().length) {
+      if (self.storage.getStore('dnt_hashes').keys().length) {
         log("DNT hashes already initialized from disk");
         return resolve();
       }
@@ -653,7 +653,7 @@ Badger.prototype = {
   _checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
     var successStatus = false;
     var url = "https://" + origin + "/.well-known/dnt-policy.txt";
-    var dnt_hashes = this.storage.getBadgerStorageObject('dnt_hashes');
+    var dnt_hashes = this.storage.getStore('dnt_hashes');
 
     utils.xhrRequest(url,function(err,response) {
       if (err) {
@@ -711,7 +711,7 @@ Badger.prototype = {
     }
 
     let version = chrome.runtime.getManifest().version,
-      versionStore = self.storage.getBadgerStorageObject("private_storage"),
+      versionStore = self.storage.getStore("private_storage"),
       prev_version = versionStore.getItem("badgerVersion");
 
     // special case for older badgers that kept isFirstRun in storage
@@ -845,7 +845,7 @@ Badger.prototype = {
   },
 
   getSettings: function() {
-    return this.storage.getBadgerStorageObject('settings_map');
+    return this.storage.getStore('settings_map');
   },
 
   /**
@@ -1061,10 +1061,9 @@ Badger.prototype = {
     let self = this;
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
-    ["snitch_map", "action_map", "settings_map"].forEach(function(key) {
+    ["snitch_map", "action_map", "settings_map"].forEach(function (key) {
       if (data.hasOwnProperty(key)) {
-        let storageMap = self.storage.getBadgerStorageObject(key);
-        storageMap.merge(data[key]);
+        self.storage.getStore(key).merge(data[key]);
       }
     });
 

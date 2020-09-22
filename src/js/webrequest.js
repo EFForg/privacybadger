@@ -1218,8 +1218,8 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "removeOrigin": {
-    badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);
-    badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
+    badger.storage.getStore("snitch_map").deleteItem(request.origin);
+    badger.storage.getStore("action_map").deleteItem(request.origin);
     sendResponse({
       origins: badger.storage.getTrackingDomains()
     });

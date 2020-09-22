@@ -327,8 +327,8 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
       }
     };
 
-  const actionMap = badger.storage.getBadgerStorageObject('action_map'),
-    snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
+  const actionMap = badger.storage.getStore('action_map'),
+    snitchMap = badger.storage.getStore('snitch_map');
 
   // merge in a blocked parent domain and a subdomain
   badger.mergeUserData(USER_DATA);
@@ -343,7 +343,7 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
   snitchMap.deleteItem(DOMAIN);
 
   // now add subdomain to yellowlist
-  badger.storage.getBadgerStorageObject('cookieblock_list')
+  badger.storage.getStore('cookieblock_list')
     .setItem(SUBDOMAIN, true);
 
   // and do the merge again
@@ -360,8 +360,8 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
 });
 
 QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries with no MDFP entries", (assert) => {
-  const actionMap = badger.storage.getBadgerStorageObject('action_map'),
-    snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
+  const actionMap = badger.storage.getStore('action_map'),
+    snitchMap = badger.storage.getStore('snitch_map');
 
   let snitchNoMDFP = {
     'amazon.com': ['amazonads.com', 'amazing.com', 'amazonrainforest.com']
@@ -394,8 +394,8 @@ QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries w
 });
 
 QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries with some MDFP entries", (assert) => {
-  const actionMap = badger.storage.getBadgerStorageObject('action_map'),
-    snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
+  const actionMap = badger.storage.getStore('action_map'),
+    snitchMap = badger.storage.getStore('snitch_map');
 
   let snitchSomeMDFP = {
     'amazon.com': ['amazon.ca', 'amazon.co.jp', 'amazing.com']
@@ -426,8 +426,8 @@ QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries w
 });
 
 QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries with all MDFP entries", (assert) => {
-  const actionMap = badger.storage.getBadgerStorageObject('action_map'),
-    snitchMap = badger.storage.getBadgerStorageObject('snitch_map');
+  const actionMap = badger.storage.getStore('action_map'),
+    snitchMap = badger.storage.getStore('snitch_map');
 
   let snitchAllMDFP = {
     'amazon.com': ['amazon.ca', 'amazon.co.jp', 'amazon.es']

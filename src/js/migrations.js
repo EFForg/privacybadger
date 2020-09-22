@@ -31,7 +31,7 @@ exports.Migrations= {
   migrateBlockedSubdomainsToCookieblock: function(badger) {
     setTimeout(function() {
       console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
-      let ylist = badger.storage.getBadgerStorageObject('cookieblock_list');
+      let ylist = badger.storage.getStore('cookieblock_list');
       badger.storage.getAllDomainsByPresumedAction(constants.BLOCK).forEach(fqdn => {
         utils.explodeSubdomains(fqdn, true).forEach(domain => {
           if (ylist.hasItem(domain)) {
@@ -46,7 +46,7 @@ exports.Migrations= {
   migrateLegacyFirefoxData: noop,
 
   migrateDntRecheckTimes: function(badger) {
-    var action_map = badger.storage.getBadgerStorageObject('action_map');
+    var action_map = badger.storage.getStore('action_map');
     for (var domain in action_map.getItemClones()) {
       if (badger.storage.getNextUpdateForDomain(domain) === 0) {
         // Recheck at a random time in the next week
@@ -60,7 +60,7 @@ exports.Migrations= {
   // Fixes https://github.com/EFForg/privacybadger/issues/1181
   migrateDntRecheckTimes2: function(badger) {
     console.log('fixing DNT check times');
-    var action_map = badger.storage.getBadgerStorageObject('action_map');
+    var action_map = badger.storage.getStore('action_map');
     for (var domain in action_map.getItemClones()) {
       // Recheck at a random time in the next week
       var recheckTime = _.random(utils.oneDayFromNow(), utils.nDaysFromNow(7));
@@ -109,9 +109,9 @@ exports.Migrations= {
       'ykimg.com',
     ]);
 
-    const actionMap = badger.storage.getBadgerStorageObject("action_map"),
+    const actionMap = badger.storage.getStore("action_map"),
       actions = actionMap.getItemClones(),
-      snitchMap = badger.storage.getBadgerStorageObject("snitch_map");
+      snitchMap = badger.storage.getStore("snitch_map");
 
     for (let domain in actions) {
       const base = window.getBaseDomain(domain);
@@ -141,8 +141,8 @@ exports.Migrations= {
   unblockIncorrectlyBlockedDomains: function (badger) {
     console.log("Running migration to unblock likely incorrectly blocked domains ...");
 
-    let action_map = badger.storage.getBadgerStorageObject("action_map"),
-      snitch_map = badger.storage.getBadgerStorageObject("snitch_map");
+    let action_map = badger.storage.getStore("action_map"),
+      snitch_map = badger.storage.getStore("snitch_map");
 
     // for every blocked domain
     for (let domain in action_map.getItemClones()) {
@@ -179,8 +179,8 @@ exports.Migrations= {
   forgetBlockedDNTDomains: function(badger) {
     console.log('Running migration to forget mistakenly blocked DNT domains');
 
-    let action_map = badger.storage.getBadgerStorageObject("action_map"),
-      snitch_map = badger.storage.getBadgerStorageObject("snitch_map"),
+    let action_map = badger.storage.getStore("action_map"),
+      snitch_map = badger.storage.getStore("snitch_map"),
       domainsToFix = new Set(['eff.org', 'medium.com']);
 
     for (let domain in action_map.getItemClones()) {
@@ -209,7 +209,7 @@ exports.Migrations= {
   forgetNontrackingDomains: function (badger) {
     console.log("Forgetting non-tracking domains ...");
 
-    const actionMap = badger.storage.getBadgerStorageObject("action_map"),
+    const actionMap = badger.storage.getStore("action_map"),
       actions = actionMap.getItemClones();
 
     for (let domain in actions) {
@@ -225,7 +225,7 @@ exports.Migrations= {
   enableShowNonTrackingDomains: function (badger) {
     console.log("Enabling showNonTrackingDomains for some users");
 
-    let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+    let actionMap = badger.storage.getStore("action_map"),
       actions = actionMap.getItemClones();
 
     // if we have any customized sliders
@@ -237,8 +237,8 @@ exports.Migrations= {
 
   forgetFirstPartySnitches: function (badger) {
     console.log("Removing first parties from snitch map...");
-    let snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
-      actionMap = badger.storage.getBadgerStorageObject("action_map"),
+    let snitchMap = badger.storage.getStore("snitch_map"),
+      actionMap = badger.storage.getStore("action_map"),
       snitchClones = snitchMap.getItemClones(),
       actionClones = actionMap.getItemClones(),
       correctedSites = {};
@@ -277,9 +277,9 @@ exports.Migrations= {
     chrome.cookies.getAll(config, function (cookies) {
       console.log("Forgetting Cloudflare domains ...");
 
-      let actionMap = badger.storage.getBadgerStorageObject("action_map"),
+      let actionMap = badger.storage.getStore("action_map"),
         actionClones = actionMap.getItemClones(),
-        snitchMap = badger.storage.getBadgerStorageObject("snitch_map"),
+        snitchMap = badger.storage.getStore("snitch_map"),
         snitchClones = snitchMap.getItemClones(),
         correctedSites = {},
         // assume the tracking domains seen on these sites are all Cloudflare
