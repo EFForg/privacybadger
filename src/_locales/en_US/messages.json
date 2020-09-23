@@ -186,7 +186,7 @@
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "To learn why and how to restore local learning, click below to visit our blog.",
+        "message": "Click below to learn more.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
