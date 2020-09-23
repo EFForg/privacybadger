@@ -166,11 +166,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "Impara a bloccare nuovi tracker dalla tua navigazione",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Enabling learning may make you more identifiable to websites",
+        "message": "L'attivazione dell'apprendimento può renderti più identificabile dai siti",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
@@ -410,7 +410,7 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
+        "message": "$COUNT$ potenziali $LINK_START$tracker$LINK_END$ bloccati",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -427,7 +427,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "message": "Nessun $LINK_START$tracker$LINK_END$ bloccato",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -629,7 +629,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger blocked $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "Privacy Badger ha bloccato $COUNT$ potenziali tracker su $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
