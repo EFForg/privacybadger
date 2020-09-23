@@ -173,7 +173,7 @@ font-size: 16px;
     min-height: 70px;
 }
 
-#intro-reminder-btn, #critical-error-link {
+#intro-reminder-btn, #critical-error-link, #learning-prompt-btn {
     background-color: #ff641c;
     border: 2px solid #ff641c;
     color: #fff;
@@ -189,7 +189,7 @@ font-size: 16px;
     border-radius: 3px;
 }
 
-#intro-reminder-btn:hover, #critical-error-link:hover {
+#intro-reminder-btn:hover, #critical-error-link:hover, #learning-prompt-btn:hover {
     background-color: #f58728;
 }
 .clickerContainer {
@@ -216,6 +216,12 @@ font-size: 16px;
 .key img {
     margin-left: 19px;
 }
+
+.flex-wrapper {
+    display: flex;
+    align-items: center;
+}
+
 #instruction-outer {
   display: none;
   position: fixed;
@@ -249,12 +255,14 @@ font-size: 16px;
   border-radius: 4px;
   width: calc(100% - 46px);
 }
-#instruction-logo {
-    float: left;
-    padding: 0;
+.instruction-logo {
+    align-self: center;
     padding-inline-end: 15px;
 }
-#intro-reminder-btn, #error-message {
+#instruction .flex-wrapper > div {
+    padding-inline-end: 5px;
+}
+#intro-reminder-btn, #error-message, #learning-prompt-btn {
     margin-top: 1em;
 }
 #error-message {
@@ -262,9 +270,6 @@ font-size: 16px;
 }
 #fittslaw {
     float: right;
-    margin: 0;
-    margin-inline-end: 10px;
-    margin-bottom: 10px;
 }
 #options, #share, #help {
     float: right;

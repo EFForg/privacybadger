@@ -28,8 +28,8 @@ let POPUP_DATA = {};
 
 /* if they aint seen the comic*/
 function showNagMaybe() {
-  var nag = $("#instruction");
-  var outer = $("#instruction-outer");
+  var $nag = $("#instruction");
+  var $outer = $("#instruction-outer");
   let intro_page_url = chrome.runtime.getURL("/skin/firstRun.html");
 
   function _setSeenComic(cb) {
@@ -38,14 +38,20 @@ function showNagMaybe() {
     }, cb);
   }
 
+  function _setSeenLearningPrompt(cb) {
+    chrome.runtime.sendMessage({
+      type: "seenLearningPrompt"
+    }, cb);
+  }
+
   function _hideNag() {
-    nag.fadeOut();
-    outer.fadeOut();
+    $nag.fadeOut();
+    $outer.fadeOut();
   }
 
   function _showNag() {
-    nag.show();
-    outer.show();
+    $nag.show();
+    $outer.show();
     // Attach event listeners
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
@@ -89,17 +95,45 @@ function showNagMaybe() {
       _hideNag();
     });
 
-    nag.show();
-    outer.show();
+    $nag.show();
+    $outer.show();
   }
 
-  if (!POPUP_DATA.seenComic) {
+  function _showLearningPrompt() {
+    $('#instruction-text').hide();
+
+    $("#learning-prompt-btn").on("click", function () {
+      chrome.tabs.create({
+        url: "https://www.eff.org/badger-evolution"
+      });
+      _setSeenLearningPrompt(function () {
+        window.close();
+      });
+    });
+
+    $('#fittslaw').on("click", function (e) {
+      e.preventDefault();
+      _setSeenLearningPrompt(function () {
+        _hideNag();
+      });
+    });
+
+    $('#learning-prompt-div').show();
+    $nag.show();
+    $outer.show();
+  }
+
+  if (POPUP_DATA.showLearningPrompt) {
+    _showLearningPrompt();
+
+  } else if (!POPUP_DATA.seenComic) {
     chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
       // Show the popup instruction if the active tab is not firstRun.html page
       if (!focusedTab[0].url.startsWith(intro_page_url)) {
         _showNag();
       }
     });
+
   } else if (POPUP_DATA.criticalError) {
     _showError(POPUP_DATA.criticalError);
   }

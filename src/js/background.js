@@ -711,24 +711,28 @@ Badger.prototype = {
     }
 
     let version = chrome.runtime.getManifest().version,
-      versionStore = self.storage.getStore("private_storage"),
-      prev_version = versionStore.getItem("badgerVersion");
+      privateStore = self.getPrivateSettings(),
+      prev_version = privateStore.getItem("badgerVersion");
 
     // special case for older badgers that kept isFirstRun in storage
     if (settings.hasItem("isFirstRun")) {
       self.isUpdate = true;
-      versionStore.setItem("badgerVersion", version);
+      privateStore.setItem("badgerVersion", version);
       settings.deleteItem("isFirstRun");
 
     // new install
     } else if (!prev_version) {
       self.isFirstRun = true;
-      versionStore.setItem("badgerVersion", version);
+      privateStore.setItem("badgerVersion", version);
 
     // upgrade
     } else if (version != prev_version) {
       self.isUpdate = true;
-      versionStore.setItem("badgerVersion", version);
+      privateStore.setItem("badgerVersion", version);
+    }
+
+    if (!privateStore.hasItem("seenLearningPrompt")) {
+      privateStore.setItem("seenLearningPrompt", !self.isUpdate);
     }
   },
 
@@ -844,8 +848,18 @@ Badger.prototype = {
     });
   },
 
-  getSettings: function() {
+  /**
+   * Shortcut helper for user-facing settings
+   */
+  getSettings: function () {
     return this.storage.getStore('settings_map');
+  },
+
+  /**
+   * Shortcut helper for internal settings
+   */
+  getPrivateSettings: function () {
+    return this.storage.getStore('private_storage');
   },
 
   /**

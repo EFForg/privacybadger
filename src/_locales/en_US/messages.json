@@ -181,6 +181,18 @@
         "message": "Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "To learn why and how to restore local learning, click below to visit our blog.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
