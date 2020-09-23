@@ -181,6 +181,18 @@
         "message": "איפשור למידה בחלונות פרטיים או בחלונות עילום שם עלול להותיר עקבות של היסטוריה של גלישה פרטית. כברירת מחדל, Privacy Badger יחסום גששים שהוא כבר יודע עליהם בחלונות פרטיים או בחלונות עילום שם, אבל הוא לא ילמד על גששים חדשים. ייתכן שתרצה לאפשר אפשרות זו אם חלק גדול של הגלישה שלך מתרחש בחלונות פרטיים או בחלונות עילום שם.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "הראה ספירת גששים",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "הסרת כל תחומי המעקב:\n\n  • תמחק את כל מה ש־Privacy Badger יודע על גששים\n  • תיגרום אל Privacy Badger לא לחסום שום דבר עד שיהיה לו סיכוי ללמוד את זה שוב מגלישתך",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "אתה מוגן כעת על ידי Privacy Badger. כדי ללמוד כיצד Privacy Badger עובד, לחץ למטה עבור הדרכה זריזה.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "אתה מוגן כעת על ידי Privacy Badger.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "כדי ללמוד כיצד Privacy Badger עובד, לחץ למטה עבור הדרכה זריזה.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC יכול להדליף את כתובת ה־IP המקומית שלך. שים לב שאיפשור אפשרות זו עלול להפחית ביצועים על יישומי ועידת רשת כמו Google Hangouts.",

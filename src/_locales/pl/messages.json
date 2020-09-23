@@ -181,6 +181,18 @@
         "message": "Włączenie nauki w trybie prywatnym może pozostawić ślady Twojego przeglądania prywatnego na komputerze. Domyślnie Privacy Badger będzie blokował już znane elementy śledzące w oknach prywatnych, ale nie będzie uczył się na temat nowych. Możesz zmienić tę opcję, jeżeli dużo serfujesz w trybie prywatnym.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Wyświetl liczbę elementów śledzących",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "Usunięcie wszystkich szpiegujących domen spowoduje:\n\n • usunięcie wszystkiego, co Privacy Badger wie o elementach śledzących\n • że Privacy Badger nie będzie blokował czegokolwiek zanim ponownie nie wyuczy się na podstawie Twojego przeglądania",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "Jesteś obecnie ochroniony przez Privacy Badgera. Aby dowiedzieć się więcej o tym jak działa Privacy Badger, kliknij poniżej po krótki przewodnik.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "Jesteś obecnie ochroniony przez Privacy Badgera.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Aby dowiedzieć się więcej o tym jak działa Privacy Badger, kliknij poniżej po krótki przewodnik.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC może ujawnić Twój lokalny adres IP. Zauważ, że może to zmniejszyć wydajność aplikacji do konferencji sieciowych, np. Google Hangouts.",

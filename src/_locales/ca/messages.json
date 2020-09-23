@@ -181,6 +181,18 @@
         "message": "Habilitant l'aprenentatge en finestres Privades/Incògnit, podeu deixar traces a l'historial privat de navegació del vostre ordinador. Per defecte, Privacy Badger blocarà els rastrejadors coneguts a les finestres Privades/Incògnit, però no aprendrà sobre nous rastrejadors. Cal que habiliteu aquesta opció si la majoria de la vostra navegació la feu en finestres Privades/Incògnit",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Mostra el comptador de rastrejadors",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "Eliminant tots els dominis de seguiment:\n\n  • Esborrareu tot el que Privacy Badger sap sobre els rastrejadors\n  • Provocareu que Privacy Badger no bloqui res fins que hagi tornat a aprendre amb la vostra navegació",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "Ara el Privacy Badger ja us protegeix. Per saber com treballa el Privacy Badger, cliqueu aquí baix i seguiu la guia ràpida.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "Ara el Privacy Badger ja us protegeix.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Per saber com treballa el Privacy Badger, cliqueu aquí baix i seguiu la guia ràpida.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC pot filtrar la vostra IP local. Teniu en compte que aquesta opció pot degradar el rendiment d'aplicacions de videoconferència com Google Hangouts.",

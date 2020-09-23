@@ -181,6 +181,18 @@
         "message": "Включенное обучение в приватных/инкогнито окнах может оставить следы из приватной истории браузера на вашем компьютере. По умолчанию Privacy Badger блокирует уже известные ему трекеры в приватных/инкогнито окнах, но не обучается поиску новых трекеров. Вы можете захотеть включить эту опцию, если часто используете приватные/инкогнито окна.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Отображать счетчик трекеров",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "Удаление всех доменов с трекерами:\n\n  • удалит все трекеры, известные Privacy Badger\n  • приведет к тому, что Privacy Badger не будет ничего блокировать до включения режима обучения во время пользования Интернетом",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "Теперь вы под защитой Privacy Badger. Щелкните ниже, чтобы узнать, как работает Privacy Badger.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "Теперь вы под защитой Privacy Badger.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Щелкните ниже, чтобы узнать, как работает Privacy Badger.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC может раскрыть ваш локальный IP-адрес. Примечание: включение данной опции может снизить производительность в приложениях для конференций, например Google Hangouts.",

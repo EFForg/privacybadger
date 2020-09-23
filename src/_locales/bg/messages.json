@@ -181,6 +181,18 @@
         "message": "Ако позволиш ученето в Поверителни/Инкогнито прозорци, това може да остави на компютъра ти следи от историята, докато си сърфирал поверително. По подразбиране Privacy Badger ще блокира в Поверителните/Инкогнито прозорци преследвачите, за които вече знае, но няма да се учи за нови преследвачи. Би било полезно да включиш тази настройка, ако сърфираш редовно в Поверителни/Инкогнито прозорци.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "Премахването на всички домейни-преследвачи ще:\n\n  • Изтрие всичко, което Privacy Badger знае за преследвачите\n  • Накара Privacy Badger да не блокира нищо, докато не успее да се научи наново от твоето сърфиране",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "Privacy Badger вече те защитава. За да разбереш как работи Privacy Badger, щракни долу, за да ти обясни набързо.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "Privacy Badger вече те защитава.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "За да разбереш как работи Privacy Badger, щракни долу, за да ти обясни набързо.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "През WebRTC може да изтече локалния ти IP адрес. Имай предвид, че включването на тази опция може да забави някои апове за разговори, като например Google Hangouts.",

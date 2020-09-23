@@ -181,6 +181,18 @@
         "message": "启用“在隐私/无痕模式学习”后，你的隐私浏览历史可能会在电脑中留下痕迹。默认设置下，隐私獾会在隐私/无痕模式时屏蔽已知的追踪器，但不会学习新的追踪器。如果你平时经常使用隐私/无痕模式的话，你可能想要启用这个选项。",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "显示追踪器数量",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "移除所有追踪域名将会：\n\n• 删除所有隐私獾对追踪器的了解\n• 使隐私獾在有机会重新从您的浏览中学习前不屏蔽任何东西",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "你现在已经被隐私獾保护了。要了解隐私獾是如何工作的，点击这里来访问快速教程。",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "你现在已经被隐私獾保护了。",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "要了解隐私獾是如何工作的，点击这里来访问快速教程。",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC 可能泄露您的本地 IP 地址。请注意，开启这个功能可能降低网络会议软件（如谷歌环聊）的性能。",

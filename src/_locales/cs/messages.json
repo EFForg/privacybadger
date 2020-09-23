@@ -181,6 +181,18 @@
         "message": "Jestliže povolíte učení v Anonymním okně, může zůstat na počítači Vaše historie procházení. Ve výchozím nastavení Privacy Badger blokuje v Anonymním okně pouze sledovací prvky, které již zná, ale nebude se snažit objevovat nové a učit se z nich. Zvažte zapnutí této možnosti v případě, že často používáte Anonymní okno.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Show count of trackers",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "Odstranění všech sledovacích domén způsobí:\n\n  • Všechny zjištěné údaje o sledovacích doménách budou smazána.\n  • Privacy Badger nebude nic blokovat, dokud se opětovně nenaučí odhalovat sledovací domény během Vašeho procházení internetu.",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "Nyní Vás chrání Privacy Badger. Pokud chcete vědět, jak Privacy Badger funguje, klikněte níže pro rychlý tutoriál.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "Nyní Vás chrání Privacy Badger.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Pokud chcete vědět, jak Privacy Badger funguje, klikněte níže pro rychlý tutoriál.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "Skrze WebRTC může unikat Vaše lokání IP adresa. Jestliže povolíte toto nastavení, kvalita Vašich hovorů na službách jako jsou Google Hangouts se může zhoršit.",

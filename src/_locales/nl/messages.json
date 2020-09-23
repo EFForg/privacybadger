@@ -181,6 +181,18 @@
         "message": "Als u leren in incognitovensters inschakelt kunnen er sporen van uw privé browsegeschiedenis op uw computer achterblijven. Standaard blokkeert Privacy Badger wel bekende volgers in incognitovensters, maar leert het niets over nieuwe volgers. U kunt deze optie inschakelen als u veel gebruik maakt van incognitovensters.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Geef het aantal geblokkeerde volgers weer",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "Het verwijderen van alle volgerdomeinen zal:\n\n • Alles verwijderen wat Privacy Badger heeft geleerd over volgers.\n • Er voor zorgen dat Privacy Badger niets meer blokkeert totdat het de kans heeft gehad om opnieuw te leren uit uw surfgedrag.",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "U wordt nu beschermd door Privacy Badger. Om te leren hoe Privacy Badger werkt klikt u hieronder voor een kort overzicht.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "U wordt nu beschermd door Privacy Badger.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Om te leren hoe Privacy Badger werkt klikt u hieronder voor een kort overzicht.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC kan uw lokale IP-adres lekken. Door dit te blokkeren kunnen de prestaties van sommige videoconferentie apps zoals Google Hangouts verminderen.",

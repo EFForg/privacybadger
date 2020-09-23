@@ -181,6 +181,18 @@
         "message": "Ativar o aprendizado em janelas Privadas/Anónimas/Incógnito pode deixar rastros do seu histórico de navegação privada no seu computador. Por padrão, o Privacy Badger irá bloquear rastreadores já conhecidos em janelas Privadas/Anónimas/Incógnito, mas não aprenderá sobre novos rastreadores. Pode querer ativar esta opção caso utilize muito o modo de navegação em janelas Privadas/Anónimas/Incógnito.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Mostrar número de rastreadores",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "Remover todos os domínios de rastreamento irá:\n\n  • Eliminar tudo que o Privacy Badger sabe sobre os rastreadores\n  • Fazer com que o Privacy Badger não bloqueie nada até que tenha a hipótese de reaprender a partir da sua navegação",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "Agora está protegido pelo Privacy Badger. Para saber como o Privacy Badger funciona, clique abaixo para um tutorial rápido.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "Agora está protegido pelo Privacy Badger.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Para saber como o Privacy Badger funciona, clique abaixo para um tutorial rápido.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "O WebRTC pode revelar o seu endereço de IP local. Tenha em mente que se ativar esta opção pode reduzir o desempenho em aplicações de conferência Web como o Google Hangouts.",

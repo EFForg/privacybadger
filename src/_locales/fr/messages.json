@@ -181,6 +181,18 @@
         "message": "Dans les fenêtres de navigation privée, Privacy Badger se contente de bloquer les traceurs qu'il connait. En activant cette option, il cherchera aussi à en identifier de nouveaux. Ceci pourrait laisser sur votre ordinateur des traces de sites que vous visitez. Son utilité pourrait se révéler si vous naviguez beaucoup en mode privé.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Afficher le nombre de traceurs",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "Supprimer tous les domaines traceurs :\n\n• supprimera tout ce que Privacy Badger a appris sur les traceurs ;\n• suspendra tout blocage des traceurs jusqu'à ce que Privacy Badger apprenne à les reconnaitre de nouveau.",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "Vous êtes maintenant protégé par Privacy Badger. Pour découvrir son fonctionnement, cliquez ci-dessous pour un tutoriel rapide.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "Vous êtes maintenant protégé par Privacy Badger.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Pour découvrir son fonctionnement, cliquez ci-dessous pour un tutoriel rapide.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC peut divulguer vos adresses IP locales. Activer cette option peut dégrader les performances des logiciels de visiophonie comme Google Hangouts.",

@@ -181,6 +181,18 @@
         "message": "اجازه یادگیری در پنجره های خصوصی/ناشناس ممکن است ردی از تاریخچه گشت خصوصی شما در وب روی کامپیوترتان به جا بگذارد. به صورت پیش فرض، پرایوسی بجر ردیاب هایی که در پنجره های خصوصی/ناشناس می شناسد را بلاک خواهد کرد، اما درباره ردیاب های جدید اطلاعی کسب نخواهد کرد. اگر بیشتر وقت خود را در پنجره های خصوصی/ناشناس می گذرانید شاید بهتر باشد که این گزینه را فعال کنید.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "نمایش تعداد ردیاب‌ها",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "حذف تمام دامنه های ردیاب باعث می شود:\n\n• تمام چیزهایی که پرایوسی بجر درباره ردیاب ها می داند از بین برود\n• پرایوسی بجر تا دفعه بعدی که مشغول گردش در وب هستید و فرصت یادگیری دوباره دارد چیزی را بلاک نکند",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "شما هم اکنون توسط پرایوسی بجر محافظت می شوید. برای یادگیری بیشتر درباره عملکرد پرایوسی بجر، روی قسمت پایین کلیک کنید.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "شما هم اکنون توسط پرایوسی بجر محافظت می شوید.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "برای یادگیری بیشتر درباره عملکرد پرایوسی بجر، روی قسمت پایین کلیک کنید.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC میتواند منجر به لو رفتن آدرس IP شما شود. توجه داشته باشید که این گزینه میتواند باعث کندی عملکرد در برنامه های کنفرانسی وب مثل Google Hangouts شود.",

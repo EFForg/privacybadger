@@ -181,6 +181,18 @@
         "message": "Jos otat oppimisen käyttöön yksityisessä selauksissakin, tietokoneellesi voi jäädä jälkiä selaushistoriastasi. Oletusarvoisesti Privacy Badger estää tuntemansa jäljittimet selattaessa yksityisesti, muttei opettele uusia jäljittimiä. Tämä valinta voi olla paikallaan, jos selaat nettiä paljon yksityisesti.",
         "description": "Tooltip on the general settings page"
     },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
     "show_counter_checkbox": {
         "message": "Näytä jäljitinten määrä",
         "description": "Checkbox label on the general settings page"
@@ -253,9 +265,13 @@
         "message": "Kaikkien jäljittävien verkkotunnusten poistaminen:\n\n  • Poistaa kaiken, mitä Privacy Badger tietää jäljittimistä\n  • Saa Privacy Badgerin olemaan estämättä mitään, kunnes se on saanut mahdollisuuden oppia uudelleen selaamisesi pohjalta",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "Privacy Badger suojelee nyt sinua. Voit klikata alta avataksesi nopean oppaan, joka kertoo, miten Privacy Badger toimii.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "Privacy Badger suojelee nyt sinua.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Voit klikata alta avataksesi nopean oppaan, joka kertoo, miten Privacy Badger toimii.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC voi vuotaa paikallisen IP-osoitteesi. Huomaa, että tämä valinta voi haitata Google Hangoutsin tapaisten konferenssisovellusten toimintaa.",
