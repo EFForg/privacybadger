@@ -266,7 +266,7 @@
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
-        "message": "Тепер ви захищені Privacy Badger.",
+        "message": "Тепер вас захищає Privacy Badger.",
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
