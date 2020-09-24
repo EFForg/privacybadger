@@ -11,8 +11,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
-from window_utils import switch_to_window_with_url, WindowNotFoundException
-
 
 def get_domain_slider_state(driver, domain):
     label = driver.find_element_by_css_selector(
@@ -100,13 +98,19 @@ class PopupTest(pbtest.PBSeleniumTest):
         return self.driver.find_element_by_id("deactivate_site_btn")
 
     def test_welcome_page_reminder_overlay(self):
-        """Ensure overlay links to first run comic."""
-        self.open_popup(show_nag=True)
+        """Ensure overlay links to new user welcome page."""
 
+        # first close the welcome page if already open
+        try:
+            self.close_window_with_url(self.first_run_url, max_tries=1)
+        except pbtest.WindowNotFoundException:
+            pass
+
+        self.open_popup(show_nag=True)
         self.driver.find_element_by_id("intro-reminder-btn").click()
 
         # Look for first run page and return if found.
-        switch_to_window_with_url(self.driver, self.first_run_url)
+        self.switch_to_window_with_url(self.first_run_url)
 
     def test_help_button(self):
         """Ensure FAQ website is opened when help button is clicked."""
@@ -114,8 +118,8 @@ class PopupTest(pbtest.PBSeleniumTest):
         FAQ_URL = "https://privacybadger.org/#faq"
 
         try:
-            switch_to_window_with_url(self.driver, FAQ_URL, max_tries=1)
-        except WindowNotFoundException:
+            self.switch_to_window_with_url(FAQ_URL, max_tries=1)
+        except pbtest.WindowNotFoundException:
             pass
         else:
             self.fail("FAQ should not already be open")
@@ -123,13 +127,13 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_popup()
         self.driver.find_element_by_id("help").click()
 
-        switch_to_window_with_url(self.driver, FAQ_URL)
+        self.switch_to_window_with_url(FAQ_URL)
 
     def test_options_button(self):
         """Ensure options page is opened when button is clicked."""
         self.open_popup()
         self.driver.find_element_by_id("options").click()
-        switch_to_window_with_url(self.driver, self.options_url)
+        self.switch_to_window_with_url(self.options_url)
 
     @pbtest.repeat_if_failed(5)
     def test_trackers_link(self):
@@ -156,7 +160,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        switch_to_window_with_url(self.driver, EFF_URL)
+        self.switch_to_window_with_url(EFF_URL)
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
@@ -341,7 +345,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("EFF website not opened in new window")
 
         # Look for EFF website and return if found.
-        switch_to_window_with_url(self.driver, EFF_URL)
+        self.switch_to_window_with_url(EFF_URL)
 
         self.wait_for_page_to_start_loading(EFF_URL)
 

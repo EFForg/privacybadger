@@ -11,7 +11,6 @@ from functools import partial
 from selenium.common.exceptions import NoSuchElementException
 
 from pbtest import retry_until
-from window_utils import switch_to_window_with_url
 
 
 class DntTest(pbtest.PBSeleniumTest):
@@ -92,7 +91,7 @@ class DntTest(pbtest.PBSeleniumTest):
         self.load_url(PAGE_URL)
 
         # switch back to Badger's options page
-        switch_to_window_with_url(self.driver, self.options_url)
+        self.switch_to_window_with_url(self.options_url)
 
         # verify that the domain is blocked
         self.assertTrue(self.domain_was_detected(DNT_DOMAIN),
@@ -102,13 +101,13 @@ class DntTest(pbtest.PBSeleniumTest):
 
         def reload_and_see_if_unblocked():
             # switch back to the page with the DNT-compliant resource
-            switch_to_window_with_url(self.driver, PAGE_URL)
+            self.switch_to_window_with_url(PAGE_URL)
 
             # reload it
             self.load_url(PAGE_URL)
 
             # switch back to Badger's options page
-            switch_to_window_with_url(self.driver, self.options_url)
+            self.switch_to_window_with_url(self.options_url)
 
             return (
                 self.domain_was_detected(DNT_DOMAIN) and

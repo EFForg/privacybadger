@@ -12,7 +12,11 @@ from functools import wraps
 from shutil import copytree
 
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException, WebDriverException
+from selenium.common.exceptions import (
+    NoSuchWindowException,
+    TimeoutException,
+    WebDriverException,
+)
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
@@ -31,6 +35,10 @@ parse_stdout = lambda res: res.strip().decode('utf-8')
 run_shell_command = lambda command: parse_stdout(subprocess.check_output(command))
 
 GIT_ROOT = run_shell_command(['git', 'rev-parse', '--show-toplevel'])
+
+
+class WindowNotFoundException(Exception):
+    pass
 
 
 def unix_which(command, silent=False):
@@ -413,6 +421,36 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.frame_to_be_available_and_switch_to_it(
                 (By.CSS_SELECTOR, selector)))
+
+    def switch_to_window_with_url(self, url, max_tries=5):
+        """Point the driver to the first window that matches this url."""
+
+        for _ in range(max_tries):
+            for w in self.driver.window_handles:
+                try:
+                    self.driver.switch_to.window(w)
+                    if self.driver.current_url != url:
+                        continue
+                except NoSuchWindowException:
+                    pass
+                else:
+                    return
+
+            time.sleep(1)
+
+        raise WindowNotFoundException("Failed to find window for " + url)
+
+
+    def close_window_with_url(self, url, max_tries=5):
+        self.switch_to_window_with_url(url, max_tries)
+
+        if len(self.driver.window_handles) == 1:
+            # open another window to avoid implicit session deletion
+            self.open_window()
+            self.switch_to_window_with_url(url, max_tries)
+
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
     def block_domain(self, domain):
         self.load_url(self.options_url)

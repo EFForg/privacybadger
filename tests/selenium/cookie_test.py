@@ -3,7 +3,6 @@
 import unittest
 
 import pbtest
-import window_utils
 
 from popup_test import get_domain_slider_state
 
@@ -50,19 +49,19 @@ class CookieTest(pbtest.PBSeleniumTest):
         # TODO it takes another visit (or a page reload)
         # TODO to show the domain as not-yet-blocked-but-tracking?
         #self.assertIn(THIRD_PARTY_DOMAIN, self.notYetBlocked)
-        window_utils.close_window_with_url(self.driver, SITE1_URL)
+        self.close_window_with_url(SITE1_URL)
 
         # go to second site
         self.load_url(SITE2_URL)
         self.load_pb_ui(SITE2_URL)
         self.assertIn(THIRD_PARTY_DOMAIN, self.notYetBlocked)
-        window_utils.close_window_with_url(self.driver, SITE2_URL)
+        self.close_window_with_url(SITE2_URL)
 
         # go to third site
         self.load_url(SITE3_URL)
         self.load_pb_ui(SITE3_URL)
         self.assertIn(THIRD_PARTY_DOMAIN, self.notYetBlocked)
-        window_utils.close_window_with_url(self.driver, SITE3_URL)
+        self.close_window_with_url(SITE3_URL)
 
         # revisiting the first site should cause
         # the third-party domain to be blocked
@@ -91,7 +90,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         self.load_url(self.popup_url)
 
         # get the popup populated with status information for the correct url
-        window_utils.switch_to_window_with_url(self.driver, self.popup_url)
+        self.switch_to_window_with_url(self.popup_url)
         self.js("""
 /**
  * if the query url pattern matches a tab, switch the module's tab object to that tab
