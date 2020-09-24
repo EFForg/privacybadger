@@ -718,6 +718,7 @@ Badger.prototype = {
     if (settings.hasItem("isFirstRun")) {
       self.isUpdate = true;
       privateStore.setItem("badgerVersion", version);
+      privateStore.setItem("showLearningPrompt", true);
       settings.deleteItem("isFirstRun");
 
     // new install
@@ -731,8 +732,8 @@ Badger.prototype = {
       privateStore.setItem("badgerVersion", version);
     }
 
-    if (!privateStore.hasItem("seenLearningPrompt")) {
-      privateStore.setItem("seenLearningPrompt", !self.isUpdate);
+    if (!privateStore.hasItem("showLearningPrompt")) {
+      privateStore.setItem("showLearningPrompt", false);
     }
   },
 

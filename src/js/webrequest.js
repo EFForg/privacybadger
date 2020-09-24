@@ -1029,7 +1029,7 @@ function dispatcher(request, sender, sendResponse) {
       noTabData: false,
       origins,
       seenComic: badger.getSettings().getItem("seenComic"),
-      showLearningPrompt: !badger.getPrivateSettings().getItem("seenLearningPrompt"),
+      showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       tabHost: tab_host,
       tabId: tab_id,
@@ -1088,7 +1088,7 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "seenLearningPrompt": {
-    badger.getPrivateSettings().setItem("seenLearningPrompt", true);
+    badger.getPrivateSettings().setItem("showLearningPrompt", false);
     sendResponse();
     break;
   }
