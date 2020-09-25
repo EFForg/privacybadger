@@ -182,15 +182,15 @@
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "message": "預設情況下，Privacy Badger 將不會再從您的瀏覽中學習。",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "點擊下方以取得更多資訊。",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "了解 Privacy Badger 如何變更",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
