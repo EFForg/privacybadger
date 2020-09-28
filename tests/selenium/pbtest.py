@@ -22,7 +22,12 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from xvfbwrapper import Xvfb
+
+try:
+    from xvfbwrapper import Xvfb
+except ImportError:
+    print("\n\nxvfbwrapper Python package import failed")
+    print("headless mode (ENABLE_XVFB=1) is not supported")
 
 
 SEL_DEFAULT_WAIT_TIMEOUT = 30
@@ -146,6 +151,11 @@ class Shim:
     @property
     def wants_xvfb(self):
         if self.on_travis or bool(int(os.environ.get('ENABLE_XVFB', 0))):
+            try:
+                Xvfb
+            except NameError:
+                print("\nHeadless mode not supported: install xvfbwrapper first")
+                return False
             return True
         return False
 
