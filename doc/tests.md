@@ -34,8 +34,7 @@ Do verify that removing or mutating the code being tested produces failed assert
 
 ## Functional tests
 
-Our functional tests are written in [Python](https://www.python.org/) and driven by
-[Selenium](https://selenium-python.readthedocs.io/) and [pytest](https://docs.pytest.org/en/latest/).
+Our [functional tests](/tests/selenium/) are written in Python and driven by [Selenium](https://selenium-python.readthedocs.io/) and [pytest](https://docs.pytest.org/en/latest/).
 
 To run them in Chrome, you need to [install `chromedriver`](http://chromedriver.chromium.org/getting-started). In Firefox, you need to [install `geckodriver`](https://github.com/EFForg/privacybadger/blob/1550b9efb64c1d5e276361e3940f402c3ec87afc/scripts/setup_travis.sh#L21-L50).
 
