@@ -203,6 +203,9 @@ class Shim:
         for i in range(5):
             try:
                 opts = FirefoxOptions()
+                # to produce a trace-level geckodriver.log,
+                # remove the service_log_path argument to Firefox()
+                # and uncomment the line below
                 #opts.log.level = "trace"
                 driver = webdriver.Firefox(
                     firefox_profile=ffp,
