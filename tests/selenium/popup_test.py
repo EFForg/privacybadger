@@ -112,7 +112,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         # Look for first run page and return if found.
         self.switch_to_window_with_url(self.first_run_url)
 
-    @pbtest.if_firefox(unittest.skip("Disabled until https://github.com/mozilla/geckodriver/issues/1779"))
     def test_help_button(self):
         """Ensure FAQ website is opened when help button is clicked."""
 
@@ -130,14 +129,13 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.switch_to_window_with_url(FAQ_URL)
 
-    @pbtest.if_firefox(unittest.skip("Disabled until https://github.com/mozilla/geckodriver/issues/1779"))
     def test_options_button(self):
         """Ensure options page is opened when button is clicked."""
         self.open_popup()
         self.driver.find_element_by_id("options").click()
         self.switch_to_window_with_url(self.options_url)
 
-    @pbtest.if_firefox(unittest.skip("Disabled until https://github.com/mozilla/geckodriver/issues/1779"))
+    @pbtest.repeat_if_failed(5)
     def test_trackers_link(self):
         """Ensure trackers link opens EFF website."""
 
@@ -330,7 +328,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
                 'error reporting should be closed again')
 
-    @pbtest.if_firefox(unittest.skip("Disabled until https://github.com/mozilla/geckodriver/issues/1779"))
+    @pbtest.repeat_if_failed(5)
     def test_donate_button(self):
         """Ensure donate button opens EFF website."""
 
