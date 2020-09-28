@@ -44,14 +44,14 @@ You also need to [install the Python packages](https://snarky.ca/a-quick-and-dir
 You should now be able to run the Selenium tests. Try them out by running
 the code below. This should take several minutes.
 ```bash
-$ BROWSER=chrome pytest -v
+$ BROWSER=chrome pytest -v tests/
 ```
 
 macOS users may need to provide the full path to the browser application folder. For example, to run tests on macOS:
 ```bash
-$ BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin pytest -v
+$ BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin pytest -v tests/
 # or
-$ BROWSER=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome pytest -v
+$ BROWSER=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome pytest -v tests/
 ```
 
 For more information, see our Travis CI [setup](/scripts/setup_travis.sh) and
@@ -62,25 +62,24 @@ For more information, see our Travis CI [setup](/scripts/setup_travis.sh) and
 
 Note that to use a debugger like `pdb` or `ipdb` you must pass the `-s` (`--capture=no`) flag to pytest.
 ```bash
-# run qunit_test.py, with firefox, with verbose output (-v)
-$ BROWSER=/usr/bin/firefox pytest -v tests/selenium/qunit_test.py
+# run qunit_test.py, with Firefox, with verbose output (-v)
+$ BROWSER=/usr/bin/firefox pytest -v tests/selenium/qunit_test.py tests/
 
 # run a specific test on a specific class in a specific module with Chrome Beta
-$ BROWSER=google-chrome-beta pytest super_cookie_test.py::SupercookieTest::test_should_detect_ls_of_third_party_frame
+$ BROWSER=google-chrome-beta pytest tests/selenium/super_cookie_test.py::SupercookieTest::test_should_detect_ls_of_third_party_frame
 
 # run any tests whose name (including the module and class) matches the string cookie_test
 # this is often useful as a less verbose way to run a single test
-$ BROWSER=firefox pytest -k cookie_test
+$ BROWSER=firefox pytest -k cookie_test tests/
 ```
 
-More pytest invocations can be found [here](https://docs.pytest.org/en/latest/usage.html) (these are very useful).
+More pytest invocations can be found [here](https://docs.pytest.org/en/latest/usage.html).
 
 If you are on Linux, you can also run the tests headlessly (without displaying a GUI).
-Install `Xvfb` with your system package manager, then set the `ENABLE_XVFB=1` environment variable.
-Like this:
+Install `Xvfb` with your system package manager, then set the `ENABLE_XVFB=1` environment variable:
 
 ```bash
-$ BROWSER=~/Downloads/firefox/firefox ENABLE_XVFB=1 pytest -s -v -k pbtest_org
+$ BROWSER=firefox ENABLE_XVFB=1 pytest -s -v -k PopupTest tests/
 ```
 
 ### Writing functional tests
