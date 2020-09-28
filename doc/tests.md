@@ -39,10 +39,7 @@ Our functional tests are written in [Python](https://www.python.org/) and driven
 
 To run them in Chrome, you need to [install `chromedriver`](http://chromedriver.chromium.org/getting-started). In Firefox, you need to [install `geckodriver`](https://github.com/EFForg/privacybadger/blob/1550b9efb64c1d5e276361e3940f402c3ec87afc/scripts/setup_travis.sh#L21-L50).
 
-You also need some Python packages that can be installed by running:
-```bash
-$ pip install -r tests/requirements.txt
-```
+You also need to [install the Python packages](https://snarky.ca/a-quick-and-dirty-guide-on-how-to-install-packages-for-python/) specified in [`/tests/requirements.txt`](/tests/requirements.txt).
 
 You should now be able to run the Selenium tests. Try them out by running
 the code below. This should take several minutes.
