@@ -35,10 +35,6 @@
         "message": "Check if <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>third-party domains</a> comply with <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF's Do Not Track policy</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "intro_learns_paragraph": {
-        "message": "The longer you browse with Privacy Badger, the better it gets at protecting you. Is your Badger not blocking anything yet? That's OK! Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers as you browse the Web. So start browsing a little to teach your Badger.",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
     "invalid_domain": {
         "message": "Please add a valid domain or URL.",
         "description": ""
@@ -213,10 +209,6 @@
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
         "description": ""
     },
-    "intro_learns": {
-        "message": "Learns as you browse",
-        "description": "Intro page paragraph heading."
-    },
     "whitelisted_domains": {
         "message": "Disabled Sites",
         "description": "This is an options page tab heading."
@@ -317,10 +309,6 @@
             }
         }
     },
-    "intro_beyond_ads": {
-        "message": "Catches sneaky trackers",
-        "description": "Intro page paragraph heading."
-    },
     "options_domain_filter_cookieblock": {
         "message": "partially-blocked",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -344,6 +332,18 @@
     "tooltip_cookieblock": {
         "message": "Center the slider to block cookies",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns from behavior",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "Catches sneaky trackers",
+        "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
         "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sends the Do Not Track signal</a> to trackers telling them not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
@@ -464,7 +464,7 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Your Badger learns locally on your device. Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -493,7 +493,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out! If you use other privacy tools or ad blockers, Privacy Badger will learn less, but that's OK, it might catch things your other blockers miss.",
+        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out!",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
