@@ -334,7 +334,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns from behavior",
+        "message": "Learns automatically",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
