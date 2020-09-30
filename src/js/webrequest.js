@@ -1069,6 +1069,7 @@ function dispatcher(request, sender, sendResponse) {
       if (err) {
         console.error(err);
       }
+      badger.blockWidgetDomains();
       sendResponse();
     });
     // indicate this is an async response to chrome.runtime.onMessage
@@ -1179,6 +1180,7 @@ function dispatcher(request, sender, sendResponse) {
   case "mergeUserData": {
     // called when a user uploads data exported from another Badger instance
     badger.mergeUserData(request.data);
+    badger.blockWidgetDomains();
     sendResponse({
       disabledSites: badger.getDisabledSites(),
       origins: badger.storage.getTrackingDomains(),

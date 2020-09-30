@@ -91,6 +91,12 @@ function Badger() {
     await dntHashesPromise;
     await tabDataPromise;
 
+    // block all widget domains
+    // only need to do this when the widget list could have gotten updated
+    if (badger.isFirstRun || badger.isUpdate) {
+      self.blockWidgetDomains();
+    }
+
     // start the listeners
     incognito.startListeners();
     webrequest.startListeners();
@@ -337,6 +343,32 @@ Badger.prototype = {
     } else {
       // don't remind users to look at the intro page either
       settings.setItem("seenComic", true);
+    }
+  },
+
+  /**
+   * Blocks all widget domains
+   * to ensure that all widgets that could get replaced
+   * do get replaced by default for all users.
+   */
+  blockWidgetDomains: function () {
+    let self = this;
+
+    // compile set of widget domains
+    let domains = new Set();
+    for (let widget of self.widgetList) {
+      for (let domain of widget.domains) {
+        if (domain[0] == "*") {
+          domain = domain.slice(2);
+        }
+        domains.add(domain);
+      }
+    }
+
+    // block the domains
+    for (let domain of domains) {
+      self.heuristicBlocking.blocklistOrigin(
+        window.getBaseDomain(domain), domain);
     }
   },
 
