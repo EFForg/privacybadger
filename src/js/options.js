@@ -592,11 +592,10 @@ function revertDomainControl(event) {
  * Displays list of all tracking domains along with toggle controls.
  */
 function updateSummary() {
-  // Check to see if any tracking domains have been found before continuing.
-  let allTrackingDomains = getOriginsArray(OPTIONS_DATA.origins, null, null, null, true);
-
+  // if there are no tracking domains
+  let allTrackingDomains = Object.keys(OPTIONS_DATA.origins);
   if (!allTrackingDomains || !allTrackingDomains.length) {
-    // leave out number of trackers and slider instructions message if no sliders will be displayed
+    // hide the number of trackers and slider instructions message
     $("#options_domain_list_trackers").hide();
 
     // show "no trackers" message
@@ -614,8 +613,9 @@ function updateSummary() {
   $("#options_domain_list_no_trackers").hide();
   $("#tracking-domains-div").show();
 
-  // count unique (blocked and not-yet-blocked) tracking base domains
-  let baseDomains = new Set(allTrackingDomains.map(d => window.getBaseDomain(d)));
+  // count unique (cookie)blocked tracking base domains
+  let blockedDomains = getOriginsArray(OPTIONS_DATA.origins, null, null, null, false);
+  let baseDomains = new Set(blockedDomains.map(d => window.getBaseDomain(d)));
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [
       baseDomains.size,
