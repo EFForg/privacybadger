@@ -162,8 +162,13 @@ function loadOptions() {
         $("#show-nontracking-domains-checkbox")
           .prop("disabled", (enabled ? false : "disabled"))
           .prop("checked", (enabled ? OPTIONS_DATA.settings.showNonTrackingDomains : false));
+
+        $("#not-yet-blocked-filter").toggle(enabled);
       });
     });
+  if (OPTIONS_DATA.settings.learnLocally) {
+    $("#not-yet-blocked-filter").show();
+  }
 
   $("#learn-in-incognito-checkbox")
     .prop("disabled", OPTIONS_DATA.settings.learnLocally ? false : "disabled")
