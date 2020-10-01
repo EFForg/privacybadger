@@ -106,14 +106,14 @@ BadgerPen.prototype = {
     "cookieblock_list",
     "dnt_hashes",
     "settings_map",
+    "private_storage", // misc. utility settings, not for export
   ],
 
-  getBadgerStorageObject: function(key) {
-
+  getStore: function (key) {
     if (this.hasOwnProperty(key)) {
       return this[key];
     }
-    console.error("Can't initialize cache from getBadgerStorageObject. You are using this API improperly");
+    console.error("Can't initialize cache from getStore. You are using this API improperly");
   },
 
   /**
@@ -123,7 +123,7 @@ BadgerPen.prototype = {
   clearTrackerData: function () {
     let self = this;
     ['snitch_map', 'action_map'].forEach(key => {
-      self.getBadgerStorageObject(key).updateObject({});
+      self.getStore(key).updateObject({});
     });
   },
 
@@ -141,7 +141,7 @@ BadgerPen.prototype = {
     }
 
     if (_.isString(domain)) {
-      domain = this.getBadgerStorageObject('action_map').getItem(domain) || {};
+      domain = this.getStore('action_map').getItem(domain) || {};
     }
     if (domain.userAction) { return domain.userAction; }
     if (domain.dnt && !ignoreDNT) { return constants.DNT; }
@@ -154,7 +154,7 @@ BadgerPen.prototype = {
   },
 
   getNextUpdateForDomain: function(domain) {
-    var action_map = this.getBadgerStorageObject('action_map');
+    var action_map = this.getStore('action_map');
     if (action_map.hasItem(domain)) {
       return action_map.getItem(domain).nextUpdateTime;
     } else {
@@ -172,8 +172,8 @@ BadgerPen.prototype = {
    */
   updateYellowlist: function (newDomains) {
     let self = this,
-      actionMap = self.getBadgerStorageObject('action_map'),
-      ylistStorage = self.getBadgerStorageObject('cookieblock_list'),
+      actionMap = self.getStore('action_map'),
+      ylistStorage = self.getStore('cookieblock_list'),
       oldDomains = ylistStorage.keys();
 
     let addedDomains = _.difference(newDomains, oldDomains),
@@ -214,7 +214,7 @@ BadgerPen.prototype = {
    * Update DNT policy hashes
    */
   updateDntHashes: function (hashes) {
-    var dnt_hashes = this.getBadgerStorageObject('dnt_hashes');
+    var dnt_hashes = this.getStore('dnt_hashes');
     dnt_hashes.updateObject(_.invert(hashes));
   },
 
@@ -229,7 +229,7 @@ BadgerPen.prototype = {
   wouldGetCookieblocked: function (fqdn) {
     // cookieblock if a "parent" domain of the fqdn is on the yellowlist
     let set = false,
-      ylistStorage = this.getBadgerStorageObject('cookieblock_list'),
+      ylistStorage = this.getStore('cookieblock_list'),
       // ignore base domains when exploding to work around PSL TLDs:
       // still want to cookieblock somedomain.googleapis.com with only
       // googleapis.com (and not somedomain.googleapis.com itself) on the ylist
@@ -256,7 +256,7 @@ BadgerPen.prototype = {
   getBestAction: function (fqdn) {
     let best_action = constants.NO_TRACKING;
     let subdomains = utils.explodeSubdomains(fqdn);
-    let action_map = this.getBadgerStorageObject('action_map');
+    let action_map = this.getStore('action_map');
 
     function getScore(action) {
       switch (action) {
@@ -304,7 +304,7 @@ BadgerPen.prototype = {
    * @return {Array} an array of FQDN strings
    */
   getAllDomainsByPresumedAction: function (selector) {
-    var action_map = this.getBadgerStorageObject('action_map');
+    var action_map = this.getStore('action_map');
     var relevantDomains = [];
     for (var domain in action_map.getItemClones()) {
       if (selector == this.getAction(domain)) {
@@ -320,7 +320,7 @@ BadgerPen.prototype = {
    * @return {Object} An object with domains as keys and actions as values.
    */
   getTrackingDomains: function () {
-    let action_map = this.getBadgerStorageObject('action_map');
+    let action_map = this.getStore('action_map');
     let origins = {};
 
     for (let domain in action_map.getItemClones()) {
@@ -343,7 +343,7 @@ BadgerPen.prototype = {
    */
   _setupDomainAction: function (domain, action, actionType) {
     let msg = "action_map['%s'].%s = %s",
-      action_map = this.getBadgerStorageObject("action_map"),
+      action_map = this.getStore("action_map"),
       actionObj = {};
 
     if (action_map.hasItem(domain)) {
@@ -407,7 +407,7 @@ BadgerPen.prototype = {
 
     // if Privacy Badger never recorded tracking for this domain,
     // remove the domain's entry from Privacy Badger's database
-    const actionMap = this.getBadgerStorageObject("action_map");
+    const actionMap = this.getStore("action_map");
     if (actionMap.getItem(domain).heuristicAction == "") {
       log("Removing %s from action_map", domain);
       actionMap.deleteItem(domain);
@@ -423,13 +423,13 @@ BadgerPen.prototype = {
   forget: function (base_domain) {
     let self = this,
       dot_base = '.' + base_domain,
-      actionMap = self.getBadgerStorageObject('action_map'),
+      actionMap = self.getStore('action_map'),
       actions = actionMap.getItemClones(),
-      snitchMap = self.getBadgerStorageObject('snitch_map');
+      snitchMap = self.getStore('snitch_map');
 
     if (snitchMap.getItem(base_domain)) {
       log("Removing %s from snitch_map", base_domain);
-      badger.storage.getBadgerStorageObject("snitch_map").deleteItem(base_domain);
+      badger.storage.getStore("snitch_map").deleteItem(base_domain);
     }
 
     for (let domain in actions) {
@@ -461,7 +461,7 @@ var _newActionMapObject = function() {
  * should be used for all storage needs, transparently handles data presistence
  * syncing and private browsing.
  * Usage:
- * example_map = getBadgerStorageObject('example_map');
+ * example_map = getStore('example_map');
  * # instance of BadgerStorage
  * example_map.setItem('foo', 'bar')
  * # null
@@ -482,7 +482,7 @@ var _newActionMapObject = function() {
 
 /**
  * BadgerStorage constructor
- * *DO NOT USE DIRECTLY* Instead call `getBadgerStorageObject(name)`
+ * *DO NOT USE DIRECTLY* Instead call `getStore(name)`
  * @param {String} name - the name of the storage object
  * @param {Object} seed - the base object which we are instantiating from
  */
@@ -608,7 +608,9 @@ BadgerStorage.prototype = {
 
         // default: overwrite existing setting with setting from import
         } else {
-          self._store[prop] = mapData[prop];
+          if (prop != "isFirstRun") {
+            self._store[prop] = mapData[prop];
+          }
         }
       }
 

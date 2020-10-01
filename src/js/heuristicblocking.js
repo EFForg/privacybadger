@@ -19,7 +19,6 @@
 
 var constants = require("constants");
 var utils = require("utils");
-var incognito = require("incognito");
 
 require.scopes.heuristicblocking = (function() {
 
@@ -54,7 +53,7 @@ HeuristicBlocker.prototype = {
    */
   blocklistOrigin: function (base, fqdn) {
     let self = this,
-      ylistStorage = self.storage.getBadgerStorageObject("cookieblock_list");
+      ylistStorage = self.storage.getStore("cookieblock_list");
 
     // cookieblock or block the base domain
     if (ylistStorage.hasItem(base)) {
@@ -106,7 +105,7 @@ HeuristicBlocker.prototype = {
    */
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
     // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || !incognito.learningEnabled(details.tabId)) {
+    if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
       return {};
     }
 
@@ -129,7 +128,7 @@ HeuristicBlocker.prototype = {
     }
 
     // short-circuit if we already observed this origin tracking on this site
-    let firstParties = self.storage.getBadgerStorageObject('snitch_map').getItem(request_origin);
+    let firstParties = self.storage.getStore('snitch_map').getItem(request_origin);
     if (firstParties && firstParties.indexOf(tab_origin) > -1) {
       return {};
     }
@@ -295,7 +294,7 @@ HeuristicBlocker.prototype = {
    * @param {String} page_origin Base domain of page where tracking occurred
    */
   _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
-    var snitchMap = this.storage.getBadgerStorageObject('snitch_map');
+    var snitchMap = this.storage.getStore('snitch_map');
     var firstParties = [];
     if (snitchMap.hasItem(tracker_origin)) {
       firstParties = snitchMap.getItem(tracker_origin);

@@ -28,8 +28,8 @@ let POPUP_DATA = {};
 
 /* if they aint seen the comic*/
 function showNagMaybe() {
-  var nag = $("#instruction");
-  var outer = $("#instruction-outer");
+  var $nag = $("#instruction");
+  var $outer = $("#instruction-outer");
   let intro_page_url = chrome.runtime.getURL("/skin/firstRun.html");
 
   function _setSeenComic(cb) {
@@ -38,14 +38,20 @@ function showNagMaybe() {
     }, cb);
   }
 
+  function _setSeenLearningPrompt(cb) {
+    chrome.runtime.sendMessage({
+      type: "seenLearningPrompt"
+    }, cb);
+  }
+
   function _hideNag() {
-    nag.fadeOut();
-    outer.fadeOut();
+    $nag.fadeOut();
+    $outer.fadeOut();
   }
 
   function _showNag() {
-    nag.show();
-    outer.show();
+    $nag.show();
+    $outer.show();
     // Attach event listeners
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
@@ -89,17 +95,45 @@ function showNagMaybe() {
       _hideNag();
     });
 
-    nag.show();
-    outer.show();
+    $nag.show();
+    $outer.show();
   }
 
-  if (!POPUP_DATA.seenComic) {
+  function _showLearningPrompt() {
+    $('#instruction-text').hide();
+
+    $("#learning-prompt-btn").on("click", function () {
+      chrome.tabs.create({
+        url: "https://www.eff.org/badger-evolution"
+      });
+      _setSeenLearningPrompt(function () {
+        window.close();
+      });
+    });
+
+    $('#fittslaw').on("click", function (e) {
+      e.preventDefault();
+      _setSeenLearningPrompt(function () {
+        _hideNag();
+      });
+    });
+
+    $('#learning-prompt-div').show();
+    $nag.show();
+    $outer.show();
+  }
+
+  if (POPUP_DATA.showLearningPrompt) {
+    _showLearningPrompt();
+
+  } else if (!POPUP_DATA.seenComic) {
     chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
       // Show the popup instruction if the active tab is not firstRun.html page
       if (!focusedTab[0].url.startsWith(intro_page_url)) {
         _showNag();
       }
     });
+
   } else if (POPUP_DATA.criticalError) {
     _showError(POPUP_DATA.criticalError);
   }
@@ -386,7 +420,7 @@ function share() {
   for (let origin of originsArr) {
     let action = origins[origin];
 
-    if (action != constants.NO_TRACKING) {
+    if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
       tracking.push(origin);
     }
   }
@@ -477,9 +511,9 @@ function refreshPopup() {
     $("#instructions-many-trackers").hide();
 
     // show "no trackers" message
-    $("#instructions_no_trackers").show();
+    $("#instructions-no-trackers").show();
 
-    if (POPUP_DATA.showNonTrackingDomains) {
+    if (POPUP_DATA.learnLocally && POPUP_DATA.showNonTrackingDomains) {
       // show the "no third party resources on this site" message
       $("#no-third-parties").show();
     }
@@ -515,7 +549,7 @@ function refreshPopup() {
     }
   }
 
-  if (unblockedTrackers.length) {
+  if (POPUP_DATA.learnLocally && unblockedTrackers.length) {
     printable.push(
       '<div class="clicker tooltip" id="not-yet-blocked-header" title="' +
       chrome.i18n.getMessage("intro_not_an_adblocker_paragraph") +
@@ -528,9 +562,12 @@ function refreshPopup() {
         htmlUtils.getOriginHtml(domain, constants.ALLOW)
       );
     });
+
+    // reduce margin if we have hasn't-decided-yet-to-block domains to show
+    $("#instructions-no-trackers").css("margin", "10px 0");
   }
 
-  if (POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
+  if (POPUP_DATA.learnLocally && POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
     printable.push(
       '<div class="clicker tooltip" id="non-trackers-header" title="' +
       chrome.i18n.getMessage("non_tracker_tip") +
@@ -545,7 +582,7 @@ function refreshPopup() {
     }
 
     // reduce margin if we have non-tracking domains to show
-    $("#instructions_no_trackers").css("margin", "10px 0");
+    $("#instructions-no-trackers").css("margin", "10px 0");
   }
 
   if (printable.length) {
@@ -561,14 +598,7 @@ function refreshPopup() {
     $("#instructions-many-trackers").hide();
 
     // show "no trackers" message
-    $("#instructions_no_trackers").show();
-
-  } else if (POPUP_DATA.trackerCount == 1) {
-    // hide multiple trackers message
-    $("#instructions-many-trackers").hide();
-
-    // show singular "tracker" message
-    $("#instructions_one_tracker").show();
+    $("#instructions-no-trackers").show();
 
   } else {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(

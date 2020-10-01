@@ -330,6 +330,12 @@ class PBSeleniumTest(unittest.TestCase):
                         "return chrome.extension.getBackgroundPage()."
                         "badger.INITIALIZED"
                     )
+
+                    # enable local learning
+                    self.load_url(self.options_url)
+                    self.wait_for_script("return window.OPTIONS_INITIALIZED")
+                    self.find_el_by_css('#local-learning-checkbox').click()
+
                     driver.close()
                     if driver.window_handles:
                         driver.switch_to.window(driver.window_handles[0])

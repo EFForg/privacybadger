@@ -111,10 +111,6 @@
         "message": "무슨 문제가 있나요?",
         "description": ""
     },
-    "popup_instructions_no_trackers": {
-        "message": "<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적기</a>가 발견되지 않았습니다. 프라이버시를 위하여!",
-        "description": "Text shown in the popup when there are no trackers on the page."
-    },
     "options_domain_list_tab": {
         "message": "추적 도메인",
         "description": "This is an options page tab heading."
@@ -147,10 +143,6 @@
         "message": "사용자를 추적하지 않는 것으로 보이는 도메인을 표시합니다.",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
-    "options_incognito_warning": {
-        "message": "Private/Incognito 창에서 학습을 활성화하면 컴퓨터에 개인 검색 기록을 남길 수 있습니다. 기본적으로 Privacy Badger는 Private/Incognito 창에서 이미 알고 있는 추적기를 차단하지만 새로운 추적기에 대해서는 학습하지 않습니다. Private/Incognito 창에서 많은 검색이 발생하는 경우 이 옵션을 사용하도록 설정할 수 있습니다.",
-        "description": "Detailed explanation shown under checkboxes on the general settings page"
-    },
     "report_button": {
         "message": "오류 보고",
         "description": ""
@@ -173,9 +165,33 @@
         "message": "도메인 검색:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
+    "options_learn_setting": {
+        "message": "Learn to block new trackers from your browsing",
+        "description": "Checkbox label on the general settings page"
+    },
+    "local_learning_warning": {
+        "message": "Enabling learning may make you more identifiable to websites",
+        "description": "Tooltip on the general settings page"
+    },
     "options_incognito_setting": {
         "message": "Private/Incognito 창에서 학습합니다.",
         "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "Private/Incognito 창에서 학습을 활성화하면 컴퓨터에 개인 검색 기록을 남길 수 있습니다. 기본적으로 Privacy Badger는 Private/Incognito 창에서 이미 알고 있는 추적기를 차단하지만 새로운 추적기에 대해서는 학습하지 않습니다. Private/Incognito 창에서 많은 검색이 발생하는 경우 이 옵션을 사용하도록 설정할 수 있습니다.",
+        "description": "Tooltip on the general settings page"
+    },
+    "learning_prompt_text1": {
+        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Click below to learn more.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Learn how Privacy Badger is changing",
+        "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
         "message": "추적기의 수를 표시합니다.",
@@ -249,13 +265,17 @@
         "message": "추적 도메인을 모두 제거하면\n\n • Privacy Badger가 추적기에 대해 알고 있는 모든 데이터를 삭제합니다.\n • Privacy Badger가 검색을 통해서 다시 학습할 때까지 아무것도 차단하지 않습니다.",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
-    "intro_text": {
-        "message": "이제 Privacy Badger의 보호를 받습니다. Privacy Badger의 동작 방식을 알아보려면 아래를 클릭하여 간단한 튜토리얼을 확인하세요.",
-        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    "intro_text1": {
+        "message": "이제 Privacy Badger의 보호를 받습니다.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Privacy Badger의 동작 방식을 알아보려면 아래를 클릭하여 간단한 튜토리얼을 확인하세요.",
+        "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
         "message": "WebRTC에서 로컬 IP 주소가 유출될 수 있습니다. 이 옵션을 활성화하면 Google Hangouts와 같은 웹 회의 앱의 성능이 저하될 수 있습니다.",
-        "description": "Detailed explanation shown under checkboxes on the general settings page"
+        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "일반 설정",
@@ -315,10 +335,6 @@
     },
     "import_select_file": {
         "message": "가져올 파일을 선택하세요.",
-        "description": ""
-    },
-    "popup_blocked": {
-        "message": "There are no third party resources on this page.",
         "description": ""
     },
     "report_broken_site": {
@@ -394,21 +410,38 @@
         "description": ""
     },
     "popup_instructions": {
-        "message": "Privacy Badger 가 이 페이지에서 $COUNT$ 잠재적인 $TRACKER_LINK_START$추적기$TRACKER_LINK_END$를 감지했습니다.",
-        "description": "Popup message that shows the number of trackers. This particular message is used when that number is greater than one.",
+        "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
+        "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
                 "content": "$1",
                 "example": "15"
             },
-            "tracker_link_start": {
+            "link_start": {
                 "content": "$2",
-                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
             },
-            "tracker_link_end": {
+            "link_end": {
                 "content": "</a>"
             }
         }
+    },
+    "popup_instructions_no_trackers": {
+        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "description": "Text shown in the popup when there are no trackers on the page.",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "popup_blocked": {
+        "message": "There are no third party resources on this page. Hooray for privacy!",
+        "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
         "message": "Electronic Frontier Foundation의 프로젝트입니다.",
@@ -418,10 +451,6 @@
         "message": "도메인 추가",
         "description": ""
     },
-    "options_domain_list_one_tracker": {
-        "message": "Privacy Badger가 지금까지 하나의 <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적 도메인</a>을 감지했습니다.",
-        "description": "Shown on the Tracking Domains options page tab when Privacy Badger learned of exactly one tracker so far."
-    },
     "tooltip_allow": {
         "message": "슬라이더를 오른쪽으로 이동하여 도메인을 허용합니다.",
         "description": ""
@@ -429,10 +458,6 @@
     "popup_disable_for_site": {
         "message": "이 사이트에 대해 Privacy Badger를 사용하지 않도록 설정합니다.",
         "description": "Button in the popup."
-    },
-    "popup_instructions_one_tracker": {
-        "message": "Privacy Badger가 이 사이트에서 잠재적인 <a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적기</a>를 감지했습니다.",
-        "description": "Text shown in the popup when there is exactly one tracker on the page."
     },
     "domain_slider_allow_tooltip": {
         "message": "이 도메인을 허용하려면 여기를 클릭하세요.",
@@ -452,12 +477,16 @@
             },
             "tracker_link_start": {
                 "content": "$2",
-                "example": "<a title='What is a tracker?' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>"
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
             },
             "tracker_link_end": {
                 "content": "</a>"
             }
         }
+    },
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger가 아직 <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적 도메인</a>을 감지하지 못했습니다. 계속 탐색하세요!",
+        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "name": {
         "message": "Privacy Badger",
@@ -494,10 +523,6 @@
     "intro_link_policy": {
         "message": "개인 정보 보호 정책",
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
-    },
-    "options_domain_list_no_trackers": {
-        "message": "Privacy Badger가 아직 <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적 도메인</a>을 감지하지 못했습니다. 계속 탐색하세요!",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
     },
     "report_input_label": {
         "message": "설명",
@@ -604,7 +629,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger가 $COUNT$ 잠재적인 추적기를 $DOMAIN$에서 찾았습니다:",
+        "message": "Privacy Badger blocked $COUNT$ potential trackers on $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {

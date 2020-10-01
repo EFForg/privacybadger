@@ -18,7 +18,7 @@ class StorageTest(pbtest.PBSeleniumTest):
         dnt_hashes_not_empty = (
             "return ("
             "chrome.extension.getBackgroundPage()."
-            "badger.storage.getBadgerStorageObject('dnt_hashes') != {}"
+            "badger.storage.getStore('dnt_hashes') != {}"
             ")"
         )
         # give updatePrivacyPolicyHashes() some time to download the policy hash
@@ -32,7 +32,7 @@ class StorageTest(pbtest.PBSeleniumTest):
         get_dnt_hashes = (
             "return ("
             "chrome.extension.getBackgroundPage()."
-            "badger.storage.getBadgerStorageObject('dnt_hashes')."
+            "badger.storage.getStore('dnt_hashes')."
             "getItemClones()"
             ")"
         )

@@ -436,11 +436,7 @@ function getHostForTab(tabId) {
  * @param {Integer} tab_id browser tab ID
  * @param {String} frame_url URL of the frame with supercookie
  */
-function recordSuperCookie(tab_id, frame_url) {
-  if (!incognito.learningEnabled(tab_id)) {
-    return;
-  }
-
+function recordSupercookie(tab_id, frame_url) {
   const frame_host = window.extractHostFromURL(frame_url),
     page_host = badger.getFrameData(tab_id).host;
 
@@ -466,9 +462,6 @@ function recordFingerprinting(tabId, msg) {
   // Abort if we failed to determine the originating script's URL
   // TODO find and fix where this happens
   if (!msg.scriptUrl) {
-    return;
-  }
-  if (!incognito.learningEnabled(tabId)) {
     return;
   }
 
@@ -823,12 +816,13 @@ function dispatcher(request, sender, sendResponse) {
       "allowWidgetOnSite",
       "checkDNT",
       "checkEnabled",
-      "checkEnabledAndThirdParty",
       "checkLocation",
       "checkWidgetReplacementEnabled",
+      "detectFingerprinting",
       "fpReport",
       "getBlockedFrameUrls",
       "getReplacementButton",
+      "inspectLocalStorage",
       "supercookieReport",
       "unblockWidget",
     ];
@@ -949,9 +943,6 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "fpReport": {
-    if (!badger.isPrivacyBadgerEnabled(window.extractHostFromURL(sender.tab.url))) {
-      return sendResponse();
-    }
     if (Array.isArray(request.data)) {
       request.data.forEach(function (msg) {
         recordFingerprinting(sender.tab.id, msg);
@@ -964,19 +955,30 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "supercookieReport": {
-    if (request.frameUrl && badger.hasSuperCookie(request.data)) {
-      recordSuperCookie(sender.tab.id, request.frameUrl);
+    if (request.frameUrl && badger.hasSupercookie(request.data)) {
+      recordSupercookie(sender.tab.id, request.frameUrl);
     }
     break;
   }
 
-  case "checkEnabledAndThirdParty": {
+  case "inspectLocalStorage": {
     let tab_host = window.extractHostFromURL(sender.tab.url),
       frame_host = window.extractHostFromURL(request.frameUrl);
 
     sendResponse(frame_host &&
+      badger.isLearningEnabled(sender.tab.id) &&
       badger.isPrivacyBadgerEnabled(tab_host) &&
       utils.isThirdPartyDomain(frame_host, tab_host));
+
+    break;
+  }
+
+  case "detectFingerprinting": {
+    let tab_host = window.extractHostFromURL(sender.tab.url);
+
+    sendResponse(
+      badger.isLearningEnabled(sender.tab.id) &&
+      badger.isPrivacyBadgerEnabled(tab_host));
 
     break;
   }
@@ -1023,9 +1025,11 @@ function dispatcher(request, sender, sendResponse) {
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
       errorText: badger.tabData[tab_id].errorText,
+      learnLocally: badger.getSettings().getItem("learnLocally"),
       noTabData: false,
       origins,
       seenComic: badger.getSettings().getItem("seenComic"),
+      showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       tabHost: tab_host,
       tabId: tab_id,
@@ -1049,19 +1053,10 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse({
       cookieblocked,
-      disabledSites: badger.getDisabledSites(),
-      disableGoogleNavErrorService: badger.getSettings().getItem("disableGoogleNavErrorService"),
-      disableHyperlinkAuditing: badger.getSettings().getItem("disableHyperlinkAuditing"),
-      isCheckingDNTPolicyEnabled: badger.isCheckingDNTPolicyEnabled(),
-      isDNTSignalEnabled: badger.isDNTSignalEnabled(),
-      isLearnInIncognitoEnabled: badger.isLearnInIncognitoEnabled(),
       isWidgetReplacementEnabled: badger.isWidgetReplacementEnabled(),
       origins,
-      showCounter: badger.showCounter(),
-      showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
-      showTrackingDomains: badger.getSettings().getItem("showTrackingDomains"),
+      settings: badger.getSettings().getItemClones(),
       webRTCAvailable: badger.webRTCAvailable,
-      widgetReplacementExceptions: badger.getSettings().getItem("widgetReplacementExceptions"),
       widgets: badger.widgetList.map(widget => widget.name),
     });
 
@@ -1074,6 +1069,7 @@ function dispatcher(request, sender, sendResponse) {
       if (err) {
         console.error(err);
       }
+      badger.blockWidgetDomains();
       sendResponse();
     });
     // indicate this is an async response to chrome.runtime.onMessage
@@ -1088,6 +1084,12 @@ function dispatcher(request, sender, sendResponse) {
 
   case "seenComic": {
     badger.getSettings().setItem("seenComic", true);
+    sendResponse();
+    break;
+  }
+
+  case "seenLearningPrompt": {
+    badger.getPrivateSettings().setItem("showLearningPrompt", false);
     sendResponse();
     break;
   }
@@ -1178,6 +1180,7 @@ function dispatcher(request, sender, sendResponse) {
   case "mergeUserData": {
     // called when a user uploads data exported from another Badger instance
     badger.mergeUserData(request.data);
+    badger.blockWidgetDomains();
     sendResponse({
       disabledSites: badger.getDisabledSites(),
       origins: badger.storage.getTrackingDomains(),
@@ -1224,8 +1227,8 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "removeOrigin": {
-    badger.storage.getBadgerStorageObject("snitch_map").deleteItem(request.origin);
-    badger.storage.getBadgerStorageObject("action_map").deleteItem(request.origin);
+    badger.storage.getStore("snitch_map").deleteItem(request.origin);
+    badger.storage.getStore("action_map").deleteItem(request.origin);
     sendResponse({
       origins: badger.storage.getTrackingDomains()
     });

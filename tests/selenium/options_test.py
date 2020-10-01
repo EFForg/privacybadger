@@ -58,11 +58,9 @@ class OptionsTest(pbtest.PBSeleniumTest):
     def select_manage_data_tab(self):
         self.find_el_by_css('a[href="#tab-manage-data"]').click()
 
-    def check_tracker_messages(self, error_message, many, one, none):
+    def check_tracker_messages(self, error_message, many, none):
         self.assertEqual(many,
             self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
-        self.assertEqual(one,
-            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
         self.assertEqual(none,
             self.driver.find_element_by_id("options_domain_list_no_trackers").is_displayed(), error_message)
 
@@ -122,8 +120,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         self.select_domain_list_tab()
 
-        error_message = "Only the 'one tracker' message should be displayed after adding an origin"
-        self.check_tracker_messages(error_message, many=False, one=True, none=False)
+        error_message = "The 'multiple tracker' message should be displayed after adding an origin"
+        self.check_tracker_messages(error_message, many=True, none=False)
 
         try:
             self.find_origin_by_xpath("pbtest.org")
@@ -140,13 +138,13 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         self.select_domain_list_tab()
 
-        error_message = "Only the 'multiple tracker' messages should be displayed after adding 2 origins"
-        self.check_tracker_messages(error_message, many=True, one=False, none=False)
+        error_message = "The 'multiple tracker' message should be displayed after adding 2 origins"
+        self.check_tracker_messages(error_message, many=True, none=False)
 
         # check tracker count
         self.assertEqual(
             self.driver.find_element_by_id("options_domain_list_trackers").text,
-            "Privacy Badger has detected 2 potential tracking domains so far.",
+            "Privacy Badger has decided to block 2 potential tracking domains so far",
             "Origin tracker count should be 2 after adding origin"
         )
 
@@ -184,9 +182,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         error_message = "Only the 'no trackers' message should be displayed before adding an origin"
         self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_one_tracker").is_displayed(), error_message)
-        self.assertFalse(
-            self.driver.find_element_by_id("options_domain_list_trackers").is_displayed(), error_message)
+            self.driver.find_element_by_id(
+                "options_domain_list_trackers").is_displayed(), error_message)
 
         # Check that no origins are displayed.
         try:
@@ -202,7 +199,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         # make sure the default tracker list includes many trackers
         error_message = "By default, the tracker list should contain many trackers"
-        self.check_tracker_messages(error_message, many=True, one=False, none=False)
+        self.check_tracker_messages(error_message, many=True, none=False)
 
         # get the number of trackers in the seed data
         default_summary_text = self.driver.find_element_by_id("options_domain_list_trackers").text
@@ -217,7 +214,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # now make sure the tracker list is empty
         self.select_domain_list_tab()
         error_message = "No trackers should be displayed after removing all data"
-        self.check_tracker_messages(error_message, many=False, one=False, none=True)
+        self.check_tracker_messages(error_message, many=False, none=True)
 
         # add new blocked domains
         self.add_test_origin("pbtest.org", "block")
@@ -230,7 +227,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # make sure only two trackers are displayed now
         self.assertEqual(
             self.driver.find_element_by_id("options_domain_list_trackers").text,
-            "Privacy Badger has detected 2 potential tracking domains so far.",
+            "Privacy Badger has decided to block 2 potential tracking domains so far",
             "Origin tracker count should be 2 after clearing and adding origins"
         )
 

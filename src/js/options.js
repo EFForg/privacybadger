@@ -19,7 +19,7 @@ window.OPTIONS_INITIALIZED = false;
 window.SLIDERS_DONE = false;
 
 const TOOLTIP_CONF = {
-  maxWidth: 200
+  maxWidth: 400
 };
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
 
@@ -50,7 +50,7 @@ function loadOptions() {
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
 
-  if (OPTIONS_DATA.showTrackingDomains) {
+  if (OPTIONS_DATA.settings.showTrackingDomains) {
     $('#tracking-domains-overlay').hide();
   } else {
     $('#blockedResourcesContainer').hide();
@@ -107,21 +107,21 @@ function loadOptions() {
   $("#resetData").button("option", "icons", {primary: "ui-icon-arrowrefresh-1-w"});
   $("#removeAllData").button("option", "icons", {primary: "ui-icon-closethick"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
-  $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.showCounter);
+  $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.settings.showCounter);
   $("#replace-widgets-checkbox")
     .on("click", updateWidgetReplacement)
     .prop("checked", OPTIONS_DATA.isWidgetReplacementEnabled);
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
-  $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.isDNTSignalEnabled);
+  $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.settings.sendDNTSignal);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
-  $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.isCheckingDNTPolicyEnabled).prop("disabled", !OPTIONS_DATA.isDNTSignalEnabled);
+  $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.settings.checkForDNTPolicy).prop("disabled", !OPTIONS_DATA.settings.sendDNTSignal);
 
   // only show the alternateErrorPagesEnabled override if browser supports it
   if (chrome.privacy && chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
     $("#privacy-settings-header").show();
     $("#disable-google-nav-error-service").show();
     $('#disable-google-nav-error-service-checkbox')
-      .prop("checked", OPTIONS_DATA.disableGoogleNavErrorService)
+      .prop("checked", OPTIONS_DATA.settings.disableGoogleNavErrorService)
       .on("click", overrideAlternateErrorPagesSetting);
   }
 
@@ -130,7 +130,7 @@ function loadOptions() {
     $("#privacy-settings-header").show();
     $("#disable-hyperlink-auditing").show();
     $("#disable-hyperlink-auditing-checkbox")
-      .prop("checked", OPTIONS_DATA.disableHyperlinkAuditing)
+      .prop("checked", OPTIONS_DATA.settings.disableHyperlinkAuditing)
       .on("click", overrideHyperlinkAuditingSetting);
   }
 
@@ -146,19 +146,67 @@ function loadOptions() {
     });
   }
 
-  $("#learn-in-incognito-checkbox")
-    .on("click", updateLearnInIncognito)
-    .prop("checked", OPTIONS_DATA.isLearnInIncognitoEnabled);
-
-  $('#show-nontracking-domains-checkbox')
+  $('#local-learning-checkbox')
+    .prop("checked", OPTIONS_DATA.settings.learnLocally)
     .on("click", (event) => {
-      let showNonTrackingDomains = $(event.currentTarget).prop("checked");
+      const enabled = $(event.currentTarget).prop("checked");
       chrome.runtime.sendMessage({
         type: "updateSettings",
-        data: { showNonTrackingDomains }
+        data: {
+          learnLocally: enabled
+        }
+      }, function () {
+        $("#learn-in-incognito-checkbox")
+          .prop("disabled", (enabled ? false : "disabled"))
+          .prop("checked", (enabled ? OPTIONS_DATA.settings.learnInIncognito : false));
+        $("#show-nontracking-domains-checkbox")
+          .prop("disabled", (enabled ? false : "disabled"))
+          .prop("checked", (enabled ? OPTIONS_DATA.settings.showNonTrackingDomains : false));
+
+        $("#learning-setting-divs").slideToggle(enabled);
+        $("#not-yet-blocked-filter").toggle(enabled);
       });
-    })
-    .prop("checked", OPTIONS_DATA.showNonTrackingDomains);
+    });
+  if (OPTIONS_DATA.settings.learnLocally) {
+    $("#learning-setting-divs").show();
+    $("#not-yet-blocked-filter").show();
+  }
+
+  $("#learn-in-incognito-checkbox")
+    .prop("disabled", OPTIONS_DATA.settings.learnLocally ? false : "disabled")
+    .prop("checked", (
+      OPTIONS_DATA.settings.learnLocally ?
+        OPTIONS_DATA.settings.learnInIncognito : false
+    ))
+    .on("click", (event) => {
+      const enabled = $(event.currentTarget).prop("checked");
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: {
+          learnInIncognito: enabled
+        }
+      }, function () {
+        OPTIONS_DATA.settings.learnInIncognito = enabled;
+      });
+    });
+
+  $('#show-nontracking-domains-checkbox')
+    .prop("disabled", OPTIONS_DATA.settings.learnLocally ? false : "disabled")
+    .prop("checked", (
+      OPTIONS_DATA.settings.learnLocally ?
+        OPTIONS_DATA.settings.showNonTrackingDomains : false
+    ))
+    .on("click", (event) => {
+      const enabled = $(event.currentTarget).prop("checked");
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: {
+          showNonTrackingDomains: enabled
+        }
+      }, function () {
+        OPTIONS_DATA.settings.showNonTrackingDomains = enabled;
+      });
+    });
 
   const widgetSelector = $("#hide-widgets-select");
   widgetSelector.prop("disabled",
@@ -175,7 +223,7 @@ function loadOptions() {
   // Initialize Select2 and populate options
   widgetSelector.select2();
   OPTIONS_DATA.widgets.forEach(function (key) {
-    const isSelected = OPTIONS_DATA.widgetReplacementExceptions.includes(key);
+    const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
     const option = new Option(key, key, false, isSelected);
     widgetSelector.append(option).trigger("change");
   });
@@ -261,7 +309,7 @@ function parseUserDataFile(storageMapsList) {
     type: "mergeUserData",
     data: lists
   }, (response) => {
-    OPTIONS_DATA.disabledSites = response.disabledSites;
+    OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     OPTIONS_DATA.origins = response.origins;
 
     reloadDisabledSites();
@@ -296,7 +344,7 @@ function downloadCloud() {
     function (response) {
       if (response.success) {
         alert(i18n.getMessage("download_cloud_success"));
-        OPTIONS_DATA.disabledSites = response.disabledSites;
+        OPTIONS_DATA.settings.disabledSites = response.disabledSites;
         reloadDisabledSites();
       } else {
         console.error("Cloud sync error:", response.message);
@@ -464,17 +512,8 @@ function updateCheckingDNTPolicy() {
   });
 }
 
-function updateLearnInIncognito() {
-  const learnInIncognito = $("#learn-in-incognito-checkbox").prop("checked");
-
-  chrome.runtime.sendMessage({
-    type: "updateSettings",
-    data: { learnInIncognito }
-  });
-}
-
 function reloadDisabledSites() {
-  let sites = OPTIONS_DATA.disabledSites,
+  let sites = OPTIONS_DATA.settings.disabledSites,
     $select = $('#allowlist-select');
 
   // sort disabled sites the same way blocked sites are sorted
@@ -501,7 +540,7 @@ function addDisabledSite(event) {
     type: "disablePrivacyBadgerForOrigin",
     domain
   }, (response) => {
-    OPTIONS_DATA.disabledSites = response.disabledSites;
+    OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     reloadDisabledSites();
     document.getElementById("new-disabled-site-input").value = "";
   });
@@ -520,7 +559,7 @@ function removeDisabledSite(event) {
     type: "enablePrivacyBadgerForOriginList",
     domains
   }, (response) => {
-    OPTIONS_DATA.disabledSites = response.disabledSites;
+    OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     reloadDisabledSites();
   });
 }
@@ -555,13 +594,11 @@ function revertDomainControl(event) {
  * Displays list of all tracking domains along with toggle controls.
  */
 function updateSummary() {
-  // Check to see if any tracking domains have been found before continuing.
-  let allTrackingDomains = getOriginsArray(OPTIONS_DATA.origins, null, null, null, true);
-
+  // if there are no tracking domains
+  let allTrackingDomains = Object.keys(OPTIONS_DATA.origins);
   if (!allTrackingDomains || !allTrackingDomains.length) {
-    // leave out number of trackers and slider instructions message if no sliders will be displayed
+    // hide the number of trackers and slider instructions message
     $("#options_domain_list_trackers").hide();
-    $("#options_domain_list_one_tracker").hide();
 
     // show "no trackers" message
     $("#options_domain_list_no_trackers").show();
@@ -578,23 +615,15 @@ function updateSummary() {
   $("#options_domain_list_no_trackers").hide();
   $("#tracking-domains-div").show();
 
-  let baseDomains = new Set(allTrackingDomains.map(d => window.getBaseDomain(d)));
-
-  // Update messages according to tracking domain count.
-  if (baseDomains.size == 1) {
-    // leave out messages about multiple trackers
-    $("#options_domain_list_trackers").hide();
-
-    // show singular "tracker" message
-    $("#options_domain_list_one_tracker").show();
-  } else {
-    $("#options_domain_list_trackers").html(i18n.getMessage(
-      "options_domain_list_trackers", [
-        baseDomains.size,
-        "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
-      ]
-    )).show();
-  }
+  // count unique (cookie)blocked tracking base domains
+  let blockedDomains = getOriginsArray(OPTIONS_DATA.origins, null, null, null, false);
+  let baseDomains = new Set(blockedDomains.map(d => window.getBaseDomain(d)));
+  $("#options_domain_list_trackers").html(i18n.getMessage(
+    "options_domain_list_trackers", [
+      baseDomains.size,
+      "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+    ]
+  )).show();
 }
 
 /**

@@ -38,16 +38,21 @@ var incognito = require("incognito");
 function Badger() {
   let self = this;
 
+  self.isFirstRun = false;
+  self.isUpdate = false;
+
   self.webRTCAvailable = checkWebRTCBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
 
   self.widgetList = [];
-  widgetLoader.loadWidgetsFromFile("data/socialwidgets.json", (response) => {
-    self.widgetList = response;
+  let widgetListPromise = widgetLoader.loadWidgetsFromFile(
+    "data/socialwidgets.json").catch(console.error);
+  widgetListPromise.then(widgets => {
+    self.widgetList = widgets;
   });
 
   self.storage = new pbStorage.BadgerPen(async function (thisStorage) {
-    self.initializeDefaultSettings();
+    self.initializeSettings();
     // Privacy Badger settings are now fully ready
 
     self.setPrivacyOverrides();
@@ -80,10 +85,17 @@ function Badger() {
     });
 
     // wait for async functions (seed data, yellowlist, ...) to resolve
+    await widgetListPromise;
     await seedDataPromise;
     await ylistPromise;
     await dntHashesPromise;
     await tabDataPromise;
+
+    // block all widget domains
+    // only need to do this when the widget list could have gotten updated
+    if (badger.isFirstRun || badger.isUpdate) {
+      self.blockWidgetDomains();
+    }
 
     // start the listeners
     incognito.startListeners();
@@ -114,7 +126,9 @@ function Badger() {
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
 
-    self.showFirstRunPage();
+    if (self.isFirstRun) {
+      self.showFirstRunPage();
+    }
   });
 
   /**
@@ -308,7 +322,7 @@ Badger.prototype = {
     let self = this;
 
     return new Promise(function (resolve, reject) {
-      if (!self.getSettings().getItem("isFirstRun")) {
+      if (!self.isFirstRun) {
         log("No need to load seed data");
         return resolve();
       }
@@ -322,17 +336,39 @@ Badger.prototype = {
 
   showFirstRunPage: function() {
     let settings = this.getSettings();
-    if (settings.getItem("isFirstRun")) {
-      // launch the new user intro page and unset first-run flag
-      if (settings.getItem("showIntroPage")) {
-        chrome.tabs.create({
-          url: chrome.runtime.getURL("/skin/firstRun.html")
-        });
-      } else {
-        // don't remind users to look at the intro page either
-        settings.setItem("seenComic", true);
+    if (settings.getItem("showIntroPage")) {
+      chrome.tabs.create({
+        url: chrome.runtime.getURL("/skin/firstRun.html")
+      });
+    } else {
+      // don't remind users to look at the intro page either
+      settings.setItem("seenComic", true);
+    }
+  },
+
+  /**
+   * Blocks all widget domains
+   * to ensure that all widgets that could get replaced
+   * do get replaced by default for all users.
+   */
+  blockWidgetDomains: function () {
+    let self = this;
+
+    // compile set of widget domains
+    let domains = new Set();
+    for (let widget of self.widgetList) {
+      for (let domain of widget.domains) {
+        if (domain[0] == "*") {
+          domain = domain.slice(2);
+        }
+        domains.add(domain);
       }
-      settings.setItem("isFirstRun", false);
+    }
+
+    // block the domains
+    for (let domain of domains) {
+      self.heuristicBlocking.blocklistOrigin(
+        window.getBaseDomain(domain), domain);
     }
   },
 
@@ -429,7 +465,7 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
 
-      if (self.storage.getBadgerStorageObject('cookieblock_list').keys().length) {
+      if (self.storage.getStore('cookieblock_list').keys().length) {
         log("Yellowlist already initialized from disk");
         return resolve();
       }
@@ -523,7 +559,7 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
 
-      if (self.storage.getBadgerStorageObject('dnt_hashes').keys().length) {
+      if (self.storage.getStore('dnt_hashes').keys().length) {
         log("DNT hashes already initialized from disk");
         return resolve();
       }
@@ -649,7 +685,7 @@ Badger.prototype = {
   _checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
     var successStatus = false;
     var url = "https://" + origin + "/.well-known/dnt-policy.txt";
-    var dnt_hashes = this.storage.getBadgerStorageObject('dnt_hashes');
+    var dnt_hashes = this.storage.getStore('dnt_hashes');
 
     utils.xhrRequest(url,function(err,response) {
       if (err) {
@@ -674,8 +710,8 @@ Badger.prototype = {
     disableGoogleNavErrorService: true,
     disableHyperlinkAuditing: true,
     hideBlockedElements: true,
-    isFirstRun: true,
     learnInIncognito: false,
+    learnLocally: false,
     migrationLevel: 0,
     seenComic: false,
     sendDNTSignal: true,
@@ -689,21 +725,47 @@ Badger.prototype = {
   },
 
   /**
-   * initialize default settings if nonexistent
+   * Initializes settings with defaults if needed,
+   * detects whether Badger just got installed or upgraded
    */
-  initializeDefaultSettings: function () {
+  initializeSettings: function () {
     let self = this,
       settings = self.getSettings();
 
-    for (let key in self.defaultSettings) {
-      if (!self.defaultSettings.hasOwnProperty(key)) {
-        continue;
-      }
+    for (let key of Object.keys(self.defaultSettings)) {
+      // if this setting is not yet in storage,
       if (!settings.hasItem(key)) {
+        // set with default value
         let value = self.defaultSettings[key];
         log("setting", key, "=", value);
         settings.setItem(key, value);
       }
+    }
+
+    let version = chrome.runtime.getManifest().version,
+      privateStore = self.getPrivateSettings(),
+      prev_version = privateStore.getItem("badgerVersion");
+
+    // special case for older badgers that kept isFirstRun in storage
+    if (settings.hasItem("isFirstRun")) {
+      self.isUpdate = true;
+      privateStore.setItem("badgerVersion", version);
+      privateStore.setItem("showLearningPrompt", true);
+      settings.deleteItem("isFirstRun");
+
+    // new install
+    } else if (!prev_version) {
+      self.isFirstRun = true;
+      privateStore.setItem("badgerVersion", version);
+
+    // upgrade
+    } else if (version != prev_version) {
+      self.isUpdate = true;
+      privateStore.setItem("badgerVersion", version);
+    }
+
+    if (!privateStore.hasItem("showLearningPrompt")) {
+      privateStore.setItem("showLearningPrompt", false);
     }
   },
 
@@ -753,7 +815,12 @@ Badger.prototype = {
 
     for (let domain in origins) {
       let action = origins[domain];
-      if (action != constants.NO_TRACKING && action != constants.DNT) {
+      if (
+        action == constants.BLOCK ||
+        action == constants.COOKIEBLOCK ||
+        action == constants.USER_BLOCK ||
+        action == constants.USER_COOKIEBLOCK
+      ) {
         count++;
       }
     }
@@ -794,7 +861,7 @@ Badger.prototype = {
       // - we don't have tabData for whatever reason (special browser pages)
       // - Privacy Badger is disabled on the page
       if (
-        !self.showCounter() ||
+        !self.getSettings().getItem("showCounter") ||
         !self.tabData.hasOwnProperty(tab_id) ||
         !self.isPrivacyBadgerEnabled(self.getFrameData(tab_id).host)
       ) {
@@ -814,8 +881,18 @@ Badger.prototype = {
     });
   },
 
-  getSettings: function() {
-    return this.storage.getBadgerStorageObject('settings_map');
+  /**
+   * Shortcut helper for user-facing settings
+   */
+  getSettings: function () {
+    return this.storage.getStore('settings_map');
+  },
+
+  /**
+   * Shortcut helper for internal settings
+   */
+  getPrivateSettings: function () {
+    return this.storage.getStore('private_storage');
   },
 
   /**
@@ -849,6 +926,18 @@ Badger.prototype = {
   },
 
   /**
+   * Is local learning generally enabled,
+   * and if tab_id is for an incognito window,
+   * is learning in incognito windows enabled?
+   */
+  isLearningEnabled(tab_id) {
+    return (
+      this.getSettings().getItem("learnLocally") &&
+      incognito.learningEnabled(tab_id)
+    );
+  },
+
+  /**
    * Check if widget replacement functionality is enabled.
    */
   isWidgetReplacementEnabled: function () {
@@ -861,20 +950,6 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
-  },
-
-  /**
-   * Check if learning about trackers in incognito windows is enabled
-   */
-  isLearnInIncognitoEnabled: function() {
-    return this.getSettings().getItem("learnInIncognito");
-  },
-
-  /**
-   * Check if we should show the counter on the icon
-   */
-  showCounter: function() {
-    return this.getSettings().getItem("showCounter");
   },
 
   /**
@@ -921,7 +996,7 @@ Badger.prototype = {
    * @param {Object} lsItems Local storage dict
    * @returns {boolean} true if it seems there are supercookies
    */
-  hasLocalStorageSuperCookie: function(lsItems) {
+  hasLocalStorageSupercookie: function (lsItems) {
     var LOCALSTORAGE_ENTROPY_THRESHOLD = 33, // in bits
       estimatedEntropy = 0,
       lsKey = "",
@@ -946,13 +1021,13 @@ Badger.prototype = {
    * @param {Object} storageItems Dict with storage items
    * @returns {Boolean} true if there seems to be any Super cookie
    */
-  hasSuperCookie: function(storageItems) {
+  hasSupercookie: function (storageItems) {
     return (
-      this.hasLocalStorageSuperCookie(storageItems.localStorageItems)
-      //|| this.hasLocalStorageSuperCookie(storageItems.indexedDBItems)
+      this.hasLocalStorageSupercookie(storageItems.localStorageItems)
+      //|| this.hasLocalStorageSupercookie(storageItems.indexedDBItems)
       // TODO: See "Reading a directory's contents" on
       // http://www.html5rocks.com/en/tutorials/file/filesystem/
-      //|| this.hasLocalStorageSuperCookie(storageItems.fileSystemAPIItems)
+      //|| this.hasLocalStorageSupercookie(storageItems.fileSystemAPIItems)
     );
   },
 
@@ -966,19 +1041,25 @@ Badger.prototype = {
    */
   logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
     let self = this,
-      is_tracking = (
-        action != constants.NO_TRACKING && action != constants.DNT
+      is_blocked = (
+        action == constants.BLOCK ||
+        action == constants.COOKIEBLOCK ||
+        action == constants.USER_BLOCK ||
+        action == constants.USER_COOKIEBLOCK
       ),
       origins = self.tabData[tab_id].origins,
-      previously_tracking = origins.hasOwnProperty(fqdn) && (
-        origins[fqdn] != constants.NO_TRACKING && origins[fqdn] != constants.DNT
+      previously_blocked = origins.hasOwnProperty(fqdn) && (
+        origins[fqdn] == constants.BLOCK ||
+        origins[fqdn] == constants.COOKIEBLOCK ||
+        origins[fqdn] == constants.USER_BLOCK ||
+        origins[fqdn] == constants.USER_COOKIEBLOCK
       );
 
     origins[fqdn] = action;
 
-    // no need to update badge if not a tracking domain,
-    // or if we have already seen it as a tracking domain
-    if (!is_tracking || previously_tracking) {
+    // no need to update badge if not a (cookie)blocked domain,
+    // or if we have already seen it as a (cookie)blocked domain
+    if (!is_blocked || previously_blocked) {
       return;
     }
 
@@ -1021,22 +1102,21 @@ Badger.prototype = {
    * Merge data exported from a different badger into this badger's storage.
    *
    * @param {Object} data the user data to merge in
-   * @param {Boolean} [from_migration=false] set when running from a migration to avoid infinite loop
+   * @param {Boolean} [skip_migrations=false] set when running from a migration to avoid infinite loop
    */
-  mergeUserData: function(data, from_migration) {
+  mergeUserData: function (data, skip_migrations) {
     let self = this;
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
-    ["snitch_map", "action_map", "settings_map"].forEach(function(key) {
+    ["snitch_map", "action_map", "settings_map"].forEach(function (key) {
       if (data.hasOwnProperty(key)) {
-        let storageMap = self.storage.getBadgerStorageObject(key);
-        storageMap.merge(data[key]);
+        self.storage.getStore(key).merge(data[key]);
       }
     });
 
     // for exports from older Privacy Badger versions:
     // fix yellowlist getting out of sync, remove non-tracking domains, etc.
-    if (!from_migration) {
+    if (!skip_migrations) {
       self.runMigrations();
     }
   }

@@ -14,8 +14,8 @@ QUnit.module("Storage", {
   before: (assert) => {
     // can't initialize globally above
     // as they get initialized too early when run by Selenium
-    actionMap = storage.getBadgerStorageObject('action_map');
-    snitchMap = storage.getBadgerStorageObject('snitch_map');
+    actionMap = storage.getStore('action_map');
+    snitchMap = storage.getStore('snitch_map');
 
     assert.notOk(actionMap.getItem(DOMAIN),
       "test domain is not yet in action_map");
@@ -48,7 +48,7 @@ QUnit.test("test user override of default action for domain", function (assert) 
 });
 
 QUnit.test("settings map merging", (assert) => {
-  let settings_map = storage.getBadgerStorageObject('settings_map');
+  let settings_map = storage.getStore('settings_map');
 
   // overwrite settings with test values
   settings_map.setItem('disabledSites', ['example.com']);
@@ -322,7 +322,7 @@ QUnit.test("DNT does not cascade", (assert) => {
 });
 
 QUnit.test("DNT does not return as an action if user has chosen not to", (assert) => {
-  let settings_map = storage.getBadgerStorageObject('settings_map');
+  let settings_map = storage.getStore('settings_map');
   settings_map.setItem("checkForDNTPolicy", false);
   storage.setupDNT(DOMAIN);
 
@@ -618,7 +618,7 @@ QUnit.test("checking cookieblock potential for yellowlisted subdomain", (assert)
   );
 
   // add subdomain to yellowlist
-  storage.getBadgerStorageObject('cookieblock_list').setItem(SUBDOMAIN, true);
+  storage.getStore('cookieblock_list').setItem(SUBDOMAIN, true);
 
   checkCookieblocking(assert);
 });
@@ -630,7 +630,7 @@ QUnit.test("checking cookieblock potential for subdomain with yellowlisted base 
   );
 
   // add base domain to yellowlist
-  storage.getBadgerStorageObject('cookieblock_list').setItem(DOMAIN, true);
+  storage.getStore('cookieblock_list').setItem(DOMAIN, true);
 
   checkCookieblocking(assert);
 });

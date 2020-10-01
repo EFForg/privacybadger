@@ -53,7 +53,7 @@ function setTextDirection() {
   // popup page
   if (ON_POPUP) {
     // fix floats
-    ['#privacyBadgerHeader img', '#header-image-stack', '#instruction-logo', '#version'].forEach((selector) => {
+    ['#privacyBadgerHeader img', '#header-image-stack', '#version'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
     ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
@@ -81,25 +81,23 @@ function setTextDirection() {
   }
 }
 
-// Loads and inserts i18n strings into matching elements. Any inner HTML already in the
-// element is parsed as JSON and used as parameters to substitute into placeholders in the
-// i18n message.
+/**
+ * Loads and inserts i18n strings into matching elements.
+ */
 function loadI18nStrings() {
-  // replace span contents by their class names
-  let nodes = document.querySelectorAll("[class^='i18n_']");
-  for (let i = 0; i < nodes.length; i++) {
-    const args = JSON.parse("[" + nodes[i].textContent + "]");
-    let className = nodes[i].className;
-    if (className instanceof SVGAnimatedString) {
-      className = className.animVal;
-    }
-    const stringName = className.split(/\s/)[0].substring(5);
-    const prop = "innerHTML" in nodes[i] ? "innerHTML" : "textContent";
-    if (args.length > 0) {
-      nodes[i][prop] = chrome.i18n.getMessage(stringName, args);
-    } else {
-      nodes[i][prop] = chrome.i18n.getMessage(stringName);
-    }
+  let els = document.querySelectorAll("[class^='i18n_']");
+
+  // replace element contents by their class names
+  for (let el of els) {
+    const key = el.className.split(/\s/)[0].slice(5),
+      prop = ("innerHTML" in el ? "innerHTML" : "textContent");
+
+    // get chrome.i18n placeholders, if any
+    let placeholders = el.dataset.i18n_contents_placeholders;
+    placeholders = (placeholders ? placeholders.split("@@") : []);
+
+    // replace contents
+    el[prop] = chrome.i18n.getMessage(key, placeholders);
   }
 
   // also replace alt, placeholder and title attributes
@@ -110,36 +108,36 @@ function loadI18nStrings() {
   ];
 
   // get all the elements that contain one or more of these attributes
-  nodes = document.querySelectorAll(
+  els = document.querySelectorAll(
     // for example: "[placeholder^='i18n_'], [title^='i18n_']"
     "[" + ATTRS.join("^='i18n_'], [") + "^='i18n_']"
   );
 
   // for each element
-  for (let i = 0; i < nodes.length; i++) {
+  for (let el of els) {
     // for each attribute
-    ATTRS.forEach(attr_type => {
+    for (let attr_type of ATTRS) {
       // get the translation message key
-      let key = nodes[i].getAttribute(attr_type);
+      let key = el.getAttribute(attr_type);
+
+      // attribute exists
       if (key) {
         // remove the i18n_ prefix
-        key = key.slice(5);
+        key = key.startsWith("i18n_") && key.slice(5);
       }
 
-      // if the attribute exists and looks like i18n_KEY
-      if (key) {
-        // get chrome.i18n placeholders, if any
-        let placeholders = nodes[i].dataset.i18n_placeholders;
-        if (placeholders) {
-          placeholders = placeholders.split("@@");
-        } else {
-          placeholders = [];
-        }
-
-        // update the attribute with the result of a translation lookup by KEY
-        nodes[i].setAttribute(attr_type, chrome.i18n.getMessage(key, placeholders));
+      if (!key) {
+        continue;
       }
-    });
+
+      // get chrome.i18n placeholders, if any
+      // TODO multiple attributes are not supported
+      let placeholders = el.dataset.i18n_attribute_placeholders;
+      placeholders = (placeholders ? placeholders.split("@@") : []);
+
+      // update the attribute with the result of a translation lookup by KEY
+      el.setAttribute(attr_type, chrome.i18n.getMessage(key, placeholders));
+    }
   }
 }
 

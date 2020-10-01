@@ -77,6 +77,7 @@
 
   <div id="tab-tracking-domains">
     <div id="tracking-domains-overlay">
+        <p class="i18n_description"></p>
         <p class="i18n_intro_not_an_adblocker_paragraph"></p>
         <p class="i18n_show_tracking_domains_message"></p>
         <p>
@@ -89,7 +90,6 @@
     <div id="blockedResourcesContainer">
       <p id="pbInstructions">
         <span id="options_domain_list_trackers"></span>
-        <span id="options_domain_list_one_tracker" class="i18n_options_domain_list_one_tracker" style="display:none"></span>
         <span id="options_domain_list_no_trackers" class="i18n_options_domain_list_no_trackers" style="display:none"></span>
       </p>
       <div id="tracking-domains-loader" style="display:none">
@@ -125,7 +125,7 @@
                       <option value="allow" class="i18n_options_domain_filter_allow"></option>
                   </select>
               </li>
-              <li>
+              <li id="not-yet-blocked-filter" style="display:none">
                 <label for="tracking-domains-show-not-yet-blocked">
                   <span class="i18n_options_show_not_yet_blocked"></span>
                   <span class="ui-icon ui-icon-info tooltip" title="i18n_intro_not_an_adblocker_paragraph"></span>
@@ -178,7 +178,7 @@
           <span class="i18n_options_enable_dnt_checkbox"></span>
         </label>
       </div>
-      <div class="checkbox" id="check-dnt-policy-row">
+      <div class="checkbox indent1">
         <label>
           <input type="checkbox" id="check_dnt_policy_checkbox">
           <span class="i18n_options_dnt_policy_setting"></span>
@@ -210,9 +210,30 @@
 
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="show-nontracking-domains-checkbox">
-          <span class="i18n_options_show_nontracking_domains_checkbox"></span>
+          <input type="checkbox" id="local-learning-checkbox">
+          <span>
+            <span class="i18n_options_learn_setting"></span>
+            <span class="ui-icon ui-icon-alert tooltip" title="i18n_local_learning_warning"></span>
+            <a href="https://www.eff.org/badger-evolution" target="_blank"><span class="ui-icon ui-icon-circle-b-help"></span></a>
+          </span>
         </label>
+      </div>
+      <div id="learning-setting-divs" style="display:none">
+        <div class="checkbox indent1">
+          <label>
+            <input type="checkbox" id="show-nontracking-domains-checkbox" disabled>
+            <span class="i18n_options_show_nontracking_domains_checkbox"></span>
+          </label>
+        </div>
+        <div class="checkbox indent1">
+          <label>
+            <input type="checkbox" id="learn-in-incognito-checkbox" disabled>
+            <span>
+              <span class="i18n_options_incognito_setting"></span>
+              <span class="ui-icon ui-icon-alert tooltip" title="i18n_options_incognito_warning"></span>
+            </span>
+          </label>
+        </div>
       </div>
       <div class="checkbox" id="webRTCToggle" style="display:none">
         <label>
@@ -220,15 +241,6 @@
           <span>
             <span class="i18n_options_webrtc_setting"></span>
             <span class="ui-icon ui-icon-alert tooltip" title="i18n_options_webrtc_warning"></span>
-          </span>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" id="learn-in-incognito-checkbox">
-          <span>
-            <span class="i18n_options_incognito_setting"></span>
-            <span class="ui-icon ui-icon-alert tooltip" title="i18n_options_incognito_warning"></span>
           </span>
         </label>
       </div>
@@ -244,7 +256,7 @@
       <span class="i18n_options_social_widgets_checkbox"></span>
     </label>
     </p>
-    <div id="hide-widgets-row">
+    <div id="hide-widgets-row" class="indent1">
       <label for="hide-widgets-select">
         <span class="i18n_options_hide_social_widgets"></span>
       </label>

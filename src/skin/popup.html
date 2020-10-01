@@ -50,20 +50,43 @@
   <div id="instruction-outer">
   </div>
   <div id="instruction">
-    <img id="instruction-logo" src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
     <a href="" id="fittslaw"><svg width="26" height="22" fill="white">
       <line x1="5" y1="5" x2="20" y2="20" style="stroke:rgb(22,22,22);stroke-width:3;fill:transparent"/>
       <line x1="5" y1="20" x2="20" y2="5" style="stroke:rgb(22,22,22);stroke-width:3;fill:transparent"/>
     </svg></a>
+
     <div id="instruction-text">
-        <div class="i18n_intro_text"></div>
-        <button id="intro-reminder-btn" class="i18n_first_run_text pbButton"></button>
+      <div class="flex-wrapper">
+        <img class="instruction-logo" src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
+        <div>
+          <div class="i18n_intro_text1"></div>
+          <div class="i18n_intro_text2" style="margin-top:0.5em"></div>
+        </div>
+      </div>
+      <button id="intro-reminder-btn" class="i18n_first_run_text pbButton"></button>
     </div>
+
     <div id="error-text" style="display:none">
+      <div class="flex-wrapper">
+        <img class="instruction-logo" src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
         <div class="i18n_extension_error_text"></div>
-        <div style="color:#cc0000" id="error-message"></div>
+      </div>
+      <div style="color:#cc0000" id="error-message"></div>
     </div>
-  </div>
+
+    <div id="learning-prompt-div" style="display:none">
+      <div class="flex-wrapper">
+        <img class="instruction-logo" src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
+        <div>
+          <div class="i18n_learning_prompt_text1"></div>
+          <div class="i18n_learning_prompt_text2" style="margin-top:0.5em"></div>
+        </div>
+      </div>
+      <button id="learning-prompt-btn" class="i18n_learning_prompt_button pbButton"></button>
+    </div>
+
+  </div><!-- end of div#instruction -->
+
   <div id="overlay" class="overlay">
     <h1 id="report_title" class="i18n_report_title overlay_title"></h1>
     <a href="" id="report_close" class="i18n_report_close overlay_close"></a>
@@ -102,9 +125,8 @@
 <div id="blockedResourcesContainer">
   <p id="pbInstructions">
     <span id="instructions-many-trackers"></span>
-    <span id="instructions_one_tracker" class="i18n_popup_instructions_one_tracker" style="display:none"></span>
-    <span id="instructions_no_trackers" style="display:none">
-      <span class="i18n_popup_instructions_no_trackers"></span>
+    <span id="instructions-no-trackers" style="display:none">
+      <span class="i18n_popup_instructions_no_trackers" data-i18n_contents_placeholders="<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"></span>
       <span id="no-third-parties" class="i18n_popup_blocked" style="display:none"></span>
     </span>
   </p>

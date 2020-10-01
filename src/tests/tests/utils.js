@@ -86,7 +86,7 @@ QUnit.test("isPrivacyBadgerEnabled wildcard tests", function (assert) {
 
 QUnit.test("disable/enable privacy badger for origin", function (assert) {
   function parsed() {
-    return badger.storage.getBadgerStorageObject('settings_map').getItem('disabledSites');
+    return badger.storage.getStore('settings_map').getItem('disabledSites');
   }
 
   let origLength = parsed() && parsed().length || 0;

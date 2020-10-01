@@ -123,7 +123,7 @@ if (window.top == window) {
 // TODO sometimes contentscripts/utils.js isn't here?!
 // TODO window.FRAME_URL / window.injectScript are undefined ...
 chrome.runtime.sendMessage({
-  type: "checkEnabledAndThirdParty",
+  type: "inspectLocalStorage",
   frameUrl: window.FRAME_URL
 }, function (enabledAndThirdParty) {
   if (!enabledAndThirdParty) {

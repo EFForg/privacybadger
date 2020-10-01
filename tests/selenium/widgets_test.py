@@ -26,14 +26,6 @@ class WidgetsTest(pbtest.PBSeleniumTest):
     TYPE4_WIDGET_CLASS = "pb-type4-test-widget"
 
     def setUp(self):
-        # TODO remove waiting after
-        # https://github.com/EFForg/privacybadger/pull/2604
-        self.wait_for_script("return typeof chrome != 'undefined' && chrome && chrome.extension")
-        self.wait_for_script(
-            "return chrome.extension.getBackgroundPage()."
-            "badger.widgetList.length;"
-        )
-
         self.set_up_widgets()
 
     def set_up_widgets(self):

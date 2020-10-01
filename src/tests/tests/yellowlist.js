@@ -3,8 +3,7 @@
 (function () {
 
 function get_ylist() {
-  return badger.storage.getBadgerStorageObject(
-    'cookieblock_list').getItemClones();
+  return badger.storage.getStore('cookieblock_list').getItemClones();
 }
 
 let constants = require('constants');
@@ -365,7 +364,7 @@ QUnit.module("Yellowlist", (hooks) => {
           return memo;
         }, 0));
 
-        let ylistStorage = badger.storage.getBadgerStorageObject('cookieblock_list');
+        let ylistStorage = badger.storage.getStore('cookieblock_list');
 
         // set up cookieblocking
         for (let domain in test.domains) {

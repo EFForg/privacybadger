@@ -77,15 +77,16 @@ function getFileContents(filePath, callback) {
 }
 
 /**
- * @param {String} filePath the path to the JSON file
- * @param {Function} callback callback(socialwidgets)
- * @returns {Array} array of SocialWidget objects
+ * @param {String} file_path the path to the JSON file
+ * @returns {Promise} resolved with an array of SocialWidget objects
  */
-function loadWidgetsFromFile(filePath, callback) {
-  getFileContents(filePath, function (contents) {
-    let widgets = initializeWidgets(JSON.parse(contents));
-    log("Initialized widgets from disk");
-    callback(widgets);
+function loadWidgetsFromFile(file_path) {
+  return new Promise(function (resolve) {
+    getFileContents(file_path, function (contents) {
+      let widgets = initializeWidgets(JSON.parse(contents));
+      log("Initialized widgets from disk");
+      resolve(widgets);
+    });
   });
 }
 

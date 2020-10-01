@@ -17,7 +17,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
         CHECK_SNITCH_MAP_JS = (
             "return chrome.extension.getBackgroundPage()"
-            ".badger.storage.getBadgerStorageObject('snitch_map')"
+            ".badger.storage.getStore('snitch_map')"
             ".getItemClones()[arguments[0]];"
         )
 
