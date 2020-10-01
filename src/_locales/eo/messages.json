@@ -35,10 +35,6 @@
         "message": "Kontroli ĉu <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>eksteraj domajnoj</a> kongruas kun la <a target='_blank' href='https://www.eff.org/dnt-policy'>politiko pri nespurado de EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "intro_learns_paragraph": {
-        "message": "Ju pli longe vi retumas kun Privata Melo, des pli lerta pri protekti vin ĝi iĝas. Ĉu via Melĉjo ankoraŭ blokas nenion? Ne estas malĝuste! Anstataŭ prizorgi listojn de blokataj aĵoj, Privata Melo aŭtomate malkovras spurilojn dum kiam vi foliumas la Teksaĵon. Do ekretumu por ke via Melĉjo instruiĝu.",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
     "invalid_domain": {
         "message": "Bonvolu aldoni ĝustan nomregnon aŭ URL-n.",
         "description": ""
@@ -213,10 +209,6 @@
         "message": "Tio ĉi aŭtomate sendos la jenajn datumojn al EFF: la nune vizitatan retpaĝon, version de via retumilo, version de Privata Melo kaj staton de ĉiuj ŝovilojn por tiu ĉi retpaĝo.",
         "description": ""
     },
-    "intro_learns": {
-        "message": "Lernas dum kiam vi retumas",
-        "description": "Intro page paragraph heading."
-    },
     "whitelisted_domains": {
         "message": "Neblokataj retejoj",
         "description": "This is an options page tab heading."
@@ -317,10 +309,6 @@
             }
         }
     },
-    "intro_beyond_ads": {
-        "message": "Kaptas trompajn spurilojn",
-        "description": "Intro page paragraph heading."
-    },
     "options_domain_filter_cookieblock": {
         "message": "parte-blokitaj",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -344,6 +332,18 @@
     "tooltip_cookieblock": {
         "message": "Centrigu la ŝovilon por bloki kuketojn.",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns automatically",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "Kaptas trompajn spurilojn",
+        "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
         "message": "Nevidebla spurado okazas plurmaniere; reklamoj estas nur videbla parteto de tutaĵo. Privata Melo <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sendas la signalon “Ne Spuri Min” (DNT)</a> por peti spurilojn pri ne spuri. Se ili ignoras vian peton, via Melĉjo lernos pri bloki ilin – ĉu ili estas reklamoj aŭ spuriloj aŭ aliaj aĉaĵoj.",
@@ -464,12 +464,12 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Via Melĉjo lernas loke en via komputilo. Privata Melo NENIAM diskonigos datumojn pri via retumado escepte se vi decidos alie.",
+        "message": "Privata Melo NENIAM diskonigos datumojn pri via retumado escepte se vi decidos alie.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privata Melo malkovris $COUNT$ eblajn $TRACKER_LINK_START$spurantajn nomregnojn$TRACKER_LINK_END$ ĝis nun.",
-        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -486,14 +486,14 @@
     },
     "options_domain_list_no_trackers": {
         "message": "Privata Melo ne malkovris iun ajn <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>spurantan nomregnon</a> ĝis nun. Pluigu retumi!",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
         "message": "Privata Melo",
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privata Melo komencas bloki kiam ĝi rimarkas la saman spurilon ĉe tri diversaj retejoj. Tri aperoj kaj ĝi malaperas! Se vi uzas aliajn privatecajn ilojn kaj reklam‑blokilojn, Privata Melo lernos malpli, sed tio ne gravas, ĉar ĝi povas bloki aĵojn evititajn de aliaj blokiloj.",
+        "message": "Privata Melo komencas bloki kiam ĝi rimarkas la saman spurilon ĉe tri diversaj retejoj. Tri aperoj kaj ĝi malaperas!",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {

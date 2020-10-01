@@ -35,10 +35,6 @@
         "message": "检查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方域名</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>电子前哨基金会的“请勿追踪”政策</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "intro_learns_paragraph": {
-        "message": "你使用隐私獾浏览的时间越长，它对保护你就越在行。你的獾目前没有屏蔽任何东西吗？没关系！隐私獾不需要人工维护的屏蔽列表，它会在您浏览网页时自动发现追踪器。请浏览一些网站，让您的隐私獾开始学习吧。",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
     "invalid_domain": {
         "message": "请添加一个有效的域名或者 URL。",
         "description": ""
@@ -213,10 +209,6 @@
         "message": "这将会向电子前哨基金会发送这些信息：你当前正在访问的页面、浏览器版本、隐私獾版本以及本页面所有滑块的状态。",
         "description": ""
     },
-    "intro_learns": {
-        "message": "在您访问时学习",
-        "description": "Intro page paragraph heading."
-    },
     "whitelisted_domains": {
         "message": "已禁用的域名",
         "description": "This is an options page tab heading."
@@ -317,10 +309,6 @@
             }
         }
     },
-    "intro_beyond_ads": {
-        "message": "发现鬼鬼祟祟的追踪器",
-        "description": "Intro page paragraph heading."
-    },
     "options_domain_filter_cookieblock": {
         "message": "部分被屏蔽",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -344,6 +332,18 @@
     "tooltip_cookieblock": {
         "message": "将滑块移至中间来屏蔽 cookies",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns automatically",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "发现鬼鬼祟祟的追踪器",
+        "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
         "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器<a href='https://www.eff.org/issues/do-not-track' target='_blank'>发送“请勿追踪”信号</a>，告诉它们停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止他们——无论它们是广告、追踪器或是其他的东西。",
@@ -464,12 +464,12 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "你的獾只在你的设备上自我学习。除非你主动分享，否则隐私獾永远都不会上传你的浏览记录。",
+        "message": "除非你主动分享，否则隐私獾永远都不会上传你的浏览记录。",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "隐私獾发现了 $COUNT$ 至今为止潜在的$TRACKER_LINK_START$追踪域名$TRACKER_LINK_END$。",
-        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -486,14 +486,14 @@
     },
     "options_domain_list_no_trackers": {
         "message": "隐私獾还没有检测到任何<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪域名</a>。继续浏览吧！",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
         "message": "隐私獾",
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "隐私獾会在三个网站发现同一个追踪器后开始屏蔽。三振出局！如果你在使用其他隐私工具或屏蔽器，隐私獾会发现更少的追踪器。不用担心，它可能会发现其他屏蔽器漏过的追踪器。",
+        "message": "隐私獾会在三个网站发现同一个追踪器后开始屏蔽。三振出局！",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {

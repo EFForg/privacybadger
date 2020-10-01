@@ -35,10 +35,6 @@
         "message": "تحقق من كون <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>نطاقات الأطراف الخارحية</a> تلتزم <a target='_blank' href='https://www.eff.org/dnt-policy'>سياسة EFF لعدم التعقب</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "intro_learns_paragraph": {
-        "message": "كلما تصفحت أكثر مع استخدام «غرير الخصوصية» كلما تحسنت حمايته لك. هل لا يحجب «غريرك» أي شيء بعد؟ لا تقلق، لا يحتفظ «غرير الخصوصية» بقائمة المواقع التي ينبغي حجبها، و لكن يكتشف تلقائيا المواقع التي تتعقبك أثناء تصفحك. لذا فابدأ التصفح ليتعلم «غريرك» كيف يحميك!",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
     "invalid_domain": {
         "message": "رجاء أضف مسارا أو نطاقا صحيحا.",
         "description": ""
@@ -213,10 +209,6 @@
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
         "description": ""
     },
-    "intro_learns": {
-        "message": "يتعلم بينما تتصفح",
-        "description": "Intro page paragraph heading."
-    },
     "whitelisted_domains": {
         "message": "المواقع غير المفعلة",
         "description": "This is an options page tab heading."
@@ -317,10 +309,6 @@
             }
         }
     },
-    "intro_beyond_ads": {
-        "message": "يمسك بالمتعقبات المتخفية",
-        "description": "Intro page paragraph heading."
-    },
     "options_domain_filter_cookieblock": {
         "message": "المحجوب جزئيا",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -344,6 +332,18 @@
     "tooltip_cookieblock": {
         "message": "وسط المؤشر لحجب الكعكات",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns automatically",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "يمسك بالمتعقبات المتخفية",
+        "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
         "message": "مصادر المتعقبات الخفية كثيرة؛ الإعلانات ليست إلا القمة الظاهرة من جبل الجليد. يرسل «غرير الخصوصية» <a href='https://www.eff.org/issues/do-not-track' target='_blank'>إشارة ”لا تتعقبني“</a> إلى المتعقبات ليخبرهم ألا يتعقبوك. لكن إذا تجاهلوا رغبتك تلك فيسعرف «غريرك» أن عليه حجبهم؛ سواء كانوا معلِنين أو متعقبين من أي نوع آخر.",
@@ -464,12 +464,12 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "يتعلم «غريرك» محليا على جهازك. لن يشارك «غرير الخصوصية» أبدا أي معلومات عن تصفحك إلا إن اخترت أن تشاركها.",
+        "message": "لن يشارك «غرير الخصوصية» أبدا أي معلومات عن تصفحك إلا إن اخترت أن تشاركها.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "اكتشف «غرير الخصوصية» عدد $COUNT$ من $TRACKER_LINK_START$النطاقات المتعقِّبة$TRACKER_LINK_END$ المحتملة حتى الآن.",
-        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -486,14 +486,14 @@
     },
     "options_domain_list_no_trackers": {
         "message": "لم يكتشف «غرير الخصوصية» أي <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>نطاقات متعقِّبة</a> حتى الآن. واصل تصفحك.",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
         "message": "«غرير الخصوصية»",
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "يبدأ «غرير الخصوصية» في الحجب ما إن يرى نفس المتعقب على ثلاثة مواقع مختلفة. ثلاث فرص ثم يخرج! إذا كنت تستخدم أدوات خصوصية أخرى لحجب الإعلانات مثلا فسيتعلم «غرير الخصوصية» أقل، لكن لا بأس بهذا، قد يمسك بما يفلت من الأدوات الأخرى.",
+        "message": "يبدأ «غرير الخصوصية» في الحجب ما إن يرى نفس المتعقب على ثلاثة مواقع مختلفة. ثلاث فرص ثم يخرج!",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {

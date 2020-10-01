@@ -35,10 +35,6 @@
         "message": "檢查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方網域</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>EFF 的 Do Not Track 政策</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "intro_learns_paragraph": {
-        "message": "您裝上 Privacy Badger 後瀏覽愈久，保護您的效果就會愈好。您的 Badger 還沒有阻擋任何東西嗎？沒有問題！Privacy Badger 會自動探索您在瀏覽網頁時的追蹤器，而非保留追蹤清單。所以開始瀏覽以教導您的 Badger 吧。",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
     "invalid_domain": {
         "message": "請新增有效的網域或 URL。",
         "description": ""
@@ -213,10 +209,6 @@
         "message": "將會自動回報下列資訊給 EFF 電子前鋒基金會：您目前造訪的頁面、瀏覽器版本、Privacy Badger 版本，以及此頁面所有滾動條的狀態。",
         "description": ""
     },
-    "intro_learns": {
-        "message": "在您瀏覽時學習",
-        "description": "Intro page paragraph heading."
-    },
     "whitelisted_domains": {
         "message": "停用的網站",
         "description": "This is an options page tab heading."
@@ -317,10 +309,6 @@
             }
         }
     },
-    "intro_beyond_ads": {
-        "message": "捕捉鬼鬼祟祟的追蹤器",
-        "description": "Intro page paragraph heading."
-    },
     "options_domain_filter_cookieblock": {
         "message": "部份阻擋",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -344,6 +332,18 @@
     "tooltip_cookieblock": {
         "message": "將滾動條滑到中間封鎖該網域的 cookie",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns automatically",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "捕捉鬼鬼祟祟的追蹤器",
+        "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
         "message": "不可見的追蹤會以各種方式發生：廣告只是可見的冰山一角。Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>將「不追蹤」訊號傳送</a>給追蹤器，告訴它們不要追蹤您。如果它們忽視了這個要求，您的 Badger 將會學會阻擋它們，無論它們是廣告商還是其他類型的追蹤器。",
@@ -464,12 +464,12 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "您的 Badger 將會在您的裝置上本機學習。Privacy Badger 在您選擇分享關於您的瀏覽資料前，將永遠不會分享它們。",
+        "message": "Privacy Badger 在您選擇分享關於您的瀏覽資料前，將永遠不會分享它們。",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "目前為止，Privacy Badger 偵測到 $COUNT$ 個潛在$TRACKER_LINK_START$追蹤網域$TRACKER_LINK_END$。",
-        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -486,14 +486,14 @@
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger 未偵測到任何<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追蹤網域</a>。繼續瀏覽！",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
         "message": "Privacy Badger",
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger 將會在三個不同的網頁上發現同一個追蹤器時開始阻擋該追蹤器。三振出局！若您使用了其他隱私工具或廣告阻擋器，Privacy Badger 會學到比較少東西，不過還是可以正常運作的，其將會抓到您其他阻擋器的漏網之魚。",
+        "message": "Privacy Badger 將會在三個不同的網頁上發現同一個追蹤器時開始阻擋該追蹤器。三振出局！",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {

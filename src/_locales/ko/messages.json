@@ -35,10 +35,6 @@
         "message": "<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>제 3자 도메인</a>이 <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF의 추적 금지 정책</a>을 준수하는지 확인합니다.",
         "description": "Checkbox label on the general settings page"
     },
-    "intro_learns_paragraph": {
-        "message": "Privacy Badger와 오래 검색할수록 더 잘 보호받을 수 있습니다. 아직 Badger가 아무것도 막지 않았습니까? 괜찮습니다! 차단할 항목의 목록을 보관하는 대신, Privacy Badger는 당신이 웹을 검색할 때 추적자를 자동으로 발견합니다. 그러니 오소리를 학습시키기 위해 조금 탐색하세요.",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
     "invalid_domain": {
         "message": "유효한 도메인 또는 URL을 추가하세요.",
         "description": ""
@@ -213,10 +209,6 @@
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
         "description": ""
     },
-    "intro_learns": {
-        "message": "검색하면서 학습합니다.",
-        "description": "Intro page paragraph heading."
-    },
     "whitelisted_domains": {
         "message": "비활성화 사이트",
         "description": "This is an options page tab heading."
@@ -317,10 +309,6 @@
             }
         }
     },
-    "intro_beyond_ads": {
-        "message": "은밀한 추적기를 잡습니다.",
-        "description": "Intro page paragraph heading."
-    },
     "options_domain_filter_cookieblock": {
         "message": "부분적으로 차단",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -344,6 +332,18 @@
     "tooltip_cookieblock": {
         "message": "슬라이더를 중앙에 배치하여 쿠키를 차단합니다.",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns automatically",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "은밀한 추적기를 잡습니다.",
+        "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
         "message": "보이지 않는 추적은 모든 면에서 일어납니다; 광고는 빙산의 일각에 불과합니다. Privacy Badger는 추적기에게 <a href='https://www.eff.org/issues/do-not-track' target='_blank'>추적 금지 신호를 보냅니다.</a> 만약 추적기가 신호를 무시한다면 Privacy Badger는 광고주든 다른 종류의 추적기든 간에 그것을 막는 법을 학습합니다.",
@@ -464,12 +464,12 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Privacy Badger는 장치에서 로컬로 학습합니다. Privacy Badger는 사용자가 검색을 공유하도록 선택하지 않는 한 검색에 대한 데이터를 절대 공유하지 않습니다.",
+        "message": "Privacy Badger는 사용자가 검색을 공유하도록 선택하지 않는 한 검색에 대한 데이터를 절대 공유하지 않습니다.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger가 지금까지 $COUNT$ 잠재적인  $TRACKER_LINK_START$추적 도메인$TRACKER_LINK_END$을 감지했습니다.",
-        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -486,14 +486,14 @@
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger가 아직 <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적 도메인</a>을 감지하지 못했습니다. 계속 탐색하세요!",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
         "message": "Privacy Badger",
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger는 세 개의 다른 웹 사이트에서 동일한 추적기를 보면 차단하기 시작합니다. 삼진 아웃이에요! 다른 개인 정보 보호 도구 또는 광고 차단기를 사용하는 경우 개인 정보 오소리는 덜 학습하지만 괜찮습니다. 다른 차단기가 놓친 내용을 포착할 수 있습니다.",
+        "message": "Privacy Badger는 세 개의 다른 웹 사이트에서 동일한 추적기를 보면 차단하기 시작합니다. 삼진 아웃이에요!",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {

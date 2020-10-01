@@ -35,10 +35,6 @@
         "message": "Verificar se os <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domínios de terceiros</a> estão em conformidade com a <a target='_blank' href='https://www.eff.org/dnt-policy'>política de Não Rastrear da EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "intro_learns_paragraph": {
-        "message": "Quanto mais tempo navegar com o Privacy Badger, melhor este o protege. O seu Privacy Badger ainda não está a bloquear nada? Tudo bem! Em vez de manter listas do que bloquear, o Privacy Badger descobre automaticamente os rastreadores enquanto navega na Internet. Por isso comece a navegar um pouco para ensinar o seu Privacy Badger.",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
     "invalid_domain": {
         "message": "Por favor, adicione um URL ou um domínio válido.",
         "description": ""
@@ -213,10 +209,6 @@
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
         "description": ""
     },
-    "intro_learns": {
-        "message": "Aprende enquanto navega",
-        "description": "Intro page paragraph heading."
-    },
     "whitelisted_domains": {
         "message": "Sites desativados",
         "description": "This is an options page tab heading."
@@ -317,10 +309,6 @@
             }
         }
     },
-    "intro_beyond_ads": {
-        "message": "Deteta rastreadores ocultos",
-        "description": "Intro page paragraph heading."
-    },
     "options_domain_filter_cookieblock": {
         "message": "parcialmente bloqueado",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -344,6 +332,18 @@
     "tooltip_cookieblock": {
         "message": "Centralize o controlo deslizante para bloquear cookies",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns automatically",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "Deteta rastreadores ocultos",
+        "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
         "message": "O rastreamento invisível ocorre de várias formas; os anúncios são apenas a ponta visível do icebergue. O Privacy Badger envia o <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sinal Não Rastrear</a> para os rastreadores dizendo-lhes para não rastreá-lo. Se eles ignorarem o seu pedido, o seu Privacy Badger aprenderá a bloqueá-los—sejam eles anunciantes ou rastreadores de outros tipos.",
@@ -464,12 +464,12 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "O seu Privacy Badger aprende localmente no seu dispositivo. O Privacy Badger NUNCA partilhará dados sobre a sua navegação, a não ser que escolha partilhá-los.",
+        "message": "O Privacy Badger NUNCA partilhará dados sobre a sua navegação, a não ser que escolha partilhá-los.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "O Privacy Badger detetou $COUNT$ $TRACKER_LINK_START$domínios potenciais de rastreamento$TRACKER_LINK_END$ até agora.",
-        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -486,14 +486,14 @@
     },
     "options_domain_list_no_trackers": {
         "message": "O Privacy Badger ainda não detetou nenhum <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domínio de rastreamento</a>. Continue a navegar.",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
         "message": "Privacy Badger",
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "O Privacy Badger começa a bloquear após detetar o mesmo rastreador em três sites diferentes. Três golpes e está fora! Se usar outras ferramentas de privacidade ou bloqueadores de anúncios, o Privacy Badger aprenderá menos, mas tudo bem, ele vai detetar coisas que outros bloqueadores não detetam.",
+        "message": "O Privacy Badger começa a bloquear após detetar o mesmo rastreador em três sites diferentes. Três golpes e está fora!",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {

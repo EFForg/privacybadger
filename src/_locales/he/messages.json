@@ -35,10 +35,6 @@
         "message": "בדוק אם <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>תחומי צד־שלישי</a> מצייתים אל <a target='_blank' href='https://www.eff.org/dnt-policy'>מדיניות אל תעקוב של EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "intro_learns_paragraph": {
-        "message": "ככל שתגלוש בפרק זמן ארוך יותר עם Privacy Badger, כך הוא ישתפר בהגנה עליך. האם Privacy Badger לא חוסם עדין שום דבר? זה בסדר! במקום לשמור רשימות של מה לחסום, Privacy Badger מגלה באופן אוטומטי עוקבנים בזמן שאתה גולש ברשת. אז התחל לגלוש קצת כדי ללמד את Privacy Badger.",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
     "invalid_domain": {
         "message": "אנא הוסף תחום או כתובת תקפים.",
         "description": ""
@@ -213,10 +209,6 @@
         "message": "זה ישלח באופן אוטומטי את המידע הבא אל EFF: הדף שאתה כרגע מבקר בו, גרסת הדפדפן שלך, הגרסה של Privacy Badger והמצב של כל המחוונים בדף זה.",
         "description": ""
     },
-    "intro_learns": {
-        "message": "לומד בעודך גולש",
-        "description": "Intro page paragraph heading."
-    },
     "whitelisted_domains": {
         "message": "אתרים מושבתים",
         "description": "This is an options page tab heading."
@@ -317,10 +309,6 @@
             }
         }
     },
-    "intro_beyond_ads": {
-        "message": "תופס עוקבנים ערמומיים",
-        "description": "Intro page paragraph heading."
-    },
     "options_domain_filter_cookieblock": {
         "message": "חסום חלקית",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -344,6 +332,18 @@
     "tooltip_cookieblock": {
         "message": "מרכז את המחוון כדי לחסום עוגיות",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns automatically",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "תופס עוקבנים ערמומיים",
+        "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
         "message": "מעקב בלתי נראה קורה בכל מיני דרכים; פרסומות הן הקצה הנראה של הקרחון. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>שולח את האות אל תעקוב (DNT)</a> אל עוקבנים כדי לומר להם לא לעקוב אחריך. אם הם מתעלמים מבקשותיך, Privacy Badger ילמד לחסום אותם—בין אם הם מפרסמים או עוקבנים מסוגים אחרים.",
@@ -464,12 +464,12 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Privacy Badger לומד באופן מקומי על המכשיר שלך. Privacy Badger לעולם לא ישתף נתונים על גלישתך אלא אם תבחר לשתף אותם.",
+        "message": "Privacy Badger לעולם לא ישתף נתונים על גלישתך אלא אם תבחר לשתף אותם.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger גילה $COUNT$ $TRACKER_LINK_START$תחומי מעקב$TRACKER_LINK_END$ פוטנציאליים עד כה.",
-        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -486,14 +486,14 @@
     },
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger לא גילה <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>תחומי מעקב</a> עדין. המשך לגלוש!",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
         "message": "Privacy Badger",
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger מתחיל לחסום ברגע שהוא רואה את אותו עוקבן בשלושה אתרים שונים. שלוש פגיעות והוא בחוץ! אם אתה משתמש בכליי פרטיות אחרים או בחוסמי פרסומות, Privacy Badger ילמד פחות, אבל זה בסדר, הוא עשוי לתפוס דברים שהחוסמים האחרים שלך פיספסו.",
+        "message": "Privacy Badger מתחיל לחסום ברגע שהוא רואה את אותו עוקבן בשלושה אתרים שונים. שלוש פגיעות והוא בחוץ!",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {

@@ -35,10 +35,6 @@
         "message": "چک کن آیا <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'> دامنه های شخص ثالث </a> با <a target='_blank' href='https://www.eff.org/dnt-policy'> خط مشی ردیابی نکن EFF </a> تطابق دارند",
         "description": "Checkbox label on the general settings page"
     },
-    "intro_learns_paragraph": {
-        "message": "هرچه زمان بیشتری در وب با پرایوسی بجر گردش کنید، از شما بهتر محافظت خواهد کرد. آیا هنوز چیزی را بلاک نکرده است؟ اشکالی ندارد! به جای نگه داشتن یک لیست از چیزهایی که باید بلاک کند، پرایوسی بجر هنگام گردش شما در وب، به صورت اتوماتیک ردیاب ها را کشف می کند. پس برای آموزش آن کمی در وب گردش کنید.",
-        "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
-    },
     "invalid_domain": {
         "message": "لطفا یک دامنه یا URL معتبر اضافه کنید.",
         "description": ""
@@ -213,10 +209,6 @@
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
         "description": ""
     },
-    "intro_learns": {
-        "message": "در هنگام گردش شما در وب یاد میگیرد",
-        "description": "Intro page paragraph heading."
-    },
     "whitelisted_domains": {
         "message": "سایت های غیر فعال شده",
         "description": "This is an options page tab heading."
@@ -317,10 +309,6 @@
             }
         }
     },
-    "intro_beyond_ads": {
-        "message": "ردیاب های موذی را میگیرد",
-        "description": "Intro page paragraph heading."
-    },
     "options_domain_filter_cookieblock": {
         "message": "بلاک شده به صورت جزئی",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -344,6 +332,18 @@
     "tooltip_cookieblock": {
         "message": "برای بلاک کردن کوکی ها اسلایدر را در وسط قرار بدهید",
         "description": ""
+    },
+    "intro_learns": {
+        "message": "Learns automatically",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "ردیاب های موذی را میگیرد",
+        "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
         "message": "ردیابی پنهان در شکل های مختلف صورت میگیرد; تبلیغات فقط بخش کوچکی از آن به شمار میروند. پرایوسی بجر <a href='https://www.eff.org/issues/do-not-track' target='_blank'> سیگنال ردیابی نکن </a> را به ردیاب ها می فرستد تا به آن ها بگوید شما را ردیابی نکنند. اگر خواسته شما را رد کنند، یاد میگیرد تا آن ها را بلاک کند - چه ردیاب های تبلیغاتی باشند چه ردیاب هایی از نوع دیگر.",
@@ -464,12 +464,12 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "افزونه شما به صورت محلی روی دستگاهی که از آن استفاده میکنید یاد میگیرد. هیچگاه اطلاعات شما را بدون اجازه شما به اشتراک نمی گذارد.",
+        "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "$COUNT$ $TRACKER_LINK_START$ردیاب$TRACKER_LINK_END$ احتمالی تا به اینجا شناسایی شده است.",
-        "description": "Message under the Tracking Domains tab on the options page. Shown after Privacy Badger learned about more than one tracker.",
+        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -486,14 +486,14 @@
     },
     "options_domain_list_no_trackers": {
         "message": "پرایوسی بجر هنوز نتوانسته هیچ <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'> دامنه ی ردیابی </a> پیدا کنید. به گردش خود در وب ادامه دهید!",
-        "description": "Shown on the Tracking Domains tab on the options page for new and recent installations."
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
         "message": "پرایوسی بجر",
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "زمانی که یک ردیاب را در سه سایت مختلف ببیند، پرایوسی بجر شروع به بلاک کردن آن می کند. اگر از ابزار ها و اد بلاکر های دیگری استفاده میکنید، پرایوسی بجر کمتر یاد میگیرد اما اشکالی ندارد. ممکن است چیزهایی را ردگیری کند که سایر بلاکر ها نتوانسته بودند ردیابی کنند.",
+        "message": "زمانی که یک ردیاب را در سه سایت مختلف ببیند، پرایوسی بجر شروع به بلاک کردن آن می کند.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
