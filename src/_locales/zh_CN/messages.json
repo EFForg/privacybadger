@@ -440,7 +440,7 @@
         }
     },
     "popup_blocked": {
-        "message": "本页面上没有第三方资源。",
+        "message": "本页面上没有第三方资源。隐私万岁！",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {

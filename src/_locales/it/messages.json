@@ -440,7 +440,7 @@
         }
     },
     "popup_blocked": {
-        "message": "Non ci sono risorse di terze parti in questa pagina.",
+        "message": "Non ci sono risorse di terze parti in questa pagina. Urrà per la privacy!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
