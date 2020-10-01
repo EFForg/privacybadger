@@ -210,7 +210,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
+        "message": "Ця дія призведе до автоматичного надсилання такої інформації до EFF: відвідувана сторінка, версія браузера, версія Privacy Badger, а також положення всіх перемикачів для цієї сторінки.",
         "description": ""
     },
     "intro_learns": {
