@@ -163,10 +163,12 @@ function loadOptions() {
           .prop("disabled", (enabled ? false : "disabled"))
           .prop("checked", (enabled ? OPTIONS_DATA.settings.showNonTrackingDomains : false));
 
+        $("#learning-setting-divs").slideToggle(enabled);
         $("#not-yet-blocked-filter").toggle(enabled);
       });
     });
   if (OPTIONS_DATA.settings.learnLocally) {
+    $("#learning-setting-divs").show();
     $("#not-yet-blocked-filter").show();
   }
 

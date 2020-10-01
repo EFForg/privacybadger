@@ -46,7 +46,7 @@ div.checkbox span[class^=i18n_] {
     white-space: break-spaces;
 }
 
-div.checkbox + div.checkbox {
+div.checkbox + div.checkbox, div#learning-setting-divs div:first-child, div#learning-setting-divs + div.checkbox {
     margin-top: 5px;
 }
 
