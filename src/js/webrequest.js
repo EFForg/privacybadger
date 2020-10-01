@@ -165,7 +165,7 @@ function onBeforeSendHeaders(details) {
     if (badger.isPrivacyBadgerEnabled(tab_host)) {
       // Still sending Do Not Track even if HTTP and cookie blocking are disabled
       if (badger.isDNTSignalEnabled()) {
-        details.requestHeaders.push({name: "DNT", value: "1"});
+        details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
       }
       return {requestHeaders: details.requestHeaders};
     } else {
@@ -210,7 +210,7 @@ function onBeforeSendHeaders(details) {
 
     // add DNT header
     if (badger.isDNTSignalEnabled()) {
-      newHeaders.push({name: "DNT", value: "1"});
+      newHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
     }
 
     return {requestHeaders: newHeaders};
@@ -219,7 +219,7 @@ function onBeforeSendHeaders(details) {
   // if we are here, we're looking at a third-party request
   // that's not yet blocked or cookieblocked
   if (badger.isDNTSignalEnabled()) {
-    details.requestHeaders.push({name: "DNT", value: "1"});
+    details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
   }
   return {requestHeaders: details.requestHeaders};
 }
