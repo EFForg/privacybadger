@@ -9,6 +9,8 @@ To install Privacy Badger from source in Chrome, visit `chrome://extensions`, en
 
 In Firefox, visit `about:debugging`, click "Load Temporary Add-on" and select the [`src/manifest.json`](src/manifest.json) file. Note that this only installs the extension temporarily; it will be removed when you close Firefox.
 
+To install Privacy Badger from source in Firefox for Android, please see [Mozilla's guide to developing extensions for Firefox for Android](https://extensionworkshop.com/documentation/develop/developing-extensions-for-firefox-for-android/) and [`web-ext` documentation](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/#testing-in-firefox-for-android).
+
 
 ## Send a pull request
 
