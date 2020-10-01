@@ -186,7 +186,7 @@
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Clic abajo para mas información.",
+        "message": "Clic abajo para más información.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
