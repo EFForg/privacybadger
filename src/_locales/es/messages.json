@@ -274,7 +274,7 @@
         "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
-        "message": "WebRTC puede divulgar tu dirección IP local. Tenga en cuenta que habilitar esta opción puede reducir el rendimiento en aplicaciones de conferencia web como Google Hangouts.",
+        "message": "WebRTC puede divulgar tu dirección IP local. Ten en cuenta que habilitar esta opción puede reducir el rendimiento en aplicaciones de conferencia web como Google Hangouts.",
         "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {

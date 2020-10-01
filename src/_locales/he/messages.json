@@ -36,7 +36,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_learns_paragraph": {
-        "message": "ככל שתגלוש בפרק זמן ארוך יותר עם Privacy Badger, כך הוא ישתפר בהגנה עליך. האם Privacy Badger לא חוסם עדין שום דבר? זה בסדר! במקום לשמור רשימות של מה לחסום, Privacy Badger מגלה באופן אוטומטי גששים בזמן שאתה גולש ברשת. אז התחל לגלוש קצת כדי ללמד את Privacy Badger.",
+        "message": "ככל שתגלוש בפרק זמן ארוך יותר עם Privacy Badger, כך הוא ישתפר בהגנה עליך. האם Privacy Badger לא חוסם עדין שום דבר? זה בסדר! במקום לשמור רשימות של מה לחסום, Privacy Badger מגלה באופן אוטומטי עוקבנים בזמן שאתה גולש ברשת. אז התחל לגלוש קצת כדי ללמד את Privacy Badger.",
         "description": "Intro page paragraph. Also used on the options page as part of an acknowledgement screen in front of the tracking domains list."
     },
     "invalid_domain": {
@@ -104,7 +104,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger לומד באופן אוטומטי לחסום גששים בלתי נראים. קח דקה כדי לראות כיצד.",
+        "message": "Privacy Badger לומד באופן אוטומטי לחסום עוקבנים בלתי נראים. קח דקה כדי לראות כיצד.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -178,7 +178,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "איפשור למידה בחלונות פרטיים או בחלונות עילום שם עלול להותיר עקבות של היסטוריה של גלישה פרטית. כברירת מחדל, Privacy Badger יחסום גששים שהוא כבר יודע עליהם בחלונות פרטיים או בחלונות עילום שם, אבל הוא לא ילמד על גששים חדשים. ייתכן שתרצה לאפשר אפשרות זו אם חלק גדול של הגלישה שלך מתרחש בחלונות פרטיים או בחלונות עילום שם.",
+        "message": "איפשור למידה בחלונות פרטיים או בחלונות עילום שם עלול להותיר עקבות של היסטוריה של גלישה פרטית. כברירת מחדל, Privacy Badger יחסום עוקבנים שהוא כבר יודע עליהם בחלונות פרטיים או בחלונות עילום שם, אבל הוא לא ילמד על עוקבנים חדשים. ייתכן שתרצה לאפשר אפשרות זו אם חלק גדול של הגלישה שלך מתרחש בחלונות פרטיים או בחלונות עילום שם.",
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
@@ -194,11 +194,11 @@
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
-        "message": "הראה ספירת גששים",
+        "message": "הראה ספירת עוקבנים",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
-        "message": "מהו גשש?",
+        "message": "מהו עוקבן?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
@@ -230,7 +230,7 @@
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
-        "message": "רשימת גששים והגדרות עודכנו בהצלחה!",
+        "message": "רשימת עוקבנים והגדרות עודכנו בהצלחה!",
         "description": ""
     },
     "export_user_data": {
@@ -238,7 +238,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "יבוא נתוני משתמש:<ul><li>דריסת הגדרות כלליות</li><li>שילוב רשימות של אתרים מושבתים</li><li>שילוב מידע על אילו גששים Privacy Badger ראה</li><li>דריסת התאמות אישיות של מחוונים</li></ul>",
+        "message": "יבוא נתוני משתמש:<ul><li>דריסת הגדרות כלליות</li><li>שילוב רשימות של אתרים מושבתים</li><li>שילוב מידע על אילו עוקבנים Privacy Badger ראה</li><li>דריסת התאמות אישיות של מחוונים</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -250,7 +250,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "איפוס תחומי מעקב:\n\n  • ימחק את כל הנתונים על גששים אשר Privacy Badger למד מגלישתך \n  • ישחזר את רשימת תחומי המעקב אל הרשימה הקדם־מאומנת (בקר בכתובת www.eff.org/badger-pretraining כדי ללמוד עוד)",
+        "message": "איפוס תחומי מעקב:\n\n  • ימחק את כל הנתונים על עוקבנים אשר Privacy Badger למד מגלישתך \n  • ישחזר את רשימת תחומי המעקב אל הרשימה הקדם־מאומנת (בקר בכתובת www.eff.org/badger-pretraining כדי ללמוד עוד)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -262,7 +262,7 @@
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "הסרת כל תחומי המעקב:\n\n  • תמחק את כל מה ש־Privacy Badger יודע על גששים\n  • תיגרום אל Privacy Badger לא לחסום שום דבר עד שיהיה לו סיכוי ללמוד את זה שוב מגלישתך",
+        "message": "הסרת כל תחומי המעקב:\n\n  • תמחק את כל מה ש־Privacy Badger יודע על עוקבנים\n  • תיגרום אל Privacy Badger לא לחסום שום דבר עד שיהיה לו סיכוי ללמוד את זה שוב מגלישתך",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
@@ -318,7 +318,7 @@
         }
     },
     "intro_beyond_ads": {
-        "message": "תופס גששים ערמומיים",
+        "message": "תופס עוקבנים ערמומיים",
         "description": "Intro page paragraph heading."
     },
     "options_domain_filter_cookieblock": {
@@ -346,7 +346,7 @@
         "description": ""
     },
     "intro_beyond_ads_paragraph": {
-        "message": "מעקב בלתי נראה קורה בכל מיני דרכים; פרסומות הן הקצה הנראה של הקרחון. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>שולח את האות אל תעקוב (DNT)</a> אל גששים כדי לומר להם לא לעקוב אחריך. אם הם מתעלמים מבקשותיך, Privacy Badger ילמד לחסום אותם—בין אם הם מפרסמים או גששים מסוגים אחרים.",
+        "message": "מעקב בלתי נראה קורה בכל מיני דרכים; פרסומות הן הקצה הנראה של הקרחון. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>שולח את האות אל תעקוב (DNT)</a> אל עוקבנים כדי לומר להם לא לעקוב אחריך. אם הם מתעלמים מבקשותיך, Privacy Badger ילמד לחסום אותם—בין אם הם מפרסמים או עוקבנים מסוגים אחרים.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -493,7 +493,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger מתחיל לחסום ברגע שהוא רואה את אותו גשש בשלושה אתרים שונים. שלוש פגיעות והוא בחוץ! אם אתה משתמש בכליי פרטיות אחרים או בחוסמי פרסומות, Privacy Badger ילמד פחות, אבל זה בסדר, הוא עשוי לתפוס דברים שהחוסמים האחרים שלך פיספסו.",
+        "message": "Privacy Badger מתחיל לחסום ברגע שהוא רואה את אותו עוקבן בשלושה אתרים שונים. שלוש פגיעות והוא בחוץ! אם אתה משתמש בכליי פרטיות אחרים או בחוסמי פרסומות, Privacy Badger ילמד פחות, אבל זה בסדר, הוא עשוי לתפוס דברים שהחוסמים האחרים שלך פיספסו.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -549,7 +549,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger לומד באופן אוטומטי לחסום גששים בלתי נראים.",
+        "message": "Privacy Badger לומד באופן אוטומטי לחסום עוקבנים בלתי נראים.",
         "description": ""
     },
     "report_fail": {
@@ -643,7 +643,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) הוא הרחבת דפדפן אשר לומדת באופן אוטומטי לחסום גששים בלתי נראים. Privacy Badger נוצר על ידי הקרן של החזית האלקטרונית, ארגון ללא מטרות רווח שנלחם על זכויותיך באופן מקוון.",
+        "message": "Privacy Badger (www.eff.org/privacybadger) הוא הרחבת דפדפן אשר לומדת באופן אוטומטי לחסום עוקבנים בלתי נראים. Privacy Badger נוצר על ידי הקרן של החזית האלקטרונית, ארגון ללא מטרות רווח שנלחם על זכויותיך באופן מקוון.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
