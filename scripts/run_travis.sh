@@ -1,18 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 toplevel=$(git rev-parse --show-toplevel)
 testdir=${toplevel}/tests/selenium
 
 function run_lint {
-  make -C "$toplevel" lint
-  if [ $? != 0 ]; then
+  if ! make -C "$toplevel" lint; then
     echo "Linting errors"
     exit 1
   fi
 }
 
 function run_selenium {
-  py.test --capture=no --verbose --durations=10 "$testdir" # autodiscover and run the tests
+  # autodiscover and run the tests
+  pytest --capture=no --verbose --durations=10 "$testdir"
 }
 
 if [ "$INFO" == "lint" ]; then
