@@ -282,7 +282,7 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "Tietosuoja",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
