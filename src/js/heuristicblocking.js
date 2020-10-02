@@ -122,6 +122,11 @@ HeuristicBlocker.prototype = {
 
     let tab_origin = self.tabOrigins[details.tabId];
 
+    // ignore localhosts
+    if (window.isPrivateDomain(tab_origin)) {
+      return {};
+    }
+
     // ignore first-party requests
     if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
       return {};
