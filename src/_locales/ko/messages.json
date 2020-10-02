@@ -346,7 +346,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "보이지 않는 추적은 모든 면에서 일어납니다; 광고는 빙산의 일각에 불과합니다. Privacy Badger는 추적기에게 <a href='https://www.eff.org/issues/do-not-track' target='_blank'>추적 금지 신호를 보냅니다.</a> 만약 추적기가 신호를 무시한다면 Privacy Badger는 광고주든 다른 종류의 추적기든 간에 그것을 막는 법을 학습합니다.",
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -390,8 +390,8 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "웹사이트에 \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>추적 금지 신호</a>\"를 보냅니다.",
-        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
         "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
@@ -406,7 +406,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger는 다음 사이트에서 비활성화됩니다. 즉, 여기에 나열된 사이트를 방문할 때 Privacy Badger는 아무 것도 차단하지 않습니다.</p><p>Privacy Badger가 페이지를 파손하고 있다고 생각되면 아래 상자에 해당 페이지의 도메인을 입력하고 \"도메인 추가\" 버튼을 클릭할 수 있습니다.</p><p>또한, 페이지 탭이 이미 선택되어 있을 때는 브라우저 툴바에서 Privacy Badger버튼을 클릭한 다음 \"이 사이트에 대해 Privacy Badger를 사용하지 않도록 설정\" 버튼을 클릭하기만 하면 됩니다.</p>",
+        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
         "description": ""
     },
     "popup_instructions": {

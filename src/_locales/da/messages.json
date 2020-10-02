@@ -346,7 +346,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Usynlig sporing sker på alle mulige måder; reklamer er blot isbjergets synlige top. Privacy Badger <a href='https://www.eff.org/issues/do-not-track' target='_blank'>sender 'Spor Ikke'-signalet</a> til sporinger for at bede dem om ikke at spore dig. Hvis de ignorerer dine ønsker, lærer Privacy Badger at blokere dem—uanset om de er reklamer eller andre typer af sporinger.",
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, your Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -390,8 +390,8 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send netsteder signalet \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spor Ikke</a>\"",
-        "description": "Checkbox label for enabling/disabling the Do Not Track signal, found on the general settings page"
+        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
         "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
@@ -406,7 +406,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger er deaktiveret på de følgende steder. Det betyder at Privacy Badger ikke vil blokere noget når du besøger stederne listet her.</p><p>Hvis du tror Privacy Badger ødelægger en side, kan du skrive sidens domæne i feltet nedenunder og klikke på knappen \"Tilføj domæne\".</p><p>Alternativt, når du allerede har sidens faneblad valgt, kan du blot klikke på Privacy Badgers knap i browserens værktøjslinje, og derefter klikke på knappen \"Deaktiver\".</p>",
+        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
         "description": ""
     },
     "popup_instructions": {
