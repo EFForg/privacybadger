@@ -76,7 +76,7 @@ class DntTest(pbtest.PBSeleniumTest):
         )
 
     @pbtest.repeat_if_failed(3)
-    def test_dnt_check_should_happen_for_blocked_domains(self):
+    def test_dnt_policy_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
             "dnt.html"
@@ -123,7 +123,7 @@ class DntTest(pbtest.PBSeleniumTest):
         self.assertFalse(was_blocked,
             msg="DNT-compliant resource should have gotten unblocked.")
 
-    def test_dnt_check_should_not_set_cookies(self):
+    def test_dnt_policy_check_should_not_set_cookies(self):
         TEST_DOMAIN = "dnt-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
 
@@ -159,7 +159,7 @@ class DntTest(pbtest.PBSeleniumTest):
         self.assertEqual(len(self.driver.get_cookies()), 0,
             "Shouldn't have any cookies after the DNT check")
 
-    def test_dnt_check_should_not_send_cookies(self):
+    def test_dnt_policy_check_should_not_send_cookies(self):
         TEST_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
         TEST_URL = "https://{}/".format(TEST_DOMAIN)
 
@@ -235,18 +235,22 @@ class DntTest(pbtest.PBSeleniumTest):
         TEST_URL = "https://httpbin.org/get"
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
-        self.assertTrue(headers is not None, "It seems we failed to get DNT headers")
+        self.assertTrue(headers is not None, "It seems we failed to get headers")
         self.assertIn('Dnt', headers, "DNT header should have been present")
+        self.assertIn('Sec-Gpc', headers, "GPC header should have been present")
         self.assertEqual(headers['Dnt'], "1",
             'DNT header should have been set to "1"')
+        self.assertEqual(headers['Sec-Gpc'], "1",
+            'Sec-Gpc header should have been set to "1"')
 
     def test_no_dnt_header_when_disabled(self):
         TEST_URL = "https://httpbin.org/get"
         self.disable_badger_on_site(TEST_URL)
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
-        self.assertTrue(headers is not None, "It seems we failed to get DNT headers")
+        self.assertTrue(headers is not None, "It seems we failed to get headers")
         self.assertNotIn('Dnt', headers, "DNT header should have been missing")
+        self.assertNotIn('Sec-Gpc', headers, "GPC header should have been missing")
 
     def test_navigator_object(self):
         self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
@@ -255,6 +259,12 @@ class DntTest(pbtest.PBSeleniumTest):
             self.driver.find_element_by_tag_name('body').text,
             'no tracking (navigator.doNotTrack="1")',
             "navigator.DoNotTrack should have been set to \"1\""
+        )
+
+        self.assertEqual(
+            self.js("return navigator.globalPrivacyControl"),
+            "1",
+            "navigator.globalPrivacyControl should have been set to \"1\""
         )
 
     def test_navigator_left_alone_when_disabled(self):
@@ -267,6 +277,12 @@ class DntTest(pbtest.PBSeleniumTest):
             self.driver.find_element_by_tag_name('body').text[0:5],
             'unset',
             "navigator.DoNotTrack should have been left unset"
+        )
+
+        self.assertEqual(
+            self.js("return navigator.globalPrivacyControl"),
+            None,
+            "navigator.globalPrivacyControl should have been left unset"
         )
 
 
