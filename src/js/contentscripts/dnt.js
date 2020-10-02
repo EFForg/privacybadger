@@ -28,6 +28,12 @@ function getPageScript() {
       }
     });
 
+    OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "globalPrivacyControl", {
+      get: function globalPrivacyControl() {
+        return "1";
+      }
+    });
+
   // save locally to keep from getting overwritten by site code
   } + "(window.navigator, Object));";
 
