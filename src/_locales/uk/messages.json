@@ -334,11 +334,11 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "Навчається автоматично",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "Замість використання списків блокування, Privacy Badger автоматично виявляє елементи стеження на основі їх поведінки.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
@@ -464,11 +464,11 @@
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Privacy Badger НІКОЛИ не передає ваші дані будь-кому доки ви самі не захочете зробите це.",
+        "message": "Privacy Badger НІКОЛИ нікому не передає ваші дані доки ви самі не захочете зробите це.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "message": "Privacy Badger наразі вирішив заблокувати $COUNT$ потенційних $TRACKER_LINK_START$доменів стеження$TRACKER_LINK_END$",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {

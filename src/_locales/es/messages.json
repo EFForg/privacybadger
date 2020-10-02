@@ -334,11 +334,11 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "Aprende automáticamente",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "En lugar de mantener listas de qué bloquear, Privacy Badger descubre automáticamente los rastreadores según su comportamiento.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
@@ -468,7 +468,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "message": "Privacy Badger ha decidido bloquear $COUNT$ $TRACKER_LINK_START$dominios de rastreo$TRACKER_LINK_END$ potenciales hasta el momento",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
