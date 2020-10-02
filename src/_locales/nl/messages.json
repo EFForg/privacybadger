@@ -178,15 +178,15 @@
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "message": "Privacy Badger zal niet langer als standaard gedrag leren van jouw surfgedrag.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "Klik hieronder om meer te leren.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "Lees how Privacy Badger verandert",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
