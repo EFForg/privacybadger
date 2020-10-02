@@ -311,6 +311,7 @@ googlevideo.com
 governmentjobs.com
 gravatar.com
 greenhouse.io
+rest.growinginteractive.com
 gscdn.nl
 gstatic.com
 guildwars2.com
