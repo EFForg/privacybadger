@@ -38,6 +38,14 @@ function() {
     },
   });
 
+  QUnit.test("learning is disabled on localhost", function (assert) {
+    const LOCALSITE = "localhost";
+
+    assert.notOk(
+      badger.isLearningEnabled(this.tabId, LOCALSITE), "learning is disabled on localhost site"
+    );
+  });
+
   QUnit.test("logging blocked domain", function (assert) {
     const DOMAIN = "example.com";
 
