@@ -105,7 +105,7 @@ HeuristicBlocker.prototype = {
    */
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
     // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
+    if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId, details.url)) {
       return {};
     }
 
@@ -121,11 +121,6 @@ HeuristicBlocker.prototype = {
     }
 
     let tab_origin = self.tabOrigins[details.tabId];
-
-    // ignore localhosts
-    if (window.isPrivateDomain(tab_origin)) {
-      return {};
-    }
 
     // ignore first-party requests
     if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
