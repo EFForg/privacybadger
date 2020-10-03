@@ -25,7 +25,7 @@ function startListeners() {
   chrome.tabs.onRemoved.addListener(onRemovedListener);
 }
 
-function learningEnabled(tab_id) {
+function learningEnabled(tab_id, tab_host) {
   if (badger.getSettings().getItem("learnInIncognito")) {
     // treat all pages as if they're not incognito
     return true;
@@ -33,6 +33,10 @@ function learningEnabled(tab_id) {
   // if we don't have incognito data for whatever reason,
   // default to disabled
   if (!tabs.hasOwnProperty(tab_id)) {
+    return false;
+  }
+  // if tab host is a localhost or any private domain, default to disabled
+  if (window.isPrivateDomain(tab_host)) {
     return false;
   }
   // else, do not learn in incognito tabs
