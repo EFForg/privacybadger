@@ -346,7 +346,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "不可見的追蹤會以各種方式發生；廣告只是可見的冰山一角。Privacy Badger 傳送<a href='https://globalprivacycontrol.org/' target='_blank'>全域隱私控制訊號</a>，來讓您退出資料分享與販售，以及 <a href='https://www.eff.org/issues/do-not-track' target='_blank'>「Do Not Track」訊號</a>來告訴公司不要追蹤您。如果他們忽略了您的請求，Privacy Badger 將會學習封鎖它們，不論它們是廣告還是其他類型的追蹤器都一樣。",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -390,7 +390,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "傳送「<a href='https://globalprivacycontrol.org/' target='_blank'>全域隱私控制</a>」訊號與「<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>」訊號給網頁",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
@@ -406,7 +406,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
+        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西，其也將不會傳送「Do Not Track」或全域隱私控制訊號。</p><p>若您覺得 Privacy Badger 把頁面弄壞了，您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。</p><p>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。</p>",
         "description": ""
     },
     "popup_instructions": {

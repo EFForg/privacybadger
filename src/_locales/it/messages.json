@@ -346,7 +346,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Il tracciamento invisibile ha molte forme; le pubblicità sono solo la punta visibile dell'iceberg. Privacy Badger invia il <a href='https://globalprivacycontrol.org/' target='_blank'>segnale Global Privacy Control</a> per escluderti dalla condivisione e vendita di dati e il <a href='https://www.eff.org/issues/do-not-track' target='_blank'>segnale Do Not Track</a> per dire alle aziende di non tracciarti. Se ignorano le tue scelte, Privacy Badger imparerà a bloccarli—che siano inserzionisti o tracker di altro tipo.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -390,7 +390,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "Invia ai siti i segnali \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" e \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\"",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
@@ -406,7 +406,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
+        "message": "<p>Privacy Badger è disattivato nei seguenti siti. Ciò significa che Privacy Badger non bloccherà nulla mentre visiti i siti elencati qui e non invierà i segnali Do Not Track e Global Privacy Control.</p><p>Se pensi che con Privacy Badger non funzioni bene una pagina, o se volessi permettere a uno specifico sito di condividere o vendere i tuoi dati, puoi digitare il dominio di quella pagina nella casella sotto e cliccare il pulsante \"Aggiungi dominio\".</p><p>Altrimenti, quando la scheda della pagina è selezionata, puoi cliccare il pulsante di Privacy Badger nella barra degli strumenti e poi cliccare il pulsante \"Disattiva\".</p>",
         "description": ""
     },
     "popup_instructions": {
