@@ -346,7 +346,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Невидимое отслеживание осуществляется многими способами; реклама — лишь видимая вершина айсберга. Privacy Badger отправляет <a href='https://globalprivacycontrol.org/' target='_blank'>сигнал Global Privacy Control</a>, чтобы отказаться от продажи ваших данных, и отправляет <a href='https://www.eff.org/issues/do-not-track' target='_blank'>сигнал Do Not Track</a> компаниям, говоря им не отслеживать вас. Если они игнорируют ваши желания, Privacy Badger научится блокировать их вне зависимости от того, рекламные они трекеры или нет.",
+        "message": "Невидимое отслеживание осуществляется многими способами; реклама — лишь видимая вершина айсберга. Privacy Badger отправляет <a href='https://globalprivacycontrol.org/' target='_blank'>сигнал Global Privacy Control</a>, чтобы отказаться от разпростровления и продажи ваших данных, и отправляет <a href='https://www.eff.org/issues/do-not-track' target='_blank'>сигнал Do Not Track</a> компаниям, говоря им не отслеживать вас. Если они игнорируют ваши желания, Privacy Badger научится блокировать их вне зависимости от того, рекламные они трекеры или нет.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -406,7 +406,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger отключен для данных сайтов. Это означает, что Privacy Badger не будет ничего блокировать на сайтах, находящихся в данном списке. Privacy Badger также не будет отправлять этим сайтам сигналы Do Not Track и Global Privacy Control.</p><p>Если вы считаете, что Privacy Badger вызывает неполадки на странице, или вы хотите позволить какой-то сайте продавать ваши данные, вы можете напечатать домен данной страницы в поле ниже и нажать кнопку «Добавить домен».</p><p>Или же, если у вас открыта вкладка со страницей, вы можете выбрать Privacy Badger на панели инструментов и затем нажать кнопку «Отключить». ",
+        "message": "<p>Privacy Badger отключен для данных сайтов. Это означает, что Privacy Badger не будет ничего блокировать на сайтах, находящихся в данном списке. Privacy Badger также не будет отправлять этим сайтам сигналы Do Not Track и Global Privacy Control.</p><p>Если вы считаете, что Privacy Badger вызывает неполадки на странице, или вы хотите позволить какой-то сайте разпростровлять или продавать ваши данные, вы можете напечатать домен данной страницы в поле ниже и нажать кнопку «Добавить домен».</p><p>Или же, если у вас открыта вкладка со страницей, вы можете выбрать Privacy Badger на панели инструментов и затем нажать кнопку «Отключить». ",
         "description": ""
     },
     "popup_instructions": {
