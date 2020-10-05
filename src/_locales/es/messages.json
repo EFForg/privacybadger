@@ -242,7 +242,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Restablecer los dominios de rastreo:\n\n  • Elimina todos los datos sobre los rastreadores que Privacy Badger ha aprendido de tu navegación\n  • Restaura la lista de dominios de rastreo a la más reciente ya entrenada (visite www.eff.org/badger-pretraining para obtener más información)",
+        "message": "Restablecer los dominios de rastreo:\n\n  • Elimina todos los datos sobre los rastreadores que Privacy Badger ha aprendido de tu navegación\n  • Restaura la lista de dominios de rastreo a la más reciente ya entrenada (visita www.eff.org/badger-pretraining para obtener más información)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {

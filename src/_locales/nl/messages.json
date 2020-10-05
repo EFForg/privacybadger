@@ -206,7 +206,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
+        "message": "Dit zal automatisch de volgende gegevens naar het EFF verzenden: de webpagina die je momenteel bezoekt, de versie van je webbrowser, de versie van Privacy Badger en de instelling van alle schuifknoppen voor deze webpagina.",
         "description": ""
     },
     "whitelisted_domains": {

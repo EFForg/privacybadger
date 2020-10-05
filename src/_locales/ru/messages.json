@@ -158,7 +158,7 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "Найти домены:",
+        "message": "Поиск доменов:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
@@ -218,7 +218,7 @@
         "description": ""
     },
     "options_domain_type_filter": {
-        "message": "Фильтровать по типу:",
+        "message": "Фильтр по типу:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
@@ -497,7 +497,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
-        "message": "Фильтровать по статусу:",
+        "message": "Фильтр по статусу:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
@@ -513,7 +513,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "Для исключения доменов, добавьте \"-\" перед поисковым запросом. Например, \".co -.com\" выведет .co и .co.uk, но не домены .com.",
+        "message": "Для исключения доменов, добавьте «-» перед поисковым запросом. Например, «.co -.com» выведет .co и .co.uk, но не домены .com.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
