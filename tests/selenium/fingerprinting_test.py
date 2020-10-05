@@ -43,6 +43,12 @@ return (
             return ctx.fillText.toString();
         """)
 
+    def setUp(self):
+        # enable local learning
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#local-learning-checkbox').click()
+
     # TODO can fail because our content script runs too late: https://crbug.com/478183
     @pbtest.repeat_if_failed(3)
     def test_canvas_fingerprinting_detection(self):

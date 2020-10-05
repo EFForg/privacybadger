@@ -36,7 +36,11 @@ class CookieTest(pbtest.PBSeleniumTest):
 
         THIRD_PARTY_DOMAIN = "efforg.github.io"
 
-        self.wait_for_script("return typeof chrome != 'undefined' && chrome && chrome.extension")
+        # enable local learning
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#local-learning-checkbox').click()
+
         # remove pre-trained domains
         self.js(
             "chrome.extension.getBackgroundPage()."

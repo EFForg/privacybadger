@@ -200,6 +200,10 @@ class DntTest(pbtest.PBSeleniumTest):
         self.load_url(self.options_url)
         self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
 
+        # enable local learning
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#local-learning-checkbox').click()
+
         # visit a page containing two third-party resources,
         # one from a cookie-tracking domain
         # and one from a non-tracking domain

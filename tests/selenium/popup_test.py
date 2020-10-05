@@ -180,6 +180,10 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Ensure toggling sliders is persisted."""
         self.clear_seed_data()
 
+        # enable learning to show not-yet-blocked domains in popup
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#local-learning-checkbox').click()
+
         DOMAIN = "example.com"
         DOMAIN_ID = DOMAIN.replace(".", "-")
 

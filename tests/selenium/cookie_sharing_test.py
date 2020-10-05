@@ -13,8 +13,15 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
 
     def get_snitch_map(self):
         return self.js(
-            "return chrome.extension.getBackgroundPage().badger.storage.snitch_map.getItem('cloudinary.com');"
+            "return chrome.extension.getBackgroundPage()."
+            "badger.storage.snitch_map.getItem('cloudinary.com');"
         )
+
+    def setUp(self):
+        # enable local learning
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#local-learning-checkbox').click()
 
     def test_pixel_cookie_sharing(self):
         FIXTURE_URL = (

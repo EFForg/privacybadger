@@ -250,6 +250,9 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.add_test_origin("pbtest.org", original_action)
 
         self.load_options_page()
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        # enable learning to reveal the show-not-yet-blocked checkbox
+        self.find_el_by_css('#local-learning-checkbox').click()
         self.select_domain_list_tab()
         self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
         # wait for sliders to finish rendering

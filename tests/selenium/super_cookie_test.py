@@ -23,6 +23,12 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
         return self.js(CHECK_SNITCH_MAP_JS, origin)
 
+    def setUp(self):
+        # enable local learning
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#local-learning-checkbox').click()
+
     # test for https://github.com/EFForg/privacybadger/pull/1403
     # TODO remove retrying entire test after we revert 879a74f807999a2135e4d48bb5efbd8a1beff4f8
     @pbtest.repeat_if_failed(5)
