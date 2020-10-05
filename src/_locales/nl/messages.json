@@ -394,11 +394,11 @@
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
+        "message": "Schakel het naar Google verzenden van webadressen die je bezoekt uit. Hierdoor worden ook suggesties voor vergelijkbare pagina's als een pagina niet kan worden gevonden uitgeschakeld.",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disable hyperlink auditing",
+        "message": "‘Hyperlink auditing’ blokkeren",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
