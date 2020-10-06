@@ -247,9 +247,22 @@ class DntTest(pbtest.PBSeleniumTest):
         self.assertEqual(headers['Sec-Gpc'], "1",
             'Sec-Gpc header should have been set to "1"')
 
-    def test_no_dnt_header_when_disabled(self):
+    def test_no_dnt_header_when_disabled_on_site(self):
         TEST_URL = "https://httpbin.org/get"
         self.disable_badger_on_site(TEST_URL)
+        headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
+                              times=8)
+        self.assertTrue(headers is not None, "It seems we failed to get headers")
+        self.assertNotIn('Dnt', headers, "DNT header should have been missing")
+        self.assertNotIn('Sec-Gpc', headers, "GPC header should have been missing")
+
+    def test_no_dnt_header_when_dnt_disabled(self):
+        TEST_URL = "https://httpbin.org/get"
+
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#enable_dnt_checkbox').click()
+
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
         self.assertTrue(headers is not None, "It seems we failed to get headers")
@@ -264,14 +277,13 @@ class DntTest(pbtest.PBSeleniumTest):
             'no tracking (navigator.doNotTrack="1")',
             "navigator.DoNotTrack should have been set to \"1\""
         )
-
         self.assertEqual(
             self.js("return navigator.globalPrivacyControl"),
             "1",
             "navigator.globalPrivacyControl should have been set to \"1\""
         )
 
-    def test_navigator_left_alone_when_disabled(self):
+    def test_navigator_unmodified_when_disabled_on_site(self):
         self.disable_badger_on_site(DntTest.NAVIGATOR_DNT_TEST_URL)
 
         self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
@@ -282,7 +294,25 @@ class DntTest(pbtest.PBSeleniumTest):
             'unset',
             "navigator.DoNotTrack should have been left unset"
         )
+        self.assertEqual(
+            self.js("return navigator.globalPrivacyControl"),
+            None,
+            "navigator.globalPrivacyControl should have been left unset"
+        )
 
+    def test_navigator_unmodified_when_dnt_disabled(self):
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#enable_dnt_checkbox').click()
+
+        self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
+
+        # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
+        self.assertEqual(
+            self.driver.find_element_by_tag_name('body').text[0:5],
+            'unset',
+            "navigator.DoNotTrack should have been left unset"
+        )
         self.assertEqual(
             self.js("return navigator.globalPrivacyControl"),
             None,
