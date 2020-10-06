@@ -3956,7 +3956,7 @@ let multiDomainFirstPartiesArray = [
     "wpimg.pl",
   ],
   ["wpcu.coop", "wpcuonline.com"],
-  ["wsj.com", "wsj.net", "barrons.com", "dowjones.com", "marketwatch.com"],
+  ["wsj.com", "wsj.net", "barrons.com", "dowjones.com", "dowjoneson.com", "mansionglobal.com", "marketwatch.com"],
   ["xda-developers.com", "xda-cdn.com"],
   ["xfinity.com", "comcast.net", "comcast.com"],
   ["xhamster.com", "xhcdn.com"],
