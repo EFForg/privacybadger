@@ -991,6 +991,17 @@ let multiDomainFirstPartiesArray = [
   ["discover.com", "discovercard.com"],
   ["disqus.com", "disquscdn.com"],
   [
+    "dmgmedia.co.uk",
+
+    "dailymail.co.uk",
+    "inews.co.uk",
+    "mailonsunday.co.uk",
+    "metro.co.uk",
+    "thisismoney.co.uk",
+
+    "dmgmediaprivacy.co.uk",
+  ],
+  [
     "dpgmediagroup.com",
 
     "persgroep.net",
