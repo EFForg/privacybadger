@@ -529,11 +529,11 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Badger aún no ha decidido si estos dominios deben ser bloqueados",
+        "message": "Privacy Badger aún no ha decidido si estos dominios deben ser bloqueados",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Mostrar dominios que Badger aún no ha decidido bloquear:",
+        "message": "Mostrar dominios que Privacy Badger aún no ha decidido bloquear:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -585,7 +585,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
-        "message": "Sincronización en la nube:<ul><li>Requiere Firefox/Chrome Sync</li><li>La subida de datos sobrescribe cualquier dato existente de Privacy Badger en la nube</li><li>La descarga combina las listas de sitios en los que Badger está deshabilitado</li></ul>",
+        "message": "Sincronización en la nube:<ul><li>Requiere Firefox/Chrome Sync</li><li>La subida de datos sobrescribe cualquier dato existente de Privacy Badger en la nube</li><li>La descarga combina las listas de sitios en los que Privacy Badger está deshabilitado</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
