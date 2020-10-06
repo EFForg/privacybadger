@@ -1005,6 +1005,7 @@ let multiDomainFirstPartiesArray = [
     "demorgen.be",
     "destentor.nl",
     "dpgmedia.be",
+    "dpgmedia.nl",
     "ed.nl",
     "gelderlander.nl",
     "hln.be",
@@ -1020,6 +1021,9 @@ let multiDomainFirstPartiesArray = [
     "trouw.nl",
     "tubantia.nl",
     "volkskrant.nl",
+    "vtm.be",
+
+    "dpgmedia.net",
   ],
   ["dropbox.com", "dropboxstatic.com", "dropboxusercontent.com", "getdropbox.com"],
   ["d.rip", "kickstarter.com"],
