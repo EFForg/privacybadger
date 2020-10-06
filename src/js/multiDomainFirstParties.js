@@ -2587,7 +2587,6 @@ let multiDomainFirstPartiesArray = [
   ["mymerrill.com", "ml.com", "merrilledge.com"],
   ["mynortonaccount.com", "norton.com"],
   ["mysmartedu.com", "mysmartabc.com"],
-  ["mysql.com", "oracle.com"],
   ["myuv.com", "uvvu.com"],
   [
     "naver.com",
@@ -2826,6 +2825,14 @@ let multiDomainFirstPartiesArray = [
   ],
   ["onlineatnsb.com", "norwaysavingsbank.com"],
   ["openstreetmap.org", "osmfoundation.org"],
+  [
+    "oracle.com",
+
+    "ateam-oracle.com",
+    "mysql.com",
+
+    "oracleimg.com",
+  ],
   ["orange.fr", "sosh.fr", "woopic.com"],
   [
     "osf.io",
