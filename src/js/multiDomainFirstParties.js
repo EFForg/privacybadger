@@ -3991,6 +3991,7 @@ let multiDomainFirstPartiesArray = [
     "yandex.uz",
     "ya.ru",
   ],
+  ["yoox.com", "mrporter.com", "theoutnet.com", "yoox.it"],
   [
     "sph.com.sg",
 
