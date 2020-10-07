@@ -1,5 +1,6 @@
 Privacy Badger Release Notes
 ============================
+
 2020.10.7
 * Disabled learning (by default) to address privacy concerns.
 Visit https://www.eff.org/badger-evolution to learn more.

@@ -32,7 +32,7 @@ echo "As always, you can get it from https://privacybadger.org/ or from your bro
 echo "" >> $MSG
 echo "Notable updates:" >> $MSG
 echo "" >> $MSG
-tail -n+5 ../doc/Changelog | sed '/^$/q' >> $MSG
+tail -n+4 ../doc/Changelog | sed '/^$/q' | grep -Ev '^[0-9]{4}\.[0-9\.]+$' >> $MSG
 echo "For further details, consult our release notes on GitHub:" >> $MSG
 echo "https://github.com/EFForg/privacybadger/releases/tag/release-$TARGET" >> $MSG
 
@@ -53,7 +53,7 @@ echo ""
 echo "AMO release notes:"
 echo ""
 echo "<ul>"
-tail -n+5 ../doc/Changelog | sed '/^$/q' | {
+tail -n+4 ../doc/Changelog | sed '/^$/q' | grep -Ev '^[0-9]{4}\.[0-9\.]+$' | {
   out=""
   while IFS= read -r line; do
     # changelog entries start with "*"
