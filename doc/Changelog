@@ -1,5 +1,16 @@
 Privacy Badger Release Notes
 ============================
+2020.10.7
+* Disabled learning (by default) to address privacy concerns.
+Visit https://www.eff.org/badger-evolution to learn more.
+* Added support for Global Privacy Control, a new specification that
+lets you tell companies you'd like to opt out of data sharing and selling.
+Visit https://globalprivacycontrol.org/ to learn more.
+* Added a new section to the options page to display the browser settings
+that Privacy Badger overrides for privacy reasons
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Dutch, Finnish, Hebrew, Italian,
+Russian, Spanish, Ukrainian)
 
 2020.8.25
 * Added a button to widget replacements to always allow a widget on a site
