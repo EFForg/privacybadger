@@ -66,6 +66,7 @@ sapi.map.baidu.com
 bandcamp.com
 bankid.no
 bankrate.com
+verifiedbyvisa.barclays.co.uk
 bazaarvoice.com
 bcbits.com
 maponline0.bdimg.com
