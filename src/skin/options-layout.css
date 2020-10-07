@@ -252,3 +252,9 @@ p, #settingsForm {
 .indent1 {
     margin-inline-start: 25px;
 }
+
+@media screen and (max-width: 500px){
+    .ui-tabs .ui-tabs-panel {
+        padding: 0.5em 0;
+    }
+}
