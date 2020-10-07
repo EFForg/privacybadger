@@ -257,6 +257,7 @@ font-size: 16px;
 }
 .instruction-logo {
     align-self: center;
+    flex-shrink: 0;
     padding-inline-end: 15px;
 }
 #instruction .flex-wrapper > div {
