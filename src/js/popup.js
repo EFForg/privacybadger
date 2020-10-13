@@ -162,15 +162,15 @@ function init() {
     });
   });
 
-  let overlay = $('#overlay');
+  let $overlay = $('#overlay');
 
   // show error layout if the user was writing an error report
   if (POPUP_DATA.hasOwnProperty('errorText') && POPUP_DATA.errorText) {
-    overlay.toggleClass('active');
+    $overlay.toggleClass('active');
   }
 
   $("#error").on("click", function() {
-    overlay.toggleClass('active');
+    $overlay.toggleClass('active');
   });
   $("#report-cancel").on("click", function() {
     clearSavedErrorText();
