@@ -14,9 +14,9 @@ body.options a:focus:not(.ui-tabs-anchor):not(.honeybadgerPowered):not(.removeOr
 }
 
 h1 {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
-    margin: 10px 8px;
+    margin: 0 6px;
 }
 
 h3 {
@@ -217,6 +217,9 @@ p, #settingsForm {
     max-width: 800px;
     margin: 0 auto;
     padding: 0;
+}
+header {
+    margin-top: 8px;
 }
 #tabs .ui-widget-header {
     background: transparent;
