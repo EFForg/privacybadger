@@ -116,7 +116,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
-        "message": "Sciigi pri kiel Privata Melo protektas vian privatecon",
+        "message": "Sciiĝi pri kiel Privata Melo protektas vian privatecon",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
@@ -178,15 +178,15 @@
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "message": "Privata Melo de nun implicite ne lernos surbaze de via retumado.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "Klaku suben por pli da informo.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "Sciiĝi pri kiel Privata Malo ŝanĝiĝas",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
@@ -334,11 +334,11 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "Aŭtomate lernas",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "Anstataŭ prizorgi liston de blokataj elementoj, Privata Melo aŭtomate malkovras spurilojn surbaze de ilia sinteno.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
@@ -346,7 +346,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Nevidebla spurado okazas plurmaniere; reklamoj estas nur videbla parteto de tutaĵo. Privata Melo sendas la <a href='https://globalprivacycontrol.org/' target='_blank'>signalon Global Privacy Control</a> por peti pri ne kunhavigi kaj vendi viajn datumojn, kaj la <a href='https://www.eff.org/issues/do-not-track' target='_blank'>signalon “Ne Spuri Min” (DNT)</a> por peti firmaojn pri ne spuri vin. Se ili ignoros vian peton, Privata Melo lernos pri bloki ilin – ĉu ili estas reklamoj aŭ spuriloj aŭ aliaj aĉaĵoj.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -390,7 +390,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "Sendi al retejoj la signalojn “<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>” kaj “<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Ne Spuri Min</a>” (DNT)",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
@@ -406,7 +406,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
+        "message": "<p>Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn kaj ne sendos al ili la signalojn “Global Privacy Control” kaj “Ne Spuri Min” (DNT).</p><p>Se viaopinie Privata Melo difektas iun retpaĝon aŭ volas permesi al ĝi kunhavigi aŭ vendi viajn datumojn, vi povas enigu ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.</p><p>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la emblemon de Privata Melo sur la folumila ilarstrio kaj sekve klaku la butonon “malaktivigi”.</p>",
         "description": ""
     },
     "popup_instructions": {
@@ -468,7 +468,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "message": "Privata Melo decidiĝis bloki $COUNT$ eblajn $TRACKER_LINK_START$spurantajn nomregnojn$TRACKER_LINK_END$ ĝis nun",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {

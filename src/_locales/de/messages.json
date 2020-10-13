@@ -178,7 +178,7 @@
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger wird standardmäßig nicht mehr aus Ihrem Browsen lernen.",
+        "message": "Privacy Badger wird standardmäßig nicht mehr von Ihrem Browsen lernen.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {

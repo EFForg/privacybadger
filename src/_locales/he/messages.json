@@ -390,7 +390,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "שלח אל אתרים את האותות \"<a href='https://globalprivacycontrol.org/' target='_blank'>בקרה גלובלית של פרטיות</a> ו\"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>אל תעקוב</a>",
+        "message": "שלח אל אתרים את האותות \"<a href='https://globalprivacycontrol.org/' target='_blank'>בקרה גלובלית של פרטיות</a> ו\"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>אל תעקוב</a>\"",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
