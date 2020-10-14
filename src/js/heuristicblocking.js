@@ -141,7 +141,7 @@ HeuristicBlocker.prototype = {
 
     // check if there are tracking cookies
     if (hasCookieTracking(details, request_origin)) {
-      self._recordPrevalence(request_host, request_origin, tab_origin,
+      self._recordPrevalence(request_host, request_origin, tab_origin, tab_id,
                              constants.TRACKER_TYPES.COOKIE);
       return {};
     }
@@ -162,7 +162,7 @@ HeuristicBlocker.prototype = {
       chrome.cookies.getAll(config, function (cookies) {
         cookies = cookies.filter(cookie => !cookie.httpOnly);
         if (cookies.length >= 1) {
-          self.pixelCookieShareAccounting(tab_url, tab_origin, details.url, request_host, request_origin, cookies);
+          self.pixelCookieShareAccounting(tab_id, details.url, request_host, request_origin, cookies);
         }
       });
     }
@@ -180,8 +180,10 @@ HeuristicBlocker.prototype = {
    * @param cookies are the result of chrome.cookies.getAll()
    * @returns {*}
    */
-  pixelCookieShareAccounting: function (tab_url, tab_origin, request_url, request_host, request_origin, cookies) {
+  pixelCookieShareAccounting: function (tab_id, request_url, request_host, request_origin, cookies) {
     let params = (new URL(request_url)).searchParams,
+      tab_origin = self.tabOrigins[tab_id],
+      tab_url = self.tabUrls[tab_id],
       TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
 
@@ -252,8 +254,10 @@ HeuristicBlocker.prototype = {
             log("Found high-entropy cookie share from", tab_origin, "to", request_host,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
               "\n  arg:", key, "=", value, "\n  substring:", s);
-            this._recordPrevalence(request_host, request_origin, tab_origin,
-                                   constants.TRACKER_TYPES.COOKIE_SHARE);
+            this._recordPrevalence(
+              request_host, request_origin, tab_origin, tab_id,
+              constants.TRACKER_TYPES.COOKIE_SHARE
+            );
             return;
           }
         }
@@ -267,9 +271,11 @@ HeuristicBlocker.prototype = {
    * @param {String} tracker_fqdn The fully qualified domain name of the tracker
    * @param {String} tracker_origin Base domain of the third party tracker
    * @param {String} page_origin Base domain of page where tracking occurred
+   * @param {Integer} tab_id the ID of the tab the user is in
    * @param {String} tracker_type the kind of tracking action that was observed
    */
-  updateTrackerPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker_type) {
+  updateTrackerPrevalence: function (tracker_fqdn, tracker_origin, page_origin,
+    tab_id, tracker_type) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
@@ -280,6 +286,7 @@ HeuristicBlocker.prototype = {
       tracker_fqdn,
       tracker_origin,
       page_origin,
+      tab_id,
       tracker_type
     );
   },
@@ -298,7 +305,7 @@ HeuristicBlocker.prototype = {
    * @param {String} page_origin Base domain of page where tracking occurred
    * @param {String} tracker_type the kind of tracking action that was observed
    */
-  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker_type) {
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tab_id, tracker_type) {
     var snitchMap = this.storage.getStore('snitch_map');
     var firstParties = [];
     if (snitchMap.hasItem(tracker_origin)) {
@@ -315,9 +322,17 @@ HeuristicBlocker.prototype = {
       return; // We already know about the presence of this tracker on the given domain
     }
 
-    // record that we've seen this tracker on this domain (in snitch map)
-    firstParties.push(page_origin);
-    snitchMap.setItem(tracker_origin, firstParties);
+    // If local learning is enabled, record that we've seen this tracker on this
+    // domain (in snitch map)
+    if (badger.isLocalLearningEnabled(tab_id)) {
+      firstParties.push(page_origin);
+      snitchMap.setItem(tracker_origin, firstParties);
+    }
+
+    // If community learning is enabled, queue up a request to the EFF server
+    if (badger.getSettings().getItem("shareLearning")) {
+      this.maybeShareTracker(page_origin, tracker_fqdn, tracker_type);
+    }
 
     // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
     // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
@@ -332,6 +347,18 @@ HeuristicBlocker.prototype = {
     if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
       log('blocklisting origin', tracker_fqdn);
       this.blocklistOrigin(tracker_origin, tracker_fqdn);
+    }
+  }
+
+  /**
+   * Flip a coin, then maybe share information about the tracker we just saw
+   */
+  maybeShareTracker(page_origin, tracker_fqdn, tracker_type) {
+    // 50% chance of sharing any given tracking action
+    if (Math.random() < 0.5) {
+      setTimeout(function() {
+        // TODO
+      }, Math.floor(Math.random() * constants.MAX_CL_WAIT_TIME));
     }
   }
 };

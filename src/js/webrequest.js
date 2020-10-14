@@ -449,6 +449,7 @@ function recordSupercookie(tab_id, frame_url) {
     frame_host,
     window.getBaseDomain(frame_host),
     window.getBaseDomain(page_host),
+    tab_id,
     constants.TRACKER_TYPES.SUPERCOOKIE
   );
 }
@@ -517,7 +518,7 @@ function recordFingerprinting(tabId, msg) {
           // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
             script_host, script_origin, window.getBaseDomain(document_host),
-            constants.TRACKER_TYPES.FINGERPRINT
+            tabId, constants.TRACKER_TYPES.FINGERPRINT
           );
         }
       }

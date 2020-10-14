@@ -40,6 +40,10 @@ var exports = {
   TRACKING_THRESHOLD: 3,
   MAX_COOKIE_ENTROPY: 12,
 
+  // The max amount of time (in milliseconds) that PB will wait before sharing a
+  // tracking action with EFF for community learning
+  MAX_CL_WAIT_TIME: 30 * 60 * 1000; // one half hour
+
   DNT_POLICY_CHECK_INTERVAL: 1000, // one second
 };
 

@@ -715,6 +715,7 @@ Badger.prototype = {
     migrationLevel: 0,
     seenComic: false,
     sendDNTSignal: true,
+    shareLearning: false,
     showCounter: true,
     showIntroPage: true,
     showNonTrackingDomains: false,
@@ -930,10 +931,22 @@ Badger.prototype = {
    * and if tab_id is for an incognito window,
    * is learning in incognito windows enabled?
    */
-  isLearningEnabled(tab_id) {
+  isLocalLearningEnabled(tab_id) {
     return (
       this.getSettings().getItem("learnLocally") &&
       incognito.learningEnabled(tab_id)
+    );
+  },
+
+  /**
+   * Is any kind of learning (local or community) enabled on this tab?
+   *
+   * TODO: should community learning happen in incognito tabs?
+   */
+  isLearningEnabled(tab_id) {
+    return (
+      this.getSettings().getItem("shareLearning") ||
+      this.isLocalLearningEnabled(tab_id)
     );
   },
 
