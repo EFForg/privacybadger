@@ -141,7 +141,8 @@ HeuristicBlocker.prototype = {
 
     // check if there are tracking cookies
     if (hasCookieTracking(details, request_origin)) {
-      self._recordPrevalence(request_host, request_origin, tab_origin);
+      self._recordPrevalence(request_host, request_origin, tab_origin,
+                             constants.TRACKER_TYPES.COOKIE);
       return {};
     }
 
@@ -251,7 +252,8 @@ HeuristicBlocker.prototype = {
             log("Found high-entropy cookie share from", tab_origin, "to", request_host,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
               "\n  arg:", key, "=", value, "\n  substring:", s);
-            this._recordPrevalence(request_host, request_origin, tab_origin);
+            this._recordPrevalence(request_host, request_origin, tab_origin,
+                                   constants.TRACKER_TYPES.COOKIE_SHARE);
             return;
           }
         }
@@ -265,8 +267,9 @@ HeuristicBlocker.prototype = {
    * @param {String} tracker_fqdn The fully qualified domain name of the tracker
    * @param {String} tracker_origin Base domain of the third party tracker
    * @param {String} page_origin Base domain of page where tracking occurred
+   * @param {String} tracker_type the kind of tracking action that was observed
    */
-  updateTrackerPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
+  updateTrackerPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker_type) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
@@ -276,7 +279,8 @@ HeuristicBlocker.prototype = {
     this._recordPrevalence(
       tracker_fqdn,
       tracker_origin,
-      page_origin
+      page_origin,
+      tracker_type
     );
   },
 
@@ -292,8 +296,9 @@ HeuristicBlocker.prototype = {
    * @param {String} tracker_fqdn The FQDN of the third party tracker
    * @param {String} tracker_origin Base domain of the third party tracker
    * @param {String} page_origin Base domain of page where tracking occurred
+   * @param {String} tracker_type the kind of tracking action that was observed
    */
-  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
+  _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin, tracker_type) {
     var snitchMap = this.storage.getStore('snitch_map');
     var firstParties = [];
     if (snitchMap.hasItem(tracker_origin)) {

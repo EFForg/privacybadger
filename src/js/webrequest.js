@@ -448,7 +448,8 @@ function recordSupercookie(tab_id, frame_url) {
   badger.heuristicBlocking.updateTrackerPrevalence(
     frame_host,
     window.getBaseDomain(frame_host),
-    window.getBaseDomain(page_host)
+    window.getBaseDomain(page_host),
+    constants.TRACKER_TYPES.SUPERCOOKIE
   );
 }
 
@@ -515,7 +516,9 @@ function recordFingerprinting(tabId, msg) {
 
           // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, script_origin, window.getBaseDomain(document_host));
+            script_host, script_origin, window.getBaseDomain(document_host),
+            constants.TRACKER_TYPES.FINGERPRINT
+          );
         }
       }
       // This is a canvas write
