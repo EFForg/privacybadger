@@ -760,13 +760,9 @@ function toggleWebRtcIpProtection() {
   });
 
   // update the browser setting
-  if (checked) {
-    chrome.privacy.network.webRTCIPHandlingPolicy.set({
-      value: 'default_public_interface_only'
-    });
-  } else {
-    chrome.privacy.network.webRTCIPHandlingPolicy.clear({});
-  }
+  chrome.runtime.sendMessage({
+    type: "setPrivacyOverrides"
+  });
 }
 
 // handles overriding the alternateErrorPagesEnabled setting
@@ -782,13 +778,9 @@ function overrideAlternateErrorPagesSetting() {
   });
 
   // update the browser setting
-  if (checked) {
-    chrome.privacy.services.alternateErrorPagesEnabled.set({
-      value: false
-    });
-  } else {
-    chrome.privacy.services.alternateErrorPagesEnabled.clear({});
-  }
+  chrome.runtime.sendMessage({
+    type: "setPrivacyOverrides"
+  });
 }
 
 // handles overriding the hyperlinkAuditingEnabled setting
@@ -804,13 +796,9 @@ function overrideHyperlinkAuditingSetting() {
   });
 
   // update the browser setting
-  if (checked) {
-    chrome.privacy.websites.hyperlinkAuditingEnabled.set({
-      value: false
-    });
-  } else {
-    chrome.privacy.websites.hyperlinkAuditingEnabled.clear({});
-  }
+  chrome.runtime.sendMessage({
+    type: "setPrivacyOverrides"
+  });
 }
 
 /**

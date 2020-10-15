@@ -1202,6 +1202,12 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  case "setPrivacyOverrides": {
+    badger.setPrivacyOverrides();
+    sendResponse();
+    break;
+  }
+
   case "updateBadge": {
     let tab_id = request.tab_id;
     badger.updateBadge(tab_id);
