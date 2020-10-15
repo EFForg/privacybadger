@@ -249,51 +249,63 @@ Badger.prototype = {
       if (!api) {
         return;
       }
+
       api.get({}, result => {
-        if (result.levelOfControl != "controllable_by_this_extension") {
+        // exit if this browser setting is controlled by something else
+        if (!result.levelOfControl.endsWith("_by_this_extension")) {
           return;
         }
+
+        // if value is null, clear the browser setting and exit
+        if (value === null) {
+          api.clear({
+            scope: 'regular'
+          }, () => {
+            if (chrome.runtime.lastError) {
+              console.error("Failed clearing override:", chrome.runtime.lastError);
+            } else {
+              console.log("Cleared override", name);
+            }
+          });
+          return;
+        }
+
+        // otherwise set the value
         api.set({
           value,
           scope: 'regular'
         }, () => {
           if (chrome.runtime.lastError) {
-            console.error("Privacy setting failed:", chrome.runtime.lastError);
+            console.error("Failed setting override:", chrome.runtime.lastError);
           } else {
-            console.log("Set", name, "to", value);
+            console.log("Set override", name, "to", value);
           }
         });
       });
     }
 
-    if (self.getSettings().getItem("disableGoogleNavErrorService")) {
-      if (chrome.privacy.services) {
-        _set_override(
-          "alternateErrorPagesEnabled",
-          chrome.privacy.services.alternateErrorPagesEnabled,
-          false
-        );
-      }
+    if (chrome.privacy.services) {
+      _set_override(
+        "alternateErrorPagesEnabled",
+        chrome.privacy.services.alternateErrorPagesEnabled,
+        (self.getSettings().getItem("disableGoogleNavErrorService") ? false : null)
+      );
     }
 
-    if (self.getSettings().getItem("disableHyperlinkAuditing")) {
-      if (chrome.privacy.websites) {
-        _set_override(
-          "hyperlinkAuditingEnabled",
-          chrome.privacy.websites.hyperlinkAuditingEnabled,
-          false
-        );
-      }
+    if (chrome.privacy.websites) {
+      _set_override(
+        "hyperlinkAuditingEnabled",
+        chrome.privacy.websites.hyperlinkAuditingEnabled,
+        (self.getSettings().getItem("disableHyperlinkAuditing") ? false : null)
+      );
     }
 
-    if (self.getSettings().getItem("preventWebRTCIPLeak")) {
-      if (badger.webRTCAvailable) {
-        _set_override(
-          "webRTCIPHandlingPolicy",
-          chrome.privacy.network.webRTCIPHandlingPolicy,
-          'default_public_interface_only'
-        );
-      }
+    if (badger.webRTCAvailable) {
+      _set_override(
+        "webRTCIPHandlingPolicy",
+        chrome.privacy.network.webRTCIPHandlingPolicy,
+        (self.getSettings().getItem("preventWebRTCIPLeak") ? 'default_public_interface_only' : null)
+      );
     }
   },
 
