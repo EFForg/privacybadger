@@ -136,14 +136,9 @@ function loadOptions() {
 
   if (OPTIONS_DATA.webRTCAvailable) {
     $("#webRTCToggle").show();
-    $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
-
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, result => {
-      // auto check the option box if ip leak is already protected at diff levels, via pb or another extension
-      if (result.value == "default_public_interface_only" || result.value == "disable_non_proxied_udp") {
-        $("#toggle_webrtc_mode").prop("checked", true);
-      }
-    });
+    $("#toggle_webrtc_mode")
+      .prop("checked", OPTIONS_DATA.settings.preventWebRTCIPLeak)
+      .on("click", toggleWebRtcIpProtection);
   }
 
   $('#local-learning-checkbox')
@@ -295,16 +290,6 @@ function parseUserDataFile(storageMapsList) {
     return confirm(i18n.getMessage("invalid_json"));
   }
 
-  // check for webrtc setting in the imported settings map
-  if (lists.settings_map.preventWebRTCIPLeak) {
-    // verify that the user hasn't already enabled this option
-    if (!$("#toggle_webrtc_mode").prop("checked")) {
-      toggleWebRTCIPProtection();
-    }
-    // this browser-controlled setting doesn't belong in Badger's settings object
-    delete lists.settings_map.preventWebRTCIPLeak;
-  }
-
   chrome.runtime.sendMessage({
     type: "mergeUserData",
     data: lists
@@ -379,12 +364,6 @@ function uploadCloud() {
  */
 function exportUserData() {
   chrome.storage.local.get(USER_DATA_EXPORT_KEYS, function (maps) {
-
-    // exports the user's prevent webrtc leak setting if it's checked
-    if ($("#toggle_webrtc_mode").prop("checked")) {
-      maps.settings_map.preventWebRTCIPLeak = true;
-    }
-
     let mapJSON = JSON.stringify(maps);
 
     // Append the formatted date to the exported file name
@@ -765,28 +744,29 @@ function showTrackingDomains(domains, cb) {
 /**
  * https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
  *
- * Toggle WebRTC IP address leak protection setting.
+ * Toggles WebRTC IP address leak protection setting.
  *
  * When enabled, policy is set to Mode 3 (default_public_interface_only).
  */
-function toggleWebRTCIPProtection() {
-  // Return early with non-supporting browsers
-  if (!OPTIONS_DATA.webRTCAvailable) {
-    return;
-  }
+function toggleWebRtcIpProtection() {
+  const checked = $("#toggle_webrtc_mode").prop("checked");
 
-  let cpn = chrome.privacy.network;
-
-  cpn.webRTCIPHandlingPolicy.get({}, function (result) {
-    // Update new value to be opposite of current browser setting
-    if (result.value == 'default_public_interface_only') {
-      cpn.webRTCIPHandlingPolicy.clear({});
-    } else {
-      cpn.webRTCIPHandlingPolicy.set({
-        value: 'default_public_interface_only'
-      });
+  // update Badger settings
+  chrome.runtime.sendMessage({
+    type: "updateSettings",
+    data: {
+      preventWebRTCIPLeak: checked
     }
   });
+
+  // update the browser setting
+  if (checked) {
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({
+      value: 'default_public_interface_only'
+    });
+  } else {
+    chrome.privacy.network.webRTCIPHandlingPolicy.clear({});
+  }
 }
 
 // handles overriding the alternateErrorPagesEnabled setting

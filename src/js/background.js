@@ -41,7 +41,7 @@ function Badger() {
   self.isFirstRun = false;
   self.isUpdate = false;
 
-  self.webRTCAvailable = checkWebRTCBrowserSupport();
+  self.webRTCAvailable = checkWebRtcBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
 
   self.widgetList = [];
@@ -134,7 +134,7 @@ function Badger() {
   /**
    * WebRTC availability check
    */
-  function checkWebRTCBrowserSupport() {
+  function checkWebRtcBrowserSupport() {
     if (!(chrome.privacy && chrome.privacy.network &&
       chrome.privacy.network.webRTCIPHandlingPolicy)) {
       return false;
@@ -282,6 +282,16 @@ Badger.prototype = {
           "hyperlinkAuditingEnabled",
           chrome.privacy.websites.hyperlinkAuditingEnabled,
           false
+        );
+      }
+    }
+
+    if (self.getSettings().getItem("preventWebRTCIPLeak")) {
+      if (badger.webRTCAvailable) {
+        _set_override(
+          "webRTCIPHandlingPolicy",
+          chrome.privacy.network.webRTCIPHandlingPolicy,
+          'default_public_interface_only'
         );
       }
     }
@@ -713,6 +723,7 @@ Badger.prototype = {
     learnInIncognito: false,
     learnLocally: false,
     migrationLevel: 0,
+    preventWebRTCIPLeak: false,
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
@@ -795,6 +806,7 @@ Badger.prototype = {
       Migrations.forgetCloudflare,
       Migrations.forgetConsensu,
       Migrations.resetWebRTCIPHandlingPolicy2,
+      Migrations.resetWebRtcIpHandlingPolicy3,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
