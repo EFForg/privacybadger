@@ -166,7 +166,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Door leren in te schakelen wirdt je mogelijk meer identificeerbaar voor websites",
+        "message": "Door leren in te schakelen wordt je mogelijk meer identificeerbaar voor websites",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
