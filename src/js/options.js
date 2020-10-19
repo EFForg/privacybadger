@@ -122,7 +122,12 @@ function loadOptions() {
     $("#disable-google-nav-error-service").show();
     $('#disable-google-nav-error-service-checkbox')
       .prop("checked", OPTIONS_DATA.settings.disableGoogleNavErrorService)
-      .on("click", overrideAlternateErrorPagesSetting);
+      .on("click", function () {
+        updatePrivacyOverride(
+          "disableGoogleNavErrorService",
+          $("#disable-google-nav-error-service-checkbox").prop("checked")
+        );
+      });
   }
 
   // only show the hyperlinkAuditingEnabled override if browser supports it
@@ -131,14 +136,24 @@ function loadOptions() {
     $("#disable-hyperlink-auditing").show();
     $("#disable-hyperlink-auditing-checkbox")
       .prop("checked", OPTIONS_DATA.settings.disableHyperlinkAuditing)
-      .on("click", overrideHyperlinkAuditingSetting);
+      .on("click", function () {
+        updatePrivacyOverride(
+          "disableHyperlinkAuditing",
+          $("#disable-hyperlink-auditing-checkbox").prop("checked")
+        );
+      });
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {
     $("#webRTCToggle").show();
     $("#toggle_webrtc_mode")
       .prop("checked", OPTIONS_DATA.settings.preventWebRTCIPLeak)
-      .on("click", toggleWebRtcIpProtection);
+      .on("click", function () {
+        updatePrivacyOverride(
+          "preventWebRTCIPLeak",
+          $("#toggle_webrtc_mode").prop("checked")
+        );
+      });
   }
 
   $('#local-learning-checkbox')
@@ -742,62 +757,20 @@ function showTrackingDomains(domains, cb) {
 }
 
 /**
- * https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
- *
- * Toggles WebRTC IP address leak protection setting.
- *
- * When enabled, policy is set to Mode 3 (default_public_interface_only).
+ * Updates privacy overrides in Badger storage and in browser settings.
  */
-function toggleWebRtcIpProtection() {
-  const checked = $("#toggle_webrtc_mode").prop("checked");
-
+function updatePrivacyOverride(setting_name, setting_value) {
   // update Badger settings
   chrome.runtime.sendMessage({
     type: "updateSettings",
     data: {
-      preventWebRTCIPLeak: checked
+      [setting_name]: setting_value
     }
-  });
-
-  // update the browser setting
-  chrome.runtime.sendMessage({
-    type: "setPrivacyOverrides"
-  });
-}
-
-// handles overriding the alternateErrorPagesEnabled setting
-function overrideAlternateErrorPagesSetting() {
-  const checked = $("#disable-google-nav-error-service-checkbox").prop("checked");
-
-  // update Badger settings so that we know to reapply the browser setting on startup
-  chrome.runtime.sendMessage({
-    type: "updateSettings",
-    data: {
-      disableGoogleNavErrorService: checked
-    }
-  });
-
-  // update the browser setting
-  chrome.runtime.sendMessage({
-    type: "setPrivacyOverrides"
-  });
-}
-
-// handles overriding the hyperlinkAuditingEnabled setting
-function overrideHyperlinkAuditingSetting() {
-  const checked = $("#disable-hyperlink-auditing-checkbox").prop("checked");
-
-  // update Badger settings so that we know to reapply the browser setting on startup
-  chrome.runtime.sendMessage({
-    type: "updateSettings",
-    data: {
-      disableHyperlinkAuditing: checked
-    }
-  });
-
-  // update the browser setting
-  chrome.runtime.sendMessage({
-    type: "setPrivacyOverrides"
+  }, () => {
+    // update the browser setting
+    chrome.runtime.sendMessage({
+      type: "setPrivacyOverrides"
+    });
   });
 }
 

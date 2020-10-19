@@ -313,6 +313,8 @@ Badger.prototype = {
       );
     }
 
+    // when enabled, WebRTC IP handling policy is set to Mode 3
+    // https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
     if (badger.webRTCAvailable) {
       _set_override(
         "webRTCIPHandlingPolicy",
