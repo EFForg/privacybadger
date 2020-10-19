@@ -1178,9 +1178,10 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "mergeUserData": {
-    // called when a user uploads data exported from another Badger instance
+    // called when a user imports data exported from another Badger instance
     badger.mergeUserData(request.data);
     badger.blockWidgetDomains();
+    badger.setPrivacyOverrides();
     sendResponse({
       disabledSites: badger.getDisabledSites(),
       origins: badger.storage.getTrackingDomains(),
@@ -1197,6 +1198,12 @@ function dispatcher(request, sender, sendResponse) {
         console.error("Unknown Badger setting:", key);
       }
     }
+    sendResponse();
+    break;
+  }
+
+  case "setPrivacyOverrides": {
+    badger.setPrivacyOverrides();
     sendResponse();
     break;
   }

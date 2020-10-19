@@ -41,7 +41,7 @@ function Badger() {
   self.isFirstRun = false;
   self.isUpdate = false;
 
-  self.webRTCAvailable = checkWebRTCBrowserSupport();
+  self.webRTCAvailable = checkWebRtcBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
 
   self.widgetList = [];
@@ -55,13 +55,13 @@ function Badger() {
     self.initializeSettings();
     // Privacy Badger settings are now fully ready
 
-    self.setPrivacyOverrides();
-
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
     // TODO there are async migrations
     // TODO is this the right place for migrations?
     self.runMigrations();
+
+    self.setPrivacyOverrides();
 
     // kick off async initialization steps
     let seedDataPromise = self.loadFirstRunSeedData().catch(console.error),
@@ -134,7 +134,7 @@ function Badger() {
   /**
    * WebRTC availability check
    */
-  function checkWebRTCBrowserSupport() {
+  function checkWebRtcBrowserSupport() {
     if (!(chrome.privacy && chrome.privacy.network &&
       chrome.privacy.network.webRTCIPHandlingPolicy)) {
       return false;
@@ -249,41 +249,78 @@ Badger.prototype = {
       if (!api) {
         return;
       }
-      api.get({}, result => {
-        if (result.levelOfControl != "controllable_by_this_extension") {
+
+      api.get({}, (result) => {
+        // exit if this browser setting is controlled by something else
+        if (!result.levelOfControl.endsWith("_by_this_extension")) {
           return;
         }
+
+        // if value is null, we want to relinquish control over the setting
+        if (value === null) {
+          // exit early if the setting isn't actually set (nothing to clear)
+          if (result.levelOfControl == "controllable_by_this_extension") {
+            return;
+          }
+
+          // clear the browser setting and exit
+          api.clear({
+            scope: 'regular'
+          }, () => {
+            if (chrome.runtime.lastError) {
+              console.error("Failed clearing override:", chrome.runtime.lastError);
+            } else {
+              console.log("Cleared override", name);
+            }
+          });
+
+          return;
+        }
+
+        // exit if setting is already set to value
+        if (result.value === value &&
+            result.levelOfControl == "controlled_by_this_extension") {
+          return;
+        }
+
+        // otherwise set the value
         api.set({
           value,
           scope: 'regular'
         }, () => {
           if (chrome.runtime.lastError) {
-            console.error("Privacy setting failed:", chrome.runtime.lastError);
+            console.error("Failed setting override:", chrome.runtime.lastError);
           } else {
-            console.log("Set", name, "to", value);
+            console.log("Set override", name, "to", value);
           }
         });
       });
     }
 
-    if (self.getSettings().getItem("disableGoogleNavErrorService")) {
-      if (chrome.privacy.services) {
-        _set_override(
-          "alternateErrorPagesEnabled",
-          chrome.privacy.services.alternateErrorPagesEnabled,
-          false
-        );
-      }
+    if (chrome.privacy.services) {
+      _set_override(
+        "alternateErrorPagesEnabled",
+        chrome.privacy.services.alternateErrorPagesEnabled,
+        (self.getSettings().getItem("disableGoogleNavErrorService") ? false : null)
+      );
     }
 
-    if (self.getSettings().getItem("disableHyperlinkAuditing")) {
-      if (chrome.privacy.websites) {
-        _set_override(
-          "hyperlinkAuditingEnabled",
-          chrome.privacy.websites.hyperlinkAuditingEnabled,
-          false
-        );
-      }
+    if (chrome.privacy.websites) {
+      _set_override(
+        "hyperlinkAuditingEnabled",
+        chrome.privacy.websites.hyperlinkAuditingEnabled,
+        (self.getSettings().getItem("disableHyperlinkAuditing") ? false : null)
+      );
+    }
+
+    // when enabled, WebRTC IP handling policy is set to Mode 3
+    // https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
+    if (badger.webRTCAvailable) {
+      _set_override(
+        "webRTCIPHandlingPolicy",
+        chrome.privacy.network.webRTCIPHandlingPolicy,
+        (self.getSettings().getItem("preventWebRTCIPLeak") ? 'default_public_interface_only' : null)
+      );
     }
   },
 
@@ -713,6 +750,7 @@ Badger.prototype = {
     learnInIncognito: false,
     learnLocally: false,
     migrationLevel: 0,
+    preventWebRTCIPLeak: false,
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
@@ -795,6 +833,7 @@ Badger.prototype = {
       Migrations.forgetCloudflare,
       Migrations.forgetConsensu,
       Migrations.resetWebRTCIPHandlingPolicy2,
+      Migrations.resetWebRtcIpHandlingPolicy3,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {

@@ -319,32 +319,26 @@ exports.Migrations= {
     badger.storage.forget("consensu.org");
   },
 
-  resetWebRTCIPHandlingPolicy2: function (badger) {
+  resetWebRTCIPHandlingPolicy2: noop,
+
+  resetWebRtcIpHandlingPolicy3: function (badger) {
     if (!badger.webRTCAvailable) {
       return;
     }
 
-    const cpn = chrome.privacy.network;
-
-    cpn.webRTCIPHandlingPolicy.get({}, function (result) {
-      if (!result.levelOfControl.endsWith('_by_this_extension')) {
+    console.log("Migrating WebRTC IP protection ...");
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (res) {
+      if (res.levelOfControl != 'controlled_by_this_extension') {
         return;
       }
 
-      // migrate default (disabled) setting for old Badger versions
-      // from Mode 3 to Mode 1
-      if (result.value == 'default_public_interface_only') {
-        console.log("Resetting webRTCIPHandlingPolicy ...");
-        cpn.webRTCIPHandlingPolicy.clear({});
+      // since we previously enabled this privacy override,
+      // update corresponding Badger setting
+      badger.getSettings().setItem("preventWebRTCIPLeak", true);
 
-      // migrate enabled setting for more recent Badger versions
-      // from Mode 4 to Mode 3
-      } else if (result.value == 'disable_non_proxied_udp') {
-        console.log("Updating WebRTC IP leak protection setting ...");
-        cpn.webRTCIPHandlingPolicy.set({
-          value: 'default_public_interface_only'
-        });
-      }
+      // update the browser setting
+      // in case it needs to be migrated from Mode 4 to Mode 3
+      badger.setPrivacyOverrides();
     });
   }
 

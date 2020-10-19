@@ -122,7 +122,12 @@ function loadOptions() {
     $("#disable-google-nav-error-service").show();
     $('#disable-google-nav-error-service-checkbox')
       .prop("checked", OPTIONS_DATA.settings.disableGoogleNavErrorService)
-      .on("click", overrideAlternateErrorPagesSetting);
+      .on("click", function () {
+        updatePrivacyOverride(
+          "disableGoogleNavErrorService",
+          $("#disable-google-nav-error-service-checkbox").prop("checked")
+        );
+      });
   }
 
   // only show the hyperlinkAuditingEnabled override if browser supports it
@@ -131,19 +136,24 @@ function loadOptions() {
     $("#disable-hyperlink-auditing").show();
     $("#disable-hyperlink-auditing-checkbox")
       .prop("checked", OPTIONS_DATA.settings.disableHyperlinkAuditing)
-      .on("click", overrideHyperlinkAuditingSetting);
+      .on("click", function () {
+        updatePrivacyOverride(
+          "disableHyperlinkAuditing",
+          $("#disable-hyperlink-auditing-checkbox").prop("checked")
+        );
+      });
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {
     $("#webRTCToggle").show();
-    $("#toggle_webrtc_mode").on("click", toggleWebRTCIPProtection);
-
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, result => {
-      // auto check the option box if ip leak is already protected at diff levels, via pb or another extension
-      if (result.value == "default_public_interface_only" || result.value == "disable_non_proxied_udp") {
-        $("#toggle_webrtc_mode").prop("checked", true);
-      }
-    });
+    $("#toggle_webrtc_mode")
+      .prop("checked", OPTIONS_DATA.settings.preventWebRTCIPLeak)
+      .on("click", function () {
+        updatePrivacyOverride(
+          "preventWebRTCIPLeak",
+          $("#toggle_webrtc_mode").prop("checked")
+        );
+      });
   }
 
   $('#local-learning-checkbox')
@@ -295,16 +305,6 @@ function parseUserDataFile(storageMapsList) {
     return confirm(i18n.getMessage("invalid_json"));
   }
 
-  // check for webrtc setting in the imported settings map
-  if (lists.settings_map.preventWebRTCIPLeak) {
-    // verify that the user hasn't already enabled this option
-    if (!$("#toggle_webrtc_mode").prop("checked")) {
-      toggleWebRTCIPProtection();
-    }
-    // this browser-controlled setting doesn't belong in Badger's settings object
-    delete lists.settings_map.preventWebRTCIPLeak;
-  }
-
   chrome.runtime.sendMessage({
     type: "mergeUserData",
     data: lists
@@ -379,12 +379,6 @@ function uploadCloud() {
  */
 function exportUserData() {
   chrome.storage.local.get(USER_DATA_EXPORT_KEYS, function (maps) {
-
-    // exports the user's prevent webrtc leak setting if it's checked
-    if ($("#toggle_webrtc_mode").prop("checked")) {
-      maps.settings_map.preventWebRTCIPLeak = true;
-    }
-
     let mapJSON = JSON.stringify(maps);
 
     // Append the formatted date to the exported file name
@@ -763,74 +757,21 @@ function showTrackingDomains(domains, cb) {
 }
 
 /**
- * https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
- *
- * Toggle WebRTC IP address leak protection setting.
- *
- * When enabled, policy is set to Mode 3 (default_public_interface_only).
+ * Updates privacy overrides in Badger storage and in browser settings.
  */
-function toggleWebRTCIPProtection() {
-  // Return early with non-supporting browsers
-  if (!OPTIONS_DATA.webRTCAvailable) {
-    return;
-  }
-
-  let cpn = chrome.privacy.network;
-
-  cpn.webRTCIPHandlingPolicy.get({}, function (result) {
-    // Update new value to be opposite of current browser setting
-    if (result.value == 'default_public_interface_only') {
-      cpn.webRTCIPHandlingPolicy.clear({});
-    } else {
-      cpn.webRTCIPHandlingPolicy.set({
-        value: 'default_public_interface_only'
-      });
-    }
-  });
-}
-
-// handles overriding the alternateErrorPagesEnabled setting
-function overrideAlternateErrorPagesSetting() {
-  const checked = $("#disable-google-nav-error-service-checkbox").prop("checked");
-
-  // update Badger settings so that we know to reapply the browser setting on startup
+function updatePrivacyOverride(setting_name, setting_value) {
+  // update Badger settings
   chrome.runtime.sendMessage({
     type: "updateSettings",
     data: {
-      disableGoogleNavErrorService: checked
+      [setting_name]: setting_value
     }
-  });
-
-  // update the browser setting
-  if (checked) {
-    chrome.privacy.services.alternateErrorPagesEnabled.set({
-      value: false
+  }, () => {
+    // update the underlying browser setting
+    chrome.runtime.sendMessage({
+      type: "setPrivacyOverrides"
     });
-  } else {
-    chrome.privacy.services.alternateErrorPagesEnabled.clear({});
-  }
-}
-
-// handles overriding the hyperlinkAuditingEnabled setting
-function overrideHyperlinkAuditingSetting() {
-  const checked = $("#disable-hyperlink-auditing-checkbox").prop("checked");
-
-  // update Badger settings so that we know to reapply the browser setting on startup
-  chrome.runtime.sendMessage({
-    type: "updateSettings",
-    data: {
-      disableHyperlinkAuditing: checked
-    }
   });
-
-  // update the browser setting
-  if (checked) {
-    chrome.privacy.websites.hyperlinkAuditingEnabled.set({
-      value: false
-    });
-  } else {
-    chrome.privacy.websites.hyperlinkAuditingEnabled.clear({});
-  }
 }
 
 /**
