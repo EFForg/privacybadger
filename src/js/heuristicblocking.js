@@ -104,8 +104,10 @@ HeuristicBlocker.prototype = {
    * @param {Boolean} check_for_cookie_share whether to check for cookie sharing
    */
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
+    let tab_id = details.tabId;
+
     // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
+    if (tab_id < 0 || !badger.isLearningEnabled(tab_id)) {
       return {};
     }
 
@@ -115,12 +117,12 @@ HeuristicBlocker.prototype = {
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
-      self.tabOrigins[details.tabId] = request_origin;
-      self.tabUrls[details.tabId] = details.url;
+      self.tabOrigins[tab_id] = request_origin;
+      self.tabUrls[tab_id] = details.url;
       return {};
     }
 
-    let tab_origin = self.tabOrigins[details.tabId];
+    let tab_origin = self.tabOrigins[tab_id];
 
     // ignore first-party requests
     if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
@@ -147,10 +149,10 @@ HeuristicBlocker.prototype = {
     }
 
     // check for cookie sharing iff this is an image in the top-level frame, and the request URL has parameters
-    if (check_for_cookie_share && details.type == 'image' && details.frameId === 0 && details.url.indexOf('?') > -1) {
+    if (false && details.type == 'image' && details.frameId === 0 && details.url.indexOf('?') > -1) {
       // get all non-HttpOnly cookies for the top-level frame
       // and pass those to the cookie-share accounting function
-      let tab_url = self.tabUrls[details.tabId];
+      let tab_url = self.tabUrls[tab_id];
 
       let config = {
         url: tab_url

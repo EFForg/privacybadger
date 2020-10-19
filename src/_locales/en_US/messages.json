@@ -173,6 +173,14 @@
         "message": "Learn in Private/Incognito windows",
         "description": "Checkbox label on the general settings page"
     },
+    "options_community_learning_setting": {
+        "message": "Enable community learning and share data about trackers",
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_community_learning_warning": {
+        "message": "When you enable community learning, your browser will share some information it collects about trackers with EFF. Specifically, each time your instance of Privacy Badger observes a particular tracker on a website that it has not seen before, it will share the origin (top-level domain +1) of both the tracker and the website, as well as the type of tracking action that it observed. EFF will only use this information for generating community learning lists, and will never share personal information with third parties. For more details, see our privacy policy: https://link.to.come",
+        "description": "Checkbox label on the general settings page"
+    },
     "options_incognito_warning": {
         "message": "Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
         "description": "Tooltip on the general settings page"
