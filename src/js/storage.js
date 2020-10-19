@@ -645,12 +645,24 @@ BadgerStorage.prototype = {
     } else if (self.name == "snitch_map") {
       for (let tracker_origin in mapData) {
         let firstPartyOrigins = mapData[tracker_origin];
+        let firstParties = [];
+        if (self.hasItem(tracker_origin)) {
+          firstParties = self.getItem(tracker_origin);
+        }
+
+        // this uses the same logic as updateTrackerPrevalence, but ignores
+        // checks for local learning and community learning
         for (let i = 0; i < firstPartyOrigins.length; i++) {
-          badger.heuristicBlocking.updateTrackerPrevalence(
-            tracker_origin,
-            tracker_origin,
-            firstPartyOrigins[i]
-          );
+          firstParties.push(firstPartyOrigins[i]);
+          self.setItem(tracker_origin, firstParties);
+          badger.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
+
+          // block the origin if it has been seen on multiple first party domains
+          if (firstParties.length >= constants.TRACKING_THRESHOLD) {
+            log('blocklisting origin', tracker_origin);
+            badger.heuristicBlocking.blocklistOrigin(tracker_origin,
+                                                     tracker_origin);
+          }
         }
       }
     }

@@ -340,11 +340,8 @@ HeuristicBlocker.prototype = {
     this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
     this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
 
-    // Blocking based on outbound cookies
-    var httpRequestPrevalence = firstParties.length;
-
     // block the origin if it has been seen on multiple first party domains
-    if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
+    if (firstParties.length >= constants.TRACKING_THRESHOLD) {
       log('blocklisting origin', tracker_fqdn);
       this.blocklistOrigin(tracker_origin, tracker_fqdn);
     }
