@@ -55,13 +55,13 @@ function Badger() {
     self.initializeSettings();
     // Privacy Badger settings are now fully ready
 
-    self.setPrivacyOverrides();
-
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
     // TODO there are async migrations
     // TODO is this the right place for migrations?
     self.runMigrations();
+
+    self.setPrivacyOverrides();
 
     // kick off async initialization steps
     let seedDataPromise = self.loadFirstRunSeedData().catch(console.error),
