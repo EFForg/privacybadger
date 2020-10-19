@@ -322,28 +322,28 @@ HeuristicBlocker.prototype = {
       return; // We already know about the presence of this tracker on the given domain
     }
 
-    // If local learning is enabled, record that we've seen this tracker on this
-    // domain (in snitch map)
-    if (badger.isLocalLearningEnabled(tab_id)) {
-      firstParties.push(page_origin);
-      snitchMap.setItem(tracker_origin, firstParties);
-    }
-
     // If community learning is enabled, queue up a request to the EFF server
     if (badger.getSettings().getItem("shareLearning")) {
       this.maybeShareTracker(page_origin, tracker_origin, tracker_type);
     }
 
-    // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
-    // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
-    // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
-    this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
-    this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
+    // If local learning is enabled, record that we've seen this tracker on this
+    // domain (in snitch map)
+    if (badger.isLocalLearningEnabled(tab_id)) {
+      firstParties.push(page_origin);
+      snitchMap.setItem(tracker_origin, firstParties);
 
-    // block the origin if it has been seen on multiple first party domains
-    if (firstParties.length >= constants.TRACKING_THRESHOLD) {
-      log('blocklisting origin', tracker_fqdn);
-      this.blocklistOrigin(tracker_origin, tracker_fqdn);
+      // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
+      // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
+      // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
+      this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
+      this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
+
+      // block the origin if it has been seen on multiple first party domains
+      if (firstParties.length >= constants.TRACKING_THRESHOLD) {
+        log('blocklisting origin', tracker_fqdn);
+        this.blocklistOrigin(tracker_origin, tracker_fqdn);
+      }
     }
   },
 
@@ -351,7 +351,7 @@ HeuristicBlocker.prototype = {
    * Flip a coin, then maybe share information about the tracker we just saw
    */
   maybeShareTracker: function(page_origin, tracker_origin, tracker_type) {
-    // 50% chance of sharing any given tracking action
+    // Some chance of sharing any given tracking action
     if (Math.random() < constants.CL_PROBABILITY) {
       setTimeout(function() {
        fetch("http://localhost:8080", {
@@ -368,6 +368,7 @@ HeuristicBlocker.prototype = {
            console.log("tracking action logging failed:", res);
          }
        });
+      // share info after a random delay
       }, Math.floor(Math.random() * constants.MAX_CL_WAIT_TIME));
     }
   }
