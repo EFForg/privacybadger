@@ -767,7 +767,7 @@ function updatePrivacyOverride(setting_name, setting_value) {
       [setting_name]: setting_value
     }
   }, () => {
-    // update the browser setting
+    // update the underlying browser setting
     chrome.runtime.sendMessage({
       type: "setPrivacyOverrides"
     });

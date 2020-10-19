@@ -332,17 +332,13 @@ exports.Migrations= {
         return;
       }
 
-      // if necessary, migrate enabled setting from Mode 4 to Mode 3
-      if (res.value == 'disable_non_proxied_udp') {
-        console.log("Updating WebRTC IP handling to Mode 3 ...");
-        chrome.privacy.network.webRTCIPHandlingPolicy.set({
-          value: 'default_public_interface_only'
-        });
-      }
-
       // since we previously enabled this privacy override,
       // update corresponding Badger setting
       badger.getSettings().setItem("preventWebRTCIPLeak", true);
+
+      // update the browser setting
+      // in case it needs to be migrated from Mode 4 to Mode 3
+      badger.setPrivacyOverrides();
     });
   }
 
