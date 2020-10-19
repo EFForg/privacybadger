@@ -250,14 +250,20 @@ Badger.prototype = {
         return;
       }
 
-      api.get({}, result => {
+      api.get({}, (result) => {
         // exit if this browser setting is controlled by something else
         if (!result.levelOfControl.endsWith("_by_this_extension")) {
           return;
         }
 
-        // if value is null, clear the browser setting and exit
+        // if value is null, we want to relinquish control over the setting
         if (value === null) {
+          // exit early if the setting isn't actually set (nothing to clear)
+          if (result.levelOfControl == "controllable_by_this_extension") {
+            return;
+          }
+
+          // clear the browser setting and exit
           api.clear({
             scope: 'regular'
           }, () => {
@@ -267,6 +273,13 @@ Badger.prototype = {
               console.log("Cleared override", name);
             }
           });
+
+          return;
+        }
+
+        // exit if setting is already set to value
+        if (result.value === value &&
+            result.levelOfControl == "controlled_by_this_extension") {
           return;
         }
 
