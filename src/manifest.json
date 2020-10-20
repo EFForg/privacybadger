@@ -501,7 +501,7 @@
     "128": "icons/badger-128.png"
   },
   "manifest_version": 2,
-  "minimum_chrome_version": "18.0",
+  "minimum_chrome_version": "55.0",
   "name": "__MSG_name__",
   "browser_action": {
     "default_icon": {
