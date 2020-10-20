@@ -406,7 +406,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger est désactivé pour les sites suivants. Il ne bloquera donc rien des sites listés ici que vous visitez. Il n'enverra pas le signal « Ne pas me pister » ni du « Contrôle global des données ».</p><p>Si vous pensez que Privacy Badger empêche une page de fonctionner, ou si vous souhaitez partager ou vendre vos données pour un site en particulier, vous pouvez ajouter son domaine dans le champs ci-dessous et cliquer sur le bouton « Ajouter un domaine ».</p><p>Vous pouvez aussi, si vous êtes sur la page concernée, simplement cliquer sur l'icône de Privacy Badger dans la barre d'outils de votre navigateur et cliquer sur « Désactiver ».",
+        "message": "<p>Privacy Badger est désactivé pour les sites suivants. Il ne bloquera donc rien des sites listés ici que vous visitez. Il n'enverra pas le signal « Ne pas me pister » ni du « Contrôle global des données ».</p><p>Si vous pensez que Privacy Badger empêche une page de fonctionner, ou si vous souhaitez partager ou vendre vos données pour un site en particulier, vous pouvez ajouter son domaine dans le champs ci-dessous et cliquer sur le bouton « Ajouter un domaine ».</p><p>Vous pouvez aussi, si vous êtes sur la page concernée, simplement cliquer sur l'icône de Privacy Badger dans la barre d'outils de votre navigateur et cliquer sur « Désactiver ».</p>",
         "description": ""
     },
     "popup_instructions": {
