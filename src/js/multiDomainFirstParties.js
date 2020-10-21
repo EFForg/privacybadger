@@ -3301,6 +3301,18 @@ let multiDomainFirstPartiesArray = [
     "shopifyadmin.com",
     "shopifypreview.com",
   ],
+  [
+    "si.edu",
+
+    "airspacemag.com",
+    "smithsonianbooks.com",
+    "smithsonianchannel.com",
+    "smithsonianjourneys.org",
+    "smithsonianmag.com",
+    "smithsonianstore.com",
+
+    "smithsonian.museum",
+  ],
   ["siriusxm.com", "sirius.com"],
   ["skygo.co.nz", "skytv.co.nz"],
   ["skysports.com", "skybet.com", "skyvegas.com"],
