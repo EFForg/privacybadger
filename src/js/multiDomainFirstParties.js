@@ -2223,6 +2223,7 @@ let multiDomainFirstPartiesArray = [
     "tandy.com.au",
     "zazz.com.au",
   ],
+  ["lbry.com", "odysee.com", "lbry.tv"],
   ["linkedin.com", "licdn.com"],
   ["livejournal.com", "livejournal.net", "lj-toys.com"],
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
