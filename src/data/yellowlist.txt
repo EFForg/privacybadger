@@ -226,7 +226,6 @@ fling.com
 flo.uri.sh
 flowplayer.org
 flyertown.ca
-adm.fwmrm.net
 fontawesome.com
 fontdeck.com
 fonts.com
@@ -234,7 +233,7 @@ fonts.net
 force.com
 formstack.com
 fuseservice.com
-140cc.v.fwmrm.net
+fwmrm.net
 fyre.co
 gannett-cdn.com
 gannettonline.com
