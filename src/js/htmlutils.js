@@ -167,7 +167,7 @@ let htmlUtils = {
         classes.push('show-breakage-warning');
       }
 
-      // If origin has been whitelisted set text for DNT.
+      // show the DNT icon for DNT-compliant domains
       let dnt_html = '';
       if (action == constants.DNT) {
         dnt_html = `
@@ -177,7 +177,7 @@ let htmlUtils = {
         `.trim();
       }
 
-      // Construct HTML for origin.
+      // construct HTML for domain
       let origin_tooltip = htmlUtils.getActionDescription(action, origin);
       return `
 <div class="${classes.join(' ')}" data-origin="${origin}">
