@@ -1,7 +1,16 @@
 /* globals findInAllFrames:false */
+
+// bool for whether or not in firefox for android
+let firefox_android = (navigator.userAgent.indexOf('Firefox') > -1 && navigator.userAgent.indexOf('Android') > -1);
+
 // In Firefox, outbound google links have the `rwt(...)` mousedown trigger.
 // In Chrome, they just have a `ping` attribute.
 let trap_link = "a[onmousedown^='return rwt(this,'], a[ping]";
+
+// Firefox Android has neither the mousedown trigger nor ping attribute
+if (firefox_android) {
+  trap_link = 'a';
+}
 
 // Remove excessive attributes and event listeners from link a
 function cleanLink(a) {
@@ -23,7 +32,7 @@ function cleanLink(a) {
   a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
 
   // reassign href when in firefox android
-  if (navigator.userAgent.indexOf('Firefox') > -1 && navigator.userAgent.indexOf('Android') > -1) {
+  if (firefox_android) {
     let href = new URL(a.href).searchParams.get('q');
     if (!window.isURL(href)) {
       return;
