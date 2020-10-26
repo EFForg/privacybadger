@@ -209,6 +209,27 @@ QUnit.module("Yellowlist", (hooks) => {
         }
       },
 
+      // similar to "parent is on yellowlist"
+      // but parent is being added instead of already there
+      {
+        name: "Removing child while adding parent",
+        domains: {
+          'widgets.example.com': {
+            initial: constants.BLOCK,
+            add: true,
+            expected: constants.COOKIEBLOCK,
+            expectedBest: constants.COOKIEBLOCK
+          },
+          'cdn.widgets.example.com': {
+            yellowlist: true,
+            initial: constants.COOKIEBLOCK,
+            remove: true,
+            expected: constants.COOKIEBLOCK,
+            expectedBest: constants.COOKIEBLOCK
+          },
+        }
+      },
+
       // scenario from https://github.com/EFForg/privacybadger/issues/1474
       {
         name: "Parent is on yellowlist and is a PSL TLD (not in action map)",
@@ -240,6 +261,26 @@ QUnit.module("Yellowlist", (hooks) => {
           },
           'cdn.widgets.example.com': {
             yellowlist: true,
+            expected: constants.COOKIEBLOCK,
+            expectedBest: constants.COOKIEBLOCK
+          },
+        }
+      },
+
+      // similar to "child is on yellowlist"
+      // but child is being added instead of already there
+      {
+        name: "Removing parent while adding child",
+        domains: {
+          'widgets.example.com': {
+            yellowlist: true,
+            remove: true,
+            initial: constants.COOKIEBLOCK,
+            expected: constants.BLOCK,
+            expectedBest: constants.BLOCK
+          },
+          'cdn.widgets.example.com': {
+            add: true,
             expected: constants.COOKIEBLOCK,
             expectedBest: constants.COOKIEBLOCK
           },
@@ -377,10 +418,12 @@ QUnit.module("Yellowlist", (hooks) => {
           }
         }
 
-        // update the yellowlist making sure removed domains aren't on it
+        // update the yellowlist
         const ylist = ylistStorage.getItemClones();
         for (let domain in test.domains) {
-          if (test.domains[domain].remove) {
+          if (test.domains[domain].add) {
+            ylist[domain] = true;
+          } else if (test.domains[domain].remove) {
             delete ylist[domain];
           }
         }

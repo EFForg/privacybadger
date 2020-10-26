@@ -179,21 +179,6 @@ BadgerPen.prototype = {
     let addedDomains = _.difference(newDomains, oldDomains),
       removedDomains = _.difference(oldDomains, newDomains);
 
-    log('removing from cookie blocklist:', removedDomains);
-    removedDomains.forEach(function (domain) {
-      ylistStorage.deleteItem(domain);
-
-      const base = window.getBaseDomain(domain);
-      // "subdomains" include the domain itself
-      for (const subdomain of actionMap.keys()) {
-        if (window.getBaseDomain(subdomain) == base) {
-          if (self.getAction(subdomain) != constants.NO_TRACKING) {
-            badger.heuristicBlocking.blocklistOrigin(base, subdomain);
-          }
-        }
-      }
-    });
-
     log('adding to cookie blocklist:', addedDomains);
     addedDomains.forEach(function (domain) {
       ylistStorage.setItem(domain, true);
@@ -205,6 +190,21 @@ BadgerPen.prototype = {
         if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
           // cookieblock the domain
           self.setupHeuristicAction(domain, constants.COOKIEBLOCK);
+        }
+      }
+    });
+
+    log('removing from cookie blocklist:', removedDomains);
+    removedDomains.forEach(function (domain) {
+      ylistStorage.deleteItem(domain);
+
+      const base = window.getBaseDomain(domain);
+      // "subdomains" include the domain itself
+      for (const subdomain of actionMap.keys()) {
+        if (window.getBaseDomain(subdomain) == base) {
+          if (self.getAction(subdomain) != constants.NO_TRACKING) {
+            badger.heuristicBlocking.blocklistOrigin(base, subdomain);
+          }
         }
       }
     });
