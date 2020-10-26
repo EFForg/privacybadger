@@ -162,11 +162,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "Lär dig att blockera nya spårare från din surfning",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Enabling learning may make you more identifiable to websites",
+        "message": "Att aktivera lärande kan göra dig mer identifierbar för webbplatser",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
@@ -178,15 +178,15 @@
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "message": "Privacy Badger lär sig inte längre av din surfning som standard.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "Klicka nedan för att lära dig mer.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "Lär dig hur Privacy Badger förändras",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
@@ -274,11 +274,11 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "Sekretess",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
-        "message": "Advanced",
+        "message": "Avancerad",
         "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
@@ -334,11 +334,11 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "Lär sig automatiskt",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "Istället för att hålla listor över vad som ska blockeras upptäcker Privacy Badger automatiskt spårare baserat på deras beteende.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
@@ -346,7 +346,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Osynlig spårning sker på alla möjliga sätt; annonser är bara den synliga toppen av isberget. Privacy Badger skickar <a href='https://globalprivacycontrol.org/' target='_blank'>Global sekretesstyrningssignal</a>, för att välja bort datadelning och försäljning, och <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte-signal</a> att berätta för företagen att inte spåra dig. Om de ignorerar dina önskemål kommer Privacy Badger att lära sig att blockera dem—oavsett om de är annonsörer eller spårare av andra slag.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -390,15 +390,15 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "Skicka webbplatser signalerna \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global sekretesstyrning</a>\" och \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte</a>\"",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
+        "message": "Inaktivera att skicka webbadresser som du besöker till Google. Detta inaktiverar förslag på liknande sidor när en sida inte kan hittas.",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disable hyperlink auditing",
+        "message": "Inaktivera granskning av hyperlänkar",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -406,11 +406,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
+        "message": "<p>Privacy Badger är inaktiverat på följande webbplatser. Detta innebär att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här, och det kommer inte att skicka signalerna Spåra inte eller Global sekretesstyrning.</p><p>Om du tror att Privacy Badger bryter en sida, eller om du vill tillåta att en viss webbplats delar eller säljer dina data, kan du skriva sidans domän i rutan nedan och klicka på knappen \"Lägg till domän\".</p><p>Alternativt, när du redan har valt sidans flik, kan du bara klicka på knappen Privacy Badger i webbläsarens verktygsfält och sedan klicka på knappen \"Inaktivera\".</p>",
         "description": ""
     },
     "popup_instructions": {
-        "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
+        "message": "$COUNT$ potential $LINK_START$spårare$LINK_END$ blockerad",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -427,7 +427,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "message": "Ingen $LINK_START$spårare$LINK_END$ blockerad",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -468,7 +468,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "message": "Privacy Badger har beslutat att blockera $COUNT$ potential $TRACKER_LINK_START$spårningsdomäner$TRACKER_LINK_END$ än så länge",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -629,7 +629,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger blocked $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "Privacy Badger blockerad $COUNT$ potentiella spårare på $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
