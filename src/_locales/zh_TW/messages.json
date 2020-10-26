@@ -35,10 +35,6 @@
         "message": "檢查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方網域</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>EFF 的 Do Not Track 政策</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "invalid_domain": {
-        "message": "請新增有效的網域或 URL。",
-        "description": ""
-    },
     "donate_to_eff": {
         "message": "捐款給 EFF 電子前鋒基金會",
         "description": "Button shown in the popup and on the intro page."
@@ -82,10 +78,6 @@
     "report_title": {
         "message": "回報錯誤",
         "description": ""
-    },
-    "whitelist_form_domain_input_placeholder": {
-        "message": "範例：www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "在此點按以從設定 cookies 阻擋此網域",
@@ -208,10 +200,6 @@
     "report_terms": {
         "message": "將會自動回報下列資訊給 EFF 電子前鋒基金會：您目前造訪的頁面、瀏覽器版本、Privacy Badger 版本，以及此頁面所有滾動條的狀態。",
         "description": ""
-    },
-    "whitelisted_domains": {
-        "message": "停用的網站",
-        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "在目前網站開啟 Privacy Badger",
@@ -405,10 +393,6 @@
         "message": "使用者控制",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西，其也將不會傳送「Do Not Track」或全域隱私控制訊號。</p><p>若您覺得 Privacy Badger 把頁面弄壞了，或您希望與特定的網站分享或販售您的資料，那麼您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。</p><p>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。</p>",
-        "description": ""
-    },
     "popup_instructions": {
         "message": "$COUNT$ 個潛在的 $LINK_START$追蹤器$LINK_END$ 已封鎖",
         "description": "Popup message shown when at least one tracker was blocked.",
@@ -445,10 +429,6 @@
     },
     "intro_by_eff": {
         "message": "EFF 電子前鋒基金會的專案",
-        "description": ""
-    },
-    "add_domain_button": {
-        "message": "新增網域",
         "description": ""
     },
     "tooltip_allow": {
@@ -503,10 +483,6 @@
     "report_text": {
         "message": "在下面簡要描述發生的錯誤。",
         "description": ""
-    },
-    "remove_button": {
-        "message": "刪除所選",
-        "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
         "message": "當您使用 Privacy Badger，您就會加入<a href='https://www.eff.org/' target='_blank'>電子前鋒基金會 (EFF)</a>與其他數百萬個使用者一同為隱私而戰。我們是一個為您的線上權利而戰的非營利組織。感謝您加入我們！",
@@ -673,5 +649,29 @@
     "options_widget_replacement_desc": {
         "message": "當阻擋社群媒體按鈕與其他可能有用（影片、音訊、留言）的小工具時，Privacy Badger 可以使用點擊啟用的按鈕來取代它們。",
         "description": "Introduction to the Widget Replacement tab on the options page."
+    },
+    "disabled_sites": {
+        "message": "停用的網站",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西，其也將不會傳送「Do Not Track」或全域隱私控制訊號。</p><p>若您覺得 Privacy Badger 把頁面弄壞了，或您希望與特定的網站分享或販售您的資料，那麼您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。</p><p>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。</p>",
+        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "範例：www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "新增網域",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "remove_button": {
+        "message": "刪除所選",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "invalid_domain": {
+        "message": "請新增有效的網域或 URL",
+        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     }
 }

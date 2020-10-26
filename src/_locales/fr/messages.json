@@ -35,10 +35,6 @@
         "message": "Vérifier si les <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domaines tiers</a> se conforment à la charte de <a target='_blank' href='https://www.eff.org/dnt-policy'>non-pistage de l'EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "invalid_domain": {
-        "message": "Veuillez ajouter un domaine ou une URL valide.",
-        "description": ""
-    },
     "donate_to_eff": {
         "message": "Faire un don à l'EFF",
         "description": "Button shown in the popup and on the intro page."
@@ -82,10 +78,6 @@
     "report_title": {
         "message": "Signaler une erreur",
         "description": ""
-    },
-    "whitelist_form_domain_input_placeholder": {
-        "message": "p. ex. www.domaine.com, *.domaine.net, domaine.org",
-        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Cliquer ici pour bloquer les cookies de ce domaine",
@@ -208,10 +200,6 @@
     "report_terms": {
         "message": "La page que vous visitez, la version de votre navigateur et de Privacy Badger, ainsi que le réglage des curseurs pour cette page seront automatiquement transmis à l'EFF.",
         "description": ""
-    },
-    "whitelisted_domains": {
-        "message": "Liste blanche",
-        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Activer Privacy Badger pour ce site",
@@ -405,10 +393,6 @@
         "message": "définis par l'utilisateur",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger est désactivé pour les sites suivants. Il ne bloquera donc rien des sites listés ici que vous visitez. Il n'enverra pas le signal « Ne pas me pister » ni du « Contrôle global des données ».</p><p>Si vous pensez que Privacy Badger empêche une page de fonctionner, ou si vous souhaitez partager ou vendre vos données pour un site en particulier, vous pouvez ajouter son domaine dans le champs ci-dessous et cliquer sur le bouton « Ajouter un domaine ».</p><p>Vous pouvez aussi, si vous êtes sur la page concernée, simplement cliquer sur l'icône de Privacy Badger dans la barre d'outils de votre navigateur et cliquer sur « Désactiver ».</p>",
-        "description": ""
-    },
     "popup_instructions": {
         "message": "$COUNT$ $LINK_START$traceurs$LINK_END$ potentiels bloqués",
         "description": "Popup message shown when at least one tracker was blocked.",
@@ -445,10 +429,6 @@
     },
     "intro_by_eff": {
         "message": "Un projet de l'Electronic Frontier Foundation",
-        "description": ""
-    },
-    "add_domain_button": {
-        "message": "Ajouter un domaine",
         "description": ""
     },
     "tooltip_allow": {
@@ -503,10 +483,6 @@
     "report_text": {
         "message": "Décrivez brièvement ci-dessous l'erreur.",
         "description": ""
-    },
-    "remove_button": {
-        "message": "Supprimer la sélection",
-        "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
         "message": "Lorsque vous utilisez Privacy Badger, vous rejoignez l'<a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> et des millions d'autres utilisateurs dans le combat pour la vie privée. Nous sommes à but non lucratif et nous battons pour vos droits en ligne. Merci d'en faire parti !",
@@ -673,5 +649,29 @@
     "options_widget_replacement_desc": {
         "message": "Les boutons sociaux bloqués, et autres widgets potentiellement utiles (vidéos, sons, commentaires), peuvent être remplacés par une option « cliquer pour activer ».",
         "description": "Introduction to the Widget Replacement tab on the options page."
+    },
+    "disabled_sites": {
+        "message": "Liste blanche",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>Privacy Badger est désactivé pour les sites suivants. Il ne bloquera donc rien des sites listés ici que vous visitez. Il n'enverra pas le signal « Ne pas me pister » ni du « Contrôle global des données ».</p><p>Si vous pensez que Privacy Badger empêche une page de fonctionner, ou si vous souhaitez partager ou vendre vos données pour un site en particulier, vous pouvez ajouter son domaine dans le champs ci-dessous et cliquer sur le bouton « Ajouter un domaine ».</p><p>Vous pouvez aussi, si vous êtes sur la page concernée, simplement cliquer sur l'icône de Privacy Badger dans la barre d'outils de votre navigateur et cliquer sur « Désactiver ».</p>",
+        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "p. ex. www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Ajouter un domaine",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "remove_button": {
+        "message": "Supprimer la sélection",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "invalid_domain": {
+        "message": "Veuillez ajouter un domaine ou une URL valide",
+        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     }
 }

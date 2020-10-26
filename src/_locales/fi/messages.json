@@ -35,10 +35,6 @@
         "message": "Tarkista, noudattavatko <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>kolmansien osapuolten verkkotunnukset</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:n Do Not Track -käytäntöä</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "invalid_domain": {
-        "message": "Lisää kelvollinen verkkotunnus tai URL.",
-        "description": ""
-    },
     "donate_to_eff": {
         "message": "Lahjoita EFF:lle",
         "description": "Button shown in the popup and on the intro page."
@@ -82,10 +78,6 @@
     "report_title": {
         "message": "Ilmoita virheestä",
         "description": ""
-    },
-    "whitelist_form_domain_input_placeholder": {
-        "message": "esim. www.verkkotunnus.com, *.verkkotunnus.net, verkkotunnus.org",
-        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Klikkaa tästä estääksesi tätä verkkotunnusta asettamasta evästeitä",
@@ -208,10 +200,6 @@
     "report_terms": {
         "message": "Seuraavat tiedot lähetetään automaattisesti EFF:lle: sivu, jolla olet nyt, selaimesi versio, Privacy Badgerin versio sekä kaikkien liukuvalitsimien tila tämän sivun osalta.",
         "description": ""
-    },
-    "whitelisted_domains": {
-        "message": "Käytöstä poistetut sivustot",
-        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Ota Privacy Badger käyttöön tällä sivustolla",
@@ -405,10 +393,6 @@
         "message": "käyttäjän hallitsema",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
-        "description": ""
-    },
     "popup_instructions": {
         "message": "$COUNT$ mahdollista $LINK_START$jäljitintä$LINK_END$ estetty",
         "description": "Popup message shown when at least one tracker was blocked.",
@@ -445,10 +429,6 @@
     },
     "intro_by_eff": {
         "message": "Electronic Frontier Foundationin projekti",
-        "description": ""
-    },
-    "add_domain_button": {
-        "message": "Lisää verkkotunnus",
         "description": ""
     },
     "tooltip_allow": {
@@ -503,10 +483,6 @@
     "report_text": {
         "message": "Kuvaile virhetilanne lyhyesti alapuolelle.",
         "description": ""
-    },
-    "remove_button": {
-        "message": "Poista valitut",
-        "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
         "message": "Käyttämällä Privacy Badgeria liityt <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationin</a> ja miljoonien muiden käyttäjien joukkoon taistelussa yksityisyyden puolesta. Olemme voittoa tavoittelematon järjestö, joka taistelee oikeuksiesi puolesta verkossa. Kiitos, että liityt mukaan!",
@@ -673,5 +649,29 @@
     "options_widget_replacement_desc": {
         "message": "Estäessään sosiaalisen median painikkeita ja muita mahdollisesti hyödyllisiä (video-, ääni-, kommentti-) sovelmia, Privacy Badger voi korvata ne klikkaamalla aktivoitavilla korvikkeilla.",
         "description": "Introduction to the Widget Replacement tab on the options page."
+    },
+    "disabled_sites": {
+        "message": "Käytöstä poistetut sivustot",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
+        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "esim. www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Lisää verkkotunnus",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "remove_button": {
+        "message": "Poista valitut",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "invalid_domain": {
+        "message": "Lisää kelvollinen verkkotunnus tai URL",
+        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     }
 }

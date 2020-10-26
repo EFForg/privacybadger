@@ -35,10 +35,6 @@
         "message": "Controleer of <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domeinen van derde partijen</a> voldoen aan <a target='_blank' href='https://www.eff.org/dnt-policy'>het Niet-volgen-beleid (Do Not Track) van het EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "invalid_domain": {
-        "message": "Voeg een geldig domein of URL toe.",
-        "description": ""
-    },
     "donate_to_eff": {
         "message": "Aan EFF doneren",
         "description": "Button shown in the popup and on the intro page."
@@ -82,10 +78,6 @@
     "report_title": {
         "message": "Een fout melden",
         "description": ""
-    },
-    "whitelist_form_domain_input_placeholder": {
-        "message": "bv. www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Klik hier om cookies van dit domein te blokkeren",
@@ -208,10 +200,6 @@
     "report_terms": {
         "message": "Dit zal automatisch de volgende gegevens naar het EFF verzenden: de webpagina die je momenteel bezoekt, de versie van je webbrowser, de versie van Privacy Badger en de instelling van alle schuifknoppen voor deze webpagina.",
         "description": ""
-    },
-    "whitelisted_domains": {
-        "message": "Uitgeschakelde websites",
-        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Privacy Badger inschakelen op deze website",
@@ -405,10 +393,6 @@
         "message": "ingesteld door gebruiker",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is op de volgende websitess uitgeschakeld. Dit betekent dat Privacy Badger niets zal blokkeren op één van de websites in deze lijst, en dat het ook niet het “Volg me niet”- of “Global Privacy Control”-signaal zal verzenden.</p><p>Als je vermoedt dat Privacy Badger het laden van een bepaalde webpagina verstoort, of als je een bepaalde website wil toestaan om je data door te geven of verkopen, dan kun je de domeinnaam van die webpagina invullen in het invoerveld hieronder en op de knop \"Domein toevoegen\" klikken.</p><p>Als je het tabblad met die webpagina al open en geselecteerd hebt kun jet als alternatief op de Privacy Badger-knop klikken de de werkbalk van je webbrowser en vervolgens op de knop ‘Uitschakelen’ klikken.</p>",
-        "description": ""
-    },
     "popup_instructions": {
         "message": "$COUNT$ potentiele $LINK_START$volgers$LINK_END$ geblokkeerd",
         "description": "Popup message shown when at least one tracker was blocked.",
@@ -445,10 +429,6 @@
     },
     "intro_by_eff": {
         "message": "Een project van de Electronic Frontier Foundation",
-        "description": ""
-    },
-    "add_domain_button": {
-        "message": "Domein toevoegen",
         "description": ""
     },
     "tooltip_allow": {
@@ -503,10 +483,6 @@
     "report_text": {
         "message": "Omschrijf de fout in het kort.",
         "description": ""
-    },
-    "remove_button": {
-        "message": "Verwijder geselecteerde",
-        "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
         "message": "Wanneer u Privacy Badger gebruikt vecht u met de <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> en miljoenen andere gebruikers in de strijd voor privacy. Wij zijn een organisatie zonder winstoogmerk die vecht voor uw online rechten. Bedankt voor het deelnemen!",
@@ -673,5 +649,29 @@
     "options_widget_replacement_desc": {
         "message": "Wanneer socialemedia-knoppen en andere potentieel nuttige widgets worden geblokkeerd, dan kan Privacy Badger ze vervangen door klikken-om-te-activeren-plaatsvervangers.",
         "description": "Introduction to the Widget Replacement tab on the options page."
+    },
+    "disabled_sites": {
+        "message": "Uitgeschakelde websites",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>Privacy Badger is op de volgende websitess uitgeschakeld. Dit betekent dat Privacy Badger niets zal blokkeren op één van de websites in deze lijst, en dat het ook niet het “Volg me niet”- of “Global Privacy Control”-signaal zal verzenden.</p><p>Als je vermoedt dat Privacy Badger het laden van een bepaalde webpagina verstoort, of als je een bepaalde website wil toestaan om je data door te geven of verkopen, dan kun je de domeinnaam van die webpagina invullen in het invoerveld hieronder en op de knop \"Domein toevoegen\" klikken.</p><p>Als je het tabblad met die webpagina al open en geselecteerd hebt kun jet als alternatief op de Privacy Badger-knop klikken de de werkbalk van je webbrowser en vervolgens op de knop ‘Uitschakelen’ klikken.</p>",
+        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "bv. www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Domein toevoegen",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "remove_button": {
+        "message": "Verwijder geselecteerde",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "invalid_domain": {
+        "message": "Voeg een geldig domein of URL toe",
+        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     }
 }

@@ -35,10 +35,6 @@
         "message": "Kontrollera om <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>tredjepartsdomäner</a> rättar sig efter <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:s Spåra inte policy</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "invalid_domain": {
-        "message": "Lägg till en giltig domän eller webbadress.",
-        "description": ""
-    },
     "donate_to_eff": {
         "message": "Donera till EFF",
         "description": "Button shown in the popup and on the intro page."
@@ -82,10 +78,6 @@
     "report_title": {
         "message": "Påpeka ett fel",
         "description": ""
-    },
-    "whitelist_form_domain_input_placeholder": {
-        "message": "t.ex. www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "Klicka här för att blockera den här domänen från att ställa in cookies",
@@ -208,10 +200,6 @@
     "report_terms": {
         "message": "Detta skickar automatiskt följande information till EFF: sidan du för närvarande besöker, din webbläsarversion, versionen av Privacy Badger och lägen för alla skjutreglagen för den här sidan.",
         "description": ""
-    },
-    "whitelisted_domains": {
-        "message": "Inaktiverade webbplatser",
-        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "Aktivera Privacy Badger för denna webbplats",
@@ -405,10 +393,6 @@
         "message": "användarstyrd",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger är inaktiverat på följande webbplatser. Detta innebär att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här, och det kommer inte att skicka signalerna Spåra inte eller Global sekretesstyrning.</p><p>Om du tror att Privacy Badger bryter en sida, eller om du vill tillåta att en viss webbplats delar eller säljer dina data, kan du skriva sidans domän i rutan nedan och klicka på knappen \"Lägg till domän\".</p><p>Alternativt, när du redan har valt sidans flik, kan du bara klicka på knappen Privacy Badger i webbläsarens verktygsfält och sedan klicka på knappen \"Inaktivera\".</p>",
-        "description": ""
-    },
     "popup_instructions": {
         "message": "$COUNT$ potential $LINK_START$spårare$LINK_END$ blockerad",
         "description": "Popup message shown when at least one tracker was blocked.",
@@ -445,10 +429,6 @@
     },
     "intro_by_eff": {
         "message": "Ett projekt av Electronic Frontier Foundation",
-        "description": ""
-    },
-    "add_domain_button": {
-        "message": "Lägg till domän",
         "description": ""
     },
     "tooltip_allow": {
@@ -503,10 +483,6 @@
     "report_text": {
         "message": "Beskriv kortfattat felet nedan.",
         "description": ""
-    },
-    "remove_button": {
-        "message": "Ta bort valda",
-        "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
         "message": "När du använder Privacy Badger, går du med i <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> och miljontals andra användare i kampen för integritet. Vi är en ideell organisation som kämpar för dina rättigheter på nätet. Tack för att du blev en av oss!",
@@ -673,5 +649,29 @@
     "options_widget_replacement_desc": {
         "message": "Vid blockering av sociala knappar och andra potentiellt användbara gränssnittskomponenter (video, ljud, kommentarer) kan Privacy Badger ersätta med klick-för-att-aktivera platshållare.",
         "description": "Introduction to the Widget Replacement tab on the options page."
+    },
+    "disabled_sites": {
+        "message": "Inaktiverade webbplatser",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>Privacy Badger är inaktiverat på följande webbplatser. Detta innebär att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här, och det kommer inte att skicka signalerna Spåra inte eller Global sekretesstyrning.</p><p>Om du tror att Privacy Badger bryter en sida, eller om du vill tillåta att en viss webbplats delar eller säljer dina data, kan du skriva sidans domän i rutan nedan och klicka på knappen \"Lägg till domän\".</p><p>Alternativt, när du redan har valt sidans flik, kan du bara klicka på knappen Privacy Badger i webbläsarens verktygsfält och sedan klicka på knappen \"Inaktivera\".</p>",
+        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "t.ex. www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Lägg till domän",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "remove_button": {
+        "message": "Ta bort valda",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "invalid_domain": {
+        "message": "Lägg till en giltig domän eller webbadress",
+        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     }
 }

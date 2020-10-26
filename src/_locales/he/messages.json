@@ -35,10 +35,6 @@
         "message": "בדוק אם <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>תחומי צד־שלישי</a> מצייתים אל <a target='_blank' href='https://www.eff.org/dnt-policy'>מדיניות אל תעקוב של EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "invalid_domain": {
-        "message": "אנא הוסף תחום או כתובת תקפים.",
-        "description": ""
-    },
     "donate_to_eff": {
         "message": "תרום אל EFF",
         "description": "Button shown in the popup and on the intro page."
@@ -82,10 +78,6 @@
     "report_title": {
         "message": "דווח על שגיאה",
         "description": ""
-    },
-    "whitelist_form_domain_input_placeholder": {
-        "message": "לדוגמה www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "לחץ כאן כדי למנוע מתחום זה להשתמש בעוגיות",
@@ -208,10 +200,6 @@
     "report_terms": {
         "message": "זה ישלח באופן אוטומטי את המידע הבא אל EFF: הדף שאתה כרגע מבקר בו, גרסת הדפדפן שלך, הגרסה של Privacy Badger והמצב של כל המחוונים בדף זה.",
         "description": ""
-    },
-    "whitelisted_domains": {
-        "message": "אתרים מושבתים",
-        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "אפשר את Privacy Badger עבור אתר זה",
@@ -405,10 +393,6 @@
         "message": "נשלט־משתמש",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger מושבת באתרים הבאים. זה אומר כי Privacy Badger לא יחסום שום דבר כאשר תבקר באתרים הכתובים למטה, והוא לא ישלח את האות אל תעקוב או את האות בקרה גלובלית של פרטיות.</p><p>אם אתה חושב כי Privacy Badger שובר עמוד, או אם אתה רוצה להתיר לאתר מסוים לשתף או למכור את הנתונים שלך, אתה יכול להקליד את תחום האתר בתיבה למטה וללחוץ על הכפתור \"הוסף תחום\".</p><p>לחלופין, כאשר לשונית העמוד כבר נבחרה, אתה יכול פשוט ללחוץ על הכפתור של Privacy Badger בסרגל הכלים של הדפדפן ואז ללחוץ על הכפתור \"השבת\".</p>",
-        "description": ""
-    },
     "popup_instructions": {
         "message": "$COUNT$ $LINK_START$עוקבנים$LINK_END$ פוטנציאליים נחסמו",
         "description": "Popup message shown when at least one tracker was blocked.",
@@ -445,10 +429,6 @@
     },
     "intro_by_eff": {
         "message": "מיזם של הקרן של החזית האלקטרונית",
-        "description": ""
-    },
-    "add_domain_button": {
-        "message": "הוסף תחום",
         "description": ""
     },
     "tooltip_allow": {
@@ -503,10 +483,6 @@
     "report_text": {
         "message": "תאר בקצרה את השגיאה למטה.",
         "description": ""
-    },
-    "remove_button": {
-        "message": "הסר נבחרים",
-        "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
         "message": "כאשר אתה משתמש ב־Privacy Badger אתה מצטרף אל <a href='https://www.eff.org/' target='_blank'>הקרן של החזית האלקטרונית</a> ואל מיליוני משתמשים אחרים בלחימה למען פרטיות. אנחנו ארגון ללא מטרות רווח הנלחם על זכויותיך באופן מקוון. תודה שהצטרפת אלינו!",
@@ -673,5 +649,29 @@
     "options_widget_replacement_desc": {
         "message": "בעת חסימת כפתורים חברתיים ויישומונים שימושיים פוטנציאלים אחרים (סרטון, שמע, תגובות), Privacy Badger יכול להחליף אותם בממלאי מקום של לחץ־כדי־לשפעל.",
         "description": "Introduction to the Widget Replacement tab on the options page."
+    },
+    "disabled_sites": {
+        "message": "אתרים מושבתים",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>Privacy Badger מושבת באתרים הבאים. זה אומר כי Privacy Badger לא יחסום שום דבר כאשר תבקר באתרים הכתובים למטה, והוא לא ישלח את האות אל תעקוב או את האות בקרה גלובלית של פרטיות.</p><p>אם אתה חושב כי Privacy Badger שובר עמוד, או אם אתה רוצה להתיר לאתר מסוים לשתף או למכור את הנתונים שלך, אתה יכול להקליד את תחום האתר בתיבה למטה וללחוץ על הכפתור \"הוסף תחום\".</p><p>לחלופין, כאשר לשונית העמוד כבר נבחרה, אתה יכול פשוט ללחוץ על הכפתור של Privacy Badger בסרגל הכלים של הדפדפן ואז ללחוץ על הכפתור \"השבת\".</p>",
+        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "לדוגמה www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "הוסף תחום",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "remove_button": {
+        "message": "הסר נבחרים",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "invalid_domain": {
+        "message": "אנא הוסף תחום או כתובת תקפים",
+        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     }
 }

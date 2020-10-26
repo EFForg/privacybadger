@@ -35,10 +35,6 @@
         "message": "检查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方域名</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>电子前哨基金会的“请勿追踪”政策</a>",
         "description": "Checkbox label on the general settings page"
     },
-    "invalid_domain": {
-        "message": "请添加一个有效的域名或者 URL。",
-        "description": ""
-    },
     "donate_to_eff": {
         "message": "向电子前哨基金会捐款",
         "description": "Button shown in the popup and on the intro page."
@@ -82,10 +78,6 @@
     "report_title": {
         "message": "报告错误",
         "description": ""
-    },
-    "whitelist_form_domain_input_placeholder": {
-        "message": "例如 www.domain.com, *.domain.net, domain.org",
-        "description": "Placeholder text for the Add domain input under the Disabled Sites tab on the options page."
     },
     "domain_slider_cookieblock_tooltip": {
         "message": "点击这里屏蔽此域名的 Cookies",
@@ -208,10 +200,6 @@
     "report_terms": {
         "message": "这将会向电子前哨基金会发送这些信息：你当前正在访问的页面、浏览器版本、隐私獾版本以及本页面所有滑块的状态。",
         "description": ""
-    },
-    "whitelisted_domains": {
-        "message": "已禁用的域名",
-        "description": "This is an options page tab heading."
     },
     "popup_enable_for_site": {
         "message": "在当前的网站上启用隐私獾",
@@ -405,10 +393,6 @@
         "message": "用户控制",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
-        "description": ""
-    },
     "popup_instructions": {
         "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
         "description": "Popup message shown when at least one tracker was blocked.",
@@ -445,10 +429,6 @@
     },
     "intro_by_eff": {
         "message": "一个电子前哨基金会的项目",
-        "description": ""
-    },
-    "add_domain_button": {
-        "message": "添加域名",
         "description": ""
     },
     "tooltip_allow": {
@@ -503,10 +483,6 @@
     "report_text": {
         "message": "在下面简要描述发生的错误。",
         "description": ""
-    },
-    "remove_button": {
-        "message": "删除所选",
-        "description": "This is the label for the 'Remove selected' buttons."
     },
     "intro_donate1": {
         "message": "当您使用隐私獾，您就和<a href='https://www.eff.org/' target='_blank'>电子前哨基金会</a>和成千上万的其它用户一道共同保卫隐私。我们是为您在线权利奋斗的非营利性组织。感谢您加入我们！",
@@ -673,5 +649,29 @@
     "options_widget_replacement_desc": {
         "message": "当屏蔽社交媒体按钮和其他可能有用的小部件（如音视频和评论区）时，隐私獾可以将他们替换成“点击以启用”的占位部件。",
         "description": "Introduction to the Widget Replacement tab on the options page."
+    },
+    "disabled_sites": {
+        "message": "已禁用的域名",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
+        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "例如 www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "添加域名",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "remove_button": {
+        "message": "删除所选",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "invalid_domain": {
+        "message": "请添加一个有效的域名或者 URL",
+        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     }
 }
