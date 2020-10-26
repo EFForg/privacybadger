@@ -64,10 +64,13 @@ function Badger() {
     self.setPrivacyOverrides();
 
     // kick off async initialization steps
-    let seedDataPromise = self.loadFirstRunSeedData().catch(console.error),
-      ylistPromise = self.initializeYellowlist().catch(console.error),
+    let ylistPromise = self.initializeYellowlist().catch(console.error),
       dntHashesPromise = self.initializeDnt().catch(console.error),
       tabDataPromise = self.updateTabList().catch(console.error);
+
+    // seed data depends on the yellowlist
+    await ylistPromise;
+    let seedDataPromise = self.loadFirstRunSeedData().catch(console.error);
 
     // set badge text color to white in Firefox 63+
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
@@ -87,7 +90,6 @@ function Badger() {
     // wait for async functions (seed data, yellowlist, ...) to resolve
     await widgetListPromise;
     await seedDataPromise;
-    await ylistPromise;
     await dntHashesPromise;
     await tabDataPromise;
 
