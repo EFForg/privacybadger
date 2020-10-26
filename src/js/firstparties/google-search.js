@@ -21,6 +21,15 @@ function cleanLink(a) {
   // block event listeners on the link
   a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
   a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
+
+  // reassign href when in firefox android
+  if (navigator.userAgent.indexOf('Firefox') > -1 && navigator.userAgent.indexOf('Android') > -1) {
+    let href = new URL(a.href).searchParams.get('q');
+    if (!window.isURL(href)) {
+      return;
+    }
+    a.href = href;
+  }
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
