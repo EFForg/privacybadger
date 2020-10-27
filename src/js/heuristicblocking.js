@@ -326,7 +326,8 @@ HeuristicBlocker.prototype = {
 
     // If community learning is enabled, queue up a request to the EFF server
     if (badger.getSettings().getItem("shareLearning")) {
-      this.maybeShareTracker(page_origin, tracker_origin, tracker_type);
+      let page_fqdn = (new URI(this.tabUrls[tab_id])).host;
+      this.shareTrackerInfo(page_fqdn, tracker_fqdn, tracker_type);
     }
 
     // If local learning is enabled, record that we've seen this tracker on this
@@ -350,18 +351,18 @@ HeuristicBlocker.prototype = {
   },
 
   /**
-   * Flip a coin, then maybe share information about the tracker we just saw
+   * Share information about a tracker for community learning
    */
-  maybeShareTracker: function(page_origin, tracker_origin, tracker_type) {
-    // Some chance of sharing any given tracking action
+  shareTrackerInfo: function(page_host, tracker_host, tracker_type) {
+    // Share a random sample of trackers we observe
     if (Math.random() < constants.CL_PROBABILITY) {
       setTimeout(function() {
        fetch("http://localhost:8080", {
          method: "POST",
          body: JSON.stringify({
            tracker_data: {
-             page_origin: page_origin,
-             tracker_origin: tracker_origin,
+             page_host: page_host,
+             tracker_host: tracker_host,
              tracker_type: tracker_type,
            }
          })
@@ -370,7 +371,7 @@ HeuristicBlocker.prototype = {
            console.log("tracking action logging failed:", res);
          }
        });
-      // share info after a random delay
+      // share info after a random delay, to reduce network load on browser
       }, Math.floor(Math.random() * constants.MAX_CL_WAIT_TIME));
     }
   }
