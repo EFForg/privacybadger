@@ -222,7 +222,7 @@ function loadOptions() {
   widgetSelector.prop("disabled",
     OPTIONS_DATA.isWidgetReplacementEnabled ? false : "disabled");
 
-  $("#replace-widgets-checkbox").change(function () {
+  $("#replace-widgets-checkbox").on("change", function () {
     if ($(this).is(":checked")) {
       widgetSelector.prop("disabled", false);
     } else {
