@@ -276,8 +276,7 @@ function importTrackerList() {
       parseUserDataFile(e.target.result);
     };
   } else {
-    var selectFile = i18n.getMessage("import_select_file");
-    confirm(selectFile);
+    alert(i18n.getMessage("import_select_file"));
   }
 
   document.getElementById("importTrackers").value = '';
@@ -294,7 +293,7 @@ function parseUserDataFile(storageMapsList) {
   try {
     lists = JSON.parse(storageMapsList);
   } catch (e) {
-    return confirm(i18n.getMessage("invalid_json"));
+    return alert(i18n.getMessage("invalid_json"));
   }
 
   // validate by checking we have the same keys in the import as in the export
@@ -302,7 +301,7 @@ function parseUserDataFile(storageMapsList) {
     Object.keys(lists).sort(),
     USER_DATA_EXPORT_KEYS.sort()
   )) {
-    return confirm(i18n.getMessage("invalid_json"));
+    return alert(i18n.getMessage("invalid_json"));
   }
 
   chrome.runtime.sendMessage({
@@ -316,13 +315,12 @@ function parseUserDataFile(storageMapsList) {
     reloadTrackingDomainsTab();
     // TODO general settings are not updated
 
-    confirm(i18n.getMessage("import_successful"));
+    alert(i18n.getMessage("import_successful"));
   });
 }
 
 function resetData() {
-  var resetWarn = i18n.getMessage("reset_data_confirm");
-  if (confirm(resetWarn)) {
+  if (confirm(i18n.getMessage("reset_data_confirm"))) {
     chrome.runtime.sendMessage({type: "resetData"}, () => {
       // reload page to refresh tracker list
       location.reload();
@@ -331,8 +329,7 @@ function resetData() {
 }
 
 function removeAllData() {
-  var removeWarn = i18n.getMessage("remove_all_data_confirm");
-  if (confirm(removeWarn)) {
+  if (confirm(i18n.getMessage("remove_all_data_confirm"))) {
     chrome.runtime.sendMessage({type: "removeAllData"}, () => {
       location.reload();
     });
@@ -527,7 +524,7 @@ function addDisabledSite(event) {
   );
 
   if (!domain) {
-    return confirm(i18n.getMessage("invalid_domain"));
+    return alert(i18n.getMessage("invalid_domain"));
   }
 
   chrome.runtime.sendMessage({
