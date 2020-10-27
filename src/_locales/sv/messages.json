@@ -346,7 +346,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT-kompatibel",
+        "message": "Spåra inte kompatibel",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
