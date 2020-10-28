@@ -1004,7 +1004,7 @@ Badger.prototype = {
   },
 
   /**
-   * Checks if local storage ( in dict) has any high-entropy keys
+   * Checks if local storage (in dict) has any high-entropy keys
    *
    * @param {Object} lsItems Local storage dict
    * @returns {boolean} true if it seems there are supercookies

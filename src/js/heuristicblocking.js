@@ -37,6 +37,9 @@ function HeuristicBlocker(pbStorage) {
   // impossible to attribute to a tab.
   this.tabOrigins = {};
   this.tabUrls = {};
+
+  // in-memory cache for community learning
+  this.previouslySharedTrackers = new Set();
 }
 
 HeuristicBlocker.prototype = {
@@ -356,6 +359,29 @@ HeuristicBlocker.prototype = {
   shareTrackerInfo: function(page_host, tracker_host, tracker_type) {
     // Share a random sample of trackers we observe
     if (Math.random() < constants.CL_PROBABILITY) {
+      // check if we've shared this tracker recently
+      // note that this check comes after checking against the snitch map
+      let tr_str = page_host + '+' + tracker_host + '+' + tracker_type;
+      if (this.previouslySharedTrackers.has(tr_str)) {
+        return;
+      }
+
+      // add this entry to the cache
+      this.previouslySharedTrackers.add(tr_str);
+
+      // if the cache gets too big, cut it in half
+      if (this.previouslySharedTrackers.size > constants.CL_CACHE_SIZE) {
+        this.previouslySharedTrackers = new Set(
+          // An array created from the set will have all of its entries ordered
+          // by when they were added
+          Array.from(this.previouslySharedTrackers).slice(
+            // keep the most recent half of the cache entries
+            Math.floor(constants.CL_CACHE_SIZE / 2)
+          )
+        );
+      }
+
+      // now make the request to the database server
       setTimeout(function() {
        fetch("http://localhost:8080", {
          method: "POST",
