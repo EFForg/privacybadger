@@ -19,8 +19,9 @@ h1 {
     margin: 0 6px;
 }
 
-h3 {
+#tab-manage-data h3 {
     margin: 10px 0;
+    margin-inline-end: 10px;
 }
 
 h4 {
