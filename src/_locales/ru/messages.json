@@ -334,7 +334,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Невидимое отслеживание осуществляется многими способами; реклама — лишь видимая вершина айсберга. Privacy Badger отправляет <a href='https://globalprivacycontrol.org/' target='_blank'>сигнал Global Privacy Control</a>, чтобы отказаться от разпростровления и продажи ваших данных, и отправляет <a href='https://www.eff.org/issues/do-not-track' target='_blank'>сигнал Do Not Track</a> компаниям, говоря им не отслеживать вас. Если они игнорируют ваши желания, Privacy Badger научится блокировать их вне зависимости от того, рекламные они трекеры или нет.",
+        "message": "Невидимое отслеживание осуществляется многими способами; реклама — лишь видимая вершина айсберга. Privacy Badger отправляет <a href='https://globalprivacycontrol.org/' target='_blank'>сигнал Global Privacy Control</a>, чтобы отказаться от разпростровления и продажи ваших данных, и отправляет <a href='https://www.eff.org/issues/do-not-track' target='_blank'>сигнал Do Not Track</a> компаниям, говоря им не отслеживать вас. Если они игнорируют ваши желания, Privacy Badger научится блокировать их — будь то рекламодатели, или другие трекеры.",
         "description": "Intro page paragraph."
     },
     "report_close": {
